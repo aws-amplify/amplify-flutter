@@ -13,5 +13,27 @@
 		}
 	},
 	"api": {},
-	"auth": {}
+	"auth": {
+		"amplifycoreexample297aece5": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"customAuth": false,
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-amplifycoreexample-dev-150402-deployment/amplify-cfn-templates/auth/amplifycoreexample297aece5-cloudformation-template.yml",
+				"logicalId": "authamplifycoreexample297aece5"
+			},
+			"lastPushTimeStamp": "2020-04-14T19:00:21.432Z",
+			"output": {
+				"AppClientSecret": "1iqqan7qg85dkmai2dtbrbtha6mbb61k72j0rhr95smdu9q0s84e",
+				"UserPoolId": "us-west-2_VYfrj8amd",
+				"AppClientIDWeb": "2bhp10m09akl7gmg44b28jf670",
+				"AppClientID": "3g2u9fchro90omlmmnsuic3uqr",
+				"IdentityPoolId": "us-west-2:352f4b24-01e6-47ce-9dee-cdae681f4c65",
+				"IdentityPoolName": "amplifycoreexample297aece5_identitypool_297aece5__dev",
+				"UserPoolName": "amplifycoreexample297aece5_userpool_297aece5"
+			},
+			"lastPushDirHash": "WzpmeqStYG+ZRPA6Losa+4EhUYw="
+		}
+	}
 }
