@@ -1,0 +1,52 @@
+group 'com.amplify.flutter.core'
+version '1.0'
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.0'
+        classpath 'com.amplifyframework:amplify-tools-gradle-plugin:0.2.1'
+        classpath 'com.amazonaws:aws-android-sdk-appsync-gradle-plugin:2.9.+'
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'com.amplifyframework.amplifytools'
+apply plugin: 'com.amazonaws.appsync'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 16
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+    compileOptions {
+      sourceCompatibility JavaVersion.VERSION_1_8
+      targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dependencies {
+      implementation 'com.amplifyframework:core:0.10.0'
+      implementation 'com.amplifyframework:aws-storage-s3:0.10.0'
+      implementation 'com.amplifyframework:aws-api:0.10.0'
+      implementation 'com.amazonaws:aws-android-sdk-mobile-client:2.16.+'
+      implementation 'com.amazonaws:aws-android-sdk-appsync:2.9.+'
+      implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0'
+      implementation 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'
+    }
+}
