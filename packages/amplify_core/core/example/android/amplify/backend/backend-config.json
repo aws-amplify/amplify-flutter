@@ -1,11 +1,4 @@
 {
 	"api": {},
-	"auth": {
-		"amplifycoreexample05ff7851": {
-			"service": "Cognito",
-			"providerPlugin": "awscloudformation",
-			"dependsOn": [],
-			"customAuth": false
-		}
-	}
+	"auth": {}
 }
