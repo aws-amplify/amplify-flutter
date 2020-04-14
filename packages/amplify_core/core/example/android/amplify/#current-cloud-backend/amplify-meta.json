@@ -12,33 +12,7 @@
 			"AmplifyAppId": "d2omcy8jpi361h"
 		}
 	},
-	"api": {
-		"amplifycoreexampleappsync": {
-			"service": "AppSync",
-			"providerPlugin": "awscloudformation",
-			"output": {
-				"authConfig": {
-					"additionalAuthenticationProviders": [],
-					"defaultAuthentication": {
-						"authenticationType": "API_KEY",
-						"apiKeyConfig": {
-							"description": "amplifycoreexamplekey",
-							"apiKeyExpirationDays": "365"
-						}
-					}
-				},
-				"GraphQLAPIIdOutput": "3gyl66ppyfh2zeem6aqnva4jmq",
-				"GraphQLAPIEndpointOutput": "https://vhh4n4narvdmvlwgfm3ve3omii.appsync-api.us-west-2.amazonaws.com/graphql",
-				"GraphQLAPIKeyOutput": "da2-2oje7for55e3jmafvxaj6ej3qi"
-			},
-			"providerMetadata": {
-				"s3TemplateURL": "https://s3.amazonaws.com/amplify-amplifycoreexample-dev-150402-deployment/amplify-cfn-templates/api/cloudformation-template.json",
-				"logicalId": "apiamplifycoreexampleappsync"
-			},
-			"lastPushTimeStamp": "2020-04-13T22:45:55.364Z",
-			"lastPushDirHash": "2D3GwgoX0EMDELO490XwkRo/cgU="
-		}
-	},
+	"api": {},
 	"auth": {
 		"amplifycoreexample05ff7851": {
 			"service": "Cognito",

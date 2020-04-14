@@ -1,65 +1,39 @@
 {
-	"providers": {
-		"awscloudformation": {
-			"AuthRoleName": "amplify-amplifycoreexample-dev-150402-authRole",
-			"UnauthRoleArn": "arn:aws:iam::292425346144:role/amplify-amplifycoreexample-dev-150402-unauthRole",
-			"AuthRoleArn": "arn:aws:iam::292425346144:role/amplify-amplifycoreexample-dev-150402-authRole",
-			"Region": "us-west-2",
-			"DeploymentBucketName": "amplify-amplifycoreexample-dev-150402-deployment",
-			"UnauthRoleName": "amplify-amplifycoreexample-dev-150402-unauthRole",
-			"StackName": "amplify-amplifycoreexample-dev-150402",
-			"StackId": "arn:aws:cloudformation:us-west-2:292425346144:stack/amplify-amplifycoreexample-dev-150402/b06eff90-7dd2-11ea-a2ab-0a8b7f3d9ee0",
-			"AmplifyAppId": "d2omcy8jpi361h"
-		}
-	},
-	"api": {
-		"amplifycoreexampleappsync": {
-			"service": "AppSync",
-			"providerPlugin": "awscloudformation",
-			"output": {
-				"authConfig": {
-					"additionalAuthenticationProviders": [],
-					"defaultAuthentication": {
-						"authenticationType": "API_KEY",
-						"apiKeyConfig": {
-							"description": "amplifycoreexamplekey",
-							"apiKeyExpirationDays": "365"
-						}
-					}
-				},
-				"GraphQLAPIIdOutput": "3gyl66ppyfh2zeem6aqnva4jmq",
-				"GraphQLAPIEndpointOutput": "https://vhh4n4narvdmvlwgfm3ve3omii.appsync-api.us-west-2.amazonaws.com/graphql",
-				"GraphQLAPIKeyOutput": "da2-2oje7for55e3jmafvxaj6ej3qi"
-			},
-			"providerMetadata": {
-				"s3TemplateURL": "https://s3.amazonaws.com/amplify-amplifycoreexample-dev-150402-deployment/amplify-cfn-templates/api/cloudformation-template.json",
-				"logicalId": "apiamplifycoreexampleappsync"
-			},
-			"lastPushTimeStamp": "2020-04-13T22:45:55.364Z",
-			"lastPushDirHash": "2D3GwgoX0EMDELO490XwkRo/cgU="
-		}
-	},
-	"auth": {
-		"amplifycoreexample05ff7851": {
-			"service": "Cognito",
-			"providerPlugin": "awscloudformation",
-			"dependsOn": [],
-			"customAuth": false,
-			"providerMetadata": {
-				"s3TemplateURL": "https://s3.amazonaws.com/amplify-amplifycoreexample-dev-150402-deployment/amplify-cfn-templates/auth/amplifycoreexample05ff7851-cloudformation-template.yml",
-				"logicalId": "authamplifycoreexample05ff7851"
-			},
-			"lastPushTimeStamp": "2020-04-13T22:45:55.379Z",
-			"output": {
-				"AppClientSecret": "15sbddgmgdj92fu6mv7r4ibue10n69nle5h9fgbpqqnpvd4epee1",
-				"UserPoolId": "us-west-2_o2z1lpnUC",
-				"AppClientIDWeb": "3b2von23nlr3bqmndq7fbntpba",
-				"AppClientID": "1e6k17jmg6ensqqmor675vhk1u",
-				"IdentityPoolId": "us-west-2:8907baf1-b179-4c74-889f-5d3114be62c7",
-				"IdentityPoolName": "amplifycoreexample05ff7851_identitypool_05ff7851__dev",
-				"UserPoolName": "amplifycoreexample05ff7851_userpool_05ff7851"
-			},
-			"lastPushDirHash": "yRiTijLoL0+PVomUIWCgNjplzWw="
-		}
-	}
+    "providers": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-amplifycoreexample-dev-150402-authRole",
+            "UnauthRoleArn": "arn:aws:iam::292425346144:role/amplify-amplifycoreexample-dev-150402-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::292425346144:role/amplify-amplifycoreexample-dev-150402-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "amplify-amplifycoreexample-dev-150402-deployment",
+            "UnauthRoleName": "amplify-amplifycoreexample-dev-150402-unauthRole",
+            "StackName": "amplify-amplifycoreexample-dev-150402",
+            "StackId": "arn:aws:cloudformation:us-west-2:292425346144:stack/amplify-amplifycoreexample-dev-150402/b06eff90-7dd2-11ea-a2ab-0a8b7f3d9ee0",
+            "AmplifyAppId": "d2omcy8jpi361h"
+        }
+    },
+    "api": {},
+    "auth": {
+        "amplifycoreexample05ff7851": {
+            "service": "Cognito",
+            "providerPlugin": "awscloudformation",
+            "dependsOn": [],
+            "customAuth": false,
+            "providerMetadata": {
+                "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplifycoreexample-dev-150402-deployment/amplify-cfn-templates/auth/amplifycoreexample05ff7851-cloudformation-template.yml",
+                "logicalId": "authamplifycoreexample05ff7851"
+            },
+            "lastPushTimeStamp": "2020-04-14T17:53:39.175Z",
+            "output": {
+                "AppClientSecret": "15sbddgmgdj92fu6mv7r4ibue10n69nle5h9fgbpqqnpvd4epee1",
+                "UserPoolId": "us-west-2_o2z1lpnUC",
+                "AppClientIDWeb": "3b2von23nlr3bqmndq7fbntpba",
+                "AppClientID": "1e6k17jmg6ensqqmor675vhk1u",
+                "IdentityPoolId": "us-west-2:8907baf1-b179-4c74-889f-5d3114be62c7",
+                "IdentityPoolName": "amplifycoreexample05ff7851_identitypool_05ff7851__dev",
+                "UserPoolName": "amplifycoreexample05ff7851_userpool_05ff7851"
+            },
+            "lastPushDirHash": "yRiTijLoL0+PVomUIWCgNjplzWw="
+        }
+    }
 }
