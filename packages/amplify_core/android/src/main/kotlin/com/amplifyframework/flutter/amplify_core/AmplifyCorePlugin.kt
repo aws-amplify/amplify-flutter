@@ -7,7 +7,6 @@ import androidx.annotation.NonNull
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.AmplifyConfiguration
-import com.google.gson.Gson
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -29,8 +28,6 @@ public class AmplifyCorePlugin : FlutterPlugin, ActivityAware, MethodCallHandler
     private lateinit var channel: MethodChannel
     private lateinit var context: Context
     private var mainActivity: Activity? = null
-    private var gson: Gson = Gson();
-
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "amplify/amplify_core")
