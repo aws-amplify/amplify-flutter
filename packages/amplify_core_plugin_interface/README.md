@@ -1,4 +1,4 @@
-# amplify_core_platform_interface
+# amplify_core_plugin_interface
 
 The platform interface for aws-amplify-flutters' core module.
 

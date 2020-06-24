@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:amplify_core_platform_interface/amplify_core_platform_interface.dart';
+import 'package:amplify_core_plugin_interface/amplify_core_plugin_interface.dart';
 
 class AmplifyCore {
   Future<bool> configure(String configuration) async {
