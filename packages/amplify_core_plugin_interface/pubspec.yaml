@@ -1,4 +1,4 @@
-name: amplify_core_platform_interface
+name: amplify_core_plugin_interface
 description: The platform interface for the core module of Amplify-Flutter.
 version: 0.0.1
 author:

@@ -11,8 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  amplify_core_platform_interface:
-    path: ../amplify_core_platform_interface
+  amplify_core_plugin_interface:
+    path: ../amplify_core_plugin_interface
 
 dev_dependencies:
   flutter_test:
