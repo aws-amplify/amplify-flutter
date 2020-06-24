@@ -36,9 +36,13 @@ android {
     lintOptions {
         disable 'InvalidPackage'
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    implementation 'com.amplifyframework:core:1.0.0'
+    implementation 'com.amplifyframework:core:1.0.+'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
