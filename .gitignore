@@ -3,6 +3,8 @@
 build/
 ios/.generated/
 pubspec.lock
+*.iml
+*.jar
 
 # IDEs
 .idea/
