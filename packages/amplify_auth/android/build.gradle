@@ -36,11 +36,9 @@ android {
     lintOptions {
         disable 'InvalidPackage'
     }
-    dependencies {
-        implementation 'com.amplifyframework:aws-auth-cognito:1.0.0'
-    }
 }
 
 dependencies {
+    implementation 'com.amplifyframework:aws-auth-cognito:1.0.+'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
