@@ -48,7 +48,7 @@ public class AmplifyCorePlugin : FlutterPlugin, ActivityAware, MethodCallHandler
                     onConfigure(result, (call.arguments as HashMap<*, *>)["configuration"] as String)
                 }
                 catch (e: Exception) {
-                    result.error("AmplifyException", "Failed to Configure Amplify", e.message )
+                    result.error("AmplifyException", "Error casting configuration map", e.message )
                 }
             else -> result.notImplemented()
         }

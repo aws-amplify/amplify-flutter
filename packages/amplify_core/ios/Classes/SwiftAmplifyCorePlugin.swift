@@ -18,8 +18,7 @@ public class SwiftAmplifyCorePlugin: NSObject, FlutterPlugin {
         do {
           let arguments = call.arguments as! Dictionary<String, AnyObject>
           let configuration = arguments["configuration"] as! String
-          let jsonDecoder = JSONDecoder()
-          let amplifyConfiguration = try jsonDecoder.decode(AmplifyConfiguration.self, from: configuration.data(using: .utf8)!)
+          let amplifyConfiguration = try JSONDecoder().decode(AmplifyConfiguration.self, from: configuration.data(using: .utf8)!)
           try onConfigure(result: result, amplifyConfiguration: amplifyConfiguration)
             
         } catch {

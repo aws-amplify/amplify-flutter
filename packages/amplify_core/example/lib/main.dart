@@ -15,7 +15,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool _amplifyConfigured = false;
-  AmplifyCore amplifyInstance = new AmplifyCore();
+  Amplify amplifyInstance = new Amplify();
   var amplifyconfig = '''{"foo": "bar"}''';
 
   @override

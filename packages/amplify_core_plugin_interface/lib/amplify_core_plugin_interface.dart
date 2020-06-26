@@ -9,29 +9,23 @@ part 'method_channel_amplify.dart';
 /// category parts
 
 
-/// The interface that implementations of amplify must implement.
-///
-/// Platform implementations should extend this class rather than implement it as `amplify`
-/// does not consider newly added methods to be breaking changes. Extending this class
-/// (using `extends`) ensures that the subclass will get the default implementation, while
-/// platform implementations that `implements` this interface will be broken by newly added
-/// [AmplifyPlatform] methods.
-abstract class AmplifyCorePlatform extends PlatformInterface {
+
+abstract class AmplifyCorePlugin extends PlatformInterface {
   /// Constructs a AmplifyPlatform.
-  AmplifyCorePlatform() : super(token: _token);
+  AmplifyCorePlugin() : super(token: _token);
 
   static final Object _token = Object();
 
-  static AmplifyCorePlatform _instance = MethodChannelAmplifyCore();
+  static AmplifyCorePlugin _instance = MethodChannelAmplifyCore();
 
   /// The default instance of [AmplifyPlatform] to use.
   ///
   /// Defaults to [MethodChannelAmplify].
-  static AmplifyCorePlatform get instance => _instance;
+  static AmplifyCorePlugin get instance => _instance;
 
   /// Platform-specific plugins should set this with their own platform-specific
   /// class that extends [AmplifyPlatform] when they register themselves.
-  static set instance(AmplifyCorePlatform instance) {
+  static set instance(AmplifyCorePlugin instance) {
     PlatformInterface.verifyToken(instance, _token);
     _instance = instance;
   }
