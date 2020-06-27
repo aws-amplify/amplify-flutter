@@ -6,7 +6,7 @@ import AWSPluginsCore
 
 public class SwiftAmplifyCorePlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
-    let channel = FlutterMethodChannel(name: "amplify/amplify_core", binaryMessenger: registrar.messenger())
+    let channel = FlutterMethodChannel(name: "com.amazonaws.amplify/core", binaryMessenger: registrar.messenger())
     let instance = SwiftAmplifyCorePlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }

@@ -30,7 +30,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.amplifyframework.flutter.amplify_core
+        package: com.amazonaws.amplify.amplify_core
         pluginClass: AmplifyCorePlugin
       ios:
         pluginClass: AmplifyCorePlugin

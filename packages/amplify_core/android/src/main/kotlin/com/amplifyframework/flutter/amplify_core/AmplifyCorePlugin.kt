@@ -1,4 +1,4 @@
-package com.amplifyframework.flutter.amplify_core
+package com.amazonaws.amplify.amplify_core
 
 import android.app.Activity
 import android.content.Context
@@ -27,7 +27,7 @@ public class AmplifyCorePlugin : FlutterPlugin, ActivityAware, MethodCallHandler
     private var mainActivity: Activity? = null
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "amplify/amplify_core")
+        channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "com.amazonaws.amplify/core")
         channel.setMethodCallHandler(this);
         context = flutterPluginBinding.applicationContext;
         Log.i("Amplify Flutter", "Added Core plugin")
@@ -36,7 +36,7 @@ public class AmplifyCorePlugin : FlutterPlugin, ActivityAware, MethodCallHandler
     companion object {
         @JvmStatic
         fun registerWith(registrar: Registrar) {
-            val channel = MethodChannel(registrar.messenger(), "amplify/amplify_core")
+            val channel = MethodChannel(registrar.messenger(), "com.amazonaws.amplify/core")
             Log.i("Amplify Flutter", "Added Core plugin")
         }
     }
