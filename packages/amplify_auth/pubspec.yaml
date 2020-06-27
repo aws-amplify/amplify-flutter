@@ -31,7 +31,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.amplifyframework.flutter.amplify_auth
+        package: com.amazonaws.amplify.flutter.amplify_auth
         pluginClass: AmplifyAuthPlugin
       ios:
         pluginClass: AmplifyAuthPlugin

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.amplifyframework.flutter.amplify_auth_example">
+    package="com.amazonaws.amplify.flutter.amplify_auth_example">
     <!-- Flutter needs it to communicate with the running application
          to allow setting breakpoints, to provide hot reload, etc.
     -->

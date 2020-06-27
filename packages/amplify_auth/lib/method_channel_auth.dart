@@ -3,7 +3,7 @@ import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart
 
 import 'amplify_auth.dart';
 
-const MethodChannel _channel = MethodChannel('com.amazonaws.amplifyflutter/auth');
+const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/auth');
 
 /// An implementation of [AmplifyPlatform] that uses method channels.
 class AmplifyAuthMethodChannel extends AmplifyAuth {

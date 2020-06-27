@@ -3,7 +3,7 @@ import UIKit
 
 public class SwiftAmplifyAuthPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
-    let channel = FlutterMethodChannel(name: "amplify_auth", binaryMessenger: registrar.messenger())
+    let channel = FlutterMethodChannel(name: "com.amazonaws.amplify/auth", binaryMessenger: registrar.messenger())
     let instance = SwiftAmplifyAuthPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }

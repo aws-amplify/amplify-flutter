@@ -1,4 +1,4 @@
-group 'com.amplifyframework.flutter.amplify_auth'
+group 'com.amazonaws.amplify.flutter.amplify_auth'
 version '1.0-SNAPSHOT'
 
 buildscript {
@@ -43,6 +43,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.amplifyframework:aws-auth-cognito:1.0.+'
+    implementation 'com.amazonaws.amplify:aws-auth-cognito:1.0.+'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

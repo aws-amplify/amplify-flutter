@@ -1,4 +1,4 @@
-package com.amplifyframework.flutter.amplify_auth
+package com.amazonaws.amplify.amplify_auth
 
 import androidx.annotation.NonNull;
 
@@ -18,7 +18,7 @@ public class AmplifyAuthPlugin: FlutterPlugin, MethodCallHandler {
   private lateinit var channel : MethodChannel
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-    channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "amplify_auth")
+    channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "com.amazonaws.amplify/auth")
     channel.setMethodCallHandler(this);
   }
 
@@ -34,7 +34,7 @@ public class AmplifyAuthPlugin: FlutterPlugin, MethodCallHandler {
   companion object {
     @JvmStatic
     fun registerWith(registrar: Registrar) {
-      val channel = MethodChannel(registrar.messenger(), "amplify_auth")
+      val channel = MethodChannel(registrar.messenger(), "com.amazonaws.amplify/auth")
       channel.setMethodCallHandler(AmplifyAuthPlugin())
     }
   }
