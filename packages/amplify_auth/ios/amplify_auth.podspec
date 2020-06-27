@@ -5,17 +5,19 @@
 Pod::Spec.new do |s|
   s.name             = 'amplify_auth'
   s.version          = '0.0.1'
-  s.summary          = 'A new flutter plugin project.'
+  s.summary          = 'The core module for Amplify Flutter.'
   s.description      = <<-DESC
-A new flutter plugin project.
+  The core module for Amplify Flutter.
                        DESC
-  s.homepage         = 'http://example.com'
-  s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
-  s.source           = { :path => '.' }
+  s.homepage = 'https://github.com/aws-amplify/amplify-flutter'
+  s.license = 'Apache License, Version 2.0'
+  s.author = { 'Amazon Web Services' => 'amazonwebservices' }
+  s.source = { :git => 'https://github.com/aws-amplify/amplify-flutter.git' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.platform = :ios, '8.0'
+  s.dependency 'Amplify'
+  s.dependency 'AmplifyPlugins/AWSCognitoAuthPlugin'
+  s.platform = :ios, '11.0'
 
   # Flutter.framework does not contain a i386 slice. Only x86_64 simulators are supported.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }

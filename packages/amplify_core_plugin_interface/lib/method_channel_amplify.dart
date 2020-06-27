@@ -1,4 +1,4 @@
-part of amplify_flutter_platform_interface;
+part of amplify_core_platform_interface;
 
 const MethodChannel _channel = MethodChannel('amplify/amplify_core');
 

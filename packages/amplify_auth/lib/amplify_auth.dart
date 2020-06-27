@@ -1,13 +1,24 @@
 import 'dart:async';
 
-import 'package:flutter/services.dart';
+import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
+import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+import './method_channel_auth.dart';
 
-class AmplifyAuth {
-  static const MethodChannel _channel =
-      const MethodChannel('amplify_auth');
+class AmplifyAuth extends AuthPluginInterface {
 
-  static Future<String> get platformVersion async {
-    final String version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
+  static final Object _token = Object();
+
+  /// Constructs a AmplifyAuth plugin
+  AmplifyAuth() : super(token: _token);
+
+  static AmplifyAuth _instance = AmplifyAuthMethodChannel();
+
+  static set instance(AuthPluginInterface instance) {
+    PlatformInterface.verifyToken(instance, _token);
+    _instance = instance;
+  }
+
+  Future<SignInResult> put(SignInRequest request)  {
+    return _instance.put(request);
   }
 }
