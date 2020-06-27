@@ -1,4 +1,4 @@
-package com.amplifyframework.flutter.amplify_core_example
+package com.amazonaws.amplify.amplify_core_example
 
 import io.flutter.embedding.android.FlutterActivity
 
