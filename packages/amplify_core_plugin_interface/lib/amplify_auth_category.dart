@@ -18,6 +18,6 @@ class AuthCategory {
 
   Future<SignInResult> signIn(SignInRequest request) {
     /// call `put` on all the plugins
-    return plugins.length == 1 ? plugins[0].put(request) : null;
+    return plugins.length == 1 ? plugins[0].signIn(request) : null;
   }
 }

@@ -52,7 +52,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Amplify: 8df04e515e756c0d3fe6e7652c69d46110bb74a7
-  amplify_core: 0bd8bcd4447df557160f352dadb9b4afd394e782
+  amplify_core: 2a2f529ae93d03692c969215daffd6d4bda54b9b
   AmplifyPlugins: 75e82bfc1e2d9fb2f1ea30c037190c3fd611d39e
   AWSAuthCore: 135ff7620051fd35d1d6a0da23c0613598cbc6a3
   AWSCognitoIdentityProvider: 94290a6f8603e05542b4f8ef3d92dae85ff86706
