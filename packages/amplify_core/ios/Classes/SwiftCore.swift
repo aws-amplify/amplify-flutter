@@ -4,10 +4,10 @@ import Amplify
 import AmplifyPlugins
 import AWSPluginsCore
 
-public class SwiftAmplifyCorePlugin: NSObject, FlutterPlugin {
+public class SwiftCore: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "com.amazonaws.amplify/core", binaryMessenger: registrar.messenger())
-    let instance = SwiftAmplifyCorePlugin()
+    let instance = SwiftCore()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 

@@ -1,4 +1,4 @@
-#import "AmplifyCorePlugin.h"
+#import "Core.h"
 #if __has_include(<amplify_core/amplify_core-Swift.h>)
 #import <amplify_core/amplify_core-Swift.h>
 #else
@@ -8,8 +8,8 @@
 #import "amplify_core-Swift.h"
 #endif
 
-@implementation AmplifyCorePlugin
+@implementation Core
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  [SwiftAmplifyCorePlugin registerWithRegistrar:registrar];
+  [SwiftCore registerWithRegistrar:registrar];
 }
 @end

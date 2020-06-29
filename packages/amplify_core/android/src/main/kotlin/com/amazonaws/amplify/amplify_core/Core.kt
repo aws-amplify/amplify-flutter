@@ -19,8 +19,8 @@ import org.json.JSONObject
 import java.io.Serializable
 
 
-/** AmplifyCorePlugin */
-public class AmplifyCorePlugin : FlutterPlugin, ActivityAware, MethodCallHandler {
+/** Core */
+public class Core : FlutterPlugin, ActivityAware, MethodCallHandler {
 
     private lateinit var channel: MethodChannel
     private lateinit var context: Context
