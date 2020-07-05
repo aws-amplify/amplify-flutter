@@ -1,6 +1,6 @@
 {
 	"auth": {
-		"example03ed2ab6": {
+		"flutterauth2426c8155": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": [],

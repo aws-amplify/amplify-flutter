@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  amplify_core:
+    path: ../../amplify_core
 
   amplify_auth:
     # When depending on this package from a real application you should use:

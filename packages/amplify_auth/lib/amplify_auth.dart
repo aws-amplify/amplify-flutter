@@ -18,7 +18,11 @@ class AmplifyAuth extends AuthPluginInterface {
     _instance = instance;
   }
 
-  Future<SignInResult> put(SignInRequest request)  {
-    return _instance.put(request);
+  Future<SignInResult> signIn(SignInRequest request)  {
+    return _instance.signIn(request);
+  }
+
+  Future<SignUpResult> signUp(SignUpRequest request) {
+     return _instance.signUp(request);
   }
 }

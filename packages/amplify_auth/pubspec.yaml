@@ -31,10 +31,10 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.amazonaws.amplify.flutter.amplify_auth
-        pluginClass: AmplifyAuthPlugin
+        package: com.amazonaws.amplify.amplify_auth
+        pluginClass: Auth
       ios:
-        pluginClass: AmplifyAuthPlugin
+        pluginClass: Auth
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:

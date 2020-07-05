@@ -31,9 +31,9 @@ flutter:
     platforms:
       android:
         package: com.amazonaws.amplify.amplify_core
-        pluginClass: AmplifyCorePlugin
+        pluginClass: Core
       ios:
-        pluginClass: AmplifyCorePlugin
+        pluginClass: Core
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:

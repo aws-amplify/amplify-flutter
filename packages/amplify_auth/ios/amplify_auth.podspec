@@ -5,9 +5,9 @@
 Pod::Spec.new do |s|
   s.name             = 'amplify_auth'
   s.version          = '0.0.1'
-  s.summary          = 'The core module for Amplify Flutter.'
+  s.summary          = 'The auth module for Amplify Flutter.'
   s.description      = <<-DESC
-  The core module for Amplify Flutter.
+  The auth module for Amplify Flutter.
                        DESC
   s.homepage = 'https://github.com/aws-amplify/amplify-flutter'
   s.license = 'Apache License, Version 2.0'

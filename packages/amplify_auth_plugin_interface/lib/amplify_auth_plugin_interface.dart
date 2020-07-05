@@ -1,6 +1,7 @@
 library amplify_auth_plugin_interface;
 
 import 'dart:async';
+import 'dart:convert';
 import 'package:meta/meta.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
@@ -16,6 +17,10 @@ abstract class AuthPluginInterface extends PlatformInterface {
   }
 
   Future<SignInResult> signIn(SignInRequest request) {
-    throw UnimplementedError('get() has not been implemented.');
+    throw UnimplementedError('signIn() has not been implemented.');
+  }
+
+  Future<SignUpResult> signUp(SignUpRequest request) {
+    throw UnimplementedError('signUp() has not been implemented.');
   }
 }

@@ -6,7 +6,6 @@ part of amplify_core_platform_interface;
 /// to those plugins.
 class AuthCategory {
   const AuthCategory();
-
   static List<AuthPluginInterface> plugins = [];
 
   /// `Add plugin` method
@@ -17,7 +16,16 @@ class AuthCategory {
   }
 
   Future<SignInResult> signIn(SignInRequest request) {
-    /// call `put` on all the plugins
     return plugins.length == 1 ? plugins[0].signIn(request) : null;
+  }
+
+
+  Future<SignUpResult> signUp(SignUpRequest request) {
+    /// call `put` on all the plugins
+    return plugins.length == 1 ? plugins[0].signUp(request) : null;
+  }
+
+  nullPluginsError(String functionName) {
+    
   }
 }

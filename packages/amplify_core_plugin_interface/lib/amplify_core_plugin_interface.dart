@@ -12,28 +12,28 @@ part 'amplify_auth_category.dart';
 
 
 
-abstract class AmplifyCorePlugin extends PlatformInterface {
-  /// Constructs a AmplifyPlatform.
-  AmplifyCorePlugin() : super(token: _token);
+abstract class Core extends PlatformInterface {
+  /// Constructs a Core platform.
+  Core() : super(token: _token);
 
   static final Object _token = Object();
 
-  static AmplifyCorePlugin _instance = MethodChannelAmplifyCore();
+  static Core _instance = MethodChannelAmplifyCore();
 
   /// The default instance of [AmplifyPlatform] to use.
   ///
   /// Defaults to [MethodChannelAmplify].
-  static AmplifyCorePlugin get instance => _instance;
+  static Core get instance => _instance;
 
   /// Platform-specific plugins should set this with their own platform-specific
   /// class that extends [AmplifyPlatform] when they register themselves.
-  static set instance(AmplifyCorePlugin instance) {
+  static set instance(Core instance) {
     PlatformInterface.verifyToken(instance, _token);
     _instance = instance;
   }
 
   /// Categories
-  static final AuthCategory Auth = AuthCategory();
+  final AuthCategory Auth = AuthCategory();
 
   /// Adds the configuration and return true if it was successful.
   Future<bool> configure(String configuration) {
