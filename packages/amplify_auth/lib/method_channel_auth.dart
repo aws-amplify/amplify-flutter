@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/services.dart';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'amplify_auth.dart';
@@ -23,14 +25,14 @@ class AmplifyAuthMethodChannel extends AmplifyAuth {
   Future<SignUpResult> signUp(SignUpRequest request) async {
     
     // await _channel.invokeMethod('put', request);
-     final Map<String, dynamic> data =
-        await _channel.invokeMapMethod<String, dynamic>(
+     final String data =
+        await _channel.invokeMethod(
       'signUp',
       <String, dynamic>{
         'data': request.serializeAsMap(),
       },
     );
-    return SignUpResult(result: data["data"]);
+    return SignUpResult.fromJson(jsonDecode(data));
   }
 
   SignInResult _decodeAuthResponse(Map<String, dynamic> signInResponse) {

@@ -47,9 +47,34 @@ class SignUpRequest {
 }
 
 class SignUpResult {
-  final Map error;
-  final Map result;
-  const SignUpResult({this.error, this.result});
+  bool isSignUpComplete;
+  AuthNextSignUpStep nextStep;
+  SignUpResult.fromJson(Map data) {
+    this.isSignUpComplete = data["isSignUpComplete"];
+    this.nextStep = AuthNextSignUpStep.fromJson(data["nextStep"]);
+  }
+}
+
+class AuthNextSignUpStep {
+  Map additionalInfo;
+  AuthCodeDeliveryDetails codeDeliveryDetails;
+  String signUpStep;
+  AuthNextSignUpStep.fromJson(Map data) {
+    this.additionalInfo = data["additionalInfo"];
+    this.codeDeliveryDetails = AuthCodeDeliveryDetails.fromJson(data["codeDeliveryDetails"]);
+    this.signUpStep = data["signUpStep"];
+  }
+}
+
+class AuthCodeDeliveryDetails {
+  String attributeName;
+  String deliveryMedium;
+  String destination;
+  AuthCodeDeliveryDetails.fromJson(Map data) {
+    this.attributeName = data["attributeName"];
+    this.deliveryMedium = data["deliveryMedium"];
+    this.destination = data["destination"];
+  }
 }
 
 class SignUpOptions {

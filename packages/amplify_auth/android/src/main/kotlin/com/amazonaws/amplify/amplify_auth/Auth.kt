@@ -15,6 +15,7 @@ import com.amplifyframework.auth.AuthUserAttribute
 import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
 import com.amplifyframework.auth.options.AuthSignUpOptions
+import com.amplifyframework.auth.result.AuthSignUpResult
 import com.amplifyframework.core.Amplify
 import com.google.gson.Gson
 import com.google.gson.JsonElement
@@ -34,6 +35,7 @@ public class Auth : FlutterPlugin, ActivityAware, MethodCallHandler {
 
   private lateinit var channel: MethodChannel
   private lateinit var context: Context
+  private var gson = Gson()  
   private var mainActivity: Activity? = null
   private var standardAttributes: Array<String> = arrayOf("address", "birthdate", "email", "family_name", "gender", "given_name", "locale", "middle_name", "name", "nickname", "phone_number", "preferred_username", "picture", "profile", "updated_at", "website", "zoneinfo")
 
@@ -133,7 +135,7 @@ public class Auth : FlutterPlugin, ActivityAware, MethodCallHandler {
         getUsername(request),
         request.password,
         formatUserAttributes(request.userAttributes),
-          { result -> this.mainActivity?.runOnUiThread({ flutterResult.success(false)}) },
+          { result -> this.mainActivity?.runOnUiThread({ flutterResult.success(gson.toJson(result))}) },
           { error -> this.mainActivity?.runOnUiThread({ flutterResult.error("AmplifyException", "signUp failed", error)}) }
       );
     } catch(e: Exception) {

@@ -23,6 +23,6 @@ class AmplifyAuth extends AuthPluginInterface {
   }
 
   Future<SignUpResult> signUp(SignUpRequest request) {
-     return _instance.signUp(request);
+    return _instance.signUp(request);
   }
 }

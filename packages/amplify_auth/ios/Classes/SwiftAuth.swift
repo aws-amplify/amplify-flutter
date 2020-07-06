@@ -27,9 +27,6 @@ public class SwiftAuth: NSObject, FlutterPlugin {
         let arguments = call.arguments as! Dictionary<String, AnyObject>
         let request = FlutterSignUpRequest(dict: arguments["data"] as! NSMutableDictionary)
         onSignUp(flutterResult: result, request: request)
-        //          let request = arguments["data"] as! FlutterSignUpRequest;
-    //          try onSignUp(flutterResult: result, request: AmplifySignUpRequst)
-//          print(request)
       default:
         result(FlutterMethodNotImplemented)
     }
@@ -44,7 +41,14 @@ public class SwiftAuth: NSObject, FlutterPlugin {
        case .success(let signUpResult):
        if case let .confirmUser(deliveryDetails, _) = signUpResult.nextStep {
          print("Delivery details \(String(describing: deliveryDetails))")
-         flutterResult(true)
+        do {
+            let jsonEncoder = JSONEncoder()
+            let jsonData = try jsonEncoder.encode(signUpResult)
+            flutterResult(true)
+        } catch {
+            flutterResult(false)
+
+        }
        } else {
          flutterResult(true)
        }
