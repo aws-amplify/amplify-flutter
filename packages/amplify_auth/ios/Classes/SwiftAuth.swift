@@ -3,7 +3,6 @@ import UIKit
 import Amplify
 import AmplifyPlugins
 
-
 public class SwiftAuth: NSObject, FlutterPlugin {
     
   let standardAttributes = ["address", "birthdate", "email", "family_name", "gender", "given_name", "locale", "middle_name", "name", "nickname", "phone_number", "preferred_username", "picture", "profile", "updated_at", "website", "zoneinfo"]
@@ -39,23 +38,70 @@ public class SwiftAuth: NSObject, FlutterPlugin {
     _ = Amplify.Auth.signUp(username: username, password:request.password!, options: options) { response in
      switch response {
        case .success(let signUpResult):
-       if case let .confirmUser(deliveryDetails, _) = signUpResult.nextStep {
-         print("Delivery details \(String(describing: deliveryDetails))")
-        do {
-            let jsonEncoder = JSONEncoder()
-            let jsonData = try jsonEncoder.encode(signUpResult)
-            flutterResult(true)
-        } catch {
-            flutterResult(false)
+         if case let .confirmUser(deliveryDetails, _) = signUpResult.nextStep {
+            /* 
+               The following code is accounting for the fact that swift auth types
+               currently don't conform to codeable, as well as mismatches between ios
+               and android response data/enums.  If swift auth types were to become codeable,
+               we could potentially deal with mismatches on the dart side and simply serialize
+               the whole response type here.
+            */
+            var responseDict: [String: Any] = [:]
+            var signUpStepDict: [String: Any] = [:]
+            var codeDeliveryDetailsDict: [String: Any] = [:]
+            responseDict["isSignUpComplete"] = false
+            signUpStepDict["nextStep"] = "CONFIRM_SIGN_UP_STEP,"
+        
+            if case let .email(e) = deliveryDetails?.destination {
+              codeDeliveryDetailsDict["destination"] = e! as String
+              codeDeliveryDetailsDict["attributeName"] = "email"
+              codeDeliveryDetailsDict["deliveryMedium"] = "EMAIL"
+            }
+        
+            if case let .phone(e) = deliveryDetails?.destination {
+              codeDeliveryDetailsDict["destination"] = e! as String
+              codeDeliveryDetailsDict["attributeName"] = "phone"
+            }
+        
+            if case let .sms(e) = deliveryDetails?.destination {
+              codeDeliveryDetailsDict["destination"] = e! as String
+              codeDeliveryDetailsDict["attributeName"] = "sms"
+              codeDeliveryDetailsDict["deliveryMedium"] = "SMS"
+            }
+        
+            if case let .unknown(e) = deliveryDetails?.destination {
+              codeDeliveryDetailsDict["destination"] = e! as String
+              codeDeliveryDetailsDict["attributeName"] = "unknown"
+            }
+        
+            signUpStepDict["codeDeliveryDetails"] = codeDeliveryDetailsDict
+            responseDict["nextStep"] = signUpStepDict
+        
+            do {
+              let json = try JSONSerialization.data(withJSONObject: responseDict, options: JSONSerialization.WritingOptions.prettyPrinted)
+              let decoded = try JSONSerialization.jsonObject(with: json, options: [])
+                flutterResult(responseDict);
+            } catch {
+                print("Failed to serialize SignUpResult \(error)")
+                flutterResult(FlutterError(code: "AmplifyException",
+                        message: "Failed to serialize SignUpResult ",
+                        details: error))
+            }
+            
+            if case let .done = signUpResult.nextStep {
+               var responseDict: [String: Any] = [:]
+               responseDict["isSignUpComplete"] = true
 
-        }
-       } else {
-         flutterResult(true)
-       }
+               flutterResult(responseDict)
+             }
+            }
        case .failure(let error):
          print("An error occurred while registering a user \(error)")
-         flutterResult(false)
+         flutterResult(FlutterError(code: "AmplifyException",
+                        message: "SignUpFailed",
+                        details: error))
       }
+        
     }
   }
     

@@ -1,41 +1,34 @@
 package com.amazonaws.amplify.amplify_auth
 
-import android.app.Activity;
+import android.app.Activity
 import android.content.Context
-import android.os.Build;
-import android.util.Log;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.core.widget.AutoScrollHelper
-import com.amazonaws.mobileconnectors.cognitoauth.Auth
-import io.flutter.embedding.engine.plugins.FlutterPlugin;
-import com.amplifyframework.AmplifyException;
+import android.util.Log
+import androidx.annotation.NonNull
+import com.amplifyframework.AmplifyException
 import com.amplifyframework.auth.AuthUserAttribute
 import com.amplifyframework.auth.AuthUserAttributeKey
-import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
+import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
 import com.amplifyframework.auth.options.AuthSignUpOptions
-import com.amplifyframework.auth.result.AuthSignUpResult
 import com.amplifyframework.core.Amplify
 import com.google.gson.Gson
-import com.google.gson.JsonElement
-import io.flutter.embedding.engine.plugins.activity.ActivityAware;
-import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
-import io.flutter.plugin.common.MethodCall;
-import io.flutter.plugin.common.MethodChannel;
-import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
-import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
+import com.google.gson.reflect.TypeToken
+import io.flutter.embedding.engine.plugins.FlutterPlugin
+import io.flutter.embedding.engine.plugins.activity.ActivityAware
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
+import io.flutter.plugin.common.MethodCall
+import io.flutter.plugin.common.MethodChannel
+import io.flutter.plugin.common.MethodChannel.MethodCallHandler
+import io.flutter.plugin.common.MethodChannel.Result
+import io.flutter.plugin.common.PluginRegistry.Registrar
 import java.lang.reflect.Method
-import kotlin.collections.HashMap
-import kotlin.reflect.KFunction
+import java.lang.reflect.Type
 
 /** Auth */
 public class Auth : FlutterPlugin, ActivityAware, MethodCallHandler {
 
   private lateinit var channel: MethodChannel
   private lateinit var context: Context
-  private var gson = Gson()  
+  var gson = Gson()
   private var mainActivity: Activity? = null
   private var standardAttributes: Array<String> = arrayOf("address", "birthdate", "email", "family_name", "gender", "given_name", "locale", "middle_name", "name", "nickname", "phone_number", "preferred_username", "picture", "profile", "updated_at", "website", "zoneinfo")
 
@@ -135,7 +128,7 @@ public class Auth : FlutterPlugin, ActivityAware, MethodCallHandler {
         getUsername(request),
         request.password,
         formatUserAttributes(request.userAttributes),
-          { result -> this.mainActivity?.runOnUiThread({ flutterResult.success(gson.toJson(result))}) },
+          { result -> this.mainActivity?.runOnUiThread({ flutterResult.success(result.serializeToMap())}) },
           { error -> this.mainActivity?.runOnUiThread({ flutterResult.error("AmplifyException", "signUp failed", error)}) }
       );
     } catch(e: Exception) {
@@ -143,6 +136,7 @@ public class Auth : FlutterPlugin, ActivityAware, MethodCallHandler {
       flutterResult.error("AmplifyException", e.message, e);
     }
   }
+
 
   private fun getUsername(@NonNull request: FlutterSignUpRequest): String {
     var username: String = "";
@@ -197,6 +191,21 @@ public class Auth : FlutterPlugin, ActivityAware, MethodCallHandler {
       return camelCase.toString();
   }
 
+  //convert a data class to a map
+  fun <T> T.serializeToMap(): Map<String, Any> {
+    return convert()
+  }
+
+  //convert a map to a data class
+  inline fun <reified T> Map<String, Any>.toDataClass(): T {
+    return convert()
+  }
+
+  //convert an object of type I to type O
+  inline fun <I, reified O> I.convert(): O {
+    val json = gson.toJson(this)
+    return gson.fromJson(json, object : TypeToken<O>() {}.type)
+  }
 //  private fun formatAmplifyException(@NonNull e: AmplifyException): Map<String, Serializable?> {
 //      return mapOf(
 //          "cause" to e.cause,

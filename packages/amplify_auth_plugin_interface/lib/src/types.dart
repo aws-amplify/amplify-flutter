@@ -53,18 +53,37 @@ class SignUpResult {
     this.isSignUpComplete = data["isSignUpComplete"];
     this.nextStep = AuthNextSignUpStep.fromJson(data["nextStep"]);
   }
+  Map toJson() => {
+    'isSignUpComplete': this.isSignUpComplete,
+    'nextStep': this.nextStep.toJson(),
+  };
 }
 
 class AuthNextSignUpStep {
   Map additionalInfo;
   AuthCodeDeliveryDetails codeDeliveryDetails;
-  String signUpStep;
+  SignUpStep signUpStep;
   AuthNextSignUpStep.fromJson(Map data) {
     this.additionalInfo = data["additionalInfo"];
     this.codeDeliveryDetails = AuthCodeDeliveryDetails.fromJson(data["codeDeliveryDetails"]);
-    this.signUpStep = data["signUpStep"];
+    this.signUpStep = enumFromString<SignUpStep>(data["signUpStep"],SignUpStep.values);
   }
+
+  Map toJson() => {
+    'additionalInfo': this.additionalInfo,
+    'signUpStep': enumToString(this.signUpStep),
+    'codeDeliveryDetails': this.codeDeliveryDetails.toJson()
+  };
 }
+
+enum SignUpStep {
+  CONFIRM_SIGN_UP_STEP,
+}
+
+String enumToString(Object o) => o.toString().split('.').last;
+
+T enumFromString<T>(String key, List<T> values) =>
+    values.firstWhere((v) => key == enumToString(v), orElse: () => null);
 
 class AuthCodeDeliveryDetails {
   String attributeName;
@@ -75,6 +94,11 @@ class AuthCodeDeliveryDetails {
     this.deliveryMedium = data["deliveryMedium"];
     this.destination = data["destination"];
   }
+  Map toJson() => {
+    'attributeName': this.attributeName,
+    'deliveryMedium': this.deliveryMedium,
+    'destination': this.destination
+  };
 }
 
 class SignUpOptions {

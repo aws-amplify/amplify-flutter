@@ -25,14 +25,14 @@ class AmplifyAuthMethodChannel extends AmplifyAuth {
   Future<SignUpResult> signUp(SignUpRequest request) async {
     
     // await _channel.invokeMethod('put', request);
-     final String data =
-        await _channel.invokeMethod(
+     final Map<String, dynamic> data =
+        await _channel.invokeMapMethod<String, dynamic>(
       'signUp',
       <String, dynamic>{
         'data': request.serializeAsMap(),
       },
     );
-    return SignUpResult.fromJson(jsonDecode(data));
+    return SignUpResult.fromJson(data);
   }
 
   SignInResult _decodeAuthResponse(Map<String, dynamic> signInResponse) {

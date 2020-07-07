@@ -10,8 +10,6 @@ project 'Runner', {
   'Release' => :release,
 }
 
-platform :ios, '11.0'
-
 def flutter_root
   generated_xcode_build_settings_path = File.expand_path(File.join('..', 'Flutter', 'Generated.xcconfig'), __FILE__)
   unless File.exist?(generated_xcode_build_settings_path)
@@ -32,7 +30,6 @@ flutter_ios_podfile_setup
 target 'Runner' do
   use_frameworks!
   use_modular_headers!
-  pod 'Amplify'
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end

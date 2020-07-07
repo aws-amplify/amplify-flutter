@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -20,6 +22,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   bool _isAmplifyConfigured = false;
   Amplify amplify = new Amplify();
+  String signUpResult;
 
   @override
   void initState() {
@@ -64,7 +67,7 @@ class _MyAppState extends State<MyApp> {
       "gender": "male",
     };
     try {
-      await Amplify.Auth.signUp(
+      SignUpResult res = await Amplify.Auth.signUp(
         SignUpRequest(
           username: "dnnoyes",
           password: "!Hodor546",
@@ -73,6 +76,9 @@ class _MyAppState extends State<MyApp> {
           )
         )
       );
+      setState(() {
+        signUpResult = jsonEncode(res.toJson());
+      });
     } catch (e) {
       print(e);
     }
@@ -106,6 +112,13 @@ class _MyAppState extends State<MyApp> {
                   onPressed: _signUp,
                   child: const Text('sign up'),
                 ),
+                const Padding(padding: EdgeInsets.all(2.0)),
+                Text(
+                  'SignUpData: $signUpResult',
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.visible,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )
               ]
             )
           ],
