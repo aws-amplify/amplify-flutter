@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "flutterauth2426c8155_identitypool_426c8155",
+    "identityPoolName": "daflutta1c5c35b7_identitypool_1c5c35b7",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "flutte426c8155",
-    "userPoolName": "flutterauth2426c8155_userpool_426c8155",
+    "resourceNameTruncated": "daflut1c5c35b7",
+    "userPoolName": "daflutta1c5c35b7_userpool_1c5c35b7",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -28,10 +28,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "flutte426c8155_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "daflut1c5c35b7_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "426c8155",
-    "resourceName": "flutterauth2426c8155",
+    "sharedId": "1c5c35b7",
+    "resourceName": "daflutta1c5c35b7",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [

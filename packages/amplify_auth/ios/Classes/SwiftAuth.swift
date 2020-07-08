@@ -38,6 +38,13 @@ public class SwiftAuth: NSObject, FlutterPlugin {
     _ = Amplify.Auth.signUp(username: username, password:request.password!, options: options) { response in
      switch response {
        case .success(let signUpResult):
+        if case let .done = signUpResult.nextStep {
+            var responseDict: [String: Any] = [:]
+            var providerDataDict: [String: Any] = [:]
+            responseDict["signUpState"] = "DONE"
+            responseDict["providerData"] = providerDataDict;
+            flutterResult(responseDict)
+         }
          if case let .confirmUser(deliveryDetails, _) = signUpResult.nextStep {
             /* 
                The following code is accounting for the fact that swift auth types
@@ -47,11 +54,12 @@ public class SwiftAuth: NSObject, FlutterPlugin {
                the whole response type here.
             */
             var responseDict: [String: Any] = [:]
-            var signUpStepDict: [String: Any] = [:]
+            var providerDataDict: [String: Any] = [:]
+            var nextStepDict: [String: Any] = [:]
             var codeDeliveryDetailsDict: [String: Any] = [:]
-            responseDict["isSignUpComplete"] = false
-            signUpStepDict["nextStep"] = "CONFIRM_SIGN_UP_STEP,"
-        
+            responseDict["signUpState"] = "CONFIRM_SIGN_UP_STEP"
+
+            
             if case let .email(e) = deliveryDetails?.destination {
               codeDeliveryDetailsDict["destination"] = e! as String
               codeDeliveryDetailsDict["attributeName"] = "email"
@@ -74,8 +82,9 @@ public class SwiftAuth: NSObject, FlutterPlugin {
               codeDeliveryDetailsDict["attributeName"] = "unknown"
             }
         
-            signUpStepDict["codeDeliveryDetails"] = codeDeliveryDetailsDict
-            responseDict["nextStep"] = signUpStepDict
+            nextStepDict["codeDeliveryDetails"] = codeDeliveryDetailsDict
+            providerDataDict["nextStep"] = nextStepDict
+            responseDict["providerData"] = providerDataDict
         
             do {
               let json = try JSONSerialization.data(withJSONObject: responseDict, options: JSONSerialization.WritingOptions.prettyPrinted)
@@ -87,19 +96,14 @@ public class SwiftAuth: NSObject, FlutterPlugin {
                         message: "Failed to serialize SignUpResult ",
                         details: error))
             }
-            
-            if case let .done = signUpResult.nextStep {
-               var responseDict: [String: Any] = [:]
-               responseDict["isSignUpComplete"] = true
-
-               flutterResult(responseDict)
-             }
-            }
-       case .failure(let error):
-         print("An error occurred while registering a user \(error)")
-         flutterResult(FlutterError(code: "AmplifyException",
-                        message: "SignUpFailed",
-                        details: error))
+        }
+       case .failure(let signUpResult):
+        print("An error occurred while registering a user")
+        if case let .service(ErrorDescription, RecoverySuggestion, Error?) = signUpResult {
+            flutterResult(FlutterError(code: "AmplifyException",
+                                       message: signUpResult.localizedDescription,
+                                       details: signUpResult.errorDescription + " " + signUpResult.recoverySuggestion))
+        }
       }
         
     }
@@ -127,7 +131,7 @@ public class SwiftAuth: NSObject, FlutterPlugin {
       if (standardAttributes.contains(attr.key)) {
         formattedAttributes.append(AuthUserAttribute(.unknown(attr.key), value: attr.value))
       } else {
-         formattedAttributes.append(AuthUserAttribute(.custom("custom:" + attr.key), value: attr.value))
+         formattedAttributes.append(AuthUserAttribute(.custom(attr.key), value: attr.value))
         }
     }
     return formattedAttributes

@@ -64,7 +64,6 @@ class _MyAppState extends State<MyApp> {
     Map<String, dynamic> userAttributes = {
       "email": "dustin.noyes@gmail.com",
       "phone_number": "+14252933357",
-      "gender": "male",
     };
     try {
       SignUpResult res = await Amplify.Auth.signUp(
@@ -77,7 +76,7 @@ class _MyAppState extends State<MyApp> {
         )
       );
       setState(() {
-        signUpResult = jsonEncode(res.toJson());
+        signUpResult = jsonEncode(res);
       });
     } catch (e) {
       print(e);

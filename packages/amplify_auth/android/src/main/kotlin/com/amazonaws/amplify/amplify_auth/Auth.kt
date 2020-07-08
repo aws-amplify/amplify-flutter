@@ -9,6 +9,7 @@ import com.amplifyframework.auth.AuthUserAttribute
 import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
 import com.amplifyframework.auth.options.AuthSignUpOptions
+import com.amplifyframework.auth.result.AuthSignUpResult
 import com.amplifyframework.core.Amplify
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -128,13 +129,21 @@ public class Auth : FlutterPlugin, ActivityAware, MethodCallHandler {
         getUsername(request),
         request.password,
         formatUserAttributes(request.userAttributes),
-          { result -> this.mainActivity?.runOnUiThread({ flutterResult.success(result.serializeToMap())}) },
+          { result -> this.mainActivity?.runOnUiThread({ prepareResult(flutterResult, result)}) },
           { error -> this.mainActivity?.runOnUiThread({ flutterResult.error("AmplifyException", "signUp failed", error)}) }
       );
     } catch(e: Exception) {
       System.out.println("Amplify SignUp Failed ${e}")
       flutterResult.error("AmplifyException", e.message, e);
     }
+  }
+
+  private fun prepareResult(@NonNull flutterResult: Result, @NonNull result: AuthSignUpResult) {
+    var parsedResult = mutableMapOf<String, Any>();
+    parsedResult["signUpState"] = result.nextStep.signUpStep.toString();
+    parsedResult["providerData"] = result.serializeToMap();
+    ;
+    flutterResult.success(parsedResult);
   }
 
 

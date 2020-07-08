@@ -1,19 +1,19 @@
 {
     "dev": {
         "awscloudformation": {
-            "AuthRoleName": "amplify-flutterauth2-dev-145220-authRole",
-            "UnauthRoleArn": "arn:aws:iam::444407295970:role/amplify-flutterauth2-dev-145220-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::444407295970:role/amplify-flutterauth2-dev-145220-authRole",
+            "AuthRoleName": "amplify-daflutta-dev-102942-authRole",
+            "UnauthRoleArn": "arn:aws:iam::444407295970:role/amplify-daflutta-dev-102942-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::444407295970:role/amplify-daflutta-dev-102942-authRole",
             "Region": "us-west-2",
-            "DeploymentBucketName": "amplify-flutterauth2-dev-145220-deployment",
-            "UnauthRoleName": "amplify-flutterauth2-dev-145220-unauthRole",
-            "StackName": "amplify-flutterauth2-dev-145220",
-            "StackId": "arn:aws:cloudformation:us-west-2:444407295970:stack/amplify-flutterauth2-dev-145220/4ff3f1a0-bcae-11ea-9c91-0600bb6afa2a",
-            "AmplifyAppId": "d1ga3c2n0xcsyn"
+            "DeploymentBucketName": "amplify-daflutta-dev-102942-deployment",
+            "UnauthRoleName": "amplify-daflutta-dev-102942-unauthRole",
+            "StackName": "amplify-daflutta-dev-102942",
+            "StackId": "arn:aws:cloudformation:us-west-2:444407295970:stack/amplify-daflutta-dev-102942/9d1358e0-c140-11ea-8bf8-06969188ef6e",
+            "AmplifyAppId": "d3fr17kokwby1c"
         },
         "categories": {
             "auth": {
-                "flutterauth2426c8155": {}
+                "daflutta1c5c35b7": {}
             }
         }
     }

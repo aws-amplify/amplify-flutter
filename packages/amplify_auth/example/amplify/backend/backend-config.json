@@ -1,6 +1,6 @@
 {
 	"auth": {
-		"flutterauth2426c8155": {
+		"daflutta1c5c35b7": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": [],
