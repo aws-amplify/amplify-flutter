@@ -25,6 +25,7 @@ class Amplify {
       return false;
     }
   }
+
   Future<bool> configure(String configuration) async {
     assert(configuration != null, 'configuration is null');
     var res = await Core.instance.configure(configuration);
