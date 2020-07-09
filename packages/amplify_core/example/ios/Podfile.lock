@@ -1,7 +1,6 @@
 PODS:
   - Amplify (1.0.1):
     - Amplify/Default (= 1.0.1)
-  - Amplify/Default (1.0.1)
   - amplify_core (0.0.1):
     - Amplify
     - AmplifyPlugins/AWSCognitoAuthPlugin
@@ -29,7 +28,6 @@ PODS:
   - Flutter (1.0.0)
 
 DEPENDENCIES:
-  - Amplify
   - amplify_core (from `.symlinks/plugins/amplify_core/ios`)
   - Flutter (from `Flutter`)
 
@@ -62,6 +60,6 @@ SPEC CHECKSUMS:
   AWSPluginsCore: 37ee45209a3251502893504072a6c4fc0af6f6e4
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
 
-PODFILE CHECKSUM: dafbdf460045b83a5d504a850e7e627aebb800b6
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 
 COCOAPODS: 1.9.3
