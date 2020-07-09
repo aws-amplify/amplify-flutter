@@ -7,6 +7,8 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
     
   let standardAttributes = ["address", "birthdate", "email", "family_name", "gender", "given_name", "locale", "middle_name", "name", "nickname", "phone_number", "preferred_username", "picture", "profile", "updated_at", "website", "zoneinfo"]
     
+  let signUpFailure = "Amplify SignUp Failed"
+    
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "com.amazonaws.amplify/auth_cognito", binaryMessenger: registrar.messenger())
     let instance = SwiftAuthCognito()
@@ -38,9 +40,9 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
     _ = Amplify.Auth.signUp(username: username, password:request.password!, options: options) { response in
      switch response {
        case .success(let signUpResult):
-        if case let .done = signUpResult.nextStep {
+        if case .done = signUpResult.nextStep {
             var responseDict: [String: Any] = [:]
-            var providerDataDict: [String: Any] = [:]
+            let providerDataDict: [String: Any] = [:]
             responseDict["signUpState"] = "DONE"
             responseDict["providerData"] = providerDataDict;
             flutterResult(responseDict)
@@ -52,6 +54,8 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
                and android response data/enums.  If swift auth types were to become codeable,
                we could potentially deal with mismatches on the dart side and simply serialize
                the whole response type here.
+
+               TODO: IMPROVE THIS
             */
             var responseDict: [String: Any] = [:]
             var providerDataDict: [String: Any] = [:]
@@ -86,28 +90,24 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
             providerDataDict["nextStep"] = nextStepDict
             responseDict["providerData"] = providerDataDict
         
-            do {
-              let json = try JSONSerialization.data(withJSONObject: responseDict, options: JSONSerialization.WritingOptions.prettyPrinted)
-              let decoded = try JSONSerialization.jsonObject(with: json, options: [])
-                flutterResult(responseDict);
-            } catch {
-                print("Failed to serialize SignUpResult \(error)")
-                flutterResult(FlutterError(code: "AmplifyException",
-                        message: "Failed to serialize SignUpResult ",
-                        details: error))
-            }
+            flutterResult(responseDict);
         }
-       case .failure(let signUpResult):
+       case .failure(let signUpError):
         print("An error occurred while registering a user")
-        if case let .service(ErrorDescription, RecoverySuggestion, Error?) = signUpResult {
-            flutterResult(FlutterError(code: "AmplifyException",
-                                       message: signUpResult.localizedDescription,
-                                       details: signUpResult.errorDescription + " " + signUpResult.recoverySuggestion))
+        if case .service(_, _, _?) = signUpError {
+            self.prepareError(flutterResult: flutterResult, error: signUpError, msg: self.signUpFailure, detail: signUpError.errorDescription)
         }
       }
-        
     }
   }
+
+  private func prepareError(flutterResult: FlutterResult, error: Error, msg: String, detail: String) {
+        print("\(msg): \(error)?")
+        flutterResult(FlutterError(
+          code: "AmplifyException",
+          message: msg,
+          details: "\(detail): see logs for additional details"))
+    }
     
   private func getUsername(request: CognitoSignUpRequest) -> String {
     var username: String = ""
@@ -115,11 +115,11 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
         username = request.username!;
     } else {
         if (request.providerOptions?["usernameAttribute"] != nil) {
-            if (request.providerOptions?["usernameAttribute"] as! String == "email") {
-                username = request.userAttributes["email"]!
-            } else {
-                username = request.userAttributes["phone_number"]!
-            }
+          if (request.providerOptions?["usernameAttribute"] as! String == "email") {
+              username = request.userAttributes["email"]!
+          } else {
+              username = request.userAttributes["phone_number"]!
+          }
         }
     }
     return username;
@@ -131,7 +131,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
       if (standardAttributes.contains(attr.key)) {
         formattedAttributes.append(AuthUserAttribute(.unknown(attr.key), value: attr.value))
       } else {
-         formattedAttributes.append(AuthUserAttribute(.custom(attr.key), value: attr.value))
+          formattedAttributes.append(AuthUserAttribute(.custom(attr.key), value: attr.value))
         }
     }
     return formattedAttributes

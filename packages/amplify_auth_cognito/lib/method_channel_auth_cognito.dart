@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/services.dart';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'amplify_auth_cognito.dart';

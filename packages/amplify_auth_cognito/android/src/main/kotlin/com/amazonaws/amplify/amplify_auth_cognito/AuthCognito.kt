@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.Log
 import androidx.annotation.NonNull
 import com.amazonaws.amplify.amplify_auth_cognito.CognitoSignUpRequest
+import com.amazonaws.services.cognitoidentityprovider.model.UsernameExistsException
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.auth.AuthUserAttribute
 import com.amplifyframework.auth.AuthUserAttributeKey
@@ -33,6 +34,8 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
   var gson = Gson()
   private var mainActivity: Activity? = null
   private var standardAttributes: Array<String> = arrayOf("address", "birthdate", "email", "family_name", "gender", "given_name", "locale", "middle_name", "name", "nickname", "phone_number", "preferred_username", "picture", "profile", "updated_at", "website", "zoneinfo")
+  private var signUpFailure = "Amplify SignUp Failed"
+
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "com.amazonaws.amplify/auth_cognito")
@@ -92,12 +95,16 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
         request.password,
         formatUserAttributes(request.userAttributes),
           { result -> this.mainActivity?.runOnUiThread({ prepareResult(flutterResult, result)}) },
-          { error -> this.mainActivity?.runOnUiThread({ flutterResult.error("AmplifyException", "signUp failed", error)}) }
+          { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, signUpFailure, (error.cause as UsernameExistsException).errorMessage)}) }
       );
     } catch(e: Exception) {
-      System.out.println("Amplify SignUp Failed ${e}")
-      flutterResult.error("AmplifyException", e.message, e);
+      prepareError(flutterResult, e, signUpFailure, "Error sending SignUpRequest")
     }
+  }
+
+  private fun prepareError(@NonNull flutterResult: Result, @NonNull error: Exception, @NonNull msg: String, @NonNull detail: String) {
+    System.out.println("${msg}: ${error}")
+    flutterResult.error("AmplifyException", msg, "${detail}: see logs for additional details")
   }
 
   private fun prepareResult(@NonNull flutterResult: Result, @NonNull result: AuthSignUpResult) {
@@ -148,6 +155,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
       return options.build();
   }
 
+  // Amplify Android expects camel case, while iOS expects snake.  So at least one plugin implementation should convert.
   private fun convertSnakeToCamel(@NonNull string: String): String {
       val camelCase = StringBuilder()
       var prevChar = '$'
