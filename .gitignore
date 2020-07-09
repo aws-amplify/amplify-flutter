@@ -5,6 +5,7 @@ ios/.generated/
 pubspec.lock
 *.iml
 *.jar
+Podfile.lock
 
 # IDEs
 .idea/
