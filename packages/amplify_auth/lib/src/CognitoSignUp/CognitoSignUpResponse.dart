@@ -1,6 +1,6 @@
-class CognitoProvider {
+class CognitoSignUpResponse {
   AuthNextSignUpStep authNextSignUpStep;
-  CognitoProvider.fromJson(Map<String, dynamic> data) {
+  CognitoSignUpResponse.fromJson(Map<String, dynamic> data) {
     this.authNextSignUpStep = AuthNextSignUpStep(data: data["providerData"]);
   }
   Map<String, dynamic> serializeAsMap() {

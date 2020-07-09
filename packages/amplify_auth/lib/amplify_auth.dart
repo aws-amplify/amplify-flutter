@@ -1,8 +1,15 @@
 import 'dart:async';
-
+import 'dart:collection';
+import 'dart:core';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import './method_channel_auth.dart';
+
+export './src/CognitoSignUp/CognitoSignUpRequest.dart';
+export './src/CognitoSignUp/CognitoSignUpResponse.dart';
+export './src/CognitoSignUp/CognitoSignUpResult.dart';
 
 class AmplifyAuth extends AuthPluginInterface {
 
@@ -18,11 +25,10 @@ class AmplifyAuth extends AuthPluginInterface {
     _instance = instance;
   }
 
-  Future<SignInResult> signIn(SignInRequest request)  {
-    return _instance.signIn(request);
-  }
-
   Future<SignUpResult> signUp(SignUpRequest request) {
     return _instance.signUp(request);
-  }
+  }   
 }
+
+
+

@@ -7,7 +7,6 @@ import 'package:flutter/services.dart';
 import 'package:amplify_auth/amplify_auth.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core_plugin_interface/amplify_core_plugin_interface.dart';
-import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'amplifyconfiguration.dart';
 
 void main() {
@@ -52,28 +51,31 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  void _signIn() async {
-      try {
-        await Amplify.Auth.signIn(SignInRequest(username: "dnnoyes", password: "!Hodor546"));
-      } catch (e) {
-        print(e);
-      }
-  }
+  // void _signIn() async {
+  //     try {
+  //       await Amplify.Auth.signIn(SignInRequest(username: "dnnoyes", password: "!Hodor546"));
+  //     } catch (e) {
+  //       print(e);
+  //     }
+  // }
 
   void _signUp() async {
     Map<String, dynamic> userAttributes = {
       "email": "dustin.noyes@gmail.com",
       "phone_number": "+14252933357",
+      "address": "123 Street Ave",
+      "pet_name": "Doug"
     };
     try {
-      SignUpResult res = await Amplify.Auth.signUp(
-        SignUpRequest(
-          username: "dnnoyes",
-          password: "!Hodor546",
-          options: SignUpOptions(
-            userAttributes: userAttributes 
+      CognitoSignUpResult res = await Amplify.Auth.signUp(
+        CognitoSignUpRequest(
+          "dnnoyes",
+          "!Hodor546",
+          CognitoSignUpOptions(
+              userAttributes: userAttributes,
+              providerOptions: CognitoSignUpProvider(usernameAttribute: "email")
           )
-        )
+    )
       );
       setState(() {
         signUpResult = jsonEncode(res);
@@ -101,11 +103,11 @@ class _MyAppState extends State<MyApp> {
                   onPressed: _configureAmplify,
                   child: const Text('configure'),
                 ),
-                const Padding(padding: EdgeInsets.all(10.0)),
-                RaisedButton(
-                  onPressed: _signIn,
-                  child: const Text('sign in'),
-                ),
+                // const Padding(padding: EdgeInsets.all(10.0)),
+                // RaisedButton(
+                //   onPressed: _signIn,
+                //   child: const Text('sign in'),
+                // ),
                 const Padding(padding: EdgeInsets.all(10.0)),
                 RaisedButton(
                   onPressed: _signUp,

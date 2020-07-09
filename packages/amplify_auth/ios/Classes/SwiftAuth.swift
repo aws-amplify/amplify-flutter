@@ -111,11 +111,11 @@ public class SwiftAuth: NSObject, FlutterPlugin {
     
   private func getUsername(request: FlutterSignUpRequest) -> String {
     var username: String = ""
-    if (request.usernameAttribute == nil && request.username != nil) {
+    if (request.providerOptions?["usernameAttribute"] == nil && request.username != nil) {
         username = request.username!;
     } else {
-        if (request.usernameAttribute != nil) {
-            if (request.usernameAttribute == "email") {
+        if (request.providerOptions?["usernameAttribute"] != nil) {
+            if (request.providerOptions?["usernameAttribute"] as! String == "email") {
                 username = request.userAttributes["email"]!
             } else {
                 username = request.userAttributes["phone_number"]!

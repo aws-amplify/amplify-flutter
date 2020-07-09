@@ -15,11 +15,6 @@ class AuthCategory {
     return true;
   }
 
-  Future<SignInResult> signIn(SignInRequest request) {
-    return plugins.length == 1 ? plugins[0].signIn(request) : null;
-  }
-
-
   Future<SignUpResult> signUp(SignUpRequest request) {
     /// call `put` on all the plugins
     return plugins.length == 1 ? plugins[0].signUp(request) : null;

@@ -141,7 +141,7 @@ public class Auth : FlutterPlugin, ActivityAware, MethodCallHandler {
   private fun prepareResult(@NonNull flutterResult: Result, @NonNull result: AuthSignUpResult) {
     var parsedResult = mutableMapOf<String, Any>();
     parsedResult["signUpState"] = result.nextStep.signUpStep.toString();
-    parsedResult["providerData"] = result.serializeToMap();
+    parsedResult["providerData"] = result.serializeToMap()
     ;
     flutterResult.success(parsedResult);
   }
@@ -149,8 +149,8 @@ public class Auth : FlutterPlugin, ActivityAware, MethodCallHandler {
 
   private fun getUsername(@NonNull request: FlutterSignUpRequest): String {
     var username: String = "";
-    if (request.usernameAttribute != null) {
-      when (request.usernameAttribute) {
+    if (request.providerOptions?.containsKey("usernameAttribute")!!) {
+      when (request.providerOptions.get("usernameAttribute")) {
         "email" -> {
           username = request.userAttributes.get("email") as String;
         }
