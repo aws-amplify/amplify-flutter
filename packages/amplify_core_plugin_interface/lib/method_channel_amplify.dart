@@ -1,5 +1,6 @@
 part of amplify_core_platform_interface;
 
+
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/core');
 
 /// An implementation of [Core] that uses method channels.
