@@ -2,7 +2,7 @@ import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart
 import 'package:flutter/foundation.dart';
 
 class CognitoSignUpRequest extends SignUpRequest {
-  CognitoSignUpRequest(username, password, options) : super(username, password, options);
+  CognitoSignUpRequest({String username, @required String password, @required CognitoSignUpOptions options}) : super(username, password, options);
 }
 
 class CognitoSignUpOptions extends SignUpOptions {

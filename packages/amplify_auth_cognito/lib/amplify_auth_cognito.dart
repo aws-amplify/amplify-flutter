@@ -8,7 +8,7 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import './method_channel_auth_cognito.dart';
 
 export './src/CognitoSignUp/CognitoSignUpRequest.dart';
-export './src/CognitoSignUp/CognitoSignUpResponse.dart';
+export './src/CognitoSignUp/CognitoSignUpResultProvider.dart';
 export './src/CognitoSignUp/CognitoSignUpResult.dart';
 
 class AmplifyAuthCognito extends AuthPluginInterface {

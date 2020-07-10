@@ -51,14 +51,6 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  // void _signIn() async {
-  //     try {
-  //       await Amplify.Auth.signIn(SignInRequest(username: "dnnoyes", password: "!Hodor546"));
-  //     } catch (e) {
-  //       print(e);
-  //     }
-  // }
-
   void _signUp() async {
     Map<String, dynamic> userAttributes = {
       "email": "dustin.noyes@gmail.com",
@@ -68,13 +60,13 @@ class _MyAppState extends State<MyApp> {
     try {
       CognitoSignUpResult res = await Amplify.Auth.signUp(
         CognitoSignUpRequest(
-          "dnnoyes",
-          "!Hodor546",
-          CognitoSignUpOptions(
+          username: "dnnoyes",
+          password: "!Hodor546",
+          options: CognitoSignUpOptions(
               userAttributes: userAttributes,
               providerOptions: CognitoSignUpProvider(usernameAttribute: "email")
           )
-    )
+        )
       );
       setState(() {
         signUpResult = jsonEncode(res);

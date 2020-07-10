@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:amplify_auth_cognito/src/CognitoSignUp/CognitoSignUpResultProvider.dart';
 import 'package:flutter/services.dart';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'amplify_auth_cognito.dart';
@@ -21,10 +22,11 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   }
 
   CognitoSignUpResult _formatSignUpResponse(Map<String, dynamic> signUpResponse) {
-    Map<String, dynamic> res = {};
-    CognitoSignUpResponse providerData = CognitoSignUpResponse.fromJson(signUpResponse);
-    res.putIfAbsent("providerData", () => providerData.serializeAsMap());
-    res.putIfAbsent("signUpState", () => signUpResponse["signUpState"]);
-    return CognitoSignUpResult.fromJson(res); 
+    // Map<String, dynamic> res = {};
+     Map<dynamic, dynamic> providerMap = signUpResponse["providerData"];
+    CognitoSignUpResultProvider providerData = CognitoSignUpResultProvider(AuthNextSignUpStep(providerMap["nextStep"]["codeDeliveryDetails"]));
+    // res.putIfAbsent("providerData", () => providerData.serializeAsMap());
+    // res.putIfAbsent("signUpState", () => signUpResponse["signUpState"]);
+    return CognitoSignUpResult(providerData, signUpResponse["signUpState"]);
   }
 }

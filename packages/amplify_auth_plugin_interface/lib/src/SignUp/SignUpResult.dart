@@ -1,11 +1,13 @@
+import 'package:flutter/foundation.dart';
+
 class SignUpResult {
-  Map<dynamic, dynamic> providerData;
-  String signUpState;
-  SignUpResult.fromJson(Map data) {
+ Map<dynamic, dynamic> providerData;
+ String signUpState;
+  SignUpResult.init(this.signUpState, this.providerData) {
     /* 2-step process of getting an enum from a string and back is a way of checking that
      the value is enumerated while also maintaining simple string value */
-    this.signUpState = enumToString(enumFromString<SignUpState>(data["signUpState"], SignUpState.values));
-    this.providerData = data.containsKey("providerData") ? data["providerData"] : const {};
+    this.signUpState = enumToString(enumFromString<SignUpState>(signUpState, SignUpState.values));
+    this.providerData = providerData;
    }
 }
 
