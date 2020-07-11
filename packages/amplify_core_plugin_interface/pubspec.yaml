@@ -12,6 +12,9 @@ dependencies:
     sdk: flutter
   plugin_platform_interface: ^1.0.1
 
+  amplify_analytics_plugin_interface:
+    path: ../amplify_analytics_plugin_interface
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -3,8 +3,10 @@ library amplify_flutter_platform_interface;
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+import 'package:amplify_analytics_plugin_interface/analytics_plugin_interface.dart';
 
 part 'method_channel_amplify.dart';
+part 'amplify_analytics_category.dart';
 
 /// category parts
 
@@ -31,6 +33,7 @@ abstract class Core extends PlatformInterface {
   }
 
   /// Categories
+  final AnalyticsCategory Analytics = AnalyticsCategory();
 
   /// Adds the configuration and return true if it was successful.
   Future<bool> configure(String configuration) {

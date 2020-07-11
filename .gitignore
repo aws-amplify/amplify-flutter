@@ -3,6 +3,7 @@
 build/
 ios/.generated/
 pubspec.lock
+Podfile.lock
 *.iml
 *.jar
 
@@ -27,3 +28,4 @@ amplifyconfiguration.dart
 amplify-build-config.json
 amplify-gradle-config.json
 amplifytools.xcconfig
+
