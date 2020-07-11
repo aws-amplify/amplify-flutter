@@ -63,8 +63,7 @@ class _MyAppState extends State<MyApp> {
           username: "dnnoyes",
           password: "!Hodor546",
           options: CognitoSignUpOptions(
-              userAttributes: userAttributes,
-              providerOptions: CognitoSignUpProvider(usernameAttribute: "email")
+              userAttributes: userAttributes
           )
         )
       );

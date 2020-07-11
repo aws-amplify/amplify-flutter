@@ -22,11 +22,12 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   }
 
   CognitoSignUpResult _formatSignUpResponse(Map<String, dynamic> signUpResponse) {
-    // Map<String, dynamic> res = {};
      Map<dynamic, dynamic> providerMap = signUpResponse["providerData"];
-    CognitoSignUpResultProvider providerData = CognitoSignUpResultProvider(AuthNextSignUpStep(providerMap["nextStep"]["codeDeliveryDetails"]));
-    // res.putIfAbsent("providerData", () => providerData.serializeAsMap());
-    // res.putIfAbsent("signUpState", () => signUpResponse["signUpState"]);
+     Map<String , dynamic> deliveryDetails = {};
+     if (providerMap["nextStep"] != null && providerMap["nextStep"]["codeDeliveryDetails"] != null) {
+       deliveryDetails = providerMap["nextStep"]["codeDeliveryDetails"];
+     }
+     CognitoSignUpResultProvider providerData = CognitoSignUpResultProvider(AuthNextSignUpStep(rawDetails: deliveryDetails));
     return CognitoSignUpResult(providerData, signUpResponse["signUpState"]);
   }
 }

@@ -15,9 +15,14 @@ class CognitoSignUpResultProvider {
 class AuthNextSignUpStep {
   Map additionalInfo;
   AuthCodeDeliveryDetails codeDeliveryDetails;
-  AuthNextSignUpStep(rawDetails, { additionalInfo = const {}}) {
+  AuthNextSignUpStep({ rawDetails, additionalInfo = const {}}) {
     this.additionalInfo = additionalInfo;
-    this.codeDeliveryDetails = AuthCodeDeliveryDetails(rawDetails["attributeName"], rawDetails["deliveryMedium"], rawDetails["destination"]);
+    if (rawDetails != null) {
+      String attributeName = rawDetails["attributeName"] != null ? rawDetails["attributeName"] : "";
+      String deliveryMedium = rawDetails["deliveryMedium"] != null ? rawDetails["deliveryMedium"] : "";
+      String destination = rawDetails["destination"] != null ?  rawDetails["destination"] : "";
+      this.codeDeliveryDetails = AuthCodeDeliveryDetails(attributeName , deliveryMedium, destination);
+    }
   }
 }
 

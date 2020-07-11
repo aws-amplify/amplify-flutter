@@ -118,7 +118,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
 
   private fun getUsername(@NonNull request: CognitoSignUpRequest): String {
     var username: String = "";
-    if (request.providerOptions?.containsKey("usernameAttribute")!!) {
+    if (request.providerOptions != null && request.providerOptions.containsKey("usernameAttribute")) {
       when (request.providerOptions.get("usernameAttribute")) {
         "email" -> {
           username = request.userAttributes.get("email") as String;
