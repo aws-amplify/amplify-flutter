@@ -19,8 +19,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
+  final emailController = TextEditingController();
+  final phoneController = TextEditingController();
+  final confirmationCodeController = TextEditingController();
+
   bool _isAmplifyConfigured = false;
   Amplify amplify = new Amplify();
+  String authState;
   String signUpResult;
 
   @override
@@ -48,24 +55,27 @@ class _MyAppState extends State<MyApp> {
 
     setState(() {
       _isAmplifyConfigured = true;
+      authState = "SIGN_UP";
     });
   }
 
   void _signUp() async {
     Map<String, dynamic> userAttributes = {
-      "email": "dustin.noyes@gmail.com",
-      "phone_number": "+14252933357",
+      "email": emailController.text,
+      "phone_number": phoneController.text,
     };
     try {
       CognitoSignUpResult res = await Amplify.Auth.signUp(
         request: CognitoSignUpRequest(
-          username: "dnnoyes",
-          password: "!Hodor546",
+          username: usernameController.text,
+          password: passwordController.text,
           options: CognitoSignUpOptions(
               userAttributes: userAttributes
           )
         ), 
-        success: (res) => print("callback: " + res.toString()),
+        success: (res) => setState(() {
+          authState = res.signUpState;
+        }),
         error: (res) => print("callback error: " + res.toString())
       );
       setState(() {
@@ -74,6 +84,74 @@ class _MyAppState extends State<MyApp> {
     } catch (e) {
       print(e);
     }
+  }
+
+  Widget showConfirmSignUp() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        Expanded( // wrap your Column in Expanded
+          child: Column(
+            children: [
+              TextFormField(
+                controller: confirmationCodeController,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.person),
+                  hintText: 'The code we sent you',
+                  labelText: 'Confirmation Code *',
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget showSignUp() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        Expanded( // wrap your Column in Expanded
+          child: Column(
+            children: [
+              TextFormField(
+                controller: usernameController,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.person),
+                  hintText: 'The name you will use to login',
+                  labelText: 'Username *',
+                ),
+              ),
+              TextFormField(
+                controller: passwordController,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.lock),
+                  hintText: 'The password you will use to login',
+                  labelText: 'Password *',
+                ),
+              ),
+              TextFormField(
+                controller: emailController,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.email),
+                  hintText: 'Your email address',
+                  labelText: 'Email *',
+                ),
+              ),
+              TextFormField(
+                controller: phoneController,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.phone),
+                  hintText: 'Your phone number',
+                  labelText: 'Phone number *',
+                ),
+              )
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
   @override
@@ -91,14 +169,13 @@ class _MyAppState extends State<MyApp> {
               children: <Widget>[
                 const Padding(padding: EdgeInsets.all(10.0)),
                 RaisedButton(
-                  onPressed: _configureAmplify,
+                  onPressed: _isAmplifyConfigured ? null: _configureAmplify,
                   child: const Text('configure'),
                 ),
-                // const Padding(padding: EdgeInsets.all(10.0)),
-                // RaisedButton(
-                //   onPressed: _signIn,
-                //   child: const Text('sign in'),
-                // ),
+
+                const Padding(padding: EdgeInsets.all(10.0)),
+                if (this.authState == "SIGN_UP") showSignUp(),
+                if (this.authState == "CONFIRM_SIGN_UP_STEP") showConfirmSignUp(),
                 const Padding(padding: EdgeInsets.all(10.0)),
                 RaisedButton(
                   onPressed: _signUp,
