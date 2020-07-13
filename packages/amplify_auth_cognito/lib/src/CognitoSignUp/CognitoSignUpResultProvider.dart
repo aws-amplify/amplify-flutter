@@ -5,11 +5,6 @@ class CognitoSignUpResultProvider {
   CognitoSignUpResultProvider(AuthNextSignUpStep nextStep) {
     this.authNextSignUpStep = nextStep;
   }
-  Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> res = <String, dynamic>{};
-    res['authNextSignUpStep'] = authNextSignUpStep;
-    return res;
-  }
 }
 
 class AuthNextSignUpStep {

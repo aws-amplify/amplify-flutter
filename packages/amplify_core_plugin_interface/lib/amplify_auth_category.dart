@@ -16,7 +16,7 @@ class AuthCategory {
   }
 
   Future<SignUpResult> signUp({@required SignUpRequest request, Function(SignUpResult) success, Function(SignUpResult) error}) {
-    /// call `put` on all the plugins
+    /// call `signUp` on all the plugins
     return plugins.length == 1 ? plugins[0].signUp(request: request, success: success, error: error) : null;
   }
 
