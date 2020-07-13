@@ -29,6 +29,8 @@ void main() {
               }
             }
           };
+        } else if (testCode == 2) {
+          throw PlatformException(code: "AmplifyException");
         }
       } else {
         return true;
@@ -62,6 +64,36 @@ void main() {
           "testCode": 1
         })
     );
-    expect(await Amplify.Auth.signUp({request: req}), isInstanceOf<CognitoSignUpResult>());
+    expect(await Amplify.Auth.signUp(request: req), isInstanceOf<CognitoSignUpResult>());
+  });
+
+  test('successful signUp request results in success callback call', () async {
+    var testInt = 0;
+    CognitoSignUpRequest req = CognitoSignUpRequest(
+      username: 'testUser',
+      password: '123',
+      options: CognitoSignUpOptions(
+        userAttributes: {
+          "email": "test@test.com",
+          "testCode": 1
+        })
+    );
+    await Amplify.Auth.signUp(request: req, success: (res) => testInt++);
+    expect(testInt, equals(1));
+  });
+
+  test('failed signUp request results in error callback call', () async {
+    var testInt = 0;
+    CognitoSignUpRequest req = CognitoSignUpRequest(
+      username: 'testUser',
+      password: '123',
+      options: CognitoSignUpOptions(
+        userAttributes: {
+          "email": "test@test.com",
+          "testCode": 2
+        })
+    );
+    await Amplify.Auth.signUp(request: req, error: (res) => testInt++);
+    expect(testInt, equals(1));
   });
 }
