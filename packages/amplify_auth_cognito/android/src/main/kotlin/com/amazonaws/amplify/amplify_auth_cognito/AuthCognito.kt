@@ -95,7 +95,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
         request.password,
         formatUserAttributes(request.userAttributes),
           { result -> this.mainActivity?.runOnUiThread({ prepareResult(flutterResult, result)}) },
-          { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, signUpFailure, (error.cause as UsernameExistsException).errorMessage)}) }
+          { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, signUpFailure, error.localizedMessage)}) }
       );
     } catch(e: Exception) {
       prepareError(flutterResult, e, signUpFailure, "Error sending SignUpRequest")

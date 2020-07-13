@@ -55,20 +55,21 @@ class _MyAppState extends State<MyApp> {
     Map<String, dynamic> userAttributes = {
       "email": "dustin.noyes@gmail.com",
       "phone_number": "+14252933357",
-      "family_name": "Noyes"
     };
     try {
       CognitoSignUpResult res = await Amplify.Auth.signUp(
-        CognitoSignUpRequest(
+        request: CognitoSignUpRequest(
           username: "dnnoyes",
           password: "!Hodor546",
           options: CognitoSignUpOptions(
               userAttributes: userAttributes
           )
-        )
+        ), 
+        success: (res) => print("callback: " + res.toString()),
+        error: (res) => print("callback error: " + res.toString())
       );
       setState(() {
-        signUpResult = jsonEncode(res);
+        signUpResult = res.toString();
       });
     } catch (e) {
       print(e);

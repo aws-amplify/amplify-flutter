@@ -1,3 +1,6 @@
+import 'dart:collection';
+import 'dart:convert';
+
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -22,7 +25,7 @@ void main() {
             "signUpState": "CONFIRM_SIGN_UP_STEP",
             "providerData" : {
               "nextStep": {
-                "codeDeliveryDetails": {}
+                "codeDeliveryDetails":  { "atttibuteName": "email" }
               }
             }
           };
@@ -59,19 +62,6 @@ void main() {
           "testCode": 1
         })
     );
-    expect(await Amplify.Auth.signUp(req), isInstanceOf<CognitoSignUpResult>());
-  });
-
-  test('signUp request returns a CognitoSignUpResponse', () async {
-    CognitoSignUpRequest req = CognitoSignUpRequest(
-      username: 'testUser',
-      password: '123',
-      options: CognitoSignUpOptions(
-        userAttributes: {
-          "email": "test@test.com",
-          "testCode": 1
-        })
-    );
-    expect(await Amplify.Auth.signUp(req), isInstanceOf<CognitoSignUpResult>());
+    expect(await Amplify.Auth.signUp({request: req}), isInstanceOf<CognitoSignUpResult>());
   });
 }

@@ -10,24 +10,37 @@ const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/auth_cognito
 class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   @override
-  Future<SignUpResult> signUp(SignUpRequest request) async {
-     final Map<String, dynamic> data =
-        await _channel.invokeMapMethod<String, dynamic>(
-      'signUp',
-      <String, dynamic>{
-        'data': request.serializeAsMap(),
-      },
-    );
-    return _formatSignUpResponse(data);
+  Future<SignUpResult> signUp({SignUpRequest request, Function(CognitoSignUpResult) success, Function(CognitoSignUpResult) error}) async {
+    CognitoSignUpResult res;
+    try {
+      final Map<String, dynamic> data =
+      await _channel.invokeMapMethod<String, dynamic>(
+        'signUp',
+        <String, dynamic>{
+          'data': request.serializeAsMap(),
+        },
+      );
+      res = _formatSignUpResponse(data);
+      return res;
+      
+    } on PlatformException catch(e) {
+      res = _formatSignUpError(e);
+      return res;
+    }
   }
 
   CognitoSignUpResult _formatSignUpResponse(Map<String, dynamic> signUpResponse) {
      Map<dynamic, dynamic> providerMap = signUpResponse["providerData"];
      Map<String , dynamic> deliveryDetails = {};
      if (providerMap["nextStep"] != null && providerMap["nextStep"]["codeDeliveryDetails"] != null) {
-       deliveryDetails = providerMap["nextStep"]["codeDeliveryDetails"];
+       deliveryDetails = Map.from(providerMap["nextStep"]["codeDeliveryDetails"]);
      }
      CognitoSignUpResultProvider providerData = CognitoSignUpResultProvider(AuthNextSignUpStep(rawDetails: deliveryDetails));
     return CognitoSignUpResult(providerData, signUpResponse["signUpState"]);
+  }
+
+  CognitoSignUpResult _formatSignUpError(PlatformException error) {
+    CognitoSignUpResultProvider providerData = CognitoSignUpResultProvider(AuthNextSignUpStep(rawDetails: {}));
+    return CognitoSignUpResult(providerData, "ERROR", error); 
   }
 }
