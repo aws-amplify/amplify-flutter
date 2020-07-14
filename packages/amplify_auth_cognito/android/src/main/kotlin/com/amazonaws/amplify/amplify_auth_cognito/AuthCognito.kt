@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.util.Log
 import androidx.annotation.NonNull
-import com.amazonaws.amplify.amplify_auth_cognito.CognitoSignUpRequest
 import com.amazonaws.services.cognitoidentityprovider.model.UsernameExistsException
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.auth.AuthUserAttribute
@@ -58,7 +57,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     when (call.method) {
       "signUp" ->
         try {
-          onSignUp(result, SignUpRequest((call.arguments as HashMap<String, String>).get("data") as HashMap<String, String>))
+          onSignUp(result, (call.arguments as HashMap<String, *>).get("data") as HashMap<String, *>)
         }
         catch (e: Exception) {
           result.error("AmplifyException", "Error casting signUp parameter map", e.message )
@@ -88,12 +87,12 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     channel.setMethodCallHandler(null)
   }
 
-  private fun onSignUp (@NonNull flutterResult: Result, @NonNull request: SignUpRequest) {
+  private fun onSignUp (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
     try {
       Amplify.Auth.signUp(
         getUsername(request),
-        request.password,
-        formatUserAttributes(request.userAttributes),
+        request.get("password") as String,
+        formatUserAttributes(request.get("userAttributes") as HashMap<String, String>),
           { result -> this.mainActivity?.runOnUiThread({ prepareResult(flutterResult, result)}) },
           { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, signUpFailure, error.localizedMessage)}) }
       );
@@ -116,19 +115,23 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
   }
 
 
-  private fun getUsername(@NonNull request: CognitoSignUpRequest): String {
+  private fun getUsername(@NonNull request: HashMap<String, *>): String {
     var username: String = "";
-    if (request.providerOptions != null && request.providerOptions.containsKey("usernameAttribute")) {
-      when (request.providerOptions.get("usernameAttribute")) {
-        "email" -> {
-          username = request.userAttributes.get("email") as String;
-        }
-        "phone_number" -> {
-          username = request.userAttributes.get("phone_number") as String;
+    if (request.containsKey("providerOptions")) {
+      var providerOptions = request.get("providerOptions") as HashMap<String, *>;
+      var userAttributes = request.get("userAttributes") as HashMap<String, *>;
+      if (providerOptions != null && providerOptions.containsKey("usernameAttribute")) {
+        when (providerOptions.get("usernameAttribute")) {
+          "email" -> {
+            username = userAttributes.get("email") as String;
+          }
+          "phone_number" -> {
+            username = userAttributes.get("phone_number") as String;
+          }
         }
       }
     } else {
-      username = request.username as String;
+      username = request.get("username") as String;
     }
     return username;
   };
