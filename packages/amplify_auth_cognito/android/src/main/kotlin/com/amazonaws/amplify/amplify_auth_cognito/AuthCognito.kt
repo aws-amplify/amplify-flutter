@@ -58,10 +58,14 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     when (call.method) {
       "signUp" ->
         try {
-          onSignUp(result, CognitoSignUpRequest((call.arguments as HashMap<String, String>).get("data") as HashMap<String, String>))
+          onSignUp(result, SignUpRequest((call.arguments as HashMap<String, String>).get("data") as HashMap<String, String>))
         }
         catch (e: Exception) {
           result.error("AmplifyException", "Error casting signUp parameter map", e.message )
+        }
+      "confirmSignUp" ->
+        try {
+          onConfirmSignUp(result, ConfirmSignUpRequest((call.arguments as HashMap<String, String>).get("data") as HashMap<String, String>))
         }
       else -> result.notImplemented()
     }
@@ -88,7 +92,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     channel.setMethodCallHandler(null)
   }
 
-  private fun onSignUp (@NonNull flutterResult: Result, @NonNull request: CognitoSignUpRequest) {
+  private fun onSignUp (@NonNull flutterResult: Result, @NonNull request: SignUpRequest) {
     try {
       Amplify.Auth.signUp(
         getUsername(request),
@@ -100,6 +104,15 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     } catch(e: Exception) {
       prepareError(flutterResult, e, signUpFailure, "Error sending SignUpRequest")
     }
+  }
+
+  private fun onConfirmSignUp(@NonNull flutterResult: Result, @NonNull request: SignUpRequest){
+    Amplify.Auth.confirmSignUp(
+      requst.username;
+      request.confirmationCode,
+      { result -> Log.i("AuthQuickstart", if (result.isSignUpComplete) "Confirm signUp succeeded" else "Confirm sign up not complete") },
+      { error -> Log.e("AuthQuickstart", error.toString()) }
+    )
   }
 
   private fun prepareError(@NonNull flutterResult: Result, @NonNull error: Exception, @NonNull msg: String, @NonNull detail: String) {

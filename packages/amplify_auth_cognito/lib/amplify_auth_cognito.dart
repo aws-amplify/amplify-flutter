@@ -6,11 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import './method_channel_auth_cognito.dart';
-import './src/CognitoSignUp/CognitoSignUpResult.dart';
+import './src/types.dart';
 
-export './src/CognitoSignUp/CognitoSignUpRequest.dart';
-export './src/CognitoSignUp/CognitoSignUpResultProvider.dart';
-export './src/CognitoSignUp/CognitoSignUpResult.dart';
+export './src/types.dart';
 
 class AmplifyAuthCognito extends AuthPluginInterface {
 
@@ -35,5 +33,16 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     }
     return res;
   }   
+
+  Future<ConfirmSignUpResult> confirmSignUp({@required ConfirmSignUpRequest request, Function(CognitoConfirmSignUpResult) success, Function(CognitoConfirmSignUpResult) error}) async {
+    var res = await _instance.confirmSignUp(request: request, success: success, error: error);
+    if (res.platformException != null && error != null) {
+      error(res);
+    } else if (success != null) {
+      success(res);
+    }
+    return res;
+  }  
+
 }
 

@@ -86,6 +86,26 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  void _confirmSignUp() async {
+    try {
+      CognitoConfirmSignUpResult res = await Amplify.Auth.confirmSignUp(
+        request: CognitoConfirmSignUpRequest(
+          username: usernameController.text,
+          confirmationCode: confirmationCodeController.text,
+        ), 
+        success: (res) => setState(() {
+          authState = "CONFIRMED";
+        }),
+        error: (res) => print("callback error: " + res.toString())
+      );
+      setState(() {
+        signUpResult = res.toString();
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Widget showConfirmSignUp() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -99,8 +119,20 @@ class _MyAppState extends State<MyApp> {
                   icon: Icon(Icons.person),
                   hintText: 'The code we sent you',
                   labelText: 'Confirmation Code *',
-                ),
+                )
               ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed: _confirmSignUp,
+                child: const Text('Confirm SignUp'),
+              ),
+              const Padding(padding: EdgeInsets.all(2.0)),
+              Text(
+                'SignUpData: $signUpResult',
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.visible,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              )
             ],
           ),
         ),
@@ -146,6 +178,18 @@ class _MyAppState extends State<MyApp> {
                   hintText: 'Your phone number',
                   labelText: 'Phone number *',
                 ),
+              ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed: _signUp,
+                child: const Text('Sign Up'),
+              ),
+              const Padding(padding: EdgeInsets.all(2.0)),
+              Text(
+                'SignUpData: $signUpResult',
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.visible,
+                style: TextStyle(fontWeight: FontWeight.bold),
               )
             ],
           ),
@@ -176,18 +220,6 @@ class _MyAppState extends State<MyApp> {
                 const Padding(padding: EdgeInsets.all(10.0)),
                 if (this.authState == "SIGN_UP") showSignUp(),
                 if (this.authState == "CONFIRM_SIGN_UP_STEP") showConfirmSignUp(),
-                const Padding(padding: EdgeInsets.all(10.0)),
-                RaisedButton(
-                  onPressed: _signUp,
-                  child: const Text('sign up'),
-                ),
-                const Padding(padding: EdgeInsets.all(2.0)),
-                Text(
-                  'SignUpData: $signUpResult',
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.visible,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                )
               ]
             )
           ],
