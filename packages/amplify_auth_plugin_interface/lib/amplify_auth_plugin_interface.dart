@@ -22,8 +22,4 @@ abstract class AuthPluginInterface extends PlatformInterface {
   Future<SignUpResult> signUp({@required SignUpRequest request, Function(SignUpResult) success, Function(SignUpResult) error}) {
     throw UnimplementedError('signUp() has not been implemented.');
   }
-
-  Future<SignUpResult> confirmSignUp({@required ConfirmSignUpRequest request, Function(SignUpResult) success, Function(SignUpResult) error}) {
-    throw UnimplementedError('confirmSignUp() has not been implemented.');
-  }
 }

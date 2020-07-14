@@ -29,25 +29,6 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     }
   }
 
-  @override
-  Future<SignUpResult> confirmSignUp({ConfirmSignUpRequest request, Function(SignUpResult) success, Function(SignUpResult) error}) async {
-    SignUpResult res;
-    try {
-      final Map<String, dynamic> data =
-      await _channel.invokeMapMethod<String, dynamic>(
-        'confirmSignUp',
-        <String, dynamic>{
-          'data': request.serializeAsMap(),
-        },
-      );
-      res = _formatSignUpResponse(data);
-      return res;
-      
-    } on PlatformException catch(e) {
-      res = _formatSignUpError(e);
-      return res;
-    }
-  }
 
   CognitoSignUpResult _formatSignUpResponse(Map<String, dynamic> signUpResponse) {
     Map<dynamic, dynamic> providerMap = signUpResponse["providerData"];
@@ -63,12 +44,4 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     CognitoSignUpResultProvider providerData = CognitoSignUpResultProvider(AuthNextSignUpStep(rawDetails: {}));
     return CognitoSignUpResult(providerData, "ERROR", error); 
   }
-
-  // SignUpResult _formatConfirmSignUpResponse(Map<String, dynamic> signUpResponse) {
-  //   return SignUpResult();
-  // }
-
-  // SignUpResult _formatConfirmSignUpError(PlatformException error) {
-  //   return SignUpResult(); 
-  // }
 }

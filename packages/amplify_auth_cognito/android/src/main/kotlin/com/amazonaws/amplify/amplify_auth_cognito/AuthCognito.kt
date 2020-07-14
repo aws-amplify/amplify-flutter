@@ -62,12 +62,6 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
         catch (e: Exception) {
           result.error("AmplifyException", "Error casting signUp parameter map", e.message )
         }
-      "confirmSignUp" ->
-        try {
-          onConfirmSignUp(result, (call.arguments as HashMap<String, String>).get("data") as HashMap<String, String>)
-        }        catch (e: Exception) {
-          result.error("AmplifyException", "Error casting signUp parameter map", e.message )
-        }
       else -> result.notImplemented()
     }
   }
@@ -105,15 +99,6 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     } catch(e: Exception) {
       prepareError(flutterResult, e, signUpFailure, "Error sending SignUpRequest")
     }
-  }
-
-  private fun onConfirmSignUp(@NonNull flutterResult: Result, @NonNull request:  HashMap<String, *>){
-    Amplify.Auth.confirmSignUp(
-      request.get("username") as String,
-      request.get("confirmationCode") as String,
-            { result -> this.mainActivity?.runOnUiThread({ prepareSignUpResult(flutterResult, result)}) },
-            { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, signUpFailure, error.localizedMessage)}) }
-    )
   }
 
   private fun prepareError(@NonNull flutterResult: Result, @NonNull error: Exception, @NonNull msg: String, @NonNull detail: String) {

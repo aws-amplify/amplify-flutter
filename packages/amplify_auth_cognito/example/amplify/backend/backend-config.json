@@ -1,0 +1,10 @@
+{
+	"auth": {
+		"flutterauth24a9420d1": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"customAuth": false
+		}
+	}
+}

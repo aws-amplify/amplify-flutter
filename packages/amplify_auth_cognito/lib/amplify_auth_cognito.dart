@@ -33,16 +33,5 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     }
     return res;
   }   
-
-  Future<SignUpResult> confirmSignUp({@required ConfirmSignUpRequest request, Function(SignUpResult) success, Function(SignUpResult) error}) async {
-    var res = await _instance.confirmSignUp(request: request, success: success, error: error);
-    if (res.platformException != null && error != null) {
-      error(res);
-    } else if (success != null) {
-      success(res);
-    }
-    return res;
-  }  
-
 }
 

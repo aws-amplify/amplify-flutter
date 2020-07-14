@@ -86,26 +86,6 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  void _confirmSignUp() async {
-    try {
-      CognitoSignUpResult res = await Amplify.Auth.confirmSignUp(
-        request: CognitoConfirmSignUpRequest(
-          username: usernameController.text,
-          confirmationCode: confirmationCodeController.text,
-        ), 
-        success: (res) => setState(() {
-          authState = "CONFIRMED";
-        }),
-        error: (res) => print("callback error: " + res.toString())
-      );
-      setState(() {
-        signUpResult = res.toString();
-      });
-    } catch (e) {
-      print(e);
-    }
-  }
-
   Widget showConfirmSignUp() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -123,7 +103,7 @@ class _MyAppState extends State<MyApp> {
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
               RaisedButton(
-                onPressed: _confirmSignUp,
+                onPressed: null,
                 child: const Text('Confirm SignUp'),
               ),
               // const Padding(padding: EdgeInsets.all(2.0)),
