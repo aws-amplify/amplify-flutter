@@ -6,10 +6,9 @@ import 'dart:collection';
 import 'package:meta/meta.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-import './src/SignUp/SignUpRequest.dart';
-import './src/SignUp/SignUpResult.dart';
-export 'src/SignUp/SignUpRequest.dart';
-export 'src/SignUp/SignUpResult.dart';
+import 'src/types.dart';
+export 'src/types.dart';
+
 
 abstract class AuthPluginInterface extends PlatformInterface {
   /// Constructs a AmplifyPlatform.
@@ -22,5 +21,9 @@ abstract class AuthPluginInterface extends PlatformInterface {
 
   Future<SignUpResult> signUp({@required SignUpRequest request, Function(SignUpResult) success, Function(SignUpResult) error}) {
     throw UnimplementedError('signUp() has not been implemented.');
+  }
+
+  Future<SignUpResult> confirmSignUp({@required ConfirmSignUpRequest request, Function(SignUpResult) success, Function(SignUpResult) error}) {
+    throw UnimplementedError('confirmSignUp() has not been implemented.');
   }
 }

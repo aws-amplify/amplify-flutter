@@ -62,6 +62,12 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
         catch (e: Exception) {
           result.error("AmplifyException", "Error casting signUp parameter map", e.message )
         }
+      "confirmSignUp" ->
+        try {
+          onConfirmSignUp(result, (call.arguments as HashMap<String, String>).get("data") as HashMap<String, String>)
+        }        catch (e: Exception) {
+          result.error("AmplifyException", "Error casting signUp parameter map", e.message )
+        }
       else -> result.notImplemented()
     }
   }
@@ -93,7 +99,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
         getUsername(request),
         request.get("password") as String,
         formatUserAttributes(request.get("userAttributes") as HashMap<String, String>),
-          { result -> this.mainActivity?.runOnUiThread({ prepareResult(flutterResult, result)}) },
+          { result -> this.mainActivity?.runOnUiThread({ prepareSignUpResult(flutterResult, result)}) },
           { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, signUpFailure, error.localizedMessage)}) }
       );
     } catch(e: Exception) {
@@ -101,20 +107,28 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     }
   }
 
+  private fun onConfirmSignUp(@NonNull flutterResult: Result, @NonNull request:  HashMap<String, *>){
+    Amplify.Auth.confirmSignUp(
+      request.get("username") as String,
+      request.get("confirmationCode") as String,
+            { result -> this.mainActivity?.runOnUiThread({ prepareSignUpResult(flutterResult, result)}) },
+            { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, signUpFailure, error.localizedMessage)}) }
+    )
+  }
+
   private fun prepareError(@NonNull flutterResult: Result, @NonNull error: Exception, @NonNull msg: String, @NonNull detail: String) {
     System.out.println("${msg}: ${error}")
     flutterResult.error("AmplifyException", msg, "${detail}: see logs for additional details")
   }
 
-  private fun prepareResult(@NonNull flutterResult: Result, @NonNull result: AuthSignUpResult) {
+  private fun prepareSignUpResult(@NonNull flutterResult: Result, @NonNull result: AuthSignUpResult) {
     var parsedResult = mutableMapOf<String, Any>();
     parsedResult["signUpState"] = result.nextStep.signUpStep.toString();
     parsedResult["providerData"] = result.serializeToMap()
     ;
     flutterResult.success(parsedResult);
   }
-
-
+  
   private fun getUsername(@NonNull request: HashMap<String, *>): String {
     var username: String = "";
     if (request.containsKey("providerOptions")) {
