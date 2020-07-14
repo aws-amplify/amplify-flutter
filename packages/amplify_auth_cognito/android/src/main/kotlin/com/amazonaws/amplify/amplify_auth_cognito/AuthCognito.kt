@@ -58,7 +58,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     when (call.method) {
       "signUp" ->
         try {
-          onSignUp(result, CognitoSignUpRequest((call.arguments as HashMap<String, String>).get("data") as HashMap<String, String>))
+          onSignUp(result, SignUpRequest((call.arguments as HashMap<String, String>).get("data") as HashMap<String, String>))
         }
         catch (e: Exception) {
           result.error("AmplifyException", "Error casting signUp parameter map", e.message )
@@ -88,7 +88,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     channel.setMethodCallHandler(null)
   }
 
-  private fun onSignUp (@NonNull flutterResult: Result, @NonNull request: CognitoSignUpRequest) {
+  private fun onSignUp (@NonNull flutterResult: Result, @NonNull request: SignUpRequest) {
     try {
       Amplify.Auth.signUp(
         getUsername(request),
