@@ -49,6 +49,26 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     }
   }
 
+  @override
+  Future<SignInResult> signIn({SignInRequest request, Function(SignInResult) success, Function(SignInResult) error}) async {
+    SignInResult res;
+    try {
+      final Map<String, dynamic> data =
+      await _channel.invokeMapMethod<String, dynamic>(
+        'signIn',
+        <String, dynamic>{
+          'data': request.serializeAsMap(),
+        },
+      );
+      res = _formatSignInResponse(data);
+      return res;
+      
+    } on PlatformException catch(e) {
+      res = _formatSignInError(e);
+      return res;
+    }
+  }
+
   CognitoSignUpResult _formatSignUpResponse(Map<String, dynamic> signUpResponse) {
     Map<dynamic, dynamic> providerMap = signUpResponse["providerData"];
     Map<String , dynamic> deliveryDetails = {};
@@ -59,16 +79,23 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     return CognitoSignUpResult(providerData, signUpResponse["signUpState"]);
   }
 
+  CognitoSignInResult _formatSignInResponse(Map<String, dynamic> signInResponse) {
+    Map<dynamic, dynamic> providerMap = signInResponse["providerData"];
+    Map<String , dynamic> deliveryDetails = {};
+    if (providerMap["nextStep"] != null && providerMap["nextStep"]["codeDeliveryDetails"] != null) {
+      deliveryDetails = Map.from(providerMap["nextStep"]["codeDeliveryDetails"]);
+    }
+    CognitoSignInResultProvider providerData = CognitoSignInResultProvider(AuthNextSignInStep(rawDetails: deliveryDetails));
+    return CognitoSignInResult(providerData, signInResponse["signInState"]);
+  }
+
   CognitoSignUpResult _formatSignUpError(PlatformException error) {
     CognitoSignUpResultProvider providerData = CognitoSignUpResultProvider(AuthNextSignUpStep(rawDetails: {}));
     return CognitoSignUpResult(providerData, "ERROR", error); 
   }
 
-  // SignUpResult _formatConfirmSignUpResponse(Map<String, dynamic> signUpResponse) {
-  //   return SignUpResult();
-  // }
-
-  // SignUpResult _formatConfirmSignUpError(PlatformException error) {
-  //   return SignUpResult(); 
-  // }
+  CognitoSignInResult _formatSignInError(PlatformException error) {
+    CognitoSignInResultProvider providerData = CognitoSignInResultProvider(AuthNextSignInStep(rawDetails: {}));
+    return CognitoSignInResult(providerData, "ERROR", error); 
+  }
 }

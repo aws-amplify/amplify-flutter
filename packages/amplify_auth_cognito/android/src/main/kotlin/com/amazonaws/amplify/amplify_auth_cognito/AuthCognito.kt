@@ -4,12 +4,12 @@ import android.app.Activity
 import android.content.Context
 import android.util.Log
 import androidx.annotation.NonNull
-import com.amazonaws.services.cognitoidentityprovider.model.UsernameExistsException
-import com.amplifyframework.AmplifyException
+import com.amazonaws.AmazonServiceException
 import com.amplifyframework.auth.AuthUserAttribute
 import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
 import com.amplifyframework.auth.options.AuthSignUpOptions
+import com.amplifyframework.auth.result.AuthSignInResult
 import com.amplifyframework.auth.result.AuthSignUpResult
 import com.amplifyframework.core.Amplify
 import com.google.gson.Gson
@@ -23,7 +23,7 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
 import java.lang.reflect.Method
-import java.lang.reflect.Type
+import kotlin.properties.Delegates
 
 /** AuthCognito */
 public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
@@ -34,6 +34,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
   private var mainActivity: Activity? = null
   private var standardAttributes: Array<String> = arrayOf("address", "birthdate", "email", "family_name", "gender", "given_name", "locale", "middle_name", "name", "nickname", "phone_number", "preferred_username", "picture", "profile", "updated_at", "website", "zoneinfo")
   private var signUpFailure = "Amplify SignUp Failed"
+  private var signInFailure = "Amplify SignIn Failed"
 
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
@@ -68,9 +69,16 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
         }        catch (e: Exception) {
           result.error("AmplifyException", "Error casting signUp parameter map", e.message )
         }
-      else -> result.notImplemented()
+      "signIn" ->
+        try {
+          onSignIn(result, (call.arguments as HashMap<String, String>).get("data") as HashMap<String, String>)
+        } catch (e: Exception) {
+          result.error("AmplifyException", "Error casting signUp parameter map", e.message )
+        }
+        else -> result.notImplemented()
+      }
     }
-  }
+
 
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
@@ -116,14 +124,68 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     )
   }
 
+  private fun onSignIn (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
+    try {
+      Amplify.Auth.signIn(
+        request.get("username") as String,
+        request.get("password") as String,
+          { result -> this.mainActivity?.runOnUiThread({ prepareSignInResult(flutterResult, result)}) },
+          { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, signInFailure, error.localizedMessage)}) }
+      );
+    } catch(e: Exception) {
+      prepareError(flutterResult, e, signUpFailure, "Error sending SignUpRequest")
+    }
+  }
+
+  
   private fun prepareError(@NonNull flutterResult: Result, @NonNull error: Exception, @NonNull msg: String, @NonNull detail: String) {
     System.out.println("${msg}: ${error}")
-    flutterResult.error("AmplifyException", msg, "${detail}: see logs for additional details")
+    var amplifyException: HashMap<String, Any> = hashMapOf<String, Any>();
+
+    var cause: HashMap<String, Any> = hashMapOf<String, Any>();
+    if (error.cause is AmazonServiceException) {
+      cause.put("errorCode", (error.cause as AmazonServiceException).errorCode)
+      cause.put("errorMessage", (error.cause as AmazonServiceException).errorMessage)
+      cause.put("errorType", (error.cause as AmazonServiceException).errorType.toString())
+      cause.put("requestId", (error.cause as AmazonServiceException).requestId)
+      cause.put("serviceName", (error.cause as AmazonServiceException).serviceName)
+      cause.put("statusCode", (error.cause as AmazonServiceException).statusCode)
+    }
+
+    class TestClass {
+      var name : String;
+
+      constructor(name : String) {
+          this.name = name
+      }
+  }
+
+    amplifyException.put("detailMessage", error.message!!);
+    amplifyException.put("cause", cause);
+    amplifyException.put("recoverySuggestion", "see logs for additional details")
+
+//    amplifyException.put()
+//    var amplifyException: AmplifyException = AmplifyException(
+//            msg,
+//            "",
+//            recoverySuggestion
+//    )
+
+     var c: HashMap<String, Any>  = hashMapOf<String, Any>()
+    flutterResult.error("AmplifyException", msg, amplifyException)
   }
 
   private fun prepareSignUpResult(@NonNull flutterResult: Result, @NonNull result: AuthSignUpResult) {
     var parsedResult = mutableMapOf<String, Any>();
     parsedResult["signUpState"] = result.nextStep.signUpStep.toString();
+    parsedResult["providerData"] = result.serializeToMap()
+    ;
+    flutterResult.success(parsedResult);
+  }
+
+  private fun prepareSignInResult(@NonNull flutterResult: Result, @NonNull result: AuthSignInResult) {
+    var parsedResult = mutableMapOf<String, Any>();
+    parsedResult["signInState"] = result.nextStep.signInStep.toString();
     parsedResult["providerData"] = result.serializeToMap()
     ;
     flutterResult.success(parsedResult);

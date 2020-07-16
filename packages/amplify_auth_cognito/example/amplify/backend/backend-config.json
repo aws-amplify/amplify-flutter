@@ -1,0 +1,9 @@
+{
+	"auth": {
+		"signintestingflutterf9987771f9987771": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": []
+		}
+	}
+}

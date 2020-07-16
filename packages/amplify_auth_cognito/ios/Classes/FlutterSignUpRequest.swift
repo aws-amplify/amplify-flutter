@@ -6,7 +6,7 @@
 //
 
 import Foundation
-struct CognitoSignUpRequest {
+struct FlutterSignUpRequest {
   var username: String?
   var password: String?
   var userAttributes: Dictionary<String, String> = [:]

@@ -29,6 +29,7 @@ class _MyAppState extends State<MyApp> {
   Amplify amplify = new Amplify();
   String authState;
   String signUpResult;
+  String signInResult;
 
   @override
   void initState() {
@@ -55,7 +56,7 @@ class _MyAppState extends State<MyApp> {
 
     setState(() {
       _isAmplifyConfigured = true;
-      authState = "SIGN_UP";
+      authState = "SIGN_IN";
     });
   }
 
@@ -67,8 +68,8 @@ class _MyAppState extends State<MyApp> {
     try {
       CognitoSignUpResult res = await Amplify.Auth.signUp(
         request: CognitoSignUpRequest(
-          username: usernameController.text,
-          password: passwordController.text,
+          username: usernameController.text.trim(),
+          password: passwordController.text.trim(),
           options: CognitoSignUpOptions(
               userAttributes: userAttributes
           )
@@ -90,8 +91,8 @@ class _MyAppState extends State<MyApp> {
     try {
       CognitoSignUpResult res = await Amplify.Auth.confirmSignUp(
         request: CognitoConfirmSignUpRequest(
-          username: usernameController.text,
-          confirmationCode: confirmationCodeController.text,
+          username: usernameController.text.trim(),
+          confirmationCode: confirmationCodeController.text.trim(),
         ), 
         success: (res) => setState(() {
           authState = "CONFIRMED";
@@ -102,8 +103,43 @@ class _MyAppState extends State<MyApp> {
         signUpResult = res.toString();
       });
     } catch (e) {
+    
       print(e);
     }
+  }
+
+  void _signIn() async {
+    try {
+      CognitoSignInResult res = await Amplify.Auth.signIn(
+        request: CognitoSignInRequest(
+          username: usernameController.text.trim(),
+          password: passwordController.text.trim(),
+        ), 
+        success: (res) => setState(() {
+          print("signedIn: " + res.toString());
+          authState = "SIGNED_IN";
+        }),
+        error: (res) => print("callback error: " + res.toString())
+      );
+      setState(() {
+        signInResult = res.toString();
+        
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void _createUser() async {
+    setState(() {
+      authState = "Sign_UP";
+    });
+  }
+
+  void _backToSignIn() async {
+    setState(() {
+      authState = "Sign_In";
+    });
   }
 
   Widget showConfirmSignUp() {
@@ -116,7 +152,7 @@ class _MyAppState extends State<MyApp> {
               TextFormField(
                 controller: confirmationCodeController,
                 decoration: const InputDecoration(
-                  icon: Icon(Icons.person),
+                  icon: Icon(Icons.confirmation_number),
                   hintText: 'The code we sent you',
                   labelText: 'Confirmation Code *',
                 )
@@ -126,13 +162,48 @@ class _MyAppState extends State<MyApp> {
                 onPressed: _confirmSignUp,
                 child: const Text('Confirm SignUp'),
               ),
-              // const Padding(padding: EdgeInsets.all(2.0)),
-              // Text(
-              //   'SignUpData: $signUpResult',
-              //   textAlign: TextAlign.center,
-              //   overflow: TextOverflow.visible,
-              //   style: TextStyle(fontWeight: FontWeight.bold),
-              // )
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+Widget showSignIn() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        Expanded( // wrap your Column in Expanded
+          child: Column(
+            children: [
+              TextFormField(
+                controller: usernameController,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.person),
+                  hintText: 'Your username',
+                  labelText: 'Username *',
+                )
+              ),
+              TextFormField(
+                obscureText: true,
+                controller: passwordController,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.lock),
+                  hintText: 'Your password',
+                  labelText: 'Password *',
+                )
+              ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed: _signIn,
+                child: const Text('SignIn'),
+              ),
+
+            const Padding(padding: EdgeInsets.all(10.0)),
+            RaisedButton(
+              onPressed: _createUser,
+              child: const Text('Create User'),
+            ),
             ],
           ),
         ),
@@ -156,6 +227,7 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               TextFormField(
+                obscureText: true,
                 controller: passwordController,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.lock),
@@ -190,11 +262,26 @@ class _MyAppState extends State<MyApp> {
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.visible,
                 style: TextStyle(fontWeight: FontWeight.bold),
-              )
+              ),
+            const Padding(padding: EdgeInsets.all(10.0)),
+            RaisedButton(
+              onPressed:_backToSignIn,
+              child: const Text('Back to Sign In'),
+            ),
             ],
           ),
         ),
       ],
+    );
+  }
+
+  Widget showApp() {
+    return Text(
+      'Auth Status: $authState',
+      textAlign: TextAlign.center,
+      overflow: TextOverflow.visible,
+      style: TextStyle(fontWeight: FontWeight.bold),
+            
     );
   }
 
@@ -220,6 +307,8 @@ class _MyAppState extends State<MyApp> {
                 const Padding(padding: EdgeInsets.all(10.0)),
                 if (this.authState == "SIGN_UP") showSignUp(),
                 if (this.authState == "CONFIRM_SIGN_UP_STEP") showConfirmSignUp(),
+                if (this.authState == "CONFIRMED" || this.authState == "SIGN_IN") showSignIn(),
+                if (this.authState == 'SIGNED_IN') showApp(),
               ]
             )
           ],

@@ -26,14 +26,21 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
     switch call.method {
       case "signUp":
         let arguments = call.arguments as! Dictionary<String, AnyObject>
-        let request = CognitoSignUpRequest(dict: arguments["data"] as! NSMutableDictionary)
-        onSignUp(flutterResult: result, request: request)
+        let request = FlutterSignUpRequest(dict: arguments["data"] as! NSMutableDictionary)
+      case "confirmSignUp":
+        let arguments = call.arguments as! Dictionary<String, AnyObject>
+        let  request = FlutterConfirmSignUpRequest(dict: arguments["data"] as! NSMutableDictionary)
+        onConfirmSignUp(flutterResult: result, request: request)
+      case "signIn":
+        let arguments = call.arguments as! Dictionary<String, AnyObject>
+        let request = FlutterSignInRequest(dict: arguments["data"] as! NSMutableDictionary)
+        onSignIn(flutterResult: result, request: request);
       default:
         result(FlutterMethodNotImplemented)
     }
   }
 
-  private func onSignUp(flutterResult: @escaping FlutterResult, request: CognitoSignUpRequest) {
+  private func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest) {
     let options = AuthSignUpRequest.Options(userAttributes: formatUserAttributes(attributes: request.userAttributes))
     let username = getUsername(request: request)
 
@@ -101,6 +108,47 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
     }
   }
 
+  private func onConfirmSignUp(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignUpRequest) {
+    _ = Amplify.Auth.confirmSignUp(for: request.username!, confirmationCode:request.confirmationCode!) { response in
+     switch response {
+       case .success(let signUpResult):
+        if case .done = signUpResult.nextStep {
+            var responseDict: [String: Any] = [:]
+            let providerDataDict: [String: Any] = [:]
+            responseDict["signUpState"] = "DONE"
+            responseDict["providerData"] = providerDataDict;
+            flutterResult(responseDict)
+         }
+       case .failure(let signUpError):
+        print("An error occurred while registering a user")
+        if case .service(_, _, _?) = signUpError {
+            self.prepareError(flutterResult: flutterResult, error: signUpError, msg: self.signUpFailure, detail: signUpError.errorDescription)
+        }
+      }
+    }
+  }
+
+    private func onSignIn(flutterResult: @escaping FlutterResult, request: FlutterSignInRequest) {
+        _ = Amplify.Auth.signIn(username: request.username!, password:request.password!) { response in
+         switch response {
+           case .success(let signUpResult):
+            if case .done = signUpResult.nextStep {
+                var responseDict: [String: Any] = [:]
+                let providerDataDict: [String: Any] = [:]
+                responseDict["signInState"] = "DONE"
+                responseDict["providerData"] = providerDataDict;
+                flutterResult(responseDict)
+             }
+           case .failure(let signUpError):
+            print("An error occurred while registering a user")
+            if case .service(let errorDescription, let recoverySuggestion, let error?) = signUpError {
+                
+                self.prepareError(flutterResult: flutterResult, error: signUpError, msg: self.signUpFailure, detail: signUpError.errorDescription)
+            }
+          }
+        }
+    }
+
   private func prepareError(flutterResult: FlutterResult, error: Error, msg: String, detail: String) {
         print("\(msg): \(error)?")
         flutterResult(FlutterError(
@@ -109,7 +157,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
           details: "\(detail): see logs for additional details"))
     }
     
-  private func getUsername(request: CognitoSignUpRequest) -> String {
+  private func getUsername(request: FlutterSignUpRequest) -> String {
     var username: String = ""
     if (request.providerOptions?["usernameAttribute"] == nil && request.username != nil) {
         username = request.username!;
