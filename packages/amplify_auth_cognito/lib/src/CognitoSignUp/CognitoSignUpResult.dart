@@ -4,5 +4,5 @@ import 'package:flutter/services.dart';
 
 class CognitoSignUpResult extends SignUpResult {
   CognitoSignUpResultProvider provider;
-  CognitoSignUpResult(this.provider, String signUpState, [AuthError error]) : super.init(signUpState, error);
+  CognitoSignUpResult(this.provider, String signUpState, [AuthError error]) : super.init(signUpState, provider, error);
 }

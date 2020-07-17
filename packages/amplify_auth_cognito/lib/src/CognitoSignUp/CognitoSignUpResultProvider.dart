@@ -1,6 +1,7 @@
+import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
 
-class CognitoSignUpResultProvider {
+class CognitoSignUpResultProvider extends SignUpResultProvider {
   AuthNextSignUpStep authNextSignUpStep;
   CognitoSignUpResultProvider(AuthNextSignUpStep nextStep) {
     this.authNextSignUpStep = nextStep;

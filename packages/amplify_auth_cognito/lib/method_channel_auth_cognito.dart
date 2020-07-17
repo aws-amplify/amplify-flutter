@@ -14,7 +14,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   @override
   Future<SignUpResult> signUp({SignUpRequest request, Function(SignUpResult) success, Function(SignUpResult) error}) async {
-    CognitoSignUpResult res;
+    SignUpResult res;
     try {
       final Map<String, dynamic> data =
       await _channel.invokeMapMethod<String, dynamic>(
@@ -33,17 +33,17 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   }
 
 
-  CognitoSignUpResult _formatSignUpResponse(Map<String, dynamic> signUpResponse) {
+  SignUpResult _formatSignUpResponse(Map<String, dynamic> signUpResponse) {
     Map<dynamic, dynamic> providerMap = signUpResponse["providerData"];
     Map<String , dynamic> deliveryDetails = {};
     if (providerMap["nextStep"] != null && providerMap["nextStep"]["codeDeliveryDetails"] != null) {
       deliveryDetails = Map.from(providerMap["nextStep"]["codeDeliveryDetails"]);
     }
     CognitoSignUpResultProvider providerData = CognitoSignUpResultProvider(AuthNextSignUpStep(rawDetails: deliveryDetails));
-    return CognitoSignUpResult(providerData, signUpResponse["signUpState"]);
+    return SignUpResult.init(signUpResponse["signUpState"], providerData);
   }
 
-  CognitoSignUpResult _formatSignUpError(PlatformException e) {
+  SignUpResult _formatSignUpError(PlatformException e) {
     CognitoSignUpResultProvider providerData = CognitoSignUpResultProvider(AuthNextSignUpStep(rawDetails: {}));
     LinkedHashMap eMap = new LinkedHashMap<String, String>();
     e.details.forEach((k, v) => {
@@ -52,7 +52,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       }
     });
     AuthError error = AuthError.init(authErrorType: e.message, errorMap: eMap);
-    return CognitoSignUpResult(providerData, "ERROR", error); 
+    return SignUpResult.init("ERROR", providerData, error); 
   }
 }
 
