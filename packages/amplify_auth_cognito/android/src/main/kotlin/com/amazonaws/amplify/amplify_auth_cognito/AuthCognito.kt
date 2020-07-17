@@ -4,8 +4,10 @@ import android.app.Activity
 import android.content.Context
 import android.util.Log
 import androidx.annotation.NonNull
-import com.amazonaws.services.cognitoidentityprovider.model.UsernameExistsException
-import com.amplifyframework.AmplifyException
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpRequest
+import com.amazonaws.auth.policy.Resource
+import com.amazonaws.services.cognitoidentityprovider.model.*
+import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthUserAttribute
 import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
@@ -23,7 +25,6 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
 import java.lang.reflect.Method
-import java.lang.reflect.Type
 
 /** AuthCognito */
 public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
@@ -32,8 +33,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
   private lateinit var context: Context
   var gson = Gson()
   private var mainActivity: Activity? = null
-  private var standardAttributes: Array<String> = arrayOf("address", "birthdate", "email", "family_name", "gender", "given_name", "locale", "middle_name", "name", "nickname", "phone_number", "preferred_username", "picture", "profile", "updated_at", "website", "zoneinfo")
-  private var signUpFailure = "Amplify SignUp Failed"
+  private var signUpFailure = "SIGN_UP_FAILED"
 
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
@@ -88,11 +88,12 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
   }
 
   private fun onSignUp (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
+    var req = FlutterSignUpRequest(request);
     try {
       Amplify.Auth.signUp(
-        getUsername(request),
-        request.get("password") as String,
-        formatUserAttributes(request.get("userAttributes") as HashMap<String, String>),
+        req.username,
+        req.password,
+        req.userAttributes,
           { result -> this.mainActivity?.runOnUiThread({ prepareSignUpResult(flutterResult, result)}) },
           { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, signUpFailure, error.localizedMessage)}) }
       );
@@ -103,7 +104,42 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
 
   private fun prepareError(@NonNull flutterResult: Result, @NonNull error: Exception, @NonNull msg: String, @NonNull detail: String) {
     System.out.println("${msg}: ${error}")
-    flutterResult.error("AmplifyException", msg, "${detail}: see logs for additional details")
+    var errorMap: HashMap<String, Any> = HashMap();
+
+    if (error is AuthException) {
+      if (error.cause is InvalidParameterException) {
+        errorMap.put("INVALID_PARAMETER", (error.cause as InvalidParameterException).errorMessage)
+      } else if (error.cause is UsernameExistsException) {
+        errorMap.put("USERNAME_EXISTS", (error.cause as UsernameExistsException).errorMessage)
+      } else if (error.cause is AliasExistsException) {
+        errorMap.put("ALIAS_EXISTS", (error.cause as UsernameExistsException).errorMessage)
+      } else if (error.cause is CodeDeliveryFailureException) {
+        errorMap.put("CODE_DELIVERY_FAILURE", (error.cause as CodeDeliveryFailureException).errorMessage)
+      } else if (error.cause is InternalErrorException) {
+        errorMap.put("INTERNAL_ERROR", (error.cause as InternalErrorException).errorMessage)
+      } else if (error.cause is InvalidLambdaResponseException) {
+        errorMap.put("INVALID_LAMBDA_RESPONSE", (error.cause as InvalidLambdaResponseException).errorMessage)
+      } else if (error.cause is InvalidPasswordException) {
+        errorMap.put("INVALID_PASSWORD", (error.cause as InvalidPasswordException).errorMessage)
+      } else if (error.cause is NotAuthorizedException) {
+        errorMap.put("NOT_AUTHORIZED", (error.cause as NotAuthorizedException).errorMessage)
+      } else if (error.cause is ResourceNotFoundException) {
+        errorMap.put("RESOURCE_NOT_FOUND", (error.cause as ResourceNotFoundException).errorMessage)
+      } else if (error.cause is TooManyRequestsException) {
+        errorMap.put("TOO_MANY_REQUESTS", (error.cause as TooManyRequestsException).errorMessage)
+      } else if (error.cause is UnexpectedLambdaException) {
+        errorMap.put("UNEXPECTED_LAMBDA", (error.cause as UnexpectedLambdaException).errorMessage)
+      } else if (error.cause is UserLambdaValidationException) {
+        errorMap.put("USER_LAMBDA_VALIDATION", (error.cause as UserLambdaValidationException).errorMessage)
+      } else if (error.cause is TooManyFailedAttemptsException) {
+        errorMap.put("TOO_MANY_FAILED_REQUESTS", (error.cause as TooManyFailedAttemptsException).errorMessage)
+      } else {
+        errorMap.put("UNKNOWN", "Unknown error registering user.")
+      }
+    }
+
+
+    flutterResult.error("AmplifyException", msg, errorMap)
   }
 
   private fun prepareSignUpResult(@NonNull flutterResult: Result, @NonNull result: AuthSignUpResult) {
@@ -112,64 +148,6 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     parsedResult["providerData"] = result.serializeToMap()
     ;
     flutterResult.success(parsedResult);
-  }
-  
-  private fun getUsername(@NonNull request: HashMap<String, *>): String {
-    var username: String = "";
-    if (request.containsKey("providerOptions")) {
-      var providerOptions = request.get("providerOptions") as HashMap<String, *>;
-      var userAttributes = request.get("userAttributes") as HashMap<String, *>;
-      if (providerOptions != null && providerOptions.containsKey("usernameAttribute")) {
-        when (providerOptions.get("usernameAttribute")) {
-          "email" -> {
-            username = userAttributes.get("email") as String;
-          }
-          "phone_number" -> {
-            username = userAttributes.get("phone_number") as String;
-          }
-        }
-      }
-    } else {
-      username = request.get("username") as String;
-    }
-    return username;
-  };
-
-  private fun formatUserAttributes(@NonNull attributes: HashMap<String, String>): AuthSignUpOptions {
-      var options: AuthSignUpOptions.Builder<*> =  AuthSignUpOptions.builder();
-      var authUserAttributes: MutableList<AuthUserAttribute> = mutableListOf();
-      var attributeMethods = AuthUserAttributeKey::class.java.declaredMethods;
-
-      attributes.forEach { (key, value) ->
-          var keyCopy: String = key;
-          if(!standardAttributes.contains(keyCopy)){
-              if (!key.startsWith("custom:")){
-                  keyCopy = "custom:" + keyCopy;
-              }
-              authUserAttributes.add(AuthUserAttribute(AuthUserAttributeKey.custom(keyCopy), value))
-          } else {
-              var t: Method = attributeMethods.asIterable().find { it.name.equals(convertSnakeToCamel(key)) } as Method;
-              var attr: AuthUserAttributeKey = t.invoke(null) as AuthUserAttributeKey;
-              authUserAttributes.add(AuthUserAttribute(attr, value));
-          }
-      }
-      options.userAttributes(authUserAttributes);
-      return options.build();
-  }
-
-  // Amplify Android expects camel case, while iOS expects snake.  So at least one plugin implementation should convert.
-  private fun convertSnakeToCamel(@NonNull string: String): String {
-      val camelCase = StringBuilder()
-      var prevChar = '$'
-      string.forEach {
-          if(prevChar.equals('_')){
-              camelCase.append(it.toUpperCase())
-          }else if(!it.equals('_')){
-              camelCase.append(it)
-          }
-          prevChar = it
-      }
-      return camelCase.toString();
   }
 
   //convert a data class to a map

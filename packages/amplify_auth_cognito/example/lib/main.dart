@@ -63,6 +63,8 @@ class _MyAppState extends State<MyApp> {
     Map<String, dynamic> userAttributes = {
       "email": emailController.text,
       "phone_number": phoneController.text,
+      "given_name": "Noyes",
+      "address": "123 My Street"
     };
     try {
       CognitoSignUpResult res = await Amplify.Auth.signUp(
@@ -70,7 +72,8 @@ class _MyAppState extends State<MyApp> {
           username: usernameController.text,
           password: passwordController.text,
           options: CognitoSignUpOptions(
-              userAttributes: userAttributes
+              userAttributes: userAttributes,
+              providerOptions: CognitoSignUpProvider(usernameAttribute: "email")
           )
         ), 
         success: (res) => setState(() {

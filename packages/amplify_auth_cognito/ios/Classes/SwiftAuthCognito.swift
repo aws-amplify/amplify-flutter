@@ -5,8 +5,6 @@ import AmplifyPlugins
 
 public class SwiftAuthCognito: NSObject, FlutterPlugin {
     
-  let standardAttributes = ["address", "birthdate", "email", "family_name", "gender", "given_name", "locale", "middle_name", "name", "nickname", "phone_number", "preferred_username", "picture", "profile", "updated_at", "website", "zoneinfo"]
-    
   let signUpFailure = "Amplify SignUp Failed"
     
   public static func register(with registrar: FlutterPluginRegistrar) {
@@ -26,18 +24,16 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
     switch call.method {
       case "signUp":
         let arguments = call.arguments as! Dictionary<String, AnyObject>
-        let request = CognitoSignUpRequest(dict: arguments["data"] as! NSMutableDictionary)
+        let request = FlutterSignUpRequest(dict: arguments["data"] as! NSMutableDictionary)
         onSignUp(flutterResult: result, request: request)
       default:
         result(FlutterMethodNotImplemented)
     }
   }
 
-  private func onSignUp(flutterResult: @escaping FlutterResult, request: CognitoSignUpRequest) {
-    let options = AuthSignUpRequest.Options(userAttributes: formatUserAttributes(attributes: request.userAttributes))
-    let username = getUsername(request: request)
-
-    _ = Amplify.Auth.signUp(username: username, password:request.password!, options: options) { response in
+  private func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest) {
+        
+    _ = Amplify.Auth.signUp(username: request.getUsername(), password:request.password, options:  AuthSignUpRequest.Options(userAttributes:request.userAttributes)) { response in
      switch response {
        case .success(let signUpResult):
         if case .done = signUpResult.nextStep {
@@ -94,46 +90,49 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
         }
        case .failure(let signUpError):
         print("An error occurred while registering a user")
-        if case .service(_, _, _?) = signUpError {
-            self.prepareError(flutterResult: flutterResult, error: signUpError, msg: self.signUpFailure, detail: signUpError.errorDescription)
+        if case .service(let description, let suggestion, let error?) = signUpError {
+          var errorDict: [String: Any] = [:]
+          switch "\(error)" {
+            case "invalidParameter":
+              errorDict["INVALID_PARAMETER"] = description;
+            case "usernameExists":
+              errorDict["USERNAME_EXISTS"] = description;
+            case "aliasExists":
+              errorDict["ALIAS_EXISTS"] = description;
+            case "codeDeliveryFailure":
+              errorDict["CODE_DELIVERY_FAILURE"] = description
+            case "internalError":
+              errorDict["INTERNAL_ERROR"] = description
+            case "invalidLambdaResponse":
+              errorDict["INVALID_LAMBDA_RESPONSE"] = description
+            case "invalidPassword":
+              errorDict["INVALID_PASSWORD"] = description
+            case "notAuthorized":
+              errorDict["NOT_AUTHORIZED"] = description
+            case "resourceNotFound":
+              errorDict["RESOURCE_NOT_FOUND"] = description
+            case "tooManyRequests":
+              errorDict["TOO_MANY_REQUESTS"] = description
+            case "unexpectedLambda":
+              errorDict["UNEXPECTED_LAMBDA"] = description
+            case "userLambdaValidation":
+              errorDict["USER_LAMBDA_VALIDATION"] = description
+            case "tooManyFailedAttempts":
+              errorDict["TOO_MANY_FAILED_ATTEMPTS"] = description
+            default:
+              errorDict["UNKNOWN"] = "An unrecognized Sign Up has occurred."
+          }
+          self.prepareError(flutterResult: flutterResult, error: signUpError, msg: self.signUpFailure, errorMap: errorDict)
         }
       }
     }
   }
 
-  private func prepareError(flutterResult: FlutterResult, error: Error, msg: String, detail: String) {
+  private func prepareError(flutterResult: FlutterResult, error: Error, msg: String, errorMap: [String: Any]) {
         print("\(msg): \(error)?")
         flutterResult(FlutterError(
           code: "AmplifyException",
           message: msg,
-          details: "\(detail): see logs for additional details"))
+          details: errorMap))
     }
-    
-  private func getUsername(request: CognitoSignUpRequest) -> String {
-    var username: String = ""
-    if (request.providerOptions?["usernameAttribute"] == nil && request.username != nil) {
-        username = request.username!;
-    } else {
-        if (request.providerOptions?["usernameAttribute"] != nil) {
-          if (request.providerOptions?["usernameAttribute"] as! String == "email") {
-              username = request.userAttributes["email"]!
-          } else {
-              username = request.userAttributes["phone_number"]!
-          }
-        }
-    }
-    return username;
-  }
-    
-  private func formatUserAttributes(attributes: Dictionary<String, String>) -> [AuthUserAttribute] {
-    var formattedAttributes: Array<AuthUserAttribute> = Array()
-    for attr in attributes {
-      if (standardAttributes.contains(attr.key)) {
-        formattedAttributes.append(AuthUserAttribute(.unknown(attr.key), value: attr.value))
-      } else {
-          formattedAttributes.append(AuthUserAttribute(.custom(attr.key), value: attr.value))
-        }
-    }
-    return formattedAttributes
-  }
 }

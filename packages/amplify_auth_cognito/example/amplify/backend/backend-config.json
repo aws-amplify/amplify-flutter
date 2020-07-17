@@ -5,6 +5,11 @@
 			"providerPlugin": "awscloudformation",
 			"dependsOn": [],
 			"customAuth": false
+		},
+		"flutterauth25d30db245d30db24": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": []
 		}
 	}
 }

@@ -1,7 +1,3 @@
-import 'dart:collection';
-import 'dart:convert';
-
-import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';

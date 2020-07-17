@@ -13,7 +13,8 @@
         },
         "categories": {
             "auth": {
-                "flutterauth24a9420d1": {}
+                "flutterauth24a9420d1": {},
+                "flutterauth25d30db245d30db24": {}
             }
         }
     }

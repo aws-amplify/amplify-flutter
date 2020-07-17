@@ -20,10 +20,6 @@ class AuthCategory {
     return plugins.length == 1 ? plugins[0].signUp(request: request, success: success, error: error) : null;
   }
 
-  Future<SignUpResult> confirmSignUp({@required ConfirmSignUpRequest request, Function(SignUpResult) success, Function(SignUpResult) error}) {
-    /// call `signUp` on all the plugins
-    return plugins.length == 1 ? plugins[0].confirmSignUp(request: request, success: success, error: error) : null;
-  }
   nullPluginsError(String functionName) {
     
   }

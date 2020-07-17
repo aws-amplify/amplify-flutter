@@ -1,8 +1,11 @@
-import 'dart:convert';
+import 'dart:collection';
+
 import 'package:amplify_auth_cognito/src/CognitoSignUp/CognitoSignUpResultProvider.dart';
 import 'package:flutter/services.dart';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'amplify_auth_cognito.dart';
+import 'src/EnumHandler.dart';
+import 'src/CognitoSignUp/CognitoSignUpExceptions.dart';
 
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/auth_cognito');
 
@@ -40,8 +43,16 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     return CognitoSignUpResult(providerData, signUpResponse["signUpState"]);
   }
 
-  CognitoSignUpResult _formatSignUpError(PlatformException error) {
+  CognitoSignUpResult _formatSignUpError(PlatformException e) {
     CognitoSignUpResultProvider providerData = CognitoSignUpResultProvider(AuthNextSignUpStep(rawDetails: {}));
+    LinkedHashMap eMap = new LinkedHashMap<String, String>();
+    e.details.forEach((k, v) => {
+      if (enumFromString<CognitoSignUpException>(k, CognitoSignUpException.values) != null) {
+        eMap.putIfAbsent(k, () => v as String)
+      }
+    });
+    AuthError error = AuthError.init(authErrorType: e.message, errorMap: eMap);
     return CognitoSignUpResult(providerData, "ERROR", error); 
   }
 }
+
