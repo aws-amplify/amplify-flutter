@@ -51,24 +51,24 @@ void main() {
   });
 
   test('signUp request returns a CognitoSignUpResult', () async {
-    CognitoSignUpRequest req = CognitoSignUpRequest(
+    SignUpRequest req = SignUpRequest(
       username: 'testUser',
       password: '123',
-      options: CognitoSignUpOptions(
+      options: SignUpOptions(
         userAttributes: {
           "email": "test@test.com",
           "testCode": 1
         })
     );
-    expect(await Amplify.Auth.signUp(request: req), isInstanceOf<CognitoSignUpResult>());
+    expect(await Amplify.Auth.signUp(request: req), isInstanceOf<SignUpResult>());
   });
 
   test('successful signUp request results in success callback call', () async {
     var testInt = 0;
-    CognitoSignUpRequest req = CognitoSignUpRequest(
+    SignUpRequest req = SignUpRequest(
       username: 'testUser',
       password: '123',
-      options: CognitoSignUpOptions(
+      options: SignUpOptions(
         userAttributes: {
           "email": "test@test.com",
           "testCode": 1
@@ -80,10 +80,10 @@ void main() {
 
   test('failed signUp request results in error callback call', () async {
     var testInt = 0;
-    CognitoSignUpRequest req = CognitoSignUpRequest(
+    SignUpRequest req = SignUpRequest(
       username: 'testUser',
       password: '123',
-      options: CognitoSignUpOptions(
+      options: SignUpOptions(
         userAttributes: {
           "email": "test@test.com",
           "testCode": 2

@@ -92,6 +92,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
         print("An error occurred while registering a user")
         if case .service(let description, let suggestion, let error?) = signUpError {
           var errorDict: [String: Any] = [:]
+          // should consider doing this with string manipulation, but that could be fragile
           switch "\(error)" {
             case "invalidParameter":
               errorDict["INVALID_PARAMETER"] = description;

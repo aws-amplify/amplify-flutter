@@ -1,9 +1,9 @@
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-class CognitoSignUpProvider extends SignUpProvider {
+class CognitoSignUpRequestProvider extends SignUpProvider {
   String usernameAttribute;
   Map<String, String> validationData;
-  CognitoSignUpProvider({this.usernameAttribute, this.validationData});
+  CognitoSignUpRequestProvider({this.usernameAttribute, this.validationData});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     if (this.usernameAttribute != null) {

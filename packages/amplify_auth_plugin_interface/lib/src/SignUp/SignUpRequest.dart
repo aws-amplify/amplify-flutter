@@ -33,6 +33,6 @@ class SignUpOptions {
 
 abstract class SignUpProvider {
   Map<String, dynamic> serializeAsMap() {
-    throw UnimplementedError('serializeAsMpa() has not been implemented on providerOptions.');
+    throw UnimplementedError('serializeAsMap() has not been implemented on providerOptions.');
   }
 }
