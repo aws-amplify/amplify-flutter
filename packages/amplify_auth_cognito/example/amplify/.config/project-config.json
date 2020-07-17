@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
     "projectName": "signInTestingflutter",
+=======
+    "projectName": "flutterAuth2",
+>>>>>>> amplify_auth
     "version": "3.0",
     "frontend": "flutter",
     "flutter": {

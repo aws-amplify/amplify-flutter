@@ -4,3 +4,5 @@ export 'SignUp/ConfirmSignUpRequest.dart';
 export 'SignUp/SignUpState.dart';
 export 'SignIn/SignInRequest.dart';
 export 'SignIn/SignInResult.dart';
+export 'Errors/AuthError.dart';
+export 'Errors/AuthErrorTypes.dart';

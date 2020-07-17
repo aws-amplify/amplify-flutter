@@ -1,8 +1,11 @@
+import 'package:flutter/foundation.dart';
+
 class SignUpRequest {
   String username;
   String password;
   SignUpOptions options;
-  SignUpRequest(this.username, this.password, this.options);
+  SignUpProvider provider;
+  SignUpRequest({this.username, @required this.password, this.options, this.provider});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     if (username != null) {
@@ -15,9 +18,9 @@ class SignUpRequest {
       if (options.userAttributes != null) {
         pendingRequest['userAttributes'] = options.userAttributes;
       }
-      if (options.providerOptions != null) {
-        pendingRequest['providerOptions'] = options.providerOptions.serializeAsMap();
-      }
+    }
+    if (provider != null) {
+      pendingRequest['providerOptions'] = provider.serializeAsMap();
     }
     return pendingRequest;
   }
@@ -25,8 +28,8 @@ class SignUpRequest {
 
 class SignUpOptions {
   final Map<String, dynamic> userAttributes;
-  final dynamic providerOptions;
-  const SignUpOptions(this.userAttributes, this.providerOptions);
+  // final dynamic providerOptions;
+  const SignUpOptions({@required this.userAttributes});
 }
 
 abstract class SignUpProvider {

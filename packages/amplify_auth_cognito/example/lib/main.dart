@@ -64,14 +64,17 @@ class _MyAppState extends State<MyApp> {
     Map<String, dynamic> userAttributes = {
       "email": emailController.text,
       "phone_number": phoneController.text,
+      "given_name": "Noyes",
+      "address": "123 My Street"
     };
     try {
-      CognitoSignUpResult res = await Amplify.Auth.signUp(
-        request: CognitoSignUpRequest(
+      SignUpResult res = await Amplify.Auth.signUp(
+        request: SignUpRequest(
           username: usernameController.text.trim(),
           password: passwordController.text.trim(),
-          options: CognitoSignUpOptions(
-              userAttributes: userAttributes
+          provider: CognitoSignUpProvider(usernameAttribute: "email"),
+          options: SignUpOptions(
+              userAttributes: userAttributes,
           )
         ), 
         success: (res) => setState(() {
@@ -132,13 +135,13 @@ class _MyAppState extends State<MyApp> {
 
   void _createUser() async {
     setState(() {
-      authState = "Sign_UP";
+      authState = "SIGN_UP";
     });
   }
 
   void _backToSignIn() async {
     setState(() {
-      authState = "Sign_In";
+      authState = "SIGN_IN";
     });
   }
 
@@ -159,7 +162,7 @@ class _MyAppState extends State<MyApp> {
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
               RaisedButton(
-                onPressed: _confirmSignUp,
+                onPressed: null,
                 child: const Text('Confirm SignUp'),
               ),
             ],

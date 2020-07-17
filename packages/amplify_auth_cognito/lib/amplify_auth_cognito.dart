@@ -1,14 +1,14 @@
 import 'dart:async';
-import 'dart:collection';
 import 'dart:core';
+import 'package:amplify_auth_cognito/src/CognitoSignUp/CognitoSignUpRequest.dart';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import './method_channel_auth_cognito.dart';
-import './src/types.dart';
 
 export './src/types.dart';
+export 'package:amplify_auth_plugin_interface/src/types.dart';
 
 class AmplifyAuthCognito extends AuthPluginInterface {
 
@@ -24,9 +24,9 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     _instance = instance;
   }
 
-  Future<SignUpResult> signUp({@required SignUpRequest request, Function(SignUpResult) success, Function(SignUpResult) error}) async {
-    var res = await _instance.signUp(request: request, success: success, error: error);
-    if (res.platformException != null && error != null) {
+  Future<SignUpResult> signUp({@required SignUpRequest request, SignUpProvider provider, Function(SignUpResult) success, Function(SignUpResult) error}) async {
+    var res = await _instance.signUp(request: request, provider: provider, success: success, error: error);
+    if (res.error != null && error != null) {
       error(res);
     } else if (success != null) {
       success(res);
@@ -36,7 +36,7 @@ class AmplifyAuthCognito extends AuthPluginInterface {
 
   Future<SignUpResult> confirmSignUp({@required ConfirmSignUpRequest request, Function(SignUpResult) success, Function(SignUpResult) error}) async {
     var res = await _instance.confirmSignUp(request: request, success: success, error: error);
-    if (res.platformException != null && error != null) {
+    if (res.error != null && error != null) {
       error(res);
     } else if (success != null) {
       success(res);
