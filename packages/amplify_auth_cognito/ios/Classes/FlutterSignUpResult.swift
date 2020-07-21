@@ -8,8 +8,6 @@ import Flutter
 import Foundation
 import Amplify
 
-
-
 struct FlutterSignUpResult  {
     var signUpState: String
     var additionalInfo: [String: String]

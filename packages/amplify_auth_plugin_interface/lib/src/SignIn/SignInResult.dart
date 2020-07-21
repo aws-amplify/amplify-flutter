@@ -10,6 +10,7 @@ class SignInResult {
     /* 2-step process of getting an enum from a string and back is a way of checking that
      the value is a valid enum while also maintaining simple string value */
     this.signInState = enumToString(enumFromString<SignInState>(signInState, SignInState.values));
+    this.providerResult = providerResult;
     this.platformException = platformException;
    }
 }

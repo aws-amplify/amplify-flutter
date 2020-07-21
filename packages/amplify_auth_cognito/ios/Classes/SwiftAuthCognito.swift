@@ -49,7 +49,6 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
         let signUpData = FlutterSignUpResult(res: response)
         flutterResult(signUpData.toJSON())
 
-        
        case .failure(let signUpError):
         print("An error occurred while registering a user")
         if case .service( _,  _, let error) = signUpError {
@@ -63,14 +62,10 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
   private func onConfirmSignUp(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignUpRequest) {
     _ = Amplify.Auth.confirmSignUp(for: request.username!, confirmationCode:request.confirmationCode!) { response in
      switch response {
-       case .success(let signUpResult):
-        if case .done = signUpResult.nextStep {
-            var responseDict: [String: Any] = [:]
-            let providerDataDict: [String: Any] = [:]
-            responseDict["signUpState"] = "DONE"
-            responseDict["providerData"] = providerDataDict;
-            flutterResult(responseDict)
-         }
+       case .success:
+        let signUpData = FlutterSignUpResult(res: response)
+        flutterResult(signUpData.toJSON())
+        
        case .failure(let signUpError):
         print("An error occurred while registering a user")
         if case .service(_, _, let error) = signUpError {

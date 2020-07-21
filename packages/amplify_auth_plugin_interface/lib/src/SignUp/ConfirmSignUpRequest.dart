@@ -5,7 +5,7 @@ class ConfirmSignUpRequest {
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     if (userKey != null) {
-      pendingRequest['username'] = userKey;
+      pendingRequest['userKey'] = userKey;
     }
     if (confirmationCode != null) {
       pendingRequest['confirmationCode'] = confirmationCode;

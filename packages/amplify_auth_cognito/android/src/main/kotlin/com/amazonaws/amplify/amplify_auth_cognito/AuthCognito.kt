@@ -1,18 +1,15 @@
 package com.amazonaws.amplify.amplify_auth_cognito
 
+import FlutterSignInRequest
 import android.app.Activity
 import android.content.Context
 import android.util.Log
 import androidx.annotation.NonNull
-import com.amazonaws.AmazonServiceException
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmSignUpRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpRequest
-import com.amazonaws.auth.policy.Resource
 import com.amazonaws.services.cognitoidentityprovider.model.*
 import com.amplifyframework.auth.AuthException
-import com.amplifyframework.auth.AuthUserAttribute
-import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
-import com.amplifyframework.auth.options.AuthSignUpOptions
 import com.amplifyframework.auth.result.AuthSignInResult
 import com.amplifyframework.auth.result.AuthSignUpResult
 import com.amplifyframework.core.Amplify
@@ -26,8 +23,7 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
-import java.lang.reflect.Method
-import kotlin.properties.Delegates
+
 
 /** AuthCognito */
 public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
@@ -36,7 +32,6 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
   private lateinit var context: Context
   var gson = Gson()
   private var mainActivity: Activity? = null
-  private var standardAttributes: Array<String> = arrayOf("address", "birthdate", "email", "family_name", "gender", "given_name", "locale", "middle_name", "name", "nickname", "phone_number", "preferred_username", "picture", "profile", "updated_at", "website", "zoneinfo")
   private var signUpFailure = "Amplify SignUp Failed"
   private var signInFailure = "Amplify SignIn Failed"
 
@@ -83,8 +78,6 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
       }
     }
 
-
-
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
     this.mainActivity = binding.activity
   }
@@ -121,19 +114,21 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
   }
 
   private fun onConfirmSignUp(@NonNull flutterResult: Result, @NonNull request:  HashMap<String, *>){
+    var req = FlutterConfirmSignUpRequest(request);
     Amplify.Auth.confirmSignUp(
-      request.get("username") as String,
-      request.get("confirmationCode") as String,
-            { result -> this.mainActivity?.runOnUiThread({ prepareSignUpResult(flutterResult, result)}) },
-            { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, signUpFailure, error.localizedMessage)}) }
+      req.userKey,
+      req.confirmationCode,
+        { result -> this.mainActivity?.runOnUiThread({ prepareSignUpResult(flutterResult, result)}) },
+        { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, signUpFailure, error.localizedMessage)}) }
     )
   }
 
   private fun onSignIn (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
+    var req = FlutterSignInRequest(request)
     try {
       Amplify.Auth.signIn(
-        request.get("username") as String,
-        request.get("password") as String,
+        req.username,
+        req.password,
           { result -> this.mainActivity?.runOnUiThread({ prepareSignInResult(flutterResult, result)}) },
           { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, signInFailure, error.localizedMessage)}) }
       );
