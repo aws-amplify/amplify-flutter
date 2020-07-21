@@ -1,11 +1,12 @@
 import 'package:flutter/foundation.dart';
+import '../Providers/AuthRequestProvider.dart';
 
 class SignUpRequest {
   String username;
   String password;
   SignUpOptions options;
-  SignUpProvider provider;
-  SignUpRequest({this.username, @required this.password, this.options, this.provider});
+  AuthRequestProvider provider;
+  SignUpRequest({this.username, @required this.password, this.provider, this.options});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     if (username != null) {
@@ -28,12 +29,6 @@ class SignUpRequest {
 
 class SignUpOptions {
   final Map<String, dynamic> userAttributes;
-  // final dynamic providerOptions;
   const SignUpOptions({@required this.userAttributes});
 }
 
-abstract class SignUpProvider {
-  Map<String, dynamic> serializeAsMap() {
-    throw UnimplementedError('serializeAsMpa() has not been implemented on providerOptions.');
-  }
-}

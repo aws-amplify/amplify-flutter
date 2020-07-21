@@ -65,24 +65,24 @@ void main() {
   });
 
   test('signUp request returns a CognitoSignUpResult', () async {
-    CognitoSignUpRequest req = CognitoSignUpRequest(
+    SignUpRequest req = SignUpRequest(
       username: 'testUser',
       password: '123',
-      options: CognitoSignUpOptions(
+      options: SignUpOptions(
         userAttributes: {
           "email": "test@test.com",
           "testCode": 0
         })
     );
-    expect(await Amplify.Auth.signUp(request: req), isInstanceOf<CognitoSignUpResult>());
+    expect(await Amplify.Auth.signUp(request: req), isInstanceOf<SignUpResult>());
   });
 
   test('successful signUp request results in success callback call', () async {
     var testInt = 0;
-    CognitoSignUpRequest req = CognitoSignUpRequest(
+    SignUpRequest req = SignUpRequest(
       username: 'testUser',
       password: '123',
-      options: CognitoSignUpOptions(
+      options: SignUpOptions(
         userAttributes: {
           "email": "test@test.com",
           "testCode": 0
@@ -93,11 +93,11 @@ void main() {
   });
 
   test('failed signUp request results in error callback call', () async {
-    var testInt = 1;
-    CognitoSignUpRequest req = CognitoSignUpRequest(
+    var testInt = 0;
+    SignUpRequest req = SignUpRequest(
       username: 'testUser',
       password: '123',
-      options: CognitoSignUpOptions(
+      options: SignUpOptions(
         userAttributes: {
           "email": "test@test.com",
           "testCode": 1
@@ -108,17 +108,17 @@ void main() {
   });
 
   test('confirmSignUp request returns a CognitoSignUpResult', () async {
-    CognitoConfirmSignUpRequest req = CognitoConfirmSignUpRequest(
-      username: 'testUser',
+    ConfirmSignUpRequest req = ConfirmSignUpRequest(
+      userKey: 'testUser',
       confirmationCode: '0',
     );
-    expect(await Amplify.Auth.confirmSignUp(request: req), isInstanceOf<CognitoSignUpResult>());
+    expect(await Amplify.Auth.confirmSignUp(request: req), isInstanceOf<SignUpResult>());
   });
 
   test('successful confirmSignUp request results in success callback call', () async {
     var testInt = 0;
-    CognitoConfirmSignUpRequest req = CognitoConfirmSignUpRequest(
-      username: 'testUser',
+    ConfirmSignUpRequest req = ConfirmSignUpRequest(
+      userKey: 'testUser',
       confirmationCode: '0'
     );
     await Amplify.Auth.confirmSignUp(request: req, success: (res) => testInt++);
@@ -127,8 +127,8 @@ void main() {
 
     test('failed confirmSignUp request results in error callback call', () async {
     var testInt = 1;
-    CognitoConfirmSignUpRequest req = CognitoConfirmSignUpRequest(
-      username: 'testUser',
+    ConfirmSignUpRequest req = ConfirmSignUpRequest(
+      userKey: 'testUser',
       confirmationCode: '1'
     );
     await Amplify.Auth.confirmSignUp(request: req, success: (res) => testInt++);

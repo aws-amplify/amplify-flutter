@@ -6,6 +6,7 @@ import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart
 import 'amplify_auth_cognito.dart';
 import 'src/EnumHandler.dart';
 import 'src/CognitoSignUp/CognitoSignUpExceptions.dart';
+import 'src/Cognito/AuthNextStep.dart';
 
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/auth_cognito');
 
@@ -13,12 +14,32 @@ const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/auth_cognito
 class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   @override
-  Future<SignUpResult> signUp({SignUpRequest request, SignUpProvider provider, Function(SignUpResult) success, Function(SignUpResult) error}) async {
-    CognitoSignUpResult res;
+  Future<SignUpResult> signUp({SignUpRequest request, AuthRequestProvider provider, Function(SignUpResult) success, Function(SignUpResult) error}) async {
+    SignUpResult res;
     try {
       final Map<String, dynamic> data =
       await _channel.invokeMapMethod<String, dynamic>(
         'signUp',
+        <String, dynamic>{
+          'data': request.serializeAsMap(),
+        },
+      );
+      res = _formatSignUpResponse(data);
+      return res;
+      
+    } on PlatformException catch(e) {
+      res = _formatSignUpError(e);
+      return res;
+    }
+  }
+
+    @override
+  Future<SignUpResult> confirmSignUp({ConfirmSignUpRequest request, AuthRequestProvider provider, Function(SignUpResult) success, Function(SignUpResult) error}) async {
+    SignUpResult res;
+    try {
+      final Map<String, dynamic> data =
+      await _channel.invokeMapMethod<String, dynamic>(
+        'confirmSignUp',
         <String, dynamic>{
           'data': request.serializeAsMap(),
         },
@@ -53,28 +74,28 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     }
   }
 
-  CognitoSignUpResult _formatSignUpResponse(Map<String, dynamic> signUpResponse) {
+  SignUpResult _formatSignUpResponse(Map<String, dynamic> signUpResponse) {
     Map<dynamic, dynamic> providerMap = signUpResponse["providerData"];
     Map<String , dynamic> deliveryDetails = {};
     if (providerMap["nextStep"] != null && providerMap["nextStep"]["codeDeliveryDetails"] != null) {
       deliveryDetails = Map.from(providerMap["nextStep"]["codeDeliveryDetails"]);
     }
-    CognitoSignUpResultProvider providerData = CognitoSignUpResultProvider(AuthNextSignUpStep(rawDetails: deliveryDetails));
-    return CognitoSignUpResult(providerData, signUpResponse["signUpState"]);
+    CognitoSignUpResultProvider providerData = CognitoSignUpResultProvider(AuthNextStep(rawDetails: deliveryDetails));
+    return SignUpResult.init(signUpResponse["signUpState"], providerData);
   }
 
-  CognitoSignInResult _formatSignInResponse(Map<String, dynamic> signInResponse) {
+  SignInResult _formatSignInResponse(Map<String, dynamic> signInResponse) {
     Map<dynamic, dynamic> providerMap = signInResponse["providerData"];
     Map<String , dynamic> deliveryDetails = {};
     if (providerMap["nextStep"] != null && providerMap["nextStep"]["codeDeliveryDetails"] != null) {
       deliveryDetails = Map.from(providerMap["nextStep"]["codeDeliveryDetails"]);
     }
-    CognitoSignInResultProvider providerData = CognitoSignInResultProvider(AuthNextSignInStep(rawDetails: deliveryDetails));
-    return CognitoSignInResult(providerData, signInResponse["signInState"]);
+    CognitoSignInResultProvider providerData = CognitoSignInResultProvider(AuthNextStep(rawDetails: deliveryDetails));
+    return SignInResult.init(signInResponse["signInState"], providerData);
   }
 
-  CognitoSignUpResult _formatSignUpError(PlatformException e) {
-    CognitoSignUpResultProvider providerData = CognitoSignUpResultProvider(AuthNextSignUpStep(rawDetails: {}));
+  SignUpResult _formatSignUpError(PlatformException e) {
+    CognitoSignUpResultProvider providerData = CognitoSignUpResultProvider(AuthNextStep(rawDetails: {}));
     LinkedHashMap eMap = new LinkedHashMap<String, String>();
     e.details.forEach((k, v) => {
       if (enumFromString<CognitoSignUpException>(k, CognitoSignUpException.values) != null) {
@@ -82,12 +103,12 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       }
     });
     AuthError error = AuthError.init(authErrorType: e.message, errorMap: eMap);
-    return CognitoSignUpResult(providerData, "ERROR", error); 
+    return SignUpResult.init("ERROR", providerData, error); 
   }
 
-  CognitoSignInResult _formatSignInError(PlatformException error) {
-    CognitoSignInResultProvider providerData = CognitoSignInResultProvider(AuthNextSignInStep(rawDetails: {}));
-    return CognitoSignInResult(providerData, "ERROR", error); 
+  SignInResult _formatSignInError(PlatformException error) {
+    CognitoSignInResultProvider providerData = CognitoSignInResultProvider(AuthNextStep(rawDetails: {}));
+    return SignInResult.init("ERROR", providerData, error); 
   }
 }
 

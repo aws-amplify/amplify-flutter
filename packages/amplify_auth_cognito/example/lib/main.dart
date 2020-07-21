@@ -72,7 +72,7 @@ class _MyAppState extends State<MyApp> {
         request: SignUpRequest(
           username: usernameController.text.trim(),
           password: passwordController.text.trim(),
-          provider: CognitoSignUpProvider(usernameAttribute: "email"),
+          provider: CognitoSignUpRequestProvider(usernameAttribute: "email"),
           options: SignUpOptions(
               userAttributes: userAttributes,
           )
@@ -92,9 +92,9 @@ class _MyAppState extends State<MyApp> {
 
   void _confirmSignUp() async {
     try {
-      CognitoSignUpResult res = await Amplify.Auth.confirmSignUp(
-        request: CognitoConfirmSignUpRequest(
-          username: usernameController.text.trim(),
+      SignUpResult res = await Amplify.Auth.confirmSignUp(
+        request: ConfirmSignUpRequest(
+          userKey: usernameController.text.trim(),
           confirmationCode: confirmationCodeController.text.trim(),
         ), 
         success: (res) => setState(() {
@@ -113,8 +113,8 @@ class _MyAppState extends State<MyApp> {
 
   void _signIn() async {
     try {
-      CognitoSignInResult res = await Amplify.Auth.signIn(
-        request: CognitoSignInRequest(
+      SignInResult res = await Amplify.Auth.signIn(
+        request: SignInRequest(
           username: usernameController.text.trim(),
           password: passwordController.text.trim(),
         ), 
@@ -139,6 +139,12 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void _confirmUser() async {
+    setState(() {
+      authState = "CONFIRM_SIGN_UP_STEP";
+    });
+  }
+
   void _backToSignIn() async {
     setState(() {
       authState = "SIGN_IN";
@@ -152,6 +158,15 @@ class _MyAppState extends State<MyApp> {
         Expanded( // wrap your Column in Expanded
           child: Column(
             children: [
+              const Padding(padding: EdgeInsets.all(10.0)),
+              TextFormField(
+                controller: usernameController,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.person),
+                  hintText: 'Your username',
+                  labelText: 'Username *',
+                )
+              ),
               TextFormField(
                 controller: confirmationCodeController,
                 decoration: const InputDecoration(
@@ -162,7 +177,7 @@ class _MyAppState extends State<MyApp> {
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
               RaisedButton(
-                onPressed: null,
+                onPressed: _confirmSignUp,
                 child: const Text('Confirm SignUp'),
               ),
             ],
@@ -206,6 +221,11 @@ Widget showSignIn() {
             RaisedButton(
               onPressed: _createUser,
               child: const Text('Create User'),
+            ),
+            const Padding(padding: EdgeInsets.all(10.0)),
+            RaisedButton(
+              onPressed: _confirmUser,
+              child: const Text('Confirm User'),
             ),
             ],
           ),

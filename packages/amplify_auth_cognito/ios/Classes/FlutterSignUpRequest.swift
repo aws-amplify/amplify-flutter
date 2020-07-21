@@ -6,12 +6,9 @@
 //
 
 import Foundation
-<<<<<<< HEAD:packages/amplify_auth_cognito/ios/Classes/FlutterSignUpRequest.swift
-=======
 import Amplify
 import AmplifyPlugins
 
->>>>>>> amplify_auth:packages/amplify_auth_cognito/ios/Classes/CognitoSignUpRequest.swift
 struct FlutterSignUpRequest {
   var username: String?
   var password: String

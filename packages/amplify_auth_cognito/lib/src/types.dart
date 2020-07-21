@@ -1,8 +1,7 @@
-export 'CognitoSignUp/CognitoSignUpRequest.dart';
+export 'CognitoSignUp/CognitoSignUpRequestProvider.dart';
 export 'CognitoSignUp/CognitoSignUpResultProvider.dart';
-export 'CognitoSignUp/CognitoSignUpResult.dart';
-export 'CognitoSignUp/CognitoConfirmSignUpRequest.dart';
-export 'CognitoSignIn/CognitoSignInRequest.dart';
-export 'CognitoSignIn/CognitoSignInResult.dart';
+export 'CognitoSignIn/CognitoSignInRequestProvider.dart';
 export 'CognitoSignIn/CognitoSignInResultProvider.dart';
 export 'CognitoSignUp/CognitoSignUpExceptions.dart';
+export 'Cognito/AuthCodeDeliveryDetails.dart';
+export 'Cognito/AuthNextStep.dart';

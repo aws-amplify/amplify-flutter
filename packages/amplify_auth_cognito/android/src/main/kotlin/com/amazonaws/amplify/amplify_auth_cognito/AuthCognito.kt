@@ -215,10 +215,4 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     val json = gson.toJson(this)
     return gson.fromJson(json, object : TypeToken<O>() {}.type)
   }
-//  private fun formatAmplifyException(@NonNull e: AmplifyException): Map<String, Serializable?> {
-//      return mapOf(
-//          "cause" to e.cause,
-//          "recoverySuggestion" to e.recoverySuggestion
-//      )
-//  }
 }
