@@ -24,7 +24,8 @@ struct FlutterSignUpResult  {
          "signUpState": self.signUpState,
          "providerData": [
             "nextStep": [
-                "additionalInfo": self.additionalInfo
+                "additionalInfo": self.additionalInfo,
+                "codeDeliveryDetails": self.codeDeliveryDetails
             ]
          ]
 
