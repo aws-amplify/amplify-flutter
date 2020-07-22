@@ -33,7 +33,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     }
   }
 
-    @override
+  @override
   Future<SignUpResult> confirmSignUp({ConfirmSignUpRequest request, AuthRequestProvider provider, Function(SignUpResult) success, Function(SignUpResult) error}) async {
     SignUpResult res;
     try {

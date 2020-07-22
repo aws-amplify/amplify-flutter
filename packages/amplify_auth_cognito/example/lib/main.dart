@@ -72,7 +72,6 @@ class _MyAppState extends State<MyApp> {
         request: SignUpRequest(
           username: usernameController.text.trim(),
           password: passwordController.text.trim(),
-          provider: CognitoSignUpRequestProvider(usernameAttribute: "email"),
           options: SignUpOptions(
               userAttributes: userAttributes,
           )
