@@ -2,10 +2,14 @@ import Flutter
 import UIKit
 import Amplify
 import AmplifyPlugins
+import AWSCore
 
 public class SwiftAuthCognito: NSObject, FlutterPlugin {
     
   let signUpFailure = "Amplify SignUp Failed"
+  let signInFailure = "Amplify SignIn Failed"
+  let signOutFailure = "Amplify SignOut Failed"
+
     
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "com.amazonaws.amplify/auth_cognito", binaryMessenger: registrar.messenger())
@@ -34,6 +38,11 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
         let arguments = call.arguments as! Dictionary<String, AnyObject>
         let request = FlutterSignInRequest(dict: arguments["data"] as! NSMutableDictionary)
         onSignIn(flutterResult: result, request: request);
+      case "signOut": 
+        let arguments = call.arguments as! Dictionary<String, AnyObject>
+        let dict = arguments["data"] != nil && !(arguments["data"] is NSNull) ? arguments["data"] as! NSMutableDictionary : NSMutableDictionary()
+        let request = FlutterSignOutRequest(dict: dict)
+        onSignOut(flutterResult: result, request: request)
       default:
         result(FlutterMethodNotImplemented)
     }
@@ -75,46 +84,39 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
     }
   }
 
-    private func onSignIn(flutterResult: @escaping FlutterResult, request: FlutterSignInRequest) {
-        _ = Amplify.Auth.signIn(username: request.username!, password:request.password!) { response in
-         switch response {
-           case .success(let signInResult):
-            var responseDict: [String: Any] = [:]
-            var providerDataDict: [String: Any] = [:]
-            var nextStepDict: [String: Any] = [:]
-            var codeDeliveryDetailsDict: [String: Any] = [:]
-            if case .done = signInResult.nextStep {
-                responseDict["signInState"] = "DONE"
-                flutterResult(responseDict)
-             }
-            if case let .confirmSignInWithSMSMFACode(deliveryDetails, _) = signInResult.nextStep {
-                if case let .sms(e) = deliveryDetails.destination {
-                  codeDeliveryDetailsDict["destination"] = e! as String
-                  codeDeliveryDetailsDict["attributeName"] = "sms"
-                  codeDeliveryDetailsDict["deliveryMedium"] = "SMS"
-                }
-                responseDict["signInState"] = "CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE"
-                nextStepDict["codeDeliveryDetails"] = codeDeliveryDetailsDict
-                providerDataDict["nextStep"] = nextStepDict
-                responseDict["providerData"] = providerDataDict
-            }
-            if case .confirmSignInWithCustomChallenge = signInResult.nextStep {
-                
-            }
-            if case .confirmSignInWithNewPassword = signInResult.nextStep {
-                
-            }
-            flutterResult(responseDict)
+  private func onSignIn(flutterResult: @escaping FlutterResult, request: FlutterSignInRequest) {
+      _ = Amplify.Auth.signIn(username: request.username!, password:request.password!) { response in
+        switch response {
+          case .success:
+          let signInData = FlutterSignInResult(res: response)
+          flutterResult(signInData.toJSON())
 
-           case .failure(let signInError):
-            print("An error occurred while initiating auth")
-            if case .service(_, _, let error) = signInError {
-                let errorCode = error != nil ? "\(error!)" : "UNKNOWN"
-                self.prepareError(flutterResult: flutterResult, error: signInError, msg: self.signUpFailure, errorMap: self.formatErrorMap(errorCode: errorCode))
-            }
+          case .failure(let signInError):
+          print("An error occurred while initiating auth")
+          if case .service(_, _, let error) = signInError {
+              let errorCode = error != nil ? "\(error!)" : "UNKNOWN"
+              self.prepareError(flutterResult: flutterResult, error: signInError, msg: self.signInFailure, errorMap: self.formatErrorMap(errorCode: errorCode))
           }
         }
+      }
+  }
+    
+  private func onSignOut(flutterResult: @escaping FlutterResult, request: FlutterSignOutRequest) {
+    _ = Amplify.Auth.signOut(options: request.options) { response in
+      switch response {
+        case .success:
+        let signOutData = FlutterSignOutResult(res: response)
+        flutterResult(signOutData.toJSON())
+
+        case .failure(let signOutError):
+        print("An error occurred while initiating auth")
+        if case .service(_, _, let error) = signOutError {
+            let errorCode = error != nil ? "\(error!)" : "UNKNOWN"
+            self.prepareError(flutterResult: flutterResult, error: signOutError, msg: self.signOutFailure, errorMap: self.formatErrorMap(errorCode: errorCode))
+        }
+      }
     }
+  }
 
   private func prepareError(flutterResult: FlutterResult, error: Error, msg: String, errorMap: [String: Any]) {
         print("\(msg): \(error)?")

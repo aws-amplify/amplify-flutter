@@ -1,0 +1,4 @@
+enum SignOutState {
+  DONE,
+  ERROR
+}

@@ -39,6 +39,7 @@ data class FlutterSignUpRequest(val map: HashMap<String, *>) {
         var authUserAttributes: MutableList<AuthUserAttribute> = mutableListOf();
         var attributeMethods = AuthUserAttributeKey::class.java.declaredMethods;
 
+        // Amplify-Android needs to append the custom prefix manually, while Amplify-iOS does not
         attributes.forEach { (key, value) ->
             var keyCopy: String = key;
             if(!standardAttributes.contains(keyCopy)){
@@ -56,7 +57,7 @@ data class FlutterSignUpRequest(val map: HashMap<String, *>) {
         return options.build();
     }
 
-    // Amplify Android expects camel case, while iOS expects snake.  So at least one plugin implementation should convert.
+    // Amplify-Android expects camel case, while Amplify-iOS expects snake.  So at least one plugin implementation should convert.
     fun convertSnakeToCamel(@NonNull string: String): String {
         val camelCase = StringBuilder()
         var prevChar = '$'

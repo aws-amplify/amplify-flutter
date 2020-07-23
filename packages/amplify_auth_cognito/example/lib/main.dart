@@ -1,12 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_core_plugin_interface/amplify_core_plugin_interface.dart';
 import 'amplifyconfiguration.dart';
 
 void main() {
@@ -28,6 +22,9 @@ class _MyAppState extends State<MyApp> {
   bool _isAmplifyConfigured = false;
   Amplify amplify = new Amplify();
   String authState;
+  String displayState;
+  String authError;
+  String authErrorCause;
   String signUpResult;
   String signInResult;
 
@@ -56,7 +53,7 @@ class _MyAppState extends State<MyApp> {
 
     setState(() {
       _isAmplifyConfigured = true;
-      authState = "SIGN_IN";
+      displayState = "SHOW_SIGN_IN";
     });
   }
 
@@ -77,9 +74,13 @@ class _MyAppState extends State<MyApp> {
           )
         ), 
         success: (res) => setState(() {
+          displayState = res.signUpState != "DONE" ? "SHOW_CONFIRM" : "SHOW_APP";
           authState = res.signUpState;
         }),
-        error: (res) => print("callback error: " + res.toString())
+        error: (res) => setState(() {
+          authError = res.error.authErrorType;
+          authErrorCause = res.error.errorCauses[0].exception;
+        })
       );
       setState(() {
         signUpResult = res.toString();
@@ -97,9 +98,13 @@ class _MyAppState extends State<MyApp> {
           confirmationCode: confirmationCodeController.text.trim(),
         ), 
         success: (res) => setState(() {
-          authState = "CONFIRMED";
+          displayState = "SHOW_APP";
+          authState = res.signUpState;
         }),
-        error: (res) => print("callback error: " + res.toString())
+        error: (res) => setState(() {
+          authError = res.error.authErrorType;
+          authErrorCause = res.error.errorCauses[0].exception;
+        })
       );
       setState(() {
         signUpResult = res.toString();
@@ -119,9 +124,35 @@ class _MyAppState extends State<MyApp> {
         ), 
         success: (res) => setState(() {
           print("signedIn: " + res.toString());
-          authState = "SIGNED_IN";
+          displayState =  "SHOW_APP";
+          authState = res.signInState;
         }),
-        error: (res) => print("callback error: " + res.toString())
+        error: (res) => setState(() {
+          authError = res.error.authErrorType;
+          authErrorCause = res.error.errorCauses[0].exception;
+        })
+      );
+      setState(() {
+        signInResult = res.toString();
+        
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void _signOut() async {
+    try {
+      SignOutResult res = await Amplify.Auth.signOut(
+        success: (res) => setState(() {
+          print("signedOut: " + res.toString());
+          displayState =  "SHOW_SIGN_IN";
+          authState = res.signOutState;
+        }),
+        error: (res) => setState(() {
+          authError = res.error.authErrorType;
+          authErrorCause = res.error.errorCauses[0].exception;
+        })
       );
       setState(() {
         signInResult = res.toString();
@@ -134,19 +165,19 @@ class _MyAppState extends State<MyApp> {
 
   void _createUser() async {
     setState(() {
-      authState = "SIGN_UP";
+      displayState = "SHOW_SIGN_UP";
     });
   }
 
   void _confirmUser() async {
     setState(() {
-      authState = "CONFIRM_SIGN_UP_STEP";
+      displayState = "SHOW_CONFIRM";
     });
   }
 
   void _backToSignIn() async {
     setState(() {
-      authState = "SIGN_IN";
+      displayState = "SHOW_SIGN_IN";
     });
   }
 
@@ -298,13 +329,29 @@ Widget showSignIn() {
   }
 
   Widget showApp() {
-    return Text(
-      'Auth Status: $authState',
-      textAlign: TextAlign.center,
-      overflow: TextOverflow.visible,
-      style: TextStyle(fontWeight: FontWeight.bold),
-            
-    );
+    return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Expanded( // wrap your Column in Expanded
+              child: Column(
+                children: [
+                  const Padding(padding: EdgeInsets.all(10.0)),
+                  Text(
+                    'Auth Status: $authState',
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.visible,
+                    style: TextStyle(fontWeight: FontWeight.bold)
+                  ),
+                  const Padding(padding: EdgeInsets.all(10.0)),
+                  RaisedButton(
+                    onPressed: _signOut,
+                    child: const Text('Signout'),
+                  )
+                ],
+              ),
+            ),
+          ],
+        );
   }
 
   @override
@@ -327,10 +374,10 @@ Widget showSignIn() {
                 ),
 
                 const Padding(padding: EdgeInsets.all(10.0)),
-                if (this.authState == "SIGN_UP") showSignUp(),
-                if (this.authState == "CONFIRM_SIGN_UP_STEP") showConfirmSignUp(),
-                if (this.authState == "CONFIRMED" || this.authState == "SIGN_IN") showSignIn(),
-                if (this.authState == 'SIGNED_IN') showApp(),
+                if (this.displayState == "SHOW_SIGN_UP") showSignUp(),
+                if (this.displayState == "SHOW_CONFIRM") showConfirmSignUp(),
+                if (this.displayState == "SHOW_SIGN_IN") showSignIn(),
+                if (this.displayState == "SHOW_APP") showApp(),
               ]
             )
           ],

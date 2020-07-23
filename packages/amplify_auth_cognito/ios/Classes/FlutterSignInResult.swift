@@ -9,22 +9,23 @@ import Foundation
 import Amplify
 
 struct FlutterSignInResult  {
-    var signUpState: String
+    var signInState: String
     var additionalInfo: [String: String]
     var codeDeliveryDetails: [String: String]
 
-    init(res: AmplifyOperation<AuthSignUpRequest, AuthSignUpResult, AuthError>.OperationResult){
-      self.signUpState = setState(res: res)
+    init(res: AmplifyOperation<AuthSignInRequest, AuthSignInResult, AuthError>.OperationResult){
+      self.signInState = setState(res: res)
       self.additionalInfo = setAdditionalInfo(res: res)
       self.codeDeliveryDetails = setCodeDeliveryDetails(res: res)
     }
     
     func toJSON() -> Dictionary<String, Any> {
        return [
-         "signUpState": self.signUpState,
+         "signInState": self.signInState,
          "providerData": [
             "nextStep": [
-                "additionalInfo": self.additionalInfo
+                "additionalInfo": self.additionalInfo,
+                "codeDeliveryDetails": self.codeDeliveryDetails
             ]
          ]
 
@@ -32,32 +33,28 @@ struct FlutterSignInResult  {
    }
 }
 
-func setCodeDeliveryDetails(res: AmplifyOperation<AuthSignUpRequest, AuthSignUpResult, AuthError>.OperationResult) -> [String: String] {
-    var deliveryMap: [String: String] = [:]
+func setCodeDeliveryDetails(res: AmplifyOperation<AuthSignInRequest, AuthSignInResult, AuthError>.OperationResult) -> [String: String] {
+    var deliveryMap:[String: String] = [:]
     switch res {
-        case .success(let signUpResult):
-          if case let .confirmUser(deliveryDetails, _) = signUpResult.nextStep {
-            if case let .email(e) = deliveryDetails?.destination {
-                  deliveryMap["destination"] = e! as String
-                  deliveryMap["attributeName"] = "email"
-                  deliveryMap["deliveryMedium"] = "EMAIL"
-                }
-            
-                if case let .phone(e) = deliveryDetails?.destination {
-                  deliveryMap["destination"] = e! as String
-                  deliveryMap["attributeName"] = "phone"
-                }
-            
-                if case let .sms(e) = deliveryDetails?.destination {
-                  deliveryMap["destination"] = e! as String
-                  deliveryMap["attributeName"] = "sms"
-                  deliveryMap["deliveryMedium"] = "SMS"
-                }
-            
-                if case let .unknown(e) = deliveryDetails?.destination {
-                  deliveryMap["destination"] = e! as String
-                  deliveryMap["attributeName"] = "unknown"
-                }
+        case .success(let signInResult):
+          if case let .confirmSignInWithSMSMFACode(deliveryDetails, _) = signInResult.nextStep {
+            if case let .sms(e) = deliveryDetails.destination {
+              deliveryMap["destination"] = e! as String
+              deliveryMap["attributeName"] = "sms"
+              deliveryMap["deliveryMedium"] = "SMS"
+            }
+          }
+          if case .resetPassword(_) = signInResult.nextStep {
+            deliveryMap = ["deliveryMedium" : "UNKNOWN"]
+          }
+          if case .confirmSignInWithCustomChallenge(_) = signInResult.nextStep {
+            deliveryMap = [:] 
+          }
+          if case .confirmSignInWithNewPassword(_) = signInResult.nextStep {
+            deliveryMap = [:] 
+          }
+          if case .done = signInResult.nextStep {
+            deliveryMap = [:] 
           }
         case .failure:
             deliveryMap = [:]
@@ -65,12 +62,24 @@ func setCodeDeliveryDetails(res: AmplifyOperation<AuthSignUpRequest, AuthSignUpR
     return deliveryMap
 }
 
-func setAdditionalInfo(res:  AmplifyOperation<AuthSignUpRequest, AuthSignUpResult, AuthError>.OperationResult) -> [String: String] {
+func setAdditionalInfo(res:  AmplifyOperation<AuthSignInRequest, AuthSignInResult, AuthError>.OperationResult) -> [String: String] {
     var infoMap: [String: String] = [:]
     switch res {
-        case .success(let signUpResult):
-          if case let .confirmUser(_, additionalInfo) = signUpResult.nextStep {
+        case .success(let signInResult):
+          if case let .confirmSignInWithSMSMFACode(_, additionalInfo) = signInResult.nextStep {
             infoMap = additionalInfo ?? [:]
+          }
+          if case let .resetPassword(additionalInfo) = signInResult.nextStep {
+            infoMap = additionalInfo ?? [:]
+          }
+          if case let .confirmSignInWithCustomChallenge(additionalInfo) = signInResult.nextStep {
+            infoMap = additionalInfo ?? [:]
+          }
+          if case let .confirmSignInWithNewPassword(additionalInfo) = signInResult.nextStep {
+            infoMap = additionalInfo ?? [:]
+          }
+          if case .done = signInResult.nextStep {
+            infoMap =  [:]
           }
         case .failure:
             infoMap = [:]
@@ -78,15 +87,24 @@ func setAdditionalInfo(res:  AmplifyOperation<AuthSignUpRequest, AuthSignUpResul
     return infoMap
 }
 
-func setState(res: AmplifyOperation<AuthSignUpRequest, AuthSignUpResult, AuthError>.OperationResult) -> String {
+func setState(res: AmplifyOperation<AuthSignInRequest, AuthSignInResult, AuthError>.OperationResult) -> String {
     let state: String = "ERROR"
     switch res {
-        case .success(let signUpResult):
-          if case .done = signUpResult.nextStep {
+        case .success(let signInResult):
+          if case .done = signInResult.nextStep {
              return  "DONE"
           }
-          if case .confirmUser = signUpResult.nextStep {
-            return "CONFIRM_SIGN_UP_STEP"
+          if case .confirmSignInWithSMSMFACode = signInResult.nextStep {
+            return "CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE"
+          }
+          if case .confirmSignInWithNewPassword = signInResult.nextStep {
+            return "CONFIRM_SIGN_IN_WITH_NEW_PASSWORD"
+          }
+          if case .confirmSignInWithCustomChallenge = signInResult.nextStep {
+            return "CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE"
+          }
+          if case .resetPassword = signInResult.nextStep {
+            return "RESET_PASSWORD"
           }
         case .failure:
            return "ERROR"
@@ -94,63 +112,5 @@ func setState(res: AmplifyOperation<AuthSignUpRequest, AuthSignUpResult, AuthErr
     return state
 }
 
-func formatProviderData(res: AmplifyOperation<AuthSignUpRequest, AuthSignUpResult, AuthError>.OperationResult) -> NSMutableDictionary {
-    let responseDict: NSMutableDictionary = [:]
-    let providerDataDict: NSMutableDictionary = [:]
-    let nextStepDict: NSMutableDictionary = [:]
-    let codeDeliveryDetailsDict: NSMutableDictionary = [:]
-    
-    switch res {
-        case .success(let signUpResult):
-          if case .done = signUpResult.nextStep {
-            responseDict["signUpState"] = "DONE"
-            providerDataDict["isSignUpComplete"] = true
-            responseDict["providerData"] = providerDataDict;
-          }
-          if case let .confirmUser(deliveryDetails, _) = signUpResult.nextStep {
-            /*
-               The following code is accounting for the fact that swift auth types
-               currently don't conform to codeable, as well as mismatches between ios
-               and android response data/enums.  If swift auth types were to become codeable,
-               we could potentially deal with mismatches on the dart side and simply serialize
-               the whole response type here.
 
-               TODO: IMPROVE THIS
-            */
-            responseDict["signUpState"] = "CONFIRM_SIGN_UP_STEP"
 
-            if case let .email(e) = deliveryDetails?.destination {
-              codeDeliveryDetailsDict["destination"] = e! as String
-              codeDeliveryDetailsDict["attributeName"] = "email"
-              codeDeliveryDetailsDict["deliveryMedium"] = "EMAIL"
-            }
-        
-            if case let .phone(e) = deliveryDetails?.destination {
-              codeDeliveryDetailsDict["destination"] = e! as String
-              codeDeliveryDetailsDict["attributeName"] = "phone"
-            }
-        
-            if case let .sms(e) = deliveryDetails?.destination {
-              codeDeliveryDetailsDict["destination"] = e! as String
-              codeDeliveryDetailsDict["attributeName"] = "sms"
-              codeDeliveryDetailsDict["deliveryMedium"] = "SMS"
-            }
-        
-            if case let .unknown(e) = deliveryDetails?.destination {
-              codeDeliveryDetailsDict["destination"] = e! as String
-              codeDeliveryDetailsDict["attributeName"] = "unknown"
-            }
-        
-            nextStepDict["codeDeliveryDetails"] = codeDeliveryDetailsDict
-            providerDataDict["nextStep"] = nextStepDict
-            responseDict["providerData"] = providerDataDict
-        
-            return responseDict;
-        }
-        case .failure:
-              responseDict["signUpState"] = "ERROR"
-              return responseDict
-    }
-    
-    return responseDict
-}

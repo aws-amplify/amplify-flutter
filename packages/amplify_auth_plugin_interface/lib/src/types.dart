@@ -5,6 +5,9 @@ export 'SignUp/ConfirmSignUpRequest.dart';
 export 'SignUp/SignUpState.dart';
 export 'SignIn/SignInRequest.dart';
 export 'SignIn/SignInResult.dart';
+export 'SignOut/SignOutRequest.dart';
+export 'SignOut/SignOutResult.dart';
+export 'SignOut/SignOutState.dart';
 
 // Error Classes
 export 'Errors/AuthError.dart';

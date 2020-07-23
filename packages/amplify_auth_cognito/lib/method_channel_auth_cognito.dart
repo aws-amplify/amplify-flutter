@@ -5,8 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'amplify_auth_cognito.dart';
 import 'src/EnumHandler.dart';
-import 'src/CognitoSignUp/CognitoSignUpExceptions.dart';
-import 'src/Cognito/AuthNextStep.dart';
+
 
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/auth_cognito');
 
@@ -74,6 +73,26 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     }
   }
 
+  @override
+  Future<SignOutResult> signOut({SignOutRequest request, AuthRequestProvider provider, Function(SignOutResult) success, Function(SignOutResult) error}) async {
+    SignOutResult res;
+    try {
+      final Map<String, dynamic> data =
+      await _channel.invokeMapMethod<String, dynamic>(
+        'signOut',
+        <String, dynamic>{
+          'data': request != null ? request.serializeAsMap() : null,
+        },
+      );
+      res = _formatSignOutResponse(data);
+      return res;
+      
+    } on PlatformException catch(e) {
+      res = _formatSignOutError(e);
+      return res;
+    }
+  }
+
   SignUpResult _formatSignUpResponse(Map<String, dynamic> signUpResponse) {
     Map<dynamic, dynamic> providerMap = signUpResponse["providerData"];
     Map<String , dynamic> deliveryDetails = {};
@@ -87,10 +106,17 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   SignInResult _formatSignInResponse(Map<String, dynamic> signInResponse) {
     Map<dynamic, dynamic> providerMap = signInResponse["providerData"];
     Map<String , dynamic> deliveryDetails = {};
-    if (providerMap["nextStep"] != null && providerMap["nextStep"]["codeDeliveryDetails"] != null) {
-      deliveryDetails = Map.from(providerMap["nextStep"]["codeDeliveryDetails"]);
+    Map<String , dynamic> additionalInfo = {};
+    if (providerMap["nextStep"] != null && providerMap["nextStep"] != null) {
+      if (providerMap["nextStep"]["codeDeliveryDetails"] != null) {
+        deliveryDetails = Map.from(providerMap["nextStep"]["codeDeliveryDetails"]);
+      }
+      if (providerMap["nextStep"]["additionalInfo"] != null) {
+        additionalInfo = Map.from(providerMap["nextStep"]["additionalInfo"]);
+      }
+
     }
-    CognitoSignInResultProvider providerData = CognitoSignInResultProvider(AuthNextStep(rawDetails: deliveryDetails));
+    CognitoSignInResultProvider providerData = CognitoSignInResultProvider(AuthNextStep(rawDetails: deliveryDetails, additionalInfo: additionalInfo));
     return SignInResult.init(signInResponse["signInState"], providerData);
   }
 
@@ -106,9 +132,31 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     return SignUpResult.init("ERROR", providerData, error); 
   }
 
-  SignInResult _formatSignInError(PlatformException error) {
+  SignInResult _formatSignInError(PlatformException e) {
     CognitoSignInResultProvider providerData = CognitoSignInResultProvider(AuthNextStep(rawDetails: {}));
+    LinkedHashMap eMap = new LinkedHashMap<String, String>();
+    e.details.forEach((k, v) => {
+      if (enumFromString<CognitoSignUpException>(k, CognitoSignUpException.values) != null) {
+        eMap.putIfAbsent(k, () => v as String)
+      }
+    });
+    AuthError error = AuthError.init(authErrorType: e.message, errorMap: eMap);
     return SignInResult.init("ERROR", providerData, error); 
+  }
+
+  SignOutResult _formatSignOutResponse(Map<String, dynamic> signOutResponse) {
+    return SignOutResult.init(signOutResponse["signOutState"]);
+  }
+
+  SignOutResult _formatSignOutError(PlatformException e) {
+    LinkedHashMap eMap = new LinkedHashMap<String, String>();
+    e.details.forEach((k, v) => {
+      if (enumFromString<CognitoSignOutException>(k, CognitoSignOutException.values) != null) {
+        eMap.putIfAbsent(k, () => v as String)
+      }
+    });
+    AuthError error = AuthError.init(authErrorType: e.message, errorMap: eMap);
+    return SignOutResult.init("ERROR", null, error); 
   }
 }
 
