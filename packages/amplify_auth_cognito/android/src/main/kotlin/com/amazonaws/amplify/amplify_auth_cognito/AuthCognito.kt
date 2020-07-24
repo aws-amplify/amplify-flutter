@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.util.Log
 import androidx.annotation.NonNull
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthFailureMessage
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpRequest
 import com.amazonaws.auth.policy.Resource
 import com.amazonaws.services.cognitoidentityprovider.model.*
@@ -95,7 +96,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
         req.password,
         req.userAttributes,
           { result -> this.mainActivity?.runOnUiThread({ prepareSignUpResult(flutterResult, result)}) },
-          { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, signUpFailure, error.localizedMessage)}) }
+          { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.SIGNUP.name, error.localizedMessage)}) }
       );
     } catch(e: Exception) {
       prepareError(flutterResult, e, signUpFailure, "Error sending SignUpRequest")
@@ -165,10 +166,4 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     val json = gson.toJson(this)
     return gson.fromJson(json, object : TypeToken<O>() {}.type)
   }
-//  private fun formatAmplifyException(@NonNull e: AmplifyException): Map<String, Serializable?> {
-//      return mapOf(
-//          "cause" to e.cause,
-//          "recoverySuggestion" to e.recoverySuggestion
-//      )
-//  }
 }

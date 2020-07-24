@@ -4,7 +4,7 @@ class SignUpRequest {
   String username;
   String password;
   SignUpOptions options;
-  SignUpProvider provider;
+  AuthRequest provider;
   SignUpRequest({this.username, @required this.password, this.provider, this.options});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};

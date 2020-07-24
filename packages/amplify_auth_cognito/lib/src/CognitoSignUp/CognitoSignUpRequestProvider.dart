@@ -1,6 +1,6 @@
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-class CognitoSignUpRequestProvider extends SignUpProvider {
+class CognitoSignUpRequestProvider extends AuthRequestProvider {
   String usernameAttribute;
   Map<String, String> validationData;
   CognitoSignUpRequestProvider({this.usernameAttribute, this.validationData});

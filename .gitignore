@@ -2,6 +2,7 @@
 .DS_Store
 build/
 ios/.generated/
+android/.settings/
 pubspec.lock
 *.iml
 *.jar
