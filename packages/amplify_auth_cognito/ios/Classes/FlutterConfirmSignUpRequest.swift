@@ -10,7 +10,7 @@ struct FlutterConfirmSignUpRequest {
   var username: String?
   var confirmationCode: String?
   init(dict: NSMutableDictionary){
-    self.username = dict["username"] as! String?
+    self.username = dict["userKey"] as! String?
     self.confirmationCode = dict["confirmationCode"] as! String?
   }
 }

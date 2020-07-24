@@ -74,6 +74,26 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   }
 
   @override
+  Future<SignInResult> confirmSignIn({ConfirmSignInRequest request, AuthRequestProvider provider, Function(SignInResult) success, Function(SignInResult) error}) async {
+    SignInResult res;
+    try {
+      final Map<String, dynamic> data =
+      await _channel.invokeMapMethod<String, dynamic>(
+        'confirmSignIn',
+        <String, dynamic>{
+          'data': request != null ? request.serializeAsMap() : null,
+        },
+      );
+      res = _formatSignInResponse(data);
+      return res;
+      
+    } on PlatformException catch(e) {
+      res = _formatSignInError(e);
+      return res;
+    }
+  }
+
+  @override
   Future<SignOutResult> signOut({SignOutRequest request, AuthRequestProvider provider, Function(SignOutResult) success, Function(SignOutResult) error}) async {
     SignOutResult res;
     try {

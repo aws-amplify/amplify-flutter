@@ -38,6 +38,10 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
         let arguments = call.arguments as! Dictionary<String, AnyObject>
         let request = FlutterSignInRequest(dict: arguments["data"] as! NSMutableDictionary)
         onSignIn(flutterResult: result, request: request);
+      case "confirmSignIn":
+        let arguments = call.arguments as! Dictionary<String, AnyObject>
+        let  request = FlutterConfirmSignInRequest(dict: arguments["data"] as! NSMutableDictionary)
+        onConfirmSignIn(flutterResult: result, request: request)
       case "signOut": 
         let arguments = call.arguments as! Dictionary<String, AnyObject>
         let dict = arguments["data"] != nil && !(arguments["data"] is NSNull) ? arguments["data"] as! NSMutableDictionary : NSMutableDictionary()
@@ -100,6 +104,22 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
         }
       }
   }
+    
+  private func onConfirmSignIn(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignInRequest) {
+    _ = Amplify.Auth.confirmSignIn(challengeResponse: request.confirmationCode) { response in
+     switch response {
+       case .success:
+         let signInData = FlutterSignInResult(res: response)
+         flutterResult(signInData.toJSON())
+       case .failure(let signInError):
+         print("An error occurred while confirming a sign in")
+         if case .service(_, _, let error) = signInError {
+            let errorCode = error != nil ? "\(error!)" : "UNKNOWN"
+            self.prepareError(flutterResult: flutterResult, error: signInError, msg: self.signInFailure, errorMap: self.formatErrorMap(errorCode: errorCode ))
+         }
+       }
+     }
+   }
     
   private func onSignOut(flutterResult: @escaping FlutterResult, request: FlutterSignOutRequest) {
     _ = Amplify.Auth.signOut(options: request.options) { response in

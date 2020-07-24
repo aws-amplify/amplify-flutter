@@ -54,6 +54,16 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     return res;
   }
 
+  Future<SignInResult> confirmSignIn({@required ConfirmSignInRequest request, Function(SignInResult) success, Function(SignInResult) error}) async {
+    var res = await _instance.confirmSignIn(request: request, success: success, error: error);
+    if (res.error != null && error != null) {
+      error(res);
+    } else if (success != null) {
+      success(res);
+    }
+    return res;
+  }
+
   Future<SignOutResult> signOut({SignOutRequest request, Function(SignOutResult) success, Function(SignOutResult) error}) async {
     var res = await _instance.signOut(request: request, success: success, error: error);
     if (res.error != null && error != null) {

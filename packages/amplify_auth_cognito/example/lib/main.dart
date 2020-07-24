@@ -98,7 +98,7 @@ class _MyAppState extends State<MyApp> {
           confirmationCode: confirmationCodeController.text.trim(),
         ), 
         success: (res) => setState(() {
-          displayState = "SHOW_APP";
+          displayState = "SHOW_SIGN_IN";
           authState = res.signUpState;
         }),
         error: (res) => setState(() {
@@ -121,6 +121,31 @@ class _MyAppState extends State<MyApp> {
         request: SignInRequest(
           username: usernameController.text.trim(),
           password: passwordController.text.trim(),
+        ), 
+        success: (res) => setState(() {
+          print("signedIn: " + res.toString());
+          displayState = res.signInState == "DONE" ? "SHOW_APP": "SHOW_MFA";
+          authState = res.signInState;
+        }),
+        error: (res) => setState(() {
+          authError = res.error.authErrorType;
+          authErrorCause = res.error.errorCauses[0].exception;
+        })
+      );
+      setState(() {
+        signInResult = res.toString();
+        
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+ void _confirmSignIn() async {
+    try {
+      SignInResult res = await Amplify.Auth.confirmSignIn(
+        request: ConfirmSignInRequest(
+          confirmationValue: confirmationCodeController.text.trim(),
         ), 
         success: (res) => setState(() {
           print("signedIn: " + res.toString());
@@ -181,12 +206,12 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  Widget showConfirmSignUp() {
+Widget showConfirmSignUp() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         Expanded( // wrap your Column in Expanded
-          child: Column(
+          child: Column (
             children: [
               const Padding(padding: EdgeInsets.all(10.0)),
               TextFormField(
@@ -209,6 +234,44 @@ class _MyAppState extends State<MyApp> {
               RaisedButton(
                 onPressed: _confirmSignUp,
                 child: const Text('Confirm SignUp'),
+              ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed:_backToSignIn,
+                child: const Text('Back to Sign In'),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget showConfirmSignIn() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        Expanded( // wrap your Column in Expanded
+          child: Column(
+            children: [
+              const Padding(padding: EdgeInsets.all(10.0)),
+              TextFormField(
+                controller: confirmationCodeController,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.question_answer),
+                  hintText: 'The secret answer to the auth challange',
+                  labelText: 'Challange Response *',
+                )
+              ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed: _confirmSignIn,
+                child: const Text('Confirm SignIn'),
+              ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed:_backToSignIn,
+                child: const Text('Back to Sign In'),
               ),
             ],
           ),
@@ -377,6 +440,7 @@ Widget showSignIn() {
                 if (this.displayState == "SHOW_SIGN_UP") showSignUp(),
                 if (this.displayState == "SHOW_CONFIRM") showConfirmSignUp(),
                 if (this.displayState == "SHOW_SIGN_IN") showSignIn(),
+                if (this.displayState == "SHOW_MFA") showConfirmSignIn(),
                 if (this.displayState == "SHOW_APP") showApp(),
               ]
             )

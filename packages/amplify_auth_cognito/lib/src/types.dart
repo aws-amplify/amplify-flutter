@@ -7,6 +7,7 @@ export 'CognitoSignUp/CognitoConfirmSignUpRequestProvider.dart';
 // SignIn
 export 'CognitoSignIn/CognitoSignInRequestProvider.dart';
 export 'CognitoSignIn/CognitoSignInResultProvider.dart';
+export 'CognitoSignIn/CognitoConfirmSignInRequestProvider.dart';
 
 // SignOut
 export 'CognitoSignOut/CognitoSignOutExceptions.dart';

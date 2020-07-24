@@ -1,5 +1,6 @@
 package com.amazonaws.amplify.amplify_auth_cognito
 
+import FlutterConfirmSignInRequest
 import FlutterSignInRequest
 import FlutterSignOutRequest
 import android.app.Activity
@@ -79,7 +80,13 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
         try {
           onSignIn(result, (call.arguments as HashMap<String, String>).get("data") as HashMap<String, String>)
         } catch (e: Exception) {
-          result.error("AmplifyException", "Error casting signOut parameter map", e.message )
+          result.error("AmplifyException", "Error casting signIn parameter map", e.message )
+        }
+      "confirmSignIn" ->
+        try {
+          onConfirmSignIn(result, (call.arguments as HashMap<String, String>).get("data") as HashMap<String, String>)
+        } catch (e: Exception) {
+          result.error("AmplifyException", "Error casting confirmSignIn parameter map", e.message )
         }
       "signOut" ->
         try {
@@ -146,6 +153,19 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
       Amplify.Auth.signIn(
         req.username,
         req.password,
+          { result -> this.mainActivity?.runOnUiThread({ prepareSignInResult(flutterResult, result)}) },
+          { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, signInFailure, error.localizedMessage)}) }
+      );
+    } catch(e: Exception) {
+      prepareError(flutterResult, e, signUpFailure, "Error sending SignUpRequest")
+    }
+  }
+
+  private fun onConfirmSignIn (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
+    var req = FlutterConfirmSignInRequest(request)
+    try {
+      Amplify.Auth.confirmSignIn(
+        req.confirmationCode,
           { result -> this.mainActivity?.runOnUiThread({ prepareSignInResult(flutterResult, result)}) },
           { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, signInFailure, error.localizedMessage)}) }
       );
