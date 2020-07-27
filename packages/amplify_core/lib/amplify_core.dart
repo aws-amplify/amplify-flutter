@@ -7,6 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:amplify_core_plugin_interface/amplify_core_plugin_interface.dart';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
+import 'package:amplify_analytics_plugin_interface/analytics_plugin_interface.dart';
+
 class Amplify {
   static const AuthCategory Auth = const AuthCategory();
   bool _isConfigured = false;
@@ -29,6 +31,11 @@ class Amplify {
       throw("Amplify is already configured; additional plugins cannot be added.");
     }
 
+  }
+  
+  static const AnalyticsCategory Analytics = const AnalyticsCategory();
+  bool addPlugin(AnalyticsPluginInterface analyticsPlugin){
+    return Analytics.addPlugin(analyticsPlugin);
   }
 
   Future<void> configure(String configuration) async {
