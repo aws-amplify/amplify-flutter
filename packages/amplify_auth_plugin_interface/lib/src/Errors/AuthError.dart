@@ -23,4 +23,3 @@ class ErrorCause {
   String detail;
   ErrorCause({@required this.exception, this.detail});
 }
-

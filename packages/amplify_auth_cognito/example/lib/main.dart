@@ -1,12 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_core_plugin_interface/amplify_core_plugin_interface.dart';
 import 'amplifyconfiguration.dart';
 
 void main() {
@@ -36,24 +30,10 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
-    void _configureAmplify() async {
-    // First add plugins (Amplify native requirements)
-      AmplifyAuthCognito  auth= new AmplifyAuthCognito();
-      amplify.addPlugin([auth]);
-
-    // print(amplifyInstance.addPlugin(apiPlugin, storagePlugin));
-
-    // Now configure
-    bool isConfigured = await amplify.configure(amplifyconfig);
-
-    if (!isConfigured) {
-      print("Failed to configure amplify");
-      setState(() {
-        _isAmplifyConfigured = false;
-      });
-      return;
-    }
-
+  void _configureAmplify() async {
+    AmplifyAuthCognito  auth = new AmplifyAuthCognito();
+    amplify.addPlugin([auth]);
+    await amplify.configure(amplifyconfig);
     setState(() {
       _isAmplifyConfigured = true;
       authState = "SIGN_IN";
@@ -64,23 +44,16 @@ class _MyAppState extends State<MyApp> {
     Map<String, dynamic> userAttributes = {
       "email": emailController.text,
       "phone_number": phoneController.text,
-      "given_name": "Noyes",
-      "address": "123 My Street"
     };
     try {
       SignUpResult res = await Amplify.Auth.signUp(
         request: SignUpRequest(
           username: usernameController.text.trim(),
           password: passwordController.text.trim(),
-          provider: CognitoSignUpRequestProvider(usernameAttribute: "email"),
-          options: SignUpOptions(
+          options: SignUpRequestOptions(
               userAttributes: userAttributes,
           )
         ), 
-        success: (res) => setState(() {
-          authState = res.signUpState;
-        }),
-        error: (res) => print("callback error: " + res.toString())
       );
       setState(() {
         signUpResult = res.toString();
@@ -88,49 +61,6 @@ class _MyAppState extends State<MyApp> {
     } catch (e) {
       print(e);
     }
-  }
-
-  void _confirmSignUp() async {
-//    try {
-//      CognitoSignUpResult res = await Amplify.Auth.confirmSignUp(
-//        request: CognitoConfirmSignUpRequest(
-//          username: usernameController.text.trim(),
-//          confirmationCode: confirmationCodeController.text.trim(),
-//        ),
-//        success: (res) => setState(() {
-//          authState = "CONFIRMED";
-//        }),
-//        error: (res) => print("callback error: " + res.toString())
-//      );
-//      setState(() {
-//        signUpResult = res.toString();
-//      });
-//    } catch (e) {
-//
-//      print(e);
-//    }
-  }
-
-  void _signIn() async {
-    // try {
-    //   CognitoSignInResult res = await Amplify.Auth.signIn(
-    //     request: CognitoSignInRequest(
-    //       username: usernameController.text.trim(),
-    //       password: passwordController.text.trim(),
-    //     ), 
-    //     success: (res) => setState(() {
-    //       print("signedIn: " + res.toString());
-    //       authState = "SIGNED_IN";
-    //     }),
-    //     error: (res) => print("callback error: " + res.toString())
-    //   );
-    //   setState(() {
-    //     signInResult = res.toString();
-        
-    //   });
-    // } catch (e) {
-    //   print(e);
-    // }
   }
 
   void _createUser() async {
@@ -196,12 +126,6 @@ Widget showSignIn() {
                   labelText: 'Password *',
                 )
               ),
-              const Padding(padding: EdgeInsets.all(10.0)),
-              RaisedButton(
-                onPressed: _signIn,
-                child: const Text('SignIn'),
-              ),
-
             const Padding(padding: EdgeInsets.all(10.0)),
             RaisedButton(
               onPressed: _createUser,

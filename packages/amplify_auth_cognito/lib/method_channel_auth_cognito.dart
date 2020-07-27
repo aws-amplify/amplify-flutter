@@ -13,7 +13,7 @@ const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/auth_cognito
 class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   @override
-  Future<SignUpResult> signUp({SignUpRequest request, Function(SignUpResult) success, Function(SignUpResult) error}) async {
+  Future<SignUpResult> signUp({SignUpRequest request}) async {
     SignUpResult res;
     try {
       final Map<String, dynamic> data =
@@ -40,7 +40,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       deliveryDetails = Map.from(providerMap["nextStep"]["codeDeliveryDetails"]);
     }
     CognitoSignUpResultProvider providerData = CognitoSignUpResultProvider(AuthNextSignUpStep(rawDetails: deliveryDetails));
-    return SignUpResult.init(signUpResponse["signUpState"], providerData);
+    return SignUpResult.init(signUpState: signUpResponse["signUpState"], providerResult: providerData);
   }
 
   SignUpResult _formatSignUpError(PlatformException e) {
@@ -52,7 +52,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       }
     });
     AuthError error = AuthError.init(authErrorType: e.message, errorMap: eMap);
-    return SignUpResult.init("ERROR", providerData, error); 
+    return SignUpResult.init(signUpState: "ERROR", providerResult: providerData, authError: error); 
   }
 }
 

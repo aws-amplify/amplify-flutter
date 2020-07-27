@@ -1,4 +1,4 @@
-part of amplify_core_platform_interface;
+part of amplify_core_plugin_interface;
 
 /// Interface for Auth category. This expose all the APIs that
 /// are supported by this category's plugins. This class will accept plugins to
@@ -9,18 +9,17 @@ class AuthCategory {
   static List<AuthPluginInterface> plugins = [];
 
   /// `Add plugin` method
-  bool addPlugin(AuthPluginInterface plugin) {
-    plugins.add(plugin);
-    // probably configure the plugin now.
-    return true;
+  void addPlugin(AuthPluginInterface plugin) {
+    // TODO: Discuss and support multiple plugins
+    if (plugins.length == 0) {
+      plugins.add(plugin);
+      
+    } else {
+      throw("Auth plugin was not added");
+    }
   }
 
   Future<SignUpResult> signUp({@required SignUpRequest request, Function(SignUpResult) success, Function(SignUpResult) error}) {
-    /// call `signUp` on all the plugins
-    return plugins.length == 1 ? plugins[0].signUp(request: request, success: success, error: error) : null;
-  }
-
-  nullPluginsError(String functionName) {
-    
+    return plugins[0].signUp(request: request);
   }
 }

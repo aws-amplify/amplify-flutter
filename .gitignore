@@ -1,8 +1,8 @@
 .dart_tool/
 .DS_Store
 build/
-ios/.generated/
-android/.settings/
+**/ios/.generated/
+**/android/.settings/
 pubspec.lock
 *.iml
 *.jar

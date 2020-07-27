@@ -70,5 +70,19 @@ data class FlutterSignUpRequest(val map: HashMap<String, *>) {
         }
         return camelCase.toString();
     }
+
+    companion object {
+        fun validate(req : HashMap<String, *>): Boolean {
+            var valid: Boolean = true;
+            if (!req.containsKey("userAttributes")) {
+                valid = false;
+            }
+            if (!req.containsKey("password")) {
+                valid = false;
+            }
+            return valid;
+        }
+    }
+
 }
 

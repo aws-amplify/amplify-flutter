@@ -1,5 +1,5 @@
 name: amplify_auth_plugin_interface
-description: A new Flutter package project.
+description: The platform interface for the auth module of Amplify-Flutter.
 version: 0.0.1
 author:
 homepage:

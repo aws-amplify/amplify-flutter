@@ -1,4 +1,4 @@
-library amplify_core_platform_interface;
+library amplify_core_plugin_interface;
 
 
 import 'dart:async';
