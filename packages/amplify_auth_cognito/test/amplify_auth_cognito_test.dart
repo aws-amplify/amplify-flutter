@@ -12,22 +12,19 @@ void main() {
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
+
+
   setUp(() {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      int testCode = methodCall.arguments["data"]["userAttributes"]["testCode"];
       if (methodCall.method == "signUp") {
-        if (testCode == 1) {
-          return {
-            "signUpState": "CONFIRM_SIGN_UP_STEP",
-            "providerData" : {
-              "nextStep": {
-                "codeDeliveryDetails":  { "atttibuteName": "email" }
-              }
+        return {
+          "signUpState": "CONFIRM_SIGN_UP_STEP",
+          "providerData" : {
+            "nextStep": {
+              "codeDeliveryDetails":  { "atttibuteName": "email" }
             }
-          };
-        } else if (testCode == 2) {
-          throw PlatformException(code: "AmplifyException");
-        }
+          }
+        };
       } else {
         return true;
       }     
@@ -42,54 +39,18 @@ void main() {
     coreChannel.setMockMethodCallHandler(null);
   });
 
-  test('amplify_auth_cognito plugin can be added to Amplify instance', () async {
-    expect(amplify.addPlugin([auth]), true);
-  });
-
-  test('configure success after plugin is added', () async {
-    expect(await amplify.configure("{}"), true);
-  });
-
   test('signUp request returns a CognitoSignUpResult', () async {
+    await amplify.addPlugin([auth]);
+    await amplify.configure("{}");
     SignUpRequest req = SignUpRequest(
       username: 'testUser',
       password: '123',
-      options: SignUpOptions(
+      options: SignUpRequestOptions(
         userAttributes: {
           "email": "test@test.com",
           "testCode": 1
         })
     );
     expect(await Amplify.Auth.signUp(request: req), isInstanceOf<SignUpResult>());
-  });
-
-  test('successful signUp request results in success callback call', () async {
-    var testInt = 0;
-    SignUpRequest req = SignUpRequest(
-      username: 'testUser',
-      password: '123',
-      options: SignUpOptions(
-        userAttributes: {
-          "email": "test@test.com",
-          "testCode": 1
-        })
-    );
-    await Amplify.Auth.signUp(request: req, success: (res) => testInt++);
-    expect(testInt, equals(1));
-  });
-
-  test('failed signUp request results in error callback call', () async {
-    var testInt = 0;
-    SignUpRequest req = SignUpRequest(
-      username: 'testUser',
-      password: '123',
-      options: SignUpOptions(
-        userAttributes: {
-          "email": "test@test.com",
-          "testCode": 2
-        })
-    );
-    await Amplify.Auth.signUp(request: req, error: (res) => testInt++);
-    expect(testInt, equals(1));
   });
 }

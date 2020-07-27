@@ -9,12 +9,12 @@ import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart
 
 class Amplify {
   static const AuthCategory Auth = const AuthCategory();
-  bool isConfigured = false;
+  bool _isConfigured = false;
 
-  void addPlugin(
+  Future<void> addPlugin(
     List<AuthPluginInterface> authPlugin
   ) {
-    if (!isConfigured) {
+    if (!_isConfigured) {
       try {
         if (authPlugin != null && authPlugin.length > 0) {
           authPlugin.forEach((el) {
@@ -31,10 +31,10 @@ class Amplify {
 
   }
 
-  void configure(String configuration) async {
+  Future<void> configure(String configuration) async {
     assert(configuration != null, 'configuration is null');
     var res = await Core.instance.configure(configuration);
-    isConfigured = res;
+    _isConfigured = res;
     if (!res) {
       throw("Amplify plugin was not added");
     }
