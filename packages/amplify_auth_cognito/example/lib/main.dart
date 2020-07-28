@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
 
   void _configureAmplify() async {
     AmplifyAuthCognito  auth = new AmplifyAuthCognito();
-    amplify.addPlugin([auth]);
+    amplify.addPlugin(authPlugin: [auth]);
     await amplify.configure(amplifyconfig);
     setState(() {
       _isAmplifyConfigured = true;

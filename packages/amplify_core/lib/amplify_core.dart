@@ -2,26 +2,31 @@ library amplify_core;
 
 
 import 'dart:async';
-import 'dart:collection';
-import 'package:flutter/services.dart';
 import 'package:amplify_core_plugin_interface/amplify_core_plugin_interface.dart';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
-
 import 'package:amplify_analytics_plugin_interface/analytics_plugin_interface.dart';
 
 class Amplify {
   static const AuthCategory Auth = const AuthCategory();
+  static const AnalyticsCategory Analytics = const AnalyticsCategory();
+  
   bool _isConfigured = false;
+  var multiPluginWarning = "Concurrent usage of multiple plugins per category is not yet available.";
 
-  Future<void> addPlugin(
-    List<AuthPluginInterface> authPlugin
-  ) {
+  Future<void> addPlugin({
+    List<AuthPluginInterface> authPlugin, 
+    List<AnalyticsPluginInterface> analyticsPlugin}) {
     if (!_isConfigured) {
       try {
-        if (authPlugin != null && authPlugin.length > 0) {
-          authPlugin.forEach((el) {
-            Auth.addPlugin(el);
-          });
+        if (authPlugin != null && authPlugin.length == 1) {
+          Auth.addPlugin(authPlugin[0]);
+        } else if (authPlugin.length > 1) {
+          throw(multiPluginWarning);
+        }
+        if (analyticsPlugin != null && analyticsPlugin.length == 1) {
+          Analytics.addPlugin(analyticsPlugin[0]);
+        } else if (authPlugin.length > 1) {
+          throw(multiPluginWarning);
         }
       } catch(e) {
         print(e);
@@ -30,12 +35,7 @@ class Amplify {
     } else {
       throw("Amplify is already configured; additional plugins cannot be added.");
     }
-
-  }
-  
-  static const AnalyticsCategory Analytics = const AnalyticsCategory();
-  bool addPlugin(AnalyticsPluginInterface analyticsPlugin){
-    return Analytics.addPlugin(analyticsPlugin);
+  return null;
   }
 
   Future<void> configure(String configuration) async {
