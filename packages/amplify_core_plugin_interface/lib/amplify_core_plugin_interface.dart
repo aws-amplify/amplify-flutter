@@ -6,13 +6,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
+import 'package:amplify_analytics_plugin_interface/analytics_plugin_interface.dart';
 
 part 'method_channel_amplify.dart';
 
 /// category parts
 part 'amplify_auth_category.dart';
-
-
+part 'amplify_analytics_category.dart';
 
 abstract class Core extends PlatformInterface {
   /// Constructs a Core platform.
@@ -36,7 +36,10 @@ abstract class Core extends PlatformInterface {
   }
 
   /// Categories
+
   final AuthCategory Auth = AuthCategory();
+  final AnalyticsCategory Analytics = AnalyticsCategory();
+
 
   /// Adds the configuration and return true if it was successful.
   Future<bool> configure(String configuration) {
