@@ -9,16 +9,24 @@ import 'package:amplify_analytics_plugin_interface/analytics_plugin_interface.da
 
 class Amplify {
   static const AuthCategory Auth = const AuthCategory();
+  static const AnalyticsCategory Analytics = const AnalyticsCategory();
+
   bool _isConfigured = false;
 
   Future<void> addPlugin(
-    List<AuthPluginInterface> authPlugin
+    List<AuthPluginInterface> authPlugin,
+    List<AnalyticsPluginInterface> analyticsPlugin
   ) {
     if (!_isConfigured) {
       try {
         if (authPlugin != null && authPlugin.length > 0) {
           authPlugin.forEach((el) {
             Auth.addPlugin(el);
+          });
+        }
+        if (analyticsPlugin != null && analyticsPlugin.length > 0) {
+          analyticsPlugin.forEach((el) {
+            Analytics.addPlugin(el);
           });
         }
       } catch(e) {
@@ -29,11 +37,6 @@ class Amplify {
       throw("Amplify is already configured; additional plugins cannot be added.");
     }
 
-  }
-  
-  static const AnalyticsCategory Analytics = const AnalyticsCategory();
-  bool addPlugin(AnalyticsPluginInterface analyticsPlugin){
-    return Analytics.addPlugin(analyticsPlugin);
   }
 
   Future<void> configure(String configuration) async {
