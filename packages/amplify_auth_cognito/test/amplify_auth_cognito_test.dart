@@ -40,7 +40,7 @@ void main() {
   });
 
   test('signUp request returns a CognitoSignUpResult', () async {
-    await amplify.addPlugin([auth]);
+    await amplify.addPlugin(authPlugin: [auth]);
     await amplify.configure("{}");
     SignUpRequest req = SignUpRequest(
       username: 'testUser',
