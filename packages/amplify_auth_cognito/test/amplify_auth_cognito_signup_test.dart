@@ -12,9 +12,12 @@ void main() {
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
+
+
   setUp(() {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == "signUp") {
+<<<<<<< HEAD:packages/amplify_auth_cognito/test/amplify_auth_cognito_signup_test.dart
         int testCode = methodCall.arguments["data"]["userAttributes"]["testCode"];
         if (testCode == 0) {
           return {
@@ -28,6 +31,18 @@ void main() {
         } else if (testCode == 1) {
           throw PlatformException(code: "AmplifyException", details: Map.from({"testError": "error"}), message: "stuff");
         }
+=======
+        return {
+          "signUpState": "CONFIRM_SIGN_UP_STEP",
+          "providerData" : {
+            "nextStep": {
+              "codeDeliveryDetails":  { "atttibuteName": "email" }
+            }
+          }
+        };
+      } else {
+        return true;
+>>>>>>> amplify_auth:packages/amplify_auth_cognito/test/amplify_auth_cognito_test.dart
       }     
     });
     coreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
@@ -40,6 +55,7 @@ void main() {
     coreChannel.setMockMethodCallHandler(null);
   });
 
+<<<<<<< HEAD:packages/amplify_auth_cognito/test/amplify_auth_cognito_signup_test.dart
   test('amplify_auth_cognito plugin can be added to Amplify instance', () async {
     expect(amplify.addPlugin([auth]), true);
   });
@@ -49,10 +65,15 @@ void main() {
   });
 
   test('signUp request returns a SignUpResult', () async {
+=======
+  test('signUp request returns a CognitoSignUpResult', () async {
+    await amplify.addPlugin([auth]);
+    await amplify.configure("{}");
+>>>>>>> amplify_auth:packages/amplify_auth_cognito/test/amplify_auth_cognito_test.dart
     SignUpRequest req = SignUpRequest(
       username: 'testUser',
       password: '123',
-      options: SignUpOptions(
+      options: SignUpRequestOptions(
         userAttributes: {
           "email": "test@test.com",
           "testCode": 0
@@ -60,6 +81,7 @@ void main() {
     );
     expect(await Amplify.Auth.signUp(request: req), isInstanceOf<SignUpResult>());
   });
+<<<<<<< HEAD:packages/amplify_auth_cognito/test/amplify_auth_cognito_signup_test.dart
 
   test('successful signUp request results in success callback call', () async {
     var testInt = 0;
@@ -90,4 +112,6 @@ void main() {
     await Amplify.Auth.signUp(request: req, error: (res) => testInt++);
     expect(testInt, equals(1));
   });
+=======
+>>>>>>> amplify_auth:packages/amplify_auth_cognito/test/amplify_auth_cognito_test.dart
 }

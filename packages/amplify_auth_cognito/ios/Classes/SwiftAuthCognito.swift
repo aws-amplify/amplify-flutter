@@ -5,12 +5,7 @@ import AmplifyPlugins
 import AWSCore
 
 public class SwiftAuthCognito: NSObject, FlutterPlugin {
-    
-  let signUpFailure = "Amplify SignUp Failed"
-  let signInFailure = "Amplify SignIn Failed"
-  let signOutFailure = "Amplify SignOut Failed"
-
-    
+        
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "com.amazonaws.amplify/auth_cognito", binaryMessenger: registrar.messenger())
     let instance = SwiftAuthCognito()
@@ -28,8 +23,14 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
     switch call.method {
       case "signUp":
         let arguments = call.arguments as! Dictionary<String, AnyObject>
-        let request = FlutterSignUpRequest(dict: arguments["data"] as! NSMutableDictionary)
-        onSignUp(flutterResult: result, request: request)
+        if (FlutterSignUpRequest.validate(dict: arguments["data"] as! NSMutableDictionary)) {
+          let request = FlutterSignUpRequest(dict: arguments["data"] as! NSMutableDictionary)
+          onSignUp(flutterResult: result, request: request)
+        } else {
+          print("SignUp Request was malformed.")
+          let errorCode = "UNKNOWN"
+            self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
+        }
       case "confirmSignUp":
         let arguments = call.arguments as! Dictionary<String, AnyObject>
         let  request = FlutterConfirmSignUpRequest(dict: arguments["data"] as! NSMutableDictionary)
@@ -52,6 +53,8 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
     }
   }
 
+  
+
   private func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest) {
     let options = AuthSignUpRequest.Options(userAttributes: request.userAttributes)
 
@@ -60,12 +63,11 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
        case .success:
         let signUpData = FlutterSignUpResult(res: response)
         flutterResult(signUpData.toJSON())
-
        case .failure(let signUpError):
         print("An error occurred while registering a user")
         if case .service( _,  _, let error) = signUpError {
             let errorCode = error != nil ? "\(error!)" : "UNKNOWN"
-            self.prepareError(flutterResult: flutterResult, error: signUpError, msg: self.signUpFailure, errorMap: self.formatErrorMap(errorCode: errorCode))
+            self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNUP.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
         }
       }
     }
@@ -138,48 +140,47 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
     }
   }
 
-  private func prepareError(flutterResult: FlutterResult, error: Error, msg: String, errorMap: [String: Any]) {
-        print("\(msg): \(error)?")
-        
-        flutterResult(FlutterError(
-          code: "AmplifyException",
-          message: msg,
-          details: errorMap))
+  private func prepareError(flutterResult: FlutterResult, msg: String, errorMap: [String: Any]) {
+    flutterResult(FlutterError(
+      code: "AmplifyException",
+      message: msg,
+      details: errorMap))
   }
     
-    private func formatErrorMap(errorCode: String) -> [String: Any] {
-        var errorDict: [String: Any] = [:]
-        // should consider doing this with string manipulation, but that could be fragile
-        switch errorCode {
-          case "invalidParameter":
-            errorDict["INVALID_PARAMETER"] = description;
-        case "usernameExists":
-            errorDict["USERNAME_EXISTS"] = description;
-          case "aliasExists":
-            errorDict["ALIAS_EXISTS"] = description;
-          case "codeDeliveryFailure":
-            errorDict["CODE_DELIVERY_FAILURE"] = description
-          case "internalError":
-            errorDict["INTERNAL_ERROR"] = description
-          case "invalidLambdaResponse":
-            errorDict["INVALID_LAMBDA_RESPONSE"] = description
-          case "invalidPassword":
-            errorDict["INVALID_PASSWORD"] = description
-          case "notAuthorized":
-            errorDict["NOT_AUTHORIZED"] = description
-          case "resourceNotFound":
-            errorDict["RESOURCE_NOT_FOUND"] = description
-          case "tooManyRequests":
-            errorDict["TOO_MANY_REQUESTS"] = description
-          case "unexpectedLambda":
-            errorDict["UNEXPECTED_LAMBDA"] = description
-          case "userLambdaValidation":
-            errorDict["USER_LAMBDA_VALIDATION"] = description
-          case "tooManyFailedAttempts":
-            errorDict["TOO_MANY_FAILED_ATTEMPTS"] = description
-          default:
-            errorDict["UNKNOWN"] = "An unrecognized Sign Up has occurred."
-        }
-        return errorDict
-    }
+  private func formatErrorMap(errorCode: String) -> [String: Any] {
+      var errorDict: [String: Any] = [:]
+      // should consider doing this with string manipulation, but that could be fragile
+      switch errorCode {
+        case "invalidParameter":
+          errorDict["INVALID_PARAMETER"] = description;
+      case "usernameExists":
+          errorDict["USERNAME_EXISTS"] = description;
+        case "aliasExists":
+          errorDict["ALIAS_EXISTS"] = description;
+        case "codeDeliveryFailure":
+          errorDict["CODE_DELIVERY_FAILURE"] = description
+        case "internalError":
+          errorDict["INTERNAL_ERROR"] = description
+        case "invalidLambdaResponse":
+          errorDict["INVALID_LAMBDA_RESPONSE"] = description
+        case "invalidPassword":
+          errorDict["INVALID_PASSWORD"] = description
+        case "notAuthorized":
+          errorDict["NOT_AUTHORIZED"] = description
+        case "resourceNotFound":
+          errorDict["RESOURCE_NOT_FOUND"] = description
+        case "tooManyRequests":
+          errorDict["TOO_MANY_REQUESTS"] = description
+        case "unexpectedLambda":
+          errorDict["UNEXPECTED_LAMBDA"] = description
+        case "userLambdaValidation":
+          errorDict["USER_LAMBDA_VALIDATION"] = description
+        case "tooManyFailedAttempts":
+          errorDict["TOO_MANY_FAILED_ATTEMPTS"] = description
+        default:
+          errorDict["UNKNOWN"] = "An unrecognized Sign Up has occurred. See logs for details."
+      }
+      return errorDict
+  }
 }
+

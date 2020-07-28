@@ -1,8 +1,10 @@
 .dart_tool/
 .DS_Store
 build/
-ios/.generated/
+**/ios/.generated/
+**/android/.settings/
 pubspec.lock
+Podfile.lock
 *.iml
 *.jar
 Podfile.lock
@@ -29,3 +31,4 @@ amplifyconfiguration.dart
 amplify-build-config.json
 amplify-gradle-config.json
 amplifytools.xcconfig
+

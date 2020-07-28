@@ -49,4 +49,14 @@ struct FlutterSignUpRequest {
     }
     return username
   }
+    
+  static func validate(dict: NSMutableDictionary) -> Bool {
+    var valid: Bool = true;
+    if (dict["userAttributes"] == nil) {
+      valid = false;
+    } else if (dict["password"] == nil) {
+      valid = false;
+    }
+    return valid;
+  }
 }

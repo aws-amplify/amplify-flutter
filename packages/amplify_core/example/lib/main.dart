@@ -33,7 +33,7 @@ class _MyAppState extends State<MyApp> {
     var isConfigured = await amplifyInstance.configure(amplifyconfig);
     try {
       setState(() {
-        _amplifyConfigured = isConfigured;
+        _amplifyConfigured = true;
       });
     } catch(e) {
       print(e);

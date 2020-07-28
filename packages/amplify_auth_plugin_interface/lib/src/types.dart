@@ -14,6 +14,14 @@ export 'SignOut/SignOutState.dart';
 export 'Errors/AuthError.dart';
 export 'Errors/AuthErrorTypes.dart';
 
-// Provider Classes
+// Utility Classes
+export 'UtilityClasses/AuthCodeDeliveryDetails.dart';
+export 'UtilityClasses/AuthNextStep.dart';
+
+// Errors
+export 'Errors/AuthError.dart';
+export 'Errors/AuthErrorTypes.dart';
+
+// Providers
 export 'Providers/AuthRequestProvider.dart';
 export 'Providers/AuthResultProvider.dart';

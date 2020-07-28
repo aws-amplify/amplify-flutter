@@ -13,7 +13,8 @@ const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/auth_cognito
 class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   @override
-  Future<SignUpResult> signUp({SignUpRequest request, AuthRequestProvider provider, Function(SignUpResult) success, Function(SignUpResult) error}) async {
+
+  Future<SignUpResult> signUp({SignUpRequest request}) async {
     SignUpResult res;
     try {
       final Map<String, dynamic> data =
@@ -119,8 +120,13 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     if (providerMap["nextStep"] != null && providerMap["nextStep"]["codeDeliveryDetails"] != null) {
       deliveryDetails = Map.from(providerMap["nextStep"]["codeDeliveryDetails"]);
     }
+<<<<<<< HEAD
     CognitoSignUpResultProvider providerData = CognitoSignUpResultProvider(AuthNextStep(rawDetails: deliveryDetails));
     return SignUpResult.init(signUpResponse["signUpState"], providerData);
+=======
+    CognitoSignUpResultProvider providerData = CognitoSignUpResultProvider();
+    return SignUpResult.init(signUpState: signUpResponse["signUpState"], nextStep: AuthNextStep(rawDetails: deliveryDetails), providerResult: providerData);
+>>>>>>> amplify_auth
   }
 
   SignInResult _formatSignInResponse(Map<String, dynamic> signInResponse) {
@@ -141,7 +147,11 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   }
 
   SignUpResult _formatSignUpError(PlatformException e) {
+<<<<<<< HEAD
     CognitoSignUpResultProvider providerData = CognitoSignUpResultProvider(AuthNextStep(rawDetails: {}));
+=======
+    CognitoSignUpResultProvider providerData = CognitoSignUpResultProvider();
+>>>>>>> amplify_auth
     LinkedHashMap eMap = new LinkedHashMap<String, String>();
     e.details.forEach((k, v) => {
       if (enumFromString<CognitoSignUpException>(k, CognitoSignUpException.values) != null) {
@@ -149,7 +159,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       }
     });
     AuthError error = AuthError.init(authErrorType: e.message, errorMap: eMap);
-    return SignUpResult.init("ERROR", providerData, error); 
+    return SignUpResult.init(signUpState: "ERROR", providerResult: providerData, authError: error); 
   }
 
   SignInResult _formatSignInError(PlatformException e) {

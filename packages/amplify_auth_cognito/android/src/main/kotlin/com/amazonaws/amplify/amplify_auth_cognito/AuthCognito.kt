@@ -11,6 +11,9 @@ import androidx.annotation.Nullable
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmSignUpRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpRequest
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.exceptions.CognitoInternalErrorException
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthFailureMessage
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpResult
 import com.amazonaws.services.cognitoidentityprovider.model.*
 import com.amplifyframework.auth.AuthCodeDeliveryDetails
 import com.amplifyframework.auth.AuthException
@@ -39,10 +42,6 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
   private lateinit var context: Context
   var gson = Gson()
   private var mainActivity: Activity? = null
-  private var signUpFailure = "Amplify SignUp Failed"
-  private var signInFailure = "Amplify SignIn Failed"
-  private var signOutFailure = "Amplify SignOut Failed"
-
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "com.amazonaws.amplify/auth_cognito")
@@ -123,17 +122,21 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
   }
 
   private fun onSignUp (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
-    var req = FlutterSignUpRequest(request);
-    try {
-      Amplify.Auth.signUp(
-        req.username,
-        req.password,
-        req.userAttributes,
-          { result -> this.mainActivity?.runOnUiThread({ prepareSignUpResult(flutterResult, result)}) },
-          { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, signUpFailure, error.localizedMessage)}) }
-      );
-    } catch(e: Exception) {
-      prepareError(flutterResult, e, signUpFailure, "Error sending SignUpRequest")
+    if (FlutterSignUpRequest.validate(request)) {
+      var req = FlutterSignUpRequest(request);
+      try {
+        Amplify.Auth.signUp(
+                req.username,
+                req.password,
+                req.userAttributes,
+                { result -> this.mainActivity?.runOnUiThread({ prepareSignUpResult(flutterResult, result)}) },
+                { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.SIGNUP.name, error.localizedMessage)}) }
+        );
+      } catch(e: Exception) {
+        prepareError(flutterResult, e, FlutterAuthFailureMessage.SIGNUP.toString(), "Error sending SignUpRequest")
+      }
+    } else {
+      prepareError(flutterResult, java.lang.Exception(FlutterAuthFailureMessage.MALFORMED.toString()), FlutterAuthFailureMessage.MALFORMED.toString(), "Error sending SignUpRequest")
     }
   }
 
@@ -189,44 +192,23 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
 
   
   private fun prepareError(@NonNull flutterResult: Result, @NonNull error: Exception, @NonNull msg: String, @NonNull detail: String) {
-    System.out.println("${msg}: ${error}")
     var errorMap: HashMap<String, Any> = HashMap();
-
     if (error is AuthException) {
-      if (error.cause is InvalidParameterException) {
-        errorMap.put("INVALID_PARAMETER", (error.cause as InvalidParameterException).errorMessage)
-      } else if (error.cause is UsernameExistsException) {
-        errorMap.put("USERNAME_EXISTS", (error.cause as UsernameExistsException).errorMessage)
-      } else if (error.cause is AliasExistsException) {
-        errorMap.put("ALIAS_EXISTS", (error.cause as UsernameExistsException).errorMessage)
-      } else if (error.cause is CodeDeliveryFailureException) {
-        errorMap.put("CODE_DELIVERY_FAILURE", (error.cause as CodeDeliveryFailureException).errorMessage)
-      } else if (error.cause is InternalErrorException) {
-        errorMap.put("INTERNAL_ERROR", (error.cause as InternalErrorException).errorMessage)
-      } else if (error.cause is CognitoInternalErrorException) {
-        errorMap.put("INTERNAL_ERROR", (error.cause as CognitoInternalErrorException).localizedMessage)
-      } else if (error.cause is InvalidLambdaResponseException) {
-        errorMap.put("INVALID_LAMBDA_RESPONSE", (error.cause as InvalidLambdaResponseException).errorMessage)
-      } else if (error.cause is InvalidPasswordException) {
-        errorMap.put("INVALID_PASSWORD", (error.cause as InvalidPasswordException).errorMessage)
-      } else if (error.cause is NotAuthorizedException) {
-        errorMap.put("NOT_AUTHORIZED", (error.cause as NotAuthorizedException).errorMessage)
-      } else if (error.cause is ResourceNotFoundException) {
-        errorMap.put("RESOURCE_NOT_FOUND", (error.cause as ResourceNotFoundException).errorMessage)
-      } else if (error.cause is TooManyRequestsException) {
-        errorMap.put("TOO_MANY_REQUESTS", (error.cause as TooManyRequestsException).errorMessage)
-      } else if (error.cause is UnexpectedLambdaException) {
-        errorMap.put("UNEXPECTED_LAMBDA", (error.cause as UnexpectedLambdaException).errorMessage)
-      } else if (error.cause is UserLambdaValidationException) {
-        errorMap.put("USER_LAMBDA_VALIDATION", (error.cause as UserLambdaValidationException).errorMessage)
-      } else if (error.cause is TooManyFailedAttemptsException) {
-        errorMap.put("TOO_MANY_FAILED_REQUESTS", (error.cause as TooManyFailedAttemptsException).errorMessage)
-      } else if (error.cause is PasswordResetRequiredException) {
-        var skeletonNextStep = AuthNextSignInStep(AuthSignInStep.RESET_PASSWORD, emptyMap<String, String>(), AuthCodeDeliveryDetails("", AuthCodeDeliveryDetails.DeliveryMedium.UNKNOWN, "")  )
-        var skeletonResult = AuthSignInResult(false, skeletonNextStep);
-        return prepareSignInResult(flutterResult, skeletonResult);
-      } else {
-        errorMap.put("UNKNOWN", "Unknown error registering user.")
+      when (error.cause) {
+        is InvalidPasswordException -> errorMap.put("INVALID_PARAMETER", (error.cause as InvalidParameterException).errorMessage)
+        is UsernameExistsException -> errorMap.put("USERNAME_EXISTS", (error.cause as UsernameExistsException).errorMessage)
+        is AliasExistsException -> errorMap.put("ALIAS_EXISTS", (error.cause as AliasExistsException).errorMessage)
+        is CodeDeliveryFailureException -> errorMap.put("CODE_DELIVERY_FAILURE", (error.cause as CodeDeliveryFailureException).errorMessage)
+        is InternalErrorException -> errorMap.put("INTERNAL_ERROR", (error.cause as InternalErrorException).errorMessage)
+        is InvalidLambdaResponseException -> errorMap.put("INVALID_LAMBDA_RESPONSE", (error.cause as InvalidLambdaResponseException).errorMessage)
+        is InvalidPasswordException -> errorMap.put("INVALID_PASSWORD", (error.cause as InvalidPasswordException).errorMessage)
+        is NotAuthorizedException -> errorMap.put("NOT_AUTHORIZED", (error.cause as NotAuthorizedException).errorMessage)
+        is ResourceNotFoundException -> errorMap.put("RESOURCE_NOT_FOUND", (error.cause as ResourceNotFoundException).errorMessage)
+        is TooManyRequestsException -> errorMap.put("TOO_MANY_REQUESTS", (error.cause as TooManyRequestsException).errorMessage)
+        is UnexpectedLambdaException -> errorMap.put("UNEXPECTED_LAMBDA", (error.cause as UnexpectedLambdaException).errorMessage)
+        is UserLambdaValidationException -> errorMap.put("USER_LAMBDA_VALIDATION", (error.cause as UserLambdaValidationException).errorMessage)
+        is TooManyFailedAttemptsException -> errorMap.put("TOO_MANY_FAILED_REQUESTS", (error.cause as TooManyFailedAttemptsException).errorMessage)
+        else -> errorMap.put("UNKNOWN", "Unknown Auth Error.")
       }
     }
     flutterResult.error("AmplifyException", msg, errorMap)
@@ -234,11 +216,8 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
 
 
   private fun prepareSignUpResult(@NonNull flutterResult: Result, @NonNull result: AuthSignUpResult) {
-    var parsedResult = mutableMapOf<String, Any>();
-    parsedResult["signUpState"] = result.nextStep.signUpStep.toString();
-    parsedResult["providerData"] = result.serializeToMap()
-    ;
-    flutterResult.success(parsedResult);
+    var signUpData = FlutterSignUpResult(result);
+    flutterResult.success(signUpData.serializeToMap());
   }
 
   private fun prepareSignInResult(@NonNull flutterResult: Result, @NonNull result: AuthSignInResult) {

@@ -33,24 +33,10 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
-    void _configureAmplify() async {
-    // First add plugins (Amplify native requirements)
-      AmplifyAuthCognito  auth= new AmplifyAuthCognito();
-      amplify.addPlugin([auth]);
-
-    // print(amplifyInstance.addPlugin(apiPlugin, storagePlugin));
-
-    // Now configure
-    bool isConfigured = await amplify.configure(amplifyconfig);
-
-    if (!isConfigured) {
-      print("Failed to configure amplify");
-      setState(() {
-        _isAmplifyConfigured = false;
-      });
-      return;
-    }
-
+  void _configureAmplify() async {
+    AmplifyAuthCognito  auth = new AmplifyAuthCognito();
+    amplify.addPlugin([auth]);
+    await amplify.configure(amplifyconfig);
     setState(() {
       _isAmplifyConfigured = true;
       displayState = "SHOW_SIGN_IN";
@@ -61,14 +47,13 @@ class _MyAppState extends State<MyApp> {
     Map<String, dynamic> userAttributes = {
       "email": emailController.text,
       "phone_number": phoneController.text,
-      "given_name": "Noyes",
-      "address": "123 My Street"
     };
     try {
       SignUpResult res = await Amplify.Auth.signUp(
         request: SignUpRequest(
           username: usernameController.text.trim(),
           password: passwordController.text.trim(),
+<<<<<<< HEAD
           options: SignUpOptions(
               userAttributes: userAttributes,
           )
@@ -81,6 +66,12 @@ class _MyAppState extends State<MyApp> {
           authError = res.error.authErrorType;
           authErrorCause = res.error.errorCauses[0].exception;
         })
+=======
+          options: SignUpRequestOptions(
+              userAttributes: userAttributes,
+          )
+        ), 
+>>>>>>> amplify_auth
       );
       setState(() {
         signUpResult = res.toString();
@@ -90,6 +81,7 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+<<<<<<< HEAD
   void _confirmSignUp() async {
     try {
       SignUpResult res = await Amplify.Auth.confirmSignUp(
@@ -188,6 +180,8 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+=======
+>>>>>>> amplify_auth
   void _createUser() async {
     setState(() {
       displayState = "SHOW_SIGN_UP";
@@ -304,12 +298,6 @@ Widget showSignIn() {
                   labelText: 'Password *',
                 )
               ),
-              const Padding(padding: EdgeInsets.all(10.0)),
-              RaisedButton(
-                onPressed: _signIn,
-                child: const Text('SignIn'),
-              ),
-
             const Padding(padding: EdgeInsets.all(10.0)),
             RaisedButton(
               onPressed: _createUser,
