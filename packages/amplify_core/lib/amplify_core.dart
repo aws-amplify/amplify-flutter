@@ -11,7 +11,7 @@ class Amplify {
   static const AnalyticsCategory Analytics = const AnalyticsCategory();
   
   bool _isConfigured = false;
-  var multiPluginWarning = "Concurrent usage of multiple plugins per category is not yet available.";
+  var multiPluginWarning = "Concurrent usage of multiple plugins per category is not yet available";
 
   Future<void> addPlugin({
     List<AuthPluginInterface> authPlugin, 
