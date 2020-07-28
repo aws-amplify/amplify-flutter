@@ -39,12 +39,12 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     if (providerMap["nextStep"] != null && providerMap["nextStep"]["codeDeliveryDetails"] != null) {
       deliveryDetails = Map.from(providerMap["nextStep"]["codeDeliveryDetails"]);
     }
-    CognitoSignUpResultProvider providerData = CognitoSignUpResultProvider(AuthNextSignUpStep(rawDetails: deliveryDetails));
-    return SignUpResult.init(signUpState: signUpResponse["signUpState"], providerResult: providerData);
+    CognitoSignUpResultProvider providerData = CognitoSignUpResultProvider();
+    return SignUpResult.init(signUpState: signUpResponse["signUpState"], nextStep: AuthNextStep(rawDetails: deliveryDetails), providerResult: providerData);
   }
 
   SignUpResult _formatSignUpError(PlatformException e) {
-    CognitoSignUpResultProvider providerData = CognitoSignUpResultProvider(AuthNextSignUpStep(rawDetails: {}));
+    CognitoSignUpResultProvider providerData = CognitoSignUpResultProvider();
     LinkedHashMap eMap = new LinkedHashMap<String, String>();
     e.details.forEach((k, v) => {
       if (enumFromString<CognitoSignUpException>(k, CognitoSignUpException.values) != null) {
