@@ -273,7 +273,9 @@
 				"${BUILT_PRODUCTS_DIR}/Amplify/Amplify.framework",
 				"${BUILT_PRODUCTS_DIR}/AmplifyPlugins/AmplifyPlugins.framework",
 				"${PODS_ROOT}/../Flutter/Flutter.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/amplify_analytics_pinpoint/amplify_analytics_pinpoint.framework",
+				"${BUILT_PRODUCTS_DIR}/amplify_auth_cognito/amplify_auth_cognito.framework",
 				"${BUILT_PRODUCTS_DIR}/amplify_core/amplify_core.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -288,7 +290,9 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Amplify.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AmplifyPlugins.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Flutter.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/amplify_analytics_pinpoint.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/amplify_auth_cognito.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/amplify_core.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -332,7 +336,6 @@
 /* Begin XCBuildConfiguration section */
 		249021D3217E4FDB00AE95B9 /* Profile */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -409,7 +412,6 @@
 		};
 		97C147031CF9000F007C117D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9740EEB21CF90195004384FC /* Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -465,7 +467,6 @@
 		};
 		97C147041CF9000F007C117D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
