@@ -21,10 +21,10 @@ class _MyAppState extends State<MyApp> {
 
   bool _isAmplifyConfigured = false;
   Amplify amplify = new Amplify();
-  String authState;
+  String authState = "";
   String displayState;
-  String authError;
-  String authErrorCause;
+  String authError = "";
+  String authErrorCause = "";
   String signUpResult;
   String signInResult;
 
@@ -59,7 +59,17 @@ class _MyAppState extends State<MyApp> {
         ), 
       );
       setState(() {
-        signUpResult = res.toString();
+        authState = res.signUpState;
+        authError = res.error?.authErrorType;
+        authErrorCause = res.error?.errorCauses[0].toString();
+        switch (res.signUpState) {
+          case "DONE":
+            displayState = "SHOW_SIGN_IN";
+            break;
+          case "CONFIRM_SIGN_UP_STEP":
+            displayState = "SHOW_CONFIRM";
+            break;
+        }
       });
     } catch (e) {
       print(e);
@@ -75,7 +85,9 @@ class _MyAppState extends State<MyApp> {
         )
       );
       setState(() {
-        signUpResult = res.toString();
+        authState = res.signUpState;
+        authError = res.error?.authErrorType;
+        authErrorCause = res.error?.errorCauses[0].toString();
       });
     } catch (e) {
     
@@ -376,6 +388,11 @@ Widget showSignIn() {
                 if (this.displayState == "SHOW_SIGN_IN") showSignIn(),
                 if (this.displayState == "SHOW_MFA") showConfirmSignIn(),
                 if (this.displayState == "SHOW_APP") showApp(),
+
+                const Padding(padding: EdgeInsets.all(10.0)),
+                if (this.authState != "") Text("AUTHSTATE: "),
+                if (this.authError != "") Text("ERROR: " + this.authError),
+                if (this.authErrorCause != "") Text("ERROR CAUSE: " + this.authErrorCause),
               ]
             )
           ],

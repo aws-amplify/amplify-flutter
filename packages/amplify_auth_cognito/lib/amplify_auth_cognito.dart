@@ -6,8 +6,9 @@ import 'package:flutter/foundation.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import './method_channel_auth_cognito.dart';
 
-import './src/types.dart';
+
 export './src/types.dart';
+export 'package:amplify_auth_plugin_interface/src/types.dart';
 
 class AmplifyAuthCognito extends AuthPluginInterface {
 

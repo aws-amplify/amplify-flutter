@@ -1,17 +1,14 @@
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
-import com.amplifyframework.auth.result.AuthSignUpResult
-import com.google.gson.Gson
+import com.amplifyframework.auth.result.AuthSignInResult
 
-var gson = Gson()
-
-data class FlutterSignInResult(private val raw: AuthSigInResult) {
+data class FlutterSignInResult(private val raw: AuthSignInResult) {
   val signInState: String = setSignInState();
   val providerData: Map<String, Any> = setProviderData();
   
 
   private fun setSignInState(): String {
-    return raw.nextStep.signUpStep.toString()
+    return raw.nextStep.signInStep.toString()
   }
 
   private fun setProviderData(): Map<String, Any> {
