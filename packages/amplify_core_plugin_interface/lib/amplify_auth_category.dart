@@ -24,23 +24,23 @@ class AuthCategory {
     return plugins[0].signUp(request: request);
   }
 
-  Future<SignUpResult> confirmSignUp({@required ConfirmSignUpRequest request, Function(SignUpResult) success, Function(SignUpResult) error}) {
+  Future<SignUpResult> confirmSignUp({@required ConfirmSignUpRequest request}) {
     /// call `signUp` on all the plugins
-    return plugins.length == 1 ? plugins[0].confirmSignUp(request: request, success: success, error: error) : null;
+    return plugins.length == 1 ? plugins[0].confirmSignUp(request: request) : null;
   }
 
-  Future<SignInResult> signIn({@required SignInRequest request, Function(SignInResult) success, Function(SignInResult) error}) {
+  Future<SignInResult> signIn({@required SignInRequest request}) {
     /// call `signUp` on all the plugins
-    return plugins.length == 1 ? plugins[0].signIn(request: request, success: success, error: error) : null;
+    return plugins.length == 1 ? plugins[0].signIn(request: request) : null;
   }
 
-  Future<SignInResult> confirmSignIn({@required ConfirmSignInRequest request, Function(SignInResult) success, Function(SignInResult) error}) {
+  Future<SignInResult> confirmSignIn({@required ConfirmSignInRequest request}) {
     /// call `signUp` on all the plugins
-    return plugins.length == 1 ? plugins[0].confirmSignIn(request: request, success: success, error: error) : null;
+    return plugins.length == 1 ? plugins[0].confirmSignIn(request: request) : null;
   }
 
-  Future<SignOutResult> signOut({SignOutRequest request, Function(SignOutResult) success, Function(SignOutResult) error}) {
+  Future<SignOutResult> signOut({SignOutRequest request}) {
     /// call `signUp` on all the plugins
-    return plugins.length == 1 ? plugins[0].signOut(request: request, success: success, error: error) : null;
+    return plugins.length == 1 ? plugins[0].signOut(request: request) : null;
   }
 }

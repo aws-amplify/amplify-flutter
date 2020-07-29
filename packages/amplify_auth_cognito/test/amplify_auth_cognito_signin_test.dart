@@ -41,11 +41,11 @@ void main() {
   });
 
   test('amplify_auth_cognito plugin can be added to Amplify instance', () async {
-    expect(amplify.addPlugin([auth]), true);
+    expect(amplify.addPlugin(authPlugin: [auth]), true);
   });
 
   test('configure success after plugin is added', () async {
-    expect(await amplify.configure("{}"), true);
+    expect(amplify.configure("{}"), true);
   });
 
   test('signIn request returns a SignInResult', () async {
@@ -64,7 +64,7 @@ void main() {
       password: '0',
       provider: CognitoSignInRequestProvider(clientMetadata: {"test": "0"})
     );
-    await Amplify.Auth.signIn(request: req, success: (res) => testInt++);
+    await Amplify.Auth.signIn(request: req);
     expect(testInt, equals(1));
   });
 
@@ -75,7 +75,7 @@ void main() {
       password: '0',
       provider: CognitoSignInRequestProvider(clientMetadata: {"test": "0"})
     );
-    await Amplify.Auth.signIn(request: req, success: (res) => testInt++);
+    await Amplify.Auth.signIn(request: req);
     expect(testInt, equals(2));
   });
 }

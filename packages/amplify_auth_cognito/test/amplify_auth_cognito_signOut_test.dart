@@ -42,11 +42,11 @@ void main() {
   });
 
   test('amplify_auth_cognito plugin can be added to Amplify instance', () async {
-    expect(amplify.addPlugin([auth]), true);
+    expect(amplify.addPlugin(authPlugin: [auth]), true);
   });
 
   test('configure success after plugin is added', () async {
-    expect(await amplify.configure("{}"), true);
+    expect(amplify.configure("{}"), true);
   });
 
   test('signOut request returns a SignOutResult without a request parameter', () async {
@@ -65,7 +65,7 @@ void main() {
     SignOutRequest req = SignOutRequest(
       provider: CognitoSignOutRequestProvider(globalSignOut: true)
     );
-    await Amplify.Auth.signOut(request: req, success: (res) => testInt++);
+    await Amplify.Auth.signOut(request: req);
     expect(testInt, equals(1));
   });
 
@@ -74,7 +74,7 @@ void main() {
     SignOutRequest req = SignOutRequest(
       provider: CognitoSignOutRequestProvider(globalSignOut: false)
     );
-    await Amplify.Auth.signOut(request: req, success: (res) => testInt++);
+    await Amplify.Auth.signOut(request: req);
     expect(testInt, equals(2));
   });
 }

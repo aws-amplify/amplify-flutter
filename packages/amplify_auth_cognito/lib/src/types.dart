@@ -12,7 +12,3 @@ export 'CognitoSignIn/CognitoConfirmSignInRequestProvider.dart';
 // SignOut
 export 'CognitoSignOut/CognitoSignOutExceptions.dart';
 export 'CognitoSignOut/CognitoSignOutRequestProvider.dart';
-
-// Utils
-export 'Cognito/AuthCodeDeliveryDetails.dart';
-export 'Cognito/AuthNextStep.dart';

@@ -43,11 +43,11 @@ void main() {
   });
 
   test('amplify_auth_cognito plugin can be added to Amplify instance', () async {
-    expect(amplify.addPlugin([auth]), true);
+    expect(amplify.addPlugin(authPlugin: [auth]), true);
   });
 
   test('configure success after plugin is added', () async {
-    expect(await amplify.configure("{}"), true);
+    expect(amplify.configure("{}"), true);
   });
 
   test('confirmSignUp request returns a SignUpResult', () async {
@@ -66,7 +66,7 @@ void main() {
       confirmationCode: '0',
       provider: CognitoConfirmSignUpRequestProvider(clientMetadata: {"test": "0"})
     );
-    await Amplify.Auth.confirmSignUp(request: req, success: (res) => testInt++);
+    await Amplify.Auth.confirmSignUp(request: req);
     expect(testInt, equals(1));
   });
 
@@ -77,7 +77,7 @@ void main() {
       confirmationCode: '1',
       provider: CognitoConfirmSignUpRequestProvider(clientMetadata: {"test": "0"})
     );
-    await Amplify.Auth.confirmSignUp(request: req, success: (res) => testInt++);
+    await Amplify.Auth.confirmSignUp(request: req);
     expect(testInt, equals(2));
   });
 }

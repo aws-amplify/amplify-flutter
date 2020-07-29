@@ -53,25 +53,10 @@ class _MyAppState extends State<MyApp> {
         request: SignUpRequest(
           username: usernameController.text.trim(),
           password: passwordController.text.trim(),
-<<<<<<< HEAD
-          options: SignUpOptions(
-              userAttributes: userAttributes,
-          )
-        ), 
-        success: (res) => setState(() {
-          displayState = res.signUpState != "DONE" ? "SHOW_CONFIRM" : "SHOW_APP";
-          authState = res.signUpState;
-        }),
-        error: (res) => setState(() {
-          authError = res.error.authErrorType;
-          authErrorCause = res.error.errorCauses[0].exception;
-        })
-=======
           options: SignUpRequestOptions(
               userAttributes: userAttributes,
           )
         ), 
->>>>>>> amplify_auth
       );
       setState(() {
         signUpResult = res.toString();
@@ -81,22 +66,13 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-<<<<<<< HEAD
   void _confirmSignUp() async {
     try {
       SignUpResult res = await Amplify.Auth.confirmSignUp(
         request: ConfirmSignUpRequest(
           userKey: usernameController.text.trim(),
           confirmationCode: confirmationCodeController.text.trim(),
-        ), 
-        success: (res) => setState(() {
-          displayState = "SHOW_SIGN_IN";
-          authState = res.signUpState;
-        }),
-        error: (res) => setState(() {
-          authError = res.error.authErrorType;
-          authErrorCause = res.error.errorCauses[0].exception;
-        })
+        )
       );
       setState(() {
         signUpResult = res.toString();
@@ -113,16 +89,7 @@ class _MyAppState extends State<MyApp> {
         request: SignInRequest(
           username: usernameController.text.trim(),
           password: passwordController.text.trim(),
-        ), 
-        success: (res) => setState(() {
-          print("signedIn: " + res.toString());
-          displayState = res.signInState == "DONE" ? "SHOW_APP": "SHOW_MFA";
-          authState = res.signInState;
-        }),
-        error: (res) => setState(() {
-          authError = res.error.authErrorType;
-          authErrorCause = res.error.errorCauses[0].exception;
-        })
+        )
       );
       setState(() {
         signInResult = res.toString();
@@ -138,16 +105,7 @@ class _MyAppState extends State<MyApp> {
       SignInResult res = await Amplify.Auth.confirmSignIn(
         request: ConfirmSignInRequest(
           confirmationValue: confirmationCodeController.text.trim(),
-        ), 
-        success: (res) => setState(() {
-          print("signedIn: " + res.toString());
-          displayState =  "SHOW_APP";
-          authState = res.signInState;
-        }),
-        error: (res) => setState(() {
-          authError = res.error.authErrorType;
-          authErrorCause = res.error.errorCauses[0].exception;
-        })
+        )
       );
       setState(() {
         signInResult = res.toString();
@@ -160,17 +118,7 @@ class _MyAppState extends State<MyApp> {
 
   void _signOut() async {
     try {
-      SignOutResult res = await Amplify.Auth.signOut(
-        success: (res) => setState(() {
-          print("signedOut: " + res.toString());
-          displayState =  "SHOW_SIGN_IN";
-          authState = res.signOutState;
-        }),
-        error: (res) => setState(() {
-          authError = res.error.authErrorType;
-          authErrorCause = res.error.errorCauses[0].exception;
-        })
-      );
+      SignOutResult res = await Amplify.Auth.signOut();
       setState(() {
         signInResult = res.toString();
         
@@ -180,8 +128,6 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-=======
->>>>>>> amplify_auth
   void _createUser() async {
     setState(() {
       displayState = "SHOW_SIGN_UP";
