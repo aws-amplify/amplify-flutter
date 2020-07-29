@@ -1,3 +1,4 @@
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
 
 import 'package:amplify_core/amplify_core.dart';
@@ -37,22 +38,21 @@ class _MyAppState extends State<MyApp> {
     if (!mounted) return;
 
     // Configure analytics plugin
-    AmplifyAnalyticsPinpointPlugin analyticsPlugin = new AmplifyAnalyticsPinpointPlugin();
-    amplifyInstance.addPlugin(analyticsPlugin: [analyticsPlugin]);
+    AmplifyAnalyticsPinpointPlugin analyticsPlugin =
+        new AmplifyAnalyticsPinpointPlugin();
+    AmplifyAuthCognito authPlugin = new AmplifyAuthCognito();
 
-    var isConfigured = await amplifyInstance.configure(amplifyconfig);
-    try {
-      setState(() {
-        _amplifyConfigured = isConfigured;
-      });
-    } catch (e) {
-      print(e);
-    }
+    amplifyInstance.addPlugin(
+        authPlugin: [authPlugin], analyticsPlugin: [analyticsPlugin]);
 
+    await amplifyInstance.configure(amplifyconfig);
+    setState(() {
+      _amplifyConfigured = true;
+    });
   }
 
   void _recordEvent() async {
-    AnalyticsEvent event = AnalyticsEvent("test");
+    AnalyticsEvent event = AnalyticsEvent(_uniqueId);
 
     event.properties.addBoolProperty("boolKey", true);
     event.properties.addDoubleProperty("doubleKey", 10.0);
@@ -65,8 +65,8 @@ class _MyAppState extends State<MyApp> {
   void _flushEvents() async {
     Amplify.Analytics.flushEvents();
   }
-  void _registerGlobalProperties() async {
 
+  void _registerGlobalProperties() async {
     print("register global properties: " + _globalProp);
 
     AnalyticsProperties properties = new AnalyticsProperties();
@@ -76,30 +76,35 @@ class _MyAppState extends State<MyApp> {
     properties.addStringProperty(_globalProp + "_stringKey", "stringValue");
 
     Amplify.Analytics.registerGlobalProperties(globalProperties: properties);
-
   }
-  void _unregisterGlobalProperties() async{
 
+  void _unregisterGlobalProperties() async {
     print("unregister global properties: " + _globalProp);
 
-    Amplify.Analytics.unregisterGlobalProperties(propertyNames: [_globalProp] ); ;
+    Amplify.Analytics.unregisterGlobalProperties(propertyNames: [_globalProp]);
+    ;
   }
-  void _unregisterAllGlobalProperties() async{
+
+  void _unregisterAllGlobalProperties() async {
     Amplify.Analytics.unregisterAllGlobalProperties();
   }
-  void _enable() async{
+
+  void _enable() async {
     Amplify.Analytics.enable();
   }
-  void _disable() async{
+
+  void _disable() async {
     Amplify.Analytics.disable();
   }
+
   void _identifyUser() async {
     AnalyticsUserProfile analyticsUserProfile = new AnalyticsUserProfile();
     analyticsUserProfile.name = _userId + "_name";
     analyticsUserProfile.email = _userId + "_email";
     analyticsUserProfile.plan = _userId + "_plan";
 
-    AnalyticsUserProfileLocation analyticsUserLocation = new AnalyticsUserProfileLocation();
+    AnalyticsUserProfileLocation analyticsUserLocation =
+        new AnalyticsUserProfileLocation();
     analyticsUserLocation.latitude = 5;
     analyticsUserLocation.longitude = 5;
     analyticsUserLocation.postalCode = "94070";
@@ -109,13 +114,13 @@ class _MyAppState extends State<MyApp> {
 
     analyticsUserProfile.location = analyticsUserLocation;
 
-
     AnalyticsProperties properties = new AnalyticsProperties();
-    properties.addStringProperty(_userId + "_stringKey" , "stringValue");
+    properties.addStringProperty(_userId + "_stringKey", "stringValue");
 
     analyticsUserProfile.properties = properties;
 
-    Amplify.Analytics.identifyUser(userId: _userId, userProfile: analyticsUserProfile);
+    Amplify.Analytics.identifyUser(
+        userId: _userId, userProfile: analyticsUserProfile);
   }
 
   @override
@@ -140,14 +145,14 @@ class _MyAppState extends State<MyApp> {
                 child: Column(children: <Widget>[
                   Text('Amplify.Core',
                       style:
-                      TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
                   RaisedButton(
                     onPressed: _amplifyConfigured ? null : _configureAmplify,
                     child: const Text('configure Amplify'),
                   ),
                   Center(
                     child:
-                    Text('Is Amplify Configured?: $_amplifyConfigured\n'),
+                        Text('Is Amplify Configured?: $_amplifyConfigured\n'),
                   )
                 ])),
             Container(
@@ -164,7 +169,7 @@ class _MyAppState extends State<MyApp> {
                 child: Column(children: <Widget>[
                   Text('Amplify.Analytics',
                       style:
-                      TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
                   TextField(
                       decoration: InputDecoration(hintText: 'Enter event id'),
                       onChanged: (text) {
@@ -178,8 +183,6 @@ class _MyAppState extends State<MyApp> {
                       child: RaisedButton(
                           onPressed: _amplifyConfigured ? _flushEvents : null,
                           child: Text('Flush Events'))),
-
-
                   const Divider(
                     color: Colors.black,
                     height: 3,
@@ -187,25 +190,26 @@ class _MyAppState extends State<MyApp> {
                     indent: 1,
                     endIndent: 0,
                   ),
-
-
                   TextField(
-                      decoration: InputDecoration(hintText: 'Enter global prop id'),
+                      decoration:
+                          InputDecoration(hintText: 'Enter global prop id'),
                       onChanged: (text) {
                         _globalProp = text;
-                      }
-                  ),
+                      }),
                   RaisedButton(
-                      onPressed: _amplifyConfigured ? _registerGlobalProperties : null,
+                      onPressed:
+                          _amplifyConfigured ? _registerGlobalProperties : null,
                       child: Text('Register Global Prop')),
                   RaisedButton(
-                      onPressed: _amplifyConfigured ? _unregisterGlobalProperties : null,
+                      onPressed: _amplifyConfigured
+                          ? _unregisterGlobalProperties
+                          : null,
                       child: Text('Unregister Global Prop')),
                   RaisedButton(
-                      onPressed: _amplifyConfigured ? _unregisterAllGlobalProperties : null,
+                      onPressed: _amplifyConfigured
+                          ? _unregisterAllGlobalProperties
+                          : null,
                       child: Text('Unregister All Global Prop')),
-
-
                   const Divider(
                     color: Colors.black,
                     height: 3,
@@ -213,19 +217,14 @@ class _MyAppState extends State<MyApp> {
                     indent: 1,
                     endIndent: 0,
                   ),
-
                   TextField(
                       decoration: InputDecoration(hintText: 'Enter user id'),
                       onChanged: (text) {
                         _userId = text;
-                      }
-                  ),
+                      }),
                   RaisedButton(
                       onPressed: _amplifyConfigured ? _identifyUser : null,
                       child: Text('Register User')),
-
-
-
                   const Divider(
                     color: Colors.black,
                     height: 3,
@@ -233,15 +232,12 @@ class _MyAppState extends State<MyApp> {
                     indent: 1,
                     endIndent: 0,
                   ),
-
-
                   RaisedButton(
                       onPressed: _amplifyConfigured ? _enable : null,
                       child: Text('Enable')),
                   RaisedButton(
                       onPressed: _amplifyConfigured ? _disable : null,
                       child: Text('Disable')),
-
                 ]))
           ])),
     );

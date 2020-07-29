@@ -1,23 +1,34 @@
-import 'package:flutter/services.dart';
+/*
+ * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
 import 'package:amplify_analytics_plugin_interface/analytics_plugin_interface.dart';
+import 'package:flutter/services.dart';
 
 import 'amplify_analytics_pinpoint.dart';
 
-const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/analytics_pinpoint');
+const MethodChannel _channel =
+    MethodChannel('com.amazonaws.amplify/analytics_pinpoint');
 
-
-class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpointPlugin {
-
-  // List of all method channel objects
-  // This code sends Dart commands to the method channel
-
+class AmplifyAnalyticsPinpointMethodChannel
+    extends AmplifyAnalyticsPinpointPlugin {
   @override
-  Future<bool> recordEvent({AnalyticsEvent event}) async {
-
+  Future<void> recordEvent({AnalyticsEvent event}) async {
     var name = event.name;
     var eventProperties = event.properties;
 
-    return _channel.invokeMethod<bool>(
+    await _channel.invokeMethod<bool>(
       'recordEvent',
       <String, Object>{
         'name': name,
@@ -27,56 +38,52 @@ class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpointPlug
   }
 
   @override
-  Future<bool> flushEvents() async {
-    return _channel.invokeMethod<bool>(
-        'flushEvents'
-    );
+  Future<void> flushEvents() async {
+    await _channel.invokeMethod<bool>('flushEvents');
   }
 
   @override
-  Future<bool> registerGlobalProperties({AnalyticsProperties globalProperties}) async {
-    return _channel.invokeMethod<bool>(
-        'registerGlobalProperties',
-        globalProperties.getAllProperties()
-    );
+  Future<void> registerGlobalProperties(
+      {AnalyticsProperties globalProperties}) async {
+    await _channel.invokeMethod<bool>(
+        'registerGlobalProperties', globalProperties.getAllProperties());
   }
 
   @override
-  Future<bool> unregisterGlobalProperties({List<String> propertyNames}) async {
-    return _channel.invokeMethod<bool>(
-        'unregisterGlobalProperties',
-        propertyNames
-    );
+  Future<void> unregisterGlobalProperties({List<String> propertyNames}) async {
+    await _channel.invokeMethod<bool>(
+        'unregisterGlobalProperties', propertyNames);
   }
 
   @override
-  Future<bool> unregisterAllGlobalProperties() async {
-    return _channel.invokeMethod<bool>(
+  Future<void> unregisterAllGlobalProperties() async {
+    await _channel.invokeMethod<bool>(
       'unregisterAllGlobalProperties',
     );
   }
 
   @override
-  Future<bool> enable() async {
-    return _channel.invokeMethod<bool>(
+  Future<void> enable() async {
+    await _channel.invokeMethod<bool>(
       'enable',
     );
   }
 
   @override
-  Future<bool> disable() async{
-    return _channel.invokeMethod<bool>(
+  Future<void> disable() async {
+    await _channel.invokeMethod<bool>(
       'disable',
     );
   }
 
   @override
-  Future<bool> identifyUser({String userId, AnalyticsUserProfile userProfile}) async {
-    return _channel.invokeMethod<bool>(
+  Future<void> identifyUser(
+      {String userId, AnalyticsUserProfile userProfile}) async {
+    await _channel.invokeMethod<bool>(
       'identifyUser',
       <String, Object>{
-        'userId' : userId,
-        'userProfileMap' : userProfile.getAllProperties()
+        'userId': userId,
+        'userProfileMap': userProfile.getAllProperties()
       },
     );
   }

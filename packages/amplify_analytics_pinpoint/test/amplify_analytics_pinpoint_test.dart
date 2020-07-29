@@ -1,3 +1,18 @@
+/*
+ * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_analytics_plugin_interface/analytics_plugin_interface.dart';
@@ -29,20 +44,11 @@ void main() {
     coreChannel.setMockMethodCallHandler(null);
   });
 
-  test('amplify_analytics_pinpoint plugin can be added to Amplify instance',
-      () async {
-    expect(amplify.addPlugin(analytics), true);
-  });
-
-  test('configure success after plugin is added', () async {
-    expect(await amplify.configure("{}"), true);
-  });
-
   // test sending basic events
   test('recordEvent results in true', () async {
     var event = AnalyticsEvent("test");
 
-    expect(await Amplify.Analytics.recordEvent(event: event), true);
+    Amplify.Analytics.recordEvent(event: event);
   });
 
   test('recordEvent results in true', () async {
@@ -53,14 +59,14 @@ void main() {
     event.properties.addIntProperty("intKey", 10);
     event.properties.addStringProperty("stringKey", "stringValue");
 
-    expect(await Amplify.Analytics.recordEvent(event: event), true);
+    Amplify.Analytics.recordEvent(event: event);
   });
 
   test('registerGlobalProperties results in true', () async {
     var globalProperties = AnalyticsProperties();
 
-    expect(await Amplify.Analytics.registerGlobalProperties(
-        globalProperties: globalProperties), true);
+    await Amplify.Analytics.registerGlobalProperties(
+        globalProperties: globalProperties);
   });
 
   test('registerGlobalProperties results in true', () async {
@@ -71,14 +77,14 @@ void main() {
     globalProperties.addIntProperty("intKey", 10);
     globalProperties.addStringProperty("stringKey", "stringValue");
 
-    expect(await Amplify.Analytics.registerGlobalProperties(
-        globalProperties: globalProperties), true);
+    await Amplify.Analytics.registerGlobalProperties(
+        globalProperties: globalProperties);
   });
 
   test('identify user results in true', () async {
     var userProfile = AnalyticsUserProfile();
-    expect(await Amplify.Analytics.identifyUser(
-        userId: "testUser", userProfile: userProfile), true);
+    await Amplify.Analytics.identifyUser(
+        userId: "testUser", userProfile: userProfile);
   });
 
   test('identify user results in true', () async {
@@ -93,8 +99,8 @@ void main() {
     var analyticsProperties = new AnalyticsProperties();
     userProfile.properties = analyticsProperties;
 
-    expect(await Amplify.Analytics.identifyUser(
-        userId: "testUser", userProfile: userProfile), true);
+    Amplify.Analytics.identifyUser(
+        userId: "testUser", userProfile: userProfile);
   });
 
   test('identify user results in true', () async {
@@ -119,7 +125,7 @@ void main() {
     analyticsProperties.addStringProperty("stringKey", "stringValue");
     userProfile.properties = analyticsProperties;
 
-    expect(await Amplify.Analytics.identifyUser(
-        userId: "testUser", userProfile: userProfile), true);
+    await Amplify.Analytics.identifyUser(
+        userId: "testUser", userProfile: userProfile);
   });
 }

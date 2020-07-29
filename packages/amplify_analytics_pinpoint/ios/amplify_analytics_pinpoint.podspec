@@ -5,20 +5,18 @@
 Pod::Spec.new do |s|
   s.name             = 'amplify_analytics_pinpoint'
   s.version          = '0.0.1'
-  s.summary          = 'A new flutter plugin project.'
+  s.summary          = 'iOS implementation for Amplify Flutter Pinpoint Analytics Plugin'
   s.description      = <<-DESC
-A new flutter plugin project.
+This code is the iOS part of the Amplify Flutter Pinpoint Analytics Plugin.  The Dart code of this plugin uses the method channel to communicate with this iOs code.
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'https://docs.amplify.aws/start/q/integration/flutter'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.author           = { 'Amazon' => 'test@email.com'}
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
   s.dependency 'Amplify'
-  s.dependency 'AWSPluginsCore'
   s.dependency 'AmplifyPlugins/AWSPinpointAnalyticsPlugin'
-  s.dependency 'AmplifyPlugins/AWSCognitoAuthPlugin'
   s.platform = :ios, '11.0'
 
   # Flutter.framework does not contain a i386 slice. Only x86_64 simulators are supported.
