@@ -18,13 +18,12 @@ void main() {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == "signUp") {
         return {
-          "signUpState": "CONFIRM_SIGN_UP_STEP",
-          "providerData" : {
-            "nextStep": {
-              "codeDeliveryDetails":  { "atttibuteName": "email" }
-            }
+          "isSignUpComplete": false,
+          "nextStep": {
+            "signUpStep": "DONE",
+            "codeDeliveryDetails":  { "atttibuteName": "email" }
           }
-        };
+      };
       } else {
         return true;
       }     
@@ -45,7 +44,7 @@ void main() {
     SignUpRequest req = SignUpRequest(
       username: 'testUser',
       password: '123',
-      options: SignUpRequestOptions(
+      options: CognitoSignUpOptions(
         userAttributes: {
           "email": "test@test.com",
           "testCode": 1

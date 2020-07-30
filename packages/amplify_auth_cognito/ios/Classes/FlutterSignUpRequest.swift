@@ -13,38 +13,38 @@ struct FlutterSignUpRequest {
   var username: String?
   var password: String
   var userAttributes: [AuthUserAttribute] = []
-  var providerOptions: Dictionary<String, Any>? = [:]
-  var rawUserAttributes: Dictionary<String, Any>
+  var options: Dictionary<String, Any>? = [:]
   let standardAttributes = ["address", "birthdate", "email", "family_name", "gender", "given_name", "locale", "middle_name", "name", "nickname", "phone_number", "preferred_username", "picture", "profile", "updated_at", "website", "zoneinfo"]
   init(dict: NSMutableDictionary){
     self.username = dict["username"] as? String
     self.password = dict["password"] as! String
-    self.providerOptions = dict["providerOptions"] as! Dictionary<String, Any>?
-    self.rawUserAttributes = dict["userAttributes"] as! Dictionary<String, Any>
-    self.userAttributes = self.formatUserAttributes(attributes: dict["userAttributes"] as! Dictionary<String, String>)
+    self.options = dict["options"] as? Dictionary<String, Any>
+    self.userAttributes = self.formatUserAttributes(options: dict["options"] as! Dictionary<String, Any>)
   }
     
-  func formatUserAttributes(attributes: Dictionary<String, String>) -> [AuthUserAttribute] {
+  func formatUserAttributes(options: Dictionary<String, Any>) -> [AuthUserAttribute] {
+    let rawAttributes: Dictionary<String, Any> = options["userAttributes"] as! Dictionary<String, String>
     var formattedAttributes: Array<AuthUserAttribute> = Array()
-    for attr in attributes {
+    for attr in rawAttributes {
       if (standardAttributes.contains(attr.key)) {
-        formattedAttributes.append(AuthUserAttribute(.unknown(attr.key), value: attr.value))
+        formattedAttributes.append(AuthUserAttribute(.unknown(attr.key), value: attr.value as! String))
       } else {
-        formattedAttributes.append(AuthUserAttribute(.custom(attr.key), value: attr.value))
+        formattedAttributes.append(AuthUserAttribute(.custom(attr.key), value: attr.value as! String))
       }
     }
     return formattedAttributes
   }
   func getUsername() -> String {
     var username: String = ""
+    let rawAttributes: Dictionary<String, Any> = options?["userAttributes"] as! Dictionary<String, String>
 
-    if (self.providerOptions?["usernameAttribute"] == nil && self.username != nil) {
+    if (self.options?["usernameAttribute"] == nil && self.username != nil) {
         username = self.username! as String;
-    } else if (self.providerOptions?["usernameAttribute"] != nil) {
-      if (self.providerOptions?["usernameAttribute"] as! String == "email") {
-        username = self.rawUserAttributes["email"] as! String
+    } else if (self.options?["usernameAttribute"] != nil) {
+      if (self.options?["usernameAttribute"] as! String == "email") {
+        username = rawAttributes["email"] as! String
       } else {
-        username = self.rawUserAttributes["phone_number"] as! String
+        username = rawAttributes["phone_number"] as! String
       }
     }
     return username
@@ -52,7 +52,7 @@ struct FlutterSignUpRequest {
     
   static func validate(dict: NSMutableDictionary) -> Bool {
     var valid: Bool = true;
-    if (dict["userAttributes"] == nil) {
+    if (dict["options"] == nil) {
       valid = false;
     } else if (dict["password"] == nil) {
       valid = false;

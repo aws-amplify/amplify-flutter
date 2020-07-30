@@ -56,7 +56,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
           onSignUp(result, (call.arguments as HashMap<String, *>).get("data") as HashMap<String, *>)
         }
         catch (e: Exception) {
-          result.error("AmplifyException", "Error casting signUp parameter map", e.message )
+          prepareError("AmplifyException", e, FlutterAuthFailureMessage.CASTING.toString() )
         }
       else -> result.notImplemented()
     }
@@ -90,24 +90,24 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
         Amplify.Auth.signUp(
                 req.username,
                 req.password,
-                req.userAttributes,
+                req.options,
                 { result -> this.mainActivity?.runOnUiThread({ prepareSignUpResult(flutterResult, result)}) },
-                { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.SIGNUP.name, error.localizedMessage)}) }
+                { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.SIGNUP.toString(), error.localizedMessage)}) }
         );
       } catch(e: Exception) {
-        prepareError(flutterResult, e, FlutterAuthFailureMessage.SIGNUP.toString(), "Error sending SignUpRequest")
+        prepareError(flutterResult, e, FlutterAuthFailureMessage.SIGNUP.toString())
       }
     } else {
-      prepareError(flutterResult, java.lang.Exception(FlutterAuthFailureMessage.MALFORMED.toString()), FlutterAuthFailureMessage.MALFORMED.toString(), "Error sending SignUpRequest")
+      prepareError(flutterResult, java.lang.Exception(FlutterAuthFailureMessage.MALFORMED.toString()), FlutterAuthFailureMessage.MALFORMED.toString())
     }
   }
 
-  private fun prepareError(@NonNull flutterResult: Result, @NonNull error: Exception, @NonNull msg: String, @NonNull detail: String) {
+  private fun prepareError(@NonNull flutterResult: Result, @NonNull error: Exception, @NonNull msg: String) {
     var errorMap: HashMap<String, Any> = HashMap();
     if (error is AuthException) {
 
       when (error.cause) {
-        is InvalidPasswordException -> errorMap.put("INVALID_PARAMETER", (error.cause as InvalidParameterException).errorMessage)
+        is InvalidParameterException -> errorMap.put("INVALID_PARAMETER", (error.cause as InvalidParameterException).errorMessage)
         is UsernameExistsException -> errorMap.put("USERNAME_EXISTS", (error.cause as UsernameExistsException).errorMessage)
         is AliasExistsException -> errorMap.put("ALIAS_EXISTS", (error.cause as AliasExistsException).errorMessage)
         is CodeDeliveryFailureException -> errorMap.put("CODE_DELIVERY_FAILURE", (error.cause as CodeDeliveryFailureException).errorMessage)
@@ -123,7 +123,19 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
         else -> errorMap.put("UNKNOWN", "Unknown Auth Error.")
       }
     }
+    var localizedMessage: String = error.localizedMessage ?: "";
+    var errorString: String = error.toString();
+    var recoverySuggestion: String = "";
+    if (error is AuthException) {
+      recoverySuggestion = (error as AuthException).recoverySuggestion ?: ""
+    }
+    errorMap.put("PLATFORM_EXCEPTIONS", mapOf(
+      "platform" to "Android",
+      "localizedMessage" to  localizedMessage,
+      "errorString" to errorString,
+      "recoverySuggestion" to recoverySuggestion
 
+    ));
 
     flutterResult.error("AmplifyException", msg, errorMap)
   }

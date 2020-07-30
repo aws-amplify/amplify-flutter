@@ -7,6 +7,9 @@ homepage:
 environment:
   sdk: ">=2.7.0 <3.0.0"
 
+transformers:
+  - dartson
+
 dependencies:
   flutter:
     sdk: flutter

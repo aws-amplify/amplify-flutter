@@ -10,36 +10,38 @@ data class FlutterSignUpRequest(val map: HashMap<String, *>) {
     var standardAttributes: Array<String> = arrayOf("address", "birthdate", "email", "family_name", "gender", "given_name", "locale", "middle_name", "name", "nickname", "phone_number", "preferred_username", "picture", "profile", "updated_at", "website", "zoneinfo")
     val username: String = setUserName(map);
     val password: String = map["password"] as String;
-    val userAttributes: AuthSignUpOptions = formatUserAttributes(map["userAttributes"] as HashMap<String, String>);
-    val providerOptions: HashMap<String, *>? = map["providerOptions"] as HashMap<String, *>?;
+    val options: AuthSignUpOptions = formatOptions(map["options"] as HashMap<String, String>);
 
-    fun setUserName(@NonNull request: HashMap<String, *>): String {
+    private fun setUserName(@NonNull request: HashMap<String, *>): String {
         var username: String = "";
-        if (request.containsKey("providerOptions")) {
-            var providerOptions = request.get("providerOptions") as HashMap<String, *>;
-            var userAttributes = request.get("userAttributes") as HashMap<String, *>;
-            if (providerOptions != null && providerOptions.containsKey("usernameAttribute")) {
-                when (providerOptions.get("usernameAttribute")) {
+        if (request.containsKey("options")) {
+            var options = request["options"] as HashMap<String, *>;
+            var userAttributes = options["userAttributes"] as HashMap<String, *>;
+            if (options != null && options.containsKey("usernameAttribute")) {
+                when (options["usernameAttribute"]) {
                     "email" -> {
-                        username = userAttributes.get("email") as String;
+                        username = userAttributes["email"] as String;
                     }
                     "phone_number" -> {
-                        username = userAttributes.get("phone_number") as String;
+                        username = userAttributes["phone_number"] as String;
                     }
                 }
+            } else {
+                username = request["username"] as String;
             }
-        } else {
-            username = request.get("username") as String;
+        } else if (request.containsKey("username")) {
+            username = request["username"] as String;
         }
         return username;
     };
 
-    fun formatUserAttributes(@NonNull attributes: HashMap<String, String>): AuthSignUpOptions {
+    private fun formatOptions(@NonNull rawOptions: HashMap<String, String>): AuthSignUpOptions {
         var options: AuthSignUpOptions.Builder<*> =  AuthSignUpOptions.builder();
         var authUserAttributes: MutableList<AuthUserAttribute> = mutableListOf();
         var attributeMethods = AuthUserAttributeKey::class.java.declaredMethods;
+        var validationData = rawOptions["validationData"];
 
-        attributes.forEach { (key, value) ->
+        (rawOptions["userAttributes"] as HashMap<String, String>).forEach { (key, value) ->
             var keyCopy: String = key;
             if(!standardAttributes.contains(keyCopy)){
                 if (!key.startsWith("custom:")){
@@ -53,11 +55,12 @@ data class FlutterSignUpRequest(val map: HashMap<String, *>) {
             }
         }
         options.userAttributes(authUserAttributes);
+        //TODO: Add validationData
         return options.build();
     }
 
     // Amplify Android expects camel case, while iOS expects snake.  So at least one plugin implementation should convert.
-    fun convertSnakeToCamel(@NonNull string: String): String {
+    private fun convertSnakeToCamel(@NonNull string: String): String {
         val camelCase = StringBuilder()
         var prevChar = '$'
         string.forEach {
@@ -74,7 +77,7 @@ data class FlutterSignUpRequest(val map: HashMap<String, *>) {
     companion object {
         fun validate(req : HashMap<String, *>): Boolean {
             var valid: Boolean = true;
-            if (!req.containsKey("userAttributes")) {
+            if (!(req["options"] as HashMap<String, String>).containsKey("userAttributes")) {
                 valid = false;
             }
             if (!req.containsKey("password")) {

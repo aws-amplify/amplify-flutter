@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -21,9 +23,10 @@ class _MyAppState extends State<MyApp> {
 
   bool _isAmplifyConfigured = false;
   Amplify amplify = new Amplify();
+  String displayState;
   String authState;
-  String signUpResult;
-  String signInResult;
+  String error;
+  List<String> exceptions = [];
 
   @override
   void initState() {
@@ -36,42 +39,55 @@ class _MyAppState extends State<MyApp> {
     await amplify.configure(amplifyconfig);
     setState(() {
       _isAmplifyConfigured = true;
-      authState = "SIGN_IN";
+      displayState = "SHOW_SIGN_IN";
     });
   }
 
   void _signUp() async {
+    setState(() {
+      error = "";
+      exceptions = [];
+    });
     Map<String, dynamic> userAttributes = {
       "email": emailController.text,
       "phone_number": phoneController.text,
+      "address": "123 MyStreet"
     };
     try {
       SignUpResult res = await Amplify.Auth.signUp(
         request: SignUpRequest(
           username: usernameController.text.trim(),
           password: passwordController.text.trim(),
-          options: SignUpRequestOptions(
-              userAttributes: userAttributes,
+          options: CognitoSignUpOptions(
+            userAttributes: userAttributes,
+            usernameAttribute: "email"
           )
         ), 
       );
       setState(() {
-        signUpResult = res.toString();
+        displayState = res.nextStep.signUpStep == "DONE" ? "SHOW_CONFIRM" : "SHOW_SIGN_UP";
+        authState = "Signup: " + res.nextStep.signUpStep;
       });
-    } catch (e) {
+    } on AuthError catch (e) {
+      setState(() {
+        error = e.cause;
+        e.exceptionList.forEach((el) {
+          exceptions.add(el.exception);
+        });
+      });
       print(e);
     }
   }
 
   void _createUser() async {
     setState(() {
-      authState = "SIGN_UP";
+      displayState = "SHOW_SIGN_UP";
     });
   }
 
   void _backToSignIn() async {
     setState(() {
-      authState = "SIGN_IN";
+      displayState = "SHOW_SIGN_IN";
     });
   }
 
@@ -185,7 +201,7 @@ Widget showSignIn() {
               ),
               const Padding(padding: EdgeInsets.all(2.0)),
               Text(
-                'SignUpData: $signUpResult',
+                'SignUpData: $authState',
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.visible,
                 style: TextStyle(fontWeight: FontWeight.bold),
@@ -204,12 +220,37 @@ Widget showSignIn() {
 
   Widget showApp() {
     return Text(
+      "You are signed in!"
+    );
+  }
+
+  showAuthState() {
+    return Text(
       'Auth Status: $authState',
       textAlign: TextAlign.center,
       overflow: TextOverflow.visible,
       style: TextStyle(fontWeight: FontWeight.bold),
-            
     );
+  }
+
+  Widget getTextWidgets(List<String> strings)
+  {
+    if (strings != null) {
+      return new Row(children: strings.map((item) => new Text(item + " ")).toList());
+    }
+  }
+
+  showErrors() {
+    return Text(
+        'Error: $error',
+        textAlign: TextAlign.center,
+        overflow: TextOverflow.visible,
+        style: TextStyle(fontWeight: FontWeight.bold)
+    );
+  }
+
+  showExceptions() {
+    return getTextWidgets(exceptions);
   }
 
   @override
@@ -232,10 +273,13 @@ Widget showSignIn() {
                 ),
 
                 const Padding(padding: EdgeInsets.all(10.0)),
-                if (this.authState == "SIGN_UP") showSignUp(),
-                if (this.authState == "CONFIRM_SIGN_UP_STEP") showConfirmSignUp(),
-                if (this.authState == "CONFIRMED" || this.authState == "SIGN_IN") showSignIn(),
-                if (this.authState == 'SIGNED_IN') showApp(),
+                if (this.displayState == "SHOW_SIGN_UP") showSignUp(),
+                if (this.displayState == "SHOW_CONFIRM") showConfirmSignUp(),
+                if (this.displayState == "SHOW_SIGN_IN") showSignIn(),
+                if (this.displayState == 'SIGNED_IN') showApp(),
+                showAuthState(),
+                if (this.error != null) showErrors(),
+                showExceptions()
               ]
             )
           ],

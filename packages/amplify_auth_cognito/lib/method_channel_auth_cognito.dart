@@ -1,11 +1,9 @@
 import 'dart:collection';
 
-import 'package:amplify_auth_cognito/src/CognitoSignUp/CognitoSignUpResultProvider.dart';
 import 'package:flutter/services.dart';
+import 'dart:convert';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'amplify_auth_cognito.dart';
-import 'src/EnumHandler.dart';
-import 'src/CognitoSignUp/CognitoSignUpExceptions.dart';
 
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/auth_cognito');
 
@@ -24,35 +22,33 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
         },
       );
       res = _formatSignUpResponse(data);
-      return res;
       
     } on PlatformException catch(e) {
-      res = _formatSignUpError(e);
-      return res;
+      _formatSignUpError(e);
     }
+    return res;
   }
 
 
-  SignUpResult _formatSignUpResponse(Map<String, dynamic> signUpResponse) {
-    Map<dynamic, dynamic> providerMap = signUpResponse["providerData"];
-    Map<String , dynamic> deliveryDetails = {};
-    if (providerMap["nextStep"] != null && providerMap["nextStep"]["codeDeliveryDetails"] != null) {
-      deliveryDetails = Map.from(providerMap["nextStep"]["codeDeliveryDetails"]);
-    }
-    CognitoSignUpResultProvider providerData = CognitoSignUpResultProvider();
-    return SignUpResult.init(signUpState: signUpResponse["signUpState"], nextStep: AuthNextStep(rawDetails: deliveryDetails), providerResult: providerData);
+  SignUpResult _formatSignUpResponse(Map<String, dynamic> res) {
+    return CognitoSignUpResult( isSignUpComplete: res["isSignUpComplete"], nextStep: AuthNextSignUpStep(
+      signUpStep: res["nextStep"]["signUpStep"],
+      codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
+      additionalInfo: res["nextStep"]["additionalInfo"] is String ? jsonDecode(res["nextStep"]["additionalInfo"]) : {}
+      ));
   }
 
-  SignUpResult _formatSignUpError(PlatformException e) {
-    CognitoSignUpResultProvider providerData = CognitoSignUpResultProvider();
-    LinkedHashMap eMap = new LinkedHashMap<String, String>();
+  void _formatSignUpError(PlatformException e) {
+    LinkedHashMap eMap = new LinkedHashMap<String, dynamic>();
     e.details.forEach((k, v) => {
-      if (enumFromString<CognitoSignUpException>(k, CognitoSignUpException.values) != null) {
-        eMap.putIfAbsent(k, () => v as String)
+      if (cognitoSignUpException.contains(k)) {
+        eMap.putIfAbsent(k, () => v)
+      } else {
+        eMap.putIfAbsent("UNRECOGNIZED EXCEPTION", () => "See logs for details")
       }
     });
-    AuthError error = AuthError.init(authErrorType: e.message, errorMap: eMap);
-    return SignUpResult.init(signUpState: "ERROR", providerResult: providerData, authError: error); 
+    AuthError error = AuthError.init(cause: e.message, errorMap: eMap);
+    throw(error);
   }
 }
 
