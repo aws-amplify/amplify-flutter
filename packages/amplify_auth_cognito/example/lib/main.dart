@@ -59,8 +59,7 @@ class _MyAppState extends State<MyApp> {
           username: usernameController.text.trim(),
           password: passwordController.text.trim(),
           options: CognitoSignUpOptions(
-            userAttributes: userAttributes,
-            usernameAttribute: "email"
+            userAttributes: userAttributes
           )
         ), 
       );

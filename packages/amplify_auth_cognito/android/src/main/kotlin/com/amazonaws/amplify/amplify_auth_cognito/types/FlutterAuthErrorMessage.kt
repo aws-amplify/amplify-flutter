@@ -10,7 +10,7 @@ enum class FlutterAuthFailureMessage {
     override fun toString(): String {
       return "ERROR_CASTING_INPUT_IN_PLATFORM_CODE"
     }
-  }
+  },
   MALFORMED {
     override fun toString(): String {
       return "AMPLIFY_SIGNUP_REQUEST_MALFORMED"

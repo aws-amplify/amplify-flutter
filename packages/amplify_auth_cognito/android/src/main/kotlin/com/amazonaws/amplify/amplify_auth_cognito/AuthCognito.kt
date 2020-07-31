@@ -56,7 +56,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
           onSignUp(result, (call.arguments as HashMap<String, *>).get("data") as HashMap<String, *>)
         }
         catch (e: Exception) {
-          prepareError("AmplifyException", e, FlutterAuthFailureMessage.CASTING.toString() )
+          prepareError(result, e, FlutterAuthFailureMessage.CASTING.toString() )
         }
       else -> result.notImplemented()
     }
@@ -92,7 +92,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
                 req.password,
                 req.options,
                 { result -> this.mainActivity?.runOnUiThread({ prepareSignUpResult(flutterResult, result)}) },
-                { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.SIGNUP.toString(), error.localizedMessage)}) }
+                { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.SIGNUP.toString())}) }
         );
       } catch(e: Exception) {
         prepareError(flutterResult, e, FlutterAuthFailureMessage.SIGNUP.toString())
