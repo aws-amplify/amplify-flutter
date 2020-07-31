@@ -7,8 +7,8 @@ export 'SignUp/SignUpOptions.dart';
 export 'SignUp/AuthNextSignUpStep.dart';
 
 // Utility Classes
-export 'UtilityClasses/AuthCodeDeliveryDetails.dart';
-export 'UtilityClasses/AuthNextStep.dart';
+export 'types/AuthCodeDeliveryDetails.dart';
+export 'types/AuthNextStep.dart';
 
 // Errors
 export 'Errors/AuthError.dart';

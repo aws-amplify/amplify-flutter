@@ -3,12 +3,12 @@ package com.amazonaws.amplify.amplify_auth_cognito.types
 import com.amplifyframework.auth.result.AuthSignUpResult
 import com.google.gson.Gson
 
-var gson = Gson()
+val gson = Gson()
 
 data class FlutterSignUpResult(private val raw: AuthSignUpResult) {
   val isSignUpComplete: Boolean = raw.isSignUpComplete
   val nextStep: Map<String, Any> = setNextStep();
-  
+
   private fun setNextStep(): Map<String, Any> {
     val res: Map<String, Any> = emptyMap();
 

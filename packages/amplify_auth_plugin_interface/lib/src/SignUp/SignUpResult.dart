@@ -1,4 +1,4 @@
-import 'package:amplify_auth_plugin_interface/src/UtilityClasses/AuthNextStep.dart';
+import '../types/AuthNextStep.dart';
 import 'package:flutter/foundation.dart';
 
 class SignUpResult { 
