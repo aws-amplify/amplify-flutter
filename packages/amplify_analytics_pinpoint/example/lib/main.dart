@@ -38,7 +38,7 @@ class _MyAppState extends State<MyApp> {
 
     // Configure analytics plugin
     AmplifyAnalyticsPinpointPlugin analyticsPlugin = new AmplifyAnalyticsPinpointPlugin();
-    amplifyInstance.addPlugin(analyticsPlugin);
+    amplifyInstance.addPlugin(analyticsPlugin: [analyticsPlugin]);
 
     var isConfigured = await amplifyInstance.configure(amplifyconfig);
     try {

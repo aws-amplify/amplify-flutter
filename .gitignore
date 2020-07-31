@@ -1,11 +1,14 @@
 .dart_tool/
 .DS_Store
 build/
-ios/.generated/
+**/ios/.generated/
+**/android/.settings/
 pubspec.lock
 Podfile.lock
 *.iml
 *.jar
+Podfile.lock
+
 
 # IDEs
 .idea/

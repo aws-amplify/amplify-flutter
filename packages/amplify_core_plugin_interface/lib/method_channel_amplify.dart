@@ -1,4 +1,5 @@
-part of amplify_flutter_platform_interface;
+part of amplify_core_plugin_interface;
+
 
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/core');
 
