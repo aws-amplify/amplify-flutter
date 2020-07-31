@@ -54,7 +54,6 @@ void main() {
     ConfirmSignUpRequest req = ConfirmSignUpRequest(
       userKey: 'testUser',
       confirmationCode: '0',
-      provider: CognitoConfirmSignUpRequestProvider(clientMetadata: {"test": "0"})
     );
     expect(await Amplify.Auth.confirmSignUp(request: req), isInstanceOf<SignUpResult>());
   });
@@ -64,7 +63,6 @@ void main() {
     ConfirmSignUpRequest req = ConfirmSignUpRequest(
       userKey: 'testUser',
       confirmationCode: '0',
-      provider: CognitoConfirmSignUpRequestProvider(clientMetadata: {"test": "0"})
     );
     await Amplify.Auth.confirmSignUp(request: req);
     expect(testInt, equals(1));
@@ -75,7 +73,6 @@ void main() {
     ConfirmSignUpRequest req = ConfirmSignUpRequest(
       userKey: 'testUser',
       confirmationCode: '1',
-      provider: CognitoConfirmSignUpRequestProvider(clientMetadata: {"test": "0"})
     );
     await Amplify.Auth.confirmSignUp(request: req);
     expect(testInt, equals(2));

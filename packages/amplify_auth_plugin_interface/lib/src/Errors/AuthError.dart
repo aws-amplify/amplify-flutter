@@ -1,25 +1,27 @@
 import 'dart:collection';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'AuthErrorTypes.dart';
-import '../EnumHandler.dart';
 
-class AuthError { 
-  String authErrorType;
-  List<ErrorCause> errorCauses = [];
-  AuthError.init({@required authErrorType, @required LinkedHashMap<dynamic, dynamic> errorMap,  PlatformException platformException}) {
-    /* 2-step process of getting an enum from a string and back is a way of checking that
-     the value is enumerated while also maintaining simple string value */
-    this.authErrorType = enumToString(enumFromString<AuthErrorType>(authErrorType, AuthErrorType.values));
+class AuthError implements Exception { 
+  String cause;
+  List<AuthException> exceptionList = [];
+  AuthError.init({@required cause, @required LinkedHashMap<dynamic, dynamic> errorMap,  PlatformException platformException}) {
+    this.cause = recognizeAuthError(cause) ? cause : "UNRECOGNIZED_AUTH_ERROR";
     errorMap.forEach((k,v) => {
-      errorCauses.add(ErrorCause(exception: k, detail: v))
+      exceptionList.add(AuthException(exception: k, detail: v))
     }); 
    }
 }
 
-class ErrorCause {
+class AuthException {
   String exception;
-  String detail;
-  ErrorCause({@required this.exception, this.detail});
+  dynamic detail;
+  AuthException({@required this.exception, this.detail});
+}
+
+bool recognizeAuthError(authErrorType) {
+  var match = authErrorTypes.contains(authErrorType);
+  if (!match) print("Unrecognized auth error returned from platform. See logs for details");
+  return match;
 }

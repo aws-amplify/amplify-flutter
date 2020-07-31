@@ -65,9 +65,11 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
         flutterResult(signUpData.toJSON())
        case .failure(let signUpError):
         print("An error occurred while registering a user")
-        if case .service( _,  _, let error) = signUpError {
+        if case .service( let localalizedError,  let recoverySuggestion, let error) = signUpError {
             let errorCode = error != nil ? "\(error!)" : "UNKNOWN"
-            self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNUP.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
+            var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode)
+            errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localalizedError: localalizedError, recoverySuggestion: recoverySuggestion)
+            self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNUP.rawValue, errorMap: errorMap)
         }
       }
     }
@@ -147,13 +149,21 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
       details: errorMap))
   }
     
+    private func platformExceptions(localalizedError: String, recoverySuggestion: String) -> [String: String] {
+      var platformDict: [String: String] = [:]
+      platformDict["platform"] = "iOS"
+      platformDict["localalizedError"] = localalizedError
+      platformDict["recoverySuggestion"] = recoverySuggestion
+      return platformDict
+    }
+    
   private func formatErrorMap(errorCode: String) -> [String: Any] {
       var errorDict: [String: Any] = [:]
       // should consider doing this with string manipulation, but that could be fragile
       switch errorCode {
         case "invalidParameter":
           errorDict["INVALID_PARAMETER"] = description;
-      case "usernameExists":
+        case "usernameExists":
           errorDict["USERNAME_EXISTS"] = description;
         case "aliasExists":
           errorDict["ALIAS_EXISTS"] = description;

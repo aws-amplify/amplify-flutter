@@ -7,6 +7,7 @@
 
 import Foundation
 enum FlutterAuthErrorMessage: String {
-    case SIGNUP = "Amplify SignUp Failed"
-    case MALFORMED = "Amplify SignUp Request Malformed"
+    case SIGNUP = "AMPLIFY_SIGNUP_FAILED"
+    case MALFORMED = "AMPLIFY_SIGNUP_REQUEST_MALFORMED"
+    case CASTING = "ERROR_CASTING_INPUT_IN_PLATFORM_CODE"
 }

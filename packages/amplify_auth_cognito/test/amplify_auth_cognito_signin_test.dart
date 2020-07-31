@@ -52,7 +52,6 @@ void main() {
     SignInRequest req = SignInRequest(
       username: 'testUser',
       password: '0',
-      provider: CognitoSignInRequestProvider(clientMetadata: {"test": "0"})
     );
     expect(await Amplify.Auth.signIn(request: req), isInstanceOf<SignInResult>());
   });
@@ -62,7 +61,6 @@ void main() {
     SignInRequest req = SignInRequest(
       username: 'testUser',
       password: '0',
-      provider: CognitoSignInRequestProvider(clientMetadata: {"test": "0"})
     );
     await Amplify.Auth.signIn(request: req);
     expect(testInt, equals(1));
@@ -73,7 +71,6 @@ void main() {
     SignInRequest req = SignInRequest(
       username: 'testUser',
       password: '0',
-      provider: CognitoSignInRequestProvider(clientMetadata: {"test": "0"})
     );
     await Amplify.Auth.signIn(request: req);
     expect(testInt, equals(2));

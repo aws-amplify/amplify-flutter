@@ -1,14 +1,17 @@
 // SignUp
-export 'CognitoSignUp/CognitoSignUpRequestProvider.dart';
-export 'CognitoSignUp/CognitoSignUpResultProvider.dart';
+export 'CognitoSignUp/CognitoSignUpOptions.dart';
+export 'CognitoSignUp/CognitoSignUpResult.dart';
 export 'CognitoSignUp/CognitoSignUpExceptions.dart';
-export 'CognitoSignUp/CognitoConfirmSignUpRequestProvider.dart';
+export 'CognitoSignUp/CognitoConfirmSignUpOptions.dart';
 
 // SignIn
-export 'CognitoSignIn/CognitoSignInRequestProvider.dart';
-export 'CognitoSignIn/CognitoSignInResultProvider.dart';
-export 'CognitoSignIn/CognitoConfirmSignInRequestProvider.dart';
+export 'CognitoSignIn/CognitoSignInResult.dart';
+export 'CognitoSignIn/CognitoConfirmSignInOptions.dart';
+export 'CognitoSignIn/CognitoSignInOptions.dart';
 
 // SignOut
 export 'CognitoSignOut/CognitoSignOutExceptions.dart';
-export 'CognitoSignOut/CognitoSignOutRequestProvider.dart';
+export 'CognitoSignOut/CognitoSignOutOptions.dart';
+export 'CognitoSignUp/CognitoSignUpResult.dart';
+export 'CognitoSignUp/CognitoSignUpExceptions.dart';
+export 'CognitoSignUp/CognitoSignUpOptions.dart';

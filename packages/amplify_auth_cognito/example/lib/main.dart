@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -21,12 +23,10 @@ class _MyAppState extends State<MyApp> {
 
   bool _isAmplifyConfigured = false;
   Amplify amplify = new Amplify();
-  String authState = "";
   String displayState;
-  String authError = "";
-  String authErrorCause = "";
-  String signUpResult;
-  String signInResult;
+  String authState;
+  String error;
+  List<String> exceptions = [];
 
   @override
   void initState() {
@@ -44,98 +44,117 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _signUp() async {
+    setState(() {
+      error = "";
+      exceptions = [];
+    });
     Map<String, dynamic> userAttributes = {
       "email": emailController.text,
       "phone_number": phoneController.text,
+      "address": "123 MyStreet"
     };
     try {
       SignUpResult res = await Amplify.Auth.signUp(
         request: SignUpRequest(
           username: usernameController.text.trim(),
           password: passwordController.text.trim(),
-          options: SignUpRequestOptions(
-              userAttributes: userAttributes,
+          options: CognitoSignUpOptions(
+            userAttributes: userAttributes
           )
         ), 
       );
       setState(() {
-        authState = res.signUpState;
-        authError = res.error?.authErrorType;
-        authErrorCause = res.error?.errorCauses[0].toString();
-        switch (res.signUpState) {
-          case "DONE":
-            displayState = "SHOW_SIGN_IN";
-            break;
-          case "CONFIRM_SIGN_UP_STEP":
-            displayState = "SHOW_CONFIRM";
-            break;
-        }
+        displayState = res.nextStep.signUpStep != "DONE" ? "SHOW_CONFIRM" : "SHOW_SIGN_UP";
+        authState = "Signup: " + res.nextStep.signUpStep;
       });
-    } catch (e) {
+    } on AuthError catch (e) {
+      setState(() {
+        error = e.cause;
+        e.exceptionList.forEach((el) {
+          exceptions.add(el.exception);
+        });
+      });
       print(e);
     }
   }
 
   void _confirmSignUp() async {
+    setState(() {
+      error = "";
+      exceptions = [];
+    });
     try {
       SignUpResult res = await Amplify.Auth.confirmSignUp(
         request: ConfirmSignUpRequest(
           userKey: usernameController.text.trim(),
-          confirmationCode: confirmationCodeController.text.trim(),
-        )
+          confirmationCode: confirmationCodeController.text.trim()
+        ), 
       );
       setState(() {
-        authState = res.signUpState;
-        authError = res.error?.authErrorType;
-        authErrorCause = res.error?.errorCauses[0].toString();
+        displayState = res.nextStep.signUpStep != "DONE" ? "SHOW_CONFIRM" : "SHOW_SIGN_IN";
+        authState = "ConfirmSignUp: " + res.nextStep.signUpStep;
       });
-    } catch (e) {
-    
+    } on AuthError catch (e) {
+      setState(() {
+        error = e.cause;
+        e.exceptionList.forEach((el) {
+          exceptions.add(el.exception);
+        });
+      });
       print(e);
     }
   }
 
   void _signIn() async {
+    setState(() {
+      error = "";
+      exceptions = [];
+    });
     try {
       SignInResult res = await Amplify.Auth.signIn(
         request: SignInRequest(
           username: usernameController.text.trim(),
-          password: passwordController.text.trim(),
-        )
+          password: passwordController.text.trim()
+        ), 
       );
       setState(() {
-        signInResult = res.toString();
-        
+        displayState = res.isSignedIn ? "SIGNED_IN" : "SHOW_CONFIRM_SIGN_IN" ;
+        authState = "Signin: " + res.nextStep.signInStep;
       });
-    } catch (e) {
+    } on AuthError catch (e) {
+      setState(() {
+        error = e.cause;
+        e.exceptionList.forEach((el) {
+          exceptions.add(el.exception);
+        });
+      });
       print(e);
     }
   }
 
- void _confirmSignIn() async {
+   void _confirmSignIn() async {
+    setState(() {
+      error = "";
+      exceptions = [];
+    });
     try {
       SignInResult res = await Amplify.Auth.confirmSignIn(
         request: ConfirmSignInRequest(
-          confirmationValue: confirmationCodeController.text.trim(),
-        )
+          userKey: usernameController.text.trim(),
+          confirmationValue: confirmationCodeController.text.trim()
+        ), 
       );
       setState(() {
-        signInResult = res.toString();
-        
+        displayState = res.nextStep.signInStep == "DONE" ? "SHOW_CONFIRM" : "SHOW_SIGN_UP";
+        authState = "Signup: " + res.nextStep.signInStep;
       });
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  void _signOut() async {
-    try {
-      SignOutResult res = await Amplify.Auth.signOut();
+    } on AuthError catch (e) {
       setState(() {
-        signInResult = res.toString();
-        
+        error = e.cause;
+        e.exceptionList.forEach((el) {
+          exceptions.add(el.exception);
+        });
       });
-    } catch (e) {
       print(e);
     }
   }
@@ -258,6 +277,11 @@ Widget showSignIn() {
               ),
             const Padding(padding: EdgeInsets.all(10.0)),
             RaisedButton(
+              onPressed: _signIn,
+              child: const Text('Sign In'),
+            ),
+            const Padding(padding: EdgeInsets.all(10.0)),
+            RaisedButton(
               onPressed: _createUser,
               child: const Text('Create User'),
             ),
@@ -320,7 +344,7 @@ Widget showSignIn() {
               ),
               const Padding(padding: EdgeInsets.all(2.0)),
               Text(
-                'SignUpData: $signUpResult',
+                'SignUpData: $authState',
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.visible,
                 style: TextStyle(fontWeight: FontWeight.bold),
@@ -338,29 +362,38 @@ Widget showSignIn() {
   }
 
   Widget showApp() {
-    return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Expanded( // wrap your Column in Expanded
-              child: Column(
-                children: [
-                  const Padding(padding: EdgeInsets.all(10.0)),
-                  Text(
-                    'Auth Status: $authState',
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.visible,
-                    style: TextStyle(fontWeight: FontWeight.bold)
-                  ),
-                  const Padding(padding: EdgeInsets.all(10.0)),
-                  RaisedButton(
-                    onPressed: _signOut,
-                    child: const Text('Signout'),
-                  )
-                ],
-              ),
-            ),
-          ],
-        );
+    return Text(
+      "You are signed in!"
+    );
+  }
+
+  showAuthState() {
+    return Text(
+      'Auth Status: $authState',
+      textAlign: TextAlign.center,
+      overflow: TextOverflow.visible,
+      style: TextStyle(fontWeight: FontWeight.bold),
+    );
+  }
+
+  Widget getTextWidgets(List<String> strings)
+  {
+    if (strings != null) {
+      return new Row(children: strings.map((item) => new Text(item + " ")).toList());
+    }
+  }
+
+  showErrors() {
+    return Text(
+        'Error: $error',
+        textAlign: TextAlign.center,
+        overflow: TextOverflow.visible,
+        style: TextStyle(fontWeight: FontWeight.bold)
+    );
+  }
+
+  showExceptions() {
+    return getTextWidgets(exceptions);
   }
 
   @override
@@ -386,13 +419,11 @@ Widget showSignIn() {
                 if (this.displayState == "SHOW_SIGN_UP") showSignUp(),
                 if (this.displayState == "SHOW_CONFIRM") showConfirmSignUp(),
                 if (this.displayState == "SHOW_SIGN_IN") showSignIn(),
-                if (this.displayState == "SHOW_MFA") showConfirmSignIn(),
-                if (this.displayState == "SHOW_APP") showApp(),
-
-                const Padding(padding: EdgeInsets.all(10.0)),
-                if (this.authState != "") Text("AUTHSTATE: "),
-                if (this.authError != "") Text("ERROR: " + this.authError),
-                if (this.authErrorCause != "") Text("ERROR CAUSE: " + this.authErrorCause),
+                if (this.displayState == "SHOW_CONFIRM_SIGN_IN") showConfirmSignIn(),
+                if (this.displayState == 'SIGNED_IN') showApp(),
+                showAuthState(),
+                if (this.error != null) showErrors(),
+                showExceptions()
               ]
             )
           ],

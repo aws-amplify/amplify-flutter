@@ -29,43 +29,23 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     return res;
   }   
 
-  Future<SignUpResult> confirmSignUp({@required ConfirmSignUpRequest request, Function(SignUpResult) success, Function(SignUpResult) error}) async {
-    var res = await _instance.confirmSignUp(request: request, success: success, error: error);
-    if (res.error != null && error != null) {
-      error(res);
-    } else if (success != null) {
-      success(res);
-    }
+  Future<SignUpResult> confirmSignUp({@required ConfirmSignUpRequest request}) async {
+    var res = await _instance.confirmSignUp(request: request);
     return res;
   }
 
-  Future<SignInResult> signIn({@required SignInRequest request, Function(SignInResult) success, Function(SignInResult) error}) async {
-    var res = await _instance.signIn(request: request, success: success, error: error);
-    if (res.error != null && error != null) {
-      error(res);
-    } else if (success != null) {
-      success(res);
-    }
+  Future<SignInResult> signIn({@required SignInRequest request}) async {
+    var res = await _instance.signIn(request: request);
     return res;
   }
 
-  Future<SignInResult> confirmSignIn({@required ConfirmSignInRequest request, Function(SignInResult) success, Function(SignInResult) error}) async {
-    var res = await _instance.confirmSignIn(request: request, success: success, error: error);
-    if (res.error != null && error != null) {
-      error(res);
-    } else if (success != null) {
-      success(res);
-    }
+  Future<SignInResult> confirmSignIn({@required ConfirmSignInRequest request}) async {
+    var res = await _instance.confirmSignIn(request: request);
     return res;
   }
 
-  Future<SignOutResult> signOut({SignOutRequest request, Function(SignOutResult) success, Function(SignOutResult) error}) async {
-    var res = await _instance.signOut(request: request, success: success, error: error);
-    if (res.error != null && error != null) {
-      error(res);
-    } else if (success != null) {
-      success(res);
-    }
+  Future<SignOutResult> signOut({SignOutRequest request}) async {
+    var res = await _instance.signOut(request: request);
     return res;
   }
  

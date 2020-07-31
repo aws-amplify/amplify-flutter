@@ -54,26 +54,20 @@ void main() {
   });
 
   test('signOut request returns a SignOutResult with a request parameter', () async {
-    SignOutRequest req = SignOutRequest(
-      provider: CognitoSignOutRequestProvider(globalSignOut: true)
-    );
+    SignOutRequest req = SignOutRequest();
     expect(await Amplify.Auth.signOut(request: req), isInstanceOf<SignOutResult>());
   });
 
   test('successful signOut request results in success callback call', () async {
     var testInt = 0;
-    SignOutRequest req = SignOutRequest(
-      provider: CognitoSignOutRequestProvider(globalSignOut: true)
-    );
+    SignOutRequest req = SignOutRequest();
     await Amplify.Auth.signOut(request: req);
     expect(testInt, equals(1));
   });
 
   test('failed signOut request results in error callback call', () async {
     var testInt = 1;
-    SignOutRequest req = SignOutRequest(
-      provider: CognitoSignOutRequestProvider(globalSignOut: false)
-    );
+    SignOutRequest req = SignOutRequest();
     await Amplify.Auth.signOut(request: req);
     expect(testInt, equals(2));
   });

@@ -8,6 +8,11 @@ import android.content.Context
 import android.util.Log
 import androidx.annotation.NonNull
 import com.amazonaws.amplify.amplify_auth_cognito.types.*
+import com.amazonaws.AmazonClientException
+import com.amazonaws.AmazonServiceException
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthFailureMessage
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpResult
 import com.amazonaws.services.cognitoidentityprovider.model.*
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
@@ -58,7 +63,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
           onSignUp(result, (call.arguments as HashMap<String, *>)["data"] as?  HashMap<String, *>)
         }
         catch (e: Exception) {
-          result.error("AmplifyException", "Error casting signUp parameter map", e.message )
+          prepareError(result, e, FlutterAuthFailureMessage.CASTING.toString() )
         }
       "confirmSignUp" ->
         try {
@@ -120,7 +125,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
         Amplify.Auth.signUp(
                 req.username,
                 req.password,
-                req.userAttributes,
+                req.options,
                 { result -> this.mainActivity?.runOnUiThread({ prepareSignUpResult(flutterResult, result)}) },
                 { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.SIGNUP.name)}) }
         );
@@ -203,7 +208,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     var errorMap: HashMap<String, Any> = HashMap();
     if (error is AuthException) {
       when (error.cause) {
-        is InvalidPasswordException -> errorMap.put("INVALID_PARAMETER", (error.cause as InvalidParameterException).errorMessage)
+        is InvalidParameterException -> errorMap.put("INVALID_PARAMETER", (error.cause as InvalidParameterException).errorMessage)
         is UsernameExistsException -> errorMap.put("USERNAME_EXISTS", (error.cause as UsernameExistsException).errorMessage)
         is AliasExistsException -> errorMap.put("ALIAS_EXISTS", (error.cause as AliasExistsException).errorMessage)
         is CodeDeliveryFailureException -> errorMap.put("CODE_DELIVERY_FAILURE", (error.cause as CodeDeliveryFailureException).errorMessage)
@@ -216,12 +221,13 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
         is UnexpectedLambdaException -> errorMap.put("UNEXPECTED_LAMBDA", (error.cause as UnexpectedLambdaException).errorMessage)
         is UserLambdaValidationException -> errorMap.put("USER_LAMBDA_VALIDATION", (error.cause as UserLambdaValidationException).errorMessage)
         is TooManyFailedAttemptsException -> errorMap.put("TOO_MANY_FAILED_REQUESTS", (error.cause as TooManyFailedAttemptsException).errorMessage)
+        is AmazonClientException -> errorMap.put("AMAZON_CLIENT_EXCEPTION", (error.cause as AmazonClientException).localizedMessage)
+        is AmazonServiceException -> errorMap.put("AMAZON_SERVICE_EXCEPTION", (error.cause as AmazonServiceException).localizedMessage)
         else -> errorMap.put("UNKNOWN", "Unknown Auth Error.")
       }
     }
     flutterResult.error("AmplifyException", msg, errorMap)
   }
-
 
   private fun prepareSignUpResult(@NonNull flutterResult: Result, @NonNull result: AuthSignUpResult) {
     var signUpData = FlutterSignUpResult(result);
