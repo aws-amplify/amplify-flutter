@@ -200,7 +200,6 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
     
   private func formatErrorMap(errorCode: String, localizedError: String = "") -> [String: Any] {
       var errorDict: [String: Any] = [:]
-      // should consider doing this with string manipulation, but that could be fragile
       switch errorCode {
         case "invalidParameter":
           errorDict["INVALID_PARAMETER"] = localizedError

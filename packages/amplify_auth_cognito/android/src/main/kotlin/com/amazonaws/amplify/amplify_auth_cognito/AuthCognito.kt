@@ -17,6 +17,8 @@ package com.amazonaws.amplify.amplify_auth_cognito
 
 import android.app.Activity
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.annotation.NonNull
 import com.amazonaws.amplify.amplify_auth_cognito.types.*
@@ -26,16 +28,22 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthFailureMessag
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpResult
 import com.amazonaws.services.cognitoidentityprovider.model.*
+import com.amplifyframework.auth.AuthChannelEventName
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
 import com.amplifyframework.auth.result.AuthSignInResult
 import com.amplifyframework.auth.result.AuthSignUpResult
 import com.amplifyframework.core.Amplify
+import com.amplifyframework.core.InitializationStatus
+import com.amplifyframework.hub.HubChannel
+import com.amplifyframework.hub.HubEvent
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
+import io.flutter.plugin.common.BinaryMessenger
+import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
@@ -50,11 +58,14 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
   private lateinit var context: Context
   var gson = Gson()
   private var mainActivity: Activity? = null
+  var eventChannel: EventChannel? = null
+  var eventMessenger: BinaryMessenger? = null
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "com.amazonaws.amplify/auth_cognito")
     channel.setMethodCallHandler(this);
     context = flutterPluginBinding.applicationContext;
+    eventMessenger = flutterPluginBinding.getBinaryMessenger();
     Amplify.addPlugin(AWSCognitoAuthPlugin())
     Log.i("Amplify Flutter", "Added AuthCognito plugin")
   }
@@ -111,6 +122,41 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
     this.mainActivity = binding.activity
+    eventChannel = EventChannel(eventMessenger, "com.amazonaws.amplify/auth_cognito_events")
+    eventChannel!!.setStreamHandler(object : EventChannel.StreamHandler {
+      override fun onListen(listener: Any, eventSink: EventChannel.EventSink) {
+        Amplify.Hub.subscribe(HubChannel.AUTH
+        ) { hubEvent: HubEvent<*> ->
+          if (hubEvent.name == InitializationStatus.SUCCEEDED.toString()) {
+            Log.i("AuthCognito", "Auth successfully initialized")
+          } else if (hubEvent.name == InitializationStatus.FAILED.toString()) {
+            Log.i("AuthCognito", "Auth failed to succeed")
+          } else {
+            when (AuthChannelEventName.valueOf(hubEvent.name)) {
+              AuthChannelEventName.SIGNED_IN -> {
+                sendEvent(hubEvent, eventSink)
+              }
+              AuthChannelEventName.SIGNED_OUT -> {
+                sendEvent(hubEvent, eventSink)
+              }
+              AuthChannelEventName.SESSION_EXPIRED -> {
+                sendEvent(hubEvent, eventSink)
+              }
+              else -> Log.i("AuthCognito", "unknown")
+            }
+          }
+        }
+      }
+
+      override fun onCancel(listener: Any) {
+        println("Cancelling...")
+      }
+    })
+  }
+  fun sendEvent(hubEvent: HubEvent<*>?, sink: EventChannel.EventSink) {
+    Handler(Looper.getMainLooper()).post(Runnable {
+      sink.success(gson.toJson(hubEvent))
+    })
   }
 
   override fun onDetachedFromActivity() {

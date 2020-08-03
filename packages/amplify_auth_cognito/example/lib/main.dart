@@ -55,6 +55,9 @@ class _MyAppState extends State<MyApp> {
       _isAmplifyConfigured = true;
       displayState = "SHOW_SIGN_IN";
     });
+    auth.events.startListening((msg) {
+      print(msg);  
+    });
   }
 
   void _signUp() async {
