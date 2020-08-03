@@ -4,17 +4,17 @@ executors:
   build-executor:
     docker:
       - image: circleci/android:api-29
-    working_directory: ~/flutter-plugins-ci
+    working_directory: ~/amplify-flutter
 
   android-executor:
     macos:
       xcode: 11.6.0
-    working_directory: ~/flutter-plugins-ci
+    working_directory: ~/amplify-flutter
 
   ios-executor:
     macos:
       xcode: 11.6.0
-    working_directory: ~/flutter-plugins-ci
+    working_directory: ~/amplify-flutter
 
 commands:
   install_flutter:
