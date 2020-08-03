@@ -1,0 +1,79 @@
+version: 2.1
+
+executors:
+  build-executor:
+    docker:
+      - image: circleci/android:api-29
+    working_directory: ~/flutter-plugins-ci
+
+  android-executor:
+    macos:
+      xcode: 11.6.0
+    working_directory: ~/flutter-plugins-ci
+
+  ios-executor:
+    macos:
+      xcode: 11.6.0
+    working_directory: ~/flutter-plugins-ci
+
+commands:
+  install_flutter:
+    description:
+      Install Flutter and set up paths.
+    parameters:
+      flutter_version:
+        description: Flutter version
+        type: string
+        default: stable
+    steps:
+      - run:
+          name: Set up Flutter
+          command: |
+            echo 'export FLUTTER_HOME=${HOME}/sdks/flutter' >> $BASH_ENV
+            echo 'export FLUTTER_VERSION=<< parameters.flutter_version >>' >> $BASH_ENV
+            echo 'export FLUTTER_ROOT=${FLUTTER_HOME}' >> $BASH_ENV
+            echo 'export PATH=${PATH}:${FLUTTER_HOME}/bin:${FLUTTER_HOME}/bin/cache/dart-sdk/bin:${HOME}/.pub-cache/bin' >> $BASH_ENV
+            source $BASH_ENV
+            git clone --branch ${FLUTTER_VERSION} https://github.com/flutter/flutter.git ${FLUTTER_HOME}
+            (yes || true) | flutter doctor --android-licenses && flutter doctor
+
+jobs:
+  unit_test_flutter:
+    executor: build-executor
+    steps:
+      - install_flutter
+      - checkout
+      - run:
+          name: Run Flutter Unit Tests
+          command: . .circleci/test_all_plugins.sh flutter-test
+
+  unit_test_ios:
+    executor: ios-executor
+    steps:
+      - install_flutter
+      - checkout
+      - run:
+          name: Run iOS Unit Tests
+          command: . .circleci/test_all_plugins.sh ios-test
+
+  unit_test_android:
+    executor: build-executor
+    steps:
+      - install_flutter
+      - checkout
+      - run:
+          name: Run Android Unit Tests
+          command: . .circleci/test_all_plugins.sh android-test
+
+releasable_branches: &releasable_branches
+  branches:
+    only:
+      - release
+      - master
+
+workflows:
+  test_deploy:
+    jobs:
+      - unit_test_flutter
+      - unit_test_android
+      - unit_test_ios
