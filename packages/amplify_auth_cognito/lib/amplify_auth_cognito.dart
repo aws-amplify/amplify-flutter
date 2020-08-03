@@ -22,6 +22,7 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import './method_channel_auth_cognito.dart';
 import './event_channel_auth_cognito.dart';
 
+
 export './src/types.dart';
 export 'package:amplify_auth_plugin_interface/src/types.dart';
 
@@ -60,6 +61,7 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     return res;
   }
 
+<<<<<<< HEAD
   Future<SignOutResult> signOut({@required SignOutRequest request}) async {
     var res = await _instance.signOut(request: request);
     return res;
@@ -79,6 +81,12 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     var res = await _instance.confirmPassword(request: request);
     return res; 
   }
+=======
+  Future<SignOutResult> signOut({SignOutRequest request}) async {
+    var res = await _instance.signOut(request: request);
+    return res;
+  }
+>>>>>>> feat(amplify_auth_cognito): confirmSignUp, signIn, confirmSignIn, signOut
  
 }
 

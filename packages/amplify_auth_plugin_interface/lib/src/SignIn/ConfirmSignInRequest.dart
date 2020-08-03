@@ -14,22 +14,17 @@
  */
 
 import 'package:flutter/foundation.dart';
-import './ConfirmSignInOptions.dart';
 
 class ConfirmSignInRequest {
   String userKey;
   String confirmationValue;
-  ConfirmSignInOptions options;
-  ConfirmSignInRequest({this.userKey, @required this.confirmationValue, this.options});
+  ConfirmSignInRequest({this.userKey, @required this.confirmationValue});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     if (userKey != null) {
       pendingRequest['username'] = userKey;
     }
     pendingRequest["confirmationCode"] = confirmationValue;
-    if (options != null) {
-      pendingRequest['options'] = options;
-    }
     return pendingRequest;
   }
 }

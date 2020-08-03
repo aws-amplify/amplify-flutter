@@ -55,4 +55,8 @@ class AuthCategory {
   Future<ChangePasswordResult> confirmPassword({ConfirmPasswordRequest request}) {
     return plugins[0].confirmPassword(request: request);
   }
+
+Future<AuthSession> fetchAuthSession({AuthSessionRequest request}) {
+    return plugins[0].fetchAuthSession(request: request);
+  }
 }
