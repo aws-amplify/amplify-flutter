@@ -13,36 +13,27 @@ enum class FlutterAuthFailureMessage {
   },
   CONFIRM_SIGNUP {
     override fun toString(): String {
-      return "Amplify ConfirmSignUp Failed"
+      return "AMPLIFY_CONFIRM_SIGNUP_FAILED"
     }
   },
   SIGNIN {
     override fun toString(): String {
-      return "Amplify SignIn Failed"
+      return "AMPLIFY_SIGNIN_FAILED"
     }
   },
   CONFIRM_SIGNIN {
     override fun toString(): String {
-      return "Amplify ConfirmSignIn Failed"
+      return "AMPLIFY_CONFIRM_SIGNIN_FAILED"
     }
   },
   SIGNOUT {
     override fun toString(): String {
-      return "Amplify SignOut Failed"
+      return "AMPLIFY_SIGNOUT_FAILED"
     }
   },
   MALFORMED {
     override fun toString(): String {
-      return "Amplify Request Malformed"
-    }
-  },
-  ERROR_SENDING {
-    override fun toString(): String {
-      return "Amplify Request Failed to Send"
-      return "AMPLIFY_SIGNUP_REQUEST_MALFORMED"
-    }
-    fun recovery(): String {
-      return "Make sure that the request had all required parameters."
+      return "AMPLIFY_REQUEST_MALFORMED"
     }
   }
 }

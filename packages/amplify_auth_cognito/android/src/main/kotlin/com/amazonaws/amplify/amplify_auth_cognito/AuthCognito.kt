@@ -127,7 +127,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
                 req.password,
                 req.options,
                 { result -> this.mainActivity?.runOnUiThread({ prepareSignUpResult(flutterResult, result)}) },
-                { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.SIGNUP.name)}) }
+                { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.SIGNUP.toString())}) }
         );
       } catch(e: Exception) {
         prepareError(flutterResult, e, FlutterAuthFailureMessage.SIGNUP.toString())
@@ -226,6 +226,11 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
         else -> errorMap.put("UNKNOWN", "Unknown Auth Error.")
       }
     }
+
+    errorMap.put("PLATFORM_EXCEPTIONS" , mapOf(
+      "localalizedError" to error.localizedMessage,
+      "recoverySuggestion" to error.recoverySuggestion
+    ))
     flutterResult.error("AmplifyException", msg, errorMap)
   }
 
