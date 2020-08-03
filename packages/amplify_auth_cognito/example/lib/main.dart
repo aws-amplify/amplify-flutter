@@ -51,7 +51,6 @@ class _MyAppState extends State<MyApp> {
     Map<String, dynamic> userAttributes = {
       "email": emailController.text,
       "phone_number": phoneController.text,
-      "address": "123 MyStreet"
     };
     try {
       SignUpResult res = await Amplify.Auth.signUp(
@@ -64,8 +63,111 @@ class _MyAppState extends State<MyApp> {
         ), 
       );
       setState(() {
-        displayState = res.nextStep.signUpStep == "DONE" ? "SHOW_CONFIRM" : "SHOW_SIGN_UP";
+        displayState = res.nextStep.signUpStep != "DONE" ? "SHOW_CONFIRM" : "SHOW_SIGN_UP";
         authState = "Signup: " + res.nextStep.signUpStep;
+      });
+    } on AuthError catch (e) {
+      setState(() {
+        error = e.cause;
+        e.exceptionList.forEach((el) {
+          exceptions.add(el.exception);
+        });
+      });
+      print(e);
+    }
+  }
+
+  void _confirmSignUp() async {
+    setState(() {
+      error = "";
+      exceptions = [];
+    });
+    try {
+      SignUpResult res = await Amplify.Auth.confirmSignUp(
+        request: ConfirmSignUpRequest(
+          userKey: usernameController.text.trim(),
+          confirmationCode: confirmationCodeController.text.trim()
+        ), 
+      );
+      setState(() {
+        displayState = res.nextStep.signUpStep != "DONE" ? "SHOW_CONFIRM" : "SHOW_SIGN_IN";
+        authState = "ConfirmSignUp: " + res.nextStep.signUpStep;
+      });
+    } on AuthError catch (e) {
+      setState(() {
+        error = e.cause;
+        e.exceptionList.forEach((el) {
+          exceptions.add(el.exception);
+        });
+      });
+      print(e);
+    }
+  }
+
+  void _signIn() async {
+    setState(() {
+      error = "";
+      exceptions = [];
+    });
+    try {
+      SignInResult res = await Amplify.Auth.signIn(
+        request: SignInRequest(
+          username: usernameController.text.trim(),
+          password: passwordController.text.trim()
+        ), 
+      );
+      setState(() {
+        displayState = res.isSignedIn ? "SIGNED_IN" : "SHOW_CONFIRM_SIGN_IN" ;
+        authState = "Signin: " + res.nextStep.signInStep;
+      });
+    } on AuthError catch (e) {
+      setState(() {
+        error = e.cause;
+        e.exceptionList.forEach((el) {
+          exceptions.add(el.exception);
+        });
+      });
+      print(e);
+    }
+  }
+
+   void _confirmSignIn() async {
+    setState(() {
+      error = "";
+      exceptions = [];
+    });
+    try {
+      SignInResult res = await Amplify.Auth.confirmSignIn(
+        request: ConfirmSignInRequest(
+          userKey: usernameController.text.trim(),
+          confirmationValue: confirmationCodeController.text.trim()
+        ), 
+      );
+      setState(() {
+        displayState = res.nextStep.signInStep == "DONE" ? "SIGNED_IN" : "SHOW_CONFIRM_SIGN_IN";
+        authState = "SignIn: " + res.nextStep.signInStep;
+      });
+    } on AuthError catch (e) {
+      setState(() {
+        error = e.cause;
+        e.exceptionList.forEach((el) {
+          exceptions.add(el.exception);
+        });
+      });
+      print(e);
+    }
+  }
+
+  void _signOut() async {
+    setState(() {
+      error = "";
+      exceptions = [];
+    });
+    try {
+      SignOutResult res = await Amplify.Auth.signOut();
+      setState(() {
+        displayState = 'SHOW_SIGN_IN';
+        authState = "SIGNED OUT";
       });
     } on AuthError catch (e) {
       setState(() {
@@ -84,19 +186,34 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void _confirmUser() async {
+    setState(() {
+      displayState = "SHOW_CONFIRM";
+    });
+  }
+
   void _backToSignIn() async {
     setState(() {
       displayState = "SHOW_SIGN_IN";
     });
   }
 
-  Widget showConfirmSignUp() {
+Widget showConfirmSignUp() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         Expanded( // wrap your Column in Expanded
-          child: Column(
+          child: Column (
             children: [
+              const Padding(padding: EdgeInsets.all(10.0)),
+              TextFormField(
+                controller: usernameController,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.person),
+                  hintText: 'Your username',
+                  labelText: 'Username *',
+                )
+              ),
               TextFormField(
                 controller: confirmationCodeController,
                 decoration: const InputDecoration(
@@ -107,8 +224,46 @@ class _MyAppState extends State<MyApp> {
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
               RaisedButton(
-                onPressed: null,
+                onPressed: _confirmSignUp,
                 child: const Text('Confirm SignUp'),
+              ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed:_backToSignIn,
+                child: const Text('Back to Sign In'),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget showConfirmSignIn() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        Expanded( // wrap your Column in Expanded
+          child: Column(
+            children: [
+              const Padding(padding: EdgeInsets.all(10.0)),
+              TextFormField(
+                controller: confirmationCodeController,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.question_answer),
+                  hintText: 'The secret answer to the auth challange',
+                  labelText: 'Challange Response *',
+                )
+              ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed: _confirmSignIn,
+                child: const Text('Confirm SignIn'),
+              ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed:_backToSignIn,
+                child: const Text('Back to Sign In'),
               ),
             ],
           ),
@@ -143,8 +298,23 @@ Widget showSignIn() {
               ),
             const Padding(padding: EdgeInsets.all(10.0)),
             RaisedButton(
+              onPressed: _signIn,
+              child: const Text('Sign In'),
+            ),
+            const Padding(padding: EdgeInsets.all(10.0)),
+            RaisedButton(
               onPressed: _createUser,
               child: const Text('Create User'),
+            ),
+            const Padding(padding: EdgeInsets.all(10.0)),
+            RaisedButton(
+              onPressed: _confirmUser,
+              child: const Text('Confirm User'),
+            ),
+            const Padding(padding: EdgeInsets.all(10.0)),
+            RaisedButton(
+              onPressed: _signOut,
+              child: const Text('SignOut'),
             ),
             ],
           ),
@@ -218,8 +388,23 @@ Widget showSignIn() {
   }
 
   Widget showApp() {
-    return Text(
-      "You are signed in!"
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        Expanded( // wrap your Column in Expanded
+          child: Column(
+            children: [
+              const Padding(padding: EdgeInsets.all(10.0)),
+              Text("You are signed in!"),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed: _signOut,
+                child: const Text('Sign Out'),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
@@ -275,6 +460,7 @@ Widget showSignIn() {
                 if (this.displayState == "SHOW_SIGN_UP") showSignUp(),
                 if (this.displayState == "SHOW_CONFIRM") showConfirmSignUp(),
                 if (this.displayState == "SHOW_SIGN_IN") showSignIn(),
+                if (this.displayState == "SHOW_CONFIRM_SIGN_IN") showConfirmSignIn(),
                 if (this.displayState == 'SIGNED_IN') showApp(),
                 showAuthState(),
                 if (this.error != null) showErrors(),

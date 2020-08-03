@@ -4,7 +4,6 @@
 //
 //  Created by Noyes, Dustin on 7/2/20.
 //
-
 import Foundation
 import Amplify
 import AmplifyPlugins
