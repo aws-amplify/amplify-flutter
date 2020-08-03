@@ -15,19 +15,13 @@ void main() {
   setUp(() {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == "confirmSignUp") {
-        String testCode = methodCall.arguments["data"]["providerOptions"]["clientMetadata"]["test"];
-        if (testCode == "0") {
-          return {
-            "signUpState": "DONE",
-            "providerData" : {
-              "nextStep": {
-                "codeDeliveryDetails":  { "atttibuteName": "email" }
-              }
-            }
-          };
-        } else if (testCode == "1") {
-          throw PlatformException(code: "AmplifyException", details: Map.from({"testError": "error"}), message: "stuff");
-        }
+        return {
+          "isSignUpComplete": false,
+          "nextStep": {
+            "signUpStep": "DONE",
+            "codeDeliveryDetails":  { "atttibuteName": "email" }
+          }
+        };
       } else {
         return true;
       }     
@@ -42,39 +36,13 @@ void main() {
     coreChannel.setMockMethodCallHandler(null);
   });
 
-  test('amplify_auth_cognito plugin can be added to Amplify instance', () async {
-    expect(amplify.addPlugin(authPlugin: [auth]), true);
-  });
-
-  test('configure success after plugin is added', () async {
-    expect(amplify.configure("{}"), true);
-  });
-
-  test('confirmSignUp request returns a SignUpResult', () async {
+  test('signUp request returns a ConfirmSignUpResult', () async {
+    await amplify.addPlugin(authPlugin: [auth]);
+    await amplify.configure("{}");
     ConfirmSignUpRequest req = ConfirmSignUpRequest(
       userKey: 'testUser',
-      confirmationCode: '0',
+      confirmationCode: '123',
     );
     expect(await Amplify.Auth.confirmSignUp(request: req), isInstanceOf<SignUpResult>());
-  });
-
-  test('successful confirmSignUp request results in success callback call', () async {
-    var testInt = 0;
-    ConfirmSignUpRequest req = ConfirmSignUpRequest(
-      userKey: 'testUser',
-      confirmationCode: '0',
-    );
-    await Amplify.Auth.confirmSignUp(request: req);
-    expect(testInt, equals(1));
-  });
-
-  test('failed confirmSignUp request results in error callback call', () async {
-    var testInt = 1;
-    ConfirmSignUpRequest req = ConfirmSignUpRequest(
-      userKey: 'testUser',
-      confirmationCode: '1',
-    );
-    await Amplify.Auth.confirmSignUp(request: req);
-    expect(testInt, equals(2));
   });
 }

@@ -9,10 +9,20 @@ import Foundation
 struct FlutterSignInRequest {
   var username: String?
   var password: String?
-  var providerOptions: Dictionary<String, Any>? = [:]
+  var options: Dictionary<String, Any>? = [:]
   init(dict: NSMutableDictionary){
     self.username = dict["username"] as! String?
     self.password = dict["password"] as! String?
-    self.providerOptions = dict["providerOptions"] as! Dictionary<String, Any>?
+    self.options = dict["options"] as! Dictionary<String, Any>?
+  }
+  static func validate(dict: NSMutableDictionary) -> Bool {
+    var valid: Bool = true;
+    if (dict["username"] == nil && dict["options"] == nil) {
+      valid = false;
+    }
+    if (dict["password"] == nil && dict["options"] == nil) {
+      valid = false;
+    }
+    return valid;
   }
 }

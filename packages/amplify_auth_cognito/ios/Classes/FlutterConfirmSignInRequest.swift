@@ -11,4 +11,11 @@ struct FlutterConfirmSignInRequest {
   init(dict: NSMutableDictionary){
     self.confirmationCode = dict["confirmationCode"] as! String
   }
+  static func validate(dict: NSMutableDictionary) -> Bool {
+    var valid: Bool = true;
+    if (dict["confirmationCode"] == nil && dict["options"] == nil) {
+      valid = false;
+    }
+    return valid;
+  }
 }

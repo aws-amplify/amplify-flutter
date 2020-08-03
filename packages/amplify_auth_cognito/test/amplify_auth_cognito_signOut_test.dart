@@ -15,18 +15,7 @@ void main() {
   setUp(() {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == "signOut") {
-        bool testCode = true;
-        if (methodCall.arguments["data"] != null){
-          testCode = methodCall.arguments["data"]["providerOptions"]["globalSignOut"];
-        }
-        if (testCode == true) {
-          return {
-            "signOutState": "DONE",
-            "providerData" : {}
-          };
-        } else if (testCode == false) {
-          throw PlatformException(code: "AmplifyException", details: Map.from({"testError": "error"}), message: "stuff");
-        }
+        return {};
       } else {
         return true;
       }     
@@ -41,34 +30,10 @@ void main() {
     coreChannel.setMockMethodCallHandler(null);
   });
 
-  test('amplify_auth_cognito plugin can be added to Amplify instance', () async {
-    expect(amplify.addPlugin(authPlugin: [auth]), true);
-  });
-
-  test('configure success after plugin is added', () async {
-    expect(amplify.configure("{}"), true);
-  });
-
-  test('signOut request returns a SignOutResult without a request parameter', () async {
-    expect(await Amplify.Auth.signOut(), isInstanceOf<SignOutResult>());
-  });
-
-  test('signOut request returns a SignOutResult with a request parameter', () async {
+  test('signUp request returns a SignOutResult', () async {
+    await amplify.addPlugin(authPlugin: [auth]);
+    await amplify.configure("{}");
     SignOutRequest req = SignOutRequest();
     expect(await Amplify.Auth.signOut(request: req), isInstanceOf<SignOutResult>());
-  });
-
-  test('successful signOut request results in success callback call', () async {
-    var testInt = 0;
-    SignOutRequest req = SignOutRequest();
-    await Amplify.Auth.signOut(request: req);
-    expect(testInt, equals(1));
-  });
-
-  test('failed signOut request results in error callback call', () async {
-    var testInt = 1;
-    SignOutRequest req = SignOutRequest();
-    await Amplify.Auth.signOut(request: req);
-    expect(testInt, equals(2));
   });
 }

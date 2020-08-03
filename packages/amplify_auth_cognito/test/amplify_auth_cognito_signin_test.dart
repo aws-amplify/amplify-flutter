@@ -15,17 +15,13 @@ void main() {
   setUp(() {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == "signIn") {
-        String testCode = methodCall.arguments["data"]["providerOptions"]["clientMetadata"]["test"];
-        if (testCode == "0") {
-          return {
-            "signInState": "DONE",
-            "providerData" : {
-              "nextStep": {}
-            }
-          };
-        } else if (testCode == "1") {
-          throw PlatformException(code: "AmplifyException", details: Map.from({"testError": "error"}), message: "stuff");
-        }
+        return {
+          "isSignedIn": false,
+          "nextStep": {
+            "signInStep": "DONE",
+            "codeDeliveryDetails":  { "atttibuteName": "email" }
+          }
+        };
       } else {
         return true;
       }     
@@ -40,39 +36,13 @@ void main() {
     coreChannel.setMockMethodCallHandler(null);
   });
 
-  test('amplify_auth_cognito plugin can be added to Amplify instance', () async {
-    expect(amplify.addPlugin(authPlugin: [auth]), true);
-  });
-
-  test('configure success after plugin is added', () async {
-    expect(amplify.configure("{}"), true);
-  });
-
-  test('signIn request returns a SignInResult', () async {
+  test('signUp request returns a SignInResult', () async {
+    await amplify.addPlugin(authPlugin: [auth]);
+    await amplify.configure("{}");
     SignInRequest req = SignInRequest(
       username: 'testUser',
-      password: '0',
+      password: '123',
     );
     expect(await Amplify.Auth.signIn(request: req), isInstanceOf<SignInResult>());
-  });
-
-  test('successful signIn request results in success callback call', () async {
-    var testInt = 0;
-    SignInRequest req = SignInRequest(
-      username: 'testUser',
-      password: '0',
-    );
-    await Amplify.Auth.signIn(request: req);
-    expect(testInt, equals(1));
-  });
-
-  test('failed confirmSignUp request results in error callback call', () async {
-    var testInt = 1;
-    SignInRequest req = SignInRequest(
-      username: 'testUser',
-      password: '0',
-    );
-    await Amplify.Auth.signIn(request: req);
-    expect(testInt, equals(2));
   });
 }

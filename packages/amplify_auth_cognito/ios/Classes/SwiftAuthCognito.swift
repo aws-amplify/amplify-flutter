@@ -33,16 +33,34 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
         }
       case "confirmSignUp":
         let arguments = call.arguments as! Dictionary<String, AnyObject>
-        let  request = FlutterConfirmSignUpRequest(dict: arguments["data"] as! NSMutableDictionary)
-        onConfirmSignUp(flutterResult: result, request: request)
+        if (FlutterConfirmSignUpRequest.validate(dict: arguments["data"] as! NSMutableDictionary)) {
+          let  request = FlutterConfirmSignUpRequest(dict: arguments["data"] as! NSMutableDictionary)
+          onConfirmSignUp(flutterResult: result, request: request)
+        } else {
+          print("ConfirmSignUp Request was malformed.")
+          let errorCode = "UNKNOWN"
+            self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
+        }
       case "signIn":
         let arguments = call.arguments as! Dictionary<String, AnyObject>
-        let request = FlutterSignInRequest(dict: arguments["data"] as! NSMutableDictionary)
-        onSignIn(flutterResult: result, request: request);
+        if (FlutterSignInRequest.validate(dict: arguments["data"] as! NSMutableDictionary)) {
+          let  request = FlutterSignInRequest(dict: arguments["data"] as! NSMutableDictionary)
+          onSignIn(flutterResult: result, request: request)
+        } else {
+          print("SignIn Request was malformed.")
+          let errorCode = "UNKNOWN"
+            self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
+        }
       case "confirmSignIn":
         let arguments = call.arguments as! Dictionary<String, AnyObject>
-        let  request = FlutterConfirmSignInRequest(dict: arguments["data"] as! NSMutableDictionary)
-        onConfirmSignIn(flutterResult: result, request: request)
+        if (FlutterConfirmSignInRequest.validate(dict: arguments["data"] as! NSMutableDictionary)) {
+          let  request = FlutterConfirmSignInRequest(dict: arguments["data"] as! NSMutableDictionary)
+          onConfirmSignIn(flutterResult: result, request: request)
+        } else {
+          print("ConfirmSignIn Request was malformed.")
+          let errorCode = "UNKNOWN"
+            self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
+        }
       case "signOut": 
         let arguments = call.arguments as! Dictionary<String, AnyObject>
         let dict = arguments["data"] != nil && !(arguments["data"] is NSNull) ? arguments["data"] as! NSMutableDictionary : NSMutableDictionary()
@@ -84,9 +102,11 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
         
        case .failure(let signUpError):
         print("An error occurred while registering a user")
-        if case .service(_, _, let error) = signUpError {
+        if case .service( let localalizedError,  let recoverySuggestion, let error) = signUpError {
             let errorCode = error != nil ? "\(error!)" : "UNKNOWN"
-            self.prepareError(flutterResult: flutterResult, error: signUpError, msg: self.signUpFailure, errorMap: self.formatErrorMap(errorCode: errorCode ))
+            var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode)
+            errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localalizedError: localalizedError, recoverySuggestion: recoverySuggestion)
+            self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNUP.rawValue, errorMap: errorMap)
         }
       }
     }
@@ -101,9 +121,11 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
 
           case .failure(let signInError):
           print("An error occurred while initiating auth")
-          if case .service(_, _, let error) = signInError {
+          if case .service( let localalizedError,  let recoverySuggestion, let error) = signInError {
               let errorCode = error != nil ? "\(error!)" : "UNKNOWN"
-              self.prepareError(flutterResult: flutterResult, error: signInError, msg: self.signInFailure, errorMap: self.formatErrorMap(errorCode: errorCode))
+              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode)
+              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localalizedError: localalizedError, recoverySuggestion: recoverySuggestion)
+              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNUP.rawValue, errorMap: errorMap)
           }
         }
       }
@@ -117,9 +139,11 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
          flutterResult(signInData.toJSON())
        case .failure(let signInError):
          print("An error occurred while confirming a sign in")
-         if case .service(_, _, let error) = signInError {
-            let errorCode = error != nil ? "\(error!)" : "UNKNOWN"
-            self.prepareError(flutterResult: flutterResult, error: signInError, msg: self.signInFailure, errorMap: self.formatErrorMap(errorCode: errorCode ))
+         if case .service( let localalizedError,  let recoverySuggestion, let error) = signInError {
+             let errorCode = error != nil ? "\(error!)" : "UNKNOWN"
+             var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode)
+             errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localalizedError: localalizedError, recoverySuggestion: recoverySuggestion)
+             self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNUP.rawValue, errorMap: errorMap)
          }
        }
      }
@@ -134,9 +158,11 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
 
         case .failure(let signOutError):
         print("An error occurred while initiating auth")
-        if case .service(_, _, let error) = signOutError {
+        if case .service( let localalizedError,  let recoverySuggestion, let error) = signOutError {
             let errorCode = error != nil ? "\(error!)" : "UNKNOWN"
-            self.prepareError(flutterResult: flutterResult, error: signOutError, msg: self.signOutFailure, errorMap: self.formatErrorMap(errorCode: errorCode))
+            var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode)
+            errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localalizedError: localalizedError, recoverySuggestion: recoverySuggestion)
+            self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNUP.rawValue, errorMap: errorMap)
         }
       }
     }
