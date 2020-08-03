@@ -139,10 +139,10 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   void _throwError(PlatformException e) {
     LinkedHashMap eMap = new LinkedHashMap<String, dynamic>();
     e.details.forEach((k, v) => {
-      if (cognitoSignUpException.contains(k)) {
+      if (cognitoExceptions.contains(k)) {
         eMap.putIfAbsent(k, () => v)
       } else {
-        eMap.putIfAbsent("UNRECOGNIZED EXCEPTION", () => "See logs for details")
+        eMap.putIfAbsent("UNRECOGNIZED EXCEPTION", () => "See logs for details.")
       }
     });
     AuthError error = AuthError.init(cause: e.message, errorMap: eMap);
