@@ -28,9 +28,14 @@ export 'CognitoSignOut/CognitoSignOutOptions.dart';
 export 'CognitoSignUp/CognitoSignUpResult.dart';
 export 'CognitoSignUp/CognitoSignUpOptions.dart';
 
+<<<<<<< HEAD
 // Password
 export 'CognitoPasswords/CognitoResetPasswordResult.dart';
 export 'CognitoPasswords/CognitoChangePasswordOptions.dart';
 
 // Exceptions
 export 'CognitoExceptions/CognitoExceptions.dart';
+=======
+// Exceptions
+export 'CognitoExceptions/CognitoExceptions.dart';
+>>>>>>> flattening exception list
