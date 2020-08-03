@@ -61,32 +61,10 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     return res;
   }
 
-<<<<<<< HEAD
-  Future<SignOutResult> signOut({@required SignOutRequest request}) async {
-    var res = await _instance.signOut(request: request);
-    return res;
-  }
-
- Future<ChangePasswordResult> changePassword({ChangePasswordRequest request}) async {
-    var res = await _instance.changePassword(request: request);
-    return res; 
-  }
-
-  Future<ResetPasswordResult> resetPassword({ResetPasswordRequest request}) async {
-    var res = await _instance.resetPassword(request: request);
-    return res; 
-  }
-
-  Future<ChangePasswordResult> confirmPassword({ConfirmPasswordRequest request}) async {
-    var res = await _instance.confirmPassword(request: request);
-    return res; 
-  }
-=======
   Future<SignOutResult> signOut({SignOutRequest request}) async {
     var res = await _instance.signOut(request: request);
     return res;
   }
->>>>>>> feat(amplify_auth_cognito): confirmSignUp, signIn, confirmSignIn, signOut
  
 }
 
