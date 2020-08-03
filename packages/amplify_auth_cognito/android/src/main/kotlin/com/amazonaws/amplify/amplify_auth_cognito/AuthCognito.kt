@@ -15,9 +15,6 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito
 
-import FlutterConfirmSignInRequest
-import FlutterSignInRequest
-import FlutterSignOutRequest
 import android.app.Activity
 import android.content.Context
 import android.util.Log
