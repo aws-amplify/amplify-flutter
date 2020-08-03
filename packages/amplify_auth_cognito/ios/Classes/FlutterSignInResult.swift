@@ -9,28 +9,39 @@ import Foundation
 import Amplify
 
 struct FlutterSignInResult  {
-    var signInState: String
+    var isSignedIn: Bool
+    var signInStep: String
     var additionalInfo: [String: String]
     var codeDeliveryDetails: [String: String]
 
     init(res: AmplifyOperation<AuthSignInRequest, AuthSignInResult, AuthError>.OperationResult){
-      self.signInState = setState(res: res)
+      self.isSignedIn = isComplete(res: res)
+      self.signInStep = setState(res: res)
       self.additionalInfo = setAdditionalInfo(res: res)
       self.codeDeliveryDetails = setCodeDeliveryDetails(res: res)
     }
     
     func toJSON() -> Dictionary<String, Any> {
-       return [
-         "signInState": self.signInState,
-         "providerData": [
-            "nextStep": [
-                "additionalInfo": self.additionalInfo,
-                "codeDeliveryDetails": self.codeDeliveryDetails
-            ]
-         ]
-
-       ]
+      return [
+        "isSignedIn": self.isSignedIn,
+        "nextStep": [
+            "signInStep": self.signInStep,
+            "additionalInfo": self.additionalInfo,
+            "codeDeliveryDetails": self.codeDeliveryDetails
+        ]
+      ]
    }
+}
+
+func isComplete(res: AmplifyOperation<AuthSignInRequest, AuthSignInResult, AuthError>.OperationResult) -> Bool {
+  var complete: Bool = false;
+  switch res {
+    case .success(let signInResult):
+      complete = signInResult.isSignedIn
+    case .failure:
+      complete = false
+  }
+  return complete;
 }
 
 func setCodeDeliveryDetails(res: AmplifyOperation<AuthSignInRequest, AuthSignInResult, AuthError>.OperationResult) -> [String: String] {

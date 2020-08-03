@@ -59,7 +59,8 @@ class _MyAppState extends State<MyApp> {
           username: usernameController.text.trim(),
           password: passwordController.text.trim(),
           options: CognitoSignUpOptions(
-            userAttributes: userAttributes
+            userAttributes: userAttributes,
+            usernameAttribute: "email"
           )
         ), 
       );
@@ -145,8 +146,30 @@ class _MyAppState extends State<MyApp> {
         ), 
       );
       setState(() {
-        displayState = res.nextStep.signInStep == "DONE" ? "SHOW_CONFIRM" : "SHOW_SIGN_UP";
-        authState = "Signup: " + res.nextStep.signInStep;
+        displayState = res.nextStep.signInStep == "DONE" ? "SIGNED_IN" : "SHOW_CONFIRM_SIGN_IN";
+        authState = "SignIn: " + res.nextStep.signInStep;
+      });
+    } on AuthError catch (e) {
+      setState(() {
+        error = e.cause;
+        e.exceptionList.forEach((el) {
+          exceptions.add(el.exception);
+        });
+      });
+      print(e);
+    }
+  }
+
+  void _signOut() async {
+    setState(() {
+      error = "";
+      exceptions = [];
+    });
+    try {
+      SignOutResult res = await Amplify.Auth.signOut();
+      setState(() {
+        displayState = 'SHOW_SIGN_IN';
+        authState = "SIGNED OUT";
       });
     } on AuthError catch (e) {
       setState(() {
@@ -290,6 +313,11 @@ Widget showSignIn() {
               onPressed: _confirmUser,
               child: const Text('Confirm User'),
             ),
+            const Padding(padding: EdgeInsets.all(10.0)),
+            RaisedButton(
+              onPressed: _signOut,
+              child: const Text('SignOut'),
+            ),
             ],
           ),
         ),
@@ -362,8 +390,23 @@ Widget showSignIn() {
   }
 
   Widget showApp() {
-    return Text(
-      "You are signed in!"
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        Expanded( // wrap your Column in Expanded
+          child: Column(
+            children: [
+              const Padding(padding: EdgeInsets.all(10.0)),
+              Text("You are signed in!"),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed: _signOut,
+                child: const Text('Sign Out'),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 

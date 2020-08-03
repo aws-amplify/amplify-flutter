@@ -15,10 +15,10 @@ struct FlutterConfirmSignUpRequest {
   }
   static func validate(dict: NSMutableDictionary) -> Bool {
     var valid: Bool = true;
-    if (dict["username"] == nil && dict["options"] == nil) {
+    if (dict["userKey"] == nil && dict["options"] == nil) {
       valid = false;
     }
-    if (dict["usconfirmationCodeername"] == nil && dict["options"] == nil) {
+    if (dict["confirmationCode"] == nil && dict["options"] == nil) {
       valid = false;
     }
     return valid;

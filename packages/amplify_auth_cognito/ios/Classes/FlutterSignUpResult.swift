@@ -22,15 +22,15 @@ struct FlutterSignUpResult  {
     }
     
     func toJSON() -> Dictionary<String, Any> {
-       return [
-         "isSignUpComplete": self.isSignUpComplete,
-          "nextStep": [
-              "signUpStep": self.signUpStep,
-              "additionalInfo": self.additionalInfo,
-              "codeDeliveryDetails": self.codeDeliveryDetails
-          ]
-       ]
-   }
+      return [
+        "isSignUpComplete": self.isSignUpComplete,
+        "nextStep": [
+            "signUpStep": self.signUpStep,
+            "additionalInfo": self.additionalInfo,
+            "codeDeliveryDetails": self.codeDeliveryDetails
+        ]
+      ]
+    }
 }
 
 func isComplete(res: AmplifyOperation<AuthSignUpRequest, AuthSignUpResult, AuthError>.OperationResult) -> Bool {

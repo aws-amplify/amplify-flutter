@@ -227,9 +227,19 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
       }
     }
 
+    var localizedError: String = "";
+    var recoverySuggestion: String ="";
+    if (error is AuthException) {
+      recoverySuggestion = error.recoverySuggestion;
+    }
+    if (error.localizedMessage != null) {
+      localizedError = error.localizedMessage;
+    }
     errorMap.put("PLATFORM_EXCEPTIONS" , mapOf(
-      "localalizedError" to error.localizedMessage,
-      "recoverySuggestion" to error.recoverySuggestion
+      "platform" to "Android",
+      "localizedError" to localizedError,
+      "recoverySuggestion" to recoverySuggestion,
+      "errorString" to error.toString()
     ))
     flutterResult.error("AmplifyException", msg, errorMap)
   }
@@ -246,9 +256,6 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
 
   private fun prepareSignOutResult(@NonNull flutterResult: Result) {
     var parsedResult = mutableMapOf<String, Any>();
-    parsedResult["signInState"] = "DONE"
-    parsedResult["providerData"] = emptyMap<String, Any>()
-    ;
     flutterResult.success(parsedResult);
   }
 

@@ -83,10 +83,10 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
         flutterResult(signUpData.toJSON())
        case .failure(let signUpError):
         print("An error occurred while registering a user")
-        if case .service( let localalizedError,  let recoverySuggestion, let error) = signUpError {
+        if case .service( let localizedError,  let recoverySuggestion, let error) = signUpError {
             let errorCode = error != nil ? "\(error!)" : "UNKNOWN"
-            var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode)
-            errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localalizedError: localalizedError, recoverySuggestion: recoverySuggestion)
+            var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+            errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
             self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNUP.rawValue, errorMap: errorMap)
         }
       }
@@ -102,10 +102,10 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
         
        case .failure(let signUpError):
         print("An error occurred while registering a user")
-        if case .service( let localalizedError,  let recoverySuggestion, let error) = signUpError {
+        if case .service( let localizedError,  let recoverySuggestion, let error) = signUpError {
             let errorCode = error != nil ? "\(error!)" : "UNKNOWN"
-            var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode)
-            errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localalizedError: localalizedError, recoverySuggestion: recoverySuggestion)
+            var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+            errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
             self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNUP.rawValue, errorMap: errorMap)
         }
       }
@@ -121,10 +121,10 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
 
           case .failure(let signInError):
           print("An error occurred while initiating auth")
-          if case .service( let localalizedError,  let recoverySuggestion, let error) = signInError {
+          if case .service( let localizedError,  let recoverySuggestion, let error) = signInError {
               let errorCode = error != nil ? "\(error!)" : "UNKNOWN"
-              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode)
-              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localalizedError: localalizedError, recoverySuggestion: recoverySuggestion)
+              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
               self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNUP.rawValue, errorMap: errorMap)
           }
         }
@@ -139,10 +139,10 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
          flutterResult(signInData.toJSON())
        case .failure(let signInError):
          print("An error occurred while confirming a sign in")
-         if case .service( let localalizedError,  let recoverySuggestion, let error) = signInError {
+         if case .service( let localizedError,  let recoverySuggestion, let error) = signInError {
              let errorCode = error != nil ? "\(error!)" : "UNKNOWN"
-             var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode)
-             errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localalizedError: localalizedError, recoverySuggestion: recoverySuggestion)
+             var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+             errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNUP.rawValue, errorMap: errorMap)
          }
        }
@@ -158,10 +158,10 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
 
         case .failure(let signOutError):
         print("An error occurred while initiating auth")
-        if case .service( let localalizedError,  let recoverySuggestion, let error) = signOutError {
+        if case .service( let localizedError,  let recoverySuggestion, let error) = signOutError {
             let errorCode = error != nil ? "\(error!)" : "UNKNOWN"
-            var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode)
-            errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localalizedError: localalizedError, recoverySuggestion: recoverySuggestion)
+            var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+            errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
             self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNUP.rawValue, errorMap: errorMap)
         }
       }
@@ -175,46 +175,46 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
       details: errorMap))
   }
     
-    private func platformExceptions(localalizedError: String, recoverySuggestion: String) -> [String: String] {
+    private func platformExceptions(localizedError: String, recoverySuggestion: String) -> [String: String] {
       var platformDict: [String: String] = [:]
       platformDict["platform"] = "iOS"
-      platformDict["localalizedError"] = localalizedError
+      platformDict["localalizedError"] = localizedError
       platformDict["recoverySuggestion"] = recoverySuggestion
       return platformDict
     }
     
-  private func formatErrorMap(errorCode: String) -> [String: Any] {
+  private func formatErrorMap(errorCode: String, localizedError: String = "") -> [String: Any] {
       var errorDict: [String: Any] = [:]
       // should consider doing this with string manipulation, but that could be fragile
       switch errorCode {
         case "invalidParameter":
-          errorDict["INVALID_PARAMETER"] = description;
+          errorDict["INVALID_PARAMETER"] = localizedError
         case "usernameExists":
-          errorDict["USERNAME_EXISTS"] = description;
+          errorDict["USERNAME_EXISTS"] = localizedError
         case "aliasExists":
-          errorDict["ALIAS_EXISTS"] = description;
+          errorDict["ALIAS_EXISTS"] = localizedError
         case "codeDeliveryFailure":
-          errorDict["CODE_DELIVERY_FAILURE"] = description
+          errorDict["CODE_DELIVERY_FAILURE"] = localizedError
         case "internalError":
-          errorDict["INTERNAL_ERROR"] = description
+          errorDict["INTERNAL_ERROR"] = localizedError
         case "invalidLambdaResponse":
-          errorDict["INVALID_LAMBDA_RESPONSE"] = description
+          errorDict["INVALID_LAMBDA_RESPONSE"] = localizedError
         case "invalidPassword":
-          errorDict["INVALID_PASSWORD"] = description
+          errorDict["INVALID_PASSWORD"] = localizedError
         case "notAuthorized":
-          errorDict["NOT_AUTHORIZED"] = description
+          errorDict["NOT_AUTHORIZED"] = localizedError
         case "resourceNotFound":
-          errorDict["RESOURCE_NOT_FOUND"] = description
+          errorDict["RESOURCE_NOT_FOUND"] = localizedError
         case "tooManyRequests":
-          errorDict["TOO_MANY_REQUESTS"] = description
+          errorDict["TOO_MANY_REQUESTS"] = localizedError
         case "unexpectedLambda":
-          errorDict["UNEXPECTED_LAMBDA"] = description
+          errorDict["UNEXPECTED_LAMBDA"] = localizedError
         case "userLambdaValidation":
-          errorDict["USER_LAMBDA_VALIDATION"] = description
+          errorDict["USER_LAMBDA_VALIDATION"] = localizedError
         case "tooManyFailedAttempts":
-          errorDict["TOO_MANY_FAILED_ATTEMPTS"] = description
+          errorDict["TOO_MANY_FAILED_ATTEMPTS"] = localizedError
         default:
-          errorDict["UNKNOWN"] = "An unrecognized Sign Up has occurred. See logs for details."
+          errorDict["UNKNOWN"] = "An unrecognized error has occurred. See logs for details."
       }
       return errorDict
   }
