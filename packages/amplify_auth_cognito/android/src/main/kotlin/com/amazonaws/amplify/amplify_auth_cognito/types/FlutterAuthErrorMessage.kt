@@ -61,5 +61,10 @@ enum class FlutterAuthFailureMessage {
     override fun toString(): String {
       return "AMPLIFY_RESET_PASSWORD_FAILED"
     }
+  },
+  CONFIRM_PASSWORD {
+    override fun toString(): String {
+      return "AMPLIFY_CONFIRM_PASSWORD_FAILED"
+    }
   }
 }

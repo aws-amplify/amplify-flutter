@@ -237,7 +237,35 @@ class _MyAppState extends State<MyApp> {
         ), 
       );
       setState(() {
+        displayState = "SHOW_CONFIRM_REST";
         authState = res.nextStep.updateStep;
+      });
+    } on AuthError catch (e) {
+      setState(() {
+        error = e.cause;
+        e.exceptionList.forEach((el) {
+          exceptions.add(el.exception);
+        });
+      });
+      print(e);
+    }
+  }
+
+  void _confirmReset() async {
+    setState(() {
+      error = "";
+      exceptions = [];
+    });
+    try {
+      ChangePasswordResult res = await Amplify.Auth.confirmPassword(
+        request: ConfirmPasswordRequest(
+          userKey: usernameController.text.trim(),
+          newPassword: newPasswordController.text.trim(),
+          confirmationCode: confirmationCodeController.text.trim()
+        ), 
+      );
+      setState(() {
+        displayState = "SHOW_SIGN_IN";
       });
     } on AuthError catch (e) {
       setState(() {
@@ -499,6 +527,57 @@ Widget showSignIn() {
       ],
     );
   }
+  
+  Widget showConfirmReset() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        Expanded( // wrap your Column in Expanded
+          child: Column(
+            children: [
+              const Padding(padding: EdgeInsets.all(10.0)),
+              TextFormField(
+                controller: usernameController,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.verified_user),
+                  hintText: 'Your old username',
+                  labelText: 'Username *',
+                )
+              ),
+              TextFormField(
+                controller: newPasswordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.question_answer),
+                  hintText: 'Your new password',
+                  labelText: 'New Password *',
+                )
+              ),
+              TextFormField(
+                controller: confirmationCodeController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.confirmation_number),
+                  hintText: 'The confirmation code we sent you',
+                  labelText: 'Confirmation Code *',
+                )
+              ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed: _confirmReset,
+                child: const Text('Confirm Password Reset'),
+              ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed:_backToSignIn,
+                child: const Text('Back to Sign In'),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
 
   Widget showApp() {
     return Row(
@@ -580,6 +659,7 @@ Widget showSignIn() {
                 if (this.displayState == "SHOW_SIGN_IN") showSignIn(),
                 if (this.displayState == "SHOW_CONFIRM_SIGN_IN") showConfirmSignIn(),
                 if (this.displayState == "SHOW_CHANGE_PASSWORD") showChangePassword(),
+                if (this.displayState == "SHOW_CONFIRM_REST") showConfirmReset(),
                 if (this.displayState == 'SIGNED_IN') showApp(),
                 showAuthState(),
                 if (this.error != null) showErrors(),

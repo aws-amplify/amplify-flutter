@@ -117,8 +117,29 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
           print("changePassword Request was malformed.")
           let errorCode = "UNKNOWN"
             self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
-        }      default:
-        result(FlutterMethodNotImplemented)
+        }
+        case "resetPassword":
+          let arguments = call.arguments as! Dictionary<String, AnyObject>
+          if (FlutterResetPasswordRequest.validate(dict: arguments["data"] as! NSMutableDictionary)) {
+            let request = FlutterResetPasswordRequest(dict: arguments["data"] as! NSMutableDictionary)
+            onResetPassword(flutterResult: result, request: request)
+          } else {
+            print("resetPassword Request was malformed.")
+            let errorCode = "UNKNOWN"
+              self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
+          }
+        case "confirmPassword":
+          let arguments = call.arguments as! Dictionary<String, AnyObject>
+          if (FlutterConfirmPasswordRequest.validate(dict: arguments["data"] as! NSMutableDictionary)) {
+            let request = FlutterConfirmPasswordRequest(dict: arguments["data"] as! NSMutableDictionary)
+            onConfirmPassword(flutterResult: result, request: request)
+          } else {
+            print("confirmPassword Request was malformed.")
+            let errorCode = "UNKNOWN"
+              self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
+          }       
+        default:
+          result(FlutterMethodNotImplemented)
     }
   }
 
@@ -132,30 +153,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
         flutterResult(signUpData.toJSON())
        case .failure(let signUpError):
         print("An error occurred while registering a user")
-        if case .service( let localizedError,  let recoverySuggestion, let error) = signUpError {
-            let errorCode = error != nil ? "\(error!)" : "UNKNOWN"
-            var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-            errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-            self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNUP.rawValue, errorMap: errorMap)
-        }
-        if case .configuration(let localizedError, let recoverySuggestion, let error) = signUpError {
-              let errorCode = error != nil ? "\(error!)" : "configuration"
-              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNUP.rawValue, errorMap: errorMap)
-        }
-        if case .unknown(let localizedError, let error) = signUpError {
-              let errorCode = error != nil ? "\(error!)" : "unknown"
-              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: "An unknown error has occurred.")
-              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNUP.rawValue, errorMap: errorMap)
-        }
-        if case .invalidState(let localizedError, let recoverySuggestion, let error) = signUpError {
-              let errorCode = error != nil ? "\(error!)" : "invalidState"
-              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNUP.rawValue, errorMap: errorMap)
-        }
+        self.handleAuthError(error: signUpError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNUP.rawValue)
       }
     }
   }
@@ -164,35 +162,12 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
     _ = Amplify.Auth.confirmSignUp(for: request.username!, confirmationCode:request.confirmationCode!) { response in
      switch response {
        case .success:
-        let signUpData = FlutterSignUpResult(res: response)
-        flutterResult(signUpData.toJSON())
+         let signUpData = FlutterSignUpResult(res: response)
+         flutterResult(signUpData.toJSON())
         
        case .failure(let signUpError):
-        print("An error occurred while registering a user")
-        if case .service( let localizedError,  let recoverySuggestion, let error) = signUpError {
-            let errorCode = error != nil ? "\(error!)" : "UNKNOWN"
-            var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-            errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-            self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.CONFIRM_SIGNUP.rawValue, errorMap: errorMap)
-        }
-        if case .configuration(let localizedError, let recoverySuggestion, let error) = signUpError {
-              let errorCode = error != nil ? "\(error!)" : "configuration"
-              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.CONFIRM_SIGNUP.rawValue, errorMap: errorMap)
-        }
-        if case .unknown(let localizedError, let error) = signUpError {
-              let errorCode = error != nil ? "\(error!)" : "unknown"
-              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: "An unknown error has occurred.")
-              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.CONFIRM_SIGNUP.rawValue, errorMap: errorMap)
-        }
-        if case .invalidState(let localizedError, let recoverySuggestion, let error) = signUpError {
-              let errorCode = error != nil ? "\(error!)" : "invalidState"
-              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.CONFIRM_SIGNUP.rawValue, errorMap: errorMap)
-        }
+         print("An error occurred while confirming a user")
+         self.handleAuthError(error: signUpError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.CONFIRM_SIGNUP.rawValue)
       }
     }
   }
@@ -206,36 +181,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
 
           case .failure(let signInError):
           print("An error occurred while initiating auth")
-          if case .service( let localizedError,  let recoverySuggestion, let error) = signInError {
-              let errorCode = error != nil ? "\(error!)" : "UNKNOWN"
-              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNIN.rawValue, errorMap: errorMap)
-          }
-          if case .configuration(let localizedError, let recoverySuggestion, let error) = signInError {
-                let errorCode = error != nil ? "\(error!)" : "configuration"
-                var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-                errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-                self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNIN.rawValue, errorMap: errorMap)
-          }
-          if case .unknown(let localizedError, let error) = signInError {
-                let errorCode = error != nil ? "\(error!)" : "unknown"
-                var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-                errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: "An unknown error has occurred.")
-                self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNIN.rawValue, errorMap: errorMap)
-          }
-          if case .invalidState(let localizedError, let recoverySuggestion, let error) = signInError {
-                let errorCode = error != nil ? "\(error!)" : "invalidState"
-                var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-                errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-                self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNIN.rawValue, errorMap: errorMap)
-          }
-          if case .notAuthorized( let localizedError,  let recoverySuggestion, let error) = signInError {
-                let errorCode = error != nil ? "\(error!)" : "notAuthorized"
-                var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-                errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-                self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNIN.rawValue, errorMap: errorMap)
-          }
+          self.handleAuthError(error: signInError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNIN.rawValue)
         }
       }
   }
@@ -248,30 +194,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
          flutterResult(signInData.toJSON())
        case .failure(let signInError):
          print("An error occurred while confirming a sign in")
-         if case .service( let localizedError,  let recoverySuggestion, let error) = signInError {
-             let errorCode = error != nil ? "\(error!)" : "UNKNOWN"
-             var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-             errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-             self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.CONFIRM_SIGNIN.rawValue, errorMap: errorMap)
-         }
-        if case .configuration(let localizedError, let recoverySuggestion, let error) = signInError {
-              let errorCode = error != nil ? "\(error!)" : "configuration"
-              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.CONFIRM_SIGNIN.rawValue, errorMap: errorMap)
-        }
-        if case .unknown(let localizedError, let error) = signInError {
-              let errorCode = error != nil ? "\(error!)" : "unknown"
-              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: "An unknown error has occurred.")
-              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.CONFIRM_SIGNIN.rawValue, errorMap: errorMap)
-        }
-        if case .invalidState(let localizedError, let recoverySuggestion, let error) = signInError {
-              let errorCode = error != nil ? "\(error!)" : "invalidState"
-              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.CONFIRM_SIGNIN.rawValue, errorMap: errorMap)
-        }
+         self.handleAuthError(error: signInError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.CONFIRM_SIGNIN.rawValue)
        }
      }
    }
@@ -280,35 +203,12 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
     _ = Amplify.Auth.signOut(options: request.options) { response in
       switch response {
         case .success:
-        let signOutData = FlutterSignOutResult(res: response)
-        flutterResult(signOutData.toJSON())
+          let signOutData = FlutterSignOutResult(res: response)
+          flutterResult(signOutData.toJSON())
 
         case .failure(let signOutError):
-        print("An error occurred while initiating auth")
-        if case .service( let localizedError,  let recoverySuggestion, let error) = signOutError {
-            let errorCode = error != nil ? "\(error!)" : "UNKNOWN"
-            var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-            errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-            self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNOUT.rawValue, errorMap: errorMap)
-        }
-        if case .configuration(let localizedError, let recoverySuggestion, let error) = signOutError {
-              let errorCode = error != nil ? "\(error!)" : "configuration"
-              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNOUT.rawValue, errorMap: errorMap)
-        }
-        if case .unknown(let localizedError, let error) = signOutError {
-              let errorCode = error != nil ? "\(error!)" : "unknown"
-              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: "An unknown error has occurred.")
-              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNOUT.rawValue, errorMap: errorMap)
-        }
-        if case .invalidState(let localizedError, let recoverySuggestion, let error) = signOutError {
-              let errorCode = error != nil ? "\(error!)" : "invalidState"
-              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNOUT.rawValue, errorMap: errorMap)
-        }
+        print("An error occurred while signing out")
+        self.handleAuthError(error: signOutError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNOUT.rawValue)
       }
     }
   }
@@ -321,47 +221,83 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
         
        case .failure(let changePasswordError):
         print("An error changing a password")
-        if case .service( let localizedError,  let recoverySuggestion, let error) = changePasswordError {
-            let errorCode = error != nil ? "\(error!)" : "UNKNOWN"
-            var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-            errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-            self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.CHANGE_PASSWORD.rawValue, errorMap: errorMap)
-        }
-        if case .configuration(let localizedError, let recoverySuggestion, let error) = changePasswordError {
-              let errorCode = error != nil ? "\(error!)" : "configuration"
-              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.CHANGE_PASSWORD.rawValue, errorMap: errorMap)
-        }
-        if case .unknown(let localizedError, let error) = changePasswordError {
-              let errorCode = error != nil ? "\(error!)" : "unknown"
-              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: "An unknown error has occurred.")
-              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.CHANGE_PASSWORD.rawValue, errorMap: errorMap)
-        }
-        if case .invalidState(let localizedError, let recoverySuggestion, let error) = changePasswordError {
-              let errorCode = error != nil ? "\(error!)" : "invalidState"
-              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.CHANGE_PASSWORD.rawValue, errorMap: errorMap)
-        }
-        if case .notAuthorized( let localizedError,  let recoverySuggestion, let error) = changePasswordError {
-              let errorCode = error != nil ? "\(error!)" : "notAuthorized"
-              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.CHANGE_PASSWORD.rawValue, errorMap: errorMap)
-        }
-
+        self.handleAuthError(error: changePasswordError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.CHANGE_PASSWORD.rawValue)
       }
     }
   }
+    
+    private func onResetPassword(flutterResult: @escaping FlutterResult, request: FlutterResetPasswordRequest) {
+        _ = Amplify.Auth.resetPassword(for: request.userKey) { response in
+       switch response {
+         case .success:
+          let resetData = FlutterResetPasswordResult(res: response)
+          flutterResult(resetData.toJSON())
+          
+         case .failure(let resetPasswordError):
+          print("An error resetting a password")
+          self.handleAuthError(error: resetPasswordError, flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.RESET_PASSWORD.rawValue)
+        }
+      }
+    }
 
-  private func prepareError(flutterResult: FlutterResult, msg: String, errorMap: [String: Any]) {
-    flutterResult(FlutterError(
-      code: "AmplifyException",
-      message: msg,
-      details: errorMap))
-  }
+    private func onConfirmPassword(flutterResult: @escaping FlutterResult, request: FlutterConfirmPasswordRequest) {
+        _ = Amplify.Auth.confirmResetPassword(for: request.userKey, with: request.newPassword, confirmationCode: request.confirmationCode) { response in
+       switch response {
+         case .success:
+         flutterResult("{}")
+          
+         case .failure(let resetPasswordError):
+          print("An error resetting a password")
+          self.handleAuthError(error: resetPasswordError, flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.RESET_PASSWORD.rawValue)
+        }
+      }
+    }
+    private func handleAuthError(error: AuthError, flutterResult: FlutterResult, msg: String){
+        if case .service( let localizedError, let recoverySuggestion, let error) = error {
+          let errorCode = error != nil ? "\(error!)" : "unknown"
+          var errorMap: [String: Any] = formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+          errorMap["PLATFORM_EXCEPTIONS"] = platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+          prepareError(flutterResult: flutterResult,  msg: msg, errorMap: errorMap)
+        }
+        if case .configuration(let localizedError, let recoverySuggestion, let error) = error {
+              let errorCode = error != nil ? "\(error!)" : "configuration"
+              var errorMap: [String: Any] = formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+              errorMap["PLATFORM_EXCEPTIONS"] = platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+              prepareError(flutterResult: flutterResult,  msg: msg, errorMap: errorMap)
+        }
+        if case .unknown(let localizedError, let error) = error {
+              let errorCode = error != nil ? "\(error!)" : "unknown"
+              var errorMap: [String: Any] = formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+              errorMap["PLATFORM_EXCEPTIONS"] = platformExceptions(localizedError: localizedError, recoverySuggestion: "An unknown error has occurred.")
+              prepareError(flutterResult: flutterResult,  msg: msg, errorMap: errorMap)
+        }
+        if case .invalidState(let localizedError, let recoverySuggestion, let error) = error {
+              let errorCode = error != nil ? "\(error!)" : "invalidState"
+              var errorMap: [String: Any] = formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+              errorMap["PLATFORM_EXCEPTIONS"] = platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+              prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.RESET_PASSWORD.rawValue, errorMap: errorMap)
+        }
+        if case .notAuthorized(let localizedError,  let recoverySuggestion, let error) = error {
+              let errorCode = error != nil ? "\(error!)" : "notAuthorized"
+              var errorMap: [String: Any] = formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+              errorMap["PLATFORM_EXCEPTIONS"] = platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+              prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.RESET_PASSWORD.rawValue, errorMap: errorMap)
+        }
+        if case .validation(_, let localizedError, let recoverySuggestion, let error) = error {
+              let errorCode = error != nil ? "\(error!)" : "validation"
+              var errorMap: [String: Any] = formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+              errorMap["PLATFORM_EXCEPTIONS"] = platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+              prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.RESET_PASSWORD.rawValue, errorMap: errorMap)
+        }
+    }
+
+    private func prepareError(flutterResult: FlutterResult, msg: String, errorMap: [String: Any]) {
+      flutterResult(FlutterError(
+        code: "AmplifyException",
+        message: msg,
+        details: errorMap)
+      )
+    }
     
     private func platformExceptions(localizedError: String, recoverySuggestion: String) -> [String: String] {
       var platformDict: [String: String] = [:]
@@ -374,10 +310,24 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
   private func formatErrorMap(errorCode: String, localizedError: String = "") -> [String: Any] {
       var errorDict: [String: Any] = [:]
       switch errorCode {
+        case "codeExpired":
+          errorDict["CODE_EXPIRED"] = localizedError
+        case "codeMismatch":
+          errorDict["CODE_MISMATCH"] = localizedError
         case "invalidParameter":
           errorDict["INVALID_PARAMETER"] = localizedError
+        case "mfaMethodNotFound":
+          errorDict["MFA_METHOD_NOT_FOUND"] = localizedError
+        case "passwordResetRequired":
+          errorDict["PASSWORD_RESET_REQUIRED"] = localizedError
+        case "softwareTokenMFANotEnabled":
+          errorDict["SOFTWARE_TOKEN_MFA_NOT_FOUND"] = localizedError
         case "usernameExists":
           errorDict["USERNAME_EXISTS"] = localizedError
+        case "userNotConfirmed":
+          errorDict["USER_NOT_CONFIRMED"] = localizedError
+        case "userNotFound":
+          errorDict["USER_NOT_FOUND"] = localizedError
         case "aliasExists":
           errorDict["ALIAS_EXISTS"] = localizedError
         case "codeDeliveryFailure":

@@ -131,7 +131,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
           'data': request != null ? request.serializeAsMap() : null,
         },
       );
-      res = _formatChangePasswordResponse(data);
+      res = _formatPasswordResponse(data);
       return res;
     } on PlatformException catch(e) {
       _throwError(e);
@@ -139,7 +139,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     return res;
   }
 
-    @override
+  @override
   Future<ResetPasswordResult> resetPassword({ResetPasswordRequest request}) async {
     ResetPasswordResult res;
     try {
@@ -151,6 +151,25 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
         },
       );
       res = _formatResetPasswordResponse(data);
+      return res;
+    } on PlatformException catch(e) {
+      _throwError(e);
+    }
+    return res;
+  }
+
+  @override
+  Future<ChangePasswordResult> confirmPassword({ConfirmPasswordRequest request}) async {
+    ChangePasswordResult res;
+    try {
+      final Map<String, dynamic> data =
+      await _channel.invokeMapMethod<String, dynamic>(
+        'confirmPassword',
+        <String, dynamic>{
+          'data': request != null ? request.serializeAsMap() : null,
+        },
+      );
+      res = _formatPasswordResponse(data);
       return res;
     } on PlatformException catch(e) {
       _throwError(e);
@@ -174,7 +193,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     ));
   }
 
-  ChangePasswordResult _formatChangePasswordResponse(Map<String, dynamic> res) {
+  ChangePasswordResult _formatPasswordResponse(Map<String, dynamic> res) {
     return ChangePasswordResult();
   }
 

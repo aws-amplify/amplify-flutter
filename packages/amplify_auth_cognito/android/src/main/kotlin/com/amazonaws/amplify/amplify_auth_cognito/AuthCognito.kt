@@ -27,6 +27,7 @@ import com.amazonaws.AmazonServiceException
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthFailureMessage
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpResult
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.exceptions.CognitoCodeExpiredException
 import com.amazonaws.services.cognitoidentityprovider.model.*
 import com.amplifyframework.auth.AuthChannelEventName
 import com.amplifyframework.auth.AuthException
@@ -134,6 +135,16 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
             args = (call.arguments as HashMap<String, String>)["data"] as HashMap<String, String>
           }
           onResetPassword(result, args);
+        } catch (e: Exception) {
+          prepareError(result, e, FlutterAuthFailureMessage.CASTING.toString() )
+        }
+      "confirmPassword" ->
+        try {
+          var args: HashMap<String, String> = hashMapOf<String, String>();
+          if ((call.arguments as HashMap<String, String>)["data"] != null) {
+            args = (call.arguments as HashMap<String, String>)["data"] as HashMap<String, String>
+          }
+          onConfirmPassword(result, args);
         } catch (e: Exception) {
           prepareError(result, e, FlutterAuthFailureMessage.CASTING.toString() )
         }
@@ -321,6 +332,24 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     }
   }
 
+  private fun onConfirmPassword (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>?) {
+    if (FlutterConfirmPasswordRequest.validate(request)) {
+      var req = FlutterConfirmPasswordRequest(request as HashMap<String, *>)
+      try {
+        Amplify.Auth.confirmResetPassword(
+                req.newPassword,
+                req.confirmationCode,
+                {  -> this.mainActivity?.runOnUiThread({ prepareChangePasswordResponse(flutterResult)}) },
+                { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.CONFIRM_PASSWORD.toString())}) }
+        );
+      } catch(e: Exception) {
+        prepareError(flutterResult, e, FlutterAuthFailureMessage.CONFIRM_PASSWORD.toString())
+      }
+    } else {
+      prepareError(flutterResult, java.lang.Exception(FlutterAuthFailureMessage.MALFORMED.toString()), FlutterAuthFailureMessage.MALFORMED.toString())
+    }
+  }
+
   private fun prepareError(@NonNull flutterResult: Result, @NonNull error: Exception, @NonNull msg: String) {
     var errorMap: HashMap<String, Any> = HashMap();
     if (error is AuthException) {
@@ -329,15 +358,21 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
         is UsernameExistsException -> errorMap.put("USERNAME_EXISTS", (error.cause as UsernameExistsException).errorMessage)
         is AliasExistsException -> errorMap.put("ALIAS_EXISTS", (error.cause as AliasExistsException).errorMessage)
         is CodeDeliveryFailureException -> errorMap.put("CODE_DELIVERY_FAILURE", (error.cause as CodeDeliveryFailureException).errorMessage)
+        is CodeMismatchException -> errorMap.put("CODE_MISMATCH", (error.cause as CodeMismatchException).errorMessage)
+        is CognitoCodeExpiredException -> errorMap.put("CODE_EXPIRED", (error.cause as CognitoCodeExpiredException).localizedMessage)
         is InternalErrorException -> errorMap.put("INTERNAL_ERROR", (error.cause as InternalErrorException).errorMessage)
         is InvalidLambdaResponseException -> errorMap.put("INVALID_LAMBDA_RESPONSE", (error.cause as InvalidLambdaResponseException).errorMessage)
         is InvalidPasswordException -> errorMap.put("INVALID_PASSWORD", (error.cause as InvalidPasswordException).errorMessage)
+        is MFAMethodNotFoundException -> errorMap.put("MFA_METHOD_NOT_FOUND", (error.cause as MFAMethodNotFoundException).errorMessage)
         is NotAuthorizedException -> errorMap.put("NOT_AUTHORIZED", (error.cause as NotAuthorizedException).errorMessage)
         is ResourceNotFoundException -> errorMap.put("RESOURCE_NOT_FOUND", (error.cause as ResourceNotFoundException).errorMessage)
+        is SoftwareTokenMFANotFoundException -> errorMap.put("SOFTWARE_TOKEN_MFA_NOT_FOUND", (error.cause as SoftwareTokenMFANotFoundException).errorMessage)
+        is PasswordResetRequiredException -> errorMap.put("PASSWORD_RESET_REQUIRED", (error.cause as PasswordResetRequiredException).errorMessage)
         is TooManyRequestsException -> errorMap.put("TOO_MANY_REQUESTS", (error.cause as TooManyRequestsException).errorMessage)
         is UnexpectedLambdaException -> errorMap.put("UNEXPECTED_LAMBDA", (error.cause as UnexpectedLambdaException).errorMessage)
         is UserLambdaValidationException -> errorMap.put("USER_LAMBDA_VALIDATION", (error.cause as UserLambdaValidationException).errorMessage)
         is TooManyFailedAttemptsException -> errorMap.put("TOO_MANY_FAILED_REQUESTS", (error.cause as TooManyFailedAttemptsException).errorMessage)
+        is UserNotConfirmedException -> errorMap.put("USER_NOT_CONFIRMED", (error.cause as UserNotConfirmedException).errorMessage)
         is LimitExceededException -> errorMap.put("REQUEST_LIMIT_EXCEEDED", (error.cause as LimitExceededException).errorMessage)
         is AmazonClientException -> errorMap.put("AMAZON_CLIENT_EXCEPTION", (error.cause as AmazonClientException).localizedMessage)
         is AmazonServiceException -> errorMap.put("AMAZON_SERVICE_EXCEPTION", (error.cause as AmazonServiceException).localizedMessage)

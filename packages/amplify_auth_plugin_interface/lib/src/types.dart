@@ -35,6 +35,7 @@ export 'Password/ChangePasswordResult.dart';
 export 'Password/ResetPasswordStep.dart';
 export 'Password/ResetPasswordRequest.dart';
 export 'Password/ResetPasswordResult.dart';
+export 'Password/ConfirmPasswordRequest.dart';
 
 // Error Classes
 export 'Errors/AuthError.dart';
