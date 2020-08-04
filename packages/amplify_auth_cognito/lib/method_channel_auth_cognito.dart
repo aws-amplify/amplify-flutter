@@ -120,6 +120,25 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     return res;
   }
 
+  @override
+  Future<ChangePasswordResult> changePassword({ChangePasswordRequest request}) async {
+    ChangePasswordResult res;
+    try {
+      final Map<String, dynamic> data =
+      await _channel.invokeMapMethod<String, dynamic>(
+        'changePassword',
+        <String, dynamic>{
+          'data': request != null ? request.serializeAsMap() : null,
+        },
+      );
+      res = _formatChangePasswordResponse(data);
+      return res;
+    } on PlatformException catch(e) {
+      _throwError(e);
+    }
+    return res;
+  }
+
   SignUpResult _formatSignUpResponse(Map<String, dynamic> res) {
     return CognitoSignUpResult( isSignUpComplete: res["isSignUpComplete"], nextStep: AuthNextSignUpStep(
       signUpStep: res["nextStep"]["signUpStep"],
@@ -136,6 +155,14 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     ));
   }
 
+  ChangePasswordResult _formatChangePasswordResponse(Map<String, dynamic> res) {
+    return ChangePasswordResult();
+  }
+
+  SignOutResult _formatSignOutResponse(Map<String, dynamic> signOutResponse) {
+    return SignOutResult();
+  }
+
   void _throwError(PlatformException e) {
     LinkedHashMap eMap = new LinkedHashMap<String, dynamic>();
     e.details.forEach((k, v) => {
@@ -147,10 +174,6 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     });
     AuthError error = AuthError.init(cause: e.message, errorMap: eMap);
     throw(error);
-  }
-
-  SignOutResult _formatSignOutResponse(Map<String, dynamic> signOutResponse) {
-    return SignOutResult();
   }
 }
 

@@ -13,10 +13,16 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
-import '../types/AuthNextStep.dart';
+import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-class ChangePasswordStep extends AuthNextStep {
-  String updateStep;
-  ChangePasswordStep({additionalInfo, @required codeDeliveryDetails, @required this.updateStep}) : super(additionalInfo: additionalInfo, codeDeliveryDetails: codeDeliveryDetails);
+class CognitoChangePasswordOptions extends ChangePasswordOptions {
+  Map<String, String> clientMetadata;
+  CognitoChangePasswordOptions({this.clientMetadata}) : super();
+  Map<String, dynamic> serializeAsMap() {
+    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
+    if (this.clientMetadata != null) {
+      pendingRequest["clientMetadata"] = clientMetadata;
+    }
+    return pendingRequest;
+  }
 }

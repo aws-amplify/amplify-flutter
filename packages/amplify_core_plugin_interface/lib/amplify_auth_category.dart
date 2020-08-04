@@ -20,27 +20,26 @@ class AuthCategory {
   }
 
   Future<SignUpResult> signUp({@required SignUpRequest request, Function(SignUpResult) success, Function(SignUpResult) error}) {
-    /// call `signUp` on all the plugins
     return plugins[0].signUp(request: request);
   }
 
   Future<SignUpResult> confirmSignUp({@required ConfirmSignUpRequest request}) {
-    /// call `signUp` on all the plugins
     return plugins[0].confirmSignUp(request: request);
   }
 
   Future<SignInResult> signIn({@required SignInRequest request}) {
-    /// call `signUp` on all the plugins
     return plugins[0].signIn(request: request);
   }
 
   Future<SignInResult> confirmSignIn({@required ConfirmSignInRequest request}) {
-    /// call `signUp` on all the plugins
     return plugins[0].confirmSignIn(request: request);
   }
 
   Future<SignOutResult> signOut({SignOutRequest request}) {
-    /// call `signUp` on all the plugins
     return plugins[0].signOut(request: request);
+  }
+
+  Future<ChangePasswordResult> changePassword({ChangePasswordRequest request}) {
+    return plugins[0].changePassword(request: request);
   }
 }

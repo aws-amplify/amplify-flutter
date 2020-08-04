@@ -281,9 +281,9 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
       try {
         Amplify.Auth.updatePassword(
                 req.oldPassword,
-                req.newPassword
-                { result -> this.mainActivity?.runOnUiThread({ prepareSignInResult(flutterResult, result)}) },
-                { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.CONFIRM_SIGNIN.toString())}) }
+                req.newPassword,
+                {  -> this.mainActivity?.runOnUiThread({ prepareChangePasswordResponse(flutterResult)}) },
+                { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.CHANGE_PASSWORD.toString())}) }
         );
       } catch(e: Exception) {
         prepareError(flutterResult, e, FlutterAuthFailureMessage.CONFIRM_SIGNIN.toString())
@@ -310,6 +310,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
         is UnexpectedLambdaException -> errorMap.put("UNEXPECTED_LAMBDA", (error.cause as UnexpectedLambdaException).errorMessage)
         is UserLambdaValidationException -> errorMap.put("USER_LAMBDA_VALIDATION", (error.cause as UserLambdaValidationException).errorMessage)
         is TooManyFailedAttemptsException -> errorMap.put("TOO_MANY_FAILED_REQUESTS", (error.cause as TooManyFailedAttemptsException).errorMessage)
+        is LimitExceededException -> errorMap.put("REQUEST_LIMIT_EXCEEDED", (error.cause as LimitExceededException).errorMessage)
         is AmazonClientException -> errorMap.put("AMAZON_CLIENT_EXCEPTION", (error.cause as AmazonClientException).localizedMessage)
         is AmazonServiceException -> errorMap.put("AMAZON_SERVICE_EXCEPTION", (error.cause as AmazonServiceException).localizedMessage)
         else -> errorMap.put("UNKNOWN", "Unknown Auth Error.")
@@ -344,6 +345,11 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
   }
 
   private fun prepareSignOutResult(@NonNull flutterResult: Result) {
+    var parsedResult = mutableMapOf<String, Any>();
+    flutterResult.success(parsedResult);
+  }
+
+  private fun prepareChangePasswordResponse(@NonNull flutterResult: Result) {
     var parsedResult = mutableMapOf<String, Any>();
     flutterResult.success(parsedResult);
   }

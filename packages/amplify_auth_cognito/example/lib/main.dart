@@ -34,6 +34,8 @@ class _MyAppState extends State<MyApp> {
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
   final confirmationCodeController = TextEditingController();
+  final oldPasswordController = TextEditingController();
+  final newPasswordController = TextEditingController();
 
   bool _isAmplifyConfigured = false;
   Amplify amplify = new Amplify();
@@ -197,6 +199,32 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  void _changePassword() async {
+    setState(() {
+      error = "";
+      exceptions = [];
+    });
+    try {
+      await Amplify.Auth.changePassword(
+        request: ChangePasswordRequest(
+          newPassword: newPasswordController.text.trim(),
+          oldPassword: oldPasswordController.text.trim()
+        ), 
+      );
+      setState(() {
+        displayState = 'SHOW_APP';
+      });
+    } on AuthError catch (e) {
+      setState(() {
+        error = e.cause;
+        e.exceptionList.forEach((el) {
+          exceptions.add(el.exception);
+        });
+      });
+      print(e);
+    }
+  }
+
   void _createUser() async {
     setState(() {
       displayState = "SHOW_SIGN_UP";
@@ -212,6 +240,12 @@ class _MyAppState extends State<MyApp> {
   void _backToSignIn() async {
     setState(() {
       displayState = "SHOW_SIGN_IN";
+    });
+  }
+
+  void _showChangePassword() async {
+    setState(() {
+      displayState = "SHOW_CHANGE_PASSWORD";
     });
   }
 
@@ -404,6 +438,49 @@ Widget showSignIn() {
     );
   }
 
+  Widget showChangePassword() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        Expanded( // wrap your Column in Expanded
+          child: Column(
+            children: [
+              const Padding(padding: EdgeInsets.all(10.0)),
+              TextFormField(
+                controller: oldPasswordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.question_answer),
+                  hintText: 'Your old password',
+                  labelText: 'Old Password *',
+                )
+              ),
+              TextFormField(
+                controller: newPasswordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.question_answer),
+                  hintText: 'Your new password',
+                  labelText: 'New Password *',
+                )
+              ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed: _changePassword,
+                child: const Text('ChangePassword'),
+              ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed:_signOut,
+                child: const Text('Sign out'),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget showApp() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -417,6 +494,11 @@ Widget showSignIn() {
               RaisedButton(
                 onPressed: _signOut,
                 child: const Text('Sign Out'),
+              ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed: _showChangePassword,
+                child: const Text('Change Password'),
               ),
             ],
           ),
@@ -478,6 +560,7 @@ Widget showSignIn() {
                 if (this.displayState == "SHOW_CONFIRM") showConfirmSignUp(),
                 if (this.displayState == "SHOW_SIGN_IN") showSignIn(),
                 if (this.displayState == "SHOW_CONFIRM_SIGN_IN") showConfirmSignIn(),
+                if (this.displayState == "SHOW_CHANGE_PASSWORD") showChangePassword(),
                 if (this.displayState == 'SIGNED_IN') showApp(),
                 showAuthState(),
                 if (this.error != null) showErrors(),

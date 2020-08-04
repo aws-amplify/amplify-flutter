@@ -108,12 +108,19 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
         let dict = arguments["data"] != nil && !(arguments["data"] is NSNull) ? arguments["data"] as! NSMutableDictionary : NSMutableDictionary()
         let request = FlutterSignOutRequest(dict: dict)
         onSignOut(flutterResult: result, request: request)
-      default:
+      case "changePassword":
+        let arguments = call.arguments as! Dictionary<String, AnyObject>
+        if (FlutterChangePasswordRequest.validate(dict: arguments["data"] as! NSMutableDictionary)) {
+          let  request = FlutterChangePasswordRequest(dict: arguments["data"] as! NSMutableDictionary)
+          onChangePassword(flutterResult: result, request: request)
+        } else {
+          print("changePassword Request was malformed.")
+          let errorCode = "UNKNOWN"
+            self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
+        }      default:
         result(FlutterMethodNotImplemented)
     }
   }
-
-  
 
   private func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest) {
     let options = AuthSignUpRequest.Options(userAttributes: request.userAttributes)
@@ -223,6 +230,12 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
                 errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
                 self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNIN.rawValue, errorMap: errorMap)
           }
+          if case .notAuthorized( let localizedError,  let recoverySuggestion, let error) = signInError {
+                let errorCode = error != nil ? "\(error!)" : "notAuthorized"
+                var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+                errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+                self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNIN.rawValue, errorMap: errorMap)
+          }
         }
       }
   }
@@ -299,6 +312,49 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
       }
     }
   }
+    
+  private func onChangePassword(flutterResult: @escaping FlutterResult, request: FlutterChangePasswordRequest) {
+    _ = Amplify.Auth.update(oldPassword: request.oldPassword, to: request.newPassword) { response in
+     switch response {
+       case .success:
+        flutterResult("{}")
+        
+       case .failure(let changePasswordError):
+        print("An error changing a password")
+        if case .service( let localizedError,  let recoverySuggestion, let error) = changePasswordError {
+            let errorCode = error != nil ? "\(error!)" : "UNKNOWN"
+            var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+            errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+            self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.CHANGE_PASSWORD.rawValue, errorMap: errorMap)
+        }
+        if case .configuration(let localizedError, let recoverySuggestion, let error) = changePasswordError {
+              let errorCode = error != nil ? "\(error!)" : "configuration"
+              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.CHANGE_PASSWORD.rawValue, errorMap: errorMap)
+        }
+        if case .unknown(let localizedError, let error) = changePasswordError {
+              let errorCode = error != nil ? "\(error!)" : "unknown"
+              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: "An unknown error has occurred.")
+              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.CHANGE_PASSWORD.rawValue, errorMap: errorMap)
+        }
+        if case .invalidState(let localizedError, let recoverySuggestion, let error) = changePasswordError {
+              let errorCode = error != nil ? "\(error!)" : "invalidState"
+              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.CHANGE_PASSWORD.rawValue, errorMap: errorMap)
+        }
+        if case .notAuthorized( let localizedError,  let recoverySuggestion, let error) = changePasswordError {
+              let errorCode = error != nil ? "\(error!)" : "notAuthorized"
+              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.CHANGE_PASSWORD.rawValue, errorMap: errorMap)
+        }
+
+      }
+    }
+  }
 
   private func prepareError(flutterResult: FlutterResult, msg: String, errorMap: [String: Any]) {
     flutterResult(FlutterError(
@@ -342,12 +398,12 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
           errorDict["UNEXPECTED_LAMBDA"] = localizedError
         case "userLambdaValidation":
           errorDict["USER_LAMBDA_VALIDATION"] = localizedError
+        case "requestLimitExceeded":
+          errorDict["REQUEST_LIMIT_EXCEEDED"] = localizedError
         case "tooManyFailedAttempts":
           errorDict["TOO_MANY_FAILED_ATTEMPTS"] = localizedError
         case "invalidState":
           errorDict["INVALID_STATE"] = localizedError
-        case "configuration":
-          errorDict["CONFIGURATION"] = localizedError
         case "configuration":
           errorDict["CONFIGURATION"] = localizedError
         default:

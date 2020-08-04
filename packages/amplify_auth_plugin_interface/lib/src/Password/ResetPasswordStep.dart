@@ -13,23 +13,10 @@
  * permissions and limitations under the License.
  */
 
-var cognitoExceptions = [
-  "INVALID_PARAMETER",
-  "USERNAME_EXISTS",
-  "ALIAS_EXISTS",
-  "CODE_DELIVERY_FAILURE",
-  "INTERNAL_ERROR",
-  "INVALID_LAMBDA_RESPONSE",
-  "INVALID_PASSWORD",
-  "NOT_AUTHORIZED",
-  "RESOURCE_NOT_FOUND",
-  "TOO_MANY_REQUESTS",
-  "UNEXPECTED_LAMBDA",
-  "USER_LAMBDA_VALIDATION",
-  "TOO_MANY_FAILED_REQUESTS",
-  "REQUEST_LIMIT_EXCEEDED",
-  "AMAZON_CLIENT_EXCEPTION",
-  "AMAZON_SERVICE_EXCEPTION",
-  "PLATFORM_EXCEPTIONS",
-  "INVALID_STATE"
-];
+import 'package:flutter/foundation.dart';
+import '../types/AuthNextStep.dart';
+
+class ResetPasswordStep extends AuthNextStep {
+  String updateStep;
+  ResetPasswordStep({additionalInfo, @required codeDeliveryDetails, @required this.updateStep}) : super(additionalInfo: additionalInfo, codeDeliveryDetails: codeDeliveryDetails);
+}

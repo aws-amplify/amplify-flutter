@@ -34,7 +34,7 @@ export 'SignOut/SignOutOptions.dart';
 export 'Password/ChagePasswordOptions.dart';
 export 'Password/ChangePasswordRequest.dart';
 export 'Password/ChangePasswordResult.dart';
-export 'Password/ChangePasswordStep.dart';
+export 'Password/ResetPasswordStep.dart';
 
 // Error Classes
 export 'Errors/AuthError.dart';
