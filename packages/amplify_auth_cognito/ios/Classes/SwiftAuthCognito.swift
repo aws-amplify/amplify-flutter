@@ -19,21 +19,48 @@ import Amplify
 import AmplifyPlugins
 import AWSCore
 
-public class SwiftAuthCognito: NSObject, FlutterPlugin {
+public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
+    public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
+        _ = Amplify.Hub.listen(to: .auth) { payload in
+          switch payload.eventName {
+            case HubPayload.EventName.Auth.signedIn:
+              let hubEvent: Dictionary<String, Any> = ["eventName" : "SIGNED_IN"]
+              events(hubEvent)
+            case HubPayload.EventName.Auth.sessionExpired:
+              let hubEvent: Dictionary<String, Any> = ["eventName" : "SESSION_EXPIRED"]
+              events(hubEvent)
+            case HubPayload.EventName.Auth.signedOut:
+              let hubEvent: Dictionary<String, Any> = ["eventName" : "SIGNED_OUT"]
+              events(hubEvent)
+            default:
+              break
+            }
+          }
+        return nil
+    }
+    
+    public func onCancel(withArguments arguments: Any?) -> FlutterError? {
+        self.authEventSink = nil
+        return nil
+    }
+    
+
+  private var authEventSink: FlutterEventSink?
         
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "com.amazonaws.amplify/auth_cognito", binaryMessenger: registrar.messenger())
+    let eventChannel = FlutterEventChannel(name: "com.amazonaws.amplify/auth_cognito_events", binaryMessenger: registrar.messenger())
     let instance = SwiftAuthCognito()
     registrar.addMethodCallDelegate(instance, channel: channel)
     let authPlugin = AWSCognitoAuthPlugin()
+    eventChannel.setStreamHandler(instance)
     do {
       try Amplify.add(plugin: authPlugin)
     } catch {
       print("Failed to add AWSCognitoAuthPlugin to Amplify \(error)")
     }
   }
-
-
+  
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     switch call.method {
       case "signUp":

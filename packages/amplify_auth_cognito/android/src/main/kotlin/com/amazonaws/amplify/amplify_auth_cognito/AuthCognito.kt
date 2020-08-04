@@ -116,6 +116,16 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
         } catch (e: Exception) {
           prepareError(result, e, FlutterAuthFailureMessage.CASTING.toString() )
         }
+      "changePassword" ->
+        try {
+          var args: HashMap<String, String> = hashMapOf<String, String>();
+          if ((call.arguments as HashMap<String, String>)["data"] != null) {
+            args = (call.arguments as HashMap<String, String>)["data"] as HashMap<String, String>
+          }
+          onChangePassword(result, args);
+        } catch (e: Exception) {
+          prepareError(result, e, FlutterAuthFailureMessage.CASTING.toString() )
+        }
         else -> result.notImplemented()
       }
     }
@@ -134,13 +144,16 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
           } else {
             when (AuthChannelEventName.valueOf(hubEvent.name)) {
               AuthChannelEventName.SIGNED_IN -> {
-                sendEvent(hubEvent, eventSink)
+                var hubEvent = mapOf("eventName" to "SIGNED_IN")
+                sendEvent(gson.toJson(hubEvent), eventSink)
               }
               AuthChannelEventName.SIGNED_OUT -> {
-                sendEvent(hubEvent, eventSink)
+                var hubEvent = mapOf("eventName" to "SIGNED_OUT")
+                sendEvent(gson.toJson(hubEvent), eventSink)
               }
               AuthChannelEventName.SESSION_EXPIRED -> {
-                sendEvent(hubEvent, eventSink)
+                var hubEvent = mapOf("eventName" to "SESSION EXPIRED")
+                sendEvent(gson.toJson(hubEvent), eventSink)
               }
               else -> Log.i("AuthCognito", "unknown")
             }
@@ -153,9 +166,10 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
       }
     })
   }
-  fun sendEvent(hubEvent: HubEvent<*>?, sink: EventChannel.EventSink) {
+  
+  fun sendEvent(hubEvent: String, sink: EventChannel.EventSink) {
     Handler(Looper.getMainLooper()).post(Runnable {
-      sink.success(gson.toJson(hubEvent))
+      sink.success(hubEvent)
     })
   }
 
@@ -261,7 +275,24 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     }
   }
 
-  
+  private fun onChangePassword (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>?) {
+    if (FlutterChangePasswordRequest.validate(request)) {
+      var req = FlutterChangePasswordRequest(request as HashMap<String, *>)
+      try {
+        Amplify.Auth.updatePassword(
+                req.oldPassword,
+                req.newPassword
+                { result -> this.mainActivity?.runOnUiThread({ prepareSignInResult(flutterResult, result)}) },
+                { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.CONFIRM_SIGNIN.toString())}) }
+        );
+      } catch(e: Exception) {
+        prepareError(flutterResult, e, FlutterAuthFailureMessage.CONFIRM_SIGNIN.toString())
+      }
+    } else {
+      prepareError(flutterResult, java.lang.Exception(FlutterAuthFailureMessage.MALFORMED.toString()), FlutterAuthFailureMessage.MALFORMED.toString())
+    }
+  }
+
   private fun prepareError(@NonNull flutterResult: Result, @NonNull error: Exception, @NonNull msg: String) {
     var errorMap: HashMap<String, Any> = HashMap();
     if (error is AuthException) {

@@ -18,7 +18,7 @@ package com.amazonaws.amplify.amplify_auth_cognito.types
 data class FlutterSignInRequest(val map: HashMap<String, *>) {
   val username: String = map["username"] as String;
   val password: String = map["password"] as String;
-  val providerOptions: HashMap<String, *>? = map["providerOptions"] as HashMap<String, *>?;
+  val options: HashMap<String, *>? = map["options"] as HashMap<String, *>?;
 
   companion object {
     fun validate(req : HashMap<String, *>?): Boolean {
