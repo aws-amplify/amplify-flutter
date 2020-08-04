@@ -1,17 +1,12 @@
 version: 2.1
 
 executors:
-  build-executor:
+  docker-executor:
     docker:
       - image: circleci/android:api-29
     working_directory: ~/amplify-flutter
 
-  android-executor:
-    macos:
-      xcode: 11.6.0
-    working_directory: ~/amplify-flutter
-
-  ios-executor:
+  macos-executor:
     macos:
       xcode: 11.6.0
     working_directory: ~/amplify-flutter
@@ -39,7 +34,7 @@ commands:
 
 jobs:
   unit_test_flutter:
-    executor: build-executor
+    executor: docker-executor
     steps:
       - install_flutter
       - checkout
@@ -48,7 +43,7 @@ jobs:
           command: . .circleci/test_all_plugins.sh flutter-test
 
   unit_test_ios:
-    executor: ios-executor
+    executor: macos-executor
     steps:
       - install_flutter
       - checkout
@@ -57,7 +52,7 @@ jobs:
           command: . .circleci/test_all_plugins.sh ios-test
 
   unit_test_android:
-    executor: build-executor
+    executor: docker-executor
     steps:
       - install_flutter
       - checkout
