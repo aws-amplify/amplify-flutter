@@ -25,7 +25,7 @@ data class FlutterResetPasswordRequest(val map: HashMap<String, *>) {
       if (req == null || req !is HashMap<String, *>) {
         valid = false;
       } else if (req != null) {
-        if (!req.containsKey("userKey")) {
+        if (!req.containsKey("userKey") && req["userKey"] != "") {
           valid = false;
         }
       }
