@@ -13,7 +13,10 @@
  * permissions and limitations under the License.
  */
 
-class ChangePasswordResult { 
-  ChangePasswordResult() {}
-} 
+import 'package:flutter/foundation.dart';
+import '../types/AuthNextStep.dart';
 
+class ChangePasswordStep extends AuthNextStep {
+  String updateStep;
+  ChangePasswordStep({additionalInfo, @required codeDeliveryDetails, @required this.updateStep}) : super(additionalInfo: additionalInfo, codeDeliveryDetails: codeDeliveryDetails);
+}

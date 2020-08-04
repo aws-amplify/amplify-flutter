@@ -45,6 +45,3 @@ export 'Errors/AuthErrorTypes.dart';
 export 'types/AuthCodeDeliveryDetails.dart';
 export 'types/AuthNextStep.dart';
 
-// Errors
-export 'Errors/AuthError.dart';
-export 'Errors/AuthErrorTypes.dart';

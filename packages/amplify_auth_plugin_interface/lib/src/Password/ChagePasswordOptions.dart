@@ -13,7 +13,9 @@
  * permissions and limitations under the License.
  */
 
-class ChangePasswordResult { 
-  ChangePasswordResult() {}
-} 
-
+class ChangePasswordOptions {
+  const ChangePasswordOptions();
+  Map<String, dynamic> serializeAsMap() {
+    throw UnimplementedError('serializeAsMap() has not been implemented on SignOutOptions.');
+  }
+}
