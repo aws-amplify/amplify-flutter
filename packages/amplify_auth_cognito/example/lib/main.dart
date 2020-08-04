@@ -582,6 +582,10 @@ Widget showSignIn() {
               ),
               TextFormField(
                 controller: confirmationCodeController,
+<<<<<<< HEAD
+=======
+                obscureText: true,
+>>>>>>> additional error values and confirmPassword
                 decoration: const InputDecoration(
                   icon: Icon(Icons.confirmation_number),
                   hintText: 'The confirmation code we sent you',

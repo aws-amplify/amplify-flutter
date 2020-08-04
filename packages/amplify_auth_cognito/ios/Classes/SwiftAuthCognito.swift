@@ -357,11 +357,8 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
           errorDict["INVALID_STATE"] = localizedError
         case "configuration":
           errorDict["CONFIGURATION"] = localizedError
-<<<<<<< HEAD
         case "validation":
           errorDict["VALIDATION"] = localizedError
-=======
->>>>>>> changePassword
         default:
           errorDict["UNKNOWN"] = "An unrecognized error has occurred. See logs for details."
       }

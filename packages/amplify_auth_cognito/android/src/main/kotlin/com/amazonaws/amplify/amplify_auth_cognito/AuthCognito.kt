@@ -294,6 +294,24 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     }
   }
 
+  private fun onConfirmPassword (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>?) {
+    if (FlutterConfirmPasswordRequest.validate(request)) {
+      var req = FlutterConfirmPasswordRequest(request as HashMap<String, *>)
+      try {
+        Amplify.Auth.confirmResetPassword(
+                req.newPassword,
+                req.confirmationCode,
+                {  -> this.mainActivity?.runOnUiThread({ prepareChangePasswordResponse(flutterResult)}) },
+                { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.CONFIRM_PASSWORD.toString())}) }
+        );
+      } catch(e: Exception) {
+        prepareError(flutterResult, e, FlutterAuthFailureMessage.CONFIRM_PASSWORD.toString())
+      }
+    } else {
+      prepareError(flutterResult, java.lang.Exception(FlutterAuthFailureMessage.MALFORMED.toString()), FlutterAuthFailureMessage.MALFORMED.toString())
+    }
+  }
+
   private fun prepareError(@NonNull flutterResult: Result, @NonNull error: Exception, @NonNull msg: String) {
     var errorMap: HashMap<String, Any> = HashMap();
     if (error is AuthException) {

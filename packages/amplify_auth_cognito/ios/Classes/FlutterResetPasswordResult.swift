@@ -12,7 +12,6 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-
 import Flutter
 import Foundation
 import Amplify
@@ -29,7 +28,6 @@ struct FlutterResetPasswordResult  {
       self.additionalInfo = setAdditionalInfo(res: res)
       self.codeDeliveryDetails = setCodeDeliveryDetails(res: res)
     }
-
     func toJSON() -> Dictionary<String, Any> {
       return [
         "isPasswordReset": self.isPasswordReset,
@@ -63,18 +61,15 @@ func setCodeDeliveryDetails(res: AmplifyOperation<AuthResetPasswordRequest, Auth
                   deliveryMap["attributeName"] = "email"
                   deliveryMap["deliveryMedium"] = "EMAIL"
                 }
-
                 if case let .phone(e) = deliveryDetails.destination {
                   deliveryMap["destination"] = e! as String
                   deliveryMap["attributeName"] = "phone"
                 }
-
                 if case let .sms(e) = deliveryDetails.destination {
                   deliveryMap["destination"] = e! as String
                   deliveryMap["attributeName"] = "sms"
                   deliveryMap["deliveryMedium"] = "SMS"
                 }
-
                 if case let .unknown(e) = deliveryDetails.destination {
                   deliveryMap["destination"] = e! as String
                   deliveryMap["attributeName"] = "unknown"
