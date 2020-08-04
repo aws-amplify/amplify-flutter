@@ -13,9 +13,8 @@
  * permissions and limitations under the License.
  */
 
-class ChangePasswordOptions {
-  const ChangePasswordOptions();
-  Map<String, dynamic> serializeAsMap() {
-    throw UnimplementedError('serializeAsMap() has not been implemented on SignOutOptions.');
-  }
+import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
+
+class CognitoResetPasswordResult extends ResetPasswordResult {
+  CognitoResetPasswordResult({nextStep, isPasswordReset}) : super(isPasswordReset: isPasswordReset, nextStep: nextStep);
 }

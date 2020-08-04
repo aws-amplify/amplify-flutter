@@ -131,7 +131,6 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
           'data': request != null ? request.serializeAsMap() : null,
         },
       );
-<<<<<<< HEAD
       res = _formatPasswordResponse(data);
       return res;
     } on PlatformException catch(e) {
@@ -171,9 +170,6 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
         },
       );
       res = _formatPasswordResponse(data);
-=======
-      res = _formatChangePasswordResponse(data);
->>>>>>> changePassword
       return res;
     } on PlatformException catch(e) {
       _throwError(e);
@@ -197,11 +193,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     ));
   }
 
-<<<<<<< HEAD
   ChangePasswordResult _formatPasswordResponse(Map<String, dynamic> res) {
-=======
-  ChangePasswordResult _formatChangePasswordResponse(Map<String, dynamic> res) {
->>>>>>> changePassword
     return ChangePasswordResult();
   }
 
@@ -209,7 +201,6 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     return SignOutResult();
   }
 
-<<<<<<< HEAD
   ResetPasswordResult _formatResetPasswordResponse(Map<String, dynamic> res) {
     return CognitoResetPasswordResult( isPasswordReset: res["isPasswordReset"], nextStep: ResetPasswordStep(
       updateStep: res["nextStep"]["resetPasswordStep"],
@@ -218,8 +209,6 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     ));
   }
 
-=======
->>>>>>> changePassword
   void _throwError(PlatformException e) {
     LinkedHashMap eMap = new LinkedHashMap<String, dynamic>();
     e.details.forEach((k, v) => {
@@ -232,9 +221,4 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     AuthError error = AuthError.init(cause: e.message, errorMap: eMap);
     throw(error);
   }
-<<<<<<< HEAD
 }
-=======
-}
-
->>>>>>> changePassword

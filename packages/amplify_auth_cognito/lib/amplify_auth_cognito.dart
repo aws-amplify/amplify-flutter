@@ -70,6 +70,11 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     var res = await _instance.changePassword(request: request);
     return res; 
   }
+
+  Future<ResetPasswordResult> resetPassword({ResetPasswordRequest request}) async {
+    var res = await _instance.resetPassword(request: request);
+    return res; 
+  }
  
 }
 

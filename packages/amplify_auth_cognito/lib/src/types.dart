@@ -29,12 +29,9 @@ export 'CognitoSignUp/CognitoSignUpResult.dart';
 export 'CognitoSignUp/CognitoSignUpOptions.dart';
 
 // Password
-<<<<<<< HEAD
+
 export 'CognitoPasswords/CognitoResetPasswordResult.dart';
 export 'CognitoPasswords/CognitoChangePasswordOptions.dart';
-=======
-export 'CognitoPassword/CognitoChangePasswordOptions.dart';
->>>>>>> changePassword
 
 // Exceptions
 export 'CognitoExceptions/CognitoExceptions.dart';

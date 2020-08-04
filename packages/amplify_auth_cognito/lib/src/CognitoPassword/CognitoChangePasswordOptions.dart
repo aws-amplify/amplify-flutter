@@ -15,7 +15,7 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-class CognitoChangePasswordOptions extends ChangePasswordOptions {
+class CognitoChangePasswordOptions extends PasswordOptions {
   Map<String, String> clientMetadata;
   CognitoChangePasswordOptions({this.clientMetadata}) : super();
   Map<String, dynamic> serializeAsMap() {
