@@ -53,4 +53,8 @@ abstract class AuthPluginInterface extends PlatformInterface {
   Future<ChangePasswordResult> changePassword({ChangePasswordRequest request}) {
     throw UnimplementedError('changePassword() has not been implemented.');
   }
+
+  Future<ResetPasswordResult> resetPassword({ResetPasswordRequest request}) {
+    throw UnimplementedError('resetPassword() has not been implemented.');
+  }
 }

@@ -13,16 +13,9 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
-
-class CognitoChangePasswordOptions extends PasswordOptions {
-  Map<String, String> clientMetadata;
-  CognitoChangePasswordOptions({this.clientMetadata}) : super();
+class PasswordOptions {
+  const PasswordOptions();
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    if (this.clientMetadata != null) {
-      pendingRequest["clientMetadata"] = clientMetadata;
-    }
-    return pendingRequest;
+    throw UnimplementedError('serializeAsMap() has not been implemented on SignOutOptions.');
   }
 }

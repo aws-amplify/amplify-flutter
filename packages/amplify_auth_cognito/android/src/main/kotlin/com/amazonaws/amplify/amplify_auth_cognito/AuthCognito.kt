@@ -31,6 +31,7 @@ import com.amazonaws.services.cognitoidentityprovider.model.*
 import com.amplifyframework.auth.AuthChannelEventName
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
+import com.amplifyframework.auth.result.AuthResetPasswordResult
 import com.amplifyframework.auth.result.AuthSignInResult
 import com.amplifyframework.auth.result.AuthSignUpResult
 import com.amplifyframework.core.Amplify
@@ -123,6 +124,16 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
             args = (call.arguments as HashMap<String, String>)["data"] as HashMap<String, String>
           }
           onChangePassword(result, args);
+        } catch (e: Exception) {
+          prepareError(result, e, FlutterAuthFailureMessage.CASTING.toString() )
+        }
+      "resetPassword" ->
+        try {
+          var args: HashMap<String, String> = hashMapOf<String, String>();
+          if ((call.arguments as HashMap<String, String>)["data"] != null) {
+            args = (call.arguments as HashMap<String, String>)["data"] as HashMap<String, String>
+          }
+          onResetPassword(result, args);
         } catch (e: Exception) {
           prepareError(result, e, FlutterAuthFailureMessage.CASTING.toString() )
         }
@@ -286,7 +297,24 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
                 { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.CHANGE_PASSWORD.toString())}) }
         );
       } catch(e: Exception) {
-        prepareError(flutterResult, e, FlutterAuthFailureMessage.CONFIRM_SIGNIN.toString())
+        prepareError(flutterResult, e, FlutterAuthFailureMessage.CHANGE_PASSWORD.toString())
+      }
+    } else {
+      prepareError(flutterResult, java.lang.Exception(FlutterAuthFailureMessage.MALFORMED.toString()), FlutterAuthFailureMessage.MALFORMED.toString())
+    }
+  }
+
+  private fun onResetPassword (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>?) {
+    if (FlutterResetPasswordRequest.validate(request)) {
+      var req = FlutterResetPasswordRequest(request as HashMap<String, *>)
+      try {
+        Amplify.Auth.resetPassword(
+                req.userKey,
+                { result -> this.mainActivity?.runOnUiThread({ prepareResetPasswordResult(flutterResult, result)}) },
+                { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.RESET_PASSWORD.toString())}) }
+        );
+      } catch(e: Exception) {
+        prepareError(flutterResult, e, FlutterAuthFailureMessage.RESET_PASSWORD.toString())
       }
     } else {
       prepareError(flutterResult, java.lang.Exception(FlutterAuthFailureMessage.MALFORMED.toString()), FlutterAuthFailureMessage.MALFORMED.toString())
@@ -352,6 +380,11 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
   private fun prepareChangePasswordResponse(@NonNull flutterResult: Result) {
     var parsedResult = mutableMapOf<String, Any>();
     flutterResult.success(parsedResult);
+  }
+
+  private fun prepareResetPasswordResult(@NonNull flutterResult: Result, @NonNull result: AuthResetPasswordResult) {
+    var resetData = FlutterResetPasswordResult(result);
+    flutterResult.success(signInData.serializeToMap());
   }
 
   //convert a data class to a map

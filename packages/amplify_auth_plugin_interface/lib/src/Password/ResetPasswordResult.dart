@@ -13,9 +13,14 @@
  * permissions and limitations under the License.
  */
 
-class ChangePasswordOptions {
-  const ChangePasswordOptions();
-  Map<String, dynamic> serializeAsMap() {
-    throw UnimplementedError('serializeAsMap() has not been implemented on SignOutOptions.');
+import './ResetPasswordStep.dart';
+import 'package:flutter/foundation.dart';
+
+class ResetPasswordResult { 
+  bool isPasswordReset;
+  ResetPasswordStep nextStep;
+  ResetPasswordResult({@required this.isPasswordReset, @required this.nextStep}) {
+    this.isPasswordReset = isPasswordReset;
+    this.nextStep = nextStep;
   }
 }

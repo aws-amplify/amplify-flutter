@@ -31,10 +31,12 @@ export 'SignIn/AuthNextSignInStep.dart';
 export 'SignOut/SignOutRequest.dart';
 export 'SignOut/SignOutResult.dart';
 export 'SignOut/SignOutOptions.dart';
-export 'Password/ChagePasswordOptions.dart';
+export 'Password/PasswordOptions.dart';
 export 'Password/ChangePasswordRequest.dart';
 export 'Password/ChangePasswordResult.dart';
 export 'Password/ResetPasswordStep.dart';
+export 'Password/ResetPasswordRequest.dart';
+export 'Password/ResetPasswordResult.dart';
 
 // Error Classes
 export 'Errors/AuthError.dart';

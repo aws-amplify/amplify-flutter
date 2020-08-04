@@ -13,20 +13,20 @@
  * permissions and limitations under the License.
  */
 
-import './ChagePasswordOptions.dart';
+import './PasswordOptions.dart';
 import 'package:flutter/foundation.dart';
 
 class ChangePasswordRequest {
   String userKey;
   String newPassword;
   String oldPassword;
-  ChangePasswordOptions options;
+  PasswordOptions options;
 
   ChangePasswordRequest({this.userKey, @required this.newPassword, @required this.oldPassword, this.options});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     if (userKey != null) {
-      pendingRequest['username'] = userKey;
+      pendingRequest['userKey'] = userKey;
     }
     pendingRequest['newPassword'] = newPassword;
     pendingRequest['oldPassword'] = oldPassword;

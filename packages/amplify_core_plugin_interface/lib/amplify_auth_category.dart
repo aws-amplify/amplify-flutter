@@ -42,4 +42,8 @@ class AuthCategory {
   Future<ChangePasswordResult> changePassword({ChangePasswordRequest request}) {
     return plugins[0].changePassword(request: request);
   }
+
+  Future<ResetPasswordResult> resetPassword({ResetPasswordRequest request}) {
+    return plugins[0].resetPassword(request: request);
+  }
 }

@@ -30,6 +30,8 @@ export 'CognitoSignUp/CognitoSignUpOptions.dart';
 
 // Password
 export 'CognitoPassword/CognitoChangePasswordOptions.dart';
+export 'CognitoPassword/CognitoResetPasswordResult.dart';
+export 'CognitoPassword/CognitoChangePasswordOptions.dart';
 
 // Exceptions
 export 'CognitoExceptions/CognitoExceptions.dart';

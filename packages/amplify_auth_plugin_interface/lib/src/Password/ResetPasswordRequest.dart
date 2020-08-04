@@ -13,15 +13,21 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
+import './PasswordOptions.dart';
+import 'package:flutter/foundation.dart';
 
-class CognitoChangePasswordOptions extends PasswordOptions {
-  Map<String, String> clientMetadata;
-  CognitoChangePasswordOptions({this.clientMetadata}) : super();
+class ResetPasswordRequest {
+  String userKey;
+  PasswordOptions options;
+
+  ResetPasswordRequest({this.userKey, this.options});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    if (this.clientMetadata != null) {
-      pendingRequest["clientMetadata"] = clientMetadata;
+    if (userKey != null) {
+      pendingRequest['userKey'] = userKey;
+    }
+    if (options != null) {
+      pendingRequest['options'] = options.serializeAsMap();
     }
     return pendingRequest;
   }

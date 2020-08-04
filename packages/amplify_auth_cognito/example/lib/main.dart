@@ -225,15 +225,34 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  void _resetPassword() async {
+    setState(() {
+      error = "";
+      exceptions = [];
+    });
+    try {
+      ResetPasswordResult res = await Amplify.Auth.resetPassword(
+        request: ResetPasswordRequest(
+          userKey: usernameController.text.trim(),
+        ), 
+      );
+      setState(() {
+        authState = res.nextStep.updateStep;
+      });
+    } on AuthError catch (e) {
+      setState(() {
+        error = e.cause;
+        e.exceptionList.forEach((el) {
+          exceptions.add(el.exception);
+        });
+      });
+      print(e);
+    }
+  }
+
   void _createUser() async {
     setState(() {
       displayState = "SHOW_SIGN_UP";
-    });
-  }
-
-  void _confirmUser() async {
-    setState(() {
-      displayState = "SHOW_CONFIRM";
     });
   }
 
@@ -359,8 +378,8 @@ Widget showSignIn() {
             ),
             const Padding(padding: EdgeInsets.all(10.0)),
             RaisedButton(
-              onPressed: _confirmUser,
-              child: const Text('Confirm User'),
+              onPressed: _resetPassword,
+              child: const Text('Reset Password'),
             ),
             const Padding(padding: EdgeInsets.all(10.0)),
             RaisedButton(

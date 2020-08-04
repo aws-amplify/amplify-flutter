@@ -13,16 +13,23 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
+package com.amazonaws.amplify.amplify_auth_cognito.types
 
-class CognitoChangePasswordOptions extends PasswordOptions {
-  Map<String, String> clientMetadata;
-  CognitoChangePasswordOptions({this.clientMetadata}) : super();
-  Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    if (this.clientMetadata != null) {
-      pendingRequest["clientMetadata"] = clientMetadata;
+data class FlutterResetPasswordRequest(val map: HashMap<String, *>) {
+  val userKey: String = map["userKey"] as String;
+  val options: HashMap<String, *>? = map["options"] as HashMap<String, *>?;
+
+  companion object {
+    fun validate(req : HashMap<String, *>?): Boolean {
+      var valid: Boolean = true;
+      if (req == null || req !is HashMap<String, *>) {
+        valid = false;
+      } else if (req != null) {
+        if (!req.containsKey("userKey")) {
+          valid = false;
+        }
+      }
+      return valid;
     }
-    return pendingRequest;
   }
 }
