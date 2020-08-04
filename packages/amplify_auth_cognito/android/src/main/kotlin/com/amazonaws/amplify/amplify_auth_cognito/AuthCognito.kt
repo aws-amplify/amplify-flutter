@@ -367,11 +367,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
 
   private fun prepareResetPasswordResult(@NonNull flutterResult: Result, @NonNull result: AuthResetPasswordResult) {
     var resetData = FlutterResetPasswordResult(result);
-<<<<<<< HEAD
     flutterResult.success(resetData.serializeToMap());
-=======
-    flutterResult.success(signInData.serializeToMap());
->>>>>>> reset password android
   }
 
   //convert a data class to a map
