@@ -39,6 +39,12 @@ var cognitoExceptions = [
   "USER_NOT_CONFIRMED",
   "USER_NOT_FOUND",
   "TOO_MANY_FAILED_REQUESTS",
+<<<<<<< HEAD
   "VALIDATION",
+=======
+  "REQUEST_LIMIT_EXCEEDED",
+  "AMAZON_CLIENT_EXCEPTION",
+  "AMAZON_SERVICE_EXCEPTION",
+>>>>>>> changePassword
   "PLATFORM_EXCEPTIONS",
 ];
