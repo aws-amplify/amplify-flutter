@@ -265,6 +265,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
       try {
         Amplify.Auth.updatePassword(
                 req.oldPassword,
+<<<<<<< HEAD
                 req.newPassword,
                 {  -> this.mainActivity?.runOnUiThread({ prepareChangePasswordResponse(flutterResult)}) },
                 { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.CHANGE_PASSWORD.toString())}) }
@@ -306,6 +307,14 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
         );
       } catch(e: Exception) {
         prepareError(flutterResult, e, FlutterAuthFailureMessage.CONFIRM_PASSWORD.toString())
+=======
+                req.newPassword
+                { result -> this.mainActivity?.runOnUiThread({ prepareSignInResult(flutterResult, result)}) },
+                { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.CONFIRM_SIGNIN.toString())}) }
+        );
+      } catch(e: Exception) {
+        prepareError(flutterResult, e, FlutterAuthFailureMessage.CONFIRM_SIGNIN.toString())
+>>>>>>> password management
       }
     } else {
       prepareError(flutterResult, java.lang.Exception(FlutterAuthFailureMessage.MALFORMED.toString()), FlutterAuthFailureMessage.MALFORMED.toString())
