@@ -26,21 +26,21 @@ class AuthCategory {
 
   Future<SignUpResult> confirmSignUp({@required ConfirmSignUpRequest request}) {
     /// call `signUp` on all the plugins
-    return plugins.length == 1 ? plugins[0].confirmSignUp(request: request) : null;
+    return plugins[0].confirmSignUp(request: request);
   }
 
   Future<SignInResult> signIn({@required SignInRequest request}) {
     /// call `signUp` on all the plugins
-    return plugins.length == 1 ? plugins[0].signIn(request: request) : null;
+    return plugins[0].signIn(request: request);
   }
 
   Future<SignInResult> confirmSignIn({@required ConfirmSignInRequest request}) {
     /// call `signUp` on all the plugins
-    return plugins.length == 1 ? plugins[0].confirmSignIn(request: request) : null;
+    return plugins[0].confirmSignIn(request: request);
   }
 
   Future<SignOutResult> signOut({SignOutRequest request}) {
     /// call `signUp` on all the plugins
-    return plugins.length == 1 ? plugins[0].signOut(request: request) : null;
+    return plugins[0].signOut(request: request);
   }
 }
