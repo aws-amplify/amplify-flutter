@@ -104,6 +104,24 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
             errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
             self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNUP.rawValue, errorMap: errorMap)
         }
+        if case .configuration(let localizedError, let recoverySuggestion, let error) = signUpError {
+              let errorCode = error != nil ? "\(error!)" : "configuration"
+              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNIN.rawValue, errorMap: errorMap)
+        }
+        if case .unknown(let localizedError, let error) = signUpError {
+              let errorCode = error != nil ? "\(error!)" : "unknown"
+              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: "An unknown error has occurred.")
+              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNIN.rawValue, errorMap: errorMap)
+        }
+        if case .invalidState(let localizedError, let recoverySuggestion, let error) = signUpError {
+              let errorCode = error != nil ? "\(error!)" : "invalidState"
+              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNIN.rawValue, errorMap: errorMap)
+        }
       }
     }
   }
@@ -122,6 +140,24 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
             var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
             errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
             self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNUP.rawValue, errorMap: errorMap)
+        }
+        if case .configuration(let localizedError, let recoverySuggestion, let error) = signUpError {
+              let errorCode = error != nil ? "\(error!)" : "configuration"
+              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNIN.rawValue, errorMap: errorMap)
+        }
+        if case .unknown(let localizedError, let error) = signUpError {
+              let errorCode = error != nil ? "\(error!)" : "unknown"
+              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: "An unknown error has occurred.")
+              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNIN.rawValue, errorMap: errorMap)
+        }
+        if case .invalidState(let localizedError, let recoverySuggestion, let error) = signUpError {
+              let errorCode = error != nil ? "\(error!)" : "invalidState"
+              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNIN.rawValue, errorMap: errorMap)
         }
       }
     }
@@ -142,6 +178,24 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
               errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
               self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNUP.rawValue, errorMap: errorMap)
           }
+          if case .configuration(let localizedError, let recoverySuggestion, let error) = signInError {
+                let errorCode = error != nil ? "\(error!)" : "configuration"
+                var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+                errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+                self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNIN.rawValue, errorMap: errorMap)
+          }
+          if case .unknown(let localizedError, let error) = signInError {
+                let errorCode = error != nil ? "\(error!)" : "unknown"
+                var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+                errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: "An unknown error has occurred.")
+                self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNIN.rawValue, errorMap: errorMap)
+          }
+          if case .invalidState(let localizedError, let recoverySuggestion, let error) = signInError {
+                let errorCode = error != nil ? "\(error!)" : "invalidState"
+                var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+                errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+                self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNIN.rawValue, errorMap: errorMap)
+          }
         }
       }
   }
@@ -160,6 +214,24 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNUP.rawValue, errorMap: errorMap)
          }
+        if case .configuration(let localizedError, let recoverySuggestion, let error) = signInError {
+              let errorCode = error != nil ? "\(error!)" : "configuration"
+              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNIN.rawValue, errorMap: errorMap)
+        }
+        if case .unknown(let localizedError, let error) = signInError {
+              let errorCode = error != nil ? "\(error!)" : "unknown"
+              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: "An unknown error has occurred.")
+              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNIN.rawValue, errorMap: errorMap)
+        }
+        if case .invalidState(let localizedError, let recoverySuggestion, let error) = signInError {
+              let errorCode = error != nil ? "\(error!)" : "invalidState"
+              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNIN.rawValue, errorMap: errorMap)
+        }
        }
      }
    }
@@ -178,6 +250,24 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
             var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
             errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
             self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNUP.rawValue, errorMap: errorMap)
+        }
+        if case .configuration(let localizedError, let recoverySuggestion, let error) = signOutError {
+              let errorCode = error != nil ? "\(error!)" : "configuration"
+              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNIN.rawValue, errorMap: errorMap)
+        }
+        if case .unknown(let localizedError, let error) = signOutError {
+              let errorCode = error != nil ? "\(error!)" : "unknown"
+              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: "An unknown error has occurred.")
+              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNIN.rawValue, errorMap: errorMap)
+        }
+        if case .invalidState(let localizedError, let recoverySuggestion, let error) = signOutError {
+              let errorCode = error != nil ? "\(error!)" : "invalidState"
+              var errorMap: [String: Any] = self.formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+              errorMap["PLATFORM_EXCEPTIONS"] = self.platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+              self.prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.SIGNIN.rawValue, errorMap: errorMap)
         }
       }
     }
@@ -227,6 +317,12 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
           errorDict["USER_LAMBDA_VALIDATION"] = localizedError
         case "tooManyFailedAttempts":
           errorDict["TOO_MANY_FAILED_ATTEMPTS"] = localizedError
+        case "invalidState":
+          errorDict["INVALID_STATE"] = localizedError
+        case "configuration":
+          errorDict["CONFIGURATION"] = localizedError
+        case "configuration":
+          errorDict["CONFIGURATION"] = localizedError
         default:
           errorDict["UNKNOWN"] = "An unrecognized error has occurred. See logs for details."
       }
