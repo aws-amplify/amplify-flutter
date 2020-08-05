@@ -397,7 +397,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     flutterResult.error("AmplifyException", msg, errorMap)
   }
 
-  private fun prepareSignUpResult(@NonNull flutterResult: Result, @NonNull result: AuthSignUpResult) {
+  fun prepareSignUpResult(@NonNull flutterResult: Result, @NonNull result: AuthSignUpResult) {
     var signUpData = FlutterSignUpResult(result);
     flutterResult.success(signUpData.serializeToMap());
   }
