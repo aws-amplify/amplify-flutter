@@ -12,10 +12,14 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+
+import './SignInOptions.dart';
+
 class SignInRequest {
   String username;
   String password;
-  SignInRequest({this.username, this.password});
+  SignInOptions options;
+  SignInRequest({this.username, this.password, this.options});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     if (username != null) {
@@ -23,6 +27,9 @@ class SignInRequest {
     }
     if (password != null) {
       pendingRequest['password'] = password;
+    }
+    if (options != null) {
+      pendingRequest['options'] = options;
     }
     return pendingRequest;
   }
