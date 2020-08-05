@@ -72,26 +72,26 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     when (call.method) {
       "signUp" ->
         try {
-          onSignUp(result, (call.arguments as HashMap<String, *>)["data"] as?  HashMap<String, *>)
+          onSignUp(result, (call.arguments as HashMap<String, *>)["data"] as  HashMap<String, *>)
         }
         catch (e: Exception) {
           prepareError(result, e, FlutterAuthFailureMessage.CASTING.toString() )
         }
       "confirmSignUp" ->
         try {
-          onConfirmSignUp(result, (call.arguments as HashMap<String, String>)["data"] as? HashMap<String, String>)
+          onConfirmSignUp(result, (call.arguments as HashMap<String, String>)["data"] as HashMap<String, String>)
         }  catch (e: Exception) {
           prepareError(result, e, FlutterAuthFailureMessage.CASTING.toString() )
         }
       "signIn" ->
         try {
-          onSignIn(result, (call.arguments as HashMap<String, String>)["data"] as? HashMap<String, String>)
+          onSignIn(result, (call.arguments as HashMap<String, String>)["data"] as HashMap<String, String>)
         } catch (e: Exception) {
           prepareError(result, e, FlutterAuthFailureMessage.CASTING.toString() )
         }
       "confirmSignIn" ->
         try {
-          onConfirmSignIn(result, (call.arguments as HashMap<String, String>)["data"] as? HashMap<String, String>)
+          onConfirmSignIn(result, (call.arguments as HashMap<String, String>)["data"] as HashMap<String, String>)
         } catch (e: Exception) {
           prepareError(result, e, FlutterAuthFailureMessage.CASTING.toString() )
         }
@@ -129,7 +129,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     channel.setMethodCallHandler(null)
   }
 
-  private fun onSignUp (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>?) {
+  private fun onSignUp (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
     if (FlutterSignUpRequest.validate(request)) {
 
       var req = FlutterSignUpRequest(request as HashMap<String, *>);
@@ -149,7 +149,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     }
   }
 
-  private fun onConfirmSignUp(@NonNull flutterResult: Result, @NonNull request:  HashMap<String, *>?){
+  private fun onConfirmSignUp(@NonNull flutterResult: Result, @NonNull request:  HashMap<String, *>){
     if (FlutterConfirmSignUpRequest.validate(request)) {
       var req = FlutterConfirmSignUpRequest(request as HashMap<String, *>);
       try {
@@ -167,7 +167,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     }
   }
 
-  private fun onSignIn (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>?) {
+  private fun onSignIn (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
     if (FlutterSignInRequest.validate(request)) {
       var req = FlutterSignInRequest(request as HashMap<String, *>)
       try {
@@ -185,7 +185,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     }
   }
 
-  private fun onConfirmSignIn (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>?) {
+  private fun onConfirmSignIn (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
     if (FlutterConfirmSignInRequest.validate(request)) {
       var req = FlutterConfirmSignInRequest(request as HashMap<String, *>)
       try {

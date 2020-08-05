@@ -59,7 +59,7 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     return res;
   }
 
-  Future<SignOutResult> signOut({SignOutRequest request}) async {
+  Future<SignOutResult> signOut({@required SignOutRequest request}) async {
     var res = await _instance.signOut(request: request);
     return res;
   }

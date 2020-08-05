@@ -18,13 +18,21 @@ package com.amazonaws.amplify.amplify_auth_cognito.types
 data class FlutterSignInRequest(val map: HashMap<String, *>) {
   val username: String = map["username"] as String;
   val password: String = map["password"] as String;
-  val providerOptions: HashMap<String, *>? = map["providerOptions"] as HashMap<String, *>?;
+  val options: HashMap<String, *>? = map["options"] as HashMap<String, *>?;
 
   companion object {
     fun validate(req : HashMap<String, *>?): Boolean {
       var valid: Boolean = true;
       if (req == null || req !is HashMap<String, *>) {
         valid = false;
+      } else {
+        // username and password are optional if options are passed for clientmetadata auth flows
+        if (
+          (req["username"]  == null || req["password"] == null) &&
+          (req["options"] == null || (req["options"] as HashMap<String, *>).size < 1 )
+        ){
+          valid = false;
+        }
       }
       return valid;
     }
