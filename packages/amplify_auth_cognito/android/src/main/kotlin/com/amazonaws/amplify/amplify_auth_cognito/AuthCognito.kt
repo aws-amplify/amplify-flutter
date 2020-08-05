@@ -167,15 +167,15 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
             when (AuthChannelEventName.valueOf(hubEvent.name)) {
               AuthChannelEventName.SIGNED_IN -> {
                 var hubEvent = mapOf("eventName" to "SIGNED_IN")
-                sendEvent(gson.toJson(hubEvent), eventSink)
+                sendEvent(hubEvent, eventSink)
               }
               AuthChannelEventName.SIGNED_OUT -> {
                 var hubEvent = mapOf("eventName" to "SIGNED_OUT")
-                sendEvent(gson.toJson(hubEvent), eventSink)
+                sendEvent(hubEvent, eventSink)
               }
               AuthChannelEventName.SESSION_EXPIRED -> {
-                var hubEvent = mapOf("eventName" to "SESSION EXPIRED")
-                sendEvent(gson.toJson(hubEvent), eventSink)
+                var hubEvent = mapOf("eventName" to "SESSION_EXPIRED")
+                sendEvent(hubEvent, eventSink)
               }
               else -> Log.i("AuthCognito", "unknown")
             }
@@ -189,7 +189,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     })
   }
   
-  fun sendEvent(hubEvent: String, sink: EventChannel.EventSink) {
+  fun sendEvent(hubEvent: Map<String, String>, sink: EventChannel.EventSink) {
     Handler(Looper.getMainLooper()).post(Runnable {
       sink.success(hubEvent)
     })

@@ -57,8 +57,24 @@ class _MyAppState extends State<MyApp> {
       _isAmplifyConfigured = true;
       displayState = "SHOW_SIGN_IN";
     });
-    auth.events.startListening((msg) {
-      print(msg);  
+    auth.events.startListening((hubEvent) {
+      switch(hubEvent["eventName"]) {
+        case "SIGNED_IN": {
+          print("USER IS SIGNED IN");
+        }
+        break;
+        case "SIGNED_OUT": {
+          print("USER IS SIGNED OUT");
+        }
+        break;
+        case "SESSION_EXPIRED": {
+          print("USER IS SIGNED IN");
+        }
+        break;
+        default: {
+          print("CONFIGURATION EVENT");
+        }
+      }
     });
   }
 
