@@ -1,18 +1,36 @@
+/*
+ * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/material.dart';
+import 'package:todo/Views/ErrorView.dart';
 
-
-class SignUp extends StatefulWidget {
+class SignUpView extends StatefulWidget {
   @override
-  _SignUpState createState() => _SignUpState();
+  _SignUpViewState createState() => _SignUpViewState();
 }
 
-class _SignUpState extends State<SignUp> {
+class _SignUpViewState extends State<SignUpView> {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
+
+  String _signUpError = "";
+  List<String> _signUpExceptions = [];
 
   @override
   void initState() {
@@ -20,18 +38,9 @@ class _SignUpState extends State<SignUp> {
   }
 
   void _signUp() async {
-    Navigator.pop(context, true);
-
-    /*
-    setState(() {
-      error = "";
-      exceptions = [];
-    });
-     */
     Map<String, dynamic> userAttributes = {
       "email": emailController.text,
       "phone_number": phoneController.text,
-      "address": "123 MyStreet"
     };
     try {
       SignUpResult res = await Amplify.Auth.signUp(
@@ -40,23 +49,15 @@ class _SignUpState extends State<SignUp> {
             password: passwordController.text.trim(),
             options: CognitoSignUpOptions(userAttributes: userAttributes)),
       );
-      setState(() {
-        /*
-        displayState =
-        res.nextStep.signUpStep == "DONE" ? "SHOW_CONFIRM" : "SHOW_SIGN_UP";
-        authState = "Signup: " + res.nextStep.signUpStep;
-         */
-      });
+      Navigator.pop(context, true);
     } on AuthError catch (e) {
       setState(() {
-        /*
-        error = e.cause;
+        _signUpError = e.cause;
+        _signUpExceptions.clear();
         e.exceptionList.forEach((el) {
-          exceptions.add(el.exception);
+          _signUpExceptions.add(el.exception);
         });
-         */
       });
-      print(e);
     }
   }
 
@@ -75,7 +76,7 @@ class _SignUpState extends State<SignUp> {
                   controller: usernameController,
                   decoration: const InputDecoration(
                     icon: Icon(Icons.person),
-                    hintText: 'The name you will use to login',
+                    hintText: 'Username',
                     labelText: 'Username *',
                   ),
                 ),
@@ -84,7 +85,7 @@ class _SignUpState extends State<SignUp> {
                   controller: passwordController,
                   decoration: const InputDecoration(
                     icon: Icon(Icons.lock),
-                    hintText: 'The password you will use to login',
+                    hintText: 'Password',
                     labelText: 'Password *',
                   ),
                 ),
@@ -92,7 +93,7 @@ class _SignUpState extends State<SignUp> {
                   controller: emailController,
                   decoration: const InputDecoration(
                     icon: Icon(Icons.email),
-                    hintText: 'Your email address',
+                    hintText: 'Email',
                     labelText: 'Email *',
                   ),
                 ),
@@ -100,7 +101,7 @@ class _SignUpState extends State<SignUp> {
                   controller: phoneController,
                   decoration: const InputDecoration(
                     icon: Icon(Icons.phone),
-                    hintText: 'Your phone number',
+                    hintText: 'Phone number (WITH AREA CODE)',
                     labelText: 'Phone number *',
                   ),
                 ),
@@ -109,6 +110,7 @@ class _SignUpState extends State<SignUp> {
                   onPressed: _signUp,
                   child: const Text('Sign Up'),
                 ),
+                ErrorView(_signUpError, _signUpExceptions)
               ],
             ),
           ),

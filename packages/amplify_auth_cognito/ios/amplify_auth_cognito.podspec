@@ -16,6 +16,7 @@ Pod::Spec.new do |s|
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
   s.dependency 'Amplify'
+  s.dependency 'AWSPluginsCore'
   s.dependency 'AmplifyPlugins/AWSCognitoAuthPlugin'
   s.dependency 'ObjectMapper'
   s.platform = :ios, '11.0'
