@@ -14,15 +14,20 @@
  */
 
 import 'package:flutter/foundation.dart';
+import './ConfirmSignUpOptions.dart';
 
 class ConfirmSignUpRequest {
   String userKey;
   String confirmationCode;
-  ConfirmSignUpRequest({@required this.userKey, @required this.confirmationCode});
+  ConfirmSignUpOptions options;
+  ConfirmSignUpRequest({@required this.userKey, @required this.confirmationCode, this.options});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     pendingRequest['userKey'] = userKey;
     pendingRequest['confirmationCode'] = confirmationCode;
+    if (options != null) {
+      pendingRequest['options'] = options.serializeAsMap();
+    }
     return pendingRequest;
   }
 }
