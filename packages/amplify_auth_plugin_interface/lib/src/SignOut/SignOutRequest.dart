@@ -13,10 +13,16 @@
  * permissions and limitations under the License.
  */
 
+import './SignOutOptions.dart';
+
 class SignOutRequest {
-  SignOutRequest();
+  SignOutOptions options;
+  SignOutRequest({this.options});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
+    if (options != null) {
+      pendingRequest['options'] = options.serializeAsMap();
+    }
     return pendingRequest;
   }
 }
