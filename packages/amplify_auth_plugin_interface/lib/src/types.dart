@@ -25,7 +25,6 @@ export 'SignIn/SignInRequest.dart';
 export 'SignIn/SignInResult.dart';
 export 'SignIn/ConfirmSignInRequest.dart';
 export 'SignIn/ConfirmSignInOptions.dart';
-export 'SignIn/SignInState.dart';
 export 'SignIn/SignInOptions.dart';
 export 'SignIn/AuthNextSignInStep.dart';
 export 'SignOut/SignOutRequest.dart';
