@@ -127,7 +127,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
   }
 
   private func onConfirmSignUp(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignUpRequest) {
-    _ = Amplify.Auth.confirmSignUp(for: request.username!, confirmationCode:request.confirmationCode!) { response in
+    _ = Amplify.Auth.confirmSignUp(for: request.username, confirmationCode:request.confirmationCode) { response in
      switch response {
        case .success:
         let signUpData = FlutterSignUpResult(res: response)
