@@ -51,7 +51,7 @@ void main() {
     coreChannel.setMockMethodCallHandler(null);
   });
 
-  test('signUp request returns a SignInResult', () async {
+  test('signIn request returns a SignInResult', () async {
     await amplify.addPlugin(authPlugin: [auth]);
     await amplify.configure("{}");
     SignInRequest req = SignInRequest(
