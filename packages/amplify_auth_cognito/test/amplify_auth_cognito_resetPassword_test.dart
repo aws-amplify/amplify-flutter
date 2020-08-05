@@ -29,8 +29,14 @@ void main() {
 
   setUp(() {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "signOut") {
-        return {};
+      if (methodCall.method == "resetPassword") {
+        return {
+          "isPasswordReset": false,
+          "nextStep": {
+            "updateStep": "DONE",
+            "codeDeliveryDetails":  { "atttibuteName": "email" }
+          }
+        };
       } else {
         return true;
       }     
@@ -45,10 +51,12 @@ void main() {
     coreChannel.setMockMethodCallHandler(null);
   });
 
-  test('signOut request returns a SignOutResult', () async {
+  test('resetPassword request returns a ResetPasswordResult', () async {
     await amplify.addPlugin(authPlugin: [auth]);
     await amplify.configure("{}");
-    SignOutRequest req = SignOutRequest();
-    expect(await Amplify.Auth.signOut(request: req), isInstanceOf<SignOutResult>());
+    ResetPasswordRequest req = ResetPasswordRequest(
+      userKey: 'testUser'
+    );
+    expect(await Amplify.Auth.resetPassword(request: req), isInstanceOf<ResetPasswordResult>());
   });
 }

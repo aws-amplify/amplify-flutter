@@ -211,7 +211,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     channel.setMethodCallHandler(null)
   }
 
-  private fun onSignUp (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>?) {
+   fun onSignUp (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>?) {
     if (FlutterSignUpRequest.validate(request)) {
 
       var req = FlutterSignUpRequest(request as HashMap<String, *>);

@@ -29,7 +29,7 @@ void main() {
 
   setUp(() {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "signOut") {
+      if (methodCall.method == "confirmPassword") {
         return {};
       } else {
         return true;
@@ -45,10 +45,10 @@ void main() {
     coreChannel.setMockMethodCallHandler(null);
   });
 
-  test('signOut request returns a SignOutResult', () async {
+  test('confirmPassword request returns a ChangePasswordResult', () async {
     await amplify.addPlugin(authPlugin: [auth]);
     await amplify.configure("{}");
-    SignOutRequest req = SignOutRequest();
-    expect(await Amplify.Auth.signOut(request: req), isInstanceOf<SignOutResult>());
+    ConfirmPasswordRequest req = ConfirmPasswordRequest(userKey: "mel", newPassword: "1", confirmationCode: "2");
+    expect(await Amplify.Auth.confirmPassword(request: req), isInstanceOf<ChangePasswordResult>());
   });
 }

@@ -203,8 +203,8 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
     _ = Amplify.Auth.signOut(options: request.options) { response in
       switch response {
         case .success:
-          let signOutData = FlutterSignOutResult(res: response)
-          flutterResult(signOutData.toJSON())
+          let emptyMap: Dictionary<String, Any> = [:]
+          flutterResult(emptyMap)
 
         case .failure(let signOutError):
         print("An error occurred while signing out")
@@ -217,7 +217,8 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
     _ = Amplify.Auth.update(oldPassword: request.oldPassword, to: request.newPassword) { response in
      switch response {
        case .success:
-        flutterResult("{}")
+        let emptyMap: Dictionary<String, Any> = [:]
+        flutterResult(emptyMap)
         
        case .failure(let changePasswordError):
         print("An error changing a password")
@@ -244,7 +245,8 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
         _ = Amplify.Auth.confirmResetPassword(for: request.userKey, with: request.newPassword, confirmationCode: request.confirmationCode) { response in
        switch response {
          case .success:
-         flutterResult("{}")
+           let emptyMap: Dictionary<String, Any> = [:]
+           flutterResult(emptyMap)
           
          case .failure(let resetPasswordError):
           print("An error resetting a password")

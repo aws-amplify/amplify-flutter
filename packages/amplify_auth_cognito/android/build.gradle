@@ -30,6 +30,8 @@ android {
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+
     }
     defaultConfig {
         minSdkVersion 16
@@ -50,4 +52,6 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:3.1.0'
     testImplementation 'androidx.test:core:1.2.0'
     testImplementation 'org.robolectric:robolectric:4.3.1'
+    testImplementation 'org.mockito:mockito-inline:2.13.0'
+
 }
