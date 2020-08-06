@@ -1,5 +1,19 @@
-import 'dart:collection';
+/*
+ * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
 
+import 'dart:collection';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
@@ -11,6 +25,7 @@ const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/auth_cognito
 class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   @override
+
   Future<SignUpResult> signUp({SignUpRequest request}) async {
     SignUpResult res;
     try {
@@ -22,33 +37,120 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
         },
       );
       res = _formatSignUpResponse(data);
-      
     } on PlatformException catch(e) {
-      _formatSignUpError(e);
+      _throwError(e);
+    }
+    return res;
+  }
+
+  @override
+  Future<SignUpResult> confirmSignUp({ConfirmSignUpRequest request}) async {
+    SignUpResult res;
+    try {
+      final Map<String, dynamic> data =
+      await _channel.invokeMapMethod<String, dynamic>(
+        'confirmSignUp',
+        <String, dynamic>{
+          'data': request.serializeAsMap(),
+        },
+      );
+      res = _formatSignUpResponse(data);
+      return res;
+    } on PlatformException catch(e) {
+      _throwError(e);
     }
     return res;
   }
 
 
+  @override
+  Future<SignInResult> signIn({SignInRequest request}) async {
+    SignInResult res;
+    try {
+      final Map<String, dynamic> data =
+      await _channel.invokeMapMethod<String, dynamic>(
+        'signIn',
+        <String, dynamic>{
+          'data': request.serializeAsMap(),
+        },
+      );
+      res = _formatSignInResponse(data);
+      return res;
+    } on PlatformException catch(e) {
+      _throwError(e);
+    }
+    return res;
+  }
+
+  @override
+  Future<SignInResult> confirmSignIn({ConfirmSignInRequest request}) async {
+    SignInResult res;
+    try {
+      final Map<String, dynamic> data =
+      await _channel.invokeMapMethod<String, dynamic>(
+        'confirmSignIn',
+        <String, dynamic>{
+          'data': request != null ? request.serializeAsMap() : null,
+        },
+      );
+      res = _formatSignInResponse(data);
+      return res;
+    } on PlatformException catch(e) {
+      _throwError(e);
+    }
+    return res;
+  }
+
+  @override
+  Future<SignOutResult> signOut({SignOutRequest request}) async {
+    SignOutResult res;
+    try {
+      final Map<String, dynamic> data =
+      await _channel.invokeMapMethod<String, dynamic>(
+        'signOut',
+        <String, dynamic>{
+          'data': request != null ? request.serializeAsMap() : null,
+        },
+      );
+      res = _formatSignOutResponse(data);
+      return res;
+    } on PlatformException catch(e) {
+      _throwError(e);
+    }
+    return res;
+  }
+
   SignUpResult _formatSignUpResponse(Map<String, dynamic> res) {
-    return CognitoSignUpResult( isSignUpComplete: res["isSignUpComplete"], nextStep: AuthNextSignUpStep(
+    return CognitoSignUpResult(isSignUpComplete: res["isSignUpComplete"], nextStep: AuthNextSignUpStep(
       signUpStep: res["nextStep"]["signUpStep"],
       codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
       additionalInfo: res["nextStep"]["additionalInfo"] is String ? jsonDecode(res["nextStep"]["additionalInfo"]) : {}
-      ));
+    ));
   }
 
-  void _formatSignUpError(PlatformException e) {
+  SignInResult _formatSignInResponse(Map<String, dynamic> res) {
+    return CognitoSignInResult(isSignedIn: res["isSignedIn"], nextStep: AuthNextSignInStep(
+      signInStep: res["nextStep"]["signInStep"],
+      codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
+      additionalInfo: res["nextStep"]["additionalInfo"] is String ? jsonDecode(res["nextStep"]["additionalInfo"]) : {}
+    ));
+  }
+
+  void _throwError(PlatformException e) {
     LinkedHashMap eMap = new LinkedHashMap<String, dynamic>();
     e.details.forEach((k, v) => {
-      if (cognitoSignUpException.contains(k)) {
+      if (cognitoExceptions.contains(k)) {
         eMap.putIfAbsent(k, () => v)
       } else {
-        eMap.putIfAbsent("UNRECOGNIZED EXCEPTION", () => "See logs for details")
+        eMap.putIfAbsent("UNRECOGNIZED EXCEPTION", () => "See logs for details.")
       }
     });
     AuthError error = AuthError.init(cause: e.message, errorMap: eMap);
     throw(error);
+  }
+
+  SignOutResult _formatSignOutResponse(Map<String, dynamic> signOutResponse) {
+    return SignOutResult();
   }
 }
 

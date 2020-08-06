@@ -1,9 +1,25 @@
+/*
+ * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
 package com.amazonaws.amplify.amplify_auth_cognito
 
 import android.app.Activity
 import android.content.Context
 import android.util.Log
 import androidx.annotation.NonNull
+import com.amazonaws.amplify.amplify_auth_cognito.types.*
 import com.amazonaws.AmazonClientException
 import com.amazonaws.AmazonServiceException
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthFailureMessage
@@ -12,6 +28,7 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpResult
 import com.amazonaws.services.cognitoidentityprovider.model.*
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
+import com.amplifyframework.auth.result.AuthSignInResult
 import com.amplifyframework.auth.result.AuthSignUpResult
 import com.amplifyframework.core.Amplify
 import com.google.gson.Gson
@@ -24,7 +41,7 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
-import java.lang.reflect.Method
+
 
 /** AuthCognito */
 public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
@@ -55,15 +72,42 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     when (call.method) {
       "signUp" ->
         try {
-          onSignUp(result, (call.arguments as HashMap<String, *>).get("data") as HashMap<String, *>)
+          onSignUp(result, (call.arguments as HashMap<String, *>)["data"] as  HashMap<String, *>)
         }
         catch (e: Exception) {
           prepareError(result, e, FlutterAuthFailureMessage.CASTING.toString() )
         }
-      else -> result.notImplemented()
+      "confirmSignUp" ->
+        try {
+          onConfirmSignUp(result, (call.arguments as HashMap<String, String>)["data"] as HashMap<String, String>)
+        }  catch (e: Exception) {
+          prepareError(result, e, FlutterAuthFailureMessage.CASTING.toString() )
+        }
+      "signIn" ->
+        try {
+          onSignIn(result, (call.arguments as HashMap<String, String>)["data"] as HashMap<String, String>)
+        } catch (e: Exception) {
+          prepareError(result, e, FlutterAuthFailureMessage.CASTING.toString() )
+        }
+      "confirmSignIn" ->
+        try {
+          onConfirmSignIn(result, (call.arguments as HashMap<String, String>)["data"] as HashMap<String, String>)
+        } catch (e: Exception) {
+          prepareError(result, e, FlutterAuthFailureMessage.CASTING.toString() )
+        }
+      "signOut" ->
+        try {
+          var args: HashMap<String, String> = hashMapOf<String, String>();
+          if ((call.arguments as HashMap<String, String>)["data"] != null) {
+            args = (call.arguments as HashMap<String, String>)["data"] as HashMap<String, String>
+          }
+          onSignOut(result, args);
+        } catch (e: Exception) {
+          prepareError(result, e, FlutterAuthFailureMessage.CASTING.toString() )
+        }
+        else -> result.notImplemented()
+      }
     }
-  }
-
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
     this.mainActivity = binding.activity
@@ -87,7 +131,8 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
 
   private fun onSignUp (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
     if (FlutterSignUpRequest.validate(request)) {
-      var req = FlutterSignUpRequest(request);
+
+      var req = FlutterSignUpRequest(request as HashMap<String, *>);
       try {
         Amplify.Auth.signUp(
                 req.username,
@@ -104,10 +149,76 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     }
   }
 
+  private fun onConfirmSignUp(@NonNull flutterResult: Result, @NonNull request:  HashMap<String, *>){
+    if (FlutterConfirmSignUpRequest.validate(request)) {
+      var req = FlutterConfirmSignUpRequest(request as HashMap<String, *>);
+      try {
+        Amplify.Auth.confirmSignUp(
+                req.userKey,
+                req.confirmationCode,
+                { result -> this.mainActivity?.runOnUiThread({ prepareSignUpResult(flutterResult, result) }) },
+                { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.CONFIRM_SIGNUP.toString()) }) }
+        )
+      } catch (e: Exception) {
+        prepareError(flutterResult, e, FlutterAuthFailureMessage.CONFIRM_SIGNUP.toString())
+      }
+    }  else {
+      prepareError(flutterResult, java.lang.Exception(FlutterAuthFailureMessage.MALFORMED.toString()), FlutterAuthFailureMessage.MALFORMED.toString())
+    }
+  }
+
+  private fun onSignIn (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
+    if (FlutterSignInRequest.validate(request)) {
+      var req = FlutterSignInRequest(request as HashMap<String, *>)
+      try {
+        Amplify.Auth.signIn(
+                req.username,
+                req.password,
+                { result -> this.mainActivity?.runOnUiThread({ prepareSignInResult(flutterResult, result) }) },
+                { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.SIGNIN.toString()) }) }
+        );
+      } catch (e: Exception) {
+        prepareError(flutterResult, e, FlutterAuthFailureMessage.SIGNIN.toString())
+      }
+    } else {
+      prepareError(flutterResult, java.lang.Exception(FlutterAuthFailureMessage.MALFORMED.toString()), FlutterAuthFailureMessage.MALFORMED.toString())
+    }
+  }
+
+  private fun onConfirmSignIn (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
+    if (FlutterConfirmSignInRequest.validate(request)) {
+      var req = FlutterConfirmSignInRequest(request as HashMap<String, *>)
+      try {
+        Amplify.Auth.confirmSignIn(
+                req.confirmationCode,
+                { result -> this.mainActivity?.runOnUiThread({ prepareSignInResult(flutterResult, result)}) },
+                { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.CONFIRM_SIGNIN.toString())}) }
+        );
+      } catch(e: Exception) {
+        prepareError(flutterResult, e, FlutterAuthFailureMessage.CONFIRM_SIGNIN.toString())
+      }
+    } else {
+      prepareError(flutterResult, java.lang.Exception(FlutterAuthFailureMessage.MALFORMED.toString()), FlutterAuthFailureMessage.MALFORMED.toString())
+    }
+  }
+
+  private fun onSignOut (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
+    var req = FlutterSignOutRequest(request)
+    try {
+      Amplify.Auth.signOut(
+        req.signOutOptions,
+          {  -> this.mainActivity?.runOnUiThread({ prepareSignOutResult(flutterResult)}) },
+          { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.SIGNOUT.toString())}) }
+      );
+    } catch(e: Exception) {
+      prepareError(flutterResult, e, FlutterAuthFailureMessage.SIGNOUT.toString())
+    }
+  }
+
+  
   private fun prepareError(@NonNull flutterResult: Result, @NonNull error: Exception, @NonNull msg: String) {
     var errorMap: HashMap<String, Any> = HashMap();
     if (error is AuthException) {
-
       when (error.cause) {
         is InvalidParameterException -> errorMap.put("INVALID_PARAMETER", (error.cause as InvalidParameterException).errorMessage)
         is UsernameExistsException -> errorMap.put("USERNAME_EXISTS", (error.cause as UsernameExistsException).errorMessage)
@@ -127,26 +238,37 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
         else -> errorMap.put("UNKNOWN", "Unknown Auth Error.")
       }
     }
-    var localizedMessage: String = error.localizedMessage ?: "";
-    var errorString: String = error.toString();
-    var recoverySuggestion: String = "";
+
+    var localizedError: String = "";
+    var recoverySuggestion: String ="";
     if (error is AuthException) {
-      recoverySuggestion = (error as AuthException).recoverySuggestion ?: ""
+      recoverySuggestion = error.recoverySuggestion;
     }
-    errorMap.put("PLATFORM_EXCEPTIONS", mapOf(
+    if (error.localizedMessage != null) {
+      localizedError = error.localizedMessage;
+    }
+    errorMap.put("PLATFORM_EXCEPTIONS" , mapOf(
       "platform" to "Android",
-      "localizedMessage" to  localizedMessage,
-      "errorString" to errorString,
-      "recoverySuggestion" to recoverySuggestion
-
-    ));
-
+      "localizedError" to localizedError,
+      "recoverySuggestion" to recoverySuggestion,
+      "errorString" to error.toString()
+    ))
     flutterResult.error("AmplifyException", msg, errorMap)
   }
 
   private fun prepareSignUpResult(@NonNull flutterResult: Result, @NonNull result: AuthSignUpResult) {
     var signUpData = FlutterSignUpResult(result);
     flutterResult.success(signUpData.serializeToMap());
+  }
+
+  private fun prepareSignInResult(@NonNull flutterResult: Result, @NonNull result: AuthSignInResult) {
+    var signInData = FlutterSignInResult(result);
+    flutterResult.success(signInData.serializeToMap());
+  }
+
+  private fun prepareSignOutResult(@NonNull flutterResult: Result) {
+    var parsedResult = mutableMapOf<String, Any>();
+    flutterResult.success(parsedResult);
   }
 
   //convert a data class to a map
