@@ -12,18 +12,13 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+class AuthSessionOptions {
 
-var authErrorTypes = [
-  "AMPLIFY_CHANGE_PASSWORD_FAILED",
-  "AMPLIFY_CONFIRM_SIGNIN_FAILED",
-  "AMPLIFY_CONFIRM_SIGNUP_FAILED",
-  "AMPLIFY_CONFIRM_PASSWORD_FAILED",
-  "AMPLIFY_SIGNIN_FAILED",
-  "AMPLIFY_SIGNOUT_FAILED",
-  "AMPLIFY_SIGNUP_FAILED",
-  "AMPLIFY_RESET_PASSWORD_FAILED"
-  "AMPLIFY_REQUEST_MALFORMED",
-  "AMPLIFY_FETCH_SESSION_FAILED",
-  "ERROR_CASTING_INPUT_IN_PLATFORM_CODE",
-  "PLATFORM_EXCEPTIONS"
-];
+  // TODO: Implement force refresh when/if amplify-libraries support it
+
+  const AuthSessionOptions();
+
+  Map<String, dynamic> serializeAsMap() {
+    throw UnimplementedError('serializeAsMap() has not been implemented on AuthSessionOptions.');
+  }
+}

@@ -15,17 +15,20 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
-import com.amplifyframework.auth.options.AuthSignOutOptions;
+import com.amplifyframework.auth.options.AuthSignOutOptions
 
-data class FlutterSignOutRequest(val map: HashMap<String, *>) {
-  var signOutOptions: AuthSignOutOptions = setOptions()
+
+data class FlutterFetchAuthSessionRequest(val map: HashMap<String, *>) {
+// TODO: Implement options when/if supported by Amplify libraries
+//  var sessionOptions: AuthFetchSessionOptions = setOptions()
   val options: HashMap<String, *>? = map["options"] as HashMap<String, *>?;
 
-  fun setOptions(): AuthSignOutOptions {
-    var globalSignOut: Boolean = false;
-    if (options != null && options.get("globalSignOut") != null) {
-      globalSignOut = options.get("globalSignOut") as Boolean;
-    }
-    return AuthSignOutOptions.builder().globalSignOut(globalSignOut).build()
-  }
+
+//  fun setOptions(): AuthSignOutOptions {
+//    var forceRefresh: Boolean = false;
+//    if (options != null && options.get("forceRefresh") != null) {
+//      forceRefresh = options.get("forceRefresh") as Boolean;
+//    }
+//    return AuthFetchSessionOptions.builder().forceRefresh(forceRefresh).build()
+//  }
 }

@@ -31,8 +31,11 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.exceptions.Cognito
 import com.amazonaws.services.cognitoidentityprovider.model.*
 import com.amplifyframework.auth.AuthChannelEventName
 import com.amplifyframework.auth.AuthException
+import com.amplifyframework.auth.AuthSession
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
+import com.amplifyframework.auth.cognito.AWSCognitoAuthSession
 import com.amplifyframework.auth.result.AuthResetPasswordResult
+import com.amplifyframework.auth.result.AuthSessionResult
 import com.amplifyframework.auth.result.AuthSignInResult
 import com.amplifyframework.auth.result.AuthSignUpResult
 import com.amplifyframework.core.Amplify
@@ -82,7 +85,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
   }
 
   private fun checkData(@NonNull args: HashMap<String, Any>): HashMap<String, Any> {
-    if (args["data"] !is HashMap<*, *>) {
+    if (args["data"] !is HashMap<*, *> ) {
       throw java.lang.Exception("Flutter method call arguments.data is not a map.")
     }
     return args["data"] as HashMap<String, Any>
@@ -108,13 +111,14 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
       "confirmSignUp" -> onConfirmSignUp(result, data)
       "signIn" -> onSignIn(result, data)
       "confirmSignIn" -> onConfirmSignIn(result, data)
-      "signOut" ->  onSignOut(result, data);
-      "changePassword" -> onChangePassword(result, data);
-      "resetPassword" -> onResetPassword(result, data);
-      "confirmPassword" -> onConfirmPassword(result, data);
-        else -> result.notImplemented()
-      }
+      "signOut" ->  onSignOut(result, data)
+      "changePassword" -> onChangePassword(result, data)
+      "resetPassword" -> onResetPassword(result, data)
+      "confirmPassword" -> onConfirmPassword(result, data)
+      "fetchAuthSession" -> onFetchAuthSession(result, data)
+      else -> result.notImplemented()
     }
+  }
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
     this.mainActivity = binding.activity
@@ -294,7 +298,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     }
   }
 
-  private fun onConfirmPassword (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>?) {
+  private fun onConfirmPassword (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
     if (FlutterConfirmPasswordRequest.validate(request)) {
       var req = FlutterConfirmPasswordRequest(request as HashMap<String, *>)
       try {
@@ -310,6 +314,26 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     } else {
       prepareError(flutterResult, java.lang.Exception(FlutterAuthFailureMessage.MALFORMED.toString()), FlutterAuthFailureMessage.MALFORMED.toString())
     }
+  }
+
+  private fun onFetchAuthSession (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
+    // TODO: Implement forceRefresh when/if supported by Amplify libs
+    // var req = FlutterFetchAuthSessionRequest(request as HashMap<String, *>)
+    try {
+      Amplify.Auth.fetchAuthSession(
+              { result ->
+                val cognitoAuthSession = result as AWSCognitoAuthSession
+                when (cognitoAuthSession.identityId.type) {
+                  AuthSessionResult.Type.SUCCESS -> this.mainActivity?.runOnUiThread({ prepareSessionResult(flutterResult, cognitoAuthSession)})
+                  AuthSessionResult.Type.FAILURE -> this.mainActivity?.runOnUiThread({ prepareSessionFailure(flutterResult, cognitoAuthSession)})
+                }
+              },
+              { error -> prepareError(flutterResult, error, FlutterAuthFailureMessage.FETCH_SESSION.toString()) }
+      )
+    } catch(e: Exception) {
+      prepareError(flutterResult, e, FlutterAuthFailureMessage.FETCH_SESSION.toString())
+    }
+
   }
 
   private fun prepareError(@NonNull flutterResult: Result, @NonNull error: Exception, @NonNull msg: String) {
@@ -386,6 +410,15 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
   private fun prepareResetPasswordResult(@NonNull flutterResult: Result, @NonNull result: AuthResetPasswordResult) {
     var resetData = FlutterResetPasswordResult(result);
     flutterResult.success(resetData.serializeToMap());
+  }
+
+  private fun prepareSessionResult(@NonNull flutterResult: Result, @NonNull result: AWSCognitoAuthSession) {
+    var session = FlutterFetchAuthSessionResult(result);
+    flutterResult.success(session.serializeToMap());
+  }
+
+  private fun prepareSessionFailure(@NonNull flutterResult: Result, @NonNull result: AWSCognitoAuthSession) {
+    prepareError(flutterResult, result.awsCredentials.error as AuthException, FlutterAuthFailureMessage.FETCH_SESSION.toString())
   }
 
   //convert a data class to a map

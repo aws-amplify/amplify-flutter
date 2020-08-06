@@ -15,6 +15,9 @@ import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.AmplifyConfiguration
 import com.amplifyframework.core.category.CategoryConfiguration
 import com.google.gson.Gson
+import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.embedding.engine.plugins.FlutterPlugin
+import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel.Result
 import org.junit.Before
@@ -35,20 +38,25 @@ class AuthCognitoTest  {
     private var context: Context = getApplicationContext();
     private var configString = "{\"UserAgent\": \"aws-amplify-cli/2.0\",\"Version\": \"1.0\", \"auth\": {\"plugins\": {\"awsCognitoAuthPlugin\": {\"UserAgent\": \"aws-amplify-cli/0.1.0\", \"Version\": \"0.1.0\",\"IdentityManager\": {\"Default\": {} },\"CredentialsProvider\": {\"CognitoIdentity\": {\"Default\": {\"PoolId\": \"us-west-2:73156f2c-e8e0-435f-a534-a88d20049af8\",\"Region\": \"us-west-2\" } } },\"CognitoUserPool\": {\"Default\": {\"PoolId\": \"us-west-2_MW26RCMIT\",\"AppClientId\": \"2g96bnt88ocm0dhe65u271ds56\",\"AppClientSecret\": \"rr3v0tvce0sdo3qckhvknorhjh1ha5545cd442shi056rbdi6fj\",\"Region\": \"us-west-2\" } },\"Auth\": {\"Default\": {\"authenticationFlowType\": \"USER_SRP_AUTH\" } } } } } }"
 //    private var amplify: Amplify? = null
+
+    val cognito = AuthCognito()
+    val flutterResult: Result = mock(Result::class.java)
+    val androidAuth = mock( AWSCognitoAuthPlugin::class.java)
+
     @Before
     fun setup()  {
-    mobileClient = mock(AWSMobileClient::class.java)
-    authCategory = AuthCategory()
-    authCategory!!.addPlugin(AWSCognitoAuthPlugin())
-    val config: MutableMap<*, *> = gson.fromJson(configString, MutableMap::class.java)
-    Amplify.configure(AmplifyConfiguration(config as MutableMap<String, CategoryConfiguration>), context)
+        mobileClient = mock(AWSMobileClient::class.java)
+//        authCategory = AuthCategory()
+//        authCategory!!.addPlugin(AWSCognitoAuthPlugin())
+        val config: MutableMap<*, *> = gson.fromJson(configString, MutableMap::class.java)
+        Amplify.addPlugin(AWSCognitoAuthPlugin())
+        Amplify.configure(AmplifyConfiguration(config as MutableMap<String, CategoryConfiguration>), context)
+        print(Amplify.Auth)
     }
     
     @Test
     fun onMethodCall_signUp() {
-        val cognito = AuthCognito()
-        val flutterResult: Result = mock(Result::class.java)
-        val androidAuth = mock( AWSCognitoAuthPlugin::class.java)
+
         val options: AuthSignUpOptions =  AuthSignUpOptions.builder().userAttribute(AuthUserAttributeKey.email(), "test@test.com").build();
 
         `when`(androidAuth.signUp(

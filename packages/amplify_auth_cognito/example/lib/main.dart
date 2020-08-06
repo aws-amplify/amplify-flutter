@@ -300,6 +300,25 @@ class _MyAppState extends State<MyApp> {
       print(e);
     }
   }
+  
+  void _fetchSession() async {
+    setState(() {
+      error = "";
+      exceptions = [];
+    });
+    try {
+      AuthSession res = await Amplify.Auth.fetchAuthSession();
+      print(res);
+    } on AuthError catch (e) {
+      setState(() {
+        error = e.cause;
+        e.exceptionList.forEach((el) {
+          exceptions.add(el.exception);
+        });
+      });
+      print(e);
+    }
+  }
 
   void _stopListening() async {
     auth.events.stopListeningToAuth();
@@ -440,6 +459,11 @@ Widget showSignIn() {
             RaisedButton(
               onPressed: _signOut,
               child: const Text('SignOut'),
+            ),
+            const Padding(padding: EdgeInsets.all(10.0)),
+            RaisedButton(
+              onPressed: _fetchSession,
+              child: const Text('Get Session'),
             ),
             ],
           ),
@@ -582,10 +606,6 @@ Widget showSignIn() {
               ),
               TextFormField(
                 controller: confirmationCodeController,
-<<<<<<< HEAD
-=======
-                obscureText: true,
->>>>>>> additional error values and confirmPassword
                 decoration: const InputDecoration(
                   icon: Icon(Icons.confirmation_number),
                   hintText: 'The confirmation code we sent you',
@@ -633,6 +653,11 @@ Widget showSignIn() {
                 onPressed: _stopListening,
                 child: const Text('Stop Listening'),
               ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed: _fetchSession,
+                child: const Text('Get Session'),
+              )
             ],
           ),
         ),

@@ -80,5 +80,10 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     var res = await _instance.confirmPassword(request: request);
     return res; 
   }
+
+  Future<AuthSession> fetchAuthSession({AuthSessionRequest request}) async {
+  var res = await _instance.fetchAuthSession(request: request);
+  return res; 
+}
 }
 

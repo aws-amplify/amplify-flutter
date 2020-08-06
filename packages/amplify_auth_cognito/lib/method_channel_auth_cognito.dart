@@ -109,7 +109,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       await _channel.invokeMapMethod<String, dynamic>(
         'signOut',
         <String, dynamic>{
-          'data': request != null ? request.serializeAsMap() : null,
+          'data': request != null ? request.serializeAsMap() : {},
         },
       );
       res = _formatSignOutResponse(data);
@@ -177,6 +177,25 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     return res;
   }
 
+  @override
+  Future<AuthSession> fetchAuthSession({AuthSessionRequest request}) async {
+    AuthSession res;
+    try {
+      final Map<String, dynamic> data =
+      await _channel.invokeMapMethod<String, dynamic>(
+        'fetchAuthSession',
+        <String, dynamic>{
+          'data': request != null ? request.serializeAsMap() : {},
+        },
+      );
+      res = _formatSessionResponse(data);
+      return res;
+    } on PlatformException catch(e) {
+      _throwError(e);
+    }
+    return res;
+  }
+
   SignUpResult _formatSignUpResponse(Map<String, dynamic> res) {
     return CognitoSignUpResult(isSignUpComplete: res["isSignUpComplete"], nextStep: AuthNextSignUpStep(
       signUpStep: res["nextStep"]["signUpStep"],
@@ -207,6 +226,17 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
       additionalInfo: res["nextStep"]["additionalInfo"] is String ? jsonDecode(res["nextStep"]["additionalInfo"]) : {}
     ));
+  }
+
+  AuthSession _formatSessionResponse(Map<String, dynamic> res) {
+
+    AWSCredentials credentials = AWSCredentials.init(creds: res["credentials"]);
+    AWSCognitoUserPoolTokens tokens = AWSCognitoUserPoolTokens.init(tokens: res["tokens"]);
+    return CognitoAuthSession(
+      isSignedIn: res["isSignedIn"], 
+      credentials: credentials,
+      userPoolTokens: tokens,
+    );
   }
 
   void _throwError(PlatformException e) {

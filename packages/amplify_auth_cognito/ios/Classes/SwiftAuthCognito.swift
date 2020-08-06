@@ -20,6 +20,9 @@ import AmplifyPlugins
 import AWSCore
 
 public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
+    
+    private var authEventSink: FlutterEventSink?
+    
     public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
         _ = Amplify.Hub.listen(to: .auth) { payload in
           switch payload.eventName {
@@ -43,9 +46,6 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
         self.authEventSink = nil
         return nil
     }
-    
-
-  private var authEventSink: FlutterEventSink?
         
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "com.amazonaws.amplify/auth_cognito", binaryMessenger: registrar.messenger())

@@ -13,17 +13,16 @@
  * permissions and limitations under the License.
  */
 
-var authErrorTypes = [
-  "AMPLIFY_CHANGE_PASSWORD_FAILED",
-  "AMPLIFY_CONFIRM_SIGNIN_FAILED",
-  "AMPLIFY_CONFIRM_SIGNUP_FAILED",
-  "AMPLIFY_CONFIRM_PASSWORD_FAILED",
-  "AMPLIFY_SIGNIN_FAILED",
-  "AMPLIFY_SIGNOUT_FAILED",
-  "AMPLIFY_SIGNUP_FAILED",
-  "AMPLIFY_RESET_PASSWORD_FAILED"
-  "AMPLIFY_REQUEST_MALFORMED",
-  "AMPLIFY_FETCH_SESSION_FAILED",
-  "ERROR_CASTING_INPUT_IN_PLATFORM_CODE",
-  "PLATFORM_EXCEPTIONS"
-];
+import './AuthSessionOptions.dart';
+
+class AuthSessionRequest {
+  AuthSessionOptions options;
+  AuthSessionRequest({this.options});
+  Map<String, dynamic> serializeAsMap() {
+    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
+    if (options != null) {
+      pendingRequest['options'] = options;
+    }
+    return pendingRequest;
+  }
+}
