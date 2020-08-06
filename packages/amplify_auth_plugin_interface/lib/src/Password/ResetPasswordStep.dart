@@ -13,16 +13,10 @@
  * permissions and limitations under the License.
  */
 
-var authErrorTypes = [
-  "AMPLIFY_CHANGE_PASSWORD_FAILED",
-  "AMPLIFY_CONFIRM_SIGNIN_FAILED",
-  "AMPLIFY_CONFIRM_SIGNUP_FAILED",
-  "AMPLIFY_CONFIRM_PASSWORD_FAILED",
-  "AMPLIFY_SIGNIN_FAILED",
-  "AMPLIFY_SIGNOUT_FAILED",
-  "AMPLIFY_SIGNUP_FAILED",
-  "AMPLIFY_RESET_PASSWORD_FAILED"
-  "AMPLIFY_REQUEST_MALFORMED",
-  "ERROR_CASTING_INPUT_IN_PLATFORM_CODE",
-  "PLATFORM_EXCEPTIONS"
-];
+import 'package:flutter/foundation.dart';
+import '../types/AuthNextStep.dart';
+
+class ResetPasswordStep extends AuthNextStep {
+  String updateStep;
+  ResetPasswordStep({additionalInfo, @required codeDeliveryDetails, @required this.updateStep}) : super(additionalInfo: additionalInfo, codeDeliveryDetails: codeDeliveryDetails);
+}

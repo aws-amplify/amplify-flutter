@@ -13,16 +13,16 @@
  * permissions and limitations under the License.
  */
 
-var authErrorTypes = [
-  "AMPLIFY_CHANGE_PASSWORD_FAILED",
-  "AMPLIFY_CONFIRM_SIGNIN_FAILED",
-  "AMPLIFY_CONFIRM_SIGNUP_FAILED",
-  "AMPLIFY_CONFIRM_PASSWORD_FAILED",
-  "AMPLIFY_SIGNIN_FAILED",
-  "AMPLIFY_SIGNOUT_FAILED",
-  "AMPLIFY_SIGNUP_FAILED",
-  "AMPLIFY_RESET_PASSWORD_FAILED"
-  "AMPLIFY_REQUEST_MALFORMED",
-  "ERROR_CASTING_INPUT_IN_PLATFORM_CODE",
-  "PLATFORM_EXCEPTIONS"
-];
+import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
+
+class CognitoChangePasswordOptions extends PasswordOptions {
+  Map<String, String> clientMetadata;
+  CognitoChangePasswordOptions({this.clientMetadata}) : super();
+  Map<String, dynamic> serializeAsMap() {
+    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
+    if (this.clientMetadata != null) {
+      pendingRequest["clientMetadata"] = clientMetadata;
+    }
+    return pendingRequest;
+  }
+} 

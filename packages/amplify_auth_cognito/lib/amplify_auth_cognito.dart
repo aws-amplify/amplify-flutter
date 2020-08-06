@@ -20,7 +20,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import './method_channel_auth_cognito.dart';
-
+import './event_channel_auth_cognito.dart';
 
 export './src/types.dart';
 export 'package:amplify_auth_plugin_interface/src/types.dart';
@@ -33,6 +33,7 @@ class AmplifyAuthCognito extends AuthPluginInterface {
   AmplifyAuthCognito() : super(token: _token);
 
   static AmplifyAuthCognito _instance = AmplifyAuthCognitoMethodChannel();
+  var events = AmplifyAuthCognitoEventChannel();
 
   static set instance(AuthPluginInterface instance) {
     PlatformInterface.verifyToken(instance, _token);
@@ -62,6 +63,21 @@ class AmplifyAuthCognito extends AuthPluginInterface {
   Future<SignOutResult> signOut({@required SignOutRequest request}) async {
     var res = await _instance.signOut(request: request);
     return res;
+  }
+
+ Future<ChangePasswordResult> changePassword({ChangePasswordRequest request}) async {
+    var res = await _instance.changePassword(request: request);
+    return res; 
+  }
+
+  Future<ResetPasswordResult> resetPassword({ResetPasswordRequest request}) async {
+    var res = await _instance.resetPassword(request: request);
+    return res; 
+  }
+
+  Future<ChangePasswordResult> confirmPassword({ConfirmPasswordRequest request}) async {
+    var res = await _instance.confirmPassword(request: request);
+    return res; 
   }
  
 }

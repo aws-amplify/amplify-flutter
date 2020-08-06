@@ -43,4 +43,16 @@ class AuthCategory {
     /// call `signUp` on all the plugins
     return plugins[0].signOut(request: request);
   }
+
+  Future<ChangePasswordResult> changePassword({ChangePasswordRequest request}) {
+    return plugins[0].changePassword(request: request);
+  }
+
+  Future<ResetPasswordResult> resetPassword({ResetPasswordRequest request}) {
+    return plugins[0].resetPassword(request: request);
+  }
+
+  Future<ChangePasswordResult> confirmPassword({ConfirmPasswordRequest request}) {
+    return plugins[0].confirmPassword(request: request);
+  }
 }
