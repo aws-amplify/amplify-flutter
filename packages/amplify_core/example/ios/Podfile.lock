@@ -29,7 +29,6 @@ PODS:
   - Flutter (1.0.0)
 
 DEPENDENCIES:
-  - Amplify
   - amplify_core (from `.symlinks/plugins/amplify_core/ios`)
   - Flutter (from `Flutter`)
 
@@ -52,7 +51,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Amplify: 8df04e515e756c0d3fe6e7652c69d46110bb74a7
-  amplify_core: 0bd8bcd4447df557160f352dadb9b4afd394e782
+  amplify_core: 2a2f529ae93d03692c969215daffd6d4bda54b9b
   AmplifyPlugins: 75e82bfc1e2d9fb2f1ea30c037190c3fd611d39e
   AWSAuthCore: 135ff7620051fd35d1d6a0da23c0613598cbc6a3
   AWSCognitoIdentityProvider: 94290a6f8603e05542b4f8ef3d92dae85ff86706
@@ -62,6 +61,6 @@ SPEC CHECKSUMS:
   AWSPluginsCore: 37ee45209a3251502893504072a6c4fc0af6f6e4
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
 
-PODFILE CHECKSUM: dafbdf460045b83a5d504a850e7e627aebb800b6
+PODFILE CHECKSUM: 03ca1bf1c64dc8b19c6e4677c8bd060771e18859
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.8.4

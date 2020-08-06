@@ -1,14 +1,15 @@
+//TODO: Change this name to amplify_core_plugin_interface
 library amplify_flutter_platform_interface;
 
 import 'dart:async';
+import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 import 'package:flutter/services.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 part 'method_channel_amplify.dart';
 
 /// category parts
-
-
+part 'amplify_storage_category.dart';
 
 abstract class Core extends PlatformInterface {
   /// Constructs a AmplifyPlatform.

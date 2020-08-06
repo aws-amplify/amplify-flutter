@@ -13,6 +13,8 @@ dependencies:
     sdk: flutter
   amplify_core_plugin_interface:
     path: ../amplify_core_plugin_interface
+  amplify_storage_plugin_interface:
+    path: ../amplify_storage_plugin_interface
 
 dev_dependencies:
   flutter_test:

@@ -1,0 +1,66 @@
+//
+//  FlutterUploadFileRequest.swift
+//  Amplify
+//
+//  Created by nanda, ashish on 8/6/20.
+//
+
+import Foundation
+import Amplify
+
+struct FlutterUploadFileRequest {
+    var key: String
+    var file: URL
+    var options: StorageUploadFileRequest.Options? = nil
+    init(request: Dictionary<String, AnyObject>) {
+        self.key = request["key"] as! String
+        
+        self.file = NSURL(fileURLWithPath: request["path"] as! String) as URL
+        
+        self.options = setOptions(request: request)
+    }
+    
+    static func isValid(request: Dictionary<String, AnyObject>) -> Bool {
+        var valid: Bool = true;
+        if(!(request["key"] != nil && request["key"] is String)){
+            valid = false
+        }
+        if(!(request["key"] != nil && request["key"] is String)){
+            valid = false
+        }
+        return valid
+        
+    }
+    
+    private func setOptions(request: Dictionary<String, AnyObject>) -> StorageUploadFileRequest.Options? {
+        
+        if(request["options"] != nil) {
+            let requestOptions = request["options"] as! Dictionary<String, AnyObject>
+            //Default options
+            var accessLevel = StorageAccessLevel.guest
+            var targetIdentityId: String? = nil
+            var metadata: [String: String]? = nil
+            var contentType: String? = nil
+            
+            for(key,value) in requestOptions {
+                switch key {
+                case "accessLevel":
+                    accessLevel = StorageAccessLevel(rawValue: value as! String) ?? accessLevel
+                case "targetIdentityId":
+                    targetIdentityId = value as? String
+                case "metadata":
+                    metadata = value as? [String: String]
+                case "contentType":
+                    contentType = value as? String
+                default:
+                    print("Received unexpected option: \(key)")
+                    
+                }
+            
+            }
+            return StorageUploadFileRequest.Options(accessLevel: accessLevel, targetIdentityId: targetIdentityId, metadata: metadata, contentType: contentType)
+        }
+        return nil
+    }
+    
+}
