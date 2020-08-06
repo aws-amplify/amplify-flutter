@@ -25,6 +25,14 @@ data class FlutterSignInRequest(val map: HashMap<String, *>) {
       var valid: Boolean = true;
       if (req == null || req !is HashMap<String, *>) {
         valid = false;
+      } else {
+        // username and password are optional if options are passed for clientmetadata auth flows
+        if (
+          (req["username"]  == null || req["password"] == null) &&
+          (req["options"] == null || (req["options"] as HashMap<String, *>).size < 1 )
+        ){
+          valid = false;
+        }
       }
       return valid;
     }

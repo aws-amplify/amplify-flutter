@@ -15,7 +15,7 @@
 
 import 'package:flutter/foundation.dart';
 
- class SignUpOptions {
+class SignUpOptions {
   final Map<String, dynamic> userAttributes;
   const SignUpOptions({@required this.userAttributes});
 

@@ -81,73 +81,37 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     }
   }
 
+  private fun checkData(@NonNull args: HashMap<String, Any>): HashMap<String, Any> {
+    if (args["data"] !is HashMap<*, *>) {
+      throw java.lang.Exception("Flutter method call arguments.data is not a map.")
+    }
+    return args["data"] as HashMap<String, Any>
+  };
+
+  private fun checkArguments(@NonNull args: Any): HashMap<String, Any> {
+    if (args !is HashMap<*, *>) {
+      throw java.lang.Exception("Flutter method call arguments are not a map.")
+    }
+    return args as HashMap<String, Any>
+  };
+
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
+    var data : HashMap<String, Any> = HashMap<String, Any> ()
+    try {
+      data = checkData(checkArguments(call.arguments));
+    } catch(e: Exception) {
+      prepareError(result, e, FlutterAuthFailureMessage.CASTING.toString())
+    }
+
     when (call.method) {
-      "signUp" ->
-        try {
-          onSignUp(result, (call.arguments as HashMap<String, *>)["data"] as?  HashMap<String, *>)
-        }
-        catch (e: Exception) {
-          prepareError(result, e, FlutterAuthFailureMessage.CASTING.toString() )
-        }
-      "confirmSignUp" ->
-        try {
-          onConfirmSignUp(result, (call.arguments as HashMap<String, String>)["data"] as? HashMap<String, String>)
-        }  catch (e: Exception) {
-          prepareError(result, e, FlutterAuthFailureMessage.CASTING.toString() )
-        }
-      "signIn" ->
-        try {
-          onSignIn(result, (call.arguments as HashMap<String, String>)["data"] as? HashMap<String, String>)
-        } catch (e: Exception) {
-          prepareError(result, e, FlutterAuthFailureMessage.CASTING.toString() )
-        }
-      "confirmSignIn" ->
-        try {
-          onConfirmSignIn(result, (call.arguments as HashMap<String, String>)["data"] as? HashMap<String, String>)
-        } catch (e: Exception) {
-          prepareError(result, e, FlutterAuthFailureMessage.CASTING.toString() )
-        }
-      "signOut" ->
-        try {
-          var args: HashMap<String, String> = hashMapOf<String, String>();
-          if ((call.arguments as HashMap<String, String>)["data"] != null) {
-            args = (call.arguments as HashMap<String, String>)["data"] as HashMap<String, String>
-          }
-          onSignOut(result, args);
-        } catch (e: Exception) {
-          prepareError(result, e, FlutterAuthFailureMessage.CASTING.toString() )
-        }
-      "changePassword" ->
-        try {
-          var args: HashMap<String, String> = hashMapOf<String, String>();
-          if ((call.arguments as HashMap<String, String>)["data"] != null) {
-            args = (call.arguments as HashMap<String, String>)["data"] as HashMap<String, String>
-          }
-          onChangePassword(result, args);
-        } catch (e: Exception) {
-          prepareError(result, e, FlutterAuthFailureMessage.CASTING.toString() )
-        }
-      "resetPassword" ->
-        try {
-          var args: HashMap<String, String> = hashMapOf<String, String>();
-          if ((call.arguments as HashMap<String, String>)["data"] != null) {
-            args = (call.arguments as HashMap<String, String>)["data"] as HashMap<String, String>
-          }
-          onResetPassword(result, args);
-        } catch (e: Exception) {
-          prepareError(result, e, FlutterAuthFailureMessage.CASTING.toString() )
-        }
-      "confirmPassword" ->
-        try {
-          var args: HashMap<String, String> = hashMapOf<String, String>();
-          if ((call.arguments as HashMap<String, String>)["data"] != null) {
-            args = (call.arguments as HashMap<String, String>)["data"] as HashMap<String, String>
-          }
-          onConfirmPassword(result, args);
-        } catch (e: Exception) {
-          prepareError(result, e, FlutterAuthFailureMessage.CASTING.toString() )
-        }
+      "signUp" -> onSignUp(result, data)
+      "confirmSignUp" -> onConfirmSignUp(result, data)
+      "signIn" -> onSignIn(result, data)
+      "confirmSignIn" -> onConfirmSignIn(result, data)
+      "signOut" ->  onSignOut(result, data);
+      "changePassword" -> onChangePassword(result, data);
+      "resetPassword" -> onResetPassword(result, data);
+      "confirmPassword" -> onConfirmPassword(result, data);
         else -> result.notImplemented()
       }
     }
@@ -211,7 +175,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     channel.setMethodCallHandler(null)
   }
 
-   fun onSignUp (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>?) {
+   fun onSignUp (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
     if (FlutterSignUpRequest.validate(request)) {
 
       var req = FlutterSignUpRequest(request as HashMap<String, *>);
@@ -231,7 +195,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     }
   }
 
-  private fun onConfirmSignUp(@NonNull flutterResult: Result, @NonNull request:  HashMap<String, *>?){
+  private fun onConfirmSignUp(@NonNull flutterResult: Result, @NonNull request:  HashMap<String, *>){
     if (FlutterConfirmSignUpRequest.validate(request)) {
       var req = FlutterConfirmSignUpRequest(request as HashMap<String, *>);
       try {
@@ -249,7 +213,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     }
   }
 
-  private fun onSignIn (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>?) {
+  private fun onSignIn (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
     if (FlutterSignInRequest.validate(request)) {
       var req = FlutterSignInRequest(request as HashMap<String, *>)
       try {
@@ -263,11 +227,11 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
         prepareError(flutterResult, e, FlutterAuthFailureMessage.SIGNIN.toString())
       }
     } else {
-      prepareError(flutterResult, java.lang.Exception(FlutterAuthFailureMessage.MALFORMED.toString()), FlutterAuthFailureMessage.MALFORMED.toString())
+      prepareError(flutterResult, java.lang.Exception("Amplify SignIn request is malformed"), FlutterAuthFailureMessage.MALFORMED.toString())
     }
   }
 
-  private fun onConfirmSignIn (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>?) {
+  private fun onConfirmSignIn (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
     if (FlutterConfirmSignInRequest.validate(request)) {
       var req = FlutterConfirmSignInRequest(request as HashMap<String, *>)
       try {
@@ -378,6 +342,10 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
         is AmazonServiceException -> errorMap.put("AMAZON_SERVICE_EXCEPTION", (error.cause as AmazonServiceException).localizedMessage)
         else -> errorMap.put("UNKNOWN", "Unknown Auth Error.")
       }
+    } else {
+      when(error.message) {
+        else -> errorMap.put("UNKNOWN", "Unknown Auth Error.")
+      }
     }
 
     var localizedError: String = "";
@@ -390,7 +358,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     }
     errorMap.put("PLATFORM_EXCEPTIONS" , mapOf(
       "platform" to "Android",
-      "localizedError" to localizedError,
+      "localizedErrorMessage" to localizedError,
       "recoverySuggestion" to recoverySuggestion,
       "errorString" to error.toString()
     ))

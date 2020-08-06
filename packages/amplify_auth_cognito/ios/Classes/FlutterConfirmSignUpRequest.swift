@@ -15,11 +15,11 @@
 
 import Foundation
 struct FlutterConfirmSignUpRequest {
-  var username: String?
-  var confirmationCode: String?
+  var username: String
+  var confirmationCode: String
   init(dict: NSMutableDictionary){
-    self.username = dict["userKey"] as! String?
-    self.confirmationCode = dict["confirmationCode"] as! String?
+    self.username = dict["userKey"] as! String
+    self.confirmationCode = dict["confirmationCode"] as! String
   }
   static func validate(dict: NSMutableDictionary) -> Bool {
     var valid: Bool = true;

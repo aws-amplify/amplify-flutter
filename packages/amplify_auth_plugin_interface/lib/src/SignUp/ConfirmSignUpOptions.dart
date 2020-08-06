@@ -13,9 +13,9 @@
  * permissions and limitations under the License.
  */
 
-class ConfirmSignUpOptions {
+abstract class ConfirmSignUpOptions {
   const ConfirmSignUpOptions();
   Map<String, dynamic> serializeAsMap() {
-    throw UnimplementedError('serializeAsMap() has not been implemented on SignUpOptions.');
+    throw UnimplementedError('serializeAsMap() has not been implemented on ConfirmSignUpOptions.');
   }
 }

@@ -178,7 +178,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   }
 
   SignUpResult _formatSignUpResponse(Map<String, dynamic> res) {
-    return CognitoSignUpResult( isSignUpComplete: res["isSignUpComplete"], nextStep: AuthNextSignUpStep(
+    return CognitoSignUpResult(isSignUpComplete: res["isSignUpComplete"], nextStep: AuthNextSignUpStep(
       signUpStep: res["nextStep"]["signUpStep"],
       codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
       additionalInfo: res["nextStep"]["additionalInfo"] is String ? jsonDecode(res["nextStep"]["additionalInfo"]) : {}
@@ -186,7 +186,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   }
 
   SignInResult _formatSignInResponse(Map<String, dynamic> res) {
-    return CognitoSignInResult( isSignedIn: res["isSignedIn"], nextStep: AuthNextSignInStep(
+    return CognitoSignInResult(isSignedIn: res["isSignedIn"], nextStep: AuthNextSignInStep(
       signInStep: res["nextStep"]["signInStep"],
       codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
       additionalInfo: res["nextStep"]["additionalInfo"] is String ? jsonDecode(res["nextStep"]["additionalInfo"]) : {}
