@@ -234,7 +234,7 @@ class _MyAppState extends State<MyApp> {
         ), 
       );
       setState(() {
-        displayState = 'SHOW_APP';
+        displayState = 'SIGNED_IN';
       });
     } on AuthError catch (e) {
       setState(() {

@@ -284,19 +284,19 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
               let errorCode = error != nil ? "\(error!)" : "invalidState"
               var errorMap: [String: Any] = formatErrorMap(errorCode: errorCode, localizedError: localizedError)
               errorMap["PLATFORM_EXCEPTIONS"] = platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-              prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.RESET_PASSWORD.rawValue, errorMap: errorMap)
+              prepareError(flutterResult: flutterResult,  msg: msg, errorMap: errorMap)
         }
         if case .notAuthorized(let localizedError,  let recoverySuggestion, let error) = error {
               let errorCode = error != nil ? "\(error!)" : "notAuthorized"
               var errorMap: [String: Any] = formatErrorMap(errorCode: errorCode, localizedError: localizedError)
               errorMap["PLATFORM_EXCEPTIONS"] = platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-              prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.RESET_PASSWORD.rawValue, errorMap: errorMap)
+              prepareError(flutterResult: flutterResult,  msg: msg, errorMap: errorMap)
         }
         if case .validation(_, let localizedError, let recoverySuggestion, let error) = error {
               let errorCode = error != nil ? "\(error!)" : "validation"
               var errorMap: [String: Any] = formatErrorMap(errorCode: errorCode, localizedError: localizedError)
               errorMap["PLATFORM_EXCEPTIONS"] = platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-              prepareError(flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.RESET_PASSWORD.rawValue, errorMap: errorMap)
+              prepareError(flutterResult: flutterResult,  msg: msg, errorMap: errorMap)
         }
     }
 
