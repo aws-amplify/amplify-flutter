@@ -259,7 +259,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     }
   }
 
-  private fun onChangePassword (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
+  private fun onChangePassword (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>?) {
     if (FlutterChangePasswordRequest.validate(request)) {
       var req = FlutterChangePasswordRequest(request as HashMap<String, *>)
       try {

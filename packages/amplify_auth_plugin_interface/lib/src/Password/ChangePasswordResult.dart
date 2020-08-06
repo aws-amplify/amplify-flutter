@@ -17,3 +17,4 @@
 class ChangePasswordResult { 
   ChangePasswordResult() {}
 } 
+
