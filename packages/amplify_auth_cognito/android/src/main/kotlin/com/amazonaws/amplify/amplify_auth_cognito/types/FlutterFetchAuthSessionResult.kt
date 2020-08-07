@@ -25,7 +25,8 @@ import com.google.gson.Gson
 
 data class FlutterFetchAuthSessionResult(private val raw: AWSCognitoAuthSession) {
   val isSignedIn: Boolean = raw.isSignedIn;
-
+  val identityId: String = raw.identityId.value as String;
+  val userSub: String = raw.userSub.value as String;
   val credentials: AuthSessionResult<AWSCredentials> = raw.awsCredentials
   val tokens: AuthSessionResult<AWSCognitoUserPoolTokens> = raw.userPoolTokens
 

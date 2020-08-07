@@ -21,5 +21,7 @@ import './AWSCredentials.dart';
 class CognitoAuthSession extends AuthSession {
   AWSCredentials credentials;
   AWSCognitoUserPoolTokens userPoolTokens;
-  CognitoAuthSession({@required isSignedIn, this.credentials, this.userPoolTokens}) : super(isSignedIn: isSignedIn);
+  String userSub;
+  String identityId;
+  CognitoAuthSession({@required isSignedIn, this.credentials, this.userPoolTokens, this.userSub, this.identityId}) : super(isSignedIn: isSignedIn);
 }

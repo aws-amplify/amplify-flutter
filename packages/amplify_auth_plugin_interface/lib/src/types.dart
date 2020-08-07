@@ -51,6 +51,7 @@ export 'Session/AuthSessionRequest.dart';
 // Error Classes
 export 'Errors/AuthError.dart';
 export 'Errors/AuthErrorTypes.dart';
+export 'Errors/AmplifyDartExceptions.dart';
 
 // Utility Classes
 export 'types/AuthCodeDeliveryDetails.dart';

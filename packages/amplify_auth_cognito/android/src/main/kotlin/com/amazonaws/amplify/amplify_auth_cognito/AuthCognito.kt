@@ -339,30 +339,37 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
   private fun prepareError(@NonNull flutterResult: Result, @NonNull error: Exception, @NonNull msg: String) {
     var errorMap: HashMap<String, Any> = HashMap();
     if (error is AuthException) {
-      when (error.cause) {
-        is InvalidParameterException -> errorMap.put("INVALID_PARAMETER", (error.cause as InvalidParameterException).errorMessage)
-        is UsernameExistsException -> errorMap.put("USERNAME_EXISTS", (error.cause as UsernameExistsException).errorMessage)
-        is AliasExistsException -> errorMap.put("ALIAS_EXISTS", (error.cause as AliasExistsException).errorMessage)
-        is CodeDeliveryFailureException -> errorMap.put("CODE_DELIVERY_FAILURE", (error.cause as CodeDeliveryFailureException).errorMessage)
-        is CodeMismatchException -> errorMap.put("CODE_MISMATCH", (error.cause as CodeMismatchException).errorMessage)
-        is CognitoCodeExpiredException -> errorMap.put("CODE_EXPIRED", (error.cause as CognitoCodeExpiredException).localizedMessage)
-        is InternalErrorException -> errorMap.put("INTERNAL_ERROR", (error.cause as InternalErrorException).errorMessage)
-        is InvalidLambdaResponseException -> errorMap.put("INVALID_LAMBDA_RESPONSE", (error.cause as InvalidLambdaResponseException).errorMessage)
-        is InvalidPasswordException -> errorMap.put("INVALID_PASSWORD", (error.cause as InvalidPasswordException).errorMessage)
-        is MFAMethodNotFoundException -> errorMap.put("MFA_METHOD_NOT_FOUND", (error.cause as MFAMethodNotFoundException).errorMessage)
-        is NotAuthorizedException -> errorMap.put("NOT_AUTHORIZED", (error.cause as NotAuthorizedException).errorMessage)
-        is ResourceNotFoundException -> errorMap.put("RESOURCE_NOT_FOUND", (error.cause as ResourceNotFoundException).errorMessage)
-        is SoftwareTokenMFANotFoundException -> errorMap.put("SOFTWARE_TOKEN_MFA_NOT_FOUND", (error.cause as SoftwareTokenMFANotFoundException).errorMessage)
-        is PasswordResetRequiredException -> errorMap.put("PASSWORD_RESET_REQUIRED", (error.cause as PasswordResetRequiredException).errorMessage)
-        is TooManyRequestsException -> errorMap.put("TOO_MANY_REQUESTS", (error.cause as TooManyRequestsException).errorMessage)
-        is UnexpectedLambdaException -> errorMap.put("UNEXPECTED_LAMBDA", (error.cause as UnexpectedLambdaException).errorMessage)
-        is UserLambdaValidationException -> errorMap.put("USER_LAMBDA_VALIDATION", (error.cause as UserLambdaValidationException).errorMessage)
-        is TooManyFailedAttemptsException -> errorMap.put("TOO_MANY_FAILED_REQUESTS", (error.cause as TooManyFailedAttemptsException).errorMessage)
-        is UserNotConfirmedException -> errorMap.put("USER_NOT_CONFIRMED", (error.cause as UserNotConfirmedException).errorMessage)
-        is LimitExceededException -> errorMap.put("REQUEST_LIMIT_EXCEEDED", (error.cause as LimitExceededException).errorMessage)
-        is AmazonClientException -> errorMap.put("AMAZON_CLIENT_EXCEPTION", (error.cause as AmazonClientException).localizedMessage)
-        is AmazonServiceException -> errorMap.put("AMAZON_SERVICE_EXCEPTION", (error.cause as AmazonServiceException).localizedMessage)
-        else -> errorMap.put("UNKNOWN", "Unknown Auth Error.")
+      when (error) {
+        is AuthException.SignedOutException -> errorMap["SIGNED_OUT"] = error.localizedMessage
+        is AuthException.SessionExpiredException ->  errorMap["SESSION_EXPIRED"] = error.localizedMessage
+        is AuthException.InvalidAccountTypeException -> errorMap["INVALID_ACCOUNT_TYPE"] = error.localizedMessage
+        is AuthException.SessionUnavailableOfflineException -> errorMap["SESSION_UNAVAILABLE_OFFLINE"] = error.localizedMessage
+        is AuthException.SessionUnavailableServiceException -> errorMap["SESSION_UNAVAILABLE_SERVICE"] = error.localizedMessage
+        else  -> when (error.cause) {
+          is InvalidParameterException -> errorMap.put("INVALID_PARAMETER", (error.cause as InvalidParameterException).errorMessage)
+          is UsernameExistsException -> errorMap.put("USERNAME_EXISTS", (error.cause as UsernameExistsException).errorMessage)
+          is AliasExistsException -> errorMap.put("ALIAS_EXISTS", (error.cause as AliasExistsException).errorMessage)
+          is CodeDeliveryFailureException -> errorMap.put("CODE_DELIVERY_FAILURE", (error.cause as CodeDeliveryFailureException).errorMessage)
+          is CodeMismatchException -> errorMap.put("CODE_MISMATCH", (error.cause as CodeMismatchException).errorMessage)
+          is CognitoCodeExpiredException -> errorMap.put("CODE_EXPIRED", (error.cause as CognitoCodeExpiredException).localizedMessage)
+          is InternalErrorException -> errorMap.put("INTERNAL_ERROR", (error.cause as InternalErrorException).errorMessage)
+          is InvalidLambdaResponseException -> errorMap.put("INVALID_LAMBDA_RESPONSE", (error.cause as InvalidLambdaResponseException).errorMessage)
+          is InvalidPasswordException -> errorMap.put("INVALID_PASSWORD", (error.cause as InvalidPasswordException).errorMessage)
+          is MFAMethodNotFoundException -> errorMap.put("MFA_METHOD_NOT_FOUND", (error.cause as MFAMethodNotFoundException).errorMessage)
+          is NotAuthorizedException -> errorMap.put("NOT_AUTHORIZED", (error.cause as NotAuthorizedException).errorMessage)
+          is ResourceNotFoundException -> errorMap.put("RESOURCE_NOT_FOUND", (error.cause as ResourceNotFoundException).errorMessage)
+          is SoftwareTokenMFANotFoundException -> errorMap.put("SOFTWARE_TOKEN_MFA_NOT_FOUND", (error.cause as SoftwareTokenMFANotFoundException).errorMessage)
+          is PasswordResetRequiredException -> errorMap.put("PASSWORD_RESET_REQUIRED", (error.cause as PasswordResetRequiredException).errorMessage)
+          is TooManyRequestsException -> errorMap.put("TOO_MANY_REQUESTS", (error.cause as TooManyRequestsException).errorMessage)
+          is UnexpectedLambdaException -> errorMap.put("UNEXPECTED_LAMBDA", (error.cause as UnexpectedLambdaException).errorMessage)
+          is UserLambdaValidationException -> errorMap.put("USER_LAMBDA_VALIDATION", (error.cause as UserLambdaValidationException).errorMessage)
+          is TooManyFailedAttemptsException -> errorMap.put("TOO_MANY_FAILED_REQUESTS", (error.cause as TooManyFailedAttemptsException).errorMessage)
+          is UserNotConfirmedException -> errorMap.put("USER_NOT_CONFIRMED", (error.cause as UserNotConfirmedException).errorMessage)
+          is LimitExceededException -> errorMap.put("REQUEST_LIMIT_EXCEEDED", (error.cause as LimitExceededException).errorMessage)
+          is AmazonClientException -> errorMap.put("AMAZON_CLIENT_EXCEPTION", (error.cause as AmazonClientException).localizedMessage)
+          is AmazonServiceException -> errorMap.put("AMAZON_SERVICE_EXCEPTION", (error.cause as AmazonServiceException).localizedMessage)
+          else -> errorMap.put("UNKNOWN", "Unknown Auth Error.")
+        }
       }
     } else {
       when(error.message) {

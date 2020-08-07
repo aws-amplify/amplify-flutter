@@ -84,7 +84,6 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
     } catch {
         return self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: "validation"))
     }
-
     switch call.method {
       case "signUp":
         if (FlutterSignUpRequest.validate(dict: data)) {
@@ -253,6 +252,18 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
         }
       }
     }
+    
+    private func onFetchSession(flutterResult: @escaping FlutterResult, request: FlutterFetchSessionRequest) {
+      _ = Amplify.Auth.fetchAuthSession { result in
+        do {
+          let sessionData = try FlutterFetchSessionResult(res: result)
+          flutterResult(sessionData.toJSON())
+        } catch {
+            self.handleAuthError(error: error as! AuthError, flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.FETCH_SESSION.rawValue)
+        }
+      }
+    }
+    
     private func handleAuthError(error: AuthError, flutterResult: FlutterResult, msg: String){
         if case .service( let localizedError, let recoverySuggestion, let error) = error {
           let errorCode = error != nil ? "\(error!)" : "unknown"
@@ -289,6 +300,18 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
               var errorMap: [String: Any] = formatErrorMap(errorCode: errorCode, localizedError: localizedError)
               errorMap["PLATFORM_EXCEPTIONS"] = platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
               prepareError(flutterResult: flutterResult,  msg: msg, errorMap: errorMap)
+        }
+        if case .signedOut(let localizedError, let recoverySuggestion, let error) = error {
+             let errorCode = error != nil ? "\(error!)" : "signedOut"
+             var errorMap: [String: Any] = formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+             errorMap["PLATFORM_EXCEPTIONS"] = platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+             prepareError(flutterResult: flutterResult,  msg: msg, errorMap: errorMap)
+        }
+        if case .sessionExpired(let localizedError, let recoverySuggestion, let error) = error {
+             let errorCode = error != nil ? "\(error!)" : "sessionExpired"
+             var errorMap: [String: Any] = formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+             errorMap["PLATFORM_EXCEPTIONS"] = platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+             prepareError(flutterResult: flutterResult,  msg: msg, errorMap: errorMap)
         }
     }
 

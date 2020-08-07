@@ -14,7 +14,7 @@
  */
 
 import 'dart:collection';
-
+import 'dart:io' show Platform;
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:flutter/material.dart';
 
@@ -23,8 +23,18 @@ class AWSCredentials {
   String awsSecretKey;
   String sessionToken;
   AWSCredentials.init({@required LinkedHashMap<dynamic, dynamic> creds}) {
-    this.awsAccessKey = creds["awsAccessKey"];
-    this.awsSecretKey = creds["awsSecretKey"];
-    this.sessionToken = creds["sessionTokey"];
+    var realCreds;
+    if (Platform.isAndroid) {
+      if (creds.containsKey("value")) {
+        realCreds = creds["value"];
+      } else {
+        throw(AmplifyDartExceptions.formatException(methodName: "fetchAuthSession", field: "credentials"));
+      }
+    } else {
+      realCreds = creds;
+    }
+    this.awsAccessKey = realCreds["awsAccessKey"];
+    this.awsSecretKey = realCreds["awsSecretKey"];
+    this.sessionToken = realCreds["sessionToken"];
   }
 }
