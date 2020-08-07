@@ -71,7 +71,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       await _channel.invokeMapMethod<String, dynamic>(
         'signIn',
         <String, dynamic>{
-          'data': request.serializeAsMap(),
+          // 'data': request.serializeAsMap(),
         },
       );
       res = _formatSignInResponse(data, "signIn");

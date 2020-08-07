@@ -84,6 +84,10 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
     } catch {
         return self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: "validation"))
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> more cr suggestions
     switch call.method {
       case "signUp":
         if (FlutterSignUpRequest.validate(dict: data)) {
@@ -128,7 +132,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
           let errorCode = "UNKNOWN"
             self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
         }
-        case "resetPassword":
+      case "resetPassword":
           if (FlutterResetPasswordRequest.validate(dict: data)) {
             let request = FlutterResetPasswordRequest(dict: data)
             onResetPassword(flutterResult: result, request: request)
@@ -144,6 +148,9 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
             let errorCode = "UNKNOWN"
               self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
           }
+        case "fetchAuthSession":
+            let request = FlutterFetchSessionRequest()
+            onFetchSession(flutterResult: result, request: request)
         default:
           result(FlutterMethodNotImplemented)
     }
