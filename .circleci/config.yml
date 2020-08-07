@@ -27,7 +27,7 @@ commands:
             echo 'export FLUTTER_HOME=${HOME}/sdks/flutter' >> $BASH_ENV
             echo 'export FLUTTER_VERSION=<< parameters.flutter_version >>' >> $BASH_ENV
             echo 'export FLUTTER_ROOT=${FLUTTER_HOME}' >> $BASH_ENV
-            echo 'export PATH=${PATH}:${FLUTTER_HOME}/bin:${FLUTTER_HOME}/bin/cache/dart-sdk/bin:${HOME}/.pub-cache/bin' >> $BASH_ENV
+            echo 'export PATH=${PATH}:${FLUTTER_HOME}/bin:${FLUTTER_HOME}/bin/cache/dart-sdk/bin:${HOME}/.pub-cache/bin:${FLUTTER_HOME}/.pub-cache/bin' >> $BASH_ENV
             source $BASH_ENV
             git clone --branch ${FLUTTER_VERSION} https://github.com/flutter/flutter.git ${FLUTTER_HOME}
             (yes || true) | flutter doctor --android-licenses && flutter doctor
@@ -39,8 +39,21 @@ jobs:
       - install_flutter
       - checkout
       - run:
+          name: Install junitreport for JUnit XML reports
+          command: flutter pub global activate junitreport
+      - run:
           name: Run Flutter Unit Tests
           command: . .circleci/test_all_plugins.sh flutter-test
+      - run:
+          name: Save test results
+          command: |
+            mkdir -p ~/test-results/junit/
+            find . -type f -regex "\./packages/.*/test-results/.*-flutter-test\.xml" -exec cp {} ~/test-results/junit/ \;
+          when: always
+      - store_test_results:
+          path: ~/test-results
+      - store_artifacts:
+          path: ~/test-results/junit
 
   unit_test_ios:
     executor: macos-executor
@@ -48,8 +61,22 @@ jobs:
       - install_flutter
       - checkout
       - run:
+          name: Pre-start iOS simulator
+          # xcrun instruments returns non zero, but successfully starts the simulator
+          command: xcrun instruments -w "iPhone 11 (13.6) [" || true
+      - run:
           name: Run iOS Unit Tests
           command: . .circleci/test_all_plugins.sh ios-test
+      - run:
+          name: Save test results
+          command: |
+            mkdir -p ~/test-results/junit/
+            find . -type f -regex "\./packages/.*/example/ios/test-results/.*-xcodebuild-test\.xml" -exec cp {} ~/test-results/junit/ \;
+          when: always
+      - store_test_results:
+          path: ~/test-results
+      - store_artifacts:
+          path: ~/test-results/junit
 
   unit_test_android:
     executor: docker-executor
@@ -59,6 +86,16 @@ jobs:
       - run:
           name: Run Android Unit Tests
           command: . .circleci/test_all_plugins.sh android-test
+      - run:
+          name: Save test results
+          command: |
+            mkdir -p ~/test-results/junit/
+            find . -type f -regex "\./packages/.*/example/build/.*/test-results/.*\.xml" -exec cp {} ~/test-results/junit/ \;
+          when: always
+      - store_test_results:
+          path: ~/test-results
+      - store_artifacts:
+          path: ~/test-results/junit
 
 releasable_branches: &releasable_branches
   branches:
