@@ -16,8 +16,8 @@ commands:
     description:
       Install Flutter and set up paths.
     parameters:
-      flutter_version:
-        description: Flutter version
+      flutter_branch:
+        description: Flutter branch or version tag.
         type: string
         default: stable
     steps:
@@ -25,11 +25,11 @@ commands:
           name: Set up Flutter
           command: |
             echo 'export FLUTTER_HOME=${HOME}/sdks/flutter' >> $BASH_ENV
-            echo 'export FLUTTER_VERSION=<< parameters.flutter_version >>' >> $BASH_ENV
+            echo 'export FLUTTER_BRANCH=<< parameters.flutter_branch >>' >> $BASH_ENV
             echo 'export FLUTTER_ROOT=${FLUTTER_HOME}' >> $BASH_ENV
             echo 'export PATH=${PATH}:${FLUTTER_HOME}/bin:${FLUTTER_HOME}/bin/cache/dart-sdk/bin:${HOME}/.pub-cache/bin:${FLUTTER_HOME}/.pub-cache/bin' >> $BASH_ENV
             source $BASH_ENV
-            git clone --branch ${FLUTTER_VERSION} https://github.com/flutter/flutter.git ${FLUTTER_HOME}
+            git clone --branch ${FLUTTER_BRANCH} https://github.com/flutter/flutter.git ${FLUTTER_HOME}
             (yes || true) | flutter doctor --android-licenses && flutter doctor
 
 jobs:
@@ -58,7 +58,8 @@ jobs:
   unit_test_ios:
     executor: macos-executor
     steps:
-      - install_flutter
+      - install_flutter:
+          flutter_branch: 1.17.5
       - checkout
       - run:
           name: Pre-start iOS simulator
