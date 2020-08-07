@@ -200,7 +200,7 @@ class _MyAppState extends State<MyApp> {
       exceptions = [];
     });
     try {
-      Amplify.Auth.signOut(
+      await Amplify.Auth.signOut(
         request: SignOutRequest(
           options: CognitoSignOutOptions(
             globalSignOut: true

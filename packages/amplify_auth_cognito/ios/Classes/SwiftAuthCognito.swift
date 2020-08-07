@@ -76,80 +76,77 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
   }
     
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-    var cast: Bool = true;
     var arguments: Dictionary<String, AnyObject> = [:]
     var data: NSMutableDictionary = [:]
     do {
         try arguments = checkArguments(args: call.arguments as Any)
         try data = checkData(args: arguments)
     } catch {
-        cast = false;
-        self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: "validation"))
+        return self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: "validation"))
     }
-    if (cast) {
-        switch call.method {
-          case "signUp":
-            if (FlutterSignUpRequest.validate(dict: data)) {
-              let request = FlutterSignUpRequest(dict: data)
-              onSignUp(flutterResult: result, request: request)
-            } else {
-              let errorCode = "UNKNOWN"
-                self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
-            }
-          case "confirmSignUp":
-            if (FlutterConfirmSignUpRequest.validate(dict: data)) {
-              let  request = FlutterConfirmSignUpRequest(dict: data)
-              onConfirmSignUp(flutterResult: result, request: request)
-            } else {
-              let errorCode = "UNKNOWN"
-                self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
-            }
-          case "signIn":
-            if (FlutterSignInRequest.validate(dict: data)) {
-              let  request = FlutterSignInRequest(dict: data)
-              onSignIn(flutterResult: result, request: request)
-            } else {
-              let errorCode = "UNKNOWN"
-                self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
-            }
-          case "confirmSignIn":
-            if (FlutterConfirmSignInRequest.validate(dict: data)) {
-              let  request = FlutterConfirmSignInRequest(dict: data)
-              onConfirmSignIn(flutterResult: result, request: request)
-            } else {
-              let errorCode = "UNKNOWN"
-                self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
-            }
-          case "signOut":
-            let request = FlutterSignOutRequest(dict: data)
-            onSignOut(flutterResult: result, request: request)
-          case "changePassword":
-            if (FlutterChangePasswordRequest.validate(dict: data)) {
-              let  request = FlutterChangePasswordRequest(dict: data)
-              onChangePassword(flutterResult: result, request: request)
-            } else {
-              let errorCode = "UNKNOWN"
-                self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
-            }
-            case "resetPassword":
-              if (FlutterResetPasswordRequest.validate(dict: data)) {
-                let request = FlutterResetPasswordRequest(dict: data)
-                onResetPassword(flutterResult: result, request: request)
-              } else {
-                let errorCode = "UNKNOWN"
-                  self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
-              }
-            case "confirmPassword":
-              if (FlutterConfirmPasswordRequest.validate(dict: data)) {
-                let request = FlutterConfirmPasswordRequest(dict: data)
-                onConfirmPassword(flutterResult: result, request: request)
-              } else {
-                let errorCode = "UNKNOWN"
-                  self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
-              }
-            default:
-              result(FlutterMethodNotImplemented)
+
+    switch call.method {
+      case "signUp":
+        if (FlutterSignUpRequest.validate(dict: data)) {
+          let request = FlutterSignUpRequest(dict: data)
+          onSignUp(flutterResult: result, request: request)
+        } else {
+          let errorCode = "UNKNOWN"
+            self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
         }
+      case "confirmSignUp":
+        if (FlutterConfirmSignUpRequest.validate(dict: data)) {
+          let  request = FlutterConfirmSignUpRequest(dict: data)
+          onConfirmSignUp(flutterResult: result, request: request)
+        } else {
+          let errorCode = "UNKNOWN"
+            self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
+        }
+      case "signIn":
+        if (FlutterSignInRequest.validate(dict: data)) {
+          let  request = FlutterSignInRequest(dict: data)
+          onSignIn(flutterResult: result, request: request)
+        } else {
+          let errorCode = "UNKNOWN"
+            self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
+        }
+      case "confirmSignIn":
+        if (FlutterConfirmSignInRequest.validate(dict: data)) {
+          let  request = FlutterConfirmSignInRequest(dict: data)
+          onConfirmSignIn(flutterResult: result, request: request)
+        } else {
+          let errorCode = "UNKNOWN"
+            self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
+        }
+      case "signOut":
+        let request = FlutterSignOutRequest(dict: data)
+        onSignOut(flutterResult: result, request: request)
+      case "changePassword":
+        if (FlutterChangePasswordRequest.validate(dict: data)) {
+          let  request = FlutterChangePasswordRequest(dict: data)
+          onChangePassword(flutterResult: result, request: request)
+        } else {
+          let errorCode = "UNKNOWN"
+            self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
+        }
+        case "resetPassword":
+          if (FlutterResetPasswordRequest.validate(dict: data)) {
+            let request = FlutterResetPasswordRequest(dict: data)
+            onResetPassword(flutterResult: result, request: request)
+          } else {
+            let errorCode = "UNKNOWN"
+              self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
+          }
+        case "confirmPassword":
+          if (FlutterConfirmPasswordRequest.validate(dict: data)) {
+            let request = FlutterConfirmPasswordRequest(dict: data)
+            onConfirmPassword(flutterResult: result, request: request)
+          } else {
+            let errorCode = "UNKNOWN"
+              self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
+          }
+        default:
+          result(FlutterMethodNotImplemented)
     }
   }
 
