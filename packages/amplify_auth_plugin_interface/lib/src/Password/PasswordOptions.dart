@@ -13,16 +13,9 @@
  * permissions and limitations under the License.
  */
 
-var authErrorTypes = [
-  "AMPLIFY_CHANGE_PASSWORD_FAILED",
-  "AMPLIFY_CONFIRM_SIGNIN_FAILED",
-  "AMPLIFY_CONFIRM_SIGNUP_FAILED",
-  "AMPLIFY_CONFIRM_PASSWORD_FAILED",
-  "AMPLIFY_SIGNIN_FAILED",
-  "AMPLIFY_SIGNOUT_FAILED",
-  "AMPLIFY_SIGNUP_FAILED",
-  "AMPLIFY_RESET_PASSWORD_FAILED"
-  "AMPLIFY_REQUEST_MALFORMED",
-  "ERROR_CASTING_INPUT_IN_PLATFORM_CODE",
-  "PLATFORM_EXCEPTIONS"
-];
+abstract class PasswordOptions {
+  const PasswordOptions();
+  Map<String, dynamic> serializeAsMap() {
+    throw UnimplementedError('serializeAsMap() has not been implemented on SignOutOptions.');
+  }
+} 

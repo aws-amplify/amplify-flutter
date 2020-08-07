@@ -15,7 +15,10 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
-data class FlutterConfirmSignInRequest(val map: HashMap<String, *>) {
+data class FlutterConfirmPasswordRequest(val map: HashMap<String, *>) {
+  // Userkey only present because it is a required value for iOS
+  val userKey: String = map["userKey"] as String;
+  val newPassword: String = map["newPassword"] as String;
   val confirmationCode: String = map["confirmationCode"] as String;
   val options: HashMap<String, *>? = map["options"] as HashMap<String, *>?;
 
@@ -24,6 +27,13 @@ data class FlutterConfirmSignInRequest(val map: HashMap<String, *>) {
       var valid: Boolean = true;
       if (req == null || req !is HashMap<String, *>) {
         valid = false;
+      } else if (req != null) {
+        if (!req.containsKey("newPassword")) {
+          valid = false;
+        }
+        if (!req.containsKey("confirmationCode")) {
+          valid = false;
+        }
       }
       return valid;
     }
