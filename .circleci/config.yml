@@ -12,9 +12,9 @@ executors:
     working_directory: ~/amplify-flutter
 
 commands:
-  setup_env_vars:
+  install_flutter:
     description:
-      Set up env vars for Flutter.
+      Install Flutter and set up paths.
     parameters:
       flutter_version:
         description: Flutter version
@@ -22,55 +22,22 @@ commands:
         default: stable
     steps:
       - run:
-          name: Set up env vars
+          name: Set up Flutter
           command: |
             echo 'export FLUTTER_HOME=${HOME}/sdks/flutter' >> $BASH_ENV
             echo 'export FLUTTER_VERSION=<< parameters.flutter_version >>' >> $BASH_ENV
             echo 'export FLUTTER_ROOT=${FLUTTER_HOME}' >> $BASH_ENV
             echo 'export PATH=${PATH}:${FLUTTER_HOME}/bin:${FLUTTER_HOME}/bin/cache/dart-sdk/bin:${HOME}/.pub-cache/bin' >> $BASH_ENV
             source $BASH_ENV
-
-  install_flutter:
-    description:
-      Install Flutter and set up paths.
-    steps:
-      - run:
-          name: Set up Flutter
-          command: |
             git clone --branch ${FLUTTER_VERSION} https://github.com/flutter/flutter.git ${FLUTTER_HOME}
-
-  flutter_doctor:
-    description:
-      Initialize Flutter and run flutter doctor.
-      This should be run after persisting to workspace to avoid caching binaries for Linux.
-    steps:
-      - run:
-          name: Flutter doctor
-          command: |
-            (yes || true) | flutter doctor --android-licenses
-            flutter doctor
+            (yes || true) | flutter doctor --android-licenses && flutter doctor
 
 jobs:
-  checkout_and_setup_flutter:
-    executor: docker-executor
-    steps:
-      - setup_env_vars
-      - install_flutter
-      - checkout
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - sdks/flutter
-            - amplify-flutter
-      - flutter_doctor
-
   unit_test_flutter:
     executor: docker-executor
     steps:
-      - setup_env_vars
-      - attach_workspace:
-          at: ~/
-      - flutter_doctor
+      - install_flutter
+      - checkout
       - run:
           name: Run Flutter Unit Tests
           command: . .circleci/test_all_plugins.sh flutter-test
@@ -78,10 +45,8 @@ jobs:
   unit_test_ios:
     executor: macos-executor
     steps:
-      - setup_env_vars
-      - attach_workspace:
-          at: ~/
-      - flutter_doctor
+      - install_flutter
+      - checkout
       - run:
           name: Run iOS Unit Tests
           command: . .circleci/test_all_plugins.sh ios-test
@@ -89,10 +54,8 @@ jobs:
   unit_test_android:
     executor: docker-executor
     steps:
-      - setup_env_vars
-      - attach_workspace:
-          at: ~/
-      - flutter_doctor
+      - install_flutter
+      - checkout
       - run:
           name: Run Android Unit Tests
           command: . .circleci/test_all_plugins.sh android-test
@@ -106,13 +69,6 @@ releasable_branches: &releasable_branches
 workflows:
   test_deploy:
     jobs:
-      - checkout_and_setup_flutter
-      - unit_test_flutter:
-          requires:
-            - checkout_and_setup_flutter
-      - unit_test_android:
-          requires:
-            - checkout_and_setup_flutter
-      - unit_test_ios:
-          requires:
-            - checkout_and_setup_flutter
+      - unit_test_flutter
+      - unit_test_android
+      - unit_test_ios
