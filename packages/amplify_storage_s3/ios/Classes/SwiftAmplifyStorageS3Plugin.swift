@@ -26,6 +26,8 @@ public class SwiftAmplifyStorageS3Plugin: NSObject, FlutterPlugin {
     switch call.method {
     case "uploadFile":
         AmplifyStorageOperations.uploadFile(flutterResult: result, request: arguments)
+    case "getUrl":
+        AmplifyStorageOperations.getURL(flutterResult: result, request: arguments)
     default:
         result(FlutterMethodNotImplemented)
      }

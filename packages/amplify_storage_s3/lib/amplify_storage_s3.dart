@@ -13,18 +13,20 @@ class AmplifyStorageS3 extends StoragePluginInterface {
   static AmplifyStorageS3 _instance = AmplifyStorageS3MethodChannel();
 
   /// The default instance of [AmplifyStoragePlugin] to use.
-  ///
-  /// Defaults to [MethodChannelAmplify].
   static StoragePluginInterface get instance => _instance;
 
-  /// Platform-specific plugins should set this with their own platform-specific
-  /// class that extends [AmplifyStoragePlugin] when they register themselves.
   static set instance(StoragePluginInterface instance) {
     PlatformInterface.verifyToken(instance, _token);
     _instance = instance;
   }
 
-  Future<UploadFileResponse> uploadFile(UploadFileRequest request)  {
+  @override
+  Future<UploadFileResponse> uploadFile(UploadFileRequest request) {
     return _instance.uploadFile(request);
+  }
+
+  @override
+  Future<GetUrlResponse> getUrl(GetUrlRequest request) {
+    return _instance.getUrl(request);
   }
 }

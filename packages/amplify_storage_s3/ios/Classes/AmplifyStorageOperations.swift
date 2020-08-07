@@ -11,58 +11,75 @@ import Amplify
 import AmplifyPlugins
 import AWSMobileClient
 
+//TODO: Add more catch blocks,
+// replace strings with enums for the different error cases/codes
+
 public class AmplifyStorageOperations {
     public static func uploadFile(flutterResult: @escaping FlutterResult, request: Dictionary<String, AnyObject>) {
-        print("In UploadFile Operation")
+        print("In uploadFile operation")
         if(FlutterUploadFileRequest.isValid(request: request)) {
             let req = FlutterUploadFileRequest(request: request)
-            print("Options object is \(String(describing: req.options))")
+            print("UploadFileRequest.Options object is: \(String(describing: req.options))")
             _ = Amplify.Storage.uploadFile(
                 key: req.key,
                 local: req.file,
+                options: req.options,
                 progressListener: {
                     progress in print("Progress: \(progress)")},
                 resultListener: { event in
                     switch event {
-                        case .success(let data):
-                            print("Success. DATA: \(data)")
+                        case .success(let key):
+                            print("Successfully uploaded the file with key: \(key)")
+                            //TODO: Implement a response type
                             var result = [String: String]()
-                            result["key"] = data
+                            result["key"] = key
                             flutterResult(result)
                         case .failure(let storageError):
-                            let platformErrorDetails = preparePlatformErrorDetails(localizedError: storageError.errorDescription, recoverySuggestion: storageError.recoverySuggestion)
-                            
-                            prepareError(flutterResult: flutterResult, msg: "UPLOAD_FILE_FAILED", platformErrorDetails: platformErrorDetails)
+                            prepareError(flutterResult: flutterResult, msg: "UPLOAD_FILE_OPERATION_FAILED", localizedError: storageError.errorDescription, recoverySuggestion: storageError.recoverySuggestion)
                 }
             })
         } else {
-            print("UploadFile request was malformed")
+            prepareError(flutterResult: flutterResult, msg: "UPLOAD_FILE_REQUEST_MALFORMED", localizedError: "The request received was malformed", recoverySuggestion: "Please ensure the request matches the method signature")
         }
     }
     
-//    public static func getURL(){
-//        Amplify.Storage.getURL(key: <#T##String#>, options: <#T##StorageGetURLRequest.Options?#>, resultListener: <#T##((Result<URL, StorageError>) -> Void)?##((Result<URL, StorageError>) -> Void)?##(Result<URL, StorageError>) -> Void#>)
-//    }
-//    var options = StorageGetURLRequest.Options(accessLevel: <#T##StorageAccessLevel#>, targetIdentityId: <#T##String?#>, expires: <#T##Int#>, pluginOptions: <#T##Any?#>)
-//    var options2 = StorageDownloadFileRequest.Options(accessLevel: <#T##StorageAccessLevel#>, targetIdentityId: <#T##String?#>, pluginOptions: <#T##Any?#>)
-//    var options3 = StorageListRequest.Options(accessLevel: <#T##StorageAccessLevel#>, targetIdentityId: <#T##String?#>, path: <#T##String?#>, pluginOptions: <#T##Any?#>)
-//    var options4 = StorageRemoveRequest.Options(accessLevel: <#T##StorageAccessLevel#>, pluginOptions: <#T##Any?#>)
+    public static func getURL(flutterResult: @escaping FlutterResult, request: Dictionary<String, AnyObject>){
+        print("In getUrl operation")
+        if(FlutterGetUrlRequest.isValid(request: request)) {
+            let req = FlutterGetUrlRequest(request: request)
+            print("GetUrlRequest.Options object is: \(String(describing: req.options))")
+            _ = Amplify.Storage.getURL(key: req.key,
+                               options: nil,
+                               resultListener: { event in
+                                switch event {
+                                case .success(let url):
+                                    print("Successfully got URL: \(url.absoluteString)")
+                                    var result = [String: String]()
+                                    //TODO: Implement a response type
+                                    result["url"] = url.absoluteString
+                                    flutterResult(result)
+                                case .failure(let storageError):
+                                    prepareError(flutterResult: flutterResult, msg: "GET_URL_OPERATION_FAILED", localizedError: storageError.errorDescription, recoverySuggestion: storageError.recoverySuggestion)
+                                }
+        })
+        } else {
+            prepareError(flutterResult: flutterResult, msg: "GET_URL_REQUEST_MALFORMED", localizedError: "The request received was malformed", recoverySuggestion: "Please ensure the request matches the method signature")
+        }
+        
+    }
+
 }
 
-
-
-func prepareError(flutterResult: @escaping FlutterResult, msg: String, platformErrorDetails: [String: String]) {
+//TODO: Move to an Error or Util class.
+func prepareError(flutterResult: @escaping FlutterResult, msg: String, localizedError: String?, recoverySuggestion: String?) {
     var errorDetails: [String: Any] = [:]
+    var platformErrorDetails: [String: String] = [:]
+
+    platformErrorDetails["platform"] = "iOS"
+    platformErrorDetails["localalizedError"] = localizedError
+    platformErrorDetails["recoverySuggestion"] = recoverySuggestion
+
     errorDetails["PLATFORM_EXCEPTIONS"] = platformErrorDetails
-    
+
     flutterResult(FlutterError(code: "AmplifyException", message: msg, details: errorDetails))
 }
-
-func preparePlatformErrorDetails(localizedError: String?, recoverySuggestion: String?) -> [String: String] {
-    var platformDetails: [String: String] = [:]
-    platformDetails["platform"] = "iOS"
-    platformDetails["localalizedError"] = localizedError
-    platformDetails["recoverySuggestion"] = recoverySuggestion
-    return platformDetails
-}
-

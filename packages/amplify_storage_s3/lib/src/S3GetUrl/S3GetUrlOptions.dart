@@ -1,17 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 
-class S3UploadFileOptions extends UploadFileOptions {
+class S3GetUrlOptions extends GetUrlOptions {
   String targetIdentityId;
-  S3UploadFileOptions(
-      {StorageAccessLevel accessLevel,
-      String contentType,
-      Map<String, String> metadata,
-      this.targetIdentityId})
-      : super(
-            accessLevel: accessLevel,
-            contentType: contentType,
-            metadata: metadata);
+  S3GetUrlOptions(
+      {StorageAccessLevel accessLevel, int expires, this.targetIdentityId})
+      : super(accessLevel: accessLevel, expires: expires);
 
   @override
   Map<String, dynamic> serializeAsMap() {
@@ -20,12 +14,8 @@ class S3UploadFileOptions extends UploadFileOptions {
       optionsMap["accessLevel"] = describeEnum(accessLevel);
     }
 
-    if (contentType != null) {
-      optionsMap["contentType"] = contentType;
-    }
-
-    if (metadata != null) {
-      optionsMap["metadata"] = metadata;
+    if (expires != null) {
+      optionsMap["expires"] = expires;
     }
 
     if (targetIdentityId != null) {

@@ -7,17 +7,22 @@ class StorageCategory {
 
   /// `Add plugin` method
   bool addPlugin(StoragePluginInterface plugin) {
-    plugins.add(plugin);
-    return true;
-  }
-
-  ///TODO: Remove if indiviual plugins cant be configured
-  Future<bool> configure(String configuration) {
-    throw UnimplementedError('configure() has not been implemented.');
+    //TODO: Allow for multiple plugins to work simultaneously
+    if (plugins.length == 0) {
+      plugins.add(plugin);
+      return true;
+    } else {
+      throw ("Failed to add the Storage plugin");
+    }
   }
 
   Future<UploadFileResponse> uploadFile(UploadFileRequest request) {
-    /// call `uploadFile` on the plugins
-    return plugins.length == 1 ? plugins[0].uploadFile(request) : null;
+    /// call `uploadFile` on the plugin
+    return plugins[0].uploadFile(request);
+  }
+
+  Future<GetUrlResponse> getUrl(GetUrlRequest request) {
+    /// call `getUrl` on the plugin
+    return plugins[0].getUrl(request);
   }
 }

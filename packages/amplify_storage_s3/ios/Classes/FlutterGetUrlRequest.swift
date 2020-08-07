@@ -8,13 +8,11 @@
 import Foundation
 import Amplify
 
-struct FlutterUploadFileRequest {
+struct FlutterGetUrlRequest {
     var key: String
-    var file: URL
-    var options: StorageUploadFileRequest.Options? = nil
+    var options: StorageGetURLRequest.Options? = nil
     init(request: Dictionary<String, AnyObject>) {
         self.key = request["key"] as! String
-        self.file = NSURL(fileURLWithPath: request["path"] as! String) as URL
         self.options = setOptions(request: request)
     }
     
@@ -23,22 +21,18 @@ struct FlutterUploadFileRequest {
         if(!(request["key"] != nil && request["key"] is String)){
             valid = false
         }
-        if(!(request["path"] != nil && request["path"] is String)){
-            valid = false
-        }
         return valid
         
     }
     
-    private func setOptions(request: Dictionary<String, AnyObject>) -> StorageUploadFileRequest.Options? {
+    private func setOptions(request: Dictionary<String, AnyObject>) -> StorageGetURLRequest.Options? {
         
         if(request["options"] != nil) {
             let requestOptions = request["options"] as! Dictionary<String, AnyObject>
             //Default options
             var accessLevel = StorageAccessLevel.guest
             var targetIdentityId: String? = nil
-            var metadata: [String: String]? = nil
-            var contentType: String? = nil
+            var expires: Int = StorageGetURLRequest.Options.defaultExpireInSeconds
             
             for(key,value) in requestOptions {
                 switch key {
@@ -47,17 +41,14 @@ struct FlutterUploadFileRequest {
                     accessLevel = StorageAccessLevel(rawValue: value as! String) ?? accessLevel
                 case "targetIdentityId":
                     targetIdentityId = value as? String
-                case "metadata":
-                    metadata = value as? [String: String]
-                case "contentType":
-                    contentType = value as? String
+                case "expires":
+                    expires = value as! Int
                 default:
                     print("Received unexpected option: \(key)")
                     
                 }
-            
             }
-            return StorageUploadFileRequest.Options(accessLevel: accessLevel, targetIdentityId: targetIdentityId, metadata: metadata, contentType: contentType)
+            return StorageGetURLRequest.Options(accessLevel: accessLevel, targetIdentityId: targetIdentityId, expires: expires)
         }
         return nil
     }

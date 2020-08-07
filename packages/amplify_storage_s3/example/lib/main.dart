@@ -22,6 +22,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   bool _isAmplifyConfigured = false;
   String _uploadFileResult = "";
+  String _getUrlResult = '';
   Amplify amplify = new Amplify();
 
   @override
@@ -52,24 +53,42 @@ class _MyAppState extends State<MyApp> {
 
   void upload() async {
     try {
-      print("In upload with options updated");
+      print("In upload with options");
+
+      // Uploading the file with options
       String path = await FilePicker.getFilePath(type: FileType.image);
       Map<String, String> metadata = <String, String>{};
       metadata["name"] = "filename";
       metadata["desc"] = "A test file";
       S3UploadFileOptions options = S3UploadFileOptions(
-          accessLevel: StorageAccessLevel.protected,
-          contentType: 'image',
-          targetIdentityId: 'otheruserid');
+          accessLevel: StorageAccessLevel.public, metadata: metadata);
       UploadFileRequest request = new UploadFileRequest(
           key: new DateTime.now().toString(), path: path, options: options);
       print("path is: " + request.path + ", key is: " + request.key);
       UploadFileResponse response = await Amplify.Storage.uploadFile(request);
+
       setState(() {
         _uploadFileResult = response.key;
       });
     } catch (e) {
-      print('Err: ' + e.toString());
+      print('UploadFile Err: ' + e.toString());
+    }
+  }
+
+  void getUrl() async {
+    try {
+      print("In getUrl with options");
+      String key = _uploadFileResult;
+      S3GetUrlOptions options = S3GetUrlOptions(
+          accessLevel: StorageAccessLevel.public, expires: 10000);
+      GetUrlRequest request = new GetUrlRequest(key: key, options: options);
+      GetUrlResponse response = await Amplify.Storage.getUrl(request);
+
+      setState(() {
+        _getUrlResult = response.url;
+      });
+    } catch (e) {
+      print('GetUrl Err: ' + e.toString());
     }
   }
 
@@ -99,7 +118,14 @@ class _MyAppState extends State<MyApp> {
                     child: const Text('Upload File'),
                   ),
                   const Padding(padding: EdgeInsets.all(5.0)),
-                  Text('Result: $_uploadFileResult'),
+                  Text('Uploaded File: $_uploadFileResult'),
+                  const Padding(padding: EdgeInsets.all(10.0)),
+                  RaisedButton(
+                    onPressed: getUrl,
+                    child: const Text('GetUrl for uploaded File'),
+                  ),
+                  const Padding(padding: EdgeInsets.all(5.0)),
+                  Image.network(_getUrlResult),
                 ])
           ],
         ),
