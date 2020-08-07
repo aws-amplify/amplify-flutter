@@ -109,4 +109,3 @@ workflows:
     jobs:
       - unit_test_flutter
       - unit_test_android
-      - unit_test_ios
