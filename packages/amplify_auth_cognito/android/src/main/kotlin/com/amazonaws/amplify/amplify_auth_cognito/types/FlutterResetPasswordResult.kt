@@ -23,7 +23,6 @@ data class FlutterResetPasswordResult(private val raw: AuthResetPasswordResult) 
   val nextStep: Map<String, Any> = setNextStep();
 
   private fun setNextStep(): Map<String, Any> {
-    val res: Map<String, Any> = emptyMap();
 
     return mapOf(
       "resetPasswordStep" to raw.nextStep.resetPasswordStep.toString(),

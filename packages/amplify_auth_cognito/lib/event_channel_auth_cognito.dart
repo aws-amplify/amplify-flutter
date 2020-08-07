@@ -5,15 +5,13 @@ typedef void CancelListening();
 
 class AmplifyAuthCognitoEventChannel {
   var events = const EventChannel("com.amazonaws.amplify/auth_cognito_events");
+  var stream;
+  listenToAuth(Listener listener) {
+    stream = events.receiveBroadcastStream(1).listen(listener);
+    return stream;
+  }
 
-  int nextListenerId = 1;
-
-  CancelListening startListening(Listener listener) {
-    var subscription = events.receiveBroadcastStream(
-      nextListenerId++
-    ).listen(listener, cancelOnError: true);
-    return () {
-      subscription.cancel();
-    };
+  stopListeningToAuth() {
+    stream.cancel();
   }
 } 

@@ -200,7 +200,6 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
          let signInData = FlutterSignInResult(res: response)
          flutterResult(signInData.toJSON())
        case .failure(let signInError):
-         print("An error occurred while confirming a sign in")
          self.handleAuthError(error: signInError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.CONFIRM_SIGNIN.rawValue)
        }
      }
@@ -214,7 +213,6 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
           flutterResult(emptyMap)
 
         case .failure(let signOutError):
-        print("An error occurred while signing out")
         self.handleAuthError(error: signOutError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNOUT.rawValue)
       }
     }
@@ -228,7 +226,6 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
         flutterResult(emptyMap)
         
        case .failure(let changePasswordError):
-        print("An error changing a password")
         self.handleAuthError(error: changePasswordError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.CHANGE_PASSWORD.rawValue)
       }
     }
@@ -242,7 +239,6 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
           flutterResult(resetData.toJSON())
           
          case .failure(let resetPasswordError):
-          print("An error resetting a password")
           self.handleAuthError(error: resetPasswordError, flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.RESET_PASSWORD.rawValue)
         }
       }
@@ -256,7 +252,6 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
            flutterResult(emptyMap)
           
          case .failure(let resetPasswordError):
-          print("An error resetting a password")
           self.handleAuthError(error: resetPasswordError, flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.RESET_PASSWORD.rawValue)
         }
       }

@@ -39,6 +39,7 @@ class _MyAppState extends State<MyApp> {
 
   bool _isAmplifyConfigured = false;
   Amplify amplify = new Amplify();
+  AmplifyAuthCognito  auth;
   String displayState;
   String authState;
   String error;
@@ -50,14 +51,14 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _configureAmplify() async {
-    AmplifyAuthCognito  auth = new AmplifyAuthCognito();
+    auth = new AmplifyAuthCognito();
     amplify.addPlugin(authPlugin: [auth]);
     await amplify.configure(amplifyconfig);
     setState(() {
       _isAmplifyConfigured = true;
       displayState = "SHOW_SIGN_IN";
     });
-    auth.events.startListening((hubEvent) {
+    auth.events.listenToAuth((hubEvent) {
       switch(hubEvent["eventName"]) {
         case "SIGNED_IN": {
           print("USER IS SIGNED IN");
@@ -298,6 +299,10 @@ class _MyAppState extends State<MyApp> {
       });
       print(e);
     }
+  }
+
+  void _stopListening() async {
+    auth.events.stopListeningToAuth();
   }
 
   void _createUser() async {
@@ -618,6 +623,11 @@ Widget showSignIn() {
               RaisedButton(
                 onPressed: _showChangePassword,
                 child: const Text('Change Password'),
+              ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed: _stopListening,
+                child: const Text('Stop Listening'),
               ),
             ],
           ),
