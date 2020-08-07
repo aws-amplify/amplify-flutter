@@ -18,6 +18,7 @@ package com.amazonaws.amplify.amplify_auth_cognito.types
 import androidx.annotation.NonNull
 import com.amplifyframework.auth.AuthUserAttribute
 import com.amplifyframework.auth.AuthUserAttributeKey
+import com.amplifyframework.auth.cognito.options.AWSCognitoAuthSignUpOptions
 import com.amplifyframework.auth.options.AuthSignUpOptions
 import java.lang.reflect.Method
 
@@ -25,7 +26,7 @@ data class FlutterSignUpRequest(val map: HashMap<String, *>) {
     var standardAttributes: Array<String> = arrayOf("address", "birthdate", "email", "family_name", "gender", "given_name", "locale", "middle_name", "name", "nickname", "phone_number", "preferred_username", "picture", "profile", "updated_at", "website", "zoneinfo")
     val username: String = setUserName(map);
     val password: String = map["password"] as String;
-    val options: AuthSignUpOptions = formatOptions(map["options"] as HashMap<String, String>);
+    val options: AWSCognitoAuthSignUpOptions = formatOptions(map["options"] as HashMap<String, String>);
 
     private fun setUserName(@NonNull request: HashMap<String, *>): String {
         var username: String = "";
@@ -50,8 +51,8 @@ data class FlutterSignUpRequest(val map: HashMap<String, *>) {
         return username;
     };
 
-    private fun formatOptions(@NonNull rawOptions: HashMap<String, String>): AuthSignUpOptions {
-        var options: AuthSignUpOptions.Builder<*> =  AuthSignUpOptions.builder();
+    private fun formatOptions(@NonNull rawOptions: HashMap<String, String>): AWSCognitoAuthSignUpOptions {
+        var options =  AWSCognitoAuthSignUpOptions.builder();
         var authUserAttributes: MutableList<AuthUserAttribute> = mutableListOf();
         var attributeMethods = AuthUserAttributeKey::class.java.declaredMethods;
         var validationData = rawOptions["validationData"];
@@ -71,6 +72,7 @@ data class FlutterSignUpRequest(val map: HashMap<String, *>) {
         }
         options.userAttributes(authUserAttributes);
         //TODO: Add validationData
+
         return options.build();
     }
 
