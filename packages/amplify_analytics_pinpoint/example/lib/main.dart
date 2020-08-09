@@ -35,20 +35,13 @@ class _MyAppState extends State<MyApp> {
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
     if (!mounted) return;
-
     // Configure analytics plugin
     AmplifyAnalyticsPinpointPlugin analyticsPlugin = new AmplifyAnalyticsPinpointPlugin();
     amplifyInstance.addPlugin(analyticsPlugin: [analyticsPlugin]);
-
-    var isConfigured = await amplifyInstance.configure(amplifyconfig);
-    try {
-      setState(() {
-        _amplifyConfigured = isConfigured;
-      });
-    } catch (e) {
-      print(e);
-    }
-
+    await amplifyInstance.configure(amplifyconfig);
+    setState(() {
+      _amplifyConfigured = true;
+    });
   }
 
   void _recordEvent() async {
