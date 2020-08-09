@@ -21,7 +21,7 @@ class AuthSessionRequest {
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     if (options != null) {
-      pendingRequest['options'] = options;
+      pendingRequest['options'] = options.serializeAsMap();
     }
     return pendingRequest;
   }

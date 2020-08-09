@@ -17,11 +17,11 @@ import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart
 import 'package:flutter/foundation.dart';
 
 class CognitoSessionOptions extends AuthSessionOptions {
-  bool getCredentials;
-  CognitoSessionOptions({@required this.getCredentials}) : super();
+  bool getAWSCredentials;
+  CognitoSessionOptions({@required this.getAWSCredentials}) : super();
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    pendingRequest["getCredentials"] = getCredentials;
+    pendingRequest["getAWSCredentials"] = getAWSCredentials;
     return pendingRequest;
   }
 } 

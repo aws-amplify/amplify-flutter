@@ -71,7 +71,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       await _channel.invokeMapMethod<String, dynamic>(
         'signIn',
         <String, dynamic>{
-          // 'data': request.serializeAsMap(),
+          'data': request.serializeAsMap(),
         },
       );
       res = _formatSignInResponse(data, "signIn");
@@ -255,8 +255,8 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   }
 
   AuthSession _formatSessionResponse(Map<String, dynamic> res) {
-    AWSCredentials credentials = AWSCredentials.init(creds: res["credentials"]);
-    AWSCognitoUserPoolTokens tokens = AWSCognitoUserPoolTokens.init(tokens: res["tokens"]);
+    AWSCredentials credentials = res.containsKey("credentials") ? AWSCredentials.init(creds: res["credentials"]) : null;
+    AWSCognitoUserPoolTokens tokens = res.containsKey("tokens") ?  AWSCognitoUserPoolTokens.init(tokens: res["tokens"]) : null;
     return CognitoAuthSession(
       isSignedIn: res["isSignedIn"], 
       userSub: res["userSub"],

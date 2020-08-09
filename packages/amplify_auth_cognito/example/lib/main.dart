@@ -88,13 +88,17 @@ class _MyAppState extends State<MyApp> {
       "email": emailController.text,
       "phone_number": phoneController.text,
     };
+    Map<String, String> validationData = {
+      "test": "value"
+    };
     try {
       SignUpResult res = await Amplify.Auth.signUp(
         request: SignUpRequest(
           username: usernameController.text.trim(),
           password: passwordController.text.trim(),
           options: CognitoSignUpOptions(
-            userAttributes: userAttributes
+            userAttributes: userAttributes,
+            validationData: validationData
           )
         ), 
       );
@@ -307,7 +311,11 @@ class _MyAppState extends State<MyApp> {
       exceptions = [];
     });
     try {
-      AuthSession res = await Amplify.Auth.fetchAuthSession();
+      AuthSession res = await Amplify.Auth.fetchAuthSession(
+        request: AuthSessionRequest(
+          options: CognitoSessionOptions(getAWSCredentials: false)
+        )
+      );
       print(res);
     } on AuthError catch (e) {
       setState(() {

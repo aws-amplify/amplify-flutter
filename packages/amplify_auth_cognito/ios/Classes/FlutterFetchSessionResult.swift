@@ -18,82 +18,24 @@ import Amplify
 import AWSPluginsCore
 
 struct FlutterFetchSessionResult {
-  var isSignedIn: Bool
-  var userSub: String
-  var identityId: String
-  var credentials: [String: String]
-  var userPoolTokens: [String: String]
-    
-
-  init(res: AmplifyOperation<AuthFetchSessionRequest, AuthSession, AuthError>.OperationResult) throws  {
-    do {
-        let session = try res.get()
-        self.isSignedIn = session.isSignedIn
-        self.userSub = try getUserSub(session: session)
-        self.identityId = try getIdentityId(session: session)
-        self.credentials = try getCredentials(session: session)
-        self.userPoolTokens = try getTokens(session: session)
-    } catch  {
-        throw error as! AuthError
-    }
-  }
-      
-  func toJSON() -> Dictionary<String, Any> {
-    
-    return [
-          "isSignedIn": self.isSignedIn,
-          "tokens": self.userPoolTokens,
-          "userSub": self.userSub,
-          "identityId": self.identityId,
-          "credentials": self.credentials        ]
-      }
-    }
-
-  func getUserSub(session: AuthSession) throws -> String {
-    var sub: String = ""
-    if let identityProvider = session as? AuthCognitoIdentityProvider {
-      do {
-        sub = try identityProvider.getUserSub().get()
-      } catch {
-         throw error as! AuthError
-      }
-    }
-    return sub
-  }
-
-  func getIdentityId(session: AuthSession) throws -> String {
-    var id: String = ""
-    if let identityProvider = session as? AuthCognitoIdentityProvider {
-      do {
-        id = try identityProvider.getIdentityId().get()
-      } catch {
-         throw error as! AuthError
-      }
-    }
-    return id
-  }
-
-  func getCredentials(session: AuthSession) throws -> [String: String] {
-    var credentialMap: [String: String] = [:]
-
-    if let awsCredentialsProvider = session as? AuthAWSCredentialsProvider {
-      let creds =  try awsCredentialsProvider.getAWSCredentials().get()
-        credentialMap["awsAccessKey"] = creds.accessKey
-        credentialMap["awsSecretKey"] = creds.secretKey
-    }
-    
-    return credentialMap;
-  }
-
-  func getTokens(session: AuthSession) throws -> [String: String] {
-    var tokenMap: [String: String] = [:]
-
-    if let cognitoTokenProvider = session as? AuthCognitoTokensProvider {
-      let tokens = try cognitoTokenProvider.getCognitoTokens().get()
-        tokenMap["accessToken"] = tokens.accessToken
-        tokenMap["idToken"] = tokens.idToken
-        tokenMap["refreshToken"] = tokens.refreshToken
-    }
-    return tokenMap;
-  }
+var isSignedIn: Bool
   
+
+init(res: AmplifyOperation<AuthFetchSessionRequest, AuthSession, AuthError>.OperationResult) throws  {
+  do {
+      let session = try res.get()
+      self.isSignedIn = session.isSignedIn
+  } catch  {
+      throw error as! AuthError
+  }
+}
+    
+func toJSON() -> Dictionary<String, Any> {
+  
+  return [
+        "isSignedIn": self.isSignedIn
+     ]
+    }
+  }
+
+

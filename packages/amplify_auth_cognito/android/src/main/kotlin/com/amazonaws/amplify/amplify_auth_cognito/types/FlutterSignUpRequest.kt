@@ -55,7 +55,7 @@ data class FlutterSignUpRequest(val map: HashMap<String, *>) {
         var options =  AWSCognitoAuthSignUpOptions.builder();
         var authUserAttributes: MutableList<AuthUserAttribute> = mutableListOf();
         var attributeMethods = AuthUserAttributeKey::class.java.declaredMethods;
-        var validationData = rawOptions["validationData"];
+        var validationData = rawOptions["validationData"] as? MutableMap<String, String>;
 
         (rawOptions["userAttributes"] as HashMap<String, String>).forEach { (key, value) ->
             var keyCopy: String = key;
@@ -71,8 +71,10 @@ data class FlutterSignUpRequest(val map: HashMap<String, *>) {
             }
         }
         options.userAttributes(authUserAttributes);
-        //TODO: Add validationData
 
+        if (validationData is MutableMap<String, String>) {
+            options.validationData(validationData)
+        }
         return options.build();
     }
 

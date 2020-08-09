@@ -318,14 +318,19 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
 
   private fun onFetchAuthSession (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
     // TODO: Implement forceRefresh when/if supported by Amplify libs
-    // var req = FlutterFetchAuthSessionRequest(request as HashMap<String, *>)
+    var req = FlutterFetchAuthSessionRequest(request as HashMap<String, *>)
     try {
       Amplify.Auth.fetchAuthSession(
               { result ->
-                val cognitoAuthSession = result as AWSCognitoAuthSession
-                when (cognitoAuthSession.identityId.type) {
-                  AuthSessionResult.Type.SUCCESS -> this.mainActivity?.runOnUiThread({ prepareSessionResult(flutterResult, cognitoAuthSession)})
-                  AuthSessionResult.Type.FAILURE -> this.mainActivity?.runOnUiThread({ prepareSessionFailure(flutterResult, cognitoAuthSession)})
+                if (req.getAWSCredentials) {
+                  val cognitoAuthSession = result as AWSCognitoAuthSession
+                  when (cognitoAuthSession.identityId.type) {
+                    AuthSessionResult.Type.SUCCESS -> this.mainActivity?.runOnUiThread({ prepareCognitoSessionResult(flutterResult, cognitoAuthSession)})
+                    AuthSessionResult.Type.FAILURE -> this.mainActivity?.runOnUiThread({ prepareCognitoSessionFailure(flutterResult, cognitoAuthSession)})
+                  }
+                } else {
+                  val session = result as AuthSession;
+                  this.mainActivity?.runOnUiThread({ prepareSessionResult(flutterResult, session)})
                 }
               },
               { error -> prepareError(flutterResult, error, FlutterAuthFailureMessage.FETCH_SESSION.toString()) }
@@ -419,14 +424,21 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     flutterResult.success(resetData.serializeToMap());
   }
 
-  private fun prepareSessionResult(@NonNull flutterResult: Result, @NonNull result: AWSCognitoAuthSession) {
-    var session = FlutterFetchAuthSessionResult(result);
+  private fun prepareCognitoSessionResult(@NonNull flutterResult: Result, @NonNull result: AWSCognitoAuthSession) {
+    var session = FlutterFetchCognitoAuthSessionResult(result);
     flutterResult.success(session.serializeToMap());
   }
 
-  private fun prepareSessionFailure(@NonNull flutterResult: Result, @NonNull result: AWSCognitoAuthSession) {
+  private fun prepareCognitoSessionFailure(@NonNull flutterResult: Result, @NonNull result: AWSCognitoAuthSession) {
     prepareError(flutterResult, result.awsCredentials.error as AuthException, FlutterAuthFailureMessage.FETCH_SESSION.toString())
   }
+
+  private fun prepareSessionResult(@NonNull flutterResult: Result, @NonNull result: AuthSession) {
+    var session = FlutterFetchAuthSessionResult(result);
+
+    flutterResult.success(session.serializeToMap());
+  }
+
 
   //convert a data class to a map
   fun <T> T.serializeToMap(): Map<String, Any> {

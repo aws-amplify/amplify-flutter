@@ -149,7 +149,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
               self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
           }
         case "fetchAuthSession":
-            let request = FlutterFetchSessionRequest()
+            let request = FlutterFetchSessionRequest(dict: data)
             onFetchSession(flutterResult: result, request: request)
         default:
           result(FlutterMethodNotImplemented)
@@ -263,8 +263,14 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
     private func onFetchSession(flutterResult: @escaping FlutterResult, request: FlutterFetchSessionRequest) {
       _ = Amplify.Auth.fetchAuthSession { result in
         do {
-          let sessionData = try FlutterFetchSessionResult(res: result)
-          flutterResult(sessionData.toJSON())
+            if (request.getAWSCredentials) {
+                let sessionData = try FlutterFetchCognitoSessionResult(res: result)
+                flutterResult(sessionData.toJSON())
+            } else {
+                let sessionData = try FlutterFetchSessionResult(res: result)
+                flutterResult(sessionData.toJSON())
+            }
+
         } catch {
             self.handleAuthError(error: error as! AuthError, flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.FETCH_SESSION.rawValue)
         }
@@ -385,6 +391,8 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
           errorDict["TOO_MANY_FAILED_ATTEMPTS"] = localizedError
         case "invalidState":
           errorDict["INVALID_STATE"] = localizedError
+        case "signedOut":
+          errorDict["SIGNED_OUT"] = localizedError
         case "configuration":
           errorDict["CONFIGURATION"] = localizedError
         case "validation":

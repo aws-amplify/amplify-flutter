@@ -15,7 +15,6 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
-import androidx.annotation.Nullable
 import com.amazonaws.auth.AWSCredentials
 import com.amplifyframework.auth.AuthSession
 import com.amplifyframework.auth.cognito.AWSCognitoAuthSession
@@ -24,6 +23,10 @@ import com.amplifyframework.auth.result.AuthSessionResult
 import com.amplifyframework.auth.result.AuthSignInResult
 import com.google.gson.Gson
 
-data class FlutterFetchAuthSessionResult(@Nullable public var raw: AuthSession) {
+data class FlutterFetchCognitoAuthSessionResult(private val raw: AWSCognitoAuthSession) {
   val isSignedIn: Boolean = raw.isSignedIn;
+  val identityId: String = raw.identityId.value as String;
+  val userSub: String = raw.userSub.value as String;
+  val credentials: AuthSessionResult<AWSCredentials> = raw.awsCredentials
+  val tokens: AuthSessionResult<AWSCognitoUserPoolTokens> = raw.userPoolTokens
 }

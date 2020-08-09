@@ -18,8 +18,21 @@ import Amplify
 
 struct FlutterFetchSessionRequest {
   // TODO: Implement forceRefresh when/if implemented
-  //  var options: AuthSignOutRequest.Options?
+    var getAWSCredentials: Bool = false;
+    init(dict: NSMutableDictionary){
+        self.getAWSCredentials = self.getCredentialRequest(res: dict)
+    }
     
+    func getCredentialRequest(res: NSMutableDictionary) -> Bool {
+        let options = res["options"] as? Dictionary<String, Any>
+        if (options != nil) {
+            if (options?["getAWSCredentials"] != nil) {
+                return options?["getAWSCredentials"] as! Bool
+            }
+        }
+        return false
+    }
+
 }
 
 

@@ -34,14 +34,10 @@ void main() {
       switch(testCode) {
         case 1:
           return {
-            "isSignedIn": false,
-            "nextStep": {
-              "signInStep": "DONE",
-              "codeDeliveryDetails":  { "atttibuteName": "email" }
-            }
+            "isSignedIn": true,
           };
           case 2:
-            return throw PlatformException(code: "AMPLIFY_EXCEPTION", message: "AMPLIFY_SIGNIN_FAILED", details: {} );
+            return throw PlatformException(code: "AMPLIFY_EXCEPTION", message: "AMPLIFY_FETCH_SESSION_FAILED", details: {} );
       } 
     });
     coreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
@@ -54,40 +50,22 @@ void main() {
     coreChannel.setMockMethodCallHandler(null);
   });
 
-  test('signIn request returns a SignInResult', () async {
+  test('fetchSession request returns a AuthCognitoSession', () async {
     testCode = 1;
     await amplify.addPlugin(authPlugin: [auth]);
     await amplify.configure("{}");
-    SignInRequest req = SignInRequest(
-      username: 'testUser',
-      password: '123',
-    );
-    expect(await Amplify.Auth.signIn(request: req), isInstanceOf<SignInResult>());
+    AuthSessionRequest req = AuthSessionRequest();
+    expect(await Amplify.Auth.fetchAuthSession(request: req), isInstanceOf<CognitoAuthSession>());
   });
 
-  test('signIn request nextStep casts to AuthNextSignStep and AuthNextStep', () async {
-    testCode = 1;
-    SignInRequest req = SignInRequest(
-      username: 'testUser',
-      password: '123',
-    );
-    var res = await Amplify.Auth.signIn(request: req);
-    expect(res.nextStep, isInstanceOf<AuthNextSignInStep>());
-    expect(res.nextStep, isInstanceOf<AuthNextStep>());
-  });
-
-  test('signIn thrown PlatFormException results in AuthError', () async {
+  test('fetchSession thrown PlatFormException results in AuthError', () async {
     testCode = 2;
     AuthError err;
-    SignInRequest req = SignInRequest(
-      username: 'testUser',
-      password: '123',
-    );
    try {
-     await Amplify.Auth.signIn(request: req);
-   } on AuthError catch (e) {
+    AuthSessionRequest req = AuthSessionRequest();
+    expect(await Amplify.Auth.fetchAuthSession(request: req), isInstanceOf<SignInResult>());   } on AuthError catch (e) {
       err = e;
     } 
-    expect(err.cause, "AMPLIFY_SIGNIN_FAILED");
+    expect(err.cause, "AMPLIFY_FETCH_SESSION_FAILED");
   });
 }

@@ -22,13 +22,5 @@ data class FlutterFetchAuthSessionRequest(val map: HashMap<String, *>) {
 // TODO: Implement options when/if supported by Amplify libraries
 //  var sessionOptions: AuthFetchSessionOptions = setOptions()
   val options: HashMap<String, *>? = map["options"] as HashMap<String, *>?;
-
-
-//  fun setOptions(): AuthSignOutOptions {
-//    var forceRefresh: Boolean = false;
-//    if (options != null && options.get("forceRefresh") != null) {
-//      forceRefresh = options.get("forceRefresh") as Boolean;
-//    }
-//    return AuthFetchSessionOptions.builder().forceRefresh(forceRefresh).build()
-//  }
+  val getAWSCredentials: Boolean = options != null && options["getAWSCredentials"] as Boolean? == true;
 }

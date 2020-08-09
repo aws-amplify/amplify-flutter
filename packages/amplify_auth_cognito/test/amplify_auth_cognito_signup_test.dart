@@ -13,10 +13,12 @@
  * permissions and limitations under the License.
  */
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
+
 
 void main() {
   const MethodChannel authChannel = MethodChannel('com.amazonaws.amplify/auth_cognito');
@@ -27,21 +29,24 @@ void main() {
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
-
+  int testCode = 0;
 
   setUp(() {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == "signUp") {
-        return {
-          "isSignUpComplete": false,
-          "nextStep": {
-            "signUpStep": "DONE",
-            "codeDeliveryDetails":  { "atttibuteName": "email" }
-          }
-      };
-      } else {
-        return true;
-      }     
+        switch(testCode) {
+          case 1:
+            return Map.of({
+              "isSignUpComplete": false,
+              "nextStep": {
+                "signUpStep": "DONE",
+                "codeDeliveryDetails":  { "atttibuteName": "email" }
+              }
+            });
+          case 2:
+            return throw PlatformException(code: "AMPLIFY_EXCEPTION", message: "AMPLIFY_SIGNUP_FAILED", details: {} );
+        };
+      };   
     });
     coreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       return true;
@@ -54,6 +59,7 @@ void main() {
   });
 
   test('signUp request returns a CognitoSignUpResult', () async {
+    testCode = 1;
     await amplify.addPlugin(authPlugin: [auth]);
     await amplify.configure("{}");
     SignUpRequest req = SignUpRequest(
@@ -62,9 +68,43 @@ void main() {
       options: CognitoSignUpOptions(
         userAttributes: {
           "email": "test@test.com",
-          "testCode": 0
         })
     );
-    expect(await Amplify.Auth.signUp(request: req), isInstanceOf<SignUpResult>());
+    var res = await Amplify.Auth.signUp(request: req);
+    expect(res, isInstanceOf<SignUpResult>());
+  });
+
+  test('signUp request nextStep casts to AuthNextSignUpStep and AuthNextStep', () async {
+    testCode = 1;
+    SignUpRequest req = SignUpRequest(
+      username: 'testUser',
+      password: '123',
+      options: CognitoSignUpOptions(
+        userAttributes: {
+          "email": "test@test.com",
+        })
+    );
+    var res = await Amplify.Auth.signUp(request: req);
+    expect(res.nextStep, isInstanceOf<AuthNextSignUpStep>());
+    expect(res.nextStep, isInstanceOf<AuthNextStep>());
+  });
+
+  test('signUp thrown PlatFormException results in AuthError', () async {
+    testCode = 2;
+    AuthError err;
+    SignUpRequest req = SignUpRequest(
+      username: 'testUser',
+      password: '123',
+      options: CognitoSignUpOptions(
+        userAttributes: {
+          "email": "test@test.com",
+        })
+    );
+   try {
+     await Amplify.Auth.signUp(request: req);
+   } on AuthError catch (e) {
+      err = e;
+    } 
+    expect(err.cause, "AMPLIFY_SIGNUP_FAILED");
   });
 }
