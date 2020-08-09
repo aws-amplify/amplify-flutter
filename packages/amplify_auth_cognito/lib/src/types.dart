@@ -28,5 +28,9 @@ export 'CognitoSignOut/CognitoSignOutOptions.dart';
 export 'CognitoSignUp/CognitoSignUpResult.dart';
 export 'CognitoSignUp/CognitoSignUpOptions.dart';
 
+// Password
+export 'CognitoPasswords/CognitoResetPasswordResult.dart';
+export 'CognitoPasswords/CognitoChangePasswordOptions.dart';
+
 // Exceptions
 export 'CognitoExceptions/CognitoExceptions.dart';
