@@ -84,10 +84,6 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
     } catch {
         return self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: "validation"))
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> more cr suggestions
     switch call.method {
       case "signUp":
         if (FlutterSignUpRequest.validate(dict: data)) {
