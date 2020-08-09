@@ -20,12 +20,12 @@ class Amplify {
       try {
         if (authPlugin != null && authPlugin.length == 1) {
           Auth.addPlugin(authPlugin[0]);
-        } else if (authPlugin.length > 1) {
+        } else if (authPlugin != null && authPlugin.length > 1) {
           throw(multiPluginWarning);
         }
         if (analyticsPlugin != null && analyticsPlugin.length == 1) {
           Analytics.addPlugin(analyticsPlugin[0]);
-        } else if (authPlugin.length > 1) {
+        } else if (authPlugin != null && analyticsPlugin.length > 1) {
           throw(multiPluginWarning);
         }
       } catch(e) {
