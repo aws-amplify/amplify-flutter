@@ -36,6 +36,7 @@ for plugin_dir in */; do
                     failed_plugins+=("$plugin")
                     continue
                 fi
+                cp ../../.circleci/dummy_amplifyconfiguraton.dart example/lib/amplifyconfiguration.dart
                 cd example/android
                 if ! flutter build apk; then
                     echo "FAILED: Android example failed to build."
@@ -43,7 +44,7 @@ for plugin_dir in */; do
                     continue
                 fi
 
-                if ./gradlew testDebugUnitTest --info; then
+                if ./gradlew test; then
                     echo "PASSED: Android unit tests for $plugin passed."
                     passed_plugins+=("$plugin")
                 else
@@ -65,6 +66,7 @@ for plugin_dir in */; do
                     failed_plugins+=("$plugin")
                     continue
                 fi
+                cp ~/amplify-flutter/.circleci/dummy_amplifyconfiguraton.dart example/lib/amplifyconfiguration.dart
                 cd example/ios
                 if ! flutter build ios --no-codesign; then
                     echo "FAILED: iOS example failed to build."
