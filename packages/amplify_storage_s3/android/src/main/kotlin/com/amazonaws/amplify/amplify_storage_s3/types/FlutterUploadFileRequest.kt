@@ -43,7 +43,7 @@ data class FlutterUploadFileRequest(val request: HashMap<String, *>) {
             if(!(request.containsKey("path") && request["path"] is String)) {
                 valid = false
             }
-            if(!(request.containsKey("key") && request["path"] is String)) {
+            if(!(request.containsKey("key") && request["key"] is String)) {
                 valid = false
             }
             return valid

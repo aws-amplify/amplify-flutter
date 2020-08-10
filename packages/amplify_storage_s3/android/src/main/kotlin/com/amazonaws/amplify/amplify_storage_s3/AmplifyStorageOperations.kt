@@ -1,10 +1,12 @@
 package com.amazonaws.amplify.amplify_storage_s3
 
+import android.app.Activity
 import android.util.Log
 import androidx.annotation.NonNull
 import com.amazonaws.amplify.amplify_storage_s3.types.FlutterGetUrlRequest
 import com.amazonaws.amplify.amplify_storage_s3.types.FlutterUploadFileRequest
 import com.amplifyframework.core.Amplify
+import com.amplifyframework.storage.result.StorageGetUrlResult
 import io.flutter.plugin.common.MethodChannel
 import java.lang.Exception
 import com.google.gson.Gson
@@ -49,22 +51,16 @@ class AmplifyStorageOperations {
             }
         }
 
-        fun getUrl(@NonNull flutterResult: MethodChannel.Result, @NonNull request: HashMap<String, *>) {
+        fun getUrl(@NonNull flutterResult: MethodChannel.Result, @NonNull request: HashMap<String, *>, mainActivity: Activity?) {
             if (FlutterGetUrlRequest.isValid(request)) {
                 Log.i("AmplifyFlutter", "getUrl request:" + request.toString())
                 val req = FlutterGetUrlRequest(request)
                 try {
                     Log.i("Key", req.key)
                     Log.i("Options", gson.toJson(req.options))
-                    Amplify.Storage.getUrl(
-                            req.key,
+                    Amplify.Storage.getUrl(req.key,
                             req.options,
-                            { result ->
-                                Log.i("AmplifyFlutter", "Successfully got URL: " + result.url)
-                                //TODO: Implement a response type
-                                val response: HashMap<String, String> = HashMap()
-                                response["url"] = result.url.toString()
-                                flutterResult.success(response)
+                            { result -> mainActivity?.runOnUiThread{ prepareGetUrlResponse(flutterResult, result) }
                             },
                             { error ->
                                 prepareError(flutterResult, "GET_URL_OPERATION_FAILED", error.localizedMessage, error.recoverySuggestion)
@@ -93,4 +89,12 @@ fun prepareError(@NonNull flutterResult: MethodChannel.Result, @NonNull msg: Str
     ))
     flutterResult.error("AmplifyException", msg, errorDetails)
 
+}
+
+fun prepareGetUrlResponse(@NonNull flutterResult: MethodChannel.Result, result: StorageGetUrlResult) {
+    Log.i("AmplifyFlutter", "Successfully got Url: " + result.url.toString())
+    val response: HashMap<String, String> = HashMap()
+    response["url"] = result.url.toString()
+    flutterResult.success(response)
+    Log.i("AmplifyFlutter", "Url sent to Dart")
 }

@@ -21,7 +21,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool _isAmplifyConfigured = false;
-  String _uploadFileResult = "";
+  String _uploadFileResult = '';
   String _getUrlResult = '';
   Amplify amplify = new Amplify();
 
@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
     bool isConfigured = await amplify.configure(amplifyconfig);
 
     if (!isConfigured) {
-      print("Failed to configure amplify");
+      print('Failed to configure amplify');
       setState(() {
         _isAmplifyConfigured = false;
       });
@@ -53,18 +53,18 @@ class _MyAppState extends State<MyApp> {
 
   void upload() async {
     try {
-      print("In upload with options");
+      print('In upload with options');
 
       // Uploading the file with options
       String path = await FilePicker.getFilePath(type: FileType.image);
       Map<String, String> metadata = <String, String>{};
-      metadata["name"] = "filename";
-      metadata["desc"] = "A test file";
+      metadata['name'] = 'filename';
+      metadata['desc'] = 'A test file';
       S3UploadFileOptions options = S3UploadFileOptions(
           accessLevel: StorageAccessLevel.public, metadata: metadata);
       UploadFileRequest request = new UploadFileRequest(
           key: new DateTime.now().toString(), path: path, options: options);
-      print("path is: " + request.path + ", key is: " + request.key);
+      print('path is: ' + request.path + ', key is: ' + request.key);
       UploadFileResponse response = await Amplify.Storage.uploadFile(request);
 
       setState(() {
@@ -77,7 +77,7 @@ class _MyAppState extends State<MyApp> {
 
   void getUrl() async {
     try {
-      print("In getUrl with options");
+      print('In getUrl with options');
       String key = _uploadFileResult;
       S3GetUrlOptions options = S3GetUrlOptions(
           accessLevel: StorageAccessLevel.public, expires: 10000);
@@ -87,6 +87,7 @@ class _MyAppState extends State<MyApp> {
       setState(() {
         _getUrlResult = response.url;
       });
+      print('_getUrl:' + _getUrlResult);
     } catch (e) {
       print('GetUrl Err: ' + e.toString());
     }
@@ -97,7 +98,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Storage S3 Plugin example app'),
         ),
         body: ListView(
           padding: EdgeInsets.all(10.0),
