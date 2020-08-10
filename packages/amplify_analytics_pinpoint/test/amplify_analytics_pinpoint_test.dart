@@ -31,11 +31,7 @@ void main() {
 
   test('amplify_analytics_pinpoint plugin can be added to Amplify instance',
       () async {
-    expect(amplify.addPlugin(analytics), true);
-  });
-
-  test('configure success after plugin is added', () async {
-    expect(await amplify.configure("{}"), true);
+    expect(amplify.addPlugin(analyticsPlugins: [analytics]), true);
   });
 
   // test sending basic events

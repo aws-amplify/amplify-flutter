@@ -39,7 +39,7 @@ Other categories may not function as expected for Flutter projects.
 ? Where do you want to store your configuration file? ./lib/
 ```
 
-4. Run `amplify analytics add`, follow the defaults, then run `amplify push`.
+4. Run `amplify analytics add`, follow the defaults and be sure indicate that you want to add authorization. Next, run `amplify push`. 
 
 5. In your pubspec.yaml file, add the following:
 
@@ -48,6 +48,8 @@ Other categories may not function as expected for Flutter projects.
     path: /{path to your local amplify-flutter}/amplify-flutter/packages/amplify_core 
   amplify_analytics_pinpoint:
     path: /{path to your local amplify-flutter}/amplify-flutter/packages/amplify_analytics_pinpoint
+  amplify_auth_cognito:
+    path: /{path to your local amplify-flutter}/amplify-flutter/packages/amplify_auth_cognito
 ```
 
 6. In your main.dart file, add:
@@ -82,9 +84,11 @@ class _MyAppState extends State<MyApp> {
   void _configureAmplify() async {
     if (!mounted) return;
 
-    // Add Pinpoint Plugin
+    // Add Pinpoint and Cognito Plugins
     AmplifyAnalyticsPinpointPlugin analyticsPlugin = new AmplifyAnalyticsPinpointPlugin();
-    amplifyInstance.addPlugin(analyticsPlugin: [analyticsPlugin]);
+    AmplifyAuthCognito authPlugin = new AmplifyAuthCognito();
+    amplifyInstance.addPlugin(authPlugins: [authPlugin]);
+    amplifyInstance.addPlugin(analyticsPlugins: [analyticsPlugin]);
 
     // Once Plugins are added, configure Amplify
     await amplifyInstance.configure(amplifyconfig);
