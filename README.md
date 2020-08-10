@@ -8,6 +8,7 @@
 
 Amplify-Flutter is an open-source project and welcomes contributions from the Flutter community.
 
+
 ### Getting Started with Local Development
 
 The following instuctions will help you:

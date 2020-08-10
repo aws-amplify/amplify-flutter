@@ -18,7 +18,6 @@ export 'SignUp/SignUpRequest.dart';
 export 'SignUp/SignUpResult.dart';
 export 'SignUp/ConfirmSignUpRequest.dart';
 export 'SignUp/ConfirmSignUpOptions.dart';
-export 'SignUp/SignUpState.dart';
 export 'SignUp/SignUpOptions.dart';
 export 'SignUp/AuthNextSignUpStep.dart';
 export 'SignIn/SignInRequest.dart';
@@ -30,6 +29,13 @@ export 'SignIn/AuthNextSignInStep.dart';
 export 'SignOut/SignOutRequest.dart';
 export 'SignOut/SignOutResult.dart';
 export 'SignOut/SignOutOptions.dart';
+export 'Password/PasswordOptions.dart';
+export 'Password/ChangePasswordRequest.dart';
+export 'Password/ChangePasswordResult.dart';
+export 'Password/ResetPasswordStep.dart';
+export 'Password/ResetPasswordRequest.dart';
+export 'Password/ResetPasswordResult.dart';
+export 'Password/ConfirmPasswordRequest.dart';
 
 // Error Classes
 export 'Errors/AuthError.dart';

@@ -28,6 +28,4 @@ data class FlutterConfirmSignInRequest(val map: HashMap<String, *>) {
       return valid;
     }
   }
-
 }
-

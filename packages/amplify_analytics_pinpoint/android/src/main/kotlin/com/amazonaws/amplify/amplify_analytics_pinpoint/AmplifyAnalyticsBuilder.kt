@@ -1,17 +1,32 @@
+/*
+ * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
 package com.amazonaws.amplify.amplify_analytics_pinpoint
 
 import com.amplifyframework.analytics.AnalyticsEvent
 import com.amplifyframework.analytics.AnalyticsProperties
 import com.amplifyframework.analytics.UserProfile
 
-class AmplifyAnalyticsConstructor {
-    companion object Constructor {
+class AmplifyAnalyticsBuilder {
+    companion object Builder {
 
-        fun createAnalyticsProperties(propertiesMap : HashMap<String, Any>) : AnalyticsProperties {
+        fun createAnalyticsProperties(propertiesMap: HashMap<String, Any>): AnalyticsProperties {
 
             val propertiesBuilder: AnalyticsProperties.Builder = AnalyticsProperties.builder()
 
-            for( (key, value ) in propertiesMap){
+            for ((key, value) in propertiesMap) {
 
                 when (value) {
                     is String -> {
@@ -36,12 +51,12 @@ class AmplifyAnalyticsConstructor {
             return propertiesBuilder.build();
         }
 
-        fun createAnalyticsEvent(name: String, propertiesMap: HashMap<String, Any>) : AnalyticsEvent{
+        fun createAnalyticsEvent(name: String, propertiesMap: HashMap<String, Any>): AnalyticsEvent {
 
             val eventBuilder: AnalyticsEvent.Builder = AnalyticsEvent.builder()
-                    .name( name );
+                    .name(name);
 
-            for( (key, value ) in propertiesMap){
+            for ((key, value) in propertiesMap) {
 
                 when (value) {
                     is String -> {
@@ -65,7 +80,7 @@ class AmplifyAnalyticsConstructor {
             return eventBuilder.build();
         }
 
-        fun createUserProfile(userProfileMap: HashMap<String, *>) : UserProfile {
+        fun createUserProfile(userProfileMap: HashMap<String, *>): UserProfile {
 
             val userProfileBuilder = UserProfile.builder();
 
@@ -94,12 +109,12 @@ class AmplifyAnalyticsConstructor {
             return userProfileBuilder.build();
         }
 
-        fun createUserLocation(userLocationMap: HashMap<String, *>) : UserProfile.Location{
+        fun createUserLocation(userLocationMap: HashMap<String, *>): UserProfile.Location {
 
             val locationBuilder = UserProfile.Location.builder()
 
-            for(item in userLocationMap){
-                when(item.key){
+            for (item in userLocationMap) {
+                when (item.key) {
                     "latitude" ->
                         locationBuilder.latitude(item.value as Double);
                     "longitude" ->

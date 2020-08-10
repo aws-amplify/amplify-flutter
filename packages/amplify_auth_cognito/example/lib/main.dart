@@ -34,9 +34,12 @@ class _MyAppState extends State<MyApp> {
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
   final confirmationCodeController = TextEditingController();
+  final oldPasswordController = TextEditingController();
+  final newPasswordController = TextEditingController();
 
   bool _isAmplifyConfigured = false;
   Amplify amplify = new Amplify();
+  AmplifyAuthCognito  auth;
   String displayState;
   String authState;
   String error;
@@ -48,12 +51,33 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _configureAmplify() async {
+
     AmplifyAuthCognito  auth = new AmplifyAuthCognito();
     amplify.addPlugin(authPlugins: [auth]);
+
     await amplify.configure(amplifyconfig);
     setState(() {
       _isAmplifyConfigured = true;
       displayState = "SHOW_SIGN_IN";
+    });
+    auth.events.listenToAuth((hubEvent) {
+      switch(hubEvent["eventName"]) {
+        case "SIGNED_IN": {
+          print("USER IS SIGNED IN");
+        }
+        break;
+        case "SIGNED_OUT": {
+          print("USER IS SIGNED OUT");
+        }
+        break;
+        case "SESSION_EXPIRED": {
+          print("USER IS SIGNED IN");
+        }
+        break;
+        default: {
+          print("CONFIGURATION EVENT");
+        }
+      }
     });
   }
 
@@ -178,7 +202,13 @@ class _MyAppState extends State<MyApp> {
       exceptions = [];
     });
     try {
-      SignOutResult res = await Amplify.Auth.signOut();
+      await Amplify.Auth.signOut(
+        request: SignOutRequest(
+          options: CognitoSignOutOptions(
+            globalSignOut: true
+          )
+        )
+      );
       setState(() {
         displayState = 'SHOW_SIGN_IN';
         authState = "SIGNED OUT";
@@ -194,21 +224,104 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  void _changePassword() async {
+    setState(() {
+      error = "";
+      exceptions = [];
+    });
+    try {
+      await Amplify.Auth.changePassword(
+        request: ChangePasswordRequest(
+          newPassword: newPasswordController.text.trim(),
+          oldPassword: oldPasswordController.text.trim()
+        ), 
+      );
+      setState(() {
+        displayState = 'SIGNED_IN';
+      });
+    } on AuthError catch (e) {
+      setState(() {
+        error = e.cause;
+        e.exceptionList.forEach((el) {
+          exceptions.add(el.exception);
+        });
+      });
+      print(e);
+    }
+  }
+
+  void _resetPassword() async {
+    setState(() {
+      error = "";
+      exceptions = [];
+    });
+    try {
+      ResetPasswordResult res = await Amplify.Auth.resetPassword(
+        request: ResetPasswordRequest(
+          userKey: usernameController.text.trim(),
+        ), 
+      );
+      setState(() {
+        displayState = "SHOW_CONFIRM_REST";
+        authState = res.nextStep.updateStep;
+      });
+    } on AuthError catch (e) {
+      setState(() {
+        error = e.cause;
+        e.exceptionList.forEach((el) {
+          exceptions.add(el.exception);
+        });
+      });
+      print(e);
+    }
+  }
+
+  void _confirmReset() async {
+    setState(() {
+      error = "";
+      exceptions = [];
+    });
+    try {
+      ChangePasswordResult res = await Amplify.Auth.confirmPassword(
+        request: ConfirmPasswordRequest(
+          userKey: usernameController.text.trim(),
+          newPassword: newPasswordController.text.trim(),
+          confirmationCode: confirmationCodeController.text.trim()
+        ), 
+      );
+      setState(() {
+        displayState = "SHOW_SIGN_IN";
+      });
+    } on AuthError catch (e) {
+      setState(() {
+        error = e.cause;
+        e.exceptionList.forEach((el) {
+          exceptions.add(el.exception);
+        });
+      });
+      print(e);
+    }
+  }
+
+  void _stopListening() async {
+    auth.events.stopListeningToAuth();
+  }
+
   void _createUser() async {
     setState(() {
       displayState = "SHOW_SIGN_UP";
     });
   }
 
-  void _confirmUser() async {
-    setState(() {
-      displayState = "SHOW_CONFIRM";
-    });
-  }
-
   void _backToSignIn() async {
     setState(() {
       displayState = "SHOW_SIGN_IN";
+    });
+  }
+
+  void _showChangePassword() async {
+    setState(() {
+      displayState = "SHOW_CHANGE_PASSWORD";
     });
   }
 
@@ -322,8 +435,8 @@ Widget showSignIn() {
             ),
             const Padding(padding: EdgeInsets.all(10.0)),
             RaisedButton(
-              onPressed: _confirmUser,
-              child: const Text('Confirm User'),
+              onPressed: _resetPassword,
+              child: const Text('Reset Password'),
             ),
             const Padding(padding: EdgeInsets.all(10.0)),
             RaisedButton(
@@ -401,6 +514,99 @@ Widget showSignIn() {
     );
   }
 
+  Widget showChangePassword() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        Expanded( // wrap your Column in Expanded
+          child: Column(
+            children: [
+              const Padding(padding: EdgeInsets.all(10.0)),
+              TextFormField(
+                controller: oldPasswordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.question_answer),
+                  hintText: 'Your old password',
+                  labelText: 'Old Password *',
+                )
+              ),
+              TextFormField(
+                controller: newPasswordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.question_answer),
+                  hintText: 'Your new password',
+                  labelText: 'New Password *',
+                )
+              ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed: _changePassword,
+                child: const Text('ChangePassword'),
+              ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed:_signOut,
+                child: const Text('Sign out'),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+  
+  Widget showConfirmReset() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        Expanded( // wrap your Column in Expanded
+          child: Column(
+            children: [
+              const Padding(padding: EdgeInsets.all(10.0)),
+              TextFormField(
+                controller: usernameController,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.verified_user),
+                  hintText: 'Your old username',
+                  labelText: 'Username *',
+                )
+              ),
+              TextFormField(
+                controller: newPasswordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.question_answer),
+                  hintText: 'Your new password',
+                  labelText: 'New Password *',
+                )
+              ),
+              TextFormField(
+                controller: confirmationCodeController,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.confirmation_number),
+                  hintText: 'The confirmation code we sent you',
+                  labelText: 'Confirmation Code *',
+                )
+              ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed: _confirmReset,
+                child: const Text('Confirm Password Reset'),
+              ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed:_backToSignIn,
+                child: const Text('Back to Sign In'),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget showApp() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -414,6 +620,16 @@ Widget showSignIn() {
               RaisedButton(
                 onPressed: _signOut,
                 child: const Text('Sign Out'),
+              ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed: _showChangePassword,
+                child: const Text('Change Password'),
+              ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed: _stopListening,
+                child: const Text('Stop Listening'),
               ),
             ],
           ),
@@ -475,6 +691,8 @@ Widget showSignIn() {
                 if (this.displayState == "SHOW_CONFIRM") showConfirmSignUp(),
                 if (this.displayState == "SHOW_SIGN_IN") showSignIn(),
                 if (this.displayState == "SHOW_CONFIRM_SIGN_IN") showConfirmSignIn(),
+                if (this.displayState == "SHOW_CHANGE_PASSWORD") showChangePassword(),
+                if (this.displayState == "SHOW_CONFIRM_REST") showConfirmReset(),
                 if (this.displayState == 'SIGNED_IN') showApp(),
                 showAuthState(),
                 if (this.error != null) showErrors(),
