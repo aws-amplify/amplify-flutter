@@ -14,18 +14,18 @@ class Amplify {
   var multiPluginWarning = "Concurrent usage of multiple plugins per category is not yet available";
 
   Future<void> addPlugin({
-    List<AuthPluginInterface> authPlugin, 
-    List<AnalyticsPluginInterface> analyticsPlugin}) {
+    List<AuthPluginInterface> authPlugins, 
+    List<AnalyticsPluginInterface> analyticsPlugins}) {
     if (!_isConfigured) {
       try {
-        if (authPlugin != null && authPlugin.length == 1) {
-          Auth.addPlugin(authPlugin[0]);
-        } else if (authPlugin != null && authPlugin.length > 1) {
+        if (authPlugins != null && authPlugins.length == 1) {
+          Auth.addPlugin(authPlugins[0]);
+        } else if (authPlugins != null && authPlugins.length > 1) {
           throw(multiPluginWarning);
         }
-        if (analyticsPlugin != null && analyticsPlugin.length == 1) {
-          Analytics.addPlugin(analyticsPlugin[0]);
-        } else if (authPlugin != null && analyticsPlugin.length > 1) {
+        if (analyticsPlugins != null && analyticsPlugins.length == 1) {
+          Analytics.addPlugin(analyticsPlugins[0]);
+        } else if (analyticsPlugins != null && analyticsPlugins.length > 1) {
           throw(multiPluginWarning);
         }
       } catch(e) {
