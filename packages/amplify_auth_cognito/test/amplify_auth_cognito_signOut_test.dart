@@ -45,8 +45,8 @@ void main() {
     coreChannel.setMockMethodCallHandler(null);
   });
 
-  test('signOut request returns a SignOutResult', () async {
-    await amplify.addPlugin(authPlugin: [auth]);
+  test('signUp request returns a SignOutResult', () async {
+    await amplify.addPlugin(authPlugins: [auth]);
     await amplify.configure("{}");
     SignOutRequest req = SignOutRequest();
     expect(await Amplify.Auth.signOut(request: req), isInstanceOf<SignOutResult>());

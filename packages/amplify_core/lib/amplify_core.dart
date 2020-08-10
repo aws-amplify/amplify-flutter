@@ -1,5 +1,19 @@
-library amplify_core;
+/*
+ * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
 
+library amplify_core;
 
 import 'dart:async';
 import 'package:amplify_core_plugin_interface/amplify_core_plugin_interface.dart';
@@ -14,18 +28,18 @@ class Amplify {
   var multiPluginWarning = "Concurrent usage of multiple plugins per category is not yet available";
 
   Future<void> addPlugin({
-    List<AuthPluginInterface> authPlugin, 
-    List<AnalyticsPluginInterface> analyticsPlugin}) {
+    List<AuthPluginInterface> authPlugins, 
+    List<AnalyticsPluginInterface> analyticsPlugins}) {
     if (!_isConfigured) {
       try {
-        if (authPlugin != null && authPlugin.length == 1) {
-          Auth.addPlugin(authPlugin[0]);
-        } else if (authPlugin.length > 1) {
+        if (authPlugins != null && authPlugins.length == 1) {
+          Auth.addPlugin(authPlugins[0]);
+        } else if (authPlugins != null && authPlugins.length > 1) {
           throw(multiPluginWarning);
         }
-        if (analyticsPlugin != null && analyticsPlugin.length == 1) {
-          Analytics.addPlugin(analyticsPlugin[0]);
-        } else if (authPlugin.length > 1) {
+        if (analyticsPlugins != null && analyticsPlugins.length == 1) {
+          Analytics.addPlugin(analyticsPlugins[0]);
+        } else if (analyticsPlugins != null && analyticsPlugins.length > 1) {
           throw(multiPluginWarning);
         }
       } catch(e) {

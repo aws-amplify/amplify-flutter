@@ -1,3 +1,18 @@
+/*
+ * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
 import Amplify
 import AmplifyPlugins
 
@@ -9,13 +24,12 @@ public class AmplifyAnalyticsBridge {
         let name = argumentsMap["name"] as! String
         let propertiesMap = argumentsMap["propertiesMap"] as! Dictionary<String, AnyObject>
         
-        let event = BasicAnalyticsEvent(name: name, properties: AmplifyAnalyticsConstructor.createAnalyticsProperties(propertiesMap: propertiesMap))
+        let event = BasicAnalyticsEvent(name: name, properties: AmplifyAnalyticsBuilder.createAnalyticsProperties(propertiesMap: propertiesMap))
         Amplify.Analytics.record(event: event)
         
         result(true);
     }
 
-    
     public static func flushEvents(result: @escaping FlutterResult){
         Amplify.Analytics.flushEvents()
         result(true);
@@ -23,7 +37,7 @@ public class AmplifyAnalyticsBridge {
     
     public static func registerGlobalProperties(arguments: Any?, result: @escaping FlutterResult){
         let propertiesMap = arguments as! Dictionary<String , AnyObject>
-        Amplify.Analytics.registerGlobalProperties(AmplifyAnalyticsConstructor.createAnalyticsProperties(propertiesMap: propertiesMap))
+        Amplify.Analytics.registerGlobalProperties(AmplifyAnalyticsBuilder.createAnalyticsProperties(propertiesMap: propertiesMap))
         result(true);
     }
     
@@ -53,7 +67,7 @@ public class AmplifyAnalyticsBridge {
         let userId = arguments["userId"] as! String
         let userProfileMap = arguments["userProfileMap"] as! Dictionary<String, AnyObject>
 
-        Amplify.Analytics.identifyUser(userId, withProfile: AmplifyAnalyticsConstructor.createUserProfile(userProfileMap: userProfileMap))
+        Amplify.Analytics.identifyUser(userId, withProfile: AmplifyAnalyticsBuilder.createUserProfile(userProfileMap: userProfileMap))
         result(true);
     }
 }
