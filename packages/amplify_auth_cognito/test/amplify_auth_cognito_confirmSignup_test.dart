@@ -52,7 +52,7 @@ void main() {
   });
 
   test('signUp request returns a ConfirmSignUpResult', () async {
-    await amplify.addPlugin(authPlugin: [auth]);
+    await amplify.addPlugin(authPlugins: [auth]);
     await amplify.configure("{}");
     ConfirmSignUpRequest req = ConfirmSignUpRequest(
       userKey: 'testUser',

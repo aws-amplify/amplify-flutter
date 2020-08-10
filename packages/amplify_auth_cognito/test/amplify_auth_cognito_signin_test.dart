@@ -52,7 +52,7 @@ void main() {
   });
 
   test('signUp request returns a SignInResult', () async {
-    await amplify.addPlugin(authPlugin: [auth]);
+    await amplify.addPlugin(authPlugins: [auth]);
     await amplify.configure("{}");
     SignInRequest req = SignInRequest(
       username: 'testUser',

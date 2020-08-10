@@ -38,9 +38,18 @@ class _MyAppState extends State<MyApp> {
     if (!mounted) return;
 
     // Configure analytics plugin
-    AmplifyAnalyticsPinpointPlugin analyticsPlugin =
-        new AmplifyAnalyticsPinpointPlugin();
-    AmplifyAuthCognito authPlugin = new AmplifyAuthCognito();
+    AmplifyAnalyticsPinpointPlugin analyticsPlugin = new AmplifyAnalyticsPinpointPlugin();
+    amplifyInstance.addPlugin(analyticsPlugins: [analyticsPlugin]);
+
+    var isConfigured = await amplifyInstance.configure(amplifyconfig);
+    try {
+      setState(() {
+        _amplifyConfigured = isConfigured;
+      });
+    } catch (e) {
+      print(e);
+    }
+
 
     amplifyInstance.addPlugin(
         authPlugin: [authPlugin], analyticsPlugin: [analyticsPlugin]);
