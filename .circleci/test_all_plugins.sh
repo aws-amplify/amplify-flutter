@@ -66,7 +66,7 @@ for plugin_dir in */; do
                     failed_plugins+=("$plugin")
                     continue
                 fi
-                cp ~/amplify-flutter/.circleci/dummy_amplifyconfiguraton.dart example/lib/amplifyconfiguration.dart
+                cp ../../.circleci/dummy_amplifyconfiguraton.dart example/lib/amplifyconfiguration.dart
                 cd example/ios
                 if ! flutter build ios --no-codesign; then
                     echo "FAILED: iOS example failed to build."
