@@ -14,6 +14,6 @@
  * permissions and limitations under the License.
  */
 
-class ChangePasswordResult { 
-  ChangePasswordResult() {}
+class UpdatePasswordResult { 
+  UpdatePasswordResult() {}
 } 

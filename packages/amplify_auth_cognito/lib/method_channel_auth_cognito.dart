@@ -127,12 +127,12 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   }
 
   @override
-  Future<ChangePasswordResult> changePassword({ChangePasswordRequest request}) async {
-    ChangePasswordResult res;
+  Future<UpdatePasswordResult> updatePassword({UpdatePasswordRequest request}) async {
+    UpdatePasswordResult res;
     try {
       final Map<String, dynamic> data =
       await _channel.invokeMapMethod<String, dynamic>(
-        'changePassword',
+        'updatePassword',
         <String, dynamic>{
           'data': request != null ? request.serializeAsMap() : null,
         },
@@ -169,8 +169,8 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   }
 
   @override
-  Future<ChangePasswordResult> confirmPassword({ConfirmPasswordRequest request}) async {
-    ChangePasswordResult res;
+  Future<UpdatePasswordResult> confirmPassword({ConfirmPasswordRequest request}) async {
+    UpdatePasswordResult res;
     try {
       final Map<String, dynamic> data =
       await _channel.invokeMapMethod<String, dynamic>(
@@ -234,8 +234,8 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     }
   }
 
-  ChangePasswordResult _formatPasswordResponse(Map<String, dynamic> res) {
-    return ChangePasswordResult();
+  UpdatePasswordResult _formatPasswordResponse(Map<String, dynamic> res) {
+    return UpdatePasswordResult();
   }
 
   SignOutResult _formatSignOutResponse(Map<String, dynamic> signOutResponse) {

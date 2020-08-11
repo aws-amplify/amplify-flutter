@@ -16,17 +16,17 @@
 import './PasswordOptions.dart';
 import 'package:flutter/foundation.dart';
 
-class ChangePasswordRequest {
-  String userKey;
+class UpdatePasswordRequest {
+  String username;
   String newPassword;
   String oldPassword;
   PasswordOptions options;
 
-  ChangePasswordRequest({this.userKey, @required this.newPassword, @required this.oldPassword, this.options});
+  UpdatePasswordRequest({this.username, @required this.newPassword, @required this.oldPassword, this.options});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    if (userKey != null) {
-      pendingRequest['userKey'] = userKey;
+    if (username != null) {
+      pendingRequest['username'] = username;
     }
     pendingRequest['newPassword'] = newPassword;
     pendingRequest['oldPassword'] = oldPassword;

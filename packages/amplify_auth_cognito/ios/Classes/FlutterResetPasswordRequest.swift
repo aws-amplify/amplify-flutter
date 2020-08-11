@@ -15,16 +15,16 @@
 
 import Foundation
 struct FlutterResetPasswordRequest {
-  var userKey: String
+  var username: String
   var options: Dictionary<String, Any>? = [:]
 
   init(dict: NSMutableDictionary){
-    self.userKey = dict["userKey"] as! String
+    self.username = dict["username"] as! String
     self.options = dict["options"] as! Dictionary<String, Any>?
   }
   static func validate(dict: NSMutableDictionary) -> Bool {
     var valid: Bool = true;
-    if (dict["userKey"] == nil && dict["options"] == nil) {
+    if (dict["username"] == nil && dict["options"] == nil) {
       valid = false;
     }
     return valid;

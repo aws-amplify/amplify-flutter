@@ -17,15 +17,15 @@ import './PasswordOptions.dart';
 import 'package:flutter/foundation.dart';
 
 class ConfirmPasswordRequest {
-  String userKey;
+  String username;
   String newPassword;
   String confirmationCode;
   PasswordOptions options;
 
-  ConfirmPasswordRequest({@required this.userKey, @required this.newPassword, @required this.confirmationCode, this.options});
+  ConfirmPasswordRequest({@required this.username, @required this.newPassword, @required this.confirmationCode, this.options});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    pendingRequest['userKey'] = userKey;
+    pendingRequest['username'] = username;
     pendingRequest['newPassword'] = newPassword;
     pendingRequest['confirmationCode'] = confirmationCode;
 

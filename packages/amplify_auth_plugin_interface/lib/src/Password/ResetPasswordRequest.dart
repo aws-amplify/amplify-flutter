@@ -17,14 +17,14 @@ import './PasswordOptions.dart';
 import 'package:flutter/foundation.dart';
 
 class ResetPasswordRequest {
-  String userKey;
+  String username;
   PasswordOptions options;
 
-  ResetPasswordRequest({this.userKey, this.options});
+  ResetPasswordRequest({this.username, this.options});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    if (userKey != null) {
-      pendingRequest['userKey'] = userKey;
+    if (username != null) {
+      pendingRequest['username'] = username;
     }
     if (options != null) {
       pendingRequest['options'] = options.serializeAsMap();

@@ -45,10 +45,10 @@ void main() {
     coreChannel.setMockMethodCallHandler(null);
   });
 
-  test('confirmPassword request returns a ChangePasswordResult', () async {
+  test('confirmPassword request returns a UpdatePasswordResult', () async {
     await amplify.addPlugin(authPlugins: [auth]);
     await amplify.configure("{}");
-    ConfirmPasswordRequest req = ConfirmPasswordRequest(userKey: "mel", newPassword: "1", confirmationCode: "2");
-    expect(await Amplify.Auth.confirmPassword(request: req), isInstanceOf<ChangePasswordResult>());
+    ConfirmPasswordRequest req = ConfirmPasswordRequest(username: "mel", newPassword: "1", confirmationCode: "2");
+    expect(await Amplify.Auth.confirmPassword(request: req), isInstanceOf<UpdatePasswordResult>());
   });
 }
