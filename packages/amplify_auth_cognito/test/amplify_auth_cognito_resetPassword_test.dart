@@ -52,7 +52,7 @@ void main() {
   });
 
   test('resetPassword request returns a ResetPasswordResult', () async {
-    await amplify.addPlugin(authPlugin: [auth]);
+    await amplify.addPlugin(authPlugins: [auth]);
     await amplify.configure("{}");
     ResetPasswordRequest req = ResetPasswordRequest(
       userKey: 'testUser'

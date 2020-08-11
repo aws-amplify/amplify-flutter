@@ -32,5 +32,11 @@ export 'CognitoSignUp/CognitoSignUpOptions.dart';
 export 'CognitoPasswords/CognitoResetPasswordResult.dart';
 export 'CognitoPasswords/CognitoChangePasswordOptions.dart';
 
+// Session
+export 'CognitoSession/AWSCognitoUserPoolTokens.dart';
+export 'CognitoSession/AWSCredentials.dart';
+export 'CognitoSession/CognitoAuthSession.dart';
+export 'CognitoSession/CognitoSessionOptions.dart';
+
 // Exceptions
 export 'CognitoExceptions/CognitoExceptions.dart';

@@ -12,23 +12,28 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-
-// Request & Result Classes
+// SignUp Classes
 export 'SignUp/SignUpRequest.dart';
 export 'SignUp/SignUpResult.dart';
 export 'SignUp/ConfirmSignUpRequest.dart';
 export 'SignUp/ConfirmSignUpOptions.dart';
 export 'SignUp/SignUpOptions.dart';
 export 'SignUp/AuthNextSignUpStep.dart';
+
+// SignIn Classes
 export 'SignIn/SignInRequest.dart';
 export 'SignIn/SignInResult.dart';
 export 'SignIn/ConfirmSignInRequest.dart';
 export 'SignIn/ConfirmSignInOptions.dart';
 export 'SignIn/SignInOptions.dart';
 export 'SignIn/AuthNextSignInStep.dart';
+
+// SignOut Classes
 export 'SignOut/SignOutRequest.dart';
 export 'SignOut/SignOutResult.dart';
 export 'SignOut/SignOutOptions.dart';
+
+// Password Classes
 export 'Password/PasswordOptions.dart';
 export 'Password/ChangePasswordRequest.dart';
 export 'Password/ChangePasswordResult.dart';
@@ -37,14 +42,16 @@ export 'Password/ResetPasswordRequest.dart';
 export 'Password/ResetPasswordResult.dart';
 export 'Password/ConfirmPasswordRequest.dart';
 
+// Session Classes
+export 'Session/AuthSession.dart';
+export 'Session/AuthSessionOptions.dart';
+export 'Session/AuthSessionRequest.dart';
+
 // Error Classes
 export 'Errors/AuthError.dart';
 export 'Errors/AuthErrorTypes.dart';
+export 'Errors/AmplifyDartExceptions.dart';
 
 // Utility Classes
 export 'types/AuthCodeDeliveryDetails.dart';
 export 'types/AuthNextStep.dart';
-
-// Errors
-export 'Errors/AuthError.dart';
-export 'Errors/AuthErrorTypes.dart';

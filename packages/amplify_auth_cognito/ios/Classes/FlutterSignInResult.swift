@@ -130,6 +130,3 @@ func setState(res: AmplifyOperation<AuthSignInRequest, AuthSignInResult, AuthErr
     }
     return state
 }
-
-
-
