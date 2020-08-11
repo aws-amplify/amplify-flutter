@@ -46,7 +46,7 @@ void main() {
   });
 
   test('confirmPassword request returns a ChangePasswordResult', () async {
-    await amplify.addPlugin(authPlugin: [auth]);
+    await amplify.addPlugin(authPlugins: [auth]);
     await amplify.configure("{}");
     ConfirmPasswordRequest req = ConfirmPasswordRequest(userKey: "mel", newPassword: "1", confirmationCode: "2");
     expect(await Amplify.Auth.confirmPassword(request: req), isInstanceOf<ChangePasswordResult>());

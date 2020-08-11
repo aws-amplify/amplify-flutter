@@ -52,7 +52,7 @@ void main() {
 
   test('fetchSession request returns a AuthCognitoSession', () async {
     testCode = 1;
-    await amplify.addPlugin(authPlugin: [auth]);
+    await amplify.addPlugin(authPlugins: [auth]);
     await amplify.configure("{}");
     AuthSessionRequest req = AuthSessionRequest();
     expect(await Amplify.Auth.fetchAuthSession(request: req), isInstanceOf<CognitoAuthSession>());
