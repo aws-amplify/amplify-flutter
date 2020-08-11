@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
-import 'package:amplify_analytics_plugin_interface/analytics_plugin_interface.dart';
 
 import 'amplifyconfiguration.dart';
 
@@ -38,21 +37,12 @@ class _MyAppState extends State<MyApp> {
     if (!mounted) return;
 
     // Configure analytics plugin
-    AmplifyAnalyticsPinpointPlugin analyticsPlugin = new AmplifyAnalyticsPinpointPlugin();
-    amplifyInstance.addPlugin(analyticsPlugins: [analyticsPlugin]);
-
-    var isConfigured = await amplifyInstance.configure(amplifyconfig);
-    try {
-      setState(() {
-        _amplifyConfigured = isConfigured;
-      });
-    } catch (e) {
-      print(e);
-    }
-
+    AmplifyAnalyticsPinpointPlugin analyticsPlugin =
+        new AmplifyAnalyticsPinpointPlugin();
+    AmplifyAuthCognito authPlugin = new AmplifyAuthCognito();
 
     amplifyInstance.addPlugin(
-        authPlugin: [authPlugin], analyticsPlugin: [analyticsPlugin]);
+        authPlugins: [authPlugin], analyticsPlugins: [analyticsPlugin]);
 
     await amplifyInstance.configure(amplifyconfig);
     setState(() {
