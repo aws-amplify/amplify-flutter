@@ -276,9 +276,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
     private func handleAuthError(error: AuthError, flutterResult: FlutterResult, msg: String){
         if case .service( let localizedError, let recoverySuggestion, let error) = error {
           let errorCode = error != nil ? "\(error!)" : "unknown"
-          var errorMap: [String: Any] = formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-          errorMap["PLATFORM_EXCEPTIONS"] = platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-          prepareError(flutterResult: flutterResult,  msg: msg, errorMap: errorMap)
+              formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
         }
         if case .configuration(let localizedError, let recoverySuggestion, let error) = error {
               let errorCode = error != nil ? "\(error!)" : "configuration"
@@ -288,40 +286,34 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
         }
         if case .unknown(let localizedError, let error) = error {
               let errorCode = error != nil ? "\(error!)" : "unknown"
-              var errorMap: [String: Any] = formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-              errorMap["PLATFORM_EXCEPTIONS"] = platformExceptions(localizedError: localizedError, recoverySuggestion: "An unknown error has occurred.")
-              prepareError(flutterResult: flutterResult,  msg: msg, errorMap: errorMap)
+              formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: "An unknown error has occurred.")
         }
         if case .invalidState(let localizedError, let recoverySuggestion, let error) = error {
               let errorCode = error != nil ? "\(error!)" : "invalidState"
-              var errorMap: [String: Any] = formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-              errorMap["PLATFORM_EXCEPTIONS"] = platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-              prepareError(flutterResult: flutterResult,  msg: msg, errorMap: errorMap)
+              formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
         }
         if case .notAuthorized(let localizedError,  let recoverySuggestion, let error) = error {
               let errorCode = error != nil ? "\(error!)" : "notAuthorized"
-              var errorMap: [String: Any] = formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-              errorMap["PLATFORM_EXCEPTIONS"] = platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-              prepareError(flutterResult: flutterResult,  msg: msg, errorMap: errorMap)
+              formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
         }
         if case .validation(_, let localizedError, let recoverySuggestion, let error) = error {
               let errorCode = error != nil ? "\(error!)" : "validation"
-              var errorMap: [String: Any] = formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-              errorMap["PLATFORM_EXCEPTIONS"] = platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-              prepareError(flutterResult: flutterResult,  msg: msg, errorMap: errorMap)
+              formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
         }
         if case .signedOut(let localizedError, let recoverySuggestion, let error) = error {
              let errorCode = error != nil ? "\(error!)" : "signedOut"
-             var errorMap: [String: Any] = formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-             errorMap["PLATFORM_EXCEPTIONS"] = platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-             prepareError(flutterResult: flutterResult,  msg: msg, errorMap: errorMap)
+              formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
         }
         if case .sessionExpired(let localizedError, let recoverySuggestion, let error) = error {
              let errorCode = error != nil ? "\(error!)" : "sessionExpired"
-             var errorMap: [String: Any] = formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-             errorMap["PLATFORM_EXCEPTIONS"] = platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-             prepareError(flutterResult: flutterResult,  msg: msg, errorMap: errorMap)
+              formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
         }
+    }
+    
+    private func formatError(flutterResult: FlutterResult, errorCode: String, msg: String, localizedError: String, recoverySuggestion: String) {
+        var errorMap: [String: Any] = formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+        errorMap["PLATFORM_EXCEPTIONS"] = platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+        prepareError(flutterResult: flutterResult,  msg: msg, errorMap: errorMap)
     }
 
     private func prepareError(flutterResult: FlutterResult, msg: String, errorMap: [String: Any]) {
