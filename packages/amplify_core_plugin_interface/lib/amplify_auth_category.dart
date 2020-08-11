@@ -19,7 +19,7 @@ class AuthCategory {
     }
   }
 
-  Future<SignUpResult> signUp({@required SignUpRequest request, Function(SignUpResult) success, Function(SignUpResult) error}) {
+  Future<SignUpResult> signUp({@required SignUpRequest request}) {
     /// call `signUp` on all the plugins
     return plugins[0].signUp(request: request);
   }
@@ -27,6 +27,10 @@ class AuthCategory {
   Future<SignUpResult> confirmSignUp({@required ConfirmSignUpRequest request}) {
     /// call `signUp` on all the plugins
     return plugins[0].confirmSignUp(request: request);
+  }
+
+  Future<ResendSignUpCodeResult> resendSignUpCode({@required ResendSignUpCodeRequest request}) {
+    return plugins[0].resendSignUpCode(request: request);
   }
 
   Future<SignInResult> signIn({@required SignInRequest request}) {

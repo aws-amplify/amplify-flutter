@@ -13,18 +13,8 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
-import 'AuthCodeDeliveryDetails.dart';
+import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-class AuthNextStep {
-  Map<dynamic, dynamic> additionalInfo;
-  AuthCodeDeliveryDetails codeDeliveryDetails;
-  AuthNextStep({@required codeDeliveryDetails, additionalInfo = const {}}) {
-    this.additionalInfo = additionalInfo;
-    this.codeDeliveryDetails = AuthCodeDeliveryDetails(
-      attributeName: codeDeliveryDetails["attributeName"] ?? "",
-      deliveryMedium: codeDeliveryDetails["deliveryMedium"] ?? "",
-      destination: codeDeliveryDetails["destination"]?? ""
-    );
-  }
+class CognitoResendSignUpCodeResult extends ResendSignUpCodeResult {
+  CognitoResendSignUpCodeResult({codeDeliveryDetails}) : super(codeDeliveryDetails: codeDeliveryDetails);
 }

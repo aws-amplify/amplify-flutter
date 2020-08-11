@@ -32,6 +32,11 @@ enum class FlutterAuthFailureMessage {
       return "AMPLIFY_CONFIRM_SIGNUP_FAILED"
     }
   },
+  RESEND_SIGNUP_CODE {
+    override fun toString(): String {
+      return "AMPLIFY_RESEND_SIGNUP_CODE_FAILED"
+    }
+  },
   SIGNIN {
     override fun toString(): String {
       return "AMPLIFY_SIGNIN_FAILED"

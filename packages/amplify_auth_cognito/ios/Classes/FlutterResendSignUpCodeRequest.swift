@@ -13,18 +13,17 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
-import 'AuthCodeDeliveryDetails.dart';
-
-class AuthNextStep {
-  Map<dynamic, dynamic> additionalInfo;
-  AuthCodeDeliveryDetails codeDeliveryDetails;
-  AuthNextStep({@required codeDeliveryDetails, additionalInfo = const {}}) {
-    this.additionalInfo = additionalInfo;
-    this.codeDeliveryDetails = AuthCodeDeliveryDetails(
-      attributeName: codeDeliveryDetails["attributeName"] ?? "",
-      deliveryMedium: codeDeliveryDetails["deliveryMedium"] ?? "",
-      destination: codeDeliveryDetails["destination"]?? ""
-    );
+import Foundation
+struct FlutterResendSignUpCodeRequest {
+  var username: String
+  init(dict: NSMutableDictionary){
+    self.username = dict["username"] as! String
+  }
+  static func validate(dict: NSMutableDictionary) -> Bool {
+    var valid: Bool = true;
+    if (dict["username"] == nil) {
+      valid = false;
+    }
+    return valid;
   }
 }

@@ -13,18 +13,21 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
-import 'AuthCodeDeliveryDetails.dart';
+package com.amazonaws.amplify.amplify_auth_cognito.types
 
-class AuthNextStep {
-  Map<dynamic, dynamic> additionalInfo;
-  AuthCodeDeliveryDetails codeDeliveryDetails;
-  AuthNextStep({@required codeDeliveryDetails, additionalInfo = const {}}) {
-    this.additionalInfo = additionalInfo;
-    this.codeDeliveryDetails = AuthCodeDeliveryDetails(
-      attributeName: codeDeliveryDetails["attributeName"] ?? "",
-      deliveryMedium: codeDeliveryDetails["deliveryMedium"] ?? "",
-      destination: codeDeliveryDetails["destination"]?? ""
-    );
+data class FlutterResendSignUpCodeRequest(val map: HashMap<String, *>) {
+  val username: String = map["username"] as String;
+  val options: HashMap<String, *>? = map["options"] as HashMap<String, *>?;
+
+  companion object {
+    fun validate(req : HashMap<String, *>?): Boolean {
+      var valid: Boolean = true;
+      if (req != null) {
+        if (!req.containsKey("username") && req["username"] != "") {
+          valid = false;
+        }
+      }
+      return valid;
+    }
   }
 }

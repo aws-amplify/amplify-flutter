@@ -14,13 +14,12 @@
  */
 
 import 'package:flutter/foundation.dart';
-import 'AuthCodeDeliveryDetails.dart';
 
-class AuthNextStep {
-  Map<dynamic, dynamic> additionalInfo;
+import '../types/AuthCodeDeliveryDetails.dart';
+
+class ResendSignUpCodeResult { 
   AuthCodeDeliveryDetails codeDeliveryDetails;
-  AuthNextStep({@required codeDeliveryDetails, additionalInfo = const {}}) {
-    this.additionalInfo = additionalInfo;
+  ResendSignUpCodeResult({@required codeDeliveryDetails}) {
     this.codeDeliveryDetails = AuthCodeDeliveryDetails(
       attributeName: codeDeliveryDetails["attributeName"] ?? "",
       deliveryMedium: codeDeliveryDetails["deliveryMedium"] ?? "",

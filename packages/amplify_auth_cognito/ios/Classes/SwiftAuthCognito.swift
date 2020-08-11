@@ -95,15 +95,23 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
         }
       case "confirmSignUp":
         if (FlutterConfirmSignUpRequest.validate(dict: data)) {
-          let  request = FlutterConfirmSignUpRequest(dict: data)
+          let request = FlutterConfirmSignUpRequest(dict: data)
           onConfirmSignUp(flutterResult: result, request: request)
         } else {
           let errorCode = "UNKNOWN"
             self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
         }
+       case "resendSignUpCode":
+          if (FlutterResendSignUpCodeRequest.validate(dict: data)) {
+            let request = FlutterResendSignUpCodeRequest(dict: data)
+            onResendSignUpCode(flutterResult: result, request: request)
+          } else {
+            let errorCode = "UNKNOWN"
+              self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
+          }
       case "signIn":
         if (FlutterSignInRequest.validate(dict: data)) {
-          let  request = FlutterSignInRequest(dict: data)
+          let request = FlutterSignInRequest(dict: data)
           onSignIn(flutterResult: result, request: request)
         } else {
           let errorCode = "UNKNOWN"
@@ -111,7 +119,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
         }
       case "confirmSignIn":
         if (FlutterConfirmSignInRequest.validate(dict: data)) {
-          let  request = FlutterConfirmSignInRequest(dict: data)
+          let request = FlutterConfirmSignInRequest(dict: data)
           onConfirmSignIn(flutterResult: result, request: request)
         } else {
           let errorCode = "UNKNOWN"
@@ -178,18 +186,31 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
       }
     }
   }
+    
+
+  private func onResendSignUpCode(flutterResult: @escaping FlutterResult, request: FlutterResendSignUpCodeRequest) {
+    _ = Amplify.Auth.resendSignUpCode(for: request.username) { response in
+      switch response {
+          case .success:
+            let resendData = FlutterResendSignUpCodeResult(res: response)
+            flutterResult(resendData.toJSON())
+          case .failure(let signUpError):
+            self.handleAuthError(error: signUpError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.RESEND_SIGNUP.rawValue)
+      }
+    }
+  }
+
 
   private func onSignIn(flutterResult: @escaping FlutterResult, request: FlutterSignInRequest) {
-      _ = Amplify.Auth.signIn(username: request.username, password:request.password) { response in
-        switch response {
-          case .success:
-          let signInData = FlutterSignInResult(res: response)
-          flutterResult(signInData.toJSON())
-
+    _ = Amplify.Auth.signIn(username: request.username, password:request.password) { response in
+      switch response {
+        case .success:
+        let signInData = FlutterSignInResult(res: response)
+        flutterResult(signInData.toJSON())
           case .failure(let signInError):
           self.handleAuthError(error: signInError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNIN.rawValue)
         }
-      }
+     }
   }
     
   private func onConfirmSignIn(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignInRequest) {
