@@ -60,10 +60,10 @@ Other categories may not function as expected for Flutter projects.
 6. In your main.dart file, add:
 
 ```dart
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
-import 'package:amplify_analytics_plugin_interface/analytics_plugin_interface.dart';
 import 'amplifyconfiguration.dart';
 
 void main() {
@@ -146,4 +146,16 @@ class _MyAppState extends State<MyApp> {
   }
 }
 ```
-7. From the root of your project, execute `flutter pub get` and `flutter run` from your terminal.  Make sure that an Android or iOS device are already running; you can do so from Android Studio.
+
+7. In order to get iOS builds to work do the following within Command Line:
+- Go to the root of your project
+- Run: "rm ios/Podfile"
+- Run: "flutter build ios"
+- Modify ios/Podfile -> replace the second line with: "platform :ios, '11.0'
+
+This step ensures that your flutter project is running the same ios version that our Flutter plugins are built on.
+
+
+
+8. From the root of your project, execute `flutter pub get` and `flutter run` from your terminal.
+Make sure that an Android or iOS device is already running; this can be a virutal device started from Android Studio.

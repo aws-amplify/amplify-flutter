@@ -21,7 +21,7 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import './method_channel_amplify.dart';
 
-export './src/types.dart';
+export 'package:amplify_analytics_plugin_interface/src/types.dart';
 
 class AmplifyAnalyticsPinpointPlugin extends AnalyticsPluginInterface {
   static final Object _token = Object();
