@@ -13,18 +13,14 @@
  * permissions and limitations under the License.
  */
 
-var authErrorTypes = [
-  "AMPLIFY_CHANGE_PASSWORD_FAILED",
-  "AMPLIFY_CONFIRM_SIGNIN_FAILED",
-  "AMPLIFY_CONFIRM_SIGNUP_FAILED",
-  "AMPLIFY_CONFIRM_PASSWORD_FAILED",
-  "AMPLIFY_SIGNIN_FAILED",
-  "AMPLIFY_SIGNOUT_FAILED",
-  "AMPLIFY_SIGNUP_FAILED",
-  "AMPLIFY_RESET_PASSWORD_FAILED"
-  "AMPLIFY_REQUEST_MALFORMED",
-  "AMPLIFY_FETCH_SESSION_FAILED",
-  "ERROR_CASTING_INPUT_IN_PLATFORM_CODE",
-  "ERROR_FORMATTING_PLATFORM_CHANNEL_RESPONSE",
-  "PLATFORM_EXCEPTIONS"
-];
+package com.amazonaws.amplify.amplify_auth_cognito.types
+
+import com.amplifyframework.auth.options.AuthSignOutOptions
+
+
+data class FlutterFetchAuthSessionRequest(val map: HashMap<String, *>) {
+// TODO: Implement options when/if supported by Amplify libraries
+//  var sessionOptions: AuthFetchSessionOptions = setOptions()
+  val options: HashMap<String, *>? = map["options"] as HashMap<String, *>?;
+  val getAWSCredentials: Boolean = options != null && options["getAWSCredentials"] as Boolean? == true;
+}

@@ -90,13 +90,17 @@ class _MyAppState extends State<MyApp> {
       "email": emailController.text,
       "phone_number": phoneController.text,
     };
+    Map<String, String> validationData = {
+      "test": "value"
+    };
     try {
       SignUpResult res = await Amplify.Auth.signUp(
         request: SignUpRequest(
           username: usernameController.text.trim(),
           password: passwordController.text.trim(),
           options: CognitoSignUpOptions(
-            userAttributes: userAttributes
+            userAttributes: userAttributes,
+            validationData: validationData
           )
         ), 
       );
@@ -302,6 +306,29 @@ class _MyAppState extends State<MyApp> {
       print(e);
     }
   }
+  
+  void _fetchSession() async {
+    setState(() {
+      error = "";
+      exceptions = [];
+    });
+    try {
+      AuthSession res = await Amplify.Auth.fetchAuthSession(
+        request: AuthSessionRequest(
+          options: CognitoSessionOptions(getAWSCredentials: false)
+        )
+      );
+      print(res);
+    } on AuthError catch (e) {
+      setState(() {
+        error = e.cause;
+        e.exceptionList.forEach((el) {
+          exceptions.add(el.exception);
+        });
+      });
+      print(e);
+    }
+  }
 
   void _stopListening() async {
     auth.events.stopListeningToAuth();
@@ -442,6 +469,11 @@ Widget showSignIn() {
             RaisedButton(
               onPressed: _signOut,
               child: const Text('SignOut'),
+            ),
+            const Padding(padding: EdgeInsets.all(10.0)),
+            RaisedButton(
+              onPressed: _fetchSession,
+              child: const Text('Get Session'),
             ),
             ],
           ),
@@ -631,6 +663,11 @@ Widget showSignIn() {
                 onPressed: _stopListening,
                 child: const Text('Stop Listening'),
               ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed: _fetchSession,
+                child: const Text('Get Session'),
+              )
             ],
           ),
         ),

@@ -13,18 +13,13 @@
  * permissions and limitations under the License.
  */
 
-var authErrorTypes = [
-  "AMPLIFY_CHANGE_PASSWORD_FAILED",
-  "AMPLIFY_CONFIRM_SIGNIN_FAILED",
-  "AMPLIFY_CONFIRM_SIGNUP_FAILED",
-  "AMPLIFY_CONFIRM_PASSWORD_FAILED",
-  "AMPLIFY_SIGNIN_FAILED",
-  "AMPLIFY_SIGNOUT_FAILED",
-  "AMPLIFY_SIGNUP_FAILED",
-  "AMPLIFY_RESET_PASSWORD_FAILED"
-  "AMPLIFY_REQUEST_MALFORMED",
-  "AMPLIFY_FETCH_SESSION_FAILED",
-  "ERROR_CASTING_INPUT_IN_PLATFORM_CODE",
-  "ERROR_FORMATTING_PLATFORM_CHANNEL_RESPONSE",
-  "PLATFORM_EXCEPTIONS"
-];
+import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
+import 'package:flutter/foundation.dart';
+
+
+class AuthSession {
+  bool isSignedIn;
+  AuthSession({@required this.isSignedIn}) {
+    this.isSignedIn = isSignedIn;
+   }
+}

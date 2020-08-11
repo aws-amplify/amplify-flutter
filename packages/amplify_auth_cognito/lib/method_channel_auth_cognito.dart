@@ -36,7 +36,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
           'data': request.serializeAsMap(),
         },
       );
-      res = _formatSignUpResponse(data);
+      res = _formatSignUpResponse(data, "signUp");
     } on PlatformException catch(e) {
       _throwError(e);
     }
@@ -54,7 +54,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
           'data': request.serializeAsMap(),
         },
       );
-      res = _formatSignUpResponse(data);
+      res = _formatSignUpResponse(data, "confirmSignUp");
       return res;
     } on PlatformException catch(e) {
       _throwError(e);
@@ -74,10 +74,12 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
           'data': request.serializeAsMap(),
         },
       );
-      res = _formatSignInResponse(data);
+      res = _formatSignInResponse(data, "signIn");
       return res;
     } on PlatformException catch(e) {
       _throwError(e);
+    } on AuthError catch(e) {
+      throw(e);
     }
     return res;
   }
@@ -93,10 +95,12 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
           'data': request != null ? request.serializeAsMap() : null,
         },
       );
-      res = _formatSignInResponse(data);
+      res = _formatSignInResponse(data, "confirmSignIn");
       return res;
     } on PlatformException catch(e) {
       _throwError(e);
+    } on AuthError catch(e) {
+      throw(e);
     }
     return res;
   }
@@ -109,13 +113,15 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       await _channel.invokeMapMethod<String, dynamic>(
         'signOut',
         <String, dynamic>{
-          'data': request != null ? request.serializeAsMap() : null,
+          'data': request != null ? request.serializeAsMap() : {},
         },
       );
       res = _formatSignOutResponse(data);
       return res;
     } on PlatformException catch(e) {
       _throwError(e);
+    } on AuthError catch(e) {
+      throw(e);
     }
     return res;
   }
@@ -135,6 +141,8 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return res;
     } on PlatformException catch(e) {
       _throwError(e);
+    } on AuthError catch(e) {
+      throw(e);
     }
     return res;
   }
@@ -154,6 +162,8 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return res;
     } on PlatformException catch(e) {
       _throwError(e);
+    } on AuthError catch(e) {
+      throw(e);
     }
     return res;
   }
@@ -173,24 +183,55 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return res;
     } on PlatformException catch(e) {
       _throwError(e);
+    } on AuthError catch(e) {
+      throw(e);
     }
     return res;
   }
 
-  SignUpResult _formatSignUpResponse(Map<String, dynamic> res) {
-    return CognitoSignUpResult(isSignUpComplete: res["isSignUpComplete"], nextStep: AuthNextSignUpStep(
-      signUpStep: res["nextStep"]["signUpStep"],
-      codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
-      additionalInfo: res["nextStep"]["additionalInfo"] is String ? jsonDecode(res["nextStep"]["additionalInfo"]) : {}
-    ));
+  @override
+  Future<AuthSession> fetchAuthSession({AuthSessionRequest request}) async {
+    AuthSession res;
+    try {
+      final Map<String, dynamic> data =
+      await _channel.invokeMapMethod<String, dynamic>(
+        'fetchAuthSession',
+        <String, dynamic>{
+          'data': request != null ? request.serializeAsMap() : {},
+        },
+      );
+      res = _formatSessionResponse(data);
+      return res;
+    } on PlatformException catch(e) {
+      _throwError(e);
+    } on AuthError catch(e) {
+      throw(e);
+    }
+    return res;
   }
 
-  SignInResult _formatSignInResponse(Map<String, dynamic> res) {
-    return CognitoSignInResult(isSignedIn: res["isSignedIn"], nextStep: AuthNextSignInStep(
-      signInStep: res["nextStep"]["signInStep"],
-      codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
-      additionalInfo: res["nextStep"]["additionalInfo"] is String ? jsonDecode(res["nextStep"]["additionalInfo"]) : {}
-    ));
+  SignUpResult _formatSignUpResponse(Map<String, dynamic> res, method) {
+    if (res.containsKey("nextStep")) {
+      return CognitoSignUpResult(isSignUpComplete: res["isSignUpComplete"], nextStep: AuthNextSignUpStep(
+        signUpStep: res["nextStep"]["signUpStep"],
+        codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
+        additionalInfo: res["nextStep"]["additionalInfo"] is String ? jsonDecode(res["nextStep"]["additionalInfo"]) : {}
+      ));
+    } else {
+      throw(AmplifyDartExceptions.formatException(methodName: method, field: "nextStep"));
+    }
+  }
+
+  SignInResult _formatSignInResponse(Map<String, dynamic> res, String method) {
+    if (res.containsKey("nextStep")) {
+      return CognitoSignInResult(isSignedIn: res["isSignedIn"], nextStep: AuthNextSignInStep(
+        signInStep: res["nextStep"]["signInStep"],
+        codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
+        additionalInfo: res["nextStep"]["additionalInfo"] is String ? jsonDecode(res["nextStep"]["additionalInfo"]) : {}
+      ));
+    } else {
+      throw(AmplifyDartExceptions.formatException(methodName: method, field: "nextStep"));
+    }
   }
 
   ChangePasswordResult _formatPasswordResponse(Map<String, dynamic> res) {
@@ -202,11 +243,27 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   }
 
   ResetPasswordResult _formatResetPasswordResponse(Map<String, dynamic> res) {
-    return CognitoResetPasswordResult( isPasswordReset: res["isPasswordReset"], nextStep: ResetPasswordStep(
-      updateStep: res["nextStep"]["resetPasswordStep"],
-      codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
-      additionalInfo: res["nextStep"]["additionalInfo"] is String ? jsonDecode(res["nextStep"]["additionalInfo"]) : {}
-    ));
+    if (res.containsKey("nextStep")) {
+      return CognitoResetPasswordResult( isPasswordReset: res["isPasswordReset"], nextStep: ResetPasswordStep(
+        updateStep: res["nextStep"]["resetPasswordStep"],
+        codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
+        additionalInfo: res["nextStep"]["additionalInfo"] is String ? jsonDecode(res["nextStep"]["additionalInfo"]) : {}
+      ));
+    } else {
+      throw(AmplifyDartExceptions.formatException(methodName: "resetPassword", field: "nextStep"));
+    }
+  }
+
+  AuthSession _formatSessionResponse(Map<String, dynamic> res) {
+    AWSCredentials credentials = res.containsKey("credentials") ? AWSCredentials.init(creds: res["credentials"]) : null;
+    AWSCognitoUserPoolTokens tokens = res.containsKey("tokens") ?  AWSCognitoUserPoolTokens.init(tokens: res["tokens"]) : null;
+    return CognitoAuthSession(
+      isSignedIn: res["isSignedIn"], 
+      userSub: res["userSub"],
+      identityId: res["identityId"],
+      credentials: credentials,
+      userPoolTokens: tokens,
+    );
   }
 
   void _throwError(PlatformException e) {

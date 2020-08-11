@@ -31,8 +31,11 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.exceptions.Cognito
 import com.amazonaws.services.cognitoidentityprovider.model.*
 import com.amplifyframework.auth.AuthChannelEventName
 import com.amplifyframework.auth.AuthException
+import com.amplifyframework.auth.AuthSession
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
+import com.amplifyframework.auth.cognito.AWSCognitoAuthSession
 import com.amplifyframework.auth.result.AuthResetPasswordResult
+import com.amplifyframework.auth.result.AuthSessionResult
 import com.amplifyframework.auth.result.AuthSignInResult
 import com.amplifyframework.auth.result.AuthSignUpResult
 import com.amplifyframework.core.Amplify
@@ -82,7 +85,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
   }
 
   private fun checkData(@NonNull args: HashMap<String, Any>): HashMap<String, Any> {
-    if (args["data"] !is HashMap<*, *>) {
+    if (args["data"] !is HashMap<*, *> ) {
       throw java.lang.Exception("Flutter method call arguments.data is not a map.")
     }
     return args["data"] as HashMap<String, Any>
@@ -108,13 +111,14 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
       "confirmSignUp" -> onConfirmSignUp(result, data)
       "signIn" -> onSignIn(result, data)
       "confirmSignIn" -> onConfirmSignIn(result, data)
-      "signOut" ->  onSignOut(result, data);
-      "changePassword" -> onChangePassword(result, data);
-      "resetPassword" -> onResetPassword(result, data);
-      "confirmPassword" -> onConfirmPassword(result, data);
-        else -> result.notImplemented()
-      }
+      "signOut" ->  onSignOut(result, data)
+      "changePassword" -> onChangePassword(result, data)
+      "resetPassword" -> onResetPassword(result, data)
+      "confirmPassword" -> onConfirmPassword(result, data)
+      "fetchAuthSession" -> onFetchAuthSession(result, data)
+      else -> result.notImplemented()
     }
+  }
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
     this.mainActivity = binding.activity
@@ -173,7 +177,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     channel.setMethodCallHandler(null)
   }
 
-   fun onSignUp (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
+  private fun onSignUp (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
     if (FlutterSignUpRequest.validate(request)) {
 
       var req = FlutterSignUpRequest(request as HashMap<String, *>);
@@ -294,7 +298,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     }
   }
 
-  private fun onConfirmPassword (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>?) {
+  private fun onConfirmPassword (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
     if (FlutterConfirmPasswordRequest.validate(request)) {
       var req = FlutterConfirmPasswordRequest(request as HashMap<String, *>)
       try {
@@ -312,33 +316,65 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     }
   }
 
+  private fun onFetchAuthSession (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
+    // TODO: Implement forceRefresh when/if supported by Amplify libs
+    var req = FlutterFetchAuthSessionRequest(request as HashMap<String, *>)
+    try {
+      Amplify.Auth.fetchAuthSession(
+              { result ->
+                if (req.getAWSCredentials) {
+                  val cognitoAuthSession = result as AWSCognitoAuthSession
+                  when (cognitoAuthSession.identityId.type) {
+                    AuthSessionResult.Type.SUCCESS -> this.mainActivity?.runOnUiThread({ prepareCognitoSessionResult(flutterResult, cognitoAuthSession)})
+                    AuthSessionResult.Type.FAILURE -> this.mainActivity?.runOnUiThread({ prepareCognitoSessionFailure(flutterResult, cognitoAuthSession)})
+                  }
+                } else {
+                  val session = result as AuthSession;
+                  this.mainActivity?.runOnUiThread({ prepareSessionResult(flutterResult, session)})
+                }
+              },
+              { error -> prepareError(flutterResult, error, FlutterAuthFailureMessage.FETCH_SESSION.toString()) }
+      )
+    } catch(e: Exception) {
+      prepareError(flutterResult, e, FlutterAuthFailureMessage.FETCH_SESSION.toString())
+    }
+
+  }
+
   private fun prepareError(@NonNull flutterResult: Result, @NonNull error: Exception, @NonNull msg: String) {
     var errorMap: HashMap<String, Any> = HashMap();
     if (error is AuthException) {
-      when (error.cause) {
-        is InvalidParameterException -> errorMap.put("INVALID_PARAMETER", (error.cause as InvalidParameterException).errorMessage)
-        is UsernameExistsException -> errorMap.put("USERNAME_EXISTS", (error.cause as UsernameExistsException).errorMessage)
-        is AliasExistsException -> errorMap.put("ALIAS_EXISTS", (error.cause as AliasExistsException).errorMessage)
-        is CodeDeliveryFailureException -> errorMap.put("CODE_DELIVERY_FAILURE", (error.cause as CodeDeliveryFailureException).errorMessage)
-        is CodeMismatchException -> errorMap.put("CODE_MISMATCH", (error.cause as CodeMismatchException).errorMessage)
-        is CognitoCodeExpiredException -> errorMap.put("CODE_EXPIRED", (error.cause as CognitoCodeExpiredException).localizedMessage)
-        is InternalErrorException -> errorMap.put("INTERNAL_ERROR", (error.cause as InternalErrorException).errorMessage)
-        is InvalidLambdaResponseException -> errorMap.put("INVALID_LAMBDA_RESPONSE", (error.cause as InvalidLambdaResponseException).errorMessage)
-        is InvalidPasswordException -> errorMap.put("INVALID_PASSWORD", (error.cause as InvalidPasswordException).errorMessage)
-        is MFAMethodNotFoundException -> errorMap.put("MFA_METHOD_NOT_FOUND", (error.cause as MFAMethodNotFoundException).errorMessage)
-        is NotAuthorizedException -> errorMap.put("NOT_AUTHORIZED", (error.cause as NotAuthorizedException).errorMessage)
-        is ResourceNotFoundException -> errorMap.put("RESOURCE_NOT_FOUND", (error.cause as ResourceNotFoundException).errorMessage)
-        is SoftwareTokenMFANotFoundException -> errorMap.put("SOFTWARE_TOKEN_MFA_NOT_FOUND", (error.cause as SoftwareTokenMFANotFoundException).errorMessage)
-        is PasswordResetRequiredException -> errorMap.put("PASSWORD_RESET_REQUIRED", (error.cause as PasswordResetRequiredException).errorMessage)
-        is TooManyRequestsException -> errorMap.put("TOO_MANY_REQUESTS", (error.cause as TooManyRequestsException).errorMessage)
-        is UnexpectedLambdaException -> errorMap.put("UNEXPECTED_LAMBDA", (error.cause as UnexpectedLambdaException).errorMessage)
-        is UserLambdaValidationException -> errorMap.put("USER_LAMBDA_VALIDATION", (error.cause as UserLambdaValidationException).errorMessage)
-        is TooManyFailedAttemptsException -> errorMap.put("TOO_MANY_FAILED_REQUESTS", (error.cause as TooManyFailedAttemptsException).errorMessage)
-        is UserNotConfirmedException -> errorMap.put("USER_NOT_CONFIRMED", (error.cause as UserNotConfirmedException).errorMessage)
-        is LimitExceededException -> errorMap.put("REQUEST_LIMIT_EXCEEDED", (error.cause as LimitExceededException).errorMessage)
-        is AmazonClientException -> errorMap.put("AMAZON_CLIENT_EXCEPTION", (error.cause as AmazonClientException).localizedMessage)
-        is AmazonServiceException -> errorMap.put("AMAZON_SERVICE_EXCEPTION", (error.cause as AmazonServiceException).localizedMessage)
-        else -> errorMap.put("UNKNOWN", "Unknown Auth Error.")
+      when (error) {
+        is AuthException.SignedOutException -> errorMap["SIGNED_OUT"] = error.localizedMessage
+        is AuthException.SessionExpiredException ->  errorMap["SESSION_EXPIRED"] = error.localizedMessage
+        is AuthException.InvalidAccountTypeException -> errorMap["INVALID_ACCOUNT_TYPE"] = error.localizedMessage
+        is AuthException.SessionUnavailableOfflineException -> errorMap["SESSION_UNAVAILABLE_OFFLINE"] = error.localizedMessage
+        is AuthException.SessionUnavailableServiceException -> errorMap["SESSION_UNAVAILABLE_SERVICE"] = error.localizedMessage
+        else  -> when (error.cause) {
+          is InvalidParameterException -> errorMap["INVALID_PARAMETER"] = (error.cause as InvalidParameterException).errorMessage;
+          is UsernameExistsException -> errorMap["USERNAME_EXISTS"] = (error.cause as UsernameExistsException).errorMessage;
+          is AliasExistsException -> errorMap["ALIAS_EXISTS"] = (error.cause as AliasExistsException).errorMessage;
+          is CodeDeliveryFailureException -> errorMap["CODE_DELIVERY_FAILURE"] = (error.cause as CodeDeliveryFailureException).errorMessage;
+          is CodeMismatchException -> errorMap["CODE_MISMATCH"] = (error.cause as CodeMismatchException).errorMessage;
+          is CognitoCodeExpiredException -> errorMap["CODE_EXPIRED"] = (error.cause as CognitoCodeExpiredException).localizedMessage;
+          is InternalErrorException -> errorMap["INTERNAL_ERROR"] = (error.cause as InternalErrorException).errorMessage;
+          is InvalidLambdaResponseException -> errorMap["INVALID_LAMBDA_RESPONSE"] = (error.cause as InvalidLambdaResponseException).errorMessage;
+          is InvalidPasswordException -> errorMap["INVALID_PASSWORD"] = (error.cause as InvalidPasswordException).errorMessage;
+          is MFAMethodNotFoundException -> errorMap["MFA_METHOD_NOT_FOUND"] = (error.cause as MFAMethodNotFoundException).errorMessage;
+          is NotAuthorizedException -> errorMap["NOT_AUTHORIZED"] = (error.cause as NotAuthorizedException).errorMessage;
+          is ResourceNotFoundException -> errorMap["RESOURCE_NOT_FOUND"] = (error.cause as ResourceNotFoundException).errorMessage;
+          is SoftwareTokenMFANotFoundException -> errorMap["SOFTWARE_TOKEN_MFA_NOT_FOUND"] = (error.cause as SoftwareTokenMFANotFoundException).errorMessage;
+          is PasswordResetRequiredException -> errorMap["PASSWORD_RESET_REQUIRED"] = (error.cause as PasswordResetRequiredException).errorMessage;
+          is TooManyRequestsException -> errorMap["TOO_MANY_REQUESTS"] = (error.cause as TooManyRequestsException).errorMessage;
+          is UnexpectedLambdaException -> errorMap["UNEXPECTED_LAMBDA"] = (error.cause as UnexpectedLambdaException).errorMessage;
+          is UserLambdaValidationException -> errorMap["USER_LAMBDA_VALIDATION"] = (error.cause as UserLambdaValidationException).errorMessage;
+          is TooManyFailedAttemptsException -> errorMap["TOO_MANY_FAILED_REQUESTS"] =  (error.cause as TooManyFailedAttemptsException).errorMessage;
+          is UserNotConfirmedException -> errorMap["USER_NOT_CONFIRMED"] = (error.cause as UserNotConfirmedException).errorMessage;
+          is LimitExceededException -> errorMap["REQUEST_LIMIT_EXCEEDED"] = (error.cause as LimitExceededException).errorMessage;
+          is AmazonClientException -> errorMap["AMAZON_CLIENT_EXCEPTION"] = (error.cause as AmazonClientException).localizedMessage;
+          is AmazonServiceException -> errorMap["AMAZON_SERVICE_EXCEPTION"] = (error.cause as AmazonServiceException).localizedMessage;
+          else -> errorMap["UNKNOWN"] = "Unknown Auth Error.";
+        }
       }
     } else {
       when(error.message) {
@@ -387,6 +423,21 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     var resetData = FlutterResetPasswordResult(result);
     flutterResult.success(resetData.serializeToMap());
   }
+
+  private fun prepareCognitoSessionResult(@NonNull flutterResult: Result, @NonNull result: AWSCognitoAuthSession) {
+    var session = FlutterFetchCognitoAuthSessionResult(result);
+    flutterResult.success(session.serializeToMap());
+  }
+
+  private fun prepareCognitoSessionFailure(@NonNull flutterResult: Result, @NonNull result: AWSCognitoAuthSession) {
+    prepareError(flutterResult, result.awsCredentials.error as AuthException, FlutterAuthFailureMessage.FETCH_SESSION.toString())
+  }
+
+  private fun prepareSessionResult(@NonNull flutterResult: Result, @NonNull result: AuthSession) {
+    var session = FlutterFetchAuthSessionResult(result);
+    flutterResult.success(session.serializeToMap());
+  }
+
 
   //convert a data class to a map
   fun <T> T.serializeToMap(): Map<String, Any> {

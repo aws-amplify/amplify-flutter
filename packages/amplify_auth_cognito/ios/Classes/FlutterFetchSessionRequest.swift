@@ -16,19 +16,22 @@
 import Foundation
 import Amplify
 
-struct FlutterSignOutRequest {
-  var options: AuthSignOutRequest.Options?
-  var providerOptions: Dictionary<String, Any>? = [:]
-  init(dict: NSMutableDictionary){
-    self.options = setOptions(dict: dict)
-    self.providerOptions = dict["options"] as! Dictionary<String, Any>?
-  }
-}
-
-func setOptions(dict: NSMutableDictionary) -> AuthSignOutRequest.Options {
-    if (dict["options"] != nil) {
-      return AuthSignOutRequest.Options(globalSignOut: true)
-    } else {
-      return AuthSignOutRequest.Options(globalSignOut: false)
+struct FlutterFetchSessionRequest {
+  // TODO: Implement forceRefresh when/if implemented
+    var getAWSCredentials: Bool = false;
+    init(dict: NSMutableDictionary){
+        self.getAWSCredentials = self.getCredentialRequest(res: dict)
+    }
+    
+    func getCredentialRequest(res: NSMutableDictionary) -> Bool {
+        let options = res["options"] as? Dictionary<String, Any>
+        if (options != nil) {
+            if (options?["getAWSCredentials"] != nil) {
+                return options?["getAWSCredentials"] as! Bool
+            }
+        }
+        return false
     }
 }
+
+

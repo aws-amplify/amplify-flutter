@@ -27,19 +27,22 @@ void main() {
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
+  int testCode = 0;
+
   setUp(() {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "signIn") {
-        return {
-          "isSignedIn": false,
-          "nextStep": {
-            "signInStep": "DONE",
-            "codeDeliveryDetails":  { "atttibuteName": "email" }
-          }
-        };
-      } else {
-        return true;
-      }     
+      switch(testCode) {
+        case 1:
+          return {
+            "isSignedIn": false,
+            "nextStep": {
+              "signInStep": "DONE",
+              "codeDeliveryDetails":  { "atttibuteName": "email" }
+            }
+          };
+          case 2:
+            return throw PlatformException(code: "AMPLIFY_EXCEPTION", message: "AMPLIFY_SIGNIN_FAILED", details: {} );
+      } 
     });
     coreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       return true;
@@ -51,7 +54,9 @@ void main() {
     coreChannel.setMockMethodCallHandler(null);
   });
 
+
   test('signUp request returns a SignInResult', () async {
+    testCode = 1;
     await amplify.addPlugin(authPlugins: [auth]);
     await amplify.configure("{}");
     SignInRequest req = SignInRequest(
@@ -59,5 +64,31 @@ void main() {
       password: '123',
     );
     expect(await Amplify.Auth.signIn(request: req), isInstanceOf<SignInResult>());
+  });
+
+  test('signIn request nextStep casts to AuthNextSignStep and AuthNextStep', () async {
+    testCode = 1;
+    SignInRequest req = SignInRequest(
+      username: 'testUser',
+      password: '123',
+    );
+    var res = await Amplify.Auth.signIn(request: req);
+    expect(res.nextStep, isInstanceOf<AuthNextSignInStep>());
+    expect(res.nextStep, isInstanceOf<AuthNextStep>());
+  });
+
+  test('signIn thrown PlatFormException results in AuthError', () async {
+    testCode = 2;
+    AuthError err;
+    SignInRequest req = SignInRequest(
+      username: 'testUser',
+      password: '123',
+    );
+   try {
+     await Amplify.Auth.signIn(request: req);
+   } on AuthError catch (e) {
+      err = e;
+    } 
+    expect(err.cause, "AMPLIFY_SIGNIN_FAILED");
   });
 }
