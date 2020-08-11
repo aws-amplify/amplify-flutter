@@ -347,7 +347,7 @@ class _MyAppState extends State<MyApp> {
 
   void _showUpdatePassword() async {
     setState(() {
-      displayState = "SHOW_CHANGE_PASSWORD";
+      displayState = "SHOW_UPDATE_PASSWORD";
     });
   }
 
@@ -727,7 +727,7 @@ Widget showSignIn() {
                 if (this.displayState == "SHOW_CONFIRM") showConfirmSignUp(),
                 if (this.displayState == "SHOW_SIGN_IN") showSignIn(),
                 if (this.displayState == "SHOW_CONFIRM_SIGN_IN") showConfirmSignIn(),
-                if (this.displayState == "SHOW_CHANGE_PASSWORD") showUpdatePassword(),
+                if (this.displayState == "SHOW_UPDATE_PASSWORD") showUpdatePassword(),
                 if (this.displayState == "SHOW_CONFIRM_REST") showConfirmReset(),
                 if (this.displayState == 'SIGNED_IN') showApp(),
                 showAuthState(),

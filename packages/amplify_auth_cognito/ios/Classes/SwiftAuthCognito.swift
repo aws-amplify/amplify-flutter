@@ -225,7 +225,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
         flutterResult(emptyMap)
         
        case .failure(let updatePasswordError):
-        self.handleAuthError(error: updatePasswordError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.CHANGE_PASSWORD.rawValue)
+        self.handleAuthError(error: updatePasswordError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.UPDATE_PASSWORD.rawValue)
       }
     }
   }

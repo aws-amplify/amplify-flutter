@@ -180,7 +180,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
   private fun onSignUp (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
     if (FlutterSignUpRequest.validate(request)) {
 
-      var req = FlutterSignUpRequest(request as HashMap<String, *>);
+      var req = FlutterSignUpRequest(request);
       try {
         Amplify.Auth.signUp(
                 req.username,
@@ -199,7 +199,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
 
   private fun onConfirmSignUp(@NonNull flutterResult: Result, @NonNull request:  HashMap<String, *>){
     if (FlutterConfirmSignUpRequest.validate(request)) {
-      var req = FlutterConfirmSignUpRequest(request as HashMap<String, *>);
+      var req = FlutterConfirmSignUpRequest(request)
       try {
         Amplify.Auth.confirmSignUp(
                 req.username,
@@ -217,7 +217,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
 
   private fun onSignIn (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
     if (FlutterSignInRequest.validate(request)) {
-      var req = FlutterSignInRequest(request as HashMap<String, *>)
+      var req = FlutterSignInRequest(request)
       try {
         Amplify.Auth.signIn(
                 req.username,
@@ -235,7 +235,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
 
   private fun onConfirmSignIn (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
     if (FlutterConfirmSignInRequest.validate(request)) {
-      var req = FlutterConfirmSignInRequest(request as HashMap<String, *>)
+      var req = FlutterConfirmSignInRequest(request)
       try {
         Amplify.Auth.confirmSignIn(
                 req.confirmationCode,
@@ -265,25 +265,25 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
 
   private fun onUpdatePassword (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
     if (FlutterUpdatePasswordRequest.validate(request)) {
-      var req = FlutterUpdatePasswordRequest(request as HashMap<String, *>)
+      var req = FlutterUpdatePasswordRequest(request)
       try {
         Amplify.Auth.updatePassword(
                 req.oldPassword,
                 req.newPassword,
                 {  -> this.mainActivity?.runOnUiThread({ prepareUpdatePasswordResponse(flutterResult)}) },
-                { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.CHANGE_PASSWORD.toString())}) }
+                { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.UPDATE_PASSWORD.toString())}) }
         );
       } catch(e: Exception) {
-        prepareError(flutterResult, e, FlutterAuthFailureMessage.CHANGE_PASSWORD.toString())
+        prepareError(flutterResult, e, FlutterAuthFailureMessage.UPDATE_PASSWORD.toString())
       }
     } else {
       prepareError(flutterResult, java.lang.Exception(FlutterAuthFailureMessage.MALFORMED.toString()), FlutterAuthFailureMessage.MALFORMED.toString())
     }
   }
 
-  private fun onResetPassword (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>?) {
+  private fun onResetPassword (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
     if (FlutterResetPasswordRequest.validate(request)) {
-      var req = FlutterResetPasswordRequest(request as HashMap<String, *>)
+      var req = FlutterResetPasswordRequest(request)
       try {
         Amplify.Auth.resetPassword(
                 req.username,
@@ -300,7 +300,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
 
   private fun onConfirmPassword (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
     if (FlutterConfirmPasswordRequest.validate(request)) {
-      var req = FlutterConfirmPasswordRequest(request as HashMap<String, *>)
+      var req = FlutterConfirmPasswordRequest(request)
       try {
         Amplify.Auth.confirmResetPassword(
                 req.newPassword,
@@ -318,7 +318,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
 
   private fun onFetchAuthSession (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
     // TODO: Implement forceRefresh when/if supported by Amplify libs
-    var req = FlutterFetchAuthSessionRequest(request as HashMap<String, *>)
+    var req = FlutterFetchAuthSessionRequest(request)
     try {
       Amplify.Auth.fetchAuthSession(
               { result ->
