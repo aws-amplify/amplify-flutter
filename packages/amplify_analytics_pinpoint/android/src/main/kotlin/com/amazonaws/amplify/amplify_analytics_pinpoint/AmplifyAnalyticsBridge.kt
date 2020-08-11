@@ -29,7 +29,15 @@ class AmplifyAnalyticsBridge {
             try {
                 val argumentsMap = arguments as HashMap<*, *>
                 val name = argumentsMap["name"] as String
-                val properties = argumentsMap["propertiesMap"] as HashMap<String, Any>;
+
+                var properties : HashMap<String, Any>
+
+                properties = if(argumentsMap.containsKey("propertiesMap")){
+                    argumentsMap["propertiesMap"] as HashMap<String, Any>;
+                } else{
+                    HashMap<String, Any>()
+                }
+
                 Amplify.Analytics.recordEvent(
                         AmplifyAnalyticsBuilder.createAnalyticsEvent(name, properties));
                 result.success(true);
