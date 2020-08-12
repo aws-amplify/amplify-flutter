@@ -24,32 +24,11 @@ import java.lang.reflect.Method
 
 data class FlutterSignUpRequest(val map: HashMap<String, *>) {
     var standardAttributes: Array<String> = arrayOf("address", "birthdate", "email", "family_name", "gender", "given_name", "locale", "middle_name", "name", "nickname", "phone_number", "preferred_username", "picture", "profile", "updated_at", "website", "zoneinfo")
-    val username: String = setUserName(map);
-    val password: String = map["password"] as String;
-    val options: AWSCognitoAuthSignUpOptions = formatOptions(map["options"] as HashMap<String, String>);
+    val username: String = map["username"] as String
+    val password: String = map["password"] as String
+    val options: AWSCognitoAuthSignUpOptions = formatOptions(map["options"] as HashMap<String, String>)
 
-    private fun setUserName(@NonNull request: HashMap<String, *>): String {
-        var username: String = "";
-        if (request.containsKey("options")) {
-            var options = request["options"] as HashMap<String, *>;
-            var userAttributes = options["userAttributes"] as HashMap<String, *>;
-            if (options != null && options.containsKey("usernameAttribute")) {
-                when (options["usernameAttribute"]) {
-                    "email" -> {
-                        username = userAttributes["email"] as String;
-                    }
-                    "phone_number" -> {
-                        username = userAttributes["phone_number"] as String;
-                    }
-                }
-            } else {
-                username = request["username"] as String;
-            }
-        } else if (request.containsKey("username")) {
-            username = request["username"] as String;
-        }
-        return username;
-    };
+
 
     private fun formatOptions(@NonNull rawOptions: HashMap<String, String>): AWSCognitoAuthSignUpOptions {
         var options =  AWSCognitoAuthSignUpOptions.builder();

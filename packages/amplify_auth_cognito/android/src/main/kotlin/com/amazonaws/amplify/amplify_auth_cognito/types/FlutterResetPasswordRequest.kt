@@ -16,7 +16,7 @@
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
 data class FlutterResetPasswordRequest(val map: HashMap<String, *>) {
-  val userKey: String = map["userKey"] as String;
+  val username: String = map["username"] as String;
   val options: HashMap<String, *>? = map["options"] as HashMap<String, *>?;
 
   companion object {
@@ -25,7 +25,7 @@ data class FlutterResetPasswordRequest(val map: HashMap<String, *>) {
       if (req == null || req !is HashMap<String, *>) {
         valid = false;
       } else if (req != null) {
-        if (!req.containsKey("userKey") && req["userKey"] != "") {
+        if (!req.containsKey("username") && req["username"] != "") {
           valid = false;
         }
       }

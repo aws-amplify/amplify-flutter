@@ -55,7 +55,7 @@ void main() {
     await amplify.addPlugin(authPlugins: [auth]);
     await amplify.configure("{}");
     ConfirmSignUpRequest req = ConfirmSignUpRequest(
-      userKey: 'testUser',
+      username: 'testUser',
       confirmationCode: '123',
     );
     expect(await Amplify.Auth.confirmSignUp(request: req), isInstanceOf<SignUpResult>());

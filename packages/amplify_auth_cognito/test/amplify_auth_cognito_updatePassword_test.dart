@@ -29,7 +29,7 @@ void main() {
 
   setUp(() {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "changePassword") {
+      if (methodCall.method == "updatePassword") {
         return {};
       } else {
         return true;
@@ -45,10 +45,10 @@ void main() {
     coreChannel.setMockMethodCallHandler(null);
   });
 
-  test('changePassword request returns a ChangePasswordResult', () async {
+  test('updatePassword request returns a UpdatePasswordResult', () async {
     await amplify.addPlugin(authPlugins: [auth]);
     await amplify.configure("{}");
-    ChangePasswordRequest req = ChangePasswordRequest(oldPassword: "1", newPassword: "2");
-    expect(await Amplify.Auth.changePassword(request: req), isInstanceOf<ChangePasswordResult>());
+    UpdatePasswordRequest req = UpdatePasswordRequest(oldPassword: "1", newPassword: "2");
+    expect(await Amplify.Auth.updatePassword(request: req), isInstanceOf<UpdatePasswordResult>());
   });
 }

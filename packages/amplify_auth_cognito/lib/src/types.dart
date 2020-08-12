@@ -32,7 +32,7 @@ export 'CognitoSignUp/CognitoSignUpOptions.dart';
 
 // Password
 export 'CognitoPasswords/CognitoResetPasswordResult.dart';
-export 'CognitoPasswords/CognitoChangePasswordOptions.dart';
+export 'CognitoPasswords/CognitoUpdatePasswordOptions.dart';
 
 // Session
 export 'CognitoSession/AWSCognitoUserPoolTokens.dart';

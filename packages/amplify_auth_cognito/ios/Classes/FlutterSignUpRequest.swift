@@ -19,13 +19,13 @@ import Amplify
 import AmplifyPlugins
 
 struct FlutterSignUpRequest {
-  var username: String?
+  var username: String
   var password: String
   var userAttributes: [AuthUserAttribute] = []
   var options: Dictionary<String, Any>? = [:]
   let standardAttributes = ["address", "birthdate", "email", "family_name", "gender", "given_name", "locale", "middle_name", "name", "nickname", "phone_number", "preferred_username", "picture", "profile", "updated_at", "website", "zoneinfo"]
   init(dict: NSMutableDictionary){
-    self.username = dict["username"] as? String
+    self.username = dict["username"] as! String
     self.password = dict["password"] as! String
     self.options = dict["options"] as? Dictionary<String, Any>
     self.userAttributes = self.formatUserAttributes(options: dict["options"] as! Dictionary<String, Any>)
@@ -42,21 +42,6 @@ struct FlutterSignUpRequest {
       }
     }
     return formattedAttributes
-  }
-  func getUsername() -> String {
-    var username: String = ""
-    let rawAttributes: Dictionary<String, Any> = options?["userAttributes"] as! Dictionary<String, String>
-
-    if (self.options?["usernameAttribute"] == nil && self.username != nil) {
-        username = self.username! as String;
-    } else if (self.options?["usernameAttribute"] != nil) {
-      if (self.options?["usernameAttribute"] as! String == "email") {
-        username = rawAttributes["email"] as! String
-      } else {
-        username = rawAttributes["phone_number"] as! String
-      }
-    }
-    return username
   }
     
   static func validate(dict: NSMutableDictionary) -> Bool {

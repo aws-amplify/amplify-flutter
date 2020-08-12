@@ -126,7 +126,7 @@ class _MyAppState extends State<MyApp> {
     try {
       SignUpResult res = await Amplify.Auth.confirmSignUp(
         request: ConfirmSignUpRequest(
-          userKey: usernameController.text.trim(),
+          username: usernameController.text.trim(),
           confirmationCode: confirmationCodeController.text.trim()
         ), 
       );
@@ -180,7 +180,6 @@ class _MyAppState extends State<MyApp> {
     try {
       SignInResult res = await Amplify.Auth.confirmSignIn(
         request: ConfirmSignInRequest(
-          userKey: usernameController.text.trim(),
           confirmationValue: confirmationCodeController.text.trim()
         ), 
       );
@@ -227,14 +226,14 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  void _changePassword() async {
+  void _updatePassword() async {
     setState(() {
       error = "";
       exceptions = [];
     });
     try {
-      await Amplify.Auth.changePassword(
-        request: ChangePasswordRequest(
+      await Amplify.Auth.updatePassword(
+        request: UpdatePasswordRequest(
           newPassword: newPasswordController.text.trim(),
           oldPassword: oldPasswordController.text.trim()
         ), 
@@ -261,7 +260,7 @@ class _MyAppState extends State<MyApp> {
     try {
       ResetPasswordResult res = await Amplify.Auth.resetPassword(
         request: ResetPasswordRequest(
-          userKey: usernameController.text.trim(),
+          username: usernameController.text.trim(),
         ), 
       );
       setState(() {
@@ -308,9 +307,9 @@ class _MyAppState extends State<MyApp> {
       exceptions = [];
     });
     try {
-      ChangePasswordResult res = await Amplify.Auth.confirmPassword(
+      UpdatePasswordResult res = await Amplify.Auth.confirmPassword(
         request: ConfirmPasswordRequest(
-          userKey: usernameController.text.trim(),
+          username: usernameController.text.trim(),
           newPassword: newPasswordController.text.trim(),
           confirmationCode: confirmationCodeController.text.trim()
         ), 
@@ -368,9 +367,9 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  void _showChangePassword() async {
+  void _showUpdatePassword() async {
     setState(() {
-      displayState = "SHOW_CHANGE_PASSWORD";
+      displayState = "SHOW_UPDATE_PASSWORD";
     });
   }
 
@@ -573,7 +572,7 @@ Widget showSignIn() {
     );
   }
 
-  Widget showChangePassword() {
+  Widget showUpdatePassword() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
@@ -601,8 +600,8 @@ Widget showSignIn() {
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
               RaisedButton(
-                onPressed: _changePassword,
-                child: const Text('ChangePassword'),
+                onPressed: _updatePassword,
+                child: const Text('Update Password'),
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
               RaisedButton(
@@ -682,7 +681,7 @@ Widget showSignIn() {
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
               RaisedButton(
-                onPressed: _showChangePassword,
+                onPressed: _showUpdatePassword,
                 child: const Text('Change Password'),
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
@@ -755,7 +754,7 @@ Widget showSignIn() {
                 if (this.displayState == "SHOW_CONFIRM") showConfirmSignUp(),
                 if (this.displayState == "SHOW_SIGN_IN") showSignIn(),
                 if (this.displayState == "SHOW_CONFIRM_SIGN_IN") showConfirmSignIn(),
-                if (this.displayState == "SHOW_CHANGE_PASSWORD") showChangePassword(),
+                if (this.displayState == "SHOW_UPDATE_PASSWORD") showUpdatePassword(),
                 if (this.displayState == "SHOW_CONFIRM_REST") showConfirmReset(),
                 if (this.displayState == 'SIGNED_IN') showApp(),
                 showAuthState(),
