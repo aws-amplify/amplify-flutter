@@ -43,7 +43,7 @@ jobs:
           command: flutter pub global activate junitreport
       - run:
           name: Run Flutter Unit Tests
-          command: . .circleci/test_all_plugins.sh flutter-test
+          command: ./.circleci/test_all_plugins.sh flutter-test
       - run:
           name: Save test results
           command: |
@@ -67,7 +67,7 @@ jobs:
           command: xcrun instruments -w "iPhone 11 (13.6) [" || true
       - run:
           name: Run iOS Unit Tests
-          command: . .circleci/test_all_plugins.sh ios-test
+          command: ./.circleci/test_all_plugins.sh ios-test
       - run:
           name: Save test results
           command: |
@@ -86,7 +86,7 @@ jobs:
       - checkout
       - run:
           name: Run Android Unit Tests
-          command: . .circleci/test_all_plugins.sh android-test
+          command: ./.circleci/test_all_plugins.sh android-test
       - run:
           name: Save test results
           command: |

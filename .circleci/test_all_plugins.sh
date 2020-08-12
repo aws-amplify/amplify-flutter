@@ -116,4 +116,4 @@ cd ..
 
 set -e
 
-return ${#failed_plugins[@]}
+exit ${#failed_plugins[@]}
