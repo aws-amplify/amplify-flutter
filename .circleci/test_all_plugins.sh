@@ -36,7 +36,7 @@ for plugin_dir in */; do
                     failed_plugins+=("$plugin")
                     continue
                 fi
-                cp ../../.circleci/dummy_amplifyconfiguraton.dart example/lib/amplifyconfiguration.dart
+                cp ../../.circleci/dummy_amplifyconfiguration.dart example/lib/amplifyconfiguration.dart
                 cd example/android
                 if ! flutter build apk; then
                     echo "FAILED: Android example failed to build."
