@@ -14,7 +14,7 @@
  */
 
 import Foundation
-struct FlutterChangePasswordRequest {
+struct FlutterUpdatePasswordRequest {
   var oldPassword: String
   var newPassword: String
   var options: Dictionary<String, Any>? = [:]

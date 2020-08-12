@@ -35,8 +35,8 @@ export 'SignOut/SignOutOptions.dart';
 
 // Password Classes
 export 'Password/PasswordOptions.dart';
-export 'Password/ChangePasswordRequest.dart';
-export 'Password/ChangePasswordResult.dart';
+export 'Password/UpdatePasswordRequest.dart';
+export 'Password/UpdatePasswordResult.dart';
 export 'Password/ResetPasswordStep.dart';
 export 'Password/ResetPasswordRequest.dart';
 export 'Password/ResetPasswordResult.dart';

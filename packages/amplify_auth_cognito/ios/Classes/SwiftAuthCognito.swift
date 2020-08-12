@@ -120,10 +120,10 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
       case "signOut":
         let request = FlutterSignOutRequest(dict: data)
         onSignOut(flutterResult: result, request: request)
-      case "changePassword":
-        if (FlutterChangePasswordRequest.validate(dict: data)) {
-          let  request = FlutterChangePasswordRequest(dict: data)
-          onChangePassword(flutterResult: result, request: request)
+      case "updatePassword":
+        if (FlutterUpdatePasswordRequest.validate(dict: data)) {
+          let  request = FlutterUpdatePasswordRequest(dict: data)
+          onUpdatePassword(flutterResult: result, request: request)
         } else {
           let errorCode = "UNKNOWN"
             self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
@@ -155,7 +155,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
   private func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest) {
     let options = AuthSignUpRequest.Options(userAttributes: request.userAttributes)
 
-    _ = Amplify.Auth.signUp(username: request.getUsername(), password:request.password, options: options) { response in
+    _ = Amplify.Auth.signUp(username: request.username, password:request.password, options: options) { response in
         switch response {
        case .success:
          let signUpData = FlutterSignUpResult(res: response)
@@ -217,21 +217,21 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
     }
   }
     
-  private func onChangePassword(flutterResult: @escaping FlutterResult, request: FlutterChangePasswordRequest) {
+  private func onUpdatePassword(flutterResult: @escaping FlutterResult, request: FlutterUpdatePasswordRequest) {
     _ = Amplify.Auth.update(oldPassword: request.oldPassword, to: request.newPassword) { response in
      switch response {
        case .success:
         let emptyMap: Dictionary<String, Any> = [:]
         flutterResult(emptyMap)
         
-       case .failure(let changePasswordError):
-        self.handleAuthError(error: changePasswordError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.CHANGE_PASSWORD.rawValue)
+       case .failure(let updatePasswordError):
+        self.handleAuthError(error: updatePasswordError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.UPDATE_PASSWORD.rawValue)
       }
     }
   }
     
     private func onResetPassword(flutterResult: @escaping FlutterResult, request: FlutterResetPasswordRequest) {
-        _ = Amplify.Auth.resetPassword(for: request.userKey) { response in
+        _ = Amplify.Auth.resetPassword(for: request.username) { response in
        switch response {
          case .success:
           let resetData = FlutterResetPasswordResult(res: response)
@@ -244,7 +244,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
     }
 
     private func onConfirmPassword(flutterResult: @escaping FlutterResult, request: FlutterConfirmPasswordRequest) {
-        _ = Amplify.Auth.confirmResetPassword(for: request.userKey, with: request.newPassword, confirmationCode: request.confirmationCode) { response in
+        _ = Amplify.Auth.confirmResetPassword(for: request.username, with: request.newPassword, confirmationCode: request.confirmationCode) { response in
        switch response {
          case .success:
            let emptyMap: Dictionary<String, Any> = [:]

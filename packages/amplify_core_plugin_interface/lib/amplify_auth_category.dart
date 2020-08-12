@@ -44,15 +44,15 @@ class AuthCategory {
     return plugins[0].signOut(request: request);
   }
 
-  Future<ChangePasswordResult> changePassword({ChangePasswordRequest request}) {
-    return plugins[0].changePassword(request: request);
+  Future<UpdatePasswordResult> updatePassword({UpdatePasswordRequest request}) {
+    return plugins[0].updatePassword(request: request);
   }
 
   Future<ResetPasswordResult> resetPassword({ResetPasswordRequest request}) {
     return plugins[0].resetPassword(request: request);
   }
 
-  Future<ChangePasswordResult> confirmPassword({ConfirmPasswordRequest request}) {
+  Future<UpdatePasswordResult> confirmPassword({ConfirmPasswordRequest request}) {
     return plugins[0].confirmPassword(request: request);
   }
 

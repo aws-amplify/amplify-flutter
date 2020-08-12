@@ -52,9 +52,9 @@ enum class FlutterAuthFailureMessage {
       return "AMPLIFY_REQUEST_MALFORMED"
     }
   },
-  CHANGE_PASSWORD {
+  UPDATE_PASSWORD {
     override fun toString(): String {
-      return "AMPLIFY_CHANGE_PASSWORD_FAILED"
+      return "AMPLIFY_UPDATE_PASSWORD_FAILED"
     }
   },
   RESET_PASSWORD {

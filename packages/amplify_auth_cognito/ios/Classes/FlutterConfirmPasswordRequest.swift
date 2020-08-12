@@ -15,20 +15,20 @@
 
 import Foundation
 struct FlutterConfirmPasswordRequest {
-  var userKey: String
+  var username: String
   var newPassword: String
   var confirmationCode: String
   var options: Dictionary<String, Any>? = [:]
 
   init(dict: NSMutableDictionary){
-    self.userKey = dict["userKey"] as! String
+    self.username = dict["username"] as! String
     self.newPassword = dict["newPassword"] as! String
     self.confirmationCode = dict["confirmationCode"] as! String
     self.options = dict["options"] as! Dictionary<String, Any>?
   }
   static func validate(dict: NSMutableDictionary) -> Bool {
     var valid: Bool = true;
-    if (dict["userKey"] == nil) {
+    if (dict["username"] == nil) {
       valid = false;
     }
     if (dict["newPassword"] == nil) {

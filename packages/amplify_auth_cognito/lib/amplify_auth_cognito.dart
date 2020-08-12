@@ -66,8 +66,8 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     return res;
   }
 
-  Future<ChangePasswordResult> changePassword({ChangePasswordRequest request}) async {
-    var res = await _instance.changePassword(request: request);
+  Future<UpdatePasswordResult> updatePassword({UpdatePasswordRequest request}) async {
+    var res = await _instance.updatePassword(request: request);
     return res; 
   }
 
@@ -76,7 +76,7 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     return res; 
   }
 
-  Future<ChangePasswordResult> confirmPassword({ConfirmPasswordRequest request}) async {
+  Future<UpdatePasswordResult> confirmPassword({ConfirmPasswordRequest request}) async {
     var res = await _instance.confirmPassword(request: request);
     return res; 
   }

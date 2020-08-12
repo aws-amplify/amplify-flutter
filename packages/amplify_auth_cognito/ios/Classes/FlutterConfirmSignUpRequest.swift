@@ -18,12 +18,12 @@ struct FlutterConfirmSignUpRequest {
   var username: String
   var confirmationCode: String
   init(dict: NSMutableDictionary){
-    self.username = dict["userKey"] as! String
+    self.username = dict["username"] as! String
     self.confirmationCode = dict["confirmationCode"] as! String
   }
   static func validate(dict: NSMutableDictionary) -> Bool {
     var valid: Bool = true;
-    if (dict["userKey"] == nil && dict["options"] == nil) {
+    if (dict["username"] == nil && dict["options"] == nil) {
       valid = false;
     }
     if (dict["confirmationCode"] == nil && dict["options"] == nil) {
