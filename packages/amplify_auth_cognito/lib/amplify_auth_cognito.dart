@@ -51,6 +51,11 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     return res;
   }
 
+  Future<ResendSignUpCodeResult> resendSignUpCode({@required ResendSignUpCodeRequest request}) async {
+    var res = await _instance.resendSignUpCode(request: request);
+    return res;
+  }  
+
   Future<SignInResult> signIn({@required SignInRequest request}) async {
     var res = await _instance.signIn(request: request);
     return res;

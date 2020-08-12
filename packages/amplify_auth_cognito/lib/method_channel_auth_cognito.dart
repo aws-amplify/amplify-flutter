@@ -25,7 +25,6 @@ const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/auth_cognito
 class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   @override
-
   Future<SignUpResult> signUp({SignUpRequest request}) async {
     SignUpResult res;
     try {
@@ -39,6 +38,8 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       res = _formatSignUpResponse(data, "signUp");
     } on PlatformException catch(e) {
       _throwError(e);
+    } on AuthError catch(e) {
+      throw(e);
     }
     return res;
   }
@@ -58,10 +59,32 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return res;
     } on PlatformException catch(e) {
       _throwError(e);
+    } on AuthError catch(e) {
+      throw(e);
     }
     return res;
   }
 
+  @override
+  Future<ResendSignUpCodeResult> resendSignUpCode({ResendSignUpCodeRequest request}) async {
+    ResendSignUpCodeResult res;
+    try {
+      final Map<String, dynamic> data =
+      await _channel.invokeMapMethod<String, dynamic>(
+        'resendSignUpCode',
+        <String, dynamic>{
+          'data': request.serializeAsMap(),
+        },
+      );
+      res = _formatResendSignUpResponse(data, "resendSignUpCode");
+      return res;
+    } on PlatformException catch(e) {
+      _throwError(e);
+    } on AuthError catch(e) {
+      throw(e);
+    }
+    return res;
+  }
 
   @override
   Future<SignInResult> signIn({SignInRequest request}) async {
@@ -219,6 +242,14 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       ));
     } else {
       throw(AmplifyDartExceptions.formatException(methodName: method, field: "nextStep"));
+    }
+  }
+
+  ResendSignUpCodeResult _formatResendSignUpResponse(Map<String, dynamic> res, method) {
+    if (res.containsKey("codeDeliveryDetails")) {
+      return CognitoResendSignUpCodeResult(codeDeliveryDetails: res["codeDeliveryDetails"]);
+    } else {
+      throw(AmplifyDartExceptions.formatException(methodName: method, field: "codeDeliveryDetails"));
     }
   }
 

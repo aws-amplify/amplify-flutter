@@ -116,6 +116,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
       "resetPassword" -> onResetPassword(result, data)
       "confirmPassword" -> onConfirmPassword(result, data)
       "fetchAuthSession" -> onFetchAuthSession(result, data)
+      "resendSignUpCode" -> onResendSignUpCode(result, data)
       else -> result.notImplemented()
     }
   }
@@ -215,6 +216,23 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     }
   }
 
+  private fun onResendSignUpCode(@NonNull flutterResult: Result, @NonNull request:  HashMap<String, *>){
+    if (FlutterResendSignUpCodeRequest.validate(request)) {
+      var req = FlutterResendSignUpCodeRequest(request as HashMap<String, *>);
+      try {
+        Amplify.Auth.resendSignUpCode(
+                req.username,
+                { result -> this.mainActivity?.runOnUiThread({ prepareSignUpResult(flutterResult, result) }) },
+                { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.RESEND_SIGNUP_CODE.toString()) }) }
+        )
+      } catch (e: Exception) {
+        prepareError(flutterResult, e, FlutterAuthFailureMessage.RESEND_SIGNUP_CODE.toString())
+      }
+    }  else {
+      prepareError(flutterResult, java.lang.Exception(FlutterAuthFailureMessage.MALFORMED.toString()), FlutterAuthFailureMessage.MALFORMED.toString())
+    }
+  }
+
   private fun onSignIn (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
     if (FlutterSignInRequest.validate(request)) {
       var req = FlutterSignInRequest(request)
@@ -229,7 +247,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
         prepareError(flutterResult, e, FlutterAuthFailureMessage.SIGNIN.toString())
       }
     } else {
-      prepareError(flutterResult, java.lang.Exception("Amplify SignIn request is malformed"), FlutterAuthFailureMessage.MALFORMED.toString())
+      prepareError(flutterResult, java.lang.Exception(FlutterAuthFailureMessage.MALFORMED.toString()), FlutterAuthFailureMessage.MALFORMED.toString())
     }
   }
 

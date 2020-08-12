@@ -13,19 +13,17 @@
  * permissions and limitations under the License.
  */
 
-var authErrorTypes = [
-  "AMPLIFY_CONFIRM_SIGNIN_FAILED",
-  "AMPLIFY_CONFIRM_SIGNUP_FAILED",
-  "AMPLIFY_CONFIRM_PASSWORD_FAILED",
-  "AMPLIFY_RESEND_SIGNUP_CODE_FAILED",
-  "AMPLIFY_FETCH_SESSION_FAILED",
-  "AMPLIFY_SIGNIN_FAILED",
-  "AMPLIFY_SIGNOUT_FAILED",
-  "AMPLIFY_SIGNUP_FAILED",
-  "AMPLIFY_RESET_PASSWORD_FAILED"
-  "AMPLIFY_REQUEST_MALFORMED",
-  "AMPLIFY_UPDATE_PASSWORD_FAILED",
-  "ERROR_CASTING_INPUT_IN_PLATFORM_CODE",
-  "ERROR_FORMATTING_PLATFORM_CHANNEL_RESPONSE",
-  "PLATFORM_EXCEPTIONS"
-];
+import Foundation
+struct FlutterResendSignUpCodeRequest {
+  var username: String
+  init(dict: NSMutableDictionary){
+    self.username = dict["username"] as! String
+  }
+  static func validate(dict: NSMutableDictionary) -> Bool {
+    var valid: Bool = true;
+    if (dict["username"] == nil) {
+      valid = false;
+    }
+    return valid;
+  }
+}

@@ -59,26 +59,26 @@ func setCodeDeliveryDetails(res: AmplifyOperation<AuthSignUpRequest, AuthSignUpR
         case .success(let signUpResult):
           if case let .confirmUser(deliveryDetails, _) = signUpResult.nextStep {
             if case let .email(e) = deliveryDetails?.destination {
-                  deliveryMap["destination"] = e! as String
-                  deliveryMap["attributeName"] = "email"
-                  deliveryMap["deliveryMedium"] = "EMAIL"
-                }
+              deliveryMap["destination"] = e! as String
+              deliveryMap["attributeName"] = "email"
+              deliveryMap["deliveryMedium"] = "EMAIL"
+            }
             
-                if case let .phone(e) = deliveryDetails?.destination {
-                  deliveryMap["destination"] = e! as String
-                  deliveryMap["attributeName"] = "phone"
-                }
+            if case let .phone(e) = deliveryDetails?.destination {
+              deliveryMap["destination"] = e! as String
+              deliveryMap["attributeName"] = "phone"
+            }
             
-                if case let .sms(e) = deliveryDetails?.destination {
-                  deliveryMap["destination"] = e! as String
-                  deliveryMap["attributeName"] = "sms"
-                  deliveryMap["deliveryMedium"] = "SMS"
-                }
+            if case let .sms(e) = deliveryDetails?.destination {
+              deliveryMap["destination"] = e! as String
+              deliveryMap["attributeName"] = "sms"
+              deliveryMap["deliveryMedium"] = "SMS"
+            }
             
-                if case let .unknown(e) = deliveryDetails?.destination {
-                  deliveryMap["destination"] = e! as String
-                  deliveryMap["attributeName"] = "unknown"
-                }
+            if case let .unknown(e) = deliveryDetails?.destination {
+              deliveryMap["destination"] = e! as String
+              deliveryMap["attributeName"] = "unknown"
+            }
           }
         case .failure:
             deliveryMap = [:]

@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -279,6 +278,29 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  void _resendSignUpCode() async {
+    setState(() {
+      error = "";
+      exceptions = [];
+    });
+    try {
+      ResendSignUpCodeResult res = await Amplify.Auth.resendSignUpCode(
+        request: ResendSignUpCodeRequest(
+          username: usernameController.text.trim(),
+        ), 
+      );
+      print(res);
+    } on AuthError catch (e) {
+      setState(() {
+        error = e.cause;
+        e.exceptionList.forEach((el) {
+          exceptions.add(el.exception);
+        });
+      });
+      print(e);
+    }
+  }
+
   void _confirmReset() async {
     setState(() {
       error = "";
@@ -384,6 +406,11 @@ Widget showConfirmSignUp() {
               RaisedButton(
                 onPressed:_backToSignIn,
                 child: const Text('Back to Sign In'),
+              ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed:_resendSignUpCode,
+                child: const Text('ResendCode'),
               ),
             ],
           ),

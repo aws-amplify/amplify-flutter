@@ -13,19 +13,21 @@
  * permissions and limitations under the License.
  */
 
-var authErrorTypes = [
-  "AMPLIFY_CONFIRM_SIGNIN_FAILED",
-  "AMPLIFY_CONFIRM_SIGNUP_FAILED",
-  "AMPLIFY_CONFIRM_PASSWORD_FAILED",
-  "AMPLIFY_RESEND_SIGNUP_CODE_FAILED",
-  "AMPLIFY_FETCH_SESSION_FAILED",
-  "AMPLIFY_SIGNIN_FAILED",
-  "AMPLIFY_SIGNOUT_FAILED",
-  "AMPLIFY_SIGNUP_FAILED",
-  "AMPLIFY_RESET_PASSWORD_FAILED"
-  "AMPLIFY_REQUEST_MALFORMED",
-  "AMPLIFY_UPDATE_PASSWORD_FAILED",
-  "ERROR_CASTING_INPUT_IN_PLATFORM_CODE",
-  "ERROR_FORMATTING_PLATFORM_CHANNEL_RESPONSE",
-  "PLATFORM_EXCEPTIONS"
-];
+package com.amazonaws.amplify.amplify_auth_cognito.types
+
+data class FlutterResendSignUpCodeRequest(val map: HashMap<String, *>) {
+  val username: String = map["username"] as String;
+  val options: HashMap<String, *>? = map["options"] as HashMap<String, *>?;
+
+  companion object {
+    fun validate(req : HashMap<String, *>?): Boolean {
+      var valid: Boolean = true;
+      if (req != null) {
+        if (!req.containsKey("username") && req["username"] != "") {
+          valid = false;
+        }
+      }
+      return valid;
+    }
+  }
+}
