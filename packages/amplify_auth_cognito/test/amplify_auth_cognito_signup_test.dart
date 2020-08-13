@@ -62,7 +62,7 @@ void main() {
     testCode = 1;
     await amplify.addPlugin(authPlugins: [auth]);
     await amplify.configure("{}");
-    SignUpRequest req = SignUpRequest(
+    var res = await Amplify.Auth.signUp(
       username: 'testUser',
       password: '123',
       options: CognitoSignUpOptions(
@@ -70,21 +70,19 @@ void main() {
           "email": "test@test.com",
         })
     );
-    var res = await Amplify.Auth.signUp(request: req);
     expect(res, isInstanceOf<SignUpResult>());
   });
 
   test('signUp request nextStep casts to AuthNextSignUpStep and AuthNextStep', () async {
     testCode = 1;
-    SignUpRequest req = SignUpRequest(
+    var res = await Amplify.Auth.signUp(
       username: 'testUser',
       password: '123',
       options: CognitoSignUpOptions(
         userAttributes: {
           "email": "test@test.com",
         })
-    );
-    var res = await Amplify.Auth.signUp(request: req);
+    );    
     expect(res.nextStep, isInstanceOf<AuthNextSignUpStep>());
     expect(res.nextStep, isInstanceOf<AuthNextStep>());
   });
@@ -92,16 +90,15 @@ void main() {
   test('signUp thrown PlatFormException results in AuthError', () async {
     testCode = 2;
     AuthError err;
-    SignUpRequest req = SignUpRequest(
+   try {
+    await Amplify.Auth.signUp(
       username: 'testUser',
       password: '123',
       options: CognitoSignUpOptions(
         userAttributes: {
           "email": "test@test.com",
         })
-    );
-   try {
-     await Amplify.Auth.signUp(request: req);
+    );  
    } on AuthError catch (e) {
       err = e;
     } 
