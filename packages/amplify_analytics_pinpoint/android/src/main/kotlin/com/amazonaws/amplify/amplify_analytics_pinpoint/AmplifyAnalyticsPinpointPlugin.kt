@@ -18,7 +18,7 @@ package com.amazonaws.amplify.amplify_analytics_pinpoint
 import android.app.Activity
 import android.app.Application
 import android.util.Log
-import androidx.annotation.NonNull;
+import androidx.annotation.NonNull
 
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.analytics.pinpoint.AWSPinpointAnalyticsPlugin
@@ -41,7 +41,7 @@ public class AmplifyAnalyticsPinpointPlugin : FlutterPlugin, ActivityAware, Meth
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
 
         channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "com.amazonaws.amplify/analytics_pinpoint")
-        channel.setMethodCallHandler(this);
+        channel.setMethodCallHandler(this)
 
         // Edge case for getting Application for AWSPinpointAnalyticsPlugin initialization
         // https://github.com/flutter/flutter/issues/47048
@@ -49,7 +49,7 @@ public class AmplifyAnalyticsPinpointPlugin : FlutterPlugin, ActivityAware, Meth
 
         while (context != null) {
             if (context as Application != null) {
-                Amplify.addPlugin(AWSPinpointAnalyticsPlugin(context as Application));
+                Amplify.addPlugin(AWSPinpointAnalyticsPlugin(context as Application))
                 break
             } else {
                 context = context.applicationContext
@@ -65,7 +65,7 @@ public class AmplifyAnalyticsPinpointPlugin : FlutterPlugin, ActivityAware, Meth
     // This static function is optional and equivalent to onAttachedToEngine. It supports the old
     // pre-Flutter-1.12 Android projects.
     companion object {
-        const val TAG = "AmplifyAnalyticsPinpointPlugin";
+        const val TAG = "AmplifyAnalyticsPinpointPlugin"
 
         @JvmStatic
         fun registerWith(registrar: Registrar) {
@@ -80,21 +80,19 @@ public class AmplifyAnalyticsPinpointPlugin : FlutterPlugin, ActivityAware, Meth
 
         when (call.method) {
             "recordEvent" ->
-                AmplifyAnalyticsBridge.recordEvent(call.arguments, result);
+                AmplifyAnalyticsBridge.recordEvent(call.arguments, result)
             "flushEvents" ->
-                AmplifyAnalyticsBridge.flushEvents(result);
+                AmplifyAnalyticsBridge.flushEvents(result)
             "registerGlobalProperties" ->
-                AmplifyAnalyticsBridge.registerGlobalProperties(call.arguments, result);
+                AmplifyAnalyticsBridge.registerGlobalProperties(call.arguments, result)
             "unregisterGlobalProperties" ->
-                AmplifyAnalyticsBridge.unregisterGlobalProperties(call.arguments, result);
-            "unregisterAllGlobalProperties" ->
-                AmplifyAnalyticsBridge.unregisterAllGlobalProperties(result);
+                AmplifyAnalyticsBridge.unregisterGlobalProperties(call.arguments, result)
             "enable" ->
-                AmplifyAnalyticsBridge.enable(result);
+                AmplifyAnalyticsBridge.enable(result)
             "disable" ->
-                AmplifyAnalyticsBridge.disable(result);
+                AmplifyAnalyticsBridge.disable(result)
             "identifyUser" ->
-                AmplifyAnalyticsBridge.identifyUser(call.arguments, result);
+                AmplifyAnalyticsBridge.identifyUser(call.arguments, result)
 
             else -> result.notImplemented()
         }

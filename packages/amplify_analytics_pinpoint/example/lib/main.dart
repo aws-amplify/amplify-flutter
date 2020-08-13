@@ -44,10 +44,14 @@ class _MyAppState extends State<MyApp> {
     amplifyInstance.addPlugin(
         authPlugins: [authPlugin], analyticsPlugins: [analyticsPlugin]);
 
-    await amplifyInstance.configure(amplifyconfig);
-    setState(() {
-      _amplifyConfigured = true;
-    });
+    try {
+      await amplifyInstance.configure(amplifyconfig);
+      setState(() {
+        _amplifyConfigured = true;
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 
   void _recordEvent() async {
@@ -81,11 +85,10 @@ class _MyAppState extends State<MyApp> {
     print("unregister global properties: " + _globalProp);
 
     Amplify.Analytics.unregisterGlobalProperties(propertyNames: [_globalProp]);
-    ;
   }
 
   void _unregisterAllGlobalProperties() async {
-    Amplify.Analytics.unregisterAllGlobalProperties();
+    Amplify.Analytics.unregisterGlobalProperties();
   }
 
   void _enable() async {
