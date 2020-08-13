@@ -5,7 +5,7 @@ import 'package:amplify_core/amplify_core.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('amplify/amplify_core');
-  Amplify amplify = new Amplify();
+  Amplify amplify = Amplify();
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -19,10 +19,12 @@ void main() {
     channel.setMockMethodCallHandler(null);
   });
 
-  test('configure should result in assertion error when null value is not passed', () async {
-    amplify.configure(null)
-    .then((v) => expect(true, false))
-    .catchError((e) => expect(e, isAssertionError));
+  test(
+      'configure should result in assertion error when null value is not passed',
+      () async {
+    amplify
+        .configure(null)
+        .then((v) => expect(true, false))
+        .catchError((e) => expect(e, isAssertionError));
   });
-
 }

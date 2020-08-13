@@ -19,10 +19,11 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 void main() {
-  const MethodChannel authChannel = MethodChannel('com.amazonaws.amplify/auth_cognito');
+  const MethodChannel authChannel =
+      MethodChannel('com.amazonaws.amplify/auth_cognito');
   const MethodChannel coreChannel = MethodChannel('com.amazonaws.amplify/core');
 
-  Amplify amplify = new Amplify();
+  Amplify amplify = Amplify();
   AmplifyAuthCognito auth = AmplifyAuthCognito();
 
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -34,12 +35,12 @@ void main() {
           "isSignUpComplete": false,
           "nextStep": {
             "signUpStep": "DONE",
-            "codeDeliveryDetails":  { "atttibuteName": "email" }
+            "codeDeliveryDetails": {"atttibuteName": "email"}
           }
         };
       } else {
         return true;
-      }     
+      }
     });
     coreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       return true;
@@ -58,6 +59,7 @@ void main() {
       username: 'testUser',
       confirmationCode: '123',
     );
-    expect(await Amplify.Auth.confirmSignUp(request: req), isInstanceOf<SignUpResult>());
+    expect(await Amplify.Auth.confirmSignUp(request: req),
+        isInstanceOf<SignUpResult>());
   });
 }

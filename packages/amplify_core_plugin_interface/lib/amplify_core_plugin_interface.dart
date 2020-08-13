@@ -13,9 +13,7 @@
  * permissions and limitations under the License.
  */
 
-
 library amplify_core_plugin_interface;
-
 
 import 'dart:async';
 import 'package:flutter/foundation.dart';
@@ -55,7 +53,6 @@ abstract class Core extends PlatformInterface {
 
   final AuthCategory Auth = AuthCategory();
   final AnalyticsCategory Analytics = AnalyticsCategory();
-
 
   /// Adds the configuration and return true if it was successful.
   Future<bool> configure(String configuration) {

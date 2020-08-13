@@ -19,10 +19,11 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 void main() {
-  const MethodChannel authChannel = MethodChannel('com.amazonaws.amplify/auth_cognito');
+  const MethodChannel authChannel =
+      MethodChannel('com.amazonaws.amplify/auth_cognito');
   const MethodChannel coreChannel = MethodChannel('com.amazonaws.amplify/core');
 
-  Amplify amplify = new Amplify();
+  Amplify amplify = Amplify();
   AmplifyAuthCognito auth = AmplifyAuthCognito();
 
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -31,13 +32,11 @@ void main() {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == "resendSignUpCode") {
         return {
-          "codeDeliveryDetails":  { 
-            "atttibuteName": "email" 
-          }
+          "codeDeliveryDetails": {"atttibuteName": "email"}
         };
       } else {
         return true;
-      }     
+      }
     });
     coreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       return true;
@@ -55,6 +54,7 @@ void main() {
     ResendSignUpCodeRequest req = ResendSignUpCodeRequest(
       username: 'testUser',
     );
-    expect(await Amplify.Auth.resendSignUpCode(request: req), isInstanceOf<ResendSignUpCodeResult>());
+    expect(await Amplify.Auth.resendSignUpCode(request: req),
+        isInstanceOf<ResendSignUpCodeResult>());
   });
 }

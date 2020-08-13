@@ -16,16 +16,18 @@
 import '../../analytics_plugin_interface.dart';
 
 class AnalyticsUserProfile {
-
   String name;
   String email;
   String plan;
   AnalyticsUserProfileLocation location;
   AnalyticsProperties properties;
 
-  AnalyticsUserProfile({
-    String name, String email, String plan, AnalyticsUserProfileLocation location, AnalyticsProperties analyticsProperties
-  }) {
+  AnalyticsUserProfile(
+      {String name,
+      String email,
+      String plan,
+      AnalyticsUserProfileLocation location,
+      AnalyticsProperties analyticsProperties}) {
     this.name = name;
     this.email = email;
     this.plan = plan;
@@ -34,16 +36,15 @@ class AnalyticsUserProfile {
   }
 
   Map<String, Object> getAllProperties() {
+    Map<String, Object> allProperties = {};
 
-    Map<String, Object> allProperties = {}; 
-
-    if(name != null){
+    if (name != null) {
       allProperties["name"] = name;
     }
-    if(email != null){
+    if (email != null) {
       allProperties["email"] = email;
     }
-    if(plan != null){
+    if (plan != null) {
       allProperties["plan"] = plan;
     }
     if (location != null) {

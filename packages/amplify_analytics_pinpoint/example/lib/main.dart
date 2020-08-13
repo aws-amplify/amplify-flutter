@@ -17,7 +17,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool _amplifyConfigured = false;
-  Amplify amplifyInstance = new Amplify();
+  Amplify amplifyInstance = Amplify();
 
   String _uniqueId = "default";
   String _globalProp = "default";
@@ -38,8 +38,8 @@ class _MyAppState extends State<MyApp> {
 
     // Configure analytics plugin
     AmplifyAnalyticsPinpointPlugin analyticsPlugin =
-        new AmplifyAnalyticsPinpointPlugin();
-    AmplifyAuthCognito authPlugin = new AmplifyAuthCognito();
+        AmplifyAnalyticsPinpointPlugin();
+    AmplifyAuthCognito authPlugin = AmplifyAuthCognito();
 
     amplifyInstance.addPlugin(
         authPlugins: [authPlugin], analyticsPlugins: [analyticsPlugin]);
@@ -72,7 +72,7 @@ class _MyAppState extends State<MyApp> {
   void _registerGlobalProperties() async {
     print("register global properties: " + _globalProp);
 
-    AnalyticsProperties properties = new AnalyticsProperties();
+    AnalyticsProperties properties = AnalyticsProperties();
     properties.addBoolProperty(_globalProp + "_boolKey", true);
     properties.addDoubleProperty(_globalProp + "_doubleKey", 10.0);
     properties.addIntProperty(_globalProp + "_intKey", 10);
@@ -100,13 +100,13 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _identifyUser() async {
-    AnalyticsUserProfile analyticsUserProfile = new AnalyticsUserProfile();
+    AnalyticsUserProfile analyticsUserProfile = AnalyticsUserProfile();
     analyticsUserProfile.name = _userId + "_name";
     analyticsUserProfile.email = _userId + "_email";
     analyticsUserProfile.plan = _userId + "_plan";
 
     AnalyticsUserProfileLocation analyticsUserLocation =
-        new AnalyticsUserProfileLocation();
+        AnalyticsUserProfileLocation();
     analyticsUserLocation.latitude = 5;
     analyticsUserLocation.longitude = 5;
     analyticsUserLocation.postalCode = "94070";
@@ -116,7 +116,7 @@ class _MyAppState extends State<MyApp> {
 
     analyticsUserProfile.location = analyticsUserLocation;
 
-    AnalyticsProperties properties = new AnalyticsProperties();
+    AnalyticsProperties properties = AnalyticsProperties();
     properties.addStringProperty(_userId + "_stringKey", "stringValue");
 
     analyticsUserProfile.properties = properties;

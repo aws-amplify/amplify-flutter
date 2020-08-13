@@ -20,6 +20,7 @@ class SignUpOptions {
   const SignUpOptions({@required this.userAttributes});
 
   Map<String, dynamic> serializeAsMap() {
-    throw UnimplementedError('serializeAsMap() has not been implemented on SignUpOptions.');
+    throw UnimplementedError(
+        'serializeAsMap() has not been implemented on SignUpOptions.');
   }
 }

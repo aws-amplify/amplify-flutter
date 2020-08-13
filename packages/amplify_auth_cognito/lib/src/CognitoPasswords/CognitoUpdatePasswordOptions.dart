@@ -25,4 +25,4 @@ class CognitoUpdatePasswordOptions extends PasswordOptions {
     }
     return pendingRequest;
   }
-} 
+}

@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 
-typedef void Listener(dynamic msg);
-typedef void CancelListening();
+typedef Listener = void Function(dynamic msg);
+typedef CancelListening = void Function();
 
 class AmplifyAuthCognitoEventChannel {
   var events = const EventChannel("com.amazonaws.amplify/auth_cognito_events");
@@ -14,4 +14,4 @@ class AmplifyAuthCognitoEventChannel {
   stopListeningToAuth() {
     stream.cancel();
   }
-} 
+}

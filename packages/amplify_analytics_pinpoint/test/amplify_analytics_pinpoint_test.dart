@@ -24,9 +24,8 @@ void main() {
       MethodChannel('com.amazonaws.amplify/analytics_pinpoint');
   const MethodChannel coreChannel = MethodChannel('com.amazonaws.amplify/core');
 
-  Amplify amplify = new Amplify();
-  AmplifyAnalyticsPinpointPlugin analytics =
-      new AmplifyAnalyticsPinpointPlugin();
+  Amplify amplify = Amplify();
+  AmplifyAnalyticsPinpointPlugin analytics = AmplifyAnalyticsPinpointPlugin();
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -93,10 +92,10 @@ void main() {
     userProfile.email = "email";
     userProfile.plan = "plan";
 
-    var analyticsUserLocation = new AnalyticsUserProfileLocation();
+    var analyticsUserLocation = AnalyticsUserProfileLocation();
     userProfile.location = analyticsUserLocation;
 
-    var analyticsProperties = new AnalyticsProperties();
+    var analyticsProperties = AnalyticsProperties();
     userProfile.properties = analyticsProperties;
 
     Amplify.Analytics.identifyUser(
@@ -109,7 +108,7 @@ void main() {
     userProfile.email = "email";
     userProfile.plan = "plan";
 
-    var analyticsUserLocation = new AnalyticsUserProfileLocation();
+    var analyticsUserLocation = AnalyticsUserProfileLocation();
     analyticsUserLocation.latitude = 5;
     analyticsUserLocation.longitude = 5;
     analyticsUserLocation.postalCode = "94070";
@@ -118,7 +117,7 @@ void main() {
     analyticsUserLocation.country = "USA";
     userProfile.location = analyticsUserLocation;
 
-    var analyticsProperties = new AnalyticsProperties();
+    var analyticsProperties = AnalyticsProperties();
     analyticsProperties.addBoolProperty("boolKey", true);
     analyticsProperties.addDoubleProperty("doubleKey", 10.0);
     analyticsProperties.addIntProperty("intKey", 10);

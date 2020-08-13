@@ -28,7 +28,8 @@ class AWSCredentials {
       if (creds.containsKey("value")) {
         realCreds = creds["value"];
       } else {
-        throw(AmplifyDartExceptions.formatException(methodName: "fetchAuthSession", field: "credentials"));
+        throw (AmplifyDartExceptions.formatException(
+            methodName: "fetchAuthSession", field: "credentials"));
       }
     } else {
       realCreds = creds;

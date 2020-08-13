@@ -24,9 +24,7 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'src/types.dart';
 export 'src/types.dart';
 
-
 abstract class AnalyticsPluginInterface extends PlatformInterface {
-
   /// Constructs a AmplifyPlatform.
   AnalyticsPluginInterface({@required Object token}) : super(token: token);
 

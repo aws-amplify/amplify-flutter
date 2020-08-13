@@ -19,10 +19,11 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 void main() {
-  const MethodChannel authChannel = MethodChannel('com.amazonaws.amplify/auth_cognito');
+  const MethodChannel authChannel =
+      MethodChannel('com.amazonaws.amplify/auth_cognito');
   const MethodChannel coreChannel = MethodChannel('com.amazonaws.amplify/core');
 
-  Amplify amplify = new Amplify();
+  Amplify amplify = Amplify();
   AmplifyAuthCognito auth = AmplifyAuthCognito();
 
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -31,18 +32,21 @@ void main() {
 
   setUp(() {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      switch(testCode) {
+      switch (testCode) {
         case 1:
           return {
             "isSignedIn": false,
             "nextStep": {
               "signInStep": "DONE",
-              "codeDeliveryDetails":  { "atttibuteName": "email" }
+              "codeDeliveryDetails": {"atttibuteName": "email"}
             }
           };
-          case 2:
-            return throw PlatformException(code: "AMPLIFY_EXCEPTION", message: "AMPLIFY_SIGNIN_FAILED", details: {} );
-      } 
+        case 2:
+          return throw PlatformException(
+              code: "AMPLIFY_EXCEPTION",
+              message: "AMPLIFY_SIGNIN_FAILED",
+              details: {});
+      }
     });
     coreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       return true;
@@ -54,7 +58,6 @@ void main() {
     coreChannel.setMockMethodCallHandler(null);
   });
 
-
   test('signUp request returns a SignInResult', () async {
     testCode = 1;
     await amplify.addPlugin(authPlugins: [auth]);
@@ -63,10 +66,12 @@ void main() {
       username: 'testUser',
       password: '123',
     );
-    expect(await Amplify.Auth.signIn(request: req), isInstanceOf<SignInResult>());
+    expect(
+        await Amplify.Auth.signIn(request: req), isInstanceOf<SignInResult>());
   });
 
-  test('signIn request nextStep casts to AuthNextSignStep and AuthNextStep', () async {
+  test('signIn request nextStep casts to AuthNextSignStep and AuthNextStep',
+      () async {
     testCode = 1;
     SignInRequest req = SignInRequest(
       username: 'testUser',
@@ -84,11 +89,11 @@ void main() {
       username: 'testUser',
       password: '123',
     );
-   try {
-     await Amplify.Auth.signIn(request: req);
-   } on AuthError catch (e) {
+    try {
+      await Amplify.Auth.signIn(request: req);
+    } on AuthError catch (e) {
       err = e;
-    } 
+    }
     expect(err.cause, "AMPLIFY_SIGNIN_FAILED");
   });
 }

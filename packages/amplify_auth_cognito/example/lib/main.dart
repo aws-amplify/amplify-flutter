@@ -37,8 +37,8 @@ class _MyAppState extends State<MyApp> {
   final newPasswordController = TextEditingController();
 
   bool _isAmplifyConfigured = false;
-  Amplify amplify = new Amplify();
-  AmplifyAuthCognito  auth;
+  Amplify amplify = Amplify();
+  AmplifyAuthCognito auth;
   String displayState;
   String authState;
   String error;
@@ -50,8 +50,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _configureAmplify() async {
-
-    auth = new AmplifyAuthCognito();
+    auth = AmplifyAuthCognito();
     amplify.addPlugin(authPlugins: [auth]);
 
     await amplify.configure(amplifyconfig);
@@ -60,22 +59,26 @@ class _MyAppState extends State<MyApp> {
       displayState = "SHOW_SIGN_IN";
     });
     auth.events.listenToAuth((hubEvent) {
-      switch(hubEvent["eventName"]) {
-        case "SIGNED_IN": {
-          print("USER IS SIGNED IN");
-        }
-        break;
-        case "SIGNED_OUT": {
-          print("USER IS SIGNED OUT");
-        }
-        break;
-        case "SESSION_EXPIRED": {
-          print("USER IS SIGNED IN");
-        }
-        break;
-        default: {
-          print("CONFIGURATION EVENT");
-        }
+      switch (hubEvent["eventName"]) {
+        case "SIGNED_IN":
+          {
+            print("USER IS SIGNED IN");
+          }
+          break;
+        case "SIGNED_OUT":
+          {
+            print("USER IS SIGNED OUT");
+          }
+          break;
+        case "SESSION_EXPIRED":
+          {
+            print("USER IS SIGNED IN");
+          }
+          break;
+        default:
+          {
+            print("CONFIGURATION EVENT");
+          }
       }
     });
   }
@@ -89,22 +92,19 @@ class _MyAppState extends State<MyApp> {
       "email": emailController.text,
       "phone_number": phoneController.text,
     };
-    Map<String, String> validationData = {
-      "test": "value"
-    };
+    Map<String, String> validationData = {"test": "value"};
     try {
       SignUpResult res = await Amplify.Auth.signUp(
         request: SignUpRequest(
-          username: usernameController.text.trim(),
-          password: passwordController.text.trim(),
-          options: CognitoSignUpOptions(
-            userAttributes: userAttributes,
-            validationData: validationData
-          )
-        ), 
+            username: usernameController.text.trim(),
+            password: passwordController.text.trim(),
+            options: CognitoSignUpOptions(
+                userAttributes: userAttributes,
+                validationData: validationData)),
       );
       setState(() {
-        displayState = res.nextStep.signUpStep != "DONE" ? "SHOW_CONFIRM" : "SHOW_SIGN_UP";
+        displayState =
+            res.nextStep.signUpStep != "DONE" ? "SHOW_CONFIRM" : "SHOW_SIGN_UP";
         authState = "Signup: " + res.nextStep.signUpStep;
       });
     } on AuthError catch (e) {
@@ -126,12 +126,12 @@ class _MyAppState extends State<MyApp> {
     try {
       SignUpResult res = await Amplify.Auth.confirmSignUp(
         request: ConfirmSignUpRequest(
-          username: usernameController.text.trim(),
-          confirmationCode: confirmationCodeController.text.trim()
-        ), 
+            username: usernameController.text.trim(),
+            confirmationCode: confirmationCodeController.text.trim()),
       );
       setState(() {
-        displayState = res.nextStep.signUpStep != "DONE" ? "SHOW_CONFIRM" : "SHOW_SIGN_IN";
+        displayState =
+            res.nextStep.signUpStep != "DONE" ? "SHOW_CONFIRM" : "SHOW_SIGN_IN";
         authState = "ConfirmSignUp: " + res.nextStep.signUpStep;
       });
     } on AuthError catch (e) {
@@ -153,12 +153,11 @@ class _MyAppState extends State<MyApp> {
     try {
       SignInResult res = await Amplify.Auth.signIn(
         request: SignInRequest(
-          username: usernameController.text.trim(),
-          password: passwordController.text.trim()
-        ), 
+            username: usernameController.text.trim(),
+            password: passwordController.text.trim()),
       );
       setState(() {
-        displayState = res.isSignedIn ? "SIGNED_IN" : "SHOW_CONFIRM_SIGN_IN" ;
+        displayState = res.isSignedIn ? "SIGNED_IN" : "SHOW_CONFIRM_SIGN_IN";
         authState = "Signin: " + res.nextStep.signInStep;
       });
     } on AuthError catch (e) {
@@ -172,7 +171,7 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-   void _confirmSignIn() async {
+  void _confirmSignIn() async {
     setState(() {
       error = "";
       exceptions = [];
@@ -180,11 +179,12 @@ class _MyAppState extends State<MyApp> {
     try {
       SignInResult res = await Amplify.Auth.confirmSignIn(
         request: ConfirmSignInRequest(
-          confirmationValue: confirmationCodeController.text.trim()
-        ), 
+            confirmationValue: confirmationCodeController.text.trim()),
       );
       setState(() {
-        displayState = res.nextStep.signInStep == "DONE" ? "SIGNED_IN" : "SHOW_CONFIRM_SIGN_IN";
+        displayState = res.nextStep.signInStep == "DONE"
+            ? "SIGNED_IN"
+            : "SHOW_CONFIRM_SIGN_IN";
         authState = "SignIn: " + res.nextStep.signInStep;
       });
     } on AuthError catch (e) {
@@ -205,12 +205,8 @@ class _MyAppState extends State<MyApp> {
     });
     try {
       await Amplify.Auth.signOut(
-        request: SignOutRequest(
-          options: CognitoSignOutOptions(
-            globalSignOut: true
-          )
-        )
-      );
+          request: SignOutRequest(
+              options: CognitoSignOutOptions(globalSignOut: true)));
       setState(() {
         displayState = 'SHOW_SIGN_IN';
         authState = "SIGNED OUT";
@@ -234,9 +230,8 @@ class _MyAppState extends State<MyApp> {
     try {
       await Amplify.Auth.updatePassword(
         request: UpdatePasswordRequest(
-          newPassword: newPasswordController.text.trim(),
-          oldPassword: oldPasswordController.text.trim()
-        ), 
+            newPassword: newPasswordController.text.trim(),
+            oldPassword: oldPasswordController.text.trim()),
       );
       setState(() {
         displayState = 'SIGNED_IN';
@@ -261,7 +256,7 @@ class _MyAppState extends State<MyApp> {
       ResetPasswordResult res = await Amplify.Auth.resetPassword(
         request: ResetPasswordRequest(
           username: usernameController.text.trim(),
-        ), 
+        ),
       );
       setState(() {
         displayState = "SHOW_CONFIRM_REST";
@@ -287,7 +282,7 @@ class _MyAppState extends State<MyApp> {
       ResendSignUpCodeResult res = await Amplify.Auth.resendSignUpCode(
         request: ResendSignUpCodeRequest(
           username: usernameController.text.trim(),
-        ), 
+        ),
       );
       print(res);
     } on AuthError catch (e) {
@@ -309,10 +304,9 @@ class _MyAppState extends State<MyApp> {
     try {
       UpdatePasswordResult res = await Amplify.Auth.confirmPassword(
         request: ConfirmPasswordRequest(
-          username: usernameController.text.trim(),
-          newPassword: newPasswordController.text.trim(),
-          confirmationCode: confirmationCodeController.text.trim()
-        ), 
+            username: usernameController.text.trim(),
+            newPassword: newPasswordController.text.trim(),
+            confirmationCode: confirmationCodeController.text.trim()),
       );
       setState(() {
         displayState = "SHOW_SIGN_IN";
@@ -327,7 +321,7 @@ class _MyAppState extends State<MyApp> {
       print(e);
     }
   }
-  
+
   void _fetchSession() async {
     setState(() {
       error = "";
@@ -335,10 +329,8 @@ class _MyAppState extends State<MyApp> {
     });
     try {
       AuthSession res = await Amplify.Auth.fetchAuthSession(
-        request: AuthSessionRequest(
-          options: CognitoSessionOptions(getAWSCredentials: false)
-        )
-      );
+          request: AuthSessionRequest(
+              options: CognitoSessionOptions(getAWSCredentials: false)));
       print(res);
     } on AuthError catch (e) {
       setState(() {
@@ -373,30 +365,29 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-Widget showConfirmSignUp() {
+  Widget showConfirmSignUp() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        Expanded( // wrap your Column in Expanded
-          child: Column (
+        Expanded(
+          // wrap your Column in Expanded
+          child: Column(
             children: [
               const Padding(padding: EdgeInsets.all(10.0)),
               TextFormField(
-                controller: usernameController,
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.person),
-                  hintText: 'Your username',
-                  labelText: 'Username *',
-                )
-              ),
+                  controller: usernameController,
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.person),
+                    hintText: 'Your username',
+                    labelText: 'Username *',
+                  )),
               TextFormField(
-                controller: confirmationCodeController,
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.confirmation_number),
-                  hintText: 'The code we sent you',
-                  labelText: 'Confirmation Code *',
-                )
-              ),
+                  controller: confirmationCodeController,
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.confirmation_number),
+                    hintText: 'The code we sent you',
+                    labelText: 'Confirmation Code *',
+                  )),
               const Padding(padding: EdgeInsets.all(10.0)),
               RaisedButton(
                 onPressed: _confirmSignUp,
@@ -404,12 +395,12 @@ Widget showConfirmSignUp() {
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
               RaisedButton(
-                onPressed:_backToSignIn,
+                onPressed: _backToSignIn,
                 child: const Text('Back to Sign In'),
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
               RaisedButton(
-                onPressed:_resendSignUpCode,
+                onPressed: _resendSignUpCode,
                 child: const Text('ResendCode'),
               ),
             ],
@@ -423,18 +414,18 @@ Widget showConfirmSignUp() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        Expanded( // wrap your Column in Expanded
+        Expanded(
+          // wrap your Column in Expanded
           child: Column(
             children: [
               const Padding(padding: EdgeInsets.all(10.0)),
               TextFormField(
-                controller: confirmationCodeController,
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.question_answer),
-                  hintText: 'The secret answer to the auth challange',
-                  labelText: 'Challange Response *',
-                )
-              ),
+                  controller: confirmationCodeController,
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.question_answer),
+                    hintText: 'The secret answer to the auth challange',
+                    labelText: 'Challange Response *',
+                  )),
               const Padding(padding: EdgeInsets.all(10.0)),
               RaisedButton(
                 onPressed: _confirmSignIn,
@@ -442,7 +433,7 @@ Widget showConfirmSignUp() {
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
               RaisedButton(
-                onPressed:_backToSignIn,
+                onPressed: _backToSignIn,
                 child: const Text('Back to Sign In'),
               ),
             ],
@@ -452,55 +443,54 @@ Widget showConfirmSignUp() {
     );
   }
 
-Widget showSignIn() {
+  Widget showSignIn() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        Expanded( // wrap your Column in Expanded
+        Expanded(
+          // wrap your Column in Expanded
           child: Column(
             children: [
               TextFormField(
-                controller: usernameController,
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.person),
-                  hintText: 'Your username',
-                  labelText: 'Username *',
-                )
-              ),
+                  controller: usernameController,
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.person),
+                    hintText: 'Your username',
+                    labelText: 'Username *',
+                  )),
               TextFormField(
-                obscureText: true,
-                controller: passwordController,
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.lock),
-                  hintText: 'Your password',
-                  labelText: 'Password *',
-                )
+                  obscureText: true,
+                  controller: passwordController,
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.lock),
+                    hintText: 'Your password',
+                    labelText: 'Password *',
+                  )),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed: _signIn,
+                child: const Text('Sign In'),
               ),
-            const Padding(padding: EdgeInsets.all(10.0)),
-            RaisedButton(
-              onPressed: _signIn,
-              child: const Text('Sign In'),
-            ),
-            const Padding(padding: EdgeInsets.all(10.0)),
-            RaisedButton(
-              onPressed: _createUser,
-              child: const Text('Create User'),
-            ),
-            const Padding(padding: EdgeInsets.all(10.0)),
-            RaisedButton(
-              onPressed: _resetPassword,
-              child: const Text('Reset Password'),
-            ),
-            const Padding(padding: EdgeInsets.all(10.0)),
-            RaisedButton(
-              onPressed: _signOut,
-              child: const Text('SignOut'),
-            ),
-            const Padding(padding: EdgeInsets.all(10.0)),
-            RaisedButton(
-              onPressed: _fetchSession,
-              child: const Text('Get Session'),
-            ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed: _createUser,
+                child: const Text('Create User'),
+              ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed: _resetPassword,
+                child: const Text('Reset Password'),
+              ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed: _signOut,
+                child: const Text('SignOut'),
+              ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed: _fetchSession,
+                child: const Text('Get Session'),
+              ),
             ],
           ),
         ),
@@ -512,7 +502,8 @@ Widget showSignIn() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        Expanded( // wrap your Column in Expanded
+        Expanded(
+          // wrap your Column in Expanded
           child: Column(
             children: [
               TextFormField(
@@ -560,11 +551,11 @@ Widget showSignIn() {
                 overflow: TextOverflow.visible,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-            const Padding(padding: EdgeInsets.all(10.0)),
-            RaisedButton(
-              onPressed:_backToSignIn,
-              child: const Text('Back to Sign In'),
-            ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed: _backToSignIn,
+                child: const Text('Back to Sign In'),
+              ),
             ],
           ),
         ),
@@ -576,28 +567,27 @@ Widget showSignIn() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        Expanded( // wrap your Column in Expanded
+        Expanded(
+          // wrap your Column in Expanded
           child: Column(
             children: [
               const Padding(padding: EdgeInsets.all(10.0)),
               TextFormField(
-                controller: oldPasswordController,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.question_answer),
-                  hintText: 'Your old password',
-                  labelText: 'Old Password *',
-                )
-              ),
+                  controller: oldPasswordController,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.question_answer),
+                    hintText: 'Your old password',
+                    labelText: 'Old Password *',
+                  )),
               TextFormField(
-                controller: newPasswordController,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.question_answer),
-                  hintText: 'Your new password',
-                  labelText: 'New Password *',
-                )
-              ),
+                  controller: newPasswordController,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.question_answer),
+                    hintText: 'Your new password',
+                    labelText: 'New Password *',
+                  )),
               const Padding(padding: EdgeInsets.all(10.0)),
               RaisedButton(
                 onPressed: _updatePassword,
@@ -605,7 +595,7 @@ Widget showSignIn() {
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
               RaisedButton(
-                onPressed:_signOut,
+                onPressed: _signOut,
                 child: const Text('Sign out'),
               ),
             ],
@@ -614,40 +604,38 @@ Widget showSignIn() {
       ],
     );
   }
-  
+
   Widget showConfirmReset() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        Expanded( // wrap your Column in Expanded
+        Expanded(
+          // wrap your Column in Expanded
           child: Column(
             children: [
               const Padding(padding: EdgeInsets.all(10.0)),
               TextFormField(
-                controller: usernameController,
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.verified_user),
-                  hintText: 'Your old username',
-                  labelText: 'Username *',
-                )
-              ),
+                  controller: usernameController,
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.verified_user),
+                    hintText: 'Your old username',
+                    labelText: 'Username *',
+                  )),
               TextFormField(
-                controller: newPasswordController,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.question_answer),
-                  hintText: 'Your new password',
-                  labelText: 'New Password *',
-                )
-              ),
+                  controller: newPasswordController,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.question_answer),
+                    hintText: 'Your new password',
+                    labelText: 'New Password *',
+                  )),
               TextFormField(
-                controller: confirmationCodeController,
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.confirmation_number),
-                  hintText: 'The confirmation code we sent you',
-                  labelText: 'Confirmation Code *',
-                )
-              ),
+                  controller: confirmationCodeController,
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.confirmation_number),
+                    hintText: 'The confirmation code we sent you',
+                    labelText: 'Confirmation Code *',
+                  )),
               const Padding(padding: EdgeInsets.all(10.0)),
               RaisedButton(
                 onPressed: _confirmReset,
@@ -655,7 +643,7 @@ Widget showSignIn() {
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
               RaisedButton(
-                onPressed:_backToSignIn,
+                onPressed: _backToSignIn,
                 child: const Text('Back to Sign In'),
               ),
             ],
@@ -669,7 +657,8 @@ Widget showSignIn() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        Expanded( // wrap your Column in Expanded
+        Expanded(
+          // wrap your Column in Expanded
           child: Column(
             children: [
               const Padding(padding: EdgeInsets.all(10.0)),
@@ -710,20 +699,17 @@ Widget showSignIn() {
     );
   }
 
-  Widget getTextWidgets(List<String> strings)
-  {
+  Widget getTextWidgets(List<String> strings) {
     if (strings != null) {
-      return new Row(children: strings.map((item) => new Text(item + " ")).toList());
+      return Row(children: strings.map((item) => Text(item + " ")).toList());
     }
   }
 
   showErrors() {
-    return Text(
-        'Error: $error',
+    return Text('Error: $error',
         textAlign: TextAlign.center,
         overflow: TextOverflow.visible,
-        style: TextStyle(fontWeight: FontWeight.bold)
-    );
+        style: TextStyle(fontWeight: FontWeight.bold));
   }
 
   showExceptions() {
@@ -741,27 +727,28 @@ Widget showSignIn() {
           padding: EdgeInsets.all(10.0),
           children: <Widget>[
             Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Padding(padding: EdgeInsets.all(10.0)),
-                RaisedButton(
-                  onPressed: _isAmplifyConfigured ? null: _configureAmplify,
-                  child: const Text('configure'),
-                ),
-
-                const Padding(padding: EdgeInsets.all(10.0)),
-                if (this.displayState == "SHOW_SIGN_UP") showSignUp(),
-                if (this.displayState == "SHOW_CONFIRM") showConfirmSignUp(),
-                if (this.displayState == "SHOW_SIGN_IN") showSignIn(),
-                if (this.displayState == "SHOW_CONFIRM_SIGN_IN") showConfirmSignIn(),
-                if (this.displayState == "SHOW_UPDATE_PASSWORD") showUpdatePassword(),
-                if (this.displayState == "SHOW_CONFIRM_REST") showConfirmReset(),
-                if (this.displayState == 'SIGNED_IN') showApp(),
-                showAuthState(),
-                if (this.error != null) showErrors(),
-                showExceptions()
-              ]
-            )
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const Padding(padding: EdgeInsets.all(10.0)),
+                  RaisedButton(
+                    onPressed: _isAmplifyConfigured ? null : _configureAmplify,
+                    child: const Text('configure'),
+                  ),
+                  const Padding(padding: EdgeInsets.all(10.0)),
+                  if (this.displayState == "SHOW_SIGN_UP") showSignUp(),
+                  if (this.displayState == "SHOW_CONFIRM") showConfirmSignUp(),
+                  if (this.displayState == "SHOW_SIGN_IN") showSignIn(),
+                  if (this.displayState == "SHOW_CONFIRM_SIGN_IN")
+                    showConfirmSignIn(),
+                  if (this.displayState == "SHOW_UPDATE_PASSWORD")
+                    showUpdatePassword(),
+                  if (this.displayState == "SHOW_CONFIRM_REST")
+                    showConfirmReset(),
+                  if (this.displayState == 'SIGNED_IN') showApp(),
+                  showAuthState(),
+                  if (this.error != null) showErrors(),
+                  showExceptions()
+                ])
           ],
         ),
       ),

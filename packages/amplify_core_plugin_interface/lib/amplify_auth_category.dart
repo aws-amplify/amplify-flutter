@@ -13,9 +13,8 @@ class AuthCategory {
     // TODO: Discuss and support multiple plugins
     if (plugins.length == 0) {
       plugins.add(plugin);
-      
     } else {
-      throw("Auth plugin was not added");
+      throw ("Auth plugin was not added");
     }
   }
 
@@ -29,7 +28,8 @@ class AuthCategory {
     return plugins[0].confirmSignUp(request: request);
   }
 
-  Future<ResendSignUpCodeResult> resendSignUpCode({@required ResendSignUpCodeRequest request}) {
+  Future<ResendSignUpCodeResult> resendSignUpCode(
+      {@required ResendSignUpCodeRequest request}) {
     return plugins[0].resendSignUpCode(request: request);
   }
 
@@ -56,7 +56,8 @@ class AuthCategory {
     return plugins[0].resetPassword(request: request);
   }
 
-  Future<UpdatePasswordResult> confirmPassword({ConfirmPasswordRequest request}) {
+  Future<UpdatePasswordResult> confirmPassword(
+      {ConfirmPasswordRequest request}) {
     return plugins[0].confirmPassword(request: request);
   }
 

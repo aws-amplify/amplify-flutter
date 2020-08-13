@@ -22,7 +22,11 @@ class UpdatePasswordRequest {
   String oldPassword;
   PasswordOptions options;
 
-  UpdatePasswordRequest({this.username, @required this.newPassword, @required this.oldPassword, this.options});
+  UpdatePasswordRequest(
+      {this.username,
+      @required this.newPassword,
+      @required this.oldPassword,
+      this.options});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     if (username != null) {

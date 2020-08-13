@@ -23,5 +23,11 @@ class CognitoAuthSession extends AuthSession {
   AWSCognitoUserPoolTokens userPoolTokens;
   String userSub;
   String identityId;
-  CognitoAuthSession({@required isSignedIn, this.credentials, this.userPoolTokens, this.userSub, this.identityId}) : super(isSignedIn: isSignedIn);
+  CognitoAuthSession(
+      {@required isSignedIn,
+      this.credentials,
+      this.userPoolTokens,
+      this.userSub,
+      this.identityId})
+      : super(isSignedIn: isSignedIn);
 }
