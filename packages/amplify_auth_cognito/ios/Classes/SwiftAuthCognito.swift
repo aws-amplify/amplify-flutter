@@ -19,9 +19,11 @@ import Amplify
 import AmplifyPlugins
 import AWSCore
 
+
 public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
     
     private var authEventSink: FlutterEventSink?
+    
     
     public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
         _ = Amplify.Hub.listen(to: .auth) { payload in
@@ -54,6 +56,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
     registrar.addMethodCallDelegate(instance, channel: channel)
     let authPlugin = AWSCognitoAuthPlugin()
     eventChannel.setStreamHandler(instance)
+    Amplify.Logging.logLevel = .error
     do {
       try Amplify.add(plugin: authPlugin)
     } catch {
