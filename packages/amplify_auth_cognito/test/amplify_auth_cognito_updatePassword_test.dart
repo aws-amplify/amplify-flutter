@@ -48,7 +48,6 @@ void main() {
   test('updatePassword request returns a UpdatePasswordResult', () async {
     await amplify.addPlugin(authPlugins: [auth]);
     await amplify.configure("{}");
-    UpdatePasswordRequest req = UpdatePasswordRequest(oldPassword: "1", newPassword: "2");
-    expect(await Amplify.Auth.updatePassword(request: req), isInstanceOf<UpdatePasswordResult>());
+    expect(await Amplify.Auth.updatePassword(oldPassword: "1", newPassword: "2"), isInstanceOf<UpdatePasswordResult>());
   });
 }

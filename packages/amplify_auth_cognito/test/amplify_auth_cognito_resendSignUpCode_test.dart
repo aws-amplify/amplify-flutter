@@ -52,9 +52,6 @@ void main() {
   test('resendSignUpCode request returns a ResendSignUpCodeResult', () async {
     await amplify.addPlugin(authPlugins: [auth]);
     await amplify.configure("{}");
-    ResendSignUpCodeRequest req = ResendSignUpCodeRequest(
-      username: 'testUser',
-    );
-    expect(await Amplify.Auth.resendSignUpCode(request: req), isInstanceOf<ResendSignUpCodeResult>());
+    expect(await Amplify.Auth.resendSignUpCode(username: 'testUser'), isInstanceOf<ResendSignUpCodeResult>());
   });
 }
