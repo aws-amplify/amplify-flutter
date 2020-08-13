@@ -1,8 +1,24 @@
+/*
+ * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
 import 'package:amplify_storage_s3/method_channel_storage_s3.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
+import 'dart:io';
+// import 'dart:async';
 
-// import 'package:flutter/services.dart';
+//import 'package:flutter/services.dart';
 import 'package:file_picker/file_picker.dart';
 
 import 'package:amplify_core/amplify_core.dart';
@@ -54,9 +70,9 @@ class _MyAppState extends State<MyApp> {
   void upload() async {
     try {
       print('In upload with options');
-
       // Uploading the file with options
-      String path = await FilePicker.getFilePath(type: FileType.image);
+      File local = await FilePicker.getFile(type: FileType.image);
+      String path = local.absolute.path;
       Map<String, String> metadata = <String, String>{};
       metadata['name'] = 'filename';
       metadata['desc'] = 'A test file';
@@ -66,7 +82,6 @@ class _MyAppState extends State<MyApp> {
           key: new DateTime.now().toString(), path: path, options: options);
       print('path is: ' + request.path + ', key is: ' + request.key);
       UploadFileResponse response = await Amplify.Storage.uploadFile(request);
-
       setState(() {
         _uploadFileResult = response.key;
       });

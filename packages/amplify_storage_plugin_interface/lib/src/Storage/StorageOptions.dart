@@ -1,4 +1,4 @@
-class StorageOptions {
+abstract class StorageOptions {
   StorageOptions();
   Map<String, dynamic> serializeAsMap() {
     throw UnimplementedError(

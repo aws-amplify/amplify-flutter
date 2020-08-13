@@ -16,7 +16,7 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
 
-/** AmplifyStorageS3Plugin */
+
 class AmplifyStorageS3Plugin : FlutterPlugin, ActivityAware, MethodCallHandler {
 
     private lateinit var channel: MethodChannel
@@ -46,7 +46,7 @@ class AmplifyStorageS3Plugin : FlutterPlugin, ActivityAware, MethodCallHandler {
         Log.i("AmplifyFlutter", "Call is: " + call.method)
         when (call.method) {
             "uploadFile" ->
-                AmplifyStorageOperations.uploadFile(result, call.arguments as HashMap<String, *>)
+                AmplifyStorageOperations.uploadFile(result, call.arguments as HashMap<String, *>, this.mainActivity)
             "getUrl" ->
                 AmplifyStorageOperations.getUrl(result, call.arguments as HashMap<String, *>, this.mainActivity)
             else -> result.notImplemented()

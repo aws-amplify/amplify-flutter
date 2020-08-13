@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import '../Storage/StorageAccessLevel.dart';
 import '../Storage/StorageOptions.dart';
 
@@ -10,7 +11,15 @@ class GetUrlOptions extends StorageOptions {
 
   @override
   Map<String, dynamic> serializeAsMap() {
-    throw UnimplementedError(
-        'serializeAsMap() has not been implemented on GetUrlOptions.');
+    final Map<String, dynamic> optionsMap = <String, dynamic>{};
+    if (accessLevel != null) {
+      optionsMap["accessLevel"] = describeEnum(accessLevel);
+    }
+
+    if (expires != null) {
+      optionsMap["expires"] = expires;
+    }
+
+    return optionsMap;
   }
 }
