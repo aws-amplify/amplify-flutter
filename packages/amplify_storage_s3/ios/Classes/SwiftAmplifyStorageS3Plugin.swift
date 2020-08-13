@@ -6,7 +6,7 @@ import AWSMobileClient
 
 public class SwiftAmplifyStorageS3Plugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
-    let channel = FlutterMethodChannel(name: "amplify.aws/storage", binaryMessenger: registrar.messenger())
+    let channel = FlutterMethodChannel(name: "com.amazonaws.amplify/storage_s3", binaryMessenger: registrar.messenger())
     let instance = SwiftAmplifyStorageS3Plugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
     let storagePlugin = AWSS3StoragePlugin()

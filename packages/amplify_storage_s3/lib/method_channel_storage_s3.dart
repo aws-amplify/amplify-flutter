@@ -4,7 +4,8 @@ import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interfac
 import 'amplify_storage_s3.dart';
 export './src/types.dart';
 
-const MethodChannel _channel = MethodChannel('amplify.aws/storage');
+const MethodChannel _channel =
+    MethodChannel('com.amazonaws.amplify/storage_s3');
 
 /// An implementation of [AmplifyPlatform] that uses method channels.
 class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {

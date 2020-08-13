@@ -24,7 +24,7 @@ class AmplifyStorageS3Plugin : FlutterPlugin, ActivityAware, MethodCallHandler {
     private var mainActivity: Activity? = null
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "amplify.aws/storage")
+        channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "com.amazonaws.amplify/storage_s3")
         channel.setMethodCallHandler(this)
         context = flutterPluginBinding.applicationContext
         Amplify.addPlugin(AWSCognitoAuthPlugin())
@@ -35,7 +35,7 @@ class AmplifyStorageS3Plugin : FlutterPlugin, ActivityAware, MethodCallHandler {
     companion object {
         @JvmStatic
         fun registerWith(registrar: Registrar) {
-            val channel = MethodChannel(registrar.messenger(), "amplify.aws/storage")
+            val channel = MethodChannel(registrar.messenger(), "com.amazonaws.amplify/storage_s3")
             Amplify.addPlugin(AWSCognitoAuthPlugin())
             Amplify.addPlugin(AWSS3StoragePlugin())
             Log.i("AmplifyFlutter", "Added StorageS3 plugin")
