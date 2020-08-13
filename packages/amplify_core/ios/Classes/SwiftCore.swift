@@ -34,7 +34,7 @@ public class SwiftCore: NSObject, FlutterPlugin {
           let arguments = call.arguments as! Dictionary<String, AnyObject>
           let configuration = arguments["configuration"] as! String
           let amplifyConfiguration = try JSONDecoder().decode(AmplifyConfiguration.self, from: configuration.data(using: .utf8)!)
-          try onConfigure(result: result, amplifyConfiguration: amplifyConfiguration)
+          onConfigure(result: result, amplifyConfiguration: amplifyConfiguration)
             
         } catch {
             print("Failed to configure Amplify \(error)")

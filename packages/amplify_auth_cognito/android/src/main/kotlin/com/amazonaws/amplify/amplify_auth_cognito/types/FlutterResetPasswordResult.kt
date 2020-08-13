@@ -23,7 +23,6 @@ data class FlutterResetPasswordResult(private val raw: AuthResetPasswordResult) 
   val nextStep: Map<String, Any> = setNextStep();
 
   private fun setNextStep(): Map<String, Any> {
-
     return mapOf(
       "resetPasswordStep" to raw.nextStep.resetPasswordStep.toString(),
       "additionalInfo" to Gson().toJson(raw.nextStep.additionalInfo),
@@ -32,6 +31,13 @@ data class FlutterResetPasswordResult(private val raw: AuthResetPasswordResult) 
         "deliveryMedium" to (raw.nextStep.codeDeliveryDetails?.deliveryMedium ?: ""),
         "attributeName" to (raw.nextStep.codeDeliveryDetails?.attributeName ?: "")
       )
+    )
+  }
+
+  fun getResult(): Map<String, Any> {
+    return mapOf(
+      "isPasswordReset" to this.isPasswordReset,
+      "nextStep" to this.nextStep
     )
   }
 } 
