@@ -56,13 +56,6 @@ class AmplifyAnalyticsPinpointMethodChannel
   }
 
   @override
-  Future<void> unregisterAllGlobalProperties() async {
-    await _channel.invokeMethod<bool>(
-      'unregisterAllGlobalProperties',
-    );
-  }
-
-  @override
   Future<void> enable() async {
     await _channel.invokeMethod<bool>(
       'enable',

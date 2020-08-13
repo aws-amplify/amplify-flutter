@@ -15,13 +15,10 @@
 
 part of amplify_core_plugin_interface;
 
-
-class AnalyticsCategory{
-
+class AnalyticsCategory {
   const AnalyticsCategory();
 
   static List<AnalyticsPluginInterface> plugins = [];
-
 
   bool addPlugin(AnalyticsPluginInterface plugin) {
     plugins.add(plugin);
@@ -29,35 +26,40 @@ class AnalyticsCategory{
   }
 
   Future<void> recordEvent({AnalyticsEvent event}) async {
-    return Future.wait( plugins.map( (plugin) => plugin.recordEvent(event: event)));
+    return Future.wait(
+        plugins.map((plugin) => plugin.recordEvent(event: event)));
   }
 
   Future<void> flushEvents() async {
-    return Future.wait( plugins.map( (plugin) => plugin.flushEvents()));
+    return Future.wait(plugins.map((plugin) => plugin.flushEvents()));
   }
 
-  Future<void> registerGlobalProperties({AnalyticsProperties globalProperties}) async {
-    return Future.wait( plugins.map( (plugin) => plugin.registerGlobalProperties(globalProperties: globalProperties)));
+  Future<void> registerGlobalProperties(
+      {AnalyticsProperties globalProperties}) async {
+    return Future.wait(plugins.map((plugin) =>
+        plugin.registerGlobalProperties(globalProperties: globalProperties)));
   }
 
   Future<void> unregisterGlobalProperties({List<String> propertyNames}) async {
-    return Future.wait( plugins.map( (plugin) => plugin.unregisterGlobalProperties(propertyNames: propertyNames)));
-  }
+    if (propertyNames == null) {
+      propertyNames = List<String>();
+    }
 
-  Future<void> unregisterAllGlobalProperties() async {
-    return Future.wait( plugins.map( (plugin) => plugin.unregisterAllGlobalProperties()));
+    return Future.wait(plugins.map((plugin) =>
+        plugin.unregisterGlobalProperties(propertyNames: propertyNames)));
   }
 
   Future<void> enable() async {
-    return Future.wait( plugins.map( (plugin) => plugin.enable()));
+    return Future.wait(plugins.map((plugin) => plugin.enable()));
   }
 
-  Future<void> disable() async{
-    return Future.wait( plugins.map( (plugin) => plugin.disable()));
+  Future<void> disable() async {
+    return Future.wait(plugins.map((plugin) => plugin.disable()));
   }
 
-  Future<void> identifyUser({String userId, AnalyticsUserProfile userProfile}) async {
-    return Future.wait( plugins.map( (plugin) => plugin.identifyUser(userId: userId, userProfile: userProfile)));
+  Future<void> identifyUser(
+      {String userId, AnalyticsUserProfile userProfile}) async {
+    return Future.wait(plugins.map((plugin) =>
+        plugin.identifyUser(userId: userId, userProfile: userProfile)));
   }
-
 }
