@@ -138,25 +138,6 @@ class AmplifyAuthCognitoPluginTest {
     }
 
     @Test
-    fun signUp_returnsError() {
-        val userAttributes: HashMap<String, String> = hashMapOf("email" to "test@test.com")
-        val options: HashMap<String, Any> = hashMapOf(
-            "userAttributes" to userAttributes
-        )
-        val data: HashMap<*, *> = hashMapOf(
-            "username" to "testUser",
-            "password" to "testPassword",
-            "options" to options
-        )
-        val arguments: HashMap<String, Any> = hashMapOf("data" to data)
-        val call = MethodCall("signUp", arguments)
-        currentException = AuthException("a","b")
-        plugin.onMethodCall(call, mockResult)
-        verify(mockResult, times(1)).error(anyString(), anyString(), ArgumentMatchers.any<HashMap<String, Any>>());
-        currentException = null;
-    }
-
-    @Test
     fun confirmSignUp_returnsSuccess() {
         val data: HashMap<*, *> = hashMapOf(
             "username" to "testUser",

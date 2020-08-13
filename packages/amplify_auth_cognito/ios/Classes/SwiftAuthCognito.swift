@@ -295,7 +295,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
     private func handleAuthError(error: AuthError, flutterResult: FlutterResult, msg: String){
         if case .service( let localizedError, let recoverySuggestion, let error) = error {
           let errorCode = error != nil ? "\(error!)" : "unknown"
-          logErrorConents(messages: [localizedError, recoverySuggestion, errorCode])
+          logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
           formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
         }
         if case .configuration(let localizedError, let recoverySuggestion, let error) = error {
@@ -304,32 +304,32 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
         }
         if case .unknown(let localizedError, let error) = error {
           let errorCode = error != nil ? "\(error!)" : "unknown"
-          logErrorConents(messages: [localizedError, "unknown error"])
+          logErrorContents(messages: [localizedError, "unknown error"])
           formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: "An unknown error has occurred.")
         }
         if case .invalidState(let localizedError, let recoverySuggestion, let error) = error {
           let errorCode = error != nil ? "\(error!)" : "invalidState"
-          logErrorConents(messages: [localizedError, recoverySuggestion, errorCode])
+          logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
           formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
         }
         if case .notAuthorized(let localizedError,  let recoverySuggestion, let error) = error {
           let errorCode = error != nil ? "\(error!)" : "notAuthorized"
-          logErrorConents(messages: [localizedError, recoverySuggestion, errorCode])
+          logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
           formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
         }
         if case .validation(let field, let localizedError, let recoverySuggestion, let error) = error {
           let errorCode = error != nil ? "\(error!)" : "validation"
-          logErrorConents(messages: [field, localizedError, recoverySuggestion, errorCode])
+          logErrorContents(messages: [field, localizedError, recoverySuggestion, errorCode])
           formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
         }
         if case .signedOut(let localizedError, let recoverySuggestion, let error) = error {
           let errorCode = error != nil ? "\(error!)" : "signedOut"
-          logErrorConents(messages: [localizedError, recoverySuggestion, errorCode])
+          logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
           formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
         }
         if case .sessionExpired(let localizedError, let recoverySuggestion, let error) = error {
           let errorCode = error != nil ? "\(error!)" : "sessionExpired"
-          logErrorConents(messages: [localizedError, recoverySuggestion, errorCode])
+          logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
           formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
         }
     }
@@ -340,7 +340,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
       prepareError(flutterResult: flutterResult,  msg: msg, errorMap: errorMap)
     }
     
-    private func logErrorConents(messages: Array<String>) {
+    private func logErrorContents(messages: Array<String>) {
       messages.forEach {
         log.error($0)
       }
