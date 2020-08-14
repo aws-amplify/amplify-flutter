@@ -18,7 +18,6 @@ A new flutter plugin project.
   s.dependency 'Amplify'
   s.dependency 'AWSPluginsCore'
   s.dependency 'AmplifyPlugins/AWSS3StoragePlugin'
-  s.dependency 'AmplifyPlugins/AWSCognitoAuthPlugin'
   s.platform = :ios, '11.0'
 
   # Flutter.framework does not contain a i386 slice. Only x86_64 simulators are supported.

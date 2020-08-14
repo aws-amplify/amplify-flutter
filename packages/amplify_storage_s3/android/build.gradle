@@ -41,5 +41,4 @@ android {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.amplifyframework:aws-storage-s3:1.1.1'
-    implementation 'com.amplifyframework:aws-auth-cognito:1.0.+'
 }

@@ -11,9 +11,6 @@ public class SwiftAmplifyStorageS3Plugin: NSObject, FlutterPlugin {
     registrar.addMethodCallDelegate(instance, channel: channel)
     let storagePlugin = AWSS3StoragePlugin()
     do {
-        //TODO: Remove the line below as we will take a dependency
-        // on the flutter auth plugin once it is complete
-        try Amplify.add(plugin: AWSCognitoAuthPlugin())
         try Amplify.add(plugin: storagePlugin)
     } catch {
         print ("Failed to add Amplify AWSS3StoragePlugin \(error)")

@@ -2,6 +2,11 @@ PODS:
   - Amplify (1.0.1):
     - Amplify/Default (= 1.0.1)
   - Amplify/Default (1.0.1)
+  - amplify_auth_cognito (0.0.1):
+    - Amplify
+    - AmplifyPlugins/AWSCognitoAuthPlugin
+    - Flutter
+    - ObjectMapper
   - amplify_core (0.0.1):
     - Amplify
     - AmplifyPlugins/AWSCognitoAuthPlugin
@@ -76,12 +81,14 @@ PODS:
   - Flutter (1.0.0)
   - flutter_plugin_android_lifecycle (0.0.1):
     - Flutter
+  - ObjectMapper (4.2.0)
   - SDWebImage (5.8.3):
     - SDWebImage/Core (= 5.8.3)
   - SDWebImage/Core (5.8.3)
   - SwiftyGif (5.3.0)
 
 DEPENDENCIES:
+  - amplify_auth_cognito (from `.symlinks/plugins/amplify_auth_cognito/ios`)
   - amplify_core (from `.symlinks/plugins/amplify_core/ios`)
   - amplify_storage_s3 (from `.symlinks/plugins/amplify_storage_s3/ios`)
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
@@ -101,10 +108,13 @@ SPEC REPOS:
     - AWSS3
     - DKImagePickerController
     - DKPhotoGallery
+    - ObjectMapper
     - SDWebImage
     - SwiftyGif
 
 EXTERNAL SOURCES:
+  amplify_auth_cognito:
+    :path: ".symlinks/plugins/amplify_auth_cognito/ios"
   amplify_core:
     :path: ".symlinks/plugins/amplify_core/ios"
   amplify_storage_s3:
@@ -118,6 +128,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Amplify: 8df04e515e756c0d3fe6e7652c69d46110bb74a7
+  amplify_auth_cognito: 21e6e4acd861653d73875ee7d8ddce1a404e23cf
   amplify_core: 2a2f529ae93d03692c969215daffd6d4bda54b9b
   amplify_storage_s3: 5359cfbee18b7d6f229f023f3936de1fb119b252
   AmplifyPlugins: 75e82bfc1e2d9fb2f1ea30c037190c3fd611d39e
@@ -133,6 +144,7 @@ SPEC CHECKSUMS:
   file_picker: 3e6c3790de664ccf9b882732d9db5eaf6b8d4eb1
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_plugin_android_lifecycle: dc0b544e129eebb77a6bfb1239d4d1c673a60a35
+  ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   SDWebImage: 112503ec94a5a2a41869503844a15e8d8f1ead5c
   SwiftyGif: e466e86c660d343357ab944a819a101c4127cb40
 
