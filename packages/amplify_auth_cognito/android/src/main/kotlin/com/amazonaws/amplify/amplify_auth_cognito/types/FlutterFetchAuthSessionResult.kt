@@ -26,4 +26,10 @@ import com.google.gson.Gson
 
 data class FlutterFetchAuthSessionResult(@Nullable public var raw: AuthSession) {
   val isSignedIn: Boolean = raw.isSignedIn;
+
+  fun getResult(): Map<String, Any> {
+    return mapOf(
+      "isSignedIn" to this.isSignedIn
+    )
+  }
 }
