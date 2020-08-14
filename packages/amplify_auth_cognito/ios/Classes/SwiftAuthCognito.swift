@@ -54,6 +54,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
     registrar.addMethodCallDelegate(instance, channel: channel)
     let authPlugin = AWSCognitoAuthPlugin()
     eventChannel.setStreamHandler(instance)
+    Amplify.Logging.logLevel = .error
     do {
       try Amplify.add(plugin: authPlugin)
     } catch {
