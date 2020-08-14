@@ -9,31 +9,19 @@ import org.junit.Test
 import org.mockito.ArgumentMatchers.any
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mockito.*
-import java.lang.Exception
-import java.lang.reflect.Field
-import java.lang.reflect.Modifier
 
 
 class AmplifyAnalyticsPinpointPluginTest {
 
-    lateinit var plugin: AmplifyAnalyticsPinpointPlugin
+    private lateinit var plugin: AmplifyAnalyticsPinpointPlugin
+    private lateinit var mockAnalyticsPlugin: AnalyticsPlugin<Any>
 
     @Before
     fun setup() {
         plugin = AmplifyAnalyticsPinpointPlugin()
-        val mockAnalytics = mock(AnalyticsCategory::class.java)
-        // TODO: if we want we can add custom validation logic here, I think
-        doNothing().`when`(mockAnalytics).recordEvent(any(AnalyticsEvent::class.java))
-        doNothing().`when`(mockAnalytics).flushEvents()
-        doNothing().`when`(mockAnalytics).registerGlobalProperties(
-                any(AnalyticsProperties::class.java))
-        doNothing().`when`(mockAnalytics).unregisterGlobalProperties()
-        doNothing().`when`(mockAnalytics).enable()
-        doNothing().`when`(mockAnalytics).disable()
-        doNothing().`when`(mockAnalytics).identifyUser(
-                anyString(),
-                any(UserProfile::class.java))
-        setFinalStatic(Amplify::class.java.getDeclaredField("Analytics"), mockAnalytics)
+        mockAnalyticsPlugin = mock(AnalyticsPlugin::class.java) as AnalyticsPlugin<Any>
+        doReturn("awsPinpointAnalyticsPlugin").`when`(mockAnalyticsPlugin).pluginKey
+        Amplify.Analytics.addPlugin(mockAnalyticsPlugin)
     }
 
     @Test
@@ -118,7 +106,7 @@ class AmplifyAnalyticsPinpointPluginTest {
 
     @Test
     fun recordEvent_withProperties_returnsSuccess() {
-
+        doNothing().`when`(mockAnalyticsPlugin).recordEvent(any(AnalyticsEvent::class.java))
         val propertiesMap = hashMapOf<String, Any>(
                 "AnalyticsStringProperty" to "Pancakes",
                 "AnalyticsBooleanProperty" to true,
@@ -139,6 +127,7 @@ class AmplifyAnalyticsPinpointPluginTest {
 
     @Test
     fun recordEvent_withWrongPropertyType_returnsFailure() {
+        doNothing().`when`(mockAnalyticsPlugin).recordEvent(any(AnalyticsEvent::class.java))
         val propertiesMap = hashMapOf<String, Any>(
                 "WrongProperty" to listOf("a", "b", "c")
         )
@@ -154,7 +143,7 @@ class AmplifyAnalyticsPinpointPluginTest {
 
     @Test
     fun flushEvents_returnsSuccess() {
-
+        doNothing().`when`(mockAnalyticsPlugin).flushEvents()
         val call = MethodCall("flushEvents", null)
         var mockResult: MethodChannel.Result = mock(MethodChannel.Result::class.java)
         plugin.onMethodCall(call, mockResult)
@@ -163,6 +152,8 @@ class AmplifyAnalyticsPinpointPluginTest {
 
     @Test
     fun registerGlobalProperties_withProperties_returnsSuccess() {
+        doNothing().`when`(mockAnalyticsPlugin).registerGlobalProperties(
+                any(AnalyticsProperties::class.java))
         val propertiesMap = hashMapOf<String, Any>(
                 "AnalyticsStringProperty" to "Pancakes",
                 "AnalyticsBooleanProperty" to true,
@@ -178,6 +169,8 @@ class AmplifyAnalyticsPinpointPluginTest {
 
     @Test
     fun registerGlobalProperties_withWrongPropertyType_returnsFailure() {
+        doNothing().`when`(mockAnalyticsPlugin).registerGlobalProperties(
+                any(AnalyticsProperties::class.java))
         val propertiesMap = hashMapOf<String, Any>(
                 "WrongProperty" to listOf("a", "b", "c")
         )
@@ -190,6 +183,9 @@ class AmplifyAnalyticsPinpointPluginTest {
 
     @Test
     fun identifyUser_withProperties_returnsSuccess() {
+        doNothing().`when`(mockAnalyticsPlugin).identifyUser(
+                anyString(),
+                any(UserProfile::class.java))
         val locationMap = hashMapOf<String, Any>(
                 "latitude" to 47.6154086,
                 "longitude" to -122.3349685,
@@ -225,6 +221,9 @@ class AmplifyAnalyticsPinpointPluginTest {
 
     @Test
     fun identifyUser_withWrongProperties_returnsFailure() {
+        doNothing().`when`(mockAnalyticsPlugin).identifyUser(
+                anyString(),
+                any(UserProfile::class.java))
         val userProfileMap = hashMapOf<String, Any>(
                 "wrongValue" to "wrongValue"
         )
@@ -242,6 +241,9 @@ class AmplifyAnalyticsPinpointPluginTest {
 
     @Test
     fun identifyUser_withNoLocation_returnsSuccess() {
+        doNothing().`when`(mockAnalyticsPlugin).identifyUser(
+                anyString(),
+                any(UserProfile::class.java))
         val userProfileMap = hashMapOf<String, Any>(
                 "name" to "test-user",
                 "email" to "user@test.com",
@@ -257,14 +259,6 @@ class AmplifyAnalyticsPinpointPluginTest {
         var mockResult: MethodChannel.Result = mock(MethodChannel.Result::class.java)
         plugin.onMethodCall(call, mockResult)
         verify(mockResult).success(true)
-    }
-
-    private fun setFinalStatic(field: Field, newValue: Any?) {
-        field.isAccessible = true
-        val modifiersField: Field = Field::class.java.getDeclaredField("modifiers")
-        modifiersField.isAccessible = true
-        modifiersField.setInt(field, field.modifiers and Modifier.FINAL.inv())
-        field.set(null, newValue)
     }
 
 }
