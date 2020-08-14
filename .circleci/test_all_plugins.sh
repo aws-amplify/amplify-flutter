@@ -41,6 +41,7 @@ for plugin_dir in */; do
                 if ! flutter build apk; then
                     echo "FAILED: Android example failed to build."
                     failed_plugins+=("$plugin")
+                    cd ../..
                     continue
                 fi
 
@@ -71,6 +72,7 @@ for plugin_dir in */; do
                 if ! flutter build ios --no-codesign; then
                     echo "FAILED: iOS example failed to build."
                     failed_plugins+=("$plugin")
+                    cd ../
                     continue
                 fi
 
