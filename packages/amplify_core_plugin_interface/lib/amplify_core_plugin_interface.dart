@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 import 'package:flutter/services.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+import 'package:flutter/foundation.dart';
 
 part 'method_channel_amplify.dart';
 

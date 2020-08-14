@@ -3,6 +3,7 @@ library amplify_storage_plugin;
 import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import './method_channel_storage_s3.dart';
+import 'package:flutter/foundation.dart';
 
 class AmplifyStorageS3 extends StoragePluginInterface {
   static final Object _token = Object();
@@ -21,12 +22,12 @@ class AmplifyStorageS3 extends StoragePluginInterface {
   }
 
   @override
-  Future<UploadFileResponse> uploadFile(UploadFileRequest request) {
-    return _instance.uploadFile(request);
+  Future<UploadFileResponse> uploadFile({@required UploadFileRequest request}) {
+    return _instance.uploadFile(request: request);
   }
 
   @override
-  Future<GetUrlResponse> getUrl(GetUrlRequest request) {
-    return _instance.getUrl(request);
+  Future<GetUrlResponse> getUrl({@required GetUrlRequest request}) {
+    return _instance.getUrl(request: request);
   }
 }

@@ -72,6 +72,7 @@ class _MyAppState extends State<MyApp> {
       print('In upload with options');
       // Uploading the file with options
       File local = await FilePicker.getFile(type: FileType.image);
+      local.existsSync();
       String path = local.absolute.path;
       Map<String, String> metadata = <String, String>{};
       metadata['name'] = 'filename';
@@ -81,7 +82,8 @@ class _MyAppState extends State<MyApp> {
       UploadFileRequest request = new UploadFileRequest(
           key: new DateTime.now().toString(), path: path, options: options);
       print('path is: ' + request.path + ', key is: ' + request.key);
-      UploadFileResponse response = await Amplify.Storage.uploadFile(request);
+      UploadFileResponse response =
+          await Amplify.Storage.uploadFile(request: request);
       setState(() {
         _uploadFileResult = response.key;
       });
@@ -97,7 +99,7 @@ class _MyAppState extends State<MyApp> {
       S3GetUrlOptions options = S3GetUrlOptions(
           accessLevel: StorageAccessLevel.public, expires: 10000);
       GetUrlRequest request = new GetUrlRequest(key: key, options: options);
-      GetUrlResponse response = await Amplify.Storage.getUrl(request);
+      GetUrlResponse response = await Amplify.Storage.getUrl(request: request);
 
       setState(() {
         _getUrlResult = response.url;
