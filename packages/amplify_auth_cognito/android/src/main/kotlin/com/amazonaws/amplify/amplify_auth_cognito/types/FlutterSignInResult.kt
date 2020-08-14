@@ -36,7 +36,7 @@ data class FlutterSignInResult(private val raw: AuthSignInResult) {
     )
   }
 
-  fun getResult(): Map<String, Any> {
+  fun toValueMap(): Map<String, Any> {
     return mapOf(
       "isSignedIn" to this.isSignedIn,
       "nextStep" to this.nextStep

@@ -30,7 +30,7 @@ data class FlutterFetchCognitoAuthSessionResult(private val raw: AWSCognitoAuthS
   private val credentials: AuthSessionResult<AWSCredentials>? = raw.awsCredentials
   private val tokens: AuthSessionResult<AWSCognitoUserPoolTokens>? = raw.userPoolTokens
 
-  fun getResult(): Map<String, Any?> {
+  fun toValueMap(): Map<String, Any?> {
     return mapOf(
       "isSignedIn" to this.isSignedIn,
       "identityId" to this.identityId,
