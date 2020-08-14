@@ -14,8 +14,8 @@ Our default implementation works with Amazon Web Services (AWS), but AWS Amplify
 
 ## Features / APIs
 
-- [**Authentication**](https://docs.amplify.aws/lib/auth/getting-started/q/platform/flutter): APIs and building blocks for developers who want to create user authentication experiences.
-- [**Analytics**](https://docs.amplify.aws/lib/analytics/getting-started/q/platform/flutter): Easily collect analytics data for your app. Analytics data includes user sessions and other custom events that you want to track in your app.
+- [**Authentication**](https://docs.amplify.aws/lib/auth/getting-started/q/platform/flutter): APIs and building blocks to create user authentication experiences.
+- [**Analytics**](https://docs.amplify.aws/lib/analytics/getting-started/q/platform/flutter): Collect analytics data for your app. Analytics data includes user sessions and other custom events that you want to track in your app.
 - [**Storage**](https://docs.amplify.aws/lib/storage/getting-started/q/platform/flutter): Provides a simple mechanism for managing user content for your app in public, protected or private storage buckets.
 
 ### To Be Implmented
