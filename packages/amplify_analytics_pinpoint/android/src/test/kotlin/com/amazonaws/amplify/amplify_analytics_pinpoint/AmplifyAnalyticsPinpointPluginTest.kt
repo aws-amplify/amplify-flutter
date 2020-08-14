@@ -14,12 +14,12 @@ import org.mockito.Mockito.*
 class AmplifyAnalyticsPinpointPluginTest {
 
     private lateinit var plugin: AmplifyAnalyticsPinpointPlugin
-    private lateinit var mockAnalyticsPlugin: AnalyticsPlugin<Any>
+    private lateinit var mockAnalyticsPlugin: AnalyticsPlugin<*>
 
     @Before
     fun setup() {
         plugin = AmplifyAnalyticsPinpointPlugin()
-        mockAnalyticsPlugin = mock(AnalyticsPlugin::class.java) as AnalyticsPlugin<Any>
+        mockAnalyticsPlugin = mock(AnalyticsPlugin::class.java)
         doReturn("awsPinpointAnalyticsPlugin").`when`(mockAnalyticsPlugin).pluginKey
         Amplify.Analytics.addPlugin(mockAnalyticsPlugin)
     }
