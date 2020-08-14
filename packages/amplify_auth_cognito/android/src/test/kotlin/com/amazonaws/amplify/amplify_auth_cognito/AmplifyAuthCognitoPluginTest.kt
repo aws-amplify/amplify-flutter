@@ -129,7 +129,7 @@ class AmplifyAuthCognitoPluginTest {
                 "additionalInfo" to "{}",
                 "codeDeliveryDetails" to mapOf(
                     "destination" to "test@test.com",
-                    "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL,
+                    "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
                     "attributeName" to "email"
                 )
             )
@@ -153,7 +153,7 @@ class AmplifyAuthCognitoPluginTest {
                 "additionalInfo" to "{}",
                 "codeDeliveryDetails" to mapOf(
                     "destination" to "test@test.com",
-                    "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL,
+                    "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
                     "attributeName" to "email"
                 )
             )
@@ -188,7 +188,7 @@ class AmplifyAuthCognitoPluginTest {
                 "additionalInfo" to "{}",
                 "codeDeliveryDetails" to mapOf(
                     "destination" to "test@test.com",
-                    "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL,
+                    "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
                     "attributeName" to "email"
                 )
             )

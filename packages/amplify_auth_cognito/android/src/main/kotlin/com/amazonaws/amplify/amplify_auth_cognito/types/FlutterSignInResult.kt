@@ -30,7 +30,7 @@ data class FlutterSignInResult(private val raw: AuthSignInResult) {
       "additionalInfo" to Gson().toJson(raw.nextStep.additionalInfo),
       "codeDeliveryDetails" to mapOf(
         "destination" to (raw.nextStep.codeDeliveryDetails?.destination ?: ""),
-        "deliveryMedium" to (raw.nextStep.codeDeliveryDetails?.deliveryMedium ?: ""),
+        "deliveryMedium" to (raw.nextStep.codeDeliveryDetails?.deliveryMedium?.name ?: ""),
         "attributeName" to (raw.nextStep.codeDeliveryDetails?.attributeName ?: "")
       )
     )

@@ -443,7 +443,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
 
   fun prepareCognitoSessionResult(@NonNull flutterResult: Result, @NonNull result: AWSCognitoAuthSession) {
     var session = FlutterFetchCognitoAuthSessionResult(result);
-    flutterResult.success(session.serializeToMap());
+    flutterResult.success(session.getResult());
   }
 
   fun prepareCognitoSessionFailure(@NonNull flutterResult: Result, @NonNull result: AWSCognitoAuthSession) {
@@ -452,7 +452,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
 
   fun prepareSessionResult(@NonNull flutterResult: Result, @NonNull result: AuthSession) {
     var session = FlutterFetchAuthSessionResult(result);
-    flutterResult.success(session.serializeToMap());
+    flutterResult.success(session.getResult());
   }
 
 

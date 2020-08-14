@@ -418,6 +418,9 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
           errorDict["CONFIGURATION"] = localizedError
         case "validation":
           errorDict["VALIDATION"] = localizedError
+        case "sessionExpired":
+          // use SIGNED_OUT to match android
+          errorDict["SIGNED_OUT"] = localizedError
         default:
           errorDict["UNKNOWN"] = "An unrecognized error has occurred. See logs for details."
       }
