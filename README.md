@@ -18,6 +18,11 @@ Our default implementation works with Amazon Web Services (AWS), but AWS Amplify
 - [**Analytics**](https://docs.amplify.aws/lib/analytics/getting-started/q/platform/flutter): Collect analytics data for your app. Analytics data includes user sessions and other custom events that you want to track in your app.
 - [**Storage**](https://docs.amplify.aws/lib/storage/getting-started/q/platform/flutter): Provides a simple mechanism for managing user content for your app in public, protected or private storage buckets.
 
+## Known Issues
+
+- Hosted UI - TBD
+- What else?
+
 ### To Be Implmented
 
  - API (REST/GraphQL)
