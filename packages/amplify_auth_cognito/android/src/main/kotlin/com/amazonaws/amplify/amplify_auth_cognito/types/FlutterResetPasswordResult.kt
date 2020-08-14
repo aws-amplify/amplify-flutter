@@ -34,7 +34,7 @@ data class FlutterResetPasswordResult(private val raw: AuthResetPasswordResult) 
     )
   }
 
-  fun getResult(): Map<String, Any> {
+  fun toValueMap(): Map<String, Any> {
     return mapOf(
       "isPasswordReset" to this.isPasswordReset,
       "nextStep" to this.nextStep

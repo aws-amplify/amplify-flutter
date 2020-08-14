@@ -42,52 +42,52 @@ class AmplifyAuthCognito extends AuthPluginInterface {
   }
 
   Future<SignUpResult> signUp({@required SignUpRequest request}) async {
-    var res = await _instance.signUp(request: request);
+    final res = await _instance.signUp(request: request);
     return res;
   }   
 
   Future<SignUpResult> confirmSignUp({@required ConfirmSignUpRequest request}) async {
-    var res = await _instance.confirmSignUp(request: request);
+    final res = await _instance.confirmSignUp(request: request);
     return res;
   }
 
   Future<ResendSignUpCodeResult> resendSignUpCode({@required ResendSignUpCodeRequest request}) async {
-    var res = await _instance.resendSignUpCode(request: request);
+    final res = await _instance.resendSignUpCode(request: request);
     return res;
   }  
 
   Future<SignInResult> signIn({@required SignInRequest request}) async {
-    var res = await _instance.signIn(request: request);
+    final res = await _instance.signIn(request: request);
     return res;
   }
 
   Future<SignInResult> confirmSignIn({@required ConfirmSignInRequest request}) async {
-    var res = await _instance.confirmSignIn(request: request);
+    final res = await _instance.confirmSignIn(request: request);
     return res;
   }
 
   Future<SignOutResult> signOut({@required SignOutRequest request}) async {
-    var res = await _instance.signOut(request: request);
+    final res = await _instance.signOut(request: request);
     return res;
   }
 
   Future<UpdatePasswordResult> updatePassword({UpdatePasswordRequest request}) async {
-    var res = await _instance.updatePassword(request: request);
+    final res = await _instance.updatePassword(request: request);
     return res; 
   }
 
   Future<ResetPasswordResult> resetPassword({ResetPasswordRequest request}) async {
-    var res = await _instance.resetPassword(request: request);
+    final res = await _instance.resetPassword(request: request);
     return res; 
   }
 
   Future<UpdatePasswordResult> confirmPassword({ConfirmPasswordRequest request}) async {
-    var res = await _instance.confirmPassword(request: request);
+    final res = await _instance.confirmPassword(request: request);
     return res; 
   }
 
   Future<AuthSession> fetchAuthSession({AuthSessionRequest request}) async {
-    var res = await _instance.fetchAuthSession(request: request);
+    final res = await _instance.fetchAuthSession(request: request);
     return res; 
   }
 }
