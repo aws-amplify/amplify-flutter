@@ -72,7 +72,7 @@ for plugin_dir in */; do
                 if ! flutter build ios --no-codesign; then
                     echo "FAILED: iOS example failed to build."
                     failed_plugins+=("$plugin")
-                    cd ../
+                    cd ../..
                     continue
                 fi
 
