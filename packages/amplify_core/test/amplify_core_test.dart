@@ -19,10 +19,6 @@ void main() {
     channel.setMockMethodCallHandler(null);
   });
 
-  test('configure should return true when value is passed', () async {
-    expect(await amplify.configure("{}"), true);
-  });
-
   test('configure should result in assertion error when null value is not passed', () async {
     amplify.configure(null)
     .then((v) => expect(true, false))

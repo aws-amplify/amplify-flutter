@@ -15,6 +15,8 @@ dependencies:
     path: ../amplify_core_plugin_interface
   amplify_storage_plugin_interface:
     path: ../amplify_storage_plugin_interface
+  amplify_analytics_plugin_interface:
+    path: ../amplify_analytics_plugin_interface
 
 dev_dependencies:
   flutter_test:
@@ -36,7 +38,6 @@ flutter:
         pluginClass: Core
       ios:
         pluginClass: Core
-
   # To add assets to your plugin package, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
@@ -47,7 +48,6 @@ flutter:
   #
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
-
   # To add custom fonts to your plugin package, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
