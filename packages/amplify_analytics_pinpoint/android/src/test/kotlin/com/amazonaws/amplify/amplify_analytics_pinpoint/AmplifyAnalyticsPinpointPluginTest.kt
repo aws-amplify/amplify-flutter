@@ -100,7 +100,6 @@ class AmplifyAnalyticsPinpointPluginTest {
         val call = MethodCall("recordEvent", arguments)
         var mockResult: MethodChannel.Result = mock(MethodChannel.Result::class.java)
         plugin.onMethodCall(call, mockResult)
-        // FIXME: this seems to fail because of another issue
         verify(mockResult).success(true)
     }
 
