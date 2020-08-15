@@ -19,13 +19,13 @@ import Amplify
 
 struct FlutterResetPasswordResult  {
     var isPasswordReset: Bool
-    var updateStep: String;
+    var resetPasswordStep: String;
     var additionalInfo: [String: String]
     var codeDeliveryDetails: [String: String]
 
     init(res: AmplifyOperation<AuthResetPasswordRequest, AuthResetPasswordResult, AuthError>.OperationResult){
       self.isPasswordReset = isComplete(res: res)
-      self.updateStep = setState(res: res)
+      self.resetPasswordStep = setState(res: res)
       self.additionalInfo = setAdditionalInfo(res: res)
       self.codeDeliveryDetails = setCodeDeliveryDetails(res: res)
     }
@@ -34,7 +34,7 @@ struct FlutterResetPasswordResult  {
       return [
         "isPasswordReset": self.isPasswordReset,
         "nextStep": [
-            "updateStep": self.updateStep,
+            "resetPasswordStep": self.resetPasswordStep,
             "additionalInfo": self.additionalInfo,
             "codeDeliveryDetails": self.codeDeliveryDetails
         ]
