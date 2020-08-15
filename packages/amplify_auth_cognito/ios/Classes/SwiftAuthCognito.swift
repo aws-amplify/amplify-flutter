@@ -301,6 +301,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
         }
         if case .configuration(let localizedError, let recoverySuggestion, let error) = error {
           let errorCode = error != nil ? "\(error!)" : "configuration"
+          logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
           formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
         }
         if case .unknown(let localizedError, let error) = error {
