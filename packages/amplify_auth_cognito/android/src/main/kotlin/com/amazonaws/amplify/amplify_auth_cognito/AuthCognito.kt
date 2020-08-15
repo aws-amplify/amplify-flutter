@@ -502,8 +502,4 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     val json = gson.toJson(this)
     return gson.fromJson(json, object : TypeToken<O>() {}.type)
   }
-
-  fun getActivity(): Activity? {
-    return this.mainActivity;
-  }
 }
