@@ -43,8 +43,6 @@ public class SwiftAmplifyAnalyticsPinpointPlugin: NSObject, FlutterPlugin {
                 AmplifyAnalyticsBridge.registerGlobalProperties(arguments: call.arguments, result: result)
             case "unregisterGlobalProperties":
                 AmplifyAnalyticsBridge.unregisterGlobalProperties(arguments: call.arguments, result: result)
-            case "unregisterAllGlobalProperties":
-                AmplifyAnalyticsBridge.unregisterAllGlobalProperties(result: result)
             case "enable":
                 AmplifyAnalyticsBridge.enable(result: result)
             case "disable":

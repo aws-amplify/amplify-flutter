@@ -61,10 +61,6 @@ class AmplifyAnalyticsPinpointPlugin extends AnalyticsPluginInterface {
     return _instance.unregisterGlobalProperties(propertyNames: propertyNames);
   }
 
-  Future<void> unregisterAllGlobalProperties() async {
-    await _instance.unregisterAllGlobalProperties();
-  }
-
   Future<void> enable() async {
     await _instance.enable();
   }

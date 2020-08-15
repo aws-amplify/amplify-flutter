@@ -48,8 +48,8 @@ class AmplifyAnalyticsBridge {
 
         fun flushEvents(@NonNull result: MethodChannel.Result) {
             try {
-                Amplify.Analytics.flushEvents();
-                result.success(true);
+                Amplify.Analytics.flushEvents()
+                result.success(true)
             } catch (e: Exception) {
                 result.error("AmplifyException", "Error", e.message)
             }
@@ -57,10 +57,10 @@ class AmplifyAnalyticsBridge {
 
         fun registerGlobalProperties(@NonNull arguments: Any, @NonNull result: MethodChannel.Result) {
             try {
-                val globalProperties = arguments as HashMap<String, Any>;
+                val globalProperties = arguments as HashMap<String, Any>
                 Amplify.Analytics.registerGlobalProperties(
-                        AmplifyAnalyticsBuilder.createAnalyticsProperties(globalProperties));
-                result.success(true);
+                        AmplifyAnalyticsBuilder.createAnalyticsProperties(globalProperties))
+                result.success(true)
             } catch (e: Exception) {
                 result.error("AmplifyException", "Error", e.message)
             }
@@ -68,21 +68,17 @@ class AmplifyAnalyticsBridge {
 
         fun unregisterGlobalProperties(@NonNull arguments: Any, @NonNull result: MethodChannel.Result) {
             try {
-                val propertyNames = (arguments as ArrayList<String>).toSet<String>();
+                val propertyNames = (arguments as ArrayList<String>).toSet<String>()
 
-                for (name in propertyNames) {
-                    Amplify.Analytics.unregisterGlobalProperties(name);
+                if(propertyNames.size == 0){
+                    Amplify.Analytics.unregisterGlobalProperties()
                 }
-                result.success(true);
-            } catch (e: Exception) {
-                result.error("AmplifyException", "Error", e.message)
-            }
-        }
-
-        fun unregisterAllGlobalProperties(@NonNull result: MethodChannel.Result) {
-            try {
-                Amplify.Analytics.unregisterGlobalProperties()
-                result.success(true);
+                else{
+                    for (name in propertyNames) {
+                        Amplify.Analytics.unregisterGlobalProperties(name)
+                    }
+                }
+                result.success(true)
             } catch (e: Exception) {
                 result.error("AmplifyException", "Error", e.message)
             }
@@ -90,8 +86,8 @@ class AmplifyAnalyticsBridge {
 
         fun enable(@NonNull result: MethodChannel.Result) {
             try {
-                Amplify.Analytics.enable();
-                result.success(true);
+                Amplify.Analytics.enable()
+                result.success(true)
             } catch (e: Exception) {
                 result.error("AmplifyException", "Error", e.message)
             }
@@ -99,8 +95,8 @@ class AmplifyAnalyticsBridge {
 
         fun disable(@NonNull result: MethodChannel.Result) {
             try {
-                Amplify.Analytics.disable();
-                result.success(true);
+                Amplify.Analytics.disable()
+                result.success(true)
             } catch (e: Exception) {
                 result.error("AmplifyException", "Error", e.message)
             }
@@ -110,11 +106,11 @@ class AmplifyAnalyticsBridge {
             try {
                 val argumentsMap = arguments as HashMap<*, *>
                 val userId = argumentsMap["userId"] as String
-                val userProfileMap = argumentsMap["userProfileMap"] as HashMap<String, Object>;
+                val userProfileMap = argumentsMap["userProfileMap"] as HashMap<String, Object>
 
                 Amplify.Analytics.identifyUser(userId,
-                        AmplifyAnalyticsBuilder.createUserProfile(userProfileMap));
-                result.success(true);
+                        AmplifyAnalyticsBuilder.createUserProfile(userProfileMap))
+                result.success(true)
             } catch (e: Exception) {
                 result.error("AmplifyException", "Error", e.message)
             }

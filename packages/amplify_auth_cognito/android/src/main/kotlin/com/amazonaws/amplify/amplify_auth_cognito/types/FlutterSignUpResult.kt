@@ -19,7 +19,7 @@ import androidx.annotation.Nullable
 import com.amplifyframework.auth.result.AuthSignUpResult
 import com.google.gson.Gson
 
-data class FlutterSignUpResult(var raw: AuthSignUpResult) {
+data class FlutterSignUpResult(private var raw: AuthSignUpResult) {
   val isSignUpComplete: Boolean = raw.isSignUpComplete
   val nextStep: Map<String, Any> = setNextStep();
   private fun setNextStep(): Map<String, Any> {
@@ -27,14 +27,14 @@ data class FlutterSignUpResult(var raw: AuthSignUpResult) {
       "signUpStep" to raw.nextStep.signUpStep.toString(),
       "additionalInfo" to Gson().toJson(raw.nextStep.additionalInfo),
       "codeDeliveryDetails" to mapOf(
-        "destination" to "test@test.com",
-        "deliveryMedium" to (raw.nextStep.codeDeliveryDetails?.deliveryMedium ?: ""),
+        "destination" to (raw.nextStep.codeDeliveryDetails?.destination ?: ""),
+        "deliveryMedium" to (raw.nextStep.codeDeliveryDetails?.deliveryMedium?.name ?: ""),
         "attributeName" to (raw.nextStep.codeDeliveryDetails?.attributeName ?: "")
       )
     )
   }
 
-  fun getResult(): Map<String, Any> {
+  fun toValueMap(): Map<String, Any> {
     return mapOf(
       "isSignUpComplete" to this.isSignUpComplete,
       "nextStep" to this.nextStep

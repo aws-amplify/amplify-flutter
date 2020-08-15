@@ -30,13 +30,13 @@ data class FlutterSignInResult(private val raw: AuthSignInResult) {
       "additionalInfo" to Gson().toJson(raw.nextStep.additionalInfo),
       "codeDeliveryDetails" to mapOf(
         "destination" to (raw.nextStep.codeDeliveryDetails?.destination ?: ""),
-        "deliveryMedium" to (raw.nextStep.codeDeliveryDetails?.deliveryMedium ?: ""),
+        "deliveryMedium" to (raw.nextStep.codeDeliveryDetails?.deliveryMedium?.name ?: ""),
         "attributeName" to (raw.nextStep.codeDeliveryDetails?.attributeName ?: "")
       )
     )
   }
 
-  fun getResult(): Map<String, Any> {
+  fun toValueMap(): Map<String, Any> {
     return mapOf(
       "isSignedIn" to this.isSignedIn,
       "nextStep" to this.nextStep

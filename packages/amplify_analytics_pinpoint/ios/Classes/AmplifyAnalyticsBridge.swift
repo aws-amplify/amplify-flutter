@@ -43,11 +43,14 @@ public class AmplifyAnalyticsBridge {
     
     public static func unregisterGlobalProperties(arguments: Any?, result: @escaping FlutterResult){
         let propertyNames = Set<String>(arguments as! Array<String>)
-        Amplify.Analytics.unregisterGlobalProperties(propertyNames)
-        result(true);
-    } 
-    public static func unregisterAllGlobalProperties(result: @escaping FlutterResult){
-        Amplify.Analytics.unregisterGlobalProperties()
+        
+        if(propertyNames.count == 0){
+            Amplify.Analytics.unregisterGlobalProperties()
+        }
+        else{
+            Amplify.Analytics.unregisterGlobalProperties(propertyNames)
+        }
+
         result(true);
     }
     

@@ -38,28 +38,29 @@ abstract class AnalyticsPluginInterface extends PlatformInterface {
     throw UnimplementedError('flushEvents() has not been implemented.');
   }
 
-  Future<void> registerGlobalProperties({@required AnalyticsProperties globalProperties}) async {
-    throw UnimplementedError('registerGlobalProperties() has not been implemented.');
+  Future<void> registerGlobalProperties(
+      {@required AnalyticsProperties globalProperties}) async {
+    throw UnimplementedError(
+        'registerGlobalProperties() has not been implemented.');
   }
 
-  Future<void> unregisterGlobalProperties({@required List<String> propertyNames}) async {
-    throw UnimplementedError('unregisterGlobalProperties() has not been implemented.');
-  }
-
-  Future<void> unregisterAllGlobalProperties() async {
-    throw UnimplementedError('unregisterAllGlobalProperties() has not been implemented.');
+  Future<void> unregisterGlobalProperties(
+      {@required List<String> propertyNames}) async {
+    throw UnimplementedError(
+        'unregisterGlobalProperties() has not been implemented.');
   }
 
   Future<void> enable() async {
     throw UnimplementedError('enable() has not been implemented.');
   }
 
-  Future<void> disable() async{
+  Future<void> disable() async {
     throw UnimplementedError('disable() has not been implemented.');
   }
 
-  Future<void> identifyUser({@required String userId, @required AnalyticsUserProfile userProfile}) async {
+  Future<void> identifyUser(
+      {@required String userId,
+      @required AnalyticsUserProfile userProfile}) async {
     throw UnimplementedError('identifyUser() has not been implemented.');
   }
-
 }
