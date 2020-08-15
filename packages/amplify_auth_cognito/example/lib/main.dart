@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
   final newPasswordController = TextEditingController();
 
   bool _isAmplifyConfigured = false;
-  Amplify amplify = new Amplify();
+  Amplify amplify = Amplify();
   AmplifyAuthCognito  auth;
   String displayState;
   String authState;
@@ -51,7 +51,7 @@ class _MyAppState extends State<MyApp> {
 
   void _configureAmplify() async {
 
-    auth = new AmplifyAuthCognito();
+    auth = AmplifyAuthCognito();
     amplify.addPlugin(authPlugins: [auth]);
 
     await amplify.configure(amplifyconfig);
@@ -93,15 +93,13 @@ class _MyAppState extends State<MyApp> {
       "test": "value"
     };
     try {
-      SignUpResult res = await Amplify.Auth.signUp(
-        request: SignUpRequest(
-          username: usernameController.text.trim(),
-          password: passwordController.text.trim(),
-          options: CognitoSignUpOptions(
-            userAttributes: userAttributes,
-            validationData: validationData
-          )
-        ), 
+      SignUpResult res = await Amplify.Auth.signUp( 
+        username: usernameController.text.trim(),
+        password: passwordController.text.trim(),
+        options: CognitoSignUpOptions(
+          userAttributes: userAttributes,
+          validationData: validationData
+        )
       );
       setState(() {
         displayState = res.nextStep.signUpStep != "DONE" ? "SHOW_CONFIRM" : "SHOW_SIGN_UP";
@@ -125,10 +123,8 @@ class _MyAppState extends State<MyApp> {
     });
     try {
       SignUpResult res = await Amplify.Auth.confirmSignUp(
-        request: ConfirmSignUpRequest(
-          username: usernameController.text.trim(),
-          confirmationCode: confirmationCodeController.text.trim()
-        ), 
+        username: usernameController.text.trim(),
+        confirmationCode: confirmationCodeController.text.trim()
       );
       setState(() {
         displayState = res.nextStep.signUpStep != "DONE" ? "SHOW_CONFIRM" : "SHOW_SIGN_IN";
@@ -152,10 +148,8 @@ class _MyAppState extends State<MyApp> {
     });
     try {
       SignInResult res = await Amplify.Auth.signIn(
-        request: SignInRequest(
-          username: usernameController.text.trim(),
-          password: passwordController.text.trim()
-        ), 
+        username: usernameController.text.trim(),
+        password: passwordController.text.trim()
       );
       setState(() {
         displayState = res.isSignedIn ? "SIGNED_IN" : "SHOW_CONFIRM_SIGN_IN" ;
@@ -179,9 +173,7 @@ class _MyAppState extends State<MyApp> {
     });
     try {
       SignInResult res = await Amplify.Auth.confirmSignIn(
-        request: ConfirmSignInRequest(
-          confirmationValue: confirmationCodeController.text.trim()
-        ), 
+        confirmationValue: confirmationCodeController.text.trim()
       );
       setState(() {
         displayState = res.nextStep.signInStep == "DONE" ? "SIGNED_IN" : "SHOW_CONFIRM_SIGN_IN";
@@ -205,10 +197,8 @@ class _MyAppState extends State<MyApp> {
     });
     try {
       await Amplify.Auth.signOut(
-        request: SignOutRequest(
-          options: CognitoSignOutOptions(
-            globalSignOut: true
-          )
+        options: CognitoSignOutOptions(
+          globalSignOut: true
         )
       );
       setState(() {
@@ -233,10 +223,8 @@ class _MyAppState extends State<MyApp> {
     });
     try {
       await Amplify.Auth.updatePassword(
-        request: UpdatePasswordRequest(
-          newPassword: newPasswordController.text.trim(),
-          oldPassword: oldPasswordController.text.trim()
-        ), 
+        newPassword: newPasswordController.text.trim(),
+        oldPassword: oldPasswordController.text.trim()
       );
       setState(() {
         displayState = 'SIGNED_IN';
@@ -259,9 +247,7 @@ class _MyAppState extends State<MyApp> {
     });
     try {
       ResetPasswordResult res = await Amplify.Auth.resetPassword(
-        request: ResetPasswordRequest(
-          username: usernameController.text.trim(),
-        ), 
+        username: usernameController.text.trim(),
       );
       setState(() {
         displayState = "SHOW_CONFIRM_REST";
@@ -285,9 +271,7 @@ class _MyAppState extends State<MyApp> {
     });
     try {
       ResendSignUpCodeResult res = await Amplify.Auth.resendSignUpCode(
-        request: ResendSignUpCodeRequest(
-          username: usernameController.text.trim(),
-        ), 
+        username: usernameController.text.trim(),
       );
       print(res);
     } on AuthError catch (e) {

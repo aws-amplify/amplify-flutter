@@ -59,20 +59,12 @@ void main() {
     testCode = 1;
     await amplify.addPlugin(authPlugins: [auth]);
     await amplify.configure("{}");
-    SignInRequest req = SignInRequest(
-      username: 'testUser',
-      password: '123',
-    );
-    expect(await Amplify.Auth.signIn(request: req), isInstanceOf<SignInResult>());
+    expect(await Amplify.Auth.signIn(username: 'testUser', password: '123'), isInstanceOf<SignInResult>());
   });
 
   test('signIn request nextStep casts to AuthNextSignStep and AuthNextStep', () async {
     testCode = 1;
-    SignInRequest req = SignInRequest(
-      username: 'testUser',
-      password: '123',
-    );
-    var res = await Amplify.Auth.signIn(request: req);
+    var res = await Amplify.Auth.signIn(username: 'testUser', password: '123');
     expect(res.nextStep, isInstanceOf<AuthNextSignInStep>());
     expect(res.nextStep, isInstanceOf<AuthNextStep>());
   });
@@ -80,12 +72,8 @@ void main() {
   test('signIn thrown PlatFormException results in AuthError', () async {
     testCode = 2;
     AuthError err;
-    SignInRequest req = SignInRequest(
-      username: 'testUser',
-      password: '123',
-    );
    try {
-     await Amplify.Auth.signIn(request: req);
+     await Amplify.Auth.signIn(username: 'testUser', password: '123');
    } on AuthError catch (e) {
       err = e;
     } 

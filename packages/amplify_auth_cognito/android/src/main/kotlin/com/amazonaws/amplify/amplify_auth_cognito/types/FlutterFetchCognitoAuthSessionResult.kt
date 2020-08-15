@@ -24,9 +24,19 @@ import com.amplifyframework.auth.result.AuthSignInResult
 import com.google.gson.Gson
 
 data class FlutterFetchCognitoAuthSessionResult(private val raw: AWSCognitoAuthSession) {
-  val isSignedIn: Boolean = raw.isSignedIn;
-  val identityId: String = raw.identityId.value as String;
-  val userSub: String = raw.userSub.value as String;
-  val credentials: AuthSessionResult<AWSCredentials> = raw.awsCredentials
-  val tokens: AuthSessionResult<AWSCognitoUserPoolTokens> = raw.userPoolTokens
+  private val isSignedIn: Boolean = raw.isSignedIn
+  private val identityId: String? = raw.identityId.value as String
+  private val userSub: String? = raw.userSub.value as String
+  private val credentials: AuthSessionResult<AWSCredentials>? = raw.awsCredentials
+  private val tokens: AuthSessionResult<AWSCognitoUserPoolTokens>? = raw.userPoolTokens
+
+  fun toValueMap(): Map<String, Any?> {
+    return mapOf(
+      "isSignedIn" to this.isSignedIn,
+      "identityId" to this.identityId,
+      "userSub" to this.userSub,
+      "credentials" to this.credentials,
+      "tokens" to this.tokens
+    )
+  }
 }

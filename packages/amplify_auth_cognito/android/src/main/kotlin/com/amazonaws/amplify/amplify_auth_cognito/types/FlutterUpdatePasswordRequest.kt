@@ -16,7 +16,6 @@
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
 data class FlutterUpdatePasswordRequest(val map: HashMap<String, *>) {
-  val username: String? = map["username"] as String?;
   val oldPassword: String = map["oldPassword"] as String;
   val newPassword: String = map["newPassword"] as String;
 
