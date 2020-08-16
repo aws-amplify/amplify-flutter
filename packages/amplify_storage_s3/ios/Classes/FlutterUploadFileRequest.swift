@@ -11,7 +11,7 @@ import Amplify
 struct FlutterUploadFileRequest {
     var key: String
     var file: URL
-    var options: StorageUploadFileRequest.Options? = nil
+    var options: StorageUploadFileRequest.Options?
     init(request: Dictionary<String, AnyObject>) {
         self.key = request["key"] as! String
         self.file = NSURL(fileURLWithPath: request["path"] as! String) as URL
@@ -27,7 +27,6 @@ struct FlutterUploadFileRequest {
             valid = false
         }
         return valid
-        
     }
     
     private func setOptions(request: Dictionary<String, AnyObject>) -> StorageUploadFileRequest.Options? {
@@ -43,7 +42,6 @@ struct FlutterUploadFileRequest {
             for(key,value) in requestOptions {
                 switch key {
                 case "accessLevel":
-                    print("received accessLevel option: \(value as! String)")
                     accessLevel = StorageAccessLevel(rawValue: value as! String) ?? accessLevel
                 case "targetIdentityId":
                     targetIdentityId = value as? String
@@ -53,9 +51,7 @@ struct FlutterUploadFileRequest {
                     contentType = value as? String
                 default:
                     print("Received unexpected option: \(key)")
-                    
                 }
-            
             }
             return StorageUploadFileRequest.Options(accessLevel: accessLevel, targetIdentityId: targetIdentityId, metadata: metadata, contentType: contentType)
         }

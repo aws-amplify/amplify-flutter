@@ -1,7 +1,7 @@
 PODS:
-  - Amplify (1.0.1):
-    - Amplify/Default (= 1.0.1)
-  - Amplify/Default (1.0.1)
+  - Amplify (1.0.4):
+    - Amplify/Default (= 1.0.4)
+  - Amplify/Default (1.0.4)
   - amplify_auth_cognito (0.0.1):
     - Amplify
     - AmplifyPlugins/AWSCognitoAuthPlugin
@@ -14,36 +14,35 @@ PODS:
     - Flutter
   - amplify_storage_s3 (0.0.1):
     - Amplify
-    - AmplifyPlugins/AWSCognitoAuthPlugin
     - AmplifyPlugins/AWSS3StoragePlugin
     - AWSPluginsCore
     - Flutter
-  - AmplifyPlugins/AWSCognitoAuthPlugin (1.0.1):
-    - AWSAuthCore (~> 2.13.4)
-    - AWSCore (~> 2.13.4)
-    - AWSMobileClient (~> 2.13.4)
-    - AWSPluginsCore (= 1.0.1)
-  - AmplifyPlugins/AWSS3StoragePlugin (1.0.1):
-    - AWSAuthCore (~> 2.13.4)
-    - AWSCore (~> 2.13.4)
-    - AWSPluginsCore (= 1.0.1)
-    - AWSS3 (~> 2.13.4)
-  - AWSAuthCore (2.13.4):
-    - AWSCore (= 2.13.4)
-  - AWSCognitoIdentityProvider (2.13.4):
+  - AmplifyPlugins/AWSCognitoAuthPlugin (1.0.4):
+    - AWSAuthCore (~> 2.14.0)
+    - AWSCore (~> 2.14.0)
+    - AWSMobileClient (~> 2.14.0)
+    - AWSPluginsCore (= 1.0.4)
+  - AmplifyPlugins/AWSS3StoragePlugin (1.0.4):
+    - AWSAuthCore (~> 2.14.0)
+    - AWSCore (~> 2.14.0)
+    - AWSPluginsCore (= 1.0.4)
+    - AWSS3 (~> 2.14.0)
+  - AWSAuthCore (2.14.2):
+    - AWSCore (= 2.14.2)
+  - AWSCognitoIdentityProvider (2.14.2):
     - AWSCognitoIdentityProviderASF (= 1.0.1)
-    - AWSCore (= 2.13.4)
+    - AWSCore (= 2.14.2)
   - AWSCognitoIdentityProviderASF (1.0.1)
-  - AWSCore (2.13.4)
-  - AWSMobileClient (2.13.4):
-    - AWSAuthCore (= 2.13.4)
-    - AWSCognitoIdentityProvider (= 2.13.4)
-  - AWSPluginsCore (1.0.1):
-    - Amplify (= 1.0.1)
-    - AWSCore (~> 2.13.4)
-    - AWSMobileClient (~> 2.13.4)
-  - AWSS3 (2.13.4):
-    - AWSCore (= 2.13.4)
+  - AWSCore (2.14.2)
+  - AWSMobileClient (2.14.2):
+    - AWSAuthCore (= 2.14.2)
+    - AWSCognitoIdentityProvider (= 2.14.2)
+  - AWSPluginsCore (1.0.4):
+    - Amplify (= 1.0.4)
+    - AWSCore (~> 2.14.0)
+    - AWSMobileClient (~> 2.14.0)
+  - AWSS3 (2.14.2):
+    - AWSCore (= 2.14.2)
   - DKImagePickerController/Core (4.3.2):
     - DKImagePickerController/ImageDataManager
     - DKImagePickerController/Resource
@@ -82,9 +81,9 @@ PODS:
   - flutter_plugin_android_lifecycle (0.0.1):
     - Flutter
   - ObjectMapper (4.2.0)
-  - SDWebImage (5.8.3):
-    - SDWebImage/Core (= 5.8.3)
-  - SDWebImage/Core (5.8.3)
+  - SDWebImage (5.8.4):
+    - SDWebImage/Core (= 5.8.4)
+  - SDWebImage/Core (5.8.4)
   - SwiftyGif (5.3.0)
 
 DEPENDENCIES:
@@ -127,25 +126,25 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_plugin_android_lifecycle/ios"
 
 SPEC CHECKSUMS:
-  Amplify: 8df04e515e756c0d3fe6e7652c69d46110bb74a7
+  Amplify: 7626e435f3e78ac3508252557e375f994d5d5154
   amplify_auth_cognito: 21e6e4acd861653d73875ee7d8ddce1a404e23cf
   amplify_core: 2a2f529ae93d03692c969215daffd6d4bda54b9b
-  amplify_storage_s3: 5359cfbee18b7d6f229f023f3936de1fb119b252
-  AmplifyPlugins: 75e82bfc1e2d9fb2f1ea30c037190c3fd611d39e
-  AWSAuthCore: 72b4bd064c28985ea5345c62759632d511de342a
-  AWSCognitoIdentityProvider: a2d1d2857316519c018c03ac8205cf78154db5c0
+  amplify_storage_s3: 44d9db51c1b89f9483649ac5b9fd5e2bb98b719c
+  AmplifyPlugins: aba4f9e4432ebc089aaea45722d2c5711d3e58f4
+  AWSAuthCore: 7ab6f5ab60ba8bb91a4868581946a993cbbae76d
+  AWSCognitoIdentityProvider: 609856c741ef86037055223b3a46f4eeb49319d0
   AWSCognitoIdentityProviderASF: f94f1a502e72ef3d0a1de93e10bf7a79c8698118
-  AWSCore: 06beea22b6bdbfe9f5ab5015c6901e8475c746a8
-  AWSMobileClient: 33ecce524fbc011d543dae8306ca29a43ecb72e5
-  AWSPluginsCore: 37ee45209a3251502893504072a6c4fc0af6f6e4
-  AWSS3: ab3965322c8e5ee069eaf9b3201c55557ad21be1
+  AWSCore: 80da498ab0979e77dbdc7690a61ceaaccfb0499a
+  AWSMobileClient: b80f21439aa95df2375e7acdde76d2f60c12f4b7
+  AWSPluginsCore: 646f8c2d831a52f2293da0dfd59a31eee61f6ad5
+  AWSS3: 2ea579ed91fb01a187f7d8d827e3936da488531e
   DKImagePickerController: b5eb7f7a388e4643264105d648d01f727110fc3d
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   file_picker: 3e6c3790de664ccf9b882732d9db5eaf6b8d4eb1
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_plugin_android_lifecycle: dc0b544e129eebb77a6bfb1239d4d1c673a60a35
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
-  SDWebImage: 112503ec94a5a2a41869503844a15e8d8f1ead5c
+  SDWebImage: cf6922231e95550934da2ada0f20f2becf2ceba9
   SwiftyGif: e466e86c660d343357ab944a819a101c4127cb40
 
 PODFILE CHECKSUM: 03ca1bf1c64dc8b19c6e4677c8bd060771e18859

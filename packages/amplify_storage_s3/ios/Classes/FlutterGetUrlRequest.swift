@@ -10,7 +10,7 @@ import Amplify
 
 struct FlutterGetUrlRequest {
     var key: String
-    var options: StorageGetURLRequest.Options? = nil
+    var options: StorageGetURLRequest.Options?
     init(request: Dictionary<String, AnyObject>) {
         self.key = request["key"] as! String
         self.options = setOptions(request: request)
@@ -37,7 +37,6 @@ struct FlutterGetUrlRequest {
             for(key,value) in requestOptions {
                 switch key {
                 case "accessLevel":
-                    print("received accessLevel option: \(value as! String)")
                     accessLevel = StorageAccessLevel(rawValue: value as! String) ?? accessLevel
                 case "targetIdentityId":
                     targetIdentityId = value as? String

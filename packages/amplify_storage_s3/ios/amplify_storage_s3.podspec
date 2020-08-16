@@ -5,9 +5,9 @@
 Pod::Spec.new do |s|
   s.name             = 'amplify_storage_s3'
   s.version          = '0.0.1'
-  s.summary          = 'A new flutter plugin project.'
+  s.summary          = 'Amplify Flutter AWS S3 Storage plugin'
   s.description      = <<-DESC
-A new flutter plugin project.
+  The Amplify Flutter Storage category plugin using the AWS S3 provider.
                        DESC
   s.homepage         = 'http://example.com'
   s.license          = { :file => '../LICENSE' }

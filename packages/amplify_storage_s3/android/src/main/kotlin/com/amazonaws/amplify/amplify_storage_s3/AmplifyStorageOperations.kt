@@ -1,12 +1,11 @@
 package com.amazonaws.amplify.amplify_storage_s3
 
-import android.app.Activity
-import android.util.Log
 import androidx.annotation.NonNull
 import android.os.Handler
 import android.os.Looper
 import com.amazonaws.amplify.amplify_storage_s3.types.FlutterGetUrlRequest
 import com.amazonaws.amplify.amplify_storage_s3.types.FlutterUploadFileRequest
+import com.amazonaws.amplify.amplify_storage_s3.types.FlutterStorageErrorMessage
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.storage.result.StorageGetUrlResult
 import com.amplifyframework.storage.result.StorageUploadFileResult
@@ -14,95 +13,82 @@ import io.flutter.plugin.common.MethodChannel
 import java.lang.Exception
 import com.google.gson.Gson
 
-//TODO: replace strings with enums for the different error cases/codes
-// Remove unnecessary log statements
 class AmplifyStorageOperations {
 
     companion object StorageOperations {
         private val gson = Gson()
 
-        fun uploadFile(@NonNull flutterResult: MethodChannel.Result, @NonNull request: HashMap<String, *>, mainActivity: Activity?) {
+        fun uploadFile(@NonNull flutterResult: MethodChannel.Result, @NonNull request: Map<String, *>) {
             if (FlutterUploadFileRequest.isValid(request)) {
-                Log.i("AmplifyFlutter", "uploadFile request:" + request.toString())
                 val req = FlutterUploadFileRequest(request)
                 try {
-                    Log.i("Key", req.key)
-                    Log.i("AbsolutePath", req.file.absolutePath)
-                    Log.i("Options", gson.toJson(req.options))
                     Amplify.Storage.uploadFile(
                             req.key,
                             req.file,
                             req.options,
-                            { result -> prepareUploadFileResponse(flutterResult, result)
+                            { result ->
+                                prepareUploadFileResponse(flutterResult, result)
                             },
                             { error ->
-                                prepareError(flutterResult, "UPLOAD_FILE_OPERATION_FAILED", error.localizedMessage, error.recoverySuggestion)
+                                prepareError(flutterResult, FlutterStorageErrorMessage.UPLOAD_FILE_OPERATION_FAILED.name, error.localizedMessage, error.recoverySuggestion)
                             })
 
 
                 } catch (e: Exception) {
-                    prepareError(flutterResult, "ERROR_ENCOUNTERED_IN_UPLOAD_FILE_OPERATION", e.localizedMessage, "")
+                    prepareError(flutterResult, FlutterStorageErrorMessage.UPLOAD_FILE_OPERATION_FAILED.name, e.localizedMessage, "")
                 }
             } else {
-                prepareError(flutterResult, "UPLOAD_FILE_REQUEST_MALFORMED", "The request received was malformed", "Please ensure the request matches the method signature")
+                prepareError(flutterResult, FlutterStorageErrorMessage.UPLOAD_FILE_REQUEST_MALFORMED.name, "The request received was malformed", "Please ensure the request matches the method signature")
             }
         }
 
-        fun getUrl(@NonNull flutterResult: MethodChannel.Result, @NonNull request: HashMap<String, *>, mainActivity: Activity?) {
+        fun getUrl(@NonNull flutterResult: MethodChannel.Result, @NonNull request: Map<String, *>) {
             if (FlutterGetUrlRequest.isValid(request)) {
-                Log.i("AmplifyFlutter", "getUrl request:" + request.toString())
                 val req = FlutterGetUrlRequest(request)
                 try {
-                    Log.i("Key", req.key)
-                    Log.i("Options", gson.toJson(req.options))
                     Amplify.Storage.getUrl(req.key,
                             req.options,
                             { result ->
                                 prepareGetUrlResponse(flutterResult, result)
                             },
                             { error ->
-                                prepareError(flutterResult, "GET_URL_OPERATION_FAILED", error.localizedMessage, error.recoverySuggestion)
+                                prepareError(flutterResult, FlutterStorageErrorMessage.GET_URL_OPERATION_FAILED.name, error.localizedMessage, error.recoverySuggestion)
                             }
                     )
                 } catch (e: Exception) {
-                    prepareError(flutterResult, "ERROR_ENCOUNTERED_IN_GET_URL_OPERATION", e.localizedMessage, "")
+                    prepareError(flutterResult, FlutterStorageErrorMessage.GET_URL_OPERATION_FAILED.name, e.localizedMessage, "")
                 }
             } else {
-                prepareError(flutterResult, "GET_URL_REQUEST_MALFORMED", "The request received was malformed", "Please ensure the request matches the method signature")
+                prepareError(flutterResult, FlutterStorageErrorMessage.GET_URL_REQUEST_MALFORMED.name, "The request received was malformed", "Please ensure the request matches the method signature")
             }
         }
 
         private fun prepareUploadFileResponse(@NonNull flutterResult: MethodChannel.Result, result: StorageUploadFileResult) {
-            Handler (Looper.getMainLooper()).post {
-                Log.i("AmplifyFlutter", "Successfully uploaded file: " + result.key)
-                val response: HashMap<String, String> = HashMap()
-                response["key"] = result.key
+            val response = HashMap<String, Any>()
+            response["key"] = result.key
+            Handler(Looper.getMainLooper()).post {
                 flutterResult.success(response)
             }
         }
 
         private fun prepareGetUrlResponse(@NonNull flutterResult: MethodChannel.Result, result: StorageGetUrlResult) {
-            Handler (Looper.getMainLooper()).post {
-                Log.i("AmplifyFlutter", "Successfully got Url: " + result.url.toString())
-                val response: HashMap<String, String> = HashMap()
-                response["url"] = result.url.toString()
+            val response = HashMap<String, Any>()
+            response["url"] = result.url.toString()
+            Handler(Looper.getMainLooper()).post {
                 flutterResult.success(response)
-                Log.i("AmplifyFlutter", "Url sent to Dart")
             }
         }
-    }
-}
 
-//TODO: Move to Error or Util Class
-fun prepareError(@NonNull flutterResult: MethodChannel.Result, @NonNull msg: String, localizedError: String?, recoverySuggestion: String?) {
-    Handler (Looper.getMainLooper()).post {
-        Log.i("AmplifyFlutter", "Error: " + localizedError + msg);
-        var errorDetails: HashMap<String, Any> = HashMap();
-        errorDetails.put("PLATFORM_EXCEPTIONS", mapOf(
-                "platform" to "Android",
-                "localizedErrorMessage" to localizedError,
-                "recoverySuggestion" to recoverySuggestion
-        ))
-        flutterResult.error("AmplifyException", msg, errorDetails)
+        private fun prepareError(@NonNull flutterResult: MethodChannel.Result, @NonNull msg: String, localizedError: String?, recoverySuggestion: String?) {
+            var errorDetails = HashMap<String, Any>();
+            errorDetails.put("PLATFORM_EXCEPTIONS", mapOf(
+                    "platform" to "Android",
+                    "localizedErrorMessage" to localizedError,
+                    "recoverySuggestion" to recoverySuggestion
+            ))
+            Handler(Looper.getMainLooper()).post {
+                flutterResult.error("AmplifyException", msg, errorDetails)
+            }
+        }
     }
 }

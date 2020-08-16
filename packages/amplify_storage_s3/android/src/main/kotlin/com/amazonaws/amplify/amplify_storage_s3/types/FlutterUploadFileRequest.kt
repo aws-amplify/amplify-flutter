@@ -4,14 +4,14 @@ import com.amplifyframework.storage.StorageAccessLevel
 import com.amplifyframework.storage.options.StorageUploadFileOptions
 import java.io.File
 
-data class FlutterUploadFileRequest(val request: HashMap<String, *>) {
+data class FlutterUploadFileRequest(val request: Map<String, *>) {
     val key: String = request["key"] as String
     val file: File = File(request["path"] as String)
     val options: StorageUploadFileOptions = setOptions(request)
 
-    private fun setOptions(request: HashMap<String, *>): StorageUploadFileOptions {
+    private fun setOptions(request: Map<String, *>): StorageUploadFileOptions {
         if(request["options"]!= null) {
-            val optionsMap = request["options"] as HashMap<String, *>
+            val optionsMap = request["options"] as Map<String, *>
             var options: StorageUploadFileOptions.Builder = StorageUploadFileOptions.builder()
 
             optionsMap.forEach { (optionKey, optionValue) ->
@@ -38,7 +38,7 @@ data class FlutterUploadFileRequest(val request: HashMap<String, *>) {
     }
 
     companion object {
-        fun isValid(request: HashMap<String, *>): Boolean {
+        fun isValid(request: Map<String, *>): Boolean {
             var valid = true
             if(!(request.containsKey("path") && request["path"] is String)) {
                 valid = false

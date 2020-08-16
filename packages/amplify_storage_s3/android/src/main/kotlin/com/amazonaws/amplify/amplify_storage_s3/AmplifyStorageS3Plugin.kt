@@ -40,12 +40,11 @@ class AmplifyStorageS3Plugin : FlutterPlugin, ActivityAware, MethodCallHandler {
     }
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
-        Log.i("AmplifyFlutter", "Call is: " + call.method)
         when (call.method) {
             "uploadFile" ->
-                AmplifyStorageOperations.uploadFile(result, call.arguments as HashMap<String, *>, this.mainActivity)
+                AmplifyStorageOperations.uploadFile(result, call.arguments as Map<String, *>)
             "getUrl" ->
-                AmplifyStorageOperations.getUrl(result, call.arguments as HashMap<String, *>, this.mainActivity)
+                AmplifyStorageOperations.getUrl(result, call.arguments as Map<String, *>)
             else -> result.notImplemented()
         }
     }

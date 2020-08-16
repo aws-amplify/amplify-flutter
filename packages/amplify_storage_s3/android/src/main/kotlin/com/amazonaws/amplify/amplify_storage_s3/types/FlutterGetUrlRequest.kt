@@ -3,13 +3,13 @@ package com.amazonaws.amplify.amplify_storage_s3.types
 import com.amplifyframework.storage.StorageAccessLevel
 import com.amplifyframework.storage.options.StorageGetUrlOptions
 
-data class FlutterGetUrlRequest(val request: HashMap<String, *>) {
+data class FlutterGetUrlRequest(val request: Map<String, *>) {
     val key: String = request["key"] as String
     val options: StorageGetUrlOptions = setOptions(request)
 
-    private fun setOptions(request: HashMap<String, *>): StorageGetUrlOptions {
+    private fun setOptions(request: Map<String, *>): StorageGetUrlOptions {
         if (request["options"] != null) {
-            val optionsMap = request["options"] as HashMap<String, *>
+            val optionsMap = request["options"] as Map<String, *>
             var options: StorageGetUrlOptions.Builder = StorageGetUrlOptions.builder()
 
             optionsMap.forEach { (optionKey, optionValue) ->
@@ -33,7 +33,7 @@ data class FlutterGetUrlRequest(val request: HashMap<String, *>) {
     }
 
     companion object {
-        fun isValid(request: HashMap<String, *>): Boolean {
+        fun isValid(request: Map<String, *>): Boolean {
             var valid = true
             if (!(request.containsKey("key") && request["key"] is String)) {
                 valid = false
