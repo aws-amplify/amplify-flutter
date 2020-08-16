@@ -8,20 +8,15 @@
 
 ## AWS Amplify Flutter (Developer Preview) is a library for Flutter developers building cloud-enabled applications
 
-AWS Amplify provides a declarative and easy-to-use interface across different categories of cloud operations. AWS Amplify goes well with any Flutter based frontend workflow, and React Native for mobile developers.
+AWS Amplify provides a declarative and easy-to-use interface across different categories of cloud operations. AWS Amplify goes well with any Flutter based frontend workflow, and React Native for mobile developers. Our default implementation works with Amazon Web Services (AWS), but AWS Amplify is designed to be open and pluggable for any custom backend or service.
 
-Our default implementation works with Amazon Web Services (AWS), but AWS Amplify is designed to be open and pluggable for any custom backend or service.
+See [AWS Amplify](https://docs.amplify.aws) for further details about the Amplify Framework.
 
-## Features / APIs
+## Supported Amplify Categories
 
 - [**Authentication**](https://docs.amplify.aws/lib/auth/getting-started/q/platform/flutter): APIs and building blocks to create user authentication experiences.
 - [**Analytics**](https://docs.amplify.aws/lib/analytics/getting-started/q/platform/flutter): Collect analytics data for your app. Analytics data includes user sessions and other custom events that you want to track in your app.
 - [**Storage**](https://docs.amplify.aws/lib/storage/getting-started/q/platform/flutter): Provides a simple mechanism for managing user content for your app in public, protected or private storage buckets.
-
-## Known Issues
-
-- Hosted UI - TBD
-- What else?
 
 ### To Be Implmented
 
@@ -29,36 +24,40 @@ Our default implementation works with Amazon Web Services (AWS), but AWS Amplify
  - Predictions
  - Datastore
  - Hub Events (Listening to the Amplify events)
- - [**FEEDBACK**](https://github.com/aws-amplify/amplify-flutter/issues/5)
+ - [**LET US KNOW YOUR FEEDBACK**](https://github.com/aws-amplify/amplify-flutter/issues/5)
 
+## Documentation
 
-#### Visit our [Web Site](https://docs.amplify.aws/) to learn more about AWS Amplify.
+- [Getting Started with Amplify Flutter](https://docs.amplify.aws/start/getting-started/installation/q/integration/flutter)
+- [Amplify Framework](https://docs.amplify.aws/)
+- [Install the Amplify CLI](https://docs.amplify.aws/cli/start/install)
+- [Contributing to Amplify Flutter](CONTRIBUTING.md)
 
 ## Local Development Guide
 
-Amplify-Flutter is an open-source project and welcomes contributions from the Flutter community.
-
+> Amplify for Flutter is an open-source project and welcomes contributions from the Flutter community, see [Contributing](CONTRIBUTING.md).
 
 ### Getting Started with Local Development
 
-The following instructions will help you:
+#### Prerequisites
 
-* Pull the Amplify-Flutter project.
-* Install it in a project for local development.
-* Add basic Amplify functionality to your project.
+- [Flutter](https://flutter.dev/docs/get-started/install)
+- [Amplify CLI](https://docs.amplify.aws/cli/start/install)
 
+* Clone this repository
+* Install Amplify in a Flutter project
+* Add basic Amplify functionality to your project using one of the supported categories
 
+1. ```git clone git@github.com:aws-amplify/amplify-flutter.git```
 
+2. Open your Flutter project. If you do not have an active Flutter project, you can create one after installing the [Flutter development tooling](https://flutter.dev/docs/get-started/install) and running `flutter create <project-name>` in your terminal.
 
+3. Using the Amplify CLI, run `amplify init` from the root of your project:
 
-1. Clone the Amplify-Flutter [GitHub repository](git@github.com:aws-amplify/amplify-flutter.git).
-
-2. Open your Flutter project. If you do not have an active Flutter project, you can create one after installing the [Flutter development tooling](https://flutter.dev/docs/get-started/install) and running the `flutter create <project-name>` command.
-
-3. Using the Amplify-CLI, run `amplify init` from the root of your project:
+See [Amplify CLI Installation](https://github.com/aws-amplify/amplify-cli#install-the-cli)
 
 ```bash
-==> amplify-dev init
+==> amplify init
 Note: It is recommended to run this command from the root of your app directory
 ? Enter a name for the project helloAmplify
 ? Enter a name for the environment dev
@@ -66,11 +65,10 @@ Note: It is recommended to run this command from the root of your app directory
 ? Choose the type of app that you\'re building flutter
 Please tell us about your project
 ⚠️  Flutter project support in the Amplify CLI is in DEVELOPER PREVIEW status.
-Currently, the following resource types are supported:
+Only the following resource types are supported:
  * Auth
  * Analytics
  * Storage
-Other categories may not function as expected for Flutter projects.
 ? Where do you want to store your configuration file? ./lib/
 ```
 
@@ -189,3 +187,7 @@ This step ensures that your flutter project is running the same ios version that
 
 8. From the root of your project, execute `flutter pub get` and `flutter run` from your terminal.
 Make sure that an Android or iOS device is already running; this can be a virutal device started from Android Studio.
+
+---
+
+Flutter and the related logo are trademarks of Google LLC. We are not endorsed by or affiliated with Google LLC.
