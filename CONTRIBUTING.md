@@ -126,7 +126,7 @@ To give a bird's eye view of the release cycle,
 
 ## Finding contributions to work on
 
-Looking at the existing issues is a great way to find something to contribute on. As our projects, by default, use the default GitHub issue labels (enhancement/bug/duplicate/help wanted/invalid/question/wontfix), looking at any ['help wanted'](https://github.com/aws-amplify/amplify-ios/labels/help%20wanted) or ['good first issue'](https://github.com/aws-amplify/amplify-ios/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) is a great place to start.
+Looking at the existing issues is a great way to find something to contribute on. As our projects, by default, use the default GitHub issue labels (enhancement/bug/duplicate/help wanted/invalid/question/wontfix), looking at any ['help wanted'](https://github.com/aws-amplify/amplify-flutter/labels/help%20wanted) or ['good first issue'](https://github.com/aws-amplify/amplify-flutter/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) is a great place to start.
 
 You could also contribute by reporting bugs, reproduction of bugs with sample code, documentation and test improvements.
 
