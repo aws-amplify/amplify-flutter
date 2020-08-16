@@ -115,7 +115,7 @@ _[Skip step 1 to 3 if you have already done this]_
 
 # Release
 
-To give a bird's eye view of the release cycle,
+To give a bird's eye view of the release cycle:
 
 - We follow semantic versioning for our releases
 - Every merge into the `main` ends up as `unstable` package in the npm
