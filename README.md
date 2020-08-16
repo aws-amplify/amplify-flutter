@@ -24,7 +24,6 @@ See [AWS Amplify](https://docs.amplify.aws) for further details about the Amplif
  - Predictions
  - Datastore
  - Hub Events (Listening to the Amplify events)
- - [**LET US KNOW YOUR FEEDBACK**](https://github.com/aws-amplify/amplify-flutter/issues/5)
  
 > Amplify for Flutter is in preview, which should be considered an alpha version and not recommended for production deployments. We are iterating and looking for feedback and collaboration, so please [**LET US KNOW YOUR FEEDBACK**](https://github.com/aws-amplify/amplify-flutter/issues/5) on our direction and roadmap.
 
