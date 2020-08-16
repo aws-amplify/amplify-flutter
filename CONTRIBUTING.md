@@ -47,7 +47,7 @@ Our work is done directly on Github and PR's are sent to the github repo by core
 
 This section should get you running with **Amplify JS** and get you familiar with the basics of the codebase. You will need the latest version of [nodejs](https://nodejs.org/en/) on your system and developing locally also requires `yarn` workspaces. You can install it [here](https://classic.yarnpkg.com/en/docs/install#mac-stable).
 
-Start by, [Forking](https://help.github.com/en/github/getting-started-with-github/fork-a-repo) the main branch of [amplify-js](https://github.com/aws-amplify/amplify-js).
+Start by, [Forking](https://help.github.com/en/github/getting-started-with-github/fork-a-repo) the main branch of [amplify-flutter](https://github.com/aws-amplify/amplify-flutter).
 
 ```
 $ git clone git@github.com:[username]/amplify-flutter.git
