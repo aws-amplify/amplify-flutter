@@ -25,6 +25,8 @@ See [AWS Amplify](https://docs.amplify.aws) for further details about the Amplif
  - Datastore
  - Hub Events (Listening to the Amplify events)
  - [**LET US KNOW YOUR FEEDBACK**](https://github.com/aws-amplify/amplify-flutter/issues/5)
+ 
+Amplify for Flutter currently supports **iOS** and **Android** platforms.
 
 ## Documentation
 
