@@ -136,7 +136,7 @@ The Amplify Framework runs on Android, iOS, and numerous JavaScript-based web pl
 
 1. [AWS Amplify for iOS](https://github.com/aws-amplify/amplify-ios)
 2. [AWS Amplify for Android](https://github.com/aws-amplify/amplify-android)
-3. [AWS Amplify CLI](https://github.com/aws-amplify/amplify-cli)
+3. [AWS Amplify JS](https://github.com/aws-amplify/amplify-js)
 
 AWS Amplify plugins are built on top of the AWS SDKs. AWS SDKs are a
 toolkit for interacting with AWS backend resources.
