@@ -191,13 +191,13 @@ class _MyAppState extends State<MyApp> {
 }
 ```
 
-In order to get iOS builds to work do the following within Command Line:
-- Go to the root of your project
-- Run: "rm ios/Podfile"
-- Run: "flutter build ios"
-- Modify ios/Podfile -> replace the second line with: "platform :ios, '11.0'
+For iOS builds complete the following steps (from the root of your project):
 
-This step ensures that your flutter project is running the same ios version that our Flutter plugins are built on.
+- `rm ios/Podfile`
+- `flutter build ios`
+- Modify the `ios/Podfile` and replace the second line with: `platform :ios, '11.0'`.
+
+This ensures that your Flutter project is running the same ios version that the Amplify plugins are built on.
 
 8. From the root of your project, execute `flutter run` in the terminal.
 
