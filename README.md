@@ -74,11 +74,19 @@ Only the following resource types are supported:
 ? Where do you want to store your configuration file? ./lib/
 ```
 
-4. Run `amplify analytics add`, follow the defaults and be sure indicate that you want to add authorization. Next, run `amplify push`. 
+4. Add Amplify categories (choose defaults for this example):
 
-5. In your pubspec.yaml file, add the following:
+    ```bash
+    $ amplify add auth
+    $ amplify add analytics
+    ```
+
+5. In your pubspec.yaml file, add the following to `dependencies`:
 
 ```yaml
+dependencies:
+  flutter:
+    sdk: flutter
   amplify_core:
     path: /{path to your local amplify-flutter}/amplify-flutter/packages/amplify_core 
   amplify_analytics_pinpoint:
@@ -87,7 +95,13 @@ Only the following resource types are supported:
     path: /{path to your local amplify-flutter}/amplify-flutter/packages/amplify_auth_cognito
 ```
 
-6. In your main.dart file, add:
+6. From the terminal run
+
+```bash
+$ flutter pub get
+```
+
+7. In your main.dart file, add:
 
 ```dart
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -177,7 +191,7 @@ class _MyAppState extends State<MyApp> {
 }
 ```
 
-7. In order to get iOS builds to work do the following within Command Line:
+In order to get iOS builds to work do the following within Command Line:
 - Go to the root of your project
 - Run: "rm ios/Podfile"
 - Run: "flutter build ios"
@@ -185,10 +199,13 @@ class _MyAppState extends State<MyApp> {
 
 This step ensures that your flutter project is running the same ios version that our Flutter plugins are built on.
 
+8. From the root of your project, execute `flutter run` in the terminal.
 
+> Make sure that an Android or iOS device is already running; this can be a virutal device started from Android Studio.
 
-8. From the root of your project, execute `flutter pub get` and `flutter run` from your terminal.
-Make sure that an Android or iOS device is already running; this can be a virutal device started from Android Studio.
+Click **Configure Amplify**, then **Record Event**. From the terminal (in the root of your project) run `amplify console analytics`. This will open the Amazon Pinpoint console for your project in your default web browser. Within about a minute you should start seeing the events populating in the Events section of then Pinpoint console. 
+
+For further documentation and Amplify Category API usage, see the [documentation](https://docs.amplify.aws/lib/q/platform/js).
 
 ---
 
