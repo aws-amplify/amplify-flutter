@@ -33,16 +33,16 @@ See [AWS Amplify](https://docs.amplify.aws) for further details about the Amplif
 - [Install the Amplify CLI](https://docs.amplify.aws/cli/start/install)
 - [Contributing to Amplify Flutter](CONTRIBUTING.md)
 
-## Local Development Guide
+## Flutter Development Guide
 
 > Amplify for Flutter is an open-source project and welcomes contributions from the Flutter community, see [Contributing](CONTRIBUTING.md).
-
-### Getting Started with Local Development
 
 #### Prerequisites
 
 - [Flutter](https://flutter.dev/docs/get-started/install)
 - [Amplify CLI](https://docs.amplify.aws/cli/start/install)
+
+#### Getting Started with Flutter app development and Amplify
 
 * Clone this repository
 * Install Amplify in a Flutter project
