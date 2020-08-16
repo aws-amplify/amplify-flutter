@@ -45,7 +45,7 @@ Our work is done directly on Github and PR's are sent to the github repo by core
 
 ## Setting up for local development
 
-This section should get you running with **Amplify JS** and get you familiar with the basics of the codebase. You will need the latest version of [nodejs](https://nodejs.org/en/) on your system and developing locally also requires `yarn` workspaces. You can install it [here](https://classic.yarnpkg.com/en/docs/install#mac-stable).
+This section should get you running with **Amplify Flutter** and get you familiar with the basics of the codebase. You will need the latest version of [nodejs](https://nodejs.org/en/) on your system and developing locally also requires `yarn` workspaces. You can install it [here](https://classic.yarnpkg.com/en/docs/install#mac-stable).
 
 Start by, [Forking](https://help.github.com/en/github/getting-started-with-github/fork-a-repo) the main branch of [amplify-flutter](https://github.com/aws-amplify/amplify-flutter).
 
@@ -57,7 +57,7 @@ $ cd amplify-flutter
 
 > Note: Make sure to always [sync your fork](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork) with main branch of amplify-flutter
 
-#### Packages inside Amplify JS
+#### Packages inside Amplify Flutter
 
 - [amplify_core](https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify_core)
 - [amplify_core_plugin_interface](https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify_core_plugin_interface)
@@ -91,7 +91,7 @@ _[Skip step 1 to 3 if you have already done this]_
      - feat
      - chore
      - bug
-   - use slashes to seperate parts of branch names
+   - use slashes to separate parts of branch names
    - Hyphenate well defined branch name
 5. Once your work is committed and you're ready to share, run tests.
    **Note:** Manually test your changes in a sample app with different edge cases and also test across different native platforms
