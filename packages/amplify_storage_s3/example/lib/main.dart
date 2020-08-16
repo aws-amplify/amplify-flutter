@@ -34,6 +34,9 @@ class _MyAppState extends State<MyApp> {
   bool _isAmplifyConfigured = false;
   String _uploadFileResult = '';
   String _getUrlResult = '';
+  String _removeResult = '';
+  String _downloadFileResult = '';
+  ListResult _listResult;
   Amplify amplify = new Amplify();
 
   @override
@@ -60,16 +63,14 @@ class _MyAppState extends State<MyApp> {
       print('In upload');
       // Uploading the file with options
       File local = await FilePicker.getFile(type: FileType.image);
-      local.existsSync();
       final key = new DateTime.now().toString();
-      final path = local.absolute.path;
       Map<String, String> metadata = <String, String>{};
       metadata['name'] = 'filename';
       metadata['desc'] = 'A test file';
       S3UploadFileOptions options = S3UploadFileOptions(
           accessLevel: StorageAccessLevel.guest, metadata: metadata);
       UploadFileResult result = await Amplify.Storage.uploadFile(
-          key: key, path: path, options: options);
+          key: key, local: local, options: options);
       setState(() {
         _uploadFileResult = result.key;
       });
@@ -92,6 +93,43 @@ class _MyAppState extends State<MyApp> {
       });
     } catch (e) {
       print('GetUrl Err: ' + e.toString());
+    }
+  }
+
+  void remove() async {
+    try {
+      print('In remove');
+      String key = _uploadFileResult;
+      RemoveOptions options =
+          RemoveOptions(accessLevel: StorageAccessLevel.guest);
+      RemoveResult result =
+          await Amplify.Storage.remove(key: key, options: options);
+
+      setState(() {
+        _removeResult = result.key;
+      });
+      print('_removeResult:' + _removeResult);
+    } catch (e) {
+      print('Remove Err: ' + e.toString());
+    }
+  }
+
+  void list() async {
+    try {
+      print('In list');
+      S3ListOptions options =
+          S3ListOptions(accessLevel: StorageAccessLevel.guest);
+      ListResult result = await Amplify.Storage.list(options: options);
+      setState(() {
+        _listResult = result;
+      });
+      print('List Result:');
+      for (StorageItem item in result.items) {
+        print(
+            'Item: { key:${item.key}, eTag:${item.eTag}, lastModified:${item.lastModified}, size:${item.size}');
+      }
+    } catch (e) {
+      print('List Err: ' + e.toString());
     }
   }
 
@@ -122,6 +160,27 @@ class _MyAppState extends State<MyApp> {
                   ),
                   const Padding(padding: EdgeInsets.all(5.0)),
                   Text('Uploaded File: $_uploadFileResult'),
+                  const Padding(padding: EdgeInsets.all(5.0)),
+                  RaisedButton(
+                    onPressed: remove,
+                    child: const Text('Remove uploaded File'),
+                  ),
+                  const Padding(padding: EdgeInsets.all(5.0)),
+                  Text('Removed File: $_removeResult'),
+                  const Padding(padding: EdgeInsets.all(5.0)),
+                  RaisedButton(
+                    onPressed: downloadFile,
+                    child: const Text('Download File'),
+                  ),
+                  const Padding(padding: EdgeInsets.all(5.0)),
+                  Text('Downloaded File: $_downloadFileResult'),
+                  const Padding(padding: EdgeInsets.all(5.0)),
+                  RaisedButton(
+                    onPressed: list,
+                    child: const Text('List Files'),
+                  ),
+                  const Padding(padding: EdgeInsets.all(5.0)),
+                  Text('List size: ${_listResult.items.length}'),
                   const Padding(padding: EdgeInsets.all(10.0)),
                   RaisedButton(
                     onPressed: getUrl,

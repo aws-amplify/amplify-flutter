@@ -31,16 +31,23 @@ public class SwiftAmplifyStorageS3Plugin: NSObject, FlutterPlugin {
             print ("Failed to add Amplify AWSS3StoragePlugin \(error)")
         }
     }
-    
-    public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        let arguments = call.arguments as! Dictionary<String,AnyObject>
-        switch call.method {
-        case "uploadFile":
-            AmplifyStorageOperations.uploadFile(flutterResult: result, request: arguments)
-        case "getUrl":
-            AmplifyStorageOperations.getURL(flutterResult: result, request: arguments)
-        default:
-            result(FlutterMethodNotImplemented)
-        }
-    }
+
+  public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    print("In handle for method \(call.method)")
+    let arguments = call.arguments as! Dictionary<String,AnyObject>
+    switch call.method {
+    case "uploadFile":
+        AmplifyStorageOperations.uploadFile(flutterResult: result, request: arguments)
+    case "getUrl":
+        AmplifyStorageOperations.getURL(flutterResult: result, request: arguments)
+    case "remove":
+        AmplifyStorageOperations.remove(flutterResult: result, request: arguments)
+    case "list":
+        AmplifyStorageOperations.list(flutterResult: result, request: arguments)
+    case "downloadFile":
+        AmplifyStorageOperations.downloadFile(flutterResult: result, request: arguments)
+    default:
+        result(FlutterMethodNotImplemented)
+     }
+}
 }

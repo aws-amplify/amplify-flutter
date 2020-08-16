@@ -15,6 +15,7 @@
 
 export 'Storage/StorageAccessLevel.dart';
 export 'Storage/StorageOptions.dart';
+export 'Storage/StorageItem.dart';
 
 export 'UploadFile/UploadFileOptions.dart';
 export 'UploadFile/UploadFileRequest.dart';
@@ -23,3 +24,15 @@ export 'UploadFile/UploadFileResult.dart';
 export 'GetUrl/GetUrlOptions.dart';
 export 'GetUrl/GetUrlRequest.dart';
 export 'GetUrl/GetUrlResult.dart';
+
+export 'Remove/RemoveOptions.dart';
+export 'Remove/RemoveRequest.dart';
+export 'Remove/RemoveResult.dart';
+
+export 'List/ListOptions.dart';
+export 'List/ListRequest.dart';
+export 'List/ListResult.dart';
+
+export 'DownloadFile/DownloadFileOptions.dart';
+export 'DownloadFile/DownloadFileRequest.dart';
+export 'DownloadFile/DownloadFileResult.dart';

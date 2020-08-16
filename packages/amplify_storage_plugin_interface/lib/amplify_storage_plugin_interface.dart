@@ -32,4 +32,17 @@ abstract class StoragePluginInterface extends PlatformInterface {
   Future<GetUrlResult> getUrl({@required GetUrlRequest request}) {
     throw UnimplementedError('getUrl() has not been implemented.');
   }
+
+  Future<RemoveResult> remove({@required RemoveRequest request}) {
+    throw UnimplementedError('remove() has not been implemented.');
+  }
+
+  Future<ListResult> list({@required ListRequest request}) {
+    throw UnimplementedError('list() has not been implemented.');
+  }
+
+  Future<DownloadFileResult> downloadFile(
+      {@required DownloadFileRequest request}) {
+    throw UnimplementedError('downloadFile() has not been implemented.');
+  }
 }

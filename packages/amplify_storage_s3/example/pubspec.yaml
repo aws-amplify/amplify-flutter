@@ -16,6 +16,8 @@ dependencies:
     path: ../../amplify_core
   amplify_auth_cognito:
     path: ../../amplify_auth_cognito
+  amplify_storage_plugin_interface:
+    path: ../../amplify_storage_plugin_interface
 
   amplify_storage_s3:
     # When depending on this package from a real application you should use:

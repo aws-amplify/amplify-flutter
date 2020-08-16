@@ -19,10 +19,10 @@ import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interfac
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import './method_channel_storage_s3.dart';
 import 'package:flutter/foundation.dart';
+export './src/types.dart';
 
 export './src/types.dart';
 export 'package:amplify_storage_plugin_interface/src/types.dart';
-
 
 class AmplifyStorageS3 extends StoragePluginInterface {
   static final Object _token = Object();
@@ -48,5 +48,21 @@ class AmplifyStorageS3 extends StoragePluginInterface {
   @override
   Future<GetUrlResult> getUrl({@required GetUrlRequest request}) {
     return _instance.getUrl(request: request);
+  }
+
+  @override
+  Future<RemoveResult> remove({@required RemoveRequest request}) {
+    return _instance.remove(request: request);
+  }
+
+  @override
+  Future<ListResult> list({@required ListRequest request}) {
+    return _instance.list(request: request);
+  }
+
+  @override
+  Future<DownloadFileResult> downloadFile(
+      {@required DownloadFileRequest request}) {
+    return _instance.downloadFile(request: request);
   }
 }

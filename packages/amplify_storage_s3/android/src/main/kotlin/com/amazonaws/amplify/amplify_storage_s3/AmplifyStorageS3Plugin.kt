@@ -60,6 +60,12 @@ class AmplifyStorageS3Plugin : FlutterPlugin, ActivityAware, MethodCallHandler {
                 AmplifyStorageOperations.uploadFile(result, call.arguments as Map<String, *>)
             "getUrl" ->
                 AmplifyStorageOperations.getUrl(result, call.arguments as Map<String, *>)
+            "remove" ->
+                AmplifyStorageOperations.remove(result, call.arguments as Map<String, *>)
+            "list" ->
+                AmplifyStorageOperations.list(result, call.arguments as Map<String, *>)
+            "downloadFile" ->
+                AmplifyStorageOperations.downloadFile(result, call.arguments as Map<String, *>, context)
             else -> result.notImplemented()
         }
     }
