@@ -54,8 +54,7 @@ void main() {
     testCode = 1;
     await amplify.addPlugin(authPlugins: [auth]);
     await amplify.configure("{}");
-    AuthSessionRequest req = AuthSessionRequest();
-    expect(await Amplify.Auth.fetchAuthSession(request: req), isInstanceOf<CognitoAuthSession>());
+    expect(await Amplify.Auth.fetchAuthSession(), isInstanceOf<CognitoAuthSession>());
   });
 
   test('fetchSession thrown PlatFormException results in AuthError', () async {
@@ -63,7 +62,7 @@ void main() {
     AuthError err;
    try {
     AuthSessionRequest req = AuthSessionRequest();
-    expect(await Amplify.Auth.fetchAuthSession(request: req), isInstanceOf<SignInResult>());   } on AuthError catch (e) {
+    expect(await Amplify.Auth.fetchAuthSession(), isInstanceOf<SignInResult>());   } on AuthError catch (e) {
       err = e;
     } 
     expect(err.cause, "AMPLIFY_FETCH_SESSION_FAILED");
