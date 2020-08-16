@@ -76,18 +76,6 @@ $ cd amplify-flutter
 - Test in sample app
 - Submit a PR
 
-#### Build step:
-
-@TODO
-
-#### Testing:
-
-@TODO
-
-#### Test in a local sample app
-
-@TODO
-
 # Pull Requests
 
 This is mostly the same as GitHub's guide on creating a pull request.
