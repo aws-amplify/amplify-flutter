@@ -57,10 +57,6 @@ $ cd amplify-flutter
 
 > Note: Make sure to always [sync your fork](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork) with main branch of amplify-flutter
 
-## Architecture of the codebase
-
-@TODO
-
 #### Packages inside Amplify JS
 
 - [amplify_core](https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify_core)
