@@ -53,11 +53,19 @@ class _MyAppState extends State<MyApp> {
 
     auth = AmplifyAuthCognito();
     amplify.addPlugin(authPlugins: [auth]);
+    var isSignedIn = false;
 
     await amplify.configure(amplifyconfig);
+    try {
+      isSignedIn = await _isSignedIn();
+    } on AuthError catch(e) {
+      print("User is not signed in.");
+    }
+
+
     setState(() {
       _isAmplifyConfigured = true;
-      displayState = "SHOW_SIGN_IN";
+      displayState = isSignedIn ? "SIGNED_IN" : "SHOW_SIGN_IN";
     });
     auth.events.listenToAuth((hubEvent) {
       switch(hubEvent["eventName"]) {
@@ -78,6 +86,13 @@ class _MyAppState extends State<MyApp> {
         }
       }
     });
+  }
+
+  Future<bool> _isSignedIn() async {
+    final session = await Amplify.Auth.fetchAuthSession(
+      options: CognitoSessionOptions(getAWSCredentials: true)
+    );
+    return session.isSignedIn;
   }
 
   void _signUp() async {
@@ -292,11 +307,9 @@ class _MyAppState extends State<MyApp> {
     });
     try {
       UpdatePasswordResult res = await Amplify.Auth.confirmPassword(
-        request: ConfirmPasswordRequest(
-          username: usernameController.text.trim(),
-          newPassword: newPasswordController.text.trim(),
-          confirmationCode: confirmationCodeController.text.trim()
-        ), 
+        username: usernameController.text.trim(),
+        newPassword: newPasswordController.text.trim(),
+        confirmationCode: confirmationCodeController.text.trim()
       );
       setState(() {
         displayState = "SHOW_SIGN_IN";
@@ -319,9 +332,7 @@ class _MyAppState extends State<MyApp> {
     });
     try {
       AuthSession res = await Amplify.Auth.fetchAuthSession(
-        request: AuthSessionRequest(
-          options: CognitoSessionOptions(getAWSCredentials: false)
-        )
+        options: CognitoSessionOptions(getAWSCredentials: false)
       );
       print(res);
     } on AuthError catch (e) {
@@ -740,7 +751,7 @@ Widget showSignIn() {
                 if (this.displayState == "SHOW_CONFIRM_SIGN_IN") showConfirmSignIn(),
                 if (this.displayState == "SHOW_UPDATE_PASSWORD") showUpdatePassword(),
                 if (this.displayState == "SHOW_CONFIRM_REST") showConfirmReset(),
-                if (this.displayState == 'SIGNED_IN') showApp(),
+                if (this.displayState == "SIGNED_IN") showApp(),
                 showAuthState(),
                 if (this.error != null) showErrors(),
                 showExceptions()

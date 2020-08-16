@@ -15,7 +15,6 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
-import androidx.annotation.Nullable
 import com.amplifyframework.auth.result.AuthSignUpResult
 import com.google.gson.Gson
 

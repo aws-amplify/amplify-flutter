@@ -59,11 +59,13 @@ class AuthCategory {
     return plugins[0].resetPassword(request: request);
   }
 
-  Future<UpdatePasswordResult> confirmPassword({ConfirmPasswordRequest request}) {
+  Future<UpdatePasswordResult> confirmPassword({@required String username, @required String newPassword, @required String confirmationCode, PasswordOptions options}) {
+    var request = ConfirmPasswordRequest(username: username, newPassword: newPassword, confirmationCode: confirmationCode, options: options);
     return plugins[0].confirmPassword(request: request);
   }
 
-  Future<AuthSession> fetchAuthSession({AuthSessionRequest request}) {
+  Future<AuthSession> fetchAuthSession({AuthSessionOptions options}) {
+    var request = AuthSessionRequest(options: options);
     return plugins[0].fetchAuthSession(request: request);
   }
 }
