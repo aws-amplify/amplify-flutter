@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
     AmplifyAuthCognito auth = new AmplifyAuthCognito();
     amplify.addPlugin(authPlugins: [auth], storagePlugins: [storage]);
 
-    // Now configure
+    // Configure
     await amplify.configure(amplifyconfig);
 
     setState(() {
@@ -59,23 +59,21 @@ class _MyAppState extends State<MyApp> {
 
   void upload() async {
     try {
-      print('In upload with options');
+      print('In upload');
       // Uploading the file with options
       File local = await FilePicker.getFile(type: FileType.image);
       local.existsSync();
-      String path = local.absolute.path;
+      final key = new DateTime.now().toString();
+      final path = local.absolute.path;
       Map<String, String> metadata = <String, String>{};
       metadata['name'] = 'filename';
       metadata['desc'] = 'A test file';
       S3UploadFileOptions options = S3UploadFileOptions(
           accessLevel: StorageAccessLevel.public, metadata: metadata);
-      UploadFileRequest request = new UploadFileRequest(
-          key: new DateTime.now().toString(), path: path, options: options);
-      print('path is: ' + request.path + ', key is: ' + request.key);
-      UploadFileResponse response =
-          await Amplify.Storage.uploadFile(request: request);
+      UploadFileResult result = await Amplify.Storage.uploadFile(
+          key: key, path: path, options: options);
       setState(() {
-        _uploadFileResult = response.key;
+        _uploadFileResult = result.key;
       });
     } catch (e) {
       print('UploadFile Err: ' + e.toString());
@@ -84,17 +82,16 @@ class _MyAppState extends State<MyApp> {
 
   void getUrl() async {
     try {
-      print('In getUrl with options');
+      print('In getUrl');
       String key = _uploadFileResult;
       S3GetUrlOptions options = S3GetUrlOptions(
           accessLevel: StorageAccessLevel.public, expires: 10000);
-      GetUrlRequest request = new GetUrlRequest(key: key, options: options);
-      GetUrlResponse response = await Amplify.Storage.getUrl(request: request);
+      GetUrlResult result =
+          await Amplify.Storage.getUrl(key: key, options: options);
 
       setState(() {
-        _getUrlResult = response.url;
+        _getUrlResult = result.url;
       });
-      print('_getUrl:' + _getUrlResult);
     } catch (e) {
       print('GetUrl Err: ' + e.toString());
     }
@@ -105,7 +102,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Storage S3 Plugin example app'),
+          title: const Text('Storage S3 Plugin Example App'),
         ),
         body: ListView(
           padding: EdgeInsets.all(10.0),

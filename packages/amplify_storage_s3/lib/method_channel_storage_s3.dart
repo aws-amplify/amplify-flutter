@@ -11,7 +11,7 @@ const MethodChannel _channel =
 /// An implementation of [AmplifyPlatform] that uses method channels.
 class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
   @override
-  Future<UploadFileResponse> uploadFile(
+  Future<UploadFileResult> uploadFile(
       {@required UploadFileRequest request}) async {
     try {
       final Map<String, dynamic> data =
@@ -19,8 +19,8 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
         'uploadFile',
         request.serializeAsMap(),
       );
-      UploadFileResponse response = _formatUploadFileResponse(data);
-      return response;
+      UploadFileResult result = _formatUploadFileResult(data);
+      return result;
     } on PlatformException catch (e) {
       //TODO: Convert to StorageError and throw.
       throw (e);
@@ -28,28 +28,26 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
   }
 
   @override
-  Future<GetUrlResponse> getUrl({@required GetUrlRequest request}) async {
+  Future<GetUrlResult> getUrl({@required GetUrlRequest request}) async {
     try {
       final Map<String, dynamic> data =
           await _channel.invokeMapMethod<String, dynamic>(
         'getUrl',
         request.serializeAsMap(),
       );
-      GetUrlResponse response = _formatGetUrlResponse(data);
-      return response;
+      GetUrlResult result = _formatGetUrlResult(data);
+      return result;
     } on PlatformException catch (e) {
       //TODO: Convert to StorageError and throw.
       throw (e);
     }
   }
 
-  UploadFileResponse _formatUploadFileResponse(Map<String, dynamic> response) {
-    print("UploadFileResponse" + response.toString());
-    return UploadFileResponse(key: response["key"]);
+  UploadFileResult _formatUploadFileResult(Map<String, dynamic> result) {
+    return UploadFileResult(key: result["key"]);
   }
 
-  GetUrlResponse _formatGetUrlResponse(Map<String, dynamic> response) {
-    print("GetUrlResponse" + response.toString());
-    return GetUrlResponse(url: response["url"]);
+  GetUrlResult _formatGetUrlResult(Map<String, dynamic> result) {
+    return GetUrlResult(url: result["url"]);
   }
 }

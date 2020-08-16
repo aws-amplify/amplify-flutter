@@ -16,13 +16,17 @@ class StorageCategory {
     }
   }
 
-  Future<UploadFileResponse> uploadFile({@required UploadFileRequest request}) {
-    /// call `uploadFile` on the plugin
+  Future<UploadFileResult> uploadFile(
+      {@required String path,
+      @required String key,
+      UploadFileOptions options}) {
+    final UploadFileRequest request =
+        UploadFileRequest(path: path, key: key, options: options);
     return plugins[0].uploadFile(request: request);
   }
 
-  Future<GetUrlResponse> getUrl({@required GetUrlRequest request}) {
-    /// call `getUrl` on the plugin
+  Future<GetUrlResult> getUrl({@required String key, GetUrlOptions options}) {
+    final GetUrlRequest request = GetUrlRequest(key: key, options: options);
     return plugins[0].getUrl(request: request);
   }
 }

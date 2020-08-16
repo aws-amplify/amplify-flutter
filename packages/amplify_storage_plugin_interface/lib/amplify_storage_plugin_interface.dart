@@ -10,11 +10,11 @@ export 'src/types.dart';
 abstract class StoragePluginInterface extends PlatformInterface {
   StoragePluginInterface({@required Object token}) : super(token: token);
 
-  Future<UploadFileResponse> uploadFile({@required UploadFileRequest request}) {
+  Future<UploadFileResult> uploadFile({@required UploadFileRequest request}) {
     throw UnimplementedError('uploadFile() has not been implemented.');
   }
 
-  Future<GetUrlResponse> getUrl({@required GetUrlRequest request}) {
+  Future<GetUrlResult> getUrl({@required GetUrlRequest request}) {
     throw UnimplementedError('getUrl() has not been implemented.');
   }
 }
