@@ -6,7 +6,7 @@
     </a>
 </p>
 
-## AWS Amplify Flutter (Developer Preview) is a library for Flutter developers building cloud-enabled applications
+## Amplify Flutter (Developer Preview)
 
 AWS Amplify provides a declarative and easy-to-use interface across different categories of cloud operations. AWS Amplify goes well with any Flutter based frontend workflow, and React Native for mobile developers. Our default implementation works with Amazon Web Services (AWS), but AWS Amplify is designed to be open and pluggable for any custom backend or service.
 
