@@ -23,12 +23,12 @@ import './method_channel_amplify.dart';
 
 export 'package:amplify_analytics_plugin_interface/src/types.dart';
 
-class AmplifyAnalyticsPinpointPlugin extends AnalyticsPluginInterface {
+class AmplifyAnalyticsPinpoint extends AnalyticsPluginInterface {
   static final Object _token = Object();
 
-  AmplifyAnalyticsPinpointPlugin() : super(token: _token);
+  AmplifyAnalyticsPinpoint() : super(token: _token);
 
-  static AmplifyAnalyticsPinpointPlugin _instance =
+  static AmplifyAnalyticsPinpoint _instance =
       AmplifyAnalyticsPinpointMethodChannel();
 
   static AnalyticsPluginInterface get instance => _instance;
