@@ -53,7 +53,7 @@ class AmplifyStorageOperations {
                                     responseSent = true;
                                     prepareError(flutterResult, FlutterStorageErrorMessage.UPLOAD_FILE_OPERATION_FAILED.name, error.localizedMessage, error.recoverySuggestion)
                                 } else {
-                                    LOG.error("S3 Upload Failed", error)
+                                    LOG.error(FlutterStorageErrorMessage.UPLOAD_FILE_OPERATION_FAILED.name, error)
                                 }
                             })
                 } catch (e: Exception) {
