@@ -8,9 +8,11 @@
 
 ## Amplify Flutter (Developer Preview)
 
-AWS Amplify provides a declarative and easy-to-use interface across different categories of cloud operations. AWS Amplify goes well with any Flutter based frontend workflow, and React Native for mobile developers. Our default implementation works with Amazon Web Services (AWS), but AWS Amplify is designed to be open and pluggable for any custom backend or service.
+AWS Amplify provides a declarative and easy-to-use interface across different categories of cloud operations. Our default implementation works with Amazon Web Services (AWS), but AWS Amplify is designed to be open and pluggable for any custom backend or service. See [AWS Amplify](https://docs.amplify.aws) for further details about the Amplify Framework.
+ 
+⚠️ **Amplify for Flutter is in developer preview and not yet recommended for production.**
 
-See [AWS Amplify](https://docs.amplify.aws) for further details about the Amplify Framework.
+We are iterating and looking for feedback and collaboration, so please [**let us know your feedback**](https://github.com/aws-amplify/amplify-flutter/issues/5) on our direction and roadmap.
 
 ## Supported Amplify Categories
 
@@ -18,14 +20,12 @@ See [AWS Amplify](https://docs.amplify.aws) for further details about the Amplif
 - [**Analytics**](https://docs.amplify.aws/lib/analytics/getting-started/q/platform/flutter): Collect analytics data for your app. Analytics data includes user sessions and other custom events that you want to track in your app.
 - [**Storage**](https://docs.amplify.aws/lib/storage/getting-started/q/platform/flutter): Provides a simple mechanism for managing user content for your app in public, protected or private storage buckets.
 
-### To Be Implmented
+### To Be Implemented
 
  - API (REST/GraphQL)
  - Predictions
  - Datastore
  - Hub Events (Listening to the Amplify events)
- 
-> Amplify for Flutter is in preview, which should be considered an alpha version and not recommended for production deployments. We are iterating and looking for feedback and collaboration, so please [**LET US KNOW YOUR FEEDBACK**](https://github.com/aws-amplify/amplify-flutter/issues/5) on our direction and roadmap.
 
 Amplify for Flutter currently supports **iOS** and **Android** platforms.
 
@@ -38,7 +38,7 @@ Amplify for Flutter currently supports **iOS** and **Android** platforms.
 
 ## Flutter Development Guide
 
-> Amplify for Flutter is an open-source project and welcomes contributions from the Flutter community, see [Contributing](CONTRIBUTING.md).
+Amplify for Flutter is an open-source project and welcomes contributions from the Flutter community, see [Contributing](CONTRIBUTING.md).
 
 #### Prerequisites
 
@@ -99,7 +99,7 @@ dependencies:
 6. From the terminal run
 
 ```bash
-$ flutter pub get
+flutter pub get
 ```
 
 7. In your main.dart file, add:
@@ -202,7 +202,7 @@ This ensures that your Flutter project is running the same ios version that the 
 
 8. From the root of your project, execute `flutter run` in the terminal.
 
-> Make sure that an Android or iOS device is already running; this can be a virutal device started from Android Studio.
+> Make sure that an Android or iOS device is already running; this can be a virtual device started from Android Studio.
 
 Click **Configure Amplify**, then **Record Event**. From the terminal (in the root of your project) run `amplify console analytics`. This will open the Amazon Pinpoint console for your project in your default web browser. Within about a minute you should start seeing the events populating in the Events section of then Pinpoint console. 
 
