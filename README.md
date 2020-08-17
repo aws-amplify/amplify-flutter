@@ -6,55 +6,61 @@
     </a>
 </p>
 
-## AWS Amplify Flutter (Developer Preview) is a library for Flutter developers building cloud-enabled applications
+## Amplify Flutter (Developer Preview)
 
-AWS Amplify provides a declarative and easy-to-use interface across different categories of cloud operations. AWS Amplify goes well with any Flutter based frontend workflow, and React Native for mobile developers.
+AWS Amplify provides a declarative and easy-to-use interface across different categories of cloud operations. Our default implementation works with Amazon Web Services (AWS), but AWS Amplify is designed to be open and pluggable for any custom backend or service. See [AWS Amplify](https://docs.amplify.aws) for further details about the Amplify Framework.
+ 
+⚠️ **Amplify for Flutter is in developer preview and not yet recommended for production.**
 
-Our default implementation works with Amazon Web Services (AWS), but AWS Amplify is designed to be open and pluggable for any custom backend or service.
+We are iterating and looking for feedback and collaboration, so please [**let us know your feedback**](https://github.com/aws-amplify/amplify-flutter/issues/5) on our direction and roadmap.
 
-## Features / APIs
+## Supported Amplify Categories
 
-- [**Authentication**](https://docs.amplify.aws/lib/auth/getting-started/q/platform/flutter): APIs and building blocks for developers who want to create user authentication experiences.
-- [**Analytics**](https://docs.amplify.aws/lib/analytics/getting-started/q/platform/flutter): Easily collect analytics data for your app. Analytics data includes user sessions and other custom events that you want to track in your app.
+- [**Authentication**](https://docs.amplify.aws/lib/auth/getting-started/q/platform/flutter): APIs and building blocks to create user authentication experiences.
+- [**Analytics**](https://docs.amplify.aws/lib/analytics/getting-started/q/platform/flutter): Collect analytics data for your app. Analytics data includes user sessions and other custom events that you want to track in your app.
 - [**Storage**](https://docs.amplify.aws/lib/storage/getting-started/q/platform/flutter): Provides a simple mechanism for managing user content for your app in public, protected or private storage buckets.
-- [**Push Notifications**](https://docs.amplify.aws/lib/push-notifications/getting-started/q/platform/flutter): Allows you to integrate push notifications in your app with Amazon Pinpoint targeting and campaign management support.
 
-### To Be Implmented
+### To Be Implemented
 
  - API (REST/GraphQL)
  - Predictions
  - Datastore
  - Hub Events (Listening to the Amplify events)
- - [**FEEDBACK**](https://github.com/aws-amplify/amplify-flutter/issues/5)
 
+Amplify for Flutter currently supports **iOS** and **Android** platforms.
 
-#### Visit our [Web Site](https://docs.amplify.aws/) to learn more about AWS Amplify.
+## Documentation
 
-## Local Development Guide
+- [Getting Started with Amplify Flutter](https://docs.amplify.aws/start/getting-started/installation/q/integration/flutter)
+- [Amplify Framework](https://docs.amplify.aws/)
+- [Install the Amplify CLI](https://docs.amplify.aws/cli/start/install)
+- [Contributing to Amplify Flutter](CONTRIBUTING.md)
 
-Amplify-Flutter is an open-source project and welcomes contributions from the Flutter community.
+## Flutter Development Guide
 
+Amplify for Flutter is an open-source project and welcomes contributions from the Flutter community, see [Contributing](CONTRIBUTING.md).
 
-### Getting Started with Local Development
+#### Prerequisites
 
-The following instructions will help you:
+- [Flutter](https://flutter.dev/docs/get-started/install)
+- [Amplify CLI](https://docs.amplify.aws/cli/start/install)
 
-* Pull the Amplify-Flutter project.
-* Install it in a project for local development.
-* Add basic Amplify functionality to your project.
+#### Getting Started with Flutter app development and Amplify
 
+* Clone this repository
+* Install Amplify in a Flutter project
+* Add basic Amplify functionality to your project using one of the supported categories
 
+1. ```git clone git@github.com:aws-amplify/amplify-flutter.git```
 
+2. Open your Flutter project. If you do not have an active Flutter project, you can create one after installing the [Flutter development tooling](https://flutter.dev/docs/get-started/install) and running `flutter create <project-name>` in your terminal.
 
+3. Using the Amplify CLI, run `amplify init` from the root of your project:
 
-1. Clone the Amplify-Flutter [GitHub repository](git@github.com:aws-amplify/amplify-flutter.git).
-
-2. Open your Flutter project. If you do not have an active Flutter project, you can create one after installing the [Flutter development tooling](https://flutter.dev/docs/get-started/install) and running the `flutter create <project-name>` command.
-
-3. Using the Amplify-CLI, run `amplify init` from the root of your project:
+See [Amplify CLI Installation](https://github.com/aws-amplify/amplify-cli#install-the-cli)
 
 ```bash
-==> amplify-dev init
+==> amplify init
 Note: It is recommended to run this command from the root of your app directory
 ? Enter a name for the project helloAmplify
 ? Enter a name for the environment dev
@@ -62,19 +68,26 @@ Note: It is recommended to run this command from the root of your app directory
 ? Choose the type of app that you\'re building flutter
 Please tell us about your project
 ⚠️  Flutter project support in the Amplify CLI is in DEVELOPER PREVIEW status.
-Currently, the following resource types are supported:
+Only the following resource types are supported:
  * Auth
  * Analytics
  * Storage
-Other categories may not function as expected for Flutter projects.
 ? Where do you want to store your configuration file? ./lib/
 ```
 
-4. Run `amplify analytics add`, follow the defaults and be sure indicate that you want to add authorization. Next, run `amplify push`. 
+4. Add Amplify categories (choose defaults for this example):
 
-5. In your pubspec.yaml file, add the following:
+    ```bash
+    $ amplify add auth
+    $ amplify add analytics
+    ```
+
+5. In your pubspec.yaml file, add the following to `dependencies`:
 
 ```yaml
+dependencies:
+  flutter:
+    sdk: flutter
   amplify_core:
     path: /{path to your local amplify-flutter}/amplify-flutter/packages/amplify_core 
   amplify_analytics_pinpoint:
@@ -83,7 +96,13 @@ Other categories may not function as expected for Flutter projects.
     path: /{path to your local amplify-flutter}/amplify-flutter/packages/amplify_auth_cognito
 ```
 
-6. In your main.dart file, add:
+6. From the terminal run
+
+```bash
+flutter pub get
+```
+
+7. In your main.dart file, add:
 
 ```dart
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -173,15 +192,22 @@ class _MyAppState extends State<MyApp> {
 }
 ```
 
-7. In order to get iOS builds to work do the following within Command Line:
-- Go to the root of your project
-- Run: "rm ios/Podfile"
-- Run: "flutter build ios"
-- Modify ios/Podfile -> replace the second line with: "platform :ios, '11.0'
+For iOS builds complete the following steps (from the root of your project):
 
-This step ensures that your flutter project is running the same ios version that our Flutter plugins are built on.
+- `rm ios/Podfile`
+- `flutter build ios`
+- Modify the `ios/Podfile` and replace the second line with: `platform :ios, '11.0'`.
 
+This ensures that your Flutter project is running the same ios version that the Amplify plugins are built on.
 
+8. From the root of your project, execute `flutter run` in the terminal.
 
-8. From the root of your project, execute `flutter pub get` and `flutter run` from your terminal.
-Make sure that an Android or iOS device is already running; this can be a virutal device started from Android Studio.
+> Make sure that an Android or iOS device is already running; this can be a virtual device started from Android Studio.
+
+Click **Configure Amplify**, then **Record Event**. From the terminal (in the root of your project) run `amplify console analytics`. This will open the Amazon Pinpoint console for your project in your default web browser. Within about a minute you should start seeing the events populating in the Events section of then Pinpoint console. 
+
+For further documentation and Amplify Category API usage, see the [documentation](https://docs.amplify.aws/lib/q/platform/js).
+
+---
+
+Flutter and the related logo are trademarks of Google LLC. We are not endorsed by or affiliated with Google LLC.

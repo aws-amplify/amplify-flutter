@@ -21,12 +21,24 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import androidx.annotation.NonNull
-import com.amazonaws.amplify.amplify_auth_cognito.types.*
 import com.amazonaws.AmazonClientException
 import com.amazonaws.AmazonServiceException
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthFailureMessage
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpResult
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignInResult
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchCognitoAuthSessionResult
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResetPasswordResult
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchAuthSessionResult
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendSignUpCodeRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchAuthSessionRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmSignUpRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignInRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmSignInRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignOutRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmPasswordRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResetPasswordRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdatePasswordRequest
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.exceptions.CognitoCodeExpiredException
 import com.amazonaws.services.cognitoidentityprovider.model.*
 import com.amplifyframework.auth.AuthChannelEventName
@@ -61,8 +73,8 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
 
   private lateinit var channel: MethodChannel
   private lateinit var context: Context
-  var gson = Gson()
   private var mainActivity: Activity? = null
+  private val LOG = Amplify.Logging.forNamespace("amplify:flutter:auth_cognito")
   var eventChannel: EventChannel? = null
   var eventMessenger: BinaryMessenger? = null
 
@@ -72,7 +84,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     context = flutterPluginBinding.applicationContext;
     eventMessenger = flutterPluginBinding.getBinaryMessenger();
     Amplify.addPlugin(AWSCognitoAuthPlugin())
-    Log.i("Amplify Flutter", "Added AuthCognito plugin")
+    LOG.info("Added AuthCognito plugin")
   }
 
   companion object {
@@ -129,9 +141,9 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
         Amplify.Hub.subscribe(HubChannel.AUTH
         ) { hubEvent: HubEvent<*> ->
           if (hubEvent.name == InitializationStatus.SUCCEEDED.toString()) {
-            Log.i("AuthCognito", "Auth successfully initialized")
+            LOG.info("AuthPlugin successfully initialized")
           } else if (hubEvent.name == InitializationStatus.FAILED.toString()) {
-            Log.i("AuthCognito", "Auth failed to succeed")
+            LOG.info("AuthPlugin failed to initialize")
           } else {
             when (AuthChannelEventName.valueOf(hubEvent.name)) {
               AuthChannelEventName.SIGNED_IN -> {
@@ -146,7 +158,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
                 var hubEvent = mapOf("eventName" to "SESSION_EXPIRED")
                 sendEvent(hubEvent, eventSink)
               }
-              else -> Log.i("AuthCognito", "unknown")
+              else -> LOG.info("Unrecognized Auth Event")
             }
           }
         }
@@ -205,8 +217,8 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
         Amplify.Auth.confirmSignUp(
                 req.username,
                 req.confirmationCode,
-                { result -> this.mainActivity?.runOnUiThread({ prepareSignUpResult(flutterResult, result) }) },
-                { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.CONFIRM_SIGNUP.toString()) }) }
+                { result -> prepareSignUpResult(flutterResult, result)},
+                { error -> prepareError(flutterResult, error, FlutterAuthFailureMessage.CONFIRM_SIGNUP.toString())}
         )
       } catch (e: Exception) {
         prepareError(flutterResult, e, FlutterAuthFailureMessage.CONFIRM_SIGNUP.toString())
@@ -222,8 +234,8 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
       try {
         Amplify.Auth.resendSignUpCode(
                 req.username,
-                { result -> this.mainActivity?.runOnUiThread({ prepareSignUpResult(flutterResult, result) }) },
-                { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.RESEND_SIGNUP_CODE.toString()) }) }
+                { result -> prepareSignUpResult(flutterResult, result) },
+                { error -> prepareError(flutterResult, error, FlutterAuthFailureMessage.RESEND_SIGNUP_CODE.toString())}
         )
       } catch (e: Exception) {
         prepareError(flutterResult, e, FlutterAuthFailureMessage.RESEND_SIGNUP_CODE.toString())
@@ -240,8 +252,8 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
         Amplify.Auth.signIn(
                 req.username,
                 req.password,
-                { result -> this.mainActivity?.runOnUiThread({ prepareSignInResult(flutterResult, result) }) },
-                { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.SIGNIN.toString()) }) }
+                { result -> prepareSignInResult(flutterResult, result) },
+                { error -> prepareError(flutterResult, error, FlutterAuthFailureMessage.SIGNIN.toString())}
         );
       } catch (e: Exception) {
         prepareError(flutterResult, e, FlutterAuthFailureMessage.SIGNIN.toString())
@@ -257,8 +269,8 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
       try {
         Amplify.Auth.confirmSignIn(
                 req.confirmationCode,
-                { result -> this.mainActivity?.runOnUiThread({ prepareSignInResult(flutterResult, result)}) },
-                { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.CONFIRM_SIGNIN.toString())}) }
+                { result -> prepareSignInResult(flutterResult, result)},
+                { error -> prepareError(flutterResult, error, FlutterAuthFailureMessage.CONFIRM_SIGNIN.toString())}
         );
       } catch(e: Exception) {
         prepareError(flutterResult, e, FlutterAuthFailureMessage.CONFIRM_SIGNIN.toString())
@@ -273,8 +285,8 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     try {
       Amplify.Auth.signOut(
         req.signOutOptions,
-          {  -> this.mainActivity?.runOnUiThread({ prepareSignOutResult(flutterResult)}) },
-          { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.SIGNOUT.toString())}) }
+          {  -> prepareSignOutResult(flutterResult)},
+          { error -> prepareError(flutterResult, error, FlutterAuthFailureMessage.SIGNOUT.toString())}
       );
     } catch(e: Exception) {
       prepareError(flutterResult, e, FlutterAuthFailureMessage.SIGNOUT.toString())
@@ -288,8 +300,8 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
         Amplify.Auth.updatePassword(
                 req.oldPassword,
                 req.newPassword,
-                {  -> this.mainActivity?.runOnUiThread({ prepareUpdatePasswordResponse(flutterResult)}) },
-                { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.UPDATE_PASSWORD.toString())}) }
+                {  -> prepareUpdatePasswordResult(flutterResult)},
+                { error -> prepareError(flutterResult, error, FlutterAuthFailureMessage.UPDATE_PASSWORD.toString())}
         );
       } catch(e: Exception) {
         prepareError(flutterResult, e, FlutterAuthFailureMessage.UPDATE_PASSWORD.toString())
@@ -305,8 +317,8 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
       try {
         Amplify.Auth.resetPassword(
                 req.username,
-                { result -> this.mainActivity?.runOnUiThread({ prepareResetPasswordResult(flutterResult, result)}) },
-                { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.RESET_PASSWORD.toString())}) }
+                { result -> prepareResetPasswordResult(flutterResult, result)},
+                { error -> prepareError(flutterResult, error, FlutterAuthFailureMessage.RESET_PASSWORD.toString()) }
         );
       } catch(e: Exception) {
         prepareError(flutterResult, e, FlutterAuthFailureMessage.RESET_PASSWORD.toString())
@@ -323,8 +335,8 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
         Amplify.Auth.confirmResetPassword(
                 req.newPassword,
                 req.confirmationCode,
-                {  -> this.mainActivity?.runOnUiThread({ prepareUpdatePasswordResponse(flutterResult)}) },
-                { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.CONFIRM_PASSWORD.toString())}) }
+                {  -> prepareUpdatePasswordResult(flutterResult)},
+                { error -> prepareError(flutterResult, error, FlutterAuthFailureMessage.CONFIRM_PASSWORD.toString())}
         );
       } catch(e: Exception) {
         prepareError(flutterResult, e, FlutterAuthFailureMessage.CONFIRM_PASSWORD.toString())
@@ -343,12 +355,12 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
                 if (req.getAWSCredentials) {
                   val cognitoAuthSession = result as AWSCognitoAuthSession
                   when (cognitoAuthSession.identityId.type) {
-                    AuthSessionResult.Type.SUCCESS -> this.mainActivity?.runOnUiThread({ prepareCognitoSessionResult(flutterResult, cognitoAuthSession)})
-                    AuthSessionResult.Type.FAILURE -> this.mainActivity?.runOnUiThread({ prepareCognitoSessionFailure(flutterResult, cognitoAuthSession)})
+                    AuthSessionResult.Type.SUCCESS -> prepareCognitoSessionResult(flutterResult, cognitoAuthSession)
+                    AuthSessionResult.Type.FAILURE -> prepareCognitoSessionFailure(flutterResult, cognitoAuthSession)
                   }
                 } else {
                   val session = result as AuthSession;
-                  this.mainActivity?.runOnUiThread({ prepareSessionResult(flutterResult, session)})
+                  prepareSessionResult(flutterResult, session)
                 }
               },
               { error -> prepareError(flutterResult, error, FlutterAuthFailureMessage.FETCH_SESSION.toString()) }
@@ -359,7 +371,8 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
 
   }
 
-  private fun prepareError(@NonNull flutterResult: Result, @NonNull error: Exception, @NonNull msg: String) {
+  fun prepareError(@NonNull flutterResult: Result, @NonNull error: Exception, @NonNull msg: String) {
+    LOG.error(msg, error)
     var errorMap: HashMap<String, Any> = HashMap();
     if (error is AuthException) {
       when (error) {
@@ -414,62 +427,61 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
       "recoverySuggestion" to recoverySuggestion,
       "errorString" to error.toString()
     ))
-    flutterResult.error("AmplifyException", msg, errorMap)
+    Handler (Looper.getMainLooper()).post {
+      flutterResult.error("AmplifyException", msg, errorMap)
+    }
   }
 
   fun prepareSignUpResult(@NonNull flutterResult: Result, @NonNull result: AuthSignUpResult) {
     var signUpData = FlutterSignUpResult(result);
-    flutterResult.success(signUpData.serializeToMap());
+    Handler (Looper.getMainLooper()).post {
+      flutterResult.success(signUpData.toValueMap());
+    }
   }
 
-  private fun prepareSignInResult(@NonNull flutterResult: Result, @NonNull result: AuthSignInResult) {
+  fun prepareSignInResult(@NonNull flutterResult: Result, @NonNull result: AuthSignInResult) {
     var signInData = FlutterSignInResult(result);
-    flutterResult.success(signInData.serializeToMap());
+    Handler (Looper.getMainLooper()).post {
+      flutterResult.success(signInData.toValueMap());
+    }
   }
 
-  private fun prepareSignOutResult(@NonNull flutterResult: Result) {
+  fun prepareSignOutResult(@NonNull flutterResult: Result) {
     var parsedResult = mutableMapOf<String, Any>();
-    flutterResult.success(parsedResult);
+    Handler (Looper.getMainLooper()).post {
+      flutterResult.success(parsedResult);
+    }
   }
 
-  private fun prepareUpdatePasswordResponse(@NonNull flutterResult: Result) {
+  fun prepareUpdatePasswordResult(@NonNull flutterResult: Result) {
     var parsedResult = mutableMapOf<String, Any>();
-    flutterResult.success(parsedResult);
+    Handler (Looper.getMainLooper()).post {
+      flutterResult.success(parsedResult);
+    }
   }
 
-  private fun prepareResetPasswordResult(@NonNull flutterResult: Result, @NonNull result: AuthResetPasswordResult) {
+  fun prepareResetPasswordResult(@NonNull flutterResult: Result, @NonNull result: AuthResetPasswordResult) {
     var resetData = FlutterResetPasswordResult(result);
-    flutterResult.success(resetData.serializeToMap());
+    Handler (Looper.getMainLooper()).post {
+      flutterResult.success(resetData.toValueMap());
+    }
   }
 
-  private fun prepareCognitoSessionResult(@NonNull flutterResult: Result, @NonNull result: AWSCognitoAuthSession) {
+  fun prepareCognitoSessionResult(@NonNull flutterResult: Result, @NonNull result: AWSCognitoAuthSession) {
     var session = FlutterFetchCognitoAuthSessionResult(result);
-    flutterResult.success(session.serializeToMap());
+    Handler (Looper.getMainLooper()).post {
+      flutterResult.success(session.toValueMap());
+    }
   }
 
-  private fun prepareCognitoSessionFailure(@NonNull flutterResult: Result, @NonNull result: AWSCognitoAuthSession) {
+  fun prepareCognitoSessionFailure(@NonNull flutterResult: Result, @NonNull result: AWSCognitoAuthSession) {
     prepareError(flutterResult, result.awsCredentials.error as AuthException, FlutterAuthFailureMessage.FETCH_SESSION.toString())
   }
 
-  private fun prepareSessionResult(@NonNull flutterResult: Result, @NonNull result: AuthSession) {
+  fun prepareSessionResult(@NonNull flutterResult: Result, @NonNull result: AuthSession) {
     var session = FlutterFetchAuthSessionResult(result);
-    flutterResult.success(session.serializeToMap());
-  }
-
-
-  //convert a data class to a map
-  fun <T> T.serializeToMap(): Map<String, Any> {
-    return convert()
-  }
-
-  //convert a map to a data class
-  inline fun <reified T> Map<String, Any>.toDataClass(): T {
-    return convert()
-  }
-
-  //convert an object of type I to type O
-  inline fun <I, reified O> I.convert(): O {
-    val json = gson.toJson(this)
-    return gson.fromJson(json, object : TypeToken<O>() {}.type)
+    Handler (Looper.getMainLooper()).post {
+      flutterResult.success(session.toValueMap());
+    }
   }
 }

@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
   final newPasswordController = TextEditingController();
 
   bool _isAmplifyConfigured = false;
-  Amplify amplify = new Amplify();
+  Amplify amplify = Amplify();
   AmplifyAuthCognito  auth;
   String displayState;
   String authState;
@@ -51,13 +51,21 @@ class _MyAppState extends State<MyApp> {
 
   void _configureAmplify() async {
 
-    auth = new AmplifyAuthCognito();
+    auth = AmplifyAuthCognito();
     amplify.addPlugin(authPlugins: [auth]);
+    var isSignedIn = false;
 
     await amplify.configure(amplifyconfig);
+    try {
+      isSignedIn = await _isSignedIn();
+    } on AuthError catch(e) {
+      print("User is not signed in.");
+    }
+
+
     setState(() {
       _isAmplifyConfigured = true;
-      displayState = "SHOW_SIGN_IN";
+      displayState = isSignedIn ? "SIGNED_IN" : "SHOW_SIGN_IN";
     });
     auth.events.listenToAuth((hubEvent) {
       switch(hubEvent["eventName"]) {
@@ -80,6 +88,13 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  Future<bool> _isSignedIn() async {
+    final session = await Amplify.Auth.fetchAuthSession(
+      options: CognitoSessionOptions(getAWSCredentials: true)
+    );
+    return session.isSignedIn;
+  }
+
   void _signUp() async {
     setState(() {
       error = "";
@@ -93,15 +108,13 @@ class _MyAppState extends State<MyApp> {
       "test": "value"
     };
     try {
-      SignUpResult res = await Amplify.Auth.signUp(
-        request: SignUpRequest(
-          username: usernameController.text.trim(),
-          password: passwordController.text.trim(),
-          options: CognitoSignUpOptions(
-            userAttributes: userAttributes,
-            validationData: validationData
-          )
-        ), 
+      SignUpResult res = await Amplify.Auth.signUp( 
+        username: usernameController.text.trim(),
+        password: passwordController.text.trim(),
+        options: CognitoSignUpOptions(
+          userAttributes: userAttributes,
+          validationData: validationData
+        )
       );
       setState(() {
         displayState = res.nextStep.signUpStep != "DONE" ? "SHOW_CONFIRM" : "SHOW_SIGN_UP";
@@ -125,10 +138,8 @@ class _MyAppState extends State<MyApp> {
     });
     try {
       SignUpResult res = await Amplify.Auth.confirmSignUp(
-        request: ConfirmSignUpRequest(
-          username: usernameController.text.trim(),
-          confirmationCode: confirmationCodeController.text.trim()
-        ), 
+        username: usernameController.text.trim(),
+        confirmationCode: confirmationCodeController.text.trim()
       );
       setState(() {
         displayState = res.nextStep.signUpStep != "DONE" ? "SHOW_CONFIRM" : "SHOW_SIGN_IN";
@@ -152,10 +163,8 @@ class _MyAppState extends State<MyApp> {
     });
     try {
       SignInResult res = await Amplify.Auth.signIn(
-        request: SignInRequest(
-          username: usernameController.text.trim(),
-          password: passwordController.text.trim()
-        ), 
+        username: usernameController.text.trim(),
+        password: passwordController.text.trim()
       );
       setState(() {
         displayState = res.isSignedIn ? "SIGNED_IN" : "SHOW_CONFIRM_SIGN_IN" ;
@@ -179,9 +188,7 @@ class _MyAppState extends State<MyApp> {
     });
     try {
       SignInResult res = await Amplify.Auth.confirmSignIn(
-        request: ConfirmSignInRequest(
-          confirmationValue: confirmationCodeController.text.trim()
-        ), 
+        confirmationValue: confirmationCodeController.text.trim()
       );
       setState(() {
         displayState = res.nextStep.signInStep == "DONE" ? "SIGNED_IN" : "SHOW_CONFIRM_SIGN_IN";
@@ -205,10 +212,8 @@ class _MyAppState extends State<MyApp> {
     });
     try {
       await Amplify.Auth.signOut(
-        request: SignOutRequest(
-          options: CognitoSignOutOptions(
-            globalSignOut: true
-          )
+        options: CognitoSignOutOptions(
+          globalSignOut: true
         )
       );
       setState(() {
@@ -233,10 +238,8 @@ class _MyAppState extends State<MyApp> {
     });
     try {
       await Amplify.Auth.updatePassword(
-        request: UpdatePasswordRequest(
-          newPassword: newPasswordController.text.trim(),
-          oldPassword: oldPasswordController.text.trim()
-        ), 
+        newPassword: newPasswordController.text.trim(),
+        oldPassword: oldPasswordController.text.trim()
       );
       setState(() {
         displayState = 'SIGNED_IN';
@@ -259,9 +262,7 @@ class _MyAppState extends State<MyApp> {
     });
     try {
       ResetPasswordResult res = await Amplify.Auth.resetPassword(
-        request: ResetPasswordRequest(
-          username: usernameController.text.trim(),
-        ), 
+        username: usernameController.text.trim(),
       );
       setState(() {
         displayState = "SHOW_CONFIRM_REST";
@@ -285,9 +286,7 @@ class _MyAppState extends State<MyApp> {
     });
     try {
       ResendSignUpCodeResult res = await Amplify.Auth.resendSignUpCode(
-        request: ResendSignUpCodeRequest(
-          username: usernameController.text.trim(),
-        ), 
+        username: usernameController.text.trim(),
       );
       print(res);
     } on AuthError catch (e) {
@@ -308,11 +307,9 @@ class _MyAppState extends State<MyApp> {
     });
     try {
       UpdatePasswordResult res = await Amplify.Auth.confirmPassword(
-        request: ConfirmPasswordRequest(
-          username: usernameController.text.trim(),
-          newPassword: newPasswordController.text.trim(),
-          confirmationCode: confirmationCodeController.text.trim()
-        ), 
+        username: usernameController.text.trim(),
+        newPassword: newPasswordController.text.trim(),
+        confirmationCode: confirmationCodeController.text.trim()
       );
       setState(() {
         displayState = "SHOW_SIGN_IN";
@@ -335,9 +332,7 @@ class _MyAppState extends State<MyApp> {
     });
     try {
       AuthSession res = await Amplify.Auth.fetchAuthSession(
-        request: AuthSessionRequest(
-          options: CognitoSessionOptions(getAWSCredentials: false)
-        )
+        options: CognitoSessionOptions(getAWSCredentials: false)
       );
       print(res);
     } on AuthError catch (e) {
@@ -756,7 +751,7 @@ Widget showSignIn() {
                 if (this.displayState == "SHOW_CONFIRM_SIGN_IN") showConfirmSignIn(),
                 if (this.displayState == "SHOW_UPDATE_PASSWORD") showUpdatePassword(),
                 if (this.displayState == "SHOW_CONFIRM_REST") showConfirmReset(),
-                if (this.displayState == 'SIGNED_IN') showApp(),
+                if (this.displayState == "SIGNED_IN") showApp(),
                 showAuthState(),
                 if (this.error != null) showErrors(),
                 showExceptions()

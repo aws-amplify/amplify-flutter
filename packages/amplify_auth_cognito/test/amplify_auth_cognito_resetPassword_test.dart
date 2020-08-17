@@ -54,9 +54,6 @@ void main() {
   test('resetPassword request returns a ResetPasswordResult', () async {
     await amplify.addPlugin(authPlugins: [auth]);
     await amplify.configure("{}");
-    ResetPasswordRequest req = ResetPasswordRequest(
-      username: 'testUser'
-    );
-    expect(await Amplify.Auth.resetPassword(request: req), isInstanceOf<ResetPasswordResult>());
+    expect(await Amplify.Auth.resetPassword(username: 'testUser'), isInstanceOf<ResetPasswordResult>());
   });
 }

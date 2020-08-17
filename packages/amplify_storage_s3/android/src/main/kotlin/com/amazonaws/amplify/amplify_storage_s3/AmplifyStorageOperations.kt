@@ -47,10 +47,13 @@ class AmplifyStorageOperations {
                                 prepareUploadFileResponse(flutterResult, result)
                             },
                             { error ->
-                                prepareError(flutterResult, FlutterStorageErrorMessage.UPLOAD_FILE_OPERATION_FAILED.name, error.localizedMessage, error.recoverySuggestion)
+                                if (!responseSent) {
+                                    responseSent = true;
+                                    prepareError(flutterResult, FlutterStorageErrorMessage.UPLOAD_FILE_OPERATION_FAILED.name, error.localizedMessage, error.recoverySuggestion)
+                                } else {
+                                    LOG.error(FlutterStorageErrorMessage.UPLOAD_FILE_OPERATION_FAILED.name, error)
+                                }
                             })
-
-
                 } catch (e: Exception) {
                     prepareError(flutterResult, FlutterStorageErrorMessage.UPLOAD_FILE_OPERATION_FAILED.name, e.localizedMessage, "")
                 }
@@ -210,4 +213,3 @@ class AmplifyStorageOperations {
         }
     }
 }
-

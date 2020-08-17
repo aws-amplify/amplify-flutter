@@ -35,7 +35,6 @@ class _MyAppState extends State<MyApp> {
   String _uploadFileResult = '';
   String _getUrlResult = '';
   String _removeResult = '';
-  String _downloadFileResult = '';
   ListResult _listResult;
   Amplify amplify = new Amplify();
 
@@ -167,13 +166,6 @@ class _MyAppState extends State<MyApp> {
                   ),
                   const Padding(padding: EdgeInsets.all(5.0)),
                   Text('Removed File: $_removeResult'),
-                  const Padding(padding: EdgeInsets.all(5.0)),
-                  RaisedButton(
-                    onPressed: downloadFile,
-                    child: const Text('Download File'),
-                  ),
-                  const Padding(padding: EdgeInsets.all(5.0)),
-                  Text('Downloaded File: $_downloadFileResult'),
                   const Padding(padding: EdgeInsets.all(5.0)),
                   RaisedButton(
                     onPressed: list,

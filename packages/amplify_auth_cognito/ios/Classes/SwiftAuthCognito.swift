@@ -54,6 +54,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
     registrar.addMethodCallDelegate(instance, channel: channel)
     let authPlugin = AWSCognitoAuthPlugin()
     eventChannel.setStreamHandler(instance)
+    Amplify.Logging.logLevel = .error
     do {
       try Amplify.add(plugin: authPlugin)
     } catch {
@@ -187,7 +188,6 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
     }
   }
     
-
   private func onResendSignUpCode(flutterResult: @escaping FlutterResult, request: FlutterResendSignUpCodeRequest) {
     _ = Amplify.Auth.resendSignUpCode(for: request.username) { response in
       switch response {
@@ -199,7 +199,6 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
       }
     }
   }
-
 
   private func onSignIn(flutterResult: @escaping FlutterResult, request: FlutterSignInRequest) {
     _ = Amplify.Auth.signIn(username: request.username, password:request.password) { response in
@@ -297,44 +296,56 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
     private func handleAuthError(error: AuthError, flutterResult: FlutterResult, msg: String){
         if case .service( let localizedError, let recoverySuggestion, let error) = error {
           let errorCode = error != nil ? "\(error!)" : "unknown"
-              formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+          logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
+          formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
         }
         if case .configuration(let localizedError, let recoverySuggestion, let error) = error {
-              let errorCode = error != nil ? "\(error!)" : "configuration"
-              var errorMap: [String: Any] = formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-              errorMap["PLATFORM_EXCEPTIONS"] = platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-              prepareError(flutterResult: flutterResult,  msg: msg, errorMap: errorMap)
+          let errorCode = error != nil ? "\(error!)" : "configuration"
+          logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
+          formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
         }
         if case .unknown(let localizedError, let error) = error {
-              let errorCode = error != nil ? "\(error!)" : "unknown"
-              formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: "An unknown error has occurred.")
+          let errorCode = error != nil ? "\(error!)" : "unknown"
+          logErrorContents(messages: [localizedError, "unknown error"])
+          formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: "An unknown error has occurred.")
         }
         if case .invalidState(let localizedError, let recoverySuggestion, let error) = error {
-              let errorCode = error != nil ? "\(error!)" : "invalidState"
-              formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+          let errorCode = error != nil ? "\(error!)" : "invalidState"
+          logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
+          formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
         }
         if case .notAuthorized(let localizedError,  let recoverySuggestion, let error) = error {
-              let errorCode = error != nil ? "\(error!)" : "notAuthorized"
-              formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+          let errorCode = error != nil ? "\(error!)" : "notAuthorized"
+          logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
+          formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
         }
-        if case .validation(_, let localizedError, let recoverySuggestion, let error) = error {
-              let errorCode = error != nil ? "\(error!)" : "validation"
-              formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+        if case .validation(let field, let localizedError, let recoverySuggestion, let error) = error {
+          let errorCode = error != nil ? "\(error!)" : "validation"
+          logErrorContents(messages: [field, localizedError, recoverySuggestion, errorCode])
+          formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
         }
         if case .signedOut(let localizedError, let recoverySuggestion, let error) = error {
-             let errorCode = error != nil ? "\(error!)" : "signedOut"
-              formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+          let errorCode = error != nil ? "\(error!)" : "signedOut"
+          logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
+          formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
         }
         if case .sessionExpired(let localizedError, let recoverySuggestion, let error) = error {
-             let errorCode = error != nil ? "\(error!)" : "sessionExpired"
-              formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+          let errorCode = error != nil ? "\(error!)" : "sessionExpired"
+          logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
+          formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
         }
     }
     
     private func formatError(flutterResult: FlutterResult, errorCode: String, msg: String, localizedError: String, recoverySuggestion: String) {
-        var errorMap: [String: Any] = formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-        errorMap["PLATFORM_EXCEPTIONS"] = platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-        prepareError(flutterResult: flutterResult,  msg: msg, errorMap: errorMap)
+      var errorMap: [String: Any] = formatErrorMap(errorCode: errorCode, localizedError: localizedError)
+      errorMap["PLATFORM_EXCEPTIONS"] = platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+      prepareError(flutterResult: flutterResult,  msg: msg, errorMap: errorMap)
+    }
+    
+    private func logErrorContents(messages: Array<String>) {
+      messages.forEach {
+        log.error($0)
+      }
     }
 
     private func prepareError(flutterResult: FlutterResult, msg: String, errorMap: [String: Any]) {
@@ -406,9 +417,14 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
           errorDict["CONFIGURATION"] = localizedError
         case "validation":
           errorDict["VALIDATION"] = localizedError
+        case "sessionExpired":
+          // use SIGNED_OUT to match android
+          errorDict["SIGNED_OUT"] = localizedError
         default:
           errorDict["UNKNOWN"] = "An unrecognized error has occurred. See logs for details."
       }
       return errorDict
   }
 }
+
+extension SwiftAuthCognito: DefaultLogger { }
