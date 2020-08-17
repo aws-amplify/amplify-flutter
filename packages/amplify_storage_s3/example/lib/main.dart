@@ -69,7 +69,7 @@ class _MyAppState extends State<MyApp> {
       metadata['name'] = 'filename';
       metadata['desc'] = 'A test file';
       S3UploadFileOptions options = S3UploadFileOptions(
-          accessLevel: StorageAccessLevel.public, metadata: metadata);
+          accessLevel: StorageAccessLevel.guest, metadata: metadata);
       UploadFileResult result = await Amplify.Storage.uploadFile(
           key: key, path: path, options: options);
       setState(() {
@@ -85,7 +85,7 @@ class _MyAppState extends State<MyApp> {
       print('In getUrl');
       String key = _uploadFileResult;
       S3GetUrlOptions options = S3GetUrlOptions(
-          accessLevel: StorageAccessLevel.public, expires: 10000);
+          accessLevel: StorageAccessLevel.guest, expires: 10000);
       GetUrlResult result =
           await Amplify.Storage.getUrl(key: key, options: options);
 

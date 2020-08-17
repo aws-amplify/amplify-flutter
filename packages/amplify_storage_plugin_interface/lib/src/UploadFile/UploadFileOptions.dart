@@ -23,7 +23,7 @@ class UploadFileOptions extends StorageOptions {
   Map<String, String> metadata;
 
   UploadFileOptions(
-      {this.accessLevel = StorageAccessLevel.public,
+      {this.accessLevel = StorageAccessLevel.guest,
       this.contentType,
       this.metadata})
       : super();

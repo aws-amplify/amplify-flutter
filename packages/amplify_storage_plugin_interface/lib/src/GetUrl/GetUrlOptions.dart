@@ -21,7 +21,7 @@ class GetUrlOptions extends StorageOptions {
   StorageAccessLevel accessLevel;
   int expires;
 
-  GetUrlOptions({this.accessLevel = StorageAccessLevel.public, this.expires})
+  GetUrlOptions({this.accessLevel = StorageAccessLevel.guest, this.expires})
       : super();
 
   @override

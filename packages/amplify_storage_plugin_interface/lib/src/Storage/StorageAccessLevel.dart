@@ -14,7 +14,7 @@
  */
 
 enum StorageAccessLevel {
-  public,
+  guest,
   private,
   protected,
 }
