@@ -21,6 +21,7 @@ import android.os.Looper
 import com.amazonaws.amplify.amplify_storage_s3.types.FlutterGetUrlRequest
 import com.amazonaws.amplify.amplify_storage_s3.types.FlutterUploadFileRequest
 import com.amazonaws.amplify.amplify_storage_s3.types.FlutterStorageErrorMessage
+import com.amazonaws.logging.Log
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.storage.result.StorageGetUrlResult
 import com.amplifyframework.storage.result.StorageUploadFileResult
@@ -30,10 +31,13 @@ import com.google.gson.Gson
 
 class AmplifyStorageOperations {
 
+    private val LOG = Amplify.Logging.forNamespace("amplify:flutter:storage_s3")
+
     companion object StorageOperations {
         private val gson = Gson()
 
         fun uploadFile(@NonNull flutterResult: MethodChannel.Result, @NonNull request: Map<String, *>) {
+            var responseSent: Boolean = false;
             if (FlutterUploadFileRequest.isValid(request)) {
                 val req = FlutterUploadFileRequest(request)
                 try {
@@ -45,10 +49,13 @@ class AmplifyStorageOperations {
                                 prepareUploadFileResponse(flutterResult, result)
                             },
                             { error ->
-                                prepareError(flutterResult, FlutterStorageErrorMessage.UPLOAD_FILE_OPERATION_FAILED.name, error.localizedMessage, error.recoverySuggestion)
+                                if (!responseSent) {
+                                    responseSent = true;
+                                    prepareError(flutterResult, FlutterStorageErrorMessage.UPLOAD_FILE_OPERATION_FAILED.name, error.localizedMessage, error.recoverySuggestion)
+                                } else {
+                                    LOG.error(FlutterStorageErrorMessage.UPLOAD_FILE_OPERATION_FAILED.name, error)
+                                }
                             })
-
-
                 } catch (e: Exception) {
                     prepareError(flutterResult, FlutterStorageErrorMessage.UPLOAD_FILE_OPERATION_FAILED.name, e.localizedMessage, "")
                 }
