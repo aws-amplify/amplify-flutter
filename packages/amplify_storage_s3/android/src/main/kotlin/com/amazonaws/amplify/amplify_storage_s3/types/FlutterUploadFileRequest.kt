@@ -40,10 +40,10 @@ data class FlutterUploadFileRequest(val request: Map<String, *>) {
     companion object {
         fun isValid(request: Map<String, *>): Boolean {
             var valid = true
-            if(!(request.containsKey("path") && request["path"] is String)) {
+            if(request["path"] !is String) {
                 valid = false
             }
-            if(!(request.containsKey("key") && request["key"] is String)) {
+            if(request["key"] !is String) {
                 valid = false
             }
             return valid

@@ -20,10 +20,10 @@ struct FlutterUploadFileRequest {
     
     static func isValid(request: Dictionary<String, AnyObject>) -> Bool {
         var valid: Bool = true;
-        if(!(request["key"] != nil && request["key"] is String)){
+        if !(request["key"] is String) {
             valid = false
         }
-        if(!(request["path"] != nil && request["path"] is String)){
+        if !(request["path"] is String) {
             valid = false
         }
         return valid

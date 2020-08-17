@@ -17,12 +17,8 @@ struct FlutterGetUrlRequest {
     }
     
     static func isValid(request: Dictionary<String, AnyObject>) -> Bool {
-        var valid: Bool = true;
-        if(!(request["key"] != nil && request["key"] is String)){
-            valid = false
-        }
+        let valid: Bool = request["key"] is String
         return valid
-        
     }
     
     private func setOptions(request: Dictionary<String, AnyObject>) -> StorageGetURLRequest.Options? {

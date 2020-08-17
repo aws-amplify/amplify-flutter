@@ -34,11 +34,7 @@ data class FlutterGetUrlRequest(val request: Map<String, *>) {
 
     companion object {
         fun isValid(request: Map<String, *>): Boolean {
-            var valid = true
-            if (!(request.containsKey("key") && request["key"] is String)) {
-                valid = false
-            }
-            return valid
+            return request["key"] is String
         }
     }
 }
