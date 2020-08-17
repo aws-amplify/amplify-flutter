@@ -37,7 +37,6 @@ public class AmplifyAnalyticsPinpointPlugin : FlutterPlugin, ActivityAware, Meth
     private lateinit var channel: MethodChannel
     private var mainActivity: Activity? = null
 
-
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
 
         channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "com.amazonaws.amplify/analytics_pinpoint")
@@ -50,6 +49,7 @@ public class AmplifyAnalyticsPinpointPlugin : FlutterPlugin, ActivityAware, Meth
         while (context != null) {
             if (context as Application != null) {
                 Amplify.addPlugin(AWSPinpointAnalyticsPlugin(context as Application))
+                LOG.info("Added AnalyticsPinpoint plugin")
                 break
             } else {
                 context = context.applicationContext
@@ -66,12 +66,13 @@ public class AmplifyAnalyticsPinpointPlugin : FlutterPlugin, ActivityAware, Meth
     // pre-Flutter-1.12 Android projects.
     companion object {
         const val TAG = "AmplifyAnalyticsPinpointPlugin"
+        val LOG = Amplify.Logging.forNamespace("amplify:flutter:analytics_pinpoint")
 
         @JvmStatic
         fun registerWith(registrar: Registrar) {
             val channel = MethodChannel(registrar.messenger(), "com.amazonaws.amplify/analytics_pinpoint")
-
             Amplify.addPlugin(AWSPinpointAnalyticsPlugin(registrar.activity().application))
+            LOG.info("Added AnalyticsPinpoint plugin")
         }
     }
 
