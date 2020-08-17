@@ -1,5 +1,5 @@
 name: amplify_storage_plugin_interface
-description: The Amplify Flutter Storage category plugin interface.
+description: The platform interface for the storage module of Amplify-Flutter.
 version: 0.0.1
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify_storage_plugin_interface
 
