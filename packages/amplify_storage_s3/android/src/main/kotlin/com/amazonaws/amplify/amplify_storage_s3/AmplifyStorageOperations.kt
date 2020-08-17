@@ -47,7 +47,6 @@ class AmplifyStorageOperations {
                             req.options,
                             { result ->
                                 prepareUploadFileResponse(flutterResult, result)
-
                             },
                             { error ->
                                 if (!responseSent) {
