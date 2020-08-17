@@ -35,7 +35,7 @@ void main() {
   });
 
   test(
-      'configure should result in assertion error when null value is not passed',
+      'configure should result in assertion error when null value is passed',
       () async {
     amplify
         .configure(null)
