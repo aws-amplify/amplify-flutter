@@ -20,6 +20,10 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import './method_channel_storage_s3.dart';
 import 'package:flutter/foundation.dart';
 
+export './src/types.dart';
+export 'package:amplify_storage_plugin_interface/src/types.dart';
+
+
 class AmplifyStorageS3 extends StoragePluginInterface {
   static final Object _token = Object();
 

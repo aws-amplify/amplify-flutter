@@ -13,13 +13,11 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_storage_s3/method_channel_storage_s3.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'amplifyconfiguration.dart';
 

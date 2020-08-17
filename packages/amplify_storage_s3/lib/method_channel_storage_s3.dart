@@ -18,7 +18,6 @@ import 'package:flutter/foundation.dart';
 import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 
 import 'amplify_storage_s3.dart';
-export './src/types.dart';
 
 const MethodChannel _channel =
     MethodChannel('com.amazonaws.amplify/storage_s3');
