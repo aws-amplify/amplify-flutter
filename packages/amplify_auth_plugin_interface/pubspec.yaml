@@ -6,9 +6,6 @@ homepage: https://github.com/aws-amplify/amplify-flutter/tree/master/packages/am
 environment:
   sdk: ">=2.7.0 <3.0.0"
 
-transformers:
-  - dartson
-
 dependencies:
   flutter:
     sdk: flutter
