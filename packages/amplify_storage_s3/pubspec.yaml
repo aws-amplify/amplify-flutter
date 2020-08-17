@@ -13,6 +13,9 @@ dependencies:
     sdk: flutter
   amplify_storage_plugin_interface:
     path: ../amplify_storage_plugin_interface
+  # amplify_core included only for testing: should be removed after pub.dev up and running
+  amplify_core:
+    path: ../amplify_core
 
 dev_dependencies:
   flutter_test:
