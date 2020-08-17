@@ -38,14 +38,14 @@ for plugin_dir in */; do
                 fi
                 cp ../../.circleci/dummy_amplifyconfiguration.dart example/lib/amplifyconfiguration.dart
                 cd example/android
-                if ! flutter build apk; then
+                if ! flutter build apk --debug; then
                     echo "FAILED: Android example failed to build."
                     failed_plugins+=("$plugin")
                     cd ../..
                     continue
                 fi
 
-                if ./gradlew :"$plugin":test; then
+                if ./gradlew :"$plugin":testDebugUnitTest; then
                     echo "PASSED: Android unit tests for $plugin passed."
                     passed_plugins+=("$plugin")
                 else
