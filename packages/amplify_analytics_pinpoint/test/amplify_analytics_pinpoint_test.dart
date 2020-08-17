@@ -25,8 +25,7 @@ void main() {
   const MethodChannel coreChannel = MethodChannel('com.amazonaws.amplify/core');
 
   Amplify amplify = new Amplify();
-  AmplifyAnalyticsPinpointPlugin analytics =
-      new AmplifyAnalyticsPinpointPlugin();
+  AmplifyAnalyticsPinpoint analytics = new AmplifyAnalyticsPinpoint();
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
