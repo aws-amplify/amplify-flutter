@@ -13,7 +13,22 @@
  * permissions and limitations under the License.
  */
 
-export 'S3UploadFile/S3UploadFileOptions.dart';
-export 'S3GetUrl/S3GetUrlOptions.dart';
-export 'S3List/S3ListOptions.dart';
-export 'S3DownloadFile/S3DownloadFileOptions.dart';
+import './ListOptions.dart';
+
+class ListRequest {
+  String path;
+  ListOptions options;
+
+  ListRequest({this.path, this.options});
+
+  Map<String, dynamic> serializeAsMap() {
+    final Map<String, dynamic> result = <String, dynamic>{};
+    if (path != null) {
+      result['path'] = path;
+    }
+    if (options != null) {
+      result['options'] = options.serializeAsMap();
+    }
+    return result;
+  }
+}

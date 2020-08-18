@@ -32,16 +32,33 @@ class StorageCategory {
   }
 
   Future<UploadFileResult> uploadFile(
-      {@required String path,
-      @required String key,
-      UploadFileOptions options}) {
+      {@required File local, @required String key, UploadFileOptions options}) {
     final UploadFileRequest request =
-        UploadFileRequest(path: path, key: key, options: options);
+        UploadFileRequest(local: local, key: key, options: options);
     return plugins[0].uploadFile(request: request);
   }
 
   Future<GetUrlResult> getUrl({@required String key, GetUrlOptions options}) {
     final GetUrlRequest request = GetUrlRequest(key: key, options: options);
     return plugins[0].getUrl(request: request);
+  }
+
+  Future<RemoveResult> remove({@required String key, RemoveOptions options}) {
+    final RemoveRequest request = RemoveRequest(key: key, options: options);
+    return plugins[0].remove(request: request);
+  }
+
+  Future<ListResult> list({String path, ListOptions options}) {
+    final ListRequest request = ListRequest(path: path, options: options);
+    return plugins[0].list(request: request);
+  }
+
+  Future<DownloadFileResult> downloadFile(
+      {@required String key,
+      @required File local,
+      DownloadFileOptions options}) {
+    final DownloadFileRequest request =
+        DownloadFileRequest(key: key, local: local, options: options);
+    return plugins[0].downloadFile(request: request);
   }
 }

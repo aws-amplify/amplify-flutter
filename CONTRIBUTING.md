@@ -52,7 +52,7 @@ Start by, [Forking](https://help.github.com/en/github/getting-started-with-githu
 ```
 $ git clone git@github.com:[username]/amplify-flutter.git
 $ cd amplify-flutter
-@TODO
+$ ./dev.sh
 ```
 
 > Note: Make sure to always [sync your fork](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork) with main branch of amplify-flutter
@@ -84,7 +84,7 @@ _[Skip step 1 to 3 if you have already done this]_
 
 1. Fork aws-amplify/amplify-flutter
 2. Clone your fork locally: `git clone git@github.com:YOUR_GITHUB_USERNAME/amplify-flutter.git`
-3. Run @TODO in the repository root
+3. Run `./dev.sh` in the repository root
 4. Within your fork, create a new branch based on the issue (e.g. Issue #123) you're addressing - `git checkout -b "group-token/short-token-[branch-name]"` or `git checkout -b "short-token/[branch-name]"`
    - Use grouping tokens at the beginning of the branch names. \_For e.g, if you are working on changes specific to `amplify-ui-components`, then you could start the branch name as `ui-components/...`
    - short token
@@ -99,7 +99,6 @@ _[Skip step 1 to 3 if you have already done this]_
 7. This previous step will give you a URL to view a GitHub page in your browser. Copy-paste this, and complete the workflow in the UI. It will invite you to "create a PR" from your newly published branch. Fill out the PR template to submit a PR.
 8. Finally, the Amplify team will review your PR. Add reviewers based on the core member who is tracking the issue with you or code owners.
    _In the meantime, address any automated check that fail (such as linting, unit tests, etc. in CI)_
-
 
 # Release
 

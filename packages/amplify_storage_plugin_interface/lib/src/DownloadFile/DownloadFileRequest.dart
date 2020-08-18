@@ -13,7 +13,24 @@
  * permissions and limitations under the License.
  */
 
-export 'S3UploadFile/S3UploadFileOptions.dart';
-export 'S3GetUrl/S3GetUrlOptions.dart';
-export 'S3List/S3ListOptions.dart';
-export 'S3DownloadFile/S3DownloadFileOptions.dart';
+import 'package:flutter/foundation.dart';
+import './DownloadFileOptions.dart';
+import 'dart:io';
+
+class DownloadFileRequest {
+  String key;
+  File local;
+  DownloadFileOptions options;
+
+  DownloadFileRequest({@required this.key, @required this.local, this.options});
+
+  Map<String, dynamic> serializeAsMap() {
+    final Map<String, dynamic> result = <String, dynamic>{};
+    result['path'] = local.absolute.path;
+    result['key'] = key;
+    if (options != null) {
+      result['options'] = options.serializeAsMap();
+    }
+    return result;
+  }
+}
