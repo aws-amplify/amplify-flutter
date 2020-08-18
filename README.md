@@ -9,7 +9,7 @@
 ## Amplify Flutter (Developer Preview)
 
 AWS Amplify provides a declarative and easy-to-use interface across different categories of cloud operations. Our default implementation works with Amazon Web Services (AWS), but AWS Amplify is designed to be open and pluggable for any custom backend or service. See [AWS Amplify](https://docs.amplify.aws) for further details about the Amplify Framework.
- 
+
 ⚠️ **Amplify for Flutter is in developer preview and not yet recommended for production.**
 
 We are iterating and looking for feedback and collaboration, so please [**let us know your feedback**](https://github.com/aws-amplify/amplify-flutter/issues/5) on our direction and roadmap.
@@ -26,6 +26,9 @@ We are iterating and looking for feedback and collaboration, so please [**let us
  - Predictions
  - Datastore
  - Hub Events (Listening to the Amplify events)
+ - iOS Error Events in Amplify Analytics
+
+> Amplify for Flutter is in preview, and is not recommended for production use at this time. During this phase, we are iterating on the code base, and looking for your feedback and collaboration. [**WE'D LOVE TO GET YOUR FEEDBACK! :-).**](https://github.com/aws-amplify/amplify-flutter/issues/5).
 
 Amplify for Flutter currently supports **iOS** and **Android** platforms.
 
