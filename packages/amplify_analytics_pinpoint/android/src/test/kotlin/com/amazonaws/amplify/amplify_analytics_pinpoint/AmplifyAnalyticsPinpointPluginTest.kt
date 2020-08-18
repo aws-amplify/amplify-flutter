@@ -1,7 +1,9 @@
 package com.amazonaws.amplify.amplify_analytics_pinpoint
 
+import com.amazonaws.amplify.amplify_analytics_pinpoint.types.FlutterAnalyticsErrorMessage
 import com.amplifyframework.analytics.*
 import com.amplifyframework.core.Amplify
+
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import org.junit.Before
@@ -12,27 +14,24 @@ import org.mockito.Mockito.*
 import java.lang.Exception
 import java.lang.reflect.Field
 import java.lang.reflect.Modifier
+import com.amplifyframework.logging.Logger
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
 
-
+@RunWith(RobolectricTestRunner::class)
 class AmplifyAnalyticsPinpointPluginTest {
 
     lateinit var plugin: AmplifyAnalyticsPinpointPlugin
 
+    private var mockAnalytics = mock(AnalyticsCategory::class.java)
+
     @Before
     fun setup() {
         plugin = AmplifyAnalyticsPinpointPlugin()
-        val mockAnalytics = mock(AnalyticsCategory::class.java)
-        // TODO: if we want we can add custom validation logic here, I think
-        doNothing().`when`(mockAnalytics).recordEvent(any(AnalyticsEvent::class.java))
-        doNothing().`when`(mockAnalytics).flushEvents()
-        doNothing().`when`(mockAnalytics).registerGlobalProperties(
-                any(AnalyticsProperties::class.java))
-        doNothing().`when`(mockAnalytics).unregisterGlobalProperties()
-        doNothing().`when`(mockAnalytics).enable()
-        doNothing().`when`(mockAnalytics).disable()
-        doNothing().`when`(mockAnalytics).identifyUser(
-                anyString(),
-                any(UserProfile::class.java))
+        val mockLog = mock(Logger::class.java)
+
+        doNothing().`when`(mockLog).error(anyString(), any())
+
         setFinalStatic(Amplify::class.java.getDeclaredField("Analytics"), mockAnalytics)
     }
 
@@ -149,7 +148,7 @@ class AmplifyAnalyticsPinpointPluginTest {
         val call = MethodCall("recordEvent", arguments)
         var mockResult: MethodChannel.Result = mock(MethodChannel.Result::class.java)
         plugin.onMethodCall(call, mockResult)
-        verify(mockResult).error("AmplifyException", "Error", "Warning unrecognized object type sent via MethodChannel-AnalyticsProperties")
+        verify(mockResult).error(eq("AmplifyException"), any(), any())
     }
 
     @Test
@@ -185,7 +184,7 @@ class AmplifyAnalyticsPinpointPluginTest {
         val call = MethodCall("registerGlobalProperties", propertiesMap)
         var mockResult: MethodChannel.Result = mock(MethodChannel.Result::class.java)
         plugin.onMethodCall(call, mockResult)
-        verify(mockResult).error("AmplifyException", "Error", "Warning unrecognized object type sent via MethodChannel-AnalyticsProperties")
+        verify(mockResult).error(eq("AmplifyException"), any(), any())
     }
 
     @Test
@@ -237,7 +236,7 @@ class AmplifyAnalyticsPinpointPluginTest {
         val call = MethodCall("identifyUser", userMap)
         var mockResult: MethodChannel.Result = mock(MethodChannel.Result::class.java)
         plugin.onMethodCall(call, mockResult)
-        verify(mockResult).error("AmplifyException", "Error", "Warning unrecognized object type sent via MethodChannel-AnalyticsProperties")
+        verify(mockResult).error(eq("AmplifyException"), any(), any())
     }
 
     @Test

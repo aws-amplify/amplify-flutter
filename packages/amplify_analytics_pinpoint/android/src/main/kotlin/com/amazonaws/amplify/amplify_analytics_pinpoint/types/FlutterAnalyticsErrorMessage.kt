@@ -17,6 +17,8 @@
 
 package com.amazonaws.amplify.amplify_analytics_pinpoint.types
 
+const val PLATFORM_EXCEPTIONS = "PLATFORM_EXCEPTIONS"
+
 enum class FlutterAnalyticsErrorMessage {
     RECORD_EVENT {
         override fun toString(): String {
