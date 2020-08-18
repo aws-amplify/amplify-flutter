@@ -21,21 +21,18 @@ import android.os.Looper
 import com.amplifyframework.core.Amplify
 import io.flutter.plugin.common.MethodChannel
 import java.lang.Exception
-import java.io.File
 import java.text.SimpleDateFormat
-import com.google.gson.Gson
-import android.util.Log
-import android.content.Context
 import com.amazonaws.amplify.amplify_storage_s3.types.*
 import com.amplifyframework.storage.result.*
-
-val gson = Gson()
 
 class AmplifyStorageOperations {
 
     companion object StorageOperations {
 
+        private val LOG = Amplify.Logging.forNamespace("amplify:flutter:storage_s3")
+
         fun uploadFile(@NonNull flutterResult: MethodChannel.Result, @NonNull request: Map<String, *>) {
+            var responseSent = false
             if (FlutterUploadFileRequest.isValid(request)) {
                 val req = FlutterUploadFileRequest(request)
                 try {
@@ -48,7 +45,7 @@ class AmplifyStorageOperations {
                             },
                             { error ->
                                 if (!responseSent) {
-                                    responseSent = true;
+                                    responseSent = true
                                     prepareError(flutterResult, FlutterStorageErrorMessage.UPLOAD_FILE_OPERATION_FAILED.name, error.localizedMessage, error.recoverySuggestion)
                                 } else {
                                     LOG.error(FlutterStorageErrorMessage.UPLOAD_FILE_OPERATION_FAILED.name, error)
@@ -125,7 +122,7 @@ class AmplifyStorageOperations {
             }
         }
 
-        fun downloadFile(@NonNull flutterResult: MethodChannel.Result, @NonNull request: Map<String, *>, context: Context) {
+        fun downloadFile(@NonNull flutterResult: MethodChannel.Result, @NonNull request: Map<String, *>) {
             if (FlutterDownloadFileRequest.isValid(request)) {
                 val req = FlutterDownloadFileRequest(request)
                 try {
