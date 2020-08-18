@@ -14,23 +14,20 @@
  */
 
 import 'package:flutter/foundation.dart';
-import './UploadFileOptions.dart';
-import 'dart:io';
+import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 
-class UploadFileRequest {
-  File local;
-  String key;
-  UploadFileOptions options;
+class S3DownloadFileOptions extends DownloadFileOptions {
+  String targetIdentityId;
+  S3DownloadFileOptions({StorageAccessLevel accessLevel, this.targetIdentityId})
+      : super(accessLevel: accessLevel);
 
-  UploadFileRequest({@required this.local, @required this.key, this.options});
-
+  @override
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> result = <String, dynamic>{};
-    result['path'] = local.absolute.path;
-    result['key'] = key;
-    if (options != null) {
-      result['options'] = options.serializeAsMap();
+    final Map<String, dynamic> optionsMap = <String, dynamic>{};
+    optionsMap["accessLevel"] = describeEnum(accessLevel);
+    if (targetIdentityId != null) {
+      optionsMap["targetIdentityId"] = targetIdentityId;
     }
-    return result;
+    return optionsMap;
   }
 }

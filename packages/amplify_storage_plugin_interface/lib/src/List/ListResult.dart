@@ -13,7 +13,10 @@
  * permissions and limitations under the License.
  */
 
-export 'S3UploadFile/S3UploadFileOptions.dart';
-export 'S3GetUrl/S3GetUrlOptions.dart';
-export 'S3List/S3ListOptions.dart';
-export 'S3DownloadFile/S3DownloadFileOptions.dart';
+import '../Storage/StorageItem.dart';
+
+class ListResult {
+  List<StorageItem> items;
+
+  ListResult({this.items});
+}
