@@ -1,6 +1,6 @@
 name: amplify_analytics_plugin_interface
 description: The platform interface for the analytics module of Amplify-Flutter.
-version: 0.0.1-dev.0
+version: 0.0.1-dev.1
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify_analytics_plugin_interface
 
 environment:
@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   plugin_platform_interface: ^1.0.1
-  meta: ^1.2.2
+  meta: ^1.1.8
 
 dev_dependencies:
   flutter_test:
