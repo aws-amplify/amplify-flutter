@@ -25,11 +25,12 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.Result
 
 import com.amazonaws.amplify.amplify_analytics_pinpoint.types.FlutterAnalyticsErrorMessage
-
-
+import com.amazonaws.amplify.amplify_analytics_pinpoint.types.PLATFORM_EXCEPTIONS
 
 class AmplifyAnalyticsBridge {
     companion object Bridge {
+
+        private val LOG = AmplifyAnalyticsPinpointPlugin.LOG
 
         fun recordEvent(@NonNull arguments: Any, @NonNull result: MethodChannel.Result) {
             try {
@@ -47,8 +48,8 @@ class AmplifyAnalyticsBridge {
                 Amplify.Analytics.recordEvent(
                         AmplifyAnalyticsBuilder.createAnalyticsEvent(name, properties));
                 result.success(true);
-            } catch (e: Exception) {
-                prepareError(result, e, FlutterAnalyticsErrorMessage.RECORD_EVENT.toString())
+            } catch (exception: Exception) {
+                prepareError(result, exception, FlutterAnalyticsErrorMessage.RECORD_EVENT.toString())
             }
         }
 
@@ -56,8 +57,8 @@ class AmplifyAnalyticsBridge {
             try {
                 Amplify.Analytics.flushEvents()
                 result.success(true)
-            } catch (e: Exception) {
-                prepareError(result, e, FlutterAnalyticsErrorMessage.FLUSH_EVENTS.toString())
+            } catch (exception: Exception) {
+                prepareError(result, exception, FlutterAnalyticsErrorMessage.FLUSH_EVENTS.toString())
             }
         }
 
@@ -67,8 +68,8 @@ class AmplifyAnalyticsBridge {
                 Amplify.Analytics.registerGlobalProperties(
                         AmplifyAnalyticsBuilder.createAnalyticsProperties(globalProperties))
                 result.success(true)
-            } catch (e: Exception) {
-                prepareError(result, e, FlutterAnalyticsErrorMessage.REGISTER_GLOBAL_PROPERTIES.toString())
+            } catch (exception: Exception) {
+                prepareError(result, exception, FlutterAnalyticsErrorMessage.REGISTER_GLOBAL_PROPERTIES.toString())
             }
         }
 
@@ -85,8 +86,8 @@ class AmplifyAnalyticsBridge {
                     }
                 }
                 result.success(true)
-            } catch (e: Exception) {
-                prepareError(result, e, FlutterAnalyticsErrorMessage.UNREGISTER_GLOBAL_PROPERTIES.toString())
+            } catch (exception: Exception) {
+                prepareError(result, exception, FlutterAnalyticsErrorMessage.UNREGISTER_GLOBAL_PROPERTIES.toString())
             }
         }
 
@@ -94,8 +95,8 @@ class AmplifyAnalyticsBridge {
             try {
                 Amplify.Analytics.enable()
                 result.success(true)
-            } catch (e: Exception) {
-                prepareError(result, e, FlutterAnalyticsErrorMessage.ENABLE.toString())
+            } catch (exception: Exception) {
+                prepareError(result, exception, FlutterAnalyticsErrorMessage.ENABLE.toString())
             }
         }
 
@@ -103,8 +104,8 @@ class AmplifyAnalyticsBridge {
             try {
                 Amplify.Analytics.disable()
                 result.success(true)
-            } catch (e: Exception) {
-                prepareError(result, e, FlutterAnalyticsErrorMessage.DISABLE.toString())
+            } catch (exception: Exception) {
+                prepareError(result, exception, FlutterAnalyticsErrorMessage.DISABLE.toString())
             }
         }
 
@@ -117,19 +118,21 @@ class AmplifyAnalyticsBridge {
                 Amplify.Analytics.identifyUser(userId,
                         AmplifyAnalyticsBuilder.createUserProfile(userProfileMap))
                 result.success(true)
-            } catch (e: Exception) {
-                prepareError(result, e, FlutterAnalyticsErrorMessage.IDENTIFY_USER.toString())
+            } catch (exception: Exception) {
+                prepareError(result, exception, FlutterAnalyticsErrorMessage.IDENTIFY_USER.toString())
             }
         }
 
-        fun prepareError(@NonNull flutterResult: Result, @NonNull error: Exception, @NonNull msg: String) {
-            AmplifyAnalyticsPinpointPlugin.LOG.error(msg, error)
+        fun prepareError(@NonNull flutterResult: Result, @NonNull exception: Exception, @NonNull msg: String) {
+            LOG.error(msg, exception)
 
-            var errorDetails = HashMap<String, Any>()
-            errorDetails.put("PLATFORM_EXCEPTIONS", mapOf(
-                    "platform" to "Android",
-                    "localizedErrorMessage" to error.localizedMessage
-            ))
+            var errorDetails : HashMap<String, Any> = hashMapOf(
+                    PLATFORM_EXCEPTIONS to mapOf(
+                            "platform" to "Android",
+                            "localizedErrorMessage" to exception.localizedMessage
+                    )
+            )
+
             Handler(Looper.getMainLooper()).post {
                 flutterResult.error("AmplifyException", msg, errorDetails)
             }
