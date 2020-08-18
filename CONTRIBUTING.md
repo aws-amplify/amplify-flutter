@@ -68,13 +68,31 @@ $ ./dev.sh
 
 ## Steps towards contributions
 
-- To make changes with respect to a specific category, go into `packages/[category]`.
-- Make changes to required file.
-- Write unit tests
-- build
-- Run test suite
-- Test in sample app
-- Submit a PR
+Each packages/[category] contains the following for testing: 
+
+1) `example` folder with a Dart test app for testing that specific category.  In order to run these apps, you must include your own `amplifyconfiguration.dart` file in the `lib` folder.  
+2) `android/src/test/kotlin/.... Test.kt` file.  This is where Android unit tests are written. 
+3) `test/ ... test.dart` file.  This is where Dart unit tests are written. 
+
+The general organization of the Flutter library is as follows: 
+
+1) Each [category] has a corresponding `amplify_[category]_plugin_interface` where its public method set is defined.  
+
+2) A given [category] can have multiple plugins corresponding to different AWS services.  For example Analytics will have a Pinpoint and Kinesis plugin. 
+
+3) The [category] plugins (ie. amplify_auth_cognito, amplify_core, etc.) is a Dart shell that uses the MethodChannel to communicate with native iOS and Android code which in turn calls the corresponding Amplify Android and Amplify iOS library code. 
+
+Contributing: 
+
+1) To start contributing make a fork of this repo and create a branch where you will make your changes to a particular `packages/[category]`. 
+
+2) Write unit tests in android and dart. 
+
+3) Update the example app to use your new changes (if applicable) and to build the app on iOS and Android. 
+
+4) Run the test suite 
+
+5) Submit a PR 
 
 # Pull Requests
 
