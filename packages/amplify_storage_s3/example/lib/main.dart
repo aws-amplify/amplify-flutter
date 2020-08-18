@@ -35,7 +35,6 @@ class _MyAppState extends State<MyApp> {
   String _uploadFileResult = '';
   String _getUrlResult = '';
   String _removeResult = '';
-  ListResult _listResult;
   Amplify amplify = new Amplify();
 
   @override
@@ -119,9 +118,6 @@ class _MyAppState extends State<MyApp> {
       S3ListOptions options =
           S3ListOptions(accessLevel: StorageAccessLevel.guest);
       ListResult result = await Amplify.Storage.list(options: options);
-      setState(() {
-        _listResult = result;
-      });
       print('List Result:');
       for (StorageItem item in result.items) {
         print(
@@ -172,8 +168,6 @@ class _MyAppState extends State<MyApp> {
                     child: const Text('List Files'),
                   ),
                   const Padding(padding: EdgeInsets.all(5.0)),
-                  Text('List size: ${_listResult.items.length}'),
-                  const Padding(padding: EdgeInsets.all(10.0)),
                   RaisedButton(
                     onPressed: getUrl,
                     child: const Text('GetUrl for uploaded File'),
