@@ -1,5 +1,5 @@
 name: amplify_analytics_pinpoint
-description: A new flutter plugin project.
+description: The Amplify Flutter Analytics category plugin using the AWS Pinpoint provider.
 version: 0.0.1
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify_analytics_pinpoint
 
