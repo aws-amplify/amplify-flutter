@@ -13,21 +13,23 @@
  * permissions and limitations under the License.
  */
 
-var authErrorTypes = [
-  "AMPLIFY_CONFIRM_SIGNIN_FAILED",
-  "AMPLIFY_CONFIRM_SIGNUP_FAILED",
-  "AMPLIFY_CONFIRM_PASSWORD_FAILED",
-  "AMPLIFY_GET_CURRENT_USER_FAILED",
-  "AMPLIFY_RESEND_SIGNUP_CODE_FAILED",
-  "AMPLIFY_FETCH_SESSION_FAILED",
-  "AMPLIFY_SIGNIN_FAILED",
-  "AMPLIFY_SIGNOUT_FAILED",
-  "AMPLIFY_SIGNUP_FAILED",
-  "AMPLIFY_RESET_PASSWORD_FAILED"
-  "AMPLIFY_REQUEST_MALFORMED",
-  "AMPLIFY_UPDATE_PASSWORD_FAILED",
-  "ERROR_CASTING_INPUT_IN_PLATFORM_CODE",
-  "ERROR_FORMATTING_PLATFORM_CHANNEL_RESPONSE",
-  "PLATFORM_EXCEPTIONS",
-  "AUTH_PLUGIN_INCORRECTLY_ADDED"
-];
+import Foundation
+import Amplify
+
+struct FlutterAuthUserResult  {
+    var userId: String
+    var username: String
+
+    init(res: AuthUser){
+        self.userId = res.userId
+        self.username = res.username
+    }
+    
+    func toJSON() -> Dictionary<String, Any> {
+       return [
+         "userId": self.userId,
+         "username": self.username
+       ]
+   }
+}
+

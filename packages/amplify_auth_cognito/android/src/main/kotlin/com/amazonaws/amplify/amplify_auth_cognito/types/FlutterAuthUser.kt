@@ -13,21 +13,20 @@
  * permissions and limitations under the License.
  */
 
-var authErrorTypes = [
-  "AMPLIFY_CONFIRM_SIGNIN_FAILED",
-  "AMPLIFY_CONFIRM_SIGNUP_FAILED",
-  "AMPLIFY_CONFIRM_PASSWORD_FAILED",
-  "AMPLIFY_GET_CURRENT_USER_FAILED",
-  "AMPLIFY_RESEND_SIGNUP_CODE_FAILED",
-  "AMPLIFY_FETCH_SESSION_FAILED",
-  "AMPLIFY_SIGNIN_FAILED",
-  "AMPLIFY_SIGNOUT_FAILED",
-  "AMPLIFY_SIGNUP_FAILED",
-  "AMPLIFY_RESET_PASSWORD_FAILED"
-  "AMPLIFY_REQUEST_MALFORMED",
-  "AMPLIFY_UPDATE_PASSWORD_FAILED",
-  "ERROR_CASTING_INPUT_IN_PLATFORM_CODE",
-  "ERROR_FORMATTING_PLATFORM_CHANNEL_RESPONSE",
-  "PLATFORM_EXCEPTIONS",
-  "AUTH_PLUGIN_INCORRECTLY_ADDED"
-];
+package com.amazonaws.amplify.amplify_auth_cognito.types
+
+import com.amplifyframework.auth.AuthUser
+
+
+data class FlutterAuthUser(private var raw: AuthUser) {
+  val userId: String = raw.userId
+  val username: String = raw.username;
+
+
+  fun toValueMap(): Map<String, Any> {
+    return mapOf(
+      "userId" to this.userId,
+      "username" to this.username
+    )
+  }
+}
