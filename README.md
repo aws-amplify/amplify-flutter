@@ -14,6 +14,10 @@ AWS Amplify provides a declarative and easy-to-use interface across different ca
 
 We are iterating and looking for feedback and collaboration, so please [**let us know your feedback**](https://github.com/aws-amplify/amplify-flutter/issues/5) on our direction and roadmap.
 
+ - [Getting Started Guide](https://docs.amplify.aws/start/getting-started/setup/q/integration/flutter)
+ - [Example Application](https://github.com/aws-amplify/amplify-flutter/tree/master/example)
+ - [Roadmap/Provide Feedback](https://github.com/aws-amplify/amplify-flutter/issues/5)
+
 ## Supported Amplify Categories
 
 - [**Authentication**](https://docs.amplify.aws/lib/auth/getting-started/q/platform/flutter): APIs and building blocks to create user authentication experiences.
