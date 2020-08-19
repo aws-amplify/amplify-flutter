@@ -72,6 +72,11 @@ enum class FlutterAuthFailureMessage {
       return "AMPLIFY_CONFIRM_PASSWORD_FAILED"
     }
   },
+  CURRENT_USER{
+    override fun toString(): String {
+      return "AMPLIFY_GET_CURRENT_USER_FAILED"
+    }
+  },
   FETCH_SESSION {
     override fun toString(): String {
       return "AMPLIFY_FETCH_SESSION_FAILED"

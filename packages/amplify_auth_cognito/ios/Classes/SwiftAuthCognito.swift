@@ -156,6 +156,8 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
         case "fetchAuthSession":
             let request = FlutterFetchSessionRequest(dict: data)
             onFetchSession(flutterResult: result, request: request)
+        case "getCurrentUser":
+            onGetCurrentUser(flutterResult: result)
         default:
           result(FlutterMethodNotImplemented)
     }
@@ -284,13 +286,34 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
                 flutterResult(sessionData.toJSON())
             } else {
                 let sessionData = try FlutterFetchSessionResult(res: result)
-                flutterResult(sessionData.toJSON())
+                if (sessionData.isSignedIn) {
+                  flutterResult(sessionData.toJSON())
+                } else {
+                    throw AuthError.signedOut("There is no user signed in to retreive user sub",
+                    "Call Auth.signIn to sign in a user and then call Auth.fetchSession")
+                }
             }
 
         } catch {
             self.handleAuthError(error: error as! AuthError, flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.FETCH_SESSION.rawValue)
         }
       }
+    }
+    
+    private func onGetCurrentUser(flutterResult: @escaping FlutterResult) {
+      do {
+        guard let user = Amplify.Auth.getCurrentUser() else {
+           throw AuthError.signedOut(
+               "You are currently signed out.",
+               "Please sign in and reattempt the operation."
+           )
+        }
+        let userData = FlutterAuthUserResult(res: user)
+        flutterResult(userData.toJSON())
+        
+      } catch {
+          self.handleAuthError(error: error as! AuthError, flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.GET_CURRENT_USER.rawValue)
+        }
     }
     
     private func handleAuthError(error: AuthError, flutterResult: FlutterResult, msg: String){

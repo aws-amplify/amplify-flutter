@@ -39,11 +39,13 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignOutRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmPasswordRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResetPasswordRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdatePasswordRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthUser
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.exceptions.CognitoCodeExpiredException
 import com.amazonaws.services.cognitoidentityprovider.model.*
 import com.amplifyframework.auth.AuthChannelEventName
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthSession
+import com.amplifyframework.auth.AuthUser
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
 import com.amplifyframework.auth.cognito.AWSCognitoAuthSession
 import com.amplifyframework.auth.result.AuthResetPasswordResult
@@ -129,6 +131,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
       "confirmPassword" -> onConfirmPassword(result, data)
       "fetchAuthSession" -> onFetchAuthSession(result, data)
       "resendSignUpCode" -> onResendSignUpCode(result, data)
+      "getCurrentUser" -> onGetCurrentUser(result)
       else -> result.notImplemented()
     }
   }
@@ -368,7 +371,19 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     } catch(e: Exception) {
       prepareError(flutterResult, e, FlutterAuthFailureMessage.FETCH_SESSION.toString())
     }
+  }
 
+  private fun onGetCurrentUser(@NonNull flutterResult: Result) {
+    try {
+      var user: AuthUser? = Amplify.Auth.currentUser;
+      if (user is AuthUser) {
+        prepareUserResult(flutterResult, user);
+      } else {
+        throw AuthException.SignedOutException()
+      }
+    } catch(e: Exception) {
+      prepareError(flutterResult, e, FlutterAuthFailureMessage.CURRENT_USER.toString())
+    }
   }
 
   fun prepareError(@NonNull flutterResult: Result, @NonNull error: Exception, @NonNull msg: String) {
@@ -474,14 +489,25 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     }
   }
 
+  fun prepareUserResult(@NonNull flutterResult: Result, @NonNull user: AuthUser) {
+    var preppedUser = FlutterAuthUser(user);
+    Handler (Looper.getMainLooper()).post {
+      flutterResult.success(preppedUser.toValueMap());
+    }
+  }
+
   fun prepareCognitoSessionFailure(@NonNull flutterResult: Result, @NonNull result: AWSCognitoAuthSession) {
-    prepareError(flutterResult, result.awsCredentials.error as AuthException, FlutterAuthFailureMessage.FETCH_SESSION.toString())
+    prepareError(flutterResult, AuthException.SignedOutException(), FlutterAuthFailureMessage.FETCH_SESSION.toString())
   }
 
   fun prepareSessionResult(@NonNull flutterResult: Result, @NonNull result: AuthSession) {
     var session = FlutterFetchAuthSessionResult(result);
-    Handler (Looper.getMainLooper()).post {
-      flutterResult.success(session.toValueMap());
+    if (session.isSignedIn) {
+      Handler (Looper.getMainLooper()).post {
+        flutterResult.success(session.toValueMap());
+      }
+    } else {
+      prepareError(flutterResult, AuthException.SignedOutException(), FlutterAuthFailureMessage.FETCH_SESSION.toString())
     }
   }
 }

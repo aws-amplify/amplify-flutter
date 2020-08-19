@@ -233,6 +233,27 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     return res;
   }
 
+  @override
+  Future<AuthUser> getCurrentUser({AuthUserRequest request}) async {
+    AuthUser res;
+    try {
+      final Map<String, dynamic> data =
+      await _channel.invokeMapMethod<String, dynamic>(
+        'getCurrentUser',
+        <String, dynamic>{
+          'data': request != null ? request.serializeAsMap() : {},
+        },
+      );
+      res = _formatAuthUserResponse(data);
+      return res;
+    } on PlatformException catch(e) {
+      _throwError(e);
+    } on AuthError catch(e) {
+      throw(e);
+    }
+    return res;
+  }
+
   SignUpResult _formatSignUpResponse(Map<String, dynamic> res, method) {
     if (res.containsKey("nextStep")) {
       return CognitoSignUpResult(isSignUpComplete: res["isSignUpComplete"], nextStep: AuthNextSignUpStep(
@@ -271,6 +292,13 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   SignOutResult _formatSignOutResponse(Map<String, dynamic> signOutResponse) {
     return SignOutResult();
+  }
+
+  AuthUser _formatAuthUserResponse(Map<String, dynamic> authUserResponse) {
+    return AuthUser(
+      userId: authUserResponse["userId"],
+      username: authUserResponse["username"]
+    );
   }
 
   ResetPasswordResult _formatResetPasswordResponse(Map<String, dynamic> res) {
