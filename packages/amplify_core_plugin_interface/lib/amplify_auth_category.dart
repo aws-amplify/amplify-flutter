@@ -64,6 +64,11 @@ class AuthCategory {
     return plugins[0].confirmPassword(request: request);
   }
 
+  Future<AuthUser> getCurrrentUser() {
+    var request = AuthUserRequest();
+    return plugins[0].getCurrentUser();
+  }
+
   Future<AuthSession> fetchAuthSession({AuthSessionOptions options}) {
     var request = AuthSessionRequest(options: options);
     return plugins[0].fetchAuthSession(request: request);

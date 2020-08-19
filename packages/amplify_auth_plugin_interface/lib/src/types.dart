@@ -48,6 +48,9 @@ export 'Password/ConfirmPasswordRequest.dart';
 export 'Session/AuthSession.dart';
 export 'Session/AuthSessionOptions.dart';
 export 'Session/AuthSessionRequest.dart';
+export 'Session/AuthUser.dart';
+export 'Session/AuthUserOptions.dart';
+export 'Session/AuthUserRequest.dart';
 
 // Error Classes
 export 'Errors/AuthError.dart';
