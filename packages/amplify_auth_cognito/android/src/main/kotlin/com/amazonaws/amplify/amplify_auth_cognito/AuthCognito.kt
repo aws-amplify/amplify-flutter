@@ -68,6 +68,7 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
+import java.lang.IllegalStateException
 
 
 /** AuthCognito */
@@ -419,6 +420,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
           is LimitExceededException -> errorMap["REQUEST_LIMIT_EXCEEDED"] = (error.cause as LimitExceededException).errorMessage;
           is AmazonClientException -> errorMap["AMAZON_CLIENT_EXCEPTION"] = (error.cause as AmazonClientException).localizedMessage;
           is AmazonServiceException -> errorMap["AMAZON_SERVICE_EXCEPTION"] = (error.cause as AmazonServiceException).localizedMessage;
+          is IllegalStateException -> errorMap["AMAZON_SERVICE_EXCEPTION"] = (error.cause as AmazonServiceException).localizedMessage;
           else -> errorMap["UNKNOWN"] = "Unknown Auth Error.";
         }
       }
