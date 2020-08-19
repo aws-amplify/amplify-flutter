@@ -1,6 +1,6 @@
 # amplify_core
 
-The core module for aws-amplify-flutter.
+The core module for Amplify-Flutter.
 
 ## Getting Started
 
