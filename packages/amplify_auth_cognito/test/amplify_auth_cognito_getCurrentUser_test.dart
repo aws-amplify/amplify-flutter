@@ -58,7 +58,7 @@ void main() {
     expect(await Amplify.Auth.getCurrrentUser(), isInstanceOf<AuthUser>());
   });
 
-  test('fetchSession thrown PlatFormException results in AuthError', () async {
+  test('PlatformException in getCurrentUser surfaces as AuthError', () async {
     testCode = 2;
     AuthError err;
    try {
