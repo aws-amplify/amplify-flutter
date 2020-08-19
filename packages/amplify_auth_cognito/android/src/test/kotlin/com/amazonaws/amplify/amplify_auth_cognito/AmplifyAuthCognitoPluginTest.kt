@@ -38,7 +38,7 @@ class AmplifyAuthCognitoPluginTest {
     private val signUpStep = AuthNextSignUpStep(AuthSignUpStep.CONFIRM_SIGN_UP_STEP, emptyMap(), codeDeliveryDetails)
     private val signInStep = AuthNextSignInStep(AuthSignInStep.CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE, emptyMap(), codeDeliveryDetails)
     private val resetStep = AuthNextResetPasswordStep(AuthResetPasswordStep.CONFIRM_RESET_PASSWORD_WITH_CODE, emptyMap(), codeDeliveryDetails)
-    private val mockSignUpResult = AuthSignUpResult(false, signUpStep)
+    private val mockSignUpResult = AuthSignUpResult(false, signUpStep, null)
     private val mockSignInResult = AuthSignInResult(false, signInStep)
     private val mockResetPasswordResult = AuthResetPasswordResult(false, resetStep)
     private var currentException: AuthException? = null;
