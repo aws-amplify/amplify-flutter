@@ -16,13 +16,13 @@ We are iterating and looking for feedback and collaboration, so please [**let us
 
 ## Supported Amplify Categories
 
-- [x] [**Authentication**](https://docs.amplify.aws/lib/auth/getting-started/q/platform/flutter): Create user authentication experiences with Amazon Cognito.
+- [x] [**Authentication**](https://docs.amplify.aws/lib/auth/getting-started/q/platform/flutter): Create user authentication experiences with Amazon Cognito
 
     <a href="https://pub.dev/packages/amplify_auth_cognito" target="_blank">
       <img src="https://img.shields.io/pub/v/amplify_auth_cognito.svg">
     </a>
 
-- [x] [**Analytics**](https://docs.amplify.aws/lib/analytics/getting-started/q/platform/flutter): Collect analytics data with Amazon Pinpoint.
+- [x] [**Analytics**](https://docs.amplify.aws/lib/analytics/getting-started/q/platform/flutter): Collect analytics data with Amazon Pinpoint
 
   <a href="https://pub.dev/packages/amplify_analytics_pinpoint" target="_blank">
     <img src="https://img.shields.io/pub/v/amplify_analytics_pinpoint.svg">
