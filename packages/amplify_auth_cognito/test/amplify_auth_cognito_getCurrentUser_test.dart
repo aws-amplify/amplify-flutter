@@ -22,7 +22,7 @@ void main() {
   const MethodChannel authChannel = MethodChannel('com.amazonaws.amplify/auth_cognito');
   const MethodChannel coreChannel = MethodChannel('com.amazonaws.amplify/core');
 
-  Amplify amplify = new Amplify();
+  Amplify amplify = Amplify();
   AmplifyAuthCognito auth = AmplifyAuthCognito();
 
   TestWidgetsFlutterBinding.ensureInitialized();
