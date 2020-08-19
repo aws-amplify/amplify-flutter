@@ -303,7 +303,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
     private func onGetCurrentUser(flutterResult: @escaping FlutterResult) {
       do {
         guard let user = Amplify.Auth.getCurrentUser() else {
-           // TODO: User the AuthPluginErrorConstants
+           // TODO: Use the AuthPluginErrorConstants
            throw AuthError.signedOut(
            "You are currently signed out.",
            "Please sign in and reattempt the operation.")
