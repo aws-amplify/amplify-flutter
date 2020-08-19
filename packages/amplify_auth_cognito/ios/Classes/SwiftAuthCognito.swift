@@ -313,8 +313,9 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
            // TODO: Use the AuthPluginErrorConstants
 >>>>>>> Fixing comment
            throw AuthError.signedOut(
-           "You are currently signed out.",
-           "Please sign in and reattempt the operation.")
+               "You are currently signed out.",
+               "Please sign in and reattempt the operation."
+           )
         }
         let userData = FlutterAuthUserResult(res: user)
         flutterResult(userData.toJSON())
