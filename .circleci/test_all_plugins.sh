@@ -7,6 +7,7 @@ failed_plugins=()
 skipped_plugins=()
 
 set +e
+set -o pipefail
 
 for plugin_dir in */; do
     cd "$plugin_dir" || exit
