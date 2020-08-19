@@ -65,7 +65,7 @@ class AuthCategory {
     return plugins.length == 1 ? plugins[0].confirmPassword(request: request) : throw(errorMsg);
   }
 
-  Future<AuthUser> getCurrrentUser() {
+  Future<AuthUser> getCurrentUser() {
     var request = AuthUserRequest();
     return plugins.length == 1 ? plugins[0].getCurrentUser(request: request) : throw(errorMsg);
   }

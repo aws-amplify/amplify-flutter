@@ -348,7 +348,7 @@ class _MyAppState extends State<MyApp> {
       exceptions = [];
     });
     try {
-      AuthUser res = await Amplify.Auth.getCurrrentUser();
+      AuthUser res = await Amplify.Auth.getCurrentUser();
       print(res);
     } on AuthError catch (e) {
       setState(() {
