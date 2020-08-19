@@ -16,19 +16,19 @@ We are iterating and looking for feedback and collaboration, so please [**let us
 
 ## Supported Amplify Categories
 
-- [x] [**Authentication**](https://docs.amplify.aws/lib/auth/getting-started/q/platform/flutter): APIs and building blocks to create user authentication experiences. 
+- [x] [**Authentication**](https://docs.amplify.aws/lib/auth/getting-started/q/platform/flutter): Create user authentication experiences with Amazon Cognito.
 
     <a href="https://pub.dev/packages/amplify_auth_cognito" target="_blank">
       <img src="https://img.shields.io/pub/v/amplify_auth_cognito.svg">
     </a>
 
-- [x] [**Analytics**](https://docs.amplify.aws/lib/analytics/getting-started/q/platform/flutter): Collect analytics data for your app. Analytics data includes user sessions and other custom events that you want to track in your app. 
+- [x] [**Analytics**](https://docs.amplify.aws/lib/analytics/getting-started/q/platform/flutter): Collect analytics data with Amazon Pinpoint.
 
   <a href="https://pub.dev/packages/amplify_analytics_pinpoint" target="_blank">
     <img src="https://img.shields.io/pub/v/amplify_analytics_pinpoint.svg">
   </a>
 
-- [x] [**Storage**](https://docs.amplify.aws/lib/storage/getting-started/q/platform/flutter): Provides a simple mechanism for managing user content for your app in public, protected or private storage buckets. 
+- [x] [**Storage**](https://docs.amplify.aws/lib/storage/getting-started/q/platform/flutter): Store user content with Amazon S3 
 
   <a href="https://pub.dev/packages/amplify_storage_s3" target="_blank">
     <img src="https://img.shields.io/pub/v/amplify_storage_s3.svg">
