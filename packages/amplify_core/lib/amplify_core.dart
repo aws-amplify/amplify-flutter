@@ -16,6 +16,7 @@
 library amplify_core;
 
 import 'dart:async';
+import 'dart:io';
 import 'package:amplify_core_plugin_interface/amplify_core_plugin_interface.dart';
 import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
@@ -61,9 +62,13 @@ class Amplify {
     return null;
   }
 
+  String _getVersion() {
+    return "0.1.0";
+  }
+
   Future<void> configure(String configuration) async {
     assert(configuration != null, 'configuration is null');
-    var res = await Core.instance.configure(configuration);
+    var res = await Core.instance.configure(_getVersion(), configuration);
     _isConfigured = res;
     if (!res) {
       throw ("Amplify plugin was not added");

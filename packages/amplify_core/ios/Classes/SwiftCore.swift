@@ -32,9 +32,10 @@ public class SwiftCore: NSObject, FlutterPlugin {
       case "configure":
         do {
           let arguments = call.arguments as! Dictionary<String, AnyObject>
+          let version = arguments["version"] as! String
           let configuration = arguments["configuration"] as! String
           let amplifyConfiguration = try JSONDecoder().decode(AmplifyConfiguration.self, from: configuration.data(using: .utf8)!)
-          onConfigure(result: result, amplifyConfiguration: amplifyConfiguration)
+          onConfigure(result: result, version: version, amplifyConfiguration: amplifyConfiguration)
             
         } catch {
             print("Failed to configure Amplify \(error)")
@@ -47,8 +48,10 @@ public class SwiftCore: NSObject, FlutterPlugin {
     }
   }
 
-  private func onConfigure(result: FlutterResult, amplifyConfiguration: AmplifyConfiguration) {
+    private func onConfigure(result: FlutterResult, version: String, amplifyConfiguration: AmplifyConfiguration) {
     do {
+        
+      AmplifyAWSServiceConfiguration.addUserAgentPlatform(.flutter, version: version)
       try Amplify.configure(amplifyConfiguration)
       result(true)
     } catch {

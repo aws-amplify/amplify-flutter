@@ -60,7 +60,7 @@ abstract class Core extends PlatformInterface {
   final StorageCategory Storage = StorageCategory();
 
   /// Adds the configuration and return true if it was successful.
-  Future<bool> configure(String configuration) {
+  Future<bool> configure(String version, String configuration) {
     throw UnimplementedError('configure() has not been implemented.');
   }
 }

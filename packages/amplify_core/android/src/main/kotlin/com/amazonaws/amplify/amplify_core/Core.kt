@@ -22,6 +22,7 @@ import androidx.annotation.NonNull
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.AmplifyConfiguration
+import com.amplifyframework.util.UserAgent
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -60,7 +61,11 @@ public class Core : FlutterPlugin, ActivityAware, MethodCallHandler {
         when (call.method) {
             "configure" -> 
                 try {
-                    onConfigure(result, (call.arguments as HashMap<*, *>)["configuration"] as String)
+                    val arguments = call.arguments as HashMap<*, *>
+                    val version = arguments["version"] as String
+                    val configuration = arguments["configuration"] as String
+
+                    onConfigure(result, version, configuration)
                 }
                 catch (e: Exception) {
                     result.error("AmplifyException", "Error casting configuration map", e.message )
@@ -90,9 +95,16 @@ public class Core : FlutterPlugin, ActivityAware, MethodCallHandler {
         channel.setMethodCallHandler(null)
     }
 
-    private fun onConfigure(@NonNull result: Result, @NonNull config: String) {
+    private fun onConfigure(@NonNull result: Result, @NonNull version: String, @NonNull config: String) {
         try {
-            Amplify.configure(AmplifyConfiguration.fromJson(JSONObject(config)), context);
+            Amplify.configure(AmplifyConfiguration.builder(JSONObject(config))
+                    .addPlatform(UserAgent.Platform.FLUTTER, version)
+                    .build(),
+                    context
+            );
+
+
+
             result.success(true);
         } catch (e: AmplifyException) {
             result.error("AmplifyException", e.message, formatAmplifyException(e) )
