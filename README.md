@@ -34,7 +34,7 @@ Amplify for Flutter currently supports **iOS** and **Android** platforms.
 
 ## Documentation
 
-- [Getting Started with Amplify Flutter](https://docs.amplify.aws/start/getting-started/installation/q/integration/flutter)
+- [Getting Started with Amplify Flutter](https://docs.amplify.aws/start/q/integration/flutter)
 - [Amplify Framework](https://docs.amplify.aws/)
 - [Install the Amplify CLI](https://docs.amplify.aws/cli/start/install)
 - [Contributing to Amplify Flutter](CONTRIBUTING.md)
