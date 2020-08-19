@@ -90,7 +90,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<bool> _isSignedIn() async {
     final session = await Amplify.Auth.fetchAuthSession(
-      options: CognitoSessionOptions(getAWSCredentials: true)
+      options: CognitoSessionOptions(getAWSCredentials: false)
     );
     return session.isSignedIn;
   }
@@ -771,7 +771,10 @@ Widget showSignIn() {
                   onPressed: _isAmplifyConfigured ? null: _configureAmplify,
                   child: const Text('configure'),
                 ),
-
+                RaisedButton(
+                  onPressed: _isAmplifyConfigured ? null: _signIn,
+                  child: const Text('signin'),
+                ),
                 const Padding(padding: EdgeInsets.all(10.0)),
                 if (this.displayState == "SHOW_SIGN_UP") showSignUp(),
                 if (this.displayState == "SHOW_CONFIRM") showConfirmSignUp(),

@@ -70,11 +70,6 @@ class AuthCategory {
     return plugins.length == 1 ? plugins[0].getCurrentUser(request: request) : throw(errorMsg);
   }
 
-  Future<AuthUser> getCurrrentUser() {
-    var request = AuthUserRequest();
-    return plugins[0].getCurrentUser();
-  }
-
   Future<AuthSession> fetchAuthSession({AuthSessionOptions options}) {
     var request = AuthSessionRequest(options: options);
     return plugins.length == 1 ? plugins[0].fetchAuthSession(request: request) : throw(errorMsg);
