@@ -20,17 +20,17 @@ We are iterating and looking for feedback and collaboration, so please [**let us
 
 ## Supported Amplify Categories
 
-- [**Authentication**](https://docs.amplify.aws/lib/auth/getting-started/q/platform/flutter): APIs and building blocks to create user authentication experiences.
-- [**Analytics**](https://docs.amplify.aws/lib/analytics/getting-started/q/platform/flutter): Collect analytics data for your app. Analytics data includes user sessions and other custom events that you want to track in your app.
-- [**Storage**](https://docs.amplify.aws/lib/storage/getting-started/q/platform/flutter): Provides a simple mechanism for managing user content for your app in public, protected or private storage buckets.
+- [x] [**Authentication**](https://docs.amplify.aws/lib/auth/getting-started/q/platform/flutter): APIs and building blocks to create user authentication experiences.
+- [x] [**Analytics**](https://docs.amplify.aws/lib/analytics/getting-started/q/platform/flutter): Collect analytics data for your app. Analytics data includes user sessions and other custom events that you want to track in your app.
+- [x] [**Storage**](https://docs.amplify.aws/lib/storage/getting-started/q/platform/flutter): Provides a simple mechanism for managing user content for your app in public, protected or private storage buckets.
 
 ### To Be Implemented
 
- - API (REST/GraphQL)
- - Predictions
- - Datastore
- - Hub Events (Listening to the Amplify events)
- - iOS Error Events in Amplify Analytics
+- [ ] API (REST/GraphQL)
+- [ ] Predictions
+- [ ] Datastore
+- [ ] Hub Events (Listening to the Amplify events)
+- [ ] iOS Error Events in Amplify Analytics
 
 > Amplify for Flutter is in preview, and is not recommended for production use at this time. During this phase, we are iterating on the code base, and looking for your feedback and collaboration. [**WE'D LOVE TO GET YOUR FEEDBACK! :-).**](https://github.com/aws-amplify/amplify-flutter/issues/5).
 
