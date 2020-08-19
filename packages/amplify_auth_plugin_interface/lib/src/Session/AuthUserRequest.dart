@@ -12,21 +12,14 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+import './AuthUserOptions.dart';
 
-var authErrorTypes = [
-  "AMPLIFY_CONFIRM_SIGNIN_FAILED",
-  "AMPLIFY_CONFIRM_SIGNUP_FAILED",
-  "AMPLIFY_CONFIRM_PASSWORD_FAILED",
-  "AMPLIFY_GET_CURRENT_USER_FAILED",
-  "AMPLIFY_RESEND_SIGNUP_CODE_FAILED",
-  "AMPLIFY_FETCH_SESSION_FAILED",
-  "AMPLIFY_SIGNIN_FAILED",
-  "AMPLIFY_SIGNOUT_FAILED",
-  "AMPLIFY_SIGNUP_FAILED",
-  "AMPLIFY_RESET_PASSWORD_FAILED"
-  "AMPLIFY_REQUEST_MALFORMED",
-  "AMPLIFY_UPDATE_PASSWORD_FAILED",
-  "ERROR_CASTING_INPUT_IN_PLATFORM_CODE",
-  "ERROR_FORMATTING_PLATFORM_CHANNEL_RESPONSE",
-  "PLATFORM_EXCEPTIONS"
-];
+
+class AuthUserRequest {
+  AuthUserOptions options;
+  AuthUserRequest();
+  Map<String, dynamic> serializeAsMap() {
+    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
+    return pendingRequest;
+  }
+}

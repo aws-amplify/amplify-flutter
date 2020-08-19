@@ -332,7 +332,7 @@ class _MyAppState extends State<MyApp> {
     });
     try {
       AuthSession res = await Amplify.Auth.fetchAuthSession(
-        options: CognitoSessionOptions(getAWSCredentials: false)
+        options: CognitoSessionOptions(getAWSCredentials: true)
       );
       print(res);
     } on AuthError catch (e) {
@@ -343,6 +343,24 @@ class _MyAppState extends State<MyApp> {
         });
       });
       print(e);
+    }
+  }
+
+  void _getCurrentUser() async {
+    setState(() {
+      error = "";
+      exceptions = [];
+    });
+    try {
+      AuthUser res = await Amplify.Auth.getCurrrentUser();
+      print(res);
+    } on AuthError catch (e) {
+      setState(() {
+        error = e.cause;
+        e.exceptionList.forEach((el) {
+          exceptions.add(el.exception);
+        });
+      });
     }
   }
 
@@ -495,6 +513,11 @@ Widget showSignIn() {
             RaisedButton(
               onPressed: _fetchSession,
               child: const Text('Get Session'),
+            ),
+            const Padding(padding: EdgeInsets.all(10.0)),
+            RaisedButton(
+              onPressed: _getCurrentUser,
+              child: const Text('Get Current User'),
             ),
             ],
           ),
@@ -688,6 +711,11 @@ Widget showSignIn() {
               RaisedButton(
                 onPressed: _fetchSession,
                 child: const Text('Get Session'),
+              ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                onPressed: _getCurrentUser,
+                child: const Text('Get CurrentUser')
               )
             ],
           ),
