@@ -312,7 +312,7 @@ class AmplifyAuthCognitoPluginTest {
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
+        verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>())
     }
 
     private fun setFinalStatic(field: Field, newValue: Any?) {

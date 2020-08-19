@@ -286,7 +286,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
                 flutterResult(sessionData.toJSON())
             } else {
                 let sessionData = try FlutterFetchSessionResult(res: result)
-                if (sessionData.isSignedIn == true) {
+                if (sessionData.isSignedIn) {
                   flutterResult(sessionData.toJSON())
                 } else {
                     throw AuthError.signedOut("There is no user signed in to retreive user sub",
