@@ -22,7 +22,7 @@ void main() {
   const MethodChannel authChannel = MethodChannel('com.amazonaws.amplify/auth_cognito');
   const MethodChannel coreChannel = MethodChannel('com.amazonaws.amplify/core');
 
-  Amplify amplify = new Amplify();
+  Amplify amplify = Amplify();
   AmplifyAuthCognito auth = AmplifyAuthCognito();
 
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -38,7 +38,7 @@ void main() {
             "userSub": "testSub"
           };
           case 2:
-            return throw PlatformException(code: "AMPLIFY_EXCEPTION", message: "AMPLIFY_GET_CURRENT_USER_FAILED", details: {});
+            return throw PlatformException(code: "AMPLIFY_EXCEPTION", message: "AMPLIFY_GET_CURRENT_USER_FAILED", details: {} );
       } 
     });
     coreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
@@ -58,7 +58,7 @@ void main() {
     expect(await Amplify.Auth.getCurrrentUser(), isInstanceOf<AuthUser>());
   });
 
-  test('fetchSession thrown PlatFormException results in AuthError', () async {
+  test('PlatformException in getCurrentUser surfaces as AuthError', () async {
     testCode = 2;
     AuthError err;
    try {
