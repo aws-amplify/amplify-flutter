@@ -1,10 +1,6 @@
-<img src="https://s3.amazonaws.com/aws-mobile-hub-images/aws-amplify-logo.png" alt="AWS Amplify" width="550" >
+![AWS Amplify](https://s3.amazonaws.com/aws-mobile-hub-images/aws-amplify-logo.png)
 
-<p>
-    <a href="https://discord.gg/jWVbPfC" target="_blank">
-        <img src="https://img.shields.io/discord/308323056592486420?logo=discord"" alt="Discord Chat" />  
-    </a>
-</p>
+[![discord](https://img.shields.io/discord/308323056592486420?logo=discord)](https://discord.gg/jWVbPfC)
 
 ## Amplify Flutter (Developer Preview)
 
@@ -20,9 +16,23 @@ We are iterating and looking for feedback and collaboration, so please [**let us
 
 ## Supported Amplify Categories
 
-- [x] [**Authentication**](https://docs.amplify.aws/lib/auth/getting-started/q/platform/flutter): APIs and building blocks to create user authentication experiences.
-- [x] [**Analytics**](https://docs.amplify.aws/lib/analytics/getting-started/q/platform/flutter): Collect analytics data for your app. Analytics data includes user sessions and other custom events that you want to track in your app.
-- [x] [**Storage**](https://docs.amplify.aws/lib/storage/getting-started/q/platform/flutter): Provides a simple mechanism for managing user content for your app in public, protected or private storage buckets.
+- [x] [**Authentication**](https://docs.amplify.aws/lib/auth/getting-started/q/platform/flutter): APIs and building blocks to create user authentication experiences. 
+
+    <a href="https://pub.dev/packages/amplify_auth_cognito" target="_blank">
+      <img src="https://img.shields.io/pub/v/amplify_auth_cognito.svg">
+    </a>
+
+- [x] [**Analytics**](https://docs.amplify.aws/lib/analytics/getting-started/q/platform/flutter): Collect analytics data for your app. Analytics data includes user sessions and other custom events that you want to track in your app. 
+
+  <a href="https://pub.dev/packages/amplify_analytics_pinpoint" target="_blank">
+    <img src="https://img.shields.io/pub/v/amplify_analytics_pinpoint.svg">
+  </a>
+
+- [x] [**Storage**](https://docs.amplify.aws/lib/storage/getting-started/q/platform/flutter): Provides a simple mechanism for managing user content for your app in public, protected or private storage buckets. 
+
+  <a href="https://pub.dev/packages/amplify_storage_s3" target="_blank">
+    <img src="https://img.shields.io/pub/v/amplify_storage_s3.svg">
+  </a>
 
 ### To Be Implemented
 
