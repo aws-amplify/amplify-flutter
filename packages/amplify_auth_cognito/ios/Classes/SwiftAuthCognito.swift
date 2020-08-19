@@ -286,11 +286,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
                 flutterResult(sessionData.toJSON())
             } else {
                 let sessionData = try FlutterFetchSessionResult(res: result)
-<<<<<<< HEAD
                 if (sessionData.isSignedIn) {
-=======
-                if (sessionData.isSignedIn == true) {
->>>>>>> feat(amplify_auth_cognito): getCurrentUser
                   flutterResult(sessionData.toJSON())
                 } else {
                     throw AuthError.signedOut("There is no user signed in to retreive user sub",
@@ -308,10 +304,14 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
       do {
         guard let user = Amplify.Auth.getCurrentUser() else {
 <<<<<<< HEAD
+<<<<<<< HEAD
            // TODO: Use the AuthPluginErrorConstants
 =======
            // TODO: User the AuthPluginErrorConstants
 >>>>>>> feat(amplify_auth_cognito): getCurrentUser
+=======
+           // TODO: Use the AuthPluginErrorConstants
+>>>>>>> Fixing comment
            throw AuthError.signedOut(
            "You are currently signed out.",
            "Please sign in and reattempt the operation.")
