@@ -38,7 +38,7 @@ void main() {
             "userSub": "testSub"
           };
           case 2:
-            return throw PlatformException(code: "AMPLIFY_EXCEPTION", message: "AMPLIFY_GET_CURRENT_USER_FAILED", details: {} );
+            return throw PlatformException(code: "AMPLIFY_EXCEPTION", message: "AMPLIFY_GET_CURRENT_USER_FAILED", details: {});
       } 
     });
     coreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
