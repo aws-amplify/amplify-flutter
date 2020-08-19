@@ -89,9 +89,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<bool> _isSignedIn() async {
-    final session = await Amplify.Auth.fetchAuthSession(
-      options: CognitoSessionOptions(getAWSCredentials: false)
-    );
+    final session = await Amplify.Auth.fetchAuthSession();
     return session.isSignedIn;
   }
 
@@ -331,9 +329,7 @@ class _MyAppState extends State<MyApp> {
       exceptions = [];
     });
     try {
-      AuthSession res = await Amplify.Auth.fetchAuthSession(
-        options: CognitoSessionOptions(getAWSCredentials: true)
-      );
+      AuthSession res = await Amplify.Auth.fetchAuthSession();
       print(res);
     } on AuthError catch (e) {
       setState(() {
