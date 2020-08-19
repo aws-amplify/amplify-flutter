@@ -20,12 +20,11 @@ import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 void main() {
-  const MethodChannel storageChannel =
-      MethodChannel('com.amazonaws.amplify/storage_s3');
-  const MethodChannel coreChannel = MethodChannel('com.amazonaws.amplify/core');
+  const storageChannel = MethodChannel('com.amazonaws.amplify/storage_s3');
+  const coreChannel = MethodChannel('com.amazonaws.amplify/core');
 
-  Amplify amplify = new Amplify();
-  AmplifyStorageS3 storage = AmplifyStorageS3();
+  final amplify = Amplify();
+  final storage = AmplifyStorageS3();
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -51,7 +50,7 @@ void main() {
 
   test('getUrl request returns a GetUrlResult', () async {
     await amplify.addPlugin(storagePlugins: [storage]);
-    await amplify.configure("{}");
+    await amplify.configure('{}');
     expect(await Amplify.Storage.getUrl(key: 'keyForFile'),
         isInstanceOf<GetUrlResult>());
   });

@@ -9,13 +9,13 @@ class S3ListOptions extends ListOptions {
 
   @override
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> optionsMap = <String, dynamic>{};
+    final optionsMap = <String, dynamic>{};
     if (accessLevel != null) {
-      optionsMap["accessLevel"] = describeEnum(accessLevel);
+      optionsMap['accessLevel'] = describeEnum(accessLevel);
     }
 
     if (targetIdentityId != null) {
-      optionsMap["targetIdentityId"] = targetIdentityId;
+      optionsMap['targetIdentityId'] = targetIdentityId;
     }
     return optionsMap;
   }

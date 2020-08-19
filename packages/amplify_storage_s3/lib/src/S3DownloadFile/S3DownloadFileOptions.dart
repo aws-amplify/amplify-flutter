@@ -23,10 +23,10 @@ class S3DownloadFileOptions extends DownloadFileOptions {
 
   @override
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> optionsMap = <String, dynamic>{};
-    optionsMap["accessLevel"] = describeEnum(accessLevel);
+    final optionsMap = <String, dynamic>{};
+    optionsMap['accessLevel'] = describeEnum(accessLevel);
     if (targetIdentityId != null) {
-      optionsMap["targetIdentityId"] = targetIdentityId;
+      optionsMap['targetIdentityId'] = targetIdentityId;
     }
     return optionsMap;
   }

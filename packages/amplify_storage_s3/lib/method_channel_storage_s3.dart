@@ -29,12 +29,11 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
   Future<UploadFileResult> uploadFile(
       {@required UploadFileRequest request}) async {
     try {
-      final Map<String, dynamic> data =
-          await _channel.invokeMapMethod<String, dynamic>(
+      final data = await _channel.invokeMapMethod<String, dynamic>(
         'uploadFile',
         request.serializeAsMap(),
       );
-      UploadFileResult result = _formatUploadFileResult(data);
+      final result = _formatUploadFileResult(data);
       return result;
     } on PlatformException catch (e) {
       //TODO: Convert to StorageError and throw.
@@ -45,8 +44,7 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
   @override
   Future<GetUrlResult> getUrl({@required GetUrlRequest request}) async {
     try {
-      final Map<String, dynamic> data =
-          await _channel.invokeMapMethod<String, dynamic>(
+      final data = await _channel.invokeMapMethod<String, dynamic>(
         'getUrl',
         request.serializeAsMap(),
       );
@@ -61,8 +59,7 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
   @override
   Future<RemoveResult> remove({@required RemoveRequest request}) async {
     try {
-      final Map<String, dynamic> data =
-          await _channel.invokeMapMethod<String, dynamic>(
+      final data = await _channel.invokeMapMethod<String, dynamic>(
         'remove',
         request.serializeAsMap(),
       );
@@ -77,12 +74,11 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
   @override
   Future<ListResult> list({@required ListRequest request}) async {
     try {
-      final Map<String, dynamic> data =
-          await _channel.invokeMapMethod<String, dynamic>(
+      final data = await _channel.invokeMapMethod<String, dynamic>(
         'list',
         request.serializeAsMap(),
       );
-      ListResult result = _formatListResult(data);
+      final result = _formatListResult(data);
       return result;
     } on PlatformException catch (e) {
       //TODO: Convert to StorageError and throw.
@@ -94,12 +90,11 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
   Future<DownloadFileResult> downloadFile(
       {@required DownloadFileRequest request}) async {
     try {
-      final Map<String, dynamic> data =
-          await _channel.invokeMapMethod<String, dynamic>(
+      final data = await _channel.invokeMapMethod<String, dynamic>(
         'downloadFile',
         request.serializeAsMap(),
       );
-      DownloadFileResult result = _formatDownloadFileResult(data);
+      final result = _formatDownloadFileResult(data);
       return result;
     } on PlatformException catch (e) {
       //TODO: Convert to StorageError and throw.
@@ -108,33 +103,33 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
   }
 
   UploadFileResult _formatUploadFileResult(Map<String, dynamic> result) {
-    return UploadFileResult(key: result["key"]);
+    return UploadFileResult(key: result['key']);
   }
 
   GetUrlResult _formatGetUrlResult(Map<String, dynamic> result) {
-    return GetUrlResult(url: result["url"]);
+    return GetUrlResult(url: result['url']);
   }
 
   RemoveResult _formatRemoveResult(Map<String, dynamic> result) {
-    return RemoveResult(key: result["key"]);
+    return RemoveResult(key: result['key']);
   }
 
   ListResult _formatListResult(Map<String, dynamic> response) {
-    List<StorageItem> items = [];
+    var items = [];
     var mapItems = response['items'];
     for (Map item in mapItems) {
-      StorageItem storageItem = StorageItem(
-          key: item["key"],
-          eTag: item["eTag"],
-          lastModified: DateTime.parse(item["lastModified"]),
-          size: item["size"]);
+      final storageItem = StorageItem(
+          key: item['key'],
+          eTag: item['eTag'],
+          lastModified: DateTime.parse(item['lastModified']),
+          size: item['size']);
       items.add(storageItem);
     }
-    ListResult result = ListResult(items: items);
+    final result = ListResult(items: items);
     return result;
   }
 
   DownloadFileResult _formatDownloadFileResult(Map<String, dynamic> result) {
-    return DownloadFileResult(file: File(result["path"]));
+    return DownloadFileResult(file: File(result['path']));
   }
 }
