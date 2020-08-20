@@ -41,9 +41,7 @@ class AnalyticsCategory {
   }
 
   Future<void> unregisterGlobalProperties({List<String> propertyNames}) async {
-    if (propertyNames == null) {
-      propertyNames = List<String>();
-    }
+    propertyNames ??= <String>[];
 
     return Future.wait(plugins.map((plugin) =>
         plugin.unregisterGlobalProperties(propertyNames: propertyNames)));
