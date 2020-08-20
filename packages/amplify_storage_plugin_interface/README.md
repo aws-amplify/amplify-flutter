@@ -1,6 +1,6 @@
 # amplify_storage_plugin_interface
 
-The platform interface for the storage module of Amplify-Flutter.
+The platform interface for the storage module of Amplify Flutter.
 
 ## Getting Started
 

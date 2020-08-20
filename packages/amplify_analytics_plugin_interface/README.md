@@ -1,6 +1,6 @@
 # amplify_analytics_plugin_interface
 
-The platform interface for the analytics module of Amplify-Flutter.
+The platform interface for the analytics module of Amplify Flutter.
 
 ## Getting Started
 

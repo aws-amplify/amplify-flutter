@@ -1,6 +1,6 @@
 # amplify_auth_plugin_interface
 
-The platform interface for the auth module of Amplify-Flutter.
+The platform interface for the auth module of Amplify Flutter.
 
 ## Getting Started
 
