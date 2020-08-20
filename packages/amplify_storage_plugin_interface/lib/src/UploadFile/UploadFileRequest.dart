@@ -25,7 +25,7 @@ class UploadFileRequest {
   UploadFileRequest({@required this.local, @required this.key, this.options});
 
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> result = <String, dynamic>{};
+    final result = <String, dynamic>{};
     result['path'] = local.absolute.path;
     result['key'] = key;
     if (options != null) {

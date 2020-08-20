@@ -23,7 +23,7 @@ class RemoveRequest {
   RemoveRequest({@required this.key, this.options});
 
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> result = <String, dynamic>{};
+    final result = <String, dynamic>{};
     result['key'] = key;
     if (options != null) {
       result['options'] = options.serializeAsMap();

@@ -30,16 +30,16 @@ class UploadFileOptions extends StorageOptions {
 
   @override
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> optionsMap = <String, dynamic>{};
+    final optionsMap = <String, dynamic>{};
 
-    optionsMap["accessLevel"] = describeEnum(accessLevel);
+    optionsMap['accessLevel'] = describeEnum(accessLevel);
 
     if (contentType != null) {
-      optionsMap["contentType"] = contentType;
+      optionsMap['contentType'] = contentType;
     }
 
     if (metadata != null) {
-      optionsMap["metadata"] = metadata;
+      optionsMap['metadata'] = metadata;
     }
 
     return optionsMap;

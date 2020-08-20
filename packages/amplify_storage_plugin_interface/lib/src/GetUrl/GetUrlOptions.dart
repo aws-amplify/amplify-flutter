@@ -26,12 +26,12 @@ class GetUrlOptions extends StorageOptions {
 
   @override
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> optionsMap = <String, dynamic>{};
+    final optionsMap = <String, dynamic>{};
 
-    optionsMap["accessLevel"] = describeEnum(accessLevel);
+    optionsMap['accessLevel'] = describeEnum(accessLevel);
 
     if (expires != null) {
-      optionsMap["expires"] = expires;
+      optionsMap['expires'] = expires;
     }
 
     return optionsMap;

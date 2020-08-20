@@ -22,7 +22,7 @@ class ListRequest {
   ListRequest({this.path, this.options});
 
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> result = <String, dynamic>{};
+    final result = <String, dynamic>{};
     if (path != null) {
       result['path'] = path;
     }
