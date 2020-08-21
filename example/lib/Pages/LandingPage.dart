@@ -70,7 +70,8 @@ class _LandingPageState extends State<LandingPage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             openDialogButton("Sign In", onSignInSuccess, SignInView()),
-            openDialogButton("Sign Up", onSignInSuccess, SignUpView())
+            openDialogButton(
+                "Sign Up", () => {print("sign up success")}, SignUpView())
           ],
         )));
   }
