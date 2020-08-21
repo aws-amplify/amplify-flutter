@@ -1,3 +1,7 @@
 # amplify_auth_cognito
 
-The Amazon Cognito plugin for Amplify-Flutter
+The Amplify Flutter Auth category plugin using the AWS Cognito provider.
+
+## Getting Started
+
+### Visit our [Web Site](https://docs.amplify.aws/) to learn more about AWS Amplify.
