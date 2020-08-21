@@ -1,28 +1,31 @@
 # Amplify Flutter Example
 
-Sample application for getting started with the Amplify Flutter Library
-
-## Getting Started
+Sample flutter app for getting started with the Amplify Flutter Library.  This example uses the Auth, Analytics, and Storage components of the Flutter library. 
 
 Please check out our docs here:
 https://docs.amplify.aws/start/q/integration/flutter
 
-!!! IMPORTANT !!!
+## Getting Started
 
-The app will not compile until you have used the Amplify CLI to configure the
-AWS resources necessary for running this app.
+**IMPORTANT** 
+
+**The app will not compile until you use the Amplify CLI to configure AWS resources necessary for running this app, or create your own amplifyconfiguration.dart file using the example in our documentation'.** 
+
 This is because it does not contain an `amplifyconfiguration.dart` file necessary for connecting with AWS services.
 
-You will need to use Amplify CLi to configure Analytics, Auth, and Storage. Make sure you are using the flutter-preview version of the CLI:
+You will need to use Amplify CLI to init the app and configure Analytics, Auth, and Storage. Please follow the instructions here: 
 
-  npm install -g @aws-amplify/cli@flutter-preview
+https://docs.amplify.aws/start/getting-started/add-api/q/integration/flutter#setup-aws-cloud-resources-with-amplify-cli
 
-Afterwards, run `amplify configure` for this project, then `add analytics`, `auth`, and `storage` before pushing.
-If you haven't used the Amplify CLI before, please follow the link below on using Amplify CLI to configure a flutter project:
-
-Please see the docs here:
-https://docs.amplify.aws/lib/project-setup/create-application/q/platform/flutter#n3-provision-the-backend-with-amplify-cli
+For this example app you will also need to call `amplify add auth`, and `amplify add storage` with the Amplify CLI and call `amplify push` again.  
 
 Running these steps will generate the `amplifyconfiguration.dart` file within the `lib` folder. 
+
+## Important Notes 
+
+This is a very basic app that interacts with AWS resources. We did not implement UI showing that the app is "loading" or "uploading" something from AWS. Some operations like logging in or uploading an image can take some time.
+
+Please note when signing up that you MUST provide a country code for a new user's phone number.  For example, if you number is American, you will need to append +1 at the beginning.  
+
 
 
