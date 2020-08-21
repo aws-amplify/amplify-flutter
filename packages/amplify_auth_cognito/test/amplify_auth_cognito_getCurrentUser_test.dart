@@ -55,14 +55,14 @@ void main() {
     testCode = 1;
     await amplify.addPlugin(authPlugins: [auth]);
     await amplify.configure("{}");
-    expect(await Amplify.Auth.getCurrrentUser(), isInstanceOf<AuthUser>());
+    expect(await Amplify.Auth.getCurrentUser(), isInstanceOf<AuthUser>());
   });
 
   test('PlatformException in getCurrentUser surfaces as AuthError', () async {
     testCode = 2;
     AuthError err;
    try {
-    await Amplify.Auth.getCurrrentUser();  
+    await Amplify.Auth.getCurrentUser();  
     } on AuthError catch (e) {
       err = e;
     } 

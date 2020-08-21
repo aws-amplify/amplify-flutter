@@ -50,7 +50,7 @@ Amplify for Flutter currently supports **iOS** and **Android** platforms.
 
 - [Getting Started with Amplify Flutter](https://docs.amplify.aws/start/q/integration/flutter)
 - [Amplify Framework](https://docs.amplify.aws/)
-- [Install the Amplify CLI](https://docs.amplify.aws/cli/start/install)
+- [Install the Amplify CLI](https://docs.amplify.aws/lib/project-setup/prereq/q/platform/flutter#install-and-configure-the-amplify-cli)
 - [Contributing to Amplify Flutter](CONTRIBUTING.md)
 
 ## Flutter Development Guide
@@ -60,7 +60,7 @@ Amplify for Flutter is an open-source project and welcomes contributions from th
 #### Prerequisites
 
 - [Flutter](https://flutter.dev/docs/get-started/install)
-- [Amplify CLI](https://docs.amplify.aws/cli/start/install)
+- [Amplify CLI](https://docs.amplify.aws/lib/project-setup/prereq/q/platform/flutter#option-1-watch-the-video-guide)
 
 #### Getting Started with Flutter app development and Amplify
 
@@ -100,6 +100,8 @@ Only the following resource types are supported:
     ```
 
 5. In your pubspec.yaml file, add the following to `dependencies`:
+
+> Note: Do not include dependencies in your `pubspec` file that you are not using in your app. This can cause a configuration error in the underlying SDK.
 
 ```yaml
 dependencies:
