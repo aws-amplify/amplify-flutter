@@ -48,18 +48,11 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Amplify amplify = Amplify();
   bool _isAmplifyConfigured = false;
-  bool _isSignedIn = false;
 
   @override
   initState() {
     super.initState();
     _initAmplifyFlutter();
-  }
-
-  Future<bool> _checkIsSignedIn() async {
-    final session = await Amplify.Auth.fetchAuthSession(
-        options: CognitoSessionOptions(getAWSCredentials: false));
-    return session.isSignedIn;
   }
 
   void _initAmplifyFlutter() async {
@@ -75,24 +68,14 @@ class _MyAppState extends State<MyApp> {
     // Initialize AmplifyFlutter
     await amplify.configure(amplifyconfig);
 
-    var isSignedIn = false;
-    try {
-      isSignedIn = await _checkIsSignedIn();
-    } on AuthError catch (exception) {
-      print(exception);
-    }
-
     setState(() {
-      _isSignedIn = isSignedIn;
       _isAmplifyConfigured = true;
     });
   }
 
   Widget _display() {
-    if (_isAmplifyConfigured && !_isSignedIn) {
+    if (_isAmplifyConfigured) {
       return LandingPage();
-    } else if (_isAmplifyConfigured && _isSignedIn) {
-      return MainPage();
     } else {
       return LoadingPage();
     }
