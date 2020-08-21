@@ -37,6 +37,14 @@ class _SignInViewState extends State<SignInView> {
   }
 
   void _signIn() async {
+    // Sign out before in case a user is already signed in
+    // If a user is already signed in - Amplify.Auth.signIn will throw an exception
+    try {
+      await Amplify.Auth.signOut();
+    } on AuthError catch (e) {
+      print(e);
+    }
+
     try {
       SignInResult res = await Amplify.Auth.signIn(
           username: usernameController.text.trim(),
