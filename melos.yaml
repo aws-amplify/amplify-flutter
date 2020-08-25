@@ -20,8 +20,7 @@ scripts:
 
   # Run flutter tests.
   test:unit:flutter: >
-    melos exec -c 1 --fail-fast --dir-exists=test --ignore="*example*" -- \
-      flutter test
+    ./.circleci/test_all_plugins.sh flutter-test && exit 0
 
   # Run android unit tests
   test:unit:android: >

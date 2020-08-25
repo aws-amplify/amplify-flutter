@@ -43,7 +43,7 @@ jobs:
           command: flutter pub global activate junitreport
       - run:
           name: Run Flutter Unit Tests
-          command: ./.circleci/test_all_plugins.sh flutter-test
+          command: melos run test:unit:flutter
       - run:
           name: Save test results
           command: |
@@ -85,8 +85,13 @@ jobs:
       - install_flutter
       - checkout
       - run:
+          name: Build example APKs
+          command: |
+            melos run build:examples:prepare
+            melos run build:examples:android
+      - run:
           name: Run Android Unit Tests
-          command: ./.circleci/test_all_plugins.sh android-test
+          command: melos run test:unit:android
       - run:
           name: Save test results
           command: |
