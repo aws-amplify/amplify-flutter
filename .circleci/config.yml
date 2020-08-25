@@ -34,7 +34,11 @@ commands:
 
   install_melos:
     steps:
-      - run: pub global activate melos
+      - run:
+          name: Install and set up melos
+          command: |
+            pub global activate melos
+            melos bootstrap --ignore="*example*"
 
 jobs:
   unit_test_flutter:
