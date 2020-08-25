@@ -15,7 +15,7 @@ scripts:
 
   # Build Android plugin example apps.
   build:examples:android: >
-    melos exec --scope="*example*" --fail-fast -- \
+    melos exec -c 1 --scope="*example*" --fail-fast -- \
       flutter build apk --debug
 
   # Run flutter tests.
