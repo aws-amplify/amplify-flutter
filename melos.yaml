@@ -8,26 +8,28 @@ scripts:
     melos exec --scope="*example*" --fail-fast -- \
       cp ../../../.circleci/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart
 
-  # Build iOS plugin example apps.
   build:examples:ios: >
     melos exec -c 1 --scope="*example*" --fail-fast -- \
       flutter build ios --no-codesign
 
-  # Build Android plugin example apps.
   build:examples:android: >
     melos exec -c 1 --scope="*example*" --fail-fast -- \
       flutter build apk --debug
 
-  # Run flutter tests.
   test:unit:flutter: >
     ./.circleci/test_all_plugins.sh flutter-test && exit 0
 
-  # Run android unit tests
   test:unit:android: >
     ./.circleci/test_all_plugins.sh android-test && exit 0
 
   analyze: melos exec -- pub global run tuneup check
+
+  lint:pub: >
+    melos exec -c 5 --fail-fast --no-private --ignore="*example*" -- \
+      pub publish --dry-run
+
   postbootstrap: tuneup --version || pub global activate tuneup
+
   postclean: melos exec -- rm -rf ./build ./android/.gradle ./ios/.symlinks ./ios/Pods ./android/.idea ./.idea
 
 dev_dependencies:
