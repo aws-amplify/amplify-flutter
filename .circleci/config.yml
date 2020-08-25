@@ -45,8 +45,8 @@ jobs:
     executor: docker-executor
     steps:
       - install_flutter
-      - install_melos
       - checkout
+      - install_melos
       - run:
           name: Install junitreport for JUnit XML reports
           command: flutter pub global activate junitreport
@@ -69,8 +69,8 @@ jobs:
     steps:
       - install_flutter:
           flutter_branch: 1.17.5
-      - install_melos
       - checkout
+      - install_melos
       - run:
           name: Pre-start iOS simulator
           # xcrun instruments returns non zero, but successfully starts the simulator
@@ -93,8 +93,8 @@ jobs:
     executor: docker-executor
     steps:
       - install_flutter
-      - install_melos
       - checkout
+      - install_melos
       - run:
           name: Build example APKs
           command: |
