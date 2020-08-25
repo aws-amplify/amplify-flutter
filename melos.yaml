@@ -4,6 +4,29 @@ packages:
   - packages/**
 
 scripts:
+  build:examples:prepare: >
+    melos exec --scope="*example*" --fail-fast -- \
+      cp ../../../.circleci/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart
+
+  # Build iOS plugin example apps.
+  build:examples:ios: >
+    melos exec -c 1 --scope="*example*" --fail-fast -- \
+      flutter build ios --no-codesign
+
+  # Build Android plugin example apps.
+  build:examples:android: >
+    melos exec --scope="*example*" --fail-fast -- \
+      flutter build apk --debug
+
+  # Run flutter tests.
+  test:unit:flutter: >
+    melos exec -c 1 --fail-fast --dir-exists=test --ignore="*example*" -- \
+      flutter test
+
+  # Run android unit tests
+  test:unit:android: >
+    ./.circleci/test_all_plugins.sh android-test && exit 0
+
   analyze: melos exec -- pub global run tuneup check
   postbootstrap: tuneup --version || pub global activate tuneup
   postclean: melos exec -- rm -rf ./build ./android/.gradle ./ios/.symlinks ./ios/Pods ./android/.idea ./.idea
