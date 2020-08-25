@@ -32,11 +32,16 @@ commands:
             git clone --branch ${FLUTTER_BRANCH} https://github.com/flutter/flutter.git ${FLUTTER_HOME}
             (yes || true) | flutter doctor --android-licenses && flutter doctor
 
+  install_melos:
+    steps:
+      - run: pub global activate melos
+
 jobs:
   unit_test_flutter:
     executor: docker-executor
     steps:
       - install_flutter
+      - install_melos
       - checkout
       - run:
           name: Install junitreport for JUnit XML reports
@@ -60,6 +65,7 @@ jobs:
     steps:
       - install_flutter:
           flutter_branch: 1.17.5
+      - install_melos
       - checkout
       - run:
           name: Pre-start iOS simulator
@@ -83,6 +89,7 @@ jobs:
     executor: docker-executor
     steps:
       - install_flutter
+      - install_melos
       - checkout
       - run:
           name: Build example APKs
