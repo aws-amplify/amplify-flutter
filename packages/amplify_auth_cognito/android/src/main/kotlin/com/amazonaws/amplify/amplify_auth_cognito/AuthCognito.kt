@@ -56,6 +56,7 @@ import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.InitializationStatus
 import com.amplifyframework.hub.HubChannel
 import com.amplifyframework.hub.HubEvent
+import com.amplifyframework.hub.SubscriptionToken
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -79,6 +80,8 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
   private val LOG = Amplify.Logging.forNamespace("amplify:flutter:auth_cognito")
   var eventChannel: EventChannel? = null
   var eventMessenger: BinaryMessenger? = null
+  private lateinit var token: SubscriptionToken;
+
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "com.amazonaws.amplify/auth_cognito")
@@ -141,7 +144,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     eventChannel = EventChannel(eventMessenger, "com.amazonaws.amplify/auth_cognito_events")
     eventChannel!!.setStreamHandler(object : EventChannel.StreamHandler {
       override fun onListen(listener: Any, eventSink: EventChannel.EventSink) {
-        Amplify.Hub.subscribe(HubChannel.AUTH
+        token = Amplify.Hub.subscribe(HubChannel.AUTH
         ) { hubEvent: HubEvent<*> ->
           if (hubEvent.name == InitializationStatus.SUCCEEDED.toString()) {
             LOG.info("AuthPlugin successfully initialized")
@@ -167,7 +170,9 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
         }
       }
 
-      override fun onCancel(listener: Any) {}
+      override fun onCancel(listener: Any?) {
+        Amplify.Hub.unsubscribe(token)
+      }
     })
   }
   
