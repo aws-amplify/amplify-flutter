@@ -22,9 +22,10 @@ import AWSCore
 public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
     
     private var authEventSink: FlutterEventSink?
+    private var token: UnsubscribeToken?
     
     public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
-        _ = Amplify.Hub.listen(to: .auth) { payload in
+        token = Amplify.Hub.listen(to: .auth) { payload in
           switch payload.eventName {
             case HubPayload.EventName.Auth.signedIn:
               let hubEvent: Dictionary<String, Any> = ["eventName" : "SIGNED_IN"]
@@ -43,6 +44,9 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
     }
     
     public func onCancel(withArguments arguments: Any?) -> FlutterError? {
+        if (token != nil) {
+          Amplify.Hub.removeListener(token!)
+        }
         self.authEventSink = nil
         return nil
     }
