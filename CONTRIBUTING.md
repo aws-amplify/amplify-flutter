@@ -50,14 +50,14 @@ This section should get you running with **Amplify Flutter** and get you familia
 Start by, [Forking](https://help.github.com/en/github/getting-started-with-github/fork-a-repo) the main branch of [amplify-flutter](https://github.com/aws-amplify/amplify-flutter).
 
 You will need to install `melos` for dependency management.
-Run `melos bootstrap` to link local packages together and install remaining dependencies.
+Run `melos bootstrap --ignore="*example*"` to link local packages together and install remaining dependencies.
 See [invertase/melos](https://github.com/invertase/melos) for more instructions on how to use `melos`.
 
 ```
 $ git clone git@github.com:[username]/amplify-flutter.git
 $ cd amplify-flutter
 $ pub global activate melos
-$ melos bootstrap
+$ melos bootstrap --ignore="*example*"
 ```
 
 > Note: Make sure to always [sync your fork](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork) with main branch of amplify-flutter
