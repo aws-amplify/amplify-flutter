@@ -22,9 +22,13 @@ scripts:
   test:unit:android: >
     ./.circleci/test_all_plugins.sh android-test && exit 0
 
+  format:
+    melos exec -c 1 -- \
+      flutter format .
+
   analyze: >
-    melos exec -c 1 --no-private --ignore="*example*" \
-      -- pub global run tuneup check
+    melos exec -c 1 --no-private --ignore="*example*" -- \
+      pub global run tuneup check
 
   lint:pub: >
     melos exec -c 5 --fail-fast --no-private --ignore="*example*" -- \
