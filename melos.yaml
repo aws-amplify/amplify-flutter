@@ -4,7 +4,7 @@ packages:
   - packages/**
 
 scripts:
-  build:examples:prepare: >
+  copy_dummy_config: >
     melos exec --scope="*example*" --fail-fast -- \
       cp ../../../.circleci/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart
 

@@ -51,6 +51,7 @@ jobs:
       - run:
           name: Validate formatting
           command: ./.circleci/validate_formatting.sh
+      - run: melos run copy_dummy_config
       - run: melos run analyze
 
   unit_test_flutter:
@@ -110,7 +111,7 @@ jobs:
       - run:
           name: Build example APKs
           command: |
-            melos run build:examples:prepare
+            melos run copy_dummy_config
             melos run build:examples:android
       - run:
           name: Run Android Unit Tests
