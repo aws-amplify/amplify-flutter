@@ -1,5 +1,5 @@
 #!/bin/bash
-if git ls-files --modified; then
+if [[ $(git ls-files --modified) ]]; then
   echo "Formatting issues found in the following files:"
   for f in $(git ls-files --modified); do
     echo "* $f"
