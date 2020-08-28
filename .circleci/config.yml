@@ -48,7 +48,9 @@ jobs:
       - checkout
       - install_melos
       - run: melos run format
-      - run: ./.circleci/validate_formatting.sh
+      - run:
+          name: Validate formatting
+          command: ./.circleci/validate_formatting.sh
       - run: melos run analyze
 
   unit_test_flutter:
