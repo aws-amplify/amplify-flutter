@@ -45,14 +45,19 @@ Our work is done directly on Github and PR's are sent to the github repo by core
 
 ## Setting up for local development
 
-This section should get you running with **Amplify Flutter** and get you familiar with the basics of the codebase. You will need the latest version of [nodejs](https://nodejs.org/en/) on your system and developing locally also requires `yarn` workspaces. You can install it [here](https://classic.yarnpkg.com/en/docs/install#mac-stable).
+This section should get you running with **Amplify Flutter** and get you familiar with the basics of the codebase.
 
 Start by, [Forking](https://help.github.com/en/github/getting-started-with-github/fork-a-repo) the main branch of [amplify-flutter](https://github.com/aws-amplify/amplify-flutter).
+
+You will need to install `melos` for dependency management.
+Run `melos bootstrap` to link local packages together and install remaining dependencies.
+See [invertase/melos](https://github.com/invertase/melos) for more instructions on how to use `melos`.
 
 ```
 $ git clone git@github.com:[username]/amplify-flutter.git
 $ cd amplify-flutter
-$ ./dev.sh
+$ pub global activate melos
+$ melos bootstrap
 ```
 
 > Note: Make sure to always [sync your fork](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork) with main branch of amplify-flutter
@@ -68,31 +73,31 @@ $ ./dev.sh
 
 ## Steps towards contributions
 
-Each packages/[category] contains the following for testing: 
+Each packages/[category] contains the following for testing:
 
-1) `example` folder with a Dart test app for testing that specific category.  In order to run these apps, you must include your own `amplifyconfiguration.dart` file in the `lib` folder.  
-2) `android/src/test/kotlin/.... Test.kt` file.  This is where Android unit tests are written. 
-3) `test/ ... test.dart` file.  This is where Dart unit tests are written. 
+1) `example` folder with a Dart test app for testing that specific category.  In order to run these apps, you must include your own `amplifyconfiguration.dart` file in the `lib` folder.
+2) `android/src/test/kotlin/.... Test.kt` file.  This is where Android unit tests are written.
+3) `test/ ... test.dart` file.  This is where Dart unit tests are written.
 
-The general organization of the Flutter library is as follows: 
+The general organization of the Flutter library is as follows:
 
-1) Each [category] has a corresponding `amplify_[category]_plugin_interface` where its public method set is defined.  
+1) Each [category] has a corresponding `amplify_[category]_plugin_interface` where its public method set is defined.
 
-2) A given [category] can have multiple plugins corresponding to different AWS services.  For example Analytics will have a Pinpoint and Kinesis plugin. 
+2) A given [category] can have multiple plugins corresponding to different AWS services.  For example Analytics will have a Pinpoint and Kinesis plugin.
 
-3) The [category] plugins (ie. amplify_auth_cognito, amplify_core, etc.) is a Dart shell that uses the MethodChannel to communicate with native iOS and Android code which in turn calls the corresponding Amplify Android and Amplify iOS library code. 
+3) The [category] plugins (ie. amplify_auth_cognito, amplify_core, etc.) is a Dart shell that uses the MethodChannel to communicate with native iOS and Android code which in turn calls the corresponding Amplify Android and Amplify iOS library code.
 
-Contributing: 
+Contributing:
 
-1) To start contributing make a fork of this repo and create a branch where you will make your changes to a particular `packages/[category]`. 
+1) To start contributing make a fork of this repo and create a branch where you will make your changes to a particular `packages/[category]`.
 
-2) Write unit tests in android and dart. 
+2) Write unit tests in android and dart.
 
-3) Update the example app to use your new changes (if applicable) and to build the app on iOS and Android. 
+3) Update the example app to use your new changes (if applicable) and to build the app on iOS and Android.
 
-4) Run the test suite 
+4) Run the test suite
 
-5) Submit a PR 
+5) Submit a PR
 
 # Pull Requests
 
