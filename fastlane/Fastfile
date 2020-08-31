@@ -127,11 +127,11 @@ desc 'Commit and push updated release version'
 private_lane :release_commit do |options|
   next_version = options[:version]
 
-  # catch up the pre-release commits with master first
-  sh('git', 'merge', 'master')
-
   commit_message = "chore: release #{next_version} [skip ci]"
   sh('git', 'commit', '-am', commit_message)
+
+  # catch up the pre-release commits with master first
+  sh('git', 'rebase', 'master')
 
   # push to origin
   sh('git', 'push', 'origin', 'release')
