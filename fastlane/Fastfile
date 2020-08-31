@@ -121,9 +121,6 @@ private_lane :prerelease_commit do |options|
 
   commit_message = "chore: pre-release #{next_version} [skip ci]"
   sh('git', 'commit', '-am', commit_message)
-
-  # push to origin
-  sh('git', 'push', 'origin', 'master')
 end
 
 desc 'Commit and push updated release version'
