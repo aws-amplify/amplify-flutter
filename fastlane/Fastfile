@@ -148,18 +148,18 @@ end
 
 desc 'Publish plugins'
 private_lane :publish_plugins do
-  Dir.chdir('..') do
-    Dir.foreach("./packages/") do |plugin|
-      next if plugin == '.' or plugin == '..'
+  packages_root = File.expand_path("#{ENV['CIRCLE_WORKING_DIRECTORY']}/packages")
+  Dir.foreach(packages_root) do |plugin|
+    next if plugin == '.' or plugin == '..'
 
-      Dir.chdir(File.join('packages', plugin)) do
-        begin
-          sh('flutter', 'pub', 'publish', '--dry-run')
-        rescue
+    Dir.chdir(File.expand_path(plugin, packages_root)) do
+      begin
+        sh('flutter', 'pub', 'publish', '--dry-run')
         # might need `--force` to automate
         # leaving it manual for testing
         # sh('flutter', 'pub', 'publish')
-        end
+      rescue
+        # Ignore errors for now
       end
     end
   end
