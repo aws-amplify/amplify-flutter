@@ -1,6 +1,10 @@
 opt_out_usage
 
-before_all do
+before_all do |lane, options|
+  # Use username and email in env vars
+  sh('git', 'config', 'user.email', ENV['GITHUB_EMAIL'])
+  sh('git', 'config', 'user.name', ENV['GITHUB_USER'])
+
   # Perform a fetch before inferring the next version
   # to reduce race conditions with simultaneous pipelines attempting to create the same tag
   sh('git', 'fetch', '--tags')
@@ -15,13 +19,13 @@ lane :unstable do
   # Increment all pubspecs
   increment_versions(version: next_version)
 
-  # prerelease_commit(version: next_version)
+  prerelease_commit(version: next_version)
 
   # Create tag and push to origin
-  # add_tag(version: next_version)
+  add_tag(version: next_version)
 
   # Publish to Pub.dev
-  # publish_plugins
+  publish_plugins
 end
 
 desc 'Create a release version by committing a changelog, pushing a tag to GitHub, and publishing plugins to Pub.dev'
@@ -36,16 +40,16 @@ lane :stable do
   # changelog = build_changelog(version: next_version, commits: commits)
   # write_plugin_changelogs(changelog: changelog)
 
-  # # Commit and push
-  # release_commit(version: next_version)
+  # Commit and push
+  release_commit(version: next_version)
 
-  # # Create tag and push to origin
-  # add_tag(version: next_version)
+  # Create tag and push to origin
+  add_tag(version: next_version)
 
-  # # Publish plugins
-  # publish_plugins
+  # Publish plugins
+  publish_plugins
 
-  # post_release(version: next_version, changelog: changelog)
+  post_release(version: next_version, changelog: changelog)
 end
 
 desc 'Increment versions'
@@ -63,46 +67,60 @@ private_lane :increment_versions do |options|
       begin
         set_key_value(file: pubspec, key: 'amplify_[a-z0-9_]+', value: "^#{version}")
       rescue
+        # Pubspec doesn't have amplify_* dependencies.
+        # Instead of exiting, continue.
         UI.message('No other dependencies exist, skipping.')
       end
     end
+
     example_pubspec = File.expand_path('pubspec.yaml', 'example')
     UI.message("Incrementing dependency versions in example app in #{example_pubspec}")
     begin
       set_key_value(file: example_pubspec, key: 'amplify_[a-z0-9_]+', value: "^#{version}")
     rescue
+      # Pubspec doesn't have amplify_* dependencies.
+      # Instead of exiting, continue.
       UI.message('No dependencies exist, skipping.')
     end
   end
 end
 
-desc 'Write changelog for each plugin package'
-private_lane :write_plugin_changelogs do |options|
-  changelog = options[:changelog]
-  write_changelog(changelog: changelog, path: 'CHANGELOG.md')
-  Dir.chdir('..') do
-    Dir.foreach("./packages/") do |plugin|
-      next if plugin == '.' or plugin == '..'
-      FileUtils.cp('CHANGELOG.md', File.join('packages', plugin))
-    end
-  end
+# Not ready yet.
+# desc 'Write changelog for each plugin package'
+# private_lane :write_plugin_changelogs do |options|
+#   changelog = options[:changelog]
+#   write_changelog(changelog: changelog, path: 'CHANGELOG.md')
+#   Dir.chdir('..') do
+#     Dir.foreach("./packages/") do |plugin|
+#       next if plugin == '.' or plugin == '..'
+#       FileUtils.cp('CHANGELOG.md', File.join('packages', plugin))
+#     end
+#   end
+# end
+
+desc 'Commit and push updated pre-release version'
+private_lane :prerelease_commit do |options|
+  next_version = options[:version]
+
+  commit_message = "chore: pre-release #{next_version} [skip ci]"
+  sh('git', 'commit', '-am', commit_message)
+
+  # push to origin
+  sh('git', 'push', 'origin', 'master')
 end
 
 desc 'Commit and push updated release version'
 private_lane :release_commit do |options|
   next_version = options[:version]
 
-  sh('git', 'config', 'user.email', ENV['GITHUB_EMAIL'])
-  sh('git', 'config', 'user.name', ENV['GITHUB_USER'])
+  # catch up the pre-release commits with master first
+  sh('git', 'merge', 'master')
 
   commit_message = "chore: release #{next_version} [skip ci]"
   sh('git', 'commit', '-am', commit_message)
 
-  sh('git', 'config', '--unset', 'user.email')
-  sh('git', 'config', '--unset', 'user.name')
-
   # push to origin
-  # sh('git', 'push', 'origin', 'release')
+  sh('git', 'push', 'origin', 'release')
 end
 
 desc 'Tag in git and push to GitHub'
@@ -111,7 +129,7 @@ private_lane :add_tag do |options|
   next_tag = "v#{next_version}"
 
   add_git_tag(tag: next_tag)
-  # push_git_tags(tag: next_tag)
+  push_git_tags(tag: next_tag)
 end
 
 desc 'Publish plugins'
@@ -124,7 +142,7 @@ private_lane :publish_plugins do
         sh('flutter', 'pub', 'publish', '--dry-run')
         # might need `--force` to automate
         # leaving it manual for testing
-        sh('flutter', 'pub', 'publish')
+        # sh('flutter', 'pub', 'publish')
       end
     end
   end
@@ -141,6 +159,13 @@ private_lane :post_release do |options|
   # push to origin
   sh('git', 'push', 'origin', 'release')
   sh('git', 'push', 'origin', 'release:master')
+end
+
+after_all do |lane, options|
+  # Unset local git config for username and email.
+  # Mainly for local testing purposes.
+  sh('git', 'config', '--unset', 'user.email')
+  sh('git', 'config', '--unset', 'user.name')
 end
 
 def with_retry(retries = 5, wait = 10)
