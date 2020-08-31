@@ -22,13 +22,13 @@ lane :unstable do
   _, commits = calculate_next_release_version
   write_plugin_changelogs(commits: commits, version: next_version)
 
-  # prerelease_commit(version: next_version)
+  prerelease_commit(version: next_version)
 
   # Create tag and push to origin
-  # add_tag(version: next_version)
+  add_tag(version: next_version)
 
   # Publish to Pub.dev
-  # publish_plugins
+  publish_plugins
 end
 
 desc 'Create a release version by committing a changelog, pushing a tag to GitHub, and publishing plugins to Pub.dev'
@@ -51,7 +51,8 @@ lane :stable do
   # Publish plugins
   publish_plugins
 
-  post_release(version: next_version, changelog: changelog)
+  # Merge release back into master
+  sh('git', 'push', 'origin', 'release:master')
 end
 
 desc 'Increment versions'
@@ -165,19 +166,6 @@ private_lane :publish_plugins do
       end
     end
   end
-end
-
-desc 'Post-release'
-private_lane :post_release do |options|
-  version = options[:version].to_s
-  tag = "v#{version}"
-
-  add_git_tag(tag: tag, force: true)
-  push_git_tags(tag: tag, force: true)
-
-  # push to origin
-  sh('git', 'push', 'origin', 'release')
-  sh('git', 'push', 'origin', 'release:master')
 end
 
 after_all do |lane, options|
