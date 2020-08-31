@@ -19,6 +19,9 @@ lane :unstable do
   # Increment all pubspecs
   increment_versions(version: next_version)
 
+  _, commits = calculate_next_release_version
+  write_plugin_changelogs(commits: commits, version: next_version)
+
   prerelease_commit(version: next_version)
 
   # Create tag and push to origin
@@ -37,8 +40,7 @@ lane :stable do
   # Increment all specs and plists
   increment_versions(version: next_version)
 
-  # changelog = build_changelog(version: next_version, commits: commits)
-  # write_plugin_changelogs(changelog: changelog)
+  write_plugin_changelogs(commits: commits, version: next_version)
 
   # Commit and push
   release_commit(version: next_version)
@@ -86,17 +88,33 @@ private_lane :increment_versions do |options|
 end
 
 # Not ready yet.
-# desc 'Write changelog for each plugin package'
-# private_lane :write_plugin_changelogs do |options|
-#   changelog = options[:changelog]
-#   write_changelog(changelog: changelog, path: 'CHANGELOG.md')
-#   Dir.chdir('..') do
-#     Dir.foreach("./packages/") do |plugin|
-#       next if plugin == '.' or plugin == '..'
-#       FileUtils.cp('CHANGELOG.md', File.join('packages', plugin))
-#     end
-#   end
-# end
+desc 'Write changelog for each plugin package'
+private_lane :write_plugin_changelogs do |options|
+  commits = options[:commits]
+  version = options[:version]
+
+  # Maps each scope/package to its commits
+  scope_to_commits = commits.group_by { |commit| commit.scope }
+
+  packages_root = File.expand_path("#{ENV['CIRCLE_WORKING_DIRECTORY']}/packages")
+  Dir.foreach(packages_root) do |plugin|
+    next if plugin == '.' or plugin == '..'
+
+    UI.message("Writing changelog for #{plugin}")
+
+    # Retrieve commits for packages
+    if scope_to_commits.key?(plugin)
+      plugin_commits = Commits.new(scope_to_commits[plugin])
+    else
+      plugin_commits = Commits.new
+    end
+
+    plugin_changelog = build_changelog(version: version, commits: plugin_commits)
+
+    changelog_path = File.expand_path("#{plugin}/CHANGELOG.md", packages_root)
+    write_changelog(changelog: plugin_changelog, path: changelog_path)
+  end
+end
 
 desc 'Commit and push updated pre-release version'
 private_lane :prerelease_commit do |options|
@@ -139,10 +157,13 @@ private_lane :publish_plugins do
       next if plugin == '.' or plugin == '..'
 
       Dir.chdir(File.join('packages', plugin)) do
-        sh('flutter', 'pub', 'publish', '--dry-run')
+        begin
+          sh('flutter', 'pub', 'publish', '--dry-run')
+        rescue
         # might need `--force` to automate
         # leaving it manual for testing
         # sh('flutter', 'pub', 'publish')
+        end
       end
     end
   end

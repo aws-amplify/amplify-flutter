@@ -3,3 +3,4 @@
 # Ensure this file is checked in to source control!
 
 gem 'fastlane-plugin-release_actions', git: 'https://github.com/kaichengyan/amplify-ci-support', branch: 'flutter-deploy', glob: 'src/fastlane/release_actions/*.gemspec'
+# gem 'fastlane-plugin-release_actions', path: '~/Amplify/amplify-ci-support', glob: 'src/fastlane/release_actions/*.gemspec'

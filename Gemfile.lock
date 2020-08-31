@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/kaichengyan/amplify-ci-support
-  revision: e8f108fb5592bb6d7d84dc211b4d6da46c74e270
+  revision: c401ac0bbfab49663ee3899e9b11c7da8c9a4149
   branch: flutter-deploy
   glob: src/fastlane/release_actions/*.gemspec
   specs:
