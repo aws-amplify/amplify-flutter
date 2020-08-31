@@ -15,41 +15,37 @@ lane :unstable do
   # Increment all pubspecs
   increment_versions(version: next_version)
 
-  # Use the commits to build a change log since last release
-  _, commits = calculate_next_release_version
-  changelog = build_changelog(version: next_version, commits: commits)
-  write_plugin_changelogs(changelog: changelog)
-
-  prerelease_commit(version: next_version)
+  # prerelease_commit(version: next_version)
 
   # Create tag and push to origin
-  add_tag(version: next_version)
+  # add_tag(version: next_version)
 
   # Publish to Pub.dev
-  publish_plugins
+  # publish_plugins
 end
 
 desc 'Create a release version by committing a changelog, pushing a tag to GitHub, and publishing plugins to Pub.dev'
 lane :stable do
-  next_version, commits = calculate_next_release_version
-  UI.message("Releasing version: #{next_version}")
+  UI.message("Stable releases with fastlane not implemented yet")
+  # next_version, commits = calculate_next_release_version
+  # UI.message("Releasing version: #{next_version}")
 
-  # Increment all specs and plists
-  increment_versions(version: next_version)
+  # # Increment all specs and plists
+  # increment_versions(version: next_version)
 
-  changelog = build_changelog(version: next_version, commits: commits)
-  write_plugin_changelogs(changelog: changelog)
+  # changelog = build_changelog(version: next_version, commits: commits)
+  # write_plugin_changelogs(changelog: changelog)
 
-  # Commit and push
-  release_commit(version: next_version)
+  # # Commit and push
+  # release_commit(version: next_version)
 
-  # Create tag and push to origin
-  add_tag(version: next_version)
+  # # Create tag and push to origin
+  # add_tag(version: next_version)
 
-  # Publish plugins
-  publish_plugins
+  # # Publish plugins
+  # publish_plugins
 
-  post_release(version: next_version, changelog: changelog)
+  # post_release(version: next_version, changelog: changelog)
 end
 
 desc 'Increment versions'
@@ -64,6 +60,18 @@ private_lane :increment_versions do |options|
       pubspec = File.expand_path('pubspec.yaml', plugin_path)
       UI.message("Incrementing version for #{pubspec}")
       set_key_value(file: pubspec, key: 'version', value: version)
+      begin
+        set_key_value(file: pubspec, key: 'amplify_[a-z0-9_]+', value: "^#{version}")
+      rescue
+        UI.message('No other dependencies exist, skipping.')
+      end
+    end
+    example_pubspec = File.expand_path('pubspec.yaml', 'example')
+    UI.message("Incrementing dependency versions in example app in #{example_pubspec}")
+    begin
+      set_key_value(file: example_pubspec, key: 'amplify_[a-z0-9_]+', value: "^#{version}")
+    rescue
+      UI.message('No dependencies exist, skipping.')
     end
   end
 end
@@ -78,20 +86,6 @@ private_lane :write_plugin_changelogs do |options|
       FileUtils.cp('CHANGELOG.md', File.join('packages', plugin))
     end
   end
-end
-
-desc 'Commit and push updated pre-release version'
-private_lane :prerelease_commit do |options|
-  next_version = options[:version]
-
-  sh('git', 'config', 'user.email', ENV['GITHUB_EMAIL'])
-  sh('git', 'config', 'user.name', ENV['GITHUB_USER'])
-
-  commit_message = "chore: pre-release #{next_version} [skip ci]"
-  sh('git', 'commit', '-am', commit_message)
-
-  # push to origin
-  sh('git', 'push', 'origin', 'master')
 end
 
 desc 'Commit and push updated release version'
