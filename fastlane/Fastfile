@@ -122,7 +122,9 @@ private_lane :publish_plugins do
 
       Dir.chdir(File.join('packages', plugin)) do
         sh('flutter', 'pub', 'publish', '--dry-run')
-        # sh('flutter', 'pub', 'publish', '--force')
+        # might need `--force` to automate
+        # leaving it manual for testing
+        sh('flutter', 'pub', 'publish')
       end
     end
   end
