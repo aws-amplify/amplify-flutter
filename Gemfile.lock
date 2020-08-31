@@ -1,10 +1,10 @@
 GIT
-  remote: https://github.com/kaichengyan/amplify-ci-support
-  revision: c401ac0bbfab49663ee3899e9b11c7da8c9a4149
-  branch: flutter-deploy
+  remote: https://github.com/aws-amplify/amplify-ci-support
+  revision: 432230945b8b4978ef247fa6f8cd080fd3a3dccf
+  branch: master
   glob: src/fastlane/release_actions/*.gemspec
   specs:
-    fastlane-plugin-release_actions (1.0.4)
+    fastlane-plugin-release_actions (1.1.0)
 
 GEM
   remote: https://rubygems.org/
