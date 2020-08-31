@@ -22,13 +22,13 @@ lane :unstable do
   _, commits = calculate_next_release_version
   write_plugin_changelogs(commits: commits, version: next_version)
 
-  prerelease_commit(version: next_version)
+  # prerelease_commit(version: next_version)
 
   # Create tag and push to origin
-  add_tag(version: next_version)
+  # add_tag(version: next_version)
 
   # Publish to Pub.dev
-  publish_plugins
+  # publish_plugins
 end
 
 desc 'Create a release version by committing a changelog, pushing a tag to GitHub, and publishing plugins to Pub.dev'
@@ -57,33 +57,31 @@ end
 desc 'Increment versions'
 private_lane :increment_versions do |options|
   version = options[:version].to_s
-  puts version
-  Dir.chdir('..') do
-    Dir.foreach("./packages/") do |plugin|
-      next if plugin == '.' or plugin == '..'
 
-      plugin_path = File.join('packages', plugin)
-      pubspec = File.expand_path('pubspec.yaml', plugin_path)
-      UI.message("Incrementing version for #{pubspec}")
-      set_key_value(file: pubspec, key: 'version', value: version)
-      begin
-        set_key_value(file: pubspec, key: 'amplify_[a-z0-9_]+', value: "^#{version}")
-      rescue
-        # Pubspec doesn't have amplify_* dependencies.
-        # Instead of exiting, continue.
-        UI.message('No other dependencies exist, skipping.')
-      end
-    end
+  packages_root = File.expand_path("#{ENV['CIRCLE_WORKING_DIRECTORY']}/packages")
+  Dir.foreach(packages_root) do |plugin|
+    next if plugin == '.' or plugin == '..'
 
-    example_pubspec = File.expand_path('pubspec.yaml', 'example')
-    UI.message("Incrementing dependency versions in example app in #{example_pubspec}")
+    pubspec = File.expand_path("#{plugin}/pubspec.yaml", packages_root)
+    UI.message("Incrementing version for #{pubspec}")
+    set_key_value(file: pubspec, key: 'version', value: version)
     begin
-      set_key_value(file: example_pubspec, key: 'amplify_[a-z0-9_]+', value: "^#{version}")
+      set_key_value(file: pubspec, key: 'amplify_[a-z0-9_]+', value: "^#{version}")
     rescue
       # Pubspec doesn't have amplify_* dependencies.
       # Instead of exiting, continue.
-      UI.message('No dependencies exist, skipping.')
+      UI.message('No other dependencies exist, skipping.')
     end
+  end
+
+  example_pubspec = File.expand_path('example/pubspec.yaml', ENV['CIRCLE_WORKING_DIRECTORY'])
+  UI.message("Incrementing dependency versions in example app in #{example_pubspec}")
+  begin
+    set_key_value(file: example_pubspec, key: 'amplify_[a-z0-9_]+', value: "^#{version}")
+  rescue
+    # Pubspec doesn't have amplify_* dependencies.
+    # Instead of exiting, continue.
+    UI.message('No dependencies exist, skipping.')
   end
 end
 
