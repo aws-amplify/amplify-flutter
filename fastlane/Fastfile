@@ -27,11 +27,11 @@ end
 desc 'Create a release version by committing a changelog, pushing a tag to GitHub, and publishing plugins to Pub.dev'
 lane :stable do
   UI.message("Stable releases with fastlane not implemented yet")
-  # next_version, commits = calculate_next_release_version
-  # UI.message("Releasing version: #{next_version}")
+  next_version, commits = calculate_next_release_version
+  UI.message("Releasing version: #{next_version}")
 
-  # # Increment all specs and plists
-  # increment_versions(version: next_version)
+  # Increment all specs and plists
+  increment_versions(version: next_version)
 
   # changelog = build_changelog(version: next_version, commits: commits)
   # write_plugin_changelogs(changelog: changelog)
