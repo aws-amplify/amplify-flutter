@@ -27,8 +27,8 @@ lane :unstable do
   # Create tag and push to origin
   add_tag(version: next_version)
 
-  # Publish to Pub.dev
-  publish_plugins
+  # # Publish to Pub.dev
+  # publish_plugins
 end
 
 desc 'Create a release version by committing a changelog, pushing a tag to GitHub, and publishing plugins to Pub.dev'
@@ -48,8 +48,8 @@ lane :stable do
   # Create tag and push to origin
   add_tag(version: next_version)
 
-  # Publish plugins
-  publish_plugins
+  # # Publish plugins
+  # publish_plugins
 
   # Merge release back into master
   sh('git', 'push', 'origin', 'release:master')
