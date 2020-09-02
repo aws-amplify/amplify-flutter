@@ -360,6 +360,26 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  void _socialSignIn() async {
+    setState(() {
+      error = "";
+      exceptions = [];
+    });
+    try {
+      bool res = await Amplify.Auth.signInWithWebUI(
+        provider: AuthProvider.google
+      );
+      print(res);
+    } on AuthError catch (e) {
+      setState(() {
+        error = e.cause;
+        e.exceptionList.forEach((el) {
+          exceptions.add(el.exception);
+        });
+      });
+    }
+  }
+
   void _stopListening() async {
     auth.events.stopListeningToAuth();
   }
@@ -485,6 +505,11 @@ Widget showSignIn() {
                   labelText: 'Password *',
                 )
               ),
+            const Padding(padding: EdgeInsets.all(10.0)),
+            RaisedButton(
+              onPressed: _socialSignIn,
+              child: const Text('Social Sign In'),
+            ),
             const Padding(padding: EdgeInsets.all(10.0)),
             RaisedButton(
               onPressed: _signIn,

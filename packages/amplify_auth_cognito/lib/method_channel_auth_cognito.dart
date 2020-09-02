@@ -254,6 +254,27 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     return res;
   }
 
+  @override
+  Future<bool> signInWithWebUI({SignInWithWebUIRequest request}) async {
+    bool res;
+    try {
+      final Map<String, dynamic> data =
+      await _channel.invokeMapMethod<String, dynamic>(
+        'signInWithWebUI',
+        <String, dynamic>{
+          'data': request != null ? request.serializeAsMap() : null,
+        },
+      );
+      res = data["signedIn"];
+      return res;
+    } on PlatformException catch(e) {
+      _throwError(e);
+    } on AuthError catch(e) {
+      throw(e);
+    }
+    return res;
+  }
+
   SignUpResult _formatSignUpResponse(Map<String, dynamic> res, method) {
     if (res.containsKey("nextStep")) {
       return CognitoSignUpResult(isSignUpComplete: res["isSignUpComplete"], nextStep: AuthNextSignUpStep(

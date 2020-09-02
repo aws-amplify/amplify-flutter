@@ -157,6 +157,14 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
             let errorCode = "UNKNOWN"
               self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
           }
+        case "signInWithWebUI":
+          if (FlutterSignInWithWebUIRequest.validate(dict: data)) {
+            let request = FlutterSignInWithWebUIRequest(dict: data)
+            onSignInWithWebUI(flutterResult: result, request: request)
+          } else {
+            let errorCode = "UNKNOWN"
+              self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
+          }
         case "fetchAuthSession":
             let request = FlutterFetchSessionRequest(dict: data)
             onFetchSession(flutterResult: result, request: request)
@@ -317,6 +325,17 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
         
       } catch {
           self.handleAuthError(error: error as! AuthError, flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.GET_CURRENT_USER.rawValue)
+        }
+    }
+    
+    private func onSignInWithWebUI(flutterResult: @escaping FlutterResult, request: FlutterSignInWithWebUIRequest) {
+        Amplify.Auth.signInWithWebUI(presentationAnchor: self.view.window!) { result in
+            switch result {
+            case .success:
+                print("Sign in succeeded")
+            case .failure(let error):
+                print("Sign in failed \(error)")
+            }
         }
     }
     
