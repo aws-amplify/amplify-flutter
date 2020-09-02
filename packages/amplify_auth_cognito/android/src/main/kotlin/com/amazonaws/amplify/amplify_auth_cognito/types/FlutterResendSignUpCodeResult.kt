@@ -23,11 +23,9 @@ data class FlutterResendSignUpCodeResult(private var raw: AuthSignUpResult) {
   val codeDeliveryDetails: Map<String, Any> = setCodeDeliveryDetails();
   private fun setCodeDeliveryDetails(): Map<String, Any> {
     return mapOf(
-      "codeDeliveryDetails" to mapOf(
         "destination" to (raw.nextStep.codeDeliveryDetails?.destination ?: ""),
         "deliveryMedium" to (raw.nextStep.codeDeliveryDetails?.deliveryMedium?.name ?: ""),
         "attributeName" to (raw.nextStep.codeDeliveryDetails?.attributeName ?: "")
-      )
     )
   }
 
