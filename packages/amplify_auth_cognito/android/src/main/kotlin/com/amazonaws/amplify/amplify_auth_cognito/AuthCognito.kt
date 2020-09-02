@@ -47,7 +47,10 @@ import com.amazonaws.mobileconnectors.cognitoauth.exceptions.AuthNavigationExcep
 
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.exceptions.CognitoCodeExpiredException
 import com.amazonaws.services.cognitoidentityprovider.model.*
-import com.amplifyframework.auth.*
+import com.amplifyframework.auth.AuthChannelEventName
+import com.amplifyframework.auth.AuthException
+import com.amplifyframework.auth.AuthSession
+import com.amplifyframework.auth.AuthUser
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
 import com.amplifyframework.auth.cognito.AWSCognitoAuthSession
 import com.amplifyframework.auth.result.AuthResetPasswordResult
@@ -62,7 +65,10 @@ import com.amplifyframework.hub.SubscriptionToken
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
-import io.flutter.plugin.common.*
+import io.flutter.plugin.common.BinaryMessenger
+import io.flutter.plugin.common.EventChannel
+import io.flutter.plugin.common.MethodCall
+import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
@@ -124,7 +130,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
     var data : HashMap<String, Any> = HashMap<String, Any> ()
     try {
       data = checkData(checkArguments(call.arguments));
-    } catch (e: Exception) {
+    } catch(e: Exception) {
       prepareError(result, e, FlutterAuthFailureMessage.CASTING.toString())
     }
 
@@ -432,7 +438,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
           }
         }
       } catch (e: Exception) {
-        prepareError(flutterResult, e, FlutterAuthFailureMessage.FETCH_SESSION.toString())
+        prepareError(flutterResult, e, FlutterAuthFailureMessage.SIGNIN_WITH_WEBUI.toString())
       }
     } else {
       prepareError(flutterResult, java.lang.Exception(FlutterAuthFailureMessage.MALFORMED.toString()), FlutterAuthFailureMessage.MALFORMED.toString())
