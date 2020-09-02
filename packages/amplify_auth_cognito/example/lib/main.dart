@@ -367,7 +367,7 @@ class _MyAppState extends State<MyApp> {
     });
     try {
       bool res = await Amplify.Auth.signInWithWebUI(
-        provider: AuthProvider.google
+
       );
       print(res);
     } on AuthError catch (e) {
