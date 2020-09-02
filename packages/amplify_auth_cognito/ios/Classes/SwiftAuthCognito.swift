@@ -231,6 +231,17 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
         }
     }
     
+    private func onSignInWithWebUI(flutterResult: @escaping FlutterResult, request: FlutterSignInWithWebUIRequest) {
+        Amplify.Auth.signInWithWebUI(presentationAnchor: self.view.window!) { result in
+            switch result {
+            case .success:
+                print("Sign in succeeded")
+            case .failure(let error):
+                print("Sign in failed \(error)")
+            }
+        }
+    }
+    
     private func handleAuthError(error: AuthError, flutterResult: FlutterResult, msg: String){
         if case .service( let localizedError, let recoverySuggestion, let error) = error {
           let errorCode = error != nil ? "\(error!)" : "unknown"

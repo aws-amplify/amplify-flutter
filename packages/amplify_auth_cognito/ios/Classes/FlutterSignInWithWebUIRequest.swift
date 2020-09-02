@@ -14,38 +14,12 @@
  */
 
 import Foundation
-import Amplify
-import AmplifyPlugins
-
 struct FlutterSignInWithWebUIRequest {
-  var provider: AuthProvider?
+  var provider: String?
 
   init(dict: NSMutableDictionary){
-    self.provider = getAuthProvider(provider: dict["authProvider"] as! String?)
+    self.provider = dict["authProvider"] as! String?
   }
-    
-  func getAuthProvider(provider: String?) -> AuthProvider? {
-    if (provider != nil) {
-      switch provider {
-        case "facebook":
-          return AuthProvider.facebook
-        case "amazon":
-          return AuthProvider.amazon
-        case "google":
-          return AuthProvider.google
-        case "apple":
-          return AuthProvider.apple
-        case "oidc":
-          return AuthProvider.oidc
-        case "saml":
-          return AuthProvider.saml
-        default:
-          return nil
-      }
-    }
-    return nil
-  }
-    
   static func validate(dict: NSMutableDictionary) -> Bool {
     var valid: Bool = true;
     let allowedProviders: Array<String> = ["amazon", "google", "facebook", "apple"]
