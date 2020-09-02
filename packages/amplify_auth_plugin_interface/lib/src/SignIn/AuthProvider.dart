@@ -27,5 +27,7 @@ enum AuthProvider {
   google,
   facebook,
   amazon,
-  apple
+  apple,
+  oidc,
+  saml
 }
