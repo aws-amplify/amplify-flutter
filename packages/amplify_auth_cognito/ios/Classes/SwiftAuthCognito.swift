@@ -69,6 +69,37 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
         } catch {
             print("Failed to add AWSCognitoAuthPlugin to Amplify \(error)")
         }
+      case "resetPassword":
+          if (FlutterResetPasswordRequest.validate(dict: data)) {
+            let request = FlutterResetPasswordRequest(dict: data)
+            onResetPassword(flutterResult: result, request: request)
+          } else {
+            let errorCode = "UNKNOWN"
+              self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
+          }
+        case "confirmPassword":
+          if (FlutterConfirmPasswordRequest.validate(dict: data)) {
+            let request = FlutterConfirmPasswordRequest(dict: data)
+            onConfirmPassword(flutterResult: result, request: request)
+          } else {
+            let errorCode = "UNKNOWN"
+              self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
+          }
+        case "signInWithWebUI":
+          if (FlutterSignInWithWebUIRequest.validate(dict: data)) {
+            let request = FlutterSignInWithWebUIRequest(dict: data)
+            onSignInWithWebUI(flutterResult: result, request: request)
+          } else {
+            let errorCode = "UNKNOWN"
+              self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
+          }
+        case "fetchAuthSession":
+            let request = FlutterFetchSessionRequest(dict: data)
+            onFetchSession(flutterResult: result, request: request)
+        case "getCurrentUser":
+            onGetCurrentUser(flutterResult: result)
+        default:
+          result(FlutterMethodNotImplemented)
     }
     
     private func checkArguments(args: Any) throws -> Dictionary<String, AnyObject> {
@@ -174,6 +205,60 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
     static func logErrorContents(messages: Array<String>) {
         messages.forEach {
             log.error($0)
+        }
+    }
+    
+    private func onSignInWithWebUI(flutterResult: @escaping FlutterResult, request: FlutterSignInWithWebUIRequest) {
+        Amplify.Auth.signInWithWebUI(presentationAnchor: self.view.window!) { result in
+            switch result {
+            case .success:
+                print("Sign in succeeded")
+            case .failure(let error):
+                print("Sign in failed \(error)")
+            }
+        }
+    }
+    
+    private func handleAuthError(error: AuthError, flutterResult: FlutterResult, msg: String){
+        if case .service( let localizedError, let recoverySuggestion, let error) = error {
+          let errorCode = error != nil ? "\(error!)" : "unknown"
+          logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
+          formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+        }
+        if case .configuration(let localizedError, let recoverySuggestion, let error) = error {
+          let errorCode = error != nil ? "\(error!)" : "configuration"
+          logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
+          formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+        }
+        if case .unknown(let localizedError, let error) = error {
+          let errorCode = error != nil ? "\(error!)" : "unknown"
+          logErrorContents(messages: [localizedError, "unknown error"])
+          formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: "An unknown error has occurred.")
+        }
+        if case .invalidState(let localizedError, let recoverySuggestion, let error) = error {
+          let errorCode = error != nil ? "\(error!)" : "invalidState"
+          logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
+          formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+        }
+        if case .notAuthorized(let localizedError,  let recoverySuggestion, let error) = error {
+          let errorCode = error != nil ? "\(error!)" : "notAuthorized"
+          logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
+          formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+        }
+        if case .validation(let field, let localizedError, let recoverySuggestion, let error) = error {
+          let errorCode = error != nil ? "\(error!)" : "validation"
+          logErrorContents(messages: [field, localizedError, recoverySuggestion, errorCode])
+          formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+        }
+        if case .signedOut(let localizedError, let recoverySuggestion, let error) = error {
+          let errorCode = error != nil ? "\(error!)" : "signedOut"
+          logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
+          formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
+        }
+        if case .sessionExpired(let localizedError, let recoverySuggestion, let error) = error {
+          let errorCode = error != nil ? "\(error!)" : "sessionExpired"
+          logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
+          formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
         }
     }
 }
