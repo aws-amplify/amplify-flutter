@@ -74,4 +74,9 @@ class AuthCategory {
     var request = AuthSessionRequest(options: options);
     return plugins.length == 1 ? plugins[0].fetchAuthSession(request: request) : throw(errorMsg);
   }
+
+  Future<bool> signInWithWebUI({AuthProvider provider}) {
+    var request = SignInWithWebUIRequest(provider: provider);
+    return plugins.length == 1 ? plugins[0].signInWithWebUI(request: request) : throw(errorMsg);
+  }
 }

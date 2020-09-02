@@ -1,2 +1,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.amazonaws.amplify.amplify_auth_cognito" />
+    package="com.amazonaws.amplify.amplify_auth_cognito" >
+    <application
+        android:name="io.flutter.app.FlutterApplication">
+          <activity
+      android:name="com.amazonaws.mobileconnectors.cognitoauth.activities.CustomTabsRedirectActivity">
+      <intent-filter>
+          <action android:name="android.intent.action.VIEW" />
+
+          <category android:name="android.intent.category.DEFAULT" />
+          <category android:name="android.intent.category.BROWSABLE" />
+
+          <data android:scheme="myapp" />
+      </intent-filter>
+  </activity>
+    </application>
+</manifest>
