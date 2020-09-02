@@ -23,23 +23,7 @@ import android.util.Log
 import androidx.annotation.NonNull
 import com.amazonaws.AmazonClientException
 import com.amazonaws.AmazonServiceException
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthFailureMessage
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpResult
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignInResult
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchCognitoAuthSessionResult
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResetPasswordResult
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchAuthSessionResult
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendSignUpCodeRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchAuthSessionRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmSignUpRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignInRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmSignInRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignOutRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmPasswordRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResetPasswordRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdatePasswordRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthUser
+import com.amazonaws.amplify.amplify_auth_cognito.types.*
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.exceptions.CognitoCodeExpiredException
 import com.amazonaws.services.cognitoidentityprovider.model.*
 import com.amplifyframework.auth.AuthChannelEventName
@@ -242,7 +226,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
       try {
         Amplify.Auth.resendSignUpCode(
                 req.username,
-                { result -> prepareSignUpResult(flutterResult, result) },
+                { result -> prepareResendSignUpCodeResult(flutterResult, result) },
                 { error -> prepareError(flutterResult, error, FlutterAuthFailureMessage.RESEND_SIGNUP_CODE.toString())}
         )
       } catch (e: Exception) {
@@ -456,6 +440,13 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     var signUpData = FlutterSignUpResult(result);
     Handler (Looper.getMainLooper()).post {
       flutterResult.success(signUpData.toValueMap());
+    }
+  }
+
+  fun prepareResendSignUpCodeResult(@NonNull flutterResult: Result, @NonNull result: AuthSignUpResult) {
+    var resendData = FlutterResendSignUpCodeResult(result);
+    Handler (Looper.getMainLooper()).post {
+      flutterResult.success(resendData.toValueMap());
     }
   }
 
