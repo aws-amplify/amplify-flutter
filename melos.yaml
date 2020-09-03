@@ -2,6 +2,7 @@ name: amplify_flutter
 
 packages:
   - packages/**
+  - example/*
 
 scripts:
   copy_dummy_config: >

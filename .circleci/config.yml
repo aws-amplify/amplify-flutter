@@ -38,7 +38,7 @@ commands:
           name: Install and set up melos
           command: |
             pub global activate melos
-            melos bootstrap --ignore="*example*"
+            melos bootstrap
 
 jobs:
   format_analyze:
