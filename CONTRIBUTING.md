@@ -51,6 +51,10 @@ Start by, [Forking](https://help.github.com/en/github/getting-started-with-githu
 
 You will need to install `melos` for dependency management.
 Run `melos bootstrap` to link local packages together and install remaining dependencies.
+
+Note that running `pub get` in the packages is no longer required, because `melos bootstrap` has
+already installed all the dependencies.
+
 See [invertase/melos](https://github.com/invertase/melos) for more instructions on how to use `melos`.
 
 ```
