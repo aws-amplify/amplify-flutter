@@ -121,7 +121,7 @@ jobs:
       - store_artifacts:
           path: ~/test-results/junit
 
-  publish:
+  publish_unstable:
     executor: publish-executor
     steps:
       - install_flutter
@@ -129,7 +129,17 @@ jobs:
       - write_oauth_tokens
       - run: gem install bundler
       - run: bundle install
-      - run: bundle exec fastlane publish_plugins
+      - run: echo "Dumy publish unstable"
+
+  publish_stable:
+    executor: publish-executor
+    steps:
+      - install_flutter
+      - checkout
+      - write_oauth_tokens
+      - run: gem install bundler
+      - run: bundle install
+      - run: echo "Dumy publish stable"
 
 releasable_branches: &releasable_branches
   branches:
@@ -142,3 +152,24 @@ workflows:
     jobs:
       - unit_test_flutter
       - unit_test_android
+      - request_publish:
+          type: approval
+          requires:
+            - unit_test_flutter
+            - unit_test_android
+          filters:
+            <<: *releasable_branches
+      - publish_stable:
+          requires:
+            - request_publish
+          filters:
+            branches:
+              only:
+                - release
+      - publish_unstable:
+          requires:
+            - request_publish
+          filters:
+            branches:
+              only:
+                - master
