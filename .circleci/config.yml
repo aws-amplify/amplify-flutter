@@ -32,6 +32,24 @@ commands:
             git clone --branch ${FLUTTER_BRANCH} https://github.com/flutter/flutter.git ${FLUTTER_HOME}
             (yes || true) | flutter doctor --android-licenses && flutter doctor
 
+  write_pub_token:
+    description:
+      Write OAuth credentials to ~/.pub-cache/credentials.json
+    steps:
+      - run:
+          name: Write Google OAuth Token
+          command: |
+            mkdir -p ~/.pub-cache
+            cat \<<EOF > ~/.pub-cache/credentials.json
+            {
+              "accessToken":"$OAUTH_ACCESS_TOKEN",
+              "refreshToken":"$OAUTH_REFRESH_TOKEN",
+              "tokenEndpoint":"https://accounts.google.com/o/oauth2/token",
+              "scopes": [ "openid", "https://www.googleapis.com/auth/userinfo.email" ],
+              "expiration": $OAUTH_EXPIRATION
+            }
+            EOF
+
 jobs:
   unit_test_flutter:
     executor: docker-executor
