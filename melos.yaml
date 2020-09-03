@@ -35,7 +35,7 @@ scripts:
       pub publish --dry-run
 
   postbootstrap: >
-    tuneup --version || pub global activate tuneup
+    (tuneup --version || pub global activate tuneup) && melos run copy_dummy_config
 
   postclean: >
     melos exec -- \
