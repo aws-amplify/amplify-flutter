@@ -11,6 +11,11 @@ executors:
       xcode: 11.6.0
     working_directory: ~/amplify-flutter
 
+  publish-executor:
+    docker:
+      - image: circleci/ruby:2.6.6
+    working_directory: ~/amplify-flutter
+
 commands:
   install_flutter:
     description:
@@ -32,9 +37,9 @@ commands:
             git clone --branch ${FLUTTER_BRANCH} https://github.com/flutter/flutter.git ${FLUTTER_HOME}
             (yes || true) | flutter doctor --android-licenses && flutter doctor
 
-  write_pub_token:
+  write_oauth_tokens:
     description:
-      Write OAuth credentials to ~/.pub-cache/credentials.json
+      Write OAuth tokens to ~/.pub-cache/credentials.json
     steps:
       - run:
           name: Write Google OAuth Token
@@ -115,6 +120,16 @@ jobs:
           path: ~/test-results
       - store_artifacts:
           path: ~/test-results/junit
+
+  publish:
+    executor: publish-executor
+    steps:
+      - install_flutter
+      - checkout
+      - write_oauth_tokens
+      - run: gem install bundler
+      - run: bundle install
+      - run: bundle exec fastlane publish_plugins
 
 releasable_branches: &releasable_branches
   branches:
