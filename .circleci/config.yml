@@ -129,7 +129,14 @@ jobs:
       - write_oauth_tokens
       - run: gem install bundler
       - run: bundle install
-      - run: echo "Dumy publish unstable"
+      - run: bundle exec fastlane unstable
+
+  push_to_release:
+    executor: docker-executor
+    steps:
+      - checkout
+      - run: git checkout release && git merge master
+      - run: git push origin release
 
   publish_stable:
     executor: publish-executor
@@ -139,7 +146,8 @@ jobs:
       - write_oauth_tokens
       - run: gem install bundler
       - run: bundle install
-      - run: echo "Dumy publish stable"
+      - run: git checkout release && git merge master
+      - run: bundle exec fastlane stable
 
 releasable_branches: &releasable_branches
   branches:
@@ -152,24 +160,36 @@ workflows:
     jobs:
       - unit_test_flutter
       - unit_test_android
-      - request_publish:
+      - request_publish_unstable:
           type: approval
           requires:
             - unit_test_flutter
             - unit_test_android
           filters:
             <<: *releasable_branches
-      - publish_stable:
-          requires:
-            - request_publish
-          filters:
-            branches:
-              only:
-                - release
       - publish_unstable:
           requires:
-            - request_publish
+            - request_publish_unstable
           filters:
             branches:
               only:
                 - master
+      - request_publish_stable:
+          type: approval
+          requires:
+            - publish_unstable
+          filters:
+            branches:
+              only:
+                - master
+      - push_to_release:
+          requires:
+            - request_publish_stable
+      - publish_stable:
+          requires:
+            - unit_test_flutter
+            - unit_test_android
+          filters:
+            branches:
+              only:
+                - release
