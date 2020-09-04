@@ -166,22 +166,16 @@ workflows:
             - unit_test_flutter
             - unit_test_android
           filters:
-            <<: *releasable_branches
-      - publish_unstable:
-          requires:
-            - request_publish_unstable
-          filters:
             branches:
               only:
                 - master
+      - publish_unstable:
+          requires:
+            - request_publish_unstable
       - request_publish_stable:
           type: approval
           requires:
             - publish_unstable
-          filters:
-            branches:
-              only:
-                - master
       - push_to_release:
           requires:
             - request_publish_stable
