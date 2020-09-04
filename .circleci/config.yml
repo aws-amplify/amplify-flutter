@@ -146,7 +146,6 @@ jobs:
       - write_oauth_tokens
       - run: gem install bundler
       - run: bundle install
-      - run: git checkout release && git merge master
       - run: bundle exec fastlane stable
 
 releasable_branches: &releasable_branches
