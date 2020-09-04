@@ -1,7 +1,7 @@
 // Imports the Flutter Driver API.
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
-
+import './finders.dart';
 
 void main() {
 
@@ -15,16 +15,6 @@ void main() {
     }
   }
   group('Cognito Example App', () {
-    // First, define the Finders and use them to locate widgets from the
-    // test suite. Note: the Strings provided to the `byValueKey` method must
-    // be the same as the Strings we used for the Keys in step 1.
-    final configureButtonFinder = find.byValueKey('configure-button');
-    final signInButtonFinder = find.byValueKey('signin-button');
-    final signUpButtonFinder = find.byValueKey('signup-button');
-    final resetButtonFinder = find.byValueKey('reset-button');
-    final signoutButtonFinder = find.byValueKey('signout-button');
-    final sessionButtonFinder = find.byValueKey('session-button');
-    final curretUserButtonFinder = find.byValueKey('current-user-button');
 
     FlutterDriver driver;
 
@@ -41,13 +31,84 @@ void main() {
     });
 
     test('configures the application', () async {
-      // First, tap the button.
       await driver.tap(configureButtonFinder);
-      driver.waitForCondition(waitCondition)
-      await Future.delayed(Duration(seconds: 5));
-      final isSignInDisplayed = await isPresent(signInButtonFinder, driver);
-      // Then, verify the counter text is incremented by 1.
-      expect(isSignInDisplayed, true);
+      await driver.waitFor(signInButtonFinder);
+      await Future.delayed(Duration(seconds: 1));
+      var authState = await driver.getText(authStateFinder);
+      expect(authState, "User not signed in");
     });
+
+    test('signs up an existing user and displays username exists exception', () async {
+
+      // navigate to sign up widget
+      await driver.tap(gotoSignUpButtonFinder);
+      await driver.waitFor(signUpButtonFinder);
+
+      // fill out signup form
+      await driver.tap(signupUsernameFinder);
+      await driver.enterText('testuser');
+      await driver.tap(signupPasswordFinder);
+      await driver.enterText('testpassword');
+      await driver.tap(signupEmailFinder);
+      await driver.enterText('test@test.com');
+      await driver.tap(signupPhoneFinder);
+      await driver.enterText('+15555555555');
+
+      // attempt signup
+      await driver.tap(signUpButtonFinder);
+
+      // find authstate and error texts
+      var authState = await driver.getText(authStateFinder);
+      var error = await driver.getText(errorFinder);
+      var exception1 = await driver.getText(exception1Finder);
+      var exception2 = await driver.getText(exception2Finder);
+
+      // test
+      expect(authState, "User not signed in");
+      expect(error, "AMPLIFY_SIGNUP_FAILED");
+      expect(["USERNAME_EXISTS", "PLATFORM_EXCEPTIONS"].contains(exception1), true);
+      expect(["USERNAME_EXISTS", "PLATFORM_EXCEPTIONS"].contains(exception2), true);
+
+      // navigate to signin widget
+      await driver.tap(gotoSignInButtonFinder);
+    });
+
+    test('signs up an existing user and displays username exists exception', () async {
+
+      // navigate to sign up widget
+      await driver.tap(gotoSignUpButtonFinder);
+      await driver.waitFor(signUpButtonFinder);
+
+      // fill out signup form
+      await driver.tap(signupUsernameFinder);
+      await driver.enterText('testuser');
+      await driver.tap(signupPasswordFinder);
+      await driver.enterText('testpassword');
+      await driver.tap(signupEmailFinder);
+      await driver.enterText('test@test.com');
+      await driver.tap(signupPhoneFinder);
+      await driver.enterText('+15555555555');
+
+      // attempt signup
+      await driver.tap(signUpButtonFinder);
+
+      // find authstate and error texts
+      var authState = await driver.getText(authStateFinder);
+      var error = await driver.getText(errorFinder);
+      var exception1 = await driver.getText(exception1Finder);
+      var exception2 = await driver.getText(exception2Finder);
+
+      // test
+      expect(authState, "User not signed in");
+      expect(error, "AMPLIFY_SIGNUP_FAILED");
+      expect(["USERNAME_EXISTS", "PLATFORM_EXCEPTIONS"].contains(exception1), true);
+      expect(["USERNAME_EXISTS", "PLATFORM_EXCEPTIONS"].contains(exception2), true);
+
+      // navigate to signin widget
+      await driver.tap(gotoSignInButtonFinder);
+    });
+
   });
+
+
 }

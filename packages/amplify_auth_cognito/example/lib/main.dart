@@ -44,11 +44,11 @@ class _MyAppState extends State<MyApp> {
 
   bool _isAmplifyConfigured = false;
   Amplify amplify = Amplify();
-  AmplifyAuthCognito  auth;
+  AmplifyAuthCognito auth;
   String displayState;
-  String authState;
-  String hubEvent;
-  String error;
+  String authState = "User not signed in";
+  String hubEvent = "";
+  String error = "";
   List<String> exceptions = [];
 
   @override
@@ -103,6 +103,7 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       _isAmplifyConfigured = true;
       displayState = isSignedIn ? "SIGNED_IN" : "SHOW_SIGN_IN";
+      authState = isSignedIn ? "User already signed in" : "User not signed in";
     });
     auth.events.listenToAuth((hubEvent) {
       switch(hubEvent["eventName"]) {
@@ -250,13 +251,11 @@ class _MyAppState extends State<MyApp> {
   }
 
   showAuthState() {
-    return Text.rich(
-      TextSpan(
-        children: <InlineSpan>[
-          TextSpan(text: 'Auth State: ', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
-          TextSpan(text: '$authState', style: TextStyle(fontSize: 15, color: Color(0xFFBF360C)))
-        ],
-      )
+    return Row(
+      children: [
+        Text('Current auth state: '),
+        Text('$authState', key: Key('auth-state-text'))
+      ],
     );
   }
 
@@ -280,14 +279,14 @@ class _MyAppState extends State<MyApp> {
             ListTile(
               leading: Icon(Icons.album),
               title: Text("Current Errors"),
-              subtitle: Text(this.error),
+              subtitle: Text(this.error, key: Key('current-error')),
             ),
             SizedBox(
               height: 200,
               child: new ListView.builder(
                 itemCount: this.exceptions.length,
                 itemBuilder: (BuildContext ctxt, int index) {
-                return new Text(exceptions[index]);
+                return new Text(exceptions[index], key: Key('exception-'+ (index+1).toString()));
                 }
               ),
             )

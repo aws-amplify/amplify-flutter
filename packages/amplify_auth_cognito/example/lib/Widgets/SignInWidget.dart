@@ -90,7 +90,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                     child: const Text('Sign In'),
                   ),
                   RaisedButton(
-                    key: Key('signup-button'),
+                    key: Key('goto-signup-button'),
                     onPressed: widget.showCreateUser,
                     child: const Text('Create User'),
                   ),

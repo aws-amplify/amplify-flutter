@@ -52,6 +52,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
           child: Column(
             children: [
               TextFormField(
+                key: Key('signup-username-input'),
                 controller: usernameController,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.person),
@@ -60,6 +61,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 ),
               ),
               TextFormField(
+                key: Key('signup-password-input'),
                 obscureText: true,
                 controller: passwordController,
                 decoration: const InputDecoration(
@@ -69,6 +71,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 ),
               ),
               TextFormField(
+                key: Key('signup-email-input'),
                 controller: emailController,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.email),
@@ -77,6 +80,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 ),
               ),
               TextFormField(
+                key: Key('signup-phone-input'),
                 controller: phoneController,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.phone),
@@ -86,11 +90,13 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
               RaisedButton(
+                key: Key('signup-button'),
                 onPressed: _signUp,
                 child: const Text('Sign Up'),
               ),
             const Padding(padding: EdgeInsets.all(10.0)),
             RaisedButton(
+              key: Key('goto-signin'),
               onPressed: widget.backToSignIn,
               child: const Text('Back to Sign In'),
             ),
