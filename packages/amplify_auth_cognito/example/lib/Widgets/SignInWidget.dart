@@ -53,12 +53,14 @@ class _SignInWidgetState extends State<SignInWidget> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      key: Key('signin-component'),
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         Expanded( // wrap your Column in Expanded
           child: Column(
             children: [
               TextFormField(
+                key: Key('signin-username-input'),
                 controller: usernameController,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.person),
@@ -67,6 +69,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                 )
               ),
               TextFormField(
+                key: Key('signin-password-input'),
                 obscureText: true,
                 controller: passwordController,
                 decoration: const InputDecoration(

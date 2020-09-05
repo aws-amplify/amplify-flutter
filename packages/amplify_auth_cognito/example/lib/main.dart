@@ -165,12 +165,7 @@ class _MyAppState extends State<MyApp> {
       CognitoAuthSession res = await Amplify.Auth.fetchAuthSession(options: CognitoSessionOptions(getAWSCredentials: false));
       showResult("Session Sign In Status = " + res.isSignedIn.toString());
     } on AuthError catch (e) {
-      setState(() {
-        error = e.cause;
-        e.exceptionList.forEach((el) {
-          exceptions.add(el.exception);
-        });
-      });
+      setError(e);
       print(e);
     }
   }
@@ -180,12 +175,7 @@ class _MyAppState extends State<MyApp> {
       AuthUser res = await Amplify.Auth.getCurrentUser();
       showResult("Current User Name = " + res.username);
     } on AuthError catch (e) {
-      setState(() {
-        error = e.cause;
-        e.exceptionList.forEach((el) {
-          exceptions.add(el.exception);
-        });
-      });
+      setError(e);
     }
   }
 
@@ -260,19 +250,18 @@ class _MyAppState extends State<MyApp> {
   }
 
   showHubEvent() {
-    return Text.rich(
-      TextSpan(
-        children: <InlineSpan>[
-          TextSpan(text: 'Recent Hub Event: ', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
-          TextSpan(text: '$hubEvent', style: TextStyle(fontSize: 15, color: Color(0xFFBF360C)))
-        ],
-      )
+    return Row(
+      children: [
+        Text('Recent Hub Event: '),
+        Text('$hubEvent')
+      ],
     );
   }
 
   showErrors() {
     return Center(
       child: Card(
+        key: Key('error-card'),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -319,7 +308,7 @@ class _MyAppState extends State<MyApp> {
                   if (this.displayState == "SHOW_CONFIRM") ConfirmSignUpWidget(showResult, changeDisplay, setError, _backToSignIn),
                   if (this.displayState == "SHOW_SIGN_IN") SignInWidget(showResult, changeDisplay, _showCreateUser, _signOut, _fetchSession, _getCurrentUser, setError),
                   if (this.displayState == "SHOW_CONFIRM_SIGN_IN") ConfirmSignInWidget(showResult, changeDisplay, setError, _backToSignIn),
-                  if (this.displayState == "SHOW_UPDATE_PASSWORD") UpdatePasswordWidget(showResult, changeDisplay, setError, _backToApp),
+                  if (this.displayState == "SHOW_UPDATE_PASSWORD") UpdatePasswordWidget(showResult, changeDisplay, setError, _backToSignIn, _backToApp),
                   if (this.displayState == "SHOW_CONFIRM_RESET") ConfirmResetWidget(showResult, changeDisplay, setError, _backToSignIn),
                   if (this.displayState == "SIGNED_IN") showApp(),
                   if (this.error != "") showErrors(),

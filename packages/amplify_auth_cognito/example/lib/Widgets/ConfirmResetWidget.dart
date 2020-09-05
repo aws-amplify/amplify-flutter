@@ -76,6 +76,7 @@ class _ConfirmWidgetState extends State<ConfirmResetWidget> {
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
               RaisedButton(
+                key: Key('goto-signin-button'),
                 onPressed: widget.backToSignIn,
                 child: const Text('Back to Sign In'),
               ),

@@ -47,6 +47,7 @@ class _ConfirmSignUpWidgetState extends State<ConfirmSignUpWidget> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      key: Key('confirm-signup-component'),
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         Expanded( // wrap your Column in Expanded
@@ -54,6 +55,7 @@ class _ConfirmSignUpWidgetState extends State<ConfirmSignUpWidget> {
             children: [
               const Padding(padding: EdgeInsets.all(10.0)),
               TextFormField(
+                key: Key('confirm-signup-username-input'),
                 controller: usernameController,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.person),
@@ -62,6 +64,7 @@ class _ConfirmSignUpWidgetState extends State<ConfirmSignUpWidget> {
                 )
               ),
               TextFormField(
+                key: Key('confirm-signup-code-input'),
                 controller: confirmationCodeController,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.confirmation_number),
@@ -71,19 +74,21 @@ class _ConfirmSignUpWidgetState extends State<ConfirmSignUpWidget> {
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
               RaisedButton(
+                key: Key('confirm-user-button'),
                 onPressed: _confirmSignUp,
                 child: const Text('Confirm SignUp'),
-              ),
-              const Padding(padding: EdgeInsets.all(10.0)),
-              RaisedButton(
-                onPressed: widget.backToSignIn,
-                child: const Text('Back to Sign In'),
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
               RaisedButton(
                 onPressed: _resendSignUpCode,
                 child: const Text('ResendCode'),
               ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+              key: Key('goto-signin-button'),
+              onPressed: widget.backToSignIn,
+              child: const Text('Back to Sign In'),
+            ),
             ],
           ),
         ),

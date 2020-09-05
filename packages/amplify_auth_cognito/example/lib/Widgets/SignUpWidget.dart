@@ -46,6 +46,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      key: Key('signup-component'),
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         Expanded( // wrap your Column in Expanded
@@ -96,7 +97,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               ),
             const Padding(padding: EdgeInsets.all(10.0)),
             RaisedButton(
-              key: Key('goto-signin'),
+              key: Key('goto-signin-button'),
               onPressed: widget.backToSignIn,
               child: const Text('Back to Sign In'),
             ),
