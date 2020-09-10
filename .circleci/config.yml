@@ -157,8 +157,16 @@ releasable_branches: &releasable_branches
 workflows:
   test_deploy:
     jobs:
-      - unit_test_flutter
-      - unit_test_android
+      - unit_test_flutter:
+          filters:
+            branches:
+              ignore:
+                - release
+      - unit_test_android:
+          filters:
+            branches:
+              ignore:
+                - release
       - request_publish_unstable:
           type: approval
           requires:
@@ -178,11 +186,9 @@ workflows:
       - push_to_release:
           requires:
             - request_publish_stable
-      - publish_stable:
-          requires:
-            - unit_test_flutter
-            - unit_test_android
-          filters:
-            branches:
-              only:
-                - release
+      # TODO: only enable after release branch is created
+      # - publish_stable:
+      #     filters:
+      #       branches:
+      #         only:
+      #           - release
