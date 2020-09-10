@@ -19,16 +19,12 @@ lane :unstable do
   # Increment all pubspecs
   increment_versions(version: next_version)
 
+  # Build changelog since last release
   _, commits = calculate_next_release_version
   write_plugin_changelogs(commits: commits, version: next_version)
 
-  prerelease_commit(version: next_version)
-
-  # Create tag and push to origin
-  add_tag(version: next_version)
-
-  # # Publish to Pub.dev
-  # publish_plugins
+  # Publish to Pub.dev
+  publish_plugins
 end
 
 desc 'Create a release version by committing a changelog, pushing a tag to GitHub, and publishing plugins to Pub.dev'
@@ -48,8 +44,8 @@ lane :stable do
   # Create tag and push to origin
   add_tag(version: next_version)
 
-  # # Publish plugins
-  # publish_plugins
+  # Publish plugins
+  publish_plugins
 
   # Merge release back into master
   sh('git', 'push', 'origin', 'release:master')
@@ -115,16 +111,6 @@ private_lane :write_plugin_changelogs do |options|
   end
 end
 
-desc 'Commit and push updated pre-release version'
-private_lane :prerelease_commit do |options|
-  next_version = options[:version]
-
-  commit_message = "chore: pre-release #{next_version} [skip ci]"
-  sh('git', 'commit', '-am', commit_message)
-
-  # do not push to master, tag is on separate branch
-end
-
 desc 'Commit and push updated release version'
 private_lane :release_commit do |options|
   next_version = options[:version]
@@ -157,6 +143,9 @@ private_lane :publish_plugins do
       sh('flutter', 'pub', 'publish', '--dry-run')
     end
   end
+
+  # TODO: enable (force) publishing to Pub.dev once
+  #       the dry runs all succeed
 
   # UI.message('Now actually publishing...')
   # Dir.foreach(packages_root) do |plugin|
