@@ -8,7 +8,7 @@ Podfile.lock
 *.iml
 *.jar
 Podfile.lock
-
+**/unpub-packages/
 
 # IDEs
 .idea/
