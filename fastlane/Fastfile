@@ -63,7 +63,7 @@ private_lane :increment_versions do |options|
     UI.message("Incrementing version for #{pubspec}")
     set_key_value(file: pubspec, key: 'version', value: version)
     begin
-      set_key_value(file: pubspec, key: 'amplify_[a-z0-9_]+', value: "^#{version}")
+      set_key_value(file: pubspec, key: 'amplify_[a-z0-9_]+', value: "#{version}")
     rescue
       # Pubspec doesn't have amplify_* dependencies.
       # Instead of exiting, continue.
@@ -74,7 +74,7 @@ private_lane :increment_versions do |options|
   example_pubspec = File.expand_path('example/pubspec.yaml', ENV['CIRCLE_WORKING_DIRECTORY'])
   UI.message("Incrementing dependency versions in example app in #{example_pubspec}")
   begin
-    set_key_value(file: example_pubspec, key: 'amplify_[a-z0-9_]+', value: "^#{version}")
+    set_key_value(file: example_pubspec, key: 'amplify_[a-z0-9_]+', value: "#{version}")
   rescue
     # Pubspec doesn't have amplify_* dependencies.
     # Instead of exiting, continue.
