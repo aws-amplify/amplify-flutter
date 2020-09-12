@@ -63,6 +63,9 @@ private_lane :increment_versions do |options|
     UI.message("Incrementing version for #{pubspec}")
     set_key_value(file: pubspec, key: 'version', value: version)
     begin
+      # Use exact version number for dependencies, because APIs might change without
+      # change in major version number.
+      # We can switch to the `^` symbol once we are stable.
       set_key_value(file: pubspec, key: 'amplify_[a-z0-9_]+', value: "#{version}")
     rescue
       # Pubspec doesn't have amplify_* dependencies.
@@ -87,6 +90,8 @@ desc 'Write changelog for each plugin package'
 private_lane :write_plugin_changelogs do |options|
   commits = options[:commits]
   version = options[:version]
+
+  # Only write a commit message to its corresponding package's changelog
 
   # Maps each scope/package to its commits
   scope_to_commits = commits.group_by { |commit| commit.scope }
