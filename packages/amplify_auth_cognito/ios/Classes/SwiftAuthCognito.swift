@@ -19,7 +19,7 @@ import Amplify
 import AmplifyPlugins
 import AWSCore
 
-public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
+ open class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
     
     private var authEventSink: FlutterEventSink?
     private var token: UnsubscribeToken?
@@ -167,13 +167,13 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
     }
   }
 
-  private func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest) {
+  func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest) {
     let options = AuthSignUpRequest.Options(userAttributes: request.userAttributes)
 
     _ = Amplify.Auth.signUp(username: request.username, password:request.password, options: options) { response in
         switch response {
        case .success:
-         let signUpData = FlutterSignUpResult(res: response)
+        let signUpData = FlutterSignUpResult(res: response)
          flutterResult(signUpData.toJSON())
        case .failure(let signUpError):
          self.handleAuthError(error: signUpError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNUP.rawValue)
@@ -181,7 +181,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
     }
   }
 
-  private func onConfirmSignUp(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignUpRequest) {
+func onConfirmSignUp(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignUpRequest) {
     _ = Amplify.Auth.confirmSignUp(for: request.username, confirmationCode:request.confirmationCode) { response in
      switch response {
        case .success:
@@ -320,7 +320,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
         }
     }
     
-    private func handleAuthError(error: AuthError, flutterResult: FlutterResult, msg: String){
+    func handleAuthError(error: AuthError, flutterResult: FlutterResult, msg: String){
         if case .service( let localizedError, let recoverySuggestion, let error) = error {
           let errorCode = error != nil ? "\(error!)" : "unknown"
           logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
@@ -391,7 +391,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
       return platformDict
     }
     
-  private func formatErrorMap(errorCode: String, localizedError: String = "") -> [String: Any] {
+    func formatErrorMap(errorCode: String, localizedError: String = "") -> [String: Any] {
       var errorDict: [String: Any] = [:]
       switch errorCode {
         case "codeExpired":
