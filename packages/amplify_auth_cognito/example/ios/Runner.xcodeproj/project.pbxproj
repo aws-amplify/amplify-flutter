@@ -15,6 +15,8 @@
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
+		9C404087251AA2430036C5FE /* MockAuthSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C404086251AA2430036C5FE /* MockAuthSession.swift */; };
+		9C404089251AC7990036C5FE /* MockCognito.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C404088251AC7990036C5FE /* MockCognito.swift */; };
 		9CEFDF1525113C2F001481FC /* amplify_auth_cognito_exampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEFDF1425113C2F001481FC /* amplify_auth_cognito_exampleTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +52,8 @@
 		97C146FD1CF9000F007C117D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9C404086251AA2430036C5FE /* MockAuthSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAuthSession.swift; sourceTree = "<group>"; };
+		9C404088251AC7990036C5FE /* MockCognito.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCognito.swift; sourceTree = "<group>"; };
 		9CEFDF1225113C2F001481FC /* amplify_auth_cognito_exampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = amplify_auth_cognito_exampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CEFDF1425113C2F001481FC /* amplify_auth_cognito_exampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = amplify_auth_cognito_exampleTests.swift; sourceTree = "<group>"; };
 		9CEFDF1625113C2F001481FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -128,6 +132,8 @@
 		9CEFDF1325113C2F001481FC /* amplify_auth_cognito_exampleTests */ = {
 			isa = PBXGroup;
 			children = (
+				9C404088251AC7990036C5FE /* MockCognito.swift */,
+				9C404086251AA2430036C5FE /* MockAuthSession.swift */,
 				9CEFDF1425113C2F001481FC /* amplify_auth_cognito_exampleTests.swift */,
 				9CEFDF1625113C2F001481FC /* Info.plist */,
 			);
@@ -382,7 +388,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C404087251AA2430036C5FE /* MockAuthSession.swift in Sources */,
 				9CEFDF1525113C2F001481FC /* amplify_auth_cognito_exampleTests.swift in Sources */,
+				9C404089251AC7990036C5FE /* MockCognito.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

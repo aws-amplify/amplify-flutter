@@ -23,6 +23,11 @@ import AWSCore
     
     private var authEventSink: FlutterEventSink?
     private var token: UnsubscribeToken?
+    private let cognito: AuthCognitoProtocol
+    
+    init(cognito: AuthCognitoProtocol = AuthCognitoDefault()) {
+        self.cognito = cognito
+    }
     
     public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
         token = Amplify.Hub.listen(to: .auth) { payload in
@@ -93,7 +98,7 @@ import AWSCore
       case "signUp":
         if (FlutterSignUpRequest.validate(dict: data)) {
           let request = FlutterSignUpRequest(dict: data)
-          onSignUp(flutterResult: result, request: request)
+            cognito.onSignUp(flutterResult: result, request: request, errorHandler: handleAuthError)
         } else {
           let errorCode = "UNKNOWN"
             self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
@@ -101,7 +106,7 @@ import AWSCore
       case "confirmSignUp":
         if (FlutterConfirmSignUpRequest.validate(dict: data)) {
           let request = FlutterConfirmSignUpRequest(dict: data)
-          onConfirmSignUp(flutterResult: result, request: request)
+            cognito.onConfirmSignUp(flutterResult: result, request: request, errorHandler: handleAuthError)
         } else {
           let errorCode = "UNKNOWN"
             self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
@@ -109,7 +114,7 @@ import AWSCore
        case "resendSignUpCode":
           if (FlutterResendSignUpCodeRequest.validate(dict: data)) {
             let request = FlutterResendSignUpCodeRequest(dict: data)
-            onResendSignUpCode(flutterResult: result, request: request)
+              cognito.onResendSignUpCode(flutterResult: result, request: request, errorHandler: handleAuthError)
           } else {
             let errorCode = "UNKNOWN"
               self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
@@ -117,7 +122,7 @@ import AWSCore
       case "signIn":
         if (FlutterSignInRequest.validate(dict: data)) {
           let request = FlutterSignInRequest(dict: data)
-          onSignIn(flutterResult: result, request: request)
+            cognito.onSignIn(flutterResult: result, request: request, errorHandler: handleAuthError)
         } else {
           let errorCode = "UNKNOWN"
             self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
@@ -125,18 +130,18 @@ import AWSCore
       case "confirmSignIn":
         if (FlutterConfirmSignInRequest.validate(dict: data)) {
           let request = FlutterConfirmSignInRequest(dict: data)
-          onConfirmSignIn(flutterResult: result, request: request)
+            cognito.onConfirmSignIn(flutterResult: result, request: request, errorHandler: handleAuthError)
         } else {
           let errorCode = "UNKNOWN"
             self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
         }
       case "signOut":
         let request = FlutterSignOutRequest(dict: data)
-        onSignOut(flutterResult: result, request: request)
+          cognito.onSignOut(flutterResult: result, request: request, errorHandler: handleAuthError)
       case "updatePassword":
         if (FlutterUpdatePasswordRequest.validate(dict: data)) {
           let  request = FlutterUpdatePasswordRequest(dict: data)
-          onUpdatePassword(flutterResult: result, request: request)
+            cognito.onUpdatePassword(flutterResult: result, request: request, errorHandler: handleAuthError)
         } else {
           let errorCode = "UNKNOWN"
             self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
@@ -144,7 +149,7 @@ import AWSCore
       case "resetPassword":
           if (FlutterResetPasswordRequest.validate(dict: data)) {
             let request = FlutterResetPasswordRequest(dict: data)
-            onResetPassword(flutterResult: result, request: request)
+              cognito.onResetPassword(flutterResult: result, request: request, errorHandler: handleAuthError)
           } else {
             let errorCode = "UNKNOWN"
               self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
@@ -152,175 +157,22 @@ import AWSCore
         case "confirmPassword":
           if (FlutterConfirmPasswordRequest.validate(dict: data)) {
             let request = FlutterConfirmPasswordRequest(dict: data)
-            onConfirmPassword(flutterResult: result, request: request)
+              cognito.onConfirmPassword(flutterResult: result, request: request, errorHandler: handleAuthError)
           } else {
             let errorCode = "UNKNOWN"
               self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
           }
         case "fetchAuthSession":
             let request = FlutterFetchSessionRequest(dict: data)
-            onFetchSession(flutterResult: result, request: request)
+              cognito.onFetchSession(flutterResult: result, request: request, errorHandler: handleAuthError)
         case "getCurrentUser":
-            onGetCurrentUser(flutterResult: result)
+            cognito.onGetCurrentUser(flutterResult: result, errorHandler: handleAuthError)
         default:
           result(FlutterMethodNotImplemented)
     }
   }
-
-  func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest) {
-    let options = AuthSignUpRequest.Options(userAttributes: request.userAttributes)
-
-    _ = Amplify.Auth.signUp(username: request.username, password:request.password, options: options) { response in
-        switch response {
-       case .success:
-        let signUpData = FlutterSignUpResult(res: response)
-         flutterResult(signUpData.toJSON())
-       case .failure(let signUpError):
-         self.handleAuthError(error: signUpError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNUP.rawValue)
-      }
-    }
-  }
-
-func onConfirmSignUp(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignUpRequest) {
-    _ = Amplify.Auth.confirmSignUp(for: request.username, confirmationCode:request.confirmationCode) { response in
-     switch response {
-       case .success:
-         let signUpData = FlutterSignUpResult(res: response)
-         flutterResult(signUpData.toJSON())
-        
-       case .failure(let signUpError):
-         self.handleAuthError(error: signUpError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.CONFIRM_SIGNUP.rawValue)
-      }
-    }
-  }
     
-  private func onResendSignUpCode(flutterResult: @escaping FlutterResult, request: FlutterResendSignUpCodeRequest) {
-    _ = Amplify.Auth.resendSignUpCode(for: request.username) { response in
-      switch response {
-          case .success:
-            let resendData = FlutterResendSignUpCodeResult(res: response)
-            flutterResult(resendData.toJSON())
-          case .failure(let signUpError):
-            self.handleAuthError(error: signUpError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.RESEND_SIGNUP.rawValue)
-      }
-    }
-  }
-
-  private func onSignIn(flutterResult: @escaping FlutterResult, request: FlutterSignInRequest) {
-    _ = Amplify.Auth.signIn(username: request.username, password:request.password) { response in
-      switch response {
-        case .success:
-        let signInData = FlutterSignInResult(res: response)
-        flutterResult(signInData.toJSON())
-          case .failure(let signInError):
-          self.handleAuthError(error: signInError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNIN.rawValue)
-        }
-     }
-  }
-    
-  private func onConfirmSignIn(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignInRequest) {
-    _ = Amplify.Auth.confirmSignIn(challengeResponse: request.confirmationCode) { response in
-     switch response {
-       case .success:
-         let signInData = FlutterSignInResult(res: response)
-         flutterResult(signInData.toJSON())
-       case .failure(let signInError):
-         self.handleAuthError(error: signInError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.CONFIRM_SIGNIN.rawValue)
-       }
-     }
-   }
-    
-  private func onSignOut(flutterResult: @escaping FlutterResult, request: FlutterSignOutRequest) {
-    _ = Amplify.Auth.signOut(options: request.options) { response in
-      switch response {
-        case .success:
-          let emptyMap: Dictionary<String, Any> = [:]
-          flutterResult(emptyMap)
-
-        case .failure(let signOutError):
-        self.handleAuthError(error: signOutError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNOUT.rawValue)
-      }
-    }
-  }
-    
-  private func onUpdatePassword(flutterResult: @escaping FlutterResult, request: FlutterUpdatePasswordRequest) {
-    _ = Amplify.Auth.update(oldPassword: request.oldPassword, to: request.newPassword) { response in
-     switch response {
-       case .success:
-        let emptyMap: Dictionary<String, Any> = [:]
-        flutterResult(emptyMap)
-        
-       case .failure(let updatePasswordError):
-        self.handleAuthError(error: updatePasswordError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.UPDATE_PASSWORD.rawValue)
-      }
-    }
-  }
-    
-    private func onResetPassword(flutterResult: @escaping FlutterResult, request: FlutterResetPasswordRequest) {
-        _ = Amplify.Auth.resetPassword(for: request.username) { response in
-       switch response {
-         case .success:
-          let resetData = FlutterResetPasswordResult(res: response)
-          flutterResult(resetData.toJSON())
-          
-         case .failure(let resetPasswordError):
-          self.handleAuthError(error: resetPasswordError, flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.RESET_PASSWORD.rawValue)
-        }
-      }
-    }
-
-    private func onConfirmPassword(flutterResult: @escaping FlutterResult, request: FlutterConfirmPasswordRequest) {
-        _ = Amplify.Auth.confirmResetPassword(for: request.username, with: request.newPassword, confirmationCode: request.confirmationCode) { response in
-       switch response {
-         case .success:
-           let emptyMap: Dictionary<String, Any> = [:]
-           flutterResult(emptyMap)
-          
-         case .failure(let resetPasswordError):
-          self.handleAuthError(error: resetPasswordError, flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.RESET_PASSWORD.rawValue)
-        }
-      }
-    }
-    
-    private func onFetchSession(flutterResult: @escaping FlutterResult, request: FlutterFetchSessionRequest) {
-      _ = Amplify.Auth.fetchAuthSession { result in
-        do {
-            if (request.getAWSCredentials) {
-                let sessionData = try FlutterFetchCognitoSessionResult(res: result)
-                flutterResult(sessionData.toJSON())
-            } else {
-                let sessionData = try FlutterFetchSessionResult(res: result)
-                if (sessionData.isSignedIn) {
-                  flutterResult(sessionData.toJSON())
-                } else {
-                    throw AuthError.signedOut("There is no user signed in to retreive user sub",
-                    "Call Auth.signIn to sign in a user and then call Auth.fetchSession")
-                }
-            }
-
-        } catch {
-            self.handleAuthError(error: error as! AuthError, flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.FETCH_SESSION.rawValue)
-        }
-      }
-    }
-    
-    private func onGetCurrentUser(flutterResult: @escaping FlutterResult) {
-      do {
-        guard let user = Amplify.Auth.getCurrentUser() else {
-           throw AuthError.signedOut(
-               "You are currently signed out.",
-               "Please sign in and reattempt the operation."
-           )
-        }
-        let userData = FlutterAuthUserResult(res: user)
-        flutterResult(userData.toJSON())
-        
-      } catch {
-          self.handleAuthError(error: error as! AuthError, flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.GET_CURRENT_USER.rawValue)
-        }
-    }
-    
-    func handleAuthError(error: AuthError, flutterResult: FlutterResult, msg: String){
+  func handleAuthError(error: AuthError, flutterResult: FlutterResult, msg: String){
         if case .service( let localizedError, let recoverySuggestion, let error) = error {
           let errorCode = error != nil ? "\(error!)" : "unknown"
           logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
@@ -452,6 +304,7 @@ func onConfirmSignUp(flutterResult: @escaping FlutterResult, request: FlutterCon
       }
       return errorDict
   }
+    
 }
 
 extension SwiftAuthCognito: DefaultLogger { }
