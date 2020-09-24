@@ -24,7 +24,7 @@ class MockCognito: AuthCognitoProtocol {
     
     var returnError: Bool = false
     
-    func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest, errorHandler: @escaping (_ error: AuthError, _ flutterResult: FlutterResult, _ msg: String) -> Void) {
+    func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest) {
         if (!returnError) {
             var signUpRes = Result<AuthSignUpResult,AuthError>.success(
                 AuthSignUpResult(AuthSignUpStep.confirmUser(AuthCodeDeliveryDetails(destination: DeliveryDestination.email(_email)), ["foo": "bar"])))
@@ -44,21 +44,21 @@ class MockCognito: AuthCognitoProtocol {
             flutterResult(signUpData)
         } else {
             let authError = AuthError.service("Invalid username", "Enter a username", nil)
-            errorHandler(authError, flutterResult, FlutterAuthErrorMessage.SIGNUP.rawValue)
+            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNUP.rawValue)
         }
     }
-    func onConfirmSignUp(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignUpRequest, errorHandler: @escaping (_ error: AuthError, _ flutterResult: FlutterResult, _ msg: String) -> Void) {
+    func onConfirmSignUp(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignUpRequest) {
         if (!returnError) {
           let confirmSignUpRes = Result<AuthSignUpResult,AuthError>.success(AuthSignUpResult(AuthSignUpStep.done))
           let signUpData = FlutterSignUpResult(res: confirmSignUpRes)
           flutterResult(signUpData)
         } else {
             let authError = AuthError.service("Invalid username", "Enter a username", nil)
-            errorHandler(authError, flutterResult, FlutterAuthErrorMessage.CONFIRM_SIGNUP.rawValue)
+            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.CONFIRM_SIGNUP.rawValue)
         }
     }
     
-    func onResendSignUpCode(flutterResult: @escaping FlutterResult, request: FlutterResendSignUpCodeRequest, errorHandler: @escaping (_ error: AuthError, _ flutterResult: FlutterResult, _ msg: String) -> Void) {
+    func onResendSignUpCode(flutterResult: @escaping FlutterResult, request: FlutterResendSignUpCodeRequest) {
         if (!returnError) {
           var confirmSignUpRes = Result<AuthCodeDeliveryDetails, AuthError>.success(AuthCodeDeliveryDetails(destination: DeliveryDestination.email(_email)))
           if (request.username == "phone") {
@@ -72,11 +72,11 @@ class MockCognito: AuthCognitoProtocol {
           flutterResult(resendData)
         } else {
             let authError = AuthError.service("Invalid username", "Enter a username", nil)
-            errorHandler(authError, flutterResult, FlutterAuthErrorMessage.RESEND_SIGNUP.rawValue)
+            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.RESEND_SIGNUP.rawValue)
         }
     }
     
-    func onSignIn(flutterResult: @escaping FlutterResult, request: FlutterSignInRequest, errorHandler: @escaping (_ error: AuthError, _ flutterResult: FlutterResult, _ msg: String) -> Void) {
+    func onSignIn(flutterResult: @escaping FlutterResult, request: FlutterSignInRequest) {
         if (!returnError) {
           var signInRes = Result<AuthSignInResult, AuthError>.success(
             AuthSignInResult(nextStep: AuthSignInStep.confirmSignInWithSMSMFACode(AuthCodeDeliveryDetails(destination: DeliveryDestination.email(_email)), ["foo": "bar"]))
@@ -110,32 +110,32 @@ class MockCognito: AuthCognitoProtocol {
           flutterResult(resendData)
         } else {
             let authError = AuthError.service("Invalid username", "Enter a username", nil)
-            errorHandler(authError, flutterResult, FlutterAuthErrorMessage.SIGNIN.rawValue)
+            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNIN.rawValue)
         }
     }
     
-    func onConfirmSignIn(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignInRequest, errorHandler: @escaping (_ error: AuthError, _ flutterResult: FlutterResult, _ msg: String) -> Void) {
+    func onConfirmSignIn(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignInRequest) {
         if (!returnError) {
           let confirmSignUpRes = Result<AuthSignInResult,AuthError>.success(AuthSignInResult(nextStep: AuthSignInStep.done))
           let signUpData = FlutterSignInResult(res: confirmSignUpRes)
           flutterResult(signUpData)
         } else {
             let authError = AuthError.service("Invalid confirmation code", "Enter a confirmation code", nil)
-            errorHandler(authError, flutterResult, FlutterAuthErrorMessage.CONFIRM_SIGNIN.rawValue)
+            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.CONFIRM_SIGNIN.rawValue)
         }
     }
     
-    func onUpdatePassword(flutterResult: @escaping FlutterResult, request: FlutterUpdatePasswordRequest, errorHandler: @escaping (_ error: AuthError, _ flutterResult: FlutterResult, _ msg: String) -> Void) {
+    func onUpdatePassword(flutterResult: @escaping FlutterResult, request: FlutterUpdatePasswordRequest) {
         if (!returnError) {
           let emptyMap: Dictionary<String, Any> = [:]
           flutterResult(emptyMap)
         } else {
             let authError = AuthError.service("Invalid password", "Enter the old password", nil)
-            errorHandler(authError, flutterResult, FlutterAuthErrorMessage.UPDATE_PASSWORD.rawValue)
+            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.UPDATE_PASSWORD.rawValue)
         }
     }
     
-    func onResetPassword(flutterResult: @escaping FlutterResult, request: FlutterResetPasswordRequest, errorHandler: @escaping (_ error: AuthError, _ flutterResult: FlutterResult, _ msg: String) -> Void) {
+    func onResetPassword(flutterResult: @escaping FlutterResult, request: FlutterResetPasswordRequest) {
         if (!returnError) {
          let resetRes = Result<AuthResetPasswordResult,AuthError>.success(
             AuthResetPasswordResult(
@@ -149,31 +149,31 @@ class MockCognito: AuthCognitoProtocol {
           flutterResult(resetData)
         } else {
             let authError = AuthError.service("Invalid username", "Enter a username", nil)
-            errorHandler(authError, flutterResult, FlutterAuthErrorMessage.RESET_PASSWORD.rawValue)
+            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.RESET_PASSWORD.rawValue)
         }
     }
     
-    func onConfirmPassword(flutterResult: @escaping FlutterResult, request: FlutterConfirmPasswordRequest, errorHandler: @escaping (_ error: AuthError, _ flutterResult: FlutterResult, _ msg: String) -> Void) {
+    func onConfirmPassword(flutterResult: @escaping FlutterResult, request: FlutterConfirmPasswordRequest) {
         if (!returnError) {
          let emptyMap: Dictionary<String, Any> = [:]
          flutterResult(emptyMap)
         } else {
             let authError = AuthError.service("Invalid username", "Enter a username", nil)
-            errorHandler(authError, flutterResult, FlutterAuthErrorMessage.CONFIRM_PASSWORD.rawValue)
+            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.CONFIRM_PASSWORD.rawValue)
         }
     }
     
-    func onSignOut(flutterResult: @escaping FlutterResult, request: FlutterSignOutRequest, errorHandler: @escaping (AuthError, (Any?) -> Void, String) -> Void) {
+    func onSignOut(flutterResult: @escaping FlutterResult, request: FlutterSignOutRequest) {
         if (!returnError) {
           let emptyMap: Dictionary<String, Any> = [:]
           flutterResult(emptyMap)
         } else {
           let authError = AuthError.service("Invalid options", "Include option parameters", nil)
-          errorHandler(authError, flutterResult, FlutterAuthErrorMessage.SIGNOUT.rawValue)
+            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNOUT.rawValue)
         }
     }
     
-    func onFetchSession(flutterResult: @escaping FlutterResult, request: FlutterFetchSessionRequest, errorHandler: @escaping (AuthError, (Any?) -> Void, String) -> Void) {
+    func onFetchSession(flutterResult: @escaping FlutterResult, request: FlutterFetchSessionRequest) {
         
         if (request.getAWSCredentials) {
             let creds = MockCredentials(accessKey: _accessKey, secretKey: _secretKey)
@@ -190,7 +190,7 @@ class MockCognito: AuthCognitoProtocol {
               let signUpData = try FlutterFetchCognitoSessionResult(res: sessionData)
               flutterResult(signUpData)
             } catch {
-              errorHandler(error as! AuthError, flutterResult, FlutterAuthErrorMessage.FETCH_SESSION.rawValue)
+                handleAuthError(error: error as! AuthError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.FETCH_SESSION.rawValue)
             }
         } else {
             let authSession = MockSession(isSignedIn: true)
@@ -199,13 +199,13 @@ class MockCognito: AuthCognitoProtocol {
               let signUpData = try FlutterFetchSessionResult(res: sessionData)
               flutterResult(signUpData)
             } catch {
-              errorHandler(error as! AuthError, flutterResult, FlutterAuthErrorMessage.FETCH_SESSION.rawValue)
+                handleAuthError(error: error as! AuthError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.FETCH_SESSION.rawValue)
             }
         }
         
     }
     
-    func onGetCurrentUser(flutterResult: @escaping FlutterResult, errorHandler: @escaping (AuthError, (Any?) -> Void, String) -> Void) {
+    func onGetCurrentUser(flutterResult: @escaping FlutterResult) {
         if (!returnError) {
           struct TestUser: AuthUser {
                 public var username: String
@@ -217,7 +217,7 @@ class MockCognito: AuthCognitoProtocol {
           flutterResult(resetData)
         } else {
             let authError = AuthError.service("Could not fetch user", "Not logged in", nil)
-            errorHandler(authError, flutterResult, FlutterAuthErrorMessage.GET_CURRENT_USER.rawValue)
+            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.GET_CURRENT_USER.rawValue)
         }
     }
 

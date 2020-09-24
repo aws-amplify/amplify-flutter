@@ -17,7 +17,7 @@
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		9C404087251AA2430036C5FE /* MockAuthSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C404086251AA2430036C5FE /* MockAuthSession.swift */; };
 		9C404089251AC7990036C5FE /* MockCognito.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C404088251AC7990036C5FE /* MockCognito.swift */; };
-		9CEFDF1525113C2F001481FC /* amplify_auth_cognito_exampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEFDF1425113C2F001481FC /* amplify_auth_cognito_exampleTests.swift */; };
+		9CEFDF1525113C2F001481FC /* amplify_auth_cognito_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEFDF1425113C2F001481FC /* amplify_auth_cognito_tests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -54,8 +54,8 @@
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C404086251AA2430036C5FE /* MockAuthSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAuthSession.swift; sourceTree = "<group>"; };
 		9C404088251AC7990036C5FE /* MockCognito.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCognito.swift; sourceTree = "<group>"; };
-		9CEFDF1225113C2F001481FC /* amplify_auth_cognito_exampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = amplify_auth_cognito_exampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9CEFDF1425113C2F001481FC /* amplify_auth_cognito_exampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = amplify_auth_cognito_exampleTests.swift; sourceTree = "<group>"; };
+		9CEFDF1225113C2F001481FC /* amplify_auth_cognito_tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = amplify_auth_cognito_tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9CEFDF1425113C2F001481FC /* amplify_auth_cognito_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = amplify_auth_cognito_tests.swift; sourceTree = "<group>"; };
 		9CEFDF1625113C2F001481FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9187703880B15C5125F5D1F /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		D3CF4B029A33413539369E68 /* Pods-amplify_auth_cognito_exampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amplify_auth_cognito_exampleTests.debug.xcconfig"; path = "Target Support Files/Pods-amplify_auth_cognito_exampleTests/Pods-amplify_auth_cognito_exampleTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -98,7 +98,7 @@
 			children = (
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
-				9CEFDF1325113C2F001481FC /* amplify_auth_cognito_exampleTests */,
+				9CEFDF1325113C2F001481FC /* amplify_auth_cognito_tests */,
 				97C146EF1CF9000F007C117D /* Products */,
 				DEFD1397E6D457FBCF57AA48 /* Pods */,
 				F0E8B898AFD29D60F8C1EEDC /* Frameworks */,
@@ -109,7 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				97C146EE1CF9000F007C117D /* Runner.app */,
-				9CEFDF1225113C2F001481FC /* amplify_auth_cognito_exampleTests.xctest */,
+				9CEFDF1225113C2F001481FC /* amplify_auth_cognito_tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -129,15 +129,15 @@
 			path = Runner;
 			sourceTree = "<group>";
 		};
-		9CEFDF1325113C2F001481FC /* amplify_auth_cognito_exampleTests */ = {
+		9CEFDF1325113C2F001481FC /* amplify_auth_cognito_tests */ = {
 			isa = PBXGroup;
 			children = (
 				9C404088251AC7990036C5FE /* MockCognito.swift */,
 				9C404086251AA2430036C5FE /* MockAuthSession.swift */,
-				9CEFDF1425113C2F001481FC /* amplify_auth_cognito_exampleTests.swift */,
+				9CEFDF1425113C2F001481FC /* amplify_auth_cognito_tests.swift */,
 				9CEFDF1625113C2F001481FC /* Info.plist */,
 			);
-			path = amplify_auth_cognito_exampleTests;
+			path = amplify_auth_cognito_tests;
 			sourceTree = "<group>";
 		};
 		DEFD1397E6D457FBCF57AA48 /* Pods */ = {
@@ -187,9 +187,9 @@
 			productReference = 97C146EE1CF9000F007C117D /* Runner.app */;
 			productType = "com.apple.product-type.application";
 		};
-		9CEFDF1125113C2F001481FC /* amplify_auth_cognito_exampleTests */ = {
+		9CEFDF1125113C2F001481FC /* amplify_auth_cognito_tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9CEFDF1A25113C2F001481FC /* Build configuration list for PBXNativeTarget "amplify_auth_cognito_exampleTests" */;
+			buildConfigurationList = 9CEFDF1A25113C2F001481FC /* Build configuration list for PBXNativeTarget "amplify_auth_cognito_tests" */;
 			buildPhases = (
 				AB1E7B4F57653B5AC5B46010 /* [CP] Check Pods Manifest.lock */,
 				9CEFDF0E25113C2F001481FC /* Sources */,
@@ -201,9 +201,9 @@
 			);
 			dependencies = (
 			);
-			name = amplify_auth_cognito_exampleTests;
+			name = amplify_auth_cognito_tests;
 			productName = amplify_auth_cognito_exampleTests;
-			productReference = 9CEFDF1225113C2F001481FC /* amplify_auth_cognito_exampleTests.xctest */;
+			productReference = 9CEFDF1225113C2F001481FC /* amplify_auth_cognito_tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -239,7 +239,7 @@
 			projectRoot = "";
 			targets = (
 				97C146ED1CF9000F007C117D /* Runner */,
-				9CEFDF1125113C2F001481FC /* amplify_auth_cognito_exampleTests */,
+				9CEFDF1125113C2F001481FC /* amplify_auth_cognito_tests */,
 			);
 		};
 /* End PBXProject section */
@@ -389,7 +389,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C404087251AA2430036C5FE /* MockAuthSession.swift in Sources */,
-				9CEFDF1525113C2F001481FC /* amplify_auth_cognito_exampleTests.swift in Sources */,
+				9CEFDF1525113C2F001481FC /* amplify_auth_cognito_tests.swift in Sources */,
 				9C404089251AC7990036C5FE /* MockCognito.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -676,7 +676,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W3DRXD72QU;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = amplify_auth_cognito_exampleTests/Info.plist;
+				INFOPLIST_FILE = amplify_auth_cognito_tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -706,7 +706,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W3DRXD72QU;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = amplify_auth_cognito_exampleTests/Info.plist;
+				INFOPLIST_FILE = amplify_auth_cognito_tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -733,7 +733,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W3DRXD72QU;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = amplify_auth_cognito_exampleTests/Info.plist;
+				INFOPLIST_FILE = amplify_auth_cognito_tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -771,7 +771,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9CEFDF1A25113C2F001481FC /* Build configuration list for PBXNativeTarget "amplify_auth_cognito_exampleTests" */ = {
+		9CEFDF1A25113C2F001481FC /* Build configuration list for PBXNativeTarget "amplify_auth_cognito_tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9CEFDF1725113C2F001481FC /* Debug */,

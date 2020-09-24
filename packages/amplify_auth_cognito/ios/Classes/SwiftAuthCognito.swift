@@ -92,219 +92,87 @@ import AWSCore
         try arguments = checkArguments(args: call.arguments as Any)
         try data = checkData(args: arguments)
     } catch {
-        return self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: "validation"))
+        return prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: formatErrorMap(errorCode: "validation"))
     }
     switch call.method {
       case "signUp":
         if (FlutterSignUpRequest.validate(dict: data)) {
           let request = FlutterSignUpRequest(dict: data)
-            cognito.onSignUp(flutterResult: result, request: request, errorHandler: handleAuthError)
+            cognito.onSignUp(flutterResult: result, request: request)
         } else {
           let errorCode = "UNKNOWN"
-            self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
+            prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: formatErrorMap(errorCode: errorCode))
         }
       case "confirmSignUp":
         if (FlutterConfirmSignUpRequest.validate(dict: data)) {
           let request = FlutterConfirmSignUpRequest(dict: data)
-            cognito.onConfirmSignUp(flutterResult: result, request: request, errorHandler: handleAuthError)
+            cognito.onConfirmSignUp(flutterResult: result, request: request)
         } else {
           let errorCode = "UNKNOWN"
-            self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
+            prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: formatErrorMap(errorCode: errorCode))
         }
        case "resendSignUpCode":
           if (FlutterResendSignUpCodeRequest.validate(dict: data)) {
             let request = FlutterResendSignUpCodeRequest(dict: data)
-              cognito.onResendSignUpCode(flutterResult: result, request: request, errorHandler: handleAuthError)
+              cognito.onResendSignUpCode(flutterResult: result, request: request)
           } else {
             let errorCode = "UNKNOWN"
-              self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
+              prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: formatErrorMap(errorCode: errorCode))
           }
       case "signIn":
         if (FlutterSignInRequest.validate(dict: data)) {
           let request = FlutterSignInRequest(dict: data)
-            cognito.onSignIn(flutterResult: result, request: request, errorHandler: handleAuthError)
+            cognito.onSignIn(flutterResult: result, request: request)
         } else {
           let errorCode = "UNKNOWN"
-            self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
+            prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: formatErrorMap(errorCode: errorCode))
         }
       case "confirmSignIn":
         if (FlutterConfirmSignInRequest.validate(dict: data)) {
           let request = FlutterConfirmSignInRequest(dict: data)
-            cognito.onConfirmSignIn(flutterResult: result, request: request, errorHandler: handleAuthError)
+            cognito.onConfirmSignIn(flutterResult: result, request: request)
         } else {
           let errorCode = "UNKNOWN"
-            self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
+            prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: formatErrorMap(errorCode: errorCode))
         }
       case "signOut":
         let request = FlutterSignOutRequest(dict: data)
-          cognito.onSignOut(flutterResult: result, request: request, errorHandler: handleAuthError)
+          cognito.onSignOut(flutterResult: result, request: request)
       case "updatePassword":
         if (FlutterUpdatePasswordRequest.validate(dict: data)) {
           let  request = FlutterUpdatePasswordRequest(dict: data)
-            cognito.onUpdatePassword(flutterResult: result, request: request, errorHandler: handleAuthError)
+            cognito.onUpdatePassword(flutterResult: result, request: request)
         } else {
           let errorCode = "UNKNOWN"
-            self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
+            prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: formatErrorMap(errorCode: errorCode))
         }
       case "resetPassword":
           if (FlutterResetPasswordRequest.validate(dict: data)) {
             let request = FlutterResetPasswordRequest(dict: data)
-              cognito.onResetPassword(flutterResult: result, request: request, errorHandler: handleAuthError)
+              cognito.onResetPassword(flutterResult: result, request: request)
           } else {
             let errorCode = "UNKNOWN"
-              self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
+              prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: formatErrorMap(errorCode: errorCode))
           }
         case "confirmPassword":
           if (FlutterConfirmPasswordRequest.validate(dict: data)) {
             let request = FlutterConfirmPasswordRequest(dict: data)
-              cognito.onConfirmPassword(flutterResult: result, request: request, errorHandler: handleAuthError)
+              cognito.onConfirmPassword(flutterResult: result, request: request)
           } else {
             let errorCode = "UNKNOWN"
-              self.prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: self.formatErrorMap(errorCode: errorCode))
+              prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: formatErrorMap(errorCode: errorCode))
           }
         case "fetchAuthSession":
             let request = FlutterFetchSessionRequest(dict: data)
-              cognito.onFetchSession(flutterResult: result, request: request, errorHandler: handleAuthError)
+              cognito.onFetchSession(flutterResult: result, request: request)
         case "getCurrentUser":
-            cognito.onGetCurrentUser(flutterResult: result, errorHandler: handleAuthError)
+            cognito.onGetCurrentUser(flutterResult: result)
         default:
           result(FlutterMethodNotImplemented)
     }
   }
-    
-  func handleAuthError(error: AuthError, flutterResult: FlutterResult, msg: String){
-        if case .service( let localizedError, let recoverySuggestion, let error) = error {
-          let errorCode = error != nil ? "\(error!)" : "unknown"
-          logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
-          formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-        }
-        if case .configuration(let localizedError, let recoverySuggestion, let error) = error {
-          let errorCode = error != nil ? "\(error!)" : "configuration"
-          logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
-          formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-        }
-        if case .unknown(let localizedError, let error) = error {
-          let errorCode = error != nil ? "\(error!)" : "unknown"
-          logErrorContents(messages: [localizedError, "unknown error"])
-          formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: "An unknown error has occurred.")
-        }
-        if case .invalidState(let localizedError, let recoverySuggestion, let error) = error {
-          let errorCode = error != nil ? "\(error!)" : "invalidState"
-          logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
-          formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-        }
-        if case .notAuthorized(let localizedError,  let recoverySuggestion, let error) = error {
-          let errorCode = error != nil ? "\(error!)" : "notAuthorized"
-          logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
-          formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-        }
-        if case .validation(let field, let localizedError, let recoverySuggestion, let error) = error {
-          let errorCode = error != nil ? "\(error!)" : "validation"
-          logErrorContents(messages: [field, localizedError, recoverySuggestion, errorCode])
-          formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-        }
-        if case .signedOut(let localizedError, let recoverySuggestion, let error) = error {
-          let errorCode = error != nil ? "\(error!)" : "signedOut"
-          logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
-          formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-        }
-        if case .sessionExpired(let localizedError, let recoverySuggestion, let error) = error {
-          let errorCode = error != nil ? "\(error!)" : "sessionExpired"
-          logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
-          formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-        }
-    }
-    
-    private func formatError(flutterResult: FlutterResult, errorCode: String, msg: String, localizedError: String, recoverySuggestion: String) {
-      var errorMap: [String: Any] = formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-      errorMap["PLATFORM_EXCEPTIONS"] = platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-      prepareError(flutterResult: flutterResult,  msg: msg, errorMap: errorMap)
-    }
-    
-    private func logErrorContents(messages: Array<String>) {
-      messages.forEach {
-        log.error($0)
-      }
-    }
-
-    private func prepareError(flutterResult: FlutterResult, msg: String, errorMap: [String: Any]) {
-      flutterResult(FlutterError(
-        code: "AmplifyException",
-        message: msg,
-        details: errorMap)
-      )
-    }
-    
-    private func platformExceptions(localizedError: String, recoverySuggestion: String) -> [String: String] {
-      var platformDict: [String: String] = [:]
-      platformDict["platform"] = "iOS"
-      platformDict["localizedErrorMessage"] = localizedError
-      platformDict["recoverySuggestion"] = recoverySuggestion
-      return platformDict
-    }
-    
-    func formatErrorMap(errorCode: String, localizedError: String = "") -> [String: Any] {
-      var errorDict: [String: Any] = [:]
-      switch errorCode {
-        case "codeExpired":
-          errorDict["CODE_EXPIRED"] = localizedError
-        case "codeMismatch":
-          errorDict["CODE_MISMATCH"] = localizedError
-        case "invalidParameter":
-          errorDict["INVALID_PARAMETER"] = localizedError
-        case "mfaMethodNotFound":
-          errorDict["MFA_METHOD_NOT_FOUND"] = localizedError
-        case "passwordResetRequired":
-          errorDict["PASSWORD_RESET_REQUIRED"] = localizedError
-        case "softwareTokenMFANotEnabled":
-          errorDict["SOFTWARE_TOKEN_MFA_NOT_FOUND"] = localizedError
-        case "usernameExists":
-          errorDict["USERNAME_EXISTS"] = localizedError
-        case "userNotConfirmed":
-          errorDict["USER_NOT_CONFIRMED"] = localizedError
-        case "userNotFound":
-          errorDict["USER_NOT_FOUND"] = localizedError
-        case "aliasExists":
-          errorDict["ALIAS_EXISTS"] = localizedError
-        case "codeDeliveryFailure":
-          errorDict["CODE_DELIVERY_FAILURE"] = localizedError
-        case "internalError":
-          errorDict["INTERNAL_ERROR"] = localizedError
-        case "invalidLambdaResponse":
-          errorDict["INVALID_LAMBDA_RESPONSE"] = localizedError
-        case "invalidPassword":
-          errorDict["INVALID_PASSWORD"] = localizedError
-        case "notAuthorized":
-          errorDict["NOT_AUTHORIZED"] = localizedError
-        case "resourceNotFound":
-          errorDict["RESOURCE_NOT_FOUND"] = localizedError
-        case "tooManyRequests":
-          errorDict["TOO_MANY_REQUESTS"] = localizedError
-        case "unexpectedLambda":
-          errorDict["UNEXPECTED_LAMBDA"] = localizedError
-        case "userLambdaValidation":
-          errorDict["USER_LAMBDA_VALIDATION"] = localizedError
-        case "requestLimitExceeded":
-          errorDict["REQUEST_LIMIT_EXCEEDED"] = localizedError
-        case "tooManyFailedAttempts":
-          errorDict["TOO_MANY_FAILED_ATTEMPTS"] = localizedError
-        case "invalidState":
-          errorDict["INVALID_STATE"] = localizedError
-        case "signedOut":
-          errorDict["SIGNED_OUT"] = localizedError
-        case "configuration":
-          errorDict["CONFIGURATION"] = localizedError
-        case "validation":
-          errorDict["VALIDATION"] = localizedError
-        case "sessionExpired":
-          // use SIGNED_OUT to match android
-          errorDict["SIGNED_OUT"] = localizedError
-        default:
-          errorDict["UNKNOWN"] = "An unrecognized error has occurred. See logs for details."
-      }
-      return errorDict
-  }
-    
 }
+
+
 
 extension SwiftAuthCognito: DefaultLogger { }

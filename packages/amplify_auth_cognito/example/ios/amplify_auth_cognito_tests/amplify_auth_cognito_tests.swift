@@ -57,7 +57,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         mockCognito.returnError = false;
     }
 
-    func testExamples_signUpSuccessEmail() {
+    func test_signUpSuccessEmail() {
         _attributes = ["email" : _email]
         _options = ["userAttributes": _attributes]
         _data = [
@@ -82,7 +82,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExamples_signUpSuccessPhone() {
+    func test_signUpSuccessPhone() {
         _attributes = ["phone_number" : _phoneNumber]
         _options = ["userAttributes": _attributes]
         _data = [
@@ -107,7 +107,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExamples_signUpSuccessSMS() {
+    func test_signUpSuccessSMS() {
         _attributes = ["sms" : _phoneNumber]
         _options = ["userAttributes": _attributes]
         _data = [
@@ -130,7 +130,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExamples_signUpSuccessCustom() {
+    func test_signUpSuccessCustom() {
         _attributes = ["custom" : _phoneNumber]
         _options = ["userAttributes": _attributes]
         _data = [
@@ -153,7 +153,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExamples_signUpSuccessComplete() {
+    func test_signUpSuccessComplete() {
         _attributes = ["email" : _email]
         _options = ["userAttributes": _attributes, "complete": true]
         _data = [
@@ -172,7 +172,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExamples_signUpValidation() {
+    func test_signUpValidation() {
         let rawOptions: Dictionary<String, Any> = ["foo": "bar"]
         var rawData: NSMutableDictionary = ["options":rawOptions]
         let failWithNoPassword = FlutterSignUpRequest.validate(dict: rawData);
@@ -182,7 +182,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         XCTAssertEqual(false, failWithNoOptions)
     }
     
-    func testExamples_signUpFormatAttributes() {
+    func test_signUpFormatAttributes() {
         let rawAttributes: Dictionary<String, Any> = ["email": _email, "customAttribute": "female"]
         let rawOptions: Dictionary<String, Any> = ["userAttributes": rawAttributes]
         let rawData: NSMutableDictionary = ["options":rawOptions, "username": _username, "password": _password]
@@ -190,7 +190,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         XCTAssertEqual(2, request.userAttributes.count)
     }
     
-    func testExample_signUpError() {
+    func test_signUpError() {
         mockCognito.returnError = true
         _attributes = ["email" : _email]
         _options = ["userAttributes": _attributes]
@@ -211,7 +211,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExample_confirmSignUpSuccess() {
+    func test_confirmSignUpSuccess() {
         _data = [
             "username": _username,
             "confirmationCode": _confirmationCode,
@@ -228,7 +228,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExample_confirmSignUpError() {
+    func test_confirmSignUpError() {
         mockCognito.returnError = true
         _data = [
             "username": _username,
@@ -246,7 +246,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExamples_confirmSignUpValidation() {
+    func test_confirmSignUpValidation() {
         let rawOptions: Dictionary<String, Any> = ["foo": "bar"]
         var rawData: NSMutableDictionary = ["username": _username]
         let failWithNoConfirmationCode = FlutterConfirmSignUpRequest.validate(dict: rawData);
@@ -259,7 +259,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         XCTAssertEqual(true, succeedWithOptions)
     }
     
-    func testExample_resendSignUpCodeSuccessEmail() {
+    func test_resendSignUpCodeSuccessEmail() {
         _data = ["username": _username]
         _args = ["data": _data]
         let call = FlutterMethodCall( methodName: "resendSignUpCode", arguments: _args )
@@ -274,7 +274,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExample_resendSignUpCodeSuccessSMS() {
+    func test_resendSignUpCodeSuccessSMS() {
         _data = ["username": "sms"]
         _args = ["data": _data]
         let call = FlutterMethodCall( methodName: "resendSignUpCode", arguments: _args )
@@ -289,7 +289,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExample_resendSignUpCodeSuccessCustom() {
+    func test_resendSignUpCodeSuccessCustom() {
         _data = ["username": "custom"]
         _args = ["data": _data]
         let call = FlutterMethodCall( methodName: "resendSignUpCode", arguments: _args )
@@ -304,7 +304,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExample_resendSignUpCodeSuccessPhone() {
+    func test_resendSignUpCodeSuccessPhone() {
         _data = ["username": "phone"]
         _args = ["data": _data]
         let call = FlutterMethodCall( methodName: "resendSignUpCode", arguments: _args )
@@ -319,7 +319,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExample_resendSignUpCodeError() {
+    func test_resendSignUpCodeError() {
         mockCognito.returnError = true
         _data = ["username": _username]
         _args = ["data": _data]
@@ -334,7 +334,7 @@ class amplify_auth_cognito_tests: XCTestCase {
                })
     }
     
-    func testExample_signInSuccess() {
+    func test_signInSuccess() {
         _data = [
             "username": _username,
             "password": _password,
@@ -351,7 +351,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExample_signInSuccessSMS() {
+    func test_signInSuccessSMS() {
         _options = ["phoneNumber": _phoneNumber]
         _data = [
             "username": _username,
@@ -374,7 +374,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExample_signInSuccessResetPassword() {
+    func test_signInSuccessResetPassword() {
         _options = ["delivery": "resetPassword"]
         _data = [
             "username": _username,
@@ -396,7 +396,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExample_signInSuccessCustomChallenge() {
+    func test_signInSuccessCustomChallenge() {
         _options = ["delivery": "confirmSignInWithCustomChallenge"]
         _data = [
             "username": _username,
@@ -418,7 +418,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExample_signInSuccessNewPassword() {
+    func test_signInSuccessNewPassword() {
         _options = ["delivery": "confirmSignInWithNewPassword"]
         _data = [
             "username": _username,
@@ -440,7 +440,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExample_signInSuccessDone() {
+    func test_signInSuccessDone() {
         _options = ["delivery": "done"]
         _data = [
             "username": _username,
@@ -459,7 +459,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExamples_signInValidation() {
+    func test_signInValidation() {
         var rawData: NSMutableDictionary = ["username":_username]
         let failWithUsernameOnly = FlutterSignInRequest.validate(dict: rawData);
         XCTAssertEqual(false, failWithUsernameOnly)
@@ -474,7 +474,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         XCTAssertEqual(true, succeedWithOptionsOnly)
     }
     
-    func testExample_signInError() {
+    func test_signInError() {
         mockCognito.returnError = true
         _data = [
             "username": _username,
@@ -492,7 +492,7 @@ class amplify_auth_cognito_tests: XCTestCase {
                })
     }
     
-    func testExample_confirmSignInSuccess() {
+    func test_confirmSignInSuccess() {
         _data = ["confirmationCode": _confirmationCode]
         _args = ["data": _data]
         let call = FlutterMethodCall( methodName: "confirmSignIn", arguments: _args )
@@ -506,7 +506,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExample_confirmSignInError() {
+    func test_confirmSignInError() {
         mockCognito.returnError = true
         _data = ["confirmationCode": _confirmationCode]
         _args = ["data": _data]
@@ -521,7 +521,7 @@ class amplify_auth_cognito_tests: XCTestCase {
                })
     }
     
-    func testExamples_confirmSignInValidation() {
+    func test_confirmSignInValidation() {
         let rawOptions: Dictionary<String, Any> = ["foo": "bar"]
         var rawData: NSMutableDictionary = [:]
         let failWithNoConfirmationCode = FlutterConfirmSignInRequest.validate(dict: rawData);
@@ -531,7 +531,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         XCTAssertEqual(true, succeedWithOptions)
     }
     
-    func testExample_updatePasswordSuccess() {
+    func test_updatePasswordSuccess() {
         _data = [
             "oldPassword": _oldPassword,
             "newPassword": _newPassword,
@@ -547,7 +547,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExamples_updatePasswordValidation() {
+    func test_updatePasswordValidation() {
         let rawOptions: Dictionary<String, Any> = ["foo": "bar"]
         var rawData: NSMutableDictionary = ["oldPassword": _oldPassword]
         let failWithoutNewPassword = FlutterUpdatePasswordRequest.validate(dict: rawData);
@@ -562,7 +562,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         XCTAssertEqual(true, succeedWithOptions)
     }
     
-    func testExample_updatePasswordError() {
+    func test_updatePasswordError() {
         mockCognito.returnError = true
         _data = [
             "oldPassword": _oldPassword,
@@ -580,7 +580,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExample_resetPasswordSuccess() {
+    func test_resetPasswordSuccess() {
         _data = ["username": _username]
         _args = ["data": _data]
         let call = FlutterMethodCall( methodName: "resetPassword", arguments: _args )
@@ -596,7 +596,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExamples_resetPasswordValidation() {
+    func test_resetPasswordValidation() {
         var rawData: NSMutableDictionary = [:]
         let failWithNoArgs = FlutterResetPasswordRequest.validate(dict: rawData);
         XCTAssertEqual(false, failWithNoArgs)
@@ -607,7 +607,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         XCTAssertEqual(true, succeedWithOptionsOnly)
     }
     
-    func testExample_resetPasswordError() {
+    func test_resetPasswordError() {
         mockCognito.returnError = true
         _data = ["username": _username]
         _args = ["data": _data]
@@ -622,7 +622,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExample_confirmPasswordSuccess() {
+    func test_confirmPasswordSuccess() {
         _data = [
             "username": _username,
             "newPassword": _newPassword,
@@ -639,7 +639,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExample_confirmPasswordError() {
+    func test_confirmPasswordError() {
         mockCognito.returnError = true
         _data = [
             "username": _username,
@@ -658,7 +658,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExample_signOutSuccess() {
+    func test_signOutSuccess() {
         _args = ["data": _data]
         let call = FlutterMethodCall( methodName: "signOut", arguments: _args )
         mockPlugin.handle( call, result: {(result)->Void in
@@ -670,7 +670,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExample_signOutError() {
+    func test_signOutError() {
         mockCognito.returnError = true
         _args = ["data": _data]
         let call = FlutterMethodCall( methodName: "signOut", arguments: _args )
@@ -684,7 +684,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExample_getCurrentUserSuccess() {
+    func test_getCurrentUserSuccess() {
         _args = ["data": _data]
         let call = FlutterMethodCall( methodName: "getCurrentUser" , arguments: _args)
         mockPlugin.handle( call, result: {(result)->Void in
@@ -698,7 +698,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExample_getCurrentUserError() {
+    func test_getCurrentUserError() {
         mockCognito.returnError = true
         let call = FlutterMethodCall( methodName: "getCurrentUser", arguments: _args )
         mockPlugin.handle( call, result: {(result)->Void in
@@ -711,7 +711,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExample_fetchCognitoSessionSuccess() {
+    func test_fetchCognitoSessionSuccess() {
         _options = ["getAWSCredentials": true]
         _data = ["options": _options]
         _args = ["data": _data]
@@ -729,7 +729,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExample_fetchSessionSuccess() {
+    func test_fetchSessionSuccess() {
         _options = ["getAWSCredentials": false]
         _data = ["options": _options]
         _args = ["data": _data]
@@ -745,7 +745,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func testExample_fetchSessionNoOptions() {
+    func test_fetchSessionNoOptions() {
         _args = ["data": _data]
         let call = FlutterMethodCall( methodName: "fetchAuthSession", arguments: _args )
         mockPlugin.handle( call, result: {(result)->Void in

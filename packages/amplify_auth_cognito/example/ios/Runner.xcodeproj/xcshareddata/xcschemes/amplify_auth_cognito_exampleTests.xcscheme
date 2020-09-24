@@ -28,8 +28,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9CEFDF1125113C2F001481FC"
-               BuildableName = "amplify_auth_cognito_exampleTests.xctest"
-               BlueprintName = "amplify_auth_cognito_exampleTests"
+               BuildableName = "amplify_auth_cognito_tests.xctest"
+               BlueprintName = "amplify_auth_cognito_tests"
                ReferencedContainer = "container:Runner.xcodeproj">
             </BuildableReference>
          </TestableReference>

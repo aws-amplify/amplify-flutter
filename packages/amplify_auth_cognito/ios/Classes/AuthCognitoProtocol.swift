@@ -15,15 +15,15 @@
 import Amplify
 
 protocol AuthCognitoProtocol {
-    func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest, errorHandler: @escaping (_ error: AuthError, _ flutterResult: FlutterResult, _ msg: String) -> Void)
-    func onConfirmSignUp(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignUpRequest, errorHandler: @escaping (_ error: AuthError, _ flutterResult: FlutterResult, _ msg: String) -> Void)
-    func onResendSignUpCode(flutterResult: @escaping FlutterResult, request: FlutterResendSignUpCodeRequest, errorHandler: @escaping (_ error: AuthError, _ flutterResult: FlutterResult, _ msg: String) -> Void)
-    func onSignIn(flutterResult: @escaping FlutterResult, request: FlutterSignInRequest, errorHandler: @escaping (_ error: AuthError, _ flutterResult: FlutterResult, _ msg: String) -> Void)
-    func onConfirmSignIn(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignInRequest, errorHandler: @escaping (_ error: AuthError, _ flutterResult: FlutterResult, _ msg: String) -> Void)
-    func onSignOut(flutterResult: @escaping FlutterResult, request: FlutterSignOutRequest, errorHandler: @escaping (_ error: AuthError, _ flutterResult: FlutterResult, _ msg: String) -> Void)
-    func onUpdatePassword(flutterResult: @escaping FlutterResult, request: FlutterUpdatePasswordRequest, errorHandler: @escaping (_ error: AuthError, _ flutterResult: FlutterResult, _ msg: String) -> Void)
-    func onResetPassword(flutterResult: @escaping FlutterResult, request: FlutterResetPasswordRequest, errorHandler: @escaping (_ error: AuthError, _ flutterResult: FlutterResult, _ msg: String) -> Void)
-    func onConfirmPassword(flutterResult: @escaping FlutterResult, request: FlutterConfirmPasswordRequest, errorHandler: @escaping (_ error: AuthError, _ flutterResult: FlutterResult, _ msg: String) -> Void)
-    func onFetchSession(flutterResult: @escaping FlutterResult, request: FlutterFetchSessionRequest, errorHandler: @escaping (_ error: AuthError, _ flutterResult: FlutterResult, _ msg: String) -> Void)
-    func onGetCurrentUser(flutterResult: @escaping FlutterResult, errorHandler: @escaping (_ error: AuthError, _ flutterResult: FlutterResult, _ msg: String) -> Void)
+    func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest)
+    func onConfirmSignUp(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignUpRequest)
+    func onResendSignUpCode(flutterResult: @escaping FlutterResult, request: FlutterResendSignUpCodeRequest)
+    func onSignIn(flutterResult: @escaping FlutterResult, request: FlutterSignInRequest)
+    func onConfirmSignIn(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignInRequest)
+    func onSignOut(flutterResult: @escaping FlutterResult, request: FlutterSignOutRequest)
+    func onUpdatePassword(flutterResult: @escaping FlutterResult, request: FlutterUpdatePasswordRequest)
+    func onResetPassword(flutterResult: @escaping FlutterResult, request: FlutterResetPasswordRequest)
+    func onConfirmPassword(flutterResult: @escaping FlutterResult, request: FlutterConfirmPasswordRequest)
+    func onFetchSession(flutterResult: @escaping FlutterResult, request: FlutterFetchSessionRequest)
+    func onGetCurrentUser(flutterResult: @escaping FlutterResult)
 }
