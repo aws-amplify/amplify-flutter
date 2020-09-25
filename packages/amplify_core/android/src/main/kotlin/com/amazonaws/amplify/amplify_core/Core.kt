@@ -38,7 +38,7 @@ import java.io.Serializable
 /** Core */
 public class Core : FlutterPlugin, ActivityAware, MethodCallHandler {
 
-    private var isConfigured: Boolean = false;
+    var isConfigured: Boolean = false
     private lateinit var channel: MethodChannel
     private lateinit var context: Context
     private var mainActivity: Activity? = null

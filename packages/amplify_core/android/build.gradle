@@ -12,6 +12,8 @@ buildscript {
         classpath 'com.android.tools.build:gradle:3.5.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
+
+
 }
 
 rootProject.allprojects {
@@ -56,4 +58,6 @@ dependencies {
     testImplementation 'org.mockito:mockito-inline:3.1.0'
     testImplementation 'androidx.test:core:1.2.0'
     testImplementation 'org.robolectric:robolectric:4.3.1'
+    testImplementation 'com.google.code.gson:gson:2.8.6'
+    testImplementation 'com.amplifyframework:aws-auth-cognito:1.1.3'
 }
