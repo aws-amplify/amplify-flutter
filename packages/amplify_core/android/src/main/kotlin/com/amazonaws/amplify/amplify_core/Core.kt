@@ -96,7 +96,7 @@ public class Core : FlutterPlugin, ActivityAware, MethodCallHandler {
         channel.setMethodCallHandler(null)
     }
 
-    private fun onConfigure(@NonNull result: Result, @NonNull version: String, @NonNull config: String) {
+    fun onConfigure(@NonNull result: Result, @NonNull version: String, @NonNull config: String) {
         if (!isConfigured) {
             try {
                 Amplify.configure(AmplifyConfiguration.builder(JSONObject(config))
