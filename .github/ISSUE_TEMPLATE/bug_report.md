@@ -24,7 +24,7 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **Platform**
-Amplify Flutter current supports iOS and Android.  This issue is reproducable in (check all that apply):
+Amplify Flutter current supports iOS and Android.  This issue is reproducible in (check all that apply):
 [] Android
 [] iOS
 
