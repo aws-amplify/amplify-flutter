@@ -32,3 +32,5 @@ amplify-build-config.json
 amplify-gradle-config.json
 amplifytools.xcconfig
 
+# fastlane report
+fastlane/report.xml

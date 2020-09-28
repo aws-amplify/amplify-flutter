@@ -1,0 +1,180 @@
+opt_out_usage
+
+before_all do |lane, options|
+  # Use username and email in env vars
+  sh('git', 'config', 'user.email', ENV['GITHUB_EMAIL'])
+  sh('git', 'config', 'user.name', ENV['GITHUB_USER'])
+
+  # Perform a fetch before inferring the next version
+  # to reduce race conditions with simultaneous pipelines attempting to create the same tag
+  sh('git', 'fetch', '--tags')
+  sh('git', 'fetch')
+end
+
+desc 'Create a pre-release version by pushing a tag to GitHub, and publishing plugins to Pub.dev'
+lane :unstable do
+  next_version = calculate_next_canary_version(prerelease_identifier: 'dev')
+  UI.message("Releasing unstable version: #{next_version}")
+
+  # Increment all pubspecs
+  increment_versions(version: next_version)
+
+  # Build changelog since last release
+  _, commits = calculate_next_release_version
+  write_plugin_changelogs(commits: commits, version: next_version)
+
+  # Publish to Pub.dev
+  publish_plugins
+end
+
+desc 'Create a release version by committing a changelog, pushing a tag to GitHub, and publishing plugins to Pub.dev'
+lane :stable do
+  UI.message("Stable releases with fastlane not implemented yet")
+  next_version, commits = calculate_next_release_version
+  UI.message("Releasing version: #{next_version}")
+
+  # Increment all specs and plists
+  increment_versions(version: next_version)
+
+  write_plugin_changelogs(commits: commits, version: next_version)
+
+  # Commit and push
+  release_commit(version: next_version)
+
+  # Create tag and push to origin
+  add_tag(version: next_version)
+
+  # Publish plugins
+  publish_plugins
+
+  # Merge release back into master
+  sh('git', 'push', 'origin', 'release:master')
+end
+
+desc 'Increment versions'
+private_lane :increment_versions do |options|
+  version = options[:version].to_s
+
+  packages_root = File.expand_path("#{ENV['CIRCLE_WORKING_DIRECTORY']}/packages")
+  Dir.foreach(packages_root) do |plugin|
+    next if plugin == '.' or plugin == '..'
+
+    pubspec = File.expand_path("#{plugin}/pubspec.yaml", packages_root)
+    UI.message("Incrementing version for #{pubspec}")
+    set_key_value(file: pubspec, key: 'version', value: version)
+    begin
+      # Use exact version number for dependencies, because APIs might change without
+      # change in major version number.
+      # We can switch to the `^` symbol once we are stable.
+      set_key_value(file: pubspec, key: 'amplify_[a-z0-9_]+', value: "#{version}")
+    rescue
+      # Pubspec doesn't have amplify_* dependencies.
+      # Instead of exiting, continue.
+      UI.message('No other dependencies exist, skipping.')
+    end
+  end
+
+  example_pubspec = File.expand_path('example/pubspec.yaml', ENV['CIRCLE_WORKING_DIRECTORY'])
+  UI.message("Incrementing dependency versions in example app in #{example_pubspec}")
+  begin
+    set_key_value(file: example_pubspec, key: 'amplify_[a-z0-9_]+', value: "#{version}")
+  rescue
+    # Pubspec doesn't have amplify_* dependencies.
+    # Instead of exiting, continue.
+    UI.message('No dependencies exist, skipping.')
+  end
+end
+
+# Not ready yet.
+desc 'Write changelog for each plugin package'
+private_lane :write_plugin_changelogs do |options|
+  commits = options[:commits]
+  version = options[:version]
+
+  # Only write a commit message to its corresponding package's changelog
+
+  # Maps each scope/package to its commits
+  scope_to_commits = commits.group_by { |commit| commit.scope }
+
+  packages_root = File.expand_path("#{ENV['CIRCLE_WORKING_DIRECTORY']}/packages")
+  Dir.foreach(packages_root) do |plugin|
+    next if plugin == '.' or plugin == '..'
+
+    UI.message("Writing changelog for #{plugin}")
+
+    # Retrieve commits for packages
+    if scope_to_commits.key?(plugin)
+      plugin_commits = Commits.new(scope_to_commits[plugin])
+    else
+      plugin_commits = Commits.new
+    end
+
+    plugin_changelog = build_changelog(version: version, commits: plugin_commits)
+
+    changelog_path = File.expand_path("#{plugin}/CHANGELOG.md", packages_root)
+    write_changelog(changelog: plugin_changelog, path: changelog_path)
+  end
+end
+
+desc 'Commit and push updated release version'
+private_lane :release_commit do |options|
+  next_version = options[:version]
+
+  commit_message = "chore: release #{next_version} [skip ci]"
+  sh('git', 'commit', '-am', commit_message)
+
+  # push to origin
+  sh('git', 'push', 'origin', 'release')
+end
+
+desc 'Tag in git and push to GitHub'
+private_lane :add_tag do |options|
+  next_version = options[:version]
+  next_tag = "v#{next_version}"
+
+  add_git_tag(tag: next_tag)
+  push_git_tags(tag: next_tag)
+end
+
+desc 'Publish plugins'
+private_lane :publish_plugins do
+  packages_root = File.expand_path("#{ENV['CIRCLE_WORKING_DIRECTORY']}/packages")
+
+  UI.message('Doing a dry run of publishing...')
+  Dir.foreach(packages_root) do |plugin|
+    next if plugin == '.' or plugin == '..'
+
+    Dir.chdir(File.expand_path(plugin, packages_root)) do
+      sh('flutter', 'pub', 'publish', '--dry-run')
+    end
+  end
+
+  # TODO: enable (force) publishing to Pub.dev once
+  #       the dry runs all succeed
+
+  # UI.message('Now actually publishing...')
+  # Dir.foreach(packages_root) do |plugin|
+  #   next if plugin == '.' or plugin == '..'
+
+  #   Dir.chdir(File.expand_path(plugin, packages_root)) do
+  #     sh('flutter', 'pub', 'publish', '--force')
+  #   end
+  # end
+end
+
+after_all do |lane, options|
+  # Unset local git config for username and email.
+  # Mainly for local testing purposes.
+  sh('git', 'config', '--unset', 'user.email')
+  sh('git', 'config', '--unset', 'user.name')
+end
+
+def with_retry(retries = 5, wait = 10)
+  yield
+rescue e
+  retries -= 1
+  raise e if retries.zero?
+  UI.error("Error occurred: #{exception}; retrying...")
+  sleep(wait)
+  retry
+end

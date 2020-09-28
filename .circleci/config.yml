@@ -11,6 +11,11 @@ executors:
       xcode: 11.6.0
     working_directory: ~/amplify-flutter
 
+  publish-executor:
+    docker:
+      - image: circleci/ruby:2.6.6
+    working_directory: ~/amplify-flutter
+
 commands:
   install_flutter:
     description:
@@ -31,6 +36,24 @@ commands:
             source $BASH_ENV
             git clone --branch ${FLUTTER_BRANCH} https://github.com/flutter/flutter.git ${FLUTTER_HOME}
             (yes || true) | flutter doctor --android-licenses && flutter doctor
+
+  write_oauth_tokens:
+    description:
+      Write OAuth tokens to ~/.pub-cache/credentials.json
+    steps:
+      - run:
+          name: Write Google OAuth Token
+          command: |
+            mkdir -p ~/.pub-cache
+            cat \<<EOF > ~/.pub-cache/credentials.json
+            {
+              "accessToken":"$OAUTH_ACCESS_TOKEN",
+              "refreshToken":"$OAUTH_REFRESH_TOKEN",
+              "tokenEndpoint":"https://accounts.google.com/o/oauth2/token",
+              "scopes": [ "openid", "https://www.googleapis.com/auth/userinfo.email" ],
+              "expiration": $OAUTH_EXPIRATION
+            }
+            EOF
 
 jobs:
   unit_test_flutter:
@@ -98,6 +121,33 @@ jobs:
       - store_artifacts:
           path: ~/test-results/junit
 
+  publish_unstable:
+    executor: publish-executor
+    steps:
+      - install_flutter
+      - checkout
+      - write_oauth_tokens
+      - run: gem install bundler
+      - run: bundle install
+      - run: bundle exec fastlane unstable
+
+  push_to_release:
+    executor: docker-executor
+    steps:
+      - checkout
+      - run: git checkout release && git merge master
+      - run: git push origin release
+
+  publish_stable:
+    executor: publish-executor
+    steps:
+      - install_flutter
+      - checkout
+      - write_oauth_tokens
+      - run: gem install bundler
+      - run: bundle install
+      - run: bundle exec fastlane stable
+
 releasable_branches: &releasable_branches
   branches:
     only:
@@ -107,5 +157,38 @@ releasable_branches: &releasable_branches
 workflows:
   test_deploy:
     jobs:
-      - unit_test_flutter
-      - unit_test_android
+      - unit_test_flutter:
+          filters:
+            branches:
+              ignore:
+                - release
+      - unit_test_android:
+          filters:
+            branches:
+              ignore:
+                - release
+      - request_publish_unstable:
+          type: approval
+          requires:
+            - unit_test_flutter
+            - unit_test_android
+          filters:
+            branches:
+              only:
+                - master
+      - publish_unstable:
+          requires:
+            - request_publish_unstable
+      - request_publish_stable:
+          type: approval
+          requires:
+            - publish_unstable
+      - push_to_release:
+          requires:
+            - request_publish_stable
+      # TODO: only enable after release branch is created
+      # - publish_stable:
+      #     filters:
+      #       branches:
+      #         only:
+      #           - release
