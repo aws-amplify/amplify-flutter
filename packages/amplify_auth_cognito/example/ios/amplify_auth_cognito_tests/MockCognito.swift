@@ -20,158 +20,158 @@ import AWSPluginsCore
 import AWSMobileClient
 @testable import amplify_auth_cognito
 
-class MockCognito: AuthCognitoProtocol {
+class MockCognito {
     
     var returnError: Bool = false
     
-    func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest) {
-        if (!returnError) {
-            var signUpRes = Result<AuthSignUpResult,AuthError>.success(
-                AuthSignUpResult(AuthSignUpStep.confirmUser(AuthCodeDeliveryDetails(destination: DeliveryDestination.email(_email)), ["foo": "bar"])))
-            if (((request.options!["userAttributes"] as! Dictionary<String, Any>)["phone_number"]) as? String == _phoneNumber) {
-                signUpRes = Result<AuthSignUpResult,AuthError>.success(
-                AuthSignUpResult(AuthSignUpStep.confirmUser(AuthCodeDeliveryDetails(destination: DeliveryDestination.phone(_phoneNumber)), ["foo": "bar"])))
-            } else if (((request.options!["userAttributes"] as! Dictionary<String, Any>)["sms"]) as? String == _phoneNumber) {
-                signUpRes = Result<AuthSignUpResult,AuthError>.success(
-                AuthSignUpResult(AuthSignUpStep.confirmUser(AuthCodeDeliveryDetails(destination: DeliveryDestination.sms(_phoneNumber)), ["foo": "bar"])))
-            } else if (((request.options!["userAttributes"] as! Dictionary<String, Any>)["custom"]) as? String == _phoneNumber) {
-                signUpRes = Result<AuthSignUpResult,AuthError>.success(
-                AuthSignUpResult(AuthSignUpStep.confirmUser(AuthCodeDeliveryDetails(destination: DeliveryDestination.unknown(_phoneNumber)), ["foo": "bar"])))
-            } else if (request.options!["complete"] as? Bool == true) {
-                signUpRes = Result<AuthSignUpResult,AuthError>.success(AuthSignUpResult(AuthSignUpStep.done))
-            }
-            let signUpData = FlutterSignUpResult(res: signUpRes)
-            flutterResult(signUpData)
-        } else {
-            let authError = AuthError.service("Invalid username", "Enter a username", nil)
-            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNUP.rawValue)
-        }
-    }
-    func onConfirmSignUp(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignUpRequest) {
-        if (!returnError) {
-          let confirmSignUpRes = Result<AuthSignUpResult,AuthError>.success(AuthSignUpResult(AuthSignUpStep.done))
-          let signUpData = FlutterSignUpResult(res: confirmSignUpRes)
-          flutterResult(signUpData)
-        } else {
-            let authError = AuthError.service("Invalid username", "Enter a username", nil)
-            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.CONFIRM_SIGNUP.rawValue)
-        }
-    }
+//    func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest) {
+//        if (!returnError) {
+//            var signUpRes = Result<AuthSignUpResult,AuthError>.success(
+//                AuthSignUpResult(AuthSignUpStep.confirmUser(AuthCodeDeliveryDetails(destination: DeliveryDestination.email(_email)), ["foo": "bar"])))
+//            if (((request.options!["userAttributes"] as! Dictionary<String, Any>)["phone_number"]) as? String == _phoneNumber) {
+//                signUpRes = Result<AuthSignUpResult,AuthError>.success(
+//                AuthSignUpResult(AuthSignUpStep.confirmUser(AuthCodeDeliveryDetails(destination: DeliveryDestination.phone(_phoneNumber)), ["foo": "bar"])))
+//            } else if (((request.options!["userAttributes"] as! Dictionary<String, Any>)["sms"]) as? String == _phoneNumber) {
+//                signUpRes = Result<AuthSignUpResult,AuthError>.success(
+//                AuthSignUpResult(AuthSignUpStep.confirmUser(AuthCodeDeliveryDetails(destination: DeliveryDestination.sms(_phoneNumber)), ["foo": "bar"])))
+//            } else if (((request.options!["userAttributes"] as! Dictionary<String, Any>)["custom"]) as? String == _phoneNumber) {
+//                signUpRes = Result<AuthSignUpResult,AuthError>.success(
+//                AuthSignUpResult(AuthSignUpStep.confirmUser(AuthCodeDeliveryDetails(destination: DeliveryDestination.unknown(_phoneNumber)), ["foo": "bar"])))
+//            } else if (request.options!["complete"] as? Bool == true) {
+//                signUpRes = Result<AuthSignUpResult,AuthError>.success(AuthSignUpResult(AuthSignUpStep.done))
+//            }
+//            let signUpData = FlutterSignUpResult(res: signUpRes)
+//            flutterResult(signUpData)
+//        } else {
+//            let authError = AuthError.service("Invalid username", "Enter a username", nil)
+//            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNUP.rawValue)
+//        }
+//    }
+//    func onConfirmSignUp(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignUpRequest) {
+//        if (!returnError) {
+//          let confirmSignUpRes = Result<AuthSignUpResult,AuthError>.success(AuthSignUpResult(AuthSignUpStep.done))
+//          let signUpData = FlutterSignUpResult(res: confirmSignUpRes)
+//          flutterResult(signUpData)
+//        } else {
+//            let authError = AuthError.service("Invalid username", "Enter a username", nil)
+//            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.CONFIRM_SIGNUP.rawValue)
+//        }
+//    }
     
-    func onResendSignUpCode(flutterResult: @escaping FlutterResult, request: FlutterResendSignUpCodeRequest) {
-        if (!returnError) {
-          var confirmSignUpRes = Result<AuthCodeDeliveryDetails, AuthError>.success(AuthCodeDeliveryDetails(destination: DeliveryDestination.email(_email)))
-          if (request.username == "phone") {
-            confirmSignUpRes = Result<AuthCodeDeliveryDetails, AuthError>.success(AuthCodeDeliveryDetails(destination: DeliveryDestination.phone(_phoneNumber)))
-          } else if (request.username == "sms") {
-            confirmSignUpRes = Result<AuthCodeDeliveryDetails, AuthError>.success(AuthCodeDeliveryDetails(destination: DeliveryDestination.sms(_phoneNumber)))
-          } else if (request.username == "custom") {
-            confirmSignUpRes = Result<AuthCodeDeliveryDetails, AuthError>.success(AuthCodeDeliveryDetails(destination: DeliveryDestination.unknown(_phoneNumber)))
-          }
-          let resendData = FlutterResendSignUpCodeResult(res: confirmSignUpRes)
-          flutterResult(resendData)
-        } else {
-            let authError = AuthError.service("Invalid username", "Enter a username", nil)
-            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.RESEND_SIGNUP.rawValue)
-        }
-    }
+//    func onResendSignUpCode(flutterResult: @escaping FlutterResult, request: FlutterResendSignUpCodeRequest) {
+//        if (!returnError) {
+//          var confirmSignUpRes = Result<AuthCodeDeliveryDetails, AuthError>.success(AuthCodeDeliveryDetails(destination: DeliveryDestination.email(_email)))
+//          if (request.username == "phone") {
+//            confirmSignUpRes = Result<AuthCodeDeliveryDetails, AuthError>.success(AuthCodeDeliveryDetails(destination: DeliveryDestination.phone(_phoneNumber)))
+//          } else if (request.username == "sms") {
+//            confirmSignUpRes = Result<AuthCodeDeliveryDetails, AuthError>.success(AuthCodeDeliveryDetails(destination: DeliveryDestination.sms(_phoneNumber)))
+//          } else if (request.username == "custom") {
+//            confirmSignUpRes = Result<AuthCodeDeliveryDetails, AuthError>.success(AuthCodeDeliveryDetails(destination: DeliveryDestination.unknown(_phoneNumber)))
+//          }
+//          let resendData = FlutterResendSignUpCodeResult(res: confirmSignUpRes)
+//          flutterResult(resendData)
+//        } else {
+//            let authError = AuthError.service("Invalid username", "Enter a username", nil)
+//            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.RESEND_SIGNUP.rawValue)
+//        }
+//    }
     
-    func onSignIn(flutterResult: @escaping FlutterResult, request: FlutterSignInRequest) {
-        if (!returnError) {
-          var signInRes = Result<AuthSignInResult, AuthError>.success(
-            AuthSignInResult(nextStep: AuthSignInStep.confirmSignInWithSMSMFACode(AuthCodeDeliveryDetails(destination: DeliveryDestination.email(_email)), ["foo": "bar"]))
-          )
-          if (request.options?["phoneNumber"] as? String == _phoneNumber) {
-            signInRes = Result<AuthSignInResult, AuthError>.success(
-              AuthSignInResult(nextStep:
-                AuthSignInStep.confirmSignInWithSMSMFACode(AuthCodeDeliveryDetails(destination: DeliveryDestination.sms(_phoneNumber)), ["foo": "bar"])))
-          }
-          if (request.options?["delivery"] as? String == "resetPassword") {
-            signInRes = Result<AuthSignInResult, AuthError>.success(
-              AuthSignInResult(nextStep:
-                    AuthSignInStep.resetPassword(["foo": "bar"])))
-          }
-          if (request.options?["delivery"] as? String == "confirmSignInWithCustomChallenge") {
-            signInRes = Result<AuthSignInResult, AuthError>.success(
-              AuthSignInResult(nextStep:
-                AuthSignInStep.confirmSignInWithCustomChallenge(["foo": "bar"])))
-          }
-          if (request.options?["delivery"] as? String == "confirmSignInWithNewPassword") {
-            signInRes = Result<AuthSignInResult, AuthError>.success(
-              AuthSignInResult(nextStep:
-                AuthSignInStep.confirmSignInWithNewPassword(["foo": "bar"])))
-          }
-          if (request.options?["delivery"] as? String == "done") {
-            signInRes = Result<AuthSignInResult, AuthError>.success(
-              AuthSignInResult(nextStep:
-                AuthSignInStep.done))
-          }
-          let resendData = FlutterSignInResult(res: signInRes)
-          flutterResult(resendData)
-        } else {
-            let authError = AuthError.service("Invalid username", "Enter a username", nil)
-            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNIN.rawValue)
-        }
-    }
+//    func onSignIn(flutterResult: @escaping FlutterResult, request: FlutterSignInRequest) {
+//        if (!returnError) {
+//          var signInRes = Result<AuthSignInResult, AuthError>.success(
+//            AuthSignInResult(nextStep: AuthSignInStep.confirmSignInWithSMSMFACode(AuthCodeDeliveryDetails(destination: DeliveryDestination.email(_email)), ["foo": "bar"]))
+//          )
+//          if (request.options?["phoneNumber"] as? String == _phoneNumber) {
+//            signInRes = Result<AuthSignInResult, AuthError>.success(
+//              AuthSignInResult(nextStep:
+//                AuthSignInStep.confirmSignInWithSMSMFACode(AuthCodeDeliveryDetails(destination: DeliveryDestination.sms(_phoneNumber)), ["foo": "bar"])))
+//          }
+//          if (request.options?["delivery"] as? String == "resetPassword") {
+//            signInRes = Result<AuthSignInResult, AuthError>.success(
+//              AuthSignInResult(nextStep:
+//                    AuthSignInStep.resetPassword(["foo": "bar"])))
+//          }
+//          if (request.options?["delivery"] as? String == "confirmSignInWithCustomChallenge") {
+//            signInRes = Result<AuthSignInResult, AuthError>.success(
+//              AuthSignInResult(nextStep:
+//                AuthSignInStep.confirmSignInWithCustomChallenge(["foo": "bar"])))
+//          }
+//          if (request.options?["delivery"] as? String == "confirmSignInWithNewPassword") {
+//            signInRes = Result<AuthSignInResult, AuthError>.success(
+//              AuthSignInResult(nextStep:
+//                AuthSignInStep.confirmSignInWithNewPassword(["foo": "bar"])))
+//          }
+//          if (request.options?["delivery"] as? String == "done") {
+//            signInRes = Result<AuthSignInResult, AuthError>.success(
+//              AuthSignInResult(nextStep:
+//                AuthSignInStep.done))
+//          }
+//          let resendData = FlutterSignInResult(res: signInRes)
+//          flutterResult(resendData)
+//        } else {
+//            let authError = AuthError.service("Invalid username", "Enter a username", nil)
+//            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNIN.rawValue)
+//        }
+//    }
     
-    func onConfirmSignIn(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignInRequest) {
-        if (!returnError) {
-          let confirmSignUpRes = Result<AuthSignInResult,AuthError>.success(AuthSignInResult(nextStep: AuthSignInStep.done))
-          let signUpData = FlutterSignInResult(res: confirmSignUpRes)
-          flutterResult(signUpData)
-        } else {
-            let authError = AuthError.service("Invalid confirmation code", "Enter a confirmation code", nil)
-            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.CONFIRM_SIGNIN.rawValue)
-        }
-    }
+//    func onConfirmSignIn(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignInRequest) {
+//        if (!returnError) {
+//          let confirmSignUpRes = Result<AuthSignInResult,AuthError>.success(AuthSignInResult(nextStep: AuthSignInStep.done))
+//          let signUpData = FlutterSignInResult(res: confirmSignUpRes)
+//          flutterResult(signUpData)
+//        } else {
+//            let authError = AuthError.service("Invalid confirmation code", "Enter a confirmation code", nil)
+//            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.CONFIRM_SIGNIN.rawValue)
+//        }
+//    }
+//    
+//    func onUpdatePassword(flutterResult: @escaping FlutterResult, request: FlutterUpdatePasswordRequest) {
+//        if (!returnError) {
+//          let emptyMap: Dictionary<String, Any> = [:]
+//          flutterResult(emptyMap)
+//        } else {
+//            let authError = AuthError.service("Invalid password", "Enter the old password", nil)
+//            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.UPDATE_PASSWORD.rawValue)
+//        }
+//    }
     
-    func onUpdatePassword(flutterResult: @escaping FlutterResult, request: FlutterUpdatePasswordRequest) {
-        if (!returnError) {
-          let emptyMap: Dictionary<String, Any> = [:]
-          flutterResult(emptyMap)
-        } else {
-            let authError = AuthError.service("Invalid password", "Enter the old password", nil)
-            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.UPDATE_PASSWORD.rawValue)
-        }
-    }
+//    func onResetPassword(flutterResult: @escaping FlutterResult, request: FlutterResetPasswordRequest) {
+//        if (!returnError) {
+//         let resetRes = Result<AuthResetPasswordResult,AuthError>.success(
+//            AuthResetPasswordResult(
+//                isPasswordReset: true,
+//                nextStep: AuthResetPasswordStep.confirmResetPasswordWithCode(
+//                    AuthCodeDeliveryDetails(destination: DeliveryDestination.email("test@test.com")),
+//                    nil)
+//            )
+//          )
+//          let resetData = FlutterResetPasswordResult(res: resetRes)
+//          flutterResult(resetData)
+//        } else {
+//            let authError = AuthError.service("Invalid username", "Enter a username", nil)
+//            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.RESET_PASSWORD.rawValue)
+//        }
+//    }
     
-    func onResetPassword(flutterResult: @escaping FlutterResult, request: FlutterResetPasswordRequest) {
-        if (!returnError) {
-         let resetRes = Result<AuthResetPasswordResult,AuthError>.success(
-            AuthResetPasswordResult(
-                isPasswordReset: true,
-                nextStep: AuthResetPasswordStep.confirmResetPasswordWithCode(
-                    AuthCodeDeliveryDetails(destination: DeliveryDestination.email("test@test.com")),
-                    nil)
-            )
-          )
-          let resetData = FlutterResetPasswordResult(res: resetRes)
-          flutterResult(resetData)
-        } else {
-            let authError = AuthError.service("Invalid username", "Enter a username", nil)
-            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.RESET_PASSWORD.rawValue)
-        }
-    }
+//    func onConfirmPassword(flutterResult: @escaping FlutterResult, request: FlutterConfirmPasswordRequest) {
+//        if (!returnError) {
+//         let emptyMap: Dictionary<String, Any> = [:]
+//         flutterResult(emptyMap)
+//        } else {
+//            let authError = AuthError.service("Invalid username", "Enter a username", nil)
+//            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.CONFIRM_PASSWORD.rawValue)
+//        }
+//    }
     
-    func onConfirmPassword(flutterResult: @escaping FlutterResult, request: FlutterConfirmPasswordRequest) {
-        if (!returnError) {
-         let emptyMap: Dictionary<String, Any> = [:]
-         flutterResult(emptyMap)
-        } else {
-            let authError = AuthError.service("Invalid username", "Enter a username", nil)
-            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.CONFIRM_PASSWORD.rawValue)
-        }
-    }
-    
-    func onSignOut(flutterResult: @escaping FlutterResult, request: FlutterSignOutRequest) {
-        if (!returnError) {
-          let emptyMap: Dictionary<String, Any> = [:]
-          flutterResult(emptyMap)
-        } else {
-          let authError = AuthError.service("Invalid options", "Include option parameters", nil)
-            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNOUT.rawValue)
-        }
-    }
+//    func onSignOut(flutterResult: @escaping FlutterResult, request: FlutterSignOutRequest) {
+//        if (!returnError) {
+//          let emptyMap: Dictionary<String, Any> = [:]
+//          flutterResult(emptyMap)
+//        } else {
+//          let authError = AuthError.service("Invalid options", "Include option parameters", nil)
+//            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNOUT.rawValue)
+//        }
+//    }
     
     func onFetchSession(flutterResult: @escaping FlutterResult, request: FlutterFetchSessionRequest) {
         
@@ -205,20 +205,20 @@ class MockCognito: AuthCognitoProtocol {
         
     }
     
-    func onGetCurrentUser(flutterResult: @escaping FlutterResult) {
-        if (!returnError) {
-          struct TestUser: AuthUser {
-                public var username: String
-                public var userId: String
-
-          }
-          let resetRes = TestUser(username: "testuser", userId: "123")
-          let resetData = FlutterAuthUserResult(res: resetRes)
-          flutterResult(resetData)
-        } else {
-            let authError = AuthError.service("Could not fetch user", "Not logged in", nil)
-            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.GET_CURRENT_USER.rawValue)
-        }
-    }
+//    func onGetCurrentUser(flutterResult: @escaping FlutterResult) {
+//        if (!returnError) {
+//          struct TestUser: AuthUser {
+//                public var username: String
+//                public var userId: String
+//
+//          }
+//          let resetRes = TestUser(username: "testuser", userId: "123")
+//          let resetData = FlutterAuthUserResult(res: resetRes)
+//          flutterResult(resetData)
+//        } else {
+//            let authError = AuthError.service("Could not fetch user", "Not logged in", nil)
+//            handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.GET_CURRENT_USER.rawValue)
+//        }
+//    }
 
 }

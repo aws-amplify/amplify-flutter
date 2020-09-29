@@ -23,9 +23,9 @@ open class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
     
     private var authEventSink: FlutterEventSink?
     private var token: UnsubscribeToken?
-    private let cognito: AuthCognitoProtocol
+    private let cognito: AuthCognitoBridge
     
-    init(cognito: AuthCognitoProtocol = AuthCognitoDefault()) {
+    init(cognito: AuthCognitoBridge = AuthCognitoBridge()) {
         self.cognito = cognito
     }
     

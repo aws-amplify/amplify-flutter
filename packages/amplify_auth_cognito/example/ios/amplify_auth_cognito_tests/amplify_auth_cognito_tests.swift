@@ -26,24 +26,24 @@ var _data: NSMutableDictionary = [:]
 var _args: Dictionary<String, Any> = [:]
 var _attributes: Dictionary<String, String> = [:]
 var _options: Dictionary<String, Any> = [:]
-var _username: String = "testuser"
-var _password: String = "mytestpassword"
-var _newPassword: String = "newPassword"
-var _oldPassword: String = "oldPassword"
-var _email: String = "test@test.com"
-var _phoneNumber: String = "+15555555555"
-var _confirmationCode: String = "confirmationCode"
-var _userId: String = "123"
-var _accessKey: String = "myAccessKey"
-var _secretKey: String = "mySecretKey"
-var _idToken: String = "myToken"
-var _accessToken: String = "myAccessToken"
-var _refreshToken: String = "myRefreshToken"
+let _username: String = "testuser"
+let _password: String = "mytestpassword"
+let _newPassword: String = "newPassword"
+let _oldPassword: String = "oldPassword"
+let _email: String = "test@test.com"
+let _phoneNumber: String = "+15555555555"
+let _confirmationCode: String = "confirmationCode"
+let _userId: String = "123"
+let _accessKey: String = "myAccessKey"
+let _secretKey: String = "mySecretKey"
+let _idToken: String = "myToken"
+let _accessToken: String = "myAccessToken"
+let _refreshToken: String = "myRefreshToken"
 
 class amplify_auth_cognito_tests: XCTestCase {
     
     var mockPlugin: SwiftAuthCognito = SwiftAuthCognito()
-    var mockCognito: MockCognito = MockCognito()
+    var mockCognito: AuthCognitoBridge = AuthCognitoBridge()
     
     override func setUpWithError() throws {
         mockPlugin = SwiftAuthCognito.init(cognito: mockCognito)
@@ -58,6 +58,18 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
 
     func test_signUpSuccessEmail() {
+        
+        class SignUpMock: AuthCognitoBridge {
+            override func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest){
+                let signUpRes = Result<AuthSignUpResult,AuthError>.success(
+                    AuthSignUpResult(AuthSignUpStep.confirmUser(AuthCodeDeliveryDetails(destination: DeliveryDestination.email(_email)), ["foo": "bar"])))
+                let signUpData = FlutterSignUpResult(res: signUpRes)
+                flutterResult(signUpData)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: SignUpMock())
+
         _attributes = ["email" : _email]
         _options = ["userAttributes": _attributes]
         _data = [
@@ -66,8 +78,8 @@ class amplify_auth_cognito_tests: XCTestCase {
             "options": _options
         ]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "signUp", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "signUp", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterSignUpResult {
                 XCTAssertEqual( false, res.isSignUpComplete )
                 XCTAssertEqual( "CONFIRM_SIGN_UP_STEP", res.signUpStep)
@@ -83,6 +95,18 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_signUpSuccessPhone() {
+        
+        class SignUpMock: AuthCognitoBridge {
+            override func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest){
+                let signUpRes = Result<AuthSignUpResult,AuthError>.success(
+                    AuthSignUpResult(AuthSignUpStep.confirmUser(AuthCodeDeliveryDetails(destination: DeliveryDestination.phone(_phoneNumber)), ["foo": "bar"])))
+                let signUpData = FlutterSignUpResult(res: signUpRes)
+                flutterResult(signUpData)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: SignUpMock())
+        
         _attributes = ["phone_number" : _phoneNumber]
         _options = ["userAttributes": _attributes]
         _data = [
@@ -91,8 +115,8 @@ class amplify_auth_cognito_tests: XCTestCase {
             "options": _options
         ]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "signUp", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "signUp", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterSignUpResult {
                 XCTAssertEqual( false, res.isSignUpComplete )
                 XCTAssertEqual( "CONFIRM_SIGN_UP_STEP", res.signUpStep)
@@ -108,6 +132,18 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_signUpSuccessSMS() {
+        
+        class SignUpMock: AuthCognitoBridge {
+            override func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest){
+                let signUpRes = Result<AuthSignUpResult,AuthError>.success(
+                    AuthSignUpResult(AuthSignUpStep.confirmUser(AuthCodeDeliveryDetails(destination: DeliveryDestination.sms(_phoneNumber)), ["foo": "bar"])))
+                let signUpData = FlutterSignUpResult(res: signUpRes)
+                flutterResult(signUpData)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: SignUpMock())
+        
         _attributes = ["sms" : _phoneNumber]
         _options = ["userAttributes": _attributes]
         _data = [
@@ -116,8 +152,8 @@ class amplify_auth_cognito_tests: XCTestCase {
             "options": _options
         ]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "signUp", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "signUp", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterSignUpResult {
                 XCTAssertEqual( false, res.isSignUpComplete )
                 XCTAssertEqual( "CONFIRM_SIGN_UP_STEP", res.signUpStep)
@@ -131,6 +167,18 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_signUpSuccessCustom() {
+        
+        class SignUpMock: AuthCognitoBridge {
+            override func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest){
+                let signUpRes = Result<AuthSignUpResult,AuthError>.success(
+                    AuthSignUpResult(AuthSignUpStep.confirmUser(AuthCodeDeliveryDetails(destination: DeliveryDestination.unknown(_phoneNumber)), ["foo": "bar"])))
+                let signUpData = FlutterSignUpResult(res: signUpRes)
+                flutterResult(signUpData)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: SignUpMock())
+        
         _attributes = ["custom" : _phoneNumber]
         _options = ["userAttributes": _attributes]
         _data = [
@@ -139,8 +187,8 @@ class amplify_auth_cognito_tests: XCTestCase {
             "options": _options
         ]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "signUp", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "signUp", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterSignUpResult {
                 XCTAssertEqual( false, res.isSignUpComplete )
                 XCTAssertEqual( "CONFIRM_SIGN_UP_STEP", res.signUpStep)
@@ -154,6 +202,17 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_signUpSuccessComplete() {
+        
+        class SignUpMock: AuthCognitoBridge {
+            override func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest){
+                let signUpRes = Result<AuthSignUpResult,AuthError>.success(AuthSignUpResult(AuthSignUpStep.done))
+                let signUpData = FlutterSignUpResult(res: signUpRes)
+                flutterResult(signUpData)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: SignUpMock())
+        
         _attributes = ["email" : _email]
         _options = ["userAttributes": _attributes, "complete": true]
         _data = [
@@ -162,8 +221,8 @@ class amplify_auth_cognito_tests: XCTestCase {
             "options": _options
         ]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "signUp", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "signUp", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterSignUpResult {
                 XCTAssertEqual( "DONE", res.signUpStep)
             } else {
@@ -191,7 +250,17 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_signUpError() {
-        mockCognito.returnError = true
+        
+        class SignUpMock: AuthCognitoBridge {
+            override func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest){
+                let authError = AuthError.service("Invalid username", "Enter a username", nil)
+                handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNUP.rawValue)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: SignUpMock())
+        
+
         _attributes = ["email" : _email]
         _options = ["userAttributes": _attributes]
         _data = [
@@ -200,8 +269,8 @@ class amplify_auth_cognito_tests: XCTestCase {
             "options": _options
         ]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "signUp", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "signUp", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterError {
                 XCTAssertEqual( "AmplifyException", res.code )
                 XCTAssertEqual( "AMPLIFY_SIGNUP_FAILED", res.message)
@@ -212,13 +281,24 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_confirmSignUpSuccess() {
+        
+        class ConfirmSignUpMock: AuthCognitoBridge {
+            override func onConfirmSignUp(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignUpRequest){
+                let confirmSignUpRes = Result<AuthSignUpResult,AuthError>.success(AuthSignUpResult(AuthSignUpStep.done))
+                let signUpData = FlutterSignUpResult(res: confirmSignUpRes)
+                flutterResult(signUpData)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: ConfirmSignUpMock())
+        
         _data = [
             "username": _username,
             "confirmationCode": _confirmationCode,
         ]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "confirmSignUp", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "confirmSignUp", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterSignUpResult {
                 XCTAssertEqual( true, res.isSignUpComplete )
                 XCTAssertEqual( "DONE", res.signUpStep)
@@ -229,14 +309,24 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_confirmSignUpError() {
-        mockCognito.returnError = true
+        
+        class ConfirmSignUpMock: AuthCognitoBridge {
+            override func onConfirmSignUp(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignUpRequest){
+                let authError = AuthError.service("Invalid username", "Enter a username", nil)
+                handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.CONFIRM_SIGNUP.rawValue)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: ConfirmSignUpMock())
+        
         _data = [
             "username": _username,
             "confirmationCode": _confirmationCode,
         ]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "confirmSignUp", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        
+        let call = FlutterMethodCall(methodName: "confirmSignUp", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterError {
                 XCTAssertEqual( "AmplifyException", res.code )
                 XCTAssertEqual( "AMPLIFY_CONFIRM_SIGNUP_FAILED", res.message)
@@ -260,10 +350,21 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_resendSignUpCodeSuccessEmail() {
+        
+        class ResendSignUpCodeMock: AuthCognitoBridge {
+            override func onResendSignUpCode(flutterResult: @escaping FlutterResult, request: FlutterResendSignUpCodeRequest) {
+                  let resendCodeRes = Result<AuthCodeDeliveryDetails, AuthError>.success(AuthCodeDeliveryDetails(destination: DeliveryDestination.email(_email)))
+                  let resendData = FlutterResendSignUpCodeResult(res: resendCodeRes)
+                  flutterResult(resendData)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: ResendSignUpCodeMock())
+        
         _data = ["username": _username]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "resendSignUpCode", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "resendSignUpCode", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterResendSignUpCodeResult {
                 XCTAssertEqual( _email,  res.codeDeliveryDetails["destination"] )
                 XCTAssertEqual( "email",  res.codeDeliveryDetails["attributeName"] )
@@ -275,10 +376,21 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_resendSignUpCodeSuccessSMS() {
+        
+        class ResendSignUpCodeMock: AuthCognitoBridge {
+            override func onResendSignUpCode(flutterResult: @escaping FlutterResult, request: FlutterResendSignUpCodeRequest) {
+                  let resendCodeRes = Result<AuthCodeDeliveryDetails, AuthError>.success(AuthCodeDeliveryDetails(destination: DeliveryDestination.sms(_phoneNumber)))
+                  let resendData = FlutterResendSignUpCodeResult(res: resendCodeRes)
+                  flutterResult(resendData)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: ResendSignUpCodeMock())
+        
         _data = ["username": "sms"]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "resendSignUpCode", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "resendSignUpCode", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterResendSignUpCodeResult {
                 XCTAssertEqual( _phoneNumber,  res.codeDeliveryDetails["destination"] )
                 XCTAssertEqual( "sms",  res.codeDeliveryDetails["attributeName"] )
@@ -290,9 +402,20 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_resendSignUpCodeSuccessCustom() {
+        
+        class ResendSignUpCodeMock: AuthCognitoBridge {
+            override func onResendSignUpCode(flutterResult: @escaping FlutterResult, request: FlutterResendSignUpCodeRequest) {
+                  let resendCodeRes = Result<AuthCodeDeliveryDetails, AuthError>.success(AuthCodeDeliveryDetails(destination: DeliveryDestination.unknown(_phoneNumber)))
+                  let resendData = FlutterResendSignUpCodeResult(res: resendCodeRes)
+                  flutterResult(resendData)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: ResendSignUpCodeMock())
+        
         _data = ["username": "custom"]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "resendSignUpCode", arguments: _args )
+        let call = FlutterMethodCall(methodName: "resendSignUpCode", arguments: _args)
         mockPlugin.handle( call, result: {(result)->Void in
             if let res = result as? FlutterResendSignUpCodeResult {
                 XCTAssertEqual( _phoneNumber,  res.codeDeliveryDetails["destination"] )
@@ -305,10 +428,21 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_resendSignUpCodeSuccessPhone() {
+        
+        class ResendSignUpCodeMock: AuthCognitoBridge {
+            override func onResendSignUpCode(flutterResult: @escaping FlutterResult, request: FlutterResendSignUpCodeRequest) {
+                  let resendCodeRes = Result<AuthCodeDeliveryDetails, AuthError>.success(AuthCodeDeliveryDetails(destination: DeliveryDestination.phone(_phoneNumber)))
+                  let resendData = FlutterResendSignUpCodeResult(res: resendCodeRes)
+                  flutterResult(resendData)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: ResendSignUpCodeMock())
+        
         _data = ["username": "phone"]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "resendSignUpCode", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "resendSignUpCode", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterResendSignUpCodeResult {
                 XCTAssertEqual( _phoneNumber,  res.codeDeliveryDetails["destination"] )
                 XCTAssertEqual( "phone",  res.codeDeliveryDetails["attributeName"] )
@@ -320,11 +454,20 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_resendSignUpCodeError() {
-        mockCognito.returnError = true
+        
+        class ResendSignUpCodeMock: AuthCognitoBridge {
+            override func onResendSignUpCode(flutterResult: @escaping FlutterResult, request: FlutterResendSignUpCodeRequest) {
+                let authError = AuthError.service("Invalid username", "Enter a username", nil)
+                handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.RESEND_SIGNUP.rawValue)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: ResendSignUpCodeMock())
+        
         _data = ["username": _username]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "resendSignUpCode", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "resendSignUpCode", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
                    if let res = result as? FlutterError {
                        XCTAssertEqual( "AmplifyException", res.code )
                        XCTAssertEqual( "AMPLIFY_RESEND_SIGNUP_CODE_FAILED", res.message)
@@ -334,33 +477,31 @@ class amplify_auth_cognito_tests: XCTestCase {
                })
     }
     
-    func test_signInSuccess() {
-        _data = [
-            "username": _username,
-            "password": _password,
-        ]
-        _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "signIn", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
-            if let res = result as? FlutterSignInResult {
-                XCTAssertEqual( false, res.isSignedIn )
-                XCTAssertEqual( "CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE", res.signInStep)
-            } else {
-                XCTFail()
-            }
-        })
-    }
     
     func test_signInSuccessSMS() {
-        _options = ["phoneNumber": _phoneNumber]
+        
+        class SignInMock: AuthCognitoBridge {
+            override func onSignIn(flutterResult: @escaping FlutterResult, request: FlutterSignInRequest) {
+                let signInRes = Result<AuthSignInResult, AuthError>.success(
+                    AuthSignInResult(nextStep:
+                      AuthSignInStep.confirmSignInWithSMSMFACode(AuthCodeDeliveryDetails(destination: DeliveryDestination.sms(_phoneNumber)), ["foo": "bar"]))
+                )
+                let signInData = FlutterSignInResult(res: signInRes)
+                flutterResult(signInData)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: SignInMock())
+        
+        _options = ["email": _email]
         _data = [
             "username": _username,
             "password": _password,
             "options": _options
         ]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "signIn", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "signIn", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterSignInResult {
                 XCTAssertEqual( false, res.isSignedIn )
                 XCTAssertEqual( "CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE", res.signInStep)
@@ -375,6 +516,20 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_signInSuccessResetPassword() {
+        
+        class SignInMock: AuthCognitoBridge {
+            override func onSignIn(flutterResult: @escaping FlutterResult, request: FlutterSignInRequest) {
+                let signInRes = Result<AuthSignInResult, AuthError>.success(
+                    AuthSignInResult(nextStep:
+                          AuthSignInStep.resetPassword(["foo": "bar"]))
+                )
+                let signInData = FlutterSignInResult(res: signInRes)
+                flutterResult(signInData)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: SignInMock())
+        
         _options = ["delivery": "resetPassword"]
         _data = [
             "username": _username,
@@ -382,12 +537,11 @@ class amplify_auth_cognito_tests: XCTestCase {
             "options": _options
         ]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "signIn", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "signIn", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterSignInResult {
                 XCTAssertEqual( false, res.isSignedIn )
                 XCTAssertEqual( "RESET_PASSWORD", res.signInStep)
-                let codeDeliveryJson = ((res.toJSON()["nextStep"] as! [String: Any])["codeDeliveryDetails"] as! [String: String])
                 let additionalInfoJson = ((res.toJSON()["nextStep"] as! [String: Any])["additionalInfo"] as! [String: String])
                 XCTAssertEqual("bar", additionalInfoJson["foo"])
             } else {
@@ -397,6 +551,20 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_signInSuccessCustomChallenge() {
+        
+        class SignInMock: AuthCognitoBridge {
+            override func onSignIn(flutterResult: @escaping FlutterResult, request: FlutterSignInRequest) {
+                let signInRes = Result<AuthSignInResult, AuthError>.success(
+                    AuthSignInResult(nextStep:
+                      AuthSignInStep.confirmSignInWithCustomChallenge(["foo": "bar"]))
+                )
+                let signInData = FlutterSignInResult(res: signInRes)
+                flutterResult(signInData)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: SignInMock())
+        
         _options = ["delivery": "confirmSignInWithCustomChallenge"]
         _data = [
             "username": _username,
@@ -404,12 +572,11 @@ class amplify_auth_cognito_tests: XCTestCase {
             "options": _options
         ]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "signIn", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "signIn", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterSignInResult {
                 XCTAssertEqual( false, res.isSignedIn )
                 XCTAssertEqual( "CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE", res.signInStep)
-                let codeDeliveryJson = ((res.toJSON()["nextStep"] as! [String: Any])["codeDeliveryDetails"] as! [String: String])
                 let additionalInfoJson = ((res.toJSON()["nextStep"] as! [String: Any])["additionalInfo"] as! [String: String])
                 XCTAssertEqual("bar", additionalInfoJson["foo"])
             } else {
@@ -419,6 +586,20 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_signInSuccessNewPassword() {
+        
+        class SignInMock: AuthCognitoBridge {
+            override func onSignIn(flutterResult: @escaping FlutterResult, request: FlutterSignInRequest) {
+                let signInRes = Result<AuthSignInResult, AuthError>.success(
+                    AuthSignInResult(nextStep:
+                      AuthSignInStep.confirmSignInWithNewPassword(["foo": "bar"]))
+                )
+                let signInData = FlutterSignInResult(res: signInRes)
+                flutterResult(signInData)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: SignInMock())
+        
         _options = ["delivery": "confirmSignInWithNewPassword"]
         _data = [
             "username": _username,
@@ -426,12 +607,11 @@ class amplify_auth_cognito_tests: XCTestCase {
             "options": _options
         ]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "signIn", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "signIn", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterSignInResult {
                 XCTAssertEqual( false, res.isSignedIn )
                 XCTAssertEqual( "CONFIRM_SIGN_IN_WITH_NEW_PASSWORD", res.signInStep)
-                let codeDeliveryJson = ((res.toJSON()["nextStep"] as! [String: Any])["codeDeliveryDetails"] as! [String: String])
                 let additionalInfoJson = ((res.toJSON()["nextStep"] as! [String: Any])["additionalInfo"] as! [String: String])
                 XCTAssertEqual("bar", additionalInfoJson["foo"])
             } else {
@@ -441,6 +621,20 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_signInSuccessDone() {
+        
+        class SignInMock: AuthCognitoBridge {
+            override func onSignIn(flutterResult: @escaping FlutterResult, request: FlutterSignInRequest) {
+                let signInRes = Result<AuthSignInResult, AuthError>.success(
+                    AuthSignInResult(nextStep:
+                      AuthSignInStep.done)
+                )
+                let signInData = FlutterSignInResult(res: signInRes)
+                flutterResult(signInData)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: SignInMock())
+        
         _options = ["delivery": "done"]
         _data = [
             "username": _username,
@@ -448,7 +642,7 @@ class amplify_auth_cognito_tests: XCTestCase {
             "options": _options
         ]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "signIn", arguments: _args )
+        let call = FlutterMethodCall(methodName: "signIn", arguments: _args)
         mockPlugin.handle( call, result: {(result)->Void in
             if let res = result as? FlutterSignInResult {
                 XCTAssertEqual( true, res.isSignedIn )
@@ -475,14 +669,23 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_signInError() {
-        mockCognito.returnError = true
+        
+        class SignInMock: AuthCognitoBridge {
+            override func onSignIn(flutterResult: @escaping FlutterResult, request: FlutterSignInRequest) {
+                let authError = AuthError.service("Invalid username", "Enter a username", nil)
+                handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNIN.rawValue)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: SignInMock())
+        
         _data = [
             "username": _username,
             "password": _password,
         ]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "signIn", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "signIn", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
                    if let res = result as? FlutterError {
                        XCTAssertEqual( "AmplifyException", res.code )
                        XCTAssertEqual( "AMPLIFY_SIGNIN_FAILED", res.message)
@@ -493,10 +696,21 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_confirmSignInSuccess() {
+        
+        class ConfirmSignInMock: AuthCognitoBridge {
+            override func onConfirmSignIn(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignInRequest) {
+                let confirmSignUpRes = Result<AuthSignInResult,AuthError>.success(AuthSignInResult(nextStep: AuthSignInStep.done))
+                let signInData = FlutterSignInResult(res: confirmSignUpRes)
+                flutterResult(signInData)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: ConfirmSignInMock())
+        
         _data = ["confirmationCode": _confirmationCode]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "confirmSignIn", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "confirmSignIn", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterSignInResult {
                 XCTAssertEqual( true, res.isSignedIn )
                 XCTAssertEqual( "DONE", res.signInStep)
@@ -507,11 +721,20 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_confirmSignInError() {
-        mockCognito.returnError = true
+        
+        class ConfirmSignInMock: AuthCognitoBridge {
+            override func onConfirmSignIn(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignInRequest) {
+                let authError = AuthError.service("Invalid confirmation code", "Enter a confirmation code", nil)
+                handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.CONFIRM_SIGNIN.rawValue)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: ConfirmSignInMock())
+        
         _data = ["confirmationCode": _confirmationCode]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "confirmSignIn", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "confirmSignIn", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
                    if let res = result as? FlutterError {
                        XCTAssertEqual( "AmplifyException", res.code )
                        XCTAssertEqual( "AMPLIFY_CONFIRM_SIGNIN_FAILED", res.message)
@@ -532,13 +755,23 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_updatePasswordSuccess() {
+        
+        class UpdatePasswordMock: AuthCognitoBridge {
+            override func onUpdatePassword(flutterResult: @escaping FlutterResult, request: FlutterUpdatePasswordRequest) {
+                let emptyMap: Dictionary<String, Any> = [:]
+                flutterResult(emptyMap)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: UpdatePasswordMock())
+        
         _data = [
             "oldPassword": _oldPassword,
             "newPassword": _newPassword,
         ]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "updatePassword", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "updatePassword", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? Dictionary<String, Any> {
                 XCTAssertEqual( 0, res.count )
             } else {
@@ -563,14 +796,24 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_updatePasswordError() {
-        mockCognito.returnError = true
+        
+        class UpdatePasswordMock: AuthCognitoBridge {
+            override func onUpdatePassword(flutterResult: @escaping FlutterResult, request: FlutterUpdatePasswordRequest) {
+                let authError = AuthError.service("Invalid password", "Enter the old password", nil)
+                handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.UPDATE_PASSWORD.rawValue)
+
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: UpdatePasswordMock())
+        
         _data = [
             "oldPassword": _oldPassword,
             "newPassword": _newPassword,
         ]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "updatePassword", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "updatePassword", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterError {
                 XCTAssertEqual( "AmplifyException", res.code )
                 XCTAssertEqual( "AMPLIFY_UPDATE_PASSWORD_FAILED", res.message)
@@ -581,10 +824,28 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_resetPasswordSuccess() {
+        
+        class ResetPasswordMock: AuthCognitoBridge {
+            override func onResetPassword(flutterResult: @escaping FlutterResult, request: FlutterResetPasswordRequest) {
+                let resetRes = Result<AuthResetPasswordResult,AuthError>.success(
+                   AuthResetPasswordResult(
+                       isPasswordReset: true,
+                       nextStep: AuthResetPasswordStep.confirmResetPasswordWithCode(
+                           AuthCodeDeliveryDetails(destination: DeliveryDestination.email("test@test.com")),
+                           nil)
+                   )
+                 )
+                 let resetData = FlutterResetPasswordResult(res: resetRes)
+                 flutterResult(resetData)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: ResetPasswordMock())
+        
         _data = ["username": _username]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "resetPassword", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "resetPassword", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterResetPasswordResult {
                 XCTAssertEqual( true, res.isPasswordReset )
                 XCTAssertEqual( "CONFIRM_RESET_PASSWORD_WITH_CODE", res.resetPasswordStep)
@@ -608,11 +869,20 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_resetPasswordError() {
-        mockCognito.returnError = true
+        
+        class ResetPasswordMock: AuthCognitoBridge {
+            override func onResetPassword(flutterResult: @escaping FlutterResult, request: FlutterResetPasswordRequest) {
+                let authError = AuthError.service("Invalid username", "Enter a username", nil)
+                handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.RESET_PASSWORD.rawValue)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: ResetPasswordMock())
+        
         _data = ["username": _username]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "resetPassword", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "resetPassword", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterError {
                 XCTAssertEqual( "AmplifyException", res.code )
                 XCTAssertEqual( "AMPLIFY_RESET_PASSWORD_FAILED", res.message)
@@ -623,14 +893,24 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_confirmPasswordSuccess() {
+        
+        class ConfirmPasswordMock: AuthCognitoBridge {
+            override func onConfirmPassword(flutterResult: @escaping FlutterResult, request: FlutterConfirmPasswordRequest) {
+                let emptyMap: Dictionary<String, Any> = [:]
+                flutterResult(emptyMap)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: ConfirmPasswordMock())
+        
         _data = [
             "username": _username,
             "newPassword": _newPassword,
             "confirmationCode": _confirmationCode
         ]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "confirmPassword", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "confirmPassword", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? Dictionary<String, Any> {
                 XCTAssertEqual( 0, res.count )
             } else {
@@ -639,16 +919,43 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
+    func test_confirmPasswordValidation() {
+        var rawData: NSMutableDictionary = ["username": _username, "confirmationCode" : _confirmationCode]
+        let failWithoutNewPassword = FlutterUpdatePasswordRequest.validate(dict: rawData);
+        XCTAssertEqual(false, failWithoutNewPassword)
+        
+        rawData = ["newPassword": _newPassword, "confirmationCode" : _confirmationCode]
+        let failWithoutUsername = FlutterUpdatePasswordRequest.validate(dict: rawData);
+        XCTAssertEqual(false, failWithoutUsername)
+        
+        rawData = ["newPassword": _newPassword, "username" : _username]
+        let failWithOutCode = FlutterConfirmSignInRequest.validate(dict: rawData);
+        XCTAssertEqual(false, failWithOutCode)
+        
+        rawData = ["newPassword": _newPassword, "username" : _username, "confirmationCode" : _confirmationCode]
+        let succeedWithThreeParams = FlutterConfirmSignInRequest.validate(dict: rawData);
+        XCTAssertEqual(true, succeedWithThreeParams)
+    }
+    
     func test_confirmPasswordError() {
-        mockCognito.returnError = true
+        
+        class ConfirmPasswordMock: AuthCognitoBridge {
+            override func onConfirmPassword(flutterResult: @escaping FlutterResult, request: FlutterConfirmPasswordRequest) {
+                let authError = AuthError.service("Invalid username", "Enter a username", nil)
+                handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.CONFIRM_PASSWORD.rawValue)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: ConfirmPasswordMock())
+        
         _data = [
             "username": _username,
             "newPassword": _newPassword,
             "confirmationCode": _confirmationCode
         ]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "confirmPassword", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "confirmPassword", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterError {
                 XCTAssertEqual( "AmplifyException", res.code )
                 XCTAssertEqual( "AMPLIFY_CONFIRM_PASSWORD_FAILED", res.message)
@@ -659,9 +966,19 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_signOutSuccess() {
+        
+        class SignOutMock: AuthCognitoBridge {
+            override func onSignOut(flutterResult: @escaping FlutterResult, request: FlutterSignOutRequest) {
+                let emptyMap: Dictionary<String, Any> = [:]
+                flutterResult(emptyMap)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: SignOutMock())
+        
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "signOut", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "signOut", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? Dictionary<String, Any> {
                 XCTAssertEqual( 0, res.count )
             } else {
@@ -671,10 +988,19 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_signOutError() {
-        mockCognito.returnError = true
+        
+        class SignOutMock: AuthCognitoBridge {
+            override func onSignOut(flutterResult: @escaping FlutterResult, request: FlutterSignOutRequest) {
+                let authError = AuthError.service("Invalid options", "Include option parameters", nil)
+                  handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNOUT.rawValue)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: SignOutMock())
+        
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "signOut", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "signOut", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterError {
                 XCTAssertEqual( "AmplifyException", res.code )
                 XCTAssertEqual( "AMPLIFY_SIGNOUT_FAILED", res.message)
@@ -685,9 +1011,25 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_getCurrentUserSuccess() {
+        
+        class CurrentUserMock: AuthCognitoBridge {
+            override func onGetCurrentUser(flutterResult: @escaping FlutterResult) {
+                struct TestUser: AuthUser {
+                      public var username: String
+                      public var userId: String
+
+                }
+                let resetRes = TestUser(username: _username, userId: _userId)
+                let resetData = FlutterAuthUserResult(res: resetRes)
+                flutterResult(resetData)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: CurrentUserMock())
+        
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "getCurrentUser" , arguments: _args)
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "getCurrentUser" , arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterAuthUserResult {
                 XCTAssertEqual( _username, res.username )
                 XCTAssertEqual( _userId, res.userId)
@@ -699,9 +1041,18 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_getCurrentUserError() {
-        mockCognito.returnError = true
-        let call = FlutterMethodCall( methodName: "getCurrentUser", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        
+        class CurrentUserMock: AuthCognitoBridge {
+            override func onGetCurrentUser(flutterResult: @escaping FlutterResult) {
+                let authError = AuthError.service("Could not fetch user", "Not logged in", nil)
+                handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.GET_CURRENT_USER.rawValue)
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: CurrentUserMock())
+        
+        let call = FlutterMethodCall(methodName: "getCurrentUser", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterError {
                 XCTAssertEqual( "AmplifyException", res.code )
                 XCTAssertEqual( "AMPLIFY_GET_CURRENT_USER_FAILED", res.message)
@@ -712,11 +1063,35 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_fetchCognitoSessionSuccess() {
+        
+        class FetchSessionMock: AuthCognitoBridge {
+            override func onFetchSession(flutterResult: @escaping FlutterResult, request: FlutterFetchSessionRequest) {
+                let creds = MockCredentials(accessKey: _accessKey, secretKey: _secretKey)
+                let tokens = MockTokens(idToken: _idToken, accessToken: _accessToken, refreshToken: _refreshToken)
+                let authSession = MockCognitoSession(
+                    isSignedIn: true,
+                    userSubResult: .success("testsub"),
+                    identityIdResult: .success("testid"),
+                    awsCredentialsResult:  Result<AuthAWSCredentials, AuthError>.success(creds),
+                    cognitoTokensResult: Result<AuthCognitoTokens, AuthError>.success(tokens)
+                )
+                let sessionData = Result<AuthSession,AuthError>.success(authSession)
+                do {
+                  let fetchSessionData = try FlutterFetchCognitoSessionResult(res: sessionData)
+                  flutterResult(fetchSessionData)
+                } catch {
+                    handleAuthError(error: error as! AuthError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.FETCH_SESSION.rawValue)
+                }
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: FetchSessionMock())
+        
         _options = ["getAWSCredentials": true]
         _data = ["options": _options]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "fetchAuthSession", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "fetchAuthSession", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterFetchCognitoSessionResult {
                 XCTAssertEqual(true, res.isSignedIn)
                 XCTAssertEqual("testid", res.identityId)
@@ -730,11 +1105,27 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_fetchSessionSuccess() {
+        
+        class FetchSessionMock: AuthCognitoBridge {
+            override func onFetchSession(flutterResult: @escaping FlutterResult, request: FlutterFetchSessionRequest) {
+                let authSession = MockSession(isSignedIn: true)
+                let sessionData = Result<AuthSession,AuthError>.success(authSession)
+                do {
+                  let signUpData = try FlutterFetchSessionResult(res: sessionData)
+                  flutterResult(signUpData)
+                } catch {
+                    handleAuthError(error: error as! AuthError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.FETCH_SESSION.rawValue)
+                }
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: FetchSessionMock())
+        
         _options = ["getAWSCredentials": false]
         _data = ["options": _options]
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "fetchAuthSession", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "fetchAuthSession", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterFetchSessionResult {
                 XCTAssertEqual(true, res.isSignedIn)
                 XCTAssertEqual(true, res.toJSON()["isSignedIn"] as? Bool)
@@ -746,9 +1137,25 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_fetchSessionNoOptions() {
+        
+        class FetchSessionMock: AuthCognitoBridge {
+            override func onFetchSession(flutterResult: @escaping FlutterResult, request: FlutterFetchSessionRequest) {
+                let authSession = MockSession(isSignedIn: true)
+                let sessionData = Result<AuthSession,AuthError>.success(authSession)
+                do {
+                  let signUpData = try FlutterFetchSessionResult(res: sessionData)
+                  flutterResult(signUpData)
+                } catch {
+                    handleAuthError(error: error as! AuthError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.FETCH_SESSION.rawValue)
+                }
+            }
+        }
+        
+        mockPlugin = SwiftAuthCognito.init(cognito: FetchSessionMock())
+        
         _args = ["data": _data]
-        let call = FlutterMethodCall( methodName: "fetchAuthSession", arguments: _args )
-        mockPlugin.handle( call, result: {(result)->Void in
+        let call = FlutterMethodCall(methodName: "fetchAuthSession", arguments: _args)
+        mockPlugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterFetchSessionResult {
                 XCTAssertEqual(true, res.isSignedIn)
                 XCTAssertEqual(true, res.toJSON()["isSignedIn"] as? Bool)

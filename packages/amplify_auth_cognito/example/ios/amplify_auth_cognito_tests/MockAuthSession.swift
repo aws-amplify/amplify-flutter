@@ -20,40 +20,62 @@ import AWSCore
 import AWSMobileClient
 
 class MockCredentials: AuthAWSCredentials {
-    var accessKey: String
-    
-    var secretKey: String
     
     init (accessKey: String, secretKey: String) {
         self.accessKey = accessKey
         self.secretKey = secretKey
     }
+    
+    var accessKey: String
+    
+    var secretKey: String
 }
 
 class MockTokens: AuthCognitoTokens {
-    var idToken: String
-    
-    var accessToken: String
-    
-    var refreshToken: String
     
     init (idToken: String, accessToken: String, refreshToken: String) {
         self.idToken = idToken
         self.accessToken = accessToken
         self.refreshToken = refreshToken
     }
+    
+    var idToken: String
+    
+    var accessToken: String
+    
+    var refreshToken: String
 }
 
 class MockSession: AuthSession {
-    var isSignedIn: Bool
     
     init(isSignedIn: Bool) {
-        self.isSignedIn = isSignedIn
+        self._isSignedIn = isSignedIn
+    }
+    
+    private var _isSignedIn: Bool
+    var isSignedIn: Bool {
+        get { return _isSignedIn }
     }
 }
 
 class MockCognitoSession: AuthSession, AuthAWSCredentialsProvider, AuthCognitoTokensProvider, AuthCognitoIdentityProvider {
-    var isSignedIn: Bool
+    
+    init(isSignedIn: Bool,
+         userSubResult: Result<String, AuthError>,
+         identityIdResult: Result<String, AuthError>,
+         awsCredentialsResult: Result<AuthAWSCredentials, AuthError>,
+         cognitoTokensResult: Result<AuthCognitoTokens, AuthError>) {
+        self._isSignedIn = isSignedIn
+        self.userSubResult = userSubResult
+        self.identityIdResult = identityIdResult
+        self.awsCredentialsResult = awsCredentialsResult
+        self.cognitoTokensResult = cognitoTokensResult
+    }
+    
+    private var _isSignedIn: Bool
+    var isSignedIn: Bool {
+        get { return _isSignedIn }
+    }
     
     func getAWSCredentials() -> Result<AuthAWSCredentials, AuthError> {
        return awsCredentialsResult
@@ -78,18 +100,5 @@ class MockCognitoSession: AuthSession, AuthAWSCredentialsProvider, AuthCognitoTo
     public let awsCredentialsResult: Result<AuthAWSCredentials, AuthError>
 
     public let cognitoTokensResult: Result<AuthCognitoTokens, AuthError>
-    
-    init(isSignedIn: Bool,
-         userSubResult: Result<String, AuthError>,
-         identityIdResult: Result<String, AuthError>,
-         awsCredentialsResult: Result<AuthAWSCredentials, AuthError>,
-         cognitoTokensResult: Result<AuthCognitoTokens, AuthError>) {
-        self.isSignedIn = isSignedIn
-        self.userSubResult = userSubResult
-        self.identityIdResult = identityIdResult
-        self.awsCredentialsResult = awsCredentialsResult
-        self.cognitoTokensResult = cognitoTokensResult
-    }
-    
 }
 

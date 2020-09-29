@@ -15,7 +15,7 @@
 import Amplify
 
 protocol AuthCognitoProtocol {
-    func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest)
+    static func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest)
     func onConfirmSignUp(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignUpRequest)
     func onResendSignUpCode(flutterResult: @escaping FlutterResult, request: FlutterResendSignUpCodeRequest)
     func onSignIn(flutterResult: @escaping FlutterResult, request: FlutterSignInRequest)
