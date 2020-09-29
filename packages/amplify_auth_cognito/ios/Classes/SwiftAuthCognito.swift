@@ -19,7 +19,7 @@ import Amplify
 import AmplifyPlugins
 import AWSCore
 
-open class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
+public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
     
     private var authEventSink: FlutterEventSink?
     private var token: UnsubscribeToken?
