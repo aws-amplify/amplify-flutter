@@ -29,12 +29,13 @@ class AmplifyCoreTest {
     )
     val call = MethodCall("configure", arguments)
     val res = true
-    plugin.isConfigured = true
+    plugin.setConfigured(true)
 
     // Act
     plugin.onMethodCall(call, mockResult)
 
     // Assert
+    // if configure was actually called by this test, and error would be thrown instead of result.success being called
     verify(mockResult, times(1)).success(res);
   }
 }

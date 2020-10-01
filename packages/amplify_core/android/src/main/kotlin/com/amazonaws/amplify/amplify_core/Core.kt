@@ -38,7 +38,7 @@ import java.io.Serializable
 /** Core */
 public class Core : FlutterPlugin, ActivityAware, MethodCallHandler {
 
-    var isConfigured: Boolean = false
+    private var isConfigured: Boolean = false
     private lateinit var channel: MethodChannel
     private lateinit var context: Context
     private var mainActivity: Activity? = null
@@ -59,6 +59,7 @@ public class Core : FlutterPlugin, ActivityAware, MethodCallHandler {
     }
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
+
         when (call.method) {
             "configure" -> 
                 try {
@@ -96,7 +97,7 @@ public class Core : FlutterPlugin, ActivityAware, MethodCallHandler {
         channel.setMethodCallHandler(null)
     }
 
-    fun onConfigure(@NonNull result: Result, @NonNull version: String, @NonNull config: String) {
+    private fun onConfigure(@NonNull result: Result, @NonNull version: String, @NonNull config: String) {
         if (!isConfigured) {
             try {
                 Amplify.configure(AmplifyConfiguration.builder(JSONObject(config))
@@ -119,6 +120,10 @@ public class Core : FlutterPlugin, ActivityAware, MethodCallHandler {
             "cause" to e.cause,
             "recoverySuggestion" to e.recoverySuggestion
         )
+    }
+
+    public fun setConfigured(isConfigured:Boolean) {
+        this.isConfigured = isConfigured
     }
 }
 
