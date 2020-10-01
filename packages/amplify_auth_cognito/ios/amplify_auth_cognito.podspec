@@ -24,8 +24,5 @@ Pod::Spec.new do |s|
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
   s.swift_version = '5.0'
 
-  s.test_spec 'Tests' do |test_spec|
-    test_spec.source_files = '../example/amplify_auth_cognito_tests/**/*'
-  end
 
 end
