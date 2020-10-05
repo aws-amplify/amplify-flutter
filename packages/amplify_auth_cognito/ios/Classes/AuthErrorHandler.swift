@@ -86,62 +86,36 @@ func platformExceptions(localizedError: String, recoverySuggestion: String) -> [
 
 func formatErrorMap(errorCode: String, localizedError: String = "") -> [String: Any] {
     var errorDict: [String: Any] = [:]
-    switch errorCode {
-    case "codeExpired":
-        errorDict["CODE_EXPIRED"] = localizedError
-    case "codeMismatch":
-        errorDict["CODE_MISMATCH"] = localizedError
-    case "invalidParameter":
-        errorDict["INVALID_PARAMETER"] = localizedError
-    case "mfaMethodNotFound":
-        errorDict["MFA_METHOD_NOT_FOUND"] = localizedError
-    case "passwordResetRequired":
-        errorDict["PASSWORD_RESET_REQUIRED"] = localizedError
-    case "softwareTokenMFANotEnabled":
-        errorDict["SOFTWARE_TOKEN_MFA_NOT_FOUND"] = localizedError
-    case "usernameExists":
-        errorDict["USERNAME_EXISTS"] = localizedError
-    case "userNotConfirmed":
-        errorDict["USER_NOT_CONFIRMED"] = localizedError
-    case "userNotFound":
-        errorDict["USER_NOT_FOUND"] = localizedError
-    case "aliasExists":
-        errorDict["ALIAS_EXISTS"] = localizedError
-    case "codeDeliveryFailure":
-        errorDict["CODE_DELIVERY_FAILURE"] = localizedError
-    case "internalError":
-        errorDict["INTERNAL_ERROR"] = localizedError
-    case "invalidLambdaResponse":
-        errorDict["INVALID_LAMBDA_RESPONSE"] = localizedError
-    case "invalidPassword":
-        errorDict["INVALID_PASSWORD"] = localizedError
-    case "notAuthorized":
-        errorDict["NOT_AUTHORIZED"] = localizedError
-    case "resourceNotFound":
-        errorDict["RESOURCE_NOT_FOUND"] = localizedError
-    case "tooManyRequests":
-        errorDict["TOO_MANY_REQUESTS"] = localizedError
-    case "unexpectedLambda":
-        errorDict["UNEXPECTED_LAMBDA"] = localizedError
-    case "userLambdaValidation":
-        errorDict["USER_LAMBDA_VALIDATION"] = localizedError
-    case "requestLimitExceeded":
-        errorDict["REQUEST_LIMIT_EXCEEDED"] = localizedError
-    case "tooManyFailedAttempts":
-        errorDict["TOO_MANY_FAILED_ATTEMPTS"] = localizedError
-    case "invalidState":
-        errorDict["INVALID_STATE"] = localizedError
-    case "signedOut":
-        errorDict["SIGNED_OUT"] = localizedError
-    case "configuration":
-        errorDict["CONFIGURATION"] = localizedError
-    case "validation":
-        errorDict["VALIDATION"] = localizedError
-    case "sessionExpired":
-        // use SIGNED_OUT to match android
-        errorDict["SIGNED_OUT"] = localizedError
-    default:
-        errorDict["UNKNOWN"] = "An unrecognized error has occurred. See logs for details."
-    }
+    let errorCodeConversion: [String: String] = [
+        "codeExpired": "CODE_EXPIRED",
+        "codeMismatch": "CODE_MISMATCH",
+        "invalidParameter": "INVALID_PARAMETER",
+        "mfaMethodNotFound": "MFA_METHOD_NOT_FOUND",
+        "passwordResetRequired": "PASSWORD_RESET_REQUIRED",
+        "softwareTokenMFANotEnabled": "SOFTWARE_TOKEN_MFA_NOT_FOUND",
+        "usernameExists": "USERNAME_EXISTS",
+        "userNotConfirmed": "USER_NOT_CONFIRMED",
+        "userNotFound": "USER_NOT_FOUND",
+        "aliasExists": "ALIAS_EXISTS",
+        "codeDeliveryFailure": "CODE_DELIVERY_FAILURE",
+        "internalError": "INTERNAL_ERROR",
+        "invalidLambdaResponse": "INVALID_LAMBDA_RESPONSE",
+        "invalidPassword": "INVALID_PASSWORD",
+        "notAuthorized": "NOT_AUTHORIZED",
+        "resourceNotFound": "RESOURCE_NOT_FOUND",
+        "tooManyRequests": "TOO_MANY_REQUESTS",
+        "unexpectedLambda": "UNEXPECTED_LAMBDA",
+        "userLambdaValidation": "USER_LAMBDA_VALIDATION",
+        "requestLimitExceeded": "REQUEST_LIMIT_EXCEEDED",
+        "tooManyFailedAttempts": "TOO_MANY_FAILED_ATTEMPTS",
+        "invalidState": "INVALID_STATE",
+        "signedOut": "SIGNED_OUT",
+        "configuration": "CONFIGURATION",
+        "validation": "VALIDATION",
+        "sessionExpired": "SIGNED_OUT"
+    ]
+    
+    errorDict[errorCodeConversion[errorCode] ?? "UNKNOWN"] =  (errorCodeConversion[errorCode] != nil) ? localizedError : "An unrecognized error has occurred. See logs for details."
+    
     return errorDict
 }

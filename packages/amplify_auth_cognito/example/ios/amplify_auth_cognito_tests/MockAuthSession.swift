@@ -19,9 +19,9 @@ import AWSPluginsCore
 import AWSCore
 import AWSMobileClient
 
-class MockCredentials: AuthAWSCredentials {
+class FakeCredentials: AuthAWSCredentials {
     
-    init (accessKey: String, secretKey: String) {
+    init(accessKey: String, secretKey: String) {
         self.accessKey = accessKey
         self.secretKey = secretKey
     }
@@ -31,9 +31,9 @@ class MockCredentials: AuthAWSCredentials {
     var secretKey: String
 }
 
-class MockTokens: AuthCognitoTokens {
+class FakeTokens: AuthCognitoTokens {
     
-    init (idToken: String, accessToken: String, refreshToken: String) {
+    init(idToken: String, accessToken: String, refreshToken: String) {
         self.idToken = idToken
         self.accessToken = accessToken
         self.refreshToken = refreshToken
@@ -46,7 +46,7 @@ class MockTokens: AuthCognitoTokens {
     var refreshToken: String
 }
 
-class MockSession: AuthSession {
+class FakeSession: AuthSession {
     
     init(isSignedIn: Bool) {
         self._isSignedIn = isSignedIn
@@ -58,7 +58,7 @@ class MockSession: AuthSession {
     }
 }
 
-class MockCognitoSession: AuthSession, AuthAWSCredentialsProvider, AuthCognitoTokensProvider, AuthCognitoIdentityProvider {
+class FakeCognitoSession: AuthSession, AuthAWSCredentialsProvider, AuthCognitoTokensProvider, AuthCognitoIdentityProvider {
     
     init(isSignedIn: Bool,
          userSubResult: Result<String, AuthError>,

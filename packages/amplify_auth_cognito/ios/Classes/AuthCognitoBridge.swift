@@ -18,9 +18,6 @@ import Flutter
 
 class AuthCognitoBridge {
     
-    var returnError: Bool = false
-
-    
     func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest) {
         let options = AuthSignUpRequest.Options(userAttributes: request.userAttributes)
         

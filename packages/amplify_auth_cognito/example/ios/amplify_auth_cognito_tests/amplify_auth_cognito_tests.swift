@@ -40,11 +40,12 @@ let _idToken: String = "myToken"
 let _accessToken: String = "myAccessToken"
 let _refreshToken: String = "myRefreshToken"
 
+
 class amplify_auth_cognito_tests: XCTestCase {
     
     var plugin: SwiftAuthCognito = SwiftAuthCognito()
     var mockCognito: AuthCognitoBridge = AuthCognitoBridge()
-    
+        
     override func setUpWithError() throws {
         plugin = SwiftAuthCognito.init(cognito: mockCognito)
         _data = [:]
@@ -53,9 +54,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         _options = [:]
     }
 
-    override func tearDownWithError() throws {
-        mockCognito.returnError = false;
-    }
+    override func tearDownWithError() throws {}
 
     func test_signUpSuccessEmail() {
         
@@ -214,7 +213,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         plugin = SwiftAuthCognito.init(cognito: SignUpMock())
         
         _attributes = ["email" : _email]
-        _options = ["userAttributes": _attributes, "complete": true]
+        _options = ["userAttributes": _attributes]
         _data = [
             "username": _username,
             "password": _password,
@@ -225,6 +224,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         plugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterSignUpResult {
                 XCTAssertEqual( "DONE", res.signUpStep)
+                XCTAssertEqual( true, res.isSignUpComplete)
             } else {
                 XCTFail()
             }
@@ -1066,9 +1066,9 @@ class amplify_auth_cognito_tests: XCTestCase {
         
         class FetchSessionMock: AuthCognitoBridge {
             override func onFetchSession(flutterResult: @escaping FlutterResult, request: FlutterFetchSessionRequest) {
-                let creds = MockCredentials(accessKey: _accessKey, secretKey: _secretKey)
-                let tokens = MockTokens(idToken: _idToken, accessToken: _accessToken, refreshToken: _refreshToken)
-                let authSession = MockCognitoSession(
+                let creds = FakeCredentials(accessKey: _accessKey, secretKey: _secretKey)
+                let tokens = FakeTokens(idToken: _idToken, accessToken: _accessToken, refreshToken: _refreshToken)
+                let authSession = FakeCognitoSession(
                     isSignedIn: true,
                     userSubResult: .success("testsub"),
                     identityIdResult: .success("testid"),
@@ -1108,7 +1108,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         
         class FetchSessionMock: AuthCognitoBridge {
             override func onFetchSession(flutterResult: @escaping FlutterResult, request: FlutterFetchSessionRequest) {
-                let authSession = MockSession(isSignedIn: true)
+                let authSession = FakeSession(isSignedIn: true)
                 let sessionData = Result<AuthSession,AuthError>.success(authSession)
                 do {
                   let signUpData = try FlutterFetchSessionResult(res: sessionData)
@@ -1140,7 +1140,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         
         class FetchSessionMock: AuthCognitoBridge {
             override func onFetchSession(flutterResult: @escaping FlutterResult, request: FlutterFetchSessionRequest) {
-                let authSession = MockSession(isSignedIn: true)
+                let authSession = FakeSession(isSignedIn: true)
                 let sessionData = Result<AuthSession,AuthError>.success(authSession)
                 do {
                   let signUpData = try FlutterFetchSessionResult(res: sessionData)
