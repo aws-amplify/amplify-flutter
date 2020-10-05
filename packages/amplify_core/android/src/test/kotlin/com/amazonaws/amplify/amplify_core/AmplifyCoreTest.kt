@@ -1,10 +1,14 @@
 package com.amazonaws.amplify.amplify_core
+
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
+
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.*
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.verify
+import org.mockito.Mockito.times
 import org.robolectric.RobolectricTestRunner
 
 
