@@ -1,0 +1,27 @@
+name: amplify_datastore
+description: The Amplify Flutter Datastore category plugin.
+version: 0.0.1
+author:
+homepage: https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify_datastore
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.17.0 <2.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+# The following section is specific to Flutter.
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.amazonaws.amplify.amplify_datastore
+        pluginClass: AmplifyDatastorePlugin
+      ios:
+        pluginClass: AmplifyDatastorePlugin
