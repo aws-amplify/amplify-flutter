@@ -5,9 +5,9 @@
 Pod::Spec.new do |s|
   s.name             = 'amplify_datastore'
   s.version          = '0.0.1'
-  s.summary          = 'The datastore module for Amplify Flutter.'
+  s.summary          = 'The DataStore module for Amplify Flutter.'
   s.description      = <<-DESC
-The datastore module for Amplify Flutter.
+The DataStore module for Amplify Flutter.
                        DESC
   s.homepage = 'https://github.com/aws-amplify/amplify-flutter'
   s.license = 'Apache License, Version 2.0'

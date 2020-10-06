@@ -1,4 +1,4 @@
 #import <Flutter/Flutter.h>
 
-@interface AmplifyDatastorePlugin : NSObject<FlutterPlugin>
+@interface AmplifyDataStorePlugin : NSObject<FlutterPlugin>
 @end

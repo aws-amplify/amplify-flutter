@@ -1,10 +1,10 @@
 import Flutter
 import UIKit
 
-public class SwiftAmplifyDatastorePlugin: NSObject, FlutterPlugin {
+public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "amplify_datastore", binaryMessenger: registrar.messenger())
-    let instance = SwiftAmplifyDatastorePlugin()
+    let instance = SwiftAmplifyDataStorePlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 

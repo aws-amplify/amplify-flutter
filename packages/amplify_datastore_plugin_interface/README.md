@@ -1,6 +1,6 @@
 # amplify_datastore_plugin_interface
 
-The platform interface for the datastore module of Amplify Flutter.
+The platform interface for the DataStore module of Amplify Flutter.
 
 ## Getting Started
 

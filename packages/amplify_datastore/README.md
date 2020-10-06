@@ -1,6 +1,6 @@
 # amplify_datastore
 
-The Amplify Flutter Datastore category plugin.
+The Amplify Flutter DataStore category plugin.
 
 ## Getting Started
 

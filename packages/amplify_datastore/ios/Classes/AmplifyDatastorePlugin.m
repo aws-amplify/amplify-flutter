@@ -1,4 +1,4 @@
-#import "AmplifyDatastorePlugin.h"
+#import "AmplifyDataStorePlugin.h"
 #if __has_include(<amplify_datastore/amplify_datastore-Swift.h>)
 #import <amplify_datastore/amplify_datastore-Swift.h>
 #else
@@ -8,8 +8,8 @@
 #import "amplify_datastore-Swift.h"
 #endif
 
-@implementation AmplifyDatastorePlugin
+@implementation AmplifyDataStorePlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  [SwiftAmplifyDatastorePlugin registerWithRegistrar:registrar];
+  [SwiftAmplifyDataStorePlugin registerWithRegistrar:registrar];
 }
 @end

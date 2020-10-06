@@ -1,5 +1,5 @@
 name: amplify_datastore_plugin_interface
-description: The platform interface for the datastore module of Amplify Flutter.
+description: The platform interface for the DataStore module of Amplify Flutter.
 version: 0.0.1
 author:
 homepage:

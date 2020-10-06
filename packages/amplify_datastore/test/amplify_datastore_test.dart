@@ -18,6 +18,6 @@ void main() {
   });
 
   test('getPlatformVersion', () async {
-    expect(await AmplifyDatastore.platformVersion, '42');
+    expect(await AmplifyDataStore.platformVersion, '42');
   });
 }
