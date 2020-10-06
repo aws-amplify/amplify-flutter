@@ -74,7 +74,7 @@ Amplify for Flutter is an open-source project and welcomes contributions from th
 
 3. Using the Amplify CLI, run `amplify init` from the root of your project:
 
-See [Amplify CLI Installation](https://github.com/aws-amplify/amplify-cli#install-the-cli)
+See [Amplify CLI Installation](https://docs.amplify.aws/lib/project-setup/prereq/q/platform/flutter#install-and-configure-the-amplify-cli)
 
 ```bash
 ==> amplify init
