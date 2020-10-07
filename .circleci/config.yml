@@ -32,18 +32,39 @@ commands:
             git clone --branch ${FLUTTER_BRANCH} https://github.com/flutter/flutter.git ${FLUTTER_HOME}
             (yes || true) | flutter doctor --android-licenses && flutter doctor
 
+  install_melos:
+    steps:
+      - run:
+          name: Install and set up melos
+          command: |
+            pub global activate melos
+            melos bootstrap
+
 jobs:
+  format_analyze:
+    executor: docker-executor
+    steps:
+      - install_flutter
+      - checkout
+      - install_melos
+      - run: melos run format
+      - run:
+          name: Validate formatting
+          command: ./.circleci/validate_formatting.sh
+      - run: melos run analyze
+
   unit_test_flutter:
     executor: docker-executor
     steps:
       - install_flutter
       - checkout
+      - install_melos
       - run:
           name: Install junitreport for JUnit XML reports
           command: flutter pub global activate junitreport
       - run:
           name: Run Flutter Unit Tests
-          command: ./.circleci/test_all_plugins.sh flutter-test
+          command: melos run test:unit:flutter
       - run:
           name: Save test results
           command: |
@@ -61,6 +82,7 @@ jobs:
       - install_flutter:
           flutter_branch: 1.17.5
       - checkout
+      - install_melos
       - run:
           name: Pre-start iOS simulator
           # xcrun instruments returns non zero, but successfully starts the simulator
@@ -84,9 +106,14 @@ jobs:
     steps:
       - install_flutter
       - checkout
+      - install_melos
+      - run:
+          name: Build example APKs
+          command: |
+            melos run build:examples:android
       - run:
           name: Run Android Unit Tests
-          command: ./.circleci/test_all_plugins.sh android-test
+          command: melos run test:unit:android
       - run:
           name: Save test results
           command: |
