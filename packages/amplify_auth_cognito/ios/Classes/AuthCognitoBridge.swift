@@ -64,7 +64,7 @@ class AuthCognitoBridge {
               case .success(let signInResult):
                 switch signInResult.nextStep {
                   case .confirmSignUp:
-                    // This avoids needed to import the mobileclient code
+                    // This avoids importing the mobileclient code
                     enum ErrorShim: Error {
                         case userNotConfirmed
                     }
