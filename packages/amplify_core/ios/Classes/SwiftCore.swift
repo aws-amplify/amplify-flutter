@@ -20,6 +20,9 @@ import AmplifyPlugins
 import AWSPluginsCore
 
 public class SwiftCore: NSObject, FlutterPlugin {
+    
+  var isConfigured: Bool = false
+    
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "com.amazonaws.amplify/core", binaryMessenger: registrar.messenger())
     let instance = SwiftCore()
@@ -49,15 +52,19 @@ public class SwiftCore: NSObject, FlutterPlugin {
   }
 
     private func onConfigure(result: FlutterResult, version: String, amplifyConfiguration: AmplifyConfiguration) {
-    do {
-        
-      AmplifyAWSServiceConfiguration.addUserAgentPlatform(.flutter, version: version)
-      try Amplify.configure(amplifyConfiguration)
-      result(true)
-    } catch {
-      result(FlutterError(code: "AmplifyException",
-                          message: "Failed to Configure Amplify",
-                          details: error.localizedDescription));
-    }
+      if (!isConfigured) {
+        do {
+          AmplifyAWSServiceConfiguration.addUserAgentPlatform(.flutter, version: version)
+          try Amplify.configure(amplifyConfiguration)
+          isConfigured = true
+          result(true)
+        } catch {
+          result(FlutterError(code: "AmplifyException",
+                              message: "Failed to Configure Amplify",
+                              details: error.localizedDescription));
+        }
+      } else {
+        result(true)
+      }
   }
 }
