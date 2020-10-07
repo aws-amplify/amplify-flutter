@@ -74,17 +74,19 @@ data class FlutterSignUpRequest(val map: HashMap<String, *>) {
 
     companion object {
         fun validate(req : HashMap<String, *>?): Boolean {
-            var valid: Boolean = true;
             if (req == null) {
-                valid = false;
+                return false;
+            }
+            if (req.get("options") == null) {
+                return false
             }
             if (!(req?.get("options") as HashMap<String, String>).containsKey("userAttributes")) {
-                valid = false;
+                return false;
             }
             if (!req.containsKey("password")) {
-                valid = false;
+               return false;
             }
-            return valid;
+            return true;
         }
     }
 

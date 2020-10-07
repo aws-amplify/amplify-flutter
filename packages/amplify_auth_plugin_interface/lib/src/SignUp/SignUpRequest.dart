@@ -26,7 +26,9 @@ class SignUpRequest {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     pendingRequest['username'] = username;
     pendingRequest['password'] = password;
-    pendingRequest['options'] = options.serializeAsMap();
+    if (options != null) {
+      pendingRequest['options'] = options.serializeAsMap();
+    }
     return pendingRequest;
   }
 }
