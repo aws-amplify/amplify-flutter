@@ -68,7 +68,7 @@ class AuthCognitoBridge {
                     enum ErrorShim: Error {
                         case userNotConfirmed
                     }
-                    handleAuthError(error: AuthError.service("Sign in failed", "See attached exception for more details", ErrorShim.userNotConfirmed), flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNIN.rawValue)
+                    handleAuthError(error: AuthError.service("User is not confirmed.", "See attached exception for more details", ErrorShim.userNotConfirmed), flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNIN.rawValue)
                   default:
                     let signInData = FlutterSignInResult(res: response)
                     flutterResult(signInData.toJSON())
