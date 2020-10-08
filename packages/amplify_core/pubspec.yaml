@@ -1,6 +1,6 @@
 name: amplify_core
 description: The core module for Amplify Flutter.
-version: 0.0.1-dev.2
+version: 0.0.1-dev.3
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify_core
 
 environment:
@@ -10,10 +10,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  amplify_core_plugin_interface: ^0.0.1-dev.2
-  amplify_storage_plugin_interface: ^0.0.1-dev.2
-  amplify_analytics_plugin_interface: ^0.0.1-dev.2
-  amplify_auth_plugin_interface: ^0.0.1-dev.2
+  amplify_core_plugin_interface: ^0.0.1-dev.3
+  amplify_storage_plugin_interface: ^0.0.1-dev.3
+  amplify_analytics_plugin_interface: ^0.0.1-dev.3
+  amplify_auth_plugin_interface: ^0.0.1-dev.3
 
 dev_dependencies:
   flutter_test:

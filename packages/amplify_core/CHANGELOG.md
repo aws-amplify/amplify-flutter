@@ -1,3 +1,11 @@
+## 0.0.1-dev.3 (2020-10-08)
+
+### Bug Fixes
+
+* fix(amplify_core): tracks configuration for hot restart
+* Update example podspecs
+* chore: unify gradle versions across repo
+
 ## 0.0.1-dev.2 (2020-08-24)
 
 ### Bug Fixes
