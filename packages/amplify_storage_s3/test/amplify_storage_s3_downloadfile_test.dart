@@ -13,11 +13,12 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
+import 'package:amplify_storage_s3/src/Exceptions/StorageExceptionMessages.dart'
+    as Messages;
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
-import 'package:amplify_storage_s3/src/Exceptions/StorageExceptionMessages.dart'
-    as Messages;
 import 'package:amplify_core/amplify_core.dart';
 import 'dart:io';
 
@@ -44,14 +45,14 @@ void main() {
       switch (testCode) {
         case 1:
           return {
-            'key': 'keyForFile',
+            'path': 'downloadFilePath',
           };
         case 2:
           return {};
         case 3:
           throw PlatformException(
               code: 'AMPLIFY_EXCEPTION',
-              message: Messages.UPLOAD_FILE_FAILED,
+              message: Messages.DOWNLOAD_FILE_FAILED,
               details: {});
       }
     });
@@ -71,21 +72,21 @@ void main() {
   });
 
   test(
-      'uploadFile request returns the correct UploadFileResult in the happy case',
+      'downloadFile request returns the correct DownloadFileResult in the happy case',
       () async {
     testCode = 1;
-    var uploadFileResult = await Amplify.Storage.uploadFile(
+    var downloadFileResult = await Amplify.Storage.downloadFile(
         key: 'keyForFile', local: File('path/to/file'));
-    expect(uploadFileResult, isInstanceOf<UploadFileResult>());
-    expect(uploadFileResult.key, 'keyForFile');
+    expect(downloadFileResult, isInstanceOf<DownloadFileResult>());
+    expect(downloadFileResult.file.path, 'downloadFilePath');
   });
 
   test(
-      'Throws StorageException when method channel result does not include the key',
+      'Throws StorageException when method channel result does not include a file path',
       () async {
     testCode = 2;
     try {
-      await Amplify.Storage.uploadFile(
+      await Amplify.Storage.downloadFile(
           key: 'keyForFile', local: File('path/to/file'));
     } on StorageException catch (err) {
       expect(err.message, Messages.MALFORMED_PLATFORM_CHANNEL_RESULT);
@@ -98,10 +99,10 @@ void main() {
       () async {
     testCode = 3;
     try {
-      await Amplify.Storage.uploadFile(
+      await Amplify.Storage.downloadFile(
           key: 'keyForFile', local: File('path/to/file'));
     } on StorageException catch (err) {
-      expect(err.message, Messages.UPLOAD_FILE_FAILED);
+      expect(err.message, Messages.DOWNLOAD_FILE_FAILED);
       return;
     }
     throw new Exception('Expected a StorageException');

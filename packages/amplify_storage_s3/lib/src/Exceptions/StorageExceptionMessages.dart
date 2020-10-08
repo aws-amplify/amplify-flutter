@@ -13,19 +13,10 @@
  * permissions and limitations under the License.
  */
 
-import '../Storage/StorageAccessLevel.dart';
-import '../Storage/StorageOptions.dart';
-import 'package:flutter/foundation.dart';
-
-class ListOptions extends StorageOptions {
-  StorageAccessLevel accessLevel;
-
-  ListOptions({this.accessLevel = StorageAccessLevel.guest}) : super();
-
-  @override
-  Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> optionsMap = <String, dynamic>{};
-    optionsMap["accessLevel"] = describeEnum(accessLevel);
-    return optionsMap;
-  }
-}
+const MALFORMED_PLATFORM_CHANNEL_RESULT =
+    'Error formatting platform channel result';
+const DOWNLOAD_FILE_FAILED = 'DownloadFile operation failed';
+const GET_URL_FAILED = 'GetUrl operation failed';
+const LIST_FAILED = 'List operation failed';
+const REMOVE_FAILED = 'Remove operation failed';
+const UPLOAD_FILE_FAILED = 'UploadFile operation failed';

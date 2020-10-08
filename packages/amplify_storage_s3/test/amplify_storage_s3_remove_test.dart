@@ -19,7 +19,6 @@ import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:amplify_storage_s3/src/Exceptions/StorageExceptionMessages.dart'
     as Messages;
 import 'package:amplify_core/amplify_core.dart';
-import 'dart:io';
 
 void main() {
   const MethodChannel storageChannel =
@@ -51,7 +50,7 @@ void main() {
         case 3:
           throw PlatformException(
               code: 'AMPLIFY_EXCEPTION',
-              message: Messages.UPLOAD_FILE_FAILED,
+              message: Messages.REMOVE_FAILED,
               details: {});
       }
     });
@@ -70,14 +69,12 @@ void main() {
     coreChannel.setMockMethodCallHandler(null);
   });
 
-  test(
-      'uploadFile request returns the correct UploadFileResult in the happy case',
+  test('Remove request returns the correct RemoveResult in the happy case',
       () async {
     testCode = 1;
-    var uploadFileResult = await Amplify.Storage.uploadFile(
-        key: 'keyForFile', local: File('path/to/file'));
-    expect(uploadFileResult, isInstanceOf<UploadFileResult>());
-    expect(uploadFileResult.key, 'keyForFile');
+    var removeResult = await Amplify.Storage.remove(key: 'keyForFile');
+    expect(removeResult, isInstanceOf<RemoveResult>());
+    expect(removeResult.key, 'keyForFile');
   });
 
   test(
@@ -85,8 +82,7 @@ void main() {
       () async {
     testCode = 2;
     try {
-      await Amplify.Storage.uploadFile(
-          key: 'keyForFile', local: File('path/to/file'));
+      await Amplify.Storage.remove(key: 'keyForFile');
     } on StorageException catch (err) {
       expect(err.message, Messages.MALFORMED_PLATFORM_CHANNEL_RESULT);
       return;
@@ -98,10 +94,9 @@ void main() {
       () async {
     testCode = 3;
     try {
-      await Amplify.Storage.uploadFile(
-          key: 'keyForFile', local: File('path/to/file'));
+      await Amplify.Storage.remove(key: 'keyForFile');
     } on StorageException catch (err) {
-      expect(err.message, Messages.UPLOAD_FILE_FAILED);
+      expect(err.message, Messages.REMOVE_FAILED);
       return;
     }
     throw new Exception('Expected a StorageException');

@@ -19,6 +19,8 @@ import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interfac
 import 'dart:io';
 
 import 'amplify_storage_s3.dart';
+import 'package:amplify_storage_s3/src/Exceptions/StorageExceptionMessages.dart'
+    as Messages;
 
 const MethodChannel _channel =
     MethodChannel('com.amazonaws.amplify/storage_s3');
@@ -37,8 +39,7 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
       UploadFileResult result = _formatUploadFileResult(data);
       return result;
     } on PlatformException catch (e) {
-      //TODO: Convert to StorageError and throw.
-      throw (e);
+      throw (_convertToStorageException(e));
     }
   }
 
@@ -53,8 +54,7 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
       GetUrlResult result = _formatGetUrlResult(data);
       return result;
     } on PlatformException catch (e) {
-      //TODO: Convert to StorageError and throw.
-      throw (e);
+      throw (_convertToStorageException(e));
     }
   }
 
@@ -69,8 +69,7 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
       RemoveResult result = _formatRemoveResult(data);
       return result;
     } on PlatformException catch (e) {
-      //TODO: Convert to StorageError and throw.
-      throw (e);
+      throw (_convertToStorageException(e));
     }
   }
 
@@ -85,8 +84,7 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
       ListResult result = _formatListResult(data);
       return result;
     } on PlatformException catch (e) {
-      //TODO: Convert to StorageError and throw.
-      throw (e);
+      throw (_convertToStorageException(e));
     }
   }
 
@@ -102,39 +100,80 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
       DownloadFileResult result = _formatDownloadFileResult(data);
       return result;
     } on PlatformException catch (e) {
-      //TODO: Convert to StorageError and throw.
-      throw (e);
+      throw (_convertToStorageException(e));
     }
   }
 
   UploadFileResult _formatUploadFileResult(Map<String, dynamic> result) {
-    return UploadFileResult(key: result["key"]);
+    if (result['key'] != null) {
+      return UploadFileResult(key: result["key"]);
+    } else {
+      throw (_prepareExceptionForMalformedResult(
+          methodName: 'UploadFile', fieldName: 'key'));
+    }
   }
 
   GetUrlResult _formatGetUrlResult(Map<String, dynamic> result) {
-    return GetUrlResult(url: result["url"]);
+    if (result['url'] != null) {
+      return GetUrlResult(url: result['url']);
+    } else {
+      throw (_prepareExceptionForMalformedResult(
+          methodName: 'GetUrl', fieldName: 'url'));
+    }
   }
 
   RemoveResult _formatRemoveResult(Map<String, dynamic> result) {
-    return RemoveResult(key: result["key"]);
+    if (result['key'] != null) {
+      return RemoveResult(key: result['key']);
+    } else {
+      throw (_prepareExceptionForMalformedResult(
+          methodName: 'Remove', fieldName: 'key'));
+    }
   }
 
-  ListResult _formatListResult(Map<String, dynamic> response) {
+  ListResult _formatListResult(Map<String, dynamic> result) {
     List<StorageItem> items = [];
-    var mapItems = response['items'];
-    for (Map item in mapItems) {
-      StorageItem storageItem = StorageItem(
-          key: item["key"],
-          eTag: item["eTag"],
-          lastModified: DateTime.parse(item["lastModified"]),
-          size: item["size"]);
-      items.add(storageItem);
+    if (result['items'] == null) {
+      throw (_prepareExceptionForMalformedResult(
+          methodName: 'List', fieldName: 'items'));
     }
-    ListResult result = ListResult(items: items);
-    return result;
+    var mapItems = result['items'];
+    for (Map item in mapItems) {
+      if (item["key"] != null) {
+        StorageItem storageItem = StorageItem(
+            key: item["key"],
+            eTag: item["eTag"],
+            lastModified: DateTime.parse(item["lastModified"]),
+            size: item["size"]);
+        items.add(storageItem);
+      } else {
+        throw (_prepareExceptionForMalformedResult(
+            methodName: 'List', fieldName: 'key'));
+      }
+    }
+    return ListResult(items: items);
   }
 
   DownloadFileResult _formatDownloadFileResult(Map<String, dynamic> result) {
-    return DownloadFileResult(file: File(result["path"]));
+    if (result['path'] != null) {
+      return DownloadFileResult(file: File(result['path']));
+    } else {
+      throw (_prepareExceptionForMalformedResult(
+          methodName: 'DownloadFile', fieldName: 'path'));
+    }
+  }
+
+  StorageException _prepareExceptionForMalformedResult(
+      {@required String methodName, @required String fieldName}) {
+    final Map errorDetails = <String, String>{
+      '$methodName operation failed': '$fieldName cannot be null'
+    };
+    return StorageException(
+        message: Messages.MALFORMED_PLATFORM_CHANNEL_RESULT,
+        details: errorDetails);
+  }
+
+  StorageException _convertToStorageException(PlatformException e) {
+    return StorageException(message: e.message, details: e.details);
   }
 }

@@ -18,7 +18,9 @@ import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interfac
 
 class S3DownloadFileOptions extends DownloadFileOptions {
   String targetIdentityId;
-  S3DownloadFileOptions({StorageAccessLevel accessLevel, this.targetIdentityId})
+  S3DownloadFileOptions(
+      {StorageAccessLevel accessLevel = StorageAccessLevel.guest,
+      this.targetIdentityId})
       : super(accessLevel: accessLevel);
 
   @override

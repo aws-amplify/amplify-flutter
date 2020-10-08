@@ -19,7 +19,7 @@ import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interfac
 class S3UploadFileOptions extends UploadFileOptions {
   String targetIdentityId;
   S3UploadFileOptions(
-      {StorageAccessLevel accessLevel,
+      {StorageAccessLevel accessLevel = StorageAccessLevel.guest,
       String contentType,
       Map<String, String> metadata,
       this.targetIdentityId})
