@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 /*
  * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -14,6 +12,7 @@ import 'dart:convert';
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+import 'dart:convert';
 
 class ModelAssociation {
   final String name;

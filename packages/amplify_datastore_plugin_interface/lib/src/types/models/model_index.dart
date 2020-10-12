@@ -1,7 +1,3 @@
-import 'dart:convert';
-
-import 'package:collection/collection.dart';
-
 /*
  * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -16,6 +12,9 @@ import 'package:collection/collection.dart';
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+import 'dart:convert';
+
+import 'package:collection/collection.dart';
 
 class ModelIndex {
   /// Name of the field is the name of the instance variable
