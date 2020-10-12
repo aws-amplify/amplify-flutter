@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 import 'package:amplify_storage_s3/src/Exceptions/StorageExceptionMessages.dart'
     as Messages;
 import 'package:flutter/services.dart';

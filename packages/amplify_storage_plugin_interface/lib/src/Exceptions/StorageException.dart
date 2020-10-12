@@ -15,7 +15,6 @@
 
 import 'package:flutter/foundation.dart';
 
-//TODO: This class can be moved to platform interface package once the Melos PR is merged
 class StorageException implements Exception {
   final String message;
   final dynamic details;
