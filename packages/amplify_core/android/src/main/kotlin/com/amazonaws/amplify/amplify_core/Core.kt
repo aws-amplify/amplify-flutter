@@ -103,8 +103,6 @@ public class Core : FlutterPlugin, ActivityAware, MethodCallHandler {
                     context
             );
 
-
-
             result.success(true);
         } catch (e: AmplifyException) {
             result.error("AmplifyException", e.message, formatAmplifyException(e) )
@@ -118,4 +116,3 @@ public class Core : FlutterPlugin, ActivityAware, MethodCallHandler {
         )
     }
 }
-

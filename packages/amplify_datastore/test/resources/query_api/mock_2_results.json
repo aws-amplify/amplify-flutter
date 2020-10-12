@@ -1,0 +1,20 @@
+[
+  {
+    "id": "1",
+    "modelName": "Post",
+    "serializedData": {
+      "id": "1",
+      "title": "Title 1",
+      "rating": 4
+    }
+  },
+  {
+    "id": "2",
+    "modelName": "Post",
+    "serializedData": {
+      "id": "2",
+      "title": "Title 2",
+      "created": "2020-02-20T20:20:20-08:00"
+    }
+  }
+]

@@ -16,16 +16,17 @@
 library amplify_core;
 
 import 'dart:async';
-import 'dart:io';
 import 'package:amplify_core_plugin_interface/amplify_core_plugin_interface.dart';
 import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:amplify_analytics_plugin_interface/analytics_plugin_interface.dart';
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
 class Amplify {
   static const AuthCategory Auth = const AuthCategory();
   static const AnalyticsCategory Analytics = const AnalyticsCategory();
   static const StorageCategory Storage = const StorageCategory();
+  static const DataStoreCategory DataStore = const DataStoreCategory();
 
   bool _isConfigured = false;
   var multiPluginWarning =
@@ -34,7 +35,8 @@ class Amplify {
   Future<void> addPlugin(
       {List<AuthPluginInterface> authPlugins,
       List<AnalyticsPluginInterface> analyticsPlugins,
-      List<StoragePluginInterface> storagePlugins}) {
+      List<StoragePluginInterface> storagePlugins,
+      List<DataStorePluginInterface> dataStorePlugins}) async {
     if (!_isConfigured) {
       try {
         if (authPlugins != null && authPlugins.length == 1) {
@@ -50,6 +52,11 @@ class Amplify {
         if (storagePlugins != null && storagePlugins.length == 1) {
           Storage.addPlugin(storagePlugins[0]);
         } else if (storagePlugins != null && storagePlugins.length > 1) {
+          throw (multiPluginWarning);
+        }
+        if (dataStorePlugins != null && dataStorePlugins.length == 1) {
+          await DataStore.addPlugin(dataStorePlugins[0]);
+        } else if (dataStorePlugins != null && dataStorePlugins.length > 1) {
           throw (multiPluginWarning);
         }
       } catch (e) {
