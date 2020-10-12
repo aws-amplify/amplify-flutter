@@ -23,4 +23,5 @@ data class FlutterFetchAuthSessionRequest(val map: HashMap<String, *>) {
 //  var sessionOptions: AuthFetchSessionOptions = setOptions()
   val options: HashMap<String, *>? = map["options"] as HashMap<String, *>?;
   val getAWSCredentials: Boolean = options != null && options["getAWSCredentials"] as Boolean? == true;
+  val getOnlyCognitoUserPoolTokens: Boolean = options != null && options["getOnlyCognitoUserPoolTokens"] as Boolean? == true;
 }

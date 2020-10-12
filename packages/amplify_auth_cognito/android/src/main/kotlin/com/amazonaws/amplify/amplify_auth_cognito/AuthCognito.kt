@@ -27,6 +27,7 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthFailureMessag
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpResult
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignInResult
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchCognitoAuthSessionResult
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchCognitoAuthTokensSessionResult
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResetPasswordResult
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchAuthSessionResult
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendSignUpCodeRequest
@@ -367,6 +368,9 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
                     AuthSessionResult.Type.SUCCESS -> prepareCognitoSessionResult(flutterResult, cognitoAuthSession)
                     AuthSessionResult.Type.FAILURE -> prepareCognitoSessionFailure(flutterResult, cognitoAuthSession)
                   }
+                } else if(req.getOnlyCognitoUserPoolTokens) {
+                  val cognitoAuthSession = result as AWSCognitoAuthSession
+                  prepareCognitoTokensSessionResult(flutterResult, cognitoAuthSession)
                 } else {
                   val session = result as AuthSession;
                   prepareSessionResult(flutterResult, session)
@@ -497,6 +501,13 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
 
   fun prepareCognitoSessionResult(@NonNull flutterResult: Result, @NonNull result: AWSCognitoAuthSession) {
     var session = FlutterFetchCognitoAuthSessionResult(result);
+    Handler (Looper.getMainLooper()).post {
+      flutterResult.success(session.toValueMap());
+    }
+  }
+
+  fun prepareCognitoTokensSessionResult(@NonNull flutterResult: Result, @NonNull result: AWSCognitoAuthSession) {
+    var session = FlutterFetchCognitoAuthTokensSessionResult(result);
     Handler (Looper.getMainLooper()).post {
       flutterResult.success(session.toValueMap());
     }

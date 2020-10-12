@@ -18,10 +18,12 @@ import 'package:flutter/foundation.dart';
 
 class CognitoSessionOptions extends AuthSessionOptions {
   bool getAWSCredentials;
-  CognitoSessionOptions({@required this.getAWSCredentials}) : super();
+  bool getOnlyCognitoUserPoolTokens;
+  CognitoSessionOptions({this.getAWSCredentials = false, this.getOnlyCognitoUserPoolTokens = false}) : super();
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     pendingRequest["getAWSCredentials"] = getAWSCredentials;
+    pendingRequest["getOnlyCognitoUserPoolTokens"] = getOnlyCognitoUserPoolTokens;
     return pendingRequest;
   }
 } 

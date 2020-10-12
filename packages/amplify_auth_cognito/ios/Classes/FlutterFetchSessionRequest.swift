@@ -19,8 +19,10 @@ import Amplify
 struct FlutterFetchSessionRequest {
   // TODO: Implement forceRefresh when/if implemented
     var getAWSCredentials: Bool = false;
+    var getOnlyCognitoUserPoolTokens: Bool = false;
     init(dict: NSMutableDictionary){
         self.getAWSCredentials = self.getCredentialRequest(res: dict)
+        self.getOnlyCognitoUserPoolTokens = self.getOnlyCognitoUserPoolTokensRequest(res: dict)
     }
     
     func getCredentialRequest(res: NSMutableDictionary) -> Bool {
@@ -28,6 +30,16 @@ struct FlutterFetchSessionRequest {
         if (options != nil) {
             if (options?["getAWSCredentials"] != nil) {
                 return options?["getAWSCredentials"] as! Bool
+            }
+        }
+        return false
+    }
+
+    func getOnlyCognitoUserPoolTokensRequest(res: NSMutableDictionary) -> Bool {
+        let options = res["options"] as? Dictionary<String, Any>
+        if (options != nil) {
+            if (options?["getOnlyCognitoUserPoolTokens"] != nil) {
+                return options?["getOnlyCognitoUserPoolTokens"] as! Bool
             }
         }
         return false

@@ -149,6 +149,9 @@ class AuthCognitoBridge {
                 if (request.getAWSCredentials) {
                     let sessionData = try FlutterFetchCognitoSessionResult(res: result)
                     flutterResult(sessionData.toJSON())
+                } else if (request.getOnlyCognitoUserPoolTokens)  {
+                    let sessionData = try FlutterFetchCognitoTokensSessionResult(res: result)
+                    flutterResult(sessionData.toJSON())
                 } else {
                     let sessionData = try FlutterFetchSessionResult(res: result)
                     if (sessionData.isSignedIn) {
