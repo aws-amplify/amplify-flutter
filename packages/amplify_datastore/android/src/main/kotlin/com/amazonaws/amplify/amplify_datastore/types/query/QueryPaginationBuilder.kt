@@ -22,8 +22,8 @@ class QueryPaginationBuilder {
     companion object {
         @JvmStatic
         fun fromSerializedMap(serializedMap: Map<String, Any>?): QueryPaginationInput? {
-            if(serializedMap == null) {
-                return null;
+            if (serializedMap == null) {
+                return null
             }
             var queryPaginationInput = if (serializedMap.containsKey("page")) {
                 Page.startingAt(serializedMap["page"] as Int)

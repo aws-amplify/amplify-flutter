@@ -26,13 +26,16 @@ class QueryOptionsBuilder {
     companion object {
         @JvmStatic
         fun fromSerializedMap(request: Map<String, Any>?): QueryOptions {
-            var queryOptions: QueryOptions = Where.matchesAll();
+            var queryOptions: QueryOptions = Where.matchesAll()
             if (request == null) {
                 return queryOptions
             }
-            var queryPredicate: QueryPredicate? = QueryPredicateBuilder.fromSerializedMap(request["queryPredicate"] as Map<String, Any>?)
-            var querySortInput: List<QuerySortBy>? = QuerySortBuilder.fromSerializedList(request["querySort"] as List<Map<String, Any>>?)
-            var queryPagination: QueryPaginationInput? = QueryPaginationBuilder.fromSerializedMap(request["queryPagination"] as Map<String, Any>?)
+            var queryPredicate: QueryPredicate? = QueryPredicateBuilder.fromSerializedMap(
+                    request["queryPredicate"] as Map<String, Any>?)
+            var querySortInput: List<QuerySortBy>? = QuerySortBuilder.fromSerializedList(
+                    request["querySort"] as List<Map<String, Any>>?)
+            var queryPagination: QueryPaginationInput? = QueryPaginationBuilder.fromSerializedMap(
+                    request["queryPagination"] as Map<String, Any>?)
 
             if (queryPredicate != null) {
                 queryOptions = queryOptions.matches(queryPredicate)

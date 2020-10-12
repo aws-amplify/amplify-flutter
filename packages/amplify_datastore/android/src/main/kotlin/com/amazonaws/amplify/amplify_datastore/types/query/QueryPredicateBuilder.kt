@@ -25,19 +25,21 @@ class QueryPredicateBuilder {
         @JvmStatic
         fun fromSerializedMap(serializedMap: Map<String, Any>?): QueryPredicate? {
             if (serializedMap == null) {
-                return null;
+                return null
             }
             if (serializedMap.containsKey("queryPredicateOperation")) {
-                val queryPredicateOperationMap: Map<String, Any> = serializedMap["queryPredicateOperation"] as Map<String, Any>
+                val queryPredicateOperationMap: Map<String, Any> =
+                        serializedMap["queryPredicateOperation"] as Map<String, Any>
                 val field = queryPredicateOperationMap["field"] as String
                 val queryField: QueryField = QueryField.field(field)
-                val queryFieldOperatorMap: Map<String, Any> = queryPredicateOperationMap["fieldOperator"] as Map<String, Any>
-                val operand: Any? = queryFieldOperatorMap["value"];
-                when(queryFieldOperatorMap["operatorName"]) {
+                val queryFieldOperatorMap: Map<String, Any> =
+                        queryPredicateOperationMap["fieldOperator"] as Map<String, Any>
+                val operand: Any? = queryFieldOperatorMap["value"]
+                when (queryFieldOperatorMap["operatorName"]) {
                     "equal" -> return queryField.eq(operand)
                     "not_equal" -> return queryField.ne(operand)
                     "less_or_equal" -> return queryField.le(operand as Comparable<Any?>?)
-                    "less_than" -> return  queryField.lt(operand as Comparable<Any?>?)
+                    "less_than" -> return queryField.lt(operand as Comparable<Any?>?)
                     "greater_or_equal" -> return queryField.ge(operand as Comparable<Any?>?)
                     "greater_than" -> return queryField.gt(operand as Comparable<Any?>?)
                     "contains" -> return queryField.contains(operand as String)
@@ -49,19 +51,23 @@ class QueryPredicateBuilder {
             }
 
             if (serializedMap.containsKey("queryPredicateGroup")) {
-                val queryPredicateGroupMap = serializedMap["queryPredicateGroup"] as Map<String, Any>
-                var predicates: List<QueryPredicate> = (queryPredicateGroupMap["predicates"] as List<Map<String, Any>>).map {
-                    queryPredicate -> fromSerializedMap(queryPredicate)!!
-                }
+                val queryPredicateGroupMap =
+                        serializedMap["queryPredicateGroup"] as Map<String, Any>
+                var predicates: List<QueryPredicate> =
+                        (queryPredicateGroupMap["predicates"] as List<Map<String, Any>>).map { queryPredicate ->
+                            fromSerializedMap(queryPredicate)!!
+                        }
                 var resultQueryPredicate: QueryPredicateGroup? = null
-                if (predicates[0] is QueryPredicateOperation<*>){
+                if (predicates[0] is QueryPredicateOperation<*>) {
                     when (queryPredicateGroupMap["type"]) {
                         "and" -> {
-                            resultQueryPredicate = (predicates[0] as QueryPredicateOperation<*>).and(predicates[1])
+                            resultQueryPredicate =
+                                    (predicates[0] as QueryPredicateOperation<*>).and(predicates[1])
                             predicates = predicates.drop(2)
                         }
                         "or" -> {
-                            resultQueryPredicate = (predicates[0] as QueryPredicateOperation<*>).or(predicates[1])
+                            resultQueryPredicate =
+                                    (predicates[0] as QueryPredicateOperation<*>).or(predicates[1])
                             predicates = predicates.drop(2)
                         }
                         "not" -> print("TODO") // TODO

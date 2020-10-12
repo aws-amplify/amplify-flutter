@@ -22,8 +22,8 @@ class QuerySortBuilder {
     companion object {
         @JvmStatic
         fun fromSerializedList(serializedList: List<Map<String, Any>>?): List<QuerySortBy>? {
-            if(serializedList == null || serializedList.isEmpty()) {
-                return null;
+            if (serializedList == null || serializedList.isEmpty()) {
+                return null
             }
             return serializedList.map { querySortInput -> fromSerializedMap(querySortInput) }
         }
@@ -31,7 +31,8 @@ class QuerySortBuilder {
         private fun fromSerializedMap(serializedMap: Map<String, Any>): QuerySortBy {
             return QuerySortBy(
                     serializedMap["field"] as String,
-                    QuerySortOrder.valueOf((serializedMap["order"] as String).toUpperCase()) // android enums are upper case
+                    QuerySortOrder.valueOf(
+                            (serializedMap["order"] as String).toUpperCase()) // android enums are upper case
             )
         }
     }

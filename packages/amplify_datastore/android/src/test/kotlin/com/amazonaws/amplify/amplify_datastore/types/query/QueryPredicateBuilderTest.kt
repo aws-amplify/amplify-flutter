@@ -14,16 +14,11 @@
  */
 
 import com.amazonaws.amplify.amplify_datastore.types.query.QueryPredicateBuilder
-import com.amplifyframework.core.model.query.Where
 import com.amplifyframework.core.model.query.predicate.QueryField
-import com.amplifyframework.core.model.query.predicate.QueryPredicate
-import com.amplifyframework.core.model.temporal.Temporal
 import com.google.gson.Gson
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import java.time.Instant
-import java.util.*
 
 class QueryPredicateBuilderTest {
     lateinit var predicateBuilder: QueryPredicateBuilder
@@ -47,8 +42,10 @@ class QueryPredicateBuilderTest {
     @Test
     fun test_when_rating_greater_or_equal() {
         Assert.assertEquals(
-                rating.ge(4.0), // TODO Figure out how to correctly serialize integers from dart to avoid sending 4.0 to native
-                QueryPredicateBuilder.fromSerializedMap(readFromFile("rating_greater_or_equal.json")))
+                rating.ge(
+                        4.0), // TODO Figure out how to correctly serialize integers from dart to avoid sending 4.0 to native
+                QueryPredicateBuilder.fromSerializedMap(
+                        readFromFile("rating_greater_or_equal.json")))
     }
 
     @Test
