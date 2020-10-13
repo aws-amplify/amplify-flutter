@@ -72,14 +72,14 @@ data class FlutterModelField(val map: Map<String, Any>) {
     // TODO Expand this for enums/models(associations)
     private fun getJavaClass(type: String): Class<*> {
         when (type) {
-            "String" -> String::class.java
-            "Integer" -> Int::class.java
-            "Double" -> Double::class.java
-            "Long" -> Long::class.java
-            "Date" -> Temporal.Date::class.java
-            "Time" -> Temporal.Time::class.java
-            "DateTime" -> Temporal.DateTime::class.java
-            "TimeStamp" -> Temporal.Timestamp::class.java
+            "String" -> return String::class.java
+            "Integer" -> return Int::class.java
+            "Double" -> return Double::class.java
+            "Long" -> return Long::class.java
+            "Date" -> return Temporal.Date::class.java
+            "Time" -> return Temporal.Time::class.java
+            "DateTime" -> return Temporal.DateTime::class.java
+            "TimeStamp" -> return Temporal.Timestamp::class.java
         }
         return Object::class.java
     }

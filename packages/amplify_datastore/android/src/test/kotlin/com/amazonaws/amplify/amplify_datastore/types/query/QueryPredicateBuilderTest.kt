@@ -63,7 +63,6 @@ class QueryPredicateBuilderTest {
                 rating.between(1.0, 4.0)
                         .and(id.contains("abc"))
                         .and(title.beginsWith("def"))
-                        // TODO; will this be executed correctly in the backend where we are passing strings instead of a date?
                         .and(created.eq("2020-02-20T20:20:20-08:00")),
                 QueryPredicateBuilder.fromSerializedMap(readFromFile("group_with_only_and.json")))
     }

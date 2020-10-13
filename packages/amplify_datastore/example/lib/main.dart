@@ -21,8 +21,9 @@ class _MyAppState extends State<MyApp> {
   String _posts = '';
   String _posts4rating = '';
   String _posts1To4Rating = '';
-  String _postWithId = '';
+  String _postWithCreatedDate = '';
   String _posts2Or5Rating = '';
+  String _postWithIdEquals = '';
   Amplify amplify = new Amplify();
   @override
   void initState() {
@@ -41,7 +42,8 @@ class _MyAppState extends State<MyApp> {
     String posts4Rating = '';
     String posts1To4Rating = '';
     String posts2Or5Rating = '';
-    String postWithId = '';
+    String postWithCreatedDate = '';
+    String postWithIdEquals = '';
 
     (await Amplify.DataStore.query(Post.classType,
             sortBy: [Post.RATING.ascending()]))
@@ -61,9 +63,15 @@ class _MyAppState extends State<MyApp> {
     });
 
     (await Amplify.DataStore.query(Post.classType,
-            where: Post.ID.eq("06befc39-c147-4242-9a91-2c08b97f2054")))
+            where: Post.CREATED.eq("2020-02-02T20:20:20-08:00")))
         .forEach((element) {
-      postWithId += element.toJson().toString() + '\n';
+      postWithCreatedDate += element.toJson().toString() + '\n';
+    });
+
+    (await Amplify.DataStore.query(Post.classType,
+            where: Post.ID.eq("e25859fc-e254-4e8b-8cae-62ccacce4097")))
+        .forEach((element) {
+      postWithIdEquals += element.toJson().toString() + '\n';
     });
 
     (await Amplify.DataStore.query(Post.classType,
@@ -80,8 +88,9 @@ class _MyAppState extends State<MyApp> {
       _posts = allPosts;
       _posts1To4Rating = posts1To4Rating;
       _posts4rating = posts4Rating;
-      _postWithId = postWithId;
+      _postWithCreatedDate = postWithCreatedDate;
       _posts2Or5Rating = posts2Or5Rating;
+      _postWithIdEquals = postWithIdEquals;
     });
   }
 
@@ -93,13 +102,13 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text(
-              'All Posts sort by rating ascending (sorting not working)\n$_posts\n' +
-                  'Posts >= 4 rating\n$_posts4rating\n' +
-                  'Posts between 1 and 4 rating\n$_posts1To4Rating\n' +
-                  'Posts with rating 2 or 5\n$_posts2Or5Rating\n' +
-                  'Post With id 06befc39-c147-4242-9a91-2c08b97f2054 (Not working)\n$_postWithId'),
-        ),
+            child: Text(
+                'All Posts sort by rating ascending (sorting not working)\n$_posts\n' +
+                    'Posts >= 4 rating\n$_posts4rating\n' +
+                    'Posts between 1 and 4 rating\n$_posts1To4Rating\n' +
+                    'Posts with rating 2 or 5\n$_posts2Or5Rating\n' +
+                    'Post With date equals\n$_postWithCreatedDate\n' +
+                    'Post With Id equals\n$_postWithIdEquals\n')),
       ),
     );
   }

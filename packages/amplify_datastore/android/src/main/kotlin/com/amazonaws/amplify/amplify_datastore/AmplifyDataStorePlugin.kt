@@ -143,11 +143,11 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                         "id" to UUID.randomUUID().toString(),
                         "title" to "Title 3 " + Date().toString(),
                         "rating" to 2,
-                        "created" to Temporal.DateTime("2020-02-02T20:20:20-08:00").toDate()),
+                        "created" to Temporal.DateTime("2020-02-02T20:20:20-08:00")),
                 mapOf(
                         "id" to UUID.randomUUID().toString(),
                         "title" to "Title 4 " + Date().toString(),
-                        "created" to Temporal.DateTime("2020-02-22T20:20:20-08:00").toDate())
+                        "created" to Temporal.DateTime("2020-02-22T20:20:20-08:00"))
         )
         val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
         postSerializedData.forEach { data ->

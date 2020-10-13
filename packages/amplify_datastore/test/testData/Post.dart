@@ -48,8 +48,9 @@ class Post extends Model {
   Post.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         title = json['title'],
-        rating = getInt(json['rating']),
-        created = dateParser(json['created']);
+        rating = json['rating'],
+        created =
+            json['created'] != null ? DateTime.parse(json['created']) : null;
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -80,15 +81,6 @@ class Post extends Model {
   static const classType = PostType();
   @override
   final ModelType instanceType = const PostType();
-}
-
-int getInt(dynamic value) {
-  if (value is double) {
-    return value.toInt();
-  } else if (value is int) {
-    return value;
-  }
-  return null;
 }
 
 class PostType extends ModelType<Post> {

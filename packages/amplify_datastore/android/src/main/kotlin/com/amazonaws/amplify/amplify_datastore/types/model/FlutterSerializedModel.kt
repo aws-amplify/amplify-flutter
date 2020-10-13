@@ -15,11 +15,14 @@
 
 package com.amazonaws.amplify.amplify_datastore.types.model
 
+import com.amplifyframework.core.model.temporal.Temporal
 import com.amplifyframework.datastore.appsync.SerializedModel
+
 
 data class FlutterSerializedModel(val serializedModel: SerializedModel) {
     private val id: String = serializedModel.id
-    private val serializedData: Map<String, Any> = serializedModel.serializedData
+    private val serializedData: Map<String, Any> = parseAnyMap(serializedModel.serializedData)
+
     private val modelName: String = serializedModel.modelName
 
     fun toMap(): Map<String, Any> {
@@ -27,5 +30,15 @@ data class FlutterSerializedModel(val serializedModel: SerializedModel) {
                 "id" to id,
                 "serializedData" to serializedData,
                 "modelName" to modelName)
+    }
+
+    private fun parseAnyMap(serializedData: Map<String, Any>): Map<String, Any> {
+        return serializedData.mapValues {
+            when (val value: Any = it.value) {
+                is Temporal.DateTime -> value.format()
+                // TODO add for other complex objects that can be returned or be part of the codegen model
+                else -> value
+            }
+        }
     }
 }

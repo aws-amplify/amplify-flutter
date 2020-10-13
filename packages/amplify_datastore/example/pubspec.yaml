@@ -11,7 +11,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  intl: ^0.16.1
   amplify_datastore:
     # When depending on this package from a real application you should use:
     #   amplify_datastore: ^x.y.z
