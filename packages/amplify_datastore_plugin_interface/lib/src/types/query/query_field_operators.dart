@@ -53,7 +53,7 @@ abstract class QueryFieldOperator {
 
   dynamic serializeDynamicValue(dynamic value) {
     if (value is DateTime) {
-      return DateTimeFormat.format(value, format: DateTimeFormats.iso8601);
+      return formatDateToISO8601(value);
     }
     // TODO sanitize other types appropriately
     return value;

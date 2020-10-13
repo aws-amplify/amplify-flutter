@@ -15,12 +15,12 @@
 
 library query_field;
 
-import 'package:date_time_format/date_time_format.dart';
+import '../utils/date_time_parser.dart';
 
 part 'query_field_operators.dart';
+part 'query_pagination.dart';
 part 'query_predicate.dart';
 part 'query_sort.dart';
-part 'query_pagination.dart';
 
 class QueryField {
   final String fieldName;
