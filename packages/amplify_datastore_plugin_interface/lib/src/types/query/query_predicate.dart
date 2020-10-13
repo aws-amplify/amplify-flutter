@@ -15,6 +15,11 @@
 
 part of 'query_field.dart';
 
+// Top level global function to be used without the context of the enclosing class
+QueryPredicateGroup not(QueryPredicate predicate) {
+  return new QueryPredicateGroup(QueryPredicateGroupType.not, [predicate]);
+}
+
 abstract class QueryPredicate {
   const QueryPredicate();
 

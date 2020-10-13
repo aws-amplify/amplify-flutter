@@ -82,4 +82,21 @@ void main() {
     expect(testPredicate.serializeAsMap(),
         await getJsonFromFile('group_mixed_and_or.json'));
   });
+
+  test('when rating lt but not eq', () async {
+    QueryPredicate testPredicate =
+        Post.RATING.lt(4).and(not(Post.RATING.eq(1)));
+
+    expect(testPredicate.serializeAsMap(),
+        await getJsonFromFile('mixed_with_not.json'));
+  });
+
+  test('when negate complex predicate', () async {
+    QueryPredicate testPredicate = not(Post.RATING
+        .eq(1)
+        .and(Post.RATING.eq(4).or(Post.TITLE.contains("crap"))));
+
+    expect(testPredicate.serializeAsMap(),
+        await getJsonFromFile('negate_complex_predicate.json'));
+  });
 }

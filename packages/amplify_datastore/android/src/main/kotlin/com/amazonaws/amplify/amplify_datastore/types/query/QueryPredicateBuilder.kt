@@ -19,6 +19,7 @@ import com.amplifyframework.core.model.query.predicate.QueryField
 import com.amplifyframework.core.model.query.predicate.QueryPredicate
 import com.amplifyframework.core.model.query.predicate.QueryPredicateGroup
 import com.amplifyframework.core.model.query.predicate.QueryPredicateOperation
+import com.amplifyframework.core.model.query.predicate.QueryPredicateOperation.not
 
 class QueryPredicateBuilder {
     companion object {
@@ -70,7 +71,10 @@ class QueryPredicateBuilder {
                                     (predicates[0] as QueryPredicateOperation<*>).or(predicates[1])
                             predicates = predicates.drop(2)
                         }
-                        "not" -> print("TODO") // TODO
+                        "not" -> {
+                            resultQueryPredicate = not(predicates[0] as QueryPredicateOperation<*>)
+                            return resultQueryPredicate // We don't have more query predicates for `not` operation type
+                        }
                     }
                 } else { // has to be a QueryPredicateGroup
                     resultQueryPredicate = predicates[0] as QueryPredicateGroup
@@ -88,7 +92,14 @@ class QueryPredicateBuilder {
                             resultQueryPredicate = resultQueryPredicate!!.or(predicate)
                         }
                     }
-                    "not" -> print("TODO") // TODO
+                    "not" -> {
+                        if (predicates.isNotEmpty()) {
+                            throw IllegalArgumentException(
+                                    "More than one predicates added in the `not` queryPredicate operation. Predicates Size: " + predicates.size)
+                        }
+                        resultQueryPredicate =
+                                QueryPredicateGroup.not(resultQueryPredicate as QueryPredicateGroup)
+                    }
                 }
 
                 return resultQueryPredicate

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -12,6 +14,8 @@ void main() {
   runApp(MyApp());
 }
 
+JsonEncoder encoder = new JsonEncoder.withIndent('  ');
+
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
@@ -23,7 +27,9 @@ class _MyAppState extends State<MyApp> {
   String _posts1To4Rating = '';
   String _postWithCreatedDate = '';
   String _posts2Or5Rating = '';
-  String _postWithIdEquals = '';
+  String _postWithIdNotEquals = '';
+  String _firstPostFromResult = '';
+  String _allPostsWithoutRating2Or5 = '';
   Amplify amplify = new Amplify();
   @override
   void initState() {
@@ -43,41 +49,55 @@ class _MyAppState extends State<MyApp> {
     String posts1To4Rating = '';
     String posts2Or5Rating = '';
     String postWithCreatedDate = '';
-    String postWithIdEquals = '';
+    String postWithIdNotEquals = '';
+    String firstPostFromResult = '';
+    String allPostsWithoutRating2Or5 = '';
 
     (await Amplify.DataStore.query(Post.classType,
             sortBy: [Post.RATING.ascending()]))
         .forEach((element) {
-      allPosts += element.toJson().toString() + '\n';
+      allPosts += encoder.convert(element.toJson()) + '\n';
     });
 
     (await Amplify.DataStore.query(Post.classType, where: Post.RATING.ge(4)))
         .forEach((element) {
-      posts4Rating += element.toJson().toString() + '\n';
+      posts4Rating += encoder.convert(element.toJson()) + '\n';
     });
 
     (await Amplify.DataStore.query(Post.classType,
             where: Post.RATING.between(1, 4)))
         .forEach((element) {
-      posts1To4Rating += element.toJson().toString() + '\n';
+      posts1To4Rating += encoder.convert(element.toJson()) + '\n';
     });
 
     (await Amplify.DataStore.query(Post.classType,
             where: Post.CREATED.eq("2020-02-02T20:20:20-08:00")))
         .forEach((element) {
-      postWithCreatedDate += element.toJson().toString() + '\n';
+      postWithCreatedDate += encoder.convert(element.toJson()) + '\n';
     });
 
     (await Amplify.DataStore.query(Post.classType,
-            where: Post.ID.eq("e25859fc-e254-4e8b-8cae-62ccacce4097")))
+            where: Post.ID.ne("e25859fc-e254-4e8b-8cae-62ccacce4097")))
         .forEach((element) {
-      postWithIdEquals += element.toJson().toString() + '\n';
+      postWithIdNotEquals += encoder.convert(element.toJson()) + '\n';
     });
 
     (await Amplify.DataStore.query(Post.classType,
             where: Post.RATING.eq(2).or(Post.RATING.eq(5))))
         .forEach((element) {
-      posts2Or5Rating += element.toJson().toString() + '\n';
+      posts2Or5Rating += encoder.convert(element.toJson()) + '\n';
+    });
+
+    (await Amplify.DataStore.query(Post.classType,
+            pagination: QueryPagination.firstResult()))
+        .forEach((element) {
+      firstPostFromResult += encoder.convert(element.toJson());
+    });
+
+    (await Amplify.DataStore.query(Post.classType,
+            where: not(Post.RATING.eq(5).or(Post.RATING.eq(2)))))
+        .forEach((element) {
+      allPostsWithoutRating2Or5 += encoder.convert(element.toJson());
     });
 
     // If the widget was removed from the tree while the asynchronous platform
@@ -90,7 +110,9 @@ class _MyAppState extends State<MyApp> {
       _posts4rating = posts4Rating;
       _postWithCreatedDate = postWithCreatedDate;
       _posts2Or5Rating = posts2Or5Rating;
-      _postWithIdEquals = postWithIdEquals;
+      _postWithIdNotEquals = postWithIdNotEquals;
+      _firstPostFromResult = firstPostFromResult;
+      _allPostsWithoutRating2Or5 = allPostsWithoutRating2Or5;
     });
   }
 
@@ -98,18 +120,20 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-            child: Text(
-                'All Posts sort by rating ascending (sorting not working)\n$_posts\n' +
-                    'Posts >= 4 rating\n$_posts4rating\n' +
-                    'Posts between 1 and 4 rating\n$_posts1To4Rating\n' +
-                    'Posts with rating 2 or 5\n$_posts2Or5Rating\n' +
-                    'Post With date equals\n$_postWithCreatedDate\n' +
-                    'Post With Id equals\n$_postWithIdEquals\n')),
-      ),
+          appBar: AppBar(
+            title: const Text('Plugin example app'),
+          ),
+          body: Center(
+            child: new SingleChildScrollView(
+                child: Text('All Posts sort by rating ascending (sorting not working)\n$_posts\n\n' +
+                    'First post from list of all posts\n$_firstPostFromResult\n\n' +
+                    'Posts >= 4 rating\n$_posts4rating\n\n' +
+                    'Posts between 1 and 4 rating\n$_posts1To4Rating\n\n' +
+                    'Posts with rating 2 or 5\n$_posts2Or5Rating\n\n' +
+                    'Posts without rating 2 or 5\n$_allPostsWithoutRating2Or5\n\n' +
+                    'Post with date equals\n$_postWithCreatedDate\n\n' +
+                    'Post with Id not equals\n$_postWithIdNotEquals\n\n')),
+          )),
     );
   }
 

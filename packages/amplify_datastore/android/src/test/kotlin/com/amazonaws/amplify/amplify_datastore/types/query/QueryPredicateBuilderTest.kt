@@ -15,6 +15,8 @@
 
 import com.amazonaws.amplify.amplify_datastore.types.query.QueryPredicateBuilder
 import com.amplifyframework.core.model.query.predicate.QueryField
+import com.amplifyframework.core.model.query.predicate.QueryPredicateGroup
+import com.amplifyframework.core.model.query.predicate.QueryPredicateOperation.not
 import com.google.gson.Gson
 import org.junit.Assert
 import org.junit.Before
@@ -72,6 +74,22 @@ class QueryPredicateBuilderTest {
         Assert.assertEquals(
                 rating.lt(4.0).and(id.contains("abc")).or(title.contains("def")),
                 QueryPredicateBuilder.fromSerializedMap(readFromFile("group_mixed_and_or.json")))
+    }
+
+    @Test
+    fun test_when_rating_lt_but_not_eq() {
+        Assert.assertEquals(
+                rating.lt(4.0).and(not(rating.eq(1.0))),
+                QueryPredicateBuilder.fromSerializedMap(readFromFile("mixed_with_not.json")))
+    }
+
+    @Test
+    fun test_when_negate_complex_predicate() {
+        Assert.assertEquals(
+                QueryPredicateGroup.not(
+                        rating.eq(1.0).and(rating.eq(4.0).or(title.contains("crap")))),
+                QueryPredicateBuilder.fromSerializedMap(
+                        readFromFile("negate_complex_predicate.json")))
     }
 
     private fun readFromFile(path: String): Map<String, Any> {
