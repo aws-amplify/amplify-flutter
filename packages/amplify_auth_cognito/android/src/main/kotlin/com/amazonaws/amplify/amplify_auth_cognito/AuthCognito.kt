@@ -44,7 +44,6 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthUser
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendSignUpCodeResult
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterWebUIRequest
 import com.amazonaws.mobileconnectors.cognitoauth.exceptions.AuthNavigationException
-
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.exceptions.CognitoCodeExpiredException
 import com.amazonaws.services.cognitoidentityprovider.model.*
 import com.amplifyframework.auth.AuthChannelEventName
@@ -130,7 +129,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
     var data : HashMap<String, Any> = HashMap<String, Any> ()
     try {
       data = checkData(checkArguments(call.arguments));
-    } catch(e: Exception) {
+    } catch (e: Exception) {
       prepareError(result, e, FlutterAuthFailureMessage.CASTING.toString())
     }
 
@@ -256,7 +255,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
         Amplify.Auth.resendSignUpCode(
                 req.username,
                 { result -> prepareResendSignUpCodeResult(flutterResult, result) },
-                { error -> prepareError(flutterResult, error, FlutterAuthFailureMessage.RESEND_SIGNUP_CODE.toString())}
+                { error -> prepareError(flutterResult, error, FlutterAuthFailureMessage.RESEND_SIGNUP_CODE.toString()) }
         )
       } catch (e: Exception) {
         prepareError(flutterResult, e, FlutterAuthFailureMessage.RESEND_SIGNUP_CODE.toString())
@@ -416,8 +415,9 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
                     {
                       if (!resultSubmitted) {
                         resultSubmitted = true;
-                        flutterResult.success(true)
-                      }
+                        Handler(Looper.getMainLooper()).post {
+                          flutterResult.success(true);
+                        }                      }
                     },
                     { error -> prepareError(flutterResult, error, FlutterAuthFailureMessage.SIGNIN_WITH_WEBUI.toString()) }
             )
@@ -430,7 +430,9 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
                     {
                       if (!resultSubmitted) {
                         resultSubmitted = true;
-                        flutterResult.success(true)
+                        Handler(Looper.getMainLooper()).post {
+                          flutterResult.success(true);
+                        }
                       }
                     },
                     { error -> prepareError(flutterResult, error, FlutterAuthFailureMessage.SIGNIN_WITH_WEBUI.toString()) }
@@ -516,7 +518,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
 
   fun prepareResendSignUpCodeResult(@NonNull flutterResult: Result, @NonNull result: AuthSignUpResult) {
     var resendData = FlutterResendSignUpCodeResult(result);
-    Handler (Looper.getMainLooper()).post {
+    Handler(Looper.getMainLooper()).post {
       flutterResult.success(resendData.toValueMap());
     }
   }

@@ -179,46 +179,6 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  void _socialSignIn() async {
-    setState(() {
-      error = "";
-      exceptions = [];
-    });
-    try {
-      bool res = await Amplify.Auth.signInWithWebUI(
-
-      );
-      print(res);
-    } on AuthError catch (e) {
-      setState(() {
-        error = e.cause;
-        e.exceptionList.forEach((el) {
-          exceptions.add(el.exception);
-        });
-      });
-    }
-  }
-
-  void _socialSignIn() async {
-    setState(() {
-      error = "";
-      exceptions = [];
-    });
-    try {
-      bool res = await Amplify.Auth.signInWithWebUI(
-
-      );
-      print(res);
-    } on AuthError catch (e) {
-      setState(() {
-        error = e.cause;
-        e.exceptionList.forEach((el) {
-          exceptions.add(el.exception);
-        });
-      });
-    }
-  }
-
   void _stopListening() async {
     auth.events.stopListeningToAuth();
   }
@@ -333,7 +293,7 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: SizedBox(
-          height: 600,
+          height: 800,
           child: ListView(
             padding: EdgeInsets.all(10.0),
             scrollDirection: Axis.vertical,
