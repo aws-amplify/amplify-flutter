@@ -46,10 +46,7 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterWebUIRequest
 import com.amazonaws.mobileconnectors.cognitoauth.exceptions.AuthNavigationException
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.exceptions.CognitoCodeExpiredException
 import com.amazonaws.services.cognitoidentityprovider.model.*
-import com.amplifyframework.auth.AuthChannelEventName
-import com.amplifyframework.auth.AuthException
-import com.amplifyframework.auth.AuthSession
-import com.amplifyframework.auth.AuthUser
+import com.amplifyframework.auth.*
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
 import com.amplifyframework.auth.cognito.AWSCognitoAuthSession
 import com.amplifyframework.auth.result.AuthResetPasswordResult
@@ -66,10 +63,7 @@ import com.google.gson.reflect.TypeToken
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
-import io.flutter.plugin.common.BinaryMessenger
-import io.flutter.plugin.common.EventChannel
-import io.flutter.plugin.common.MethodCall
-import io.flutter.plugin.common.MethodChannel
+import io.flutter.plugin.common.*
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
