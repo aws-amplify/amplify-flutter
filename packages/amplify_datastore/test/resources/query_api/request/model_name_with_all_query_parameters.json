@@ -1,0 +1,53 @@
+{
+  "modelName": "Post",
+  "queryPredicate": {
+    "queryPredicateGroup": {
+      "type": "or",
+      "predicates": [
+        {
+          "queryPredicateOperation": {
+            "field": "id",
+            "fieldOperator": { "operatorName": "equal", "value": "123" }
+          }
+        },
+        {
+          "queryPredicateGroup": {
+            "type": "and",
+            "predicates": [
+              {
+                "queryPredicateOperation": {
+                  "field": "rating",
+                  "fieldOperator": {
+                    "operatorName": "greater_or_equal",
+                    "value": 4
+                  }
+                }
+              },
+              {
+                "queryPredicateGroup": {
+                  "type": "not",
+                  "predicates": [
+                    {
+                      "queryPredicateOperation": {
+                        "field": "created",
+                        "fieldOperator": {
+                          "operatorName": "equal",
+                          "value": "2020-02-20T20:20:20-08:00"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "queryPagination": { "page": 2, "limit": 8 },
+  "querySort": [
+    { "field": "id", "order": "ascending" },
+    { "field": "created", "order": "descending" }
+  ]
+}

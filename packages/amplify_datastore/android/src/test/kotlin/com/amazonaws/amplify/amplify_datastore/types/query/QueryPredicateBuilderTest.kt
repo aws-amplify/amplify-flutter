@@ -23,16 +23,10 @@ import org.junit.Before
 import org.junit.Test
 
 class QueryPredicateBuilderTest {
-    lateinit var predicateBuilder: QueryPredicateBuilder
-    val id: QueryField = QueryField.field("id")
-    val title: QueryField = QueryField.field("title")
-    val rating: QueryField = QueryField.field("rating")
-    val created: QueryField = QueryField.field("created")
-
-    @Before
-    fun setup() {
-        predicateBuilder = QueryPredicateBuilder()
-    }
+    private val id: QueryField = QueryField.field("id")
+    private val title: QueryField = QueryField.field("title")
+    private val rating: QueryField = QueryField.field("rating")
+    private val created: QueryField = QueryField.field("created")
 
     @Test
     fun test_when_id_not_equals() {

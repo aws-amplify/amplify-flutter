@@ -53,7 +53,6 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger,
                                 "com.amazonaws.amplify/datastore")
         channel.setMethodCallHandler(this)
-        Amplify.addPlugin(AWSDataStorePlugin())
         LOG.info("Added DataStore plugin")
     }
 
@@ -72,14 +71,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
     private fun onConfigure(flutterResult: Result, request: HashMap<String, Any>) {
         var modelSchemasMap: List<Map<String, Any>>? = null
-        if (request.containsKey("modelSchemas")) {
-            if (request["modelSchemas"] is List<*>) {
-                modelSchemasMap = request["modelSchemas"] as List<Map<String, Any>>
-            } else {
-                prepareError(flutterResult, java.lang.Exception(
-                        FlutterDataStoreFailureMessage.MALFORMED.toString()),
-                             FlutterDataStoreFailureMessage.CASTING.toString())
-            }
+        if (request.containsKey("modelSchemas") && request["modelSchemas"] is List<*>) {
+            modelSchemasMap = request["modelSchemas"] as List<Map<String, Any>>
         } else {
             prepareError(flutterResult,
                          java.lang.Exception(FlutterDataStoreFailureMessage.MALFORMED.toString()),
