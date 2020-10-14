@@ -17,6 +17,7 @@ package com.amazonaws.amplify.amplify_auth_cognito
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -41,6 +42,8 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResetPasswordRequ
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdatePasswordRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthUser
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendSignUpCodeResult
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterWebUIRequest
+import com.amazonaws.mobileconnectors.cognitoauth.exceptions.AuthNavigationException
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.exceptions.CognitoCodeExpiredException
 import com.amazonaws.services.cognitoidentityprovider.model.*
 import com.amplifyframework.auth.AuthChannelEventName
@@ -73,7 +76,7 @@ import io.flutter.plugin.common.PluginRegistry.Registrar
 
 
 /** AuthCognito */
-public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
+public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, PluginRegistry.ActivityResultListener {
 
   private lateinit var channel: MethodChannel
   private lateinit var context: Context
@@ -83,6 +86,13 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
   var eventMessenger: BinaryMessenger? = null
   private lateinit var token: SubscriptionToken;
 
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
+    if (requestCode == AWSCognitoAuthPlugin.WEB_UI_SIGN_IN_ACTIVITY_CODE) {
+      Amplify.Auth.handleWebUISignInResponse(data)
+      return true
+    }
+    return false
+  }
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "com.amazonaws.amplify/auth_cognito")
@@ -136,11 +146,13 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
       "fetchAuthSession" -> onFetchAuthSession(result, data)
       "resendSignUpCode" -> onResendSignUpCode(result, data)
       "getCurrentUser" -> onGetCurrentUser(result)
+      "signInWithWebUI" -> onSignInWithWebUI(result, data)
       else -> result.notImplemented()
     }
   }
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
+    binding.addActivityResultListener(this)
     this.mainActivity = binding.activity
     eventChannel = EventChannel(eventMessenger, "com.amazonaws.amplify/auth_cognito_events")
     eventChannel!!.setStreamHandler(object : EventChannel.StreamHandler {
@@ -392,6 +404,51 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     }
   }
 
+  private fun onSignInWithWebUI(@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
+    if (FlutterWebUIRequest.validate(request)) {
+      var req = FlutterWebUIRequest(request)
+      var resultSubmitted: Boolean = false;
+      try {
+        if (req.provider == null) {
+          this.mainActivity?.let {
+            Amplify.Auth.signInWithWebUI(
+                    it,
+                    {
+                      if (!resultSubmitted) {
+                        resultSubmitted = true;
+                        Handler(Looper.getMainLooper()).post {
+                          flutterResult.success(true);
+                        }                      }
+                    },
+                    { error -> prepareError(flutterResult, error, FlutterAuthFailureMessage.SIGNIN_WITH_WEBUI.toString()) }
+            )
+          }
+        } else {
+          this.mainActivity?.let {
+            Amplify.Auth.signInWithSocialWebUI(
+                    AuthProvider::class.java.getMethod(req.provider).invoke(null) as AuthProvider,
+                    it,
+                    {
+                      if (!resultSubmitted) {
+                        resultSubmitted = true;
+                        Handler(Looper.getMainLooper()).post {
+                          flutterResult.success(true);
+                        }
+                      }
+                    },
+                    { error -> prepareError(flutterResult, error, FlutterAuthFailureMessage.SIGNIN_WITH_WEBUI.toString()) }
+            )
+          }
+        }
+      } catch (e: Exception) {
+        prepareError(flutterResult, e, FlutterAuthFailureMessage.SIGNIN_WITH_WEBUI.toString())
+      }
+    } else {
+      prepareError(flutterResult, java.lang.Exception(FlutterAuthFailureMessage.MALFORMED.toString()), FlutterAuthFailureMessage.MALFORMED.toString())
+    }
+  }
+
+
   fun prepareError(@NonNull flutterResult: Result, @NonNull error: Exception, @NonNull msg: String) {
     LOG.error(msg, error)
     var errorMap: HashMap<String, Any> = HashMap();
@@ -425,6 +482,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
           is LimitExceededException -> errorMap["REQUEST_LIMIT_EXCEEDED"] = (error.cause as LimitExceededException).errorMessage;
           is AmazonClientException -> errorMap["AMAZON_CLIENT_EXCEPTION"] = (error.cause as AmazonClientException).localizedMessage;
           is AmazonServiceException -> errorMap["AMAZON_SERVICE_EXCEPTION"] = (error.cause as AmazonServiceException).localizedMessage;
+          is AuthNavigationException -> errorMap["AUTH_NAVIGATION_EXCEPTION"] = (error.cause as AuthNavigationException).localizedMessage;
           else -> errorMap["UNKNOWN"] = "Unknown Auth Error.";
         }
       }

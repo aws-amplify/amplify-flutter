@@ -127,6 +127,14 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
                 let errorCode = "UNKNOWN"
                 prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: formatErrorMap(errorCode: errorCode))
             }
+        case "signInWithWebUI":
+            if (FlutterSignInWithWebUIRequest.validate(dict: data)) {
+            let request = FlutterSignInWithWebUIRequest(dict: data)
+                cognito.onSignInWithWebUI(flutterResult: result, request: request)
+            } else {
+                let errorCode = "UNKNOWN"
+                prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: formatErrorMap(errorCode: errorCode))
+            }
         case "confirmSignIn":
             if (FlutterConfirmSignInRequest.validate(dict: data)) {
                 let request = FlutterConfirmSignInRequest(dict: data)

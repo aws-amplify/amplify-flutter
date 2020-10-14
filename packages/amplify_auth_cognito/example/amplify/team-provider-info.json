@@ -1,0 +1,21 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-hosteduiexample-dev-154330-authRole",
+            "UnauthRoleArn": "arn:aws:iam::444407295970:role/amplify-hosteduiexample-dev-154330-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::444407295970:role/amplify-hosteduiexample-dev-154330-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "amplify-hosteduiexample-dev-154330-deployment",
+            "UnauthRoleName": "amplify-hosteduiexample-dev-154330-unauthRole",
+            "StackName": "amplify-hosteduiexample-dev-154330",
+            "StackId": "arn:aws:cloudformation:us-west-2:444407295970:stack/amplify-hosteduiexample-dev-154330/5c0b6080-0cdc-11eb-a13b-0a25a13ca77a"
+        },
+        "categories": {
+            "auth": {
+                "hosteduiexamplecc562581": {
+                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"347488582956673\",\"client_secret\":\"1f9012f0a1c6e8843950212c57fef95e\"},{\"ProviderName\":\"Google\",\"client_id\":\"297940947320-vk2l31drb473nt6vhp4aanoupnod8uqe.apps.googleusercontent.com\",\"client_secret\":\"ogURJxh7UcHW7VZOofYiP3mQ\"},{\"ProviderName\":\"LoginWithAmazon\",\"client_id\":\"amzn1.application-oa2-client.d6a220f4d1bc4e1fabe7b1b61cf7817b\",\"client_secret\":\"47606db1c6605da82c5ce84c66d2f1ead7daf0fbc87384994fc7573ae25168fd\"}]"
+                }
+            }
+        }
+    }
+}

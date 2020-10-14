@@ -74,4 +74,8 @@ abstract class AuthPluginInterface extends PlatformInterface {
   Future<AuthSession> fetchAuthSession({@required AuthSessionRequest request}) {
     throw UnimplementedError('fetchAuthSession() has not been implemented.');
   }
+
+  Future<bool> signInWithWebUI({SignInWithWebUIRequest request}) {
+    throw UnimplementedError('fetchAuthSession() has not been implemented.');
+  }
 }
