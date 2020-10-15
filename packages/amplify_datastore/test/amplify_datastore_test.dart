@@ -16,8 +16,6 @@ void main() {
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  setUp(() {});
-
   tearDown(() {
     dataStoreChannel.setMockMethodCallHandler(null);
   });

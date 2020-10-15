@@ -23,10 +23,6 @@ import './testData/index.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  setUp(() {});
-
-  tearDown(() {});
-
   dynamic getJsonFromFile(String path) async {
     path = 'resources/query_predicate/' + path;
     String jsonString = '';
