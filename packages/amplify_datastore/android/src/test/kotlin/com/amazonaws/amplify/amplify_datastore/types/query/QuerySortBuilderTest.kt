@@ -18,10 +18,11 @@ package com.amazonaws.amplify.amplify_datastore.types.query
 import com.amplifyframework.core.model.query.Where
 import com.amplifyframework.core.model.query.predicate.QueryField
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import org.junit.Assert
 import org.junit.Test
 
-class QueryPredicateBuilderTest {
+class QuerySortBuilderTest {
     private val id: QueryField = QueryField.field("id")
     private val rating: QueryField = QueryField.field("rating")
 
@@ -43,6 +44,7 @@ class QueryPredicateBuilderTest {
     private fun readFromFile(path: String): List<Map<String, Any>> {
         val filePath = "query_sort/$path"
         val jsonFile = ClassLoader.getSystemResource(filePath).readText()
-        return Gson().fromJson(jsonFile, List::class.java) as List<Map<String, Any>>
+        val listType = object : TypeToken<List<Map<String, Any>>>() {}.type
+        return Gson().fromJson(jsonFile, listType)
     }
 }

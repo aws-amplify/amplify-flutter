@@ -18,6 +18,7 @@ package com.amazonaws.amplify.amplify_datastore.types.query
 import com.amplifyframework.core.model.query.Page
 import com.amplifyframework.core.model.query.Where
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import org.junit.Assert
 import org.junit.Test
 
@@ -26,7 +27,8 @@ class QueryPaginationBuilderTest {
     fun test_when_requesting_custom_page_and_limit() {
         Assert.assertEquals(
                 Where.paginated(Page.startingAt(3).withLimit(200)).paginationInput,
-                QueryPaginationBuilder.fromSerializedMap(readFromFile("custom_page_and_limit.json")))
+                QueryPaginationBuilder.fromSerializedMap(
+                        readFromFile("custom_page_and_limit.json")))
     }
 
     @Test
@@ -48,6 +50,7 @@ class QueryPaginationBuilderTest {
     private fun readFromFile(path: String): Map<String, Any> {
         val filePath = "query_pagination/$path"
         val jsonFile = ClassLoader.getSystemResource(filePath).readText()
-        return Gson().fromJson(jsonFile, Map::class.java) as Map<String, Any>
+        val mapType = object : TypeToken<Map<String, Int>>() {}.type
+        return Gson().fromJson(jsonFile, mapType)
     }
 }

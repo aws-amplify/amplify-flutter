@@ -1,4 +1,4 @@
-/*
+package com.amazonaws.amplify.amplify_datastore.types.query/*
  * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
@@ -13,13 +13,12 @@
  * permissions and limitations under the License.
  */
 
-import com.amazonaws.amplify.amplify_datastore.types.query.QueryPredicateBuilder
 import com.amplifyframework.core.model.query.predicate.QueryField
 import com.amplifyframework.core.model.query.predicate.QueryPredicateGroup
 import com.amplifyframework.core.model.query.predicate.QueryPredicateOperation.not
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import org.junit.Assert
-import org.junit.Before
 import org.junit.Test
 
 class QueryPredicateBuilderTest {
@@ -89,6 +88,7 @@ class QueryPredicateBuilderTest {
     private fun readFromFile(path: String): Map<String, Any> {
         val filePath = "query_predicate/$path"
         val jsonFile = ClassLoader.getSystemResource(filePath).readText()
-        return Gson().fromJson(jsonFile, Map::class.java) as Map<String, Any>
+        val mapType = object : TypeToken<Map<String, Any>>() {}.type
+        return Gson().fromJson(jsonFile, mapType)
     }
 }

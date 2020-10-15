@@ -15,6 +15,8 @@
 
 package com.amazonaws.amplify.amplify_datastore.types.query
 
+import com.amazonaws.amplify.amplify_datastore.util.safeCastToList
+import com.amazonaws.amplify.amplify_datastore.util.safeCastToMap
 import com.amplifyframework.core.model.query.predicate.QueryField
 import com.amplifyframework.core.model.query.predicate.QueryPredicate
 import com.amplifyframework.core.model.query.predicate.QueryPredicateGroup
@@ -28,13 +30,12 @@ class QueryPredicateBuilder {
             if (serializedMap == null) {
                 return null
             }
+
             if (serializedMap.containsKey("queryPredicateOperation")) {
-                val queryPredicateOperationMap: Map<String, Any> =
-                        serializedMap["queryPredicateOperation"] as Map<String, Any>
+                val queryPredicateOperationMap: Map<String, Any> = serializedMap["queryPredicateOperation"].safeCastToMap()!!
                 val field = queryPredicateOperationMap["field"] as String
                 val queryField: QueryField = QueryField.field(field)
-                val queryFieldOperatorMap: Map<String, Any> =
-                        queryPredicateOperationMap["fieldOperator"] as Map<String, Any>
+                val queryFieldOperatorMap: Map<String, Any> = queryPredicateOperationMap["fieldOperator"].safeCastToMap()!!
                 val operand: Any? = queryFieldOperatorMap["value"]
                 when (queryFieldOperatorMap["operatorName"]) {
                     "equal" -> return queryField.eq(operand)
@@ -52,13 +53,16 @@ class QueryPredicateBuilder {
             }
 
             if (serializedMap.containsKey("queryPredicateGroup")) {
-                val queryPredicateGroupMap =
-                        serializedMap["queryPredicateGroup"] as Map<String, Any>
+                val queryPredicateGroupMap : Map<String, Any> =
+                        serializedMap["queryPredicateGroup"].safeCastToMap()!!
                 var predicates: List<QueryPredicate> =
-                        (queryPredicateGroupMap["predicates"] as List<Map<String, Any>>).map { queryPredicate ->
-                            fromSerializedMap(queryPredicate)!!
-                        }
+                        queryPredicateGroupMap["predicates"].safeCastToList<Map<String, Any>>()
+                                ?.map { queryPredicate ->
+                                    fromSerializedMap(queryPredicate)!!
+                                }!!
                 var resultQueryPredicate: QueryPredicateGroup? = null
+                // The first predicate in the list is either predicateOperation or predicateGroup. We need
+                // to know which one so that we can cast it appropriately and call the `and` or `not` method
                 if (predicates[0] is QueryPredicateOperation<*>) {
                     when (queryPredicateGroupMap["type"]) {
                         "and" -> {
@@ -93,9 +97,11 @@ class QueryPredicateBuilder {
                         }
                     }
                     "not" -> {
+                        // Not operator cannot contain a list of predicates, but just one.
                         if (predicates.isNotEmpty()) {
                             throw IllegalArgumentException(
-                                    "More than one predicates added in the `not` queryPredicate operation. Predicates Size: " + predicates.size)
+                                    "More than one predicates added in the `not` queryPredicate operation." +
+                                            " Predicates Size: " + predicates.size)
                         }
                         resultQueryPredicate =
                                 QueryPredicateGroup.not(resultQueryPredicate as QueryPredicateGroup)

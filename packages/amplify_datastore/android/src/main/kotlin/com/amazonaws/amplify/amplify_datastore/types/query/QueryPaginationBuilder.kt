@@ -26,13 +26,12 @@ class QueryPaginationBuilder {
                 return null
             }
             var queryPaginationInput = if (serializedMap.containsKey("page")) {
-                Page.startingAt((serializedMap["page"] as Double).toInt())
+                Page.startingAt(serializedMap["page"] as Int)
             } else {
                 Page.firstPage()
             }
             if (serializedMap.containsKey("limit")) {
-                queryPaginationInput =
-                        queryPaginationInput.withLimit((serializedMap["limit"] as Double).toInt())
+                queryPaginationInput = queryPaginationInput.withLimit(serializedMap["limit"] as Int)
             }
             return queryPaginationInput
         }

@@ -32,12 +32,12 @@ data class FlutterSerializedModel(val serializedModel: SerializedModel) {
                 "modelName" to modelName)
     }
 
-    private fun parseAnyMap(serializedData: Map<String, Any>): Map<String, String> {
+    private fun parseAnyMap(serializedData: Map<String, Any>): Map<String, Any> {
         return serializedData.mapValues {
             when (val value: Any = it.value) {
                 is Temporal.DateTime -> value.format()
                 // TODO add for other complex objects that can be returned or be part of the codegen model
-                else -> value.toString()
+                else -> value
             }
         }
     }

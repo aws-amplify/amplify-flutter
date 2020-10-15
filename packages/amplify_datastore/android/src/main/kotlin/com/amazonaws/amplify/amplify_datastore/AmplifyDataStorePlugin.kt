@@ -24,6 +24,8 @@ import com.amazonaws.amplify.amplify_datastore.types.FlutterDataStoreFailureMess
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterModelSchema
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSerializedModel
 import com.amazonaws.amplify.amplify_datastore.types.query.QueryOptionsBuilder
+import com.amazonaws.amplify.amplify_datastore.util.safeCastToList
+import com.amazonaws.amplify.amplify_datastore.util.safeCastToMap
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
 import com.amplifyframework.core.model.Model
@@ -59,7 +61,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         var data: HashMap<String, Any> = HashMap()
         try {
-            data = checkArguments(call.arguments)
+            data = checkArguments(call.arguments) as HashMap<String, Any>
         } catch (e: Exception) {
             prepareError(result, e, FlutterDataStoreFailureMessage.CASTING.toString())
         }
@@ -72,7 +74,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     private fun onConfigure(flutterResult: Result, request: HashMap<String, Any>) {
         var modelSchemasMap: List<Map<String, Any>>? = null
         if (request.containsKey("modelSchemas") && request["modelSchemas"] is List<*>) {
-            modelSchemasMap = request["modelSchemas"] as List<Map<String, Any>>
+            modelSchemasMap = request["modelSchemas"].safeCastToList()
         } else {
             prepareError(flutterResult,
                          java.lang.Exception(FlutterDataStoreFailureMessage.MALFORMED.toString()),
@@ -163,11 +165,11 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         channel.setMethodCallHandler(null)
     }
 
-    private fun checkArguments(@NonNull args: Any): HashMap<String, Any> {
-        if (args !is HashMap<*, *>) {
+    private fun checkArguments(@NonNull args: Any): Map<String, Any> {
+        if (args !is Map<*, *>) {
             throw java.lang.Exception("Flutter method call arguments are not a map.")
         }
-        return args as HashMap<String, Any>
+        return args.safeCastToMap()!!
     }
 
     private fun prepareError(@NonNull flutterResult: Result, @NonNull error: Exception,

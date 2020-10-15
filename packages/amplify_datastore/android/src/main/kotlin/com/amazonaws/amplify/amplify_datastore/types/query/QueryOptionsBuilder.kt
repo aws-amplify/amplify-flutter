@@ -15,6 +15,8 @@
 
 package com.amazonaws.amplify.amplify_datastore.types.query
 
+import com.amazonaws.amplify.amplify_datastore.util.safeCastToList
+import com.amazonaws.amplify.amplify_datastore.util.safeCastToMap
 import com.amplifyframework.core.model.query.QueryOptions
 import com.amplifyframework.core.model.query.QueryPaginationInput
 import com.amplifyframework.core.model.query.QuerySortBy
@@ -31,11 +33,11 @@ class QueryOptionsBuilder {
                 return queryOptions
             }
             var queryPredicate: QueryPredicate? = QueryPredicateBuilder.fromSerializedMap(
-                    request["queryPredicate"] as Map<String, Any>?)
+                    request["queryPredicate"].safeCastToMap())
             var querySortInput: List<QuerySortBy>? = QuerySortBuilder.fromSerializedList(
-                    request["querySort"] as List<Map<String, Any>>?)
+                    request["querySort"].safeCastToList())
             var queryPagination: QueryPaginationInput? = QueryPaginationBuilder.fromSerializedMap(
-                    request["queryPagination"] as Map<String, Any>?)
+                    request["queryPagination"].safeCastToMap())
 
             if (queryPredicate != null) {
                 queryOptions = queryOptions.matches(queryPredicate)
