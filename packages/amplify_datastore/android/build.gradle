@@ -61,4 +61,7 @@ dependencies {
     testImplementation 'org.mockito:mockito-inline:3.1.0'
     testImplementation 'androidx.test:core:1.2.0'
     testImplementation 'org.robolectric:robolectric:4.3.1'
+    testImplementation 'com.fasterxml.jackson.core:jackson-core:2.6.3'
+    testImplementation 'com.fasterxml.jackson.core:jackson-annotations:2.6.3'
+    testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.6.3'
 }

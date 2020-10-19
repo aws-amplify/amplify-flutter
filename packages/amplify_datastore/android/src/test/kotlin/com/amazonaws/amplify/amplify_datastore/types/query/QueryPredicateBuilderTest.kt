@@ -13,11 +13,10 @@ package com.amazonaws.amplify.amplify_datastore.types.query/*
  * permissions and limitations under the License.
  */
 
+import com.amazonaws.amplify.amplify_datastore.readMapFromFile
 import com.amplifyframework.core.model.query.predicate.QueryField
 import com.amplifyframework.core.model.query.predicate.QueryPredicateGroup
 import com.amplifyframework.core.model.query.predicate.QueryPredicateOperation.not
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import org.junit.Assert
 import org.junit.Test
 
@@ -31,23 +30,29 @@ class QueryPredicateBuilderTest {
     fun test_when_id_not_equals() {
         Assert.assertEquals(
                 id.ne("123"),
-                QueryPredicateBuilder.fromSerializedMap(readFromFile("id_not_equals.json")))
+                QueryPredicateBuilder.fromSerializedMap(
+                        readMapFromFile("query_predicate", "id_not_equals.json",
+                                        HashMap::class.java) as HashMap<String, Any>))
     }
 
     @Test
     fun test_when_rating_greater_or_equal() {
         Assert.assertEquals(
-                rating.ge(
-                        4.0), // TODO Figure out how to correctly serialize integers from dart to avoid sending 4.0 to native
+                rating.ge(4),
                 QueryPredicateBuilder.fromSerializedMap(
-                        readFromFile("rating_greater_or_equal.json")))
+                        readMapFromFile("query_predicate",
+                                        "rating_greater_or_equal.json",
+                                        HashMap::class.java) as HashMap<String, Any>))
     }
 
     @Test
     fun test_complex_nested_and_or() {
         Assert.assertEquals(
-                rating.le(4.0).and(id.contains("abc").or(title.beginsWith("def"))),
-                QueryPredicateBuilder.fromSerializedMap(readFromFile("complex_nested.json")))
+                rating.le(4).and(id.contains("abc").or(title.beginsWith("def"))),
+                QueryPredicateBuilder.fromSerializedMap(
+                        readMapFromFile("query_predicate",
+                                        "complex_nested.json",
+                                        HashMap::class.java) as HashMap<String, Any>))
     }
 
     @Test
@@ -55,40 +60,44 @@ class QueryPredicateBuilderTest {
         // QueryPredicate formats the date string differently than how Dart does it.
         // So we have a different json file for it
         Assert.assertEquals(
-                rating.between(1.0, 4.0)
+                rating.between(1, 4)
                         .and(id.contains("abc"))
                         .and(title.beginsWith("def"))
                         .and(created.eq("2020-02-20T20:20:20-08:00")),
-                QueryPredicateBuilder.fromSerializedMap(readFromFile("group_with_only_and.json")))
+                QueryPredicateBuilder.fromSerializedMap(
+                        readMapFromFile("query_predicate",
+                                        "group_with_only_and.json",
+                                        HashMap::class.java) as HashMap<String, Any>))
     }
 
     @Test
     fun test_when_mixed_and_or() {
         Assert.assertEquals(
-                rating.lt(4.0).and(id.contains("abc")).or(title.contains("def")),
-                QueryPredicateBuilder.fromSerializedMap(readFromFile("group_mixed_and_or.json")))
+                rating.lt(4).and(id.contains("abc")).or(title.contains("def")),
+                QueryPredicateBuilder.fromSerializedMap(
+                        readMapFromFile("query_predicate",
+                                        "group_mixed_and_or.json",
+                                        HashMap::class.java) as HashMap<String, Any>))
     }
 
     @Test
     fun test_when_rating_lt_but_not_eq() {
         Assert.assertEquals(
-                rating.lt(4.0).and(not(rating.eq(1.0))),
-                QueryPredicateBuilder.fromSerializedMap(readFromFile("mixed_with_not.json")))
+                rating.lt(4).and(not(rating.eq(1))),
+                QueryPredicateBuilder.fromSerializedMap(
+                        readMapFromFile("query_predicate",
+                                        "mixed_with_not.json",
+                                        HashMap::class.java) as HashMap<String, Any>))
     }
 
     @Test
     fun test_when_negate_complex_predicate() {
         Assert.assertEquals(
                 QueryPredicateGroup.not(
-                        rating.eq(1.0).and(rating.eq(4.0).or(title.contains("crap")))),
+                        rating.eq(1).and(rating.eq(4).or(title.contains("crap")))),
                 QueryPredicateBuilder.fromSerializedMap(
-                        readFromFile("negate_complex_predicate.json")))
-    }
-
-    private fun readFromFile(path: String): Map<String, Any> {
-        val filePath = "query_predicate/$path"
-        val jsonFile = ClassLoader.getSystemResource(filePath).readText()
-        val mapType = object : TypeToken<Map<String, Any>>() {}.type
-        return Gson().fromJson(jsonFile, mapType)
+                        readMapFromFile("query_predicate",
+                                        "negate_complex_predicate.json",
+                                        HashMap::class.java) as HashMap<String, Any>))
     }
 }

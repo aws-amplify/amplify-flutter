@@ -15,10 +15,9 @@ package com.amazonaws.amplify.amplify_datastore.types.query
  * permissions and limitations under the License.
  */
 
+import com.amazonaws.amplify.amplify_datastore.readMapFromFile
 import com.amplifyframework.core.model.query.Where
 import com.amplifyframework.core.model.query.predicate.QueryField
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import org.junit.Assert
 import org.junit.Test
 
@@ -30,7 +29,10 @@ class QuerySortBuilderTest {
     fun test_when_sorting_by_id_ascending() {
         Assert.assertEquals(
                 Where.sorted(id.ascending()).sortBy,
-                QuerySortBuilder.fromSerializedList(readFromFile("sort_by_id_ascending.json")))
+                QuerySortBuilder.fromSerializedList(
+                        readMapFromFile("query_sort",
+                                        "sort_by_id_ascending.json",
+                                        List::class.java) as List<HashMap<String, Any>>))
     }
 
     @Test
@@ -38,13 +40,8 @@ class QuerySortBuilderTest {
         Assert.assertEquals(
                 Where.sorted(id.ascending(), rating.descending()).sortBy,
                 QuerySortBuilder.fromSerializedList(
-                        readFromFile("multiple_sorting.json")))
-    }
-
-    private fun readFromFile(path: String): List<Map<String, Any>> {
-        val filePath = "query_sort/$path"
-        val jsonFile = ClassLoader.getSystemResource(filePath).readText()
-        val listType = object : TypeToken<List<Map<String, Any>>>() {}.type
-        return Gson().fromJson(jsonFile, listType)
+                        readMapFromFile("query_sort",
+                                        "multiple_sorting.json",
+                                        List::class.java) as List<HashMap<String, Any>>))
     }
 }

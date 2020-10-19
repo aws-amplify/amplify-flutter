@@ -39,11 +39,16 @@ void main() {
     });
     List<Post> posts = await dataStore.query(Post.classType);
     expect(posts.length, 2);
-    expect(posts[0], Post(id: '1', rating: 4, title: 'Title 1'));
+    expect(
+        posts[0],
+        Post(
+            id: '4281dfba-96c8-4a38-9a8e-35c7e893ea47',
+            rating: 4,
+            title: 'Title 1'));
     expect(
         posts[1],
         Post(
-            id: '2',
+            id: '43036c6b-8044-4309-bddc-262b6c686026',
             created: DateTime.parse("2020-02-20T20:20:20-08:00"),
             title: 'Title 2'));
   });

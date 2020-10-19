@@ -72,9 +72,9 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     }
 
     private fun onConfigure(flutterResult: Result, request: HashMap<String, Any>) {
-        var modelSchemasMap: List<Map<String, Any>>? = null
+        var modelSchemas: List<Map<String, Any>>? = null
         if (request.containsKey("modelSchemas") && request["modelSchemas"] is List<*>) {
-            modelSchemasMap = request["modelSchemas"].safeCastToList()
+            modelSchemas = request["modelSchemas"].safeCastToList()
         } else {
             prepareError(flutterResult,
                          java.lang.Exception(FlutterDataStoreFailureMessage.MALFORMED.toString()),
@@ -83,7 +83,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
         val modelProvider = FlutterModelProvider.instance
         val flutterModelSchemaList =
-                modelSchemasMap!!.map { modelSchemaMap -> FlutterModelSchema(modelSchemaMap) }
+                modelSchemas!!.map { modelSchema -> FlutterModelSchema(modelSchema) }
         flutterModelSchemaList.forEach { flutterModelSchema ->
             modelProvider?.addModelSchema(
                     flutterModelSchema.name,
