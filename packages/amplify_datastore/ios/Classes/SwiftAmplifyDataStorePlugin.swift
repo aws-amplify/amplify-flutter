@@ -15,15 +15,74 @@
 
 import Flutter
 import UIKit
+import Amplify
+import AmplifyPlugins
+import AWSCore
 
 public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
-  public static func register(with registrar: FlutterPluginRegistrar) {
-    let channel = FlutterMethodChannel(name: "amplify_datastore", binaryMessenger: registrar.messenger())
-    let instance = SwiftAmplifyDataStorePlugin()
-    registrar.addMethodCallDelegate(instance, channel: channel)
-  }
+    public static func register(with registrar: FlutterPluginRegistrar) {
+        let channel = FlutterMethodChannel(name: "com.amazonaws.amplify/datastore", binaryMessenger: registrar.messenger())
+        let instance = SwiftAmplifyDataStorePlugin()
+        registrar.addMethodCallDelegate(instance, channel: channel)
+    }
+    
+    public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        var arguments: [String: AnyObject] = [:]
+        do {
+            try arguments = checkArguments(args: call.arguments as Any)
+        } catch {
+            return // TODO
+        }
+        
+        switch call.method {
+        case "configure":
+            onConfigure(args: arguments, result: result)
+        case "query":
+            onQuery(args: arguments, result: result)
+        default:
+            result(FlutterMethodNotImplemented)
+        }
+    }
+    
+    private func onConfigure(args: [String: AnyObject], result: @escaping FlutterResult) {
+        guard let modelSchemaList = args["modelSchemas"] as? [[String: AnyObject]] else {
+            result(false)
+            return //TODO
+        }
+        
+        let modelSchemas: [ModelSchema] = modelSchemaList.map {
+            FlutterModelSchema.init(serializedData: $0).convertToNativeModelSchema()
+        }
+        
+        let flutterModelRegistration = FlutterModels()
+        
+        modelSchemas.forEach { (modelSchema) in
+            flutterModelRegistration.addModelSchema(modelName: modelSchema.name, modelSchema: modelSchema)
+        }
+        do {
+            // AmplifyModels is generated in the previous step
+            let dataStorePlugin = AWSDataStorePlugin(modelRegistration: flutterModelRegistration)
+            try Amplify.add(plugin: dataStorePlugin)
+            Amplify.Logging.logLevel = .verbose
+            print("Amplify configured with DataStore plugin")
+            result(true)
+        } catch {
+            print("Failed to initialize Amplify with \(error)")
+            result(false)
+            return
+        }
+    }
+    
+    private func onQuery(args: [String: AnyObject], result: @escaping FlutterResult) {
+        result(false)
+    }
+    
+    private func checkArguments(args: Any) throws -> [String: AnyObject] {
+        guard let res = args as? [String: AnyObject] else {
+            throw DataStoreError.decodingError("Flutter method call arguments are not a map.",
+                                               "Check the values that are being passed from Dart.")
+        }
+        return res;
+    }
 
-  public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-    result("iOS " + UIDevice.current.systemVersion)
-  }
 }
