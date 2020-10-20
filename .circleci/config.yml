@@ -4,6 +4,9 @@ executors:
   docker-executor:
     docker:
       - image: circleci/android:api-28
+        auth:
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_ACCESS_TOKEN
     working_directory: ~/amplify-flutter
 
   macos-executor:
@@ -13,8 +16,7 @@ executors:
 
 commands:
   install_flutter:
-    description:
-      Install Flutter and set up paths.
+    description: Install Flutter and set up paths.
     parameters:
       flutter_branch:
         description: Flutter branch or version tag.
