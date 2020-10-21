@@ -30,16 +30,22 @@ import com.amplifyframework.datastore.DataStoreCategory
 import com.amplifyframework.datastore.DataStoreException
 import com.amplifyframework.datastore.appsync.SerializedModel
 import io.flutter.plugin.common.MethodChannel
+import java.lang.reflect.Field
+import java.lang.reflect.Modifier
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers
-import org.mockito.Mockito.*
+import org.mockito.ArgumentMatchers.any
+import org.mockito.ArgumentMatchers.anyString
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.doAnswer
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.times
+import org.mockito.Mockito.verify
 import org.mockito.invocation.InvocationOnMock
 import org.robolectric.RobolectricTestRunner
-import java.lang.reflect.Field
-import java.lang.reflect.Modifier
 
 @RunWith(RobolectricTestRunner::class)
 class AmplifyDataStorePluginTest {

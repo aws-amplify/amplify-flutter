@@ -12,13 +12,13 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+
 package com.amazonaws.amplify.amplify_datastore
 
 import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.ModelProvider
 import com.amplifyframework.core.model.ModelSchema
 import com.amplifyframework.util.Immutable
-import java.util.*
 
 class FlutterModelProvider private constructor() : ModelProvider {
     private val modelSchemaMap: MutableMap<String, ModelSchema> =
