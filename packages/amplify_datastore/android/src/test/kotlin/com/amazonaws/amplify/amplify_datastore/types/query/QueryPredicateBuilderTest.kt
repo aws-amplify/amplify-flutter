@@ -1,4 +1,4 @@
-package com.amazonaws.amplify.amplify_datastore.types.query/*
+/*
  * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
@@ -12,6 +12,8 @@ package com.amazonaws.amplify.amplify_datastore.types.query/*
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+
+package com.amazonaws.amplify.amplify_datastore.types.query
 
 import com.amazonaws.amplify.amplify_datastore.readMapFromFile
 import com.amplifyframework.core.model.query.predicate.QueryField
