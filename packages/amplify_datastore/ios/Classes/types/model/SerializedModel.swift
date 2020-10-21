@@ -12,23 +12,23 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
- 
+
 import Flutter
 import Foundation
 import Amplify
 
 struct SerializedModel: Model, JSONValueHolder {
     public let id: String
-
+    
     public var values: [String: JSONValue]
-
+    
     public init(id: String = UUID().uuidString, map: [String: JSONValue]) {
         self.id = id
         self.values = map
     }
-
+    
     public init(from decoder: Decoder) throws {
-
+        
         print("Decoder \(decoder)")
         let y = try decoder.container(keyedBy: CodingKeys.self)
         id = try y.decode(String.self, forKey: .id)
@@ -39,7 +39,7 @@ struct SerializedModel: Model, JSONValueHolder {
             values = [:]
         }
     }
-
+    
     public func encode(to encoder: Encoder) throws {
         print("Encoder \(encoder)")
         var x = encoder.unkeyedContainer()
@@ -67,14 +67,23 @@ struct SerializedModel: Model, JSONValueHolder {
             return nil
         }
     }
+    
+    public func toJSON() -> [String: Any] {
+        return [
+            "id": self.id,
+            "serializedData": Dictionary(uniqueKeysWithValues:
+                                            values.map{ (key: String, value: JSONValue) in
+                                                return (key, jsonValue(for: key) ?? nil) })
+        ]
+    }
 }
 
 extension SerializedModel {
-
+    
     public enum CodingKeys: String, ModelKey {
         case id
         case values
     }
-
+    
     public static let keys = CodingKeys.self
 }

@@ -68,7 +68,7 @@ public struct FlutterModelField {
         preconditionFailure("Could not create a ModelFieldType from \(String(describing: type)) MetaType")
     }
     
-    public func convertToNativeModelField() -> ModelField {
+public func convertToNativeModelField() -> ModelField {
         return ModelField.init(name: name, type: type, isRequired: isRequired, isArray: isArray, attributes: attributes , association: association, authRules: authRules )
     }
 }
