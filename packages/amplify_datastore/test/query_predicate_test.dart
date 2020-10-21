@@ -63,7 +63,7 @@ void main() {
         .between(1, 4)
         .and(Post.ID.contains("abc"))
         .and(Post.TITLE.beginsWith("def"))
-        .and(Post.CREATED.eq(DateTime.parse("2020-02-20 20:20:20")));
+        .and(Post.CREATED.eq("2020-02-20T20:20:20-08:00"));
 
     expect(testPredicate.serializeAsMap(),
         await getJsonFromFile('group_with_only_and.json'));
