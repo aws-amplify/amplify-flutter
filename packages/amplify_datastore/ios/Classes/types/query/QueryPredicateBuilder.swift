@@ -123,8 +123,8 @@ public class QueryPredicateBuilder {
             return operand as! Bool
         case is String:
             return operand as! String
-        // TODO Temporal types
         default:
+            // TODO: This should probably be an error case
             return operand as? Persistable
         }
     }

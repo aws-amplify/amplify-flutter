@@ -98,7 +98,6 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             flutterResult(false)
             return
         }
-        flutterResult([])
     }
     
     private func createTempPosts() throws {
