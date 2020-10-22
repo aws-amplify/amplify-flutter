@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:collection';
+
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:flutter/services.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
@@ -27,23 +29,40 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
       {QueryPredicate where,
       QueryPagination pagination,
       List<QuerySortBy> sortBy}) async {
-    final List<Map<dynamic, dynamic>> serializedResults =
-        await _channel.invokeListMethod('query', <String, dynamic>{
-      'modelName': modelType.modelName(),
-      'queryPredicate': where?.serializeAsMap(),
-      'queryPagination': pagination?.serializeAsMap(),
-      'querySort': sortBy?.map((element) => element?.serializeAsMap())?.toList()
-    });
+    try {
+      final List<Map<dynamic, dynamic>> serializedResults =
+          await _channel.invokeListMethod('query', <String, dynamic>{
+        'modelName': modelType.modelName(),
+        'queryPredicate': where?.serializeAsMap(),
+        'queryPagination': pagination?.serializeAsMap(),
+        'querySort':
+            sortBy?.map((element) => element?.serializeAsMap())?.toList()
+      });
 
-    return serializedResults
-        .map((serializedResult) => modelType.fromJson(
-            new Map<String, dynamic>.from(serializedResult["serializedData"])))
-        .toList();
+      return serializedResults
+          .map((serializedResult) => modelType.fromJson(
+              new Map<String, dynamic>.from(
+                  serializedResult["serializedData"])))
+          .toList();
+    } on PlatformException catch (e) {
+      throw formatError(e);
+    } on TypeError {
+      throw DataStoreError.init(
+          cause: "ERROR_FORMATTING_PLATFORM_CHANNEL_RESPONSE",
+          errorMap: new LinkedHashMap.from(
+              {"errorMessage": "Failed to deserialize query API results"}));
+    }
   }
 
   Future<void> configure({@required List<ModelSchema> modelSchemas}) async {
     return _channel.invokeMethod('configure', <String, dynamic>{
       'modelSchemas': modelSchemas.map((schema) => schema.toMap()).toList()
     });
+  }
+
+  DataStoreError formatError(PlatformException e) {
+    LinkedHashMap eMap = new LinkedHashMap<String, dynamic>();
+    e.details.forEach((k, v) => {eMap.putIfAbsent(k, () => v)});
+    return DataStoreError.init(cause: e.message, errorMap: eMap);
   }
 }

@@ -63,11 +63,12 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         try {
             data = checkArguments(call.arguments) as HashMap<String, Any>
         } catch (e: Exception) {
-            prepareError(result, e, FlutterDataStoreFailureMessage.CASTING.toString())
+            prepareError(result, e, FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString())
         }
         when (call.method) {
             "query" -> onQuery(result, data)
             "configure" -> onConfigure(result, data)
+            else -> result.notImplemented()
         }
     }
 
@@ -77,8 +78,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             modelSchemas = request["modelSchemas"].safeCastToList()
         } else {
             prepareError(flutterResult,
-                         java.lang.Exception(FlutterDataStoreFailureMessage.MALFORMED.toString()),
-                         FlutterDataStoreFailureMessage.CASTING.toString())
+                         Exception(FlutterDataStoreFailureMessage.AMPLIFY_QUERY_REQUEST_MALFORMED.toString()),
+                         FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString())
         }
 
         val modelProvider = FlutterModelProvider.instance
@@ -99,25 +100,42 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         // Create new posts temporary
         // createTempPosts()
 
-        var modelName = request["modelName"] as String
-        var queryOptions: QueryOptions = QueryOptionsBuilder.fromSerializedMap(request)
+        var modelName: String
+        var queryOptions: QueryOptions
+        try {
+            modelName = request["modelName"] as String
+            queryOptions = QueryOptionsBuilder.fromSerializedMap(request)
+        } catch (e: ClassCastException) {
+            prepareError(flutterResult, e, FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString())
+            return
+        } catch (e: Exception) {
+            prepareError(flutterResult, e, FlutterDataStoreFailureMessage.AMPLIFY_QUERY_REQUEST_MALFORMED.toString())
+            return
+        }
+
         val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
         plugin.query(
                 modelName,
                 queryOptions,
                 {
-                    var results: List<Map<String, Any>> =
-                            it.asSequence().toList().map { model: Model? ->
-                                FlutterSerializedModel(model as SerializedModel).toMap()
-                            }
-                    LOG.info("Number of items received " + results.size)
-                    Handler(Looper.getMainLooper()).post {
-                        flutterResult.success(results)
+                    try {
+                        var results: List<Map<String, Any>> =
+                                it.asSequence().toList().map { model: Model? ->
+                                    FlutterSerializedModel(model as SerializedModel).toMap()
+                                }
+                        LOG.info("Number of items received " + results.size)
+                        Handler(Looper.getMainLooper()).post {
+                            flutterResult.success(results)
+                        }
+                    } catch (e: ClassCastException) {
+                        prepareError(flutterResult, e, FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString())
+                    } catch (e: Exception) {
+                        prepareError(flutterResult, e, FlutterDataStoreFailureMessage.AMPLIFY_QUERY_REQUEST_MALFORMED.toString())
                     }
                 },
                 {
                     LOG.info("MyAmplifyApp + Query failed.$it")
-                    prepareError(flutterResult, it, FlutterDataStoreFailureMessage.QUERY.toString())
+                    prepareError(flutterResult, it, FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_QUERY_FAILED.toString())
                 }
         )
     }

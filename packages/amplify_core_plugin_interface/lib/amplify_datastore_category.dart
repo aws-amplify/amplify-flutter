@@ -34,7 +34,7 @@ class DataStoreCategory {
       // in the `onAttachedToEngine` but rather in the `configure()
       await plugin.configure(modelSchemas: plugin.modelSchemas);
     } else {
-      throw ("DataStore plugin was not added");
+      throw (errorMsg);
     }
   }
 

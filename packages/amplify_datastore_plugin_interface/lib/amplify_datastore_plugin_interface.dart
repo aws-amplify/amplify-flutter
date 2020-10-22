@@ -31,6 +31,8 @@ export 'src/types/models/model_schema.dart';
 export 'src/types/query/query_field.dart';
 export 'src/types/models/model_field.dart';
 export 'src/types/utils/date_time_parser.dart';
+export 'src/Errors/datastore_error.dart';
+export 'src/Errors/datastore_error_types.dart';
 
 abstract class DataStorePluginInterface extends PlatformInterface {
   final List<ModelSchema> modelSchemas;
