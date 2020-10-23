@@ -22,9 +22,7 @@ class DataStoreError implements Exception {
   String cause;
   List<DataStoreException> exceptionList = [];
   DataStoreError.init(
-      {@required cause,
-      @required LinkedHashMap<dynamic, dynamic> errorMap,
-      PlatformException platformException}) {
+      {@required cause, @required LinkedHashMap<dynamic, dynamic> errorMap}) {
     this.cause = DataStoreErrorTypes.contains(cause)
         ? cause
         : "UNRECOGNIZED_DATASTORE_ERROR";
