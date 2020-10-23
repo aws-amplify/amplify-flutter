@@ -24,6 +24,7 @@ class FlutterModelProvider private constructor() : ModelProvider {
     private val modelSchemaMap: MutableMap<String, ModelSchema> =
             HashMap()
 
+    // TODO change it to return an empty set once it's properly supported in the amplify-android library
     override fun models(): Set<Class<out Model?>>? {
         return null
     }
@@ -47,13 +48,13 @@ class FlutterModelProvider private constructor() : ModelProvider {
     companion object {
         private const val FLUTTER_MODEL_VERSION = "72c040baca4cf48a5330a4a2e02aa042"
         private var flutterGeneratedModelInstance: FlutterModelProvider? = null
-        val instance: FlutterModelProvider?
+        val instance: FlutterModelProvider
             get() {
                 if (flutterGeneratedModelInstance == null) {
                     flutterGeneratedModelInstance =
                             FlutterModelProvider()
                 }
-                return flutterGeneratedModelInstance
+                return flutterGeneratedModelInstance!! // We know it's not null right now
             }
     }
 }
