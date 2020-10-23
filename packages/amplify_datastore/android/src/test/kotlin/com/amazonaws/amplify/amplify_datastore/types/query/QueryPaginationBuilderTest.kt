@@ -1,5 +1,3 @@
-package com.amazonaws.amplify.amplify_datastore.types.query
-
 /*
  * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -15,10 +13,11 @@ package com.amazonaws.amplify.amplify_datastore.types.query
  * permissions and limitations under the License.
  */
 
+package com.amazonaws.amplify.amplify_datastore.types.query
+
+import com.amazonaws.amplify.amplify_datastore.readMapFromFile
 import com.amplifyframework.core.model.query.Page
 import com.amplifyframework.core.model.query.Where
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import org.junit.Assert
 import org.junit.Test
 
@@ -28,7 +27,8 @@ class QueryPaginationBuilderTest {
         Assert.assertEquals(
                 Where.paginated(Page.startingAt(3).withLimit(200)).paginationInput,
                 QueryPaginationBuilder.fromSerializedMap(
-                        readFromFile("custom_page_and_limit.json")))
+                        readMapFromFile("query_pagination", "custom_page_and_limit.json",
+                                        HashMap::class.java) as HashMap<String, Any>))
     }
 
     @Test
@@ -36,7 +36,8 @@ class QueryPaginationBuilderTest {
         Assert.assertEquals(
                 Where.paginated(Page.firstPage()).paginationInput,
                 QueryPaginationBuilder.fromSerializedMap(
-                        readFromFile("first_page.json")))
+                        readMapFromFile("query_pagination", "first_page.json",
+                                        HashMap::class.java) as HashMap<String, Any>))
     }
 
     @Test
@@ -44,13 +45,7 @@ class QueryPaginationBuilderTest {
         Assert.assertEquals(
                 Where.paginated(Page.firstResult()).paginationInput,
                 QueryPaginationBuilder.fromSerializedMap(
-                        readFromFile("first_result.json")))
-    }
-
-    private fun readFromFile(path: String): Map<String, Any> {
-        val filePath = "query_pagination/$path"
-        val jsonFile = ClassLoader.getSystemResource(filePath).readText()
-        val mapType = object : TypeToken<Map<String, Int>>() {}.type
-        return Gson().fromJson(jsonFile, mapType)
+                        readMapFromFile("query_pagination", "first_result.json",
+                                        HashMap::class.java) as HashMap<String, Any>))
     }
 }

@@ -48,6 +48,7 @@ import java.util.UUID
 class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
     private lateinit var channel: MethodChannel
+    private val handler = Handler(Looper.getMainLooper())
     private val LOG = Amplify.Logging.forNamespace("amplify:flutter:datastore")
 
     override fun onAttachedToEngine(
@@ -55,7 +56,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger,
                                 "com.amazonaws.amplify/datastore")
         channel.setMethodCallHandler(this)
-        LOG.info("Added DataStore plugin")
+        LOG.info("Initiated DataStore plugin")
     }
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
@@ -63,7 +64,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         try {
             data = checkArguments(call.arguments) as HashMap<String, Any>
         } catch (e: Exception) {
-            prepareError(result, e, FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString())
+            prepareError(result, e,
+                         FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString())
         }
         when (call.method) {
             "query" -> onQuery(result, data)
@@ -73,25 +75,27 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     }
 
     private fun onConfigure(flutterResult: Result, request: HashMap<String, Any>) {
-        var modelSchemas: List<Map<String, Any>>? = null
+        var modelSchemas: List<Map<String, Any>>
         if (request.containsKey("modelSchemas") && request["modelSchemas"] is List<*>) {
-            modelSchemas = request["modelSchemas"].safeCastToList()
+            modelSchemas = request["modelSchemas"].safeCastToList()!!
         } else {
             prepareError(flutterResult,
-                         Exception(FlutterDataStoreFailureMessage.AMPLIFY_QUERY_REQUEST_MALFORMED.toString()),
+                         Exception(
+                                 FlutterDataStoreFailureMessage.AMPLIFY_QUERY_REQUEST_MALFORMED.toString()),
                          FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString())
+            return
         }
 
         val modelProvider = FlutterModelProvider.instance
         val flutterModelSchemaList =
-                modelSchemas!!.map { modelSchema -> FlutterModelSchema(modelSchema) }
+                modelSchemas.map { modelSchema -> FlutterModelSchema(modelSchema) }
         flutterModelSchemaList.forEach { flutterModelSchema ->
-            modelProvider?.addModelSchema(
+            modelProvider.addModelSchema(
                     flutterModelSchema.name,
                     flutterModelSchema.convertToNativeModelSchema()
             )
         }
-        Amplify.addPlugin(AWSDataStorePlugin(modelProvider!!))
+        Amplify.addPlugin(AWSDataStorePlugin(modelProvider))
         flutterResult.success(null)
     }
 
@@ -104,10 +108,12 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             modelName = request["modelName"] as String
             queryOptions = QueryOptionsBuilder.fromSerializedMap(request)
         } catch (e: ClassCastException) {
-            prepareError(flutterResult, e, FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString())
+            prepareError(flutterResult, e,
+                         FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString())
             return
         } catch (e: Exception) {
-            prepareError(flutterResult, e, FlutterDataStoreFailureMessage.AMPLIFY_QUERY_REQUEST_MALFORMED.toString())
+            prepareError(flutterResult, e,
+                         FlutterDataStoreFailureMessage.AMPLIFY_QUERY_REQUEST_MALFORMED.toString())
             return
         }
 
@@ -122,18 +128,19 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                                     FlutterSerializedModel(model as SerializedModel).toMap()
                                 }
                         LOG.info("Number of items received " + results.size)
-                        Handler(Looper.getMainLooper()).post {
-                            flutterResult.success(results)
-                        }
+                        handler.post { flutterResult.success(results) }
                     } catch (e: ClassCastException) {
-                        prepareError(flutterResult, e, FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString())
+                        prepareError(flutterResult, e,
+                                     FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString())
                     } catch (e: Exception) {
-                        prepareError(flutterResult, e, FlutterDataStoreFailureMessage.AMPLIFY_QUERY_REQUEST_MALFORMED.toString())
+                        prepareError(flutterResult, e,
+                                     FlutterDataStoreFailureMessage.AMPLIFY_QUERY_REQUEST_MALFORMED.toString())
                     }
                 },
                 {
                     LOG.info("MyAmplifyApp + Query failed.$it")
-                    prepareError(flutterResult, it, FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_QUERY_FAILED.toString())
+                    prepareError(flutterResult, it,
+                                 FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_QUERY_FAILED.toString())
                 }
         )
     }
@@ -168,8 +175,6 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 "recoverySuggestion" to recoverySuggestion,
                 "errorString" to error.toString()
         ))
-        Handler(Looper.getMainLooper()).post {
-            flutterResult.error("AmplifyException", msg, errorMap)
-        }
+        handler.post { flutterResult.error("AmplifyException", msg, errorMap) }
     }
 }

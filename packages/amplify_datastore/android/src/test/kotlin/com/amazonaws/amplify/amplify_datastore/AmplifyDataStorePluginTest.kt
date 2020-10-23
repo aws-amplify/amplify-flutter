@@ -49,11 +49,10 @@ import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
 class AmplifyDataStorePluginTest {
-    lateinit var plugin: AmplifyDataStorePlugin
+    lateinit var flutterPlugin: AmplifyDataStorePlugin
     private var mockDataStore = mock(DataStoreCategory::class.java)
-    private var mockAmplifyDataStorePlugin = mock(AWSDataStorePlugin::class.java);
+    private var mockAmplifyDataStorePlugin = mock(AWSDataStorePlugin::class.java)
     private val mockResult: MethodChannel.Result = mock(MethodChannel.Result::class.java)
-
     private val amplifySuccessResults = mutableListOf<SerializedModel>(
             SerializedModel.builder()
                     .serializedData(
@@ -75,9 +74,11 @@ class AmplifyDataStorePluginTest {
 
     @Before
     fun setup() {
-        plugin = AmplifyDataStorePlugin()
+        flutterPlugin = AmplifyDataStorePlugin()
+
         setFinalStatic(Amplify::class.java.getDeclaredField("DataStore"), mockDataStore)
         `when`(mockDataStore.getPlugin("awsDataStorePlugin")).thenReturn(mockAmplifyDataStorePlugin)
+
     }
 
     @Test
@@ -87,15 +88,15 @@ class AmplifyDataStorePluginTest {
             assertEquals(invocation.arguments[1], Where.matchesAll())
             (invocation.arguments[2] as Consumer<Iterator<Model>>).accept(
                     amplifySuccessResults.iterator())
-            null as Void?
+            null
         }.`when`(mockAmplifyDataStorePlugin).query(anyString(), any(QueryOptions::class.java),
                                                    ArgumentMatchers.any<
                                                            Consumer<Iterator<Model>>>(),
                                                    ArgumentMatchers.any<Consumer<DataStoreException>>())
-        plugin.onQuery(mockResult,
-                       readMapFromFile("query_api",
-                                       "request/only_model_name.json",
-                                       HashMap::class.java) as HashMap<String, Any>)
+        flutterPlugin.onQuery(mockResult,
+                              readMapFromFile("query_api",
+                                              "request/only_model_name.json",
+                                              HashMap::class.java) as HashMap<String, Any>)
         verify(mockResult, times(1)).success(
                 readMapFromFile("query_api",
                                 "response/2_results.json",
@@ -113,15 +114,15 @@ class AmplifyDataStorePluginTest {
                                  .sorted(field("id").ascending(), field("created").descending()))
             (invocation.arguments[2] as Consumer<Iterator<Model>>).accept(
                     emptyList<SerializedModel>().iterator())
-            null as Void?
+            null
         }.`when`(mockAmplifyDataStorePlugin).query(anyString(), any(QueryOptions::class.java),
                                                    ArgumentMatchers.any<
                                                            Consumer<Iterator<Model>>>(),
                                                    ArgumentMatchers.any<Consumer<DataStoreException>>())
-        plugin.onQuery(mockResult,
-                       readMapFromFile("query_api",
-                                       "request/model_name_with_all_query_parameters.json",
-                                       HashMap::class.java) as HashMap<String, Any>)
+        flutterPlugin.onQuery(mockResult,
+                              readMapFromFile("query_api",
+                                              "request/model_name_with_all_query_parameters.json",
+                                              HashMap::class.java) as HashMap<String, Any>)
         verify(mockResult, times(1)).success(emptyList<FlutterSerializedModel>())
     }
 
