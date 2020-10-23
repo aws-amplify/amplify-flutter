@@ -132,6 +132,4 @@ class AmplifyDataStorePluginTest {
         modifiersField.setInt(field, field.modifiers and Modifier.FINAL.inv())
         field.set(null, newValue)
     }
-
-
 }
