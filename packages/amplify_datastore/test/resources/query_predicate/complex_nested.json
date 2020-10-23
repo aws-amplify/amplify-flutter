@@ -1,0 +1,35 @@
+{
+  "queryPredicateGroup": {
+    "type": "and",
+    "predicates": [
+      {
+        "queryPredicateOperation": {
+          "field": "rating",
+          "fieldOperator": { "operatorName": "less_or_equal", "value": 4 }
+        }
+      },
+      {
+        "queryPredicateGroup": {
+          "type": "or",
+          "predicates": [
+            {
+              "queryPredicateOperation": {
+                "field": "id",
+                "fieldOperator": { "operatorName": "contains", "value": "abc" }
+              }
+            },
+            {
+              "queryPredicateOperation": {
+                "field": "title",
+                "fieldOperator": {
+                  "operatorName": "begins_with",
+                  "value": "def"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
