@@ -1,0 +1,34 @@
+{
+  "queryPredicateGroup": {
+    "type": "and",
+    "predicates": [
+      {
+        "queryPredicateOperation": {
+          "field": "rating",
+          "fieldOperator": { "operatorName": "between", "start": 1, "end": 4 }
+        }
+      },
+      {
+        "queryPredicateOperation": {
+          "field": "id",
+          "fieldOperator": { "operatorName": "contains", "value": "abc" }
+        }
+      },
+      {
+        "queryPredicateOperation": {
+          "field": "title",
+          "fieldOperator": { "operatorName": "begins_with", "value": "def" }
+        }
+      },
+      {
+        "queryPredicateOperation": {
+          "field": "created",
+          "fieldOperator": {
+            "operatorName": "equal",
+            "value": "2020-02-20T20:20:20-08:00"
+          }
+        }
+      }
+    ]
+  }
+}

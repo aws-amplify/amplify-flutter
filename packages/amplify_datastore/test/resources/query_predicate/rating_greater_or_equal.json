@@ -1,0 +1,6 @@
+{
+  "queryPredicateOperation": {
+    "field": "rating",
+    "fieldOperator": { "operatorName": "greater_or_equal", "value": 4 }
+  }
+}
