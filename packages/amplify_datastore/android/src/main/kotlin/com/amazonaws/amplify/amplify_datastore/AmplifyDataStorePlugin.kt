@@ -127,7 +127,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                                 it.asSequence().toList().map { model: Model? ->
                                     FlutterSerializedModel(model as SerializedModel).toMap()
                                 }
-                        LOG.info("Number of items received " + results.size)
+                        LOG.debug("Number of items received " + results.size)
                         handler.post { flutterResult.success(results) }
                     } catch (e: ClassCastException) {
                         prepareError(flutterResult, e,
