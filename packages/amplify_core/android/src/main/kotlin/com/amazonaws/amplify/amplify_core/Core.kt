@@ -126,4 +126,3 @@ public class Core : FlutterPlugin, ActivityAware, MethodCallHandler {
         this.isConfigured = isConfigured
     }
 }
-
