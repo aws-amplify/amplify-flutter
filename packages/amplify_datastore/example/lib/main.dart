@@ -15,6 +15,7 @@
 
 import 'dart:convert';
 
+import 'package:amplify_datastore_example/codegen/ModelProvider.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -22,8 +23,7 @@ import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'amplifyconfiguration.dart';
-
-import 'Post.dart';
+import 'codegen/Post.dart';
 
 void main() {
   runApp(MyApp());
@@ -55,7 +55,8 @@ class _MyAppState extends State<MyApp> {
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     AmplifyDataStore datastorePlugin =
-        AmplifyDataStore(modelSchemas: [createTestSchema()]);
+        AmplifyDataStore(modelSchemas: ModelProvider.instance.modelSchemas);
+
     await amplify.addPlugin(dataStorePlugins: [datastorePlugin]);
     // Configure
     await amplify.configure(amplifyconfig);
@@ -139,8 +140,10 @@ class _MyAppState extends State<MyApp> {
             title: const Text('Plugin example app'),
           ),
           body: Center(
-            child: new SingleChildScrollView(
-                child: Text('All Posts sort by rating ascending (sorting not working)\n$_posts\n\n' +
+              child: new SingleChildScrollView(
+                  child: Text(
+                      'All Posts sort by rating ascending (sorting not working)\n$_posts\n\n'))
+              /*
                     'First post from list of all posts\n$_firstPostFromResult\n\n' +
                     'Posts >= 4 rating\n$_posts4rating\n\n' +
                     'Posts between 1 and 4 rating\n$_posts1To4Rating\n\n' +
@@ -148,10 +151,12 @@ class _MyAppState extends State<MyApp> {
                     'Posts without rating 2 or 5\n$_allPostsWithoutRating2Or5\n\n' +
                     'Post with date equals\n$_postWithCreatedDate\n\n' +
                     'Post with Id not equals\n$_postWithIdNotEquals\n\n')),
-          )),
+                 */
+              )),
     );
   }
 
+  /*
   ModelSchema createTestSchema() {
     Map<String, ModelField> modelFieldMap = {};
     modelFieldMap["id"] = ModelField(
@@ -189,4 +194,5 @@ class _MyAppState extends State<MyApp> {
     return ModelSchema(
         name: "Post", pluralName: "Posts", fields: modelFieldMap);
   }
+   */
 }

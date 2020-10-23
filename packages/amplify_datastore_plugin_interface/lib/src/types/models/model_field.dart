@@ -18,6 +18,8 @@ import 'dart:convert';
 import 'package:collection/collection.dart';
 
 import 'auth_rule.dart';
+import 'model_association.dart';
+import 'model_field_type.dart';
 
 class ModelField {
   // Name of the field is the name of the instance variable
@@ -26,56 +28,35 @@ class ModelField {
 
   // Type of the field is the data type of the instance variables
   // of the Model class.
-  final String type;
-
-  // The type of the field in the target. For example: type of the
-  // field in the GraphQL target.
-  final String targetType;
+  final ModelFieldType type;
 
   // If the field is a required or an optional field
   final bool isRequired;
 
-  // If the field is an array targetType. False if it is a primitive
-  // targetType and True if it is an array targetType.
-  final bool isArray;
-
-  // True if the field is an enumeration type.
-  final bool isEnum;
-
-  // True if the field is an instance of model.
-  final bool isModel;
-
   // An array of rules for owner based authorization
   final List<AuthRule> authRules;
+
+  final ModelAssociation association; //opt
 
   const ModelField(
       {this.name,
       this.type,
-      this.targetType,
       this.isRequired,
-      this.isArray,
-      this.isEnum,
-      this.isModel,
+      this.association,
       this.authRules});
 
   ModelField copyWith({
     String name,
     String type,
-    String targetType,
     bool isRequired,
-    bool isArray,
-    bool isEnum,
-    bool isModel,
+    ModelAssociation association,
     List<AuthRule> authRules,
   }) {
     return ModelField(
       name: name ?? this.name,
       type: type ?? this.type,
-      targetType: targetType ?? this.targetType,
       isRequired: isRequired ?? this.isRequired,
-      isArray: isArray ?? this.isArray,
-      isEnum: isEnum ?? this.isEnum,
-      isModel: isModel ?? this.isModel,
+      association: association ?? this.association,
       authRules: authRules ?? this.authRules,
     );
   }
@@ -83,12 +64,9 @@ class ModelField {
   Map<String, dynamic> toMap() {
     return {
       'name': name,
-      'type': type,
-      'targetType': targetType,
+      'type': type.toMap(),
       'isRequired': isRequired,
-      'isArray': isArray,
-      'isEnum': isEnum,
-      'isModel': isModel,
+      'association': association == null ? {} : association?.toMap(),
       'authRules': authRules?.map((x) => x?.toMap())?.toList(),
     };
   }
@@ -99,11 +77,10 @@ class ModelField {
     return ModelField(
       name: map['name'],
       type: map['type'],
-      targetType: map['targetType'],
       isRequired: map['isRequired'],
-      isArray: map['isArray'],
-      isEnum: map['isEnum'],
-      isModel: map['isModel'],
+      association: map['association'] == null
+          ? null
+          : ModelAssociation.fromMap(map['association']),
       authRules: List<AuthRule>.from(
           map['authRules']?.map((x) => AuthRule.fromMap(x))),
     );
@@ -116,7 +93,7 @@ class ModelField {
 
   @override
   String toString() {
-    return 'ModelField(name: $name, type: $type, targetType: $targetType, isRequired: $isRequired, isArray: $isArray, isEnum: $isEnum, isModel: $isModel, authRules: $authRules)';
+    return 'ModelField(name: $name, type: $type, isRequired: $isRequired, association: $association, authRules: $authRules)';
   }
 
   @override
@@ -127,11 +104,7 @@ class ModelField {
     return o is ModelField &&
         o.name == name &&
         o.type == type &&
-        o.targetType == targetType &&
         o.isRequired == isRequired &&
-        o.isArray == isArray &&
-        o.isEnum == isEnum &&
-        o.isModel == isModel &&
         listEquals(o.authRules, authRules);
   }
 
@@ -139,11 +112,7 @@ class ModelField {
   int get hashCode {
     return name.hashCode ^
         type.hashCode ^
-        targetType.hashCode ^
         isRequired.hashCode ^
-        isArray.hashCode ^
-        isEnum.hashCode ^
-        isModel.hashCode ^
         authRules.hashCode;
   }
 }

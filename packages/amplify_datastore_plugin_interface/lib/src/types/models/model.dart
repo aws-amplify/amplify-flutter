@@ -13,7 +13,10 @@
  * permissions and limitations under the License.
  */
 
-library model;
+import 'package:flutter/foundation.dart';
+
+import 'model_schema.dart';
+import 'model_schema_definition.dart';
 
 abstract class Model {
   final String id;
@@ -23,6 +26,15 @@ abstract class Model {
 
   String getId() {
     return id;
+  }
+
+  static ModelSchema defineSchema(
+      {@required Function(ModelSchemaDefinition) define}) {
+    var definition = ModelSchemaDefinition();
+
+    define(definition);
+
+    return definition.build();
   }
 }
 

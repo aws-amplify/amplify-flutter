@@ -55,6 +55,12 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   }
 
   Future<void> configure({@required List<ModelSchema> modelSchemas}) async {
+    // TODO DEBUGGING
+    modelSchemas.forEach((element) {
+      Map<String, dynamic> testMap = element.toMap();
+      int est;
+    });
+
     return _channel.invokeMethod('configure', <String, dynamic>{
       'modelSchemas': modelSchemas.map((schema) => schema.toMap()).toList()
     });

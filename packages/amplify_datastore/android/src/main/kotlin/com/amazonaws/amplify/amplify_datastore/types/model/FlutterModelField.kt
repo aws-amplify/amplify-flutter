@@ -16,7 +16,6 @@
 package com.amazonaws.amplify.amplify_datastore.types.model
 
 import com.amplifyframework.core.model.ModelField
-import com.amplifyframework.core.model.temporal.Temporal
 
 data class FlutterModelField(val map: Map<String, Any>) {
     // Name of the field is the name of the instance variable
@@ -25,24 +24,24 @@ data class FlutterModelField(val map: Map<String, Any>) {
 
     // Type of the field is the data type of the instance variables
     // of the Model class.
-    private val type: String = map["type"] as String
+    private val type: FlutterModelFieldType = FlutterModelFieldType( map["type"] as Map<String, Any>)
 
     // The type of the field in the target. For example: type of the
     // field in the GraphQL target.
-    private val targetType: String? = map["targetType"] as String?
+    // private val targetType: String? = map["targetType"] as String?
 
     // If the field is a required or an optional field
     private val isRequired = map["isRequired"] as Boolean
 
     // If the field is an array targetType. False if it is a primitive
     // targetType and True if it is an array targetType.
-    private val isArray = map["isArray"] as Boolean
+    private val isArray = type.getFieldType().isArray();
 
     // True if the field is an enumeration type.
-    private val isEnum = map["isEnum"] as Boolean
+    private val isEnum = type.getFieldType().isEnum();
 
     // True if the field is an instance of model.
-    private val isModel = map["isModel"] as Boolean
+    private val isModel = type.getFieldType().isModel();
 
     // An array of rules for owner based authorization
     private val authRules: List<FlutterAuthRule>? =
@@ -50,17 +49,25 @@ data class FlutterModelField(val map: Map<String, Any>) {
                 FlutterAuthRule(serializedAuthRule)
             }
 
+    // Association (if any) of the model
+    private val flutterModelAssociation : FlutterModelAssociation? =
+            if ( (map["association"] as Map<String, Any>).isEmpty() ) null
+            else FlutterModelAssociation(map["association"] as Map<String, Any>)
+
+    fun getModelAssociation(): FlutterModelAssociation? {
+        return flutterModelAssociation;
+    }
+
     fun convertToNativeModelField(): ModelField {
         var builder: ModelField.ModelFieldBuilder = ModelField.builder()
                 .name(name)
-                .type(getJavaClass(type))
+                .type( type.getJavaClass() ) // TODO unsupported for Model / Collection
+                .targetType( type.getTargetType() )
+                .isRequired(isRequired)
                 .isArray(isArray)
                 .isEnum(isEnum)
-                .isRequired(isRequired)
                 .isModel(isModel)
-        if (!targetType.isNullOrEmpty()) {
-            builder = builder.targetType(targetType)
-        }
+
         if (!authRules.isNullOrEmpty()) {
             builder = builder.authRules(authRules.map { authRule ->
                 authRule.convertToNativeAuthRule()
@@ -69,18 +76,4 @@ data class FlutterModelField(val map: Map<String, Any>) {
         return builder.build()
     }
 
-    // TODO Expand this for enums/models(associations)
-    private fun getJavaClass(type: String): Class<*> {
-        when (type) {
-            "String" -> return String::class.java
-            "Integer" -> return Int::class.java
-            "Double" -> return Double::class.java
-            "Long" -> return Long::class.java
-            "Date" -> return Temporal.Date::class.java
-            "Time" -> return Temporal.Time::class.java
-            "DateTime" -> return Temporal.DateTime::class.java
-            "TimeStamp" -> return Temporal.Timestamp::class.java
-        }
-        return Object::class.java
-    }
 }

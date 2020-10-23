@@ -14,17 +14,19 @@
  */
 import 'dart:convert';
 
-class ModelAssociation {
-  final String name;
-  final String targetName;
-  final String associatedName;
-  final String associatedType;
+enum ModelAssociationEnum { hasMany, hasOne, belongsTo }
 
-  const ModelAssociation({
-    this.name,
-    this.targetName,
-    this.associatedName,
-    this.associatedType,
+class ModelAssociation {
+  ModelAssociationEnum associationType;
+  String targetName; // opt (used in belongsTo)
+  String associatedName; // opt (used in hasMany/hasOne)
+  String associatedType; // opt (used in hasMany/hasOne)
+
+  ModelAssociation({
+    this.associationType,
+    this.targetName = "",
+    this.associatedName = "",
+    this.associatedType = "",
   });
 
   ModelAssociation copyWith({
@@ -34,7 +36,7 @@ class ModelAssociation {
     String associatedType,
   }) {
     return ModelAssociation(
-      name: name ?? this.name,
+      associationType: associationType ?? this.associationType,
       targetName: targetName ?? this.targetName,
       associatedName: associatedName ?? this.associatedName,
       associatedType: associatedType ?? this.associatedType,
@@ -43,7 +45,7 @@ class ModelAssociation {
 
   Map<String, dynamic> toMap() {
     return {
-      'name': name,
+      'associationType': associationType.index,
       'targetName': targetName,
       'associatedName': associatedName,
       'associatedType': associatedType,
@@ -54,7 +56,7 @@ class ModelAssociation {
     if (map == null) return null;
 
     return ModelAssociation(
-      name: map['name'],
+      associationType: map['associationType'],
       targetName: map['targetName'],
       associatedName: map['associatedName'],
       associatedType: map['associatedType'],
@@ -68,7 +70,7 @@ class ModelAssociation {
 
   @override
   String toString() {
-    return 'ModelAssociation(name: $name, targetName: $targetName, associatedName: $associatedName, associatedType: $associatedType)';
+    return 'ModelAssociation(associationType: $associationType, targetName: $targetName, associatedName: $associatedName, associatedType: $associatedType)';
   }
 
   @override
@@ -76,7 +78,7 @@ class ModelAssociation {
     if (identical(this, o)) return true;
 
     return o is ModelAssociation &&
-        o.name == name &&
+        o.associationType == associationType &&
         o.targetName == targetName &&
         o.associatedName == associatedName &&
         o.associatedType == associatedType;
@@ -84,7 +86,7 @@ class ModelAssociation {
 
   @override
   int get hashCode {
-    return name.hashCode ^
+    return associationType.hashCode ^
         targetName.hashCode ^
         associatedName.hashCode ^
         associatedType.hashCode;

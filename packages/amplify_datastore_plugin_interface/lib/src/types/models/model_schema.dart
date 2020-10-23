@@ -18,44 +18,33 @@ library model_schema;
 import 'auth_rule.dart';
 import 'model_association.dart';
 import 'model_field.dart';
-import 'model_index.dart';
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
 
 class ModelSchema {
   final String name;
-  final String pluralName;
-  final List<AuthRule> authRules;
+  final String pluralName; //opt
+  final List<AuthRule> authRules; //opt
   final Map<String, ModelField> fields;
-  // TODO the following may move to ModelField as in iOS
-  final Map<String, ModelAssociation> associations;
-  final Map<String, ModelIndex> indexes;
 
-  const ModelSchema(
-      {this.name,
-      this.pluralName,
-      this.authRules,
-      this.fields,
-      this.associations,
-      this.indexes});
+  const ModelSchema({
+    this.name,
+    this.pluralName = "",
+    this.authRules = const [],
+    this.fields,
+  });
 
-  ModelSchema copyWith({
-    String name,
-    String pluralName,
-    List<AuthRule> authRules,
-    Map<String, ModelField> fields,
-    Map<String, ModelAssociation> associations,
-    Map<String, ModelIndex> indexes,
-  }) {
+  ModelSchema copyWith(
+      {String name,
+      String pluralName,
+      List<AuthRule> authRules,
+      Map<String, ModelField> fields}) {
     return ModelSchema(
-      name: name ?? this.name,
-      pluralName: pluralName ?? this.pluralName,
-      authRules: authRules ?? this.authRules,
-      fields: fields ?? this.fields,
-      associations: associations ?? this.associations,
-      indexes: indexes ?? this.indexes,
-    );
+        name: name ?? this.name,
+        pluralName: pluralName ?? this.pluralName,
+        authRules: authRules ?? this.authRules,
+        fields: fields ?? this.fields);
   }
 
   Map<String, dynamic> toMap() {
@@ -64,9 +53,6 @@ class ModelSchema {
       'pluralName': pluralName,
       'authRules': authRules?.map((x) => x?.toMap())?.toList(),
       'fields': fields.map((key, value) => MapEntry('$key', value.toMap())),
-      'associations':
-          associations?.map((key, value) => MapEntry('$key', value.toMap())),
-      'indexes': indexes?.map((key, value) => MapEntry('$key', value.toMap())),
     };
   }
 
@@ -79,8 +65,6 @@ class ModelSchema {
       authRules: List<AuthRule>.from(
           map['authRules']?.map((x) => AuthRule.fromMap(x))),
       fields: Map<String, ModelField>.from(map['fields']),
-      associations: Map<String, ModelAssociation>.from(map['associations']),
-      indexes: Map<String, ModelIndex>.from(map['indexes']),
     );
   }
 
@@ -91,7 +75,7 @@ class ModelSchema {
 
   @override
   String toString() {
-    return 'ModelSchema(name: $name, pluralName: $pluralName, authRules: $authRules, fields: $fields, associations: $associations, indexes: $indexes)';
+    return 'ModelSchema(name: $name, pluralName: $pluralName, authRules: $authRules, fields: $fields)';
   }
 
   @override
@@ -103,9 +87,7 @@ class ModelSchema {
         o.name == name &&
         o.pluralName == pluralName &&
         collectionEquals(o.authRules, authRules) &&
-        collectionEquals(o.fields, fields) &&
-        collectionEquals(o.associations, associations) &&
-        collectionEquals(o.indexes, indexes);
+        collectionEquals(o.fields, fields);
   }
 
   @override
@@ -113,8 +95,6 @@ class ModelSchema {
     return name.hashCode ^
         pluralName.hashCode ^
         authRules.hashCode ^
-        fields.hashCode ^
-        associations.hashCode ^
-        indexes.hashCode;
+        fields.hashCode;
   }
 }

@@ -15,6 +15,9 @@
 
 library query_field;
 
+import 'package:amplify_datastore_plugin_interface/src/types/models/model_field_type.dart';
+import 'package:flutter/foundation.dart';
+
 import '../utils/date_time_parser.dart';
 
 part 'query_field_operators.dart';
@@ -24,8 +27,9 @@ part 'query_sort.dart';
 
 class QueryField {
   final String fieldName;
+  final ModelFieldType fieldType;
 
-  const QueryField(this.fieldName);
+  const QueryField({@required this.fieldName, this.fieldType});
 
   // Equal operation with operator overloading
   QueryPredicateOperation eq(dynamic value) => new QueryPredicateOperation(

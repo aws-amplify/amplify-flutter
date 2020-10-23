@@ -30,17 +30,21 @@ import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
 import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.query.QueryOptions
+import com.amplifyframework.core.model.query.Where
 import com.amplifyframework.core.model.query.predicate.QueryPredicates
 import com.amplifyframework.core.model.temporal.Temporal
 import com.amplifyframework.datastore.AWSDataStorePlugin
 import com.amplifyframework.datastore.DataStoreException
 import com.amplifyframework.datastore.DataStoreItemChange
 import com.amplifyframework.datastore.appsync.SerializedModel
+import com.amplifyframework.datastore.generated.model.Comment
+import com.amplifyframework.datastore.generated.model.Post
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import java.time.LocalDateTime
 import java.util.Date
 import java.util.UUID
 
@@ -102,7 +106,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     @VisibleForTesting
     fun onQuery(flutterResult: Result, request: HashMap<String, Any>) {
         // Create new posts temporary
-        // createTempPosts()
+        createTempPosts()
 
         var modelName: String
         var queryOptions: QueryOptions
@@ -146,6 +150,76 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 }
         )
     }
+
+
+    private fun createComplexModel(){
+
+        val post = Post.builder()
+                .title("My Post with comments")
+                .rating(10)
+                .created(Temporal.Date(
+                        "2020-02-20T20:20:20-08:00"))
+                .build()
+
+        val comment = Comment.builder()
+                //.post(post) // Directly pass in the post instance
+                .content("Loving Amplify DataStore!")
+                .post(post)
+                .build()
+
+        Amplify.DataStore.save(post,
+                {
+                    Log.i("MyAmplifyApp", "Post saved.")
+                    Amplify.DataStore.save(comment,
+                            { Log.i("MyAmplifyApp", "Comment saved.") },
+                            { Log.e("MyAmplifyApp", "Comment not saved.", it) }
+                    )
+                },
+                { Log.e("MyAmplifyApp", "Post not saved.", it) }
+        )
+
+    }
+
+    private fun deleteAllPost(){
+
+        Amplify.DataStore.query(Post::class.java, Where.matchesAll(),
+                { matches ->
+                    if (matches.hasNext()) {
+                        val post = matches.next()
+                        Amplify.DataStore.delete(post,
+                                { Log.i("MyAmplifyApp", "Deleted a post.") },
+                                { Log.e("MyAmplifyApp", "Delete failed.", it) }
+                        )
+                    }
+                },
+                { Log.e("MyAmplifyApp", "Query failed.", it) }
+        )
+    }
+
+    /*
+    private fun createComplexModel(){
+
+        val post = Post.builder()
+                .title("My Post with comments")
+                .rating(10)
+                .status(PostStatus.ACTIVE)
+                .build()
+
+        val comment = Comment.builder()
+                .post(post) // Directly pass in the post instance
+                .content("Loving Amplify DataStore!")
+                .build()
+
+        Amplify.DataStore.save()
+
+
+        val postSerializedData: List<Map<String, Any>> = listOf(
+                mapOf(
+
+                )
+        )
+    }
+     */
 
     private fun createTempPosts() {
         val postSerializedData: List<Map<String, Any>> = listOf(

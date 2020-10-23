@@ -20,23 +20,22 @@ import 'package:collection/collection.dart';
 import 'model.dart';
 
 class AuthRule {
-  // enum
   final AuthStrategy authStrategy;
-  final String ownerField;
-  final String identityClaim;
-  final String groupClaim;
+  final String ownerField; //opt
+  final String identityClaim; //opt
+  final String groupClaim; //opt
   final List<String> groups;
-  final String groupsField;
-  final List<ModelOperation> operations;
+  final String groupsField; //opt
+  final List<ModelOperation> operations; //opt
 
   const AuthRule(
       {this.authStrategy,
-      this.ownerField,
-      this.identityClaim,
-      this.groupClaim,
+      this.ownerField = "",
+      this.identityClaim = "",
+      this.groupClaim = "",
       this.groups,
-      this.groupsField,
-      this.operations});
+      this.groupsField = "",
+      this.operations = const []});
 
   AuthRule copyWith({
     AuthStrategy authStrategy,
@@ -60,13 +59,13 @@ class AuthRule {
 
   Map<String, dynamic> toMap() {
     return {
-      'authStrategy': authStrategy?.index,
+      'authStrategy': authStrategy.index,
       'ownerField': ownerField,
       'identityClaim': identityClaim,
       'groupClaim': groupClaim,
       'groups': groups,
       'groupsField': groupsField,
-      'operations': operations?.map((x) => x?.index)?.toList(),
+      'operations': operations?.map((x) => x.index)?.toList(),
     };
   }
 
