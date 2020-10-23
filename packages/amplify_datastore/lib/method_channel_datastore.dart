@@ -54,6 +54,21 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
     }
   }
 
+  @override
+  Future<T> deleteInstance<T extends Model>(T model, {QueryPredicate when}) async {
+
+    var modelJson = model.toJson();
+
+    final Map<dynamic, dynamic> serializedResult =
+    await _channel.invokeMapMethod('deleteInstance', <String, dynamic>{
+      'modelName': model.instanceType.modelName(),
+      'model': modelJson,
+      'queryPredicate': when?.serializeAsMap(),
+    });
+
+    return model.instanceType.fromJson(new Map<String, dynamic>.from(serializedResult["serializedData"]));
+  }
+
   Future<void> configure({@required List<ModelSchema> modelSchemas}) async {
     return _channel.invokeMethod('configure', <String, dynamic>{
       'modelSchemas': modelSchemas.map((schema) => schema.toMap()).toList()

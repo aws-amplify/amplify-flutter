@@ -24,6 +24,8 @@ abstract class Model {
   String getId() {
     return id;
   }
+
+  Map<String, dynamic> toJson();
 }
 
 enum ModelOperation { CREATE, UPDATE, DELETE, READ }
@@ -33,6 +35,8 @@ abstract class ModelType<T extends Model> {
   const ModelType();
 
   T fromJson(Map<String, dynamic> jsonData);
+
+  Map<String, dynamic> toJson();
 
   String modelName() {
     return T.toString();

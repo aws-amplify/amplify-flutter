@@ -105,4 +105,9 @@ class PostType extends ModelType<Post> {
   Post fromJson(Map<String, dynamic> jsonData) {
     return Post.fromJson(jsonData);
   }
+
+  @override 
+  Map<String, dynamic> toJson() {
+    return toJson();
+  }
 }

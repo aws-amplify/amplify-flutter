@@ -69,6 +69,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         }
         when (call.method) {
             "query" -> onQuery(result, data)
+            "deleteInstance" -> onDeleteInstance(result, data)
             "configure" -> onConfigure(result, data)
             else -> result.notImplemented()
         }
@@ -144,6 +145,40 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 }
         )
     }
+
+    @VisibleForTesting
+    fun onDeleteInstance(flutterResult: Result, request: HashMap<String, Any>) {
+        try {
+            var modelName = request["modelName"] as String
+            var modelData = request["model"] as HashMap<String, Any>
+            var queryOptions: QueryOptions = QueryOptionsBuilder.fromSerializedMap(request)
+            val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
+
+            var instance = SerializedModel.builder()
+                    .serializedData(modelData)
+                    .id(modelData["id"] as String)
+                    .modelName(modelName)
+                    .build()
+
+            plugin.delete(
+                    instance,
+                    queryOptions.queryPredicate,
+                    Consumer {
+                        LOG.info("Deleted item: " + it.item().toString())
+                        Handler(Looper.getMainLooper()).post {
+                            flutterResult.success(FlutterSerializedModel(it.item()).toMap())
+                        }
+                    },
+                    Consumer {
+                        LOG.error("Deletion Failed: " + it)
+                        prepareError(flutterResult, it, FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_DELETE_FAILED.toString())
+                    }
+            )
+        } catch (e: Exception) {
+            prepareError(flutterResult, e, FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_DELETE_FAILED.toString())
+        }
+    }
+
     
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
