@@ -15,6 +15,7 @@
 
 import com.amazonaws.amplify.amplify_datastore.AmplifyDataStorePlugin
 import com.amazonaws.amplify.amplify_datastore.readMapFromFile
+import com.amazonaws.amplify.amplify_datastore.types.FlutterDataStoreFailureMessage
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSerializedModel
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
@@ -23,11 +24,13 @@ import com.amplifyframework.core.model.query.Page
 import com.amplifyframework.core.model.query.QueryOptions
 import com.amplifyframework.core.model.query.Where
 import com.amplifyframework.core.model.query.predicate.QueryField.field
+import com.amplifyframework.core.model.query.predicate.QueryPredicate
 import com.amplifyframework.core.model.query.predicate.QueryPredicateOperation.not
 import com.amplifyframework.core.model.temporal.Temporal
 import com.amplifyframework.datastore.AWSDataStorePlugin
 import com.amplifyframework.datastore.DataStoreCategory
 import com.amplifyframework.datastore.DataStoreException
+import com.amplifyframework.datastore.DataStoreItemChange
 import com.amplifyframework.datastore.appsync.SerializedModel
 import io.flutter.plugin.common.MethodChannel
 import java.lang.reflect.Field
@@ -158,7 +161,7 @@ class AmplifyDataStorePluginTest {
                         Consumer<DataStoreItemChange<SerializedModel>>>(),
                 ArgumentMatchers.any<Consumer<DataStoreException>>())
 
-        plugin.onDeleteInstance(mockResult,
+        flutterPlugin.onDeleteInstance(mockResult,
                 readMapFromFile("delete_api",
                         "request/instance_no_predicate.json",
                         HashMap::class.java) as HashMap<String, Any>)
@@ -198,7 +201,7 @@ class AmplifyDataStorePluginTest {
                         Consumer<DataStoreItemChange<SerializedModel>>>(),
                 ArgumentMatchers.any<Consumer<DataStoreException>>())
 
-        plugin.onDeleteInstance(mockResult,
+        flutterPlugin.onDeleteInstance(mockResult,
                 readMapFromFile("delete_api",
                         "request/instance_with_predicate.json",
                         HashMap::class.java) as HashMap<String, Any>)
@@ -230,14 +233,14 @@ class AmplifyDataStorePluginTest {
                         Consumer<DataStoreItemChange<SerializedModel>>>(),
                 ArgumentMatchers.any<Consumer<DataStoreException>>())
 
-        plugin.onDeleteInstance(mockResult,
+        flutterPlugin.onDeleteInstance(mockResult,
                 readMapFromFile("delete_api",
                         "request/instance_no_predicate.json",
                         HashMap::class.java) as HashMap<String, Any>)
 
         verify(mockResult, times(1)).error(
                 "AmplifyException",
-                FlutterDataStoreFailureMessage.DELETE.toString(),
+                FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_DELETE_FAILED.toString(),
                 errorMap
         )
     }
