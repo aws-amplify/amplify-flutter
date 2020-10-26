@@ -16,7 +16,13 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_auth_cognito/method_channel_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
+
+import 'package:mockito/mockito.dart';
+
+class MockAuthChannel extends Mock implements AmplifyAuthCognitoMethodChannel {}
+
 
 void main() {
   const MethodChannel authChannel = MethodChannel('com.amazonaws.amplify/auth_cognito');
@@ -31,18 +37,24 @@ void main() {
 
   setUp(() {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      switch(testCode) {
-        case 1:
-          return {
-            "isSignedIn": false,
-            "nextStep": {
-              "signInStep": "DONE",
-              "codeDeliveryDetails":  { "atttibuteName": "email" }
-            }
-          };
-        case 2:
-          return throw PlatformException(code: "AMPLIFY_EXCEPTION", message: "AMPLIFY_SIGNIN_FAILED", details: {} );
-      } 
+      if (methodCall.method == "confirmSignIn") {
+        assert(methodCall.arguments["data"] is Map);
+        assert(methodCall.arguments["data"]["confirmationCode"] is String);
+        switch(testCode) {
+          case 0:
+            return {
+              "isSignedIn": false,
+              "nextStep": {
+                "signInStep": "DONE",
+                "codeDeliveryDetails":  { "atttibuteName": "email" }
+              }
+            };
+          case 1: 
+            return throw PlatformException(code: "AMPLIFY_EXCEPTION", message: "AMPLIFY_CONFIRM_SIGNIN_FAILED", details: {} );
+        }
+      } else {
+        return true;
+      }     
     });
     coreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       return true;
@@ -54,29 +66,24 @@ void main() {
     coreChannel.setMockMethodCallHandler(null);
   });
 
-
-  test('signUp request returns a SignInResult', () async {
-    testCode = 1;
+  test('confirmSignIn request returns a SignInResult', () async {
     await amplify.addPlugin(authPlugins: [auth]);
     await amplify.configure("{}");
-    expect(await Amplify.Auth.signIn(username: 'testUser', password: '123'), isInstanceOf<SignInResult>());
-  });
-
-  test('signIn request nextStep casts to AuthNextSignStep and AuthNextStep', () async {
-    testCode = 1;
-    var res = await Amplify.Auth.signIn(username: 'testUser', password: '123');
+    var res = await Amplify.Auth.confirmSignIn(confirmationValue: "iAmLegit");
+    expect(res, isInstanceOf<SignInResult>());
+    expect(res.isSignedIn, false);
     expect(res.nextStep, isInstanceOf<AuthNextSignInStep>());
-    expect(res.nextStep, isInstanceOf<AuthNextStep>());
   });
 
   test('signIn thrown PlatFormException results in AuthError', () async {
-    testCode = 2;
+    testCode = 1;
     AuthError err;
-   try {
-     await Amplify.Auth.signIn(username: 'testUser', password: '123');
-   } on AuthError catch (e) {
+    try {
+      await Amplify.Auth.confirmSignIn(confirmationValue: "iAmNotLegit");
+    } catch (e) {
       err = e;
     } 
-    expect(err.cause, "AMPLIFY_SIGNIN_FAILED");
+    expect(err.cause, "AMPLIFY_CONFIRM_SIGNIN_FAILED");
+    expect(err, isInstanceOf<AuthError>());
   });
 }
