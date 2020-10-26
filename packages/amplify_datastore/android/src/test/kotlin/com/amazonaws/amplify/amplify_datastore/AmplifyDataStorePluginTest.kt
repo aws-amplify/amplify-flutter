@@ -161,7 +161,7 @@ class AmplifyDataStorePluginTest {
                         Consumer<DataStoreItemChange<SerializedModel>>>(),
                 ArgumentMatchers.any<Consumer<DataStoreException>>())
 
-        flutterPlugin.onDeleteInstance(mockResult,
+        flutterPlugin.onDelete(mockResult,
                 readMapFromFile("delete_api",
                         "request/instance_no_predicate.json",
                         HashMap::class.java) as HashMap<String, Any>)
@@ -201,7 +201,7 @@ class AmplifyDataStorePluginTest {
                         Consumer<DataStoreItemChange<SerializedModel>>>(),
                 ArgumentMatchers.any<Consumer<DataStoreException>>())
 
-        flutterPlugin.onDeleteInstance(mockResult,
+        flutterPlugin.onDelete(mockResult,
                 readMapFromFile("delete_api",
                         "request/instance_with_predicate.json",
                         HashMap::class.java) as HashMap<String, Any>)
@@ -216,12 +216,12 @@ class AmplifyDataStorePluginTest {
         var dataStoreException = DataStoreException("AmplifyException", DataStoreException.REPORT_BUG_TO_AWS_SUGGESTION)
 
         var errorMap: HashMap<String, Any> = hashMapOf(
-        "PLATFORM_EXCEPTIONS" to mapOf<String, String>(
-        "platform" to "Android",
-        "localizedErrorMessage" to "AmplifyException",
-        "recoverySuggestion" to DataStoreException.REPORT_BUG_TO_AWS_SUGGESTION,
-        "errorString" to "AmplifyException {message=AmplifyException, cause=null, recoverySuggestion=There is a possibility that there is a bug if this error persists. Please take a look at \nhttps://github.com/aws-amplify/amplify-android/issues to see if there are any existing issues that \nmatch your scenario, and file an issue with the details of the bug if there isn't.}"
-        )
+          "PLATFORM_EXCEPTIONS" to mapOf<String, String>(
+            "platform" to "Android",
+            "localizedErrorMessage" to "AmplifyException",
+            "recoverySuggestion" to DataStoreException.REPORT_BUG_TO_AWS_SUGGESTION,
+            "errorString" to "AmplifyException {message=AmplifyException, cause=null, recoverySuggestion=There is a possibility that there is a bug if this error persists. Please take a look at \nhttps://github.com/aws-amplify/amplify-android/issues to see if there are any existing issues that \nmatch your scenario, and file an issue with the details of the bug if there isn't.}"
+          )
         )
 
         doAnswer { invocation: InvocationOnMock ->
@@ -233,7 +233,7 @@ class AmplifyDataStorePluginTest {
                         Consumer<DataStoreItemChange<SerializedModel>>>(),
                 ArgumentMatchers.any<Consumer<DataStoreException>>())
 
-        flutterPlugin.onDeleteInstance(mockResult,
+        flutterPlugin.onDelete(mockResult,
                 readMapFromFile("delete_api",
                         "request/instance_no_predicate.json",
                         HashMap::class.java) as HashMap<String, Any>)

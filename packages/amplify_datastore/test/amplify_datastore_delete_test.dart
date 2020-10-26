@@ -32,35 +32,35 @@ void main() {
     return jsonDecode(jsonString);
   }
 
-  test('deleteInstance returns 1 sucessful result (no query predicate)', () async {
+  test('delete returns 1 sucessful result (no query predicate)', () async {
 
     var json = await getJsonFromFile('response/1_deleted_result.json');
 
     dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "deleteInstance") {
+      if (methodCall.method == "delete") {
         return json;
       }
     });
 
     Post instance = Post(title: json["title"], rating: json["rating"], created: json["created"], id: json["id"]);
 
-    Post post = await dataStore.deleteInstance(instance);
+    Post post = await dataStore.delete(instance);
     expect(post.id, instance.id);
   });
 
-    test('deleteInstance returns 1 sucessful result (with query predicate)', () async {
+    test('delete returns 1 sucessful result (with query predicate)', () async {
 
     var json = await getJsonFromFile('response/1_deleted_result.json');
 
     dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "deleteInstance") {
+      if (methodCall.method == "delete") {
         return json;
       }
     });
 
     Post instance = Post(title: json["title"], rating: json["rating"], created: json["created"], id: json["id"]);
 
-    Post post = await dataStore.deleteInstance(instance, when: Post.RATING.eq(5));
+    Post post = await dataStore.delete(instance, when: Post.RATING.eq(5));
     expect(post.id, instance.id);
   });
 }

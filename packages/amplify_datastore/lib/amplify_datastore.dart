@@ -45,8 +45,8 @@ class AmplifyDataStore extends DataStorePluginInterface {
   }
 
   @override
-  Future<T> deleteInstance<T extends Model>(T model, {QueryPredicate when}) async {
-    return _instance.deleteInstance(model, when: when);
+  Future<T> delete<T extends Model>(T model, {QueryPredicate when}) async {
+    return _instance.delete(model, when: when);
   }
 
   @override

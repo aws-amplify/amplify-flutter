@@ -69,7 +69,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         }
         when (call.method) {
             "query" -> onQuery(result, data)
-            "deleteInstance" -> onDeleteInstance(result, data)
+            "delete" -> onDelete(result, data)
             "configure" -> onConfigure(result, data)
             else -> result.notImplemented()
         }
@@ -147,7 +147,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     }
 
     @VisibleForTesting
-    fun onDeleteInstance(flutterResult: Result, request: HashMap<String, Any>) {
+    fun onDelete(flutterResult: Result, request: HashMap<String, Any>) {
         try {
             var modelName = request["modelName"] as String
             var modelData = request["model"] as HashMap<String, Any>
@@ -165,9 +165,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                     queryOptions.queryPredicate,
                     Consumer {
                         LOG.info("Deleted item: " + it.item().toString())
-                        Handler(Looper.getMainLooper()).post {
-                            flutterResult.success(FlutterSerializedModel(it.item()).toMap())
-                        }
+                        handler.post { flutterResult.success(FlutterSerializedModel(it.item()).toMap()) }
                     },
                     Consumer {
                         LOG.error("Deletion Failed: " + it)
