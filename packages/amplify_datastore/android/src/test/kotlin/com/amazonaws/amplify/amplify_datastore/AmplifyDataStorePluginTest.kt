@@ -15,6 +15,7 @@
 
 import com.amazonaws.amplify.amplify_datastore.AmplifyDataStorePlugin
 import com.amazonaws.amplify.amplify_datastore.readMapFromFile
+import com.amazonaws.amplify.amplify_datastore.types.FlutterDataStoreFailureMessage
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSerializedModel
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
@@ -23,11 +24,13 @@ import com.amplifyframework.core.model.query.Page
 import com.amplifyframework.core.model.query.QueryOptions
 import com.amplifyframework.core.model.query.Where
 import com.amplifyframework.core.model.query.predicate.QueryField.field
+import com.amplifyframework.core.model.query.predicate.QueryPredicate
 import com.amplifyframework.core.model.query.predicate.QueryPredicateOperation.not
 import com.amplifyframework.core.model.temporal.Temporal
 import com.amplifyframework.datastore.AWSDataStorePlugin
 import com.amplifyframework.datastore.DataStoreCategory
 import com.amplifyframework.datastore.DataStoreException
+import com.amplifyframework.datastore.DataStoreItemChange
 import com.amplifyframework.datastore.appsync.SerializedModel
 import io.flutter.plugin.common.MethodChannel
 import java.lang.reflect.Field
@@ -125,6 +128,120 @@ class AmplifyDataStorePluginTest {
                                               HashMap::class.java) as HashMap<String, Any>)
         verify(mockResult, times(1)).success(emptyList<FlutterSerializedModel>())
     }
+
+    @Test
+    fun test_Delete_Success_Result_No_Predicates() {
+
+        var modelData: HashMap<String, Any> = (readMapFromFile("delete_api",
+               "request/instance_no_predicate.json",
+                HashMap::class.java) as HashMap<String, Any>).get("model") as HashMap<String, Any>
+
+        var instance = SerializedModel.builder()
+                .serializedData(modelData)
+                .id(modelData["id"] as String)
+                .modelName("Post")
+                .build()
+
+        var dataStoreItemChange = DataStoreItemChange.builder<SerializedModel>()
+                .item(instance)
+                .initiator(DataStoreItemChange.Initiator.LOCAL)
+                .itemClass(SerializedModel::class.java)
+                .type(DataStoreItemChange.Type.DELETE)
+                .randomUuid()
+                .build()
+
+        doAnswer { invocation: InvocationOnMock ->
+            (invocation.arguments[2] as Consumer<DataStoreItemChange<SerializedModel>>).accept(
+                    dataStoreItemChange)
+            null as Void?
+        }.`when`(mockAmplifyDataStorePlugin).delete(any(), any(QueryPredicate::class.java),
+                ArgumentMatchers.any<
+                        Consumer<DataStoreItemChange<SerializedModel>>>(),
+                ArgumentMatchers.any<Consumer<DataStoreException>>())
+
+        flutterPlugin.onDelete(mockResult,
+                readMapFromFile("delete_api",
+                        "request/instance_no_predicate.json",
+                        HashMap::class.java) as HashMap<String, Any>)
+
+        verify(mockResult, times(1)).success(
+               FlutterSerializedModel(instance).toMap())
+    }
+
+    @Test
+    fun test_Delete_Success_Result_With_Predicates() {
+
+        var modelData: HashMap<String, Any> = (readMapFromFile("delete_api",
+               "request/instance_with_predicate.json",
+                HashMap::class.java) as HashMap<String, Any>).get("model") as HashMap<String, Any>
+
+        var instance = SerializedModel.builder()
+                .serializedData(modelData)
+                .id(modelData["id"] as String)
+                .modelName("Post")
+                .build()
+
+        var dataStoreItemChange = DataStoreItemChange.builder<SerializedModel>()
+                .item(instance)
+                .initiator(DataStoreItemChange.Initiator.LOCAL)
+                .itemClass(SerializedModel::class.java)
+                .type(DataStoreItemChange.Type.DELETE)
+                .randomUuid()
+                .build()
+
+        doAnswer { invocation: InvocationOnMock ->
+            (invocation.arguments[2] as Consumer<DataStoreItemChange<SerializedModel>>).accept(
+                    dataStoreItemChange)
+            null as Void?
+        }.`when`(mockAmplifyDataStorePlugin).delete(any(), any(QueryPredicate::class.java),
+                ArgumentMatchers.any<
+                        Consumer<DataStoreItemChange<SerializedModel>>>(),
+                ArgumentMatchers.any<Consumer<DataStoreException>>())
+
+        flutterPlugin.onDelete(mockResult,
+                readMapFromFile("delete_api",
+                        "request/instance_with_predicate.json",
+                        HashMap::class.java) as HashMap<String, Any>)
+
+        verify(mockResult, times(1)).success(
+                FlutterSerializedModel(instance).toMap())
+    }
+
+    @Test
+    fun test_Delete_Error() {
+
+        var dataStoreException = DataStoreException("AmplifyException", DataStoreException.REPORT_BUG_TO_AWS_SUGGESTION)
+
+        var errorMap: HashMap<String, Any> = hashMapOf(
+          "PLATFORM_EXCEPTIONS" to mapOf<String, String>(
+            "platform" to "Android",
+            "localizedErrorMessage" to "AmplifyException",
+            "recoverySuggestion" to DataStoreException.REPORT_BUG_TO_AWS_SUGGESTION,
+            "errorString" to "AmplifyException {message=AmplifyException, cause=null, recoverySuggestion=There is a possibility that there is a bug if this error persists. Please take a look at \nhttps://github.com/aws-amplify/amplify-android/issues to see if there are any existing issues that \nmatch your scenario, and file an issue with the details of the bug if there isn't.}"
+          )
+        )
+
+        doAnswer { invocation: InvocationOnMock ->
+                (invocation.arguments[3] as Consumer<DataStoreException>).accept(
+                        dataStoreException)
+                null as Void?
+        }.`when`(mockAmplifyDataStorePlugin).delete(any(), any(QueryPredicate::class.java),
+                ArgumentMatchers.any<
+                        Consumer<DataStoreItemChange<SerializedModel>>>(),
+                ArgumentMatchers.any<Consumer<DataStoreException>>())
+
+        flutterPlugin.onDelete(mockResult,
+                readMapFromFile("delete_api",
+                        "request/instance_no_predicate.json",
+                        HashMap::class.java) as HashMap<String, Any>)
+
+        verify(mockResult, times(1)).error(
+                "AmplifyException",
+                FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_DELETE_FAILED.toString(),
+                errorMap
+        )
+    }
+
 
     private fun setFinalStatic(field: Field, newValue: Any?) {
         field.isAccessible = true
