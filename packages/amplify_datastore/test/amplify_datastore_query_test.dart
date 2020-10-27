@@ -22,7 +22,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import './utils/get_json_from_file.dart';
-import './testData/Post.dart';
+import './test_models/Post.dart';
 
 void main() {
   const MethodChannel dataStoreChannel =
