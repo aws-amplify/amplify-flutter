@@ -169,26 +169,26 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             return
         }
 
-            val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
+        val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
 
-            var instance = SerializedModel.builder()
-                    .serializedData(modelData)
-                    .id(modelData["id"] as String)
-                    .modelName(modelName)
-                    .build()
+        var instance = SerializedModel.builder()
+                .serializedData(modelData)
+                .id(modelData["id"] as String)
+                .modelName(modelName)
+                .build()
 
-            plugin.delete(
-                    instance,
-                    queryPredicates,
-                    Consumer {
-                        LOG.debug("Deleted item: " + it.item().toString())
-                        handler.post { flutterResult.success(FlutterSerializedModel(it.item()).toMap()) }
-                    },
-                    Consumer {
-                        LOG.debug("Deletion Failed: " + it)
-                        prepareError(flutterResult, it, FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_DELETE_FAILED.toString())
-                    }
-            )
+        plugin.delete(
+                instance,
+                queryPredicates,
+                Consumer {
+                    LOG.debug("Deleted item: " + it.item().toString())
+                    handler.post { flutterResult.success(FlutterSerializedModel(it.item()).toMap()) }
+                },
+                Consumer {
+                    LOG.debug("Deletion Failed: " + it)
+                    prepareError(flutterResult, it, FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_DELETE_FAILED.toString())
+                }
+        )
     }
 
     
