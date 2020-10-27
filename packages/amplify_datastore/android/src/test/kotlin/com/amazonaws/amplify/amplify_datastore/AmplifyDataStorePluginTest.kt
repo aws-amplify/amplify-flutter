@@ -132,11 +132,9 @@ class AmplifyDataStorePluginTest {
     @Test
     fun test_Delete_Success_Result_No_Predicates() {
 
-        var modelData: HashMap<String, Any> = hashMapOf(
-            "id" to "43036c6b-8044-4309-bddc-262b6c686026",
-            "title" to "Title 2",
-            "created" to "2020-02-20T20:20:20-08:00"
-        )
+        var modelData: HashMap<String, Any> = (readMapFromFile("delete_api",
+               "request/instance_no_predicate.json",
+                HashMap::class.java) as HashMap<String, Any>).get("model") as HashMap<String, Any>
 
         var instance = SerializedModel.builder()
                 .serializedData(modelData)
@@ -172,11 +170,10 @@ class AmplifyDataStorePluginTest {
 
     @Test
     fun test_Delete_Success_Result_With_Predicates() {
-        var modelData: HashMap<String, Any> = hashMapOf(
-                "id" to "43036c6b-8044-4309-bddc-262b6c686026",
-                "title" to "Title 2",
-                "created" to "2020-02-20T20:20:20-08:00"
-        )
+
+        var modelData: HashMap<String, Any> = (readMapFromFile("delete_api",
+               "request/instance_with_predicate.json",
+                HashMap::class.java) as HashMap<String, Any>).get("model") as HashMap<String, Any>
 
         var instance = SerializedModel.builder()
                 .serializedData(modelData)
@@ -253,4 +250,4 @@ class AmplifyDataStorePluginTest {
         modifiersField.setInt(field, field.modifiers and Modifier.FINAL.inv())
         field.set(null, newValue)
     }
-}                       
+}

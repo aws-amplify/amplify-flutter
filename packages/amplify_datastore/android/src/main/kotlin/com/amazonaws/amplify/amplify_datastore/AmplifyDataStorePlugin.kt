@@ -24,12 +24,14 @@ import com.amazonaws.amplify.amplify_datastore.types.FlutterDataStoreFailureMess
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterModelSchema
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSerializedModel
 import com.amazonaws.amplify.amplify_datastore.types.query.QueryOptionsBuilder
+import com.amazonaws.amplify.amplify_datastore.types.query.QueryPredicateBuilder
 import com.amazonaws.amplify.amplify_datastore.util.safeCastToList
 import com.amazonaws.amplify.amplify_datastore.util.safeCastToMap
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
 import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.query.QueryOptions
+import com.amplifyframework.core.model.query.predicate.QueryPredicate
 import com.amplifyframework.core.model.query.predicate.QueryPredicates
 import com.amplifyframework.core.model.temporal.Temporal
 import com.amplifyframework.datastore.AWSDataStorePlugin
@@ -151,7 +153,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         try {
             var modelName = request["modelName"] as String
             var modelData = request["model"] as HashMap<String, Any>
-            var queryOptions: QueryOptions = QueryOptionsBuilder.fromSerializedMap(request)
+            var queryPredicates: QueryPredicate = QueryPredicateBuilder.fromSerializedMap(request["queryPredicate"] as Map<String, Any>?) ?: QueryPredicates.all()
             val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
 
             var instance = SerializedModel.builder()
@@ -162,13 +164,13 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
             plugin.delete(
                     instance,
-                    queryOptions.queryPredicate,
+                    queryPredicates,
                     Consumer {
-                        LOG.info("Deleted item: " + it.item().toString())
+                        LOG.debug("Deleted item: " + it.item().toString())
                         handler.post { flutterResult.success(FlutterSerializedModel(it.item()).toMap()) }
                     },
                     Consumer {
-                        LOG.error("Deletion Failed: " + it)
+                        LOG.debug("Deletion Failed: " + it)
                         prepareError(flutterResult, it, FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_DELETE_FAILED.toString())
                     }
             )

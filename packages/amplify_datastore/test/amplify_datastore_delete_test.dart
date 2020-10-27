@@ -1,11 +1,9 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import './testData/Post.dart';
+import './utils/get_json_from_file.dart';
 
 void main() {
   const MethodChannel dataStoreChannel =
@@ -21,46 +19,38 @@ void main() {
     dataStoreChannel.setMockMethodCallHandler(null);
   });
 
-  dynamic getJsonFromFile(String path) async {
-    path = 'resources/delete_api/' + path;
-    String jsonString = '';
-    try {
-      jsonString = await File(path).readAsString();
-    } catch (e) {
-      jsonString = await File('test/' + path).readAsString();
-    }
-    return jsonDecode(jsonString);
-  }
 
   test('delete returns 1 sucessful result (no query predicate)', () async {
 
-    var json = await getJsonFromFile('response/1_deleted_result.json');
+    var json = await getJsonFromFile('delete_api/response/1_deleted_result.json');
 
     dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "delete") {
-        return json;
-      }
+      return json;
     });
 
-    Post instance = Post(title: json["title"], rating: json["rating"], created: json["created"], id: json["id"]);
+    Post instance = Post(title: json["serializedData"]["title"], rating: json["serializedData"]["rating"], created: DateTime.parse(json["serializedData"]["created"]), id: json["id"]);
 
     Post post = await dataStore.delete(instance);
     expect(post.id, instance.id);
+    expect(post.title, instance.title);
+    expect(post.rating, instance.rating);
+    expect(post.created, instance.created);
   });
 
-    test('delete returns 1 sucessful result (with query predicate)', () async {
+  test('delete returns 1 sucessful result (with query predicate)', () async {
 
-    var json = await getJsonFromFile('response/1_deleted_result.json');
+    var json = await getJsonFromFile('delete_api/response/1_deleted_result.json');
 
     dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "delete") {
-        return json;
-      }
+      return json;
     });
 
-    Post instance = Post(title: json["title"], rating: json["rating"], created: json["created"], id: json["id"]);
+    Post instance = Post(title: json["serializedData"]["title"], rating: json["serializedData"]["rating"], created: DateTime.parse(json["serializedData"]["created"]), id: json["id"]);
 
     Post post = await dataStore.delete(instance, when: Post.RATING.eq(5));
     expect(post.id, instance.id);
+    expect(post.title, instance.title);
+    expect(post.rating, instance.rating);
+    expect(post.created, instance.created);
   });
 }

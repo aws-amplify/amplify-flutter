@@ -36,8 +36,6 @@ abstract class ModelType<T extends Model> {
 
   T fromJson(Map<String, dynamic> jsonData);
 
-  Map<String, dynamic> toJson();
-
   String modelName() {
     return T.toString();
   }

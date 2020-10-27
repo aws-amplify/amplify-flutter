@@ -21,6 +21,7 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import './utils/get_json_from_file.dart';
 import './testData/Post.dart';
 
 void main() {
@@ -35,21 +36,11 @@ void main() {
     dataStoreChannel.setMockMethodCallHandler(null);
   });
 
-  dynamic getJsonFromFile(String path) async {
-    path = 'resources/query_api/' + path;
-    String jsonString = '';
-    try {
-      jsonString = await File(path).readAsString();
-    } catch (e) {
-      jsonString = await File('test/' + path).readAsString();
-    }
-    return jsonDecode(jsonString);
-  }
 
   test('query returns 2 sucessful results', () async {
     dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == "query") {
-        return getJsonFromFile('response/2_results.json');
+        return getJsonFromFile('query_api/response/2_results.json');
       }
     });
     List<Post> posts = await dataStore.query(Post.classType);
@@ -84,7 +75,7 @@ void main() {
     dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == "query") {
         expect(methodCall.arguments,
-            await getJsonFromFile('request/only_model_name.json'));
+            await getJsonFromFile('query_api/request/only_model_name.json'));
         return [];
       }
     });
@@ -99,7 +90,7 @@ void main() {
         expect(
             methodCall.arguments,
             await getJsonFromFile(
-                'request/model_name_with_all_query_parameters.json'));
+                'query_api/request/model_name_with_all_query_parameters.json'));
         return [];
       }
     });
