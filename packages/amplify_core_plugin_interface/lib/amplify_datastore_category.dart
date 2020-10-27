@@ -47,4 +47,10 @@ class DataStoreCategory {
             where: where, pagination: pagination, sortBy: sortBy)
         : throw (errorMsg);
   }
+
+  Future<T> delete<T extends Model>(T model, {QueryPredicate when}) {
+    return plugins.length == 1
+        ? plugins[0].delete(model, when: when)
+        : throw (errorMsg);
+  }
 }

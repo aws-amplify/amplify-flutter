@@ -24,6 +24,8 @@ abstract class Model {
   String getId() {
     return id;
   }
+
+  Map<String, dynamic> toJson();
 }
 
 enum ModelOperation { CREATE, UPDATE, DELETE, READ }

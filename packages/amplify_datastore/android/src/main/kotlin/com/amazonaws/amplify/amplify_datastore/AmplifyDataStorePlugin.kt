@@ -24,12 +24,14 @@ import com.amazonaws.amplify.amplify_datastore.types.FlutterDataStoreFailureMess
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterModelSchema
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSerializedModel
 import com.amazonaws.amplify.amplify_datastore.types.query.QueryOptionsBuilder
+import com.amazonaws.amplify.amplify_datastore.types.query.QueryPredicateBuilder
 import com.amazonaws.amplify.amplify_datastore.util.safeCastToList
 import com.amazonaws.amplify.amplify_datastore.util.safeCastToMap
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
 import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.query.QueryOptions
+import com.amplifyframework.core.model.query.predicate.QueryPredicate
 import com.amplifyframework.core.model.query.predicate.QueryPredicates
 import com.amplifyframework.core.model.temporal.Temporal
 import com.amplifyframework.datastore.AWSDataStorePlugin
@@ -69,6 +71,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         }
         when (call.method) {
             "query" -> onQuery(result, data)
+            "delete" -> onDelete(result, data)
             "configure" -> onConfigure(result, data)
             else -> result.notImplemented()
         }
@@ -144,6 +147,50 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 }
         )
     }
+
+    @VisibleForTesting
+    fun onDelete(flutterResult: Result, request: HashMap<String, Any>) {
+        var modelName: String
+        var modelData:  HashMap<String, Any>
+        var queryPredicates: QueryPredicate;
+
+        try {
+            modelName = request["modelName"] as String
+            modelData = request["model"] as HashMap<String, Any>
+            queryPredicates = QueryPredicateBuilder.fromSerializedMap(request["queryPredicate"] as Map<String, Any>?) ?: QueryPredicates.all()
+
+        } catch (e: ClassCastException) {
+            prepareError(flutterResult, e,
+                    FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString())
+            return
+        } catch (e: Exception) {
+            prepareError(flutterResult, e,
+                    FlutterDataStoreFailureMessage.AMPLIFY_DELETE_REQUEST_MALFORMED.toString())
+            return
+        }
+
+        val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
+
+        var instance = SerializedModel.builder()
+                .serializedData(modelData)
+                .id(modelData["id"] as String)
+                .modelName(modelName)
+                .build()
+
+        plugin.delete(
+                instance,
+                queryPredicates,
+                Consumer {
+                    LOG.debug("Deleted item: " + it.item().toString())
+                    handler.post { flutterResult.success(FlutterSerializedModel(it.item()).toMap()) }
+                },
+                Consumer {
+                    LOG.debug("Deletion Failed: " + it)
+                    prepareError(flutterResult, it, FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_DELETE_FAILED.toString())
+                }
+        )
+    }
+
     
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
