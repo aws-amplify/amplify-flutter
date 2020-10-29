@@ -25,12 +25,12 @@ void main() {
         metadata: {'name': 'testName', 'description': 'testDescription'},
         contentType: 'testContentType');
     var serializedResult = options.serializeAsMap();
-    expect(serializedResult, isInstanceOf<Map>());
-    expect(serializedResult['accessLevel'], 'private');
-    expect(serializedResult['targetIdentityId'], 'testIdentityId');
-    expect(serializedResult['metadata'],
-        {'name': 'testName', 'description': 'testDescription'});
-    expect(serializedResult['contentType'], 'testContentType');
+    expect(serializedResult, {
+      'accessLevel': 'private',
+      'contentType': 'testContentType',
+      'metadata': {'name': 'testName', 'description': 'testDescription'},
+      'targetIdentityId': 'testIdentityId'
+    });
   });
 
   test(
@@ -38,10 +38,6 @@ void main() {
       () async {
     S3UploadFileOptions options = S3UploadFileOptions();
     var serializedResult = options.serializeAsMap();
-    expect(serializedResult, isInstanceOf<Map>());
-    expect(serializedResult['accessLevel'], 'guest');
-    expect(serializedResult['targetIdentityId'], null);
-    expect(serializedResult['metadata'], null);
-    expect(serializedResult['contentType'], null);
+    expect(serializedResult, {'accessLevel': 'guest'});
   });
 }

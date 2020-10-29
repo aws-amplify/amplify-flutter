@@ -22,14 +22,12 @@ void main() {
     DownloadFileOptions options =
         DownloadFileOptions(accessLevel: StorageAccessLevel.private);
     var serializedResult = options.serializeAsMap();
-    expect(serializedResult, isInstanceOf<Map>());
-    expect(serializedResult['accessLevel'], 'private');
+    expect(serializedResult, {'accessLevel': 'private'});
   });
 
   test('DownloadFileOptions has accessLevel as guest by default', () async {
     DownloadFileOptions options = DownloadFileOptions();
     var serializedResult = options.serializeAsMap();
-    expect(serializedResult, isInstanceOf<Map>());
-    expect(serializedResult['accessLevel'], 'guest');
+    expect(serializedResult, {'accessLevel': 'guest'});
   });
 }

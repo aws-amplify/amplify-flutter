@@ -24,10 +24,11 @@ void main() {
         contentType: 'image/jpeg',
         metadata: {'description': 'test desription'});
     var serializedResult = options.serializeAsMap();
-    expect(serializedResult, isInstanceOf<Map>());
-    expect(serializedResult['accessLevel'], 'private');
-    expect(serializedResult['contentType'], 'image/jpeg');
-    expect(serializedResult['metadata'], {'description': 'test desription'});
+    expect(serializedResult, {
+      'accessLevel': 'private',
+      'contentType': 'image/jpeg',
+      'metadata': {'description': 'test desription'}
+    });
   });
 
   test(
@@ -35,9 +36,6 @@ void main() {
       () async {
     UploadFileOptions options = UploadFileOptions();
     var serializedResult = options.serializeAsMap();
-    expect(serializedResult, isInstanceOf<Map>());
-    expect(serializedResult['accessLevel'], 'guest');
-    expect(serializedResult['contentType'], null);
-    expect(serializedResult['metadata'], null);
+    expect(serializedResult, {'accessLevel': 'guest'});
   });
 }

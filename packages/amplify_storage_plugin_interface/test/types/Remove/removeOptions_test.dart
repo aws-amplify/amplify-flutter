@@ -22,14 +22,12 @@ void main() {
     RemoveOptions options =
         RemoveOptions(accessLevel: StorageAccessLevel.private);
     var serializedResult = options.serializeAsMap();
-    expect(serializedResult, isInstanceOf<Map>());
-    expect(serializedResult['accessLevel'], 'private');
+    expect(serializedResult, {'accessLevel': 'private'});
   });
 
   test('RemoveOptions has accessLevel as guest by default', () async {
     RemoveOptions options = RemoveOptions();
     var serializedResult = options.serializeAsMap();
-    expect(serializedResult, isInstanceOf<Map>());
-    expect(serializedResult['accessLevel'], 'guest');
+    expect(serializedResult, {'accessLevel': 'guest'});
   });
 }

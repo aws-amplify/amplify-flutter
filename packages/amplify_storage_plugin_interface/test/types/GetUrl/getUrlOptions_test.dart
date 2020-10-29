@@ -22,9 +22,7 @@ void main() {
     GetUrlOptions options =
         GetUrlOptions(accessLevel: StorageAccessLevel.private, expires: 1000);
     var serializedResult = options.serializeAsMap();
-    expect(serializedResult, isInstanceOf<Map>());
-    expect(serializedResult['accessLevel'], 'private');
-    expect(serializedResult['expires'], 1000);
+    expect(serializedResult, {'accessLevel': 'private', 'expires': 1000});
   });
 
   test(
@@ -32,8 +30,6 @@ void main() {
       () async {
     GetUrlOptions options = GetUrlOptions();
     var serializedResult = options.serializeAsMap();
-    expect(serializedResult, isInstanceOf<Map>());
-    expect(serializedResult['accessLevel'], 'guest');
-    expect(serializedResult['expires'], null);
+    expect(serializedResult, {'accessLevel': 'guest'});
   });
 }

@@ -22,9 +22,7 @@ void main() {
   test('A ListRequest excluding options can be serialized as a Map', () async {
     ListRequest request = ListRequest(path: 'pathForFile');
     var serializedResult = request.serializeAsMap();
-    expect(serializedResult, isInstanceOf<Map>());
-    expect(serializedResult['path'], 'pathForFile');
-    expect(serializedResult['options'], null);
+    expect(serializedResult, {'path': 'pathForFile'});
   });
 
   test('A ListRequest including options can be serialized as a Map', () async {
@@ -32,9 +30,10 @@ void main() {
         ListOptions(accessLevel: StorageAccessLevel.protected);
     ListRequest request = ListRequest(path: 'pathForFile', options: options);
     var serializedResult = request.serializeAsMap();
-    expect(serializedResult, isInstanceOf<Map>());
-    expect(serializedResult['path'], 'pathForFile');
-    expect(serializedResult['options'], Map.of({'accessLevel': 'protected'}));
+    expect(serializedResult, {
+      'path': 'pathForFile',
+      'options': {'accessLevel': 'protected'}
+    });
   });
 
   test(

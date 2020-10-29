@@ -17,7 +17,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:amplify_storage_s3/src/Exceptions/StorageExceptionMessages.dart'
-    as Messages;
+    as messages;
 import 'package:amplify_core/amplify_core.dart';
 
 void main() {
@@ -36,55 +36,8 @@ void main() {
   }
 
   TestWidgetsFlutterBinding.ensureInitialized();
-  int testCode = 0;
 
   setUp(() {
-    storageChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      switch (testCode) {
-        case 1:
-          return {
-            'items': [
-              {
-                'key': 'key1',
-                'eTag': 'etag1',
-                'lastModified': '2020-07-24 09:32:36 +0000',
-                'size': 123,
-              },
-              {
-                'key': 'key2',
-                'eTag': 'etag2',
-                'lastModified': '2020-07-30 19:43:22 +0000',
-                'size': 456,
-              },
-            ],
-          };
-        case 2:
-          return {};
-        case 3:
-          return {
-            'items': [
-              {
-                'key': 'key1',
-                'eTag': 'etag1',
-                'lastModified': '2020-07-24 09:32:36 +0000',
-                'size': 123,
-              },
-              {
-                // missing the required 'key' attribute
-                'eTag': 'etag2',
-                'lastModified': '2020-07-30 19:43:22 +0000',
-                'size': 456,
-              },
-            ],
-          };
-        case 4:
-          throw PlatformException(
-              code: 'AMPLIFY_EXCEPTION',
-              message: Messages.LIST_FAILED,
-              details: {});
-      }
-    });
-
     coreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       return true;
     });
@@ -101,27 +54,53 @@ void main() {
 
   test('list request returns the correct ListResult in the happy case',
       () async {
-    testCode = 1;
+    storageChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      return {
+        'items': [
+          {
+            'key': 'key1',
+            'eTag': 'etag1',
+            'lastModified': '2020-07-24 09:32:36 +0000',
+            'size': 123,
+          },
+          {
+            'key': 'key2',
+            'eTag': 'etag2',
+            'lastModified': null,
+            'size': 456,
+          },
+        ],
+      };
+    });
     var listResult = await Amplify.Storage.list();
     expect(listResult, isInstanceOf<ListResult>());
     expect(listResult.items.length, 2);
 
-    var item = listResult.items[0];
-    expect(item, isInstanceOf<StorageItem>());
-    expect(item.key, 'key1');
-    expect(item.eTag, 'etag1');
-    expect(item.lastModified, DateTime.parse('2020-07-24 09:32:36 +0000'));
-    expect(item.size, 123);
+    var item1 = listResult.items[0];
+    expect(item1, isInstanceOf<StorageItem>());
+    expect(item1.key, 'key1');
+    expect(item1.eTag, 'etag1');
+    expect(item1.lastModified, DateTime.parse('2020-07-24 09:32:36 +0000'));
+    expect(item1.size, 123);
+
+    var item2 = listResult.items[1];
+    expect(item2, isInstanceOf<StorageItem>());
+    expect(item2.key, 'key2');
+    expect(item2.eTag, 'etag2');
+    expect(item2.lastModified, null);
+    expect(item2.size, 456);
   });
 
   test(
       'Throws StorageException when method channel result does not include the items list',
       () async {
-    testCode = 2;
+    storageChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      return {};
+    });
     try {
       await Amplify.Storage.list();
     } on StorageException catch (err) {
-      expect(err.message, Messages.MALFORMED_PLATFORM_CHANNEL_RESULT);
+      expect(err.message, messages.MALFORMED_PLATFORM_CHANNEL_RESULT);
       return;
     }
     throw new Exception('Expected a StorageException');
@@ -130,11 +109,28 @@ void main() {
   test(
       'Throws StorageException when method channel result does not include the key attribute in any of the storage items',
       () async {
-    testCode = 3;
+    storageChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      return {
+        'items': [
+          {
+            'key': 'key1',
+            'eTag': 'etag1',
+            'lastModified': '2020-07-24 09:32:36 +0000',
+            'size': 123,
+          },
+          {
+            // missing the required 'key' attribute
+            'eTag': 'etag2',
+            'lastModified': '2020-07-30 19:43:22 +0000',
+            'size': 456,
+          },
+        ],
+      };
+    });
     try {
       await Amplify.Storage.list();
     } on StorageException catch (err) {
-      expect(err.message, Messages.MALFORMED_PLATFORM_CHANNEL_RESULT);
+      expect(err.message, messages.MALFORMED_PLATFORM_CHANNEL_RESULT);
       return;
     }
     throw new Exception('Expected a StorageException');
@@ -142,11 +138,16 @@ void main() {
 
   test('A PlatformException results in a StorageException being thrown',
       () async {
-    testCode = 4;
+    storageChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      throw PlatformException(
+          code: 'AMPLIFY_EXCEPTION',
+          message: messages.LIST_FAILED,
+          details: {});
+    });
     try {
       await Amplify.Storage.list();
     } on StorageException catch (err) {
-      expect(err.message, Messages.LIST_FAILED);
+      expect(err.message, messages.LIST_FAILED);
       return;
     }
     throw new Exception('Expected a StorageException');

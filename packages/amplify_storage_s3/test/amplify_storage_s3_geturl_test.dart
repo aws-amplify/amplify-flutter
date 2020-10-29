@@ -14,7 +14,7 @@
  */
 
 import 'package:amplify_storage_s3/src/Exceptions/StorageExceptionMessages.dart'
-    as Messages;
+    as messages;
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
@@ -36,25 +36,8 @@ void main() {
   }
 
   TestWidgetsFlutterBinding.ensureInitialized();
-  int testCode = 0;
 
   setUp(() {
-    storageChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      switch (testCode) {
-        case 1:
-          return {
-            'url': 'downloadUrl',
-          };
-        case 2:
-          return {};
-        case 3:
-          throw PlatformException(
-              code: 'AMPLIFY_EXCEPTION',
-              message: Messages.GET_URL_FAILED,
-              details: {});
-      }
-    });
-
     coreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       return true;
     });
@@ -71,7 +54,11 @@ void main() {
 
   test('getUrl request returns the correct GetUrlResult in the happy case',
       () async {
-    testCode = 1;
+    storageChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      return {
+        'url': 'downloadUrl',
+      };
+    });
     var getUrlResult = await Amplify.Storage.getUrl(key: 'keyForFile');
     expect(getUrlResult, isInstanceOf<GetUrlResult>());
     expect(getUrlResult.url, 'downloadUrl');
@@ -80,11 +67,13 @@ void main() {
   test(
       'Throws StorageException when method channel result does not include the download url',
       () async {
-    testCode = 2;
+    storageChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      return {};
+    });
     try {
       await Amplify.Storage.getUrl(key: 'keyForFile');
     } on StorageException catch (err) {
-      expect(err.message, Messages.MALFORMED_PLATFORM_CHANNEL_RESULT);
+      expect(err.message, messages.MALFORMED_PLATFORM_CHANNEL_RESULT);
       return;
     }
     throw new Exception('Expected a StorageException');
@@ -92,11 +81,16 @@ void main() {
 
   test('A PlatformException results in a StorageException being thrown',
       () async {
-    testCode = 3;
+    storageChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      throw PlatformException(
+          code: 'AMPLIFY_EXCEPTION',
+          message: messages.GET_URL_FAILED,
+          details: {});
+    });
     try {
       await Amplify.Storage.getUrl(key: 'keyForFile');
     } on StorageException catch (err) {
-      expect(err.message, Messages.GET_URL_FAILED);
+      expect(err.message, messages.GET_URL_FAILED);
       return;
     }
     throw new Exception('Expected a StorageException');

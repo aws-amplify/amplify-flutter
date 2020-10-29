@@ -21,14 +21,12 @@ void main() {
   test('ListOptions can be serialized as a Map', () async {
     ListOptions options = ListOptions(accessLevel: StorageAccessLevel.private);
     var serializedResult = options.serializeAsMap();
-    expect(serializedResult, isInstanceOf<Map>());
-    expect(serializedResult['accessLevel'], 'private');
+    expect(serializedResult, {'accessLevel': 'private'});
   });
 
   test('ListOptions has accessLevel as guest by default', () async {
     ListOptions options = ListOptions();
     var serializedResult = options.serializeAsMap();
-    expect(serializedResult, isInstanceOf<Map>());
-    expect(serializedResult['accessLevel'], 'guest');
+    expect(serializedResult, {'accessLevel': 'guest'});
   });
 }

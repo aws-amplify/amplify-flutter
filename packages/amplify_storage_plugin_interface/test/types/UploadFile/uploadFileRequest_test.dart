@@ -25,10 +25,8 @@ void main() {
     UploadFileRequest request =
         UploadFileRequest(key: 'keyForFile', local: File('pathToFile'));
     var serializedResult = request.serializeAsMap();
-    expect(serializedResult, isInstanceOf<Map>());
-    expect(serializedResult['key'], 'keyForFile');
-    expect(serializedResult['path'], '${Directory.current.path}/pathToFile');
-    expect(serializedResult['options'], null);
+    expect(serializedResult,
+        {'path': '${Directory.current.path}/pathToFile', 'key': 'keyForFile'});
   });
 
   test('A UploadFileRequest including options can be serialized as a Map',
@@ -36,19 +34,18 @@ void main() {
     UploadFileOptions options = UploadFileOptions(
         accessLevel: StorageAccessLevel.protected,
         contentType: 'image/jpeg',
-        metadata: {'description': 'test desription'});
+        metadata: {'description': 'test description'});
     UploadFileRequest request = UploadFileRequest(
         key: 'keyForFile', local: File('pathToFile'), options: options);
     var serializedResult = request.serializeAsMap();
-    expect(serializedResult, isInstanceOf<Map>());
-    expect(serializedResult['key'], 'keyForFile');
-    expect(serializedResult['path'], '${Directory.current.path}/pathToFile');
-    expect(
-        serializedResult['options'],
-        Map.of({
-          'accessLevel': 'protected',
-          'contentType': 'image/jpeg',
-          'metadata': {'description': 'test desription'},
-        }));
+    expect(serializedResult, {
+      'path': '${Directory.current.path}/pathToFile',
+      'key': 'keyForFile',
+      'options': {
+        'accessLevel': 'protected',
+        'contentType': 'image/jpeg',
+        'metadata': {'description': 'test description'}
+      }
+    });
   });
 }

@@ -24,10 +24,11 @@ void main() {
         targetIdentityId: 'testIdentityId',
         expires: 100);
     var serializedResult = options.serializeAsMap();
-    expect(serializedResult, isInstanceOf<Map>());
-    expect(serializedResult['accessLevel'], 'private');
-    expect(serializedResult['targetIdentityId'], 'testIdentityId');
-    expect(serializedResult['expires'], 100);
+    expect(serializedResult, {
+      'accessLevel': 'private',
+      'expires': 100,
+      'targetIdentityId': 'testIdentityId'
+    });
   });
 
   test(
@@ -35,9 +36,6 @@ void main() {
       () async {
     S3GetUrlOptions options = S3GetUrlOptions();
     var serializedResult = options.serializeAsMap();
-    expect(serializedResult, isInstanceOf<Map>());
-    expect(serializedResult['accessLevel'], 'guest');
-    expect(serializedResult['targetIdentityId'], null);
-    expect(serializedResult['expires'], null);
+    expect(serializedResult, {'accessLevel': 'guest'});
   });
 }

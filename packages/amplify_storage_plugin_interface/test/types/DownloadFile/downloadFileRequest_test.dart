@@ -25,10 +25,10 @@ void main() {
     DownloadFileRequest request =
         DownloadFileRequest(key: 'keyForFile', local: File('pathToFile'));
     var serializedResult = request.serializeAsMap();
-    expect(serializedResult, isInstanceOf<Map>());
-    expect(serializedResult['key'], 'keyForFile');
-    expect(serializedResult['path'], '${Directory.current.path}/pathToFile');
-    expect(serializedResult['options'], null);
+    expect(serializedResult, {
+      'key': 'keyForFile',
+      'path': '${Directory.current.path}/pathToFile',
+    });
   });
 
   test('A DownloadFileRequest including options can be serialized as a Map',
@@ -38,9 +38,10 @@ void main() {
     DownloadFileRequest request = DownloadFileRequest(
         key: 'keyForFile', local: File('pathToFile'), options: options);
     var serializedResult = request.serializeAsMap();
-    expect(serializedResult, isInstanceOf<Map>());
-    expect(serializedResult['key'], 'keyForFile');
-    expect(serializedResult['path'], '${Directory.current.path}/pathToFile');
-    expect(serializedResult['options'], Map.of({'accessLevel': 'protected'}));
+    expect(serializedResult, {
+      'key': 'keyForFile',
+      'path': '${Directory.current.path}/pathToFile',
+      'options': {'accessLevel': 'protected'},
+    });
   });
 }

@@ -23,9 +23,8 @@ void main() {
         accessLevel: StorageAccessLevel.private,
         targetIdentityId: 'testIdentityId');
     var serializedResult = options.serializeAsMap();
-    expect(serializedResult, isInstanceOf<Map>());
-    expect(serializedResult['accessLevel'], 'private');
-    expect(serializedResult['targetIdentityId'], 'testIdentityId');
+    expect(serializedResult,
+        {'accessLevel': 'private', 'targetIdentityId': 'testIdentityId'});
   });
 
   test(
@@ -33,8 +32,6 @@ void main() {
       () async {
     S3DownloadFileOptions options = S3DownloadFileOptions();
     var serializedResult = options.serializeAsMap();
-    expect(serializedResult, isInstanceOf<Map>());
-    expect(serializedResult['accessLevel'], 'guest');
-    expect(serializedResult['targetIdentityId'], null);
+    expect(serializedResult, {'accessLevel': 'guest'});
   });
 }

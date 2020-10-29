@@ -23,9 +23,7 @@ void main() {
       () async {
     GetUrlRequest request = GetUrlRequest(key: 'keyForFile');
     var serializedResult = request.serializeAsMap();
-    expect(serializedResult, isInstanceOf<Map>());
-    expect(serializedResult['key'], 'keyForFile');
-    expect(serializedResult['options'], null);
+    expect(serializedResult, {'key': 'keyForFile'});
   });
 
   test('A GetUrlRequest including options can be serialized as a Map',
@@ -34,9 +32,12 @@ void main() {
         GetUrlOptions(accessLevel: StorageAccessLevel.protected, expires: 1000);
     GetUrlRequest request = GetUrlRequest(key: 'keyForFile', options: options);
     var serializedResult = request.serializeAsMap();
-    expect(serializedResult, isInstanceOf<Map>());
-    expect(serializedResult['key'], 'keyForFile');
-    expect(serializedResult['options'],
-        Map.of({'accessLevel': 'protected', 'expires': 1000}));
+    expect(serializedResult, {
+      'key': 'keyForFile',
+      'options': {
+        'accessLevel': 'protected',
+        'expires': 1000,
+      }
+    });
   });
 }

@@ -19,8 +19,7 @@ import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interfac
 import 'dart:io';
 
 import 'amplify_storage_s3.dart';
-import 'package:amplify_storage_s3/src/Exceptions/StorageExceptionMessages.dart'
-    as Messages;
+import 'src/Exceptions/StorageExceptionMessages.dart' as messages;
 
 const MethodChannel _channel =
     MethodChannel('com.amazonaws.amplify/storage_s3');
@@ -39,7 +38,7 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
       UploadFileResult result = _formatUploadFileResult(data);
       return result;
     } on PlatformException catch (e) {
-      throw (_convertToStorageException(e));
+      throw _convertToStorageException(e);
     }
   }
 
@@ -54,7 +53,7 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
       GetUrlResult result = _formatGetUrlResult(data);
       return result;
     } on PlatformException catch (e) {
-      throw (_convertToStorageException(e));
+      throw _convertToStorageException(e);
     }
   }
 
@@ -69,7 +68,7 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
       RemoveResult result = _formatRemoveResult(data);
       return result;
     } on PlatformException catch (e) {
-      throw (_convertToStorageException(e));
+      throw _convertToStorageException(e);
     }
   }
 
@@ -84,7 +83,7 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
       ListResult result = _formatListResult(data);
       return result;
     } on PlatformException catch (e) {
-      throw (_convertToStorageException(e));
+      throw _convertToStorageException(e);
     }
   }
 
@@ -100,7 +99,7 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
       DownloadFileResult result = _formatDownloadFileResult(data);
       return result;
     } on PlatformException catch (e) {
-      throw (_convertToStorageException(e));
+      throw _convertToStorageException(e);
     }
   }
 
@@ -108,8 +107,8 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
     if (result['key'] != null) {
       return UploadFileResult(key: result["key"]);
     } else {
-      throw (_prepareExceptionForMalformedResult(
-          methodName: 'UploadFile', fieldName: 'key'));
+      throw _prepareExceptionForMalformedResult(
+          methodName: 'UploadFile', fieldName: 'key');
     }
   }
 
@@ -117,8 +116,8 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
     if (result['url'] != null) {
       return GetUrlResult(url: result['url']);
     } else {
-      throw (_prepareExceptionForMalformedResult(
-          methodName: 'GetUrl', fieldName: 'url'));
+      throw _prepareExceptionForMalformedResult(
+          methodName: 'GetUrl', fieldName: 'url');
     }
   }
 
@@ -126,16 +125,16 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
     if (result['key'] != null) {
       return RemoveResult(key: result['key']);
     } else {
-      throw (_prepareExceptionForMalformedResult(
-          methodName: 'Remove', fieldName: 'key'));
+      throw _prepareExceptionForMalformedResult(
+          methodName: 'Remove', fieldName: 'key');
     }
   }
 
   ListResult _formatListResult(Map<String, dynamic> result) {
     List<StorageItem> items = [];
     if (result['items'] == null) {
-      throw (_prepareExceptionForMalformedResult(
-          methodName: 'List', fieldName: 'items'));
+      throw _prepareExceptionForMalformedResult(
+          methodName: 'List', fieldName: 'items');
     }
     var mapItems = result['items'];
     for (Map item in mapItems) {
@@ -143,12 +142,14 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
         StorageItem storageItem = StorageItem(
             key: item["key"],
             eTag: item["eTag"],
-            lastModified: DateTime.parse(item["lastModified"]),
+            lastModified: item["lastModified"] != null
+                ? DateTime.parse(item["lastModified"])
+                : null,
             size: item["size"]);
         items.add(storageItem);
       } else {
-        throw (_prepareExceptionForMalformedResult(
-            methodName: 'List', fieldName: 'key'));
+        throw _prepareExceptionForMalformedResult(
+            methodName: 'List', fieldName: 'item.key');
       }
     }
     return ListResult(items: items);
@@ -158,8 +159,8 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
     if (result['path'] != null) {
       return DownloadFileResult(file: File(result['path']));
     } else {
-      throw (_prepareExceptionForMalformedResult(
-          methodName: 'DownloadFile', fieldName: 'path'));
+      throw _prepareExceptionForMalformedResult(
+          methodName: 'DownloadFile', fieldName: 'path');
     }
   }
 
@@ -169,7 +170,7 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
       '$methodName operation failed': '$fieldName cannot be null'
     };
     return StorageException(
-        message: Messages.MALFORMED_PLATFORM_CHANNEL_RESULT,
+        message: messages.MALFORMED_PLATFORM_CHANNEL_RESULT,
         details: errorDetails);
   }
 

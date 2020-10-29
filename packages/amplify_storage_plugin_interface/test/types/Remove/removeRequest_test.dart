@@ -23,9 +23,7 @@ void main() {
       () async {
     RemoveRequest request = RemoveRequest(key: 'keyForFile');
     var serializedResult = request.serializeAsMap();
-    expect(serializedResult, isInstanceOf<Map>());
-    expect(serializedResult['key'], 'keyForFile');
-    expect(serializedResult['options'], null);
+    expect(serializedResult, {'key': 'keyForFile'});
   });
 
   test('A RemoveRequest including options can be serialized as a Map',
@@ -34,8 +32,9 @@ void main() {
         RemoveOptions(accessLevel: StorageAccessLevel.protected);
     RemoveRequest request = RemoveRequest(key: 'keyForFile', options: options);
     var serializedResult = request.serializeAsMap();
-    expect(serializedResult, isInstanceOf<Map>());
-    expect(serializedResult['key'], 'keyForFile');
-    expect(serializedResult['options'], Map.of({'accessLevel': 'protected'}));
+    expect(serializedResult, {
+      'key': 'keyForFile',
+      'options': {'accessLevel': 'protected'}
+    });
   });
 }
