@@ -1,0 +1,20 @@
+[
+  {
+    "id": "4281dfba-96c8-4a38-9a8e-35c7e893ea47",
+    "modelName": "Post",
+    "serializedData": {
+      "id": "4281dfba-96c8-4a38-9a8e-35c7e893ea47",
+      "title": "Title 1",
+      "rating": 4
+    }
+  },
+  {
+    "id": "43036c6b-8044-4309-bddc-262b6c686026",
+    "modelName": "Post",
+    "serializedData": {
+      "id": "43036c6b-8044-4309-bddc-262b6c686026",
+      "title": "Title 2",
+      "created": "2020-02-20T20:20:20-08:00"
+    }
+  }
+]

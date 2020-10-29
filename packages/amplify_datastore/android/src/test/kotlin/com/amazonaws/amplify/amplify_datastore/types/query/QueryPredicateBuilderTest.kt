@@ -57,8 +57,6 @@ class QueryPredicateBuilderTest {
 
     @Test
     fun test_when_group_with_only_and() {
-        // QueryPredicate formats the date string differently than how Dart does it.
-        // So we have a different json file for it
         Assert.assertEquals(
                 rating.between(1, 4)
                         .and(id.contains("abc"))
@@ -81,9 +79,9 @@ class QueryPredicateBuilderTest {
     }
 
     @Test
-    fun test_when_rating_lt_but_not_eq() {
+    fun test_when_rating_gt_but_not_eq() {
         Assert.assertEquals(
-                rating.lt(4).and(not(rating.eq(1))),
+                rating.gt(4).and(not(rating.eq(1))),
                 QueryPredicateBuilder.fromSerializedMap(
                         readMapFromFile("query_predicate",
                                         "mixed_with_not.json",

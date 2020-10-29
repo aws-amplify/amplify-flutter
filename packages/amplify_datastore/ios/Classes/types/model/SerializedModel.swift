@@ -18,6 +18,7 @@ import Foundation
 import Amplify
 
 struct SerializedModel: Model, JSONValueHolder {
+
     public let id: String
     
     public var values: [String: JSONValue]
@@ -68,12 +69,22 @@ struct SerializedModel: Model, JSONValueHolder {
         }
     }
     
-    public func toJSON() -> [String: Any] {
+    public func jsonValue(for key: String, modelSchema: ModelSchema) -> Any?? {
+        let field = modelSchema.field(withName: key)
+        if case .int = field?.type,
+           case .some(.number(let deserializedValue)) = values[key] {
+            return Int(deserializedValue)
+        }
+        return jsonValue(for: key)
+    }
+    
+    public func toJSON(modelSchema: ModelSchema) -> [String: Any] {
         return [
             "id": self.id,
+            "modelName": modelSchema.name,
             "serializedData": Dictionary(uniqueKeysWithValues:
                                             values.map{ (key: String, value: JSONValue) in
-                                                return (key, jsonValue(for: key) ?? nil) })
+                                                return (key, jsonValue(for: key, modelSchema: modelSchema) ?? nil) })
         ]
     }
 }

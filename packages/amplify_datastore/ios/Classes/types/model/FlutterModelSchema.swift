@@ -33,6 +33,12 @@ struct FlutterModelSchema {
     }
     
     public func convertToNativeModelSchema() -> ModelSchema {
-        return ModelSchema.init(name: name, pluralName: pluralName, authRules: authRules ?? [], attributes: attributes, fields: fields.mapValues { $0.convertToNativeModelField() } )
+        return ModelSchema.init(
+            name: name,
+            pluralName: pluralName,
+            authRules: authRules ?? [],
+            attributes: attributes,
+            fields: fields.mapValues { $0.convertToNativeModelField() }
+        )
     }
 }

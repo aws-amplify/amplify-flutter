@@ -15,32 +15,26 @@
 
 import Foundation
 import Amplify
+import AmplifyPlugins
 
 public class QuerySortBuilder {
-    static func fromSerializedList(serializedList: [[String: AnyObject]]?) -> QuerySortInput? {
-        
-        // TODO throw away
-        enum BlahCodingKeys: String, CodingKey {
-            case rating
-        }
-        return QuerySortInput.ascending(BlahCodingKeys.rating)
-        
+    static func fromSerializedList(serializedList: [[String: AnyObject]]?) throws -> [QuerySortDescriptor]? {
         if (serializedList == nil || serializedList!.isEmpty) {
             return nil
         }
-        return QuerySortInput.init(serializedList!.map { fromSerializedMap(serializedMap: $0)!
-        })
+        return try serializedList!.map { try fromSerializedMap(serializedMap: $0) }
     }
     
-    static func fromSerializedMap(serializedMap: [String: AnyObject]) -> QuerySortBy? {
-        let fieldName: CodingKey = serializedMap["field"] as! CodingKey
+    static func fromSerializedMap(serializedMap: [String: AnyObject]) throws -> QuerySortDescriptor {
+        let fieldName = serializedMap["field"] as! String
         switch serializedMap["order"] as! String {
         case "ascending":
-            return QuerySortBy.ascending(fieldName)
+            return QuerySortDescriptor(fieldName: fieldName, order: .ascending)
         case "descending":
-            return QuerySortBy.descending(fieldName)
+            return QuerySortDescriptor(fieldName: fieldName, order: .descending)
         default:
-            return nil
+            // TODO: Change to inhouse errors
+            throw DataStoreError.decodingError("Failed to deserialize sort input from flutter", "Please cut an issue to amplify-flutter repo.")
         }
     }
 }

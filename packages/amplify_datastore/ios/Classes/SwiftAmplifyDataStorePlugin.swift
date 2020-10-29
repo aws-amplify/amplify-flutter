@@ -20,7 +20,14 @@ import AmplifyPlugins
 import AWSCore
 
 public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
-    let flutterModelRegistration = FlutterModels()
+    
+    private let bridge: DataStoreBridge
+    private let flutterModelRegistration: FlutterModels
+    
+    init(bridge: DataStoreBridge = DataStoreBridge(), flutterModelRegistration: FlutterModels = FlutterModels()) {
+        self.bridge = bridge
+        self.flutterModelRegistration = flutterModelRegistration
+    }
     
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "com.amazonaws.amplify/datastore", binaryMessenger: registrar.messenger())
@@ -40,8 +47,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         case "configure":
             onConfigure(args: arguments, result: result)
         case "query":
-            try! createTempPosts()
-            // onQuery(args: arguments, flutterResult: result)
+            // try! createTempPosts()
+            onQuery(args: arguments, flutterResult: result)
         default:
             result(FlutterMethodNotImplemented)
         }
@@ -74,20 +81,27 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         }
     }
     
-    private func onQuery(args: [String: AnyObject], flutterResult: @escaping FlutterResult) {
+    func onQuery(args: [String: AnyObject], flutterResult: @escaping FlutterResult) {
         let modelName = args["modelName"] as! String
         do {
             let queryPredicates = try QueryPredicateBuilder.fromSerializedMap(serializedMap: args["queryPredicate"] as? [String : AnyObject])
-            let querySortInput = QuerySortBuilder.fromSerializedList(serializedList: args["querySort"] as? [[String: AnyObject]])
+            let querySortInput = try QuerySortBuilder.fromSerializedList(serializedList: args["querySort"] as? [[String: AnyObject]])
             let queryPagination = QueryPaginationBuilder.fromSerializedMap(serializedMap: args["queryPagination"] as? [String: AnyObject])
-            getPlugin().query(SerializedModel.self, modelSchema: flutterModelRegistration.modelSchemas[modelName]!, where: queryPredicates, sort: querySortInput, paginate: queryPagination) { (result) in
+            try bridge.onQuery(SerializedModel.self,
+                              modelSchema: flutterModelRegistration.modelSchemas[modelName]!,
+                              where: queryPredicates,
+                              sort: querySortInput,
+                              paginate: queryPagination) { (result) in
                 switch result {
                 case .failure(let error):
                     print("Query error = \(error)")
+                    FlutterDataStoreErrorHandler.handleDataStoreError(error: error,
+                                                                      flutterResult: flutterResult,
+                                                                      msg: FlutterDataStoreErrorMessage.QUERY_FAILED.rawValue)
                 case .success(let res):
                     print("Query result - \(res) ")
                     let serializedResults = res.map { (queryResult) -> [String: Any] in
-                        return queryResult.toJSON()
+                        return queryResult.toJSON(modelSchema: flutterModelRegistration.modelSchemas[modelName]!)
                     }
                     flutterResult(serializedResults)
                     return
@@ -95,12 +109,16 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             }
         } catch {
             print("Failed to parse query arguments with \(error)")
-            flutterResult(false)
+            FlutterDataStoreErrorHandler.prepareError(
+                flutterResult: flutterResult,
+                msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
+                errorMap: ["UNKOWN": "\(error.localizedDescription).\nAn unrecognized error has occurred. See logs for details." ])
             return
         }
     }
     
     private func createTempPosts() throws {
+        _ = try getPlugin().clear()
         func getJSONValue(_ jsonDict: [String: Any]) -> [String: JSONValue]{
             guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonDict) else {
                 print("JSON error")
@@ -128,8 +146,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                       SerializedModel(map: getJSONValue(["id": UUID().uuidString,
                                                          "title": "Title 4",
                                                          "created": "2020-02-22T20:20:20-08:00"] as [String : Any]))]
-        models.forEach { model in
-            getPlugin().save(model, modelSchema: flutterModelRegistration.modelSchemas["Post"]!) { (result) in
+        try models.forEach { model in
+            try getPlugin().save(model, modelSchema: flutterModelRegistration.modelSchemas["Post"]!) { (result) in
                 switch result {
                 case .failure(let error):
                     print("Save error = \(error)")
@@ -148,9 +166,9 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         return res;
     }
     
-    private func getPlugin() -> AWSDataStorePlugin {
-        let plugin = try! Amplify.DataStore.getPlugin(for: "awsDataStorePlugin") as! AWSDataStorePlugin
-        return plugin
+    // TODO: Remove once all configure is moved to the bridge
+    func getPlugin() throws -> AWSDataStorePlugin {
+        return try Amplify.DataStore.getPlugin(for: "awsDataStorePlugin") as! AWSDataStorePlugin
     }
     
 }

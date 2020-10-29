@@ -69,7 +69,14 @@ public struct FlutterModelField {
     }
     
 public func convertToNativeModelField() -> ModelField {
-        return ModelField.init(name: name, type: type, isRequired: isRequired, isArray: isArray, attributes: attributes , association: association, authRules: authRules )
+        return ModelField.init(
+            name: name,
+            type: type,
+            isRequired: isRequired,
+            isArray: isArray,
+            attributes: attributes,
+            association: association,
+            authRules: authRules)
     }
 }
 
