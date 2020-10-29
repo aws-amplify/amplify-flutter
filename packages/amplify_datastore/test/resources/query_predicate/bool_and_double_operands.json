@@ -1,0 +1,19 @@
+{
+  "queryPredicateGroup": {
+    "type": "and",
+    "predicates": [
+      {
+        "queryPredicateOperation": {
+          "field": "rating",
+          "fieldOperator": { "operatorName": "equal", "value": 1.3 }
+        }
+      },
+      {
+        "queryPredicateOperation": {
+          "field": "created",
+          "fieldOperator": { "operatorName": "equal", "value": true }
+        }
+      }
+    ]
+  }
+}
