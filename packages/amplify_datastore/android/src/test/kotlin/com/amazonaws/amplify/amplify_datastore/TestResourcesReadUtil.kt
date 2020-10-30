@@ -13,11 +13,12 @@
  * permissions and limitations under the License.
  */
 
-package com.amazonaws.amplify.amplify_datastore.types
+package com.amazonaws.amplify.amplify_datastore
 
-enum class FlutterDataStoreFailureMessage {
-    ERROR_CASTING_INPUT_IN_PLATFORM_CODE,
-    AMPLIFY_QUERY_REQUEST_MALFORMED,
-    AMPLIFY_CONFIGURE_REQUEST_MALFORMED,
-    AMPLIFY_DATASTORE_QUERY_FAILED
+import com.fasterxml.jackson.databind.ObjectMapper
+
+fun <T> readMapFromFile(dir: String, path: String, clazz: Class<T>): T {
+    val filePath = "$dir/$path"
+    val jsonFile = ClassLoader.getSystemResource(filePath).readText()
+    return ObjectMapper().readValue(jsonFile, clazz)
 }

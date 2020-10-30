@@ -1,3 +1,18 @@
+/*
+ * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -95,5 +110,46 @@ void main() {
         sortBy: [Post.ID.ascending(), Post.CREATED.descending()],
         pagination: QueryPagination(page: 2, limit: 8));
     expect(posts.length, 0);
+  });
+
+  test('method channel throws a known PlatformException', () async {
+    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      if (methodCall.method == "query") {
+        throw PlatformException(
+            code: "AMPLIFY_EXCEPTION",
+            message: "AMPLIFY_QUERY_REQUEST_MALFORMED",
+            details: {});
+      }
+    });
+    expect(
+        () => dataStore.query(Post.classType),
+        throwsA(isA<DataStoreError>().having((error) => error.cause,
+            "error message", "AMPLIFY_QUERY_REQUEST_MALFORMED")));
+  });
+
+  test('method channel throws an unknown PlatformException', () async {
+    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      if (methodCall.method == "query") {
+        throw PlatformException(
+            code: "AMPLIFY_EXCEPTION", message: "Some Random", details: {});
+      }
+    });
+    expect(
+        () => dataStore.query(Post.classType),
+        throwsA(isA<DataStoreError>().having((error) => error.cause,
+            "error message", "UNRECOGNIZED_DATASTORE_ERROR")));
+  });
+
+  test('method channel returns results something that cannot be parsed',
+      () async {
+    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      if (methodCall.method == "query") {
+        return "fake";
+      }
+    });
+    expect(
+        () => dataStore.query(Post.classType),
+        throwsA(isA<DataStoreError>().having((error) => error.cause,
+            "error message", "ERROR_FORMATTING_PLATFORM_CHANNEL_RESPONSE")));
   });
 }
