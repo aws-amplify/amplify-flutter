@@ -15,10 +15,12 @@
 
 package com.amazonaws.amplify.amplify_datastore
 
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import androidx.annotation.NonNull
+import androidx.annotation.RequiresApi
 import androidx.annotation.VisibleForTesting
 import com.amazonaws.amplify.amplify_datastore.types.FlutterDataStoreFailureMessage
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterModelSchema
@@ -44,7 +46,9 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import java.time.LocalDateTime
+import java.time.Instant
+import java.time.LocalDate
+import java.time.Month
 import java.util.Date
 import java.util.UUID
 
@@ -103,10 +107,19 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         flutterResult.success(null)
     }
 
+    private var called: Boolean = false;
+
     @VisibleForTesting
     fun onQuery(flutterResult: Result, request: HashMap<String, Any>) {
-        // Create new posts temporary
-        createTempPosts()
+
+        if(!called){
+            // Create new posts temporary
+            //createTempPosts()
+
+            //deleteAll();
+            createComplexModel();
+            called = true;
+        }
 
         var modelName: String
         var queryOptions: QueryOptions
@@ -152,13 +165,13 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun createComplexModel(){
 
         val post = Post.builder()
                 .title("My Post with comments")
                 .rating(10)
-                .created(Temporal.Date(
-                        "2020-02-20T20:20:20-08:00"))
+                .created( Temporal.DateTime("2020-02-02T20:20:20-08:00") )
                 .build()
 
         val comment = Comment.builder()
@@ -180,7 +193,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
     }
 
-    private fun deleteAllPost(){
+    private fun deleteAll(){
 
         Amplify.DataStore.query(Post::class.java, Where.matchesAll(),
                 { matches ->
@@ -188,38 +201,26 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                         val post = matches.next()
                         Amplify.DataStore.delete(post,
                                 { Log.i("MyAmplifyApp", "Deleted a post.") },
-                                { Log.e("MyAmplifyApp", "Delete failed.", it) }
+                                { Log.e("MyAmplifyApp", "Delete post failed.", it) }
                         )
                     }
                 },
-                { Log.e("MyAmplifyApp", "Query failed.", it) }
+                { Log.e("MyAmplifyApp", "Query delete Post failed.", it) }
+        )
+
+        Amplify.DataStore.query(Comment::class.java, Where.matchesAll(),
+                { matches ->
+                    if (matches.hasNext()) {
+                        val post = matches.next()
+                        Amplify.DataStore.delete(post,
+                                { Log.i("MyAmplifyApp", "Deleted a comment.") },
+                                { Log.e("MyAmplifyApp", "Delete comment failed.", it) }
+                        )
+                    }
+                },
+                { Log.e("MyAmplifyApp", "Query delete Comment failed.", it) }
         )
     }
-
-    /*
-    private fun createComplexModel(){
-
-        val post = Post.builder()
-                .title("My Post with comments")
-                .rating(10)
-                .status(PostStatus.ACTIVE)
-                .build()
-
-        val comment = Comment.builder()
-                .post(post) // Directly pass in the post instance
-                .content("Loving Amplify DataStore!")
-                .build()
-
-        Amplify.DataStore.save()
-
-
-        val postSerializedData: List<Map<String, Any>> = listOf(
-                mapOf(
-
-                )
-        )
-    }
-     */
 
     private fun createTempPosts() {
         val postSerializedData: List<Map<String, Any>> = listOf(

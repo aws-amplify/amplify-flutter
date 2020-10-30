@@ -31,7 +31,7 @@ public final class Post implements Model {
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String title;
   private final @ModelField(targetType="Int", isRequired = true) Integer rating;
-  private final @ModelField(targetType="AWSDate", isRequired = true) Temporal.Date created;
+  private final @ModelField(targetType="AWSDate", isRequired = true) Temporal.DateTime created;
   private final @ModelField(targetType="Blog") @BelongsTo(targetName = "blogID", type = Blog.class) Blog blog;
   private final @ModelField(targetType="Comment") @HasMany(associatedWith = "post", type = Comment.class) List<Comment> comments = null;
   public String getId() {
@@ -46,7 +46,7 @@ public final class Post implements Model {
       return rating;
   }
   
-  public Temporal.Date getCreated() {
+  public Temporal.DateTime getCreated() {
       return created;
   }
   
@@ -58,7 +58,7 @@ public final class Post implements Model {
       return comments;
   }
   
-  private Post(String id, String title, Integer rating, Temporal.Date created, Blog blog) {
+  private Post(String id, String title, Integer rating, Temporal.DateTime created, Blog blog) {
     this.id = id;
     this.title = title;
     this.rating = rating;
@@ -157,7 +157,7 @@ public final class Post implements Model {
   
 
   public interface CreatedStep {
-    BuildStep created(Temporal.Date created);
+    BuildStep created(Temporal.DateTime created);
   }
   
 
@@ -172,7 +172,7 @@ public final class Post implements Model {
     private String id;
     private String title;
     private Integer rating;
-    private Temporal.Date created;
+    private Temporal.DateTime created;
     private Blog blog;
     @Override
      public Post build() {
@@ -201,7 +201,7 @@ public final class Post implements Model {
     }
     
     @Override
-     public BuildStep created(Temporal.Date created) {
+     public BuildStep created(Temporal.DateTime created) {
         Objects.requireNonNull(created);
         this.created = created;
         return this;
@@ -236,7 +236,7 @@ public final class Post implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String title, Integer rating, Temporal.Date created, Blog blog) {
+    private CopyOfBuilder(String id, String title, Integer rating, Temporal.DateTime created, Blog blog) {
       super.id(id);
       super.title(title)
         .rating(rating)
@@ -255,7 +255,7 @@ public final class Post implements Model {
     }
     
     @Override
-     public CopyOfBuilder created(Temporal.Date created) {
+     public CopyOfBuilder created(Temporal.DateTime created) {
       return (CopyOfBuilder) super.created(created);
     }
     

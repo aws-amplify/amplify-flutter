@@ -24,6 +24,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'amplifyconfiguration.dart';
 import 'codegen/Post.dart';
+import 'codegen/Comment.dart';
 
 void main() {
   runApp(MyApp());
@@ -38,6 +39,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _posts = '';
+  String _comments = '';
   String _posts4rating = '';
   String _posts1To4Rating = '';
   String _postWithCreatedDate = '';
@@ -61,6 +63,7 @@ class _MyAppState extends State<MyApp> {
     // Configure
     await amplify.configure(amplifyconfig);
     String allPosts = '';
+    String allComments = '';
     String posts4Rating = '';
     String posts1To4Rating = '';
     String posts2Or5Rating = '';
@@ -74,6 +77,23 @@ class _MyAppState extends State<MyApp> {
         .forEach((element) {
       allPosts += encoder.convert(element.toJson()) + '\n';
     });
+
+    // Original
+    /*
+    (await Amplify.DataStore.query(Comment.classType,
+            sortBy: [Post.RATING.ascending()]))
+        .forEach((element) {
+      allPosts += encoder.convert(element.toJson()) + '\n';
+    });
+     */
+
+    /*
+    (await Amplify.DataStore.query(Comment.classType,
+            sortBy: [Comment.CONTENT.ascending()]))
+        .forEach((element) {
+      allPosts += encoder.convert(element.toJson()) + '\n';
+    });
+     */
 
     (await Amplify.DataStore.query(Post.classType, where: Post.RATING.ge(4)))
         .forEach((element) {
@@ -142,7 +162,8 @@ class _MyAppState extends State<MyApp> {
           body: Center(
               child: new SingleChildScrollView(
                   child: Text(
-                      'All Posts sort by rating ascending (sorting not working)\n$_posts\n\n'))
+                      'All Posts sort by rating ascending (sorting not working)\n$_posts\n\n' +
+                          'All Comments \n$_comments\n\n'))
               /*
                     'First post from list of all posts\n$_firstPostFromResult\n\n' +
                     'Posts >= 4 rating\n$_posts4rating\n\n' +
