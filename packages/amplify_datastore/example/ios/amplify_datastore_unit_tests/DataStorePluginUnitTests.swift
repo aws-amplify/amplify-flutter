@@ -25,25 +25,19 @@ let amplifySuccessResults: [SerializedModel] =
             id: serializedModel["id"] as! String,
             map: getJSONValue(serializedModel["serializedData"] as! [String : Any]))
     }
+
 let id: QueryField = field("id")
 let title: QueryField = field("title")
 let rating: QueryField = field("rating")
 let created: QueryField = field("created")
-
 
 class DataStorePluginUnitTests: XCTestCase {
     
     var pluginUnderTest: SwiftAmplifyDataStorePlugin = SwiftAmplifyDataStorePlugin()
     var flutterModelSchemaRegistration: FlutterModels = FlutterModels()
     
-    
-    
     override func setUpWithError() throws {
         flutterModelSchemaRegistration.addModelSchema(modelName: "Post", modelSchema: testSchema)
-    }
-    
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
     
     func test_query_success_result_with_query_parameters() throws {
