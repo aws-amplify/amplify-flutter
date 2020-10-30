@@ -1,9 +1,17 @@
-//
-//  DataStorePluginUnitTests.swift
-//  amplify_datastore_unit_tests
-//
-//  Created by Gupta, Praveen on 10/28/20.
-//
+/*
+ * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
 
 import XCTest
 import Amplify
@@ -72,7 +80,7 @@ class DataStorePluginUnitTests: XCTestCase {
         let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
         pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, flutterModelRegistration: flutterModelSchemaRegistration)
         pluginUnderTest.onQuery(
-            args: try readJsonMap(filePath: "model_name_with_all_query_parameters") as [String: AnyObject],
+            args: try readJsonMap(filePath: "model_name_with_all_query_parameters") as [String: Any],
             flutterResult: { (results) -> Void in
                 if let results = results as? [[String: Any]] {
                     // Result #1 (Any/AnyObject is not equatable so we iterate over fields we know)
@@ -118,7 +126,7 @@ class DataStorePluginUnitTests: XCTestCase {
         let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
         pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, flutterModelRegistration: flutterModelSchemaRegistration)
         pluginUnderTest.onQuery(
-            args: try readJsonMap(filePath: "only_model_name") as [String: AnyObject],
+            args: try readJsonMap(filePath: "only_model_name") as [String: Any],
             flutterResult: { (results) -> Void in
                 if let exception = results as? FlutterError {
                     // Result #1 (Any/AnyObject is not equatable so we iterate over fields we know)
@@ -133,49 +141,5 @@ class DataStorePluginUnitTests: XCTestCase {
                     XCTFail()
                 }
             })
-    }
-}
-
-private func getJSONValue(_ jsonDict: [String: Any]) -> [String: JSONValue]{
-    guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonDict) else {
-        print("JSON error")
-        return [:]
-    }
-    guard let jsonValue = try? JSONDecoder().decode(Dictionary<String, JSONValue>.self,
-                                                    from: jsonData) else {
-        print("JSON error")
-        return [:]
-    }
-    return jsonValue
-}
-
-private func readJsonMap(filePath: String) throws -> [String: Any] {
-    if let object = try readJson(filePath: filePath) as? [String: Any] {
-        return object
-    } else {
-        throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotDecodeRawData, userInfo: nil)
-    }
-}
-
-private func readJsonArray(filePath: String) throws -> [Any] {
-    if let object = try readJson(filePath: filePath) as? [Any] {
-        return object
-    } else {
-        throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotDecodeRawData, userInfo: nil)
-    }
-}
-
-private func readJson(filePath: String) throws -> Any {
-    do {
-        let bundle = Bundle(for: QueryPredicateBuilderUnitTests.self)
-        if let file = bundle.url(forResource: filePath, withExtension: "json") {
-            let data = try Data(contentsOf: file)
-            return try JSONSerialization.jsonObject(with: data, options: [])
-        } else {
-            throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotOpenFile, userInfo: nil)
-        }
-    } catch {
-        print(error.localizedDescription)
-        throw error
     }
 }

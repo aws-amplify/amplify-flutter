@@ -36,7 +36,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        var arguments: [String: AnyObject] = [:]
+        var arguments: [String: Any] = [:]
         do {
             try arguments = checkArguments(args: call.arguments as Any)
         } catch {
@@ -54,8 +54,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         }
     }
     
-    private func onConfigure(args: [String: AnyObject], result: @escaping FlutterResult) {
-        guard let modelSchemaList = args["modelSchemas"] as? [[String: AnyObject]] else {
+    private func onConfigure(args: [String: Any], result: @escaping FlutterResult) {
+        guard let modelSchemaList = args["modelSchemas"] as? [[String: Any]] else {
             result(false)
             return //TODO
         }
@@ -81,12 +81,12 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         }
     }
     
-    func onQuery(args: [String: AnyObject], flutterResult: @escaping FlutterResult) {
-        let modelName = args["modelName"] as! String
+    func onQuery(args: [String: Any], flutterResult: @escaping FlutterResult) {
         do {
-            let queryPredicates = try QueryPredicateBuilder.fromSerializedMap(serializedMap: args["queryPredicate"] as? [String : AnyObject])
-            let querySortInput = try QuerySortBuilder.fromSerializedList(serializedList: args["querySort"] as? [[String: AnyObject]])
-            let queryPagination = QueryPaginationBuilder.fromSerializedMap(serializedMap: args["queryPagination"] as? [String: AnyObject])
+            let modelName = args["modelName"] as! String
+            let queryPredicates = try QueryPredicateBuilder.fromSerializedMap(serializedMap: args["queryPredicate"] as? [String : Any])
+            let querySortInput = try QuerySortBuilder.fromSerializedList(serializedList: args["querySort"] as? [[String: Any]])
+            let queryPagination = QueryPaginationBuilder.fromSerializedMap(serializedMap: args["queryPagination"] as? [String: Any])
             try bridge.onQuery(SerializedModel.self,
                               modelSchema: flutterModelRegistration.modelSchemas[modelName]!,
                               where: queryPredicates,
@@ -94,12 +94,11 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                               paginate: queryPagination) { (result) in
                 switch result {
                 case .failure(let error):
-                    print("Query error = \(error)")
+                    print("Query API failed. Error = \(error)")
                     FlutterDataStoreErrorHandler.handleDataStoreError(error: error,
                                                                       flutterResult: flutterResult,
                                                                       msg: FlutterDataStoreErrorMessage.QUERY_FAILED.rawValue)
                 case .success(let res):
-                    print("Query result - \(res) ")
                     let serializedResults = res.map { (queryResult) -> [String: Any] in
                         return queryResult.toJSON(modelSchema: flutterModelRegistration.modelSchemas[modelName]!)
                     }
@@ -158,8 +157,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         }
     }
     
-    private func checkArguments(args: Any) throws -> [String: AnyObject] {
-        guard let res = args as? [String: AnyObject] else {
+    private func checkArguments(args: Any) throws -> [String: Any] {
+        guard let res = args as? [String: Any] else {
             throw DataStoreError.decodingError("Flutter method call arguments are not a map.",
                                                "Check the values that are being passed from Dart.")
         }

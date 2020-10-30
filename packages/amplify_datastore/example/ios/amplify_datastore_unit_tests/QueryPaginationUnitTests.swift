@@ -1,9 +1,17 @@
-//
-//  amplify_datastore_unit_tests.swift
-//  amplify_datastore_unit_tests
-//
-//  Created by Gupta, Praveen on 10/27/20.
-//
+/*
+ * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
 
 import XCTest
 import Amplify
@@ -16,12 +24,11 @@ extension QueryPaginationInput : Equatable {
     }
 }
 
-
 class QueryPaginationBuilderUnitTests: XCTestCase {
     
-    let customPageAndLimit = ["page": 3, "limit": 200] as [String: AnyObject]
-    let firstPage = ["page": 0, "limit": 100] as [String: AnyObject]
-    let firstResult = ["page": 0, "limit": 1] as [String: AnyObject]
+    let customPageAndLimit = ["page": 3, "limit": 200] as [String: Any]
+    let firstPage = ["page": 0, "limit": 100] as [String: Any]
+    let firstResult = ["page": 0, "limit": 1] as [String: Any]
     
     func test_when_requesting_custom_page_and_limit() throws {
         let expected : QueryPaginationInput = QueryPaginationInput.page(3, limit: 200)

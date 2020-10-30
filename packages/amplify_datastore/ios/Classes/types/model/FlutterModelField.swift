@@ -27,7 +27,7 @@ public struct FlutterModelField {
     public let association: ModelAssociation? = nil
     public let authRules: AuthRules = []
     
-    init(serializedData: [String: AnyObject]) {
+    init(serializedData: [String: Any]) {
         self.name = serializedData["name"] as! String
         self.type = ModelFieldType.from(type: FlutterModelField.deserializeFieldType(type: serializedData["type"] as! String))
         self.isRequired = serializedData["isRequired"] as! Bool

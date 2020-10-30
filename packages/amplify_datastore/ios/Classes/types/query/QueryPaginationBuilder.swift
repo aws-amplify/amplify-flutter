@@ -18,14 +18,14 @@ import Amplify
 
 public class QueryPaginationBuilder {
    
-    static func fromSerializedMap(serializedMap: [String: AnyObject]?) -> QueryPaginationInput {
+    static func fromSerializedMap(serializedMap: [String: Any]?) -> QueryPaginationInput {
         var page: UInt = 0, limit: UInt = QueryPaginationInput.defaultLimit;
         if let data = serializedMap {
-            if let pageInput = (data["page"] as? UInt) {
-                page = pageInput;
+            if let pageInput = (data["page"] as? Int) {
+                page = UInt(pageInput)
             }
-            if let limitInput = (data["limit"] as? UInt) {
-                limit = limitInput;
+            if let limitInput = (data["limit"] as? Int) {
+                limit = UInt(limitInput)
             }
         }
         return QueryPaginationInput.page(page, limit: limit)

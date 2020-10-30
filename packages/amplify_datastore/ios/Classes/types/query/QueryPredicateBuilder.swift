@@ -19,46 +19,50 @@ import Amplify
 
 public class QueryPredicateBuilder {
     
-    static func fromSerializedMap(serializedMap: [String: AnyObject]?) throws -> QueryPredicate {
+    static func fromSerializedMap(serializedMap: [String: Any]?) throws -> QueryPredicate {
         
         guard let data = serializedMap else {
             return QueryPredicateConstant.all
         }
         
-        if let queryPredicateOperationMap = data["queryPredicateOperation"] as? [String: AnyObject] {
-            let fieldValue = queryPredicateOperationMap["field"] as! String
-            let queryField = field(fieldValue)
-            let queryFieldOperatorMap = queryPredicateOperationMap["fieldOperator"] as! [String: AnyObject]
-            let operand = convertToAmplifyPersistable(operand: queryFieldOperatorMap["value"])
-            let operatorName = queryFieldOperatorMap["operatorName"] as! String
-            switch operatorName {
-            case "equal":
-                return queryField.eq(operand)
-            case "not_equal":
-                return queryField.ne(operand)
-            case "less_or_equal":
-                return queryField.le(operand!)
-            case "less_than":
-                return queryField.lt(operand!)
-            case "greater_or_equal":
-                return queryField.ge(operand!)
-            case "greater_than":
-                return queryField.gt(operand!)
-            case "contains":
-                return queryField.contains(operand as! String)
-            case "between":
-                return queryField.between(start: convertToAmplifyPersistable(operand: queryFieldOperatorMap["start"])!,
-                                          end: convertToAmplifyPersistable(operand: queryFieldOperatorMap["end"])!)
-            case "begins_with":
-                return queryField.beginsWith(operand as! String)
-            default:
-                throw DataStoreError.decodingError("Received invalid operator name \(operatorName) in query operator. ",
+        if let queryPredicateOperationMap = data["queryPredicateOperation"] as? [String: Any] {
+            if let fieldValue = queryPredicateOperationMap["field"] as? String,
+               let queryFieldOperatorMap = queryPredicateOperationMap["fieldOperator"] as? [String: Any],
+               let operatorName = queryFieldOperatorMap["operatorName"] as? String {
+                let operand = convertToAmplifyPersistable(operand: queryFieldOperatorMap["value"])
+                let queryField = field(fieldValue)
+                switch operatorName {
+                case "equal":
+                    return queryField.eq(operand)
+                case "not_equal":
+                    return queryField.ne(operand)
+                case "less_or_equal":
+                    return queryField.le(operand!)
+                case "less_than":
+                    return queryField.lt(operand!)
+                case "greater_or_equal":
+                    return queryField.ge(operand!)
+                case "greater_than":
+                    return queryField.gt(operand!)
+                case "contains":
+                    return queryField.contains(operand as! String)
+                case "between":
+                    return queryField.between(start: convertToAmplifyPersistable(operand: queryFieldOperatorMap["start"])!,
+                                              end: convertToAmplifyPersistable(operand: queryFieldOperatorMap["end"])!)
+                case "begins_with":
+                    return queryField.beginsWith(operand as! String)
+                default:
+                    throw DataStoreError.decodingError("Received invalid operator name \(operatorName) in query operator. ",
+                                                       "Check the values that are being passed from Dart.")
+                }
+            } else {
+                throw DataStoreError.decodingError("Received invalid serialized query predicate operation. ",
                                                    "Check the values that are being passed from Dart.")
             }
         }
         
-        if let queryPredicateGroupMap = data["queryPredicateGroup"] as? [String: AnyObject] {
-            let serializedPredicates = queryPredicateGroupMap["predicates"] as! [[String: AnyObject]]
+        if let queryPredicateGroupMap = data["queryPredicateGroup"] as? [String: Any] {
+            let serializedPredicates = queryPredicateGroupMap["predicates"] as! [[String: Any]]
             var predicates = try serializedPredicates.map { try fromSerializedMap(serializedMap:$0) }
             var resultQueryPredicate: QueryPredicate
             if(predicates[0] is QueryPredicateOperation) {
@@ -74,7 +78,7 @@ public class QueryPredicateBuilder {
                     return resultQueryPredicate
                 default:
                     throw DataStoreError.decodingError("Received invalid query predicate group type " +
-                                                       "\(String(describing: queryPredicateGroupMap["type"]))",
+                                                        "\(String(describing: queryPredicateGroupMap["type"]))",
                                                        "Check the values that are being passed from Dart.")
                 }
             } else { // has to be a QueryPredicateGroup
@@ -100,7 +104,7 @@ public class QueryPredicateBuilder {
                 resultQueryPredicate = not(resultQueryPredicate as! QueryPredicateGroup)
             default:
                 throw DataStoreError.decodingError("Received invalid query predicate group type " +
-                                                   "\(String(describing: queryPredicateGroupMap["type"]))",
+                                                    "\(String(describing: queryPredicateGroupMap["type"]))",
                                                    "Check the values that are being passed from Dart.")
             }
             return resultQueryPredicate
@@ -110,7 +114,7 @@ public class QueryPredicateBuilder {
                                            "Check the values that are being passed from Dart.")
     }
     
-    static func convertToAmplifyPersistable(operand: AnyObject?) -> Persistable? {
+    static func convertToAmplifyPersistable(operand: Any?) -> Persistable? {
         if operand == nil {
             return nil
         }

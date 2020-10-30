@@ -25,10 +25,10 @@ struct FlutterModelSchema {
     let fields: FlutterModelFields
     let attributes: [ModelAttribute] = []
     
-    init(serializedData: [String: AnyObject]) {
+    init(serializedData: [String: Any]) {
         self.name = serializedData["name"] as! String
         self.pluralName = serializedData["pluralName"] as? String
-        self.fields = (serializedData["fields"] as! [String: [String: AnyObject]]).mapValues { FlutterModelField.init(serializedData: $0)
+        self.fields = (serializedData["fields"] as! [String: [String: Any]]).mapValues { FlutterModelField.init(serializedData: $0)
         }
     }
     

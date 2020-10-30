@@ -19,6 +19,7 @@
 		B409DE1F254A218A006AECDB /* 2_results.json in Resources */ = {isa = PBXBuildFile; fileRef = B409DE1C254A218A006AECDB /* 2_results.json */; };
 		B409DE20254A218A006AECDB /* only_model_name.json in Resources */ = {isa = PBXBuildFile; fileRef = B409DE1D254A218A006AECDB /* only_model_name.json */; };
 		B409DE21254A218A006AECDB /* model_name_with_all_query_parameters.json in Resources */ = {isa = PBXBuildFile; fileRef = B409DE1E254A218A006AECDB /* model_name_with_all_query_parameters.json */; };
+		B409DE75254BAC5A006AECDB /* GetJsonFromFileUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B409DE74254BAC5A006AECDB /* GetJsonFromFileUtil.swift */; };
 		B4A5C37E2548A5D000B9E501 /* QuerySortBuilderUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A5C37D2548A5D000B9E501 /* QuerySortBuilderUnitTests.swift */; };
 		B4A5C3F42548C7B500B9E501 /* QueryPaginationUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A5C3F32548C7B500B9E501 /* QueryPaginationUnitTests.swift */; };
 		B4A5C4482548E4CF00B9E501 /* QueryPredicateBuilderUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A5C4472548E4CF00B9E501 /* QueryPredicateBuilderUnitTests.swift */; };
@@ -69,6 +70,7 @@
 		B409DE1C254A218A006AECDB /* 2_results.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 2_results.json; sourceTree = "<group>"; };
 		B409DE1D254A218A006AECDB /* only_model_name.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = only_model_name.json; sourceTree = "<group>"; };
 		B409DE1E254A218A006AECDB /* model_name_with_all_query_parameters.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_name_with_all_query_parameters.json; sourceTree = "<group>"; };
+		B409DE74254BAC5A006AECDB /* GetJsonFromFileUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetJsonFromFileUtil.swift; sourceTree = "<group>"; };
 		B4A5C37B2548A5D000B9E501 /* amplify_datastore_unit_tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = amplify_datastore_unit_tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4A5C37D2548A5D000B9E501 /* QuerySortBuilderUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuerySortBuilderUnitTests.swift; sourceTree = "<group>"; };
 		B4A5C37F2548A5D000B9E501 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -203,12 +205,13 @@
 		B4A5C37C2548A5D000B9E501 /* amplify_datastore_unit_tests */ = {
 			isa = PBXGroup;
 			children = (
-				B409DD20254A02EE006AECDB /* DataStorePluginUnitTests.swift */,
 				B4A5C44E2548EF7800B9E501 /* resources */,
 				B4A5C4472548E4CF00B9E501 /* QueryPredicateBuilderUnitTests.swift */,
 				B4A5C3F32548C7B500B9E501 /* QueryPaginationUnitTests.swift */,
 				B4A5C37D2548A5D000B9E501 /* QuerySortBuilderUnitTests.swift */,
+				B409DD20254A02EE006AECDB /* DataStorePluginUnitTests.swift */,
 				B4A5C37F2548A5D000B9E501 /* Info.plist */,
+				B409DE74254BAC5A006AECDB /* GetJsonFromFileUtil.swift */,
 			);
 			path = amplify_datastore_unit_tests;
 			sourceTree = "<group>";
@@ -467,6 +470,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B409DE75254BAC5A006AECDB /* GetJsonFromFileUtil.swift in Sources */,
 				B4A5C3F42548C7B500B9E501 /* QueryPaginationUnitTests.swift in Sources */,
 				B4A5C4482548E4CF00B9E501 /* QueryPredicateBuilderUnitTests.swift in Sources */,
 				B409DD21254A02EE006AECDB /* DataStorePluginUnitTests.swift in Sources */,

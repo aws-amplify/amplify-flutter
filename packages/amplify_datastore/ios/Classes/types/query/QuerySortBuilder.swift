@@ -18,23 +18,26 @@ import Amplify
 import AmplifyPlugins
 
 public class QuerySortBuilder {
-    static func fromSerializedList(serializedList: [[String: AnyObject]]?) throws -> [QuerySortDescriptor]? {
-        if (serializedList == nil || serializedList!.isEmpty) {
-            return nil
+    static func fromSerializedList(serializedList: [[String: Any]]?) throws -> [QuerySortDescriptor]? {
+        if let serializedList = serializedList, !serializedList.isEmpty {
+            return try serializedList.map { try fromSerializedMap(serializedMap: $0) }
         }
-        return try serializedList!.map { try fromSerializedMap(serializedMap: $0) }
+        return nil
     }
     
-    static func fromSerializedMap(serializedMap: [String: AnyObject]) throws -> QuerySortDescriptor {
-        let fieldName = serializedMap["field"] as! String
-        switch serializedMap["order"] as! String {
-        case "ascending":
-            return QuerySortDescriptor(fieldName: fieldName, order: .ascending)
-        case "descending":
-            return QuerySortDescriptor(fieldName: fieldName, order: .descending)
-        default:
-            // TODO: Change to inhouse errors
-            throw DataStoreError.decodingError("Failed to deserialize sort input from flutter", "Please cut an issue to amplify-flutter repo.")
+    static func fromSerializedMap(serializedMap: [String: Any]) throws -> QuerySortDescriptor {
+        if let fieldName = serializedMap["field"] as? String, let order = serializedMap["order"] as? String {
+            switch order {
+            case "ascending":
+                return QuerySortDescriptor(fieldName: fieldName, order: .ascending)
+            case "descending":
+                return QuerySortDescriptor(fieldName: fieldName, order: .descending)
+            default:
+                throw DataStoreError.decodingError("Failed to deserialize sort input from flutter",
+                                                   "Please create an issue to amplify-flutter repo.")
+            }
         }
+        throw DataStoreError.decodingError("Failed to deserialize sort input from flutter",
+                                           "Please create an issue to amplify-flutter repo.")
     }
 }
