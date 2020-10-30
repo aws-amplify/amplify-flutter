@@ -12,7 +12,6 @@ The DataStore module for Amplify Flutter.
   s.homepage = 'https://github.com/aws-amplify/amplify-flutter'
   s.license = 'Apache License, Version 2.0'
   s.author = { 'Amazon Web Services' => 'amazonwebservices' }
-  s.source = { :git => 'file:///Users/pravgupt/Workspaces/iOS/datastore-fork/amplify-ios' } # be noted the triple-slash
   s.source = { :git => 'https://github.com/aws-amplify/amplify-flutter.git' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
