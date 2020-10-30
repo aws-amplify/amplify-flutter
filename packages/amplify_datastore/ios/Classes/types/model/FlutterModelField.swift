@@ -56,6 +56,7 @@ public struct FlutterModelField {
         if type == "Date" {
             return Temporal.Date.self
         }
+        // TODO: Serialize all fields when we do configure()
         //        if let enumType = type as? EnumPersistable.Type {
         //            return .enum(type: enumType)
         //        }

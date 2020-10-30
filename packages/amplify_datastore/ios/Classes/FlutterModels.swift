@@ -17,7 +17,6 @@ import Amplify
 import Foundation
 
 // Contains the set of classes that conforms to the `Model` protocol.
-
 final public class FlutterModels: AmplifyModelRegistration {
     public let version: String = "e9c358927805a236769ad01b2804e6f1"
     
@@ -31,7 +30,6 @@ final public class FlutterModels: AmplifyModelRegistration {
         modelSchemas.forEach { entry in
             ModelRegistry.register(modelType: SerializedModel.self,
                                    modelSchema: entry.value) { (jsonString, decoder) -> Model in
-            print("Reached here for decoding - \(jsonString)")
             let resolvedDecoder: JSONDecoder
             if let decoder = decoder {
                 resolvedDecoder = decoder
@@ -42,12 +40,10 @@ final public class FlutterModels: AmplifyModelRegistration {
             // Convert jsonstring to object
             let data = jsonString.data(using: .utf8)!
             let jsonValue = try resolvedDecoder.decode(JSONValue.self, from: data)
-            print(jsonValue)
             if case .array(let jsonArray) = jsonValue,
                case .object(let jsonObj) = jsonArray[0],
                case .string(let id) = jsonObj["id"] {
                 let model = SerializedModel(id: id, map: jsonObj)
-                print(id)
                 return model
             }
             throw DataStoreError.decodingError(
@@ -58,6 +54,5 @@ final public class FlutterModels: AmplifyModelRegistration {
         
             }
         }
-
     }
 }

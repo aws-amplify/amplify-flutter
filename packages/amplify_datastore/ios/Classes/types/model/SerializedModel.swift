@@ -18,10 +18,9 @@ import Foundation
 import Amplify
 
 struct SerializedModel: Model, JSONValueHolder {
-
-    public let id: String
     
-    public var values: [String: JSONValue]
+    public let id: String
+    public let values: [String: JSONValue]
     
     public init(id: String = UUID().uuidString, map: [String: JSONValue]) {
         self.id = id
@@ -29,8 +28,6 @@ struct SerializedModel: Model, JSONValueHolder {
     }
     
     public init(from decoder: Decoder) throws {
-        
-        print("Decoder \(decoder)")
         let y = try decoder.container(keyedBy: CodingKeys.self)
         id = try y.decode(String.self, forKey: .id)
         let json = try JSONValue(from: decoder)
@@ -83,7 +80,7 @@ struct SerializedModel: Model, JSONValueHolder {
             "id": self.id,
             "modelName": modelSchema.name,
             "serializedData": Dictionary(uniqueKeysWithValues:
-                                            values.map{ (key: String, value: JSONValue) in
+                                            values.map { (key: String, value: JSONValue) in
                                                 return (key, jsonValue(for: key, modelSchema: modelSchema) ?? nil) })
         ]
     }

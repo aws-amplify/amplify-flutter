@@ -40,7 +40,11 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         do {
             try arguments = checkArguments(args: call.arguments as Any)
         } catch {
-            return // TODO
+            FlutterDataStoreErrorHandler.prepareError(
+                flutterResult: result,
+                msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
+                errorMap: ["UNKNOWN": "\(error.localizedDescription).\nAn unrecognized error has occurred. See logs for details." ])
+            return
         }
         
         switch call.method {
@@ -68,14 +72,13 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             flutterModelRegistration.addModelSchema(modelName: modelSchema.name, modelSchema: modelSchema)
         }
         do {
-            // AmplifyModels is generated in the previous step
             let dataStorePlugin = AWSDataStorePlugin(modelRegistration: flutterModelRegistration)
             try Amplify.add(plugin: dataStorePlugin)
             Amplify.Logging.logLevel = .verbose
             print("Amplify configured with DataStore plugin")
             result(true)
         } catch {
-            print("Failed to initialize Amplify with \(error)")
+            print("Failed to initialize DataStore with \(error)")
             result(false)
             return
         }
@@ -83,12 +86,25 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     
     func onQuery(args: [String: Any], flutterResult: @escaping FlutterResult) {
         do {
-            let modelName = args["modelName"] as! String
+            guard let modelName = args["modelName"] as? String else {
+                FlutterDataStoreErrorHandler.prepareError(
+                    flutterResult: flutterResult,
+                    msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
+                    errorMap: ["MALFORMED_REQUEST": "modelName was not passed in the arguments." ])
+                return
+            }
+            guard let modelSchema = flutterModelRegistration.modelSchemas[modelName] else {
+                FlutterDataStoreErrorHandler.prepareError(
+                    flutterResult: flutterResult,
+                    msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
+                    errorMap: ["MALFORMED_REQUEST": "schema for model \(modelName) is not registered." ])
+                return
+            }
             let queryPredicates = try QueryPredicateBuilder.fromSerializedMap(serializedMap: args["queryPredicate"] as? [String : Any])
             let querySortInput = try QuerySortBuilder.fromSerializedList(serializedList: args["querySort"] as? [[String: Any]])
             let queryPagination = QueryPaginationBuilder.fromSerializedMap(serializedMap: args["queryPagination"] as? [String: Any])
             try bridge.onQuery(SerializedModel.self,
-                              modelSchema: flutterModelRegistration.modelSchemas[modelName]!,
+                              modelSchema: modelSchema,
                               where: queryPredicates,
                               sort: querySortInput,
                               paginate: queryPagination) { (result) in
@@ -100,7 +116,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                                                                       msg: FlutterDataStoreErrorMessage.QUERY_FAILED.rawValue)
                 case .success(let res):
                     let serializedResults = res.map { (queryResult) -> [String: Any] in
-                        return queryResult.toJSON(modelSchema: flutterModelRegistration.modelSchemas[modelName]!)
+                        return queryResult.toJSON(modelSchema: modelSchema)
                     }
                     flutterResult(serializedResults)
                     return
@@ -111,7 +127,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             FlutterDataStoreErrorHandler.prepareError(
                 flutterResult: flutterResult,
                 msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
-                errorMap: ["UNKOWN": "\(error.localizedDescription).\nAn unrecognized error has occurred. See logs for details." ])
+                errorMap: ["UNKNOWN": "\(error.localizedDescription).\nAn unrecognized error has occurred. See logs for details." ])
             return
         }
     }
