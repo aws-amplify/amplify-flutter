@@ -17,7 +17,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import './testData/index.dart';
+import './test_models/index.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

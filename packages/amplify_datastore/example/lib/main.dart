@@ -69,7 +69,7 @@ class _MyAppState extends State<MyApp> {
     String allPostsWithoutRating2Or5 = '';
 
     (await Amplify.DataStore.query(Post.classType,
-            sortBy: [Post.TITLE.descending()]))
+            sortBy: [Post.RATING.ascending()]))
         .forEach((element) {
       allPosts += encoder.convert(element.toJson()) + '\n';
     });
@@ -92,7 +92,7 @@ class _MyAppState extends State<MyApp> {
     });
 
     (await Amplify.DataStore.query(Post.classType,
-            where: Post.ID.ne("F8B6BC4A-21AA-4700-B16E-0C500BB491C3")))
+            where: Post.ID.ne("e25859fc-e254-4e8b-8cae-62ccacce4097")))
         .forEach((element) {
       postWithIdNotEquals += encoder.convert(element.toJson()) + '\n';
     });
