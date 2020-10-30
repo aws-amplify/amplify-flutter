@@ -19,11 +19,6 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_cognito/method_channel_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
 
-import 'package:mockito/mockito.dart';
-
-class MockAuthChannel extends Mock implements AmplifyAuthCognitoMethodChannel {}
-
-
 void main() {
   const MethodChannel authChannel = MethodChannel('com.amazonaws.amplify/auth_cognito');
   const MethodChannel coreChannel = MethodChannel('com.amazonaws.amplify/core');
