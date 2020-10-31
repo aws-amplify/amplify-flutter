@@ -117,7 +117,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             //createTempPosts()
 
             //deleteAll();
-            createComplexModel();
+            //createComplexModel();
             called = true;
         }
 

@@ -77,7 +77,7 @@ class Comment extends Model {
         content = json['content'];
 
   Map<String, dynamic> toJson() =>
-      {'id': id, 'post': post.toJson(), 'content': content};
+      {'id': id, 'post': post?.toJson(), 'content': content};
 
   // Schema Section
 

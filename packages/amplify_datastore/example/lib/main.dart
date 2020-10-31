@@ -72,28 +72,14 @@ class _MyAppState extends State<MyApp> {
     String firstPostFromResult = '';
     String allPostsWithoutRating2Or5 = '';
 
-    (await Amplify.DataStore.query(Post.classType,
-            sortBy: [Post.RATING.ascending()]))
-        .forEach((element) {
-      allPosts += encoder.convert(element.toJson()) + '\n';
-    });
-
-    // Original
-    /*
+    // get all comments
     (await Amplify.DataStore.query(Comment.classType,
-            sortBy: [Post.RATING.ascending()]))
+            pagination: QueryPagination.firstResult()))
         .forEach((element) {
-      allPosts += encoder.convert(element.toJson()) + '\n';
+      if (element != null) {
+        allComments += encoder.convert(element.toJson());
+      }
     });
-     */
-
-    /*
-    (await Amplify.DataStore.query(Comment.classType,
-            sortBy: [Comment.CONTENT.ascending()]))
-        .forEach((element) {
-      allPosts += encoder.convert(element.toJson()) + '\n';
-    });
-     */
 
     (await Amplify.DataStore.query(Post.classType, where: Post.RATING.ge(4)))
         .forEach((element) {
@@ -142,6 +128,7 @@ class _MyAppState extends State<MyApp> {
     if (!mounted) return;
     setState(() {
       _posts = allPosts;
+      _comments = allComments;
       _posts1To4Rating = posts1To4Rating;
       _posts4rating = posts4Rating;
       _postWithCreatedDate = postWithCreatedDate;
