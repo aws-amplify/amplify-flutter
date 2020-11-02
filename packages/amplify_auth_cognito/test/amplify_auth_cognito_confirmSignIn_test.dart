@@ -28,29 +28,7 @@ void main() {
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  int testCode = 0;
-
   setUp(() {
-    authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "confirmSignIn") {
-        assert(methodCall.arguments["data"] is Map);
-        assert(methodCall.arguments["data"]["confirmationCode"] is String);
-        switch(testCode) {
-          case 0:
-            return {
-              "isSignedIn": false,
-              "nextStep": {
-                "signInStep": "DONE",
-                "codeDeliveryDetails":  { "atttibuteName": "email" }
-              }
-            };
-          case 1: 
-            return throw PlatformException(code: "AMPLIFY_EXCEPTION", message: "AMPLIFY_CONFIRM_SIGNIN_FAILED", details: {} );
-        }
-      } else {
-        return true;
-      }     
-    });
     coreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       return true;
     });
@@ -62,16 +40,61 @@ void main() {
   });
 
   test('confirmSignIn request returns a SignInResult', () async {
+
+ authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+    if (methodCall.method == "confirmSignIn") {
+      assert(methodCall.arguments["data"] is Map);
+      assert(methodCall.arguments["data"]["confirmationCode"] is String);
+          return {
+            "isSignedIn": false,
+            "nextStep": {
+              "signInStep": "DONE",
+              "codeDeliveryDetails":  {
+                "deliveryMedium": "EMAIL",
+                "attributeName": "email",
+                "destination": "test@test.test"
+              }
+            }
+          };
+    } else {
+      return true;
+    }     
+  });
+
     await amplify.addPlugin(authPlugins: [auth]);
     await amplify.configure("{}");
+    var expectation = CognitoSignInResult(
+      isSignedIn: false, 
+      nextStep: AuthNextSignInStep(
+        additionalInfo: {},
+        codeDeliveryDetails: {
+          "deliveryMedium": "EMAIL",
+          "attributeName": "email",
+          "destination": "test@test.test"
+        },
+        signInStep: "DONE",
+      )
+    );
     var res = await Amplify.Auth.confirmSignIn(confirmationValue: "iAmLegit");
-    expect(res, isInstanceOf<SignInResult>());
-    expect(res.isSignedIn, false);
-    expect(res.nextStep, isInstanceOf<AuthNextSignInStep>());
+    expect(res.isSignedIn, equals(expectation.isSignedIn));
+    expect(res.nextStep.signInStep, equals(expectation.nextStep.signInStep));
+    expect(res.nextStep.additionalInfo, equals(expectation.nextStep.additionalInfo));
+    expect(res.nextStep.codeDeliveryDetails.attributeName, equals(expectation.nextStep.codeDeliveryDetails.attributeName));
+    expect(res.nextStep.codeDeliveryDetails.deliveryMedium, equals(expectation.nextStep.codeDeliveryDetails.deliveryMedium));
+    expect(res.nextStep.codeDeliveryDetails.destination, equals(expectation.nextStep.codeDeliveryDetails.destination));
   });
 
   test('signIn thrown PlatFormException results in AuthError', () async {
-    testCode = 1;
+
+ authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+    if (methodCall.method == "confirmSignIn") {
+      assert(methodCall.arguments["data"] is Map);
+      assert(methodCall.arguments["data"]["confirmationCode"] is String);
+      return throw PlatformException(code: "AMPLIFY_EXCEPTION", message: "AMPLIFY_CONFIRM_SIGNIN_FAILED", details: {} );
+    } else {
+      return true;
+    }     
+  });
     AuthError err;
     try {
       await Amplify.Auth.confirmSignIn(confirmationValue: "iAmNotLegit");
