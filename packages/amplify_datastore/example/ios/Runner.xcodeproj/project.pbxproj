@@ -135,12 +135,12 @@
 		97C146E51CF9000F007C117D = {
 			isa = PBXGroup;
 			children = (
-				9740EEB11CF90186004384FC /* Flutter */,
-				97C146F01CF9000F007C117D /* Runner */,
 				B4A5C37C2548A5D000B9E501 /* amplify_datastore_unit_tests */,
-				97C146EF1CF9000F007C117D /* Products */,
-				417D1066DD09FB788918BC67 /* Pods */,
+				9740EEB11CF90186004384FC /* Flutter */,
 				9DD5B94F29AA74D9913CA7B2 /* Frameworks */,
+				417D1066DD09FB788918BC67 /* Pods */,
+				97C146EF1CF9000F007C117D /* Products */,
+				97C146F01CF9000F007C117D /* Runner */,
 			);
 			sourceTree = "<group>";
 		};
@@ -180,14 +180,14 @@
 		B409DE1A254A2118006AECDB /* predicates */ = {
 			isa = PBXGroup;
 			children = (
+				B4A5C4662549009900B9E501 /* bool_and_double_operands.json */,
 				B4A5C4592548F00900B9E501 /* complex_nested.json */,
 				B4A5C4572548F00900B9E501 /* group_mixed_and_or.json */,
 				B4A5C4542548F00900B9E501 /* group_with_only_and.json */,
+				B4A5C4502548EF9A00B9E501 /* id_not_equals.json */,
 				B4A5C4552548F00900B9E501 /* mixed_with_not.json */,
 				B4A5C4582548F00900B9E501 /* negate_complex_predicate.json */,
-				B4A5C4662549009900B9E501 /* bool_and_double_operands.json */,
 				B4A5C4562548F00900B9E501 /* rating_greater_or_equal.json */,
-				B4A5C4502548EF9A00B9E501 /* id_not_equals.json */,
 			);
 			path = predicates;
 			sourceTree = "<group>";
@@ -205,13 +205,13 @@
 		B4A5C37C2548A5D000B9E501 /* amplify_datastore_unit_tests */ = {
 			isa = PBXGroup;
 			children = (
-				B4A5C44E2548EF7800B9E501 /* resources */,
-				B4A5C4472548E4CF00B9E501 /* QueryPredicateBuilderUnitTests.swift */,
-				B4A5C3F32548C7B500B9E501 /* QueryPaginationUnitTests.swift */,
-				B4A5C37D2548A5D000B9E501 /* QuerySortBuilderUnitTests.swift */,
 				B409DD20254A02EE006AECDB /* DataStorePluginUnitTests.swift */,
-				B4A5C37F2548A5D000B9E501 /* Info.plist */,
 				B409DE74254BAC5A006AECDB /* GetJsonFromFileUtil.swift */,
+				B4A5C37F2548A5D000B9E501 /* Info.plist */,
+				B4A5C3F32548C7B500B9E501 /* QueryPaginationUnitTests.swift */,
+				B4A5C4472548E4CF00B9E501 /* QueryPredicateBuilderUnitTests.swift */,
+				B4A5C37D2548A5D000B9E501 /* QuerySortBuilderUnitTests.swift */,
+				B4A5C44E2548EF7800B9E501 /* resources */,
 			);
 			path = amplify_datastore_unit_tests;
 			sourceTree = "<group>";

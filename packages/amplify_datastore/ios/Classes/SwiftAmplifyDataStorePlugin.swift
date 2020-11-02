@@ -100,9 +100,9 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     errorMap: ["MALFORMED_REQUEST": "schema for model \(modelName) is not registered." ])
                 return
             }
-            let queryPredicates = try QueryPredicateBuilder.fromSerializedMap(serializedMap: args["queryPredicate"] as? [String : Any])
-            let querySortInput = try QuerySortBuilder.fromSerializedList(serializedList: args["querySort"] as? [[String: Any]])
-            let queryPagination = QueryPaginationBuilder.fromSerializedMap(serializedMap: args["queryPagination"] as? [String: Any])
+            let queryPredicates = try QueryPredicateBuilder.fromSerializedMap(args["queryPredicate"] as? [String : Any])
+            let querySortInput = try QuerySortBuilder.fromSerializedList(args["querySort"] as? [[String: Any]])
+            let queryPagination = QueryPaginationBuilder.fromSerializedMap(args["queryPagination"] as? [String: Any])
             try bridge.onQuery(SerializedModel.self,
                               modelSchema: modelSchema,
                               where: queryPredicates,

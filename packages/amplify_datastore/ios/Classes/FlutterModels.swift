@@ -12,7 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
- 
+
 import Amplify
 import Foundation
 
@@ -30,28 +30,24 @@ final public class FlutterModels: AmplifyModelRegistration {
         modelSchemas.forEach { entry in
             ModelRegistry.register(modelType: SerializedModel.self,
                                    modelSchema: entry.value) { (jsonString, decoder) -> Model in
-            let resolvedDecoder: JSONDecoder
-            if let decoder = decoder {
-                resolvedDecoder = decoder
-            } else {
-                resolvedDecoder = JSONDecoder(dateDecodingStrategy: ModelDateFormatting.decodingStrategy)
-            }
-            
-            // Convert jsonstring to object
-            let data = jsonString.data(using: .utf8)!
-            let jsonValue = try resolvedDecoder.decode(JSONValue.self, from: data)
-            if case .array(let jsonArray) = jsonValue,
-               case .object(let jsonObj) = jsonArray[0],
-               case .string(let id) = jsonObj["id"] {
-                let model = SerializedModel(id: id, map: jsonObj)
-                return model
-            }
-            throw DataStoreError.decodingError(
-                "Error in decoding \(jsonString)",
-                """
+                let resolvedDecoder: JSONDecoder
+                if let decoder = decoder {
+                    resolvedDecoder = decoder
+                } else {
+                    resolvedDecoder = JSONDecoder(dateDecodingStrategy: ModelDateFormatting.decodingStrategy)
+                }
                 
-                """)
-        
+                // Convert jsonstring to object
+                let data = jsonString.data(using: .utf8)!
+                let jsonValue = try resolvedDecoder.decode(JSONValue.self, from: data)
+                if case .array(let jsonArray) = jsonValue,
+                   case .object(let jsonObj) = jsonArray[0],
+                   case .string(let id) = jsonObj["id"] {
+                    let model = SerializedModel(id: id, map: jsonObj)
+                    return model
+                }
+                throw DataStoreError.decodingError(
+                    "Error in decoding \(jsonString)", "Please create an issue to amplify-flutter repo.")
             }
         }
     }
