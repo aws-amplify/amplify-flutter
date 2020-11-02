@@ -19,6 +19,7 @@ import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.ModelProvider
 import com.amplifyframework.core.model.ModelSchema
 import com.amplifyframework.util.Immutable
+import java.util.Collections
 
 class FlutterModelProvider private constructor() : ModelProvider {
     private val modelSchemaMap: MutableMap<String, ModelSchema> =
@@ -26,7 +27,7 @@ class FlutterModelProvider private constructor() : ModelProvider {
 
     // TODO change it to return an empty set once it's properly supported in the amplify-android library
     override fun models(): Set<Class<out Model?>>? {
-        return null
+        return Collections.emptySet()
     }
 
     override fun version(): String {
