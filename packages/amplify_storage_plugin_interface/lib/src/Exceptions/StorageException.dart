@@ -16,8 +16,10 @@
 import 'package:flutter/foundation.dart';
 
 class StorageException implements Exception {
+  final String code;
   final String message;
   final dynamic details;
 
-  StorageException({@required this.message, @required this.details});
+  StorageException(
+      {@required this.message, @required this.code, @required this.details});
 }
