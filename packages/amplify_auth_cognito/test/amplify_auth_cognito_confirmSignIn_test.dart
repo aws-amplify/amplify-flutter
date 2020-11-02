@@ -41,25 +41,25 @@ void main() {
 
   test('confirmSignIn request returns a SignInResult', () async {
 
- authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-    if (methodCall.method == "confirmSignIn") {
-      assert(methodCall.arguments["data"] is Map);
-      assert(methodCall.arguments["data"]["confirmationCode"] is String);
-          return {
-            "isSignedIn": false,
-            "nextStep": {
-              "signInStep": "DONE",
-              "codeDeliveryDetails":  {
-                "deliveryMedium": "EMAIL",
-                "attributeName": "email",
-                "destination": "test@test.test"
-              }
+    authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      if (methodCall.method == "confirmSignIn") {
+        assert(methodCall.arguments["data"] is Map);
+        assert(methodCall.arguments["data"]["confirmationCode"] is String);
+        return {
+          "isSignedIn": false,
+          "nextStep": {
+            "signInStep": "DONE",
+            "codeDeliveryDetails":  {
+              "deliveryMedium": "EMAIL",
+              "attributeName": "email",
+              "destination": "test@test.test"
             }
-          };
-    } else {
-      return true;
-    }     
-  });
+          }
+        };
+      } else {
+        return true;
+      }     
+    });
 
     await amplify.addPlugin(authPlugins: [auth]);
     await amplify.configure("{}");
@@ -85,16 +85,15 @@ void main() {
   });
 
   test('signIn thrown PlatFormException results in AuthError', () async {
-
- authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-    if (methodCall.method == "confirmSignIn") {
-      assert(methodCall.arguments["data"] is Map);
-      assert(methodCall.arguments["data"]["confirmationCode"] is String);
-      return throw PlatformException(code: "AMPLIFY_EXCEPTION", message: "AMPLIFY_CONFIRM_SIGNIN_FAILED", details: {} );
-    } else {
-      return true;
-    }     
-  });
+    authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      if (methodCall.method == "confirmSignIn") {
+        assert(methodCall.arguments["data"] is Map);
+        assert(methodCall.arguments["data"]["confirmationCode"] is String);
+        return throw PlatformException(code: "AMPLIFY_EXCEPTION", message: "AMPLIFY_CONFIRM_SIGNIN_FAILED", details: {} );
+      } else {
+        return true;
+      }     
+    });
     AuthError err;
     try {
       await Amplify.Auth.confirmSignIn(confirmationValue: "iAmNotLegit");
