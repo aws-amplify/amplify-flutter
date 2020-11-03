@@ -21,18 +21,12 @@ import 'package:amplify_core/amplify_core.dart';
 
 extension IsEqual on SignInResult {
   bool isMostlyEqual(SignInResult comparator) {
-    if(
-      comparator.isSignedIn == isSignedIn &&
+    return comparator.isSignedIn == isSignedIn &&
       comparator.nextStep.signInStep == nextStep.signInStep &&
       comparator.nextStep.additionalInfo.length == nextStep.additionalInfo.length &&
       comparator.nextStep.codeDeliveryDetails.destination == nextStep.codeDeliveryDetails.destination &&
       comparator.nextStep.codeDeliveryDetails.attributeName == nextStep.codeDeliveryDetails.attributeName &&
-      comparator.nextStep.codeDeliveryDetails.deliveryMedium == nextStep.codeDeliveryDetails.deliveryMedium
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+      comparator.nextStep.codeDeliveryDetails.deliveryMedium == nextStep.codeDeliveryDetails.deliveryMedium;
   }
 }
 
