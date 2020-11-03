@@ -19,6 +19,23 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_cognito/method_channel_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
 
+extension IsEqual on SignInResult {
+  bool isMostlyEqual(SignInResult comparator) {
+    if(
+      comparator.isSignedIn == isSignedIn &&
+      comparator.nextStep.signInStep == nextStep.signInStep &&
+      comparator.nextStep.additionalInfo.length == nextStep.additionalInfo.length &&
+      comparator.nextStep.codeDeliveryDetails.destination == nextStep.codeDeliveryDetails.destination &&
+      comparator.nextStep.codeDeliveryDetails.attributeName == nextStep.codeDeliveryDetails.attributeName &&
+      comparator.nextStep.codeDeliveryDetails.deliveryMedium == nextStep.codeDeliveryDetails.deliveryMedium
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
+
 void main() {
   const MethodChannel authChannel = MethodChannel('com.amazonaws.amplify/auth_cognito');
   const MethodChannel coreChannel = MethodChannel('com.amazonaws.amplify/core');
@@ -76,12 +93,7 @@ void main() {
       )
     );
     var res = await Amplify.Auth.confirmSignIn(confirmationValue: "iAmLegit");
-    expect(res.isSignedIn, equals(expectation.isSignedIn));
-    expect(res.nextStep.signInStep, equals(expectation.nextStep.signInStep));
-    expect(res.nextStep.additionalInfo, equals(expectation.nextStep.additionalInfo));
-    expect(res.nextStep.codeDeliveryDetails.attributeName, equals(expectation.nextStep.codeDeliveryDetails.attributeName));
-    expect(res.nextStep.codeDeliveryDetails.deliveryMedium, equals(expectation.nextStep.codeDeliveryDetails.deliveryMedium));
-    expect(res.nextStep.codeDeliveryDetails.destination, equals(expectation.nextStep.codeDeliveryDetails.destination));
+    expect(true, res.isMostlyEqual(expectation));
   });
 
   test('signIn thrown PlatFormException results in AuthError', () async {
