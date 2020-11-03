@@ -19,7 +19,9 @@ import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interfac
 class S3GetUrlOptions extends GetUrlOptions {
   String targetIdentityId;
   S3GetUrlOptions(
-      {StorageAccessLevel accessLevel, int expires, this.targetIdentityId})
+      {StorageAccessLevel accessLevel = StorageAccessLevel.guest,
+      int expires,
+      this.targetIdentityId})
       : super(accessLevel: accessLevel, expires: expires);
 
   @override

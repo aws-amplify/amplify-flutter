@@ -15,6 +15,7 @@
 
 import '../Storage/StorageAccessLevel.dart';
 import '../Storage/StorageOptions.dart';
+import 'package:flutter/foundation.dart';
 
 class ListOptions extends StorageOptions {
   StorageAccessLevel accessLevel;
@@ -23,7 +24,8 @@ class ListOptions extends StorageOptions {
 
   @override
   Map<String, dynamic> serializeAsMap() {
-    throw UnimplementedError(
-        'serializeAsMap() has not been implemented on ListOptions.');
+    final Map<String, dynamic> optionsMap = <String, dynamic>{};
+    optionsMap["accessLevel"] = describeEnum(accessLevel);
+    return optionsMap;
   }
 }
