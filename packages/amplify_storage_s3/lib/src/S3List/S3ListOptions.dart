@@ -4,7 +4,9 @@ import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interfac
 class S3ListOptions extends ListOptions {
   String targetIdentityId;
 
-  S3ListOptions({StorageAccessLevel accessLevel, this.targetIdentityId})
+  S3ListOptions(
+      {StorageAccessLevel accessLevel = StorageAccessLevel.guest,
+      this.targetIdentityId})
       : super(accessLevel: accessLevel);
 
   @override

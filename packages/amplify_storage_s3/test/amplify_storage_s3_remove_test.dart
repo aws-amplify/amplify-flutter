@@ -18,7 +18,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:amplify_storage_s3/src/Exceptions/StorageExceptionType.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'dart:io';
 import './resources/platform_exception_details.dart';
 
 void main() {
@@ -53,18 +52,16 @@ void main() {
     coreChannel.setMockMethodCallHandler(null);
   });
 
-  test(
-      'uploadFile request returns the correct UploadFileResult in the happy case',
+  test('Remove request returns the correct RemoveResult in the happy case',
       () async {
     storageChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       return {
         'key': 'keyForFile',
       };
     });
-    var uploadFileResult = await Amplify.Storage.uploadFile(
-        key: 'keyForFile', local: File('path/to/file'));
-    expect(uploadFileResult, isA<UploadFileResult>());
-    expect(uploadFileResult.key, 'keyForFile');
+    var removeResult = await Amplify.Storage.remove(key: 'keyForFile');
+    expect(removeResult, isInstanceOf<RemoveResult>());
+    expect(removeResult.key, 'keyForFile');
   });
 
   test(
@@ -76,13 +73,12 @@ void main() {
       return {};
     });
     try {
-      await Amplify.Storage.uploadFile(
-          key: 'keyForFile', local: File('path/to/file'));
+      await Amplify.Storage.remove(key: 'keyForFile');
     } on StorageException catch (e) {
       expect(e.code, exceptionType.code);
       expect(e.message, exceptionType.message);
       expect(e.details, {
-        'operation': 'UploadFile',
+        'operation': 'Remove',
         'malformed field': 'key cannot be null',
       });
       return;
@@ -92,7 +88,7 @@ void main() {
 
   test('A PlatformException results in a StorageException being thrown',
       () async {
-    const exceptionType = StorageExceptionType.UPLOAD_FILE_FAILED;
+    const exceptionType = StorageExceptionType.REMOVE_FAILED;
     storageChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       throw PlatformException(
           code: 'AMPLIFY_EXCEPTION',
@@ -100,8 +96,7 @@ void main() {
           details: exceptionDetails);
     });
     try {
-      await Amplify.Storage.uploadFile(
-          key: 'keyForFile', local: File('path/to/file'));
+      await Amplify.Storage.remove(key: 'keyForFile');
     } on StorageException catch (e) {
       expect(e.code, exceptionType.code);
       expect(e.message, exceptionType.message);
