@@ -20,6 +20,7 @@ import 'package:amplify_auth_cognito/method_channel_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 extension IsEqual on SignInResult {
+  // This method only checks the length of the additionalInfo field, and the values of all other fields
   bool isMostlyEqual(SignInResult comparator) {
     return comparator.isSignedIn == isSignedIn &&
       comparator.nextStep.signInStep == nextStep.signInStep &&
@@ -56,6 +57,7 @@ void main() {
       if (methodCall.method == "confirmSignIn") {
         assert(methodCall.arguments["data"] is Map);
         assert(methodCall.arguments["data"]["confirmationCode"] is String);
+        assert(methodCall.arguments["data"]["confirmationCode"] == 'iAmLegit');
         return {
           "isSignedIn": false,
           "nextStep": {
