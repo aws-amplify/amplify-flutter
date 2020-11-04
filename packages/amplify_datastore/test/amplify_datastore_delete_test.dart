@@ -19,6 +19,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import './test_models/Post.dart';
 import './utils/get_json_from_file.dart';
+import './resources/delete_api/InvalidModel.dart';
 
 void main() {
   const MethodChannel dataStoreChannel =
@@ -27,6 +28,7 @@ void main() {
   AmplifyDataStore dataStore = AmplifyDataStore(modelSchemas: null);
 
   TestWidgetsFlutterBinding.ensureInitialized();
+  
 
   setUp(() {});
 
@@ -35,37 +37,37 @@ void main() {
   });
 
 
-  test('delete returns 1 sucessful result (no query predicate)', () async {
+  test('delete with a valid model executes without an error ', () async {
+    var json = await getJsonFromFile('delete_api/request/instance_no_predicate.json');
 
-    var json = await getJsonFromFile('delete_api/response/1_deleted_result.json');
+    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {});
 
-    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return json;
-    });
+    Post instance = Post(title: json["model"]["title"], rating: json["model"]["rating"], created: DateTime.parse(json["model"]["created"]), id: json["model"]["id"]);
+    bool executed;
 
-    Post instance = Post(title: json["serializedData"]["title"], rating: json["serializedData"]["rating"], created: DateTime.parse(json["serializedData"]["created"]), id: json["id"]);
+    try {
+      await dataStore.delete(instance);
+      executed = true;
+    } catch (e) {
+      executed = false;
+    }
 
-    Post post = await dataStore.delete(instance);
-    expect(post.id, instance.id);
-    expect(post.title, instance.title);
-    expect(post.rating, instance.rating);
-    expect(post.created, instance.created);
+    expect(executed, true);
   });
 
-  test('delete returns 1 sucessful result (with query predicate)', () async {
+  test('delete with an invalid model executes with an error ', () async {
+    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {});
 
-    var json = await getJsonFromFile('delete_api/response/1_deleted_result.json');
+    bool executed;
+    InvalidModel invalidModel = InvalidModel();
 
-    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return json;
-    });
+    try {
+      await dataStore.delete(invalidModel);
+      executed = true;
+    } catch (e) {
+      executed = false;
+    }
 
-    Post instance = Post(title: json["serializedData"]["title"], rating: json["serializedData"]["rating"], created: DateTime.parse(json["serializedData"]["created"]), id: json["id"]);
-
-    Post post = await dataStore.delete(instance, when: Post.RATING.eq(5));
-    expect(post.id, instance.id);
-    expect(post.title, instance.title);
-    expect(post.rating, instance.rating);
-    expect(post.created, instance.created);
+    expect(executed, false);
   });
 }

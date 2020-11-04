@@ -152,13 +152,10 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     fun onDelete(flutterResult: Result, request: HashMap<String, Any>) {
         var modelName: String
         var modelData:  HashMap<String, Any>
-        var queryPredicates: QueryPredicate;
 
         try {
             modelName = request["modelName"] as String
             modelData = request["model"] as HashMap<String, Any>
-            queryPredicates = QueryPredicateBuilder.fromSerializedMap(request["queryPredicate"] as Map<String, Any>?) ?: QueryPredicates.all()
-
         } catch (e: ClassCastException) {
             prepareError(flutterResult, e,
                     FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString())
@@ -179,10 +176,9 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
         plugin.delete(
                 instance,
-                queryPredicates,
                 Consumer {
                     LOG.debug("Deleted item: " + it.item().toString())
-                    handler.post { flutterResult.success(FlutterSerializedModel(it.item()).toMap()) }
+                    handler.post { flutterResult.success(null) }
                 },
                 Consumer {
                     LOG.debug("Deletion Failed: " + it)
