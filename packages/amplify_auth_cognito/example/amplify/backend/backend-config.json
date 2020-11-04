@@ -1,0 +1,9 @@
+{
+	"auth": {
+		"debuge5af6d9de5af6d9d": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": []
+		}
+	}
+}
