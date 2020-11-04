@@ -15,6 +15,8 @@ The DataStore module for Amplify Flutter.
   s.source = { :git => 'https://github.com/aws-amplify/amplify-flutter.git' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
+  s.dependency 'Amplify'
+  s.dependency 'AmplifyPlugins/AWSDataStorePlugin'
   s.platform = :ios, '13.0'
 
   # Flutter.framework does not contain a i386 slice. Only x86_64 simulators are supported.
