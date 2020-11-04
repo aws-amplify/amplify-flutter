@@ -79,9 +79,9 @@ void main() {
         await getJsonFromFile('group_mixed_and_or.json'));
   });
 
-  test('when rating lt but not eq', () async {
+  test('when rating gt but not eq', () async {
     QueryPredicate testPredicate =
-        Post.RATING.lt(4).and(not(Post.RATING.eq(1)));
+        Post.RATING.gt(4).and(not(Post.RATING.eq(1)));
 
     expect(testPredicate.serializeAsMap(),
         await getJsonFromFile('mixed_with_not.json'));
@@ -94,5 +94,13 @@ void main() {
 
     expect(testPredicate.serializeAsMap(),
         await getJsonFromFile('negate_complex_predicate.json'));
+  });
+
+  test('when operands are bool and double', () async {
+    QueryPredicate testPredicate =
+        Post.RATING.eq(1.3).and(Post.CREATED.eq(true));
+
+    expect(testPredicate.serializeAsMap(),
+        await getJsonFromFile('bool_and_double_operands.json'));
   });
 }
