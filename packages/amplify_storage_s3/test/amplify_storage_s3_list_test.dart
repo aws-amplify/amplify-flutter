@@ -18,7 +18,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:amplify_storage_s3/src/Exceptions/StorageExceptionType.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'dart:io';
 import './resources/platform_exception_details.dart';
 
 void main() {
@@ -53,22 +52,47 @@ void main() {
     coreChannel.setMockMethodCallHandler(null);
   });
 
-  test(
-      'uploadFile request returns the correct UploadFileResult in the happy case',
+  test('list request returns the correct ListResult in the happy case',
       () async {
     storageChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       return {
-        'key': 'keyForFile',
+        'items': [
+          {
+            'key': 'key1',
+            'eTag': 'etag1',
+            'lastModified': '2020-07-24 09:32:36 +0000',
+            'size': 123,
+          },
+          {
+            'key': 'key2',
+            'eTag': 'etag2',
+            'lastModified': null,
+            'size': 456,
+          },
+        ],
       };
     });
-    var uploadFileResult = await Amplify.Storage.uploadFile(
-        key: 'keyForFile', local: File('path/to/file'));
-    expect(uploadFileResult, isA<UploadFileResult>());
-    expect(uploadFileResult.key, 'keyForFile');
+    var listResult = await Amplify.Storage.list();
+    expect(listResult, isInstanceOf<ListResult>());
+    expect(listResult.items.length, 2);
+
+    var item1 = listResult.items[0];
+    expect(item1, isInstanceOf<StorageItem>());
+    expect(item1.key, 'key1');
+    expect(item1.eTag, 'etag1');
+    expect(item1.lastModified, DateTime.parse('2020-07-24 09:32:36 +0000'));
+    expect(item1.size, 123);
+
+    var item2 = listResult.items[1];
+    expect(item2, isInstanceOf<StorageItem>());
+    expect(item2.key, 'key2');
+    expect(item2.eTag, 'etag2');
+    expect(item2.lastModified, null);
+    expect(item2.size, 456);
   });
 
   test(
-      'Throws StorageException when method channel result does not include the key',
+      'Throws StorageException when method channel result does not include the items list',
       () async {
     const exceptionType =
         StorageExceptionType.MALFORMED_PLATFORM_CHANNEL_RESULT;
@@ -76,14 +100,50 @@ void main() {
       return {};
     });
     try {
-      await Amplify.Storage.uploadFile(
-          key: 'keyForFile', local: File('path/to/file'));
+      await Amplify.Storage.list();
     } on StorageException catch (e) {
       expect(e.code, exceptionType.code);
       expect(e.message, exceptionType.message);
       expect(e.details, {
-        'operation': 'UploadFile',
-        'malformed field': 'key cannot be null',
+        'operation': 'List',
+        'malformed field': 'items cannot be null',
+      });
+      return;
+    }
+    throw new Exception('Expected a StorageException');
+  });
+
+  test(
+      'Throws StorageException when method channel result does not include the key attribute in any of the storage items',
+      () async {
+    const exceptionType =
+        StorageExceptionType.MALFORMED_PLATFORM_CHANNEL_RESULT;
+    storageChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      return {
+        'items': [
+          {
+            'key': 'key1',
+            'eTag': 'etag1',
+            'lastModified': '2020-07-24 09:32:36 +0000',
+            'size': 123,
+          },
+          {
+            // missing the required 'key' attribute
+            'eTag': 'etag2',
+            'lastModified': '2020-07-30 19:43:22 +0000',
+            'size': 456,
+          },
+        ],
+      };
+    });
+    try {
+      await Amplify.Storage.list();
+    } on StorageException catch (e) {
+      expect(e.code, exceptionType.code);
+      expect(e.message, exceptionType.message);
+      expect(e.details, {
+        'operation': 'List',
+        'malformed field': 'item.key cannot be null',
       });
       return;
     }
@@ -92,7 +152,7 @@ void main() {
 
   test('A PlatformException results in a StorageException being thrown',
       () async {
-    const exceptionType = StorageExceptionType.UPLOAD_FILE_FAILED;
+    const exceptionType = StorageExceptionType.LIST_FAILED;
     storageChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       throw PlatformException(
           code: 'AMPLIFY_EXCEPTION',
@@ -100,8 +160,7 @@ void main() {
           details: exceptionDetails);
     });
     try {
-      await Amplify.Storage.uploadFile(
-          key: 'keyForFile', local: File('path/to/file'));
+      await Amplify.Storage.list();
     } on StorageException catch (e) {
       expect(e.code, exceptionType.code);
       expect(e.message, exceptionType.message);

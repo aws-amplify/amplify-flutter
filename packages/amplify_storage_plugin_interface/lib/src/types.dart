@@ -36,3 +36,5 @@ export 'List/ListResult.dart';
 export 'DownloadFile/DownloadFileOptions.dart';
 export 'DownloadFile/DownloadFileRequest.dart';
 export 'DownloadFile/DownloadFileResult.dart';
+
+export 'Exceptions/StorageException.dart';

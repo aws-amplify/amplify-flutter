@@ -15,8 +15,11 @@
 
 import 'package:flutter/foundation.dart';
 
-class UploadFileResult {
-  final String key;
+class StorageException implements Exception {
+  final String code;
+  final String message;
+  final dynamic details;
 
-  UploadFileResult({@required this.key});
+  StorageException(
+      {@required this.message, @required this.code, @required this.details});
 }
