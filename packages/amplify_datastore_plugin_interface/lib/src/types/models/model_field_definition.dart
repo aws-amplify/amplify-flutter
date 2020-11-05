@@ -1,3 +1,18 @@
+/*
+ * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
 
@@ -9,6 +24,7 @@ class ModelFieldDefinition {
   String name;
   ModelFieldType type;
   bool isRequired;
+  bool isArray;
   ModelAssociation association;
   List<AuthRule> authRules;
 
@@ -16,6 +32,7 @@ class ModelFieldDefinition {
     this.name,
     this.type,
     this.isRequired,
+    this.isArray = false,
     this.association,
     this.authRules = const [],
   });
@@ -23,6 +40,7 @@ class ModelFieldDefinition {
   static ModelFieldDefinition field(
       {@required QueryField key,
       bool isRequired = true,
+      bool isArray = false,
       ModelFieldType ofType = const ModelFieldType(ModelFieldTypeEnum.string),
       ModelAssociation association,
       List<AuthRule> authRules = const []}) {
@@ -30,6 +48,7 @@ class ModelFieldDefinition {
         name: key.fieldName,
         type: ofType,
         isRequired: isRequired,
+        isArray: isArray,
         association: association,
         authRules: authRules);
   }
@@ -55,6 +74,7 @@ class ModelFieldDefinition {
     return field(
         key: key,
         isRequired: isRequired,
+        isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
             ofModelName: ofModelName),
         association: ModelAssociation(
@@ -106,8 +126,8 @@ class ModelFieldDefinition {
         association: ModelAssociation(
             associationType: ModelAssociationEnum.belongsTo,
             targetName: targetName,
-            associatedName: associatedKey?.fieldName, // associatedName,
-            associatedType: associatedKey?.fieldType?.ofModelName));
+            associatedName: associatedName, // associatedName,
+            associatedType: associatedType));
   }
 
   build() {
@@ -115,6 +135,7 @@ class ModelFieldDefinition {
         name: name,
         type: type,
         isRequired: isRequired,
+        isArray: isArray,
         association: association,
         authRules: authRules);
   }

@@ -84,12 +84,13 @@ class Blog extends Model {
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField POSTS = QueryField(
       fieldName: "posts",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: "post"));
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (Post).toString()));
 
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Blog";
-    //modelSchemaDefinition.pluralName = "Blogs";
+    modelSchemaDefinition.pluralName = "Blogs";
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
@@ -98,14 +99,11 @@ class Blog extends Model {
         isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
-    /*
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
-      key: BlogSchema.posts,
-      isRequired: false,
-      ofModelName: Post.classType.modelName(),
-      associatedKey: PostSchema.blog,
-    ));
-     */
+        key: Blog.POSTS,
+        isRequired: false,
+        ofModelName: (Post).toString(),
+        associatedKey: Post.BLOG));
   });
 }
 

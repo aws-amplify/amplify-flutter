@@ -35,7 +35,7 @@ data class FlutterModelField(val map: Map<String, Any>) {
 
     // If the field is an array targetType. False if it is a primitive
     // targetType and True if it is an array targetType.
-    private val isArray = type.getFieldType().isArray();
+    private val isArray = map["isArray"] as Boolean
 
     // True if the field is an enumeration type.
     private val isEnum = type.getFieldType().isEnum();

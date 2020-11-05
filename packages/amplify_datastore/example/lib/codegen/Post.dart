@@ -21,6 +21,19 @@ import 'package:collection/collection.dart';
 import 'Blog.dart';
 import 'Comment.dart';
 
+/*
+type Post @model @key(name: "byBlog", fields: ["blogID"]) {
+  id: ID!
+  title: String!
+  rating: Int!
+  created: AWSDate!
+  blogID: ID!
+  blog: Blog @connection(fields: ["blogID"])
+  comments: [Comment] @connection(keyName: "byPost", fields: ["id"])
+}
+ */
+
+@immutable
 class Post extends Model {
   static const classType = PostType();
 
@@ -146,11 +159,11 @@ class Post extends Model {
   static final QueryField CREATED = new QueryField(fieldName: "created");
   static final QueryField BLOG = new QueryField(
       fieldName: "blog",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: "blog"));
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: "Blog"));
   static final QueryField COMMENTS = new QueryField(
       fieldName: "comments",
       fieldType:
-          ModelFieldType(ModelFieldTypeEnum.model, ofModelName: "comment"));
+          ModelFieldType(ModelFieldTypeEnum.model, ofModelName: "Comment"));
 
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {

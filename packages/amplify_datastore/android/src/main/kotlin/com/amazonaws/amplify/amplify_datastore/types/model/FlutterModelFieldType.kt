@@ -19,9 +19,6 @@ enum class ModelFieldTypeEnum {
     model,
     collection;
 
-    fun isArray() : Boolean {
-        return this == collection
-    }
     fun isEnum() : Boolean {
         return this == enumeration
     }

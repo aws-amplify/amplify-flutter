@@ -15,7 +15,6 @@ type Post @model @key(name: "byBlog", fields: ["blogID"]) {
 }
  */
 
-/*
 @immutable
 class Post extends Model {
   static const classType = PostType();
@@ -101,6 +100,43 @@ class Post extends Model {
         'blog': blog.toJson(),
         'comments': comments.map((comment) => comment.toJson())
       };
+
+  static final QueryField ID = QueryField(fieldName: "id");
+  static final QueryField TITLE = QueryField(fieldName: "title");
+  static final QueryField BLOG = new QueryField(
+      fieldName: "blog",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (Blog).toString()));
+  static final QueryField COMMENTS = new QueryField(
+      fieldName: "comments",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (Comment).toString()));
+
+  static var schema =
+      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+    modelSchemaDefinition.name = "Post";
+    modelSchemaDefinition.pluralName = "Posts";
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.id());
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+        key: Post.TITLE,
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
+        key: Post.BLOG,
+        isRequired: false,
+        targetName: "blogID",
+        ofModelName: (Blog).toString()));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
+      key: Post.COMMENTS,
+      isRequired: false,
+      ofModelName: (Comment).toString(),
+      associatedKey: Comment.POST,
+    ));
+  });
 }
 
 class PostType extends ModelType<Post> {
@@ -111,42 +147,3 @@ class PostType extends ModelType<Post> {
     return Post.fromJson(jsonData);
   }
 }
-
-extension PostSchema on Post {
-  static final QueryField id = QueryField(fieldName: "id");
-  static final QueryField title = QueryField(fieldName: "title");
-  static final QueryField blog = new QueryField(
-      fieldName: "blog",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: "blog"));
-  static final QueryField comments = new QueryField(
-      fieldName: "comments",
-      fieldType:
-          ModelFieldType(ModelFieldTypeEnum.model, ofModelName: "comment"));
-
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Post";
-    modelSchemaDefinition.pluralName = "Posts";
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.id());
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: PostSchema.title,
-        isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
-        key: PostSchema.blog,
-        isRequired: false,
-        targetName: "blogID",
-        ofModelName: Blog.classType.modelName()));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
-      key: PostSchema.comments,
-      isRequired: false,
-      ofModelName: Comment.classType.modelName(),
-      associatedKey: CommentSchema.post,
-    ));
-  });
-}
-*/

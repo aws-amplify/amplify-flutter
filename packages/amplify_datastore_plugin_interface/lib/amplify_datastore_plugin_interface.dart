@@ -35,6 +35,7 @@ export 'src/types/models/model_schema_definition.dart';
 export 'src/types/models/model_field_definition.dart';
 export 'src/types/models/uuid.dart';
 export 'src/types/models/model_provider.dart';
+export 'src/types/models/auth_rule.dart';
 
 export 'src/types/utils/date_time_parser.dart';
 export 'src/Errors/datastore_error.dart';

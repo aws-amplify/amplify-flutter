@@ -84,7 +84,8 @@ class Comment extends Model {
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField POST = QueryField(
       fieldName: "post",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: "post"));
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (Post).toString()));
   static final QueryField CONTENT = QueryField(fieldName: "content");
 
   static var schema =
@@ -98,7 +99,7 @@ class Comment extends Model {
         key: Comment.POST,
         isRequired: false,
         targetName: "postID",
-        ofModelName: Post.classType.modelName()));
+        ofModelName: (Post).toString()));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: Comment.CONTENT,

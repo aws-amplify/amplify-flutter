@@ -33,6 +33,8 @@ class ModelField {
   // If the field is a required or an optional field
   final bool isRequired;
 
+  final bool isArray;
+
   // An array of rules for owner based authorization
   final List<AuthRule> authRules;
 
@@ -42,6 +44,7 @@ class ModelField {
       {this.name,
       this.type,
       this.isRequired,
+      this.isArray = false,
       this.association,
       this.authRules});
 
@@ -49,6 +52,7 @@ class ModelField {
     String name,
     String type,
     bool isRequired,
+    bool isArray,
     ModelAssociation association,
     List<AuthRule> authRules,
   }) {
@@ -56,6 +60,7 @@ class ModelField {
       name: name ?? this.name,
       type: type ?? this.type,
       isRequired: isRequired ?? this.isRequired,
+      isArray: isArray ?? this.isArray,
       association: association ?? this.association,
       authRules: authRules ?? this.authRules,
     );
@@ -66,6 +71,7 @@ class ModelField {
       'name': name,
       'type': type.toMap(),
       'isRequired': isRequired,
+      'isArray': isArray,
       'association': association == null ? {} : association?.toMap(),
       'authRules': authRules?.map((x) => x?.toMap())?.toList(),
     };
@@ -78,6 +84,7 @@ class ModelField {
       name: map['name'],
       type: map['type'],
       isRequired: map['isRequired'],
+      isArray: map['isArray'],
       association: map['association'] == null
           ? null
           : ModelAssociation.fromMap(map['association']),
@@ -93,7 +100,7 @@ class ModelField {
 
   @override
   String toString() {
-    return 'ModelField(name: $name, type: $type, isRequired: $isRequired, association: $association, authRules: $authRules)';
+    return 'ModelField(name: $name, type: $type, isRequired: $isRequired, isArray: $isArray, association: $association, authRules: $authRules)';
   }
 
   @override
@@ -105,6 +112,7 @@ class ModelField {
         o.name == name &&
         o.type == type &&
         o.isRequired == isRequired &&
+        o.isArray == isArray &&
         listEquals(o.authRules, authRules);
   }
 
@@ -113,6 +121,7 @@ class ModelField {
     return name.hashCode ^
         type.hashCode ^
         isRequired.hashCode ^
+        isArray.hashCode ^
         authRules.hashCode;
   }
 }
