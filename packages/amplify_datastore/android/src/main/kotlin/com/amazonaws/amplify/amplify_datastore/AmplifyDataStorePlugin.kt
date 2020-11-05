@@ -98,7 +98,6 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
     @VisibleForTesting
     fun onQuery(flutterResult: Result, request: HashMap<String, Any>) {
-
         var modelName: String
         var queryOptions: QueryOptions
         try {

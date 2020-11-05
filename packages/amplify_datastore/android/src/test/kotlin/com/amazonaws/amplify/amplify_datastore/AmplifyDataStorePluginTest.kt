@@ -141,7 +141,6 @@ class AmplifyDataStorePluginTest {
 
         var instance = SerializedModel.builder()
                 .serializedData(modelData)
-
                 .modelSchema(modelSchema)
                 .build()
 
