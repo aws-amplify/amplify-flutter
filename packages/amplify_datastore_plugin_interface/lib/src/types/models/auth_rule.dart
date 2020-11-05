@@ -33,7 +33,7 @@ class AuthRule {
       this.ownerField = "",
       this.identityClaim = "",
       this.groupClaim = "",
-      this.groups,
+      this.groups = const [],
       this.groupsField = "",
       this.operations = const []});
 

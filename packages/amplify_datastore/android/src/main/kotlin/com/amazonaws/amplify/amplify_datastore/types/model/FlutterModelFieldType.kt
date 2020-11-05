@@ -49,11 +49,11 @@ data class FlutterModelFieldType(val map: Map<String, Any>) {
 
     // Android specific support
     fun getTargetType() : String {
-        if(ofModelName != null) return ofModelName;
+        if(!ofModelName.isNullOrEmpty()) return ofModelName;
         else return getJavaClass().simpleName;
     }
 
-    private fun getModelName() : String? {
+    fun getModelName() : String? {
         return ofModelName;
     }
 

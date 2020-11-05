@@ -67,6 +67,8 @@ void main() {
     ModelSchema commentSchema = Comment.schema;
     Map<String, dynamic> map = commentSchema.toMap();
 
+    expect(map, {});
+
     expect(map, {
       'name': 'Comment',
       'pluralName': 'Comments',

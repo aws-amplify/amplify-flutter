@@ -40,7 +40,7 @@ internal enum class ModelOperation {
 data class FlutterAuthRule(val map: Map<String, Any>) {
     
     private val authStrategy : AuthStrategy =
-            AuthStrategy.getByIndex(map["ownerField"] as Int)
+            AuthStrategy.getByIndex(map["authStrategy"] as Int)
     private val ownerField : String? = map["ownerField"] as String?
     private val identityClaim : String = map["identityClaim"] as String
     private val groupClaim : String = map["groupClaim"] as String
@@ -52,6 +52,7 @@ data class FlutterAuthRule(val map: Map<String, Any>) {
             }
 
     fun convertToNativeAuthRule(): AuthRule {
+
         TODO("Not yet implemented")
 
         // TODO issue not available constructor for AuthRule and no builder

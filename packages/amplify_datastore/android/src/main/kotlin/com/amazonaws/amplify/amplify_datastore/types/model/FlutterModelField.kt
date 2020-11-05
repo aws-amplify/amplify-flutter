@@ -62,16 +62,22 @@ data class FlutterModelField(val map: Map<String, Any>) {
         var builder: ModelField.ModelFieldBuilder = ModelField.builder()
                 .name(name)
                 .type( type.getJavaClass() ) // TODO unsupported for Model / Collection
-                .targetType( type.getTargetType() )
+                //.targetType( type.getTargetType() )
                 .isRequired(isRequired)
                 .isArray(isArray)
                 .isEnum(isEnum)
                 .isModel(isModel)
 
+        if(!type.getModelName().isNullOrEmpty()){
+            builder = builder.targetType( type.getTargetType() )
+        }
+
         if (!authRules.isNullOrEmpty()) {
+            /* TODO no AuthRule constructor
             builder = builder.authRules(authRules.map { authRule ->
                 authRule.convertToNativeAuthRule()
             })
+             */
         }
         return builder.build()
     }
