@@ -53,6 +53,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         case "query":
             // try! createTempPosts()
             onQuery(args: arguments, flutterResult: result)
+        case "delete":
+            onDelete(args: arguments, flutterResult: result)
         default:
             result(FlutterMethodNotImplemented)
         }
@@ -130,6 +132,33 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                 errorMap: ["UNKNOWN": "\(error.localizedDescription).\nAn unrecognized error has occurred. See logs for details." ])
             return
         }
+    }
+
+    private func onDelete(args: [String: AnyObject], flutterResult: @escaping FlutterResult) {
+        let modelName = args["modelName"] as! String
+        do {
+            let queryPredicates = try QueryPredicateBuilder.fromSerializedMap(serializedMap: args["queryPredicate"] as? [String : AnyObject])
+            let querySortInput = QuerySortBuilder.fromSerializedList(serializedList: args["querySort"] as? [[String: AnyObject]])
+            let queryPagination = QueryPaginationBuilder.fromSerializedMap(serializedMap: args["queryPagination"] as? [String: AnyObject])
+            getPlugin().query(SerializedModel.self, modelSchema: flutterModelRegistration.modelSchemas[modelName]!, where: queryPredicates, sort: querySortInput, paginate: queryPagination) { (result) in
+                switch result {
+                case .failure(let error):
+                    print("Query error = \(error)")
+                    FlutterDataStoreErrorHandler.handleDataStoreError(error: error,
+                                                                      flutterResult: flutterResult,
+                                                                      msg: FlutterDataStoreErrorMessage.DELETE_FAILED.rawValue)
+                case .success(let res):
+                    print("Query result - \(res) ")
+                    flutterResult(null)
+                    return
+                }
+            }
+        } catch {
+            print("Failed to parse query arguments with \(error)")
+            flutterResult(false)
+            return
+        }
+        flutterResult([])
     }
     
     private func createTempPosts() throws {
