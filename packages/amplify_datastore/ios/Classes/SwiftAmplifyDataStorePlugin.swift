@@ -134,31 +134,45 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         }
     }
 
-    private func onDelete(args: [String: AnyObject], flutterResult: @escaping FlutterResult) {
-        let modelName = args["modelName"] as! String
+private func onDelete(args: [String: Any], flutterResult: @escaping FlutterResult) {
+        
+        var modelName: String
+        var id: String
+        var rawModel: Dictionary<String, Any>
+        var modelData: SerializedModel
+        
         do {
-            let queryPredicates = try QueryPredicateBuilder.fromSerializedMap(serializedMap: args["queryPredicate"] as? [String : AnyObject])
-            let querySortInput = QuerySortBuilder.fromSerializedList(serializedList: args["querySort"] as? [[String: AnyObject]])
-            let queryPagination = QueryPaginationBuilder.fromSerializedMap(serializedMap: args["queryPagination"] as? [String: AnyObject])
-            getPlugin().query(SerializedModel.self, modelSchema: flutterModelRegistration.modelSchemas[modelName]!, where: queryPredicates, sort: querySortInput, paginate: queryPagination) { (result) in
-                switch result {
-                case .failure(let error):
-                    print("Query error = \(error)")
-                    FlutterDataStoreErrorHandler.handleDataStoreError(error: error,
-                                                                      flutterResult: flutterResult,
-                                                                      msg: FlutterDataStoreErrorMessage.DELETE_FAILED.rawValue)
-                case .success(let res):
-                    print("Query result - \(res) ")
-                    flutterResult(null)
-                    return
-                }
-            }
+            modelName = args["modelName"] as! String
+            rawModel = args["model"] as! Dictionary<String, Any>
+            id = rawModel["id"] as! String
+            modelData = SerializedModel(id: id, map: getJSONValue(args["model"] as! [String : Any]))
+
+            
+//            getPlugin().delete(modelData, modelSchema: flutterModelRegistration.modelSchemas[modelName]!) { (result) in
+//                switch result {
+//                    case .success:
+//                        flutterResult(queriedModel)
+//                    case .failure(let error):
+//                        sendError(error: error, flutterResult: flutterResult, msg: FlutterDataStoreErrorMessage.CASTING.rawValue)                }
+//            }
+            
         } catch {
-            print("Failed to parse query arguments with \(error)")
-            flutterResult(false)
-            return
+//            sendError(error: error, flutterResult: flutterResult, msg: FlutterDataStoreErrorMessage.CASTING.rawValue)
         }
-        flutterResult([])
+                        
+    }
+    
+    private func getJSONValue(_ jsonDict: [String: Any]) -> [String: JSONValue]{
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonDict) else {
+            print("JSON error")
+            return [:]
+        }
+        guard let jsonValue = try? JSONDecoder().decode(Dictionary<String, JSONValue>.self,
+                                                        from: jsonData) else {
+            print("JSON error")
+            return [:]
+        }
+        return jsonValue
     }
     
     private func createTempPosts() throws {
