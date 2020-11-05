@@ -140,14 +140,14 @@ class _MyAppState extends State<MyApp> {
           ),
           body: Center(
             child: new SingleChildScrollView(
-              child: Text('All Posts sort by rating ascending (sorting not working)\n$_posts\n\n' +
-                  'First post from list of all posts\n$_firstPostFromResult\n\n' +
-                  'Posts >= 4 rating\n$_posts4rating\n\n' +
-                  'Posts between 1 and 4 rating\n$_posts1To4Rating\n\n' +
-                  'Posts with rating 2 or 5\n$_posts2Or5Rating\n\n' +
-                  'Posts without rating 2 or 5\n$_allPostsWithoutRating2Or5\n\n' +
-                  'Post with date equals\n$_postWithCreatedDate\n\n' +
-                  'Post with Id not equals\n$_postWithIdNotEquals\n\n')),
+                child: Text('All Posts sort by rating ascending (sorting not working)\n$_posts\n\n' +
+                    'First post from list of all posts\n$_firstPostFromResult\n\n' +
+                    'Posts >= 4 rating\n$_posts4rating\n\n' +
+                    'Posts between 1 and 4 rating\n$_posts1To4Rating\n\n' +
+                    'Posts with rating 2 or 5\n$_posts2Or5Rating\n\n' +
+                    'Posts without rating 2 or 5\n$_allPostsWithoutRating2Or5\n\n' +
+                    'Post with date equals\n$_postWithCreatedDate\n\n' +
+                    'Post with Id not equals\n$_postWithIdNotEquals\n\n')),
           )),
     );
   }
