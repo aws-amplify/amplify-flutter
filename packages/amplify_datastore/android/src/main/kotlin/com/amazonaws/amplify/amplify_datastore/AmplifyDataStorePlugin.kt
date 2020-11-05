@@ -105,9 +105,6 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     @VisibleForTesting
     fun onQuery(flutterResult: Result, request: HashMap<String, Any>) {
 
-
-        createTempPosts()
-
         var modelName: String
         var queryOptions: QueryOptions
         try {
@@ -227,43 +224,4 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         ))
         handler.post { flutterResult.error("AmplifyException", msg, errorMap) }
     }
-
-    private fun createTempPosts() {
-        val postSerializedData: List<Map<String, Any>> = listOf(
-                mapOf(
-                        "id" to UUID.randomUUID().toString(),
-                        "title" to "Title 1 " + Date().toString(),
-                        "rating" to 5,
-                        "created" to Temporal.DateTime(
-                                "2020-02-20T20:20:20-08:00")), // ISO8601 representation that would come from dart
-                mapOf(
-                        "id" to UUID.randomUUID().toString(),
-                        "title" to "Title 2 " + Date().toString(),
-                        "rating" to 3),
-                mapOf(
-                        "id" to UUID.randomUUID().toString(),
-                        "title" to "Title 3 " + Date().toString(),
-                        "rating" to 2,
-                        "created" to Temporal.DateTime("2020-02-02T20:20:20-08:00")),
-                mapOf(
-                        "id" to UUID.randomUUID().toString(),
-                        "title" to "Title 4 " + Date().toString(),
-                        "created" to Temporal.DateTime("2020-02-22T20:20:20-08:00"))
-        )
-        val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
-        postSerializedData.forEach { data ->
-            plugin.save(SerializedModel.builder()
-                                .serializedData(data)
-                                .modelName("Post")
-                                .build(),
-                        QueryPredicates.all(),
-                        Consumer { response: DataStoreItemChange<SerializedModel?> ->
-                            Log.i("Result", response.toString())
-                        },
-                        Consumer { failure: DataStoreException? ->
-                            Log.e("Result", "Failed", failure)
-                        }
-            ) // Save call end
-        } // for each end
-    } // method end
 }
