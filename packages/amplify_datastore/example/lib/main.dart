@@ -21,6 +21,7 @@ import 'dart:async';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:flutter/services.dart';
 import 'amplifyconfiguration.dart';
 
 import 'Post.dart';
@@ -45,6 +46,9 @@ class _MyAppState extends State<MyApp> {
   String _postWithIdNotEquals = '';
   String _firstPostFromResult = '';
   String _allPostsWithoutRating2Or5 = '';
+
+  List<Post> _fullPosts;
+
   Amplify amplify = new Amplify();
   @override
   void initState() {
@@ -68,52 +72,55 @@ class _MyAppState extends State<MyApp> {
     String firstPostFromResult = '';
     String allPostsWithoutRating2Or5 = '';
 
-    (await Amplify.DataStore.query(Post.classType,
-            sortBy: [Post.RATING.ascending()]))
-        .forEach((element) {
-      allPosts += encoder.convert(element.toJson()) + '\n';
-    });
+    (_fullPosts = await Amplify.DataStore.query(Post.classType,
+            sortBy: [Post.RATING.descending()]));
 
-    (await Amplify.DataStore.query(Post.classType, where: Post.RATING.ge(4)))
-        .forEach((element) {
-      posts4Rating += encoder.convert(element.toJson()) + '\n';
-    });
+    // (await Amplify.DataStore.query(Post.classType,
+    //         sortBy: [Post.RATING.ascending()]))
+    //     .forEach((element) {
+    //   allPosts += encoder.convert(element.toJson()) + '\n';
+    // });
 
-    (await Amplify.DataStore.query(Post.classType,
-            where: Post.RATING.between(1, 4)))
-        .forEach((element) {
-      posts1To4Rating += encoder.convert(element.toJson()) + '\n';
-    });
+    // (await Amplify.DataStore.query(Post.classType, where: Post.RATING.ge(4)))
+    //     .forEach((element) {
+    //   posts4Rating += encoder.convert(element.toJson()) + '\n';
+    // });
 
-    (await Amplify.DataStore.query(Post.classType,
-            where: Post.CREATED.eq("2020-02-02T20:20:20-08:00")))
-        .forEach((element) {
-      postWithCreatedDate += encoder.convert(element.toJson()) + '\n';
-    });
+    // (await Amplify.DataStore.query(Post.classType,
+    //         where: Post.RATING.between(1, 4)))
+    //     .forEach((element) {
+    //   posts1To4Rating += encoder.convert(element.toJson()) + '\n';
+    // });
 
-    (await Amplify.DataStore.query(Post.classType,
-            where: Post.ID.ne("e25859fc-e254-4e8b-8cae-62ccacce4097")))
-        .forEach((element) {
-      postWithIdNotEquals += encoder.convert(element.toJson()) + '\n';
-    });
+    // (await Amplify.DataStore.query(Post.classType,
+    //         where: Post.CREATED.eq("2020-02-02T20:20:20-08:00")))
+    //     .forEach((element) {
+    //   postWithCreatedDate += encoder.convert(element.toJson()) + '\n';
+    // });
 
-    (await Amplify.DataStore.query(Post.classType,
-            where: Post.RATING.eq(2).or(Post.RATING.eq(5))))
-        .forEach((element) {
-      posts2Or5Rating += encoder.convert(element.toJson()) + '\n';
-    });
+    // (await Amplify.DataStore.query(Post.classType,
+    //         where: Post.ID.ne("e25859fc-e254-4e8b-8cae-62ccacce4097")))
+    //     .forEach((element) {
+    //   postWithIdNotEquals += encoder.convert(element.toJson()) + '\n';
+    // });
 
-    (await Amplify.DataStore.query(Post.classType,
-            pagination: QueryPagination.firstResult()))
-        .forEach((element) {
-      firstPostFromResult += encoder.convert(element.toJson());
-    });
+    // (await Amplify.DataStore.query(Post.classType,
+    //         where: Post.RATING.eq(2).or(Post.RATING.eq(5))))
+    //     .forEach((element) {
+    //   posts2Or5Rating += encoder.convert(element.toJson()) + '\n';
+    // });
 
-    (await Amplify.DataStore.query(Post.classType,
-            where: not(Post.RATING.eq(5).or(Post.RATING.eq(2)))))
-        .forEach((element) {
-      allPostsWithoutRating2Or5 += encoder.convert(element.toJson());
-    });
+    // (await Amplify.DataStore.query(Post.classType,
+    //         pagination: QueryPagination.firstResult()))
+    //     .forEach((element) {
+    //   firstPostFromResult += encoder.convert(element.toJson());
+    // });
+
+    // (await Amplify.DataStore.query(Post.classType,
+    //         where: not(Post.RATING.eq(5).or(Post.RATING.eq(2)))))
+    //     .forEach((element) {
+    //   allPostsWithoutRating2Or5 += encoder.convert(element.toJson());
+    // });
 
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
@@ -131,6 +138,16 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  _deleteFirst() async {
+    try {
+      await Amplify.DataStore.delete(_fullPosts[0]);
+      print("Deleted Post");
+
+    } on PlatformException catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -139,15 +156,19 @@ class _MyAppState extends State<MyApp> {
             title: const Text('Plugin example app'),
           ),
           body: Center(
-            child: new SingleChildScrollView(
-                child: Text('All Posts sort by rating ascending (sorting not working)\n$_posts\n\n' +
-                    'First post from list of all posts\n$_firstPostFromResult\n\n' +
-                    'Posts >= 4 rating\n$_posts4rating\n\n' +
-                    'Posts between 1 and 4 rating\n$_posts1To4Rating\n\n' +
-                    'Posts with rating 2 or 5\n$_posts2Or5Rating\n\n' +
-                    'Posts without rating 2 or 5\n$_allPostsWithoutRating2Or5\n\n' +
-                    'Post with date equals\n$_postWithCreatedDate\n\n' +
-                    'Post with Id not equals\n$_postWithIdNotEquals\n\n')),
+            child: RaisedButton(
+              onPressed: _deleteFirst,
+              child: Text("DeleteFirst")
+            )
+            // child: new SingleChildScrollView(
+            //     child: Text('All Posts sort by rating ascending (sorting not working)\n$_posts\n\n' +
+            //         'First post from list of all posts\n$_firstPostFromResult\n\n' +
+            //         'Posts >= 4 rating\n$_posts4rating\n\n' +
+            //         'Posts between 1 and 4 rating\n$_posts1To4Rating\n\n' +
+            //         'Posts with rating 2 or 5\n$_posts2Or5Rating\n\n' +
+            //         'Posts without rating 2 or 5\n$_allPostsWithoutRating2Or5\n\n' +
+            //         'Post with date equals\n$_postWithCreatedDate\n\n' +
+            //         'Post with Id not equals\n$_postWithIdNotEquals\n\n')),
           )),
     );
   }
