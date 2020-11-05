@@ -51,7 +51,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         case "configure":
             onConfigure(args: arguments, result: result)
         case "query":
-            // try! createTempPosts()
+//             try! createTempPosts()
             onQuery(args: arguments, flutterResult: result)
         case "delete":
             onDelete(args: arguments, flutterResult: result)
@@ -148,16 +148,27 @@ private func onDelete(args: [String: Any], flutterResult: @escaping FlutterResul
             modelData = SerializedModel(id: id, map: getJSONValue(args["model"] as! [String : Any]))
 
             
-//            getPlugin().delete(modelData, modelSchema: flutterModelRegistration.modelSchemas[modelName]!) { (result) in
-//                switch result {
-//                    case .success:
-//                        flutterResult(queriedModel)
-//                    case .failure(let error):
-//                        sendError(error: error, flutterResult: flutterResult, msg: FlutterDataStoreErrorMessage.CASTING.rawValue)                }
-//            }
+            try bridge.onDelete(id: id,
+                              modelData: modelData,
+                              modelSchema: flutterModelRegistration.modelSchemas[modelName]!) { (result) in
+                switch result {
+                case .failure(let error):
+                    print("Delete API failed. Error = \(error)")
+                    FlutterDataStoreErrorHandler.handleDataStoreError(error: error,
+                                                                      flutterResult: flutterResult,
+                                                                      msg: FlutterDataStoreErrorMessage.DELETE_FAILED.rawValue)
+                case .success():
+                    flutterResult(nil)
+                }
+            }
             
         } catch {
-//            sendError(error: error, flutterResult: flutterResult, msg: FlutterDataStoreErrorMessage.CASTING.rawValue)
+            print("Failed to parse delete arguments with \(error)")
+            FlutterDataStoreErrorHandler.prepareError(
+                flutterResult: flutterResult,
+                msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
+                errorMap: ["UNKNOWN": "\(error.localizedDescription).\nAn unrecognized error has occurred. See logs for details." ])
+            return
         }
                         
     }
@@ -176,7 +187,7 @@ private func onDelete(args: [String: Any], flutterResult: @escaping FlutterResul
     }
     
     private func createTempPosts() throws {
-        _ = try getPlugin().clear()
+//        _ = try getPlugin().clear()
         func getJSONValue(_ jsonDict: [String: Any]) -> [String: JSONValue]{
             guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonDict) else {
                 print("JSON error")

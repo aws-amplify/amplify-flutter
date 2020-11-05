@@ -36,4 +36,26 @@ public class DataStoreBridge {
                           paginate: paginationInput,
                           completion: completion)
     }
+     func onDelete(id: String,
+                   modelData: SerializedModel,
+                   modelSchema: ModelSchema,
+                   completion: @escaping DataStoreCallback<Void>) throws {
+        
+        try getPlugin().delete(modelData,
+                               modelSchema: modelSchema,
+                               completion: completion)
+    }
+    
+    public func getJSONValue(_ jsonDict: [String: Any]) -> [String: JSONValue]{
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonDict) else {
+            print("JSON error")
+            return [:]
+        }
+        guard let jsonValue = try? JSONDecoder().decode(Dictionary<String, JSONValue>.self,
+                                                        from: jsonData) else {
+            print("JSON error")
+            return [:]
+        }
+        return jsonValue
+    }
 }
