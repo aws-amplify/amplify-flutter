@@ -21,7 +21,6 @@ import 'dart:async';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:flutter/services.dart';
 import 'amplifyconfiguration.dart';
 
 import 'Post.dart';
@@ -46,7 +45,6 @@ class _MyAppState extends State<MyApp> {
   String _postWithIdNotEquals = '';
   String _firstPostFromResult = '';
   String _allPostsWithoutRating2Or5 = '';
-  List<Post> _allPosts;
   Amplify amplify = new Amplify();
   @override
   void initState() {
@@ -75,9 +73,6 @@ class _MyAppState extends State<MyApp> {
         .forEach((element) {
       allPosts += encoder.convert(element.toJson()) + '\n';
     });
-
-    (_allPosts = await Amplify.DataStore.query(Post.classType,
-        sortBy: [Post.RATING.descending()]));
 
     (await Amplify.DataStore.query(Post.classType, where: Post.RATING.ge(4)))
         .forEach((element) {
@@ -136,14 +131,6 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  _deleteFirst() async {
-    try {
-      await Amplify.DataStore.delete(_allPosts[0]);
-    } on PlatformException catch (e) {
-      print(e);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -152,19 +139,15 @@ class _MyAppState extends State<MyApp> {
             title: const Text('Plugin example app'),
           ),
           body: Center(
-            child: RaisedButton(
-              onPressed: _deleteFirst,
-              child: Text("DELETE")  
-            )
-            // child: new SingleChildScrollView(
-            //     child: Text('All Posts sort by rating ascending (sorting not working)\n$_posts\n\n' +
-            //         'First post from list of all posts\n$_firstPostFromResult\n\n' +
-            //         'Posts >= 4 rating\n$_posts4rating\n\n' +
-            //         'Posts between 1 and 4 rating\n$_posts1To4Rating\n\n' +
-            //         'Posts with rating 2 or 5\n$_posts2Or5Rating\n\n' +
-            //         'Posts without rating 2 or 5\n$_allPostsWithoutRating2Or5\n\n' +
-            //         'Post with date equals\n$_postWithCreatedDate\n\n' +
-            //         'Post with Id not equals\n$_postWithIdNotEquals\n\n')),
+            child: new SingleChildScrollView(
+              child: Text('All Posts sort by rating ascending (sorting not working)\n$_posts\n\n' +
+                  'First post from list of all posts\n$_firstPostFromResult\n\n' +
+                  'Posts >= 4 rating\n$_posts4rating\n\n' +
+                  'Posts between 1 and 4 rating\n$_posts1To4Rating\n\n' +
+                  'Posts with rating 2 or 5\n$_posts2Or5Rating\n\n' +
+                  'Posts without rating 2 or 5\n$_allPostsWithoutRating2Or5\n\n' +
+                  'Post with date equals\n$_postWithCreatedDate\n\n' +
+                  'Post with Id not equals\n$_postWithIdNotEquals\n\n')),
           )),
     );
   }
