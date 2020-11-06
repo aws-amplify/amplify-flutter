@@ -134,8 +134,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         }
     }
 
-private func onDelete(args: [String: Any], flutterResult: @escaping FlutterResult) {
-        
+    func onDelete(args: [String: Any], flutterResult: @escaping FlutterResult) {
         var modelName: String
         var id: String
         var rawModel: Dictionary<String, Any>
