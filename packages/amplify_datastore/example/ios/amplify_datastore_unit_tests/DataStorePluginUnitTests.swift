@@ -136,4 +136,66 @@ class DataStorePluginUnitTests: XCTestCase {
                 }
             })
     }
+
+    func test_delete_success_result() throws {
+        
+        class MockDataStoreBridge: DataStoreBridge {
+            override func onDelete(id: String,
+                                   modelData: SerializedModel,
+                                   modelSchema: ModelSchema,
+                                   completion: @escaping DataStoreCallback<Void>) throws {
+                // Validations that we called the native library correctly
+                XCTAssertEqual(testSchema.name, modelSchema.name)
+                // Return from the mock
+                completion(.emptyResult)
+            }
+        }
+        
+        let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, flutterModelRegistration: flutterModelSchemaRegistration)
+        
+        pluginUnderTest.onDelete(
+            args: try readJsonMap(filePath: "instance_no_predicate") as [String: Any],
+            flutterResult: { (results)  in
+                if (results == nil) {
+                    print("success")
+                }
+            })
+    }
+    
+    func test_delete_error_result() throws {
+        
+        class MockDataStoreBridge: DataStoreBridge {
+            override func onDelete(id: String,
+                                   modelData: SerializedModel,
+                                   modelSchema: ModelSchema,
+                                   completion: @escaping DataStoreCallback<Void>) throws {
+                // Validations that we called the native library correctly
+                XCTAssertEqual(testSchema.name, modelSchema.name)
+                // Return from the mock
+                completion(.failure(causedBy: DataStoreError.unknown("test error", "test recovery suggestion", nil)))
+            }
+        }
+        
+        let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, flutterModelRegistration: flutterModelSchemaRegistration)
+        
+        
+        pluginUnderTest.onDelete(
+            args: try readJsonMap(filePath: "instance_no_predicate") as [String: Any],
+            flutterResult: { (results) -> Void in
+                if let exception = results as? FlutterError {
+                    XCTAssertEqual("AmplifyException", exception.code)
+                    XCTAssertEqual(FlutterDataStoreErrorMessage.DELETE_FAILED.rawValue, exception.message)
+                    let errorMap: [String: Any] = exception.details as! [String : Any]
+                    XCTAssertEqual("test error", errorMap["unknown"] as? String)
+                    XCTAssertEqual(
+                        ["platform": "iOS", "localizedErrorMessage": "test error", "recoverySuggestion": "test recovery suggestion"],
+                        errorMap["PLATFORM_EXCEPTIONS"] as? [String: String])
+                } else {
+                    XCTFail()
+                }
+            })
+    }
+    
 }

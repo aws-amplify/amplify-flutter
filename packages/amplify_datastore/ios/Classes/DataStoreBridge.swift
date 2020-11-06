@@ -36,7 +36,7 @@ public class DataStoreBridge {
                           paginate: paginationInput,
                           completion: completion)
     }
-     func onDelete(id: String,
+    func onDelete(id: String,
                    modelData: SerializedModel,
                    modelSchema: ModelSchema,
                    completion: @escaping DataStoreCallback<Void>) throws {
