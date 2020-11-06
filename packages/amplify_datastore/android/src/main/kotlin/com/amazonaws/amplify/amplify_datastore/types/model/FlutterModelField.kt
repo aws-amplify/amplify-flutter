@@ -15,6 +15,7 @@
 
 package com.amazonaws.amplify.amplify_datastore.types.model
 
+import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.ModelField
 import com.amplifyframework.core.model.temporal.Temporal
 
@@ -50,10 +51,42 @@ data class FlutterModelField(val map: Map<String, Any>) {
                 FlutterAuthRule(serializedAuthRule)
             }
 
+    // This is NON EXHAUSTIVE and must be extended for other data types
+    fun temp_convertTypeToJavaClass(type: String) : Class<*>{
+
+        if(isArray) return List::class.java
+
+        if(isModel) return Model::class.java
+
+        return when(type){
+            "String" -> String::class.java
+            "Integer" -> Int::class.java
+            "Date" -> Temporal.Date::class.java
+            "DateTime" -> Temporal.DateTime::class.java
+            "Time" -> Temporal.Time::class.java
+            "Timestamp" -> Temporal.Timestamp::class.java
+            else -> return Object::class.java
+        }
+    }
+
+    // This is NON EXHAUSTIVE and must be extended for other data types
+    fun temp_convertTargetType(targetType: String) : String{
+        return when(targetType){
+            "String" -> "String"
+            "Integer" -> "Integer"
+            "Date" -> "AWSDate"
+            "DateTime" -> "AWSDateTime"
+            "Time" -> "AWSTime"
+            "Timestamp" -> "AWSTimestamp"
+            else -> return targetType
+        }
+    }
+    
     fun convertToNativeModelField(): ModelField {
         var builder: ModelField.ModelFieldBuilder = ModelField.builder()
                 .name(name)
-                .type(getJavaClass(type))
+                .javaClassForValue( temp_convertTypeToJavaClass(type) )
+                .targetType( targetType )
                 .isArray(isArray)
                 .isEnum(isEnum)
                 .isRequired(isRequired)

@@ -173,8 +173,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
         var instance = SerializedModel.builder()
                 .serializedData(modelData)
-                .id(modelData["id"] as String)
-                .modelName(modelName)
+                .modelSchema( FlutterModelProvider.instance.modelSchemas()[modelName])
                 .build()
 
         plugin.delete(
