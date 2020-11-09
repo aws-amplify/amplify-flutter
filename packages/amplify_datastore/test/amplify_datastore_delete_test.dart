@@ -39,11 +39,8 @@ void main() {
     var json = await getJsonFromFile('delete_api/request/instance_no_predicate.json');
     var model = json["model"];
     dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {});
-
     Post instance = Post(title: model["title"], rating: model["rating"], created: DateTime.parse(model["created"]), id: model["id"]);
-    
     Future<void> deleteFuture = dataStore.delete(instance);
-
-     expect(deleteFuture, completes);
+    expect(deleteFuture, completes);
   });
 }
