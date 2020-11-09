@@ -92,14 +92,6 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         }
 
         setSchemas(modelSchemas)
-//        val flutterModelSchemaList =
-//                modelSchemas.map { modelSchema -> FlutterModelSchema(modelSchema) }
-//        flutterModelSchemaList.forEach { flutterModelSchema ->
-//            modelProvider.addModelSchema(
-//                    flutterModelSchema.name,
-//                    flutterModelSchema.convertToNativeModelSchema()
-//            )
-//        }
         Amplify.addPlugin(AWSDataStorePlugin(modelProvider))
         flutterResult.success(null)
     }
