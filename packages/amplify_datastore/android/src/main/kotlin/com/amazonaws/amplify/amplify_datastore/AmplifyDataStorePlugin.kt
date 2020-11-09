@@ -52,6 +52,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     private lateinit var channel: MethodChannel
     private val handler = Handler(Looper.getMainLooper())
     private val LOG = Amplify.Logging.forNamespace("amplify:flutter:datastore")
+    val modelProvider = FlutterModelProvider.instance
+
 
     override fun onAttachedToEngine(
             @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
@@ -89,15 +91,15 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             return
         }
 
-        val modelProvider = FlutterModelProvider.instance
-        val flutterModelSchemaList =
-                modelSchemas.map { modelSchema -> FlutterModelSchema(modelSchema) }
-        flutterModelSchemaList.forEach { flutterModelSchema ->
-            modelProvider.addModelSchema(
-                    flutterModelSchema.name,
-                    flutterModelSchema.convertToNativeModelSchema()
-            )
-        }
+        setSchemas(modelSchemas)
+//        val flutterModelSchemaList =
+//                modelSchemas.map { modelSchema -> FlutterModelSchema(modelSchema) }
+//        flutterModelSchemaList.forEach { flutterModelSchema ->
+//            modelProvider.addModelSchema(
+//                    flutterModelSchema.name,
+//                    flutterModelSchema.convertToNativeModelSchema()
+//            )
+//        }
         Amplify.addPlugin(AWSDataStorePlugin(modelProvider))
         flutterResult.success(null)
     }
@@ -167,11 +169,11 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         }
 
         val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
+        val schema = modelProvider.modelSchemas().get(modelName);
 
         var instance = SerializedModel.builder()
                 .serializedData(modelData)
-                .id(modelData["id"] as String)
-                .modelName(modelName)
+                .modelSchema(schema)
                 .build()
 
         plugin.delete(
@@ -183,7 +185,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 Consumer {
                     LOG.debug("Deletion Failed: " + it)
                     if (it is DataStoreException && it.localizedMessage == "Wanted to delete one row, but deleted 0 rows.") {
-                            handler.post{ flutterResult.success(null) }
+                        handler.post{ flutterResult.success(null) }
                     } else {
                         prepareError(flutterResult, it, FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_DELETE_FAILED.toString())
                     }
@@ -223,5 +225,16 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 "errorString" to error.toString()
         ))
         handler.post { flutterResult.error("AmplifyException", msg, errorMap) }
+    }
+
+    fun setSchemas(modelSchemas: List<Map<String, Any>>) {
+        val flutterModelSchemaList =
+                modelSchemas.map { modelSchema -> FlutterModelSchema(modelSchema) }
+        flutterModelSchemaList.forEach { flutterModelSchema ->
+            modelProvider.addModelSchema(
+                    flutterModelSchema.name,
+                    flutterModelSchema.convertToNativeModelSchema()
+            )
+        }
     }
 }

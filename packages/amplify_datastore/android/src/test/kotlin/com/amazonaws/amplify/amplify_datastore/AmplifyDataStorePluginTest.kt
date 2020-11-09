@@ -17,9 +17,11 @@ import com.amazonaws.amplify.amplify_datastore.AmplifyDataStorePlugin
 import com.amazonaws.amplify.amplify_datastore.readMapFromFile
 import com.amazonaws.amplify.amplify_datastore.types.FlutterDataStoreFailureMessage
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSerializedModel
+import com.amazonaws.amplify.amplify_datastore.mockSchemaData
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
 import com.amplifyframework.core.model.Model
+import com.amplifyframework.core.model.ModelSchema
 import com.amplifyframework.core.model.query.Page
 import com.amplifyframework.core.model.query.QueryOptions
 import com.amplifyframework.core.model.query.Where
@@ -52,32 +54,34 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class AmplifyDataStorePluginTest {
     lateinit var flutterPlugin: AmplifyDataStorePlugin
+    lateinit var modelSchema: ModelSchema;
+    lateinit var amplifySuccessResults: MutableList<SerializedModel>
+
     private var mockDataStore = mock(DataStoreCategory::class.java)
     private var mockAmplifyDataStorePlugin = mock(AWSDataStorePlugin::class.java)
     private val mockResult: MethodChannel.Result = mock(MethodChannel.Result::class.java)
-    private val amplifySuccessResults = mutableListOf<SerializedModel>(
-            SerializedModel.builder()
-                    .serializedData(
-                            mapOf("id" to "4281dfba-96c8-4a38-9a8e-35c7e893ea47",
-                                  "title" to "Title 1",
-                                  "rating" to 4))
-                    .modelName("Post")
-                    .id("4281dfba-96c8-4a38-9a8e-35c7e893ea47")
-                    .build(),
-            SerializedModel.builder()
-                    .serializedData(
-                            mapOf("id" to "43036c6b-8044-4309-bddc-262b6c686026",
-                                  "title" to "Title 2",
-                                  "created" to Temporal.DateTime("2020-02-20T20:20:20-08:00")))
-                    .modelName("Post")
-                    .id("43036c6b-8044-4309-bddc-262b6c686026")
-                    .build()
-    )
 
     @Before
     fun setup() {
         flutterPlugin = AmplifyDataStorePlugin()
-
+        flutterPlugin.setSchemas(mockSchemaData as List<Map<String, Any>>);
+        modelSchema = flutterPlugin.modelProvider.modelSchemas()["Post"]!!
+        amplifySuccessResults = mutableListOf<SerializedModel>(
+            SerializedModel.builder()
+                .serializedData(
+                    mapOf("id" to "4281dfba-96c8-4a38-9a8e-35c7e893ea47",
+                          "title" to "Title 1",
+                          "rating" to 4))
+                .modelSchema(modelSchema)
+                .build(),
+            SerializedModel.builder()
+                    .serializedData(
+                        mapOf("id" to "43036c6b-8044-4309-bddc-262b6c686026",
+                              "title" to "Title 2",
+                              "created" to Temporal.DateTime("2020-02-20T20:20:20-08:00")))
+                    .modelSchema(modelSchema)
+                    .build()
+        )
         setFinalStatic(Amplify::class.java.getDeclaredField("DataStore"), mockDataStore)
         `when`(mockDataStore.getPlugin("awsDataStorePlugin")).thenReturn(mockAmplifyDataStorePlugin)
 
@@ -137,8 +141,8 @@ class AmplifyDataStorePluginTest {
 
         var instance = SerializedModel.builder()
                 .serializedData(modelData)
-                .id(modelData["id"] as String)
-                .modelName("Post")
+
+                .modelSchema(modelSchema)
                 .build()
 
         var dataStoreItemChange = DataStoreItemChange.builder<SerializedModel>()

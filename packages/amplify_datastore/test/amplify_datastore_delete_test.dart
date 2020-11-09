@@ -19,7 +19,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 import './test_models/Post.dart';
 import './utils/get_json_from_file.dart';
-import './resources/delete_api/InvalidModel.dart';
 
 void main() {
   const MethodChannel dataStoreChannel =
@@ -29,7 +28,6 @@ void main() {
 
   TestWidgetsFlutterBinding.ensureInitialized();
   
-
   setUp(() {});
 
   tearDown(() {
@@ -39,35 +37,13 @@ void main() {
 
   test('delete with a valid model executes without an error ', () async {
     var json = await getJsonFromFile('delete_api/request/instance_no_predicate.json');
-
+    var model = json["model"];
     dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {});
 
-    Post instance = Post(title: json["model"]["title"], rating: json["model"]["rating"], created: DateTime.parse(json["model"]["created"]), id: json["model"]["id"]);
-    bool executed;
+    Post instance = Post(title: model["title"], rating: model["rating"], created: DateTime.parse(model["created"]), id: model["id"]);
+    
+    Future<void> deleteFuture = dataStore.delete(instance);
 
-    try {
-      await dataStore.delete(instance);
-      executed = true;
-    } catch (e) {
-      executed = false;
-    }
-
-    expect(executed, true);
-  });
-
-  test('delete with an invalid model executes with an error ', () async {
-    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {});
-
-    bool executed;
-    InvalidModel invalidModel = InvalidModel();
-
-    try {
-      await dataStore.delete(invalidModel);
-      executed = true;
-    } catch (e) {
-      executed = false;
-    }
-
-    expect(executed, false);
+     expect(deleteFuture, completes);
   });
 }
