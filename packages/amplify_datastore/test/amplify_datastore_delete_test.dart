@@ -34,7 +34,6 @@ void main() {
     dataStoreChannel.setMockMethodCallHandler(null);
   });
 
-
   test('delete with a valid model executes without an error ', () async {
     var json = await getJsonFromFile('delete_api/request/instance_no_predicate.json');
     var model = json["model"];
