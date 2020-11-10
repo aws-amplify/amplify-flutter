@@ -19,13 +19,13 @@ import com.amplifyframework.core.model.ModelSchema
 import com.amplifyframework.datastore.appsync.SerializedModel
 
 data class FlutterModelSchema(val map: Map<String, Any>) {
-    val name: String = map["name"] as String
-    private val pluralName: String? = map["pluralName"] as String?
-    private val authRules: List<FlutterAuthRule>? =
+    val name = map["name"] as String
+    private val pluralName = map["pluralName"] as String?
+    private val authRules =
             (map["authRules"] as List<Map<String, Any>>?)?.map { serializedAuthRule ->
                 FlutterAuthRule(serializedAuthRule)
             }
-    private val fields: Map<String, FlutterModelField> =
+    private val fields =
             (map["fields"] as Map<String, Any>).mapValues { entry ->
                 FlutterModelField(entry.value as Map<String, Any>)
             }
@@ -43,11 +43,9 @@ data class FlutterModelSchema(val map: Map<String, Any>) {
                 entry.value.convertToNativeModelField()})
 
         if (!authRules.isNullOrEmpty()) {
-            /* TODO no AuthRule constructor
             builder = builder.authRules(authRules.map { authRule ->
                 authRule.convertToNativeAuthRule()
             })
-             */
         }
         if (!associations.isNullOrEmpty()) {
             builder = builder.associations(associations.mapValues { entry ->

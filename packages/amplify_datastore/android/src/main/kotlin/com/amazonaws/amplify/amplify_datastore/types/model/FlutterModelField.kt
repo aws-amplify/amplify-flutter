@@ -20,7 +20,7 @@ import com.amplifyframework.core.model.ModelField
 data class FlutterModelField(val map: Map<String, Any>) {
     // Name of the field is the name of the instance variable
     // of the Model class.
-    private val name: String = map["name"] as String
+    private val name = map["name"] as String
 
     // Type of the field is the data type of the instance variables
     // of the Model class.

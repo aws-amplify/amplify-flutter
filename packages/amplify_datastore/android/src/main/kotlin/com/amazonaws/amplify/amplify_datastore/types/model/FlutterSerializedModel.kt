@@ -23,11 +23,11 @@ import java.lang.Exception
 
 data class FlutterSerializedModel(val serializedModel: SerializedModel) {
 
-    private val serializedData: Map<String, Any> = parseSerializedDataMap(serializedModel.serializedData)
+    private val serializedData = parseSerializedDataMap(serializedModel.serializedData)
 
     // ignored fields
-    private val id: String = serializedModel.id
-    private val modelName: String = parseModelName(serializedModel.modelName) // ModelSchema -> SerializedModel should always have a name
+    private val id = serializedModel.id
+    private val modelName = parseModelName(serializedModel.modelName) // ModelSchema -> SerializedModel should always have a name
 
     fun toMap(): Map<String, Any> {
         return mapOf(
