@@ -55,7 +55,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   }
 
   @override
-  Future<void> delete<T extends Model>(T model, {QueryPredicate when}) async {
+  Future<void> delete<T extends Model>(T model) async {
      try {
       var modelJson = model.toJson();
       await _channel.invokeMapMethod('delete', <String, dynamic>{
