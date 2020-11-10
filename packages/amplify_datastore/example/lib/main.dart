@@ -68,7 +68,6 @@ class _MyAppState extends State<MyApp> {
     String firstPostFromResult = '';
     String allPostsWithoutRating2Or5 = '';
 
-
     (await Amplify.DataStore.query(Post.classType,
             sortBy: [Post.RATING.ascending()]))
         .forEach((element) {
