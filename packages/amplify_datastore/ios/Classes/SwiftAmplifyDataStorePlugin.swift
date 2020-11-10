@@ -133,19 +133,33 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             return
         }
     }
+    
 
     func onDelete(args: [String: Any], flutterResult: @escaping FlutterResult) {
-        var modelName: String
-        var id: String
-        var rawModel: Dictionary<String, Any>
-        var modelData: SerializedModel
-        
         do {
-            modelName = args["modelName"] as! String
-            rawModel = args["model"] as! Dictionary<String, Any>
-            id = rawModel["id"] as! String
-            modelData = SerializedModel(id: id, map: getJSONValue(args["model"] as! [String : Any]))
+            guard let modelName = args["modelName"] as? String else {
+                FlutterDataStoreErrorHandler.prepareError(
+                    flutterResult: flutterResult,
+                    msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
+                    errorMap: ["MALFORMED_REQUEST": "modelName was not passed in the arguments." ])
+                return
+            }
+            guard let rawModel = args["model"] as? Dictionary<String, Any> else {
+                FlutterDataStoreErrorHandler.prepareError(
+                    flutterResult: flutterResult,
+                    msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
+                    errorMap: ["MALFORMED_REQUEST": "model was not passed in the arguments." ])
+                return
+            }
+            guard let id = rawModel["id"] as? String else {
+                FlutterDataStoreErrorHandler.prepareError(
+                    flutterResult: flutterResult,
+                    msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
+                    errorMap: ["MALFORMED_REQUEST": "model did not contain an id." ])
+                return
+            }
 
+            let modelData = SerializedModel(id: id, map: getJSONValue(rawModel))
             
             try bridge.onDelete(id: id,
                               modelData: modelData,
@@ -170,19 +184,6 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             return
         }
                         
-    }
-    
-    private func getJSONValue(_ jsonDict: [String: Any]) -> [String: JSONValue]{
-        guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonDict) else {
-            print("JSON error")
-            return [:]
-        }
-        guard let jsonValue = try? JSONDecoder().decode(Dictionary<String, JSONValue>.self,
-                                                        from: jsonData) else {
-            print("JSON error")
-            return [:]
-        }
-        return jsonValue
     }
     
     private func createTempPosts() throws {
