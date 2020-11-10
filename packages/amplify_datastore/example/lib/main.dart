@@ -45,9 +45,6 @@ class _MyAppState extends State<MyApp> {
   String _postWithIdNotEquals = '';
   String _firstPostFromResult = '';
   String _allPostsWithoutRating2Or5 = '';
-
-  List<Post> _fullPosts;
-
   Amplify amplify = new Amplify();
   @override
   void initState() {
