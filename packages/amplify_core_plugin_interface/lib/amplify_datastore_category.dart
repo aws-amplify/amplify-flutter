@@ -48,9 +48,9 @@ class DataStoreCategory {
         : throw (errorMsg);
   }
 
-  Future<T> delete<T extends Model>(T model, {QueryPredicate when}) {
+  Future<void> delete<T extends Model>(T model) {
     return plugins.length == 1
-        ? plugins[0].delete(model, when: when)
+        ? plugins[0].delete(model)
         : throw (errorMsg);
   }
 }
