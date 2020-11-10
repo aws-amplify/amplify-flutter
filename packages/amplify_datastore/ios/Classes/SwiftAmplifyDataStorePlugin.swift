@@ -51,7 +51,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         case "configure":
             onConfigure(args: arguments, result: result)
         case "query":
-//             try! createTempPosts()
+            // try! createTempPosts()
             onQuery(args: arguments, flutterResult: result)
         case "delete":
             onDelete(args: arguments, flutterResult: result)
@@ -186,7 +186,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     }
     
     private func createTempPosts() throws {
-//        _ = try getPlugin().clear()
+        _ = try getPlugin().clear()
         func getJSONValue(_ jsonDict: [String: Any]) -> [String: JSONValue]{
             guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonDict) else {
                 print("JSON error")
