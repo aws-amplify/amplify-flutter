@@ -132,7 +132,6 @@ val test: String? = null;
                                     .authStrategy(AuthStrategy.OWNER)
                                     .ownerField("owner")
                                     .identityClaim("cognito:username")
-                                    .groupClaim(test)
                                     /*
                                     .operations(
                                             listOf(

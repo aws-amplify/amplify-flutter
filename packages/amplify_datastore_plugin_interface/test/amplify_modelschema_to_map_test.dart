@@ -124,7 +124,7 @@ void main() {
         },
         'rating': {
           'name': 'rating',
-          'type': {'fieldType': 1, 'ofModelName': ''},
+          'type': {'fieldType': 'int', 'ofModelName': ''},
           'isRequired': false,
           'isArray': false,
           'association': {},
@@ -132,7 +132,7 @@ void main() {
         },
         'created': {
           'name': 'created',
-          'type': {'fieldType': 4, 'ofModelName': ''},
+          'type': {'fieldType': 'dateTime', 'ofModelName': ''},
           'isRequired': false,
           'isArray': false,
           'association': {},

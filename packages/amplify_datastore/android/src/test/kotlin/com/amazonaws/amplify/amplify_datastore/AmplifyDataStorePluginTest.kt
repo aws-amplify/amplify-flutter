@@ -21,7 +21,6 @@ import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSerializedMode
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
 import com.amplifyframework.core.model.Model
-import com.amplifyframework.core.model.ModelField
 import com.amplifyframework.core.model.ModelSchema
 import com.amplifyframework.core.model.query.Page
 import com.amplifyframework.core.model.query.QueryOptions

@@ -21,12 +21,16 @@ import com.amplifyframework.core.model.ModelAssociation
 data class FlutterModelAssociation(val map: Map<String, Any>) {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     private val associationType: String = map["associationType"] as String
     private val targetName: String? = map["targetName"] as String?
     private val associatedName: String? = map["associatedName"] as String?
     private val associatedType: String? = map["associatedType"] as String?
 =======
     private val associationType = ModelAssociationEnum.getByIndex( map["associationType"] as Int).toString()
+=======
+    private val associationType = map["associationType"] as String
+>>>>>>> Send actual enum string
     private val targetName = map["targetName"] as String?
     private val associatedName = map["associatedName"] as String?
     private val associatedType = map["associatedType"] as String?
