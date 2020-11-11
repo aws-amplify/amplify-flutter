@@ -157,22 +157,16 @@ class AmplifyModelSchemaTest {
                                 "created" to mapOf(
                                         "name" to "created",
                                         "type" to mapOf(
-                                                "fieldType" to "dateTime",
-                                                "ofModelName" to ""),
+                                                "fieldType" to "dateTime"),
                                         "isRequired" to false,
-                                        "isArray" to false,
-                                        "association" to mapOf<String, Any>(),
-                                        "authRules" to emptyList<Any>()
+                                        "isArray" to false
                                 ),
                                 "rating" to mapOf(
                                         "name" to "rating",
                                         "type" to mapOf(
-                                                "fieldType" to "int",
-                                                "ofModelName" to ""),
+                                                "fieldType" to "int"),
                                         "isRequired" to false,
-                                        "isArray" to false,
-                                        "association" to mapOf<String, Any>(),
-                                        "authRules" to emptyList<Any>()
+                                        "isArray" to false
                                 ),
                                 "blog" to mapOf(
                                         "name" to "blog",

@@ -124,19 +124,15 @@ void main() {
         },
         'rating': {
           'name': 'rating',
-          'type': {'fieldType': 'int', 'ofModelName': ''},
+          'type': {'fieldType': 'int'},
           'isRequired': false,
           'isArray': false,
-          'association': {},
-          'authRules': []
         },
         'created': {
           'name': 'created',
-          'type': {'fieldType': 'dateTime', 'ofModelName': ''},
+          'type': {'fieldType': 'dateTime'},
           'isRequired': false,
           'isArray': false,
-          'association': {},
-          'authRules': []
         },
         'blog': {
           'name': 'blog',
