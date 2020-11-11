@@ -51,8 +51,10 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         case "configure":
             onConfigure(args: arguments, result: result)
         case "query":
-            // try! createTempPosts()
+//             try! createTempPosts()
             onQuery(args: arguments, flutterResult: result)
+        case "delete":
+            onDelete(args: arguments, flutterResult: result)
         default:
             result(FlutterMethodNotImplemented)
         }
@@ -132,33 +134,77 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         }
     }
     
+
+    func onDelete(args: [String: Any], flutterResult: @escaping FlutterResult) {
+        do {
+            guard let modelName = args["modelName"] as? String else {
+                FlutterDataStoreErrorHandler.prepareError(
+                    flutterResult: flutterResult,
+                    msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
+                    errorMap: ["MALFORMED_REQUEST": "modelName was not passed in the arguments." ])
+                return
+            }
+            guard let rawModel = args["model"] as? Dictionary<String, Any> else {
+                FlutterDataStoreErrorHandler.prepareError(
+                    flutterResult: flutterResult,
+                    msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
+                    errorMap: ["MALFORMED_REQUEST": "model was not passed in the arguments." ])
+                return
+            }
+            guard let id = rawModel["id"] as? String else {
+                FlutterDataStoreErrorHandler.prepareError(
+                    flutterResult: flutterResult,
+                    msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
+                    errorMap: ["MALFORMED_REQUEST": "model did not contain an id." ])
+                return
+            }
+
+            let modelData = SerializedModel(id: id, map: try getJSONValue(rawModel))
+            
+            guard let modelSchema = flutterModelRegistration.modelSchemas[modelName] else {
+                throw DataStoreError.decodingError("Unable to get model from registered schemas", "Check the model name.")
+            }
+            
+            try bridge.onDelete(id: id,
+                              modelData: modelData,
+                              modelSchema: modelSchema) { (result) in
+                switch result {
+                case .failure(let error):
+                    print("Delete API failed. Error = \(error)")
+                    FlutterDataStoreErrorHandler.handleDataStoreError(error: error,
+                                                                      flutterResult: flutterResult,
+                                                                      msg: FlutterDataStoreErrorMessage.DELETE_FAILED.rawValue)
+                case .success():
+                    flutterResult(nil)
+                }
+            }
+            
+        } catch {
+            print("Failed to parse delete arguments with \(error)")
+            FlutterDataStoreErrorHandler.prepareError(
+                flutterResult: flutterResult,
+                msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
+                errorMap: ["UNKNOWN": "\(error.localizedDescription).\nAn unrecognized error has occurred. See logs for details." ])
+            return
+        }
+                        
+    }
+    
     private func createTempPosts() throws {
         _ = try getPlugin().clear()
-        func getJSONValue(_ jsonDict: [String: Any]) -> [String: JSONValue]{
-            guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonDict) else {
-                print("JSON error")
-                return [:]
-            }
-            guard let jsonValue = try? JSONDecoder().decode(Dictionary<String, JSONValue>.self,
-                                                            from: jsonData) else {
-                print("JSON error")
-                return [:]
-            }
-            return jsonValue
-        }
         
-        let models = [SerializedModel(map: getJSONValue(["id": UUID().uuidString,
+        let models = [SerializedModel(map: try getJSONValue(["id": UUID().uuidString,
                                                          "title": "Title 1",
                                                          "rating": 5,
                                                          "created": "2020-02-20T20:20:20-08:00"] as [String : Any])),
-                      SerializedModel(map: getJSONValue(["id": UUID().uuidString,
+                      SerializedModel(map: try getJSONValue(["id": UUID().uuidString,
                                                          "title": "Title 2",
                                                          "rating": 3] as [String : Any])),
-                      SerializedModel(map: getJSONValue(["id": UUID().uuidString,
+                      SerializedModel(map: try getJSONValue(["id": UUID().uuidString,
                                                          "title": "Title 3",
                                                          "rating": 2,
                                                          "created": "2020-02-02T20:20:20-08:00"] as [String : Any])),
-                      SerializedModel(map: getJSONValue(["id": UUID().uuidString,
+                      SerializedModel(map: try getJSONValue(["id": UUID().uuidString,
                                                          "title": "Title 4",
                                                          "created": "2020-02-22T20:20:20-08:00"] as [String : Any]))]
         try models.forEach { model in
