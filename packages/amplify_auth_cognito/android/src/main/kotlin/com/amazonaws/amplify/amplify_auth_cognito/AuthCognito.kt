@@ -358,16 +358,24 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
   private fun onFetchAuthSession (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
     // TODO: Implement forceRefresh when/if supported by Amplify libs
     var req = FlutterFetchAuthSessionRequest(request)
+    // responsePending used to account for double-call of Consumers
+    var responsePending: Boolean = true
     try {
       Amplify.Auth.fetchAuthSession(
               { result ->
-                if (req.getAWSCredentials) {
+                if (req.getAWSCredentials /*&& responsePending*/) {
                   val cognitoAuthSession = result as AWSCognitoAuthSession
                   when (cognitoAuthSession.identityId.type) {
-                    AuthSessionResult.Type.SUCCESS -> prepareCognitoSessionResult(flutterResult, cognitoAuthSession)
-                    AuthSessionResult.Type.FAILURE -> prepareCognitoSessionFailure(flutterResult, cognitoAuthSession)
+                    AuthSessionResult.Type.SUCCESS -> {
+                      responsePending = false;
+                      prepareCognitoSessionResult(flutterResult, cognitoAuthSession)
+                    }
+                    AuthSessionResult.Type.FAILURE -> {
+                      responsePending = false;
+                      prepareCognitoSessionFailure(flutterResult, cognitoAuthSession)
+                    }
                   }
-                } else {
+                } else /*if (responsePending)*/ {
                   val session = result as AuthSession;
                   prepareSessionResult(flutterResult, session)
                 }

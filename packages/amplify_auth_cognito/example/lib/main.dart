@@ -162,7 +162,7 @@ class _MyAppState extends State<MyApp> {
   
   void _fetchSession() async {
     try {
-      CognitoAuthSession res = await Amplify.Auth.fetchAuthSession(options: CognitoSessionOptions(getAWSCredentials: false));
+      CognitoAuthSession res = await Amplify.Auth.fetchAuthSession(options: CognitoSessionOptions(getAWSCredentials: true));
       showResult("Session Sign In Status = " + res.isSignedIn.toString());
     } on AuthError catch (e) {
       setError(e);

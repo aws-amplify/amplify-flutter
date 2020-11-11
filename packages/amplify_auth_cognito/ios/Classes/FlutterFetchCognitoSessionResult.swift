@@ -29,8 +29,8 @@ struct FlutterFetchCognitoSessionResult {
     do {
         let session = try res.get()
         self.isSignedIn = session.isSignedIn
-        self.userSub = try getUserSub(session: session)
         self.identityId = try getIdentityId(session: session)
+        self.userSub = try getUserSub(session: session)
         self.credentials = try getCredentials(session: session)
         self.userPoolTokens = try getTokens(session: session)
     } catch  {
@@ -55,7 +55,15 @@ struct FlutterFetchCognitoSessionResult {
       do {
         sub = try identityProvider.getUserSub().get()
       } catch {
-         throw error as! AuthError
+        if (error is AuthError) {
+          switch error as! AuthError {
+            case .signedOut:
+              print("User is signed out")
+              return sub
+            default:
+              throw error as! AuthError
+          }
+        }
       }
     }
     return sub
@@ -78,9 +86,15 @@ struct FlutterFetchCognitoSessionResult {
 
     if let awsCredentialsProvider = session as? AuthAWSCredentialsProvider {
       let creds =  try awsCredentialsProvider.getAWSCredentials().get()
-        credentialMap["awsAccessKey"] = creds.accessKey
-        credentialMap["awsSecretKey"] = creds.secretKey
+      credentialMap["awsAccessKey"] = creds.accessKey
+      credentialMap["awsSecretKey"] = creds.secretKey
+      let tempCreds = try awsCredentialsProvider.getAWSCredentials().get() as? AuthAWSTemporaryCredentials
+        if ((tempCreds?.sessionKey) != nil) {
+            credentialMap["sessionKey"] = tempCreds?.sessionKey
+        }
     }
+    
+
     
     return credentialMap;
   }
@@ -89,10 +103,14 @@ struct FlutterFetchCognitoSessionResult {
     var tokenMap: [String: String] = [:]
 
     if let cognitoTokenProvider = session as? AuthCognitoTokensProvider {
-      let tokens = try cognitoTokenProvider.getCognitoTokens().get()
-        tokenMap["accessToken"] = tokens.accessToken
-        tokenMap["idToken"] = tokens.idToken
-        tokenMap["refreshToken"] = tokens.refreshToken
+        do {
+            let tokens = try cognitoTokenProvider.getCognitoTokens().get()
+            tokenMap["accessToken"] = tokens.accessToken
+            tokenMap["idToken"] = tokens.idToken
+            tokenMap["refreshToken"] = tokens.refreshToken
+        } catch {
+            tokenMap["error"] = "You are currently signed out."
+        }
     }
     return tokenMap;
   }
