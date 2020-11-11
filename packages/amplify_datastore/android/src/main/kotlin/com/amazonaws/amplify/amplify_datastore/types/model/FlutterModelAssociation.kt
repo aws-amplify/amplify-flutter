@@ -22,6 +22,7 @@ data class FlutterModelAssociation(val map: Map<String, Any>) {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     private val associationType: String = map["associationType"] as String
     private val targetName: String? = map["targetName"] as String?
     private val associatedName: String? = map["associatedName"] as String?
@@ -35,6 +36,12 @@ data class FlutterModelAssociation(val map: Map<String, Any>) {
     private val associatedName = map["associatedName"] as String?
     private val associatedType = map["associatedType"] as String?
 >>>>>>> PR Review Comments
+=======
+    private val associationType : String = map["associationType"] as String
+    private val targetName : String? = map["targetName"] as String?
+    private val associatedName : String? = map["associatedName"] as String?
+    private val associatedType : String? = map["associatedType"] as String?
+>>>>>>> Readd Kotlin Types
 
     fun convertToNativeModelAssociation(): ModelAssociation {
         val builder: ModelAssociation.Builder = ModelAssociation.builder()
