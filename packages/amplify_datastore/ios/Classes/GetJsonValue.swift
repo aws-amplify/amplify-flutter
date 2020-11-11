@@ -15,15 +15,14 @@
 
 import Amplify
 
-func getJSONValue(_ jsonDict: [String: Any]) -> [String: JSONValue]{
+func getJSONValue(_ jsonDict: [String: Any]) throws -> [String: JSONValue] {
     guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonDict) else {
-        print("JSON error")
-        return [:]
+        throw DataStoreError.decodingError("Unable to deserialize json data", "Check the model structure.")
     }
     guard let jsonValue = try? JSONDecoder().decode(Dictionary<String, JSONValue>.self,
                                                     from: jsonData) else {
-        print("JSON error")
-        return [:]
+        throw DataStoreError.decodingError("Unable to decode json value", "Check the model structure.")
+
     }
     return jsonValue
 }

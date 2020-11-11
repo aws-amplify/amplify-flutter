@@ -51,7 +51,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         case "configure":
             onConfigure(args: arguments, result: result)
         case "query":
-            // try! createTempPosts()
+//             try! createTempPosts()
             onQuery(args: arguments, flutterResult: result)
         case "delete":
             onDelete(args: arguments, flutterResult: result)
@@ -159,11 +159,15 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                 return
             }
 
-            let modelData = SerializedModel(id: id, map: getJSONValue(rawModel))
+            let modelData = SerializedModel(id: id, map: try getJSONValue(rawModel))
+            
+            guard let modelSchema = flutterModelRegistration.modelSchemas[modelName] else {
+                throw DataStoreError.decodingError("Unable to get model from registered schemas", "Check the model name.")
+            }
             
             try bridge.onDelete(id: id,
                               modelData: modelData,
-                              modelSchema: flutterModelRegistration.modelSchemas[modelName]!) { (result) in
+                              modelSchema: modelSchema) { (result) in
                 switch result {
                 case .failure(let error):
                     print("Delete API failed. Error = \(error)")
@@ -188,31 +192,19 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     
     private func createTempPosts() throws {
         _ = try getPlugin().clear()
-        func getJSONValue(_ jsonDict: [String: Any]) -> [String: JSONValue]{
-            guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonDict) else {
-                print("JSON error")
-                return [:]
-            }
-            guard let jsonValue = try? JSONDecoder().decode(Dictionary<String, JSONValue>.self,
-                                                            from: jsonData) else {
-                print("JSON error")
-                return [:]
-            }
-            return jsonValue
-        }
         
-        let models = [SerializedModel(map: getJSONValue(["id": UUID().uuidString,
+        let models = [SerializedModel(map: try getJSONValue(["id": UUID().uuidString,
                                                          "title": "Title 1",
                                                          "rating": 5,
                                                          "created": "2020-02-20T20:20:20-08:00"] as [String : Any])),
-                      SerializedModel(map: getJSONValue(["id": UUID().uuidString,
+                      SerializedModel(map: try getJSONValue(["id": UUID().uuidString,
                                                          "title": "Title 2",
                                                          "rating": 3] as [String : Any])),
-                      SerializedModel(map: getJSONValue(["id": UUID().uuidString,
+                      SerializedModel(map: try getJSONValue(["id": UUID().uuidString,
                                                          "title": "Title 3",
                                                          "rating": 2,
                                                          "created": "2020-02-02T20:20:20-08:00"] as [String : Any])),
-                      SerializedModel(map: getJSONValue(["id": UUID().uuidString,
+                      SerializedModel(map: try getJSONValue(["id": UUID().uuidString,
                                                          "title": "Title 4",
                                                          "created": "2020-02-22T20:20:20-08:00"] as [String : Any]))]
         try models.forEach { model in
