@@ -25,8 +25,8 @@ data class FlutterModelSchema(val map: Map<String, Any>) {
             (map["authRules"] as List<Map<String, Any>>?)?.map { serializedAuthRule ->
                 FlutterAuthRule(serializedAuthRule)
             }
-    private val fields : Map<String, FlutterModelField> =
-            (map["fields"] as Map<String, Any>).mapValues { entry ->
+    private val fields : Map<String, FlutterModelField>? =
+            (map["fields"] as Map<String, Any>?)?.mapValues { entry ->
                 FlutterModelField(entry.value as Map<String, Any>)
             }
     private val associations: Map<String, FlutterModelAssociation>? =
