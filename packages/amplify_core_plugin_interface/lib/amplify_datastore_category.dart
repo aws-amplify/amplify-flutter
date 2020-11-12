@@ -53,4 +53,10 @@ class DataStoreCategory {
         ? plugins[0].delete(model, when: when)
         : throw (errorMsg);
   }
+
+  Future<T> save<T extends Model>(T model, {QueryPredicate predicate}) {
+    return plugins.length == 1
+        ? plugins[0].save(model, predicate: predicate)
+        : throw (errorMsg);
+  }
 }

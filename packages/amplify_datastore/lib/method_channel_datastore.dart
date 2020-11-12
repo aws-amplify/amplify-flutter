@@ -56,23 +56,49 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
 
   @override
   Future<T> delete<T extends Model>(T model, {QueryPredicate when}) async {
-     try {
+    try {
       var modelJson = model.toJson();
       final Map<dynamic, dynamic> serializedResult =
-      await _channel.invokeMapMethod('delete', <String, dynamic>{
+          await _channel.invokeMapMethod('delete', <String, dynamic>{
         'modelName': model.instanceType.modelName(),
         'model': modelJson,
         'queryPredicate': when?.serializeAsMap(),
       });
 
-      return model.instanceType.fromJson(new Map<String, dynamic>.from(serializedResult["serializedData"]));
+      return model.instanceType.fromJson(
+          new Map<String, dynamic>.from(serializedResult["serializedData"]));
     } on PlatformException catch (e) {
       throw formatError(e);
-      } on TypeError {
+    } on TypeError {
       throw DataStoreError.init(
           cause: "ERROR_FORMATTING_PLATFORM_CHANNEL_RESPONSE",
           errorMap: new LinkedHashMap.from(
-          {"errorMessage": "Failed to deserialize delete API results"}));
+              {"errorMessage": "Failed to deserialize delete API results"}));
+    }
+  }
+
+  @override
+  Future<T> save<T extends Model>(T model, {QueryPredicate predicate}) async {
+    try {
+      ModelType<T> modelType = model.instanceType;
+      var methodChannelSaveInput = <String, dynamic>{
+        'modelName': modelType.modelName(),
+        'serializedModel': model.toJson(),
+        'queryPredicate': predicate?.serializeAsMap(),
+      };
+
+      print('DataStore MethodChannel Save Input: $methodChannelSaveInput');
+      await _channel.invokeMapMethod('save', methodChannelSaveInput);
+      //TODO_FL: Return null
+      return model;
+    } on PlatformException catch (e) {
+      print("PLATFORM ERROR:" + e.message);
+      throw formatError(e);
+    } on TypeError {
+      throw DataStoreError.init(
+          cause: "ERROR_FORMATTING_PLATFORM_CHANNEL_RESPONSE",
+          errorMap: new LinkedHashMap.from(
+              {"errorMessage": "Failed to deserialize save API results"}));
     }
   }
 

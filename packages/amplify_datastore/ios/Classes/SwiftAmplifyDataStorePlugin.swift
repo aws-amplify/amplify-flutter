@@ -53,6 +53,9 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         case "query":
             // try! createTempPosts()
             onQuery(args: arguments, flutterResult: result)
+        case "save":
+            //onSave(args: arguments, flutterResult: result, modelSchemas: flutterModelRegistration.modelSchemas)
+            onSave(args: arguments, flutterResult: result, modelSchemas: flutterModelRegistration.modelSchemas)
         default:
             result(FlutterMethodNotImplemented)
         }
@@ -132,45 +135,53 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         }
     }
     
-    private func createTempPosts() throws {
-        _ = try getPlugin().clear()
-        func getJSONValue(_ jsonDict: [String: Any]) -> [String: JSONValue]{
-            guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonDict) else {
-                print("JSON error")
-                return [:]
-            }
-            guard let jsonValue = try? JSONDecoder().decode(Dictionary<String, JSONValue>.self,
-                                                            from: jsonData) else {
-                print("JSON error")
-                return [:]
-            }
-            return jsonValue
-        }
+    func onSave(args: [String: Any], flutterResult: @escaping FlutterResult, modelSchemas: [String: ModelSchema]) {
         
-        let models = [SerializedModel(map: getJSONValue(["id": UUID().uuidString,
-                                                         "title": "Title 1",
-                                                         "rating": 5,
-                                                         "created": "2020-02-20T20:20:20-08:00"] as [String : Any])),
-                      SerializedModel(map: getJSONValue(["id": UUID().uuidString,
-                                                         "title": "Title 2",
-                                                         "rating": 3] as [String : Any])),
-                      SerializedModel(map: getJSONValue(["id": UUID().uuidString,
-                                                         "title": "Title 3",
-                                                         "rating": 2,
-                                                         "created": "2020-02-02T20:20:20-08:00"] as [String : Any])),
-                      SerializedModel(map: getJSONValue(["id": UUID().uuidString,
-                                                         "title": "Title 4",
-                                                         "created": "2020-02-22T20:20:20-08:00"] as [String : Any]))]
-        try models.forEach { model in
-            try getPlugin().save(model, modelSchema: flutterModelRegistration.modelSchemas["Post"]!) { (result) in
+        do {
+            let modelName = try RequestUtils.getModelName(args: args)
+            let modelSchema = try RequestUtils.getModelSchema(modelSchemas: modelSchemas, modelName: modelName)
+            let serializedModelData = try RequestUtils.getSerializedModelData(args: args)
+            let modelID = try RequestUtils.getModelID(serializedModelData: serializedModelData)
+            
+            var queryPredicate: QueryPredicate?
+            if let queryPredicateData = args["queryPredicate"] as? [String: Any] {
+                queryPredicate = try QueryPredicateBuilder.fromSerializedMap(serializedMap: queryPredicateData)
+            }
+            
+            print("SerializedModelData \(String(describing: serializedModelData))")
+            let serializedModel = SerializedModel(id: modelID, map: RequestUtils.getJSONValue(serializedModelData))
+            print("SerializedModel \(String(describing: serializedModel))")
+            print ("QueryPredicate \(String(describing: queryPredicate))")
+            
+            try bridge.onSave(serializedModel: serializedModel, modelSchema: modelSchema, when: queryPredicate) { (result) in
                 switch result {
                 case .failure(let error):
-                    print("Save error = \(error)")
+                    print("Save API failed. Error = \(error)")
+                    FlutterDataStoreErrorHandler.handleDataStoreError(
+                        error: error,
+                        flutterResult: flutterResult,
+                        msg: FlutterDataStoreErrorMessage.SAVE_FAILED.rawValue
+                    )
                 case .success(let post):
-                    print("Saved post - \(post)")
+                    //TODO_FL: Remove this line
+                    print("Successfully Saved post - \(post)")
+                    flutterResult(nil)
                 }
             }
         }
+        catch let error as DataStoreError {
+            print("Failed to parse Save arguments with \(error)")
+            
+        }
+        catch {
+            print("An unexpected error occured when parsing Save arguments: \(error)")
+            FlutterDataStoreErrorHandler.prepareError(
+                flutterResult: flutterResult,
+                msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
+                errorMap: ["UNKNOWN": "\(error.localizedDescription).\nAn unrecognized error has occurred. See logs for details." ])
+            return
+        }
+        
     }
     
     private func checkArguments(args: Any) throws -> [String: Any] {

@@ -15,6 +15,9 @@
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:meta/meta.dart';
+import 'package:uuid/uuid.dart';
+
+var uuid = Uuid();
 
 class Post extends Model {
   static final QueryField ID = new QueryField("id");
@@ -47,7 +50,12 @@ class Post extends Model {
   factory Post(
       {String id, @required String title, int rating, DateTime created}) {
     return Post._internal(
-        id: id, title: title, rating: rating, created: created);
+        id: id == null
+            ? uuid.v4() // Replace with UUID
+            : id,
+        title: title,
+        rating: rating,
+        created: created);
   }
 
   // Utility methods for immutability
@@ -67,6 +75,7 @@ class Post extends Model {
         created =
             json['created'] != null ? DateTime.parse(json['created']) : null;
 
+  @override
   Map<String, dynamic> toJson() => {
         'id': id,
         'title': title,

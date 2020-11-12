@@ -21,7 +21,7 @@ import 'dart:async';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'amplifyconfiguration.dart';
+//import 'amplifyconfiguration.dart';
 
 import 'Post.dart';
 
@@ -45,6 +45,8 @@ class _MyAppState extends State<MyApp> {
   String _postWithIdNotEquals = '';
   String _firstPostFromResult = '';
   String _allPostsWithoutRating2Or5 = '';
+  bool _isAmplifyConfigured = false;
+
   Amplify amplify = new Amplify();
   @override
   void initState() {
@@ -58,7 +60,14 @@ class _MyAppState extends State<MyApp> {
         AmplifyDataStore(modelSchemas: [createTestSchema()]);
     await amplify.addPlugin(dataStorePlugins: [datastorePlugin]);
     // Configure
-    await amplify.configure(amplifyconfig);
+    await amplify.configure('''{}''');
+    setState(() {
+      _isAmplifyConfigured = true;
+    });
+    runQueries();
+  }
+
+  void runQueries() async {
     String allPosts = '';
     String posts4Rating = '';
     String posts1To4Rating = '';
@@ -131,26 +140,58 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  savePost() async {
+    try {
+      Post post = Post(
+          title: 'New Post being saved', rating: 10, created: DateTime.now());
+      await Amplify.DataStore.save(post);
+      Post newPost = post.copyWith(id: post.id, title: 'Updated Title');
+      await Amplify.DataStore.save(newPost, predicate: Post.RATING.eq(9));
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-            title: const Text('Plugin example app'),
-          ),
-          body: Center(
-            child: new SingleChildScrollView(
-                child: Text('All Posts sort by rating ascending (sorting not working)\n$_posts\n\n' +
-                    'First post from list of all posts\n$_firstPostFromResult\n\n' +
-                    'Posts >= 4 rating\n$_posts4rating\n\n' +
-                    'Posts between 1 and 4 rating\n$_posts1To4Rating\n\n' +
-                    'Posts with rating 2 or 5\n$_posts2Or5Rating\n\n' +
-                    'Posts without rating 2 or 5\n$_allPostsWithoutRating2Or5\n\n' +
-                    'Post with date equals\n$_postWithCreatedDate\n\n' +
-                    'Post with Id not equals\n$_postWithIdNotEquals\n\n')),
-          )),
+        appBar: AppBar(
+          title: const Text('Plugin example app'),
+        ),
+        body: ListView(
+          padding: EdgeInsets.all(10.0),
+          children: <Widget>[
+            Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const Padding(padding: EdgeInsets.all(10.0)),
+                  RaisedButton(
+                    onPressed: _isAmplifyConfigured ? savePost : null,
+                    child: const Text('Save Post'),
+                  ),
+                  const Padding(padding: EdgeInsets.all(5.0)),
+                  Text('Amplify Configured: $_isAmplifyConfigured'),
+                ]),
+            const Padding(padding: EdgeInsets.all(5.0)),
+            Text('Posts >= 4 rating\n$_posts4rating\n\n'),
+          ],
+        ),
+      ),
     );
   }
+
+  // Center(
+  //           child: new SingleChildScrollView(
+  //               child: Text('All Posts sort by rating ascending (sorting not working)\n$_posts\n\n' +
+  //                   'First post from list of all posts\n$_firstPostFromResult\n\n' +
+  //                   'Posts >= 4 rating\n$_posts4rating\n\n' +
+  //                   'Posts between 1 and 4 rating\n$_posts1To4Rating\n\n' +
+  //                   'Posts with rating 2 or 5\n$_posts2Or5Rating\n\n' +
+  //                   'Posts without rating 2 or 5\n$_allPostsWithoutRating2Or5\n\n' +
+  //                   'Post with date equals\n$_postWithCreatedDate\n\n' +
+  //                   'Post with Id not equals\n$_postWithIdNotEquals\n\n')),
+  //         )
 
   ModelSchema createTestSchema() {
     Map<String, ModelField> modelFieldMap = {};

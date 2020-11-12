@@ -219,6 +219,7 @@
 		B4A5C44E2548EF7800B9E501 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				FB2B5E73255CDBFA00518204 /* save */,
 				B4A5C44F2548EF8200B9E501 /* query */,
 			);
 			path = resources;
@@ -231,6 +232,13 @@
 				B409DE1A254A2118006AECDB /* predicates */,
 			);
 			path = query;
+			sourceTree = "<group>";
+		};
+		FB2B5E73255CDBFA00518204 /* save */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = save;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -761,7 +769,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = amplify_datastore_unit_tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -791,7 +799,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = amplify_datastore_unit_tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -818,7 +826,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = amplify_datastore_unit_tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -22,7 +22,7 @@ let testSchema: ModelSchema = ModelSchema.init(name: "Post")
 let amplifySuccessResults: [SerializedModel] =
     (try! readJsonArray(filePath: "2_results") as! [[String: Any]]).map { (serializedModel) in
         SerializedModel.init(
-            id: serializedModel["id"] as! String,
+            id: serializedModel["id"] as? String,
             map: getJSONValue(serializedModel["serializedData"] as! [String : Any]))
     }
 let id: QueryField = field("id")
@@ -142,4 +142,37 @@ class DataStorePluginUnitTests: XCTestCase {
                 }
             })
     }
+    
+//    func test_save_success_result_with_query_parameters() throws {
+//
+////    class MockDataStoreBridge: DataStoreBridge {
+////        override func onSave<M : Model>(
+////                                serializedModel: M,
+////                                modelSchema: ModelSchema,
+////                                when predicate: QueryPredicate? = nil,
+////                                completion: @escaping DataStoreCallback<M>)
+////            throws {
+////            <#code#>
+////            // Validations that we called the native library correctly
+//////            XCTAssert(SerializedModel.self == modelType)
+////            XCTAssertEqual(testSchema.name, modelSchema.name)
+////            XCTAssertEqual(
+////                id.eq("123").or(rating.ge(4).and(not(created.eq("2020-02-20T20:20:20-08:00")))),
+////                predicate as! QueryPredicateGroup
+////            )
+////            XCTAssertEqual(
+////                [
+////                    QuerySortDescriptor(fieldName: "id", order: .ascending),
+////                    QuerySortDescriptor(fieldName: "created", order: .descending)
+////                ],
+////                sortInput)
+////            XCTAssertEqual(
+////                QueryPaginationInput.page(2, limit: 8),
+////                paginationInput)
+////
+////            // Return from the mock
+////            completion(.success(amplifySuccessResults as! [M]))
+////        }
+////    }
+//    }
 }
