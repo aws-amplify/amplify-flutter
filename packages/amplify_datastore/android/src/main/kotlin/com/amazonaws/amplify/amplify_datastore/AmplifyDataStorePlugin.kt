@@ -15,9 +15,11 @@
 
 package com.amazonaws.amplify.amplify_datastore
 
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
+import androidx.annotation.RequiresApi
 import androidx.annotation.VisibleForTesting
 import com.amazonaws.amplify.amplify_datastore.types.FlutterDataStoreFailureMessage
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterModelSchema
@@ -30,17 +32,19 @@ import com.amplifyframework.api.aws.AWSApiPlugin
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.async.Cancelable
 import com.amplifyframework.core.model.Model
+import com.amplifyframework.core.model.ModelProvider
 import com.amplifyframework.core.model.query.QueryOptions
 import com.amplifyframework.datastore.AWSDataStorePlugin
 import com.amplifyframework.datastore.DataStoreException
 import com.amplifyframework.datastore.appsync.SerializedModel
+import com.amplifyframework.datastore.generated.model.Comment
+import com.amplifyframework.datastore.generated.model.Post
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-
 
 /** AmplifyDataStorePlugin */
 class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
@@ -297,4 +301,72 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     private fun postFlutterError(flutterResult: Result, msg: String, errorMap: Map<String, Any>) {
         handler.post { flutterResult.error("AmplifyException", msg, errorMap) }
     }
+
+    private fun deleteAll(){
+
+        Amplify.DataStore.query(Post::class.java, Where.matchesAll(),
+                { matches ->
+                    if (matches.hasNext()) {
+                        val post = matches.next()
+                        Amplify.DataStore.delete(post,
+                                { Log.i("MyAmplifyApp", "Deleted a post.") },
+                                { Log.e("MyAmplifyApp", "Delete post failed.", it) }
+                        )
+                    }
+                },
+                { Log.e("MyAmplifyApp", "Query delete Post failed.", it) }
+        )
+
+        Amplify.DataStore.query(Comment::class.java, Where.matchesAll(),
+                { matches ->
+                    if (matches.hasNext()) {
+                        val post = matches.next()
+                        Amplify.DataStore.delete(post,
+                                { Log.i("MyAmplifyApp", "Deleted a comment.") },
+                                { Log.e("MyAmplifyApp", "Delete comment failed.", it) }
+                        )
+                    }
+                },
+                { Log.e("MyAmplifyApp", "Query delete Comment failed.", it) }
+        )
+    }
+
+    private fun createTempPosts() {
+        val postSerializedData: List<Map<String, Any>> = listOf(
+                mapOf(
+                        "id" to UUID.randomUUID().toString(),
+                        "title" to "Title 1 " + Date().toString(),
+                        "rating" to 5,
+                        "created" to Temporal.DateTime(
+                                "2020-02-20T20:20:20-08:00")), // ISO8601 representation that would come from dart
+                mapOf(
+                        "id" to UUID.randomUUID().toString(),
+                        "title" to "Title 2 " + Date().toString(),
+                        "rating" to 3),
+                mapOf(
+                        "id" to UUID.randomUUID().toString(),
+                        "title" to "Title 3 " + Date().toString(),
+                        "rating" to 2,
+                        "created" to Temporal.DateTime("2020-02-02T20:20:20-08:00")),
+                mapOf(
+                        "id" to UUID.randomUUID().toString(),
+                        "title" to "Title 4 " + Date().toString(),
+                        "created" to Temporal.DateTime("2020-02-22T20:20:20-08:00"))
+        )
+        val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
+        postSerializedData.forEach { data ->
+            plugin.save(SerializedModel.builder()
+                    .serializedData(data)
+                    .modelSchema( FlutterModelProvider.instance.modelSchemas()["Post"])
+                    .build(),
+                    QueryPredicates.all(),
+                    Consumer { response: DataStoreItemChange<SerializedModel?> ->
+                        Log.i("Result", response.toString())
+                    },
+                    Consumer { failure: DataStoreException? ->
+                        Log.e("Result", "Failed", failure)
+                    }
+            ) // Save call end
+        } // for each end
+    } // method end
 }

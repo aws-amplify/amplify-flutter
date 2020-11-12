@@ -67,7 +67,7 @@ class _MyAppState extends State<MyApp> {
 
     await amplify.addPlugin(dataStorePlugins: [datastorePlugin]);
     // Configure
-    await amplify.configure(amplifyconfig);
+    await amplify.configure("{}"); //amplifyconfig);
     String allPosts = '';
     String allComments = '';
     String allBlogs = '';

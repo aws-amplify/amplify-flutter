@@ -1,0 +1,41 @@
+{
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "amplify-example-dev-141839-authRole",
+			"UnauthRoleArn": "arn:aws:iam::444407295970:role/amplify-example-dev-141839-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::444407295970:role/amplify-example-dev-141839-authRole",
+			"Region": "us-west-2",
+			"DeploymentBucketName": "amplify-example-dev-141839-deployment",
+			"UnauthRoleName": "amplify-example-dev-141839-unauthRole",
+			"StackName": "amplify-example-dev-141839",
+			"StackId": "arn:aws:cloudformation:us-west-2:444407295970:stack/amplify-example-dev-141839/32693a50-25fe-11eb-8971-06c777687edc"
+		}
+	},
+	"api": {
+		"example": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"authConfig": {
+					"defaultAuthentication": {
+						"authenticationType": "API_KEY",
+						"apiKeyConfig": {
+							"apiKeyExpirationDays": 7,
+							"description": ""
+						}
+					},
+					"additionalAuthenticationProviders": []
+				},
+				"GraphQLAPIIdOutput": "2ez6hudik5elvla4dsndcjxbge",
+				"GraphQLAPIEndpointOutput": "https://epz5e64ievbjrnofnirb2djjpe.appsync-api.us-west-2.amazonaws.com/graphql",
+				"GraphQLAPIKeyOutput": "da2-nc5yyt6tijfejj6n4rqlpoyrgi"
+			},
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-example-dev-141839-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+				"logicalId": "apiexample"
+			},
+			"lastPushTimeStamp": "2020-11-13T22:26:50.603Z",
+			"lastPushDirHash": "FgX+6x2Ogzdpv5mj9VDB7CbLXqM="
+		}
+	}
+}

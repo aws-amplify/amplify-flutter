@@ -66,9 +66,11 @@ data class FlutterModelField(val map: Map<String, Any>) {
                 .isModel(isModel)
 
         if (!authRules.isNullOrEmpty()) {
+            /* TODO no AuthRule constructor
             builder = builder.authRules(authRules.map { authRule ->
                 authRule.convertToNativeAuthRule()
             })
+             */
         }
         return builder.build()
     }
