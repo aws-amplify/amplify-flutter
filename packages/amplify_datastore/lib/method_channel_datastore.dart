@@ -59,7 +59,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
       var modelJson = model.toJson();
       await _channel.invokeMapMethod('delete', <String, dynamic>{
         'modelName': model.instanceType.modelName(),
-        'model': modelJson
+        'serializedModel': modelJson
       });
     } on PlatformException catch (e) {
       throw formatError(e);
@@ -67,19 +67,17 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   }
 
   @override
-  Future<T> save<T extends Model>(T model, {QueryPredicate predicate}) async {
+  Future<void> save<T extends Model>(T model, {QueryPredicate when}) async {
     try {
       ModelType<T> modelType = model.instanceType;
       var methodChannelSaveInput = <String, dynamic>{
         'modelName': modelType.modelName(),
         'serializedModel': model.toJson(),
-        'queryPredicate': predicate?.serializeAsMap(),
+        'queryPredicate': when?.serializeAsMap(),
       };
-
+      //TODO_FL: Remove print
       print('DataStore MethodChannel Save Input: $methodChannelSaveInput');
       await _channel.invokeMapMethod('save', methodChannelSaveInput);
-      //TODO_FL: Return null
-      return model;
     } on PlatformException catch (e) {
       print("PLATFORM ERROR:" + e.message);
       throw formatError(e);

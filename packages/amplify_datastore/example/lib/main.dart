@@ -143,10 +143,19 @@ class _MyAppState extends State<MyApp> {
   savePost() async {
     try {
       Post post = Post(
-          title: 'New Post being saved', rating: 10, created: DateTime.now());
+          title: 'New Post being saved', rating: 15, created: DateTime.now());
       await Amplify.DataStore.save(post);
       Post newPost = post.copyWith(id: post.id, title: 'Updated Title');
-      await Amplify.DataStore.save(newPost, predicate: Post.RATING.eq(9));
+      await Amplify.DataStore.save(newPost, when: Post.RATING.eq(10));
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  deletePost() async {
+    try {
+      await Amplify.DataStore.delete(
+          Post(id: 'f6c4be2d-9b1b-496e-b3bf-78035f0e6191', title: 'Title'));
     } catch (e) {
       print(e);
     }
@@ -157,41 +166,42 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: Text('Plugin example app'),
         ),
-        body: ListView(
-          padding: EdgeInsets.all(10.0),
-          children: <Widget>[
-            Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const Padding(padding: EdgeInsets.all(10.0)),
-                  RaisedButton(
-                    onPressed: _isAmplifyConfigured ? savePost : null,
-                    child: const Text('Save Post'),
-                  ),
-                  const Padding(padding: EdgeInsets.all(5.0)),
-                  Text('Amplify Configured: $_isAmplifyConfigured'),
-                ]),
-            const Padding(padding: EdgeInsets.all(5.0)),
-            Text('Posts >= 4 rating\n$_posts4rating\n\n'),
-          ],
+        body: Center(
+          child: ListView(
+            padding: EdgeInsets.all(5.0),
+            children: <Widget>[
+              Padding(padding: EdgeInsets.all(10.0)),
+              Center(
+                child: RaisedButton(
+                  onPressed: _isAmplifyConfigured ? savePost : null,
+                  child: Text('Save Post'),
+                ),
+              ),
+              Padding(padding: EdgeInsets.all(10.0)),
+              Center(
+                child: RaisedButton(
+                  onPressed: _isAmplifyConfigured ? deletePost : null,
+                  child: Text('Delete Post'),
+                ),
+              ),
+              Padding(padding: EdgeInsets.all(10.0)),
+              Center(
+                child: RaisedButton(
+                  onPressed: _isAmplifyConfigured ? runQueries : null,
+                  child: const Text('Query'),
+                ),
+              ),
+              Padding(padding: EdgeInsets.all(5.0)),
+              // replace with any or all query results as needed
+              Text('Posts >= 4 rating: \n$_posts4rating\n'),
+            ],
+          ),
         ),
       ),
     );
   }
-
-  // Center(
-  //           child: new SingleChildScrollView(
-  //               child: Text('All Posts sort by rating ascending (sorting not working)\n$_posts\n\n' +
-  //                   'First post from list of all posts\n$_firstPostFromResult\n\n' +
-  //                   'Posts >= 4 rating\n$_posts4rating\n\n' +
-  //                   'Posts between 1 and 4 rating\n$_posts1To4Rating\n\n' +
-  //                   'Posts with rating 2 or 5\n$_posts2Or5Rating\n\n' +
-  //                   'Posts without rating 2 or 5\n$_allPostsWithoutRating2Or5\n\n' +
-  //                   'Post with date equals\n$_postWithCreatedDate\n\n' +
-  //                   'Post with Id not equals\n$_postWithIdNotEquals\n\n')),
-  //         )
 
   ModelSchema createTestSchema() {
     Map<String, ModelField> modelFieldMap = {};

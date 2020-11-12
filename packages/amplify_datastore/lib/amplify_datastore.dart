@@ -50,8 +50,8 @@ class AmplifyDataStore extends DataStorePluginInterface {
   }
 
   @override
-  Future<T> save<T extends Model>(T model, {QueryPredicate predicate}) {
-    return _instance.save(model, predicate: predicate);
+  Future<void> save<T extends Model>(T model, {QueryPredicate when}) {
+    return _instance.save(model, when: when);
   }
 
   @override

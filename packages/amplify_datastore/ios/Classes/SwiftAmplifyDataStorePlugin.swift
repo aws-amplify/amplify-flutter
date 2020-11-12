@@ -53,7 +53,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         case "query":
             onQuery(args: arguments, flutterResult: result)
         case "save":
-            onSave(args: arguments, flutterResult: result, modelSchemas: flutterModelRegistration.modelSchemas)
+            onSave(args: arguments, flutterResult: result)
         case "delete":
             onDelete(args: arguments, flutterResult: result)
         default:
@@ -89,23 +89,11 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     
     func onQuery(args: [String: Any], flutterResult: @escaping FlutterResult) {
         do {
-            guard let modelName = args["modelName"] as? String else {
-                FlutterDataStoreErrorHandler.prepareError(
-                    flutterResult: flutterResult,
-                    msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
-                    errorMap: ["MALFORMED_REQUEST": "modelName was not passed in the arguments." ])
-                return
-            }
-            guard let modelSchema = flutterModelRegistration.modelSchemas[modelName] else {
-                FlutterDataStoreErrorHandler.prepareError(
-                    flutterResult: flutterResult,
-                    msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
-                    errorMap: ["MALFORMED_REQUEST": "schema for model \(modelName) is not registered." ])
-                return
-            }
-            let queryPredicates = try QueryPredicateBuilder.fromSerializedMap(serializedMap: args["queryPredicate"] as? [String : Any])
-            let querySortInput = try QuerySortBuilder.fromSerializedList(serializedList: args["querySort"] as? [[String: Any]])
-            let queryPagination = QueryPaginationBuilder.fromSerializedMap(serializedMap: args["queryPagination"] as? [String: Any])
+            let modelName = try FlutterDataStoreRequestUtils.getModelName(args: args)
+            let modelSchema = try FlutterDataStoreRequestUtils.getModelSchema(modelSchemas: flutterModelRegistration.modelSchemas, modelName: modelName)
+            let queryPredicates = try QueryPredicateBuilder.fromSerializedMap(args["queryPredicate"] as? [String : Any])
+            let querySortInput = try QuerySortBuilder.fromSerializedList(args["querySort"] as? [[String: Any]])
+            let queryPagination = QueryPaginationBuilder.fromSerializedMap(args["queryPagination"] as? [String: Any])
             try bridge.onQuery(SerializedModel.self,
                               modelSchema: modelSchema,
                               where: queryPredicates,
@@ -125,8 +113,17 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     return
                 }
             }
-        } catch {
+        }
+        catch let error as DataStoreError {
             print("Failed to parse query arguments with \(error)")
+            FlutterDataStoreErrorHandler.handleDataStoreError(
+                error: error,
+                flutterResult: flutterResult,
+                msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue
+            )
+        }
+        catch {
+            print("An unexpected error occured when parsing query arguments: \(error)")
             FlutterDataStoreErrorHandler.prepareError(
                 flutterResult: flutterResult,
                 msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
@@ -135,25 +132,30 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         }
     }
     
-    func onSave(args: [String: Any], flutterResult: @escaping FlutterResult, modelSchemas: [String: ModelSchema]) {
+    func onSave(args: [String: Any], flutterResult: @escaping FlutterResult) {
         
         do {
-            let modelName = try RequestUtils.getModelName(args: args)
-            let modelSchema = try RequestUtils.getModelSchema(modelSchemas: modelSchemas, modelName: modelName)
-            let serializedModelData = try RequestUtils.getSerializedModelData(args: args)
-            let modelID = try RequestUtils.getModelID(serializedModelData: serializedModelData)
+            let modelName = try FlutterDataStoreRequestUtils.getModelName(args: args)
+            let modelSchema = try FlutterDataStoreRequestUtils.getModelSchema(modelSchemas: flutterModelRegistration.modelSchemas, modelName: modelName)
+            let serializedModelData = try FlutterDataStoreRequestUtils.getSerializedModelData(args: args)
+            let modelID = try FlutterDataStoreRequestUtils.getModelID(serializedModelData: serializedModelData)
             
             var queryPredicate: QueryPredicate?
             if let queryPredicateData = args["queryPredicate"] as? [String: Any] {
-                queryPredicate = try QueryPredicateBuilder.fromSerializedMap(serializedMap: queryPredicateData)
+                queryPredicate = try QueryPredicateBuilder.fromSerializedMap(queryPredicateData)
             }
             
+            //TODO_FL: Remove this line
             print("SerializedModelData \(String(describing: serializedModelData))")
-            let serializedModel = SerializedModel(id: modelID, map: RequestUtils.getJSONValue(serializedModelData))
+            let serializedModel = SerializedModel(id: modelID, map: try FlutterDataStoreRequestUtils.getJSONValue(serializedModelData))
             print("SerializedModel \(String(describing: serializedModel))")
             print ("QueryPredicate \(String(describing: queryPredicate))")
             
-            try bridge.onSave(serializedModel: serializedModel, modelSchema: modelSchema, when: queryPredicate) { (result) in
+            try bridge.onSave(
+                serializedModel: serializedModel,
+                modelSchema: modelSchema,
+                when: queryPredicate
+            ) { (result) in
                 switch result {
                 case .failure(let error):
                     print("Save API failed. Error = \(error)")
@@ -170,10 +172,15 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             }
         }
         catch let error as DataStoreError {
-            print("Failed to parse Save arguments with \(error)")   
+            print("Failed to parse save arguments with \(error)")
+            FlutterDataStoreErrorHandler.handleDataStoreError(
+                error: error,
+                flutterResult: flutterResult,
+                msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue
+            )
         }
         catch {
-            print("An unexpected error occured when parsing Save arguments: \(error)")
+            print("An unexpected error occured when parsing save arguments: \(error)")
             FlutterDataStoreErrorHandler.prepareError(
                 flutterResult: flutterResult,
                 msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
@@ -184,50 +191,39 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
 
     func onDelete(args: [String: Any], flutterResult: @escaping FlutterResult) {
         do {
-            guard let modelName = args["modelName"] as? String else {
-                FlutterDataStoreErrorHandler.prepareError(
-                    flutterResult: flutterResult,
-                    msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
-                    errorMap: ["MALFORMED_REQUEST": "modelName was not passed in the arguments." ])
-                return
-            }
-            guard let rawModel = args["model"] as? Dictionary<String, Any> else {
-                FlutterDataStoreErrorHandler.prepareError(
-                    flutterResult: flutterResult,
-                    msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
-                    errorMap: ["MALFORMED_REQUEST": "model was not passed in the arguments." ])
-                return
-            }
-            guard let id = rawModel["id"] as? String else {
-                FlutterDataStoreErrorHandler.prepareError(
-                    flutterResult: flutterResult,
-                    msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
-                    errorMap: ["MALFORMED_REQUEST": "model did not contain an id." ])
-                return
-            }
-
-            let modelData = SerializedModel(id: id, map: try getJSONValue(rawModel))
+            let modelName = try FlutterDataStoreRequestUtils.getModelName(args: args)
+            let modelSchema = try FlutterDataStoreRequestUtils.getModelSchema(modelSchemas: flutterModelRegistration.modelSchemas, modelName: modelName)
+            let serializedModelData = try FlutterDataStoreRequestUtils.getSerializedModelData(args: args)
+            let modelID = try FlutterDataStoreRequestUtils.getModelID(serializedModelData: serializedModelData)
             
-            guard let modelSchema = flutterModelRegistration.modelSchemas[modelName] else {
-                throw DataStoreError.decodingError("Unable to get model from registered schemas", "Check the model name.")
+            let serializedModel = SerializedModel(id: modelID, map: try FlutterDataStoreRequestUtils.getJSONValue(serializedModelData))
+            
+            try bridge.onDelete(
+                serializedModel: serializedModel,
+                modelSchema: modelSchema) { (result) in
+                    switch result {
+                    case .failure(let error):
+                        print("Delete API failed. Error = \(error)")
+                        FlutterDataStoreErrorHandler.handleDataStoreError(error: error,
+                                                                          flutterResult: flutterResult,
+                                                                          msg: FlutterDataStoreErrorMessage.DELETE_FAILED.rawValue)
+                    case .success():
+                        print("Delete was successful")
+                        flutterResult(nil)
+                    }
             }
             
-            try bridge.onDelete(id: id,
-                              modelData: modelData,
-                              modelSchema: modelSchema) { (result) in
-                switch result {
-                case .failure(let error):
-                    print("Delete API failed. Error = \(error)")
-                    FlutterDataStoreErrorHandler.handleDataStoreError(error: error,
-                                                                      flutterResult: flutterResult,
-                                                                      msg: FlutterDataStoreErrorMessage.DELETE_FAILED.rawValue)
-                case .success():
-                    flutterResult(nil)
-                }
-            }
-            
-        } catch {
+        }
+        catch let error as DataStoreError {
             print("Failed to parse delete arguments with \(error)")
+            FlutterDataStoreErrorHandler.handleDataStoreError(
+                error: error,
+                flutterResult: flutterResult,
+                msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue
+            )
+        }
+        catch {
+            print("An unexpected error occured when parsing delete arguments: \(error)")
             FlutterDataStoreErrorHandler.prepareError(
                 flutterResult: flutterResult,
                 msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,

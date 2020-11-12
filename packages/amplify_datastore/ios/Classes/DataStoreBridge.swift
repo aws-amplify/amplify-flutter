@@ -48,14 +48,14 @@ public class DataStoreBridge {
                              completion: completion)
         
     }
-
-    func onDelete(id: String,
-                  modelData: SerializedModel,
+    
+    func onDelete(serializedModel: SerializedModel,
                   modelSchema: ModelSchema,
                   completion: @escaping DataStoreCallback<Void>) throws {
         
-        try getPlugin().delete(modelData,
+        try getPlugin().delete(serializedModel,
                                modelSchema: modelSchema,
                                completion: completion)
     }
+
 }

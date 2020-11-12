@@ -27,7 +27,7 @@ void main() {
   AmplifyDataStore dataStore = AmplifyDataStore(modelSchemas: null);
 
   TestWidgetsFlutterBinding.ensureInitialized();
-  
+
   setUp(() {});
 
   tearDown(() {
@@ -35,10 +35,15 @@ void main() {
   });
 
   test('delete with a valid model executes without an error ', () async {
-    var json = await getJsonFromFile('delete_api/request/instance_no_predicate.json');
-    var model = json["model"];
+    var json =
+        await getJsonFromFile('delete_api/request/instance_no_predicate.json');
+    var model = json['serializedModel'];
     dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {});
-    Post instance = Post(title: model["title"], rating: model["rating"], created: DateTime.parse(model["created"]), id: model["id"]);
+    Post instance = Post(
+        title: model['title'],
+        rating: model['rating'],
+        created: DateTime.parse(model['created']),
+        id: model['id']);
     Future<void> deleteFuture = dataStore.delete(instance);
     expect(deleteFuture, completes);
   });
