@@ -16,6 +16,7 @@
 import Foundation
 import Amplify
 import AmplifyPlugins
+import Combine
 
 public class DataStoreBridge {
     
@@ -36,6 +37,7 @@ public class DataStoreBridge {
                           paginate: paginationInput,
                           completion: completion)
     }
+
     func onDelete(id: String,
                   modelData: SerializedModel,
                   modelSchema: ModelSchema,
@@ -44,5 +46,9 @@ public class DataStoreBridge {
         try getPlugin().delete(modelData,
                                modelSchema: modelSchema,
                                completion: completion)
+    }
+
+    func onObserve() throws -> AnyPublisher<MutationEvent, DataStoreError> {
+        return try getPlugin().publisher
     }
 }

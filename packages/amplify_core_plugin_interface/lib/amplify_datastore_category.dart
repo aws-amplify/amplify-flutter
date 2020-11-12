@@ -32,7 +32,7 @@ class DataStoreCategory {
       // Extra step to configure datastore specifically.
       // Note: The native datastore plugins are not added
       // in the `onAttachedToEngine` but rather in the `configure()
-      await plugin.configure(modelSchemas: plugin.modelSchemas);
+      await plugin.addModelSchemas(modelSchemas: plugin.modelSchemas);
     } else {
       throw (errorMsg);
     }
@@ -49,8 +49,19 @@ class DataStoreCategory {
   }
 
   Future<void> delete<T extends Model>(T model) {
+    return plugins.length == 1 ? plugins[0].delete(model) : throw (errorMsg);
+  }
+
+  Stream<SubscriptionEvent<T>> observe<T extends Model>(
+      ModelType<T> modelType) {
     return plugins.length == 1
-        ? plugins[0].delete(model)
+        ? plugins[0].observe(modelType)
+        : throw (errorMsg);
+  }
+
+  Future<void> configure(String configuration) async {
+    return plugins.length == 1
+        ? plugins[0].configure(configuration: configuration)
         : throw (errorMsg);
   }
 }
