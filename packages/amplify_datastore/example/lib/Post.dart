@@ -50,9 +50,7 @@ class Post extends Model {
   factory Post(
       {String id, @required String title, int rating, DateTime created}) {
     return Post._internal(
-        id: id == null
-            ? uuid.v4() // Replace with UUID
-            : id,
+        id: id == null ? uuid.v4() : id,
         title: title,
         rating: rating,
         created: created);

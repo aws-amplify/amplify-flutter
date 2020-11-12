@@ -21,7 +21,7 @@ import 'dart:async';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-//import 'amplifyconfiguration.dart';
+import 'amplifyconfiguration.dart';
 
 import 'Post.dart';
 
@@ -60,7 +60,7 @@ class _MyAppState extends State<MyApp> {
         AmplifyDataStore(modelSchemas: [createTestSchema()]);
     await amplify.addPlugin(dataStorePlugins: [datastorePlugin]);
     // Configure
-    await amplify.configure('''{}''');
+    await amplify.configure(amplifyconfig);
     setState(() {
       _isAmplifyConfigured = true;
     });
@@ -155,6 +155,7 @@ class _MyAppState extends State<MyApp> {
   deletePost() async {
     try {
       await Amplify.DataStore.delete(
+          // replace 'id' for testing as needed
           Post(id: 'f6c4be2d-9b1b-496e-b3bf-78035f0e6191', title: 'Title'));
     } catch (e) {
       print(e);

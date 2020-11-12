@@ -32,19 +32,6 @@ target 'Runner' do
   use_modular_headers!
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
-  pod 'Amplify', :path => '~/Dev/AmplifyWorkspace/FlutterDev/DataStore/amplify-ios'	
-  pod 'AWSPluginsCore', :path => '~/Dev/AmplifyWorkspace/FlutterDev/DataStore/amplify-ios'	
-  pod 'AmplifyPlugins/AWSDataStorePlugin', :path => '~/Dev/AmplifyWorkspace/FlutterDev/DataStore/amplify-ios'
-end
-
-target 'amplify_datastore_unit_tests' do
-  use_frameworks!
-  use_modular_headers!
-
-  flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
-  pod 'Amplify', :path => '~/Dev/AmplifyWorkspace/FlutterDev/DataStore/amplify-ios'	
-  pod 'AWSPluginsCore', :path => '~/Dev/AmplifyWorkspace/FlutterDev/DataStore/amplify-ios'	
-  pod 'AmplifyPlugins/AWSDataStorePlugin', :path => '~/Dev/AmplifyWorkspace/FlutterDev/DataStore/amplify-ios'
 end
 
 target 'amplify_datastore_unit_tests' do

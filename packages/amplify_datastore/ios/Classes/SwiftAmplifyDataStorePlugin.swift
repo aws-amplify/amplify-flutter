@@ -145,12 +145,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                 queryPredicate = try QueryPredicateBuilder.fromSerializedMap(queryPredicateData)
             }
             
-            //TODO_FL: Remove this line
-            print("SerializedModelData \(String(describing: serializedModelData))")
             let serializedModel = SerializedModel(id: modelID, map: try FlutterDataStoreRequestUtils.getJSONValue(serializedModelData))
-            print("SerializedModel \(String(describing: serializedModel))")
-            print ("QueryPredicate \(String(describing: queryPredicate))")
-            
+           
             try bridge.onSave(
                 serializedModel: serializedModel,
                 modelSchema: modelSchema,
@@ -158,15 +154,14 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             ) { (result) in
                 switch result {
                 case .failure(let error):
-                    print("Save API failed. Error = \(error)")
+                    print("Save API failed. Error: \(error)")
                     FlutterDataStoreErrorHandler.handleDataStoreError(
                         error: error,
                         flutterResult: flutterResult,
                         msg: FlutterDataStoreErrorMessage.SAVE_FAILED.rawValue
                     )
-                case .success(let post):
-                    //TODO_FL: Remove this line
-                    print("Successfully Saved post - \(post)")
+                case .success(let model):
+                    print("Successfully saved model: \(model)")
                     flutterResult(nil)
                 }
             }
@@ -208,7 +203,6 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                                                                           flutterResult: flutterResult,
                                                                           msg: FlutterDataStoreErrorMessage.DELETE_FAILED.rawValue)
                     case .success():
-                        print("Delete was successful")
                         flutterResult(nil)
                     }
             }

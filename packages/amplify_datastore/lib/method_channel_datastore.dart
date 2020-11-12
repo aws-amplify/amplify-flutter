@@ -75,11 +75,8 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         'serializedModel': model.toJson(),
         'queryPredicate': when?.serializeAsMap(),
       };
-      //TODO_FL: Remove print
-      print('DataStore MethodChannel Save Input: $methodChannelSaveInput');
       await _channel.invokeMapMethod('save', methodChannelSaveInput);
     } on PlatformException catch (e) {
-      print("PLATFORM ERROR:" + e.message);
       throw formatError(e);
     }
   }
