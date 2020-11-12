@@ -23,7 +23,6 @@ import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'amplifyconfiguration.dart';
-
 import 'codegen/Blog.dart';
 import 'codegen/Post.dart';
 import 'codegen/Comment.dart';

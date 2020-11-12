@@ -122,6 +122,22 @@ void main() {
           'isRequired': false,
           'isArray': false,
         },
+        'rating': {
+          'name': 'rating',
+          'type': {'fieldType': 1, 'ofModelName': ''},
+          'isRequired': false,
+          'isArray': false,
+          'association': {},
+          'authRules': []
+        },
+        'created': {
+          'name': 'created',
+          'type': {'fieldType': 4, 'ofModelName': ''},
+          'isRequired': false,
+          'isArray': false,
+          'association': {},
+          'authRules': []
+        },
         'blog': {
           'name': 'blog',
           'type': {'fieldType': 'model', 'ofModelName': 'Blog'},

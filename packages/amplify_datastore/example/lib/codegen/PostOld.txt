@@ -17,7 +17,8 @@ type Post @model @key(name: "byBlog", fields: ["blogID"]) {
 
 @immutable
 class Post extends Model {
-  static const classType = PostType();
+  @override
+  final classType = const PostType();
 
   final String id;
   final String title;
@@ -85,14 +86,14 @@ class Post extends Model {
   Post.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         title = json['title'],
-        blog = json['blog'] is Map<String, dynamic>
-            ? Blog.fromJson(json['blog'] as Map<String, dynamic>)
-            : null,
+        blog = json['blog'] != null
+                          ? Blog.fromJson(new Map<String, dynamic>.from(json['blog']))
+                          : null,
         comments = json['comments'] is List
-            ? (json['comments'] as List)
-                .map((e) => Comment.fromJson(e as Map<String, dynamic>))
-                .toList()
-            : null;
+                    ? (json['comments'] as List)
+                        .map((e) => Comment.fromJson(new Map<String, dynamic>.from(e)))
+                        .toList()
+                    : null;
 
   Map<String, dynamic> toJson() => {
         'id': id,

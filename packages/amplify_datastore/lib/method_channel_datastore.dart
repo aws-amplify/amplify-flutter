@@ -62,9 +62,8 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
       });
 
       return serializedResults
-          .map((serializedResult) => modelType.fromJson(
-              new Map<String, dynamic>.from(
-                  serializedResult["serializedData"])))
+          .map((serializedResult) => modelType.fromSerializedMap(
+              new Map<String, dynamic>.from(serializedResult)))
           .toList();
     } on PlatformException catch (e) {
       throw _formatError(e);
