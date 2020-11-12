@@ -32,13 +32,14 @@ import com.amplifyframework.api.aws.AWSApiPlugin
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.async.Cancelable
 import com.amplifyframework.core.model.Model
-import com.amplifyframework.core.model.ModelProvider
+import com.amplifyframework.core.model.ModelSchema
 import com.amplifyframework.core.model.query.QueryOptions
 import com.amplifyframework.datastore.AWSDataStorePlugin
 import com.amplifyframework.datastore.DataStoreException
 import com.amplifyframework.datastore.appsync.SerializedModel
 import com.amplifyframework.datastore.generated.model.Comment
 import com.amplifyframework.datastore.generated.model.Post
+import com.amplifyframework.util.GsonFactory
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
