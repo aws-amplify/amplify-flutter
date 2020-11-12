@@ -33,12 +33,12 @@ class AuthRule {
 
   const AuthRule(
       {this.authStrategy,
-      this.ownerField,
-      this.identityClaim,
-      this.groupClaim,
-      this.groups,
-      this.groupsField,
-      this.operations});
+      this.ownerField = "",
+      this.identityClaim = "",
+      this.groupClaim = "",
+      this.groups = const [],
+      this.groupsField = "",
+      this.operations = const []});
 
   AuthRule copyWith({
     AuthStrategy authStrategy,
