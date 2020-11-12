@@ -49,7 +49,7 @@ abstract class DataStorePluginInterface extends PlatformInterface {
     throw UnimplementedError('query() has not been implemented.');
   }
 
-  Future<T> delete<T extends Model>(T model, {QueryPredicate when}) {
+  Future<void> delete<T extends Model>(T model) {
     throw UnimplementedError('delete() has not been implemented.');
   }
 

@@ -51,11 +51,11 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         case "configure":
             onConfigure(args: arguments, result: result)
         case "query":
-            // try! createTempPosts()
             onQuery(args: arguments, flutterResult: result)
         case "save":
-            //onSave(args: arguments, flutterResult: result, modelSchemas: flutterModelRegistration.modelSchemas)
             onSave(args: arguments, flutterResult: result, modelSchemas: flutterModelRegistration.modelSchemas)
+        case "delete":
+            onDelete(args: arguments, flutterResult: result)
         default:
             result(FlutterMethodNotImplemented)
         }
@@ -170,11 +170,64 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             }
         }
         catch let error as DataStoreError {
-            print("Failed to parse Save arguments with \(error)")
-            
+            print("Failed to parse Save arguments with \(error)")   
         }
         catch {
             print("An unexpected error occured when parsing Save arguments: \(error)")
+            FlutterDataStoreErrorHandler.prepareError(
+                flutterResult: flutterResult,
+                msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
+                errorMap: ["UNKNOWN": "\(error.localizedDescription).\nAn unrecognized error has occurred. See logs for details." ])
+            return
+        }
+    }
+
+    func onDelete(args: [String: Any], flutterResult: @escaping FlutterResult) {
+        do {
+            guard let modelName = args["modelName"] as? String else {
+                FlutterDataStoreErrorHandler.prepareError(
+                    flutterResult: flutterResult,
+                    msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
+                    errorMap: ["MALFORMED_REQUEST": "modelName was not passed in the arguments." ])
+                return
+            }
+            guard let rawModel = args["model"] as? Dictionary<String, Any> else {
+                FlutterDataStoreErrorHandler.prepareError(
+                    flutterResult: flutterResult,
+                    msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
+                    errorMap: ["MALFORMED_REQUEST": "model was not passed in the arguments." ])
+                return
+            }
+            guard let id = rawModel["id"] as? String else {
+                FlutterDataStoreErrorHandler.prepareError(
+                    flutterResult: flutterResult,
+                    msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
+                    errorMap: ["MALFORMED_REQUEST": "model did not contain an id." ])
+                return
+            }
+
+            let modelData = SerializedModel(id: id, map: try getJSONValue(rawModel))
+            
+            guard let modelSchema = flutterModelRegistration.modelSchemas[modelName] else {
+                throw DataStoreError.decodingError("Unable to get model from registered schemas", "Check the model name.")
+            }
+            
+            try bridge.onDelete(id: id,
+                              modelData: modelData,
+                              modelSchema: modelSchema) { (result) in
+                switch result {
+                case .failure(let error):
+                    print("Delete API failed. Error = \(error)")
+                    FlutterDataStoreErrorHandler.handleDataStoreError(error: error,
+                                                                      flutterResult: flutterResult,
+                                                                      msg: FlutterDataStoreErrorMessage.DELETE_FAILED.rawValue)
+                case .success():
+                    flutterResult(nil)
+                }
+            }
+            
+        } catch {
+            print("Failed to parse delete arguments with \(error)")
             FlutterDataStoreErrorHandler.prepareError(
                 flutterResult: flutterResult,
                 msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,

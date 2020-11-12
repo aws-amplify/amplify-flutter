@@ -54,26 +54,15 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
     }
   }
 
-  @override
-  Future<T> delete<T extends Model>(T model, {QueryPredicate when}) async {
+  Future<void> delete<T extends Model>(T model) async {
     try {
       var modelJson = model.toJson();
-      final Map<dynamic, dynamic> serializedResult =
-          await _channel.invokeMapMethod('delete', <String, dynamic>{
+      await _channel.invokeMapMethod('delete', <String, dynamic>{
         'modelName': model.instanceType.modelName(),
-        'model': modelJson,
-        'queryPredicate': when?.serializeAsMap(),
+        'model': modelJson
       });
-
-      return model.instanceType.fromJson(
-          new Map<String, dynamic>.from(serializedResult["serializedData"]));
     } on PlatformException catch (e) {
       throw formatError(e);
-    } on TypeError {
-      throw DataStoreError.init(
-          cause: "ERROR_FORMATTING_PLATFORM_CHANNEL_RESPONSE",
-          errorMap: new LinkedHashMap.from(
-              {"errorMessage": "Failed to deserialize delete API results"}));
     }
   }
 
@@ -94,11 +83,6 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
     } on PlatformException catch (e) {
       print("PLATFORM ERROR:" + e.message);
       throw formatError(e);
-    } on TypeError {
-      throw DataStoreError.init(
-          cause: "ERROR_FORMATTING_PLATFORM_CHANNEL_RESPONSE",
-          errorMap: new LinkedHashMap.from(
-              {"errorMessage": "Failed to deserialize save API results"}));
     }
   }
 

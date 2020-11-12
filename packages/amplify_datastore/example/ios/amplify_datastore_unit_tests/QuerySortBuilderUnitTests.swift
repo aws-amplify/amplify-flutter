@@ -37,7 +37,6 @@ class QuerySortBuilderUnitTests: XCTestCase {
         let expected : QuerySortDescriptor = QuerySortDescriptor.init(fieldName: "id", order: .ascending)
         let actual = try QuerySortBuilder.fromSerializedList(serializedList: sortByIdAsc)?[0]
         XCTAssertEqual(expected, actual)
-        
     }
     
     func test_when_sorting_by_id_ascending_and_rating_descending() throws {
@@ -47,7 +46,6 @@ class QuerySortBuilderUnitTests: XCTestCase {
         ]
         let actual = try QuerySortBuilder.fromSerializedList(serializedList: multipleSorting)
         XCTAssertEqual(expected, actual)
-        
     }
     
     func test_when_bad_input_given() throws {

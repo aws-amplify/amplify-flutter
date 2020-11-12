@@ -27,45 +27,19 @@ void main() {
   AmplifyDataStore dataStore = AmplifyDataStore(modelSchemas: null);
 
   TestWidgetsFlutterBinding.ensureInitialized();
-
+  
   setUp(() {});
 
   tearDown(() {
     dataStoreChannel.setMockMethodCallHandler(null);
   });
 
-
-  test('delete returns 1 sucessful result (no query predicate)', () async {
-
-    var json = await getJsonFromFile('delete_api/response/1_deleted_result.json');
-
-    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return json;
-    });
-
-    Post instance = Post(title: json["serializedData"]["title"], rating: json["serializedData"]["rating"], created: DateTime.parse(json["serializedData"]["created"]), id: json["id"]);
-
-    Post post = await dataStore.delete(instance);
-    expect(post.id, instance.id);
-    expect(post.title, instance.title);
-    expect(post.rating, instance.rating);
-    expect(post.created, instance.created);
-  });
-
-  test('delete returns 1 sucessful result (with query predicate)', () async {
-
-    var json = await getJsonFromFile('delete_api/response/1_deleted_result.json');
-
-    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return json;
-    });
-
-    Post instance = Post(title: json["serializedData"]["title"], rating: json["serializedData"]["rating"], created: DateTime.parse(json["serializedData"]["created"]), id: json["id"]);
-
-    Post post = await dataStore.delete(instance, when: Post.RATING.eq(5));
-    expect(post.id, instance.id);
-    expect(post.title, instance.title);
-    expect(post.rating, instance.rating);
-    expect(post.created, instance.created);
+  test('delete with a valid model executes without an error ', () async {
+    var json = await getJsonFromFile('delete_api/request/instance_no_predicate.json');
+    var model = json["model"];
+    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {});
+    Post instance = Post(title: model["title"], rating: model["rating"], created: DateTime.parse(model["created"]), id: model["id"]);
+    Future<void> deleteFuture = dataStore.delete(instance);
+    expect(deleteFuture, completes);
   });
 }

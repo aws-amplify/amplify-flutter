@@ -13,21 +13,16 @@
  * permissions and limitations under the License.
  */
 
-import Foundation
 import Amplify
 
-public class QueryPaginationBuilder {
-   
-    static func fromSerializedMap(_ serializedMap: [String: Any]?) -> QueryPaginationInput {
-        var page: UInt = 0, limit: UInt = QueryPaginationInput.defaultLimit;
-        if let data = serializedMap {
-            if let pageInput = (data["page"] as? Int) {
-                page = UInt(pageInput)
-            }
-            if let limitInput = (data["limit"] as? Int) {
-                limit = UInt(limitInput)
-            }
-        }
-        return QueryPaginationInput.page(page, limit: limit)
+func getJSONValue(_ jsonDict: [String: Any]) throws -> [String: JSONValue] {
+    guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonDict) else {
+        throw DataStoreError.decodingError("Unable to deserialize json data", "Check the model structure.")
     }
+    guard let jsonValue = try? JSONDecoder().decode(Dictionary<String, JSONValue>.self,
+                                                    from: jsonData) else {
+        throw DataStoreError.decodingError("Unable to decode json value", "Check the model structure.")
+
+    }
+    return jsonValue
 }

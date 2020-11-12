@@ -26,7 +26,7 @@ class FlutterModelProvider private constructor() : ModelProvider {
 
     // TODO change it to return an empty set once it's properly supported in the amplify-android library
     override fun models(): Set<Class<out Model?>>? {
-        return null
+        return java.util.Collections.emptySet()
     }
 
     override fun version(): String {

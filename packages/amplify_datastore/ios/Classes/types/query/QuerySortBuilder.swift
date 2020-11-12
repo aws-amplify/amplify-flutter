@@ -18,14 +18,14 @@ import Amplify
 import AmplifyPlugins
 
 public class QuerySortBuilder {
-    static func fromSerializedList(serializedList: [[String: Any]]?) throws -> [QuerySortDescriptor]? {
+    static func fromSerializedList(_ serializedList: [[String: Any]]?) throws -> [QuerySortDescriptor]? {
         if let serializedList = serializedList, !serializedList.isEmpty {
-            return try serializedList.map { try fromSerializedMap(serializedMap: $0) }
+            return try serializedList.map { try fromSerializedMap($0) }
         }
         return nil
     }
     
-    static func fromSerializedMap(serializedMap: [String: Any]) throws -> QuerySortDescriptor {
+    static func fromSerializedMap(_ serializedMap: [String: Any]) throws -> QuerySortDescriptor {
         if let fieldName = serializedMap["field"] as? String, let order = serializedMap["order"] as? String {
             switch order {
             case "ascending":

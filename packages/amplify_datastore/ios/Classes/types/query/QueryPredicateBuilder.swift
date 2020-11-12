@@ -19,7 +19,7 @@ import Amplify
 
 public class QueryPredicateBuilder {
     
-    static func fromSerializedMap(serializedMap: [String: Any]?) throws -> QueryPredicate {
+    static func fromSerializedMap(_ serializedMap: [String: Any]?) throws -> QueryPredicate {
         
         guard let data = serializedMap else {
             return QueryPredicateConstant.all
@@ -63,7 +63,7 @@ public class QueryPredicateBuilder {
         
         if let queryPredicateGroupMap = data["queryPredicateGroup"] as? [String: Any] {
             let serializedPredicates = queryPredicateGroupMap["predicates"] as! [[String: Any]]
-            var predicates = try serializedPredicates.map { try fromSerializedMap(serializedMap:$0) }
+            var predicates = try serializedPredicates.map { try fromSerializedMap($0) }
             var resultQueryPredicate: QueryPredicate
             if(predicates[0] is QueryPredicateOperation) {
                 switch (queryPredicateGroupMap["type"] as! String) {
