@@ -14,12 +14,9 @@
  */
 
 package com.amazonaws.amplify.amplify_datastore
-
-import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
-import androidx.annotation.RequiresApi
 import androidx.annotation.VisibleForTesting
 import com.amazonaws.amplify.amplify_datastore.types.FlutterDataStoreFailureMessage
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterModelSchema
@@ -32,14 +29,10 @@ import com.amplifyframework.api.aws.AWSApiPlugin
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.async.Cancelable
 import com.amplifyframework.core.model.Model
-import com.amplifyframework.core.model.ModelSchema
 import com.amplifyframework.core.model.query.QueryOptions
 import com.amplifyframework.datastore.AWSDataStorePlugin
 import com.amplifyframework.datastore.DataStoreException
 import com.amplifyframework.datastore.appsync.SerializedModel
-import com.amplifyframework.datastore.generated.model.Comment
-import com.amplifyframework.datastore.generated.model.Post
-import com.amplifyframework.util.GsonFactory
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
