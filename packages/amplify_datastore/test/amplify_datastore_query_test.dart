@@ -36,7 +36,6 @@ void main() {
     dataStoreChannel.setMockMethodCallHandler(null);
   });
 
-
   test('query returns 2 sucessful results', () async {
     dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == "query") {
@@ -108,14 +107,14 @@ void main() {
       if (methodCall.method == "query") {
         throw PlatformException(
             code: "AMPLIFY_EXCEPTION",
-            message: "AMPLIFY_QUERY_REQUEST_MALFORMED",
+            message: "AMPLIFY_REQUEST_MALFORMED",
             details: {});
       }
     });
     expect(
         () => dataStore.query(Post.classType),
         throwsA(isA<DataStoreError>().having((error) => error.cause,
-            "error message", "AMPLIFY_QUERY_REQUEST_MALFORMED")));
+            "error message", "AMPLIFY_REQUEST_MALFORMED")));
   });
 
   test('method channel throws an unknown PlatformException', () async {

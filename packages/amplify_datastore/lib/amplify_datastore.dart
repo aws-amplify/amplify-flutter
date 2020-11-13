@@ -50,6 +50,11 @@ class AmplifyDataStore extends DataStorePluginInterface {
   }
 
   @override
+  Future<void> save<T extends Model>(T model, {QueryPredicate when}) {
+    return _instance.save(model, when: when);
+  }
+
+  @override
   Future<void> configure({List<ModelSchema> modelSchemas}) async {
     List<ModelSchema> schemas =
         modelSchemas == null ? this.modelSchemas : modelSchemas;

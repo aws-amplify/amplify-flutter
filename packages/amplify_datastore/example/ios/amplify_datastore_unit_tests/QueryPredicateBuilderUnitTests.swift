@@ -27,7 +27,7 @@ class QueryPredicateBuilderUnitTests: XCTestCase {
     func test_when_id_not_equals() throws {
         XCTAssertEqual(
             id.ne("123"),
-            try QueryPredicateBuilder.fromSerializedMap(serializedMap: readJsonMap(filePath: "id_not_equals")) as! QueryPredicateOperation
+            try QueryPredicateBuilder.fromSerializedMap(readJsonMap(filePath: "id_not_equals")) as! QueryPredicateOperation
         )
     }
     
@@ -35,14 +35,14 @@ class QueryPredicateBuilderUnitTests: XCTestCase {
         XCTAssertEqual(
             rating.ge(4),
             try QueryPredicateBuilder.fromSerializedMap(
-                serializedMap: readJsonMap(filePath: "rating_greater_or_equal")) as! QueryPredicateOperation)
+                readJsonMap(filePath: "rating_greater_or_equal")) as! QueryPredicateOperation)
     }
     
     func test_complex_nested_and_or() throws {
         XCTAssertEqual(
             rating.le(4).and(id.contains("abc").or(title.beginsWith("def"))),
             try QueryPredicateBuilder.fromSerializedMap(
-                serializedMap: readJsonMap(filePath: "complex_nested")) as! QueryPredicateGroup)
+                readJsonMap(filePath: "complex_nested")) as! QueryPredicateGroup)
     }
     
     func test_when_group_with_only_and() throws {
@@ -52,14 +52,14 @@ class QueryPredicateBuilderUnitTests: XCTestCase {
                 .and(title.beginsWith("def"))
                 .and(created.eq("2020-02-20T20:20:20-08:00")),
             try QueryPredicateBuilder.fromSerializedMap(
-                serializedMap: readJsonMap(filePath: "group_with_only_and")) as! QueryPredicateGroup)
+                readJsonMap(filePath: "group_with_only_and")) as! QueryPredicateGroup)
     }
     
     func test_when_mixed_and_or() throws {
         XCTAssertEqual(
             rating.lt(4).and(id.contains("abc")).or(title.contains("def")),
             try QueryPredicateBuilder.fromSerializedMap(
-                serializedMap: readJsonMap(filePath:
+                readJsonMap(filePath:
                                             "group_mixed_and_or")) as! QueryPredicateGroup)
     }
     
@@ -67,7 +67,7 @@ class QueryPredicateBuilderUnitTests: XCTestCase {
         XCTAssertEqual(
             rating.gt(4).and(not(rating.eq(1))),
             try QueryPredicateBuilder.fromSerializedMap(
-                serializedMap: readJsonMap(filePath: "mixed_with_not")) as! QueryPredicateGroup)
+                readJsonMap(filePath: "mixed_with_not")) as! QueryPredicateGroup)
     }
     
     func test_when_negate_complex_predicate() throws {
@@ -75,20 +75,20 @@ class QueryPredicateBuilderUnitTests: XCTestCase {
             not(
                 rating.eq(1).and(rating.eq(4).or(title.contains("crap")))),
             try QueryPredicateBuilder.fromSerializedMap(
-                serializedMap: readJsonMap(filePath: "negate_complex_predicate")) as! QueryPredicateGroup)
+                readJsonMap(filePath: "negate_complex_predicate")) as! QueryPredicateGroup)
     }
     
     func test_when_operands_are_bool_and_double() throws {
         XCTAssertEqual(
             rating.eq(1.3).and(created.eq(1)), // TODO FIXME: bool are represented as integers in Json deserialization
             try QueryPredicateBuilder.fromSerializedMap(
-                serializedMap: readJsonMap(filePath: "bool_and_double_operands")) as! QueryPredicateGroup)
+                readJsonMap(filePath: "bool_and_double_operands")) as! QueryPredicateGroup)
     }
     
     func test_when_no_input_given_results_in_all_predicate() throws {
         XCTAssertEqual(
             QueryPredicateConstant.all,
-            try QueryPredicateBuilder.fromSerializedMap(serializedMap: nil) as! QueryPredicateConstant
+            try QueryPredicateBuilder.fromSerializedMap(nil) as! QueryPredicateConstant
         )
     }
 

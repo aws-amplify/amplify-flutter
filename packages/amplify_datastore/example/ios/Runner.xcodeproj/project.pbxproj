@@ -32,6 +32,8 @@
 		B4A5C45E2548F00900B9E501 /* negate_complex_predicate.json in Resources */ = {isa = PBXBuildFile; fileRef = B4A5C4582548F00900B9E501 /* negate_complex_predicate.json */; };
 		B4A5C45F2548F00900B9E501 /* complex_nested.json in Resources */ = {isa = PBXBuildFile; fileRef = B4A5C4592548F00900B9E501 /* complex_nested.json */; };
 		B4A5C4672549009900B9E501 /* bool_and_double_operands.json in Resources */ = {isa = PBXBuildFile; fileRef = B4A5C4662549009900B9E501 /* bool_and_double_operands.json */; };
+		FB228242255D4C95004BFCC0 /* instance_without_predicate.json in Resources */ = {isa = PBXBuildFile; fileRef = FB228241255D4C95004BFCC0 /* instance_without_predicate.json */; };
+		FB228244255D6B90004BFCC0 /* instance_with_predicate.json in Resources */ = {isa = PBXBuildFile; fileRef = FB228243255D6B90004BFCC0 /* instance_with_predicate.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -88,6 +90,8 @@
 		B4A5C4662549009900B9E501 /* bool_and_double_operands.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = bool_and_double_operands.json; sourceTree = "<group>"; };
 		CDB88F0184D2C06B66966DA4 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		E4FAF672EE7AB3550DEE60F3 /* Pods-amplify_datastore_unit_tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amplify_datastore_unit_tests.debug.xcconfig"; path = "Target Support Files/Pods-amplify_datastore_unit_tests/Pods-amplify_datastore_unit_tests.debug.xcconfig"; sourceTree = "<group>"; };
+		FB228241255D4C95004BFCC0 /* instance_without_predicate.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = instance_without_predicate.json; sourceTree = "<group>"; };
+		FB228243255D6B90004BFCC0 /* instance_with_predicate.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = instance_with_predicate.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +233,7 @@
 		B4A5C44E2548EF7800B9E501 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				FB2B5E73255CDBFA00518204 /* save */,
 				9C44723D255A090900557CB1 /* delete */,
 				B4A5C44F2548EF8200B9E501 /* query */,
 			);
@@ -242,6 +247,15 @@
 				B409DE1A254A2118006AECDB /* predicates */,
 			);
 			path = query;
+			sourceTree = "<group>";
+		};
+		FB2B5E73255CDBFA00518204 /* save */ = {
+			isa = PBXGroup;
+			children = (
+				FB228241255D4C95004BFCC0 /* instance_without_predicate.json */,
+				FB228243255D6B90004BFCC0 /* instance_with_predicate.json */,
+			);
+			path = save;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -345,6 +359,7 @@
 				B4A5C4672549009900B9E501 /* bool_and_double_operands.json in Resources */,
 				B4A5C4512548EF9A00B9E501 /* id_not_equals.json in Resources */,
 				B4A5C45F2548F00900B9E501 /* complex_nested.json in Resources */,
+				FB228242255D4C95004BFCC0 /* instance_without_predicate.json in Resources */,
 				B4A5C45C2548F00900B9E501 /* rating_greater_or_equal.json in Resources */,
 				B409DE20254A218A006AECDB /* only_model_name.json in Resources */,
 				B4A5C45D2548F00900B9E501 /* group_mixed_and_or.json in Resources */,
@@ -353,6 +368,7 @@
 				B409DE21254A218A006AECDB /* model_name_with_all_query_parameters.json in Resources */,
 				B409DE1F254A218A006AECDB /* 2_results.json in Resources */,
 				B4A5C45E2548F00900B9E501 /* negate_complex_predicate.json in Resources */,
+				FB228244255D6B90004BFCC0 /* instance_with_predicate.json in Resources */,
 				B4A5C45A2548F00900B9E501 /* group_with_only_and.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -773,7 +789,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = amplify_datastore_unit_tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -803,7 +819,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = amplify_datastore_unit_tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -830,7 +846,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = amplify_datastore_unit_tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
