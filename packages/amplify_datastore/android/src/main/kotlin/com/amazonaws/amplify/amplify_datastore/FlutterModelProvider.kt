@@ -19,18 +19,24 @@ import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.ModelProvider
 import com.amplifyframework.core.model.ModelSchema
 import com.amplifyframework.util.Immutable
+import java.util.Collections
 
 class FlutterModelProvider private constructor() : ModelProvider {
     private val modelSchemaMap: MutableMap<String, ModelSchema> =
             HashMap()
 
-    // TODO change it to return an empty set once it's properly supported in the amplify-android library
+    private lateinit var version: String;
+
     override fun models(): Set<Class<out Model?>>? {
-        return java.util.Collections.emptySet()
+        return Collections.emptySet()
+    }
+
+    fun setVersion(newVersion: String){
+        version = newVersion
     }
 
     override fun version(): String {
-        return FLUTTER_MODEL_VERSION
+        return version
     }
 
     override fun modelSchemas(): Map<String, ModelSchema> {
@@ -46,7 +52,6 @@ class FlutterModelProvider private constructor() : ModelProvider {
     }
 
     companion object {
-        private const val FLUTTER_MODEL_VERSION = "72c040baca4cf48a5330a4a2e02aa042"
         private var flutterGeneratedModelInstance: FlutterModelProvider? = null
         val instance: FlutterModelProvider
             get() {

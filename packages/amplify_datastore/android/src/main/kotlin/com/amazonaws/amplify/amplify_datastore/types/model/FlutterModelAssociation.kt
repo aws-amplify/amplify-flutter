@@ -17,9 +17,29 @@ package com.amazonaws.amplify.amplify_datastore.types.model
 
 import com.amplifyframework.core.model.ModelAssociation
 
+
 data class FlutterModelAssociation(val map: Map<String, Any>) {
+
+    private val associationType: String = map["associationType"] as String
+    private val targetName: String? = map["targetName"] as String?
+    private val associatedName: String? = map["associatedName"] as String?
+    private val associatedType: String? = map["associatedType"] as String?
+
     fun convertToNativeModelAssociation(): ModelAssociation {
-        TODO("Not yet implemented")
+        val builder: ModelAssociation.Builder = ModelAssociation.builder()
+                .name(associationType)
+
+        if(!targetName.isNullOrEmpty()){
+            builder.targetName(targetName)
+        }
+        if(!associatedName.isNullOrEmpty()){
+            builder.associatedName(associatedName)
+        }
+        if(!associatedType.isNullOrEmpty()){
+            builder.associatedType(associatedType)    
+        }
+
+        return builder.build()
     }
 
 }

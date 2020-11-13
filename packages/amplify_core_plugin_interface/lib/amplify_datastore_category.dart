@@ -32,7 +32,7 @@ class DataStoreCategory {
       // Extra step to configure datastore specifically.
       // Note: The native datastore plugins are not added
       // in the `onAttachedToEngine` but rather in the `configure()
-      await plugin.addModelSchemas(modelSchemas: plugin.modelSchemas);
+      await plugin.configureModelProvider(modelProvider: plugin.modelProvider);
     } else {
       throw (errorMsg);
     }
