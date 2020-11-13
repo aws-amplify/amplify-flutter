@@ -1,6 +1,6 @@
 [
   {
-    "field": "id",
+    "field": "post.id",
     "order": "ascending"
   },
   {

@@ -29,10 +29,12 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   /// This method adds model schemas which is necessary to instantiate native plugins
   /// This is needed before the Amplify.configure() can be called, since the native
   /// plugins are needed to be added before that.
-  Future<void> addModelSchemas(
-      {@required List<ModelSchema> modelSchemas}) async {
-    return _channel.invokeMethod('addModelSchemas', <String, dynamic>{
-      'modelSchemas': modelSchemas.map((schema) => schema.toMap()).toList()
+  Future<void> configureModelProvider(
+      {ModelProviderInterface modelProvider}) async {
+    return _channel.invokeMethod('configureModelProvider', <String, dynamic>{
+      'modelSchemas':
+          modelProvider.modelSchemas.map((schema) => schema.toMap()).toList(),
+      'modelProviderVersion': modelProvider.version
     });
   }
 
@@ -79,7 +81,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
     try {
       var modelJson = model.toJson();
       await _channel.invokeMapMethod('delete', <String, dynamic>{
-        'modelName': model.instanceType.modelName(),
+        'modelName': model.getInstanceType().modelName(),
         'model': modelJson
       });
     } on PlatformException catch (e) {
