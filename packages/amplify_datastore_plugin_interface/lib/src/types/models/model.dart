@@ -71,7 +71,6 @@ abstract class ModelType<T extends Model> {
 
     return resultMap;
   }
-   */
 
   T fromJson(Map<String, dynamic> jsonData);
 

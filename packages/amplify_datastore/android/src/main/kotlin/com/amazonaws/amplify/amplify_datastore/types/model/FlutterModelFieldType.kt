@@ -26,7 +26,7 @@ data class FlutterModelFieldType(val map: Map<String, Any>) {
 
     // Name of the field is the name of the instance variable
     // of the Model class.
-    private val ofModelName : String? = map["ofModelName"] as String?
+    private val ofModelName: String? = map["ofModelName"] as String?
 
     fun isEnum(): Boolean {
         return fieldType == "enumeration"

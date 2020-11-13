@@ -19,14 +19,14 @@ import com.amplifyframework.core.model.ModelSchema
 import com.amplifyframework.datastore.appsync.SerializedModel
 
 data class FlutterModelSchema(val map: Map<String, Any>) {
-    val name : String = map["name"] as String
-    private val pluralName : String? = map["pluralName"] as String?
-    private val authRules : List<FlutterAuthRule>? =
+    val name: String = map["name"] as String
+    private val pluralName: String? = map["pluralName"] as String?
+    private val authRules: List<FlutterAuthRule>? =
             (map["authRules"] as List<Map<String, Any>>?)?.map { serializedAuthRule ->
                 FlutterAuthRule(serializedAuthRule)
             }
-    private val fields : Map<String, FlutterModelField>? =
-            (map["fields"] as Map<String, Any>?)?.mapValues { entry ->
+    private val fields: Map<String, FlutterModelField> =
+            (map["fields"] as Map<String, Any>).mapValues { entry ->
                 FlutterModelField(entry.value as Map<String, Any>)
             }
     private val associations: Map<String, FlutterModelAssociation>? =
