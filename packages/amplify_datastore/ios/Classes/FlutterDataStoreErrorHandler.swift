@@ -20,10 +20,13 @@ import AmplifyPlugins
 class FlutterDataStoreErrorHandler {
     
     static func handleDataStoreError(error: DataStoreError, flutterResult: FlutterResult, msg: String) {
+        flutterResult(convertToFlutterError(error: error, msg: msg))
+    }
+
+    static func convertToFlutterError(error: DataStoreError, msg: String) -> FlutterError {
         if case .internalOperation(let localizedError, let recoverySuggestion, let error) = error {
             let errorCode = error != nil ? "\(error!)" : "unknown"
-            formatError(flutterResult: flutterResult,
-                        errorCode: errorCode,
+            return formatError(errorCode: errorCode,
                         msg: msg,
                         localizedError: localizedError,
                         recoverySuggestion: recoverySuggestion)
@@ -31,8 +34,7 @@ class FlutterDataStoreErrorHandler {
         }
         if case .configuration(let localizedError, let recoverySuggestion, let error) = error {
             let errorCode = error != nil ? "\(error!)" : "configuration"
-            formatError(flutterResult: flutterResult,
-                        errorCode: errorCode,
+            return formatError(errorCode: errorCode,
                         msg: msg,
                         localizedError: localizedError,
                         recoverySuggestion: recoverySuggestion)
@@ -40,8 +42,7 @@ class FlutterDataStoreErrorHandler {
         }
         if case .invalidCondition(let localizedError, let recoverySuggestion, let error) = error {
             let errorCode = error != nil ? "\(error!)" : "invalidCondition"
-            formatError(flutterResult: flutterResult,
-                        errorCode: errorCode,
+            return formatError(errorCode: errorCode,
                         msg: msg,
                         localizedError: localizedError,
                         recoverySuggestion: recoverySuggestion)
@@ -49,8 +50,7 @@ class FlutterDataStoreErrorHandler {
         }
         if case .decodingError(let localizedError, let recoverySuggestion) = error {
             let errorCode = "decodingError"
-            formatError(flutterResult: flutterResult,
-                        errorCode: errorCode,
+            return formatError(errorCode: errorCode,
                         msg: msg,
                         localizedError: localizedError,
                         recoverySuggestion: recoverySuggestion)
@@ -58,13 +58,16 @@ class FlutterDataStoreErrorHandler {
         }
         if case .unknown(let localizedError, let recoverySuggestion, let error) = error {
             let errorCode = error != nil ? "\(error!)" : "unknown"
-            formatError(flutterResult: flutterResult,
-                        errorCode: errorCode,
+            return formatError(errorCode: errorCode,
                         msg: msg,
                         localizedError: localizedError,
                         recoverySuggestion: recoverySuggestion)
 
         }
+        return formatError(errorCode: "unknown",
+                           msg: msg,
+                           localizedError: "unknown error",
+                           recoverySuggestion: "We don't have a recovery suggestion for this error right now.")
     }
     
     static func platformExceptions(localizedError: String, recoverySuggestion: String) -> [String: String] {
@@ -75,22 +78,20 @@ class FlutterDataStoreErrorHandler {
         return platformDict
     }
     
-    static func formatError(flutterResult: FlutterResult,
-                     errorCode: String,
+    static func formatError(errorCode: String,
                      msg: String,
                      localizedError: String,
-                     recoverySuggestion: String) {
+                     recoverySuggestion: String) -> FlutterError {
         var errorMap: [String: Any] = [errorCode: localizedError]
         errorMap["PLATFORM_EXCEPTIONS"] =
             platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-        prepareError(flutterResult: flutterResult,  msg: msg, errorMap: errorMap)
+        return createFlutterError(msg: msg, errorMap: errorMap)
     }
     
-    static func prepareError(flutterResult: FlutterResult, msg: String, errorMap: [String: Any]) {
-        flutterResult(FlutterError(
+    static func createFlutterError(msg: String, errorMap: [String: Any]) -> FlutterError {
+        return FlutterError(
                         code: "AmplifyException",
                         message: msg,
                         details: errorMap)
-        )
     }
 }

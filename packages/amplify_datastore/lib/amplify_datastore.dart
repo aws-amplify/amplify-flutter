@@ -36,6 +36,21 @@ class AmplifyDataStore extends DataStorePluginInterface {
   }
 
   @override
+  Future<void> addModelSchemas({List<ModelSchema> modelSchemas}) async {
+    List<ModelSchema> schemas =
+        modelSchemas == null ? this.modelSchemas : modelSchemas;
+    if (schemas == null || schemas.isEmpty) {
+      throw ArgumentError("Need to provide at least one modelSchema");
+    }
+    return _instance.addModelSchemas(modelSchemas: schemas);
+  }
+
+  @override
+  Future<void> configure({String configuration}) async {
+    return _instance.configure(configuration: configuration);
+  }
+
+  @override
   Future<List<T>> query<T extends Model>(ModelType<T> modelType,
       {QueryPredicate where,
       QueryPagination pagination,
@@ -50,12 +65,8 @@ class AmplifyDataStore extends DataStorePluginInterface {
   }
 
   @override
-  Future<void> configure({List<ModelSchema> modelSchemas}) async {
-    List<ModelSchema> schemas =
-        modelSchemas == null ? this.modelSchemas : modelSchemas;
-    if (schemas == null || schemas.isEmpty) {
-      throw ArgumentError("Need to provide at least one modelSchema");
-    }
-    return _instance.configure(modelSchemas: schemas);
+  Stream<SubscriptionEvent<T>> observe<T extends Model>(
+      ModelType<T> modelType) {
+    return _instance.observe(modelType);
   }
 }

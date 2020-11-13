@@ -35,7 +35,7 @@ class QuerySortBuilderUnitTests: XCTestCase {
     
     func test_when_sorting_by_id_ascending() throws {
         let expected : QuerySortDescriptor = QuerySortDescriptor.init(fieldName: "id", order: .ascending)
-        let actual = try QuerySortBuilder.fromSerializedList(serializedList: sortByIdAsc)?[0]
+        let actual = try QuerySortBuilder.fromSerializedList(sortByIdAsc)?[0]
         XCTAssertEqual(expected, actual)
     }
     
@@ -44,20 +44,20 @@ class QuerySortBuilderUnitTests: XCTestCase {
             QuerySortDescriptor.init(fieldName: "id", order: .ascending),
             QuerySortDescriptor.init(fieldName: "rating", order: .descending)
         ]
-        let actual = try QuerySortBuilder.fromSerializedList(serializedList: multipleSorting)
+        let actual = try QuerySortBuilder.fromSerializedList(multipleSorting)
         XCTAssertEqual(expected, actual)
     }
     
     func test_when_bad_input_given() throws {
         XCTAssertThrowsError(
-            try QuerySortBuilder.fromSerializedList(serializedList: badSortingInput)) { error in
+            try QuerySortBuilder.fromSerializedList(badSortingInput)) { error in
             XCTAssertEqual((error as! DataStoreError).errorDescription, "Failed to deserialize sort input from flutter")
             XCTAssertEqual((error as! DataStoreError).recoverySuggestion, "Please create an issue to amplify-flutter repo.")
         }
     }
     
     func test_when_null_or_empty_input_given() throws {
-        XCTAssertEqual(nil, try QuerySortBuilder.fromSerializedList(serializedList: nil))
-        XCTAssertEqual(nil, try QuerySortBuilder.fromSerializedList(serializedList: []))
+        XCTAssertEqual(nil, try QuerySortBuilder.fromSerializedList(nil))
+        XCTAssertEqual(nil, try QuerySortBuilder.fromSerializedList([]))
     }
 }

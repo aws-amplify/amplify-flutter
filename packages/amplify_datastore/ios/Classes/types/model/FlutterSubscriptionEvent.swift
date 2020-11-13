@@ -13,13 +13,27 @@
  * permissions and limitations under the License.
  */
 
+import Flutter
 import Foundation
-enum FlutterDataStoreErrorMessage: String {
-    case CASTING = "ERROR_CASTING_INPUT_IN_PLATFORM_CODE"
-    case ERROR_SENDING = "AMPLIFY_REQUEST_FAILED_TO_SEND"
-    case INVALID_STATE = "AMPLIFY_INVALID_STATE"
-    case MALFORMED = "AMPLIFY_REQUEST_MALFORMED"
-    case QUERY_FAILED = "AMPLIFY_DATASTORE_QUERY_FAILED"
-    case DELETE_FAILED = "AMPLIFY_DATASTORE_DELETE_FAILED"
-    case OBSERVE_EVENT_FAILURE = "AMPLIFY_DATASTORE_OBSERVE_EVENT_FAILURE"
+import Amplify
+
+struct FlutterSubscriptionEvent {
+    let item: SerializedModel
+    let eventType: EventType
+    public init(item: SerializedModel, eventType: EventType) {
+        self.item = item
+        self.eventType = eventType
+    }
+
+    public func toJSON(modelSchema: ModelSchema) -> [String: Any] {
+        return [
+            "item": self.item.toJSON(modelSchema: modelSchema),
+            "eventType": self.eventType.rawValue
+        ]
+    }}
+
+enum EventType: String {
+    case create
+    case update
+    case delete
 }

@@ -16,19 +16,6 @@
 import Foundation
 import Amplify
 
-func getJSONValue(_ jsonDict: [String: Any]) -> [String: JSONValue]{
-    guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonDict) else {
-        print("JSON error")
-        return [:]
-    }
-    guard let jsonValue = try? JSONDecoder().decode(Dictionary<String, JSONValue>.self,
-                                                    from: jsonData) else {
-        print("JSON error")
-        return [:]
-    }
-    return jsonValue
-}
-
 func readJsonMap(filePath: String) throws -> [String: Any] {
     if let object = try readJson(filePath: filePath) as? [String: Any] {
         return object
