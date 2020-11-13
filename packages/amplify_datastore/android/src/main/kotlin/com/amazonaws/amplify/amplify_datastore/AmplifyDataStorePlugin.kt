@@ -14,10 +14,9 @@
  */
 
 package com.amazonaws.amplify.amplify_datastore
-
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
+
 import androidx.annotation.NonNull
 import androidx.annotation.VisibleForTesting
 import com.amazonaws.amplify.amplify_datastore.types.FlutterDataStoreFailureMessage
@@ -33,18 +32,16 @@ import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.query.QueryOptions
 import com.amplifyframework.core.model.query.predicate.QueryPredicate
 import com.amplifyframework.core.model.query.predicate.QueryPredicates
-import com.amplifyframework.core.model.temporal.Temporal
 import com.amplifyframework.datastore.AWSDataStorePlugin
 import com.amplifyframework.datastore.DataStoreException
-import com.amplifyframework.datastore.DataStoreItemChange
 import com.amplifyframework.datastore.appsync.SerializedModel
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import java.util.Date
-import java.util.UUID
+import kotlin.collections.HashMap
+
 
 /** AmplifyDataStorePlugin */
 class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
@@ -74,27 +71,43 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         when (call.method) {
             "query" -> onQuery(result, data)
             "delete" -> onDelete(result, data)
-            "configure" -> onConfigure(result, data)
+            //"configure" -> onConfigure(result, data)
+            "configureModelProvider" -> onConfigureModelProvider(result, data)
             else -> result.notImplemented()
         }
     }
 
-    private fun onConfigure(flutterResult: Result, request: HashMap<String, Any>) {
-        var modelSchemas: List<Map<String, Any>>
-        if (request.containsKey("modelSchemas") && request["modelSchemas"] is List<*>) {
-            modelSchemas = request["modelSchemas"].safeCastToList()!!
-        } else {
+    private fun onConfigureModelProvider(flutterResult: Result, request: HashMap<String, Any>) {
+
+        if( !request.containsKey("modelSchemas") || !request.containsKey("modelProviderVersion") || request["modelSchemas"] !is List<*>){
             prepareError(flutterResult,
-                         Exception(
-                                 FlutterDataStoreFailureMessage.AMPLIFY_QUERY_REQUEST_MALFORMED.toString()),
-                         FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString())
+                    Exception(
+                            FlutterDataStoreFailureMessage.AMPLIFY_CONFIGURE_REQUEST_MALFORMED.toString()),
+                    FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString())
             return
         }
 
-        setSchemas(modelSchemas)
+
+        var modelSchemas: List<Map<String, Any>> = request["modelSchemas"].safeCastToList()!!
+
+        val modelProvider = FlutterModelProvider.instance
+        val flutterModelSchemaList =
+                modelSchemas.map { modelSchema -> FlutterModelSchema(modelSchema) }
+        flutterModelSchemaList.forEach { flutterModelSchema ->
+
+            val nativeSchema = flutterModelSchema.convertToNativeModelSchema()
+            modelProvider.addModelSchema(
+                    flutterModelSchema.name,
+                    nativeSchema
+            )
+        }
+
+        modelProvider.setVersion( request["modelProviderVersion"] as String )
+
         Amplify.addPlugin(AWSDataStorePlugin(modelProvider))
         flutterResult.success(null)
     }
+
 
     @VisibleForTesting
     fun onQuery(flutterResult: Result, request: HashMap<String, Any>) {
@@ -124,6 +137,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                                     FlutterSerializedModel(model as SerializedModel).toMap()
                                 }
                         LOG.debug("Number of items received " + results.size)
+
                         handler.post { flutterResult.success(results) }
                     } catch (e: ClassCastException) {
                         prepareError(flutterResult, e,
@@ -160,7 +174,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         }
 
         val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
-        val schema = modelProvider.modelSchemas().get(modelName);
+        val schema = modelProvider.modelSchemas()[modelName];
 
         var instance = SerializedModel.builder()
                 .serializedData(modelData)
@@ -184,7 +198,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         )
     }
 
-    
+
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
     }
@@ -216,16 +230,5 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 "errorString" to error.toString()
         ))
         handler.post { flutterResult.error("AmplifyException", msg, errorMap) }
-    }
-
-    fun setSchemas(modelSchemas: List<Map<String, Any>>) {
-        val flutterModelSchemaList =
-                modelSchemas.map { modelSchema -> FlutterModelSchema(modelSchema) }
-        flutterModelSchemaList.forEach { flutterModelSchema ->
-            modelProvider.addModelSchema(
-                    flutterModelSchema.name,
-                    flutterModelSchema.convertToNativeModelSchema()
-            )
-        }
     }
 }
