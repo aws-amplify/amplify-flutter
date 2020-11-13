@@ -523,12 +523,8 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
 
   fun prepareSessionResult(@NonNull flutterResult: Result, @NonNull result: AuthSession) {
     var session = FlutterFetchAuthSessionResult(result);
-    if (session.isSignedIn) {
       Handler (Looper.getMainLooper()).post {
         flutterResult.success(session.toValueMap());
       }
-    } else {
-      prepareError(flutterResult, AuthException.SignedOutException(), FlutterAuthFailureMessage.FETCH_SESSION.toString())
-    }
   }
 }

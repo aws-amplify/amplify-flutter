@@ -151,12 +151,7 @@ class AuthCognitoBridge {
                     flutterResult(sessionData.toJSON())
                 } else {
                     let sessionData = try FlutterFetchSessionResult(res: result)
-                    if (sessionData.isSignedIn) {
-                        flutterResult(sessionData.toJSON())
-                    } else {
-                        throw AuthError.signedOut("There is no user signed in to retreive user sub",
-                                                  "Call Auth.signIn to sign in a user and then call Auth.fetchSession")
-                    }
+                    flutterResult(sessionData.toJSON())
                 }
                 
             } catch {

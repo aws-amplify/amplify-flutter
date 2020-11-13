@@ -314,16 +314,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   }
 
   AuthSession _formatSessionResponse(Map<String, dynamic> res) {
-    var tokenMap = res.containsKey("tokens") ? res["tokens"] as Map : null;
-    AWSCredentials credentials = res.containsKey("credentials") ? AWSCredentials.init(creds: res["credentials"]) : null;
-    AWSCognitoUserPoolTokens tokens = !tokenMap.containsKey("error") ?  AWSCognitoUserPoolTokens.init(tokens: res["tokens"]) : null;
-    return CognitoAuthSession(
-      isSignedIn: res["isSignedIn"], 
-      userSub: res["userSub"],
-      identityId: res["identityId"],
-      credentials: credentials,
-      userPoolTokens: tokens,
-    );
+    return CognitoAuthSession.init(sessionValues: res);
   }
 
   void _throwError(PlatformException e) {

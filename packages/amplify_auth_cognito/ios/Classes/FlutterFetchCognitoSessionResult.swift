@@ -39,15 +39,18 @@ struct FlutterFetchCognitoSessionResult {
   }
       
   func toJSON() -> Dictionary<String, Any> {
-    
-    return [
-          "isSignedIn": self.isSignedIn,
-          "tokens": self.userPoolTokens,
-          "userSub": self.userSub,
-          "identityId": self.identityId,
-          "credentials": self.credentials        ]
-      }
+    var result: Dictionary<String, Any> = [:]
+    result["isSignedIn"] = self.isSignedIn
+    result["credentials"] = self.credentials
+    result["identityId"] = self.identityId
+    if (!self.userPoolTokens.isEmpty) {
+        result["tokens"] = self.userPoolTokens
     }
+    if (self.userSub != "") {
+        result["userSub"] = self.userSub
+    }
+    return result
+  }}
 
   func getUserSub(session: AuthSession) throws -> String {
     var sub: String = ""
@@ -88,10 +91,16 @@ struct FlutterFetchCognitoSessionResult {
       let creds =  try awsCredentialsProvider.getAWSCredentials().get()
       credentialMap["awsAccessKey"] = creds.accessKey
       credentialMap["awsSecretKey"] = creds.secretKey
-      let tempCreds = try awsCredentialsProvider.getAWSCredentials().get() as? AuthAWSTemporaryCredentials
-        if ((tempCreds?.sessionKey) != nil) {
-            credentialMap["sessionKey"] = tempCreds?.sessionKey
+        do {
+            let tempCreds = try awsCredentialsProvider.getAWSCredentials().get() as? AuthAWSTemporaryCredentials
+            if ((tempCreds?.sessionKey) != nil) {
+                credentialMap["sessionToken"] = tempCreds?.sessionKey
+            }
+        } catch {
+            print("Unable to case session token.")
         }
+        
+
     }
     
 
