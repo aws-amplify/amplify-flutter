@@ -24,6 +24,7 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'src/types/models/model.dart';
 import 'src/types/models/model_schema.dart';
 import 'src/types/query/query_field.dart';
+import 'src/types/models/subscription_event.dart';
 
 export 'src/types/models/flutter_serialized_model.dart';
 export 'src/types/models/model.dart';
@@ -33,6 +34,7 @@ export 'src/types/models/model_field.dart';
 export 'src/types/utils/date_time_parser.dart';
 export 'src/Errors/datastore_error.dart';
 export 'src/Errors/datastore_error_types.dart';
+export 'src/types/models/subscription_event.dart';
 
 abstract class DataStorePluginInterface extends PlatformInterface {
   final List<ModelSchema> modelSchemas;
@@ -41,6 +43,14 @@ abstract class DataStorePluginInterface extends PlatformInterface {
   DataStorePluginInterface(
       {@required Object token, @required this.modelSchemas})
       : super(token: token);
+
+  Future<void> addModelSchemas({@required List<ModelSchema> modelSchemas}) {
+    throw UnimplementedError('addModelSchemas() has not been implemented.');
+  }
+
+  Future<void> configure({String configuration}) {
+    throw UnimplementedError('configure() has not been implemented.');
+  }
 
   Future<List<T>> query<T extends Model>(ModelType<T> modelType,
       {QueryPredicate where,
@@ -53,7 +63,7 @@ abstract class DataStorePluginInterface extends PlatformInterface {
     throw UnimplementedError('delete() has not been implemented.');
   }
 
-  Future<void> configure({@required List<ModelSchema> modelSchemas}) {
-    throw UnimplementedError('configure() has not been implemented.');
+  Stream<SubscriptionEvent<T>> observe<T extends Model>(ModelType<T> modelType) {
+    throw UnimplementedError('observe() has not been implemented.');
   }
 }
