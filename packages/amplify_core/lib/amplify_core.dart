@@ -80,5 +80,7 @@ class Amplify {
     if (!res) {
       throw ("Amplify plugin was not added");
     }
+
+    await DataStore.configure(configuration);
   }
 }
