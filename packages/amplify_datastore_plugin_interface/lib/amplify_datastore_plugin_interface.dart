@@ -17,6 +17,7 @@ library amplify_datastore_plugin_interface;
 
 import 'dart:async';
 
+import 'package:amplify_datastore_plugin_interface/src/types/models/model_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
@@ -31,21 +32,30 @@ export 'src/types/models/model.dart';
 export 'src/types/models/model_schema.dart';
 export 'src/types/query/query_field.dart';
 export 'src/types/models/model_field.dart';
+export 'src/types/models/model_field_type.dart';
+export 'src/types/models/model_schema_definition.dart';
+export 'src/types/models/model_field_definition.dart';
+export 'src/types/models/uuid.dart';
+export 'src/types/models/model_provider.dart';
+export 'src/types/models/auth_rule.dart';
+
 export 'src/types/utils/date_time_parser.dart';
 export 'src/Errors/datastore_error.dart';
 export 'src/Errors/datastore_error_types.dart';
 export 'src/types/models/subscription_event.dart';
 
 abstract class DataStorePluginInterface extends PlatformInterface {
-  final List<ModelSchema> modelSchemas;
+  final ModelProviderInterface modelProvider;
 
   /// Constructs an AmplifyPlatform.
   DataStorePluginInterface(
-      {@required Object token, @required this.modelSchemas})
+      {@required Object token, @required this.modelProvider})
       : super(token: token);
 
-  Future<void> addModelSchemas({@required List<ModelSchema> modelSchemas}) {
-    throw UnimplementedError('addModelSchemas() has not been implemented.');
+  Future<void> configureModelProvider(
+      {@required ModelProviderInterface modelProvider}) {
+    throw UnimplementedError(
+        'configureModelProvider() has not been implemented.');
   }
 
   Future<void> configure({String configuration}) {
@@ -63,7 +73,8 @@ abstract class DataStorePluginInterface extends PlatformInterface {
     throw UnimplementedError('delete() has not been implemented.');
   }
 
-  Stream<SubscriptionEvent<T>> observe<T extends Model>(ModelType<T> modelType) {
+  Stream<SubscriptionEvent<T>> observe<T extends Model>(
+      ModelType<T> modelType) {
     throw UnimplementedError('observe() has not been implemented.');
   }
 }

@@ -13,11 +13,11 @@
  * permissions and limitations under the License.
  */
 
-import com.amazonaws.amplify.amplify_datastore.AmplifyDataStorePlugin
-import com.amazonaws.amplify.amplify_datastore.readMapFromFile
+package com.amazonaws.amplify.amplify_datastore
+
+import com.amazonaws.amplify.amplify_datastore.*
 import com.amazonaws.amplify.amplify_datastore.types.FlutterDataStoreFailureMessage
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSerializedModel
-import com.amazonaws.amplify.amplify_datastore.mockSchemaData
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
 import com.amplifyframework.core.model.Model
@@ -26,7 +26,6 @@ import com.amplifyframework.core.model.query.Page
 import com.amplifyframework.core.model.query.QueryOptions
 import com.amplifyframework.core.model.query.Where
 import com.amplifyframework.core.model.query.predicate.QueryField.field
-import com.amplifyframework.core.model.query.predicate.QueryPredicate
 import com.amplifyframework.core.model.query.predicate.QueryPredicateOperation.not
 import com.amplifyframework.core.model.temporal.Temporal
 import com.amplifyframework.datastore.AWSDataStorePlugin
@@ -64,7 +63,9 @@ class AmplifyDataStorePluginTest {
     @Before
     fun setup() {
         flutterPlugin = AmplifyDataStorePlugin()
-        flutterPlugin.setSchemas(mockSchemaData as List<Map<String, Any>>);
+        val modelProvider = FlutterModelProvider.instance
+        modelProvider.addModelSchema("Post", postSchema)
+
         modelSchema = flutterPlugin.modelProvider.modelSchemas()["Post"]!!
         amplifySuccessResults = mutableListOf<SerializedModel>(
             SerializedModel.builder()
@@ -96,17 +97,17 @@ class AmplifyDataStorePluginTest {
                     amplifySuccessResults.iterator())
             null
         }.`when`(mockAmplifyDataStorePlugin).query(anyString(), any(QueryOptions::class.java),
-                                                   ArgumentMatchers.any<
-                                                           Consumer<Iterator<Model>>>(),
-                                                   ArgumentMatchers.any<Consumer<DataStoreException>>())
+                ArgumentMatchers.any<
+                        Consumer<Iterator<Model>>>(),
+                ArgumentMatchers.any<Consumer<DataStoreException>>())
         flutterPlugin.onQuery(mockResult,
-                              readMapFromFile("query_api",
-                                              "request/only_model_name.json",
-                                              HashMap::class.java) as HashMap<String, Any>)
+                readMapFromFile("query_api",
+                        "request/only_model_name.json",
+                        HashMap::class.java) as HashMap<String, Any>)
         verify(mockResult, times(1)).success(
                 readMapFromFile("query_api",
-                                "response/2_results.json",
-                                List::class.java))
+                        "response/2_results.json",
+                        List::class.java))
     }
 
     @Test
@@ -114,21 +115,21 @@ class AmplifyDataStorePluginTest {
         doAnswer { invocation: InvocationOnMock ->
             assertEquals(invocation.arguments[0], "Post")
             assertEquals(invocation.arguments[1],
-                         Where.matches(field("id").eq("123").or(field("rating").ge(4).and(not(
-                                 field("created").eq("2020-02-20T20:20:20-08:00")))))
-                                 .paginated(Page.startingAt(2).withLimit(8))
-                                 .sorted(field("id").ascending(), field("created").descending()))
+                    Where.matches(field("id").eq("123").or(field("rating").ge(4).and(not(
+                            field("created").eq("2020-02-20T20:20:20-08:00")))))
+                            .paginated(Page.startingAt(2).withLimit(8))
+                            .sorted(field("id").ascending(), field("created").descending()))
             (invocation.arguments[2] as Consumer<Iterator<Model>>).accept(
                     emptyList<SerializedModel>().iterator())
             null
         }.`when`(mockAmplifyDataStorePlugin).query(anyString(), any(QueryOptions::class.java),
-                                                   ArgumentMatchers.any<
-                                                           Consumer<Iterator<Model>>>(),
-                                                   ArgumentMatchers.any<Consumer<DataStoreException>>())
+                ArgumentMatchers.any<
+                        Consumer<Iterator<Model>>>(),
+                ArgumentMatchers.any<Consumer<DataStoreException>>())
         flutterPlugin.onQuery(mockResult,
-                              readMapFromFile("query_api",
-                                              "request/model_name_with_all_query_parameters.json",
-                                              HashMap::class.java) as HashMap<String, Any>)
+                readMapFromFile("query_api",
+                        "request/model_name_with_all_query_parameters.json",
+                        HashMap::class.java) as HashMap<String, Any>)
         verify(mockResult, times(1)).success(emptyList<FlutterSerializedModel>())
     }
 
@@ -195,7 +196,6 @@ class AmplifyDataStorePluginTest {
                 any()
             )
     }
-
 
     private fun setFinalStatic(field: Field, newValue: Any?) {
         field.isAccessible = true

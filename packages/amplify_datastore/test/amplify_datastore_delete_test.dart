@@ -19,15 +19,17 @@ import 'package:flutter_test/flutter_test.dart';
 
 import './test_models/Post.dart';
 import './utils/get_json_from_file.dart';
+import 'test_models/ModelProvider.dart';
 
 void main() {
   const MethodChannel dataStoreChannel =
       MethodChannel('com.amazonaws.amplify/datastore');
 
-  AmplifyDataStore dataStore = AmplifyDataStore(modelSchemas: null);
+  AmplifyDataStore dataStore =
+      AmplifyDataStore(modelProvider: ModelProvider.instance);
 
   TestWidgetsFlutterBinding.ensureInitialized();
-  
+
   setUp(() {});
 
   tearDown(() {
@@ -35,10 +37,15 @@ void main() {
   });
 
   test('delete with a valid model executes without an error ', () async {
-    var json = await getJsonFromFile('delete_api/request/instance_no_predicate.json');
+    var json =
+        await getJsonFromFile('delete_api/request/instance_no_predicate.json');
     var model = json["model"];
     dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {});
-    Post instance = Post(title: model["title"], rating: model["rating"], created: DateTime.parse(model["created"]), id: model["id"]);
+    Post instance = Post(
+        title: model["title"],
+        rating: model["rating"],
+        created: DateTime.parse(model["created"]),
+        id: model["id"]);
     Future<void> deleteFuture = dataStore.delete(instance);
     expect(deleteFuture, completes);
   });
