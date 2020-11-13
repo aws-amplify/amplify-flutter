@@ -23,7 +23,7 @@ data class FlutterSerializedModel(val serializedModel: SerializedModel) {
     private val id: String = serializedModel.id
     private val serializedData: Map<String, Any> = parseAnyMap(serializedModel.serializedData)
 
-    private val modelName: String = serializedModel.modelName
+    private val modelName: String = serializedModel.modelName.orEmpty()
 
     fun toMap(): Map<String, Any> {
         return mapOf(

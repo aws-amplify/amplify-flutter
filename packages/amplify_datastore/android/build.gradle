@@ -4,6 +4,7 @@ version '1.0-SNAPSHOT'
 buildscript {
     ext.kotlin_version = '1.3.50'
     repositories {
+        mavenLocal()
         google()
         jcenter()
     }
@@ -16,6 +17,7 @@ buildscript {
 
 rootProject.allprojects {
     repositories {
+        mavenLocal()
         google()
         jcenter()
     }
@@ -34,7 +36,7 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 21
     }
     lintOptions {
         disable 'InvalidPackage'
@@ -52,8 +54,9 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "com.amplifyframework:aws-datastore:1.1.3"
-    implementation "com.amplifyframework:aws-api-appsync:1.1.3"
+    implementation "com.amplifyframework:aws-datastore:main"
+    implementation "com.amplifyframework:aws-api:main"
+    implementation "com.amplifyframework:aws-api-appsync:main"
     testImplementation 'junit:junit:4.13'
     testImplementation 'org.mockito:mockito-core:3.1.0'
     testImplementation 'org.mockito:mockito-inline:3.1.0'

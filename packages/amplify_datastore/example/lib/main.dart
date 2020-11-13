@@ -45,6 +45,8 @@ class _MyAppState extends State<MyApp> {
   String _postWithIdNotEquals = '';
   String _firstPostFromResult = '';
   String _allPostsWithoutRating2Or5 = '';
+  String _streamingData = '';
+  Stream<SubscriptionEvent<Post>> stream = null;
   Amplify amplify = new Amplify();
   @override
   void initState() {
@@ -68,6 +70,8 @@ class _MyAppState extends State<MyApp> {
     String firstPostFromResult = '';
     String allPostsWithoutRating2Or5 = '';
 
+    stream = Amplify.DataStore.observe(Post.classType);
+
     (await Amplify.DataStore.query(Post.classType,
             sortBy: [Post.RATING.ascending()]))
         .forEach((element) {
@@ -85,11 +89,11 @@ class _MyAppState extends State<MyApp> {
       posts1To4Rating += encoder.convert(element.toJson()) + '\n';
     });
 
-    (await Amplify.DataStore.query(Post.classType,
-            where: Post.CREATED.eq("2020-02-02T20:20:20-08:00")))
-        .forEach((element) {
-      postWithCreatedDate += encoder.convert(element.toJson()) + '\n';
-    });
+    // (await Amplify.DataStore.query(Post.classType,
+    //         where: Post.CREATED.eq("2020-02-02T20:20:20-08:00")))
+    //     .forEach((element) {
+    //   postWithCreatedDate += encoder.convert(element.toJson()) + '\n';
+    // });
 
     (await Amplify.DataStore.query(Post.classType,
             where: Post.ID.ne("e25859fc-e254-4e8b-8cae-62ccacce4097")))
@@ -115,6 +119,11 @@ class _MyAppState extends State<MyApp> {
       allPostsWithoutRating2Or5 += encoder.convert(element.toJson());
     });
 
+    // Stream<Post> stream = Amplify.DataStore.observe(Post.classType);
+    // stream.listen((event) {
+    //   print(event.toJson().toString());
+    // });
+
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
@@ -138,8 +147,22 @@ class _MyAppState extends State<MyApp> {
           appBar: AppBar(
             title: const Text('Plugin example app'),
           ),
-          body: Center(
-            child: new SingleChildScrollView(
+          body: ListView(children: [
+            StreamBuilder(
+              initialData: "Unknown\n",
+              stream: stream,
+              builder: (context, snapshot) {
+                _streamingData += snapshot.data is SubscriptionEvent
+                    ? 'Item: ' +
+                        (snapshot.data.item as Post).toJson().toString() +
+                        ', EventType: ' +
+                        snapshot.data.eventType.toString() +
+                        '\n'
+                    : '';
+                return Text("Received Data from streams: ${_streamingData}");
+              },
+            ),
+            new SingleChildScrollView(
                 child: Text('All Posts sort by rating ascending (sorting not working)\n$_posts\n\n' +
                     'First post from list of all posts\n$_firstPostFromResult\n\n' +
                     'Posts >= 4 rating\n$_posts4rating\n\n' +
@@ -148,7 +171,7 @@ class _MyAppState extends State<MyApp> {
                     'Posts without rating 2 or 5\n$_allPostsWithoutRating2Or5\n\n' +
                     'Post with date equals\n$_postWithCreatedDate\n\n' +
                     'Post with Id not equals\n$_postWithIdNotEquals\n\n')),
-          )),
+          ])),
     );
   }
 
@@ -178,14 +201,14 @@ class _MyAppState extends State<MyApp> {
         isArray: false,
         isEnum: false,
         isModel: false);
-    modelFieldMap["created"] = ModelField(
-        name: "created",
-        type: "DateTime",
-        targetType: "Date",
-        isRequired: false,
-        isArray: false,
-        isEnum: false,
-        isModel: false);
+    // modelFieldMap["created"] = ModelField(
+    //     name: "created",
+    //     type: "DateTime",
+    //     targetType: "Date",
+    //     isRequired: false,
+    //     isArray: false,
+    //     isEnum: false,
+    //     isModel: false);
     return ModelSchema(
         name: "Post", pluralName: "Posts", fields: modelFieldMap);
   }

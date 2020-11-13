@@ -24,7 +24,6 @@ class FlutterModelProvider private constructor() : ModelProvider {
     private val modelSchemaMap: MutableMap<String, ModelSchema> =
             HashMap()
 
-    // TODO change it to return an empty set once it's properly supported in the amplify-android library
     override fun models(): Set<Class<out Model?>>? {
         return java.util.Collections.emptySet()
     }

@@ -95,6 +95,7 @@ class DataStorePluginUnitTests: XCTestCase {
                     XCTAssertEqual("2020-02-20T20:20:20-08:00", (results[1]["serializedData"] as! [String: Any])["created"] as! String)
                 } else {
                     XCTFail()
+                    XCTAssertNil(<#T##expression: Any?##Any?#>, <#T##message: String##String#>)
                 }
             })
     }

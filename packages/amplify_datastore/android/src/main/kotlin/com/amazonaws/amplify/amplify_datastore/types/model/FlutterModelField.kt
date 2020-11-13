@@ -15,6 +15,7 @@
 
 package com.amazonaws.amplify.amplify_datastore.types.model
 
+import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.ModelField
 import com.amplifyframework.core.model.temporal.Temporal
 
@@ -53,7 +54,7 @@ data class FlutterModelField(val map: Map<String, Any>) {
     fun convertToNativeModelField(): ModelField {
         var builder: ModelField.ModelFieldBuilder = ModelField.builder()
                 .name(name)
-                .type(getJavaClass(type))
+                .javaClassForValue(getJavaClass(type))
                 .isArray(isArray)
                 .isEnum(isEnum)
                 .isRequired(isRequired)
@@ -81,6 +82,6 @@ data class FlutterModelField(val map: Map<String, Any>) {
             "DateTime" -> return Temporal.DateTime::class.java
             "TimeStamp" -> return Temporal.Timestamp::class.java
         }
-        return Object::class.java
+        return Model::class.java
     }
 }

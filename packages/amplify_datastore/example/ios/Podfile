@@ -32,6 +32,11 @@ target 'Runner' do
   use_modular_headers!
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+  
+  pod 'Amplify', :path => '~/Workspaces/iOS/AmplifyFork/amplify-ios'
+  pod 'AWSPluginsCore', :path => '~/Workspaces/iOS/AmplifyFork/amplify-ios'
+  pod 'AmplifyPlugins/AWSDataStorePlugin', :path => '~/Workspaces/iOS/AmplifyFork/amplify-ios'
+  pod 'AmplifyPlugins/AWSAPIPlugin', :path => '~/Workspaces/iOS/AmplifyFork/amplify-ios'
 end
 
 target 'amplify_datastore_unit_tests' do
@@ -39,6 +44,11 @@ target 'amplify_datastore_unit_tests' do
   use_modular_headers!
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+  
+  pod 'Amplify', :path => '~/Workspaces/iOS/AmplifyFork/amplify-ios'
+  pod 'AWSPluginsCore', :path => '~/Workspaces/iOS/AmplifyFork/amplify-ios'
+  pod 'AmplifyPlugins/AWSDataStorePlugin', :path => '~/Workspaces/iOS/AmplifyFork/amplify-ios'
+  pod 'AmplifyPlugins/AWSAPIPlugin', :path => '~/Workspaces/iOS/AmplifyFork/amplify-ios'
 end
 
 post_install do |installer|

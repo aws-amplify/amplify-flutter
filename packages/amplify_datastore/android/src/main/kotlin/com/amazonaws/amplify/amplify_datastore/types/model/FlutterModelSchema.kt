@@ -15,7 +15,9 @@
 
 package com.amazonaws.amplify.amplify_datastore.types.model
 
+import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.ModelSchema
+import com.amplifyframework.datastore.appsync.SerializedModel
 
 data class FlutterModelSchema(val map: Map<String, Any>) {
     val name: String = map["name"] as String
@@ -44,6 +46,7 @@ data class FlutterModelSchema(val map: Map<String, Any>) {
                 .fields(fields.mapValues { entry ->
                     entry.value.convertToNativeModelField()
                 })
+
         if (!authRules.isNullOrEmpty()) {
             builder = builder.authRules(authRules.map { authRule ->
                 authRule.convertToNativeAuthRule()
@@ -59,6 +62,7 @@ data class FlutterModelSchema(val map: Map<String, Any>) {
                 entry.value.convertToNativeModelIndex()
             })
         }
+        builder = builder.modelClass(Model::class.java)
         return builder.build()
     }
 }
