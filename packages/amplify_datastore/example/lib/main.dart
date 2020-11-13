@@ -15,6 +15,7 @@
 
 import 'dart:convert';
 
+import 'package:amplify_datastore_example/codegen/ModelProvider.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -23,7 +24,9 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'amplifyconfiguration.dart';
 
-import 'Post.dart';
+import 'codegen/Blog.dart';
+import 'codegen/Post.dart';
+import 'codegen/Comment.dart';
 
 void main() {
   runApp(MyApp());
@@ -38,6 +41,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _posts = '';
+  String _comments = '';
+  String _blogs = '';
   String _posts4rating = '';
   String _posts1To4Rating = '';
   String _postWithCreatedDate = '';
@@ -48,6 +53,7 @@ class _MyAppState extends State<MyApp> {
   String _streamingData = '';
   Stream<SubscriptionEvent<Post>> stream = null;
   Amplify amplify = new Amplify();
+
   @override
   void initState() {
     super.initState();
@@ -57,11 +63,14 @@ class _MyAppState extends State<MyApp> {
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     AmplifyDataStore datastorePlugin =
-        AmplifyDataStore(modelSchemas: [createTestSchema()]);
+        AmplifyDataStore(modelProvider: ModelProvider.instance);
+
     await amplify.addPlugin(dataStorePlugins: [datastorePlugin]);
     // Configure
-    await amplify.configure(amplifyconfig);
+    await amplify.configure("{}"); //amplifyconfig);
     String allPosts = '';
+    String allComments = '';
+    String allBlogs = '';
     String posts4Rating = '';
     String posts1To4Rating = '';
     String posts2Or5Rating = '';
@@ -72,10 +81,25 @@ class _MyAppState extends State<MyApp> {
 
     stream = Amplify.DataStore.observe(Post.classType);
 
-    (await Amplify.DataStore.query(Post.classType,
-            sortBy: [Post.RATING.ascending()]))
-        .forEach((element) {
-      allPosts += encoder.convert(element.toJson()) + '\n';
+    // get all comments
+    (await Amplify.DataStore.query(Comment.classType)).forEach((element) {
+      if (element != null) {
+        allComments += encoder.convert(element.toJson());
+      }
+    });
+
+    // get all posts
+    (await Amplify.DataStore.query(Post.classType)).forEach((element) {
+      if (element != null) {
+        allPosts += encoder.convert(element.toJson());
+      }
+    });
+
+    // get all blogs
+    (await Amplify.DataStore.query(Blog.classType)).forEach((element) {
+      if (element != null) {
+        allBlogs += encoder.convert(element.toJson());
+      }
     });
 
     (await Amplify.DataStore.query(Post.classType, where: Post.RATING.ge(4)))
@@ -96,7 +120,8 @@ class _MyAppState extends State<MyApp> {
     // });
 
     (await Amplify.DataStore.query(Post.classType,
-            where: Post.ID.ne("e25859fc-e254-4e8b-8cae-62ccacce4097")))
+            where: QueryField(fieldName: "post.id")
+                .ne("e25859fc-e254-4e8b-8cae-62ccacce4097")))
         .forEach((element) {
       postWithIdNotEquals += encoder.convert(element.toJson()) + '\n';
     });
@@ -130,6 +155,8 @@ class _MyAppState extends State<MyApp> {
     if (!mounted) return;
     setState(() {
       _posts = allPosts;
+      _comments = allComments;
+      _blogs = allBlogs;
       _posts1To4Rating = posts1To4Rating;
       _posts4rating = posts4Rating;
       _postWithCreatedDate = postWithCreatedDate;
@@ -164,6 +191,8 @@ class _MyAppState extends State<MyApp> {
             ),
             new SingleChildScrollView(
                 child: Text('All Posts sort by rating ascending (sorting not working)\n$_posts\n\n' +
+                    'All Comments \n$_comments\n\n' +
+                    'All Blogs \n$_blogs\n\n' +
                     'First post from list of all posts\n$_firstPostFromResult\n\n' +
                     'Posts >= 4 rating\n$_posts4rating\n\n' +
                     'Posts between 1 and 4 rating\n$_posts1To4Rating\n\n' +
@@ -173,43 +202,5 @@ class _MyAppState extends State<MyApp> {
                     'Post with Id not equals\n$_postWithIdNotEquals\n\n')),
           ])),
     );
-  }
-
-  ModelSchema createTestSchema() {
-    Map<String, ModelField> modelFieldMap = {};
-    modelFieldMap["id"] = ModelField(
-        name: "id",
-        type: "String",
-        targetType: "ID",
-        isRequired: true,
-        isArray: false,
-        isEnum: false,
-        isModel: false);
-    modelFieldMap["title"] = ModelField(
-        name: "title",
-        type: "String",
-        targetType: "String",
-        isRequired: true,
-        isArray: false,
-        isEnum: false,
-        isModel: false);
-    modelFieldMap["rating"] = ModelField(
-        name: "rating",
-        type: "Integer",
-        targetType: "Integer",
-        isRequired: false,
-        isArray: false,
-        isEnum: false,
-        isModel: false);
-    // modelFieldMap["created"] = ModelField(
-    //     name: "created",
-    //     type: "DateTime",
-    //     targetType: "Date",
-    //     isRequired: false,
-    //     isArray: false,
-    //     isEnum: false,
-    //     isModel: false);
-    return ModelSchema(
-        name: "Post", pluralName: "Posts", fields: modelFieldMap);
   }
 }

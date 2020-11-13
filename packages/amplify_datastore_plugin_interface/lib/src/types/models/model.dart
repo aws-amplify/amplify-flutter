@@ -13,26 +13,64 @@
  * permissions and limitations under the License.
  */
 
-library model;
+import 'package:flutter/foundation.dart';
+
+import 'model_schema.dart';
+import 'model_schema_definition.dart';
 
 abstract class Model {
   final String id;
-  final ModelType instanceType;
 
-  const Model({this.id, this.instanceType});
+  ModelType getInstanceType();
+
+  const Model({this.id});
 
   String getId() {
     return id;
   }
 
   Map<String, dynamic> toJson();
-}
 
-enum ModelOperation { CREATE, UPDATE, DELETE, READ }
+  static ModelSchema defineSchema(
+      {@required Function(ModelSchemaDefinition) define}) {
+    var definition = ModelSchemaDefinition();
+
+    define(definition);
+
+    return definition.build();
+  }
+}
 
 // New ModelType superclass
 abstract class ModelType<T extends Model> {
   const ModelType();
+
+  T fromSerializedMap(Map<String, dynamic> serializedMap) {
+    return fromJson(serializedMapToJson(serializedMap));
+  }
+
+  Map<String, dynamic> serializedMapToJson(Map<String, dynamic> serializedMap) {
+    Map<String, dynamic> resultMap = {};
+
+    if (serializedMap.length == 0 ||
+        !serializedMap.containsKey("serializedData")) {
+      return resultMap;
+    }
+
+    serializedMap =
+        new Map<String, dynamic>.from(serializedMap["serializedData"]);
+
+    serializedMap.forEach((key, value) {
+      if (value is Map) {
+        resultMap[key] =
+            serializedMapToJson(new Map<String, dynamic>.from(value));
+      } else {
+        resultMap[key] = value;
+      }
+    });
+
+    return resultMap;
+  }
 
   T fromJson(Map<String, dynamic> jsonData);
 

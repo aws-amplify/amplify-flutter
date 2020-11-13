@@ -1,0 +1,17 @@
+[
+  {
+    "id" : "39c3c0e6-8726-436e-8cdf-bff38e9a62da",
+    "modelName" : "Comment",
+    "serializedData" : {
+       "id" : "39c3c0e6-8726-436e-8cdf-bff38e9a62da",
+        "post" : {
+          "id" : "e50ffa8f-783b-4780-89b4-27043ffc35be",
+          "modelName" : "",
+          "serializedData" : {
+            "id" : "e50ffa8f-783b-4780-89b4-27043ffc35be"
+          }
+        },
+        "content" : "Loving Amplify Datastore!"
+    }
+  }
+]

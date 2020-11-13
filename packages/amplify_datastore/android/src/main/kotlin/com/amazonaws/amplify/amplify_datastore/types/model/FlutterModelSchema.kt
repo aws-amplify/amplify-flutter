@@ -21,7 +21,7 @@ import com.amplifyframework.datastore.appsync.SerializedModel
 
 data class FlutterModelSchema(val map: Map<String, Any>) {
     val name: String = map["name"] as String
-    private val pluralName: String = map["pluralName"] as String
+    private val pluralName: String? = map["pluralName"] as String?
     private val authRules: List<FlutterAuthRule>? =
             (map["authRules"] as List<Map<String, Any>>?)?.map { serializedAuthRule ->
                 FlutterAuthRule(serializedAuthRule)
@@ -31,12 +31,9 @@ data class FlutterModelSchema(val map: Map<String, Any>) {
                 FlutterModelField(entry.value as Map<String, Any>)
             }
     private val associations: Map<String, FlutterModelAssociation>? =
-            (map["associations"] as Map<String, Any>?)?.mapValues { entry ->
-                FlutterModelAssociation(entry.value as Map<String, Any>)
-            }
-    private val indexes: Map<String, FlutterModelIndex>? =
-            (map["indexes"] as Map<String, Any>?)?.mapValues { entry ->
-                FlutterModelIndex(entry.value as Map<String, Any>)
+            ( fields )?.filterKeys { key -> fields[key]?.getModelAssociation() != null }
+                    ?.mapValues { entry ->
+                entry.value.getModelAssociation()!!
             }
 
     fun convertToNativeModelSchema(): ModelSchema {
@@ -44,8 +41,7 @@ data class FlutterModelSchema(val map: Map<String, Any>) {
                 .name(name)
                 .pluralName(pluralName)
                 .fields(fields.mapValues { entry ->
-                    entry.value.convertToNativeModelField()
-                })
+                entry.value.convertToNativeModelField()})
 
         if (!authRules.isNullOrEmpty()) {
             builder = builder.authRules(authRules.map { authRule ->
@@ -57,12 +53,6 @@ data class FlutterModelSchema(val map: Map<String, Any>) {
                 entry.value.convertToNativeModelAssociation()
             })
         }
-        if (!indexes.isNullOrEmpty()) {
-            builder = builder.indexes(indexes.mapValues { entry ->
-                entry.value.convertToNativeModelIndex()
-            })
-        }
-        builder = builder.modelClass(Model::class.java)
         return builder.build()
     }
 }

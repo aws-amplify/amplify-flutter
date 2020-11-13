@@ -19,8 +19,8 @@ import Amplify
 
 struct FlutterSubscriptionEvent {
     let item: SerializedModel
-    let eventType: EventType?
-    public init(item: SerializedModel, eventType: EventType?) {
+    let eventType: EventType
+    public init(item: SerializedModel, eventType: EventType) {
         self.item = item
         self.eventType = eventType
     }
@@ -28,7 +28,7 @@ struct FlutterSubscriptionEvent {
     public func toJSON(modelSchema: ModelSchema) -> [String: Any] {
         return [
             "item": self.item.toJSON(modelSchema: modelSchema),
-            "eventType": self.eventType?.rawValue ?? "unknown"
+            "eventType": self.eventType.rawValue
         ]
     }}
 
