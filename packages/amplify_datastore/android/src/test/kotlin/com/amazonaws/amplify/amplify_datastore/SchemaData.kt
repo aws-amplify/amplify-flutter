@@ -52,7 +52,7 @@ val postSchema = ModelSchema.builder()
                     "rating" to
                             ModelField.builder()
                                     .name("rating")
-                                    .javaClassForValue(Int::class.java)
+                                    .javaClassForValue(Integer::class.java)
                                     .targetType("Integer")
                                     .isRequired(false)
                                     .isArray(false)
