@@ -15,7 +15,6 @@
 
 package com.amazonaws.amplify.amplify_datastore.types.model
 
-import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.ModelField
 
 data class FlutterModelField(val map: Map<String, Any>) {

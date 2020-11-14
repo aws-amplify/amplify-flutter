@@ -14,10 +14,10 @@
  */
 
 package com.amazonaws.amplify.amplify_datastore
+
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-
 import androidx.annotation.NonNull
 import androidx.annotation.VisibleForTesting
 import com.amazonaws.amplify.amplify_datastore.types.FlutterDataStoreFailureMessage
@@ -47,7 +47,6 @@ import io.flutter.plugin.common.MethodChannel.Result
 import java.util.Collections
 import java.util.Date
 import java.util.UUID
-import kotlin.collections.HashMap
 
 
 /** AmplifyDataStorePlugin */
@@ -93,8 +92,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                     createErrorMap(e))
         }
         when (call.method) {
-            "query" -> createTempPosts(result)
-            // "query" -> onQuery(result, data)
+            "query" -> onQuery(result, data)
             "delete" -> onDelete(result, data)
             "setupObserve" -> onSetupObserve(result)
             "configureModelProvider" -> onConfigureModelProvider(result, data)
@@ -264,7 +262,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                                                                     FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_OBSERVE_EVENT_FAILURE.toString(),
                                                                     createErrorMap(failure))
                        },
-                       { LOG.debug("MyAmplifyApp Observation complete.") }
+                       { LOG.info("Observation complete.") }
         )
         result.success(true)
     }
