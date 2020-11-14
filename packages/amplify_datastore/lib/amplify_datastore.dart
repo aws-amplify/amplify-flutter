@@ -19,6 +19,7 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'package:meta/meta.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
+import 'event_channel_datastore.dart';
 import 'method_channel_datastore.dart';
 
 class AmplifyDataStore extends DataStorePluginInterface {
@@ -29,6 +30,8 @@ class AmplifyDataStore extends DataStorePluginInterface {
       : super(token: _token, modelProvider: modelProvider);
 
   static AmplifyDataStore _instance = AmplifyDataStoreMethodChannel();
+  var events = AmplifyDataStoreEventChannel();
+
 
   static set instance(DataStorePluginInterface instance) {
     PlatformInterface.verifyToken(instance, _token);

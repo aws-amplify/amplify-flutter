@@ -58,7 +58,7 @@ data class FlutterModelField(val map: Map<String, Any>) {
     fun convertToNativeModelField(): ModelField {
         var builder: ModelField.ModelFieldBuilder = ModelField.builder()
                 .name(name)
-                .javaClassForValue( type.getJavaClass() )
+//                .javaClassForValue( type.getJavaClass() )
                 .targetType( type.getTargetType() )
                 .isRequired(isRequired)
                 .isArray(isArray)

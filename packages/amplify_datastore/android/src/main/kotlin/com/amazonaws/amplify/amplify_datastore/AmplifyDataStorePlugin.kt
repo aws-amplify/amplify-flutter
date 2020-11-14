@@ -48,6 +48,9 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     private lateinit var observeCancelable: Cancelable
     private val dataStoreObserveEventStreamHandler: DataStoreObserveEventStreamHandler
 
+    private lateinit var hubEventChannel: EventChannel
+    private var dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler? = null
+
     private val handler = Handler(Looper.getMainLooper())
     private val LOG = Amplify.Logging.forNamespace("amplify:flutter:datastore")
     val modelProvider = FlutterModelProvider.instance
@@ -57,18 +60,28 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     }
 
     @VisibleForTesting
-    constructor(eventHandler: DataStoreObserveEventStreamHandler) {
+    constructor(eventHandler: DataStoreObserveEventStreamHandler, hubEventHandler: DataStoreHubEventStreamHandler) {
         dataStoreObserveEventStreamHandler = eventHandler
+        dataStoreHubEventStreamHandler = hubEventHandler
     }
 
+    @VisibleForTesting
+    constructor(eventHandler: DataStoreObserveEventStreamHandler, hubEventHandler: DataStoreHubEventStreamHandler) {
+        dataStoreObserveEventStreamHandler = eventHandler
+        dataStoreHubEventStreamHandler = hubEventHandler
+    }
     override fun onAttachedToEngine(
             @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger,
-                                "com.amazonaws.amplify/datastore")
+                "com.amazonaws.amplify/datastore")
         channel.setMethodCallHandler(this)
         eventchannel = EventChannel(flutterPluginBinding.binaryMessenger,
                                     "com.amazonaws.amplify/datastore_observe_events")
         eventchannel.setStreamHandler(dataStoreObserveEventStreamHandler)
+        
+        hubEventChannel = EventChannel(flutterPluginBinding.binaryMessenger,
+                                    "com.amazonaws.amplify/datastore_hub_events")
+        hubEventChannel.setStreamHandler(dataStoreHubEventStreamHandler)
         LOG.info("Initiated DataStore plugin")
     }
 
