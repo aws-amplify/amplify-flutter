@@ -158,7 +158,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                                 errorMap: ["MALFORMED_REQUEST": "model did not contain an id." ]))
                 return
             }
-            
+
             let modelData = SerializedModel(id: id, map: try getJSONValue(rawModel))
 
             guard let modelSchema = flutterModelRegistration.modelSchemas[modelName] else {
