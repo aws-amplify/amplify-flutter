@@ -118,10 +118,10 @@ class AmplifyDataStorePluginTest {
         doAnswer { invocation: InvocationOnMock ->
             assertEquals(invocation.arguments[0], "Post")
             assertEquals(invocation.arguments[1],
-                    Where.matches(field("id").eq("123").or(field("rating").ge(4).and(not(
+                    Where.matches(field("post.id").eq("123").or(field("rating").ge(4).and(not(
                             field("created").eq("2020-02-20T20:20:20-08:00")))))
                             .paginated(Page.startingAt(2).withLimit(8))
-                            .sorted(field("id").ascending(), field("created").descending()))
+                            .sorted(field("post.id").ascending(), field("created").descending()))
             (invocation.arguments[2] as Consumer<Iterator<Model>>).accept(
                     emptyList<SerializedModel>().iterator())
             null
