@@ -267,37 +267,6 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         result.success(true)
     }
 
-    private fun createTempPosts(result: Result) {
-        val postSerializedData: List<Map<String, Any>> = listOf(
-                mapOf(
-                        "id" to UUID.randomUUID().toString(),
-                        "title" to "Title 1 " + Date().toString()), // ISO8601 representation that would come from dart
-                mapOf(
-                        "id" to UUID.randomUUID().toString(),
-                        "title" to "Title 2 " + Date().toString()),
-                mapOf(
-                        "id" to UUID.randomUUID().toString(),
-                        "title" to "Title 3 " + Date().toString())
-        )
-        val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
-        postSerializedData.forEach { data ->
-            plugin.save(SerializedModel.builder()
-                                .serializedData(data)
-                                .modelSchema(modelProvider.modelSchemas()["Post"])
-                                .build(),
-                        QueryPredicates.all(),
-                        Consumer { response: DataStoreItemChange<SerializedModel?> ->
-                            Log.i("Result", response.toString())
-                        },
-                        Consumer { failure: DataStoreException? ->
-                            Log.e("Result", "Failed", failure)
-                        }
-            ) // Save call end
-        } // for each end
-        result.success(Collections.emptyList<String>())
-    } // method end
-
-
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
     }
