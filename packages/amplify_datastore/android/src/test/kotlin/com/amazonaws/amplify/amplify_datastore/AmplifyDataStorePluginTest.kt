@@ -15,9 +15,9 @@
 
 package com.amazonaws.amplify.amplify_datastore
 
-import com.amazonaws.amplify.amplify_datastore.*
 import com.amazonaws.amplify.amplify_datastore.types.FlutterDataStoreFailureMessage
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSerializedModel
+import com.amplifyframework.core.Action
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
 import com.amplifyframework.core.async.Cancelable
@@ -100,17 +100,16 @@ class AmplifyDataStorePluginTest {
                     amplifySuccessResults.iterator())
             null
         }.`when`(mockAmplifyDataStorePlugin).query(anyString(), any(QueryOptions::class.java),
-                ArgumentMatchers.any<
-                        Consumer<Iterator<Model>>>(),
-                ArgumentMatchers.any<Consumer<DataStoreException>>())
+                                                   any<Consumer<Iterator<Model>>>(),
+                                                   any<Consumer<DataStoreException>>())
         flutterPlugin.onQuery(mockResult,
-                readMapFromFile("query_api",
-                        "request/only_model_name.json",
-                        HashMap::class.java) as HashMap<String, Any>)
+                              readMapFromFile("query_api",
+                                              "request/only_model_name.json",
+                                              HashMap::class.java) as HashMap<String, Any>)
         verify(mockResult, times(1)).success(
                 readMapFromFile("query_api",
-                        "response/2_results.json",
-                        List::class.java))
+                                "response/2_results.json",
+                                List::class.java))
     }
 
     @Test
@@ -126,13 +125,12 @@ class AmplifyDataStorePluginTest {
                     emptyList<SerializedModel>().iterator())
             null
         }.`when`(mockAmplifyDataStorePlugin).query(anyString(), any(QueryOptions::class.java),
-                ArgumentMatchers.any<
-                        Consumer<Iterator<Model>>>(),
-                ArgumentMatchers.any<Consumer<DataStoreException>>())
+                                                   any<Consumer<Iterator<Model>>>(),
+                                                   any<Consumer<DataStoreException>>())
         flutterPlugin.onQuery(mockResult,
-                readMapFromFile("query_api",
-                        "request/model_name_with_all_query_parameters.json",
-                        HashMap::class.java) as HashMap<String, Any>)
+                              readMapFromFile("query_api",
+                                              "request/model_name_with_all_query_parameters.json",
+                                              HashMap::class.java) as HashMap<String, Any>)
         verify(mockResult, times(1)).success(emptyList<FlutterSerializedModel>())
     }
 
@@ -229,9 +227,9 @@ class AmplifyDataStorePluginTest {
             (invocation.arguments[2] as Consumer<DataStoreItemChange<SerializedModel>>).accept(
                     dataStoreItemChange)
             null
-        }.`when`(mockAmplifyDataStorePlugin).observe(anyString(),
+        }.`when`(mockAmplifyDataStorePlugin).observe(any<Class<SerializedModel>>(),
                                                      any<Consumer<Cancelable>>(),
-                                                     any<Consumer<DataStoreItemChange<out Model>>>(),
+                                                     any<Consumer<DataStoreItemChange<SerializedModel>>>(),
                                                      any<Consumer<DataStoreException>>(),
                                                      any<Action>())
 
@@ -251,9 +249,9 @@ class AmplifyDataStorePluginTest {
             (invocation.arguments[3] as Consumer<DataStoreException>).accept(
                     dataStoreException)
             null
-        }.`when`(mockAmplifyDataStorePlugin).observe(anyString(),
+        }.`when`(mockAmplifyDataStorePlugin).observe(any<Class<SerializedModel>>(),
                                                      any<Consumer<Cancelable>>(),
-                                                     any<Consumer<DataStoreItemChange<out Model>>>(),
+                                                     any<Consumer<DataStoreItemChange<SerializedModel>>>(),
                                                      any<Consumer<DataStoreException>>(),
                                                      any<Action>())
 

@@ -16,6 +16,7 @@
 package com.amazonaws.amplify.amplify_datastore
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 
 import androidx.annotation.NonNull
 import androidx.annotation.VisibleForTesting
@@ -35,6 +36,7 @@ import com.amplifyframework.core.model.query.QueryOptions
 import com.amplifyframework.core.model.query.predicate.QueryPredicates
 import com.amplifyframework.datastore.AWSDataStorePlugin
 import com.amplifyframework.datastore.DataStoreException
+import com.amplifyframework.datastore.DataStoreItemChange
 import com.amplifyframework.datastore.appsync.SerializedModel
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.EventChannel
@@ -42,6 +44,9 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import java.util.Collections
+import java.util.Date
+import java.util.UUID
 import kotlin.collections.HashMap
 
 
@@ -88,7 +93,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                     createErrorMap(e))
         }
         when (call.method) {
-            "query" -> onQuery(result, data)
+            "query" -> createTempPosts(result)
+            // "query" -> onQuery(result, data)
             "delete" -> onDelete(result, data)
             "setupObserve" -> onSetupObserve(result)
             "configureModelProvider" -> onConfigureModelProvider(result, data)
@@ -99,10 +105,11 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     private fun onConfigureModelProvider(flutterResult: Result, request: HashMap<String, Any>) {
 
         if( !request.containsKey("modelSchemas") || !request.containsKey("modelProviderVersion") || request["modelSchemas"] !is List<*>){
-            prepareError(flutterResult,
-                    Exception(
-                            FlutterDataStoreFailureMessage.AMPLIFY_CONFIGURE_REQUEST_MALFORMED.toString()),
-                    FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString())
+            postFlutterError(
+                    flutterResult,
+                    FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString(),
+                    createErrorMap(Exception(
+                            FlutterDataStoreFailureMessage.AMPLIFY_CONFIGURE_REQUEST_MALFORMED.toString())))
             return
         }
 
@@ -124,7 +131,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         modelProvider.setVersion( request["modelProviderVersion"] as String )
 
         Amplify.addPlugin(AWSDataStorePlugin(modelProvider))
-        // Amplify.addPlugin(AWSApiPlugin())
+        Amplify.addPlugin(AWSApiPlugin())
 
         flutterResult.success(null)
     }
@@ -238,57 +245,47 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
     @VisibleForTesting
     fun onSetupObserve(result: Result) {
-
         val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
 
-       //modelProvider.modelNames().forEach { modelName ->
-            plugin.observe(SerializedModel::class.java,
-                           { cancelable ->
-                               LOG.info("Established a new stream form flutter $cancelable")
-                               observeCancelable = cancelable
-                           },
-                           { event ->
-                               LOG.debug("Received event: $event")
-                               dataStoreObserveEventStreamHandler?.sendEvent(FlutterSubscriptionEvent(
-                                       serializedModel = event.item(),
-                                       eventType = event.type().name.toLowerCase()).toMap())
-                           },
-                           { failure: DataStoreException ->
-                               dataStoreObserveEventStreamHandler?.error("AmplifyException",
-                                                                        FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_OBSERVE_EVENT_FAILURE.toString(),
-                                                                        createErrorMap(failure))
-                           },
-                           { LOG.debug("MyAmplifyApp Observation complete.") }
-            )
-        //}
-        Thread.sleep(1000)
-        LOG.info("Praveen done with setup observe")
+        plugin.observe(SerializedModel::class.java,
+                       { cancelable ->
+                           LOG.info("Established a new stream form flutter $cancelable")
+                           observeCancelable = cancelable
+                       },
+                       { event ->
+                           LOG.debug("Received event: $event")
+                           dataStoreObserveEventStreamHandler?.sendEvent(FlutterSubscriptionEvent(
+                                   serializedModel = event.item(),
+                                   eventType = event.type().name.toLowerCase()).toMap())
+                       },
+                       { failure: DataStoreException ->
+                           LOG.error("Received an error", failure)
+                           dataStoreObserveEventStreamHandler?.error("AmplifyException",
+                                                                    FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_OBSERVE_EVENT_FAILURE.toString(),
+                                                                    createErrorMap(failure))
+                       },
+                       { LOG.debug("MyAmplifyApp Observation complete.") }
+        )
         result.success(true)
     }
 
-    private fun createTempPosts() {
+    private fun createTempPosts(result: Result) {
         val postSerializedData: List<Map<String, Any>> = listOf(
                 mapOf(
                         "id" to UUID.randomUUID().toString(),
-                        "title" to "Title 1 " + Date().toString(),
-                        "rating" to 5,
-                        "created" to Temporal.DateTime(
-                                "2020-02-20T20:20:20-08:00")), // ISO8601 representation that would come from dart
+                        "title" to "Title 1 " + Date().toString()), // ISO8601 representation that would come from dart
                 mapOf(
                         "id" to UUID.randomUUID().toString(),
-                        "title" to "Title 2 " + Date().toString(),
-                        "rating" to 3),
+                        "title" to "Title 2 " + Date().toString()),
                 mapOf(
                         "id" to UUID.randomUUID().toString(),
-                        "title" to "Title 3 " + Date().toString(),
-                        "rating" to 2,
-                        "created" to Temporal.DateTime("2020-02-02T20:20:20-08:00"))
+                        "title" to "Title 3 " + Date().toString())
         )
         val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
         postSerializedData.forEach { data ->
             plugin.save(SerializedModel.builder()
                                 .serializedData(data)
-                                .modelSchema(modelProvider.modelSchemas().get("Post"))
+                                .modelSchema(modelProvider.modelSchemas()["Post"])
                                 .build(),
                         QueryPredicates.all(),
                         Consumer { response: DataStoreItemChange<SerializedModel?> ->
@@ -299,7 +296,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                         }
             ) // Save call end
         } // for each end
-        LOG.info("Praveen created some temp posts")
+        result.success(Collections.emptyList<String>())
     } // method end
 
 

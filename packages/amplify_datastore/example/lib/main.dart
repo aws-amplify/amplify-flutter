@@ -67,7 +67,7 @@ class _MyAppState extends State<MyApp> {
 
     await amplify.addPlugin(dataStorePlugins: [datastorePlugin]);
     // Configure
-    await amplify.configure("{}"); //amplifyconfig);
+    await amplify.configure(amplifyconfig);
     String allPosts = '';
     String allComments = '';
     String allBlogs = '';
@@ -80,6 +80,9 @@ class _MyAppState extends State<MyApp> {
     String allPostsWithoutRating2Or5 = '';
 
     stream = Amplify.DataStore.observe(Post.classType);
+    stream.listen((event) {
+      print("Received Event: " + (event.item).toJson().toString());
+    });
 
     // get all comments
     (await Amplify.DataStore.query(Comment.classType)).forEach((element) {
