@@ -33,6 +33,7 @@ import com.amplifyframework.core.model.query.QueryOptions
 import com.amplifyframework.datastore.AWSDataStorePlugin
 import com.amplifyframework.datastore.DataStoreException
 import com.amplifyframework.datastore.appsync.SerializedModel
+import com.fasterxml.uuid.impl.UUIDUtil.uuid
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
@@ -118,6 +119,10 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
 
         var modelSchemas: List<Map<String, Any>> = request["modelSchemas"].safeCastToList()!!
+
+        modelSchemas.forEach { rawSchema ->
+            dataStoreHubEventStreamHandler?.addRawSchema(rawSchema["name"] as String, rawSchema)
+        }
 
         val modelProvider = FlutterModelProvider.instance
         val flutterModelSchemaList =
@@ -220,6 +225,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
         val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
         val schema = modelProvider.modelSchemas()[modelName];
+
+        modelData["id"] = UUID.randomUUID().toString()
 
         var instance = SerializedModel.builder()
                 .serializedData(modelData)
