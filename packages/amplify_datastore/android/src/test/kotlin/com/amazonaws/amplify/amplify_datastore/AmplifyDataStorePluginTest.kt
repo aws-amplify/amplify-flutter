@@ -117,10 +117,11 @@ class AmplifyDataStorePluginTest {
         doAnswer { invocation: InvocationOnMock ->
             assertEquals(invocation.arguments[0], "Post")
             assertEquals(invocation.arguments[1],
-                    Where.matches(field("post.id").eq("123").or(field("rating").ge(4).and(not(
-                            field("created").eq("2020-02-20T20:20:20-08:00")))))
-                            .paginated(Page.startingAt(2).withLimit(8))
-                            .sorted(field("post.id").ascending(), field("created").descending()))
+                         Where.matches(field("post.id").eq("123").or(field("rating").ge(4).and(not(
+                                 field("created").eq("2020-02-20T20:20:20-08:00")))))
+                                 .paginated(Page.startingAt(2).withLimit(8))
+                                 .sorted(field("post.id").ascending(),
+                                         field("created").descending()))
             (invocation.arguments[2] as Consumer<Iterator<Model>>).accept(
                     emptyList<SerializedModel>().iterator())
             null
@@ -160,8 +161,7 @@ class AmplifyDataStorePluginTest {
                     dataStoreItemChange)
             null
         }.`when`(mockAmplifyDataStorePlugin).delete(any(),
-                                                    any<
-                                                            Consumer<DataStoreItemChange<SerializedModel>>>(),
+                                                    any<Consumer<DataStoreItemChange<SerializedModel>>>(),
                                                     any<Consumer<DataStoreException>>())
 
         flutterPlugin.onDelete(mockResult,
@@ -183,8 +183,7 @@ class AmplifyDataStorePluginTest {
                     dataStoreException)
             null
         }.`when`(mockAmplifyDataStorePlugin).delete(any(),
-                                                    any<
-                                                            Consumer<DataStoreItemChange<SerializedModel>>>(),
+                                                    any<Consumer<DataStoreItemChange<SerializedModel>>>(),
                                                     any<Consumer<DataStoreException>>())
 
         flutterPlugin.onDelete(mockResult,
