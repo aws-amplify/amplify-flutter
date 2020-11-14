@@ -23,7 +23,7 @@ import java.lang.Exception
 
 data class FlutterSerializedModel(val serializedModel: SerializedModel) {
 
-    private val serializedData: Map<String, Any> = parseSerializedDataMap(serializedModel.serializedData)
+    private val serializedData: Map<String, Any?> = parseSerializedDataMap(serializedModel.serializedData)
 
     // ignored fields
     private val id: String = serializedModel.id
@@ -41,7 +41,7 @@ data class FlutterSerializedModel(val serializedModel: SerializedModel) {
         else modelName!!
     }
 
-    private fun parseSerializedDataMap(serializedData: Map<String, Any>): Map<String, Any> {
+    private fun parseSerializedDataMap(serializedData: Map<String, Any>): Map<String, Any?> {
 
         if(serializedData == null) throw Exception("FlutterSerializedModel - no serializedData")
 
