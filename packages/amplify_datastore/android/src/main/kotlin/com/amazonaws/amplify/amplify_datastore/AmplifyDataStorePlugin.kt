@@ -245,22 +245,24 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     fun onSetupObserve(result: Result) {
         val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
 
-        plugin.observe(SerializedModel::class.java,
+        plugin.observe(
                        { cancelable ->
                            LOG.info("Established a new stream form flutter $cancelable")
                            observeCancelable = cancelable
                        },
                        { event ->
                            LOG.debug("Received event: $event")
-                           dataStoreObserveEventStreamHandler?.sendEvent(FlutterSubscriptionEvent(
-                                   serializedModel = event.item(),
-                                   eventType = event.type().name.toLowerCase()).toMap())
+                           if(event.item() is SerializedModel) {
+                               dataStoreObserveEventStreamHandler?.sendEvent(FlutterSubscriptionEvent(
+                                       serializedModel = event.item() as SerializedModel,
+                                       eventType = event.type().name.toLowerCase()).toMap())
+                           }
                        },
                        { failure: DataStoreException ->
                            LOG.error("Received an error", failure)
                            dataStoreObserveEventStreamHandler?.error("AmplifyException",
-                                                                    FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_OBSERVE_EVENT_FAILURE.toString(),
-                                                                    createErrorMap(failure))
+                                                                     FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_OBSERVE_EVENT_FAILURE.toString(),
+                                                                     createErrorMap(failure))
                        },
                        { LOG.info("Observation complete.") }
         )
