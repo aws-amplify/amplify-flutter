@@ -41,6 +41,10 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import kotlin.collections.HashMap
+import android.util.Log
+import com.amplifyframework.core.model.temporal.Temporal
+import com.amplifyframework.datastore.DataStoreItemChange
+import java.util.*
 
 
 /** AmplifyDataStorePlugin */
@@ -63,7 +67,9 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         var data: HashMap<String, Any> = HashMap()
         try {
-            data = checkArguments(call.arguments) as HashMap<String, Any>
+            if(call.arguments!= null) {
+                data = checkArguments(call.arguments) as HashMap<String, Any>
+            }
         } catch (e: Exception) {
             prepareError(result, e,
                          FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString())
@@ -71,6 +77,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         when (call.method) {
             "query" -> onQuery(result, data)
             "delete" -> onDelete(result, data)
+            "clear" -> onClear(result)
             //"configure" -> onConfigure(result, data)
             "configureModelProvider" -> onConfigureModelProvider(result, data)
             else -> result.notImplemented()
@@ -107,7 +114,6 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         Amplify.addPlugin(AWSDataStorePlugin(modelProvider))
         flutterResult.success(null)
     }
-
 
     @VisibleForTesting
     fun onQuery(flutterResult: Result, request: HashMap<String, Any>) {
@@ -194,6 +200,22 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                     } else {
                         prepareError(flutterResult, it, FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_DELETE_FAILED.toString())
                     }
+                }
+        )
+    }
+
+    @VisibleForTesting
+    fun onClear(flutterResult: Result) {
+        val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
+
+        plugin.clear(
+                {
+                    LOG.debug("Successfully cleared the store")
+                    handler.post { flutterResult.success(null) }
+                },
+                {
+                    LOG.debug("Failed to clear store with error: " + it.localizedMessage)
+                    prepareError(flutterResult, it, FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_CLEAR_FAILED.toString())
                 }
         )
     }

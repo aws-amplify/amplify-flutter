@@ -70,4 +70,9 @@ class AmplifyDataStore extends DataStorePluginInterface {
       ModelType<T> modelType) {
     return _instance.observe(modelType);
   }
+
+  @override
+  Future<void> clear() async {
+    _instance.clear();
+  }
 }

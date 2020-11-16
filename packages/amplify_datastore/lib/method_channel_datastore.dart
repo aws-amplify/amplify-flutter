@@ -43,7 +43,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   /// method is called.
   Future<void> configure({String configuration}) async {
     // First step to configure datastore is to setup an event channel for observe
-    //return _channel.invokeMethod('setupObserve', {});
+    // return _channel.invokeMethod('setupObserve', {});
   }
 
   @override
@@ -112,6 +112,15 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         .map((event) => SubscriptionEvent.fromMap(event, modelType))
         .asBroadcastStream()
         .cast<SubscriptionEvent<T>>();
+  }
+
+  @override
+  Future<void> clear() async {
+    try {
+      await _channel.invokeMapMethod('clear');
+    } on PlatformException catch (e) {
+      throw _formatError(e);
+    }
   }
 
   String _getModelNameFromEvent(Map<dynamic, dynamic> serializedEvent) {

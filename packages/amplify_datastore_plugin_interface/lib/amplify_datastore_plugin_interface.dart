@@ -77,4 +77,8 @@ abstract class DataStorePluginInterface extends PlatformInterface {
       ModelType<T> modelType) {
     throw UnimplementedError('observe() has not been implemented.');
   }
+
+  Future<void> clear() {
+    throw UnimplementedError('clear() has not been implemented.');
+  }
 }

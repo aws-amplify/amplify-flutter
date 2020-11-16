@@ -50,6 +50,8 @@ class _MyAppState extends State<MyApp> {
   String _postWithIdNotEquals = '';
   String _firstPostFromResult = '';
   String _allPostsWithoutRating2Or5 = '';
+  bool _isAmplifyConfigured = false;
+
   Amplify amplify = new Amplify();
 
   @override
@@ -65,7 +67,14 @@ class _MyAppState extends State<MyApp> {
 
     await amplify.addPlugin(dataStorePlugins: [datastorePlugin]);
     // Configure
-    await amplify.configure("{}"); //amplifyconfig);
+    await amplify.configure(amplifyconfig);
+    setState(() {
+      _isAmplifyConfigured = true;
+    });
+    runQueries();
+  }
+
+  void runQueries() async {
     String allPosts = '';
     String allComments = '';
     String allBlogs = '';
@@ -158,26 +167,46 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  clearStore() async {
+    try {
+      Amplify.DataStore.clear();
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-            title: const Text('Plugin example app'),
+        appBar: AppBar(
+          title: Text('Plugin example app'),
+        ),
+        body: Center(
+          child: ListView(
+            padding: EdgeInsets.all(5.0),
+            children: <Widget>[
+              Padding(padding: EdgeInsets.all(10.0)),
+              Center(
+                child: RaisedButton(
+                  onPressed: _isAmplifyConfigured ? clearStore : null,
+                  child: Text('Clear Store'),
+                ),
+              ),
+              Padding(padding: EdgeInsets.all(10.0)),
+              Center(
+                child: RaisedButton(
+                  onPressed: _isAmplifyConfigured ? runQueries : null,
+                  child: const Text('Query'),
+                ),
+              ),
+              Padding(padding: EdgeInsets.all(5.0)),
+              // replace with any or all query results as needed
+              Text('Posts >= 4 rating: \n$_posts4rating\n'),
+            ],
           ),
-          body: Center(
-            child: new SingleChildScrollView(
-                child: Text('All Posts sort by rating ascending (sorting not working)\n$_posts\n\n' +
-                    'All Comments \n$_comments\n\n' +
-                    'All Blogs \n$_blogs\n\n' +
-                    'First post from list of all posts\n$_firstPostFromResult\n\n' +
-                    'Posts >= 4 rating\n$_posts4rating\n\n' +
-                    'Posts between 1 and 4 rating\n$_posts1To4Rating\n\n' +
-                    'Posts with rating 2 or 5\n$_posts2Or5Rating\n\n' +
-                    'Posts without rating 2 or 5\n$_allPostsWithoutRating2Or5\n\n' +
-                    'Post with date equals\n$_postWithCreatedDate\n\n' +
-                    'Post with Id not equals\n$_postWithIdNotEquals\n\n')),
-          )),
+        ),
+      ),
     );
   }
 }
