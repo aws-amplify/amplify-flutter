@@ -116,12 +116,6 @@ class _MyAppState extends State<MyApp> {
       posts1To4Rating += encoder.convert(element.toJson()) + '\n';
     });
 
-    // (await Amplify.DataStore.query(Post.classType,
-    //         where: Post.CREATED.eq("2020-02-02T20:20:20-08:00")))
-    //     .forEach((element) {
-    //   postWithCreatedDate += encoder.convert(element.toJson()) + '\n';
-    // });
-
     (await Amplify.DataStore.query(Post.classType,
             where: QueryField(fieldName: "post.id")
                 .ne("e25859fc-e254-4e8b-8cae-62ccacce4097")))
