@@ -80,7 +80,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   Future<void> delete<T extends Model>(T model) async {
     try {
       var modelJson = model.toJson();
-      await _channel.invokeMapMethod('delete', <String, dynamic>{
+      await _channel.invokeMethod('delete', <String, dynamic>{
         'modelName': model.getInstanceType().modelName(),
         'model': modelJson
       });
@@ -117,7 +117,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   @override
   Future<void> clear() async {
     try {
-      await _channel.invokeMapMethod('clear');
+      await _channel.invokeMethod('clear');
     } on PlatformException catch (e) {
       throw _formatError(e);
     }

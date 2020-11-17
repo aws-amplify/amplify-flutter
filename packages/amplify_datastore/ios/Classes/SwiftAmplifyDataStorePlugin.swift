@@ -234,7 +234,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     
     func onClear(flutterResult: @escaping FlutterResult) {
         do {
-                try bridge.onClear() {(result) in
+            try bridge.onClear() {(result) in
                 switch result {
                 case .failure(let error):
                     print("Clear API failed. Error: \(error)")

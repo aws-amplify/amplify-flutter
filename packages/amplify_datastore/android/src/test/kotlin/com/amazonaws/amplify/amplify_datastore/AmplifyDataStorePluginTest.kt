@@ -200,8 +200,6 @@ class AmplifyDataStorePluginTest {
 
     @Test
     fun test_Clear_Success_Result() {
-        var dataStoreException = DataStoreException("AmplifyException", DataStoreException.REPORT_BUG_TO_AWS_SUGGESTION)
-
         doAnswer { invocation: InvocationOnMock ->
             (invocation.arguments[0] as Action).call()
             null as Void?

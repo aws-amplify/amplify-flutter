@@ -67,7 +67,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         var data: HashMap<String, Any> = HashMap()
         try {
-            if(call.arguments!= null) {
+            if(call.arguments != null) {
                 data = checkArguments(call.arguments) as HashMap<String, Any>
             }
         } catch (e: Exception) {
@@ -154,7 +154,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                     }
                 },
                 {
-                    LOG.info("MyAmplifyApp + Query failed.$it")
+                    LOG.error("Query operation failed.", it)
                     prepareError(flutterResult, it,
                                  FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_QUERY_FAILED.toString())
                 }
@@ -190,11 +190,11 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         plugin.delete(
                 instance,
                 Consumer {
-                    LOG.debug("Deleted item: " + it.item().toString())
+                    LOG.info("Deleted item: " + it.item().toString())
                     handler.post { flutterResult.success(null) }
                 },
                 Consumer {
-                    LOG.debug("Deletion Failed: " + it)
+                    LOG.error("Delete operation failed.", it)
                     if (it is DataStoreException && it.localizedMessage == "Wanted to delete one row, but deleted 0 rows.") {
                         handler.post{ flutterResult.success(null) }
                     } else {
@@ -210,11 +210,11 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
         plugin.clear(
                 {
-                    LOG.debug("Successfully cleared the store")
+                    LOG.info("Successfully cleared the store")
                     handler.post { flutterResult.success(null) }
                 },
                 {
-                    LOG.debug("Failed to clear store with error: " + it.localizedMessage)
+                    LOG.error("Failed to clear store with error: ", it)
                     prepareError(flutterResult, it, FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_CLEAR_FAILED.toString())
                 }
         )

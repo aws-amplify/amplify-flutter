@@ -13,9 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/services.dart';
@@ -53,7 +50,9 @@ void main() {
         Comment(
             id: '39c3c0e6-8726-436e-8cdf-bff38e9a62da',
             content: 'Loving Amplify Datastore!',
-            post: Post(id: 'e50ffa8f-783b-4780-89b4-27043ffc35be')));
+            post: Post(
+                id: 'e50ffa8f-783b-4780-89b4-27043ffc35be',
+                title: 'test title')));
   });
 
   test('query returns 2 sucessful results', () async {

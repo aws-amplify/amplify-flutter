@@ -37,4 +37,37 @@ void main() {
     Future<void> clearFuture = dataStore.clear();
     expect(clearFuture, completes);
   });
+
+  test(
+      'A PlatformException for a failed API call results in the corresponding DataStoreError',
+      () async {
+    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      throw PlatformException(
+          code: "AMPLIFY_EXCEPTION",
+          message: "AMPLIFY_DATASTORE_CLEAR_FAILED",
+          details: {});
+    });
+    expect(
+        () => dataStore.clear(),
+        throwsA(isA<DataStoreError>().having((error) => error.cause,
+            "error message", "AMPLIFY_DATASTORE_CLEAR_FAILED")));
+  });
+
+  test(
+      'An unrecognized PlatformException results in the corresponding DataStoreError',
+      () async {
+    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      throw PlatformException(
+          code: "AMPLIFY_EXCEPTION",
+          message: "An unrecognized message",
+          details: {});
+    });
+    expect(
+        () => dataStore.clear(),
+        throwsA(isA<DataStoreError>().having(
+          (error) => error.cause,
+          "error message",
+          "UNRECOGNIZED_DATASTORE_ERROR",
+        )));
+  });
 }

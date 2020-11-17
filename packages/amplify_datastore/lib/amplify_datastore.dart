@@ -62,7 +62,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
 
   @override
   Future<void> delete<T extends Model>(T model) async {
-    _instance.delete(model);
+    return _instance.delete(model);
   }
 
   @override
@@ -73,6 +73,6 @@ class AmplifyDataStore extends DataStorePluginInterface {
 
   @override
   Future<void> clear() async {
-    _instance.clear();
+    return _instance.clear();
   }
 }
