@@ -13,9 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/services.dart';

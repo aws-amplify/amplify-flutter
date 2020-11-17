@@ -45,7 +45,9 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         var arguments: [String: Any] = [:]
         do {
-            try arguments = checkArguments(args: call.arguments as Any)
+            if(call.arguments != nil) {
+                try arguments = checkArguments(args: call.arguments as Any)
+            }
         } catch {
             result(FlutterDataStoreErrorHandler.createFlutterError(
                     msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
@@ -63,6 +65,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             onDelete(args: arguments, flutterResult: result)
         case "setupObserve":
             onSetupObserve(flutterResult: result)
+        case "clear":
+            onClear(flutterResult: result)
         default:
             result(FlutterMethodNotImplemented)
         }
@@ -224,6 +228,33 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         }
         flutterResult(true)
     }
+    
+    func onClear(flutterResult: @escaping FlutterResult) {
+        do {
+            try bridge.onClear() {(result) in
+                switch result {
+                case .failure(let error):
+                    print("Clear API failed. Error: \(error)")
+                    FlutterDataStoreErrorHandler.handleDataStoreError(
+                        error: error,
+                        flutterResult: flutterResult,
+                        msg: FlutterDataStoreErrorMessage.CLEAR_FAILED.rawValue
+                    )
+                case .success():
+                    print("Successfully cleared the store")
+                    flutterResult(nil)
+                }
+            }
+        }
+        catch {
+            print("An unexpected error occured: \(error)")
+            flutterResult(FlutterDataStoreErrorHandler.createFlutterError(
+                msg: FlutterDataStoreErrorMessage.UNEXPECTED_ERROR.rawValue,
+                errorMap: ["UNKNOWN": "\(error.localizedDescription).\nAn unexpected error has occurred. See logs for details." ]))
+            return
+        }
+    }
+    
 
     private func createTempPosts() throws {
         _ = try getPlugin().clear()
