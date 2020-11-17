@@ -25,7 +25,7 @@ data class FlutterRemoveRequest(val request: Map<String, *>) {
     private fun setOptions(request: Map<String, *>): StorageRemoveOptions {
         if (request["options"] != null) {
             val optionsMap = request["options"] as Map<String, *>
-            var options: StorageRemoveOptions.Builder = StorageRemoveOptions.builder()
+            var options: StorageRemoveOptions.Builder<*> = StorageRemoveOptions.builder()
 
             optionsMap.forEach { (optionKey, optionValue) ->
                 when (optionKey) {

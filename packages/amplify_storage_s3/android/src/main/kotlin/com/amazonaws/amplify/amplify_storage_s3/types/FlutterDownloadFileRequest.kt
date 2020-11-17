@@ -27,7 +27,7 @@ data class FlutterDownloadFileRequest(val request: Map<String, *>) {
     private fun setOptions(request: Map<String, *>): StorageDownloadFileOptions {
         if (request["options"] != null) {
             val optionsMap = request["options"] as Map<String, *>
-            var options: StorageDownloadFileOptions.Builder = StorageDownloadFileOptions.builder()
+            var options: StorageDownloadFileOptions.Builder<*> = StorageDownloadFileOptions.builder()
 
             optionsMap.forEach { (optionKey, optionValue) ->
                 when (optionKey) {
