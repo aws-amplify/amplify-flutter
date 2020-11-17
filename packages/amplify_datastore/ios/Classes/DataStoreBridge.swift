@@ -51,4 +51,8 @@ public class DataStoreBridge {
     func onObserve() throws -> AnyPublisher<MutationEvent, DataStoreError> {
         return try getPlugin().publisher
     }
+    
+    func onClear(completion: @escaping DataStoreCallback<Void>) throws {
+        try getPlugin().clear(completion: completion)
+    }
 }

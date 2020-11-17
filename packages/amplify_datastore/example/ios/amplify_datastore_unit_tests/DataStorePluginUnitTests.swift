@@ -334,4 +334,51 @@ class DataStorePluginUnitTests: XCTestCase {
         // Make sure that the event was indeed sent successfully
         wait(for: [eventSentExp!], timeout: 1)
     }
+    
+    func test_clear_success() throws {
+        
+        class MockDataStoreBridge: DataStoreBridge {
+            override func onClear(
+                completion: @escaping DataStoreCallback<Void>) throws {
+                // Return from the mock
+                completion(.emptyResult)
+            }
+        }
+        let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, flutterModelRegistration: flutterModelSchemaRegistration)
+        
+        pluginUnderTest.onClear(
+            flutterResult: {(result) in
+                XCTAssertNil(result)
+        })
+    }
+    
+    func test_clear_failure() throws {
+        
+        class MockDataStoreBridge: DataStoreBridge {
+            override func onClear(
+                completion: @escaping DataStoreCallback<Void>) throws {
+                // Return from the mock
+                completion(.failure(causedBy: DataStoreError.unknown("test error", "test recovery suggestion", nil)))
+            }
+        }
+        
+        let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, flutterModelRegistration: flutterModelSchemaRegistration)
+        
+        pluginUnderTest.onClear(
+            flutterResult: { (result) -> Void in
+                if let exception = result as? FlutterError {
+                    XCTAssertEqual("AmplifyException", exception.code)
+                    XCTAssertEqual(FlutterDataStoreErrorMessage.CLEAR_FAILED.rawValue, exception.message)
+                    let errorMap: [String: Any] = exception.details as! [String : Any]
+                    XCTAssertEqual("test error", errorMap["unknown"] as? String)
+                    XCTAssertEqual(
+                        ["platform": "iOS", "localizedErrorMessage": "test error", "recoverySuggestion": "test recovery suggestion"],
+                        errorMap["PLATFORM_EXCEPTIONS"] as? [String: String])
+                } else {
+                    XCTFail()
+                }
+        })
+    }
 }
