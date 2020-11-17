@@ -32,6 +32,7 @@
 		B4A5C45E2548F00900B9E501 /* negate_complex_predicate.json in Resources */ = {isa = PBXBuildFile; fileRef = B4A5C4582548F00900B9E501 /* negate_complex_predicate.json */; };
 		B4A5C45F2548F00900B9E501 /* complex_nested.json in Resources */ = {isa = PBXBuildFile; fileRef = B4A5C4592548F00900B9E501 /* complex_nested.json */; };
 		B4A5C4672549009900B9E501 /* bool_and_double_operands.json in Resources */ = {isa = PBXBuildFile; fileRef = B4A5C4662549009900B9E501 /* bool_and_double_operands.json */; };
+		B4FD354C255D0A9D00A4E699 /* 1_result.json in Resources */ = {isa = PBXBuildFile; fileRef = B4FD354B255D0A9D00A4E699 /* 1_result.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -86,6 +87,7 @@
 		B4A5C4582548F00900B9E501 /* negate_complex_predicate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = negate_complex_predicate.json; sourceTree = "<group>"; };
 		B4A5C4592548F00900B9E501 /* complex_nested.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = complex_nested.json; sourceTree = "<group>"; };
 		B4A5C4662549009900B9E501 /* bool_and_double_operands.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = bool_and_double_operands.json; sourceTree = "<group>"; };
+		B4FD354B255D0A9D00A4E699 /* 1_result.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = 1_result.json; sourceTree = "<group>"; };
 		CDB88F0184D2C06B66966DA4 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		E4FAF672EE7AB3550DEE60F3 /* Pods-amplify_datastore_unit_tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amplify_datastore_unit_tests.debug.xcconfig"; path = "Target Support Files/Pods-amplify_datastore_unit_tests/Pods-amplify_datastore_unit_tests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -208,6 +210,7 @@
 				B409DE1C254A218A006AECDB /* 2_results.json */,
 				B409DE1E254A218A006AECDB /* model_name_with_all_query_parameters.json */,
 				B409DE1D254A218A006AECDB /* only_model_name.json */,
+				B4FD354B255D0A9D00A4E699 /* 1_result.json */,
 			);
 			path = api;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 				B4A5C4672549009900B9E501 /* bool_and_double_operands.json in Resources */,
 				B4A5C4512548EF9A00B9E501 /* id_not_equals.json in Resources */,
 				B4A5C45F2548F00900B9E501 /* complex_nested.json in Resources */,
+				B4FD354C255D0A9D00A4E699 /* 1_result.json in Resources */,
 				B4A5C45C2548F00900B9E501 /* rating_greater_or_equal.json in Resources */,
 				B409DE20254A218A006AECDB /* only_model_name.json in Resources */,
 				B4A5C45D2548F00900B9E501 /* group_mixed_and_or.json in Resources */,

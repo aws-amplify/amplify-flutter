@@ -31,7 +31,7 @@ class FlutterModelProvider private constructor() : ModelProvider {
         return Collections.emptySet()
     }
 
-    fun setVersion(newVersion: String){
+    fun setVersion(newVersion: String) {
         version = newVersion
     }
 

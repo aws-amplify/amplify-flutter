@@ -23,7 +23,6 @@ import 'package:meta/meta.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'src/types/models/model.dart';
-import 'src/types/models/model_schema.dart';
 import 'src/types/query/query_field.dart';
 import 'src/types/models/subscription_event.dart';
 

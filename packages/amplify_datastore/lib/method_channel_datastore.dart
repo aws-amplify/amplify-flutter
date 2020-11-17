@@ -43,7 +43,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   /// method is called.
   Future<void> configure({String configuration}) async {
     // First step to configure datastore is to setup an event channel for observe
-    // return _channel.invokeMethod('setupObserve', {});
+    return _channel.invokeMethod('setupObserve', {});
   }
 
   @override
