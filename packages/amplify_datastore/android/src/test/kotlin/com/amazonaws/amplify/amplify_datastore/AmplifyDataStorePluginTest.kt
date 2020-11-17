@@ -223,12 +223,11 @@ class AmplifyDataStorePluginTest {
                 .build()
 
         doAnswer { invocation: InvocationOnMock ->
-            (invocation.arguments[2] as Consumer<DataStoreItemChange<SerializedModel>>).accept(
+            (invocation.arguments[1] as Consumer<DataStoreItemChange<SerializedModel>>).accept(
                     dataStoreItemChange)
             null
-        }.`when`(mockAmplifyDataStorePlugin).observe(any<Class<SerializedModel>>(),
-                                                     any<Consumer<Cancelable>>(),
-                                                     any<Consumer<DataStoreItemChange<SerializedModel>>>(),
+        }.`when`(mockAmplifyDataStorePlugin).observe(any<Consumer<Cancelable>>(),
+                                                     any<Consumer<DataStoreItemChange<out Model>>>(),
                                                      any<Consumer<DataStoreException>>(),
                                                      any<Action>())
 
@@ -245,12 +244,11 @@ class AmplifyDataStorePluginTest {
         var dataStoreException = DataStoreException("AmplifyException",
                                                     DataStoreException.REPORT_BUG_TO_AWS_SUGGESTION)
         doAnswer { invocation: InvocationOnMock ->
-            (invocation.arguments[3] as Consumer<DataStoreException>).accept(
+            (invocation.arguments[2] as Consumer<DataStoreException>).accept(
                     dataStoreException)
             null
-        }.`when`(mockAmplifyDataStorePlugin).observe(any<Class<SerializedModel>>(),
-                                                     any<Consumer<Cancelable>>(),
-                                                     any<Consumer<DataStoreItemChange<SerializedModel>>>(),
+        }.`when`(mockAmplifyDataStorePlugin).observe(any<Consumer<Cancelable>>(),
+                                                     any<Consumer<DataStoreItemChange<out Model>>>(),
                                                      any<Consumer<DataStoreException>>(),
                                                      any<Action>())
 
