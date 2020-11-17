@@ -25,7 +25,7 @@ data class FlutterGetUrlRequest(val request: Map<String, *>) {
     private fun setOptions(request: Map<String, *>): StorageGetUrlOptions {
         if (request["options"] != null) {
             val optionsMap = request["options"] as Map<String, *>
-            var options: StorageGetUrlOptions.Builder = StorageGetUrlOptions.builder()
+            var options: StorageGetUrlOptions.Builder<*> = StorageGetUrlOptions.builder()
 
             optionsMap.forEach { (optionKey, optionValue) ->
                 when (optionKey) {
