@@ -43,14 +43,14 @@ void main() {
       () async {
     dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       throw PlatformException(
-          code: "AMPLIFY_EXCEPTION",
-          message: "AMPLIFY_DATASTORE_CLEAR_FAILED",
+          code: 'AMPLIFY_EXCEPTION',
+          message: 'AMPLIFY_DATASTORE_CLEAR_FAILED',
           details: {});
     });
     expect(
         () => dataStore.clear(),
         throwsA(isA<DataStoreError>().having((error) => error.cause,
-            "error message", "AMPLIFY_DATASTORE_CLEAR_FAILED")));
+            'error message', 'AMPLIFY_DATASTORE_CLEAR_FAILED')));
   });
 
   test(
@@ -58,16 +58,16 @@ void main() {
       () async {
     dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       throw PlatformException(
-          code: "AMPLIFY_EXCEPTION",
-          message: "An unrecognized message",
+          code: 'AMPLIFY_EXCEPTION',
+          message: 'An unrecognized message',
           details: {});
     });
     expect(
         () => dataStore.clear(),
         throwsA(isA<DataStoreError>().having(
           (error) => error.cause,
-          "error message",
-          "UNRECOGNIZED_DATASTORE_ERROR",
+          'error message',
+          'UNRECOGNIZED_DATASTORE_ERROR',
         )));
   });
 }

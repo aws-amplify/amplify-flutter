@@ -14,6 +14,7 @@
  */
 
 import 'package:amplify_datastore/amplify_datastore.dart';
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -39,14 +40,49 @@ void main() {
   test('delete with a valid model executes without an error ', () async {
     var json =
         await getJsonFromFile('delete_api/request/instance_no_predicate.json');
-    var model = json["model"];
+    var model = json['model'];
     dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {});
     Post instance = Post(
-        title: model["title"],
-        rating: model["rating"],
-        created: DateTime.parse(model["created"]),
-        id: model["id"]);
+        title: model['title'],
+        rating: model['rating'],
+        created: DateTime.parse(model['created']),
+        id: model['id']);
     Future<void> deleteFuture = dataStore.delete(instance);
     expect(deleteFuture, completes);
+  });
+
+  test(
+      'A PlatformException for a failed API call results in the corresponding DataStoreError',
+      () async {
+    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      throw PlatformException(
+          code: 'AMPLIFY_EXCEPTION',
+          message: 'AMPLIFY_DATASTORE_DELETE_FAILED',
+          details: {});
+    });
+    expect(
+        () => dataStore.delete(Post(
+            title: 'test title', id: '4281dfba-96c8-4a38-9a8e-35c7e893ea47')),
+        throwsA(isA<DataStoreError>().having((error) => error.cause,
+            'error message', 'AMPLIFY_DATASTORE_DELETE_FAILED')));
+  });
+
+  test(
+      'An unrecognized PlatformException results in the corresponding DataStoreError',
+      () async {
+    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      throw PlatformException(
+          code: 'AMPLIFY_EXCEPTION',
+          message: 'An unrecognized message',
+          details: {});
+    });
+    expect(
+        () => dataStore.delete(Post(
+            title: 'test title', id: '4281dfba-96c8-4a38-9a8e-35c7e893ea47')),
+        throwsA(isA<DataStoreError>().having(
+          (error) => error.cause,
+          'error message',
+          'UNRECOGNIZED_DATASTORE_ERROR',
+        )));
   });
 }

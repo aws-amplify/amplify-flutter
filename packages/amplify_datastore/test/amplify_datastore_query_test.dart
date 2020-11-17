@@ -50,9 +50,7 @@ void main() {
         Comment(
             id: '39c3c0e6-8726-436e-8cdf-bff38e9a62da',
             content: 'Loving Amplify Datastore!',
-            post: Post(
-                id: 'e50ffa8f-783b-4780-89b4-27043ffc35be',
-                title: 'test title')));
+            post: Post(id: 'e50ffa8f-783b-4780-89b4-27043ffc35be')));
   });
 
   test('query returns 2 sucessful results', () async {
