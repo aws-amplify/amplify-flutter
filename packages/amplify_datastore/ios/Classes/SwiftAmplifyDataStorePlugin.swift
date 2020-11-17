@@ -26,7 +26,6 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     private let flutterModelRegistration: FlutterModels
     private var observeSubscription: AnyCancellable?
     private let dataStoreObserveEventStreamHandler: DataStoreObserveEventStreamHandler?
-
     init(bridge: DataStoreBridge = DataStoreBridge(),
          flutterModelRegistration: FlutterModels = FlutterModels(),
          dataStoreObserveEventStreamHandler: DataStoreObserveEventStreamHandler = DataStoreObserveEventStreamHandler()) {
@@ -68,7 +67,6 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             result(FlutterMethodNotImplemented)
         }
     }
-
     private func onAddModelSchemas(args: [String: Any], result: @escaping FlutterResult) {
         guard let modelSchemaList = args["modelSchemas"] as? [[String: Any]] else {
             result(false)
@@ -140,7 +138,6 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             return
         }
     }
-
     func onDelete(args: [String: Any], flutterResult: @escaping FlutterResult) {
         do {
             guard let modelName = args["modelName"] as? String else {

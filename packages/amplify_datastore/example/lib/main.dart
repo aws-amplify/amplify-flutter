@@ -50,6 +50,8 @@ class _MyAppState extends State<MyApp> {
   String _postWithIdNotEquals = '';
   String _firstPostFromResult = '';
   String _allPostsWithoutRating2Or5 = '';
+  String _streamingData = '';
+  Stream<SubscriptionEvent<Post>> stream = null;
   Amplify amplify = new Amplify();
 
   @override
@@ -65,7 +67,7 @@ class _MyAppState extends State<MyApp> {
 
     await amplify.addPlugin(dataStorePlugins: [datastorePlugin]);
     // Configure
-    await amplify.configure("{}"); //amplifyconfig);
+    await amplify.configure(amplifyconfig);
     String allPosts = '';
     String allComments = '';
     String allBlogs = '';
@@ -76,6 +78,11 @@ class _MyAppState extends State<MyApp> {
     String postWithIdNotEquals = '';
     String firstPostFromResult = '';
     String allPostsWithoutRating2Or5 = '';
+
+    stream = Amplify.DataStore.observe(Post.classType);
+    stream.listen((event) {
+      print("Received Event: " + (event.item).toJson().toString());
+    });
 
     // get all comments
     (await Amplify.DataStore.query(Comment.classType)).forEach((element) {
@@ -107,12 +114,6 @@ class _MyAppState extends State<MyApp> {
             where: Post.RATING.between(1, 4)))
         .forEach((element) {
       posts1To4Rating += encoder.convert(element.toJson()) + '\n';
-    });
-
-    (await Amplify.DataStore.query(Post.classType,
-            where: Post.CREATED.eq("2020-02-02T20:20:20-08:00")))
-        .forEach((element) {
-      postWithCreatedDate += encoder.convert(element.toJson()) + '\n';
     });
 
     (await Amplify.DataStore.query(Post.classType,
@@ -165,8 +166,22 @@ class _MyAppState extends State<MyApp> {
           appBar: AppBar(
             title: const Text('Plugin example app'),
           ),
-          body: Center(
-            child: new SingleChildScrollView(
+          body: ListView(children: [
+            StreamBuilder(
+              initialData: "Unknown\n",
+              stream: stream,
+              builder: (context, snapshot) {
+                _streamingData += snapshot.data is SubscriptionEvent
+                    ? 'Item: ' +
+                        (snapshot.data.item as Post).toJson().toString() +
+                        ', EventType: ' +
+                        snapshot.data.eventType.toString() +
+                        '\n'
+                    : '';
+                return Text("Received Data from streams: ${_streamingData}");
+              },
+            ),
+            new SingleChildScrollView(
                 child: Text('All Posts sort by rating ascending (sorting not working)\n$_posts\n\n' +
                     'All Comments \n$_comments\n\n' +
                     'All Blogs \n$_blogs\n\n' +
@@ -177,7 +192,7 @@ class _MyAppState extends State<MyApp> {
                     'Posts without rating 2 or 5\n$_allPostsWithoutRating2Or5\n\n' +
                     'Post with date equals\n$_postWithCreatedDate\n\n' +
                     'Post with Id not equals\n$_postWithIdNotEquals\n\n')),
-          )),
+          ])),
     );
   }
 }
