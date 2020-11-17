@@ -266,6 +266,42 @@ class AmplifyDataStorePluginTest {
         )
     }
 
+    @Test
+    fun test_Clear_Success_Result() {
+        doAnswer { invocation: InvocationOnMock ->
+            (invocation.arguments[0] as Action).call()
+            null as Void?
+        }.`when`(mockAmplifyDataStorePlugin).clear(any<Action>(), any<Consumer<DataStoreException>>())
+
+        flutterPlugin.onClear(mockResult)
+
+        verify(mockResult, times(1)).success(null)
+    }
+
+    @Test
+    fun test_Clear_Error() {
+        var dataStoreException = DataStoreException("AmplifyException", DataStoreException.REPORT_BUG_TO_AWS_SUGGESTION)
+
+        doAnswer { invocation: InvocationOnMock ->
+            (invocation.arguments[1] as Consumer<DataStoreException>).accept(
+                    dataStoreException)
+            null as Void?
+        }.`when`(mockAmplifyDataStorePlugin).clear(any<Action>(), any<Consumer<DataStoreException>>())
+
+        flutterPlugin.onClear(mockResult)
+
+        verify(mockResult, times(1)).error(
+                "AmplifyException",
+                FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_CLEAR_FAILED.toString(),
+                mapOf("PLATFORM_EXCEPTIONS" to
+                                mapOf(
+                                        "platform" to "Android",
+                                        "localizedErrorMessage" to "AmplifyException",
+                                        "recoverySuggestion" to DataStoreException.REPORT_BUG_TO_AWS_SUGGESTION,
+                                        "errorString" to dataStoreException.toString()))
+                )
+    }
+
     private fun setFinalStatic(field: Field, newValue: Any?) {
         field.isAccessible = true
         val modifiersField: Field = Field::class.java.getDeclaredField("modifiers")

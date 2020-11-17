@@ -62,12 +62,17 @@ class AmplifyDataStore extends DataStorePluginInterface {
 
   @override
   Future<void> delete<T extends Model>(T model) async {
-    _instance.delete(model);
+    return _instance.delete(model);
   }
 
   @override
   Stream<SubscriptionEvent<T>> observe<T extends Model>(
       ModelType<T> modelType) {
     return _instance.observe(modelType);
+  }
+
+  @override
+  Future<void> clear() async {
+    return _instance.clear();
   }
 }

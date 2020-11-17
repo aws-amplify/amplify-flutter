@@ -40,6 +40,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import kotlin.collections.HashMap
 
 
 /** AmplifyDataStorePlugin */
@@ -77,7 +78,9 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         var data: Map<String, Any> = HashMap()
         try {
-            data = checkArguments(call.arguments)
+            if(call.arguments != null) {
+                data = checkArguments(call.arguments) as HashMap<String, Any>
+            }
         } catch (e: Exception) {
             postFlutterError(
                     result,
@@ -87,6 +90,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         when (call.method) {
             "query" -> onQuery(result, data)
             "delete" -> onDelete(result, data)
+            "clear" -> onClear(result)
             "setupObserve" -> onSetupObserve(result)
             "configureModelProvider" -> onConfigureModelProvider(result, data)
             else -> result.notImplemented()
@@ -127,7 +131,6 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
         flutterResult.success(null)
     }
-
 
     @VisibleForTesting
     fun onQuery(flutterResult: Result, request: Map<String, Any>) {
@@ -176,7 +179,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                     }
                 },
                 {
-                    LOG.info("MyAmplifyApp + Query failed.$it")
+                    LOG.error("Query operation failed.", it)
                     postFlutterError(
                             flutterResult,
                             FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_QUERY_FAILED.toString(),
@@ -218,11 +221,11 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         plugin.delete(
                 instance,
                 {
-                    LOG.debug("Deleted item: " + it.item().toString())
+                    LOG.info("Deleted item: " + it.item().toString())
                     handler.post { flutterResult.success(null) }
                 },
                 {
-                    LOG.debug("Deletion Failed: " + it)
+                    LOG.error("Delete operation failed.", it)
                     if (it is DataStoreException && it.localizedMessage == "Wanted to delete one row, but deleted 0 rows.") {
                         handler.post { flutterResult.success(null) }
                     } else {
@@ -236,6 +239,24 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     }
 
     @VisibleForTesting
+    fun onClear(flutterResult: Result) {
+        val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
+
+        plugin.clear(
+                {
+                    LOG.info("Successfully cleared the store")
+                    handler.post { flutterResult.success(null) }
+                },
+                {
+                    LOG.error("Failed to clear store with error: ", it)
+                    postFlutterError(
+                            flutterResult,
+                            FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_CLEAR_FAILED.toString(),
+                            createErrorMap(it))
+                }
+        )
+    }
+
     fun onSetupObserve(result: Result) {
         val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
 
