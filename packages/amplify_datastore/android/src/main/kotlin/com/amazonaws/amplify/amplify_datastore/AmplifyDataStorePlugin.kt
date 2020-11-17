@@ -30,7 +30,6 @@ import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
 import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.query.QueryOptions
-import com.amplifyframework.core.model.query.predicate.QueryPredicate
 import com.amplifyframework.core.model.query.predicate.QueryPredicates
 import com.amplifyframework.datastore.AWSDataStorePlugin
 import com.amplifyframework.datastore.DataStoreException
@@ -71,7 +70,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         when (call.method) {
             "query" -> onQuery(result, data)
             "delete" -> onDelete(result, data)
-            //"configure" -> onConfigure(result, data)
+            "save" -> onSave(result, data)
             "configureModelProvider" -> onConfigureModelProvider(result, data)
             else -> result.notImplemented()
         }
@@ -157,12 +156,12 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
     @VisibleForTesting
     fun onDelete(flutterResult: Result, request: HashMap<String, Any>) {
-        var modelName: String
-        var modelData:  HashMap<String, Any>
+        val modelName: String
+        val modelData:  HashMap<String, Any>
 
         try {
             modelName = request["modelName"] as String
-            modelData = request["model"] as HashMap<String, Any>
+            modelData = request["serializedModel"] as HashMap<String, Any>
         } catch (e: ClassCastException) {
             prepareError(flutterResult, e,
                     FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString())
@@ -176,24 +175,67 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
         val schema = modelProvider.modelSchemas()[modelName];
 
-        var instance = SerializedModel.builder()
+        val instance = SerializedModel.builder()
                 .serializedData(modelData)
                 .modelSchema(schema)
                 .build()
 
         plugin.delete(
                 instance,
-                Consumer {
+                {
                     LOG.debug("Deleted item: " + it.item().toString())
                     handler.post { flutterResult.success(null) }
                 },
-                Consumer {
+                {
                     LOG.debug("Deletion Failed: " + it)
                     if (it is DataStoreException && it.localizedMessage == "Wanted to delete one row, but deleted 0 rows.") {
                         handler.post{ flutterResult.success(null) }
                     } else {
                         prepareError(flutterResult, it, FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_DELETE_FAILED.toString())
                     }
+                }
+        )
+    }
+
+    @VisibleForTesting
+    fun onSave(flutterResult: Result, request: HashMap<String, Any>) {
+        val modelName: String
+        val serializedModelData:  HashMap<String, Any>
+
+        try {
+            modelName = request["modelName"] as String
+            serializedModelData = request["serializedModel"] as HashMap<String, Any>
+        } catch (e: ClassCastException) {
+            prepareError(flutterResult, e,
+                    FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString())
+            return
+        } catch (e: Exception) {
+            prepareError(flutterResult, e,
+                    FlutterDataStoreFailureMessage.AMPLIFY_SAVE_REQUEST_MALFORMED.toString())
+            return
+        }
+
+        val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
+        val schema = modelProvider.modelSchemas()[modelName];
+
+        val serializedModel = SerializedModel.builder()
+                .serializedData(serializedModelData)
+                .modelSchema(schema)
+                .build()
+
+        val predicate = QueryPredicateBuilder.fromSerializedMap(
+                request["queryPredicate"].safeCastToMap()) ?: QueryPredicates.all()
+
+        plugin.save(
+                serializedModel,
+                predicate,
+                Consumer {
+                    LOG.info("Saved item: " + it.item().toString())
+                    handler.post { flutterResult.success(null) }
+                },
+                Consumer {
+                    LOG.error("Save operation failed", it)
+                    prepareError(flutterResult, it, FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_SAVE_FAILED.toString())
                 }
         )
     }

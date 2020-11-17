@@ -70,7 +70,7 @@ class Post extends Model {
       Blog blog,
       List<Comment> comments}) {
     return Post._internal(
-        id: id,
+        id: id == null ? UUID.getUUID() : id,
         title: title,
         rating: rating,
         created: created,
