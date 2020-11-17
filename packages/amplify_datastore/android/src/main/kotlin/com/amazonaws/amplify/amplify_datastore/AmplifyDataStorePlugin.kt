@@ -117,12 +117,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             return
         }
 
-
         var modelSchemas: List<Map<String, Any>> = request["modelSchemas"].safeCastToList()!!
-
-        modelSchemas.forEach { rawSchema ->
-            dataStoreHubEventStreamHandler?.addRawSchema(rawSchema["name"] as String, rawSchema)
-        }
 
         val modelProvider = FlutterModelProvider.instance
         val flutterModelSchemaList =

@@ -1,3 +1,18 @@
+/*
+ * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
 package com.amazonaws.amplify.amplify_datastore
 
 import android.os.Handler
@@ -19,12 +34,6 @@ import io.flutter.plugin.common.EventChannel
 class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
     private var eventSink: EventChannel.EventSink? = null
     private lateinit var token: SubscriptionToken;
-    private val rawSchemaMap: MutableMap<String, Map<String, Any>> =
-            HashMap()
-
-    fun addRawSchema(modelName: String, rawSchema: Map<String, Any>) {
-        rawSchemaMap[modelName] = rawSchema
-    }
 
     override fun onListen(argunents: Any?, sink: EventChannel.EventSink) {
         eventSink = sink
@@ -73,19 +82,17 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                     var res = FlutterOutboxMutationEnqueued(
                             hubEvent.name,
                             modelName,
-                            outboxMutationEnqueued.element,
-                            rawSchemaMap[modelName]
+                            outboxMutationEnqueued.element
                     )
                     sendEvent(res.toValueMap())
                 }
                 DataStoreChannelEventName.OUTBOX_MUTATION_PROCESSED.toString() -> {
                     var outboxMutationProcessed = hubEvent.data as OutboxMutationEvent<*>
                     var modelName = (outboxMutationProcessed.element.model as SerializedModel).modelName as String
-                    var res = FlutterOutboxMutationEnqueued(
+                    var res = FlutterOutboxMutationProcessed(
                             hubEvent.name,
                             modelName,
-                            outboxMutationProcessed.element,
-                            rawSchemaMap[modelName]
+                            outboxMutationProcessed.element
                     )
                     sendEvent(res.toValueMap())
                 }
