@@ -48,7 +48,7 @@ data class FlutterSerializedModel(val serializedModel: SerializedModel) {
         return serializedData.mapValues {
             when (val value: Any = it.value) {
                 is Temporal.DateTime -> value.format()
-                is Model? -> FlutterSerializedModel(value as SerializedModel).toMap()
+                is Model -> FlutterSerializedModel(value as SerializedModel).toMap()
                 // TODO add for other complex objects that can be returned or be part of the codegen model
                 // It seems we can ignore collection types for now as we aren't returning lists of Models in hasMany relationships
                 else -> value
