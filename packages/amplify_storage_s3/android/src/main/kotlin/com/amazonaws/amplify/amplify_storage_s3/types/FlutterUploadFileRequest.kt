@@ -27,7 +27,7 @@ data class FlutterUploadFileRequest(val request: Map<String, *>) {
     private fun setOptions(request: Map<String, *>): StorageUploadFileOptions {
         if(request["options"]!= null) {
             val optionsMap = request["options"] as Map<String, *>
-            var options: StorageUploadFileOptions.Builder = StorageUploadFileOptions.builder()
+            var options: StorageUploadFileOptions.Builder<*> = StorageUploadFileOptions.builder()
 
             optionsMap.forEach { (optionKey, optionValue) ->
                 when(optionKey) {
