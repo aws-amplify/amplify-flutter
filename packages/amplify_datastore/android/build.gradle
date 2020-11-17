@@ -34,7 +34,7 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 21
     }
     lintOptions {
         disable 'InvalidPackage'
@@ -52,8 +52,9 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "com.amplifyframework:aws-datastore:1.4.1"
-    implementation "com.amplifyframework:aws-api-appsync:1.4.1"
+    implementation "com.amplifyframework:aws-datastore:1.6.0"
+    implementation "com.amplifyframework:aws-api:1.6.0"
+    implementation "com.amplifyframework:aws-api-appsync:1.6.0"
     testImplementation 'junit:junit:4.13'
     testImplementation 'org.mockito:mockito-core:3.1.0'
     testImplementation 'org.mockito:mockito-inline:3.1.0'
