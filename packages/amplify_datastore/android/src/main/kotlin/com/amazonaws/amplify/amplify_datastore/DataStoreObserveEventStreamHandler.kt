@@ -22,14 +22,13 @@ import io.flutter.plugin.common.EventChannel
 
 class DataStoreObserveEventStreamHandler : EventChannel.StreamHandler {
     private var eventSink: EventChannel.EventSink? = null
+    private val handler = Handler(Looper.getMainLooper())
     override fun onListen(argunents: Any?, sink: EventChannel.EventSink) {
         eventSink = sink
     }
 
     fun sendEvent(flutterEvent: Map<String, Any>) {
-        Handler(Looper.getMainLooper()).post {
-            eventSink?.success(flutterEvent)
-        }
+        handler.post { eventSink?.success(flutterEvent) }
     }
 
     fun endOfStream() {

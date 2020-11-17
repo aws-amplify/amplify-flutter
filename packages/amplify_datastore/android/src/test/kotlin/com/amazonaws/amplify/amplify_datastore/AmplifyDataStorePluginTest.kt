@@ -153,7 +153,6 @@ class AmplifyDataStorePluginTest {
                 .initiator(DataStoreItemChange.Initiator.LOCAL)
                 .itemClass(SerializedModel::class.java)
                 .type(DataStoreItemChange.Type.DELETE)
-                .randomUuid()
                 .build()
 
         doAnswer { invocation: InvocationOnMock ->
@@ -219,7 +218,6 @@ class AmplifyDataStorePluginTest {
                 .initiator(DataStoreItemChange.Initiator.LOCAL)
                 .itemClass(SerializedModel::class.java)
                 .type(DataStoreItemChange.Type.CREATE)
-                .randomUuid()
                 .build()
 
         doAnswer { invocation: InvocationOnMock ->
