@@ -33,14 +33,12 @@ import com.amplifyframework.core.model.query.QueryOptions
 import com.amplifyframework.datastore.AWSDataStorePlugin
 import com.amplifyframework.datastore.DataStoreException
 import com.amplifyframework.datastore.appsync.SerializedModel
-import com.fasterxml.uuid.impl.UUIDUtil.uuid
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import java.util.*
 import kotlin.collections.HashMap
 
 /** AmplifyDataStorePlugin */
@@ -132,7 +130,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         modelProvider.setVersion(request["modelProviderVersion"] as String)
 
         Amplify.addPlugin(AWSDataStorePlugin(modelProvider))
-//        Amplify.addPlugin(AWSApiPlugin())
+        Amplify.addPlugin(AWSApiPlugin())
 
         flutterResult.success(null)
     }
@@ -218,7 +216,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
         val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
         val schema = modelProvider.modelSchemas()[modelName];
-        
+
         var instance = SerializedModel.builder()
                 .serializedData(modelData)
                 .modelSchema(schema)
