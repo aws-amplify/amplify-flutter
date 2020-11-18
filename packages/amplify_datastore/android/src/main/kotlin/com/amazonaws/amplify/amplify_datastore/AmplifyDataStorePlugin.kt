@@ -197,11 +197,11 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     @VisibleForTesting
     fun onDelete(flutterResult: Result, request: Map<String, Any>) {
         var modelName: String
-        var modelData: MutableMap<String, Any>
+        var modelData: Map<String, Any>
 
         try {
             modelName = request["modelName"] as String
-            modelData = request["model"] as MutableMap<String, Any>
+            modelData = request["model"] as Map<String, Any>
         } catch (e: ClassCastException) {
             postFlutterError(
                     flutterResult,
