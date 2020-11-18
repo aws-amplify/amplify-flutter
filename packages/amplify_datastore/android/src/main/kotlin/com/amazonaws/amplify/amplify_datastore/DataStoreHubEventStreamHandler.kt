@@ -33,77 +33,81 @@ import io.flutter.plugin.common.EventChannel
 
 class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
     private var eventSink: EventChannel.EventSink? = null
-    private lateinit var token: SubscriptionToken;
+    private lateinit var token: SubscriptionToken
+    private val LOG = Amplify.Logging.forNamespace("amplify:flutter:datastore")
+
 
     override fun onListen(argunents: Any?, sink: EventChannel.EventSink) {
         eventSink = sink
         token = Amplify.Hub.subscribe(HubChannel.DATASTORE
         ) { hubEvent: HubEvent<*> ->
-
-            when (hubEvent.name) {
-                DataStoreChannelEventName.NETWORK_STATUS.toString() -> {
-                    var networkEvent = hubEvent.data as NetworkStatusEvent
-                    var res = FlutterNetworkStatus(hubEvent.name, networkEvent.active)
-                    sendEvent(res.toValueMap())
+            try {
+                when (hubEvent.name) {
+                    DataStoreChannelEventName.NETWORK_STATUS.toString() -> {
+                        var networkEvent = hubEvent.data as NetworkStatusEvent
+                        var res = FlutterNetworkStatus(hubEvent.name, networkEvent.active)
+                        sendEvent(res.toValueMap())
+                    }
+                    DataStoreChannelEventName.SUBSCRIPTIONS_ESTABLISHED.toString() -> {
+                        var res = FlutterSubscriptionsEstablished(hubEvent.name)
+                        sendEvent(res.toValueMap())
+                    }
+                    DataStoreChannelEventName.SYNC_QUERIES_STARTED.toString() -> {
+                        var syncQueriesStartedEvent = hubEvent.data as SyncQueriesStartedEvent
+                        var res = FlutterSyncQueriesStarted(hubEvent.name, syncQueriesStartedEvent.models)
+                        sendEvent(res.toValueMap())
+                    }
+                    DataStoreChannelEventName.MODEL_SYNCED.toString() -> {
+                        var modelSyncedEvent = hubEvent.data as ModelSyncedEvent
+                        var res = FlutterModelSynced(
+                                hubEvent.name,
+                                modelSyncedEvent.model,
+                                modelSyncedEvent.isFullSync,
+                                modelSyncedEvent.isDeltaSync,
+                                modelSyncedEvent.added,
+                                modelSyncedEvent.updated,
+                                modelSyncedEvent.deleted
+                        )
+                        sendEvent(res.toValueMap())
+                    }
+                    DataStoreChannelEventName.SYNC_QUERIES_READY.toString() -> {
+                        var res = FlutterSyncQueriesReady(hubEvent.name)
+                        sendEvent(res.toValueMap())
+                    }
+                    DataStoreChannelEventName.READY.toString() -> {
+                        var res = FlutterReady(hubEvent.name)
+                        sendEvent(res.toValueMap())
+                    }
+                    DataStoreChannelEventName.OUTBOX_MUTATION_ENQUEUED.toString() -> {
+                        var outboxMutationEnqueued = hubEvent.data as OutboxMutationEvent<*>
+                        var modelName = (outboxMutationEnqueued.element.model as SerializedModel).modelName as String
+                        var res = FlutterOutboxMutationEnqueued(
+                                hubEvent.name,
+                                modelName,
+                                outboxMutationEnqueued.element
+                        )
+                        sendEvent(res.toValueMap())
+                    }
+                    DataStoreChannelEventName.OUTBOX_MUTATION_PROCESSED.toString() -> {
+                        var outboxMutationProcessed = hubEvent.data as OutboxMutationEvent<*>
+                        var modelName = (outboxMutationProcessed.element.model as SerializedModel).modelName as String
+                        var res = FlutterOutboxMutationProcessed(
+                                hubEvent.name,
+                                modelName,
+                                outboxMutationProcessed.element
+                        )
+                        sendEvent(res.toValueMap())
+                    }
+                    DataStoreChannelEventName.OUTBOX_STATUS.toString() -> {
+                        var outboxEvent = hubEvent.data as OutboxStatusEvent
+                        var res = FlutterOutboxStatus(hubEvent.name, outboxEvent.isEmpty)
+                        sendEvent(res.toValueMap())
+                    }
+                    else -> print("Unrecognized DataStore Event")
                 }
-                DataStoreChannelEventName.SUBSCRIPTIONS_ESTABLISHED.toString() -> {
-                    var res = FlutterSubscriptionsEstablished(hubEvent.name)
-                    sendEvent(res.toValueMap())
-                }
-                DataStoreChannelEventName.SYNC_QUERIES_STARTED.toString() -> {
-                    var syncQueriesStartedEvent = hubEvent.data as SyncQueriesStartedEvent
-                    var res = FlutterSyncQueriesStarted(hubEvent.name, syncQueriesStartedEvent.models)
-                    sendEvent(res.toValueMap())
-                }
-                DataStoreChannelEventName.MODEL_SYNCED.toString() -> {
-                    var modelSyncedEvent = hubEvent.data as ModelSyncedEvent
-                    var res = FlutterModelSynced(
-                            hubEvent.name,
-                            modelSyncedEvent.model,
-                            modelSyncedEvent.isFullSync,
-                            modelSyncedEvent.isDeltaSync,
-                            modelSyncedEvent.added,
-                            modelSyncedEvent.updated,
-                            modelSyncedEvent.deleted
-                    )
-                    sendEvent(res.toValueMap())
-                }
-                DataStoreChannelEventName.SYNC_QUERIES_READY.toString() -> {
-                    var res = FlutterSyncQueriesReady(hubEvent.name)
-                    sendEvent(res.toValueMap())
-                }
-                DataStoreChannelEventName.READY.toString() -> {
-                    var res = FlutterReady(hubEvent.name)
-                    sendEvent(res.toValueMap())
-                }
-                DataStoreChannelEventName.OUTBOX_MUTATION_ENQUEUED.toString() -> {
-                    var outboxMutationEnqueued = hubEvent.data as OutboxMutationEvent<*>
-                    var modelName = (outboxMutationEnqueued.element.model as SerializedModel).modelName as String
-                    var res = FlutterOutboxMutationEnqueued(
-                            hubEvent.name,
-                            modelName,
-                            outboxMutationEnqueued.element
-                    )
-                    sendEvent(res.toValueMap())
-                }
-                DataStoreChannelEventName.OUTBOX_MUTATION_PROCESSED.toString() -> {
-                    var outboxMutationProcessed = hubEvent.data as OutboxMutationEvent<*>
-                    var modelName = (outboxMutationProcessed.element.model as SerializedModel).modelName as String
-                    var res = FlutterOutboxMutationProcessed(
-                            hubEvent.name,
-                            modelName,
-                            outboxMutationProcessed.element
-                    )
-                    sendEvent(res.toValueMap())
-                }
-                DataStoreChannelEventName.OUTBOX_STATUS.toString() -> {
-                    var outboxEvent = hubEvent.data as OutboxStatusEvent
-                    var res = FlutterOutboxStatus(hubEvent.name, outboxEvent.isEmpty)
-                    sendEvent(res.toValueMap())
-                }
-                else -> print("Unrecognized DataStore Event")
+            } catch (e: Exception) {
+                LOG.error("Error parsing DataStore Hub event.")
             }
-
         }
     }
 
