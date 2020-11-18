@@ -107,22 +107,15 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
         }
     }
 
-    fun sendEvent(flutterEvent: Map<String, Any>) {
+    private fun sendEvent(flutterEvent: Map<String, Any>) {
         Handler(Looper.getMainLooper()).post {
             eventSink?.success(flutterEvent)
         }
     }
 
-    fun endOfStream() {
-        eventSink?.endOfStream()
-    }
-
-    fun error(errorCode: String, localizedMessage: String?, details: Any?) {
-        eventSink?.error(errorCode, localizedMessage, details)
-    }
-
     override fun onCancel(p0: Any?) {
         eventSink = null
+        Amplify.Hub.unsubscribe(token)
     }
 }
 

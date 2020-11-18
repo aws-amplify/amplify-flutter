@@ -40,6 +40,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import java.util.*
 import kotlin.collections.HashMap
 
 /** AmplifyDataStorePlugin */
@@ -59,6 +60,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
     constructor() {
         dataStoreObserveEventStreamHandler = DataStoreObserveEventStreamHandler()
+        dataStoreHubEventStreamHandler = DataStoreHubEventStreamHandler()
     }
 
     @VisibleForTesting
@@ -67,11 +69,6 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         dataStoreHubEventStreamHandler = hubEventHandler
     }
 
-    @VisibleForTesting
-    constructor(eventHandler: DataStoreObserveEventStreamHandler, hubEventHandler: DataStoreHubEventStreamHandler) {
-        dataStoreObserveEventStreamHandler = eventHandler
-        dataStoreHubEventStreamHandler = hubEventHandler
-    }
     override fun onAttachedToEngine(
             @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger,
@@ -138,7 +135,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         modelProvider.setVersion(request["modelProviderVersion"] as String)
 
         Amplify.addPlugin(AWSDataStorePlugin(modelProvider))
-        Amplify.addPlugin(AWSApiPlugin())
+//        Amplify.addPlugin(AWSApiPlugin())
 
         flutterResult.success(null)
     }
@@ -202,11 +199,11 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     @VisibleForTesting
     fun onDelete(flutterResult: Result, request: Map<String, Any>) {
         var modelName: String
-        var modelData: Map<String, Any>
+        var modelData: MutableMap<String, Any>
 
         try {
             modelName = request["modelName"] as String
-            modelData = request["model"] as Map<String, Any>
+            modelData = request["model"] as MutableMap<String, Any>
         } catch (e: ClassCastException) {
             postFlutterError(
                     flutterResult,
@@ -231,7 +228,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 .modelSchema(schema)
                 .build()
 
-        plugin.delete(
+        plugin.save(
                 instance,
                 {
                     LOG.info("Deleted item: " + it.item().toString())
@@ -331,72 +328,4 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     private fun postFlutterError(flutterResult: Result, msg: String, errorMap: Map<String, Any>) {
         handler.post { flutterResult.error("AmplifyException", msg, errorMap) }
     }
-
-    private fun deleteAll(){
-
-        Amplify.DataStore.query(Post::class.java, Where.matchesAll(),
-                { matches ->
-                    if (matches.hasNext()) {
-                        val post = matches.next()
-                        Amplify.DataStore.delete(post,
-                                { Log.i("MyAmplifyApp", "Deleted a post.") },
-                                { Log.e("MyAmplifyApp", "Delete post failed.", it) }
-                        )
-                    }
-                },
-                { Log.e("MyAmplifyApp", "Query delete Post failed.", it) }
-        )
-
-        Amplify.DataStore.query(Comment::class.java, Where.matchesAll(),
-                { matches ->
-                    if (matches.hasNext()) {
-                        val post = matches.next()
-                        Amplify.DataStore.delete(post,
-                                { Log.i("MyAmplifyApp", "Deleted a comment.") },
-                                { Log.e("MyAmplifyApp", "Delete comment failed.", it) }
-                        )
-                    }
-                },
-                { Log.e("MyAmplifyApp", "Query delete Comment failed.", it) }
-        )
-    }
-
-    private fun createTempPosts() {
-        val postSerializedData: List<Map<String, Any>> = listOf(
-                mapOf(
-                        "id" to UUID.randomUUID().toString(),
-                        "title" to "Title 1 " + Date().toString(),
-                        "rating" to 5,
-                        "created" to Temporal.DateTime(
-                                "2020-02-20T20:20:20-08:00")), // ISO8601 representation that would come from dart
-                mapOf(
-                        "id" to UUID.randomUUID().toString(),
-                        "title" to "Title 2 " + Date().toString(),
-                        "rating" to 3),
-                mapOf(
-                        "id" to UUID.randomUUID().toString(),
-                        "title" to "Title 3 " + Date().toString(),
-                        "rating" to 2,
-                        "created" to Temporal.DateTime("2020-02-02T20:20:20-08:00")),
-                mapOf(
-                        "id" to UUID.randomUUID().toString(),
-                        "title" to "Title 4 " + Date().toString(),
-                        "created" to Temporal.DateTime("2020-02-22T20:20:20-08:00"))
-        )
-        val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
-        postSerializedData.forEach { data ->
-            plugin.save(SerializedModel.builder()
-                    .serializedData(data)
-                    .modelSchema( FlutterModelProvider.instance.modelSchemas()["Post"])
-                    .build(),
-                    QueryPredicates.all(),
-                    Consumer { response: DataStoreItemChange<SerializedModel?> ->
-                        Log.i("Result", response.toString())
-                    },
-                    Consumer { failure: DataStoreException? ->
-                        Log.e("Result", "Failed", failure)
-                    }
-            ) // Save call end
-        } // for each end
-    } // method end
 }

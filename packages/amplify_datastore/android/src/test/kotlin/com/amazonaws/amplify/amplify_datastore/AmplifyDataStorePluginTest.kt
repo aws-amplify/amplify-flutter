@@ -18,8 +18,10 @@ package com.amazonaws.amplify.amplify_datastore
 import com.amazonaws.amplify.amplify_datastore.*
 import com.amazonaws.amplify.amplify_datastore.types.FlutterDataStoreFailureMessage
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSerializedModel
+import com.amplifyframework.core.Action
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
+import com.amplifyframework.core.async.Cancelable
 import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.ModelSchema
 import com.amplifyframework.core.model.query.Page
@@ -41,7 +43,9 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers
-import org.mockito.ArgumentMatchers.*
+import org.mockito.ArgumentMatchers.any
+import org.mockito.ArgumentMatchers.anyString
+import org.mockito.ArgumentMatchers.matches
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.mock
@@ -59,6 +63,8 @@ class AmplifyDataStorePluginTest {
     private var mockDataStore = mock(DataStoreCategory::class.java)
     private var mockAmplifyDataStorePlugin = mock(AWSDataStorePlugin::class.java)
     private val mockResult: MethodChannel.Result = mock(MethodChannel.Result::class.java)
+    private val mockStreamHandler: DataStoreObserveEventStreamHandler =
+            mock(DataStoreObserveEventStreamHandler::class.java)
     private val mockHubHandler: DataStoreHubEventStreamHandler =
             mock(DataStoreHubEventStreamHandler::class.java)
 
@@ -202,7 +208,7 @@ class AmplifyDataStorePluginTest {
     @Test
     fun test_hub_success_event() {
 
-        flutterPlugin = AmplifyDataStorePlugin(eventHandler = mockHubHandler)
+        flutterPlugin = AmplifyDataStorePlugin(eventHandler = mockStreamHandler, hubEventHandler = mockHubHandler)
         var eventData: HashMap<String, Any> = (readMapFromFile("observe_api",
                                                                "post_type_success_event.json",
                                                                HashMap::class.java) as HashMap<String, Any>)
@@ -237,11 +243,10 @@ class AmplifyDataStorePluginTest {
         verify(mockStreamHandler, times(1)).sendEvent(eventData)
     }
 
-<<<<<<< HEAD
     @Test
     fun test_observe_error_event() {
 
-        flutterPlugin = AmplifyDataStorePlugin(eventHandler = mockStreamHandler)
+        flutterPlugin = AmplifyDataStorePlugin(eventHandler = mockStreamHandler, hubEventHandler = mockHubHandler)
         var dataStoreException = DataStoreException("AmplifyException",
                                                     DataStoreException.REPORT_BUG_TO_AWS_SUGGESTION)
         doAnswer { invocation: InvocationOnMock ->
@@ -305,8 +310,6 @@ class AmplifyDataStorePluginTest {
                 )
     }
 
-=======
->>>>>>> Datastore Config
     private fun setFinalStatic(field: Field, newValue: Any?) {
         field.isAccessible = true
         val modifiersField: Field = Field::class.java.getDeclaredField("modifiers")
