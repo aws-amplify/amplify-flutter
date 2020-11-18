@@ -38,7 +38,7 @@ public class DataStoreBridge {
         
     }
     
-    func onSave<M: Model> (serializedModel: M,
+    func onSave<M: Model>(serializedModel: M,
                            modelSchema: ModelSchema,
                            when predicate: QueryPredicate? = nil,
                            completion: @escaping DataStoreCallback<M>) throws {
@@ -57,5 +57,5 @@ public class DataStoreBridge {
                                modelSchema: modelSchema,
                                completion: completion)
     }
-
+    
 }

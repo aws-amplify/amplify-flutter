@@ -89,7 +89,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     
     func onQuery(args: [String: Any], flutterResult: @escaping FlutterResult) {
         do {
-            let modelName = try FlutterDataStoreRequestUtils.getModelName(args: args)
+            let modelName = try FlutterDataStoreRequestUtils.getModelName(methodChannelArguments: args)
             let modelSchema = try FlutterDataStoreRequestUtils.getModelSchema(modelSchemas: flutterModelRegistration.modelSchemas, modelName: modelName)
             let queryPredicates = try QueryPredicateBuilder.fromSerializedMap(args["queryPredicate"] as? [String : Any])
             let querySortInput = try QuerySortBuilder.fromSerializedList(args["querySort"] as? [[String: Any]])
@@ -135,9 +135,9 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     func onSave(args: [String: Any], flutterResult: @escaping FlutterResult) {
         
         do {
-            let modelName = try FlutterDataStoreRequestUtils.getModelName(args: args)
+            let modelName = try FlutterDataStoreRequestUtils.getModelName(methodChannelArguments: args)
             let modelSchema = try FlutterDataStoreRequestUtils.getModelSchema(modelSchemas: flutterModelRegistration.modelSchemas, modelName: modelName)
-            let serializedModelData = try FlutterDataStoreRequestUtils.getSerializedModelData(args: args)
+            let serializedModelData = try FlutterDataStoreRequestUtils.getSerializedModelData(methodChannelArguments: args)
             let modelID = try FlutterDataStoreRequestUtils.getModelID(serializedModelData: serializedModelData)
             
             var queryPredicate: QueryPredicate?
@@ -186,9 +186,9 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
 
     func onDelete(args: [String: Any], flutterResult: @escaping FlutterResult) {
         do {
-            let modelName = try FlutterDataStoreRequestUtils.getModelName(args: args)
+            let modelName = try FlutterDataStoreRequestUtils.getModelName(methodChannelArguments: args)
             let modelSchema = try FlutterDataStoreRequestUtils.getModelSchema(modelSchemas: flutterModelRegistration.modelSchemas, modelName: modelName)
-            let serializedModelData = try FlutterDataStoreRequestUtils.getSerializedModelData(args: args)
+            let serializedModelData = try FlutterDataStoreRequestUtils.getSerializedModelData(methodChannelArguments: args)
             let modelID = try FlutterDataStoreRequestUtils.getModelID(serializedModelData: serializedModelData)
             
             let serializedModel = SerializedModel(id: modelID, map: try FlutterDataStoreRequestUtils.getJSONValue(serializedModelData))

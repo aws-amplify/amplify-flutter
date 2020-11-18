@@ -23,7 +23,7 @@ let amplifySuccessResults: [SerializedModel] =
     (try! readJsonArray(filePath: "2_results") as! [[String: Any]]).map { (serializedModel) in
         SerializedModel.init(
             id: serializedModel["id"] as? String,
-            map: getJSONValue(serializedModel["serializedData"] as! [String : Any]))
+            map: try! getJSONValue(serializedModel["serializedData"] as! [String : Any]))
     }
 
 let id: QueryField = field("id")
@@ -222,13 +222,8 @@ class DataStorePluginUnitTests: XCTestCase {
         
         pluginUnderTest.onSave(
             args: testArgs,
-            flutterResult: { (results)  in
-                if (results == nil) {
-                    print("success")
-                }
-                else {
-                    XCTFail()
-                }
+            flutterResult: { (result)  in
+                XCTAssertNil(result)
             })
     }
     
@@ -258,13 +253,8 @@ class DataStorePluginUnitTests: XCTestCase {
         
         pluginUnderTest.onSave(
             args: testArgs,
-            flutterResult: { (results)  in
-                if (results == nil) {
-                    print("success")
-                }
-                else {
-                    XCTFail()
-                }
+            flutterResult: { (result)  in
+                XCTAssertNil(result)
             })
     }
     

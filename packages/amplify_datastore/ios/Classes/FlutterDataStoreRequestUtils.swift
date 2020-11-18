@@ -31,8 +31,8 @@ public class FlutterDataStoreRequestUtils {
         return jsonValue
     }
     
-    static func getModelName(args: [String: Any]) throws -> String {
-        guard let modelName = args["modelName"] as? String else {
+    static func getModelName(methodChannelArguments: [String: Any]) throws -> String {
+        guard let modelName = methodChannelArguments["modelName"] as? String else {
             throw DataStoreError.decodingError(
                 "The modelName was not passed in the arguments",
                 "The request should include the modelName of type String")
@@ -49,8 +49,8 @@ public class FlutterDataStoreRequestUtils {
         return modelSchema
     }
     
-    static func getSerializedModelData(args: [String: Any]) throws -> [String: Any] {
-        guard let serializedModelData = args["serializedModel"] as? [String: Any] else {
+    static func getSerializedModelData(methodChannelArguments: [String: Any]) throws -> [String: Any] {
+        guard let serializedModelData = methodChannelArguments["serializedModel"] as? [String: Any] else {
             throw DataStoreError.decodingError(
                 "The serializedModel was not passed in the arguments",
                 "The request should include the serializedModel as a [String: Any] dictionary")
