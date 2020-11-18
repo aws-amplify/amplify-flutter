@@ -70,7 +70,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     override fun onAttachedToEngine(
             @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger,
-                "com.amazonaws.amplify/datastore")
+                                    "com.amazonaws.amplify/datastore")
         channel.setMethodCallHandler(this)
         eventchannel = EventChannel(flutterPluginBinding.binaryMessenger,
                                     "com.amazonaws.amplify/datastore_observe_events")
