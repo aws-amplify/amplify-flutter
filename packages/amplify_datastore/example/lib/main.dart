@@ -77,7 +77,7 @@ class _MyAppState extends State<MyApp> {
     String postWithCreatedDate = '';
     String postWithIdNotEquals = '';
     String firstPostFromResult = '';
-    String allPostsWithoutRating2Or5 = '';
+    String allPostsWithoutRating2Or5 = '';    
 
     stream = Amplify.DataStore.observe(Post.classType);
     stream.listen((event) {
