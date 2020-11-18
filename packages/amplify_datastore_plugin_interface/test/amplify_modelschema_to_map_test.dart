@@ -122,18 +122,6 @@ void main() {
           'isRequired': false,
           'isArray': false,
         },
-        'rating': {
-          'name': 'rating',
-          'type': {'fieldType': 'int'},
-          'isRequired': false,
-          'isArray': false,
-        },
-        'created': {
-          'name': 'created',
-          'type': {'fieldType': 'dateTime'},
-          'isRequired': false,
-          'isArray': false,
-        },
         'blog': {
           'name': 'blog',
           'type': {'fieldType': 'model', 'ofModelName': 'Blog'},

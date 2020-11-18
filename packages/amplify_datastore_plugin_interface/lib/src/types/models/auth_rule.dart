@@ -22,10 +22,6 @@ enum AuthStrategy { OWNER, GROUPS, PRIVATE, PUBLIC }
 
 enum ModelOperation { CREATE, UPDATE, DELETE, READ }
 
-enum AuthStrategy { OWNER, GROUPS, PRIVATE, PUBLIC }
-
-enum ModelOperation { CREATE, UPDATE, DELETE, READ }
-
 class AuthRule {
   final AuthStrategy authStrategy;
   final String ownerField; //opt
