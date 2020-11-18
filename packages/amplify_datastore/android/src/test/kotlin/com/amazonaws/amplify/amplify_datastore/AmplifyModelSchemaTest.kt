@@ -154,20 +154,6 @@ class AmplifyModelSchemaTest {
                                         "isRequired" to false,
                                         "isArray" to false
                                 ),
-                                "created" to mapOf(
-                                        "name" to "created",
-                                        "type" to mapOf(
-                                                "fieldType" to "dateTime"),
-                                        "isRequired" to false,
-                                        "isArray" to false
-                                ),
-                                "rating" to mapOf(
-                                        "name" to "rating",
-                                        "type" to mapOf(
-                                                "fieldType" to "int"),
-                                        "isRequired" to false,
-                                        "isArray" to false
-                                ),
                                 "blog" to mapOf(
                                         "name" to "blog",
                                         "type" to mapOf(
