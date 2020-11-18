@@ -218,15 +218,13 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
         val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
         val schema = modelProvider.modelSchemas()[modelName];
-
-        modelData["id"] = UUID.randomUUID().toString()
-
+        
         var instance = SerializedModel.builder()
                 .serializedData(modelData)
                 .modelSchema(schema)
                 .build()
 
-        plugin.save(
+        plugin.delete(
                 instance,
                 {
                     LOG.debug("Deleted item: " + it.item().toString())
