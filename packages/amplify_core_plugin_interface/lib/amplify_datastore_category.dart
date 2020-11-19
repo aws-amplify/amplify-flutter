@@ -52,6 +52,12 @@ class DataStoreCategory {
     return plugins.length == 1 ? plugins[0].delete(model) : throw (errorMsg);
   }
 
+  Future<void> save<T extends Model>(T model, {QueryPredicate when}) {
+    return plugins.length == 1
+        ? plugins[0].save(model, when: when)
+        : throw (errorMsg);
+  }
+
   Stream<SubscriptionEvent<T>> observe<T extends Model>(
       ModelType<T> modelType) {
     return plugins.length == 1

@@ -18,7 +18,6 @@ import 'dart:collection';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:flutter/services.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:meta/meta.dart';
 
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/datastore');
 
@@ -76,13 +75,11 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
     }
   }
 
-  @override
   Future<void> delete<T extends Model>(T model) async {
     try {
-      var modelJson = model.toJson();
       await _channel.invokeMethod('delete', <String, dynamic>{
         'modelName': model.getInstanceType().modelName(),
-        'model': modelJson
+        'serializedModel': model.toJson(),
       });
     } on PlatformException catch (e) {
       throw _formatError(e);
@@ -90,6 +87,19 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   }
 
   @override
+  Future<void> save<T extends Model>(T model, {QueryPredicate when}) async {
+    try {
+      var methodChannelSaveInput = <String, dynamic>{
+        'modelName': model.getInstanceType().modelName(),
+        'serializedModel': model.toJson(),
+        'queryPredicate': when?.serializeAsMap(),
+      };
+      await _channel.invokeMapMethod('save', methodChannelSaveInput);
+    } on PlatformException catch (e) {
+      throw _formatError(e);
+    }
+  }
+
   Stream<SubscriptionEvent<T>> observe<T extends Model>(
       ModelType<T> modelType) {
     // Step #1. Open the event channel if it's not already open. Note

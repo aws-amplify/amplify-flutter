@@ -24,26 +24,37 @@ public class DataStoreBridge {
         return try Amplify.DataStore.getPlugin(for: "awsDataStorePlugin") as! AWSDataStorePlugin
     }
     
-    public func onQuery<M: Model>(_ modelType: M.Type,
-                                modelSchema: ModelSchema,
-                                where predicate: QueryPredicate? = nil,
-                                sort sortInput: [QuerySortDescriptor]? = nil,
-                                paginate paginationInput: QueryPaginationInput? = nil,
-                                completion: DataStoreCallback<[M]>) throws {
+    func onQuery<M: Model>(_ modelType: M.Type,
+                           modelSchema: ModelSchema,
+                           where predicate: QueryPredicate? = nil,
+                           sort sortInput: [QuerySortDescriptor]? = nil,
+                           paginate paginationInput: QueryPaginationInput? = nil,
+                           completion: DataStoreCallback<[M]>) throws {
         try getPlugin().query(modelType,
-                          modelSchema: modelSchema,
-                          where: predicate,
-                          sort: sortInput,
-                          paginate: paginationInput,
-                          completion: completion)
+                              modelSchema: modelSchema,
+                              where: predicate,
+                              sort: sortInput,
+                              paginate: paginationInput,
+                              completion: completion)
+        
     }
-
-    func onDelete(id: String,
-                  modelData: SerializedModel,
+    
+    func onSave<M: Model>(serializedModel: M,
+                           modelSchema: ModelSchema,
+                           when predicate: QueryPredicate? = nil,
+                           completion: @escaping DataStoreCallback<M>) throws {
+        try getPlugin().save(serializedModel,
+                             modelSchema: modelSchema,
+                             where: predicate,
+                             completion: completion)
+        
+    }
+    
+    func onDelete(serializedModel: SerializedModel,
                   modelSchema: ModelSchema,
                   completion: @escaping DataStoreCallback<Void>) throws {
         
-        try getPlugin().delete(modelData,
+        try getPlugin().delete(serializedModel,
                                modelSchema: modelSchema,
                                completion: completion)
     }
