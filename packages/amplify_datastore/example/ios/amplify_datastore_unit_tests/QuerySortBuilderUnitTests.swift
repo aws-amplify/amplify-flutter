@@ -50,7 +50,7 @@ class QuerySortBuilderUnitTests: XCTestCase {
     
     func test_when_bad_input_given() throws {
         XCTAssertThrowsError(
-        try QuerySortBuilder.fromSerializedList(badSortingInput)) { error in
+            try QuerySortBuilder.fromSerializedList(badSortingInput)) { error in
             XCTAssertEqual((error as! DataStoreError).errorDescription, "Failed to deserialize sort input from flutter")
             XCTAssertEqual((error as! DataStoreError).recoverySuggestion, "Please create an issue to amplify-flutter repo.")
         }

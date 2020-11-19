@@ -15,6 +15,7 @@
 
 import 'dart:convert';
 
+import 'package:amplify_datastore_example/codegen/ModelProvider.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -23,7 +24,9 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'amplifyconfiguration.dart';
 
-import 'Post.dart';
+import 'codegen/Blog.dart';
+import 'codegen/Post.dart';
+import 'codegen/Comment.dart';
 
 void main() {
   runApp(MyApp());
@@ -38,6 +41,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _posts = '';
+  String _comments = '';
+  String _blogs = '';
   String _posts4rating = '';
   String _posts1To4Rating = '';
   String _postWithCreatedDate = '';
@@ -47,7 +52,10 @@ class _MyAppState extends State<MyApp> {
   String _allPostsWithoutRating2Or5 = '';
   bool _isAmplifyConfigured = false;
 
+  String _streamingData = '';
+  Stream<SubscriptionEvent<Post>> stream = null;
   Amplify amplify = new Amplify();
+
   @override
   void initState() {
     super.initState();
@@ -57,7 +65,8 @@ class _MyAppState extends State<MyApp> {
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     AmplifyDataStore datastorePlugin =
-        AmplifyDataStore(modelSchemas: [createTestSchema()]);
+        AmplifyDataStore(modelProvider: ModelProvider.instance);
+
     await amplify.addPlugin(dataStorePlugins: [datastorePlugin]);
     // Configure
     await amplify.configure(amplifyconfig);
@@ -69,6 +78,8 @@ class _MyAppState extends State<MyApp> {
 
   void runQueries() async {
     String allPosts = '';
+    String allComments = '';
+    String allBlogs = '';
     String posts4Rating = '';
     String posts1To4Rating = '';
     String posts2Or5Rating = '';
@@ -77,10 +88,30 @@ class _MyAppState extends State<MyApp> {
     String firstPostFromResult = '';
     String allPostsWithoutRating2Or5 = '';
 
-    (await Amplify.DataStore.query(Post.classType,
-            sortBy: [Post.RATING.ascending()]))
-        .forEach((element) {
-      allPosts += encoder.convert(element.toJson()) + '\n';
+    stream = Amplify.DataStore.observe(Post.classType);
+    stream.listen((event) {
+      print("Received Event: " + (event.item).toJson().toString());
+    });
+
+    // get all comments
+    (await Amplify.DataStore.query(Comment.classType)).forEach((element) {
+      if (element != null) {
+        allComments += encoder.convert(element.toJson());
+      }
+    });
+
+    // get all posts
+    (await Amplify.DataStore.query(Post.classType)).forEach((element) {
+      if (element != null) {
+        allPosts += encoder.convert(element.toJson());
+      }
+    });
+
+    // get all blogs
+    (await Amplify.DataStore.query(Blog.classType)).forEach((element) {
+      if (element != null) {
+        allBlogs += encoder.convert(element.toJson());
+      }
     });
 
     (await Amplify.DataStore.query(Post.classType, where: Post.RATING.ge(4)))
@@ -95,13 +126,8 @@ class _MyAppState extends State<MyApp> {
     });
 
     (await Amplify.DataStore.query(Post.classType,
-            where: Post.CREATED.eq("2020-02-02T20:20:20-08:00")))
-        .forEach((element) {
-      postWithCreatedDate += encoder.convert(element.toJson()) + '\n';
-    });
-
-    (await Amplify.DataStore.query(Post.classType,
-            where: Post.ID.ne("e25859fc-e254-4e8b-8cae-62ccacce4097")))
+            where: QueryField(fieldName: "post.id")
+                .ne("e25859fc-e254-4e8b-8cae-62ccacce4097")))
         .forEach((element) {
       postWithIdNotEquals += encoder.convert(element.toJson()) + '\n';
     });
@@ -130,6 +156,8 @@ class _MyAppState extends State<MyApp> {
     if (!mounted) return;
     setState(() {
       _posts = allPosts;
+      _comments = allComments;
+      _blogs = allBlogs;
       _posts1To4Rating = posts1To4Rating;
       _posts4rating = posts4Rating;
       _postWithCreatedDate = postWithCreatedDate;
@@ -157,6 +185,14 @@ class _MyAppState extends State<MyApp> {
       await Amplify.DataStore.delete(
           // replace 'id' for testing as needed
           Post(id: 'f6c4be2d-9b1b-496e-b3bf-78035f0e6191', title: 'Title'));
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  clearStore() async {
+    try {
+      Amplify.DataStore.clear();
     } catch (e) {
       print(e);
     }
@@ -190,6 +226,13 @@ class _MyAppState extends State<MyApp> {
               Padding(padding: EdgeInsets.all(10.0)),
               Center(
                 child: RaisedButton(
+                  onPressed: _isAmplifyConfigured ? clearStore : null,
+                  child: Text('Clear Store'),
+                ),
+              ),
+              Padding(padding: EdgeInsets.all(10.0)),
+              Center(
+                child: RaisedButton(
                   onPressed: _isAmplifyConfigured ? runQueries : null,
                   child: const Text('Query'),
                 ),
@@ -202,43 +245,5 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     );
-  }
-
-  ModelSchema createTestSchema() {
-    Map<String, ModelField> modelFieldMap = {};
-    modelFieldMap["id"] = ModelField(
-        name: "id",
-        type: "String",
-        targetType: "ID",
-        isRequired: true,
-        isArray: false,
-        isEnum: false,
-        isModel: false);
-    modelFieldMap["title"] = ModelField(
-        name: "title",
-        type: "String",
-        targetType: "String",
-        isRequired: true,
-        isArray: false,
-        isEnum: false,
-        isModel: false);
-    modelFieldMap["rating"] = ModelField(
-        name: "rating",
-        type: "Integer",
-        targetType: "Integer",
-        isRequired: false,
-        isArray: false,
-        isEnum: false,
-        isModel: false);
-    modelFieldMap["created"] = ModelField(
-        name: "created",
-        type: "DateTime",
-        targetType: "Date",
-        isRequired: false,
-        isArray: false,
-        isEnum: false,
-        isModel: false);
-    return ModelSchema(
-        name: "Post", pluralName: "Posts", fields: modelFieldMap);
   }
 }

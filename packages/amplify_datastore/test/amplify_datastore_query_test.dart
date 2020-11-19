@@ -13,27 +13,44 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import './utils/get_json_from_file.dart';
-import './test_models/Post.dart';
+
+import '../example/lib/codegen/Post.dart';
+import '../example/lib/codegen/Comment.dart';
+import '../example/lib/codegen/ModelProvider.dart';
 
 void main() {
   const MethodChannel dataStoreChannel =
       MethodChannel('com.amazonaws.amplify/datastore');
 
-  AmplifyDataStore dataStore = AmplifyDataStore(modelSchemas: null);
+  AmplifyDataStore dataStore =
+      AmplifyDataStore(modelProvider: ModelProvider.instance);
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
   tearDown(() {
     dataStoreChannel.setMockMethodCallHandler(null);
+  });
+
+  test('query returns nested model result', () async {
+    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      if (methodCall.method == "query") {
+        return getJsonFromFile('query_api/response/nested_results.json');
+      }
+    });
+    List<Comment> comments = await dataStore.query(Comment.classType);
+    expect(comments.length, 1);
+    expect(
+        comments[0],
+        Comment(
+            id: '39c3c0e6-8726-436e-8cdf-bff38e9a62da',
+            content: 'Loving Amplify Datastore!',
+            post: Post(id: 'e50ffa8f-783b-4780-89b4-27043ffc35be')));
   });
 
   test('query returns 2 sucessful results', () async {

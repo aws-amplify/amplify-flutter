@@ -16,6 +16,7 @@
 import Foundation
 import Amplify
 import AmplifyPlugins
+import Combine
 
 public class DataStoreBridge {
     
@@ -57,5 +58,12 @@ public class DataStoreBridge {
                                modelSchema: modelSchema,
                                completion: completion)
     }
+
+    func onObserve() throws -> AnyPublisher<MutationEvent, DataStoreError> {
+        return try getPlugin().publisher
+    }
     
+    func onClear(completion: @escaping DataStoreCallback<Void>) throws {
+        try getPlugin().clear(completion: completion)
+    }
 }

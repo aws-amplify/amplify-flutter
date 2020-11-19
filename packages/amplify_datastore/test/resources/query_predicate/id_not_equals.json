@@ -1,6 +1,6 @@
 {
   "queryPredicateOperation": {
-    "field": "id",
+    "field": "post.id",
     "fieldOperator": { "operatorName": "not_equal", "value": "123" }
   }
 }

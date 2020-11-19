@@ -25,7 +25,7 @@ data class FlutterListRequest(val request: Map<String, *>) {
     private fun setOptions(request: Map<String, *>): StorageListOptions {
         if (request["options"] != null) {
             val optionsMap = request["options"] as Map<String, *>
-            var options: StorageListOptions.Builder = StorageListOptions.builder()
+            var options: StorageListOptions.Builder<*> = StorageListOptions.builder()
 
             optionsMap.forEach { (optionKey, optionValue) ->
                 when (optionKey) {

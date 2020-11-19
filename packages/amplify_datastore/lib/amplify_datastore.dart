@@ -25,14 +25,30 @@ class AmplifyDataStore extends DataStorePluginInterface {
   static final Object _token = Object();
 
   /// Constructs an AmplifyDataStore plugin
-  AmplifyDataStore({@required List<ModelSchema> modelSchemas})
-      : super(token: _token, modelSchemas: modelSchemas);
+  AmplifyDataStore({@required ModelProviderInterface modelProvider})
+      : super(token: _token, modelProvider: modelProvider);
 
   static AmplifyDataStore _instance = AmplifyDataStoreMethodChannel();
 
   static set instance(DataStorePluginInterface instance) {
     PlatformInterface.verifyToken(instance, _token);
     _instance = instance;
+  }
+
+  @override
+  Future<void> configureModelProvider(
+      {ModelProviderInterface modelProvider}) async {
+    ModelProviderInterface provider =
+        modelProvider == null ? this.modelProvider : modelProvider;
+    if (provider == null || provider.modelSchemas.isEmpty) {
+      throw ArgumentError("Need to provide at least one modelSchema");
+    }
+    return _instance.configureModelProvider(modelProvider: modelProvider);
+  }
+
+  @override
+  Future<void> configure({String configuration}) async {
+    return _instance.configure(configuration: configuration);
   }
 
   @override
@@ -46,7 +62,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
 
   @override
   Future<void> delete<T extends Model>(T model) async {
-    _instance.delete(model);
+    return _instance.delete(model);
   }
 
   @override
@@ -54,13 +70,13 @@ class AmplifyDataStore extends DataStorePluginInterface {
     return _instance.save(model, when: when);
   }
 
+  Stream<SubscriptionEvent<T>> observe<T extends Model>(
+      ModelType<T> modelType) {
+    return _instance.observe(modelType);
+  }
+
   @override
-  Future<void> configure({List<ModelSchema> modelSchemas}) async {
-    List<ModelSchema> schemas =
-        modelSchemas == null ? this.modelSchemas : modelSchemas;
-    if (schemas == null || schemas.isEmpty) {
-      throw ArgumentError("Need to provide at least one modelSchema");
-    }
-    return _instance.configure(modelSchemas: schemas);
+  Future<void> clear() async {
+    return _instance.clear();
   }
 }

@@ -1,5 +1,3 @@
-package com.amazonaws.amplify.amplify_datastore.types.query
-
 /*
  * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -15,6 +13,8 @@ package com.amazonaws.amplify.amplify_datastore.types.query
  * permissions and limitations under the License.
  */
 
+package com.amazonaws.amplify.amplify_datastore.types.query
+
 import com.amazonaws.amplify.amplify_datastore.readMapFromFile
 import com.amplifyframework.core.model.query.Where
 import com.amplifyframework.core.model.query.predicate.QueryField
@@ -22,7 +22,7 @@ import org.junit.Assert
 import org.junit.Test
 
 class QuerySortBuilderTest {
-    private val id: QueryField = QueryField.field("id")
+    private val id: QueryField = QueryField.field("post.id")
     private val rating: QueryField = QueryField.field("rating")
 
     @Test

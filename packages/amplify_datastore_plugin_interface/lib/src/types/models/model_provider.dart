@@ -13,12 +13,10 @@
  * permissions and limitations under the License.
  */
 
-package com.amazonaws.amplify.amplify_datastore.types.model
+import 'model_schema.dart';
 
-import com.amplifyframework.core.model.ModelIndex
+abstract class ModelProviderInterface {
+  String version;
 
-data class FlutterModelIndex(val map: Map<String, Any>) {
-    fun convertToNativeModelIndex(): ModelIndex {
-        TODO("Not yet implemented")
-    }
+  List<ModelSchema> modelSchemas;
 }

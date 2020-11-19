@@ -16,18 +16,20 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 
-import 'model.dart';
+enum AuthStrategy { OWNER, GROUPS, PRIVATE, PUBLIC }
+
+enum ModelOperation { CREATE, UPDATE, DELETE, READ }
 
 class AuthRule {
-  // enum
   final AuthStrategy authStrategy;
-  final String ownerField;
-  final String identityClaim;
-  final String groupClaim;
-  final List<String> groups;
-  final String groupsField;
-  final List<ModelOperation> operations;
+  final String ownerField; //opt
+  final String identityClaim; //opt
+  final String groupClaim; //opt
+  final List<String> groups; //opt
+  final String groupsField; //opt
+  final List<ModelOperation> operations; //opt
 
   const AuthRule(
       {this.authStrategy,
@@ -59,15 +61,16 @@ class AuthRule {
   }
 
   Map<String, dynamic> toMap() {
-    return {
-      'authStrategy': authStrategy?.index,
+    Map<String, dynamic> map = {
+      'authStrategy': describeEnum(authStrategy),
       'ownerField': ownerField,
       'identityClaim': identityClaim,
       'groupClaim': groupClaim,
       'groups': groups,
       'groupsField': groupsField,
-      'operations': operations?.map((x) => x?.index)?.toList(),
+      'operations': operations?.map((x) => describeEnum(x))?.toList(),
     };
+    return Map.from(map)..removeWhere((k, v) => v == null);
   }
 
   factory AuthRule.fromMap(Map<String, dynamic> map) {
@@ -120,5 +123,3 @@ class AuthRule {
         operations.hashCode;
   }
 }
-
-enum AuthStrategy { OWNER, GROUPS, PRIVATE, PUBLIC }

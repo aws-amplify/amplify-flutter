@@ -18,66 +18,78 @@ import UIKit
 import Amplify
 import AmplifyPlugins
 import AWSCore
+import Combine
 
 public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
-    
+
     private let bridge: DataStoreBridge
     private let flutterModelRegistration: FlutterModels
-    
-    init(bridge: DataStoreBridge = DataStoreBridge(), flutterModelRegistration: FlutterModels = FlutterModels()) {
+    private var observeSubscription: AnyCancellable?
+    private let dataStoreObserveEventStreamHandler: DataStoreObserveEventStreamHandler?
+    init(bridge: DataStoreBridge = DataStoreBridge(),
+         flutterModelRegistration: FlutterModels = FlutterModels(),
+         dataStoreObserveEventStreamHandler: DataStoreObserveEventStreamHandler = DataStoreObserveEventStreamHandler()) {
         self.bridge = bridge
         self.flutterModelRegistration = flutterModelRegistration
+        self.dataStoreObserveEventStreamHandler = dataStoreObserveEventStreamHandler
     }
-    
+
     public static func register(with registrar: FlutterPluginRegistrar) {
-        let channel = FlutterMethodChannel(name: "com.amazonaws.amplify/datastore", binaryMessenger: registrar.messenger())
         let instance = SwiftAmplifyDataStorePlugin()
+        let channel = FlutterMethodChannel(name: "com.amazonaws.amplify/datastore", binaryMessenger: registrar.messenger())
+        let observeChannel = FlutterEventChannel(name: "com.amazonaws.amplify/datastore_observe_events", binaryMessenger: registrar.messenger())
+        observeChannel.setStreamHandler(instance.dataStoreObserveEventStreamHandler)
         registrar.addMethodCallDelegate(instance, channel: channel)
     }
-    
+
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         var arguments: [String: Any] = [:]
         do {
-            try arguments = checkArguments(args: call.arguments as Any)
+            if(call.arguments != nil) {
+                try arguments = checkArguments(args: call.arguments as Any)
+            }
         } catch {
-            FlutterDataStoreErrorHandler.prepareError(
-                flutterResult: result,
-                msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
-                errorMap: ["UNKNOWN": "\(error.localizedDescription).\nAn unrecognized error has occurred. See logs for details." ])
+            result(FlutterDataStoreErrorHandler.createFlutterError(
+                    msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
+                    errorMap: ["UNKNOWN": "\(error.localizedDescription).\nAn unrecognized error has occurred. See logs for details." ]))
             return
         }
-        
+
         switch call.method {
-        case "configure":
-            onConfigure(args: arguments, result: result)
+        case "addModelSchemas":
+            onAddModelSchemas(args: arguments, result: result)
         case "query":
             onQuery(args: arguments, flutterResult: result)
         case "save":
             onSave(args: arguments, flutterResult: result)
         case "delete":
             onDelete(args: arguments, flutterResult: result)
+        case "setupObserve":
+            onSetupObserve(flutterResult: result)
+        case "clear":
+            onClear(flutterResult: result)
         default:
             result(FlutterMethodNotImplemented)
         }
     }
-    
-    private func onConfigure(args: [String: Any], result: @escaping FlutterResult) {
+    private func onAddModelSchemas(args: [String: Any], result: @escaping FlutterResult) {
         guard let modelSchemaList = args["modelSchemas"] as? [[String: Any]] else {
             result(false)
             return //TODO
         }
-        
+
         let modelSchemas: [ModelSchema] = modelSchemaList.map {
             FlutterModelSchema.init(serializedData: $0).convertToNativeModelSchema()
         }
-        
+
         modelSchemas.forEach { (modelSchema) in
             flutterModelRegistration.addModelSchema(modelName: modelSchema.name, modelSchema: modelSchema)
         }
         do {
             let dataStorePlugin = AWSDataStorePlugin(modelRegistration: flutterModelRegistration)
             try Amplify.add(plugin: dataStorePlugin)
-            Amplify.Logging.logLevel = .verbose
+            try Amplify.add(plugin: AWSAPIPlugin())
+            Amplify.Logging.logLevel = .info
             print("Amplify configured with DataStore plugin")
             result(true)
         } catch {
@@ -86,7 +98,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             return
         }
     }
-    
+
     func onQuery(args: [String: Any], flutterResult: @escaping FlutterResult) {
         do {
             let modelName = try FlutterDataStoreRequestUtils.getModelName(methodChannelArguments: args)
@@ -95,10 +107,10 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             let querySortInput = try QuerySortBuilder.fromSerializedList(args["querySort"] as? [[String: Any]])
             let queryPagination = QueryPaginationBuilder.fromSerializedMap(args["queryPagination"] as? [String: Any])
             try bridge.onQuery(SerializedModel.self,
-                              modelSchema: modelSchema,
-                              where: queryPredicates,
-                              sort: querySortInput,
-                              paginate: queryPagination) { (result) in
+                               modelSchema: modelSchema,
+                               where: queryPredicates,
+                               sort: querySortInput,
+                               paginate: queryPagination) { (result) in
                 switch result {
                 case .failure(let error):
                     print("Query API failed. Error = \(error)")
@@ -128,7 +140,6 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                 flutterResult: flutterResult,
                 msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
                 errorMap: ["UNKNOWN": "\(error.localizedDescription).\nAn unrecognized error has occurred. See logs for details." ])
-            return
         }
     }
     
@@ -180,7 +191,6 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                 flutterResult: flutterResult,
                 msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
                 errorMap: ["UNKNOWN": "\(error.localizedDescription).\nAn unrecognized error has occurred. See logs for details." ])
-            return
         }
     }
 
@@ -226,7 +236,68 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         }
         
     }
+
+    public func onSetupObserve(flutterResult: @escaping FlutterResult) {
+        do {
+            observeSubscription = try observeSubscription ?? bridge.onObserve().sink {
+                if case let .failure(error) = $0 {
+                    let flutterError = FlutterDataStoreErrorHandler.convertToFlutterError(
+                        error: error,
+                        msg: FlutterDataStoreErrorMessage.OBSERVE_EVENT_FAILURE.rawValue)
+                    self.dataStoreObserveEventStreamHandler?.sendError(flutterError: flutterError)
+                }
+            } receiveValue: { (mutationEvent) in
+                do {
+                    let serializedEvent = try mutationEvent.decodeModel(as: SerializedModel.self)
+                    guard let modelSchema = self.flutterModelRegistration.modelSchemas[mutationEvent.modelName] else {
+                        print("Received mutation event for a model \(mutationEvent.modelName) that is not registered.")
+                        return
+                    }
+                    guard let eventType = EventType(rawValue: mutationEvent.mutationType) else {
+                        print("Received mutation event for an unknown mutation type \(mutationEvent.mutationType).")
+                        return
+                    }
+                    let flutterSubscriptionEvent = FlutterSubscriptionEvent.init(
+                        item: serializedEvent,
+                        eventType: eventType)
+                    self.dataStoreObserveEventStreamHandler?.sendEvent(flutterEvent: flutterSubscriptionEvent.toJSON(modelSchema: modelSchema))
+                } catch {
+                    print("Failed to parse the event \(error)")
+                    // TODO communicate using datastore error handler?
+                }
+            }
+        } catch {
+            print("Failed to get the datastore plugin \(error)")
+            flutterResult(false)
+        }
+        flutterResult(true)
+    }
     
+    func onClear(flutterResult: @escaping FlutterResult) {
+        do {
+            try bridge.onClear() {(result) in
+                switch result {
+                case .failure(let error):
+                    print("Clear API failed. Error: \(error)")
+                    FlutterDataStoreErrorHandler.handleDataStoreError(
+                        error: error,
+                        flutterResult: flutterResult,
+                        msg: FlutterDataStoreErrorMessage.CLEAR_FAILED.rawValue
+                    )
+                case .success():
+                    print("Successfully cleared the store")
+                    flutterResult(nil)
+                }
+            }
+        }
+        catch {
+            print("An unexpected error occured: \(error)")
+            flutterResult(FlutterDataStoreErrorHandler.createFlutterError(
+                msg: FlutterDataStoreErrorMessage.UNEXPECTED_ERROR.rawValue,
+                errorMap: ["UNKNOWN": "\(error.localizedDescription).\nAn unexpected error has occurred. See logs for details." ]))
+        }
+    }
+
     private func checkArguments(args: Any) throws -> [String: Any] {
         guard let res = args as? [String: Any] else {
             throw DataStoreError.decodingError("Flutter method call arguments are not a map.",
@@ -234,10 +305,10 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         }
         return res;
     }
-    
+
     // TODO: Remove once all configure is moved to the bridge
     func getPlugin() throws -> AWSDataStorePlugin {
         return try Amplify.DataStore.getPlugin(for: "awsDataStorePlugin") as! AWSDataStorePlugin
     }
-    
+
 }
