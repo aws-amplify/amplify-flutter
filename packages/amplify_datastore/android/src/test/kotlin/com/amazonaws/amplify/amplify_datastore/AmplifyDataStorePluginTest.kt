@@ -141,7 +141,7 @@ class AmplifyDataStorePluginTest {
         var modelData: HashMap<String, Any> = (readMapFromFile("delete_api",
                                                                "request/instance_no_predicate.json",
                                                                HashMap::class.java) as HashMap<String, Any>).get(
-                "model") as HashMap<String, Any>
+                "serializedModel") as HashMap<String, Any>
 
         var instance = SerializedModel.builder()
                 .serializedData(modelData)

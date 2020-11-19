@@ -136,10 +136,9 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         }
         catch {
             print("An unexpected error occured when parsing query arguments: \(error)")
-            FlutterDataStoreErrorHandler.prepareError(
-                flutterResult: flutterResult,
+            flutterResult(FlutterDataStoreErrorHandler.createFlutterError(
                 msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
-                errorMap: ["UNKNOWN": "\(error.localizedDescription).\nAn unrecognized error has occurred. See logs for details." ])
+                errorMap: ["UNKNOWN": "\(error.localizedDescription).\nAn unrecognized error has occurred. See logs for details." ]))
         }
     }
     
@@ -187,10 +186,9 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         }
         catch {
             print("An unexpected error occured when parsing save arguments: \(error)")
-            FlutterDataStoreErrorHandler.prepareError(
-                flutterResult: flutterResult,
+            flutterResult(FlutterDataStoreErrorHandler.createFlutterError(
                 msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
-                errorMap: ["UNKNOWN": "\(error.localizedDescription).\nAn unrecognized error has occurred. See logs for details." ])
+                errorMap: ["UNKNOWN": "\(error.localizedDescription).\nAn unrecognized error has occurred. See logs for details." ]))
         }
     }
 
@@ -228,10 +226,9 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         }
         catch {
             print("An unexpected error occured when parsing delete arguments: \(error)")
-            FlutterDataStoreErrorHandler.prepareError(
-                flutterResult: flutterResult,
+            flutterResult(FlutterDataStoreErrorHandler.createFlutterError(
                 msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
-                errorMap: ["UNKNOWN": "\(error.localizedDescription).\nAn unrecognized error has occurred. See logs for details." ])
+                errorMap: ["UNKNOWN": "\(error.localizedDescription).\nAn unrecognized error has occurred. See logs for details." ]))
             return
         }
         

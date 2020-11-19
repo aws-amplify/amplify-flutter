@@ -17,28 +17,31 @@ import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import './test_models/Post.dart';
 import './utils/get_json_from_file.dart';
+import 'test_models/Post.dart';
+import 'test_models/ModelProvider.dart';
 
 void main() {
   const MethodChannel dataStoreChannel =
       MethodChannel('com.amazonaws.amplify/datastore');
 
-  AmplifyDataStore dataStore = AmplifyDataStore(modelSchemas: null);
+  AmplifyDataStore dataStore =
+      AmplifyDataStore(modelProvider: ModelProvider.instance);
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
   tearDown(() {
     dataStoreChannel.setMockMethodCallHandler(null);
   });
+
   test('Saving a model without predicate executes successfully', () async {
     dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == "save") {
         expect(
-            methodCall.arguments,
-            await getJsonFromFile(
-                'save_api/request/instance_without_predicate.json'));
+          methodCall.arguments,
+          await getJsonFromFile(
+              'save_api/request/instance_without_predicate.json'),
+        );
       }
     });
     Post post = Post(
@@ -53,9 +56,10 @@ void main() {
     dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == "save") {
         expect(
-            methodCall.arguments,
-            await getJsonFromFile(
-                'save_api/request/instance_with_predicate.json'));
+          methodCall.arguments,
+          await getJsonFromFile(
+              'save_api/request/instance_with_predicate.json'),
+        );
       }
     });
     Post post = Post(
