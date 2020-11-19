@@ -48,13 +48,13 @@ public struct FlutterModelField {
             return Bool.self
         }
         if type == "DateTime" {
-            return Temporal.DateTime.self
+            return String.self
         }
         if type == "Time" {
-            return Temporal.Time.self
+            return String.self
         }
         if type == "Date" {
-            return Temporal.Date.self
+            return String.self
         }
         // TODO: Serialize all fields when we do configure()
         //        if let enumType = type as? EnumPersistable.Type {

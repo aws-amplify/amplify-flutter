@@ -1,0 +1,20 @@
+{
+    "modelName": "Post",
+    "serializedModel": {
+        "id": "a7a22ef5-554c-48c5-bb79-d9cd6dd0ee83",
+        "title": "New Post with predicate",
+        "rating": 10,
+        "created": "2020-11-12T13:08:21+00:00",
+        "blog": null,
+        "comments": null
+    },
+    "queryPredicate": {
+        "queryPredicateOperation": {
+            "field": "rating",
+            "fieldOperator": {
+                "operatorName": "equal",
+                "value": 5
+            }
+        }
+    }
+}
