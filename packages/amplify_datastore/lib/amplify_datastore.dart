@@ -66,6 +66,10 @@ class AmplifyDataStore extends DataStorePluginInterface {
   }
 
   @override
+  Future<void> save<T extends Model>(T model, {QueryPredicate when}) {
+    return _instance.save(model, when: when);
+  }
+
   Stream<SubscriptionEvent<T>> observe<T extends Model>(
       ModelType<T> modelType) {
     return _instance.observe(modelType);

@@ -15,6 +15,7 @@ dependencies:
     path: ../amplify_datastore_plugin_interface
   plugin_platform_interface: ^1.0.1
   date_time_format: ^1.1.0
+  uuid: ^2.2.2
 
 dev_dependencies:
   flutter_test:
