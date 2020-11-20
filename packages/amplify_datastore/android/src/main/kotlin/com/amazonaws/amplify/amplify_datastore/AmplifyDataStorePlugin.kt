@@ -87,7 +87,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         }
 
 
-        var modelSchemas: List<Map<String, Any>> = request["modelSchemas"].safeCastToList()!!
+        val modelSchemas: List<Map<String, Any>> = request["modelSchemas"].safeCastToList()!!
 
         val modelProvider = FlutterModelProvider.instance
         val flutterModelSchemaList =
@@ -110,8 +110,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
     @VisibleForTesting
     fun onQuery(flutterResult: Result, request: HashMap<String, Any>) {
-        var modelName: String
-        var queryOptions: QueryOptions
+        val modelName: String
+        val queryOptions: QueryOptions
         try {
             modelName = request["modelName"] as String
             queryOptions = QueryOptionsBuilder.fromSerializedMap(request)
@@ -131,7 +131,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 queryOptions,
                 {
                     try {
-                        var results: List<Map<String, Any>> =
+                        val results: List<Map<String, Any>> =
                                 it.asSequence().toList().map { model: Model? ->
                                     FlutterSerializedModel(model as SerializedModel).toMap()
                                 }
@@ -157,15 +157,11 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     @VisibleForTesting
     fun onDelete(flutterResult: Result, request: HashMap<String, Any>) {
         val modelName: String
-        val modelData:  Map<String, Any>
+        val serializedModelData:  Map<String, Any>
 
         try {
             modelName = request["modelName"] as String
-            modelData = deserializeNestedModels(request["serializedModel"].safeCastToMap()!!)
-        } catch (e: ClassCastException) {
-            prepareError(flutterResult, e,
-                    FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString())
-            return
+            serializedModelData = deserializeNestedModels(request["serializedModel"].safeCastToMap()!!)
         } catch (e: Exception) {
             prepareError(flutterResult, e,
                     FlutterDataStoreFailureMessage.AMPLIFY_DELETE_REQUEST_MALFORMED.toString())
@@ -176,7 +172,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         val schema = modelProvider.modelSchemas()[modelName];
 
         val instance = SerializedModel.builder()
-                .serializedData(modelData)
+                .serializedData(serializedModelData)
                 .modelSchema(schema)
                 .build()
 
@@ -205,10 +201,6 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         try {
             modelName = request["modelName"] as String
             serializedModelData = deserializeNestedModels(request["serializedModel"].safeCastToMap()!!)
-        } catch (e: ClassCastException) {
-            prepareError(flutterResult, e,
-                    FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString())
-            return
         } catch (e: Exception) {
             prepareError(flutterResult, e,
                     FlutterDataStoreFailureMessage.AMPLIFY_SAVE_REQUEST_MALFORMED.toString())
