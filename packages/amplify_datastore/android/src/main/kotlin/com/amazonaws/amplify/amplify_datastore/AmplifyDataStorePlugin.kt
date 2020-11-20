@@ -157,11 +157,11 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     @VisibleForTesting
     fun onDelete(flutterResult: Result, request: HashMap<String, Any>) {
         val modelName: String
-        val modelData:  HashMap<String, Any>
+        val modelData:  Map<String, Any>
 
         try {
             modelName = request["modelName"] as String
-            modelData = request["serializedModel"] as HashMap<String, Any>
+            modelData = deserializeNestedModels(request["serializedModel"].safeCastToMap()!!)
         } catch (e: ClassCastException) {
             prepareError(flutterResult, e,
                     FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString())
@@ -200,11 +200,11 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     @VisibleForTesting
     fun onSave(flutterResult: Result, request: HashMap<String, Any>) {
         val modelName: String
-        val serializedModelData:  HashMap<String, Any>
+        val serializedModelData:  Map<String, Any>
 
         try {
             modelName = request["modelName"] as String
-            serializedModelData = request["serializedModel"] as HashMap<String, Any>
+            serializedModelData = deserializeNestedModels(request["serializedModel"].safeCastToMap()!!)
         } catch (e: ClassCastException) {
             prepareError(flutterResult, e,
                     FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString())
@@ -240,7 +240,6 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         )
     }
 
-
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
     }
@@ -272,5 +271,19 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 "errorString" to error.toString()
         ))
         handler.post { flutterResult.error("AmplifyException", msg, errorMap) }
+    }
+
+    @VisibleForTesting
+    fun deserializeNestedModels(serializedModelData: Map<String, Any>): Map<String, Any> {
+        return serializedModelData.mapValues {
+            if(it.value is Map<*, *>) {
+                SerializedModel.builder()
+                        .serializedData(deserializeNestedModels(it.value as HashMap<String, Any>))
+                        .modelSchema(null)
+                        .build() as Any
+            }
+            else
+                it.value
+        }
     }
 }

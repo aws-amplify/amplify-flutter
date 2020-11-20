@@ -311,6 +311,32 @@ class AmplifyDataStorePluginTest {
         )
     }
 
+    @Test
+    fun test_nested_model_serialization() {
+        val nestedSerializedModelInput = mapOf<String, Any>(
+                "id" to "af9cfa64-1ea9-46d6-b9e2-8203179d5392",
+                "name" to "A brilliant Post",
+                "rating" to 5,
+                "blog" to mapOf<String, Any>(
+                        "name" to "Amazing Blog",
+                        "id" to "8cb7d5a5-435d-4632-a890-90ed0c6107f5"
+                ) as HashMap<String, Any>
+        ) as HashMap<String, Any>
+
+        val nestedSerializedModelOutput = mapOf(
+                "id" to "af9cfa64-1ea9-46d6-b9e2-8203179d5392",
+                "name" to "A brilliant Post",
+                "rating" to 5,
+                "blog" to SerializedModel.builder().serializedData(mapOf<String, Any>(
+                        "name" to "Amazing Blog",
+                        "id" to "8cb7d5a5-435d-4632-a890-90ed0c6107f5"
+                ) as HashMap<String, Any>).modelSchema(null).build()
+        )
+
+        assertEquals(nestedSerializedModelOutput,
+                     flutterPlugin.deserializeNestedModels(nestedSerializedModelInput))
+    }
+
     private fun setFinalStatic(field: Field, newValue: Any?) {
         field.isAccessible = true
         val modifiersField: Field = Field::class.java.getDeclaredField("modifiers")
