@@ -22,7 +22,7 @@ data class FlutterModelFieldType(val map: Map<String, Any>) {
 
     // Type of the field is the data type of the instance variables
     // of the Model class.
-    private val fieldType: String= map["fieldType"] as String
+    private val fieldType: String = map["fieldType"] as String
 
     // Name of the field is the name of the instance variable
     // of the Model class.
@@ -31,12 +31,13 @@ data class FlutterModelFieldType(val map: Map<String, Any>) {
     fun isEnum(): Boolean {
         return fieldType == "enumeration"
     }
+
     fun isModel(): Boolean {
         return fieldType == "model"
     }
 
     fun getTargetType(): String {
-        return when(fieldType){
+        return when (fieldType) {
             "string" -> "String"
             "int" -> "Integer"
             "double" -> "Double"
@@ -48,7 +49,8 @@ data class FlutterModelFieldType(val map: Map<String, Any>) {
             "enumeration" -> "String"
             "model" -> ofModelName!!
             "collection" -> ofModelName!!
-            else -> throw Exception("FlutterModelFieldType.getModelTargetType - invalid fieldType supplied: $fieldType")
+            else -> throw Exception(
+                    "FlutterModelFieldType.getModelTargetType - invalid fieldType supplied: $fieldType")
         }
     }
 
@@ -65,7 +67,8 @@ data class FlutterModelFieldType(val map: Map<String, Any>) {
             "enumeration" -> String::class.java
             "model" -> Model::class.java
             "collection" -> List::class.java
-            else -> throw Exception("FlutterModelFieldType.getJavaClass - invalid fieldType supplied: $fieldType")
+            else -> throw Exception(
+                    "FlutterModelFieldType.getJavaClass - invalid fieldType supplied: $fieldType")
         }
     }
 }

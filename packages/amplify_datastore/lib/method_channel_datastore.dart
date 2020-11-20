@@ -75,6 +75,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
     }
   }
 
+  @override
   Future<void> delete<T extends Model>(T model) async {
     try {
       await _channel.invokeMethod('delete', <String, dynamic>{
@@ -94,12 +95,13 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         'serializedModel': model.toJson(),
         'queryPredicate': when?.serializeAsMap(),
       };
-      await _channel.invokeMapMethod('save', methodChannelSaveInput);
+      await _channel.invokeMethod('save', methodChannelSaveInput);
     } on PlatformException catch (e) {
       throw _formatError(e);
     }
   }
 
+  @override
   Stream<SubscriptionEvent<T>> observe<T extends Model>(
       ModelType<T> modelType) {
     // Step #1. Open the event channel if it's not already open. Note

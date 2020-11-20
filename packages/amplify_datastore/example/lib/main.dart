@@ -171,10 +171,12 @@ class _MyAppState extends State<MyApp> {
   savePost() async {
     try {
       Post post = Post(
-          title: 'New Post being saved', rating: 15, created: DateTime.now());
-      await Amplify.DataStore.save(post);
-      Post newPost = post.copyWith(id: post.id, title: 'Updated Title');
-      await Amplify.DataStore.save(newPost, when: Post.RATING.eq(10));
+        title: 'Created Successfully',
+        rating: 15,
+      );
+      await Amplify.DataStore.save(post, when: Post.RATING.ge(10));
+      Post newPost = post.copyWith(id: post.id, title: 'Updated Successfully');
+      await Amplify.DataStore.save(newPost, when: Post.RATING.ge(10));
     } catch (e) {
       print(e);
     }
