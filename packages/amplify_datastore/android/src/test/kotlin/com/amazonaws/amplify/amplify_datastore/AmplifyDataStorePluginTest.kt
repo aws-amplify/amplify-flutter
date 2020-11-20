@@ -160,9 +160,9 @@ class AmplifyDataStorePluginTest {
     fun test_delete_success_result_no_predicates() {
 
         var modelData: HashMap<String, Any> = (readMapFromFile("delete_api",
-                "request/instance_no_predicate.json",
-                HashMap::class.java) as HashMap<String, Any>).get(
-                "model") as HashMap<String, Any>
+                                                               "request/instance_no_predicate.json",
+                                                               HashMap::class.java) as HashMap<String, Any>).get(
+                "serializedModel") as HashMap<String, Any>
 
         var instance = SerializedModel.builder()
                 .serializedData(modelData)
