@@ -13,14 +13,17 @@
  * permissions and limitations under the License.
  */
 
-package com.amazonaws.amplify.amplify_datastore.types
+package com.amazonaws.amplify.amplify_datastore.types.model
 
-enum class FlutterDataStoreFailureMessage {
-    ERROR_CASTING_INPUT_IN_PLATFORM_CODE,
-    AMPLIFY_REQUEST_MALFORMED,
-    AMPLIFY_DATASTORE_QUERY_FAILED,
-    AMPLIFY_DATASTORE_DELETE_FAILED,
-    AMPLIFY_DATASTORE_SAVE_FAILED,
-    AMPLIFY_DATASTORE_CLEAR_FAILED,
-    AMPLIFY_DATASTORE_OBSERVE_EVENT_FAILURE
+import com.amplifyframework.datastore.appsync.SerializedModel
+
+data class FlutterSubscriptionEvent(val serializedModel: SerializedModel, val eventType: String) {
+    private val serializedItem: Map<String, Any> =
+            FlutterSerializedModel(serializedModel = serializedModel).toMap()
+
+    fun toMap(): Map<String, Any> {
+        return mapOf(
+                "item" to serializedItem,
+                "eventType" to eventType)
+    }
 }

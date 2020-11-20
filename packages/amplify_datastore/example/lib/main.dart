@@ -52,6 +52,8 @@ class _MyAppState extends State<MyApp> {
   String _allPostsWithoutRating2Or5 = '';
   bool _isAmplifyConfigured = false;
 
+  String _streamingData = '';
+  Stream<SubscriptionEvent<Post>> stream = null;
   Amplify amplify = new Amplify();
 
   @override
@@ -86,6 +88,11 @@ class _MyAppState extends State<MyApp> {
     String firstPostFromResult = '';
     String allPostsWithoutRating2Or5 = '';
 
+    stream = Amplify.DataStore.observe(Post.classType);
+    stream.listen((event) {
+      print("Received Event: " + (event.item).toJson().toString());
+    });
+
     // get all comments
     (await Amplify.DataStore.query(Comment.classType)).forEach((element) {
       if (element != null) {
@@ -116,12 +123,6 @@ class _MyAppState extends State<MyApp> {
             where: Post.RATING.between(1, 4)))
         .forEach((element) {
       posts1To4Rating += encoder.convert(element.toJson()) + '\n';
-    });
-
-    (await Amplify.DataStore.query(Post.classType,
-            where: Post.CREATED.eq("2020-02-02T20:20:20-08:00")))
-        .forEach((element) {
-      postWithCreatedDate += encoder.convert(element.toJson()) + '\n';
     });
 
     (await Amplify.DataStore.query(Post.classType,
@@ -191,6 +192,14 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  clearStore() async {
+    try {
+      Amplify.DataStore.clear();
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -214,6 +223,13 @@ class _MyAppState extends State<MyApp> {
                 child: RaisedButton(
                   onPressed: _isAmplifyConfigured ? deletePost : null,
                   child: Text('Delete Post'),
+                ),
+              ),
+              Padding(padding: EdgeInsets.all(10.0)),
+              Center(
+                child: RaisedButton(
+                  onPressed: _isAmplifyConfigured ? clearStore : null,
+                  child: Text('Clear Store'),
                 ),
               ),
               Padding(padding: EdgeInsets.all(10.0)),

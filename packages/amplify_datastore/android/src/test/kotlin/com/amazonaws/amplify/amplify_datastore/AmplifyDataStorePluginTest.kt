@@ -15,22 +15,20 @@
 
 package com.amazonaws.amplify.amplify_datastore
 
-import com.amazonaws.amplify.amplify_datastore.*
 import com.amazonaws.amplify.amplify_datastore.types.FlutterDataStoreFailureMessage
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSerializedModel
 import com.amazonaws.amplify.amplify_datastore.types.query.QueryPredicateBuilder
-import com.amazonaws.amplify.amplify_datastore.util.safeCastToMap
+import com.amplifyframework.core.Action
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
+import com.amplifyframework.core.async.Cancelable
 import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.ModelSchema
 import com.amplifyframework.core.model.query.Page
 import com.amplifyframework.core.model.query.QueryOptions
 import com.amplifyframework.core.model.query.Where
-import com.amplifyframework.core.model.query.predicate.QueryField
 import com.amplifyframework.core.model.query.predicate.QueryField.field
 import com.amplifyframework.core.model.query.predicate.QueryPredicate
-import com.amplifyframework.core.model.query.predicate.QueryPredicateOperation
 import com.amplifyframework.core.model.query.predicate.QueryPredicateOperation.not
 import com.amplifyframework.core.model.query.predicate.QueryPredicates
 import com.amplifyframework.core.model.temporal.Temporal
@@ -40,17 +38,19 @@ import com.amplifyframework.datastore.DataStoreException
 import com.amplifyframework.datastore.DataStoreItemChange
 import com.amplifyframework.datastore.appsync.SerializedModel
 import io.flutter.plugin.common.MethodChannel
-import java.lang.reflect.Field
-import java.lang.reflect.Modifier
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers
-import org.mockito.ArgumentMatchers.*
+import org.mockito.ArgumentMatchers.any
+import org.mockito.ArgumentMatchers.anyString
+import org.mockito.ArgumentMatchers.matches
 import org.mockito.Mockito.*
 import org.mockito.invocation.InvocationOnMock
 import org.robolectric.RobolectricTestRunner
+import java.lang.reflect.Field
+import java.lang.reflect.Modifier
 
 @RunWith(RobolectricTestRunner::class)
 class AmplifyDataStorePluginTest {
@@ -61,6 +61,8 @@ class AmplifyDataStorePluginTest {
     private var mockDataStore = mock(DataStoreCategory::class.java)
     private var mockAmplifyDataStorePlugin = mock(AWSDataStorePlugin::class.java)
     private val mockResult: MethodChannel.Result = mock(MethodChannel.Result::class.java)
+    private val mockStreamHandler: DataStoreObserveEventStreamHandler =
+            mock(DataStoreObserveEventStreamHandler::class.java)
 
     @Before
     fun setup() {
@@ -70,52 +72,48 @@ class AmplifyDataStorePluginTest {
 
         modelSchema = flutterPlugin.modelProvider.modelSchemas()["Post"]!!
         amplifySuccessResults = mutableListOf<SerializedModel>(
-            SerializedModel.builder()
-                .serializedData(
-                    mapOf("id" to "4281dfba-96c8-4a38-9a8e-35c7e893ea47",
-                          "title" to "Title 1",
-                          "rating" to 4))
-                .modelSchema(modelSchema)
-                .build(),
-            SerializedModel.builder()
-                    .serializedData(
-                        mapOf("id" to "43036c6b-8044-4309-bddc-262b6c686026",
-                              "title" to "Title 2",
-                              "created" to Temporal.DateTime("2020-02-20T20:20:20-08:00")))
-                    .modelSchema(modelSchema)
-                    .build()
+                SerializedModel.builder()
+                        .serializedData(
+                                mapOf("id" to "4281dfba-96c8-4a38-9a8e-35c7e893ea47",
+                                      "title" to "Title 1",
+                                      "rating" to 4))
+                        .modelSchema(modelSchema)
+                        .build(),
+                SerializedModel.builder()
+                        .serializedData(
+                                mapOf("id" to "43036c6b-8044-4309-bddc-262b6c686026",
+                                      "title" to "Title 2",
+                                      "created" to Temporal.DateTime("2020-02-20T20:20:20-08:00")))
+                        .modelSchema(modelSchema)
+                        .build()
         )
         setFinalStatic(Amplify::class.java.getDeclaredField("DataStore"), mockDataStore)
         `when`(mockDataStore.getPlugin("awsDataStorePlugin")).thenReturn(mockAmplifyDataStorePlugin)
-
     }
 
     @Test
-    fun test_Query_Success_Result() {
+    fun test_query_success_result() {
         doAnswer { invocation: InvocationOnMock ->
             assertEquals("Post",invocation.arguments[0])
             assertEquals(Where.matchesAll(), invocation.arguments[1])
             (invocation.arguments[2] as Consumer<Iterator<Model>>).accept(
                     amplifySuccessResults.iterator())
             null
-        }.`when`(mockAmplifyDataStorePlugin).query(
-                anyString(),
-                any(QueryOptions::class.java),
-                ArgumentMatchers.any<
-                        Consumer<Iterator<Model>>>(),
-                ArgumentMatchers.any<Consumer<DataStoreException>>())
+        }.`when`(mockAmplifyDataStorePlugin).query(anyString(), any(QueryOptions::class.java),
+                                                   any<Consumer<Iterator<Model>>>(),
+                                                   any<Consumer<DataStoreException>>())
         flutterPlugin.onQuery(mockResult,
-                readMapFromFile("query_api",
-                        "request/only_model_name.json",
-                        HashMap::class.java) as HashMap<String, Any>)
+                              readMapFromFile("query_api",
+                                              "request/only_model_name.json",
+                                              HashMap::class.java) as HashMap<String, Any>)
         verify(mockResult, times(1)).success(
                 readMapFromFile("query_api",
-                        "response/2_results.json",
-                        List::class.java))
+                                "response/2_results.json",
+                                List::class.java))
     }
 
     @Test
-    fun test_Query_With_Predicates_Success_Zero_Result() {
+    fun test_query_with_predicates_success_zero_result() {
         val queryOptions = Where.matches(field("post.id").eq("123").or(field("rating").ge(4).and(not(
                 field("created").eq("2020-02-20T20:20:20-08:00")))))
                 .paginated(Page.startingAt(2).withLimit(8))
@@ -130,18 +128,17 @@ class AmplifyDataStorePluginTest {
         }.`when`(mockAmplifyDataStorePlugin).query(
                 anyString(),
                 any(QueryOptions::class.java),
-                ArgumentMatchers.any<
-                        Consumer<Iterator<Model>>>(),
-                ArgumentMatchers.any<Consumer<DataStoreException>>())
+                any<Consumer<Iterator<Model>>>(),
+                any<Consumer<DataStoreException>>())
         flutterPlugin.onQuery(mockResult,
-                readMapFromFile("query_api",
-                        "request/model_name_with_all_query_parameters.json",
-                        HashMap::class.java) as HashMap<String, Any>)
+                              readMapFromFile("query_api",
+                                              "request/model_name_with_all_query_parameters.json",
+                                              HashMap::class.java) as HashMap<String, Any>)
         verify(mockResult, times(1)).success(emptyList<FlutterSerializedModel>())
     }
 
     @Test
-    fun test_Query_Api_error() {
+    fun test_query_api_error() {
         val dataStoreException = DataStoreException("AmplifyException", DataStoreException.REPORT_BUG_TO_AWS_SUGGESTION)
 
         val testRequest: HashMap<String, Any> = (readMapFromFile("query_api",
@@ -157,9 +154,8 @@ class AmplifyDataStorePluginTest {
         }.`when`(mockAmplifyDataStorePlugin).query(
                 anyString(),
                 any(QueryOptions::class.java),
-                ArgumentMatchers.any<
-                        Consumer<Iterator<Model>>>(),
-                ArgumentMatchers.any<Consumer<DataStoreException>>())
+                any<Consumer<Iterator<Model>>>(),
+                any<Consumer<DataStoreException>>())
 
         flutterPlugin.onQuery(mockResult, testRequest)
 
@@ -176,7 +172,7 @@ class AmplifyDataStorePluginTest {
     }
 
     @Test
-    fun test_Query_Malformed_Request_Casting_Error() {
+    fun test_query_malformed_request_casting_error() {
         val testRequest: HashMap<String, Any> = HashMap()
 
         flutterPlugin.onQuery(mockResult, testRequest)
@@ -191,7 +187,7 @@ class AmplifyDataStorePluginTest {
     }
 
     @Test
-    fun test_Delete_Success_Result_No_Predicates() {
+    fun test_delete_success_result_no_predicates() {
         val testRequest: HashMap<String, Any> = (readMapFromFile("delete_api",
                 "request/instance_no_predicate.json",
                 HashMap::class.java) as HashMap<String, Any>)
@@ -217,9 +213,9 @@ class AmplifyDataStorePluginTest {
             null as Void?
         }.`when`(mockAmplifyDataStorePlugin).delete(
                 any<SerializedModel>(),
-                ArgumentMatchers.any<
+                any<
                         Consumer<DataStoreItemChange<SerializedModel>>>(),
-                ArgumentMatchers.any<Consumer<DataStoreException>>())
+                any<Consumer<DataStoreException>>())
 
         flutterPlugin.onDelete(mockResult, testRequest)
 
@@ -227,7 +223,7 @@ class AmplifyDataStorePluginTest {
     }
 
     @Test
-    fun test_Delete_Api_Error() {
+    fun test_delete_api_error() {
         val dataStoreException = DataStoreException("AmplifyException", DataStoreException.REPORT_BUG_TO_AWS_SUGGESTION)
 
         val testRequest: HashMap<String, Any> = (readMapFromFile("delete_api",
@@ -248,9 +244,9 @@ class AmplifyDataStorePluginTest {
                 null as Void?
         }.`when`(mockAmplifyDataStorePlugin).delete(
                 any<SerializedModel>(),
-                ArgumentMatchers.any<
+                any<
                         Consumer<DataStoreItemChange<SerializedModel>>>(),
-                ArgumentMatchers.any<Consumer<DataStoreException>>())
+                any<Consumer<DataStoreException>>())
 
         flutterPlugin.onDelete(mockResult, testRequest)
 
@@ -267,7 +263,7 @@ class AmplifyDataStorePluginTest {
     }
 
     @Test
-    fun test_Delete_Malformed_Request_Error() {
+    fun test_delete_malformed_request_error() {
         val testRequest: HashMap<String, Any> = HashMap()
 
         flutterPlugin.onDelete(mockResult, testRequest)
@@ -275,14 +271,14 @@ class AmplifyDataStorePluginTest {
         verifyNoInteractions(mockAmplifyDataStorePlugin)
         verify(mockResult, times(1)).error(
                 matches("AmplifyException"),
-                matches(FlutterDataStoreFailureMessage.AMPLIFY_DELETE_REQUEST_MALFORMED.toString()),
+                matches(FlutterDataStoreFailureMessage.AMPLIFY_REQUEST_MALFORMED.toString()),
                 //TODO: Improve MalformedRequestError handling to be more specific
                 any()
         )
     }
 
     @Test
-    fun test_Save_Success_Result_No_Predicates() {
+    fun test_save_success_result_no_predicates() {
         val testRequest: HashMap<String, Any> = (readMapFromFile("save_api",
                 "request/instance_without_predicate.json",
                 HashMap::class.java) as HashMap<String, Any>)
@@ -310,9 +306,9 @@ class AmplifyDataStorePluginTest {
         }.`when`(mockAmplifyDataStorePlugin).save(
                 any<SerializedModel>(),
                 any<QueryPredicate>(),
-                ArgumentMatchers.any<
+                any<
                         Consumer<DataStoreItemChange<SerializedModel>>>(),
-                ArgumentMatchers.any<Consumer<DataStoreException>>())
+                any<Consumer<DataStoreException>>())
 
         flutterPlugin.onSave(mockResult, testRequest)
 
@@ -320,7 +316,7 @@ class AmplifyDataStorePluginTest {
     }
 
     @Test
-    fun test_Save_Success_Result_With_Predicates() {
+    fun test_save_success_result_with_predicates() {
         val testRequest: HashMap<String, Any> = (readMapFromFile("save_api",
                 "request/instance_with_predicate.json",
                 HashMap::class.java) as HashMap<String, Any>)
@@ -351,9 +347,9 @@ class AmplifyDataStorePluginTest {
         }.`when`(mockAmplifyDataStorePlugin).save(
                 any<SerializedModel>(),
                 any<QueryPredicate>(),
-                ArgumentMatchers.any<
+                any<
                         Consumer<DataStoreItemChange<SerializedModel>>>(),
-                ArgumentMatchers.any<Consumer<DataStoreException>>())
+                any<Consumer<DataStoreException>>())
 
         flutterPlugin.onSave(mockResult, testRequest)
 
@@ -361,7 +357,7 @@ class AmplifyDataStorePluginTest {
     }
 
     @Test
-    fun test_Save_Api_Error() {
+    fun test_save_api_error() {
         val dataStoreException = DataStoreException("AmplifyException", DataStoreException.REPORT_BUG_TO_AWS_SUGGESTION)
 
         val testRequest: HashMap<String, Any> = (readMapFromFile("save_api",
@@ -384,9 +380,8 @@ class AmplifyDataStorePluginTest {
         }.`when`(mockAmplifyDataStorePlugin).save(
                 any<SerializedModel>(),
                 any<QueryPredicate>(),
-                ArgumentMatchers.any<
-                        Consumer<DataStoreItemChange<SerializedModel>>>(),
-                ArgumentMatchers.any<Consumer<DataStoreException>>())
+                any<Consumer<DataStoreItemChange<SerializedModel>>>(),
+                any<Consumer<DataStoreException>>())
 
         flutterPlugin.onSave(mockResult, testRequest)
 
@@ -403,7 +398,7 @@ class AmplifyDataStorePluginTest {
     }
 
     @Test
-    fun test_Save_Malformed_Request_Error() {
+    fun test_save_malformed_request_error() {
         val testRequest: HashMap<String, Any> = HashMap()
 
         flutterPlugin.onSave(mockResult, testRequest)
@@ -411,10 +406,114 @@ class AmplifyDataStorePluginTest {
         verifyNoInteractions(mockAmplifyDataStorePlugin)
         verify(mockResult, times(1)).error(
                 matches("AmplifyException"),
-                matches(FlutterDataStoreFailureMessage.AMPLIFY_SAVE_REQUEST_MALFORMED.toString()),
+                matches(FlutterDataStoreFailureMessage.AMPLIFY_REQUEST_MALFORMED.toString()),
                 //TODO: Improve MalformedRequestError handling to be more specific
                 any()
         )
+    }
+
+    @Test
+    fun test_observe_success_event() {
+
+        flutterPlugin = AmplifyDataStorePlugin(eventHandler = mockStreamHandler)
+        val eventData: HashMap<String, Any> = (readMapFromFile("observe_api",
+                                                               "post_type_success_event.json",
+                                                               HashMap::class.java) as HashMap<String, Any>)
+        val modelData = mapOf("id" to "43036c6b-8044-4309-bddc-262b6c686026",
+                              "title" to "Title 2",
+                              "created" to Temporal.DateTime("2020-02-20T20:20:20-08:00"))
+        val instance = SerializedModel.builder()
+                .serializedData(modelData)
+                .modelSchema(modelSchema)
+                .build()
+
+        val dataStoreItemChange = DataStoreItemChange.builder<SerializedModel>()
+                .item(instance)
+                .initiator(DataStoreItemChange.Initiator.LOCAL)
+                .itemClass(SerializedModel::class.java)
+                .type(DataStoreItemChange.Type.CREATE)
+                .build()
+
+        doAnswer { invocation: InvocationOnMock ->
+            (invocation.arguments[1] as Consumer<DataStoreItemChange<SerializedModel>>).accept(
+                    dataStoreItemChange)
+            null
+        }.`when`(mockAmplifyDataStorePlugin).observe(any<Consumer<Cancelable>>(),
+                                                     any<Consumer<DataStoreItemChange<out Model>>>(),
+                                                     any<Consumer<DataStoreException>>(),
+                                                     any<Action>())
+
+        flutterPlugin.onSetupObserve(mockResult)
+
+        verify(mockResult, times(1)).success(true)
+        verify(mockStreamHandler, times(1)).sendEvent(eventData)
+    }
+
+    @Test
+    fun test_observe_error_event() {
+
+        flutterPlugin = AmplifyDataStorePlugin(eventHandler = mockStreamHandler)
+        val dataStoreException = DataStoreException("AmplifyException",
+                                                    DataStoreException.REPORT_BUG_TO_AWS_SUGGESTION)
+        doAnswer { invocation: InvocationOnMock ->
+            (invocation.arguments[2] as Consumer<DataStoreException>).accept(
+                    dataStoreException)
+            null
+        }.`when`(mockAmplifyDataStorePlugin).observe(any<Consumer<Cancelable>>(),
+                                                     any<Consumer<DataStoreItemChange<out Model>>>(),
+                                                     any<Consumer<DataStoreException>>(),
+                                                     any<Action>())
+
+        flutterPlugin.onSetupObserve(mockResult)
+
+        verify(mockResult, times(1)).success(true)
+        verify(mockStreamHandler, times(1)).error(
+                "AmplifyException",
+                FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_OBSERVE_EVENT_FAILURE.toString(),
+                mapOf(
+                        "PLATFORM_EXCEPTIONS" to
+                                mapOf(
+                                        "platform" to "Android",
+                                        "localizedErrorMessage" to "AmplifyException",
+                                        "recoverySuggestion" to DataStoreException.REPORT_BUG_TO_AWS_SUGGESTION,
+                                        "errorString" to dataStoreException.toString()))
+        )
+    }
+
+    @Test
+    fun test_clear_success_result() {
+        doAnswer { invocation: InvocationOnMock ->
+            (invocation.arguments[0] as Action).call()
+            null as Void?
+        }.`when`(mockAmplifyDataStorePlugin).clear(any<Action>(), any<Consumer<DataStoreException>>())
+
+        flutterPlugin.onClear(mockResult)
+
+        verify(mockResult, times(1)).success(null)
+    }
+
+    @Test
+    fun test_clear_error() {
+        var dataStoreException = DataStoreException("AmplifyException", DataStoreException.REPORT_BUG_TO_AWS_SUGGESTION)
+
+        doAnswer { invocation: InvocationOnMock ->
+            (invocation.arguments[1] as Consumer<DataStoreException>).accept(
+                    dataStoreException)
+            null as Void?
+        }.`when`(mockAmplifyDataStorePlugin).clear(any<Action>(), any<Consumer<DataStoreException>>())
+
+        flutterPlugin.onClear(mockResult)
+
+        verify(mockResult, times(1)).error(
+                "AmplifyException",
+                FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_CLEAR_FAILED.toString(),
+                mapOf("PLATFORM_EXCEPTIONS" to
+                                mapOf(
+                                        "platform" to "Android",
+                                        "localizedErrorMessage" to "AmplifyException",
+                                        "recoverySuggestion" to DataStoreException.REPORT_BUG_TO_AWS_SUGGESTION,
+                                        "errorString" to dataStoreException.toString()))
+                )
     }
 
     @Test

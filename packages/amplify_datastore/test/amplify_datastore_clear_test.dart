@@ -17,9 +17,6 @@ import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import './test_models/Post.dart';
-import './utils/get_json_from_file.dart';
 import 'test_models/ModelProvider.dart';
 
 void main() {
@@ -31,24 +28,14 @@ void main() {
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  setUp(() {});
-
   tearDown(() {
     dataStoreChannel.setMockMethodCallHandler(null);
   });
 
-  test('delete with a valid model executes without an error ', () async {
-    var json =
-        await getJsonFromFile('delete_api/request/instance_no_predicate.json');
-    var model = json['serializedModel'];
+  test('Clear executes successfully', () async {
     dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {});
-    Post instance = Post(
-        title: model['title'],
-        rating: model['rating'],
-        created: DateTime.parse(model['created']),
-        id: model['id']);
-    Future<void> deleteFuture = dataStore.delete(instance);
-    expect(deleteFuture, completes);
+    Future<void> clearFuture = dataStore.clear();
+    expect(clearFuture, completes);
   });
 
   test(
@@ -57,14 +44,13 @@ void main() {
     dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       throw PlatformException(
           code: 'AMPLIFY_EXCEPTION',
-          message: 'AMPLIFY_DATASTORE_DELETE_FAILED',
+          message: 'AMPLIFY_DATASTORE_CLEAR_FAILED',
           details: {});
     });
     expect(
-        () => dataStore.delete(Post(
-            title: 'test title', id: '4281dfba-96c8-4a38-9a8e-35c7e893ea47')),
+        () => dataStore.clear(),
         throwsA(isA<DataStoreError>().having((error) => error.cause,
-            'error message', 'AMPLIFY_DATASTORE_DELETE_FAILED')));
+            'error message', 'AMPLIFY_DATASTORE_CLEAR_FAILED')));
   });
 
   test(
@@ -77,8 +63,7 @@ void main() {
           details: {});
     });
     expect(
-        () => dataStore.delete(Post(
-            title: 'test title', id: '4281dfba-96c8-4a38-9a8e-35c7e893ea47')),
+        () => dataStore.clear(),
         throwsA(isA<DataStoreError>().having(
           (error) => error.cause,
           'error message',

@@ -70,9 +70,13 @@ class AmplifyDataStore extends DataStorePluginInterface {
     return _instance.save(model, when: when);
   }
 
-  @override
   Stream<SubscriptionEvent<T>> observe<T extends Model>(
       ModelType<T> modelType) {
     return _instance.observe(modelType);
+  }
+
+  @override
+  Future<void> clear() async {
+    return _instance.clear();
   }
 }

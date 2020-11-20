@@ -13,19 +13,15 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import './utils/get_json_from_file.dart';
-
-import '../example/lib/codegen/Post.dart';
-import '../example/lib/codegen/Comment.dart';
-import '../example/lib/codegen/ModelProvider.dart';
+import 'test_models/Post.dart';
+import 'test_models/Comment.dart';
+import 'test_models/ModelProvider.dart';
 
 void main() {
   const MethodChannel dataStoreChannel =
@@ -127,14 +123,14 @@ void main() {
       if (methodCall.method == "query") {
         throw PlatformException(
             code: "AMPLIFY_EXCEPTION",
-            message: "AMPLIFY_QUERY_REQUEST_MALFORMED",
+            message: "AMPLIFY_REQUEST_MALFORMED",
             details: {});
       }
     });
     expect(
         () => dataStore.query(Post.classType),
         throwsA(isA<DataStoreError>().having((error) => error.cause,
-            "error message", "AMPLIFY_QUERY_REQUEST_MALFORMED")));
+            "error message", "AMPLIFY_REQUEST_MALFORMED")));
   });
 
   test('method channel throws an unknown PlatformException', () async {

@@ -18,7 +18,6 @@ import 'dart:collection';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:flutter/services.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:meta/meta.dart';
 
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/datastore');
 
@@ -43,7 +42,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   /// method is called.
   Future<void> configure({String configuration}) async {
     // First step to configure datastore is to setup an event channel for observe
-    //return _channel.invokeMethod('setupObserve', {});
+    return _channel.invokeMethod('setupObserve', {});
   }
 
   @override
@@ -79,10 +78,9 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   @override
   Future<void> delete<T extends Model>(T model) async {
     try {
-      var modelJson = model.toJson();
       await _channel.invokeMethod('delete', <String, dynamic>{
         'modelName': model.getInstanceType().modelName(),
-        'serializedModel': modelJson
+        'serializedModel': model.toJson(),
       });
     } on PlatformException catch (e) {
       throw _formatError(e);
@@ -126,6 +124,15 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         .map((event) => SubscriptionEvent.fromMap(event, modelType))
         .asBroadcastStream()
         .cast<SubscriptionEvent<T>>();
+  }
+
+  @override
+  Future<void> clear() async {
+    try {
+      await _channel.invokeMethod('clear');
+    } on PlatformException catch (e) {
+      throw _formatError(e);
+    }
   }
 
   String _getModelNameFromEvent(Map<dynamic, dynamic> serializedEvent) {

@@ -65,6 +65,10 @@ class DataStoreCategory {
         : throw (errorMsg);
   }
 
+  Future<void> clear() {
+    return plugins.length == 1 ? plugins[0].clear() : throw (errorMsg);
+  }
+
   Future<void> configure(String configuration) async {
     return plugins.forEach((plugin) {
       plugin.configure(configuration: configuration);

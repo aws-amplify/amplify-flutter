@@ -22,8 +22,8 @@ struct SerializedModel: Model, JSONValueHolder {
     public let id: String
     public let values: [String: JSONValue]
     
-    public init(id: String = UUID().uuidString, map: [String: JSONValue]) {
-        self.id = id
+    public init(id: String?, map: [String: JSONValue]) {
+        self.id = id ?? UUID().uuidString
         self.values = map
     }
     
