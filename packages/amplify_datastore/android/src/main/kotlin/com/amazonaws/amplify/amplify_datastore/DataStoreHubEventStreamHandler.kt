@@ -131,13 +131,18 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                     DataStoreChannelEventName.OUTBOX_MUTATION_ENQUEUED.toString() -> {
                         try {
                             var outboxMutationEnqueued = hubEvent.data as OutboxMutationEvent<*>
-                            var modelName = (outboxMutationEnqueued.element.model as SerializedModel).modelName as String
-                            var res = FlutterOutboxMutationEnqueuedEvent(
-                                    hubEvent.name,
-                                    modelName,
-                                    outboxMutationEnqueued.element
-                            )
-                            sendEvent(res.toValueMap())
+                            if (outboxMutationEnqueued.element.model is SerializedModel) {
+                                var modelName = (outboxMutationEnqueued.element.model as SerializedModel).modelName as String
+                                var res = FlutterOutboxMutationEnqueuedEvent(
+                                        hubEvent.name,
+                                        modelName,
+                                        outboxMutationEnqueued.element
+                                )
+                                sendEvent(res.toValueMap())
+                            } else {
+                                LOG.error("Element is not an instance of SerializedModel.")
+                                sendError(hubEvent.name)
+                            }
                         } catch (e: Exception) {
                             LOG.error("Failed to parse and send outboxMutationEnqueued event: ", e)
                             sendError(hubEvent.name)
@@ -147,13 +152,18 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                     DataStoreChannelEventName.OUTBOX_MUTATION_PROCESSED.toString() -> {
                         try {
                             var outboxMutationProcessed = hubEvent.data as OutboxMutationEvent<*>
-                            var modelName = (outboxMutationProcessed.element.model as SerializedModel).modelName as String
-                            var res = FlutterOutboxMutationProcessedEvent(
-                                    hubEvent.name,
-                                    modelName,
-                                    outboxMutationProcessed.element
-                            )
-                            sendEvent(res.toValueMap())
+                            if (outboxMutationProcessed.element.model is SerializedModel) {
+                                var modelName = (outboxMutationProcessed.element.model as SerializedModel).modelName as String
+                                var res = FlutterOutboxMutationProcessedEvent(
+                                        hubEvent.name,
+                                        modelName,
+                                        outboxMutationProcessed.element
+                                )
+                                sendEvent(res.toValueMap())
+                            } else {
+                                LOG.error("Element is not an instance of SerializedModel.")
+                                sendError(hubEvent.name)
+                            }
                         } catch (e: Exception) {
                             LOG.error("Failed to parse and send outboxMutationProcessed event: ", e)
                             sendError(hubEvent.name)
