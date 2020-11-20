@@ -72,6 +72,10 @@ abstract class DataStorePluginInterface extends PlatformInterface {
     throw UnimplementedError('delete() has not been implemented.');
   }
 
+  Future<void> save<T extends Model>(T model, {QueryPredicate when}) {
+    throw UnimplementedError('save() has not been implemented');
+  }
+
   Stream<SubscriptionEvent<T>> observe<T extends Model>(
       ModelType<T> modelType) {
     throw UnimplementedError('observe() has not been implemented.');
