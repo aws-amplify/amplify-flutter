@@ -17,6 +17,8 @@ package com.amazonaws.amplify.amplify_datastore
 
 import android.os.Handler
 import android.os.Looper
+import androidx.annotation.Nullable
+import androidx.annotation.VisibleForTesting
 import com.amazonaws.amplify.amplify_datastore.types.hub.*
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.datastore.DataStoreChannelEventName
@@ -30,96 +32,183 @@ import com.amplifyframework.hub.HubChannel
 import com.amplifyframework.hub.HubEvent
 import com.amplifyframework.hub.SubscriptionToken
 import io.flutter.plugin.common.EventChannel
+import java.util.concurrent.CountDownLatch
+
 
 class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
     private var eventSink: EventChannel.EventSink? = null
+    private val handler = Handler(Looper.getMainLooper())
     private lateinit var token: SubscriptionToken
     private val LOG = Amplify.Logging.forNamespace("amplify:flutter:datastore")
+    private var forwardHubResponse : (event: Map<String, Any>) -> Unit
 
+    constructor(){
+        forwardHubResponse = {event: Map<String, Any> -> handler.post {
+            eventSink?.success(event)
+        }}
+    }
+
+    constructor(latch: CountDownLatch) {
+        forwardHubResponse = { latch.countDown() }
+    }
 
     override fun onListen(argunents: Any?, sink: EventChannel.EventSink) {
         eventSink = sink
-        token = Amplify.Hub.subscribe(HubChannel.DATASTORE
+        token = getHubListener()
+    }
+
+     fun getHubListener(): SubscriptionToken {
+        return Amplify.Hub.subscribe(HubChannel.DATASTORE
         ) { hubEvent: HubEvent<*> ->
             try {
                 when (hubEvent.name) {
                     DataStoreChannelEventName.NETWORK_STATUS.toString() -> {
-                        var networkEvent = hubEvent.data as NetworkStatusEvent
-                        var res = FlutterNetworkStatus(hubEvent.name, networkEvent.active)
-                        sendEvent(res.toValueMap())
+                        try {
+                            var networkEvent = hubEvent.data as NetworkStatusEvent
+                            var res = FlutterNetworkStatusEvent(hubEvent.name, networkEvent.active)
+                            sendEvent(res.toValueMap())
+                        } catch (e: Exception) {
+                            LOG.error("Failed to parse and send networkStatus event: ", e)
+                            sendError(hubEvent.name)
+                        }
                     }
                     DataStoreChannelEventName.SUBSCRIPTIONS_ESTABLISHED.toString() -> {
-                        var res = FlutterSubscriptionsEstablished(hubEvent.name)
-                        sendEvent(res.toValueMap())
+                        try {
+                            var res = FlutterSubscriptionsEstablishedEvent(hubEvent.name)
+                            sendEvent(res.toValueMap())
+                        } catch (e: Exception) {
+                            LOG.error("Failed to parse and send subscriptionsEstablished event: ", e)
+                            sendError(hubEvent.name)
+                        }
                     }
                     DataStoreChannelEventName.SYNC_QUERIES_STARTED.toString() -> {
-                        var syncQueriesStartedEvent = hubEvent.data as SyncQueriesStartedEvent
-                        var res = FlutterSyncQueriesStarted(hubEvent.name, syncQueriesStartedEvent.models)
-                        sendEvent(res.toValueMap())
+                        try {
+                            var syncQueriesStartedEvent = hubEvent.data as SyncQueriesStartedEvent
+                            var res = FlutterSyncQueriesStartedEvent(hubEvent.name, syncQueriesStartedEvent.models)
+                            sendEvent(res.toValueMap())
+                        } catch (e: Exception) {
+                            LOG.error("Failed to parse and send syncQueriesStarted event: ", e)
+                            sendError(hubEvent.name)
+                        }
                     }
                     DataStoreChannelEventName.MODEL_SYNCED.toString() -> {
-                        var modelSyncedEvent = hubEvent.data as ModelSyncedEvent
-                        var res = FlutterModelSynced(
-                                hubEvent.name,
-                                modelSyncedEvent.model,
-                                modelSyncedEvent.isFullSync,
-                                modelSyncedEvent.isDeltaSync,
-                                modelSyncedEvent.added,
-                                modelSyncedEvent.updated,
-                                modelSyncedEvent.deleted
-                        )
-                        sendEvent(res.toValueMap())
+                        try {
+                            var modelSyncedEvent = hubEvent.data as ModelSyncedEvent
+                            var res = FlutterModelSyncedEvent(
+                                    hubEvent.name,
+                                    modelSyncedEvent.model,
+                                    modelSyncedEvent.isFullSync,
+                                    modelSyncedEvent.isDeltaSync,
+                                    modelSyncedEvent.added,
+                                    modelSyncedEvent.updated,
+                                    modelSyncedEvent.deleted
+                            )
+                            sendEvent(res.toValueMap())
+                        } catch (e: Exception) {
+                            LOG.error("Failed to parse and send modelSynced event: ", e)
+                            sendError(hubEvent.name)
+                        }
+
                     }
                     DataStoreChannelEventName.SYNC_QUERIES_READY.toString() -> {
-                        var res = FlutterSyncQueriesReady(hubEvent.name)
-                        sendEvent(res.toValueMap())
+                        try {
+                            var res = FlutterSyncQueriesReadyEvent(hubEvent.name)
+                            sendEvent(res.toValueMap())
+                        } catch (e: Exception) {
+                            LOG.error("Failed to parse and send syncQueriesReady event: ", e)
+                            sendError(hubEvent.name)
+                        }
                     }
                     DataStoreChannelEventName.READY.toString() -> {
-                        var res = FlutterReady(hubEvent.name)
-                        sendEvent(res.toValueMap())
+                        try {
+                            var res = FlutterReadyEvent(hubEvent.name)
+                            sendEvent(res.toValueMap())
+                        } catch (e: Exception) {
+                            LOG.error("Failed to parse and send ready event: ", e)
+                            sendError(hubEvent.name)
+                        }
                     }
                     DataStoreChannelEventName.OUTBOX_MUTATION_ENQUEUED.toString() -> {
-                        var outboxMutationEnqueued = hubEvent.data as OutboxMutationEvent<*>
-                        var modelName = (outboxMutationEnqueued.element.model as SerializedModel).modelName as String
-                        var res = FlutterOutboxMutationEnqueued(
-                                hubEvent.name,
-                                modelName,
-                                outboxMutationEnqueued.element
-                        )
-                        sendEvent(res.toValueMap())
+                        try {
+                            var outboxMutationEnqueued = hubEvent.data as OutboxMutationEvent<*>
+                            var modelName = (outboxMutationEnqueued.element.model as SerializedModel).modelName as String
+                            var res = FlutterOutboxMutationEnqueuedEvent(
+                                    hubEvent.name,
+                                    modelName,
+                                    outboxMutationEnqueued.element
+                            )
+                            sendEvent(res.toValueMap())
+                        } catch (e: Exception) {
+                            LOG.error("Failed to parse and send outboxMutationEnqueued event: ", e)
+                            sendError(hubEvent.name)
+                        }
+
                     }
                     DataStoreChannelEventName.OUTBOX_MUTATION_PROCESSED.toString() -> {
-                        var outboxMutationProcessed = hubEvent.data as OutboxMutationEvent<*>
-                        var modelName = (outboxMutationProcessed.element.model as SerializedModel).modelName as String
-                        var res = FlutterOutboxMutationProcessed(
-                                hubEvent.name,
-                                modelName,
-                                outboxMutationProcessed.element
-                        )
-                        sendEvent(res.toValueMap())
+                        try {
+                            var outboxMutationProcessed = hubEvent.data as OutboxMutationEvent<*>
+                            var modelName = (outboxMutationProcessed.element.model as SerializedModel).modelName as String
+                            var res = FlutterOutboxMutationProcessedEvent(
+                                    hubEvent.name,
+                                    modelName,
+                                    outboxMutationProcessed.element
+                            )
+                            sendEvent(res.toValueMap())
+                        } catch (e: Exception) {
+                            LOG.error("Failed to parse and send outboxMutationProcessed event: ", e)
+                            sendError(hubEvent.name)
+                        }
                     }
                     DataStoreChannelEventName.OUTBOX_STATUS.toString() -> {
-                        var outboxEvent = hubEvent.data as OutboxStatusEvent
-                        var res = FlutterOutboxStatus(hubEvent.name, outboxEvent.isEmpty)
-                        sendEvent(res.toValueMap())
+                        try {
+                            var outboxEvent = hubEvent.data as OutboxStatusEvent
+                            var res = FlutterOutboxStatusEvent(hubEvent.name, outboxEvent.isEmpty)
+                            sendEvent(res.toValueMap())
+                        } catch (e: Exception) {
+                            LOG.error("Failed to parse and send outboxStatus event: ", e)
+                            sendError(hubEvent.name)
+                        }
                     }
-                    else -> print("Unrecognized DataStore Event")
+                    else -> {
+                        LOG.error("Unrecognized DataStoreHubEvent")
+                        sendError(hubEvent.name)
+                    }
                 }
             } catch (e: Exception) {
                 LOG.error("Error parsing DataStore Hub event.")
             }
         }
-    }
+     }
 
-    private fun sendEvent(flutterEvent: Map<String, Any>) {
-        Handler(Looper.getMainLooper()).post {
-            eventSink?.success(flutterEvent)
-        }
+     fun sendEvent(flutterEvent: Map<String, Any>) {
+         forwardHubResponse(flutterEvent)
+     }
+
+    fun sendError(hubEvent: String?) {
+        val localizedMessage = "There was a problem parsing a DataStore Hub Event."
+        val details = createErrorMap(hubEvent)
+        handler.post {  eventSink?.error("AmplifyException", localizedMessage, details) }
     }
 
     override fun onCancel(p0: Any?) {
         eventSink = null
         Amplify.Hub.unsubscribe(token)
+    }
+
+    private fun createErrorMap(hubEvent: String?): Map<String, Any> {
+        val errorMap = HashMap<String, Any>()
+        val message: String
+        message = if (hubEvent == null) {
+            "DataStore Hub Event is an unrecognized type."
+        } else {
+            "There was a problem parsing the ${hubEvent} Hub Event."
+        }
+        errorMap.put("PLATFORM_EXCEPTIONS", mapOf(
+                "platform" to "Android",
+                "localizedErrorMessage" to message,
+                "recoverySuggestion" to "See logs for details."
+        ))
+        return errorMap
     }
 }
 

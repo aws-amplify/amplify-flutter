@@ -15,7 +15,7 @@
 
 package com.amazonaws.amplify.amplify_datastore.types.hub
 
-class FlutterModelSynced(
+class FlutterModelSyncedEvent(
         override val eventName: String,
         val model: String,
         val isFullSync: Boolean,

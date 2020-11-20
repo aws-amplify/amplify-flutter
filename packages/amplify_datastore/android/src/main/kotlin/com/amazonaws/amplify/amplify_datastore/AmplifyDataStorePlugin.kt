@@ -49,8 +49,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     private lateinit var observeCancelable: Cancelable
     private val dataStoreObserveEventStreamHandler: DataStoreObserveEventStreamHandler
 
-    private lateinit var hubEventChannel: EventChannel
-    private var dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler? = null
+    lateinit var hubEventChannel: EventChannel
+    private val dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler
 
     private val handler = Handler(Looper.getMainLooper())
     private val LOG = Amplify.Logging.forNamespace("amplify:flutter:datastore")
@@ -225,22 +225,22 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 .build()
 
         plugin.delete(
-                instance,
-                {
-                    LOG.info("Deleted item: " + it.item().toString())
+            instance,
+            {
+                LOG.info("Deleted item: " + it.item().toString())
+                handler.post { flutterResult.success(null) }
+            },
+            {
+                LOG.error("Delete operation failed.", it)
+                if (it is DataStoreException && it.localizedMessage == "Wanted to delete one row, but deleted 0 rows.") {
                     handler.post { flutterResult.success(null) }
-                },
-                {
-                    LOG.error("Delete operation failed.", it)
-                    if (it is DataStoreException && it.localizedMessage == "Wanted to delete one row, but deleted 0 rows.") {
-                        handler.post { flutterResult.success(null) }
-                    } else {
-                        postFlutterError(
-                                flutterResult,
-                                FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_DELETE_FAILED.toString(),
-                                createErrorMap(it))
-                    }
+                } else {
+                    postFlutterError(
+                            flutterResult,
+                            FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_DELETE_FAILED.toString(),
+                            createErrorMap(it))
                 }
+            }
         )
     }
 

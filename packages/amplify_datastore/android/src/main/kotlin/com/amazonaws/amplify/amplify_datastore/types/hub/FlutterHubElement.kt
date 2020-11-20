@@ -22,7 +22,7 @@ import com.amplifyframework.datastore.appsync.ModelWithMetadata
 import com.amplifyframework.datastore.appsync.SerializedModel
 import com.amplifyframework.datastore.syncengine.LastSyncMetadata
 
-class FlutterHubElement(
+data class FlutterHubElement(
         private val modelWithMetadata: ModelWithMetadata<*>
 ) {
     fun toValueMap(): Map<String, Any> {
