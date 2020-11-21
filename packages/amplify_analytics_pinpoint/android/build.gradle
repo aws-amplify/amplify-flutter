@@ -47,8 +47,8 @@ android {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation 'com.amplifyframework:aws-analytics-pinpoint:1.6.0'
-    implementation 'com.amplifyframework:aws-auth-cognito:1.6.0'
+    implementation 'com.amplifyframework:aws-analytics-pinpoint:1.6.2'
+    implementation 'com.amplifyframework:aws-auth-cognito:1.6.2'
 
     testImplementation 'junit:junit:4.13'
     testImplementation 'org.mockito:mockito-core:3.1.0'
