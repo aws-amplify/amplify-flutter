@@ -30,11 +30,15 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   /// plugins are needed to be added before that.
   Future<void> configureModelProvider(
       {ModelProviderInterface modelProvider}) async {
-    return _channel.invokeMethod('configureModelProvider', <String, dynamic>{
-      'modelSchemas':
-          modelProvider.modelSchemas.map((schema) => schema.toMap()).toList(),
-      'modelProviderVersion': modelProvider.version
-    });
+    try {
+      return _channel.invokeMethod('configureModelProvider', <String, dynamic>{
+        'modelSchemas':
+            modelProvider.modelSchemas.map((schema) => schema.toMap()).toList(),
+        'modelProviderVersion': modelProvider.version
+      });
+    } on PlatformException catch (e) {
+      throw _formatError(e);
+    }
   }
 
   /// This methods configure an event channel to carry datastore observe events. This
