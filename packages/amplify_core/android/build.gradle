@@ -1,5 +1,4 @@
 group 'com.amazonaws.amplify.amplify_core'
-group 'com.amazonaws.amplify.amplify_core'
 version '1.0-SNAPSHOT'
 
 buildscript {
