@@ -1,4 +1,5 @@
 group 'com.amazonaws.amplify.amplify_core'
+group 'com.amazonaws.amplify.amplify_core'
 version '1.0-SNAPSHOT'
 
 buildscript {
@@ -43,6 +44,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.amplifyframework:core:1.6.0'
+    implementation 'com.amplifyframework:core:1.6.2'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
