@@ -36,9 +36,9 @@ public class DataStoreBridge {
                               sort: sortInput,
                               paginate: paginationInput,
                               completion: completion)
-        
+
     }
-    
+
     func onSave<M: Model>(serializedModel: M,
                            modelSchema: ModelSchema,
                            when predicate: QueryPredicate? = nil,
@@ -47,10 +47,10 @@ public class DataStoreBridge {
                              modelSchema: modelSchema,
                              where: predicate,
                              completion: completion)
-        
+
     }
-    
-    func onDelete(serializedModel: SerializedModel,
+
+    func onDelete(serializedModel: FlutterSerializedModel,
                   modelSchema: ModelSchema,
                   completion: @escaping DataStoreCallback<Void>) throws {
         
@@ -62,7 +62,7 @@ public class DataStoreBridge {
     func onObserve() throws -> AnyPublisher<MutationEvent, DataStoreError> {
         return try getPlugin().publisher
     }
-    
+
     func onClear(completion: @escaping DataStoreCallback<Void>) throws {
         try getPlugin().clear(completion: completion)
     }

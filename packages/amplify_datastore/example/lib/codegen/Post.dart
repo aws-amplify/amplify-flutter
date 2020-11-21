@@ -15,7 +15,7 @@
 */
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/foundation.dart';
 import 'package:collection/collection.dart';
 
 import 'Blog.dart';
@@ -105,7 +105,8 @@ class Post extends Model {
     buffer.write("id=" + id + ", ");
     buffer.write("title=" + title + ", ");
     buffer.write("rating=" + rating.toString() + ", ");
-    buffer.write("created=" + formatDateToISO8601(created));
+    buffer
+        .write("created=" + created.toIso8601String()); // created.toString());
     buffer.write("blog=" + blog.toString());
     buffer.write("}");
 
