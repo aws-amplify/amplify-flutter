@@ -27,7 +27,7 @@ final public class FlutterModels: AmplifyModelRegistration {
     
     public func registerModels(registry: ModelRegistry.Type) {
         modelSchemas.forEach { entry in
-            ModelRegistry.register(modelType: SerializedModel.self,
+            ModelRegistry.register(modelType: FlutterSerializedModel.self,
                                    modelSchema: entry.value) { (jsonString, decoder) -> Model in
                 let resolvedDecoder: JSONDecoder
                 if let decoder = decoder {
@@ -42,7 +42,7 @@ final public class FlutterModels: AmplifyModelRegistration {
                 if case .array(let jsonArray) = jsonValue,
                    case .object(let jsonObj) = jsonArray[0],
                    case .string(let id) = jsonObj["id"] {
-                    let model = SerializedModel(id: id, map: jsonObj)
+                    let model = FlutterSerializedModel(id: id, map: jsonObj)
                     return model
                 }
                 throw DataStoreError.decodingError(

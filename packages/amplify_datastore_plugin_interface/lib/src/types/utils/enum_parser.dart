@@ -13,27 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import Flutter
-import Foundation
-import Amplify
+String enumToString(Object o) => o.toString().split('.').last;
 
-struct FlutterSubscriptionEvent {
-    let item: FlutterSerializedModel
-    let eventType: EventType
-    public init(item: FlutterSerializedModel, eventType: EventType) {
-        self.item = item
-        self.eventType = eventType
-    }
-
-    public func toJSON(modelSchema: ModelSchema) -> [String: Any] {
-        return [
-            "item": self.item.toMap(modelSchema: modelSchema),
-            "eventType": self.eventType.rawValue
-        ]
-    }}
-
-enum EventType: String {
-    case create
-    case update
-    case delete
-}
+T enumFromString<T>(String key, List<T> values) =>
+    values.firstWhere((v) => key == enumToString(v), orElse: () => null);

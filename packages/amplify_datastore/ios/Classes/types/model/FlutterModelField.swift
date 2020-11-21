@@ -20,20 +20,66 @@ import Amplify
 public struct FlutterModelField {
     
     public let name: String
-    public let type: ModelFieldType
+    public let type: FlutterModelFieldType
     public let isRequired: Bool
     public let isArray: Bool
-    public let attributes: [ModelFieldAttribute] = []
-    public let association: ModelAssociation? = nil
-    public let authRules: AuthRules = []
+    public let association: FlutterModelAssociation?
+    public let authRules: [FlutterAuthRule]?
     
-    init(serializedData: [String: Any]) {
-        self.name = serializedData["name"] as! String
-        self.type = ModelFieldType.from(type: FlutterModelField.deserializeFieldType(type: serializedData["type"] as! String))
-        self.isRequired = serializedData["isRequired"] as! Bool
-        self.isArray = serializedData["isArray"] as! Bool
+    init(serializedData: [String: Any]) throws {
+
+        guard let name = serializedData["name"] as? String
+        else {
+            throw ModelSchemaError.parse(
+                className: "FlutterModelField",
+                fieldName: "name",
+                desiredType: "String")
+        }
+        self.name = name
+
+        guard let inputTypeMap = serializedData["type"] as? [String: Any] else {
+            throw ModelSchemaError.parse(
+                className: "FlutterModelField",
+                fieldName: "type",
+                desiredType: "[String: Any]")
+        }
+        self.type = try FlutterModelFieldType(serializedData: inputTypeMap)
+
+        guard let isRequired = serializedData["isRequired"] as? Bool
+        else {
+            throw ModelSchemaError.parse(
+                className: "FlutterModelField",
+                fieldName: "isRequired",
+                desiredType: "Bool")
+        }
+        self.isRequired = isRequired
+
+        guard let isArray = serializedData["isArray"] as? Bool
+        else {
+            throw ModelSchemaError.parse(
+                className: "FlutterModelField",
+                fieldName: "isArray",
+                desiredType: "Bool")
+        }
+        self.isArray = isArray
+
+        if let inputAssociationMap = serializedData["association"] as? [String : Any]{
+            self.association = try FlutterModelAssociation(serializedData: inputAssociationMap)
+        }
+        else{
+            self.association = nil
+        }
+
+        if let inputAuthRulesMap = serializedData["authRules"] as? [[String:String]]{
+            self.authRules = try inputAuthRulesMap.map{
+                try FlutterAuthRule(serializedData: $0)
+            }
+        }
+        else{
+            self.authRules = nil
+        }
     }
-    
+
     static func deserializeFieldType(type: String) -> Any.Type {
         if type == "String" {
             return String.self
@@ -68,17 +114,36 @@ public struct FlutterModelField {
         //        }
         preconditionFailure("Could not create a ModelFieldType from \(String(describing: type)) MetaType")
     }
-    
-public func convertToNativeModelField() -> ModelField {
+
+    private func convertFlutterAuthRules(flutterAuthRules : [FlutterAuthRule]?) -> [AuthRule]?{
+
+        if let flutterAuthRules = flutterAuthRules{
+            var result: [AuthRule] = [AuthRule]();
+
+            for flutterAuthRule in flutterAuthRules {
+                result.append( flutterAuthRule.convertToNativeAuthRule() );
+            }
+
+            return result;
+        }
+        else{
+            return nil;
+        }
+    }
+
+    public func convertToNativeModelField() throws -> ModelField {
         return ModelField.init(
             name: name,
-            type: type,
+            type: try type.convertToNativeModelField(),
             isRequired: isRequired,
             isArray: isArray,
-            attributes: attributes,
-            association: association,
-            authRules: authRules)
+            association: association?.convertToNativeModelAssociation(),
+            authRules: authRules?.map{
+                $0.convertToNativeAuthRule()
+                } ?? [AuthRule]()
+        )
     }
+
 }
 
 typealias FlutterModelFields = [String: FlutterModelField]
