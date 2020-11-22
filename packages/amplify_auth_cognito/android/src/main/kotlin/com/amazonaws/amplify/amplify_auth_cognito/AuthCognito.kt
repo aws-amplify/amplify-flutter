@@ -372,7 +372,17 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
                     }
                     AuthSessionResult.Type.FAILURE -> {
                       responsePending = false;
-                      prepareCognitoSessionFailure(flutterResult, cognitoAuthSession)
+                      // checking case where user pool data is available but id pool does not exist
+                      if (
+                            result.identityId.error is AuthException.InvalidAccountTypeException &&
+                            result.awsCredentials.error is AuthException.InvalidAccountTypeException &&
+                            result.userPoolTokens.type.toString() == "SUCCESS" &&
+                            result.userSub.type.toString() == "SUCCESS"
+                      ) {
+                        prepareCognitoSessionResult(flutterResult, cognitoAuthSession)
+                      } else {
+                        prepareCognitoSessionFailure(flutterResult, cognitoAuthSession)
+                      }
                     }
                   }
                 } else /*if (responsePending)*/ {

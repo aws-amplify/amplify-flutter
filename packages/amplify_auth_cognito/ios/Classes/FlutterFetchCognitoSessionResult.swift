@@ -15,12 +15,13 @@
 
 import Foundation
 import Amplify
+import AmplifyPlugins
 import AWSPluginsCore
 
 struct FlutterFetchCognitoSessionResult {
   var isSignedIn: Bool
-  var userSub: String
-  var identityId: String
+  var userSub: String?
+  var identityId: String?
   var credentials: [String: String]
   var userPoolTokens: [String: String]
     
@@ -29,10 +30,13 @@ struct FlutterFetchCognitoSessionResult {
     do {
         let session = try res.get()
         self.isSignedIn = session.isSignedIn
-        self.identityId = try getIdentityId(session: session)
         self.userSub = try getUserSub(session: session)
-        self.credentials = try getCredentials(session: session)
         self.userPoolTokens = try getTokens(session: session)
+        
+        self.identityId = try getIdentityId(session: session)
+        self.credentials = try getCredentials(session: session)
+    
+        
     } catch  {
         throw error as! AuthError
     }
@@ -52,59 +56,69 @@ struct FlutterFetchCognitoSessionResult {
     return result
   }}
 
-  func getUserSub(session: AuthSession) throws -> String {
-    var sub: String = ""
+  func getUserSub(session: AuthSession) throws -> String? {
+    let guest = isGuest(session: session)
+    var sub: String? = nil
     if let identityProvider = session as? AuthCognitoIdentityProvider {
       do {
         sub = try identityProvider.getUserSub().get()
       } catch {
         if (error is AuthError) {
-          switch error as! AuthError {
-            case .signedOut:
-              print("User is signed out")
-              return sub
-            default:
+            if case .signedOut = error as! AuthError {
+              // if guest access is possible, return nil userSub
+              if (guest) {
+                return nil
+              } else {
+                throw error as! AuthError
+              }
+            } else {
               throw error as! AuthError
-          }
+            }
         }
       }
     }
     return sub
   }
 
-  func getIdentityId(session: AuthSession) throws -> String {
-    var id: String = ""
+  func getIdentityId(session: AuthSession) throws -> String? {
+    let userPoolOnly = isUPOnly(session: session)
+    var id: String? = nil
+    if (userPoolOnly) {
+      return id
+    }
     if let identityProvider = session as? AuthCognitoIdentityProvider {
       do {
         id = try identityProvider.getIdentityId().get()
       } catch {
-         throw error as! AuthError
+        throw error as! AuthError
       }
     }
     return id
   }
 
-  func getCredentials(session: AuthSession) throws -> [String: String] {
+func getCredentials(session: AuthSession) throws -> [String: String] {
     var credentialMap: [String: String] = [:]
-
-    if let awsCredentialsProvider = session as? AuthAWSCredentialsProvider {
-      let creds =  try awsCredentialsProvider.getAWSCredentials().get()
-      credentialMap["awsAccessKey"] = creds.accessKey
-      credentialMap["awsSecretKey"] = creds.secretKey
-        do {
-            let tempCreds = try awsCredentialsProvider.getAWSCredentials().get() as? AuthAWSTemporaryCredentials
-            if ((tempCreds?.sessionKey) != nil) {
-                credentialMap["sessionToken"] = tempCreds?.sessionKey
-            }
-        } catch {
-            print("Unable to case session token.")
-        }
-        
-
+    let userPoolOnly = isUPOnly(session: session)
+    if (userPoolOnly) {
+        return credentialMap
     }
-    
-
-    
+    if let awsCredentialsProvider = session as? AuthAWSCredentialsProvider {
+      do {
+        let creds =  try awsCredentialsProvider.getAWSCredentials().get()
+        credentialMap["awsAccessKey"] = creds.accessKey
+        credentialMap["awsSecretKey"] = creds.secretKey
+      } catch {
+        throw error as! AuthError
+      }
+      do {
+        let tempCreds = try awsCredentialsProvider.getAWSCredentials().get() as? AuthAWSTemporaryCredentials
+          if ((tempCreds?.sessionKey) != nil) {
+            credentialMap["sessionToken"] = tempCreds?.sessionKey
+          }
+      } catch {
+        print("Unable to cast session token.")
+      }
+    }
     return credentialMap;
   }
 
@@ -122,5 +136,40 @@ struct FlutterFetchCognitoSessionResult {
         }
     }
     return tokenMap;
+  }
+
+  func isUPOnly(session: AuthSession) -> Bool {
+    var isUserPoolOnly = false;
+    do {
+      let identityProvider = session as! AuthCognitoIdentityProvider
+      try identityProvider.getIdentityId().get()
+    } catch {
+      if case .service(_, _, let errorType) = error as? AuthError {
+        if case .invalidAccountTypeException = errorType as? AWSCognitoAuthError {
+          isUserPoolOnly = true
+        }
+      }
+    }
+    return isUserPoolOnly
+  }
+
+  func isGuest(session: AuthSession) -> Bool {
+    var signedOut: Bool;
+    var credentialsExist: Bool
+    do {
+      let idp = session as! AuthCognitoIdentityProvider
+      try idp.getUserSub().get()
+      signedOut = false
+    } catch {
+      signedOut = true
+    }
+    do {
+      let credProvider = session as! AuthAWSCredentialsProvider
+      try credProvider.getAWSCredentials().get()
+      credentialsExist = true
+    } catch {
+      credentialsExist = false
+    }
+    return signedOut && credentialsExist
   }
   

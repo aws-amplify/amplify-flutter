@@ -24,12 +24,10 @@ class AWSCredentials {
   String sessionToken;
   AWSCredentials.init({@required LinkedHashMap<dynamic, dynamic> creds}) {
     if (creds != null) {
-      var realCreds;
+      var realCreds = {};
       if (Platform.isAndroid) {
         if (creds.containsKey("value")) {
           realCreds = creds["value"];
-        } else {
-          throw(AmplifyDartExceptions.formatException(methodName: "fetchAuthSession", field: "credentials"));
         }
       } else {
         realCreds = creds;

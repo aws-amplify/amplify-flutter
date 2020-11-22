@@ -26,7 +26,7 @@ var gson = Gson()
 
 data class FlutterFetchCognitoAuthSessionResult(private val raw: AWSCognitoAuthSession) {
   private val isSignedIn: Boolean = raw.isSignedIn
-  private val identityId: String? = raw.identityId.value as String
+  private val identityId: String? = raw.identityId.value as String?
   private val userSub: String? = raw.userSub.value as String?
   private val credentials: AuthSessionResult<AWSCredentials>? = raw.awsCredentials
   private val tokens: AuthSessionResult<AWSCognitoUserPoolTokens>? = raw.userPoolTokens
