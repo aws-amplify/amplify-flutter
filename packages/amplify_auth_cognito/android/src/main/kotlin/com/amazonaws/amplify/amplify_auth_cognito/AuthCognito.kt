@@ -358,20 +358,16 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
   private fun onFetchAuthSession (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
     // TODO: Implement forceRefresh when/if supported by Amplify libs
     var req = FlutterFetchAuthSessionRequest(request)
-    // responsePending used to account for double-call of Consumers
-    var responsePending: Boolean = true
     try {
       Amplify.Auth.fetchAuthSession(
               { result ->
-                if (req.getAWSCredentials /*&& responsePending*/) {
+                if (req.getAWSCredentials) {
                   val cognitoAuthSession = result as AWSCognitoAuthSession
                   when (cognitoAuthSession.identityId.type) {
                     AuthSessionResult.Type.SUCCESS -> {
-                      responsePending = false;
                       prepareCognitoSessionResult(flutterResult, cognitoAuthSession)
                     }
                     AuthSessionResult.Type.FAILURE -> {
-                      responsePending = false;
                       // checking case where user pool data is available but id pool does not exist
                       if (
                             result.identityId.error is AuthException.InvalidAccountTypeException &&
@@ -385,7 +381,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
                       }
                     }
                   }
-                } else /*if (responsePending)*/ {
+                } else {
                   val session = result as AuthSession;
                   prepareSessionResult(flutterResult, session)
                 }
