@@ -1,15 +1,17 @@
 package com.amazonaws.amplify.amplify_auth_cognito
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthFailureMessage
-import com.amplifyframework.auth.AuthException
-import com.amplifyframework.auth.AuthCategory
-import com.amplifyframework.auth.AuthUserAttribute
-import com.amplifyframework.auth.AuthUserAttributeKey
+import com.amazonaws.auth.AWSCredentials
+import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.regions.RegionUtils.init
+import com.amplifyframework.auth.*
 import com.amplifyframework.auth.options.AuthSignOutOptions
 import com.amplifyframework.auth.options.AuthSignUpOptions
 import com.amplifyframework.auth.result.AuthResetPasswordResult
 import com.amplifyframework.auth.result.AuthSignInResult
 import com.amplifyframework.auth.result.AuthSignUpResult
-import com.amplifyframework.auth.AuthCodeDeliveryDetails
+import com.amplifyframework.auth.cognito.AWSCognitoAuthSession
+import com.amplifyframework.auth.cognito.AWSCognitoUserPoolTokens
+import com.amplifyframework.auth.result.AuthSessionResult
 import com.amplifyframework.auth.result.step.*
 import com.amplifyframework.core.Action
 import com.amplifyframework.core.Amplify
@@ -313,6 +315,58 @@ class AmplifyAuthCognitoPluginTest {
 
         // Assert
         verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>())
+    }
+
+    @Test
+    fun fetchSession_returnsSuccess() {
+        val id: AuthSessionResult<String> = AuthSessionResult.success("id")
+        val awsCredentials: AuthSessionResult<AWSCredentials> = AuthSessionResult.success(BasicAWSCredentials("access", "secret"))
+        val userSub: AuthSessionResult<String> = AuthSessionResult.success("sub")
+        val tokens: AuthSessionResult<AWSCognitoUserPoolTokens> = AuthSessionResult.success(AWSCognitoUserPoolTokens("access", "id", "refresh"))
+        val mockSession = AWSCognitoAuthSession(
+        true,
+            id,
+            awsCredentials,
+            userSub,
+            tokens
+        )
+
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareCognitoSessionResult(mockResult, mockSession)
+            null as Void?
+        }.`when`(mockAuth).fetchAuthSession(ArgumentMatchers.any<Consumer<AuthSession>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+
+        val data: HashMap<*, *> = hashMapOf(
+                "getAWSCredentials" to true
+        )
+        val arguments: HashMap<String, Any> = hashMapOf("data" to data)
+        val call = MethodCall("fetchAuthSession", arguments)
+        val res = mapOf(
+            "isSignedIn" to true,
+            "identityId" to "id",
+            "userSub" to "sub",
+            "credentials" to mapOf(
+                "value" to mapOf(
+                    "accessKey" to "access",
+                    "secretKey" to "secret"
+                ),
+                "type" to "SUCCESS"
+            ),
+            "tokens" to mapOf(
+                "value" to mapOf(
+                    "accessToken" to "access",
+                    "idToken" to "id",
+                    "refreshToken" to "refresh"
+                ),
+                "type" to "SUCCESS"
+            )
+        )
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).success(res);
     }
 
     private fun setFinalStatic(field: Field, newValue: Any?) {
