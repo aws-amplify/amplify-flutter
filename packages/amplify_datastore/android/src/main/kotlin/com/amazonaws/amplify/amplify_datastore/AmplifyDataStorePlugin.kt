@@ -14,7 +14,6 @@
  */
 
 package com.amazonaws.amplify.amplify_datastore
-
 import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
@@ -45,7 +44,6 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import kotlin.collections.HashMap
 
-
 /** AmplifyDataStorePlugin */
 class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
@@ -54,27 +52,36 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     private lateinit var observeCancelable: Cancelable
     private val dataStoreObserveEventStreamHandler: DataStoreObserveEventStreamHandler
 
+    lateinit var hubEventChannel: EventChannel
+    private val dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler
+
     private val handler = Handler(Looper.getMainLooper())
     private val LOG = Amplify.Logging.forNamespace("amplify:flutter:datastore")
     val modelProvider = FlutterModelProvider.instance
 
     constructor() {
         dataStoreObserveEventStreamHandler = DataStoreObserveEventStreamHandler()
+        dataStoreHubEventStreamHandler = DataStoreHubEventStreamHandler()
     }
 
     @VisibleForTesting
-    constructor(eventHandler: DataStoreObserveEventStreamHandler) {
+    constructor(eventHandler: DataStoreObserveEventStreamHandler, hubEventHandler: DataStoreHubEventStreamHandler) {
         dataStoreObserveEventStreamHandler = eventHandler
+        dataStoreHubEventStreamHandler = hubEventHandler
     }
 
     override fun onAttachedToEngine(
             @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger,
-                                "com.amazonaws.amplify/datastore")
+                                    "com.amazonaws.amplify/datastore")
         channel.setMethodCallHandler(this)
         eventchannel = EventChannel(flutterPluginBinding.binaryMessenger,
                                     "com.amazonaws.amplify/datastore_observe_events")
         eventchannel.setStreamHandler(dataStoreObserveEventStreamHandler)
+        
+        hubEventChannel = EventChannel(flutterPluginBinding.binaryMessenger,
+                                    "com.amazonaws.amplify/datastore_hub_events")
+        hubEventChannel.setStreamHandler(dataStoreHubEventStreamHandler)
         LOG.info("Initiated DataStore plugin")
     }
 
@@ -112,7 +119,6 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                             FlutterDataStoreFailureMessage.AMPLIFY_REQUEST_MALFORMED.toString())))
             return
         }
-
 
         val modelSchemas: List<Map<String, Any>> = request["modelSchemas"].safeCastToList()!!
 
@@ -217,22 +223,22 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 .build()
 
         plugin.delete(
-                instance,
-                {
-                    LOG.info("Deleted item: " + it.item().toString())
+            instance,
+            {
+                LOG.info("Deleted item: " + it.item().toString())
+                handler.post { flutterResult.success(null) }
+            },
+            {
+                LOG.error("Delete operation failed.", it)
+                if (it is DataStoreException && it.localizedMessage == "Wanted to delete one row, but deleted 0 rows.") {
                     handler.post { flutterResult.success(null) }
-                },
-                {
-                    LOG.error("Delete operation failed.", it)
-                    if (it is DataStoreException && it.localizedMessage == "Wanted to delete one row, but deleted 0 rows.") {
-                        handler.post { flutterResult.success(null) }
-                    } else {
-                        postFlutterError(
-                                flutterResult,
-                                FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_DELETE_FAILED.toString(),
-                                createErrorMap(it))
-                    }
+                } else {
+                    postFlutterError(
+                            flutterResult,
+                            FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_DELETE_FAILED.toString(),
+                            createErrorMap(it))
                 }
+            }
         )
     }
 

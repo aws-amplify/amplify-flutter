@@ -13,15 +13,13 @@
  * permissions and limitations under the License.
  */
 
-package com.amazonaws.amplify.amplify_datastore.types
+package com.amazonaws.amplify.amplify_datastore.types.hub
 
-enum class FlutterDataStoreFailureMessage {
-    ERROR_CASTING_INPUT_IN_PLATFORM_CODE,
-    AMPLIFY_REQUEST_MALFORMED,
-    AMPLIFY_DATASTORE_QUERY_FAILED,
-    AMPLIFY_DATASTORE_DELETE_FAILED,
-    AMPLIFY_DATASTORE_SAVE_FAILED,
-    AMPLIFY_DATASTORE_CLEAR_FAILED,
-    AMPLIFY_DATASTORE_OBSERVE_EVENT_FAILURE,
-    AMPLIFY_DATASTORE_HUB_EVENT_FAILURE
+interface FlutterHubEvent {
+    val eventName: String
+    fun toValueMap(): Map<String, Any> {
+        return mapOf(
+                "eventName" to this.eventName
+        )
+    }
 }

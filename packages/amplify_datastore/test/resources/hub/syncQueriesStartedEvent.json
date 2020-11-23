@@ -1,0 +1,4 @@
+{
+    "eventName": "syncQueriesStarted",
+    "models": ["Post"]
+}

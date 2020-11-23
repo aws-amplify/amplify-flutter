@@ -1,0 +1,20 @@
+{
+    "eventName": "outboxMutationProcessed",
+    "modelName": "Post",
+    "element": {
+        "syncMetadata": {
+            "id": "43036c6b-8044-4309-bddc-262b6c686026",
+            "_lastChangedAt": null,
+            "_deleted": false,
+            "_version": 1
+        },
+        "model": {
+            "id": "43036c6b-8044-4309-bddc-262b6c686026",
+            "serializedData": {
+                "id": "43036c6b-8044-4309-bddc-262b6c686026",
+                "title": "Title 1",
+                "created": "2020-02-20T20:20:20-08:00"
+            }
+        }
+    }
+}
