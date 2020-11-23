@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+library sample_app;
+
 import 'dart:convert';
 
 import 'package:amplify_datastore_example/codegen/ModelProvider.dart';
@@ -22,16 +24,26 @@ import 'dart:async';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'amplifyconfiguration.dart';
 
 import 'codegen/Blog.dart';
 import 'codegen/Post.dart';
 import 'codegen/Comment.dart';
+
+part 'queries_display_widgets.dart';
+part 'save_model_widgets.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 JsonEncoder encoder = new JsonEncoder.withIndent('  ');
+final divider = VerticalDivider(
+  color: Colors.white,
+  width: 10,
+);
 
 class MyApp extends StatefulWidget {
   @override
@@ -39,20 +51,30 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _posts = '';
-  String _comments = '';
-  String _blogs = '';
-  String _posts4rating = '';
-  String _posts1To4Rating = '';
-  String _postWithCreatedDate = '';
-  String _posts2Or5Rating = '';
-  String _postWithIdNotEquals = '';
-  String _firstPostFromResult = '';
-  String _allPostsWithoutRating2Or5 = '';
+  List<Post> _posts = List();
+  List<Comment> _comments = List();
+  List<Blog> _blogs = List();
+  List<Post> _posts4rating = List();
+  List<Post> _posts1To4Rating = List();
+  List<Post> _postWithCreatedDate = List();
+  List<Post> _posts2Or5Rating = List();
+  List<Post> _postWithIdNotEquals = List();
+  List<Post> _firstPostFromResult = List();
+  List<Post> _allPostsWithoutRating2Or5 = List();
+  List<String> _streamingData = List();
   bool _isAmplifyConfigured = false;
+  String _queriesToView = "Post"; //default view
+  Blog _selectedBlogForNewPost;
+  Post _selectedPostForNewComment;
+  Stream<SubscriptionEvent<Post>> postStream;
 
-  String _streamingData = '';
-  Stream<SubscriptionEvent<Post>> stream = null;
+  final _titleController = TextEditingController();
+  final _ratingController = TextEditingController();
+  final _nameController = TextEditingController();
+  final _contentController = TextEditingController();
+  ScrollController _scrollController =
+      ScrollController(initialScrollOffset: 50.0);
+
   Amplify amplify = new Amplify();
 
   @override
@@ -69,6 +91,19 @@ class _MyAppState extends State<MyApp> {
     await amplify.addPlugin(dataStorePlugins: [datastorePlugin]);
     // Configure
     await amplify.configure(amplifyconfig);
+    postStream = Amplify.DataStore.observe(Post.classType);
+    postStream.listen((event) {
+      _streamingData.add('Post: ' +
+          event.item.title +
+          ', of type: ' +
+          event.eventType.toString());
+      runQueries();
+    }).onError((error) => print(error));
+
+    // Wait for 2 secs before any automated queries are run.
+    // This is an issue by android that requires to wait for Hub Ready Event before querying.
+    await Future.delayed(const Duration(milliseconds: 2000), () {});
+
     setState(() {
       _isAmplifyConfigured = true;
     });
@@ -76,83 +111,84 @@ class _MyAppState extends State<MyApp> {
   }
 
   void runQueries() async {
-    String allPosts = '';
-    String allComments = '';
-    String allBlogs = '';
-    String posts4Rating = '';
-    String posts1To4Rating = '';
-    String posts2Or5Rating = '';
-    String postWithCreatedDate = '';
-    String postWithIdNotEquals = '';
-    String firstPostFromResult = '';
-    String allPostsWithoutRating2Or5 = '';    
-
-    stream = Amplify.DataStore.observe(Post.classType);
-    stream.listen((event) {
-      print("Received Event: " + (event.item).toJson().toString());
-    });
+    List<Post> allPosts = List();
+    List<Comment> allComments = List();
+    List<Blog> allBlogs = List();
+    List<Post> posts4Rating = List();
+    List<Post> posts1To4Rating = List();
+    List<Post> posts2Or5Rating = List();
+    List<Post> postWithCreatedDate = List();
+    List<Post> postWithIdNotEquals = List();
+    List<Post> firstPostFromResult = List();
+    List<Post> allPostsWithoutRating2Or5 = List();
 
     // get all comments
     (await Amplify.DataStore.query(Comment.classType)).forEach((element) {
       if (element != null) {
-        allComments += encoder.convert(element.toJson());
+        allComments.add(element);
       }
     });
 
     // get all posts
     (await Amplify.DataStore.query(Post.classType)).forEach((element) {
       if (element != null) {
-        allPosts += encoder.convert(element.toJson());
+        allPosts.add(element);
       }
     });
 
     // get all blogs
     (await Amplify.DataStore.query(Blog.classType)).forEach((element) {
       if (element != null) {
-        allBlogs += encoder.convert(element.toJson());
+        allBlogs.add(element);
       }
     });
 
     (await Amplify.DataStore.query(Post.classType, where: Post.RATING.ge(4)))
         .forEach((element) {
-      posts4Rating += encoder.convert(element.toJson()) + '\n';
+      posts4Rating.add(element);
     });
 
     (await Amplify.DataStore.query(Post.classType,
             where: Post.RATING.between(1, 4)))
         .forEach((element) {
-      posts1To4Rating += encoder.convert(element.toJson()) + '\n';
+      posts1To4Rating.add(element);
     });
 
     (await Amplify.DataStore.query(Post.classType,
-            where: Post.ID.ne("e25859fc-e254-4e8b-8cae-62ccacce4097")))
+            where: Post.CREATED.eq("2020-02-02T20:20:20-08:00")))
         .forEach((element) {
-      postWithIdNotEquals += encoder.convert(element.toJson()) + '\n';
+      postWithCreatedDate.add(element);
+    });
+
+    (await Amplify.DataStore.query(Post.classType,
+            where: QueryField(fieldName: "post.id")
+                .ne("e25859fc-e254-4e8b-8cae-62ccacce4097")))
+        .forEach((element) {
+      postWithIdNotEquals.add(element);
     });
 
     (await Amplify.DataStore.query(Post.classType,
             where: Post.RATING.eq(2).or(Post.RATING.eq(5))))
         .forEach((element) {
-      posts2Or5Rating += encoder.convert(element.toJson()) + '\n';
+      posts2Or5Rating.add(element);
     });
 
     (await Amplify.DataStore.query(Post.classType,
             pagination: QueryPagination.firstResult()))
         .forEach((element) {
-      firstPostFromResult += encoder.convert(element.toJson());
+      firstPostFromResult.add(element);
     });
 
     (await Amplify.DataStore.query(Post.classType,
             where: not(Post.RATING.eq(5).or(Post.RATING.eq(2)))))
         .forEach((element) {
-      allPostsWithoutRating2Or5 += encoder.convert(element.toJson());
+      allPostsWithoutRating2Or5.add(element);
     });
 
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
     if (!mounted) return;
-
     setState(() {
       _posts = allPosts;
       _comments = allComments;
@@ -167,33 +203,62 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  savePost() async {
+  savePost(String title, int rating, Blog associatedBlog) async {
     try {
-      Post post = Post(
-        title: 'Created Successfully',
-        rating: 15,
+      Post post = Post(title: title, rating: rating, blog: associatedBlog);
+      await Amplify.DataStore.save(post);
+      runQueries();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  saveBlog(String name) async {
+    try {
+      Blog blog = Blog(
+        name: name,
       );
-      await Amplify.DataStore.save(post, when: Post.RATING.ge(10));
-      Post newPost = post.copyWith(id: post.id, title: 'Updated Successfully');
-      await Amplify.DataStore.save(newPost, when: Post.RATING.ge(10));
+      await Amplify.DataStore.save(blog);
+      runQueries();
     } catch (e) {
       print(e);
     }
   }
 
-  deletePost() async {
+  saveComment(String content, Post associatedPost) async {
     try {
-      await Amplify.DataStore.delete(
-          // replace 'id' for testing as needed
-          Post(id: 'f6c4be2d-9b1b-496e-b3bf-78035f0e6191', title: 'Title'));
+      Comment comment = Comment(content: content, post: associatedPost);
+      await Amplify.DataStore.save(comment);
+      runQueries();
     } catch (e) {
       print(e);
     }
   }
 
-  clearStore() async {
+  deletePost(String id) async {
     try {
-      Amplify.DataStore.clear();
+      _selectedPostForNewComment = null;
+      await Amplify.DataStore.delete(Post(id: id, title: null));
+      runQueries();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  deleteBlog(String id) async {
+    try {
+      _selectedBlogForNewPost = null;
+      await Amplify.DataStore.delete(Blog(id: id, name: null));
+      runQueries();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  deleteComment(String id) async {
+    try {
+      await Amplify.DataStore.delete(Comment(id: id, content: null));
+      runQueries();
     } catch (e) {
       print(e);
     }
@@ -201,50 +266,109 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    executeAfterBuild();
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Plugin example app'),
-        ),
-        body: Center(
-          child: ListView(
-            padding: EdgeInsets.all(5.0),
-            children: <Widget>[
-              Padding(padding: EdgeInsets.all(10.0)),
-              Center(
-                child: RaisedButton(
-                  onPressed: _isAmplifyConfigured ? savePost : null,
-                  child: Text('Save Post'),
-                ),
-              ),
-              Padding(padding: EdgeInsets.all(10.0)),
-              Center(
-                child: RaisedButton(
-                  onPressed: _isAmplifyConfigured ? deletePost : null,
-                  child: Text('Delete Post'),
-                ),
-              ),
-              Padding(padding: EdgeInsets.all(10.0)),
-              Center(
-                child: RaisedButton(
-                  onPressed: _isAmplifyConfigured ? clearStore : null,
-                  child: Text('Clear Store'),
-                ),
-              ),
-              Padding(padding: EdgeInsets.all(10.0)),
-              Center(
-                child: RaisedButton(
-                  onPressed: _isAmplifyConfigured ? runQueries : null,
-                  child: const Text('Query'),
-                ),
-              ),
-              Padding(padding: EdgeInsets.all(5.0)),
-              // replace with any or all query results as needed
-              Text('Posts >= 4 rating: \n$_posts4rating\n'),
-            ],
+          centerTitle: true,
+          title: Text(
+            'Best DataStore App Ever',
+            textAlign: TextAlign.center,
           ),
+          actions: <Widget>[
+            Padding(
+                padding: EdgeInsets.only(right: 20.0),
+                child: GestureDetector(
+                  onTap: () async {
+                    await Amplify.DataStore.clear();
+                    runQueries();
+                  },
+                  child: Icon(
+                    Icons.dangerous,
+                    semanticLabel: "Clear",
+                    size: 24.0,
+                  ),
+                )),
+          ],
+        ),
+        body: Column(
+          children: <Widget>[
+            Padding(padding: EdgeInsets.all(10.0)),
+
+            // Row for saving blog
+            addBlogWidget(_nameController, _isAmplifyConfigured, saveBlog),
+
+            // Row for saving post
+            addPostWidget(
+                _titleController,
+                _ratingController,
+                _isAmplifyConfigured,
+                _selectedBlogForNewPost,
+                _blogs,
+                savePost,
+                this),
+
+            // Row for saving comment
+            addCommentWidget(_contentController, _isAmplifyConfigured,
+                _selectedPostForNewComment, _posts, saveComment, this),
+
+            Padding(padding: EdgeInsets.all(10.0)),
+
+            // Row for query buttons
+            displayQueryButtons(_isAmplifyConfigured, this, runQueries),
+
+            Padding(padding: EdgeInsets.all(5.0)),
+
+            // Showing relevant queries
+            if (_queriesToView == "Post")
+              getWidgetToDisplayPost(_posts, deletePost, _blogs)
+            else if (_queriesToView == "Blog")
+              getWidgetToDisplayBlog(_blogs, deleteBlog)
+            else if (_queriesToView == "Comment")
+              getWidgetToDisplayComment(_comments, deleteComment, _posts),
+
+            Text("Post Events",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    fontSize: 14)),
+
+            Padding(padding: EdgeInsets.all(5.0)),
+
+            Expanded(
+                child: ListView.builder(
+                    controller: _scrollController,
+                    shrinkWrap: true,
+                    reverse: true,
+                    itemCount: _streamingData.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      executeAfterBuild();
+                      return Container(
+                        margin: EdgeInsets.fromLTRB(30, 0, 0, 0),
+                        child: Text(_streamingData[index]),
+                      );
+                    }))
+          ],
+          // replace with any or all query results as needed
         ),
       ),
     );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    WidgetsBinding.instance.addPostFrameCallback((_) => executeAfterBuild());
+  }
+
+  Future<void> executeAfterBuild() async {
+    // this code will get executed after the build method
+    // because of the way async functions are scheduled
+
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (_scrollController.hasClients)
+        _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+            duration: Duration(milliseconds: 200), curve: Curves.easeOut);
+    });
   }
 }
