@@ -92,6 +92,13 @@ class _MyAppState extends State<MyApp> {
     // Configure
     await amplify.configure(amplifyconfig);
     postStream = Amplify.DataStore.observe(Post.classType);
+    postStream.listen((event) {
+      _streamingData.add('Post: ' +
+          event.item.title +
+          ', of type: ' +
+          event.eventType.toString());
+      runQueries();
+    }).onError((error) => print(error));
 
     // Wait for 2 secs before any automated queries are run.
     // This is an issue by android that requires to wait for Hub Ready Event before querying.
@@ -329,31 +336,18 @@ class _MyAppState extends State<MyApp> {
             Padding(padding: EdgeInsets.all(5.0)),
 
             Expanded(
-              child: StreamBuilder(
-                initialData: "Unknown\n",
-                stream: postStream,
-                builder: (context, snapshot) {
-                  if (snapshot.data is SubscriptionEvent) {
-                    _streamingData.add('Post: ' +
-                        (snapshot.data.item as Post).title +
-                        ', of type: ' +
-                        snapshot.data.eventType.toString());
-                  }
-                  return ListView.builder(
-                      controller: _scrollController,
-                      shrinkWrap: true,
-                      reverse: true,
-                      itemCount: _streamingData.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        executeAfterBuild();
-                        return Container(
-                          margin: EdgeInsets.fromLTRB(30, 0, 0, 0),
-                          child: Text(_streamingData[index]),
-                        );
-                      });
-                },
-              ),
-            )
+                child: ListView.builder(
+                    controller: _scrollController,
+                    shrinkWrap: true,
+                    reverse: true,
+                    itemCount: _streamingData.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      executeAfterBuild();
+                      return Container(
+                        margin: EdgeInsets.fromLTRB(30, 0, 0, 0),
+                        child: Text(_streamingData[index]),
+                      );
+                    }))
           ],
           // replace with any or all query results as needed
         ),
