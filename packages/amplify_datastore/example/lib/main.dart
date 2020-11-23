@@ -22,7 +22,6 @@ import 'dart:async';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'amplifyconfiguration.dart';
 
 import 'codegen/Blog.dart';
 import 'codegen/Post.dart';
@@ -126,8 +125,7 @@ class _MyAppState extends State<MyApp> {
     });
 
     (await Amplify.DataStore.query(Post.classType,
-            where: QueryField(fieldName: "post.id")
-                .ne("e25859fc-e254-4e8b-8cae-62ccacce4097")))
+            where: Post.ID.ne("e25859fc-e254-4e8b-8cae-62ccacce4097")))
         .forEach((element) {
       postWithIdNotEquals += encoder.convert(element.toJson()) + '\n';
     });
@@ -154,6 +152,7 @@ class _MyAppState extends State<MyApp> {
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
     if (!mounted) return;
+
     setState(() {
       _posts = allPosts;
       _comments = allComments;
@@ -171,10 +170,12 @@ class _MyAppState extends State<MyApp> {
   savePost() async {
     try {
       Post post = Post(
-          title: 'New Post being saved', rating: 15, created: DateTime.now());
-      await Amplify.DataStore.save(post);
-      Post newPost = post.copyWith(id: post.id, title: 'Updated Title');
-      await Amplify.DataStore.save(newPost, when: Post.RATING.eq(10));
+        title: 'Created Successfully',
+        rating: 15,
+      );
+      await Amplify.DataStore.save(post, when: Post.RATING.ge(10));
+      Post newPost = post.copyWith(id: post.id, title: 'Updated Successfully');
+      await Amplify.DataStore.save(newPost, when: Post.RATING.ge(10));
     } catch (e) {
       print(e);
     }

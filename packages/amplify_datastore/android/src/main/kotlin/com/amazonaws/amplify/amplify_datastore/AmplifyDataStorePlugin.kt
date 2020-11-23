@@ -23,13 +23,16 @@ import com.amazonaws.amplify.amplify_datastore.types.model.FlutterModelSchema
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSerializedModel
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSubscriptionEvent
 import com.amazonaws.amplify.amplify_datastore.types.query.QueryOptionsBuilder
+import com.amazonaws.amplify.amplify_datastore.types.query.QueryPredicateBuilder
 import com.amazonaws.amplify.amplify_datastore.util.safeCastToList
 import com.amazonaws.amplify.amplify_datastore.util.safeCastToMap
 import com.amplifyframework.api.aws.AWSApiPlugin
 import com.amplifyframework.core.Amplify
+import com.amplifyframework.core.Consumer
 import com.amplifyframework.core.async.Cancelable
 import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.query.QueryOptions
+import com.amplifyframework.core.model.query.predicate.QueryPredicates
 import com.amplifyframework.datastore.AWSDataStorePlugin
 import com.amplifyframework.datastore.DataStoreException
 import com.amplifyframework.datastore.appsync.SerializedModel
@@ -97,6 +100,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         when (call.method) {
             "query" -> onQuery(result, data)
             "delete" -> onDelete(result, data)
+            "save" -> onSave(result, data)
             "clear" -> onClear(result)
             "setupObserve" -> onSetupObserve(result)
             "configureModelProvider" -> onConfigureModelProvider(result, data)
@@ -112,11 +116,11 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                     flutterResult,
                     FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString(),
                     createErrorMap(Exception(
-                            FlutterDataStoreFailureMessage.AMPLIFY_CONFIGURE_REQUEST_MALFORMED.toString())))
+                            FlutterDataStoreFailureMessage.AMPLIFY_REQUEST_MALFORMED.toString())))
             return
         }
 
-        var modelSchemas: List<Map<String, Any>> = request["modelSchemas"].safeCastToList()!!
+        val modelSchemas: List<Map<String, Any>> = request["modelSchemas"].safeCastToList()!!
 
         val modelProvider = FlutterModelProvider.instance
         val flutterModelSchemaList =
@@ -154,7 +158,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         } catch (e: Exception) {
             postFlutterError(
                     flutterResult,
-                    FlutterDataStoreFailureMessage.AMPLIFY_QUERY_REQUEST_MALFORMED.toString(),
+                    FlutterDataStoreFailureMessage.AMPLIFY_REQUEST_MALFORMED.toString(),
                     createErrorMap(e))
             return
         }
@@ -165,7 +169,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 queryOptions,
                 {
                     try {
-                        var results: List<Map<String, Any>> =
+                        val results: List<Map<String, Any>> =
                                 it.asSequence().toList().map { model: Model? ->
                                     FlutterSerializedModel(model as SerializedModel).toMap()
                                 }
@@ -180,7 +184,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                     } catch (e: Exception) {
                         postFlutterError(
                                 flutterResult,
-                                FlutterDataStoreFailureMessage.AMPLIFY_QUERY_REQUEST_MALFORMED.toString(),
+                                FlutterDataStoreFailureMessage.AMPLIFY_REQUEST_MALFORMED.toString(),
                                 createErrorMap(e))
                     }
                 },
@@ -196,22 +200,16 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
     @VisibleForTesting
     fun onDelete(flutterResult: Result, request: Map<String, Any>) {
-        var modelName: String
-        var modelData: Map<String, Any>
+        val modelName: String
+        val serializedModelData:  Map<String, Any>
 
         try {
             modelName = request["modelName"] as String
-            modelData = request["serializedModel"] as Map<String, Any>
-        } catch (e: ClassCastException) {
-            postFlutterError(
-                    flutterResult,
-                    FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString(),
-                    createErrorMap(e))
-            return
+            serializedModelData = deserializeNestedModels(request["serializedModel"].safeCastToMap()!!)
         } catch (e: Exception) {
             postFlutterError(
                     flutterResult,
-                    FlutterDataStoreFailureMessage.AMPLIFY_DELETE_REQUEST_MALFORMED.toString(),
+                    FlutterDataStoreFailureMessage.AMPLIFY_REQUEST_MALFORMED.toString(),
                     createErrorMap(e))
             return
         }
@@ -219,8 +217,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
         val schema = modelProvider.modelSchemas()[modelName];
 
-        var instance = SerializedModel.builder()
-                .serializedData(modelData)
+        val instance = SerializedModel.builder()
+                .serializedData(serializedModelData)
                 .modelSchema(schema)
                 .build()
 
@@ -245,6 +243,49 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     }
 
     @VisibleForTesting
+    fun onSave(flutterResult: Result, request: Map<String, Any>) {
+        val modelName: String
+        val serializedModelData:  Map<String, Any>
+
+        try {
+            modelName = request["modelName"] as String
+            serializedModelData = deserializeNestedModels(request["serializedModel"].safeCastToMap()!!)
+        } catch (e: Exception) {
+            postFlutterError(
+                    flutterResult,
+                    FlutterDataStoreFailureMessage.AMPLIFY_REQUEST_MALFORMED.toString(),
+                    createErrorMap(e))
+            return
+        }
+
+        val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
+        val schema = modelProvider.modelSchemas()[modelName];
+
+        val serializedModel = SerializedModel.builder()
+                .serializedData(serializedModelData)
+                .modelSchema(schema)
+                .build()
+
+        val predicate = QueryPredicateBuilder.fromSerializedMap(
+                request["queryPredicate"].safeCastToMap()) ?: QueryPredicates.all()
+
+        plugin.save(
+                serializedModel,
+                predicate,
+                Consumer{
+                    LOG.info("Saved item: " + it.item().toString())
+                    handler.post { flutterResult.success(null) }
+                },
+                Consumer {
+                    LOG.error("Save operation failed", it)
+                    postFlutterError(
+                            flutterResult,
+                            FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_SAVE_FAILED.toString(),
+                            createErrorMap(it))
+                }
+        )
+    }
+    
     fun onClear(flutterResult: Result) {
         val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
 
@@ -323,5 +364,19 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
     private fun postFlutterError(flutterResult: Result, msg: String, errorMap: Map<String, Any>) {
         handler.post { flutterResult.error("AmplifyException", msg, errorMap) }
+    }
+
+    @VisibleForTesting
+    fun deserializeNestedModels(serializedModelData: Map<String, Any>): Map<String, Any> {
+        return serializedModelData.mapValues {
+            if(it.value is Map<*, *>) {
+                SerializedModel.builder()
+                        .serializedData(deserializeNestedModels(it.value as HashMap<String, Any>))
+                        .modelSchema(null)
+                        .build() as Any
+            }
+            else
+                it.value
+        }
     }
 }

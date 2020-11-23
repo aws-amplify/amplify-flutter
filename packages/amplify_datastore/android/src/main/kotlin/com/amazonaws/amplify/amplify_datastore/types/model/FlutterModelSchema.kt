@@ -52,7 +52,6 @@ data class FlutterModelSchema(val map: Map<String, Any>) {
                 entry.value.convertToNativeModelAssociation()
             })
         }
-
         builder.modelClass(SerializedModel::class.java)
         return builder.build()
     }

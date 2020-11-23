@@ -13,15 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package com.amazonaws.amplify.amplify_datastore.types
+String enumToString(Object o) => o.toString().split('.').last;
 
-enum class FlutterDataStoreFailureMessage {
-    ERROR_CASTING_INPUT_IN_PLATFORM_CODE,
-    AMPLIFY_REQUEST_MALFORMED,
-    AMPLIFY_DATASTORE_QUERY_FAILED,
-    AMPLIFY_DATASTORE_DELETE_FAILED,
-    AMPLIFY_DATASTORE_SAVE_FAILED,
-    AMPLIFY_DATASTORE_CLEAR_FAILED,
-    AMPLIFY_DATASTORE_OBSERVE_EVENT_FAILURE,
-    AMPLIFY_DATASTORE_HUB_EVENT_FAILURE
-}
+T enumFromString<T>(String key, List<T> values) =>
+    values.firstWhere((v) => key == enumToString(v), orElse: () => null);

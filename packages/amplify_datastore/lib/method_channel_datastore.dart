@@ -30,11 +30,15 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   /// plugins are needed to be added before that.
   Future<void> configureModelProvider(
       {ModelProviderInterface modelProvider}) async {
-    return _channel.invokeMethod('configureModelProvider', <String, dynamic>{
-      'modelSchemas':
-          modelProvider.modelSchemas.map((schema) => schema.toMap()).toList(),
-      'modelProviderVersion': modelProvider.version
-    });
+    try {
+      return _channel.invokeMethod('configureModelProvider', <String, dynamic>{
+        'modelSchemas':
+            modelProvider.modelSchemas.map((schema) => schema.toMap()).toList(),
+        'modelProviderVersion': modelProvider.version
+      });
+    } on PlatformException catch (e) {
+      throw _formatError(e);
+    }
   }
 
   /// This methods configure an event channel to carry datastore observe events. This
@@ -75,6 +79,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
     }
   }
 
+  @override
   Future<void> delete<T extends Model>(T model) async {
     try {
       await _channel.invokeMethod('delete', <String, dynamic>{
@@ -94,12 +99,13 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         'serializedModel': model.toJson(),
         'queryPredicate': when?.serializeAsMap(),
       };
-      await _channel.invokeMapMethod('save', methodChannelSaveInput);
+      await _channel.invokeMethod('save', methodChannelSaveInput);
     } on PlatformException catch (e) {
       throw _formatError(e);
     }
   }
 
+  @override
   Stream<SubscriptionEvent<T>> observe<T extends Model>(
       ModelType<T> modelType) {
     // Step #1. Open the event channel if it's not already open. Note

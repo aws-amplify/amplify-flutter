@@ -18,16 +18,16 @@ import Foundation
 import Amplify
 
 struct FlutterSubscriptionEvent {
-    let item: SerializedModel
+    let item: FlutterSerializedModel
     let eventType: EventType
-    public init(item: SerializedModel, eventType: EventType) {
+    public init(item: FlutterSerializedModel, eventType: EventType) {
         self.item = item
         self.eventType = eventType
     }
 
     public func toJSON(modelSchema: ModelSchema) -> [String: Any] {
         return [
-            "item": self.item.toJSON(modelSchema: modelSchema),
+            "item": self.item.toMap(modelSchema: modelSchema),
             "eventType": self.eventType.rawValue
         ]
     }}
