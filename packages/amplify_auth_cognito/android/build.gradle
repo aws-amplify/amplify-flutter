@@ -51,7 +51,11 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+<<<<<<< HEAD
     implementation 'com.amplifyframework:aws-auth-cognito:1.+'
+=======
+    implementation 'com.amplifyframework:aws-auth-cognito:1.6.4'
+>>>>>>> Upgrade android to 1.6.4
     testImplementation 'junit:junit:4.13'
     testImplementation 'org.mockito:mockito-core:3.1.0'
     testImplementation 'org.mockito:mockito-inline:3.1.0'
