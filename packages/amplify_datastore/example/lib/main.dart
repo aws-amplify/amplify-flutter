@@ -40,7 +40,6 @@ void main() {
   runApp(MyApp());
 }
 
-JsonEncoder encoder = new JsonEncoder.withIndent('  ');
 final divider = VerticalDivider(
   color: Colors.white,
   width: 10,
@@ -105,7 +104,9 @@ class _MyAppState extends State<MyApp> {
     postStream = Amplify.DataStore.observe(Post.classType);
     postStream.listen((event) {
       _postStreamingData.add('Post: ' +
-          event.item.title +
+          (event.eventType.toString() == EventType.delete.toString()
+              ? event.item.id
+              : event.item.title) +
           ', of type: ' +
           event.eventType.toString());
       runQueries();
@@ -114,7 +115,9 @@ class _MyAppState extends State<MyApp> {
     blogStream = Amplify.DataStore.observe(Blog.classType);
     blogStream.listen((event) {
       _blogStreamingData.add('Blog: ' +
-          event.item.name +
+          (event.eventType.toString() == EventType.delete.toString()
+              ? event.item.id
+              : event.item.name) +
           ', of type: ' +
           event.eventType.toString());
       runQueries();
@@ -123,7 +126,9 @@ class _MyAppState extends State<MyApp> {
     commentStream = Amplify.DataStore.observe(Comment.classType);
     commentStream.listen((event) {
       _commentStreamingData.add('Comment: ' +
-          event.item.content +
+          (event.eventType.toString() == EventType.delete.toString()
+              ? event.item.id
+              : event.item.content) +
           ', of type: ' +
           event.eventType.toString());
       runQueries();
