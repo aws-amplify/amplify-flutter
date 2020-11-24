@@ -414,7 +414,7 @@ class AmplifyDataStorePluginTest {
 
     @Test
     fun test_observe_success_event() {
-        flutterPlugin = AmplifyDataStorePlugin(eventHandler = mockStreamHandler)
+        flutterPlugin = AmplifyDataStorePlugin(eventHandler = mockStreamHandler, hubEventHandler = mockHubHandler)
         val eventData: HashMap<String, Any> = (readMapFromFile("observe_api",
                                                                "post_type_success_event.json",
                                                                HashMap::class.java) as HashMap<String, Any>)
@@ -450,7 +450,7 @@ class AmplifyDataStorePluginTest {
 
     @Test
     fun test_observe_error_event() {
-        flutterPlugin = AmplifyDataStorePlugin(eventHandler = mockStreamHandler)
+        flutterPlugin = AmplifyDataStorePlugin(eventHandler = mockStreamHandler, hubEventHandler = mockHubHandler)
         val dataStoreException = DataStoreException("AmplifyException",
                                                     DataStoreException.REPORT_BUG_TO_AWS_SUGGESTION)
 
