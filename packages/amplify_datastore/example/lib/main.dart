@@ -135,6 +135,24 @@ class _MyAppState extends State<MyApp> {
       runQueries();
     }).onError((error) => print(error));
 
+    blogStream = Amplify.DataStore.observe(Blog.classType);
+    blogStream.listen((event) {
+      _blogStreamingData.add('Blog: ' +
+          event.item.name +
+          ', of type: ' +
+          event.eventType.toString());
+      runQueries();
+    }).onError((error) => print(error));
+
+    commentStream = Amplify.DataStore.observe(Comment.classType);
+    commentStream.listen((event) {
+      _commentStreamingData.add('Comment: ' +
+          event.item.content +
+          ', of type: ' +
+          event.eventType.toString());
+      runQueries();
+    }).onError((error) => print(error));
+
     // Wait for 2 secs before any automated queries are run.
     // This is an issue by android that requires to wait for Hub Ready Event before querying.
     await Future.delayed(const Duration(milliseconds: 2000), () {});
