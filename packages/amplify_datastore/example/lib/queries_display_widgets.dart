@@ -63,9 +63,7 @@ Widget displayQueryButtons(
 }
 
 Widget getWidgetToDisplayBlog(List<Blog> _blogsToView, Function deleteBlog) {
-  return Center(
-      child: Container(
-    height: 350,
+  return Expanded(
     child: ListView.builder(
         itemCount: _blogsToView.length,
         padding: const EdgeInsets.all(16.0),
@@ -74,14 +72,7 @@ Widget getWidgetToDisplayBlog(List<Blog> _blogsToView, Function deleteBlog) {
         itemBuilder: /*1*/ (context, i) {
           return ListTile(
             title: Text(
-              "Name: " +
-                  _blogsToView[i].name +
-                  " and posts: " +
-                  (_blogsToView[i].posts != null
-                      ? _blogsToView[i].posts.map((element) {
-                          return element.title;
-                        }).join(", ")
-                      : "null"),
+              "Name: " + _blogsToView[i].name,
               style: TextStyle(fontSize: 14.0),
             ),
             trailing: IconButton(
@@ -96,19 +87,17 @@ Widget getWidgetToDisplayBlog(List<Blog> _blogsToView, Function deleteBlog) {
             ),
           );
         }),
-  ));
+  );
 }
 
 Widget getWidgetToDisplayPost(
     List<Post> _postsToView, Function deletePost, List<Blog> allBlogs) {
-  return Center(
-      child: Container(
-    height: 350,
+  return Expanded(
     child: ListView.builder(
         itemCount: _postsToView.length,
         padding: const EdgeInsets.all(16.0),
         scrollDirection: Axis.vertical,
-        shrinkWrap: true,
+        // shrinkWrap: true,
         itemBuilder: /*1*/ (context, i) {
           return ListTile(
             title: Text(
@@ -134,14 +123,12 @@ Widget getWidgetToDisplayPost(
             ),
           );
         }),
-  ));
+  );
 }
 
 Widget getWidgetToDisplayComment(
     List<Comment> _commentsToView, Function deleteFn, List<Post> allPosts) {
-  return Center(
-      child: Container(
-    height: 350,
+  return Expanded(
     child: ListView.builder(
         itemCount: _commentsToView.length,
         padding: const EdgeInsets.all(16.0),
@@ -171,5 +158,5 @@ Widget getWidgetToDisplayComment(
             ),
           );
         }),
-  ));
+  );
 }

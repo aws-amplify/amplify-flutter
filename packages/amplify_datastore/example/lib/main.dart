@@ -34,6 +34,7 @@ import 'codegen/Comment.dart';
 
 part 'queries_display_widgets.dart';
 part 'save_model_widgets.dart';
+part 'event_display_widgets.dart';
 
 void main() {
   runApp(MyApp());
@@ -61,18 +62,26 @@ class _MyAppState extends State<MyApp> {
   List<Post> _postWithIdNotEquals = List();
   List<Post> _firstPostFromResult = List();
   List<Post> _allPostsWithoutRating2Or5 = List();
-  List<String> _streamingData = List();
+  List<String> _postStreamingData = List();
+  List<String> _blogStreamingData = List();
+  List<String> _commentStreamingData = List();
   bool _isAmplifyConfigured = false;
   String _queriesToView = "Post"; //default view
   Blog _selectedBlogForNewPost;
   Post _selectedPostForNewComment;
   Stream<SubscriptionEvent<Post>> postStream;
+  Stream<SubscriptionEvent<Blog>> blogStream;
+  Stream<SubscriptionEvent<Comment>> commentStream;
 
   final _titleController = TextEditingController();
   final _ratingController = TextEditingController();
   final _nameController = TextEditingController();
   final _contentController = TextEditingController();
-  ScrollController _scrollController =
+  ScrollController _postScrollController =
+      ScrollController(initialScrollOffset: 50.0);
+  ScrollController _blogScrollController =
+      ScrollController(initialScrollOffset: 50.0);
+  ScrollController _commentScrollController =
       ScrollController(initialScrollOffset: 50.0);
 
   Amplify amplify = new Amplify();
@@ -91,10 +100,30 @@ class _MyAppState extends State<MyApp> {
     await amplify.addPlugin(dataStorePlugins: [datastorePlugin]);
     // Configure
     await amplify.configure(amplifyconfig);
+
+    // setup streams
     postStream = Amplify.DataStore.observe(Post.classType);
     postStream.listen((event) {
-      _streamingData.add('Post: ' +
+      _postStreamingData.add('Post: ' +
           event.item.title +
+          ', of type: ' +
+          event.eventType.toString());
+      runQueries();
+    }).onError((error) => print(error));
+
+    blogStream = Amplify.DataStore.observe(Blog.classType);
+    blogStream.listen((event) {
+      _blogStreamingData.add('Blog: ' +
+          event.item.name +
+          ', of type: ' +
+          event.eventType.toString());
+      runQueries();
+    }).onError((error) => print(error));
+
+    commentStream = Amplify.DataStore.observe(Comment.classType);
+    commentStream.listen((event) {
+      _commentStreamingData.add('Comment: ' +
+          event.item.content +
           ', of type: ' +
           event.eventType.toString());
       runQueries();
@@ -327,27 +356,22 @@ class _MyAppState extends State<MyApp> {
             else if (_queriesToView == "Comment")
               getWidgetToDisplayComment(_comments, deleteComment, _posts),
 
-            Text("Post Events",
+            Text(_queriesToView + " Events",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                     fontSize: 14)),
 
             Padding(padding: EdgeInsets.all(5.0)),
-
-            Expanded(
-                child: ListView.builder(
-                    controller: _scrollController,
-                    shrinkWrap: true,
-                    reverse: true,
-                    itemCount: _streamingData.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      executeAfterBuild();
-                      return Container(
-                        margin: EdgeInsets.fromLTRB(30, 0, 0, 0),
-                        child: Text(_streamingData[index]),
-                      );
-                    }))
+            if (_queriesToView == "Post")
+              getWidgetToDisplayPostEvents(
+                  _postScrollController, _postStreamingData, executeAfterBuild)
+            else if (_queriesToView == "Blog")
+              getWidgetToDisplayBlogEvents(
+                  _blogScrollController, _blogStreamingData, executeAfterBuild)
+            else if (_queriesToView == "Comment")
+              getWidgetToDisplayCommentEvents(_commentScrollController,
+                  _commentStreamingData, executeAfterBuild),
           ],
           // replace with any or all query results as needed
         ),
@@ -366,9 +390,21 @@ class _MyAppState extends State<MyApp> {
     // because of the way async functions are scheduled
 
     Future.delayed(const Duration(milliseconds: 500), () {
-      if (_scrollController.hasClients)
-        _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-            duration: Duration(milliseconds: 200), curve: Curves.easeOut);
+      if (_postScrollController.hasClients)
+        _postScrollController.animateTo(
+            _postScrollController.position.maxScrollExtent,
+            duration: Duration(milliseconds: 200),
+            curve: Curves.easeOut);
+      if (_blogScrollController.hasClients)
+        _blogScrollController.animateTo(
+            _blogScrollController.position.maxScrollExtent,
+            duration: Duration(milliseconds: 200),
+            curve: Curves.easeOut);
+      if (_commentScrollController.hasClients)
+        _commentScrollController.animateTo(
+            _commentScrollController.position.maxScrollExtent,
+            duration: Duration(milliseconds: 200),
+            curve: Curves.easeOut);
     });
   }
 }
