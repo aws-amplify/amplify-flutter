@@ -149,7 +149,7 @@ Widget getWidgetToDisplayComment(
             trailing: IconButton(
               onPressed: () {
                 print("Deleting " + _commentsToView[i].content);
-                deleteFn(_commentsToView[i]);
+                deleteFn(_commentsToView[i].id);
               },
               icon: Icon(
                 Icons.delete_forever_sharp,
