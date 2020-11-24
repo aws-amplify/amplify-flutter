@@ -112,7 +112,7 @@ func getCredentials(session: AuthSession) throws -> [String: String] {
       }
       do {
         let tempCreds = try awsCredentialsProvider.getAWSCredentials().get() as? AuthAWSTemporaryCredentials
-          if ((tempCreds?.sessionKey) != nil) {
+          if (tempCreds?.sessionKey != nil) {
             credentialMap["sessionToken"] = tempCreds?.sessionKey
           }
       } catch {
@@ -138,6 +138,7 @@ func getCredentials(session: AuthSession) throws -> [String: String] {
     return tokenMap;
   }
 
+  // Checks if the auth configuration includes User Pools only, inferred from the identity result
   func isUPOnly(session: AuthSession) -> Bool {
     var isUserPoolOnly = false;
     do {
@@ -153,6 +154,7 @@ func getCredentials(session: AuthSession) throws -> [String: String] {
     return isUserPoolOnly
   }
 
+  // Checks if the user is a guest via Identity Pool unauthenticated access
   func isGuest(session: AuthSession) -> Bool {
     var signedOut: Bool;
     var credentialsExist: Bool

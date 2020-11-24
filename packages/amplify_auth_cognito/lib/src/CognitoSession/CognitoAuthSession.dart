@@ -39,7 +39,7 @@ class CognitoAuthSession extends AuthSession {
 
     if (sessionValues.containsKey("tokens")) {
       var tokenMap = sessionValues["tokens"] as Map;
-      if (!tokenMap.containsKey("error")) {
+      if (tokenMap != null) {
         this.userPoolTokens = AWSCognitoUserPoolTokens.init(tokens: sessionValues["tokens"]);
       }
     }

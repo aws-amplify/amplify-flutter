@@ -37,8 +37,23 @@ data class FlutterFetchCognitoAuthSessionResult(private val raw: AWSCognitoAuthS
       "identityId" to this.identityId,
       "userSub" to this.userSub,
       "credentials" to this.credentials.serializeToMap(),
-      "tokens" to this.tokens.serializeToMap()
+      "tokens" to serializeTokens(this.tokens)
     )
+  }
+
+  //parse userpool tokens
+  fun serializeTokens(res: AuthSessionResult<AWSCognitoUserPoolTokens>?): Map<String, Any>? {
+    var map = res.serializeToMap();
+    return if (map != null && map.containsKey("value")) {
+      var values = map["value"] as Map<String, Any>
+      if (!values.containsKey("error")) {
+        return values
+      } else {
+        return null
+      }
+    } else {
+      null
+    }
   }
 
   //convert a data class to a map
