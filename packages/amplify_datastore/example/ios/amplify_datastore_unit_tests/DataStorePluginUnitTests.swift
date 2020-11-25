@@ -17,6 +17,7 @@ import XCTest
 import Amplify
 import Combine
 @testable import AmplifyPlugins
+@testable import AWSPluginsCore
 @testable import amplify_datastore
 
 let testSchema: ModelSchema = ModelSchema.init(name: "Post")
@@ -552,6 +553,7 @@ class DataStorePluginUnitTests: XCTestCase {
         modelSyncedEventBuilder.isFullSync = true;
 
         let hubHandler = MockDataStoreHubHandler()
+        // passing the expectation we are awaiting into the enclosed class
         hubHandler.setExpectation(outerExpect: expect)
         hubHandler.registerModelsForHub(flutterModels: flutterModelSchemaRegistration)
         hubHandler.setToken()
@@ -559,7 +561,10 @@ class DataStorePluginUnitTests: XCTestCase {
         let modelSyncedEventPayload = HubPayload(eventName: HubPayload.EventName.DataStore.modelSynced,
                                                  data: modelSyncedEventBuilder.build())
         Amplify.Hub.dispatch(to: .dataStore, payload: modelSyncedEventPayload)
+        // expectation needed to ensure that assertions run on main thread
         waitForExpectations(timeout: 1.0)
+        // cancellation needed to make sure that Hub token is invalidated to
+        // prevent collisions between tests
         hubHandler.onCancel(withArguments: nil)
     }
     
@@ -709,7 +714,7 @@ class DataStorePluginUnitTests: XCTestCase {
         hubHandler.onCancel(withArguments: nil)
     }
     
-    func test_hub_outboxMutationEnqueued_success() throws {
+    func test_hub_outboxMutationProcessed_success() throws {
         let expect = expectation(description: "listener was invoked")
         class MockDataStoreHubHandler: DataStoreHubEventStreamHandler {
             var innerExpect: XCTestExpectation?
@@ -720,11 +725,11 @@ class DataStorePluginUnitTests: XCTestCase {
                 let element = flutterEvent["element"] as! [String : Any]
                 let model = element["model"] as! [String : Any]
                 let serializedData = model["serializedData"] as! [String : Any]
-                XCTAssertEqual(flutterEvent["eventName"] as! String, "DataStore.outboxMutationEnqueued")
+                XCTAssertEqual(flutterEvent["eventName"] as! String, "DataStore.outboxMutationProcessed")
                 XCTAssertEqual(flutterEvent["modelName"] as! String, "Post")
-                XCTAssertEqual(element["_lastChangedAt"] as? Int, nil)
-                XCTAssertEqual(element["_version"] as? Int, nil)
-                XCTAssertEqual(element["_deleted"] as? Bool, nil)
+                XCTAssertEqual(element["_lastChangedAt"] as? Int, 123)
+                XCTAssertEqual(element["_version"] as? Int, 1)
+                XCTAssertEqual(element["_deleted"] as? Bool, false)
                 XCTAssertEqual(model["modelName"] as! String, "Post")
                 XCTAssertEqual(model["modelName"] as! String, "Post")
                 XCTAssertEqual(serializedData["title"] as! String, "Title 1")
@@ -744,14 +749,27 @@ class DataStorePluginUnitTests: XCTestCase {
         ]
         
         let serializedModel = FlutterSerializedModel(id: uuid, map: try FlutterDataStoreRequestUtils.getJSONValue(modelMap))
-        let outboxMutationEnqueuedEvent = OutboxMutationEvent.fromModelWithoutMetadata(modelName: "Post", model: serializedModel)
+        
+        let syncMetadata = MutationSyncMetadata(id: uuid,
+                                                deleted: false,
+                                                lastChangedAt: 123,
+                                                version: 1)
+        
         let hubHandler = MockDataStoreHubHandler()
-        hubHandler.setExpectation(outerExpect: expect)
-        hubHandler.registerModelsForHub(flutterModels: flutterModelSchemaRegistration)
-        hubHandler.setToken()
-       
-        let outboxMutationEnqueuedPayload = HubPayload(eventName: HubPayload.EventName.DataStore.outboxMutationEnqueued, data: outboxMutationEnqueuedEvent)
-        Amplify.Hub.dispatch(to: .dataStore, payload: outboxMutationEnqueuedPayload)
+        
+        do {
+            var anyModel = try serializedModel.eraseToAnyModel()
+            let mutationSync = MutationSync(model: anyModel, syncMetadata: syncMetadata)
+            let outboxMutationProcessedEvent = OutboxMutationEvent.fromModelWithMetadata(modelName: "Post", model: serializedModel, mutationSync: mutationSync)
+            hubHandler.setExpectation(outerExpect: expect)
+            hubHandler.registerModelsForHub(flutterModels: flutterModelSchemaRegistration)
+            hubHandler.setToken()
+            let outboxMutationProcessedPayload = HubPayload(eventName: HubPayload.EventName.DataStore.outboxMutationProcessed, data: outboxMutationProcessedEvent)
+            Amplify.Hub.dispatch(to: .dataStore, payload: outboxMutationProcessedPayload)
+        } catch {
+            XCTFail()
+            expect.fulfill()
+        }
         waitForExpectations(timeout: 1.0)
         hubHandler.onCancel(withArguments: nil)
     }

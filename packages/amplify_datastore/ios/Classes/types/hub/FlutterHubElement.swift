@@ -33,6 +33,9 @@ public struct FlutterHubElement {
                   throw FlutterDataStoreError.hubEventCast
               }
         self.model = model.toMap(modelSchema: schema)
+        self.version = hubElement.version
+        self.lastChangedAt = hubElement.lastChangedAt
+        self.deleted = hubElement.deleted
     }
     
     func toValueMap() -> Dictionary<String, Any> {
