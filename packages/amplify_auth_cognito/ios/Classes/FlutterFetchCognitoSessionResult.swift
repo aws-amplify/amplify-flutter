@@ -116,7 +116,7 @@ func getCredentials(session: AuthSession) throws -> [String: String] {
             credentialMap["sessionToken"] = tempCreds?.sessionKey
           }
       } catch {
-        print("Unable to cast session token.")
+        throw error as! AuthError
       }
     }
     return credentialMap;

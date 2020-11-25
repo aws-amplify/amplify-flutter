@@ -36,7 +36,7 @@ data class FlutterFetchCognitoAuthSessionResult(private val raw: AWSCognitoAuthS
       "isSignedIn" to this.isSignedIn,
       "identityId" to this.identityId,
       "userSub" to this.userSub,
-      "credentials" to this.credentials.serializeToMap(),
+      "credentials" to serializeCredentials(this.credentials),
       "tokens" to serializeTokens(this.tokens)
     )
   }
@@ -46,10 +46,25 @@ data class FlutterFetchCognitoAuthSessionResult(private val raw: AWSCognitoAuthS
     var map = res.serializeToMap();
     return if (map != null && map.containsKey("value")) {
       var values = map["value"] as Map<String, Any>
-      if (!values.containsKey("error")) {
-        return values
+      return if (!values.containsKey("error")) {
+        values
       } else {
-        return null
+        null
+      }
+    } else {
+      null
+    }
+  }
+
+  //parse userpool tokens
+  fun serializeCredentials(res: AuthSessionResult<AWSCredentials>?): Map<String, Any>? {
+    var map = res.serializeToMap();
+    return if (map != null && map.containsKey("value")) {
+      var values = map["value"] as Map<String, Any>
+      return if (!values.containsKey("error")) {
+        values
+      } else {
+        null
       }
     } else {
       null

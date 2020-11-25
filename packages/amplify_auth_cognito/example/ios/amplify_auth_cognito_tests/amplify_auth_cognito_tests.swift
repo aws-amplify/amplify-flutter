@@ -1181,8 +1181,8 @@ class amplify_auth_cognito_tests: XCTestCase {
                 )
                 let sessionData = Result<AuthSession,AuthError>.success(authSession)
                 do {
-                  let fetchSessionData = try FlutterFetchCognitoSessionResult(res: sessionData)
-                  flutterResult(fetchSessionData)
+                    let fetchSessionData = try FlutterFetchCognitoSessionResult(res: sessionData)
+                    flutterResult(fetchSessionData)
                 } catch {
                     handleAuthError(error: error as! AuthError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.FETCH_SESSION.rawValue)
                 }
