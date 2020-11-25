@@ -43,6 +43,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.amplifyframework:core:1.6.2'
+    implementation 'com.amplifyframework:core:1.6.4'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
