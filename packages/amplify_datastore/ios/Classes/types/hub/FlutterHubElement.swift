@@ -41,10 +41,11 @@ public struct FlutterHubElement {
     func toValueMap() -> Dictionary<String, Any> {
         return [
             "model": self.model,
-            "_version": self.version as Any,
-            "_lastChangedAt": self.lastChangedAt as Any,
-            "_deleted": self.deleted as Any
-            
+            "syncMetadata": [
+                "_version": self.version as Any,
+                "_lastChangedAt": self.lastChangedAt as Any,
+                "_deleted": self.deleted as Any
+            ]
         ]
     }
     

@@ -19,3 +19,7 @@ protocol FlutterHubEvent {
     var eventName: String { get set }
     func toValueMap() -> Dictionary<String, Any>
 }
+
+func shortEventName(eventName: String) -> String {
+    return eventName.replacingOccurrences(of: "DataStore.", with: "")
+}

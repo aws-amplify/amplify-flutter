@@ -21,7 +21,7 @@ struct FlutterSyncQueriesReadyEvent: FlutterHubEvent {
     var eventName: String
     
     init(payload: HubPayload) throws {
-        self.eventName = payload.eventName
+        self.eventName = shortEventName(eventName: payload.eventName)
     }
     
     func toValueMap() -> Dictionary<String, Any> {

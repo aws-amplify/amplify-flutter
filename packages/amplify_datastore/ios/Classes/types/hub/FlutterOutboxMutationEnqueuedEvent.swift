@@ -25,9 +25,7 @@ struct FlutterOutboxMutationEnqueuedEvent: FlutterHubEvent {
     var element:  FlutterHubElement?
     
     init(outboxMutationEnqueued: OutboxMutationEvent, eventName: String, schema: ModelSchema) throws {
-
-
-        self.eventName = eventName
+        self.eventName = shortEventName(eventName: eventName)
         self.modelName = outboxMutationEnqueued.modelName
         do {
             self.element = try FlutterHubElement(hubElement: outboxMutationEnqueued.element, schema: schema)

@@ -25,9 +25,7 @@ struct FlutterOutboxMutationProcessedEvent: FlutterHubEvent {
     var element:  FlutterHubElement?
     
     init(outboxMutationProcessed: OutboxMutationEvent, eventName: String, schema: ModelSchema) throws {
-
-
-        self.eventName = eventName
+        self.eventName = shortEventName(eventName: eventName)
         self.modelName = outboxMutationProcessed.modelName
         do {
             self.element = try FlutterHubElement(hubElement: outboxMutationProcessed.element, schema: schema)

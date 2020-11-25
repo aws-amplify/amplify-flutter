@@ -25,7 +25,7 @@ struct FlutterSyncQueriesStartedEvent: FlutterHubEvent {
         guard let syncQueriesStarted = payload.data as? SyncQueriesStartedEvent else {
                   throw FlutterDataStoreError.hubEventCast
               }
-        self.eventName = payload.eventName
+        self.eventName = shortEventName(eventName: payload.eventName)
         self.models = syncQueriesStarted.models
     }
     

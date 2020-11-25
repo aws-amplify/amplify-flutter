@@ -30,7 +30,7 @@ struct FlutterModelSyncedEvent: FlutterHubEvent {
         guard let modelSynced = payload.data as? ModelSyncedEvent else {
                   throw FlutterDataStoreError.hubEventCast
               }
-        self.eventName = payload.eventName
+        self.eventName = shortEventName(eventName: payload.eventName)
         self.modelName = modelSynced.modelName
         self.isFullSync = modelSynced.isFullSync
         self.isDeltaSync = modelSynced.isDeltaSync

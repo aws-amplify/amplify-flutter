@@ -25,7 +25,7 @@ struct FlutterOutboxStatusEvent: FlutterHubEvent {
         guard let outboxStatus = payload.data as? OutboxStatusEvent else {
                   throw FlutterDataStoreError.hubEventCast
               }
-        self.eventName = payload.eventName
+        self.eventName = shortEventName(eventName: payload.eventName)
         self.isEmpty = outboxStatus.isEmpty
     }
     
