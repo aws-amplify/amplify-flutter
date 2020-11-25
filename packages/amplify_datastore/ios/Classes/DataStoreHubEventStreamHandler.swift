@@ -44,6 +44,13 @@ public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
                         } catch {
                             self.sendError(description: castingError, eventName: "networkStatus")
                         }
+                    case HubPayload.EventName.DataStore.outboxStatus :
+                        do {
+                            let networkStatus =  try FlutterOutboxStatusEvent (payload: payload)
+                            self.sendEvent(flutterEvent: networkStatus.toValueMap())
+                        } catch {
+                            self.sendError(description: castingError, eventName: "outboxStatus")
+                        }
                     case HubPayload.EventName.DataStore.subscriptionsEstablished :
                         do {
                             let subscriptionsEstablished =  try FlutterSubscriptionsEstablishedEvent(payload: payload)
@@ -94,7 +101,7 @@ public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
                         }
                     case HubPayload.EventName.DataStore.outboxMutationProcessed :
                         do {
-                            guard let outboxMutationProcessed = payload.data as? OutboxMutationEvent else {
+                             guard let outboxMutationProcessed = payload.data as? OutboxMutationEvent else {
                                       throw FlutterDataStoreError.hubEventCast
                                   }
                             let modelName = outboxMutationProcessed.modelName
