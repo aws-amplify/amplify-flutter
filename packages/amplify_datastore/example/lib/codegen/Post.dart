@@ -106,7 +106,7 @@ class Post extends Model {
     buffer.write("title=" + title + ", ");
     buffer.write("rating=" + rating.toString() + ", ");
     buffer
-        .write("created=" + created.toIso8601String()); // created.toString());
+        .write("created=" + created?.toIso8601String()); // created.toString());
     buffer.write("blog=" + blog.toString());
     buffer.write("}");
 
