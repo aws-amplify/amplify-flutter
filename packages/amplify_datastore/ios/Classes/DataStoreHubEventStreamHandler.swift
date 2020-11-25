@@ -29,6 +29,11 @@ public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
 
     public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
         self.eventSink = events
+        setToken()
+        return nil
+    }
+    
+    public func setToken() {
         let castingError = "Error Casting Payload Values"
         self.token = Amplify.Hub.listen(to: .dataStore) { (payload) in
                 switch payload.eventName {
@@ -48,7 +53,7 @@ public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
                         }
                     case HubPayload.EventName.DataStore.syncQueriesStarted :
                         do {
-                            let syncQueriesStarted =  try FlutterSubscriptionsEstablishedEvent(payload: payload)
+                            let syncQueriesStarted =  try FlutterSyncQueriesStartedEvent(payload: payload)
                             self.sendEvent(flutterEvent: syncQueriesStarted.toValueMap())
                         } catch {
                             self.sendError(description: castingError, eventName: "syncQueriesStarted")
@@ -104,7 +109,6 @@ public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
                         print("d")
                     }
                 }
-        return nil
     }
 
     func sendEvent(flutterEvent: [String : Any]) {
