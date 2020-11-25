@@ -25,7 +25,7 @@ struct FlutterNetworkStatusEvent: FlutterHubEvent {
         guard let networkStatus = payload.data as? NetworkStatusEvent else {
                   throw FlutterDataStoreError.hubEventCast
               }
-        self.eventName = payload.eventName
+        self.eventName = shortEventName(eventName: payload.eventName)
         self.active = networkStatus.active
     }
     
