@@ -96,7 +96,7 @@ class Blog extends Model {
             : null;
 
   Map<String, dynamic> toJson() =>
-      {'id': id, 'name': name, 'posts': posts.map((post) => post.toJson())};
+      {'id': id, 'name': name, 'posts': posts?.map((post) => post.toJson())};
 
   static final QueryField ID = QueryField(fieldName: "blog.id");
   static final QueryField NAME = QueryField(fieldName: "name");

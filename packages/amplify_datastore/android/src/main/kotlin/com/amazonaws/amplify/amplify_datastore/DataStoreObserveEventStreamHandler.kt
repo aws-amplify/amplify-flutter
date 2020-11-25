@@ -36,7 +36,7 @@ class DataStoreObserveEventStreamHandler : EventChannel.StreamHandler {
     }
 
     fun error(errorCode: String, localizedMessage: String?, details: Any?) {
-        eventSink?.error(errorCode, localizedMessage, details)
+        handler.post { eventSink?.error(errorCode, localizedMessage, details) }
     }
 
     override fun onCancel(p0: Any?) {

@@ -22,14 +22,14 @@ import 'PostAuthComplex.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "72c040baca4cf48a5330a4a2e02aa042";
+  String version = "92c040baca4cf48a5330a4a2e02aa042";
 
   @override
   List<ModelSchema> modelSchemas = [
     Blog.schema,
     Comment.schema,
     Post.schema,
-    PostAuthComplex.schema,
+    // PostAuthComplex.schema,
   ];
 
   static final ModelProvider _instance = ModelProvider();
