@@ -15,8 +15,31 @@
 
 import 'package:date_time_format/date_time_format.dart';
 
-String formatDateToISO8601(DateTime dateTime) {
+String formatToDateTimeISO8601(DateTime dateTime) {
   return dateTime == null
       ? null
       : DateTimeFormat.format(dateTime, format: DateTimeFormats.iso8601);
 }
+
+// yyyy-mm-dd
+String formatToDateISO8601(DateTime dateTime) {
+  return dateTime == null
+      ? null
+      : DateTimeFormat.format(dateTime, format: r'Y-m-d');
+}
+
+// hh:mm:ss:mmm
+String formatToTimeISO8601(DateTime dateTime) {
+  return dateTime == null
+      ? null
+      : DateTimeFormat.format(dateTime, format: r'H:i:s.v');
+}
+
+DateTime stringToDateTime(String input) {
+  return input == null ? null : DateTime.parse(input);
+}
+
+String enumToString(Object o) => o.toString().split('.').last;
+
+T enumFromString<T>(String key, List<T> values) =>
+    values.firstWhere((v) => key == enumToString(v), orElse: () => null);

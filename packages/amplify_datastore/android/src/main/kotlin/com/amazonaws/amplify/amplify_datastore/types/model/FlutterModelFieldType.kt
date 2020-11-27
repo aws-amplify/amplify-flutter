@@ -29,7 +29,8 @@ data class FlutterModelFieldType(val map: Map<String, Any>) {
     private val ofModelName: String? = map["ofModelName"] as String?
 
     fun isEnum(): Boolean {
-        return fieldType == "enumeration"
+        return false;
+        //return fieldType == "enumeration"
     }
 
     fun isModel(): Boolean {

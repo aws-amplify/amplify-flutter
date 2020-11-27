@@ -51,9 +51,10 @@ abstract class QueryFieldOperator {
     };
   }
 
+  // This will not work as a value of type DateTime can be Date/Time/DateTime
   dynamic serializeDynamicValue(dynamic value) {
     if (value is DateTime) {
-      return formatDateToISO8601(value);
+      return formatToDateTimeISO8601(value);
     }
     // TODO sanitize other types appropriately
     return value;

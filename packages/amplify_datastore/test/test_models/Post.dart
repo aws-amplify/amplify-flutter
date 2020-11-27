@@ -105,7 +105,7 @@ class Post extends Model {
     buffer.write("id=" + id + ", ");
     buffer.write("title=" + title + ", ");
     buffer.write("rating=" + rating.toString() + ", ");
-    buffer.write("created=" + formatDateToISO8601(created));
+    buffer.write("created=" + formatToDateTimeISO8601(created));
     buffer.write("blog=" + blog.toString());
     buffer.write("}");
 
@@ -149,7 +149,7 @@ class Post extends Model {
         'id': id,
         'title': title,
         'rating': rating,
-        'created': formatDateToISO8601(created),
+        'created': formatToDateTimeISO8601(created),
         'blog': blog?.toJson(),
         'comments': comments?.map((comment) => comment.toJson())
       };
