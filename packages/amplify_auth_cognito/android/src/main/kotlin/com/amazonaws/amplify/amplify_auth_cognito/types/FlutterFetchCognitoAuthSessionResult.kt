@@ -56,7 +56,7 @@ data class FlutterFetchCognitoAuthSessionResult(private val raw: AWSCognitoAuthS
     }
   }
 
-  //parse userpool tokens
+  //parse credentials
   fun serializeCredentials(res: AuthSessionResult<AWSCredentials>?): Map<String, Any>? {
     var map = res.serializeToMap();
     return if (map != null && map.containsKey("value")) {

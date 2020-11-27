@@ -24,17 +24,9 @@ class AWSCredentials {
   String sessionToken;
   AWSCredentials.init({@required LinkedHashMap<dynamic, dynamic> creds}) {
     if (creds != null) {
-      var realCreds = {};
-      if (Platform.isAndroid) {
-        if (creds.containsKey("value")) {
-          realCreds = creds["value"];
-        }
-      } else {
-        realCreds = creds;
-      }
-      this.awsAccessKey = realCreds.containsKey("awsAccessKey") ? realCreds["awsAccessKey"] : null;
-      this.awsSecretKey = realCreds.containsKey("awsSecretKey") ? realCreds["awsSecretKey"] : null;
-      this.sessionToken = realCreds.containsKey("sessionToken") ? realCreds["sessionToken"] : null;
+      this.awsAccessKey = creds.containsKey("awsAccessKey") ? creds["awsAccessKey"] : null;
+      this.awsSecretKey = creds.containsKey("awsSecretKey") ? creds["awsSecretKey"] : null;
+      this.sessionToken = creds.containsKey("sessionToken") ? creds["sessionToken"] : null;
     }
   }
 }

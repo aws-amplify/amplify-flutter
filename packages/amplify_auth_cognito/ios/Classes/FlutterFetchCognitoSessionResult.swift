@@ -81,7 +81,7 @@ struct FlutterFetchCognitoSessionResult {
   }
 
   func getIdentityId(session: AuthSession) throws -> String? {
-    let userPoolOnly = isUPOnly(session: session)
+    let userPoolOnly = signedInToUserPoolWithoutCIDP(session: session)
     var id: String? = nil
     if (userPoolOnly) {
       return id
@@ -98,7 +98,7 @@ struct FlutterFetchCognitoSessionResult {
 
 func getCredentials(session: AuthSession) throws -> [String: String] {
     var credentialMap: [String: String] = [:]
-    let userPoolOnly = isUPOnly(session: session)
+    let userPoolOnly = signedInToUserPoolWithoutCIDP(session: session)
     if (userPoolOnly) {
         return credentialMap
     }
@@ -138,40 +138,35 @@ func getCredentials(session: AuthSession) throws -> [String: String] {
     return tokenMap;
   }
 
-  // Checks if the auth configuration includes User Pools only, inferred from the identity result
-  func isUPOnly(session: AuthSession) -> Bool {
-    var isUserPoolOnly = false;
+  // Checks if the user is signed in to a user pool without a CIDP
+  func signedInToUserPoolWithoutCIDP(session: AuthSession) -> Bool {
+    var userpoolSignInOnly = false;
     do {
       let identityProvider = session as! AuthCognitoIdentityProvider
       try identityProvider.getIdentityId().get()
     } catch {
       if case .service(_, _, let errorType) = error as? AuthError {
         if case .invalidAccountTypeException = errorType as? AWSCognitoAuthError {
-          isUserPoolOnly = true
+            if (session.isSignedIn) {
+                userpoolSignInOnly = true
+            }
         }
       }
     }
-    return isUserPoolOnly
+    return userpoolSignInOnly
   }
 
   // Checks if the user is a guest via Identity Pool unauthenticated access
-  func isGuest(session: AuthSession) -> Bool {
-    var signedOut: Bool;
-    var credentialsExist: Bool
-    do {
-      let idp = session as! AuthCognitoIdentityProvider
-      try idp.getUserSub().get()
-      signedOut = false
-    } catch {
-      signedOut = true
+func isGuest(session: AuthSession) -> Bool {
+   // User could be signed in through CIDP or CUP.
+    guard !session.isSignedIn else {
+        return false
     }
-    do {
-      let credProvider = session as! AuthAWSCredentialsProvider
-      try credProvider.getAWSCredentials().get()
-      credentialsExist = true
-    } catch {
-      credentialsExist = false
+    
+   // If signedOut and contains aws credentials, then the user is in guest mode
+    if let credProvider = session as? AuthAWSCredentialsProvider {
+        return ((try? credProvider.getAWSCredentials().get()) != nil)
     }
-    return signedOut && credentialsExist
-  }
+    return false
+}
   
