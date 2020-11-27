@@ -29,12 +29,11 @@ public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
 
     public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
         self.eventSink = events
-        setToken()
+        setHubListener()
         return nil
     }
     
-    public func setToken() {
-        let castingError = "Error Casting Payload Values"
+    func setHubListener() {
         self.token = Amplify.Hub.listen(to: .dataStore) { (payload) in
                 switch payload.eventName {
                     case HubPayload.EventName.DataStore.networkStatus :
@@ -42,49 +41,49 @@ public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
                             let networkStatus =  try FlutterNetworkStatusEvent (payload: payload)
                             self.sendEvent(flutterEvent: networkStatus.toValueMap())
                         } catch {
-                            self.sendError(description: castingError, eventName: "networkStatus")
+                            self.sendError(hubEvent: shortEventName(eventName: payload.eventName))
                         }
                     case HubPayload.EventName.DataStore.outboxStatus :
                         do {
                             let networkStatus =  try FlutterOutboxStatusEvent (payload: payload)
                             self.sendEvent(flutterEvent: networkStatus.toValueMap())
                         } catch {
-                            self.sendError(description: castingError, eventName: "outboxStatus")
+                            self.sendError(hubEvent: shortEventName(eventName: payload.eventName))
                         }
                     case HubPayload.EventName.DataStore.subscriptionsEstablished :
                         do {
                             let subscriptionsEstablished =  try FlutterSubscriptionsEstablishedEvent(payload: payload)
                             self.sendEvent(flutterEvent: subscriptionsEstablished.toValueMap())
                         } catch {
-                            self.sendError(description: castingError, eventName: "subscriptionsEstablished")
+                            self.sendError(hubEvent: shortEventName(eventName: payload.eventName))
                         }
                     case HubPayload.EventName.DataStore.syncQueriesStarted :
                         do {
                             let syncQueriesStarted =  try FlutterSyncQueriesStartedEvent(payload: payload)
                             self.sendEvent(flutterEvent: syncQueriesStarted.toValueMap())
                         } catch {
-                            self.sendError(description: castingError, eventName: "syncQueriesStarted")
+                            self.sendError(hubEvent: shortEventName(eventName: payload.eventName))
                         }
                     case HubPayload.EventName.DataStore.modelSynced :
                         do {
                             let modelSynced =  try FlutterModelSyncedEvent(payload: payload)
                             self.sendEvent(flutterEvent: modelSynced.toValueMap())
                         } catch {
-                            self.sendError(description: castingError, eventName: "modelSynced")
+                            self.sendError(hubEvent: shortEventName(eventName: payload.eventName))
                         }
                     case HubPayload.EventName.DataStore.syncQueriesReady :
                         do {
                             let syncQueriesReady =  try FlutterSyncQueriesReadyEvent(payload: payload)
                             self.sendEvent(flutterEvent: syncQueriesReady.toValueMap())
                         } catch {
-                            self.sendError(description: castingError, eventName: "syncQueriesReady")
+                            self.sendError(hubEvent: shortEventName(eventName: payload.eventName))
                         }
                     case HubPayload.EventName.DataStore.ready :
                         do {
                             let ready =  try FlutterReadyEvent(payload: payload)
                             self.sendEvent(flutterEvent: ready.toValueMap())
                         } catch {
-                            self.sendError(description: castingError, eventName: "ready")
+                            self.sendError(hubEvent: shortEventName(eventName: payload.eventName))
                         }
                     case HubPayload.EventName.DataStore.outboxMutationEnqueued :
                         do {
@@ -92,12 +91,21 @@ public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
                                       throw FlutterDataStoreError.hubEventCast
                                   }
                             let modelName = outboxMutationEnqueued.modelName
-                            let schema = try FlutterDataStoreRequestUtils.getModelSchema(modelSchemas: self.flutterModelRegistration?.modelSchemas ?? [:], modelName: modelName)
 
-                            let flutterOutboxMutationEnqueued = try FlutterOutboxMutationEnqueuedEvent(outboxMutationEnqueued: outboxMutationEnqueued, eventName: payload.eventName, schema: schema)
+                            var schema: ModelSchema?
+                            do {
+                                schema = try self.getSchema(modelName: modelName)
+                            } catch {
+                                print("Error getting model schema for \(modelName ) model: \(error)")
+                            }
+                            
+                            let flutterOutboxMutationEnqueued = try FlutterOutboxMutationEnqueuedEvent(
+                                outboxMutationEnqueued: outboxMutationEnqueued,
+                                eventName: payload.eventName,
+                                schema: schema)
                             self.sendEvent(flutterEvent: flutterOutboxMutationEnqueued.toValueMap())
                         } catch {
-                            self.sendError(description: castingError, eventName: payload.eventName)
+                            self.sendError(hubEvent: shortEventName(eventName: payload.eventName))
                         }
                     case HubPayload.EventName.DataStore.outboxMutationProcessed :
                         do {
@@ -105,15 +113,23 @@ public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
                                       throw FlutterDataStoreError.hubEventCast
                                   }
                             let modelName = outboxMutationProcessed.modelName
-                            let schema = try FlutterDataStoreRequestUtils.getModelSchema(modelSchemas: self.flutterModelRegistration?.modelSchemas ?? [:], modelName: modelName)
-
-                            let flutterOutboxMutationProcessed = try FlutterOutboxMutationProcessedEvent(outboxMutationProcessed: outboxMutationProcessed, eventName: payload.eventName, schema: schema)
+                            var schema: ModelSchema?
+                            do {
+                                schema = try self.getSchema(modelName: modelName)
+                            } catch {
+                                print("Error getting model schema for \(modelName ) model: \(error)")
+                            }
+                            let flutterOutboxMutationProcessed = try FlutterOutboxMutationProcessedEvent(
+                                outboxMutationProcessed: outboxMutationProcessed,
+                                eventName: payload.eventName,
+                                schema: schema)
                             self.sendEvent(flutterEvent: flutterOutboxMutationProcessed.toValueMap())
                         } catch {
-                            self.sendError(description: castingError, eventName: payload.eventName)
+                            self.sendError(hubEvent: shortEventName(eventName: payload.eventName))
                         }
                     default:
-                        print("d")
+                        print("Unrecognized DataStoreHubEvent")
+                        self.sendError(hubEvent: payload.eventName)
                     }
                 }
     }
@@ -121,13 +137,37 @@ public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
     func sendEvent(flutterEvent: [String : Any]) {
         eventSink?(flutterEvent)
     }
+    
+    func getSchema(modelName: String) throws -> ModelSchema {
+        return try FlutterDataStoreRequestUtils.getModelSchema(
+            modelSchemas: self.flutterModelRegistration!.modelSchemas,
+            modelName: modelName)
+    }
 
-    func sendError(description: String, eventName: String) {
-        let errorMap: Dictionary<String, Any> = [
-            "eventName": eventName,
-            "error": description
+    func sendError(hubEvent: String) {
+        let localizedMessage = "There was a problem parsing a DataStore Hub Event."
+        let errorMap = createErrorMap(hubEvent: hubEvent)
+        eventSink?(FlutterError(
+            code: "AmplifyException",
+            message: localizedMessage,
+            details: errorMap
+        ))
+    }
+    
+    private func createErrorMap(hubEvent: String?) -> [String: Any] {
+        var errorMap: [String : Any] = [:]
+        var errorContent: [String : String] = [:]
+        var message: String
+        message = hubEvent == nil ?
+            "DataStore Hub Event is an unrecognized type." :
+            "There was a problem parsing the \(hubEvent ?? "unknown") Hub Event."
+        errorContent = [
+            "platform": "iOS",
+            "localizedErrorMessage": message,
+            "recoverySuggestion": "See logs for details."
         ]
-        eventSink?(errorMap)
+        errorMap["PLATFORM_EXCEPTIONS"] = errorContent
+        return errorMap
     }
 
     public func onCancel(withArguments arguments: Any?) -> FlutterError? {

@@ -17,4 +17,5 @@ import Foundation
 
 enum FlutterDataStoreError: Error {
     case hubEventCast
+    case acquireSchemaForHub
 }
