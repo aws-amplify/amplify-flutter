@@ -22,13 +22,17 @@ import Combine
 struct FlutterOutboxMutationProcessedEvent: FlutterHubEvent {
     var eventName: String
     var modelName: String
-    var element:  FlutterHubElement?
+    var element:  FlutterHubElement
     
-    init(outboxMutationProcessed: OutboxMutationEvent, eventName: String, schema: ModelSchema) throws {
+    init(outboxMutationProcessed: OutboxMutationEvent, eventName: String, schema: ModelSchema?) throws {
         self.eventName = shortEventName(eventName: eventName)
         self.modelName = outboxMutationProcessed.modelName
         do {
-            self.element = try FlutterHubElement(hubElement: outboxMutationProcessed.element, schema: schema)
+            if (schema != nil) {
+                self.element = try FlutterHubElement(hubElement: outboxMutationProcessed.element, schema: schema!)
+            } else {
+                throw FlutterDataStoreError.acquireSchemaForHub
+            }
         } catch {
             throw error
         }
@@ -39,7 +43,7 @@ struct FlutterOutboxMutationProcessedEvent: FlutterHubEvent {
         return [
             "eventName": self.eventName,
             "modelName": self.modelName,
-            "element": self.element?.toValueMap() as Any
+            "element": self.element.toValueMap() as Any
         ]
     }
 }

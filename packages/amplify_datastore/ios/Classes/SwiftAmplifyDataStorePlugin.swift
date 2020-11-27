@@ -287,7 +287,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             flutterResult(false)
         }
     }
-    
+
     func onClear(flutterResult: @escaping FlutterResult) {
         do {
             try bridge.onClear() {(result) in
