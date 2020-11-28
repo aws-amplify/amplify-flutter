@@ -26,19 +26,24 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     private let flutterModelRegistration: FlutterModels
     private var observeSubscription: AnyCancellable?
     private let dataStoreObserveEventStreamHandler: DataStoreObserveEventStreamHandler?
+    private let dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler?
     init(bridge: DataStoreBridge = DataStoreBridge(),
          flutterModelRegistration: FlutterModels = FlutterModels(),
-         dataStoreObserveEventStreamHandler: DataStoreObserveEventStreamHandler = DataStoreObserveEventStreamHandler()) {
+         dataStoreObserveEventStreamHandler: DataStoreObserveEventStreamHandler = DataStoreObserveEventStreamHandler(),
+         dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler = DataStoreHubEventStreamHandler()) {
         self.bridge = bridge
         self.flutterModelRegistration = flutterModelRegistration
         self.dataStoreObserveEventStreamHandler = dataStoreObserveEventStreamHandler
+        self.dataStoreHubEventStreamHandler = dataStoreHubEventStreamHandler
     }
 
     public static func register(with registrar: FlutterPluginRegistrar) {
         let instance = SwiftAmplifyDataStorePlugin()
         let channel = FlutterMethodChannel(name: "com.amazonaws.amplify/datastore", binaryMessenger: registrar.messenger())
         let observeChannel = FlutterEventChannel(name: "com.amazonaws.amplify/datastore_observe_events", binaryMessenger: registrar.messenger())
+        let hubChannel = FlutterEventChannel(name: "com.amazonaws.amplify/datastore_hub_events", binaryMessenger: registrar.messenger())
         observeChannel.setStreamHandler(instance.dataStoreObserveEventStreamHandler)
+        hubChannel.setStreamHandler(instance.dataStoreHubEventStreamHandler)
         registrar.addMethodCallDelegate(instance, channel: channel)
     }
 
@@ -89,6 +94,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             modelSchemas.forEach { (modelSchema) in
                 flutterModelRegistration.addModelSchema(modelName: modelSchema.name, modelSchema: modelSchema)
             }
+            
+            self.dataStoreHubEventStreamHandler?.registerModelsForHub(flutterModels: flutterModelRegistration)
 
             let dataStorePlugin = AWSDataStorePlugin(modelRegistration: flutterModelRegistration)
             try Amplify.add(plugin: dataStorePlugin)
@@ -318,5 +325,4 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     func getPlugin() throws -> AWSDataStorePlugin {
         return try Amplify.DataStore.getPlugin(for: "awsDataStorePlugin") as! AWSDataStorePlugin
     }
-
 }

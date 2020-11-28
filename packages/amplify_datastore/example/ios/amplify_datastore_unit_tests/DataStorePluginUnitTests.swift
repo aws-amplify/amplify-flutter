@@ -516,5 +516,4 @@ class DataStorePluginUnitTests: XCTestCase {
                 }
             })
     }
-
 }
