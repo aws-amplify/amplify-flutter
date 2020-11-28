@@ -1,0 +1,49 @@
+{
+  "BlogSerializedMap" : {
+    "id" : "999",
+    "modelName" : "Blog",
+    "serializedData" : {
+      "id" : "999",
+      "name" : "blog name"
+    }
+  },
+  "CommentSerializedMap" : {
+    "id" : "999",
+    "modelName" : "Comment",
+    "serializedData" : {
+      "id" : "999",
+      "post" : {
+        "id": "555"
+      },
+      "content" : "content"
+    }
+  },
+  "PostSerializedMap" : {
+    "id" : "999",
+    "modelName" : "Post",
+    "serializedData" : {
+      "id" : "999",
+      "title" : "post title",
+      "created" : "2020-11-25T01:28:49.000Z",
+      "blog" : {
+        "id" : "555"
+      }
+    }
+  },
+  "AllTypeModelSerializedMap" : {
+    "id" : "999",
+    "modelName" : "AllTypeModel",
+    "serializedData" : {
+      "id" : "999",
+      "stringType" : "string value",
+      "intType" : 10,
+      "floatType" : 9.99,
+      "boolType" : true,
+      "dateType" : "2020-09-09",
+      "dateTimeType" : "2020-11-25T01:28:49.000Z",
+      "timeType" : "20:20:20:020",
+      "timestampType" : 999,
+      "enumType" : "maybe"
+    }
+  }
+}

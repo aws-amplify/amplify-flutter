@@ -13,7 +13,15 @@
  * permissions and limitations under the License.
  */
 
-export 'Post.dart';
-export 'Blog.dart';
-export 'Comment.dart';
-export 'PostAuthComplex.dart';
+import 'package:date_time_format/date_time_format.dart';
+
+// ignore: public_member_api_docs
+extension DateTimeParse on DateTime {
+  String toDateTimeIso8601String() {
+    return DateTimeFormat.format(this, format: DateTimeFormats.iso8601);
+  }
+
+  static DateTime fromString(String input) {
+    return input == null ? null : DateTime.parse(input);
+  }
+}

@@ -17,17 +17,23 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'Blog.dart';
 import 'Comment.dart';
 import 'Post.dart';
+import 'PostAuthComplex.dart';
 
 export 'Blog.dart';
 export 'Comment.dart';
 export 'Post.dart';
-export 'TestEnum.dart';
+export 'PostAuthComplex.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "d632d0b8f63bc2c7ff7b2c473d66c20c";
+  String version = "6319a5b46c3ea5e5817b63396bc464bb";
   @override
-  List<ModelSchema> modelSchemas = [Blog.schema, Comment.schema, Post.schema];
+  List<ModelSchema> modelSchemas = [
+    Blog.schema,
+    Comment.schema,
+    Post.schema,
+    PostAuthComplex.schema
+  ];
   static final ModelProvider _instance = ModelProvider();
 
   static ModelProvider get instance => _instance;

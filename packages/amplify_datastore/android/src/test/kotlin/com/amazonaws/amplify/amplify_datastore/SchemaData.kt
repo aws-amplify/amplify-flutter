@@ -236,5 +236,90 @@ val blogSchema = ModelSchema.builder()
         .modelClass(SerializedModel::class.java)
         .build()
 
-
-
+val allTypeModelSchema = ModelSchema.builder()
+        .name("AllTypeModel")
+        .pluralName("AllTypeModels")
+        .fields(mapOf(
+                "id" to
+                        ModelField.builder()
+                                .name("id")
+                                .javaClassForValue(String::class.java)
+                                .targetType("String")
+                                .isRequired(true)
+                                .isArray(false)
+                                .build(),
+                "stringType" to
+                        ModelField.builder()
+                                .name("stringType")
+                                .javaClassForValue(String::class.java)
+                                .targetType("String")
+                                .isRequired(true)
+                                .isArray(false)
+                                .build(),
+                "intType" to
+                        ModelField.builder()
+                                .name("intType")
+                                .javaClassForValue(Integer::class.java)
+                                .targetType("Integer")
+                                .isRequired(true)
+                                .isArray(false)
+                                .build(),
+                "floatType" to
+                        ModelField.builder()
+                                .name("floatType")
+                                .javaClassForValue(Double::class.java)
+                                .targetType("Double")
+                                .isRequired(true)
+                                .isArray(false)
+                                .build(),
+                "boolType" to
+                        ModelField.builder()
+                                .name("boolType")
+                                .javaClassForValue(Boolean::class.java)
+                                .targetType("Boolean")
+                                .isRequired(true)
+                                .isArray(false)
+                                .build(),
+                "dateType" to
+                        ModelField.builder()
+                                .name("dateType")
+                                .javaClassForValue(Temporal.Date::class.java)
+                                .targetType("AWSDate")
+                                .isRequired(true)
+                                .isArray(false)
+                                .build(),
+                "dateTimeType" to
+                        ModelField.builder()
+                                .name("dateTimeType")
+                                .javaClassForValue(Temporal.DateTime::class.java)
+                                .targetType("AWSDateTime")
+                                .isRequired(true)
+                                .isArray(false)
+                                .build(),
+                "timeType" to
+                        ModelField.builder()
+                                .name("timeType")
+                                .javaClassForValue(Temporal.Time::class.java)
+                                .targetType("AWSTime")
+                                .isRequired(true)
+                                .isArray(false)
+                                .build(),
+                "timestampType" to
+                        ModelField.builder()
+                                .name("timestampType")
+                                .javaClassForValue(Temporal.Timestamp::class.java)
+                                .targetType("AWSTimestamp")
+                                .isRequired(true)
+                                .isArray(false)
+                                .build(),
+                "enumType" to
+                        ModelField.builder()
+                                .name("enumType")
+                                .javaClassForValue(String::class.java)
+                                .targetType("String")
+                                .isRequired(true)
+                                .isArray(false)
+                                .build()
+        ))
+        .modelClass(SerializedModel::class.java)
+        .build()

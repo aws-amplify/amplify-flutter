@@ -15,8 +15,7 @@
 
 import 'package:date_time_format/date_time_format.dart';
 
-String formatDateToISO8601(DateTime dateTime) {
-  return dateTime == null
-      ? null
-      : DateTimeFormat.format(dateTime, format: DateTimeFormats.iso8601);
-}
+String enumToString(Object o) => o.toString().split('.').last;
+
+T enumFromString<T>(String key, List<T> values) =>
+    values.firstWhere((v) => key == enumToString(v), orElse: () => null);
