@@ -71,6 +71,8 @@ class _MyAppState extends State<MyApp> {
   Stream<SubscriptionEvent<Post>> postStream;
   Stream<SubscriptionEvent<Blog>> blogStream;
   Stream<SubscriptionEvent<Comment>> commentStream;
+  bool _listeningToHub = true;
+  AmplifyDataStore datastorePlugin;
 
   final _titleController = TextEditingController();
   final _ratingController = TextEditingController();
@@ -93,9 +95,8 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    AmplifyDataStore datastorePlugin =
-        AmplifyDataStore(modelProvider: ModelProvider.instance);
-
+    datastorePlugin = AmplifyDataStore(modelProvider: ModelProvider.instance);
+    listenToHub();
     await amplify.addPlugin(dataStorePlugins: [datastorePlugin]);
     // Configure
     await amplify.configure(amplifyconfig);
@@ -142,6 +143,22 @@ class _MyAppState extends State<MyApp> {
       _isAmplifyConfigured = true;
     });
     runQueries();
+  }
+
+  void listenToHub() {
+    datastorePlugin.events.listenToDataStore((msg) {
+      print(msg);
+    });
+    setState(() {
+      _listeningToHub = true;
+    });
+  }
+
+  void stopListeningToHub() {
+    datastorePlugin.events.stopListeningToDataStore();
+    setState(() {
+      _listeningToHub = false;
+    });
   }
 
   void runQueries() async {
@@ -350,6 +367,21 @@ class _MyAppState extends State<MyApp> {
 
             // Row for query buttons
             displayQueryButtons(_isAmplifyConfigured, this, runQueries),
+
+            Padding(padding: EdgeInsets.all(5.0)),
+            Text("Listen to DataStore Hub"),
+            Switch(
+              value: _listeningToHub,
+              onChanged: (value) {
+                if (_listeningToHub) {
+                  stopListeningToHub();
+                } else {
+                  listenToHub();
+                }
+              },
+              activeTrackColor: Colors.lightGreenAccent,
+              activeColor: Colors.green,
+            ),
 
             Padding(padding: EdgeInsets.all(5.0)),
 
