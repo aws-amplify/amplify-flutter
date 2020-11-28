@@ -20,6 +20,7 @@
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		9C44723B2559F95300557CB1 /* instance_no_predicate.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C44723A2559F95300557CB1 /* instance_no_predicate.json */; };
+		9CD33317256ED83700C1CC2A /* DataStoreHubEventStreamHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD33316256ED83700C1CC2A /* DataStoreHubEventStreamHandlerTests.swift */; };
 		B409DD21254A02EE006AECDB /* DataStorePluginUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B409DD20254A02EE006AECDB /* DataStorePluginUnitTests.swift */; };
 		B409DE1F254A218A006AECDB /* 2_results.json in Resources */ = {isa = PBXBuildFile; fileRef = B409DE1C254A218A006AECDB /* 2_results.json */; };
 		B409DE20254A218A006AECDB /* only_model_name.json in Resources */ = {isa = PBXBuildFile; fileRef = B409DE1D254A218A006AECDB /* only_model_name.json */; };
@@ -36,9 +37,9 @@
 		B4A5C45E2548F00900B9E501 /* negate_complex_predicate.json in Resources */ = {isa = PBXBuildFile; fileRef = B4A5C4582548F00900B9E501 /* negate_complex_predicate.json */; };
 		B4A5C45F2548F00900B9E501 /* complex_nested.json in Resources */ = {isa = PBXBuildFile; fileRef = B4A5C4592548F00900B9E501 /* complex_nested.json */; };
 		B4A5C4672549009900B9E501 /* bool_and_double_operands.json in Resources */ = {isa = PBXBuildFile; fileRef = B4A5C4662549009900B9E501 /* bool_and_double_operands.json */; };
+		B4FD354C255D0A9D00A4E699 /* 1_result.json in Resources */ = {isa = PBXBuildFile; fileRef = B4FD354B255D0A9D00A4E699 /* 1_result.json */; };
 		FB228242255D4C95004BFCC0 /* instance_without_predicate.json in Resources */ = {isa = PBXBuildFile; fileRef = FB228241255D4C95004BFCC0 /* instance_without_predicate.json */; };
 		FB228244255D6B90004BFCC0 /* instance_with_predicate.json in Resources */ = {isa = PBXBuildFile; fileRef = FB228243255D6B90004BFCC0 /* instance_with_predicate.json */; };
-		B4FD354C255D0A9D00A4E699 /* 1_result.json in Resources */ = {isa = PBXBuildFile; fileRef = B4FD354B255D0A9D00A4E699 /* 1_result.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -78,6 +79,7 @@
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C44723A2559F95300557CB1 /* instance_no_predicate.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = instance_no_predicate.json; sourceTree = "<group>"; };
+		9CD33316256ED83700C1CC2A /* DataStoreHubEventStreamHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStoreHubEventStreamHandlerTests.swift; sourceTree = "<group>"; };
 		B409DD20254A02EE006AECDB /* DataStorePluginUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStorePluginUnitTests.swift; sourceTree = "<group>"; };
 		B409DE1C254A218A006AECDB /* 2_results.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 2_results.json; sourceTree = "<group>"; };
 		B409DE1D254A218A006AECDB /* only_model_name.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = only_model_name.json; sourceTree = "<group>"; };
@@ -97,13 +99,11 @@
 		B4A5C4592548F00900B9E501 /* complex_nested.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = complex_nested.json; sourceTree = "<group>"; };
 		B4A5C4662549009900B9E501 /* bool_and_double_operands.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = bool_and_double_operands.json; sourceTree = "<group>"; };
 		B4FD354B255D0A9D00A4E699 /* 1_result.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = 1_result.json; sourceTree = "<group>"; };
-		CDB88F0184D2C06B66966DA4 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
-		E4FAF672EE7AB3550DEE60F3 /* Pods-amplify_datastore_unit_tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amplify_datastore_unit_tests.debug.xcconfig"; path = "Target Support Files/Pods-amplify_datastore_unit_tests/Pods-amplify_datastore_unit_tests.debug.xcconfig"; sourceTree = "<group>"; };
-		FB228241255D4C95004BFCC0 /* instance_without_predicate.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = instance_without_predicate.json; sourceTree = "<group>"; };
-		FB228243255D6B90004BFCC0 /* instance_with_predicate.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = instance_with_predicate.json; sourceTree = "<group>"; };
 		B65FCE49BFB0E9D6F51F47EA /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		D5D88DACD96D3CAC9BEBB076 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		E0B2D41E6F1D414E00A3D373 /* Pods_amplify_datastore_unit_tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_amplify_datastore_unit_tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB228241255D4C95004BFCC0 /* instance_without_predicate.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = instance_without_predicate.json; sourceTree = "<group>"; };
+		FB228243255D6B90004BFCC0 /* instance_with_predicate.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = instance_with_predicate.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +240,7 @@
 				B4A5C4472548E4CF00B9E501 /* QueryPredicateBuilderUnitTests.swift */,
 				B4A5C37D2548A5D000B9E501 /* QuerySortBuilderUnitTests.swift */,
 				B4A5C44E2548EF7800B9E501 /* resources */,
+				9CD33316256ED83700C1CC2A /* DataStoreHubEventStreamHandlerTests.swift */,
 			);
 			path = amplify_datastore_unit_tests;
 			sourceTree = "<group>";
@@ -265,15 +266,6 @@
 			path = query;
 			sourceTree = "<group>";
 		};
-		FEBC70E6F9891D9A6C7016AE /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				87D329E64A2B20511B081279 /* Pods_Runner.framework */,
-				E0B2D41E6F1D414E00A3D373 /* Pods_amplify_datastore_unit_tests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		FB2B5E73255CDBFA00518204 /* save */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,6 +273,15 @@
 				FB228243255D6B90004BFCC0 /* instance_with_predicate.json */,
 			);
 			path = save;
+			sourceTree = "<group>";
+		};
+		FEBC70E6F9891D9A6C7016AE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				87D329E64A2B20511B081279 /* Pods_Runner.framework */,
+				E0B2D41E6F1D414E00A3D373 /* Pods_amplify_datastore_unit_tests.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -525,6 +526,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CD33317256ED83700C1CC2A /* DataStoreHubEventStreamHandlerTests.swift in Sources */,
 				B409DE75254BAC5A006AECDB /* GetJsonFromFileUtil.swift in Sources */,
 				847189C82565F81B00D6798A /* AmplifyModelSchemaUnitTests.swift in Sources */,
 				B4A5C3F42548C7B500B9E501 /* QueryPaginationUnitTests.swift in Sources */,

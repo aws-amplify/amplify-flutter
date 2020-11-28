@@ -21,12 +21,18 @@ typedef void CancelListening();
 class AmplifyDataStoreEventChannel {
   var events = const EventChannel("com.amazonaws.amplify/datastore_hub_events");
   var stream;
-  listenToDataStore(Listener listener) {
-    stream = events.receiveBroadcastStream(1).listen(listener);
+  listenToDataStore(Listener listener, {Function onError}) {
+    // TODO: Assign as default parameter
+    var errorHandler = onError ?? defaultErrorHandler;
+    stream = events.receiveBroadcastStream(1).listen(listener, onError: errorHandler);
     return stream;
   }
 
   stopListeningToDataStore() {
     stream.cancel();
+  }
+
+  void defaultErrorHandler(e) {
+    print(e);
   }
 } 
