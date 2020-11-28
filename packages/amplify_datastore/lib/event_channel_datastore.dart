@@ -23,12 +23,7 @@ class AmplifyDataStoreEventChannel {
   var stream;
   listenToDataStore(Listener listener, {Function onError}) {
     // TODO: Assign as default parameter
-    var errorHandler;
-    if (onError == null) {
-      errorHandler = defaultErrorHandler;
-    } else {
-      errorHandler = onError;
-    }
+    var errorHandler = onError ?? defaultErrorHandler;
     stream = events.receiveBroadcastStream(1).listen(listener, onError: errorHandler);
     return stream;
   }
