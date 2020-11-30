@@ -146,7 +146,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void listenToHub() {
-    datastorePlugin.events.listenToDataStore((msg) {
+    AmplifyDataStore.events.listenToDataStore((msg) {
       print(msg);
     });
     setState(() {
@@ -155,7 +155,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void stopListeningToHub() {
-    datastorePlugin.events.stopListeningToDataStore();
+    AmplifyDataStore.events.stopListeningToDataStore();
     setState(() {
       _listeningToHub = false;
     });
