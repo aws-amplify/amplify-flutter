@@ -30,7 +30,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
       : super(token: _token, modelProvider: modelProvider);
 
   static AmplifyDataStore _instance = AmplifyDataStoreMethodChannel();
-  var events = AmplifyDataStoreEventChannel();
+  static AmplifyDataStoreEventChannel events = AmplifyDataStoreEventChannel();
 
 
   static set instance(DataStorePluginInterface instance) {
