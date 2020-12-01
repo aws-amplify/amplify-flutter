@@ -81,7 +81,7 @@ Widget getWidgetToDisplayBlog(List<Blog> _blogsToView, Function deleteBlog) {
                 deleteBlog(_blogsToView[i].id);
               },
               icon: Icon(
-                Icons.delete_forever_sharp,
+                Icons.delete_forever,
                 color: Colors.red,
               ),
             ),
@@ -117,7 +117,7 @@ Widget getWidgetToDisplayPost(
                 deletePost(_postsToView[i].id);
               },
               icon: Icon(
-                Icons.delete_forever_sharp,
+                Icons.delete_forever,
                 color: Colors.red,
               ),
             ),
@@ -152,7 +152,7 @@ Widget getWidgetToDisplayComment(
                 deleteFn(_commentsToView[i].id);
               },
               icon: Icon(
-                Icons.delete_forever_sharp,
+                Icons.delete_forever,
                 color: Colors.red,
               ),
             ),

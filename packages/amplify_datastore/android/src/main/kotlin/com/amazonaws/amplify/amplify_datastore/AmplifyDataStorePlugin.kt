@@ -23,7 +23,6 @@ import com.amazonaws.amplify.amplify_datastore.types.model.FlutterModelSchema
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSerializedModel
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSubscriptionEvent
 import com.amazonaws.amplify.amplify_datastore.types.query.QueryOptionsBuilder
-import com.amazonaws.amplify.amplify_datastore.types.query.QueryPredicateBuilder
 import com.amazonaws.amplify.amplify_datastore.util.safeCastToList
 import com.amazonaws.amplify.amplify_datastore.util.safeCastToMap
 import com.amplifyframework.api.aws.AWSApiPlugin
@@ -266,8 +265,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 .modelSchema(schema)
                 .build()
 
-        val predicate = QueryPredicateBuilder.fromSerializedMap(
-                request["queryPredicate"].safeCastToMap()) ?: QueryPredicates.all()
+        val predicate = QueryPredicates.all()
 
         plugin.save(
                 serializedModel,

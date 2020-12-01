@@ -32,7 +32,6 @@ class AmplifyDataStore extends DataStorePluginInterface {
   static AmplifyDataStore _instance = AmplifyDataStoreMethodChannel();
   var events = AmplifyDataStoreEventChannel();
 
-
   static set instance(DataStorePluginInterface instance) {
     PlatformInterface.verifyToken(instance, _token);
     _instance = instance;
@@ -69,8 +68,8 @@ class AmplifyDataStore extends DataStorePluginInterface {
   }
 
   @override
-  Future<void> save<T extends Model>(T model, {QueryPredicate when}) {
-    return _instance.save(model, when: when);
+  Future<void> save<T extends Model>(T model) {
+    return _instance.save(model);
   }
 
   Stream<SubscriptionEvent<T>> observe<T extends Model>(

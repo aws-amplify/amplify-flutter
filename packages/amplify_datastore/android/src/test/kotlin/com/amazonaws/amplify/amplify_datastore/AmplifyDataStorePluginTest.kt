@@ -316,47 +316,6 @@ class AmplifyDataStorePluginTest {
     }
 
     @Test
-    fun test_save_success_result_with_predicates() {
-        val testRequest: HashMap<String, Any> = (readMapFromFile("save_api",
-                "request/instance_with_predicate.json",
-                HashMap::class.java) as HashMap<String, Any>)
-
-        val serializedModelData: HashMap<String, Any> = testRequest["serializedModel"] as HashMap<String, Any>
-
-        val serializedModel = SerializedModel.builder()
-                .serializedData(serializedModelData)
-                .modelSchema(modelSchema)
-                .build()
-
-        val predicate = QueryPredicateBuilder.fromSerializedMap(
-                testRequest["queryPredicate"] as HashMap<String, Any>)
-
-        val dataStoreItemChange = DataStoreItemChange.builder<SerializedModel>()
-                .item(serializedModel)
-                .initiator(DataStoreItemChange.Initiator.LOCAL)
-                .itemClass(SerializedModel::class.java)
-                .type(DataStoreItemChange.Type.CREATE)
-                .build()
-
-        doAnswer { invocation: InvocationOnMock ->
-            assertEquals(serializedModel, invocation.arguments[0])
-            assertEquals(predicate, invocation.arguments[1])
-            (invocation.arguments[2] as Consumer<DataStoreItemChange<SerializedModel>>).accept(
-                    dataStoreItemChange)
-            null as Void?
-        }.`when`(mockAmplifyDataStorePlugin).save(
-                any<SerializedModel>(),
-                any<QueryPredicate>(),
-                any<
-                        Consumer<DataStoreItemChange<SerializedModel>>>(),
-                any<Consumer<DataStoreException>>())
-
-        flutterPlugin.onSave(mockResult, testRequest)
-
-        verify(mockResult, times(1)).success(null)
-    }
-
-    @Test
     fun test_save_api_error() {
         val dataStoreException = DataStoreException("AmplifyException", DataStoreException.REPORT_BUG_TO_AWS_SUGGESTION)
 
