@@ -37,7 +37,7 @@ commands:
       - run:
           name: Install and set up melos
           command: |
-            pub global activate melos
+            pub global activate melos 0.3.11
             melos bootstrap
 
 jobs:
