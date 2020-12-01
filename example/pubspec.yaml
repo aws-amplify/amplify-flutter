@@ -25,10 +25,10 @@ dependencies:
   flutter:
     sdk: flutter
   file_picker: ^1.8.0+1
-  amplify_core: ^0.0.1-dev.2
-  amplify_analytics_pinpoint: ^0.0.1-dev.2
-  amplify_auth_cognito: ^0.0.1-dev.2
-  amplify_storage_s3: ^0.0.1-dev.2
+  amplify_core: ^0.0.1-dev.3
+  amplify_analytics_pinpoint: ^0.0.1-dev.3
+  amplify_auth_cognito: ^0.0.1-dev.3
+  amplify_storage_s3: ^0.0.1-dev.3
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3

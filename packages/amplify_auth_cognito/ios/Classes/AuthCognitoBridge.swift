@@ -61,10 +61,19 @@ class AuthCognitoBridge {
     func onSignIn(flutterResult: @escaping FlutterResult, request: FlutterSignInRequest) {
         _ = Amplify.Auth.signIn(username: request.username, password:request.password) { response in
             switch response {
-            case .success:
-                let signInData = FlutterSignInResult(res: response)
-                flutterResult(signInData.toJSON())
-            case .failure(let signInError):
+              case .success(let signInResult):
+                switch signInResult.nextStep {
+                  case .confirmSignUp:
+                    // This avoids importing the mobileclient code
+                    enum ErrorShim: Error {
+                        case userNotConfirmed
+                    }
+                    handleAuthError(error: AuthError.service("User is not confirmed.", "See attached exception for more details", ErrorShim.userNotConfirmed), flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNIN.rawValue)
+                  default:
+                    let signInData = FlutterSignInResult(res: response)
+                    flutterResult(signInData.toJSON())
+                }
+              case .failure(let signInError):
                 handleAuthError(error: signInError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNIN.rawValue)
             }
         }
