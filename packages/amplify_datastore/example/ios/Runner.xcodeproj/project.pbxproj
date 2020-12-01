@@ -39,7 +39,6 @@
 		B4A5C4672549009900B9E501 /* bool_and_double_operands.json in Resources */ = {isa = PBXBuildFile; fileRef = B4A5C4662549009900B9E501 /* bool_and_double_operands.json */; };
 		B4FD354C255D0A9D00A4E699 /* 1_result.json in Resources */ = {isa = PBXBuildFile; fileRef = B4FD354B255D0A9D00A4E699 /* 1_result.json */; };
 		FB228242255D4C95004BFCC0 /* instance_without_predicate.json in Resources */ = {isa = PBXBuildFile; fileRef = FB228241255D4C95004BFCC0 /* instance_without_predicate.json */; };
-		FB228244255D6B90004BFCC0 /* instance_with_predicate.json in Resources */ = {isa = PBXBuildFile; fileRef = FB228243255D6B90004BFCC0 /* instance_with_predicate.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -103,7 +102,6 @@
 		D5D88DACD96D3CAC9BEBB076 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		E0B2D41E6F1D414E00A3D373 /* Pods_amplify_datastore_unit_tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_amplify_datastore_unit_tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB228241255D4C95004BFCC0 /* instance_without_predicate.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = instance_without_predicate.json; sourceTree = "<group>"; };
-		FB228243255D6B90004BFCC0 /* instance_with_predicate.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = instance_with_predicate.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -270,7 +268,6 @@
 			isa = PBXGroup;
 			children = (
 				FB228241255D4C95004BFCC0 /* instance_without_predicate.json */,
-				FB228243255D6B90004BFCC0 /* instance_with_predicate.json */,
 			);
 			path = save;
 			sourceTree = "<group>";
@@ -396,7 +393,6 @@
 				B409DE21254A218A006AECDB /* model_name_with_all_query_parameters.json in Resources */,
 				B409DE1F254A218A006AECDB /* 2_results.json in Resources */,
 				B4A5C45E2548F00900B9E501 /* negate_complex_predicate.json in Resources */,
-				FB228244255D6B90004BFCC0 /* instance_with_predicate.json in Resources */,
 				B4A5C45A2548F00900B9E501 /* group_with_only_and.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

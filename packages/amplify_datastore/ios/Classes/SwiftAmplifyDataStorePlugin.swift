@@ -169,17 +169,11 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             let serializedModelData = try FlutterDataStoreRequestUtils.getSerializedModelData(methodChannelArguments: args)
             let modelID = try FlutterDataStoreRequestUtils.getModelID(serializedModelData: serializedModelData)
 
-            var queryPredicate: QueryPredicate?
-            if let queryPredicateData = args["queryPredicate"] as? [String: Any] {
-                queryPredicate = try QueryPredicateBuilder.fromSerializedMap(queryPredicateData)
-            }
-
             let serializedModel = FlutterSerializedModel(id: modelID, map: try FlutterDataStoreRequestUtils.getJSONValue(serializedModelData))
 
             try bridge.onSave(
                 serializedModel: serializedModel,
-                modelSchema: modelSchema,
-                when: queryPredicate
+                modelSchema: modelSchema
             ) { (result) in
                 switch result {
                 case .failure(let error):

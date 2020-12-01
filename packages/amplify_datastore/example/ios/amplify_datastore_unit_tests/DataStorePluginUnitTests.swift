@@ -411,37 +411,6 @@ class DataStorePluginUnitTests: XCTestCase {
             })
     }
 
-    func test_save_success_with_predicate() throws {
-        let testArgs = try readJsonMap(filePath: "instance_with_predicate") as [String: Any]
-
-        class MockDataStoreBridge: DataStoreBridge {
-            override func onSave<M: Model>(
-                serializedModel: M,
-                modelSchema: ModelSchema,
-                when predicate: QueryPredicate? = nil,
-                completion: @escaping DataStoreCallback<M>) throws {
-                // Validations that we called the native library correctly
-                XCTAssertEqual("a7a22ef5-554c-48c5-bb79-d9cd6dd0ee83", serializedModel.id)
-                XCTAssertEqual(testSchema.name, modelSchema.name)
-                XCTAssertEqual(
-                    rating.eq(5),
-                    predicate as! QueryPredicateOperation
-                )
-                // Return from the mock
-                completion(.success(serializedModel))
-            }
-        }
-
-        let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, flutterModelRegistration: flutterModelSchemaRegistration)
-
-        pluginUnderTest.onSave(
-            args: testArgs,
-            flutterResult: { (result)  in
-                XCTAssertNil(result)
-            })
-    }
-
     func test_save_with_api_error() throws {
         let testArgs = try readJsonMap(filePath: "instance_without_predicate") as [String: Any]
 

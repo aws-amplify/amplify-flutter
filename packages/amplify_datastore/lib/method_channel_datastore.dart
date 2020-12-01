@@ -92,12 +92,11 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   }
 
   @override
-  Future<void> save<T extends Model>(T model, {QueryPredicate when}) async {
+  Future<void> save<T extends Model>(T model) async {
     try {
       var methodChannelSaveInput = <String, dynamic>{
         'modelName': model.getInstanceType().modelName(),
         'serializedModel': model.toJson(),
-        'queryPredicate': when?.serializeAsMap(),
       };
       await _channel.invokeMethod('save', methodChannelSaveInput);
     } on PlatformException catch (e) {

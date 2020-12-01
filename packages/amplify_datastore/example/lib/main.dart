@@ -335,7 +335,7 @@ class _MyAppState extends State<MyApp> {
                     runQueries();
                   },
                   child: Icon(
-                    Icons.dangerous,
+                    Icons.clear,
                     semanticLabel: "Clear",
                     size: 24.0,
                   ),
