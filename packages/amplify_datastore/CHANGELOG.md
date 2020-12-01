@@ -1,3 +1,3 @@
-## 0.0.1
+## 0.0.1-dev.4 (2020-12-02)
 
-* TODO: Describe initial release.
+* Initial preview release of DataStore plugin.
