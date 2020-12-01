@@ -52,24 +52,6 @@ void main() {
     await dataStore.save(post);
   });
 
-  test('Saving a model with predicate executes successfully', () async {
-    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "save") {
-        expect(
-          methodCall.arguments,
-          await getJsonFromFile(
-              'save_api/request/instance_with_predicate.json'),
-        );
-      }
-    });
-    Post post = Post(
-        id: 'a7a22ef5-554c-48c5-bb79-d9cd6dd0ee83',
-        title: 'New Post with predicate',
-        rating: 10,
-        created: DateTime.parse('2020-11-12T05:08:21-08:00'));
-    await dataStore.save(post, when: Post.RATING.eq(5));
-  });
-
   test(
       'A PlatformException for malformed request results in the corresponding DataStoreError',
       () async {
