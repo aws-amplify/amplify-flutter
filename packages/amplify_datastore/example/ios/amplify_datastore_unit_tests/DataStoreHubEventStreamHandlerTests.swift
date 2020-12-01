@@ -40,7 +40,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
                 innerExpect = outerExpect
             }
             override func sendEvent(flutterEvent: [String : Any]) {
-                XCTAssertEqual(flutterEvent["eventName"] as! String, "DataStore.modelSynced")
+                XCTAssertEqual(flutterEvent["eventName"] as! String, "modelSynced")
                 XCTAssertEqual(flutterEvent["modelName"] as! String, "Blog")
                 XCTAssertEqual(flutterEvent["added"] as! Int, 1)
                 XCTAssertEqual(flutterEvent["deleted"] as! Int, 0)
@@ -49,7 +49,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
                 XCTAssertEqual(flutterEvent["isFullSync"] as! Bool, true)
                 innerExpect?.fulfill()
             }
-            override func sendError(description: String, eventName: String) {
+            override func sendError(hubEvent: String) {
                 XCTFail()
                 innerExpect?.fulfill()
             }
@@ -68,7 +68,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         // passing the expectation we are awaiting into the enclosed class
         hubHandler.setExpectation(outerExpect: expect)
         hubHandler.registerModelsForHub(flutterModels: flutterModelSchemaRegistration)
-        hubHandler.setToken()
+        hubHandler.setHubListener()
 
         let modelSyncedEventPayload = HubPayload(eventName: HubPayload.EventName.DataStore.modelSynced,
                                                  data: modelSyncedEventBuilder.build())
@@ -88,10 +88,10 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
                 innerExpect = outerExpect
             }
             override func sendEvent(flutterEvent: [String : Any]) {
-                XCTAssertEqual(flutterEvent["eventName"] as! String, "DataStore.ready")
+                XCTAssertEqual(flutterEvent["eventName"] as! String, "ready")
                 innerExpect?.fulfill()
             }
-            override func sendError(description: String, eventName: String) {
+            override func sendError(hubEvent: String) {
                 XCTFail()
                 innerExpect?.fulfill()
             }
@@ -100,7 +100,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         let hubHandler = MockDataStoreHubHandler()
         hubHandler.setExpectation(outerExpect: expect)
         hubHandler.registerModelsForHub(flutterModels: flutterModelSchemaRegistration)
-        hubHandler.setToken()
+        hubHandler.setHubListener()
        
         let readyEventPayload = HubPayload(eventName: HubPayload.EventName.DataStore.ready)
         Amplify.Hub.dispatch(to: .dataStore, payload: readyEventPayload)
@@ -117,10 +117,10 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
                 innerExpect = outerExpect
             }
             override func sendEvent(flutterEvent: [String : Any]) {
-                XCTAssertEqual(flutterEvent["eventName"] as! String, "DataStore.subscriptionEstablished")
+                XCTAssertEqual(flutterEvent["eventName"] as! String, "subscriptionEstablished")
                 innerExpect?.fulfill()
             }
-            override func sendError(description: String, eventName: String) {
+            override func sendError(hubEvent: String) {
                 XCTFail()
                 innerExpect?.fulfill()
             }
@@ -129,7 +129,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         let hubHandler = MockDataStoreHubHandler()
         hubHandler.setExpectation(outerExpect: expect)
         hubHandler.registerModelsForHub(flutterModels: flutterModelSchemaRegistration)
-        hubHandler.setToken()
+        hubHandler.setHubListener()
 
         let subscriptionEstablishedPayload = HubPayload(eventName: HubPayload.EventName.DataStore.subscriptionsEstablished)
         Amplify.Hub.dispatch(to: .dataStore, payload: subscriptionEstablishedPayload)
@@ -145,10 +145,10 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
                 innerExpect = outerExpect
             }
             override func sendEvent(flutterEvent: [String : Any]) {
-                XCTAssertEqual(flutterEvent["eventName"] as! String, "DataStore.syncQueriesReady")
+                XCTAssertEqual(flutterEvent["eventName"] as! String, "syncQueriesReady")
                 innerExpect?.fulfill()
             }
-            override func sendError(description: String, eventName: String) {
+            override func sendError(hubEvent: String) {
                 XCTFail()
                 innerExpect?.fulfill()
             }
@@ -157,7 +157,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         let hubHandler = MockDataStoreHubHandler()
         hubHandler.setExpectation(outerExpect: expect)
         hubHandler.registerModelsForHub(flutterModels: flutterModelSchemaRegistration)
-        hubHandler.setToken()
+        hubHandler.setHubListener()
        
         let syncQueriesReadyPayload = HubPayload(eventName: HubPayload.EventName.DataStore.syncQueriesReady)
         Amplify.Hub.dispatch(to: .dataStore, payload: syncQueriesReadyPayload)
@@ -173,11 +173,11 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
                 innerExpect = outerExpect
             }
             override func sendEvent(flutterEvent: [String : Any]) {
-                XCTAssertEqual(flutterEvent["eventName"] as! String, "DataStore.networkStatus")
+                XCTAssertEqual(flutterEvent["eventName"] as! String, "networkStatus")
                 XCTAssertEqual(flutterEvent["active"] as? Bool, true)
                 innerExpect?.fulfill()
             }
-            override func sendError(description: String, eventName: String) {
+            override func sendError(hubEvent: String) {
                 XCTFail()
                 innerExpect?.fulfill()
             }
@@ -188,7 +188,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         let hubHandler = MockDataStoreHubHandler()
         hubHandler.setExpectation(outerExpect: expect)
         hubHandler.registerModelsForHub(flutterModels: flutterModelSchemaRegistration)
-        hubHandler.setToken()
+        hubHandler.setHubListener()
        
         let networkStatusPayload = HubPayload(eventName: HubPayload.EventName.DataStore.networkStatus, data: networkStatusEvent)
         Amplify.Hub.dispatch(to: .dataStore, payload: networkStatusPayload)
@@ -204,11 +204,11 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
                 innerExpect = outerExpect
             }
             override func sendEvent(flutterEvent: [String : Any]) {
-                XCTAssertEqual(flutterEvent["eventName"] as! String, "DataStore.outboxStatus")
+                XCTAssertEqual(flutterEvent["eventName"] as! String, "outboxStatus")
                 XCTAssertEqual(flutterEvent["isEmpty"] as? Bool, true)
                 innerExpect?.fulfill()
             }
-            override func sendError(description: String, eventName: String) {
+            override func sendError(hubEvent: String) {
                 XCTFail()
                 innerExpect?.fulfill()
             }
@@ -219,7 +219,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         let hubHandler = MockDataStoreHubHandler()
         hubHandler.setExpectation(outerExpect: expect)
         hubHandler.registerModelsForHub(flutterModels: flutterModelSchemaRegistration)
-        hubHandler.setToken()
+        hubHandler.setHubListener()
        
         let outboxStatusPayload = HubPayload(eventName: HubPayload.EventName.DataStore.outboxStatus, data: outboxStatusEvent)
         Amplify.Hub.dispatch(to: .dataStore, payload: outboxStatusPayload)
@@ -235,11 +235,11 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
                 innerExpect = outerExpect
             }
             override func sendEvent(flutterEvent: [String : Any]) {
-                XCTAssertEqual(flutterEvent["eventName"] as! String, "DataStore.syncQueriesStarted")
+                XCTAssertEqual(flutterEvent["eventName"] as! String, "syncQueriesStarted")
                 XCTAssertEqual(flutterEvent["models"] as! String, "[\"Blog\"]")
                 innerExpect?.fulfill()
             }
-            override func sendError(description: String, eventName: String) {
+            override func sendError(hubEvent: String) {
                 XCTFail()
                 innerExpect?.fulfill()
             }
@@ -249,7 +249,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         let hubHandler = MockDataStoreHubHandler()
         hubHandler.setExpectation(outerExpect: expect)
         hubHandler.registerModelsForHub(flutterModels: flutterModelSchemaRegistration)
-        hubHandler.setToken()
+        hubHandler.setHubListener()
        
         let syncQueriesStartedPayload = HubPayload(eventName: HubPayload.EventName.DataStore.syncQueriesStarted, data: syncQueriesStartedEvent)
         Amplify.Hub.dispatch(to: .dataStore, payload: syncQueriesStartedPayload)
@@ -267,18 +267,19 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
             override func sendEvent(flutterEvent: [String : Any]) {
                 let element = flutterEvent["element"] as! [String : Any]
                 let model = element["model"] as! [String : Any]
+                let syncMetaData = element["syncMetadata"] as! [String : Any]
                 let serializedData = model["serializedData"] as! [String : Any]
-                XCTAssertEqual(flutterEvent["eventName"] as! String, "DataStore.outboxMutationEnqueued")
+                XCTAssertEqual(flutterEvent["eventName"] as! String, "outboxMutationEnqueued")
                 XCTAssertEqual(flutterEvent["modelName"] as! String, "Post")
-                XCTAssertEqual(element["_lastChangedAt"] as? Int, nil)
-                XCTAssertEqual(element["_version"] as? Int, nil)
-                XCTAssertEqual(element["_deleted"] as? Bool, nil)
+                XCTAssertEqual(syncMetaData["_lastChangedAt"] as? Int, nil)
+                XCTAssertEqual(syncMetaData["_version"] as? Int, nil)
+                XCTAssertEqual(syncMetaData["_deleted"] as? Bool, nil)
                 XCTAssertEqual(model["modelName"] as! String, "Post")
                 XCTAssertEqual(model["modelName"] as! String, "Post")
                 XCTAssertEqual(serializedData["title"] as! String, "Title 1")
                 innerExpect?.fulfill()
             }
-            override func sendError(description: String, eventName: String) {
+            override func sendError(hubEvent: String) {
                 XCTFail()
                 innerExpect?.fulfill()
             }
@@ -296,7 +297,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         let hubHandler = MockDataStoreHubHandler()
         hubHandler.setExpectation(outerExpect: expect)
         hubHandler.registerModelsForHub(flutterModels: flutterModelSchemaRegistration)
-        hubHandler.setToken()
+        hubHandler.setHubListener()
        
         let outboxMutationEnqueuedPayload = HubPayload(eventName: HubPayload.EventName.DataStore.outboxMutationEnqueued, data: outboxMutationEnqueuedEvent)
         Amplify.Hub.dispatch(to: .dataStore, payload: outboxMutationEnqueuedPayload)
@@ -315,17 +316,18 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
                 let element = flutterEvent["element"] as! [String : Any]
                 let model = element["model"] as! [String : Any]
                 let serializedData = model["serializedData"] as! [String : Any]
-                XCTAssertEqual(flutterEvent["eventName"] as! String, "DataStore.outboxMutationProcessed")
+                let syncMetaData = element["syncMetadata"] as! [String : Any]
+                XCTAssertEqual(flutterEvent["eventName"] as! String, "outboxMutationProcessed")
                 XCTAssertEqual(flutterEvent["modelName"] as! String, "Post")
-                XCTAssertEqual(element["_lastChangedAt"] as? Int, 123)
-                XCTAssertEqual(element["_version"] as? Int, 1)
-                XCTAssertEqual(element["_deleted"] as? Bool, false)
+                XCTAssertEqual(syncMetaData["_lastChangedAt"] as? Int, 123)
+                XCTAssertEqual(syncMetaData["_version"] as? Int, 1)
+                XCTAssertEqual(syncMetaData["_deleted"] as? Bool, false)
                 XCTAssertEqual(model["modelName"] as! String, "Post")
                 XCTAssertEqual(model["modelName"] as! String, "Post")
                 XCTAssertEqual(serializedData["title"] as! String, "Title 1")
                 innerExpect?.fulfill()
             }
-            override func sendError(description: String, eventName: String) {
+            override func sendError(hubEvent: String) {
                 XCTFail()
                 innerExpect?.fulfill()
             }
@@ -353,7 +355,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
             let outboxMutationProcessedEvent = OutboxMutationEvent.fromModelWithMetadata(modelName: "Post", model: serializedModel, mutationSync: mutationSync)
             hubHandler.setExpectation(outerExpect: expect)
             hubHandler.registerModelsForHub(flutterModels: flutterModelSchemaRegistration)
-            hubHandler.setToken()
+            hubHandler.setHubListener()
             let outboxMutationProcessedPayload = HubPayload(eventName: HubPayload.EventName.DataStore.outboxMutationProcessed, data: outboxMutationProcessedEvent)
             Amplify.Hub.dispatch(to: .dataStore, payload: outboxMutationProcessedPayload)
         } catch {
