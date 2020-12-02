@@ -9,19 +9,24 @@ class ImageUploader extends StatelessWidget {
     try {
       print('In upload');
       // Uploading the file with options
-      File local = await FilePicker.getFile(type: FileType.image);
-      local.existsSync();
-      final key = new DateTime.now().toString();
-      Map<String, String> metadata = <String, String>{};
-      metadata['name'] = 'filename';
-      metadata['desc'] = 'A test file';
-      S3UploadFileOptions options = S3UploadFileOptions(
-          accessLevel: StorageAccessLevel.guest, metadata: metadata);
-      UploadFileResult result = await Amplify.Storage.uploadFile(
-          key: key, local: local, options: options);
+      FilePickerResult choice = await FilePicker.platform.pickFiles(type: FileType.image, allowMultiple: false);
 
-      print('File uploaded.  Key: ' + result.key);
-      Navigator.pop(context, result.key);
+      if (choice != null) {
+        File local = File(choice.files.first.path);
+        local.existsSync();
+        final key = new DateTime.now().toString();
+        Map<String, String> metadata = <String, String>{};
+        metadata['name'] = 'filename';
+        metadata['desc'] = 'A test file';
+        S3UploadFileOptions options = S3UploadFileOptions(
+            accessLevel: StorageAccessLevel.guest, metadata: metadata);
+        UploadFileResult result = await Amplify.Storage.uploadFile(
+            key: key, local: local, options: options);
+
+        print('File uploaded.  Key: ' + result.key);
+        Navigator.pop(context, result.key);
+      }
+      // File local = await FilePicker.getFile(type: FileType.image);
     } catch (e) {
       print('UploadFile Err: ' + e.toString());
     }
