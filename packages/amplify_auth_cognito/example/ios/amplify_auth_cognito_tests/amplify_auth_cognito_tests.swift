@@ -1137,7 +1137,6 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_fetchSessionNoOptions() {
-        
         class FetchSessionMock: AuthCognitoBridge {
             override func onFetchSession(flutterResult: @escaping FlutterResult, request: FlutterFetchSessionRequest) {
                 let authSession = FakeSession(isSignedIn: true)
@@ -1160,6 +1159,93 @@ class amplify_auth_cognito_tests: XCTestCase {
                 XCTAssertEqual(true, res.isSignedIn)
                 XCTAssertEqual(true, res.toJSON()["isSignedIn"] as? Bool)
                 XCTAssertEqual(1, res.toJSON().count)
+            } else {
+                XCTFail()
+            }
+        })
+    }
+    
+    func test_guestAccess() {
+        class FetchSessionMock: AuthCognitoBridge {
+            override func onFetchSession(flutterResult: @escaping FlutterResult, request: FlutterFetchSessionRequest) {
+                let authError = AuthError.signedOut("", "")
+                let creds = FakeCredentials(accessKey: _accessKey, secretKey: _secretKey)
+                let authSession = FakeCognitoSession(
+                    isSignedIn: false,
+                    // guest access should result in userSub failure (i.e. no UserPool User)
+                    userSubResult: .failure(authError),
+                    identityIdResult: .success("testid"),
+                    awsCredentialsResult:  Result<AuthAWSCredentials, AuthError>.success(creds),
+                    // guest access should result in cognito tokens failure (i.e. no UserPool User)
+                    cognitoTokensResult: Result<AuthCognitoTokens, AuthError>.failure(authError)
+                )
+                let sessionData = Result<AuthSession,AuthError>.success(authSession)
+                do {
+                    let fetchSessionData = try FlutterFetchCognitoSessionResult(res: sessionData)
+                    flutterResult(fetchSessionData)
+                } catch {
+                    handleAuthError(error: error as! AuthError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.FETCH_SESSION.rawValue)
+                }
+            }
+        }
+        
+        plugin = SwiftAuthCognito.init(cognito: FetchSessionMock())
+        
+        _options = ["getAWSCredentials": false]
+        _data = ["options": _options]
+        _args = ["data": _data]
+        let call = FlutterMethodCall(methodName: "fetchAuthSession", arguments: _args)
+        plugin.handle(call, result: {(result)->Void in
+            if let res = result as? FlutterFetchCognitoSessionResult {
+                XCTAssertEqual(false, res.toJSON()["isSignedIn"] as? Bool)
+                XCTAssertEqual("testid", res.toJSON()["identityId"] as? String)
+                // userSub error will result in map with one 'error' key
+                XCTAssertEqual(1, (res.toJSON()["tokens"] as?  [String: String])!.count)
+                // credentials map should have access key and secret key
+                XCTAssertEqual(2, (res.toJSON()["credentials"] as?  [String: String])!.count)
+            } else {
+                XCTFail()
+            }
+        })
+    }
+    
+    func test_UserPoolOnly() {
+        class FetchSessionMock: AuthCognitoBridge {
+            override func onFetchSession(flutterResult: @escaping FlutterResult, request: FlutterFetchSessionRequest) {
+                let authError = AuthError.service("", "", AWSCognitoAuthError.invalidAccountTypeException)
+                let tokens = FakeTokens(idToken: _idToken, accessToken: _accessToken, refreshToken: _refreshToken)
+                let authSession = FakeCognitoSession(
+                    isSignedIn: true,
+                    userSubResult: .success("testsub"),
+                    identityIdResult: .failure(authError),
+                    awsCredentialsResult:  Result<AuthAWSCredentials, AuthError>.failure(authError),
+                    cognitoTokensResult: Result<AuthCognitoTokens, AuthError>.success(tokens)
+                )
+                let sessionData = Result<AuthSession,AuthError>.success(authSession)
+                do {
+                  let fetchSessionData = try FlutterFetchCognitoSessionResult(res: sessionData)
+                  flutterResult(fetchSessionData)
+                } catch {
+                    handleAuthError(error: error as! AuthError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.FETCH_SESSION.rawValue)
+                }
+            }
+        }
+        
+        plugin = SwiftAuthCognito.init(cognito: FetchSessionMock())
+        
+        _options = ["getAWSCredentials": false]
+        _data = ["options": _options]
+        _args = ["data": _data]
+        let call = FlutterMethodCall(methodName: "fetchAuthSession", arguments: _args)
+        plugin.handle(call, result: {(result)->Void in
+            if let res = result as? FlutterFetchCognitoSessionResult {
+                XCTAssertEqual(true, res.toJSON()["isSignedIn"] as? Bool)
+                // no identity pool will result in nil identityId
+                XCTAssertEqual(nil, res.toJSON()["identityId"] as? String)
+                // all tokens should be present with userpool-only access
+                XCTAssertEqual(3, (res.toJSON()["tokens"] as?  [String: String])!.count)
+                // credentials map should be empty
+                XCTAssertEqual(0, (res.toJSON()["credentials"] as?  [String: String])!.count)
             } else {
                 XCTFail()
             }

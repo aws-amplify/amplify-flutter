@@ -26,8 +26,8 @@ var gson = Gson()
 
 data class FlutterFetchCognitoAuthSessionResult(private val raw: AWSCognitoAuthSession) {
   private val isSignedIn: Boolean = raw.isSignedIn
-  private val identityId: String? = raw.identityId.value as String
-  private val userSub: String? = raw.userSub.value as String
+  private val identityId: String? = raw.identityId.value as String?
+  private val userSub: String? = raw.userSub.value as String?
   private val credentials: AuthSessionResult<AWSCredentials>? = raw.awsCredentials
   private val tokens: AuthSessionResult<AWSCognitoUserPoolTokens>? = raw.userPoolTokens
 
@@ -36,9 +36,39 @@ data class FlutterFetchCognitoAuthSessionResult(private val raw: AWSCognitoAuthS
       "isSignedIn" to this.isSignedIn,
       "identityId" to this.identityId,
       "userSub" to this.userSub,
-      "credentials" to this.credentials.serializeToMap(),
-      "tokens" to this.tokens.serializeToMap()
+      "credentials" to serializeCredentials(this.credentials),
+      "tokens" to serializeTokens(this.tokens)
     )
+  }
+
+  //parse userpool tokens
+  fun serializeTokens(res: AuthSessionResult<AWSCognitoUserPoolTokens>?): Map<String, Any>? {
+    var map = res.serializeToMap();
+    return if (map != null && map.containsKey("value")) {
+      var values = map["value"] as Map<String, Any>
+      return if (!values.containsKey("error")) {
+        values
+      } else {
+        null
+      }
+    } else {
+      null
+    }
+  }
+
+  //parse credentials
+  fun serializeCredentials(res: AuthSessionResult<AWSCredentials>?): Map<String, Any>? {
+    var map = res.serializeToMap();
+    return if (map != null && map.containsKey("value")) {
+      var values = map["value"] as Map<String, Any>
+      return if (!values.containsKey("error")) {
+        values
+      } else {
+        null
+      }
+    } else {
+      null
+    }
   }
 
   //convert a data class to a map

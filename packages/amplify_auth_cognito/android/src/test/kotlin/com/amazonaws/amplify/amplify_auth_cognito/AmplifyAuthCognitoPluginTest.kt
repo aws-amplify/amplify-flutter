@@ -1,15 +1,17 @@
 package com.amazonaws.amplify.amplify_auth_cognito
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthFailureMessage
-import com.amplifyframework.auth.AuthException
-import com.amplifyframework.auth.AuthCategory
-import com.amplifyframework.auth.AuthUserAttribute
-import com.amplifyframework.auth.AuthUserAttributeKey
+import com.amazonaws.auth.AWSCredentials
+import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.regions.RegionUtils.init
+import com.amplifyframework.auth.*
 import com.amplifyframework.auth.options.AuthSignOutOptions
 import com.amplifyframework.auth.options.AuthSignUpOptions
 import com.amplifyframework.auth.result.AuthResetPasswordResult
 import com.amplifyframework.auth.result.AuthSignInResult
 import com.amplifyframework.auth.result.AuthSignUpResult
-import com.amplifyframework.auth.AuthCodeDeliveryDetails
+import com.amplifyframework.auth.cognito.AWSCognitoAuthSession
+import com.amplifyframework.auth.cognito.AWSCognitoUserPoolTokens
+import com.amplifyframework.auth.result.AuthSessionResult
 import com.amplifyframework.auth.result.step.*
 import com.amplifyframework.core.Action
 import com.amplifyframework.core.Amplify
@@ -33,7 +35,7 @@ class AmplifyAuthCognitoPluginTest {
 
     lateinit var plugin: AuthCognito
 
-    private val mockResult: MethodChannel.Result = mock(MethodChannel.Result::class.java)
+    private val mockResult = mock(MethodChannel.Result::class.java)
     private val codeDeliveryDetails = AuthCodeDeliveryDetails("test@test.com", AuthCodeDeliveryDetails.DeliveryMedium.EMAIL, "email")
     private val signUpStep = AuthNextSignUpStep(AuthSignUpStep.CONFIRM_SIGN_UP_STEP, emptyMap(), codeDeliveryDetails)
     private val signInStep = AuthNextSignInStep(AuthSignInStep.CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE, emptyMap(), codeDeliveryDetails)
@@ -65,8 +67,8 @@ class AmplifyAuthCognitoPluginTest {
             }
             null as Void?
         }.`when`(mockAuth).signUp(anyString(), anyString(), any(AuthSignUpOptions::class.java), ArgumentMatchers.any<Consumer<AuthSignUpResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
-        val userAttributes: HashMap<String, String> = hashMapOf("email" to "test@test.com")
-        val options: HashMap<String, Any> = hashMapOf(
+        val userAttributes = hashMapOf("email" to "test@test.com")
+        val options = hashMapOf(
             "userAttributes" to userAttributes
         )
         val data: HashMap<*, *> = hashMapOf(
@@ -74,7 +76,7 @@ class AmplifyAuthCognitoPluginTest {
             "password" to "testPassword",
             "options" to options
         )
-        val arguments: HashMap<String, Any> = hashMapOf("data" to data)
+        val arguments = hashMapOf("data" to data)
         val call = MethodCall("signUp", arguments)
         val res = mapOf(
                 "isSignUpComplete" to false,
@@ -104,11 +106,11 @@ class AmplifyAuthCognitoPluginTest {
             null as Void?
         }.`when`(mockAuth).confirmSignUp(anyString(), anyString(), ArgumentMatchers.any<Consumer<AuthSignUpResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
 
-        val data: HashMap<*, *> = hashMapOf(
+        val data = hashMapOf(
             "username" to "testUser",
             "confirmationCode" to "confirmationCode"
         )
-        val arguments: HashMap<String, Any> = hashMapOf("data" to data)
+        val arguments = hashMapOf("data" to data)
         val call = MethodCall("confirmSignUp", arguments)
         val res = mapOf(
             "isSignUpComplete" to false,
@@ -159,11 +161,11 @@ class AmplifyAuthCognitoPluginTest {
             null as Void?
         }.`when`(mockAuth).signIn(anyString(), anyString(), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
 
-        val data: HashMap<*, *> = hashMapOf(
+        val data = hashMapOf(
             "username" to "testUser",
             "password" to "testPassword"
         )
-        val arguments: HashMap<String, Any> = hashMapOf("data" to data)
+        val arguments = hashMapOf("data" to data)
         val call = MethodCall("signIn", arguments)
         val res = mapOf(
             "isSignedIn" to false,
@@ -313,6 +315,52 @@ class AmplifyAuthCognitoPluginTest {
 
         // Assert
         verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>())
+    }
+
+    @Test
+    fun fetchSession_returnsSuccess() {
+        val id = AuthSessionResult.success("id")
+        val awsCredentials: AuthSessionResult<AWSCredentials> = AuthSessionResult.success(BasicAWSCredentials("access", "secret"))
+        val userSub = AuthSessionResult.success("sub")
+        val tokens = AuthSessionResult.success(AWSCognitoUserPoolTokens("access", "id", "refresh"))
+        val mockSession = AWSCognitoAuthSession(
+        true,
+            id,
+            awsCredentials,
+            userSub,
+            tokens
+        )
+
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareCognitoSessionResult(mockResult, mockSession)
+            null as Void?
+        }.`when`(mockAuth).fetchAuthSession(any(), any())
+
+        val data: HashMap<*, *> = hashMapOf(
+                "getAWSCredentials" to true
+        )
+        val arguments = hashMapOf("data" to data)
+        val call = MethodCall("fetchAuthSession", arguments)
+        val res = mapOf(
+            "isSignedIn" to true,
+            "identityId" to "id",
+            "userSub" to "sub",
+            "credentials" to mapOf(
+                "accessKey" to "access",
+                "secretKey" to "secret"
+            ),
+            "tokens" to mapOf(
+                "accessToken" to "access",
+                "idToken" to "id",
+                "refreshToken" to "refresh"
+            )
+        )
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).success(res);
     }
 
     private fun setFinalStatic(field: Field, newValue: Any?) {

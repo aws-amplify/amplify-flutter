@@ -67,4 +67,31 @@ void main() {
     } 
     expect(err.cause, "AMPLIFY_FETCH_SESSION_FAILED");
   });
+
+  test('CognitoAuthSession handles null tokens', () async {
+    var rawValues = Map.from({
+      "isSignedIn": true,
+      "tokens": null
+    });
+
+    var session = CognitoAuthSession.init(sessionValues: rawValues);
+    expect(session.userPoolTokens, null);
+  });
+
+  test('CognitoAuthSession handles tokens', () async {
+    Map<dynamic, dynamic> tokens = {
+      "accessToken": "access",
+      "idToken": "id",
+      "refreshToken": "refresh"
+    };
+    var rawValues = {
+      "isSignedIn": true,
+      "tokens": tokens
+    };
+
+    var session = CognitoAuthSession.init(sessionValues: rawValues);
+    expect(session.userPoolTokens.accessToken, AWSCognitoUserPoolTokens.init(tokens: tokens).accessToken);
+    expect(session.userPoolTokens.idToken, AWSCognitoUserPoolTokens.init(tokens: tokens).idToken);
+    expect(session.userPoolTokens.refreshToken, AWSCognitoUserPoolTokens.init(tokens: tokens).refreshToken);
+  });
 }

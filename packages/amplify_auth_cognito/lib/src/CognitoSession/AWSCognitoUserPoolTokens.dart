@@ -23,18 +23,10 @@ class AWSCognitoUserPoolTokens {
   String idToken;
   String refreshToken;
   AWSCognitoUserPoolTokens.init({@required LinkedHashMap<dynamic, dynamic> tokens}) {
-    var realTokens;
-    if (Platform.isAndroid) {
-      if (tokens.containsKey("value")) {
-        realTokens = tokens["value"];
-      } else {
-        throw(AmplifyDartExceptions.formatException(methodName: "fetchAuthSession", field: "credentials"));
-      }
-    } else {
-      realTokens = tokens;
+    if (tokens != null) {
+      this.accessToken = tokens["accessToken"];
+      this.idToken = tokens["idToken"];
+      this.refreshToken = tokens["refreshToken"];
     }
-    this.accessToken = realTokens["accessToken"];
-    this.idToken = realTokens["idToken"];
-    this.refreshToken = realTokens["refreshToken"];
   }
 }

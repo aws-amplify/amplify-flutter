@@ -364,8 +364,22 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
                 if (req.getAWSCredentials) {
                   val cognitoAuthSession = result as AWSCognitoAuthSession
                   when (cognitoAuthSession.identityId.type) {
-                    AuthSessionResult.Type.SUCCESS -> prepareCognitoSessionResult(flutterResult, cognitoAuthSession)
-                    AuthSessionResult.Type.FAILURE -> prepareCognitoSessionFailure(flutterResult, cognitoAuthSession)
+                    AuthSessionResult.Type.SUCCESS -> {
+                      prepareCognitoSessionResult(flutterResult, cognitoAuthSession)
+                    }
+                    AuthSessionResult.Type.FAILURE -> {
+                      // checking case where user pool data is available but id pool does not exist
+                      if (
+                            result.identityId.error is AuthException.InvalidAccountTypeException &&
+                            result.awsCredentials.error is AuthException.InvalidAccountTypeException &&
+                            result.userPoolTokens.type.toString() == "SUCCESS" &&
+                            result.userSub.type.toString() == "SUCCESS"
+                      ) {
+                        prepareCognitoSessionResult(flutterResult, cognitoAuthSession)
+                      } else {
+                        prepareCognitoSessionFailure(flutterResult, cognitoAuthSession)
+                      }
+                    }
                   }
                 } else {
                   val session = result as AuthSession;
@@ -515,12 +529,8 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
 
   fun prepareSessionResult(@NonNull flutterResult: Result, @NonNull result: AuthSession) {
     var session = FlutterFetchAuthSessionResult(result);
-    if (session.isSignedIn) {
       Handler (Looper.getMainLooper()).post {
         flutterResult.success(session.toValueMap());
       }
-    } else {
-      prepareError(flutterResult, AuthException.SignedOutException(), FlutterAuthFailureMessage.FETCH_SESSION.toString())
-    }
   }
 }
