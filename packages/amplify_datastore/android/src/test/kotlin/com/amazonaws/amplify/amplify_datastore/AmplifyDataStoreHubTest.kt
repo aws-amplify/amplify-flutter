@@ -113,7 +113,7 @@ class AmplifyDataStoreHubTest {
         val hubMap = FlutterOutboxMutationEnqueuedEvent(
                 eventData["eventName"] as String,
                 eventData["modelName"] as String,
-                modelWithMetadata
+                outboxMutationEnqueued.element
         )
 
         val token: SubscriptionToken = hubSpy.getHubListener()
@@ -155,7 +155,7 @@ class AmplifyDataStoreHubTest {
         val hubMap = FlutterOutboxMutationProcessedEvent(
                 eventData["eventName"] as String,
                 eventData["modelName"] as String,
-                modelWithMetadata
+                outboxMutationProcessed.element
         )
 
         val token: SubscriptionToken = hubSpy.getHubListener()
