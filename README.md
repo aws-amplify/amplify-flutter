@@ -16,30 +16,35 @@ We are iterating and looking for feedback and collaboration, so please [**let us
 
 ## Supported Amplify Categories
 
-- [x] [**Authentication**](https://docs.amplify.aws/lib/auth/getting-started/q/platform/flutter): Create user authentication experiences with Amazon Cognito
+- [x] [**Authentication**](https://docs.amplify.aws/lib/auth/getting-started/q/platform/flutter): APIs and building blocks for developers who want to create user authentication experiences with Amazon Cognito.
 
     <a href="https://pub.dev/packages/amplify_auth_cognito" target="_blank">
       <img src="https://img.shields.io/pub/v/amplify_auth_cognito.svg">
     </a>
 
-- [x] [**Analytics**](https://docs.amplify.aws/lib/analytics/getting-started/q/platform/flutter): Collect analytics data with Amazon Pinpoint
+- [x] [**Analytics**](https://docs.amplify.aws/lib/analytics/getting-started/q/platform/flutter): Easily collect analytics data for your app with Pinpoint. Analytics data includes user sessions and other custom events that you want to track in your app.
 
   <a href="https://pub.dev/packages/amplify_analytics_pinpoint" target="_blank">
     <img src="https://img.shields.io/pub/v/amplify_analytics_pinpoint.svg">
   </a>
 
-- [x] [**Storage**](https://docs.amplify.aws/lib/storage/getting-started/q/platform/flutter): Store user content with Amazon S3 
+- [x] [**Storage**](https://docs.amplify.aws/lib/storage/getting-started/q/platform/flutter): Provides a simple mechanism for managing user content for your app in public, protected or private storage buckets with Amazon S3.
 
   <a href="https://pub.dev/packages/amplify_storage_s3" target="_blank">
     <img src="https://img.shields.io/pub/v/amplify_storage_s3.svg">
+  </a>
+
+- [x] [**DataStore**](https://docs.amplify.aws/lib/datastore/getting-started/q/platform/flutter): A programming model for leveraging shared and distributed data without writing additional code for offline and online scenarios, which makes working with distributed, cross-user data just as simple as working with local-only data.
+
+  <a href="https://pub.dev/packages/amplify_datastore" target="_blank">
+    <img src="https://img.shields.io/pub/v/amplify_datastore.svg">
   </a>
 
 ### To Be Implemented
 
 - [ ] API (REST/GraphQL)
 - [ ] Predictions
-- [ ] Datastore
-- [ ] Hub Events (Listening to the Amplify events)
+- [ ] Storage Hub Events (Listening to the Amplify Storage events)
 - [ ] iOS Error Events in Amplify Analytics
 
 > Amplify for Flutter is in preview, and is not recommended for production use at this time. During this phase, we are iterating on the code base, and looking for your feedback and collaboration. [**WE'D LOVE TO GET YOUR FEEDBACK! :-).**](https://github.com/aws-amplify/amplify-flutter/issues/5).
@@ -89,6 +94,7 @@ Only the following resource types are supported:
  * Auth
  * Analytics
  * Storage
+ * API
 ? Where do you want to store your configuration file? ./lib/
 ```
 
