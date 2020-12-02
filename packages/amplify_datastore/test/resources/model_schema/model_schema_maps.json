@@ -1,0 +1,263 @@
+{
+  "BlogSchema": {
+    "name": "Blog",
+    "pluralName": "Blogs",
+    "fields": {
+      "id": {
+        "name": "id",
+        "type": {
+          "fieldType": "string"
+        },
+        "isRequired": true,
+        "isArray": false
+      },
+      "name": {
+        "name": "name",
+        "type": {
+          "fieldType": "string"
+        },
+        "isRequired": true,
+        "isArray": false
+      },
+      "posts": {
+        "name": "posts",
+        "type": {
+          "fieldType": "collection",
+          "ofModelName": "Post"
+        },
+        "isRequired": false,
+        "isArray": true,
+        "association": {
+          "associationType": "HasMany",
+          "associatedName": "blog",
+          "associatedType": "Blog"
+        }
+      }
+    }
+  },
+
+  "CommentSchema": {
+    "name": "Comment",
+    "pluralName": "Comments",
+    "fields": {
+      "id": {
+        "name": "id",
+        "type": {
+          "fieldType": "string"
+        },
+        "isRequired": true,
+        "isArray": false
+      },
+      "post": {
+        "name": "post",
+        "type": {
+          "fieldType": "model",
+          "ofModelName": "Post"
+        },
+        "isRequired": false,
+        "isArray": false,
+        "association": {
+          "associationType": "BelongsTo",
+          "targetName": "postID"
+        }
+      },
+      "content": {
+        "name": "content",
+        "type": {
+          "fieldType": "string"
+        },
+        "isRequired": true,
+        "isArray": false
+      }
+    }
+  },
+
+  "PostSchema": {
+    "name": "Post",
+    "pluralName": "Posts",
+    "fields": {
+      "id": {
+        "name": "id",
+        "type": {
+          "fieldType": "string"
+        },
+        "isRequired": true,
+        "isArray": false
+      },
+      "title": {
+        "name": "title",
+        "type": {
+          "fieldType": "string"
+        },
+        "isRequired": true,
+        "isArray": false
+      },
+      "created": {
+        "name": "created",
+        "type": {
+          "fieldType": "dateTime"
+        },
+        "isRequired": false,
+        "isArray": false
+      },
+      "rating": {
+        "name": "rating",
+        "type": {
+          "fieldType": "int"
+        },
+        "isRequired": false,
+        "isArray": false
+      },
+      "blog": {
+        "name": "blog",
+        "type": {
+          "fieldType": "model",
+          "ofModelName": "Blog"
+        },
+        "isRequired": false,
+        "isArray": false,
+        "association": {
+          "associationType": "BelongsTo",
+          "targetName": "blogID"
+        }
+      },
+      "comments": {
+        "name": "comments",
+        "type": {
+          "fieldType": "collection",
+          "ofModelName": "Comment"
+        },
+        "isRequired": false,
+        "isArray": true,
+        "association": {
+          "associationType": "HasMany",
+          "associatedName": "post",
+          "associatedType": "Post"
+        }
+      }
+    }
+  },
+
+  "PostAuthComplexSchema": {
+    "name": "PostAuthComplex",
+    "pluralName": "PostAuthComplexes",
+    "authRules": [{
+      "authStrategy": "OWNER",
+      "ownerField": "owner",
+      "identityClaim": "cognito:username"
+    }],
+    "fields": {
+      "id": {
+        "name": "id",
+        "type": {
+          "fieldType": "string"
+        },
+        "isRequired": true,
+        "isArray": false
+      },
+      "title": {
+        "name": "title",
+        "type": {
+          "fieldType": "string"
+        },
+        "isRequired": true,
+        "isArray": false
+      },
+      "owner": {
+        "name": "owner",
+        "type": {
+          "fieldType": "string"
+        },
+        "isRequired": false,
+        "isArray": false
+      }
+    }
+  },
+
+  "AllTypeModelSchema": {
+    "name": "AllTypeModel",
+    "pluralName": "AllTypeModels",
+    "fields": {
+      "id": {
+        "name": "id",
+        "type": {
+          "fieldType": "string"
+        },
+        "isRequired": true,
+        "isArray": false
+      },
+      "stringType": {
+        "name": "stringType",
+        "type": {
+          "fieldType": "string"
+        },
+        "isRequired": true,
+        "isArray": false
+      },
+      "intType": {
+        "name": "intType",
+        "type": {
+          "fieldType": "int"
+        },
+        "isRequired": true,
+        "isArray": false
+      },
+      "floatType": {
+        "name": "floatType",
+        "type": {
+          "fieldType": "double"
+        },
+        "isRequired": true,
+        "isArray": false
+      },
+      "boolType": {
+        "name": "boolType",
+        "type": {
+          "fieldType": "bool"
+        },
+        "isRequired": true,
+        "isArray": false
+      },
+      "dateType": {
+        "name": "dateType",
+        "type": {
+          "fieldType": "date"
+        },
+        "isRequired": true,
+        "isArray": false
+      },
+      "dateTimeType": {
+        "name": "dateTimeType",
+        "type": {
+          "fieldType": "dateTime"
+        },
+        "isRequired": true,
+        "isArray": false
+      },
+      "timeType": {
+        "name": "timeType",
+        "type": {
+          "fieldType": "time"
+        },
+        "isRequired": true,
+        "isArray": false
+      },
+      "timestampType": {
+        "name": "timestampType",
+        "type": {
+          "fieldType": "timestamp"
+        },
+        "isRequired": true,
+        "isArray": false
+      },
+      "enumType": {
+        "name": "enumType",
+        "type": {
+          "fieldType": "string"
+        },
+        "isRequired": true,
+        "isArray": false
+      }
+    }
+  }
+}

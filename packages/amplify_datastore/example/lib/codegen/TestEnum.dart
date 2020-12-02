@@ -13,25 +13,4 @@
 * permissions and limitations under the License.
 */
 
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'Blog.dart';
-import 'Comment.dart';
-import 'Post.dart';
-
-export 'Blog.dart';
-export 'Comment.dart';
-export 'Post.dart';
-
-class ModelProvider implements ModelProviderInterface {
-  @override
-  String version = "eafbb6824d31a405463fa8cc7f08bceb";
-  @override
-  List<ModelSchema> modelSchemas = [
-    Blog.schema,
-    Comment.schema,
-    Post.schema,
-  ];
-  static final ModelProvider _instance = ModelProvider();
-
-  static ModelProvider get instance => _instance;
-}
+enum TestEnum { yes, no, maybe }

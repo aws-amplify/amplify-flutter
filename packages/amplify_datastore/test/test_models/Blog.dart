@@ -1,42 +1,33 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+* Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+*
+* Licensed under the Apache License, Version 2.0 (the "License").
+* You may not use this file except in compliance with the License.
+* A copy of the License is located at
+*
+*  http://aws.amazon.com/apache2.0
+*
+* or in the "license" file accompanying this file. This file is distributed
+* on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+* express or implied. See the License for the specific language governing
+* permissions and limitations under the License.
+*/
 
-import 'package:flutter/foundation.dart';
-import 'package:collection/collection.dart';
+import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 
-import 'Post.dart';
-
-/*
-type Blog @model {
-  id: ID!
-  name: String!
-  posts: [Post] @connection(keyName: "byBlog", fields: ["id"])
-}
- */
-
+/** This is an auto generated class representing the Blog type in your schema. */
 @immutable
 class Blog extends Model {
   static const classType = const BlogType();
-
-  @override
-  getInstanceType() => classType;
-
   final String id;
   final String name;
   final List<Post> posts;
+
+  @override
+  getInstanceType() => classType;
 
   @override
   String getId() {
@@ -45,7 +36,7 @@ class Blog extends Model {
 
   const Blog._internal({@required this.id, @required this.name, this.posts});
 
-  factory Blog({String id, @required String name, List<Post> posts}) {
+  factory Blog({@required String id, @required String name, List<Post> posts}) {
     return Blog._internal(
         id: id == null ? UUID.getUUID() : id,
         name: name,
@@ -96,7 +87,7 @@ class Blog extends Model {
             : null;
 
   Map<String, dynamic> toJson() =>
-      {'id': id, 'name': name, 'posts': posts.map((post) => post.toJson())};
+      {'id': id, 'name': name, 'posts': posts?.map((e) => e?.toJson())};
 
   static final QueryField ID = QueryField(fieldName: "blog.id");
   static final QueryField NAME = QueryField(fieldName: "name");
@@ -104,7 +95,6 @@ class Blog extends Model {
       fieldName: "posts",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: (Post).toString()));
-
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Blog";

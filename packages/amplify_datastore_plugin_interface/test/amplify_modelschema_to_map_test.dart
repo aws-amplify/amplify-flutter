@@ -16,7 +16,7 @@
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import './testData/index.dart';
+import 'testData/ModelProvider.dart';
 
 void main() {
   test('Blog codegen model generates modelschema with proper fields', () async {
