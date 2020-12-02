@@ -347,11 +347,8 @@ class AmplifyAuthCognitoPluginTest {
             "identityId" to "id",
             "userSub" to "sub",
             "credentials" to mapOf(
-                "value" to mapOf(
-                    "accessKey" to "access",
-                    "secretKey" to "secret"
-                ),
-                "type" to "SUCCESS"
+                "accessKey" to "access",
+                "secretKey" to "secret"
             ),
             "tokens" to mapOf(
                 "accessToken" to "access",
