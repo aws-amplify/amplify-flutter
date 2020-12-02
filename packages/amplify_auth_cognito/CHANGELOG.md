@@ -5,8 +5,8 @@
 * Updated amplify-android library version to v1.6.6
 * Updated amplify-ios library version to v1.4.4
 * Fixed bugs preventing guest credentials from being provided from native code to Dart
-* Fixed bugs preventing access tokens from being provided from native code to Dart
-* Fixed bugs preventing user pool tokens from being provided from native code to Dart when configuration includes Cognito User Pools without Cogito Identity Pools.
+* Fixed bugs preventing session tokens from being provided from native code to Dart (#178).
+* Fixed bugs preventing user pool tokens from being provided from native code to Dart when configuration includes Cognito User Pools without Cogito Identity Pools (#148 & #163).
 
 ## 0.0.1-dev.3 (2020-10-08)
 
