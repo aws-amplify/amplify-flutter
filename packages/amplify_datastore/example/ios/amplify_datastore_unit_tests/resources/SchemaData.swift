@@ -73,5 +73,22 @@ struct SchemaData {
             "owner" : ModelField(name: "owner", type: .string, isRequired: false, isArray: false),
         ]
     )
+    
+    static var AllTypeModelSchema : ModelSchema = ModelSchema(
+        name: "AllTypeModel",
+        pluralName: "AllTypeModels",
+        fields: [
+            "id" : ModelField(name: "id", type: .string, isRequired: true, isArray: false),
+            "stringType" : ModelField(name: "stringType", type: .string, isRequired: true, isArray: false),
+            "intType" : ModelField(name: "intType", type: .int, isRequired: true, isArray: false),
+            "floatType" : ModelField(name: "floatType", type: .double, isRequired: true, isArray: false),
+            "boolType" : ModelField(name: "boolType", type: .bool, isRequired: true, isArray: false),
+            "dateType" : ModelField(name: "dateType", type: .date, isRequired: true, isArray: false),
+            "dateTimeType" : ModelField(name: "dateTimeType", type: .dateTime, isRequired: true, isArray: false),
+            "timeType" : ModelField(name: "timeType", type: .time, isRequired: true, isArray: false),
+            "timestampType" : ModelField(name: "timestampType", type: .timestamp, isRequired: true, isArray: false),
+            "enumType" : ModelField(name: "enumType", type: .string, isRequired: true, isArray: false),
+        ]
+    )
 
 }

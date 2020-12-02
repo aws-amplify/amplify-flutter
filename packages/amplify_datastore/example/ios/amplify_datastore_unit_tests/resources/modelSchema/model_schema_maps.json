@@ -173,7 +173,92 @@
                 "isArray": false
             }
         }
+    },    
+    
+    "AllTypeModelSchema": {
+        "name": "AllTypeModel",
+        "pluralName": "AllTypeModels",
+        "fields": {
+            "id": {
+                "name": "id",
+                "type": {
+                    "fieldType": "string"
+                },
+                "isRequired": true,
+                "isArray": false
+            },
+            "stringType": {
+                "name": "stringType",
+                "type": {
+                    "fieldType": "string"
+                },
+                "isRequired": true,
+                "isArray": false
+            },
+            "intType": {
+                "name": "intType",
+                "type": {
+                    "fieldType": "int"
+                },
+                "isRequired": true,
+                "isArray": false
+            },
+            "floatType": {
+                "name": "floatType",
+                "type": {
+                    "fieldType": "double"
+                },
+                "isRequired": true,
+                "isArray": false
+            },
+            "boolType": {
+                "name": "boolType",
+                "type": {
+                    "fieldType": "bool"
+                },
+                "isRequired": true,
+                "isArray": false
+            },
+            "dateType": {
+                "name": "dateType",
+                "type": {
+                    "fieldType": "date"
+                },
+                "isRequired": true,
+                "isArray": false
+            },
+            "dateTimeType": {
+                "name": "dateTimeType",
+                "type": {
+                    "fieldType": "dateTime"
+                },
+                "isRequired": true,
+                "isArray": false
+            },
+            "timeType": {
+                "name": "timeType",
+                "type": {
+                    "fieldType": "time"
+                },
+                "isRequired": true,
+                "isArray": false
+            },
+            "timestampType": {
+                "name": "timestampType",
+                "type": {
+                    "fieldType": "timestamp"
+                },
+                "isRequired": true,
+                "isArray": false
+            },
+            "enumType": {
+                "name": "enumType",
+                "type": {
+                    "fieldType": "string"
+                },
+                "isRequired": true,
+                "isArray": false
+            }
+        }
     }
-
-
 }

@@ -13,11 +13,9 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-
 import 'package:flutter_test/flutter_test.dart';
 
-import './testData/index.dart';
+import 'testData/ModelProvider.dart';
 
 void main() {
   test('Comment.classType generates proper json from serializedMap modelschema',

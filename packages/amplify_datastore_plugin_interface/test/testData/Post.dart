@@ -1,5 +1,4 @@
 /*
-*
 * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 *
 * Licensed under the Apache License, Version 2.0 (the "License").
@@ -14,46 +13,30 @@
 * permissions and limitations under the License.
 */
 
+import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:meta/meta.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 
-import 'Blog.dart';
-import 'Comment.dart';
-
-/*
-type Post @model @key(name: "byBlog", fields: ["blogID"]) {
-  id: ID!
-  title: String!
-  rating: Int!
-  created: AWSDate!
-  blogID: ID!
-  blog: Blog @connection(fields: ["blogID"])
-  comments: [Comment] @connection(keyName: "byPost", fields: ["id"])
-}
- */
-
+/** This is an auto generated class representing the Post type in your schema. */
 @immutable
 class Post extends Model {
   static const classType = const PostType();
-
-  @override
-  getInstanceType() => classType;
-
   final String id;
   final String title;
   final int rating;
   final DateTime created;
-
   final Blog blog;
   final List<Comment> comments;
+
+  @override
+  getInstanceType() => classType;
 
   @override
   String getId() {
     return id;
   }
 
-// Constructors
   const Post._internal(
       {@required this.id,
       @required this.title,
@@ -63,19 +46,19 @@ class Post extends Model {
       this.comments});
 
   factory Post(
-      {String id,
+      {@required String id,
       @required String title,
       int rating,
       DateTime created,
       Blog blog,
       List<Comment> comments}) {
     return Post._internal(
-        id: id,
+        id: id == null ? UUID.getUUID() : id,
         title: title,
         rating: rating,
         created: created,
         blog: blog,
-        comments: comments);
+        comments: comments != null ? List.unmodifiable(comments) : comments);
   }
 
   bool equals(Object other) {
@@ -95,7 +78,7 @@ class Post extends Model {
   }
 
   @override
-  int get hashCode => super.hashCode;
+  int get hashCode => toString().hashCode;
 
   @override
   String toString() {
@@ -104,15 +87,14 @@ class Post extends Model {
     buffer.write("Post {");
     buffer.write("id=" + id + ", ");
     buffer.write("title=" + title + ", ");
-    buffer.write("rating=" + rating.toString() + ", ");
-    buffer.write("created=" + formatDateToISO8601(created));
-    buffer.write("blog=" + blog.toString());
+    buffer.write("rating=" + rating?.toString() + ", ");
+    buffer.write("created=" + created?.toDateTimeIso8601String() + ", ");
+    buffer.write("blog=" + blog?.toString());
     buffer.write("}");
 
     return buffer.toString();
   }
 
-// Utility methods for immutability
   Post copyWith(
       {@required String id,
       @required String title,
@@ -129,13 +111,11 @@ class Post extends Model {
         comments: comments ?? this.comments);
   }
 
-// De/serialization methods
   Post.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         title = json['title'],
         rating = json['rating'],
-        created =
-            json['created'] != null ? DateTime.parse(json['created']) : null,
+        created = DateTimeParse.fromString(json['created']),
         blog = json['blog'] != null
             ? Blog.fromJson(new Map<String, dynamic>.from(json['blog']))
             : null,
@@ -149,25 +129,23 @@ class Post extends Model {
         'id': id,
         'title': title,
         'rating': rating,
-        'created': formatDateToISO8601(created),
+        'created': created?.toDateTimeIso8601String(),
         'blog': blog?.toJson(),
-        'comments': comments?.map((comment) => comment.toJson())
+        'comments': comments?.map((e) => e?.toJson())
       };
 
-  // Schema Section
-
-  static final QueryField ID = new QueryField(fieldName: "post.id");
-  static final QueryField TITLE = new QueryField(fieldName: "title");
-  static final QueryField RATING = new QueryField(fieldName: "rating");
-  static final QueryField CREATED = new QueryField(fieldName: "created");
-  static final QueryField BLOG = new QueryField(
+  static final QueryField ID = QueryField(fieldName: "post.id");
+  static final QueryField TITLE = QueryField(fieldName: "title");
+  static final QueryField RATING = QueryField(fieldName: "rating");
+  static final QueryField CREATED = QueryField(fieldName: "created");
+  static final QueryField BLOG = QueryField(
       fieldName: "blog",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: "Blog"));
-  static final QueryField COMMENTS = new QueryField(
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (Blog).toString()));
+  static final QueryField COMMENTS = QueryField(
       fieldName: "comments",
-      fieldType:
-          ModelFieldType(ModelFieldTypeEnum.model, ofModelName: "Comment"));
-
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (Comment).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Post";
@@ -197,11 +175,10 @@ class Post extends Model {
         ofModelName: (Blog).toString()));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
-      key: Post.COMMENTS,
-      isRequired: false,
-      ofModelName: (Comment).toString(),
-      associatedKey: Comment.POST,
-    ));
+        key: Post.COMMENTS,
+        isRequired: false,
+        ofModelName: (Comment).toString(),
+        associatedKey: Comment.POST));
   });
 }
 

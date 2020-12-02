@@ -53,4 +53,12 @@ class AmplifyModelSchemaUnitTests: XCTestCase {
         
         XCTAssertEqual(SchemaData.PostAuthComplexSchema, postAuthComplexSchema)
     }
+    
+    func test_schema_allTypeModel() throws{
+        let allTypeModelSchema = try FlutterModelSchema(
+            serializedData: schemasMap["AllTypeModelSchema"] as! [String : Any] )
+            .convertToNativeModelSchema()
+        
+        XCTAssertEqual(SchemaData.AllTypeModelSchema, allTypeModelSchema)
+    }
 }
