@@ -17,11 +17,12 @@ package com.amazonaws.amplify.amplify_datastore.types.hub
 
 import com.amplifyframework.core.model.Model
 import com.amplifyframework.datastore.appsync.ModelWithMetadata
+import com.amplifyframework.datastore.syncengine.OutboxMutationEvent
 
 class FlutterOutboxMutationEnqueuedEvent(
         override val eventName: String,
         private val modelName: String,
-        private val element: ModelWithMetadata<*>
+        private val element: OutboxMutationEvent.OutboxMutationEventElement<out Model>
 ) : FlutterHubEvent {
     override fun toValueMap(): Map<String, Any> {
 
