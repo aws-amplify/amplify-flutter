@@ -135,18 +135,16 @@ class _MyAppState extends State<MyApp> {
       runQueries();
     }).onError((error) => print(error));
 
-    // Wait for 2 secs before any automated queries are run.
-    // This is an issue by android that requires to wait for Hub Ready Event before querying.
-    await Future.delayed(const Duration(milliseconds: 2000), () {});
-
     setState(() {
       _isAmplifyConfigured = true;
     });
-    runQueries();
   }
 
   void listenToHub() {
     AmplifyDataStore.events.listenToDataStore((msg) {
+      if (msg["eventName"] == "ready") {
+        runQueries();
+      }
       print(msg);
     });
     setState(() {
