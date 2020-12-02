@@ -26,7 +26,6 @@ class ImageUploader extends StatelessWidget {
         print('File uploaded.  Key: ' + result.key);
         Navigator.pop(context, result.key);
       }
-      // File local = await FilePicker.getFile(type: FileType.image);
     } catch (e) {
       print('UploadFile Err: ' + e.toString());
     }
