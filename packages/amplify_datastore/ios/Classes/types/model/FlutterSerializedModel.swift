@@ -29,7 +29,6 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
 
     public init(from decoder: Decoder) throws {
 
-        print("Decoder \(decoder)")
         let y = try decoder.container(keyedBy: CodingKeys.self)
         id = try y.decode(String.self, forKey: .id)
         
