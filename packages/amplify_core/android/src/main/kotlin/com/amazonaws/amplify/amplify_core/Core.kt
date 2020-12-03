@@ -20,8 +20,11 @@ import android.content.Context
 import android.util.Log
 import androidx.annotation.NonNull
 import com.amplifyframework.AmplifyException
+import com.amplifyframework.api.aws.AWSApiPlugin
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.AmplifyConfiguration
+import com.amplifyframework.core.category.CategoryType
+import com.amplifyframework.core.category.EmptyCategoryConfiguration
 import com.amplifyframework.util.UserAgent
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -100,11 +103,13 @@ public class Core : FlutterPlugin, ActivityAware, MethodCallHandler {
     private fun onConfigure(@NonNull result: Result, @NonNull version: String, @NonNull config: String) {
         if (!isConfigured) {
             try {
-                Amplify.configure(AmplifyConfiguration.builder(JSONObject(config))
+                val configuration = AmplifyConfiguration.builder(JSONObject(config))
                         .addPlatform(UserAgent.Platform.FLUTTER, version)
-                        .build(),
-                        context
-                );
+                        .build()
+                if(configuration.forCategoryType(CategoryType.API) !is EmptyCategoryConfiguration) {
+                    Amplify.addPlugin(AWSApiPlugin())
+                }
+                Amplify.configure(configuration, context)
                 isConfigured = true;
                 result.success(true);
             } catch (e: AmplifyException) {
