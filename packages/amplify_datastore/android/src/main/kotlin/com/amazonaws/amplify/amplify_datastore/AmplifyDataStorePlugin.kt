@@ -25,7 +25,6 @@ import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSubscriptionEv
 import com.amazonaws.amplify.amplify_datastore.types.query.QueryOptionsBuilder
 import com.amazonaws.amplify.amplify_datastore.util.safeCastToList
 import com.amazonaws.amplify.amplify_datastore.util.safeCastToMap
-import com.amplifyframework.api.aws.AWSApiPlugin
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
 import com.amplifyframework.core.async.Cancelable
@@ -136,8 +135,6 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         modelProvider.setVersion(request["modelProviderVersion"] as String)
 
         Amplify.addPlugin(AWSDataStorePlugin(modelProvider))
-        Amplify.addPlugin(AWSApiPlugin())
-
         flutterResult.success(null)
     }
 

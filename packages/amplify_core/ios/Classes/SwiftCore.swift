@@ -33,27 +33,26 @@ public class SwiftCore: NSObject, FlutterPlugin {
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     switch call.method {
       case "configure":
-        do {
-          let arguments = call.arguments as! Dictionary<String, AnyObject>
-          let version = arguments["version"] as! String
-          let configuration = arguments["configuration"] as! String
-          let amplifyConfiguration = try JSONDecoder().decode(AmplifyConfiguration.self, from: configuration.data(using: .utf8)!)
-          onConfigure(result: result, version: version, amplifyConfiguration: amplifyConfiguration)
-            
-        } catch {
-            print("Failed to configure Amplify \(error)")
-            result(FlutterError(code: "AmplifyException",
-                                message: "Failed to Configure Amplify",
-                                details: error.localizedDescription));
-        }
+        let arguments = call.arguments as! Dictionary<String, AnyObject>
+        let version = arguments["version"] as! String
+        let configuration = arguments["configuration"] as! String
+        onConfigure(result: result, version: version, configuration: configuration)
       default:
         result(FlutterMethodNotImplemented)
     }
   }
 
-    private func onConfigure(result: FlutterResult, version: String, amplifyConfiguration: AmplifyConfiguration) {
-      if (!isConfigured) {
+    private func onConfigure(result: FlutterResult, version: String, configuration: String) {
+      if(!isConfigured) {
         do {
+          if let data = configuration.data(using: .utf8) {
+            let configurationDictionary = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+            if(configurationDictionary?["api"] != nil) {
+                // api configuration exists. Let's add the plugin
+                try Amplify.add(plugin: AWSAPIPlugin())
+            }
+          }
+          let amplifyConfiguration = try JSONDecoder().decode(AmplifyConfiguration.self, from: configuration.data(using: .utf8)!)
           AmplifyAWSServiceConfiguration.addUserAgentPlatform(.flutter, version: version)
           try Amplify.configure(amplifyConfiguration)
           isConfigured = true
