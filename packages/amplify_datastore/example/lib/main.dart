@@ -17,7 +17,6 @@ library sample_app;
 
 import 'dart:convert';
 
-import 'package:amplify_datastore_example/codegen/ModelProvider.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -27,10 +26,7 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'amplifyconfiguration.dart';
-
-import 'codegen/Blog.dart';
-import 'codegen/Post.dart';
-import 'codegen/Comment.dart';
+import 'models/ModelProvider.dart';
 
 part 'queries_display_widgets.dart';
 part 'save_model_widgets.dart';
