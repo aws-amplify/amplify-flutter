@@ -40,7 +40,7 @@ class Post extends Model {
   const Post._internal(
       {@required this.id,
       @required this.title,
-      this.rating,
+      @required this.rating,
       this.created,
       this.blog,
       this.comments});
@@ -48,7 +48,7 @@ class Post extends Model {
   factory Post(
       {@required String id,
       @required String title,
-      int rating,
+      @required int rating,
       DateTime created,
       Blog blog,
       List<Comment> comments}) {
@@ -101,7 +101,7 @@ class Post extends Model {
   Post copyWith(
       {@required String id,
       @required String title,
-      int rating,
+      @required int rating,
       DateTime created,
       Blog blog,
       List<Comment> comments}) {
@@ -163,7 +163,7 @@ class Post extends Model {
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: Post.RATING,
-        isRequired: false,
+        isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.int)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
