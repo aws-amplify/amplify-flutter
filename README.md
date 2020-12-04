@@ -231,7 +231,7 @@ This ensures that your Flutter project is running the same ios version that the 
 
 Click **Configure Amplify**, then **Record Event**. From the terminal (in the root of your project) run `amplify console analytics`. This will open the Amazon Pinpoint console for your project in your default web browser. Within about a minute you should start seeing the events populating in the Events section of then Pinpoint console. 
 
-For further documentation and Amplify Category API usage, see the [documentation](https://docs.amplify.aws/lib/q/platform/js).
+For further documentation and Amplify Category API usage, see the [documentation](https://docs.amplify.aws/lib/q/platform/flutter).
 
 ---
 
