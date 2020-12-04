@@ -10,7 +10,7 @@ This example uses three connected models `Blog`, `Post` and `Comment`. You can r
 
 `Post` can only be created for a `Blog`. You fist create a `Blog` and use it in the drop down while creating a `Post`. Similarly `Comment` can be created only for a `Post`.
 
-Use the `X` on the top to clear your local DataStore
+Use the `X` on the top to clear your local DataStore.
 
 
 ### Online mode
