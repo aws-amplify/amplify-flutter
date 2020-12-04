@@ -21,11 +21,10 @@ import 'Post.dart';
 export 'Blog.dart';
 export 'Comment.dart';
 export 'Post.dart';
-export 'TestEnum.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "d632d0b8f63bc2c7ff7b2c473d66c20c";
+  String version = "b9d8df244e46afeda480eb9ae5d2251f";
   @override
   List<ModelSchema> modelSchemas = [Blog.schema, Comment.schema, Post.schema];
   static final ModelProvider _instance = ModelProvider();
