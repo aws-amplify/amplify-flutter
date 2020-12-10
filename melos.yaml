@@ -23,6 +23,9 @@ scripts:
   test:unit:android: >
     ./.circleci/test_all_plugins.sh android-test && exit 0
 
+  test:unit:ios: >
+    ./.circleci/test_all_plugins.sh ios-test && exit 0
+
   format: >
     melos exec -c 1 -- \
       flutter format .

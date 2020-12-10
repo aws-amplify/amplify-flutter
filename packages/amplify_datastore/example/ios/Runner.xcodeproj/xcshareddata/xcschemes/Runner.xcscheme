@@ -49,8 +49,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B4A5C37A2548A5D000B9E501"
-            BuildableName = "amplify_datastore_unit_tests.xctest"
-            BlueprintName = "amplify_datastore_unit_tests"
+            BuildableName = "unit_tests.xctest"
+            BlueprintName = "unit_tests"
             ReferencedContainer = "container:Runner.xcodeproj">
          </BuildableReference>
          <BuildableReference
@@ -74,8 +74,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B4A5C37A2548A5D000B9E501"
-               BuildableName = "amplify_datastore_unit_tests.xctest"
-               BlueprintName = "amplify_datastore_unit_tests"
+               BuildableName = "unit_tests.xctest"
+               BlueprintName = "unit_tests"
                ReferencedContainer = "container:Runner.xcodeproj">
             </BuildableReference>
          </TestableReference>
