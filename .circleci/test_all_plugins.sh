@@ -17,7 +17,7 @@ for plugin_dir in */; do
             echo "=== Running Flutter unit tests for $plugin ==="
             if [ -d "test" ]; then
                 mkdir -p test-results
-                if flutter test --machine | tojunit --output "test-results/$plugin-flutter-test.xml"; then
+                if flutter test --machine --coverage | tojunit --output "test-results/$plugin-flutter-test.xml"; then
                     echo "PASSED: Flutter unit tests for $plugin passed."
                     passed_plugins+=("$plugin")
                 else
