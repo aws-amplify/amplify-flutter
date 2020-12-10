@@ -68,13 +68,6 @@ for plugin_dir in */; do
                 XCODEBUILD_DESTINATION="platform=iOS Simulator,name=iPhone 11,OS=14.2"
                 cp ../../.circleci/dummy_amplifyconfiguration.dart example/lib/amplifyconfiguration.dart
                 cd example/ios
-                # if ! flutter build ios --no-codesign; then
-                #     echo "FAILED: iOS example failed to build."
-                #     failed_plugins+=("$plugin")
-                #     cd ../../..
-                #     continue
-                # fi
-
                 if xcodebuild test \
                         -workspace Runner.xcworkspace \
                         -scheme Runner \
