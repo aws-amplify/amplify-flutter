@@ -80,8 +80,7 @@ jobs:
   unit_test_ios:
     executor: macos-executor
     steps:
-      - install_flutter:
-          flutter_branch: 1.22.0
+      - install_flutter
       - checkout
       - install_melos
       - run:
