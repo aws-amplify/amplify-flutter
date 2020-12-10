@@ -31,6 +31,7 @@ commands:
             source $BASH_ENV
             git clone --branch ${FLUTTER_BRANCH} https://github.com/flutter/flutter.git ${FLUTTER_HOME}
             (yes || true) | flutter doctor --android-licenses && flutter doctor
+            flutter precache
 
   install_melos:
     steps:
@@ -89,7 +90,7 @@ jobs:
           command: xcrun instruments -w "iPhone 11 (14.2) [" || true
       - run:
           name: Run iOS Unit Tests
-          command: ./.circleci/test_all_plugins.sh ios-test
+          command: melos run test:unit:ios
       - run:
           name: Save test results
           command: |
