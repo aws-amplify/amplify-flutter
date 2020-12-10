@@ -67,6 +67,9 @@ jobs:
           name: Run Flutter Unit Tests
           command: melos run test:unit:flutter
       - run:
+          name: Collect flutter test coverage
+          command: melos run coverage:flutter
+      - run:
           name: Save test results
           command: |
             mkdir -p ~/test-results/junit/
@@ -90,6 +93,9 @@ jobs:
       - run:
           name: Run iOS Unit Tests
           command: melos run test:unit:ios
+      - run:
+          name: Collect ios test coverage
+          command: melos run coverage:ios
       - run:
           name: Save test results
           command: |
@@ -125,12 +131,6 @@ jobs:
       - store_artifacts:
           path: ~/test-results/junit
 
-  upload_coverage:
-    steps:
-      - run:
-          name: Collect test coverage
-          command: melos run coverage
-
 releasable_branches: &releasable_branches
   branches:
     only:
@@ -143,4 +143,3 @@ workflows:
       - unit_test_flutter
       - unit_test_android
       - unit_test_ios
-      - upload_coverage
