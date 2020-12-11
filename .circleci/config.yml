@@ -67,8 +67,8 @@ jobs:
           name: Run Flutter Unit Tests
           command: melos run test:unit:flutter
       - run:
-          name: Collect flutter test coverage
-          command: melos run coverage:flutter
+          name: Upload flutter test coverage
+          command: melos run upload:coverage:flutter
       - run:
           name: Save test results
           command: |
@@ -94,8 +94,8 @@ jobs:
           name: Run iOS Unit Tests
           command: melos run test:unit:ios
       - run:
-          name: Collect ios test coverage
-          command: melos run coverage:ios
+          name: Upload ios test coverage
+          command: melos run upload:coverage:ios
       - run:
           name: Save test results
           command: |
@@ -120,6 +120,9 @@ jobs:
       - run:
           name: Run Android Unit Tests
           command: melos run test:unit:android
+      - run:
+          name: Upload android test coverage
+          command: melos run upload:coverage:android
       - run:
           name: Save test results
           command: |

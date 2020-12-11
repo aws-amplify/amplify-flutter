@@ -23,6 +23,7 @@ rootProject.allprojects {
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply from: 'coverage.gradle'
 
 android {
     compileSdkVersion 28
@@ -32,7 +33,6 @@ android {
         test.java.srcDirs += 'src/test/kotlin'
         test.resources.srcDirs += '../test/resources'
     }
-
     defaultConfig {
         minSdkVersion 21
     }
@@ -46,6 +46,11 @@ android {
     testOptions {
         unitTests {
             includeAndroidResources = true
+        }
+    }
+    buildTypes {
+        debug {
+            testCoverageEnabled = true
         }
     }
 }
