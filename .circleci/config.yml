@@ -8,7 +8,7 @@ executors:
 
   macos-executor:
     macos:
-      xcode: 11.6.0
+      xcode: 12.2.0
     working_directory: ~/amplify-flutter
 
 commands:
@@ -31,6 +31,7 @@ commands:
             source $BASH_ENV
             git clone --branch ${FLUTTER_BRANCH} https://github.com/flutter/flutter.git ${FLUTTER_HOME}
             (yes || true) | flutter doctor --android-licenses && flutter doctor
+            flutter precache
 
   install_melos:
     steps:
@@ -79,17 +80,16 @@ jobs:
   unit_test_ios:
     executor: macos-executor
     steps:
-      - install_flutter:
-          flutter_branch: 1.17.5
+      - install_flutter
       - checkout
       - install_melos
       - run:
           name: Pre-start iOS simulator
           # xcrun instruments returns non zero, but successfully starts the simulator
-          command: xcrun instruments -w "iPhone 11 (13.6) [" || true
+          command: xcrun instruments -w "iPhone 11 (14.2) [" || true
       - run:
           name: Run iOS Unit Tests
-          command: ./.circleci/test_all_plugins.sh ios-test
+          command: melos run test:unit:ios
       - run:
           name: Save test results
           command: |
@@ -136,3 +136,4 @@ workflows:
     jobs:
       - unit_test_flutter
       - unit_test_android
+      - unit_test_ios

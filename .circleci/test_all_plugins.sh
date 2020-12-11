@@ -64,22 +64,12 @@ for plugin_dir in */; do
             ;;
         ios-test)
             echo "=== Running iOS unit tests for $plugin ==="
-            if [ -d "ios/Tests" ]; then
-                XCODEBUILD_DESTINATION="platform=iOS Simulator,name=iPhone 11,OS=13.6"
-                if [ ! -d "example/ios" ]; then
-                    echo "FAILED: example/ios missing, can't run tests."
-                    failed_plugins+=("$plugin")
-                    continue
-                fi
-                cp ../../.circleci/dummy_amplifyconfiguraton.dart example/lib/amplifyconfiguration.dart
+            if [ -d "example/ios/unit_tests" ]; then
+                XCODEBUILD_DESTINATION="platform=iOS Simulator,name=iPhone 11,OS=14.2"
+                cp ../../.circleci/dummy_amplifyconfiguration.dart example/lib/amplifyconfiguration.dart
                 cd example/ios
-                if ! flutter build ios --no-codesign; then
-                    echo "FAILED: iOS example failed to build."
-                    failed_plugins+=("$plugin")
-                    cd ../../..
-                    continue
-                fi
-
+                flutter pub get
+                pod install
                 if xcodebuild test \
                         -workspace Runner.xcworkspace \
                         -scheme Runner \
