@@ -23,6 +23,7 @@ rootProject.allprojects {
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply from: '../../../build-support/coverage.gradle'
 
 android {
     compileSdkVersion 28
@@ -42,12 +43,21 @@ android {
             includeAndroidResources = true
         }
     }
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+    buildTypes {
+        debug {
+            testCoverageEnabled = true
+        }
+    }
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.amplifyframework:aws-analytics-pinpoint:1.+'
-    implementation 'com.amplifyframework:aws-auth-cognito:1.+'
+    implementation 'com.amplifyframework:aws-analytics-pinpoint:1.6.7'
+    implementation 'com.amplifyframework:aws-auth-cognito:1.6.7'
     testImplementation 'junit:junit:4.13'
     testImplementation 'org.mockito:mockito-core:3.1.0'
     testImplementation 'org.mockito:mockito-inline:3.1.0'
