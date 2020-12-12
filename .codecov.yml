@@ -6,7 +6,7 @@ coverage:
   status:
     project:
       default:
-        target: 70%
+        target: 65%
         if_not_found: success
     patch:
       default:
