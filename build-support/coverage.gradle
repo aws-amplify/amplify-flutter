@@ -71,7 +71,6 @@ project.afterEvaluate {
                             '**/*BR*.*',
                             '**/Manifest*.*',
                             '**/*$Lambda$*.*',
-                            '**/*Companion*.*',
                             '**/*Module*.*',
                             '**/*Dagger*.*',
                             '**/*Hilt*.*',
