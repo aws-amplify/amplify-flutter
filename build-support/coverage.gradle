@@ -32,6 +32,7 @@ project.afterEvaluate {
                         html.enabled = true
                         xml.enabled = true
                         csv.enabled = true
+                        xml.destination file("${buildDir}/jacocoXMLReport.xml")
                     }
 
                     def excludes = [
