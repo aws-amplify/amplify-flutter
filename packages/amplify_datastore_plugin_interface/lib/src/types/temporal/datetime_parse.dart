@@ -15,7 +15,9 @@
 
 import 'package:date_time_format/date_time_format.dart';
 
-// ignore: public_member_api_docs
+// ignore_for_file: public_member_api_docs
+
+// only to be used internally by amplify-flutter library
 extension DateTimeParse on DateTime {
   String toDateTimeIso8601String() {
     return DateTimeFormat.format(this, format: DateTimeFormats.iso8601);
