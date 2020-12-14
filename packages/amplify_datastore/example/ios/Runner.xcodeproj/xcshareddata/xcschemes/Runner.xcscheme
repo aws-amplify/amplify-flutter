@@ -41,30 +41,9 @@
       <CodeCoverageTargets>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "97C146ED1CF9000F007C117D"
-            BuildableName = "Runner.app"
-            BlueprintName = "Runner"
-            ReferencedContainer = "container:Runner.xcodeproj">
-         </BuildableReference>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B4A5C37A2548A5D000B9E501"
-            BuildableName = "unit_tests.xctest"
-            BlueprintName = "unit_tests"
-            ReferencedContainer = "container:Runner.xcodeproj">
-         </BuildableReference>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "39C7D3B229D56BB22761476A1C1AEBEC"
+            BlueprintIdentifier = "ADA47D91918BB1EB7828027FE0FFAFFA"
             BuildableName = "amplify_datastore.framework"
-            BlueprintName = "amplify_datastore-iOS13.0"
-            ReferencedContainer = "container:Pods/Pods.xcodeproj">
-         </BuildableReference>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "76AED37F23B1B5FAB340FE9410E9E1E2"
-            BuildableName = "amplify_datastore.framework"
-            BlueprintName = "amplify_datastore-iOS14.1"
+            BlueprintName = "amplify_datastore"
             ReferencedContainer = "container:Pods/Pods.xcodeproj">
          </BuildableReference>
       </CodeCoverageTargets>

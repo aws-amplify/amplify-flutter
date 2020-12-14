@@ -26,6 +26,15 @@ scripts:
   test:unit:ios: >
     ./.circleci/test_all_plugins.sh ios-test && exit 0
 
+  upload:coverage:ios: >
+    ./build-support/codecov.sh -F ios-unit-tests
+
+  upload:coverage:flutter: >
+    ./build-support/codecov.sh -F flutter-unit-tests
+
+  upload:coverage:android: >
+    ./build-support/codecov.sh -F android-unit-tests
+
   format: >
     melos exec -c 1 -- \
       flutter format .

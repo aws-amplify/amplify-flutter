@@ -102,7 +102,7 @@ class AmplifyDataStoreHubTest {
                 .build()
 
         var modelWithMetadata: ModelWithMetadata<SerializedModel> = ModelWithMetadata(instance, modelMetadata)
-        var outboxMutationEnqueued: OutboxMutationEvent<*> = OutboxMutationEvent.fromModelWithMetadata(modelWithMetadata)
+        var outboxMutationEnqueued: OutboxMutationEvent<*> = OutboxMutationEvent.create(eventData["modelName"] as String, modelWithMetadata)
         var event: HubEvent<*> = HubEvent.create("outboxMutationEnqueued", outboxMutationEnqueued)
 
         val latch = CountDownLatch(1)
@@ -144,7 +144,7 @@ class AmplifyDataStoreHubTest {
                 .build()
 
         var modelWithMetadata: ModelWithMetadata<SerializedModel> = ModelWithMetadata(instance, modelMetadata)
-        var outboxMutationProcessed: OutboxMutationEvent<*> = OutboxMutationEvent.fromModelWithMetadata(modelWithMetadata)
+        var outboxMutationProcessed: OutboxMutationEvent<*> = OutboxMutationEvent.create(eventData["modelName"] as String, modelWithMetadata)
         var event: HubEvent<*> = HubEvent.create("outboxMutationProcessed", outboxMutationProcessed)
 
         val latch = CountDownLatch(1)

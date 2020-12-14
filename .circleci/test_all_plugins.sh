@@ -17,7 +17,7 @@ for plugin_dir in */; do
             echo "=== Running Flutter unit tests for $plugin ==="
             if [ -d "test" ]; then
                 mkdir -p test-results
-                if flutter test --machine | tojunit --output "test-results/$plugin-flutter-test.xml"; then
+                if flutter test --machine --coverage | tojunit --output "test-results/$plugin-flutter-test.xml"; then
                     echo "PASSED: Flutter unit tests for $plugin passed."
                     passed_plugins+=("$plugin")
                 else
@@ -51,7 +51,13 @@ for plugin_dir in */; do
 
                 if ./gradlew :"$plugin":testDebugUnitTest; then
                     echo "PASSED: Android unit tests for $plugin passed."
-                    passed_plugins+=("$plugin")
+                    if ./gradlew :"$plugin":testDebugUnitTestCoverage; then
+                        echo "PASSED: Generating android unit tests coverage for $plugin passed."
+                        passed_plugins+=("$plugin")
+                    else
+                        echo "FAILED: Generating android unit tests coverage for $plugin failed."
+                        failed_plugins+=("$plugin")
+                    fi
                 else
                     echo "FAILED: Android unit tests for $plugin failed."
                     failed_plugins+=("$plugin")
