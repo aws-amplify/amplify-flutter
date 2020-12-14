@@ -42,7 +42,7 @@ project.afterEvaluate {
                             '**/android/databinding/*',
                             '**/androidx/databinding/*',
                             '**/BR.*',
-                            // android
+                            // Android
                             '**/R.class',
                             '**/R$*.class',
                             '**/BuildConfig.*',
