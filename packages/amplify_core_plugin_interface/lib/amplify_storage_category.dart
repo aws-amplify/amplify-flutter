@@ -27,7 +27,7 @@ class StorageCategory {
       plugins.add(plugin);
       return true;
     } else {
-      throw ("Failed to add the Storage plugin");
+      throw ("Failed to add the Storage plugin. You've already added one.");
     }
   }
 
@@ -35,22 +35,22 @@ class StorageCategory {
       {@required File local, @required String key, UploadFileOptions options}) {
     final UploadFileRequest request =
         UploadFileRequest(local: local, key: key, options: options);
-    return plugins[0].uploadFile(request: request);
+    return _select((it) => it.uploadFile(request: request));
   }
 
   Future<GetUrlResult> getUrl({@required String key, GetUrlOptions options}) {
     final GetUrlRequest request = GetUrlRequest(key: key, options: options);
-    return plugins[0].getUrl(request: request);
+    return _select((it) => it.getUrl(request: request));
   }
 
   Future<RemoveResult> remove({@required String key, RemoveOptions options}) {
     final RemoveRequest request = RemoveRequest(key: key, options: options);
-    return plugins[0].remove(request: request);
+    return _select((it) => it.remove(request: request));
   }
 
   Future<ListResult> list({String path, ListOptions options}) {
     final ListRequest request = ListRequest(path: path, options: options);
-    return plugins[0].list(request: request);
+    return _select((it) => it.list(request: request));
   }
 
   Future<DownloadFileResult> downloadFile(
@@ -59,6 +59,12 @@ class StorageCategory {
       DownloadFileOptions options}) {
     final DownloadFileRequest request =
         DownloadFileRequest(key: key, local: local, options: options);
-    return plugins[0].downloadFile(request: request);
+    return _select((it) => it.downloadFile(request: request));
+  }
+
+  Future<R> _select<R>(FutureOr<R> onValue(StoragePluginInterface plugin)) {
+    return plugins.length == 1
+        ? Future.value(plugins[0]).then(onValue)
+        : throw ("No storage plugin is available.");
   }
 }
