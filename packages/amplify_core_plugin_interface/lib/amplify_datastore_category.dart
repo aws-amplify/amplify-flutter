@@ -20,7 +20,6 @@ part of amplify_core_plugin_interface;
 /// be registered and configured and then subsequent API calls will be forwarded
 /// to those plugins.
 class DataStoreCategory {
-  final errorMsg = "DataStore plugin not added correctly";
   const DataStoreCategory();
   static List<DataStorePluginInterface> plugins = [];
 
@@ -34,7 +33,7 @@ class DataStoreCategory {
       // in the `onAttachedToEngine` but rather in the `configure()
       await plugin.configureModelProvider(modelProvider: plugin.modelProvider);
     } else {
-      throw (errorMsg);
+      throw ("Failed to add DataStore plugin. You already registered one.");
     }
   }
 
@@ -42,34 +41,40 @@ class DataStoreCategory {
       {QueryPredicate where,
       QueryPagination pagination,
       List<QuerySortBy> sortBy}) {
-    return plugins.length == 1
-        ? plugins[0].query(modelType,
-            where: where, pagination: pagination, sortBy: sortBy)
-        : throw (errorMsg);
+    return _select((it) => it.query(modelType,
+        where: where, pagination: pagination, sortBy: sortBy));
   }
 
   Future<void> delete<T extends Model>(T model) {
-    return plugins.length == 1 ? plugins[0].delete(model) : throw (errorMsg);
+    return _select((it) => it.delete(model));
   }
 
   Future<void> save<T extends Model>(T model) {
-    return plugins.length == 1 ? plugins[0].save(model) : throw (errorMsg);
+    return _select((it) => it.save(model));
   }
 
   Stream<SubscriptionEvent<T>> observe<T extends Model>(
       ModelType<T> modelType) {
+    // TODO: _select would give us a Future<Stream<SubscriptionEvent<T>>>,
+    // how can we avoid the outer Future?
     return plugins.length == 1
         ? plugins[0].observe(modelType)
-        : throw (errorMsg);
+        : throw ("DataStore plugin not added correctly.");
   }
 
   Future<void> clear() {
-    return plugins.length == 1 ? plugins[0].clear() : throw (errorMsg);
+    return _select((it) => it.clear());
   }
 
   Future<void> configure(String configuration) async {
     return plugins.forEach((plugin) {
       plugin.configure(configuration: configuration);
     });
+  }
+
+  Future<R> _select<R>(FutureOr<R> onValue(DataStorePluginInterface plugin)) {
+    return plugins.length == 1
+        ? Future.value(plugins[0]).then(onValue)
+        : throw ("DataStore plugin not added correctly");
   }
 }
