@@ -55,7 +55,7 @@ class DataStoreCategory {
 
   Stream<SubscriptionEvent<T>> observe<T extends Model>(
       ModelType<T> modelType) {
-    // TODO: Howto use _stream()? It will return a Future<Stream<...>>,
+    // TODO: Howto use _select()? It will return a Future<Stream<...>>,
     // not just a Stream<...>.
     return plugins.length == 1
         ? plugins[0].observe(modelType)
