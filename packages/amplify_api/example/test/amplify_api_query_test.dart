@@ -78,5 +78,67 @@ void main() {
     expect(response.data, queryResult.toString());
   });
 
-  //TODO: Add additional tests
+  test(
+      'A PlatformException for malformed request results in the corresponding ApiError',
+      () async {
+    final exception = PlatformException(
+        code: "AmplifyException",
+        message: "AMPLIFY_REQUEST_MALFORMED",
+        details: {});
+
+    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      if (methodCall.method == "query") {
+        throw exception;
+      }
+    });
+    String graphQLDocument = '';
+
+    try {
+      var operation = api.query<String>(
+          request: GraphQLRequest(document: graphQLDocument, variables: {}));
+      await operation.response;
+    } on ApiError catch (e) {
+      expect(e.code, exception.code);
+      expect(e.message, exception.message);
+      expect(e.details, exception.details);
+      return;
+    }
+    throw new Exception('Expected a StorageException');
+  });
+
+  test(
+      'A PlatformException for malformed request results in the corresponding ApiError',
+      () async {
+    final exception = PlatformException(
+        code: "AmplifyException",
+        message: "AMPLIFY_REQUEST_MALFORMED",
+        details: {});
+
+    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      if (methodCall.method == "query") {
+        throw exception;
+      }
+    });
+    String graphQLDocument = '';
+
+    // var operation = api.query<String>(
+    //     request: GraphQLRequest(document: graphQLDocument, variables: {}));
+    // operation.response.then((_) {
+    //   throw ('Expected an ApiError');
+    // }).catchError((e) {
+    //   expect(e.code, exception.code);
+    //   expect(e.message, exception.message);
+    //   expect(e.details, exception.details);
+    try {
+      var operation = api.query<String>(
+          request: GraphQLRequest(document: graphQLDocument, variables: {}));
+      await operation.response;
+    } on ApiError catch (e) {
+      expect(e.code, exception.code);
+      expect(e.message, exception.message);
+      expect(e.details, exception.details);
+      return;
+    }
+    throw new Exception('Expected a StorageException');
+  });
 }

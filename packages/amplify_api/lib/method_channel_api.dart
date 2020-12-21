@@ -24,32 +24,24 @@ const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/api');
 class AmplifyAPIMethodChannel extends AmplifyAPI {
   @override
   GraphQLOperation<T> query<T>({@required GraphQLRequest<T> request}) {
-    try {
-      Future<GraphQLResponse<T>> response =
-          _getMethodChannelResponse(methodName: 'query', request: request);
+    Future<GraphQLResponse<T>> response =
+        _getMethodChannelResponse(methodName: 'query', request: request);
 
-      GraphQLOperation<T> result =
-          GraphQLOperation<T>(cancel: () {}, response: response);
+    GraphQLOperation<T> result =
+        GraphQLOperation<T>(cancel: () {}, response: response);
 
-      return result;
-    } on ApiError catch (e) {
-      throw e;
-    }
+    return result;
   }
 
   @override
   GraphQLOperation<T> mutate<T>({@required GraphQLRequest<T> request}) {
-    try {
-      Future<GraphQLResponse<T>> response =
-          _getMethodChannelResponse(methodName: 'mutate', request: request);
+    Future<GraphQLResponse<T>> response =
+        _getMethodChannelResponse(methodName: 'mutate', request: request);
 
-      GraphQLOperation<T> result =
-          GraphQLOperation<T>(cancel: () {}, response: response);
+    GraphQLOperation<T> result =
+        GraphQLOperation<T>(cancel: () {}, response: response);
 
-      return result;
-    } on ApiError catch (e) {
-      throw e;
-    }
+    return result;
   }
 
   Future<GraphQLResponse<T>> _getMethodChannelResponse<T>({
@@ -70,11 +62,13 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
 
       return response;
     } on PlatformException catch (e) {
+      print('In catch for getMethodChannelResponse');
       throw _formatError(e);
     }
   }
 
   ApiError _formatError(PlatformException e) {
+    print('API error');
     return ApiError(code: e.code, message: e.message, details: e.details);
   }
 
