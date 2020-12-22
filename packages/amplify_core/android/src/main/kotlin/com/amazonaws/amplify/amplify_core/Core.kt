@@ -104,6 +104,7 @@ public class Core : FlutterPlugin, ActivityAware, MethodCallHandler {
         if (!isConfigured) {
             try {
                 val configuration = AmplifyConfiguration.builder(JSONObject(config))
+                        .devMenuEnabled(false)
                         .addPlatform(UserAgent.Platform.FLUTTER, version)
                         .build()
                 if(configuration.forCategoryType(CategoryType.API) !is EmptyCategoryConfiguration) {
