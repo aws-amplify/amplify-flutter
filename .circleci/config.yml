@@ -109,6 +109,8 @@ jobs:
 
   unit_test_android:
     executor: docker-executor
+    environment:
+      JVM_OPTS: -XX:MaxRAMPercentage=80.0
     steps:
       - install_flutter
       - checkout
