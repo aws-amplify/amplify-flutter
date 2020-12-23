@@ -1,9 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-<<<<<<< HEAD:example/android/app/src/main/AndroidManifest.xml
     package="com.example.sample_app">
-=======
-    package="com.amazonaws.amplify.amplify_flutter_example">
->>>>>>> Refactor amplify_core to amplify_flutter:packages/amplify_flutter/example/android/app/src/main/AndroidManifest.xml
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
          In most cases you can leave this as-is, but you if you want to provide
@@ -11,11 +7,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-<<<<<<< HEAD:example/android/app/src/main/AndroidManifest.xml
         android:label="sample_app"
-=======
-        android:label="amplify_flutter_example"
->>>>>>> Refactor amplify_core to amplify_flutter:packages/amplify_flutter/example/android/app/src/main/AndroidManifest.xml
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
