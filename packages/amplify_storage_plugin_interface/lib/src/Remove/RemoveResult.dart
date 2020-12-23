@@ -19,4 +19,20 @@ class RemoveResult {
   String key;
 
   RemoveResult({@required this.key});
+
+  @override
+  String toString() {
+    return 'RemoveResult(key: $key)';
+  }
+
+  @override
+  bool operator ==(Object o) {
+    if (identical(this, o)) return true;
+    return o is RemoveResult && o.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
 }

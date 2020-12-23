@@ -20,4 +20,20 @@ class DownloadFileResult {
   File file;
 
   DownloadFileResult({@required this.file});
+
+  @override
+  String toString() {
+    return 'DownloadFileResult(file: $file)';
+  }
+
+  @override
+  bool operator ==(Object o) {
+    if (identical(this, o)) return true;
+    return o is DownloadFileResult && o.file.path == file.path;
+  }
+
+  @override
+  int get hashCode {
+    return file.hashCode;
+  }
 }

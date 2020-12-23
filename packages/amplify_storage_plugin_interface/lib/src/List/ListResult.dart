@@ -13,10 +13,28 @@
  * permissions and limitations under the License.
  */
 
+import 'package:collection/collection.dart';
 import '../Storage/StorageItem.dart';
 
 class ListResult {
   List<StorageItem> items;
 
   ListResult({this.items});
+
+  @override
+  String toString() {
+    return 'ListResult(items: $items)';
+  }
+
+  @override
+  bool operator ==(Object o) {
+    if (identical(this, o)) return true;
+    final listEquals = const DeepCollectionEquality().equals;
+    return o is ListResult && listEquals(o.items, items);
+  }
+
+  @override
+  int get hashCode {
+    return items.hashCode;
+  }
 }

@@ -19,4 +19,20 @@ class GetUrlResult {
   String url;
 
   GetUrlResult({@required this.url});
+
+  @override
+  String toString() {
+    return 'GetUrlResult(url: $url)';
+  }
+
+  @override
+  bool operator ==(Object o) {
+    if (identical(this, o)) return true;
+    return o is GetUrlResult && o.url == url;
+  }
+
+  @override
+  int get hashCode {
+    return url.hashCode;
+  }
 }

@@ -19,4 +19,20 @@ class UploadFileResult {
   final String key;
 
   UploadFileResult({@required this.key});
+
+  @override
+  String toString() {
+    return 'UploadFileResult(key: $key)';
+  }
+
+  @override
+  bool operator ==(Object o) {
+    if (identical(this, o)) return true;
+    return o is UploadFileResult && o.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
 }
