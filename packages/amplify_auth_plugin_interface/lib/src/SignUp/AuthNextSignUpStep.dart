@@ -18,6 +18,7 @@ import '../types/AuthNextStep.dart';
 
 class AuthNextSignUpStep extends AuthNextStep {
   String signUpStep;
+
   AuthNextSignUpStep(
       {additionalInfo,
       @required codeDeliveryDetails,

@@ -19,6 +19,7 @@ import '../types/AuthCodeDeliveryDetails.dart';
 
 class ResendSignUpCodeResult {
   AuthCodeDeliveryDetails codeDeliveryDetails;
+
   ResendSignUpCodeResult({@required codeDeliveryDetails}) {
     this.codeDeliveryDetails = AuthCodeDeliveryDetails(
         attributeName: codeDeliveryDetails["attributeName"] ?? "",
