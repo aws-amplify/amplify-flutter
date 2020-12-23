@@ -11,11 +11,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-<<<<<<< HEAD:example/ios/Runner/Info.plist
 	<string>sample_app</string>
-=======
-	<string>amplify_flutter_example</string>
->>>>>>> Refactor amplify_core to amplify_flutter:packages/amplify_flutter/example/ios/Runner/Info.plist
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
