@@ -13,6 +13,23 @@
  * permissions and limitations under the License.
  */
 
-class SignOutResult { 
+class SignOutResult {
   SignOutResult() {}
+
+  @override
+  String toString() {
+    return 'SignOutResult()';
+  }
+
+  @override
+  bool operator ==(Object o) {
+    if (identical(this, o)) return true;
+    return o is SignOutResult;
+  }
+
+  @override
+  int get hashCode {
+    Type type = SignOutResult;
+    return type.hashCode;
+  }
 }

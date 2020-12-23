@@ -15,9 +15,24 @@
 
 import 'package:flutter/foundation.dart';
 
-
 class AuthUser {
   String userId;
   String username;
   AuthUser({@required this.userId, @required this.username});
+
+  @override
+  String toString() {
+    return 'AuthUser(userId: $userId, username: $username)';
+  }
+
+  @override
+  bool operator ==(Object o) {
+    if (identical(this, o)) return true;
+    return o is AuthUser && o.userId == userId && o.username == username;
+  }
+
+  @override
+  int get hashCode {
+    return userId.hashCode ^ username.hashCode;
+  }
 }

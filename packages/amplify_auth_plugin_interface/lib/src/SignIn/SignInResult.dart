@@ -16,12 +16,29 @@
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
 
-
 class SignInResult {
   bool isSignedIn;
   AuthNextSignInStep nextStep;
   SignInResult({@required this.isSignedIn, this.nextStep}) {
     this.isSignedIn = isSignedIn;
     this.nextStep = nextStep;
-   }
+  }
+
+  @override
+  String toString() {
+    return 'SignInResult(isSignedIn: $isSignedIn, nextStep: $nextStep)';
+  }
+
+  @override
+  bool operator ==(Object o) {
+    if (identical(this, o)) return true;
+    return o is SignInResult &&
+        o.isSignedIn == isSignedIn &&
+        o.nextStep == nextStep;
+  }
+
+  @override
+  int get hashCode {
+    return isSignedIn.hashCode ^ nextStep.hashCode;
+  }
 }

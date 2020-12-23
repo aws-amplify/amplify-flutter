@@ -17,13 +17,29 @@ import 'package:flutter/foundation.dart';
 
 import '../types/AuthCodeDeliveryDetails.dart';
 
-class ResendSignUpCodeResult { 
+class ResendSignUpCodeResult {
   AuthCodeDeliveryDetails codeDeliveryDetails;
   ResendSignUpCodeResult({@required codeDeliveryDetails}) {
     this.codeDeliveryDetails = AuthCodeDeliveryDetails(
-      attributeName: codeDeliveryDetails["attributeName"] ?? "",
-      deliveryMedium: codeDeliveryDetails["deliveryMedium"] ?? "",
-      destination: codeDeliveryDetails["destination"]?? ""
-    );
+        attributeName: codeDeliveryDetails["attributeName"] ?? "",
+        deliveryMedium: codeDeliveryDetails["deliveryMedium"] ?? "",
+        destination: codeDeliveryDetails["destination"] ?? "");
+  }
+
+  @override
+  String toString() {
+    return 'ResendSignUpCodeResult(codeDeliveryDetails: $codeDeliveryDetails)';
+  }
+
+  @override
+  bool operator ==(Object o) {
+    if (identical(this, o)) return true;
+    return o is ResendSignUpCodeResult &&
+        o.codeDeliveryDetails == codeDeliveryDetails;
+  }
+
+  @override
+  int get hashCode {
+    return codeDeliveryDetails.hashCode;
   }
 }

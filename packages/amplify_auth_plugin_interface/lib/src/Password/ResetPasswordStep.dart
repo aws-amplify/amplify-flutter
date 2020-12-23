@@ -18,5 +18,32 @@ import '../types/AuthNextStep.dart';
 
 class ResetPasswordStep extends AuthNextStep {
   String updateStep;
-  ResetPasswordStep({additionalInfo, @required codeDeliveryDetails, @required this.updateStep}) : super(additionalInfo: additionalInfo, codeDeliveryDetails: codeDeliveryDetails);
+  ResetPasswordStep(
+      {additionalInfo,
+      @required codeDeliveryDetails,
+      @required this.updateStep})
+      : super(
+            additionalInfo: additionalInfo,
+            codeDeliveryDetails: codeDeliveryDetails);
+
+  @override
+  String toString() {
+    return 'ResetPasswordStep(additionalInfo: $additionalInfo, codeDeliveryDetails: $codeDeliveryDetails, updateStep: $updateStep)';
+  }
+
+  @override
+  bool operator ==(Object o) {
+    if (identical(this, o)) return true;
+    return o is ResetPasswordStep &&
+        o.additionalInfo == additionalInfo &&
+        o.codeDeliveryDetails == codeDeliveryDetails &&
+        o.updateStep == updateStep;
+  }
+
+  @override
+  int get hashCode {
+    return additionalInfo.hashCode ^
+        codeDeliveryDetails.hashCode ^
+        updateStep.hashCode;
+  }
 }

@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -14,6 +13,23 @@
  * permissions and limitations under the License.
  */
 
-class UpdatePasswordResult { 
+class UpdatePasswordResult {
   UpdatePasswordResult() {}
-} 
+
+  @override
+  String toString() {
+    return 'UpdatePasswordResult()';
+  }
+
+  @override
+  bool operator ==(Object o) {
+    if (identical(this, o)) return true;
+    return o is UpdatePasswordResult;
+  }
+
+  @override
+  int get hashCode {
+    Type type = UpdatePasswordResult;
+    return type.hashCode;
+  }
+}

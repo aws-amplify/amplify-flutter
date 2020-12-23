@@ -22,9 +22,26 @@ class AuthNextStep {
   AuthNextStep({@required codeDeliveryDetails, additionalInfo = const {}}) {
     this.additionalInfo = additionalInfo;
     this.codeDeliveryDetails = AuthCodeDeliveryDetails(
-      attributeName: codeDeliveryDetails["attributeName"] ?? "",
-      deliveryMedium: codeDeliveryDetails["deliveryMedium"] ?? "",
-      destination: codeDeliveryDetails["destination"]?? ""
-    );
+        attributeName: codeDeliveryDetails["attributeName"] ?? "",
+        deliveryMedium: codeDeliveryDetails["deliveryMedium"] ?? "",
+        destination: codeDeliveryDetails["destination"] ?? "");
+  }
+
+  @override
+  String toString() {
+    return 'AuthNextStep(additionalInfo: $additionalInfo, codeDeliveryDetails: $codeDeliveryDetails)';
+  }
+
+  @override
+  bool operator ==(Object o) {
+    if (identical(this, o)) return true;
+    return o is AuthNextStep &&
+        o.additionalInfo == additionalInfo &&
+        o.codeDeliveryDetails == codeDeliveryDetails;
+  }
+
+  @override
+  int get hashCode {
+    return additionalInfo.hashCode ^ codeDeliveryDetails.hashCode;
   }
 }

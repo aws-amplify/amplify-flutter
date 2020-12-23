@@ -16,11 +16,30 @@
 import './ResetPasswordStep.dart';
 import 'package:flutter/foundation.dart';
 
-class ResetPasswordResult { 
+class ResetPasswordResult {
   bool isPasswordReset;
   ResetPasswordStep nextStep;
-  ResetPasswordResult({@required this.isPasswordReset, @required this.nextStep}) {
+  ResetPasswordResult(
+      {@required this.isPasswordReset, @required this.nextStep}) {
     this.isPasswordReset = isPasswordReset;
     this.nextStep = nextStep;
+  }
+
+  @override
+  String toString() {
+    return 'ResetPasswordResult(isPasswordReset: $isPasswordReset, nextStep: $nextStep)';
+  }
+
+  @override
+  bool operator ==(Object o) {
+    if (identical(this, o)) return true;
+    return o is ResetPasswordResult &&
+        o.isPasswordReset == isPasswordReset &&
+        o.nextStep == nextStep;
+  }
+
+  @override
+  int get hashCode {
+    return isPasswordReset.hashCode ^ nextStep.hashCode;
   }
 }

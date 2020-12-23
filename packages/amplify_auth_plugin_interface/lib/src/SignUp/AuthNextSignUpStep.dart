@@ -18,5 +18,32 @@ import '../types/AuthNextStep.dart';
 
 class AuthNextSignUpStep extends AuthNextStep {
   String signUpStep;
-  AuthNextSignUpStep({additionalInfo, @required codeDeliveryDetails, @required this.signUpStep}) : super(additionalInfo: additionalInfo, codeDeliveryDetails: codeDeliveryDetails);
+  AuthNextSignUpStep(
+      {additionalInfo,
+      @required codeDeliveryDetails,
+      @required this.signUpStep})
+      : super(
+            additionalInfo: additionalInfo,
+            codeDeliveryDetails: codeDeliveryDetails);
+
+  @override
+  String toString() {
+    return 'AuthNextSignUpStep(additionalInfo: $additionalInfo, codeDeliveryDetails: $codeDeliveryDetails, signUpStep: $signUpStep)';
+  }
+
+  @override
+  bool operator ==(Object o) {
+    if (identical(this, o)) return true;
+    return o is AuthNextSignUpStep &&
+        o.additionalInfo == additionalInfo &&
+        o.codeDeliveryDetails == codeDeliveryDetails &&
+        o.signUpStep == signUpStep;
+  }
+
+  @override
+  int get hashCode {
+    return additionalInfo.hashCode ^
+        codeDeliveryDetails.hashCode ^
+        signUpStep.hashCode;
+  }
 }
