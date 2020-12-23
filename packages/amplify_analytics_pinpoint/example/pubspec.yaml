@@ -21,7 +21,7 @@ dependencies:
     # See https://dart.dev/tools/pub/dependencies#version-constraints
     # The example app is bundled with the plugin so we use a path dependency on
     # the parent directory to use the current plugin's version. 
-    path: ../
+    path: ../../amplify_analytics_pinpoint
 
   amplify_auth_cognito:
     path: ../../amplify_auth_cognito

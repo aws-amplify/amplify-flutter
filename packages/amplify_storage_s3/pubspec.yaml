@@ -10,13 +10,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  amplify_storage_plugin_interface: ^0.0.1-dev.4
+  amplify_storage_plugin_interface:
+    path: ../amplify_storage_plugin_interface
   plugin_platform_interface: ^1.0.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  amplify_core: ^0.0.1-dev.4
+  amplify_core:
+    path: ../amplify_core
 
 flutter:
   plugin:

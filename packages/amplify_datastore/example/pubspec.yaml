@@ -17,8 +17,9 @@ dependencies:
     # See https://dart.dev/tools/pub/dependencies#version-constraints
     # The example app is bundled with the plugin so we use a path dependency on
     # the parent directory to use the current plugin's version.
-    path: ../
-  amplify_core: ^0.0.1-dev.4
+    path: ../../amplify_datastore
+  amplify_core:
+    path: ../../amplify_core
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
