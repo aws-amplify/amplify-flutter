@@ -13,7 +13,10 @@
  * permissions and limitations under the License.
  */
 
+@file:Suppress("UNCHECKED_CAST")
+
 package com.amazonaws.amplify.amplify_datastore
+
 import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
@@ -40,30 +43,33 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import java.util.Locale
 import kotlin.collections.HashMap
 
 /** AmplifyDataStorePlugin */
 class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
-
     private lateinit var channel: MethodChannel
     private lateinit var eventchannel: EventChannel
     private lateinit var observeCancelable: Cancelable
     private val dataStoreObserveEventStreamHandler: DataStoreObserveEventStreamHandler
 
-    lateinit var hubEventChannel: EventChannel
+    private lateinit var hubEventChannel: EventChannel
     private val dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler
 
+    private val plugin: AWSDataStorePlugin
+
     private val handler = Handler(Looper.getMainLooper())
-    private val LOG = Amplify.Logging.forNamespace("amplify:flutter:datastore")
     val modelProvider = FlutterModelProvider.instance
 
     constructor() {
+        this.plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
         dataStoreObserveEventStreamHandler = DataStoreObserveEventStreamHandler()
         dataStoreHubEventStreamHandler = DataStoreHubEventStreamHandler()
     }
 
     @VisibleForTesting
-    constructor(eventHandler: DataStoreObserveEventStreamHandler, hubEventHandler: DataStoreHubEventStreamHandler) {
+    constructor(plugin: AWSDataStorePlugin, eventHandler: DataStoreObserveEventStreamHandler, hubEventHandler: DataStoreHubEventStreamHandler) {
+        this.plugin = plugin
         dataStoreObserveEventStreamHandler = eventHandler
         dataStoreHubEventStreamHandler = hubEventHandler
     }
@@ -86,7 +92,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         var data: Map<String, Any> = HashMap()
         try {
-            if(call.arguments != null) {
+            if (call.arguments != null) {
                 data = checkArguments(call.arguments) as HashMap<String, Any>
             }
         } catch (e: Exception) {
@@ -140,8 +146,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
     @VisibleForTesting
     fun onQuery(flutterResult: Result, request: Map<String, Any>) {
-        var modelName: String
-        var queryOptions: QueryOptions
+        val modelName: String
+        val queryOptions: QueryOptions
         try {
             modelName = request["modelName"] as String
             queryOptions = QueryOptionsBuilder.fromSerializedMap(request)
@@ -159,7 +165,6 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             return
         }
 
-        val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
         plugin.query(
                 modelName,
                 queryOptions,
@@ -210,8 +215,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             return
         }
 
-        val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
-        val schema = modelProvider.modelSchemas()[modelName];
+        val schema = modelProvider.modelSchemas()[modelName]
 
         val instance = SerializedModel.builder()
                 .serializedData(serializedModelData)
@@ -226,7 +230,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             },
             {
                 LOG.error("Delete operation failed.", it)
-                if (it is DataStoreException && it.localizedMessage == "Wanted to delete one row, but deleted 0 rows.") {
+                if (it.localizedMessage == "Wanted to delete one row, but deleted 0 rows.") {
                     handler.post { flutterResult.success(null) }
                 } else {
                     postFlutterError(
@@ -254,8 +258,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             return
         }
 
-        val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
-        val schema = modelProvider.modelSchemas()[modelName];
+        val schema = modelProvider.modelSchemas()[modelName]
 
         val serializedModel = SerializedModel.builder()
                 .serializedData(serializedModelData)
@@ -282,8 +285,6 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     }
     
     fun onClear(flutterResult: Result) {
-        val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
-
         plugin.clear(
                 {
                     LOG.info("Successfully cleared the store")
@@ -300,8 +301,6 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     }
 
     fun onSetupObserve(result: Result) {
-        val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
-
         plugin.observe(
                 { cancelable ->
                     LOG.info("Established a new stream form flutter $cancelable")
@@ -310,16 +309,16 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 { event ->
                     LOG.debug("Received event: $event")
                     if (event.item() is SerializedModel) {
-                        dataStoreObserveEventStreamHandler?.sendEvent(FlutterSubscriptionEvent(
+                        dataStoreObserveEventStreamHandler.sendEvent(FlutterSubscriptionEvent(
                                 serializedModel = event.item() as SerializedModel,
-                                eventType = event.type().name.toLowerCase()).toMap())
+                                eventType = event.type().name.toLowerCase(Locale.US)).toMap())
                     }
                 },
                 { failure: DataStoreException ->
                     LOG.error("Received an error", failure)
-                    dataStoreObserveEventStreamHandler?.error("AmplifyException",
-                                                              FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_OBSERVE_EVENT_FAILURE.toString(),
-                                                              createErrorMap(failure))
+                    dataStoreObserveEventStreamHandler.error("AmplifyException",
+                            FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_OBSERVE_EVENT_FAILURE.toString(),
+                            createErrorMap(failure))
                 },
                 { LOG.info("Observation complete.") }
         )
@@ -337,8 +336,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         return args.safeCastToMap()!!
     }
 
-    protected fun createErrorMap(@NonNull error: Exception): Map<String, Any> {
-        var errorMap = HashMap<String, Any>()
+    private fun createErrorMap(@NonNull error: Exception): Map<String, Any> {
+        val errorMap = HashMap<String, Any>()
 
         var localizedError = ""
         var recoverySuggestion = ""
@@ -348,12 +347,12 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         if (error.localizedMessage != null) {
             localizedError = error.localizedMessage
         }
-        errorMap.put("PLATFORM_EXCEPTIONS", mapOf(
+        errorMap["PLATFORM_EXCEPTIONS"] = mapOf(
                 "platform" to "Android",
                 "localizedErrorMessage" to localizedError,
                 "recoverySuggestion" to recoverySuggestion,
                 "errorString" to error.toString()
-        ))
+        )
         return errorMap
     }
 
@@ -368,10 +367,14 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 SerializedModel.builder()
                         .serializedData(deserializeNestedModels(it.value as HashMap<String, Any>))
                         .modelSchema(null)
-                        .build() as Any
+                        .build()
             }
             else
                 it.value
         }
+    }
+
+    companion object {
+        private val LOG = Amplify.Logging.forNamespace("amplify:flutter:datastore")
     }
 }
