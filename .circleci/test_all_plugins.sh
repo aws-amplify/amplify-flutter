@@ -71,7 +71,7 @@ for plugin_dir in */; do
         ios-test)
             echo "=== Running iOS unit tests for $plugin ==="
             if [ -d "example/ios/unit_tests" ]; then
-                XCODEBUILD_DESTINATION="platform=iOS Simulator,name=iPhone 11,OS=14.3"
+                XCODEBUILD_DESTINATION="platform=iOS Simulator,name=iPhone 11,OS=14.2"
                 cp ../../.circleci/dummy_amplifyconfiguration.dart example/lib/amplifyconfiguration.dart
                 cd example/ios
                 flutter pub get

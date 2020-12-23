@@ -1,6 +1,6 @@
-# amplify
+# amplify_flutter
 
-The core module for Amplify Flutter.
+The top level module for Amplify Flutter.
 
 ## Getting Started
 

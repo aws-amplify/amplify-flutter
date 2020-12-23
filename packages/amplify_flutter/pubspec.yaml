@@ -1,7 +1,7 @@
 name: amplify_flutter
 description: The top level module for Amplify Flutter.
 version: 0.0.1-dev.4
-homepage: https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify
+homepage: https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify_flutter
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

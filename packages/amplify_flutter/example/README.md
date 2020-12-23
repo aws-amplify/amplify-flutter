@@ -1,6 +1,6 @@
 # amplify_flutter_example
 
-Demonstrates how to use the amplify plugin.
+Demonstrates how to use amplify.
 
 ## Getting Started
 
