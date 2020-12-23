@@ -1,5 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD:example/android/app/src/profile/AndroidManifest.xml
     package="com.example.sample_app">
+=======
+    package="com.amazonaws.amplify.amplify_flutter_example">
+>>>>>>> Refactor amplify_core to amplify_flutter:packages/amplify_flutter/example/android/app/src/debug/AndroidManifest.xml
     <!-- Flutter needs it to communicate with the running application
          to allow setting breakpoints, to provide hot reload, etc.
     -->
