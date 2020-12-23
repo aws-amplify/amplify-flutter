@@ -21,7 +21,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:amplify_datastore/amplify_datastore.dart';
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';

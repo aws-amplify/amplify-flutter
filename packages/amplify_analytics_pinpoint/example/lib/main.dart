@@ -1,7 +1,7 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 
 import 'amplifyconfiguration.dart';
@@ -129,7 +129,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
-            title: const Text('Amplify Core example app'),
+            title: const Text('Amplify Analytics example app'),
           ),
           body: ListView(padding: EdgeInsets.all(10.0), children: <Widget>[
             Container(

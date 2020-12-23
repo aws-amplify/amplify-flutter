@@ -1,22 +1,21 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 
 class SignUpWidget extends StatefulWidget {
-
   final Function showResult;
   final Function changeDisplay;
   final Function setError;
   final Function backToSignIn;
 
-  SignUpWidget(this.showResult, this.changeDisplay, this.setError, this.backToSignIn);
+  SignUpWidget(
+      this.showResult, this.changeDisplay, this.setError, this.backToSignIn);
 
   @override
   _SignUpWidgetState createState() => _SignUpWidgetState();
 }
 
 class _SignUpWidgetState extends State<SignUpWidget> {
-
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   final emailController = TextEditingController();
@@ -28,15 +27,13 @@ class _SignUpWidgetState extends State<SignUpWidget> {
       "phone_number": phoneController.text,
     };
     try {
-      SignUpResult res = await Amplify.Auth.signUp( 
-        username: usernameController.text.trim(),
-        password: passwordController.text.trim(),
-        options: CognitoSignUpOptions(
-          userAttributes: userAttributes
-        )
-      );
+      SignUpResult res = await Amplify.Auth.signUp(
+          username: usernameController.text.trim(),
+          password: passwordController.text.trim(),
+          options: CognitoSignUpOptions(userAttributes: userAttributes));
       widget.showResult("Sign Up Status = " + res.nextStep.signUpStep);
-      widget.changeDisplay(res.nextStep.signUpStep != "DONE" ? "SHOW_CONFIRM" : "SHOW_SIGN_UP");
+      widget.changeDisplay(
+          res.nextStep.signUpStep != "DONE" ? "SHOW_CONFIRM" : "SHOW_SIGN_UP");
     } on AuthError catch (e) {
       widget.setError(e);
       print(e);
@@ -49,7 +46,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
       key: Key('signup-component'),
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        Expanded( // wrap your Column in Expanded
+        Expanded(
+          // wrap your Column in Expanded
           child: Column(
             children: [
               TextFormField(
@@ -95,12 +93,12 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 onPressed: _signUp,
                 child: const Text('Sign Up'),
               ),
-            const Padding(padding: EdgeInsets.all(10.0)),
-            RaisedButton(
-              key: Key('goto-signin-button'),
-              onPressed: widget.backToSignIn,
-              child: const Text('Back to Sign In'),
-            ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              RaisedButton(
+                key: Key('goto-signin-button'),
+                onPressed: widget.backToSignIn,
+                child: const Text('Back to Sign In'),
+              ),
             ],
           ),
         ),

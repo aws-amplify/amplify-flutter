@@ -1,9 +1,8 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 
 class SignInWidget extends StatefulWidget {
-
   final Function showResult;
   final Function changeDisplay;
   final Function showCreateUser;
@@ -12,26 +11,25 @@ class SignInWidget extends StatefulWidget {
   final Function getCurrentUser;
   final Function setError;
 
-
-  SignInWidget(this.showResult, this.changeDisplay, this.showCreateUser, this.signOut, this.fetchSession, this.getCurrentUser, this.setError);
+  SignInWidget(this.showResult, this.changeDisplay, this.showCreateUser,
+      this.signOut, this.fetchSession, this.getCurrentUser, this.setError);
 
   @override
   _SignInWidgetState createState() => _SignInWidgetState();
 }
 
 class _SignInWidgetState extends State<SignInWidget> {
-
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
 
   void _signIn() async {
     try {
       SignInResult res = await Amplify.Auth.signIn(
-        username: usernameController.text.trim(),
-        password: passwordController.text.trim()
-      );
+          username: usernameController.text.trim(),
+          password: passwordController.text.trim());
       widget.showResult("Sign In Status = " + res.nextStep.signInStep);
-      widget.changeDisplay(res.isSignedIn ? "SIGNED_IN" : "SHOW_CONFIRM_SIGN_IN");
+      widget
+          .changeDisplay(res.isSignedIn ? "SIGNED_IN" : "SHOW_CONFIRM_SIGN_IN");
     } on AuthError catch (e) {
       widget.setError(e);
     }
@@ -56,28 +54,27 @@ class _SignInWidgetState extends State<SignInWidget> {
       key: Key('signin-component'),
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        Expanded( // wrap your Column in Expanded
+        Expanded(
+          // wrap your Column in Expanded
           child: Column(
             children: [
               TextFormField(
-                key: Key('signin-username-input'),
-                controller: usernameController,
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.person),
-                  hintText: 'Your username',
-                  labelText: 'Username *',
-                )
-              ),
+                  key: Key('signin-username-input'),
+                  controller: usernameController,
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.person),
+                    hintText: 'Your username',
+                    labelText: 'Username *',
+                  )),
               TextFormField(
-                key: Key('signin-password-input'),
-                obscureText: true,
-                controller: passwordController,
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.lock),
-                  hintText: 'Your password',
-                  labelText: 'Password *',
-                )
-              ),
+                  key: Key('signin-password-input'),
+                  obscureText: true,
+                  controller: passwordController,
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.lock),
+                    hintText: 'Your password',
+                    labelText: 'Password *',
+                  )),
               const Padding(padding: EdgeInsets.all(5.0)),
               GridView.count(
                 shrinkWrap: true,

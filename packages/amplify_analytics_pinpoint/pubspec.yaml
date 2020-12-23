@@ -17,7 +17,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  amplify_core: ^0.0.1-dev.4
+  amplify_flutter: ^0.0.1-dev.4
 
 flutter:
   plugin:

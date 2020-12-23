@@ -1,4 +1,4 @@
-name: amplify_flutter
+name: amplify_flutter_repository
 
 packages:
   - packages/**

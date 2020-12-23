@@ -16,13 +16,11 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_core/amplify_core.dart';
 
 void main() {
-  const MethodChannel authChannel = MethodChannel('com.amazonaws.amplify/auth_cognito');
-  const MethodChannel coreChannel = MethodChannel('com.amazonaws.amplify/core');
+  const MethodChannel authChannel =
+      MethodChannel('com.amazonaws.amplify/auth_cognito');
 
-  Amplify amplify = new Amplify();
   AmplifyAuthCognito auth = AmplifyAuthCognito();
 
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -34,27 +32,24 @@ void main() {
           "isSignUpComplete": false,
           "nextStep": {
             "signUpStep": "DONE",
-            "codeDeliveryDetails":  { "atttibuteName": "email" }
+            "codeDeliveryDetails": {"atttibuteName": "email"}
           }
         };
       } else {
         return true;
-      }     
-    });
-    coreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return true;
+      }
     });
   });
 
   tearDown(() {
     authChannel.setMockMethodCallHandler(null);
-    coreChannel.setMockMethodCallHandler(null);
   });
 
   test('confirmnSignUp request returns a SignUpResult', () async {
-    await amplify.addPlugin(authPlugins: [auth]);
-    await amplify.configure("{}");
-    expect(await Amplify.Auth.confirmSignUp(username: 'testUser',
-      confirmationCode: '123'), isInstanceOf<SignUpResult>());
+    expect(
+        await auth.confirmSignUp(
+            request: ConfirmSignUpRequest(
+                username: 'testUser', confirmationCode: '123')),
+        isInstanceOf<SignUpResult>());
   });
 }
