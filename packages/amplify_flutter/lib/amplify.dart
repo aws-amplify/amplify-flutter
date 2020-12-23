@@ -16,16 +16,14 @@
 library amplify;
 
 import 'dart:async';
-
+import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
+import 'package:amplify_core/types/plugin/amplify_plugin_interface.dart';
 import 'package:flutter/services.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-
-import 'package:amplify_core/types/index.dart';
 import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:amplify_analytics_plugin_interface/analytics_plugin_interface.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 
 import 'categories/amplify_categories.dart';
 
@@ -74,8 +72,8 @@ class AmplifyClass extends PlatformInterface {
               "The type of plugin is not yet supported in Amplify. This is a bug in Amplify library, please file an issue.");
         }
       } catch (e) {
-        print("Amplify plugin was not added");
-        throw e;
+        print(e);
+        throw ("Amplify plugin was not added");
       }
     } else {
       throw StateError(
@@ -115,7 +113,7 @@ class AmplifyClass extends PlatformInterface {
               "Please use Amplify.isConfigured to check before calling configure again.");
     }
     assert(configuration != null, 'configuration is null');
-    var res = await AmplifyClass.instance
+    var res = await Amplify.instance
         ._configurePlatforms(_getVersion(), configuration);
     _isConfigured = res;
     if (!res) {
@@ -133,20 +131,20 @@ class AmplifyClass extends PlatformInterface {
 
   /// Constructs a Core platform.
 
-  AmplifyClass() : super(token: _token);
+  Amplify() : super(token: _token);
 
   static final Object _token = Object();
 
-  static AmplifyClass _instance = MethodChannelAmplify();
+  static Amplify _instance = MethodChannelAmplify();
 
   /// The default instance of [AmplifyPlatform] to use.
   ///
   /// Defaults to [MethodChannelAmplify].
-  static AmplifyClass get instance => _instance;
+  static Amplify get instance => _instance;
 
   /// Platform-specific plugins should set this with their own platform-specific
   /// class that extends [AmplifyPlatform] when they register themselves.
-  static set instance(AmplifyClass instance) {
+  static set instance(Amplify instance) {
     PlatformInterface.verifyToken(instance, _token);
     _instance = instance;
   }

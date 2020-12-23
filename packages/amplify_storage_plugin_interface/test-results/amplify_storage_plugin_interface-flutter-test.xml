@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite errors="0" failures="0" tests="2" skipped="0" name=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.Remove.removeOptions" timestamp="2020-12-22T23:24:31">
+    <properties>
+      <property name="platform" value="vm"/>
+    </properties>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.Remove.removeOptions" name="RemoveOptions can be serialized as a Map" time="0.038"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.Remove.removeOptions" name="RemoveOptions has accessLevel as guest by default" time="0.005"/>
+  </testsuite>
+  <testsuite errors="0" failures="0" tests="2" skipped="0" name=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.Remove.removeRequest" timestamp="2020-12-22T23:24:31">
+    <properties>
+      <property name="platform" value="vm"/>
+    </properties>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.Remove.removeRequest" name="A RemoveRequest excluding options can be serialized as a Map" time="0.041"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.Remove.removeRequest" name="A RemoveRequest including options can be serialized as a Map" time="0.008"/>
+  </testsuite>
+  <testsuite errors="0" failures="0" tests="2" skipped="0" name=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.DownloadFile.downloadFileOptions" timestamp="2020-12-22T23:24:31">
+    <properties>
+      <property name="platform" value="vm"/>
+    </properties>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.DownloadFile.downloadFileOptions" name="DownloadFileOptions can be serialized as a Map" time="0.041"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.DownloadFile.downloadFileOptions" name="DownloadFileOptions has accessLevel as guest by default" time="0.003"/>
+  </testsuite>
+  <testsuite errors="0" failures="0" tests="2" skipped="0" name=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.DownloadFile.downloadFileRequest" timestamp="2020-12-22T23:24:31">
+    <properties>
+      <property name="platform" value="vm"/>
+    </properties>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.DownloadFile.downloadFileRequest" name="A DownloadFileRequest excluding options can be serialized as a Map" time="0.047"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.DownloadFile.downloadFileRequest" name="A DownloadFileRequest including options can be serialized as a Map" time="0.008"/>
+  </testsuite>
+  <testsuite errors="0" failures="0" tests="2" skipped="0" name=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.List.listOptions" timestamp="2020-12-22T23:24:31">
+    <properties>
+      <property name="platform" value="vm"/>
+    </properties>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.List.listOptions" name="ListOptions can be serialized as a Map" time="0.042"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.List.listOptions" name="ListOptions has accessLevel as guest by default" time="0.004"/>
+  </testsuite>
+  <testsuite errors="0" failures="0" tests="3" skipped="0" name=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.List.listRequest" timestamp="2020-12-22T23:24:31">
+    <properties>
+      <property name="platform" value="vm"/>
+    </properties>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.List.listRequest" name="A ListRequest excluding options can be serialized as a Map" time="0.038"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.List.listRequest" name="A ListRequest including options can be serialized as a Map" time="0.006"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.List.listRequest" name="A ListRequest can be initialized without any parameters, and is serialized to an empty map" time="0.005"/>
+  </testsuite>
+  <testsuite errors="0" failures="0" tests="2" skipped="0" name=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.UploadFile.uploadFileOptions" timestamp="2020-12-22T23:24:31">
+    <properties>
+      <property name="platform" value="vm"/>
+    </properties>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.UploadFile.uploadFileOptions" name="UploadFileOptions can be serialized as a Map" time="0.036"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.UploadFile.uploadFileOptions" name="UploadFileOptions has accessLevel as guest and other properties null by default" time="0.003"/>
+  </testsuite>
+  <testsuite errors="0" failures="0" tests="2" skipped="0" name=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.UploadFile.uploadFileRequest" timestamp="2020-12-22T23:24:31">
+    <properties>
+      <property name="platform" value="vm"/>
+    </properties>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.UploadFile.uploadFileRequest" name="A UploadFileRequest excluding options can be serialized as a Map" time="0.04"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.UploadFile.uploadFileRequest" name="A UploadFileRequest including options can be serialized as a Map" time="0.007"/>
+  </testsuite>
+  <testsuite errors="0" failures="0" tests="2" skipped="0" name=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.GetUrl.getUrlRequest" timestamp="2020-12-22T23:24:31">
+    <properties>
+      <property name="platform" value="vm"/>
+    </properties>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.GetUrl.getUrlRequest" name="A GetUrlRequest excluding options can be serialized as a Map" time="0.031"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.GetUrl.getUrlRequest" name="A GetUrlRequest including options can be serialized as a Map" time="0.007"/>
+  </testsuite>
+  <testsuite errors="0" failures="0" tests="2" skipped="0" name=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.GetUrl.getUrlOptions" timestamp="2020-12-22T23:24:31">
+    <properties>
+      <property name="platform" value="vm"/>
+    </properties>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.GetUrl.getUrlOptions" name="GetUrlOptions can be serialized as a Map" time="0.028"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_storage_plugin_interface.test.types.GetUrl.getUrlOptions" name="GetUrlOptions has accessLevel as guest and other properties null by default" time="0.004"/>
+  </testsuite>
+</testsuites>

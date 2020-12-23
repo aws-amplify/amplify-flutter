@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite errors="0" failures="0" tests="3" skipped="0" name=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.amplify_datastore_delete" timestamp="2020-12-22T23:24:04">
+    <properties>
+      <property name="platform" value="vm"/>
+    </properties>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.amplify_datastore_delete" name="delete with a valid model executes without an error " time="0.078"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.amplify_datastore_delete" name="A PlatformException for a failed API call results in the corresponding DataStoreError" time="0.013"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.amplify_datastore_delete" name="An unrecognized PlatformException results in the corresponding DataStoreError" time="0.006"/>
+  </testsuite>
+  <testsuite errors="0" failures="0" tests="2" skipped="0" name=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.query_sort" timestamp="2020-12-22T23:24:04">
+    <properties>
+      <property name="platform" value="vm"/>
+    </properties>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.query_sort" name="when sorting by Id ascending" time="0.087"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.query_sort" name="when sorting by Id ascending and then rating descending" time="0.012"/>
+  </testsuite>
+  <testsuite errors="0" failures="0" tests="4" skipped="0" name=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.amplify_datastore_save" timestamp="2020-12-22T23:24:04">
+    <properties>
+      <property name="platform" value="vm"/>
+    </properties>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.amplify_datastore_save" name="Saving a model without predicate executes successfully" time="0.082"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.amplify_datastore_save" name="A PlatformException for malformed request results in the corresponding DataStoreError" time="0.022"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.amplify_datastore_save" name="A PlatformException for a failed API call results in the corresponding DataStoreError" time="0.006"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.amplify_datastore_save" name="An unrecognized PlatformException results in the corresponding DataStoreError" time="0.024"/>
+  </testsuite>
+  <testsuite errors="0" failures="0" tests="3" skipped="0" name=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.amplify_datastore_observe" timestamp="2020-12-22T23:24:04">
+    <properties>
+      <property name="platform" value="vm"/>
+    </properties>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.amplify_datastore_observe" name="configure sets up the observe event channel" time="0.08"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.amplify_datastore_observe" name="observe a valid model type and receive an item " time="0.047"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.amplify_datastore_observe" name="observe a model type, but event is for different model type" time="0.006"/>
+  </testsuite>
+  <testsuite errors="0" failures="0" tests="3" skipped="0" name=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.query_pagination" timestamp="2020-12-22T23:24:04">
+    <properties>
+      <property name="platform" value="vm"/>
+    </properties>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.query_pagination" name="when providing custom page and limit" time="0.047"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.query_pagination" name="when only need first page" time="0.008"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.query_pagination" name="when only need first result" time="0.006"/>
+  </testsuite>
+  <testsuite errors="0" failures="0" tests="8" skipped="0" name=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.query_predicate" timestamp="2020-12-22T23:24:04">
+    <properties>
+      <property name="platform" value="vm"/>
+    </properties>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.query_predicate" name="when id not equals" time="0.043"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.query_predicate" name="when rating greater or equal" time="0.006"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.query_predicate" name="when rating less or equal AND (id contains or title begins with)" time="0.005"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.query_predicate" name="when rating between AND id contains AND title begins_with AND created equals" time="0.006"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.query_predicate" name="when rating lt AND id eq OR title contains" time="0.005"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.query_predicate" name="when rating gt but not eq" time="0.005"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.query_predicate" name="when negate complex predicate" time="0.005"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.query_predicate" name="when operands are bool and double" time="0.005"/>
+  </testsuite>
+  <testsuite errors="0" failures="0" tests="8" skipped="0" name=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.amplify_datastore_query" timestamp="2020-12-22T23:24:04">
+    <properties>
+      <property name="platform" value="vm"/>
+    </properties>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.amplify_datastore_query" name="query returns nested model result" time="0.055"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.amplify_datastore_query" name="query returns 2 sucessful results" time="0.017"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.amplify_datastore_query" name="query returns 0 sucessful results" time="0.005"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.amplify_datastore_query" name="method channel is called with empty query parameters and correct model name" time="0.006"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.amplify_datastore_query" name="method channel is called with all query parameters and model name" time="0.01"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.amplify_datastore_query" name="method channel throws a known PlatformException" time="0.012"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.amplify_datastore_query" name="method channel throws an unknown PlatformException" time="0.004"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.amplify_datastore_query" name="method channel returns results something that cannot be parsed" time="0.005"/>
+  </testsuite>
+  <testsuite errors="0" failures="0" tests="3" skipped="0" name=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.amplify_datastore_clear" timestamp="2020-12-22T23:24:04">
+    <properties>
+      <property name="platform" value="vm"/>
+    </properties>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.amplify_datastore_clear" name="Clear executes successfully" time="0.04"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.amplify_datastore_clear" name="A PlatformException for a failed API call results in the corresponding DataStoreError" time="0.011"/>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify_datastore.test.amplify_datastore_clear" name="An unrecognized PlatformException results in the corresponding DataStoreError" time="0.005"/>
+  </testsuite>
+</testsuites>

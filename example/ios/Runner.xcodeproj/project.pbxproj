@@ -248,7 +248,11 @@
 				"${BUILT_PRODUCTS_DIR}/SwiftyGif/SwiftyGif.framework",
 				"${BUILT_PRODUCTS_DIR}/amplify_analytics_pinpoint/amplify_analytics_pinpoint.framework",
 				"${BUILT_PRODUCTS_DIR}/amplify_auth_cognito/amplify_auth_cognito.framework",
+<<<<<<< HEAD
 				"${BUILT_PRODUCTS_DIR}/amplify_flutter/amplify_flutter.framework",
+=======
+				"${BUILT_PRODUCTS_DIR}/amplify/amplify.framework",
+>>>>>>> Refactor amplify_core to amplify_flutter
 				"${BUILT_PRODUCTS_DIR}/amplify_storage_s3/amplify_storage_s3.framework",
 				"${BUILT_PRODUCTS_DIR}/file_picker/file_picker.framework",
 				"${BUILT_PRODUCTS_DIR}/flutter_plugin_android_lifecycle/flutter_plugin_android_lifecycle.framework",
@@ -276,7 +280,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyGif.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/amplify_analytics_pinpoint.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/amplify_auth_cognito.framework",
+<<<<<<< HEAD
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/amplify_flutter.framework",
+=======
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/amplify.framework",
+>>>>>>> Refactor amplify_core to amplify_flutter
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/amplify_storage_s3.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/file_picker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/flutter_plugin_android_lifecycle.framework",

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite errors="0" failures="0" tests="1" skipped="0" name=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify.test.amplify" timestamp="2020-12-16T20:27:32">
+    <properties>
+      <property name="platform" value="vm"/>
+    </properties>
+    <testcase classname=".Users.pravgupt.Workspaces.Flutter.amplify_fork.amplify_flutter.packages.amplify.test.amplify" name="configure should result in assertion error when null value is passed" time="0.025"/>
+  </testsuite>
+</testsuites>

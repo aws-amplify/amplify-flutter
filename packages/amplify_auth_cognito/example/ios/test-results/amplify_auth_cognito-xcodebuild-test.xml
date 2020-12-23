@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testsuites name='unit_tests.xctest' tests='44' failures='0'>
+  <testsuite name='unit_tests.amplify_auth_cognito_tests' tests='44' failures='0'>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_confirmPasswordError' time='0.009'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_confirmPasswordSuccess' time='0.000'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_confirmPasswordValidation' time='0.001'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_confirmSignInError' time='0.001'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_confirmSignInSuccess' time='0.001'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_confirmSignInValidation' time='0.000'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_confirmSignUpError' time='0.001'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_confirmSignUpSuccess' time='0.000'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_confirmSignUpValidation' time='0.000'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_fetchCognitoSessionSuccess' time='0.001'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_fetchSessionNoOptions' time='0.000'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_fetchSessionSuccess' time='0.000'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_getCurrentUserError' time='0.001'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_getCurrentUserSuccess' time='0.001'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_guestAccess' time='0.001'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_resendSignUpCodeError' time='0.001'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_resendSignUpCodeSuccessCustom' time='0.001'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_resendSignUpCodeSuccessEmail' time='0.000'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_resendSignUpCodeSuccessPhone' time='0.000'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_resendSignUpCodeSuccessSMS' time='0.000'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_resetPasswordError' time='0.001'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_resetPasswordSuccess' time='0.001'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_resetPasswordValidation' time='0.001'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_signInError' time='0.001'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_signInSuccessCustomChallenge' time='0.001'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_signInSuccessDone' time='0.001'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_signInSuccessNewPassword' time='0.001'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_signInSuccessResetPassword' time='0.000'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_signInSuccessSMS' time='0.000'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_signInValidation' time='0.000'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_signOutError' time='0.001'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_signOutSuccess' time='0.000'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_signUpError' time='0.001'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_signUpFormatAttributes' time='0.001'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_signUpSuccessComplete' time='0.001'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_signUpSuccessCustom' time='0.001'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_signUpSuccessEmail' time='0.001'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_signUpSuccessPhone' time='0.001'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_signUpSuccessSMS' time='0.001'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_signUpValidation' time='0.000'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_updatePasswordError' time='0.001'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_updatePasswordSuccess' time='0.001'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_updatePasswordValidation' time='0.000'/>
+    <testcase classname='unit_tests.amplify_auth_cognito_tests' name='test_UserPoolOnly' time='0.001'/>
+  </testsuite>
+</testsuites>
