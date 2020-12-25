@@ -18,15 +18,12 @@ library amplify_analytics_plugin_interface;
 import 'dart:async';
 
 import 'package:meta/meta.dart';
-
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+import 'package:amplify_core/types/index.dart';
 
 import 'src/types.dart';
 export 'src/types.dart';
 
-
-abstract class AnalyticsPluginInterface extends PlatformInterface {
-
+abstract class AnalyticsPluginInterface extends AmplifyBasePluginInterface {
   /// Constructs a AmplifyPlatform.
   AnalyticsPluginInterface({@required Object token}) : super(token: token);
 

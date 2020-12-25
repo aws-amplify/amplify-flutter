@@ -19,7 +19,7 @@ import 'package:amplify_flutter/amplify.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('amplify/amplify');
-  Amplify amplify = new Amplify();
+  AmplifyClass amplify = new AmplifyClass();
 
   TestWidgetsFlutterBinding.ensureInitialized();
 

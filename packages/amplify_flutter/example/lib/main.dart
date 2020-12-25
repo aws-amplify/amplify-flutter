@@ -28,7 +28,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool _amplifyConfigured = false;
-  Amplify amplifyInstance = new Amplify();
   var amplifyConfig = '''{"foo": "bar"}''';
 
   @override
@@ -43,7 +42,7 @@ class _MyAppState extends State<MyApp> {
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
     if (!mounted) return;
-    await amplifyInstance.configure(amplifyConfig);
+    await Amplify.configure(amplifyConfig);
     try {
       setState(() {
         _amplifyConfigured = true;

@@ -9,8 +9,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  plugin_platform_interface: ^1.0.1
   meta: ^1.1.8
+  amplify_core:
+    path: ../amplify_core
 
 dev_dependencies:
   flutter_test:

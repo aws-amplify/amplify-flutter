@@ -16,8 +16,11 @@
 library amplify;
 
 import 'dart:async';
+
 import 'package:flutter/services.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+
+import 'package:amplify_core/types/index.dart';
 import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:amplify_analytics_plugin_interface/analytics_plugin_interface.dart';
@@ -27,51 +30,50 @@ import 'categories/amplify_categories.dart';
 
 part 'method_channel_amplify.dart';
 
-class Amplify extends PlatformInterface {
-  static const AuthCategory Auth = const AuthCategory();
-  static const AnalyticsCategory Analytics = const AnalyticsCategory();
-  static const StorageCategory Storage = const StorageCategory();
-  static const DataStoreCategory DataStore = const DataStoreCategory();
+/// Top level singleton Amplify object.
+final AmplifyClass Amplify = new AmplifyClass._private();
+
+class AmplifyClass extends PlatformInterface {
+  AmplifyClass._private();
+
+  AuthCategory Auth = const AuthCategory();
+  AnalyticsCategory Analytics = const AnalyticsCategory();
+  StorageCategory Storage = const StorageCategory();
+  DataStoreCategory DataStore = const DataStoreCategory();
 
   bool _isConfigured = false;
-  var multiPluginWarning =
-      "Concurrent usage of multiple plugins per category is not yet available";
 
-  Future<void> addPlugin(
-      {List<AuthPluginInterface> authPlugins,
-      List<AnalyticsPluginInterface> analyticsPlugins,
-      List<StoragePluginInterface> storagePlugins,
-      List<DataStorePluginInterface> dataStorePlugins}) async {
+  Future<void> addPlugin(AmplifyBasePluginInterface plugin) async {
     if (!_isConfigured) {
       try {
-        if (authPlugins != null && authPlugins.length == 1) {
-          Auth.addPlugin(authPlugins[0]);
-        } else if (authPlugins != null && authPlugins.length > 1) {
-          throw (multiPluginWarning);
-        }
-        if (analyticsPlugins != null && analyticsPlugins.length == 1) {
-          Analytics.addPlugin(analyticsPlugins[0]);
-        } else if (analyticsPlugins != null && analyticsPlugins.length > 1) {
-          throw (multiPluginWarning);
-        }
-        if (storagePlugins != null && storagePlugins.length == 1) {
-          Storage.addPlugin(storagePlugins[0]);
-        } else if (storagePlugins != null && storagePlugins.length > 1) {
-          throw (multiPluginWarning);
-        }
-        if (dataStorePlugins != null && dataStorePlugins.length == 1) {
-          await DataStore.addPlugin(dataStorePlugins[0]);
-        } else if (dataStorePlugins != null && dataStorePlugins.length > 1) {
-          throw (multiPluginWarning);
+        if (plugin is AuthPluginInterface) {
+          Auth.addPlugin(plugin);
+        } else if (plugin is AnalyticsPluginInterface) {
+          Analytics.addPlugin(plugin);
+        } else if (plugin is StoragePluginInterface) {
+          Storage.addPlugin(plugin);
+        } else if (plugin is DataStorePluginInterface) {
+          await DataStore.addPlugin(plugin);
+        } else {
+          throw ArgumentError(
+              "The type of plugin is not yet supported in Amplify. This is a bug in Amplify library, please file an issue.");
         }
       } catch (e) {
-        print(e);
-        throw ("Amplify plugin was not added");
+        print("Amplify plugin was not added");
+        throw e;
       }
     } else {
-      throw ("Amplify is already configured; additional plugins cannot be added.");
+      throw StateError(
+          "Amplify is already configured; additional plugins cannot be added.");
     }
-    return null;
+    return;
+  }
+
+  Future<void> addPlugins(List<AmplifyBasePluginInterface> plugins) async {
+    plugins.forEach((plugin) async {
+      await addPlugin(plugin);
+    });
+    return;
   }
 
   String _getVersion() {
@@ -80,7 +82,7 @@ class Amplify extends PlatformInterface {
 
   Future<void> configure(String configuration) async {
     assert(configuration != null, 'configuration is null');
-    var res = await Amplify.instance
+    var res = await AmplifyClass.instance
         ._configurePlatforms(_getVersion(), configuration);
     _isConfigured = res;
     if (!res) {
@@ -97,20 +99,20 @@ class Amplify extends PlatformInterface {
 
   /// Constructs a Core platform.
 
-  Amplify() : super(token: _token);
+  AmplifyClass() : super(token: _token);
 
   static final Object _token = Object();
 
-  static Amplify _instance = MethodChannelAmplify();
+  static AmplifyClass _instance = MethodChannelAmplify();
 
   /// The default instance of [AmplifyPlatform] to use.
   ///
   /// Defaults to [MethodChannelAmplify].
-  static Amplify get instance => _instance;
+  static AmplifyClass get instance => _instance;
 
   /// Platform-specific plugins should set this with their own platform-specific
   /// class that extends [AmplifyPlatform] when they register themselves.
-  static set instance(Amplify instance) {
+  static set instance(AmplifyClass instance) {
     PlatformInterface.verifyToken(instance, _token);
     _instance = instance;
   }

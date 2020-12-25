@@ -17,7 +17,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool _amplifyConfigured = false;
-  Amplify amplifyInstance = new Amplify();
 
   String _uniqueId = "default";
   String _globalProp = "default";
@@ -40,11 +39,10 @@ class _MyAppState extends State<MyApp> {
     AmplifyAnalyticsPinpoint analyticsPlugin = AmplifyAnalyticsPinpoint();
     AmplifyAuthCognito authPlugin = AmplifyAuthCognito();
 
-    amplifyInstance.addPlugin(
-        authPlugins: [authPlugin], analyticsPlugins: [analyticsPlugin]);
+    Amplify.addPlugins([authPlugin, analyticsPlugin]);
 
     try {
-      await amplifyInstance.configure(amplifyconfig);
+      await Amplify.configure(amplifyconfig);
       setState(() {
         _amplifyConfigured = true;
       });
