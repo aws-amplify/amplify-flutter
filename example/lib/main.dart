@@ -58,7 +58,7 @@ class _MyAppState extends State<MyApp> {
     AmplifyStorageS3 storage = AmplifyStorageS3();
     AmplifyAnalyticsPinpoint analytics = AmplifyAnalyticsPinpoint();
 
-    Amplify.addPlugins([auth, storage ,analytics]);
+    Amplify.addPlugins([auth, storage, analytics]);
 
     // Initialize AmplifyFlutter
     await Amplify.configure(amplifyconfig);
