@@ -35,8 +35,7 @@ class AmplifyStorageS3 extends StoragePluginInterface {
   static StoragePluginInterface get instance => _instance;
 
   static set instance(StoragePluginInterface instance) {
-    PlatformInterface.verifyToken(
-        instance, _token);
+    PlatformInterface.verifyToken(instance, _token);
     _instance = instance;
   }
 
