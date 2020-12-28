@@ -88,7 +88,7 @@ class _MyAppState extends State<MyApp> {
 
   void _configureAmplify() async {
     auth = AmplifyAuthCognito();
-    Amplify.addPlugin(auth);
+    await Amplify.addPlugin(auth);
     var isSignedIn = false;
 
     await Amplify.configure(amplifyconfig);

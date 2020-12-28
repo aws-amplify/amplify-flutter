@@ -11,10 +11,14 @@ dependencies:
   flutter:
     sdk: flutter
   plugin_platform_interface: ^1.0.1
-  amplify_storage_plugin_interface: ^0.0.1-dev.4
-  amplify_analytics_plugin_interface: ^0.0.1-dev.4
-  amplify_auth_plugin_interface: ^0.0.1-dev.4
-  amplify_datastore_plugin_interface: ^0.0.1-dev.4
+  amplify_storage_plugin_interface:
+    path: ../amplify_storage_plugin_interface
+  amplify_analytics_plugin_interface:
+    path: ../amplify_analytics_plugin_interface
+  amplify_auth_plugin_interface:
+    path: ../amplify_auth_plugin_interface
+  amplify_datastore_plugin_interface:
+    path: ../amplify_datastore_plugin_interface
   amplify_core:
     path: ../amplify_core
 
