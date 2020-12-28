@@ -22,7 +22,7 @@ import 'package:amplify_core/types/index.dart';
 import 'src/types.dart';
 export 'src/types.dart';
 
-abstract class StoragePluginInterface extends AmplifyBasePluginInterface {
+abstract class StoragePluginInterface extends AmplifyPluginInterface {
   StoragePluginInterface({@required Object token}) : super(token: token);
 
   Future<UploadFileResult> uploadFile({@required UploadFileRequest request}) {

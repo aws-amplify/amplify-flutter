@@ -43,7 +43,7 @@ class AmplifyClass extends PlatformInterface {
 
   bool _isConfigured = false;
 
-  Future<void> addPlugin(AmplifyBasePluginInterface plugin) async {
+  Future<void> addPlugin(AmplifyPluginInterface plugin) async {
     if (!_isConfigured) {
       try {
         if (plugin is AuthPluginInterface) {
@@ -69,7 +69,7 @@ class AmplifyClass extends PlatformInterface {
     return;
   }
 
-  Future<void> addPlugins(List<AmplifyBasePluginInterface> plugins) async {
+  Future<void> addPlugins(List<AmplifyPluginInterface> plugins) async {
     plugins.forEach((plugin) async {
       await addPlugin(plugin);
     });

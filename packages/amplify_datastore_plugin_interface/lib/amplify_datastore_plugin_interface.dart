@@ -45,7 +45,7 @@ export 'src/Errors/datastore_error.dart';
 export 'src/Errors/datastore_error_types.dart';
 export 'src/types/models/subscription_event.dart';
 
-abstract class DataStorePluginInterface extends AmplifyBasePluginInterface {
+abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   final ModelProviderInterface modelProvider;
 
   /// Constructs an AmplifyPlatform.

@@ -22,7 +22,7 @@ import 'package:amplify_core/types/index.dart';
 import 'src/types.dart';
 export 'src/types.dart';
 
-abstract class AuthPluginInterface extends AmplifyBasePluginInterface {
+abstract class AuthPluginInterface extends AmplifyPluginInterface {
   /// Constructs a AmplifyPlatform.
   AuthPluginInterface({@required Object token}) : super(token: token);
 

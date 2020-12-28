@@ -23,7 +23,7 @@ import 'package:amplify_core/types/index.dart';
 import 'src/types.dart';
 export 'src/types.dart';
 
-abstract class AnalyticsPluginInterface extends AmplifyBasePluginInterface {
+abstract class AnalyticsPluginInterface extends AmplifyPluginInterface {
   /// Constructs a AmplifyPlatform.
   AnalyticsPluginInterface({@required Object token}) : super(token: token);
 

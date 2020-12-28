@@ -13,4 +13,4 @@
  * permissions and limitations under the License.
  */
 
-export 'plugin/amplify_base_plugin_interface.dart';
+export 'plugin/amplify_plugin_interface.dart';
