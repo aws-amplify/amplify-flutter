@@ -18,12 +18,11 @@ import '../types.dart';
 
 class GraphQLOperation<T> {
   Function _cancel;
+  Future<GraphQLResponse<T>> response;
 
   GraphQLOperation({@required this.response, @required Function cancel}) {
     _cancel = cancel;
   }
-
-  Future<GraphQLResponse<T>> response;
 
   void cancel() {
     _cancel();

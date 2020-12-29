@@ -1,4 +1,3 @@
-## 0.0.1-dev.5 (2020-12-20)
+## 0.0.1-dev.5
 
-* Initial preview release of API plugin.
-
+- Initial preview release of API plugin.

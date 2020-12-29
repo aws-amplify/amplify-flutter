@@ -24,9 +24,8 @@ import com.amazonaws.amplify.amplify_api.types.FlutterApiErrorUtils
 import com.amazonaws.amplify.amplify_api.types.AmplifyGraphQLModule
 import com.amazonaws.amplify.amplify_api.types.OperationsManager
 import com.amazonaws.amplify.amplify_api.types.rest_api.AmplifyRestAPIModule
+import androidx.annotation.NonNull
 import com.amplifyframework.api.aws.AWSApiPlugin
-import com.amplifyframework.api.aws.GsonVariablesSerializer
-import com.amplifyframework.api.graphql.SimpleGraphQLRequest
 import com.amplifyframework.core.Amplify
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall

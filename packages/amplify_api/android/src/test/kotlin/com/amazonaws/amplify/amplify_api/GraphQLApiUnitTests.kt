@@ -107,7 +107,7 @@ class GraphQLApiUnitTests {
 
         verify(mockResult, times(1)).error(
                 matches("AmplifyException"),
-                matches(FlutterApiErrorMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString()),
+                matches(FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString()),
                 any()
         )
     }
@@ -228,7 +228,7 @@ class GraphQLApiUnitTests {
 
         verify(mockResult, times(1)).error(
                 matches("AmplifyException"),
-                matches(FlutterApiErrorMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString()),
+                matches(FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString()),
                 any()
         )
     }
