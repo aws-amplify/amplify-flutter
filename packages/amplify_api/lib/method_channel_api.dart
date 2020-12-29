@@ -62,13 +62,11 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
 
       return response;
     } on PlatformException catch (e) {
-      print('In catch for getMethodChannelResponse');
       throw _formatError(e);
     }
   }
 
   ApiError _formatError(PlatformException e) {
-    print('API error');
     return ApiError(code: e.code, message: e.message, details: e.details);
   }
 
