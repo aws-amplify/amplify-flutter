@@ -17,7 +17,7 @@ import Amplify
 import AmplifyPlugins
 import Flutter
 
-class ApiBridge {
+public class APIBridge {
     
     func get(request: RESTRequest, listener: ((AmplifyOperation<RESTOperationRequest, Data, APIError>.OperationResult) -> Void)?) -> RESTOperation?{
         return Amplify.API.get(request: request, listener: listener)
@@ -36,17 +36,19 @@ class ApiBridge {
     }
     
     
-    func query<R: Decodable>(request: GraphQLRequest<R>,
+    @discardableResult
+    public func query<R: Decodable>(request: GraphQLRequest<R>,
                                     listener: GraphQLOperation<R>.ResultListener?) -> GraphQLOperation<R> {
         return Amplify.API.query(request: request, listener: listener)
     }
 
-    func mutate<R: Decodable>(request: GraphQLRequest<R>,
+    @discardableResult
+    public func mutate<R: Decodable>(request: GraphQLRequest<R>,
                                      listener: GraphQLOperation<R>.ResultListener?) -> GraphQLOperation<R> {
         return Amplify.API.mutate(request: request, listener: listener)
     }
 
-    func subscribe<R>(request: GraphQLRequest<R>,
+    public func subscribe<R>(request: GraphQLRequest<R>,
                              valueListener: GraphQLSubscriptionOperation<R>.InProcessListener?,
                              completionListener: GraphQLSubscriptionOperation<R>.ResultListener?)
         -> GraphQLSubscriptionOperation<R> {
