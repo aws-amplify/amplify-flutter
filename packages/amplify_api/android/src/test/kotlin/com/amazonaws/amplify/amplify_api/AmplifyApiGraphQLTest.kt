@@ -25,6 +25,7 @@ import com.amplifyframework.api.graphql.GraphQLResponse
 import com.amplifyframework.api.graphql.SimpleGraphQLRequest
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
+import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import org.junit.Assert
 import org.junit.Before
@@ -83,8 +84,10 @@ class AmplifyApiGraphQLTest {
                 any(),
                 any())
 
-
-        flutterPlugin.query(mockResult, testRequest)
+        flutterPlugin.onMethodCall(
+                MethodCall("query", testRequest),
+                mockResult
+        )
 
         verify(mockResult, times(1)).success(mapOf(
                 "data" to "result",
@@ -97,7 +100,10 @@ class AmplifyApiGraphQLTest {
     fun test_query_malformed_request_casting_error() {
         val testRequest = HashMap<String, Any>()
 
-        flutterPlugin.query(mockResult, testRequest)
+        flutterPlugin.onMethodCall(
+                MethodCall("query", testRequest),
+                mockResult
+        )
 
         verify(mockResult, times(1)).error(
                 matches("AmplifyException"),
@@ -142,7 +148,10 @@ class AmplifyApiGraphQLTest {
                 any())
 
 
-        flutterPlugin.query(mockResult, testRequest)
+        flutterPlugin.onMethodCall(
+                MethodCall("query", testRequest),
+                mockResult
+        )
 
         verify(mockResult, times(1)).error(
                 "AmplifyException",
@@ -196,7 +205,10 @@ class AmplifyApiGraphQLTest {
                 any())
 
 
-        flutterPlugin.mutate(mockResult, testRequest)
+        flutterPlugin.onMethodCall(
+                MethodCall("mutate", testRequest),
+                mockResult
+        )
 
         verify(mockResult, times(1)).success(mapOf(
                 "data" to "mutate result",
@@ -209,7 +221,10 @@ class AmplifyApiGraphQLTest {
     fun test_mutate_malformed_request_casting_error() {
         val testRequest = HashMap<String, Any>()
 
-        flutterPlugin.query(mockResult, testRequest)
+        flutterPlugin.onMethodCall(
+                MethodCall("mutate", testRequest),
+                mockResult
+        )
 
         verify(mockResult, times(1)).error(
                 matches("AmplifyException"),
@@ -255,7 +270,10 @@ class AmplifyApiGraphQLTest {
                 any())
 
 
-        flutterPlugin.mutate(mockResult, testRequest)
+        flutterPlugin.onMethodCall(
+                MethodCall("mutate", testRequest),
+                mockResult
+        )
 
         verify(mockResult, times(1)).error(
                 "AmplifyException",
