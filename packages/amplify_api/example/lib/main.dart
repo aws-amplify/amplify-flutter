@@ -138,6 +138,42 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  void onHeadPressed() async {
+    try {
+      RestOperation restOperation = Amplify.API.head(
+          restOptions: RestOptions(
+        path: _apiPathController.text,
+      ));
+
+      _lastRestOperation = restOperation;
+      RestResponse response = await restOperation.response;
+
+      print("Head SUCCESS");
+      print(new String.fromCharCodes(response.data));
+    } on ApiError catch (e) {
+      print("Head FAILED");
+      print(e.toString());
+    }
+  }
+
+  void onPatchPressed() async {
+    try {
+      RestOperation restOperation = Amplify.API.patch(
+          restOptions: RestOptions(
+        path: _apiPathController.text,
+      ));
+
+      _lastRestOperation = restOperation;
+      RestResponse response = await restOperation.response;
+
+      print("Patch SUCCESS");
+      print(new String.fromCharCodes(response.data));
+    } on ApiError catch (e) {
+      print("Patch FAILED");
+      print(e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -171,6 +207,11 @@ class _MyAppState extends State<MyApp> {
             child: Text("Delete"),
             onPressed: onDeletePressed,
           ),
+          RaisedButton(
+            child: Text("Head"),
+            onPressed: onHeadPressed,
+          ),
+          RaisedButton(child: Text("Patch"), onPressed: onPatchPressed),
         ]),
       ),
     );

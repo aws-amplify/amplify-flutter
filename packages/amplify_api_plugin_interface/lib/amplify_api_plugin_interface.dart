@@ -54,4 +54,12 @@ abstract class APIPluginInterface extends PlatformInterface {
   RestOperation delete({@required RestOptions restOptions}) {
     throw UnimplementedError('delete has not been implemented.');
   }
+
+  RestOperation head({@required RestOptions restOptions}) {
+    throw UnimplementedError('head has not been implemented.');
+  }
+
+  RestOperation patch({@required RestOptions restOptions}) {
+    throw UnimplementedError('patch has not been implemented.');
+  }
 }

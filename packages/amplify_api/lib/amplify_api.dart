@@ -72,4 +72,14 @@ class AmplifyAPI extends APIPluginInterface {
   RestOperation delete({@required RestOptions restOptions}) {
     return _instance.delete(restOptions: restOptions);
   }
+
+  @override
+  RestOperation head({@required RestOptions restOptions}) {
+    return _instance.head(restOptions: restOptions);
+  }
+
+  @override
+  RestOperation patch({@required RestOptions restOptions}) {
+    return _instance.patch(restOptions: restOptions);
+  }
 }

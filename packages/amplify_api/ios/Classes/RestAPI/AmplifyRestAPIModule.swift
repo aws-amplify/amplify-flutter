@@ -97,6 +97,12 @@ public class AmplifyRestAPIModule {
     public func onDelete(flutterResult: @escaping FlutterResult, arguments: [String: Any]){
         restFunctionHelper(methodName: "delete", flutterResult: flutterResult, request: arguments, function: bridge.delete)
     }
+    public func onHead(flutterResult: @escaping FlutterResult, arguments: [String: Any]){
+        restFunctionHelper(methodName: "head", flutterResult: flutterResult, request: arguments, function: bridge.head)
+    }
+    public func onPatch(flutterResult: @escaping FlutterResult, arguments: [String: Any]){
+        restFunctionHelper(methodName: "patch", flutterResult: flutterResult, request: arguments, function: bridge.patch)
+    }
 
     public func onCancel(flutterResult: @escaping FlutterResult, cancelToken: String){
 

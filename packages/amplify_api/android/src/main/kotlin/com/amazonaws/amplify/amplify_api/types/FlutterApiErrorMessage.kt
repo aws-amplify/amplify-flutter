@@ -25,7 +25,10 @@ enum class FlutterApiErrorMessage {
     AMPLIFY_API_GET_FAILED,
     AMPLIFY_API_POST_FAILED,
     AMPLIFY_API_PUT_FAILED,
-    AMPLIFY_API_DELETE_FAILED;
+    AMPLIFY_API_DELETE_FAILED,
+    AMPLIFY_API_HEAD_FAILED,
+    AMPLIFY_API_PATCH_FAILED;
+
 
     companion object {
         fun stringToAPIRestError(methodName : String): FlutterApiErrorMessage {
@@ -34,6 +37,8 @@ enum class FlutterApiErrorMessage {
                 "post" -> AMPLIFY_API_POST_FAILED
                 "put" -> AMPLIFY_API_PUT_FAILED
                 "delete" -> AMPLIFY_API_DELETE_FAILED
+                "head" -> AMPLIFY_API_HEAD_FAILED
+                "patch" -> AMPLIFY_API_PATCH_FAILED
                 else -> AMPLIFY_REQUEST_MALFORMED
             }
         }

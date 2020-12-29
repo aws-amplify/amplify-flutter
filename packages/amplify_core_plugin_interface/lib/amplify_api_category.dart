@@ -66,4 +66,12 @@ class APICategory {
   RestOperation delete({@required RestOptions restOptions}) {
     return plugins[0].delete(restOptions: restOptions);
   }
+
+  RestOperation head({@required RestOptions restOptions}) {
+    return plugins[0].head(restOptions: restOptions);
+  }
+
+  RestOperation patch({@required RestOptions restOptions}) {
+    return plugins[0].patch(restOptions: restOptions);
+  }
 }

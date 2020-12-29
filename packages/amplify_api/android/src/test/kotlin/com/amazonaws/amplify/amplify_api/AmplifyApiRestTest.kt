@@ -18,6 +18,7 @@ package com.amazonaws.amplify.amplify_api
 
 import com.amazonaws.amplify.amplify_api.AmplifyApiPlugin
 import com.amplifyframework.api.ApiCategory
+import com.amplifyframework.api.ApiException
 import com.amplifyframework.api.aws.AWSApiPlugin
 import com.amplifyframework.api.rest.RestOperation
 import com.amplifyframework.api.rest.RestOptions
@@ -27,10 +28,12 @@ import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
+import junit.framework.TestCase.assertEquals
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentCaptor
 import org.mockito.ArgumentMatchers
 import org.mockito.Mockito
 import org.mockito.Mockito.*
@@ -62,10 +65,6 @@ class AmplifyApiRestTest {
         var restResponse = RestResponse(200, data)
 
         Mockito.doAnswer { invocation ->
-            Assert.assertEquals(
-                    RestOptions.builder().addPath("/items").build(),
-                    invocation.arguments[0]
-            )
             (invocation.arguments[1] as Consumer<RestResponse>).accept(
                     restResponse
             )
@@ -87,6 +86,18 @@ class AmplifyApiRestTest {
                 mockResult
         )
 
+        // Verify input RestOptions
+        val optionsCaptor = ArgumentCaptor.forClass(RestOptions::class.java)
+        verify(mockApi).get(
+                optionsCaptor.capture(),
+                any<Consumer<RestResponse>>(),
+                any<Consumer<ApiException>>()
+        )
+        assertEquals(
+                RestOptions.builder().addPath("/items").build(),
+                optionsCaptor.value
+        )
+
         verify(mockResult).success(
                 mapOf(
                         "data" to restResponse.data.rawBytes
@@ -104,21 +115,6 @@ class AmplifyApiRestTest {
         var restResponse = RestResponse(200, data)
 
         Mockito.doAnswer { invocation ->
-            /* While the RestOptions are equal, a Kotlin bug registers the results as different
-            Assert.assertEquals(
-                    RestOptions.builder()
-                            .addPath("/items")
-                            .addBody( body )
-                            .addHeader( "headerA", "headerValueA")
-                            .addHeader( "headerB", "headerValueB")
-                            .addQueryParameters( mapOf(
-                                    "queryParameterA" to "queryValueA",
-                                    "queryParameterB" to "queryValueB"
-                            ))
-                            .build(),
-                    invocation.arguments[0]
-            )
-             */
             (invocation.arguments[2] as Consumer<RestResponse>).accept(
                     restResponse
             )
@@ -151,6 +147,31 @@ class AmplifyApiRestTest {
                 mockResult
         )
 
+        // Verify input RestOptions
+        val optionsCaptor = ArgumentCaptor.forClass(RestOptions::class.java)
+        verify(mockApi).post(
+                any(),
+                optionsCaptor.capture(),
+                any<Consumer<RestResponse>>(),
+                any<Consumer<ApiException>>()
+        )
+        // While the RestOptions are equal, a Kotlin bug registers the results as different
+        /*
+        assertEquals(
+                RestOptions.builder()
+                        .addPath("/items")
+                        .addBody( body )
+                        .addHeader( "headerA", "headerValueA")
+                        .addHeader( "headerB", "headerValueB")
+                        .addQueryParameters( mapOf(
+                                "queryParameterA" to "queryValueA",
+                                "queryParameterB" to "queryValueB"
+                        ))
+                        .build(),
+                optionsCaptor.value
+        )
+         */
+
         verify(mockResult).success(
                 mapOf(
                         "data" to restResponse.data.rawBytes
@@ -168,21 +189,6 @@ class AmplifyApiRestTest {
         var restResponse = RestResponse(200, data)
 
         Mockito.doAnswer { invocation ->
-            /* While the RestOptions are equal, a Kotlin bug registers the results as different
-            Assert.assertEquals(
-                    RestOptions.builder()
-                            .addPath("/items")
-                            .addBody( body )
-                            .addHeader( "headerA", "headerValueA")
-                            .addHeader( "headerB", "headerValueB")
-                            .addQueryParameters( mapOf(
-                                    "queryParameterA" to "queryValueA",
-                                    "queryParameterB" to "queryValueB"
-                            ))
-                            .build(),
-                    invocation.arguments[0]
-            )
-             */
             (invocation.arguments[1] as Consumer<RestResponse>).accept(
                     restResponse
             )
@@ -220,7 +226,6 @@ class AmplifyApiRestTest {
         var restResponse = RestResponse(200, data)
 
         Mockito.doAnswer { invocation ->
-
             (invocation.arguments[1] as Consumer<RestResponse>).accept(
                     restResponse
             )
@@ -390,7 +395,6 @@ class AmplifyApiRestTest {
     fun test_cancel_get_returns_error(){
 
         var data = getSuccessData
-        var restResponse = RestResponse(200, data)
         var cancelToken = "someOldCode"
 
         val mockCancelResult: MethodChannel.Result = mock(MethodChannel.Result::class.java)

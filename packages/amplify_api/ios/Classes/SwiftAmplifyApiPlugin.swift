@@ -75,6 +75,8 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
             case "post": restAPIModule.onPost(flutterResult: result, arguments: arguments)
             case "put": restAPIModule.onPut(flutterResult: result, arguments: arguments)
             case "delete": restAPIModule.onDelete(flutterResult: result, arguments: arguments)
+            case "head": restAPIModule.onHead(flutterResult: result, arguments: arguments)
+            case "patch": restAPIModule.onPatch(flutterResult: result, arguments: arguments)
 
             case "query":
                 FlutterGraphQLApiModule.query(flutterResult: result, request: arguments, bridge: bridge)

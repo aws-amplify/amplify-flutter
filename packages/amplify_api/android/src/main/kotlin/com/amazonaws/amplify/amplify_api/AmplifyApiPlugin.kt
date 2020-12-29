@@ -61,7 +61,7 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
       return
     }
 
-    if(methodName == "get" || methodName == "post" || methodName == "put" || methodName == "delete"){
+    if(methodName == "get" || methodName == "post" || methodName == "put" || methodName == "delete" || methodName == "head" || methodName == "patch"){
       if(!restAPIModule.isValidArgumentsMap(result, call.arguments)) return
     }
 
@@ -76,6 +76,8 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
       "post" -> onPost(result, arguments)
       "put" -> onPut(result, arguments)
       "delete" -> onDelete(result, arguments)
+      "head" -> onHead(result, arguments)
+      "patch" -> onPatch(result, arguments)
       "query" -> query(result, arguments)
       "mutate" -> mutate(result, arguments)
       else -> result.notImplemented()
@@ -198,6 +200,14 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
   @VisibleForTesting
   fun onDelete( flutterResult: Result, arguments: Map<String, *>) {
     restAPIModule.onDelete(flutterResult, arguments)
+  }
+  @VisibleForTesting
+  fun onHead( flutterResult: Result, arguments: Map<String, *>) {
+    restAPIModule.onHead(flutterResult, arguments)
+  }
+  @VisibleForTesting
+  fun onPatch( flutterResult: Result, arguments: Map<String, *>) {
+    restAPIModule.onPatch(flutterResult, arguments)
   }
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {

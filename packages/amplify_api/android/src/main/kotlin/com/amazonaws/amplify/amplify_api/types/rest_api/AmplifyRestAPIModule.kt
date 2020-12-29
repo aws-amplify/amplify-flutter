@@ -155,7 +155,6 @@ class AmplifyRestAPIModule {
 
     fun onPost(flutterResult: Result, arguments: Map<String, *>) {
         restFunctionHelper("post", flutterResult, arguments, this::post, this::post)
-
     }
 
     fun onPut(flutterResult: Result, arguments: Map<String, *>) {
@@ -164,6 +163,14 @@ class AmplifyRestAPIModule {
 
     fun onDelete(flutterResult: Result, arguments: Map<String, *>) {
         restFunctionHelper("delete", flutterResult, arguments, this::delete, this::delete)
+    }
+
+    fun onHead(flutterResult: Result, arguments: Map<String, *>) {
+        restFunctionHelper("head", flutterResult, arguments, this::delete, this::delete)
+    }
+
+    fun onPatch(flutterResult: Result, arguments: Map<String, *>) {
+        restFunctionHelper("patch", flutterResult, arguments, this::delete, this::delete)
     }
 
     fun onCancel(
@@ -252,5 +259,41 @@ class AmplifyRestAPIModule {
             restConsumer: Consumer<RestResponse>,
             exceptionConsumer: Consumer<ApiException>): RestOperation? {
         return Amplify.API.delete(apiName, restOptions, restConsumer, exceptionConsumer)
+    }
+
+    /*
+    HEAD
+    */
+    private fun head(
+            restOptions: RestOptions,
+            restConsumer: Consumer<RestResponse>,
+            exceptionConsumer: Consumer<ApiException>): RestOperation? {
+        return Amplify.API.head(restOptions, restConsumer, exceptionConsumer)
+    }
+
+    private fun head(
+            apiName: String,
+            restOptions: RestOptions,
+            restConsumer: Consumer<RestResponse>,
+            exceptionConsumer: Consumer<ApiException>): RestOperation? {
+        return Amplify.API.head(apiName, restOptions, restConsumer, exceptionConsumer)
+    }
+
+    /*
+    PATCH
+    */
+    private fun patch(
+            restOptions: RestOptions,
+            restConsumer: Consumer<RestResponse>,
+            exceptionConsumer: Consumer<ApiException>): RestOperation? {
+        return Amplify.API.patch(restOptions, restConsumer, exceptionConsumer)
+    }
+
+    private fun patch(
+            apiName: String,
+            restOptions: RestOptions,
+            restConsumer: Consumer<RestResponse>,
+            exceptionConsumer: Consumer<ApiException>): RestOperation? {
+        return Amplify.API.patch(apiName, restOptions, restConsumer, exceptionConsumer)
     }
 }

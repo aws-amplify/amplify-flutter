@@ -13,7 +13,8 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_api/src/amplify_rest_api_module.dart';
+import 'dart:typed_data';
+
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
@@ -23,8 +24,6 @@ import 'amplify_api.dart';
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/api');
 
 class AmplifyAPIMethodChannel extends AmplifyAPI {
-  AmplifyRestAPIModule restAPIModule = AmplifyRestAPIModule(_channel);
-
   // ====== GraphQL ======
   @override
   GraphQLOperation<T> query<T>({@required GraphQLRequest<T> request}) {
@@ -72,30 +71,86 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   }
 
   // ====== RestAPI ======
-  @override
-  void cancelRequest(String cancelToken) async {
-    restAPIModule.cancelRequest(cancelToken);
+  @visibleForTesting
+  RestOperation _restFunctionHelper(
+      {@required String methodName, @required RestOptions restOptions}) {
+    // Send Request cancelToken to Native
+    String cancelToken = UUID.getUUID();
+
+    Future<RestResponse> futureResponse =
+        _callNativeRestMethod(methodName, cancelToken, restOptions);
+
+    return new RestOperation(
+        response: futureResponse, cancel: () => {cancelRequest(cancelToken)});
+  }
+
+  Future<RestResponse> _callNativeRestMethod(
+      String methodName, String cancelToken, RestOptions restOptions) async {
+    // Prepare map input
+    Map<String, dynamic> inputsMap = new Map<String, dynamic>();
+    inputsMap["restOptions"] = restOptions.serializeAsMap();
+    inputsMap["cancelToken"] = cancelToken;
+
+    // Attempt switch to proper async
+    try {
+      final Map<String, dynamic> data = await _channel
+          .invokeMapMethod<String, dynamic>(methodName, inputsMap);
+      return _formatRestResponse(data);
+    } on PlatformException catch (e) {
+      throw (_formatError(e));
+    }
+  }
+
+  RestResponse _formatRestResponse(Map<String, dynamic> res) {
+    if (res.containsKey("data")) {
+      return RestResponse(data: res["data"] as Uint8List);
+    } else {
+      throw new Exception("Malformed RestResponse");
+    }
   }
 
   @override
   RestOperation get({@required RestOptions restOptions}) {
-    return restAPIModule.get(restOptions: restOptions);
+    return _restFunctionHelper(methodName: "get", restOptions: restOptions);
   }
 
   @override
   RestOperation put({@required RestOptions restOptions}) {
-    return restAPIModule.put(restOptions: restOptions);
+    return _restFunctionHelper(methodName: "put", restOptions: restOptions);
   }
 
   @override
   RestOperation post({@required RestOptions restOptions}) {
-    return restAPIModule.post(restOptions: restOptions);
+    return _restFunctionHelper(methodName: "post", restOptions: restOptions);
   }
 
   @override
   RestOperation delete({@required RestOptions restOptions}) {
-    return restAPIModule.delete(restOptions: restOptions);
+    return _restFunctionHelper(methodName: "delete", restOptions: restOptions);
   }
+
+  @override
+  RestOperation head({@required RestOptions restOptions}) {
+    return _restFunctionHelper(methodName: "head", restOptions: restOptions);
+  }
+
+  @override
+  RestOperation patch({@required RestOptions restOptions}) {
+    return _restFunctionHelper(methodName: "patch", restOptions: restOptions);
+  }
+
+  @override
+  void cancelRequest(String cancelToken) async {
+    print("Attempting to cancel RestOperation " + cancelToken);
+
+    await _channel.invokeMethod("cancel", cancelToken).then((result) {
+      print("Cancel succeeded for RestOperation: " + cancelToken);
+    }).catchError((e) {
+      print("Cancel request failed due to: " + e.message + " " + e.code);
+    });
+  }
+
+  // ====== GENERAL METHODS ======
 
   ApiError _formatError(PlatformException e) {
     print('API error');

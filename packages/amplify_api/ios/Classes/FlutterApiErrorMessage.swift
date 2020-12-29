@@ -23,6 +23,9 @@ enum FlutterApiErrorMessage: String {
     case PUT_FAILED = "AMPLIFY_API_PUT_FAILED"
     case POST_FAILED = "AMPLIFY_API_POST_FAILED"
     case DELETE_FAILED = "AMPLIFY_API_DELETE_FAILED"
+    case HEAD_FAILED = "AMPLIFY_API_HEAD_FAILED"
+    case PATCH_FAILED = "AMPLIFY_API_PATCH_FAILED"
+
     
     public static func stringToAPIRestError(methodName: String) -> FlutterApiErrorMessage{
         switch methodName {
@@ -30,6 +33,8 @@ enum FlutterApiErrorMessage: String {
             case "post": return .POST_FAILED
             case "put": return .PUT_FAILED
             case "delete": return .DELETE_FAILED
+            case "head": return .HEAD_FAILED
+            case "patch": return .PATCH_FAILED
             default: return .MALFORMED
         }
     }

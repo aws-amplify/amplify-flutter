@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:collection';
 import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
@@ -165,18 +166,49 @@ void main() {
       }
     });
 
+    try {
+      RestOperation restOperation = api.get(
+          restOptions: RestOptions(
+        path: "/items",
+      ));
+      await restOperation.response;
+    } on ApiError catch (e) {
+      expect(e.code, "AmplifyException");
+      expect(e.message, "AMPLIFY_API_GET_FAILED");
+
+      Map<dynamic, dynamic> platformExceptions =
+          (e.details)["PLATFORM_EXCEPTIONS"];
+
+      expect(platformExceptions["platform"], "iOS");
+      expect(platformExceptions["localizedErrorMessage"],
+          "The HTTP response status code is [400].");
+      expect(platformExceptions["recoverySuggestion"],
+          "The metadata associated with the response is contained in the HTTPURLResponse.\nFor more information on HTTP status codes, take a look at\nhttps://en.wikipedia.org/wiki/List_of_HTTP_status_codes");
+    }
+  });
+
+  test('CANCEL success does not throw error', () async {
+    // Need to reply with PLACEHOLDER to avoid null issues in _formatRestResponse
+    // In actual production code, the methodChannel doesn't respond to the future response
+    var responseData = Uint8List.fromList(
+        "{\"success\":\"get call succeed!\",\"url\":\"/items\"}".codeUnits);
+
+    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      if (methodCall.method == "get") {
+        Map<dynamic, dynamic> restOptions = methodCall.arguments["restOptions"];
+        expect(restOptions["path"], "/items");
+        return {"data": responseData};
+      }
+    });
+
     RestOperation restOperation = api.get(
         restOptions: RestOptions(
       path: "/items",
     ));
 
-    expect(
-        restOperation.response,
-        throwsA(isA<PlatformException>()
-            .having((error) => error.code, "error code", "AmplifyException")
-            .having((error) => error.message, "error message",
-                "AMPLIFY_API_GET_FAILED")
-            .having((error) => error.details as Map<String, dynamic>,
-                "error details", [])));
+    //RestResponse response = await restOperation.response;
+    restOperation.cancel();
+
+    var test = 0;
   });
 }
