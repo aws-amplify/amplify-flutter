@@ -31,27 +31,27 @@ void main() {
 
   test('Query advanced flow executes correctly in the happy case', () async {
     const queryResult = {
-      "listBlogs": {
-        "items": [
+      'listBlogs': {
+        'items': [
           {
-            "id": "ec0c71cb-8b88-4c57-86d7-6758bf4cba4a",
-            "name": "Test Blog 1",
-            "createdAt": "2020-12-10T21:25:51.252Z"
+            'id': 'ec0c71cb-8b88-4c57-86d7-6758bf4cba4a',
+            'name': 'Test Blog 1',
+            'createdAt': '2020-12-10T21:25:51.252Z'
           },
           {
-            "id": "33546237-8e0d-450f-8bf5-4da0dbd2659c",
-            "name": "Test Blog 2",
-            "createdAt": "2020-12-03T16:39:18.651Z"
+            'id': '33546237-8e0d-450f-8bf5-4da0dbd2659c',
+            'name': 'Test Blog 2',
+            'createdAt': '2020-12-03T16:39:18.651Z'
           },
           {
-            "createdAt": "2020-12-04T16:14:31.418Z",
-            "name": "Test Blog 3",
-            "id": "f6b8fbb8-0224-4232-b970-0cc9105d5faf"
+            'createdAt': '2020-12-04T16:14:31.418Z',
+            'name': 'Test Blog 3',
+            'id': 'f6b8fbb8-0224-4232-b970-0cc9105d5faf'
           },
           {
-            "createdAt": "2020-12-04T16:24:20.765Z",
-            "name": "Test Blog 4",
-            "id": "c6a33487-6237-4f53-ba9f-2cb487d2c6ad"
+            'createdAt': '2020-12-04T16:24:20.765Z',
+            'name': 'Test Blog 4',
+            'id': 'c6a33487-6237-4f53-ba9f-2cb487d2c6ad'
           },
         ]
       }
@@ -79,15 +79,15 @@ void main() {
   });
 
   test(
-      'A PlatformException for malformed request results in the corresponding ApiError',
+      'A PlatformException for a failed API call results in the corresponding ApiError',
       () async {
     final exception = PlatformException(
-        code: "AmplifyException",
-        message: "AMPLIFY_REQUEST_MALFORMED",
+        code: 'AmplifyException',
+        message: 'AMPLIFY_API_QUERY_FAILED',
         details: {});
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "query") {
+      if (methodCall.method == 'query') {
         throw exception;
       }
     });
@@ -103,32 +103,24 @@ void main() {
       expect(e.details, exception.details);
       return;
     }
-    throw new Exception('Expected a StorageException');
+    throw new Exception('Expected an ApiError');
   });
 
   test(
-      'A PlatformException for malformed request results in the corresponding ApiError',
+      'A PlatformException for a malformed request results in the corresponding ApiError',
       () async {
     final exception = PlatformException(
-        code: "AmplifyException",
-        message: "AMPLIFY_REQUEST_MALFORMED",
+        code: 'AmplifyException',
+        message: 'AMPLIFY_REQUEST_MALFORMED',
         details: {});
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "query") {
+      if (methodCall.method == 'query') {
         throw exception;
       }
     });
     String graphQLDocument = '';
 
-    // var operation = api.query<String>(
-    //     request: GraphQLRequest(document: graphQLDocument, variables: {}));
-    // operation.response.then((_) {
-    //   throw ('Expected an ApiError');
-    // }).catchError((e) {
-    //   expect(e.code, exception.code);
-    //   expect(e.message, exception.message);
-    //   expect(e.details, exception.details);
     try {
       var operation = api.query<String>(
           request: GraphQLRequest(document: graphQLDocument, variables: {}));
@@ -139,6 +131,33 @@ void main() {
       expect(e.details, exception.details);
       return;
     }
-    throw new Exception('Expected a StorageException');
+    throw new Exception('Expected an ApiError');
+  });
+
+  test(
+      'An unrecognized PlatformException results in the corresponding ApiError',
+      () async {
+    final exception = PlatformException(
+        code: 'AmplifyException',
+        message: 'An unrecognized message',
+        details: {});
+
+    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      if (methodCall.method == 'query') {
+        throw exception;
+      }
+    });
+    String graphQLDocument = '';
+    try {
+      var operation = api.query<String>(
+          request: GraphQLRequest(document: graphQLDocument, variables: {}));
+      await operation.response;
+    } on ApiError catch (e) {
+      expect(e.code, exception.code);
+      expect(e.message, 'UNRECOGNIZED_API_ERROR');
+      expect(e.details, exception.details);
+      return;
+    }
+    throw new Exception('Expected an ApiError');
   });
 }

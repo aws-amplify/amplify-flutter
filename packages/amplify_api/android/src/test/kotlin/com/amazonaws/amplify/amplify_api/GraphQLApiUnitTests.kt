@@ -37,7 +37,7 @@ import java.lang.reflect.Field
 import java.lang.reflect.Modifier
 
 @RunWith(RobolectricTestRunner::class)
-class AmplifyApiGraphQLTest {
+class GraphQLApiUnitTests {
     lateinit var flutterPlugin: AmplifyApiPlugin
     private var mockApi = mock(ApiCategory::class.java)
     private val mockResult: MethodChannel.Result = mock(MethodChannel.Result::class.java)

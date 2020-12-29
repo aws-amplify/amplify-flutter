@@ -31,15 +31,15 @@ void main() {
 
   test('Mutate advanced flow executes correctly in the happy case', () async {
     const mutationResult = {
-      "createBlog": {
-        "id": "068ac891-77a3-4653-89de-b05d46bcc60a",
-        "name": "Test Blog",
-        "createdAt": "2020-12-14T19:54:18.733Z"
+      'createBlog': {
+        'id': '068ac891-77a3-4653-89de-b05d46bcc60a',
+        'name': 'Test Blog',
+        'createdAt': '2020-12-14T19:54:18.733Z'
       }
     };
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "mutate") {
+      if (methodCall.method == 'mutate') {
         return {'data': mutationResult.toString(), 'errors': []};
       }
     });
@@ -54,22 +54,22 @@ void main() {
 
     var operation = await api.mutate(
         request: GraphQLRequest<String>(
-            document: graphQLDocument, variables: {"name": "Test App Blog"}));
+            document: graphQLDocument, variables: {'name': 'Test App Blog'}));
 
     var response = await operation.response;
     expect(response.data, mutationResult.toString());
   });
 
   test(
-      'A PlatformException for malformed request results in the corresponding ApiError',
+      'A PlatformException for a failed API call results in the corresponding ApiError',
       () async {
     final exception = PlatformException(
-        code: "AmplifyException",
-        message: "AMPLIFY_REQUEST_MALFORMED",
+        code: 'AmplifyException',
+        message: 'AMPLIFY_API_MUTATE_FAILED',
         details: {});
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "mutate") {
+      if (methodCall.method == 'mutate') {
         throw exception;
       }
     });
@@ -82,6 +82,62 @@ void main() {
     } on ApiError catch (e) {
       expect(e.code, exception.code);
       expect(e.message, exception.message);
+      expect(e.details, exception.details);
+      return;
+    }
+    throw new Exception('Expected an ApiError');
+  });
+
+  test(
+      'A PlatformException for a malformed request results in the corresponding ApiError',
+      () async {
+    final exception = PlatformException(
+        code: 'AmplifyException',
+        message: 'AMPLIFY_REQUEST_MALFORMED',
+        details: {});
+
+    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      if (methodCall.method == 'mutate') {
+        throw exception;
+      }
+    });
+    String graphQLDocument = '';
+
+    try {
+      var operation = api.mutate<String>(
+          request: GraphQLRequest(document: graphQLDocument, variables: {}));
+      await operation.response;
+    } on ApiError catch (e) {
+      expect(e.code, exception.code);
+      expect(e.message, exception.message);
+      expect(e.details, exception.details);
+      return;
+    }
+    throw new Exception('Expected an ApiError');
+  });
+
+  test(
+      'An unrecognized PlatformException results in the corresponding ApiError',
+      () async {
+    final exception = PlatformException(
+        code: 'AmplifyException',
+        message: 'An unrecognized message',
+        details: {});
+
+    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      if (methodCall.method == 'mutate') {
+        throw exception;
+      }
+    });
+    String graphQLDocument = '';
+
+    try {
+      var operation = api.mutate<String>(
+          request: GraphQLRequest(document: graphQLDocument, variables: {}));
+      await operation.response;
+    } on ApiError catch (e) {
+      expect(e.code, exception.code);
+      expect(e.message, 'UNRECOGNIZED_API_ERROR');
       expect(e.details, exception.details);
       return;
     }

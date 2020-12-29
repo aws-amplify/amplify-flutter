@@ -94,7 +94,7 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
         }
         return res
     }
-    
+
     public func onCancel(flutterResult: @escaping FlutterResult, cancelToken: String){
         if(OperationsManager.containsOperation(cancelToken: cancelToken)){
             OperationsManager.cancelOperation(cancelToken: cancelToken)
