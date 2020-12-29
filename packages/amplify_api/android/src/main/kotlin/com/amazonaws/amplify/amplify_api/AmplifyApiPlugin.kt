@@ -18,10 +18,9 @@ package com.amazonaws.amplify.amplify_api
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
-import androidx.annotation.NonNull
 import androidx.annotation.VisibleForTesting
 import com.amazonaws.amplify.amplify_api.types.FlutterApiErrorMessage
-import com.amazonaws.amplify.amplify_api.types.FlutterErrorHandler
+import com.amazonaws.amplify.amplify_api.types.FlutterApiErrorUtils
 import com.amazonaws.amplify.amplify_api.types.AmplifyGraphQLModule
 import com.amazonaws.amplify.amplify_api.types.rest_api.AmplifyRestAPIModule
 import com.amplifyframework.api.aws.AWSApiPlugin
@@ -53,7 +52,7 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
         LOG.info("Initiated API plugin")
     }
 
-  override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
+  override fun onMethodCall( call: MethodCall, result: Result) {
 
     var methodName = call.method
 
@@ -66,7 +65,7 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
       if(!restAPIModule.isValidArgumentsMap(result, call.arguments)) return
     }
 
-    if(methodName == "delete" || methodName == "query" || methodName == "mutate"){
+    if(methodName == "query" || methodName == "mutate"){
       if(!graphQLModule.isValidArgumentsMap(result, call.arguments)) return
     }
 
@@ -88,143 +87,136 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
         var document: String
         var variables: Map<String, Any>
 
-        try {
-            document = request["document"] as String
-            variables = request["variables"] as Map<String, Any>
-        } catch (e: ClassCastException) {
-            createFlutterError(
-                    flutterResult,
-                    FlutterApiErrorMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString(),
-                    createErrorMap(e))
-            return
-        } catch (e: Exception) {
-            createFlutterError(
-                    flutterResult,
-                    FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString(),
-                    createErrorMap(e))
-            return
-        }
-        Amplify.API.query(
-                SimpleGraphQLRequest<String>(
-                        document,
-                        variables,
-                        String::class.java,
-                        GsonVariablesSerializer()
-                ),
-                { response ->
-                    var result: Map<String, Any> = mapOf(
-                            "data" to response.data,
-                            "errors" to response.errors.map { it.message }
-                    )
-                    LOG.info("GraphQL query operation succeeded with response: $result")
-                    handler.post { flutterResult.success(result) }
-                },
-                {
-                    LOG.error("GraphQL query operation failed", it)
-                    createFlutterError(
-                            flutterResult,
-                            FlutterApiErrorMessage.AMPLIFY_API_QUERY_FAILED.toString(),
-                            createErrorMap(it))
-                }
-        )
+    try {
+      document = request["document"] as String
+      variables = request["variables"] as Map<String, Any>
+    } catch (e: ClassCastException) {
+      FlutterApiErrorUtils.createFlutterError(
+              flutterResult,
+              FlutterApiErrorMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString(),
+              e)
+      return
+    } catch (e: Exception) {
+      FlutterApiErrorUtils.createFlutterError(
+              flutterResult,
+              FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString(),
+              e)
+      return
     }
+    Amplify.API.query(
+        SimpleGraphQLRequest<String>(
+                document,
+                variables,
+                String::class.java,
+                GsonVariablesSerializer()
+        ),
+        {response ->
+          var result: Map<String, Any> = mapOf(
+                  "data" to response.data,
+                  "errors" to response.errors.map {it.message}
+          )
+          LOG.info("GraphQL query operation succeeded with response: $result")
+          handler.post { flutterResult.success(result) }
+        },
+        {
+          LOG.error("GraphQL query operation failed", it)
+          FlutterApiErrorUtils.createFlutterError(
+                  flutterResult,
+                  FlutterApiErrorMessage.AMPLIFY_API_QUERY_FAILED.toString(),
+                  it)
+        }
+    )
+  }
 
     @VisibleForTesting
     fun mutate(flutterResult: Result, request: Map<String, Any>) {
         var document: String
         var variables: Map<String, Any>
 
-        try {
-            document = request["document"] as String
-            variables = request["variables"] as Map<String, Any>
-        } catch (e: ClassCastException) {
-            createFlutterError(
-                    flutterResult,
-                    FlutterApiErrorMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString(),
-                    createErrorMap(e))
-            return
-        } catch (e: Exception) {
-            createFlutterError(
-                    flutterResult,
-                    FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString(),
-                    createErrorMap(e))
-            return
-        }
-
-        Amplify.API.mutate(
-                SimpleGraphQLRequest<String>(
-                        document,
-                        variables,
-                        String::class.java,
-                        GsonVariablesSerializer()
-                ),
-                { response ->
-                    var result: Map<String, Any> = mapOf(
-                            "data" to response.data,
-                            "errors" to response.errors.map { it.message }
-                    )
-                    LOG.info("GraphQL mutate operation succeeded with response : $result")
-                    handler.post { flutterResult.success(result) }
-                },
-                {
-                    LOG.error("GraphQL mutate operation failed", it)
-                    createFlutterError(
-                            flutterResult,
-                            FlutterApiErrorMessage.AMPLIFY_API_MUTATE_FAILED.toString(),
-                            createErrorMap(it))
-                }
-        )
+    try {
+      document = request["document"] as String
+      variables = request["variables"] as Map<String, Any>
+    } catch (e: ClassCastException) {
+      FlutterApiErrorUtils.createFlutterError(
+              flutterResult,
+              FlutterApiErrorMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString(),
+              e)
+      return
+    } catch (e: Exception) {
+      FlutterApiErrorUtils.createFlutterError(
+              flutterResult,
+              FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString(),
+              e)
+      return
     }
 
-    private fun createErrorMap(@NonNull error: Exception): Map<String, Any> {
-        var errorMap = HashMap<String, Any>()
+    Amplify.API.mutate(
+            SimpleGraphQLRequest<String>(
+                    document,
+                    variables,
+                    String::class.java,
+                    GsonVariablesSerializer()
+            ),
+            {response ->
+              var result: Map<String, Any> = mapOf(
+                      "data" to response.data,
+                      "errors" to response.errors.map {it.message}
+              )
+              LOG.info("GraphQL mutate operation succeeded with response : $result")
+              handler.post { flutterResult.success(result) }
+            },
+            {
+              LOG.error("GraphQL mutate operation failed", it)
+              FlutterApiErrorUtils.createFlutterError(
+                      flutterResult,
+                      FlutterApiErrorMessage.AMPLIFY_API_MUTATE_FAILED.toString(),
+                      it
+              )
+            }
+    )
+  }
 
-        var localizedError = ""
-        var recoverySuggestion = ""
-        if (error is ApiException) {
-            recoverySuggestion = error.recoverySuggestion
-        }
-        if (error.localizedMessage != null) {
-            localizedError = error.localizedMessage
-        }
-        errorMap["PLATFORM_EXCEPTIONS"] = mapOf(
-                "platform" to "Android",
-                "localizedErrorMessage" to localizedError,
-                "recoverySuggestion" to recoverySuggestion,
-                "errorString" to error.toString()
-        )
-        return errorMap
-    }
+  // ====== RestAPI =======
+  @VisibleForTesting
+  private fun onCancel(
+           flutterResult: Result,
+           cancelToken: String){
+    restAPIModule.onCancel(flutterResult, cancelToken)
+  }
+  @VisibleForTesting
+  fun onGet( flutterResult: Result, arguments: Map<String, *>) {
+    restAPIModule.onGet(flutterResult, arguments)
+  }
+  @VisibleForTesting
+  fun onPost( flutterResult: Result, arguments: Map<String, *>) {
+    restAPIModule.onPost(flutterResult, arguments)
+  }
+  @VisibleForTesting
+  fun onPut( flutterResult: Result, arguments: Map<String, *>) {
+    restAPIModule.onPut(flutterResult, arguments)
+  }
+  @VisibleForTesting
+  fun onDelete( flutterResult: Result, arguments: Map<String, *>) {
+    restAPIModule.onDelete(flutterResult, arguments)
+  }
 
-    private fun createFlutterError(flutterResult: Result, msg: String, errorMap: Map<String, Any>) {
-        handler.post { flutterResult.error("AmplifyException", msg, errorMap) }
-    }
+  override fun onAttachedToActivity(binding: ActivityPluginBinding) {
+    this.mainActivity = binding.activity
+  }
 
-    // ====== RestAPI =======
-    @VisibleForTesting
-    private fun onCancel(
-            @NonNull flutterResult: Result,
-            @NonNull code: String){
-        restAPIModule.onCancel(flutterResult, code)
-    }
-    @VisibleForTesting
-    fun onGet(@NonNull flutterResult: Result, @NonNull arguments: Map<String, *>) {
-        restAPIModule.onGet(flutterResult, arguments)
-    }
-    @VisibleForTesting
-    fun onPost(@NonNull flutterResult: Result, @NonNull arguments: Map<String, *>) {
-        restAPIModule.onPost(flutterResult, arguments)
-    }
-    @VisibleForTesting
-    fun onPut(@NonNull flutterResult: Result, @NonNull arguments: Map<String, *>) {
-        restAPIModule.onPut(flutterResult, arguments)
-    }
-    @VisibleForTesting
-    fun onDelete(@NonNull flutterResult: Result, @NonNull arguments: Map<String, *>) {
-        restAPIModule.onDelete(flutterResult, arguments)
-    }
+  override fun onDetachedFromActivity() {
+    this.mainActivity = null
+  }
 
-    override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
-        channel.setMethodCallHandler(null)
-    }
+  override fun onDetachedFromActivityForConfigChanges() {
+    onDetachedFromActivity()
+  }
+
+  override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
+    onAttachedToActivity(binding)
+  }
+
+  override fun onDetachedFromEngine( binding: FlutterPlugin.FlutterPluginBinding) {
+    channel.setMethodCallHandler(null)
+  }
 }

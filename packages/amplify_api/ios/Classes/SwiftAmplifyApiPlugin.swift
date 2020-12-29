@@ -54,7 +54,7 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
 
         // Rest API
         if(method == "cancel"){
-            restAPIModule.onCancel(flutterResult: result, code: callArgs as! String)
+            restAPIModule.onCancel(flutterResult: result, cancelToken: callArgs as! String)
             return
         }
 

@@ -73,8 +73,8 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
 
   // ====== RestAPI ======
   @override
-  void cancelRequest(String code) async {
-    restAPIModule.cancelRequest(code);
+  void cancelRequest(String cancelToken) async {
+    restAPIModule.cancelRequest(cancelToken);
   }
 
   @override

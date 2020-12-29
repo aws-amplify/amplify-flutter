@@ -30,9 +30,22 @@ void main() {
     var responseData = Uint8List.fromList(
         "{\"success\": \"put call succeed!\",\"url\":\"/items?queryParameterA=queryValueA&queryParameterB=queryValueB\",\"body\": {\"name\": \"Mow the lawn\"}}"
             .codeUnits);
+    var body = Uint8List.fromList("{\"name\":\"Mow the lawn\"}".codeUnits);
+    var queryParameters = {
+      "queryParameterA": "queryValueA",
+      "queryParameterB": "queryValueB"
+    };
+    var headers = {"headerA": "headerValueA", "headerB": "headerValueB"};
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == "put") {
+        Map<dynamic, dynamic> restOptions = methodCall.arguments["restOptions"];
+        expect(restOptions["apiName"], "restapi");
+        expect(restOptions["path"], "/items");
+        expect(restOptions["body"], body);
+        expect(restOptions["queryParameters"], queryParameters);
+        expect(restOptions["headers"], headers);
+
         return {"data": responseData};
       }
     });
@@ -40,16 +53,10 @@ void main() {
     RestOperation restOperation = api.put(
         restOptions: RestOptions(
             path: "/items",
-            body: Uint8List.fromList("{\"name\":\"Mow the lawn\"}".codeUnits),
+            body: body,
             apiName: "restapi",
-            headers: {
-          "headerA": "headerValueA",
-          "headerB": "headerValueB"
-        },
-            queryParameters: {
-          "queryParameterA": "queryValueA",
-          "queryParameterB": "queryValueB"
-        }));
+            queryParameters: queryParameters,
+            headers: headers));
 
     RestResponse response = await restOperation.response;
 
@@ -60,9 +67,22 @@ void main() {
     var responseData = Uint8List.fromList(
         "{\"success\": \"post call succeed!\",\"url\":\"/items?queryParameterA=queryValueA&queryParameterB=queryValueB\",\"body\": {\"name\": \"Mow the lawn\"}}"
             .codeUnits);
+    var body = Uint8List.fromList("{\"name\":\"Mow the lawn\"}".codeUnits);
+    var queryParameters = {
+      "queryParameterA": "queryValueA",
+      "queryParameterB": "queryValueB"
+    };
+    var headers = {"headerA": "headerValueA", "headerB": "headerValueB"};
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == "post") {
+        Map<dynamic, dynamic> restOptions = methodCall.arguments["restOptions"];
+        expect(restOptions["apiName"], "restapi");
+        expect(restOptions["path"], "/items");
+        expect(restOptions["body"], body);
+        expect(restOptions["queryParameters"], queryParameters);
+        expect(restOptions["headers"], headers);
+
         return {"data": responseData};
       }
     });
@@ -70,16 +90,10 @@ void main() {
     RestOperation restOperation = api.post(
         restOptions: RestOptions(
             path: "/items",
-            body: Uint8List.fromList("{\"name\":\"Mow the lawn\"}".codeUnits),
+            body: body,
             apiName: "restapi",
-            headers: {
-          "headerA": "headerValueA",
-          "headerB": "headerValueB"
-        },
-            queryParameters: {
-          "queryParameterA": "queryValueA",
-          "queryParameterB": "queryValueB"
-        }));
+            headers: headers,
+            queryParameters: queryParameters));
 
     RestResponse response = await restOperation.response;
 
@@ -92,6 +106,9 @@ void main() {
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == "get") {
+        Map<dynamic, dynamic> restOptions = methodCall.arguments["restOptions"];
+        expect(restOptions["path"], "/items");
+
         return {"data": responseData};
       }
     });
@@ -112,6 +129,9 @@ void main() {
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == "delete") {
+        Map<dynamic, dynamic> restOptions = methodCall.arguments["restOptions"];
+        expect(restOptions["path"], "/items");
+
         return {"data": responseData};
       }
     });
@@ -124,5 +144,39 @@ void main() {
     RestResponse response = await restOperation.response;
 
     expect(response.data, responseData);
+  });
+
+  test('GET Status Code Error throws proper error', () async {
+    var errorResponseMap = {
+      "PLATFORM_EXCEPTIONS": {
+        "platform": "iOS",
+        "localizedErrorMessage": "The HTTP response status code is [400].",
+        "recoverySuggestion":
+            "The metadata associated with the response is contained in the HTTPURLResponse.\nFor more information on HTTP status codes, take a look at\nhttps://en.wikipedia.org/wiki/List_of_HTTP_status_codes"
+      }
+    };
+
+    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      if (methodCall.method == "get") {
+        throw PlatformException(
+            code: "AmplifyException",
+            message: "AMPLIFY_API_GET_FAILED",
+            details: errorResponseMap);
+      }
+    });
+
+    RestOperation restOperation = api.get(
+        restOptions: RestOptions(
+      path: "/items",
+    ));
+
+    expect(
+        restOperation.response,
+        throwsA(isA<PlatformException>()
+            .having((error) => error.code, "error code", "AmplifyException")
+            .having((error) => error.message, "error message",
+                "AMPLIFY_API_GET_FAILED")
+            .having((error) => error.details as Map<String, dynamic>,
+                "error details", [])));
   });
 }

@@ -49,8 +49,8 @@ class AmplifyAPI extends APIPluginInterface {
 
   // ====== RestAPI ======
   @override
-  void cancelRequest(String code) {
-    _instance.cancelRequest(code);
+  void cancelRequest(String cancelToken) {
+    _instance.cancelRequest(cancelToken);
   }
 
   @override

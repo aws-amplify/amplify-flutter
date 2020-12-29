@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 package com.amazonaws.amplify.amplify_api_rest.types
 
 import com.amazonaws.amplify.amplify_api.types.FlutterApiErrorMessage
-import com.amazonaws.amplify.amplify_api.types.FlutterErrorHandler
+import com.amazonaws.amplify.amplify_api.types.FlutterApiErrorUtils
 import com.amplifyframework.api.rest.RestOptions
 import java.lang.ClassCastException
 import io.flutter.plugin.common.MethodChannel.Result
@@ -27,9 +27,9 @@ data class FlutterRestInputs(val flutterInputsMap: Map<String, *>) {
     companion object {
 
         private val REST_OPTIONS_KEY = "restOptions"
-        private val CODE_KEY = "code"
+        private val CANCEL_TOKEN_KEY = "cancelToken"
 
-        private val API_NAME_KEY = "api_name"
+        private val API_NAME_KEY = "apiName"
         private val PATH_KEY = "path"
         private val BODY_KEY = "body"
         private val QUERY_PARAM_KEY = "queryParameters"
@@ -42,14 +42,14 @@ data class FlutterRestInputs(val flutterInputsMap: Map<String, *>) {
                 var path = restOptions[PATH_KEY] as String
 
             } catch (e: ClassCastException) {
-                FlutterErrorHandler.createFlutterError(
+                FlutterApiErrorUtils.createFlutterError(
                         flutterResult,
                         FlutterApiErrorMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString(),
                         e
                 )
                 return false;
             } catch (e: Exception) {
-                FlutterErrorHandler.createFlutterError(
+                FlutterApiErrorUtils.createFlutterError(
                         flutterResult,
                         FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString(),
                         e
@@ -60,8 +60,8 @@ data class FlutterRestInputs(val flutterInputsMap: Map<String, *>) {
         }
     }
 
-    fun getCode() : String{
-        return flutterInputsMap[CODE_KEY] as String
+    fun getCancelToken() : String{
+        return flutterInputsMap[CANCEL_TOKEN_KEY] as String
     }
 
     fun getApiPath() : String?{

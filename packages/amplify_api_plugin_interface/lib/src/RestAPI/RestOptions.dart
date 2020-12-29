@@ -29,13 +29,16 @@ class RestOptions {
     this.body,
     this.queryParameters,
     this.headers,
-  });
+  }) {
+    if (path == null)
+      throw new Exception("Error no path provided to RestOptions");
+  }
 
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> restOptionsMap = <String, dynamic>{};
 
     if (this.apiName != null) {
-      restOptionsMap["api_name"] = apiName;
+      restOptionsMap["apiName"] = apiName;
     }
 
     if (this.path != null) {

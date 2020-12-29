@@ -30,82 +30,85 @@ public class AmplifyRestAPIModule {
     init(bridge: APIBridge = APIBridge()){
         self.bridge = bridge
     }
-
-    private func restFunctionHelper(flutterResult: @escaping FlutterResult, request: [String: Any], function: (RESTRequest, RESTOperation.ResultListener?) -> RESTOperation? ){
+    
+    private func restFunctionHelper(
+        methodName: String,
+        flutterResult: @escaping FlutterResult,
+        request: [String: Any], function: (RESTRequest, RESTOperation.ResultListener?) -> RESTOperation? ){
 
         if(FlutterRestInputs.validate(map: request)){
             let inputs = FlutterRestInputs(serializedData: request)
-            let code = inputs.getCode()
+            let cancelToken = inputs.getCancelToken()
             let restRequest = inputs.getRestRequest()
             
             let restOperation = function(restRequest) { result in
                 switch result {
                     case .success(let data):
-                        self.prepareRestResponseResult(flutterResult: flutterResult, data: data, code: code)
+                        self.prepareRestResponseResult(flutterResult: flutterResult, data: data, cancelToken: cancelToken)
                     case .failure(let apiError):
-                        self.prepareError(flutterResult: flutterResult, error: apiError, msg: "hi", code: code)
+                        FlutterApiErrorUtils.handleAPIError(
+                            flutterResult: flutterResult,
+                            error: apiError,
+                            msg: FlutterApiErrorMessage.stringToAPIRestError(methodName: methodName).rawValue
+                        )
+                        
                 }
             }
             if(restOperation != nil){
-                operationsMap[code] = restOperation!
+                operationsMap[cancelToken] = restOperation!
             }
         }
     }
 
-    private func prepareRestResponseResult(flutterResult: @escaping FlutterResult, data: Data, code: String = ""){
-
+    private func prepareRestResponseResult(flutterResult: @escaping FlutterResult, data: Data, cancelToken: String = ""){
+        if(!cancelToken.isEmpty){
+            removeCancelToken(cancelToken: cancelToken)
+        }
+        
         let restResponse : FlutterRestResponse = FlutterRestResponse(data: data)
         flutterResult(restResponse.toValueMap())
-
-        if(!code.isEmpty){
-            removeCode(code: code)
-        }
     }
 
-    private func prepareError(flutterResult: @escaping FlutterResult, error: AmplifyError, msg: String, code: String = ""){
+    private func prepareError(flutterResult: @escaping FlutterResult, error: AmplifyError, msg: String, cancelToken: String = ""){
+        if(!cancelToken.isEmpty){
+            removeCancelToken(cancelToken: cancelToken)
+        }
 
         flutterResult(FlutterError(
             code: "AmplifyApiRestException: " + (error.underlyingError?.localizedDescription ?? ""),
             message: msg,
             details: error.errorDescription + "\nRecovery Suggestion: " + error.recoverySuggestion
         ))
-
-        if(!code.isEmpty){
-            removeCode(code: code)
-        }
     }
 
-    private func removeCode(code: String){
-
-        if(operationsMap[code] != nil){
-            operationsMap.removeValue(forKey: code)
-        }
+    private func removeCancelToken(cancelToken: String){
+        operationsMap.removeValue(forKey: cancelToken)
     }
     
     public func onGet(flutterResult: @escaping FlutterResult, arguments: [String: Any]){
-        restFunctionHelper(flutterResult: flutterResult, request: arguments, function: bridge.get)
+        restFunctionHelper(methodName: "get", flutterResult: flutterResult, request: arguments, function: bridge.get)
     }
     public func onPost(flutterResult: @escaping FlutterResult, arguments: [String: Any]){
-        restFunctionHelper(flutterResult: flutterResult, request: arguments, function: bridge.post)
+        restFunctionHelper(methodName: "post", flutterResult: flutterResult, request: arguments, function: bridge.post)
     }
     public func onPut(flutterResult: @escaping FlutterResult, arguments: [String: Any]){
-        restFunctionHelper(flutterResult: flutterResult, request: arguments, function: bridge.put)
+        restFunctionHelper(methodName: "put", flutterResult: flutterResult, request: arguments, function: bridge.put)
     }
     public func onDelete(flutterResult: @escaping FlutterResult, arguments: [String: Any]){
-        restFunctionHelper(flutterResult: flutterResult, request: arguments, function: bridge.delete)
+        restFunctionHelper(methodName: "delete", flutterResult: flutterResult, request: arguments, function: bridge.delete)
     }
 
-    public func onCancel(flutterResult: @escaping FlutterResult, code: String){
+    public func onCancel(flutterResult: @escaping FlutterResult, cancelToken: String){
 
-        if(operationsMap[code] != nil){
-             operationsMap[code]?.cancel()
-             operationsMap.removeValue(forKey: code)
+        if(operationsMap[cancelToken] != nil){
+             operationsMap[cancelToken]?.cancel()
+             operationsMap.removeValue(forKey: cancelToken)
              flutterResult("Operation Canceled")
         }
         else{
             flutterResult(FlutterError(
-                            code: "Cancel - RestOperation referenced with code not found",
-                            message: "The RestOperation may have already completed or expired and cannot be canceled anymore",
+                            code: "AmplifyRestAPI-CancelError",
+                            message: "RestOperation completed or expired and cannot be canceled anymore",
                             details: "Operation does not exist"))
         }
     }

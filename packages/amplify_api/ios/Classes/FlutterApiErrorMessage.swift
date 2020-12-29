@@ -19,4 +19,19 @@ enum FlutterApiErrorMessage: String {
     case MALFORMED = "AMPLIFY_REQUEST_MALFORMED"
     case QUERY_FAILED = "AMPLIFY_API_QUERY_FAILED"
     case MUTATE_FAILED = "AMPLIFY_API_MUTATE_FAILED"
+    case GET_FAILED = "AMPLIFY_API_GET_FAILED"
+    case PUT_FAILED = "AMPLIFY_API_PUT_FAILED"
+    case POST_FAILED = "AMPLIFY_API_POST_FAILED"
+    case DELETE_FAILED = "AMPLIFY_API_DELETE_FAILED"
+    
+    public static func stringToAPIRestError(methodName: String) -> FlutterApiErrorMessage{
+        switch methodName {
+            case "get": return .GET_FAILED
+            case "post": return .POST_FAILED
+            case "put": return .PUT_FAILED
+            case "delete": return .DELETE_FAILED
+            default: return .MALFORMED
+        }
+    }
 }
+

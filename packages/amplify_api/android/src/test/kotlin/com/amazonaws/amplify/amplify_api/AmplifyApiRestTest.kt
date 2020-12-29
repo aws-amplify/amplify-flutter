@@ -13,12 +13,11 @@
  * permissions and limitations under the License.
  */
 
-package com.amazonaws.amplify.amplify_datastore
+package com.amazonaws.amplify.amplify_api
 
 
 import com.amazonaws.amplify.amplify_api.AmplifyApiPlugin
 import com.amplifyframework.api.ApiCategory
-import com.amplifyframework.api.ApiException
 import com.amplifyframework.api.aws.AWSApiPlugin
 import com.amplifyframework.api.rest.RestOperation
 import com.amplifyframework.api.rest.RestOptions
@@ -26,8 +25,6 @@ import com.amplifyframework.api.rest.RestResponse
 
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
-import com.amplifyframework.hub.HubEvent
-import com.amplifyframework.hub.SubscriptionToken
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import org.junit.Assert
@@ -37,13 +34,10 @@ import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers
 import org.mockito.Mockito
 import org.mockito.Mockito.*
-import org.mockito.invocation.Invocation
 import org.mockito.invocation.InvocationOnMock
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.Shadows.shadowOf
 import java.lang.reflect.Field
 import java.lang.reflect.Modifier
-import java.util.concurrent.CountDownLatch
 
 @RunWith(RobolectricTestRunner::class)
 class AmplifyApiRestTest {
@@ -58,17 +52,16 @@ class AmplifyApiRestTest {
     @Before
     fun setup() {
         flutterPlugin = AmplifyApiPlugin()
-
         setFinalStatic(Amplify::class.java.getDeclaredField("API"), mockApi)
     }
 
     @Test
     fun test_get_returns_success(){
 
-        var data = "{\"success\":\"get call succeed!\",\"url\":\"/items\"}".toByteArray()
+        var data = getSuccessData
         var restResponse = RestResponse(200, data)
 
-        Mockito.doAnswer { invocation: InvocationOnMock ->
+        Mockito.doAnswer { invocation ->
             Assert.assertEquals(
                     RestOptions.builder().addPath("/items").build(),
                     invocation.arguments[0]
@@ -78,15 +71,15 @@ class AmplifyApiRestTest {
             )
             mockRestOperation
         }.`when`(mockApi).get(
-                ArgumentMatchers.any(RestOptions::class.java),
-                ArgumentMatchers.any(),
-                ArgumentMatchers.any())
+                any(RestOptions::class.java),
+                any(),
+                any())
 
         var arguments : Map<String, Any> = mapOf(
                 "restOptions" to mapOf(
                     "path" to "/items"
                 ),
-                "code" to "someCode"
+                "cancelToken" to "someCode"
         )
 
         flutterPlugin.onMethodCall(
@@ -94,7 +87,7 @@ class AmplifyApiRestTest {
                 mockResult
         )
 
-        verify(mockResult, times(1)).success(
+        verify(mockResult).success(
                 mapOf(
                         "data" to restResponse.data.rawBytes
                 )
@@ -105,12 +98,12 @@ class AmplifyApiRestTest {
     @Test
     fun test_post_returns_success(){
 
-        var body = "{\"name\":\"Mow the lawn\"}".toByteArray()
-        var data = "{\"success\": \"post call succeed!\",\"url\":\"/items?queryParameterA=queryValueA&queryParameterB=queryValueB\",\"body\": {\"name\": \"Mow the lawn\"}}".toByteArray()
+        var body = toStoreData
+        var data = postSuccessData
 
         var restResponse = RestResponse(200, data)
 
-        Mockito.doAnswer { invocation: InvocationOnMock ->
+        Mockito.doAnswer { invocation ->
             /* While the RestOptions are equal, a Kotlin bug registers the results as different
             Assert.assertEquals(
                     RestOptions.builder()
@@ -126,14 +119,15 @@ class AmplifyApiRestTest {
                     invocation.arguments[0]
             )
              */
-            (invocation.arguments[1] as Consumer<RestResponse>).accept(
+            (invocation.arguments[2] as Consumer<RestResponse>).accept(
                     restResponse
             )
             mockRestOperation
         }.`when`(mockApi).post(
-                ArgumentMatchers.any(RestOptions::class.java),
-                ArgumentMatchers.any(),
-                ArgumentMatchers.any())
+                any(), // NOTE that passing "apiName" causes 4 parameter Amplify.API function to be called !!!
+                any(RestOptions::class.java),
+                any(),
+                any())
 
         var arguments : Map<String, Any> = mapOf(
                 "restOptions" to mapOf(
@@ -149,7 +143,7 @@ class AmplifyApiRestTest {
                                 "queryParameterB" to "queryValueB"
                         )
                 ),
-                "code" to "someCode"
+                "cancelToken" to "someCode"
         )
 
         flutterPlugin.onMethodCall(
@@ -157,7 +151,7 @@ class AmplifyApiRestTest {
                 mockResult
         )
 
-        verify(mockResult, times(1)).success(
+        verify(mockResult).success(
                 mapOf(
                         "data" to restResponse.data.rawBytes
                 )
@@ -168,12 +162,12 @@ class AmplifyApiRestTest {
     @Test
     fun test_put_all_inputs_returns_success(){
 
-        var body = "{\"name\":\"Mow the lawn\"}".toByteArray()
-        var data = "{\"success\": \"put call succeed!\",\"body\": {\"name\": \"Mow the lawn\"}}".toByteArray()
+        var body = toStoreData
+        var data = putSuccessData
 
         var restResponse = RestResponse(200, data)
 
-        Mockito.doAnswer { invocation: InvocationOnMock ->
+        Mockito.doAnswer { invocation ->
             /* While the RestOptions are equal, a Kotlin bug registers the results as different
             Assert.assertEquals(
                     RestOptions.builder()
@@ -194,16 +188,16 @@ class AmplifyApiRestTest {
             )
             mockRestOperation
         }.`when`(mockApi).put(
-                ArgumentMatchers.any(RestOptions::class.java),
-                ArgumentMatchers.any(),
-                ArgumentMatchers.any())
+                any(RestOptions::class.java),
+                any(),
+                any())
 
         var arguments : Map<String, Any> = mapOf(
                 "restOptions" to mapOf(
                         "path" to "/items",
                         "body" to body
                 ),
-                "code" to "someCode"
+                "cancelToken" to "someCode"
         )
 
         flutterPlugin.onMethodCall(
@@ -211,7 +205,7 @@ class AmplifyApiRestTest {
                 mockResult
         )
 
-        verify(mockResult, times(1)).success(
+        verify(mockResult).success(
                 mapOf(
                         "data" to restResponse.data.rawBytes
                 )
@@ -222,26 +216,25 @@ class AmplifyApiRestTest {
     @Test
     fun test_delete_returns_success(){
 
-        var data = "{\"success\": \"delete call succeed!\",\"url\": \"items\"}".toByteArray()
-
+        var data = deleteSuccessData
         var restResponse = RestResponse(200, data)
 
-        Mockito.doAnswer { invocation: InvocationOnMock ->
+        Mockito.doAnswer { invocation ->
 
             (invocation.arguments[1] as Consumer<RestResponse>).accept(
                     restResponse
             )
             mockRestOperation
         }.`when`(mockApi).delete(
-                ArgumentMatchers.any(RestOptions::class.java),
-                ArgumentMatchers.any(),
-                ArgumentMatchers.any())
+                any(RestOptions::class.java),
+                any(),
+                any())
 
         var arguments : Map<String, Any> = mapOf(
                 "restOptions" to mapOf(
                         "path" to "/items"
                 ),
-                "code" to "someCode"
+                "cancelToken" to "someCode"
         )
 
         flutterPlugin.onMethodCall(
@@ -249,7 +242,7 @@ class AmplifyApiRestTest {
                 mockResult
         )
 
-        verify(mockResult, times(1)).success(
+        verify(mockResult).success(
                 mapOf(
                         "data" to restResponse.data.rawBytes
                 )
@@ -259,26 +252,26 @@ class AmplifyApiRestTest {
 
     // Invalid response code throws error
     @Test
-    fun test_get_code_error(){
+    fun test_get_status_code_error(){
 
-        var data = "{\"error\":\"get call failed!\"}".toByteArray()
+        var data = getFailedData
         var restResponse = RestResponse(400, data)
 
-        Mockito.doAnswer { invocation: InvocationOnMock ->
+        Mockito.doAnswer { invocation ->
             (invocation.arguments[1] as Consumer<RestResponse>).accept(
                     restResponse
             )
             mockRestOperation
         }.`when`(mockApi).get(
-                ArgumentMatchers.any(RestOptions::class.java),
-                ArgumentMatchers.any(),
-                ArgumentMatchers.any())
+                any(RestOptions::class.java),
+                any(),
+                any())
 
         var arguments : Map<String, Any> = mapOf(
                 "restOptions" to mapOf(
                         "path" to "/items"
                 ),
-                "code" to "someCode"
+                "cancelToken" to "someCode"
         )
 
         flutterPlugin.onMethodCall(
@@ -286,10 +279,20 @@ class AmplifyApiRestTest {
                 mockResult
         )
 
-        verify(mockResult, times(1)).error(
-                "AmplifyApiRestException",
-                "someMsg",
-                "errorDetails"
+        verify(mockResult).error(
+                "AmplifyException",
+                "AMPLIFY_API_GET_FAILED",
+                mapOf(
+                        "PLATFORM_EXCEPTIONS" to mapOf(
+                                "platform" to "Android",
+                                "localizedErrorMessage" to "The HTTP response status code is [400].",
+                                "recoverySuggestion" to """
+                    The metadata associated with the response is contained in the HTTPURLResponse.
+                    For more information on HTTP status codes, take a look at
+                    https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+                    """
+                        )
+                )
         )
 
     }
@@ -298,18 +301,18 @@ class AmplifyApiRestTest {
     @Test
     fun test_get_invalid_input_map_error(){
 
-        var data = "{\"error\":\"get call failed!\"}".toByteArray()
+        var data = getFailedData
         var restResponse = RestResponse(400, data)
 
-        Mockito.doAnswer { invocation: InvocationOnMock ->
+        Mockito.doAnswer { invocation ->
             (invocation.arguments[1] as Consumer<RestResponse>).accept(
                     restResponse
             )
             mockRestOperation
         }.`when`(mockApi).get(
-                ArgumentMatchers.any(RestOptions::class.java),
-                ArgumentMatchers.any(),
-                ArgumentMatchers.any())
+                any(RestOptions::class.java),
+                any(),
+                any())
 
         var arguments : Map<String, Any> = mapOf(
         )
@@ -319,38 +322,44 @@ class AmplifyApiRestTest {
                 mockResult
         )
 
-        verify(mockResult, times(1)).error(
-                "AmplifyApiRestException",
-                "someMsg",
-                "errorDetails"
+        verify(mockResult).error(
+                "AmplifyException",
+                "ERROR_CASTING_INPUT_IN_PLATFORM_CODE",
+                mapOf(
+                        "PLATFORM_EXCEPTIONS" to mapOf(
+                                "platform" to "Android",
+                                "localizedErrorMessage" to "null cannot be cast to non-null type kotlin.collections.Map<kotlin.String, kotlin.Any>",
+                                "recoverySuggestion" to "",
+                                "errorString" to "kotlin.TypeCastException: null cannot be cast to non-null type kotlin.collections.Map<kotlin.String, kotlin.Any>"
+                        )
+                )
         )
-
     }
 
     // Cancellation of ongoing rest operation succeeds
     @Test
     fun test_cancel_get_returns_success(){
 
-        var data = "{\"success\":\"get call succeed!\",\"url\":\"/items\"}".toByteArray()
+        var data = getSuccessData
         var restResponse = RestResponse(200, data)
-        var code = "someCode"
+        var cancelToken = "someCode"
 
-        Mockito.doAnswer { invocation: InvocationOnMock ->
+        Mockito.doAnswer { invocation ->
             Assert.assertEquals(
                     RestOptions.builder().addPath("/items").build(),
                     invocation.arguments[0]
             )
             mockRestOperation
         }.`when`(mockApi).get(
-                ArgumentMatchers.any(RestOptions::class.java),
-                ArgumentMatchers.any(),
-                ArgumentMatchers.any())
+                any(RestOptions::class.java),
+                any(),
+                any())
 
         var arguments : Map<String, Any> = mapOf(
                 "restOptions" to mapOf(
                         "path" to "/items"
                 ),
-                "code" to code
+                "cancelToken" to cancelToken
         )
 
         flutterPlugin.onMethodCall(
@@ -361,7 +370,7 @@ class AmplifyApiRestTest {
         val mockCancelResult: MethodChannel.Result = mock(MethodChannel.Result::class.java)
 
         flutterPlugin.onMethodCall(
-                MethodCall("cancel", code),
+                MethodCall("cancel", cancelToken),
                 mockCancelResult
         )
 
@@ -371,7 +380,7 @@ class AmplifyApiRestTest {
                 )
         )
 
-        verify(mockCancelResult, times(1)).success(
+        verify(mockCancelResult).success(
                 "Operation Canceled"
         )
     }
@@ -380,21 +389,22 @@ class AmplifyApiRestTest {
     @Test
     fun test_cancel_get_returns_error(){
 
-        var data = "{\"success\":\"get call succeed!\",\"url\":\"/items\"}".toByteArray()
+        var data = getSuccessData
         var restResponse = RestResponse(200, data)
-        var code = "someOldCode"
+        var cancelToken = "someOldCode"
 
         val mockCancelResult: MethodChannel.Result = mock(MethodChannel.Result::class.java)
 
         flutterPlugin.onMethodCall(
-                MethodCall("cancel", code),
+                MethodCall("cancel", cancelToken),
                 mockCancelResult
         )
 
-        verify(mockCancelResult, times(1)).error(
-                "Cancel - RestOperation referenced with code not found",
-                "The RestOperation may have already completed or expired and cannot be canceled anymore",
-                "Operation does not exist")
+        verify(mockCancelResult).error(
+                "AmplifyRestAPI-CancelError",
+                "RestOperation completed or expired and cannot be canceled anymore",
+                "Operation does not exist"
+        )
     }
 
 

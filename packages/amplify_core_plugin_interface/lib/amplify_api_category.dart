@@ -16,6 +16,8 @@
 part of amplify_core_plugin_interface;
 
 class APICategory {
+  final errorMsg = "API plugin not added correctly";
+
   const APICategory();
 
   static List<APIPluginInterface> plugins = [];
@@ -31,11 +33,37 @@ class APICategory {
     }
   }
 
+  // ====== GraphQL =======
   GraphQLOperation<T> query<T>({@required GraphQLRequest<T> request}) {
-    return plugins[0].query(request: request);
+    return plugins.length == 1
+        ? plugins[0].query(request: request)
+        : throw (errorMsg);
   }
 
   GraphQLOperation<T> mutate<T>({@required GraphQLRequest<T> request}) {
-    return plugins[0].mutate(request: request);
+    return plugins.length == 1
+        ? plugins[0].mutate(request: request)
+        : throw (errorMsg);
+  }
+
+  // ====== RestAPI ======
+  void cancelRequest(String code) {
+    return plugins[0].cancelRequest(code);
+  }
+
+  RestOperation get({@required RestOptions restOptions}) {
+    return plugins[0].get(restOptions: restOptions);
+  }
+
+  RestOperation put({@required RestOptions restOptions}) {
+    return plugins[0].put(restOptions: restOptions);
+  }
+
+  RestOperation post({@required RestOptions restOptions}) {
+    return plugins[0].post(restOptions: restOptions);
+  }
+
+  RestOperation delete({@required RestOptions restOptions}) {
+    return plugins[0].delete(restOptions: restOptions);
   }
 }

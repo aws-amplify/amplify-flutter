@@ -107,9 +107,9 @@ class _MyAppState extends State<MyApp> {
 
       print("Get SUCCESS");
       print(new String.fromCharCodes(response.data));
-    } on Exception catch (e) {
+    } on ApiError catch (e) {
       print("Get FAILED");
-      print(e);
+      print(e.toString());
     }
   }
 
@@ -134,7 +134,7 @@ class _MyAppState extends State<MyApp> {
       _lastRestOperation.cancel();
     } on Exception catch (e) {
       print("Cancel FAILED");
-      print(e);
+      print(e.toString());
     }
   }
 

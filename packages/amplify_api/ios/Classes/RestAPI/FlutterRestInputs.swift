@@ -21,9 +21,9 @@ public struct FlutterRestInputs {
     private let flutterInputsMap: [String: Any]
     
     private static let REST_OPTIONS_KEY = "restOptions";
-    private static let CODE_KEY = "code";
+    private static let CANCEL_TOKEN_KEY = "cancelToken";
 
-    private static let API_NAME_KEY = "api_name";
+    private static let API_NAME_KEY = "apiName";
     private static let PATH_KEY = "path";
     private static let BODY_KEY = "body";
     private static let QUERY_PARAM_KEY = "queryParameters";
@@ -40,8 +40,8 @@ public struct FlutterRestInputs {
         return (map?[REST_OPTIONS_KEY] as! [String: Any])[PATH_KEY] != nil
     }
     
-    public func getCode() -> String {
-        return flutterInputsMap[FlutterRestInputs.CODE_KEY] as! String
+    public func getCancelToken() -> String {
+        return flutterInputsMap[FlutterRestInputs.CANCEL_TOKEN_KEY] as! String
     }
     
     public func getRestRequest() -> RESTRequest{

@@ -27,33 +27,31 @@ class AmplifyRestAPIModule {
 
   RestOperation _restFunctionHelper(
       {@required String methodName, @required RestOptions restOptions}) {
-    try {
-      // Send Request Code to Native
-      String code = UUID.getUUID();
+    // Send Request cancelToken to Native
+    String cancelToken = UUID.getUUID();
 
-      Future<RestResponse> futureResponse =
-          _callNativeRestMethod(methodName, code, restOptions);
+    Future<RestResponse> futureResponse =
+        _callNativeRestMethod(methodName, cancelToken, restOptions);
 
-      RestOperation restOperation = new RestOperation(
-          response: futureResponse, cancel: () => {cancelRequest(code)});
-
-      return restOperation;
-    } on PlatformException catch (e) {
-      throw (e);
-    }
+    return new RestOperation(
+        response: futureResponse, cancel: () => {cancelRequest(cancelToken)});
   }
 
   Future<RestResponse> _callNativeRestMethod(
-      String methodName, String code, RestOptions restOptions) async {
+      String methodName, String cancelToken, RestOptions restOptions) async {
     // Prepare map input
     Map<String, dynamic> inputsMap = new Map<String, dynamic>();
     inputsMap["restOptions"] = restOptions.serializeAsMap();
-    inputsMap["code"] = code;
+    inputsMap["cancelToken"] = cancelToken;
 
-    final Map<String, dynamic> data =
-        await _channel.invokeMapMethod<String, dynamic>(methodName, inputsMap);
-
-    return _formatRestResponse(data);
+    // Attempt switch to proper async
+    try {
+      final Map<String, dynamic> data = await _channel
+          .invokeMapMethod<String, dynamic>(methodName, inputsMap);
+      return _formatRestResponse(data);
+    } on PlatformException catch (e) {
+      throw (_formatError(e));
+    }
   }
 
   RestResponse _formatRestResponse(Map<String, dynamic> res) {
@@ -85,13 +83,18 @@ class AmplifyRestAPIModule {
   }
 
   @override
-  void cancelRequest(String code) async {
-    print("Attempting to cancel RestOperation " + code);
+  void cancelRequest(String cancelToken) async {
+    print("Attempting to cancel RestOperation " + cancelToken);
 
-    await _channel.invokeMethod("cancel", code).then((result) {
-      print("Cancel succeeded for RestOperation: " + code);
+    await _channel.invokeMethod("cancel", cancelToken).then((result) {
+      print("Cancel succeeded for RestOperation: " + cancelToken);
     }).catchError((e) {
       print("Cancel request failed due to: " + e.message + " " + e.code);
     });
+  }
+
+  // TODO: TEMP CODE BEFORE WE CONSOLIDATE DART ERROR HANDLING SYSTEM
+  ApiError _formatError(PlatformException e) {
+    return ApiError(code: e.code, message: e.message, details: e.details);
   }
 }
