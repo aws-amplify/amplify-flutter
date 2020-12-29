@@ -28,7 +28,7 @@ class FlutterGraphQLApiModule {
                                                  variables: variables,
                                                  responseType: String.self)
             
-           _ = bridge.query(request: request) { result in
+            _ = bridge.query(request: request) { result in
                 switch result {
                 case .success(let response):
                     switch response {
