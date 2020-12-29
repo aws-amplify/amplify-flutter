@@ -22,6 +22,7 @@ import androidx.annotation.VisibleForTesting
 import com.amazonaws.amplify.amplify_api.types.FlutterApiErrorMessage
 import com.amazonaws.amplify.amplify_api.types.FlutterApiErrorUtils
 import com.amazonaws.amplify.amplify_api.types.AmplifyGraphQLModule
+import com.amazonaws.amplify.amplify_api.types.OperationsManager
 import com.amazonaws.amplify.amplify_api.types.rest_api.AmplifyRestAPIModule
 import com.amplifyframework.api.aws.AWSApiPlugin
 import com.amplifyframework.api.aws.GsonVariablesSerializer
@@ -72,12 +73,12 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
     var arguments : Map<String, Any> = call.arguments as Map<String,Any>
 
     when (call.method) {
-      "get" -> onGet(result, arguments)
-      "post" -> onPost(result, arguments)
-      "put" -> onPut(result, arguments)
-      "delete" -> onDelete(result, arguments)
-      "head" -> onHead(result, arguments)
-      "patch" -> onPatch(result, arguments)
+      "get" -> restAPIModule.onGet(result, arguments)
+      "post" -> restAPIModule.onPost(result, arguments)
+      "put" -> restAPIModule.onPut(result, arguments)
+      "delete" -> restAPIModule.onDelete(result, arguments)
+      "head" -> restAPIModule.onHead(result, arguments)
+      "patch" -> restAPIModule.onPatch(result, arguments)
       "query" -> query(result, arguments)
       "mutate" -> mutate(result, arguments)
       else -> result.notImplemented()
@@ -179,35 +180,18 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
   }
 
   // ====== RestAPI =======
-  @VisibleForTesting
-  private fun onCancel(
-           flutterResult: Result,
-           cancelToken: String){
-    restAPIModule.onCancel(flutterResult, cancelToken)
-  }
-  @VisibleForTesting
-  fun onGet( flutterResult: Result, arguments: Map<String, *>) {
-    restAPIModule.onGet(flutterResult, arguments)
-  }
-  @VisibleForTesting
-  fun onPost( flutterResult: Result, arguments: Map<String, *>) {
-    restAPIModule.onPost(flutterResult, arguments)
-  }
-  @VisibleForTesting
-  fun onPut( flutterResult: Result, arguments: Map<String, *>) {
-    restAPIModule.onPut(flutterResult, arguments)
-  }
-  @VisibleForTesting
-  fun onDelete( flutterResult: Result, arguments: Map<String, *>) {
-    restAPIModule.onDelete(flutterResult, arguments)
-  }
-  @VisibleForTesting
-  fun onHead( flutterResult: Result, arguments: Map<String, *>) {
-    restAPIModule.onHead(flutterResult, arguments)
-  }
-  @VisibleForTesting
-  fun onPatch( flutterResult: Result, arguments: Map<String, *>) {
-    restAPIModule.onPatch(flutterResult, arguments)
+  fun onCancel(
+          flutterResult: Result,
+          cancelToken: String) {
+    if(OperationsManager.containsOperation(cancelToken)){
+      OperationsManager.cancelOperation(cancelToken)
+      flutterResult.success("Operation Canceled")
+    } else {
+      flutterResult.error(
+              "AmplifyRestAPI-CancelError",
+              "RestOperation completed or expired and cannot be canceled anymore",
+              "Operation does not exist")
+    }
   }
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {

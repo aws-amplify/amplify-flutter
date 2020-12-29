@@ -25,8 +25,6 @@ public class AmplifyRestAPIModule {
     
     private let bridge: APIBridge
     
-    private var operationsMap : [String:RESTOperation ] = [String:RESTOperation]()
-    
     init(bridge: APIBridge = APIBridge()){
         self.bridge = bridge
     }
@@ -55,34 +53,18 @@ public class AmplifyRestAPIModule {
                 }
             }
             if(restOperation != nil){
-                operationsMap[cancelToken] = restOperation!
+                OperationsManager.addOperation(cancelToken: cancelToken, operation: restOperation!)
             }
         }
     }
 
     private func prepareRestResponseResult(flutterResult: @escaping FlutterResult, data: Data, cancelToken: String = ""){
         if(!cancelToken.isEmpty){
-            removeCancelToken(cancelToken: cancelToken)
+            OperationsManager.removeOperation(cancelToken: cancelToken)
         }
         
         let restResponse : FlutterRestResponse = FlutterRestResponse(data: data)
         flutterResult(restResponse.toValueMap())
-    }
-
-    private func prepareError(flutterResult: @escaping FlutterResult, error: AmplifyError, msg: String, cancelToken: String = ""){
-        if(!cancelToken.isEmpty){
-            removeCancelToken(cancelToken: cancelToken)
-        }
-
-        flutterResult(FlutterError(
-            code: "AmplifyApiRestException: " + (error.underlyingError?.localizedDescription ?? ""),
-            message: msg,
-            details: error.errorDescription + "\nRecovery Suggestion: " + error.recoverySuggestion
-        ))
-    }
-
-    private func removeCancelToken(cancelToken: String){
-        operationsMap.removeValue(forKey: cancelToken)
     }
     
     public func onGet(flutterResult: @escaping FlutterResult, arguments: [String: Any]){
@@ -103,19 +85,5 @@ public class AmplifyRestAPIModule {
     public func onPatch(flutterResult: @escaping FlutterResult, arguments: [String: Any]){
         restFunctionHelper(methodName: "patch", flutterResult: flutterResult, request: arguments, function: bridge.patch)
     }
-
-    public func onCancel(flutterResult: @escaping FlutterResult, cancelToken: String){
-
-        if(operationsMap[cancelToken] != nil){
-             operationsMap[cancelToken]?.cancel()
-             operationsMap.removeValue(forKey: cancelToken)
-             flutterResult("Operation Canceled")
-        }
-        else{
-            flutterResult(FlutterError(
-                            code: "AmplifyRestAPI-CancelError",
-                            message: "RestOperation completed or expired and cannot be canceled anymore",
-                            details: "Operation does not exist"))
-        }
-    }
+    
 }

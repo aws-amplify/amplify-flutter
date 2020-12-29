@@ -4,6 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import com.amazonaws.amplify.amplify_api.types.FlutterApiErrorMessage
 import com.amazonaws.amplify.amplify_api.types.FlutterApiErrorUtils
+import com.amazonaws.amplify.amplify_api.types.OperationsManager
 import com.amazonaws.amplify.amplify_api_rest.types.FlutterRestInputs
 import com.amazonaws.amplify.amplify_api_rest.types.FlutterRestResponse
 import com.amplifyframework.api.ApiException
@@ -31,7 +32,6 @@ typealias RestAPIFunction4 = KFunction4<
 
 class AmplifyRestAPIModule {
 
-    private var operationsMap: HashMap<String, RestOperation> = HashMap()
     private val LOG = Amplify.Logging.forNamespace("amplify:flutter:api")
 
     private fun restFunctionHelper(
@@ -61,7 +61,7 @@ class AmplifyRestAPIModule {
                                     error)
                         }
                 )
-                operationsMap[cancelToken] = operation!!
+                OperationsManager.addOperation(cancelToken, operation!!)
             } else {
                 var operation: RestOperation? = function4(
                         apiName,
@@ -75,7 +75,7 @@ class AmplifyRestAPIModule {
                                     error)
                         }
                 )
-                operationsMap[cancelToken] = operation!!
+                OperationsManager.addOperation(cancelToken, operation!!)
             }
 
         } catch (e: Exception) {
@@ -88,7 +88,7 @@ class AmplifyRestAPIModule {
     }
 
     fun prepareError(flutterResult: Result, msg: String, cancelToken: String, error: Exception) {
-        if (!cancelToken.isNullOrEmpty()) removeCancelToken(cancelToken)
+        if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
         FlutterApiErrorUtils.createFlutterError(flutterResult, msg, error)
     }
 
@@ -96,7 +96,7 @@ class AmplifyRestAPIModule {
 
         var restResponse = FlutterRestResponse(result)
 
-        if (!cancelToken.isNullOrEmpty()) removeCancelToken(cancelToken)
+        if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
 
         // if code is not 200 then throw an exception
         if (!result.code.isSuccessful) {
@@ -115,12 +115,6 @@ class AmplifyRestAPIModule {
             Handler(Looper.getMainLooper()).post {
                 flutterResult.success(restResponse.toValueMap())
             }
-        }
-    }
-
-    private fun removeCancelToken(cancelToken: String) {
-        if (operationsMap.containsKey(cancelToken)) {
-            operationsMap.remove(cancelToken)
         }
     }
 
@@ -166,28 +160,14 @@ class AmplifyRestAPIModule {
     }
 
     fun onHead(flutterResult: Result, arguments: Map<String, *>) {
-        restFunctionHelper("head", flutterResult, arguments, this::delete, this::delete)
+        restFunctionHelper("head", flutterResult, arguments, this::head, this::head)
     }
 
     fun onPatch(flutterResult: Result, arguments: Map<String, *>) {
-        restFunctionHelper("patch", flutterResult, arguments, this::delete, this::delete)
+        restFunctionHelper("patch", flutterResult, arguments, this::patch, this::patch)
     }
 
-    fun onCancel(
-            flutterResult: Result,
-            cancelToken: String) {
 
-        if (operationsMap.containsKey(cancelToken)) {
-            operationsMap[cancelToken]!!.cancel()
-            operationsMap.remove(cancelToken)
-            flutterResult.success("Operation Canceled")
-        } else {
-            flutterResult.error(
-                    "AmplifyRestAPI-CancelError",
-                    "RestOperation completed or expired and cannot be canceled anymore",
-                    "Operation does not exist")
-        }
-    }
 
     /*
     GET
