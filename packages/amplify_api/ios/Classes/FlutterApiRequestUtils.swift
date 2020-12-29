@@ -28,7 +28,7 @@ class FlutterApiRequestUtils {
     
     static func getVariables(methodChannelRequest: [String: Any]) throws ->  [String:Any] {
         guard let variables = methodChannelRequest["variables"] as? [String: Any] else {
-            throw APIError.invalidConfiguration("The variables request arugument was not passed as a dictionary",
+            throw APIError.invalidConfiguration("The variables request argument was not passed as a dictionary",
                                                 "The request should include the variables argument as a [String: Any] dictionary")
         }
         return variables

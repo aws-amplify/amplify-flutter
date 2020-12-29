@@ -23,8 +23,8 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
     private let bridge: ApiBridge
     
     init(bridge: ApiBridge = ApiBridge()) {
-            self.bridge = bridge
-        }
+        self.bridge = bridge
+    }
     
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "com.amazonaws.amplify/api", binaryMessenger: registrar.messenger())

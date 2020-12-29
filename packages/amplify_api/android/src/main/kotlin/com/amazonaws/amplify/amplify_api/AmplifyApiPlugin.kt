@@ -16,15 +16,8 @@
 package com.amazonaws.amplify.amplify_api
 
 import android.content.Context
-import android.os.Handler
-import android.os.Looper
 import androidx.annotation.NonNull
-import androidx.annotation.VisibleForTesting
-import com.amazonaws.amplify.amplify_api.types.FlutterApiErrorMessage
-import com.amplifyframework.api.ApiException
 import com.amplifyframework.api.aws.AWSApiPlugin
-import com.amplifyframework.api.aws.GsonVariablesSerializer
-import com.amplifyframework.api.graphql.SimpleGraphQLRequest
 import com.amplifyframework.core.Amplify
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall

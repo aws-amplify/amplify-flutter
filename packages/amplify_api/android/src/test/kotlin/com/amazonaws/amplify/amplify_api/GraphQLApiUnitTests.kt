@@ -37,7 +37,7 @@ import java.lang.reflect.Field
 import java.lang.reflect.Modifier
 
 @RunWith(RobolectricTestRunner::class)
-class AmplifyApiGraphQLTest {
+class GraphQLApiUnitTests {
     lateinit var flutterPlugin: AmplifyApiPlugin
     private var mockApi = mock(ApiCategory::class.java)
     private val mockResult: MethodChannel.Result = mock(MethodChannel.Result::class.java)
@@ -107,7 +107,7 @@ class AmplifyApiGraphQLTest {
 
         verify(mockResult, times(1)).error(
                 matches("AmplifyException"),
-                matches(FlutterApiErrorMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString()),
+                matches(FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString()),
                 any()
         )
     }
@@ -228,7 +228,7 @@ class AmplifyApiGraphQLTest {
 
         verify(mockResult, times(1)).error(
                 matches("AmplifyException"),
-                matches(FlutterApiErrorMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString()),
+                matches(FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString()),
                 any()
         )
     }

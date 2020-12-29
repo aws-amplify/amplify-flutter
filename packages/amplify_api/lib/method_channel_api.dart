@@ -27,6 +27,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     Future<GraphQLResponse<T>> response =
         _getMethodChannelResponse(methodName: 'query', request: request);
 
+    //TODO: Cancel implementation will be added along with REST API as it is shared
     GraphQLOperation<T> result =
         GraphQLOperation<T>(cancel: () {}, response: response);
 
@@ -38,6 +39,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     Future<GraphQLResponse<T>> response =
         _getMethodChannelResponse(methodName: 'mutate', request: request);
 
+    //TODO: Cancel implementation will be added along with REST API as it is shared
     GraphQLOperation<T> result =
         GraphQLOperation<T>(cancel: () {}, response: response);
 

@@ -15,7 +15,7 @@
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		EDCB531557AC5CC381ECAF1B /* Pods_unit_tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D4554E0CAD187CD75FAA85E /* Pods_unit_tests.framework */; };
-		FB7C4074259A81E00021F98A /* FlutterGraphQLApiModuleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7C4073259A81E00021F98A /* FlutterGraphQLApiModuleTests.swift */; };
+		FB7C4074259A81E00021F98A /* GraphQLApiUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7C4073259A81E00021F98A /* GraphQLApiUnitTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -54,7 +54,7 @@
 		D3A8202E9399B25BFA8BE017 /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		FB5A68363B6B37FF08D57206 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		FB7C4071259A81DF0021F98A /* unit_tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = unit_tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FB7C4073259A81E00021F98A /* FlutterGraphQLApiModuleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlutterGraphQLApiModuleTests.swift; sourceTree = "<group>"; };
+		FB7C4073259A81E00021F98A /* GraphQLApiUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLApiUnitTests.swift; sourceTree = "<group>"; };
 		FB7C4075259A81E00021F98A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -150,7 +150,7 @@
 		FB7C4072259A81E00021F98A /* unit_tests */ = {
 			isa = PBXGroup;
 			children = (
-				FB7C4073259A81E00021F98A /* FlutterGraphQLApiModuleTests.swift */,
+				FB7C4073259A81E00021F98A /* GraphQLApiUnitTests.swift */,
 				FB7C4075259A81E00021F98A /* Info.plist */,
 			);
 			path = unit_tests;
@@ -382,7 +382,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB7C4074259A81E00021F98A /* FlutterGraphQLApiModuleTests.swift in Sources */,
+				FB7C4074259A81E00021F98A /* GraphQLApiUnitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

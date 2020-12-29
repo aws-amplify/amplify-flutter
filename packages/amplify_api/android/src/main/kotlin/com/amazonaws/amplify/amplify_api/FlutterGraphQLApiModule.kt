@@ -1,3 +1,18 @@
+/*
+ * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
 package com.amazonaws.amplify.amplify_api
 
 import android.os.Handler
@@ -18,14 +33,8 @@ class FlutterGraphQLApiModule {
             var variables: Map<String, Any>
 
             try {
-                document = request["document"] as String
-                variables = request["variables"] as Map<String, Any>
-            } catch (e: ClassCastException) {
-                FlutterApiErrorUtils.createFlutterError(
-                        flutterResult,
-                        FlutterApiErrorMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString(),
-                        e)
-                return
+                document = FlutterApiRequestUtils.getGraphQLDocument(request)
+                variables = FlutterApiRequestUtils.getVariables(request)
             } catch (e: Exception) {
                 FlutterApiErrorUtils.createFlutterError(
                         flutterResult,
@@ -45,7 +54,7 @@ class FlutterGraphQLApiModule {
                                 "data" to response.data,
                                 "errors" to response.errors.map { it.message }
                         )
-                        LOG.info("GraphQL query operation succeeded with response: $result")
+                        LOG.debug("GraphQL query operation succeeded with response: $result")
                         handler.post { flutterResult.success(result) }
                     },
                     {
@@ -63,14 +72,8 @@ class FlutterGraphQLApiModule {
             var variables: Map<String, Any>
 
             try {
-                document = request["document"] as String
-                variables = request["variables"] as Map<String, Any>
-            } catch (e: ClassCastException) {
-                FlutterApiErrorUtils.createFlutterError(
-                        flutterResult,
-                        FlutterApiErrorMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString(),
-                        e)
-                return
+                document = FlutterApiRequestUtils.getGraphQLDocument(request)
+                variables = FlutterApiRequestUtils.getVariables(request)
             } catch (e: Exception) {
                 FlutterApiErrorUtils.createFlutterError(
                         flutterResult,
@@ -78,7 +81,6 @@ class FlutterGraphQLApiModule {
                         e)
                 return
             }
-
             Amplify.API.mutate(
                     SimpleGraphQLRequest<String>(
                             document,
@@ -91,7 +93,7 @@ class FlutterGraphQLApiModule {
                                 "data" to response.data,
                                 "errors" to response.errors.map { it.message }
                         )
-                        LOG.info("GraphQL mutate operation succeeded with response : $result")
+                        LOG.debug("GraphQL mutate operation succeeded with response : $result")
                         handler.post { flutterResult.success(result) }
                     },
                     {
