@@ -14,16 +14,17 @@
  */
 
 import 'package:flutter/foundation.dart';
-import './types.dart';
 
-class GraphQLOperation<T> {
+import './RestResponse.dart';
+
+class RestOperation {
   Function _cancel;
 
-  GraphQLOperation({@required this.response, @required Function cancel}) {
+  RestOperation({@required this.response, @required Function cancel}) {
     _cancel = cancel;
   }
 
-  Future<GraphQLResponse<T>> response;
+  Future<RestResponse> response;
 
   void cancel() {
     _cancel();

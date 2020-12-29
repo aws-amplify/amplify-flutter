@@ -16,8 +16,26 @@
 package com.amazonaws.amplify.amplify_api.types;
 
 enum class FlutterApiErrorMessage {
-    ERROR_CASTING_INPUT_IN_PLATFORM_CODE,
     AMPLIFY_REQUEST_MALFORMED,
+    ERROR_CASTING_INPUT_IN_PLATFORM_CODE,
+
     AMPLIFY_API_QUERY_FAILED,
-    AMPLIFY_API_MUTATE_FAILED
+    AMPLIFY_API_MUTATE_FAILED,
+
+    AMPLIFY_API_GET_FAILED,
+    AMPLIFY_API_POST_FAILED,
+    AMPLIFY_API_PUT_FAILED,
+    AMPLIFY_API_DELETE_FAILED;
+
+    companion object {
+        fun stringToAPIRestError(methodName : String): FlutterApiErrorMessage {
+            return when (methodName) {
+                "get" -> AMPLIFY_API_GET_FAILED
+                "post" -> AMPLIFY_API_POST_FAILED
+                "put" -> AMPLIFY_API_PUT_FAILED
+                "delete" -> AMPLIFY_API_DELETE_FAILED
+                else -> AMPLIFY_REQUEST_MALFORMED
+            }
+        }
+    }
 }

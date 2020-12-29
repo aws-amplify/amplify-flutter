@@ -13,13 +13,10 @@
  * permissions and limitations under the License.
  */
 
-var ApiErrorTypes = [
-  'AMPLIFY_REQUEST_MALFORMED',
-  'ERROR_CASTING_INPUT_IN_PLATFORM_CODE',
-  'AMPLIFY_API_QUERY_FAILED',
-  'AMPLIFY_API_MUTATE_FAILED',
-  'AMPLIFY_API_GET_FAILED',
-  'AMPLIFY_API_POST_FAILED',
-  'AMPLIFY_API_PUT_FAILED',
-  'AMPLIFY_API_DELETE_FAILED'
-];
+import 'dart:typed_data';
+import 'package:flutter/foundation.dart';
+
+class RestResponse {
+  Uint8List data;
+  RestResponse({@required this.data});
+}

@@ -14,11 +14,18 @@
  */
 
 import 'package:flutter/foundation.dart';
-import './types.dart';
+import '../types.dart';
 
-class GraphQLResponse<T> {
-  T data;
-  List<GraphQLResponseError> errors = [];
+class GraphQLOperation<T> {
+  Function _cancel;
 
-  GraphQLResponse({@required this.data, this.errors});
+  GraphQLOperation({@required this.response, @required Function cancel}) {
+    _cancel = cancel;
+  }
+
+  Future<GraphQLResponse<T>> response;
+
+  void cancel() {
+    _cancel();
+  }
 }

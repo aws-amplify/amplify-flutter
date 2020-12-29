@@ -13,13 +13,12 @@
  * permissions and limitations under the License.
  */
 
-var ApiErrorTypes = [
-  'AMPLIFY_REQUEST_MALFORMED',
-  'ERROR_CASTING_INPUT_IN_PLATFORM_CODE',
-  'AMPLIFY_API_QUERY_FAILED',
-  'AMPLIFY_API_MUTATE_FAILED',
-  'AMPLIFY_API_GET_FAILED',
-  'AMPLIFY_API_POST_FAILED',
-  'AMPLIFY_API_PUT_FAILED',
-  'AMPLIFY_API_DELETE_FAILED'
-];
+import 'package:flutter/foundation.dart';
+import '../types.dart';
+
+class GraphQLResponse<T> {
+  T data;
+  List<GraphQLResponseError> errors = [];
+
+  GraphQLResponse({@required this.data, this.errors});
+}

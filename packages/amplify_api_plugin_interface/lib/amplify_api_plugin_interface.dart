@@ -25,11 +25,33 @@ export 'src/types.dart';
 abstract class APIPluginInterface extends PlatformInterface {
   APIPluginInterface({@required Object token}) : super(token: token);
 
+  // ====== GraphQL =======
   GraphQLOperation<T> query<T>({@required GraphQLRequest<T> request}) {
     throw UnimplementedError('query() has not been implemented.');
   }
 
   GraphQLOperation<T> mutate<T>({@required GraphQLRequest<T> request}) {
     throw UnimplementedError('mutate() has not been implemented.');
+  }
+
+  // ====== RestAPI ======
+  void cancelRequest(String code) {
+    throw UnimplementedError('cancelRequest has not been implemented.');
+  }
+
+  RestOperation get({@required RestOptions restOptions}) {
+    throw UnimplementedError('get has not been implemented.');
+  }
+
+  RestOperation put({@required RestOptions restOptions}) {
+    throw UnimplementedError('put has not been implemented.');
+  }
+
+  RestOperation post({@required RestOptions restOptions}) {
+    throw UnimplementedError('post has not been implemented.');
+  }
+
+  RestOperation delete({@required RestOptions restOptions}) {
+    throw UnimplementedError('delete has not been implemented.');
   }
 }

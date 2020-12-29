@@ -21,7 +21,9 @@ import android.os.Looper
 import androidx.annotation.NonNull
 import androidx.annotation.VisibleForTesting
 import com.amazonaws.amplify.amplify_api.types.FlutterApiErrorMessage
-import com.amplifyframework.api.ApiException
+import com.amazonaws.amplify.amplify_api.types.FlutterErrorHandler
+import com.amazonaws.amplify.amplify_api.types.AmplifyGraphQLModule
+import com.amazonaws.amplify.amplify_api.types.rest_api.AmplifyRestAPIModule
 import com.amplifyframework.api.aws.AWSApiPlugin
 import com.amplifyframework.api.aws.GsonVariablesSerializer
 import com.amplifyframework.api.graphql.SimpleGraphQLRequest
@@ -41,6 +43,8 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
     private val handler = Handler(Looper.getMainLooper())
     private val LOG = Amplify.Logging.forNamespace("amplify:flutter:api")
 
+    private var restAPIModule : AmplifyRestAPIModule = AmplifyRestAPIModule()
+
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "com.amazonaws.amplify/api")
         channel.setMethodCallHandler(this)
@@ -49,15 +53,35 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
         LOG.info("Initiated API plugin")
     }
 
-    override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
-        when (call.method) {
-            "query" ->
-                query(result, call.arguments as Map<String, Any>)
-            "mutate" ->
-                mutate(result, call.arguments as Map<String, Any>)
-            else -> result.notImplemented()
-        }
+  override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
+
+    var methodName = call.method
+
+    if(methodName == "cancel"){
+      onCancel(result, (call.arguments as String))
+      return
     }
+
+    if(methodName == "get" || methodName == "post" || methodName == "put" || methodName == "delete"){
+      if(!restAPIModule.isValidArgumentsMap(result, call.arguments)) return
+    }
+
+    if(methodName == "delete" || methodName == "query" || methodName == "mutate"){
+      if(!graphQLModule.isValidArgumentsMap(result, call.arguments)) return
+    }
+
+    var arguments : Map<String, Any> = call.arguments as Map<String,Any>
+
+    when (call.method) {
+      "get" -> onGet(result, arguments)
+      "post" -> onPost(result, arguments)
+      "put" -> onPut(result, arguments)
+      "delete" -> onDelete(result, arguments)
+      "query" -> query(result, arguments)
+      "mutate" -> mutate(result, arguments)
+      else -> result.notImplemented()
+    }
+  }
 
     @VisibleForTesting
     fun query(flutterResult: Result, request: Map<String, Any>) {
@@ -174,6 +198,30 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
 
     private fun createFlutterError(flutterResult: Result, msg: String, errorMap: Map<String, Any>) {
         handler.post { flutterResult.error("AmplifyException", msg, errorMap) }
+    }
+
+    // ====== RestAPI =======
+    @VisibleForTesting
+    private fun onCancel(
+            @NonNull flutterResult: Result,
+            @NonNull code: String){
+        restAPIModule.onCancel(flutterResult, code)
+    }
+    @VisibleForTesting
+    fun onGet(@NonNull flutterResult: Result, @NonNull arguments: Map<String, *>) {
+        restAPIModule.onGet(flutterResult, arguments)
+    }
+    @VisibleForTesting
+    fun onPost(@NonNull flutterResult: Result, @NonNull arguments: Map<String, *>) {
+        restAPIModule.onPost(flutterResult, arguments)
+    }
+    @VisibleForTesting
+    fun onPut(@NonNull flutterResult: Result, @NonNull arguments: Map<String, *>) {
+        restAPIModule.onPut(flutterResult, arguments)
+    }
+    @VisibleForTesting
+    fun onDelete(@NonNull flutterResult: Result, @NonNull arguments: Map<String, *>) {
+        restAPIModule.onDelete(flutterResult, arguments)
     }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {

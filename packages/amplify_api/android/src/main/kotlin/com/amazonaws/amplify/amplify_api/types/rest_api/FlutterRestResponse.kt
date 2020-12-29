@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,13 +13,18 @@
  * permissions and limitations under the License.
  */
 
-var ApiErrorTypes = [
-  'AMPLIFY_REQUEST_MALFORMED',
-  'ERROR_CASTING_INPUT_IN_PLATFORM_CODE',
-  'AMPLIFY_API_QUERY_FAILED',
-  'AMPLIFY_API_MUTATE_FAILED',
-  'AMPLIFY_API_GET_FAILED',
-  'AMPLIFY_API_POST_FAILED',
-  'AMPLIFY_API_PUT_FAILED',
-  'AMPLIFY_API_DELETE_FAILED'
-];
+package com.amazonaws.amplify.amplify_api_rest.types
+
+import com.amplifyframework.api.rest.RestResponse
+
+import com.google.gson.Gson
+
+data class FlutterRestResponse(private var raw: RestResponse) {
+    val data: ByteArray = raw.data.rawBytes
+
+    fun toValueMap(): Map<String, Any> {
+        return mapOf(
+                "data" to data
+        )
+    }
+}

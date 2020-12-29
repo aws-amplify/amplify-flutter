@@ -36,6 +36,7 @@ class AmplifyAPI extends APIPluginInterface {
     _instance = instance;
   }
 
+  // ====== GraphQL =======
   @override
   GraphQLOperation<T> query<T>({@required GraphQLRequest<T> request}) {
     return _instance.query(request: request);
@@ -44,5 +45,31 @@ class AmplifyAPI extends APIPluginInterface {
   @override
   GraphQLOperation<T> mutate<T>({@required GraphQLRequest<T> request}) {
     return _instance.mutate(request: request);
+  }
+
+  // ====== RestAPI ======
+  @override
+  void cancelRequest(String code) {
+    _instance.cancelRequest(code);
+  }
+
+  @override
+  RestOperation get({@required RestOptions restOptions}) {
+    return _instance.get(restOptions: restOptions);
+  }
+
+  @override
+  RestOperation put({@required RestOptions restOptions}) {
+    return _instance.put(restOptions: restOptions);
+  }
+
+  @override
+  RestOperation post({@required RestOptions restOptions}) {
+    return _instance.post(restOptions: restOptions);
+  }
+
+  @override
+  RestOperation delete({@required RestOptions restOptions}) {
+    return _instance.delete(restOptions: restOptions);
   }
 }
