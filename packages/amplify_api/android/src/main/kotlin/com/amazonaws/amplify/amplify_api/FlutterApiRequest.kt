@@ -19,7 +19,7 @@ import com.amplifyframework.AmplifyException
 import io.flutter.plugin.common.MethodChannel
 
 
-class FlutterApiRequestUtils {
+class FlutterApiRequest {
     companion object {
 
         fun isValidArgumentsMap(flutterResult: MethodChannel.Result, args: Any): Boolean {

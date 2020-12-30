@@ -17,8 +17,8 @@ import Foundation
 import Amplify
 import AmplifyPlugins
 
-class FlutterApiRequestUtils {
-    
+class FlutterApiRequest {
+
     // ====== SHARED ======
     static func getMap(args: Any) throws -> [String: Any] {
         guard let res = args as? [String: Any] else {
@@ -27,7 +27,7 @@ class FlutterApiRequestUtils {
         }
         return res
     }
-    
+
     static func getCancelToken(args: Any) throws -> String {
         guard let cancelToken = args as? String else {
             throw APIError.invalidConfiguration("The cancelToken request argument was not passed as a String",
@@ -35,7 +35,7 @@ class FlutterApiRequestUtils {
         }
         return cancelToken
     }
-    
+
     static func getCancelToken(methodChannelRequest: [String: Any]) throws -> String {
         guard let cancelToken = methodChannelRequest["cancelToken"] as? String else {
             throw APIError.invalidConfiguration("The cancelToken request argument was not passed as a String",
@@ -43,8 +43,8 @@ class FlutterApiRequestUtils {
         }
         return cancelToken
     }
-    
-    
+
+
     // ====== GRAPH QL ======
     static func getGraphQLDocument(methodChannelRequest: [String: Any]) throws -> String {
         guard let document = methodChannelRequest["document"] as? String else {
@@ -61,21 +61,21 @@ class FlutterApiRequestUtils {
         }
         return variables
     }
-    
-    
+
+
     // ====== REST API =======
     static func getRestRequest(methodChannelRequest: [String: Any]) throws -> RESTRequest {
         guard let restOptionsMap = methodChannelRequest["restOptions"] as? [String: Any] else {
             throw APIError.invalidConfiguration("The restOptions request argument was not passed as a dictionary",
                                                 "The request should include the restOptions argument as a [String: Any] dictionary")
         }
-        
+
         var path: String?
         var body: Data?
         var queryParameters: [String: String]?
         var headers: [String: String]?
         var apiName: String?
-        
+
         for(key, value) in restOptionsMap {
             switch key {
                 case "apiName" :
@@ -92,7 +92,7 @@ class FlutterApiRequestUtils {
                     print("Invalid RestOption key: " + key)
             }
         }
-        
-        return RESTRequest(apiName: apiName, path: path, headers: headers, queryParameters: queryParameters, body: body)        
+
+        return RESTRequest(apiName: apiName, path: path, headers: headers, queryParameters: queryParameters, body: body)
     }
 }

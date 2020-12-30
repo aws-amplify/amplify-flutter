@@ -89,7 +89,7 @@ class GraphQLApiUnitTests {
                 mockResult
         )
 
-        verify(mockResult, times(1)).success(mapOf(
+        verify(mockResult).success(mapOf(
                 "data" to "result",
                 "errors" to listOf<String>()
         ))
@@ -105,7 +105,7 @@ class GraphQLApiUnitTests {
                 mockResult
         )
 
-        verify(mockResult, times(1)).error(
+        verify(mockResult).error(
                 matches("AmplifyException"),
                 matches(FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString()),
                 any()
@@ -154,7 +154,7 @@ class GraphQLApiUnitTests {
                 mockResult
         )
 
-        verify(mockResult, times(1)).error(
+        verify(mockResult).error(
                 "AmplifyException",
                 FlutterApiErrorMessage.AMPLIFY_API_QUERY_FAILED.toString(),
                 mapOf(
@@ -212,7 +212,7 @@ class GraphQLApiUnitTests {
                 mockResult
         )
 
-        verify(mockResult, times(1)).success(mapOf(
+        verify(mockResult).success(mapOf(
                 "data" to "mutate result",
                 "errors" to listOf<String>()
         ))
@@ -228,7 +228,7 @@ class GraphQLApiUnitTests {
                 mockResult
         )
 
-        verify(mockResult, times(1)).error(
+        verify(mockResult).error(
                 matches("AmplifyException"),
                 matches(FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString()),
                 any()
@@ -278,7 +278,7 @@ class GraphQLApiUnitTests {
                 mockResult
         )
 
-        verify(mockResult, times(1)).error(
+        verify(mockResult).error(
                 "AmplifyException",
                 FlutterApiErrorMessage.AMPLIFY_API_MUTATE_FAILED.toString(),
                 mapOf(

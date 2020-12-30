@@ -53,7 +53,7 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
                 onCancel(flutterResult: result, cancelToken: cancelToken)
                 return
             }
-            
+
             let arguments = try FlutterApiRequestUtils.getMap(args: callArgs as Any)
             switch method {
                 case "get": RestApiModule.onGet(flutterResult: result, arguments: arguments, bridge: bridge)
@@ -64,9 +64,9 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
                 case "patch": RestApiModule.onPatch(flutterResult: result, arguments: arguments, bridge: bridge)
 
                 case "query":
-                    GraphQLApiModule.query(flutterResult: result, request: arguments, bridge: bridge)
+                    FlutterGraphQLApi.query(flutterResult: result, request: arguments, bridge: bridge)
                 case "mutate":
-                    GraphQLApiModule.mutate(flutterResult: result, request: arguments, bridge: bridge)
+                    FlutterGraphQLApi.mutate(flutterResult: result, request: arguments, bridge: bridge)
                 default:
                     result(FlutterMethodNotImplemented)
             }
@@ -75,7 +75,7 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
             FlutterApiErrorUtils.handleAPIError(flutterResult: result, error: error as! APIError, msg: FlutterApiErrorMessage.MALFORMED.rawValue)
         }
     }
-    
+
     public func onCancel(flutterResult: @escaping FlutterResult, cancelToken: String){
         if(OperationsManager.containsOperation(cancelToken: cancelToken)){
             OperationsManager.cancelOperation(cancelToken: cancelToken)

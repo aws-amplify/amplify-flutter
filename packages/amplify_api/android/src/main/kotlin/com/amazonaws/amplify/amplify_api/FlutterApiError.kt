@@ -23,7 +23,7 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.Result
 
 
-class FlutterApiErrorUtils {
+class FlutterApiError {
     companion object {
         private val handler = Handler(Looper.getMainLooper())
 

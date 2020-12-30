@@ -60,8 +60,8 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
                 "delete" -> RestApiModule.onDelete(result, arguments)
                 "head" -> RestApiModule.onHead(result, arguments)
                 "patch" -> RestApiModule.onPatch(result, arguments)
-                "query" -> GraphQLApiModule.query(result, arguments)
-                "mutate" -> GraphQLApiModule.mutate(result, arguments)
+                "query" -> FlutterGraphQLApi.query(result, arguments)
+                "mutate" -> FlutterGraphQLApi.mutate(result, arguments)
                 else -> result.notImplemented()
             }
         } catch (e: ClassCastException) {
