@@ -13,8 +13,7 @@ executors:
 
 commands:
   install_flutter:
-    description:
-      Install Flutter and set up paths.
+    description: Install Flutter and set up paths.
     parameters:
       flutter_branch:
         description: Flutter branch or version tag.
@@ -91,10 +90,14 @@ jobs:
           # xcrun instruments returns non zero, but successfully starts the simulator
           command: xcrun instruments -w "iPhone 11 (14.2) [" || true
       - run:
+          name: Build example iOS apps
+          command: |
+            melos run build:examples:ios
+      - run:
           name: Run iOS Unit Tests
           command: melos run test:unit:ios
       - run:
-          name: Upload ios test coverage
+          name: Upload iOS test coverage
           command: melos run upload:coverage:ios
       - run:
           name: Save test results

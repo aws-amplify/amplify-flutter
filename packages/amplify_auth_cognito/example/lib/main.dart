@@ -43,7 +43,6 @@ class _MyAppState extends State<MyApp> {
   final newPasswordController = TextEditingController();
 
   bool _isAmplifyConfigured = false;
-  Amplify amplify = Amplify();
   AmplifyAuthCognito auth;
   String displayState;
   String authState = "User not signed in";
@@ -89,10 +88,10 @@ class _MyAppState extends State<MyApp> {
 
   void _configureAmplify() async {
     auth = AmplifyAuthCognito();
-    amplify.addPlugin(authPlugins: [auth]);
+    await Amplify.addPlugin(auth);
     var isSignedIn = false;
 
-    await amplify.configure(amplifyconfig);
+    await Amplify.configure(amplifyconfig);
     try {
       isSignedIn = await _isSignedIn();
     } on AuthError catch (e) {

@@ -81,8 +81,6 @@ class _MyAppState extends State<MyApp> {
   ScrollController _commentScrollController =
       ScrollController(initialScrollOffset: 50.0);
 
-  Amplify amplify = new Amplify();
-
   @override
   void initState() {
     super.initState();
@@ -93,9 +91,9 @@ class _MyAppState extends State<MyApp> {
   Future<void> initPlatformState() async {
     datastorePlugin = AmplifyDataStore(modelProvider: ModelProvider.instance);
     listenToHub();
-    await amplify.addPlugin(dataStorePlugins: [datastorePlugin]);
+    await Amplify.addPlugin(datastorePlugin);
     // Configure
-    await amplify.configure(amplifyconfig);
+    await Amplify.configure(amplifyconfig);
 
     // setup streams
     postStream = Amplify.DataStore.observe(Post.classType);

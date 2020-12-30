@@ -35,7 +35,6 @@ class _MyAppState extends State<MyApp> {
   String _uploadFileResult = '';
   String _getUrlResult = '';
   String _removeResult = '';
-  Amplify amplify = new Amplify();
 
   @override
   void initState() {
@@ -46,10 +45,10 @@ class _MyAppState extends State<MyApp> {
     // First add plugins (Amplify native requirements)
     AmplifyStorageS3 storage = new AmplifyStorageS3();
     AmplifyAuthCognito auth = new AmplifyAuthCognito();
-    amplify.addPlugin(authPlugins: [auth], storagePlugins: [storage]);
+    Amplify.addPlugins([auth, storage]);
 
     // Configure
-    await amplify.configure(amplifyconfig);
+    await Amplify.configure(amplifyconfig);
 
     setState(() {
       _isAmplifyConfigured = true;
