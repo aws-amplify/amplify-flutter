@@ -24,7 +24,8 @@ class GraphQLApiUnitTests: XCTestCase {
     func test_query_success() throws {
         let testRequest: [String: Any] = [
             "document": "test document",
-            "variables": ["test key": "test value"]
+            "variables": ["test key": "test value"],
+            "cancelToken" : "someCode"
         ]
         
         class MockApiBridge: ApiBridge {
@@ -53,7 +54,8 @@ class GraphQLApiUnitTests: XCTestCase {
     func test_query_api_error() throws {
         let testRequest: [String: Any] = [
             "document": "test document",
-            "variables": ["test key":"test value"]
+            "variables": ["test key":"test value"],
+            "cancelToken" : "someCode"
         ]
         
         class MockApiBridge: ApiBridge {
@@ -124,7 +126,8 @@ class GraphQLApiUnitTests: XCTestCase {
     func test_mutate_success() throws {
         let testRequest: [String: Any] = [
             "document": "test document",
-            "variables": ["test key":"test value"]
+            "variables": ["test key":"test value"],
+            "cancelToken" : "someCode"
         ]
         
         class MockApiBridge: ApiBridge {
@@ -153,7 +156,8 @@ class GraphQLApiUnitTests: XCTestCase {
     func test_mutate_api_error() throws {
         let testRequest: [String: Any] = [
             "document": "test document",
-            "variables": ["test key":"test value"]
+            "variables": ["test key":"test value"],
+            "cancelToken" : "someCode"
         ]
         
         class MockApiBridge: ApiBridge {

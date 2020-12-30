@@ -22,7 +22,7 @@ import com.amplifyframework.api.graphql.SimpleGraphQLRequest
 import com.amplifyframework.core.Amplify
 import io.flutter.plugin.common.MethodChannel
 
-class FlutterGraphQLApiModule {
+class GraphQLApiModule {
     companion object {
         private val handler = Handler(Looper.getMainLooper())
         private val LOG = Amplify.Logging.forNamespace("amplify:flutter:api")

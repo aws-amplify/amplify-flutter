@@ -295,7 +295,8 @@ class AmplifyApiRestTest {
                     The metadata associated with the response is contained in the HTTPURLResponse.
                     For more information on HTTP status codes, take a look at
                     https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
-                    """
+                    """,
+                                "errorString" to ""
                         )
                 )
         )
@@ -334,7 +335,8 @@ class AmplifyApiRestTest {
                         "PLATFORM_EXCEPTIONS" to mapOf(
                                 "platform" to "Android",
                                 "localizedErrorMessage" to "null cannot be cast to non-null type kotlin.collections.Map<kotlin.String, *>",
-                                "recoverySuggestion" to ""
+                                "recoverySuggestion" to "",
+                                "errorString" to "kotlin.TypeCastException: null cannot be cast to non-null type kotlin.collections.Map<kotlin.String, *>"
                         )
                 )
         )

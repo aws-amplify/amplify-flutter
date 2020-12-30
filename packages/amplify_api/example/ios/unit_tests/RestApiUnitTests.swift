@@ -257,7 +257,7 @@ class RestApiUnitTests: XCTestCase {
         
         pluginUnderTest.innerHandle(
             method: "cancel",
-            callArgs: "someCode",
+            callArgs: "nonexistentCode",
             result: { (results) in
                 let errorResult = results as! FlutterError
                 
