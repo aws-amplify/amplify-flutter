@@ -23,6 +23,7 @@ rootProject.allprojects {
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply from: '../../../build-support/coverage.gradle'
 
 android {
     compileSdkVersion 28
@@ -36,6 +37,15 @@ android {
     }
     lintOptions {
         disable 'InvalidPackage'
+    }
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+    buildTypes {
+        debug {
+            testCoverageEnabled = true
+        }
     }
 }
 
