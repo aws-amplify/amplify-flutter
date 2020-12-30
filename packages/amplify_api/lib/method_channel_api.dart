@@ -31,8 +31,11 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
         _getMethodChannelResponse(methodName: 'query', request: request);
 
     //TODO: Cancel implementation will be added along with REST API as it is shared
-    GraphQLOperation<T> result =
-        GraphQLOperation<T>(cancel: () {}, response: response);
+    GraphQLOperation<T> result = GraphQLOperation<T>(
+        cancel: () {
+          cancelRequest(request.cancelToken);
+        },
+        response: response);
 
     return result;
   }
@@ -43,8 +46,11 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
         _getMethodChannelResponse(methodName: 'mutate', request: request);
 
     //TODO: Cancel implementation will be added along with REST API as it is shared
-    GraphQLOperation<T> result =
-        GraphQLOperation<T>(cancel: () {}, response: response);
+    GraphQLOperation<T> result = GraphQLOperation<T>(
+        cancel: () {
+          cancelRequest(request.cancelToken);
+        },
+        response: response);
 
     return result;
   }

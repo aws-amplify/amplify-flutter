@@ -69,5 +69,16 @@ class FlutterApiRequestUtils {
                         "The request should include the variables argument as a [String: Any] dictionary")
             }
         }
+
+        fun getCancelToken(request: Map<String, Any>): String {
+            try {
+                return request["cancelToken"] as String
+            } catch (cause: Exception) {
+                throw AmplifyException(
+                        "The cancelToken request argument was not passed as a String",
+                        cause,
+                        "The request should include the cancelToken argument as a String")
+            }
+        }
     }
 }

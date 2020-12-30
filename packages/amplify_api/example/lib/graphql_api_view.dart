@@ -30,6 +30,8 @@ class GraphQLApiView extends StatefulWidget {
 class _GraphQLApiViewState extends State<GraphQLApiView> {
   String _result = '';
 
+  GraphQLOperation _lastOperation;
+
   query() async {
     String graphQLDocument = '''query MyQuery {
       listBlogs {
@@ -43,6 +45,7 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
 
     var operation = await Amplify.API
         .query<String>(request: GraphQLRequest(document: graphQLDocument));
+    _lastOperation = operation;
 
     var response = await operation.response;
     var data = response.data;
@@ -65,6 +68,7 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
     var operation = await Amplify.API.mutate(
         request: GraphQLRequest<String>(
             document: graphQLDocument, variables: {"name": "Test App Blog"}));
+    _lastOperation = operation;
 
     var response = await operation.response;
     var data = response.data;
@@ -73,6 +77,15 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
     setState(() {
       _result = data;
     });
+  }
+
+  void onCancelPressed() async {
+    try {
+      _lastOperation.cancel();
+    } on Exception catch (e) {
+      print("Cancel FAILED");
+      print(e.toString());
+    }
   }
 
   @override
@@ -95,6 +108,10 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
           ),
         ),
         Padding(padding: EdgeInsets.all(5.0)),
+        RaisedButton(
+          child: Text("Cancel"),
+          onPressed: onCancelPressed,
+        ),
         Text('Result: \n$_result\n'),
       ],
     );

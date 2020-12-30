@@ -15,7 +15,6 @@
 
 package com.amazonaws.amplify.amplify_api
 
-import com.amazonaws.amplify.amplify_api.types.FlutterApiErrorMessage
 import com.amplifyframework.api.ApiCategory
 import com.amplifyframework.api.ApiException
 import com.amplifyframework.api.aws.GsonVariablesSerializer

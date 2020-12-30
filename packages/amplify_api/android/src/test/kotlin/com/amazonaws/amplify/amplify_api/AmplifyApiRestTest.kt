@@ -333,9 +333,8 @@ class AmplifyApiRestTest {
                 mapOf(
                         "PLATFORM_EXCEPTIONS" to mapOf(
                                 "platform" to "Android",
-                                "localizedErrorMessage" to "null cannot be cast to non-null type kotlin.collections.Map<kotlin.String, kotlin.Any>",
-                                "recoverySuggestion" to "",
-                                "errorString" to "kotlin.TypeCastException: null cannot be cast to non-null type kotlin.collections.Map<kotlin.String, kotlin.Any>"
+                                "localizedErrorMessage" to "null cannot be cast to non-null type kotlin.collections.Map<kotlin.String, *>",
+                                "recoverySuggestion" to ""
                         )
                 )
         )
@@ -406,7 +405,7 @@ class AmplifyApiRestTest {
 
         verify(mockCancelResult).error(
                 "AmplifyRestAPI-CancelError",
-                "RestOperation completed or expired and cannot be canceled anymore",
+                "The RestOperation may have already completed or expired and cannot be canceled anymore",
                 "Operation does not exist"
         )
     }

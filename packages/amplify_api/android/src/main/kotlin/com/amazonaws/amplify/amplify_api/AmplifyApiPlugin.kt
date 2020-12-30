@@ -83,7 +83,7 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
         } else {
             flutterResult.error(
                     "AmplifyRestAPI-CancelError",
-                    "RestOperation completed or expired and cannot be canceled anymore",
+                    "The RestOperation may have already completed or expired and cannot be canceled anymore",
                     "Operation does not exist")
         }
     }

@@ -19,12 +19,11 @@ import './RestResponse.dart';
 
 class RestOperation {
   Function _cancel;
+  Future<RestResponse> response;
 
   RestOperation({@required this.response, @required Function cancel}) {
     _cancel = cancel;
   }
-
-  Future<RestResponse> response;
 
   void cancel() {
     _cancel();

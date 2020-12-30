@@ -30,7 +30,6 @@ typealias RestAPIFunction4 = KFunction4<
 
 class RestApiModule {
     companion object {
-        private val handler = Handler(Looper.getMainLooper())
         private val LOG = Amplify.Logging.forNamespace("amplify:flutter:api")
 
         private fun restFunctionHelper(
