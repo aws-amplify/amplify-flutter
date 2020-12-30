@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package com.amazonaws.amplify.amplify_core_example
+package com.amazonaws.amplify.amplify_flutter_example
 
 import io.flutter.embedding.android.FlutterActivity
 

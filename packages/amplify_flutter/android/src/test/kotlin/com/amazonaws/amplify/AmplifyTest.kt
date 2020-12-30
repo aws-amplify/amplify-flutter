@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package com.amazonaws.amplify.amplify_core
+package com.amazonaws.amplify
 
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
