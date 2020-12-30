@@ -25,7 +25,8 @@ class FlutterApiErrorUtils {
     companion object {
         private val handler = Handler(Looper.getMainLooper())
 
-        fun createFlutterError(flutterResult: MethodChannel.Result, msg: String, @NonNull error: Exception) {
+        @JvmStatic
+        fun postFlutterError(flutterResult: MethodChannel.Result, msg: String, @NonNull error: Exception) {
             val errorMap = createErrorMap(error)
             handler.post { flutterResult.error("AmplifyException", msg, errorMap) }
         }

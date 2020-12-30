@@ -26,7 +26,7 @@ class FlutterApiErrorUtils {
         if(rawResponse != nil) {
             errorMap["rawResponse"] = rawResponse
         }
-        createFlutterError(flutterResult:flutterResult, msg: msg, errorMap: errorMap)
+        postFlutterError(flutterResult:flutterResult, msg: msg, errorMap: errorMap)
     }
     
     static func createErrorMap(localizedError: String, recoverySuggestion: String?) -> [String: Any] {
@@ -41,7 +41,7 @@ class FlutterApiErrorUtils {
         return errorMap
     }
     
-    static func createFlutterError(flutterResult: @escaping FlutterResult, msg: String, errorMap: [String: Any]) {
+    static func postFlutterError(flutterResult: @escaping FlutterResult, msg: String, errorMap: [String: Any]) {
         let flutterError = FlutterError(
             code: "AmplifyException",
             message: msg,
