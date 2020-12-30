@@ -27,10 +27,12 @@ class FlutterApiErrorUtils {
     companion object {
         private val handler = Handler(Looper.getMainLooper())
 
-        fun createFlutterError(flutterResult: Result, msg: String, errorMap: Map<String, Any>) {
+        @JvmStatic
+        fun postFlutterError(flutterResult: Result, msg: String, errorMap: Map<String, Any>) {
             handler.post { flutterResult.error("AmplifyException", msg, errorMap) }
         }
-        fun createFlutterError(flutterResult: MethodChannel.Result, msg: String, @NonNull error: Exception) {
+        @JvmStatic
+        fun postFlutterError(flutterResult: MethodChannel.Result, msg: String, @NonNull error: Exception) {
             val errorMap = createErrorMap(error)
             handler.post { flutterResult.error("AmplifyException", msg, errorMap) }
         }
@@ -52,7 +54,8 @@ class FlutterApiErrorUtils {
             errorMap.put("PLATFORM_EXCEPTIONS", mapOf(
                     "platform" to "Android",
                     "localizedErrorMessage" to localizedError,
-                    "recoverySuggestion" to recoverySuggestion
+                    "recoverySuggestion" to recoverySuggestion,
+                    "errorString" to error.toString()
             ))
             return errorMap
         }

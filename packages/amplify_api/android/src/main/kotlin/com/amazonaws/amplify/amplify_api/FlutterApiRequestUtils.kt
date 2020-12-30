@@ -47,7 +47,7 @@ class FlutterApiRequestUtils {
             return true;
         }
 
-
+        @JvmStatic
         fun getGraphQLDocument(request: Map<String, Any>): String {
             try {
                 return request["document"] as String
@@ -59,6 +59,7 @@ class FlutterApiRequestUtils {
             }
         }
 
+        @JvmStatic
         fun getVariables(request: Map<String, Any>): Map<String, Any> {
             try {
                 return request["variables"] as Map<String, Any>

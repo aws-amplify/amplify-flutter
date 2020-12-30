@@ -27,7 +27,6 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import java.lang.ClassCastException
 
-
 /** AmplifyApiPlugin */
 class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
 

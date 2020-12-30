@@ -31,24 +31,23 @@ class GraphQLApiUnitTests: XCTestCase {
             override func query<ResultType>(request: GraphQLRequest<ResultType>, listener: GraphQLOperation<ResultType>.ResultListener?) -> GraphQLOperation<ResultType>  {
                 XCTAssertEqual("test document", request.document)
                 XCTAssertEqual(["test key":"test value"], request.variables as! [String:String])
-                
-                
+
                 let data: ResultType = "result data" as! ResultType
                 let response = GraphQLResponse<ResultType>.success(data)
                 listener?(.success(response))
                 
-                let operationRequest = GraphQLOperationRequest.init(apiName: request.apiName, operationType: GraphQLOperationType.query, document: request.document, responseType: ResultType.self, options: GraphQLOperationRequest.Options())
-                return GraphQLOperation<ResultType>(categoryType: .api, eventName: operationRequest.operationType.hubEventName, request: operationRequest)
+                let graphQLOperation = getMockGraphQLOperation(request: request)
+                return graphQLOperation
             }
         }
         
-        GraphQLApiModule.query(
-            flutterResult: { (result) in
+        let pluginUnderTest = SwiftAmplifyApiPlugin(bridge: MockApiBridge())
+
+        pluginUnderTest.handle(
+            FlutterMethodCall(methodName: "query", arguments: testRequest),
+            result: { (result) in
                 XCTAssertEqual((result as! [String:Any])["data"] as! String, "result data")
-            },
-            request: testRequest,
-            bridge: MockApiBridge())
-        
+            })
     }
     
     func test_query_api_error() throws {
@@ -64,8 +63,8 @@ class GraphQLApiUnitTests: XCTestCase {
                 
                 listener?(.failure(APIError.invalidConfiguration("test error", "test recovery suggestion")))
                 
-                let operationRequest = GraphQLOperationRequest.init(apiName: request.apiName, operationType: GraphQLOperationType.query, document: request.document, responseType: ResultType.self, options: GraphQLOperationRequest.Options())
-                return GraphQLOperation<ResultType>(categoryType: .api, eventName: operationRequest.operationType.hubEventName, request: operationRequest)
+                let graphQLOperation = getMockGraphQLOperation(request: request)
+                return graphQLOperation
             }
         }
         
@@ -97,8 +96,8 @@ class GraphQLApiUnitTests: XCTestCase {
                 
                 XCTFail("The ApiBridge should not be called if the request is malformed")
                 
-                let operationRequest = GraphQLOperationRequest.init(apiName: request.apiName, operationType: GraphQLOperationType.query, document: request.document, responseType: ResultType.self, options: GraphQLOperationRequest.Options())
-                return GraphQLOperation<ResultType>(categoryType: .api, eventName: operationRequest.operationType.hubEventName, request: operationRequest)
+                let graphQLOperation = getMockGraphQLOperation(request: request)
+                return graphQLOperation
             }
         }
         
@@ -137,8 +136,8 @@ class GraphQLApiUnitTests: XCTestCase {
                 let response = GraphQLResponse<ResultType>.success(data)
                 listener?(.success(response))
                 
-                let operationRequest = GraphQLOperationRequest.init(apiName: request.apiName, operationType: GraphQLOperationType.mutation, document: request.document, responseType: ResultType.self, options: GraphQLOperationRequest.Options())
-                return GraphQLOperation<ResultType>(categoryType: .api, eventName: operationRequest.operationType.hubEventName, request: operationRequest)
+                let graphQLOperation = getMockGraphQLOperation(request: request)
+                return graphQLOperation
             }
         }
         
@@ -164,8 +163,8 @@ class GraphQLApiUnitTests: XCTestCase {
                 
                 listener?(.failure(APIError.invalidConfiguration("test error", "test recovery suggestion")))
                 
-                let operationRequest = GraphQLOperationRequest.init(apiName: request.apiName, operationType: GraphQLOperationType.query, document: request.document, responseType: ResultType.self, options: GraphQLOperationRequest.Options())
-                return GraphQLOperation<ResultType>(categoryType: .api, eventName: operationRequest.operationType.hubEventName, request: operationRequest)
+                let graphQLOperation = getMockGraphQLOperation(request: request)
+                return graphQLOperation
             }
         }
         
@@ -197,8 +196,8 @@ class GraphQLApiUnitTests: XCTestCase {
                 
                 XCTFail("The ApiBridge should not be called if the request is malformed")
                 
-                let operationRequest = GraphQLOperationRequest.init(apiName: request.apiName, operationType: GraphQLOperationType.mutation, document: request.document, responseType: ResultType.self, options: GraphQLOperationRequest.Options())
-                return GraphQLOperation<ResultType>(categoryType: .api, eventName: operationRequest.operationType.hubEventName, request: operationRequest)
+                let graphQLOperation = getMockGraphQLOperation(request: request)
+                return graphQLOperation
             }
         }
         
@@ -222,4 +221,9 @@ class GraphQLApiUnitTests: XCTestCase {
         
     }
     
+}
+
+func getMockGraphQLOperation<R>(request: GraphQLRequest<R>) -> GraphQLOperation<R> {
+    let operationRequest = GraphQLOperationRequest.init(apiName: request.apiName, operationType: GraphQLOperationType.mutation, document: request.document, responseType: R.self, options: GraphQLOperationRequest.Options())
+    return GraphQLOperation<R>(categoryType: .api, eventName: operationRequest.operationType.hubEventName, request: operationRequest)
 }

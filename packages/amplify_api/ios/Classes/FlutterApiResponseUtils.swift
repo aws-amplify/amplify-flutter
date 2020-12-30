@@ -40,7 +40,7 @@ class FlutterApiResponseUtils {
         case .unknown(let errorDescription, let recoverySuggestion, _):
             print("An unknown error occured: \(errorDescription)")
             let errorMap = FlutterApiErrorUtils.createErrorMap(localizedError: errorDescription, recoverySuggestion: recoverySuggestion)
-            FlutterApiErrorUtils.createFlutterError(flutterResult: flutterResult, msg: failureMessage, errorMap: errorMap)
+            FlutterApiErrorUtils.postFlutterError(flutterResult: flutterResult, msg: failureMessage, errorMap: errorMap)
         }
     }
 }

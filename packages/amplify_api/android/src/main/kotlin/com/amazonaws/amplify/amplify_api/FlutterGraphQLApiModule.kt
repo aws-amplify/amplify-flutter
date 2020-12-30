@@ -27,6 +27,7 @@ class FlutterGraphQLApiModule {
         private val handler = Handler(Looper.getMainLooper())
         private val LOG = Amplify.Logging.forNamespace("amplify:flutter:api")
 
+        @JvmStatic
         fun query(flutterResult: MethodChannel.Result, request: Map<String, Any>) {
             var document: String
             var variables: Map<String, Any>
@@ -37,7 +38,7 @@ class FlutterGraphQLApiModule {
                 variables = FlutterApiRequestUtils.getVariables(request)
                 cancelToken = FlutterApiRequestUtils.getCancelToken(request)
             } catch (e: Exception) {
-                FlutterApiErrorUtils.createFlutterError(
+                FlutterApiErrorUtils.postFlutterError(
                         flutterResult,
                         FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString(),
                         e)
@@ -64,7 +65,7 @@ class FlutterGraphQLApiModule {
                         if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
 
                         LOG.error("GraphQL query operation failed", it)
-                        FlutterApiErrorUtils.createFlutterError(
+                        FlutterApiErrorUtils.postFlutterError(
                                 flutterResult,
                                 FlutterApiErrorMessage.AMPLIFY_API_QUERY_FAILED.toString(),
                                 it)
@@ -75,6 +76,7 @@ class FlutterGraphQLApiModule {
             }
         }
 
+        @JvmStatic
         fun mutate(flutterResult: MethodChannel.Result, request: Map<String, Any>) {
             var document: String
             var variables: Map<String, Any>
@@ -85,7 +87,7 @@ class FlutterGraphQLApiModule {
                 variables = FlutterApiRequestUtils.getVariables(request)
                 cancelToken = FlutterApiRequestUtils.getCancelToken(request)
             } catch (e: Exception) {
-                FlutterApiErrorUtils.createFlutterError(
+                FlutterApiErrorUtils.postFlutterError(
                         flutterResult,
                         FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString(),
                         e)
@@ -112,7 +114,7 @@ class FlutterGraphQLApiModule {
                         if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
 
                         LOG.error("GraphQL mutate operation failed", it)
-                        FlutterApiErrorUtils.createFlutterError(
+                        FlutterApiErrorUtils.postFlutterError(
                                 flutterResult,
                                 FlutterApiErrorMessage.AMPLIFY_API_MUTATE_FAILED.toString(),
                                 it)
