@@ -72,9 +72,18 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     return ApiError(code: e.code, message: e.message, details: e.details);
   }
 
+  //TODO: Deserialize all fields of the GraphQLResponseError as per spec
   List<GraphQLResponseError> _deserializeGraphQLResponseErrors(
       Map<String, dynamic> result) {
-    //TODO: Deserialize errors list into List<GraphQLResponseError>
+    if (result['errors'] != null) {
+      final errors = result['errors'] as List<String>;
+      if (errors.length > 0) {
+        final result = errors
+            .map((message) => GraphQLResponseError(message: message))
+            .toList();
+        return result;
+      }
+    }
     return [];
   }
 }
