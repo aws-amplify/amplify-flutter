@@ -14,6 +14,8 @@ dependencies:
   amplify_auth_plugin_interface: ^0.0.1-dev.4
   amplify_analytics_plugin_interface: ^0.0.1-dev.4
   amplify_datastore_plugin_interface: ^0.0.1-dev.4
+  amplify_api_plugin_interface:
+    path: ../amplify_api_plugin_interface #TODO: Remove this before release
 
 dev_dependencies:
   flutter_test:
