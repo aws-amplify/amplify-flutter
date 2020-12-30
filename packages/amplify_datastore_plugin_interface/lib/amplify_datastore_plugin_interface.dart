@@ -19,8 +19,7 @@ import 'dart:async';
 
 import 'package:amplify_datastore_plugin_interface/src/types/models/model_provider.dart';
 import 'package:flutter/foundation.dart';
-import 'package:meta/meta.dart';
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+import 'package:amplify_core/types/index.dart';
 
 import 'src/types/models/model.dart';
 import 'src/types/query/query_field.dart';
@@ -46,7 +45,7 @@ export 'src/Errors/datastore_error.dart';
 export 'src/Errors/datastore_error_types.dart';
 export 'src/types/models/subscription_event.dart';
 
-abstract class DataStorePluginInterface extends PlatformInterface {
+abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   final ModelProviderInterface modelProvider;
 
   /// Constructs an AmplifyPlatform.
