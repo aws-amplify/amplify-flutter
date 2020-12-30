@@ -208,7 +208,5 @@ void main() {
 
     //RestResponse response = await restOperation.response;
     restOperation.cancel();
-
-    var test = 0;
   });
 }

@@ -20,19 +20,22 @@ import android.os.Looper
 import androidx.annotation.NonNull
 import com.amplifyframework.api.ApiException
 import io.flutter.plugin.common.MethodChannel
+import io.flutter.plugin.common.MethodChannel.Result
+
 
 class FlutterApiErrorUtils {
     companion object {
         private val handler = Handler(Looper.getMainLooper())
 
+        fun createFlutterError(flutterResult: Result, msg: String, errorMap: Map<String, Any>) {
+            handler.post { flutterResult.error("AmplifyException", msg, errorMap) }
+        }
         fun createFlutterError(flutterResult: MethodChannel.Result, msg: String, @NonNull error: Exception) {
             val errorMap = createErrorMap(error)
             handler.post { flutterResult.error("AmplifyException", msg, errorMap) }
         }
 
         private fun createErrorMap(@NonNull error: Exception): Map<String, Any> {
-            var errorMap = HashMap<String, Any>()
-
             var localizedError = ""
             var recoverySuggestion = ""
             if (error is ApiException) {
@@ -41,13 +44,31 @@ class FlutterApiErrorUtils {
             if (error.localizedMessage != null) {
                 localizedError = error.localizedMessage
             }
-            errorMap["PLATFORM_EXCEPTIONS"] = mapOf(
+            return createErrorMap(localizedError, recoverySuggestion)
+        }
+        private fun createErrorMap(localizedError: String, recoverySuggestion: String?): Map<String, Any> {
+            var errorMap = HashMap<String, Any>()
+
+            errorMap.put("PLATFORM_EXCEPTIONS", mapOf(
                     "platform" to "Android",
                     "localizedErrorMessage" to localizedError,
-                    "recoverySuggestion" to recoverySuggestion,
-                    "errorString" to error.toString()
-            )
+                    "recoverySuggestion" to recoverySuggestion
+            ))
             return errorMap
         }
+
+        fun handleAPIError(
+                flutterResult: Result,
+                msg: String,
+                localizedMessage: String,
+                recoverySuggestion: String
+        ){
+            var errorMap = createErrorMap(
+                    localizedMessage,
+                    recoverySuggestion
+            )
+            createFlutterError(flutterResult, msg, errorMap)
+        }
+
     }
 }

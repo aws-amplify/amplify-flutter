@@ -16,6 +16,8 @@
 import 'dart:typed_data';
 
 import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_api_example/graphql_api_view.dart';
+import 'package:amplify_api_example/rest_api_view.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/material.dart';
 import 'amplifyconfiguration.dart';
@@ -30,24 +32,16 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  bool _isAmplifyConfigured = false;
+  bool _showRestApiView = true;
 
   Amplify amplify = Amplify();
-
   AmplifyAPI apiRest;
-
-  TextEditingController _apiPathController;
-
-  RestOperation _lastRestOperation;
 
   @override
   void initState() {
     super.initState();
-
     _configureAmplify();
-
-    _apiPathController = TextEditingController();
-    _apiPathController.text = "/items";
   }
 
   void _configureAmplify() async {
@@ -55,250 +49,20 @@ class _MyAppState extends State<MyApp> {
 
     await amplify.addPlugin(apiPlugins: [apiRest]);
     await amplify.configure(amplifyconfig);
-  }
-
-  void onPutPressed() async {
-    try {
-      RestOperation restOperation = Amplify.API.put(
-          restOptions: RestOptions(
-              path: _apiPathController.text,
-              body:
-                  Uint8List.fromList("{\"name\":\"Mow the lawn\"}".codeUnits)));
-
-      _lastRestOperation = restOperation;
-      RestResponse response = await restOperation.response;
-
-      print("Put SUCCESS");
-      print(new String.fromCharCodes(response.data));
-    } on Exception catch (e) {
-      print("Put FAILED");
-      print(e);
-    }
-  }
-
-  void onPostPressed() async {
-    try {
-      RestOperation restOperation = Amplify.API.post(
-          restOptions: RestOptions(
-              path: _apiPathController.text,
-              body:
-                  Uint8List.fromList("{\"name\":\"Mow the lawn\"}".codeUnits)));
-
-      _lastRestOperation = restOperation;
-      RestResponse response = await restOperation.response;
-
-      print("Post SUCCESS");
-      print(new String.fromCharCodes(response.data));
-    } on Exception catch (e) {
-      print("Post FAILED");
-      print(e);
-    }
-  }
-
-  void onGetPressed() async {
-    try {
-      RestOperation restOperation = Amplify.API.get(
-          restOptions: RestOptions(
-        path: _apiPathController.text,
-      ));
-
-      _lastRestOperation = restOperation;
-      RestResponse response = await restOperation.response;
-
-      print("Get SUCCESS");
-      print(new String.fromCharCodes(response.data));
-    } on ApiError catch (e) {
-      print("Get FAILED");
-      print(e.toString());
-    }
-  }
-
-  void onDeletePressed() async {
-    try {
-      RestOperation restOperation = Amplify.API
-          .delete(restOptions: RestOptions(path: _apiPathController.text));
-
-      _lastRestOperation = restOperation;
-      RestResponse response = await restOperation.response;
-
-      print("Delete SUCCESS");
-      print(new String.fromCharCodes(response.data));
-    } on Exception catch (e) {
-      print("Delete FAILED");
-      print(e);
-    }
-  }
-
-  void onCancelPressed() async {
-    try {
-      _lastRestOperation.cancel();
-    } on Exception catch (e) {
-      print("Cancel FAILED");
-      print(e.toString());
-    }
-  }
-
-  void onHeadPressed() async {
-    try {
-      RestOperation restOperation = Amplify.API.head(
-          restOptions: RestOptions(
-        path: _apiPathController.text,
-      ));
-
-      _lastRestOperation = restOperation;
-      RestResponse response = await restOperation.response;
-
-      print("Head SUCCESS");
-      print(new String.fromCharCodes(response.data));
-    } on ApiError catch (e) {
-      print("Head FAILED");
-      print(e.toString());
-    }
-  }
-
-  void onPatchPressed() async {
-    try {
-      RestOperation restOperation = Amplify.API.patch(
-          restOptions: RestOptions(
-        path: _apiPathController.text,
-      ));
-
-      _lastRestOperation = restOperation;
-      RestResponse response = await restOperation.response;
-
-      print("Patch SUCCESS");
-      print(new String.fromCharCodes(response.data));
-    } on ApiError catch (e) {
-      print("Patch FAILED");
-      print(e.toString());
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Column(children: [
-          TextField(
-            controller: _apiPathController,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(), labelText: "apiPath"),
-          ),
-          RaisedButton(
-            child: Text("Post"),
-            onPressed: onPostPressed,
-          ),
-          RaisedButton(
-            child: Text("Put"),
-            onPressed: onPutPressed,
-          ),
-          RaisedButton(
-            child: Text("Get"),
-            onPressed: onGetPressed,
-          ),
-          RaisedButton(
-            child: Text("Cancel"),
-            onPressed: onCancelPressed,
-          ),
-          RaisedButton(
-            child: Text("Delete"),
-            onPressed: onDeletePressed,
-          ),
-          RaisedButton(
-            child: Text("Head"),
-            onPressed: onHeadPressed,
-          ),
-          RaisedButton(child: Text("Patch"), onPressed: onPatchPressed),
-        ]),
-      ),
-    );
-  }
-}
-
-/*
-import 'package:flutter/material.dart';
-import 'dart:async';
-import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_core/amplify_core.dart';
-import 'amplifyconfiguration.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  String _result = '';
-  bool _isAmplifyConfigured = false;
-  Amplify amplify = new Amplify();
-
-  @override
-  void initState() {
-    super.initState();
-    initPlatformState();
-  }
-
-  Future<void> initPlatformState() async {
-    AmplifyAPI apiPlugin = AmplifyAPI();
-
-    await amplify.addPlugin(apiPlugins: [apiPlugin]);
-
-    // Configure
-    await amplify.configure(amplifyconfig);
     setState(() {
       _isAmplifyConfigured = true;
     });
   }
 
-  query() async {
-    String graphQLDocument = '''query MyQuery {
-      listBlogs {
-        items {
-          id
-          name
-          createdAt
-        }
-      }
-    }''';
-
-    var operation = await Amplify.API
-        .query<String>(request: GraphQLRequest(document: graphQLDocument));
-
-    var response = await operation.response;
-    var data = response.data;
-
-    print('Result data: ' + data);
+  void _onRestApiViewButtonClick() {
     setState(() {
-      _result = data;
+      _showRestApiView = true;
     });
   }
 
-  mutate() async {
-    String graphQLDocument = '''mutation MyMutation(\$name: String!) {
-      createBlog(input: {name: \$name}) {
-        id
-        name
-        createdAt
-      }
-    }''';
-
-    var operation = await Amplify.API.mutate(
-        request: GraphQLRequest<String>(
-            document: graphQLDocument, variables: {"name": "Test App Blog"}));
-
-    var response = await operation.response;
-    var data = response.data;
-
-    print('Result data: ' + data);
+  void _onGraphQlApiViewButtonClick() {
     setState(() {
-      _result = data;
+      _showRestApiView = false;
     });
   }
 
@@ -306,34 +70,22 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('API example app'),
-        ),
-        body: Center(
-          child: ListView(
-            padding: EdgeInsets.all(5.0),
-            children: <Widget>[
-              Padding(padding: EdgeInsets.all(10.0)),
-              Center(
-                child: RaisedButton(
-                  onPressed: _isAmplifyConfigured ? query : null,
-                  child: Text('Run Query'),
-                ),
-              ),
-              Padding(padding: EdgeInsets.all(10.0)),
-              Center(
-                child: RaisedButton(
-                  onPressed: _isAmplifyConfigured ? mutate : null,
-                  child: Text('Run Mutation'),
-                ),
-              ),
-              Padding(padding: EdgeInsets.all(5.0)),
-              Text('Result: \n$_result\n'),
-            ],
-          ),
-        ),
-      ),
+          appBar: AppBar(
+              title: Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Row(children: [
+                    RaisedButton(
+                        child: Text("Rest API"),
+                        onPressed: _onRestApiViewButtonClick),
+                    RaisedButton(
+                        child: Text("GraphQL API"),
+                        onPressed: _onGraphQlApiViewButtonClick)
+                  ]))),
+          body: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: _showRestApiView == true
+                  ? RestApiView()
+                  : GraphQLApiView(isAmplifyConfigured: _isAmplifyConfigured))),
     );
   }
 }
- */

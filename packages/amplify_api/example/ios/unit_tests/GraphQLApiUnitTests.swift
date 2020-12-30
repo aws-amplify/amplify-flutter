@@ -42,7 +42,7 @@ class GraphQLApiUnitTests: XCTestCase {
             }
         }
         
-        FlutterGraphQLApiModule.query(
+        GraphQLApiModule.query(
             flutterResult: { (result) in
                 XCTAssertEqual((result as! [String:Any])["data"] as! String, "result data")
             },
@@ -70,7 +70,7 @@ class GraphQLApiUnitTests: XCTestCase {
         }
         
         
-        FlutterGraphQLApiModule.query(
+        GraphQLApiModule.query(
             flutterResult: { (result) -> Void in
                 if let exception = result as? FlutterError {
                     XCTAssertEqual("AmplifyException", exception.code)
@@ -103,7 +103,7 @@ class GraphQLApiUnitTests: XCTestCase {
         }
         
         
-        FlutterGraphQLApiModule.query(
+        GraphQLApiModule.query(
             flutterResult: { (result) -> Void in
                 if let exception = result as? FlutterError {
                     XCTAssertEqual("AmplifyException", exception.code)
@@ -142,7 +142,7 @@ class GraphQLApiUnitTests: XCTestCase {
             }
         }
         
-        FlutterGraphQLApiModule.mutate(flutterResult: { (result) in
+        GraphQLApiModule.mutate(flutterResult: { (result) in
             XCTAssertEqual((result as! [String:Any])["data"] as! String, "result data")
         },
         request: testRequest,
@@ -170,7 +170,7 @@ class GraphQLApiUnitTests: XCTestCase {
         }
         
         
-        FlutterGraphQLApiModule.mutate(
+        GraphQLApiModule.mutate(
             flutterResult: { (result) -> Void in
                 if let exception = result as? FlutterError {
                     XCTAssertEqual("AmplifyException", exception.code)
@@ -203,7 +203,7 @@ class GraphQLApiUnitTests: XCTestCase {
         }
         
         
-        FlutterGraphQLApiModule.mutate(
+        GraphQLApiModule.mutate(
             flutterResult: { (result) -> Void in
                 if let exception = result as? FlutterError {
                     XCTAssertEqual("AmplifyException", exception.code)

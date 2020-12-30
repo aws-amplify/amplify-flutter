@@ -20,12 +20,12 @@ import AWSCore
 
 @testable import amplify_api
 
-class amplify_api_rest_tests: XCTestCase {
+class RestApiUnitTests: XCTestCase {
     
     var pluginUnderTest: SwiftAmplifyApiPlugin = SwiftAmplifyApiPlugin()
     
     func test_get_returns_success() throws {
-        class MockApiBridge: APIBridge {
+        class MockApiBridge: ApiBridge {
             override func get(request: RESTRequest, listener: ((AmplifyOperation<RESTOperationRequest, Data, APIError>.OperationResult) -> Void)?) -> RESTOperation?{
                 
                 XCTAssertEqual(request.path, "/items")
@@ -38,7 +38,7 @@ class amplify_api_rest_tests: XCTestCase {
         }
         
         let data : Data = "{\"success\":\"get call succeed!\",\"url\":\"/items\"}".data(using: .utf8)!
-        pluginUnderTest = SwiftAmplifyApiPlugin(restAPIModule: AmplifyRestAPIModule(bridge: MockApiBridge()))
+        pluginUnderTest = SwiftAmplifyApiPlugin(bridge: MockApiBridge())
         
         pluginUnderTest.innerHandle(
             method: "get",
@@ -58,7 +58,7 @@ class amplify_api_rest_tests: XCTestCase {
         
         let data : Data = "{\"success\": \"post call succeed!\",\"url\":\"/items?queryParameterA=queryValueA&queryParameterB=queryValueB\",\"body\": {\"name\": \"Mow the lawn\"}}".data(using: .utf8)!
         
-        class MockApiBridge: APIBridge {
+        class MockApiBridge: ApiBridge {
             
             static let flutterData : FlutterStandardTypedData = FlutterStandardTypedData.init(bytes : "{\"name\":\"Mow the lawn\"}".data(using: .utf8)!)
 
@@ -87,7 +87,7 @@ class amplify_api_rest_tests: XCTestCase {
             }
         }
 
-        pluginUnderTest = SwiftAmplifyApiPlugin(restAPIModule: AmplifyRestAPIModule(bridge: MockApiBridge()))
+        pluginUnderTest = SwiftAmplifyApiPlugin(bridge: MockApiBridge())
         
         pluginUnderTest.innerHandle(
             method: "put",
@@ -108,7 +108,7 @@ class amplify_api_rest_tests: XCTestCase {
     }
     
     func test_delete_returns_success() throws {
-        class MockApiBridge: APIBridge {
+        class MockApiBridge: ApiBridge {
             override func delete(request: RESTRequest, listener: ((AmplifyOperation<RESTOperationRequest, Data, APIError>.OperationResult) -> Void)?) -> RESTOperation?{
                 
                 XCTAssertEqual(request.path, "/items")
@@ -121,7 +121,7 @@ class amplify_api_rest_tests: XCTestCase {
         }
         
         let data : Data = "{\"success\": \"delete call succeed!\",\"url\": \"items\"}".data(using: .utf8)!
-        pluginUnderTest = SwiftAmplifyApiPlugin(restAPIModule: AmplifyRestAPIModule(bridge: MockApiBridge()))
+        pluginUnderTest = SwiftAmplifyApiPlugin(bridge: MockApiBridge())
         
         pluginUnderTest.innerHandle(
             method: "delete",
@@ -138,7 +138,7 @@ class amplify_api_rest_tests: XCTestCase {
     }
 
     func test_get_status_code_error() throws {
-        class MockApiBridge: APIBridge {
+        class MockApiBridge: ApiBridge {
             override func get(request: RESTRequest, listener: ((AmplifyOperation<RESTOperationRequest, Data, APIError>.OperationResult) -> Void)?) -> RESTOperation?{
                 
                 XCTAssertEqual(request.path, "/items")
@@ -150,7 +150,7 @@ class amplify_api_rest_tests: XCTestCase {
         }
         
         let data : Data = "{\"error\":\"get call failed!\"}".data(using: .utf8)!
-        pluginUnderTest = SwiftAmplifyApiPlugin(restAPIModule: AmplifyRestAPIModule(bridge: MockApiBridge()))
+        pluginUnderTest = SwiftAmplifyApiPlugin(bridge: MockApiBridge())
         
         pluginUnderTest.innerHandle(
             method: "get",
@@ -177,7 +177,7 @@ class amplify_api_rest_tests: XCTestCase {
     }
     
     func test_get_invalid_input_map_error() throws {
-        class MockApiBridge: APIBridge {
+        class MockApiBridge: ApiBridge {
             override func get(request: RESTRequest, listener: ((AmplifyOperation<RESTOperationRequest, Data, APIError>.OperationResult) -> Void)?) -> RESTOperation?{
                 // This should not be called
                 XCTAssertTrue(false, "This code should not run")
@@ -187,7 +187,7 @@ class amplify_api_rest_tests: XCTestCase {
         }
         
         let data : Data = "{\"error\":\"get call failed!\"}".data(using: .utf8)!
-        pluginUnderTest = SwiftAmplifyApiPlugin(restAPIModule: AmplifyRestAPIModule(bridge: MockApiBridge()))
+        pluginUnderTest = SwiftAmplifyApiPlugin(bridge: MockApiBridge())
         
         pluginUnderTest.innerHandle(
             method: "get",
@@ -202,15 +202,15 @@ class amplify_api_rest_tests: XCTestCase {
                 let errorMap = (errorResult.details as! [String: [String: String]])
                 
                 XCTAssertEqual(errorMap["PLATFORM_EXCEPTIONS"]!["platform"], "iOS");
-                XCTAssertEqual(errorMap["PLATFORM_EXCEPTIONS"]!["localizedErrorMessage"], "The operation couldn’t be completed. (Amplify.DataStoreError error 4.).\nAn unrecognized error has occurred");
-                XCTAssertEqual(errorMap["PLATFORM_EXCEPTIONS"]!["recoverySuggestion"], "See logs for details");
+                XCTAssertEqual(errorMap["PLATFORM_EXCEPTIONS"]!["localizedErrorMessage"], "The FlutterMethodCall argument was not passed as a dictionary");
+                XCTAssertEqual(errorMap["PLATFORM_EXCEPTIONS"]!["recoverySuggestion"], "The request should include the FlutterMethodCall argument as a [String: Any] dictionary");
 
             }
         )
     }
     
     func test_cancel_get_returns_success() throws {
-        class MockApiBridge: APIBridge {
+        class MockApiBridge: ApiBridge {
             override func get(request: RESTRequest, listener: ((AmplifyOperation<RESTOperationRequest, Data, APIError>.OperationResult) -> Void)?) -> RESTOperation?{
                 
                 XCTAssertEqual(request.path, "/items")
@@ -226,7 +226,7 @@ class amplify_api_rest_tests: XCTestCase {
             }
         }
         
-        pluginUnderTest = SwiftAmplifyApiPlugin(restAPIModule: AmplifyRestAPIModule(bridge: MockApiBridge()))
+        pluginUnderTest = SwiftAmplifyApiPlugin(bridge: MockApiBridge())
         
         pluginUnderTest.innerHandle(
             method: "get",
@@ -253,7 +253,7 @@ class amplify_api_rest_tests: XCTestCase {
     
     func test_cancel_get_returns_error() throws {
         
-        pluginUnderTest = SwiftAmplifyApiPlugin(restAPIModule: AmplifyRestAPIModule())
+        pluginUnderTest = SwiftAmplifyApiPlugin()
         
         pluginUnderTest.innerHandle(
             method: "cancel",
@@ -262,7 +262,7 @@ class amplify_api_rest_tests: XCTestCase {
                 let errorResult = results as! FlutterError
                 
                 XCTAssertEqual(errorResult.code, "AmplifyRestAPI-CancelError")
-                XCTAssertEqual(errorResult.message,"RestOperation completed or expired and cannot be canceled anymore")
+                XCTAssertEqual(errorResult.message,"The RestOperation may have already completed or expired and cannot be canceled anymore")
                 XCTAssertEqual(errorResult.details as! String, "Operation does not exist")
             }
         )

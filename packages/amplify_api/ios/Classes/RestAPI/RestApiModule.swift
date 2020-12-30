@@ -21,24 +21,16 @@ import Amplify
 import AmplifyPlugins
 import AWSCore
 
-public class AmplifyRestAPIModule {
-    
-    private let bridge: APIBridge
-    
-    init(bridge: APIBridge = APIBridge()){
-        self.bridge = bridge
-    }
-    
-    private func restFunctionHelper(
+public class RestApiModule {
+
+    private static func restFunctionHelper(
         methodName: String,
         flutterResult: @escaping FlutterResult,
         request: [String: Any], function: (RESTRequest, RESTOperation.ResultListener?) -> RESTOperation? ){
-
-        if(FlutterRestInputs.validate(map: request)){
-            let inputs = FlutterRestInputs(serializedData: request)
-            let cancelToken = inputs.getCancelToken()
-            let restRequest = inputs.getRestRequest()
-            
+        do {
+            let cancelToken = try FlutterApiRequestUtils.getCancelToken(methodChannelRequest: request)
+            let restRequest = try FlutterApiRequestUtils.getRestRequest(methodChannelRequest: request)
+             
             let restOperation = function(restRequest) { result in
                 switch result {
                     case .success(let data):
@@ -49,16 +41,22 @@ public class AmplifyRestAPIModule {
                             error: apiError,
                             msg: FlutterApiErrorMessage.stringToAPIRestError(methodName: methodName).rawValue
                         )
-                        
                 }
             }
             if(restOperation != nil){
                 OperationsManager.addOperation(cancelToken: cancelToken, operation: restOperation!)
             }
+        } catch let error as APIError {
+            print("Failed to parse query arguments with \(error)")
+            FlutterApiErrorUtils.handleAPIError(flutterResult: flutterResult, error: error, msg: FlutterApiErrorMessage.MALFORMED.rawValue)
+        } catch {
+            print("An unexpected error occured when parsing query arguments: \(error)")
+            let errorMap = FlutterApiErrorUtils.createErrorMap(localizedError: "\(error.localizedDescription).\nAn unrecognized error has occurred", recoverySuggestion: "See logs for details")
+            FlutterApiErrorUtils.createFlutterError(flutterResult: flutterResult, msg: FlutterApiErrorMessage.MALFORMED.rawValue, errorMap: errorMap)
         }
     }
 
-    private func prepareRestResponseResult(flutterResult: @escaping FlutterResult, data: Data, cancelToken: String = ""){
+    private static func prepareRestResponseResult(flutterResult: @escaping FlutterResult, data: Data, cancelToken: String = ""){
         if(!cancelToken.isEmpty){
             OperationsManager.removeOperation(cancelToken: cancelToken)
         }
@@ -67,22 +65,22 @@ public class AmplifyRestAPIModule {
         flutterResult(restResponse.toValueMap())
     }
     
-    public func onGet(flutterResult: @escaping FlutterResult, arguments: [String: Any]){
+    public static func onGet(flutterResult: @escaping FlutterResult, arguments: [String: Any], bridge: ApiBridge){
         restFunctionHelper(methodName: "get", flutterResult: flutterResult, request: arguments, function: bridge.get)
     }
-    public func onPost(flutterResult: @escaping FlutterResult, arguments: [String: Any]){
+    public static func onPost(flutterResult: @escaping FlutterResult, arguments: [String: Any], bridge: ApiBridge){
         restFunctionHelper(methodName: "post", flutterResult: flutterResult, request: arguments, function: bridge.post)
     }
-    public func onPut(flutterResult: @escaping FlutterResult, arguments: [String: Any]){
+    public static func onPut(flutterResult: @escaping FlutterResult, arguments: [String: Any], bridge: ApiBridge){
         restFunctionHelper(methodName: "put", flutterResult: flutterResult, request: arguments, function: bridge.put)
     }
-    public func onDelete(flutterResult: @escaping FlutterResult, arguments: [String: Any]){
+    public static func onDelete(flutterResult: @escaping FlutterResult, arguments: [String: Any], bridge: ApiBridge){
         restFunctionHelper(methodName: "delete", flutterResult: flutterResult, request: arguments, function: bridge.delete)
     }
-    public func onHead(flutterResult: @escaping FlutterResult, arguments: [String: Any]){
+    public static func onHead(flutterResult: @escaping FlutterResult, arguments: [String: Any], bridge: ApiBridge){
         restFunctionHelper(methodName: "head", flutterResult: flutterResult, request: arguments, function: bridge.head)
     }
-    public func onPatch(flutterResult: @escaping FlutterResult, arguments: [String: Any]){
+    public static func onPatch(flutterResult: @escaping FlutterResult, arguments: [String: Any], bridge: ApiBridge){
         restFunctionHelper(methodName: "patch", flutterResult: flutterResult, request: arguments, function: bridge.patch)
     }
     

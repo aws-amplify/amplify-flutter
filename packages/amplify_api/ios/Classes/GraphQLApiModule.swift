@@ -17,7 +17,7 @@ import Foundation
 import Amplify
 import AmplifyPlugins
 
-class FlutterGraphQLApiModule {
+class GraphQLApiModule {
     
     static func query(flutterResult: @escaping FlutterResult, request: [String: Any], bridge: ApiBridge) {
         do  {

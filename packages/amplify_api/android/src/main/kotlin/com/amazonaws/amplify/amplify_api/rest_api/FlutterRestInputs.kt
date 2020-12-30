@@ -13,10 +13,10 @@
  * permissions and limitations under the License.
  */
 
-package com.amazonaws.amplify.amplify_api_rest.types
+package com.amazonaws.amplify.amplify_api.rest_api
 
-import com.amazonaws.amplify.amplify_api.types.FlutterApiErrorMessage
-import com.amazonaws.amplify.amplify_api.types.FlutterApiErrorUtils
+import com.amazonaws.amplify.amplify_api.FlutterApiErrorMessage
+import com.amazonaws.amplify.amplify_api.FlutterApiErrorUtils
 import com.amplifyframework.api.rest.RestOptions
 import java.lang.ClassCastException
 import io.flutter.plugin.common.MethodChannel.Result
@@ -35,10 +35,12 @@ data class FlutterRestInputs(val flutterInputsMap: Map<String, *>) {
         private val QUERY_PARAM_KEY = "queryParameters"
         private val HEADERS_KEY = "headers"
 
-        fun isValidMap(flutterResult: Result, args: Map<String, *>?): Boolean {
+        fun isValid(flutterResult: Result, args: Map<String, *>?): Boolean {
             try {
                 var arguments = args as Map<String, *>
+
                 var restOptions = args[REST_OPTIONS_KEY] as Map<String, *>
+                var cancelToken = arguments["cancelToken"] as String
                 var path = restOptions[PATH_KEY] as String
 
             } catch (e: ClassCastException) {

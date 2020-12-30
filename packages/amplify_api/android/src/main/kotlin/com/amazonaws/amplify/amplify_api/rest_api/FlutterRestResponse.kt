@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package com.amazonaws.amplify.amplify_api_rest.types
+package com.amazonaws.amplify.amplify_api.rest_api
 
 import com.amplifyframework.api.rest.RestResponse
 

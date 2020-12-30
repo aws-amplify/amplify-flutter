@@ -16,9 +16,38 @@
 package com.amazonaws.amplify.amplify_api
 
 import com.amplifyframework.AmplifyException
+import io.flutter.plugin.common.MethodChannel
+
 
 class FlutterApiRequestUtils {
     companion object {
+
+        fun isValidArgumentsMap(flutterResult: MethodChannel.Result, args: Any): Boolean {
+
+            try {
+                var arguments = args as Map<String, Any>
+                var restOptions = arguments["restOptions"] as Map<String, Any>
+                var cancelToken = arguments["cancelToken"] as String
+            } catch (e: ClassCastException) {
+                FlutterApiErrorUtils.createFlutterError(
+                        flutterResult,
+                        FlutterApiErrorMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString(),
+                        e
+                )
+                return false;
+            } catch (e: Exception) {
+                FlutterApiErrorUtils.createFlutterError(
+                        flutterResult,
+                        FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString(),
+                        e
+                )
+                return false;
+            }
+
+            return true;
+        }
+
+
         fun getGraphQLDocument(request: Map<String, Any>): String {
             try {
                 return request["document"] as String

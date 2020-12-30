@@ -17,7 +17,7 @@ import Amplify
 import AmplifyPlugins
 import Flutter
 
-public class APIBridge {
+public class ApiBridge {
     
     func get(request: RESTRequest, listener: ((AmplifyOperation<RESTOperationRequest, Data, APIError>.OperationResult) -> Void)?) -> RESTOperation?{
         return Amplify.API.get(request: request, listener: listener)

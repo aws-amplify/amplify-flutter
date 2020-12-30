@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package com.amazonaws.amplify.amplify_api.types;
+package com.amazonaws.amplify.amplify_api
 
 enum class FlutterApiErrorMessage {
     AMPLIFY_REQUEST_MALFORMED,
@@ -31,7 +31,7 @@ enum class FlutterApiErrorMessage {
 
 
     companion object {
-        fun stringToAPIRestError(methodName : String): FlutterApiErrorMessage {
+        fun stringToAPIRestError(methodName: String): FlutterApiErrorMessage {
             return when (methodName) {
                 "get" -> AMPLIFY_API_GET_FAILED
                 "post" -> AMPLIFY_API_POST_FAILED

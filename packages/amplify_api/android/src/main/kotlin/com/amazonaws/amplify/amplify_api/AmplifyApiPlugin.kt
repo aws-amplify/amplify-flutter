@@ -16,15 +16,8 @@
 package com.amazonaws.amplify.amplify_api
 
 import android.content.Context
-import android.os.Handler
-import android.os.Looper
-import androidx.annotation.VisibleForTesting
-import com.amazonaws.amplify.amplify_api.types.FlutterApiErrorMessage
-import com.amazonaws.amplify.amplify_api.types.FlutterApiErrorUtils
-import com.amazonaws.amplify.amplify_api.types.AmplifyGraphQLModule
-import com.amazonaws.amplify.amplify_api.types.OperationsManager
-import com.amazonaws.amplify.amplify_api.types.rest_api.AmplifyRestAPIModule
 import androidx.annotation.NonNull
+import com.amazonaws.amplify.amplify_api.rest_api.RestApiModule
 import com.amplifyframework.api.aws.AWSApiPlugin
 import com.amplifyframework.core.Amplify
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -32,6 +25,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import java.lang.ClassCastException
 
 
 /** AmplifyApiPlugin */
@@ -40,9 +34,7 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
     private lateinit var channel: MethodChannel
     private lateinit var context: Context
     private val LOG = Amplify.Logging.forNamespace("amplify:flutter:api")
-
-    private var restAPIModule : AmplifyRestAPIModule = AmplifyRestAPIModule()
-
+    
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "com.amazonaws.amplify/api")
         channel.setMethodCallHandler(this)
@@ -52,7 +44,6 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
     }
 
     override fun onMethodCall( call: MethodCall, result: Result) {
-
         var methodName = call.method
 
         if(methodName == "cancel"){
@@ -60,26 +51,26 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
           return
         }
 
-        if(methodName == "get" || methodName == "post" || methodName == "put" || methodName == "delete" || methodName == "head" || methodName == "patch"){
-          if(!restAPIModule.isValidArgumentsMap(result, call.arguments)) return
-        }
+        try {
+            var arguments : Map<String, Any> = call.arguments as Map<String,Any>
 
-        if(methodName == "query" || methodName == "mutate"){
-          if(!graphQLModule.isValidArgumentsMap(result, call.arguments)) return
-        }
-
-        var arguments : Map<String, Any> = call.arguments as Map<String,Any>
-
-        when (call.method) {
-          "get" -> restAPIModule.onGet(result, arguments)
-          "post" -> restAPIModule.onPost(result, arguments)
-          "put" -> restAPIModule.onPut(result, arguments)
-          "delete" -> restAPIModule.onDelete(result, arguments)
-          "head" -> restAPIModule.onHead(result, arguments)
-          "patch" -> restAPIModule.onPatch(result, arguments)
-          "query" -> FlutterGraphQLApiModule.query(result, call.arguments as Map<String, Any>)
-          "mutate" -> FlutterGraphQLApiModule.mutate(result, call.arguments as Map<String, Any>)
-          else -> result.notImplemented()
+            when (call.method) {
+                "get" -> RestApiModule.onGet(result, arguments)
+                "post" -> RestApiModule.onPost(result, arguments)
+                "put" -> RestApiModule.onPut(result, arguments)
+                "delete" -> RestApiModule.onDelete(result, arguments)
+                "head" -> RestApiModule.onHead(result, arguments)
+                "patch" -> RestApiModule.onPatch(result, arguments)
+                "query" -> FlutterGraphQLApiModule.query(result, arguments)
+                "mutate" -> FlutterGraphQLApiModule.mutate(result, arguments)
+                else -> result.notImplemented()
+            }
+        } catch (e: ClassCastException) {
+            FlutterApiErrorUtils.createFlutterError(
+                    result,
+                    FlutterApiErrorMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString(),
+                    e
+            )
         }
     }
 
