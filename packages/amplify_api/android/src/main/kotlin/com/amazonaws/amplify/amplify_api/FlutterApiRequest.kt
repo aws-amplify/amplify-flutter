@@ -17,7 +17,7 @@ package com.amazonaws.amplify.amplify_api
 
 import com.amplifyframework.AmplifyException
 
-class FlutterApiRequestUtils {
+class FlutterApiRequest {
     companion object {
         @JvmStatic
         fun getGraphQLDocument(request: Map<String, Any>): String {

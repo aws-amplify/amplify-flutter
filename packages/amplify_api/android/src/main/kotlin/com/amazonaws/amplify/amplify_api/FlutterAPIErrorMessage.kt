@@ -13,10 +13,9 @@
  * permissions and limitations under the License.
  */
 
-package com.amazonaws.amplify.amplify_api.types;
+package com.amazonaws.amplify.amplify_api
 
 enum class FlutterApiErrorMessage {
-    ERROR_CASTING_INPUT_IN_PLATFORM_CODE,
     AMPLIFY_REQUEST_MALFORMED,
     AMPLIFY_API_QUERY_FAILED,
     AMPLIFY_API_MUTATE_FAILED

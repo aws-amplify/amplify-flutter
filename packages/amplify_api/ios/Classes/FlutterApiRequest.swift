@@ -17,7 +17,7 @@ import Foundation
 import Amplify
 import AmplifyPlugins
 
-class FlutterApiRequestUtils {
+class FlutterApiRequest {
     static func getGraphQLDocument(methodChannelRequest: [String: Any]) throws -> String {
         guard let document = methodChannelRequest["document"] as? String else {
             throw APIError.invalidConfiguration("The graphQL document request argument was not passed as a String",

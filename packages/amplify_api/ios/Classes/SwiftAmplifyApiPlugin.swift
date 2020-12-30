@@ -42,9 +42,9 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
         let arguments = call.arguments as! Dictionary<String,AnyObject>
         switch call.method {
         case "query":
-            FlutterGraphQLApiModule.query(flutterResult: result, request: arguments, bridge: bridge)
+            FlutterGraphQLApi.query(flutterResult: result, request: arguments, bridge: bridge)
         case "mutate":
-            FlutterGraphQLApiModule.mutate(flutterResult: result, request: arguments, bridge: bridge)
+            FlutterGraphQLApi.mutate(flutterResult: result, request: arguments, bridge: bridge)
         default:
             result(FlutterMethodNotImplemented)
         }

@@ -63,7 +63,7 @@ class _MyAppState extends State<MyApp> {
     }''';
 
     var operation = await Amplify.API
-        .query<String>(request: GraphQLRequest(document: graphQLDocument));
+        .query(request: GraphQLRequest<String>(document: graphQLDocument));
 
     var response = await operation.response;
     var data = response.data;

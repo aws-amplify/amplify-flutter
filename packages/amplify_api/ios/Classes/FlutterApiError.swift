@@ -18,7 +18,7 @@ import Amplify
 import AmplifyPlugins
 
 
-class FlutterApiErrorUtils {
+class FlutterApiError {
     
     static func handleAPIError(flutterResult: @escaping FlutterResult, error: APIError, msg: String, rawResponse: String? = nil) {
         var errorMap =

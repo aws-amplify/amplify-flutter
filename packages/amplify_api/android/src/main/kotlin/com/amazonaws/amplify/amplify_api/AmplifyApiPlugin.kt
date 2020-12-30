@@ -43,9 +43,9 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         when (call.method) {
             "query" ->
-                FlutterGraphQLApiModule.query(result, call.arguments as Map<String, Any>)
+                FlutterGraphQLApi.query(result, call.arguments as Map<String, Any>)
             "mutate" ->
-                FlutterGraphQLApiModule.mutate(result, call.arguments as Map<String, Any>)
+                FlutterGraphQLApi.mutate(result, call.arguments as Map<String, Any>)
             else -> result.notImplemented()
         }
     }

@@ -21,7 +21,7 @@ import androidx.annotation.NonNull
 import com.amplifyframework.api.ApiException
 import io.flutter.plugin.common.MethodChannel
 
-class FlutterApiErrorUtils {
+class FlutterApiError {
     companion object {
         private val handler = Handler(Looper.getMainLooper())
 

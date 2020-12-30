@@ -17,13 +17,12 @@ package com.amazonaws.amplify.amplify_api
 
 import android.os.Handler
 import android.os.Looper
-import com.amazonaws.amplify.amplify_api.types.FlutterApiErrorMessage
 import com.amplifyframework.api.aws.GsonVariablesSerializer
 import com.amplifyframework.api.graphql.SimpleGraphQLRequest
 import com.amplifyframework.core.Amplify
 import io.flutter.plugin.common.MethodChannel
 
-class FlutterGraphQLApiModule {
+class FlutterGraphQLApi {
     companion object {
         private val handler = Handler(Looper.getMainLooper())
         private val LOG = Amplify.Logging.forNamespace("amplify:flutter:api")
@@ -34,10 +33,10 @@ class FlutterGraphQLApiModule {
             var variables: Map<String, Any>
 
             try {
-                document = FlutterApiRequestUtils.getGraphQLDocument(request)
-                variables = FlutterApiRequestUtils.getVariables(request)
+                document = FlutterApiRequest.getGraphQLDocument(request)
+                variables = FlutterApiRequest.getVariables(request)
             } catch (e: Exception) {
-                FlutterApiErrorUtils.postFlutterError(
+                FlutterApiError.postFlutterError(
                         flutterResult,
                         FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString(),
                         e)
@@ -60,7 +59,7 @@ class FlutterGraphQLApiModule {
                     },
                     {
                         LOG.error("GraphQL query operation failed", it)
-                        FlutterApiErrorUtils.postFlutterError(
+                        FlutterApiError.postFlutterError(
                                 flutterResult,
                                 FlutterApiErrorMessage.AMPLIFY_API_QUERY_FAILED.toString(),
                                 it)
@@ -74,10 +73,10 @@ class FlutterGraphQLApiModule {
             var variables: Map<String, Any>
 
             try {
-                document = FlutterApiRequestUtils.getGraphQLDocument(request)
-                variables = FlutterApiRequestUtils.getVariables(request)
+                document = FlutterApiRequest.getGraphQLDocument(request)
+                variables = FlutterApiRequest.getVariables(request)
             } catch (e: Exception) {
-                FlutterApiErrorUtils.postFlutterError(
+                FlutterApiError.postFlutterError(
                         flutterResult,
                         FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString(),
                         e)
@@ -100,7 +99,7 @@ class FlutterGraphQLApiModule {
                     },
                     {
                         LOG.error("GraphQL mutate operation failed", it)
-                        FlutterApiErrorUtils.postFlutterError(
+                        FlutterApiError.postFlutterError(
                                 flutterResult,
                                 FlutterApiErrorMessage.AMPLIFY_API_MUTATE_FAILED.toString(),
                                 it)

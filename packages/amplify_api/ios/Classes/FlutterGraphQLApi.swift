@@ -17,12 +17,12 @@ import Foundation
 import Amplify
 import AmplifyPlugins
 
-class FlutterGraphQLApiModule {
+class FlutterGraphQLApi {
     
     static func query(flutterResult: @escaping FlutterResult, request: [String: Any], bridge: ApiBridge) {
         do  {
-            let document = try FlutterApiRequestUtils.getGraphQLDocument(methodChannelRequest: request)
-            let variables = try FlutterApiRequestUtils.getVariables(methodChannelRequest: request)
+            let document = try FlutterApiRequest.getGraphQLDocument(methodChannelRequest: request)
+            let variables = try FlutterApiRequest.getVariables(methodChannelRequest: request)
             
             let request = GraphQLRequest<String>(document: document,
                                                  variables: variables,
@@ -40,28 +40,28 @@ class FlutterGraphQLApiModule {
                         print("GraphQL query operation succeeded with response : \(result)")
                         flutterResult(result)
                     case .failure(let errorResponse):
-                        FlutterApiResponseUtils.handleGraphQLErrorResponse(flutterResult: flutterResult, errorResponse: errorResponse, failureMessage: FlutterApiErrorMessage.QUERY_FAILED.rawValue)
+                        FlutterApiResponse.handleGraphQLErrorResponse(flutterResult: flutterResult, errorResponse: errorResponse, failureMessage: FlutterApiErrorMessage.QUERY_FAILED.rawValue)
                     }
                 case .failure(let apiError):
                     print("GraphQL query operation failed: \(apiError)")
-                    FlutterApiErrorUtils.handleAPIError(flutterResult: flutterResult, error: apiError, msg: FlutterApiErrorMessage.QUERY_FAILED.rawValue)
+                    FlutterApiError.handleAPIError(flutterResult: flutterResult, error: apiError, msg: FlutterApiErrorMessage.QUERY_FAILED.rawValue)
                 }}
             
         } catch let error as APIError {
             print("Failed to parse query arguments with \(error)")
-            FlutterApiErrorUtils.handleAPIError(flutterResult: flutterResult, error: error, msg: FlutterApiErrorMessage.MALFORMED.rawValue)
+            FlutterApiError.handleAPIError(flutterResult: flutterResult, error: error, msg: FlutterApiErrorMessage.MALFORMED.rawValue)
         }
         catch {
             print("An unexpected error occured when parsing query arguments: \(error)")
-            let errorMap = FlutterApiErrorUtils.createErrorMap(localizedError: "\(error.localizedDescription).\nAn unrecognized error has occurred", recoverySuggestion: "See logs for details")
-            FlutterApiErrorUtils.postFlutterError(flutterResult: flutterResult, msg: FlutterApiErrorMessage.MALFORMED.rawValue, errorMap: errorMap)
+            let errorMap = FlutterApiError.createErrorMap(localizedError: "\(error.localizedDescription).\nAn unrecognized error has occurred", recoverySuggestion: "See logs for details")
+            FlutterApiError.postFlutterError(flutterResult: flutterResult, msg: FlutterApiErrorMessage.MALFORMED.rawValue, errorMap: errorMap)
         }
     }
     
     static func mutate(flutterResult: @escaping FlutterResult, request: [String: Any], bridge: ApiBridge) {
         do  {
-            let document = try FlutterApiRequestUtils.getGraphQLDocument(methodChannelRequest: request)
-            let variables = try FlutterApiRequestUtils.getVariables(methodChannelRequest: request)
+            let document = try FlutterApiRequest.getGraphQLDocument(methodChannelRequest: request)
+            let variables = try FlutterApiRequest.getVariables(methodChannelRequest: request)
             
             let request = GraphQLRequest<String>(document: document,
                                                  variables: variables,
@@ -79,21 +79,21 @@ class FlutterGraphQLApiModule {
                         print("GraphQL mutate operation succeeded with response : \(result)")
                         flutterResult(result)
                     case .failure(let errorResponse):
-                        FlutterApiResponseUtils.handleGraphQLErrorResponse(flutterResult: flutterResult, errorResponse: errorResponse, failureMessage: FlutterApiErrorMessage.MUTATE_FAILED.rawValue)
+                        FlutterApiResponse.handleGraphQLErrorResponse(flutterResult: flutterResult, errorResponse: errorResponse, failureMessage: FlutterApiErrorMessage.MUTATE_FAILED.rawValue)
                     }
                 case .failure(let apiError):
                     print("GraphQL mutate operation failed: \(apiError)")
-                    FlutterApiErrorUtils.handleAPIError(flutterResult: flutterResult, error: apiError, msg: FlutterApiErrorMessage.MUTATE_FAILED.rawValue)
+                    FlutterApiError.handleAPIError(flutterResult: flutterResult, error: apiError, msg: FlutterApiErrorMessage.MUTATE_FAILED.rawValue)
                 }
             }
         } catch let error as APIError {
             print("Failed to parse mutate arguments with \(error)")
-            FlutterApiErrorUtils.handleAPIError(flutterResult: flutterResult, error: error, msg: FlutterApiErrorMessage.MALFORMED.rawValue)
+            FlutterApiError.handleAPIError(flutterResult: flutterResult, error: error, msg: FlutterApiErrorMessage.MALFORMED.rawValue)
         }
         catch {
             print("An unexpected error occured when parsing mutate arguments: \(error)")
-            let errorMap = FlutterApiErrorUtils.createErrorMap(localizedError: "\(error.localizedDescription).\nAn unrecognized error has occurred", recoverySuggestion: "See logs for details")
-            FlutterApiErrorUtils.postFlutterError(flutterResult: flutterResult, msg: FlutterApiErrorMessage.MALFORMED.rawValue, errorMap: errorMap)
+            let errorMap = FlutterApiError.createErrorMap(localizedError: "\(error.localizedDescription).\nAn unrecognized error has occurred", recoverySuggestion: "See logs for details")
+            FlutterApiError.postFlutterError(flutterResult: flutterResult, msg: FlutterApiErrorMessage.MALFORMED.rawValue, errorMap: errorMap)
         }
     }
 }
