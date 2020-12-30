@@ -58,11 +58,11 @@ class AmplifyClass extends PlatformInterface {
     if (!isConfigured) {
       try {
         if (plugin is AuthPluginInterface) {
-          Auth.addPlugin(plugin);
+          Auth.addPlugin(plugin as AuthPluginInterface);
         } else if (plugin is AnalyticsPluginInterface) {
-          Analytics.addPlugin(plugin);
+          Analytics.addPlugin(plugin as AnalyticsPluginInterface);
         } else if (plugin is StoragePluginInterface) {
-          Storage.addPlugin(plugin);
+          Storage.addPlugin(plugin as StoragePluginInterface);
         } else if (plugin is DataStorePluginInterface) {
           await DataStore.addPlugin(plugin);
         } else if (plugin is APIPluginInterface) {
