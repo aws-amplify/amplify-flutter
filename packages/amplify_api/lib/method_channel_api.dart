@@ -74,14 +74,14 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
 
   //TODO: Deserialize all fields of the GraphQLResponseError as per spec
   List<GraphQLResponseError> _deserializeGraphQLResponseErrors(
-      Map<String, dynamic> result) {
-    if (result['errors'] != null) {
-      final errors = result['errors'] as List;
+      Map<String, dynamic> response) {
+    if (response['errors'] != null) {
+      final errors = response['errors'] as List;
       if (errors.length > 0) {
-        final result = errors
+        final graphQLErrors = errors
             .map((message) => GraphQLResponseError(message: message))
             .toList();
-        return result;
+        return graphQLErrors;
       }
     }
     return [];
