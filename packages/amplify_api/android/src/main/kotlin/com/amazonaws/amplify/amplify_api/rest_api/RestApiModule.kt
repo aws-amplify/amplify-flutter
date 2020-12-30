@@ -87,7 +87,7 @@ class RestApiModule {
 
         fun prepareError(flutterResult: Result, msg: String, cancelToken: String, error: Exception) {
             if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
-            FlutterApiErrorUtils.createFlutterError(flutterResult, msg, error)
+            FlutterApiErrorUtils.postFlutterError(flutterResult, msg, error)
         }
 
         private fun prepareRestResponseResult(flutterResult: Result, result: RestResponse, methodName: String, cancelToken: String = "") {

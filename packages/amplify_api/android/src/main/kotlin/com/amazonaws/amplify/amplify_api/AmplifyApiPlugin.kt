@@ -65,7 +65,7 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
                 else -> result.notImplemented()
             }
         } catch (e: ClassCastException) {
-            FlutterApiErrorUtils.createFlutterError(
+            FlutterApiErrorUtils.postFlutterError(
                     result,
                     FlutterApiErrorMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString(),
                     e

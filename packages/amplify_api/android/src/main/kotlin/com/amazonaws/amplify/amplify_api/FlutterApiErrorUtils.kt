@@ -46,16 +46,16 @@ class FlutterApiErrorUtils {
             if (error.localizedMessage != null) {
                 localizedError = error.localizedMessage
             }
-            return createErrorMap(localizedError, recoverySuggestion)
+            return createErrorMap(localizedError, recoverySuggestion, error.toString())
         }
-        private fun createErrorMap(localizedError: String, recoverySuggestion: String?): Map<String, Any> {
+        private fun createErrorMap(localizedError: String, recoverySuggestion: String?, errorString: String? = ""): Map<String, Any> {
             var errorMap = HashMap<String, Any>()
 
             errorMap.put("PLATFORM_EXCEPTIONS", mapOf(
                     "platform" to "Android",
                     "localizedErrorMessage" to localizedError,
                     "recoverySuggestion" to recoverySuggestion,
-                    "errorString" to error.toString()
+                    "errorString" to errorString
             ))
             return errorMap
         }
@@ -70,7 +70,7 @@ class FlutterApiErrorUtils {
                     localizedMessage,
                     recoverySuggestion
             )
-            createFlutterError(flutterResult, msg, errorMap)
+            postFlutterError(flutterResult, msg, errorMap)
         }
 
     }
