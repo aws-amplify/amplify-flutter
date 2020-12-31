@@ -13,15 +13,16 @@
  * permissions and limitations under the License.
  */
 
-var ApiErrorTypes = [
-  'AMPLIFY_REQUEST_MALFORMED',
-  'ERROR_CASTING_INPUT_IN_PLATFORM_CODE',
-  'AMPLIFY_API_QUERY_FAILED',
-  'AMPLIFY_API_MUTATE_FAILED',
-  'AMPLIFY_API_GET_FAILED',
-  'AMPLIFY_API_POST_FAILED',
-  'AMPLIFY_API_PUT_FAILED',
-  'AMPLIFY_API_DELETE_FAILED',
-  'AMPLIFY_API_HEAD_FAILED',
-  'AMPLIFY_API_PATCH_FAILED'
-];
+package com.amazonaws.amplify.amplify_api.rest_api
+
+import com.amplifyframework.api.rest.RestResponse
+
+data class FlutterSerializedRestResponse(private var raw: RestResponse) {
+    val data: ByteArray = raw.data.rawBytes
+
+    fun toValueMap(): Map<String, Any> {
+        return mapOf(
+                "data" to data
+        )
+    }
+}

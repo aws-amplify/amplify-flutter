@@ -20,6 +20,8 @@ import android.os.Looper
 import androidx.annotation.NonNull
 import com.amplifyframework.api.ApiException
 import io.flutter.plugin.common.MethodChannel
+import io.flutter.plugin.common.MethodChannel.Result
+
 
 class FlutterApiError {
     companion object {
@@ -32,8 +34,6 @@ class FlutterApiError {
         }
 
         private fun createErrorMap(@NonNull error: Exception): Map<String, Any> {
-            var errorMap = HashMap<String, Any>()
-
             var localizedError = ""
             var recoverySuggestion = ""
             if (error is ApiException) {
@@ -42,6 +42,9 @@ class FlutterApiError {
             if (error.localizedMessage != null) {
                 localizedError = error.localizedMessage
             }
+
+            var errorMap = HashMap<String, Any>()
+
             errorMap["PLATFORM_EXCEPTIONS"] = mapOf(
                     "platform" to "Android",
                     "localizedErrorMessage" to localizedError,

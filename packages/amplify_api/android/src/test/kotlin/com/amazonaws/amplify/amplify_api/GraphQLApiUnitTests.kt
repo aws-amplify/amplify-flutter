@@ -61,6 +61,7 @@ class GraphQLApiUnitTests {
             }
         }"""
         testRequest["variables"] = HashMap<String, Any>();
+        testRequest["cancelToken"] = "someCode"
 
         val graphQLResponse: GraphQLResponse<String> = GraphQLResponse("result", null)
 
@@ -126,6 +127,7 @@ class GraphQLApiUnitTests {
             }
         }"""
         testRequest["variables"] = HashMap<String, Any>()
+        testRequest["cancelToken"] = "someCode"
 
         doAnswer { invocation ->
             Assert.assertEquals(
@@ -181,6 +183,7 @@ class GraphQLApiUnitTests {
         testRequest["variables"] = mapOf(
                 "name" to "Test App Blog"
         )
+        testRequest["cancelToken"] = "someCode"
 
         val graphQLResponse: GraphQLResponse<String> = GraphQLResponse("mutate result", null)
 
@@ -248,6 +251,7 @@ class GraphQLApiUnitTests {
         testRequest["variables"] = mapOf(
                 "name" to "Test App Blog"
         )
+        testRequest["cancelToken"] = "someCode"
 
         doAnswer { invocation ->
             Assert.assertEquals(

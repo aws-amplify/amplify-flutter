@@ -19,13 +19,15 @@ import Amplify
 import AmplifyPlugins
 
 public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
-    
+
     private let bridge: ApiBridge
-    
-    init(bridge: ApiBridge = ApiBridge()) {
+
+    init(
+        bridge: ApiBridge = ApiBridge()
+    ){
         self.bridge = bridge
     }
-    
+
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "com.amazonaws.amplify/api", binaryMessenger: registrar.messenger())
         let instance = SwiftAmplifyApiPlugin()
@@ -39,14 +41,52 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        let arguments = call.arguments as! Dictionary<String,AnyObject>
-        switch call.method {
-        case "query":
-            FlutterGraphQLApi.query(flutterResult: result, request: arguments, bridge: bridge)
-        case "mutate":
-            FlutterGraphQLApi.mutate(flutterResult: result, request: arguments, bridge: bridge)
-        default:
-            result(FlutterMethodNotImplemented)
+        innerHandle(method: call.method, callArgs: call.arguments as Any, result: result)
+    }
+
+    // Create separate method to allow unit testing as we cannot mock "FlutterMethodCall"
+    public func innerHandle(method: String, callArgs: Any, result: @escaping FlutterResult){
+
+        do {
+            if(method == "cancel"){
+                let cancelToken = try FlutterApiRequest.getCancelToken(args: callArgs)
+                onCancel(flutterResult: result, cancelToken: cancelToken)
+                return
+            }
+
+            let arguments = try FlutterApiRequest.getMap(args: callArgs as Any)
+            switch method {
+                case "get": FlutterRestApi.get(flutterResult: result, arguments: arguments, bridge: bridge)
+                case "post": FlutterRestApi.post(flutterResult: result, arguments: arguments, bridge: bridge)
+                case "put": FlutterRestApi.put(flutterResult: result, arguments: arguments, bridge: bridge)
+                case "delete": FlutterRestApi.delete(flutterResult: result, arguments: arguments, bridge: bridge)
+                case "head": FlutterRestApi.head(flutterResult: result, arguments: arguments, bridge: bridge)
+                case "patch": FlutterRestApi.patch(flutterResult: result, arguments: arguments, bridge: bridge)
+
+                case "query":
+                    FlutterGraphQLApi.query(flutterResult: result, request: arguments, bridge: bridge)
+                case "mutate":
+                    FlutterGraphQLApi.mutate(flutterResult: result, request: arguments, bridge: bridge)
+                default:
+                    result(FlutterMethodNotImplemented)
+            }
+        } catch let error {
+            print("Failed to parse query arguments with \(error)")
+            FlutterApiError.handleAPIError(flutterResult: result, error: error as! APIError, msg: FlutterApiErrorMessage.MALFORMED.rawValue)
         }
     }
+
+    public func onCancel(flutterResult: @escaping FlutterResult, cancelToken: String){
+        if(OperationsManager.containsOperation(cancelToken: cancelToken)){
+            OperationsManager.cancelOperation(cancelToken: cancelToken)
+            flutterResult("Operation Canceled")
+        }
+        else{
+            flutterResult(FlutterError(
+                            code: "AmplifyAPI-CancelError",
+                            message: "The Operation may have already been completed or expired and cannot be canceled anymore",
+                            details: "Operation does not exist"))
+        }
+    }
+
 }

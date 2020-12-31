@@ -24,14 +24,15 @@ class GraphQLApiUnitTests: XCTestCase {
     func test_query_success() throws {
         let testRequest: [String: Any] = [
             "document": "test document",
-            "variables": ["test key": "test value"]
+            "variables": ["test key": "test value"],
+            "cancelToken" : "someCode"
         ]
         
         class MockApiBridge: ApiBridge {
             override func query<ResultType>(request: GraphQLRequest<ResultType>, listener: GraphQLOperation<ResultType>.ResultListener?) -> GraphQLOperation<ResultType>  {
                 XCTAssertEqual("test document", request.document)
                 XCTAssertEqual(["test key":"test value"], request.variables as! [String:String])
-                
+
                 let data: ResultType = "result data" as! ResultType
                 let response = GraphQLResponse<ResultType>.success(data)
                 listener?(.success(response))
@@ -42,7 +43,7 @@ class GraphQLApiUnitTests: XCTestCase {
         }
         
         let pluginUnderTest = SwiftAmplifyApiPlugin(bridge: MockApiBridge())
-        
+
         pluginUnderTest.handle(
             FlutterMethodCall(methodName: "query", arguments: testRequest),
             result: { (result) in
@@ -53,7 +54,8 @@ class GraphQLApiUnitTests: XCTestCase {
     func test_query_api_error() throws {
         let testRequest: [String: Any] = [
             "document": "test document",
-            "variables": ["test key":"test value"]
+            "variables": ["test key":"test value"],
+            "cancelToken" : "someCode"
         ]
         
         class MockApiBridge: ApiBridge {
@@ -124,7 +126,8 @@ class GraphQLApiUnitTests: XCTestCase {
     func test_mutate_success() throws {
         let testRequest: [String: Any] = [
             "document": "test document",
-            "variables": ["test key":"test value"]
+            "variables": ["test key":"test value"],
+            "cancelToken" : "someCode"
         ]
         
         class MockApiBridge: ApiBridge {
@@ -153,7 +156,8 @@ class GraphQLApiUnitTests: XCTestCase {
     func test_mutate_api_error() throws {
         let testRequest: [String: Any] = [
             "document": "test document",
-            "variables": ["test key":"test value"]
+            "variables": ["test key":"test value"],
+            "cancelToken" : "someCode"
         ]
         
         class MockApiBridge: ApiBridge {

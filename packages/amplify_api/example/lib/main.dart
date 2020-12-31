@@ -13,10 +13,13 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/material.dart';
-import 'dart:async';
+import 'dart:typed_data';
+
 import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_api_example/graphql_api_view.dart';
+import 'package:amplify_api_example/rest_api_view.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:flutter/material.dart';
 import 'amplifyconfiguration.dart';
 
 void main() {
@@ -29,70 +32,37 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _result = '';
   bool _isAmplifyConfigured = false;
-  Amplify amplify = new Amplify();
+  bool _showRestApiView = true;
+
+  Amplify amplify = Amplify();
+  AmplifyAPI apiRest;
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
+    _configureAmplify();
   }
 
-  Future<void> initPlatformState() async {
-    AmplifyAPI apiPlugin = AmplifyAPI();
+  void _configureAmplify() async {
+    apiRest = AmplifyAPI();
 
-    await amplify.addPlugin(apiPlugins: [apiPlugin]);
-
-    // Configure
+    await amplify.addPlugin(apiPlugins: [apiRest]);
     await amplify.configure(amplifyconfig);
     setState(() {
       _isAmplifyConfigured = true;
     });
   }
 
-  query() async {
-    String graphQLDocument = '''query MyQuery {
-      listBlogs {
-        items {
-          id
-          name
-          createdAt
-        }
-      }
-    }''';
-
-    var operation = await Amplify.API
-        .query(request: GraphQLRequest<String>(document: graphQLDocument));
-
-    var response = await operation.response;
-    var data = response.data;
-
-    print('Result data: ' + data);
+  void _onRestApiViewButtonClick() {
     setState(() {
-      _result = data;
+      _showRestApiView = true;
     });
   }
 
-  mutate() async {
-    String graphQLDocument = '''mutation MyMutation(\$name: String!) {
-      createBlog(input: {name: \$name}) {
-        id
-        name
-        createdAt
-      }
-    }''';
-
-    var operation = await Amplify.API.mutate(
-        request: GraphQLRequest<String>(
-            document: graphQLDocument, variables: {"name": "Test App Blog"}));
-
-    var response = await operation.response;
-    var data = response.data;
-
-    print('Result data: ' + data);
+  void _onGraphQlApiViewButtonClick() {
     setState(() {
-      _result = data;
+      _showRestApiView = false;
     });
   }
 
@@ -100,33 +70,22 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('API example app'),
-        ),
-        body: Center(
-          child: ListView(
-            padding: EdgeInsets.all(5.0),
-            children: <Widget>[
-              Padding(padding: EdgeInsets.all(10.0)),
-              Center(
-                child: RaisedButton(
-                  onPressed: _isAmplifyConfigured ? query : null,
-                  child: Text('Run Query'),
-                ),
-              ),
-              Padding(padding: EdgeInsets.all(10.0)),
-              Center(
-                child: RaisedButton(
-                  onPressed: _isAmplifyConfigured ? mutate : null,
-                  child: Text('Run Mutation'),
-                ),
-              ),
-              Padding(padding: EdgeInsets.all(5.0)),
-              Text('Result: \n$_result\n'),
-            ],
-          ),
-        ),
-      ),
+          appBar: AppBar(
+              title: Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Row(children: [
+                    RaisedButton(
+                        child: Text("Rest API"),
+                        onPressed: _onRestApiViewButtonClick),
+                    RaisedButton(
+                        child: Text("GraphQL API"),
+                        onPressed: _onGraphQlApiViewButtonClick)
+                  ]))),
+          body: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: _showRestApiView == true
+                  ? RestApiView()
+                  : GraphQLApiView(isAmplifyConfigured: _isAmplifyConfigured))),
     );
   }
 }

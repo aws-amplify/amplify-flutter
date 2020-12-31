@@ -13,9 +13,16 @@
  * permissions and limitations under the License.
  */
 
-export './GraphQLRequest.dart';
-export './GraphQLOperation.dart';
-export './GraphQLResponse.dart';
-export './GraphQLResponseError.dart';
+export 'GraphQL/GraphQLRequest.dart';
+export 'GraphQL/GraphQLOperation.dart';
+export 'GraphQL/GraphQLResponse.dart';
+export 'GraphQL/GraphQLResponseError.dart';
+
+export 'RestAPI/RestOperation.dart';
+export 'RestAPI/RestOptions.dart';
+export 'RestAPI/RestResponse.dart';
+
+export 'UUID.dart';
+
 export './errors/api_error.dart';
 export './errors/api_error_types.dart';

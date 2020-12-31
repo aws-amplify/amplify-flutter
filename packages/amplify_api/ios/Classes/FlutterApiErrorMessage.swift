@@ -19,4 +19,24 @@ enum FlutterApiErrorMessage: String {
     case MALFORMED = "AMPLIFY_REQUEST_MALFORMED"
     case QUERY_FAILED = "AMPLIFY_API_QUERY_FAILED"
     case MUTATE_FAILED = "AMPLIFY_API_MUTATE_FAILED"
+    case GET_FAILED = "AMPLIFY_API_GET_FAILED"
+    case PUT_FAILED = "AMPLIFY_API_PUT_FAILED"
+    case POST_FAILED = "AMPLIFY_API_POST_FAILED"
+    case DELETE_FAILED = "AMPLIFY_API_DELETE_FAILED"
+    case HEAD_FAILED = "AMPLIFY_API_HEAD_FAILED"
+    case PATCH_FAILED = "AMPLIFY_API_PATCH_FAILED"
+
+    
+    public static func getErrorForApi(methodName: String) -> String{
+        switch methodName {
+            case "get": return FlutterApiErrorMessage.GET_FAILED.rawValue
+            case "post": return FlutterApiErrorMessage.POST_FAILED.rawValue
+            case "put": return FlutterApiErrorMessage.PUT_FAILED.rawValue
+            case "delete": return FlutterApiErrorMessage.DELETE_FAILED.rawValue
+            case "head": return FlutterApiErrorMessage.HEAD_FAILED.rawValue
+            case "patch": return FlutterApiErrorMessage.PATCH_FAILED.rawValue
+            default: return FlutterApiErrorMessage.MALFORMED.rawValue
+        }
+    }
 }
+

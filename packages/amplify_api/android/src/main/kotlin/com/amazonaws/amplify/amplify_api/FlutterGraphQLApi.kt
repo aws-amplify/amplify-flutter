@@ -31,10 +31,12 @@ class FlutterGraphQLApi {
         fun query(flutterResult: MethodChannel.Result, request: Map<String, Any>) {
             var document: String
             var variables: Map<String, Any>
+            var cancelToken: String
 
             try {
                 document = FlutterApiRequest.getGraphQLDocument(request)
                 variables = FlutterApiRequest.getVariables(request)
+                cancelToken = FlutterApiRequest.getCancelToken(request)
             } catch (e: Exception) {
                 FlutterApiError.postFlutterError(
                         flutterResult,
@@ -42,7 +44,7 @@ class FlutterGraphQLApi {
                         e)
                 return
             }
-            Amplify.API.query(
+            var operation = Amplify.API.query(
                     SimpleGraphQLRequest<String>(
                             document,
                             variables,
@@ -50,6 +52,8 @@ class FlutterGraphQLApi {
                             GsonVariablesSerializer()
                     ),
                     { response ->
+                        if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
+
                         var result: Map<String, Any> = mapOf(
                                 "data" to response.data,
                                 "errors" to response.errors.map { it.message }
@@ -58,6 +62,8 @@ class FlutterGraphQLApi {
                         handler.post { flutterResult.success(result) }
                     },
                     {
+                        if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
+
                         LOG.error("GraphQL query operation failed", it)
                         FlutterApiError.postFlutterError(
                                 flutterResult,
@@ -65,16 +71,21 @@ class FlutterGraphQLApi {
                                 it)
                     }
             )
+            if (operation != null) {
+                OperationsManager.addOperation(cancelToken, operation)
+            }
         }
 
         @JvmStatic
         fun mutate(flutterResult: MethodChannel.Result, request: Map<String, Any>) {
             var document: String
             var variables: Map<String, Any>
+            var cancelToken: String
 
             try {
                 document = FlutterApiRequest.getGraphQLDocument(request)
                 variables = FlutterApiRequest.getVariables(request)
+                cancelToken = FlutterApiRequest.getCancelToken(request)
             } catch (e: Exception) {
                 FlutterApiError.postFlutterError(
                         flutterResult,
@@ -82,7 +93,7 @@ class FlutterGraphQLApi {
                         e)
                 return
             }
-            Amplify.API.mutate(
+            var operation = Amplify.API.mutate(
                     SimpleGraphQLRequest<String>(
                             document,
                             variables,
@@ -90,6 +101,8 @@ class FlutterGraphQLApi {
                             GsonVariablesSerializer()
                     ),
                     { response ->
+                        if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
+
                         var result: Map<String, Any> = mapOf(
                                 "data" to response.data,
                                 "errors" to response.errors.map { it.message }
@@ -98,6 +111,8 @@ class FlutterGraphQLApi {
                         handler.post { flutterResult.success(result) }
                     },
                     {
+                        if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
+
                         LOG.error("GraphQL mutate operation failed", it)
                         FlutterApiError.postFlutterError(
                                 flutterResult,
@@ -105,6 +120,9 @@ class FlutterGraphQLApi {
                                 it)
                     }
             )
+            if (operation != null) {
+                OperationsManager.addOperation(cancelToken, operation)
+            }
         }
     }
 }

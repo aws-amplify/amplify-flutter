@@ -13,15 +13,19 @@
  * permissions and limitations under the License.
  */
 
-var ApiErrorTypes = [
-  'AMPLIFY_REQUEST_MALFORMED',
-  'ERROR_CASTING_INPUT_IN_PLATFORM_CODE',
-  'AMPLIFY_API_QUERY_FAILED',
-  'AMPLIFY_API_MUTATE_FAILED',
-  'AMPLIFY_API_GET_FAILED',
-  'AMPLIFY_API_POST_FAILED',
-  'AMPLIFY_API_PUT_FAILED',
-  'AMPLIFY_API_DELETE_FAILED',
-  'AMPLIFY_API_HEAD_FAILED',
-  'AMPLIFY_API_PATCH_FAILED'
-];
+import 'package:flutter/foundation.dart';
+
+import './RestResponse.dart';
+
+class RestOperation {
+  Function _cancel;
+  Future<RestResponse> response;
+
+  RestOperation({@required this.response, @required Function cancel}) {
+    _cancel = cancel;
+  }
+
+  void cancel() {
+    _cancel();
+  }
+}
