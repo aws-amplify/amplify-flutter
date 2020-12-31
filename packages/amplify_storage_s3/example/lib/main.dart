@@ -60,18 +60,21 @@ class _MyAppState extends State<MyApp> {
     try {
       print('In upload');
       // Uploading the file with options
-      File local = await FilePicker.getFile(type: FileType.image);
-      final key = new DateTime.now().toString();
-      Map<String, String> metadata = <String, String>{};
-      metadata['name'] = 'filename';
-      metadata['desc'] = 'A test file';
-      S3UploadFileOptions options = S3UploadFileOptions(
-          accessLevel: StorageAccessLevel.guest, metadata: metadata);
-      UploadFileResult result = await Amplify.Storage.uploadFile(
-          key: key, local: local, options: options);
-      setState(() {
-        _uploadFileResult = result.key;
-      });
+      FilePickerResult choice = await FilePicker.platform.pickFiles(type: FileType.image, allowMultiple: false);
+      if (choice != null) {
+        File local = File(choice.files.first.path);
+        final key = new DateTime.now().toString();
+        Map<String, String> metadata = <String, String>{};
+        metadata['name'] = 'filename';
+        metadata['desc'] = 'A test file';
+        S3UploadFileOptions options = S3UploadFileOptions(
+            accessLevel: StorageAccessLevel.guest, metadata: metadata);
+        UploadFileResult result = await Amplify.Storage.uploadFile(
+            key: key, local: local, options: options);
+        setState(() {
+          _uploadFileResult = result.key;
+        });
+       }
     } catch (e) {
       print('UploadFile Err: ' + e.toString());
     }
