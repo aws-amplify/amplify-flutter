@@ -27,15 +27,15 @@ enum FlutterApiErrorMessage: String {
     case PATCH_FAILED = "AMPLIFY_API_PATCH_FAILED"
 
     
-    public static func stringToAPIRestError(methodName: String) -> FlutterApiErrorMessage{
+    public static func getErrorForApi(methodName: String) -> String{
         switch methodName {
-            case "get": return .GET_FAILED
-            case "post": return .POST_FAILED
-            case "put": return .PUT_FAILED
-            case "delete": return .DELETE_FAILED
-            case "head": return .HEAD_FAILED
-            case "patch": return .PATCH_FAILED
-            default: return .MALFORMED
+            case "get": return FlutterApiErrorMessage.GET_FAILED.rawValue
+            case "post": return FlutterApiErrorMessage.POST_FAILED.rawValue
+            case "put": return FlutterApiErrorMessage.PUT_FAILED.rawValue
+            case "delete": return FlutterApiErrorMessage.DELETE_FAILED.rawValue
+            case "head": return FlutterApiErrorMessage.HEAD_FAILED.rawValue
+            case "patch": return FlutterApiErrorMessage.PATCH_FAILED.rawValue
+            default: return FlutterApiErrorMessage.MALFORMED.rawValue
         }
     }
 }

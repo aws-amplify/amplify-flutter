@@ -297,7 +297,11 @@ class AmplifyApiRestTest {
                     For more information on HTTP status codes, take a look at
                     https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
                     """,
-                                "errorString" to ""
+                                "errorString" to """ApiException{message=The HTTP response status code is [400]., cause=null, recoverySuggestion=
+                    The metadata associated with the response is contained in the HTTPURLResponse.
+                    For more information on HTTP status codes, take a look at
+                    https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+                    }"""
                         )
                 )
         )

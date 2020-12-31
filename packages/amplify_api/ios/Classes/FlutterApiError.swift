@@ -22,7 +22,7 @@ class FlutterApiError {
     
     static func handleAPIError(flutterResult: @escaping FlutterResult, error: APIError, msg: String, rawResponse: String? = nil) {
         var errorMap =
-            createErrorMap(localizedError: error.errorDescription , recoverySuggestion: error.recoverySuggestion)
+            createErrorMap(localizedError:  error.errorDescription, recoverySuggestion: error.recoverySuggestion)
         if(rawResponse != nil) {
             errorMap["rawResponse"] = rawResponse
         }

@@ -6,6 +6,7 @@ import com.amazonaws.amplify.amplify_api.FlutterApiErrorMessage
 import com.amazonaws.amplify.amplify_api.FlutterApiError
 import com.amazonaws.amplify.amplify_api.FlutterApiRequest
 import com.amazonaws.amplify.amplify_api.OperationsManager
+import com.amplifyframework.AmplifyException
 import com.amplifyframework.api.ApiException
 import com.amplifyframework.api.rest.RestOperation
 import com.amplifyframework.api.rest.RestOptions
@@ -105,11 +106,12 @@ class FlutterRestApi {
                 '}';
              */
             if (!result.code.isSuccessful) {
-                FlutterApiError.handleAPIError(
+                FlutterApiError.postFlutterError(
                         flutterResult,
                         FlutterApiErrorMessage.getErrorForApi(methodName),
-                        "The HTTP response status code is [" + result.code.toString().substring(16, 19) + "].",
-                        recoverySuggestion
+                        ApiException(
+                                "The HTTP response status code is [" + result.code.toString().substring(16, 19) + "].",
+                                recoverySuggestion)
                 )
                 return
             } else {

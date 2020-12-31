@@ -39,7 +39,7 @@ public class FlutterRestApi {
                         FlutterApiError.handleAPIError(
                             flutterResult: flutterResult,
                             error: apiError,
-                            msg: FlutterApiErrorMessage.stringToAPIRestError(methodName: methodName).rawValue
+                            msg: FlutterApiErrorMessage.getErrorForApi(methodName: methodName)
                         )
                 }
             }

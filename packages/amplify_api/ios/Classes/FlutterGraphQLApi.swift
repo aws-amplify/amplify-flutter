@@ -62,6 +62,7 @@ class FlutterGraphQLApi {
                     print("GraphQL query operation failed: \(apiError)")
                     FlutterApiError.handleAPIError(flutterResult: flutterResult, error: apiError, msg: FlutterApiErrorMessage.QUERY_FAILED.rawValue)
                 }}
+            OperationsManager.addOperation(cancelToken: cancelToken, operation: operation)
 
         } catch let error as APIError {
             print("Failed to parse query arguments with \(error)")
@@ -118,6 +119,8 @@ class FlutterGraphQLApi {
                     FlutterApiError.handleAPIError(flutterResult: flutterResult, error: apiError, msg: FlutterApiErrorMessage.MUTATE_FAILED.rawValue)
                 }
             }
+            OperationsManager.addOperation(cancelToken: cancelToken, operation: operation)
+
         } catch let error as APIError {
             print("Failed to parse mutate arguments with \(error)")
             FlutterApiError.handleAPIError(flutterResult: flutterResult, error: error, msg: FlutterApiErrorMessage.MALFORMED.rawValue)

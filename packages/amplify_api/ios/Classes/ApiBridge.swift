@@ -18,39 +18,36 @@ import AmplifyPlugins
 import Flutter
 
 public class ApiBridge {
-    
-    func get(request: RESTRequest, listener: ((AmplifyOperation<RESTOperationRequest, Data, APIError>.OperationResult) -> Void)?) -> RESTOperation?{
+        
+    func get(request: RESTRequest, listener: RESTOperation.ResultListener?) -> RESTOperation?{
         return Amplify.API.get(request: request, listener: listener)
     }
     
-    func put(request: RESTRequest, listener: ((AmplifyOperation<RESTOperationRequest, Data, APIError>.OperationResult) -> Void)?) -> RESTOperation?{
+    func put(request: RESTRequest, listener: RESTOperation.ResultListener?) -> RESTOperation?{
         return Amplify.API.put(request: request, listener: listener)
     }
 
-    func post(request: RESTRequest, listener: ((AmplifyOperation<RESTOperationRequest, Data, APIError>.OperationResult) -> Void)?) -> RESTOperation?{
+    func post(request: RESTRequest, listener: RESTOperation.ResultListener?) -> RESTOperation?{
         return Amplify.API.post(request: request, listener: listener)
     }
     
-    func delete(request: RESTRequest, listener: ((AmplifyOperation<RESTOperationRequest, Data, APIError>.OperationResult) -> Void)?) -> RESTOperation?{
+    func delete(request: RESTRequest, listener: RESTOperation.ResultListener?) -> RESTOperation?{
         return Amplify.API.delete(request: request, listener: listener)
     }
     
-    func head(request: RESTRequest, listener: ((AmplifyOperation<RESTOperationRequest, Data, APIError>.OperationResult) -> Void)?) -> RESTOperation?{
+    func head(request: RESTRequest, listener: RESTOperation.ResultListener?) -> RESTOperation?{
         return Amplify.API.head(request: request, listener: listener)
     }
 
-    func patch(request: RESTRequest, listener: ((AmplifyOperation<RESTOperationRequest, Data, APIError>.OperationResult) -> Void)?) -> RESTOperation?{
+    func patch(request: RESTRequest, listener: RESTOperation.ResultListener?) -> RESTOperation?{
         return Amplify.API.patch(request: request, listener: listener)
     }
 
-
-    @discardableResult
     public func query<R: Decodable>(request: GraphQLRequest<R>,
                                     listener: GraphQLOperation<R>.ResultListener?) -> GraphQLOperation<R> {
         return Amplify.API.query(request: request, listener: listener)
     }
 
-    @discardableResult
     public func mutate<R: Decodable>(request: GraphQLRequest<R>,
                                      listener: GraphQLOperation<R>.ResultListener?) -> GraphQLOperation<R> {
         return Amplify.API.mutate(request: request, listener: listener)

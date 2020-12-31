@@ -138,6 +138,8 @@ class RestApiUnitTests: XCTestCase {
     }
 
     func test_get_status_code_error() throws {
+        
+        
         class MockApiBridge: ApiBridge {
             override func get(request: RESTRequest, listener: ((AmplifyOperation<RESTOperationRequest, Data, APIError>.OperationResult) -> Void)?) -> RESTOperation?{
                 
@@ -149,7 +151,6 @@ class RestApiUnitTests: XCTestCase {
             }
         }
         
-        let data : Data = "{\"error\":\"get call failed!\"}".data(using: .utf8)!
         pluginUnderTest = SwiftAmplifyApiPlugin(bridge: MockApiBridge())
         
         pluginUnderTest.innerHandle(
@@ -169,9 +170,11 @@ class RestApiUnitTests: XCTestCase {
 
                 let errorMap = (apiException.details as! [String: [String: String]])
                 
-                XCTAssertEqual(errorMap["PLATFORM_EXCEPTIONS"]!["platform"], "iOS");
-                XCTAssertEqual(errorMap["PLATFORM_EXCEPTIONS"]!["localizedErrorMessage"], "The HTTP response status code is [400].");
-                XCTAssertEqual(errorMap["PLATFORM_EXCEPTIONS"]!["recoverySuggestion"], "The metadata associated with the response is contained in the HTTPURLResponse.\nFor more information on HTTP status codes, take a look at\nhttps://en.wikipedia.org/wiki/List_of_HTTP_status_codes");
+                let referenceError = APIError.httpStatusError(400, HTTPURLResponse())
+                
+                XCTAssertEqual(errorMap["PLATFORM_EXCEPTIONS"]!["platform"], "iOS")
+                XCTAssertEqual(errorMap["PLATFORM_EXCEPTIONS"]!["localizedErrorMessage"], referenceError.errorDescription)
+                XCTAssertEqual(errorMap["PLATFORM_EXCEPTIONS"]!["recoverySuggestion"], referenceError.recoverySuggestion)
             }
         )
     }
@@ -186,7 +189,6 @@ class RestApiUnitTests: XCTestCase {
             }
         }
         
-        let data : Data = "{\"error\":\"get call failed!\"}".data(using: .utf8)!
         pluginUnderTest = SwiftAmplifyApiPlugin(bridge: MockApiBridge())
         
         pluginUnderTest.innerHandle(

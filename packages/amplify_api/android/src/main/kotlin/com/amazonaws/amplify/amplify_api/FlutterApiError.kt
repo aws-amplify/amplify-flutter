@@ -28,10 +28,6 @@ class FlutterApiError {
         private val handler = Handler(Looper.getMainLooper())
 
         @JvmStatic
-        fun postFlutterError(flutterResult: Result, msg: String, errorMap: Map<String, Any>) {
-            handler.post { flutterResult.error("AmplifyException", msg, errorMap) }
-        }
-        @JvmStatic
         fun postFlutterError(flutterResult: MethodChannel.Result, msg: String, @NonNull error: Exception) {
             val errorMap = createErrorMap(error)
             handler.post { flutterResult.error("AmplifyException", msg, errorMap) }
@@ -46,32 +42,16 @@ class FlutterApiError {
             if (error.localizedMessage != null) {
                 localizedError = error.localizedMessage
             }
-            return createErrorMap(localizedError, recoverySuggestion, error.toString())
-        }
-        private fun createErrorMap(localizedError: String, recoverySuggestion: String?, errorString: String? = ""): Map<String, Any> {
+
             var errorMap = HashMap<String, Any>()
 
-            errorMap.put("PLATFORM_EXCEPTIONS", mapOf(
+            errorMap["PLATFORM_EXCEPTIONS"] = mapOf(
                     "platform" to "Android",
                     "localizedErrorMessage" to localizedError,
                     "recoverySuggestion" to recoverySuggestion,
-                    "errorString" to errorString
-            ))
+                    "errorString" to error.toString()
+            )
             return errorMap
         }
-
-        fun handleAPIError(
-                flutterResult: Result,
-                msg: String,
-                localizedMessage: String,
-                recoverySuggestion: String
-        ) {
-            var errorMap = createErrorMap(
-                    localizedMessage,
-                    recoverySuggestion
-            )
-            postFlutterError(flutterResult, msg, errorMap)
-        }
-
     }
 }
