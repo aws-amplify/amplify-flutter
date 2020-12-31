@@ -155,6 +155,8 @@ class AmplifyApiRestTest {
                 any<Consumer<ApiException>>()
         )
         // While the RestOptions are equal, a Kotlin bug registers the results as different
+        // All other fields are correctly compared except for "body" of type byte[]
+        // If there are two byte[] with the exact same data, the assertEquals will fail
         /*
         assertEquals(
                 RestOptions.builder()
@@ -379,12 +381,6 @@ class AmplifyApiRestTest {
                 mockCancelResult
         )
 
-        verify(mockResult, times(0)).success(
-                mapOf(
-                        "data" to restResponse.data.rawBytes
-                )
-        )
-
         verify(mockCancelResult).success(
                 "Operation Canceled"
         )
@@ -405,8 +401,61 @@ class AmplifyApiRestTest {
         )
 
         verify(mockCancelResult).error(
-                "AmplifyRestAPI-CancelError",
-                "The RestOperation may have already completed or expired and cannot be canceled anymore",
+                "AmplifyAPI-CancelError",
+                "The Operation may have already been completed or expired and cannot be canceled anymore",
+                "Operation does not exist"
+        )
+    }
+
+    @Test
+    fun test_multiple_cancel_success(){
+
+        var data = getSuccessData
+        var restResponse = RestResponse(200, data)
+        var cancelToken = "someCode"
+
+        Mockito.doAnswer { invocation ->
+            Assert.assertEquals(
+                    RestOptions.builder().addPath("/items").build(),
+                    invocation.arguments[0]
+            )
+            mockRestOperation
+        }.`when`(mockApi).get(
+                any(RestOptions::class.java),
+                any(),
+                any())
+
+        var arguments : Map<String, Any> = mapOf(
+                "restOptions" to mapOf(
+                        "path" to "/items"
+                ),
+                "cancelToken" to cancelToken
+        )
+
+        flutterPlugin.onMethodCall(
+                MethodCall("get", arguments),
+                mockResult
+        )
+
+        val mockCancelResult: MethodChannel.Result = mock(MethodChannel.Result::class.java)
+
+        flutterPlugin.onMethodCall(
+                MethodCall("cancel", cancelToken),
+                mockCancelResult
+        )
+
+        verify(mockCancelResult).success(
+                "Operation Canceled"
+        )
+
+        flutterPlugin.onMethodCall(
+                MethodCall("cancel", cancelToken),
+                mockCancelResult
+        )
+
+        verify(mockCancelResult).error(
+                "AmplifyAPI-CancelError",
+                "The Operation may have already been completed or expired and cannot be canceled anymore",
                 "Operation does not exist"
         )
     }
@@ -420,10 +469,4 @@ class AmplifyApiRestTest {
         field.set(null, newValue)
     }
 
-    /*
-    Attempting to fix broken equality comparison for ByteArray - currently not working
-    fun ByteArray.equals(a: ByteArray, b: ByteArray): Boolean {
-        return a.toString() == b.toString()
-    }
-     */
 }

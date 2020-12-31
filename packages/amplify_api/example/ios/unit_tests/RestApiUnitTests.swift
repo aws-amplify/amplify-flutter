@@ -261,8 +261,62 @@ class RestApiUnitTests: XCTestCase {
             result: { (results) in
                 let errorResult = results as! FlutterError
                 
-                XCTAssertEqual(errorResult.code, "AmplifyRestAPI-CancelError")
-                XCTAssertEqual(errorResult.message,"The RestOperation may have already completed or expired and cannot be canceled anymore")
+                XCTAssertEqual(errorResult.code, "AmplifyAPI-CancelError")
+                XCTAssertEqual(errorResult.message,"The Operation may have already been completed or expired and cannot be canceled anymore")
+                XCTAssertEqual(errorResult.details as! String, "Operation does not exist")
+            }
+        )
+
+    }
+    
+    func test_multiple_cancel_success() throws {
+        class MockApiBridge: ApiBridge {
+            override func get(request: RESTRequest, listener: ((AmplifyOperation<RESTOperationRequest, Data, APIError>.OperationResult) -> Void)?) -> RESTOperation?{
+                
+                XCTAssertEqual(request.path, "/items")
+                
+                let request = RESTOperationRequest(apiName: request.apiName,
+                                                           operationType: .get,
+                                                           path: request.path,
+                                                           queryParameters: request.queryParameters,
+                                                           body: request.body,
+                                                           options: RESTOperationRequest.Options())
+                let operation = MockAPIOperation(request: request)
+                return operation
+            }
+        }
+        
+        pluginUnderTest = SwiftAmplifyApiPlugin(bridge: MockApiBridge())
+        
+        pluginUnderTest.innerHandle(
+            method: "get",
+            callArgs: [
+                "restOptions" : [
+                    "path" : "/items"
+                ],
+                "cancelToken" : "someCode"
+            ],
+            result: { (results) in
+                XCTFail()
+            }
+        )
+        
+        pluginUnderTest.innerHandle(
+            method: "cancel",
+            callArgs: "someCode",
+            result: { (results) in
+                XCTAssertEqual(results as! String, "Operation Canceled")
+            }
+        )
+        
+        pluginUnderTest.innerHandle(
+            method: "cancel",
+            callArgs: "nonexistentCode",
+            result: { (results) in
+                let errorResult = results as! FlutterError
+                
+                XCTAssertEqual(errorResult.code, "AmplifyAPI-CancelError")
+                XCTAssertEqual(errorResult.message,"The Operation may have already been completed or expired and cannot be canceled anymore")
                 XCTAssertEqual(errorResult.details as! String, "Operation does not exist")
             }
         )

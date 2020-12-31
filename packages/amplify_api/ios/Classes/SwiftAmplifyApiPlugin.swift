@@ -83,8 +83,8 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
         }
         else{
             flutterResult(FlutterError(
-                            code: "AmplifyRestAPI-CancelError",
-                            message: "The RestOperation may have already completed or expired and cannot be canceled anymore",
+                            code: "AmplifyAPI-CancelError",
+                            message: "The Operation may have already been completed or expired and cannot be canceled anymore",
                             details: "Operation does not exist"))
         }
     }

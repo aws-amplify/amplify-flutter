@@ -17,8 +17,6 @@ package com.amazonaws.amplify.amplify_api.rest_api
 
 import com.amplifyframework.api.rest.RestResponse
 
-import com.google.gson.Gson
-
 data class FlutterSerializedRestResponse(private var raw: RestResponse) {
     val data: ByteArray = raw.data.rawBytes
 

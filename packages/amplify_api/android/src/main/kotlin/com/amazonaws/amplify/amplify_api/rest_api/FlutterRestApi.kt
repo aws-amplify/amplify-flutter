@@ -57,10 +57,14 @@ class FlutterRestApi {
             }
 
             try {
+                var operation: RestOperation?
                 if (apiName == null) {
-                    var operation: RestOperation? = functionWithoutApiName(options,
-                            Consumer { result -> prepareRestResponseResult(flutterResult, result, methodName, cancelToken) },
+                    operation = functionWithoutApiName(options,
+                            Consumer { result ->
+                                if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
+                                prepareRestResponseResult(flutterResult, result, methodName) },
                             Consumer { error ->
+                                if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
                                 prepareError(
                                         flutterResult,
                                         FlutterApiErrorMessage.stringToAPIRestError(methodName).toString(),
@@ -68,13 +72,15 @@ class FlutterRestApi {
                                         error)
                             }
                     )
-                    OperationsManager.addOperation(cancelToken, operation!!)
                 } else {
-                    var operation: RestOperation? = functionWithApiName(
+                    operation = functionWithApiName(
                             apiName,
                             options,
-                            Consumer { result -> prepareRestResponseResult(flutterResult, result, methodName, cancelToken) },
+                            Consumer { result ->
+                                if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
+                                prepareRestResponseResult(flutterResult, result, methodName) },
                             Consumer { error ->
+                                if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
                                 prepareError(
                                         flutterResult,
                                         FlutterApiErrorMessage.stringToAPIRestError(methodName).toString(),
@@ -82,8 +88,8 @@ class FlutterRestApi {
                                         error)
                             }
                     )
-                    OperationsManager.addOperation(cancelToken, operation!!)
                 }
+                OperationsManager.addOperation(cancelToken, operation!!)
 
             } catch (e: Exception) {
                 prepareError(
@@ -95,17 +101,19 @@ class FlutterRestApi {
         }
 
         fun prepareError(flutterResult: Result, msg: String, cancelToken: String, error: Exception) {
-            if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
             FlutterApiError.postFlutterError(flutterResult, msg, error)
         }
 
-        private fun prepareRestResponseResult(flutterResult: Result, result: RestResponse, methodName: String, cancelToken: String = "") {
+        private fun prepareRestResponseResult(flutterResult: Result, result: RestResponse, methodName: String) {
 
             var restResponse = FlutterSerializedRestResponse(result)
 
-            if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
-
             // if code is not 200 then throw an exception
+            /*
+            result.code.toString = "Code{" +
+                "statusCode=" + statusCode +
+                '}';
+             */
             if (!result.code.isSuccessful) {
                 FlutterApiError.handleAPIError(
                         flutterResult,
