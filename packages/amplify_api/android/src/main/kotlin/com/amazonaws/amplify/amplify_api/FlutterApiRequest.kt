@@ -29,14 +29,14 @@ class FlutterApiRequest {
                 var restOptions = arguments["restOptions"] as Map<String, Any>
                 var cancelToken = arguments["cancelToken"] as String
             } catch (e: ClassCastException) {
-                FlutterApiErrorUtils.postFlutterError(
+                FlutterApiError.postFlutterError(
                         flutterResult,
                         FlutterApiErrorMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString(),
                         e
                 )
                 return false;
             } catch (e: Exception) {
-                FlutterApiErrorUtils.postFlutterError(
+                FlutterApiError.postFlutterError(
                         flutterResult,
                         FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString(),
                         e

@@ -47,7 +47,6 @@ class AmplifyApiRestTest {
     lateinit var flutterPlugin: AmplifyApiPlugin
 
     private var mockApi = mock(ApiCategory::class.java)
-    private var mockAWSApiPlugin = mock(AWSApiPlugin::class.java)
 
     private val mockResult: MethodChannel.Result = mock(MethodChannel.Result::class.java)
     private val mockRestOperation: RestOperation = mock(RestOperation::class.java)

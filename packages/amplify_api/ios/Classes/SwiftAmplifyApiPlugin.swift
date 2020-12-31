@@ -49,19 +49,19 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
 
         do {
             if(method == "cancel"){
-                let cancelToken = try FlutterApiRequestUtils.getCancelToken(args: callArgs)
+                let cancelToken = try FlutterApiRequest.getCancelToken(args: callArgs)
                 onCancel(flutterResult: result, cancelToken: cancelToken)
                 return
             }
 
-            let arguments = try FlutterApiRequestUtils.getMap(args: callArgs as Any)
+            let arguments = try FlutterApiRequest.getMap(args: callArgs as Any)
             switch method {
-                case "get": RestApiModule.onGet(flutterResult: result, arguments: arguments, bridge: bridge)
-                case "post": RestApiModule.onPost(flutterResult: result, arguments: arguments, bridge: bridge)
-                case "put": RestApiModule.onPut(flutterResult: result, arguments: arguments, bridge: bridge)
-                case "delete": RestApiModule.onDelete(flutterResult: result, arguments: arguments, bridge: bridge)
-                case "head": RestApiModule.onHead(flutterResult: result, arguments: arguments, bridge: bridge)
-                case "patch": RestApiModule.onPatch(flutterResult: result, arguments: arguments, bridge: bridge)
+                case "get": FlutterRestApi.onGet(flutterResult: result, arguments: arguments, bridge: bridge)
+                case "post": FlutterRestApi.onPost(flutterResult: result, arguments: arguments, bridge: bridge)
+                case "put": FlutterRestApi.onPut(flutterResult: result, arguments: arguments, bridge: bridge)
+                case "delete": FlutterRestApi.onDelete(flutterResult: result, arguments: arguments, bridge: bridge)
+                case "head": FlutterRestApi.onHead(flutterResult: result, arguments: arguments, bridge: bridge)
+                case "patch": FlutterRestApi.onPatch(flutterResult: result, arguments: arguments, bridge: bridge)
 
                 case "query":
                     FlutterGraphQLApi.query(flutterResult: result, request: arguments, bridge: bridge)
@@ -72,7 +72,7 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
             }
         } catch let error {
             print("Failed to parse query arguments with \(error)")
-            FlutterApiErrorUtils.handleAPIError(flutterResult: result, error: error as! APIError, msg: FlutterApiErrorMessage.MALFORMED.rawValue)
+            FlutterApiError.handleAPIError(flutterResult: result, error: error as! APIError, msg: FlutterApiErrorMessage.MALFORMED.rawValue)
         }
     }
 

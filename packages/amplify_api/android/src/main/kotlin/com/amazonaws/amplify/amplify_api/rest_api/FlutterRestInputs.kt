@@ -16,7 +16,7 @@
 package com.amazonaws.amplify.amplify_api.rest_api
 
 import com.amazonaws.amplify.amplify_api.FlutterApiErrorMessage
-import com.amazonaws.amplify.amplify_api.FlutterApiErrorUtils
+import com.amazonaws.amplify.amplify_api.FlutterApiError
 import com.amplifyframework.api.rest.RestOptions
 import java.lang.ClassCastException
 import io.flutter.plugin.common.MethodChannel.Result
@@ -44,14 +44,14 @@ data class FlutterRestInputs(val flutterInputsMap: Map<String, *>) {
                 var path = restOptions[PATH_KEY] as String
 
             } catch (e: ClassCastException) {
-                FlutterApiErrorUtils.postFlutterError(
+                FlutterApiError.postFlutterError(
                         flutterResult,
                         FlutterApiErrorMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString(),
                         e
                 )
                 return false;
             } catch (e: Exception) {
-                FlutterApiErrorUtils.postFlutterError(
+                FlutterApiError.postFlutterError(
                         flutterResult,
                         FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString(),
                         e

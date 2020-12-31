@@ -3,7 +3,7 @@ package com.amazonaws.amplify.amplify_api.rest_api
 import android.os.Handler
 import android.os.Looper
 import com.amazonaws.amplify.amplify_api.FlutterApiErrorMessage
-import com.amazonaws.amplify.amplify_api.FlutterApiErrorUtils
+import com.amazonaws.amplify.amplify_api.FlutterApiError
 import com.amazonaws.amplify.amplify_api.OperationsManager
 import com.amplifyframework.api.ApiException
 import com.amplifyframework.api.rest.RestOperation
@@ -28,7 +28,7 @@ typealias RestAPIFunction4 = KFunction4<
         @ParameterName(name = "exceptionConsumer") Consumer<ApiException>,
         RestOperation?>
 
-class RestApiModule {
+class FlutterRestApi {
     companion object {
         private val LOG = Amplify.Logging.forNamespace("amplify:flutter:api")
 
@@ -87,7 +87,7 @@ class RestApiModule {
 
         fun prepareError(flutterResult: Result, msg: String, cancelToken: String, error: Exception) {
             if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
-            FlutterApiErrorUtils.postFlutterError(flutterResult, msg, error)
+            FlutterApiError.postFlutterError(flutterResult, msg, error)
         }
 
         private fun prepareRestResponseResult(flutterResult: Result, result: RestResponse, methodName: String, cancelToken: String = "") {
@@ -98,7 +98,7 @@ class RestApiModule {
 
             // if code is not 200 then throw an exception
             if (!result.code.isSuccessful) {
-                FlutterApiErrorUtils.handleAPIError(
+                FlutterApiError.handleAPIError(
                         flutterResult,
                         FlutterApiErrorMessage.stringToAPIRestError(methodName).toString(),
                         "The HTTP response status code is [" + result.code.toString().substring(16, 19) + "].",

@@ -23,16 +23,22 @@ class FlutterGraphQLApi {
         do  {
             let document = try FlutterApiRequest.getGraphQLDocument(methodChannelRequest: request)
             let variables = try FlutterApiRequest.getVariables(methodChannelRequest: request)
+            let cancelToken = try FlutterApiRequest.getCancelToken(methodChannelRequest: request)
 
             let request = GraphQLRequest<String>(document: document,
                                                  variables: variables,
                                                  responseType: String.self)
 
-            _ = bridge.query(request: request) { result in
+            let operation = bridge.query(request: request) { result in
                 switch result {
                 case .success(let response):
                     switch response {
                     case .success(let data):
+                        
+                        if(!cancelToken.isEmpty){
+                            OperationsManager.removeOperation(cancelToken: cancelToken)
+                        }
+                        
                         let result: [String: Any] = [
                             "data": data,
                             "errors": []
@@ -40,9 +46,19 @@ class FlutterGraphQLApi {
                         print("GraphQL query operation succeeded with response : \(result)")
                         flutterResult(result)
                     case .failure(let errorResponse):
+                        
+                        if(!cancelToken.isEmpty){
+                            OperationsManager.removeOperation(cancelToken: cancelToken)
+                        }
+                        
                         FlutterApiResponse.handleGraphQLErrorResponse(flutterResult: flutterResult, errorResponse: errorResponse, failureMessage: FlutterApiErrorMessage.QUERY_FAILED.rawValue)
                     }
                 case .failure(let apiError):
+                    
+                    if(!cancelToken.isEmpty){
+                        OperationsManager.removeOperation(cancelToken: cancelToken)
+                    }
+                    
                     print("GraphQL query operation failed: \(apiError)")
                     FlutterApiError.handleAPIError(flutterResult: flutterResult, error: apiError, msg: FlutterApiErrorMessage.QUERY_FAILED.rawValue)
                 }}
@@ -62,16 +78,22 @@ class FlutterGraphQLApi {
         do  {
             let document = try FlutterApiRequest.getGraphQLDocument(methodChannelRequest: request)
             let variables = try FlutterApiRequest.getVariables(methodChannelRequest: request)
+            let cancelToken = try FlutterApiRequest.getCancelToken(methodChannelRequest: request)
 
             let request = GraphQLRequest<String>(document: document,
                                                  variables: variables,
                                                  responseType: String.self)
 
-            _ = bridge.mutate(request: request) { result in
+            let operation = bridge.mutate(request: request) { result in
                 switch result {
                 case .success(let response):
                     switch response {
                     case .success(let data):
+                        
+                        if(!cancelToken.isEmpty){
+                            OperationsManager.removeOperation(cancelToken: cancelToken)
+                        }
+                        
                         let result: [String: Any] = [
                             "data": data,
                             "errors": []
@@ -79,9 +101,19 @@ class FlutterGraphQLApi {
                         print("GraphQL mutate operation succeeded with response : \(result)")
                         flutterResult(result)
                     case .failure(let errorResponse):
+                        
+                        if(!cancelToken.isEmpty){
+                            OperationsManager.removeOperation(cancelToken: cancelToken)
+                        }
+                        
                         FlutterApiResponse.handleGraphQLErrorResponse(flutterResult: flutterResult, errorResponse: errorResponse, failureMessage: FlutterApiErrorMessage.MUTATE_FAILED.rawValue)
                     }
                 case .failure(let apiError):
+                    
+                    if(!cancelToken.isEmpty){
+                        OperationsManager.removeOperation(cancelToken: cancelToken)
+                    }
+                    
                     print("GraphQL mutate operation failed: \(apiError)")
                     FlutterApiError.handleAPIError(flutterResult: flutterResult, error: apiError, msg: FlutterApiErrorMessage.MUTATE_FAILED.rawValue)
                 }

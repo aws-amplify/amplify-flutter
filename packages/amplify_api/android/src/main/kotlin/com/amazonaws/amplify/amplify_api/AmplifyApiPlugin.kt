@@ -17,7 +17,7 @@ package com.amazonaws.amplify.amplify_api
 
 import android.content.Context
 import androidx.annotation.NonNull
-import com.amazonaws.amplify.amplify_api.rest_api.RestApiModule
+import com.amazonaws.amplify.amplify_api.rest_api.FlutterRestApi
 import com.amplifyframework.api.aws.AWSApiPlugin
 import com.amplifyframework.core.Amplify
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -54,18 +54,18 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
             var arguments : Map<String, Any> = call.arguments as Map<String,Any>
 
             when (call.method) {
-                "get" -> RestApiModule.onGet(result, arguments)
-                "post" -> RestApiModule.onPost(result, arguments)
-                "put" -> RestApiModule.onPut(result, arguments)
-                "delete" -> RestApiModule.onDelete(result, arguments)
-                "head" -> RestApiModule.onHead(result, arguments)
-                "patch" -> RestApiModule.onPatch(result, arguments)
+                "get" -> FlutterRestApi.onGet(result, arguments)
+                "post" -> FlutterRestApi.onPost(result, arguments)
+                "put" -> FlutterRestApi.onPut(result, arguments)
+                "delete" -> FlutterRestApi.onDelete(result, arguments)
+                "head" -> FlutterRestApi.onHead(result, arguments)
+                "patch" -> FlutterRestApi.onPatch(result, arguments)
                 "query" -> FlutterGraphQLApi.query(result, arguments)
                 "mutate" -> FlutterGraphQLApi.mutate(result, arguments)
                 else -> result.notImplemented()
             }
         } catch (e: ClassCastException) {
-            FlutterApiErrorUtils.postFlutterError(
+            FlutterApiError.postFlutterError(
                     result,
                     FlutterApiErrorMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString(),
                     e

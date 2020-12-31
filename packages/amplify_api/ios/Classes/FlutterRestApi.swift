@@ -21,22 +21,22 @@ import Amplify
 import AmplifyPlugins
 import AWSCore
 
-public class RestApiModule {
+public class FlutterRestApi {
 
     private static func restFunctionHelper(
         methodName: String,
         flutterResult: @escaping FlutterResult,
         request: [String: Any], function: (RESTRequest, RESTOperation.ResultListener?) -> RESTOperation? ){
         do {
-            let cancelToken = try FlutterApiRequestUtils.getCancelToken(methodChannelRequest: request)
-            let restRequest = try FlutterApiRequestUtils.getRestRequest(methodChannelRequest: request)
+            let cancelToken = try FlutterApiRequest.getCancelToken(methodChannelRequest: request)
+            let restRequest = try FlutterApiRequest.getRestRequest(methodChannelRequest: request)
              
             let restOperation = function(restRequest) { result in
                 switch result {
                     case .success(let data):
                         self.prepareRestResponseResult(flutterResult: flutterResult, data: data, cancelToken: cancelToken)
                     case .failure(let apiError):
-                        FlutterApiErrorUtils.handleAPIError(
+                        FlutterApiError.handleAPIError(
                             flutterResult: flutterResult,
                             error: apiError,
                             msg: FlutterApiErrorMessage.stringToAPIRestError(methodName: methodName).rawValue
@@ -48,11 +48,11 @@ public class RestApiModule {
             }
         } catch let error as APIError {
             print("Failed to parse query arguments with \(error)")
-            FlutterApiErrorUtils.handleAPIError(flutterResult: flutterResult, error: error, msg: FlutterApiErrorMessage.MALFORMED.rawValue)
+            FlutterApiError.handleAPIError(flutterResult: flutterResult, error: error, msg: FlutterApiErrorMessage.MALFORMED.rawValue)
         } catch {
             print("An unexpected error occured when parsing query arguments: \(error)")
-            let errorMap = FlutterApiErrorUtils.createErrorMap(localizedError: "\(error.localizedDescription).\nAn unrecognized error has occurred", recoverySuggestion: "See logs for details")
-            FlutterApiErrorUtils.postFlutterError(flutterResult: flutterResult, msg: FlutterApiErrorMessage.MALFORMED.rawValue, errorMap: errorMap)
+            let errorMap = FlutterApiError.createErrorMap(localizedError: "\(error.localizedDescription).\nAn unrecognized error has occurred", recoverySuggestion: "See logs for details")
+            FlutterApiError.postFlutterError(flutterResult: flutterResult, msg: FlutterApiErrorMessage.MALFORMED.rawValue, errorMap: errorMap)
         }
     }
 
