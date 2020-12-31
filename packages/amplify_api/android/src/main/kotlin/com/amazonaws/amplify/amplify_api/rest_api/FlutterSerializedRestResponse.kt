@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,21 +13,18 @@
  * permissions and limitations under the License.
  */
 
-import Foundation
-import Amplify
+package com.amazonaws.amplify.amplify_api.rest_api
 
+import com.amplifyframework.api.rest.RestResponse
 
-public struct FlutterRestResponse {
-    
-    private var data: Data
-    
-    init(data: Data) {
-        self.data = data
+import com.google.gson.Gson
+
+data class FlutterSerializedRestResponse(private var raw: RestResponse) {
+    val data: ByteArray = raw.data.rawBytes
+
+    fun toValueMap(): Map<String, Any> {
+        return mapOf(
+                "data" to data
+        )
     }
-    
-    func toValueMap() -> [String: Any] {
-        return [ "data" : data ]
-    }
-
-    
 }

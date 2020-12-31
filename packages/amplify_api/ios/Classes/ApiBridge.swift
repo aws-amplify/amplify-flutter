@@ -38,12 +38,12 @@ public class ApiBridge {
     func head(request: RESTRequest, listener: ((AmplifyOperation<RESTOperationRequest, Data, APIError>.OperationResult) -> Void)?) -> RESTOperation?{
         return Amplify.API.head(request: request, listener: listener)
     }
-    
+
     func patch(request: RESTRequest, listener: ((AmplifyOperation<RESTOperationRequest, Data, APIError>.OperationResult) -> Void)?) -> RESTOperation?{
         return Amplify.API.patch(request: request, listener: listener)
     }
-    
-    
+
+
     @discardableResult
     public func query<R: Decodable>(request: GraphQLRequest<R>,
                                     listener: GraphQLOperation<R>.ResultListener?) -> GraphQLOperation<R> {

@@ -60,29 +60,6 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  query() async {
-    String graphQLDocument = '''query MyQuery {
-      listBlogs {
-        items {
-          id
-          name
-          createdAt
-        }
-      }
-    }''';
-
-    var operation = await Amplify.API
-        .query(request: GraphQLRequest<String>(document: graphQLDocument));
-
-    var response = await operation.response;
-    var data = response.data;
-
-    print('Result data: ' + data);
-    setState(() {
-      _showRestApiView = true;
-    });
-  }
-
   void _onGraphQlApiViewButtonClick() {
     setState(() {
       _showRestApiView = false;

@@ -16,13 +16,13 @@ import io.flutter.plugin.common.MethodChannel.Result
 import kotlin.reflect.KFunction3
 import kotlin.reflect.KFunction4
 
-typealias RestAPIFunction3 = KFunction3<
+typealias FunctionWithoutApiName = KFunction3<
         @ParameterName(name = "restOptions") RestOptions,
         @ParameterName(name = "restConsumer") Consumer<RestResponse>,
         @ParameterName(name = "exceptionConsumer") Consumer<ApiException>,
         RestOperation?>
 
-typealias RestAPIFunction4 = KFunction4<
+typealias FunctionWithApiName = KFunction4<
         @ParameterName(name = "apiName") String,
         @ParameterName(name = "restOptions") RestOptions,
         @ParameterName(name = "restConsumer") Consumer<RestResponse>,
@@ -37,8 +37,8 @@ class FlutterRestApi {
                 methodName: String,
                 flutterResult: Result,
                 request: Map<String, Any>,
-                function3: RestAPIFunction3,
-                function4: RestAPIFunction4
+                functionWithoutApiName: FunctionWithoutApiName,
+                functionWithApiName: FunctionWithApiName
         ) {
             var cancelToken : String
             var apiName: String?
@@ -58,7 +58,7 @@ class FlutterRestApi {
 
             try {
                 if (apiName == null) {
-                    var operation: RestOperation? = function3(options,
+                    var operation: RestOperation? = functionWithoutApiName(options,
                             Consumer { result -> prepareRestResponseResult(flutterResult, result, methodName, cancelToken) },
                             Consumer { error ->
                                 prepareError(
@@ -70,7 +70,7 @@ class FlutterRestApi {
                     )
                     OperationsManager.addOperation(cancelToken, operation!!)
                 } else {
-                    var operation: RestOperation? = function4(
+                    var operation: RestOperation? = functionWithApiName(
                             apiName,
                             options,
                             Consumer { result -> prepareRestResponseResult(flutterResult, result, methodName, cancelToken) },
@@ -101,7 +101,7 @@ class FlutterRestApi {
 
         private fun prepareRestResponseResult(flutterResult: Result, result: RestResponse, methodName: String, cancelToken: String = "") {
 
-            var restResponse = FlutterRestResponse(result)
+            var restResponse = FlutterSerializedRestResponse(result)
 
             if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
 

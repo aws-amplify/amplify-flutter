@@ -61,7 +61,7 @@ public class FlutterRestApi {
             OperationsManager.removeOperation(cancelToken: cancelToken)
         }
         
-        let restResponse : FlutterRestResponse = FlutterRestResponse(data: data)
+        let restResponse : FlutterSerializedRestResponse = FlutterSerializedRestResponse(data: data)
         flutterResult(restResponse.toValueMap())
     }
     

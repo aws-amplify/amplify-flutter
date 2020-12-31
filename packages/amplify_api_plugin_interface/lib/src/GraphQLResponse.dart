@@ -13,18 +13,12 @@
  * permissions and limitations under the License.
  */
 
-package com.amazonaws.amplify.amplify_api.rest_api
+import 'package:flutter/foundation.dart';
+import './types.dart';
 
-import com.amplifyframework.api.rest.RestResponse
+class GraphQLResponse<T> {
+  T data;
+  List<GraphQLResponseError> errors = [];
 
-import com.google.gson.Gson
-
-data class FlutterRestResponse(private var raw: RestResponse) {
-    val data: ByteArray = raw.data.rawBytes
-
-    fun toValueMap(): Map<String, Any> {
-        return mapOf(
-                "data" to data
-        )
-    }
+  GraphQLResponse({@required this.data, this.errors});
 }
