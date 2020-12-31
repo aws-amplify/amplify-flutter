@@ -329,13 +329,13 @@ class AmplifyApiRestTest {
 
         verify(mockResult).error(
                 "AmplifyException",
-                "ERROR_CASTING_INPUT_IN_PLATFORM_CODE",
+                "AMPLIFY_REQUEST_MALFORMED",
                 mapOf(
                         "PLATFORM_EXCEPTIONS" to mapOf(
                                 "platform" to "Android",
-                                "localizedErrorMessage" to "null cannot be cast to non-null type kotlin.collections.Map<kotlin.String, *>",
+                                "localizedErrorMessage" to "The cancelToken request argument was not passed as a String",
                                 "recoverySuggestion" to "",
-                                "errorString" to "kotlin.TypeCastException: null cannot be cast to non-null type kotlin.collections.Map<kotlin.String, *>"
+                                "errorString" to "AmplifyException{message=The cancelToken request argument was not passed as a String, cause=kotlin.TypeCastException: null cannot be cast to non-null type kotlin.String, recoverySuggestion=The request should include the cancelToken as a String}"
                         )
                 )
         )

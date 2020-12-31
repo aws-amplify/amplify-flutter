@@ -16,37 +16,81 @@
 package com.amazonaws.amplify.amplify_api
 
 import com.amplifyframework.AmplifyException
+import com.amplifyframework.api.rest.RestOptions
 import io.flutter.plugin.common.MethodChannel
 
 
 class FlutterApiRequest {
     companion object {
 
-        fun isValidArgumentsMap(flutterResult: MethodChannel.Result, args: Any): Boolean {
+        private val REST_OPTIONS_KEY = "restOptions"
+        private val CANCEL_TOKEN_KEY = "cancelToken"
 
+        private val API_NAME_KEY = "apiName"
+        private val PATH_KEY = "path"
+        private val BODY_KEY = "body"
+        private val QUERY_PARAM_KEY = "queryParameters"
+        private val HEADERS_KEY = "headers"
+
+        // ====== Rest API ======
+        fun getCancelToken(request: Map<String, Any>) : String {
             try {
-                var arguments = args as Map<String, Any>
-                var restOptions = arguments["restOptions"] as Map<String, Any>
-                var cancelToken = arguments["cancelToken"] as String
-            } catch (e: ClassCastException) {
-                FlutterApiError.postFlutterError(
-                        flutterResult,
-                        FlutterApiErrorMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString(),
-                        e
-                )
-                return false;
-            } catch (e: Exception) {
-                FlutterApiError.postFlutterError(
-                        flutterResult,
-                        FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString(),
-                        e
-                )
-                return false;
+                return request[CANCEL_TOKEN_KEY] as String
+            } catch (cause: Exception) {
+                throw AmplifyException(
+                        "The cancelToken request argument was not passed as a String",
+                        cause,
+                        "The request should include the cancelToken as a String")
             }
-
-            return true;
+            return request[CANCEL_TOKEN_KEY] as String
         }
 
+        fun getApiPath(request: Map<String, Any>) : String? {
+            try {
+                val restOptionsMap = request[REST_OPTIONS_KEY] as Map<String, Any>
+                return restOptionsMap[API_NAME_KEY] as String?
+            } catch (cause: Exception) {
+                throw AmplifyException(
+                        "The apiPath request argument was not passed as a String",
+                        cause,
+                        "The request should include the apiPath as a String")
+            }
+            return request[CANCEL_TOKEN_KEY] as String
+        }
+
+        fun getRestOptions(request: Map<String, Any>) : RestOptions {
+
+            try {
+                val builder: RestOptions.Builder = RestOptions.builder()
+
+                val restOptionsMap = request[REST_OPTIONS_KEY] as Map<String, Any>
+
+                for ((key, value) in restOptionsMap) {
+                    when (key) {
+                        PATH_KEY -> {
+                            builder.addPath(value as String)
+                        }
+                        BODY_KEY -> {
+                            builder.addBody(value as ByteArray)
+                        }
+                        QUERY_PARAM_KEY -> {
+                            builder.addQueryParameters(value as Map<String, String>)
+                        }
+                        HEADERS_KEY -> {
+                            builder.addHeaders(value as Map<String, String>)
+                        }
+                    }
+                }
+                return builder.build()
+            } catch (cause: Exception) {
+                throw AmplifyException(
+                        "The restOptions request argument was not passed as a dictionary",
+                        cause,
+                        "The request should include the restOptions argument as a [String: Any] dictionary")
+            }
+        }
+
+        // ====== GraphQL ======
         @JvmStatic
         fun getGraphQLDocument(request: Map<String, Any>): String {
             try {
@@ -71,15 +115,5 @@ class FlutterApiRequest {
             }
         }
 
-        fun getCancelToken(request: Map<String, Any>): String {
-            try {
-                return request["cancelToken"] as String
-            } catch (cause: Exception) {
-                throw AmplifyException(
-                        "The cancelToken request argument was not passed as a String",
-                        cause,
-                        "The request should include the cancelToken argument as a String")
-            }
-        }
     }
 }

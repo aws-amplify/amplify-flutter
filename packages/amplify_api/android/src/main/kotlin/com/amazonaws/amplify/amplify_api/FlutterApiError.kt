@@ -65,7 +65,7 @@ class FlutterApiError {
                 msg: String,
                 localizedMessage: String,
                 recoverySuggestion: String
-        ){
+        ) {
             var errorMap = createErrorMap(
                     localizedMessage,
                     recoverySuggestion

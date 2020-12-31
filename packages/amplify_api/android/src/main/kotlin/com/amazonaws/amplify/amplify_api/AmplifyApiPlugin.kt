@@ -42,12 +42,12 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
         LOG.info("Initiated API plugin")
     }
 
-    override fun onMethodCall( call: MethodCall, result: Result) {
+    override fun onMethodCall(call: MethodCall, result: Result) {
         var methodName = call.method
 
         if(methodName == "cancel"){
-          onCancel(result, (call.arguments as String))
-          return
+            onCancel(result, (call.arguments as String))
+            return
         }
 
         try {
@@ -76,7 +76,7 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
     fun onCancel(
             flutterResult: Result,
             cancelToken: String) {
-        if(OperationsManager.containsOperation(cancelToken)){
+        if(OperationsManager.containsOperation(cancelToken)) {
             OperationsManager.cancelOperation(cancelToken)
             flutterResult.success("Operation Canceled")
         } else {

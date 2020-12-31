@@ -4,6 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import com.amazonaws.amplify.amplify_api.FlutterApiErrorMessage
 import com.amazonaws.amplify.amplify_api.FlutterApiError
+import com.amazonaws.amplify.amplify_api.FlutterApiRequest
 import com.amazonaws.amplify.amplify_api.OperationsManager
 import com.amplifyframework.api.ApiException
 import com.amplifyframework.api.rest.RestOperation
@@ -35,19 +36,27 @@ class FlutterRestApi {
         private fun restFunctionHelper(
                 methodName: String,
                 flutterResult: Result,
-                request: Map<String, *>,
+                request: Map<String, Any>,
                 function3: RestAPIFunction3,
                 function4: RestAPIFunction4
         ) {
-            if (!FlutterRestInputs.isValid(flutterResult, request)) return
-
-            val inputs = FlutterRestInputs(request)
-            val cancelToken = inputs.getCancelToken()
-            val apiName: String? = inputs.getApiPath()
-            val options: RestOptions = FlutterRestInputs(request).getRestOptions()
+            var cancelToken : String
+            var apiName: String?
+            var options: RestOptions
 
             try {
+                cancelToken = FlutterApiRequest.getCancelToken(request)
+                apiName = FlutterApiRequest.getApiPath(request)
+                options = FlutterApiRequest.getRestOptions(request)
+            } catch (e: Exception) {
+                FlutterApiError.postFlutterError(
+                        flutterResult,
+                        FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString(),
+                        e)
+                return
+            }
 
+            try {
                 if (apiName == null) {
                     var operation: RestOperation? = function3(options,
                             Consumer { result -> prepareRestResponseResult(flutterResult, result, methodName, cancelToken) },
@@ -116,27 +125,27 @@ class FlutterRestApi {
             }
         }
 
-        fun onGet(flutterResult: Result, arguments: Map<String, *>) {
+        fun onGet(flutterResult: Result, arguments: Map<String, Any>) {
             restFunctionHelper("get", flutterResult, arguments, this::get, this::get)
         }
 
-        fun onPost(flutterResult: Result, arguments: Map<String, *>) {
+        fun onPost(flutterResult: Result, arguments: Map<String, Any>) {
             restFunctionHelper("post", flutterResult, arguments, this::post, this::post)
         }
 
-        fun onPut(flutterResult: Result, arguments: Map<String, *>) {
+        fun onPut(flutterResult: Result, arguments: Map<String, Any>) {
             restFunctionHelper("put", flutterResult, arguments, this::put, this::put)
         }
 
-        fun onDelete(flutterResult: Result, arguments: Map<String, *>) {
+        fun onDelete(flutterResult: Result, arguments: Map<String, Any>) {
             restFunctionHelper("delete", flutterResult, arguments, this::delete, this::delete)
         }
 
-        fun onHead(flutterResult: Result, arguments: Map<String, *>) {
+        fun onHead(flutterResult: Result, arguments: Map<String, Any>) {
             restFunctionHelper("head", flutterResult, arguments, this::head, this::head)
         }
 
-        fun onPatch(flutterResult: Result, arguments: Map<String, *>) {
+        fun onPatch(flutterResult: Result, arguments: Map<String, Any>) {
             restFunctionHelper("patch", flutterResult, arguments, this::patch, this::patch)
         }
 
