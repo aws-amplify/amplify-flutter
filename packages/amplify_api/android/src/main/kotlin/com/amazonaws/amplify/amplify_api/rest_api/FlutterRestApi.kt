@@ -65,11 +65,7 @@ class FlutterRestApi {
                                 prepareRestResponseResult(flutterResult, result, methodName) },
                             Consumer { error ->
                                 if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
-                                prepareError(
-                                        flutterResult,
-                                        FlutterApiErrorMessage.stringToAPIRestError(methodName).toString(),
-                                        cancelToken,
-                                        error)
+                                FlutterApiError.postFlutterError(flutterResult, FlutterApiErrorMessage.getErrorForApi(methodName), error)
                             }
                     )
                 } else {
@@ -81,32 +77,26 @@ class FlutterRestApi {
                                 prepareRestResponseResult(flutterResult, result, methodName) },
                             Consumer { error ->
                                 if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
-                                prepareError(
-                                        flutterResult,
-                                        FlutterApiErrorMessage.stringToAPIRestError(methodName).toString(),
-                                        cancelToken,
-                                        error)
+                                FlutterApiError.postFlutterError(flutterResult, FlutterApiErrorMessage.getErrorForApi(methodName), error)
                             }
                     )
                 }
                 OperationsManager.addOperation(cancelToken, operation!!)
 
             } catch (e: Exception) {
-                prepareError(
-                        flutterResult,
-                        FlutterApiErrorMessage.stringToAPIRestError(methodName).toString(),
-                        cancelToken,
-                        e)
+                FlutterApiError.postFlutterError(flutterResult, FlutterApiErrorMessage.getErrorForApi(methodName), e)
             }
-        }
-
-        fun prepareError(flutterResult: Result, msg: String, cancelToken: String, error: Exception) {
-            FlutterApiError.postFlutterError(flutterResult, msg, error)
         }
 
         private fun prepareRestResponseResult(flutterResult: Result, result: RestResponse, methodName: String) {
 
             var restResponse = FlutterSerializedRestResponse(result)
+
+            var recoverySuggestion = """
+                    The metadata associated with the response is contained in the HTTPURLResponse.
+                    For more information on HTTP status codes, take a look at
+                    https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+                    """
 
             // if code is not 200 then throw an exception
             /*
@@ -117,13 +107,9 @@ class FlutterRestApi {
             if (!result.code.isSuccessful) {
                 FlutterApiError.handleAPIError(
                         flutterResult,
-                        FlutterApiErrorMessage.stringToAPIRestError(methodName).toString(),
+                        FlutterApiErrorMessage.getErrorForApi(methodName),
                         "The HTTP response status code is [" + result.code.toString().substring(16, 19) + "].",
-                        """
-                    The metadata associated with the response is contained in the HTTPURLResponse.
-                    For more information on HTTP status codes, take a look at
-                    https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
-                    """
+                        recoverySuggestion
                 )
                 return
             } else {
@@ -133,27 +119,27 @@ class FlutterRestApi {
             }
         }
 
-        fun onGet(flutterResult: Result, arguments: Map<String, Any>) {
+        fun get(flutterResult: Result, arguments: Map<String, Any>) {
             restFunctionHelper("get", flutterResult, arguments, this::get, this::get)
         }
 
-        fun onPost(flutterResult: Result, arguments: Map<String, Any>) {
+        fun post(flutterResult: Result, arguments: Map<String, Any>) {
             restFunctionHelper("post", flutterResult, arguments, this::post, this::post)
         }
 
-        fun onPut(flutterResult: Result, arguments: Map<String, Any>) {
+        fun put(flutterResult: Result, arguments: Map<String, Any>) {
             restFunctionHelper("put", flutterResult, arguments, this::put, this::put)
         }
 
-        fun onDelete(flutterResult: Result, arguments: Map<String, Any>) {
+        fun delete(flutterResult: Result, arguments: Map<String, Any>) {
             restFunctionHelper("delete", flutterResult, arguments, this::delete, this::delete)
         }
 
-        fun onHead(flutterResult: Result, arguments: Map<String, Any>) {
+        fun head(flutterResult: Result, arguments: Map<String, Any>) {
             restFunctionHelper("head", flutterResult, arguments, this::head, this::head)
         }
 
-        fun onPatch(flutterResult: Result, arguments: Map<String, Any>) {
+        fun patch(flutterResult: Result, arguments: Map<String, Any>) {
             restFunctionHelper("patch", flutterResult, arguments, this::patch, this::patch)
         }
 

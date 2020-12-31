@@ -54,12 +54,12 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
             var arguments : Map<String, Any> = call.arguments as Map<String,Any>
 
             when (call.method) {
-                "get" -> FlutterRestApi.onGet(result, arguments)
-                "post" -> FlutterRestApi.onPost(result, arguments)
-                "put" -> FlutterRestApi.onPut(result, arguments)
-                "delete" -> FlutterRestApi.onDelete(result, arguments)
-                "head" -> FlutterRestApi.onHead(result, arguments)
-                "patch" -> FlutterRestApi.onPatch(result, arguments)
+                "get" -> FlutterRestApi.get(result, arguments)
+                "post" -> FlutterRestApi.post(result, arguments)
+                "put" -> FlutterRestApi.put(result, arguments)
+                "delete" -> FlutterRestApi.delete(result, arguments)
+                "head" -> FlutterRestApi.head(result, arguments)
+                "patch" -> FlutterRestApi.patch(result, arguments)
                 "query" -> FlutterGraphQLApi.query(result, arguments)
                 "mutate" -> FlutterGraphQLApi.mutate(result, arguments)
                 else -> result.notImplemented()

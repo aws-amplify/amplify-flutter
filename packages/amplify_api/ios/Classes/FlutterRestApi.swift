@@ -65,22 +65,22 @@ public class FlutterRestApi {
         flutterResult(restResponse.toValueMap())
     }
     
-    public static func onGet(flutterResult: @escaping FlutterResult, arguments: [String: Any], bridge: ApiBridge){
+    public static func get(flutterResult: @escaping FlutterResult, arguments: [String: Any], bridge: ApiBridge){
         restFunctionHelper(methodName: "get", flutterResult: flutterResult, request: arguments, function: bridge.get)
     }
-    public static func onPost(flutterResult: @escaping FlutterResult, arguments: [String: Any], bridge: ApiBridge){
+    public static func post(flutterResult: @escaping FlutterResult, arguments: [String: Any], bridge: ApiBridge){
         restFunctionHelper(methodName: "post", flutterResult: flutterResult, request: arguments, function: bridge.post)
     }
-    public static func onPut(flutterResult: @escaping FlutterResult, arguments: [String: Any], bridge: ApiBridge){
+    public static func put(flutterResult: @escaping FlutterResult, arguments: [String: Any], bridge: ApiBridge){
         restFunctionHelper(methodName: "put", flutterResult: flutterResult, request: arguments, function: bridge.put)
     }
-    public static func onDelete(flutterResult: @escaping FlutterResult, arguments: [String: Any], bridge: ApiBridge){
+    public static func delete(flutterResult: @escaping FlutterResult, arguments: [String: Any], bridge: ApiBridge){
         restFunctionHelper(methodName: "delete", flutterResult: flutterResult, request: arguments, function: bridge.delete)
     }
-    public static func onHead(flutterResult: @escaping FlutterResult, arguments: [String: Any], bridge: ApiBridge){
+    public static func head(flutterResult: @escaping FlutterResult, arguments: [String: Any], bridge: ApiBridge){
         restFunctionHelper(methodName: "head", flutterResult: flutterResult, request: arguments, function: bridge.head)
     }
-    public static func onPatch(flutterResult: @escaping FlutterResult, arguments: [String: Any], bridge: ApiBridge){
+    public static func patch(flutterResult: @escaping FlutterResult, arguments: [String: Any], bridge: ApiBridge){
         restFunctionHelper(methodName: "patch", flutterResult: flutterResult, request: arguments, function: bridge.patch)
     }
     

@@ -56,12 +56,12 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
 
             let arguments = try FlutterApiRequest.getMap(args: callArgs as Any)
             switch method {
-                case "get": FlutterRestApi.onGet(flutterResult: result, arguments: arguments, bridge: bridge)
-                case "post": FlutterRestApi.onPost(flutterResult: result, arguments: arguments, bridge: bridge)
-                case "put": FlutterRestApi.onPut(flutterResult: result, arguments: arguments, bridge: bridge)
-                case "delete": FlutterRestApi.onDelete(flutterResult: result, arguments: arguments, bridge: bridge)
-                case "head": FlutterRestApi.onHead(flutterResult: result, arguments: arguments, bridge: bridge)
-                case "patch": FlutterRestApi.onPatch(flutterResult: result, arguments: arguments, bridge: bridge)
+                case "get": FlutterRestApi.get(flutterResult: result, arguments: arguments, bridge: bridge)
+                case "post": FlutterRestApi.post(flutterResult: result, arguments: arguments, bridge: bridge)
+                case "put": FlutterRestApi.put(flutterResult: result, arguments: arguments, bridge: bridge)
+                case "delete": FlutterRestApi.delete(flutterResult: result, arguments: arguments, bridge: bridge)
+                case "head": FlutterRestApi.head(flutterResult: result, arguments: arguments, bridge: bridge)
+                case "patch": FlutterRestApi.patch(flutterResult: result, arguments: arguments, bridge: bridge)
 
                 case "query":
                     FlutterGraphQLApi.query(flutterResult: result, request: arguments, bridge: bridge)

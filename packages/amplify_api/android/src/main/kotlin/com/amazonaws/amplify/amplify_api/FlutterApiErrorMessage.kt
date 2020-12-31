@@ -29,17 +29,16 @@ enum class FlutterApiErrorMessage {
     AMPLIFY_API_HEAD_FAILED,
     AMPLIFY_API_PATCH_FAILED;
 
-
     companion object {
-        fun stringToAPIRestError(methodName: String): FlutterApiErrorMessage {
+        fun getErrorForApi(methodName: String): String {
             return when (methodName) {
-                "get" -> AMPLIFY_API_GET_FAILED
-                "post" -> AMPLIFY_API_POST_FAILED
-                "put" -> AMPLIFY_API_PUT_FAILED
-                "delete" -> AMPLIFY_API_DELETE_FAILED
-                "head" -> AMPLIFY_API_HEAD_FAILED
-                "patch" -> AMPLIFY_API_PATCH_FAILED
-                else -> AMPLIFY_REQUEST_MALFORMED
+                "get" -> AMPLIFY_API_GET_FAILED.toString()
+                "post" -> AMPLIFY_API_POST_FAILED.toString()
+                "put" -> AMPLIFY_API_PUT_FAILED.toString()
+                "delete" -> AMPLIFY_API_DELETE_FAILED.toString()
+                "head" -> AMPLIFY_API_HEAD_FAILED.toString()
+                "patch" -> AMPLIFY_API_PATCH_FAILED.toString()
+                else -> AMPLIFY_REQUEST_MALFORMED.toString()
             }
         }
     }
