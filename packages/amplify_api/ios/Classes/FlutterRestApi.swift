@@ -34,8 +34,14 @@ public class FlutterRestApi {
             let restOperation = function(restRequest) { result in
                 switch result {
                     case .success(let data):
+                        if(!cancelToken.isEmpty){
+                            OperationsManager.removeOperation(cancelToken: cancelToken)
+                        }
                         self.prepareRestResponseResult(flutterResult: flutterResult, data: data, cancelToken: cancelToken)
                     case .failure(let apiError):
+                        if(!cancelToken.isEmpty){
+                            OperationsManager.removeOperation(cancelToken: cancelToken)
+                        }
                         FlutterApiError.handleAPIError(
                             flutterResult: flutterResult,
                             error: apiError,
@@ -57,10 +63,6 @@ public class FlutterRestApi {
     }
 
     private static func prepareRestResponseResult(flutterResult: @escaping FlutterResult, data: Data, cancelToken: String = ""){
-        if(!cancelToken.isEmpty){
-            OperationsManager.removeOperation(cancelToken: cancelToken)
-        }
-        
         let restResponse : FlutterSerializedRestResponse = FlutterSerializedRestResponse(data: data)
         flutterResult(restResponse.toValueMap())
     }
