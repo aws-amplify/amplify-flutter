@@ -1,6 +1,12 @@
+## 0.0.1-dev.5 (2020-12-31)
+
+### Chores
+* chore: Updated amplify-android version 1.6.8. (#261)
+* chore: add some missing headers on kotlin files (#269)
+
 ## 0.0.1-dev.4 (2020-12-03)
 
-### Chore
+### Chores
 
 * Updated amplify-android library version to v1.6.6
 * Updated amplify-ios library version to v1.4.4
