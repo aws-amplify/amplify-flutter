@@ -23,7 +23,7 @@ rootProject.allprojects {
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply from: '../../../build-support/coverage.gradle'
+apply from: './coverage.gradle'
 
 android {
     compileSdkVersion 28
