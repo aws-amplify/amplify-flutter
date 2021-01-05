@@ -25,6 +25,7 @@ import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interfac
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:amplify_analytics_plugin_interface/analytics_plugin_interface.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 
 import 'categories/amplify_categories.dart';
 
@@ -40,6 +41,7 @@ class AmplifyClass extends PlatformInterface {
   AnalyticsCategory Analytics = const AnalyticsCategory();
   StorageCategory Storage = const StorageCategory();
   DataStoreCategory DataStore = const DataStoreCategory();
+  APICategory API = const APICategory();
 
   bool _isConfigured = false;
 
@@ -54,6 +56,8 @@ class AmplifyClass extends PlatformInterface {
           Storage.addPlugin(plugin as StoragePluginInterface);
         } else if (plugin is DataStorePluginInterface) {
           await DataStore.addPlugin(plugin as DataStorePluginInterface);
+        } else if (plugin is APIPluginInterface) {
+          await API.addPlugin(plugin as APIPluginInterface);
         } else {
           throw ArgumentError(
               "The type of plugin is not yet supported in Amplify. This is a bug in Amplify library, please file an issue.");
