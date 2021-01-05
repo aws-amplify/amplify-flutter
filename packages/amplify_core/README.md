@@ -1,7 +1,3 @@
 # amplify_core
 
-The core module for Amplify Flutter.
-
-## Getting Started
-
-### Visit our [Web Site](https://docs.amplify.aws/) to learn more about AWS Amplify.
+A core package containing base types, utilities shared across the amplify-flutter library.

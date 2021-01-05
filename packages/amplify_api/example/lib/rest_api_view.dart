@@ -16,7 +16,7 @@
 import 'dart:typed_data';
 
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 
 class RestApiView extends StatefulWidget {

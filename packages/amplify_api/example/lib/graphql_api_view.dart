@@ -13,9 +13,8 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
 import 'package:amplify_api/amplify_api.dart';
 
 class GraphQLApiView extends StatefulWidget {

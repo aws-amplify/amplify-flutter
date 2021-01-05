@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  plugin_platform_interface: ^1.0.1
+  amplify_core: 0.0.1-dev.6
   meta: ^1.1.8
   uuid: ^2.2.2
 

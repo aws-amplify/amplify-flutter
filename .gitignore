@@ -10,6 +10,8 @@ Podfile.lock
 Podfile.lock
 **/unpub-packages/
 **/coverage/
+**/test-results/
+.test_coverage.dart
 
 # IDEs
 .idea/

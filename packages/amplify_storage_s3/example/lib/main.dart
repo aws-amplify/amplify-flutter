@@ -17,7 +17,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'amplifyconfiguration.dart';
 
@@ -35,7 +35,6 @@ class _MyAppState extends State<MyApp> {
   String _uploadFileResult = '';
   String _getUrlResult = '';
   String _removeResult = '';
-  Amplify amplify = new Amplify();
 
   @override
   void initState() {
@@ -46,10 +45,10 @@ class _MyAppState extends State<MyApp> {
     // First add plugins (Amplify native requirements)
     AmplifyStorageS3 storage = new AmplifyStorageS3();
     AmplifyAuthCognito auth = new AmplifyAuthCognito();
-    amplify.addPlugin(authPlugins: [auth], storagePlugins: [storage]);
+    Amplify.addPlugins([auth, storage]);
 
     // Configure
-    await amplify.configure(amplifyconfig);
+    await Amplify.configure(amplifyconfig);
 
     setState(() {
       _isAmplifyConfigured = true;

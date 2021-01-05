@@ -4,7 +4,7 @@
 # This file should be version controlled and should not be manually edited.
 
 version:
-  revision: 599566177736e6b30af922a8f06e8a260acafc36
-  channel: master
+  revision: d408d302e22179d598f467e11da5dd968dbdc9ec
+  channel: unknown
 
-project_type: plugin
+project_type: package

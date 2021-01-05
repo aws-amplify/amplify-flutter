@@ -113,8 +113,8 @@ Only the following resource types are supported:
 dependencies:
   flutter:
     sdk: flutter
-  amplify_core:
-    path: /{path to your local amplify-flutter}/amplify-flutter/packages/amplify_core 
+  amplify_flutter:
+    path: /{path to your local amplify-flutter}/amplify-flutter/packages/amplify_flutter
   amplify_analytics_pinpoint:
     path: /{path to your local amplify-flutter}/amplify-flutter/packages/amplify_analytics_pinpoint
   amplify_auth_cognito:
@@ -132,7 +132,7 @@ flutter pub get
 ```dart
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 import 'amplifyconfiguration.dart';
 
@@ -192,7 +192,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
-            title: const Text('Amplify Core example app'),
+            title: const Text('Amplify example app'),
           ),
           body: ListView(padding: EdgeInsets.all(10.0), children: <Widget>[
             Center( 
