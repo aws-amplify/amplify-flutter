@@ -16,7 +16,7 @@
 // ignore_for_file: public_member_api_docs
 
 // only to be used internally by amplify-flutter library
-String enumToString(Object o) => o != null ? o.toString().split('.').last : '';
+String enumToString(Object o) => o != null ? o.toString().split('.').last : null;
 
 // only to be used internally by amplify-flutter library
 T enumFromString<T>(String key, List<T> values) =>
