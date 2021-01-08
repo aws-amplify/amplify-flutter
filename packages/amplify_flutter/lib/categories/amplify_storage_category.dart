@@ -27,7 +27,8 @@ class StorageCategory {
       plugins.add(plugin);
       return true;
     } else {
-      throw ("Failed to add the Storage plugin");
+      throw StateError("Storage plugin has already been added, " +
+          "multiple plugins for Storage category are currently not supported.");
     }
   }
 

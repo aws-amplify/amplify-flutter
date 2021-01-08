@@ -16,7 +16,7 @@
 part of amplify_interface;
 
 class APICategory {
-  final errorMsg = "API plugin not added correctly";
+  final _errorMsg = "API plugin has not been added to Amplify";
 
   const APICategory();
 
@@ -29,7 +29,8 @@ class APICategory {
       plugins.add(plugin);
       return true;
     } else {
-      throw ("Failed to add the API plugin");
+      throw StateError("API plugin has already been added, " +
+          "multiple plugins for API category are currently not supported.");
     }
   }
 
@@ -37,13 +38,13 @@ class APICategory {
   GraphQLOperation<T> query<T>({@required GraphQLRequest<T> request}) {
     return plugins.length == 1
         ? plugins[0].query(request: request)
-        : throw (errorMsg);
+        : throw (_errorMsg);
   }
 
   GraphQLOperation<T> mutate<T>({@required GraphQLRequest<T> request}) {
     return plugins.length == 1
         ? plugins[0].mutate(request: request)
-        : throw (errorMsg);
+        : throw (_errorMsg);
   }
 
   // ====== RestAPI ======
