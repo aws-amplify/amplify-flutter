@@ -5,7 +5,7 @@ part of amplify_interface;
 /// be registered and configured and then subsequent API calls will be forwarded
 /// to those plugins.
 class AuthCategory {
-  final errorMsg = "Auth plugin not added correctly";
+  final _errorMsg = "Auth plugin has not been added to Amplify";
   const AuthCategory();
   static List<AuthPluginInterface> plugins = [];
 
@@ -15,7 +15,8 @@ class AuthCategory {
     if (plugins.length == 0) {
       plugins.add(plugin);
     } else {
-      throw ("Auth plugin was not added");
+      throw StateError("Auth plugin has already been added, " +
+          "multiple plugins for Auth category are currently not supported.");
     }
   }
 
@@ -25,7 +26,7 @@ class AuthCategory {
         SignUpRequest(username: username, password: password, options: options);
     return plugins.length == 1
         ? plugins[0].signUp(request: request)
-        : throw (errorMsg);
+        : throw (_errorMsg);
   }
 
   Future<SignUpResult> confirmSignUp(
@@ -38,14 +39,14 @@ class AuthCategory {
         options: options);
     return plugins.length == 1
         ? plugins[0].confirmSignUp(request: request)
-        : throw (errorMsg);
+        : throw (_errorMsg);
   }
 
   Future<ResendSignUpCodeResult> resendSignUpCode({@required String username}) {
     var request = ResendSignUpCodeRequest(username: username);
     return plugins.length == 1
         ? plugins[0].resendSignUpCode(request: request)
-        : throw (errorMsg);
+        : throw (_errorMsg);
   }
 
   Future<SignInResult> signIn(
@@ -56,7 +57,7 @@ class AuthCategory {
         SignInRequest(username: username, password: password, options: options);
     return plugins.length == 1
         ? plugins[0].signIn(request: request)
-        : throw (errorMsg);
+        : throw (_errorMsg);
   }
 
   Future<SignInResult> confirmSignIn(
@@ -65,14 +66,14 @@ class AuthCategory {
         confirmationValue: confirmationValue, options: options);
     return plugins.length == 1
         ? plugins[0].confirmSignIn(request: request)
-        : throw (errorMsg);
+        : throw (_errorMsg);
   }
 
   Future<SignOutResult> signOut({SignOutOptions options}) {
     var request = SignOutRequest(options: options);
     return plugins.length == 1
         ? plugins[0].signOut(request: request)
-        : throw (errorMsg);
+        : throw (_errorMsg);
   }
 
   Future<UpdatePasswordResult> updatePassword(
@@ -83,7 +84,7 @@ class AuthCategory {
         oldPassword: oldPassword, newPassword: newPassword, options: options);
     return plugins.length == 1
         ? plugins[0].updatePassword(request: request)
-        : throw (errorMsg);
+        : throw (_errorMsg);
   }
 
   Future<ResetPasswordResult> resetPassword(
@@ -91,7 +92,7 @@ class AuthCategory {
     var request = ResetPasswordRequest(username: username, options: options);
     return plugins.length == 1
         ? plugins[0].resetPassword(request: request)
-        : throw (errorMsg);
+        : throw (_errorMsg);
   }
 
   Future<UpdatePasswordResult> confirmPassword(
@@ -106,20 +107,20 @@ class AuthCategory {
         options: options);
     return plugins.length == 1
         ? plugins[0].confirmPassword(request: request)
-        : throw (errorMsg);
+        : throw (_errorMsg);
   }
 
   Future<AuthUser> getCurrentUser() {
     var request = AuthUserRequest();
     return plugins.length == 1
         ? plugins[0].getCurrentUser(request: request)
-        : throw (errorMsg);
+        : throw (_errorMsg);
   }
 
   Future<AuthSession> fetchAuthSession({AuthSessionOptions options}) {
     var request = AuthSessionRequest(options: options);
     return plugins.length == 1
         ? plugins[0].fetchAuthSession(request: request)
-        : throw (errorMsg);
+        : throw (_errorMsg);
   }
 }

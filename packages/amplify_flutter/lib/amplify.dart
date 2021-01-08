@@ -34,30 +34,41 @@ part 'method_channel_amplify.dart';
 /// Top level singleton Amplify object.
 final AmplifyClass Amplify = new AmplifyClass._private();
 
+/// This is a private class and customers are not expected to
+/// instantiate an object of this class. Please use top level
+/// `Amplify` singleton object for making calls to methods of this class.
 class AmplifyClass extends PlatformInterface {
   AmplifyClass._private();
 
+  // ignore: public_member_api_docs
   AuthCategory Auth = const AuthCategory();
+  // ignore: public_member_api_docs
   AnalyticsCategory Analytics = const AnalyticsCategory();
+  // ignore: public_member_api_docs
   StorageCategory Storage = const StorageCategory();
+  // ignore: public_member_api_docs
   DataStoreCategory DataStore = const DataStoreCategory();
+  // ignore: public_member_api_docs
   APICategory API = const APICategory();
 
   bool _isConfigured = false;
 
+  /// Adds one plugin at a time. Note: this method can only
+  /// be called before Amplify has been configured. Customers are expected
+  /// to check the configuration state by calling `Amplify.isConfigured`
   Future<void> addPlugin(AmplifyPluginInterface plugin) async {
-    if (!_isConfigured) {
+    if (!isConfigured) {
       try {
         if (plugin is AuthPluginInterface) {
-          Auth.addPlugin(plugin as AuthPluginInterface);
+          Auth.addPlugin(plugin);
         } else if (plugin is AnalyticsPluginInterface) {
-          Analytics.addPlugin(plugin as AnalyticsPluginInterface);
+          Analytics.addPlugin(plugin);
         } else if (plugin is StoragePluginInterface) {
-          Storage.addPlugin(plugin as StoragePluginInterface);
+          Storage.addPlugin(plugin);
         } else if (plugin is DataStorePluginInterface) {
-          await DataStore.addPlugin(plugin as DataStorePluginInterface);
+          await DataStore.addPlugin(plugin);
         } else if (plugin is APIPluginInterface) {
-          await API.addPlugin(plugin as APIPluginInterface);
+          await API.addPlugin(plugin);
         } else {
           throw ArgumentError(
               "The type of plugin is not yet supported in Amplify. This is a bug in Amplify library, please file an issue.");
@@ -68,11 +79,14 @@ class AmplifyClass extends PlatformInterface {
       }
     } else {
       throw StateError(
-          "Amplify is already configured; additional plugins cannot be added.");
+          "Amplify is already configured. Adding plugins after configure is not supported.");
     }
     return;
   }
 
+  /// Adds multiple plugins at the same time. Note: this method can only
+  /// be called before Amplify has been configured. Customers are expected
+  /// to check the configuration state by calling `Amplify.isConfigured`
   Future<void> addPlugins(List<AmplifyPluginInterface> plugins) async {
     plugins.forEach((plugin) async {
       await addPlugin(plugin);
@@ -80,17 +94,33 @@ class AmplifyClass extends PlatformInterface {
     return;
   }
 
+  /// Returns whether Amplify has been configured or not.
+  bool get isConfigured {
+    return _isConfigured;
+  }
+
   String _getVersion() {
     return "0.1.0";
   }
 
+  /// Configures Amplify with the provided configuration string.
+  /// This method can only be called once, after all the plugins
+  /// have been added and no plugin shall be added after amplify
+  /// is configured. Clients are expected to call `Amplify.isConfigured`
+  /// to check if their app is configured before calling this method.
   Future<void> configure(String configuration) async {
+    if (isConfigured) {
+      throw StateError(
+          "Amplify has already been configured and re-configuration is not supported. " +
+              "Please use Amplify.isConfigured to check before calling configure again.");
+    }
     assert(configuration != null, 'configuration is null');
     var res = await AmplifyClass.instance
         ._configurePlatforms(_getVersion(), configuration);
     _isConfigured = res;
     if (!res) {
-      throw ("Amplify plugin was not added");
+      throw ("Amplify failed to configure. " +
+          "Please raise an issue in amplify-flutter repository.");
     }
 
     await DataStore.configure(configuration);

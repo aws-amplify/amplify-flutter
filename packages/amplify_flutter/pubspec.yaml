@@ -21,6 +21,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  amplify_auth_cognito: ^0.0.1-dev.6
+  amplify_analytics_pinpoint: ^0.0.1-dev.6
 
 flutter:
   plugin:
