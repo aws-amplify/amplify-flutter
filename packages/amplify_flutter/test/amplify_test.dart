@@ -26,7 +26,7 @@ void main() {
   String dummyConfiguration = "dummy";
   String amplifyAlreadyConfiguredError =
       "Amplify has already been configured and re-configuration is not supported. " +
-          "Please use Amplify.isConfigured() to check before calling configure again.";
+          "Please use Amplify.isConfigured to check before calling configure again.";
   String amplifyAlreadyConfiguredForAddPluginError =
       "Amplify is already configured. Adding plugins after configure is not supported.";
   String multiplePluginsForAuthError = "Auth plugin has already been added, " +
