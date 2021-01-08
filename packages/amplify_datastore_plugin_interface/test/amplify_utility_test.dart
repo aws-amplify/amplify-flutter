@@ -33,8 +33,8 @@ void main() {
     expect(enumToString(TestEnum.MAYBE), "MAYBE");
   });
 
-  test('parsers.enumToString generates empty string for null', () {
-    expect(enumToString(null), "");
+  test('parsers.enumToString generates null for null enum value', () {
+    expect(enumToString(null), null);
   });
 
   test('parsers.enumFromString generates proper enum', () {
