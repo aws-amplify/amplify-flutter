@@ -57,7 +57,7 @@ class AmplifyClass extends PlatformInterface {
   /// be called before Amplify has been configured. Customers are expected
   /// to check the configuration state by calling `Amplify.isConfigured()`
   Future<void> addPlugin(AmplifyPluginInterface plugin) async {
-    if (!isConfigured()) {
+    if (!isConfigured) {
       try {
         if (plugin is AuthPluginInterface) {
           Auth.addPlugin(plugin);
@@ -95,7 +95,7 @@ class AmplifyClass extends PlatformInterface {
   }
 
   /// Returns whether Amplify has been configured or not.
-  bool isConfigured() {
+  bool get isConfigured {
     return _isConfigured;
   }
 
@@ -109,7 +109,7 @@ class AmplifyClass extends PlatformInterface {
   /// is configured. Clients are expected to call `Amplify.isConfigured()`
   /// to check if their app is configured before calling this method.
   Future<void> configure(String configuration) async {
-    if (isConfigured()) {
+    if (isConfigured) {
       throw StateError(
           "Amplify has already been configured and re-configuration is not supported. " +
               "Please use Amplify.isConfigured() to check before calling configure again.");
