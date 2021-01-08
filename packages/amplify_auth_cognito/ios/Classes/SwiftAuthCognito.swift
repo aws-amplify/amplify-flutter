@@ -19,41 +19,18 @@ import Amplify
 import AmplifyPlugins
 import AWSCore
 
-public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
+public class SwiftAuthCognito: NSObject, FlutterPlugin {
     
     private var authEventSink: FlutterEventSink?
     private var token: UnsubscribeToken?
     private let cognito: AuthCognitoBridge
+    private let authCognitoHubEventStreamHandler: AuthCognitoHubEventStreamHandler?
+
     
-    init(cognito: AuthCognitoBridge = AuthCognitoBridge()) {
+    init(cognito: AuthCognitoBridge = AuthCognitoBridge(),
+         authCognitoHubEventStreamHandler: AuthCognitoHubEventStreamHandler = AuthCognitoHubEventStreamHandler()) {
         self.cognito = cognito
-    }
-    
-    public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
-        token = Amplify.Hub.listen(to: .auth) { payload in
-            switch payload.eventName {
-            case HubPayload.EventName.Auth.signedIn:
-                let hubEvent: Dictionary<String, Any> = ["eventName" : "SIGNED_IN"]
-                events(hubEvent)
-            case HubPayload.EventName.Auth.sessionExpired:
-                let hubEvent: Dictionary<String, Any> = ["eventName" : "SESSION_EXPIRED"]
-                events(hubEvent)
-            case HubPayload.EventName.Auth.signedOut:
-                let hubEvent: Dictionary<String, Any> = ["eventName" : "SIGNED_OUT"]
-                events(hubEvent)
-            default:
-                break
-            }
-        }
-        return nil
-    }
-    
-    public func onCancel(withArguments arguments: Any?) -> FlutterError? {
-        if (token != nil) {
-            Amplify.Hub.removeListener(token!)
-        }
-        self.authEventSink = nil
-        return nil
+        self.authCognitoHubEventStreamHandler = authCognitoHubEventStreamHandler
     }
     
     public static func register(with registrar: FlutterPluginRegistrar) {
@@ -62,7 +39,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, FlutterStreamHandler {
         let instance = SwiftAuthCognito()
         registrar.addMethodCallDelegate(instance, channel: channel)
         let authPlugin = AWSCognitoAuthPlugin()
-        eventChannel.setStreamHandler(instance)
+        eventChannel.setStreamHandler(instance.authCognitoHubEventStreamHandler)
         Amplify.Logging.logLevel = .error
         do {
             try Amplify.add(plugin: authPlugin)

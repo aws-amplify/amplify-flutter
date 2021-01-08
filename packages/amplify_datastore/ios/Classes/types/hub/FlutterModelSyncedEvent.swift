@@ -42,7 +42,7 @@ struct FlutterModelSyncedEvent: FlutterHubEvent {
     func toValueMap() -> Dictionary<String, Any> {
         return [
             "eventName": self.eventName,
-            "modelName": self.modelName,
+            "model": self.modelName,
             "isFullSync": self.isFullSync,
             "isDeltaSync": self.isDeltaSync,
             "added": self.added,

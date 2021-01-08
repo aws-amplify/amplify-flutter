@@ -13,20 +13,11 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/services.dart';
+import 'package:amplify_core/types/hub/HubEventPayload.dart';
 
-typedef void Listener(dynamic msg);
-typedef void CancelListening();
-
-class AmplifyAuthCognitoEventChannel {
-  var events = const EventChannel("com.amazonaws.amplify/auth_cognito_events");
-  var stream;
-  listenToAuth(Listener listener) {
-    stream = events.receiveBroadcastStream(1).listen(listener);
-    return stream;
+class NetworkStatusEvent extends HubEventPayload {
+  bool active;
+  NetworkStatusEvent(Map<dynamic, dynamic> serializedData) {
+    active = serializedData["active"];
   }
-
-  stopListeningToAuth() {
-    stream.cancel();
-  }
-} 
+}

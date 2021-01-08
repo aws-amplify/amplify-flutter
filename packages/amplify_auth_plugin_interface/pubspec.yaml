@@ -10,16 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   meta: ^1.1.8
-<<<<<<< HEAD
-<<<<<<< HEAD
   amplify_core: 0.0.1-dev.6
-=======
-  amplify_core:
-    path: ../amplify_core
->>>>>>> Add a new amplify_core package for base types and utilities (#275)
-=======
-  amplify_core: 0.0.1-dev.4
->>>>>>> Appempt 1 to revert back from local paths to versioned local dependencies
 
 dev_dependencies:
   flutter_test:

@@ -67,6 +67,7 @@ class _MyAppState extends State<MyApp> {
   Stream<SubscriptionEvent<Post>> postStream;
   Stream<SubscriptionEvent<Blog>> blogStream;
   Stream<SubscriptionEvent<Comment>> commentStream;
+  StreamSubscription hubSubscription;
   bool _listeningToHub = true;
   AmplifyDataStore datastorePlugin;
 
@@ -90,10 +91,10 @@ class _MyAppState extends State<MyApp> {
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     datastorePlugin = AmplifyDataStore(modelProvider: ModelProvider.instance);
-    listenToHub();
     await Amplify.addPlugin(datastorePlugin);
     // Configure
     await Amplify.configure(amplifyconfig);
+    listenToHub();
 
     // setup streams
     postStream = Amplify.DataStore.observe(Post.classType);
@@ -135,19 +136,19 @@ class _MyAppState extends State<MyApp> {
   }
 
   void listenToHub() {
-    AmplifyDataStore.events.listenToDataStore((msg) {
-      if (msg["eventName"] == "ready") {
-        runQueries();
-      }
-      print(msg);
-    });
     setState(() {
+      hubSubscription = Amplify.Hub.listen([HubChannel.DataStore], (msg) {
+        if (msg["eventName"] == "ready") {
+          runQueries();
+        }
+        print(msg);
+      });
       _listeningToHub = true;
     });
   }
 
   void stopListeningToHub() {
-    AmplifyDataStore.events.stopListeningToDataStore();
+    hubSubscription.cancel();
     setState(() {
       _listeningToHub = false;
     });

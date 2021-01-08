@@ -13,26 +13,34 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:async';
 import 'package:flutter/services.dart';
 
-typedef void Listener(dynamic msg);
-typedef void CancelListening();
+StreamController fakeEventChannel = StreamController<dynamic>.broadcast(
+  onListen: () => print('listening'),
+  onCancel: () => print('canceling')
+);
 
-class AmplifyDataStoreEventChannel {
-  var events = const EventChannel("com.amazonaws.amplify/datastore_hub_events");
-  var stream;
-  listenToDataStore(Listener listener, {Function onError}) {
-    // TODO: Assign as default parameter
-    var errorHandler = onError ?? defaultErrorHandler;
-    stream = events.receiveBroadcastStream(1).listen(listener, onError: errorHandler);
-    return stream;
+class FakeStreamController {
+
+  StreamController get thisController {
+    return controller;
   }
 
-  stopListeningToDataStore() {
-    stream.cancel();
+  StreamController get underlyingStream {
+    return fakeEventChannel;
   }
+}
 
-  void defaultErrorHandler(e) {
-    print(e);
-  }
-} 
+StreamController controller = StreamController<dynamic>.broadcast(
+  onListen: () {
+    fakeEventChannel.stream.listen((event) {
+      controller.add(event);
+    });
+  },
+  onCancel: () {
+    if (!controller.hasListener) {
+      fakeEventChannel.close();
+    }
+  },
+);

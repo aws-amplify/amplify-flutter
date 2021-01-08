@@ -24,7 +24,8 @@ import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interfac
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:amplify_analytics_plugin_interface/analytics_plugin_interface.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-
+import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
+import './amplify_hub.dart';
 import 'categories/amplify_categories.dart';
 
 part 'method_channel_amplify.dart';
@@ -50,6 +51,7 @@ class AmplifyClass extends PlatformInterface {
   APICategory API = const APICategory();
 
   bool _isConfigured = false;
+  AmplifyHub Hub = AmplifyHub();
 
   /// Adds one plugin at a time. Note: this method can only
   /// be called before Amplify has been configured. Customers are expected
@@ -59,12 +61,14 @@ class AmplifyClass extends PlatformInterface {
       try {
         if (plugin is AuthPluginInterface) {
           Auth.addPlugin(plugin as AuthPluginInterface);
+          Hub.addChannel(HubChannel.Auth, plugin.streamController);
         } else if (plugin is AnalyticsPluginInterface) {
           Analytics.addPlugin(plugin as AnalyticsPluginInterface);
         } else if (plugin is StoragePluginInterface) {
           Storage.addPlugin(plugin as StoragePluginInterface);
         } else if (plugin is DataStorePluginInterface) {
           await DataStore.addPlugin(plugin);
+          Hub.addChannel(HubChannel.DataStore, plugin.streamController);
         } else if (plugin is APIPluginInterface) {
           await API.addPlugin(plugin);
         } else {
@@ -120,7 +124,6 @@ class AmplifyClass extends PlatformInterface {
       throw ("Amplify failed to configure. " +
           "Please raise an issue in amplify-flutter repository.");
     }
-
     await DataStore.configure(configuration);
   }
 
@@ -148,4 +151,9 @@ class AmplifyClass extends PlatformInterface {
     PlatformInterface.verifyToken(instance, _token);
     _instance = instance;
   }
+}
+
+enum HubChannel {
+  Auth,
+  DataStore
 }

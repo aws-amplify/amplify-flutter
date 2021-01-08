@@ -20,6 +20,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  amplify_flutter: ^0.0.1-dev.6
 
 # The following section is specific to Flutter.
 flutter:

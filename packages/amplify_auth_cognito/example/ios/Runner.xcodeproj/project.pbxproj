@@ -15,6 +15,7 @@
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		9C404087251AA2430036C5FE /* MockAuthSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C404086251AA2430036C5FE /* MockAuthSession.swift */; };
+		9CC45C2425A4F7E90055E103 /* amplify_auth_cognito_hub_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC45C2325A4F7E90055E103 /* amplify_auth_cognito_hub_tests.swift */; };
 		B43589BD2581AA9600789DEE /* amplify_auth_cognito_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43589BC2581AA9600789DEE /* amplify_auth_cognito_tests.swift */; };
 		F2DA8B5C977629D804F82231 /* Pods_unit_tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D32371001FAB7B1A4BE60D5 /* Pods_unit_tests.framework */; };
 /* End PBXBuildFile section */
@@ -54,6 +55,7 @@
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C404086251AA2430036C5FE /* MockAuthSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAuthSession.swift; sourceTree = "<group>"; };
+		9CC45C2325A4F7E90055E103 /* amplify_auth_cognito_hub_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = amplify_auth_cognito_hub_tests.swift; sourceTree = "<group>"; };
 		9CEFDF1225113C2F001481FC /* unit_tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = unit_tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CEFDF1625113C2F001481FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B43589BC2581AA9600789DEE /* amplify_auth_cognito_tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = amplify_auth_cognito_tests.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				9C404086251AA2430036C5FE /* MockAuthSession.swift */,
 				B43589BC2581AA9600789DEE /* amplify_auth_cognito_tests.swift */,
 				9CEFDF1625113C2F001481FC /* Info.plist */,
+				9CC45C2325A4F7E90055E103 /* amplify_auth_cognito_hub_tests.swift */,
 			);
 			path = unit_tests;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CC45C2425A4F7E90055E103 /* amplify_auth_cognito_hub_tests.swift in Sources */,
 				9C404087251AA2430036C5FE /* MockAuthSession.swift in Sources */,
 				B43589BD2581AA9600789DEE /* amplify_auth_cognito_tests.swift in Sources */,
 			);

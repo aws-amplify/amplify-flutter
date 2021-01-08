@@ -38,6 +38,10 @@ class DataStoreCategory {
           "multiple plugins for DataStore category are currently not supported.");
     }
   }
+  
+  StreamController get streamController {
+    return plugins.length == 1 ? plugins[0].streamController : throw(errorMsg);
+  }
 
   Future<List<T>> query<T extends Model>(ModelType<T> modelType,
       {QueryPredicate where,
