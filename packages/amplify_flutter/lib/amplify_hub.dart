@@ -73,6 +73,8 @@ class AmplifyHub {
 
   /// Adds Plugin level streams in preparation for 'listen'
   void addChannel(HubChannel name, StreamController controller) async  {
-    availableStreams[name] = controller.stream;
+    if (!Amplify.isConfigured) {
+      availableStreams[name] = controller.stream;
+    }
   }
 }

@@ -20,11 +20,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_flutter/amplify.dart';
-import 'package:amplify_core/test_resources/fake_stream_controller.dart';
+import 'mocks/mock_stream_controller.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('amplify/amplify_core');
-  FakeStreamController mockPluginController = FakeStreamController();
+  MockStreamController mockPluginController = MockStreamController();
   TestWidgetsFlutterBinding.ensureInitialized();
 
   setUp(() {

@@ -58,18 +58,15 @@ class AmplifyAuthCognitoHubTest {
     
     @Test
     fun test_hub_signedIn_event() {
+        val latch = CountDownLatch(1)
+        val realHubHandler = AuthCognitoHubEventStreamHandler(latch)
 
-
-        flutterPlugin = AuthCognito(hubEventHandler = mockHubHandler)
+        flutterPlugin = AuthCognito(hubEventHandler = realHubHandler)
         var eventData: HashMap<String, Any> = (readMapFromFile("hub",
                 "signedInEvent.json",
                 HashMap::class.java) as HashMap<String, Any>)
        
         var event: HubEvent<*> = HubEvent.create(AuthChannelEventName.SIGNED_IN)
-
-        val latch = CountDownLatch(1)
-
-        val realHubHandler = AuthCognitoHubEventStreamHandler(latch)
 
         val hubSpy = spy(realHubHandler)
 
@@ -83,16 +80,15 @@ class AmplifyAuthCognitoHubTest {
 
     @Test
     fun test_hub_signedOut_event() {
-        flutterPlugin = AuthCognito(hubEventHandler = mockHubHandler)
+        val latch = CountDownLatch(1)
+        val realHubHandler = AuthCognitoHubEventStreamHandler(latch)
+
+        flutterPlugin = AuthCognito(hubEventHandler = realHubHandler)
         var eventData: HashMap<String, Any> = (readMapFromFile("hub",
                 "signedOutEvent.json",
                 HashMap::class.java) as HashMap<String, Any>)
 
         var event: HubEvent<*> = HubEvent.create(AuthChannelEventName.SIGNED_OUT)
-
-        val latch = CountDownLatch(1)
-
-        val realHubHandler = AuthCognitoHubEventStreamHandler(latch)
 
         val hubSpy = spy(realHubHandler)
 
@@ -106,16 +102,15 @@ class AmplifyAuthCognitoHubTest {
 
     @Test
     fun test_hub_sessionExpired_event() {
-        flutterPlugin = AuthCognito(hubEventHandler = mockHubHandler)
+        val latch = CountDownLatch(1)
+        val realHubHandler = AuthCognitoHubEventStreamHandler(latch)
+
+        flutterPlugin = AuthCognito(hubEventHandler = realHubHandler)
         var eventData: HashMap<String, Any> = (readMapFromFile("hub",
                 "sessionExpiredEvent.json",
                 HashMap::class.java) as HashMap<String, Any>)
 
         var event: HubEvent<*> = HubEvent.create(AuthChannelEventName.SESSION_EXPIRED)
-
-        val latch = CountDownLatch(1)
-
-        val realHubHandler = AuthCognitoHubEventStreamHandler(latch)
 
         val hubSpy = spy(realHubHandler)
 

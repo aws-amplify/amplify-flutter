@@ -151,6 +151,10 @@ class AmplifyClass extends PlatformInterface {
     PlatformInterface.verifyToken(instance, _token);
     _instance = instance;
   }
+
+  bool get isConfigured {
+    return _isConfigured;
+  }
 }
 
 enum HubChannel {

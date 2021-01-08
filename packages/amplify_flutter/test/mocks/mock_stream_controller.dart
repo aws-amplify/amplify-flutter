@@ -21,7 +21,7 @@ StreamController fakeEventChannel = StreamController<dynamic>.broadcast(
   onCancel: () => print('canceling')
 );
 
-class FakeStreamController {
+class MockStreamController {
 
   StreamController get thisController {
     return controller;
