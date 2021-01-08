@@ -60,4 +60,3 @@ public class AuthCognitoHubEventStreamHandler: NSObject, FlutterStreamHandler {
         return nil
     }
 }
-
