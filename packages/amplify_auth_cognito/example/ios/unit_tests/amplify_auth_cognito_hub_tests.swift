@@ -35,10 +35,6 @@ class  amplify_auth_cognito_hub_tests: XCTestCase {
                 XCTAssertEqual(flutterEvent["eventName"] as! String, "SIGNED_IN")
                 innerExpect?.fulfill()
             }
-            override func sendError(hubEvent: String) {
-                XCTFail()
-                innerExpect?.fulfill()
-            }
         }
 
         let hubHandler = MockAuthHubHandler()
@@ -62,10 +58,6 @@ class  amplify_auth_cognito_hub_tests: XCTestCase {
                 XCTAssertEqual(flutterEvent["eventName"] as! String, "SIGNED_OUT")
                 innerExpect?.fulfill()
             }
-            override func sendError(hubEvent: String) {
-                XCTFail()
-                innerExpect?.fulfill()
-            }
         }
 
         let hubHandler = MockAuthHubHandler()
@@ -87,10 +79,6 @@ class  amplify_auth_cognito_hub_tests: XCTestCase {
             }
             override func sendEvent(flutterEvent: [String : Any]) {
                 XCTAssertEqual(flutterEvent["eventName"] as! String, "SESSION_EXPIRED")
-                innerExpect?.fulfill()
-            }
-            override func sendError(hubEvent: String) {
-                XCTFail()
                 innerExpect?.fulfill()
             }
         }
