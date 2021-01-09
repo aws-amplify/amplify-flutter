@@ -136,7 +136,7 @@ class _SignUpViewState extends State<SignUpView> {
                         labelText: 'Phone number *',
                       ),
                     ),
-                    RaisedButton(
+                    ElevatedButton(
                       onPressed: _signUp,
                       child: const Text('Sign Up'),
                     ),
@@ -152,7 +152,7 @@ class _SignUpViewState extends State<SignUpView> {
                             hintText: 'The code we sent you',
                             labelText: 'Confirmation Code *',
                           )),
-                      RaisedButton(
+                      ElevatedButton(
                         onPressed: _confirmSignUp,
                         child: const Text('Confirm Sign Up'),
                       ),

@@ -50,12 +50,12 @@ class _ConfirmSignInWidgetState extends State<ConfirmSignInWidget> {
                     labelText: 'Challange Response *',
                   )),
               const Padding(padding: EdgeInsets.all(10.0)),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: _confirmSignIn,
                 child: const Text('Confirm SignIn'),
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
-              RaisedButton(
+              ElevatedButton(
                 key: Key('goto-signin-button'),
                 onPressed: widget.backToSignIn,
                 child: const Text('Back to Sign In'),

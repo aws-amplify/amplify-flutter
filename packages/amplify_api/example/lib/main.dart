@@ -71,11 +71,11 @@ class _MyAppState extends State<MyApp> {
               title: Padding(
                   padding: EdgeInsets.all(10.0),
                   child: Row(children: [
-                    RaisedButton(
-                        child: Text("Rest API"),
+                    ElevatedButton(
+                        child: const Text("Rest API"),
                         onPressed: _onRestApiViewButtonClick),
-                    RaisedButton(
-                        child: Text("GraphQL API"),
+                    ElevatedButton(
+                        child: const Text("GraphQL API"),
                         onPressed: _onGraphQlApiViewButtonClick)
                   ]))),
           body: Padding(

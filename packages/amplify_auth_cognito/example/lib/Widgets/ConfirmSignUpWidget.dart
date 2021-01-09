@@ -72,18 +72,18 @@ class _ConfirmSignUpWidgetState extends State<ConfirmSignUpWidget> {
                     labelText: 'Confirmation Code *',
                   )),
               const Padding(padding: EdgeInsets.all(10.0)),
-              RaisedButton(
+              ElevatedButton(
                 key: Key('confirm-user-button'),
                 onPressed: _confirmSignUp,
                 child: const Text('Confirm SignUp'),
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: _resendSignUpCode,
                 child: const Text('ResendCode'),
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
-              RaisedButton(
+              ElevatedButton(
                 key: Key('goto-signin-button'),
                 onPressed: widget.backToSignIn,
                 child: const Text('Back to Sign In'),

@@ -84,32 +84,32 @@ class _SignInWidgetState extends State<SignInWidget> {
                 childAspectRatio: 3,
                 padding: const EdgeInsets.all(5.0),
                 children: [
-                  RaisedButton(
+                  ElevatedButton(
                     key: Key('signin-button'),
                     onPressed: _signIn,
                     child: const Text('Sign In'),
                   ),
-                  RaisedButton(
+                  ElevatedButton(
                     key: Key('goto-signup-button'),
                     onPressed: widget.showCreateUser,
                     child: const Text('Create User'),
                   ),
-                  RaisedButton(
+                  ElevatedButton(
                     key: Key('reset-button'),
                     onPressed: _resetPassword,
                     child: const Text('Reset Password'),
                   ),
-                  RaisedButton(
+                  ElevatedButton(
                     key: Key('signout-button'),
                     onPressed: widget.signOut,
                     child: const Text('SignOut'),
                   ),
-                  RaisedButton(
+                  ElevatedButton(
                     key: Key('session-button'),
                     onPressed: widget.fetchSession,
                     child: const Text('Get Session'),
                   ),
-                  RaisedButton(
+                  ElevatedButton(
                     key: Key('current-user-button'),
                     onPressed: widget.getCurrentUser,
                     child: const Text('Get Current User'),

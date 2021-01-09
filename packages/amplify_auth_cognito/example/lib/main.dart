@@ -210,27 +210,27 @@ class _MyAppState extends State<MyApp> {
               const Padding(padding: EdgeInsets.all(10.0)),
               Text("You are signed in!"),
               const Padding(padding: EdgeInsets.all(10.0)),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: _signOut,
                 child: const Text('Sign Out'),
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: _showUpdatePassword,
                 child: const Text('Change Password'),
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: _stopListening,
                 child: const Text('Stop Listening'),
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: _fetchSession,
                 child: const Text('Get Session'),
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
-              RaisedButton(
+              ElevatedButton(
                   onPressed: _getCurrentUser,
                   child: const Text('Get CurrentUser'))
             ],
@@ -321,7 +321,7 @@ class _MyAppState extends State<MyApp> {
                             showResult, changeDisplay, setError, _backToSignIn),
                       if (this.displayState == "SIGNED_IN") showApp(),
                       if (this.error != "") showErrors(),
-                      RaisedButton(
+                      ElevatedButton(
                         key: Key('configure-button'),
                         onPressed:
                             _isAmplifyConfigured ? null : _configureAmplify,
