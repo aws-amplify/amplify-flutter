@@ -34,7 +34,7 @@ class _LandingPageState extends State<LandingPage> {
         child: new SimpleDialog(title: Text(text), children: [
           dialogWidget,
           ElevatedButton(
-            child: Text("Cancel"),
+            child: const Text("Cancel"),
             onPressed: () {
               Navigator.pop(context, false);
             },
