@@ -32,20 +32,6 @@ class AmplifyHub {
     List<StreamSubscription> platformSubscriptions = [];
     StreamController controller;
 
-    listenToPluginStreams() {
-      channels.forEach((c) {
-        if (availableStreams[c] != null) {
-          StreamSubscription subscription = availableStreams[c].listen((msg) {
-            /// Emit events via Hub
-            controller.add(msg);
-          });
-          platformSubscriptions.add(subscription);
-        } else {
-          print('You are attempting to listen to a plugin that has not been added.');
-        }
-      });
-    }
-
     cancelPluginStreams() {
       platformSubscriptions.forEach((ps) {
         ps.cancel();
