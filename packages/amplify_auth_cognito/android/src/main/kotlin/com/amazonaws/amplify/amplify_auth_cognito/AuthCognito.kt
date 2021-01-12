@@ -42,7 +42,7 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResetPasswordRequ
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdatePasswordRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthUser
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendSignUpCodeResult
-import com.amazonaws.amplify.amplify_datastore.AuthCognitoHubEventStreamHandler
+import com.amazonaws.amplify.amplify_auth_cognito.AuthCognitoHubEventStreamHandler
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.exceptions.CognitoCodeExpiredException
 import com.amazonaws.services.cognitoidentityprovider.model.*
 import com.amplifyframework.auth.AuthException

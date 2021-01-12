@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package com.amazonaws.amplify.amplify_datastore
+package com.amazonaws.amplify.amplify_auth_cognito
 
 import android.os.Handler
 import android.os.Looper
@@ -60,7 +60,7 @@ class AuthCognitoHubEventStreamHandler : EventChannel.StreamHandler {
               AuthChannelEventName.SIGNED_IN,
               AuthChannelEventName.SIGNED_OUT,
               AuthChannelEventName.SESSION_EXPIRED -> {
-                var hubEvent = mapOf("eventName" to "SIGNED_IN")
+                var hubEvent = mapOf("eventName" to hubEvent.name)
                 sendEvent(hubEvent)
               }
               else -> LOG.info("Unrecognized Auth Event")

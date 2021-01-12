@@ -20,15 +20,12 @@ package com.amazonaws.amplify.amplify_auth_cognito
 import android.content.Context
 import android.os.Looper.getMainLooper
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
-import com.amazonaws.amplify.amplify_datastore.AuthCognitoHubEventStreamHandler
 import com.amplifyframework.auth.AuthChannelEventName
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.hub.HubChannel
 import com.amplifyframework.hub.HubEvent
 import com.amplifyframework.hub.SubscriptionToken
-import com.amazonaws.amplify.amplify_core.readMapFromFile
-import com.amazonaws.amplify.amplify_core.Latch
 import com.amplifyframework.logging.Logger
 import org.junit.Before
 import org.junit.Test
