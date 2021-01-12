@@ -26,6 +26,7 @@ import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart
 import 'package:amplify_analytics_plugin_interface/analytics_plugin_interface.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
+
 import './amplify_hub.dart';
 import 'categories/amplify_categories.dart';
 
@@ -127,6 +128,7 @@ class AmplifyClass extends PlatformInterface {
       throw ("Amplify failed to configure. " +
           "Please raise an issue in amplify-flutter repository.");
     }
+
     await DataStore.configure(configuration);
   }
 
