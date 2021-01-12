@@ -19,3 +19,4 @@ export 'plugin/amplify_plugin_interface.dart';
 /// HUB
 export 'hub/HubEvent.dart';
 export 'hub/HubEventPayload.dart';
+export 'hub/HubChannel.dart';

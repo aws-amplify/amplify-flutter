@@ -31,7 +31,7 @@ class AuthCognitoHubEventStreamHandler : EventChannel.StreamHandler {
     private var eventSink: EventChannel.EventSink? = null
     private val handler = Handler(Looper.getMainLooper())
     private lateinit var token: SubscriptionToken
-    private val LOG = Amplify.Logging.forNamespace("amplify:flutter:auth_cognito")
+    private val LOG = Amplify.Logging.forNamespace("amplify:flutter:auth_cognito_hub_evnet_stream_handler")
     private var forwardHubResponse : (event: Map<String, Any>) -> Unit
 
     constructor(){
@@ -57,16 +57,10 @@ class AuthCognitoHubEventStreamHandler : EventChannel.StreamHandler {
             LOG.info("AuthPlugin failed to initialize")
           } else {
             when (AuthChannelEventName.valueOf(hubEvent.name)) {
-              AuthChannelEventName.SIGNED_IN -> {
-                var hubEvent = mapOf("eventName" to "SIGNED_IN")
-                sendEvent(hubEvent)
-              }
-              AuthChannelEventName.SIGNED_OUT -> {
-                var hubEvent = mapOf("eventName" to "SIGNED_OUT")
-                sendEvent(hubEvent)
-              }
+              AuthChannelEventName.SIGNED_IN,
+              AuthChannelEventName.SIGNED_OUT,
               AuthChannelEventName.SESSION_EXPIRED -> {
-                var hubEvent = mapOf("eventName" to "SESSION_EXPIRED")
+                var hubEvent = mapOf("eventName" to "SIGNED_IN")
                 sendEvent(hubEvent)
               }
               else -> LOG.info("Unrecognized Auth Event")

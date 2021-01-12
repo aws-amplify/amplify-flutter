@@ -33,8 +33,6 @@ class AmplifyDataStore extends DataStorePluginInterface {
   static DataStoreStreamController streamWrapper = DataStoreStreamController();
   ModelProviderInterface models;
 
-
-
   static set instance(DataStorePluginInterface instance) {
     PlatformInterface.verifyToken(instance, _token);
     _instance = instance;

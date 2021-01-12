@@ -15,6 +15,7 @@
 
 import 'dart:async';
 
+import 'package:amplify_core/types/index.dart';
 import 'package:flutter/foundation.dart';
 import 'package:amplify_core/types/hub/HubEvent.dart';
 import 'amplify.dart';

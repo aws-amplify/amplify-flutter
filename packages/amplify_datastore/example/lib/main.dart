@@ -138,7 +138,7 @@ class _MyAppState extends State<MyApp> {
   void listenToHub() {
     setState(() {
       hubSubscription = Amplify.Hub.listen([HubChannel.DataStore], (msg) {
-        if (msg["eventName"] == "ready") {
+        if (msg.eventName == "ready") {
           runQueries();
         }
         print(msg);

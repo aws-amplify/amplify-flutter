@@ -15,6 +15,7 @@
 
 import 'dart:async';
 
+import 'package:amplify_flutter/amplify_hub.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
@@ -94,6 +95,37 @@ class _MyAppState extends State<MyApp> {
     await Amplify.addPlugin(auth);
     var isSignedIn = false;
 
+    subscription = Amplify.Hub.listen([HubChannel.Auth], (hubEvent) {
+      switch (hubEvent.eventName) {
+        case 'SIGNED_IN':
+          {
+            setState(() {
+              lastHubEvent = 'SIGNED_IN';
+            });
+            print('HUB: USER IS SIGNED IN');
+          }
+          break;
+        case 'SIGNED_OUT':
+          {
+            setState(() {
+              lastHubEvent = 'SIGNED_OUT';
+            });
+            print('HUB: USER IS SIGNED OUT');
+          }
+          break;
+        case 'SESSION_EXPIRED':
+          {
+            setState(() {
+              lastHubEvent = 'SESSION_EXPIRED';
+            });
+            print('HUB: USER SESSION HAS EXPIRED');
+          }
+          break;
+      }
+    });
+
+    Amplify.Hub.addChannel(HubChannel.Auth, auth.streamController);
+
     await Amplify.configure(amplifyconfig);
     try {
       isSignedIn = await _isSignedIn();
@@ -105,34 +137,6 @@ class _MyAppState extends State<MyApp> {
       _isAmplifyConfigured = true;
       displayState = isSignedIn ? 'SIGNED_IN' : 'SHOW_SIGN_IN';
       authState = isSignedIn ? 'User already signed in' : 'User not signed in';
-      subscription = Amplify.Hub.listen([HubChannel.Auth], (hubEvent) {
-        switch (hubEvent.eventName) {
-          case 'SIGNED_IN':
-            {
-              setState(() {
-                lastHubEvent = 'SIGNED_IN';
-              });
-              print('HUB: USER IS SIGNED IN');
-            }
-            break;
-          case 'SIGNED_OUT':
-            {
-              setState(() {
-                lastHubEvent = 'SIGNED_OUT';
-              });
-              print('HUB: USER IS SIGNED OUT');
-            }
-            break;
-          case 'SESSION_EXPIRED':
-            {
-              setState(() {
-                lastHubEvent = 'SESSION_EXPIRED';
-              });
-              print('HUB: USER SESSION HAS EXPIRED');
-            }
-            break;
-        }
-      });
     });
   }
 

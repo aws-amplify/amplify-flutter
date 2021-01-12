@@ -28,6 +28,8 @@ import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 import './amplify_hub.dart';
 import 'categories/amplify_categories.dart';
 
+export 'package:amplify_core/types/hub/HubChannel.dart';
+
 part 'method_channel_amplify.dart';
 
 /// Top level singleton Amplify object.
@@ -155,9 +157,4 @@ class AmplifyClass extends PlatformInterface {
   bool get isConfigured {
     return _isConfigured;
   }
-}
-
-enum HubChannel {
-  Auth,
-  DataStore
 }

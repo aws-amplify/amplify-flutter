@@ -1,5 +1,6 @@
+
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,12 +14,7 @@
  * permissions and limitations under the License.
  */
 
-package com.amazonaws.amplify.amplify_datastore
-
-import com.fasterxml.jackson.databind.ObjectMapper
-
-fun <T> readMapFromFile(dir: String, path: String, clazz: Class<T>): T {
-    val filePath = "$dir/$path"
-    val jsonFile = ClassLoader.getSystemResource(filePath).readText()
-    return ObjectMapper().readValue(jsonFile, clazz)
+enum HubChannel {
+  Auth,
+  DataStore
 }

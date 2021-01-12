@@ -40,8 +40,10 @@ public class AuthCognitoHubEventStreamHandler: NSObject, FlutterStreamHandler {
             case HubPayload.EventName.Auth.signedOut:
                 let hubEvent: Dictionary<String, Any> = ["eventName" : "SIGNED_OUT"]
                 self.sendEvent(flutterEvent: hubEvent)
+            case HubPayload.EventName.Amplify.configured:
+                print("AuthPlugin successfully initialized")
             default:
-                break
+                print("Unrecognized Auth Event")
             }
         }
     }
@@ -58,3 +60,4 @@ public class AuthCognitoHubEventStreamHandler: NSObject, FlutterStreamHandler {
         return nil
     }
 }
+

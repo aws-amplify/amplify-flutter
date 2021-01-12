@@ -32,16 +32,16 @@ class AmplifyAuthCognito extends AuthPluginInterface {
   AmplifyAuthCognito() : super(token: _token);
 
   static AmplifyAuthCognito _instance = AmplifyAuthCognitoMethodChannel();
+  static AuthStreamController streamWrapper = AuthStreamController();
+
 
   static set instance(AuthPluginInterface instance) {
     PlatformInterface.verifyToken(instance, _token);
     _instance = instance;
   }
 
-  static StreamController stream = authStreamController;
-
   StreamController get streamController {
-      return stream;
+    return streamWrapper.authStreamController;
   }
 
   Future<SignUpResult> signUp({@required SignUpRequest request}) async {

@@ -20,25 +20,31 @@ import 'src/CognitoHubEvents/AuthHubEvent.dart';
 EventChannel channel = const EventChannel("com.amazonaws.amplify/auth_cognito_events");
 StreamSubscription eventStream;
 
-StreamController authStreamController = StreamController<AuthHubEvent>.broadcast(
-  onListen: onListen,
-  onCancel: onCancel,
+class AuthStreamController {
+  StreamController get authStreamController {
+    return _authStreamController;
+  }
+}
+
+StreamController _authStreamController = StreamController<AuthHubEvent>.broadcast(
+  onListen: _onListen,
+  onCancel: _onCancel,
 );
 
-onListen() {
+_onListen() {
   if (eventStream == null ) {
     eventStream = channel.receiveBroadcastStream(1).listen((event) {
       switch(event["eventName"]) {
         case "SIGNED_IN": {
-          authStreamController.add(AuthHubEvent(event["eventName"]));
+          _authStreamController.add(AuthHubEvent(event["eventName"]));
         }
         break;
         case "SIGNED_OUT": {
-          authStreamController.add(AuthHubEvent(event["eventName"]));
+          _authStreamController.add(AuthHubEvent(event["eventName"]));
         }
         break;
         case "SESSION_EXPIRED": {
-          authStreamController.add(AuthHubEvent(event["eventName"]));
+          _authStreamController.add(AuthHubEvent(event["eventName"]));
         }
         break;
         default: {
@@ -49,8 +55,8 @@ onListen() {
   }
 }
 
-onCancel() {
-  if (!authStreamController.hasListener) {
+_onCancel() {
+  if (!_authStreamController.hasListener) {
     eventStream.cancel();
     eventStream = null;
   }

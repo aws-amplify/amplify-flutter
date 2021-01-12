@@ -127,10 +127,12 @@ public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
                         } catch {
                             print("Failed to parse and send outboxMutationProcessed event:  \(error)")
                         }
-                    default:
-                        print("Unrecognized DataStoreHubEvent: \(payload.eventName)" )
-                    }
-                }
+                  case HubPayload.EventName.Amplify.configured:
+                    print("DataStorePlugin successfully initialized")
+                  default:
+                    print("Unrecognized DataStoreHubEvent: \(payload.eventName)" )
+                  }
+              }
     }
 
     func sendEvent(flutterEvent: [String : Any]) {

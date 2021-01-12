@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package com.amazonaws.amplify.amplify_auth_cognito
+package com.amazonaws.amplify.amplify_core
 
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit
  * This is done frequently enough in the test code that its best
  * to centralize a single pattern for it.
  */
-object Latch {
+public object Latch {
     private val REASONABLE_WAIT_TIME_MS = TimeUnit.SECONDS.toMillis(5)
 
     /**

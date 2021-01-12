@@ -15,6 +15,7 @@
 
 import 'dart:async';
 
+import 'package:amplify_core/types/index.dart';
 import 'package:amplify_flutter/amplify_hub.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';

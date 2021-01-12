@@ -19,17 +19,16 @@ import 'package:amplify_auth_cognito/src/CognitoHubEvents/AuthHubEvent.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_flutter/amplify.dart';
-import 'utils/get_json_from_file.dart';
+import 'package:amplify_core/test_utils/get_json_from_file.dart';
+
+var log = [];
 
 void main() {
   const MethodChannel authChannel = MethodChannel('com.amazonaws.amplify/auth_cognito');
   const String channelName = 'com.amazonaws.amplify/auth_cognito_events';
-
-  AmplifyAuthCognito auth = AmplifyAuthCognito();
-
+  AuthStreamController controller = AuthStreamController();
+  StreamController authStreamController = controller.authStreamController;
   TestWidgetsFlutterBinding.ensureInitialized();
-  
 
   setUpAll(() async {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
@@ -49,12 +48,12 @@ void main() {
     );
   }
 
-  test('Amplify.Hub.listen with auth channel returns a StreamSubscription', () async {
-    await Amplify.addPlugin(auth);
-    var sub = Amplify.Hub.listen([HubChannel.Auth], (msg) {});
-    expect(sub, isInstanceOf<StreamSubscription>());
-    await sub.cancel();
-  });
+  // test('Amplify.Hub.listen with auth channel returns a StreamSubscription', () async {
+  //   await Amplify.addPlugin(auth);
+  //   var sub = Amplify.Hub.listen([HubChannel.Auth], (msg) {});
+  //   expect(sub, isInstanceOf<StreamSubscription>());
+  //   await sub.cancel();
+  // });
 
   test('Can receive Signed In Event', () async {
     var json =  await getJsonFromFile('hub/signedInEvent.json');
@@ -70,7 +69,7 @@ void main() {
     );
 
     List<AuthHubEvent> events = [];
-    StreamSubscription sub  = authStreamController.stream.listen((event) {
+    StreamSubscription sub = authStreamController.stream.listen((event) {
       events.add(event);
     });
 
@@ -125,4 +124,33 @@ void main() {
     expect(events.last, isInstanceOf<AuthHubEvent>());
     expect(events.last.eventName, equals("SESSION_EXPIRED"));
   });
+
+  test('Can handle unknown event',  overridePrint(() async {
+    var json =  await getJsonFromFile('hub/unknownEvent.json');
+    void emitEvent(ByteData event) {
+      handler(event);
+    }
+
+    await ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
+      channelName,
+      (ByteData message) async {
+        emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
+      },
+    );
+
+    StreamSubscription sub = authStreamController.stream.listen((event) {});
+    
+    await Future<void>.delayed(Duration.zero);
+    sub.cancel();
+    expect(log.last, 'An Unrecognized Auth Hub event has been detected on the event channel.');
+  }));
 }
+
+void Function() overridePrint(void testFn()) => () {
+  var spec = new ZoneSpecification(
+    print: (_, __, ___, String msg) {
+      log.add(msg);
+    }
+  );
+  return Zone.current.fork(specification: spec).run<void>(testFn);
+};

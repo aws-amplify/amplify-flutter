@@ -23,14 +23,13 @@ import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import com.amazonaws.amplify.amplify_datastore.AuthCognitoHubEventStreamHandler
 import com.amplifyframework.auth.AuthChannelEventName
 import com.amplifyframework.auth.AuthException
-import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
 import com.amplifyframework.core.Amplify
-import com.amplifyframework.core.InitializationStatus
 import com.amplifyframework.hub.HubChannel
 import com.amplifyframework.hub.HubEvent
 import com.amplifyframework.hub.SubscriptionToken
+import com.amazonaws.amplify.amplify_core.readMapFromFile
+import com.amazonaws.amplify.amplify_core.Latch
 import com.amplifyframework.logging.Logger
-import org.json.JSONObject
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

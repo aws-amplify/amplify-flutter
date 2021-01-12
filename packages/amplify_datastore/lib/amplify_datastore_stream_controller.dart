@@ -33,7 +33,7 @@ StreamSubscription eventStream;
 class DataStoreStreamController {
   
   StreamController get datastoreStreamController {
-    return controller;
+    return _controller;
   }
 
   void registerModelsForHub(ModelProviderInterface models) {
@@ -41,49 +41,49 @@ class DataStoreStreamController {
   }
 }
 
-StreamController controller = StreamController<DataStoreHubEvent>.broadcast(
-  onListen: onListen,
-  onCancel: onCancel,
+StreamController _controller = StreamController<DataStoreHubEvent>.broadcast(
+  onListen: _onListen,
+  onCancel: _onCancel,
 );
 
-onListen() {
+_onListen() {
   if (eventStream == null ) {
     eventStream = channel.receiveBroadcastStream(1).listen((event) {
       switch(event["eventName"]) {
         case "ready": {
-          rebroadcast(event["eventName"]);
+          _rebroadcast(event["eventName"]);
         }
         break;
         case "networkStatus": {
-          rebroadcast(event["eventName"], payload: NetworkStatusEvent(event));
+          _rebroadcast(event["eventName"], payload: NetworkStatusEvent(event));
         }
         break;
         case 'subscriptionsEstablished': {
-          rebroadcast(event["eventName"]);
+          _rebroadcast(event["eventName"]);
         }
         break;
         case "syncQueriesStarted": {
-          rebroadcast(event["eventName"], payload: SyncQueriesStartedEvent(event));
+          _rebroadcast(event["eventName"], payload: SyncQueriesStartedEvent(event));
         }
         break;
         case "modelSynced": {
-          rebroadcast(event["eventName"], payload: ModelSyncedEvent(event));
+          _rebroadcast(event["eventName"], payload: ModelSyncedEvent(event));
         }
         break;
         case "syncQueriesReady": {
-          rebroadcast(event["eventName"]);
+          _rebroadcast(event["eventName"]);
         }
         break;
         case "outboxMutationEnqueued": {
-          rebroadcast(event["eventName"], payload: OutboxMutationEvent(event, modelProvider, event["eventName"]));
+          _rebroadcast(event["eventName"], payload: OutboxMutationEvent(event, modelProvider, event["eventName"]));
         }
         break;
         case "outboxMutationProcessed": {
-          rebroadcast(event["eventName"], payload: OutboxMutationEvent(event, modelProvider, event["eventName"]));
+          _rebroadcast(event["eventName"], payload: OutboxMutationEvent(event, modelProvider, event["eventName"]));
         }
         break;
         case "outboxStatus": {
-          rebroadcast(event["eventName"], payload: OutboxStatusEvent(event));
+          _rebroadcast(event["eventName"], payload: OutboxStatusEvent(event));
         }
         break;
         default: {
@@ -94,17 +94,17 @@ onListen() {
   }
 }
 
-rebroadcast(String eventName, { HubEventPayload payload}) {
+_rebroadcast(String eventName, { HubEventPayload payload}) {
   try {
-    controller.add(DataStoreHubEvent(eventName, payload: payload));
+    _controller.add(DataStoreHubEvent(eventName, payload: payload));
   } catch (e) {
     print(e);
   }
   
 }
 
-onCancel() {
-  if (!controller.hasListener) {
+_onCancel() {
+  if (!_controller.hasListener) {
     eventStream.cancel();
     eventStream = null;
   }
