@@ -67,13 +67,6 @@ void main() {
     );
   }
 
-  // test('Amplify.Hub.listen with datastore channel returns a StreamSubscription', () async {
-  //   await Amplify.addPlugin(datastore);
-  //   var sub = Amplify.Hub.listen([HubChannel.DataStore], (msg) {});
-  //   expect(sub, isInstanceOf<StreamSubscription>());
-  //   await sub.cancel();
-  // });
-
   test('Can receive Ready Event', () async {
     var json =  await getJsonFromFile('hub/readyEvent.json');
     void emitEvent(ByteData event) {

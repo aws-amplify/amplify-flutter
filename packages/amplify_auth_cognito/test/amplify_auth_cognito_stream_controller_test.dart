@@ -48,13 +48,6 @@ void main() {
     );
   }
 
-  // test('Amplify.Hub.listen with auth channel returns a StreamSubscription', () async {
-  //   await Amplify.addPlugin(auth);
-  //   var sub = Amplify.Hub.listen([HubChannel.Auth], (msg) {});
-  //   expect(sub, isInstanceOf<StreamSubscription>());
-  //   await sub.cancel();
-  // });
-
   test('Can receive Signed In Event', () async {
     var json =  await getJsonFromFile('hub/signedInEvent.json');
     void emitEvent(ByteData event) {
