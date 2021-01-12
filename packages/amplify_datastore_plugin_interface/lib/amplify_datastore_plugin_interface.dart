@@ -37,8 +37,11 @@ export 'src/types/models/uuid.dart';
 export 'src/types/models/model_provider.dart';
 export 'src/types/models/auth_rule.dart';
 
-//export 'src/types/temporal/date.dart';
-//export 'src/types/temporal/time.dart';
+export 'src/types/temporal/temporal_date.dart';
+export 'src/types/temporal/temporal_time.dart';
+export 'src/types/temporal/temporal_datetime.dart';
+export 'src/types/temporal/temporal_timestamp.dart';
+
 export 'src/types/temporal/datetime_parse.dart';
 export 'src/types/utils/parsers.dart';
 export 'src/types/exception/DataStoreException.dart';

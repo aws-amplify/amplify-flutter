@@ -162,14 +162,12 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
             else if case .date = field?.type,
                 case .some(.string(let deserializedValue)) = values[key] {
 
-                // Date returned in form : yyyy-mm-ddZ.  dropLast removes the Z
-                result[key] = String(deserializedValue.dropLast())
+                result[key] = deserializedValue
             }
             else if case .time = field?.type,
                 case .some(.string(let deserializedValue)) = values[key] {
 
-                // Date returned in form : hh-mm-ss-ssssZ.  dropLast removes the Z
-                result[key] = String(deserializedValue.dropLast())
+                result[key] = deserializedValue
             }
             else if case .timestamp = field?.type,
                 case .some(.number(let deserializedValue)) = values[key] {
