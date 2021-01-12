@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit
  * This is done frequently enough in the test code that its best
  * to centralize a single pattern for it.
  */
-public object Latch {
+object Latch {
     private val REASONABLE_WAIT_TIME_MS = TimeUnit.SECONDS.toMillis(5)
 
     /**
