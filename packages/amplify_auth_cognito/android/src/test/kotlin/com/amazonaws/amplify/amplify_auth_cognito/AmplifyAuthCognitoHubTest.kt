@@ -26,8 +26,6 @@ import com.amplifyframework.core.Amplify
 import com.amplifyframework.hub.HubChannel
 import com.amplifyframework.hub.HubEvent
 import com.amplifyframework.hub.SubscriptionToken
-import com.amazonaws.amplify.amplify_core.readMapFromFile
-import com.amazonaws.amplify.amplify_core.Latch
 import com.amplifyframework.logging.Logger
 import org.junit.Before
 import org.junit.Test

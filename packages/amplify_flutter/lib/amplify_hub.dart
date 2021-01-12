@@ -44,7 +44,7 @@ class AmplifyHub {
           if (availableStreams[c] != null) {
             StreamSubscription subscription = availableStreams[c].listen((msg) {
               /// Emit events via Hub
-              controller.add(msg);
+              controller. add(msg);
             });
             platformSubscriptions.add(subscription);
           } else {
