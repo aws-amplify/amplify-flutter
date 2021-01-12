@@ -94,21 +94,21 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
       children: <Widget>[
         Padding(padding: EdgeInsets.all(10.0)),
         Center(
-          child: RaisedButton(
+          child: ElevatedButton(
             onPressed: widget.isAmplifyConfigured ? query : null,
-            child: Text('Run Query'),
+            child: const Text('Run Query'),
           ),
         ),
         Padding(padding: EdgeInsets.all(10.0)),
         Center(
-          child: RaisedButton(
+          child: ElevatedButton(
             onPressed: widget.isAmplifyConfigured ? mutate : null,
-            child: Text('Run Mutation'),
+            child: const Text('Run Mutation'),
           ),
         ),
         Padding(padding: EdgeInsets.all(5.0)),
-        RaisedButton(
-          child: Text("Cancel"),
+        ElevatedButton(
+          child: const Text("Cancel"),
           onPressed: onCancelPressed,
         ),
         Text('Result: \n$_result\n'),

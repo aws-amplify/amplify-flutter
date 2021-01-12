@@ -141,33 +141,33 @@ class _MyAppState extends State<MyApp> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   const Padding(padding: EdgeInsets.all(10.0)),
-                  RaisedButton(
+                  ElevatedButton(
                     onPressed: _isAmplifyConfigured ? null : configureAmplify,
                     child: const Text('Configure'),
                   ),
                   const Padding(padding: EdgeInsets.all(5.0)),
                   Text('Amplify Configured: $_isAmplifyConfigured'),
                   const Padding(padding: EdgeInsets.all(10.0)),
-                  RaisedButton(
+                  ElevatedButton(
                     onPressed: upload,
                     child: const Text('Upload File'),
                   ),
                   const Padding(padding: EdgeInsets.all(5.0)),
                   Text('Uploaded File: $_uploadFileResult'),
                   const Padding(padding: EdgeInsets.all(5.0)),
-                  RaisedButton(
+                  ElevatedButton(
                     onPressed: remove,
                     child: const Text('Remove uploaded File'),
                   ),
                   const Padding(padding: EdgeInsets.all(5.0)),
                   Text('Removed File: $_removeResult'),
                   const Padding(padding: EdgeInsets.all(5.0)),
-                  RaisedButton(
+                  ElevatedButton(
                     onPressed: list,
                     child: const Text('List Files'),
                   ),
                   const Padding(padding: EdgeInsets.all(5.0)),
-                  RaisedButton(
+                  ElevatedButton(
                     onPressed: getUrl,
                     child: const Text('GetUrl for uploaded File'),
                   ),

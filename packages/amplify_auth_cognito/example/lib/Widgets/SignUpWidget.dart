@@ -88,13 +88,13 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 ),
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
-              RaisedButton(
+              ElevatedButton(
                 key: Key('signup-button'),
                 onPressed: _signUp,
                 child: const Text('Sign Up'),
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
-              RaisedButton(
+              ElevatedButton(
                 key: Key('goto-signin-button'),
                 onPressed: widget.backToSignIn,
                 child: const Text('Back to Sign In'),

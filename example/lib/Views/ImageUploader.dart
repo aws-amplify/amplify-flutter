@@ -30,8 +30,8 @@ class ImageUploader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      RaisedButton(
-        child: Text("Upload Image"),
+      ElevatedButton(
+        child: const Text("Upload Image"),
         onPressed: () {
           _upload(context);
         },

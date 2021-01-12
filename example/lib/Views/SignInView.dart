@@ -90,7 +90,7 @@ class _SignInViewState extends State<SignInView> {
                   ),
                 ),
                 const Padding(padding: EdgeInsets.all(10.0)),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: _signIn,
                   child: const Text('Sign In'),
                 ),

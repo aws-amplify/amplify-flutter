@@ -66,12 +66,12 @@ class _ConfirmWidgetState extends State<ConfirmResetWidget> {
                     labelText: 'Confirmation Code *',
                   )),
               const Padding(padding: EdgeInsets.all(10.0)),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: _confirmReset,
                 child: const Text('Confirm Password Reset'),
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
-              RaisedButton(
+              ElevatedButton(
                 key: Key('goto-signin-button'),
                 onPressed: widget.backToSignIn,
                 child: const Text('Back to Sign In'),

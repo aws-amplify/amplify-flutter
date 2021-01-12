@@ -199,11 +199,11 @@ class _MyAppState extends State<MyApp> {
               child: Column (
                 children: [
                   const Padding(padding: EdgeInsets.all(5.0)),
-                  RaisedButton(
+                  ElevatedButton(
                     onPressed: _amplifyConfigured ? null : _configureAmplify,
                     child: const Text('configure Amplify')
                   ),
-                  RaisedButton(
+                  ElevatedButton(
                     onPressed: _amplifyConfigured ? _recordEvent : null,
                     child: const Text('record event')
                   )

@@ -145,7 +145,7 @@ class _MyAppState extends State<MyApp> {
                   Text('Amplify.Core',
                       style:
                           TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-                  RaisedButton(
+                  ElevatedButton(
                     onPressed: _amplifyConfigured ? null : _configureAmplify,
                     child: const Text('configure Amplify'),
                   ),
@@ -175,13 +175,13 @@ class _MyAppState extends State<MyApp> {
                         _uniqueId = text;
                       }),
                   Center(
-                      child: RaisedButton(
+                      child: ElevatedButton(
                           onPressed: _amplifyConfigured ? _recordEvent : null,
-                          child: Text('Record Event'))),
+                          child: const Text('Record Event'))),
                   Center(
-                      child: RaisedButton(
+                      child: ElevatedButton(
                           onPressed: _amplifyConfigured ? _flushEvents : null,
-                          child: Text('Flush Events'))),
+                          child: const Text('Flush Events'))),
                   const Divider(
                     color: Colors.black,
                     height: 3,
@@ -195,20 +195,20 @@ class _MyAppState extends State<MyApp> {
                       onChanged: (text) {
                         _globalProp = text;
                       }),
-                  RaisedButton(
+                  ElevatedButton(
                       onPressed:
                           _amplifyConfigured ? _registerGlobalProperties : null,
-                      child: Text('Register Global Prop')),
-                  RaisedButton(
+                      child: const Text('Register Global Prop')),
+                  ElevatedButton(
                       onPressed: _amplifyConfigured
                           ? _unregisterGlobalProperties
                           : null,
-                      child: Text('Unregister Global Prop')),
-                  RaisedButton(
+                      child: const Text('Unregister Global Prop')),
+                  ElevatedButton(
                       onPressed: _amplifyConfigured
                           ? _unregisterAllGlobalProperties
                           : null,
-                      child: Text('Unregister All Global Prop')),
+                      child: const Text('Unregister All Global Prop')),
                   const Divider(
                     color: Colors.black,
                     height: 3,
@@ -221,9 +221,9 @@ class _MyAppState extends State<MyApp> {
                       onChanged: (text) {
                         _userId = text;
                       }),
-                  RaisedButton(
+                  ElevatedButton(
                       onPressed: _amplifyConfigured ? _identifyUser : null,
-                      child: Text('Register User')),
+                      child: const Text('Register User')),
                   const Divider(
                     color: Colors.black,
                     height: 3,
@@ -231,12 +231,12 @@ class _MyAppState extends State<MyApp> {
                     indent: 1,
                     endIndent: 0,
                   ),
-                  RaisedButton(
+                  ElevatedButton(
                       onPressed: _amplifyConfigured ? _enable : null,
-                      child: Text('Enable')),
-                  RaisedButton(
+                      child: const Text('Enable')),
+                  ElevatedButton(
                       onPressed: _amplifyConfigured ? _disable : null,
-                      child: Text('Disable')),
+                      child: const Text('Disable')),
                 ]))
           ])),
     );

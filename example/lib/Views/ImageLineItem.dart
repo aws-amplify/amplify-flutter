@@ -17,8 +17,8 @@ class ImageLineItem extends StatelessWidget {
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           Text(storageKey),
           Spacer(),
-          RaisedButton(
-              child: Text("open"),
+          ElevatedButton(
+              child: const Text("open"),
               onPressed: () => {
                     showDialog(
                         context: context,

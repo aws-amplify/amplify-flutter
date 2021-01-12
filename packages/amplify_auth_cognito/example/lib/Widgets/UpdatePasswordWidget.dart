@@ -59,17 +59,17 @@ class _UpdatePasswordWidgetState extends State<UpdatePasswordWidget> {
                     labelText: 'New Password *',
                   )),
               const Padding(padding: EdgeInsets.all(10.0)),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: _updatePassword,
                 child: const Text('Update Password'),
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: widget.backToApp,
                 child: const Text('Back to App'),
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
-              RaisedButton(
+              ElevatedButton(
                 key: Key('goto-signin-button'),
                 onPressed: widget.backToSignIn,
                 child: const Text('Back to Sign In'),
