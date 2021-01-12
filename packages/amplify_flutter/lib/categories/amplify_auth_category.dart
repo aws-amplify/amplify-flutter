@@ -21,7 +21,7 @@ class AuthCategory {
   }
 
   StreamController get streamController {
-    return plugins.length == 1 ? plugins[0].streamController : throw(errorMsg);
+    return plugins.length == 1 ? plugins[0].streamController : throw(_errorMsg);
   }
 
   Future<SignUpResult> signUp(

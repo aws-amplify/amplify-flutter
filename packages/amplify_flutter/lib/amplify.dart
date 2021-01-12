@@ -16,6 +16,7 @@
 library amplify;
 
 import 'dart:async';
+
 import 'package:flutter/services.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
@@ -25,6 +26,7 @@ import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart
 import 'package:amplify_analytics_plugin_interface/analytics_plugin_interface.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
+
 import './amplify_hub.dart';
 import 'categories/amplify_categories.dart';
 
@@ -62,12 +64,12 @@ class AmplifyClass extends PlatformInterface {
     if (!isConfigured) {
       try {
         if (plugin is AuthPluginInterface) {
-          Auth.addPlugin(plugin as AuthPluginInterface);
+          Auth.addPlugin(plugin);
           Hub.addChannel(HubChannel.Auth, plugin.streamController);
         } else if (plugin is AnalyticsPluginInterface) {
-          Analytics.addPlugin(plugin as AnalyticsPluginInterface);
+          Analytics.addPlugin(plugin);
         } else if (plugin is StoragePluginInterface) {
-          Storage.addPlugin(plugin as StoragePluginInterface);
+          Storage.addPlugin(plugin);
         } else if (plugin is DataStorePluginInterface) {
           await DataStore.addPlugin(plugin);
           Hub.addChannel(HubChannel.DataStore, plugin.streamController);
@@ -126,6 +128,7 @@ class AmplifyClass extends PlatformInterface {
       throw ("Amplify failed to configure. " +
           "Please raise an issue in amplify-flutter repository.");
     }
+
     await DataStore.configure(configuration);
   }
 
@@ -135,7 +138,6 @@ class AmplifyClass extends PlatformInterface {
   }
 
   /// Constructs a Core platform.
-
   AmplifyClass() : super(token: _token);
 
   static final Object _token = Object();
@@ -152,9 +154,5 @@ class AmplifyClass extends PlatformInterface {
   static set instance(AmplifyClass instance) {
     PlatformInterface.verifyToken(instance, _token);
     _instance = instance;
-  }
-
-  bool get isConfigured {
-    return _isConfigured;
   }
 }
