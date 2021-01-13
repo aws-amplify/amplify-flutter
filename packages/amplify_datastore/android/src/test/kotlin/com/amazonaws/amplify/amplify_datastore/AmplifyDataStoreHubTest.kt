@@ -89,10 +89,10 @@ class AmplifyDataStoreHubTest {
                 "outboxMutationEnqueuedEvent.json",
                 HashMap::class.java) as HashMap<String, Any>)
         var element: HashMap<String, Any> = eventData["element"] as HashMap<String, Any>
-        var metadataMap: HashMap<String, Any> = element["syncMetadata"] as HashMap<String, Any>
+        var metadataMap: HashMap<String, Any>;
         var modelMap: HashMap<String, Any> = element["model"] as HashMap<String, Any>
         var serializedData: HashMap<String, Any> = modelMap["serializedData"] as HashMap<String, Any>
-        var modelMetadata = ModelMetadata(metadataMap["id"] as String, metadataMap["_deleted"] as Boolean?, metadataMap["_version"] as Int?, time)
+        var modelMetadata = ModelMetadata(modelMap["id"] as String, null, null, null)
         var modelData = mapOf("id" to serializedData["id"] as String,
                 "title" to serializedData["title"] as String,
                 "created" to Temporal.DateTime(serializedData["created"] as String))
@@ -336,7 +336,7 @@ class AmplifyDataStoreHubTest {
                 HashMap::class.java) as HashMap<String, Any>)
 
         var modelSyncedEvent: ModelSyncedEvent = ModelSyncedEvent(
-                eventData["modelName"] as String,
+                eventData["model"] as String,
                 eventData["isFullSync"] as Boolean,
                 eventData["added"] as Int,
                 eventData["updated"] as Int,
@@ -351,7 +351,7 @@ class AmplifyDataStoreHubTest {
         val hubSpy = spy(realHubHandler)
         val hubMap = FlutterModelSyncedEvent(
                 eventData["eventName"] as String,
-                eventData["modelName"] as String,
+                eventData["model"] as String,
                 eventData["isFullSync"] as Boolean,
                 eventData["isDeltaSync"] as Boolean,
                 eventData["added"] as Int,

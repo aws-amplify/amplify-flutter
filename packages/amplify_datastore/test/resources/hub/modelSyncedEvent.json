@@ -1,6 +1,6 @@
 {
     "eventName": "modelSynced",
-    "modelName": "Post",
+    "model": "Post",
     "isFullSync": false,
     "isDeltaSync": true,
     "added": 1,

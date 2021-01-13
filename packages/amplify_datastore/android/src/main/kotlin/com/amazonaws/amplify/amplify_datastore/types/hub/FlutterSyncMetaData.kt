@@ -27,7 +27,7 @@ class FlutterSyncMetaData(var metadata: OutboxMutationEvent.OutboxMutationEventE
                 "id" to this.metadata.model.id,
                 "_deleted" to this.metadata.isDeleted,
                 "_version" to this.metadata.version,
-                "_lastChangedAt" to this.metadata.lastChangedAt
+                "_lastChangedAt" to (this.metadata.lastChangedAt ?: null)
         )
     }
 }

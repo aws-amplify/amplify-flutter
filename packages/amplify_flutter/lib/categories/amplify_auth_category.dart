@@ -20,6 +20,10 @@ class AuthCategory {
     }
   }
 
+  StreamController get streamController {
+    return plugins.length == 1 ? plugins[0].streamController : throw(_errorMsg);
+  }
+
   Future<SignUpResult> signUp(
       {@required String username, @required password, SignUpOptions options}) {
     var request =

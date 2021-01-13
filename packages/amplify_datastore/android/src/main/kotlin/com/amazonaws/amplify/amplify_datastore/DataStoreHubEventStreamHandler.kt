@@ -17,8 +17,6 @@ package com.amazonaws.amplify.amplify_datastore
 
 import android.os.Handler
 import android.os.Looper
-import androidx.annotation.Nullable
-import androidx.annotation.VisibleForTesting
 import com.amazonaws.amplify.amplify_datastore.types.hub.*
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.datastore.DataStoreChannelEventName
@@ -69,7 +67,6 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                             sendEvent(res.toValueMap())
                         } catch (e: Exception) {
                             LOG.error("Failed to parse and send networkStatus event: ", e)
-                            sendError(hubEvent.name)
                         }
                     }
                     DataStoreChannelEventName.SUBSCRIPTIONS_ESTABLISHED.toString() -> {
@@ -78,7 +75,6 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                             sendEvent(res.toValueMap())
                         } catch (e: Exception) {
                             LOG.error("Failed to parse and send subscriptionsEstablished event: ", e)
-                            sendError(hubEvent.name)
                         }
                     }
                     DataStoreChannelEventName.SYNC_QUERIES_STARTED.toString() -> {
@@ -88,7 +84,6 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                             sendEvent(res.toValueMap())
                         } catch (e: Exception) {
                             LOG.error("Failed to parse and send syncQueriesStarted event: ", e)
-                            sendError(hubEvent.name)
                         }
                     }
                     DataStoreChannelEventName.MODEL_SYNCED.toString() -> {
@@ -106,7 +101,6 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                             sendEvent(res.toValueMap())
                         } catch (e: Exception) {
                             LOG.error("Failed to parse and send modelSynced event: ", e)
-                            sendError(hubEvent.name)
                         }
 
                     }
@@ -116,7 +110,6 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                             sendEvent(res.toValueMap())
                         } catch (e: Exception) {
                             LOG.error("Failed to parse and send syncQueriesReady event: ", e)
-                            sendError(hubEvent.name)
                         }
                     }
                     DataStoreChannelEventName.READY.toString() -> {
@@ -125,7 +118,6 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                             sendEvent(res.toValueMap())
                         } catch (e: Exception) {
                             LOG.error("Failed to parse and send ready event: ", e)
-                            sendError(hubEvent.name)
                         }
                     }
                     DataStoreChannelEventName.OUTBOX_MUTATION_ENQUEUED.toString() -> {
@@ -141,11 +133,9 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                                 sendEvent(res.toValueMap())
                             } else {
                                 LOG.error("Element is not an instance of SerializedModel.")
-                                sendError(hubEvent.name)
                             }
                         } catch (e: Exception) {
                             LOG.error("Failed to parse and send outboxMutationEnqueued event: ", e)
-                            sendError(hubEvent.name)
                         }
 
                     }
@@ -153,7 +143,7 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                         try {
                             var outboxMutationProcessed = hubEvent.data as OutboxMutationEvent<*>
                             if (outboxMutationProcessed.element.model is SerializedModel) {
-                                var modelName = (outboxMutationProcessed.element.model as SerializedModel).modelName as String
+                                var modelName = outboxMutationProcessed.modelName
                                 var res = FlutterOutboxMutationProcessedEvent(
                                         hubEvent.name,
                                         modelName,
@@ -162,11 +152,9 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                                 sendEvent(res.toValueMap())
                             } else {
                                 LOG.error("Element is not an instance of SerializedModel.")
-                                sendError(hubEvent.name)
                             }
                         } catch (e: Exception) {
                             LOG.error("Failed to parse and send outboxMutationProcessed event: ", e)
-                            sendError(hubEvent.name)
                         }
                     }
                     DataStoreChannelEventName.OUTBOX_STATUS.toString() -> {
@@ -176,12 +164,10 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                             sendEvent(res.toValueMap())
                         } catch (e: Exception) {
                             LOG.error("Failed to parse and send outboxStatus event: ", e)
-                            sendError(hubEvent.name)
                         }
                     }
                     else -> {
-                        LOG.error("Unrecognized DataStoreHubEvent")
-                        sendError(hubEvent.name)
+                        LOG.error("Unrecognized DataStoreHubEvent: " + hubEvent.name)
                     }
                 }
             } catch (e: Exception) {
@@ -194,32 +180,9 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
          forwardHubResponse(flutterEvent)
      }
 
-    fun sendError(hubEvent: String?) {
-        val localizedMessage = "There was a problem parsing a DataStore Hub Event."
-        val details = createErrorMap(hubEvent)
-        handler.post {  eventSink?.error("AmplifyException", localizedMessage, details) }
-    }
 
     override fun onCancel(p0: Any?) {
         eventSink = null
         Amplify.Hub.unsubscribe(token)
     }
-
-    private fun createErrorMap(hubEvent: String?): Map<String, Any> {
-        val errorMap = HashMap<String, Any>()
-        val message: String
-        message = if (hubEvent == null) {
-            "DataStore Hub Event is an unrecognized type."
-        } else {
-            "There was a problem parsing the ${hubEvent} Hub Event."
-        }
-        errorMap.put("PLATFORM_EXCEPTIONS", mapOf(
-                "platform" to "Android",
-                "localizedErrorMessage" to message,
-                "recoverySuggestion" to "See logs for details."
-        ))
-        return errorMap
-    }
 }
-
-

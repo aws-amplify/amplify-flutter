@@ -21,6 +21,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import androidx.annotation.NonNull
+import androidx.annotation.VisibleForTesting
 import com.amazonaws.AmazonClientException
 import com.amazonaws.AmazonServiceException
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthFailureMessage
@@ -41,9 +42,9 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResetPasswordRequ
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdatePasswordRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthUser
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendSignUpCodeResult
+import com.amazonaws.amplify.amplify_auth_cognito.AuthCognitoHubEventStreamHandler
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.exceptions.CognitoCodeExpiredException
 import com.amazonaws.services.cognitoidentityprovider.model.*
-import com.amplifyframework.auth.AuthChannelEventName
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthSession
 import com.amplifyframework.auth.AuthUser
@@ -54,52 +55,47 @@ import com.amplifyframework.auth.result.AuthSessionResult
 import com.amplifyframework.auth.result.AuthSignInResult
 import com.amplifyframework.auth.result.AuthSignUpResult
 import com.amplifyframework.core.Amplify
-import com.amplifyframework.core.InitializationStatus
-import com.amplifyframework.hub.HubChannel
-import com.amplifyframework.hub.HubEvent
 import com.amplifyframework.hub.SubscriptionToken
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import io.flutter.embedding.engine.plugins.FlutterPlugin
-import io.flutter.embedding.engine.plugins.activity.ActivityAware
-import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import io.flutter.plugin.common.PluginRegistry.Registrar
 
 
 /** AuthCognito */
-public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
+public class AuthCognito : FlutterPlugin, MethodCallHandler {
 
   private lateinit var channel: MethodChannel
   private lateinit var context: Context
   private var mainActivity: Activity? = null
   private val LOG = Amplify.Logging.forNamespace("amplify:flutter:auth_cognito")
-  var eventChannel: EventChannel? = null
+  lateinit var hubEventChannel: EventChannel
+  private val authCognitoHubEventStreamHandler: AuthCognitoHubEventStreamHandler
   var eventMessenger: BinaryMessenger? = null
   private lateinit var token: SubscriptionToken;
 
+  constructor() {
+      authCognitoHubEventStreamHandler = AuthCognitoHubEventStreamHandler()
+  }
+
+  @VisibleForTesting
+  constructor(hubEventHandler: AuthCognitoHubEventStreamHandler) {
+    authCognitoHubEventStreamHandler = hubEventHandler
+  }
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "com.amazonaws.amplify/auth_cognito")
     channel.setMethodCallHandler(this);
     context = flutterPluginBinding.applicationContext;
     eventMessenger = flutterPluginBinding.getBinaryMessenger();
+    hubEventChannel = EventChannel(flutterPluginBinding.binaryMessenger,
+                                  "com.amazonaws.amplify/auth_cognito_events")
+    hubEventChannel.setStreamHandler(authCognitoHubEventStreamHandler)
     Amplify.addPlugin(AWSCognitoAuthPlugin())
     LOG.info("Added AuthCognito plugin")
-  }
-
-  companion object {
-    @JvmStatic
-    fun registerWith(registrar: Registrar) {
-      val channel = MethodChannel(registrar.messenger(), "com.amazonaws.amplify/auth_cognito")
-        Amplify.addPlugin(AWSCognitoAuthPlugin())
-        Log.i("Amplify Flutter", "Added AuthCognito plugin")
-    }
   }
 
   private fun checkData(@NonNull args: HashMap<String, Any>): HashMap<String, Any> {
@@ -140,61 +136,6 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     }
   }
 
-  override fun onAttachedToActivity(binding: ActivityPluginBinding) {
-    this.mainActivity = binding.activity
-    eventChannel = EventChannel(eventMessenger, "com.amazonaws.amplify/auth_cognito_events")
-    eventChannel!!.setStreamHandler(object : EventChannel.StreamHandler {
-      override fun onListen(listener: Any, eventSink: EventChannel.EventSink) {
-        token = Amplify.Hub.subscribe(HubChannel.AUTH
-        ) { hubEvent: HubEvent<*> ->
-          if (hubEvent.name == InitializationStatus.SUCCEEDED.toString()) {
-            LOG.info("AuthPlugin successfully initialized")
-          } else if (hubEvent.name == InitializationStatus.FAILED.toString()) {
-            LOG.info("AuthPlugin failed to initialize")
-          } else {
-            when (AuthChannelEventName.valueOf(hubEvent.name)) {
-              AuthChannelEventName.SIGNED_IN -> {
-                var hubEvent = mapOf("eventName" to "SIGNED_IN")
-                sendEvent(hubEvent, eventSink)
-              }
-              AuthChannelEventName.SIGNED_OUT -> {
-                var hubEvent = mapOf("eventName" to "SIGNED_OUT")
-                sendEvent(hubEvent, eventSink)
-              }
-              AuthChannelEventName.SESSION_EXPIRED -> {
-                var hubEvent = mapOf("eventName" to "SESSION_EXPIRED")
-                sendEvent(hubEvent, eventSink)
-              }
-              else -> LOG.info("Unrecognized Auth Event")
-            }
-          }
-        }
-      }
-
-      override fun onCancel(listener: Any?) {
-        Amplify.Hub.unsubscribe(token)
-      }
-    })
-  }
-  
-  fun sendEvent(hubEvent: Map<String, String>, sink: EventChannel.EventSink) {
-    Handler(Looper.getMainLooper()).post(Runnable {
-      sink.success(hubEvent)
-    })
-  }
-
-  override fun onDetachedFromActivity() {
-    this.mainActivity = null
-  }
-
-  override fun onDetachedFromActivityForConfigChanges() {
-    onDetachedFromActivity()
-  }
-
-  override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
-    onAttachedToActivity(binding)
-  }
-
   override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
     channel.setMethodCallHandler(null)
   }
@@ -208,8 +149,8 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
                 req.username,
                 req.password,
                 req.options,
-                { result -> this.mainActivity?.runOnUiThread({ prepareSignUpResult(flutterResult, result)}) },
-                { error -> this.mainActivity?.runOnUiThread({ prepareError(flutterResult, error, FlutterAuthFailureMessage.SIGNUP.toString())}) }
+                { result -> prepareSignUpResult(flutterResult, result)},
+                { error -> prepareError(flutterResult, error, FlutterAuthFailureMessage.SIGNUP.toString())}
         );
       } catch(e: Exception) {
         prepareError(flutterResult, e, FlutterAuthFailureMessage.SIGNUP.toString())
@@ -293,9 +234,9 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
     var req = FlutterSignOutRequest(request)
     try {
       Amplify.Auth.signOut(
-        req.signOutOptions,
-          {  -> prepareSignOutResult(flutterResult)},
-          { error -> prepareError(flutterResult, error, FlutterAuthFailureMessage.SIGNOUT.toString())}
+              req.signOutOptions,
+              {  -> prepareSignOutResult(flutterResult)},
+              { error -> prepareError(flutterResult, error, FlutterAuthFailureMessage.SIGNOUT.toString())}
       );
     } catch(e: Exception) {
       prepareError(flutterResult, e, FlutterAuthFailureMessage.SIGNOUT.toString())
@@ -370,10 +311,10 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
                     AuthSessionResult.Type.FAILURE -> {
                       // checking case where user pool data is available but id pool does not exist
                       if (
-                            result.identityId.error is AuthException.InvalidAccountTypeException &&
-                            result.awsCredentials.error is AuthException.InvalidAccountTypeException &&
-                            result.userPoolTokens.type.toString() == "SUCCESS" &&
-                            result.userSub.type.toString() == "SUCCESS"
+                              result.identityId.error is AuthException.InvalidAccountTypeException &&
+                              result.awsCredentials.error is AuthException.InvalidAccountTypeException &&
+                              result.userPoolTokens.type.toString() == "SUCCESS" &&
+                              result.userSub.type.toString() == "SUCCESS"
                       ) {
                         prepareCognitoSessionResult(flutterResult, cognitoAuthSession)
                       } else {
@@ -457,10 +398,10 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
       localizedError = error.localizedMessage;
     }
     errorMap.put("PLATFORM_EXCEPTIONS" , mapOf(
-      "platform" to "Android",
-      "localizedErrorMessage" to localizedError,
-      "recoverySuggestion" to recoverySuggestion,
-      "errorString" to error.toString()
+            "platform" to "Android",
+            "localizedErrorMessage" to localizedError,
+            "recoverySuggestion" to recoverySuggestion,
+            "errorString" to error.toString()
     ))
     Handler (Looper.getMainLooper()).post {
       flutterResult.error("AmplifyException", msg, errorMap)
@@ -529,8 +470,8 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler {
 
   fun prepareSessionResult(@NonNull flutterResult: Result, @NonNull result: AuthSession) {
     var session = FlutterFetchAuthSessionResult(result);
-      Handler (Looper.getMainLooper()).post {
-        flutterResult.success(session.toValueMap());
-      }
+    Handler (Looper.getMainLooper()).post {
+      flutterResult.success(session.toValueMap());
+    }
   }
 }

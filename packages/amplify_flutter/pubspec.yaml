@@ -32,3 +32,4 @@ flutter:
         pluginClass: Amplify
       ios:
         pluginClass: Amplify
+        

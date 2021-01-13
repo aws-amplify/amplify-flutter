@@ -41,16 +41,12 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
             }
             override func sendEvent(flutterEvent: [String : Any]) {
                 XCTAssertEqual(flutterEvent["eventName"] as! String, "modelSynced")
-                XCTAssertEqual(flutterEvent["modelName"] as! String, "Blog")
+                XCTAssertEqual(flutterEvent["model"] as! String, "Blog")
                 XCTAssertEqual(flutterEvent["added"] as! Int, 1)
                 XCTAssertEqual(flutterEvent["deleted"] as! Int, 0)
                 XCTAssertEqual(flutterEvent["updated"] as! Int, 0)
                 XCTAssertEqual(flutterEvent["isDeltaSync"] as! Bool, false)
                 XCTAssertEqual(flutterEvent["isFullSync"] as! Bool, true)
-                innerExpect?.fulfill()
-            }
-            override func sendError(hubEvent: String) {
-                XCTFail()
                 innerExpect?.fulfill()
             }
         }
@@ -91,10 +87,6 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
                 XCTAssertEqual(flutterEvent["eventName"] as! String, "ready")
                 innerExpect?.fulfill()
             }
-            override func sendError(hubEvent: String) {
-                XCTFail()
-                innerExpect?.fulfill()
-            }
         }
 
         let hubHandler = MockDataStoreHubHandler()
@@ -118,10 +110,6 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
             }
             override func sendEvent(flutterEvent: [String : Any]) {
                 XCTAssertEqual(flutterEvent["eventName"] as! String, "subscriptionEstablished")
-                innerExpect?.fulfill()
-            }
-            override func sendError(hubEvent: String) {
-                XCTFail()
                 innerExpect?.fulfill()
             }
         }
@@ -148,10 +136,6 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
                 XCTAssertEqual(flutterEvent["eventName"] as! String, "syncQueriesReady")
                 innerExpect?.fulfill()
             }
-            override func sendError(hubEvent: String) {
-                XCTFail()
-                innerExpect?.fulfill()
-            }
         }
 
         let hubHandler = MockDataStoreHubHandler()
@@ -175,10 +159,6 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
             override func sendEvent(flutterEvent: [String : Any]) {
                 XCTAssertEqual(flutterEvent["eventName"] as! String, "networkStatus")
                 XCTAssertEqual(flutterEvent["active"] as? Bool, true)
-                innerExpect?.fulfill()
-            }
-            override func sendError(hubEvent: String) {
-                XCTFail()
                 innerExpect?.fulfill()
             }
         }
@@ -208,10 +188,6 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
                 XCTAssertEqual(flutterEvent["isEmpty"] as? Bool, true)
                 innerExpect?.fulfill()
             }
-            override func sendError(hubEvent: String) {
-                XCTFail()
-                innerExpect?.fulfill()
-            }
         }
         
         let outboxStatusEvent = OutboxStatusEvent(isEmpty: true)
@@ -237,10 +213,6 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
             override func sendEvent(flutterEvent: [String : Any]) {
                 XCTAssertEqual(flutterEvent["eventName"] as! String, "syncQueriesStarted")
                 XCTAssertEqual(flutterEvent["models"] as! String, "[\"Blog\"]")
-                innerExpect?.fulfill()
-            }
-            override func sendError(hubEvent: String) {
-                XCTFail()
                 innerExpect?.fulfill()
             }
         }
@@ -275,19 +247,14 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
                 XCTAssertEqual(syncMetaData["_version"] as? Int, nil)
                 XCTAssertEqual(syncMetaData["_deleted"] as? Bool, nil)
                 XCTAssertEqual(model["modelName"] as! String, "Post")
-                XCTAssertEqual(model["modelName"] as! String, "Post")
                 XCTAssertEqual(serializedData["title"] as! String, "Title 1")
-                innerExpect?.fulfill()
-            }
-            override func sendError(hubEvent: String) {
-                XCTFail()
                 innerExpect?.fulfill()
             }
         }
         
         let uuid =  UUID().uuidString
         let modelMap = [
-            "modelName": "Post",
+            "model": "Post",
             "id": uuid,
             "title": "Title 1"
         ]
@@ -325,10 +292,6 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
                 XCTAssertEqual(model["modelName"] as! String, "Post")
                 XCTAssertEqual(model["modelName"] as! String, "Post")
                 XCTAssertEqual(serializedData["title"] as! String, "Title 1")
-                innerExpect?.fulfill()
-            }
-            override func sendError(hubEvent: String) {
-                XCTFail()
                 innerExpect?.fulfill()
             }
         }

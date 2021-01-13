@@ -19,7 +19,7 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'package:meta/meta.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-import 'event_channel_datastore.dart';
+import 'amplify_datastore_stream_controller.dart';
 import 'method_channel_datastore.dart';
 
 class AmplifyDataStore extends DataStorePluginInterface {
@@ -30,11 +30,16 @@ class AmplifyDataStore extends DataStorePluginInterface {
       : super(token: _token, modelProvider: modelProvider);
 
   static AmplifyDataStore _instance = AmplifyDataStoreMethodChannel();
-  static AmplifyDataStoreEventChannel events = AmplifyDataStoreEventChannel();
+  static DataStoreStreamController streamWrapper = DataStoreStreamController();
+  ModelProviderInterface models;
 
   static set instance(DataStorePluginInterface instance) {
     PlatformInterface.verifyToken(instance, _token);
     _instance = instance;
+  }
+
+  StreamController get streamController {
+    return streamWrapper.datastoreStreamController;
   }
 
   @override
@@ -45,6 +50,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
     if (provider == null || provider.modelSchemas.isEmpty) {
       throw ArgumentError("Need to provide at least one modelSchema");
     }
+    streamWrapper.registerModelsForHub(provider);
     return _instance.configureModelProvider(modelProvider: modelProvider);
   }
 
