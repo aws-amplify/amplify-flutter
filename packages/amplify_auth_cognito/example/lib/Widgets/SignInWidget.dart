@@ -35,6 +35,17 @@ class _SignInWidgetState extends State<SignInWidget> {
     }
   }
 
+  void _signInWithWebUI() async {
+    try {
+      bool res = await Amplify.Auth.signInWithWebUI();
+      widget.showResult("Social Sign In Success = " + res.toString());
+      widget.changeDisplay(res ? "SIGNED_IN" : "SHOW_SIGN_IN");
+      print(res);
+    } on AuthError catch (e) {
+      widget.setError(e);
+    }
+  }
+
   void _resetPassword() async {
     try {
       ResetPasswordResult res = await Amplify.Auth.resetPassword(
@@ -88,6 +99,11 @@ class _SignInWidgetState extends State<SignInWidget> {
                     key: Key('signin-button'),
                     onPressed: _signIn,
                     child: const Text('Sign In'),
+                  ),
+                  ElevatedButton(
+                    key: Key('signin-webui-button'),
+                    onPressed: _signInWithWebUI,
+                    child: const Text('Hosted UI Sign In'),
                   ),
                   ElevatedButton(
                     key: Key('goto-signup-button'),

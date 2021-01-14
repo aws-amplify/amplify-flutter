@@ -127,4 +127,11 @@ class AuthCategory {
         ? plugins[0].fetchAuthSession(request: request)
         : throw (_errorMsg);
   }
+
+  Future<bool> signInWithWebUI({AuthProvider provider}) {
+    var request = SignInWithWebUIRequest(provider: provider);
+    return plugins.length == 1
+        ? plugins[0].signInWithWebUI(request: request)
+        : throw (_errorMsg);
+  }
 }

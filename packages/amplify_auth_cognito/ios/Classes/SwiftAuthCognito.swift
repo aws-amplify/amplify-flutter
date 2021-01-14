@@ -144,6 +144,15 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
             cognito.onFetchSession(flutterResult: result, request: request)
         case "getCurrentUser":
             cognito.onGetCurrentUser(flutterResult: result)
+        case "signInWithWebUI":
+            if (FlutterSignInWithWebUIRequest.validate(dict: data)) {
+                let request = FlutterSignInWithWebUIRequest(dict: data)
+                cognito.onSignInWithWebUI(flutterResult: result, request: request)
+            } else {
+                let errorCode = "UNKNOWN"
+                prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: formatErrorMap(errorCode: errorCode))
+            }
+
         default:
             result(FlutterMethodNotImplemented)
         }
