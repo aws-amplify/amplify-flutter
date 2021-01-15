@@ -24,7 +24,25 @@ import androidx.annotation.NonNull
 import androidx.annotation.VisibleForTesting
 import com.amazonaws.AmazonClientException
 import com.amazonaws.AmazonServiceException
-import com.amazonaws.amplify.amplify_auth_cognito.types.*
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthFailureMessage
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpResult
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignInResult
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchCognitoAuthSessionResult
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResetPasswordResult
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchAuthSessionResult
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendSignUpCodeRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchAuthSessionRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmSignUpRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignInRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmSignInRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignOutRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmPasswordRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResetPasswordRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdatePasswordRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthUser
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendSignUpCodeResult
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignInWithWebUIRequest
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.exceptions.CognitoCodeExpiredException
 import com.amazonaws.services.cognitoidentityprovider.model.*
 import com.amplifyframework.auth.AuthException
@@ -42,9 +60,13 @@ import com.amplifyframework.hub.SubscriptionToken
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
-import io.flutter.plugin.common.*
+import io.flutter.plugin.common.EventChannel
+import io.flutter.plugin.common.MethodCall
+import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import io.flutter.plugin.common.PluginRegistry
+import io.flutter.plugin.common.BinaryMessenger
 
 
 /** AuthCognito */
@@ -70,8 +92,6 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
     mainActivity = activity
   }
 
-
-
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "com.amazonaws.amplify/auth_cognito")
     channel.setMethodCallHandler(this);
@@ -93,7 +113,6 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
   override fun onDetachedFromActivityForConfigChanges() {}
   override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {}
   override fun onDetachedFromActivity() {}
-
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
       if (requestCode == AWSCognitoAuthPlugin.WEB_UI_SIGN_IN_ACTIVITY_CODE) {

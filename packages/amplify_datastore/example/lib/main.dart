@@ -150,7 +150,7 @@ class _MyAppState extends State<MyApp> {
   void stopListeningToHub() {
     hubSubscription.cancel();
     setState(() {
-      _listeningToHub = false;       
+      _listeningToHub = false;
     });
   }
 
