@@ -147,7 +147,11 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
         case "signInWithWebUI":
             if (FlutterSignInWithWebUIRequest.validate(dict: data)) {
                 let request = FlutterSignInWithWebUIRequest(dict: data)
-                cognito.onSignInWithWebUI(flutterResult: result, request: request)
+                if request.provider == nil {
+                    cognito.onSignInWithWebUI(flutterResult: result)
+                } else {
+                    cognito.onSignInWithSocialWebUI(flutterResult: result, request: request)
+                }
             } else {
                 let errorCode = "UNKNOWN"
                 prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: formatErrorMap(errorCode: errorCode))

@@ -18,7 +18,7 @@ package com.amazonaws.amplify.amplify_auth_cognito.types
 data class FlutterSignInWithWebUIRequest(val map: HashMap<String, *>) {
     val provider: String? = map?.get("authProvider") as String?;
     companion object {
-        private var allowedProviders: Array<String> = arrayOf("amazon", "google", "facebook", "apple")
+        private var allowedProviders: Array<String> = arrayOf("login_with_amazon", "google", "facebook")
 
         fun validate(req : HashMap<String, *>?): Boolean {
             var valid: Boolean = true;

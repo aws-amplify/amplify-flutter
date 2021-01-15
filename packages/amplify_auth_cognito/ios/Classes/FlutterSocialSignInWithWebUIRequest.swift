@@ -29,7 +29,7 @@ struct FlutterSocialSignInWithWebUIRequest {
       switch provider {
         case "facebook":
           return AuthProvider.facebook
-        case "amazon":
+        case "login_with_amazon":
           return AuthProvider.amazon
         case "google":
           return AuthProvider.google
@@ -42,7 +42,7 @@ struct FlutterSocialSignInWithWebUIRequest {
 
   static func validate(dict: NSMutableDictionary) -> Bool {
     var valid: Bool = true;
-    let allowedProviders: Array<String> = ["amazon", "google", "facebook", "apple"]
+    let allowedProviders: Array<String> = ["login_with_amazon", "google", "facebook"]
     if (dict["authProvider"] != nil) {
       if(!allowedProviders.contains(dict["authProvider"] as! String)) {
         valid = false;

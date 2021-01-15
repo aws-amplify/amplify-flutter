@@ -65,9 +65,12 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
   }
 
   @VisibleForTesting
-  constructor(hubEventHandler: AuthCognitoHubEventStreamHandler) {
-    authCognitoHubEventStreamHandler = hubEventHandler
+  constructor(hubEventHandler: AuthCognitoHubEventStreamHandler, activity: Activity) {
+    authCognitoHubEventStreamHandler = AuthCognitoHubEventStreamHandler()
+    mainActivity = activity
   }
+
+
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "com.amazonaws.amplify/auth_cognito")
@@ -360,12 +363,10 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
           mainActivity.let {
             Amplify.Auth.signInWithWebUI(
                     it,
-                    {
+                    { result ->
                       if (!resultSubmitted) {
                         resultSubmitted = true;
-                        Handler(Looper.getMainLooper()).post {
-                          flutterResult.success(true);
-                        }                      }
+                        prepareSignInResult(flutterResult, result)                    }
                     },
                     { error -> prepareError(flutterResult, error, FlutterAuthFailureMessage.SIGNIN_WITH_WEBUI.toString()) }
             )
@@ -375,12 +376,10 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
             Amplify.Auth.signInWithSocialWebUI(
                     AuthProvider::class.java.getMethod(req.provider).invoke(null) as AuthProvider,
                     it,
-                    {
+                    { result ->
                       if (!resultSubmitted) {
                         resultSubmitted = true;
-                        Handler(Looper.getMainLooper()).post {
-                          flutterResult.success(true);
-                        }
+                        prepareSignInResult(flutterResult, result)
                       }
                     },
                     { error -> prepareError(flutterResult, error, FlutterAuthFailureMessage.SIGNIN_WITH_WEBUI.toString()) }

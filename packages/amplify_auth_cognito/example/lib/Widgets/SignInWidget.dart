@@ -37,9 +37,9 @@ class _SignInWidgetState extends State<SignInWidget> {
 
   void _signInWithWebUI() async {
     try {
-      bool res = await Amplify.Auth.signInWithWebUI();
+      SignInResult res = await Amplify.Auth.signInWithWebUI(provider:  AuthProvider.google);
       widget.showResult("Social Sign In Success = " + res.toString());
-      widget.changeDisplay(res ? "SIGNED_IN" : "SHOW_SIGN_IN");
+      widget.changeDisplay(res.isSignedIn ? "SIGNED_IN" : "SHOW_SIGN_IN");
       print(res);
     } on AuthError catch (e) {
       widget.setError(e);

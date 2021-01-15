@@ -105,7 +105,7 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     return res;
   }
 
-  Future<bool> signInWithWebUI({SignInWithWebUIRequest request}) async {
+  Future<SignInResult> signInWithWebUI({SignInWithWebUIRequest request}) async {
     final res = await _instance.signInWithWebUI(request: request);
     return res; 
   }

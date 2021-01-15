@@ -28,7 +28,13 @@ void main() {
   setUp(() {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == "signInWithWebUI") {
-        return true;
+        return {
+          "isSignedIn": false,
+          "nextStep": {
+            "signInStep": "DONE",
+            "codeDeliveryDetails": {"atttibuteName": "email"}
+          }
+        };
       } else {
         return false;
       }
@@ -42,12 +48,12 @@ void main() {
   test('signInWithWebUI (no providers) request returns a bool value', () async {
     expect(
         await auth.signInWithWebUI(),
-        isInstanceOf<bool>());
+        isInstanceOf<SignInResult>());
   });
 
     test('signInWithWebUI (with provider) request returns a bool value', () async {
     expect(
-        await auth.signInWithWebUI(request: SignInWithWebUIRequest(provider: AuthProvider.amazon)),
-        isInstanceOf<bool>());
+        await auth.signInWithWebUI(request: SignInWithWebUIRequest(provider: AuthProvider.login_with_amazon)),
+        isInstanceOf<SignInResult>());
   });
 }
