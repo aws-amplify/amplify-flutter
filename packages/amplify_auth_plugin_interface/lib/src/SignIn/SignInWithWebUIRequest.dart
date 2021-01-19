@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+import 'package:flutter/foundation.dart';
+
 import './AuthProvider.dart';
 
 class SignInWithWebUIRequest {
@@ -21,10 +23,8 @@ class SignInWithWebUIRequest {
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     if (this.provider != null) {
-      pendingRequest["authProvider"] = _enumToString(provider);
+      pendingRequest["authProvider"] = describeEnum(provider);
     }
     return pendingRequest;
   }
 }
-
-String _enumToString(Object o) => o.toString().split('.').last;

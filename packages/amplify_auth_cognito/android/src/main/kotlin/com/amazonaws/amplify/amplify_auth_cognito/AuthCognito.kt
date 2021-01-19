@@ -385,7 +385,8 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
                     { result ->
                       if (!resultSubmitted) {
                         resultSubmitted = true;
-                        prepareSignInResult(flutterResult, result)                    }
+                        prepareSignInResult(flutterResult, result)
+                      }
                     },
                     { error -> prepareError(flutterResult, error, FlutterAuthFailureMessage.SIGNIN_WITH_WEBUI.toString()) }
             )

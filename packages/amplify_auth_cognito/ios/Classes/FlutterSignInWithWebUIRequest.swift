@@ -43,8 +43,8 @@ struct FlutterSignInWithWebUIRequest {
   static func validate(dict: NSMutableDictionary) -> Bool {
     var valid: Bool = true;
     let allowedProviders: Array<String> = ["login_with_amazon", "google", "facebook"]
-    if (dict["authProvider"] != nil) {
-      if(!allowedProviders.contains(dict["authProvider"] as! String)) {
+    if let provider = dict["authProvider"] {
+      if(!allowedProviders.contains(provider as! String)) {
         valid = false;
       }
     }
