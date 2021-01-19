@@ -9,7 +9,7 @@ Widget displayQueryButtons(
       color: Colors.white,
       width: 5,
     ),
-    RaisedButton(
+    ElevatedButton(
       onPressed: () {
         if (isAmplifyConfigured) {
           app.setState(() {
@@ -19,14 +19,18 @@ Widget displayQueryButtons(
         }
         return null;
       },
-      color: app._queriesToView == "Blog" ? Colors.white10 : Colors.white60,
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(
+          app._queriesToView == "Blog" ? Colors.white10 : Colors.white60,
+        ),
+      ),
       child: Text(
         'Blogs',
         style: app._queriesToView == "Blog" ? boldText : TextStyle(),
       ),
     ),
     divider,
-    RaisedButton(
+    ElevatedButton(
       onPressed: () {
         if (isAmplifyConfigured) {
           app.setState(() {
@@ -36,14 +40,18 @@ Widget displayQueryButtons(
         }
         return null;
       },
-      color: app._queriesToView == "Post" ? Colors.white10 : Colors.white60,
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(
+          app._queriesToView == "Post" ? Colors.white10 : Colors.white60,
+        ),
+      ),
       child: Text(
         'Posts',
         style: app._queriesToView == "Post" ? boldText : TextStyle(),
       ),
     ),
     divider,
-    RaisedButton(
+    ElevatedButton(
       onPressed: () {
         if (isAmplifyConfigured) {
           app.setState(() {
@@ -53,7 +61,11 @@ Widget displayQueryButtons(
         }
         return null;
       },
-      color: app._queriesToView == "Comment" ? Colors.white10 : Colors.white60,
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(
+          app._queriesToView == "Comment" ? Colors.white10 : Colors.white60,
+        ),
+      ),
       child: Text(
         'Comments',
         style: app._queriesToView == "Comment" ? boldText : TextStyle(),
