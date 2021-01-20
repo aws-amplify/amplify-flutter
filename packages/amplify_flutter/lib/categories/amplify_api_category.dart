@@ -36,55 +36,55 @@ class APICategory {
   GraphQLOperation<T> query<T>({@required GraphQLRequest<T> request}) {
     return plugins.length == 1
         ? plugins[0].query(request: request)
-        : throw _pluginNotAddedException;
+        : throw _pluginNotAddedException("Api");
   }
 
   GraphQLOperation<T> mutate<T>({@required GraphQLRequest<T> request}) {
     return plugins.length == 1
         ? plugins[0].mutate(request: request)
-        : throw _pluginNotAddedException;
+        : throw _pluginNotAddedException("Api");
   }
 
   // ====== RestAPI ======
   void cancelRequest(String code) {
     return plugins.length == 1
         ? plugins[0].cancelRequest(code)
-        : throw _pluginNotAddedException;
+        : throw _pluginNotAddedException("Api");
   }
 
   RestOperation get({@required RestOptions restOptions}) {
     return plugins.length == 1
         ? plugins[0].get(restOptions: restOptions)
-        : throw _pluginNotAddedException;
+        : throw _pluginNotAddedException("Api");
   }
 
   RestOperation put({@required RestOptions restOptions}) {
     return plugins.length == 1
         ? plugins[0].put(restOptions: restOptions)
-        : throw _pluginNotAddedException;
+        : throw _pluginNotAddedException("Api");
   }
 
   RestOperation post({@required RestOptions restOptions}) {
     return plugins.length == 1
         ? plugins[0].post(restOptions: restOptions)
-        : throw _pluginNotAddedException;
+        : throw _pluginNotAddedException("Api");
   }
 
   RestOperation delete({@required RestOptions restOptions}) {
     return plugins.length == 1
         ? plugins[0].delete(restOptions: restOptions)
-        : throw _pluginNotAddedException;
+        : throw _pluginNotAddedException("Api");
   }
 
   RestOperation head({@required RestOptions restOptions}) {
     return plugins.length == 1
         ? plugins[0].head(restOptions: restOptions)
-        : throw _pluginNotAddedException;
+        : throw _pluginNotAddedException("Api");
   }
 
   RestOperation patch({@required RestOptions restOptions}) {
     return plugins.length == 1
         ? plugins[0].patch(restOptions: restOptions)
-        : throw _pluginNotAddedException;
+        : throw _pluginNotAddedException("Api");
   }
 }

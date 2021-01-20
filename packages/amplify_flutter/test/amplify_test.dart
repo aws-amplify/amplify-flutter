@@ -61,6 +61,11 @@ void main() {
           "Make sure that your amplifyconfiguration.dart file exists and has " +
               "string constant ``amplifyconfig` and that you are calling configure() correctly.");
 
+  const pluginNotAddedException = AmplifyException(
+      "Auth plugin has not been added to Amplify",
+      recoverySuggestion:
+          "Add Auth plugin to Amplify and call configure before calling Auth related APIs");
+
   TestWidgetsFlutterBinding.ensureInitialized();
 
   // Class under test
@@ -179,6 +184,17 @@ void main() {
       await amplify.addPlugin(AmplifyAnalyticsPinpoint());
     } catch (e) {
       expect(e, amplifyAlreadyConfiguredForAddPluginException);
+      return;
+    }
+    fail("an exception should have been thrown");
+  });
+
+  test("Calling a plugin through Amplify before adding one", () async {
+    await amplify.configure(validJsonConfiguration);
+    try {
+      await Amplify.Auth.signOut();
+    } catch (e) {
+      expect(e, pluginNotAddedException);
       return;
     }
     fail("an exception should have been thrown");

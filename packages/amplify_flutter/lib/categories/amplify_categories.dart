@@ -18,10 +18,12 @@ part 'amplify_datastore_category.dart';
 part 'amplify_storage_category.dart';
 part 'amplify_api_category.dart';
 
-const  _errorMsgPluginNotAdded =
-    "DataStore plugin has not been added to Amplify";
-const _recoverySuggestionPluginNotAdded =
-    "Add DataStore Plugin to Amplify and call configure before calling DataStore related APIs";
+_errorMsgPluginNotAdded(String pluginName) =>
+    "$pluginName plugin has not been added to Amplify";
 
-const _pluginNotAddedException = AmplifyException(_errorMsgPluginNotAdded,
-    recoverySuggestion: _recoverySuggestionPluginNotAdded);
+_recoverySuggestionPluginNotAdded(String pluginName) =>
+    "Add $pluginName plugin to Amplify and call configure before calling $pluginName related APIs";
+
+_pluginNotAddedException(String pluginName) =>
+    AmplifyException(_errorMsgPluginNotAdded(pluginName),
+        recoverySuggestion: _recoverySuggestionPluginNotAdded(pluginName));

@@ -41,7 +41,7 @@ class DataStoreCategory {
   StreamController get streamController {
     return plugins.length == 1
         ? plugins[0].streamController
-        : throw _pluginNotAddedException;
+        : throw _pluginNotAddedException("DataStore");
   }
 
   Future<List<T>> query<T extends Model>(ModelType<T> modelType,
@@ -51,32 +51,32 @@ class DataStoreCategory {
     return plugins.length == 1
         ? plugins[0].query(modelType,
             where: where, pagination: pagination, sortBy: sortBy)
-        : throw _pluginNotAddedException;
+        : throw _pluginNotAddedException("DataStore");
   }
 
   Future<void> delete<T extends Model>(T model) {
     return plugins.length == 1
         ? plugins[0].delete(model)
-        : throw _pluginNotAddedException;
+        : throw _pluginNotAddedException("DataStore");
   }
 
   Future<void> save<T extends Model>(T model) {
     return plugins.length == 1
         ? plugins[0].save(model)
-        : throw _pluginNotAddedException;
+        : throw _pluginNotAddedException("DataStore");
   }
 
   Stream<SubscriptionEvent<T>> observe<T extends Model>(
       ModelType<T> modelType) {
     return plugins.length == 1
         ? plugins[0].observe(modelType)
-        : throw _pluginNotAddedException;
+        : throw _pluginNotAddedException("DataStore");
   }
 
   Future<void> clear() {
     return plugins.length == 1
         ? plugins[0].clear()
-        : throw _pluginNotAddedException;
+        : throw _pluginNotAddedException("DataStore");
   }
 
   Future<void> configure(String configuration) async {

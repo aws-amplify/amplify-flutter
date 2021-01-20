@@ -18,7 +18,7 @@ package com.amazonaws.amplify.amplify_core.exception
 class ExceptionMessages {
     companion object {
         @JvmStatic
-        val defaultFallbackErrorMessage: String =
+        val defaultFallbackExceptionMessage: String =
                 "Translating platform exception failed. " + ExceptionMessages.createGithubIssueString
 
         @JvmStatic

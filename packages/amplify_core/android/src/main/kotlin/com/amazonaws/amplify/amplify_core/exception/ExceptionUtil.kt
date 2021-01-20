@@ -33,7 +33,7 @@ class ExceptionUtil {
                 errorCode: String,
                 details: Map<String, Any?>) {
             result.error(errorCode,
-                    ExceptionMessages.defaultFallbackErrorMessage,
+                    ExceptionMessages.defaultFallbackExceptionMessage,
                     details)
         }
 
