@@ -16,22 +16,6 @@
 import 'package:amplify_datastore_plugin_interface/src/types/temporal/temporal_date.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/*
-Test Cases
-
-For all constructors
-- create instance
-- verify getOffset
-- verify toDateTime
-- verify format
-
-For string constructor
-- provide all permutations of string
-- verify all 3 methods
-
-- provide minor corruptions
-- verify exception is thrown
- */
 void main() {
   test('AWSDate from DateTime success', () async {
     DateTime now = DateTime.now();
