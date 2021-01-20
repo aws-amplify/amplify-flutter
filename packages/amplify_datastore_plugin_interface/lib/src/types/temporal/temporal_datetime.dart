@@ -1,16 +1,34 @@
+/*
+ * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
 import 'temporal.dart';
 
+/// Represents a valid extended ISO-8601 DateTime string.  The time zone offset is compulsory.
+/// YYYY-MM-DDThh:mm:ss.sssZ  (ISO_OFFSET_DATE_TIME)
+/// https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html#appsync-defined-scalars
 class TemporalDateTime {
   DateTime _dateTime;
   int _nanoseconds;
   Duration _offset;
 
-  ///
+  /// Constructs a new TemporalDateTime at the current date
   static TemporalDateTime now() {
     return TemporalDateTime(DateTime.now());
   }
 
-  ///
+  /// Constructs a new TemporalDateTime from a Dart DateTime
   TemporalDateTime(DateTime dateTime) {
     dateTime = dateTime.toUtc();
     _dateTime = DateTime.utc(dateTime.year, dateTime.month, dateTime.day,
@@ -19,7 +37,7 @@ class TemporalDateTime {
         (dateTime.millisecond * 1000000) + (dateTime.microsecond * 1000);
   }
 
-  ///
+  /// Constructs a new TemporalDateTime from a Dart DateTime and Duration
   TemporalDateTime.withOffset(DateTime dateTime, Duration offset) {
     dateTime = dateTime.toUtc();
     _dateTime = DateTime.utc(dateTime.year, dateTime.month, dateTime.day,
@@ -34,13 +52,14 @@ class TemporalDateTime {
     _offset = offset;
   }
 
-  // DateTime Z is required
-  //YYYY-MM-DDThh:mmZ
-  //YYYY-MM-DDThh:mm:ssZ
-  //YYYY-MM-DDThh:mm:ss.sssZ
-  // without Z:
-  //   +hh:mm
-  //   +hh:mm:ss
+  /// Constructs a new TemporalDate from a ISO8601 string adhering to the format:
+  /// NOTE: Z or an offset is required
+  ///   YYYY-MM-DDThh:mmZ
+  ///   YYYY-MM-DDThh:mm:ssZ
+  ///   YYYY-MM-DDThh:mm:ss.sssZ
+  ///   without Z:
+  ///     +hh:mm
+  ///     +hh:mm:ss
   TemporalDateTime.fromString(String iso8601String) {
     RegExp regExp = new RegExp(
         r'^([0-9]{4}-[0-1][0-9]-[0-3][0-9]T[0-2][0-9]:[0-5][0-9](:[0-5][0-9](.([0-9]{1,9}))?)?)((z|Z)|((\+|-)[0-2][0-9]:[0-5][0-9](:[0-5][0-9])?))',
@@ -66,10 +85,12 @@ class TemporalDateTime {
       _offset = Temporal.stringToOffset(match.group(7));
   }
 
+  /// Return offset
   Duration getOffset() {
     return _offset;
   }
 
+  /// Return DateTime with offset added
   DateTime toDateTime() {
     DateTime toReturn =
         _offset == null ? _dateTime : _dateTime.subtract(_offset);
@@ -82,6 +103,7 @@ class TemporalDateTime {
     return toReturn;
   }
 
+  /// Return ISO8601 String of format YYYY-MM-DDThh:mm:ss.sss+hh:mm:ss
   String format() {
     var buffer = StringBuffer();
 
