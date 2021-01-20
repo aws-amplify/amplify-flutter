@@ -28,7 +28,11 @@ class ExceptionMessages {
 
         @JvmStatic
         val defaultFallbackExceptionMessage: String =
+<<<<<<< HEAD
                 "Translating platform exception failed. $createGithubIssueString"
+=======
+                "Translating platform exception failed. " + ExceptionMessages.createGithubIssueString
+>>>>>>> Minor fixes
 
         @JvmStatic
         val missingRecoverySuggestion: String =
