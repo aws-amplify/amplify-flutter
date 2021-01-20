@@ -62,27 +62,6 @@ void main() {
         .catchError((e) => expect(e, isAssertionError));
   });
 
-  test('before calling configure, isConfigure should be false', () {
-    expect(amplify.isConfigured, false);
-  });
-
-  test('after calling configure, isConfigure should be true', () async {
-    await amplify.configure(dummyConfiguration);
-    expect(amplify.isConfigured, true);
-  });
-
-  test('Failed configure should result in isConfigure to be false', () async {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return false; // configuration failed
-    });
-    try {
-      await amplify.configure(dummyConfiguration);
-    } catch (e) {
-      expect(e, amplifyConfigureFailedError);
-    }
-    expect(amplify.isConfigured, false);
-  });
-
   test('calling configure twice results in an error', () async {
     await amplify.configure(dummyConfiguration);
     try {
@@ -100,13 +79,11 @@ void main() {
     await amplify
         .addPlugins([AmplifyAuthCognito(), AmplifyAnalyticsPinpoint()]);
     await amplify.configure(dummyConfiguration);
-    expect(amplify.isConfigured, true);
   });
 
   test("adding single plugins using addPlugin method doesn't throw", () async {
     await amplify.addPlugin(AmplifyAuthCognito());
     await amplify.configure(dummyConfiguration);
-    expect(amplify.isConfigured, true);
   });
 
   test("adding multiple plugins from same Auth category throws error",
@@ -125,7 +102,6 @@ void main() {
   test("adding plugins after configure throws an error", () async {
     await amplify.addPlugin(AmplifyAuthCognito());
     await amplify.configure(dummyConfiguration);
-    expect(amplify.isConfigured, true);
     try {
       await amplify.addPlugin(AmplifyAnalyticsPinpoint());
     } catch (e) {
