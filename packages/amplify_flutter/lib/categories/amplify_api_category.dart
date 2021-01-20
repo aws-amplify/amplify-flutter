@@ -16,8 +16,6 @@
 part of amplify_interface;
 
 class APICategory {
-  final _errorMsg = "API plugin has not been added to Amplify";
-
   const APICategory();
 
   static List<APIPluginInterface> plugins = [];
@@ -29,7 +27,7 @@ class APICategory {
       plugins.add(plugin);
       return true;
     } else {
-      throw StateError("API plugin has already been added, " +
+      throw AmplifyException("API plugin has already been added, " +
           "multiple plugins for API category are currently not supported.");
     }
   }
@@ -38,41 +36,55 @@ class APICategory {
   GraphQLOperation<T> query<T>({@required GraphQLRequest<T> request}) {
     return plugins.length == 1
         ? plugins[0].query(request: request)
-        : throw (_errorMsg);
+        : throw _pluginNotAddedException;
   }
 
   GraphQLOperation<T> mutate<T>({@required GraphQLRequest<T> request}) {
     return plugins.length == 1
         ? plugins[0].mutate(request: request)
-        : throw (_errorMsg);
+        : throw _pluginNotAddedException;
   }
 
   // ====== RestAPI ======
   void cancelRequest(String code) {
-    return plugins[0].cancelRequest(code);
+    return plugins.length == 1
+        ? plugins[0].cancelRequest(code)
+        : throw _pluginNotAddedException;
   }
 
   RestOperation get({@required RestOptions restOptions}) {
-    return plugins[0].get(restOptions: restOptions);
+    return plugins.length == 1
+        ? plugins[0].get(restOptions: restOptions)
+        : throw _pluginNotAddedException;
   }
 
   RestOperation put({@required RestOptions restOptions}) {
-    return plugins[0].put(restOptions: restOptions);
+    return plugins.length == 1
+        ? plugins[0].put(restOptions: restOptions)
+        : throw _pluginNotAddedException;
   }
 
   RestOperation post({@required RestOptions restOptions}) {
-    return plugins[0].post(restOptions: restOptions);
+    return plugins.length == 1
+        ? plugins[0].post(restOptions: restOptions)
+        : throw _pluginNotAddedException;
   }
 
   RestOperation delete({@required RestOptions restOptions}) {
-    return plugins[0].delete(restOptions: restOptions);
+    return plugins.length == 1
+        ? plugins[0].delete(restOptions: restOptions)
+        : throw _pluginNotAddedException;
   }
 
   RestOperation head({@required RestOptions restOptions}) {
-    return plugins[0].head(restOptions: restOptions);
+    return plugins.length == 1
+        ? plugins[0].head(restOptions: restOptions)
+        : throw _pluginNotAddedException;
   }
 
   RestOperation patch({@required RestOptions restOptions}) {
-    return plugins[0].patch(restOptions: restOptions);
+    return plugins.length == 1
+        ? plugins[0].patch(restOptions: restOptions)
+        : throw _pluginNotAddedException;
   }
 }

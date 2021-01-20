@@ -18,52 +18,77 @@ import UIKit
 import Amplify
 import AmplifyPlugins
 import AWSPluginsCore
+import amplify_core
 
 public class SwiftAmplify: NSObject, FlutterPlugin {
-    
-  var isConfigured: Bool = false
-    
-  public static func register(with registrar: FlutterPluginRegistrar) {
-    let channel = FlutterMethodChannel(name: "com.amazonaws.amplify/amplify", binaryMessenger: registrar.messenger())
-    let instance = SwiftAmplify()
-    registrar.addMethodCallDelegate(instance, channel: channel)
-  }
 
-
-  public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-    switch call.method {
-      case "configure":
-        let arguments = call.arguments as! Dictionary<String, AnyObject>
-        let version = arguments["version"] as! String
-        let configuration = arguments["configuration"] as! String
-        onConfigure(result: result, version: version, configuration: configuration)
-      default:
-        result(FlutterMethodNotImplemented)
+    public static func register(with registrar: FlutterPluginRegistrar) {
+        let channel = FlutterMethodChannel(name: "com.amazonaws.amplify/amplify", binaryMessenger: registrar.messenger())
+        let instance = SwiftAmplify()
+        registrar.addMethodCallDelegate(instance, channel: channel)
     }
-  }
+
+    public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        switch call.method {
+        case "configure":
+            let arguments = call.arguments as! Dictionary<String, AnyObject>
+            let version = arguments["version"] as! String
+            let configuration = arguments["configuration"] as! String
+            onConfigure(result: result, version: version, configuration: configuration)
+        default:
+            result(FlutterMethodNotImplemented)
+        }
+    }
 
     private func onConfigure(result: FlutterResult, version: String, configuration: String) {
-      if(!isConfigured) {
         do {
-          if let data = configuration.data(using: .utf8) {
-            let configurationDictionary = try JSONSerialization.jsonObject(with: data) as? [String: Any]
-            if(configurationDictionary?["api"] != nil) {
-                // api configuration exists. Let's add the plugin
-                try Amplify.add(plugin: AWSAPIPlugin())
+            if let data = configuration.data(using: .utf8) {
+                let configurationDictionary = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+                if(configurationDictionary?["api"] != nil) {
+                    // api configuration exists. Let's add the plugin
+                    try Amplify.add(plugin: AWSAPIPlugin())
+                }
             }
-          }
-          let amplifyConfiguration = try JSONDecoder().decode(AmplifyConfiguration.self, from: configuration.data(using: .utf8)!)
-          AmplifyAWSServiceConfiguration.addUserAgentPlatform(.flutter, version: version)
-          try Amplify.configure(amplifyConfiguration)
-          isConfigured = true
-          result(true)
+            let amplifyConfiguration = try JSONDecoder().decode(AmplifyConfiguration.self, from: configuration.data(using: .utf8)!)
+            AmplifyAWSServiceConfiguration.addUserAgentPlatform(.flutter, version: version)
+            try Amplify.configure(amplifyConfiguration)
+            result(true)
+        } catch let error as ConfigurationError {
+            switch error {
+            case .amplifyAlreadyConfigured(_, _, _):
+                ErrorUtil.postErrorToFlutterChannel(
+                    result: result,
+                    errorCode: "AmplifyAlreadyConfigured",
+                    details: createSerializedError(error: error))
+            default:
+                ErrorUtil.postErrorToFlutterChannel(
+                    result: result,
+                    errorCode: "AmplifyException",
+                    details: createSerializedError(error: error))
+            }
         } catch {
-          result(FlutterError(code: "AmplifyException",
-                              message: "Failed to Configure Amplify",
-                              details: error.localizedDescription));
+            ErrorUtil.postErrorToFlutterChannel(
+                result: result,
+                errorCode: "AmplifyException",
+                details: createSerializedError(message: "Failed to parse the configuration.",
+                                               recoverySuggestion: "Please check your amplifyconfiguration.dart if you are" +
+                                                "manually updating it, else please create an issue.",
+                                               underlyingError: error.localizedDescription))
         }
-      } else {
-        result(true)
-      }
-  }
+
+    }
+
+    private func createSerializedError(error: AmplifyError) -> Dictionary<String, String> {
+        return createSerializedError(message: error.errorDescription,
+                                     recoverySuggestion: error.recoverySuggestion,
+                                     underlyingError: error.underlyingError.debugDescription)
+    }
+
+    private func createSerializedError(message: String, recoverySuggestion: String?, underlyingError: String?) -> Dictionary<String, String> {
+        var serializedException: Dictionary<String, String> = [:]
+        serializedException["message"] = message
+        serializedException["recoverySuggestion"] = recoverySuggestion
+        serializedException["underlyingException"] = underlyingError
+        return serializedException
+    }
 }

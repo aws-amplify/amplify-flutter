@@ -20,3 +20,7 @@ export 'plugin/amplify_plugin_interface.dart';
 export 'hub/HubEvent.dart';
 export 'hub/HubEventPayload.dart';
 export 'hub/HubChannel.dart';
+
+/// Exceptions
+export 'exception/AmplifyException.dart';
+export 'exception/AmplifyAlreadyConfiguredException.dart';

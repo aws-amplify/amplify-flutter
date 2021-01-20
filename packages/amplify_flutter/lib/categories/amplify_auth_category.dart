@@ -5,7 +5,6 @@ part of amplify_interface;
 /// be registered and configured and then subsequent API calls will be forwarded
 /// to those plugins.
 class AuthCategory {
-  final _errorMsg = "Auth plugin has not been added to Amplify";
   const AuthCategory();
   static List<AuthPluginInterface> plugins = [];
 
@@ -15,13 +14,15 @@ class AuthCategory {
     if (plugins.length == 0) {
       plugins.add(plugin);
     } else {
-      throw StateError("Auth plugin has already been added, " +
+      throw AmplifyException("Auth plugin has already been added, " +
           "multiple plugins for Auth category are currently not supported.");
     }
   }
 
   StreamController get streamController {
-    return plugins.length == 1 ? plugins[0].streamController : throw(_errorMsg);
+    return plugins.length == 1
+        ? plugins[0].streamController
+        : throw _pluginNotAddedException;
   }
 
   Future<SignUpResult> signUp(
@@ -30,7 +31,7 @@ class AuthCategory {
         SignUpRequest(username: username, password: password, options: options);
     return plugins.length == 1
         ? plugins[0].signUp(request: request)
-        : throw (_errorMsg);
+        : throw _pluginNotAddedException;
   }
 
   Future<SignUpResult> confirmSignUp(
@@ -43,14 +44,14 @@ class AuthCategory {
         options: options);
     return plugins.length == 1
         ? plugins[0].confirmSignUp(request: request)
-        : throw (_errorMsg);
+        : throw _pluginNotAddedException;
   }
 
   Future<ResendSignUpCodeResult> resendSignUpCode({@required String username}) {
     var request = ResendSignUpCodeRequest(username: username);
     return plugins.length == 1
         ? plugins[0].resendSignUpCode(request: request)
-        : throw (_errorMsg);
+        : throw _pluginNotAddedException;
   }
 
   Future<SignInResult> signIn(
@@ -61,7 +62,7 @@ class AuthCategory {
         SignInRequest(username: username, password: password, options: options);
     return plugins.length == 1
         ? plugins[0].signIn(request: request)
-        : throw (_errorMsg);
+        : throw _pluginNotAddedException;
   }
 
   Future<SignInResult> confirmSignIn(
@@ -70,14 +71,14 @@ class AuthCategory {
         confirmationValue: confirmationValue, options: options);
     return plugins.length == 1
         ? plugins[0].confirmSignIn(request: request)
-        : throw (_errorMsg);
+        : throw _pluginNotAddedException;
   }
 
   Future<SignOutResult> signOut({SignOutOptions options}) {
     var request = SignOutRequest(options: options);
     return plugins.length == 1
         ? plugins[0].signOut(request: request)
-        : throw (_errorMsg);
+        : throw _pluginNotAddedException;
   }
 
   Future<UpdatePasswordResult> updatePassword(
@@ -88,7 +89,7 @@ class AuthCategory {
         oldPassword: oldPassword, newPassword: newPassword, options: options);
     return plugins.length == 1
         ? plugins[0].updatePassword(request: request)
-        : throw (_errorMsg);
+        : throw _pluginNotAddedException;
   }
 
   Future<ResetPasswordResult> resetPassword(
@@ -96,7 +97,7 @@ class AuthCategory {
     var request = ResetPasswordRequest(username: username, options: options);
     return plugins.length == 1
         ? plugins[0].resetPassword(request: request)
-        : throw (_errorMsg);
+        : throw _pluginNotAddedException;
   }
 
   Future<UpdatePasswordResult> confirmPassword(
@@ -111,20 +112,20 @@ class AuthCategory {
         options: options);
     return plugins.length == 1
         ? plugins[0].confirmPassword(request: request)
-        : throw (_errorMsg);
+        : throw _pluginNotAddedException;
   }
 
   Future<AuthUser> getCurrentUser() {
     var request = AuthUserRequest();
     return plugins.length == 1
         ? plugins[0].getCurrentUser(request: request)
-        : throw (_errorMsg);
+        : throw _pluginNotAddedException;
   }
 
   Future<AuthSession> fetchAuthSession({AuthSessionOptions options}) {
     var request = AuthSessionRequest(options: options);
     return plugins.length == 1
         ? plugins[0].fetchAuthSession(request: request)
-        : throw (_errorMsg);
+        : throw _pluginNotAddedException;
   }
 }

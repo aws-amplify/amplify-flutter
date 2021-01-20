@@ -27,7 +27,7 @@ class StorageCategory {
       plugins.add(plugin);
       return true;
     } else {
-      throw StateError("Storage plugin has already been added, " +
+      throw AmplifyException("Storage plugin has already been added, " +
           "multiple plugins for Storage category are currently not supported.");
     }
   }

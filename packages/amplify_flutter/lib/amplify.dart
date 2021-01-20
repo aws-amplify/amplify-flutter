@@ -16,6 +16,7 @@
 library amplify;
 
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
@@ -55,7 +56,12 @@ class AmplifyClass extends PlatformInterface {
   APICategory API = const APICategory();
 
   bool _isConfigured = false;
+
+  // ignore: public_member_api_docs
   AmplifyHub Hub = AmplifyHub();
+
+  final _amplifyBugRecoverySuggestion =
+      "This looks like a bug in Amplify library, please create an issue.";
 
   /// Adds one plugin at a time. Note: this method can only
   /// be called before Amplify has been configured. Customers are expected
@@ -76,16 +82,26 @@ class AmplifyClass extends PlatformInterface {
         } else if (plugin is APIPluginInterface) {
           await API.addPlugin(plugin);
         } else {
-          throw ArgumentError(
-              "The type of plugin is not yet supported in Amplify. This is a bug in Amplify library, please file an issue.");
+          throw AmplifyException(
+              "The type of plugin " +
+                  plugin.runtimeType.toString() +
+                  " is not yet supported in Amplify.",
+              recoverySuggestion: _amplifyBugRecoverySuggestion);
         }
       } catch (e) {
         print("Amplify plugin was not added");
-        throw e;
+        throw AmplifyException(
+            "Amplify plugin " +
+                plugin.runtimeType.toString() +
+                " was not added successfully.",
+            recoverySuggestion: _amplifyBugRecoverySuggestion,
+            underlyingException: e.toString());
       }
     } else {
-      throw StateError(
-          "Amplify is already configured. Adding plugins after configure is not supported.");
+      throw AmplifyException(
+          "Amplify has already been configured and adding plugins after configure is not supported.",
+          recoverySuggestion:
+              "Use Amplify.isConfigured to check Amplify configuration state before adding plugins.");
     }
     return;
   }
@@ -115,18 +131,56 @@ class AmplifyClass extends PlatformInterface {
   /// is configured. Clients are expected to call `Amplify.isConfigured`
   /// to check if their app is configured before calling this method.
   Future<void> configure(String configuration) async {
+    // Validation #1
     if (isConfigured) {
-      throw StateError(
-          "Amplify has already been configured and re-configuration is not supported. " +
-              "Please use Amplify.isConfigured to check before calling configure again.");
+      throw AmplifyException(
+          "Amplify has already been configured and re-configuration is not supported.",
+          recoverySuggestion:
+              "Use Amplify.isConfigured to check before calling configure again.");
     }
-    assert(configuration != null, 'configuration is null');
-    var res = await AmplifyClass.instance
-        ._configurePlatforms(_getVersion(), configuration);
-    _isConfigured = res;
-    if (!res) {
-      throw ("Amplify failed to configure. " +
-          "Please raise an issue in amplify-flutter repository.");
+
+    // Validation #2
+    if (configuration == null) {
+      throw AmplifyException("Configuration passed in null.",
+          recoverySuggestion:
+              "Make sure that your amplifyconfiguration.dart file" +
+                  " exists and has string constant ``amplifyconfig` and that" +
+                  " you are calling configure() correctly.");
+    }
+
+    // Validation #3. Try decoding the json string
+    try {
+      jsonDecode(configuration);
+    } on FormatException catch (e) {
+      throw AmplifyException(
+          "The provided configuration is not a valid json. Check underlyingException.",
+          recoverySuggestion:
+              "Inspect your amplifyconfiguration.dart and ensure that the string is proper json",
+          underlyingException: e.toString());
+    }
+
+    try {
+      var res = await AmplifyClass.instance
+          ._configurePlatforms(_getVersion(), configuration);
+      _isConfigured = res;
+      if (!res) {
+        throw AmplifyException("Amplify failed to configure.",
+            recoverySuggestion: _amplifyBugRecoverySuggestion);
+      }
+    } on PlatformException catch (e) {
+      if (e.code == "AmplifyException") {
+        throw AmplifyException.fromMap(Map<String, String>.from(e.details));
+      } else if (e.code == "AmplifyAlreadyConfigured") {
+        throw AmplifyAlreadyConfiguredException.fromMap(
+            Map<String, String>.from(e.details));
+      } else {
+        // This shouldn't happen. All exceptions coming from platform for
+        // amplify_flutter should have a known code. Throw an unknown error.
+        throw AmplifyException(
+            "An unknown error has happened while configuring Amplify.",
+            recoverySuggestion: _amplifyBugRecoverySuggestion,
+            underlyingException: e.toString());
+      }
     }
 
     await DataStore.configure(configuration);
