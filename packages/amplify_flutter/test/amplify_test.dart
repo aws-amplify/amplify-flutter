@@ -25,14 +25,11 @@ void main() {
   AmplifyClass amplify;
   String dummyConfiguration = "dummy";
   String amplifyAlreadyConfiguredError =
-      "Amplify has already been configured and re-configuration is not supported. " +
-          "Please use Amplify.isConfigured to check before calling configure again.";
+      "Amplify has already been configured and re-configuration is not supported.";
   String amplifyAlreadyConfiguredForAddPluginError =
       "Amplify is already configured. Adding plugins after configure is not supported.";
   String multiplePluginsForAuthError = "Auth plugin has already been added, " +
       "multiple plugins for Auth category are currently not supported.";
-  String amplifyConfigureFailedError = "Amplify failed to configure. " +
-      "Please raise an issue in amplify-flutter repository.";
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
