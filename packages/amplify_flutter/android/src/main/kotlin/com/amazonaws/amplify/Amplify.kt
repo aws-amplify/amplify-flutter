@@ -77,7 +77,7 @@ class Amplify : FlutterPlugin, ActivityAware, MethodCallHandler {
                     postExceptionToFlutterChannel(result, "AmplifyException",
                             createSerializedError(
                                     "Failed to parse the configuration.",
-                                    "Please check your amplifyconfiguration.dart if you are" +
+                                    "Please check your amplifyconfiguration.dart if you are " +
                                             "manually updating it, else please create an issue.",
                                     e.toString()))
                 }
@@ -111,6 +111,7 @@ class Amplify : FlutterPlugin, ActivityAware, MethodCallHandler {
         try {
             val configuration = AmplifyConfiguration.builder(JSONObject(config))
                     .addPlatform(UserAgent.Platform.FLUTTER, version)
+                    .devMenuEnabled(false)
                     .build()
             if (configuration.forCategoryType(
                             CategoryType.API) !is EmptyCategoryConfiguration) {

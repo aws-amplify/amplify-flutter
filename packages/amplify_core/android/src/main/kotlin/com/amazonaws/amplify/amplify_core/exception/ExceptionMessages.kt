@@ -17,17 +17,6 @@ package com.amazonaws.amplify.amplify_core.exception
 
 class ExceptionMessages {
     companion object {
-        @JvmStatic
-        val defaultFallbackExceptionMessage: String =
-                "Translating platform exception failed. " + ExceptionMessages.createGithubIssueString
-
-        @JvmStatic
-        val missingRecoverySuggestion: String =
-                "We currently don't have a recovery suggestion for this exception."
-
-        @JvmStatic
-        val missingExceptionMessage: String =
-                "An unknown exception has happened. " + ExceptionMessages.createGithubIssueString
 
         @JvmStatic
         val createGithubIssueString: String =
@@ -36,5 +25,18 @@ class ExceptionMessages {
         https://github.com/aws-amplify/amplify-flutter/issues to see if there are any existing issues that
         match your scenario, and file an issue with the details of the bug if there isn't.
         """.trimIndent()
+
+        @JvmStatic
+        val defaultFallbackExceptionMessage: String =
+                "Translating platform exception failed. $createGithubIssueString"
+
+        @JvmStatic
+        val missingRecoverySuggestion: String =
+                "We currently don't have a recovery suggestion for this exception."
+
+        @JvmStatic
+        val missingExceptionMessage: String =
+                "An unknown exception has happened. $createGithubIssueString"
+
     }
 }
