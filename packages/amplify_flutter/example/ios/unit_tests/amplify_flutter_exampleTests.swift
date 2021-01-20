@@ -15,23 +15,31 @@
 
 import XCTest
 import Amplify
+import amplify_core
 @testable import amplify_flutter
 
 class amplify_flutter_exampleTests: XCTestCase {
     
     var plugin: SwiftAmplify = SwiftAmplify()
 
-    func test_configureOnce() throws {
+    func test_configuring_multiple_times_throws() throws {
         let _args = ["version": "1", "configuration": "{}"]
         let call = FlutterMethodCall(methodName: "configure", arguments: _args)
         plugin.handle(call, result: {(result)->Void in
             if (result as? Bool) != nil {} else {
-                // TODO XCTFail()
+                XCTFail("First time should be a success")
             }
         })
         plugin.handle(call, result: {(result)->Void in
-            if (result as? Bool) != nil {} else {
-                // TODO XCTFail()
+            
+            if let exception = result as? FlutterError {
+                XCTAssertEqual(exception.code, "AmplifyAlreadyConfigured")
+                XCTAssertEqual(exception.message, ErrorMessages.defaultFallbackErrorMessage)
+                XCTAssertEqual(exception.details as? [String: String], ["underlyingException": "nil",
+                                                                        "recoverySuggestion": "Remove the duplicate call to `Amplify.configure()`",
+                                                                        "message": "Amplify has already been configured."])
+            } else {
+                XCTFail("Second time configure should be an exception")
             }
         })
     }
