@@ -122,6 +122,7 @@ jobs:
           name: Build example APKs
           command: |
             melos run build:examples:android
+          GRADLE_OPTS: -Xmx1024m -Xms768m
       - run:
           name: Run Android Unit Tests
           command: melos run test:unit:android
