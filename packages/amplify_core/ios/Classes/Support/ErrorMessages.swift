@@ -23,7 +23,7 @@ public struct ErrorMessages {
         match your scenario, and file an issue with the details of the bug if there isn't.
         """
 
-    public static let defaultFallBackErrorMessage: String =
+    public static let defaultFallbackErrorMessage: String =
         "Translating platform exception failed. " + createGithubIssueString;
 
     public static let missingRecoverySuggestion: String =
