@@ -25,14 +25,11 @@ void main() {
   AmplifyClass amplify;
   String dummyConfiguration = "dummy";
   String amplifyAlreadyConfiguredError =
-      "Amplify has already been configured and re-configuration is not supported. " +
-          "Please use Amplify.isConfigured to check before calling configure again.";
+      "Amplify has already been configured and re-configuration is not supported.";
   String amplifyAlreadyConfiguredForAddPluginError =
       "Amplify is already configured. Adding plugins after configure is not supported.";
   String multiplePluginsForAuthError = "Auth plugin has already been added, " +
       "multiple plugins for Auth category are currently not supported.";
-  String amplifyConfigureFailedError = "Amplify failed to configure. " +
-      "Please raise an issue in amplify-flutter repository.";
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -62,27 +59,6 @@ void main() {
         .catchError((e) => expect(e, isAssertionError));
   });
 
-  test('before calling configure, isConfigure should be false', () {
-    expect(amplify.isConfigured, false);
-  });
-
-  test('after calling configure, isConfigure should be true', () async {
-    await amplify.configure(dummyConfiguration);
-    expect(amplify.isConfigured, true);
-  });
-
-  test('Failed configure should result in isConfigure to be false', () async {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return false; // configuration failed
-    });
-    try {
-      await amplify.configure(dummyConfiguration);
-    } catch (e) {
-      expect(e, amplifyConfigureFailedError);
-    }
-    expect(amplify.isConfigured, false);
-  });
-
   test('calling configure twice results in an error', () async {
     await amplify.configure(dummyConfiguration);
     try {
@@ -100,13 +76,11 @@ void main() {
     await amplify
         .addPlugins([AmplifyAuthCognito(), AmplifyAnalyticsPinpoint()]);
     await amplify.configure(dummyConfiguration);
-    expect(amplify.isConfigured, true);
   });
 
   test("adding single plugins using addPlugin method doesn't throw", () async {
     await amplify.addPlugin(AmplifyAuthCognito());
     await amplify.configure(dummyConfiguration);
-    expect(amplify.isConfigured, true);
   });
 
   test("adding multiple plugins from same Auth category throws error",
@@ -125,7 +99,6 @@ void main() {
   test("adding plugins after configure throws an error", () async {
     await amplify.addPlugin(AmplifyAuthCognito());
     await amplify.configure(dummyConfiguration);
-    expect(amplify.isConfigured, true);
     try {
       await amplify.addPlugin(AmplifyAnalyticsPinpoint());
     } catch (e) {
