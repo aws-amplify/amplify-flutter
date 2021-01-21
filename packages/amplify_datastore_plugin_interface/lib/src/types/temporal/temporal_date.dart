@@ -25,8 +25,6 @@ import 'temporal.dart';
 class TemporalDate {
   DateTime _dateTime;
   Duration _offset;
-  bool _hasZ =
-      false; // fromString only - Need to track between YYYY-MM-DD vs YYYY-MM-DDZ
 
   /// Constructs a new TemporalDate at the current date.
   static TemporalDate now() {
@@ -93,7 +91,7 @@ class TemporalDate {
     // Extract Offset
     if (match.group(2) != null && match.group(2).isNotEmpty)
       _offset = Temporal.stringToOffset(match.group(2));
-    else if (iso8601String.toLowerCase().contains("z")) _hasZ = true;
+    else if (iso8601String.toLowerCase().contains("z")) _offset = Duration();
   }
 
   /// Return offset
@@ -102,8 +100,8 @@ class TemporalDate {
   }
 
   /// Return DateTime with offset added
-  DateTime toDateTime() {
-    return _offset == null ? _dateTime : _dateTime.subtract(_offset);
+  DateTime getDateTime() {
+    return _dateTime;
   }
 
   /// Return ISO8601 String of format YYYY-MM-DD+hh:mm:ss
@@ -116,18 +114,18 @@ class TemporalDate {
     // Duration.toString returns string of form -9:30:00.000000 / 9:30:00.000000
     // But we need -09:30 / +09:30
     if (_offset != null) {
-      buffer.write(Temporal.durationToString(_offset));
-    } else if (_hasZ) {
-      buffer.write("Z");
+      if (_offset.inSeconds == 0) {
+        buffer.write("Z");
+      } else {
+        buffer.write(Temporal.durationToString(_offset));
+      }
     }
 
     return buffer.toString();
   }
 
   bool operator ==(o) =>
-      o is TemporalDate &&
-      _dateTime == o._dateTime &&
-      _offset == o._offset &&
-      _hasZ == o._hasZ;
-  int get hashCode => _dateTime.hashCode * _offset.hashCode * _hasZ.hashCode;
+      o is TemporalDate && _dateTime == o._dateTime && _offset == o._offset;
+
+  int get hashCode => _dateTime.hashCode * _offset.hashCode;
 }

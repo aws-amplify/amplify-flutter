@@ -20,7 +20,7 @@ import 'temporal.dart';
 /// https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html#appsync-defined-scalars
 class TemporalDateTime {
   DateTime _dateTime;
-  int _nanoseconds;
+  int _nanoseconds = 0;
   Duration _offset;
 
   /// Constructs a new TemporalDateTime at the current date
@@ -31,19 +31,29 @@ class TemporalDateTime {
   /// Constructs a new TemporalDateTime from a Dart DateTime
   TemporalDateTime(DateTime dateTime) {
     dateTime = dateTime.toUtc();
-    _dateTime = DateTime.utc(dateTime.year, dateTime.month, dateTime.day,
-        dateTime.hour, dateTime.minute, dateTime.second);
-    _nanoseconds =
-        (dateTime.millisecond * 1000000) + (dateTime.microsecond * 1000);
+    _dateTime = DateTime.utc(
+        dateTime.year,
+        dateTime.month,
+        dateTime.day,
+        dateTime.hour,
+        dateTime.minute,
+        dateTime.second,
+        dateTime.millisecond,
+        dateTime.microsecond);
   }
 
   /// Constructs a new TemporalDateTime from a Dart DateTime and Duration
   TemporalDateTime.withOffset(DateTime dateTime, Duration offset) {
     dateTime = dateTime.toUtc();
-    _dateTime = DateTime.utc(dateTime.year, dateTime.month, dateTime.day,
-        dateTime.hour, dateTime.minute, dateTime.second);
-    _nanoseconds =
-        (dateTime.millisecond * 1000000) + (dateTime.microsecond * 1000);
+    _dateTime = DateTime.utc(
+        dateTime.year,
+        dateTime.month,
+        dateTime.day,
+        dateTime.hour,
+        dateTime.minute,
+        dateTime.second,
+        dateTime.millisecond,
+        dateTime.microsecond);
 
     if (offset.inDays > 0) {
       throw new Exception("Cannot have an offset in days (hh:mm:ss)");
@@ -62,7 +72,7 @@ class TemporalDateTime {
   ///     +hh:mm:ss
   TemporalDateTime.fromString(String iso8601String) {
     RegExp regExp = new RegExp(
-        r'^([0-9]{4}-[0-1][0-9]-[0-3][0-9]T[0-2][0-9]:[0-5][0-9](:[0-5][0-9](.([0-9]{1,9}))?)?)((z|Z)|((\+|-)[0-2][0-9]:[0-5][0-9](:[0-5][0-9])?))',
+        r'^([0-9]{4}-[0-1][0-9]-[0-3][0-9]T[0-2][0-9]:[0-5][0-9](:[0-5][0-9](\.([0-9]{1,9}))?)?)((z|Z)|((\+|-)[0-2][0-9]:[0-5][0-9](:[0-5][0-9])?))',
         caseSensitive: false,
         multiLine: false);
 
@@ -77,12 +87,26 @@ class TemporalDateTime {
 
     // Parse cannot take a YYYY-MM-DD as UTC!
     DateTime dateTime = DateTime.parse(match.group(1).split(".")[0]);
-    _dateTime = DateTime.utc(dateTime.year, dateTime.month, dateTime.day,
-        dateTime.hour, dateTime.minute, dateTime.second);
-    _nanoseconds = Temporal.getIntOr0(match.group(4));
+
+    int totalNanoseconds = Temporal.getIntOr0(match.group(4));
+    int milliseconds = totalNanoseconds ~/ 1000000;
+    int microseconds = (totalNanoseconds ~/ 1000) % 1000;
+    _nanoseconds = totalNanoseconds % 1000;
+
+    _dateTime = DateTime.utc(
+        dateTime.year,
+        dateTime.month,
+        dateTime.day,
+        dateTime.hour,
+        dateTime.minute,
+        dateTime.second,
+        milliseconds,
+        microseconds);
 
     if (match.group(7) != null && match.group(7).isNotEmpty)
       _offset = Temporal.stringToOffset(match.group(7));
+    else // if no offset, z is always present
+      _offset = Duration();
   }
 
   /// Return offset
@@ -91,34 +115,31 @@ class TemporalDateTime {
   }
 
   /// Return DateTime with offset added
-  DateTime toDateTime() {
-    DateTime toReturn =
-        _offset == null ? _dateTime : _dateTime.subtract(_offset);
-
-    // Approximate addition of nanoseconds
-    if (_nanoseconds > 0) {
-      toReturn = toReturn.add(Temporal.nanosecondsToDuration(_nanoseconds));
-    }
-
-    return toReturn;
+  DateTime getDateTime() {
+    return _dateTime;
   }
 
   /// Return ISO8601 String of format YYYY-MM-DDThh:mm:ss.sss+hh:mm:ss
   String format() {
     var buffer = StringBuffer();
 
-    String isoString = _dateTime.toIso8601String();
+    // DateTime with millisecond/microsecond leads to variable length ISO String
+    DateTime simpleDateTime = DateTime(_dateTime.year, _dateTime.month,
+        _dateTime.day, _dateTime.hour, _dateTime.minute, _dateTime.second);
+    String isoString = simpleDateTime.toIso8601String();
+    buffer.write(isoString.substring(0, isoString.length - 4));
 
-    buffer.write(isoString.substring(0, isoString.length - 5));
-
-    if (_nanoseconds > 0) {
-      buffer.write("." + _nanoseconds.toString().padLeft(9, "0"));
+    int totalMicroseconds = _nanoseconds + Temporal.getNanoseconds(_dateTime);
+    if (totalMicroseconds > 0) {
+      buffer.write("." + totalMicroseconds.toString().padLeft(9, "0"));
     }
 
     if (_offset != null) {
-      buffer.write(Temporal.durationToString(_offset));
-    } else {
-      buffer.write("Z");
+      if (_offset.inSeconds == 0) {
+        buffer.write("Z");
+      } else {
+        buffer.write(Temporal.durationToString(_offset));
+      }
     }
 
     return buffer.toString();

@@ -22,9 +22,14 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 class TemporalTimestamp {
   int _secondsSinceEpoch;
 
+  /// Constructs a new TemporalTimestamp at the current date.
+  static TemporalTimestamp now() {
+    return TemporalTimestamp(DateTime.now());
+  }
+
   /// Constructs a new TemporalTimestamp from a Dart DateTime
   TemporalTimestamp(DateTime date) {
-    var ms = (new DateTime.now()).millisecondsSinceEpoch;
+    var ms = date.millisecondsSinceEpoch;
     _secondsSinceEpoch = (ms / 1000).round();
   }
 
@@ -34,7 +39,7 @@ class TemporalTimestamp {
   }
 
   /// Gets the number of seconds that have elapsed since the UNIX epoch.
-  int toInt() {
+  int toSeconds() {
     return _secondsSinceEpoch;
   }
 

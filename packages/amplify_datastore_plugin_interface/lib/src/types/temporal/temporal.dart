@@ -13,8 +13,6 @@
  * permissions and limitations under the License.
  */
 
-// ignore_for_file: public_member_api_docs
-
 class Temporal {
   static durationToString(Duration duration) {
     var buffer = StringBuffer();
@@ -55,5 +53,9 @@ class Temporal {
     int milli = (nanoseconds ~/ 1000000);
     int micro = ((nanoseconds - (milli * 1000000)) ~/ 1000);
     return Duration(milliseconds: milli, microseconds: micro);
+  }
+
+  static int getNanoseconds(DateTime dateTime) {
+    return (dateTime.millisecond * 1000000) + (dateTime.microsecond * 1000);
   }
 }

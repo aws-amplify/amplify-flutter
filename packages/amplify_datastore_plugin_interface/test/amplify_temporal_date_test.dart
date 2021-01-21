@@ -24,7 +24,7 @@ void main() {
     now = now.toUtc();
 
     expect(awsDate.getOffset(), null);
-    expect(awsDate.toDateTime(), DateTime.utc(now.year, now.month, now.day));
+    expect(awsDate.getDateTime(), DateTime.utc(now.year, now.month, now.day));
     expect(awsDate.format(), now.toIso8601String().substring(0, 10));
   });
 
@@ -37,8 +37,7 @@ void main() {
     now = now.toUtc();
 
     expect(awsDate.getOffset(), offset);
-    expect(awsDate.toDateTime(),
-        DateTime.utc(now.year, now.month, now.day).subtract(offset));
+    expect(awsDate.getDateTime(), DateTime.utc(now.year, now.month, now.day));
     expect(awsDate.format(), now.toIso8601String().substring(0, 10) + "+03:30");
   });
 
@@ -46,15 +45,15 @@ void main() {
     TemporalDate awsDate = TemporalDate.fromString("1990-05-02");
 
     expect(awsDate.getOffset(), null);
-    expect(awsDate.toDateTime(), DateTime.utc(1990, 5, 2));
+    expect(awsDate.getDateTime(), DateTime.utc(1990, 5, 2));
     expect(awsDate.format(), "1990-05-02");
   });
 
   test('AWSDate from string YYYY-MM-DDZ success', () async {
     TemporalDate awsDate = TemporalDate.fromString("1990-05-02Z");
 
-    expect(awsDate.getOffset(), null);
-    expect(awsDate.toDateTime(), DateTime.utc(1990, 5, 2));
+    expect(awsDate.getOffset(), Duration());
+    expect(awsDate.getDateTime(), DateTime.utc(1990, 5, 2));
     expect(awsDate.format(), "1990-05-02Z");
   });
 
@@ -63,7 +62,7 @@ void main() {
     Duration duration = Duration(hours: 3, minutes: 30);
 
     expect(awsDate.getOffset(), duration);
-    expect(awsDate.toDateTime(), DateTime.utc(1990, 5, 2).subtract(duration));
+    expect(awsDate.getDateTime(), DateTime.utc(1990, 5, 2));
     expect(awsDate.format(), "1990-05-02+03:30");
   });
 
@@ -72,7 +71,7 @@ void main() {
     Duration duration = Duration(hours: -3, minutes: -30);
 
     expect(awsDate.getOffset(), duration);
-    expect(awsDate.toDateTime(), DateTime.utc(1990, 5, 2).subtract(duration));
+    expect(awsDate.getDateTime(), DateTime.utc(1990, 5, 2));
     expect(awsDate.format(), "1990-05-02-03:30");
   });
 
@@ -81,7 +80,7 @@ void main() {
     Duration duration = Duration(hours: 3, minutes: 30, seconds: 30);
 
     expect(awsDate.getOffset(), duration);
-    expect(awsDate.toDateTime(), DateTime.utc(1990, 5, 2).subtract(duration));
+    expect(awsDate.getDateTime(), DateTime.utc(1990, 5, 2));
     expect(awsDate.format(), "1990-05-02+03:30:30");
   });
 

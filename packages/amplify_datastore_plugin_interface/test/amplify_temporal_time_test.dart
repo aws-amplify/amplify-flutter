@@ -25,7 +25,7 @@ void main() {
 
     expect(time.getOffset(), null);
     expect(
-        time.toDateTime(),
+        time.getDateTime(),
         DateTime.utc(1970, 1, 1, now.hour, now.minute, now.second,
             now.millisecond, now.microsecond));
     expect(time.format(), now.toIso8601String().substring(11, 26) + "000");
@@ -40,10 +40,9 @@ void main() {
 
     expect(time.getOffset(), offset);
     expect(
-        time.toDateTime(),
+        time.getDateTime(),
         DateTime.utc(1970, 1, 1, now.hour, now.minute, now.second,
-                now.millisecond, now.microsecond)
-            .subtract(offset));
+            now.millisecond, now.microsecond));
     expect(time.format(),
         now.toIso8601String().substring(11, 26) + "000" + "+03:30");
   });
@@ -52,15 +51,15 @@ void main() {
     TemporalTime time = TemporalTime.fromString("05:30");
 
     expect(time.getOffset(), null);
-    expect(time.toDateTime(), DateTime.utc(1970, 1, 1, 5, 30));
+    expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30));
     expect(time.format(), "05:30:00");
   });
 
   test('AWSDate from string hh:mmZ success', () async {
     TemporalTime time = TemporalTime.fromString("05:30Z");
 
-    expect(time.getOffset(), null);
-    expect(time.toDateTime(), DateTime.utc(1970, 1, 1, 5, 30));
+    expect(time.getOffset(), Duration());
+    expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30));
     expect(time.format(), "05:30:00Z");
   });
 
@@ -68,7 +67,7 @@ void main() {
     TemporalTime time = TemporalTime.fromString("05:30:25");
 
     expect(time.getOffset(), null);
-    expect(time.toDateTime(), DateTime.utc(1970, 1, 1, 5, 30, 25));
+    expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30, 25));
     expect(time.format(), "05:30:25");
   });
 
@@ -76,7 +75,7 @@ void main() {
     TemporalTime time = TemporalTime.fromString("05:30:25.999999999");
 
     expect(time.getOffset(), null);
-    expect(time.toDateTime(), DateTime.utc(1970, 1, 1, 5, 30, 25, 999, 999));
+    expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30, 25, 999, 999));
     expect(time.format(), "05:30:25.999999999");
   });
 
@@ -85,8 +84,7 @@ void main() {
     Duration duration = Duration(hours: 3, minutes: 30);
 
     expect(time.getOffset(), duration);
-    expect(
-        time.toDateTime(), DateTime.utc(1970, 1, 1, 5, 30).subtract(duration));
+    expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30));
     expect(time.format(), "05:30:00+03:30");
   });
 
@@ -95,8 +93,7 @@ void main() {
     Duration duration = Duration(hours: -3, minutes: -30);
 
     expect(time.getOffset(), duration);
-    expect(
-        time.toDateTime(), DateTime.utc(1970, 1, 1, 5, 30).subtract(duration));
+    expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30));
     expect(time.format(), "05:30:00-03:30");
   });
 
@@ -105,8 +102,7 @@ void main() {
     Duration duration = Duration(hours: 3, minutes: 30, seconds: 45);
 
     expect(time.getOffset(), duration);
-    expect(
-        time.toDateTime(), DateTime.utc(1970, 1, 1, 5, 30).subtract(duration));
+    expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30));
     expect(time.format(), "05:30:00+03:30:45");
   });
 
@@ -115,8 +111,7 @@ void main() {
     Duration duration = Duration(hours: -3, minutes: -30, seconds: -45);
 
     expect(time.getOffset(), duration);
-    expect(
-        time.toDateTime(), DateTime.utc(1970, 1, 1, 5, 30).subtract(duration));
+    expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30));
     expect(time.format(), "05:30:00-03:30:45");
   });
 
@@ -125,8 +120,7 @@ void main() {
     Duration duration = Duration(hours: 3, minutes: 30, seconds: 45);
 
     expect(time.getOffset(), duration);
-    expect(time.toDateTime(),
-        DateTime.utc(1970, 1, 1, 5, 30, 25).subtract(duration));
+    expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30, 25));
     expect(time.format(), "05:30:25+03:30:45");
   });
 
@@ -135,8 +129,7 @@ void main() {
     Duration duration = Duration(hours: 3, minutes: 30, seconds: 45);
 
     expect(time.getOffset(), duration);
-    expect(time.toDateTime(),
-        DateTime.utc(1970, 1, 1, 5, 30, 25, 999, 999).subtract(duration));
+    expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30, 25, 999, 999));
     expect(time.format(), "05:30:25.999999999+03:30:45");
   });
 }
