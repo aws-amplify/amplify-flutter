@@ -123,6 +123,7 @@ jobs:
           command: |
             melos run build:examples:android
           GRADLE_OPTS: -Xmx1024m -Xms768m
+          no_output_timeout: 20m
       - run:
           name: Run Android Unit Tests
           command: melos run test:unit:android
