@@ -1,14 +1,14 @@
 /*
  * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License").
+ * Licensed under the Apache License, Version 2.0 (the 'License').
  * You may not use this file except in compliance with the License.
  * A copy of the License is located at
  *
  *  http://aws.amazon.com/apache2.0
  *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * or in the 'license' file accompanying this file. This file is distributed
+ * on an 'AS IS' BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
@@ -27,44 +27,38 @@ void main() {
   const MethodChannel channel = MethodChannel('com.amazonaws.amplify/amplify');
 
   // Test data
-  String invalidConfiguration = "How dare you call me invalid";
-  String validJsonConfiguration = "{ \"happy\": \"validConfiguration\"}";
-  const _amplifyBugRecoverySuggestion =
-      "This looks like a bug in Amplify library, please create an issue.";
+  String invalidConfiguration = 'How dare you call me invalid';
+  String validJsonConfiguration = '{ \"happy\": \"validConfiguration\"}';
 
-  const amplifyAlreadyConfiguredException = AmplifyException(
-      "Amplify has already been configured and re-configuration is not supported.",
+  const amplifyAlreadyConfiguredException = AmplifyAlreadyConfiguredException(
+      'Amplify has already been configured and re-configuration is not supported.',
       recoverySuggestion:
-          "Use Amplify.isConfigured to check before calling configure again.");
+          'Catch AmplifyAlreadyConfiguredException in your app to avoid this state.');
 
   const amplifyAlreadyConfiguredForAddPluginException = AmplifyException(
-      "Amplify has already been configured and adding plugins after configure is not supported.",
+      'Amplify has already been configured and adding plugins after configure is not supported.',
       recoverySuggestion:
-          "Use Amplify.isConfigured to check Amplify configuration state before adding plugins.");
+          'Catch AmplifyAlreadyConfiguredException in your app to avoid this state.');
 
   AmplifyException multiplePluginsForAuthException = AmplifyException(
-      "Amplify plugin AmplifyAuthCognito was not added successfully.",
-      recoverySuggestion: _amplifyBugRecoverySuggestion,
+      'Amplify plugin AmplifyAuthCognito was not added successfully.',
+      recoverySuggestion:
+          "We currently don't have a recovery suggestion for this exception.",
       underlyingException: AmplifyException(
-              "Auth plugin has already been added, multiple " +
-                  "plugins for Auth category are currently not supported.")
+              'Auth plugin has already been added, multiple ' +
+                  'plugins for Auth category are currently not supported.')
           .toString());
 
-  const amplifyConfigureFailedException = AmplifyException(
-      "Amplify failed to configure.",
-      recoverySuggestion:
-          "This looks like a bug in Amplify library, please create an issue.");
-
   const nullConfigurationException = AmplifyException(
-      "Configuration passed in null.",
+      'Configuration passed in null.',
       recoverySuggestion:
-          "Make sure that your amplifyconfiguration.dart file exists and has " +
-              "string constant ``amplifyconfig` and that you are calling configure() correctly.");
+          'Make sure that your amplifyconfiguration.dart file exists and has ' +
+              'string constant ``amplifyconfig` and that you are calling configure() correctly.');
 
   const pluginNotAddedException = AmplifyException(
-      "Auth plugin has not been added to Amplify",
+      'Auth plugin has not been added to Amplify',
       recoverySuggestion:
-          "Add Auth plugin to Amplify and call configure before calling Auth related APIs");
+          'Add Auth plugin to Amplify and call configure before calling Auth related APIs');
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -93,7 +87,7 @@ void main() {
       () async {
     amplify
         .configure(null)
-        .then((v) => fail("configuration should have been failed."))
+        .then((v) => fail('configuration should have been failed.'))
         .catchError((e) => expect(e, nullConfigurationException));
   });
 
@@ -108,35 +102,14 @@ void main() {
       formatException = e;
     }
     AmplifyException invalidConfigurationException = AmplifyException(
-        "The provided configuration is not a valid json. Check underlyingException.",
+        'The provided configuration is not a valid json. Check underlyingException.',
         recoverySuggestion:
-            "Inspect your amplifyconfiguration.dart and ensure that the string is proper json",
+            'Inspect your amplifyconfiguration.dart and ensure that the string is proper json',
         underlyingException: formatException.toString());
     amplify
         .configure(invalidConfiguration)
-        .then((v) => fail("configuration should have been failed."))
+        .then((v) => fail('configuration should have been failed.'))
         .catchError((e) => expect(e, invalidConfigurationException));
-  });
-
-  test('before calling configure, isConfigure should be false', () {
-    expect(amplify.isConfigured, false);
-  });
-
-  test('after calling configure, isConfigure should be true', () async {
-    await amplify.configure(validJsonConfiguration);
-    expect(amplify.isConfigured, true);
-  });
-
-  test('Failed configure should result in isConfigure to be false', () async {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return false; // configuration failed
-    });
-    try {
-      await amplify.configure(validJsonConfiguration);
-    } catch (e) {
-      expect(e, amplifyConfigureFailedException);
-    }
-    expect(amplify.isConfigured, false);
   });
 
   test('calling configure twice results in an exception', () async {
@@ -147,24 +120,22 @@ void main() {
       expect(e, amplifyAlreadyConfiguredException);
       return;
     }
-    fail("an exception should have been thrown");
+    fail('an exception should have been thrown');
   });
 
-  test("adding multiple plugins using addPlugins method doesn't throw",
+  test('adding multiple plugins using addPlugins method doesn\'t throw',
       () async {
     await amplify
         .addPlugins([AmplifyAuthCognito(), AmplifyAnalyticsPinpoint()]);
     await amplify.configure(validJsonConfiguration);
-    expect(amplify.isConfigured, true);
   });
 
-  test("adding single plugins using addPlugin method doesn't throw", () async {
+  test('adding single plugins using addPlugin method doesn\'t throw', () async {
     await amplify.addPlugin(AmplifyAuthCognito());
     await amplify.configure(validJsonConfiguration);
-    expect(amplify.isConfigured, true);
   });
 
-  test("adding multiple plugins from same Auth category throws exception",
+  test('adding multiple plugins from same Auth category throws exception',
       () async {
     await amplify.addPlugin(AmplifyAuthCognito());
     try {
@@ -173,23 +144,22 @@ void main() {
       expect(e, multiplePluginsForAuthException);
       return;
     }
-    fail("an exception should have been thrown");
+    fail('an exception should have been thrown');
   });
 
-  test("adding plugins after configure throws an exception", () async {
+  test('adding plugins after configure throws an exception', () async {
     await amplify.addPlugin(AmplifyAuthCognito());
     await amplify.configure(validJsonConfiguration);
-    expect(amplify.isConfigured, true);
     try {
       await amplify.addPlugin(AmplifyAnalyticsPinpoint());
     } catch (e) {
       expect(e, amplifyAlreadyConfiguredForAddPluginException);
       return;
     }
-    fail("an exception should have been thrown");
+    fail('an exception should have been thrown');
   });
 
-  test("Calling a plugin through Amplify before adding one", () async {
+  test('Calling a plugin through Amplify before adding one', () async {
     await amplify.configure(validJsonConfiguration);
     try {
       await Amplify.Auth.signOut();
@@ -197,6 +167,6 @@ void main() {
       expect(e, pluginNotAddedException);
       return;
     }
-    fail("an exception should have been thrown");
+    fail('an exception should have been thrown');
   });
 }

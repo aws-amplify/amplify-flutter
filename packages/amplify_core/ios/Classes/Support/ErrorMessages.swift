@@ -24,11 +24,11 @@ public struct ErrorMessages {
         """
 
     public static let defaultFallbackErrorMessage: String =
-        "Translating platform exception failed. " + createGithubIssueString;
+        "Translating platform exception failed. " + createGithubIssueString
 
     public static let missingRecoverySuggestion: String =
         "We currently don't have a recovery suggestion for this exception."
 
     public static let missingExceptionMessage: String =
-        "An unknown exception has happened. " + createGithubIssueString;
+        "An unknown exception has happened. " + createGithubIssueString
 }

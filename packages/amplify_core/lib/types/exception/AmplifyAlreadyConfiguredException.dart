@@ -21,7 +21,7 @@ import './AmplifyException.dart';
 /// is called again (such as during a hot reload)
 class AmplifyAlreadyConfiguredException extends AmplifyException {
   /// Named constructor
-  AmplifyAlreadyConfiguredException(String message,
+  const AmplifyAlreadyConfiguredException(String message,
       {String recoverySuggestion, String underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
@@ -40,5 +40,4 @@ class AmplifyAlreadyConfiguredException extends AmplifyException {
     return AmplifyAlreadyConfiguredException._private(
         AmplifyException.fromMap(serializedException));
   }
-  
 }
