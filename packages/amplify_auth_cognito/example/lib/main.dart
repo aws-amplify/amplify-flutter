@@ -15,7 +15,7 @@
 
 import 'dart:async';
 
-import 'package:amplify_flutter/amplify_hub.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
@@ -77,15 +77,12 @@ class _MyAppState extends State<MyApp> {
     print(displayState);
   }
 
-  void setError(AuthError e) async {
+  void setError(AmplifyException e) async {
     setState(() {
       exceptions = [];
     });
     setState(() {
-      error = e.cause;
-      e.exceptionList.forEach((el) {
-        exceptions.add(el.exception);
-      });
+      error = e.message;
     });
     print(e);
   }
@@ -165,7 +162,7 @@ class _MyAppState extends State<MyApp> {
       CognitoAuthSession res = await Amplify.Auth.fetchAuthSession(
           options: CognitoSessionOptions(getAWSCredentials: true));
       showResult('Session Sign In Status = ' + res.isSignedIn.toString());
-    } on AuthError catch (e) {
+    } on AmplifyException catch (e) {
       setError(e);
       print(e);
     }
@@ -175,7 +172,7 @@ class _MyAppState extends State<MyApp> {
     try {
       AuthUser res = await Amplify.Auth.getCurrentUser();
       showResult('Current User Name = ' + res.username);
-    } on AuthError catch (e) {
+    } on AmplifyException catch (e) {
       setError(e);
     }
   }

@@ -14,6 +14,7 @@
  */
 
 import 'dart:collection';
+import 'package:amplify_core/types/index.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
@@ -32,14 +33,14 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       await _channel.invokeMapMethod<String, dynamic>(
         'signUp',
         <String, dynamic>{
-          'data': request.serializeAsMap(),
+          'data2': request.serializeAsMap(),
         },
       );
       res = _formatSignUpResponse(data, "signUp");
     } on PlatformException catch(e) {
-      _throwError(e);
-    } on AuthError catch(e) {
-      throw(e);
+      _castAndThrowPlatformException(e);
+    } on Exception catch(e) {
+      throw e;
     }
     return res;
   }
@@ -58,7 +59,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       res = _formatSignUpResponse(data, "confirmSignUp");
       return res;
     } on PlatformException catch(e) {
-      _throwError(e);
+      _castAndThrowPlatformException(e);
     } on AuthError catch(e) {
       throw(e);
     }
@@ -79,7 +80,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       res = _formatResendSignUpResponse(data, "resendSignUpCode");
       return res;
     } on PlatformException catch(e) {
-      _throwError(e);
+      _castAndThrowPlatformException(e);
     } on AuthError catch(e) {
       throw(e);
     }
@@ -100,7 +101,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       res = _formatSignInResponse(data, "signIn");
       return res;
     } on PlatformException catch(e) {
-      _throwError(e);
+      _castAndThrowPlatformException(e);
     } on AuthError catch(e) {
       throw(e);
     }
@@ -121,7 +122,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       res = _formatSignInResponse(data, "confirmSignIn");
       return res;
     } on PlatformException catch(e) {
-      _throwError(e);
+      _castAndThrowPlatformException(e);
     } on AuthError catch(e) {
       throw(e);
     }
@@ -142,7 +143,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       res = _formatSignOutResponse(data);
       return res;
     } on PlatformException catch(e) {
-      _throwError(e);
+      _castAndThrowPlatformException(e);
     } on AuthError catch(e) {
       throw(e);
     }
@@ -163,7 +164,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       res = _formatPasswordResponse(data);
       return res;
     } on PlatformException catch(e) {
-      _throwError(e);
+      _castAndThrowPlatformException(e);
     } on AuthError catch(e) {
       throw(e);
     }
@@ -184,7 +185,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       res = _formatResetPasswordResponse(data);
       return res;
     } on PlatformException catch(e) {
-      _throwError(e);
+      _castAndThrowPlatformException(e);
     } on AuthError catch(e) {
       throw(e);
     }
@@ -205,7 +206,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       res = _formatPasswordResponse(data);
       return res;
     } on PlatformException catch(e) {
-      _throwError(e);
+      _castAndThrowPlatformException(e);
     } on AuthError catch(e) {
       throw(e);
     }
@@ -226,7 +227,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       res = _formatSessionResponse(data);
       return res;
     } on PlatformException catch(e) {
-      _throwError(e);
+      _castAndThrowPlatformException(e);
     } on AuthError catch(e) {
       throw(e);
     }
@@ -247,7 +248,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       res = _formatAuthUserResponse(data);
       return res;
     } on PlatformException catch(e) {
-      _throwError(e);
+      _castAndThrowPlatformException   (e);
     } on AuthError catch(e) {
       throw(e);
     }
@@ -337,16 +338,28 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     return CognitoAuthSession.init(sessionValues: res);
   }
 
-  void _throwError(PlatformException e) {
-    LinkedHashMap eMap = new LinkedHashMap<String, dynamic>();
-    e.details.forEach((k, v) => {
-      if (cognitoExceptions.contains(k)) {
-        eMap.putIfAbsent(k, () => v)
-      } else {
-        eMap.putIfAbsent("UNRECOGNIZED EXCEPTION", () => "See logs for details.")
+  void _castAndThrowPlatformException(PlatformException e) {
+    switch(e.code) {
+      case "AmplifyUsernameExistsException": {
+        throw AmplifyUsernameExistsException.fromMap(
+            Map<String, String>.from(e.details));
       }
-    });
-    AuthError error = AuthError.init(cause: e.message, errorMap: eMap);
-    throw(error);
+      case "AmplifyCastingException": {
+         throw AmplifyCastingException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "AmplifyAuthException": {
+        throw AmplifyAuthException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "AmplifyException": {
+        throw AmplifyException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      default: {
+        throw e;
+      }
+    }
+
   }
 }

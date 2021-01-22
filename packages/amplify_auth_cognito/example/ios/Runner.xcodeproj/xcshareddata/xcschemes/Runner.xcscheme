@@ -49,8 +49,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6233D5834CC19CF4A04CFE9A9DA676DA"
-            BuildableName = "amplify.framework"
-            BlueprintName = "amplify"
+            BuildableName = "amplify_core.framework"
+            BlueprintName = "amplify_core"
             ReferencedContainer = "container:Pods/Pods.xcodeproj">
          </BuildableReference>
       </CodeCoverageTargets>
