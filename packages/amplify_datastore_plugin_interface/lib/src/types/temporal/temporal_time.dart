@@ -102,7 +102,7 @@ class TemporalTime {
     return _offset;
   }
 
-  /// Return DateTime with offset added
+  /// Return DateTime
   /// Date fields are set as January 1, 1970.
   DateTime getDateTime() {
     return _dateTime;

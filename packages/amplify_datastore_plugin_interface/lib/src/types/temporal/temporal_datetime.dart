@@ -40,6 +40,8 @@ class TemporalDateTime {
         dateTime.second,
         dateTime.millisecond,
         dateTime.microsecond);
+    // Always initialize Duration as offset is not optional for DateTime
+    _offset = Duration();
   }
 
   /// Constructs a new TemporalDateTime from a Dart DateTime and Duration
@@ -114,7 +116,7 @@ class TemporalDateTime {
     return _offset;
   }
 
-  /// Return DateTime with offset added
+  /// Return DateTime
   DateTime getDateTime() {
     return _dateTime;
   }

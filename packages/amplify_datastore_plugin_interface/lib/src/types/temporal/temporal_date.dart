@@ -99,7 +99,7 @@ class TemporalDate {
     return _offset;
   }
 
-  /// Return DateTime with offset added
+  /// Return DateTime
   DateTime getDateTime() {
     return _dateTime;
   }
