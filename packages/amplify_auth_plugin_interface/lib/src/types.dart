@@ -87,6 +87,10 @@ export 'Exceptions/UsernameExistsException.dart';
 export 'Exceptions/UserNotConfirmedException.dart';
 export 'Exceptions/UserNotFoundException.dart';
 
+// Exception Classes
+export 'Exceptions/AmplifyUsernameExistsException.dart';
+export 'Exceptions/AmplifyAuthException.dart';
+
 // Utility Classes
 export 'types/AuthCodeDeliveryDetails.dart';
 export 'types/AuthNextStep.dart';
