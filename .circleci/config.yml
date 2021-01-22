@@ -114,6 +114,7 @@ jobs:
     executor: docker-executor
     environment:
       JVM_OPTS: -XX:MaxRAMPercentage=80.0
+      GRADLE_OPTS: -Xmx1536m -Xms768m
     steps:
       - install_flutter
       - checkout
@@ -122,7 +123,6 @@ jobs:
           name: Build example APKs
           command: |
             melos run build:examples:android
-          GRADLE_OPTS: -Xmx1024m -Xms768m
           no_output_timeout: 20m
       - run:
           name: Run Android Unit Tests
