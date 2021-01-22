@@ -1,4 +1,5 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +35,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
       widget.showResult("Sign Up Status = " + res.nextStep.signUpStep);
       widget.changeDisplay(
           res.nextStep.signUpStep != "DONE" ? "SHOW_CONFIRM" : "SHOW_SIGN_UP");
-    } on AuthError catch (e) {
+    } on AmplifyException catch (e) {
       widget.setError(e);
       print(e);
     }
