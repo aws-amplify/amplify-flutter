@@ -57,6 +57,10 @@ export 'Errors/AuthError.dart';
 export 'Errors/AuthErrorTypes.dart';
 export 'Errors/AmplifyDartExceptions.dart';
 
+// Exception Classes
+export 'Exceptions/AmplifyUsernameExistsException.dart';
+export 'Exceptions/AmplifyAuthException.dart';
+
 // Utility Classes
 export 'types/AuthCodeDeliveryDetails.dart';
 export 'types/AuthNextStep.dart';

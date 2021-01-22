@@ -40,5 +40,6 @@ export 'CognitoSession/AWSCredentials.dart';
 export 'CognitoSession/CognitoAuthSession.dart';
 export 'CognitoSession/CognitoSessionOptions.dart';
 
-// Exceptions
-export 'CognitoExceptions/CognitoExceptions.dart';
+
+export 'package:amplify_auth_plugin_interface/src/Exceptions/AmplifyAuthException.dart';
+export 'package:amplify_auth_plugin_interface/src/Exceptions/AmplifyUsernameExistsException.dart';

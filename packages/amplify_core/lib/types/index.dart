@@ -24,3 +24,4 @@ export 'hub/HubChannel.dart';
 /// Exceptions
 export 'exception/AmplifyException.dart';
 export 'exception/AmplifyAlreadyConfiguredException.dart';
+export 'exception/AmplifyCastingException.dart';
