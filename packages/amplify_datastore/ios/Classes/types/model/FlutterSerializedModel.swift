@@ -101,25 +101,20 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
         if case .int = field?.type,
            case .some(.number(let deserializedValue)) = values[key] {
             return Int(deserializedValue)
-            
         } else if case .dateTime = field?.type,
                   case .some(.string(let deserializedValue)) = values[key] {
-            
-            return try? Temporal.DateTime(iso8601String: deserializedValue)
-            
+            return FlutterTemporal(iso8601String: deserializedValue)
         } else if case .date = field?.type,
                   case .some(.string(let deserializedValue)) = values[key] {
-            return try? Temporal.Date(iso8601String: deserializedValue)
-            
+            return FlutterTemporal(iso8601String: deserializedValue)
         } else if case .time = field?.type,
                   case .some(.string(let deserializedValue)) = values[key] {
-            return try? Temporal.Time(iso8601String: deserializedValue)
+            return FlutterTemporal(iso8601String: deserializedValue)
         }
         else if case  .timestamp = field?.type,
                   case .some(.number(let deserializedValue)) = values[key] {
             return NSNumber(value: deserializedValue)
         }
-
         
         return jsonValue(for: key)
     }
