@@ -15,6 +15,8 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
+import com.amplifyframework.AmplifyException
+
 data class FlutterConfirmPasswordRequest(val map: HashMap<String, *>) {
   // username only present because it is a required value for iOS
   val username: String = map["username"] as String;
@@ -23,19 +25,18 @@ data class FlutterConfirmPasswordRequest(val map: HashMap<String, *>) {
   val options: HashMap<String, *>? = map["options"] as HashMap<String, *>?;
 
   companion object {
-    fun validate(req : HashMap<String, *>?): Boolean {
-      var valid: Boolean = true;
+    private const val validationErrorMessage: String = "ConfirmPassword Request malformed."
+    fun validate(req : HashMap<String, *>?) {
       if (req == null || req !is HashMap<String, *>) {
-        valid = false;
+        throw AmplifyException(validationErrorMessage, "Request map is null or malformed. Check that request is present and properly formed.")
       } else if (req != null) {
         if (!req.containsKey("newPassword")) {
-          valid = false;
+          throw AmplifyException(validationErrorMessage, "newPassword is missing.")
         }
         if (!req.containsKey("confirmationCode")) {
-          valid = false;
+          throw AmplifyException(validationErrorMessage, "confirmationCode is missing.")
         }
       }
-      return valid;
     }
   }
 }

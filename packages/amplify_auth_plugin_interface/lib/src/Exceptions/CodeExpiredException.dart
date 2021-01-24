@@ -15,26 +15,26 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when a username already exists.
-class AmplifyUsernameExistsException extends AmplifyAuthException {
+/// Thrown when Amplify could not perform the action because confirmation code has expired. 
+class CodeExpiredException extends AuthException {
   /// Named constructor
-  AmplifyUsernameExistsException(String message,
+  CodeExpiredException(String message,
       {String recoverySuggestion, String underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
 
-  /// Constructor for down casting an AmplifyAuthException to this exception
-  AmplifyUsernameExistsException._private(AmplifyAuthException exception)
+  /// Constructor for down casting an AuthException to this exception
+  CodeExpiredException._private(AuthException exception)
       : super(exception.message,
             recoverySuggestion: exception.recoverySuggestion,
             underlyingException: exception.underlyingException);
 
-  /// Instantiates and return a new `AmplifyAuthException` from the
+  /// Instantiates and return a new `AuthException` from the
   /// serialized exception data
-  static AmplifyUsernameExistsException fromMap(
+  static CodeExpiredException fromMap(
       Map<String, String> serializedException) {
-    return AmplifyUsernameExistsException._private(
-        AmplifyAuthException.fromMap(serializedException));
+    return CodeExpiredException._private(
+        AuthException.fromMap(serializedException));
   }
 }

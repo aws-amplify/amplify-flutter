@@ -41,5 +41,5 @@ export 'CognitoSession/CognitoAuthSession.dart';
 export 'CognitoSession/CognitoSessionOptions.dart';
 
 
-export 'package:amplify_auth_plugin_interface/src/Exceptions/AmplifyAuthException.dart';
-export 'package:amplify_auth_plugin_interface/src/Exceptions/AmplifyUsernameExistsException.dart';
+export 'package:amplify_auth_plugin_interface/src/Exceptions/AuthException.dart';
+export 'package:amplify_auth_plugin_interface/src/Exceptions/UsernameExistsException.dart';

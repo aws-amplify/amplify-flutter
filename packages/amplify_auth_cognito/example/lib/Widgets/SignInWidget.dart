@@ -1,4 +1,5 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +32,7 @@ class _SignInWidgetState extends State<SignInWidget> {
       widget.showResult("Sign In Status = " + res.nextStep.signInStep);
       widget
           .changeDisplay(res.isSignedIn ? "SIGNED_IN" : "SHOW_CONFIRM_SIGN_IN");
-    } on AuthError catch (e) {
+    } on AmplifyException catch (e) {
       widget.setError(e);
     }
   }
@@ -65,7 +66,7 @@ class _SignInWidgetState extends State<SignInWidget> {
       );
       widget.showResult("Reset Password Status = " + res.nextStep.updateStep);
       widget.changeDisplay("SHOW_CONFIRM_RESET");
-    } on AuthError catch (e) {
+    } on AmplifyException catch (e) {
       widget.setError(e);
       print(e);
     }
