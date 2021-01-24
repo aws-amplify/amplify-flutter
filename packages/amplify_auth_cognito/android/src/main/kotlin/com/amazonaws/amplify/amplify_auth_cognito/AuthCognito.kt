@@ -308,6 +308,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
   private fun onFetchAuthSession (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
     // TODO: Implement forceRefresh when/if supported by Amplify libs
     var req = FlutterFetchAuthSessionRequest(request)
+
     try {
       Amplify.Auth.fetchAuthSession(
               { result ->

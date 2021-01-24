@@ -15,26 +15,27 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when Amplify could not perform the action because number of allowed operation has exceeded.
-class LimitExceededException extends AuthException {
+/// Thrown when the Amazon Cognito service encounters a 
+/// user validation exception with the AWS Lambda service.
+class UserLambdaValidationException extends AuthException {
   /// Named constructor
-  LimitExceededException(String message,
+  UserLambdaValidationException(String message,
       {String recoverySuggestion, String underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
 
   /// Constructor for down casting an AuthException to this exception
-  LimitExceededException._private(AuthException exception)
+  UserLambdaValidationException._private(AuthException exception)
       : super(exception.message,
             recoverySuggestion: exception.recoverySuggestion,
             underlyingException: exception.underlyingException);
 
   /// Instantiates and return a new `AuthException` from the
   /// serialized exception data
-  static LimitExceededException fromMap(
+  static UserLambdaValidationException fromMap(
       Map<String, String> serializedException) {
-    return LimitExceededException._private(
+    return UserLambdaValidationException._private(
         AuthException.fromMap(serializedException));
   }
 }

@@ -15,26 +15,26 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when a username already exists.
-class AmplifyUsernameExistsException extends AmplifyAuthException {
+/// Thrown when Amplify could not perform the action because there are incorrect parameters.
+class InvalidLambdaResponseException extends AuthException {
   /// Named constructor
-  AmplifyUsernameExistsException(String message,
+  InvalidLambdaResponseException(String message,
       {String recoverySuggestion, String underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
 
-  /// Constructor for down casting an AmplifyAuthException to this exception
-  AmplifyUsernameExistsException._private(AmplifyAuthException exception)
+  /// Constructor for down casting an AuthException to this exception
+  InvalidLambdaResponseException._private(AuthException exception)
       : super(exception.message,
             recoverySuggestion: exception.recoverySuggestion,
             underlyingException: exception.underlyingException);
 
-  /// Instantiates and return a new `AmplifyAuthException` from the
+  /// Instantiates and return a new `AuthException` from the
   /// serialized exception data
-  static AmplifyUsernameExistsException fromMap(
+  static InvalidLambdaResponseException fromMap(
       Map<String, String> serializedException) {
-    return AmplifyUsernameExistsException._private(
-        AmplifyAuthException.fromMap(serializedException));
+    return InvalidLambdaResponseException._private(
+        AuthException.fromMap(serializedException));
   }
 }
