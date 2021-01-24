@@ -13,30 +13,29 @@
  * permissions and limitations under the License.
  */
 
-import './AmplifyException.dart';
+import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when amplify fails to cast data
-/// sent over the method channel
-class AmplifyCastingException extends AmplifyException {
+/// Thrown when any internal errors are encountered inside the client while attempting to make the 
+/// request or handle the response. For example if a network connection is not available.
+class AmazonClientException extends AuthException {
   /// Named constructor
-  AmplifyCastingException(String message,
+  AmazonClientException(String message,
       {String recoverySuggestion, String underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
 
-  /// Constructor for down casting an AmplifyException to this exception
-  AmplifyCastingException._private(AmplifyException exception)
+  /// Constructor for down casting an AuthException to this exception
+  AmazonClientException._private(AuthException exception)
       : super(exception.message,
             recoverySuggestion: exception.recoverySuggestion,
             underlyingException: exception.underlyingException);
 
-  /// Instantiates and return a new `AmplifyException` from the
+  /// Instantiates and return a new `AuthException` from the
   /// serialized exception data
-  static AmplifyCastingException fromMap(
+  static AmazonClientException fromMap(
       Map<String, String> serializedException) {
-    return AmplifyCastingException._private(
-        AmplifyException.fromMap(serializedException));
+    return AmazonClientException._private(
+        AuthException.fromMap(serializedException));
   }
-  
 }

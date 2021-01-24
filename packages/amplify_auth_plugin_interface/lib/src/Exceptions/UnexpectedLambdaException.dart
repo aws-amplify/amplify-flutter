@@ -15,26 +15,27 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when a session has expired.
-class AmplifySessionExpiredException extends AmplifyAuthException {
+/// Thrown when the Amazon Cognito service encounters an 
+/// unexpected exception with the AWS Lambda service.
+class UnexpectedLambdaException extends AuthException {
   /// Named constructor
-  AmplifySessionExpiredException(String message,
+  UnexpectedLambdaException(String message,
       {String recoverySuggestion, String underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
 
-  /// Constructor for down casting an AmplifyAuthException to this exception
-  AmplifySessionExpiredException._private(AmplifyAuthException exception)
+  /// Constructor for down casting an AuthException to this exception
+  UnexpectedLambdaException._private(AuthException exception)
       : super(exception.message,
             recoverySuggestion: exception.recoverySuggestion,
             underlyingException: exception.underlyingException);
 
-  /// Instantiates and return a new `AmplifyAuthException` from the
+  /// Instantiates and return a new `AuthException` from the
   /// serialized exception data
-  static AmplifySessionExpiredException fromMap(
+  static UnexpectedLambdaException fromMap(
       Map<String, String> serializedException) {
-    return AmplifySessionExpiredException._private(
-        AmplifyAuthException.fromMap(serializedException));
+    return UnexpectedLambdaException._private(
+        AuthException.fromMap(serializedException));
   }
 }

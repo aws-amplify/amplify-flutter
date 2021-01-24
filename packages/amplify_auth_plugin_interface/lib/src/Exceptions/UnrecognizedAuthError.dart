@@ -13,27 +13,28 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/types/exception/AmplifyException.dart';
+import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Base Class for Auth Exceptions
-class AmplifyAuthException extends AmplifyException {
-  AmplifyAuthException(String message,
+/// Thrown when Amplify is unable to parse an exception type.
+class UnrecognizedAuthError extends AuthException {
+  /// Named constructor
+  UnrecognizedAuthError(String message,
       {String recoverySuggestion, String underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
 
-  /// Constructor for down casting an AmplifyException to this exception
-  AmplifyAuthException._private(AmplifyException exception)
+  /// Constructor for down casting an AuthException to this exception
+  UnrecognizedAuthError._private(AuthException exception)
       : super(exception.message,
             recoverySuggestion: exception.recoverySuggestion,
             underlyingException: exception.underlyingException);
 
-  /// Instantiates and return a new `AmplifyException` from the
+  /// Instantiates and return a new `AuthException` from the
   /// serialized exception data
-  static AmplifyAuthException fromMap(
+  static UnrecognizedAuthError fromMap(
       Map<String, String> serializedException) {
-    return AmplifyAuthException._private(
-        AmplifyException.fromMap(serializedException));
+    return UnrecognizedAuthError._private(
+        AuthException.fromMap(serializedException));
   }
 }
