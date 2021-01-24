@@ -124,7 +124,7 @@ class _MyAppState extends State<MyApp> {
     await Amplify.configure(amplifyconfig);
     try {
       isSignedIn = await _isSignedIn();
-    } on AuthError catch (e) {
+    } on AmplifyException catch (e) {
       print('User is not signed in.');
     }
 
@@ -146,12 +146,9 @@ class _MyAppState extends State<MyApp> {
           options: CognitoSignOutOptions(globalSignOut: true));
       showResult('Signed Out');
       changeDisplay('SHOW_SIGN_IN');
-    } on AuthError catch (e) {
+    } on AmplifyException catch (e) {
       setState(() {
-        error = e.cause;
-        e.exceptionList.forEach((el) {
-          exceptions.add(el.exception);
-        });
+        error = e.message;
       });
       print(e);
     }
@@ -253,33 +250,6 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  showErrors() {
-    return Center(
-      child: Card(
-        key: Key('error-card'),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              leading: Icon(Icons.album),
-              title: Text('Current Errors'),
-              subtitle: Text(error, key: Key('current-error')),
-            ),
-            SizedBox(
-              height: 200,
-              child: new ListView.builder(
-                  itemCount: exceptions.length,
-                  itemBuilder: (BuildContext ctxt, int index) {
-                    return new Text(exceptions[index],
-                        key: Key('exception-' + (index + 1).toString()));
-                  }),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -318,7 +288,6 @@ class _MyAppState extends State<MyApp> {
                         ConfirmResetWidget(
                             showResult, changeDisplay, setError, _backToSignIn),
                       if (this.displayState == "SIGNED_IN") showApp(),
-                      if (this.error != "") showErrors(),
                       ElevatedButton(
                         key: Key('configure-button'),
                         onPressed:

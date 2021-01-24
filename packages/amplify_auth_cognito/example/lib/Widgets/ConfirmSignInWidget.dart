@@ -1,4 +1,5 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +28,7 @@ class _ConfirmSignInWidgetState extends State<ConfirmSignInWidget> {
       widget.changeDisplay(res.nextStep.signInStep == "DONE"
           ? "SIGNED_IN"
           : "SHOW_CONFIRM_SIGN_IN");
-    } on AuthError catch (e) {
+    } on AmplifyException catch (e) {
       widget.setError(e);
     }
   }

@@ -54,14 +54,40 @@ export 'Session/AuthUser.dart';
 export 'Session/AuthUserOptions.dart';
 export 'Session/AuthUserRequest.dart';
 
-// Error Classes
-export 'Errors/AuthError.dart';
-export 'Errors/AuthErrorTypes.dart';
-export 'Errors/AmplifyDartExceptions.dart';
-
 // Exception Classes
-export 'Exceptions/AmplifyUsernameExistsException.dart';
-export 'Exceptions/AmplifyAuthException.dart';
+export 'Exceptions/AuthException.dart';
+export 'Exceptions/AliasExistsException.dart';
+export 'Exceptions/AmazonClientException.dart';
+export 'Exceptions/AmazonServiceException.dart';
+export 'Exceptions/CodeDeliveryFailureException.dart';
+export 'Exceptions/CodeExpiredException.dart';
+export 'Exceptions/CodeMismatchException.dart';
+export 'Exceptions/FailedAttemptsLimitExceededException.dart';
+export 'Exceptions/InternalErrorException.dart';
+export 'Exceptions/InvalidAccountTypeException.dart';
+export 'Exceptions/InvalidLambdaResponseException.dart';
+export 'Exceptions/InvalidParameterException.dart';
+export 'Exceptions/InvalidPasswordException.dart';
+export 'Exceptions/LimitExceededException.dart';
+export 'Exceptions/MFAMethodNotFoundException.dart';
+export 'Exceptions/NotAuthorizedException.dart';
+export 'Exceptions/PasswordResetRequiredException.dart';
+export 'Exceptions/ResourceNotFoundException.dart';
+export 'Exceptions/SessionExpiredException.dart';
+export 'Exceptions/SessionUnavailableOfflineException.dart';
+export 'Exceptions/SessionUnavailableServiceException.dart';
+export 'Exceptions/SignedOutException.dart';
+export 'Exceptions/SoftwareTokenMFANotFoundException.dart';
+export 'Exceptions/TooManyFailedAttemptsException.dart';
+export 'Exceptions/TooManyRequestsException.dart';
+export 'Exceptions/UnexpectedLambdaException.dart';
+export 'Exceptions/UnknownException.dart';
+export 'Exceptions/UnrecognizedAuthError.dart';
+export 'Exceptions/UserCancelledException.dart';
+export 'Exceptions/UserLambdaValidationException.dart';
+export 'Exceptions/UsernameExistsException.dart';
+export 'Exceptions/UserNotConfirmedException.dart';
+export 'Exceptions/UserNotFoundException.dart';
 
 // Utility Classes
 export 'types/AuthCodeDeliveryDetails.dart';

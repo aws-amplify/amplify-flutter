@@ -15,19 +15,20 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
+import com.amplifyframework.AmplifyException
+
 data class FlutterResendSignUpCodeRequest(val map: HashMap<String, *>) {
   val username: String = map["username"] as String;
   val options: HashMap<String, *>? = map["options"] as HashMap<String, *>?;
 
   companion object {
-    fun validate(req : HashMap<String, *>?): Boolean {
-      var valid: Boolean = true;
+    private const val validationErrorMessage: String = "ResendSignUpCode Request malformed."
+    fun validate(req : HashMap<String, *>?) {
       if (req != null) {
         if (!req.containsKey("username") && req["username"] != "") {
-          valid = false;
+          throw AmplifyException(validationErrorMessage, "username is missing.")
         }
       }
-      return valid;
     }
   }
 }

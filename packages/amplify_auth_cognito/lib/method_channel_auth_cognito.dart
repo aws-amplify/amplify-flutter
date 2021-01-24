@@ -60,7 +60,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return res;
     } on PlatformException catch(e) {
       _castAndThrowPlatformException(e);
-    } on AuthError catch(e) {
+    } on Exception catch(e) {
       throw(e);
     }
     return res;
@@ -81,7 +81,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return res;
     } on PlatformException catch(e) {
       _castAndThrowPlatformException(e);
-    } on AuthError catch(e) {
+    } on Exception catch(e) {
       throw(e);
     }
     return res;
@@ -102,7 +102,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return res;
     } on PlatformException catch(e) {
       _castAndThrowPlatformException(e);
-    } on AuthError catch(e) {
+    } on Exception catch(e) {
       throw(e);
     }
     return res;
@@ -123,7 +123,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return res;
     } on PlatformException catch(e) {
       _castAndThrowPlatformException(e);
-    } on AuthError catch(e) {
+    } on Exception catch(e) {
       throw(e);
     }
     return res;
@@ -144,7 +144,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return res;
     } on PlatformException catch(e) {
       _castAndThrowPlatformException(e);
-    } on AuthError catch(e) {
+    } on Exception catch(e) {
       throw(e);
     }
     return res;
@@ -165,7 +165,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return res;
     } on PlatformException catch(e) {
       _castAndThrowPlatformException(e);
-    } on AuthError catch(e) {
+    } on Exception catch(e) {
       throw(e);
     }
     return res;
@@ -186,7 +186,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return res;
     } on PlatformException catch(e) {
       _castAndThrowPlatformException(e);
-    } on AuthError catch(e) {
+    } on Exception catch(e) {
       throw(e);
     }
     return res;
@@ -207,7 +207,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return res;
     } on PlatformException catch(e) {
       _castAndThrowPlatformException(e);
-    } on AuthError catch(e) {
+    } on Exception catch(e) {
       throw(e);
     }
     return res;
@@ -228,7 +228,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return res;
     } on PlatformException catch(e) {
       _castAndThrowPlatformException(e);
-    } on AuthError catch(e) {
+    } on Exception catch(e) {
       throw(e);
     }
     return res;
@@ -249,7 +249,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return res;
     } on PlatformException catch(e) {
       _castAndThrowPlatformException   (e);
-    } on AuthError catch(e) {
+    } on Exception catch(e) {
       throw(e);
     }
     return res;
@@ -276,35 +276,23 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   }
 
   SignUpResult _formatSignUpResponse(Map<String, dynamic> res, method) {
-    if (res.containsKey("nextStep")) {
-      return CognitoSignUpResult(isSignUpComplete: res["isSignUpComplete"], nextStep: AuthNextSignUpStep(
-        signUpStep: res["nextStep"]["signUpStep"],
-        codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
-        additionalInfo: res["nextStep"]["additionalInfo"] is String ? jsonDecode(res["nextStep"]["additionalInfo"]) : {}
-      ));
-    } else {
-      throw(AmplifyDartExceptions.formatException(methodName: method, field: "nextStep"));
-    }
+    return CognitoSignUpResult(isSignUpComplete: res["isSignUpComplete"], nextStep: AuthNextSignUpStep(
+      signUpStep: res["nextStep"]["signUpStep"],
+      codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
+      additionalInfo: res["nextStep"]["additionalInfo"] is String ? jsonDecode(res["nextStep"]["additionalInfo"]) : {}
+    ));
   }
 
   ResendSignUpCodeResult _formatResendSignUpResponse(Map<String, dynamic> res, method) {
-    if (res.containsKey("codeDeliveryDetails")) {
-      return CognitoResendSignUpCodeResult(codeDeliveryDetails: res["codeDeliveryDetails"]);
-    } else {
-      throw(AmplifyDartExceptions.formatException(methodName: method, field: "codeDeliveryDetails"));
-    }
+    return CognitoResendSignUpCodeResult(codeDeliveryDetails: res["codeDeliveryDetails"]);
   }
 
   SignInResult _formatSignInResponse(Map<String, dynamic> res, String method) {
-    if (res.containsKey("nextStep")) {
-      return CognitoSignInResult(isSignedIn: res["isSignedIn"], nextStep: AuthNextSignInStep(
-        signInStep: res["nextStep"]["signInStep"],
-        codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
-        additionalInfo: res["nextStep"]["additionalInfo"] is String ? jsonDecode(res["nextStep"]["additionalInfo"]) : {}
-      ));
-    } else {
-      throw(AmplifyDartExceptions.formatException(methodName: method, field: "nextStep"));
-    }
+    return CognitoSignInResult(isSignedIn: res["isSignedIn"], nextStep: AuthNextSignInStep(
+      signInStep: res["nextStep"]["signInStep"],
+      codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
+      additionalInfo: res["nextStep"]["additionalInfo"] is String ? jsonDecode(res["nextStep"]["additionalInfo"]) : {}
+    ));
   }
 
   UpdatePasswordResult _formatPasswordResponse(Map<String, dynamic> res) {
@@ -323,15 +311,11 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   }
 
   ResetPasswordResult _formatResetPasswordResponse(Map<String, dynamic> res) {
-    if (res.containsKey("nextStep")) {
-      return CognitoResetPasswordResult( isPasswordReset: res["isPasswordReset"], nextStep: ResetPasswordStep(
-        updateStep: res["nextStep"]["resetPasswordStep"],
-        codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
-        additionalInfo: res["nextStep"]["additionalInfo"] is String ? jsonDecode(res["nextStep"]["additionalInfo"]) : {}
-      ));
-    } else {
-      throw(AmplifyDartExceptions.formatException(methodName: "resetPassword", field: "nextStep"));
-    }
+    return CognitoResetPasswordResult( isPasswordReset: res["isPasswordReset"], nextStep: ResetPasswordStep(
+      updateStep: res["nextStep"]["resetPasswordStep"],
+      codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
+      additionalInfo: res["nextStep"]["additionalInfo"] is String ? jsonDecode(res["nextStep"]["additionalInfo"]) : {}
+    ));
   }
 
   AuthSession _formatSessionResponse(Map<String, dynamic> res) {
@@ -340,16 +324,133 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   void _castAndThrowPlatformException(PlatformException e) {
     switch(e.code) {
-      case "AmplifyUsernameExistsException": {
-        throw AmplifyUsernameExistsException.fromMap(
+      case "AliasExistsException": {
+        throw AliasExistsException.fromMap(
             Map<String, String>.from(e.details));
       }
-      case "AmplifyCastingException": {
-         throw AmplifyCastingException.fromMap(
+      case "AmazonClientException": {
+        throw AmazonClientException.fromMap(
             Map<String, String>.from(e.details));
       }
-      case "AmplifyAuthException": {
-        throw AmplifyAuthException.fromMap(
+      case "AmazonServiceException": {
+        throw AmazonServiceException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "CodeDeliveryFailureException": {
+        throw CodeDeliveryFailureException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "CodeExpiredException":
+      case "CognitoCodeExpiredException": {
+        throw CodeExpiredException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "CodeMismatchException": {
+        throw CodeMismatchException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "FailedAttemptsLimitExceededException": {
+        throw FailedAttemptsLimitExceededException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "InternalErrorException": {
+        throw InternalErrorException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "InvalidAccountTypeException": {
+        throw InvalidAccountTypeException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "InvalidLambdaResponseException": {
+        throw InvalidLambdaResponseException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "InvalidParameterException": {
+        throw InvalidParameterException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "InvalidPasswordException": {
+        throw InvalidPasswordException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "LimitExceededException": {
+        throw LimitExceededException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "MFAMethodNotFoundException": {
+        throw MFAMethodNotFoundException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "NotAuthorizedException": {
+        throw NotAuthorizedException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "PasswordResetRequiredException": {
+        throw PasswordResetRequiredException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "ResourceNotFoundException": {
+        throw ResourceNotFoundException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "SessionExpiredException": {
+        throw SessionExpiredException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "SessionUnavailableOfflineException": {
+        throw SessionUnavailableOfflineException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "SessionUnavailableServiceException": {
+        throw SessionUnavailableServiceException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "SignedOutException": {
+        throw SignedOutException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "SoftwareTokenMFANotFoundException": {
+        throw SoftwareTokenMFANotFoundException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "TooManyFailedAttemptsException": {
+        throw TooManyFailedAttemptsException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "UnexpectedLambdaException": {
+        throw UnexpectedLambdaException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "UnknownException": {
+        throw UnknownException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "UnrecognizedAuthError": {
+        throw UnrecognizedAuthError.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "UserCancelledException": {
+        throw UserCancelledException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "UserLambdaValidationException": {
+        throw UserLambdaValidationException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "UsernameExistsException": {
+        throw UsernameExistsException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "UserNotConfirmedException": {
+        throw UserNotConfirmedException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "UserNotFoundException": {
+        throw UserNotFoundException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "AuthException": {
+        throw AuthException.fromMap(
             Map<String, String>.from(e.details));
       }
       case "AmplifyException": {
