@@ -58,10 +58,9 @@ class AmplifyClass extends PlatformInterface {
   AmplifyHub Hub = AmplifyHub();
 
   /// Adds one plugin at a time. Note: this method can only
-  /// be called before Amplify has been configured. Customers are expected
-  /// to check the configuration state by calling `Amplify.isConfigured`
+  /// be called before Amplify has been configured.
   Future<void> addPlugin(AmplifyPluginInterface plugin) async {
-    if (!isConfigured) {
+    if (!_isConfigured) {
       try {
         if (plugin is AuthPluginInterface) {
           Auth.addPlugin(plugin);
@@ -91,18 +90,12 @@ class AmplifyClass extends PlatformInterface {
   }
 
   /// Adds multiple plugins at the same time. Note: this method can only
-  /// be called before Amplify has been configured. Customers are expected
-  /// to check the configuration state by calling `Amplify.isConfigured`
+  /// be called before Amplify has been configured.
   Future<void> addPlugins(List<AmplifyPluginInterface> plugins) async {
     plugins.forEach((plugin) async {
       await addPlugin(plugin);
     });
     return;
-  }
-
-  /// Returns whether Amplify has been configured or not.
-  bool get isConfigured {
-    return _isConfigured;
   }
 
   String _getVersion() {
@@ -112,13 +105,11 @@ class AmplifyClass extends PlatformInterface {
   /// Configures Amplify with the provided configuration string.
   /// This method can only be called once, after all the plugins
   /// have been added and no plugin shall be added after amplify
-  /// is configured. Clients are expected to call `Amplify.isConfigured`
-  /// to check if their app is configured before calling this method.
+  /// is configured.
   Future<void> configure(String configuration) async {
-    if (isConfigured) {
+    if (_isConfigured) {
       throw StateError(
-          "Amplify has already been configured and re-configuration is not supported. " +
-              "Please use Amplify.isConfigured to check before calling configure again.");
+          "Amplify has already been configured and re-configuration is not supported.");
     }
     assert(configuration != null, 'configuration is null');
     var res = await AmplifyClass.instance
