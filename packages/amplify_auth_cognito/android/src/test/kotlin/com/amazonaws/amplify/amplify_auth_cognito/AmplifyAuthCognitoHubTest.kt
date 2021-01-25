@@ -17,6 +17,7 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito
 
+import android.app.Activity
 import android.content.Context
 import android.os.Looper.getMainLooper
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
@@ -57,7 +58,7 @@ class AmplifyAuthCognitoHubTest {
         val latch = CountDownLatch(1)
         val realHubHandler = AuthCognitoHubEventStreamHandler(latch)
 
-        flutterPlugin = AuthCognito(hubEventHandler = realHubHandler)
+        flutterPlugin = AuthCognito(realHubHandler,  mock(Activity::class.java))
         var eventData: HashMap<String, Any> = (readMapFromFile("hub",
                 "signedInEvent.json",
                 HashMap::class.java) as HashMap<String, Any>)
@@ -79,7 +80,7 @@ class AmplifyAuthCognitoHubTest {
         val latch = CountDownLatch(1)
         val realHubHandler = AuthCognitoHubEventStreamHandler(latch)
 
-        flutterPlugin = AuthCognito(hubEventHandler = realHubHandler)
+        flutterPlugin = AuthCognito(realHubHandler, mock(Activity::class.java))
         var eventData: HashMap<String, Any> = (readMapFromFile("hub",
                 "signedOutEvent.json",
                 HashMap::class.java) as HashMap<String, Any>)
@@ -101,7 +102,7 @@ class AmplifyAuthCognitoHubTest {
         val latch = CountDownLatch(1)
         val realHubHandler = AuthCognitoHubEventStreamHandler(latch)
 
-        flutterPlugin = AuthCognito(hubEventHandler = realHubHandler)
+        flutterPlugin = AuthCognito(realHubHandler, mock(Activity::class.java))
         var eventData: HashMap<String, Any> = (readMapFromFile("hub",
                 "sessionExpiredEvent.json",
                 HashMap::class.java) as HashMap<String, Any>)
