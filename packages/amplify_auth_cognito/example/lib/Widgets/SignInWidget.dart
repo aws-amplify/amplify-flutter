@@ -21,6 +21,7 @@ class SignInWidget extends StatefulWidget {
 class _SignInWidgetState extends State<SignInWidget> {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+  AuthProvider provider = AuthProvider.login_with_amazon;
 
   void _signIn() async {
     try {
@@ -30,6 +31,28 @@ class _SignInWidgetState extends State<SignInWidget> {
       widget.showResult("Sign In Status = " + res.nextStep.signInStep);
       widget
           .changeDisplay(res.isSignedIn ? "SIGNED_IN" : "SHOW_CONFIRM_SIGN_IN");
+    } on AuthError catch (e) {
+      widget.setError(e);
+    }
+  }
+
+  void _signInWithWebUI() async {
+    try {
+      SignInResult res = await Amplify.Auth.signInWithWebUI();
+      widget.showResult("Social Sign In Success = " + res.toString());
+      widget.changeDisplay(res.isSignedIn ? "SIGNED_IN" : "SHOW_SIGN_IN");
+      print(res);
+    } on AuthError catch (e) {
+      widget.setError(e);
+    }
+  }
+
+  void _signInWithSocialWebUI() async {
+    try {
+      SignInResult res = await Amplify.Auth.signInWithWebUI(provider: provider);
+      widget.showResult("Social Sign In Success = " + res.toString());
+      widget.changeDisplay(res.isSignedIn ? "SIGNED_IN" : "SHOW_SIGN_IN");
+      print(res);
     } on AuthError catch (e) {
       widget.setError(e);
     }
@@ -90,6 +113,11 @@ class _SignInWidgetState extends State<SignInWidget> {
                     child: const Text('Sign In'),
                   ),
                   ElevatedButton(
+                    key: Key('signin-webui-button'),
+                    onPressed: _signInWithWebUI,
+                    child: const Text('Hosted UI Sign In'),
+                  ),
+                  ElevatedButton(
                     key: Key('goto-signup-button'),
                     onPressed: widget.showCreateUser,
                     child: const Text('Create User'),
@@ -116,6 +144,41 @@ class _SignInWidgetState extends State<SignInWidget> {
                   ),
                 ],
               ),
+             ListView(
+                shrinkWrap: true,
+                padding: const EdgeInsets.all(5.0),
+                children: [
+                  ElevatedButton(
+                    key: Key('signin-webui-button'),
+                    onPressed: _signInWithSocialWebUI,
+                    child: const Text('Sign In With Social Provider'),
+                  ),
+                  DropdownButton<AuthProvider>(
+                      value: provider,
+
+                      icon: Icon(Icons.arrow_downward),
+                      iconSize: 24,
+                      elevation: 16,
+                      style: TextStyle(color: Colors.deepPurple),
+                      underline: Container(
+                        height: 2,
+                        color: Colors.deepPurpleAccent,
+                      ),
+                      onChanged: (AuthProvider newValue) {
+                        setState(() {
+                          provider = newValue;
+                        });
+                      },
+                      items: <AuthProvider>[AuthProvider.google, AuthProvider.facebook, AuthProvider.login_with_amazon]
+                          .map<DropdownMenuItem<AuthProvider>>((AuthProvider value) {
+                        return DropdownMenuItem<AuthProvider>(
+                          value: value,
+                          child: Text(value.toString()),
+                        );
+                      }).toList(),
+                    ),
+                ]
+              )
             ],
           ),
         ),

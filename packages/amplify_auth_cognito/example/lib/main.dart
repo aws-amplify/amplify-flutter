@@ -124,8 +124,6 @@ class _MyAppState extends State<MyApp> {
       }
     });
 
-    Amplify.Hub.addChannel(HubChannel.Auth, auth.streamController);
-
     await Amplify.configure(amplifyconfig);
     try {
       isSignedIn = await _isSignedIn();
