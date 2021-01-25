@@ -1,6 +1,7 @@
 ## 0.0.2-dev.1 (2021-01-25)
 
 ### Features
+
 - feature: Amplify Auth Hosted UI (#309)
 
 ### Chore
