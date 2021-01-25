@@ -1,7 +1,7 @@
 ## 0.0.1-dev.7 (TBD)
 
 ### Features
-- feature: Amplify Hosted UI (#309)
+- feature: Amplify Auth Hosted UI (#309)
 
 ### Chore
 
