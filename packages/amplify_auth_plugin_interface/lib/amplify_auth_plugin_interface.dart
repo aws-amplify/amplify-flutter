@@ -81,4 +81,8 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
   Future<AuthSession> fetchAuthSession({@required AuthSessionRequest request}) {
     throw UnimplementedError('fetchAuthSession() has not been implemented.');
   }
+
+  Future<SignInResult> signInWithWebUI({SignInWithWebUIRequest request}) {
+    throw UnimplementedError('signInWithWebUI() has not been implemented.');
+  }
 }

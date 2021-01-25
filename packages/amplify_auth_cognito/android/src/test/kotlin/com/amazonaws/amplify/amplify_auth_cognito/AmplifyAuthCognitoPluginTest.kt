@@ -15,6 +15,7 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito
 
+import android.app.Activity
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthFailureMessage
 import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.BasicAWSCredentials
@@ -64,7 +65,7 @@ class AmplifyAuthCognitoPluginTest {
 
     @Before
     fun setup() {
-        plugin = AuthCognito()
+        plugin = AuthCognito(AuthCognitoHubEventStreamHandler(), mock(Activity::class.java))
         val mockLog = mock(Logger::class.java)
 
         doNothing().`when`(mockLog).error(anyString(), any(AuthException::class.java))
@@ -377,6 +378,45 @@ class AmplifyAuthCognitoPluginTest {
 
         // Assert
         verify(mockResult, times(1)).success(res);
+    }
+
+    @Test
+    fun signInWithSocialWebUI_returnsSuccess() {
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareUpdatePasswordResult(mockResult)
+            null as Void?
+        }.`when`(mockAuth).signInWithSocialWebUI(any(), ArgumentMatchers.any<Activity>(), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+
+        val data: HashMap<*, *> = hashMapOf(
+                "authProvider" to "google"
+        )
+        val arguments: HashMap<String, Any> = hashMapOf("data" to data)
+        val call = MethodCall("signInWithWebUI", arguments)
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>())
+    }
+
+    @Test
+    fun signInWithWebUI_returnsSuccess() {
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareUpdatePasswordResult(mockResult)
+            null as Void?
+        }.`when`(mockAuth).signInWithWebUI(any(), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+
+        val arguments: HashMap<String, Any?> = hashMapOf("data" to null)
+        val call = MethodCall("signInWithWebUI", arguments)
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>())
     }
 
     private fun setFinalStatic(field: Field, newValue: Any?) {

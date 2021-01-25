@@ -1251,4 +1251,53 @@ class amplify_auth_cognito_tests: XCTestCase {
             }
         })
     }
+    
+    func test_signInWithWebUI() {
+        class SignInWithWebUIMock: AuthCognitoBridge {
+            override func onSignInWithWebUI(flutterResult: @escaping FlutterResult) {
+                let signInRes = Result<AuthSignInResult,AuthError>.success(
+                    AuthSignInResult(nextStep: AuthSignInStep.done)
+                 )
+                 let signInData = FlutterSignInResult(res: signInRes)
+                 flutterResult(signInData)
+            }
+        }
+
+        plugin = SwiftAuthCognito.init(cognito: SignInWithWebUIMock())
+
+        _args = ["data": _data]
+        let call = FlutterMethodCall(methodName: "signInWithWebUI", arguments: _args)
+        plugin.handle(call, result: {(result)->Void in
+            if let res = result as? FlutterSignInResult {
+                XCTAssertEqual( "DONE", res.signInStep)
+            } else {
+                XCTFail()
+            }
+        })
+    }
+    
+    func test_signInWithSocialWebUI() {
+        class SignInWithSocialWebUIMock: AuthCognitoBridge {
+            override func onSignInWithSocialWebUI(flutterResult: @escaping FlutterResult, request:  FlutterSignInWithWebUIRequest) {
+                let signInRes = Result<AuthSignInResult,AuthError>.success(
+                    AuthSignInResult(nextStep: AuthSignInStep.done)
+                 )
+                 let signInData = FlutterSignInResult(res: signInRes)
+                 flutterResult(signInData)
+            }
+        }
+
+        plugin = SwiftAuthCognito.init(cognito: SignInWithSocialWebUIMock())
+        
+        _data = ["authProvider": "login_with_amazon"]
+        _args = ["data": _data]
+        let call = FlutterMethodCall(methodName: "signInWithWebUI", arguments: _args)
+        plugin.handle(call, result: {(result)->Void in
+            if let res = result as? FlutterSignInResult {
+                XCTAssertEqual( "DONE", res.signInStep)
+            } else {
+                XCTFail()
+            }
+        })
+    }
 }
