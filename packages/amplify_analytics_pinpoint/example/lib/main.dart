@@ -46,8 +46,8 @@ class _MyAppState extends State<MyApp> {
       setState(() {
         _amplifyConfigured = true;
       });
-    } catch (e) {
-      print(e);
+    } on AnalyticsException catch (e) {
+      print(e.toString());
     }
   }
 
