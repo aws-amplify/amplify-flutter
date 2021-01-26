@@ -8,9 +8,9 @@ void main() {
     TemporalDateTime time = TemporalDateTime(now);
     now = now.toUtc();
 
-    expect(time.getOffset(), null);
+    expect(time.getOffset(), Duration());
     expect(time.getDateTime(), now);
-    expect(time.format(), now.toIso8601String().substring(0, 26) + "000");
+    expect(time.format(), now.toIso8601String().substring(0, 26) + "000Z");
   });
 
   test('AWSDateTime from DateTime with offset success', () async {
