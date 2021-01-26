@@ -13,6 +13,8 @@ We are iterating and looking for feedback and collaboration, so please [**let us
  - [Getting Started Guide](https://docs.amplify.aws/start/getting-started/setup/q/integration/flutter)
  - [Example Application](https://github.com/aws-amplify/amplify-flutter/tree/master/example)
  - [Roadmap/Provide Feedback](https://github.com/aws-amplify/amplify-flutter/issues/5)
+ 
+ ⚠️ **For upcoming breaking changes in 0.0.2-dev.1 please refer this [issue](https://github.com/aws-amplify/amplify-flutter/issues/274) for migration details.**
 
 ## Supported Amplify Categories
 
@@ -39,10 +41,21 @@ We are iterating and looking for feedback and collaboration, so please [**let us
   <a href="https://pub.dev/packages/amplify_datastore" target="_blank">
     <img src="https://img.shields.io/pub/v/amplify_datastore.svg">
   </a>
+  
+- [x] [**API (Rest)**](https://docs.amplify.aws/lib/restapi/getting-started/q/platform/flutter): Provides a simple solution when making HTTP requests. It provides an automatic, lightweight signing process which complies with AWS Signature Version 4.
+
+  <a href="https://pub.dev/packages/amplify_api" target="_blank">
+    <img src="https://img.shields.io/pub/v/amplify_api.svg">
+  </a>
+  
+- [x] [**API (GraphQL)**](https://docs.amplify.aws/lib/graphqlapi/getting-started/q/platform/flutter): Interact with your GraphQL server or AWS AppSync API with an easy-to-use & configured GraphQL client.
+
+  <a href="https://pub.dev/packages/amplify_api" target="_blank">
+    <img src="https://img.shields.io/pub/v/amplify_api.svg">
+  </a>
 
 ### To Be Implemented
 
-- [ ] API (REST/GraphQL)
 - [ ] Predictions
 - [ ] Storage Hub Events (Listening to the Amplify Storage events)
 - [ ] iOS Error Events in Amplify Analytics
@@ -130,10 +143,11 @@ flutter pub get
 7. In your main.dart file, add:
 
 ```dart
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+
 import 'amplifyconfiguration.dart';
 
 void main() {
@@ -148,9 +162,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   bool _amplifyConfigured = false;
 
-  // Instantiate Amplify
-  Amplify amplifyInstance = new Amplify();
-
   @override
   void initState() {
     super.initState();
@@ -160,13 +171,11 @@ class _MyAppState extends State<MyApp> {
     if (!mounted) return;
 
     // Add Pinpoint and Cognito Plugins
-    AmplifyAnalyticsPinpoint analyticsPlugin = AmplifyAnalyticsPinpoint();
-    AmplifyAuthCognito authPlugin = AmplifyAuthCognito();
-    amplifyInstance.addPlugin(authPlugins: [authPlugin]);
-    amplifyInstance.addPlugin(analyticsPlugins: [analyticsPlugin]);
+    Amplify.addPlugin(AmplifyAuthCognito());
+    Amplify.addPlugin(AmplifyAnalyticsPinpoint());
 
     // Once Plugins are added, configure Amplify
-    await amplifyInstance.configure(amplifyconfig);
+    await Amplify.configure(amplifyconfig);
     try {
       setState(() {
         _amplifyConfigured = true;

@@ -1,7 +1,8 @@
-## 0.0.1-dev.7 (TBD)
+## 0.0.2-dev.1 (2021-01-25)
 
 ### Chores
 
+- chore: Refactor Hub streams (#262)
 - chore: Refactor amplify_core into amplify_flutter (#273)
 - chore: Add a new amplify_core package for base types and utilities (#275)
 
