@@ -41,8 +41,8 @@ export 'src/types/models/auth_rule.dart';
 //export 'src/types/temporal/time.dart';
 export 'src/types/temporal/datetime_parse.dart';
 export 'src/types/utils/parsers.dart';
-export 'src/Errors/datastore_error.dart';
 export 'src/Errors/datastore_error_types.dart';
+export 'src/types/exception/DataStoreException.dart';
 export 'src/types/models/subscription_event.dart';
 
 abstract class DataStorePluginInterface extends AmplifyPluginInterface {
@@ -60,7 +60,8 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   }
 
   StreamController get streamController {
-     throw UnimplementedError('streamController getter has not been implemented.');
+    throw UnimplementedError(
+        'streamController getter has not been implemented.');
   }
 
   Future<void> configure({String configuration}) {
