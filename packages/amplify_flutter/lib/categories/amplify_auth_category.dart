@@ -133,6 +133,6 @@ class AuthCategory {
     var request = SignInWithWebUIRequest(provider: provider);
     return plugins.length == 1
         ? plugins[0].signInWithWebUI(request: request)
-        : throw (_errorMsg);
+        : throw _pluginNotAddedException("Auth");
   }
 }
