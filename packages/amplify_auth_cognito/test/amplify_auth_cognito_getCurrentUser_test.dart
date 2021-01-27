@@ -34,9 +34,10 @@ void main() {
           return {"username": "testUser", "userSub": "testSub"};
         case 2:
           return throw PlatformException(
-              code: "AMPLIFY_EXCEPTION",
-              message: "AMPLIFY_GET_CURRENT_USER_FAILED",
-              details: {});
+            code: "UnknownException",
+            details: Map.from({
+              "message": "I am an exception"
+            }));
       }
     });
   });
@@ -52,12 +53,12 @@ void main() {
 
   test('PlatformException in getCurrentUser surfaces as AuthError', () async {
     testCode = 2;
-    AuthError err;
+    AuthException err;
     try {
       await auth.getCurrentUser();
-    } on AuthError catch (e) {
+    } on AuthException catch (e) {
       err = e;
     }
-    expect(err.cause, "AMPLIFY_GET_CURRENT_USER_FAILED");
+    expect(err.message, "I am an exception");
   });
 }

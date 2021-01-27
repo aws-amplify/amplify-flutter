@@ -36,9 +36,10 @@ void main() {
           };
         case 2:
           return throw PlatformException(
-              code: "AMPLIFY_EXCEPTION",
-              message: "AMPLIFY_FETCH_SESSION_FAILED",
-              details: {});
+            code: "UnknownException",
+            details: Map.from({
+              "message": "I am an exception"
+            }));
       }
     });
   });
@@ -54,14 +55,14 @@ void main() {
 
   test('fetchSession thrown PlatFormException results in AuthError', () async {
     testCode = 2;
-    AuthError err;
+    AuthException err;
     try {
       AuthSessionRequest req = AuthSessionRequest();
       expect(await auth.fetchAuthSession(), isInstanceOf<SignInResult>());
-    } on AuthError catch (e) {
+    } on AuthException catch (e) {
       err = e;
     }
-    expect(err.cause, "AMPLIFY_FETCH_SESSION_FAILED");
+    expect(err.message, "I am an exception");
   });
 
   test('CognitoAuthSession handles null tokens', () async {
