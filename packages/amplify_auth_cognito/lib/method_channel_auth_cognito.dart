@@ -13,12 +13,11 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:collection';
-import 'package:amplify_core/types/index.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'amplify_auth_cognito.dart';
+import 'amplify_auth_error_handling.dart';
 
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/auth_cognito');
 
@@ -38,7 +37,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       );
       res = _formatSignUpResponse(data, "signUp");
     } on PlatformException catch(e) {
-      _castAndThrowPlatformException(e);
+      castAndThrowPlatformException(e);
     } on Exception catch(e) {
       throw e;
     }
@@ -59,7 +58,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       res = _formatSignUpResponse(data, "confirmSignUp");
       return res;
     } on PlatformException catch(e) {
-      _castAndThrowPlatformException(e);
+      castAndThrowPlatformException(e);
     } on Exception catch(e) {
       throw(e);
     }
@@ -80,7 +79,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       res = _formatResendSignUpResponse(data, "resendSignUpCode");
       return res;
     } on PlatformException catch(e) {
-      _castAndThrowPlatformException(e);
+      castAndThrowPlatformException(e);
     } on Exception catch(e) {
       throw(e);
     }
@@ -101,7 +100,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       res = _formatSignInResponse(data, "signIn");
       return res;
     } on PlatformException catch(e) {
-      _castAndThrowPlatformException(e);
+      castAndThrowPlatformException(e);
     } on Exception catch(e) {
       throw(e);
     }
@@ -122,7 +121,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       res = _formatSignInResponse(data, "confirmSignIn");
       return res;
     } on PlatformException catch(e) {
-      _castAndThrowPlatformException(e);
+      castAndThrowPlatformException(e);
     } on Exception catch(e) {
       throw(e);
     }
@@ -143,7 +142,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       res = _formatSignOutResponse(data);
       return res;
     } on PlatformException catch(e) {
-      _castAndThrowPlatformException(e);
+      castAndThrowPlatformException(e);
     } on Exception catch(e) {
       throw(e);
     }
@@ -164,7 +163,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       res = _formatPasswordResponse(data);
       return res;
     } on PlatformException catch(e) {
-      _castAndThrowPlatformException(e);
+      castAndThrowPlatformException(e);
     } on Exception catch(e) {
       throw(e);
     }
@@ -185,7 +184,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       res = _formatResetPasswordResponse(data);
       return res;
     } on PlatformException catch(e) {
-      _castAndThrowPlatformException(e);
+      castAndThrowPlatformException(e);
     } on Exception catch(e) {
       throw(e);
     }
@@ -206,7 +205,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       res = _formatPasswordResponse(data);
       return res;
     } on PlatformException catch(e) {
-      _castAndThrowPlatformException(e);
+      castAndThrowPlatformException(e);
     } on Exception catch(e) {
       throw(e);
     }
@@ -227,7 +226,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       res = _formatSessionResponse(data);
       return res;
     } on PlatformException catch(e) {
-      _castAndThrowPlatformException(e);
+      castAndThrowPlatformException(e);
     } on Exception catch(e) {
       throw(e);
     }
@@ -248,7 +247,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       res = _formatAuthUserResponse(data);
       return res;
     } on PlatformException catch(e) {
-      _castAndThrowPlatformException   (e);
+      castAndThrowPlatformException(e);
     } on Exception catch(e) {
       throw(e);
     }
@@ -320,147 +319,5 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   AuthSession _formatSessionResponse(Map<String, dynamic> res) {
     return CognitoAuthSession.init(sessionValues: res);
-  }
-
-  void _castAndThrowPlatformException(PlatformException e) {
-    switch(e.code) {
-      case "AliasExistsException": {
-        throw AliasExistsException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "AmazonClientException": {
-        throw AmazonClientException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "AmazonServiceException": {
-        throw AmazonServiceException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "CodeDeliveryFailureException": {
-        throw CodeDeliveryFailureException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "CodeExpiredException":
-      case "CognitoCodeExpiredException": {
-        throw CodeExpiredException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "CodeMismatchException": {
-        throw CodeMismatchException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "FailedAttemptsLimitExceededException": {
-        throw FailedAttemptsLimitExceededException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "InternalErrorException": {
-        throw InternalErrorException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "InvalidAccountTypeException": {
-        throw InvalidAccountTypeException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "InvalidLambdaResponseException": {
-        throw InvalidLambdaResponseException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "InvalidParameterException": {
-        throw InvalidParameterException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "InvalidPasswordException": {
-        throw InvalidPasswordException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "LimitExceededException": {
-        throw LimitExceededException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "MFAMethodNotFoundException": {
-        throw MFAMethodNotFoundException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "NotAuthorizedException": {
-        throw NotAuthorizedException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "PasswordResetRequiredException": {
-        throw PasswordResetRequiredException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "ResourceNotFoundException": {
-        throw ResourceNotFoundException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "SessionExpiredException": {
-        throw SessionExpiredException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "SessionUnavailableOfflineException": {
-        throw SessionUnavailableOfflineException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "SessionUnavailableServiceException": {
-        throw SessionUnavailableServiceException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "SignedOutException": {
-        throw SignedOutException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "SoftwareTokenMFANotFoundException": {
-        throw SoftwareTokenMFANotFoundException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "TooManyFailedAttemptsException": {
-        throw TooManyFailedAttemptsException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "UnexpectedLambdaException": {
-        throw UnexpectedLambdaException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "UnknownException": {
-        throw UnknownException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "UnrecognizedAuthError": {
-        throw UnrecognizedAuthError.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "UserCancelledException": {
-        throw UserCancelledException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "UserLambdaValidationException": {
-        throw UserLambdaValidationException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "UsernameExistsException": {
-        throw UsernameExistsException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "UserNotConfirmedException": {
-        throw UserNotConfirmedException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "UserNotFoundException": {
-        throw UserNotFoundException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "AuthException": {
-        throw AuthException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "AmplifyException": {
-        throw AmplifyException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      default: {
-        throw e;
-      }
-    }
-
   }
 }
