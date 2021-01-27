@@ -19,6 +19,7 @@ import Amplify
 import AmplifyPlugins
 import AWSCore
 import Combine
+import amplify_core
 
 public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
 
@@ -54,9 +55,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                 try arguments = checkArguments(args: call.arguments as Any)
             }
         } catch {
-            result(FlutterDataStoreErrorHandler.createFlutterError(
-                    msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
-                    errorMap: ["UNKNOWN": "\(error.localizedDescription).\nAn unrecognized error has occurred. See logs for details." ]))
+            FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
+                                                              flutterResult: result)
             return
         }
 
@@ -94,7 +94,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             modelSchemas.forEach { (modelSchema) in
                 flutterModelRegistration.addModelSchema(modelName: modelSchema.name, modelSchema: modelSchema)
             }
-            
+
             self.dataStoreHubEventStreamHandler?.registerModelsForHub(flutterModels: flutterModelRegistration)
 
             let dataStorePlugin = AWSDataStorePlugin(modelRegistration: flutterModelRegistration)
@@ -103,9 +103,11 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             print("Amplify configured with DataStore plugin")
             result(true)
         } catch ModelSchemaError.parse(let className, let fieldName, let desiredType){
-            result(FlutterDataStoreErrorHandler.createFlutterError(
-                            msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
-                    errorMap: ["MALFORMED_REQUEST": "Invalid modelSchema " + className + "-" + fieldName + " cannot be cast to " + desiredType ]))
+            FlutterDataStoreErrorHandler.handleDataStoreError(
+                error: DataStoreError.decodingError(
+                    "Invalid modelSchema " + className + "-" + fieldName + " cannot be cast to " + desiredType,
+                    ErrorMessages.missingRecoverySuggestion),
+                flutterResult: result)
             return
         }
         catch {
@@ -125,16 +127,15 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             let querySortInput = try QuerySortBuilder.fromSerializedList(args["querySort"] as? [[String: Any]])
             let queryPagination = QueryPaginationBuilder.fromSerializedMap(args["queryPagination"] as? [String: Any])
             try bridge.onQuery(FlutterSerializedModel.self,
-                              modelSchema: modelSchema,
-                              where: queryPredicates,
-                              sort: querySortInput,
-                              paginate: queryPagination) { (result) in
+                               modelSchema: modelSchema,
+                               where: queryPredicates,
+                               sort: querySortInput,
+                               paginate: queryPagination) { (result) in
                 switch result {
                 case .failure(let error):
                     print("Query API failed. Error = \(error)")
                     FlutterDataStoreErrorHandler.handleDataStoreError(error: error,
-                                                                      flutterResult: flutterResult,
-                                                                      msg: FlutterDataStoreErrorMessage.QUERY_FAILED.rawValue)
+                                                                      flutterResult: flutterResult)
                 case .success(let res):
                     let serializedResults = res.map { (queryResult) -> [String: Any] in
                         return queryResult.toMap(modelSchema: modelSchema)
@@ -148,15 +149,12 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             print("Failed to parse query arguments with \(error)")
             FlutterDataStoreErrorHandler.handleDataStoreError(
                 error: error,
-                flutterResult: flutterResult,
-                msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue
-            )
+                flutterResult: flutterResult)
         }
         catch {
             print("An unexpected error occured when parsing query arguments: \(error)")
-            flutterResult(FlutterDataStoreErrorHandler.createFlutterError(
-                msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
-                errorMap: ["UNKNOWN": "\(error.localizedDescription).\nAn unrecognized error has occurred. See logs for details." ]))
+            FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
+                                                              flutterResult: flutterResult)
         }
     }
 
@@ -179,9 +177,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     print("Save API failed. Error: \(error)")
                     FlutterDataStoreErrorHandler.handleDataStoreError(
                         error: error,
-                        flutterResult: flutterResult,
-                        msg: FlutterDataStoreErrorMessage.SAVE_FAILED.rawValue
-                    )
+                        flutterResult: flutterResult)
                 case .success(let model):
                     print("Successfully saved model: \(model)")
                     flutterResult(nil)
@@ -192,15 +188,12 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             print("Failed to parse save arguments with \(error)")
             FlutterDataStoreErrorHandler.handleDataStoreError(
                 error: error,
-                flutterResult: flutterResult,
-                msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue
-            )
+                flutterResult: flutterResult)
         }
         catch {
             print("An unexpected error occured when parsing save arguments: \(error)")
-            flutterResult(FlutterDataStoreErrorHandler.createFlutterError(
-                msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
-                errorMap: ["UNKNOWN": "\(error.localizedDescription).\nAn unrecognized error has occurred. See logs for details." ]))
+            FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
+                                                              flutterResult: flutterResult)
         }
     }
 
@@ -216,15 +209,14 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             try bridge.onDelete(
                 serializedModel: serializedModel,
                 modelSchema: modelSchema) { (result) in
-                    switch result {
-                    case .failure(let error):
-                        print("Delete API failed. Error = \(error)")
-                        FlutterDataStoreErrorHandler.handleDataStoreError(error: error,
-                                                                          flutterResult: flutterResult,
-                                                                          msg: FlutterDataStoreErrorMessage.DELETE_FAILED.rawValue)
-                    case .success():
-                        flutterResult(nil)
-                    }
+                switch result {
+                case .failure(let error):
+                    print("Delete API failed. Error = \(error)")
+                    FlutterDataStoreErrorHandler.handleDataStoreError(error: error,
+                                                                      flutterResult: flutterResult)
+                case .success():
+                    flutterResult(nil)
+                }
             }
 
         }
@@ -232,27 +224,23 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             print("Failed to parse delete arguments with \(error)")
             FlutterDataStoreErrorHandler.handleDataStoreError(
                 error: error,
-                flutterResult: flutterResult,
-                msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue
-            )
+                flutterResult: flutterResult)
         }
         catch {
             print("An unexpected error occured when parsing delete arguments: \(error)")
-            flutterResult(FlutterDataStoreErrorHandler.createFlutterError(
-                msg: FlutterDataStoreErrorMessage.MALFORMED.rawValue,
-                errorMap: ["UNKNOWN": "\(error.localizedDescription).\nAn unrecognized error has occurred. See logs for details." ]))
+            FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
+                                                              flutterResult: flutterResult)
             return
         }
-
     }
 
     public func onSetupObserve(flutterResult: @escaping FlutterResult) {
         do {
             observeSubscription = try observeSubscription ?? bridge.onObserve().sink {
                 if case let .failure(error) = $0 {
-                    let flutterError = FlutterDataStoreErrorHandler.convertToFlutterError(
-                        error: error,
-                        msg: FlutterDataStoreErrorMessage.OBSERVE_EVENT_FAILURE.rawValue)
+                    let flutterError = FlutterError(code: "DataStoreException",
+                                                    message: ErrorMessages.defaultFallbackErrorMessage,
+                                                    details: FlutterDataStoreErrorHandler.createSerializedError(error: error))
                     self.dataStoreObserveEventStreamHandler?.sendError(flutterError: flutterError)
                 }
             } receiveValue: { (mutationEvent) in
@@ -289,9 +277,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     print("Clear API failed. Error: \(error)")
                     FlutterDataStoreErrorHandler.handleDataStoreError(
                         error: error,
-                        flutterResult: flutterResult,
-                        msg: FlutterDataStoreErrorMessage.CLEAR_FAILED.rawValue
-                    )
+                        flutterResult: flutterResult)
                 case .success():
                     print("Successfully cleared the store")
                     flutterResult(nil)
@@ -300,9 +286,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         }
         catch {
             print("An unexpected error occured: \(error)")
-            flutterResult(FlutterDataStoreErrorHandler.createFlutterError(
-                msg: FlutterDataStoreErrorMessage.UNEXPECTED_ERROR.rawValue,
-                errorMap: ["UNKNOWN": "\(error.localizedDescription).\nAn unexpected error has occurred. See logs for details." ]))
+            FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
+                                                              flutterResult: flutterResult)
         }
     }
 

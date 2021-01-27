@@ -16,6 +16,7 @@
 import XCTest
 import Amplify
 import Combine
+import amplify_core
 @testable import AmplifyPlugins
 @testable import amplify_datastore
 
@@ -68,7 +69,7 @@ class DataStorePluginUnitTests: XCTestCase {
                 XCTAssertEqual(
                     QueryPaginationInput.page(2, limit: 8),
                     paginationInput)
-                
+
                 // Return from the mock
                 completion(.success(amplifySuccessResults as! [M]))
             }
@@ -99,7 +100,7 @@ class DataStorePluginUnitTests: XCTestCase {
             })
     }
 
-    func test_query_failure_called_with_no_query_parameters() throws {
+    func test_query_called_with_no_query_parameters_failed_with_invalid_condition() throws {
 
         class MockDataStoreBridge: DataStoreBridge {
             override func onQuery<M: Model>(_ modelType: M.Type,
@@ -127,13 +128,11 @@ class DataStorePluginUnitTests: XCTestCase {
             flutterResult: { (results) -> Void in
                 if let exception = results as? FlutterError {
                     // Result #1 (Any/AnyObject is not equatable so we iterate over fields we know)
-                    XCTAssertEqual("AmplifyException", exception.code)
-                    XCTAssertEqual(FlutterDataStoreErrorMessage.QUERY_FAILED.rawValue, exception.message)
+                    XCTAssertEqual("DataStoreException", exception.code)
+                    XCTAssertEqual(ErrorMessages.defaultFallbackErrorMessage, exception.message)
                     let errorMap: [String: Any] = exception.details as! [String : Any]
-                    XCTAssertEqual("test error", errorMap["invalidCondition"] as? String)
-                    XCTAssertEqual(
-                        ["platform": "iOS", "localizedErrorMessage": "test error", "recoverySuggestion": "test recovery suggestion"],
-                        errorMap["PLATFORM_EXCEPTIONS"] as? [String: String])
+                    XCTAssertEqual("test error", errorMap["message"] as? String)
+                    XCTAssertEqual("test recovery suggestion", errorMap["recoverySuggestion"] as? String)
                 } else {
                     XCTFail()
                 }
@@ -144,9 +143,9 @@ class DataStorePluginUnitTests: XCTestCase {
 
         class MockDataStoreBridge: DataStoreBridge {
             override func onDelete(
-                                   serializedModel: FlutterSerializedModel,
-                                   modelSchema: ModelSchema,
-                                   completion: @escaping DataStoreCallback<Void>
+                serializedModel: FlutterSerializedModel,
+                modelSchema: ModelSchema,
+                completion: @escaping DataStoreCallback<Void>
             ) throws {
                 // Validations that we called the native library correctly
                 XCTAssertEqual(testSchema.name, modelSchema.name)
@@ -167,17 +166,17 @@ class DataStorePluginUnitTests: XCTestCase {
             })
     }
 
-    func test_delete_error_result() throws {
-        
+    func test_delete_failed_with_invalid_internal_operation() throws {
+
         class MockDataStoreBridge: DataStoreBridge {
             override func onDelete(
-                                   serializedModel: FlutterSerializedModel,
-                                   modelSchema: ModelSchema,
-                                   completion: @escaping DataStoreCallback<Void>) throws {
+                serializedModel: FlutterSerializedModel,
+                modelSchema: ModelSchema,
+                completion: @escaping DataStoreCallback<Void>) throws {
                 // Validations that we called the native library correctly
                 XCTAssertEqual(testSchema.name, modelSchema.name)
                 // Return from the mock
-                completion(.failure(causedBy: DataStoreError.unknown("test error", "test recovery suggestion", nil)))
+                completion(.failure(causedBy: DataStoreError.internalOperation("test error", "test recovery suggestion", nil)))
             }
         }
 
@@ -188,13 +187,11 @@ class DataStorePluginUnitTests: XCTestCase {
             args: try readJsonMap(filePath: "instance_no_predicate") as [String: Any],
             flutterResult: { (results) -> Void in
                 if let exception = results as? FlutterError {
-                    XCTAssertEqual("AmplifyException", exception.code)
-                    XCTAssertEqual(FlutterDataStoreErrorMessage.DELETE_FAILED.rawValue, exception.message)
+                    XCTAssertEqual("DataStoreException", exception.code)
+                    XCTAssertEqual(ErrorMessages.defaultFallbackErrorMessage, exception.message)
                     let errorMap: [String: Any] = exception.details as! [String : Any]
-                    XCTAssertEqual("test error", errorMap["unknown"] as? String)
-                    XCTAssertEqual(
-                        ["platform": "iOS", "localizedErrorMessage": "test error", "recoverySuggestion": "test recovery suggestion"],
-                        errorMap["PLATFORM_EXCEPTIONS"] as? [String: String])
+                    XCTAssertEqual("test error", errorMap["message"] as? String)
+                    XCTAssertEqual("test recovery suggestion", errorMap["recoverySuggestion"] as? String)
                 } else {
                     XCTFail()
                 }
@@ -303,15 +300,11 @@ class DataStorePluginUnitTests: XCTestCase {
         class MockStreamHandler: DataStoreObserveEventStreamHandler {
             override func sendError(flutterError: FlutterError) {
                 eventSentExp?.fulfill()
-                print(flutterError)
-                XCTAssertEqual("AmplifyException", flutterError.code)
-                XCTAssertEqual("AMPLIFY_DATASTORE_OBSERVE_EVENT_FAILURE", flutterError.message)
+                XCTAssertEqual("DataStoreException", flutterError.code)
+                XCTAssertEqual(ErrorMessages.defaultFallbackErrorMessage, flutterError.message)
                 let errorMap: [String: Any] = flutterError.details as! [String : Any]
-                XCTAssertEqual("This is test error", errorMap["unknown"] as? String)
-                XCTAssertEqual(
-                    ["platform": "iOS", "localizedErrorMessage": "This is test error",
-                     "recoverySuggestion": "And a test recovery suggestion"],
-                    errorMap["PLATFORM_EXCEPTIONS"] as? [String: String])
+                XCTAssertEqual("This is test error", errorMap["message"] as? String)
+                XCTAssertEqual("And a test recovery suggestion", errorMap["recoverySuggestion"] as? String)
             }
         }
 
@@ -351,10 +344,10 @@ class DataStorePluginUnitTests: XCTestCase {
         pluginUnderTest.onClear(
             flutterResult: {(result) in
                 XCTAssertNil(result)
-        })
+            })
     }
 
-    func test_clear_failure() throws {
+    func test_clear_failure_with_unknown_error() throws {
 
         class MockDataStoreBridge: DataStoreBridge {
             override func onClear(
@@ -370,17 +363,15 @@ class DataStorePluginUnitTests: XCTestCase {
         pluginUnderTest.onClear(
             flutterResult: { (result) -> Void in
                 if let exception = result as? FlutterError {
-                    XCTAssertEqual("AmplifyException", exception.code)
-                    XCTAssertEqual(FlutterDataStoreErrorMessage.CLEAR_FAILED.rawValue, exception.message)
+                    XCTAssertEqual("DataStoreException", exception.code)
+                    XCTAssertEqual(ErrorMessages.defaultFallbackErrorMessage, exception.message)
                     let errorMap: [String: Any] = exception.details as! [String : Any]
-                    XCTAssertEqual("test error", errorMap["unknown"] as? String)
-                    XCTAssertEqual(
-                        ["platform": "iOS", "localizedErrorMessage": "test error", "recoverySuggestion": "test recovery suggestion"],
-                        errorMap["PLATFORM_EXCEPTIONS"] as? [String: String])
+                    XCTAssertEqual("test error", errorMap["message"] as? String)
+                    XCTAssertEqual("test recovery suggestion", errorMap["recoverySuggestion"] as? String)
                 } else {
                     XCTFail()
                 }
-        })
+            })
     }
 
     func test_save_success_without_predicate() throws {
@@ -411,15 +402,15 @@ class DataStorePluginUnitTests: XCTestCase {
             })
     }
 
-    func test_save_with_api_error() throws {
+    func test_save_failed_with_unkown_error() throws {
         let testArgs = try readJsonMap(filePath: "instance_without_predicate") as [String: Any]
 
         class MockDataStoreBridge: DataStoreBridge {
             override func onSave<M: Model>(
-            serializedModel: M,
-            modelSchema: ModelSchema,
-            when predicate: QueryPredicate? = nil,
-            completion: @escaping DataStoreCallback<M>) throws {
+                serializedModel: M,
+                modelSchema: ModelSchema,
+                when predicate: QueryPredicate? = nil,
+                completion: @escaping DataStoreCallback<M>) throws {
                 // Validations that we called the native library correctly
                 XCTAssertEqual("9fc5fab4-37ff-4566-97e5-19c5d58a4c22", serializedModel.id)
                 XCTAssertEqual(testSchema.name, modelSchema.name)
@@ -436,13 +427,11 @@ class DataStorePluginUnitTests: XCTestCase {
             args: testArgs,
             flutterResult: { (results) -> Void in
                 if let exception = results as? FlutterError {
-                    XCTAssertEqual("AmplifyException", exception.code)
-                    XCTAssertEqual(FlutterDataStoreErrorMessage.SAVE_FAILED.rawValue, exception.message)
+                    XCTAssertEqual("DataStoreException", exception.code)
+                    XCTAssertEqual(ErrorMessages.defaultFallbackErrorMessage, exception.message)
                     let errorMap: [String: Any] = exception.details as! [String : Any]
-                    XCTAssertEqual("test error", errorMap["unknown"] as? String)
-                    XCTAssertEqual(
-                        ["platform": "iOS", "localizedErrorMessage": "test error", "recoverySuggestion": "test recovery suggestion"],
-                        errorMap["PLATFORM_EXCEPTIONS"] as? [String: String])
+                    XCTAssertEqual("test error", errorMap["message"] as? String)
+                    XCTAssertEqual("test recovery suggestion", errorMap["recoverySuggestion"] as? String)
                 } else {
                     XCTFail()
                 }
@@ -451,35 +440,19 @@ class DataStorePluginUnitTests: XCTestCase {
 
     func test_save_with_malformed_error() throws {
 
-        class MockDataStoreBridge: DataStoreBridge {
-            override func onSave<M: Model>(
-            serializedModel: M,
-            modelSchema: ModelSchema,
-            when predicate: QueryPredicate? = nil,
-            completion: @escaping DataStoreCallback<M>) throws {
-                // Validations that we called the native library correctly
-                XCTAssertEqual("9fc5fab4-37ff-4566-97e5-19c5d58a4c22", serializedModel.id)
-                XCTAssertEqual(testSchema.name, modelSchema.name)
-                XCTAssertNil(predicate)
-                // Return from the mock
-                completion(.success(serializedModel))
-            }
-        }
-
-        let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, flutterModelRegistration: flutterModelSchemaRegistration)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(
+            bridge: DataStoreBridge(),
+            flutterModelRegistration: flutterModelSchemaRegistration)
 
         pluginUnderTest.onSave(
             args: [:],
             flutterResult: { (results) -> Void in
                 if let exception = results as? FlutterError {
-                    XCTAssertEqual("AmplifyException", exception.code)
-                    XCTAssertEqual(FlutterDataStoreErrorMessage.MALFORMED.rawValue, exception.message)
+                    XCTAssertEqual("DataStoreException", exception.code)
+                    XCTAssertEqual(ErrorMessages.defaultFallbackErrorMessage, exception.message)
                     let errorMap: [String: Any] = exception.details as! [String : Any]
-                    XCTAssertEqual("The modelName was not passed in the arguments", errorMap["decodingError"] as? String)
-                    XCTAssertEqual(
-                        ["platform": "iOS", "localizedErrorMessage": "The modelName was not passed in the arguments", "recoverySuggestion": "The request should include the modelName of type String"],
-                        errorMap["PLATFORM_EXCEPTIONS"] as? [String: String])
+                    XCTAssertEqual("The modelName was not passed in the arguments", errorMap["message"] as? String)
+                    XCTAssertEqual("The request should include the modelName of type String", errorMap["recoverySuggestion"] as? String)
                 } else {
                     XCTFail()
                 }
