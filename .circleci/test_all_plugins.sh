@@ -17,7 +17,7 @@ for plugin_dir in */; do
             echo "=== Running Flutter unit tests for $plugin ==="
             if [ -d "test" ]; then
                 mkdir -p test-results
-                if flutter test --machine | tojunit --output "test-results/$plugin-flutter-test.xml"; then
+                if flutter test --machine --coverage | tojunit --output "test-results/$plugin-flutter-test.xml"; then
                     echo "PASSED: Flutter unit tests for $plugin passed."
                     passed_plugins+=("$plugin")
                 else
@@ -39,19 +39,16 @@ for plugin_dir in */; do
                 fi
                 cp ../../.circleci/dummy_amplifyconfiguration.dart example/lib/amplifyconfiguration.dart
                 cd example/android
-                if [ ! -f "gradlew" ]; then
-                    echo "Building debug APK..."
-                    if ! flutter build apk --debug; then
-                        echo "FAILED: Android example failed to build."
-                        failed_plugins+=("$plugin")
-                        cd ../../..
-                        continue
-                    fi
-                fi
 
                 if ./gradlew :"$plugin":testDebugUnitTest; then
                     echo "PASSED: Android unit tests for $plugin passed."
-                    passed_plugins+=("$plugin")
+                    if ./gradlew :"$plugin":testDebugUnitTestCoverage; then
+                        echo "PASSED: Generating android unit tests coverage for $plugin passed."
+                        passed_plugins+=("$plugin")
+                    else
+                        echo "FAILED: Generating android unit tests coverage for $plugin failed."
+                        failed_plugins+=("$plugin")
+                    fi
                 else
                     echo "FAILED: Android unit tests for $plugin failed."
                     failed_plugins+=("$plugin")
@@ -64,22 +61,10 @@ for plugin_dir in */; do
             ;;
         ios-test)
             echo "=== Running iOS unit tests for $plugin ==="
-            if [ -d "ios/Tests" ]; then
-                XCODEBUILD_DESTINATION="platform=iOS Simulator,name=iPhone 11,OS=13.6"
-                if [ ! -d "example/ios" ]; then
-                    echo "FAILED: example/ios missing, can't run tests."
-                    failed_plugins+=("$plugin")
-                    continue
-                fi
-                cp ../../.circleci/dummy_amplifyconfiguraton.dart example/lib/amplifyconfiguration.dart
+            if [ -d "example/ios/unit_tests" ]; then
+                XCODEBUILD_DESTINATION="platform=iOS Simulator,name=iPhone 11,OS=14.2"
+                cp ../../.circleci/dummy_amplifyconfiguration.dart example/lib/amplifyconfiguration.dart
                 cd example/ios
-                if ! flutter build ios --no-codesign; then
-                    echo "FAILED: iOS example failed to build."
-                    failed_plugins+=("$plugin")
-                    cd ../../..
-                    continue
-                fi
-
                 if xcodebuild test \
                         -workspace Runner.xcworkspace \
                         -scheme Runner \

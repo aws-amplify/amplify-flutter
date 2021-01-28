@@ -14,7 +14,7 @@
  */
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 import 'package:sample_app/Views/ErrorView.dart';
 import 'package:sample_app/Pages/LandingPage.dart';
@@ -48,7 +48,7 @@ class _UserProfileState extends State<UserView> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        RaisedButton(onPressed: _signOut, child: const Text("Log Out")),
+        ElevatedButton(onPressed: _signOut, child: const Text("Log Out")),
       ],
     );
   }

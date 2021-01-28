@@ -68,8 +68,7 @@ $ melos bootstrap
 
 #### Packages inside Amplify Flutter
 
-- [amplify_core](https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify_core)
-- [amplify_core_plugin_interface](https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify_core_plugin_interface)
+- [amplify_flutter](https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify_flutter)
 - [amplify_auth_plugin_interface](https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify_auth_plugin_interface)
 - [amplify_auth_cognito](https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify_auth_cognito)
 - [amplify_analytics_plugin_interface](https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify_analytics_plugin_interface)
@@ -89,7 +88,7 @@ The general organization of the Flutter library is as follows:
 
 2) A given [category] can have multiple plugins corresponding to different AWS services.  For example Analytics will have a Pinpoint and Kinesis plugin.
 
-3) The [category] plugins (ie. amplify_auth_cognito, amplify_core, etc.) is a Dart shell that uses the MethodChannel to communicate with native iOS and Android code which in turn calls the corresponding Amplify Android and Amplify iOS library code.
+3) The [category] plugins (ie. amplify_auth_cognito, amplify_storage_s3, etc.) is a Dart shell that uses the MethodChannel to communicate with native iOS and Android code which in turn calls the corresponding Amplify Android and Amplify iOS library code.
 
 Contributing:
 

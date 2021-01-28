@@ -23,18 +23,10 @@ class AWSCredentials {
   String awsSecretKey;
   String sessionToken;
   AWSCredentials.init({@required LinkedHashMap<dynamic, dynamic> creds}) {
-    var realCreds;
-    if (Platform.isAndroid) {
-      if (creds.containsKey("value")) {
-        realCreds = creds["value"];
-      } else {
-        throw(AmplifyDartExceptions.formatException(methodName: "fetchAuthSession", field: "credentials"));
-      }
-    } else {
-      realCreds = creds;
+    if (creds != null) {
+      this.awsAccessKey = creds.containsKey("awsAccessKey") ? creds["awsAccessKey"] : null;
+      this.awsSecretKey = creds.containsKey("awsSecretKey") ? creds["awsSecretKey"] : null;
+      this.sessionToken = creds.containsKey("sessionToken") ? creds["sessionToken"] : null;
     }
-    this.awsAccessKey = realCreds["awsAccessKey"];
-    this.awsSecretKey = realCreds["awsSecretKey"];
-    this.sessionToken = realCreds["sessionToken"];
   }
 }

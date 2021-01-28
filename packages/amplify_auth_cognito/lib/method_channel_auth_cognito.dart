@@ -254,6 +254,26 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     return res;
   }
 
+  @override
+  Future<SignInResult> signInWithWebUI({SignInWithWebUIRequest request}) async {
+   SignInResult res;
+    try {
+      final Map<String, dynamic> data =
+      await _channel.invokeMapMethod<String, dynamic>(
+        'signInWithWebUI',
+        <String, dynamic>{
+          'data': request != null ? request.serializeAsMap() : null,
+        },
+      );
+      return _formatSignInResponse(data, "signIn");
+    } on PlatformException catch(e) {
+      _throwError(e);
+    } on AuthError catch(e) {
+      throw(e);
+    }
+    return res;
+  }
+
   SignUpResult _formatSignUpResponse(Map<String, dynamic> res, method) {
     if (res.containsKey("nextStep")) {
       return CognitoSignUpResult(isSignUpComplete: res["isSignUpComplete"], nextStep: AuthNextSignUpStep(
@@ -314,15 +334,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   }
 
   AuthSession _formatSessionResponse(Map<String, dynamic> res) {
-    AWSCredentials credentials = res.containsKey("credentials") ? AWSCredentials.init(creds: res["credentials"]) : null;
-    AWSCognitoUserPoolTokens tokens = res.containsKey("tokens") ?  AWSCognitoUserPoolTokens.init(tokens: res["tokens"]) : null;
-    return CognitoAuthSession(
-      isSignedIn: res["isSignedIn"], 
-      userSub: res["userSub"],
-      identityId: res["identityId"],
-      credentials: credentials,
-      userPoolTokens: tokens,
-    );
+    return CognitoAuthSession.init(sessionValues: res);
   }
 
   void _throwError(PlatformException e) {

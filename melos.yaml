@@ -1,8 +1,9 @@
-name: amplify_flutter
+name: amplify_flutter_repository
 
 packages:
   - packages/**
   - example/*
+  - packages/**/example/*
 
 scripts:
   copy_dummy_config: >
@@ -15,13 +16,25 @@ scripts:
 
   build:examples:android: >
     melos exec -c 1 --scope="*example*" --fail-fast -- \
-      flutter build apk --debug
+      flutter build apk --debug --verbose
 
   test:unit:flutter: >
     ./.circleci/test_all_plugins.sh flutter-test && exit 0
 
   test:unit:android: >
     ./.circleci/test_all_plugins.sh android-test && exit 0
+
+  test:unit:ios: >
+    ./.circleci/test_all_plugins.sh ios-test && exit 0
+
+  upload:coverage:ios: >
+    ./build-support/codecov.sh -F ios-unit-tests
+
+  upload:coverage:flutter: >
+    ./build-support/codecov.sh -F flutter-unit-tests
+
+  upload:coverage:android: >
+    ./build-support/codecov.sh -F android-unit-tests
 
   format: >
     melos exec -c 1 -- \

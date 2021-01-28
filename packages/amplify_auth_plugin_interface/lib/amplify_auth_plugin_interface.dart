@@ -18,14 +18,18 @@ library amplify_auth_plugin_interface;
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+import 'package:amplify_core/types/index.dart';
 import 'src/types.dart';
 export 'src/types.dart';
 
-abstract class AuthPluginInterface extends PlatformInterface {
+abstract class AuthPluginInterface extends AmplifyPluginInterface {
   /// Constructs a AmplifyPlatform.
   AuthPluginInterface({@required Object token}) : super(token: token);
 
+  StreamController get streamController {
+    throw UnimplementedError('streamController getter has not been implemented.');
+  }
+  
   /// Adds the configuration and return true if it was successful.
   bool addPlugin(AuthPluginInterface configuration) {
     throw UnimplementedError('configure() has not been implemented.');
@@ -38,8 +42,9 @@ abstract class AuthPluginInterface extends PlatformInterface {
   Future<SignUpResult> confirmSignUp({@required ConfirmSignUpRequest request}) {
     throw UnimplementedError('confirmSignUp() has not been implemented.');
   }
-  
-  Future<ResendSignUpCodeResult> resendSignUpCode({@required ResendSignUpCodeRequest request}) {
+
+  Future<ResendSignUpCodeResult> resendSignUpCode(
+      {@required ResendSignUpCodeRequest request}) {
     throw UnimplementedError('resendSignUpCode() has not been implemented.');
   }
 
@@ -59,11 +64,13 @@ abstract class AuthPluginInterface extends PlatformInterface {
     throw UnimplementedError('updatePassword() has not been implemented.');
   }
 
-  Future<ResetPasswordResult> resetPassword({@required ResetPasswordRequest request}) {
+  Future<ResetPasswordResult> resetPassword(
+      {@required ResetPasswordRequest request}) {
     throw UnimplementedError('resetPassword() has not been implemented.');
   }
 
-  Future<UpdatePasswordResult> confirmPassword({ConfirmPasswordRequest request}) {
+  Future<UpdatePasswordResult> confirmPassword(
+      {ConfirmPasswordRequest request}) {
     throw UnimplementedError('confirmPassword() has not been implemented.');
   }
 
@@ -73,5 +80,9 @@ abstract class AuthPluginInterface extends PlatformInterface {
 
   Future<AuthSession> fetchAuthSession({@required AuthSessionRequest request}) {
     throw UnimplementedError('fetchAuthSession() has not been implemented.');
+  }
+
+  Future<SignInResult> signInWithWebUI({SignInWithWebUIRequest request}) {
+    throw UnimplementedError('signInWithWebUI() has not been implemented.');
   }
 }

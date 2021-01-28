@@ -24,4 +24,24 @@ class CognitoAuthSession extends AuthSession {
   String userSub;
   String identityId;
   CognitoAuthSession({@required isSignedIn, this.credentials, this.userPoolTokens, this.userSub, this.identityId}) : super(isSignedIn: isSignedIn);
+  CognitoAuthSession.init({@required sessionValues}) {
+
+    this.isSignedIn = sessionValues["isSignedIn"];
+    this.identityId = sessionValues["identityId"];
+
+    if (sessionValues.containsKey("userSub")) {
+      this.userSub = sessionValues["userSub"];
+    }
+
+    if (sessionValues.containsKey("credentials")) {
+      this.credentials = AWSCredentials.init(creds: sessionValues["credentials"]);
+    }
+
+    if (sessionValues.containsKey("tokens")) {
+      var tokenMap = sessionValues["tokens"] as Map;
+      if (tokenMap != null) {
+        this.userPoolTokens = AWSCognitoUserPoolTokens.init(tokens: sessionValues["tokens"]);
+      }
+    }
+  }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 
 class ImageUploader extends StatelessWidget {
@@ -30,8 +30,8 @@ class ImageUploader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      RaisedButton(
-        child: Text("Upload Image"),
+      ElevatedButton(
+        child: const Text("Upload Image"),
         onPressed: () {
           _upload(context);
         },

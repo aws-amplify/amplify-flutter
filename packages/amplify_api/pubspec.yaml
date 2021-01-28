@@ -1,0 +1,28 @@
+name: amplify_api
+description: The Amplify Flutter API category plugin.
+version: 0.0.2-dev.1
+homepage: https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify_api
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.20.0 <2.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  amplify_api_plugin_interface: ^0.0.2-dev.1
+  plugin_platform_interface: ^1.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+# The following section is specific to Flutter.
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.amazonaws.amplify.amplify_api
+        pluginClass: AmplifyApiPlugin
+      ios:
+        pluginClass: AmplifyApiPlugin

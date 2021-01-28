@@ -26,7 +26,9 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES"
+      onlyGenerateCoverageForSpecifiedTargets = "YES">
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
@@ -36,14 +38,30 @@
             ReferencedContainer = "container:Runner.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
+      <CodeCoverageTargets>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "CCD5B2E572C4D61484D007F080A455C5"
+            BuildableName = "amplify_auth_cognito.framework"
+            BlueprintName = "amplify_auth_cognito"
+            ReferencedContainer = "container:Pods/Pods.xcodeproj">
+         </BuildableReference>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "6233D5834CC19CF4A04CFE9A9DA676DA"
+            BuildableName = "amplify.framework"
+            BlueprintName = "amplify"
+            ReferencedContainer = "container:Pods/Pods.xcodeproj">
+         </BuildableReference>
+      </CodeCoverageTargets>
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9CEFDF1125113C2F001481FC"
-               BuildableName = "amplify_auth_cognito_tests.xctest"
-               BlueprintName = "amplify_auth_cognito_tests"
+               BuildableName = "unit_tests.xctest"
+               BlueprintName = "unit_tests"
                ReferencedContainer = "container:Runner.xcodeproj">
             </BuildableReference>
          </TestableReference>

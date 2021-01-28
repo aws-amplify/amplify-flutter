@@ -13,33 +13,51 @@ We are iterating and looking for feedback and collaboration, so please [**let us
  - [Getting Started Guide](https://docs.amplify.aws/start/getting-started/setup/q/integration/flutter)
  - [Example Application](https://github.com/aws-amplify/amplify-flutter/tree/master/example)
  - [Roadmap/Provide Feedback](https://github.com/aws-amplify/amplify-flutter/issues/5)
+ 
+ ⚠️ **For upcoming breaking changes in 0.0.2-dev.1 please refer this [issue](https://github.com/aws-amplify/amplify-flutter/issues/274) for migration details.**
 
 ## Supported Amplify Categories
 
-- [x] [**Authentication**](https://docs.amplify.aws/lib/auth/getting-started/q/platform/flutter): Create user authentication experiences with Amazon Cognito
+- [x] [**Authentication**](https://docs.amplify.aws/lib/auth/getting-started/q/platform/flutter): APIs and building blocks for developers who want to create user authentication experiences with Amazon Cognito.
 
     <a href="https://pub.dev/packages/amplify_auth_cognito" target="_blank">
       <img src="https://img.shields.io/pub/v/amplify_auth_cognito.svg">
     </a>
 
-- [x] [**Analytics**](https://docs.amplify.aws/lib/analytics/getting-started/q/platform/flutter): Collect analytics data with Amazon Pinpoint
+- [x] [**Analytics**](https://docs.amplify.aws/lib/analytics/getting-started/q/platform/flutter): Easily collect analytics data for your app with Pinpoint. Analytics data includes user sessions and other custom events that you want to track in your app.
 
   <a href="https://pub.dev/packages/amplify_analytics_pinpoint" target="_blank">
     <img src="https://img.shields.io/pub/v/amplify_analytics_pinpoint.svg">
   </a>
 
-- [x] [**Storage**](https://docs.amplify.aws/lib/storage/getting-started/q/platform/flutter): Store user content with Amazon S3 
+- [x] [**Storage**](https://docs.amplify.aws/lib/storage/getting-started/q/platform/flutter): Provides a simple mechanism for managing user content for your app in public, protected or private storage buckets with Amazon S3.
 
   <a href="https://pub.dev/packages/amplify_storage_s3" target="_blank">
     <img src="https://img.shields.io/pub/v/amplify_storage_s3.svg">
   </a>
 
+- [x] [**DataStore**](https://docs.amplify.aws/lib/datastore/getting-started/q/platform/flutter): A programming model for leveraging shared and distributed data without writing additional code for offline and online scenarios, which makes working with distributed, cross-user data just as simple as working with local-only data.
+
+  <a href="https://pub.dev/packages/amplify_datastore" target="_blank">
+    <img src="https://img.shields.io/pub/v/amplify_datastore.svg">
+  </a>
+  
+- [x] [**API (Rest)**](https://docs.amplify.aws/lib/restapi/getting-started/q/platform/flutter): Provides a simple solution when making HTTP requests. It provides an automatic, lightweight signing process which complies with AWS Signature Version 4.
+
+  <a href="https://pub.dev/packages/amplify_api" target="_blank">
+    <img src="https://img.shields.io/pub/v/amplify_api.svg">
+  </a>
+  
+- [x] [**API (GraphQL)**](https://docs.amplify.aws/lib/graphqlapi/getting-started/q/platform/flutter): Interact with your GraphQL server or AWS AppSync API with an easy-to-use & configured GraphQL client.
+
+  <a href="https://pub.dev/packages/amplify_api" target="_blank">
+    <img src="https://img.shields.io/pub/v/amplify_api.svg">
+  </a>
+
 ### To Be Implemented
 
-- [ ] API (REST/GraphQL)
 - [ ] Predictions
-- [ ] Datastore
-- [ ] Hub Events (Listening to the Amplify events)
+- [ ] Storage Hub Events (Listening to the Amplify Storage events)
 - [ ] iOS Error Events in Amplify Analytics
 
 > Amplify for Flutter is in preview, and is not recommended for production use at this time. During this phase, we are iterating on the code base, and looking for your feedback and collaboration. [**WE'D LOVE TO GET YOUR FEEDBACK! :-).**](https://github.com/aws-amplify/amplify-flutter/issues/5).
@@ -89,6 +107,7 @@ Only the following resource types are supported:
  * Auth
  * Analytics
  * Storage
+ * API
 ? Where do you want to store your configuration file? ./lib/
 ```
 
@@ -112,8 +131,8 @@ Only the following resource types are supported:
 dependencies:
   flutter:
     sdk: flutter
-  amplify_core:
-    path: /{path to your local amplify-flutter}/amplify-flutter/packages/amplify_core 
+  amplify_flutter:
+    path: /{path to your local amplify-flutter}/amplify-flutter/packages/amplify_flutter
   amplify_analytics_pinpoint:
     path: /{path to your local amplify-flutter}/amplify-flutter/packages/amplify_analytics_pinpoint
   amplify_auth_cognito:
@@ -129,10 +148,11 @@ flutter pub get
 8. In your main.dart file, add:
 
 ```dart
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+
 import 'amplifyconfiguration.dart';
 
 void main() {
@@ -147,9 +167,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   bool _amplifyConfigured = false;
 
-  // Instantiate Amplify
-  Amplify amplifyInstance = new Amplify();
-
   @override
   void initState() {
     super.initState();
@@ -159,13 +176,11 @@ class _MyAppState extends State<MyApp> {
     if (!mounted) return;
 
     // Add Pinpoint and Cognito Plugins
-    AmplifyAnalyticsPinpoint analyticsPlugin = AmplifyAnalyticsPinpoint();
-    AmplifyAuthCognito authPlugin = AmplifyAuthCognito();
-    amplifyInstance.addPlugin(authPlugins: [authPlugin]);
-    amplifyInstance.addPlugin(analyticsPlugins: [analyticsPlugin]);
+    Amplify.addPlugin(AmplifyAuthCognito());
+    Amplify.addPlugin(AmplifyAnalyticsPinpoint());
 
     // Once Plugins are added, configure Amplify
-    await amplifyInstance.configure(amplifyconfig);
+    await Amplify.configure(amplifyconfig);
     try {
       setState(() {
         _amplifyConfigured = true;
@@ -191,18 +206,18 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
-            title: const Text('Amplify Core example app'),
+            title: const Text('Amplify example app'),
           ),
           body: ListView(padding: EdgeInsets.all(10.0), children: <Widget>[
             Center( 
               child: Column (
                 children: [
                   const Padding(padding: EdgeInsets.all(5.0)),
-                  RaisedButton(
+                  ElevatedButton(
                     onPressed: _amplifyConfigured ? null : _configureAmplify,
                     child: const Text('configure Amplify')
                   ),
-                  RaisedButton(
+                  ElevatedButton(
                     onPressed: _amplifyConfigured ? _recordEvent : null,
                     child: const Text('record event')
                   )
@@ -230,7 +245,7 @@ This ensures that your Flutter project is running the same ios version that the 
 
 Click **Configure Amplify**, then **Record Event**. From the terminal (in the root of your project) run `amplify console analytics`. This will open the Amazon Pinpoint console for your project in your default web browser. Within about a minute you should start seeing the events populating in the Events section of then Pinpoint console. 
 
-For further documentation and Amplify Category API usage, see the [documentation](https://docs.amplify.aws/lib/q/platform/js).
+For further documentation and Amplify Category API usage, see the [documentation](https://docs.amplify.aws/lib/q/platform/flutter).
 
 ---
 

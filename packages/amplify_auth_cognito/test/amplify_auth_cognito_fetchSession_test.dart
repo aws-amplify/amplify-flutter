@@ -16,13 +16,11 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_core/amplify_core.dart';
 
 void main() {
-  const MethodChannel authChannel = MethodChannel('com.amazonaws.amplify/auth_cognito');
-  const MethodChannel coreChannel = MethodChannel('com.amazonaws.amplify/core');
+  const MethodChannel authChannel =
+      MethodChannel('com.amazonaws.amplify/auth_cognito');
 
-  Amplify amplify = new Amplify();
   AmplifyAuthCognito auth = AmplifyAuthCognito();
 
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -31,40 +29,62 @@ void main() {
 
   setUp(() {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      switch(testCode) {
+      switch (testCode) {
         case 1:
           return {
             "isSignedIn": true,
           };
-          case 2:
-            return throw PlatformException(code: "AMPLIFY_EXCEPTION", message: "AMPLIFY_FETCH_SESSION_FAILED", details: {} );
-      } 
-    });
-    coreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return true;
+        case 2:
+          return throw PlatformException(
+              code: "AMPLIFY_EXCEPTION",
+              message: "AMPLIFY_FETCH_SESSION_FAILED",
+              details: {});
+      }
     });
   });
 
   tearDown(() {
     authChannel.setMockMethodCallHandler(null);
-    coreChannel.setMockMethodCallHandler(null);
   });
 
   test('fetchSession request returns a AuthCognitoSession', () async {
     testCode = 1;
-    await amplify.addPlugin(authPlugins: [auth]);
-    await amplify.configure("{}");
-    expect(await Amplify.Auth.fetchAuthSession(), isInstanceOf<CognitoAuthSession>());
+    expect(await auth.fetchAuthSession(), isInstanceOf<CognitoAuthSession>());
   });
 
   test('fetchSession thrown PlatFormException results in AuthError', () async {
     testCode = 2;
     AuthError err;
-   try {
-    AuthSessionRequest req = AuthSessionRequest();
-    expect(await Amplify.Auth.fetchAuthSession(), isInstanceOf<SignInResult>());   } on AuthError catch (e) {
+    try {
+      AuthSessionRequest req = AuthSessionRequest();
+      expect(await auth.fetchAuthSession(), isInstanceOf<SignInResult>());
+    } on AuthError catch (e) {
       err = e;
-    } 
+    }
     expect(err.cause, "AMPLIFY_FETCH_SESSION_FAILED");
+  });
+
+  test('CognitoAuthSession handles null tokens', () async {
+    var rawValues = Map.from({"isSignedIn": true, "tokens": null});
+
+    var session = CognitoAuthSession.init(sessionValues: rawValues);
+    expect(session.userPoolTokens, null);
+  });
+
+  test('CognitoAuthSession handles tokens', () async {
+    Map<dynamic, dynamic> tokens = {
+      "accessToken": "access",
+      "idToken": "id",
+      "refreshToken": "refresh"
+    };
+    var rawValues = {"isSignedIn": true, "tokens": tokens};
+
+    var session = CognitoAuthSession.init(sessionValues: rawValues);
+    expect(session.userPoolTokens.accessToken,
+        AWSCognitoUserPoolTokens.init(tokens: tokens).accessToken);
+    expect(session.userPoolTokens.idToken,
+        AWSCognitoUserPoolTokens.init(tokens: tokens).idToken);
+    expect(session.userPoolTokens.refreshToken,
+        AWSCognitoUserPoolTokens.init(tokens: tokens).refreshToken);
   });
 }

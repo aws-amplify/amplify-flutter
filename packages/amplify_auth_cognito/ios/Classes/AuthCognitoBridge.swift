@@ -151,12 +151,7 @@ class AuthCognitoBridge {
                     flutterResult(sessionData.toJSON())
                 } else {
                     let sessionData = try FlutterFetchSessionResult(res: result)
-                    if (sessionData.isSignedIn) {
-                        flutterResult(sessionData.toJSON())
-                    } else {
-                        throw AuthError.signedOut("There is no user signed in to retreive user sub",
-                                                  "Call Auth.signIn to sign in a user and then call Auth.fetchSession")
-                    }
+                    flutterResult(sessionData.toJSON())
                 }
                 
             } catch {
@@ -178,6 +173,30 @@ class AuthCognitoBridge {
             
         } catch {
             handleAuthError(error: error as! AuthError, flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.GET_CURRENT_USER.rawValue)
+        }
+    }
+    
+    func onSignInWithWebUI(flutterResult: @escaping FlutterResult) {
+        Amplify.Auth.signInWithWebUI(presentationAnchor: UIApplication.shared.keyWindow!) { result in
+            switch result {
+                case .success:
+                    let signInData = FlutterSignInResult(res: result)
+                    flutterResult(signInData.toJSON())
+                case .failure(let error):
+                    handleAuthError(error: error , flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNIN_WITH_WEBUI.rawValue)
+            }
+        }
+    }
+    
+    func onSignInWithSocialWebUI(flutterResult: @escaping FlutterResult, request: FlutterSignInWithWebUIRequest) {
+        Amplify.Auth.signInWithWebUI(for: request.provider!, presentationAnchor: UIApplication.shared.keyWindow!) { result in
+            switch result {
+                case .success:
+                    let signInData = FlutterSignInResult(res: result)
+                    flutterResult(signInData.toJSON())
+                case .failure(let error):
+                    handleAuthError(error: error , flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNIN_WITH_WEBUI.rawValue)
+            }
         }
     }
 }

@@ -17,40 +17,19 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:amplify_storage_s3/src/Exceptions/StorageExceptionType.dart';
-import 'package:amplify_core/amplify_core.dart';
 import 'dart:io';
 import './resources/platform_exception_details.dart';
 
 void main() {
   const MethodChannel storageChannel =
       MethodChannel('com.amazonaws.amplify/storage_s3');
-  const MethodChannel coreChannel = MethodChannel('com.amazonaws.amplify/core');
-  var isConfigured = false;
 
-  Amplify amplify = new Amplify();
   AmplifyStorageS3 storage = AmplifyStorageS3();
-
-  configureAmplify() async {
-    await amplify.addPlugin(storagePlugins: [storage]);
-    await amplify.configure('{}');
-    isConfigured = true;
-  }
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  setUp(() {
-    coreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return true;
-    });
-
-    if (!isConfigured) {
-      configureAmplify();
-    }
-  });
-
   tearDown(() {
     storageChannel.setMockMethodCallHandler(null);
-    coreChannel.setMockMethodCallHandler(null);
   });
 
   test(
@@ -61,8 +40,9 @@ void main() {
         'key': 'keyForFile',
       };
     });
-    var uploadFileResult = await Amplify.Storage.uploadFile(
-        key: 'keyForFile', local: File('path/to/file'));
+    var uploadFileResult = await storage.uploadFile(
+        request:
+            UploadFileRequest(key: 'keyForFile', local: File('path/to/file')));
     expect(uploadFileResult, isA<UploadFileResult>());
     expect(uploadFileResult.key, 'keyForFile');
   });
@@ -76,8 +56,9 @@ void main() {
       return {};
     });
     try {
-      await Amplify.Storage.uploadFile(
-          key: 'keyForFile', local: File('path/to/file'));
+      await storage.uploadFile(
+          request: UploadFileRequest(
+              key: 'keyForFile', local: File('path/to/file')));
     } on StorageException catch (e) {
       expect(e.code, exceptionType.code);
       expect(e.message, exceptionType.message);
@@ -100,8 +81,9 @@ void main() {
           details: exceptionDetails);
     });
     try {
-      await Amplify.Storage.uploadFile(
-          key: 'keyForFile', local: File('path/to/file'));
+      await storage.uploadFile(
+          request: UploadFileRequest(
+              key: 'keyForFile', local: File('path/to/file')));
     } on StorageException catch (e) {
       expect(e.code, exceptionType.code);
       expect(e.message, exceptionType.message);

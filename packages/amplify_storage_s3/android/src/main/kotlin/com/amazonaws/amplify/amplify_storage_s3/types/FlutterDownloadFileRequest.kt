@@ -1,5 +1,3 @@
-package com.amazonaws.amplify.amplify_storage_s3.types
-
 /*
  * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -15,6 +13,8 @@ package com.amazonaws.amplify.amplify_storage_s3.types
  * permissions and limitations under the License.
  */
 
+package com.amazonaws.amplify.amplify_storage_s3.types
+
 import com.amplifyframework.storage.StorageAccessLevel
 import com.amplifyframework.storage.options.StorageDownloadFileOptions
 import java.io.File
@@ -27,7 +27,7 @@ data class FlutterDownloadFileRequest(val request: Map<String, *>) {
     private fun setOptions(request: Map<String, *>): StorageDownloadFileOptions {
         if (request["options"] != null) {
             val optionsMap = request["options"] as Map<String, *>
-            var options: StorageDownloadFileOptions.Builder = StorageDownloadFileOptions.builder()
+            var options: StorageDownloadFileOptions.Builder<*> = StorageDownloadFileOptions.builder()
 
             optionsMap.forEach { (optionKey, optionValue) ->
                 when (optionKey) {

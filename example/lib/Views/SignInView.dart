@@ -14,7 +14,7 @@
  */
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 
 import 'ErrorView.dart';
@@ -90,7 +90,7 @@ class _SignInViewState extends State<SignInView> {
                   ),
                 ),
                 const Padding(padding: EdgeInsets.all(10.0)),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: _signIn,
                   child: const Text('Sign In'),
                 ),

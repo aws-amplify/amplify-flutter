@@ -1,0 +1,21 @@
+codecov:
+  notify:
+    after_n_builds: 1
+
+coverage:
+  status:
+    project:
+      default:
+        target: 65%
+        if_not_found: success
+    patch:
+      default:
+        target: 80%
+        if_not_found: success
+
+comment:
+  layout: "diff, flags, files"
+  behavior: default
+  require_changes: false  # if true: only post the comment if coverage changes
+  require_base: no        # [yes :: must have a base report to post]
+  require_head: yes       # [yes :: must have a head report to post]

@@ -1,0 +1,10 @@
+[
+  {
+    "field": "post.id",
+    "order": "ascending"
+  },
+  {
+    "field": "rating",
+    "order": "descending"
+  }
+]

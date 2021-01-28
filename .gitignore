@@ -2,6 +2,7 @@
 .DS_Store
 build/
 **/ios/.generated/
+**/ios/.symlinks/
 **/android/.settings/
 pubspec.lock
 Podfile.lock
@@ -9,6 +10,9 @@ Podfile.lock
 *.jar
 Podfile.lock
 **/unpub-packages/
+**/coverage/
+**/test-results/
+.test_coverage.dart
 
 # IDEs
 .idea/
@@ -31,4 +35,3 @@ amplifyconfiguration.dart
 amplify-build-config.json
 amplify-gradle-config.json
 amplifytools.xcconfig
-

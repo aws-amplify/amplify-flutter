@@ -1,0 +1,42 @@
+{
+  "queryPredicateGroup": {
+    "type": "not",
+    "predicates": [
+      {
+        "queryPredicateGroup": {
+          "type": "and",
+          "predicates": [
+            {
+              "queryPredicateOperation": {
+                "field": "rating",
+                "fieldOperator": { "operatorName": "equal", "value": 1 }
+              }
+            },
+            {
+              "queryPredicateGroup": {
+                "type": "or",
+                "predicates": [
+                  {
+                    "queryPredicateOperation": {
+                      "field": "rating",
+                      "fieldOperator": { "operatorName": "equal", "value": 4 }
+                    }
+                  },
+                  {
+                    "queryPredicateOperation": {
+                      "field": "title",
+                      "fieldOperator": {
+                        "operatorName": "contains",
+                        "value": "crap"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
