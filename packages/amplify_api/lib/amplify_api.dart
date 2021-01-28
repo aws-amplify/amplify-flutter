@@ -47,6 +47,20 @@ class AmplifyAPI extends APIPluginInterface {
     return _instance.mutate(request: request);
   }
 
+  GraphQLSubscriptionOperation<T> subscribe<T>(
+      {@required GraphQLRequest<T> request,
+      @required Function(GraphQLResponse<T>) onData,
+      Function() onEstablished,
+      Function(dynamic) onError,
+      Function() onDone}) {
+    return _instance.subscribe(
+        request: request,
+        onEstablished: onEstablished,
+        onData: onData,
+        onError: onError,
+        onDone: onDone);
+  }
+
   // ====== RestAPI ======
   @override
   void cancelRequest(String cancelToken) {

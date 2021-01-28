@@ -19,6 +19,7 @@ import android.os.Handler
 import android.os.Looper
 import com.amplifyframework.api.aws.GsonVariablesSerializer
 import com.amplifyframework.api.graphql.SimpleGraphQLRequest
+import com.amplifyframework.api.graphql.SubscriptionType
 import com.amplifyframework.core.Amplify
 import io.flutter.plugin.common.MethodChannel
 
@@ -124,5 +125,64 @@ class FlutterGraphQLApi {
                 OperationsManager.addOperation(cancelToken, operation)
             }
         }
+
+        @JvmStatic
+        fun subscribe(flutterResult: MethodChannel.Result, request: Map<String, Any>, graphqlSubscriptionStreamHandler: GraphQLSubscriptionStreamHandler) {
+            var document: String
+            var variables: Map<String, Any>
+            var id: String
+            var established = false
+
+            try {
+                document = FlutterApiRequest.getGraphQLDocument(request)
+                variables = FlutterApiRequest.getVariables(request)
+                id = FlutterApiRequest.getCancelToken(request)
+            } catch (e: Exception) {
+                FlutterApiError.postFlutterError(
+                        flutterResult,
+                        FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString(),
+                        e)
+                return
+            }
+            var operation = Amplify.API.subscribe(
+                    SimpleGraphQLRequest<String>(
+                            document,
+                            variables,
+                            String::class.java,
+                            GsonVariablesSerializer()
+                    ),
+                    {
+                        established = true
+                        LOG.debug("Subscription established: $id")
+                        handler.post { flutterResult.success(null) }
+                    },
+                    {
+                        LOG.debug("GraphQL subscription event received: $it")
+                        graphqlSubscriptionStreamHandler.sendEvent(it.data, it.errors, id, GraphQLSubscriptionEventTypes.DATA)
+                    },
+                    {
+                        if (!id.isNullOrEmpty()) OperationsManager.removeOperation(id)
+                        if (established) {
+                            graphqlSubscriptionStreamHandler.sendError(
+                                    FlutterApiErrorMessage.AMPLIFY_API_SUBSCRIBE_FAILED.toString(),
+                                    FlutterApiError.createErrorMap(it))
+                        } else {
+                            FlutterApiError.postFlutterError(
+                                    flutterResult,
+                                    FlutterApiErrorMessage.AMPLIFY_API_FAILED_TO_ESTABLISH_SUBSCRIPTION.toString(),
+                                    it)
+                        }
+                    },
+                    {
+                        if (!id.isNullOrEmpty()) OperationsManager.removeOperation(id)
+                        LOG.debug("Subscription has been closed successfully")
+                        graphqlSubscriptionStreamHandler.sendEvent(null, emptyList(), id, GraphQLSubscriptionEventTypes.DONE)
+                    }
+            )
+            if (operation != null) {
+                OperationsManager.addOperation(id, operation)
+            }
+        }
+
     }
 }

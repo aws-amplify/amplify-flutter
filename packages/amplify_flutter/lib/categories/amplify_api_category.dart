@@ -47,6 +47,20 @@ class APICategory {
         : throw (_errorMsg);
   }
 
+  GraphQLSubscriptionOperation<T> subscribe<T>(
+      {@required GraphQLRequest<T> request,
+      @required Function(GraphQLResponse<T>) onData,
+      Function() onEstablished,
+      Function(dynamic) onError,
+      Function() onDone}) {
+    return plugins[0].subscribe(
+        request: request,
+        onEstablished: onEstablished,
+        onData: onData,
+        onError: onError,
+        onDone: onDone);
+  }
+
   // ====== RestAPI ======
   void cancelRequest(String code) {
     return plugins[0].cancelRequest(code);

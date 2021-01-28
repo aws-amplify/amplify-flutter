@@ -17,6 +17,7 @@ export 'GraphQL/GraphQLRequest.dart';
 export 'GraphQL/GraphQLOperation.dart';
 export 'GraphQL/GraphQLResponse.dart';
 export 'GraphQL/GraphQLResponseError.dart';
+export 'GraphQL/GraphQLSubscriptionOperation.dart';
 
 export 'RestAPI/RestOperation.dart';
 export 'RestAPI/RestOptions.dart';

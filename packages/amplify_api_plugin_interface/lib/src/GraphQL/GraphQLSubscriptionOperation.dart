@@ -13,12 +13,19 @@
  * permissions and limitations under the License.
  */
 
+import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
-import './types.dart';
 
-class GraphQLResponse<T> {
-  T data;
-  List<GraphQLResponseError> errors = [];
+const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/api');
 
-  GraphQLResponse({@required this.data, this.errors});
+class GraphQLSubscriptionOperation<T> {
+  Function _cancel;
+
+  GraphQLSubscriptionOperation({@required Function cancel}) {
+    _cancel = cancel;
+  }
+
+  void cancel() {
+    _cancel();
+  }
 }

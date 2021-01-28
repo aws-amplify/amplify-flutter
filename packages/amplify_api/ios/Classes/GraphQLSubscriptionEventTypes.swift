@@ -13,26 +13,8 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
-
-class GraphQLRequest<T> {
-  String document;
-  Map<String, dynamic> variables = {};
-
-  GraphQLRequest({
-    @required this.document,
-    Map<String, dynamic> variables,
-  }) {
-    if (variables != null) {
-      this.variables = variables;
-    }
-  }
-
-  Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> result = <String, dynamic>{};
-
-    result['document'] = this.document;
-    result['variables'] = this.variables;
-    return result;
-  }
+import Foundation
+enum GraphQLSubscriptionEventTypes: String {
+    case DATA = "DATA"
+    case DONE = "DONE"
 }

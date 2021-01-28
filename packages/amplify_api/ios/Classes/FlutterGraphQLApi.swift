@@ -131,4 +131,74 @@ class FlutterGraphQLApi {
             FlutterApiError.postFlutterError(flutterResult: flutterResult, msg: FlutterApiErrorMessage.MALFORMED.rawValue, errorMap: errorMap)
         }
     }
+    
+    static func subscribe(flutterResult: @escaping FlutterResult, request: [String: Any], bridge: ApiBridge, graphQLSubscriptionsStreamHandler: GraphQLSubscriptionsStreamHandler) {
+        do  {
+            let document = try FlutterApiRequest.getGraphQLDocument(methodChannelRequest: request)
+            let variables = try FlutterApiRequest.getVariables(methodChannelRequest: request)
+            let id = try FlutterApiRequest.getCancelToken(methodChannelRequest: request)
+            var established = false
+
+            let request = GraphQLRequest<String>(document: document,
+                                                 variables: variables,
+                                                 responseType: String.self)
+
+            let operation = bridge.subscribe(request: request, valueListener: { (subscriptionEvent) in
+                                switch subscriptionEvent {
+                                case .connection(let subscriptionConnectionState):
+                                    if(subscriptionConnectionState == SubscriptionConnectionState.connected) {
+                                        established = true
+                                        print("Subscription established: \(id)")
+                                        flutterResult(nil)
+                                    }
+                                case .data(let result):
+                                    switch result {
+                                    case .success(let data):
+                                        print("GraphQL subscription event received: \(data)")
+                                        let payload: [String: Any] = [
+                                            "data": data,
+                                            "errors": []
+                                        ]
+                                        graphQLSubscriptionsStreamHandler.sendEvent(payload: payload, id: id, type: GraphQLSubscriptionEventTypes.DATA)
+                                    case .failure(let error):
+                                        //TODO: Handle the different error responses
+                                        print("Got failed result with \(error.errorDescription)")
+                                    }
+                                }
+                            }) { result in
+                                switch result {
+                                case .success:
+                                    if(!id.isEmpty){
+                                        OperationsManager.removeOperation(cancelToken: id)
+                                    }
+                                    print("Subscription has been closed successfully")
+                                    graphQLSubscriptionsStreamHandler.sendEvent(payload: nil, id: id, type: GraphQLSubscriptionEventTypes.DONE)
+                                case .failure(let apiError):
+                                    print("Subscription has terminated with \(apiError)")
+                                    if(!id.isEmpty){
+                                        OperationsManager.removeOperation(cancelToken: id)
+                                    }
+                                    if(established) {
+                                        let errorMap = FlutterApiError.createErrorMap(localizedError: apiError.errorDescription, recoverySuggestion: apiError.errorDescription)
+                                        let flutterError = FlutterError(
+                                            code: "AmplifyException",
+                                            message: FlutterApiErrorMessage.SUBSCRIBE_FAILED.rawValue,
+                                            details: errorMap)
+                                        graphQLSubscriptionsStreamHandler.sendError(flutterError: flutterError)
+                                    } else {
+                                        FlutterApiError.handleAPIError(flutterResult: flutterResult, error: apiError, msg: FlutterApiErrorMessage.ESTABLISH_SUBSCRIPTION_FAILED.rawValue)
+                                    }
+                                }
+                            }
+            OperationsManager.addOperation(cancelToken: id, operation: operation)
+        } catch let error as APIError {
+            print("Failed to parse subscribe arguments with \(error)")
+            FlutterApiError.handleAPIError(flutterResult: flutterResult, error: error, msg: FlutterApiErrorMessage.MALFORMED.rawValue)
+        }
+        catch {
+            print("An unexpected error occured when parsing mutate arguments: \(error)")
+            let errorMap = FlutterApiError.createErrorMap(localizedError: "\(error.localizedDescription).\nAn unrecognized error has occurred", recoverySuggestion: "See logs for details")
+            FlutterApiError.postFlutterError(flutterResult: flutterResult, msg: FlutterApiErrorMessage.MALFORMED.rawValue, errorMap: errorMap)
+        }
+    }
 }

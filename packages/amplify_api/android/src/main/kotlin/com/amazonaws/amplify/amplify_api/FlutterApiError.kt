@@ -33,7 +33,8 @@ class FlutterApiError {
             handler.post { flutterResult.error("AmplifyException", msg, errorMap) }
         }
 
-        private fun createErrorMap(@NonNull error: Exception): Map<String, Any> {
+        @JvmStatic
+        fun createErrorMap(@NonNull error: Exception): Map<String, Any> {
             var localizedError = ""
             var recoverySuggestion = ""
             if (error is ApiException) {

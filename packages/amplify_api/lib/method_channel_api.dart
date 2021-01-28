@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
@@ -24,6 +25,8 @@ import 'amplify_api.dart';
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/api');
 
 class AmplifyAPIMethodChannel extends AmplifyAPI {
+  var _allSubscriptionsStream = null;
+
   // ====== GraphQL ======
   @override
   GraphQLOperation<T> query<T>({@required GraphQLRequest<T> request}) {
@@ -55,6 +58,61 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     return result;
   }
 
+  @override
+  GraphQLSubscriptionOperation<T> subscribe<T>(
+      {@required GraphQLRequest<T> request,
+      @required Function(GraphQLResponse<T>) onData,
+      Function() onEstablished,
+      Function(dynamic) onError,
+      Function() onDone}) {
+    const _eventChannel =
+        EventChannel('com.amazonaws.amplify/api_observe_events');
+    _allSubscriptionsStream =
+        _allSubscriptionsStream ?? _eventChannel.receiveBroadcastStream(0);
+
+    //TODO: Either re-name the cancelToken field to id, or remove entirely
+    final subscriptionId = request.cancelToken;
+
+    _setupSubscription(
+      id: subscriptionId,
+      request: request,
+      onEstablished: onEstablished,
+    );
+
+    Stream<Map<String, dynamic>> filteredStream = _allSubscriptionsStream
+        .where((event) {
+          return event["id"] == subscriptionId;
+        })
+        .map((event) => {
+              "data": event["payload"]["data"],
+              "errors": event["payload"]["errors"],
+              "type": event["type"]
+            })
+        .asBroadcastStream()
+        .cast<Map<String, dynamic>>();
+
+    StreamSubscription _subscription = filteredStream.listen((event) {
+      if (event["type"] == "DONE") {
+        onDone();
+      } else {
+        final errors = _deserializeGraphQLResponseErrors(event);
+        GraphQLResponse<T> response =
+            GraphQLResponse<T>(data: event['data'], errors: errors);
+        onData(response);
+      }
+    });
+
+    //TODO: This should convert the exception to APIException if present
+    _subscription.onError(onError);
+
+    Function cancel = () {
+      _subscription.cancel();
+      cancelRequest(subscriptionId);
+    };
+
+    return GraphQLSubscriptionOperation(cancel: cancel);
+  }
+
   Future<GraphQLResponse<T>> _getMethodChannelResponse<T>({
     @required methodName,
     @required GraphQLRequest<T> request,
@@ -72,6 +130,25 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
           GraphQLResponse<T>(data: result['data'], errors: errors);
 
       return response;
+    } on PlatformException catch (e) {
+      throw _formatError(e);
+    }
+  }
+
+  Future<void> _setupSubscription({
+    @required String id,
+    @required GraphQLRequest request,
+    void Function() onEstablished,
+  }) async {
+    try {
+      await _channel.invokeMethod<String>(
+        'subscribe',
+        request.serializeAsMap(),
+      );
+
+      if (onEstablished != null) {
+        onEstablished();
+      }
     } on PlatformException catch (e) {
       throw _formatError(e);
     }
@@ -148,10 +225,10 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
 
   @override
   void cancelRequest(String cancelToken) async {
-    print("Attempting to cancel RestOperation " + cancelToken);
+    print("Attempting to cancel Operation " + cancelToken);
 
     await _channel.invokeMethod("cancel", cancelToken).then((result) {
-      print("Cancel succeeded for RestOperation: " + cancelToken);
+      print("Cancel succeeded for Operation: " + cancelToken);
     }).catchError((e) {
       print("Cancel request failed due to: " + e.message + " " + e.code);
     });
