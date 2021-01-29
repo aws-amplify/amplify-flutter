@@ -15,7 +15,7 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when Amplify could not perform the action because number of allowed operation has exceeded.
+/// Thrown when Amplify encounters a Lambda error.
 class LimitExceededException extends AuthException {
   /// Named constructor
   LimitExceededException(String message,
