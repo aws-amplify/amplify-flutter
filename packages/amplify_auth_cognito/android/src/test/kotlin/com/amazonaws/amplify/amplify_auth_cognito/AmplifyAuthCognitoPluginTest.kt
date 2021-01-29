@@ -15,6 +15,7 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito
 
+import android.app.Activity
 import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.BasicAWSCredentials
 import com.amazonaws.services.cognitoidentityprovider.model.AliasExistsException
@@ -375,10 +376,28 @@ class AmplifyAuthCognitoPluginTest {
     }
 
     @Test
+    fun signInWithWebUI_returnsSuccess() {
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareSignInResult(mockResult, mockSignInResult)
+            null as Void?
+        }.`when`(mockAuth).signInWithWebUI(any(), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        val data: HashMap<*, *> =  HashMap<String, String>()
+        val arguments: HashMap<String, Any?> = hashMapOf("data" to data)
+        val call = MethodCall("signInWithWebUI", arguments)
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>())
+    }
+
+    @Test
     fun signInWithSocialWebUI_returnsSuccess() {
         // Arrange
         doAnswer { invocation: InvocationOnMock ->
-            plugin.prepareUpdatePasswordResult(mockResult)
+            plugin.prepareSignInResult(mockResult, mockSignInResult)
             null as Void?
         }.`when`(mockAuth).signInWithSocialWebUI(any(), ArgumentMatchers.any<Activity>(), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
 
@@ -395,23 +414,7 @@ class AmplifyAuthCognitoPluginTest {
         verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>())
     }
 
-    @Test
-    fun signInWithWebUI_returnsSuccess() {
-        // Arrange
-        doAnswer { invocation: InvocationOnMock ->
-            plugin.prepareUpdatePasswordResult(mockResult)
-            null as Void?
-        }.`when`(mockAuth).signInWithWebUI(any(), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
 
-        val arguments: HashMap<String, Any?> = hashMapOf("data" to null)
-        val call = MethodCall("signInWithWebUI", arguments)
-
-        // Act
-        plugin.onMethodCall(call, mockResult)
-
-        // Assert
-        verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>())
-    }
 
     private fun setFinalStatic(field: Field, newValue: Any?) {
         field.isAccessible = true

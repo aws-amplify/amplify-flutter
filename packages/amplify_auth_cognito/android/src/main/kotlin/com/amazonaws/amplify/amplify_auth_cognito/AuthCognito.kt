@@ -22,15 +22,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
 import androidx.annotation.VisibleForTesting
-import com.amazonaws.AmazonClientException
-import com.amazonaws.AmazonServiceException
 import com.amazonaws.amplify.amplify_auth_cognito.types.*
-import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
-import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedError
-import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.exceptions.CognitoCodeExpiredException
-import com.amazonaws.services.cognitoidentityprovider.model.*
-import com.amplifyframework.AmplifyException
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthProvider
 import com.amplifyframework.auth.AuthSession
@@ -42,7 +34,6 @@ import com.amplifyframework.auth.result.AuthSessionResult
 import com.amplifyframework.auth.result.AuthSignInResult
 import com.amplifyframework.auth.result.AuthSignUpResult
 import com.amplifyframework.core.Amplify
-import com.amplifyframework.hub.SubscriptionToken
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -61,13 +52,12 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
   private lateinit var channel: MethodChannel
   private lateinit var context: Context
   private lateinit var mainActivity: Activity
+  private val errorHandler: AuthErrorHandler = AuthErrorHandler()
   private val LOG = Amplify.Logging.forNamespace("amplify:flutter:auth_cognito")
   lateinit var hubEventChannel: EventChannel
   private val authCognitoHubEventStreamHandler: AuthCognitoHubEventStreamHandler
   var eventMessenger: BinaryMessenger? = null
-  private lateinit var token: SubscriptionToken
-  private val genericMessage = "An unexpected error has occurred"
-  private val genericRecovery = "An unexpected error has occurred. See logs Android for details"
+  private lateinit var activityBinding: ActivityPluginBinding
 
   constructor() {
       authCognitoHubEventStreamHandler = AuthCognitoHubEventStreamHandler()
@@ -129,7 +119,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
     try {
       data = checkData(checkArguments(call.arguments));
     } catch(e: Exception) {
-      return prepareGenericException(result, e)
+      return errorHandler.prepareGenericException(result, e)
     }
 
     when (call.method) {
@@ -144,6 +134,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       "fetchAuthSession" -> onFetchAuthSession(result, data)
       "resendSignUpCode" -> onResendSignUpCode(result, data)
       "getCurrentUser" -> onGetCurrentUser(result)
+      "signInWithWebUI" -> onSignInWithWebUI(result, data)
       else -> result.notImplemented()
     }
   }
@@ -166,13 +157,13 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
               { error ->
                 if (!errorSent) {
                   errorSent = true
-                  handleAuthError(flutterResult, error)
+                  errorHandler.handleAuthError(flutterResult, error)
                 }
-                LOG.error("AmplifyAuthException", error)
+                LOG.error("AuthException", error)
               }
       );
     } catch (e: Exception) {
-      prepareGenericException(flutterResult, e)
+      errorHandler.prepareGenericException(flutterResult, e)
     }
   }
 
@@ -184,10 +175,10 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
               req.username,
               req.confirmationCode,
               { result -> prepareSignUpResult(flutterResult, result)},
-              { error -> handleAuthError(flutterResult, error)}
+              { error -> errorHandler.handleAuthError(flutterResult, error)}
       )
     } catch (e: Exception) {
-      prepareGenericException(flutterResult, e)
+      errorHandler.prepareGenericException(flutterResult, e)
     }
   }
 
@@ -198,10 +189,10 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
         Amplify.Auth.resendSignUpCode(
                 req.username,
                 { result -> prepareResendSignUpCodeResult(flutterResult, result) },
-                { error -> handleAuthError(flutterResult, error)}
+                { error -> errorHandler.handleAuthError(flutterResult, error)}
         )
       } catch (e: Exception) {
-        prepareGenericException(flutterResult, e)
+        errorHandler.prepareGenericException(flutterResult, e)
       }
   }
 
@@ -213,10 +204,10 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
                 req.username,
                 req.password,
                 { result -> prepareSignInResult(flutterResult, result) },
-                { error -> handleAuthError(flutterResult, error)}
+                { error -> errorHandler.handleAuthError(flutterResult, error)}
         );
       } catch (e: Exception) {
-        prepareGenericException(flutterResult, e)
+        errorHandler.prepareGenericException(flutterResult, e)
       }
   }
 
@@ -227,10 +218,10 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
         Amplify.Auth.confirmSignIn(
                 req.confirmationCode,
                 { result -> prepareSignInResult(flutterResult, result)},
-                { error -> handleAuthError(flutterResult, error)}
+                { error -> errorHandler.handleAuthError(flutterResult, error)}
         );
       } catch (e: Exception) {
-        prepareGenericException(flutterResult, e)
+        errorHandler.prepareGenericException(flutterResult, e)
       }
   }
 
@@ -241,10 +232,10 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       Amplify.Auth.signOut(
               req.signOutOptions,
               {  -> prepareSignOutResult(flutterResult)},
-              { error -> handleAuthError(flutterResult, error)}
+              { error -> errorHandler.handleAuthError(flutterResult, error)}
       );
     } catch (e: Exception) {
-      prepareGenericException(flutterResult, e)
+      errorHandler.prepareGenericException(flutterResult, e)
     }
   }
 
@@ -256,10 +247,10 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
                 req.oldPassword,
                 req.newPassword,
                 {  -> prepareUpdatePasswordResult(flutterResult)},
-                { error -> handleAuthError(flutterResult, error)}
+                { error -> errorHandler.handleAuthError(flutterResult, error)}
         );
       } catch (e: Exception) {
-        prepareGenericException(flutterResult, e)
+        errorHandler.prepareGenericException(flutterResult, e)
       }
   }
 
@@ -270,10 +261,10 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
         Amplify.Auth.resetPassword(
                 req.username,
                 { result -> prepareResetPasswordResult(flutterResult, result)},
-                { error -> handleAuthError(flutterResult, error) }
+                { error -> errorHandler.handleAuthError(flutterResult, error) }
         );
       } catch (e: Exception) {
-        prepareGenericException(flutterResult, e)
+        errorHandler.prepareGenericException(flutterResult, e)
       }
   }
 
@@ -285,10 +276,10 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
                 req.newPassword,
                 req.confirmationCode,
                 {  -> prepareUpdatePasswordResult(flutterResult)},
-                { error -> handleAuthError(flutterResult, error)}
+                { error -> errorHandler.handleAuthError(flutterResult, error)}
         );
       } catch (e: Exception) {
-        prepareGenericException(flutterResult, e)
+        errorHandler.prepareGenericException(flutterResult, e)
       }
   }
 
@@ -324,10 +315,10 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
                   prepareSessionResult(flutterResult, session)
                 }
               },
-              { error -> handleAuthError(flutterResult, error) }
+              { error -> errorHandler.handleAuthError(flutterResult, error) }
       )
     } catch (e: Exception) {
-      prepareGenericException(flutterResult, e)
+      errorHandler.prepareGenericException(flutterResult, e)
     }
   }
 
@@ -335,12 +326,15 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
     try {
       var user: AuthUser? = Amplify.Auth.currentUser;
       if (user is AuthUser) {
-         prepareUserResult(flutterResult, user);
+        prepareUserResult(flutterResult, user);
       } else {
-        throw AuthException.SignedOutException()
+        // TODO: Mechanism to check guest access status
+        throw AuthException.SignedOutException(AuthException.GuestAccess.GUEST_ACCESS_DISABLED)
       }
+    } catch (e: AuthException) {
+      errorHandler.handleAuthError(flutterResult, e)
     } catch (e: Exception) {
-      prepareGenericException(flutterResult, e)
+      errorHandler.prepareGenericException(flutterResult, e)
     }
   }
 
@@ -348,6 +342,44 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
     var signUpData = FlutterSignUpResult(result);
     Handler (Looper.getMainLooper()).post {
       flutterResult.success(signUpData.toValueMap());
+    }
+  }
+
+  private fun onSignInWithWebUI(@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
+    try {
+      FlutterSignInWithWebUIRequest.validate(request)
+      var req = FlutterSignInWithWebUIRequest(request)
+      var resultSubmitted: Boolean = false;
+        if (req.provider == null) {
+          mainActivity.let {
+            Amplify.Auth.signInWithWebUI(
+                    it,
+                    { result ->
+                      if (!resultSubmitted) {
+                        resultSubmitted = true;
+                        prepareSignInResult(flutterResult, result)
+                      }
+                    },
+                    { error -> errorHandler.handleAuthError(flutterResult, error) }
+            )
+          }
+        } else {
+          mainActivity.let {
+            Amplify.Auth.signInWithSocialWebUI(
+                    AuthProvider::class.java.getMethod(req.provider).invoke(null) as AuthProvider,
+                    it,
+                    { result ->
+                      if (!resultSubmitted) {
+                        resultSubmitted = true;
+                        prepareSignInResult(flutterResult, result)
+                      }
+                    },
+                    { error -> errorHandler.handleAuthError(flutterResult, error) }
+            )
+          }
+        }
+    } catch (e: Exception) {
+      errorHandler.prepareGenericException(flutterResult, e)
     }
   }
 
@@ -401,42 +433,13 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
   }
 
   fun prepareCognitoSessionFailure(@NonNull flutterResult: Result, @NonNull result: AWSCognitoAuthSession) {
-    handleAuthError(flutterResult, AuthException.SignedOutException())
+    errorHandler.handleAuthError(flutterResult, AuthException.SignedOutException())
   }
 
   fun prepareSessionResult(@NonNull flutterResult: Result, @NonNull result: AuthSession) {
     var session = FlutterFetchAuthSessionResult(result);
     Handler (Looper.getMainLooper()).post {
       flutterResult.success(session.toValueMap());
-    }
-  }
-
-  fun handleAuthError(@NonNull flutterResult: MethodChannel.Result, @NonNull error: Exception) {
-
-    var serializedError: Map<String, Any?> = emptyMap()
-    if (error is AmplifyException) {
-      serializedError = createSerializedError(error)
-    } else if (error is AmazonClientException) {
-      var message: String = if (error.message != null) error.message!! else genericMessage
-      serializedError = createSerializedError(message, genericRecovery, error.toString())
-    }
-
-    var errorCode = getErrorCode(error)
-    LOG.error(errorCode, error)
-    Handler (Looper.getMainLooper()).post {
-      postExceptionToFlutterChannel(flutterResult, errorCode, serializedError)
-    }
-  }
-
-  fun prepareGenericException(@NonNull flutterResult: MethodChannel.Result, @NonNull underlyingError: Exception) {
-    LOG.error("AmplifyAuthException", underlyingError)
-    var serializedErrror = createSerializedError(
-      genericMessage,
-      genericRecovery,
-      underlyingError.toString())
-
-    Handler (Looper.getMainLooper()).post {
-      postExceptionToFlutterChannel(flutterResult, "AmplifyAuthException", serializedErrror)
     }
   }
 }

@@ -51,14 +51,14 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
     
     private func checkArguments(args: Any) throws -> Dictionary<String, AnyObject> {
         guard let res = args as? Dictionary<String, AnyObject> else {
-            throw AuthError.validation("arguments", "Flutter method call arguments are not a map.", "Check the values that are being passed from Dart.")
+            throw AmplifyFlutterValidationException(errorDescription:  "Flutter method call arguments.data is not a map.", recoverySuggestion: "Check the values that are being passed from Dart.")
         }
         return res;
     }
     
     private func checkData(args: Dictionary<String, AnyObject>) throws -> NSMutableDictionary {
         guard let res = args["data"] as? NSMutableDictionary else {
-            throw AuthError.validation("arguments", "Flutter method call arguments.data is not a map.", "Check the values that are being passed from Dart.")
+            throw AmplifyFlutterValidationException(errorDescription:  "Flutter method call arguments.data is not a map.", recoverySuggestion: "Check the values that are being passed from Dart.")
         }
         return res;
     }
@@ -70,7 +70,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
             try arguments = checkArguments(args: call.arguments as Any)
             try data = checkData(args: arguments)
         } catch {
-//            return prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: formatErrorMap(errorCode: "validation"))
+            self.errorHandler.prepareGenericException(flutterResult: result, underlyingError: error)
         }
         switch call.method {
         case "signUp":
@@ -146,18 +146,17 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
         case "getCurrentUser":
             cognito.onGetCurrentUser(flutterResult: result)
         case "signInWithWebUI":
-            if (FlutterSignInWithWebUIRequest.validate(dict: data)) {
+            do {
+                try FlutterSignInWithWebUIRequest.validate(dict: data)
                 let request = FlutterSignInWithWebUIRequest(dict: data)
                 if request.provider == nil {
                     cognito.onSignInWithWebUI(flutterResult: result)
                 } else {
                     cognito.onSignInWithSocialWebUI(flutterResult: result, request: request)
                 }
-            } else {
-                let errorCode = "UNKNOWN"
-                prepareError(flutterResult: result,  msg: FlutterAuthErrorMessage.MALFORMED.rawValue, errorMap: formatErrorMap(errorCode: errorCode))
+            } catch {
+                self.errorHandler.prepareGenericException(flutterResult: result, underlyingError: error)
             }
-
         default:
             result(FlutterMethodNotImplemented)
         }

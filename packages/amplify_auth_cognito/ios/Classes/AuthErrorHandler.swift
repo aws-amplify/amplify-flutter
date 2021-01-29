@@ -41,7 +41,7 @@ public class AuthErrorHandler {
                             exception = "DeviceNotTrackedException"
                         //TODO: Investigate Android case
                         case .errorLoadingUI:
-                            exception = "AmplifyAuthException"
+                            exception = "AuthException"
                         case .failedAttemptsLimitExceeded:
                             exception = "FailedAttemptsLimitExceededException"
                         case .invalidAccountTypeException:
@@ -58,7 +58,7 @@ public class AuthErrorHandler {
                             exception = "MFAMethodNotFoundException"
                         //TODO: Determine equivalent Android exception
                         case .network:
-                            exception = "AmplifyAuthException"
+                            exception = "AuthException"
                         case .passwordResetRequired:
                             exception = "PasswordResetRequiredException"
                         case .requestLimitExceeded:
@@ -76,7 +76,7 @@ public class AuthErrorHandler {
                         case .userNotFound:
                             exception = "UserNotFoundException"
                         case .none:
-                            exception = "AmplifyAuthException"
+                            exception = "AuthException"
                     }
                 
                 }
@@ -91,7 +91,7 @@ public class AuthErrorHandler {
                 exception = "UnknownException"
             }
             if case .invalidState = authError as! AuthError {
-                exception = "AmplifyAuthException"
+                exception = "AuthException"
             }
             if case .notAuthorized = authError as! AuthError  {
                 exception = "NotAuthorizedException"
@@ -118,14 +118,19 @@ public class AuthErrorHandler {
 
    func prepareGenericException(flutterResult: @escaping FlutterResult, underlyingError: Error) {
         logErrorContents(error: underlyingError)
+        var underlyingErrorString: String = underlyingError.localizedDescription
+        if (underlyingError is AmplifyFlutterValidationException) {
+            let e = underlyingError as! AmplifyFlutterValidationException
+            underlyingErrorString = e.errorDescription
+        }
         let serializedErrror = createSerializedError(
             message: "An unexpected error has occurred",
             recoverySuggestion: "See iOS logs for details",
-            underlyingError: underlyingError.localizedDescription)
+            underlyingError: underlyingErrorString)
 
         ErrorUtil.postErrorToFlutterChannel(
             result: flutterResult,
-            errorCode: "AmplifyAuthException",
+            errorCode: "AuthException",
             details: serializedErrror)
     }
     
@@ -139,6 +144,7 @@ public class AuthErrorHandler {
 
     private func createSerializedError(message: String, recoverySuggestion: String, underlyingError: String)  -> Dictionary<String, String> {
         var serializedException: Dictionary<String, String> = [:]
+        serializedException["message"] = message
         serializedException["recoverySuggestion"] = recoverySuggestion
         serializedException["underlyingException"] = underlyingError
         return serializedException

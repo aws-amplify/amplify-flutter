@@ -32,7 +32,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       await _channel.invokeMapMethod<String, dynamic>(
         'signUp',
         <String, dynamic>{
-          'data2': request.serializeAsMap(),
+          'data': request.serializeAsMap(),
         },
       );
       res = _formatSignUpResponse(data, "signUp");
@@ -267,8 +267,8 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       );
       return _formatSignInResponse(data, "signIn");
     } on PlatformException catch(e) {
-      _throwError(e);
-    } on AuthError catch(e) {
+      castAndThrowPlatformException(e);
+    } on Exception catch(e) {
       throw(e);
     }
     return res;

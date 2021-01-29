@@ -1,8 +1,8 @@
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 
+// ignore_for_file: public_member_api_docs
 class ConfirmSignUpWidget extends StatefulWidget {
   final Function showResult;
   final Function changeDisplay;
@@ -22,12 +22,12 @@ class _ConfirmSignUpWidgetState extends State<ConfirmSignUpWidget> {
 
   void _confirmSignUp() async {
     try {
-      SignUpResult res = await Amplify.Auth.confirmSignUp(
+      var res = await Amplify.Auth.confirmSignUp(
           username: usernameController.text.trim(),
           confirmationCode: confirmationCodeController.text.trim());
-      widget.showResult("Confirm Sign Up Status = " + res.nextStep.signUpStep);
+      widget.showResult('Confirm Sign Up Status = ' + res.nextStep.signUpStep);
       widget.changeDisplay(
-          res.nextStep.signUpStep != "DONE" ? "SHOW_CONFIRM" : "SHOW_SIGN_IN");
+          res.nextStep.signUpStep != 'DONE' ? 'SHOW_CONFIRM' : 'SHOW_SIGN_IN');
     } on AmplifyException catch (e) {
       widget.setError(e);
     }
@@ -35,11 +35,11 @@ class _ConfirmSignUpWidgetState extends State<ConfirmSignUpWidget> {
 
   void _resendSignUpCode() async {
     try {
-      ResendSignUpCodeResult res = await Amplify.Auth.resendSignUpCode(
+      var res = await Amplify.Auth.resendSignUpCode(
         username: usernameController.text.trim(),
       );
       widget.showResult(
-          "Sign Up Code Resent to " + res.codeDeliveryDetails.destination);
+          'Sign Up Code Resent to ' + res.codeDeliveryDetails.destination);
     } on AmplifyException catch (e) {
       widget.setError(e);
     }
