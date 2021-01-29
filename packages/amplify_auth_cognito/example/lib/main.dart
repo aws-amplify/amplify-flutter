@@ -51,8 +51,7 @@ class _MyAppState extends State<MyApp> {
   String displayState;
   String authState = 'User not signed in';
   String lastHubEvent = '';
-  String error = '';
-  List<String> exceptions = [];
+  AmplifyException error;
 
   @override
   void initState() {
@@ -61,8 +60,7 @@ class _MyAppState extends State<MyApp> {
 
   void showResult(_authState) async {
     setState(() {
-      error = '';
-      exceptions = [];
+      error = null;
       authState = _authState;
     });
     print(authState);
@@ -70,8 +68,7 @@ class _MyAppState extends State<MyApp> {
 
   void changeDisplay(_displayState) async {
     setState(() {
-      error = '';
-      exceptions = [];
+      error = null;
       displayState = _displayState;
     });
     print(displayState);
@@ -79,12 +76,8 @@ class _MyAppState extends State<MyApp> {
 
   void setError(AmplifyException e) async {
     setState(() {
-      exceptions = [];
+      error = e;
     });
-    setState(() {
-      error = e.message;
-    });
-    print(e);
   }
 
   void _configureAmplify() async {
@@ -148,7 +141,7 @@ class _MyAppState extends State<MyApp> {
       changeDisplay('SHOW_SIGN_IN');
     } on AmplifyException catch (e) {
       setState(() {
-        error = e.message;
+        error = e;
       });
       print(e);
     }
@@ -192,6 +185,28 @@ class _MyAppState extends State<MyApp> {
 
   void _backToApp() async {
     changeDisplay('SIGNED_IN');
+  }
+
+  Widget showErrors() {
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+        Expanded(
+        // wrap your Column in Expanded
+          child: Column(
+            children: [
+              Text('Error: ' + error.runtimeType.toString()),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              Text('Message: ' + error.message),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              Text('Recovery: ' + error.recoverySuggestion),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              Text('Underlying: ' + error.underlyingException),
+            ]
+          )
+        )
+      ]
+    );
   }
 
   Widget showApp() {
@@ -294,6 +309,7 @@ class _MyAppState extends State<MyApp> {
                             _isAmplifyConfigured ? null : _configureAmplify,
                         child: const Text('configure'),
                       ),
+                      if (error != null) showErrors()
                     ])
               ],
             ),

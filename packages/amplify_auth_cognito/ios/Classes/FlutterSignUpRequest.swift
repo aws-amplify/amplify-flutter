@@ -44,13 +44,12 @@ struct FlutterSignUpRequest {
     return formattedAttributes
   }
     
-  static func validate(dict: NSMutableDictionary) -> Bool {
-    var valid: Bool = true;
+  static func validate(dict: NSMutableDictionary) throws {
+    let validationErrorMessage = "SignUp Request malformed."
     if (dict["options"] == nil) {
-      valid = false;
+      throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "Request map is null or malformed. Check that request is present and properly formed.")
     } else if (dict["password"] == nil) {
-      valid = false;
+        throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "password is missing")
     }
-    return valid;
   }
 }

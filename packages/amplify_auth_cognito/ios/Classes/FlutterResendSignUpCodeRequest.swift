@@ -19,11 +19,10 @@ struct FlutterResendSignUpCodeRequest {
   init(dict: NSMutableDictionary){
     self.username = dict["username"] as! String
   }
-  static func validate(dict: NSMutableDictionary) -> Bool {
-    var valid: Bool = true;
+  static func validate(dict: NSMutableDictionary) throws {
+    let validationErrorMessage = "ResendSignUpCode Request malformed."
     if (dict["username"] == nil) {
-      valid = false;
+      throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "username is missing.")
     }
-    return valid;
   }
 }

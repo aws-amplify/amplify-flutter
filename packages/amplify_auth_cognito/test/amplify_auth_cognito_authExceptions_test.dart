@@ -193,22 +193,6 @@ void main() {
     expect(amplifyException.underlyingException, underlyingException);
   });
 
-  test('castAndThrowPlatformException returns an LimitExceededException', () async {
-    PlatformException exception = PlatformException(code: "LimitExceededException", details: details);
-    AmplifyException amplifyException;
-    try {
-      await castAndThrowPlatformException(exception);
-    } catch (e) {
-      amplifyException = e;
-    }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<LimitExceededException>());
-    expect(amplifyException.message, message);
-    expect(amplifyException.recoverySuggestion, recoverySuggestion);
-    expect(amplifyException.underlyingException, underlyingException);
-  });
-
   test('castAndThrowPlatformException returns an MFAMethodNotFoundException', () async {
     PlatformException exception = PlatformException(code: "MFAMethodNotFoundException", details: details);
     AmplifyException amplifyException;

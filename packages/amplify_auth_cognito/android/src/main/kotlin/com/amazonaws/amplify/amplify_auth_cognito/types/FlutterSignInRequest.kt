@@ -26,14 +26,14 @@ data class FlutterSignInRequest(val map: HashMap<String, *>) {
     private const val validationErrorMessage: String = "SignIn Request malformed."
     fun validate(req : HashMap<String, *>?) {
       if (req == null || req !is HashMap<String, *>) {
-        throw AmplifyException(validationErrorMessage, "Request map is null or malformed. Check that request is present and properly formed.")
+        throw AmplifyFlutterValidationException(validationErrorMessage, "Request map is null or malformed. Check that request is present and properly formed.")
       } else {
         // username and password are optional if options are passed for clientmetadata auth flows
         if (
           (req["username"]  == null || req["password"] == null) &&
           (req["options"] == null || (req["options"] as HashMap<String, *>).size < 1 )
         ){
-          throw AmplifyException(validationErrorMessage, "username and password are missing, and you are not using a custom auth flow.")
+          throw AmplifyFlutterValidationException(validationErrorMessage, "username and password are missing, and you are not using a custom auth flow.")
         }
       }
     }

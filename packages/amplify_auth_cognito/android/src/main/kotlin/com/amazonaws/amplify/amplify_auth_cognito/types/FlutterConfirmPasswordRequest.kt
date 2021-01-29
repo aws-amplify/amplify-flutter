@@ -28,13 +28,13 @@ data class FlutterConfirmPasswordRequest(val map: HashMap<String, *>) {
     private const val validationErrorMessage: String = "ConfirmPassword Request malformed."
     fun validate(req : HashMap<String, *>?) {
       if (req == null || req !is HashMap<String, *>) {
-        throw AmplifyException(validationErrorMessage, "Request map is null or malformed. Check that request is present and properly formed.")
+        throw AmplifyFlutterValidationException(validationErrorMessage, "Request map is null or malformed. Check that request is present and properly formed.")
       } else if (req != null) {
         if (!req.containsKey("newPassword")) {
-          throw AmplifyException(validationErrorMessage, "newPassword is missing.")
+          throw AmplifyFlutterValidationException(validationErrorMessage, "newPassword is missing.")
         }
         if (!req.containsKey("confirmationCode")) {
-          throw AmplifyException(validationErrorMessage, "confirmationCode is missing.")
+          throw AmplifyFlutterValidationException(validationErrorMessage, "confirmationCode is missing.")
         }
       }
     }
