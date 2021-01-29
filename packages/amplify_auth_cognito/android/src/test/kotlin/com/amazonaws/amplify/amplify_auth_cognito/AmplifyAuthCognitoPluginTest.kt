@@ -81,12 +81,12 @@ class AmplifyAuthCognitoPluginTest {
         }.`when`(mockAuth).signUp(anyString(), anyString(), any(AuthSignUpOptions::class.java), ArgumentMatchers.any<Consumer<AuthSignUpResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val userAttributes = hashMapOf("email" to "test@test.com")
         val options = hashMapOf(
-            "userAttributes" to userAttributes
+                "userAttributes" to userAttributes
         )
         val data: HashMap<*, *> = hashMapOf(
-            "username" to "testUser",
-            "password" to "testPassword",
-            "options" to options
+                "username" to "testUser",
+                "password" to "testPassword",
+                "options" to options
         )
         val arguments = hashMapOf("data" to data)
         val call = MethodCall("signUp", arguments)
