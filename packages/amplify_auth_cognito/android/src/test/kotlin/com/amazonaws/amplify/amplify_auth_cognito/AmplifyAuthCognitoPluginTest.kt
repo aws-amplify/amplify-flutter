@@ -15,11 +15,10 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito
 
-import android.app.Activity
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthFailureMessage
 import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.BasicAWSCredentials
-import com.amazonaws.regions.RegionUtils.init
+import com.amazonaws.services.cognitoidentityprovider.model.AliasExistsException
+import com.amazonaws.services.cognitoidentityprovider.model.UserNotFoundException
 import com.amplifyframework.auth.*
 import com.amplifyframework.auth.options.AuthSignOutOptions
 import com.amplifyframework.auth.options.AuthSignUpOptions
@@ -60,7 +59,6 @@ class AmplifyAuthCognitoPluginTest {
     private val mockSignUpResult = AuthSignUpResult(false, signUpStep, null)
     private val mockSignInResult = AuthSignInResult(false, signInStep)
     private val mockResetPasswordResult = AuthResetPasswordResult(false, resetStep)
-    private var currentException: AuthException? = null;
     private var mockAuth = mock(AuthCategory::class.java)
 
     @Before
@@ -77,21 +75,17 @@ class AmplifyAuthCognitoPluginTest {
     fun signUp_returnsSuccess() {
         // Arrange
         doAnswer { invocation: InvocationOnMock ->
-            if (this.currentException == null) {
-              plugin.prepareSignUpResult(mockResult, mockSignUpResult)
-            } else {
-              plugin.prepareError(mockResult, currentException as AuthException, FlutterAuthFailureMessage.SIGNUP.toString())
-            }
+            plugin.prepareSignUpResult(mockResult, mockSignUpResult)
             null as Void?
         }.`when`(mockAuth).signUp(anyString(), anyString(), any(AuthSignUpOptions::class.java), ArgumentMatchers.any<Consumer<AuthSignUpResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val userAttributes = hashMapOf("email" to "test@test.com")
         val options = hashMapOf(
-            "userAttributes" to userAttributes
+                "userAttributes" to userAttributes
         )
         val data: HashMap<*, *> = hashMapOf(
-            "username" to "testUser",
-            "password" to "testPassword",
-            "options" to options
+                "username" to "testUser",
+                "password" to "testPassword",
+                "options" to options
         )
         val arguments = hashMapOf("data" to data)
         val call = MethodCall("signUp", arguments)

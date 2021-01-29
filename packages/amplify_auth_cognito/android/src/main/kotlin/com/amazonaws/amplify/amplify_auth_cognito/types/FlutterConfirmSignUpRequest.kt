@@ -26,13 +26,13 @@ data class FlutterConfirmSignUpRequest(val map: HashMap<String, *>) {
         private const val validationErrorMessage: String = "ConfirmSignUp Request malformed."
         fun validate(req : HashMap<String, *>?) {
             if (req == null) {
-                throw AmplifyException(validationErrorMessage, "Request map is null or malformed. Check that request is present and properly formed.")
+                throw AmplifyFlutterValidationException(validationErrorMessage, "Request map is null or malformed. Check that request is present and properly formed.")
             } else {
                 if (!req.containsKey("username")) {
-                    throw AmplifyException(validationErrorMessage, "username is missing.")
+                    throw AmplifyFlutterValidationException(validationErrorMessage, "username is missing.")
                 }
                 if (!req.containsKey("confirmationCode")) {
-                    throw AmplifyException(validationErrorMessage, "confirmationCode is missing.")
+                    throw AmplifyFlutterValidationException(validationErrorMessage, "confirmationCode is missing.")
                 }
             }
         }

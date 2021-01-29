@@ -75,16 +75,16 @@ data class FlutterSignUpRequest(val map: HashMap<String, *>) {
         private const val validationErrorMessage: String = "SignUp Request malformed."
         fun validate(req : HashMap<String, *>?) {
             if (req == null) {
-                throw AmplifyException(validationErrorMessage, "Request map is null or malformed. Check that request is present and properly formed.")
+                throw AmplifyFlutterValidationException(validationErrorMessage, "Request map is null or malformed. Check that request is present and properly formed.")
             }
             if (req.get("options") == null) {
                 throw AmplifyException(validationErrorMessage, "Request map is null or malformed. Check that request is present and properly formed.")
             }
             if (!(req?.get("options") as HashMap<String, String>).containsKey("userAttributes")) {
-                throw AmplifyException(validationErrorMessage, "userAttributes are missing..")
+                throw AmplifyFlutterValidationException(validationErrorMessage, "userAttributes are missing..")
             }
             if (!req.containsKey("password")) {
-                throw AmplifyException(validationErrorMessage, "password is missing.")
+                throw AmplifyFlutterValidationException(validationErrorMessage, "password is missing.")
             }
         }
     }

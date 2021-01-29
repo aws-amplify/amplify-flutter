@@ -21,14 +21,13 @@ struct FlutterConfirmSignUpRequest {
     self.username = dict["username"] as! String
     self.confirmationCode = dict["confirmationCode"] as! String
   }
-  static func validate(dict: NSMutableDictionary) -> Bool {
-    var valid: Bool = true;
+  static func validate(dict: NSMutableDictionary) throws {
+    let validationErrorMessage = "ConfirmSignUp Request malformed."
     if (dict["username"] == nil && dict["options"] == nil) {
-      valid = false;
+      throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "username is missing.")
     }
     if (dict["confirmationCode"] == nil && dict["options"] == nil) {
-      valid = false;
+      throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "confirmationCode is missing.")
     }
-    return valid;
   }
 }

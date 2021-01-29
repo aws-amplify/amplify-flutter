@@ -25,7 +25,7 @@ data class FlutterConfirmSignInRequest(val map: HashMap<String, *>) {
     private const val validationErrorMessage: String = "ConfirmSignIn Request malformed."
     fun validate(req : HashMap<String, *>?) {
       if (req == null || req !is HashMap<String, *>) {
-        throw AmplifyException(validationErrorMessage, "Request map is null or malformed. Check that request is present and properly formed.")
+        throw AmplifyFlutterValidationException(validationErrorMessage, "Request map is null or malformed. Check that request is present and properly formed.")
       }
     }
   }

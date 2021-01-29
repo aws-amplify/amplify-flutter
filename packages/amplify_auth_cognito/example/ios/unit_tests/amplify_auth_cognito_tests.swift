@@ -253,8 +253,8 @@ class amplify_auth_cognito_tests: XCTestCase {
         
         class SignUpMock: AuthCognitoBridge {
             override func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest){
-                let authError = AuthError.service("Invalid username", "Enter a username", nil)
-                handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNUP.rawValue)
+                let authError = AuthError.service("Username exists", MockErrorConstants.userNameExistsError, AWSCognitoAuthError.usernameExists)
+                handleAuthError(authError: authError, flutterResult: flutterResult)
             }
         }
         
@@ -272,8 +272,11 @@ class amplify_auth_cognito_tests: XCTestCase {
         let call = FlutterMethodCall(methodName: "signUp", arguments: _args)
         plugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterError {
-                XCTAssertEqual( "AmplifyException", res.code )
-                XCTAssertEqual( "AMPLIFY_SIGNUP_FAILED", res.message)
+                let details = res.details as? Dictionary<String, String>
+                XCTAssertEqual( "UsernameExistsException", res.code )
+                XCTAssertEqual( "Optional(AmplifyPlugins.AWSCognitoAuthError.usernameExists)", details?["underlyingException"])
+                XCTAssertEqual( MockErrorConstants.userNameExistsError, details?["recoverySuggestion"])
+                XCTAssertEqual( "Username exists", details?["message"])
             } else {
                 XCTFail()
             }
@@ -312,10 +315,12 @@ class amplify_auth_cognito_tests: XCTestCase {
         
         class ConfirmSignUpMock: AuthCognitoBridge {
             override func onConfirmSignUp(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignUpRequest){
-                let authError = AuthError.service("Invalid username", "Enter a username", nil)
-                handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.CONFIRM_SIGNUP.rawValue)
+                let authError = AuthError.service("Code expired", MockErrorConstants.codeExpiredError, AWSCognitoAuthError.codeExpired)
+                handleAuthError(authError: authError, flutterResult: flutterResult)
             }
         }
+        
+        
         
         plugin = SwiftAuthCognito.init(cognito: ConfirmSignUpMock())
         
@@ -328,8 +333,11 @@ class amplify_auth_cognito_tests: XCTestCase {
         let call = FlutterMethodCall(methodName: "confirmSignUp", arguments: _args)
         plugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterError {
-                XCTAssertEqual( "AmplifyException", res.code )
-                XCTAssertEqual( "AMPLIFY_CONFIRM_SIGNUP_FAILED", res.message)
+                let details = res.details as? Dictionary<String, String>
+                XCTAssertEqual( "CodeExpiredException", res.code )
+                XCTAssertEqual( "Optional(AmplifyPlugins.AWSCognitoAuthError.codeExpired)", details?["underlyingException"])
+                XCTAssertEqual( MockErrorConstants.codeExpiredError, details?["recoverySuggestion"])
+                XCTAssertEqual( "Code expired", details?["message"])
             } else {
                 XCTFail()
             }
@@ -457,8 +465,8 @@ class amplify_auth_cognito_tests: XCTestCase {
         
         class ResendSignUpCodeMock: AuthCognitoBridge {
             override func onResendSignUpCode(flutterResult: @escaping FlutterResult, request: FlutterResendSignUpCodeRequest) {
-                let authError = AuthError.service("Invalid username", "Enter a username", nil)
-                handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.RESEND_SIGNUP.rawValue)
+                let authError = AuthError.service("Could not deliver code", MockErrorConstants.codeDeliveryError, AWSCognitoAuthError.codeDelivery)
+                handleAuthError(authError: authError, flutterResult: flutterResult)
             }
         }
         
@@ -469,8 +477,11 @@ class amplify_auth_cognito_tests: XCTestCase {
         let call = FlutterMethodCall(methodName: "resendSignUpCode", arguments: _args)
         plugin.handle(call, result: {(result)->Void in
                    if let res = result as? FlutterError {
-                       XCTAssertEqual( "AmplifyException", res.code )
-                       XCTAssertEqual( "AMPLIFY_RESEND_SIGNUP_CODE_FAILED", res.message)
+                      let details = res.details as? Dictionary<String, String>
+                      XCTAssertEqual( "CodeDeliveryFailureException", res.code )
+                      XCTAssertEqual( "Optional(AmplifyPlugins.AWSCognitoAuthError.codeDelivery)", details?["underlyingException"])
+                      XCTAssertEqual( MockErrorConstants.codeDeliveryError, details?["recoverySuggestion"])
+                      XCTAssertEqual( "Could not deliver code", details?["message"])
                    } else {
                        XCTFail()
                    }
@@ -672,8 +683,8 @@ class amplify_auth_cognito_tests: XCTestCase {
         
         class SignInMock: AuthCognitoBridge {
             override func onSignIn(flutterResult: @escaping FlutterResult, request: FlutterSignInRequest) {
-                let authError = AuthError.service("Invalid username", "Enter a username", nil)
-                handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNIN.rawValue)
+                let authError = AuthError.service("Reset password", MockErrorConstants.passwordResetRequired, AWSCognitoAuthError.passwordResetRequired)
+                handleAuthError(authError: authError, flutterResult: flutterResult)
             }
         }
         
@@ -687,8 +698,11 @@ class amplify_auth_cognito_tests: XCTestCase {
         let call = FlutterMethodCall(methodName: "signIn", arguments: _args)
         plugin.handle(call, result: {(result)->Void in
                    if let res = result as? FlutterError {
-                       XCTAssertEqual( "AmplifyException", res.code )
-                       XCTAssertEqual( "AMPLIFY_SIGNIN_FAILED", res.message)
+                      let details = res.details as? Dictionary<String, String>
+                      XCTAssertEqual( "PasswordResetRequiredException", res.code )
+                      XCTAssertEqual( "Optional(AmplifyPlugins.AWSCognitoAuthError.passwordResetRequired)", details?["underlyingException"])
+                      XCTAssertEqual( MockErrorConstants.passwordResetRequired, details?["recoverySuggestion"])
+                      XCTAssertEqual( "Reset password", details?["message"])
                    } else {
                        XCTFail()
                    }
@@ -724,8 +738,8 @@ class amplify_auth_cognito_tests: XCTestCase {
         
         class ConfirmSignInMock: AuthCognitoBridge {
             override func onConfirmSignIn(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignInRequest) {
-                let authError = AuthError.service("Invalid confirmation code", "Enter a confirmation code", nil)
-                handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.CONFIRM_SIGNIN.rawValue)
+                let authError = AuthError.service("Could not deliver code", MockErrorConstants.codeDeliveryError, AWSCognitoAuthError.codeDelivery)
+                handleAuthError(authError: authError, flutterResult: flutterResult)
             }
         }
         
@@ -736,8 +750,11 @@ class amplify_auth_cognito_tests: XCTestCase {
         let call = FlutterMethodCall(methodName: "confirmSignIn", arguments: _args)
         plugin.handle(call, result: {(result)->Void in
                    if let res = result as? FlutterError {
-                       XCTAssertEqual( "AmplifyException", res.code )
-                       XCTAssertEqual( "AMPLIFY_CONFIRM_SIGNIN_FAILED", res.message)
+                      let details = res.details as? Dictionary<String, String>
+                      XCTAssertEqual( "CodeDeliveryFailureException", res.code )
+                      XCTAssertEqual( "Optional(AmplifyPlugins.AWSCognitoAuthError.codeDelivery)", details?["underlyingException"])
+                      XCTAssertEqual( MockErrorConstants.codeDeliveryError, details?["recoverySuggestion"])
+                      XCTAssertEqual( "Could not deliver code", details?["message"])
                    } else {
                        XCTFail()
                    }
@@ -799,8 +816,8 @@ class amplify_auth_cognito_tests: XCTestCase {
         
         class UpdatePasswordMock: AuthCognitoBridge {
             override func onUpdatePassword(flutterResult: @escaping FlutterResult, request: FlutterUpdatePasswordRequest) {
-                let authError = AuthError.service("Invalid password", "Enter the old password", nil)
-                handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.UPDATE_PASSWORD.rawValue)
+                let authError = AuthError.service("Invalid password", MockErrorConstants.invalidPasswordError, AWSCognitoAuthError.invalidPassword)
+                handleAuthError(authError: authError, flutterResult: flutterResult)
 
             }
         }
@@ -815,8 +832,11 @@ class amplify_auth_cognito_tests: XCTestCase {
         let call = FlutterMethodCall(methodName: "updatePassword", arguments: _args)
         plugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterError {
-                XCTAssertEqual( "AmplifyException", res.code )
-                XCTAssertEqual( "AMPLIFY_UPDATE_PASSWORD_FAILED", res.message)
+                let details = res.details as? Dictionary<String, String>
+                XCTAssertEqual( "InvalidPasswordException", res.code )
+                XCTAssertEqual( "Optional(AmplifyPlugins.AWSCognitoAuthError.invalidPassword)", details?["underlyingException"])
+                XCTAssertEqual( MockErrorConstants.invalidPasswordError, details?["recoverySuggestion"])
+                XCTAssertEqual( "Invalid password", details?["message"])
             } else {
                 XCTFail()
             }
@@ -872,8 +892,8 @@ class amplify_auth_cognito_tests: XCTestCase {
         
         class ResetPasswordMock: AuthCognitoBridge {
             override func onResetPassword(flutterResult: @escaping FlutterResult, request: FlutterResetPasswordRequest) {
-                let authError = AuthError.service("Invalid username", "Enter a username", nil)
-                handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.RESET_PASSWORD.rawValue)
+                let authError = AuthError.service("Invalid password", MockErrorConstants.invalidPasswordError, AWSCognitoAuthError.invalidPassword)
+                handleAuthError(authError: authError, flutterResult: flutterResult)
             }
         }
         
@@ -884,8 +904,11 @@ class amplify_auth_cognito_tests: XCTestCase {
         let call = FlutterMethodCall(methodName: "resetPassword", arguments: _args)
         plugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterError {
-                XCTAssertEqual( "AmplifyException", res.code )
-                XCTAssertEqual( "AMPLIFY_RESET_PASSWORD_FAILED", res.message)
+                let details = res.details as? Dictionary<String, String>
+                XCTAssertEqual( "InvalidPasswordException", res.code )
+                XCTAssertEqual( "Optional(AmplifyPlugins.AWSCognitoAuthError.invalidPassword)", details?["underlyingException"])
+                XCTAssertEqual( MockErrorConstants.invalidPasswordError, details?["recoverySuggestion"])
+                XCTAssertEqual( "Invalid password", details?["message"])
             } else {
                 XCTFail()
             }
@@ -941,8 +964,8 @@ class amplify_auth_cognito_tests: XCTestCase {
         
         class ConfirmPasswordMock: AuthCognitoBridge {
             override func onConfirmPassword(flutterResult: @escaping FlutterResult, request: FlutterConfirmPasswordRequest) {
-                let authError = AuthError.service("Invalid username", "Enter a username", nil)
-                handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.CONFIRM_PASSWORD.rawValue)
+                let authError = AuthError.service("Invalid parameter", MockErrorConstants.invalidParameterError, AWSCognitoAuthError.invalidParameter)
+                handleAuthError(authError: authError, flutterResult: flutterResult)
             }
         }
         
@@ -957,8 +980,11 @@ class amplify_auth_cognito_tests: XCTestCase {
         let call = FlutterMethodCall(methodName: "confirmPassword", arguments: _args)
         plugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterError {
-                XCTAssertEqual( "AmplifyException", res.code )
-                XCTAssertEqual( "AMPLIFY_CONFIRM_PASSWORD_FAILED", res.message)
+                let details = res.details as? Dictionary<String, String>
+                XCTAssertEqual( "InvalidParameterException", res.code )
+                XCTAssertEqual( "Optional(AmplifyPlugins.AWSCognitoAuthError.invalidParameter)", details?["underlyingException"])
+                XCTAssertEqual( MockErrorConstants.invalidParameterError, details?["recoverySuggestion"])
+                XCTAssertEqual( "Invalid parameter", details?["message"])
             } else {
                 XCTFail()
             }
@@ -991,8 +1017,8 @@ class amplify_auth_cognito_tests: XCTestCase {
         
         class SignOutMock: AuthCognitoBridge {
             override func onSignOut(flutterResult: @escaping FlutterResult, request: FlutterSignOutRequest) {
-                let authError = AuthError.service("Invalid options", "Include option parameters", nil)
-                  handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNOUT.rawValue)
+                let authError = AuthError.invalidState("Invalid state", MockErrorConstants.invalidStateError, nil)
+                  handleAuthError(authError: authError, flutterResult: flutterResult)
             }
         }
         
@@ -1002,8 +1028,11 @@ class amplify_auth_cognito_tests: XCTestCase {
         let call = FlutterMethodCall(methodName: "signOut", arguments: _args)
         plugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterError {
-                XCTAssertEqual( "AmplifyException", res.code )
-                XCTAssertEqual( "AMPLIFY_SIGNOUT_FAILED", res.message)
+                let details = res.details as? Dictionary<String, String>
+                XCTAssertEqual( "UnknownException", res.code )
+                XCTAssertEqual( "nil", details?["underlyingException"])
+                XCTAssertEqual( MockErrorConstants.invalidStateError, details?["recoverySuggestion"])
+                XCTAssertEqual( "Invalid state", details?["message"])
             } else {
                 XCTFail()
             }
@@ -1044,18 +1073,23 @@ class amplify_auth_cognito_tests: XCTestCase {
         
         class CurrentUserMock: AuthCognitoBridge {
             override func onGetCurrentUser(flutterResult: @escaping FlutterResult) {
-                let authError = AuthError.service("Could not fetch user", "Not logged in", nil)
-                handleAuthError(error: authError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.GET_CURRENT_USER.rawValue)
+                let authError = AuthError.invalidState("Invalid state",  MockErrorConstants.invalidStateError, nil)
+                handleAuthError(authError: authError, flutterResult: flutterResult)
             }
         }
+        
+        
         
         plugin = SwiftAuthCognito.init(cognito: CurrentUserMock())
         
         let call = FlutterMethodCall(methodName: "getCurrentUser", arguments: _args)
         plugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterError {
-                XCTAssertEqual( "AmplifyException", res.code )
-                XCTAssertEqual( "AMPLIFY_GET_CURRENT_USER_FAILED", res.message)
+                let details = res.details as? Dictionary<String, String>
+                XCTAssertEqual( "UnknownException", res.code )
+                XCTAssertEqual( "nil", details?["underlyingException"])
+                XCTAssertEqual( MockErrorConstants.invalidStateError, details?["recoverySuggestion"])
+                XCTAssertEqual( "Invalid state", details?["message"])
             } else {
                 XCTFail()
             }
@@ -1080,7 +1114,7 @@ class amplify_auth_cognito_tests: XCTestCase {
                   let fetchSessionData = try FlutterFetchCognitoSessionResult(res: sessionData)
                   flutterResult(fetchSessionData)
                 } catch {
-                    handleAuthError(error: error as! AuthError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.FETCH_SESSION.rawValue)
+                    handleAuthError(authError: error as! AuthError, flutterResult: flutterResult)
                 }
             }
         }
@@ -1114,7 +1148,7 @@ class amplify_auth_cognito_tests: XCTestCase {
                   let signUpData = try FlutterFetchSessionResult(res: sessionData)
                   flutterResult(signUpData)
                 } catch {
-                    handleAuthError(error: error as! AuthError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.FETCH_SESSION.rawValue)
+                    handleAuthError(authError: error as! AuthError, flutterResult: flutterResult)
                 }
             }
         }
@@ -1145,7 +1179,7 @@ class amplify_auth_cognito_tests: XCTestCase {
                   let signUpData = try FlutterFetchSessionResult(res: sessionData)
                   flutterResult(signUpData)
                 } catch {
-                    handleAuthError(error: error as! AuthError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.FETCH_SESSION.rawValue)
+                    handleAuthError(authError: error as! AuthError, flutterResult: flutterResult)
                 }
             }
         }
@@ -1184,7 +1218,7 @@ class amplify_auth_cognito_tests: XCTestCase {
                     let fetchSessionData = try FlutterFetchCognitoSessionResult(res: sessionData)
                     flutterResult(fetchSessionData)
                 } catch {
-                    handleAuthError(error: error as! AuthError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.FETCH_SESSION.rawValue)
+                    handleAuthError(authError: error as! AuthError, flutterResult: flutterResult)
                 }
             }
         }
@@ -1226,7 +1260,7 @@ class amplify_auth_cognito_tests: XCTestCase {
                   let fetchSessionData = try FlutterFetchCognitoSessionResult(res: sessionData)
                   flutterResult(fetchSessionData)
                 } catch {
-                    handleAuthError(error: error as! AuthError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.FETCH_SESSION.rawValue)
+                    handleAuthError(authError: error as! AuthError, flutterResult: flutterResult)
                 }
             }
         }

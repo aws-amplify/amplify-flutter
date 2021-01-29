@@ -26,7 +26,7 @@ data class FlutterResendSignUpCodeRequest(val map: HashMap<String, *>) {
     fun validate(req : HashMap<String, *>?) {
       if (req != null) {
         if (!req.containsKey("username") && req["username"] != "") {
-          throw AmplifyException(validationErrorMessage, "username is missing.")
+          throw AmplifyFlutterValidationException(validationErrorMessage, "username is missing.")
         }
       }
     }
