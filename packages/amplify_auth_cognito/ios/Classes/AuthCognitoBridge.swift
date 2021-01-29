@@ -186,7 +186,8 @@ class AuthCognitoBridge {
                     let signInData = FlutterSignInResult(res: result)
                     flutterResult(signInData.toJSON())
                 case .failure(let error):
-                    handleAuthError(error: error , flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNIN_WITH_WEBUI.rawValue)
+                    self.errorHandler.handleAuthError(authError: error as! AuthError, flutterResult: flutterResult)
+
             }
         }
     }
@@ -198,7 +199,8 @@ class AuthCognitoBridge {
                     let signInData = FlutterSignInResult(res: result)
                     flutterResult(signInData.toJSON())
                 case .failure(let error):
-                    handleAuthError(error: error , flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNIN_WITH_WEBUI.rawValue)
+                    self.errorHandler.handleAuthError(authError: error as! AuthError, flutterResult: flutterResult)
+
             }
         }
     }

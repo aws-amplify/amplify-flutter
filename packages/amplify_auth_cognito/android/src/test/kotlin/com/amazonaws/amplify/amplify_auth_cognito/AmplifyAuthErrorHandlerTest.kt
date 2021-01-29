@@ -60,6 +60,7 @@ class AuthErrorHandlerTest {
     private val arguments: HashMap<String, Any> = hashMapOf("data" to data)
     private val cognitoErrorPrefix = "com.amazonaws.services.cognitoidentityprovider.model."
     private val cognitoErrorSuffix =  " (Service: null; Status Code: 0; Error Code: null; Request ID: null)"
+    private val errorHandler: AuthErrorHandler = AuthErrorHandler()
 
 
     @Before
@@ -78,7 +79,7 @@ class AuthErrorHandlerTest {
         val expectedCode = "AliasExistsException"
         val exception: AuthException = AuthException.AliasExistsException(AliasExistsException(expectedCode))
         doAnswer { invocation: InvocationOnMock ->
-            plugin.handleAuthError(mockResult, exception)
+            errorHandler.handleAuthError(mockResult, exception)
             null as Void?
         }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
 
@@ -103,7 +104,7 @@ class AuthErrorHandlerTest {
         val expectedCode = "CodeDeliveryFailureException"
         val exception: AuthException = AuthException.CodeDeliveryFailureException(CodeDeliveryFailureException(expectedCode))
         doAnswer { invocation: InvocationOnMock ->
-            plugin.handleAuthError(mockResult, exception)
+            errorHandler.handleAuthError(mockResult, exception)
             null as Void?
         }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
@@ -127,7 +128,7 @@ class AuthErrorHandlerTest {
         val expectedCode = "CodeExpiredException"
         val exception: AuthException = AuthException.CodeExpiredException(ExpiredCodeException(expectedCode))
         doAnswer { invocation: InvocationOnMock ->
-            plugin.handleAuthError(mockResult, exception)
+            errorHandler.handleAuthError(mockResult, exception)
             null as Void?
         }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
@@ -151,7 +152,7 @@ class AuthErrorHandlerTest {
         val expectedCode = "CodeMismatchException"
         val exception: AuthException = AuthException.CodeMismatchException(CodeMismatchException(expectedCode))
         doAnswer { invocation: InvocationOnMock ->
-            plugin.handleAuthError(mockResult, exception)
+            errorHandler.handleAuthError(mockResult, exception)
             null as Void?
         }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
@@ -175,7 +176,7 @@ class AuthErrorHandlerTest {
         val expectedCode = "FailedAttemptsLimitExceededException"
         val exception: AuthException = AuthException.FailedAttemptsLimitExceededException(TooManyFailedAttemptsException(expectedCode))
         doAnswer { invocation: InvocationOnMock ->
-            plugin.handleAuthError(mockResult, exception)
+            errorHandler.handleAuthError(mockResult, exception)
             null as Void?
         }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
@@ -199,7 +200,7 @@ class AuthErrorHandlerTest {
         val expectedCode = "InvalidAccountTypeException"
         val exception: AuthException = AuthException.InvalidAccountTypeException(InvalidUserPoolConfigurationException(expectedCode))
         doAnswer { invocation: InvocationOnMock ->
-            plugin.handleAuthError(mockResult, exception)
+            errorHandler.handleAuthError(mockResult, exception)
             null as Void?
         }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
@@ -223,7 +224,7 @@ class AuthErrorHandlerTest {
         val expectedCode = "InvalidParameterException"
         val exception: AuthException = AuthException.InvalidParameterException(InvalidParameterException(expectedCode))
         doAnswer { invocation: InvocationOnMock ->
-            plugin.handleAuthError(mockResult, exception)
+            errorHandler.handleAuthError(mockResult, exception)
             null as Void?
         }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
@@ -247,7 +248,7 @@ class AuthErrorHandlerTest {
         val expectedCode = "InvalidPasswordException"
         val exception: AuthException = AuthException.InvalidPasswordException(InvalidPasswordException(expectedCode))
         doAnswer { invocation: InvocationOnMock ->
-            plugin.handleAuthError(mockResult, exception)
+            errorHandler.handleAuthError(mockResult, exception)
             null as Void?
         }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
@@ -271,7 +272,7 @@ class AuthErrorHandlerTest {
         val expectedCode = "LimitExceededException"
         val exception: AuthException = AuthException.LimitExceededException(LimitExceededException(expectedCode))
         doAnswer { invocation: InvocationOnMock ->
-            plugin.handleAuthError(mockResult, exception)
+            errorHandler.handleAuthError(mockResult, exception)
             null as Void?
         }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
@@ -295,7 +296,7 @@ class AuthErrorHandlerTest {
         val expectedCode = "PasswordResetRequiredException"
         val exception: AuthException = AuthException.PasswordResetRequiredException(PasswordResetRequiredException(expectedCode))
         doAnswer { invocation: InvocationOnMock ->
-            plugin.handleAuthError(mockResult, exception)
+            errorHandler.handleAuthError(mockResult, exception)
             null as Void?
         }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
@@ -319,7 +320,7 @@ class AuthErrorHandlerTest {
         val expectedCode = "ResourceNotFoundException"
         val exception: AuthException = AuthException.ResourceNotFoundException(ResourceNotFoundException(expectedCode))
         doAnswer { invocation: InvocationOnMock ->
-            plugin.handleAuthError(mockResult, exception)
+            errorHandler.handleAuthError(mockResult, exception)
             null as Void?
         }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
@@ -343,7 +344,7 @@ class AuthErrorHandlerTest {
         val expectedCode = "SessionExpiredException"
         val exception: AuthException = AuthException.SessionExpiredException(ExpiredTokenException(expectedCode))
         doAnswer { invocation: InvocationOnMock ->
-            plugin.handleAuthError(mockResult, exception)
+            errorHandler.handleAuthError(mockResult, exception)
             null as Void?
         }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
@@ -364,10 +365,10 @@ class AuthErrorHandlerTest {
     @Test
     fun sessionUnavailableOfflineException() {
         // Arrange
-        val expectedCode = "AmplifyAuthException"
+        val expectedCode = "AuthException"
         val exception: AuthException = AuthException.SessionUnavailableOfflineException(AmazonClientException(expectedCode))
         doAnswer { invocation: InvocationOnMock ->
-            plugin.handleAuthError(mockResult, exception)
+            errorHandler.handleAuthError(mockResult, exception)
             null as Void?
         }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
@@ -375,7 +376,7 @@ class AuthErrorHandlerTest {
         val details = mapOf(
                 "recoverySuggestion" to "Check online connectivity and retry operation.",
                 "message" to "Unable to fetch/refresh credentials because the server is unreachable.",
-                "underlyingException" to "com.amazonaws.AmazonClientException: AmplifyAuthException"
+                "underlyingException" to "com.amazonaws.AmazonClientException: AuthException"
         )
 
         // Act
@@ -388,10 +389,10 @@ class AuthErrorHandlerTest {
     @Test
     fun sessionUnavailableServiceException() {
         // Arrange
-        val expectedCode = "AmplifyAuthException"
+        val expectedCode = "AuthException"
         val exception: AuthException = AuthException.SessionUnavailableServiceException(AmazonClientException(expectedCode))
         doAnswer { invocation: InvocationOnMock ->
-            plugin.handleAuthError(mockResult, exception)
+            errorHandler.handleAuthError(mockResult, exception)
             null as Void?
         }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
@@ -399,7 +400,7 @@ class AuthErrorHandlerTest {
         val details = mapOf(
                 "recoverySuggestion" to "Retry with exponential backoff.",
                 "message" to "Unable to fetch/refresh credentials because of a service error.",
-                "underlyingException" to "com.amazonaws.AmazonClientException: AmplifyAuthException"
+                "underlyingException" to "com.amazonaws.AmazonClientException: AuthException"
         )
 
         // Act
@@ -415,7 +416,7 @@ class AuthErrorHandlerTest {
         val expectedCode = "SignedOutException"
         val exception: AuthException = AuthException.SignedOutException(AmazonClientException(expectedCode))
         doAnswer { invocation: InvocationOnMock ->
-            plugin.handleAuthError(mockResult, exception)
+            errorHandler.handleAuthError(mockResult, exception)
             null as Void?
         }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
@@ -439,7 +440,7 @@ class AuthErrorHandlerTest {
         val expectedCode = "UnknownException"
         val exception: AuthException = AuthException.UnknownException(AmazonClientException(expectedCode))
         doAnswer { invocation: InvocationOnMock ->
-            plugin.handleAuthError(mockResult, exception)
+            errorHandler.handleAuthError(mockResult, exception)
             null as Void?
         }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
@@ -463,7 +464,7 @@ class AuthErrorHandlerTest {
         val expectedCode = "UserCancelledException"
         val exception: AuthException = AuthException.UserCancelledException(expectedCode, AmazonClientException(expectedCode), expectedCode)
         doAnswer { invocation: InvocationOnMock ->
-            plugin.handleAuthError(mockResult, exception)
+            errorHandler.handleAuthError(mockResult, exception)
             null as Void?
         }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
@@ -487,7 +488,7 @@ class AuthErrorHandlerTest {
         val expectedCode = "NotAuthorizedException"
         val exception = AuthException(expectedCode, NotAuthorizedException(expectedCode), expectedCode)
         doAnswer { invocation: InvocationOnMock ->
-            plugin.handleAuthError(mockResult, exception)
+            errorHandler.handleAuthError(mockResult, exception)
             null as Void?
         }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
@@ -511,7 +512,7 @@ class AuthErrorHandlerTest {
         val expectedCode = "LambdaException"
         val exception = AuthException(expectedCode, InvalidLambdaResponseException(expectedCode), expectedCode)
         doAnswer { invocation: InvocationOnMock ->
-            plugin.handleAuthError(mockResult, exception)
+            errorHandler.handleAuthError(mockResult, exception)
             null as Void?
         }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
@@ -534,7 +535,7 @@ class AuthErrorHandlerTest {
         val expectedCode = "LambdaException"
         val exception = AuthException(expectedCode, UnexpectedLambdaException(expectedCode), expectedCode)
         doAnswer { invocation: InvocationOnMock ->
-            plugin.handleAuthError(mockResult, exception)
+            errorHandler.handleAuthError(mockResult, exception)
             null as Void?
         }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
@@ -557,7 +558,7 @@ class AuthErrorHandlerTest {
         val expectedCode = "LambdaException"
         val exception = AuthException(expectedCode, UserLambdaValidationException(expectedCode), expectedCode)
         doAnswer { invocation: InvocationOnMock ->
-            plugin.handleAuthError(mockResult, exception)
+            errorHandler.handleAuthError(mockResult, exception)
             null as Void?
         }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)

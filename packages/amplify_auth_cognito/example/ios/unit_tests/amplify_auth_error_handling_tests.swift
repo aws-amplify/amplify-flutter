@@ -20,11 +20,13 @@ import Amplify
 @testable import amplify_auth_cognito
 
 class  amplify_auth_cognito_error_handler_tests: XCTestCase {
+    
+    var errorHandler: AuthErrorHandler = AuthErrorHandler()
 
     func test_aliasExistsException() {
         let authError = AuthError.service("Could not deliver code", MockErrorConstants.aliasExistsError, AWSCognitoAuthError.codeDelivery)
         
-        handleAuthError(authError: authError, flutterResult: {(result)->Void in
+        errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
                XCTAssertEqual( "CodeDeliveryFailureException", res.code )
@@ -40,7 +42,7 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
     func test_codeDeliveryException() {
         let authError = AuthError.service("Could not deliver code", MockErrorConstants.codeDeliveryError, AWSCognitoAuthError.codeDelivery)
         
-        handleAuthError(authError: authError, flutterResult: {(result)->Void in
+        errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
                XCTAssertEqual( "CodeDeliveryFailureException", res.code )
@@ -56,7 +58,7 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
     func test_codeExpiredException() {
         let authError = AuthError.service("Code expired", MockErrorConstants.codeExpiredError, AWSCognitoAuthError.codeExpired)
         
-        handleAuthError(authError: authError, flutterResult: {(result)->Void in
+        errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
                XCTAssertEqual( "CodeExpiredException", res.code )
@@ -72,7 +74,7 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
     func test_codeMismatchException() {
         let authError = AuthError.service("Code mismatch", MockErrorConstants.codeMismatchError, AWSCognitoAuthError.codeMismatch)
         
-        handleAuthError(authError: authError, flutterResult: {(result)->Void in
+        errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
                XCTAssertEqual( "CodeMismatchException", res.code )
@@ -88,7 +90,7 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
     func test_deviceNotTrackedException() {
         let authError = AuthError.service("Device not tracked", MockErrorConstants.deviceNotRememberedError, AWSCognitoAuthError.deviceNotTracked)
         
-        handleAuthError(authError: authError, flutterResult: {(result)->Void in
+        errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
                XCTAssertEqual( "DeviceNotTrackedException", res.code )
@@ -104,10 +106,10 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
     func test_errorLoadingUIException() {
         let authError = AuthError.service("Error loading ui", MockErrorConstants.errorLoadingPageError, AWSCognitoAuthError.errorLoadingUI)
         
-        handleAuthError(authError: authError, flutterResult: {(result)->Void in
+        errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
-               XCTAssertEqual( "UnknownException", res.code )
+               XCTAssertEqual( "AuthException", res.code )
                XCTAssertEqual( "Optional(AmplifyPlugins.AWSCognitoAuthError.errorLoadingUI)", details?["underlyingException"])
                XCTAssertEqual( MockErrorConstants.errorLoadingPageError, details?["recoverySuggestion"])
                XCTAssertEqual( "Error loading ui", details?["message"])
@@ -120,7 +122,7 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
     func test_failedAttemptsLimitExceededException() {
         let authError = AuthError.service("Failed limit exceeded", MockErrorConstants.tooManyFailedError, AWSCognitoAuthError.failedAttemptsLimitExceeded)
         
-        handleAuthError(authError: authError, flutterResult: {(result)->Void in
+        errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
                XCTAssertEqual( "FailedAttemptsLimitExceededException", res.code )
@@ -136,7 +138,7 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
     func test_invalidAccountTypeException() {
         let authError = AuthError.service("Invalid account configuration", MockErrorConstants.signedInAWSCredentialsWithNoCIDPError.recoverySuggestion, AWSCognitoAuthError.invalidAccountTypeException)
         
-        handleAuthError(authError: authError, flutterResult: {(result)->Void in
+        errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
                XCTAssertEqual( "InvalidAccountTypeException", res.code )
@@ -152,7 +154,7 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
     func test_invalidParameterException() {
         let authError = AuthError.service("Invalid parameter", MockErrorConstants.invalidParameterError, AWSCognitoAuthError.invalidParameter)
         
-        handleAuthError(authError: authError, flutterResult: {(result)->Void in
+        errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
                XCTAssertEqual( "InvalidParameterException", res.code )
@@ -168,7 +170,7 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
     func test_invalidPasswordException() {
         let authError = AuthError.service("Invalid password", MockErrorConstants.invalidPasswordError, AWSCognitoAuthError.invalidPassword)
         
-        handleAuthError(authError: authError, flutterResult: {(result)->Void in
+        errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
                XCTAssertEqual( "InvalidPasswordException", res.code )
@@ -184,7 +186,7 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
     func test_lambdaException() {
         let authError = AuthError.service("Invalid lambda response", MockErrorConstants.lambdaError, AWSCognitoAuthError.lambda)
         
-        handleAuthError(authError: authError, flutterResult: {(result)->Void in
+        errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
                XCTAssertEqual( "LambdaException", res.code )
@@ -200,7 +202,7 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
     func test_limitExceededException() {
         let authError = AuthError.service("Limit exceeded", MockErrorConstants.tooManyRequestError, AWSCognitoAuthError.requestLimitExceeded)
         
-        handleAuthError(authError: authError, flutterResult: {(result)->Void in
+        errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
                XCTAssertEqual( "TooManyRequestsException", res.code )
@@ -216,7 +218,7 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
     func test_mfaMethodNotFoundException() {
         let authError = AuthError.service("MFA method not found", MockErrorConstants.mfaMethodNotFoundError, AWSCognitoAuthError.mfaMethodNotFound)
         
-        handleAuthError(authError: authError, flutterResult: {(result)->Void in
+        errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
                XCTAssertEqual( "MFAMethodNotFoundException", res.code )
@@ -232,7 +234,7 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
     func test_unknownException() {
         let authError = AuthError.unknown("Encountered unexpected problem", nil)
         
-        handleAuthError(authError: authError, flutterResult: {(result)->Void in
+        errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
                XCTAssertEqual( "UnknownException", res.code )
@@ -248,10 +250,10 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
     func test_networkException() {
         let authError = AuthError.service("Network issue", "Network issue", AWSCognitoAuthError.network)
         
-        handleAuthError(authError: authError, flutterResult: {(result)->Void in
+        errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
-               XCTAssertEqual( "UnknownException", res.code )
+               XCTAssertEqual( "AuthException", res.code )
                XCTAssertEqual( "Optional(AmplifyPlugins.AWSCognitoAuthError.network)", details?["underlyingException"])
                XCTAssertEqual( "Network issue", details?["recoverySuggestion"])
                XCTAssertEqual( "Network issue", details?["message"])
@@ -264,7 +266,7 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
     func test_passwordResetRequiredException() {
         let authError = AuthError.service("Password reset required", MockErrorConstants.passwordResetRequired, AWSCognitoAuthError.passwordResetRequired)
         
-        handleAuthError(authError: authError, flutterResult: {(result)->Void in
+        errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
                XCTAssertEqual( "PasswordResetRequiredException", res.code )
@@ -280,7 +282,7 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
     func test_resourceNotFoundException() {
         let authError = AuthError.service("Resource not found", MockErrorConstants.resourceNotFoundError, AWSCognitoAuthError.resourceNotFound)
         
-        handleAuthError(authError: authError, flutterResult: {(result)->Void in
+        errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
                XCTAssertEqual( "ResourceNotFoundException", res.code )
@@ -296,7 +298,7 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
     func test_softwareTokenMFANotEnabledException() {
         let authError = AuthError.service("TOTP not enabled", MockErrorConstants.softwareTokenNotFoundError, AWSCognitoAuthError.softwareTokenMFANotEnabled)
         
-        handleAuthError(authError: authError, flutterResult: {(result)->Void in
+        errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
                XCTAssertEqual( "SoftwareTokenMFANotFoundException", res.code )
@@ -312,7 +314,7 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
     func test_userCancelledException() {
         let authError = AuthError.service("User cancelled", MockErrorConstants.hostedUIUserCancelledError.recoverySuggestion, AWSCognitoAuthError.userCancelled)
         
-        handleAuthError(authError: authError, flutterResult: {(result)->Void in
+        errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
                XCTAssertEqual( "UserCancelledException", res.code )
@@ -328,7 +330,7 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
     func test_usernameExistsException() {
         let authError = AuthError.service("User name exists", MockErrorConstants.userNameExistsError, AWSCognitoAuthError.usernameExists)
         
-        handleAuthError(authError: authError, flutterResult: {(result)->Void in
+        errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
                XCTAssertEqual( "UsernameExistsException", res.code )
@@ -344,7 +346,7 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
     func test_userNotConfirmedException() {
         let authError = AuthError.service("User not confirmed", MockErrorConstants.userNotConfirmedError, AWSCognitoAuthError.userNotConfirmed)
         
-        handleAuthError(authError: authError, flutterResult: {(result)->Void in
+        errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
                XCTAssertEqual( "UserNotConfirmedException", res.code )
@@ -360,7 +362,7 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
     func test_userNotFoundException() {
         let authError = AuthError.service("User not found", MockErrorConstants.userNotFoundError, AWSCognitoAuthError.userNotFound)
         
-        handleAuthError(authError: authError, flutterResult: {(result)->Void in
+        errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
                XCTAssertEqual( "UserNotFoundException", res.code )
@@ -376,7 +378,7 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
     func test_configurationException() {
         let authError = AuthError.configuration("Invalid Configuration", MockErrorConstants.configurationError)
         
-        handleAuthError(authError: authError, flutterResult: {(result)->Void in
+        errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
                XCTAssertEqual( "ConfigurationException", res.code )
@@ -391,10 +393,10 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
     func test_invalidStateException() {
         let authError = AuthError.invalidState("Invalid State", MockErrorConstants.invalidStateError)
         
-        handleAuthError(authError: authError, flutterResult: {(result)->Void in
+        errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
-               XCTAssertEqual( "UnknownException", res.code )
+               XCTAssertEqual( "AuthException", res.code )
                XCTAssertEqual( MockErrorConstants.invalidStateError, details?["recoverySuggestion"])
                XCTAssertEqual( "Invalid State", details?["message"])
             } else {
@@ -406,7 +408,7 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
     func test_notAuthorizedException() {
         let authError = AuthError.notAuthorized("Not Authorized", MockErrorConstants.notAuthorizedError)
         
-        handleAuthError(authError: authError, flutterResult: {(result)->Void in
+        errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
                XCTAssertEqual( "NotAuthorizedException", res.code )
@@ -421,7 +423,7 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
     func test_validationException() {
         let authError = AuthError.validation("email", "Validation error", MockErrorConstants.invalidParameterError)
         
-        handleAuthError(authError: authError, flutterResult: {(result)->Void in
+        errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
                XCTAssertEqual( "InvalidParameterException", res.code )
@@ -436,7 +438,7 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
     func test_signedOutException() {
         let authError = AuthError.signedOut("User is signed out", MockErrorConstants.fetchAttributeSignedOutError.recoverySuggestion)
         
-        handleAuthError(authError: authError, flutterResult: {(result)->Void in
+        errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
                XCTAssertEqual( "SignedOutException", res.code )
@@ -451,7 +453,7 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
     func test_sessionExpiredException() {
         let authError = AuthError.sessionExpired("Session expired", MockErrorConstants.usersubSessionExpiredError.recoverySuggestion)
         
-        handleAuthError(authError: authError, flutterResult: {(result)->Void in
+        errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
                XCTAssertEqual( "SessionExpiredException", res.code )

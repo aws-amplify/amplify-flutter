@@ -160,7 +160,7 @@ class _MyAppState extends State<MyApp> {
 
   void _getCurrentUser() async {
     try {
-      AuthUser res = await Amplify.Auth.getCurrentUser();
+      var res = await Amplify.Auth.getCurrentUser();
       showResult('Current User Name = ' + res.username);
     } on AmplifyException catch (e) {
       setError(e);
@@ -198,10 +198,10 @@ class _MyAppState extends State<MyApp> {
               Text('Error: ' + error.runtimeType.toString()),
               const Padding(padding: EdgeInsets.all(10.0)),
               Text('Message: ' + error.message),
+              if (error.recoverySuggestion != null ) Text('Recovery: ' + error.recoverySuggestion),
               const Padding(padding: EdgeInsets.all(10.0)),
-              Text('Recovery: ' + error.recoverySuggestion),
+              if (error.underlyingException != null ) Text('Underlying: ' + error.underlyingException),
               const Padding(padding: EdgeInsets.all(10.0)),
-              Text('Underlying: ' + error.underlyingException),
             ]
           )
         )
@@ -299,6 +299,7 @@ class _MyAppState extends State<MyApp> {
                       if (displayState == 'SHOW_UPDATE_PASSWORD')
                         UpdatePasswordWidget(showResult, changeDisplay,
                             setError, _backToSignIn, _backToApp),
+                      if (displayState == 'SHOW_UPDATE_PASSWORD')
                       if (displayState == 'SHOW_CONFIRM_RESET')
                         ConfirmResetWidget(
                             showResult, changeDisplay, setError, _backToSignIn),

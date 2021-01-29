@@ -45,6 +45,7 @@ class amplify_auth_cognito_tests: XCTestCase {
     
     var plugin: SwiftAuthCognito = SwiftAuthCognito()
     var mockCognito: AuthCognitoBridge = AuthCognitoBridge()
+    var errorHandler: AuthErrorHandler = AuthErrorHandler()
         
     override func setUpWithError() throws {
         plugin = SwiftAuthCognito.init(cognito: mockCognito)
@@ -234,11 +235,13 @@ class amplify_auth_cognito_tests: XCTestCase {
     func test_signUpValidation() {
         let rawOptions: Dictionary<String, Any> = ["foo": "bar"]
         var rawData: NSMutableDictionary = ["options":rawOptions]
-        let failWithNoPassword = FlutterSignUpRequest.validate(dict: rawData);
-        XCTAssertEqual(false, failWithNoPassword)
+        
+        // Throws with no password
+        XCTAssertThrowsError(try FlutterSignUpRequest.validate(dict: rawData))
+
+        // Throws with no options
         rawData = ["password": _password]
-        let failWithNoOptions = FlutterSignUpRequest.validate(dict: rawData);
-        XCTAssertEqual(false, failWithNoOptions)
+        XCTAssertThrowsError(try FlutterSignUpRequest.validate(dict: rawData))
     }
     
     func test_signUpFormatAttributes() {
@@ -254,7 +257,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         class SignUpMock: AuthCognitoBridge {
             override func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest){
                 let authError = AuthError.service("Username exists", MockErrorConstants.userNameExistsError, AWSCognitoAuthError.usernameExists)
-                handleAuthError(authError: authError, flutterResult: flutterResult)
+                errorHandler.handleAuthError(authError: authError, flutterResult: flutterResult)
             }
         }
         
@@ -316,7 +319,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         class ConfirmSignUpMock: AuthCognitoBridge {
             override func onConfirmSignUp(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignUpRequest){
                 let authError = AuthError.service("Code expired", MockErrorConstants.codeExpiredError, AWSCognitoAuthError.codeExpired)
-                handleAuthError(authError: authError, flutterResult: flutterResult)
+                errorHandler.handleAuthError(authError: authError, flutterResult: flutterResult)
             }
         }
         
@@ -347,14 +350,17 @@ class amplify_auth_cognito_tests: XCTestCase {
     func test_confirmSignUpValidation() {
         let rawOptions: Dictionary<String, Any> = ["foo": "bar"]
         var rawData: NSMutableDictionary = ["username": _username]
-        let failWithNoConfirmationCode = FlutterConfirmSignUpRequest.validate(dict: rawData);
-        XCTAssertEqual(false, failWithNoConfirmationCode)
+        
+        // Throws with no confirmation code
+        XCTAssertThrowsError(try FlutterConfirmSignUpRequest.validate(dict: rawData))
+        
+        // Throws with no username
         rawData = ["confirmationCode": _confirmationCode]
-        let failWithNoUsername = FlutterConfirmSignUpRequest.validate(dict: rawData);
-        XCTAssertEqual(false, failWithNoUsername)
+        XCTAssertThrowsError(try FlutterConfirmSignUpRequest.validate(dict: rawData))
+
+        // Succeeds with options
         rawData = ["options": rawOptions]
-        let succeedWithOptions = FlutterConfirmSignUpRequest.validate(dict: rawData);
-        XCTAssertEqual(true, succeedWithOptions)
+        XCTAssertNoThrow(try FlutterConfirmSignUpRequest.validate(dict: rawData))
     }
     
     func test_resendSignUpCodeSuccessEmail() {
@@ -466,7 +472,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         class ResendSignUpCodeMock: AuthCognitoBridge {
             override func onResendSignUpCode(flutterResult: @escaping FlutterResult, request: FlutterResendSignUpCodeRequest) {
                 let authError = AuthError.service("Could not deliver code", MockErrorConstants.codeDeliveryError, AWSCognitoAuthError.codeDelivery)
-                handleAuthError(authError: authError, flutterResult: flutterResult)
+                errorHandler.handleAuthError(authError: authError, flutterResult: flutterResult)
             }
         }
         
@@ -666,17 +672,19 @@ class amplify_auth_cognito_tests: XCTestCase {
     
     func test_signInValidation() {
         var rawData: NSMutableDictionary = ["username":_username]
-        let failWithUsernameOnly = FlutterSignInRequest.validate(dict: rawData);
-        XCTAssertEqual(false, failWithUsernameOnly)
         
+        // Throws with username only
+        XCTAssertThrowsError(try FlutterSignInRequest.validate(dict: rawData))
+        
+        // Throws with password only
         rawData = ["password": _password]
-        let failWithPasswordOnly = FlutterSignInRequest.validate(dict: rawData);
-        XCTAssertEqual(false, failWithPasswordOnly)
+        XCTAssertThrowsError(try FlutterSignInRequest.validate(dict: rawData))
         
+        // Succeeds with options only
         let rawOptions: Dictionary<String, Any> = ["foo": "bar"]
         rawData = ["options": rawOptions]
-        let succeedWithOptionsOnly = FlutterSignInRequest.validate(dict: rawData);
-        XCTAssertEqual(true, succeedWithOptionsOnly)
+        XCTAssertNoThrow(try FlutterSignInRequest.validate(dict: rawData))
+
     }
     
     func test_signInError() {
@@ -684,7 +692,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         class SignInMock: AuthCognitoBridge {
             override func onSignIn(flutterResult: @escaping FlutterResult, request: FlutterSignInRequest) {
                 let authError = AuthError.service("Reset password", MockErrorConstants.passwordResetRequired, AWSCognitoAuthError.passwordResetRequired)
-                handleAuthError(authError: authError, flutterResult: flutterResult)
+                errorHandler.handleAuthError(authError: authError, flutterResult: flutterResult)
             }
         }
         
@@ -739,7 +747,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         class ConfirmSignInMock: AuthCognitoBridge {
             override func onConfirmSignIn(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignInRequest) {
                 let authError = AuthError.service("Could not deliver code", MockErrorConstants.codeDeliveryError, AWSCognitoAuthError.codeDelivery)
-                handleAuthError(authError: authError, flutterResult: flutterResult)
+                errorHandler.handleAuthError(authError: authError, flutterResult: flutterResult)
             }
         }
         
@@ -764,11 +772,13 @@ class amplify_auth_cognito_tests: XCTestCase {
     func test_confirmSignInValidation() {
         let rawOptions: Dictionary<String, Any> = ["foo": "bar"]
         var rawData: NSMutableDictionary = [:]
-        let failWithNoConfirmationCode = FlutterConfirmSignInRequest.validate(dict: rawData);
-        XCTAssertEqual(false, failWithNoConfirmationCode)
+        
+        // Throws with no confirmation code
+        XCTAssertThrowsError(try FlutterConfirmSignInRequest.validate(dict: rawData))
+        
+        // Succeeds with options
         rawData = ["options": rawOptions]
-        let succeedWithOptions = FlutterConfirmSignInRequest.validate(dict: rawData);
-        XCTAssertEqual(true, succeedWithOptions)
+        XCTAssertNoThrow(try FlutterConfirmSignInRequest.validate(dict: rawData))
     }
     
     func test_updatePasswordSuccess() {
@@ -800,16 +810,17 @@ class amplify_auth_cognito_tests: XCTestCase {
     func test_updatePasswordValidation() {
         let rawOptions: Dictionary<String, Any> = ["foo": "bar"]
         var rawData: NSMutableDictionary = ["oldPassword": _oldPassword]
-        let failWithoutNewPassword = FlutterUpdatePasswordRequest.validate(dict: rawData);
-        XCTAssertEqual(false, failWithoutNewPassword)
         
+        // Throws without newpassword
+        XCTAssertThrowsError(try FlutterUpdatePasswordRequest.validate(dict: rawData))
+
+        // Throws without oldpassword
         rawData = ["newPassword": _newPassword]
-        let failWithoutOldPassword = FlutterUpdatePasswordRequest.validate(dict: rawData);
-        XCTAssertEqual(false, failWithoutOldPassword)
-        
+        XCTAssertThrowsError(try FlutterUpdatePasswordRequest.validate(dict: rawData))
+
+        // Succeeds with options
         rawData = ["options": rawOptions]
-        let succeedWithOptions = FlutterConfirmSignInRequest.validate(dict: rawData);
-        XCTAssertEqual(true, succeedWithOptions)
+        XCTAssertNoThrow(try FlutterUpdatePasswordRequest.validate(dict: rawData))
     }
     
     func test_updatePasswordError() {
@@ -817,7 +828,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         class UpdatePasswordMock: AuthCognitoBridge {
             override func onUpdatePassword(flutterResult: @escaping FlutterResult, request: FlutterUpdatePasswordRequest) {
                 let authError = AuthError.service("Invalid password", MockErrorConstants.invalidPasswordError, AWSCognitoAuthError.invalidPassword)
-                handleAuthError(authError: authError, flutterResult: flutterResult)
+                errorHandler.handleAuthError(authError: authError, flutterResult: flutterResult)
 
             }
         }
@@ -879,13 +890,14 @@ class amplify_auth_cognito_tests: XCTestCase {
     
     func test_resetPasswordValidation() {
         var rawData: NSMutableDictionary = [:]
-        let failWithNoArgs = FlutterResetPasswordRequest.validate(dict: rawData);
-        XCTAssertEqual(false, failWithNoArgs)
         
+        // Throws with no args
+        XCTAssertThrowsError(try FlutterResetPasswordRequest.validate(dict: rawData))
+        
+        // Succeeds with options
         let rawOptions: Dictionary<String, Any> = ["foo": "bar"]
         rawData = ["options": rawOptions]
-        let succeedWithOptionsOnly = FlutterResetPasswordRequest.validate(dict: rawData);
-        XCTAssertEqual(true, succeedWithOptionsOnly)
+        XCTAssertNoThrow(try FlutterResetPasswordRequest.validate(dict: rawData))
     }
     
     func test_resetPasswordError() {
@@ -893,7 +905,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         class ResetPasswordMock: AuthCognitoBridge {
             override func onResetPassword(flutterResult: @escaping FlutterResult, request: FlutterResetPasswordRequest) {
                 let authError = AuthError.service("Invalid password", MockErrorConstants.invalidPasswordError, AWSCognitoAuthError.invalidPassword)
-                handleAuthError(authError: authError, flutterResult: flutterResult)
+                errorHandler.handleAuthError(authError: authError, flutterResult: flutterResult)
             }
         }
         
@@ -944,20 +956,21 @@ class amplify_auth_cognito_tests: XCTestCase {
     
     func test_confirmPasswordValidation() {
         var rawData: NSMutableDictionary = ["username": _username, "confirmationCode" : _confirmationCode]
-        let failWithoutNewPassword = FlutterUpdatePasswordRequest.validate(dict: rawData);
-        XCTAssertEqual(false, failWithoutNewPassword)
         
+        // Throws with no password
+        XCTAssertThrowsError(try FlutterConfirmPasswordRequest.validate(dict: rawData))
+
+        // Throws with no username
         rawData = ["newPassword": _newPassword, "confirmationCode" : _confirmationCode]
-        let failWithoutUsername = FlutterUpdatePasswordRequest.validate(dict: rawData);
-        XCTAssertEqual(false, failWithoutUsername)
-        
+        XCTAssertThrowsError(try FlutterConfirmPasswordRequest.validate(dict: rawData))
+
+        // Throws without code
         rawData = ["newPassword": _newPassword, "username" : _username]
-        let failWithOutCode = FlutterConfirmSignInRequest.validate(dict: rawData);
-        XCTAssertEqual(false, failWithOutCode)
-        
+        XCTAssertThrowsError(try FlutterConfirmPasswordRequest.validate(dict: rawData))
+
+        // Succeeds with required params
         rawData = ["newPassword": _newPassword, "username" : _username, "confirmationCode" : _confirmationCode]
-        let succeedWithThreeParams = FlutterConfirmSignInRequest.validate(dict: rawData);
-        XCTAssertEqual(true, succeedWithThreeParams)
+        XCTAssertNoThrow(try FlutterConfirmPasswordRequest.validate(dict: rawData))
     }
     
     func test_confirmPasswordError() {
@@ -965,7 +978,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         class ConfirmPasswordMock: AuthCognitoBridge {
             override func onConfirmPassword(flutterResult: @escaping FlutterResult, request: FlutterConfirmPasswordRequest) {
                 let authError = AuthError.service("Invalid parameter", MockErrorConstants.invalidParameterError, AWSCognitoAuthError.invalidParameter)
-                handleAuthError(authError: authError, flutterResult: flutterResult)
+                errorHandler.handleAuthError(authError: authError, flutterResult: flutterResult)
             }
         }
         
@@ -1018,7 +1031,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         class SignOutMock: AuthCognitoBridge {
             override func onSignOut(flutterResult: @escaping FlutterResult, request: FlutterSignOutRequest) {
                 let authError = AuthError.invalidState("Invalid state", MockErrorConstants.invalidStateError, nil)
-                  handleAuthError(authError: authError, flutterResult: flutterResult)
+                errorHandler.handleAuthError(authError: authError, flutterResult: flutterResult)
             }
         }
         
@@ -1029,7 +1042,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         plugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterError {
                 let details = res.details as? Dictionary<String, String>
-                XCTAssertEqual( "UnknownException", res.code )
+                XCTAssertEqual( "AuthException", res.code )
                 XCTAssertEqual( "nil", details?["underlyingException"])
                 XCTAssertEqual( MockErrorConstants.invalidStateError, details?["recoverySuggestion"])
                 XCTAssertEqual( "Invalid state", details?["message"])
@@ -1074,7 +1087,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         class CurrentUserMock: AuthCognitoBridge {
             override func onGetCurrentUser(flutterResult: @escaping FlutterResult) {
                 let authError = AuthError.invalidState("Invalid state",  MockErrorConstants.invalidStateError, nil)
-                handleAuthError(authError: authError, flutterResult: flutterResult)
+                errorHandler.handleAuthError(authError: authError, flutterResult: flutterResult)
             }
         }
         
@@ -1086,7 +1099,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         plugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterError {
                 let details = res.details as? Dictionary<String, String>
-                XCTAssertEqual( "UnknownException", res.code )
+                XCTAssertEqual( "AuthException", res.code )
                 XCTAssertEqual( "nil", details?["underlyingException"])
                 XCTAssertEqual( MockErrorConstants.invalidStateError, details?["recoverySuggestion"])
                 XCTAssertEqual( "Invalid state", details?["message"])
@@ -1114,7 +1127,7 @@ class amplify_auth_cognito_tests: XCTestCase {
                   let fetchSessionData = try FlutterFetchCognitoSessionResult(res: sessionData)
                   flutterResult(fetchSessionData)
                 } catch {
-                    handleAuthError(authError: error as! AuthError, flutterResult: flutterResult)
+                    errorHandler.handleAuthError(authError: error as! AuthError, flutterResult: flutterResult)
                 }
             }
         }
@@ -1148,7 +1161,7 @@ class amplify_auth_cognito_tests: XCTestCase {
                   let signUpData = try FlutterFetchSessionResult(res: sessionData)
                   flutterResult(signUpData)
                 } catch {
-                    handleAuthError(authError: error as! AuthError, flutterResult: flutterResult)
+                    errorHandler.handleAuthError(authError: error as! AuthError, flutterResult: flutterResult)
                 }
             }
         }
@@ -1179,7 +1192,7 @@ class amplify_auth_cognito_tests: XCTestCase {
                   let signUpData = try FlutterFetchSessionResult(res: sessionData)
                   flutterResult(signUpData)
                 } catch {
-                    handleAuthError(authError: error as! AuthError, flutterResult: flutterResult)
+                    errorHandler.handleAuthError(authError: error as! AuthError, flutterResult: flutterResult)
                 }
             }
         }
@@ -1218,7 +1231,7 @@ class amplify_auth_cognito_tests: XCTestCase {
                     let fetchSessionData = try FlutterFetchCognitoSessionResult(res: sessionData)
                     flutterResult(fetchSessionData)
                 } catch {
-                    handleAuthError(authError: error as! AuthError, flutterResult: flutterResult)
+                    errorHandler.handleAuthError(authError: error as! AuthError, flutterResult: flutterResult)
                 }
             }
         }
@@ -1260,7 +1273,7 @@ class amplify_auth_cognito_tests: XCTestCase {
                   let fetchSessionData = try FlutterFetchCognitoSessionResult(res: sessionData)
                   flutterResult(fetchSessionData)
                 } catch {
-                    handleAuthError(authError: error as! AuthError, flutterResult: flutterResult)
+                    errorHandler.handleAuthError(authError: error as! AuthError, flutterResult: flutterResult)
                 }
             }
         }
