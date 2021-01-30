@@ -25,4 +25,3 @@ export 'hub/HubChannel.dart';
 export 'exception/AmplifyException.dart';
 export 'exception/AmplifyAlreadyConfiguredException.dart';
 export 'exception/AmplifyExceptionMessages.dart';
-
