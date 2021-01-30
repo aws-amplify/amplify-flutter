@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+@file:Suppress("UNCHECKED_CAST")
+
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
 import androidx.annotation.NonNull
@@ -20,7 +22,6 @@ import com.amplifyframework.AmplifyException
 import com.amplifyframework.auth.AuthUserAttribute
 import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthSignUpOptions
-import com.amplifyframework.auth.options.AuthSignUpOptions
 import java.lang.reflect.Method
 
 data class FlutterSignUpRequest(val map: HashMap<String, *>) {

@@ -23,7 +23,7 @@ import amplify_core
 public class AuthErrorHandler {
     
     func handleAuthError(authError: AmplifyError, flutterResult: FlutterResult){
-        var exception: String = "UnrecognizedAuthError"
+        var exception: String = "AuthException"
         if authError is AuthError {
             if case .service(_, _, let error) = authError as! AuthError{
                 if (error is AWSCognitoAuthError) {
@@ -78,10 +78,7 @@ public class AuthErrorHandler {
                         case .none:
                             exception = "AuthException"
                     }
-                
                 }
-                // SessionUnavailableOfflineException
-                // SessionUnavailableServiceException
             }
             
             if case .configuration = authError as! AuthError {

@@ -15,8 +15,6 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
-import com.amplifyframework.AmplifyException
-
 data class FlutterUpdatePasswordRequest(val map: HashMap<String, *>) {
   val oldPassword: String = map["oldPassword"] as String;
   val newPassword: String = map["newPassword"] as String;
