@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -22,14 +22,6 @@ void castAndThrowPlatformException(PlatformException e) {
     switch(e.code) {
       case "AliasExistsException": {
         throw AliasExistsException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "AmazonClientException": {
-        throw AmazonClientException.fromMap(
-            Map<String, String>.from(e.details));
-      }
-      case "AmazonServiceException": {
-        throw AmazonServiceException.fromMap(
             Map<String, String>.from(e.details));
       }
       case "CodeDeliveryFailureException": {
@@ -121,10 +113,6 @@ void castAndThrowPlatformException(PlatformException e) {
         throw UnknownException.fromMap(
             Map<String, String>.from(e.details));
       }
-      case "UnrecognizedAuthError": {
-        throw UnrecognizedAuthError.fromMap(
-            Map<String, String>.from(e.details));
-      }
       case "UserCancelledException": {
         throw UserCancelledException.fromMap(
             Map<String, String>.from(e.details));
@@ -153,5 +141,4 @@ void castAndThrowPlatformException(PlatformException e) {
         throw e;
       }
     }
-
   }

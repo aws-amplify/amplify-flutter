@@ -57,8 +57,6 @@ export 'Session/AuthUserRequest.dart';
 // Exception Classes
 export 'Exceptions/AuthException.dart';
 export 'Exceptions/AliasExistsException.dart';
-export 'Exceptions/AmazonClientException.dart';
-export 'Exceptions/AmazonServiceException.dart';
 export 'Exceptions/CodeDeliveryFailureException.dart';
 export 'Exceptions/CodeExpiredException.dart';
 export 'Exceptions/CodeMismatchException.dart';
@@ -81,7 +79,6 @@ export 'Exceptions/SoftwareTokenMFANotFoundException.dart';
 export 'Exceptions/TooManyFailedAttemptsException.dart';
 export 'Exceptions/TooManyRequestsException.dart';
 export 'Exceptions/UnknownException.dart';
-export 'Exceptions/UnrecognizedAuthError.dart';
 export 'Exceptions/UserCancelledException.dart';
 export 'Exceptions/UsernameExistsException.dart';
 export 'Exceptions/UserNotConfirmedException.dart';

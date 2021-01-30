@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -364,22 +364,6 @@ void main() {
     expect(amplifyException, isInstanceOf<AmplifyException>());
     expect(amplifyException, isInstanceOf<AuthException>());
     expect(amplifyException, isInstanceOf<UnknownException>());
-    expect(amplifyException.message, message);
-    expect(amplifyException.recoverySuggestion, recoverySuggestion);
-    expect(amplifyException.underlyingException, underlyingException);
-  });
-
-  test('castAndThrowPlatformException returns an UnrecognizedAuthError', () async {
-    PlatformException exception = PlatformException(code: "UnrecognizedAuthError", details: details);
-    AmplifyException amplifyException;
-    try {
-      await castAndThrowPlatformException(exception);
-    } catch (e) {
-      amplifyException = e;
-    }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<UnrecognizedAuthError>());
     expect(amplifyException.message, message);
     expect(amplifyException.recoverySuggestion, recoverySuggestion);
     expect(amplifyException.underlyingException, underlyingException);

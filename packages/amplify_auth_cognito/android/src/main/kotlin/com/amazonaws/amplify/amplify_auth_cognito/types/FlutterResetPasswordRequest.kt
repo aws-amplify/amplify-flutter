@@ -15,8 +15,6 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
-import com.amplifyframework.AmplifyException
-
 data class FlutterResetPasswordRequest(val map: HashMap<String, *>) {
   val username: String = map["username"] as String;
   val options: HashMap<String, *>? = map["options"] as HashMap<String, *>?;

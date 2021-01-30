@@ -21,7 +21,6 @@ import AWSCore
 
 public class SwiftAuthCognito: NSObject, FlutterPlugin {
     
-    
     private var authEventSink: FlutterEventSink?
     private var token: UnsubscribeToken?
     private let cognito: AuthCognitoBridge
