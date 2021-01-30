@@ -46,7 +46,7 @@ class Temporal {
   }
 
   static int getIntOr0(String toParse) {
-    return int.tryParse(toParse) ?? 0;
+    return toParse != null ? int.parse(toParse) : 0;
   }
 
   static Duration nanosecondsToDuration(int nanoseconds) {
