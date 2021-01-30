@@ -22,9 +22,6 @@ class AnalyticsUnitTests: XCTestCase {
 
     var pluginUnderTest: SwiftAmplifyAnalyticsPinpointPlugin = SwiftAmplifyAnalyticsPinpointPlugin()
 
-        
-
-    
     func test_recordEvent_returnsSuccess() throws {
         class MockAnalyticsBridge: AnalyticsBridge {
             override func record(event: AnalyticsEvent){

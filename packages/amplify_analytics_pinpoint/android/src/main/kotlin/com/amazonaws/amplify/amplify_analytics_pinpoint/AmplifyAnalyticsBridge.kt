@@ -33,66 +33,66 @@ class AmplifyAnalyticsBridge {
         private val LOG = AmplifyAnalyticsPinpointPlugin.LOG
 
         fun recordEvent(@NonNull arguments: Any, @NonNull result: MethodChannel.Result) {
-                val argumentsMap = arguments as HashMap<*, *>
-                val name = argumentsMap["name"] as String
+            val argumentsMap = arguments as HashMap<*, *>
+            val name = argumentsMap["name"] as String
 
-                var properties : HashMap<String, Any>
+            var properties : HashMap<String, Any>
 
-                properties = if(argumentsMap.containsKey("propertiesMap")){
-                    argumentsMap["propertiesMap"] as HashMap<String, Any>;
-                } else{
-                    HashMap<String, Any>()
-                }
+            properties = if(argumentsMap.containsKey("propertiesMap")){
+                argumentsMap["propertiesMap"] as HashMap<String, Any>;
+            } else{
+                HashMap<String, Any>()
+            }
 
-                Amplify.Analytics.recordEvent(
-                        AmplifyAnalyticsBuilder.createAnalyticsEvent(name, properties));
-                result.success(true);
+            Amplify.Analytics.recordEvent(
+                    AmplifyAnalyticsBuilder.createAnalyticsEvent(name, properties));
+            result.success(true);
         }
 
         fun flushEvents(@NonNull result: MethodChannel.Result) {
-                Amplify.Analytics.flushEvents()
-                result.success(true)
+            Amplify.Analytics.flushEvents()
+            result.success(true)
         }
 
         fun registerGlobalProperties(@NonNull arguments: Any, @NonNull result: MethodChannel.Result) {
-                val globalProperties = arguments as HashMap<String, Any>
-                Amplify.Analytics.registerGlobalProperties(
-                        AmplifyAnalyticsBuilder.createAnalyticsProperties(globalProperties))
-                result.success(true)
+            val globalProperties = arguments as HashMap<String, Any>
+            Amplify.Analytics.registerGlobalProperties(
+                    AmplifyAnalyticsBuilder.createAnalyticsProperties(globalProperties))
+            result.success(true)
         }
 
         fun unregisterGlobalProperties(@NonNull arguments: Any, @NonNull result: MethodChannel.Result) {
-                val propertyNames = (arguments as ArrayList<String>).toSet<String>()
+            val propertyNames = (arguments as ArrayList<String>).toSet<String>()
 
-                if(propertyNames.isEmpty()){
-                    Amplify.Analytics.unregisterGlobalProperties()
+            if(propertyNames.isEmpty()){
+                Amplify.Analytics.unregisterGlobalProperties()
+            }
+            else{
+                for (name in propertyNames) {
+                    Amplify.Analytics.unregisterGlobalProperties(name)
                 }
-                else{
-                    for (name in propertyNames) {
-                        Amplify.Analytics.unregisterGlobalProperties(name)
-                    }
-                }
-                result.success(true)
+            }
+            result.success(true)
         }
 
         fun enable(@NonNull result: MethodChannel.Result) {
-                Amplify.Analytics.enable()
-                result.success(true)
+            Amplify.Analytics.enable()
+            result.success(true)
         }
 
         fun disable(@NonNull result: MethodChannel.Result) {
-                Amplify.Analytics.disable()
-                result.success(true)
+            Amplify.Analytics.disable()
+            result.success(true)
         }
 
         fun identifyUser(@NonNull arguments: Any, @NonNull result: MethodChannel.Result) {
-                val argumentsMap = arguments as HashMap<*, *>
-                val userId = argumentsMap["userId"] as String
-                val userProfileMap = argumentsMap["userProfileMap"] as HashMap<String, Object>
+            val argumentsMap = arguments as HashMap<*, *>
+            val userId = argumentsMap["userId"] as String
+            val userProfileMap = argumentsMap["userProfileMap"] as HashMap<String, Object>
 
-                Amplify.Analytics.identifyUser(userId,
-                        AmplifyAnalyticsBuilder.createUserProfile(userProfileMap))
-                result.success(true)
+            Amplify.Analytics.identifyUser(userId,
+                    AmplifyAnalyticsBuilder.createUserProfile(userProfileMap))
+            result.success(true)
         }
     }
 }

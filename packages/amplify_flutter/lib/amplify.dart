@@ -167,7 +167,7 @@ class AmplifyClass extends PlatformInterface {
       }
     } on PlatformException catch (e) {
       if (e.code == 'AnalyticsException') {
-        _castAndThrowAnalyticsException(e);
+        throw AnalyticsException.fromMap(Map<String, String>.from(e.details))
       } else if (e.code == 'AmplifyException') {
         throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       } else if (e.code == 'AmplifyAlreadyConfigured') {
@@ -184,13 +184,6 @@ class AmplifyClass extends PlatformInterface {
     }
 
     await DataStore.configure(configuration);
-  }
-
-  void _castAndThrowAnalyticsException(PlatformException e) {
-    switch (e.code) {
-      case "AnalyticsException": throw AnalyticsException.fromMap(Map<String, String>.from(e.details));
-      default: throw e;
-    }
   }
 
   /// Adds the configuration and return true if it was successful.
