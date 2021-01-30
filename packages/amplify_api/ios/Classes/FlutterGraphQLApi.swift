@@ -51,7 +51,7 @@ class FlutterGraphQLApi {
                             OperationsManager.removeOperation(cancelToken: cancelToken)
                         }
 
-                        FlutterApiResponse.handleGraphQLErrorResponse(flutterResult: flutterResult, errorResponse: errorResponse, failureMessage: FlutterApiErrorMessage.QUERY_FAILED.rawValue)
+                        FlutterApiResponse.handleGraphQLErrorResponse(flutterResult: flutterResult, errorResponse: errorResponse)
                     }
                 case .failure(let apiError):
 
@@ -60,18 +60,17 @@ class FlutterGraphQLApi {
                     }
 
                     print("GraphQL query operation failed: \(apiError)")
-                    FlutterApiError.handleAPIError(flutterResult: flutterResult, error: apiError, msg: FlutterApiErrorMessage.QUERY_FAILED.rawValue)
+                    FlutterApiErrorHandler.handleApiError(error: apiError, flutterResult: flutterResult)
                 }}
             OperationsManager.addOperation(cancelToken: cancelToken, operation: operation)
 
         } catch let error as APIError {
             print("Failed to parse query arguments with \(error)")
-            FlutterApiError.handleAPIError(flutterResult: flutterResult, error: error, msg: FlutterApiErrorMessage.MALFORMED.rawValue)
+            FlutterApiErrorHandler.handleApiError(error: error, flutterResult: flutterResult)
         }
         catch {
             print("An unexpected error occured when parsing query arguments: \(error)")
-            let errorMap = FlutterApiError.createErrorMap(localizedError: "\(error.localizedDescription).\nAn unrecognized error has occurred", recoverySuggestion: "See logs for details")
-            FlutterApiError.postFlutterError(flutterResult: flutterResult, msg: FlutterApiErrorMessage.MALFORMED.rawValue, errorMap: errorMap)
+            FlutterApiErrorHandler.handleApiError(error: APIError(error: error), flutterResult: flutterResult)
         }
     }
 
@@ -107,7 +106,7 @@ class FlutterGraphQLApi {
                             OperationsManager.removeOperation(cancelToken: cancelToken)
                         }
                         
-                        FlutterApiResponse.handleGraphQLErrorResponse(flutterResult: flutterResult, errorResponse: errorResponse, failureMessage: FlutterApiErrorMessage.MUTATE_FAILED.rawValue)
+                        FlutterApiResponse.handleGraphQLErrorResponse(flutterResult: flutterResult, errorResponse: errorResponse)
                     }
                 case .failure(let apiError):
                     
@@ -116,19 +115,19 @@ class FlutterGraphQLApi {
                     }
 
                     print("GraphQL mutate operation failed: \(apiError)")
-                    FlutterApiError.handleAPIError(flutterResult: flutterResult, error: apiError, msg: FlutterApiErrorMessage.MUTATE_FAILED.rawValue)
+                    FlutterApiErrorHandler.handleApiError(error: apiError, flutterResult: flutterResult)
                 }
             }
             OperationsManager.addOperation(cancelToken: cancelToken, operation: operation)
 
         } catch let error as APIError {
             print("Failed to parse mutate arguments with \(error)")
-            FlutterApiError.handleAPIError(flutterResult: flutterResult, error: error, msg: FlutterApiErrorMessage.MALFORMED.rawValue)
+            FlutterApiErrorHandler.handleApiError(error: error, flutterResult: flutterResult)
         }
         catch {
             print("An unexpected error occured when parsing mutate arguments: \(error)")
-            let errorMap = FlutterApiError.createErrorMap(localizedError: "\(error.localizedDescription).\nAn unrecognized error has occurred", recoverySuggestion: "See logs for details")
-            FlutterApiError.postFlutterError(flutterResult: flutterResult, msg: FlutterApiErrorMessage.MALFORMED.rawValue, errorMap: errorMap)
+            FlutterApiErrorHandler.handleApiError(error: APIError(error: error), flutterResult: flutterResult)
+
         }
     }
 }
