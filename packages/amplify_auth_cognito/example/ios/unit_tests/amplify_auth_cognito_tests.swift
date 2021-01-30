@@ -1091,8 +1091,6 @@ class amplify_auth_cognito_tests: XCTestCase {
             }
         }
         
-        
-        
         plugin = SwiftAuthCognito.init(cognito: CurrentUserMock())
         
         let call = FlutterMethodCall(methodName: "getCurrentUser", arguments: _args)
@@ -1107,6 +1105,37 @@ class amplify_auth_cognito_tests: XCTestCase {
                 XCTFail()
             }
         })
+    }
+    
+    func test_fetchUserAttributesSuccess() {
+        class FetchAttributesMock: AuthCognitoBridge {
+            override func onFetchUserAttributes(flutterResult: @escaping FlutterResult) {
+                let emptyList = [AuthUserAttribute]()
+                flutterResult(emptyList)
+            }
+        }
+        
+        plugin = SwiftAuthCognito.init(cognito: FetchAttributesMock())
+        
+        _data = [:]
+        _args = ["data": _data]
+        let call = FlutterMethodCall(methodName: "fetchUserAttributes", arguments: _args)
+        plugin.handle(call, result: {(result)->Void in
+            if let res = result as? [AuthUserAttribute] {
+                XCTAssertEqual( 0, res.count )
+            } else {
+                XCTFail()
+            }
+        })
+    }
+    
+    func test_fetchUserAttributesSerialization() {
+        let attr = AuthUserAttribute(AuthUserAttributeKey.email, value: "test@test.com")
+        let res = FlutterFetchUserAttributesRequest(res: [attr]).toList()
+
+        XCTAssertEqual(1, res.count)
+        XCTAssertEqual("email", res[0]["key"] as! String)
+        XCTAssertEqual("test@test.com", res[0]["value"] as! String)
     }
     
     func test_fetchCognitoSessionSuccess() {

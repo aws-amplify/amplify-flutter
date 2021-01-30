@@ -19,6 +19,7 @@ import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart
 import 'amplify_auth_cognito.dart';
 import 'amplify_auth_error_handling.dart';
 
+// ignore_for_file: public_member_api_docs
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/auth_cognito');
 
 /// An implementation of [AmplifyPlatform] that uses method channels.
@@ -255,6 +256,27 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   }
 
   @override
+  Future< List<AuthUserAttribute>> fetchUserAttributes({AuthUserAttributeRequest request}) async {
+    List<AuthUserAttribute> res;
+    try {
+      final List<Map<dynamic, dynamic>> data =
+      await _channel.invokeListMethod(
+        'fetchUserAttributes',
+        <String, dynamic>{
+          'data': request != null ? request.serializeAsMap() : {},
+        },
+      );
+      res = formatFetchAttributesResponse(data);
+      return res;
+    } on PlatformException catch(e) {
+      castAndThrowPlatformException(e);
+    } on Exception catch(e) {
+      throw(e);
+    }
+    return res;
+  }
+
+  @override
   Future<SignInResult> signInWithWebUI({SignInWithWebUIRequest request}) async {
    SignInResult res;
     try {
@@ -307,6 +329,14 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       userId: authUserResponse["userId"],
       username: authUserResponse["username"]
     );
+  }
+
+  List<AuthUserAttribute> formatFetchAttributesResponse(List<Map<dynamic, dynamic>> attributeResponse) {
+    List<AuthUserAttribute> attributes = [];
+    attributeResponse.forEach((element) {
+      attributes.add(AuthUserAttribute(userAttributeKey: element["key"], value: element["value"]));
+    });
+    return attributes;
   }
 
   ResetPasswordResult _formatResetPasswordResponse(Map<String, dynamic> res) {

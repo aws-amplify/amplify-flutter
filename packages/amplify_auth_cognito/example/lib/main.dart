@@ -171,6 +171,15 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  void _fetchUserAttributes() async {
+    try {
+      var res = await Amplify.Auth.fetchUserAttributes();
+      showResult('User attributes = ' + res.toString());
+    } on AmplifyException catch (e) {
+      setError(e);
+    }
+  }
+
   void _stopListening() {
     subscription.cancel();
   }
@@ -244,7 +253,11 @@ class _MyAppState extends State<MyApp> {
               const Padding(padding: EdgeInsets.all(10.0)),
               ElevatedButton(
                   onPressed: _getCurrentUser,
-                  child: const Text('Get CurrentUser'))
+                  child: const Text('Get CurrentUser')),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              ElevatedButton(
+                  onPressed: _fetchUserAttributes,
+                  child: const Text('Get Attributes'))
             ],
           ),
         ),

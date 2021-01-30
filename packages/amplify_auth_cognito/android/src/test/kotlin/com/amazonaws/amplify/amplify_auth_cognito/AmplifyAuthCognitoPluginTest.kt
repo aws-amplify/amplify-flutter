@@ -330,6 +330,33 @@ class AmplifyAuthCognitoPluginTest {
     }
 
     @Test
+    fun fetchUserAttributes_returnsSuccess() {
+        // Arrange
+        var mockAttributes: MutableList<AuthUserAttribute> = listOf<AuthUserAttribute>(
+            AuthUserAttribute(AuthUserAttributeKey.email(), "test@test.com")
+        ).toMutableList()
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareFetchAttributeResult(mockResult, mockAttributes)
+            null as Void?
+        }.`when`(mockAuth).fetchUserAttributes(ArgumentMatchers.any<Consumer<MutableList<AuthUserAttribute>>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+
+        val data: HashMap<*, *> = HashMap<String, String>()
+        val arguments: HashMap<String, Any> = hashMapOf("data" to data)
+        val call = MethodCall("fetchUserAttributes", arguments)
+        var mockedResponse: List<Map<String, String>> = listOf(
+            mapOf(
+                "key" to "email",
+                "value" to "test@test.com")
+        )
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).success(mockedResponse)
+    }
+
+    @Test
     fun fetchSession_returnsSuccess() {
         val id = AuthSessionResult.success("id")
         val awsCredentials: AuthSessionResult<AWSCredentials> = AuthSessionResult.success(BasicAWSCredentials("access", "secret"))
