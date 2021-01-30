@@ -253,6 +253,27 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   }
 
   @override
+  Future< List<AuthUserAttribute>> fetchUserAttributes({AuthUserAttributeRequest request}) async {
+    List<AuthUserAttribute> res;
+    try {
+      final List<Map<dynamic, dynamic>> data =
+      await _channel.invokeListMethod(
+        'fetchUserAttributes',
+        <String, dynamic>{
+          'data': request != null ? request.serializeAsMap() : {},
+        },
+      );
+      res = formatFetchAttributesResponse(data);
+      return res;
+    } on PlatformException catch(e) {
+      castAndThrowPlatformException(e);
+    } on Exception catch(e) {
+      throw(e);
+    }
+    return res;
+  }
+
+  @override
   Future<SignInResult> signInWithWebUI({SignInWithWebUIRequest request}) async {
    SignInResult res;
     try {

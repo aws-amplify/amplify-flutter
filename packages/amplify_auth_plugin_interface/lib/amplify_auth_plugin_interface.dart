@@ -24,6 +24,7 @@ import 'src/Session/AuthUserAttribute.dart';
 import 'src/types.dart';
 export 'src/types.dart';
 
+// ignore_for_file: public_member_api_docs
 abstract class AuthPluginInterface extends AmplifyPluginInterface {
   /// Constructs a AmplifyPlatform.
   AuthPluginInterface({@required Object token}) : super(token: token);
