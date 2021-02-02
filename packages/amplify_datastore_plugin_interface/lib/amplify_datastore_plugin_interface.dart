@@ -60,7 +60,8 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   }
 
   StreamController get streamController {
-     throw UnimplementedError('streamController getter has not been implemented.');
+    throw UnimplementedError(
+        'streamController getter has not been implemented.');
   }
 
   Future<void> configure({String configuration}) {

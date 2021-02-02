@@ -20,7 +20,6 @@ part of amplify_interface;
 /// be registered and configured and then subsequent API calls will be forwarded
 /// to those plugins.
 class DataStoreCategory {
-  final _errorMsg = "DataStore plugin has not been added to Amplify";
   const DataStoreCategory();
   static List<DataStorePluginInterface> plugins = [];
 
@@ -34,13 +33,15 @@ class DataStoreCategory {
       // in the `onAttachedToEngine` but rather in the `configure()
       await plugin.configureModelProvider(modelProvider: plugin.modelProvider);
     } else {
-      throw StateError("DataStore plugin has already been added, " +
+      throw AmplifyException("DataStore plugin has already been added, " +
           "multiple plugins for DataStore category are currently not supported.");
     }
   }
-  
+
   StreamController get streamController {
-    return plugins.length == 1 ? plugins[0].streamController : throw(_errorMsg);
+    return plugins.length == 1
+        ? plugins[0].streamController
+        : throw _pluginNotAddedException("DataStore");
   }
 
   Future<List<T>> query<T extends Model>(ModelType<T> modelType,
@@ -50,26 +51,32 @@ class DataStoreCategory {
     return plugins.length == 1
         ? plugins[0].query(modelType,
             where: where, pagination: pagination, sortBy: sortBy)
-        : throw (_errorMsg);
+        : throw _pluginNotAddedException("DataStore");
   }
 
   Future<void> delete<T extends Model>(T model) {
-    return plugins.length == 1 ? plugins[0].delete(model) : throw (_errorMsg);
+    return plugins.length == 1
+        ? plugins[0].delete(model)
+        : throw _pluginNotAddedException("DataStore");
   }
 
   Future<void> save<T extends Model>(T model) {
-    return plugins.length == 1 ? plugins[0].save(model) : throw (_errorMsg);
+    return plugins.length == 1
+        ? plugins[0].save(model)
+        : throw _pluginNotAddedException("DataStore");
   }
 
   Stream<SubscriptionEvent<T>> observe<T extends Model>(
       ModelType<T> modelType) {
     return plugins.length == 1
         ? plugins[0].observe(modelType)
-        : throw (_errorMsg);
+        : throw _pluginNotAddedException("DataStore");
   }
 
   Future<void> clear() {
-    return plugins.length == 1 ? plugins[0].clear() : throw (_errorMsg);
+    return plugins.length == 1
+        ? plugins[0].clear()
+        : throw _pluginNotAddedException("DataStore");
   }
 
   Future<void> configure(String configuration) async {

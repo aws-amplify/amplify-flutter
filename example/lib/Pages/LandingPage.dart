@@ -48,7 +48,7 @@ class _LandingPageState extends State<LandingPage> {
   Widget openDialogButton(
       String text, Function onSuccess, Widget dialogWidget) {
     return ElevatedButton(
-        child: const Text(text),
+        child: Text(text),
         onPressed: () {
           _showDialogForResult(text, onSuccess, dialogWidget);
         });

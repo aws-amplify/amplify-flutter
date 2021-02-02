@@ -16,3 +16,13 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+# The following section is specific to Flutter.
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.amazonaws.amplify.amplify_core
+        pluginClass: AmplifyCorePlugin
+      ios:
+        pluginClass: AmplifyCorePlugin

@@ -19,6 +19,8 @@ import android.app.Activity
 import android.content.Context
 import android.util.Log
 import androidx.annotation.NonNull
+import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedError
+import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.api.aws.AWSApiPlugin
 import com.amplifyframework.core.Amplify
@@ -35,19 +37,19 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
 import org.json.JSONObject
-import java.io.Serializable
 
 
 /** Amplify */
 class Amplify : FlutterPlugin, ActivityAware, MethodCallHandler {
 
-    private var isConfigured: Boolean = false
     private lateinit var channel: MethodChannel
     private lateinit var context: Context
     private var mainActivity: Activity? = null
 
-    override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "com.amazonaws.amplify/amplify")
+    override fun onAttachedToEngine(
+            @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+        channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(),
+                "com.amazonaws.amplify/amplify")
         channel.setMethodCallHandler(this);
         context = flutterPluginBinding.applicationContext;
         Log.i("Amplify Flutter", "Added Core plugin")
@@ -64,16 +66,20 @@ class Amplify : FlutterPlugin, ActivityAware, MethodCallHandler {
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
 
         when (call.method) {
-            "configure" -> 
+            "configure" ->
                 try {
                     val arguments = call.arguments as HashMap<*, *>
                     val version = arguments["version"] as String
                     val configuration = arguments["configuration"] as String
 
                     onConfigure(result, version, configuration)
-                }
-                catch (e: Exception) {
-                    result.error("AmplifyException", "Error casting configuration map", e.message )
+                } catch (e: Exception) {
+                    postExceptionToFlutterChannel(result, "AmplifyException",
+                            createSerializedError(
+                                    "Failed to parse the configuration.",
+                                    "Please check your amplifyconfiguration.dart if you are " +
+                                            "manually updating it, else please create an issue.",
+                                    e.toString()))
                 }
             else -> result.notImplemented()
         }
@@ -100,34 +106,26 @@ class Amplify : FlutterPlugin, ActivityAware, MethodCallHandler {
         channel.setMethodCallHandler(null)
     }
 
-    private fun onConfigure(@NonNull result: Result, @NonNull version: String, @NonNull config: String) {
-        if (!isConfigured) {
-            try {
-                val configuration = AmplifyConfiguration.builder(JSONObject(config))
-                        .addPlatform(UserAgent.Platform.FLUTTER, version)
-                        .build()
-                if(configuration.forCategoryType(CategoryType.API) !is EmptyCategoryConfiguration) {
-                    Amplify.addPlugin(AWSApiPlugin())
-                }
-                Amplify.configure(configuration, context)
-                isConfigured = true;
-                result.success(true);
-            } catch (e: AmplifyException) {
-                result.error("AmplifyException", e.message, formatAmplifyException(e) )
+    private fun onConfigure(@NonNull result: Result, @NonNull version: String,
+            @NonNull config: String) {
+        try {
+            val configuration = AmplifyConfiguration.builder(JSONObject(config))
+                    .addPlatform(UserAgent.Platform.FLUTTER, version)
+                    .devMenuEnabled(false)
+                    .build()
+            if (configuration.forCategoryType(
+                            CategoryType.API) !is EmptyCategoryConfiguration) {
+                Amplify.addPlugin(AWSApiPlugin())
             }
-        } else {
-            result.success(true)
+            Amplify.configure(configuration, context)
+            result.success(true);
+        } catch (e: Amplify.AlreadyConfiguredException) {
+            postExceptionToFlutterChannel(result, "AmplifyAlreadyConfiguredException",
+                    createSerializedError(e))
+        } catch (e: AmplifyException) {
+            postExceptionToFlutterChannel(result, "AmplifyException",
+                    createSerializedError(e))
         }
-    }
 
-    private fun formatAmplifyException(@NonNull e: AmplifyException): Map<String, Serializable?> {
-        return mapOf(
-            "cause" to e.cause,
-            "recoverySuggestion" to e.recoverySuggestion
-        )
-    }
-
-    fun setConfigured(isConfigured:Boolean) {
-        this.isConfigured = isConfigured
     }
 }
