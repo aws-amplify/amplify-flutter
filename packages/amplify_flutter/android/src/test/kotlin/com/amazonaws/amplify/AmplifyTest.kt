@@ -72,9 +72,9 @@ class AmplifyTest {
         plugin.onMethodCall(call, mockSecondCallResult)
 
         // Assert that second configure returns error
-        verify(mockSecondCallResult, times(1)).error("AmplifyException",
+        verify(mockSecondCallResult, times(1)).error("AmplifyAlreadyConfiguredException",
                 ExceptionMessages.defaultFallbackExceptionMessage,
-                mapOf("message" to "The client issued a subsequent call to `Amplify.configure` after the first had already succeeded.",
-                        "recoverySuggestion" to "Be sure to only call Amplify.configure once"))
+                mapOf("message" to "Amplify has already been configured.",
+                        "recoverySuggestion" to "Remove the duplicate call to `Amplify.configure()`"))
     }
 }

@@ -117,8 +117,13 @@ Only the following resource types are supported:
     $ amplify add auth
     $ amplify add analytics
     ```
+5. Push changes to the cloud to provision the backend resources:
 
-5. In your pubspec.yaml file, add the following to `dependencies`:
+    ```bash
+    $ amplify push
+    ```
+
+6. In your pubspec.yaml file, add the following to `dependencies`:
 
 > Note: Do not include dependencies in your `pubspec` file that you are not using in your app. This can cause a configuration error in the underlying SDK.
 
@@ -134,13 +139,13 @@ dependencies:
     path: /{path to your local amplify-flutter}/amplify-flutter/packages/amplify_auth_cognito
 ```
 
-6. From the terminal run
+7. From the terminal run
 
 ```bash
 flutter pub get
 ```
 
-7. In your main.dart file, add:
+8. In your main.dart file, add:
 
 ```dart
 import 'package:flutter/material.dart';
@@ -234,7 +239,7 @@ For iOS builds complete the following steps (from the root of your project):
 
 This ensures that your Flutter project is running the same ios version that the Amplify plugins are built on.
 
-8. From the root of your project, execute `flutter run` in the terminal.
+9. From the root of your project, execute `flutter run` in the terminal.
 
 > Make sure that an Android or iOS device is already running; this can be a virtual device started from Android Studio.
 
