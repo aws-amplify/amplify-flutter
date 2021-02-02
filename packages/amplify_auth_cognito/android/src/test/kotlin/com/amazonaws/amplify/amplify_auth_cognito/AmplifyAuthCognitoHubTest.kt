@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-@file:Suppress("UNCHECKED_CAST")
 
 package com.amazonaws.amplify.amplify_auth_cognito
 

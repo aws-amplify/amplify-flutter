@@ -16,10 +16,10 @@
 package com.amazonaws.amplify.amplify_auth_cognito
 
 import android.app.Activity
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthFailureMessage
 import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.BasicAWSCredentials
-import com.amazonaws.regions.RegionUtils.init
+import com.amazonaws.services.cognitoidentityprovider.model.AliasExistsException
+import com.amazonaws.services.cognitoidentityprovider.model.UserNotFoundException
 import com.amplifyframework.auth.*
 import com.amplifyframework.auth.options.AuthSignOutOptions
 import com.amplifyframework.auth.options.AuthSignUpOptions
@@ -60,7 +60,6 @@ class AmplifyAuthCognitoPluginTest {
     private val mockSignUpResult = AuthSignUpResult(false, signUpStep, null)
     private val mockSignInResult = AuthSignInResult(false, signInStep)
     private val mockResetPasswordResult = AuthResetPasswordResult(false, resetStep)
-    private var currentException: AuthException? = null;
     private var mockAuth = mock(AuthCategory::class.java)
 
     @Before
@@ -77,11 +76,7 @@ class AmplifyAuthCognitoPluginTest {
     fun signUp_returnsSuccess() {
         // Arrange
         doAnswer { invocation: InvocationOnMock ->
-            if (this.currentException == null) {
-              plugin.prepareSignUpResult(mockResult, mockSignUpResult)
-            } else {
-              plugin.prepareError(mockResult, currentException as AuthException, FlutterAuthFailureMessage.SIGNUP.toString())
-            }
+            plugin.prepareSignUpResult(mockResult, mockSignUpResult)
             null as Void?
         }.`when`(mockAuth).signUp(anyString(), anyString(), any(AuthSignUpOptions::class.java), ArgumentMatchers.any<Consumer<AuthSignUpResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val userAttributes = hashMapOf("email" to "test@test.com")
@@ -96,16 +91,16 @@ class AmplifyAuthCognitoPluginTest {
         val arguments = hashMapOf("data" to data)
         val call = MethodCall("signUp", arguments)
         val res = mapOf(
-                "isSignUpComplete" to false,
-                "nextStep" to mapOf(
-                        "signUpStep" to "CONFIRM_SIGN_UP_STEP",
-                        "additionalInfo" to "{}",
-                        "codeDeliveryDetails" to mapOf(
-                                "destination" to "test@test.com",
-                                "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
-                                "attributeName" to "email"
-                        )
+            "isSignUpComplete" to false,
+            "nextStep" to mapOf(
+                "signUpStep" to "CONFIRM_SIGN_UP_STEP",
+                "additionalInfo" to "{}",
+                "codeDeliveryDetails" to mapOf(
+                    "destination" to "test@test.com",
+                    "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
+                    "attributeName" to "email"
                 )
+            )
         )
 
         // Act
@@ -381,10 +376,28 @@ class AmplifyAuthCognitoPluginTest {
     }
 
     @Test
+    fun signInWithWebUI_returnsSuccess() {
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareSignInResult(mockResult, mockSignInResult)
+            null as Void?
+        }.`when`(mockAuth).signInWithWebUI(any(), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        val data: HashMap<*, *> =  HashMap<String, String>()
+        val arguments: HashMap<String, Any?> = hashMapOf("data" to data)
+        val call = MethodCall("signInWithWebUI", arguments)
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>())
+    }
+
+    @Test
     fun signInWithSocialWebUI_returnsSuccess() {
         // Arrange
         doAnswer { invocation: InvocationOnMock ->
-            plugin.prepareUpdatePasswordResult(mockResult)
+            plugin.prepareSignInResult(mockResult, mockSignInResult)
             null as Void?
         }.`when`(mockAuth).signInWithSocialWebUI(any(), ArgumentMatchers.any<Activity>(), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
 
@@ -401,23 +414,7 @@ class AmplifyAuthCognitoPluginTest {
         verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>())
     }
 
-    @Test
-    fun signInWithWebUI_returnsSuccess() {
-        // Arrange
-        doAnswer { invocation: InvocationOnMock ->
-            plugin.prepareUpdatePasswordResult(mockResult)
-            null as Void?
-        }.`when`(mockAuth).signInWithWebUI(any(), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
 
-        val arguments: HashMap<String, Any?> = hashMapOf("data" to null)
-        val call = MethodCall("signInWithWebUI", arguments)
-
-        // Act
-        plugin.onMethodCall(call, mockResult)
-
-        // Assert
-        verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>())
-    }
 
     private fun setFinalStatic(field: Field, newValue: Any?) {
         field.isAccessible = true

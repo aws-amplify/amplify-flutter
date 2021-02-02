@@ -19,11 +19,10 @@ struct FlutterConfirmSignInRequest {
   init(dict: NSMutableDictionary){
     self.confirmationCode = dict["confirmationCode"] as! String
   }
-  static func validate(dict: NSMutableDictionary) -> Bool {
-    var valid: Bool = true;
+  static func validate(dict: NSMutableDictionary) throws {
+    let validationErrorMessage = "ConfirmSignIn Request malformed."
     if (dict["confirmationCode"] == nil && dict["options"] == nil) {
-      valid = false;
+      throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "confirmationCode is missing.")
     }
-    return valid;
   }
 }
