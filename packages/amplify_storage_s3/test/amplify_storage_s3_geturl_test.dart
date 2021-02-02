@@ -13,11 +13,9 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_storage_s3/src/Exceptions/StorageExceptionType.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
-import './resources/platform_exception_details.dart';
 
 void main() {
   const MethodChannel storageChannel =
@@ -45,42 +43,21 @@ void main() {
   });
 
   test(
-      'Throws StorageException when method channel result does not include the download url',
+      'getUrl throws a StorageException',
       () async {
-    const exceptionType =
-        StorageExceptionType.MALFORMED_PLATFORM_CHANNEL_RESULT;
+    Map<String, String> details = Map.from({
+      'message': 'Could not download file.',
+      'recoverySuggestion':  'Check permissions.',
+    });
+    PlatformException exception = PlatformException(code: 'StorageException', details: details);
     storageChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return {};
+      return throw exception;
     });
     try {
       await storage.getUrl(request: GetUrlRequest(key: 'keyForFile'));
     } on StorageException catch (e) {
-      expect(e.code, exceptionType.code);
-      expect(e.message, exceptionType.message);
-      expect(e.details, {
-        'operation': 'GetUrl',
-        'malformed field': 'url cannot be null',
-      });
-      return;
-    }
-    throw new Exception('Expected a StorageException');
-  });
-
-  test('A PlatformException results in a StorageException being thrown',
-      () async {
-    const exceptionType = StorageExceptionType.GET_URL_FAILED;
-    storageChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      throw PlatformException(
-          code: 'AMPLIFY_EXCEPTION',
-          message: exceptionType.message,
-          details: exceptionDetails);
-    });
-    try {
-      await storage.getUrl(request: GetUrlRequest(key: 'keyForFile'));
-    } on StorageException catch (e) {
-      expect(e.code, exceptionType.code);
-      expect(e.message, exceptionType.message);
-      expect(e.details, exceptionDetails);
+      expect(e.message, details['message']);
+      expect(e.recoverySuggestion, details['recoverySuggestion']);
       return;
     }
     throw new Exception('Expected a StorageException');

@@ -15,6 +15,7 @@
 
 package com.amazonaws.amplify.amplify_storage_s3.types
 
+import com.amazonaws.amplify.amplify_auth_cognito.types.AmplifyFlutterValidationException
 import com.amplifyframework.storage.StorageAccessLevel
 import com.amplifyframework.storage.options.StorageDownloadFileOptions
 import java.io.File
@@ -47,15 +48,14 @@ data class FlutterDownloadFileRequest(val request: Map<String, *>) {
     }
 
     companion object {
-        fun isValid(request: Map<String, *>): Boolean {
-            var valid = true
-            if (request["path"] !is String) {
-                valid = false
+        private const val validationErrorMessage: String = "Download request malformed."
+        fun isValid(request: Map<String, *>) {
+            if(request["path"] !is String?) {
+                throw AmplifyFlutterValidationException(validationErrorMessage, "path is missing.")
             }
-            if (request["key"] !is String) {
-                valid = false
+            if(request["key"] !is String?) {
+                throw AmplifyFlutterValidationException(validationErrorMessage, "key is missing.")
             }
-            return valid
         }
     }
 }

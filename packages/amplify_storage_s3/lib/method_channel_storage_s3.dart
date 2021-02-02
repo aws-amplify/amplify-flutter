@@ -19,7 +19,6 @@ import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interfac
 import 'dart:io';
 
 import 'amplify_storage_s3.dart';
-import 'src/Exceptions/StorageExceptionType.dart';
 
 const MethodChannel _channel =
     MethodChannel('com.amazonaws.amplify/storage_s3');
@@ -38,8 +37,7 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
       UploadFileResult result = _formatUploadFileResult(data);
       return result;
     } on PlatformException catch (e) {
-      throw _convertToStorageException(
-          StorageExceptionType.UPLOAD_FILE_FAILED, e);
+      throw _convertToStorageException(e);
     }
   }
 
@@ -54,7 +52,7 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
       GetUrlResult result = _formatGetUrlResult(data);
       return result;
     } on PlatformException catch (e) {
-      throw _convertToStorageException(StorageExceptionType.GET_URL_FAILED, e);
+      throw _convertToStorageException(e);
     }
   }
 
@@ -69,7 +67,7 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
       RemoveResult result = _formatRemoveResult(data);
       return result;
     } on PlatformException catch (e) {
-      throw _convertToStorageException(StorageExceptionType.REMOVE_FAILED, e);
+      throw _convertToStorageException(e);
     }
   }
 
@@ -84,7 +82,7 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
       ListResult result = _formatListResult(data);
       return result;
     } on PlatformException catch (e) {
-      throw _convertToStorageException(StorageExceptionType.LIST_FAILED, e);
+      throw _convertToStorageException(e);
     }
   }
 
@@ -100,8 +98,7 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
       DownloadFileResult result = _formatDownloadFileResult(data);
       return result;
     } on PlatformException catch (e) {
-      throw _convertToStorageException(
-          StorageExceptionType.DOWNLOAD_FILE_FAILED, e);
+      throw _convertToStorageException(e);
     }
   }
 
@@ -168,23 +165,14 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
 
   StorageException _prepareExceptionForMalformedResult(
       {@required String methodName, @required String fieldName}) {
-    const exceptionType =
-        StorageExceptionType.MALFORMED_PLATFORM_CHANNEL_RESULT;
-    final Map exceptionDetails = <String, String>{
-      'operation': methodName,
-      'malformed field': '$fieldName cannot be null'
-    };
     return StorageException(
-        code: exceptionType.code,
-        message: exceptionType.message,
-        details: exceptionDetails);
+      'Error formatting platform channel result',
+      recoverySuggestion: 'Operation $methodName failed: $fieldName cannot be null.');
   }
 
-  StorageException _convertToStorageException(
-      StorageExceptionType exceptionType, PlatformException exception) {
-    return StorageException(
-        code: exceptionType.code,
-        message: exception.message,
-        details: exception.details);
+  StorageException _convertToStorageException(PlatformException e) {
+    return  StorageException.fromMap(
+      Map<String, String>.from(e.details));
   }
 }
+

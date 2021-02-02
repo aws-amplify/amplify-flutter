@@ -22,9 +22,11 @@ struct FlutterListRequest {
         self.options = setOptions(request: request)
     }
     
-    static func isValid(request: Dictionary<String, AnyObject>) -> Bool {
-        let valid: Bool = request["path"] is String?
-        return valid
+    static func isValid(request: Dictionary<String, AnyObject>) throws {
+        let validationErrorMessage = "List request malformed."
+        if !(request["path"] is String) {
+            throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "path is missing.")
+        }
     }
     
     private func setOptions(request: Dictionary<String, AnyObject>) -> StorageListRequest.Options? {

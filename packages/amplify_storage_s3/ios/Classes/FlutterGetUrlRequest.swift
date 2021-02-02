@@ -24,9 +24,11 @@ struct FlutterGetUrlRequest {
         self.options = setOptions(request: request)
     }
     
-    static func isValid(request: Dictionary<String, AnyObject>) -> Bool {
-        let valid: Bool = request["key"] is String
-        return valid
+    static func isValid(request: Dictionary<String, AnyObject>) throws {
+        let validationErrorMessage = "GetURL request malformed."
+        if !(request["key"] is String) {
+            throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "key is missing.")
+        }
     }
     
     private func setOptions(request: Dictionary<String, AnyObject>) -> StorageGetURLRequest.Options? {

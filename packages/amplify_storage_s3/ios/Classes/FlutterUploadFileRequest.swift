@@ -26,15 +26,14 @@ struct FlutterUploadFileRequest {
         self.options = setOptions(request: request)
     }
     
-    static func isValid(request: Dictionary<String, AnyObject>) -> Bool {
-        var valid: Bool = true;
+    static func isValid(request: Dictionary<String, AnyObject>) throws {
+        let validationErrorMessage = "Upload request malformed."
         if !(request["key"] is String) {
-            valid = false
+            throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "key is missing.")
         }
         if !(request["path"] is String) {
-            valid = false
+            throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "path is missing.")
         }
-        return valid
     }
     
     private func setOptions(request: Dictionary<String, AnyObject>) -> StorageUploadFileRequest.Options? {
