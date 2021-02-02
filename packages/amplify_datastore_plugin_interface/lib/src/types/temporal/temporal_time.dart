@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -93,7 +93,7 @@ class TemporalTime {
 
     // Extract Offset
     if (match.group(7) != null && match.group(7).isNotEmpty)
-      _offset = Temporal.stringToOffset(match.group(7));
+      _offset = Temporal.offsetToDuration(match.group(7));
     else if (iso8601String.toLowerCase().contains("z")) _offset = Duration();
   }
 
@@ -126,7 +126,7 @@ class TemporalTime {
       if (_offset.inSeconds == 0) {
         buffer.write("Z");
       } else {
-        buffer.write(Temporal.durationToString(_offset));
+        buffer.write(Temporal.durationToOffset(_offset));
       }
     }
 

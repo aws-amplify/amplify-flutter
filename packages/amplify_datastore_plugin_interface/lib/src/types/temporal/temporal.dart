@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  */
 
 class Temporal {
-  static durationToString(Duration duration) {
+  static String durationToOffset(Duration duration) {
     var buffer = StringBuffer();
     buffer.write(duration.isNegative ? "-" : "+");
 
@@ -30,7 +30,7 @@ class Temporal {
     return buffer.toString();
   }
 
-  static Duration stringToOffset(String offsetString) {
+  static Duration offsetToDuration(String offsetString) {
     RegExp regExp = new RegExp(
         r'^(\+|-)([0-2][0-9]):([0-5][0-9])(:([0-5][0-9]))?',
         caseSensitive: false,
@@ -46,7 +46,7 @@ class Temporal {
   }
 
   static int getIntOr0(String toParse) {
-    return toParse != null ? int.parse(toParse) : 0;
+    return int.tryParse(toParse) ?? 0;
   }
 
   static Duration nanosecondsToDuration(int nanoseconds) {

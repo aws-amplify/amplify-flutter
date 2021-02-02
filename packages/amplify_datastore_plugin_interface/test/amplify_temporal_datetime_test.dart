@@ -1,3 +1,18 @@
+/*
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
 import 'package:amplify_datastore_plugin_interface/src/types/temporal/temporal_datetime.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -9,7 +24,7 @@ void main() {
     now = now.toUtc();
 
     expect(time.getOffset(), Duration());
-    expect(time.getDateTime(), now);
+    expect(time.getDateTimeInUtc(), now);
     expect(time.format(), now.toIso8601String().substring(0, 26) + "000Z");
   });
 
@@ -21,7 +36,7 @@ void main() {
     now = now.toUtc();
 
     expect(time.getOffset(), offset);
-    expect(time.getDateTime(), now);
+    expect(time.getDateTimeInUtc(), now);
     expect(time.format(),
         now.toIso8601String().substring(0, 26) + "000" + "+03:30");
   });
@@ -30,7 +45,7 @@ void main() {
     TemporalDateTime time = TemporalDateTime.fromString("1995-05-03T03:30Z");
 
     expect(time.getOffset(), Duration());
-    expect(time.getDateTime(), DateTime.utc(1995, 05, 03, 03, 30));
+    expect(time.getDateTimeInUtc(), DateTime.utc(1995, 05, 03, 03, 30));
     expect(time.format(), "1995-05-03T03:30:00Z");
   });
 
@@ -38,7 +53,7 @@ void main() {
     TemporalDateTime time = TemporalDateTime.fromString("1995-05-03T03:30:25Z");
 
     expect(time.getOffset(), Duration());
-    expect(time.getDateTime(), DateTime.utc(1995, 05, 03, 03, 30, 25));
+    expect(time.getDateTimeInUtc(), DateTime.utc(1995, 05, 03, 03, 30, 25));
     expect(time.format(), "1995-05-03T03:30:25Z");
   });
 
@@ -47,8 +62,8 @@ void main() {
         TemporalDateTime.fromString("1995-05-03T03:30:25.999999999Z");
 
     expect(time.getOffset(), Duration());
-    expect(
-        time.getDateTime(), DateTime.utc(1995, 05, 03, 03, 30, 25, 999, 999));
+    expect(time.getDateTimeInUtc(),
+        DateTime.utc(1995, 05, 03, 03, 30, 25, 999, 999));
     expect(time.format(), "1995-05-03T03:30:25.999999999Z");
   });
 
@@ -58,7 +73,7 @@ void main() {
     Duration duration = Duration(hours: 3, minutes: 25);
 
     expect(time.getOffset(), duration);
-    expect(time.getDateTime(), DateTime.utc(1995, 05, 03, 03, 30));
+    expect(time.getDateTimeInUtc(), DateTime.utc(1995, 05, 03, 03, 30));
     expect(time.format(), "1995-05-03T03:30:00+03:25");
   });
 
@@ -68,7 +83,7 @@ void main() {
     Duration duration = Duration(hours: -3, minutes: -25);
 
     expect(time.getOffset(), duration);
-    expect(time.getDateTime(), DateTime.utc(1995, 05, 03, 03, 30));
+    expect(time.getDateTimeInUtc(), DateTime.utc(1995, 05, 03, 03, 30));
     expect(time.format(), "1995-05-03T03:30:00-03:25");
   });
 
@@ -78,7 +93,7 @@ void main() {
     Duration duration = Duration(hours: 3, minutes: 25, seconds: 55);
 
     expect(time.getOffset(), duration);
-    expect(time.getDateTime(), DateTime.utc(1995, 05, 03, 03, 30));
+    expect(time.getDateTimeInUtc(), DateTime.utc(1995, 05, 03, 03, 30));
     expect(time.format(), "1995-05-03T03:30:00+03:25:55");
   });
 
@@ -89,7 +104,7 @@ void main() {
     Duration duration = Duration(hours: 3, minutes: 25, seconds: 55);
 
     expect(time.getOffset(), duration);
-    expect(time.getDateTime(), DateTime.utc(1995, 05, 03, 03, 30, 25));
+    expect(time.getDateTimeInUtc(), DateTime.utc(1995, 05, 03, 03, 30, 25));
     expect(time.format(), "1995-05-03T03:30:25+03:25:55");
   });
 
@@ -100,8 +115,8 @@ void main() {
     Duration duration = Duration(hours: 3, minutes: 25, seconds: 55);
 
     expect(time.getOffset(), duration);
-    expect(
-        time.getDateTime(), DateTime.utc(1995, 05, 03, 03, 30, 25, 999, 999));
+    expect(time.getDateTimeInUtc(),
+        DateTime.utc(1995, 05, 03, 03, 30, 25, 999, 999));
     expect(time.format(), "1995-05-03T03:30:25.999999999+03:25:55");
   });
 
@@ -113,7 +128,8 @@ void main() {
     Duration duration = Duration(hours: 3, minutes: 25, seconds: 55);
 
     expect(time.getOffset(), duration);
-    expect(time.getDateTime(), DateTime.utc(1995, 05, 03, 03, 30, 25, 0, 99));
+    expect(
+        time.getDateTimeInUtc(), DateTime.utc(1995, 05, 03, 03, 30, 25, 0, 99));
     expect(time.format(), "1995-05-03T03:30:25.000099999+03:25:55");
   });
 
@@ -125,7 +141,7 @@ void main() {
     now = now.toUtc();
 
     expect(time.getOffset(), offset);
-    expect(time.getDateTime(), now);
+    expect(time.getDateTimeInUtc(), now);
     expect(time.format(),
         now.toIso8601String().substring(0, 26) + "000" + "+03:03:03");
   });

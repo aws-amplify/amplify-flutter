@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -16,7 +16,8 @@
 // ignore_for_file: public_member_api_docs
 
 // only to be used internally by amplify-flutter library
-String enumToString(Object o) => o != null ? o.toString().split('.').last : null;
+String enumToString(Object o) =>
+    o != null ? o.toString().split('.').last : null;
 
 // only to be used internally by amplify-flutter library
 T enumFromString<T>(String key, List<T> values) =>

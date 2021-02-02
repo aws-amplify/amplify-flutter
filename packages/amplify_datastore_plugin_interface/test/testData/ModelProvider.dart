@@ -1,5 +1,5 @@
 /*
-* Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+* Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 *
 * Licensed under the Apache License, Version 2.0 (the "License").
 * You may not use this file except in compliance with the License.
@@ -39,22 +39,26 @@ class ModelProvider implements ModelProviderInterface {
   static ModelProvider get instance => _instance;
 
   ModelType getModelTypeByModelName(String modelName) {
-    switch(modelName) {
-      case "Blog": {
-        return Blog.classType;
-      }
-      break;
-      case "Post": {
-        return Post.classType;
-      }
-      break;
-      case "Comment": {
-        return Comment.classType;
-      }
-      break;
-      default: {
-        throw Exception("Failed to find model in model provider.");
-      }
+    switch (modelName) {
+      case "Blog":
+        {
+          return Blog.classType;
+        }
+        break;
+      case "Post":
+        {
+          return Post.classType;
+        }
+        break;
+      case "Comment":
+        {
+          return Comment.classType;
+        }
+        break;
+      default:
+        {
+          throw Exception("Failed to find model in model provider.");
+        }
     }
   }
 }
