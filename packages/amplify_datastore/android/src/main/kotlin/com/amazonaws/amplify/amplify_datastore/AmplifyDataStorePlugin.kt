@@ -14,11 +14,15 @@
  */
 
 package com.amazonaws.amplify.amplify_datastore
+
 import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
 import androidx.annotation.VisibleForTesting
-import com.amazonaws.amplify.amplify_datastore.types.FlutterDataStoreFailureMessage
+import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
+import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedError
+import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedUnrecognizedError
+import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterModelSchema
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSerializedModel
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSubscriptionEvent
@@ -40,7 +44,6 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import kotlin.collections.HashMap
 
 /** AmplifyDataStorePlugin */
 class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
@@ -63,7 +66,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     }
 
     @VisibleForTesting
-    constructor(eventHandler: DataStoreObserveEventStreamHandler, hubEventHandler: DataStoreHubEventStreamHandler) {
+    constructor(eventHandler: DataStoreObserveEventStreamHandler,
+            hubEventHandler: DataStoreHubEventStreamHandler) {
         dataStoreObserveEventStreamHandler = eventHandler
         dataStoreHubEventStreamHandler = hubEventHandler
     }
@@ -71,14 +75,14 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     override fun onAttachedToEngine(
             @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger,
-                                    "com.amazonaws.amplify/datastore")
+                "com.amazonaws.amplify/datastore")
         channel.setMethodCallHandler(this)
         eventchannel = EventChannel(flutterPluginBinding.binaryMessenger,
-                                    "com.amazonaws.amplify/datastore_observe_events")
+                "com.amazonaws.amplify/datastore_observe_events")
         eventchannel.setStreamHandler(dataStoreObserveEventStreamHandler)
-        
+
         hubEventChannel = EventChannel(flutterPluginBinding.binaryMessenger,
-                                    "com.amazonaws.amplify/datastore_hub_events")
+                "com.amazonaws.amplify/datastore_hub_events")
         hubEventChannel.setStreamHandler(dataStoreHubEventStreamHandler)
         LOG.info("Initiated DataStore plugin")
     }
@@ -86,14 +90,15 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         var data: Map<String, Any> = HashMap()
         try {
-            if(call.arguments != null) {
+            if (call.arguments != null) {
                 data = checkArguments(call.arguments) as HashMap<String, Any>
             }
         } catch (e: Exception) {
-            postFlutterError(
-                    result,
-                    FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString(),
-                    createErrorMap(e))
+            handler.post {
+                postExceptionToFlutterChannel(result, "DataStoreException",
+                        createSerializedUnrecognizedError(e))
+            }
+            return
         }
         when (call.method) {
             "query" -> onQuery(result, data)
@@ -110,11 +115,13 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
         if (!request.containsKey("modelSchemas") || !request.containsKey(
                         "modelProviderVersion") || request["modelSchemas"] !is List<*>) {
-            postFlutterError(
-                    flutterResult,
-                    FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString(),
-                    createErrorMap(Exception(
-                            FlutterDataStoreFailureMessage.AMPLIFY_REQUEST_MALFORMED.toString())))
+            handler.post {
+                postExceptionToFlutterChannel(flutterResult, "DataStoreException",
+                        createSerializedError(ExceptionMessages.missingExceptionMessage,
+                                ExceptionMessages.missingRecoverySuggestion,
+                                "Received invalid request from Dart, modelSchemas and/or modelProviderVersion" +
+                                        " are not available. Request: " + request.toString()))
+            }
             return
         }
 
@@ -145,17 +152,11 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         try {
             modelName = request["modelName"] as String
             queryOptions = QueryOptionsBuilder.fromSerializedMap(request)
-        } catch (e: ClassCastException) {
-            postFlutterError(
-                    flutterResult,
-                    FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString(),
-                    createErrorMap(e))
-            return
         } catch (e: Exception) {
-            postFlutterError(
-                    flutterResult,
-                    FlutterDataStoreFailureMessage.AMPLIFY_REQUEST_MALFORMED.toString(),
-                    createErrorMap(e))
+            handler.post {
+                postExceptionToFlutterChannel(flutterResult, "DataStoreException",
+                        createSerializedUnrecognizedError(e))
+            }
             return
         }
 
@@ -172,24 +173,19 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                         LOG.debug("Number of items received " + results.size)
 
                         handler.post { flutterResult.success(results) }
-                    } catch (e: ClassCastException) {
-                        postFlutterError(
-                                flutterResult,
-                                FlutterDataStoreFailureMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString(),
-                                createErrorMap(e))
                     } catch (e: Exception) {
-                        postFlutterError(
-                                flutterResult,
-                                FlutterDataStoreFailureMessage.AMPLIFY_REQUEST_MALFORMED.toString(),
-                                createErrorMap(e))
+                        handler.post {
+                            postExceptionToFlutterChannel(flutterResult, "DataStoreException",
+                                    createSerializedUnrecognizedError(e))
+                        }
                     }
                 },
                 {
                     LOG.error("Query operation failed.", it)
-                    postFlutterError(
-                            flutterResult,
-                            FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_QUERY_FAILED.toString(),
-                            createErrorMap(it))
+                    handler.post {
+                        postExceptionToFlutterChannel(flutterResult, "DataStoreException",
+                                createSerializedError(it))
+                    }
                 }
         )
     }
@@ -197,16 +193,17 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     @VisibleForTesting
     fun onDelete(flutterResult: Result, request: Map<String, Any>) {
         val modelName: String
-        val serializedModelData:  Map<String, Any>
+        val serializedModelData: Map<String, Any>
 
         try {
             modelName = request["modelName"] as String
-            serializedModelData = deserializeNestedModels(request["serializedModel"].safeCastToMap()!!)
+            serializedModelData =
+                    deserializeNestedModels(request["serializedModel"].safeCastToMap()!!)
         } catch (e: Exception) {
-            postFlutterError(
-                    flutterResult,
-                    FlutterDataStoreFailureMessage.AMPLIFY_REQUEST_MALFORMED.toString(),
-                    createErrorMap(e))
+            handler.post {
+                postExceptionToFlutterChannel(flutterResult, "DataStoreException",
+                        createSerializedUnrecognizedError(e))
+            }
             return
         }
 
@@ -219,38 +216,39 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 .build()
 
         plugin.delete(
-            instance,
-            {
-                LOG.info("Deleted item: " + it.item().toString())
-                handler.post { flutterResult.success(null) }
-            },
-            {
-                LOG.error("Delete operation failed.", it)
-                if (it is DataStoreException && it.localizedMessage == "Wanted to delete one row, but deleted 0 rows.") {
+                instance,
+                {
+                    LOG.info("Deleted item: " + it.item().toString())
                     handler.post { flutterResult.success(null) }
-                } else {
-                    postFlutterError(
-                            flutterResult,
-                            FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_DELETE_FAILED.toString(),
-                            createErrorMap(it))
+                },
+                {
+                    LOG.error("Delete operation failed.", it)
+                    if (it.localizedMessage == "Wanted to delete one row, but deleted 0 rows.") {
+                        handler.post { flutterResult.success(null) }
+                    } else {
+                        handler.post {
+                            postExceptionToFlutterChannel(flutterResult, "DataStoreException",
+                                    createSerializedError(it))
+                        }
+                    }
                 }
-            }
         )
     }
 
     @VisibleForTesting
     fun onSave(flutterResult: Result, request: Map<String, Any>) {
         val modelName: String
-        val serializedModelData:  Map<String, Any>
+        val serializedModelData: Map<String, Any>
 
         try {
             modelName = request["modelName"] as String
-            serializedModelData = deserializeNestedModels(request["serializedModel"].safeCastToMap()!!)
+            serializedModelData =
+                    deserializeNestedModels(request["serializedModel"].safeCastToMap()!!)
         } catch (e: Exception) {
-            postFlutterError(
-                    flutterResult,
-                    FlutterDataStoreFailureMessage.AMPLIFY_REQUEST_MALFORMED.toString(),
-                    createErrorMap(e))
+            handler.post {
+                postExceptionToFlutterChannel(flutterResult, "DataStoreException",
+                        createSerializedUnrecognizedError(e))
+            }
             return
         }
 
@@ -267,20 +265,20 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         plugin.save(
                 serializedModel,
                 predicate,
-                Consumer{
+                Consumer {
                     LOG.info("Saved item: " + it.item().toString())
                     handler.post { flutterResult.success(null) }
                 },
                 Consumer {
                     LOG.error("Save operation failed", it)
-                    postFlutterError(
-                            flutterResult,
-                            FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_SAVE_FAILED.toString(),
-                            createErrorMap(it))
+                    handler.post {
+                        postExceptionToFlutterChannel(flutterResult, "DataStoreException",
+                                createSerializedError(it))
+                    }
                 }
         )
     }
-    
+
     fun onClear(flutterResult: Result) {
         val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
 
@@ -291,10 +289,10 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 },
                 {
                     LOG.error("Failed to clear store with error: ", it)
-                    postFlutterError(
-                            flutterResult,
-                            FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_CLEAR_FAILED.toString(),
-                            createErrorMap(it))
+                    handler.post {
+                        postExceptionToFlutterChannel(flutterResult, "DataStoreException",
+                                createSerializedError(it))
+                    }
                 }
         )
     }
@@ -310,16 +308,15 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 { event ->
                     LOG.debug("Received event: $event")
                     if (event.item() is SerializedModel) {
-                        dataStoreObserveEventStreamHandler?.sendEvent(FlutterSubscriptionEvent(
+                        dataStoreObserveEventStreamHandler.sendEvent(FlutterSubscriptionEvent(
                                 serializedModel = event.item() as SerializedModel,
                                 eventType = event.type().name.toLowerCase()).toMap())
                     }
                 },
                 { failure: DataStoreException ->
                     LOG.error("Received an error", failure)
-                    dataStoreObserveEventStreamHandler?.error("AmplifyException",
-                                                              FlutterDataStoreFailureMessage.AMPLIFY_DATASTORE_OBSERVE_EVENT_FAILURE.toString(),
-                                                              createErrorMap(failure))
+                    dataStoreObserveEventStreamHandler.error("DataStoreException",
+                            createSerializedError(failure))
                 },
                 { LOG.info("Observation complete.") }
         )
@@ -337,40 +334,15 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         return args.safeCastToMap()!!
     }
 
-    protected fun createErrorMap(@NonNull error: Exception): Map<String, Any> {
-        var errorMap = HashMap<String, Any>()
-
-        var localizedError = ""
-        var recoverySuggestion = ""
-        if (error is DataStoreException) {
-            recoverySuggestion = error.recoverySuggestion
-        }
-        if (error.localizedMessage != null) {
-            localizedError = error.localizedMessage
-        }
-        errorMap.put("PLATFORM_EXCEPTIONS", mapOf(
-                "platform" to "Android",
-                "localizedErrorMessage" to localizedError,
-                "recoverySuggestion" to recoverySuggestion,
-                "errorString" to error.toString()
-        ))
-        return errorMap
-    }
-
-    private fun postFlutterError(flutterResult: Result, msg: String, errorMap: Map<String, Any>) {
-        handler.post { flutterResult.error("AmplifyException", msg, errorMap) }
-    }
-
     @VisibleForTesting
     fun deserializeNestedModels(serializedModelData: Map<String, Any>): Map<String, Any> {
         return serializedModelData.mapValues {
-            if(it.value is Map<*, *>) {
+            if (it.value is Map<*, *>) {
                 SerializedModel.builder()
                         .serializedData(deserializeNestedModels(it.value as HashMap<String, Any>))
                         .modelSchema(null)
                         .build() as Any
-            }
-            else
+            } else
                 it.value
         }
     }

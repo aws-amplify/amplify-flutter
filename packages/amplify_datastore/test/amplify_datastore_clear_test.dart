@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_core/types/index.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/services.dart';
@@ -39,35 +40,48 @@ void main() {
   });
 
   test(
-      'A PlatformException for a failed API call results in the corresponding DataStoreError',
+      'A PlatformException for a failed API call results in the corresponding DataStoreException',
       () async {
     dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      throw PlatformException(
-          code: 'AMPLIFY_EXCEPTION',
-          message: 'AMPLIFY_DATASTORE_CLEAR_FAILED',
-          details: {});
+      throw PlatformException(code: 'DataStoreException', details: {
+        'message': 'Clear failed for whatever known reason',
+        'recoverySuggestion': 'some insightful suggestion',
+        'underlyingException': 'Act of God'
+      });
     });
     expect(
         () => dataStore.clear(),
-        throwsA(isA<DataStoreError>().having((error) => error.cause,
-            'error message', 'AMPLIFY_DATASTORE_CLEAR_FAILED')));
+        throwsA(isA<DataStoreException>()
+            .having((exception) => exception.message, 'message',
+                'Clear failed for whatever known reason')
+            .having((exception) => exception.recoverySuggestion,
+                'recoverySuggestion', 'some insightful suggestion')
+            .having((exception) => exception.underlyingException,
+                'underlyingException', 'Act of God')));
   });
 
   test(
-      'An unrecognized PlatformException results in the corresponding DataStoreError',
+      'An unrecognized PlatformException results in a generic DataStoreException',
       () async {
+    var platformException =
+        PlatformException(code: 'BadExceptionCode', details: {
+      'message': 'Clear failed for whatever known reason',
+      'recoverySuggestion': 'some insightful suggestion',
+      'underlyingException': 'Act of God'
+    });
     dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      throw PlatformException(
-          code: 'AMPLIFY_EXCEPTION',
-          message: 'An unrecognized message',
-          details: {});
+      throw platformException;
     });
     expect(
         () => dataStore.clear(),
-        throwsA(isA<DataStoreError>().having(
-          (error) => error.cause,
-          'error message',
-          'UNRECOGNIZED_DATASTORE_ERROR',
-        )));
+        throwsA(isA<DataStoreException>()
+            .having((exception) => exception.message, 'message',
+                AmplifyExceptionMessages.missingExceptionMessage)
+            .having(
+                (exception) => exception.recoverySuggestion,
+                'recoverySuggestion',
+                AmplifyExceptionMessages.missingRecoverySuggestion)
+            .having((exception) => exception.underlyingException,
+                'underlyingException', platformException.toString())));
   });
 }

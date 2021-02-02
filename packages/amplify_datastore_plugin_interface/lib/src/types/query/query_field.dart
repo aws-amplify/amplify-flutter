@@ -19,8 +19,6 @@ import 'package:amplify_datastore_plugin_interface/src/types/models/model_field_
 import 'package:flutter/foundation.dart';
 import '../temporal/datetime_parse.dart';
 
-import '../utils/parsers.dart';
-
 part 'query_field_operators.dart';
 part 'query_pagination.dart';
 part 'query_predicate.dart';

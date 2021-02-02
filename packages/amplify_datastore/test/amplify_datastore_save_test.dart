@@ -56,59 +56,23 @@ void main() {
       'A PlatformException for malformed request results in the corresponding DataStoreError',
       () async {
     dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      throw PlatformException(
-          code: "AMPLIFY_EXCEPTION",
-          message: "AMPLIFY_REQUEST_MALFORMED",
-          details: {});
+      throw PlatformException(code: 'DataStoreException', details: {
+        'message': 'Save failed for whatever known reason',
+        'recoverySuggestion': 'some insightful suggestion',
+        'underlyingException': 'Act of God'
+      });
     });
     expect(
         () => dataStore.save(Post(
               title: 'Test Post',
               rating: 10,
             )),
-        throwsA(isA<DataStoreError>().having(
-          (error) => error.cause,
-          "error message",
-          "AMPLIFY_REQUEST_MALFORMED",
-        )));
-  });
-
-  test(
-      'A PlatformException for a failed API call results in the corresponding DataStoreError',
-      () async {
-    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      throw PlatformException(
-          code: "AMPLIFY_EXCEPTION",
-          message: "AMPLIFY_DATASTORE_SAVE_FAILED",
-          details: {});
-    });
-    expect(
-        () => dataStore.save(Post(
-              title: 'Test Post',
-              rating: 10,
-            )),
-        throwsA(isA<DataStoreError>().having(
-          (error) => error.cause,
-          "error message",
-          "AMPLIFY_DATASTORE_SAVE_FAILED",
-        )));
-  });
-
-  test(
-      'An unrecognized PlatformException results in the corresponding DataStoreError',
-      () async {
-    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      throw PlatformException(
-          code: "AMPLIFY_EXCEPTION",
-          message: "An unrecognized message",
-          details: {});
-    });
-    expect(
-        () => dataStore.save(Post(
-              title: 'Test Post',
-              rating: 10,
-            )),
-        throwsA(isA<DataStoreError>().having((error) => error.cause,
-            "error message", "UNRECOGNIZED_DATASTORE_ERROR")));
+        throwsA(isA<DataStoreException>()
+            .having((exception) => exception.message, 'message',
+                'Save failed for whatever known reason')
+            .having((exception) => exception.recoverySuggestion,
+                'recoverySuggestion', 'some insightful suggestion')
+            .having((exception) => exception.underlyingException,
+                'underlyingException', 'Act of God')));
   });
 }
