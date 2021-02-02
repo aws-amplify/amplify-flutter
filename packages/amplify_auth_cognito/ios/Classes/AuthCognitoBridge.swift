@@ -18,6 +18,9 @@ import Flutter
 
 class AuthCognitoBridge {
     
+    var errorHandler = AuthErrorHandler()
+    
+    
     func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest) {
         let options = AuthSignUpRequest.Options(userAttributes: request.userAttributes)
         
@@ -27,7 +30,7 @@ class AuthCognitoBridge {
                 let signUpData = FlutterSignUpResult(res: response)
                 flutterResult(signUpData.toJSON())
             case .failure(let signUpError):
-                handleAuthError(error: signUpError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNUP.rawValue)
+                self.errorHandler.handleAuthError(authError: signUpError, flutterResult: flutterResult)
             }
         }
     }
@@ -41,7 +44,7 @@ class AuthCognitoBridge {
                 flutterResult(signUpData.toJSON())
                 
             case .failure(let signUpError):
-                handleAuthError(error: signUpError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.CONFIRM_SIGNUP.rawValue)
+                self.errorHandler.handleAuthError(authError: signUpError, flutterResult: flutterResult)
             }
         }
     }
@@ -53,7 +56,7 @@ class AuthCognitoBridge {
                 let resendData = FlutterResendSignUpCodeResult(res: response)
                 flutterResult(resendData.toJSON())
             case .failure(let signUpError):
-                handleAuthError(error: signUpError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.RESEND_SIGNUP.rawValue)
+                self.errorHandler.handleAuthError(authError: signUpError, flutterResult: flutterResult)
             }
         }
     }
@@ -68,13 +71,13 @@ class AuthCognitoBridge {
                     enum ErrorShim: Error {
                         case userNotConfirmed
                     }
-                    handleAuthError(error: AuthError.service("User is not confirmed.", "See attached exception for more details", ErrorShim.userNotConfirmed), flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNIN.rawValue)
+                    self.errorHandler.handleAuthError(authError: AuthError.service("User is not confirmed.", "See attached exception for more details", ErrorShim.userNotConfirmed), flutterResult: flutterResult)
                   default:
                     let signInData = FlutterSignInResult(res: response)
                     flutterResult(signInData.toJSON())
                 }
               case .failure(let signInError):
-                handleAuthError(error: signInError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNIN.rawValue)
+                self.errorHandler.handleAuthError(authError: signInError, flutterResult: flutterResult)
             }
         }
     }
@@ -86,7 +89,7 @@ class AuthCognitoBridge {
                 let signInData = FlutterSignInResult(res: response)
                 flutterResult(signInData.toJSON())
             case .failure(let signInError):
-                handleAuthError(error: signInError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.CONFIRM_SIGNIN.rawValue)
+                self.errorHandler.handleAuthError(authError: signInError, flutterResult: flutterResult)
             }
         }
     }
@@ -99,7 +102,7 @@ class AuthCognitoBridge {
                 flutterResult(emptyMap)
                 
             case .failure(let signOutError):
-                handleAuthError(error: signOutError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNOUT.rawValue)
+                self.errorHandler.handleAuthError(authError: signOutError, flutterResult: flutterResult)
             }
         }
     }
@@ -112,7 +115,7 @@ class AuthCognitoBridge {
                 flutterResult(emptyMap)
                 
             case .failure(let updatePasswordError):
-                handleAuthError(error: updatePasswordError, flutterResult: flutterResult, msg: FlutterAuthErrorMessage.UPDATE_PASSWORD.rawValue)
+                self.errorHandler.handleAuthError(authError: updatePasswordError, flutterResult: flutterResult)
             }
         }
     }
@@ -125,7 +128,7 @@ class AuthCognitoBridge {
                 flutterResult(resetData.toJSON())
                 
             case .failure(let resetPasswordError):
-                handleAuthError(error: resetPasswordError, flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.RESET_PASSWORD.rawValue)
+                self.errorHandler.handleAuthError(authError: resetPasswordError, flutterResult: flutterResult)
             }
         }
     }
@@ -138,7 +141,7 @@ class AuthCognitoBridge {
                 flutterResult(emptyMap)
                 
             case .failure(let resetPasswordError):
-                handleAuthError(error: resetPasswordError, flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.RESET_PASSWORD.rawValue)
+                self.errorHandler.handleAuthError(authError: resetPasswordError, flutterResult: flutterResult)
             }
         }
     }
@@ -155,7 +158,7 @@ class AuthCognitoBridge {
                 }
                 
             } catch {
-                handleAuthError(error: error as! AuthError, flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.FETCH_SESSION.rawValue)
+                self.errorHandler.handleAuthError(authError: error as! AuthError, flutterResult: flutterResult)
             }
         }
     }
@@ -172,7 +175,7 @@ class AuthCognitoBridge {
             flutterResult(userData.toJSON())
             
         } catch {
-            handleAuthError(error: error as! AuthError, flutterResult: flutterResult,  msg: FlutterAuthErrorMessage.GET_CURRENT_USER.rawValue)
+            self.errorHandler.handleAuthError(authError: error as! AuthError, flutterResult: flutterResult)
         }
     }
     
@@ -183,7 +186,8 @@ class AuthCognitoBridge {
                     let signInData = FlutterSignInResult(res: result)
                     flutterResult(signInData.toJSON())
                 case .failure(let error):
-                    handleAuthError(error: error , flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNIN_WITH_WEBUI.rawValue)
+                    self.errorHandler.handleAuthError(authError: error as! AuthError, flutterResult: flutterResult)
+
             }
         }
     }
@@ -195,7 +199,8 @@ class AuthCognitoBridge {
                     let signInData = FlutterSignInResult(res: result)
                     flutterResult(signInData.toJSON())
                 case .failure(let error):
-                    handleAuthError(error: error , flutterResult: flutterResult, msg: FlutterAuthErrorMessage.SIGNIN_WITH_WEBUI.rawValue)
+                    self.errorHandler.handleAuthError(authError: error as! AuthError, flutterResult: flutterResult)
+
             }
         }
     }

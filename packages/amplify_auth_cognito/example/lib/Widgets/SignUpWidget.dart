@@ -1,7 +1,9 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 
+// ignore_for_file: public_member_api_docs
 class SignUpWidget extends StatefulWidget {
   final Function showResult;
   final Function changeDisplay;
@@ -22,21 +24,20 @@ class _SignUpWidgetState extends State<SignUpWidget> {
   final phoneController = TextEditingController();
 
   void _signUp() async {
-    Map<String, dynamic> userAttributes = {
-      "email": emailController.text,
-      "phone_number": phoneController.text,
+    var userAttributes = {
+      'email': emailController.text,
+      'phone_number': phoneController.text,
     };
     try {
-      SignUpResult res = await Amplify.Auth.signUp(
+      var res = await Amplify.Auth.signUp(
           username: usernameController.text.trim(),
           password: passwordController.text.trim(),
           options: CognitoSignUpOptions(userAttributes: userAttributes));
-      widget.showResult("Sign Up Status = " + res.nextStep.signUpStep);
+      widget.showResult('Sign Up Status = ' + res.nextStep.signUpStep);
       widget.changeDisplay(
-          res.nextStep.signUpStep != "DONE" ? "SHOW_CONFIRM" : "SHOW_SIGN_UP");
-    } on AuthError catch (e) {
+          res.nextStep.signUpStep != 'DONE' ? 'SHOW_CONFIRM' : 'SHOW_SIGN_UP');
+    } on AmplifyException catch (e) {
       widget.setError(e);
-      print(e);
     }
   }
 
