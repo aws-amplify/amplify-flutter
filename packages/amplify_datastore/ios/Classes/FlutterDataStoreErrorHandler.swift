@@ -16,82 +16,29 @@
 import Foundation
 import Amplify
 import AmplifyPlugins
+import amplify_core
 
 class FlutterDataStoreErrorHandler {
     
-    static func handleDataStoreError(error: DataStoreError, flutterResult: FlutterResult, msg: String) {
-        flutterResult(convertToFlutterError(error: error, msg: msg))
-    }
-
-    static func convertToFlutterError(error: DataStoreError, msg: String) -> FlutterError {
-        if case .internalOperation(let localizedError, let recoverySuggestion, let error) = error {
-            let errorCode = error != nil ? "\(error!)" : "unknown"
-            return formatError(errorCode: errorCode,
-                        msg: msg,
-                        localizedError: localizedError,
-                        recoverySuggestion: recoverySuggestion)
-
-        }
-        if case .configuration(let localizedError, let recoverySuggestion, let error) = error {
-            let errorCode = error != nil ? "\(error!)" : "configuration"
-            return formatError(errorCode: errorCode,
-                        msg: msg,
-                        localizedError: localizedError,
-                        recoverySuggestion: recoverySuggestion)
-
-        }
-        if case .invalidCondition(let localizedError, let recoverySuggestion, let error) = error {
-            let errorCode = error != nil ? "\(error!)" : "invalidCondition"
-            return formatError(errorCode: errorCode,
-                        msg: msg,
-                        localizedError: localizedError,
-                        recoverySuggestion: recoverySuggestion)
-
-        }
-        if case .decodingError(let localizedError, let recoverySuggestion) = error {
-            let errorCode = "decodingError"
-            return formatError(errorCode: errorCode,
-                        msg: msg,
-                        localizedError: localizedError,
-                        recoverySuggestion: recoverySuggestion)
-
-        }
-        if case .unknown(let localizedError, let recoverySuggestion, let error) = error {
-            let errorCode = error != nil ? "\(error!)" : "unknown"
-            return formatError(errorCode: errorCode,
-                        msg: msg,
-                        localizedError: localizedError,
-                        recoverySuggestion: recoverySuggestion)
-
-        }
-        return formatError(errorCode: "unknown",
-                           msg: msg,
-                           localizedError: "unknown error",
-                           recoverySuggestion: "We don't have a recovery suggestion for this error right now.")
+    static func handleDataStoreError(error: DataStoreError, flutterResult: FlutterResult) {
+        ErrorUtil.postErrorToFlutterChannel(result: flutterResult,
+                                            errorCode: "DataStoreException",
+                                            details: FlutterDataStoreErrorHandler.createSerializedError(error: error))
     }
     
-    static func platformExceptions(localizedError: String, recoverySuggestion: String) -> [String: String] {
-        var platformDict: [String: String] = [:]
-        platformDict["platform"] = "iOS"
-        platformDict["localizedErrorMessage"] = localizedError
-        platformDict["recoverySuggestion"] = recoverySuggestion
-        return platformDict
+    static func createSerializedError(error: DataStoreError) -> Dictionary<String, String> {
+        return createSerializedError(message: error.errorDescription,
+                                     recoverySuggestion: error.recoverySuggestion,
+                                     underlyingError: error.underlyingError?.localizedDescription)
     }
     
-    static func formatError(errorCode: String,
-                     msg: String,
-                     localizedError: String,
-                     recoverySuggestion: String) -> FlutterError {
-        var errorMap: [String: Any] = [errorCode: localizedError]
-        errorMap["PLATFORM_EXCEPTIONS"] =
-            platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-        return createFlutterError(msg: msg, errorMap: errorMap)
-    }
-    
-    static func createFlutterError(msg: String, errorMap: [String: Any]) -> FlutterError {
-        return FlutterError(
-                        code: "AmplifyException",
-                        message: msg,
-                        details: errorMap)
+    static func createSerializedError(message: String,
+                                       recoverySuggestion: String?,
+                                       underlyingError: String?) -> Dictionary<String, String> {
+        var serializedException: Dictionary<String, String> = [:]
+        serializedException["message"] = message
+        serializedException["recoverySuggestion"] = recoverySuggestion
+        serializedException["underlyingException"] = underlyingError
+        return serializedException
     }
 }

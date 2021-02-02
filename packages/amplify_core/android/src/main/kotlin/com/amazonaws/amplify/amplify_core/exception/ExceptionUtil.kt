@@ -61,6 +61,11 @@ class ExceptionUtil {
         }
 
         @JvmStatic
+        fun createSerializedUnrecognizedError(@NonNull e: Exception): Map<String, Any?> {
+            return createSerializedError(ExceptionMessages.missingExceptionMessage, null, e.toString())
+        }
+
+        @JvmStatic
         fun createSerializedError(message: String, recoverySuggestion: String?,
                 cause: String?): Map<String, String?> {
             return mapOf(
