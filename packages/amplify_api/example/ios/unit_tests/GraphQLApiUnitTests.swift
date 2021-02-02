@@ -18,6 +18,8 @@ import Amplify
 @testable import AmplifyPlugins
 @testable import amplify_api
 
+var eventSentExp: XCTestExpectation?
+
 class GraphQLApiUnitTests: XCTestCase {
     typealias ResultType = String
     
@@ -225,9 +227,151 @@ class GraphQLApiUnitTests: XCTestCase {
         
     }
     
+    func test_subscribe_success_event() throws {
+        let testRequest: [String: Any] = [
+            "document": "test document",
+            "variables": ["test key":"test value"],
+            "cancelToken" : "someCode"
+        ]
+        
+        eventSentExp = expectation(description: "event was sent")
+        
+        class MockApiBridge: ApiBridge {
+            override func subscribe<ResultType>(request: GraphQLRequest<ResultType>,
+                                       valueListener: GraphQLSubscriptionOperation<ResultType>.InProcessListener?,
+                                       completionListener: GraphQLSubscriptionOperation<ResultType>.ResultListener?)
+                  -> GraphQLSubscriptionOperation<ResultType> {
+                let data: ResultType = "result data" as! ResultType
+                let response = GraphQLResponse<ResultType>.success(data)
+                valueListener?(.data(response))
+                let graphQLSubscriptionOperation = getMockGraphQLSubscriptionOperation(request: request)
+                return graphQLSubscriptionOperation
+            }
+        }
+        
+        class MockStreamHandler: GraphQLSubscriptionsStreamHandler {
+            override func sendEvent(payload: [String : Any]?, id: String, type: GraphQLSubscriptionEventTypes) {
+                            eventSentExp?.fulfill()
+                            let data = payload?["data"] as! String
+                            XCTAssertEqual("result data", data)
+                            XCTAssertEqual(GraphQLSubscriptionEventTypes.DATA, type)
+                            XCTAssertEqual("someCode", id)
+                }
+                }
+        
+        
+        FlutterGraphQLApi.subscribe(
+            flutterResult: { (result) -> Void in
+                XCTFail()
+            },
+            request: testRequest,
+            bridge: MockApiBridge(),
+            graphQLSubscriptionsStreamHandler: MockStreamHandler()
+        )
+        wait(for: [eventSentExp!], timeout: 1)
+    }
+    
+    func test_subscribe_api_error() throws {
+        let testRequest: [String: Any] = [
+            "document": "test document",
+            "variables": ["test key":"test value"],
+            "cancelToken" : "someCode"
+        ]
+        
+        class MockApiBridge: ApiBridge {
+            override func subscribe<ResultType>(request: GraphQLRequest<ResultType>,
+                                       valueListener: GraphQLSubscriptionOperation<ResultType>.InProcessListener?,
+                                       completionListener: GraphQLSubscriptionOperation<ResultType>.ResultListener?)
+                  -> GraphQLSubscriptionOperation<ResultType> {
+                completionListener?(.failure(APIError.invalidConfiguration("test error", "test recovery suggestion")))
+                let graphQLSubscriptionOperation = getMockGraphQLSubscriptionOperation(request: request)
+                return graphQLSubscriptionOperation
+            }
+        }
+        
+        class MockStreamHandler: GraphQLSubscriptionsStreamHandler {
+            override func sendEvent(payload: [String : Any]?, id: String, type: GraphQLSubscriptionEventTypes) {
+                XCTFail()
+            }
+            
+            override func sendError(flutterError: FlutterError) {
+                XCTFail()
+            }
+        }
+        
+        
+        FlutterGraphQLApi.subscribe(
+            flutterResult: { (result) -> Void in
+                if let exception = result as? FlutterError {
+                    XCTAssertEqual("AmplifyException", exception.code)
+                    XCTAssertEqual(FlutterApiErrorMessage.ESTABLISH_SUBSCRIPTION_FAILED.rawValue, exception.message)
+                    let errorMap: [String: Any] = exception.details as! [String : Any]
+                    XCTAssertEqual(
+                        ["platform": "iOS", "localizedErrorMessage": "test error", "recoverySuggestion": "test recovery suggestion"],
+                        errorMap["PLATFORM_EXCEPTIONS"] as? [String: String])
+                } else {
+                    XCTFail()
+                }
+            },
+            request: testRequest,
+            bridge: MockApiBridge(),
+            graphQLSubscriptionsStreamHandler: MockStreamHandler()
+        )
+    }
+    
+    func test_subscribe_malformed_request_error() throws {
+        let testRequest: [String: Any] = [:]
+        
+        class MockApiBridge: ApiBridge {
+            override func subscribe<R>(request: GraphQLRequest<R>,
+                                       valueListener: GraphQLSubscriptionOperation<R>.InProcessListener?,
+                                       completionListener: GraphQLSubscriptionOperation<R>.ResultListener?)
+                  -> GraphQLSubscriptionOperation<R> {
+                XCTFail("The ApiBridge should not be called if the request is malformed")
+                
+                let graphQLSubscriptionOperation = getMockGraphQLSubscriptionOperation(request: request)
+                return graphQLSubscriptionOperation
+            }
+        }
+        
+        class MockStreamHandler: GraphQLSubscriptionsStreamHandler {
+            override func sendEvent(payload: [String : Any]?, id: String, type: GraphQLSubscriptionEventTypes) {
+                XCTFail()
+            }
+            
+            override func sendError(flutterError: FlutterError) {
+                XCTFail()
+            }
+        }
+        
+        
+        FlutterGraphQLApi.subscribe(
+            flutterResult: { (result) -> Void in
+                if let exception = result as? FlutterError {
+                    XCTAssertEqual("AmplifyException", exception.code)
+                    XCTAssertEqual(FlutterApiErrorMessage.MALFORMED.rawValue, exception.message)
+                    let errorMap: [String: Any] = exception.details as! [String : Any]
+                    XCTAssertEqual(
+                        ["platform": "iOS", "localizedErrorMessage": "The graphQL document request argument was not passed as a String", "recoverySuggestion": "The request should include the graphQL document as a String"],
+                        errorMap["PLATFORM_EXCEPTIONS"] as? [String: String])
+                } else {
+                    XCTFail()
+                }
+            },
+            request: testRequest,
+            bridge: MockApiBridge(),
+            graphQLSubscriptionsStreamHandler: MockStreamHandler()
+        )
+    }
+    
 }
 
 func getMockGraphQLOperation<R>(request: GraphQLRequest<R>) -> GraphQLOperation<R> {
     let operationRequest = GraphQLOperationRequest.init(apiName: request.apiName, operationType: GraphQLOperationType.mutation, document: request.document, responseType: R.self, options: GraphQLOperationRequest.Options())
     return GraphQLOperation<R>(categoryType: .api, eventName: operationRequest.operationType.hubEventName, request: operationRequest)
+}
+
+func getMockGraphQLSubscriptionOperation<R>(request: GraphQLRequest<R>) -> GraphQLSubscriptionOperation<R> {
+    let operationRequest = GraphQLOperationRequest.init(apiName: request.apiName, operationType: GraphQLOperationType.mutation, document: request.document, responseType: R.self, options: GraphQLOperationRequest.Options())
+    return GraphQLSubscriptionOperation<R>(categoryType: .api, eventName: operationRequest.operationType.hubEventName, request: operationRequest)
 }

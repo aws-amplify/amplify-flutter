@@ -22,6 +22,7 @@ import com.amplifyframework.api.graphql.GraphQLOperation
 import com.amplifyframework.api.graphql.GraphQLRequest
 import com.amplifyframework.api.graphql.GraphQLResponse
 import com.amplifyframework.api.graphql.SimpleGraphQLRequest
+import com.amplifyframework.core.Action
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
 import io.flutter.plugin.common.MethodCall
@@ -30,10 +31,12 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers
 import org.mockito.Mockito.*
 import org.robolectric.RobolectricTestRunner
 import java.lang.reflect.Field
 import java.lang.reflect.Modifier
+import java.util.ArrayList
 
 @RunWith(RobolectricTestRunner::class)
 class GraphQLApiUnitTests {
@@ -41,6 +44,8 @@ class GraphQLApiUnitTests {
     private var mockApi = mock(ApiCategory::class.java)
     private val mockResult: MethodChannel.Result = mock(MethodChannel.Result::class.java)
     private val mockGraphQLOperation = mock(GraphQLOperation::class.java)
+    private val mockStreamHandler: GraphQLSubscriptionStreamHandler =
+            mock(GraphQLSubscriptionStreamHandler::class.java)
 
     @Before
     fun setup() {
@@ -97,7 +102,7 @@ class GraphQLApiUnitTests {
     }
 
     @Test
-    fun test_query_malformed_request_casting_error() {
+    fun test_query_malformed_request_error() {
         val testRequest = HashMap<String, Any>()
 
         flutterPlugin.onMethodCall(
@@ -220,7 +225,7 @@ class GraphQLApiUnitTests {
     }
 
     @Test
-    fun test_mutate_malformed_request_casting_error() {
+    fun test_mutate_malformed_request_error() {
         val testRequest = HashMap<String, Any>()
 
         flutterPlugin.onMethodCall(
@@ -281,6 +286,141 @@ class GraphQLApiUnitTests {
         verify(mockResult).error(
                 "AmplifyException",
                 FlutterApiErrorMessage.AMPLIFY_API_MUTATE_FAILED.toString(),
+                mapOf(
+                        "PLATFORM_EXCEPTIONS" to
+                                mapOf(
+                                        "platform" to "Android",
+                                        "localizedErrorMessage" to "AmplifyException",
+                                        "recoverySuggestion" to ApiException.REPORT_BUG_TO_AWS_SUGGESTION,
+                                        "errorString" to apiException.toString()))
+        )
+
+    }
+
+    @Test
+    fun test_subscribe_success_event() {
+        flutterPlugin = AmplifyApiPlugin(eventHandler = mockStreamHandler)
+        val testRequest = HashMap<String, Any>()
+        val id = "someCode"
+
+        testRequest["document"] = ("mutation MyMutation(\$name: String!) {"
+                + "createBlog(input: {name: \$name}) {"
+                + "id"
+                + "name"
+                + "createdAt"
+                + "}"
+                + "}")
+
+        testRequest["variables"] = mapOf(
+                "name" to "Test App Blog"
+        )
+        testRequest["cancelToken"] = id
+
+
+
+        val graphQLResponse: GraphQLResponse<String> = GraphQLResponse("result data", null)
+
+        doAnswer { invocation ->
+            Assert.assertEquals(
+                    SimpleGraphQLRequest<String>(
+                            testRequest["document"] as String,
+                            testRequest["variables"] as Map<String, Any>,
+                            String::class.java,
+                            GsonVariablesSerializer()
+                    ),
+                    invocation.arguments[0]
+            )
+            (invocation.arguments[2] as Consumer<GraphQLResponse<String>>).accept(
+                    graphQLResponse
+            )
+            mockGraphQLOperation
+        }.`when`(mockApi).subscribe(
+                any<GraphQLRequest<String>>(),
+                any<Consumer<String>>(),
+                any<Consumer<GraphQLResponse<String>>>(),
+                any<Consumer<ApiException>>(),
+                any<Action>()
+        )
+
+        flutterPlugin.onMethodCall(
+                MethodCall("subscribe", testRequest),
+                mockResult
+        )
+
+        verify(mockStreamHandler, times(1))
+                .sendEvent(
+                        graphQLResponse.data,
+                        graphQLResponse.errors,
+                        id,
+                        GraphQLSubscriptionEventTypes.DATA)
+
+    }
+
+    @Test
+    fun test_subscribe_malformed_request_error() {
+        val testRequest = HashMap<String, Any>()
+
+        flutterPlugin.onMethodCall(
+                MethodCall("subscribe", testRequest),
+                mockResult
+        )
+
+        verify(mockResult).error(
+                matches("AmplifyException"),
+                matches(FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString()),
+                any()
+        )
+    }
+
+    @Test
+    fun test_subscribe_api_error() {
+        val apiException = ApiException("AmplifyException", ApiException.REPORT_BUG_TO_AWS_SUGGESTION)
+        val testRequest = HashMap<String, Any>()
+
+        testRequest["document"] = ("mutation MyMutation(\$name: String!) {"
+                + "createBlog(input: {name: \$name}) {"
+                + "id"
+                + "name"
+                + "createdAt"
+                + "}"
+                + "}")
+
+        testRequest["variables"] = mapOf(
+                "name" to "Test App Blog"
+        )
+        testRequest["cancelToken"] = "someCode"
+
+        doAnswer { invocation ->
+            Assert.assertEquals(
+                    SimpleGraphQLRequest<String>(
+                            testRequest["document"] as String,
+                            testRequest["variables"] as Map<String, Any>,
+                            String::class.java,
+                            GsonVariablesSerializer()
+                    ),
+                    invocation.arguments[0]
+            )
+            (invocation.arguments[3] as Consumer<ApiException>).accept(
+                    apiException
+            )
+            mockGraphQLOperation
+        }.`when`(mockApi).subscribe(
+                any<GraphQLRequest<String>>(),
+                any<Consumer<String>>(),
+                any(),
+                any(),
+                any()
+        )
+
+
+        flutterPlugin.onMethodCall(
+                MethodCall("subscribe", testRequest),
+                mockResult
+        )
+
+        verify(mockResult).error(
+                "AmplifyException",
+                FlutterApiErrorMessage.AMPLIFY_API_FAILED_TO_ESTABLISH_SUBSCRIPTION.toString(),
                 mapOf(
                         "PLATFORM_EXCEPTIONS" to
                                 mapOf(

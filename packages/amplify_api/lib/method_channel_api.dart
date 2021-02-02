@@ -83,21 +83,20 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
         .where((event) {
           return event["id"] == subscriptionId;
         })
-        .map((event) => {
-              "data": event["payload"]["data"],
-              "errors": event["payload"]["errors"],
-              "type": event["type"]
-            })
+        .map((event) => {'type': event['type'], 'payload': event['payload']})
         .asBroadcastStream()
         .cast<Map<String, dynamic>>();
 
     StreamSubscription _subscription = filteredStream.listen((event) {
-      if (event["type"] == "DONE") {
+      if (event['type'] == 'DONE') {
         onDone();
       } else {
-        final errors = _deserializeGraphQLResponseErrors(event);
+        final payload = new Map<String, dynamic>.from(event['payload']);
+
+        final errors = _deserializeGraphQLResponseErrors(payload);
+
         GraphQLResponse<T> response =
-            GraphQLResponse<T>(data: event['data'], errors: errors);
+            GraphQLResponse<T>(data: payload['data'], errors: errors);
         onData(response);
       }
     });
@@ -241,8 +240,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   }
 
   //TODO: Deserialize all fields of the GraphQLResponseError as per spec
-  List<GraphQLResponseError> _deserializeGraphQLResponseErrors(
-      Map<String, dynamic> response) {
+  List<GraphQLResponseError> _deserializeGraphQLResponseErrors(Map response) {
     if (response['errors'] != null) {
       final errors = response['errors'] as List;
       if (errors.length > 0) {

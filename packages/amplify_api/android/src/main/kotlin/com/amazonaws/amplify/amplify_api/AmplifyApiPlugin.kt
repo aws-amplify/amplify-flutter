@@ -17,6 +17,7 @@ package com.amazonaws.amplify.amplify_api
 
 import android.content.Context
 import androidx.annotation.NonNull
+import androidx.annotation.VisibleForTesting
 import com.amazonaws.amplify.amplify_api.rest_api.FlutterRestApi
 import com.amplifyframework.api.aws.AWSApiPlugin
 import com.amplifyframework.core.Amplify
@@ -34,9 +35,18 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
     private lateinit var channel: MethodChannel
     private lateinit var eventchannel: EventChannel
     private lateinit var context: Context
-    private val graphqlSubscriptionStreamHandler = GraphQLSubscriptionStreamHandler()
+    private val graphqlSubscriptionStreamHandler: GraphQLSubscriptionStreamHandler
     private val LOG = Amplify.Logging.forNamespace("amplify:flutter:api")
-    
+
+    constructor() {
+        graphqlSubscriptionStreamHandler = GraphQLSubscriptionStreamHandler()
+    }
+
+    @VisibleForTesting
+    constructor(eventHandler: GraphQLSubscriptionStreamHandler) {
+        graphqlSubscriptionStreamHandler = eventHandler
+    }
+
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "com.amazonaws.amplify/api")
         channel.setMethodCallHandler(this)
