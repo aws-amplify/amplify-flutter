@@ -48,7 +48,9 @@ class AmplifyDataStore extends DataStorePluginInterface {
     ModelProviderInterface provider =
         modelProvider == null ? this.modelProvider : modelProvider;
     if (provider == null || provider.modelSchemas.isEmpty) {
-      throw ArgumentError("Need to provide at least one modelSchema");
+      throw DataStoreException('No modelProvider or modelSchemas found',
+          recoverySuggestion:
+              'Pass in a modelProvider instance while instantiating DataStorePlugin');
     }
     streamWrapper.registerModelsForHub(provider);
     return _instance.configureModelProvider(modelProvider: modelProvider);
