@@ -119,8 +119,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 postExceptionToFlutterChannel(flutterResult, "DataStoreException",
                         createSerializedError(ExceptionMessages.missingExceptionMessage,
                                 ExceptionMessages.missingRecoverySuggestion,
-                                "Received invalid request from Dart, modelSchemas or modelProviderVersion" +
-                                        " was not available. Request: " + request.toString()))
+                                "Received invalid request from Dart, modelSchemas and/or modelProviderVersion" +
+                                        " are not available. Request: " + request.toString()))
             }
             return
         }
