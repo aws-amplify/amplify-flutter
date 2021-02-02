@@ -22,7 +22,7 @@ class FlutterApiRequest {
     // ====== SHARED ======
     static func getMap(args: Any) throws -> [String: Any] {
         guard let res = args as? [String: Any] else {
-            throw APIError.unknown("The FlutterMethodCall argument was not passed as a dictionary",
+            throw APIError.invalidConfiguration("The FlutterMethodCall argument was not passed as a dictionary",
                                                 "The request should include the FlutterMethodCall argument as a [String: Any] dictionary")
         }
         return res
@@ -30,7 +30,7 @@ class FlutterApiRequest {
 
     static func getCancelToken(args: Any) throws -> String {
         guard let cancelToken = args as? String else {
-            throw APIError.unknown("The cancelToken request argument was not passed as a String",
+            throw APIError.invalidConfiguration("The cancelToken request argument was not passed as a String",
                                                 "The request should include the cancelToken document as a String")
         }
         return cancelToken
@@ -38,7 +38,7 @@ class FlutterApiRequest {
 
     static func getCancelToken(methodChannelRequest: [String: Any]) throws -> String {
         guard let cancelToken = methodChannelRequest["cancelToken"] as? String else {
-            throw APIError.unknown("The cancelToken request argument was not passed as a String",
+            throw APIError.invalidConfiguration("The cancelToken request argument was not passed as a String",
                                                 "The request should include the cancelToken document as a String")
         }
         return cancelToken
@@ -48,7 +48,7 @@ class FlutterApiRequest {
     // ====== GRAPH QL ======
     static func getGraphQLDocument(methodChannelRequest: [String: Any]) throws -> String {
         guard let document = methodChannelRequest["document"] as? String else {
-            throw APIError.unknown("The graphQL document request argument was not passed as a String",
+            throw APIError.invalidConfiguration("The graphQL document request argument was not passed as a String",
                                                 "The request should include the graphQL document as a String")
         }
         return document
@@ -56,7 +56,7 @@ class FlutterApiRequest {
     
     static func getVariables(methodChannelRequest: [String: Any]) throws ->  [String:Any] {
         guard let variables = methodChannelRequest["variables"] as? [String: Any] else {
-            throw APIError.unknown("The variables request argument was not passed as a dictionary",
+            throw APIError.invalidConfiguration("The variables request argument was not passed as a dictionary",
                                                 "The request should include the variables argument as a [String: Any] dictionary")
         }
         return variables
@@ -66,7 +66,7 @@ class FlutterApiRequest {
     // ====== REST API =======
     static func getRestRequest(methodChannelRequest: [String: Any]) throws -> RESTRequest {
         guard let restOptionsMap = methodChannelRequest["restOptions"] as? [String: Any] else {
-            throw APIError.unknown("The restOptions request argument was not passed as a dictionary",
+            throw APIError.invalidConfiguration("The restOptions request argument was not passed as a dictionary",
                                                 "The request should include the restOptions argument as a [String: Any] dictionary")
         }
 

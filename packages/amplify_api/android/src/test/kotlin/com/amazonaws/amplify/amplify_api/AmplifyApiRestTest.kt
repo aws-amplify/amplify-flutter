@@ -41,6 +41,9 @@ import org.mockito.invocation.InvocationOnMock
 import org.robolectric.RobolectricTestRunner
 import java.lang.reflect.Field
 import java.lang.reflect.Modifier
+import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
+import com.amplifyframework.AmplifyException
+
 
 @RunWith(RobolectricTestRunner::class)
 class AmplifyApiRestTest {
@@ -285,24 +288,16 @@ class AmplifyApiRestTest {
                 mockResult
         )
 
-        verify(mockResult).error(
-                "AmplifyException",
-                "AMPLIFY_API_GET_FAILED",
+        verify(mockResult, times(1)).error(
+                "ApiException",
+                ExceptionMessages.defaultFallbackExceptionMessage,
                 mapOf(
-                        "PLATFORM_EXCEPTIONS" to mapOf(
-                                "platform" to "Android",
-                                "localizedErrorMessage" to "The HTTP response status code is [400].",
-                                "recoverySuggestion" to """
+                        "recoverySuggestion" to """
                     The metadata associated with the response is contained in the HTTPURLResponse.
                     For more information on HTTP status codes, take a look at
                     https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
                     """,
-                                "errorString" to """ApiException{message=The HTTP response status code is [400]., cause=null, recoverySuggestion=
-                    The metadata associated with the response is contained in the HTTPURLResponse.
-                    For more information on HTTP status codes, take a look at
-                    https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
-                    }"""
-                        )
+                        "message" to "The HTTP response status code is [400]."
                 )
         )
 
@@ -333,16 +328,13 @@ class AmplifyApiRestTest {
                 mockResult
         )
 
-        verify(mockResult).error(
-                "AmplifyException",
-                "AMPLIFY_REQUEST_MALFORMED",
+        verify(mockResult , times(1)).error(
+                "ApiException",
+                ExceptionMessages.defaultFallbackExceptionMessage,
                 mapOf(
-                        "PLATFORM_EXCEPTIONS" to mapOf(
-                                "platform" to "Android",
-                                "localizedErrorMessage" to "The cancelToken request argument was not passed as a String",
-                                "recoverySuggestion" to "",
-                                "errorString" to "AmplifyException{message=The cancelToken request argument was not passed as a String, cause=kotlin.TypeCastException: null cannot be cast to non-null type kotlin.String, recoverySuggestion=The request should include the cancelToken as a String}"
-                        )
+                        "message" to ExceptionMessages.missingExceptionMessage,
+                        "recoverySuggestion" to ExceptionMessages.missingRecoverySuggestion,
+                        "underlyingException" to "AmplifyException{message=The cancelToken request argument was not passed as a String, cause=kotlin.TypeCastException: null cannot be cast to non-null type kotlin.String, recoverySuggestion=The request should include the cancelToken as a String}"
                 )
         )
     }
@@ -404,7 +396,7 @@ class AmplifyApiRestTest {
                 mockCancelResult
         )
 
-        verify(mockCancelResult).error(
+        verify(mockCancelResult, times(1)).error(
                 "AmplifyAPI-CancelError",
                 "The Operation may have already been completed or expired and cannot be canceled anymore",
                 "Operation does not exist"
