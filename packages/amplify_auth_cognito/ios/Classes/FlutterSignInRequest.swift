@@ -23,14 +23,13 @@ struct FlutterSignInRequest {
     self.password = dict["password"] as! String?
     self.options = dict["options"] as! Dictionary<String, Any>?
   }
-  static func validate(dict: NSMutableDictionary) -> Bool {
-    var valid: Bool = true;
+  static func validate(dict: NSMutableDictionary) throws {
+    let validationErrorMessage = "SignIn Request malformed."
     if (dict["username"] == nil && dict["options"] == nil) {
-      valid = false;
+      throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "username is missing.")
     }
     if (dict["password"] == nil && dict["options"] == nil) {
-      valid = false;
+      throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "password is missing.")
     }
-    return valid;
   }
 }

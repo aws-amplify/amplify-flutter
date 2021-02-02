@@ -22,11 +22,10 @@ struct FlutterResetPasswordRequest {
     self.username = dict["username"] as! String
     self.options = dict["options"] as! Dictionary<String, Any>?
   }
-  static func validate(dict: NSMutableDictionary) -> Bool {
-    var valid: Bool = true;
+  static func validate(dict: NSMutableDictionary) throws {
+    let validationErrorMessage = "ResetPassword Request malformed."
     if (dict["username"] == nil && dict["options"] == nil) {
-      valid = false;
+      throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "username is missing.")
     }
-    return valid;
   }
 }

@@ -1,7 +1,8 @@
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 
+// ignore_for_file: public_member_api_docs
 class UpdatePasswordWidget extends StatefulWidget {
   final Function showResult;
   final Function changeDisplay;
@@ -25,9 +26,9 @@ class _UpdatePasswordWidgetState extends State<UpdatePasswordWidget> {
       await Amplify.Auth.updatePassword(
           newPassword: newPasswordController.text.trim(),
           oldPassword: oldPasswordController.text.trim());
-      widget.showResult("Password Updated");
+      widget.showResult('Password Updated');
       widget.changeDisplay('SIGNED_IN');
-    } on AuthError catch (e) {
+    } on AmplifyException catch (e) {
       widget.setError(e);
     }
   }

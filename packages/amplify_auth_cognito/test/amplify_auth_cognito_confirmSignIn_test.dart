@@ -82,27 +82,28 @@ void main() {
     expect(true, res.isMostlyEqual(expectation));
   });
 
-  test('signIn thrown PlatFormException results in AuthError', () async {
+  test('signIn thrown PlatFormException results in AuthException', () async {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == "confirmSignIn") {
         assert(methodCall.arguments["data"] is Map);
         assert(methodCall.arguments["data"]["confirmationCode"] is String);
         return throw PlatformException(
-            code: "AMPLIFY_EXCEPTION",
-            message: "AMPLIFY_CONFIRM_SIGNIN_FAILED",
-            details: {});
+            code: "UnknownException",
+            details: Map.from({
+              "message": "I am an exception"
+            }));
       } else {
         return true;
       }
     });
-    AuthError err;
+    AuthException err;
     try {
       await auth.confirmSignIn(
           request: ConfirmSignInRequest(confirmationValue: "iAmNotLegit"));
     } catch (e) {
       err = e;
     }
-    expect(err.cause, "AMPLIFY_CONFIRM_SIGNIN_FAILED");
-    expect(err, isInstanceOf<AuthError>());
+    expect(err.message, "I am an exception");
+    expect(err, isInstanceOf<AuthException>());
   });
 }
