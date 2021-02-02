@@ -20,14 +20,13 @@ data class FlutterResendSignUpCodeRequest(val map: HashMap<String, *>) {
   val options: HashMap<String, *>? = map["options"] as HashMap<String, *>?;
 
   companion object {
-    fun validate(req : HashMap<String, *>?): Boolean {
-      var valid: Boolean = true;
+    private const val validationErrorMessage: String = "ResendSignUpCode Request malformed."
+    fun validate(req : HashMap<String, *>?) {
       if (req != null) {
         if (!req.containsKey("username") && req["username"] != "") {
-          valid = false;
+          throw AmplifyFlutterValidationException(validationErrorMessage, "username is missing.")
         }
       }
-      return valid;
     }
   }
 }

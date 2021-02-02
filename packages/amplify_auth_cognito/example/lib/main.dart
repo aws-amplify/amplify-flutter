@@ -15,7 +15,7 @@
 
 import 'dart:async';
 
-import 'package:amplify_flutter/amplify_hub.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
@@ -51,8 +51,7 @@ class _MyAppState extends State<MyApp> {
   String displayState;
   String authState = 'User not signed in';
   String lastHubEvent = '';
-  String error = '';
-  List<String> exceptions = [];
+  AmplifyException error;
 
   @override
   void initState() {
@@ -61,8 +60,7 @@ class _MyAppState extends State<MyApp> {
 
   void showResult(_authState) async {
     setState(() {
-      error = '';
-      exceptions = [];
+      error = null;
       authState = _authState;
     });
     print(authState);
@@ -70,24 +68,16 @@ class _MyAppState extends State<MyApp> {
 
   void changeDisplay(_displayState) async {
     setState(() {
-      error = '';
-      exceptions = [];
+      error = null;
       displayState = _displayState;
     });
     print(displayState);
   }
 
-  void setError(AuthError e) async {
+  void setError(AmplifyException e) async {
     setState(() {
-      exceptions = [];
+      error = e;
     });
-    setState(() {
-      error = e.cause;
-      e.exceptionList.forEach((el) {
-        exceptions.add(el.exception);
-      });
-    });
-    print(e);
   }
 
   void _configureAmplify() async {
@@ -127,7 +117,7 @@ class _MyAppState extends State<MyApp> {
     await Amplify.configure(amplifyconfig);
     try {
       isSignedIn = await _isSignedIn();
-    } on AuthError catch (e) {
+    } on AmplifyException catch (e) {
       print('User is not signed in.');
     }
 
@@ -149,12 +139,9 @@ class _MyAppState extends State<MyApp> {
           options: CognitoSignOutOptions(globalSignOut: true));
       showResult('Signed Out');
       changeDisplay('SHOW_SIGN_IN');
-    } on AuthError catch (e) {
+    } on AmplifyException catch (e) {
       setState(() {
-        error = e.cause;
-        e.exceptionList.forEach((el) {
-          exceptions.add(el.exception);
-        });
+        error = e;
       });
       print(e);
     }
@@ -165,7 +152,7 @@ class _MyAppState extends State<MyApp> {
       CognitoAuthSession res = await Amplify.Auth.fetchAuthSession(
           options: CognitoSessionOptions(getAWSCredentials: true));
       showResult('Session Sign In Status = ' + res.isSignedIn.toString());
-    } on AuthError catch (e) {
+    } on AmplifyException catch (e) {
       setError(e);
       print(e);
     }
@@ -173,9 +160,9 @@ class _MyAppState extends State<MyApp> {
 
   void _getCurrentUser() async {
     try {
-      AuthUser res = await Amplify.Auth.getCurrentUser();
+      var res = await Amplify.Auth.getCurrentUser();
       showResult('Current User Name = ' + res.username);
-    } on AuthError catch (e) {
+    } on AmplifyException catch (e) {
       setError(e);
     }
   }
@@ -198,6 +185,28 @@ class _MyAppState extends State<MyApp> {
 
   void _backToApp() async {
     changeDisplay('SIGNED_IN');
+  }
+
+  Widget showErrors() {
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+        Expanded(
+        // wrap your Column in Expanded
+          child: Column(
+            children: [
+              Text('Error: ' + error.runtimeType.toString()),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              Text('Message: ' + error.message),
+              if (error.recoverySuggestion != null ) Text('Recovery: ' + error.recoverySuggestion),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              if (error.underlyingException != null ) Text('Underlying: ' + error.underlyingException),
+              const Padding(padding: EdgeInsets.all(10.0)),
+            ]
+          )
+        )
+      ]
+    );
   }
 
   Widget showApp() {
@@ -256,33 +265,6 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  showErrors() {
-    return Center(
-      child: Card(
-        key: Key('error-card'),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              leading: Icon(Icons.album),
-              title: Text('Current Errors'),
-              subtitle: Text(error, key: Key('current-error')),
-            ),
-            SizedBox(
-              height: 200,
-              child: new ListView.builder(
-                  itemCount: exceptions.length,
-                  itemBuilder: (BuildContext ctxt, int index) {
-                    return new Text(exceptions[index],
-                        key: Key('exception-' + (index + 1).toString()));
-                  }),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -317,17 +299,18 @@ class _MyAppState extends State<MyApp> {
                       if (displayState == 'SHOW_UPDATE_PASSWORD')
                         UpdatePasswordWidget(showResult, changeDisplay,
                             setError, _backToSignIn, _backToApp),
+                      if (displayState == 'SHOW_UPDATE_PASSWORD')
                       if (displayState == 'SHOW_CONFIRM_RESET')
                         ConfirmResetWidget(
                             showResult, changeDisplay, setError, _backToSignIn),
                       if (this.displayState == "SIGNED_IN") showApp(),
-                      if (this.error != "") showErrors(),
                       ElevatedButton(
                         key: Key('configure-button'),
                         onPressed:
                             _isAmplifyConfigured ? null : _configureAmplify,
                         child: const Text('configure'),
                       ),
+                      if (error != null) showErrors()
                     ])
               ],
             ),

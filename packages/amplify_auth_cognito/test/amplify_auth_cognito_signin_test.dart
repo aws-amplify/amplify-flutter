@@ -40,9 +40,10 @@ void main() {
           };
         case 2:
           return throw PlatformException(
-              code: "AMPLIFY_EXCEPTION",
-              message: "AMPLIFY_SIGNIN_FAILED",
-              details: {});
+            code: "UnknownException",
+            details: Map.from({
+              "message": "I am an exception"
+            }));
       }
     });
   });
@@ -70,13 +71,13 @@ void main() {
 
   test('signIn thrown PlatFormException results in AuthError', () async {
     testCode = 2;
-    AuthError err;
+    AuthException err;
     try {
       await auth.signIn(
           request: SignInRequest(username: 'testUser', password: '123'));
-    } on AuthError catch (e) {
+    } on AuthException catch (e) {
       err = e;
     }
-    expect(err.cause, "AMPLIFY_SIGNIN_FAILED");
+    expect(err.message, "I am an exception");
   });
 }

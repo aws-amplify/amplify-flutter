@@ -15,9 +15,6 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
-import com.amplifyframework.auth.options.AuthSignOutOptions
-
-
 data class FlutterFetchAuthSessionRequest(val map: HashMap<String, *>) {
 // TODO: Implement options when/if supported by Amplify libraries
 //  var sessionOptions: AuthFetchSessionOptions = setOptions()

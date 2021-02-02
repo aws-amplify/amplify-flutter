@@ -17,105 +17,143 @@ import Foundation
 import Amplify
 import AmplifyPlugins
 import AWSCore
-
-func handleAuthError(error: AuthError, flutterResult: FlutterResult, msg: String){
-    if case .service( let localizedError, let recoverySuggestion, let error) = error {
-        let errorCode = error != nil ? "\(error!)" : "unknown"
-        SwiftAuthCognito.logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
-        formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-    }
-    if case .configuration(let localizedError, let recoverySuggestion, let error) = error {
-        let errorCode = error != nil ? "\(error!)" : "configuration"
-        SwiftAuthCognito.logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
-        formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-    }
-    if case .unknown(let localizedError, let error) = error {
-        let errorCode = error != nil ? "\(error!)" : "unknown"
-        SwiftAuthCognito.logErrorContents(messages: [localizedError, "unknown error"])
-        formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: "An unknown error has occurred.")
-    }
-    if case .invalidState(let localizedError, let recoverySuggestion, let error) = error {
-        let errorCode = error != nil ? "\(error!)" : "invalidState"
-        SwiftAuthCognito.logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
-        formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-    }
-    if case .notAuthorized(let localizedError,  let recoverySuggestion, let error) = error {
-        let errorCode = error != nil ? "\(error!)" : "notAuthorized"
-        SwiftAuthCognito.logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
-        formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-    }
-    if case .validation(let field, let localizedError, let recoverySuggestion, let error) = error {
-        let errorCode = error != nil ? "\(error!)" : "validation"
-        SwiftAuthCognito.logErrorContents(messages: [field, localizedError, recoverySuggestion, errorCode])
-        formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-    }
-    if case .signedOut(let localizedError, let recoverySuggestion, let error) = error {
-        let errorCode = error != nil ? "\(error!)" : "signedOut"
-        SwiftAuthCognito.logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
-        formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-    }
-    if case .sessionExpired(let localizedError, let recoverySuggestion, let error) = error {
-        let errorCode = error != nil ? "\(error!)" : "sessionExpired"
-        SwiftAuthCognito.logErrorContents(messages: [localizedError, recoverySuggestion, errorCode])
-        formatError(flutterResult: flutterResult, errorCode: errorCode, msg: msg, localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-    }
-}
-
-func formatError(flutterResult: FlutterResult, errorCode: String, msg: String, localizedError: String, recoverySuggestion: String) {
-    var errorMap: [String: Any] = formatErrorMap(errorCode: errorCode, localizedError: localizedError)
-    errorMap["PLATFORM_EXCEPTIONS"] = platformExceptions(localizedError: localizedError, recoverySuggestion: recoverySuggestion)
-    prepareError(flutterResult: flutterResult,  msg: msg, errorMap: errorMap)
-}
+import amplify_core
 
 
-func prepareError(flutterResult: FlutterResult, msg: String, errorMap: [String: Any]) {
-    flutterResult(FlutterError(
-                    code: "AmplifyException",
-                    message: msg,
-                    details: errorMap)
-    )
-}
-
-func platformExceptions(localizedError: String, recoverySuggestion: String) -> [String: String] {
-    var platformDict: [String: String] = [:]
-    platformDict["platform"] = "iOS"
-    platformDict["localizedErrorMessage"] = localizedError
-    platformDict["recoverySuggestion"] = recoverySuggestion
-    return platformDict
-}
-
-func formatErrorMap(errorCode: String, localizedError: String = "") -> [String: Any] {
-    var errorDict: [String: Any] = [:]
-    let errorCodeConversion: [String: String] = [
-        "codeExpired": "CODE_EXPIRED",
-        "codeMismatch": "CODE_MISMATCH",
-        "invalidParameter": "INVALID_PARAMETER",
-        "mfaMethodNotFound": "MFA_METHOD_NOT_FOUND",
-        "passwordResetRequired": "PASSWORD_RESET_REQUIRED",
-        "softwareTokenMFANotEnabled": "SOFTWARE_TOKEN_MFA_NOT_FOUND",
-        "usernameExists": "USERNAME_EXISTS",
-        "userNotConfirmed": "USER_NOT_CONFIRMED",
-        "userNotFound": "USER_NOT_FOUND",
-        "aliasExists": "ALIAS_EXISTS",
-        "codeDeliveryFailure": "CODE_DELIVERY_FAILURE",
-        "internalError": "INTERNAL_ERROR",
-        "invalidLambdaResponse": "INVALID_LAMBDA_RESPONSE",
-        "invalidPassword": "INVALID_PASSWORD",
-        "notAuthorized": "NOT_AUTHORIZED",
-        "resourceNotFound": "RESOURCE_NOT_FOUND",
-        "tooManyRequests": "TOO_MANY_REQUESTS",
-        "unexpectedLambda": "UNEXPECTED_LAMBDA",
-        "userLambdaValidation": "USER_LAMBDA_VALIDATION",
-        "requestLimitExceeded": "REQUEST_LIMIT_EXCEEDED",
-        "tooManyFailedAttempts": "TOO_MANY_FAILED_ATTEMPTS",
-        "invalidState": "INVALID_STATE",
-        "signedOut": "SIGNED_OUT",
-        "configuration": "CONFIGURATION",
-        "validation": "VALIDATION",
-        "sessionExpired": "SIGNED_OUT"
-    ]
+public class AuthErrorHandler {
     
-    errorDict[errorCodeConversion[errorCode] ?? "UNKNOWN"] =  (errorCodeConversion[errorCode] != nil) ? localizedError : "An unrecognized error has occurred. See logs for details."
+    func handleAuthError(authError: AmplifyError, flutterResult: FlutterResult){
+        var exception: String = "AuthException"
+        if authError is AuthError {
+            if case .service(_, _, let error) = authError as! AuthError{
+                if (error is AWSCognitoAuthError) {
+                    switch error as? AWSCognitoAuthError {
+                        case .aliasExists:
+                           exception = "AliasExistsException"
+                        case .codeDelivery:
+                            exception = "CodeDeliveryFailureException"
+                        case .codeExpired:
+                            exception = "CodeExpiredException"
+                        case .codeMismatch:
+                            exception = "CodeMismatchException"
+                        //TODO: Determine equivalent Android exception
+                        case .deviceNotTracked:
+                            exception = "DeviceNotTrackedException"
+                        //TODO: Investigate Android case
+                        case .errorLoadingUI:
+                            exception = "AuthException"
+                        case .failedAttemptsLimitExceeded:
+                            exception = "FailedAttemptsLimitExceededException"
+                        case .invalidAccountTypeException:
+                            exception = "InvalidAccountTypeException"
+                        case .invalidParameter:
+                            exception = "InvalidParameterException"
+                        case .invalidPassword:
+                            exception = "InvalidPasswordException"
+                        case .lambda:
+                            exception = "LambdaException"
+                        case .limitExceeded:
+                            exception = "LimitExceededException"
+                        case .mfaMethodNotFound:
+                            exception = "MFAMethodNotFoundException"
+                        //TODO: Determine equivalent Android exception
+                        case .network:
+                            exception = "AuthException"
+                        case .passwordResetRequired:
+                            exception = "PasswordResetRequiredException"
+                        case .requestLimitExceeded:
+                            exception = "TooManyRequestsException"
+                        case .resourceNotFound:
+                            exception = "ResourceNotFoundException"
+                        case .softwareTokenMFANotEnabled:
+                            exception = "SoftwareTokenMFANotFoundException"
+                        case .userCancelled:
+                            exception = "UserCancelledException"
+                        case .usernameExists:
+                            exception = "UsernameExistsException"
+                        case .userNotConfirmed:
+                            exception = "UserNotConfirmedException"
+                        case .userNotFound:
+                            exception = "UserNotFoundException"
+                        case .none:
+                            exception = "AuthException"
+                    }
+                }
+            }
+            
+            if case .configuration = authError as! AuthError {
+                exception = "ConfigurationException"
+            }
+            if case .unknown = authError as! AuthError {
+                exception = "UnknownException"
+            }
+            if case .invalidState = authError as! AuthError {
+                exception = "AuthException"
+            }
+            if case .notAuthorized = authError as! AuthError  {
+                exception = "NotAuthorizedException"
+            }
+            if case .validation = authError as! AuthError  {
+                exception = "InvalidParameterException"
+            }
+            if case .signedOut = authError as! AuthError  {
+                exception = "SignedOutException"
+            }
+            if case .sessionExpired = authError as! AuthError  {
+                exception = "SessionExpiredException"
+            }
+        }
+        
+        let details: Dictionary<String, String> = createSerializedError(authError: authError);
+        logErrorContents(error: authError)
+        ErrorUtil.postErrorToFlutterChannel(
+            result: flutterResult,
+            errorCode: exception,
+            details: details)
+        
+    }
+
+   func prepareGenericException(flutterResult: @escaping FlutterResult, underlyingError: Error) {
+        logErrorContents(error: underlyingError)
+        var underlyingErrorString: String = underlyingError.localizedDescription
+        if (underlyingError is AmplifyFlutterValidationException) {
+            let e = underlyingError as! AmplifyFlutterValidationException
+            underlyingErrorString = e.errorDescription
+        }
+        let serializedErrror = createSerializedError(
+            message: "An unexpected error has occurred",
+            recoverySuggestion: "See iOS logs for details",
+            underlyingError: underlyingErrorString)
+
+        ErrorUtil.postErrorToFlutterChannel(
+            result: flutterResult,
+            errorCode: "AuthException",
+            details: serializedErrror)
+    }
     
-    return errorDict
+    func createSerializedError(authError: AmplifyError)  -> Dictionary<String, String> {
+        var serializedException: Dictionary<String, String> = [:]
+        serializedException["message"] = authError.errorDescription
+        serializedException["recoverySuggestion"] = authError.recoverySuggestion
+        serializedException["underlyingException"] = authError.underlyingError.debugDescription
+        return serializedException
+    }
+
+    private func createSerializedError(message: String, recoverySuggestion: String, underlyingError: String)  -> Dictionary<String, String> {
+        var serializedException: Dictionary<String, String> = [:]
+        serializedException["message"] = message
+        serializedException["recoverySuggestion"] = recoverySuggestion
+        serializedException["underlyingException"] = underlyingError
+        return serializedException
+    }
+    
+    func logErrorContents(error: Error) {
+        log.error(error: error)
+    }
 }
+
+extension AuthErrorHandler: DefaultLogger { }
+
+
+
+

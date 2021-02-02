@@ -13,13 +13,15 @@
  * permissions and limitations under the License.
  */
 
+@file:Suppress("UNCHECKED_CAST")
+
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
 import androidx.annotation.NonNull
+import com.amplifyframework.AmplifyException
 import com.amplifyframework.auth.AuthUserAttribute
 import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthSignUpOptions
-import com.amplifyframework.auth.options.AuthSignUpOptions
 import java.lang.reflect.Method
 
 data class FlutterSignUpRequest(val map: HashMap<String, *>) {
@@ -27,8 +29,6 @@ data class FlutterSignUpRequest(val map: HashMap<String, *>) {
     val username: String = map["username"] as String
     val password: String = map["password"] as String
     val options: AWSCognitoAuthSignUpOptions = formatOptions(map["options"] as HashMap<String, String>)
-
-
 
     private fun formatOptions(@NonNull rawOptions: HashMap<String, String>): AWSCognitoAuthSignUpOptions {
         var options =  AWSCognitoAuthSignUpOptions.builder();
@@ -73,20 +73,20 @@ data class FlutterSignUpRequest(val map: HashMap<String, *>) {
     }
 
     companion object {
-        fun validate(req : HashMap<String, *>?): Boolean {
+        private const val validationErrorMessage: String = "SignUp Request malformed."
+        fun validate(req : HashMap<String, *>?) {
             if (req == null) {
-                return false;
+                throw AmplifyFlutterValidationException(validationErrorMessage, "Request map is null or malformed. Check that request is present and properly formed.")
             }
             if (req.get("options") == null) {
-                return false
+                throw AmplifyException(validationErrorMessage, "Request map is null or malformed. Check that request is present and properly formed.")
             }
             if (!(req?.get("options") as HashMap<String, String>).containsKey("userAttributes")) {
-                return false;
+                throw AmplifyFlutterValidationException(validationErrorMessage, "userAttributes are missing..")
             }
             if (!req.containsKey("password")) {
-               return false;
+                throw AmplifyFlutterValidationException(validationErrorMessage, "password is missing.")
             }
-            return true;
         }
     }
 

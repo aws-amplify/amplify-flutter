@@ -1,7 +1,9 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 
+// ignore_for_file: public_member_api_docs
 class ConfirmResetWidget extends StatefulWidget {
   final Function showResult;
   final Function changeDisplay;
@@ -26,9 +28,9 @@ class _ConfirmWidgetState extends State<ConfirmResetWidget> {
           username: usernameController.text.trim(),
           newPassword: newPasswordController.text.trim(),
           confirmationCode: confirmationCodeController.text.trim());
-      widget.showResult("Password Confirmed");
-      widget.changeDisplay("SHOW_SIGN_IN");
-    } on AuthError catch (e) {
+      widget.showResult('Password Confirmed');
+      widget.changeDisplay('SHOW_SIGN_IN');
+    } on AmplifyException catch (e) {
       widget.setError(e);
     }
   }

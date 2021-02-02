@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+export './types/index.dart';
 
 class AmplifyCore {
   static const MethodChannel _channel =
