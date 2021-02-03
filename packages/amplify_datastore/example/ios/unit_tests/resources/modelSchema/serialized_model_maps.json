@@ -39,9 +39,9 @@
             "intType" : 10,
             "floatType" : 9.99,
             "boolType" : true,
-            "dateType" : "2020-09-09",
+            "dateType" : "2020-09-09Z",
             "dateTimeType" : "2020-11-25T01:28:49.000Z",
-            "timeType" : "20:20:20:020",
+            "timeType" : "20:20:20:020Z",
             "timestampType" : 999,
             "enumType" : "maybe"
         }
