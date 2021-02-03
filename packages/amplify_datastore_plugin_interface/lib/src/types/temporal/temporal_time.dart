@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_core/types/exception/AmplifyException.dart';
+
 import 'temporal.dart';
 
 /// Represents a valid extended ISO-8601 Time string, with an optional timezone offset.
@@ -70,7 +72,10 @@ class TemporalTime {
     // Validate
     String regexString = regExp.stringMatch(iso8601String);
     if (regexString != iso8601String) {
-      throw new Exception("invalid string input");
+      throw AmplifyException("Invalid ISO8601 String Input",
+          recoverySuggestion:
+              "Please provide an extended ISO 8601 time string in the format hh:mm:ss.sss with an optional time zone offset ±hh:mm:ss.  " +
+                  Temporal.genericDocErrorMessage);
     }
 
     // Remove Z

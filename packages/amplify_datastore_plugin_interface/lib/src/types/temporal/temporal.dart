@@ -14,6 +14,9 @@
  */
 
 class Temporal {
+  static String genericDocErrorMessage =
+      "For more information on acceptable string formats please visit https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html";
+
   static String durationToOffset(Duration duration) {
     var buffer = StringBuffer();
     buffer.write(duration.isNegative ? "-" : "+");

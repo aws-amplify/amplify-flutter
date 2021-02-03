@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:date_time_format/date_time_format.dart';
+import 'package:amplify_core/types/exception/AmplifyException.dart';
 
 import 'temporal.dart';
 
@@ -75,7 +75,10 @@ class TemporalDate {
     // Validate
     String regexString = regExp.stringMatch(iso8601String);
     if (regexString != iso8601String) {
-      throw new Exception("invalid string input");
+      throw AmplifyException("Invalid ISO8601 String Input",
+          recoverySuggestion:
+              "Please provide an extended ISO 8601 date string in the format YYYY-MM-DD with an optional time zone offset ±hh:mm:ss.  " +
+                  Temporal.genericDocErrorMessage);
     }
 
     // Remove Z
