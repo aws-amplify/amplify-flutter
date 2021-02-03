@@ -29,10 +29,14 @@ struct FlutterUploadFileRequest {
     static func validate(request: Dictionary<String, AnyObject>) throws {
         let validationErrorMessage = "Upload request malformed."
         if !(request["key"] is String) {
-            throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "key is missing.")
+            throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage,
+                                                    recoverySuggestion: "key is missing.",
+                                                    error: StorageError.unknown(validationErrorMessage, nil))
         }
         if !(request["path"] is String) {
-            throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "Ensure that path variable is present.")
+            throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage,
+                                                    recoverySuggestion: "Ensure that path variable is present.",
+                                                    error: StorageError.unknown(validationErrorMessage, nil))
         }
     }
     

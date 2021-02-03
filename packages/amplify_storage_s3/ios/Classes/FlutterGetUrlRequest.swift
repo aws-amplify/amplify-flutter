@@ -27,7 +27,9 @@ struct FlutterGetUrlRequest {
     static func validate(request: Dictionary<String, AnyObject>) throws {
         let validationErrorMessage = "GetURL request malformed."
         if !(request["key"] is String) {
-            throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "Ensure that key variable is present.")
+            throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage,
+                                                    recoverySuggestion: "Ensure that key variable is present.",
+                                                    error: StorageError.unknown(validationErrorMessage, nil))
         }
     }
     

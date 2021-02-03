@@ -104,31 +104,33 @@ public class AuthErrorHandler {
             }
         }
         
-        let details: Dictionary<String, String> = createSerializedError(authError: authError);
+        let details: Dictionary<String, String> = createSerializedError(authError: authError)
         logErrorContents(error: authError)
-        ErrorUtil.postErrorToFlutterChannel(
-            result: flutterResult,
-            errorCode: exception,
-            details: details)
+        ErrorUtil.postErrorToFlutterChannel(result: flutterResult,
+                                            errorCode: exception,
+                                            details: details)
         
     }
 
    func prepareGenericException(flutterResult: @escaping FlutterResult, underlyingError: Error) {
         logErrorContents(error: underlyingError)
-        var underlyingErrorString: String = underlyingError.localizedDescription
+        var message: String = ErrorMessages.missingExceptionMessage
+        var recoverySuggestion: String = ErrorMessages.missingRecoverySuggestion
+        var underlyingError: Error? = nil
+
         if (underlyingError is AmplifyFlutterValidationException) {
             let e = underlyingError as! AmplifyFlutterValidationException
-            underlyingErrorString = "AmplifyError.AmplifyFlutterValidationException \(e.errorDescription): \(e.recoverySuggestion)"
+            message = e.errorDescription
+            recoverySuggestion = e.recoverySuggestion
+            underlyingError = e.underlyingError
         }
-        let serializedErrror = createSerializedError(
-            message: "An unexpected error has occurred",
-            recoverySuggestion: "See iOS logs for details",
-            underlyingError: underlyingErrorString)
+        let serializedErrror = createSerializedError(message: message,
+                                                    recoverySuggestion: recoverySuggestion,
+                                                    underlyingError: underlyingError.debugDescription)
 
-        ErrorUtil.postErrorToFlutterChannel(
-            result: flutterResult,
-            errorCode: "AuthException",
-            details: serializedErrror)
+        ErrorUtil.postErrorToFlutterChannel(result: flutterResult,
+                                            errorCode: "AuthException",
+                                            details: serializedErrror)
     }
     
     func createSerializedError(authError: AmplifyError)  -> Dictionary<String, String> {

@@ -18,15 +18,16 @@ import Amplify
 import AmplifyPlugins
 
 class AmplifyFlutterValidationException: AmplifyError {
-
+        
     var errorDescription: ErrorDescription
 
     var recoverySuggestion: RecoverySuggestion
 
     var underlyingError: Error?
 
-    required init(errorDescription: ErrorDescription, recoverySuggestion: RecoverySuggestion, error: Error = AWSCognitoAuthError.invalidParameter) {
+    required init(errorDescription: ErrorDescription, recoverySuggestion: RecoverySuggestion, error: Error) {
         self.errorDescription = errorDescription
         self.recoverySuggestion = recoverySuggestion
+        self.underlyingError = error
     }
 }

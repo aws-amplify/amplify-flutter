@@ -18,6 +18,7 @@ package com.amazonaws.amplify.amplify_storage_s3
 import androidx.annotation.NonNull
 import android.os.Handler
 import android.os.Looper
+import com.amazonaws.amplify.amplify_auth_cognito.types.AmplifyFlutterValidationException
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
 import com.amplifyframework.core.Amplify
@@ -187,13 +188,22 @@ class AmplifyStorageOperations {
 
         private fun prepareError(@NonNull flutterResult: MethodChannel.Result, @NonNull e: Exception) {
             val errorCode = "StorageException"
+            var message = ExceptionMessages.unexpectedExceptionMessage
+            var recoverySuggestion = ExceptionMessages.unexpectedExceptionSuggestion
             LOG.error(errorCode, e)
             val serializedError: Map<String, Any?> = if (e is StorageException) {
                 ExceptionUtil.createSerializedError(e)
+            } else if (e is AmplifyFlutterValidationException) {
+                message = e.message ?: message
+                recoverySuggestion = e.recoverySuggestion
+                ExceptionUtil.createSerializedError(
+                        message,
+                        recoverySuggestion,
+                        e.toString())
             } else {
                 ExceptionUtil.createSerializedError(
-                        ExceptionMessages.unexpectedExceptionMessage,
-                        ExceptionMessages.unexpectedExceptionSuggestion,
+                        message,
+                        recoverySuggestion,
                         e.toString())
             }
             Handler(Looper.getMainLooper()).post {

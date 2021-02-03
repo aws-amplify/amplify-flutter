@@ -155,16 +155,20 @@ public class AmplifyStorageOperations {
     
     private static func prepareGenericError(flutterResult: @escaping FlutterResult, error: Error) {
         logErrorContents(error: error)
-        var underlyingErrorString: String = error.localizedDescription
+        var message: String = ErrorMessages.missingExceptionMessage
+        var recoverySuggestion: String = ErrorMessages.missingRecoverySuggestion
+        var underlyingError: Error? = nil
 
         if (error is AmplifyFlutterValidationException) {
             let e = error as! AmplifyFlutterValidationException
-            underlyingErrorString = "AmplifyError.AmplifyFlutterValidationException \(e.errorDescription) \(e.recoverySuggestion)" 
+            message = e.errorDescription
+            recoverySuggestion = e.recoverySuggestion
+            underlyingError = e.underlyingError
         }
         let serializedErrror = createSerializedError(
-            message: "An unexpected exception has occurred",
-            recoverySuggestion: "See iOS logs for details",
-            underlyingError: underlyingErrorString)
+            message: message,
+            recoverySuggestion: recoverySuggestion,
+            underlyingError: underlyingError.debugDescription)
 
         ErrorUtil.postErrorToFlutterChannel(
             result: flutterResult,
