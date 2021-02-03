@@ -41,8 +41,9 @@ class AmplifyAnalyticsBuilder {
                     is Int -> {
                         propertiesBuilder.add(key, value)
                     }
+                    // This case should not be possible as AnalyticsProperties is typed on Dart side
                     else -> {
-                        throw IllegalArgumentException("Warning unrecognized object type sent via MethodChannel-AnalyticsProperties")
+                        throw IllegalArgumentException("Warning unrecognized object type sent for AnalyticsProperties")
                     }
                 }
 
@@ -71,8 +72,9 @@ class AmplifyAnalyticsBuilder {
                     is Int -> {
                         eventBuilder.addProperty(key, value)
                     }
+                    // This case should not be possible as AnalyticsEvent is typed on Dart side
                     else -> {
-                        throw IllegalArgumentException("Warning unrecognized object type sent via MethodChannel-AnalyticsProperties")
+                        throw IllegalArgumentException("Warning unrecognized object type sent via MethodChannel-AnalyticsProperties for AnalyticsEvent")
                     }
                 }
             }
@@ -100,8 +102,9 @@ class AmplifyAnalyticsBuilder {
                         val propertiesMap = item.value as HashMap<String, Any>
                         userProfileBuilder.customProperties(createAnalyticsProperties(propertiesMap))
                     }
+                    // This case should not be possible as UserProfile is typed on Dart side
                     else -> {
-                        throw IllegalArgumentException("Warning unrecognized object type sent via MethodChannel-AnalyticsProperties")
+                        throw IllegalArgumentException("Warning unrecognized object type sent via MethodChannel-AnalyticsProperties for UserProfile")
                     }
                 }
             }
@@ -127,8 +130,9 @@ class AmplifyAnalyticsBuilder {
                         locationBuilder.region(item.value as String)
                     "country" ->
                         locationBuilder.country(item.value as String)
+                    // This case should not be possible as UserLocation is typed on Dart side
                     else -> {
-                        throw IllegalArgumentException("Warning unrecognized object type sent via MethodChannel-AnalyticsProperties")
+                        throw IllegalArgumentException("Warning unrecognized object type sent via MethodChannel-AnalyticsProperties for UserLocation")
                     }
                 }
             }

@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  amplify_core: ^0.0.2-dev.1
   amplify_analytics_plugin_interface: ^0.0.2-dev.1
   plugin_platform_interface: ^1.0.1
 
