@@ -46,7 +46,8 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
         try {
             Amplify.addPlugin(AWSApiPlugin())
         } catch (e: Exception) {
-            LOG.error("Failed to add API plugin. Is Amplify already configured and the app restarted?")
+            LOG.error("Failed to add API plugin. Is Amplify already configured and app restarted?")
+            LOG.error("Exception: $e")
         }
         LOG.info("Initiated API plugin")
     }

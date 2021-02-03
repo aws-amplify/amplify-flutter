@@ -51,7 +51,8 @@ public class AmplifyAnalyticsPinpointPlugin : FlutterPlugin, ActivityAware, Meth
                 try {
                     Amplify.addPlugin(AWSPinpointAnalyticsPlugin(context))
                 } catch (e: Exception) {
-                    LOG.error("Failed to add AnalyticsPinpoint plugin. Is Amplify already configured and the app restarted?")
+                    LOG.error("Failed to add AnalyticsPinpoint plugin. Is Amplify already configured and app restarted?")
+                    LOG.error("Exception: $e")
                     return
                 }
                 LOG.info("Added AnalyticsPinpoint plugin")

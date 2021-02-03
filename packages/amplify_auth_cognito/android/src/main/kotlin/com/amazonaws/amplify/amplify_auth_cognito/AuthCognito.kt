@@ -98,6 +98,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       Amplify.addPlugin(AWSCognitoAuthPlugin())
     } catch (e: Exception) {
       LOG.error("Failed to add AuthCognito plugin. Is Amplify already configured and app restarted?")
+      LOG.error("Exception: $e")
       return
     }
     LOG.info("Added AuthCognito plugin")
