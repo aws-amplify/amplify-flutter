@@ -40,10 +40,11 @@ void main() {
               }
             });
           case 2:
-            return throw PlatformException(
-                code: "AMPLIFY_EXCEPTION",
-                message: "AMPLIFY_SIGNUP_FAILED",
-                details: {});
+          return throw PlatformException(
+            code: "UnknownException",
+            details: Map.from({
+              "message": "I am an exception"
+            }));
         }
         ;
       }
@@ -83,7 +84,7 @@ void main() {
 
   test('signUp thrown PlatFormException results in AuthError', () async {
     testCode = 2;
-    AuthError err;
+    AuthException err;
     try {
       await auth.signUp(
           request: SignUpRequest(
@@ -92,9 +93,9 @@ void main() {
               options: CognitoSignUpOptions(userAttributes: {
                 "email": "test@test.com",
               })));
-    } on AuthError catch (e) {
+    } on AuthException catch (e) {
       err = e;
     }
-    expect(err.cause, "AMPLIFY_SIGNUP_FAILED");
+    expect(err.message, "I am an exception");
   });
 }

@@ -17,8 +17,10 @@ import Foundation
 import Amplify
 import AmplifyPlugins
 
+import amplify_core
+
 class FlutterApiResponse {
-    static func handleGraphQLErrorResponse(flutterResult: @escaping FlutterResult, errorResponse: GraphQLResponseError<String>, failureMessage: String) {
+    static func handleGraphQLErrorResponse(flutterResult: @escaping FlutterResult, errorResponse: GraphQLResponseError<String>) {
         switch(errorResponse) {
         case .error(let errorList):
             let result: [String: Any?] = [
@@ -36,11 +38,12 @@ class FlutterApiResponse {
             flutterResult(result)
         case .transformationError(let rawResponse, let error):
             print("Received a partially successful GraphQL response with a transformation error: \(error)")
-            FlutterApiError.handleAPIError(flutterResult: flutterResult, error: error, msg: failureMessage, rawResponse: rawResponse)
+            FlutterApiErrorHandler.handleApiError(error: error, flutterResult: flutterResult)
         case .unknown(let errorDescription, let recoverySuggestion, _):
             print("An unknown error occured: \(errorDescription)")
-            let errorMap = FlutterApiError.createErrorMap(localizedError: errorDescription, recoverySuggestion: recoverySuggestion)
-            FlutterApiError.postFlutterError(flutterResult: flutterResult, msg: failureMessage, errorMap: errorMap)
+            
+            ErrorUtil.postErrorToFlutterChannel(result: flutterResult, errorCode: "ApiException",
+                                                details: ErrorUtil.createSerializedError(message: errorDescription, recoverySuggestion: recoverySuggestion, underlyingError: nil))
         }
     }
 }

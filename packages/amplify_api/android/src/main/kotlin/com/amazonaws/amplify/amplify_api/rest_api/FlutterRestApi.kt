@@ -2,11 +2,10 @@ package com.amazonaws.amplify.amplify_api.rest_api
 
 import android.os.Handler
 import android.os.Looper
-import com.amazonaws.amplify.amplify_api.FlutterApiErrorMessage
-import com.amazonaws.amplify.amplify_api.FlutterApiError
 import com.amazonaws.amplify.amplify_api.FlutterApiRequest
+import com.amazonaws.amplify.amplify_api.FlutterGraphQLApi
 import com.amazonaws.amplify.amplify_api.OperationsManager
-import com.amplifyframework.AmplifyException
+import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
 import com.amplifyframework.api.ApiException
 import com.amplifyframework.api.rest.RestOperation
 import com.amplifyframework.api.rest.RestOptions
@@ -31,8 +30,10 @@ typealias FunctionWithApiName = KFunction4<
         RestOperation?>
 
 class FlutterRestApi {
+
     companion object {
         private val LOG = Amplify.Logging.forNamespace("amplify:flutter:api")
+        private val handler = Handler(Looper.getMainLooper())
 
         private fun restFunctionHelper(
                 methodName: String,
@@ -50,10 +51,10 @@ class FlutterRestApi {
                 apiName = FlutterApiRequest.getApiPath(request)
                 options = FlutterApiRequest.getRestOptions(request)
             } catch (e: Exception) {
-                FlutterApiError.postFlutterError(
-                        flutterResult,
-                        FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString(),
-                        e)
+                handler.post {
+                    ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
+                            ExceptionUtil.createSerializedUnrecognizedError(e))
+                }
                 return
             }
 
@@ -63,10 +64,15 @@ class FlutterRestApi {
                     operation = functionWithoutApiName(options,
                             Consumer { result ->
                                 if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
+                                //LOG.debug("$methodName operation succeeded with response: $result")
                                 prepareRestResponseResult(flutterResult, result, methodName) },
-                            Consumer { error ->
+                            Consumer { exception ->
                                 if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
-                                FlutterApiError.postFlutterError(flutterResult, FlutterApiErrorMessage.getErrorForApi(methodName), error)
+                                //LOG.error("$methodName operation failed", exception)
+                                handler.post {
+                                    ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
+                                            ExceptionUtil.createSerializedError(exception))
+                                }
                             }
                     )
                 } else {
@@ -75,17 +81,25 @@ class FlutterRestApi {
                             options,
                             Consumer { result ->
                                 if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
+                                //LOG.debug("$methodName operation succeeded with response: $result")
                                 prepareRestResponseResult(flutterResult, result, methodName) },
-                            Consumer { error ->
+                            Consumer { exception ->
                                 if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
-                                FlutterApiError.postFlutterError(flutterResult, FlutterApiErrorMessage.getErrorForApi(methodName), error)
+                                //LOG.error("$methodName operation failed", exception)
+                                handler.post {
+                                    ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
+                                            ExceptionUtil.createSerializedError(exception))
+                                }
                             }
                     )
                 }
                 OperationsManager.addOperation(cancelToken, operation!!)
 
             } catch (e: Exception) {
-                FlutterApiError.postFlutterError(flutterResult, FlutterApiErrorMessage.getErrorForApi(methodName), e)
+                handler.post {
+                    ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
+                            ExceptionUtil.createSerializedUnrecognizedError(e))
+                }
             }
         }
 
@@ -106,13 +120,15 @@ class FlutterRestApi {
                 '}';
              */
             if (!result.code.isSuccessful) {
-                FlutterApiError.postFlutterError(
-                        flutterResult,
-                        FlutterApiErrorMessage.getErrorForApi(methodName),
-                        ApiException(
-                                "The HTTP response status code is [" + result.code.toString().substring(16, 19) + "].",
-                                recoverySuggestion)
-                )
+                handler.post {
+                    ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
+                            ExceptionUtil.createSerializedError(
+                                    ApiException(
+                                            "The HTTP response status code is [" + result.code.toString().substring(16, 19) + "].",
+                                            recoverySuggestion)
+                            )
+                    )
+                }
                 return
             } else {
                 Handler(Looper.getMainLooper()).post {

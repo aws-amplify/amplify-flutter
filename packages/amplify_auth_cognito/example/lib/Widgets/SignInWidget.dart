@@ -1,7 +1,9 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 
+// ignore_for_file: public_member_api_docs
 class SignInWidget extends StatefulWidget {
   final Function showResult;
   final Function changeDisplay;
@@ -11,6 +13,7 @@ class SignInWidget extends StatefulWidget {
   final Function getCurrentUser;
   final Function setError;
 
+  // ignore: public_member_api_docs
   SignInWidget(this.showResult, this.changeDisplay, this.showCreateUser,
       this.signOut, this.fetchSession, this.getCurrentUser, this.setError);
 
@@ -25,47 +28,47 @@ class _SignInWidgetState extends State<SignInWidget> {
 
   void _signIn() async {
     try {
-      SignInResult res = await Amplify.Auth.signIn(
+      var res = await Amplify.Auth.signIn(
           username: usernameController.text.trim(),
           password: passwordController.text.trim());
-      widget.showResult("Sign In Status = " + res.nextStep.signInStep);
+      widget.showResult('Sign In Status = ' + res.nextStep.signInStep);
       widget
-          .changeDisplay(res.isSignedIn ? "SIGNED_IN" : "SHOW_CONFIRM_SIGN_IN");
-    } on AuthError catch (e) {
+          .changeDisplay(res.isSignedIn ? 'SIGNED_IN' : 'SHOW_CONFIRM_SIGN_IN');
+    } on AmplifyException catch (e) {
       widget.setError(e);
     }
   }
 
   void _signInWithWebUI() async {
     try {
-      SignInResult res = await Amplify.Auth.signInWithWebUI();
-      widget.showResult("Social Sign In Success = " + res.toString());
-      widget.changeDisplay(res.isSignedIn ? "SIGNED_IN" : "SHOW_SIGN_IN");
+      var res = await Amplify.Auth.signInWithWebUI();
+      widget.showResult('Social Sign In Success = ' + res.toString());
+      widget.changeDisplay(res.isSignedIn ? 'SIGNED_IN' : 'SHOW_SIGN_IN');
       print(res);
-    } on AuthError catch (e) {
+    } on AmplifyException catch (e) {
       widget.setError(e);
     }
   }
 
   void _signInWithSocialWebUI() async {
     try {
-      SignInResult res = await Amplify.Auth.signInWithWebUI(provider: provider);
-      widget.showResult("Social Sign In Success = " + res.toString());
-      widget.changeDisplay(res.isSignedIn ? "SIGNED_IN" : "SHOW_SIGN_IN");
+      var res = await Amplify.Auth.signInWithWebUI(provider: provider);
+      widget.showResult('Social Sign In Success = ' + res.toString());
+      widget.changeDisplay(res.isSignedIn ? 'SIGNED_IN' : 'SHOW_SIGN_IN');
       print(res);
-    } on AuthError catch (e) {
+    } on AmplifyException catch (e) {
       widget.setError(e);
     }
   }
 
   void _resetPassword() async {
     try {
-      ResetPasswordResult res = await Amplify.Auth.resetPassword(
+      var res = await Amplify.Auth.resetPassword(
         username: usernameController.text.trim(),
       );
-      widget.showResult("Reset Password Status = " + res.nextStep.updateStep);
-      widget.changeDisplay("SHOW_CONFIRM_RESET");
-    } on AuthError catch (e) {
+      widget.showResult('Reset Password Status = ' + res.nextStep.updateStep);
+      widget.changeDisplay('SHOW_CONFIRM_RESET');
+    } on AmplifyException catch (e) {
       widget.setError(e);
       print(e);
     }

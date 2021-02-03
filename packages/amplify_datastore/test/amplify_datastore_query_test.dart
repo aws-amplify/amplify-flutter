@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_core/types/index.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/services.dart';
@@ -120,29 +121,22 @@ void main() {
   test('method channel throws a known PlatformException', () async {
     dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == "query") {
-        throw PlatformException(
-            code: "AMPLIFY_EXCEPTION",
-            message: "AMPLIFY_REQUEST_MALFORMED",
-            details: {});
+        throw PlatformException(code: 'DataStoreException', details: {
+          'message': 'Query failed for whatever known reason',
+          'recoverySuggestion': 'some insightful suggestion',
+          'underlyingException': 'Act of God'
+        });
       }
     });
     expect(
         () => dataStore.query(Post.classType),
-        throwsA(isA<DataStoreError>().having((error) => error.cause,
-            "error message", "AMPLIFY_REQUEST_MALFORMED")));
-  });
-
-  test('method channel throws an unknown PlatformException', () async {
-    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "query") {
-        throw PlatformException(
-            code: "AMPLIFY_EXCEPTION", message: "Some Random", details: {});
-      }
-    });
-    expect(
-        () => dataStore.query(Post.classType),
-        throwsA(isA<DataStoreError>().having((error) => error.cause,
-            "error message", "UNRECOGNIZED_DATASTORE_ERROR")));
+        throwsA(isA<DataStoreException>()
+            .having((exception) => exception.message, 'message',
+                'Query failed for whatever known reason')
+            .having((exception) => exception.recoverySuggestion,
+                'recoverySuggestion', 'some insightful suggestion')
+            .having((exception) => exception.underlyingException,
+                'underlyingException', 'Act of God')));
   });
 
   test('method channel returns results something that cannot be parsed',
@@ -154,7 +148,20 @@ void main() {
     });
     expect(
         () => dataStore.query(Post.classType),
-        throwsA(isA<DataStoreError>().having((error) => error.cause,
-            "error message", "ERROR_FORMATTING_PLATFORM_CHANNEL_RESPONSE")));
+        throwsA(isA<DataStoreException>()
+            .having(
+              (exception) => exception.message,
+              'message',
+              "An unrecognized exception has happened while Serialization/de-serialization." +
+                  " Please see underlyingException for more details.",
+            )
+            .having(
+                (exception) => exception.recoverySuggestion,
+                'recoverySuggestion',
+                AmplifyExceptionMessages.missingRecoverySuggestion)
+            .having(
+                (exception) => exception.underlyingException,
+                'underlyingException',
+                'type \'String\' is not a subtype of type \'List<dynamic>?\' in type cast')));
   });
 }

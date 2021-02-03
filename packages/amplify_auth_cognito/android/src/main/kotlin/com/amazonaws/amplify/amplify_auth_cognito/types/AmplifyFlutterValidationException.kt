@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,15 +13,10 @@
  * permissions and limitations under the License.
  */
 
-var ApiErrorTypes = [
-  'AMPLIFY_REQUEST_MALFORMED',
-  'ERROR_CASTING_INPUT_IN_PLATFORM_CODE',
-  'AMPLIFY_API_QUERY_FAILED',
-  'AMPLIFY_API_MUTATE_FAILED',
-  'AMPLIFY_API_GET_FAILED',
-  'AMPLIFY_API_POST_FAILED',
-  'AMPLIFY_API_PUT_FAILED',
-  'AMPLIFY_API_DELETE_FAILED',
-  'AMPLIFY_API_HEAD_FAILED',
-  'AMPLIFY_API_PATCH_FAILED'
-];
+package com.amazonaws.amplify.amplify_auth_cognito.types
+
+import com.amplifyframework.AmplifyException
+
+class AmplifyFlutterValidationException : AmplifyException {
+    constructor(message: String, recoverySuggestion: String) : super(message, recoverySuggestion)
+}

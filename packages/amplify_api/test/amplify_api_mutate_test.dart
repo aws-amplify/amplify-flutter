@@ -17,6 +17,7 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:amplify_core/types/index.dart';
 
 void main() {
   const MethodChannel apiChannel = MethodChannel('com.amazonaws.amplify/api');
@@ -61,12 +62,13 @@ void main() {
   });
 
   test(
-      'A PlatformException for a failed API call results in the corresponding ApiError',
+      'A PlatformException for a failed API call results in the corresponding ApiException',
       () async {
-    final exception = PlatformException(
-        code: 'AmplifyException',
-        message: 'AMPLIFY_API_MUTATE_FAILED',
-        details: {});
+    final exception = PlatformException(code: 'ApiException', details: {
+      'message': 'AMPLIFY_API_MUTATE_FAILED',
+      'recoverySuggestion': 'some insightful suggestion',
+      'underlyingException': 'Act of God'
+    });
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == 'mutate') {
@@ -79,22 +81,23 @@ void main() {
       var operation = api.mutate<String>(
           request: GraphQLRequest(document: graphQLDocument, variables: {}));
       await operation.response;
-    } on ApiError catch (e) {
-      expect(e.code, exception.code);
-      expect(e.message, exception.message);
-      expect(e.details, exception.details);
+    } on ApiException catch (e) {
+      expect(e.message, 'AMPLIFY_API_MUTATE_FAILED');
+      expect(e.recoverySuggestion, 'some insightful suggestion');
+      expect(e.underlyingException, 'Act of God');
       return;
     }
-    throw new Exception('Expected an ApiError');
+    throw new Exception('Expected an ApiException');
   });
 
   test(
-      'A PlatformException for a malformed request results in the corresponding ApiError',
+      'A PlatformException for a malformed request results in the corresponding ApiException',
       () async {
-    final exception = PlatformException(
-        code: 'AmplifyException',
-        message: 'AMPLIFY_REQUEST_MALFORMED',
-        details: {});
+    final exception = PlatformException(code: 'ApiException', details: {
+      'message': 'AMPLIFY_API_MUTATE_FAILED',
+      'recoverySuggestion': 'some insightful suggestion',
+      'underlyingException': 'Act of God'
+    });
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == 'mutate') {
@@ -107,23 +110,23 @@ void main() {
       var operation = api.mutate<String>(
           request: GraphQLRequest(document: graphQLDocument, variables: {}));
       await operation.response;
-    } on ApiError catch (e) {
-      expect(e.code, exception.code);
-      expect(e.message, exception.message);
-      expect(e.details, exception.details);
+    } on ApiException catch (e) {
+      expect(e.message, 'AMPLIFY_API_MUTATE_FAILED');
+      expect(e.recoverySuggestion, 'some insightful suggestion');
+      expect(e.underlyingException, 'Act of God');
       return;
     }
-    throw new Exception('Expected an ApiError');
+    throw new Exception('Expected an ApiException');
   });
 
   test(
-      'An unrecognized PlatformException results in the corresponding ApiError',
+      'An unrecognized PlatformException results in the corresponding ApiException',
       () async {
-    final exception = PlatformException(
-        code: 'AmplifyException',
-        message: 'An unrecognized message',
-        details: {});
-
+    final exception = PlatformException(code: 'ApiException', details: {
+      'message': 'AMPLIFY_API_MUTATE_FAILED',
+      'recoverySuggestion': 'some insightful suggestion',
+      'underlyingException': 'Act of God'
+    });
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == 'mutate') {
         throw exception;
@@ -135,12 +138,12 @@ void main() {
       var operation = api.mutate<String>(
           request: GraphQLRequest(document: graphQLDocument, variables: {}));
       await operation.response;
-    } on ApiError catch (e) {
-      expect(e.code, exception.code);
-      expect(e.message, 'UNRECOGNIZED_API_ERROR');
-      expect(e.details, exception.details);
+    } on ApiException catch (e) {
+      expect(e.message, 'AMPLIFY_API_MUTATE_FAILED');
+      expect(e.recoverySuggestion, 'some insightful suggestion');
+      expect(e.underlyingException, 'Act of God');
       return;
     }
-    throw new Exception('Expected an ApiError');
+    throw new Exception('Expected an ApiException');
   });
 }
