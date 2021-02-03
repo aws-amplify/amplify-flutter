@@ -32,6 +32,7 @@ import './amplify_hub.dart';
 import 'categories/amplify_categories.dart';
 
 export 'package:amplify_core/types/hub/HubChannel.dart';
+export 'package:amplify_core/types/index.dart';
 
 part 'method_channel_amplify.dart';
 
@@ -76,7 +77,14 @@ class AmplifyClass extends PlatformInterface {
         } else if (plugin is StoragePluginInterface) {
           Storage.addPlugin(plugin);
         } else if (plugin is DataStorePluginInterface) {
-          await DataStore.addPlugin(plugin);
+          try {
+            await DataStore.addPlugin(plugin);
+          } on AmplifyAlreadyConfiguredException {
+            // A new plugin is added in native libraries during `addPlugin`
+            // call for DataStore, which means during an app restart, this
+            // method will throw an exception in android. We will ignore this
+            // like other plugins and move on. Other exceptions fall through.
+          }
           Hub.addChannel(HubChannel.DataStore, plugin.streamController);
         } else if (plugin is APIPluginInterface) {
           await API.addPlugin(plugin);
@@ -170,7 +178,7 @@ class AmplifyClass extends PlatformInterface {
         throw AnalyticsException.fromMap(Map<String, String>.from(e.details));
       } else if (e.code == 'AmplifyException') {
         throw AmplifyException.fromMap(Map<String, String>.from(e.details));
-      } else if (e.code == 'AmplifyAlreadyConfigured') {
+      } else if (e.code == 'AmplifyAlreadyConfiguredException') {
         throw AmplifyAlreadyConfiguredException.fromMap(
             Map<String, String>.from(e.details));
       } else {

@@ -43,7 +43,12 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "com.amazonaws.amplify/api")
         channel.setMethodCallHandler(this)
         context = flutterPluginBinding.applicationContext
-        Amplify.addPlugin(AWSApiPlugin())
+        try {
+            Amplify.addPlugin(AWSApiPlugin())
+        } catch (e: Exception) {
+            LOG.error("Failed to add API plugin. Is Amplify already configured and app restarted?")
+            LOG.error("Exception: $e")
+        }
         LOG.info("Initiated API plugin")
     }
 

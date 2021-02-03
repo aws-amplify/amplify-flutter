@@ -16,7 +16,6 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
-import 'package:sample_app/Views/ErrorView.dart';
 import 'package:sample_app/Pages/LandingPage.dart';
 
 class UserView extends StatefulWidget {
@@ -38,7 +37,7 @@ class _UserProfileState extends State<UserView> {
           context,
           MaterialPageRoute(builder: (context) => LandingPage()),
           (route) => false);
-    } on AuthError catch (e) {
+    } on AuthException catch (e) {
       print(e);
     }
   }

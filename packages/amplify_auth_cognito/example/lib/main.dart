@@ -113,8 +113,12 @@ class _MyAppState extends State<MyApp> {
           break;
       }
     });
-
-    await Amplify.configure(amplifyconfig);
+    try {
+      await Amplify.configure(amplifyconfig);
+    } on AmplifyAlreadyConfiguredException {
+      print(
+          'Amplify was already configured. Looks like app restarted on android.');
+    }
     try {
       isSignedIn = await _isSignedIn();
     } on AmplifyException catch (e) {
@@ -191,22 +195,20 @@ class _MyAppState extends State<MyApp> {
     return Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-        Expanded(
-        // wrap your Column in Expanded
-          child: Column(
-            children: [
-              Text('Error: ' + error.runtimeType.toString()),
-              const Padding(padding: EdgeInsets.all(10.0)),
-              Text('Message: ' + error.message),
-              if (error.recoverySuggestion != null ) Text('Recovery: ' + error.recoverySuggestion),
-              const Padding(padding: EdgeInsets.all(10.0)),
-              if (error.underlyingException != null ) Text('Underlying: ' + error.underlyingException),
-              const Padding(padding: EdgeInsets.all(10.0)),
-            ]
-          )
-        )
-      ]
-    );
+          Expanded(
+              // wrap your Column in Expanded
+              child: Column(children: [
+            Text('Error: ' + error.runtimeType.toString()),
+            const Padding(padding: EdgeInsets.all(10.0)),
+            Text('Message: ' + error.message),
+            if (error.recoverySuggestion != null)
+              Text('Recovery: ' + error.recoverySuggestion),
+            const Padding(padding: EdgeInsets.all(10.0)),
+            if (error.underlyingException != null)
+              Text('Underlying: ' + error.underlyingException),
+            const Padding(padding: EdgeInsets.all(10.0)),
+          ]))
+        ]);
   }
 
   Widget showApp() {
@@ -300,9 +302,9 @@ class _MyAppState extends State<MyApp> {
                         UpdatePasswordWidget(showResult, changeDisplay,
                             setError, _backToSignIn, _backToApp),
                       if (displayState == 'SHOW_UPDATE_PASSWORD')
-                      if (displayState == 'SHOW_CONFIRM_RESET')
-                        ConfirmResetWidget(
-                            showResult, changeDisplay, setError, _backToSignIn),
+                        if (displayState == 'SHOW_CONFIRM_RESET')
+                          ConfirmResetWidget(showResult, changeDisplay,
+                              setError, _backToSignIn),
                       if (this.displayState == "SIGNED_IN") showApp(),
                       ElevatedButton(
                         key: Key('configure-button'),
