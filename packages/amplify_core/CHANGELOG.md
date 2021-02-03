@@ -1,3 +1,9 @@
+## 0.0.2-dev.2 (2021-02-03)
+
+### Chores
+
+- chore: Introduce new AmplifyException type and Error utilities (#314)
+
 ## 0.0.2-dev.1 (2021-01-25)
 
 ### Chores
