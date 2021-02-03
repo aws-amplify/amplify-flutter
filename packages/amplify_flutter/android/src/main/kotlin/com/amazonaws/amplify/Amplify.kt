@@ -17,11 +17,14 @@ package com.amazonaws.amplify
 
 import android.app.Activity
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.annotation.NonNull
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedError
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
 import com.amplifyframework.AmplifyException
+import com.amplifyframework.analytics.AnalyticsException
 import com.amplifyframework.api.aws.AWSApiPlugin
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.AmplifyConfiguration
@@ -85,6 +88,11 @@ class Amplify : FlutterPlugin, ActivityAware, MethodCallHandler {
         }
     }
 
+    private fun prepareAnalyticsError(@NonNull flutterResult: Result, @NonNull exception: AnalyticsException) {
+        Handler(Looper.getMainLooper()).post {
+            postExceptionToFlutterChannel(flutterResult, "AnalyticsException", createSerializedError(exception))
+        }
+    }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         this.mainActivity = binding.activity
@@ -119,6 +127,8 @@ class Amplify : FlutterPlugin, ActivityAware, MethodCallHandler {
             }
             Amplify.configure(configuration, context)
             result.success(true);
+        } catch (e: AnalyticsException) {
+            prepareAnalyticsError(result, e);
         } catch (e: Amplify.AlreadyConfiguredException) {
             postExceptionToFlutterChannel(result, "AmplifyAlreadyConfiguredException",
                     createSerializedError(e))
