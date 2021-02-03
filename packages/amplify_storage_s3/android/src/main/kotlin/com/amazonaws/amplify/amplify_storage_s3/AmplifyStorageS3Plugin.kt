@@ -36,22 +36,20 @@ class AmplifyStorageS3Plugin : FlutterPlugin, ActivityAware, MethodCallHandler {
     private lateinit var channel: MethodChannel
     private lateinit var context: Context
     private var mainActivity: Activity? = null
+    private val LOG = Amplify.Logging.forNamespace("amplify:flutter:storage_s3")
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "com.amazonaws.amplify/storage_s3")
         channel.setMethodCallHandler(this)
         context = flutterPluginBinding.applicationContext
-        Amplify.addPlugin(AWSS3StoragePlugin())
-        Log.i("AmplifyFlutter", "Added StorageS3 plugin")
-    }
-
-    companion object {
-        @JvmStatic
-        fun registerWith(registrar: Registrar) {
-            val channel = MethodChannel(registrar.messenger(), "com.amazonaws.amplify/storage_s3")
+        try {
             Amplify.addPlugin(AWSS3StoragePlugin())
-            Log.i("AmplifyFlutter", "Added StorageS3 plugin")
+        } catch (e: Exception) {
+            LOG.error("Failed to add StorageS3 plugin. Is Amplify already configured and app restarted?")
+            LOG.error("Exception: $e")
+            return
         }
+        Log.i("AmplifyFlutter", "Added StorageS3 plugin")
     }
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {

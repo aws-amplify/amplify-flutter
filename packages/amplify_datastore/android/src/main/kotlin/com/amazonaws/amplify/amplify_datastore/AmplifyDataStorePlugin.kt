@@ -29,6 +29,7 @@ import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSubscriptionEv
 import com.amazonaws.amplify.amplify_datastore.types.query.QueryOptionsBuilder
 import com.amazonaws.amplify.amplify_datastore.util.safeCastToList
 import com.amazonaws.amplify.amplify_datastore.util.safeCastToMap
+import com.amplifyframework.AmplifyException
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
 import com.amplifyframework.core.async.Cancelable
@@ -141,7 +142,23 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
         modelProvider.setVersion(request["modelProviderVersion"] as String)
 
-        Amplify.addPlugin(AWSDataStorePlugin(modelProvider))
+        try {
+            Amplify.addPlugin(AWSDataStorePlugin(modelProvider))
+        } catch (e: Exception) {
+            var errorDetails: Map<String, Any?>
+            var errorCode = "DataStoreException"
+            if (e.message == "The client tried to add a plugin after calling configure().") {
+                errorCode = "AmplifyAlreadyConfiguredException"
+            }
+            when (e) {
+                is DataStoreException -> errorDetails = createSerializedError(e)
+                is AmplifyException -> errorDetails = createSerializedError(e)
+                else -> errorDetails = createSerializedUnrecognizedError(e)
+            }
+            postExceptionToFlutterChannel(flutterResult, errorCode,
+                    errorDetails)
+            return
+        }
         flutterResult.success(null)
     }
 

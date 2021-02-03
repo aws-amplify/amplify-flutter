@@ -45,7 +45,12 @@ class _MyAppState extends State<MyApp> {
     apiRest = AmplifyAPI();
 
     Amplify.addPlugin(apiRest);
-    Amplify.configure(amplifyconfig);
+    try {
+      await Amplify.configure(amplifyconfig);
+    } on AmplifyAlreadyConfiguredException {
+      print(
+          "Amplify was already configured. Looks like app restarted on android.");
+    }
     setState(() {
       _isAmplifyConfigured = true;
     });

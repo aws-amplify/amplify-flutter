@@ -42,11 +42,7 @@ public class FlutterRestApi {
                         if(!cancelToken.isEmpty){
                             OperationsManager.removeOperation(cancelToken: cancelToken)
                         }
-                        FlutterApiError.handleAPIError(
-                            flutterResult: flutterResult,
-                            error: apiError,
-                            msg: FlutterApiErrorMessage.getErrorForApi(methodName: methodName)
-                        )
+                        FlutterApiErrorHandler.handleApiError(error: apiError, flutterResult: flutterResult)
                 }
             }
             if(restOperation != nil){
@@ -54,11 +50,10 @@ public class FlutterRestApi {
             }
         } catch let error as APIError {
             print("Failed to parse query arguments with \(error)")
-            FlutterApiError.handleAPIError(flutterResult: flutterResult, error: error, msg: FlutterApiErrorMessage.MALFORMED.rawValue)
+            FlutterApiErrorHandler.handleApiError(error: error, flutterResult: flutterResult)
         } catch {
             print("An unexpected error occured when parsing query arguments: \(error)")
-            let errorMap = FlutterApiError.createErrorMap(localizedError: "\(error.localizedDescription).\nAn unrecognized error has occurred", recoverySuggestion: "See logs for details")
-            FlutterApiError.postFlutterError(flutterResult: flutterResult, msg: FlutterApiErrorMessage.MALFORMED.rawValue, errorMap: errorMap)
+            FlutterApiErrorHandler.handleApiError(error: APIError(error: error), flutterResult: flutterResult)
         }
     }
 

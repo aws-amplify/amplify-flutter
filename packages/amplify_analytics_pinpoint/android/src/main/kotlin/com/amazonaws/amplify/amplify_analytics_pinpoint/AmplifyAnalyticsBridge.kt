@@ -33,110 +33,66 @@ class AmplifyAnalyticsBridge {
         private val LOG = AmplifyAnalyticsPinpointPlugin.LOG
 
         fun recordEvent(@NonNull arguments: Any, @NonNull result: MethodChannel.Result) {
-            try {
-                val argumentsMap = arguments as HashMap<*, *>
-                val name = argumentsMap["name"] as String
+            val argumentsMap = arguments as HashMap<*, *>
+            val name = argumentsMap["name"] as String
 
-                var properties : HashMap<String, Any>
+            var properties : HashMap<String, Any>
 
-                properties = if(argumentsMap.containsKey("propertiesMap")){
-                    argumentsMap["propertiesMap"] as HashMap<String, Any>;
-                } else{
-                    HashMap<String, Any>()
-                }
-
-                Amplify.Analytics.recordEvent(
-                        AmplifyAnalyticsBuilder.createAnalyticsEvent(name, properties));
-                result.success(true);
-            } catch (exception: Exception) {
-                prepareError(result, exception, FlutterAnalyticsErrorMessage.RECORD_EVENT.toString())
+            properties = if(argumentsMap.containsKey("propertiesMap")){
+                argumentsMap["propertiesMap"] as HashMap<String, Any>;
+            } else{
+                HashMap<String, Any>()
             }
+
+            Amplify.Analytics.recordEvent(
+                    AmplifyAnalyticsBuilder.createAnalyticsEvent(name, properties));
+            result.success(true);
         }
 
         fun flushEvents(@NonNull result: MethodChannel.Result) {
-            try {
-                Amplify.Analytics.flushEvents()
-                result.success(true)
-            } catch (exception: Exception) {
-                prepareError(result, exception, FlutterAnalyticsErrorMessage.FLUSH_EVENTS.toString())
-            }
+            Amplify.Analytics.flushEvents()
+            result.success(true)
         }
 
         fun registerGlobalProperties(@NonNull arguments: Any, @NonNull result: MethodChannel.Result) {
-            try {
-                val globalProperties = arguments as HashMap<String, Any>
-                Amplify.Analytics.registerGlobalProperties(
-                        AmplifyAnalyticsBuilder.createAnalyticsProperties(globalProperties))
-                result.success(true)
-            } catch (exception: Exception) {
-                prepareError(result, exception, FlutterAnalyticsErrorMessage.REGISTER_GLOBAL_PROPERTIES.toString())
-            }
+            val globalProperties = arguments as HashMap<String, Any>
+            Amplify.Analytics.registerGlobalProperties(
+                    AmplifyAnalyticsBuilder.createAnalyticsProperties(globalProperties))
+            result.success(true)
         }
 
         fun unregisterGlobalProperties(@NonNull arguments: Any, @NonNull result: MethodChannel.Result) {
-            try {
-                val propertyNames = (arguments as ArrayList<String>).toSet<String>()
+            val propertyNames = (arguments as ArrayList<String>).toSet<String>()
 
-                if(propertyNames.size == 0){
-                    Amplify.Analytics.unregisterGlobalProperties()
-                }
-                else{
-                    for (name in propertyNames) {
-                        Amplify.Analytics.unregisterGlobalProperties(name)
-                    }
-                }
-                result.success(true)
-            } catch (exception: Exception) {
-                prepareError(result, exception, FlutterAnalyticsErrorMessage.UNREGISTER_GLOBAL_PROPERTIES.toString())
+            if(propertyNames.isEmpty()){
+                Amplify.Analytics.unregisterGlobalProperties()
             }
+            else{
+                for (name in propertyNames) {
+                    Amplify.Analytics.unregisterGlobalProperties(name)
+                }
+            }
+            result.success(true)
         }
 
         fun enable(@NonNull result: MethodChannel.Result) {
-            try {
-                Amplify.Analytics.enable()
-                result.success(true)
-            } catch (exception: Exception) {
-                prepareError(result, exception, FlutterAnalyticsErrorMessage.ENABLE.toString())
-            }
+            Amplify.Analytics.enable()
+            result.success(true)
         }
 
         fun disable(@NonNull result: MethodChannel.Result) {
-            try {
-                Amplify.Analytics.disable()
-                result.success(true)
-            } catch (exception: Exception) {
-                prepareError(result, exception, FlutterAnalyticsErrorMessage.DISABLE.toString())
-            }
+            Amplify.Analytics.disable()
+            result.success(true)
         }
 
         fun identifyUser(@NonNull arguments: Any, @NonNull result: MethodChannel.Result) {
-            try {
-                val argumentsMap = arguments as HashMap<*, *>
-                val userId = argumentsMap["userId"] as String
-                val userProfileMap = argumentsMap["userProfileMap"] as HashMap<String, Object>
+            val argumentsMap = arguments as HashMap<*, *>
+            val userId = argumentsMap["userId"] as String
+            val userProfileMap = argumentsMap["userProfileMap"] as HashMap<String, Object>
 
-                Amplify.Analytics.identifyUser(userId,
-                        AmplifyAnalyticsBuilder.createUserProfile(userProfileMap))
-                result.success(true)
-            } catch (exception: Exception) {
-                prepareError(result, exception, FlutterAnalyticsErrorMessage.IDENTIFY_USER.toString())
-            }
+            Amplify.Analytics.identifyUser(userId,
+                    AmplifyAnalyticsBuilder.createUserProfile(userProfileMap))
+            result.success(true)
         }
-
-        fun prepareError(@NonNull flutterResult: Result, @NonNull exception: Exception, @NonNull msg: String) {
-            LOG.error(msg, exception)
-
-            var errorDetails : HashMap<String, Any> = hashMapOf(
-                    PLATFORM_EXCEPTIONS to mapOf(
-                            "platform" to "Android",
-                            "localizedErrorMessage" to exception.localizedMessage
-                    )
-            )
-
-            Handler(Looper.getMainLooper()).post {
-                flutterResult.error("AmplifyException", msg, errorDetails)
-            }
-        }
-
     }
 }

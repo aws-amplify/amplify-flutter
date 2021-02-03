@@ -17,6 +17,8 @@ package com.amazonaws.amplify.amplify_api
 
 import android.os.Handler
 import android.os.Looper
+import com.amazonaws.amplify.amplify_api.rest_api.FlutterRestApi
+import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
 import com.amplifyframework.api.aws.GsonVariablesSerializer
 import com.amplifyframework.api.graphql.SimpleGraphQLRequest
 import com.amplifyframework.core.Amplify
@@ -38,10 +40,10 @@ class FlutterGraphQLApi {
                 variables = FlutterApiRequest.getVariables(request)
                 cancelToken = FlutterApiRequest.getCancelToken(request)
             } catch (e: Exception) {
-                FlutterApiError.postFlutterError(
-                        flutterResult,
-                        FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString(),
-                        e)
+                handler.post {
+                    ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
+                            ExceptionUtil.createSerializedUnrecognizedError(e))
+                }
                 return
             }
             var operation = Amplify.API.query(
@@ -61,14 +63,14 @@ class FlutterGraphQLApi {
                         LOG.debug("GraphQL query operation succeeded with response: $result")
                         handler.post { flutterResult.success(result) }
                     },
-                    {
+                    { exception ->
                         if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
 
-                        LOG.error("GraphQL query operation failed", it)
-                        FlutterApiError.postFlutterError(
-                                flutterResult,
-                                FlutterApiErrorMessage.AMPLIFY_API_QUERY_FAILED.toString(),
-                                it)
+                        LOG.error("GraphQL query operation failed", exception)
+                        handler.post {
+                            ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
+                                    ExceptionUtil.createSerializedError(exception))
+                        }
                     }
             )
             if (operation != null) {
@@ -87,10 +89,10 @@ class FlutterGraphQLApi {
                 variables = FlutterApiRequest.getVariables(request)
                 cancelToken = FlutterApiRequest.getCancelToken(request)
             } catch (e: Exception) {
-                FlutterApiError.postFlutterError(
-                        flutterResult,
-                        FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString(),
-                        e)
+                handler.post {
+                    ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
+                            ExceptionUtil.createSerializedUnrecognizedError(e))
+                }
                 return
             }
             var operation = Amplify.API.mutate(
@@ -110,14 +112,14 @@ class FlutterGraphQLApi {
                         LOG.debug("GraphQL mutate operation succeeded with response : $result")
                         handler.post { flutterResult.success(result) }
                     },
-                    {
+                    { exception ->
                         if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
 
-                        LOG.error("GraphQL mutate operation failed", it)
-                        FlutterApiError.postFlutterError(
-                                flutterResult,
-                                FlutterApiErrorMessage.AMPLIFY_API_MUTATE_FAILED.toString(),
-                                it)
+                        LOG.error("GraphQL mutate operation failed", exception)
+                        handler.post {
+                            ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
+                                    ExceptionUtil.createSerializedError(exception))
+                        }
                     }
             )
             if (operation != null) {

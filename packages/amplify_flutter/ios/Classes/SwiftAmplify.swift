@@ -53,6 +53,12 @@ public class SwiftAmplify: NSObject, FlutterPlugin {
             AmplifyAWSServiceConfiguration.addUserAgentPlatform(.flutter, version: version)
             try Amplify.configure(amplifyConfiguration)
             result(true)
+        } catch let error as AnalyticsError {
+            ErrorUtil.postErrorToFlutterChannel(
+                result: result,
+                errorCode: "AnalyticsException",
+                details: createSerializedError(error: error)
+            )
         } catch let error as ConfigurationError {
             switch error {
             case .amplifyAlreadyConfigured(_, _, _):

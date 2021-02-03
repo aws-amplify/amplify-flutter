@@ -31,7 +31,6 @@ class _SignUpViewState extends State<SignUpView> {
   final confirmationCodeController = TextEditingController();
 
   String _signUpError = "";
-  List<String> _signUpExceptions = [];
   bool _isSignedUp = false;
 
   @override
@@ -42,7 +41,6 @@ class _SignUpViewState extends State<SignUpView> {
   void _signUp() async {
     setState(() {
       _signUpError = "";
-      _signUpExceptions = [];
     });
 
     Map<String, dynamic> userAttributes = {
@@ -58,7 +56,7 @@ class _SignUpViewState extends State<SignUpView> {
       setState(() {
         _isSignedUp = true;
       });
-    } on AuthError catch (error) {
+    } on AuthException catch (error) {
       _setError(error);
     }
   }
@@ -66,7 +64,6 @@ class _SignUpViewState extends State<SignUpView> {
   void _confirmSignUp() async {
     setState(() {
       _signUpError = "";
-      _signUpExceptions = [];
     });
 
     try {
@@ -74,18 +71,14 @@ class _SignUpViewState extends State<SignUpView> {
           username: usernameController.text.trim(),
           confirmationCode: confirmationCodeController.text.trim());
       Navigator.pop(context, true);
-    } on AuthError catch (error) {
+    } on AuthException catch (error) {
       _setError(error);
     }
   }
 
-  void _setError(AuthError error) {
+  void _setError(AuthException error) {
     setState(() {
-      _signUpError = error.cause;
-      _signUpExceptions.clear();
-      error.exceptionList.forEach((el) {
-        _signUpExceptions.add(el.exception);
-      });
+      _signUpError = error.message;
     });
   }
 
@@ -158,7 +151,7 @@ class _SignUpViewState extends State<SignUpView> {
                       ),
                     ])),
                 const Padding(padding: EdgeInsets.all(10.0)),
-                ErrorView(_signUpError, _signUpExceptions)
+                ErrorView(_signUpError)
               ],
             ),
           ),

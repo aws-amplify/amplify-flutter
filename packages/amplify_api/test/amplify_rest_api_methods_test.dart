@@ -148,21 +148,13 @@ void main() {
   });
 
   test('GET Status Code Error throws proper error', () async {
-    var errorResponseMap = {
-      "PLATFORM_EXCEPTIONS": {
-        "platform": "iOS",
-        "localizedErrorMessage": "The HTTP response status code is [400].",
-        "recoverySuggestion":
-            "The metadata associated with the response is contained in the HTTPURLResponse.\nFor more information on HTTP status codes, take a look at\nhttps://en.wikipedia.org/wiki/List_of_HTTP_status_codes"
-      }
-    };
-
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == "get") {
-        throw PlatformException(
-            code: "AmplifyException",
-            message: "AMPLIFY_API_GET_FAILED",
-            details: errorResponseMap);
+        throw PlatformException(code: 'ApiException', details: {
+          'message': 'AMPLIFY_API_MUTATE_FAILED',
+          'recoverySuggestion': 'some insightful suggestion',
+          'underlyingException': 'Act of God'
+        });
       }
     });
 
@@ -172,18 +164,10 @@ void main() {
         path: "/items",
       ));
       await restOperation.response;
-    } on ApiError catch (e) {
-      expect(e.code, "AmplifyException");
-      expect(e.message, "AMPLIFY_API_GET_FAILED");
-
-      Map<dynamic, dynamic> platformExceptions =
-          (e.details)["PLATFORM_EXCEPTIONS"];
-
-      expect(platformExceptions["platform"], "iOS");
-      expect(platformExceptions["localizedErrorMessage"],
-          "The HTTP response status code is [400].");
-      expect(platformExceptions["recoverySuggestion"],
-          "The metadata associated with the response is contained in the HTTPURLResponse.\nFor more information on HTTP status codes, take a look at\nhttps://en.wikipedia.org/wiki/List_of_HTTP_status_codes");
+    } on ApiException catch (e) {
+      expect(e.message, 'AMPLIFY_API_MUTATE_FAILED');
+      expect(e.recoverySuggestion, 'some insightful suggestion');
+      expect(e.underlyingException, 'Act of God');
     }
   });
 
