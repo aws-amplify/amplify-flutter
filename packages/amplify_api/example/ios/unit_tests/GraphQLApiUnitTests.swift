@@ -15,6 +15,8 @@
 
 import XCTest
 import Amplify
+import amplify_core
+
 @testable import AmplifyPlugins
 @testable import amplify_api
 
@@ -74,12 +76,12 @@ class GraphQLApiUnitTests: XCTestCase {
         FlutterGraphQLApi.query(
             flutterResult: { (result) -> Void in
                 if let exception = result as? FlutterError {
-                    XCTAssertEqual("AmplifyException", exception.code)
-                    XCTAssertEqual(FlutterApiErrorMessage.QUERY_FAILED.rawValue, exception.message)
-                    let errorMap: [String: Any] = exception.details as! [String : Any]
-                    XCTAssertEqual(
-                        ["platform": "iOS", "localizedErrorMessage": "test error", "recoverySuggestion": "test recovery suggestion"],
-                        errorMap["PLATFORM_EXCEPTIONS"] as? [String: String])
+                    XCTAssertEqual("ApiException", exception.code)
+                    XCTAssertEqual(ErrorMessages.defaultFallbackErrorMessage, exception.message)
+                    
+                    let errorMap: [String: String] = exception.details as! [String : String]
+                    XCTAssertEqual("test error", errorMap["message"])
+                    XCTAssertEqual("test recovery suggestion", errorMap["recoverySuggestion"])
                 } else {
                     XCTFail()
                 }
@@ -107,12 +109,12 @@ class GraphQLApiUnitTests: XCTestCase {
         FlutterGraphQLApi.query(
             flutterResult: { (result) -> Void in
                 if let exception = result as? FlutterError {
-                    XCTAssertEqual("AmplifyException", exception.code)
-                    XCTAssertEqual(FlutterApiErrorMessage.MALFORMED.rawValue, exception.message)
-                    let errorMap: [String: Any] = exception.details as! [String : Any]
-                    XCTAssertEqual(
-                        ["platform": "iOS", "localizedErrorMessage": "The graphQL document request argument was not passed as a String", "recoverySuggestion": "The request should include the graphQL document as a String"],
-                        errorMap["PLATFORM_EXCEPTIONS"] as? [String: String])
+                    XCTAssertEqual("ApiException", exception.code)
+                    XCTAssertEqual(ErrorMessages.defaultFallbackErrorMessage, exception.message)
+
+                    let errorMap: [String: String] = exception.details as! [String : String]
+                    XCTAssertEqual("The graphQL document request argument was not passed as a String", errorMap["message"])
+                    XCTAssertEqual("The request should include the graphQL document as a String", errorMap["recoverySuggestion"])
                 } else {
                     XCTFail()
                 }
@@ -176,12 +178,12 @@ class GraphQLApiUnitTests: XCTestCase {
         FlutterGraphQLApi.mutate(
             flutterResult: { (result) -> Void in
                 if let exception = result as? FlutterError {
-                    XCTAssertEqual("AmplifyException", exception.code)
-                    XCTAssertEqual(FlutterApiErrorMessage.MUTATE_FAILED.rawValue, exception.message)
-                    let errorMap: [String: Any] = exception.details as! [String : Any]
-                    XCTAssertEqual(
-                        ["platform": "iOS", "localizedErrorMessage": "test error", "recoverySuggestion": "test recovery suggestion"],
-                        errorMap["PLATFORM_EXCEPTIONS"] as? [String: String])
+                    XCTAssertEqual("ApiException", exception.code)
+                    XCTAssertEqual(ErrorMessages.defaultFallbackErrorMessage, exception.message)
+                    let errorMap: [String: String] = exception.details as! [String : String]
+                    XCTAssertEqual("test error", errorMap["message"])
+                    XCTAssertEqual("test recovery suggestion", errorMap["recoverySuggestion"])
+
                 } else {
                     XCTFail()
                 }
@@ -209,12 +211,11 @@ class GraphQLApiUnitTests: XCTestCase {
         FlutterGraphQLApi.mutate(
             flutterResult: { (result) -> Void in
                 if let exception = result as? FlutterError {
-                    XCTAssertEqual("AmplifyException", exception.code)
-                    XCTAssertEqual(FlutterApiErrorMessage.MALFORMED.rawValue, exception.message)
-                    let errorMap: [String: Any] = exception.details as! [String : Any]
-                    XCTAssertEqual(
-                        ["platform": "iOS", "localizedErrorMessage": "The graphQL document request argument was not passed as a String", "recoverySuggestion": "The request should include the graphQL document as a String"],
-                        errorMap["PLATFORM_EXCEPTIONS"] as? [String: String])
+                    XCTAssertEqual("ApiException", exception.code)
+                    XCTAssertEqual(ErrorMessages.defaultFallbackErrorMessage, exception.message)
+                    let errorMap: [String: String] = exception.details as! [String : String]
+                    XCTAssertEqual("The graphQL document request argument was not passed as a String", errorMap["message"])
+                    XCTAssertEqual("The request should include the graphQL document as a String", errorMap["recoverySuggestion"])
                 } else {
                     XCTFail()
                 }

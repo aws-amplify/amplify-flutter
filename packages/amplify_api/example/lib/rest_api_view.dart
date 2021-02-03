@@ -87,7 +87,7 @@ class _RestApiViewState extends State<RestApiView> {
 
       print("Get SUCCESS");
       print(new String.fromCharCodes(response.data));
-    } on ApiError catch (e) {
+    } on ApiException catch (e) {
       print("Get FAILED");
       print(e.toString());
     }
@@ -130,7 +130,7 @@ class _RestApiViewState extends State<RestApiView> {
 
       print("Head SUCCESS");
       print(new String.fromCharCodes(response.data));
-    } on ApiError catch (e) {
+    } on ApiException catch (e) {
       print("Head FAILED");
       print(e.toString());
     }
@@ -148,7 +148,7 @@ class _RestApiViewState extends State<RestApiView> {
 
       print("Patch SUCCESS");
       print(new String.fromCharCodes(response.data));
-    } on ApiError catch (e) {
+    } on ApiException catch (e) {
       print("Patch FAILED");
       print(e.toString());
     }
