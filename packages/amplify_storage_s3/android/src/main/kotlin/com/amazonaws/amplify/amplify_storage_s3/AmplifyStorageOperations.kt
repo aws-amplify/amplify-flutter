@@ -18,6 +18,7 @@ package com.amazonaws.amplify.amplify_storage_s3
 import androidx.annotation.NonNull
 import android.os.Handler
 import android.os.Looper
+import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
 import com.amplifyframework.core.Amplify
 import io.flutter.plugin.common.MethodChannel
@@ -37,7 +38,7 @@ class AmplifyStorageOperations {
         fun uploadFile(@NonNull flutterResult: MethodChannel.Result, @NonNull request: Map<String, *>) {
             var responseSent = false
             try {
-                FlutterUploadFileRequest.isValid(request)
+                FlutterUploadFileRequest.validate(request)
                 val req = FlutterUploadFileRequest(request)
                 Amplify.Storage.uploadFile(
                         req.key,
@@ -61,7 +62,7 @@ class AmplifyStorageOperations {
 
         fun getUrl(@NonNull flutterResult: MethodChannel.Result, @NonNull request: Map<String, *>) {
             try {
-                FlutterGetUrlRequest.isValid(request)
+                FlutterGetUrlRequest.validate(request)
                 val req = FlutterGetUrlRequest(request)
                 Amplify.Storage.getUrl(req.key,
                         req.options,
@@ -79,7 +80,7 @@ class AmplifyStorageOperations {
 
         fun remove(@NonNull flutterResult: MethodChannel.Result, @NonNull request: Map<String, *>) {
             try {
-                FlutterRemoveRequest.isValid(request)
+                FlutterRemoveRequest.validate(request)
                 val req = FlutterRemoveRequest(request)
                 Amplify.Storage.remove(req.key,
                         req.options,
@@ -97,7 +98,7 @@ class AmplifyStorageOperations {
 
         fun list(@NonNull flutterResult: MethodChannel.Result, @NonNull request: Map<String, *>) {
             try {
-                FlutterListRequest.isValid(request)
+                FlutterListRequest.validate(request)
                 val req = FlutterListRequest(request)
                 Amplify.Storage.list(req.path,
                         req.options,
@@ -115,7 +116,7 @@ class AmplifyStorageOperations {
 
         fun downloadFile(@NonNull flutterResult: MethodChannel.Result, @NonNull request: Map<String, *>) {
             try {
-                FlutterDownloadFileRequest.isValid(request)
+                FlutterDownloadFileRequest.validate(request)
                 val req = FlutterDownloadFileRequest(request)
                 Amplify.Storage.downloadFile(req.key,
                         req.file,
@@ -187,20 +188,19 @@ class AmplifyStorageOperations {
         private fun prepareError(@NonNull flutterResult: MethodChannel.Result, @NonNull e: Exception) {
             val errorCode = "StorageException"
             LOG.error(errorCode, e)
-            val serializedError: Map<String, Any?> = if (e is AmplifyException) {
+            val serializedError: Map<String, Any?> = if (e is StorageException) {
                 ExceptionUtil.createSerializedError(e)
             } else {
                 ExceptionUtil.createSerializedError(
-                        "An unexpected error has occurred",
-                        "An unexpected error has occurred. See Android logs for details",
+                        ExceptionMessages.unexpectedExceptionMessage,
+                        ExceptionMessages.unexpectedExceptionSuggestion,
                         e.toString())
             }
             Handler(Looper.getMainLooper()).post {
                 ExceptionUtil.postExceptionToFlutterChannel(flutterResult,
-                        "StorageException",
+                        errorCode,
                         serializedError)
             }
-
         }
     }
 }

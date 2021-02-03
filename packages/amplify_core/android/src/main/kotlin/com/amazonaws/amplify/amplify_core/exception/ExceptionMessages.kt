@@ -38,5 +38,13 @@ class ExceptionMessages {
         val missingExceptionMessage: String =
                 "An unknown exception has happened. $createGithubIssueString"
 
+        @JvmStatic
+        val unexpectedExceptionMessage: String =
+                "An unexpected exception has occurred."
+
+        @JvmStatic
+        val unexpectedExceptionSuggestion: String =
+                "See Android logs for details."
+
     }
 }

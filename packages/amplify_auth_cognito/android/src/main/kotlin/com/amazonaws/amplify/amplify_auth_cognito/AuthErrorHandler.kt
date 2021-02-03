@@ -20,6 +20,7 @@ import android.os.Looper
 import androidx.annotation.NonNull
 import com.amazonaws.AmazonClientException
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
+import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.exceptions.CognitoCodeExpiredException
 import com.amazonaws.services.cognitoidentityprovider.model.InvalidLambdaResponseException
 import com.amazonaws.services.cognitoidentityprovider.model.MFAMethodNotFoundException
@@ -35,8 +36,6 @@ import com.amplifyframework.core.Amplify
 import io.flutter.plugin.common.MethodChannel
 
 private val LOG = Amplify.Logging.forNamespace("amplify:flutter:auth_cognito")
-private val genericMessage = "An unexpected error has occurred"
-private val genericRecovery = "An unexpected error has occurred. See Android logs for details"
 
 class AuthErrorHandler {
     fun getErrorCode(@NonNull error: Exception): String {
@@ -90,8 +89,8 @@ class AuthErrorHandler {
             serializedError = ExceptionUtil.createSerializedError(error)
         // Need to catch and handle errors that originate in aws-android-sdk untransformed
         } else if (error is AmazonClientException) {
-            var message: String = if (error.message != null) error.message!! else genericMessage
-            serializedError = ExceptionUtil.createSerializedError(message, genericRecovery, error.toString())
+            var message: String = if (error.message != null) error.message!! else ExceptionMessages.unexpectedExceptionMessage
+            serializedError = ExceptionUtil.createSerializedError(message, ExceptionMessages.unexpectedExceptionSuggestion, error.toString())
         }
 
         var errorCode = getErrorCode(error)
@@ -104,8 +103,8 @@ class AuthErrorHandler {
     fun prepareGenericException(@NonNull flutterResult: MethodChannel.Result, @NonNull underlyingError: Exception) {
         LOG.error("AuthException", underlyingError)
         var serializedErrror = ExceptionUtil.createSerializedError(
-                genericMessage,
-                genericRecovery,
+                ExceptionMessages.unexpectedExceptionMessage,
+                ExceptionMessages.unexpectedExceptionSuggestion,
                 underlyingError.toString())
 
         Handler (Looper.getMainLooper()).post {

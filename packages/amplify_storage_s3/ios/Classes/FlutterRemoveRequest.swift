@@ -24,10 +24,10 @@ struct FlutterRemoveRequest {
         self.options = setOptions(request: request)
     }
     
-    static func isValid(request: Dictionary<String, AnyObject>) throws {
+    static func validate(request: Dictionary<String, AnyObject>) throws {
         let validationErrorMessage = "Remove request malformed."
         if !(request["key"] is String) {
-            throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "key is missing.")
+            throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "Ensure that key variable is present.")
         }
     }
     

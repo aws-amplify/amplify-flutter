@@ -50,9 +50,9 @@ data class FlutterGetUrlRequest(val request: Map<String, *>) {
 
     companion object {
         private const val validationErrorMessage: String = "GetUrl request malformed."
-        fun isValid(request: Map<String, *>) {
-            if(request["key"] !is String?) {
-                throw AmplifyFlutterValidationException(validationErrorMessage, "key is missing.")
+        fun validate(request: Map<String, *>) {
+            if(request["key"] !is String? || request["key"] == null) {
+                throw AmplifyFlutterValidationException(validationErrorMessage, "Ensure that key variable is present.")
             }
         }
     }

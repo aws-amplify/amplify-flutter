@@ -47,9 +47,9 @@ data class FlutterRemoveRequest(val request: Map<String, *>) {
 
     companion object {
         private const val validationErrorMessage: String = "Remove request malformed."
-        fun isValid(request: Map<String, *>) {
-            if (request["key"] !is String?) {
-                throw AmplifyFlutterValidationException(validationErrorMessage, "key is missing.")
+        fun validate(request: Map<String, *>) {
+            if (request["key"] !is String? || request["key"] == null) {
+                throw AmplifyFlutterValidationException(validationErrorMessage, "Ensure that key variable is present.")
             }
         }
     }

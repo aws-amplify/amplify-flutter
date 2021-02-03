@@ -23,7 +23,7 @@ import amplify_core
 public class AmplifyStorageOperations {
     public static func uploadFile(flutterResult: @escaping FlutterResult, request: Dictionary<String, AnyObject>) {
         do {
-            try FlutterUploadFileRequest.isValid(request: request)
+            try FlutterUploadFileRequest.validate(request: request)
             let req = FlutterUploadFileRequest(request: request)
             _ = Amplify.Storage.uploadFile(
                 key: req.key,
@@ -46,7 +46,7 @@ public class AmplifyStorageOperations {
     
     public static func getURL(flutterResult: @escaping FlutterResult, request: Dictionary<String, AnyObject>){
         do {
-            try FlutterGetUrlRequest.isValid(request: request)
+            try FlutterGetUrlRequest.validate(request: request)
             let req = FlutterGetUrlRequest(request: request)
             _ = Amplify.Storage.getURL(key: req.key,
                options: req.options,
@@ -67,7 +67,7 @@ public class AmplifyStorageOperations {
     
     public static func remove(flutterResult: @escaping FlutterResult, request: Dictionary<String, AnyObject>){
         do {
-            try FlutterRemoveRequest.isValid(request: request)
+            try FlutterRemoveRequest.validate(request: request)
             let req = FlutterRemoveRequest(request: request)
             _ = Amplify.Storage.remove(key: req.key,
                options: req.options,
@@ -88,7 +88,7 @@ public class AmplifyStorageOperations {
     
     public static func list(flutterResult: @escaping FlutterResult, request: Dictionary<String, AnyObject>){
         do {
-            try FlutterListRequest.isValid(request: request)
+            try FlutterListRequest.validate(request: request)
             let req = FlutterListRequest(request: request)
             _ = Amplify.Storage.list(options: req.options,
                  resultListener: {event in
@@ -113,7 +113,7 @@ public class AmplifyStorageOperations {
     
     public static func downloadFile(flutterResult: @escaping FlutterResult, request: Dictionary<String, AnyObject>){
         do {
-            try FlutterDownloadFileRequest.isValid(request: request)
+            try FlutterDownloadFileRequest.validate(request: request)
             let req = FlutterDownloadFileRequest(request: request)
             _ = Amplify.Storage.downloadFile(key: req.key,
                  local: req.file,
@@ -158,18 +158,18 @@ public class AmplifyStorageOperations {
         var underlyingErrorString: String = error.localizedDescription
 
         if (error is AmplifyFlutterValidationException) {
-                    let e = error as! AmplifyFlutterValidationException
-                    underlyingErrorString = e.errorDescription
-                }
-                let serializedErrror = createSerializedError(
-                    message: "An unexpected error has occurred",
-                    recoverySuggestion: "See iOS logs for details",
-                    underlyingError: underlyingErrorString)
+            let e = error as! AmplifyFlutterValidationException
+            underlyingErrorString = "AmplifyError.AmplifyFlutterValidationException \(e.errorDescription) \(e.recoverySuggestion)" 
+        }
+        let serializedErrror = createSerializedError(
+            message: "An unexpected exception has occurred",
+            recoverySuggestion: "See iOS logs for details",
+            underlyingError: underlyingErrorString)
 
-                ErrorUtil.postErrorToFlutterChannel(
-                    result: flutterResult,
-                    errorCode: "StorageException",
-                    details: serializedErrror)
+        ErrorUtil.postErrorToFlutterChannel(
+            result: flutterResult,
+            errorCode: "StorageException",
+            details: serializedErrror)
             
 
     }

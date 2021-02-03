@@ -55,12 +55,12 @@ data class FlutterUploadFileRequest(val request: Map<String, *>) {
 
     companion object {
         private const val validationErrorMessage: String = "Upload request malformed."
-        fun isValid(request: Map<String, *>)  {
-            if(request["path"] !is String?) {
-                throw AmplifyFlutterValidationException(validationErrorMessage, "path is missing.")
+        fun validate(request: Map<String, *>)  {
+            if(request["path"] !is String? || request["path"] == null) {
+                throw AmplifyFlutterValidationException(validationErrorMessage, "Ensure that path variable is present.")
             }
-            if(request["key"] !is String?) {
-                throw AmplifyFlutterValidationException(validationErrorMessage, "key is missing.")
+            if(request["key"] !is String? || request["key"] == null) {
+                throw AmplifyFlutterValidationException(validationErrorMessage, "Ensure that key variable is present.")
             }
         }
     }

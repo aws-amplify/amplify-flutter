@@ -118,7 +118,7 @@ public class AuthErrorHandler {
         var underlyingErrorString: String = underlyingError.localizedDescription
         if (underlyingError is AmplifyFlutterValidationException) {
             let e = underlyingError as! AmplifyFlutterValidationException
-            underlyingErrorString = e.errorDescription
+            underlyingErrorString = "AmplifyError.AmplifyFlutterValidationException \(e.errorDescription): \(e.recoverySuggestion)"
         }
         let serializedErrror = createSerializedError(
             message: "An unexpected error has occurred",
