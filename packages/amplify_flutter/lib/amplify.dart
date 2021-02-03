@@ -60,9 +60,6 @@ class AmplifyClass extends PlatformInterface {
   // ignore: public_member_api_docs
   AmplifyHub Hub = AmplifyHub();
 
-  final _amplifyBugRecoverySuggestion =
-      "This looks like a bug in Amplify library, please create an issue.";
-
   /// Adds one plugin at a time. Note: this method can only
   /// be called before Amplify has been configured.
   ///
