@@ -32,7 +32,8 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   Future<void> configureModelProvider(
       {ModelProviderInterface modelProvider}) async {
     try {
-      return _channel.invokeMethod('configureModelProvider', <String, dynamic>{
+      return await _channel
+          .invokeMethod('configureModelProvider', <String, dynamic>{
         'modelSchemas':
             modelProvider.modelSchemas.map((schema) => schema.toMap()).toList(),
         'modelProviderVersion': modelProvider.version
@@ -150,6 +151,9 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   DataStoreException _deserializeException(PlatformException e) {
     if (e.code == 'DataStoreException') {
       throw DataStoreException.fromMap(Map<String, String>.from(e.details));
+    } else if (e.code == 'AmplifyAlreadyConfiguredException') {
+      throw AmplifyAlreadyConfiguredException.fromMap(
+          Map<String, String>.from(e.details));
     } else {
       // This shouldn't happen. All exceptions coming from platform for
       // amplify_datastore should have a known code. Throw an unknown error.

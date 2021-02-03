@@ -47,8 +47,13 @@ class _MyAppState extends State<MyApp> {
     AmplifyAuthCognito auth = new AmplifyAuthCognito();
     Amplify.addPlugins([auth, storage]);
 
-    // Configure
-    await Amplify.configure(amplifyconfig);
+    try {
+      // Configure
+      await Amplify.configure(amplifyconfig);
+    } on AmplifyAlreadyConfiguredException {
+      print(
+          'Amplify was already configured. Looks like app restarted on android.');
+    }
 
     setState(() {
       _isAmplifyConfigured = true;

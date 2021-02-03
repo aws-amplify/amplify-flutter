@@ -93,7 +93,9 @@ class FlutterRestApi {
                             }
                     )
                 }
-                OperationsManager.addOperation(cancelToken, operation!!)
+                if(operation != null) {
+                    OperationsManager.addOperation(cancelToken, operation)
+                }
 
             } catch (e: Exception) {
                 handler.post {
