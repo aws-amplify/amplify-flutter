@@ -166,7 +166,9 @@ class AmplifyClass extends PlatformInterface {
                 AmplifyExceptionMessages.missingRecoverySuggestion);
       }
     } on PlatformException catch (e) {
-      if (e.code == 'AmplifyException') {
+      if (e.code == 'AnalyticsException') {
+        throw AnalyticsException.fromMap(Map<String, String>.from(e.details));
+      } else if (e.code == 'AmplifyException') {
         throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       } else if (e.code == 'AmplifyAlreadyConfigured') {
         throw AmplifyAlreadyConfiguredException.fromMap(

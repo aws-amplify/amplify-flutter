@@ -72,7 +72,7 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
             }
         } catch let error {
             print("Failed to parse query arguments with \(error)")
-            FlutterApiError.handleAPIError(flutterResult: result, error: error as! APIError, msg: FlutterApiErrorMessage.MALFORMED.rawValue)
+            FlutterApiErrorHandler.handleApiError(error: APIError(error: error), flutterResult: result)
         }
     }
 

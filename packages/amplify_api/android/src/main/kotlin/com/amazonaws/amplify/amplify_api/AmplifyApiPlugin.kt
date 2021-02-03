@@ -16,6 +16,8 @@
 package com.amazonaws.amplify.amplify_api
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import androidx.annotation.NonNull
 import com.amazonaws.amplify.amplify_api.rest_api.FlutterRestApi
 import com.amplifyframework.api.aws.AWSApiPlugin
@@ -25,7 +27,8 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import java.lang.ClassCastException
+import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedUnrecognizedError
+import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
 
 /** AmplifyApiPlugin */
 class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
@@ -33,7 +36,9 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
     private lateinit var channel: MethodChannel
     private lateinit var context: Context
     private val LOG = Amplify.Logging.forNamespace("amplify:flutter:api")
-    
+
+    private val handler = Handler(Looper.getMainLooper())
+
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "com.amazonaws.amplify/api")
         channel.setMethodCallHandler(this)
@@ -64,12 +69,11 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
                 "mutate" -> FlutterGraphQLApi.mutate(result, arguments)
                 else -> result.notImplemented()
             }
-        } catch (e: ClassCastException) {
-            FlutterApiError.postFlutterError(
-                    result,
-                    FlutterApiErrorMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString(),
-                    e
-            )
+        } catch (e: Exception) {
+            handler.post {
+                postExceptionToFlutterChannel(result, "ApiException",
+                        createSerializedUnrecognizedError(e))
+            }
         }
     }
 
