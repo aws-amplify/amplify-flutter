@@ -49,7 +49,7 @@ data class FlutterListRequest(val request: Map<String, *>) {
         private const val validationErrorMessage: String = "List request malformed."
         fun validate(request: Map<String, *>) {
             if(request["path"] !is String? || request["path"] == null) {
-                throw AmplifyFlutterValidationException(validationErrorMessage, "Ensure that path variable is present.")
+                throw AmplifyFlutterValidationException(validationErrorMessage, "Ensure that path attribute is present.")
             }
         }
     }

@@ -30,12 +30,12 @@ struct FlutterDownloadFileRequest {
         let validationErrorMessage = "Download request malformed."
         if !(request["key"] is String) {
             throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage,
-                                                    recoverySuggestion: "Ensure that key variable is present.",
+                                                    recoverySuggestion: "Ensure that key attribute is present.",
                                                     error: StorageError.unknown(validationErrorMessage, nil))
         }
         if !(request["path"] is String) {
             throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage,
-                                                    recoverySuggestion: "Ensure that path variable is present.",
+                                                    recoverySuggestion: "Ensure that path attribute is present.",
                                                     error: StorageError.unknown(validationErrorMessage, nil))
         }
     }

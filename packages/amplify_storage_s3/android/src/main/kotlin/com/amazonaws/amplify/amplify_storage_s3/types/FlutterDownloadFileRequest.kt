@@ -51,10 +51,10 @@ data class FlutterDownloadFileRequest(val request: Map<String, *>) {
         private const val validationErrorMessage: String = "Download request malformed."
         fun validate(request: Map<String, *>) {
             if(request["path"] !is String? || request["path"] == null) {
-                throw AmplifyFlutterValidationException(validationErrorMessage, "Ensure that path variable is present.")
+                throw AmplifyFlutterValidationException(validationErrorMessage, "Ensure that path attribute is present.")
             }
             if(request["key"] !is String? || request["key"] == null) {
-                throw AmplifyFlutterValidationException(validationErrorMessage, "Ensure that key variable is present.")
+                throw AmplifyFlutterValidationException(validationErrorMessage, "Ensure that key attribute is present.")
             }
         }
     }

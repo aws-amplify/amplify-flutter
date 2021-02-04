@@ -30,7 +30,7 @@ class StorageException extends AmplifyException {
             recoverySuggestion: exception.recoverySuggestion,
             underlyingException: exception.underlyingException);
 
-  /// Instantiates and return a new `StorageException` from the
+  /// Instantiates and returns a new `StorageException` from the
   /// serialized exception data
   static StorageException fromMap(Map<String, String> serializedException) {
     return StorageException._private(AmplifyException.fromMap(serializedException));

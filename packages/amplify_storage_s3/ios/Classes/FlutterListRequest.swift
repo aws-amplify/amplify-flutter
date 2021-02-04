@@ -26,7 +26,7 @@ struct FlutterListRequest {
         let validationErrorMessage = "List request malformed."
         if !(request["path"] is String) {
             throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage,
-                                                    recoverySuggestion: "Ensure that path variable is present.",
+                                                    recoverySuggestion: "Ensure that path attribute is present.",
                                                     error: StorageError.unknown(validationErrorMessage, nil))
         }
     }
