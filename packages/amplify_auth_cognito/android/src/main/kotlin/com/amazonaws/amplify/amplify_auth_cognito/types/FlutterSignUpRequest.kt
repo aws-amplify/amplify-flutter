@@ -18,6 +18,7 @@
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
 import androidx.annotation.NonNull
+import com.amazonaws.amplify.amplify_core.exception.FlutterValidationException
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.auth.AuthUserAttribute
 import com.amplifyframework.auth.AuthUserAttributeKey
@@ -76,16 +77,16 @@ data class FlutterSignUpRequest(val map: HashMap<String, *>) {
         private const val validationErrorMessage: String = "SignUp Request malformed."
         fun validate(req : HashMap<String, *>?) {
             if (req == null) {
-                throw AmplifyFlutterValidationException(validationErrorMessage, "Request map is null or malformed. Check that request is present and properly formed.")
+                throw FlutterValidationException(validationErrorMessage, "Request map is null or malformed. Check that request is present and properly formed.")
             }
             if (req.get("options") == null) {
                 throw AmplifyException(validationErrorMessage, "Request map is null or malformed. Check that request is present and properly formed.")
             }
             if (!(req?.get("options") as HashMap<String, String>).containsKey("userAttributes")) {
-                throw AmplifyFlutterValidationException(validationErrorMessage, "userAttributes are missing..")
+                throw FlutterValidationException(validationErrorMessage, "userAttributes are missing..")
             }
             if (!req.containsKey("password")) {
-                throw AmplifyFlutterValidationException(validationErrorMessage, "password is missing.")
+                throw FlutterValidationException(validationErrorMessage, "password is missing.")
             }
         }
     }

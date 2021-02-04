@@ -112,40 +112,30 @@ public class AuthErrorHandler {
         
     }
 
-   func prepareGenericException(flutterResult: @escaping FlutterResult, underlyingError: Error) {
-        logErrorContents(error: underlyingError)
-        var message: String = ErrorMessages.missingExceptionMessage
-        var recoverySuggestion: String = ErrorMessages.missingRecoverySuggestion
-        var underlyingError: Error? = nil
+   func prepareGenericException(flutterResult: @escaping FlutterResult, error: Error) {
+        let details: Dictionary<String, String> = createSerializedError(message: ErrorMessages.missingExceptionMessage,
+                                                                        recoverySuggestion: ErrorMessages.missingRecoverySuggestion,
+                                                                        underlyingError: error)
 
-        if (underlyingError is AmplifyFlutterValidationException) {
-            let e = underlyingError as! AmplifyFlutterValidationException
-            message = e.errorDescription
-            recoverySuggestion = e.recoverySuggestion
-            underlyingError = e.underlyingError
-        }
-        let serializedErrror = createSerializedError(message: message,
-                                                    recoverySuggestion: recoverySuggestion,
-                                                    underlyingError: underlyingError.debugDescription)
-
+        logErrorContents(error: error)
         ErrorUtil.postErrorToFlutterChannel(result: flutterResult,
                                             errorCode: "AuthException",
-                                            details: serializedErrror)
+                                            details: details)
     }
     
     func createSerializedError(authError: AmplifyError)  -> Dictionary<String, String> {
         var serializedException: Dictionary<String, String> = [:]
         serializedException["message"] = authError.errorDescription
         serializedException["recoverySuggestion"] = authError.recoverySuggestion
-        serializedException["underlyingException"] = authError.underlyingError.debugDescription
+        serializedException["underlyingException"] = authError.underlyingError?.localizedDescription
         return serializedException
     }
 
-    private func createSerializedError(message: String, recoverySuggestion: String, underlyingError: String)  -> Dictionary<String, String> {
+    private func createSerializedError(message: String, recoverySuggestion: String, underlyingError: Error)  -> Dictionary<String, String> {
         var serializedException: Dictionary<String, String> = [:]
         serializedException["message"] = message
         serializedException["recoverySuggestion"] = recoverySuggestion
-        serializedException["underlyingException"] = underlyingError
+        serializedException["underlyingException"] = underlyingError.localizedDescription
         return serializedException
     }
     

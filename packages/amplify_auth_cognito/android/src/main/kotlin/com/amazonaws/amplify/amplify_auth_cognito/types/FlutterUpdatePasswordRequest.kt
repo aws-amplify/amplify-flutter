@@ -15,6 +15,8 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
+import com.amazonaws.amplify.amplify_core.exception.FlutterValidationException
+
 data class FlutterUpdatePasswordRequest(val map: HashMap<String, *>) {
   val oldPassword: String = map["oldPassword"] as String;
   val newPassword: String = map["newPassword"] as String;
@@ -25,13 +27,13 @@ data class FlutterUpdatePasswordRequest(val map: HashMap<String, *>) {
     private const val validationErrorMessage: String = "UpdatePassword Request malformed."
     fun validate(req : HashMap<String, *>?) {
       if (req == null || req !is HashMap<String, *>) {
-        throw AmplifyFlutterValidationException(validationErrorMessage, "Request map is null or malformed. Check that request is present and properly formed.")
+        throw FlutterValidationException(validationErrorMessage, "Request map is null or malformed. Check that request is present and properly formed.")
       } else if (req != null) {
         if (!req.containsKey("oldPassword")) {
-          throw AmplifyFlutterValidationException(validationErrorMessage, "oldPassword is missing.")
+          throw FlutterValidationException(validationErrorMessage, "oldPassword is missing.")
         }
         if (!req.containsKey("newPassword")) {
-          throw AmplifyFlutterValidationException(validationErrorMessage, "newPassword is missing.")
+          throw FlutterValidationException(validationErrorMessage, "newPassword is missing.")
         }
       }
     }

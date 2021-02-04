@@ -21,6 +21,7 @@ import androidx.annotation.NonNull
 import com.amazonaws.AmazonClientException
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
+import com.amazonaws.amplify.amplify_core.exception.FlutterValidationException
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.exceptions.CognitoCodeExpiredException
 import com.amazonaws.services.cognitoidentityprovider.model.InvalidLambdaResponseException
 import com.amazonaws.services.cognitoidentityprovider.model.MFAMethodNotFoundException
@@ -100,15 +101,25 @@ class AuthErrorHandler {
         }
     }
 
-    fun prepareGenericException(@NonNull flutterResult: MethodChannel.Result, @NonNull underlyingError: Exception) {
-        LOG.error("AuthException", underlyingError)
-        var serializedErrror = ExceptionUtil.createSerializedError(
-                ExceptionMessages.unexpectedExceptionMessage,
-                ExceptionMessages.unexpectedExceptionSuggestion,
-                underlyingError.toString())
+    fun prepareGenericException(@NonNull flutterResult: MethodChannel.Result, @NonNull error: Exception) {
+        val errorCode = "AuthException"
+        var message = ExceptionMessages.unexpectedExceptionMessage
+        var recoverySuggestion = ExceptionMessages.unexpectedExceptionSuggestion
+        LOG.error(errorCode, error)
+        if (error is FlutterValidationException) {
+            message = error.message ?: message
+            recoverySuggestion = error.recoverySuggestion
 
-        Handler (Looper.getMainLooper()).post {
-            ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "AuthException", serializedErrror)
+        }
+        val serializedError: Map<String, Any?> = ExceptionUtil.createSerializedError(
+                message,
+                recoverySuggestion,
+                error.toString())
+        
+        Handler(Looper.getMainLooper()).post {
+            ExceptionUtil.postExceptionToFlutterChannel(flutterResult,
+                    errorCode,
+                    serializedError)
         }
     }
 }

@@ -15,8 +15,8 @@
 
 package com.amazonaws.amplify.amplify_storage_s3.types
 
-import com.amazonaws.amplify.amplify_auth_cognito.types.AmplifyFlutterValidationException
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
+import com.amazonaws.amplify.amplify_core.exception.FlutterValidationException
 import com.amplifyframework.storage.StorageAccessLevel
 import com.amplifyframework.storage.options.StorageGetUrlOptions
 
@@ -53,7 +53,7 @@ data class FlutterGetUrlRequest(val request: Map<String, *>) {
         private const val validationErrorMessage: String = "GetUrl request malformed."
         fun validate(request: Map<String, *>) {
             if(request["key"] !is String? || request["key"] == null) {
-                throw AmplifyFlutterValidationException(validationErrorMessage, ExceptionMessages.missingAttribute.format("key" ))
+                throw FlutterValidationException(validationErrorMessage, ExceptionMessages.missingAttribute.format("key" ))
             }
         }
     }

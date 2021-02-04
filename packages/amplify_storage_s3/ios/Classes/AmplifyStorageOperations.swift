@@ -145,23 +145,14 @@ public class AmplifyStorageOperations {
     }
     
     private static func prepareError(flutterResult: @escaping FlutterResult, error: Error) {
-        var message: String = ErrorMessages.missingExceptionMessage
-        var recoverySuggestion: String = ErrorMessages.missingRecoverySuggestion
         var details: Dictionary<String, String>
         
         if (error is StorageError) {
             details = createSerializedError(storageError: error as! StorageError);
-        } else if (error is AmplifyFlutterValidationException) {
-            let e = error as! AmplifyFlutterValidationException
-            message = e.errorDescription
-            recoverySuggestion = e.recoverySuggestion
-            details = createSerializedError(message: message,
-                                            recoverySuggestion: recoverySuggestion,
-                                            underlyingError: "AmplifyFlutterValidationException")
         } else {
-            details = createSerializedError(message: message,
-                                            recoverySuggestion: recoverySuggestion,
-                                            underlyingError: error.localizedDescription)
+            details = createSerializedError(message: ErrorMessages.missingExceptionMessage,
+                                            recoverySuggestion: ErrorMessages.missingRecoverySuggestion,
+                                            underlyingError: error)
         }
         logErrorContents(error: error)
         ErrorUtil.postErrorToFlutterChannel(result: flutterResult,
@@ -173,15 +164,15 @@ public class AmplifyStorageOperations {
         var serializedException: Dictionary<String, String> = [:]
         serializedException["message"] = storageError.errorDescription
         serializedException["recoverySuggestion"] = storageError.recoverySuggestion
-        serializedException["underlyingException"] = storageError.underlyingError.debugDescription
+        serializedException["underlyingException"] = storageError.underlyingError?.localizedDescription
         return serializedException
     }
 
-    static func createSerializedError(message: String, recoverySuggestion: String, underlyingError: String)  -> Dictionary<String, String> {
+    static func createSerializedError(message: String, recoverySuggestion: String, underlyingError: Error)  -> Dictionary<String, String> {
         var serializedException: Dictionary<String, String> = [:]
         serializedException["message"] = message
         serializedException["recoverySuggestion"] = recoverySuggestion
-        serializedException["underlyingException"] = underlyingError
+        serializedException["underlyingException"] = underlyingError.localizedDescription
         return serializedException
     }
     

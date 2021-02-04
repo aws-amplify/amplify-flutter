@@ -17,6 +17,7 @@
 import Foundation
 import Amplify
 import AmplifyPlugins
+import amplify_core
 
 struct FlutterSignUpRequest {
   var username: String
@@ -47,9 +48,11 @@ struct FlutterSignUpRequest {
   static func validate(dict: NSMutableDictionary) throws {
     let validationErrorMessage = "SignUp Request malformed."
     if (dict["options"] == nil) {
-      throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "Request map is null or malformed. Check that request is present and properly formed.")
+        throw FlutterValidationError.auth(comment: validationErrorMessage,
+                                          suggestion: String(format: ErrorMessages.missingAttribute, "options"))
     } else if (dict["password"] == nil) {
-        throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "password is missing")
+        throw FlutterValidationError.auth(comment: validationErrorMessage,
+                                          suggestion: String(format: ErrorMessages.missingAttribute, "password "))
     }
   }
 }

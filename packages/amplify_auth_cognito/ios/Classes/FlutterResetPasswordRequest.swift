@@ -14,6 +14,8 @@
  */
 
 import Foundation
+import amplify_core
+
 struct FlutterResetPasswordRequest {
   var username: String
   var options: Dictionary<String, Any>? = [:]
@@ -25,7 +27,8 @@ struct FlutterResetPasswordRequest {
   static func validate(dict: NSMutableDictionary) throws {
     let validationErrorMessage = "ResetPassword Request malformed."
     if (dict["username"] == nil && dict["options"] == nil) {
-      throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "username is missing.")
+        throw FlutterValidationError.auth(comment: validationErrorMessage,
+                                          suggestion: String(format: ErrorMessages.missingAttribute, "username"))
     }
   }
 }

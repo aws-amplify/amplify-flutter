@@ -15,6 +15,7 @@
 
 import Foundation
 import Amplify
+import amplify_core
 
 struct FlutterDownloadFileRequest {
     var key: String
@@ -29,14 +30,12 @@ struct FlutterDownloadFileRequest {
     static func validate(request: Dictionary<String, AnyObject>) throws {
         let validationErrorMessage = "DownloadFile request malformed."
         if !(request["key"] is String) {
-            throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage,
-                                                    recoverySuggestion: "Ensure that key attribute is present.",
-                                                    error: StorageError.unknown(validationErrorMessage, nil))
+            throw FlutterValidationError.storage(comment: validationErrorMessage,
+                                              suggestion: String(format: ErrorMessages.missingAttribute, "key"))
         }
         if !(request["path"] is String) {
-            throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage,
-                                                    recoverySuggestion: "Ensure that path attribute is present.",
-                                                    error: StorageError.unknown(validationErrorMessage, nil))
+            throw FlutterValidationError.storage(comment: validationErrorMessage,
+                                              suggestion: String(format: ErrorMessages.missingAttribute, "path"))
         }
     }
     

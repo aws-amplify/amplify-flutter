@@ -18,6 +18,7 @@ import UIKit
 import Amplify
 import AmplifyPlugins
 import AWSCore
+import amplify_core
 
 public class SwiftAuthCognito: NSObject, FlutterPlugin {
     
@@ -50,14 +51,16 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
     
     private func checkArguments(args: Any) throws -> Dictionary<String, AnyObject> {
         guard let res = args as? Dictionary<String, AnyObject> else {
-            throw AmplifyFlutterValidationException(errorDescription:  "Flutter method call arguments.data is not a map.", recoverySuggestion: "Check the values that are being passed from Dart.")
+            throw FlutterValidationError.auth(comment: "Flutter method call could not be cast.",
+                                              suggestion: "arguments is not a Dictionary<String, AnyObject>")
         }
         return res;
     }
     
     private func checkData(args: Dictionary<String, AnyObject>) throws -> NSMutableDictionary {
         guard let res = args["data"] as? NSMutableDictionary else {
-            throw AmplifyFlutterValidationException(errorDescription:  "Flutter method call arguments.data is not a map.", recoverySuggestion: "Check the values that are being passed from Dart.")
+            throw FlutterValidationError.auth(comment:  "Flutter method call could not be cast",
+                                              suggestion: "arguments['data'] is not a NSMutableDictionary")
         }
         return res;
     }
@@ -69,7 +72,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
             try arguments = checkArguments(args: call.arguments as Any)
             try data = checkData(args: arguments)
         } catch {
-            self.errorHandler.prepareGenericException(flutterResult: result, underlyingError: error)
+            self.errorHandler.prepareGenericException(flutterResult: result, error: error)
         }
         switch call.method {
         case "signUp":
@@ -78,7 +81,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
                 let request = FlutterSignUpRequest(dict: data)
                 cognito.onSignUp(flutterResult: result, request: request)
             } catch {
-                self.errorHandler.prepareGenericException(flutterResult: result, underlyingError: error)
+                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
             }
         case "confirmSignUp":
             do {
@@ -86,7 +89,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
                 let request = FlutterConfirmSignUpRequest(dict: data)
                 cognito.onConfirmSignUp(flutterResult: result, request: request)
             } catch {
-                self.errorHandler.prepareGenericException(flutterResult: result, underlyingError: error)
+                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
             }
         case "resendSignUpCode":
             do {
@@ -94,7 +97,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
                 let request = FlutterResendSignUpCodeRequest(dict: data)
                 cognito.onResendSignUpCode(flutterResult: result, request: request)
             } catch {
-                self.errorHandler.prepareGenericException(flutterResult: result, underlyingError: error)
+                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
             }
         case "signIn":
             do {
@@ -102,7 +105,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
                 let request = FlutterSignInRequest(dict: data)
                 cognito.onSignIn(flutterResult: result, request: request)
             } catch {
-                self.errorHandler.prepareGenericException(flutterResult: result, underlyingError: error)
+                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
             }
         case "confirmSignIn":
             do {
@@ -110,7 +113,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
                 let request = FlutterConfirmSignInRequest(dict: data)
                 cognito.onConfirmSignIn(flutterResult: result, request: request)
             } catch {
-                self.errorHandler.prepareGenericException(flutterResult: result, underlyingError: error)
+                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
             }
         case "signOut":
             let request = FlutterSignOutRequest(dict: data)
@@ -121,7 +124,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
                 let request = FlutterUpdatePasswordRequest(dict: data)
                 cognito.onUpdatePassword(flutterResult: result, request: request)
             } catch {
-                self.errorHandler.prepareGenericException(flutterResult: result, underlyingError: error)
+                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
             }
         case "resetPassword":
             do {
@@ -129,7 +132,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
                 let request = FlutterResetPasswordRequest(dict: data)
                 cognito.onResetPassword(flutterResult: result, request: request)
             } catch {
-                self.errorHandler.prepareGenericException(flutterResult: result, underlyingError: error)
+                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
             }
         case "confirmPassword":
             do {
@@ -137,7 +140,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
                 let request = FlutterConfirmPasswordRequest(dict: data)
                 cognito.onConfirmPassword(flutterResult: result, request: request)
             } catch {
-                self.errorHandler.prepareGenericException(flutterResult: result, underlyingError: error)
+                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
             }
         case "fetchAuthSession":
             let request = FlutterFetchSessionRequest(dict: data)
@@ -154,7 +157,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
                     cognito.onSignInWithSocialWebUI(flutterResult: result, request: request)
                 }
             } catch {
-                self.errorHandler.prepareGenericException(flutterResult: result, underlyingError: error)
+                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
             }
         default:
             result(FlutterMethodNotImplemented)

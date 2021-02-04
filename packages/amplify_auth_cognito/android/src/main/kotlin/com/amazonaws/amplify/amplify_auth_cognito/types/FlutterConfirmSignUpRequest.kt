@@ -15,6 +15,8 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
+import com.amazonaws.amplify.amplify_core.exception.FlutterValidationException
+
 data class FlutterConfirmSignUpRequest(val map: HashMap<String, *>) {
     val username: String = map["username"] as String;
     val confirmationCode: String = map["confirmationCode"] as String;
@@ -24,13 +26,13 @@ data class FlutterConfirmSignUpRequest(val map: HashMap<String, *>) {
         private const val validationErrorMessage: String = "ConfirmSignUp Request malformed."
         fun validate(req : HashMap<String, *>?) {
             if (req == null) {
-                throw AmplifyFlutterValidationException(validationErrorMessage, "Request map is null or malformed. Check that request is present and properly formed.")
+                throw FlutterValidationException(validationErrorMessage, "Request map is null or malformed. Check that request is present and properly formed.")
             } else {
                 if (!req.containsKey("username")) {
-                    throw AmplifyFlutterValidationException(validationErrorMessage, "username is missing.")
+                    throw FlutterValidationException(validationErrorMessage, "username is missing.")
                 }
                 if (!req.containsKey("confirmationCode")) {
-                    throw AmplifyFlutterValidationException(validationErrorMessage, "confirmationCode is missing.")
+                    throw FlutterValidationException(validationErrorMessage, "confirmationCode is missing.")
                 }
             }
         }

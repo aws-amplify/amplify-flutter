@@ -14,6 +14,8 @@
  */
 
 import Foundation
+import amplify_core
+
 struct FlutterConfirmSignUpRequest {
   var username: String
   var confirmationCode: String
@@ -24,10 +26,12 @@ struct FlutterConfirmSignUpRequest {
   static func validate(dict: NSMutableDictionary) throws {
     let validationErrorMessage = "ConfirmSignUp Request malformed."
     if (dict["username"] == nil && dict["options"] == nil) {
-      throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "username is missing.")
+        throw FlutterValidationError.auth(comment: validationErrorMessage,
+                                          suggestion: String(format: ErrorMessages.missingAttribute, "username"))
     }
     if (dict["confirmationCode"] == nil && dict["options"] == nil) {
-      throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "confirmationCode is missing.")
+        throw FlutterValidationError.auth(comment: validationErrorMessage,
+                                          suggestion: String(format: ErrorMessages.missingAttribute, "confirmationCode"))
     }
   }
 }

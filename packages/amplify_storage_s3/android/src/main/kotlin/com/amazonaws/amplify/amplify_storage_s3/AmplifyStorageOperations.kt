@@ -18,7 +18,7 @@ package com.amazonaws.amplify.amplify_storage_s3
 import androidx.annotation.NonNull
 import android.os.Handler
 import android.os.Looper
-import com.amazonaws.amplify.amplify_auth_cognito.types.AmplifyFlutterValidationException
+import com.amazonaws.amplify.amplify_core.exception.FlutterValidationException
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
 import com.amplifyframework.core.Amplify
@@ -26,7 +26,6 @@ import io.flutter.plugin.common.MethodChannel
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import com.amazonaws.amplify.amplify_storage_s3.types.*
-import com.amplifyframework.AmplifyException
 import com.amplifyframework.storage.StorageException
 import com.amplifyframework.storage.result.*
 
@@ -193,13 +192,14 @@ class AmplifyStorageOperations {
             LOG.error(errorCode, e)
             val serializedError: Map<String, Any?> = if (e is StorageException) {
                 ExceptionUtil.createSerializedError(e)
-            } else if (e is AmplifyFlutterValidationException) {
+            } else if (e is FlutterValidationException) {
                 message = e.message ?: message
                 recoverySuggestion = e.recoverySuggestion
                 ExceptionUtil.createSerializedError(
                         message,
                         recoverySuggestion,
-                        "AmplifyFlutterValidationException")
+                        null
+                )
             } else {
                 ExceptionUtil.createSerializedError(
                         message,

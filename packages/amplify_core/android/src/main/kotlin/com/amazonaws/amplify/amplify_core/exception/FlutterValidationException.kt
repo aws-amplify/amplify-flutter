@@ -13,10 +13,10 @@
 * permissions and limitations under the License.
 */
 
-package com.amazonaws.amplify.amplify_auth_cognito.types
+package com.amazonaws.amplify.amplify_core.exception
 
 import com.amplifyframework.AmplifyException
 
-class AmplifyFlutterValidationException : AmplifyException {
+class FlutterValidationException : AmplifyException {
     constructor(message: String, recoverySuggestion: String) : super(message, recoverySuggestion)
 }

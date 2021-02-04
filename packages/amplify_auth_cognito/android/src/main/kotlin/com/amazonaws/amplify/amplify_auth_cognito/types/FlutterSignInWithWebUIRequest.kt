@@ -15,20 +15,21 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
+import com.amazonaws.amplify.amplify_core.exception.FlutterValidationException
+
 data class FlutterSignInWithWebUIRequest(val map: HashMap<String, *>) {
     val provider: String? = map?.get("authProvider") as String?;
     companion object {
         private var allowedProviders: Array<String> = arrayOf("login_with_amazon", "google", "facebook")
+        private const val validationErrorMessage: String = "SignInWithWebUI Request malformed."
 
-        fun validate(req : HashMap<String, *>?): Boolean {
-            var valid: Boolean = true;
+        fun validate(req : HashMap<String, *>?) {
             val provider: String? = req?.get("authProvider") as String?;
             if (provider != null) {
                 if (!allowedProviders.contains(provider)) {
-                    valid = false;
+                    throw FlutterValidationException(validationErrorMessage, "You have passed an AuthProvider that is not supported.")
                 }
             }
-            return valid;
         }
     }
 }

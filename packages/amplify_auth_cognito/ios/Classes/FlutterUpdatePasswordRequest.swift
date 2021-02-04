@@ -14,6 +14,8 @@
  */
 
 import Foundation
+import amplify_core
+
 struct FlutterUpdatePasswordRequest {
   var oldPassword: String
   var newPassword: String
@@ -27,10 +29,12 @@ struct FlutterUpdatePasswordRequest {
   static func validate(dict: NSMutableDictionary) throws {
     let validationErrorMessage = "UpdatePassword Request malformed."
     if (dict["newPassword"] == nil && dict["options"] == nil) {
-      throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "newPassword is missing")
+        throw FlutterValidationError.auth(comment: validationErrorMessage,
+                                          suggestion: String(format: ErrorMessages.missingAttribute, "newPassword"))
     }
     if (dict["oldPassword"] == nil && dict["options"] == nil) {
-      throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "oldPassword is missing")
+        throw FlutterValidationError.auth(comment: validationErrorMessage,
+                                          suggestion: String(format: ErrorMessages.missingAttribute, "oldPassword"))
     }
   }
 }
