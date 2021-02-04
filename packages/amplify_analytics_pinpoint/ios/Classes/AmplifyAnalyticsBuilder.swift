@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -18,18 +18,11 @@ import AmplifyPlugins
 
 public class AmplifyAnalyticsBuilder {
 
-    public static func createAnalyticsProperties(propertiesMap : Dictionary<String, AnyObject>) -> AnalyticsProperties{
-        
-        var analyticsProperties: AnalyticsProperties = AnalyticsProperties()
-        
-        for(key, value) in propertiesMap
-        {
-            analyticsProperties[key] = value as? AnalyticsPropertyValue
-        }
-        return analyticsProperties;
+    public static func createAnalyticsProperties(propertiesMap : Dictionary<String, Any>) -> AnalyticsProperties{
+        return propertiesMap as? AnalyticsProperties ?? [:]
     }
 
-    public static func createUserProfile(userProfileMap : Dictionary<String, AnyObject>) -> AnalyticsUserProfile{
+    public static func createUserProfile(userProfileMap : Dictionary<String, Any>) -> AnalyticsUserProfile{
         
         var userProfile = AnalyticsUserProfile( location: nil )
         
@@ -42,11 +35,12 @@ public class AmplifyAnalyticsBuilder {
             case "plan":
                 userProfile.plan = (value as! String);
             case "location":
-                let locationMap = value as! Dictionary<String, AnyObject>
+                let locationMap = value as! Dictionary<String, Any>
                 userProfile.location = createUserLocation(userLocationMap: locationMap)
             case "properties":
-                let propertiesMap = value as! Dictionary<String, AnyObject>
+                let propertiesMap = value as! Dictionary<String, Any>
                 userProfile.properties = createAnalyticsProperties(propertiesMap: propertiesMap)
+            // This case should not be possible as UserProfile is typed on Dart side
             default:
                 print("Unknown key for UserProfile")
                 
@@ -56,7 +50,7 @@ public class AmplifyAnalyticsBuilder {
         return userProfile
     }
 
-    public static func createUserLocation(userLocationMap : Dictionary<String, AnyObject>) -> AnalyticsUserProfile.Location{
+    public static func createUserLocation(userLocationMap : Dictionary<String, Any>) -> AnalyticsUserProfile.Location{
         
         var userLocation : AnalyticsUserProfile.Location = AnalyticsUserProfile.Location()
         
@@ -74,6 +68,7 @@ public class AmplifyAnalyticsBuilder {
                 userLocation.region = (value as! String)
             case "country":
                 userLocation.country = (value as! String)
+            // This case should not be possible as UserLocation is typed on Dart side
             default:
                 print("Unknown key for UserLocation")
             }

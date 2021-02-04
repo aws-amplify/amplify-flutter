@@ -34,6 +34,9 @@ import org.mockito.Mockito.*
 import org.robolectric.RobolectricTestRunner
 import java.lang.reflect.Field
 import java.lang.reflect.Modifier
+import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
+import com.amplifyframework.AmplifyException
+
 
 @RunWith(RobolectricTestRunner::class)
 class GraphQLApiUnitTests {
@@ -106,9 +109,13 @@ class GraphQLApiUnitTests {
         )
 
         verify(mockResult).error(
-                matches("AmplifyException"),
-                matches(FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString()),
-                any()
+                "ApiException",
+                ExceptionMessages.defaultFallbackExceptionMessage,
+                mapOf(
+                        "message" to ExceptionMessages.missingExceptionMessage,
+                        "recoverySuggestion" to ExceptionMessages.missingRecoverySuggestion,
+                        "underlyingException" to "AmplifyException{message=The graphQL document request argument was not passed as a String, cause=kotlin.TypeCastException: null cannot be cast to non-null type kotlin.String, recoverySuggestion=The request should include the graphQL document as a String}"
+                )
         )
     }
 
@@ -155,15 +162,12 @@ class GraphQLApiUnitTests {
         )
 
         verify(mockResult).error(
-                "AmplifyException",
-                FlutterApiErrorMessage.AMPLIFY_API_QUERY_FAILED.toString(),
+                "ApiException",
+                ExceptionMessages.defaultFallbackExceptionMessage,
                 mapOf(
-                        "PLATFORM_EXCEPTIONS" to
-                                mapOf(
-                                        "platform" to "Android",
-                                        "localizedErrorMessage" to "AmplifyException",
-                                        "recoverySuggestion" to ApiException.REPORT_BUG_TO_AWS_SUGGESTION,
-                                        "errorString" to apiException.toString()))
+                        "message" to "AmplifyException",
+                        "recoverySuggestion" to AmplifyException.REPORT_BUG_TO_AWS_SUGGESTION
+                )
         )
 
     }
@@ -229,9 +233,13 @@ class GraphQLApiUnitTests {
         )
 
         verify(mockResult).error(
-                matches("AmplifyException"),
-                matches(FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString()),
-                any()
+                "ApiException",
+                ExceptionMessages.defaultFallbackExceptionMessage,
+                mapOf(
+                        "message" to ExceptionMessages.missingExceptionMessage,
+                        "recoverySuggestion" to ExceptionMessages.missingRecoverySuggestion,
+                        "underlyingException" to "AmplifyException{message=The graphQL document request argument was not passed as a String, cause=kotlin.TypeCastException: null cannot be cast to non-null type kotlin.String, recoverySuggestion=The request should include the graphQL document as a String}"
+                )
         )
     }
 
@@ -279,17 +287,13 @@ class GraphQLApiUnitTests {
         )
 
         verify(mockResult).error(
-                "AmplifyException",
-                FlutterApiErrorMessage.AMPLIFY_API_MUTATE_FAILED.toString(),
+                "ApiException",
+                ExceptionMessages.defaultFallbackExceptionMessage,
                 mapOf(
-                        "PLATFORM_EXCEPTIONS" to
-                                mapOf(
-                                        "platform" to "Android",
-                                        "localizedErrorMessage" to "AmplifyException",
-                                        "recoverySuggestion" to ApiException.REPORT_BUG_TO_AWS_SUGGESTION,
-                                        "errorString" to apiException.toString()))
+                        "message" to "AmplifyException",
+                        "recoverySuggestion" to AmplifyException.REPORT_BUG_TO_AWS_SUGGESTION
+                )
         )
-
     }
 
     private fun setFinalStatic(field: Field, newValue: Any?) {

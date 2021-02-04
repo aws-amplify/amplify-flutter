@@ -29,7 +29,6 @@ class _SignInViewState extends State<SignInView> {
   final passwordController = TextEditingController();
 
   String _signUpError = "";
-  List<String> _signUpExceptions = [];
 
   @override
   void initState() {
@@ -41,7 +40,7 @@ class _SignInViewState extends State<SignInView> {
     // If a user is already signed in - Amplify.Auth.signIn will throw an exception
     try {
       await Amplify.Auth.signOut();
-    } on AuthError catch (e) {
+    } on AuthException catch (e) {
       print(e);
     }
 
@@ -50,13 +49,9 @@ class _SignInViewState extends State<SignInView> {
           username: usernameController.text.trim(),
           password: passwordController.text.trim());
       Navigator.pop(context, true);
-    } on AuthError catch (e) {
+    } on AuthException catch (e) {
       setState(() {
-        _signUpError = e.cause;
-        _signUpExceptions.clear();
-        e.exceptionList.forEach((el) {
-          _signUpExceptions.add(el.exception);
-        });
+        _signUpError = e.message;
       });
     }
   }
@@ -94,7 +89,7 @@ class _SignInViewState extends State<SignInView> {
                   onPressed: _signIn,
                   child: const Text('Sign In'),
                 ),
-                ErrorView(_signUpError, _signUpExceptions)
+                ErrorView(_signUpError)
               ],
             ),
           ),

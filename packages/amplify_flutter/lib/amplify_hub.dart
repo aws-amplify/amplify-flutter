@@ -16,7 +16,6 @@
 import 'dart:async';
 
 import 'package:amplify_core/types/index.dart';
-import 'package:flutter/foundation.dart';
 import 'amplify.dart';
 
 typedef void Listener(dynamic event);
@@ -26,7 +25,7 @@ class AmplifyHub {
 
   /// Expose listen method which instantiates new StreamController listening to one or more availableStreams
   StreamSubscription listen(
-      List<HubChannel> channels, @required Listener listener) {
+      List<HubChannel> channels, Listener listener) {
     List<StreamSubscription> platformSubscriptions = [];
     StreamController controller;
 

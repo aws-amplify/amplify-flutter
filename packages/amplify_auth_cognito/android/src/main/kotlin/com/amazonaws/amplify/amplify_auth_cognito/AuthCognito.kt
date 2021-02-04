@@ -94,7 +94,13 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
     hubEventChannel = EventChannel(flutterPluginBinding.binaryMessenger,
                                   "com.amazonaws.amplify/auth_cognito_events")
     hubEventChannel.setStreamHandler(authCognitoHubEventStreamHandler)
-    Amplify.addPlugin(AWSCognitoAuthPlugin())
+    try {
+      Amplify.addPlugin(AWSCognitoAuthPlugin())
+    } catch (e: Exception) {
+      LOG.error("Failed to add AuthCognito plugin. Is Amplify already configured and app restarted?")
+      LOG.error("Exception: $e")
+      return
+    }
     LOG.info("Added AuthCognito plugin")
   }
 

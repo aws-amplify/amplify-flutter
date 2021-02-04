@@ -19,10 +19,8 @@ import android.app.Activity
 import android.app.Application
 import android.util.Log
 import androidx.annotation.NonNull
-
-import com.amplifyframework.core.Amplify
 import com.amplifyframework.analytics.pinpoint.AWSPinpointAnalyticsPlugin
-
+import com.amplifyframework.core.Amplify
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -37,9 +35,11 @@ public class AmplifyAnalyticsPinpointPlugin : FlutterPlugin, ActivityAware, Meth
     private lateinit var channel: MethodChannel
     private var mainActivity: Activity? = null
 
-    override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+    override fun onAttachedToEngine(
+            @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
 
-        channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "com.amazonaws.amplify/analytics_pinpoint")
+        channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(),
+                "com.amazonaws.amplify/analytics_pinpoint")
         channel.setMethodCallHandler(this)
 
         // Edge case for getting Application for AWSPinpointAnalyticsPlugin initialization
@@ -48,7 +48,13 @@ public class AmplifyAnalyticsPinpointPlugin : FlutterPlugin, ActivityAware, Meth
 
         while (context != null) {
             if (context as Application != null) {
-                Amplify.addPlugin(AWSPinpointAnalyticsPlugin(context as Application))
+                try {
+                    Amplify.addPlugin(AWSPinpointAnalyticsPlugin(context))
+                } catch (e: Exception) {
+                    LOG.error("Failed to add AnalyticsPinpoint plugin. Is Amplify already configured and app restarted?")
+                    LOG.error("Exception: $e")
+                    return
+                }
                 LOG.info("Added AnalyticsPinpoint plugin")
                 break
             } else {
@@ -70,7 +76,8 @@ public class AmplifyAnalyticsPinpointPlugin : FlutterPlugin, ActivityAware, Meth
 
         @JvmStatic
         fun registerWith(registrar: Registrar) {
-            val channel = MethodChannel(registrar.messenger(), "com.amazonaws.amplify/analytics_pinpoint")
+            val channel =
+                    MethodChannel(registrar.messenger(), "com.amazonaws.amplify/analytics_pinpoint")
             Amplify.addPlugin(AWSPinpointAnalyticsPlugin(registrar.activity().application))
             LOG.info("Added AnalyticsPinpoint plugin")
         }

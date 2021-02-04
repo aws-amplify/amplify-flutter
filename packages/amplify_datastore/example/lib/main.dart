@@ -90,10 +90,15 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    datastorePlugin = AmplifyDataStore(modelProvider: ModelProvider.instance);
-    await Amplify.addPlugin(datastorePlugin);
-    // Configure
-    await Amplify.configure(amplifyconfig);
+    try {
+      datastorePlugin = AmplifyDataStore(modelProvider: ModelProvider.instance);
+      await Amplify.addPlugin(datastorePlugin);
+      // Configure
+      await Amplify.configure(amplifyconfig);
+    } on AmplifyAlreadyConfiguredException {
+      print(
+          'Amplify was already configured. Looks like app restarted on android.');
+    }
     listenToHub();
 
     // setup streams
