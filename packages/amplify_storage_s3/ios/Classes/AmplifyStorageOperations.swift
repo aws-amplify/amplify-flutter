@@ -151,8 +151,7 @@ public class AmplifyStorageOperations {
         
         if (error is StorageError) {
             details = createSerializedError(storageError: error as! StorageError);
-        }
-        if (error is AmplifyFlutterValidationException) {
+        } else if (error is AmplifyFlutterValidationException) {
             let e = error as! AmplifyFlutterValidationException
             message = e.errorDescription
             recoverySuggestion = e.recoverySuggestion
