@@ -336,7 +336,7 @@ class AmplifyAuthCognitoPluginTest {
             AuthUserAttribute(AuthUserAttributeKey.email(), "test@test.com")
         ).toMutableList()
         doAnswer { invocation: InvocationOnMock ->
-            plugin.prepareFetchAttributeResult(mockResult, mockAttributes)
+            plugin.prepareFetchAttributesResult(mockResult, mockAttributes)
             null as Void?
         }.`when`(mockAuth).fetchUserAttributes(ArgumentMatchers.any<Consumer<MutableList<AuthUserAttribute>>>(), ArgumentMatchers.any<Consumer<AuthException>>())
 
