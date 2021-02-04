@@ -36,11 +36,11 @@ public class AmplifyStorageOperations {
                         result["key"] = key
                         flutterResult(result)
                     case .failure(let storageError):
-                        prepareError(flutterResult: flutterResult, storageError: storageError)
+                        prepareError(flutterResult: flutterResult, error: storageError as Error)
                     }
             })
         } catch {
-            prepareGenericError(flutterResult: flutterResult, error: error)
+            prepareError(flutterResult: flutterResult, error: error)
         }
     }
     
@@ -57,11 +57,11 @@ public class AmplifyStorageOperations {
                     result["url"] = url.absoluteString
                     flutterResult(result)
                 case .failure(let storageError):
-                    prepareError(flutterResult: flutterResult, storageError: storageError)
+                    prepareError(flutterResult: flutterResult, error: storageError as Error)
                 }
             })
         } catch {
-            prepareGenericError(flutterResult: flutterResult, error: error)
+            prepareError(flutterResult: flutterResult, error: error)
         }
     }
     
@@ -78,11 +78,11 @@ public class AmplifyStorageOperations {
                     result["key"] = key
                     flutterResult(result)
                 case .failure(let storageError):
-                    prepareError(flutterResult: flutterResult, storageError: storageError)
+                    prepareError(flutterResult: flutterResult, error: storageError as Error)
                 }
             })
         } catch {
-            prepareGenericError(flutterResult: flutterResult, error: error)
+            prepareError(flutterResult: flutterResult, error: error)
         }
     }
     
@@ -103,11 +103,11 @@ public class AmplifyStorageOperations {
                         listResultDictionary["items"] = storageItemList
                         flutterResult(listResultDictionary);
                     case.failure(let storageError):
-                        prepareError(flutterResult: flutterResult, storageError: storageError)
+                        prepareError(flutterResult: flutterResult, error: storageError as Error)
                     }
              })
         } catch {
-            prepareGenericError(flutterResult: flutterResult, error: error)
+            prepareError(flutterResult: flutterResult, error: error)
         }
     }
     
@@ -126,11 +126,11 @@ public class AmplifyStorageOperations {
                         result["path"] = req.file.absoluteURL.path
                         flutterResult(result)
                     case .failure(let storageError):
-                        prepareError(flutterResult: flutterResult, storageError: storageError)
+                        prepareError(flutterResult: flutterResult, error: storageError as Error)
                     }
             })
         } catch {
-            prepareGenericError(flutterResult: flutterResult, error: error)
+            prepareError(flutterResult: flutterResult, error: error)
         }
     }
     
@@ -144,38 +144,30 @@ public class AmplifyStorageOperations {
         return itemAsDictionary
     }
     
-    private static func prepareError(flutterResult: @escaping FlutterResult, storageError: StorageError) {
-        let details: Dictionary<String, String> = createSerializedError(storageError: storageError);
-        logErrorContents(error: storageError)
-           ErrorUtil.postErrorToFlutterChannel(
-               result: flutterResult,
-               errorCode: "StorageException",
-               details: details)
-    }
-    
-    private static func prepareGenericError(flutterResult: @escaping FlutterResult, error: Error) {
-        logErrorContents(error: error)
+    private static func prepareError(flutterResult: @escaping FlutterResult, error: Error) {
         var message: String = ErrorMessages.missingExceptionMessage
         var recoverySuggestion: String = ErrorMessages.missingRecoverySuggestion
-        var underlyingError: Error? = nil
-
+        var details: Dictionary<String, String>
+        
+        if (error is StorageError) {
+            details = createSerializedError(storageError: error as! StorageError);
+        }
         if (error is AmplifyFlutterValidationException) {
             let e = error as! AmplifyFlutterValidationException
             message = e.errorDescription
             recoverySuggestion = e.recoverySuggestion
-            underlyingError = e.underlyingError
+            details = createSerializedError(message: message,
+                                            recoverySuggestion: recoverySuggestion,
+                                            underlyingError: "AmplifyFlutterValidationException")
+        } else {
+            details = createSerializedError(message: message,
+                                            recoverySuggestion: recoverySuggestion,
+                                            underlyingError: error.localizedDescription)
         }
-        let serializedErrror = createSerializedError(
-            message: message,
-            recoverySuggestion: recoverySuggestion,
-            underlyingError: underlyingError.debugDescription)
-
-        ErrorUtil.postErrorToFlutterChannel(
-            result: flutterResult,
-            errorCode: "StorageException",
-            details: serializedErrror)
-            
-
+        logErrorContents(error: error)
+        ErrorUtil.postErrorToFlutterChannel(result: flutterResult,
+                                            errorCode: "StorageException",
+                                            details: details)
     }
 
    static func createSerializedError(storageError: StorageError)  -> Dictionary<String, String> {

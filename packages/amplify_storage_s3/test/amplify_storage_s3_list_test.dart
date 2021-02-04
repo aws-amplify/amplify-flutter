@@ -69,7 +69,7 @@ void main() {
   });
 
   test(
-      'list throws a StorageException',
+      'A PlatformException on a "list" call results in a StorageException being throw',
       () async {
     Map<String, String> details = Map.from({
       'message': 'Could not list files.',

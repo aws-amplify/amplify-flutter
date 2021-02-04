@@ -121,7 +121,7 @@ class _MyAppState extends State<MyApp> {
       print('In list');
       S3ListOptions options =
           S3ListOptions(accessLevel: StorageAccessLevel.guest);
-      ListResult result = await Amplify.Storage.list(path: "public", options: options);
+      ListResult result = await Amplify.Storage.list(options: options);
       print('List Result:');
       for (StorageItem item in result.items) {
         print(

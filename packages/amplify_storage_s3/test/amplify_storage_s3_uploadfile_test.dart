@@ -46,7 +46,7 @@ void main() {
   });
 
   test(
-      'uploadFile throws StorageException',
+      'A PlatformException on a "uploadFile" call results in a StorageException being throw',
       () async {
     Map<String, String> details = Map.from({
       'message': 'Could not upload file.',

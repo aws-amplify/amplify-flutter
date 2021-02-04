@@ -15,18 +15,19 @@
 
 import Foundation
 import Amplify
+import amplify_core
 
 struct FlutterListRequest {
     var options: StorageListRequest.Options?
     init(request: Dictionary<String, AnyObject>) {
         self.options = setOptions(request: request)
     }
-    
+
     static func validate(request: Dictionary<String, AnyObject>) throws {
         let validationErrorMessage = "List request malformed."
-        if !(request["path"] is String) {
+        if !(request["path"] is String?) {
             throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage,
-                                                    recoverySuggestion: "Ensure that path attribute is present.",
+                                                    recoverySuggestion: String(format: ErrorMessages.missingAttribute, "path"),
                                                     error: StorageError.unknown(validationErrorMessage, nil))
         }
     }

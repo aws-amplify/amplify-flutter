@@ -43,7 +43,7 @@ void main() {
   });
 
   test(
-      'remove throws a StorageException',
+      'A PlatformException on a "remove" call results in a StorageException being throw',
       () async {
     Map<String, String> details = Map.from({
       'message': 'Could not remove file.',

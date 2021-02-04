@@ -16,6 +16,7 @@
 package com.amazonaws.amplify.amplify_storage_s3.types
 
 import com.amazonaws.amplify.amplify_auth_cognito.types.AmplifyFlutterValidationException
+import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amplifyframework.storage.StorageAccessLevel
 import com.amplifyframework.storage.options.StorageListOptions
 
@@ -49,7 +50,7 @@ data class FlutterListRequest(val request: Map<String, *>) {
         private const val validationErrorMessage: String = "List request malformed."
         fun validate(request: Map<String, *>) {
             if(request["path"] !is String? || request["path"] == null) {
-                throw AmplifyFlutterValidationException(validationErrorMessage, "Ensure that path attribute is present.")
+                throw AmplifyFlutterValidationException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "path" ))
             }
         }
     }

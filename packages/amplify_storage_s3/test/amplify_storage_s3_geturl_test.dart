@@ -43,7 +43,7 @@ void main() {
   });
 
   test(
-      'getUrl throws a StorageException',
+      'A PlatformException on a "getUrl" call results in a StorageException being throw',
       () async {
     Map<String, String> details = Map.from({
       'message': 'Could not download file.',

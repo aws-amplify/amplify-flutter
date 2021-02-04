@@ -38,4 +38,6 @@ public struct ErrorMessages {
 
     public static let unexpectedExceptionSuggestion: String =
         "See iOS logs for details."
+    
+    public static let missingAttribute: String = "Ensure that %@ is present"
 }

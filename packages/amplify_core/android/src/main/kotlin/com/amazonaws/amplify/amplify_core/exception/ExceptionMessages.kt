@@ -46,5 +46,9 @@ class ExceptionMessages {
         val unexpectedExceptionSuggestion: String =
                 "See Android logs for details."
 
+        @JvmStatic
+        val missingAttribute: String =
+                "Ensure that %s is present"
+
     }
 }

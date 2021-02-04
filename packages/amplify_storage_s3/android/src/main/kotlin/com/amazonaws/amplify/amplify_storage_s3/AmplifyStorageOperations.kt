@@ -199,7 +199,7 @@ class AmplifyStorageOperations {
                 ExceptionUtil.createSerializedError(
                         message,
                         recoverySuggestion,
-                        e.toString())
+                        "AmplifyFlutterValidationException")
             } else {
                 ExceptionUtil.createSerializedError(
                         message,

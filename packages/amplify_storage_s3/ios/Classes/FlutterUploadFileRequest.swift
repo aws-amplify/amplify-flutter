@@ -15,6 +15,7 @@
 
 import Foundation
 import Amplify
+import amplify_core
 
 struct FlutterUploadFileRequest {
     var key: String
@@ -27,15 +28,15 @@ struct FlutterUploadFileRequest {
     }
     
     static func validate(request: Dictionary<String, AnyObject>) throws {
-        let validationErrorMessage = "Upload request malformed."
+        let validationErrorMessage = "UploadFile request malformed."
         if !(request["key"] is String) {
             throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage,
-                                                    recoverySuggestion: "Ensure that key attribute is present.",
+                                                    recoverySuggestion: String(format: ErrorMessages.missingAttribute, "key"),
                                                     error: StorageError.unknown(validationErrorMessage, nil))
         }
         if !(request["path"] is String) {
             throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage,
-                                                    recoverySuggestion: "Ensure that path attribute is present.",
+                                                    recoverySuggestion: String(format: ErrorMessages.missingAttribute, "path"),
                                                     error: StorageError.unknown(validationErrorMessage, nil))
         }
     }

@@ -18,16 +18,16 @@ import Amplify
 import AmplifyPlugins
 
 class AmplifyFlutterValidationException: AmplifyError {
-        
+
     var errorDescription: ErrorDescription
 
     var recoverySuggestion: RecoverySuggestion
 
     var underlyingError: Error?
 
-    required init(errorDescription: ErrorDescription, recoverySuggestion: RecoverySuggestion, error: Error) {
+    // Not using underlyingError, since this Error will itself be the underlying error
+    required init(errorDescription: ErrorDescription, recoverySuggestion: RecoverySuggestion, error: Error = StorageError.unknown("AmplifyFlutterValidationException", nil)) {
         self.errorDescription = errorDescription
         self.recoverySuggestion = recoverySuggestion
-        self.underlyingError = error
     }
 }
