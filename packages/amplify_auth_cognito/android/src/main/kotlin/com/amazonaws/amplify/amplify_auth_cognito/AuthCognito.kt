@@ -347,7 +347,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
   private fun onFetchUserAttributes(@NonNull flutterResult: Result) {
     try {
       Amplify.Auth.fetchUserAttributes(
-              { result -> prepareFetchAttributeResult(flutterResult, result) },
+              { result -> prepareFetchAttributesResult(flutterResult, result) },
               { error -> errorHandler.handleAuthError(flutterResult, error)}
       )
     } catch (e: AuthException) {
@@ -451,7 +451,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
     }
   }
 
-  fun prepareFetchAttributeResult(@NonNull flutterResult: Result, @NonNull attributes: List<AuthUserAttribute>) {
+  fun prepareFetchAttributesResult(@NonNull flutterResult: Result, @NonNull attributes: List<AuthUserAttribute>) {
     var attributes = FlutterFetchUserAttributesResult(attributes)
     Handler (Looper.getMainLooper()).post {
       flutterResult.success(attributes.toList());
