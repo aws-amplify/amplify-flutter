@@ -43,5 +43,33 @@ class FlutterApiResponse {
             FlutterApiError.postFlutterError(flutterResult: flutterResult, msg: failureMessage, errorMap: errorMap)
         }
     }
+    
+    static func handleGraphQLErrorResponseEvent(graphQLSubscriptionsStreamHandler: GraphQLSubscriptionsStreamHandler, id: String, errorResponse: GraphQLResponseError<String>, failureMessage: String) {
+        switch(errorResponse) {
+        case .error(let errorList):
+            let payload: [String: Any?] = [
+                "data": nil,
+                "errors": errorList.map { $0.message }
+            ]
+            print("Received a GraphQL subscription event with errors: \(errorList)")
+            graphQLSubscriptionsStreamHandler.sendEvent(payload: payload, id: id, type: GraphQLSubscriptionEventTypes.DATA)
+        case .partial(let data, let errorList):
+            let payload: [String: Any?] = [
+                "data": data,
+                "errors": errorList.map { $0.message }
+            ]
+            print("Received a partially successful GraphQL subscription event: \(payload)")
+            graphQLSubscriptionsStreamHandler.sendEvent(payload: payload, id: id, type: GraphQLSubscriptionEventTypes.DATA)
+        case .transformationError(let rawResponse, let error):
+            print("Received a partially successful GraphQL subscription event with a transformation error: \(error)")
+            var errorMap = FlutterApiError.createErrorMap(localizedError: error.errorDescription, recoverySuggestion: error.recoverySuggestion)
+            errorMap["rawResponse"] = rawResponse
+            graphQLSubscriptionsStreamHandler.sendError(msg: failureMessage, errorMap: errorMap)
+        case .unknown(let errorDescription, let recoverySuggestion, _):
+            print("An unknown error occured: \(errorDescription)")
+            let errorMap = FlutterApiError.createErrorMap(localizedError: errorDescription, recoverySuggestion: recoverySuggestion)
+            graphQLSubscriptionsStreamHandler.sendError(msg: failureMessage, errorMap: errorMap)
+        }
+    }
 }
 

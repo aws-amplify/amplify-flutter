@@ -19,10 +19,10 @@ import Amplify
 import AmplifyPlugins
 
 public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
-
+    
     private let bridge: ApiBridge
     private let graphQLSubscriptionsStreamHandler: GraphQLSubscriptionsStreamHandler
-
+    
     init(
         bridge: ApiBridge = ApiBridge(),
         graphQLSubscriptionsStreamHandler: GraphQLSubscriptionsStreamHandler = GraphQLSubscriptionsStreamHandler()
@@ -30,7 +30,7 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
         self.bridge = bridge
         self.graphQLSubscriptionsStreamHandler = graphQLSubscriptionsStreamHandler
     }
-
+    
     public static func register(with registrar: FlutterPluginRegistrar) {
         let methodchannel = FlutterMethodChannel(name: "com.amazonaws.amplify/api", binaryMessenger: registrar.messenger())
         let eventchannel = FlutterEventChannel(name: "com.amazonaws.amplify/api_observe_events", binaryMessenger: registrar.messenger())
@@ -48,7 +48,7 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         innerHandle(method: call.method, callArgs: call.arguments as Any, result: result)
     }
-
+    
     // Create separate method to allow unit testing as we cannot mock "FlutterMethodCall"
     public func innerHandle(method: String, callArgs: Any, result: @escaping FlutterResult){
         
@@ -72,7 +72,11 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
             case "mutate":
                 FlutterGraphQLApi.mutate(flutterResult: result, request: arguments, bridge: bridge)
             case "subscribe":
-                FlutterGraphQLApi.subscribe(flutterResult: result, request: arguments, bridge: bridge, graphQLSubscriptionsStreamHandler:graphQLSubscriptionsStreamHandler)
+                FlutterGraphQLApi.subscribe(
+                    flutterResult: result,
+                    request: arguments, bridge: bridge,
+                    graphQLSubscriptionsStreamHandler: graphQLSubscriptionsStreamHandler
+                )
             default:
                 result(FlutterMethodNotImplemented)
             }
@@ -81,7 +85,7 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
             FlutterApiError.handleAPIError(flutterResult: result, error: error as! APIError, msg: FlutterApiErrorMessage.MALFORMED.rawValue)
         }
     }
-
+    
     public func onCancel(flutterResult: @escaping FlutterResult, cancelToken: String){
         if(OperationsManager.containsOperation(cancelToken: cancelToken)){
             OperationsManager.cancelOperation(cancelToken: cancelToken)
@@ -94,5 +98,5 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
                             details: "Operation does not exist"))
         }
     }
-
+    
 }

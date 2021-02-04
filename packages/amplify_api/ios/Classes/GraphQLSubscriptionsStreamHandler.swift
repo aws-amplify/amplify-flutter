@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ public class GraphQLSubscriptionsStreamHandler: NSObject, FlutterStreamHandler {
         return nil
     }
 
-    func sendEvent(payload: [String : Any]?, id: String, type: GraphQLSubscriptionEventTypes) {
+    func sendEvent(payload: [String : Any?]?, id: String, type: GraphQLSubscriptionEventTypes) {
         let result: [String: Any?] = [
             "id": id,
             "type": type.rawValue,
@@ -31,7 +31,11 @@ public class GraphQLSubscriptionsStreamHandler: NSObject, FlutterStreamHandler {
         eventSink?(result)
     }
 
-    func sendError(flutterError: FlutterError) {
+    func sendError(msg: String, errorMap: [String: Any]) {
+        let flutterError = FlutterError(
+            code: "AmplifyException",
+            message: msg,
+            details: errorMap)
         eventSink?(flutterError)
     }
 

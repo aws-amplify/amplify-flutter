@@ -49,16 +49,18 @@ class APICategory {
 
   GraphQLSubscriptionOperation<T> subscribe<T>(
       {@required GraphQLRequest<T> request,
-      @required Function(GraphQLResponse<T>) onData,
+      @required void Function(GraphQLResponse<T>) onData,
       Function() onEstablished,
       Function(dynamic) onError,
       Function() onDone}) {
-    return plugins[0].subscribe(
-        request: request,
-        onEstablished: onEstablished,
-        onData: onData,
-        onError: onError,
-        onDone: onDone);
+    return plugins.length == 1
+        ? plugins[0].subscribe(
+            request: request,
+            onEstablished: onEstablished,
+            onData: onData,
+            onError: onError,
+            onDone: onDone)
+        : throw (_errorMsg);
   }
 
   // ====== RestAPI ======

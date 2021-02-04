@@ -250,7 +250,7 @@ class GraphQLApiUnitTests: XCTestCase {
         }
         
         class MockStreamHandler: GraphQLSubscriptionsStreamHandler {
-            override func sendEvent(payload: [String : Any]?, id: String, type: GraphQLSubscriptionEventTypes) {
+            override func sendEvent(payload: [String : Any?]?, id: String, type: GraphQLSubscriptionEventTypes) {
                             eventSentExp?.fulfill()
                             let data = payload?["data"] as! String
                             XCTAssertEqual("result data", data)
@@ -290,11 +290,11 @@ class GraphQLApiUnitTests: XCTestCase {
         }
         
         class MockStreamHandler: GraphQLSubscriptionsStreamHandler {
-            override func sendEvent(payload: [String : Any]?, id: String, type: GraphQLSubscriptionEventTypes) {
+            override func sendEvent(payload: [String : Any?]?, id: String, type: GraphQLSubscriptionEventTypes) {
                 XCTFail()
             }
             
-            override func sendError(flutterError: FlutterError) {
+            override func sendError(msg: String, errorMap: [String: Any]) {
                 XCTFail()
             }
         }
@@ -335,11 +335,11 @@ class GraphQLApiUnitTests: XCTestCase {
         }
         
         class MockStreamHandler: GraphQLSubscriptionsStreamHandler {
-            override func sendEvent(payload: [String : Any]?, id: String, type: GraphQLSubscriptionEventTypes) {
+            override func sendEvent(payload: [String : Any?]?, id: String, type: GraphQLSubscriptionEventTypes) {
                 XCTFail()
             }
             
-            override func sendError(flutterError: FlutterError) {
+            override func sendError(msg: String, errorMap: [String: Any]) {
                 XCTFail()
             }
         }

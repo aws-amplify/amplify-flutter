@@ -154,15 +154,19 @@ class FlutterGraphQLApi {
                                 case .data(let result):
                                     switch result {
                                     case .success(let data):
-                                        print("GraphQL subscription event received: \(data)")
+                                        print("GraphQL subscription event received without errors: \(data)")
                                         let payload: [String: Any] = [
                                             "data": data,
                                             "errors": []
                                         ]
                                         graphQLSubscriptionsStreamHandler.sendEvent(payload: payload, id: id, type: GraphQLSubscriptionEventTypes.DATA)
-                                    case .failure(let error):
-                                        //TODO: Handle the different error responses
-                                        print("Got failed result with \(error.errorDescription)")
+                                    case .failure(let errorResponse):
+                                        FlutterApiResponse.handleGraphQLErrorResponseEvent(
+                                            graphQLSubscriptionsStreamHandler: graphQLSubscriptionsStreamHandler,
+                                            id: id,
+                                            errorResponse: errorResponse,
+                                            failureMessage: FlutterApiErrorMessage.SUBSCRIBE_FAILED.rawValue
+                                        )
                                     }
                                 }
                             }) { result in
@@ -179,12 +183,8 @@ class FlutterGraphQLApi {
                                         OperationsManager.removeOperation(cancelToken: id)
                                     }
                                     if(established) {
-                                        let errorMap = FlutterApiError.createErrorMap(localizedError: apiError.errorDescription, recoverySuggestion: apiError.errorDescription)
-                                        let flutterError = FlutterError(
-                                            code: "AmplifyException",
-                                            message: FlutterApiErrorMessage.SUBSCRIBE_FAILED.rawValue,
-                                            details: errorMap)
-                                        graphQLSubscriptionsStreamHandler.sendError(flutterError: flutterError)
+                                        let errorMap = FlutterApiError.createErrorMap(localizedError: apiError.errorDescription, recoverySuggestion: apiError.recoverySuggestion)
+                                        graphQLSubscriptionsStreamHandler.sendError(msg: FlutterApiErrorMessage.SUBSCRIBE_FAILED.rawValue, errorMap: errorMap)
                                     } else {
                                         FlutterApiError.handleAPIError(flutterResult: flutterResult, error: apiError, msg: FlutterApiErrorMessage.ESTABLISH_SUBSCRIPTION_FAILED.rawValue)
                                     }

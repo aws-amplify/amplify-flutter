@@ -36,7 +36,7 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
 
   GraphQLSubscriptionOperation<T> subscribe<T>(
       {@required GraphQLRequest<T> request,
-      @required Function(GraphQLResponse<T>) onData,
+      @required void Function(GraphQLResponse<T>) onData,
       Function() onEstablished,
       Function(dynamic) onError,
       Function() onDone}) {
