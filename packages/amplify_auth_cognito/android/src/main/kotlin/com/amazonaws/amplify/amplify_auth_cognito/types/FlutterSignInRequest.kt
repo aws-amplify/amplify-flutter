@@ -15,6 +15,7 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
+import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.FlutterValidationException
 
 data class FlutterSignInRequest(val map: HashMap<String, *>) {
@@ -26,7 +27,7 @@ data class FlutterSignInRequest(val map: HashMap<String, *>) {
     private const val validationErrorMessage: String = "SignIn Request malformed."
     fun validate(req : HashMap<String, *>?) {
       if (req == null || req !is HashMap<String, *>) {
-        throw FlutterValidationException(validationErrorMessage, "Request map is null or malformed. Check that request is present and properly formed.")
+        throw FlutterValidationException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "request map" ))
       } else {
         // username and password are optional if options are passed for clientmetadata auth flows
         if (

@@ -187,23 +187,13 @@ class AmplifyStorageOperations {
 
         private fun prepareError(@NonNull flutterResult: MethodChannel.Result, @NonNull e: Exception) {
             val errorCode = "StorageException"
-            var message = ExceptionMessages.unexpectedExceptionMessage
-            var recoverySuggestion = ExceptionMessages.unexpectedExceptionSuggestion
             LOG.error(errorCode, e)
             val serializedError: Map<String, Any?> = if (e is StorageException) {
                 ExceptionUtil.createSerializedError(e)
-            } else if (e is FlutterValidationException) {
-                message = e.message ?: message
-                recoverySuggestion = e.recoverySuggestion
+            }  else {
                 ExceptionUtil.createSerializedError(
-                        message,
-                        recoverySuggestion,
-                        null
-                )
-            } else {
-                ExceptionUtil.createSerializedError(
-                        message,
-                        recoverySuggestion,
+                        ExceptionMessages.unexpectedExceptionMessage,
+                        ExceptionMessages.unexpectedExceptionSuggestion,
                         e.toString())
             }
             Handler(Looper.getMainLooper()).post {

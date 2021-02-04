@@ -15,6 +15,7 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
+import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.FlutterValidationException
 
 data class FlutterResetPasswordRequest(val map: HashMap<String, *>) {
@@ -25,10 +26,10 @@ data class FlutterResetPasswordRequest(val map: HashMap<String, *>) {
     private const val validationErrorMessage: String = "ResetPassword Request malformed."
     fun validate(req : HashMap<String, *>?) {
       if (req == null || req !is HashMap<String, *>) {
-        throw FlutterValidationException(validationErrorMessage, "Request map is null or malformed. Check that request is present and properly formed.")
+        throw FlutterValidationException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "request map" ))
       } else if (req != null) {
         if (!req.containsKey("username") && req["username"] != "") {
-          throw FlutterValidationException(validationErrorMessage, "username is missing.")
+          throw FlutterValidationException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "username" ))
         }
       }
     }

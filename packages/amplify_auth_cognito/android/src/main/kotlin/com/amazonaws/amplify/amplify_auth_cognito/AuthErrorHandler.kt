@@ -84,7 +84,6 @@ class AuthErrorHandler {
     }
 
     fun handleAuthError(@NonNull flutterResult: MethodChannel.Result, @NonNull error: Exception) {
-
         var serializedError: Map<String, Any?> = emptyMap()
         if (error is AmplifyException) {
             serializedError = ExceptionUtil.createSerializedError(error)
@@ -103,17 +102,10 @@ class AuthErrorHandler {
 
     fun prepareGenericException(@NonNull flutterResult: MethodChannel.Result, @NonNull error: Exception) {
         val errorCode = "AuthException"
-        var message = ExceptionMessages.unexpectedExceptionMessage
-        var recoverySuggestion = ExceptionMessages.unexpectedExceptionSuggestion
         LOG.error(errorCode, error)
-        if (error is FlutterValidationException) {
-            message = error.message ?: message
-            recoverySuggestion = error.recoverySuggestion
-
-        }
         val serializedError: Map<String, Any?> = ExceptionUtil.createSerializedError(
-                message,
-                recoverySuggestion,
+                ExceptionMessages.unexpectedExceptionMessage,
+                ExceptionMessages.unexpectedExceptionSuggestion,
                 error.toString())
         
         Handler(Looper.getMainLooper()).post {

@@ -15,6 +15,7 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
+import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.FlutterValidationException
 
 data class FlutterResendSignUpCodeRequest(val map: HashMap<String, *>) {
@@ -26,7 +27,7 @@ data class FlutterResendSignUpCodeRequest(val map: HashMap<String, *>) {
     fun validate(req : HashMap<String, *>?) {
       if (req != null) {
         if (!req.containsKey("username") && req["username"] != "") {
-          throw FlutterValidationException(validationErrorMessage, "username is missing.")
+          throw FlutterValidationException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "username" ))
         }
       }
     }
