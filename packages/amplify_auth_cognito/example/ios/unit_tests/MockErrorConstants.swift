@@ -16,6 +16,8 @@
 import Foundation
 import Amplify
 
+let MockErrorTemplate: String = "The operation couldn’t be completed. (AmplifyPlugins.AWSCognitoAuthError error"
+
 typealias AuthPluginErrorString = (errorDescription: ErrorDescription, recoverySuggestion: RecoverySuggestion)
 
 typealias AuthPluginValidationErrorString = (field: Field,
