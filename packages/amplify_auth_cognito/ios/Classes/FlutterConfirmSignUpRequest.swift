@@ -26,11 +26,11 @@ struct FlutterConfirmSignUpRequest {
   static func validate(dict: NSMutableDictionary) throws {
     let validationErrorMessage = "ConfirmSignUp Request malformed."
     if (dict["username"] == nil && dict["options"] == nil) {
-        throw FlutterValidationError.auth(comment: validationErrorMessage,
+        throw InvalidRequestError.auth(comment: validationErrorMessage,
                                           suggestion: String(format: ErrorMessages.missingAttribute, "username"))
     }
     if (dict["confirmationCode"] == nil && dict["options"] == nil) {
-        throw FlutterValidationError.auth(comment: validationErrorMessage,
+        throw InvalidRequestError.auth(comment: validationErrorMessage,
                                           suggestion: String(format: ErrorMessages.missingAttribute, "confirmationCode"))
     }
   }

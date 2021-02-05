@@ -28,7 +28,7 @@ struct FlutterRemoveRequest {
     static func validate(request: Dictionary<String, AnyObject>) throws {
         let validationErrorMessage = "Remove request malformed."
         if !(request["key"] is String) {
-            throw FlutterValidationError.storage(comment: validationErrorMessage,
+            throw InvalidRequestError.storage(comment: validationErrorMessage,
                                               suggestion: String(format: ErrorMessages.missingAttribute, "key"))
         }
     }

@@ -16,7 +16,7 @@
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
-import com.amazonaws.amplify.amplify_core.exception.FlutterValidationException
+import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 
 data class FlutterSignInRequest(val map: HashMap<String, *>) {
   val username: String = map["username"] as String;
@@ -27,14 +27,14 @@ data class FlutterSignInRequest(val map: HashMap<String, *>) {
     private const val validationErrorMessage: String = "SignIn Request malformed."
     fun validate(req : HashMap<String, *>?) {
       if (req == null || req !is HashMap<String, *>) {
-        throw FlutterValidationException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "request map" ))
+        throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "request map" ))
       } else {
         // username and password are optional if options are passed for clientmetadata auth flows
         if (
           (req["username"]  == null || req["password"] == null) &&
           (req["options"] == null || (req["options"] as HashMap<String, *>).size < 1 )
         ){
-          throw FlutterValidationException(validationErrorMessage, "username and/or password are missing, and you are not using a custom auth flow.")
+          throw InvalidRequestException(validationErrorMessage, "username and/or password are missing, and you are not using a custom auth flow.")
         }
       }
     }

@@ -51,7 +51,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
     
     private func checkArguments(args: Any) throws -> Dictionary<String, AnyObject> {
         guard let res = args as? Dictionary<String, AnyObject> else {
-            throw FlutterValidationError.auth(comment: "Flutter method call could not be cast.",
+            throw InvalidRequestError.auth(comment: "Flutter method call could not be cast.",
                                               suggestion: "arguments is not a Dictionary<String, AnyObject>")
         }
         return res;
@@ -59,7 +59,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
     
     private func checkData(args: Dictionary<String, AnyObject>) throws -> NSMutableDictionary {
         guard let res = args["data"] as? NSMutableDictionary else {
-            throw FlutterValidationError.auth(comment:  "Flutter method call could not be cast",
+            throw InvalidRequestError.auth(comment:  "Flutter method call could not be cast",
                                               suggestion: "arguments['data'] is not a NSMutableDictionary")
         }
         return res;

@@ -31,15 +31,15 @@ struct FlutterConfirmPasswordRequest {
   static func validate(dict: NSMutableDictionary) throws {
     let validationErrorMessage = "ConfirmPassword Request malformed."
     if (dict["username"] == nil) {
-        throw FlutterValidationError.auth(comment: validationErrorMessage,
+        throw InvalidRequestError.auth(comment: validationErrorMessage,
                                           suggestion: String(format: ErrorMessages.missingAttribute, "username"))
     }
     if (dict["newPassword"] == nil) {
-        throw FlutterValidationError.auth(comment: validationErrorMessage,
+        throw InvalidRequestError.auth(comment: validationErrorMessage,
                                           suggestion: String(format: ErrorMessages.missingAttribute, "newPassword"))
     }
     if (dict["confirmationCode"] == nil) {
-        throw FlutterValidationError.auth(comment: validationErrorMessage,
+        throw InvalidRequestError.auth(comment: validationErrorMessage,
                                           suggestion: String(format: ErrorMessages.missingAttribute, "confirmationCode"))
     }
   }

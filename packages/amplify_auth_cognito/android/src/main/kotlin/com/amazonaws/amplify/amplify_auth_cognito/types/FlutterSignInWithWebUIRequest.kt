@@ -15,7 +15,7 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
-import com.amazonaws.amplify.amplify_core.exception.FlutterValidationException
+import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 
 data class FlutterSignInWithWebUIRequest(val map: HashMap<String, *>) {
     val provider: String? = map?.get("authProvider") as String?;
@@ -27,7 +27,7 @@ data class FlutterSignInWithWebUIRequest(val map: HashMap<String, *>) {
             val provider: String? = req?.get("authProvider") as String?;
             if (provider != null) {
                 if (!allowedProviders.contains(provider)) {
-                    throw FlutterValidationException(validationErrorMessage, "You have passed an AuthProvider that is not supported.")
+                    throw InvalidRequestException(validationErrorMessage, "You have passed an AuthProvider that is not supported.")
                 }
             }
         }

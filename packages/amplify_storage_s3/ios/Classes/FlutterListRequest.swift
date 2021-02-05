@@ -26,7 +26,7 @@ struct FlutterListRequest {
     static func validate(request: Dictionary<String, AnyObject>) throws {
         let validationErrorMessage = "List request malformed."
         if !(request["path"] is String?) {
-            throw FlutterValidationError.storage(comment: validationErrorMessage,
+            throw InvalidRequestError.storage(comment: validationErrorMessage,
                                               suggestion: String(format: ErrorMessages.missingAttribute, "path"))
         }
     }

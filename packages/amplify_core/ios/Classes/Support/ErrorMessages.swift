@@ -31,13 +31,6 @@ public struct ErrorMessages {
 
     public static let missingExceptionMessage: String =
         "An unknown exception has happened. " + createGithubIssueString
-
-
-    public static let unexpectedExceptionMessage: String =
-        "An unexpected exception has occurred."
-
-    public static let unexpectedExceptionSuggestion: String =
-        "See iOS logs for details."
     
-    public static let missingAttribute: String = "Ensure that %@ is present"
+    public static let missingAttribute: String = "Ensure that %@ attribute is present"
 }

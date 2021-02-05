@@ -24,7 +24,7 @@ struct FlutterResendSignUpCodeRequest {
   static func validate(dict: NSMutableDictionary) throws {
     let validationErrorMessage = "ResendSignUpCode Request malformed."
     if (dict["username"] == nil) {
-        throw FlutterValidationError.auth(comment: validationErrorMessage,
+        throw InvalidRequestError.auth(comment: validationErrorMessage,
                                           suggestion: String(format: ErrorMessages.missingAttribute, "username"))
     }
   }

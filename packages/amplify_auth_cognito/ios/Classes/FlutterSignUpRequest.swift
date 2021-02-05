@@ -48,10 +48,10 @@ struct FlutterSignUpRequest {
   static func validate(dict: NSMutableDictionary) throws {
     let validationErrorMessage = "SignUp Request malformed."
     if (dict["options"] == nil) {
-        throw FlutterValidationError.auth(comment: validationErrorMessage,
+        throw InvalidRequestError.auth(comment: validationErrorMessage,
                                           suggestion: String(format: ErrorMessages.missingAttribute, "options"))
     } else if (dict["password"] == nil) {
-        throw FlutterValidationError.auth(comment: validationErrorMessage,
+        throw InvalidRequestError.auth(comment: validationErrorMessage,
                                           suggestion: String(format: ErrorMessages.missingAttribute, "password "))
     }
   }

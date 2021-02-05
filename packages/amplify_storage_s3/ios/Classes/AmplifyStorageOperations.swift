@@ -36,7 +36,7 @@ public class AmplifyStorageOperations {
                         result["key"] = key
                         flutterResult(result)
                     case .failure(let storageError):
-                        prepareError(flutterResult: flutterResult, error: storageError as Error)
+                        prepareError(flutterResult: flutterResult, error: storageError)
                     }
             })
         } catch {
@@ -57,7 +57,7 @@ public class AmplifyStorageOperations {
                     result["url"] = url.absoluteString
                     flutterResult(result)
                 case .failure(let storageError):
-                    prepareError(flutterResult: flutterResult, error: storageError as Error)
+                    prepareError(flutterResult: flutterResult, error: storageError)
                 }
             })
         } catch {
@@ -78,7 +78,7 @@ public class AmplifyStorageOperations {
                     result["key"] = key
                     flutterResult(result)
                 case .failure(let storageError):
-                    prepareError(flutterResult: flutterResult, error: storageError as Error)
+                    prepareError(flutterResult: flutterResult, error: storageError)
                 }
             })
         } catch {
@@ -103,7 +103,7 @@ public class AmplifyStorageOperations {
                         listResultDictionary["items"] = storageItemList
                         flutterResult(listResultDictionary);
                     case.failure(let storageError):
-                        prepareError(flutterResult: flutterResult, error: storageError as Error)
+                        prepareError(flutterResult: flutterResult, error: storageError)
                     }
              })
         } catch {
@@ -126,7 +126,7 @@ public class AmplifyStorageOperations {
                         result["path"] = req.file.absoluteURL.path
                         flutterResult(result)
                     case .failure(let storageError):
-                        prepareError(flutterResult: flutterResult, error: storageError as Error)
+                        prepareError(flutterResult: flutterResult, error: storageError)
                     }
             })
         } catch {

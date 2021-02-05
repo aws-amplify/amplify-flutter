@@ -29,11 +29,11 @@ struct FlutterUpdatePasswordRequest {
   static func validate(dict: NSMutableDictionary) throws {
     let validationErrorMessage = "UpdatePassword Request malformed."
     if (dict["newPassword"] == nil && dict["options"] == nil) {
-        throw FlutterValidationError.auth(comment: validationErrorMessage,
+        throw InvalidRequestError.auth(comment: validationErrorMessage,
                                           suggestion: String(format: ErrorMessages.missingAttribute, "newPassword"))
     }
     if (dict["oldPassword"] == nil && dict["options"] == nil) {
-        throw FlutterValidationError.auth(comment: validationErrorMessage,
+        throw InvalidRequestError.auth(comment: validationErrorMessage,
                                           suggestion: String(format: ErrorMessages.missingAttribute, "oldPassword"))
     }
   }

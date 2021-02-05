@@ -17,6 +17,6 @@ package com.amazonaws.amplify.amplify_core.exception
 
 import com.amplifyframework.AmplifyException
 
-class FlutterValidationException : AmplifyException {
+class InvalidRequestException : AmplifyException {
     constructor(message: String, recoverySuggestion: String) : super(message, recoverySuggestion)
 }

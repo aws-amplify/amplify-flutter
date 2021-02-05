@@ -24,7 +24,7 @@ struct FlutterConfirmSignInRequest {
   static func validate(dict: NSMutableDictionary) throws {
     let validationErrorMessage = "ConfirmSignIn Request malformed."
     if (dict["confirmationCode"] == nil && dict["options"] == nil) {
-        throw FlutterValidationError.auth(comment: validationErrorMessage,
+        throw InvalidRequestError.auth(comment: validationErrorMessage,
                                           suggestion: String(format: ErrorMessages.missingAttribute, "confirmationCode"))
     }
   }

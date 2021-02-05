@@ -28,11 +28,11 @@ struct FlutterSignInRequest {
   static func validate(dict: NSMutableDictionary) throws {
     let validationErrorMessage = "SignIn Request malformed."
     if (dict["username"] == nil && dict["options"] == nil) {
-        throw FlutterValidationError.auth(comment: validationErrorMessage,
+        throw InvalidRequestError.auth(comment: validationErrorMessage,
                                           suggestion: String(format: ErrorMessages.missingAttribute, "username"))
     }
     if (dict["password"] == nil && dict["options"] == nil) {
-        throw FlutterValidationError.auth(comment: validationErrorMessage,
+        throw InvalidRequestError.auth(comment: validationErrorMessage,
                                           suggestion: String(format: ErrorMessages.missingAttribute, "password"))
     }
   }

@@ -46,7 +46,7 @@ struct FlutterSignInWithWebUIRequest {
     let allowedProviders: Array<String> = ["login_with_amazon", "google", "facebook"]
     if let provider = dict["authProvider"] {
       if(!allowedProviders.contains(provider as! String)) {
-        throw FlutterValidationError.auth(comment: validationErrorMessage,
+        throw InvalidRequestError.auth(comment: validationErrorMessage,
                                           suggestion: String(format: ErrorMessages.missingAttribute, "valid AuthProvider"))
       }
     }

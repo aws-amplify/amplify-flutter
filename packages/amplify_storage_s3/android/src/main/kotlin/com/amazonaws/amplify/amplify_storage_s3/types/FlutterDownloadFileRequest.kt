@@ -16,7 +16,7 @@
 package com.amazonaws.amplify.amplify_storage_s3.types
 
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
-import com.amazonaws.amplify.amplify_core.exception.FlutterValidationException
+import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 import com.amplifyframework.storage.StorageAccessLevel
 import com.amplifyframework.storage.options.StorageDownloadFileOptions
 import java.io.File
@@ -51,11 +51,11 @@ data class FlutterDownloadFileRequest(val request: Map<String, *>) {
     companion object {
         private const val validationErrorMessage: String = "DownloadFile request malformed."
         fun validate(request: Map<String, *>) {
-            if(request["path"] !is String? || request["path"] == null) {
-                throw FlutterValidationException(validationErrorMessage, ExceptionMessages.missingAttribute.format("path" ))
+            if(request["path"] !is String) {
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("path" ))
             }
-            if(request["key"] !is String? || request["key"] == null) {
-                throw FlutterValidationException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "key" ))
+            if(request["key"] !is String) {
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "key" ))
             }
         }
     }

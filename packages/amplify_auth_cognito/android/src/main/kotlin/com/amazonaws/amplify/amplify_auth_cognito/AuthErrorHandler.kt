@@ -21,7 +21,6 @@ import androidx.annotation.NonNull
 import com.amazonaws.AmazonClientException
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
-import com.amazonaws.amplify.amplify_core.exception.FlutterValidationException
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.exceptions.CognitoCodeExpiredException
 import com.amazonaws.services.cognitoidentityprovider.model.InvalidLambdaResponseException
 import com.amazonaws.services.cognitoidentityprovider.model.MFAMethodNotFoundException
@@ -89,8 +88,8 @@ class AuthErrorHandler {
             serializedError = ExceptionUtil.createSerializedError(error)
         // Need to catch and handle errors that originate in aws-android-sdk untransformed
         } else if (error is AmazonClientException) {
-            var message: String = if (error.message != null) error.message!! else ExceptionMessages.unexpectedExceptionMessage
-            serializedError = ExceptionUtil.createSerializedError(message, ExceptionMessages.unexpectedExceptionSuggestion, error.toString())
+            var message: String = if (error.message != null) error.message!! else ExceptionMessages.missingExceptionMessage
+            serializedError = ExceptionUtil.createSerializedError(message, ExceptionMessages.missingRecoverySuggestion, error.toString())
         }
 
         var errorCode = getErrorCode(error)
@@ -104,8 +103,8 @@ class AuthErrorHandler {
         val errorCode = "AuthException"
         LOG.error(errorCode, error)
         val serializedError: Map<String, Any?> = ExceptionUtil.createSerializedError(
-                ExceptionMessages.unexpectedExceptionMessage,
-                ExceptionMessages.unexpectedExceptionSuggestion,
+                ExceptionMessages.missingExceptionMessage,
+                ExceptionMessages.missingRecoverySuggestion,
                 error.toString())
         
         Handler(Looper.getMainLooper()).post {

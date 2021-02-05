@@ -16,22 +16,22 @@
 import Foundation
 
 
-public enum FlutterValidationError: Error {
+public enum InvalidRequestError: Error {
     case auth(comment: String, suggestion: String)
     case storage(comment: String, suggestion: String)
 }
 
-extension FlutterValidationError: LocalizedError {
+extension InvalidRequestError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .auth(let failureSource, let validationFailure):
             return NSLocalizedString(
-                "\(failureSource) \(validationFailure): (FlutterValidationError.auth)",
+                "\(failureSource) \(validationFailure): (InvalidRequestError.auth)",
                 comment: failureSource
             )
         case .storage(let failureSource, let validationFailure):
             return NSLocalizedString(
-                "\(failureSource) \(validationFailure): (FlutterValidationError.storage)",
+                "\(failureSource) \(validationFailure): (InvalidRequestError.storage)",
                 comment: failureSource
             )
         }

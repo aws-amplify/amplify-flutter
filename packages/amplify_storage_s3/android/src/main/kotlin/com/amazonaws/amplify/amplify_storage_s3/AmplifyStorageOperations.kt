@@ -18,7 +18,6 @@ package com.amazonaws.amplify.amplify_storage_s3
 import androidx.annotation.NonNull
 import android.os.Handler
 import android.os.Looper
-import com.amazonaws.amplify.amplify_core.exception.FlutterValidationException
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
 import com.amplifyframework.core.Amplify
@@ -192,8 +191,8 @@ class AmplifyStorageOperations {
                 ExceptionUtil.createSerializedError(e)
             }  else {
                 ExceptionUtil.createSerializedError(
-                        ExceptionMessages.unexpectedExceptionMessage,
-                        ExceptionMessages.unexpectedExceptionSuggestion,
+                        ExceptionMessages.missingExceptionMessage,
+                        ExceptionMessages.missingRecoverySuggestion,
                         e.toString())
             }
             Handler(Looper.getMainLooper()).post {
