@@ -72,6 +72,21 @@ public class SwiftAmplify: NSObject, FlutterPlugin {
                     errorCode: "AmplifyException",
                     details: createSerializedError(error: error))
             }
+        } catch let error as PluginError {
+            switch error {
+            case .pluginConfigurationError(let errorDescription, _, let error):
+                ErrorUtil.postErrorToFlutterChannel(result: result,
+                                                    errorCode: "AmplifyException",
+                                                    details: createSerializedError(message: "Please check your pubspec.yaml if you are depending on " +
+                                                        "an amplify plugin and not using in your app. Underlying error message: " + errorDescription,
+                                                                                   recoverySuggestion: "Remove amplify plugins from your pubspec.yaml that you are not using in your app.",
+                                                                                   underlyingError: error?.localizedDescription))
+            default:
+                ErrorUtil.postErrorToFlutterChannel(
+                    result: result,
+                    errorCode: "AmplifyException",
+                    details: createSerializedError(error: error))
+            }
         } catch {
             ErrorUtil.postErrorToFlutterChannel(
                 result: result,
