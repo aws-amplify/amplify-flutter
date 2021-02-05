@@ -15,6 +15,8 @@
 
 import Amplify
 import Flutter
+import AmplifyPlugins
+import AWSCore
 
 class AuthCognitoBridge {
     
@@ -183,7 +185,7 @@ class AuthCognitoBridge {
         Amplify.Auth.fetchUserAttributes() { result in
             switch result {
                 case .success(let attributes):
-                    let attributeData = FlutterFetchUserAttributesRequest(res: attributes)
+                    let attributeData = FlutterFetchUserAttributesResult(res: attributes)
                     flutterResult(attributeData.toList())
                 case .failure(let fetchAttributeError):
                     self.errorHandler.handleAuthError(authError: fetchAttributeError, flutterResult: flutterResult)

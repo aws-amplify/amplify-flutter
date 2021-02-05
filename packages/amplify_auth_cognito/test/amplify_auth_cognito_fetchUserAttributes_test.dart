@@ -26,7 +26,11 @@ void main() {
   AmplifyAuthCognitoMethodChannel testChannel = AmplifyAuthCognitoMethodChannel();
 
   TestWidgetsFlutterBinding.ensureInitialized();
-  List<Map<dynamic, dynamic>> sampleResponse = [{"key": "username", "value": "person"}];
+  List<Map<dynamic, dynamic>> sampleResponse = [
+    {"key": "username", "value": "person"},
+    {"key": "custom_num", "value": "2"},
+    {"key": "float_shouldnt_parse_shouldnt_break", "value": "1.234"}
+    ];
 
   setUp(() {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
@@ -66,5 +70,17 @@ void main() {
     expect(
       res[0].value,
       equals('person'));
+    expect(
+      res[1].userAttributeKey,
+      equals('custom_num'));
+    expect(
+      res[1].value,
+      equals(2));
+    expect(
+      res[2].userAttributeKey,
+      equals('float_shouldnt_parse_shouldnt_break'));
+    expect(
+      res[2].value,
+      equals("1.234"));
   });
 }

@@ -257,7 +257,7 @@ class _MyAppState extends State<MyApp> {
               const Padding(padding: EdgeInsets.all(10.0)),
               ElevatedButton(
                   onPressed: _fetchUserAttributes,
-                  child: const Text('Get Attributes'))
+                  child: const Text('Get User Attributes'))
             ],
           ),
         ),

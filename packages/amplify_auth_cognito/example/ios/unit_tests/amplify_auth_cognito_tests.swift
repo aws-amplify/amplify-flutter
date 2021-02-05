@@ -1108,21 +1108,34 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     func test_fetchUserAttributesSuccess() {
+        
         class FetchAttributesMock: AuthCognitoBridge {
             override func onFetchUserAttributes(flutterResult: @escaping FlutterResult) {
-                let emptyList = [AuthUserAttribute]()
-                flutterResult(emptyList)
+                let attributeData: [AuthUserAttribute] = [AuthUserAttribute(.email, value: "test@test.com")]
+                let attributeResult = FlutterFetchUserAttributesResult(res: attributeData)
+                flutterResult(attributeResult)
             }
         }
         
         plugin = SwiftAuthCognito.init(cognito: FetchAttributesMock())
         
+        let list = [AuthUserAttribute(.email, value: "test@test.com")]
+        let serializedList: [Dictionary<String, Any>] = list.map { (attr) -> [String: Any] in
+            return ["key": attr.key.rawValue, "value": attr.value]
+        }
+
+        
         _data = [:]
         _args = ["data": _data]
         let call = FlutterMethodCall(methodName: "fetchUserAttributes", arguments: _args)
         plugin.handle(call, result: {(result)->Void in
-            if let res = result as? [AuthUserAttribute] {
-                XCTAssertEqual( 0, res.count )
+            if let res = result as? FlutterFetchUserAttributesResult {
+                XCTAssertEqual( 1, res.attributes.count )
+                XCTAssertEqual( res.attributes[0].key, .email )
+                XCTAssertEqual( res.attributes[0].value, "test@test.com" )
+                XCTAssertEqual( res.toList().count, serializedList.count)
+                XCTAssertEqual( (res.toList()[0] as Dictionary)["key"] as! String, "email")
+                XCTAssertEqual( (res.toList()[0] as Dictionary)["value"] as! String, "test@test.com")
             } else {
                 XCTFail()
             }
@@ -1131,7 +1144,7 @@ class amplify_auth_cognito_tests: XCTestCase {
     
     func test_fetchUserAttributesSerialization() {
         let attr = AuthUserAttribute(AuthUserAttributeKey.email, value: "test@test.com")
-        let res = FlutterFetchUserAttributesRequest(res: [attr]).toList()
+        let res = FlutterFetchUserAttributesResult(res: [attr]).toList()
 
         XCTAssertEqual(1, res.count)
         XCTAssertEqual("email", res[0]["key"] as! String)

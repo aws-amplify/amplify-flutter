@@ -18,6 +18,14 @@ import 'package:flutter/foundation.dart';
 
 class AuthUserAttribute {
   String userAttributeKey;
-  String value;
-  AuthUserAttribute({@required this.userAttributeKey, @required this.value});
+  var value;
+  AuthUserAttribute.init({@required this.userAttributeKey, @required this.value}) {
+    this.userAttributeKey = userAttributeKey;
+    if (userAttributeKey != 'phone_number') {
+      try {
+        this.value = int.parse(value);
+      } on FormatException {}
+    }
+  }
 }
+

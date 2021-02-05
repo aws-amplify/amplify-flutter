@@ -39,8 +39,6 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       res = _formatSignUpResponse(data, "signUp");
     } on PlatformException catch(e) {
       castAndThrowPlatformException(e);
-    } on Exception catch(e) {
-      throw e;
     }
     return res;
   }
@@ -60,8 +58,6 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return res;
     } on PlatformException catch(e) {
       castAndThrowPlatformException(e);
-    } on Exception catch(e) {
-      throw(e);
     }
     return res;
   }
@@ -81,8 +77,6 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return res;
     } on PlatformException catch(e) {
       castAndThrowPlatformException(e);
-    } on Exception catch(e) {
-      throw(e);
     }
     return res;
   }
@@ -102,8 +96,6 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return res;
     } on PlatformException catch(e) {
       castAndThrowPlatformException(e);
-    } on Exception catch(e) {
-      throw(e);
     }
     return res;
   }
@@ -123,8 +115,6 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return res;
     } on PlatformException catch(e) {
       castAndThrowPlatformException(e);
-    } on Exception catch(e) {
-      throw(e);
     }
     return res;
   }
@@ -144,8 +134,6 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return res;
     } on PlatformException catch(e) {
       castAndThrowPlatformException(e);
-    } on Exception catch(e) {
-      throw(e);
     }
     return res;
   }
@@ -165,8 +153,6 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return res;
     } on PlatformException catch(e) {
       castAndThrowPlatformException(e);
-    } on Exception catch(e) {
-      throw(e);
     }
     return res;
   }
@@ -186,8 +172,6 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return res;
     } on PlatformException catch(e) {
       castAndThrowPlatformException(e);
-    } on Exception catch(e) {
-      throw(e);
     }
     return res;
   }
@@ -207,8 +191,6 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return res;
     } on PlatformException catch(e) {
       castAndThrowPlatformException(e);
-    } on Exception catch(e) {
-      throw(e);
     }
     return res;
   }
@@ -228,8 +210,6 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return res;
     } on PlatformException catch(e) {
       castAndThrowPlatformException(e);
-    } on Exception catch(e) {
-      throw(e);
     }
     return res;
   }
@@ -249,14 +229,12 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return res;
     } on PlatformException catch(e) {
       castAndThrowPlatformException(e);
-    } on Exception catch(e) {
-      throw(e);
     }
     return res;
   }
 
   @override
-  Future< List<AuthUserAttribute>> fetchUserAttributes({AuthUserAttributeRequest request}) async {
+  Future<List<AuthUserAttribute>> fetchUserAttributes({AuthUserAttributeRequest request}) async {
     List<AuthUserAttribute> res;
     try {
       final List<Map<dynamic, dynamic>> data =
@@ -270,8 +248,6 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return res;
     } on PlatformException catch(e) {
       castAndThrowPlatformException(e);
-    } on Exception catch(e) {
-      throw(e);
     }
     return res;
   }
@@ -290,8 +266,6 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return _formatSignInResponse(data, "signIn");
     } on PlatformException catch(e) {
       castAndThrowPlatformException(e);
-    } on Exception catch(e) {
-      throw(e);
     }
     return res;
   }
@@ -334,7 +308,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   List<AuthUserAttribute> formatFetchAttributesResponse(List<Map<dynamic, dynamic>> attributeResponse) {
     List<AuthUserAttribute> attributes = [];
     attributeResponse.forEach((element) {
-      attributes.add(AuthUserAttribute(userAttributeKey: element["key"], value: element["value"]));
+      attributes.add(AuthUserAttribute.init(userAttributeKey: element["key"], value: element["value"]));
     });
     return attributes;
   }

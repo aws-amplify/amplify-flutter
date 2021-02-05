@@ -16,7 +16,7 @@
 import Foundation
 import Amplify
 
-struct FlutterFetchUserAttributesRequest  {
+struct FlutterFetchUserAttributesResult  {
     var attributes: [AuthUserAttribute]
 
     init(res: [AuthUserAttribute]){
