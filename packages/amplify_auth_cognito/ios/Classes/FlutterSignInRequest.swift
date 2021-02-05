@@ -14,6 +14,8 @@
  */
 
 import Foundation
+import amplify_core
+
 struct FlutterSignInRequest {
   var username: String?
   var password: String?
@@ -26,10 +28,12 @@ struct FlutterSignInRequest {
   static func validate(dict: NSMutableDictionary) throws {
     let validationErrorMessage = "SignIn Request malformed."
     if (dict["username"] == nil && dict["options"] == nil) {
-      throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "username is missing.")
+        throw InvalidRequestError.auth(comment: validationErrorMessage,
+                                          suggestion: String(format: ErrorMessages.missingAttribute, "username"))
     }
     if (dict["password"] == nil && dict["options"] == nil) {
-      throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "password is missing.")
+        throw InvalidRequestError.auth(comment: validationErrorMessage,
+                                          suggestion: String(format: ErrorMessages.missingAttribute, "password"))
     }
   }
 }

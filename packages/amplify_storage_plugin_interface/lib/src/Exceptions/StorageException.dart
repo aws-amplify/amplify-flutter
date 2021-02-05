@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,13 +13,26 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
+import 'package:amplify_core/types/exception/AmplifyException.dart';
 
-class StorageException implements Exception {
-  final String code;
-  final String message;
-  final dynamic details;
+/// Exception thrown from Storage Category
+class StorageException extends AmplifyException {
+  /// Named constructor
+  const StorageException(String message,
+      {String recoverySuggestion, String underlyingException})
+      : super(message,
+            recoverySuggestion: recoverySuggestion,
+            underlyingException: underlyingException);
 
-  StorageException(
-      {@required this.message, @required this.code, @required this.details});
+  /// Constructor for down casting an AmplifyException to this exception
+  StorageException._private(AmplifyException exception)
+      : super(exception.message,
+            recoverySuggestion: exception.recoverySuggestion,
+            underlyingException: exception.underlyingException);
+
+  /// Instantiates and returns a new `StorageException` from the
+  /// serialized exception data
+  static StorageException fromMap(Map<String, String> serializedException) {
+    return StorageException._private(AmplifyException.fromMap(serializedException));
+  }
 }
