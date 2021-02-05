@@ -16,8 +16,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
-import 'package:amplify_storage_s3/src/Exceptions/StorageExceptionType.dart';
-import './resources/platform_exception_details.dart';
 
 void main() {
   const MethodChannel storageChannel =
@@ -71,81 +69,25 @@ void main() {
   });
 
   test(
-      'Throws StorageException when method channel result does not include the items list',
+      'A PlatformException on a "list" call results in a StorageException being throw',
       () async {
-    const exceptionType =
-        StorageExceptionType.MALFORMED_PLATFORM_CHANNEL_RESULT;
+    Map<String, String> details = Map.from({
+      'message': 'Could not list files.',
+      'recoverySuggestion': 'Check permissions.',
+    });
+    PlatformException exception = PlatformException(code: 'StorageException', details: details);
     storageChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return {};
+      return throw exception;
     });
     try {
       await storage.list(request: ListRequest());
     } on StorageException catch (e) {
-      expect(e.code, exceptionType.code);
-      expect(e.message, exceptionType.message);
-      expect(e.details, {
-        'operation': 'List',
-        'malformed field': 'items cannot be null',
-      });
+      expect(e.message, details['message']);
+      expect(e.recoverySuggestion, details['recoverySuggestion']);
       return;
     }
     throw new Exception('Expected a StorageException');
   });
 
-  test(
-      'Throws StorageException when method channel result does not include the key attribute in any of the storage items',
-      () async {
-    const exceptionType =
-        StorageExceptionType.MALFORMED_PLATFORM_CHANNEL_RESULT;
-    storageChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return {
-        'items': [
-          {
-            'key': 'key1',
-            'eTag': 'etag1',
-            'lastModified': '2020-07-24 09:32:36 +0000',
-            'size': 123,
-          },
-          {
-            // missing the required 'key' attribute
-            'eTag': 'etag2',
-            'lastModified': '2020-07-30 19:43:22 +0000',
-            'size': 456,
-          },
-        ],
-      };
-    });
-    try {
-      await storage.list(request: ListRequest());
-    } on StorageException catch (e) {
-      expect(e.code, exceptionType.code);
-      expect(e.message, exceptionType.message);
-      expect(e.details, {
-        'operation': 'List',
-        'malformed field': 'item.key cannot be null',
-      });
-      return;
-    }
-    throw new Exception('Expected a StorageException');
-  });
 
-  test('A PlatformException results in a StorageException being thrown',
-      () async {
-    const exceptionType = StorageExceptionType.LIST_FAILED;
-    storageChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      throw PlatformException(
-          code: 'AMPLIFY_EXCEPTION',
-          message: exceptionType.message,
-          details: exceptionDetails);
-    });
-    try {
-      await storage.list(request: ListRequest());
-    } on StorageException catch (e) {
-      expect(e.code, exceptionType.code);
-      expect(e.message, exceptionType.message);
-      expect(e.details, exceptionDetails);
-      return;
-    }
-    throw new Exception('Expected a StorageException');
-  });
 }
