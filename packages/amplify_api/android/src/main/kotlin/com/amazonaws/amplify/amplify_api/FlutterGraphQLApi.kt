@@ -140,10 +140,10 @@ class FlutterGraphQLApi {
                 variables = FlutterApiRequest.getVariables(request)
                 id = FlutterApiRequest.getCancelToken(request)
             } catch (e: Exception) {
-                FlutterApiError.postFlutterError(
-                        flutterResult,
-                        FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString(),
-                        e)
+                handler.post {
+                    ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
+                            ExceptionUtil.createSerializedUnrecognizedError(e))
+                }
                 return
             }
             var operation = Amplify.API.subscribe(
@@ -165,14 +165,12 @@ class FlutterGraphQLApi {
                     {
                         if (!id.isNullOrEmpty()) OperationsManager.removeOperation(id)
                         if (established) {
-                            graphqlSubscriptionStreamHandler.sendError(
-                                    FlutterApiErrorMessage.AMPLIFY_API_SUBSCRIBE_FAILED.toString(),
-                                    FlutterApiError.createErrorMap(it))
+                            graphqlSubscriptionStreamHandler.sendError("ApiException", ExceptionUtil.createSerializedError(it))
                         } else {
-                            FlutterApiError.postFlutterError(
-                                    flutterResult,
-                                    FlutterApiErrorMessage.AMPLIFY_API_FAILED_TO_ESTABLISH_SUBSCRIPTION.toString(),
-                                    it)
+                            handler.post {
+                                ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
+                                        ExceptionUtil.createSerializedError(it))
+                            }
                         }
                     },
                     {

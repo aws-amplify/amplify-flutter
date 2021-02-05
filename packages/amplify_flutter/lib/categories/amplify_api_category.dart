@@ -58,7 +58,7 @@ class APICategory {
             onData: onData,
             onError: onError,
             onDone: onDone)
-        : throw (_errorMsg);
+        : throw _pluginNotAddedException("Api");
   }
 
   // ====== RestAPI ======

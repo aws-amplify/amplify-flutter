@@ -47,7 +47,7 @@ class FlutterApiResponse {
         }
     }
     
-    static func handleGraphQLErrorResponseEvent(graphQLSubscriptionsStreamHandler: GraphQLSubscriptionsStreamHandler, id: String, errorResponse: GraphQLResponseError<String>, failureMessage: String) {
+    static func handleGraphQLErrorResponseEvent(graphQLSubscriptionsStreamHandler: GraphQLSubscriptionsStreamHandler, id: String, errorResponse: GraphQLResponseError<String>) {
         switch(errorResponse) {
         case .error(let errorList):
             let payload: [String: Any?] = [
@@ -65,13 +65,12 @@ class FlutterApiResponse {
             graphQLSubscriptionsStreamHandler.sendEvent(payload: payload, id: id, type: GraphQLSubscriptionEventTypes.DATA)
         case .transformationError(let rawResponse, let error):
             print("Received a partially successful GraphQL subscription event with a transformation error: \(error)")
-            var errorMap = FlutterApiError.createErrorMap(localizedError: error.errorDescription, recoverySuggestion: error.recoverySuggestion)
-            errorMap["rawResponse"] = rawResponse
-            graphQLSubscriptionsStreamHandler.sendError(msg: failureMessage, errorMap: errorMap)
-        case .unknown(let errorDescription, let recoverySuggestion, _):
+            let details = FlutterApiErrorHandler.createSerializedError(error: error)
+            graphQLSubscriptionsStreamHandler.sendError(errorCode: "ApiException", details: details)
+        case .unknown(let errorDescription, let recoverySuggestion, let error):
             print("An unknown error occured: \(errorDescription)")
-            let errorMap = FlutterApiError.createErrorMap(localizedError: errorDescription, recoverySuggestion: recoverySuggestion)
-            graphQLSubscriptionsStreamHandler.sendError(msg: failureMessage, errorMap: errorMap)
+            let details = FlutterApiErrorHandler.createSerializedError(error: APIError.unknown(errorDescription, recoverySuggestion, error))
+            graphQLSubscriptionsStreamHandler.sendError(errorCode: "ApiException", details: details)
         }
     }
 }

@@ -31,12 +31,10 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers
 import org.mockito.Mockito.*
 import org.robolectric.RobolectricTestRunner
 import java.lang.reflect.Field
 import java.lang.reflect.Modifier
-import java.util.ArrayList
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amplifyframework.AmplifyException
 
@@ -357,7 +355,6 @@ class GraphQLApiUnitTests {
                         graphQLResponse.errors,
                         id,
                         GraphQLSubscriptionEventTypes.DATA)
-
     }
 
     @Test
@@ -370,9 +367,13 @@ class GraphQLApiUnitTests {
         )
 
         verify(mockResult).error(
-                matches("AmplifyException"),
-                matches(FlutterApiErrorMessage.AMPLIFY_REQUEST_MALFORMED.toString()),
-                any()
+                "ApiException",
+                ExceptionMessages.defaultFallbackExceptionMessage,
+                mapOf(
+                        "message" to ExceptionMessages.missingExceptionMessage,
+                        "recoverySuggestion" to ExceptionMessages.missingRecoverySuggestion,
+                        "underlyingException" to "AmplifyException{message=The graphQL document request argument was not passed as a String, cause=kotlin.TypeCastException: null cannot be cast to non-null type kotlin.String, recoverySuggestion=The request should include the graphQL document as a String}"
+                )
         )
     }
 
@@ -423,17 +424,13 @@ class GraphQLApiUnitTests {
         )
 
         verify(mockResult).error(
-                "AmplifyException",
-                FlutterApiErrorMessage.AMPLIFY_API_FAILED_TO_ESTABLISH_SUBSCRIPTION.toString(),
+                "ApiException",
+                ExceptionMessages.defaultFallbackExceptionMessage,
                 mapOf(
-                        "PLATFORM_EXCEPTIONS" to
-                                mapOf(
-                                        "platform" to "Android",
-                                        "localizedErrorMessage" to "AmplifyException",
-                                        "recoverySuggestion" to ApiException.REPORT_BUG_TO_AWS_SUGGESTION,
-                                        "errorString" to apiException.toString()))
+                        "message" to "AmplifyException",
+                        "recoverySuggestion" to AmplifyException.REPORT_BUG_TO_AWS_SUGGESTION
+                )
         )
-
     }
 
     private fun setFinalStatic(field: Field, newValue: Any?) {

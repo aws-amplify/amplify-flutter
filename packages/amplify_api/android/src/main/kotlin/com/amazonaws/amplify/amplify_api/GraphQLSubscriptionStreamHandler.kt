@@ -17,6 +17,7 @@ package com.amazonaws.amplify.amplify_api
 
 import android.os.Handler
 import android.os.Looper
+import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amplifyframework.api.graphql.GraphQLResponse
 import io.flutter.plugin.common.EventChannel
 
@@ -49,7 +50,7 @@ class GraphQLSubscriptionStreamHandler : EventChannel.StreamHandler {
         }
     }
 
-    fun sendError(msg: String, errorMap: Map<String, Any>) {
-        handler.post { eventSink?.error("AmplifyException", msg, errorMap) }
+    fun sendError(errorCode: String, details: Map<String, Any?>) {
+        handler.post { eventSink?.error(errorCode, ExceptionMessages.defaultFallbackExceptionMessage, details) }
     }
 }

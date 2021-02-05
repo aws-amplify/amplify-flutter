@@ -13,10 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
-
-const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/api');
 
 class GraphQLSubscriptionOperation<T> {
   Function _cancel;

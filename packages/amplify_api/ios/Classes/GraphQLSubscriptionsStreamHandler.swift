@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+import amplify_core
+
 public class GraphQLSubscriptionsStreamHandler: NSObject, FlutterStreamHandler {
 
     private var eventSink: FlutterEventSink?
@@ -31,11 +33,11 @@ public class GraphQLSubscriptionsStreamHandler: NSObject, FlutterStreamHandler {
         eventSink?(result)
     }
 
-    func sendError(msg: String, errorMap: [String: Any]) {
+    func sendError(errorCode: String, details: [String: Any]) {
         let flutterError = FlutterError(
-            code: "AmplifyException",
-            message: msg,
-            details: errorMap)
+            code: errorCode,
+            message: ErrorMessages.defaultFallbackErrorMessage,
+            details: details)
         eventSink?(flutterError)
     }
 

@@ -295,7 +295,7 @@ class GraphQLApiUnitTests: XCTestCase {
                 XCTFail()
             }
             
-            override func sendError(msg: String, errorMap: [String: Any]) {
+            override func sendError(errorCode: String, details: [String: Any]) {
                 XCTFail()
             }
         }
@@ -304,12 +304,12 @@ class GraphQLApiUnitTests: XCTestCase {
         FlutterGraphQLApi.subscribe(
             flutterResult: { (result) -> Void in
                 if let exception = result as? FlutterError {
-                    XCTAssertEqual("AmplifyException", exception.code)
-                    XCTAssertEqual(FlutterApiErrorMessage.ESTABLISH_SUBSCRIPTION_FAILED.rawValue, exception.message)
-                    let errorMap: [String: Any] = exception.details as! [String : Any]
-                    XCTAssertEqual(
-                        ["platform": "iOS", "localizedErrorMessage": "test error", "recoverySuggestion": "test recovery suggestion"],
-                        errorMap["PLATFORM_EXCEPTIONS"] as? [String: String])
+                    XCTAssertEqual("ApiException", exception.code)
+                    XCTAssertEqual(ErrorMessages.defaultFallbackErrorMessage, exception.message)
+                    let errorMap: [String: String] = exception.details as! [String : String]
+                    XCTAssertEqual("test error", errorMap["message"])
+                    XCTAssertEqual("test recovery suggestion", errorMap["recoverySuggestion"])
+                    print("Test Error Map: \(errorMap)")
                 } else {
                     XCTFail()
                 }
@@ -340,7 +340,7 @@ class GraphQLApiUnitTests: XCTestCase {
                 XCTFail()
             }
             
-            override func sendError(msg: String, errorMap: [String: Any]) {
+            override func sendError(errorCode: String, details: [String: Any]) {
                 XCTFail()
             }
         }
@@ -349,12 +349,12 @@ class GraphQLApiUnitTests: XCTestCase {
         FlutterGraphQLApi.subscribe(
             flutterResult: { (result) -> Void in
                 if let exception = result as? FlutterError {
-                    XCTAssertEqual("AmplifyException", exception.code)
-                    XCTAssertEqual(FlutterApiErrorMessage.MALFORMED.rawValue, exception.message)
-                    let errorMap: [String: Any] = exception.details as! [String : Any]
-                    XCTAssertEqual(
-                        ["platform": "iOS", "localizedErrorMessage": "The graphQL document request argument was not passed as a String", "recoverySuggestion": "The request should include the graphQL document as a String"],
-                        errorMap["PLATFORM_EXCEPTIONS"] as? [String: String])
+                    XCTAssertEqual("ApiException", exception.code)
+                    XCTAssertEqual(ErrorMessages.defaultFallbackErrorMessage, exception.message)
+                    let errorMap: [String: String] = exception.details as! [String : String]
+                    XCTAssertEqual("The graphQL document request argument was not passed as a String", errorMap["message"])
+                    XCTAssertEqual("The request should include the graphQL document as a String", errorMap["recoverySuggestion"])
+                    print("Test Error Map: \(errorMap)")
                 } else {
                     XCTFail()
                 }

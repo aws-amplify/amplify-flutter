@@ -163,8 +163,7 @@ class FlutterGraphQLApi {
                                         FlutterApiResponse.handleGraphQLErrorResponseEvent(
                                             graphQLSubscriptionsStreamHandler: graphQLSubscriptionsStreamHandler,
                                             id: id,
-                                            errorResponse: errorResponse,
-                                            failureMessage: FlutterApiErrorMessage.SUBSCRIBE_FAILED.rawValue
+                                            errorResponse: errorResponse
                                         )
                                     }
                                 }
@@ -182,22 +181,21 @@ class FlutterGraphQLApi {
                                         OperationsManager.removeOperation(cancelToken: id)
                                     }
                                     if(established) {
-                                        let errorMap = FlutterApiError.createErrorMap(localizedError: apiError.errorDescription, recoverySuggestion: apiError.recoverySuggestion)
-                                        graphQLSubscriptionsStreamHandler.sendError(msg: FlutterApiErrorMessage.SUBSCRIBE_FAILED.rawValue, errorMap: errorMap)
+                                        let details = FlutterApiErrorHandler.createSerializedError(error: apiError)
+                                        graphQLSubscriptionsStreamHandler.sendError(errorCode: "ApiException", details: details)
                                     } else {
-                                        FlutterApiError.handleAPIError(flutterResult: flutterResult, error: apiError, msg: FlutterApiErrorMessage.ESTABLISH_SUBSCRIPTION_FAILED.rawValue)
+                                        FlutterApiErrorHandler.handleApiError(error: apiError, flutterResult: flutterResult)
                                     }
                                 }
                             }
             OperationsManager.addOperation(cancelToken: id, operation: operation)
         } catch let error as APIError {
             print("Failed to parse subscribe arguments with \(error)")
-            FlutterApiError.handleAPIError(flutterResult: flutterResult, error: error, msg: FlutterApiErrorMessage.MALFORMED.rawValue)
+            FlutterApiErrorHandler.handleApiError(error: error, flutterResult: flutterResult)
         }
         catch {
             print("An unexpected error occured when parsing mutate arguments: \(error)")
-            let errorMap = FlutterApiError.createErrorMap(localizedError: "\(error.localizedDescription).\nAn unrecognized error has occurred", recoverySuggestion: "See logs for details")
-            FlutterApiError.postFlutterError(flutterResult: flutterResult, msg: FlutterApiErrorMessage.MALFORMED.rawValue, errorMap: errorMap)
+            FlutterApiErrorHandler.handleApiError(error: APIError(error: error), flutterResult: flutterResult)
         }
     }
 }

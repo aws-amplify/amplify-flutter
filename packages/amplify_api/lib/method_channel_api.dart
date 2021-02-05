@@ -150,7 +150,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
         onEstablished();
       }
     } on PlatformException catch (e) {
-      throw _formatError(e);
+      _deserializeException(e);
     }
   }
 
