@@ -31,4 +31,6 @@ public struct ErrorMessages {
 
     public static let missingExceptionMessage: String =
         "An unknown exception has happened. " + createGithubIssueString
+    
+    public static let missingAttribute: String = "Ensure that %@ attribute is present"
 }

@@ -15,6 +15,7 @@
 
 import Foundation
 import Amplify
+import amplify_core
 
 struct FlutterRemoveRequest {
     var key: String
@@ -24,9 +25,12 @@ struct FlutterRemoveRequest {
         self.options = setOptions(request: request)
     }
     
-    static func isValid(request: Dictionary<String, AnyObject>) -> Bool {
-        let valid: Bool = request["key"] is String
-        return valid
+    static func validate(request: Dictionary<String, AnyObject>) throws {
+        let validationErrorMessage = "Remove request malformed."
+        if !(request["key"] is String) {
+            throw InvalidRequestError.storage(comment: validationErrorMessage,
+                                              suggestion: String(format: ErrorMessages.missingAttribute, "key"))
+        }
     }
     
     private func setOptions(request: Dictionary<String, AnyObject>) -> StorageRemoveRequest.Options? {

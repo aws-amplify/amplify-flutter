@@ -14,6 +14,8 @@
  */
 
 import Foundation
+import amplify_core
+
 struct FlutterResendSignUpCodeRequest {
   var username: String
   init(dict: NSMutableDictionary){
@@ -22,7 +24,8 @@ struct FlutterResendSignUpCodeRequest {
   static func validate(dict: NSMutableDictionary) throws {
     let validationErrorMessage = "ResendSignUpCode Request malformed."
     if (dict["username"] == nil) {
-      throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "username is missing.")
+        throw InvalidRequestError.auth(comment: validationErrorMessage,
+                                          suggestion: String(format: ErrorMessages.missingAttribute, "username"))
     }
   }
 }
