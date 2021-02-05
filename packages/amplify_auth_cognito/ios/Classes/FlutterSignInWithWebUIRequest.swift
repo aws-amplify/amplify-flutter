@@ -33,6 +33,8 @@ struct FlutterSignInWithWebUIRequest {
           return AuthProvider.amazon
         case "google":
           return AuthProvider.google
+        case "apple":
+          return AuthProvider.apple
         default:
           return nil
       }
@@ -42,7 +44,7 @@ struct FlutterSignInWithWebUIRequest {
 
   static func validate(dict: NSMutableDictionary) throws {
     let validationErrorMessage = "SignInWithWebUI Request malformed."
-    let allowedProviders: Array<String> = ["login_with_amazon", "google", "facebook"]
+    let allowedProviders: Array<String> = ["login_with_amazon", "google", "facebook","apple"]
     if let provider = dict["authProvider"] {
       if(!allowedProviders.contains(provider as! String)) {
         throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "Unsupported auth provider.")
