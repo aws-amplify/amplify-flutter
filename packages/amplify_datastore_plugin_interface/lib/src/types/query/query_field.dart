@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -18,8 +18,6 @@ library query_field;
 import 'package:amplify_datastore_plugin_interface/src/types/models/model_field_type.dart';
 import 'package:flutter/foundation.dart';
 import '../temporal/datetime_parse.dart';
-
-import '../utils/parsers.dart';
 
 part 'query_field_operators.dart';
 part 'query_pagination.dart';

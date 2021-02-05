@@ -1,7 +1,9 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 
+// ignore_for_file: public_member_api_docs
 class SignInWidget extends StatefulWidget {
   final Function showResult;
   final Function changeDisplay;
@@ -11,6 +13,7 @@ class SignInWidget extends StatefulWidget {
   final Function getCurrentUser;
   final Function setError;
 
+  // ignore: public_member_api_docs
   SignInWidget(this.showResult, this.changeDisplay, this.showCreateUser,
       this.signOut, this.fetchSession, this.getCurrentUser, this.setError);
 
@@ -21,28 +24,51 @@ class SignInWidget extends StatefulWidget {
 class _SignInWidgetState extends State<SignInWidget> {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+  AuthProvider provider = AuthProvider.login_with_amazon;
 
   void _signIn() async {
     try {
-      SignInResult res = await Amplify.Auth.signIn(
+      var res = await Amplify.Auth.signIn(
           username: usernameController.text.trim(),
           password: passwordController.text.trim());
-      widget.showResult("Sign In Status = " + res.nextStep.signInStep);
+      widget.showResult('Sign In Status = ' + res.nextStep.signInStep);
       widget
-          .changeDisplay(res.isSignedIn ? "SIGNED_IN" : "SHOW_CONFIRM_SIGN_IN");
-    } on AuthError catch (e) {
+          .changeDisplay(res.isSignedIn ? 'SIGNED_IN' : 'SHOW_CONFIRM_SIGN_IN');
+    } on AmplifyException catch (e) {
+      widget.setError(e);
+    }
+  }
+
+  void _signInWithWebUI() async {
+    try {
+      var res = await Amplify.Auth.signInWithWebUI();
+      widget.showResult('Social Sign In Success = ' + res.toString());
+      widget.changeDisplay(res.isSignedIn ? 'SIGNED_IN' : 'SHOW_SIGN_IN');
+      print(res);
+    } on AmplifyException catch (e) {
+      widget.setError(e);
+    }
+  }
+
+  void _signInWithSocialWebUI() async {
+    try {
+      var res = await Amplify.Auth.signInWithWebUI(provider: provider);
+      widget.showResult('Social Sign In Success = ' + res.toString());
+      widget.changeDisplay(res.isSignedIn ? 'SIGNED_IN' : 'SHOW_SIGN_IN');
+      print(res);
+    } on AmplifyException catch (e) {
       widget.setError(e);
     }
   }
 
   void _resetPassword() async {
     try {
-      ResetPasswordResult res = await Amplify.Auth.resetPassword(
+      var res = await Amplify.Auth.resetPassword(
         username: usernameController.text.trim(),
       );
-      widget.showResult("Reset Password Status = " + res.nextStep.updateStep);
-      widget.changeDisplay("SHOW_CONFIRM_RESET");
-    } on AuthError catch (e) {
+      widget.showResult('Reset Password Status = ' + res.nextStep.updateStep);
+      widget.changeDisplay('SHOW_CONFIRM_RESET');
+    } on AmplifyException catch (e) {
       widget.setError(e);
       print(e);
     }
@@ -90,6 +116,11 @@ class _SignInWidgetState extends State<SignInWidget> {
                     child: const Text('Sign In'),
                   ),
                   ElevatedButton(
+                    key: Key('signin-webui-button'),
+                    onPressed: _signInWithWebUI,
+                    child: const Text('Hosted UI Sign In'),
+                  ),
+                  ElevatedButton(
                     key: Key('goto-signup-button'),
                     onPressed: widget.showCreateUser,
                     child: const Text('Create User'),
@@ -116,6 +147,41 @@ class _SignInWidgetState extends State<SignInWidget> {
                   ),
                 ],
               ),
+             ListView(
+                shrinkWrap: true,
+                padding: const EdgeInsets.all(5.0),
+                children: [
+                  ElevatedButton(
+                    key: Key('signin-webui-button'),
+                    onPressed: _signInWithSocialWebUI,
+                    child: const Text('Sign In With Social Provider'),
+                  ),
+                  DropdownButton<AuthProvider>(
+                      value: provider,
+
+                      icon: Icon(Icons.arrow_downward),
+                      iconSize: 24,
+                      elevation: 16,
+                      style: TextStyle(color: Colors.deepPurple),
+                      underline: Container(
+                        height: 2,
+                        color: Colors.deepPurpleAccent,
+                      ),
+                      onChanged: (AuthProvider newValue) {
+                        setState(() {
+                          provider = newValue;
+                        });
+                      },
+                      items: <AuthProvider>[AuthProvider.google, AuthProvider.facebook, AuthProvider.login_with_amazon]
+                          .map<DropdownMenuItem<AuthProvider>>((AuthProvider value) {
+                        return DropdownMenuItem<AuthProvider>(
+                          value: value,
+                          child: Text(value.toString()),
+                        );
+                      }).toList(),
+                    ),
+                ]
+              )
             ],
           ),
         ),

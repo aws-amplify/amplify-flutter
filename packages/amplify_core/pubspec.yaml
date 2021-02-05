@@ -1,6 +1,6 @@
 name: amplify_core
 description: The base package shared across Amplify Flutter library.
-version: 0.0.1-dev.6
+version: 0.0.2-dev.1
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify_core
 
 environment:
@@ -16,3 +16,13 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+# The following section is specific to Flutter.
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.amazonaws.amplify.amplify_core
+        pluginClass: AmplifyCorePlugin
+      ios:
+        pluginClass: AmplifyCorePlugin

@@ -25,5 +25,4 @@ export 'RestAPI/RestResponse.dart';
 
 export 'UUID.dart';
 
-export './errors/api_error.dart';
-export './errors/api_error_types.dart';
+export './exceptions/ApiException.dart';

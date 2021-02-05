@@ -61,7 +61,12 @@ class _MyAppState extends State<MyApp> {
     Amplify.addPlugins([auth, storage, analytics]);
 
     // Initialize AmplifyFlutter
-    await Amplify.configure(amplifyconfig);
+    try {
+      await Amplify.configure(amplifyconfig);
+    } on AmplifyAlreadyConfiguredException {
+      print(
+          "Amplify was already configured. Looks like app restarted on android.");
+    }
 
     setState(() {
       _isAmplifyConfigured = true;

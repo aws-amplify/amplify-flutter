@@ -13,6 +13,7 @@ Podfile.lock
 **/coverage/
 **/test-results/
 .test_coverage.dart
+.last_build_id
 
 # IDEs
 .idea/

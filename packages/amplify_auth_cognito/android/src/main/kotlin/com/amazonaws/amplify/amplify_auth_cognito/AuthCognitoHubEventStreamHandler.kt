@@ -26,7 +26,6 @@ import com.amplifyframework.hub.SubscriptionToken
 import io.flutter.plugin.common.EventChannel
 import java.util.concurrent.CountDownLatch
 
-
 class AuthCognitoHubEventStreamHandler : EventChannel.StreamHandler {
     private var eventSink: EventChannel.EventSink? = null
     private val handler = Handler(Looper.getMainLooper())

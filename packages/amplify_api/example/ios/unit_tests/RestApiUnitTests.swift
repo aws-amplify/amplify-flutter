@@ -17,6 +17,7 @@ import XCTest
 import Amplify
 import AmplifyPlugins
 import AWSCore
+import amplify_core
 
 @testable import amplify_api
 
@@ -165,16 +166,14 @@ class RestApiUnitTests: XCTestCase {
                 
                 let apiException = results as! FlutterError
                 
-                XCTAssertEqual(apiException.code, "AmplifyException")
-                XCTAssertEqual(apiException.message, "AMPLIFY_API_GET_FAILED")
-
-                let errorMap = (apiException.details as! [String: [String: String]])
+                XCTAssertEqual(apiException.code, "ApiException")
+                XCTAssertEqual(apiException.message, ErrorMessages.defaultFallbackErrorMessage)
                 
+                let errorMap: [String: String] = apiException.details as! [String : String]
                 let referenceError = APIError.httpStatusError(400, HTTPURLResponse())
-                
-                XCTAssertEqual(errorMap["PLATFORM_EXCEPTIONS"]!["platform"], "iOS")
-                XCTAssertEqual(errorMap["PLATFORM_EXCEPTIONS"]!["localizedErrorMessage"], referenceError.errorDescription)
-                XCTAssertEqual(errorMap["PLATFORM_EXCEPTIONS"]!["recoverySuggestion"], referenceError.recoverySuggestion)
+
+                XCTAssertEqual(referenceError.errorDescription, errorMap["message"])
+                XCTAssertEqual(referenceError.recoverySuggestion, errorMap["recoverySuggestion"])
             }
         )
     }
@@ -195,18 +194,15 @@ class RestApiUnitTests: XCTestCase {
             method: "get",
             callArgs: [],
             result: { (results) in
-                let errorResult = results as! FlutterError
+                let apiException = results as! FlutterError
                 
-                XCTAssertEqual(errorResult.code, "AmplifyException")
-                XCTAssertEqual(errorResult.message,"AMPLIFY_REQUEST_MALFORMED")
+                XCTAssertEqual(apiException.code, "ApiException")
+                XCTAssertEqual(apiException.message, ErrorMessages.defaultFallbackErrorMessage)
                 
+                let errorMap = (apiException.details as! [String: String])
                 
-                let errorMap = (errorResult.details as! [String: [String: String]])
-                
-                XCTAssertEqual(errorMap["PLATFORM_EXCEPTIONS"]!["platform"], "iOS");
-                XCTAssertEqual(errorMap["PLATFORM_EXCEPTIONS"]!["localizedErrorMessage"], "The FlutterMethodCall argument was not passed as a dictionary");
-                XCTAssertEqual(errorMap["PLATFORM_EXCEPTIONS"]!["recoverySuggestion"], "The request should include the FlutterMethodCall argument as a [String: Any] dictionary");
-
+                XCTAssertEqual("The FlutterMethodCall argument was not passed as a dictionary", errorMap["message"])
+                XCTAssertEqual("The request should include the FlutterMethodCall argument as a [String: Any] dictionary", errorMap["recoverySuggestion"])
             }
         )
     }

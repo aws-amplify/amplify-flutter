@@ -14,6 +14,7 @@
  */
 
 import Foundation
+
 struct FlutterConfirmPasswordRequest {
   var username: String
   var newPassword: String
@@ -26,17 +27,16 @@ struct FlutterConfirmPasswordRequest {
     self.confirmationCode = dict["confirmationCode"] as! String
     self.options = dict["options"] as! Dictionary<String, Any>?
   }
-  static func validate(dict: NSMutableDictionary) -> Bool {
-    var valid: Bool = true;
+  static func validate(dict: NSMutableDictionary) throws {
+    let validationErrorMessage = "ConfirmPassword Request malformed."
     if (dict["username"] == nil) {
-      valid = false;
+      throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "username is missing.")
     }
     if (dict["newPassword"] == nil) {
-      valid = false;
+      throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "newPassword is missing.")
     }
     if (dict["confirmationCode"] == nil) {
-      valid = false;
+      throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "confirmationCode is missing.")
     }
-    return valid;
   }
 }

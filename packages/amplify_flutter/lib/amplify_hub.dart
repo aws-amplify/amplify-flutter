@@ -16,19 +16,16 @@
 import 'dart:async';
 
 import 'package:amplify_core/types/index.dart';
-import 'package:flutter/foundation.dart';
-import 'package:amplify_core/types/hub/HubEvent.dart';
 import 'amplify.dart';
 
 typedef void Listener(dynamic event);
 
 class AmplifyHub {
-
   final Map<HubChannel, Stream> availableStreams = {};
 
   /// Expose listen method which instantiates new StreamController listening to one or more availableStreams
-  StreamSubscription listen(List<HubChannel> channels, @required Listener listener) {
-
+  StreamSubscription listen(
+      List<HubChannel> channels, Listener listener) {
     List<StreamSubscription> platformSubscriptions = [];
     StreamController controller;
 
@@ -39,29 +36,28 @@ class AmplifyHub {
     }
 
     controller = StreamController.broadcast(
-      onListen: () {
-        channels.forEach((c) {
-          if (availableStreams[c] != null) {
-            StreamSubscription subscription = availableStreams[c].listen((msg) {
-              /// Emit events via Hub
-              controller.add(msg);
-            });
-            platformSubscriptions.add(subscription);
-          } else {
-            print('You are attempting to listen to a plugin that has not been added.');
-          }
-      });
-    },
-      onCancel: cancelPluginStreams
-    );
+        onListen: () {
+          channels.forEach((c) {
+            if (availableStreams[c] != null) {
+              StreamSubscription subscription =
+                  availableStreams[c].listen((msg) {
+                /// Emit events via Hub
+                controller.add(msg);
+              });
+              platformSubscriptions.add(subscription);
+            } else {
+              print(
+                  'You are attempting to listen to a plugin that has not been added.');
+            }
+          });
+        },
+        onCancel: cancelPluginStreams);
 
     return controller.stream.listen(listener);
   }
 
   /// Adds Plugin level streams in preparation for 'listen'
-  void addChannel(HubChannel name, StreamController controller) async  {
-    if (!Amplify.isConfigured) {
-      availableStreams[name] = controller.stream;
-    }
+  void addChannel(HubChannel name, StreamController controller) async {
+    availableStreams[name] = controller.stream;
   }
 }

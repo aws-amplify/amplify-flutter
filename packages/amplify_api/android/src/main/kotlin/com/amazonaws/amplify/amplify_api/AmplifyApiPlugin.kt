@@ -16,6 +16,8 @@
 package com.amazonaws.amplify.amplify_api
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import androidx.annotation.NonNull
 import androidx.annotation.VisibleForTesting
 import com.amazonaws.amplify.amplify_api.rest_api.FlutterRestApi
@@ -27,7 +29,8 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import java.lang.ClassCastException
+import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedUnrecognizedError
+import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
 
 /** AmplifyApiPlugin */
 class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
@@ -46,6 +49,7 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
     constructor(eventHandler: GraphQLSubscriptionStreamHandler) {
         graphqlSubscriptionStreamHandler = eventHandler
     }
+    private val handler = Handler(Looper.getMainLooper())
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "com.amazonaws.amplify/api")
@@ -53,7 +57,12 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
         eventchannel = EventChannel(flutterPluginBinding.binaryMessenger, "com.amazonaws.amplify/api_observe_events")
         eventchannel.setStreamHandler(graphqlSubscriptionStreamHandler)
         context = flutterPluginBinding.applicationContext
-        Amplify.addPlugin(AWSApiPlugin())
+        try {
+            Amplify.addPlugin(AWSApiPlugin())
+        } catch (e: Exception) {
+            LOG.error("Failed to add API plugin. Is Amplify already configured and app restarted?")
+            LOG.error("Exception: $e")
+        }
         LOG.info("Initiated API plugin")
     }
 
@@ -80,12 +89,11 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
                 "subscribe" -> FlutterGraphQLApi.subscribe(result, arguments, graphqlSubscriptionStreamHandler)
                 else -> result.notImplemented()
             }
-        } catch (e: ClassCastException) {
-            FlutterApiError.postFlutterError(
-                    result,
-                    FlutterApiErrorMessage.ERROR_CASTING_INPUT_IN_PLATFORM_CODE.toString(),
-                    e
-            )
+        } catch (e: Exception) {
+            handler.post {
+                postExceptionToFlutterChannel(result, "ApiException",
+                        createSerializedUnrecognizedError(e))
+            }
         }
     }
 

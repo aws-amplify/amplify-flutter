@@ -24,14 +24,13 @@ struct FlutterUpdatePasswordRequest {
     self.newPassword = dict["newPassword"] as! String
     self.options = dict["options"] as! Dictionary<String, Any>?
   }
-  static func validate(dict: NSMutableDictionary) -> Bool {
-    var valid: Bool = true;
+  static func validate(dict: NSMutableDictionary) throws {
+    let validationErrorMessage = "UpdatePassword Request malformed."
     if (dict["newPassword"] == nil && dict["options"] == nil) {
-      valid = false;
+      throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "newPassword is missing")
     }
     if (dict["oldPassword"] == nil && dict["options"] == nil) {
-      valid = false;
+      throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "oldPassword is missing")
     }
-    return valid;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -37,12 +37,14 @@ export 'src/types/models/uuid.dart';
 export 'src/types/models/model_provider.dart';
 export 'src/types/models/auth_rule.dart';
 
-//export 'src/types/temporal/date.dart';
-//export 'src/types/temporal/time.dart';
+export 'src/types/temporal/temporal_date.dart';
+export 'src/types/temporal/temporal_time.dart';
+export 'src/types/temporal/temporal_datetime.dart';
+export 'src/types/temporal/temporal_timestamp.dart';
+
 export 'src/types/temporal/datetime_parse.dart';
 export 'src/types/utils/parsers.dart';
-export 'src/Errors/datastore_error.dart';
-export 'src/Errors/datastore_error_types.dart';
+export 'src/types/exception/DataStoreException.dart';
 export 'src/types/models/subscription_event.dart';
 
 abstract class DataStorePluginInterface extends AmplifyPluginInterface {
@@ -60,7 +62,8 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   }
 
   StreamController get streamController {
-     throw UnimplementedError('streamController getter has not been implemented.');
+    throw UnimplementedError(
+        'streamController getter has not been implemented.');
   }
 
   Future<void> configure({String configuration}) {

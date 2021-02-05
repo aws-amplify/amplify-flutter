@@ -16,6 +16,7 @@
 import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:amplify_core/types/index.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
@@ -130,7 +131,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
 
       return response;
     } on PlatformException catch (e) {
-      throw _formatError(e);
+      _deserializeException(e);
     }
   }
 
@@ -180,15 +181,20 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
           .invokeMapMethod<String, dynamic>(methodName, inputsMap);
       return _formatRestResponse(data);
     } on PlatformException catch (e) {
-      throw (_formatError(e));
+      _deserializeException(e);
     }
   }
 
   RestResponse _formatRestResponse(Map<String, dynamic> res) {
-    if (res.containsKey("data")) {
+    try {
       return RestResponse(data: res["data"] as Uint8List);
-    } else {
-      throw new Exception("Malformed RestResponse");
+    }
+    // This shouldn't happen.  RestResponse should be properly formatted from native
+    on Exception catch (e) {
+      throw ApiException(AmplifyExceptionMessages.missingExceptionMessage,
+          recoverySuggestion:
+              AmplifyExceptionMessages.missingRecoverySuggestion,
+          underlyingException: e.toString());
     }
   }
 
@@ -235,8 +241,17 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
 
   // ====== GENERAL METHODS ======
 
-  ApiError _formatError(PlatformException e) {
-    return ApiError(code: e.code, message: e.message, details: e.details);
+  ApiException _deserializeException(PlatformException e) {
+    if (e.code == 'ApiException') {
+      throw ApiException.fromMap(Map<String, String>.from(e.details));
+    } else {
+      // This shouldn't happen. All exceptions coming from platform for
+      // amplify_api should have a known code. Throw an unknown error.
+      throw ApiException(AmplifyExceptionMessages.missingExceptionMessage,
+          recoverySuggestion:
+              AmplifyExceptionMessages.missingRecoverySuggestion,
+          underlyingException: e.toString());
+    }
   }
 
   //TODO: Deserialize all fields of the GraphQLResponseError as per spec

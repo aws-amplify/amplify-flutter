@@ -15,6 +15,7 @@
 
 import 'dart:collection';
 
+import 'package:amplify_core/types/index.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:flutter/services.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
@@ -31,13 +32,14 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   Future<void> configureModelProvider(
       {ModelProviderInterface modelProvider}) async {
     try {
-      return _channel.invokeMethod('configureModelProvider', <String, dynamic>{
+      return await _channel
+          .invokeMethod('configureModelProvider', <String, dynamic>{
         'modelSchemas':
             modelProvider.modelSchemas.map((schema) => schema.toMap()).toList(),
         'modelProviderVersion': modelProvider.version
       });
     } on PlatformException catch (e) {
-      throw _formatError(e);
+      throw _deserializeException(e);
     }
   }
 
@@ -70,12 +72,14 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
                   serializedResult["serializedData"])))
           .toList();
     } on PlatformException catch (e) {
-      throw _formatError(e);
-    } on TypeError {
-      throw DataStoreError.init(
-          cause: "ERROR_FORMATTING_PLATFORM_CHANNEL_RESPONSE",
-          errorMap: new LinkedHashMap.from(
-              {"errorMessage": "Failed to deserialize query API results"}));
+      throw _deserializeException(e);
+    } on TypeError catch (e) {
+      throw DataStoreException(
+          "An unrecognized exception has happened while Serialization/de-serialization." +
+              " Please see underlyingException for more details.",
+          recoverySuggestion:
+              AmplifyExceptionMessages.missingRecoverySuggestion,
+          underlyingException: e.toString());
     }
   }
 
@@ -87,7 +91,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         'serializedModel': model.toJson(),
       });
     } on PlatformException catch (e) {
-      throw _formatError(e);
+      throw _deserializeException(e);
     }
   }
 
@@ -100,7 +104,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
       };
       await _channel.invokeMethod('save', methodChannelSaveInput);
     } on PlatformException catch (e) {
-      throw _formatError(e);
+      throw _deserializeException(e);
     }
   }
 
@@ -134,7 +138,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
     try {
       await _channel.invokeMethod('clear');
     } on PlatformException catch (e) {
-      throw _formatError(e);
+      throw _deserializeException(e);
     }
   }
 
@@ -144,9 +148,19 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
     return serializedItem["modelName"] as String;
   }
 
-  DataStoreError _formatError(PlatformException e) {
-    LinkedHashMap eMap = new LinkedHashMap<String, dynamic>();
-    e.details.forEach((k, v) => {eMap.putIfAbsent(k, () => v)});
-    return DataStoreError.init(cause: e.message, errorMap: eMap);
+  DataStoreException _deserializeException(PlatformException e) {
+    if (e.code == 'DataStoreException') {
+      throw DataStoreException.fromMap(Map<String, String>.from(e.details));
+    } else if (e.code == 'AmplifyAlreadyConfiguredException') {
+      throw AmplifyAlreadyConfiguredException.fromMap(
+          Map<String, String>.from(e.details));
+    } else {
+      // This shouldn't happen. All exceptions coming from platform for
+      // amplify_datastore should have a known code. Throw an unknown error.
+      throw DataStoreException(AmplifyExceptionMessages.missingExceptionMessage,
+          recoverySuggestion:
+              AmplifyExceptionMessages.missingRecoverySuggestion,
+          underlyingException: e.toString());
+    }
   }
 }
