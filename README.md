@@ -6,15 +6,13 @@
 
 AWS Amplify provides a declarative and easy-to-use interface across different categories of cloud operations. Our default implementation works with Amazon Web Services (AWS), but AWS Amplify is designed to be open and pluggable for any custom backend or service. See [AWS Amplify](https://docs.amplify.aws) for further details about the Amplify Framework.
 
-⚠️ **Amplify for Flutter is in developer preview and not yet recommended for production.**
-
 We are iterating and looking for feedback and collaboration, so please [**let us know your feedback**](https://github.com/aws-amplify/amplify-flutter/issues/5) on our direction and roadmap.
 
  - [Getting Started Guide](https://docs.amplify.aws/start/getting-started/setup/q/integration/flutter)
  - [Example Application](https://github.com/aws-amplify/amplify-flutter/tree/master/example)
  - [Roadmap/Provide Feedback](https://github.com/aws-amplify/amplify-flutter/issues/5)
  
- ⚠️ **For upcoming breaking changes in 0.0.2-dev.1 please refer this [issue](https://github.com/aws-amplify/amplify-flutter/issues/274) for migration details.**
+ ⚠️ **For upcoming breaking changes please refer to this [issue](https://github.com/aws-amplify/amplify-flutter/issues/274) for migration details.**
 
 ## Supported Amplify Categories
 
@@ -58,9 +56,6 @@ We are iterating and looking for feedback and collaboration, so please [**let us
 
 - [ ] Predictions
 - [ ] Storage Hub Events (Listening to the Amplify Storage events)
-- [ ] iOS Error Events in Amplify Analytics
-
-> Amplify for Flutter is in preview, and is not recommended for production use at this time. During this phase, we are iterating on the code base, and looking for your feedback and collaboration. [**WE'D LOVE TO GET YOUR FEEDBACK! :-).**](https://github.com/aws-amplify/amplify-flutter/issues/5).
 
 Amplify for Flutter currently supports **iOS** and **Android** platforms.
 
@@ -102,7 +97,6 @@ Note: It is recommended to run this command from the root of your app directory
 ? Choose your default editor: Visual Studio Code
 ? Choose the type of app that you\'re building flutter
 Please tell us about your project
-⚠️  Flutter project support in the Amplify CLI is in DEVELOPER PREVIEW status.
 Only the following resource types are supported:
  * Auth
  * Analytics
@@ -180,24 +174,25 @@ class _MyAppState extends State<MyApp> {
     Amplify.addPlugin(AmplifyAnalyticsPinpoint());
 
     // Once Plugins are added, configure Amplify
-    await Amplify.configure(amplifyconfig);
     try {
+      await Amplify.configure(amplifyconfig);
       setState(() {
         _amplifyConfigured = true;
       });
-    } catch (e) {
-      print(e);
+    } on AmplifyAlreadyConfiguredException {
+      print(
+          "Amplify was already configured. Looks like app restarted on android.");
     }
 
   }
 
   // Send an event to Pinpoint
   void _recordEvent() async {
-    AnalyticsEvent event = AnalyticsEvent("test");
-    event.properties.addBoolProperty("boolKey", true);
-    event.properties.addDoubleProperty("doubleKey", 10.0);
-    event.properties.addIntProperty("intKey", 10);
-    event.properties.addStringProperty("stringKey", "stringValue");
+    AnalyticsEvent event = AnalyticsEvent('test');
+    event.properties.addBoolProperty('boolKey', true);
+    event.properties.addDoubleProperty('doubleKey', 10.0);
+    event.properties.addIntProperty('intKey', 10);
+    event.properties.addStringProperty('stringKey', 'stringValue');
     Amplify.Analytics.recordEvent(event: event);
   }
 
