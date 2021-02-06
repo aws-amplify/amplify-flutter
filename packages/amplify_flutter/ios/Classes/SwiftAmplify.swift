@@ -42,13 +42,6 @@ public class SwiftAmplify: NSObject, FlutterPlugin {
 
     private func onConfigure(result: FlutterResult, version: String, configuration: String) {
         do {
-            if let data = configuration.data(using: .utf8) {
-                let configurationDictionary = try JSONSerialization.jsonObject(with: data) as? [String: Any]
-                if(configurationDictionary?["api"] != nil) {
-                    // api configuration exists. Let's add the plugin
-                    try Amplify.add(plugin: AWSAPIPlugin())
-                }
-            }
             let amplifyConfiguration = try JSONDecoder().decode(AmplifyConfiguration.self, from: configuration.data(using: .utf8)!)
             AmplifyAWSServiceConfiguration.addUserAgentPlatform(.flutter, version: version)
             try Amplify.configure(amplifyConfiguration)
