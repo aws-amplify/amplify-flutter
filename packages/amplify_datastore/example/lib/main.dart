@@ -15,12 +15,14 @@
 
 library sample_app;
 
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:amplify_datastore/amplify_datastore.dart';
+
+// Uncomment the below line to enable online sync
+//import 'package:amplify_api/amplify_api.dart';
+
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/rendering.dart';
@@ -93,6 +95,10 @@ class _MyAppState extends State<MyApp> {
     try {
       datastorePlugin = AmplifyDataStore(modelProvider: ModelProvider.instance);
       await Amplify.addPlugin(datastorePlugin);
+
+      // Uncomment the below line to enable online sync
+      // await Amplify.addPlugin(AmplifyAPI());
+
       // Configure
       await Amplify.configure(amplifyconfig);
     } on AmplifyAlreadyConfiguredException {

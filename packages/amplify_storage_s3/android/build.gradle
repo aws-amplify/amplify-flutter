@@ -25,6 +25,8 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply from: './coverage.gradle'
 
+def amplifyCore = findProject(':amplify_core')
+
 android {
     compileSdkVersion 28
 
@@ -45,6 +47,7 @@ android {
 }
 
 dependencies {
+    api amplifyCore
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.amplifyframework:aws-storage-s3:1.6.10'
 }

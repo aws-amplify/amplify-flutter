@@ -18,11 +18,14 @@ package com.amazonaws.amplify.amplify_storage_s3
 import androidx.annotation.NonNull
 import android.os.Handler
 import android.os.Looper
+import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
+import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
 import com.amplifyframework.core.Amplify
 import io.flutter.plugin.common.MethodChannel
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import com.amazonaws.amplify.amplify_storage_s3.types.*
+import com.amplifyframework.storage.StorageException
 import com.amplifyframework.storage.result.*
 
 class AmplifyStorageOperations {
@@ -33,116 +36,100 @@ class AmplifyStorageOperations {
 
         fun uploadFile(@NonNull flutterResult: MethodChannel.Result, @NonNull request: Map<String, *>) {
             var responseSent = false
-            if (FlutterUploadFileRequest.isValid(request)) {
+            try {
+                FlutterUploadFileRequest.validate(request)
                 val req = FlutterUploadFileRequest(request)
-                try {
-                    Amplify.Storage.uploadFile(
-                            req.key,
-                            req.file,
-                            req.options,
-                            { result ->
-                                prepareUploadFileResponse(flutterResult, result)
-                            },
-                            { error ->
-                                if (!responseSent) {
-                                    responseSent = true
-                                    prepareError(flutterResult, FlutterStorageErrorMessage.UPLOAD_FILE_OPERATION_FAILED.name, error.localizedMessage, error.recoverySuggestion)
-                                } else {
-                                    LOG.error(FlutterStorageErrorMessage.UPLOAD_FILE_OPERATION_FAILED.name, error)
-                                }
-                            })
-                } catch (e: Exception) {
-                    prepareError(flutterResult, FlutterStorageErrorMessage.UPLOAD_FILE_OPERATION_FAILED.name, e.localizedMessage, "")
-                }
-            } else {
-                prepareError(flutterResult, FlutterStorageErrorMessage.UPLOAD_FILE_REQUEST_MALFORMED.name, "The request received was malformed", "Please ensure the request matches the method signature")
+                Amplify.Storage.uploadFile(
+                        req.key,
+                        req.file,
+                        req.options,
+                        { result ->
+                            prepareUploadFileResponse(flutterResult, result)
+                        },
+                        { error ->
+                            if (!responseSent) {
+                                responseSent = true
+                                prepareError(flutterResult, error)
+                            } else {
+                                LOG.error("StorageException", error)
+                            }
+                        })
+            } catch(e: Exception) {
+                prepareError(flutterResult, e)
             }
         }
 
         fun getUrl(@NonNull flutterResult: MethodChannel.Result, @NonNull request: Map<String, *>) {
-            if (FlutterGetUrlRequest.isValid(request)) {
+            try {
+                FlutterGetUrlRequest.validate(request)
                 val req = FlutterGetUrlRequest(request)
-                try {
-                    Amplify.Storage.getUrl(req.key,
-                            req.options,
-                            { result ->
-                                prepareGetUrlResponse(flutterResult, result)
-                            },
-                            { error ->
-                                prepareError(flutterResult, FlutterStorageErrorMessage.GET_URL_OPERATION_FAILED.name, error.localizedMessage, error.recoverySuggestion)
-                            }
-                    )
-                } catch (e: Exception) {
-                    prepareError(flutterResult, FlutterStorageErrorMessage.GET_URL_OPERATION_FAILED.name, e.localizedMessage, "")
-                }
-            } else {
-                prepareError(flutterResult, FlutterStorageErrorMessage.GET_URL_REQUEST_MALFORMED.name, "The request received was malformed", "Please ensure the request matches the method signature")
+                Amplify.Storage.getUrl(req.key,
+                        req.options,
+                        { result ->
+                            prepareGetUrlResponse(flutterResult, result)
+                        },
+                        { error ->
+                            prepareError(flutterResult, error)
+                        }
+                )
+            } catch(e: Exception) {
+                prepareError(flutterResult, e)
             }
         }
 
         fun remove(@NonNull flutterResult: MethodChannel.Result, @NonNull request: Map<String, *>) {
-            if (FlutterRemoveRequest.isValid(request)) {
+            try {
+                FlutterRemoveRequest.validate(request)
                 val req = FlutterRemoveRequest(request)
-                try {
-                    Amplify.Storage.remove(req.key,
-                            req.options,
-                            { result ->
-                                prepareRemoveResponse(flutterResult, result)
-                            },
-                            { error ->
-                                prepareError(flutterResult, FlutterStorageErrorMessage.REMOVE_OPERATION_FAILED.name, error.localizedMessage, error.recoverySuggestion)
-                            }
-                    )
-                } catch (e: Exception) {
-                    prepareError(flutterResult, FlutterStorageErrorMessage.REMOVE_OPERATION_FAILED.name, e.localizedMessage, "")
-                }
-            } else {
-                prepareError(flutterResult, FlutterStorageErrorMessage.REMOVE_REQUEST_MALFORMED.name, "The request received was malformed", "Please ensure the request matches the method signature")
+                Amplify.Storage.remove(req.key,
+                        req.options,
+                        { result ->
+                            prepareRemoveResponse(flutterResult, result)
+                        },
+                        { error ->
+                            prepareError(flutterResult, error)
+                        }
+                )
+            } catch(e: Exception) {
+                prepareError(flutterResult, e)
             }
         }
 
         fun list(@NonNull flutterResult: MethodChannel.Result, @NonNull request: Map<String, *>) {
-            if (FlutterListRequest.isValid(request)) {
+            try {
+                FlutterListRequest.validate(request)
                 val req = FlutterListRequest(request)
-                try {
-                    Amplify.Storage.list(req.path,
-                            req.options,
-                            { result ->
-                                prepareListResponse(flutterResult, result)
-                            },
-                            { error ->
-                                prepareError(flutterResult, FlutterStorageErrorMessage.LIST_OPERATION_FAILED.name, error.localizedMessage, error.recoverySuggestion)
-                            }
-                    )
-                } catch (e: Exception) {
-                    prepareError(flutterResult, FlutterStorageErrorMessage.LIST_OPERATION_FAILED.name, e.localizedMessage, "")
-                }
-            } else {
-                prepareError(flutterResult, FlutterStorageErrorMessage.LIST_REQUEST_MALFORMED.name, "The request received was malformed", "Please ensure the request matches the method signature")
+                Amplify.Storage.list(req.path,
+                        req.options,
+                        { result ->
+                            prepareListResponse(flutterResult, result)
+                        },
+                        { error ->
+                            prepareError(flutterResult, error)
+                        }
+                )
+            } catch(e: Exception) {
+                prepareError(flutterResult, e)
             }
         }
 
         fun downloadFile(@NonNull flutterResult: MethodChannel.Result, @NonNull request: Map<String, *>) {
-            if (FlutterDownloadFileRequest.isValid(request)) {
+            try {
+                FlutterDownloadFileRequest.validate(request)
                 val req = FlutterDownloadFileRequest(request)
-                try {
-                    Amplify.Storage.downloadFile(req.key,
-                            req.file,
-                            req.options,
-                            { result ->
-                                prepareDownloadFileResponse(flutterResult, result)
-                            },
-                            { error ->
-                                prepareError(flutterResult, FlutterStorageErrorMessage.DOWNLOAD_FILE_OPERATION_FAILED.name, error.localizedMessage, error.recoverySuggestion)
-                            }
-                    )
-                } catch (e: Exception) {
-                    prepareError(flutterResult, FlutterStorageErrorMessage.DOWNLOAD_FILE_OPERATION_FAILED.name, e.localizedMessage, "")
-                }
-            } else {
-                prepareError(flutterResult, FlutterStorageErrorMessage.DOWNLOAD_FILE_REQUEST_MALFORMED.name, "The request received was malformed", "Please ensure the request matches the method signature")
+                Amplify.Storage.downloadFile(req.key,
+                        req.file,
+                        req.options,
+                        { result ->
+                            prepareDownloadFileResponse(flutterResult, result)
+                        },
+                        { error ->
+                            prepareError(flutterResult, error)
+                        }
+                )
+            } catch(e: Exception) {
+                prepareError(flutterResult, e)
             }
-
         }
 
         private fun prepareUploadFileResponse(@NonNull flutterResult: MethodChannel.Result, result: StorageUploadFileResult) {
@@ -197,15 +184,21 @@ class AmplifyStorageOperations {
             }
         }
 
-        private fun prepareError(@NonNull flutterResult: MethodChannel.Result, @NonNull msg: String, localizedError: String?, recoverySuggestion: String?) {
-            var errorDetails = HashMap<String, Any>();
-            errorDetails.put("PLATFORM_EXCEPTIONS", mapOf(
-                    "platform" to "Android",
-                    "localizedErrorMessage" to localizedError,
-                    "recoverySuggestion" to recoverySuggestion
-            ))
+        private fun prepareError(@NonNull flutterResult: MethodChannel.Result, @NonNull e: Exception) {
+            val errorCode = "StorageException"
+            LOG.error(errorCode, e)
+            val serializedError: Map<String, Any?> = if (e is StorageException) {
+                ExceptionUtil.createSerializedError(e)
+            }  else {
+                ExceptionUtil.createSerializedError(
+                        ExceptionMessages.missingExceptionMessage,
+                        ExceptionMessages.missingRecoverySuggestion,
+                        e.toString())
+            }
             Handler(Looper.getMainLooper()).post {
-                flutterResult.error("AmplifyException", msg, errorDetails)
+                ExceptionUtil.postExceptionToFlutterChannel(flutterResult,
+                        errorCode,
+                        serializedError)
             }
         }
     }
