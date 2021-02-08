@@ -16,7 +16,7 @@
 import 'package:flutter/foundation.dart';
 
 class SignUpOptions {
-  final Map<String, dynamic> userAttributes;
+  final Map<String, String> userAttributes;
   const SignUpOptions({@required this.userAttributes});
 
   Map<String, dynamic> serializeAsMap() {
