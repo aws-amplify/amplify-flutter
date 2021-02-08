@@ -111,7 +111,7 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
                   case .some(.string(let deserializedValue)) = values[key] {
             return FlutterTemporal(iso8601String: deserializedValue)
         }
-        else if case  .timestamp = field?.type,
+        else if case .timestamp = field?.type,
                   case .some(.number(let deserializedValue)) = values[key] {
             return NSNumber(value: deserializedValue)
         }
@@ -119,6 +119,43 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
         return jsonValue(for: key)
     }
     
+    private func deerializeValue(value: JSONValue?, fieldType: Codable.Type) -> Any?? {
+        if fieldType is Int.Type,
+           case .some(.number(let deserializedValue)) = value {
+            return Int(deserializedValue)
+        } else if fieldType is Temporal.DateTime.Type,
+                  case .some(.string(let deserializedValue)) = value {
+            return deserializedValue
+        } else if fieldType is Temporal.Date.Type,
+                  case .some(.string(let deserializedValue)) = value {
+            return deserializedValue
+        } else if fieldType is Temporal.Time.Type,
+                  case .some(.string(let deserializedValue)) = value {
+            return deserializedValue
+        } else if fieldType is Int64.Type,
+                  case .some(.number(let deserializedValue)) = value {
+            return Int(deserializedValue)
+        }
+
+        // Rest of the fields get deserialized as is
+        switch value {
+        case .some(.boolean(let deserializedValue)):
+            return deserializedValue
+        case .some(.number(let deserializedValue)):
+            return deserializedValue
+        case .some(.object(let deserializedValue)):
+            return deserializedValue
+        case .some(.string(let deserializedValue)):
+            return deserializedValue
+        case .some(.null):
+            return nil
+        case .none:
+            return nil
+        default:
+            return nil
+        }
+    }
+
     private func generateSerializedData(modelSchema: ModelSchema) -> [String: Any]{
         
         var result = [String: Any]()
@@ -148,6 +185,16 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
             }
             else if case .collection = field?.type{
                 continue
+            }
+            else if case .embeddedCollection(let fieldType, _) = field?.type{
+                if case .array(let jsonArray) = value {
+                    var modifiedArray:[Any??] = []
+                    for item in jsonArray {
+                        let parsedItem = deerializeValue(value: item, fieldType: fieldType)
+                        modifiedArray.append(parsedItem)
+                    }
+                    result[key] = modifiedArray
+                }
             }
             else if case .dateTime = field?.type,
                 case .some(.string(let deserializedValue)) = values[key] {
@@ -195,3 +242,4 @@ extension FlutterSerializedModel {
 
     public static let keys = CodingKeys.self
 }
+

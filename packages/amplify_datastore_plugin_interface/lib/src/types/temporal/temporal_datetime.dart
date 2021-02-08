@@ -156,6 +156,10 @@ class TemporalDateTime {
     return buffer.toString();
   }
 
+  String toString() {
+    return format();
+  }
+
   bool operator ==(o) =>
       o is TemporalDateTime &&
       _dateTime == o._dateTime &&
