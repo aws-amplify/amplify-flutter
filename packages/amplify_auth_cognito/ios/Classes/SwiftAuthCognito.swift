@@ -147,6 +147,8 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
             cognito.onFetchSession(flutterResult: result, request: request)
         case "getCurrentUser":
             cognito.onGetCurrentUser(flutterResult: result)
+        case "fetchUserAttributes":
+            cognito.onFetchUserAttributes(flutterResult: result)
         case "signInWithWebUI":
             do {
                 try FlutterSignInWithWebUIRequest.validate(dict: data)

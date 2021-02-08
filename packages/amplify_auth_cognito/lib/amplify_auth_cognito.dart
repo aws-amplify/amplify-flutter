@@ -100,6 +100,11 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     return res;
   }
 
+  Future<List<AuthUserAttribute>> fetchUserAttributes({AuthUserAttributeRequest request}) async {
+    final res = await _instance.fetchUserAttributes();
+    return res;
+  }
+
   Future<AuthSession> fetchAuthSession({AuthSessionRequest request}) async {
     final res = await _instance.fetchAuthSession(request: request);
     return res;
