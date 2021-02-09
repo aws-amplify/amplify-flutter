@@ -46,7 +46,11 @@ data class FlutterSignUpRequest(val map: HashMap<String, *>) {
                 }
                 authUserAttributes.add(AuthUserAttribute(AuthUserAttributeKey.custom(keyCopy), value))
             } else {
-                var t: Method = attributeMethods.asIterable().find { it.name.equals(convertSnakeToCamel(key)) } as Method;
+                // special case for amplify-android camelCase zoneinfo
+                if (key == "zoneinfo") {
+                    keyCopy = "zoneInfo"
+                }
+                var t: Method = attributeMethods.asIterable().find { it.name.equals(convertSnakeToCamel(keyCopy)) } as Method;
                 var attr: AuthUserAttributeKey = t.invoke(null) as AuthUserAttributeKey;
                 authUserAttributes.add(AuthUserAttribute(attr, value));
             }
