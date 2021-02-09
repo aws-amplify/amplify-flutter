@@ -6,6 +6,10 @@
 - chore: Updated amplify-android version 1.6.10 (#332)
 - chore: Refactor error handling to use the new AmplifyException types (#314)
 
+### Bug Fixes
+
+- fix: Provide better error messages when configure() fails due to plugin's configuration not present (#355)
+
 ## 0.0.2-dev.1 (2021-01-25)
 
 ### Features
