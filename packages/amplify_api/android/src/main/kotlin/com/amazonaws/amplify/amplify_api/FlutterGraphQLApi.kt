@@ -158,9 +158,13 @@ class FlutterGraphQLApi {
                         LOG.debug("Subscription established: $id")
                         handler.post { flutterResult.success(null) }
                     },
-                    {
-                        LOG.debug("GraphQL subscription event received: $it")
-                        graphqlSubscriptionStreamHandler.sendEvent(it.data, it.errors, id, GraphQLSubscriptionEventTypes.DATA)
+                    {response ->
+                        val payload: Map<String, Any> = mapOf(
+                                "data" to response.data,
+                                "errors" to response.errors.map { it.message }
+                        )
+                        LOG.debug("GraphQL subscription event received: $payload")
+                        graphqlSubscriptionStreamHandler.sendEvent(payload, id, GraphQLSubscriptionEventTypes.DATA)
                     },
                     {
                         if (!id.isNullOrEmpty()) OperationsManager.removeOperation(id)
@@ -176,7 +180,7 @@ class FlutterGraphQLApi {
                     {
                         if (!id.isNullOrEmpty()) OperationsManager.removeOperation(id)
                         LOG.debug("Subscription has been closed successfully")
-                        graphqlSubscriptionStreamHandler.sendEvent(null, emptyList(), id, GraphQLSubscriptionEventTypes.DONE)
+                        graphqlSubscriptionStreamHandler.sendEvent(null, id, GraphQLSubscriptionEventTypes.DONE)
                     }
             )
             if (operation != null) {

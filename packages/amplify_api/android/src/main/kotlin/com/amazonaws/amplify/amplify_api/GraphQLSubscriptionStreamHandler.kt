@@ -33,17 +33,14 @@ class GraphQLSubscriptionStreamHandler : EventChannel.StreamHandler {
         eventSink = null
     }
 
-    fun sendEvent(data: String?, errors: List<GraphQLResponse.Error>, id: String, type: GraphQLSubscriptionEventTypes) {
+    fun sendEvent(payload: Map<String, Any>?, id: String, type: GraphQLSubscriptionEventTypes) {
         handler.post {
             var result: MutableMap<String, Any?> = mutableMapOf(
                     "id" to id,
                     "type" to type.toString()
             )
             if (type == GraphQLSubscriptionEventTypes.DATA) {
-                result["payload"] = mapOf(
-                        "data" to data,
-                        "errors" to errors
-                )
+                result["payload"] = payload
             }
 
             eventSink?.success(result)

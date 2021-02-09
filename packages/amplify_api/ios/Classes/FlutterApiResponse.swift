@@ -47,7 +47,8 @@ class FlutterApiResponse {
         }
     }
     
-    static func handleGraphQLErrorResponseEvent(graphQLSubscriptionsStreamHandler: GraphQLSubscriptionsStreamHandler, id: String, errorResponse: GraphQLResponseError<String>) {
+    static func handleGraphQLErrorResponseEvent(graphQLSubscriptionsStreamHandler: GraphQLSubscriptionsStreamHandler,
+                                                id: String, errorResponse: GraphQLResponseError<String>) {
         switch(errorResponse) {
         case .error(let errorList):
             let payload: [String: Any?] = [

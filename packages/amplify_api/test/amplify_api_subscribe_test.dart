@@ -26,6 +26,12 @@ void main() {
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
+  final request = GraphQLRequest<String>(document: 'test document');
+  var isOnEstablishCalled = false;
+  var isOnDoneCalled = false;
+  var eventData = null;
+  var errorEvent = null;
+
   tearDown(() {
     ServicesBinding.instance.defaultBinaryMessenger
         .setMockMessageHandler(channelName, null);
@@ -39,52 +45,35 @@ void main() {
     );
   }
 
-  test('Subscribe API sets up the subscription over the method channel',
+  test('Subscribe API callbacks are invoked correctly for all event types',
       () async {
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       expect(methodCall.method, 'subscribe');
     });
-    String graphQLDocument = '';
-    var isOnEstablishCalled = false;
+
+    //Invoke the subscribe API with callbacks
     await api.subscribe(
-        request: GraphQLRequest<String>(document: graphQLDocument),
-        onData: (msg) {},
+        request: request,
+        onData: (data) {
+          eventData = data;
+        },
         onEstablished: () {
           isOnEstablishCalled = true;
+        },
+        onError: (error) {
+          errorEvent = error;
+        },
+        onDone: () {
+          isOnDoneCalled = true;
         });
 
-    await Future<void>.delayed(Duration.zero);
+    //Test initial state
     expect(isOnEstablishCalled, true);
-  });
+    expect(eventData, null);
+    expect(isOnDoneCalled, false);
+    expect(errorEvent, null);
 
-  test('Receives an event in the onDone callback', () async {
-    String graphQLDocument = 'test document';
-    final request = GraphQLRequest<String>(document: graphQLDocument);
-    var json = {'id': request.cancelToken, 'type': 'DONE'};
-    var isOnDoneCalled = false;
-    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      expect(methodCall.method, 'subscribe');
-    });
-    handler(const StandardMethodCodec().encodeSuccessEnvelope(json));
-
-    api.subscribe(
-      request: request,
-      onEstablished: () {},
-      onData: (event) {
-        fail('No event should be received in the onData callback');
-      },
-      onDone: () {
-        isOnDoneCalled = true;
-      },
-    );
-
-    await Future<void>.delayed(Duration.zero);
-    expect(isOnDoneCalled, true);
-  });
-
-  test('Receives an event in the onData callback', () async {
-    String graphQLDocument = 'test document';
-    final request = GraphQLRequest<String>(document: graphQLDocument);
+    //Simulate a DATA event
     var json = {
       'id': request.cancelToken,
       'payload': {
@@ -94,12 +83,37 @@ void main() {
       'type': 'DATA'
     };
     handler(StandardMethodCodec().encodeSuccessEnvelope(json));
-    api.subscribe(
-        request: request,
-        onData: (event) {
-          expect(event, isInstanceOf<GraphQLResponse<String>>());
-          expect(event.data, 'test data');
-          expect(event.errors, isInstanceOf<List<GraphQLResponseError>>());
-        });
+    await Future<void>.delayed(Duration.zero);
+
+    //Test that onData() is called with the expected payload
+    expect(eventData, isInstanceOf<GraphQLResponse<String>>());
+    expect(eventData.data, 'test data');
+    expect(eventData.errors, isInstanceOf<List<GraphQLResponseError>>());
+    expect(isOnDoneCalled, false);
+    expect(errorEvent, null);
+
+    //Simulate a DONE event
+    json = {'id': request.cancelToken, 'type': 'DONE'};
+    handler(StandardMethodCodec().encodeSuccessEnvelope(json));
+    await Future<void>.delayed(Duration.zero);
+
+    //Test that onDone() is called as expected
+    expect(isOnDoneCalled, true);
+    expect(errorEvent, null);
+
+    //Simulate a error event
+    const details = {
+      'message': 'Test error message',
+      'recoverySuggestion': 'Test recovery suggestion',
+      'underlyingException': 'Test underlying exception'
+    };
+    handler(StandardMethodCodec().encodeErrorEnvelope(
+        message: 'Test', code: 'ApiException', details: details));
+    await Future<void>.delayed(Duration.zero);
+
+    //Test that the an APIException is received with the correct attributes
+    expect(errorEvent.message, 'Test error message');
+    expect(errorEvent.recoverySuggestion, 'Test recovery suggestion');
+    expect(errorEvent.underlyingException, 'Test underlying exception');
   });
 }

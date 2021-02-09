@@ -38,6 +38,10 @@ import java.lang.reflect.Modifier
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amplifyframework.AmplifyException
 
+const val underlyingMalformedException =
+        "AmplifyException{message=The graphQL document request argument " +
+        "was not passed as a String, cause=kotlin.TypeCastException: null cannot be cast to " +
+        "non-null type kotlin.String, recoverySuggestion=The request should include the graphQL document as a String}"
 
 @RunWith(RobolectricTestRunner::class)
 class GraphQLApiUnitTests {
@@ -117,7 +121,7 @@ class GraphQLApiUnitTests {
                 mapOf(
                         "message" to ExceptionMessages.missingExceptionMessage,
                         "recoverySuggestion" to ExceptionMessages.missingRecoverySuggestion,
-                        "underlyingException" to "AmplifyException{message=The graphQL document request argument was not passed as a String, cause=kotlin.TypeCastException: null cannot be cast to non-null type kotlin.String, recoverySuggestion=The request should include the graphQL document as a String}"
+                        "underlyingException" to underlyingMalformedException
                 )
         )
     }
@@ -241,7 +245,7 @@ class GraphQLApiUnitTests {
                 mapOf(
                         "message" to ExceptionMessages.missingExceptionMessage,
                         "recoverySuggestion" to ExceptionMessages.missingRecoverySuggestion,
-                        "underlyingException" to "AmplifyException{message=The graphQL document request argument was not passed as a String, cause=kotlin.TypeCastException: null cannot be cast to non-null type kotlin.String, recoverySuggestion=The request should include the graphQL document as a String}"
+                        "underlyingException" to underlyingMalformedException
                 )
         )
     }
@@ -305,8 +309,8 @@ class GraphQLApiUnitTests {
         val testRequest = HashMap<String, Any>()
         val id = "someCode"
 
-        testRequest["document"] = ("mutation MyMutation(\$name: String!) {"
-                + "createBlog(input: {name: \$name}) {"
+        testRequest["document"] = ("subscription MySubscription {"
+                + "onCreateBlog {"
                 + "id"
                 + "name"
                 + "createdAt"
@@ -349,10 +353,14 @@ class GraphQLApiUnitTests {
                 mockResult
         )
 
+        val payload: Map<String, Any> = mapOf(
+                "data" to graphQLResponse.data,
+                "errors" to graphQLResponse.errors
+        )
+
         verify(mockStreamHandler, times(1))
                 .sendEvent(
-                        graphQLResponse.data,
-                        graphQLResponse.errors,
+                        payload,
                         id,
                         GraphQLSubscriptionEventTypes.DATA)
     }
@@ -372,7 +380,7 @@ class GraphQLApiUnitTests {
                 mapOf(
                         "message" to ExceptionMessages.missingExceptionMessage,
                         "recoverySuggestion" to ExceptionMessages.missingRecoverySuggestion,
-                        "underlyingException" to "AmplifyException{message=The graphQL document request argument was not passed as a String, cause=kotlin.TypeCastException: null cannot be cast to non-null type kotlin.String, recoverySuggestion=The request should include the graphQL document as a String}"
+                        "underlyingException" to underlyingMalformedException
                 )
         )
     }
@@ -382,8 +390,8 @@ class GraphQLApiUnitTests {
         val apiException = ApiException("AmplifyException", ApiException.REPORT_BUG_TO_AWS_SUGGESTION)
         val testRequest = HashMap<String, Any>()
 
-        testRequest["document"] = ("mutation MyMutation(\$name: String!) {"
-                + "createBlog(input: {name: \$name}) {"
+        testRequest["document"] = ("subscription MySubscription {"
+                + "onCreateBlog {"
                 + "id"
                 + "name"
                 + "createdAt"

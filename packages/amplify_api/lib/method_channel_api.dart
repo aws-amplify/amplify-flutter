@@ -102,8 +102,20 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
       }
     });
 
-    //TODO: This should convert the exception to APIException if present
-    _subscription.onError(onError);
+    _subscription.onError((error) {
+      var subscriptionError = error;
+
+      if (error is PlatformException) {
+        subscriptionError = _deserializeException(error);
+      }
+
+      print('Subscription failed with error: $subscriptionError');
+
+      if (onError != null) {
+        onError(subscriptionError);
+      }
+      _subscription.cancel();
+    });
 
     Function cancel = () {
       _subscription.cancel();
@@ -131,7 +143,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
 
       return response;
     } on PlatformException catch (e) {
-      _deserializeException(e);
+      throw _deserializeException(e);
     }
   }
 
@@ -150,7 +162,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
         onEstablished();
       }
     } on PlatformException catch (e) {
-      _deserializeException(e);
+      throw _deserializeException(e);
     }
   }
 
@@ -181,7 +193,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
           .invokeMapMethod<String, dynamic>(methodName, inputsMap);
       return _formatRestResponse(data);
     } on PlatformException catch (e) {
-      _deserializeException(e);
+      throw _deserializeException(e);
     }
   }
 
@@ -243,11 +255,11 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
 
   ApiException _deserializeException(PlatformException e) {
     if (e.code == 'ApiException') {
-      throw ApiException.fromMap(Map<String, String>.from(e.details));
+      return ApiException.fromMap(Map<String, String>.from(e.details));
     } else {
       // This shouldn't happen. All exceptions coming from platform for
       // amplify_api should have a known code. Throw an unknown error.
-      throw ApiException(AmplifyExceptionMessages.missingExceptionMessage,
+      return ApiException(AmplifyExceptionMessages.missingExceptionMessage,
           recoverySuggestion:
               AmplifyExceptionMessages.missingRecoverySuggestion,
           underlyingException: e.toString());
@@ -255,7 +267,8 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   }
 
   //TODO: Deserialize all fields of the GraphQLResponseError as per spec
-  List<GraphQLResponseError> _deserializeGraphQLResponseErrors(Map response) {
+  List<GraphQLResponseError> _deserializeGraphQLResponseErrors(
+      Map<String, dynamic> response) {
     if (response['errors'] != null) {
       final errors = response['errors'] as List;
       if (errors.length > 0) {

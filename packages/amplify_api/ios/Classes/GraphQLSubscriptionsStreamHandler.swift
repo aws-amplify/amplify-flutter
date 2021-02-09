@@ -25,11 +25,13 @@ public class GraphQLSubscriptionsStreamHandler: NSObject, FlutterStreamHandler {
     }
 
     func sendEvent(payload: [String : Any?]?, id: String, type: GraphQLSubscriptionEventTypes) {
-        let result: [String: Any?] = [
+        var result: [String: Any?] = [
             "id": id,
-            "type": type.rawValue,
-            "payload": payload
+            "type": type.rawValue
         ]
+        if(type == GraphQLSubscriptionEventTypes.DATA) {
+            result["payload"] = payload
+        }
         eventSink?(result)
     }
 
