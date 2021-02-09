@@ -16,8 +16,10 @@
 package com.amazonaws.amplify.amplify_auth_cognito
 
 import android.app.Activity
+import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser
 import com.amazonaws.services.cognitoidentityprovider.model.AliasExistsException
 import com.amazonaws.services.cognitoidentityprovider.model.UserNotFoundException
 import com.amplifyframework.auth.*
@@ -197,6 +199,38 @@ class AmplifyAuthCognitoPluginTest {
 
         // Assert
         verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
+    }
+
+    @Test
+    fun signIn_exceptionWhenSignedIn() {
+        // Arrange
+
+        doAnswer { invocation: InvocationOnMock ->
+            AuthUser("id","username")
+        }.`when`(mockAuth).currentUser
+
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareSignInResult(mockResult, mockSignInResult)
+            null as Void?
+        }.`when`(mockAuth).signIn(anyString(), anyString(), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+
+        val data = hashMapOf(
+                "username" to "testUser",
+                "password" to "testPassword"
+        )
+        val arguments = hashMapOf("data" to data)
+        val call = MethodCall("signIn", arguments)
+        val details = mapOf(
+                "recoverySuggestion" to "Sign out before calling sign in.",
+                "message" to "There is already a user signed in.",
+                "underlyingException" to "java.lang.Exception: invalidSate"
+        )
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).error("AuthException", ExceptionMessages.defaultFallbackExceptionMessage, details);
     }
 
     @Test
