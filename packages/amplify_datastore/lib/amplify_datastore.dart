@@ -22,7 +22,7 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'amplify_datastore_stream_controller.dart';
 import 'method_channel_datastore.dart';
 
-export 'package:amplify_datastore_plugin_interface/src/types.dart';
+export 'package:amplify_datastore_plugin_interface/src/publicTypes.dart';
 
 class AmplifyDataStore extends DataStorePluginInterface {
   static final Object _token = Object();
