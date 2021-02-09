@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:amplify_core/types/index.dart';
@@ -25,6 +26,8 @@ import 'amplify_api.dart';
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/api');
 
 class AmplifyAPIMethodChannel extends AmplifyAPI {
+  var _allSubscriptionsStream = null;
+
   // ====== GraphQL ======
   @override
   GraphQLOperation<T> query<T>({@required GraphQLRequest<T> request}) {
@@ -56,6 +59,72 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     return result;
   }
 
+  @override
+  GraphQLSubscriptionOperation<T> subscribe<T>(
+      {@required GraphQLRequest<T> request,
+      @required Function(GraphQLResponse<T>) onData,
+      Function() onEstablished,
+      Function(dynamic) onError,
+      Function() onDone}) {
+    const _eventChannel =
+        EventChannel('com.amazonaws.amplify/api_observe_events');
+    _allSubscriptionsStream =
+        _allSubscriptionsStream ?? _eventChannel.receiveBroadcastStream(0);
+
+    //TODO: Either re-name the cancelToken field to id, or remove entirely
+    final subscriptionId = request.cancelToken;
+
+    _setupSubscription(
+      id: subscriptionId,
+      request: request,
+      onEstablished: onEstablished,
+    );
+
+    Stream<Map<String, dynamic>> filteredStream = _allSubscriptionsStream
+        .where((event) {
+          return event["id"] == subscriptionId;
+        })
+        .map((event) => {'type': event['type'], 'payload': event['payload']})
+        .asBroadcastStream()
+        .cast<Map<String, dynamic>>();
+
+    StreamSubscription _subscription = filteredStream.listen((event) {
+      if (event['type'] == 'DONE') {
+        onDone();
+      } else {
+        final payload = new Map<String, dynamic>.from(event['payload']);
+
+        final errors = _deserializeGraphQLResponseErrors(payload);
+
+        GraphQLResponse<T> response =
+            GraphQLResponse<T>(data: payload['data'], errors: errors);
+        onData(response);
+      }
+    });
+
+    _subscription.onError((error) {
+      var subscriptionError = error;
+
+      if (error is PlatformException) {
+        subscriptionError = _deserializeException(error);
+      }
+
+      print('Subscription failed with error: $subscriptionError');
+
+      if (onError != null) {
+        onError(subscriptionError);
+      }
+      _subscription.cancel();
+    });
+
+    Function cancel = () {
+      _subscription.cancel();
+      cancelRequest(subscriptionId);
+    };
+
+    return GraphQLSubscriptionOperation(cancel: cancel);
+  }
+
   Future<GraphQLResponse<T>> _getMethodChannelResponse<T>({
     @required methodName,
     @required GraphQLRequest<T> request,
@@ -74,7 +143,26 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
 
       return response;
     } on PlatformException catch (e) {
-      _deserializeException(e);
+      throw _deserializeException(e);
+    }
+  }
+
+  Future<void> _setupSubscription({
+    @required String id,
+    @required GraphQLRequest request,
+    void Function() onEstablished,
+  }) async {
+    try {
+      await _channel.invokeMethod<String>(
+        'subscribe',
+        request.serializeAsMap(),
+      );
+
+      if (onEstablished != null) {
+        onEstablished();
+      }
+    } on PlatformException catch (e) {
+      throw _deserializeException(e);
     }
   }
 
@@ -105,7 +193,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
           .invokeMapMethod<String, dynamic>(methodName, inputsMap);
       return _formatRestResponse(data);
     } on PlatformException catch (e) {
-      _deserializeException(e);
+      throw _deserializeException(e);
     }
   }
 
@@ -154,10 +242,10 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
 
   @override
   void cancelRequest(String cancelToken) async {
-    print("Attempting to cancel RestOperation " + cancelToken);
+    print("Attempting to cancel Operation " + cancelToken);
 
     await _channel.invokeMethod("cancel", cancelToken).then((result) {
-      print("Cancel succeeded for RestOperation: " + cancelToken);
+      print("Cancel succeeded for Operation: " + cancelToken);
     }).catchError((e) {
       print("Cancel request failed due to: " + e.message + " " + e.code);
     });
@@ -167,11 +255,11 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
 
   ApiException _deserializeException(PlatformException e) {
     if (e.code == 'ApiException') {
-      throw ApiException.fromMap(Map<String, String>.from(e.details));
+      return ApiException.fromMap(Map<String, String>.from(e.details));
     } else {
       // This shouldn't happen. All exceptions coming from platform for
       // amplify_api should have a known code. Throw an unknown error.
-      throw ApiException(AmplifyExceptionMessages.missingExceptionMessage,
+      return ApiException(AmplifyExceptionMessages.missingExceptionMessage,
           recoverySuggestion:
               AmplifyExceptionMessages.missingRecoverySuggestion,
           underlyingException: e.toString());
