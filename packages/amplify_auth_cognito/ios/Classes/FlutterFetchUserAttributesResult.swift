@@ -15,19 +15,20 @@
 
 import Foundation
 import Amplify
-import AmplifyPlugins
-import AWSPluginsCore
 
-class AmplifyFlutterValidationException: AmplifyError {
+struct FlutterFetchUserAttributesResult  {
+    var attributes: [AuthUserAttribute]
+
+    init(res: [AuthUserAttribute]){
+        self.attributes = res
+    }
     
-    var errorDescription: ErrorDescription
-    
-    var recoverySuggestion: RecoverySuggestion
-    
-    var underlyingError: Error?
-    
-    required init(errorDescription: ErrorDescription, recoverySuggestion: RecoverySuggestion, error: Error = AWSCognitoAuthError.invalidParameter) {
-        self.errorDescription = errorDescription
-        self.recoverySuggestion = recoverySuggestion
+    func toList() -> [Dictionary<String, Any>] {
+        
+        let serializedResults = self.attributes.map { (attr) -> [String: Any] in
+            return ["key": attr.key.rawValue, "value": attr.value]
+        }
+
+        return serializedResults
     }
 }

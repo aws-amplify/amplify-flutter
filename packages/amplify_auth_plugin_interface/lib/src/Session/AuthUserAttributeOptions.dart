@@ -12,11 +12,10 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+class AuthUserAttributeOptions {
 
-package com.amazonaws.amplify.amplify_auth_cognito.types
-
-import com.amplifyframework.AmplifyException
-
-class AmplifyFlutterValidationException : AmplifyException {
-    constructor(message: String, recoverySuggestion: String) : super(message, recoverySuggestion)
+  const AuthUserAttributeOptions();
+  Map<String, dynamic> serializeAsMap() {
+    throw UnimplementedError('serializeAsMap() has not been implemented on AuthUserAttributeOptions.');
+  }
 }

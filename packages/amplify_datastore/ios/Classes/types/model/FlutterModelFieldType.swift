@@ -16,6 +16,7 @@
 
 import Foundation
 import Amplify
+import amplify_core
 
 public struct FlutterModelFieldType {
     public let fieldType : String
@@ -75,9 +76,38 @@ public struct FlutterModelFieldType {
                         fieldName: "ofModelName",
                         desiredType: "String")
                 }
-                return ModelFieldType.collection(of: ofModelName)
+                do {
+                    let embeddedType = try getPrimitiveTypeForEmbeddedCollection(typeName: ofModelName)
+                    return ModelFieldType.embeddedCollection(of: embeddedType, schema: nil)
+                } catch {
+                    return ModelFieldType.collection(of: ofModelName)
+                }
             default:
                 preconditionFailure("Could not create a ModelFieldType from \(fieldType)")
+        }
+    }
+
+    func getPrimitiveTypeForEmbeddedCollection(typeName: String) throws -> Codable.Type {
+        switch typeName {
+        case "int":
+            return Int.self
+        case "string":
+            return String.self
+        case "double":
+            return Double.self
+        case "bool":
+            return Bool.self
+        case "dateTime":
+            return Temporal.DateTime.self
+        case "time":
+            return Temporal.Time.self
+        case "date":
+            return Temporal.Date.self
+        case "timestamp":
+            return Int64.self
+        default:
+            throw DataStoreError.decodingError(typeName + "is not a known primitive type",
+                                               ErrorMessages.missingRecoverySuggestion)
         }
     }
 }

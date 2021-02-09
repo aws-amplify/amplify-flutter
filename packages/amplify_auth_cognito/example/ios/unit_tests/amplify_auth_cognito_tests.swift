@@ -277,7 +277,7 @@ class amplify_auth_cognito_tests: XCTestCase {
             if let res = result as? FlutterError {
                 let details = res.details as? Dictionary<String, String>
                 XCTAssertEqual( "UsernameExistsException", res.code )
-                XCTAssertEqual( "Optional(AmplifyPlugins.AWSCognitoAuthError.usernameExists)", details?["underlyingException"])
+                XCTAssert( ((details?["underlyingException"])! as String).contains(MockErrorTemplate))
                 XCTAssertEqual( MockErrorConstants.userNameExistsError, details?["recoverySuggestion"])
                 XCTAssertEqual( "Username exists", details?["message"])
             } else {
@@ -338,7 +338,7 @@ class amplify_auth_cognito_tests: XCTestCase {
             if let res = result as? FlutterError {
                 let details = res.details as? Dictionary<String, String>
                 XCTAssertEqual( "CodeExpiredException", res.code )
-                XCTAssertEqual( "Optional(AmplifyPlugins.AWSCognitoAuthError.codeExpired)", details?["underlyingException"])
+                XCTAssert( ((details?["underlyingException"])! as String).contains(MockErrorTemplate))
                 XCTAssertEqual( MockErrorConstants.codeExpiredError, details?["recoverySuggestion"])
                 XCTAssertEqual( "Code expired", details?["message"])
             } else {
@@ -485,7 +485,7 @@ class amplify_auth_cognito_tests: XCTestCase {
                    if let res = result as? FlutterError {
                       let details = res.details as? Dictionary<String, String>
                       XCTAssertEqual( "CodeDeliveryFailureException", res.code )
-                      XCTAssertEqual( "Optional(AmplifyPlugins.AWSCognitoAuthError.codeDelivery)", details?["underlyingException"])
+                      XCTAssert( ((details?["underlyingException"])! as String).contains(MockErrorTemplate))
                       XCTAssertEqual( MockErrorConstants.codeDeliveryError, details?["recoverySuggestion"])
                       XCTAssertEqual( "Could not deliver code", details?["message"])
                    } else {
@@ -708,7 +708,7 @@ class amplify_auth_cognito_tests: XCTestCase {
                    if let res = result as? FlutterError {
                       let details = res.details as? Dictionary<String, String>
                       XCTAssertEqual( "PasswordResetRequiredException", res.code )
-                      XCTAssertEqual( "Optional(AmplifyPlugins.AWSCognitoAuthError.passwordResetRequired)", details?["underlyingException"])
+                      XCTAssert( ((details?["underlyingException"])! as String).contains(MockErrorTemplate))
                       XCTAssertEqual( MockErrorConstants.passwordResetRequired, details?["recoverySuggestion"])
                       XCTAssertEqual( "Reset password", details?["message"])
                    } else {
@@ -760,7 +760,7 @@ class amplify_auth_cognito_tests: XCTestCase {
                    if let res = result as? FlutterError {
                       let details = res.details as? Dictionary<String, String>
                       XCTAssertEqual( "CodeDeliveryFailureException", res.code )
-                      XCTAssertEqual( "Optional(AmplifyPlugins.AWSCognitoAuthError.codeDelivery)", details?["underlyingException"])
+                      XCTAssert( ((details?["underlyingException"])! as String).contains(MockErrorTemplate))
                       XCTAssertEqual( MockErrorConstants.codeDeliveryError, details?["recoverySuggestion"])
                       XCTAssertEqual( "Could not deliver code", details?["message"])
                    } else {
@@ -845,7 +845,7 @@ class amplify_auth_cognito_tests: XCTestCase {
             if let res = result as? FlutterError {
                 let details = res.details as? Dictionary<String, String>
                 XCTAssertEqual( "InvalidPasswordException", res.code )
-                XCTAssertEqual( "Optional(AmplifyPlugins.AWSCognitoAuthError.invalidPassword)", details?["underlyingException"])
+                XCTAssert( ((details?["underlyingException"])! as String).contains(MockErrorTemplate))
                 XCTAssertEqual( MockErrorConstants.invalidPasswordError, details?["recoverySuggestion"])
                 XCTAssertEqual( "Invalid password", details?["message"])
             } else {
@@ -918,7 +918,7 @@ class amplify_auth_cognito_tests: XCTestCase {
             if let res = result as? FlutterError {
                 let details = res.details as? Dictionary<String, String>
                 XCTAssertEqual( "InvalidPasswordException", res.code )
-                XCTAssertEqual( "Optional(AmplifyPlugins.AWSCognitoAuthError.invalidPassword)", details?["underlyingException"])
+                XCTAssert( ((details?["underlyingException"])! as String).contains(MockErrorTemplate))
                 XCTAssertEqual( MockErrorConstants.invalidPasswordError, details?["recoverySuggestion"])
                 XCTAssertEqual( "Invalid password", details?["message"])
             } else {
@@ -995,7 +995,7 @@ class amplify_auth_cognito_tests: XCTestCase {
             if let res = result as? FlutterError {
                 let details = res.details as? Dictionary<String, String>
                 XCTAssertEqual( "InvalidParameterException", res.code )
-                XCTAssertEqual( "Optional(AmplifyPlugins.AWSCognitoAuthError.invalidParameter)", details?["underlyingException"])
+                XCTAssert( ((details?["underlyingException"])! as String).contains(MockErrorTemplate))
                 XCTAssertEqual( MockErrorConstants.invalidParameterError, details?["recoverySuggestion"])
                 XCTAssertEqual( "Invalid parameter", details?["message"])
             } else {
@@ -1043,7 +1043,7 @@ class amplify_auth_cognito_tests: XCTestCase {
             if let res = result as? FlutterError {
                 let details = res.details as? Dictionary<String, String>
                 XCTAssertEqual( "AuthException", res.code )
-                XCTAssertEqual( "nil", details?["underlyingException"])
+                XCTAssertEqual( nil, details?["underlyingException"])
                 XCTAssertEqual( MockErrorConstants.invalidStateError, details?["recoverySuggestion"])
                 XCTAssertEqual( "Invalid state", details?["message"])
             } else {
@@ -1091,8 +1091,6 @@ class amplify_auth_cognito_tests: XCTestCase {
             }
         }
         
-        
-        
         plugin = SwiftAuthCognito.init(cognito: CurrentUserMock())
         
         let call = FlutterMethodCall(methodName: "getCurrentUser", arguments: _args)
@@ -1100,13 +1098,57 @@ class amplify_auth_cognito_tests: XCTestCase {
             if let res = result as? FlutterError {
                 let details = res.details as? Dictionary<String, String>
                 XCTAssertEqual( "AuthException", res.code )
-                XCTAssertEqual( "nil", details?["underlyingException"])
+                XCTAssertEqual( nil, details?["underlyingException"])
                 XCTAssertEqual( MockErrorConstants.invalidStateError, details?["recoverySuggestion"])
                 XCTAssertEqual( "Invalid state", details?["message"])
             } else {
                 XCTFail()
             }
         })
+    }
+    
+    func test_fetchUserAttributesSuccess() {
+        
+        class FetchAttributesMock: AuthCognitoBridge {
+            override func onFetchUserAttributes(flutterResult: @escaping FlutterResult) {
+                let attributeData: [AuthUserAttribute] = [AuthUserAttribute(.email, value: "test@test.com")]
+                let attributeResult = FlutterFetchUserAttributesResult(res: attributeData)
+                flutterResult(attributeResult)
+            }
+        }
+        
+        plugin = SwiftAuthCognito.init(cognito: FetchAttributesMock())
+        
+        let list = [AuthUserAttribute(.email, value: "test@test.com")]
+        let serializedList: [Dictionary<String, Any>] = list.map { (attr) -> [String: Any] in
+            return ["key": attr.key.rawValue, "value": attr.value]
+        }
+
+        
+        _data = [:]
+        _args = ["data": _data]
+        let call = FlutterMethodCall(methodName: "fetchUserAttributes", arguments: _args)
+        plugin.handle(call, result: {(result)->Void in
+            if let res = result as? FlutterFetchUserAttributesResult {
+                XCTAssertEqual( 1, res.attributes.count )
+                XCTAssertEqual( res.attributes[0].key, .email )
+                XCTAssertEqual( res.attributes[0].value, "test@test.com" )
+                XCTAssertEqual( res.toList().count, serializedList.count)
+                XCTAssertEqual( (res.toList()[0] as Dictionary)["key"] as! String, "email")
+                XCTAssertEqual( (res.toList()[0] as Dictionary)["value"] as! String, "test@test.com")
+            } else {
+                XCTFail()
+            }
+        })
+    }
+    
+    func test_fetchUserAttributesSerialization() {
+        let attr = AuthUserAttribute(AuthUserAttributeKey.email, value: "test@test.com")
+        let res = FlutterFetchUserAttributesResult(res: [attr]).toList()
+
+        XCTAssertEqual(1, res.count)
+        XCTAssertEqual("email", res[0]["key"] as! String)
+        XCTAssertEqual("test@test.com", res[0]["value"] as! String)
     }
     
     func test_fetchCognitoSessionSuccess() {

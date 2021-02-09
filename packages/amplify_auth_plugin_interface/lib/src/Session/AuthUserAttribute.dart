@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,17 +13,19 @@
  * permissions and limitations under the License.
  */
 
-package com.amazonaws.amplify.amplify_storage_s3.types
+import 'package:flutter/foundation.dart';
 
-enum class FlutterStorageErrorMessage {
-    UPLOAD_FILE_REQUEST_MALFORMED,
-    UPLOAD_FILE_OPERATION_FAILED,
-    GET_URL_REQUEST_MALFORMED,
-    GET_URL_OPERATION_FAILED,
-    REMOVE_REQUEST_MALFORMED,
-    REMOVE_OPERATION_FAILED,
-    LIST_REQUEST_MALFORMED,
-    LIST_OPERATION_FAILED,
-    DOWNLOAD_FILE_REQUEST_MALFORMED,
-    DOWNLOAD_FILE_OPERATION_FAILED
+
+class AuthUserAttribute {
+  String userAttributeKey;
+  var value;
+  AuthUserAttribute.init({@required this.userAttributeKey, @required this.value}) {
+    this.userAttributeKey = userAttributeKey;
+    if (userAttributeKey != 'phone_number') {
+      try {
+        this.value = int.parse(value);
+      } on FormatException {}
+    }
+  }
 }
+

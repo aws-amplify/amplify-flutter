@@ -16,6 +16,7 @@
 import Foundation
 import Amplify
 import AmplifyPlugins
+import amplify_core
 
 struct FlutterSignInWithWebUIRequest {
   var provider: AuthProvider?
@@ -45,7 +46,8 @@ struct FlutterSignInWithWebUIRequest {
     let allowedProviders: Array<String> = ["login_with_amazon", "google", "facebook"]
     if let provider = dict["authProvider"] {
       if(!allowedProviders.contains(provider as! String)) {
-        throw AmplifyFlutterValidationException(errorDescription: validationErrorMessage, recoverySuggestion: "Unsupported auth provider.")
+        throw InvalidRequestError.auth(comment: validationErrorMessage,
+                                          suggestion: String(format: ErrorMessages.missingAttribute, "valid AuthProvider"))
       }
     }
   }

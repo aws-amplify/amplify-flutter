@@ -15,6 +15,8 @@
 
 import Amplify
 import Flutter
+import AmplifyPlugins
+import AWSCore
 
 class AuthCognitoBridge {
     
@@ -179,6 +181,18 @@ class AuthCognitoBridge {
         }
     }
     
+    func onFetchUserAttributes(flutterResult: @escaping FlutterResult) {
+        Amplify.Auth.fetchUserAttributes() { result in
+            switch result {
+                case .success(let attributes):
+                    let attributeData = FlutterFetchUserAttributesResult(res: attributes)
+                    flutterResult(attributeData.toList())
+                case .failure(let fetchAttributeError):
+                    self.errorHandler.handleAuthError(authError: fetchAttributeError, flutterResult: flutterResult)
+            }
+        }
+    }
+    
     func onSignInWithWebUI(flutterResult: @escaping FlutterResult) {
         Amplify.Auth.signInWithWebUI(presentationAnchor: UIApplication.shared.keyWindow!) { result in
             switch result {
@@ -186,7 +200,7 @@ class AuthCognitoBridge {
                     let signInData = FlutterSignInResult(res: result)
                     flutterResult(signInData.toJSON())
                 case .failure(let error):
-                    self.errorHandler.handleAuthError(authError: error as! AuthError, flutterResult: flutterResult)
+                    self.errorHandler.handleAuthError(authError: error , flutterResult: flutterResult)
 
             }
         }
@@ -199,7 +213,7 @@ class AuthCognitoBridge {
                     let signInData = FlutterSignInResult(res: result)
                     flutterResult(signInData.toJSON())
                 case .failure(let error):
-                    self.errorHandler.handleAuthError(authError: error as! AuthError, flutterResult: flutterResult)
+                    self.errorHandler.handleAuthError(authError: error , flutterResult: flutterResult)
 
             }
         }
