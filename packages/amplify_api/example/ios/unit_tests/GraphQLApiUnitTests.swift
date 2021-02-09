@@ -227,6 +227,45 @@ class GraphQLApiUnitTests: XCTestCase {
         )
         
     }
+
+    func test_subscription_establishes_successfully() throws {
+        let testRequest: [String: Any] = [
+            "document": "test document",
+            "variables": ["test key":"test value"],
+            "cancelToken" : "someCode"
+        ]
+
+        class MockApiBridge: ApiBridge {
+            override func subscribe<ResultType>(request: GraphQLRequest<ResultType>,
+                                       valueListener: GraphQLSubscriptionOperation<ResultType>.InProcessListener?,
+                                       completionListener: GraphQLSubscriptionOperation<ResultType>.ResultListener?)
+                  -> GraphQLSubscriptionOperation<ResultType> {
+                valueListener?(.connection(SubscriptionConnectionState.connected))
+                let graphQLSubscriptionOperation = getMockGraphQLSubscriptionOperation(request: request)
+                return graphQLSubscriptionOperation
+            }
+        }
+
+        class MockStreamHandler: GraphQLSubscriptionsStreamHandler {
+            override func sendEvent(payload: [String : Any?]?, id: String, type: GraphQLSubscriptionEventTypes) {
+                XCTFail()
+            }
+
+            override func sendError(errorCode: String, details: [String: Any]) {
+                XCTFail()
+            }
+        }
+
+
+        FlutterGraphQLApi.subscribe(
+            flutterResult: { (result)  in
+                XCTAssertNil(result)
+            },
+            request: testRequest,
+            bridge: MockApiBridge(),
+            graphQLSubscriptionsStreamHandler: MockStreamHandler()
+        )
+    }
     
     func test_subscribe_success_event() throws {
         let testRequest: [String: Any] = [
@@ -264,6 +303,48 @@ class GraphQLApiUnitTests: XCTestCase {
         FlutterGraphQLApi.subscribe(
             flutterResult: { (result) -> Void in
                 XCTFail()
+            },
+            request: testRequest,
+            bridge: MockApiBridge(),
+            graphQLSubscriptionsStreamHandler: MockStreamHandler()
+        )
+        wait(for: [eventSentExp!], timeout: 1)
+    }
+
+    func test_subscribe_error_event() throws {
+        let testRequest: [String: Any] = [
+            "document": "test document",
+            "variables": ["test key":"test value"],
+            "cancelToken" : "someCode"
+        ]
+
+        eventSentExp = expectation(description: "event was sent")
+
+        class MockApiBridge: ApiBridge {
+            override func subscribe<ResultType>(request: GraphQLRequest<ResultType>,
+                                       valueListener: GraphQLSubscriptionOperation<ResultType>.InProcessListener?,
+                                       completionListener: GraphQLSubscriptionOperation<ResultType>.ResultListener?)
+                  -> GraphQLSubscriptionOperation<ResultType> {
+                valueListener?(.connection(SubscriptionConnectionState.connected))
+                completionListener?(.failure(APIError.invalidConfiguration("test error", "test recovery suggestion")))
+                let graphQLSubscriptionOperation = getMockGraphQLSubscriptionOperation(request: request)
+                return graphQLSubscriptionOperation
+            }
+        }
+
+        class MockStreamHandler: GraphQLSubscriptionsStreamHandler {
+            override func sendError(errorCode: String, details: [String: Any]) {
+                            eventSentExp?.fulfill()
+                            XCTAssertEqual("ApiException", errorCode)
+                            XCTAssertEqual("test error", details["message"] as! String)
+                            XCTAssertEqual("test recovery suggestion", details["recoverySuggestion"] as! String)
+                }
+                }
+
+
+        FlutterGraphQLApi.subscribe(
+            flutterResult: { (result)  in
+                XCTAssertNil(result)
             },
             request: testRequest,
             bridge: MockApiBridge(),
@@ -309,7 +390,6 @@ class GraphQLApiUnitTests: XCTestCase {
                     let errorMap: [String: String] = exception.details as! [String : String]
                     XCTAssertEqual("test error", errorMap["message"])
                     XCTAssertEqual("test recovery suggestion", errorMap["recoverySuggestion"])
-                    print("Test Error Map: \(errorMap)")
                 } else {
                     XCTFail()
                 }

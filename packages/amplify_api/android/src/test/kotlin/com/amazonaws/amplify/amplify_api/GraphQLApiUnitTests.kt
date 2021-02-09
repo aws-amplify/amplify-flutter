@@ -36,6 +36,7 @@ import org.robolectric.RobolectricTestRunner
 import java.lang.reflect.Field
 import java.lang.reflect.Modifier
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
+import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
 import com.amplifyframework.AmplifyException
 
 const val underlyingMalformedException =
@@ -304,6 +305,55 @@ class GraphQLApiUnitTests {
     }
 
     @Test
+    fun test_subscription_establishes_successfully() {
+        val testRequest = HashMap<String, Any>()
+        val id = "someCode"
+
+        testRequest["document"] = ("subscription MySubscription {"
+                + "onCreateBlog {"
+                + "id"
+                + "name"
+                + "createdAt"
+                + "}"
+                + "}")
+
+        testRequest["variables"] = mapOf(
+                "name" to "Test App Blog"
+        )
+        testRequest["cancelToken"] = id
+
+        doAnswer { invocation ->
+            Assert.assertEquals(
+                    SimpleGraphQLRequest<String>(
+                            testRequest["document"] as String,
+                            testRequest["variables"] as Map<String, Any>,
+                            String::class.java,
+                            GsonVariablesSerializer()
+                    ),
+                    invocation.arguments[0]
+            )
+            (invocation.arguments[1] as Consumer<String>).accept(
+                id
+            )
+            mockGraphQLOperation
+        }.`when`(mockApi).subscribe(
+                any<GraphQLRequest<String>>(),
+                any<Consumer<String>>(),
+                any<Consumer<GraphQLResponse<String>>>(),
+                any<Consumer<ApiException>>(),
+                any<Action>()
+        )
+
+
+        flutterPlugin.onMethodCall(
+                MethodCall("subscribe", testRequest),
+                mockResult
+        )
+
+        verify(mockResult).success(null)
+    }
+
+    @Test
     fun test_subscribe_success_event() {
         flutterPlugin = AmplifyApiPlugin(eventHandler = mockStreamHandler)
         val testRequest = HashMap<String, Any>()
@@ -363,6 +413,62 @@ class GraphQLApiUnitTests {
                         payload,
                         id,
                         GraphQLSubscriptionEventTypes.DATA)
+    }
+
+    @Test
+    fun test_subscribe_error_event() {
+        flutterPlugin = AmplifyApiPlugin(eventHandler = mockStreamHandler)
+        val apiException = ApiException("AmplifyException", ApiException.REPORT_BUG_TO_AWS_SUGGESTION)
+        val testRequest = HashMap<String, Any>()
+        val id = "someCode"
+
+        testRequest["document"] = ("subscription MySubscription {"
+                + "onCreateBlog {"
+                + "id"
+                + "name"
+                + "createdAt"
+                + "}"
+                + "}")
+
+        testRequest["variables"] = mapOf(
+                "name" to "Test App Blog"
+        )
+        testRequest["cancelToken"] = id
+
+        doAnswer { invocation ->
+            Assert.assertEquals(
+                    SimpleGraphQLRequest<String>(
+                            testRequest["document"] as String,
+                            testRequest["variables"] as Map<String, Any>,
+                            String::class.java,
+                            GsonVariablesSerializer()
+                    ),
+                    invocation.arguments[0]
+            )
+            (invocation.arguments[1] as Consumer<String>).accept(
+                    id
+            )
+            (invocation.arguments[3] as Consumer<ApiException>).accept(
+                    apiException
+            )
+            mockGraphQLOperation
+        }.`when`(mockApi).subscribe(
+                any<GraphQLRequest<String>>(),
+                any<Consumer<String>>(),
+                any<Consumer<GraphQLResponse<String>>>(),
+                any<Consumer<ApiException>>(),
+                any<Action>()
+        )
+
+        flutterPlugin.onMethodCall(
+                MethodCall("subscribe", testRequest),
+                mockResult
+        )
+
+        verify(mockResult).success(null)
+        verify(mockStreamHandler, times(1))
+                .sendError("ApiException",
+                        ExceptionUtil.createSerializedError(apiException))
     }
 
     @Test
