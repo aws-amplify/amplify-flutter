@@ -19,19 +19,24 @@ import Amplify
 import AmplifyPlugins
 
 public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
-
+    
     private let bridge: ApiBridge
-
+    private let graphQLSubscriptionsStreamHandler: GraphQLSubscriptionsStreamHandler
+    
     init(
-        bridge: ApiBridge = ApiBridge()
+        bridge: ApiBridge = ApiBridge(),
+        graphQLSubscriptionsStreamHandler: GraphQLSubscriptionsStreamHandler = GraphQLSubscriptionsStreamHandler()
     ){
         self.bridge = bridge
+        self.graphQLSubscriptionsStreamHandler = graphQLSubscriptionsStreamHandler
     }
-
+    
     public static func register(with registrar: FlutterPluginRegistrar) {
-        let channel = FlutterMethodChannel(name: "com.amazonaws.amplify/api", binaryMessenger: registrar.messenger())
+        let methodchannel = FlutterMethodChannel(name: "com.amazonaws.amplify/api", binaryMessenger: registrar.messenger())
+        let eventchannel = FlutterEventChannel(name: "com.amazonaws.amplify/api_observe_events", binaryMessenger: registrar.messenger())
         let instance = SwiftAmplifyApiPlugin()
-        registrar.addMethodCallDelegate(instance, channel: channel)
+        eventchannel.setStreamHandler(instance.graphQLSubscriptionsStreamHandler)
+        registrar.addMethodCallDelegate(instance, channel: methodchannel)
         do {
             try Amplify.add(plugin: AWSAPIPlugin())
             print("Successfully added API Plugin")
@@ -43,39 +48,44 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         innerHandle(method: call.method, callArgs: call.arguments as Any, result: result)
     }
-
+    
     // Create separate method to allow unit testing as we cannot mock "FlutterMethodCall"
     public func innerHandle(method: String, callArgs: Any, result: @escaping FlutterResult){
-
+        
         do {
             if(method == "cancel"){
                 let cancelToken = try FlutterApiRequest.getCancelToken(args: callArgs)
                 onCancel(flutterResult: result, cancelToken: cancelToken)
                 return
             }
-
+            
             let arguments = try FlutterApiRequest.getMap(args: callArgs as Any)
             switch method {
-                case "get": FlutterRestApi.get(flutterResult: result, arguments: arguments, bridge: bridge)
-                case "post": FlutterRestApi.post(flutterResult: result, arguments: arguments, bridge: bridge)
-                case "put": FlutterRestApi.put(flutterResult: result, arguments: arguments, bridge: bridge)
-                case "delete": FlutterRestApi.delete(flutterResult: result, arguments: arguments, bridge: bridge)
-                case "head": FlutterRestApi.head(flutterResult: result, arguments: arguments, bridge: bridge)
-                case "patch": FlutterRestApi.patch(flutterResult: result, arguments: arguments, bridge: bridge)
-
-                case "query":
-                    FlutterGraphQLApi.query(flutterResult: result, request: arguments, bridge: bridge)
-                case "mutate":
-                    FlutterGraphQLApi.mutate(flutterResult: result, request: arguments, bridge: bridge)
-                default:
-                    result(FlutterMethodNotImplemented)
+            case "get": FlutterRestApi.get(flutterResult: result, arguments: arguments, bridge: bridge)
+            case "post": FlutterRestApi.post(flutterResult: result, arguments: arguments, bridge: bridge)
+            case "put": FlutterRestApi.put(flutterResult: result, arguments: arguments, bridge: bridge)
+            case "delete": FlutterRestApi.delete(flutterResult: result, arguments: arguments, bridge: bridge)
+            case "head": FlutterRestApi.head(flutterResult: result, arguments: arguments, bridge: bridge)
+            case "patch": FlutterRestApi.patch(flutterResult: result, arguments: arguments, bridge: bridge)
+            case "query":
+                FlutterGraphQLApi.query(flutterResult: result, request: arguments, bridge: bridge)
+            case "mutate":
+                FlutterGraphQLApi.mutate(flutterResult: result, request: arguments, bridge: bridge)
+            case "subscribe":
+                FlutterGraphQLApi.subscribe(
+                    flutterResult: result,
+                    request: arguments, bridge: bridge,
+                    graphQLSubscriptionsStreamHandler: graphQLSubscriptionsStreamHandler
+                )
+            default:
+                result(FlutterMethodNotImplemented)
             }
         } catch let error {
             print("Failed to parse query arguments with \(error)")
             FlutterApiErrorHandler.handleApiError(error: APIError(error: error), flutterResult: result)
         }
     }
-
+    
     public func onCancel(flutterResult: @escaping FlutterResult, cancelToken: String){
         if(OperationsManager.containsOperation(cancelToken: cancelToken)){
             OperationsManager.cancelOperation(cancelToken: cancelToken)
@@ -88,5 +98,5 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
                             details: "Operation does not exist"))
         }
     }
-
+    
 }

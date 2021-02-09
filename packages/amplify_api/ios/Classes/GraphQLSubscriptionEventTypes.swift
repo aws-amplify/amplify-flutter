@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,18 +13,8 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
-import './types.dart';
-
-class GraphQLOperation<T> {
-  Function _cancel;
-  Future<GraphQLResponse<T>> response;
-
-  GraphQLOperation({@required this.response, @required Function cancel}) {
-    _cancel = cancel;
-  }
-
-  void cancel() {
-    _cancel();
-  }
+import Foundation
+enum GraphQLSubscriptionEventTypes: String {
+    case DATA = "DATA"
+    case DONE = "DONE"
 }

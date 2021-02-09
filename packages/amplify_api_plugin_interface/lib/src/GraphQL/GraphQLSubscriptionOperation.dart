@@ -15,24 +15,14 @@
 
 import 'package:flutter/foundation.dart';
 
-class GraphQLRequest<T> {
-  String document;
-  Map<String, dynamic> variables = {};
+class GraphQLSubscriptionOperation<T> {
+  Function _cancel;
 
-  GraphQLRequest({
-    @required this.document,
-    Map<String, dynamic> variables,
-  }) {
-    if (variables != null) {
-      this.variables = variables;
-    }
+  GraphQLSubscriptionOperation({@required Function cancel}) {
+    _cancel = cancel;
   }
 
-  Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> result = <String, dynamic>{};
-
-    result['document'] = this.document;
-    result['variables'] = this.variables;
-    return result;
+  void cancel() {
+    _cancel();
   }
 }
