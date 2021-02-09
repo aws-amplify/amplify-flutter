@@ -1,5 +1,9 @@
 ## 0.0.2-dev.2 (2021-02-09)
 
+### Features
+
+- feat: Implement the GraphQL Subscribe API (#338)
+
 ### Chores
 
 - chore: Don't add API plugin by default for DataStore (#350)

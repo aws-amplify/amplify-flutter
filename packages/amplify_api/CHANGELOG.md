@@ -1,5 +1,9 @@
 ## 0.0.2-dev.2 (2021-02-03)
 
+### Features
+
+- feat: Implement the GraphQL Subscribe API (#338)
+
 ### Chores
 
 - chore: Updated amplify-android version 1.6.10 (#332)
