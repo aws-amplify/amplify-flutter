@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,13 +13,16 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
+import './AuthUserAttributeOptions.dart';
 
-class SignUpOptions {
-  final Map<String, String> userAttributes;
-  const SignUpOptions({@required this.userAttributes});
-
+class AuthUserAttributeRequest {
+  AuthUserAttributeOptions options;
+  AuthUserAttributeRequest({this.options});
   Map<String, dynamic> serializeAsMap() {
-    throw UnimplementedError('serializeAsMap() has not been implemented on SignUpOptions.');
+    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
+    if (options != null) {
+      pendingRequest['options'] = options.serializeAsMap();
+    }
+    return pendingRequest;
   }
 }

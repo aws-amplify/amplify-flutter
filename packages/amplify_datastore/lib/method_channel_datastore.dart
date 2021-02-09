@@ -13,8 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:collection';
-
 import 'package:amplify_core/types/index.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:flutter/services.dart';
@@ -148,16 +146,17 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
     return serializedItem["modelName"] as String;
   }
 
-  DataStoreException _deserializeException(PlatformException e) {
+  AmplifyException _deserializeException(PlatformException e) {
     if (e.code == 'DataStoreException') {
-      throw DataStoreException.fromMap(Map<String, String>.from(e.details));
+      return DataStoreException.fromMap(Map<String, String>.from(e.details));
     } else if (e.code == 'AmplifyAlreadyConfiguredException') {
-      throw AmplifyAlreadyConfiguredException.fromMap(
+      return AmplifyAlreadyConfiguredException.fromMap(
           Map<String, String>.from(e.details));
     } else {
       // This shouldn't happen. All exceptions coming from platform for
       // amplify_datastore should have a known code. Throw an unknown error.
-      throw DataStoreException(AmplifyExceptionMessages.missingExceptionMessage,
+      return DataStoreException(
+          AmplifyExceptionMessages.missingExceptionMessage,
           recoverySuggestion:
               AmplifyExceptionMessages.missingRecoverySuggestion,
           underlyingException: e.toString());

@@ -42,13 +42,6 @@ public class SwiftAmplify: NSObject, FlutterPlugin {
 
     private func onConfigure(result: FlutterResult, version: String, configuration: String) {
         do {
-            if let data = configuration.data(using: .utf8) {
-                let configurationDictionary = try JSONSerialization.jsonObject(with: data) as? [String: Any]
-                if(configurationDictionary?["api"] != nil) {
-                    // api configuration exists. Let's add the plugin
-                    try Amplify.add(plugin: AWSAPIPlugin())
-                }
-            }
             let amplifyConfiguration = try JSONDecoder().decode(AmplifyConfiguration.self, from: configuration.data(using: .utf8)!)
             AmplifyAWSServiceConfiguration.addUserAgentPlatform(.flutter, version: version)
             try Amplify.configure(amplifyConfiguration)
@@ -66,6 +59,21 @@ public class SwiftAmplify: NSObject, FlutterPlugin {
                     result: result,
                     errorCode: "AmplifyAlreadyConfigured",
                     details: createSerializedError(error: error))
+            default:
+                ErrorUtil.postErrorToFlutterChannel(
+                    result: result,
+                    errorCode: "AmplifyException",
+                    details: createSerializedError(error: error))
+            }
+        } catch let error as PluginError {
+            switch error {
+            case .pluginConfigurationError(let errorDescription, _, let error):
+                ErrorUtil.postErrorToFlutterChannel(result: result,
+                                                    errorCode: "AmplifyException",
+                                                    details: createSerializedError(message: "Please check your pubspec.yaml if you are depending on " +
+                                                        "an amplify plugin and not using in your app. Underlying error message: " + errorDescription,
+                                                                                   recoverySuggestion: "Remove amplify plugins from your pubspec.yaml that you are not using in your app.",
+                                                                                   underlyingError: error?.localizedDescription))
             default:
                 ErrorUtil.postErrorToFlutterChannel(
                     result: result,

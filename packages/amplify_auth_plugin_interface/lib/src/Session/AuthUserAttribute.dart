@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -15,11 +15,17 @@
 
 import 'package:flutter/foundation.dart';
 
-class SignUpOptions {
-  final Map<String, String> userAttributes;
-  const SignUpOptions({@required this.userAttributes});
 
-  Map<String, dynamic> serializeAsMap() {
-    throw UnimplementedError('serializeAsMap() has not been implemented on SignUpOptions.');
+class AuthUserAttribute {
+  String userAttributeKey;
+  var value;
+  AuthUserAttribute.init({@required this.userAttributeKey, @required this.value}) {
+    this.userAttributeKey = userAttributeKey;
+    if (userAttributeKey != 'phone_number') {
+      try {
+        this.value = int.parse(value);
+      } on FormatException {}
+    }
   }
 }
+

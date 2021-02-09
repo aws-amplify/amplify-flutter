@@ -40,6 +40,7 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdatePasswordReq
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthUser
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendSignUpCodeResult
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignInWithWebUIRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchUserAttributesResult
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthProvider
 import com.amplifyframework.auth.AuthSession
@@ -50,6 +51,7 @@ import com.amplifyframework.auth.result.AuthResetPasswordResult
 import com.amplifyframework.auth.result.AuthSessionResult
 import com.amplifyframework.auth.result.AuthSignInResult
 import com.amplifyframework.auth.result.AuthSignUpResult
+import com.amplifyframework.auth.AuthUserAttribute
 import com.amplifyframework.core.Amplify
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -157,6 +159,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       "fetchAuthSession" -> onFetchAuthSession(result, data)
       "resendSignUpCode" -> onResendSignUpCode(result, data)
       "getCurrentUser" -> onGetCurrentUser(result)
+      "fetchUserAttributes" -> onFetchUserAttributes(result)
       "signInWithWebUI" -> onSignInWithWebUI(result, data)
       else -> result.notImplemented()
     }
@@ -359,6 +362,19 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
     }
   }
 
+  private fun onFetchUserAttributes(@NonNull flutterResult: Result) {
+    try {
+      Amplify.Auth.fetchUserAttributes(
+              { result -> prepareFetchAttributesResult(flutterResult, result) },
+              { error -> errorHandler.handleAuthError(flutterResult, error)}
+      )
+    } catch (e: AuthException) {
+      errorHandler.handleAuthError(flutterResult, e)
+    } catch (e: Exception) {
+      errorHandler.prepareGenericException(flutterResult, e)
+    }
+  }
+
   fun prepareSignUpResult(@NonNull flutterResult: Result, @NonNull result: AuthSignUpResult) {
     var signUpData = FlutterSignUpResult(result);
     Handler (Looper.getMainLooper()).post {
@@ -450,6 +466,13 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
     var preppedUser = FlutterAuthUser(user);
     Handler (Looper.getMainLooper()).post {
       flutterResult.success(preppedUser.toValueMap());
+    }
+  }
+
+  fun prepareFetchAttributesResult(@NonNull flutterResult: Result, @NonNull attributes: List<AuthUserAttribute>) {
+    var attributes = FlutterFetchUserAttributesResult(attributes)
+    Handler (Looper.getMainLooper()).post {
+      flutterResult.success(attributes.toList());
     }
   }
 
