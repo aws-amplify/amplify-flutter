@@ -25,11 +25,8 @@ import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.crea
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.analytics.AnalyticsException
-import com.amplifyframework.api.aws.AWSApiPlugin
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.AmplifyConfiguration
-import com.amplifyframework.core.category.CategoryType
-import com.amplifyframework.core.category.EmptyCategoryConfiguration
 import com.amplifyframework.util.UserAgent
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -121,10 +118,6 @@ class Amplify : FlutterPlugin, ActivityAware, MethodCallHandler {
                     .addPlatform(UserAgent.Platform.FLUTTER, version)
                     .devMenuEnabled(false)
                     .build()
-            if (configuration.forCategoryType(
-                            CategoryType.API) !is EmptyCategoryConfiguration) {
-                Amplify.addPlugin(AWSApiPlugin())
-            }
             Amplify.configure(configuration, context)
             result.success(true);
         } catch (e: AnalyticsException) {
