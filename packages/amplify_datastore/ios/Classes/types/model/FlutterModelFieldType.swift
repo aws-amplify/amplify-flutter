@@ -99,7 +99,7 @@ public struct FlutterModelFieldType {
             return Bool.self
         case "dateTime":
             return Temporal.DateTime.self
-        case "Time":
+        case "time":
             return Temporal.Time.self
         case "date":
             return Temporal.Date.self

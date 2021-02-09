@@ -119,7 +119,7 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
         return jsonValue(for: key)
     }
     
-    private func deerializeValue(value: JSONValue?, fieldType: Codable.Type) -> Any?? {
+    private func deserializeValue(value: JSONValue?, fieldType: Codable.Type) -> Any?? {
         if fieldType is Int.Type,
            case .some(.number(let deserializedValue)) = value {
             return Int(deserializedValue)
@@ -190,7 +190,7 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
                 if case .array(let jsonArray) = value {
                     var modifiedArray:[Any??] = []
                     for item in jsonArray {
-                        let parsedItem = deerializeValue(value: item, fieldType: fieldType)
+                        let parsedItem = deserializeValue(value: item, fieldType: fieldType)
                         modifiedArray.append(parsedItem)
                     }
                     result[key] = modifiedArray
@@ -242,4 +242,3 @@ extension FlutterSerializedModel {
 
     public static let keys = CodingKeys.self
 }
-
