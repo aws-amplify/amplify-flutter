@@ -1,7 +1,8 @@
-## 0.0.2-dev.2 (2021-02-03)
+## 0.0.2-dev.2 (2021-02-09)
 
 ### Chores
 
+- chore: Don't add API plugin by default for DataStore (#350)
 - chore: Introduce new Temporal types (Date, DateTime, Time, Timestamp) for Dart codegen models (#307)
 - chore: Refactor error handling to use the new DatastoreException types (#329)
 - chore: Updated amplify-android version 1.6.10 (#332)
@@ -9,6 +10,7 @@
 
 ### Bug Fixes
 
+- fix: MissingPluginException when android app restarts (#345)
 - fix: Fix minor error handling in dart code (#356)
 - fix: Save lists properly in iOS for all types (#364)
 

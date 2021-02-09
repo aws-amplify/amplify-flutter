@@ -1,4 +1,4 @@
-## 0.0.2-dev.2 (2021-02-03)
+## 0.0.2-dev.2 (2021-02-09)
 
 ### Features
 
@@ -11,6 +11,7 @@
 
 ### Bug Fixes
 
+- fix: MissingPluginException when android app restarts (#345)
 - fix: force user attribute to be string (#362)
 
 ## 0.0.2-dev.1 (2021-01-25)
