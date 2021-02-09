@@ -10,6 +10,7 @@
 ### Bug Fixes
 
 - fix: Fix minor error handling in dart code (#356)
+- fix: Export datastore types (#357)
 - fix: Save lists properly in iOS for all types (#364)
 
 ## 0.0.2-dev.1 (2021-01-25)

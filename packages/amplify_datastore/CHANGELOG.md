@@ -2,6 +2,7 @@
 
 ### Chores
 
+- chore: Update Readme (#358)
 - chore: Don't add API plugin by default for DataStore (#350)
 - chore: Introduce new Temporal types (Date, DateTime, Time, Timestamp) for Dart codegen models (#307)
 - chore: Refactor error handling to use the new DatastoreException types (#329)
@@ -12,6 +13,7 @@
 
 - fix: MissingPluginException when android app restarts (#345)
 - fix: Fix minor error handling in dart code (#356)
+- fix: Export datastore types (#357)
 - fix: Save lists properly in iOS for all types (#364)
 
 ## 0.0.2-dev.1 (2021-01-25)
