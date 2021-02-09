@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,12 +13,9 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
-import './types.dart';
+package com.amazonaws.amplify.amplify_api
 
-class GraphQLResponse<T> {
-  T data;
-  List<GraphQLResponseError> errors = [];
-
-  GraphQLResponse({@required this.data, this.errors});
+enum class GraphQLSubscriptionEventTypes {
+    DATA,
+    DONE
 }

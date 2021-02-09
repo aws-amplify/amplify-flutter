@@ -45,6 +45,22 @@ class APICategory {
         : throw _pluginNotAddedException("Api");
   }
 
+  GraphQLSubscriptionOperation<T> subscribe<T>(
+      {@required GraphQLRequest<T> request,
+      @required void Function(GraphQLResponse<T>) onData,
+      Function() onEstablished,
+      Function(dynamic) onError,
+      Function() onDone}) {
+    return plugins.length == 1
+        ? plugins[0].subscribe(
+            request: request,
+            onEstablished: onEstablished,
+            onData: onData,
+            onError: onError,
+            onDone: onDone)
+        : throw _pluginNotAddedException("Api");
+  }
+
   // ====== RestAPI ======
   void cancelRequest(String code) {
     return plugins.length == 1
