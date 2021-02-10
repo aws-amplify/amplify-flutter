@@ -477,7 +477,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
   }
 
   fun prepareCognitoSessionFailure(@NonNull flutterResult: Result, @NonNull result: AWSCognitoAuthSession) {
-    errorHandler.handleAuthError(flutterResult, AuthException.SignedOutException())
+    errorHandler.handleAuthError(flutterResult, AuthException.SessionExpiredException())
   }
 
   fun prepareSessionResult(@NonNull flutterResult: Result, @NonNull result: AuthSession) {
