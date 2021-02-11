@@ -16,18 +16,19 @@
 package com.amazonaws.amplify.amplify_auth_cognito
 
 import android.app.Activity
-import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.services.cognitoidentityprovider.model.AliasExistsException
+import com.amazonaws.services.cognitoidentityprovider.model.UserNotFoundException
 import com.amplifyframework.auth.*
-import com.amplifyframework.auth.cognito.AWSCognitoAuthSession
-import com.amplifyframework.auth.cognito.AWSCognitoUserPoolTokens
 import com.amplifyframework.auth.options.AuthSignOutOptions
 import com.amplifyframework.auth.options.AuthSignUpOptions
 import com.amplifyframework.auth.result.AuthResetPasswordResult
-import com.amplifyframework.auth.result.AuthSessionResult
 import com.amplifyframework.auth.result.AuthSignInResult
 import com.amplifyframework.auth.result.AuthSignUpResult
+import com.amplifyframework.auth.cognito.AWSCognitoAuthSession
+import com.amplifyframework.auth.cognito.AWSCognitoUserPoolTokens
+import com.amplifyframework.auth.result.AuthSessionResult
 import com.amplifyframework.auth.result.step.*
 import com.amplifyframework.core.Action
 import com.amplifyframework.core.Amplify
@@ -36,13 +37,6 @@ import com.amplifyframework.logging.Logger
 import com.google.gson.internal.LinkedTreeMap
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.newSingleThreadContext
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runBlockingTest
-import kotlinx.coroutines.test.setMain
-import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -52,8 +46,6 @@ import org.mockito.invocation.InvocationOnMock
 import org.robolectric.RobolectricTestRunner
 import java.lang.reflect.Field
 import java.lang.reflect.Modifier
-import kotlin.coroutines.Continuation
-import kotlin.coroutines.resume
 
 @RunWith(RobolectricTestRunner::class)
 class AmplifyAuthCognitoPluginTest {
@@ -69,7 +61,6 @@ class AmplifyAuthCognitoPluginTest {
     private val mockSignInResult = AuthSignInResult(false, signInStep)
     private val mockResetPasswordResult = AuthResetPasswordResult(false, resetStep)
     private var mockAuth = mock(AuthCategory::class.java)
-    private val mainThreadSurrogate = newSingleThreadContext("UI thread")
 
     @Before
     fun setup() {
@@ -79,14 +70,6 @@ class AmplifyAuthCognitoPluginTest {
         doNothing().`when`(mockLog).error(anyString(), any(AuthException::class.java))
 
         setFinalStatic(Amplify::class.java.getDeclaredField("Auth"), mockAuth)
-        Dispatchers.setMain(mainThreadSurrogate)
-    }
-
-
-    @After
-    fun tearDown() {
-        Dispatchers.resetMain() // reset main dispatcher to the original Main dispatcher
-        mainThreadSurrogate.close()
     }
 
     @Test
@@ -189,7 +172,6 @@ class AmplifyAuthCognitoPluginTest {
             plugin.prepareSignInResult(mockResult, mockSignInResult)
             null as Void?
         }.`when`(mockAuth).signIn(anyString(), anyString(), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
-
 
         val data = hashMapOf(
                 "username" to "testUser",

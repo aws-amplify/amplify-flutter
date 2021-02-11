@@ -18,7 +18,6 @@ package com.amazonaws.amplify.amplify_auth_cognito.types
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 
-
 data class FlutterSignInRequest(val map: HashMap<String, *>) {
   val username: String = map["username"] as String;
   val password: String = map["password"] as String;
@@ -26,7 +25,6 @@ data class FlutterSignInRequest(val map: HashMap<String, *>) {
 
   companion object {
     private const val validationErrorMessage: String = "SignIn Request malformed."
-    
     fun validate(req : HashMap<String, *>?) {
       if (req == null || req !is HashMap<String, *>) {
         throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "request map" ))
