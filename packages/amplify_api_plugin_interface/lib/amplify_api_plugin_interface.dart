@@ -34,6 +34,15 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('mutate() has not been implemented.');
   }
 
+  GraphQLSubscriptionOperation<T> subscribe<T>(
+      {@required GraphQLRequest<T> request,
+      @required void Function(GraphQLResponse<T>) onData,
+      Function() onEstablished,
+      Function(dynamic) onError,
+      Function() onDone}) {
+    throw UnimplementedError('subscribe() has not been implemented.');
+  }
+
   // ====== RestAPI ======
   void cancelRequest(String code) {
     throw UnimplementedError('cancelRequest has not been implemented.');

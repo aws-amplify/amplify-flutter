@@ -1,3 +1,18 @@
+## 0.0.2-dev.2 (2021-02-09)
+
+### Features
+
+- feat: Add support for fetchUserAttributes (#343)
+
+### Chores
+
+- chore: Refactor error handling to use the new AuthException types (#322)
+- chore: Updated amplify-android version 1.6.10 (#332)
+
+### Bug Fixes
+
+- fix: force user attribute to be string (#362)
+
 ## 0.0.2-dev.1 (2021-01-25)
 
 ### Features

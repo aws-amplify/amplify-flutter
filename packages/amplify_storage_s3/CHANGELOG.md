@@ -1,3 +1,14 @@
+## 0.0.2-dev.2 (2021-02-09)
+
+### Chores
+
+- chore: Updated amplify-android version 1.6.10 (#332)
+- chore: Refactor error handling to use the new StorageException types (#341)
+
+### Bug Fixes
+
+- fix: MissingPluginException when android app restarts (#345)
+
 ## 0.0.2-dev.1 (2021-01-25)
 
 ### Chores

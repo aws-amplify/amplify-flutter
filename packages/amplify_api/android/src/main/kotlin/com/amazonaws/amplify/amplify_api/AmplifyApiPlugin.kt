@@ -19,10 +19,12 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
+import androidx.annotation.VisibleForTesting
 import com.amazonaws.amplify.amplify_api.rest_api.FlutterRestApi
 import com.amplifyframework.api.aws.AWSApiPlugin
 import com.amplifyframework.core.Amplify
 import io.flutter.embedding.engine.plugins.FlutterPlugin
+import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
@@ -34,14 +36,26 @@ import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.post
 class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
 
     private lateinit var channel: MethodChannel
+    private lateinit var eventchannel: EventChannel
     private lateinit var context: Context
+    private val graphqlSubscriptionStreamHandler: GraphQLSubscriptionStreamHandler
     private val LOG = Amplify.Logging.forNamespace("amplify:flutter:api")
 
+    constructor() {
+        graphqlSubscriptionStreamHandler = GraphQLSubscriptionStreamHandler()
+    }
+
+    @VisibleForTesting
+    constructor(eventHandler: GraphQLSubscriptionStreamHandler) {
+        graphqlSubscriptionStreamHandler = eventHandler
+    }
     private val handler = Handler(Looper.getMainLooper())
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "com.amazonaws.amplify/api")
         channel.setMethodCallHandler(this)
+        eventchannel = EventChannel(flutterPluginBinding.binaryMessenger, "com.amazonaws.amplify/api_observe_events")
+        eventchannel.setStreamHandler(graphqlSubscriptionStreamHandler)
         context = flutterPluginBinding.applicationContext
         try {
             Amplify.addPlugin(AWSApiPlugin())
@@ -72,6 +86,7 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
                 "patch" -> FlutterRestApi.patch(result, arguments)
                 "query" -> FlutterGraphQLApi.query(result, arguments)
                 "mutate" -> FlutterGraphQLApi.mutate(result, arguments)
+                "subscribe" -> FlutterGraphQLApi.subscribe(result, arguments, graphqlSubscriptionStreamHandler)
                 else -> result.notImplemented()
             }
         } catch (e: Exception) {

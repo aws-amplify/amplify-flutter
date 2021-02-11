@@ -28,8 +28,42 @@ class GraphQLApiView extends StatefulWidget {
 
 class _GraphQLApiViewState extends State<GraphQLApiView> {
   String _result = '';
+  Function _unsubscribe;
 
   GraphQLOperation _lastOperation;
+
+  subscribe() async {
+    String graphQLDocument = '''subscription MySubscription {
+        onCreateBlog {
+          id
+          name
+          createdAt
+        }
+      }''';
+    var operation = Amplify.API.subscribe(
+        request: GraphQLRequest<String>(document: graphQLDocument),
+        onData: (msg) {
+          print("Subscription Message received: ${msg.data}");
+        },
+        onEstablished: () {
+          print("Subscription established");
+        },
+        onError: (e) {
+          print("Error occurred");
+          print(e);
+        },
+        onDone: () {
+          print("Subscription has been closed successfully");
+        });
+
+    var unsubscribe = () {
+      operation.cancel();
+    };
+
+    setState(() {
+      _unsubscribe = unsubscribe;
+    });
+  }
 
   query() async {
     String graphQLDocument = '''query MyQuery {
@@ -104,6 +138,20 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
           child: ElevatedButton(
             onPressed: widget.isAmplifyConfigured ? mutate : null,
             child: const Text('Run Mutation'),
+          ),
+        ),
+        Padding(padding: EdgeInsets.all(10.0)),
+        Center(
+          child: RaisedButton(
+            onPressed: widget.isAmplifyConfigured ? subscribe : null,
+            child: Text('Subscribe'),
+          ),
+        ),
+        Padding(padding: EdgeInsets.all(10.0)),
+        Center(
+          child: RaisedButton(
+            onPressed: widget.isAmplifyConfigured ? _unsubscribe : null,
+            child: Text('Unsubscribe'),
           ),
         ),
         Padding(padding: EdgeInsets.all(5.0)),

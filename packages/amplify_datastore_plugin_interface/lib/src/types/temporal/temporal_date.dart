@@ -127,6 +127,10 @@ class TemporalDate {
     return buffer.toString();
   }
 
+  String toString() {
+    return format();
+  }
+
   bool operator ==(o) =>
       o is TemporalDate && _dateTime == o._dateTime && _offset == o._offset;
 

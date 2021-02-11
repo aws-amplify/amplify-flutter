@@ -15,6 +15,7 @@
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
+		B44F26FF25CDF1F700B05C07 /* MockAnalyticsCategoryPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44F26FE25CDF1F700B05C07 /* MockAnalyticsCategoryPlugin.swift */; };
 		B454F8AD2593CCBF00CA6E09 /* amplify_flutter_exampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B454F8AC2593CCBF00CA6E09 /* amplify_flutter_exampleTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9CA000BA2527BD8300410ECD /* unit_tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = unit_tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B23243B049084B0B0D59CDFA /* Pods_unit_tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_unit_tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B44F26FE25CDF1F700B05C07 /* MockAnalyticsCategoryPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAnalyticsCategoryPlugin.swift; sourceTree = "<group>"; };
 		B454F8AC2593CCBF00CA6E09 /* amplify_flutter_exampleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = amplify_flutter_exampleTests.swift; sourceTree = "<group>"; };
 		B454F8B02593CCCA00CA6E09 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E12C7E2E0AD3C3422384FE43 /* Pods-unit_tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.release.xcconfig"; path = "Target Support Files/Pods-unit_tests/Pods-unit_tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 			children = (
 				B454F8AC2593CCBF00CA6E09 /* amplify_flutter_exampleTests.swift */,
 				B454F8B02593CCCA00CA6E09 /* Info.plist */,
+				B44F26FE25CDF1F700B05C07 /* MockAnalyticsCategoryPlugin.swift */,
 			);
 			path = unit_tests;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B454F8AD2593CCBF00CA6E09 /* amplify_flutter_exampleTests.swift in Sources */,
+				B44F26FF25CDF1F700B05C07 /* MockAnalyticsCategoryPlugin.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

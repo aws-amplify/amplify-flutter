@@ -21,6 +21,7 @@ import com.amazonaws.amplify.amplify_api.rest_api.FlutterRestApi
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
 import com.amplifyframework.api.aws.GsonVariablesSerializer
 import com.amplifyframework.api.graphql.SimpleGraphQLRequest
+import com.amplifyframework.api.graphql.SubscriptionType
 import com.amplifyframework.core.Amplify
 import io.flutter.plugin.common.MethodChannel
 
@@ -126,5 +127,66 @@ class FlutterGraphQLApi {
                 OperationsManager.addOperation(cancelToken, operation)
             }
         }
+
+        @JvmStatic
+        fun subscribe(flutterResult: MethodChannel.Result, request: Map<String, Any>, graphqlSubscriptionStreamHandler: GraphQLSubscriptionStreamHandler) {
+            var document: String
+            var variables: Map<String, Any>
+            var id: String
+            var established = false
+
+            try {
+                document = FlutterApiRequest.getGraphQLDocument(request)
+                variables = FlutterApiRequest.getVariables(request)
+                id = FlutterApiRequest.getCancelToken(request)
+            } catch (e: Exception) {
+                handler.post {
+                    ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
+                            ExceptionUtil.createSerializedUnrecognizedError(e))
+                }
+                return
+            }
+            var operation = Amplify.API.subscribe(
+                    SimpleGraphQLRequest<String>(
+                            document,
+                            variables,
+                            String::class.java,
+                            GsonVariablesSerializer()
+                    ),
+                    {
+                        established = true
+                        LOG.debug("Subscription established: $id")
+                        handler.post { flutterResult.success(null) }
+                    },
+                    {response ->
+                        val payload: Map<String, Any> = mapOf(
+                                "data" to response.data,
+                                "errors" to response.errors.map { it.message }
+                        )
+                        LOG.debug("GraphQL subscription event received: $payload")
+                        graphqlSubscriptionStreamHandler.sendEvent(payload, id, GraphQLSubscriptionEventTypes.DATA)
+                    },
+                    {
+                        if (!id.isNullOrEmpty()) OperationsManager.removeOperation(id)
+                        if (established) {
+                            graphqlSubscriptionStreamHandler.sendError("ApiException", ExceptionUtil.createSerializedError(it))
+                        } else {
+                            handler.post {
+                                ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
+                                        ExceptionUtil.createSerializedError(it))
+                            }
+                        }
+                    },
+                    {
+                        if (!id.isNullOrEmpty()) OperationsManager.removeOperation(id)
+                        LOG.debug("Subscription has been closed successfully")
+                        graphqlSubscriptionStreamHandler.sendEvent(null, id, GraphQLSubscriptionEventTypes.DONE)
+                    }
+            )
+            if (operation != null) {
+                OperationsManager.addOperation(id, operation)
+            }
+        }
+
     }
 }

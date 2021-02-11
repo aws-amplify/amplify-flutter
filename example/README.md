@@ -25,7 +25,7 @@ Running these steps will generate the `amplifyconfiguration.dart` file within th
 
 This is a very basic app that interacts with AWS resources. We did not implement UI showing that the app is "loading" or "uploading" something from AWS. Some operations like logging in or uploading an image can take some time.
 
-Please note when signing up that you MUST provide a country code for a new user's phone number.  For example, if you number is American, you will need to append +1 at the beginning.  
+Please note when signing up that you MUST provide a country code for a new user's phone number.  For example, if your number is American, you will need to append +1 to the beginning.
 
 
 
