@@ -1378,7 +1378,7 @@ class amplify_auth_cognito_tests: XCTestCase {
 
         plugin = SwiftAuthCognito.init(cognito: SignInWithSocialWebUIMock())
         
-        _data = ["authProvider": "login_with_amazon"]
+        _data = ["authProvider": "amazon"]
         _args = ["data": _data]
         let call = FlutterMethodCall(methodName: "signInWithWebUI", arguments: _args)
         plugin.handle(call, result: {(result)->Void in
