@@ -239,7 +239,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
         try {
           session = fetchAuthSessionCoroutine() as AWSCognitoAuthSession
         } catch (e: Exception) {
-          print(e)
+          LOG.debug("Pre-signin session check failed. In most cases you can ignore this error. $e")
         }
         if (session == null || !session.isSignedIn || session.userPoolTokens.error is AuthException.SessionExpiredException) {
           val result = signInCoroutine(request)
