@@ -72,7 +72,6 @@ import kotlinx.coroutines.runBlocking
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
-import kotlin.math.sign
 
 
 /** AuthCognito */
@@ -230,28 +229,6 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       } catch (e: Exception) {
         errorHandler.prepareGenericException(flutterResult, e)
       }
-  }
-
-  suspend fun fetchAuthSessionCoroutine(): AuthSession {
-    return suspendCoroutine { continuation ->
-      Amplify.Auth.fetchAuthSession(
-              { continuation.resume(it) },
-              { continuation.resumeWithException(it) }
-      )
-    }
-  }
-
-  suspend fun signInCoroutine(request: HashMap<String, *>): AuthSignInResult {
-    FlutterSignInRequest.validate(request)
-    var req = FlutterSignInRequest(request)
-    return suspendCoroutine { continuation ->
-      Amplify.Auth.signIn(
-              req.username,
-              req.password,
-              { continuation.resume(it) },
-              { continuation.resumeWithException(it) }
-      )
-    }
   }
 
   private fun onSignIn (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>){
@@ -458,6 +435,28 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
         }
     } catch (e: Exception) {
       errorHandler.prepareGenericException(flutterResult, e)
+    }
+  }
+
+  private suspend fun fetchAuthSessionCoroutine(): AuthSession {
+    return suspendCoroutine { continuation ->
+      Amplify.Auth.fetchAuthSession(
+              { continuation.resume(it) },
+              { continuation.resumeWithException(it) }
+      )
+    }
+  }
+
+  private suspend fun signInCoroutine(request: HashMap<String, *>): AuthSignInResult {
+    FlutterSignInRequest.validate(request)
+    var req = FlutterSignInRequest(request)
+    return suspendCoroutine { continuation ->
+      Amplify.Auth.signIn(
+              req.username,
+              req.password,
+              { continuation.resume(it) },
+              { continuation.resumeWithException(it) }
+      )
     }
   }
 
