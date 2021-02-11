@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import '../../analytics_plugin_interface.dart';
+import '../../amplify_analytics_plugin_interface.dart';
 
 class AnalyticsEvent {
 
