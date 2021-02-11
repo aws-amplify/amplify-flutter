@@ -70,7 +70,7 @@ void main() {
   });
 
     test('signInWithWebUI (with provider) request returns SignInResult', () async {
-      var res =  await auth.signInWithWebUI(request: SignInWithWebUIRequest(provider: AuthProvider.login_with_amazon));
+      var res =  await auth.signInWithWebUI(request: SignInWithWebUIRequest(provider: AuthProvider.amazon));
       expect(
           res,
           isInstanceOf<SignInResult>());

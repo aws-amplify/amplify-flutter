@@ -18,4 +18,4 @@
   Dart enums are 0-based indices; new values must be added to the end of the list.
   !!IMPORTANT!! 
 */
-enum AuthProvider { google, facebook, login_with_amazon, apple }
+enum AuthProvider { google, facebook, amazon, apple }
