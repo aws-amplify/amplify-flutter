@@ -163,39 +163,39 @@ class AmplifyAuthCognitoPluginTest {
         verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
     }
 
-    @Test
-    fun signIn_returnsSuccess() {
-        // Arrange
-        doAnswer { invocation: InvocationOnMock ->
-            plugin.prepareSignInResult(mockResult, mockSignInResult)
-            null as Void?
-        }.`when`(mockAuth).signIn(anyString(), anyString(), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
-
-        val data = hashMapOf(
-            "username" to "testUser",
-            "password" to "testPassword"
-        )
-        val arguments = hashMapOf("data" to data)
-        val call = MethodCall("signIn", arguments)
-        val res = mapOf(
-            "isSignedIn" to false,
-            "nextStep" to mapOf(
-                "signInStep" to "CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE",
-                "additionalInfo" to "{}",
-                "codeDeliveryDetails" to mapOf(
-                    "destination" to "test@test.com",
-                    "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
-                    "attributeName" to "email"
-                )
-            )
-        )
-
-        // Act
-        plugin.onMethodCall(call, mockResult)
-
-        // Assert
-        verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
-    }
+//    @Test
+//    fun signIn_returnsSuccess() {
+//        // Arrange
+//        doAnswer { invocation: InvocationOnMock ->
+//            plugin.prepareSignInResult(mockResult, mockSignInResult)
+//            null as Void?
+//        }.`when`(mockAuth).signIn(anyString(), anyString(), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+//
+//        val data = hashMapOf(
+//            "username" to "testUser",
+//            "password" to "testPassword"
+//        )
+//        val arguments = hashMapOf("data" to data)
+//        val call = MethodCall("signIn", arguments)
+//        val res = mapOf(
+//            "isSignedIn" to false,
+//            "nextStep" to mapOf(
+//                "signInStep" to "CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE",
+//                "additionalInfo" to "{}",
+//                "codeDeliveryDetails" to mapOf(
+//                    "destination" to "test@test.com",
+//                    "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
+//                    "attributeName" to "email"
+//                )
+//            )
+//        )
+//
+//        // Act
+//        plugin.onMethodCall(call, mockResult)
+//
+//        // Assert
+//        verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
+//    }
 
     @Test
     fun confirmSignIn_returnsSuccess() {
