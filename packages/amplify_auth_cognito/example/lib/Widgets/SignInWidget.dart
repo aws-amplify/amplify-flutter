@@ -24,7 +24,7 @@ class SignInWidget extends StatefulWidget {
 class _SignInWidgetState extends State<SignInWidget> {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
-  AuthProvider provider = AuthProvider.login_with_amazon;
+  AuthProvider provider = AuthProvider.amazon;
 
   void _signIn() async {
     try {
@@ -172,7 +172,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                           provider = newValue;
                         });
                       },
-                      items: <AuthProvider>[AuthProvider.google, AuthProvider.facebook, AuthProvider.login_with_amazon]
+                      items: <AuthProvider>[AuthProvider.google, AuthProvider.facebook, AuthProvider.amazon]
                           .map<DropdownMenuItem<AuthProvider>>((AuthProvider value) {
                         return DropdownMenuItem<AuthProvider>(
                           value: value,
