@@ -24,7 +24,7 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:amplify_core/types/index.dart';
 import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
-import 'package:amplify_analytics_plugin_interface/analytics_plugin_interface.dart';
+import 'package:amplify_analytics_plugin_interface/amplify_analytics_plugin_interface.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 
