@@ -18,8 +18,6 @@ package com.amazonaws.amplify.amplify_auth_cognito
 import android.app.Activity
 import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.BasicAWSCredentials
-import com.amazonaws.services.cognitoidentityprovider.model.AliasExistsException
-import com.amazonaws.services.cognitoidentityprovider.model.UserNotFoundException
 import com.amplifyframework.auth.*
 import com.amplifyframework.auth.options.AuthSignOutOptions
 import com.amplifyframework.auth.options.AuthSignUpOptions
@@ -99,7 +97,6 @@ class AmplifyAuthCognitoPluginTest {
                     "destination" to "test@test.com",
                     "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
                     "attributeName" to "email"
-
                 )
             )
         )
