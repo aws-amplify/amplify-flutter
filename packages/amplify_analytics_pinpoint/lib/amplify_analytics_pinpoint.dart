@@ -15,7 +15,7 @@
 
 library amplify_analytics_pinpoint;
 
-import 'package:amplify_analytics_plugin_interface/analytics_plugin_interface.dart';
+import 'package:amplify_analytics_plugin_interface/amplify_analytics_plugin_interface.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 

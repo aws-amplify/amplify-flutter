@@ -15,7 +15,7 @@
 
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:amplify_analytics_plugin_interface/analytics_plugin_interface.dart';
+import 'package:amplify_analytics_plugin_interface/amplify_analytics_plugin_interface.dart';
 import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 
 void main() {
