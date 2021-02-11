@@ -22,26 +22,8 @@ import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
 import androidx.annotation.VisibleForTesting
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpResult
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignInResult
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchCognitoAuthSessionResult
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResetPasswordResult
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchAuthSessionResult
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendSignUpCodeRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchAuthSessionRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmSignUpRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignInRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmSignInRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignOutRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmPasswordRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResetPasswordRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdatePasswordRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthUser
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendSignUpCodeResult
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignInWithWebUIRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchUserAttributesResult
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterInvalidStateException
+import com.amazonaws.amplify.amplify_auth_cognito.types.*
+import com.amazonaws.mobileconnectors.cognitoauth.Auth
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthProvider
 import com.amplifyframework.auth.AuthSession
@@ -53,6 +35,7 @@ import com.amplifyframework.auth.result.AuthSessionResult
 import com.amplifyframework.auth.result.AuthSignInResult
 import com.amplifyframework.auth.result.AuthSignUpResult
 import com.amplifyframework.auth.AuthUserAttribute
+import com.amplifyframework.auth.options.AuthSignInOptions
 import com.amplifyframework.core.Amplify
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -64,6 +47,11 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.common.BinaryMessenger
+import kotlinx.coroutines.runBlocking
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
+import kotlin.math.sign
 
 
 /** AuthCognito */
@@ -224,22 +212,46 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
   }
 
   private fun onSignIn (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
-      try {
-        FlutterSignInRequest.checkUserState()
-      } catch(e: FlutterInvalidStateException) {
-          return errorHandler.handleAuthError(flutterResult, e)
-      }
-      try {
-        FlutterSignInRequest.validate(request)
-        var req = FlutterSignInRequest(request)
-        Amplify.Auth.signIn(
-                req.username,
-                req.password,
-                { result -> prepareSignInResult(flutterResult, result) },
-                { error -> errorHandler.handleAuthError(flutterResult, error)}
-        );
-      } catch (e: Exception) {
-        errorHandler.prepareGenericException(flutterResult, e)
+
+      runBlocking {
+        suspend fun fetchAuthSession(): AuthSession {
+          return suspendCoroutine { continuation ->
+            Amplify.Auth.fetchAuthSession(
+                    { continuation.resume(it) },
+                    { continuation.resumeWithException(it) }
+            )
+          }
+        }
+
+        suspend fun signIn(): AuthSignInResult {
+          FlutterSignInRequest.validate(request)
+          var req = FlutterSignInRequest(request)
+          return suspendCoroutine { continuation ->
+            Amplify.Auth.signIn(req.username, req.password,
+                    { continuation.resume(it) },
+                    { continuation.resumeWithException(it) }
+            )
+          }
+        }
+
+        try {
+           var session: AWSCognitoAuthSession? = null
+           try {
+             session = fetchAuthSession() as AWSCognitoAuthSession
+           } catch (e: Exception) {
+             print(e)
+           }
+           if (session == null || !session.isSignedIn || session.userPoolTokens.error is AuthException.SessionExpiredException) {
+               val result = signIn()
+               prepareSignInResult(flutterResult, result)
+           } else {
+             throw  FlutterInvalidStateException("There is already a user signed in.", "Sign out before calling sign in.")
+           }
+       } catch (e: AuthException) {
+           errorHandler.handleAuthError(flutterResult, e)
+        } catch (e: Exception) {
+           errorHandler.prepareGenericException(flutterResult, e)
+        }
       }
   }
 

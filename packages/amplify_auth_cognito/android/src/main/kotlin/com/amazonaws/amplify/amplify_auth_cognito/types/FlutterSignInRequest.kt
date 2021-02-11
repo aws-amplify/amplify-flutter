@@ -17,9 +17,7 @@ package com.amazonaws.amplify.amplify_auth_cognito.types
 
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
-import com.amplifyframework.auth.AuthException
-import com.amplifyframework.auth.AuthUser
-import com.amplifyframework.core.Amplify
+
 
 data class FlutterSignInRequest(val map: HashMap<String, *>) {
   val username: String = map["username"] as String;
@@ -28,23 +26,7 @@ data class FlutterSignInRequest(val map: HashMap<String, *>) {
 
   companion object {
     private const val validationErrorMessage: String = "SignIn Request malformed."
-    private const val signInCase: String = "There is already a user signed in."
-
-    fun checkUserState() {
-      try {
-        var user: AuthUser? = Amplify.Auth.currentUser;
-        if (user != null) {
-          throw FlutterInvalidStateException(signInCase, "Sign out before calling sign in.")
-        }
-        // It is expected that .currentUser will throw an error if state is signedOut
-        // We only want to propagate the error that we throw ourselves
-      } catch (e: Exception) {
-        if (e is FlutterInvalidStateException && e.message == signInCase) {
-          throw e
-        }
-      }
-    }
-
+    
     fun validate(req : HashMap<String, *>?) {
       if (req == null || req !is HashMap<String, *>) {
         throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "request map" ))
