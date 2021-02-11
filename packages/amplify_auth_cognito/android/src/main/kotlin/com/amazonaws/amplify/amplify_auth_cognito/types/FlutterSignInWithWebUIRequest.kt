@@ -20,7 +20,7 @@ import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 data class FlutterSignInWithWebUIRequest(val map: HashMap<String, *>) {
     val provider: String? = map?.get("authProvider") as String?;
     companion object {
-        private var allowedProviders: Array<String> = arrayOf("login_with_amazon", "google", "facebook")
+        private var allowedProviders: Array<String> = arrayOf("amazon", "google", "facebook", "apple")
         private const val validationErrorMessage: String = "SignInWithWebUI Request malformed."
 
         fun validate(req : HashMap<String, *>?) {

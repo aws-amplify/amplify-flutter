@@ -105,6 +105,8 @@ public struct FlutterModelFieldType {
             return Temporal.Date.self
         case "timestamp":
             return Int64.self
+        case "enumeration":
+            return String.self
         default:
             throw DataStoreError.decodingError(typeName + "is not a known primitive type",
                                                ErrorMessages.missingRecoverySuggestion)

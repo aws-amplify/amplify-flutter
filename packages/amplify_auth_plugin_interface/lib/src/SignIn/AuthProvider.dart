@@ -13,15 +13,9 @@
  * permissions and limitations under the License.
  */
 
-
-
 /*
   !!IMPORTANT!! 
   Dart enums are 0-based indices; new values must be added to the end of the list.
   !!IMPORTANT!! 
 */
-enum AuthProvider {
-  google,
-  facebook,
-  login_with_amazon,
-} 
+enum AuthProvider { google, facebook, amazon, apple }
