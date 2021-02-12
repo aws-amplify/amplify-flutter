@@ -231,24 +231,71 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       }
   }
 
-  private fun onSignIn (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>){
 
+  private suspend fun fetchAuthSessionCoroutine(): AuthSession {
+    return suspendCoroutine { continuation ->
+      Amplify.Auth.fetchAuthSession(
+              { continuation.resume(it) },
+              { continuation.resumeWithException(it) }
+      )
+    }
+  }
+
+//  private suspend fun fetchUserAttributesCoroutine(): List<AuthUserAttribute> {
+//    return suspendCoroutine { continuation ->
+//      Amplify.Auth.fetchUserAttributes(
+//              { continuation.resume(it) },
+//              { continuation.resumeWithException(it) }
+//      )
+//    }
+//  }
+
+  private suspend fun signInCoroutine(request: HashMap<String, *>): AuthSignInResult {
+    FlutterSignInRequest.validate(request)
+    var req = FlutterSignInRequest(request)
+    return suspendCoroutine { continuation ->
+      Amplify.Auth.signIn(
+              req.username,
+              req.password,
+              { continuation.resume(it) },
+              { continuation.resumeWithException(it) }
+      )
+    }
+  }
+
+  private fun preventSignIn(session: AWSCognitoAuthSession?): Boolean {
+    return session != null &&
+      session.isSignedIn &&
+      session.userPoolTokens.type == AuthSessionResult.Type.SUCCESS &&
+      session.userSub.type == AuthSessionResult.Type.SUCCESS
+  }
+
+
+  private fun onSignIn (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>){
+    var session: AWSCognitoAuthSession? = null
+    var blockSignIn = false
     runBlocking {
       try {
-        var session: AWSCognitoAuthSession? = null
-        try {
-          session = fetchAuthSessionCoroutine() as AWSCognitoAuthSession
-        } catch (e: Exception) {
-          LOG.debug("Pre-signin session check failed. In most cases you can ignore this error. $e")
-        }
-        if (session == null || !session.isSignedIn || session.userPoolTokens.error is AuthException.SessionExpiredException) {
-          val result = signInCoroutine(request)
-          prepareSignInResult(flutterResult, result)
-        } else {
-          throw  FlutterInvalidStateException("There is already a user signed in.", "Sign out before calling sign in.")
-        }
-      } catch (e: AuthException) {
-        errorHandler.handleAuthError(flutterResult, e)
+//        fetchUserAttributesCoroutine()
+        session = fetchAuthSessionCoroutine() as AWSCognitoAuthSession
+        blockSignIn = preventSignIn(session)
+      } catch (e: Exception) {
+        LOG.debug("Pre-signin session check failed. In most cases you can ignore this error. $e")
+      }
+    }
+    if (blockSignIn) {
+      errorHandler.prepareGenericException(flutterResult,
+        FlutterInvalidStateException("There is already a user signed in.", "Sign out before calling sign in."))
+    } else {
+      try {
+        FlutterSignInRequest.validate(request)
+        var req = FlutterSignInRequest(request)
+        Amplify.Auth.signIn(
+                req.username,
+                req.password,
+                { result -> prepareSignInResult(flutterResult, result) },
+                { error -> errorHandler.handleAuthError(flutterResult, error)}
+        );
       } catch (e: Exception) {
         errorHandler.prepareGenericException(flutterResult, e)
       }
@@ -435,28 +482,6 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
         }
     } catch (e: Exception) {
       errorHandler.prepareGenericException(flutterResult, e)
-    }
-  }
-
-  private suspend fun fetchAuthSessionCoroutine(): AuthSession {
-    return suspendCoroutine { continuation ->
-      Amplify.Auth.fetchAuthSession(
-              { continuation.resume(it) },
-              { continuation.resumeWithException(it) }
-      )
-    }
-  }
-
-  private suspend fun signInCoroutine(request: HashMap<String, *>): AuthSignInResult {
-    FlutterSignInRequest.validate(request)
-    var req = FlutterSignInRequest(request)
-    return suspendCoroutine { continuation ->
-      Amplify.Auth.signIn(
-              req.username,
-              req.password,
-              { continuation.resume(it) },
-              { continuation.resumeWithException(it) }
-      )
     }
   }
 
