@@ -98,9 +98,12 @@ class AmplifyAnalyticsBuilder {
                         val locationMap = item.value as HashMap<String, String>
                         userProfileBuilder.location(createUserLocation(locationMap))
                     }
-                    "properties" -> {
+                    "propertiesMap" -> {
                         val propertiesMap = item.value as HashMap<String, Any>
                         userProfileBuilder.customProperties(createAnalyticsProperties(propertiesMap))
+                    }
+                    "propertiesTypesMap" -> {
+                        // Ignore, we can infer types just using propertiesMap
                     }
                     // This case should not be possible as UserProfile is typed on Dart side
                     else -> {

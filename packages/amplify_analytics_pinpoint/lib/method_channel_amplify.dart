@@ -32,6 +32,7 @@ class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpoint {
       <String, Object>{
         'name': name,
         'propertiesMap': eventProperties.getAllProperties(),
+        'propertiesTypesMap': eventProperties.getAllPropertiesTypes()
       },
     );
   }
@@ -45,7 +46,12 @@ class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpoint {
   Future<void> registerGlobalProperties(
       {AnalyticsProperties globalProperties}) async {
     await _channel.invokeMethod<bool>(
-        'registerGlobalProperties', globalProperties.getAllProperties());
+      'registerGlobalProperties',
+      <String, Object>{
+        'propertiesMap': globalProperties.getAllProperties(),
+        'propertiesTypesMap': globalProperties.getAllPropertiesTypes()
+      },
+    );
   }
 
   @override

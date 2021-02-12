@@ -16,25 +16,34 @@
 class AnalyticsProperties {
 
   Map<String, Object> _properties = new Map<String,Object>();
+  Map<String, String> _propertiesTypes = new Map<String, String>();
 
   void addStringProperty(String key, String value){
     _properties[key] = value;
+    _propertiesTypes[key] = "STRING";
   }
 
   void addDoubleProperty(String key, double value){
     _properties[key] = value;
+    _propertiesTypes[key] = "DOUBLE";
   }
 
   void addBoolProperty(String key, bool value){
     _properties[key] = value;
+    _propertiesTypes[key] = "BOOL";
   }
 
   void addIntProperty(String key, int value){
     _properties[key] = value;
+    _propertiesTypes[key] = "INT";
   }
 
   Map<String, Object> getAllProperties(){
     return new Map<String, Object>.from(_properties);
+  }
+
+  Map<String, String> getAllPropertiesTypes(){
+    return new Map<String, String>.from(_propertiesTypes);
   }
 
 }

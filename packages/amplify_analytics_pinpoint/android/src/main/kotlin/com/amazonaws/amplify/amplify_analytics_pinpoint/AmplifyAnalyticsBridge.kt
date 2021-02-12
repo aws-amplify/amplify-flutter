@@ -55,9 +55,17 @@ class AmplifyAnalyticsBridge {
         }
 
         fun registerGlobalProperties(@NonNull arguments: Any, @NonNull result: MethodChannel.Result) {
-            val globalProperties = arguments as HashMap<String, Any>
+            val argumentsMap = arguments as HashMap<*, *>
+            var properties : HashMap<String, Any>
+
+            properties = if(argumentsMap.containsKey("propertiesMap")){
+                argumentsMap["propertiesMap"] as HashMap<String, Any>;
+            } else{
+                HashMap<String, Any>()
+            }
+
             Amplify.Analytics.registerGlobalProperties(
-                    AmplifyAnalyticsBuilder.createAnalyticsProperties(globalProperties))
+                    AmplifyAnalyticsBuilder.createAnalyticsProperties(properties))
             result.success(true)
         }
 
