@@ -16,6 +16,7 @@
 package com.amazonaws.amplify.amplify_auth_cognito
 
 import android.app.Activity
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignOutRequest
 import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.BasicAWSCredentials
 import com.amplifyframework.auth.*
@@ -193,7 +194,9 @@ class AmplifyAuthCognitoPluginTest {
         }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
 
         val data: HashMap<*, *> = hashMapOf(
-            "globalSignOut" to false
+            "options" to hashMapOf(
+                "globalSignOut" to false
+            )
         )
         val arguments: HashMap<String, Any> = hashMapOf("data" to data)
         val call = MethodCall("signOut", arguments)
@@ -203,6 +206,23 @@ class AmplifyAuthCognitoPluginTest {
 
         // Assert
         verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
+    }
+
+    @Test
+    fun signOut_signOutRequest() {
+        // Arrange
+        val data: HashMap<String, *> = hashMapOf(
+            "options" to hashMapOf(
+                    "globalSignOut" to true
+            )
+        )
+
+        // Act
+        val request = FlutterSignOutRequest(data)
+
+        // Assert
+        assert(request.signOutOptions is AuthSignOutOptions)
+        assert(request.signOutOptions.isGlobalSignOut)
     }
 
     @Test
