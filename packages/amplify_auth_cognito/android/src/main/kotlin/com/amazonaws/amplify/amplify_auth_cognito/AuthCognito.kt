@@ -421,7 +421,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
         } else {
           mainActivity.let {
             Amplify.Auth.signInWithSocialWebUI(
-                    AuthProvider::class.java.getMethod(req.provider).invoke(null) as AuthProvider,
+                    AuthProvider::class.java.getMethod(req.provider!!).invoke(null) as AuthProvider,
                     it,
                     { result ->
                       if (!resultSubmitted) {
