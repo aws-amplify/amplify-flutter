@@ -18,12 +18,12 @@ package com.amazonaws.amplify.amplify_auth_cognito.types
 import com.amplifyframework.auth.options.AuthSignOutOptions;
 
 data class FlutterSignOutRequest(val map: HashMap<String, *>) {
-  var signOutOptions: AuthSignOutOptions = setOptions()
   val options: HashMap<String, *>? = map["options"] as HashMap<String, *>?;
+  var signOutOptions: AuthSignOutOptions = setOptions()
 
-  fun setOptions(): AuthSignOutOptions {
+  private fun setOptions(): AuthSignOutOptions {
     var globalSignOut: Boolean = false;
-    if (options != null && options.get("globalSignOut") != null) {
+    if (options?.get("globalSignOut") != null) {
       globalSignOut = options.get("globalSignOut") as Boolean;
     }
     return AuthSignOutOptions.builder().globalSignOut(globalSignOut).build()
