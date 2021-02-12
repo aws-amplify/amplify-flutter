@@ -27,13 +27,13 @@ public class AmplifyAnalyticsBuilder {
         for (key,value) in propertiesTypesMap {
             switch value{
                 case "STRING":
-                    analyticsProperties[key] = propertiesMap[key] as! String
+                    analyticsProperties[key] = propertiesMap[key] as? String
                 case "INT":
-                    analyticsProperties[key] = propertiesMap[key] as! Int
+                    analyticsProperties[key] = propertiesMap[key] as? Int
                 case "DOUBLE":
-                    analyticsProperties[key] = propertiesMap[key] as! Double
+                    analyticsProperties[key] = propertiesMap[key] as? Double
                 case "BOOL":
-                    analyticsProperties[key] = propertiesMap[key] as! Bool
+                    analyticsProperties[key] = propertiesMap[key] as? Bool
                 default:
                     print("Unknown type for AnalyticsProperties")
             }
@@ -58,6 +58,9 @@ public class AmplifyAnalyticsBuilder {
                 userProfile.location = createUserLocation(userLocationMap: locationMap)
             case "propertiesMap":
                 userProfile.properties = createAnalyticsProperties(map: userProfileMap)
+            case "propertiesTypesMap":
+                // Can ignore this case as it is handled in propertiesMap above
+                continue
             // This case should not be possible as UserProfile is typed on Dart side
             default:
                 print("Unknown key for UserProfile")
