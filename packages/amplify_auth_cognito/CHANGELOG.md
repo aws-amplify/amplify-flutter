@@ -9,6 +9,7 @@
 - fix: force signOut when signedIn (#369)
 - fix: android throws SessionExpiredException instead of SignedOutException (#372)
 - fix: fix compile issue with newer gradle plugin (#381)
+- fix: deprecate globalSignOut; simple user check upon Android signIn (#386)
 
 ## 0.0.2-dev.2 (2021-02-09)
 
