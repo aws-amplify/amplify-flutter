@@ -1,3 +1,9 @@
+## 0.1 (2021-02-12)
+
+### Bug Fixes
+
+- fix: fix analyticsProperties (#383)
+
 ## 0.0.2-dev.2 (2021-02-09)
 
 ### Chores

@@ -1,3 +1,9 @@
+## 0.1 (2021-02-12)
+
+### Bug Fixes
+
+- fix: Allow path to be null for Storage.list() in Android (#384)
+
 ## 0.0.2-dev.2 (2021-02-09)
 
 ### Chores
