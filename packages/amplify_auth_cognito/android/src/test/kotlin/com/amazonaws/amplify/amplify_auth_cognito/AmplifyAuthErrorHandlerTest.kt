@@ -81,7 +81,7 @@ class AuthErrorHandlerTest {
         doAnswer { invocation: InvocationOnMock ->
             errorHandler.handleAuthError(mockResult, exception)
             null as Void?
-        }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
 
         val call = MethodCall("signOut", arguments)
 
@@ -106,7 +106,7 @@ class AuthErrorHandlerTest {
         doAnswer { invocation: InvocationOnMock ->
             errorHandler.handleAuthError(mockResult, exception)
             null as Void?
-        }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
@@ -130,7 +130,7 @@ class AuthErrorHandlerTest {
         doAnswer { invocation: InvocationOnMock ->
             errorHandler.handleAuthError(mockResult, exception)
             null as Void?
-        }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
@@ -154,7 +154,7 @@ class AuthErrorHandlerTest {
         doAnswer { invocation: InvocationOnMock ->
             errorHandler.handleAuthError(mockResult, exception)
             null as Void?
-        }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
@@ -178,7 +178,7 @@ class AuthErrorHandlerTest {
         doAnswer { invocation: InvocationOnMock ->
             errorHandler.handleAuthError(mockResult, exception)
             null as Void?
-        }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
@@ -202,7 +202,7 @@ class AuthErrorHandlerTest {
         doAnswer { invocation: InvocationOnMock ->
             errorHandler.handleAuthError(mockResult, exception)
             null as Void?
-        }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
@@ -226,7 +226,7 @@ class AuthErrorHandlerTest {
         doAnswer { invocation: InvocationOnMock ->
             errorHandler.handleAuthError(mockResult, exception)
             null as Void?
-        }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
@@ -250,7 +250,7 @@ class AuthErrorHandlerTest {
         doAnswer { invocation: InvocationOnMock ->
             errorHandler.handleAuthError(mockResult, exception)
             null as Void?
-        }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
@@ -274,7 +274,7 @@ class AuthErrorHandlerTest {
         doAnswer { invocation: InvocationOnMock ->
             errorHandler.handleAuthError(mockResult, exception)
             null as Void?
-        }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
@@ -298,7 +298,7 @@ class AuthErrorHandlerTest {
         doAnswer { invocation: InvocationOnMock ->
             errorHandler.handleAuthError(mockResult, exception)
             null as Void?
-        }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
@@ -322,7 +322,7 @@ class AuthErrorHandlerTest {
         doAnswer { invocation: InvocationOnMock ->
             errorHandler.handleAuthError(mockResult, exception)
             null as Void?
-        }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
@@ -346,7 +346,7 @@ class AuthErrorHandlerTest {
         doAnswer { invocation: InvocationOnMock ->
             errorHandler.handleAuthError(mockResult, exception)
             null as Void?
-        }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
@@ -370,7 +370,7 @@ class AuthErrorHandlerTest {
         doAnswer { invocation: InvocationOnMock ->
             errorHandler.handleAuthError(mockResult, exception)
             null as Void?
-        }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
@@ -394,7 +394,7 @@ class AuthErrorHandlerTest {
         doAnswer { invocation: InvocationOnMock ->
             errorHandler.handleAuthError(mockResult, exception)
             null as Void?
-        }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
@@ -418,7 +418,7 @@ class AuthErrorHandlerTest {
         doAnswer { invocation: InvocationOnMock ->
             errorHandler.handleAuthError(mockResult, exception)
             null as Void?
-        }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
@@ -442,7 +442,7 @@ class AuthErrorHandlerTest {
         doAnswer { invocation: InvocationOnMock ->
             errorHandler.handleAuthError(mockResult, exception)
             null as Void?
-        }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
@@ -466,7 +466,7 @@ class AuthErrorHandlerTest {
         doAnswer { invocation: InvocationOnMock ->
             errorHandler.handleAuthError(mockResult, exception)
             null as Void?
-        }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
@@ -490,7 +490,7 @@ class AuthErrorHandlerTest {
         doAnswer { invocation: InvocationOnMock ->
             errorHandler.handleAuthError(mockResult, exception)
             null as Void?
-        }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
@@ -514,7 +514,7 @@ class AuthErrorHandlerTest {
         doAnswer { invocation: InvocationOnMock ->
             errorHandler.handleAuthError(mockResult, exception)
             null as Void?
-        }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
@@ -537,7 +537,7 @@ class AuthErrorHandlerTest {
         doAnswer { invocation: InvocationOnMock ->
             errorHandler.handleAuthError(mockResult, exception)
             null as Void?
-        }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
@@ -560,7 +560,7 @@ class AuthErrorHandlerTest {
         doAnswer { invocation: InvocationOnMock ->
             errorHandler.handleAuthError(mockResult, exception)
             null as Void?
-        }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val call = MethodCall("signOut", arguments)
 
         val details = mapOf(
