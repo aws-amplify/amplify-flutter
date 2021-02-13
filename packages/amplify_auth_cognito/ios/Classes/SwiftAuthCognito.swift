@@ -116,8 +116,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
                 self.errorHandler.prepareGenericException(flutterResult: result, error: error)
             }
         case "signOut":
-            let request = FlutterSignOutRequest(dict: data)
-            cognito.onSignOut(flutterResult: result, request: request)
+            cognito.onSignOut(flutterResult: result)
         case "updatePassword":
             do {
                 try FlutterUpdatePasswordRequest.validate(dict: data)
