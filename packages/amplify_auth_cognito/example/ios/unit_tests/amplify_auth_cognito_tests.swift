@@ -1007,7 +1007,7 @@ class amplify_auth_cognito_tests: XCTestCase {
     func test_signOutSuccess() {
         
         class SignOutMock: AuthCognitoBridge {
-            override func onSignOut(flutterResult: @escaping FlutterResult, request: FlutterSignOutRequest) {
+            override func onSignOut(flutterResult: @escaping FlutterResult) {
                 let emptyMap: Dictionary<String, Any> = [:]
                 flutterResult(emptyMap)
             }
@@ -1029,7 +1029,7 @@ class amplify_auth_cognito_tests: XCTestCase {
     func test_signOutError() {
         
         class SignOutMock: AuthCognitoBridge {
-            override func onSignOut(flutterResult: @escaping FlutterResult, request: FlutterSignOutRequest) {
+            override func onSignOut(flutterResult: @escaping FlutterResult) {
                 let authError = AuthError.invalidState("Invalid state", MockErrorConstants.invalidStateError, nil)
                 errorHandler.handleAuthError(authError: authError, flutterResult: flutterResult)
             }
