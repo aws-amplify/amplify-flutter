@@ -23,9 +23,6 @@ data class FlutterSignOutRequest(val map: HashMap<String, *>) {
 
   private fun setOptions(): AuthSignOutOptions {
     var globalSignOut: Boolean = false;
-    if (options?.get("globalSignOut") != null) {
-      globalSignOut = options.get("globalSignOut") as Boolean;
-    }
     return AuthSignOutOptions.builder().globalSignOut(globalSignOut).build()
   }
 }

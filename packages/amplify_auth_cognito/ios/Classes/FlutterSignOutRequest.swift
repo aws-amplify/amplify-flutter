@@ -26,9 +26,5 @@ struct FlutterSignOutRequest {
 }
 
 func setOptions(dict: NSMutableDictionary) -> AuthSignOutRequest.Options {
-    if (dict["options"] != nil) {
-      return AuthSignOutRequest.Options(globalSignOut: true)
-    } else {
-      return AuthSignOutRequest.Options(globalSignOut: false)
-    }
+    return AuthSignOutRequest.Options(globalSignOut: false)
 }
