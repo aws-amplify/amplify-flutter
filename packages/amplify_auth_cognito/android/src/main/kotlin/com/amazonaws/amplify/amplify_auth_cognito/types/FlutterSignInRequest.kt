@@ -17,6 +17,8 @@ package com.amazonaws.amplify.amplify_auth_cognito.types
 
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
+import com.amplifyframework.auth.AuthUser
+import com.amplifyframework.core.Amplify
 
 data class FlutterSignInRequest(val map: HashMap<String, *>) {
   val username: String = map["username"] as String;
@@ -35,6 +37,18 @@ data class FlutterSignInRequest(val map: HashMap<String, *>) {
           (req["options"] == null || (req["options"] as HashMap<String, *>).size < 1 )
         ){
           throw InvalidRequestException(validationErrorMessage, "username and/or password are missing, and you are not using a custom auth flow.")
+        }
+      }
+    }
+    fun checkUser() {
+      try {
+        var user: AuthUser? = Amplify.Auth.currentUser;
+        if (user != null) {
+          throw FlutterInvalidStateException("There is already a user  signed in.", "Sign out before calling sign in.")
+        }
+      } catch (e: Exception) {
+        if (e is FlutterInvalidStateException) {
+          throw e
         }
       }
     }
