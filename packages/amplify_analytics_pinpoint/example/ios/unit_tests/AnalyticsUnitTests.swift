@@ -72,9 +72,16 @@ class AnalyticsUnitTests: XCTestCase {
             "AnalyticsDoubleProperty" : 3.14,
             "AnalyticsIntegerProperty" : 42
         ]
+        let propertiesTypesMap : [String : String] = [
+            "AnalyticsStringProperty" : "STRING",
+            "AnalyticsBooleanProperty" : "BOOL",
+            "AnalyticsDoubleProperty" : "DOUBLE",
+            "AnalyticsIntegerProperty" : "INT"
+        ]
         let arguments: [String : Any] = [
             "name" : "amplify-event",
-            "propertiesMap" : propertiesMap
+            "propertiesMap" : propertiesMap,
+            "propertiesTypesMap" : propertiesTypesMap
         ]
         
         pluginUnderTest.innerHandle(
@@ -129,10 +136,20 @@ class AnalyticsUnitTests: XCTestCase {
             "AnalyticsDoubleProperty" : 3.14,
             "AnalyticsIntegerProperty" : 42
         ]
+        let propertiesTypesMap : [String : String] = [
+            "AnalyticsStringProperty" : "STRING",
+            "AnalyticsBooleanProperty" : "BOOL",
+            "AnalyticsDoubleProperty" : "DOUBLE",
+            "AnalyticsIntegerProperty" : "INT"
+        ]
+        let arguments: [String : Any] = [
+            "propertiesMap" : propertiesMap,
+            "propertiesTypesMap" : propertiesTypesMap
+        ]
         
         pluginUnderTest.innerHandle(
             method: "registerGlobalProperties",
-            callArgs: propertiesMap,
+            callArgs: arguments,
             result: { (results) in
                 XCTAssertEqual(results as! Bool, true)
             }
@@ -181,13 +198,20 @@ class AnalyticsUnitTests: XCTestCase {
             "TestBoolProperty" : true,
             "TestIntProperty" : 1
         ]
+        let customPropertiesTypesMap : [String : String] = [
+            "TestStringProperty" : "STRING",
+            "TestDoubleProperty" : "DOUBLE",
+            "TestBoolProperty" : "BOOL",
+            "TestIntProperty" : "INT"
+        ]
 
         let userProfileMap : [String : Any] = [
             "name" : "test-user",
             "email" : "user.com",
             "plan" : "test-plan",
             "location" : locationMap,
-            "properties" : customPropertiesMap
+            "propertiesMap" : customPropertiesMap,
+            "propertiesTypesMap" : customPropertiesTypesMap
         ]
 
         let userMap : [String : Any] = [

@@ -70,6 +70,7 @@ class _MyAppState extends State<MyApp> {
     print("register global properties: " + _globalProp);
 
     AnalyticsProperties properties = new AnalyticsProperties();
+    properties.addIntProperty(_globalProp + "_1numKey", 1);
     properties.addBoolProperty(_globalProp + "_boolKey", true);
     properties.addDoubleProperty(_globalProp + "_doubleKey", 10.0);
     properties.addIntProperty(_globalProp + "_intKey", 10);
@@ -115,6 +116,9 @@ class _MyAppState extends State<MyApp> {
 
     AnalyticsProperties properties = new AnalyticsProperties();
     properties.addStringProperty(_userId + "_stringKey", "stringValue");
+    properties.addIntProperty(_userId + "_intKey", 10);
+    properties.addDoubleProperty(_userId + "_doubleKey", 10.0);
+    properties.addBoolProperty(_userId + "_boolKey", false);
 
     analyticsUserProfile.properties = properties;
 

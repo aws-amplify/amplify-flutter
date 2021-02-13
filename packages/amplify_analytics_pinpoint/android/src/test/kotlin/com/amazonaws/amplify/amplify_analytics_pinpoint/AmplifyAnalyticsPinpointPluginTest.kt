@@ -72,9 +72,17 @@ class AmplifyAnalyticsPinpointPluginTest {
                 "AnalyticsDoubleProperty" to 3.14,
                 "AnalyticsIntegerProperty" to 42
         )
+        val propertiesTypesMap = hashMapOf<String, Any>(
+                "AnalyticsStringProperty" to "STRING",
+                "AnalyticsBooleanProperty" to "BOOL",
+                "AnalyticsDoubleProperty" to "DOUBLE",
+                "AnalyticsIntegerProperty" to "INT"
+        )
+
         val arguments: HashMap<*, *> = hashMapOf(
                 "name" to "amplify-event",
-                "propertiesMap" to propertiesMap
+                "propertiesMap" to propertiesMap,
+                "propertiesTypesMap" to propertiesTypesMap
         )
 
         val call = MethodCall("recordEvent", arguments)
@@ -101,8 +109,19 @@ class AmplifyAnalyticsPinpointPluginTest {
                 "AnalyticsDoubleProperty" to 3.14,
                 "AnalyticsIntegerProperty" to 42
         )
+        val propertiesTypesMap = hashMapOf<String, Any>(
+                "AnalyticsStringProperty" to "STRING",
+                "AnalyticsBooleanProperty" to "BOOL",
+                "AnalyticsDoubleProperty" to "DOUBLE",
+                "AnalyticsIntegerProperty" to "INT"
+        )
 
-        val call = MethodCall("registerGlobalProperties", propertiesMap)
+        val arguments: HashMap<*, *> = hashMapOf(
+                "propertiesMap" to propertiesMap,
+                "propertiesTypesMap" to propertiesTypesMap
+        )
+
+        val call = MethodCall("registerGlobalProperties", arguments)
         var mockResult: MethodChannel.Result = mock(MethodChannel.Result::class.java)
         plugin.onMethodCall(call, mockResult)
         verify(mockResult).success(true)
@@ -123,13 +142,18 @@ class AmplifyAnalyticsPinpointPluginTest {
                 "TestStringProperty" to "TestStringValue",
                 "TestDoubleProperty" to 1.0
         )
+        val customPropertiesTypesMap = hashMapOf<String, Any>(
+                "TestStringProperty" to "STRING",
+                "TestDoubleProperty" to "DOUBLE"
+        )
 
         val userProfileMap = hashMapOf<String, Any>(
                 "name" to "test-user",
                 "email" to "user@test.com",
                 "plan" to "test-plan",
                 "location" to locationMap,
-                "properties" to customPropertiesMap
+                "propertiesMap" to customPropertiesMap,
+                "propertiesTypesMap" to customPropertiesTypesMap
         )
 
         val userMap = hashMapOf<String, Any>(
