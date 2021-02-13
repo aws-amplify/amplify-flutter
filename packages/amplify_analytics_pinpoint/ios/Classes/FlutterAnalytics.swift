@@ -25,14 +25,12 @@ public class FlutterAnalytics {
     
     public static func record(arguments: Any?, result: @escaping FlutterResult, bridge: AnalyticsBridge){
         let argumentsMap = arguments as! Dictionary<String, Any>
-
         let name = argumentsMap["name"] as! String
-        
         let event: BasicAnalyticsEvent
         
         if(argumentsMap["propertiesMap"] != nil){
-            let propertiesMap = argumentsMap["propertiesMap"] as! Dictionary<String, Any>
-            event = BasicAnalyticsEvent(name: name, properties: AmplifyAnalyticsBuilder.createAnalyticsProperties(propertiesMap: propertiesMap))
+            let analyticsProperties = AmplifyAnalyticsBuilder.createAnalyticsProperties(map: argumentsMap)
+            event = BasicAnalyticsEvent(name: name, properties: analyticsProperties )
         }
         else{
             event = BasicAnalyticsEvent(name: name)
@@ -48,8 +46,9 @@ public class FlutterAnalytics {
     }
     
     public static func registerGlobalProperties(arguments: Any?, result: @escaping FlutterResult, bridge: AnalyticsBridge){
-        let propertiesMap = arguments as! Dictionary<String , Any>
-        bridge.registerGlobalProperties(analyticsProperties: AmplifyAnalyticsBuilder.createAnalyticsProperties(propertiesMap: propertiesMap))
+        let argumentsMap = arguments as! Dictionary<String, Any>
+        let analyticsProperties = AmplifyAnalyticsBuilder.createAnalyticsProperties(map: argumentsMap)
+        bridge.registerGlobalProperties(analyticsProperties: analyticsProperties)
         result(true);
     }
     
