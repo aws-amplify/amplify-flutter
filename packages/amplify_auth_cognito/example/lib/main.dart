@@ -139,8 +139,7 @@ class _MyAppState extends State<MyApp> {
 
   void _signOut() async {
     try {
-      await Amplify.Auth.signOut(
-          options: CognitoSignOutOptions(globalSignOut: true));
+      await Amplify.Auth.signOut();
       showResult('Signed Out');
       changeDisplay('SHOW_SIGN_IN');
     } on AmplifyException catch (e) {
