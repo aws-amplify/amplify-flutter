@@ -40,7 +40,6 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthUser
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendSignUpCodeResult
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignInWithWebUIRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchUserAttributesResult
-import com.amplifyframework.core.Consumer
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthProvider
 import com.amplifyframework.auth.AuthSession
@@ -152,7 +151,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       "confirmSignUp" -> onConfirmSignUp(result, data)
       "signIn" -> onSignIn(result, data)
       "confirmSignIn" -> onConfirmSignIn(result, data)
-      "signOut" ->  onSignOut(result, data)
+      "signOut" ->  onSignOut(result)
       "updatePassword" -> onUpdatePassword(result, data)
       "resetPassword" -> onResetPassword(result, data)
       "confirmPassword" -> onConfirmPassword(result, data)
@@ -252,7 +251,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       }
   }
 
-  private fun onSignOut (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
+  private fun onSignOut (@NonNull flutterResult: Result) {
     try {
       Amplify.Auth.signOut(
               {  -> prepareSignOutResult(flutterResult)},
