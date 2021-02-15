@@ -12,7 +12,7 @@ We are iterating and looking for feedback and collaboration, so please [**let us
 - [Example Application](https://github.com/aws-amplify/amplify-flutter/tree/master/example)
 - [Roadmap/Provide Feedback](https://github.com/aws-amplify/amplify-flutter/issues/5)
 
-⚠️ **For upcoming breaking changes please refer to this [issue](https://github.com/aws-amplify/amplify-flutter/issues/274) for migration details.**
+⚠️ **For breaking changes from the developer preview versions please refer to this [issue](https://github.com/aws-amplify/amplify-flutter/issues/274) for migration details.**
 
 ## Supported Amplify Categories
 
