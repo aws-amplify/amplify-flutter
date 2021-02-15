@@ -19,16 +19,10 @@ export 'CognitoSignUp/CognitoSignUpResult.dart';
 export 'CognitoSignUp/CognitoConfirmSignUpOptions.dart';
 export 'CognitoSignUp/CognitoResendSignUpCodeResult.dart';
 
-
 // SignIn
 export 'CognitoSignIn/CognitoSignInResult.dart';
 export 'CognitoSignIn/CognitoConfirmSignInOptions.dart';
 export 'CognitoSignIn/CognitoSignInOptions.dart';
-
-// SignOut
-export 'CognitoSignOut/CognitoSignOutOptions.dart';
-export 'CognitoSignUp/CognitoSignUpResult.dart';
-export 'CognitoSignUp/CognitoSignUpOptions.dart';
 
 // Password
 export 'CognitoPasswords/CognitoResetPasswordResult.dart';

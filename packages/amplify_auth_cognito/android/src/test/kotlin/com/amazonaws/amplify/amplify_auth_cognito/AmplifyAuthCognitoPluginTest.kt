@@ -190,11 +190,9 @@ class AmplifyAuthCognitoPluginTest {
         doAnswer { invocation: InvocationOnMock ->
             plugin.prepareSignOutResult(mockResult)
             null as Void?
-        }.`when`(mockAuth).signOut(any(AuthSignOutOptions::class.java), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
 
-        val data: HashMap<*, *> = hashMapOf(
-            "globalSignOut" to false
-        )
+        val data: HashMap<String, String> = HashMap<String, String>()
         val arguments: HashMap<String, Any> = hashMapOf("data" to data)
         val call = MethodCall("signOut", arguments)
 

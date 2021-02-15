@@ -1,3 +1,20 @@
+## 0.1.0 (2021-02-15)
+
+### Features
+
+- feat: sign in with apple (#378)
+
+### Chores
+
+- chore: Bump android version to 1.16.13 (#391)
+
+### Bug Fixes
+
+- fix: force signOut when signedIn (#369)
+- fix: android throws SessionExpiredException instead of SignedOutException (#372)
+- fix: fix compile issue with newer gradle plugin (#381)
+- fix: deprecate globalSignOut; simple user check upon Android signIn (#386)
+
 ## 0.0.2-dev.2 (2021-02-09)
 
 ### Features

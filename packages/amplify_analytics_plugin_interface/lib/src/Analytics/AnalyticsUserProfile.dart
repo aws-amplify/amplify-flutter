@@ -51,7 +51,8 @@ class AnalyticsUserProfile {
       allProperties["location"] = location.getAllProperties();
     }
     if (properties != null) {
-      allProperties["properties"] = properties.getAllProperties();
+      allProperties["propertiesMap"] = properties.getAllProperties();
+      allProperties["propertiesTypesMap"] = properties.getAllPropertiesTypes();
     }
 
     return allProperties;

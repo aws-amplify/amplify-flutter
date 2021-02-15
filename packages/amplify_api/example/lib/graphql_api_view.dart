@@ -42,8 +42,8 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
       }''';
     var operation = Amplify.API.subscribe(
         request: GraphQLRequest<String>(document: graphQLDocument),
-        onData: (msg) {
-          print("Subscription Message received: ${msg.data}");
+        onData: (event) {
+          print("Subscription event data received: ${event.data}");
         },
         onEstablished: () {
           print("Subscription established");
