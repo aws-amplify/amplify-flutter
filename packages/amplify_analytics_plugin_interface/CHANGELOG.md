@@ -1,3 +1,10 @@
+## 0.1.0 (2021-02-15)
+
+### Bug Fixes
+
+- fix: fix plugin interface naming (#125)
+- fix: fix analyticsProperties (#383)
+
 ## 0.0.2-dev.2 (2021-02-09)
 
 ### Chores

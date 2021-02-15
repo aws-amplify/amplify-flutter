@@ -1,3 +1,9 @@
+## 0.1.0 (2021-02-15)
+
+### Features
+
+- feat: sign in with apple (#378)
+
 ## 0.0.2-dev.2 (2021-02-09)
 
 ### Features
