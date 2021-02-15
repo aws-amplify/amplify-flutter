@@ -1,4 +1,8 @@
-## 0.1.0 (2021-02-12)
+## 0.1.0 (2021-02-15)
+
+### Chores
+
+- chore: Bump android version to 1.16.13 (#391)
 
 ### Bug Fixes
 
