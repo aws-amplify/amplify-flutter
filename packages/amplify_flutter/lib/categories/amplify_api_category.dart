@@ -48,9 +48,9 @@ class APICategory {
   GraphQLSubscriptionOperation<T> subscribe<T>(
       {@required GraphQLRequest<T> request,
       @required void Function(GraphQLResponse<T>) onData,
-      Function() onEstablished,
-      Function(dynamic) onError,
-      Function() onDone}) {
+      @required void Function() onEstablished,
+      @required void Function(dynamic) onError,
+      @required void Function() onDone}) {
     return plugins.length == 1
         ? plugins[0].subscribe(
             request: request,
