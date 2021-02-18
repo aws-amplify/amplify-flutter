@@ -15,6 +15,8 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
+/// Cognito extension of ResetPasswordResult
 class CognitoResetPasswordResult extends ResetPasswordResult {
+  /// Default constructor for CognitoResetPasswordResult
   CognitoResetPasswordResult({nextStep, isPasswordReset}) : super(isPasswordReset: isPasswordReset, nextStep: nextStep);
 }

@@ -19,7 +19,6 @@ import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart
 import 'amplify_auth_cognito.dart';
 import 'amplify_auth_error_handling.dart';
 
-// ignore_for_file: public_member_api_docs
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/auth_cognito');
 
 /// An implementation of [AmplifyPlatform] that uses method channels.

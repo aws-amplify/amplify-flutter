@@ -15,8 +15,11 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
+/// Cognito extension of PasswordOptions
 class CognitoUpdatePasswordOptions extends PasswordOptions {
+  /// ClientMetadata for Cognito Lambda triggers
   Map<String, String> clientMetadata;
+  /// Default constructor for CognitoResetPasswordResult
   CognitoUpdatePasswordOptions({this.clientMetadata}) : super();
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};

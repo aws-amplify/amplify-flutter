@@ -16,8 +16,12 @@
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
 
+/// A Cognito extension of AuthSessionOptions
 class CognitoSessionOptions extends AuthSessionOptions {
+  /// A parameter to request AWS credentials
   bool getAWSCredentials;
+  
+  /// The default constructor for CognitoSessionOptions
   CognitoSessionOptions({@required this.getAWSCredentials}) : super();
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};

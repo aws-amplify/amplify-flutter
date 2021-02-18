@@ -15,6 +15,8 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
+/// A Cognito extension of ResendSignUpCodeResult
 class CognitoResendSignUpCodeResult extends ResendSignUpCodeResult {
+  /// The default constructor for CognitoResendSignUpCodeResult
   CognitoResendSignUpCodeResult({codeDeliveryDetails}) : super(codeDeliveryDetails: codeDeliveryDetails);
 }

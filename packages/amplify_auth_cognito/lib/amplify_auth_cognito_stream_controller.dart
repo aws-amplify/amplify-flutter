@@ -17,10 +17,14 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'src/CognitoHubEvents/AuthHubEvent.dart';
 
+/// An event channel for receiving HUB events over a PlatformChannel.
 EventChannel channel = const EventChannel("com.amazonaws.amplify/auth_cognito_events");
+/// A subscription established for the event stream.
 StreamSubscription eventStream;
 
+/// Provides a StreamController for HUB
 class AuthStreamController {
+  /// The getter for the _authStreamController
   StreamController get authStreamController {
     return _authStreamController;
   }

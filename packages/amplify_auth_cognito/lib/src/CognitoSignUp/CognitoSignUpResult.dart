@@ -15,6 +15,8 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
+/// A Cognito extension of SignUpResult
 class CognitoSignUpResult extends SignUpResult {
+  /// The default constructor for CognitoSignUpResult
   CognitoSignUpResult({nextStep, isSignUpComplete}) : super(isSignUpComplete: isSignUpComplete, nextStep: nextStep);
 }

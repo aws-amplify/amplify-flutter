@@ -18,10 +18,21 @@ import 'dart:io' show Platform;
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:flutter/material.dart';
 
+/// Class to wrap AWS Cognito UserPool tokens
 class AWSCognitoUserPoolTokens {
+  /// The access token contains scopes and groups and is used to grant access 
+  /// to authorized resources.
   String accessToken;
+
+  /// The ID token contains claims about the identity of the authenticated user 
+  /// such as name, email, and phone_number.
   String idToken;
+
+  /// The refresh token contains the information necessary to obtain a 
+  /// new ID or access token.
   String refreshToken;
+  
+  /// Constructor for AWSCognitoUserPoolTokens.
   AWSCognitoUserPoolTokens.init({@required LinkedHashMap<dynamic, dynamic> tokens}) {
     if (tokens != null) {
       this.accessToken = tokens["accessToken"];

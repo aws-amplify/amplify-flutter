@@ -18,12 +18,25 @@ import 'package:flutter/foundation.dart';
 import './AWSCognitoUserPoolTokens.dart';
 import './AWSCredentials.dart';
 
+/// A Cognito extension of AuthSession
+/// Instantiated when fetchAuthSession is called with getAWSCredentials: true
 class CognitoAuthSession extends AuthSession {
+  /// The AWS credentials
   AWSCredentials credentials;
+
+  /// The Cognito UserPool Tokens
   AWSCognitoUserPoolTokens userPoolTokens;
+
+  /// The id of the User in the UserPool
   String userSub;
+
+  /// The identity id
   String identityId;
+
+  /// The default constructor for CognitoAuthSession
   CognitoAuthSession({@required isSignedIn, this.credentials, this.userPoolTokens, this.userSub, this.identityId}) : super(isSignedIn: isSignedIn);
+  
+  /// The abbreviated constructor for CognitoAuthSession
   CognitoAuthSession.init({@required sessionValues}) {
 
     this.isSignedIn = sessionValues["isSignedIn"];

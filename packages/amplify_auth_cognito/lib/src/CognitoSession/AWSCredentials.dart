@@ -18,10 +18,18 @@ import 'dart:io' show Platform;
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:flutter/material.dart';
 
+/// Class to wrap AWS credentials
 class AWSCredentials {
+  /// The AWS access key ID
   String awsAccessKey;
+
+  /// The AWS secret acess key
   String awsSecretKey;
+
+  /// the AWS session token
   String sessionToken;
+
+  /// Constructor for AWSCredentials.
   AWSCredentials.init({@required LinkedHashMap<dynamic, dynamic> creds}) {
     if (creds != null) {
       this.awsAccessKey = creds.containsKey("awsAccessKey") ? creds["awsAccessKey"] : null;
