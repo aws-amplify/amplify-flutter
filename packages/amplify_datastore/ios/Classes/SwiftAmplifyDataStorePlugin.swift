@@ -285,7 +285,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                 case .success():
                     print("Successfully cleared the store")
                     // iOS tears down the publisher after clear. Let's setup again.
-                    // See https://github.com/aws-amplify/amplify-flutter/issues/395q
+                    // See https://github.com/aws-amplify/amplify-flutter/issues/395
                     self.observeSubscription = nil
                     self.onSetupObserve(flutterResult: flutterResult)
                     flutterResult(nil)
