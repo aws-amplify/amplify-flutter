@@ -15,22 +15,32 @@
 
 package com.amazonaws.amplify.amplify_analytics_pinpoint
 
-import android.os.Handler
-import android.os.Looper
+import android.app.Application
+import android.content.Context
 import androidx.annotation.NonNull
 
 import com.amplifyframework.core.Amplify
 
 import io.flutter.plugin.common.MethodChannel
-import io.flutter.plugin.common.MethodChannel.Result
-
-import com.amazonaws.amplify.amplify_analytics_pinpoint.types.FlutterAnalyticsErrorMessage
-import com.amazonaws.amplify.amplify_analytics_pinpoint.types.PLATFORM_EXCEPTIONS
+import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
+import com.amplifyframework.analytics.pinpoint.AWSPinpointAnalyticsPlugin
 
 class AmplifyAnalyticsBridge {
     companion object Bridge {
 
         private val LOG = AmplifyAnalyticsPinpointPlugin.LOG
+
+        fun addPlugin(@NonNull flutterResult: MethodChannel.Result, @NonNull context: Context) {
+
+            try {
+                Amplify.addPlugin(AWSPinpointAnalyticsPlugin(context as Application?))
+                LOG.info("Added AnalyticsPinpoint plugin")
+            } catch (e: Exception) {
+                handleAddPluginException("Datastore", e, flutterResult)
+                return
+            }
+            flutterResult.success(null)
+        }
 
         fun recordEvent(@NonNull arguments: Any, @NonNull result: MethodChannel.Result) {
             val argumentsMap = arguments as HashMap<*, *>

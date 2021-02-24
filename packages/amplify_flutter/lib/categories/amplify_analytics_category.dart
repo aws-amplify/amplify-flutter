@@ -20,9 +20,14 @@ class AnalyticsCategory {
 
   static List<AnalyticsPluginInterface> plugins = [];
 
-  bool addPlugin(AnalyticsPluginInterface plugin) {
-    plugins.add(plugin);
-    return true;
+  Future<void> addPlugin(AnalyticsPluginInterface plugin) async {
+    if (plugins.length == 0) {
+      plugins.add(plugin);
+      await plugin.addPlugin();
+    } else {
+      throw AmplifyException("Analytics plugin has already been added, " +
+          "multiple plugins for Analytics category are currently not supported.");
+    }
   }
 
   Future<void> recordEvent({AnalyticsEvent event}) async {

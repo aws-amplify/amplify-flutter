@@ -20,9 +20,36 @@ import UIKit
 import Amplify
 import AmplifyPlugins
 import AWSCore
+import amplify_core
+
 
 public class FlutterAnalytics {
-    
+
+    public static func addPlugin(result: @escaping FlutterResult) {
+        do {
+            try Amplify.add(plugin: AWSPinpointAnalyticsPlugin() )
+            result(true)
+        } catch let error{
+            if(error is AnalyticsError){
+                let analyticsError = error as! AnalyticsError
+                
+                ErrorUtil.postErrorToFlutterChannel(
+                    result: result,
+                    errorCode: "AnalyticsException",
+                    details: [
+                        "message" : analyticsError.errorDescription,
+                        "recoverySuggestion" : analyticsError.recoverySuggestion,
+                        "underlyingError": analyticsError.underlyingError != nil ? analyticsError.underlyingError!.localizedDescription : ""
+                    ])
+            }
+            else{
+                print("Failed to add Amplify Analytcs Plugin \(error)")
+                result(false)
+            }
+            return
+        }
+    }
+
     public static func record(arguments: Any?, result: @escaping FlutterResult, bridge: AnalyticsBridge){
         let argumentsMap = arguments as! Dictionary<String, Any>
         let name = argumentsMap["name"] as! String
