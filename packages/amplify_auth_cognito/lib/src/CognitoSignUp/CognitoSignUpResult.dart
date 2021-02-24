@@ -16,7 +16,9 @@
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
 /// A Cognito extension of SignUpResult
+/// /// which will include an [isSignUpComplete] flag and a [nextStep] detailing the 
+/// next step in the registration process (if any). 
 class CognitoSignUpResult extends SignUpResult {
-  /// The default constructor for CognitoSignUpResult
+  // ignore: public_member_api_docs
   CognitoSignUpResult({nextStep, isSignUpComplete}) : super(isSignUpComplete: isSignUpComplete, nextStep: nextStep);
 }

@@ -13,12 +13,16 @@
  * permissions and limitations under the License.
  */
 
+// ignore_for_file: public_member_api_docs
+
 import 'package:flutter/foundation.dart';
 
+/// A base type for plugin implementations of confirm sign up options
 class SignUpOptions {
+  /// Additional user attributes which should be associated with this user on registration
   final Map<String, String> userAttributes;
-  const SignUpOptions({@required this.userAttributes});
 
+  const SignUpOptions({@required this.userAttributes});
   Map<String, dynamic> serializeAsMap() {
     throw UnimplementedError('serializeAsMap() has not been implemented on SignUpOptions.');
   }

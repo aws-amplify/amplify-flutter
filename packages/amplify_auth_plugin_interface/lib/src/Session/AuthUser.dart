@@ -13,11 +13,17 @@
  * permissions and limitations under the License.
  */
 
+// ignore_for_file: public_member_api_docs
+
 import 'package:flutter/foundation.dart';
 
-
+/// A user basic user obbject
 class AuthUser {
+  /// The user's id, typically a uuid or other unique identifier
   String userId;
+
+  ///  login identifier e.g. `superdog22`; or an email/phone number, depending on configuration 
   String username;
+  
   AuthUser({@required this.userId, @required this.username});
 }

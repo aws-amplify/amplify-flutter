@@ -18,4 +18,19 @@
   Dart enums are 0-based indices; new values must be added to the end of the list.
   !!IMPORTANT!! 
 */
-enum AuthProvider { google, facebook, amazon, apple }
+
+/// Enumerates allowed OAuth providers
+/// For additional usage information, see the documentation for the plugin you are using.
+enum AuthProvider {
+  /// [Google Developer Console](https://console.developers.google.com/)
+  google,
+
+  /// [Facebook For Developers](https://developers.facebook.com/docs/facebook-login)
+  facebook, 
+
+  /// [Amazon Developer Console](https://developer.amazon.com/settings/console/home?)
+  amazon,
+
+  /// [Apple Developer](https://developer.apple.com/account/#)
+  apple 
+}

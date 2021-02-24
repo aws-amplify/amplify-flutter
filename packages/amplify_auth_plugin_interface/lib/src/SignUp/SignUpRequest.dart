@@ -13,12 +13,20 @@
  * permissions and limitations under the License.
  */
 
+// ignore_for_file: public_member_api_docs
+
 import './SignUpOptions.dart';
 import 'package:flutter/foundation.dart';
 
+/// Encapsulates parameters for a confirm sign up operation
 class SignUpRequest {
+  ///  A login identifier e.g. `tony44`; or an email/phone number, depending on configuration
   String username;
+  
+  /// The user's password
   String password;
+
+  /// Advanced options such as additional attributes of the user or validation data. 
   SignUpOptions options;
 
   SignUpRequest({@required this.username, @required this.password, @required this.options});

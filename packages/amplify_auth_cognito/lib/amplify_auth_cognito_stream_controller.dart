@@ -17,12 +17,10 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'src/CognitoHubEvents/AuthHubEvent.dart';
 
-/// An event channel for receiving HUB events over a PlatformChannel.
-EventChannel channel = const EventChannel("com.amazonaws.amplify/auth_cognito_events");
-/// A subscription established for the event stream.
-StreamSubscription eventStream;
+EventChannel _channel = const EventChannel("com.amazonaws.amplify/auth_cognito_events");
+StreamSubscription _eventStream;
 
-/// Provides a StreamController for HUB
+/// Provides a StreamController for HUB. For internal usage by amplify-flutter.
 class AuthStreamController {
   /// The getter for the _authStreamController
   StreamController get authStreamController {
@@ -36,8 +34,8 @@ StreamController _authStreamController = StreamController<AuthHubEvent>.broadcas
 );
 
 _onListen() {
-  if (eventStream == null ) {
-    eventStream = channel.receiveBroadcastStream(1).listen((event) {
+  if (_eventStream == null ) {
+    _eventStream = _channel.receiveBroadcastStream(1).listen((event) {
       switch(event["eventName"]) {
         case "SIGNED_IN": {
           _authStreamController.add(AuthHubEvent(event["eventName"]));
@@ -61,7 +59,7 @@ _onListen() {
 
 _onCancel() {
   if (!_authStreamController.hasListener) {
-    eventStream.cancel();
-    eventStream = null;
+    _eventStream.cancel();
+    _eventStream = null;
   }
 } 

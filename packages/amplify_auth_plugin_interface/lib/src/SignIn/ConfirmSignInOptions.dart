@@ -13,6 +13,9 @@
  * permissions and limitations under the License.
  */
 
+// ignore_for_file: public_member_api_docs
+
+/// A base type for plugin implementations of confirm sign in options 
 abstract class ConfirmSignInOptions {
   const ConfirmSignInOptions();
   Map<String, dynamic> serializeAsMap() {

@@ -13,12 +13,19 @@
  * permissions and limitations under the License.
  */
 
+// ignore_for_file: public_member_api_docs
+
 import './AuthNextSignUpStep.dart';
 import 'package:flutter/foundation.dart';
 
+/// Wraps the result of a sign up operation.
 class SignUpResult { 
+  /// Indicator of whether the authentication process is complete
   bool isSignUpComplete;
+
+  /// Describes the next step in the registration process
   AuthNextSignUpStep nextStep;
+
   SignUpResult({@required this.isSignUpComplete, @required this.nextStep}) {
     this.isSignUpComplete = isSignUpComplete;
     this.nextStep = nextStep;

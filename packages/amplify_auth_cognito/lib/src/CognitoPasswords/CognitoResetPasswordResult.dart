@@ -15,8 +15,10 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Cognito extension of ResetPasswordResult
+/// Wraps the result of a Cognito reset password operation,
+/// which will include a [isPasswordReset] flag and a [nextStep] detailing the 
+/// next step in the password reset process (if any). 
 class CognitoResetPasswordResult extends ResetPasswordResult {
-  /// Default constructor for CognitoResetPasswordResult
+  // ignore: public_member_api_docs
   CognitoResetPasswordResult({nextStep, isPasswordReset}) : super(isPasswordReset: isPasswordReset, nextStep: nextStep);
 }

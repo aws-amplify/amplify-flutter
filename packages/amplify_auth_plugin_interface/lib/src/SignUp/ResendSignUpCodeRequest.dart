@@ -13,14 +13,17 @@
  * permissions and limitations under the License.
  */
 
+// ignore_for_file: public_member_api_docs
+
 import 'package:flutter/foundation.dart';
 
-import './SignUpOptions.dart';
-
+/// Encapsulates parameters for a resend sign up code operation
 class ResendSignUpCodeRequest {
+
+  /// A login identifier e.g. `tony44`; or an email/phone number, depending on configuration
   String username;
 
-  ResendSignUpCodeRequest({@required this.username,});
+  ResendSignUpCodeRequest({@required this.username});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     pendingRequest['username'] = username;

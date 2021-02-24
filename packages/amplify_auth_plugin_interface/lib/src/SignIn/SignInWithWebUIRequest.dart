@@ -13,12 +13,15 @@
  * permissions and limitations under the License.
  */
 
+// ignore_for_file: public_member_api_docs
 import 'package:flutter/foundation.dart';
-
 import './AuthProvider.dart';
 
+/// Encapsulates parameters for an OAuth sign in operation
 class SignInWithWebUIRequest {
+  /// A supported OAuth provider
   AuthProvider provider;
+
   SignInWithWebUIRequest({this.provider});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};

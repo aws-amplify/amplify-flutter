@@ -13,10 +13,15 @@
  * permissions and limitations under the License.
  */
 
+// ignore_for_file: public_member_api_docs
+
 import './AuthUserAttributeOptions.dart';
 
+/// Encapsulates parameters for a fetch user attributes operation
 class AuthUserAttributeRequest {
+  /// Advanced options
   AuthUserAttributeOptions options;
+
   AuthUserAttributeRequest({this.options});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};

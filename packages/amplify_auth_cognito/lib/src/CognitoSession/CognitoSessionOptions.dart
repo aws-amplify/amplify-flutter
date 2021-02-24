@@ -21,7 +21,7 @@ class CognitoSessionOptions extends AuthSessionOptions {
   /// A parameter to request AWS credentials
   bool getAWSCredentials;
   
-  /// The default constructor for CognitoSessionOptions
+  // ignore: public_member_api_docs
   CognitoSessionOptions({@required this.getAWSCredentials}) : super();
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};

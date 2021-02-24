@@ -13,12 +13,16 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
+// ignore_for_file: public_member_api_docs
 
+import 'package:flutter/foundation.dart';
 import '../types/AuthCodeDeliveryDetails.dart';
 
+/// Wraps the result of a resend sign up code operation.
 class ResendSignUpCodeResult { 
+  /// Wrapper for representing the various aspects of a confirmation code sent to a user.
   AuthCodeDeliveryDetails codeDeliveryDetails;
+  
   ResendSignUpCodeResult({@required codeDeliveryDetails}) {
     this.codeDeliveryDetails = AuthCodeDeliveryDetails(
       attributeName: codeDeliveryDetails["attributeName"] ?? "",

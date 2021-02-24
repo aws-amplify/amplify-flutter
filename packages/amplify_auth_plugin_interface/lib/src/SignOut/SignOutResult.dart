@@ -13,6 +13,9 @@
  * permissions and limitations under the License.
  */
 
-class SignOutResult { 
+
+/// Wraps the result of a sign in operation.
+class SignOutResult {
+  // ignore: public_member_api_docs
   SignOutResult() {}
 }

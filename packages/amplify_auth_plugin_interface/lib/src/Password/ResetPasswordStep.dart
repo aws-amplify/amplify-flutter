@@ -16,7 +16,12 @@
 import 'package:flutter/foundation.dart';
 import '../types/AuthNextStep.dart';
 
+/// Describes the next step in the password reset process,
+/// as well as the channels being used to facilitate the process
 class ResetPasswordStep extends AuthNextStep {
+  /// The next step in the password reset process
   String updateStep;
+  
+  // ignore: public_member_api_docs
   ResetPasswordStep({additionalInfo, @required codeDeliveryDetails, @required this.updateStep}) : super(additionalInfo: additionalInfo, codeDeliveryDetails: codeDeliveryDetails);
 }

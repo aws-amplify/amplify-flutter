@@ -13,11 +13,17 @@
  * permissions and limitations under the License.
  */
 
+// ignore_for_file: public_member_api_docs
+
 import 'package:flutter/foundation.dart';
 import './ConfirmSignInOptions.dart';
 
+/// Encapsulates parameters for a confirm sign in operation
 class ConfirmSignInRequest {
+  /// The code received as part of the multi-factor authentication process
   String confirmationValue;
+
+  /// Advanced options
   ConfirmSignInOptions options;
   ConfirmSignInRequest({@required this.confirmationValue, this.options});
   Map<String, dynamic> serializeAsMap() {

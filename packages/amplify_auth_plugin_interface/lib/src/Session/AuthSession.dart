@@ -16,9 +16,11 @@
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
 
-
+/// Wraps the result of a fetch session operation.
 class AuthSession {
+  /// A flag representing whether the user has authenticated
   bool isSignedIn;
+  // ignore: public_member_api_docs
   AuthSession({@required this.isSignedIn}) {
     this.isSignedIn = isSignedIn;
    }

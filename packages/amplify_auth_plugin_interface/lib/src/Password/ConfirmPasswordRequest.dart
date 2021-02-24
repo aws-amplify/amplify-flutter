@@ -13,13 +13,24 @@
  * permissions and limitations under the License.
  */
 
+
 import './PasswordOptions.dart';
 import 'package:flutter/foundation.dart';
+// ignore_for_file: public_member_api_docs
 
+/// Encapsulates parameters for a ConfirmPassword operation
 class ConfirmPasswordRequest {
+
+  /// A login identifier e.g. `superdog22`; or an email/phone number, depending on configuration
   String username;
+
+  /// The user's desired new password
   String newPassword;
+
+  /// The confirmation code the user received after starting the forgotPassword process
   String confirmationCode;
+
+  /// Advanced options
   PasswordOptions options;
 
   ConfirmPasswordRequest({@required this.username, @required this.newPassword, @required this.confirmationCode, this.options});

@@ -21,7 +21,7 @@ import 'amplify_auth_error_handling.dart';
 
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/auth_cognito');
 
-/// An implementation of [AmplifyPlatform] that uses method channels.
+/// An implementation of [AmplifyAuthCognito] that uses method channels.
 class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   @override

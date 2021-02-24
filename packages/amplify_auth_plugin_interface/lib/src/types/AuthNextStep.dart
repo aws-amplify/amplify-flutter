@@ -16,9 +16,15 @@
 import 'package:flutter/foundation.dart';
 import 'AuthCodeDeliveryDetails.dart';
 
+/// Represents the next step in an authentication or related process.
 class AuthNextStep {
+  /// Possible extra info to go with the next step
   Map<dynamic, dynamic> additionalInfo;
+
+  /// Details about how a code was sent, if relevant to the current step
   AuthCodeDeliveryDetails codeDeliveryDetails;
+
+  // ignore: public_member_api_docs
   AuthNextStep({@required codeDeliveryDetails, additionalInfo = const {}}) {
     this.additionalInfo = additionalInfo;
     this.codeDeliveryDetails = AuthCodeDeliveryDetails(

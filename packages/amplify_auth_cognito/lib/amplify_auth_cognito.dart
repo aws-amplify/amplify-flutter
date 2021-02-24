@@ -25,7 +25,7 @@ import './amplify_auth_cognito_stream_controller.dart';
 export './src/types.dart';
 export 'package:amplify_auth_plugin_interface/src/types.dart';
 
-/// Constructs an AmplifyAuthCognito plugin
+/// Implementation of AuthPlugin using Amazon Cognito
 class AmplifyAuthCognito extends AuthPluginInterface {
   static final Object _token = Object();
 
@@ -35,7 +35,7 @@ class AmplifyAuthCognito extends AuthPluginInterface {
   static AmplifyAuthCognito _instance = AmplifyAuthCognitoMethodChannel();
   static AuthStreamController streamWrapper = AuthStreamController();
 
-  /// Sets the instace of the AmplifyAuthCognito plugin to use a defined MethodChannel
+  /// Sets the instance of the AmplifyAuthCognito plugin to use a defined MethodChannel
   static set instance(AuthPluginInterface instance) {
     PlatformInterface.verifyToken(instance, _token);
     _instance = instance;

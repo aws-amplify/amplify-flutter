@@ -12,8 +12,11 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-class AuthUserAttributeOptions {
 
+// ignore_for_file: public_member_api_docs
+
+/// A base type for plugin implementations of fetch user attribute options 
+class AuthUserAttributeOptions {
   const AuthUserAttributeOptions();
   Map<String, dynamic> serializeAsMap() {
     throw UnimplementedError('serializeAsMap() has not been implemented on AuthUserAttributeOptions.');

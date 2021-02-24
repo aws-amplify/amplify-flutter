@@ -21,7 +21,7 @@ class CognitoConfirmSignUpOptions extends ConfirmSignUpOptions {
   /// ClientMetadata for Cognito Lambda triggers
   Map<String, String> validationData;
   
-  /// The default constructor for CognitoConfirmSignUpOptions
+  // ignore: public_member_api_docs
   CognitoConfirmSignUpOptions({this.validationData}) : super();
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};

@@ -16,8 +16,10 @@
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
 /// A Cognito extension of SignInResult
+/// which will include a [isSignedIn] flag and a [nextStep] detailing the 
+/// next step in the sign in process (if any). 
 class CognitoSignInResult extends SignInResult {
 
-  /// The default constructor for CognitoSignInResult
+  // ignore: public_member_api_docs
   CognitoSignInResult({nextStep, isSignedIn}) : super(isSignedIn: isSignedIn, nextStep: nextStep);
 }

@@ -16,9 +16,15 @@
 import './ResetPasswordStep.dart';
 import 'package:flutter/foundation.dart';
 
+/// Wraps the result of a reset password operation.
 class ResetPasswordResult { 
+  /// Indicator of whether password has been successfully reset
   bool isPasswordReset;
+  
+  /// Describes the next step in the password reset process
   ResetPasswordStep nextStep;
+
+  // ignore: public_member_api_docs
   ResetPasswordResult({@required this.isPasswordReset, @required this.nextStep}) {
     this.isPasswordReset = isPasswordReset;
     this.nextStep = nextStep;

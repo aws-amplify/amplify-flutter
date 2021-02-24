@@ -15,9 +15,17 @@
 
 import 'package:flutter/foundation.dart';
 
+/// Wrapper class for representing the various aspects of a confirmation code sent to a user.
 class AuthCodeDeliveryDetails {
+  /// What attribute was being verified, if any
   String attributeName;
+
+  /// What method was used to send the code
   String deliveryMedium;
+
+  /// The address the code was sent to
   String destination;
+
+  // ignore: public_member_api_docs
   AuthCodeDeliveryDetails({@required this.attributeName,  @required this.deliveryMedium, @required this.destination});
 }

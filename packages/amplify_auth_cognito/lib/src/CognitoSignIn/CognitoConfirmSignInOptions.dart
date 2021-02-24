@@ -20,7 +20,7 @@ class CognitoConfirmSignInOptions extends ConfirmSignInOptions {
   /// ClientMetadata for Cognito Lambda triggers
   Map<String, String> clientMetadata;
   
-  /// The default constructor for CognitoConfirmSignInOptions
+  // ignore: public_member_api_docs
   CognitoConfirmSignInOptions({this.clientMetadata}) : super();
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};

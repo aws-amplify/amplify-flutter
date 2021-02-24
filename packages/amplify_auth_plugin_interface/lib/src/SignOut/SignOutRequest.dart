@@ -13,9 +13,13 @@
  * permissions and limitations under the License.
  */
 
+// ignore_for_file: public_member_api_docs
+
 import './SignOutOptions.dart';
 
+/// Encapsulates parameters for a sign out operation
 class SignOutRequest {
+  /// Advanced options
   SignOutOptions options;
   SignOutRequest({this.options});
   Map<String, dynamic> serializeAsMap() {
