@@ -32,10 +32,9 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
   StreamController get streamController {
     throw UnimplementedError('streamController getter has not been implemented.');
   }
-  
-  /// Adds the configuration and return true if it was successful.
-  bool addPlugin(AuthPluginInterface configuration) {
-    throw UnimplementedError('configure() has not been implemented.');
+
+  Future<void> addPlugin() async {
+    throw UnimplementedError('addPlugin() has not been implemented.');
   }
 
   Future<SignUpResult> signUp({@required SignUpRequest request}) {

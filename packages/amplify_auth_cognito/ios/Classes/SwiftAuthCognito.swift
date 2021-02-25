@@ -42,11 +42,6 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
         let authPlugin = AWSCognitoAuthPlugin()
         eventChannel.setStreamHandler(instance.authCognitoHubEventStreamHandler)
         Amplify.Logging.logLevel = .error
-        do {
-            try Amplify.add(plugin: authPlugin)
-        } catch {
-            print("Failed to add AWSCognitoAuthPlugin to Amplify \(error)")
-        }
     }
     
     private func checkArguments(args: Any) throws -> Dictionary<String, AnyObject> {
@@ -66,6 +61,32 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+
+        if(call.method == "addPlugin"){
+                do {
+                    try Amplify.add(plugin: AWSCognitoAuthPlugin() )
+                    result(true)
+                } catch let error{
+                    if(error is APIError){
+                        let apiError = error as! APIError
+
+                        ErrorUtil.postErrorToFlutterChannel(
+                            result: result,
+                            errorCode: "APIException",
+                            details: [
+                                "message" : apiError.errorDescription,
+                                "recoverySuggestion" : apiError.recoverySuggestion,
+                                "underlyingError": apiError.underlyingError != nil ? apiError.underlyingError!.localizedDescription : ""
+                            ])
+                    }
+                    else{
+                        print("Failed to add Amplify API Plugin \(error)")
+                        result(false)
+                    }
+                    return
+                }
+        }
+
         var arguments: Dictionary<String, AnyObject> = [:]
         var data: NSMutableDictionary = [:]
         do {
