@@ -43,7 +43,7 @@ public class FlutterAnalytics {
                     ])
             }
             else{
-                print("Failed to add Amplify Analytcs Plugin \(error)")
+                print("Failed to add Amplify Analytics Plugin \(error)")
                 result(false)
             }
             return

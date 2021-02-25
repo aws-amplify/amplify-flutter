@@ -21,6 +21,7 @@ class APICategory {
   static List<APIPluginInterface> plugins = [];
 
   Future<void> addPlugin(APIPluginInterface plugin) async {
+    //TODO: Allow for multiple plugins to work simultaneously
     if (plugins.length == 0) {
       plugins.add(plugin);
       await plugin.addPlugin();
