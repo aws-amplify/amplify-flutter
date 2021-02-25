@@ -83,6 +83,9 @@ class AuthCategory {
   /// [PasswordResetRequiredException], [UserNotConfirmedException] or [UserNotFoundException].
   /// Other AuthException subclasses are possible as a result of network issues,
   /// misconfiguration, repeated attempts, internal service errors or other less common reasons.
+  ///
+  /// When using the mplify_auth_cognito plugin, you can call this method with [getAWSCredentials] set to true,
+  /// and cast the response to [CognitoAuthSession] to access Amazon Cognito credentials and tokens.
   Future<SignInResult> signIn(
       {@required String username,
       @required String password,
