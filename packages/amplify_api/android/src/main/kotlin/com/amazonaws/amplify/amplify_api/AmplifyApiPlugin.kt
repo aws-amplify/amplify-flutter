@@ -30,6 +30,7 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedUnrecognizedError
+import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
 
 /** AmplifyApiPlugin */
@@ -57,13 +58,6 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
         eventchannel = EventChannel(flutterPluginBinding.binaryMessenger, "com.amazonaws.amplify/api_observe_events")
         eventchannel.setStreamHandler(graphqlSubscriptionStreamHandler)
         context = flutterPluginBinding.applicationContext
-        try {
-            Amplify.addPlugin(AWSApiPlugin())
-        } catch (e: Exception) {
-            LOG.error("Failed to add API plugin. Is Amplify already configured and app restarted?")
-            LOG.error("Exception: $e")
-        }
-        LOG.info("Initiated API plugin")
     }
 
     override fun onMethodCall(call: MethodCall, result: Result) {
@@ -71,6 +65,16 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
 
         if(methodName == "cancel"){
             onCancel(result, (call.arguments as String))
+            return
+        }
+        else if(methodName == "addPlugin"){
+            try {
+                Amplify.addPlugin(AWSApiPlugin())
+                LOG.info("Added API plugin")
+            } catch (e: Exception) {
+                handleAddPluginException("API", e, result)
+            }
+            result.success(null)
             return
         }
 

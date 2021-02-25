@@ -20,12 +20,10 @@ class APICategory {
 
   static List<APIPluginInterface> plugins = [];
 
-  /// `Add plugin` method
-  bool addPlugin(APIPluginInterface plugin) {
-    //TODO: Allow for multiple plugins to work simultaneously
+  Future<void> addPlugin(APIPluginInterface plugin) async {
     if (plugins.length == 0) {
       plugins.add(plugin);
-      return true;
+      await plugin.addPlugin();
     } else {
       throw AmplifyException("API plugin has already been added, " +
           "multiple plugins for API category are currently not supported.");

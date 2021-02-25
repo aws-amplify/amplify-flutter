@@ -25,6 +25,10 @@ export 'src/types.dart';
 abstract class APIPluginInterface extends AmplifyPluginInterface {
   APIPluginInterface({@required Object token}) : super(token: token);
 
+  Future<void> addPlugin() async {
+    throw UnimplementedError('addPlugin() has not been implemented.');
+  }
+  
   // ====== GraphQL =======
   GraphQLOperation<T> query<T>({@required GraphQLRequest<T> request}) {
     throw UnimplementedError('query() has not been implemented.');
