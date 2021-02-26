@@ -22,7 +22,6 @@ import AmplifyPlugins
 import AWSCore
 import amplify_core
 
-
 public class FlutterAnalytics {
 
     public static func addPlugin(result: @escaping FlutterResult) {

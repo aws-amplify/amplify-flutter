@@ -40,7 +40,7 @@ public class SwiftAmplifyStorageS3Plugin: NSObject, FlutterPlugin {
 
                 ErrorUtil.postErrorToFlutterChannel(
                     result: result,
-                    errorCode: "APIException",
+                    errorCode: "StorageException",
                     details: [
                         "message" : storageError.errorDescription,
                         "recoverySuggestion" : storageError.recoverySuggestion,

@@ -46,7 +46,6 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
     
     // Create separate method to allow unit testing as we cannot mock "FlutterMethodCall"
     public func innerHandle(method: String, callArgs: Any, result: @escaping FlutterResult){
-        
         do {
             if(method == "cancel"){
                 let cancelToken = try FlutterApiRequest.getCancelToken(args: callArgs)
@@ -68,7 +67,8 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
                                 "message" : apiError.errorDescription,
                                 "recoverySuggestion" : apiError.recoverySuggestion,
                                 "underlyingError": apiError.underlyingError != nil ? apiError.underlyingError!.localizedDescription : ""
-                            ])
+                            ]
+                        )
                     }
                     else{
                         print("Failed to add Amplify API Plugin \(error)")
@@ -76,7 +76,6 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
                     }
                     return
                 }
-
             }
             
             let arguments = try FlutterApiRequest.getMap(args: callArgs as Any)

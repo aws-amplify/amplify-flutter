@@ -61,26 +61,26 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-
         if(call.method == "addPlugin"){
                 do {
                     try Amplify.add(plugin: AWSCognitoAuthPlugin() )
                     result(true)
                 } catch let error{
-                    if(error is APIError){
-                        let apiError = error as! APIError
+                    if(error is AuthError){
+                        let authError = error as! AuthError
 
                         ErrorUtil.postErrorToFlutterChannel(
                             result: result,
-                            errorCode: "APIException",
+                            errorCode: "AuthException",
                             details: [
-                                "message" : apiError.errorDescription,
-                                "recoverySuggestion" : apiError.recoverySuggestion,
-                                "underlyingError": apiError.underlyingError != nil ? apiError.underlyingError!.localizedDescription : ""
-                            ])
+                                "message" : authError.errorDescription,
+                                "recoverySuggestion" : authError.recoverySuggestion,
+                                "underlyingError": authError.underlyingError != nil ? authError.underlyingError!.localizedDescription : ""
+                            ]
+                        )
                     }
                     else{
-                        print("Failed to add Amplify API Plugin \(error)")
+                        print("Failed to add Amplify Auth Plugin \(error)")
                         result(false)
                     }
                     return

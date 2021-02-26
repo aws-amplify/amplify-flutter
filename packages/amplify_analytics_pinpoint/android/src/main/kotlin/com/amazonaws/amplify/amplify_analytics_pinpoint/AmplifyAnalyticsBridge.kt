@@ -31,7 +31,6 @@ class AmplifyAnalyticsBridge {
         private val LOG = AmplifyAnalyticsPinpointPlugin.LOG
 
         fun addPlugin(@NonNull flutterResult: MethodChannel.Result, @NonNull context: Context) {
-
             try {
                 Amplify.addPlugin(AWSPinpointAnalyticsPlugin(context as Application?))
                 LOG.info("Added AnalyticsPinpoint plugin")
