@@ -29,12 +29,16 @@ import java.lang.reflect.Type
 class ExceptionUtil {
     companion object {
         @JvmStatic
-        fun postExceptionToFlutterChannel(@NonNull result: Result,
-                errorCode: String,
-                details: Map<String, Any?>) {
-            result.error(errorCode,
-                    ExceptionMessages.defaultFallbackExceptionMessage,
-                    details)
+        fun postExceptionToFlutterChannel(
+            @NonNull result: Result,
+            errorCode: String,
+            details: Map<String, Any?>
+        ) {
+            result.error(
+                errorCode,
+                ExceptionMessages.defaultFallbackExceptionMessage,
+                details
+            )
         }
 
         @JvmStatic
@@ -48,7 +52,7 @@ class ExceptionUtil {
 
             // Remove unnecessary fields
             serializedMap =
-                    serializedMap.filterKeys { it != "stackTrace" && it != "suppressedExceptions" }
+                serializedMap.filterKeys { it != "stackTrace" && it != "suppressedExceptions" }
 
             // Update the name of fields as per Dart exceptions
             return serializedMap.mapKeys {
@@ -66,21 +70,29 @@ class ExceptionUtil {
         }
 
         @JvmStatic
-        fun createSerializedError(message: String, recoverySuggestion: String?,
-                cause: String?): Map<String, String?> {
+        fun createSerializedError(
+            message: String,
+            recoverySuggestion: String?,
+            cause: String?
+        ): Map<String, String?> {
             return mapOf(
-                    "message" to message,
-                    "recoverySuggestion" to (recoverySuggestion
-                            ?: ExceptionMessages.missingRecoverySuggestion),
-                    "underlyingException" to cause
+                "message" to message,
+                "recoverySuggestion" to (
+                    recoverySuggestion
+                        ?: ExceptionMessages.missingRecoverySuggestion
+                    ),
+                "underlyingException" to cause
             )
         }
     }
 }
 
 class ThrowableSerializer : JsonSerializer<Throwable> {
-    override fun serialize(src: Throwable?, typeOfSrc: Type?,
-            context: JsonSerializationContext?): JsonElement {
+    override fun serialize(
+        src: Throwable?,
+        typeOfSrc: Type?,
+        context: JsonSerializationContext?
+    ): JsonElement {
         return JsonPrimitive(src.toString())
     }
 }
