@@ -25,6 +25,10 @@ import 'package:amplify_flutter/amplify.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('com.amazonaws.amplify/amplify');
+  const MethodChannel authChannel =
+      MethodChannel('com.amazonaws.amplify/auth_cognito');
+  const MethodChannel analyticsChannel =
+      MethodChannel('com.amazonaws.amplify/analytics_pinpoint');
 
   // Test data
   String invalidConfiguration = 'How dare you call me invalid';
@@ -75,6 +79,12 @@ void main() {
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
       return true;
     });
+    authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      return true;
+    });
+    analyticsChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      return true;
+    });
     // We want to instantiate a new instance for each test so we start
     // with a fresh state as `Amplify` singleton holds a state.
     amplify = new AmplifyClass();
@@ -87,6 +97,8 @@ void main() {
 
   tearDown(() {
     channel.setMockMethodCallHandler(null);
+    authChannel.setMockMethodCallHandler(null);
+    analyticsChannel.setMockMethodCallHandler(null);
   });
 
   test('before calling configure, isConfigure should be false', () {

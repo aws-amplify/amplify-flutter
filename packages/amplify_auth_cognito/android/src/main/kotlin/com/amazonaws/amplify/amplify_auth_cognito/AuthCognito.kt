@@ -82,7 +82,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       authCognitoHubEventStreamHandler = AuthCognitoHubEventStreamHandler()
   }
 
-  @VisibleForTestinggx
+  @VisibleForTesting
   constructor(hubEventHandler: AuthCognitoHubEventStreamHandler, activity: Activity) {
     authCognitoHubEventStreamHandler = AuthCognitoHubEventStreamHandler()
     mainActivity = activity
