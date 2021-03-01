@@ -25,7 +25,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
 
     private let bridge: DataStoreBridge
     private let flutterModelRegistration: FlutterModels
-    private var observeSubscription: AnyCancellable?
+    var observeSubscription: AnyCancellable?
     private let dataStoreObserveEventStreamHandler: DataStoreObserveEventStreamHandler?
     private let dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler?
     init(bridge: DataStoreBridge = DataStoreBridge(),
@@ -236,13 +236,17 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
 
     public func onSetupObserve(flutterResult: @escaping FlutterResult) {
         do {
-            observeSubscription = try observeSubscription ?? bridge.onObserve().sink {
-                if case let .failure(error) = $0 {
+            observeSubscription = try observeSubscription ?? bridge.onObserve().sink { completion in
+                switch completion {
+                case .failure(let error):
                     let flutterError = FlutterError(code: "DataStoreException",
                                                     message: ErrorMessages.defaultFallbackErrorMessage,
                                                     details: FlutterDataStoreErrorHandler.createSerializedError(error: error))
                     self.dataStoreObserveEventStreamHandler?.sendError(flutterError: flutterError)
+                case .finished:
+                    print("finished")
                 }
+
             } receiveValue: { (mutationEvent) in
                 do {
                     let serializedEvent = try mutationEvent.decodeModel(as: FlutterSerializedModel.self)
@@ -280,6 +284,10 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                         flutterResult: flutterResult)
                 case .success():
                     print("Successfully cleared the store")
+                    // iOS tears down the publisher after clear. Let's setup again.
+                    // See https://github.com/aws-amplify/amplify-flutter/issues/395
+                    self.observeSubscription = nil
+                    self.onSetupObserve(flutterResult: flutterResult)
                     flutterResult(nil)
                 }
             }
