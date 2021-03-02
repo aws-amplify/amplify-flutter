@@ -24,8 +24,7 @@ class AmplifyHub {
   final Map<HubChannel, Stream> availableStreams = {};
 
   /// Expose listen method which instantiates new StreamController listening to one or more availableStreams
-  StreamSubscription listen(
-      List<HubChannel> channels, Listener listener) {
+  StreamSubscription listen(List<HubChannel> channels, Listener listener) {
     List<StreamSubscription> platformSubscriptions = [];
     StreamController controller;
 

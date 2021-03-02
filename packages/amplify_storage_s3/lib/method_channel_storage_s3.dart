@@ -165,14 +165,12 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
 
   StorageException _prepareExceptionForMalformedResult(
       {@required String methodName, @required String fieldName}) {
-    return StorageException(
-      'Error formatting platform channel result',
-      recoverySuggestion: 'Operation $methodName failed: $fieldName cannot be null.');
+    return StorageException('Error formatting platform channel result',
+        recoverySuggestion:
+            'Operation $methodName failed: $fieldName cannot be null.');
   }
 
   StorageException _convertToStorageException(PlatformException e) {
-    return  StorageException.fromMap(
-      Map<String, String>.from(e.details));
+    return StorageException.fromMap(Map<String, String>.from(e.details));
   }
 }
-

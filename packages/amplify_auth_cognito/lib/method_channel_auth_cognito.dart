@@ -20,24 +20,24 @@ import 'amplify_auth_cognito.dart';
 import 'amplify_auth_error_handling.dart';
 
 // ignore_for_file: public_member_api_docs
-const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/auth_cognito');
+const MethodChannel _channel =
+    MethodChannel('com.amazonaws.amplify/auth_cognito');
 
 /// An implementation of [AmplifyPlatform] that uses method channels.
 class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
-
   @override
   Future<SignUpResult> signUp({SignUpRequest request}) async {
     SignUpResult res;
     try {
       final Map<String, dynamic> data =
-      await _channel.invokeMapMethod<String, dynamic>(
+          await _channel.invokeMapMethod<String, dynamic>(
         'signUp',
         <String, dynamic>{
           'data': request.serializeAsMap(),
         },
       );
       res = _formatSignUpResponse(data, "signUp");
-    } on PlatformException catch(e) {
+    } on PlatformException catch (e) {
       castAndThrowPlatformException(e);
     }
     return res;
@@ -48,7 +48,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     SignUpResult res;
     try {
       final Map<String, dynamic> data =
-      await _channel.invokeMapMethod<String, dynamic>(
+          await _channel.invokeMapMethod<String, dynamic>(
         'confirmSignUp',
         <String, dynamic>{
           'data': request.serializeAsMap(),
@@ -56,18 +56,19 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       );
       res = _formatSignUpResponse(data, "confirmSignUp");
       return res;
-    } on PlatformException catch(e) {
+    } on PlatformException catch (e) {
       castAndThrowPlatformException(e);
     }
     return res;
   }
 
   @override
-  Future<ResendSignUpCodeResult> resendSignUpCode({ResendSignUpCodeRequest request}) async {
+  Future<ResendSignUpCodeResult> resendSignUpCode(
+      {ResendSignUpCodeRequest request}) async {
     ResendSignUpCodeResult res;
     try {
       final Map<String, dynamic> data =
-      await _channel.invokeMapMethod<String, dynamic>(
+          await _channel.invokeMapMethod<String, dynamic>(
         'resendSignUpCode',
         <String, dynamic>{
           'data': request.serializeAsMap(),
@@ -75,7 +76,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       );
       res = _formatResendSignUpResponse(data, "resendSignUpCode");
       return res;
-    } on PlatformException catch(e) {
+    } on PlatformException catch (e) {
       castAndThrowPlatformException(e);
     }
     return res;
@@ -86,7 +87,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     SignInResult res;
     try {
       final Map<String, dynamic> data =
-      await _channel.invokeMapMethod<String, dynamic>(
+          await _channel.invokeMapMethod<String, dynamic>(
         'signIn',
         <String, dynamic>{
           'data': request.serializeAsMap(),
@@ -94,7 +95,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       );
       res = _formatSignInResponse(data, "signIn");
       return res;
-    } on PlatformException catch(e) {
+    } on PlatformException catch (e) {
       castAndThrowPlatformException(e);
     }
     return res;
@@ -105,7 +106,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     SignInResult res;
     try {
       final Map<String, dynamic> data =
-      await _channel.invokeMapMethod<String, dynamic>(
+          await _channel.invokeMapMethod<String, dynamic>(
         'confirmSignIn',
         <String, dynamic>{
           'data': request != null ? request.serializeAsMap() : null,
@@ -113,7 +114,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       );
       res = _formatSignInResponse(data, "confirmSignIn");
       return res;
-    } on PlatformException catch(e) {
+    } on PlatformException catch (e) {
       castAndThrowPlatformException(e);
     }
     return res;
@@ -124,7 +125,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     SignOutResult res;
     try {
       final Map<String, dynamic> data =
-      await _channel.invokeMapMethod<String, dynamic>(
+          await _channel.invokeMapMethod<String, dynamic>(
         'signOut',
         <String, dynamic>{
           'data': request != null ? request.serializeAsMap() : {},
@@ -132,18 +133,19 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       );
       res = _formatSignOutResponse(data);
       return res;
-    } on PlatformException catch(e) {
+    } on PlatformException catch (e) {
       castAndThrowPlatformException(e);
     }
     return res;
   }
 
   @override
-  Future<UpdatePasswordResult> updatePassword({UpdatePasswordRequest request}) async {
+  Future<UpdatePasswordResult> updatePassword(
+      {UpdatePasswordRequest request}) async {
     UpdatePasswordResult res;
     try {
       final Map<String, dynamic> data =
-      await _channel.invokeMapMethod<String, dynamic>(
+          await _channel.invokeMapMethod<String, dynamic>(
         'updatePassword',
         <String, dynamic>{
           'data': request != null ? request.serializeAsMap() : null,
@@ -151,18 +153,19 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       );
       res = _formatPasswordResponse(data);
       return res;
-    } on PlatformException catch(e) {
+    } on PlatformException catch (e) {
       castAndThrowPlatformException(e);
     }
     return res;
   }
 
   @override
-  Future<ResetPasswordResult> resetPassword({ResetPasswordRequest request}) async {
+  Future<ResetPasswordResult> resetPassword(
+      {ResetPasswordRequest request}) async {
     ResetPasswordResult res;
     try {
       final Map<String, dynamic> data =
-      await _channel.invokeMapMethod<String, dynamic>(
+          await _channel.invokeMapMethod<String, dynamic>(
         'resetPassword',
         <String, dynamic>{
           'data': request != null ? request.serializeAsMap() : null,
@@ -170,18 +173,19 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       );
       res = _formatResetPasswordResponse(data);
       return res;
-    } on PlatformException catch(e) {
+    } on PlatformException catch (e) {
       castAndThrowPlatformException(e);
     }
     return res;
   }
 
   @override
-  Future<UpdatePasswordResult> confirmPassword({ConfirmPasswordRequest request}) async {
+  Future<UpdatePasswordResult> confirmPassword(
+      {ConfirmPasswordRequest request}) async {
     UpdatePasswordResult res;
     try {
       final Map<String, dynamic> data =
-      await _channel.invokeMapMethod<String, dynamic>(
+          await _channel.invokeMapMethod<String, dynamic>(
         'confirmPassword',
         <String, dynamic>{
           'data': request != null ? request.serializeAsMap() : null,
@@ -189,7 +193,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       );
       res = _formatPasswordResponse(data);
       return res;
-    } on PlatformException catch(e) {
+    } on PlatformException catch (e) {
       castAndThrowPlatformException(e);
     }
     return res;
@@ -200,7 +204,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     AuthSession res;
     try {
       final Map<String, dynamic> data =
-      await _channel.invokeMapMethod<String, dynamic>(
+          await _channel.invokeMapMethod<String, dynamic>(
         'fetchAuthSession',
         <String, dynamic>{
           'data': request != null ? request.serializeAsMap() : {},
@@ -208,7 +212,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       );
       res = _formatSessionResponse(data);
       return res;
-    } on PlatformException catch(e) {
+    } on PlatformException catch (e) {
       castAndThrowPlatformException(e);
     }
     return res;
@@ -219,7 +223,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     AuthUser res;
     try {
       final Map<String, dynamic> data =
-      await _channel.invokeMapMethod<String, dynamic>(
+          await _channel.invokeMapMethod<String, dynamic>(
         'getCurrentUser',
         <String, dynamic>{
           'data': request != null ? request.serializeAsMap() : {},
@@ -227,18 +231,18 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       );
       res = _formatAuthUserResponse(data);
       return res;
-    } on PlatformException catch(e) {
+    } on PlatformException catch (e) {
       castAndThrowPlatformException(e);
     }
     return res;
   }
 
   @override
-  Future<List<AuthUserAttribute>> fetchUserAttributes({AuthUserAttributeRequest request}) async {
+  Future<List<AuthUserAttribute>> fetchUserAttributes(
+      {AuthUserAttributeRequest request}) async {
     List<AuthUserAttribute> res;
     try {
-      final List<Map<dynamic, dynamic>> data =
-      await _channel.invokeListMethod(
+      final List<Map<dynamic, dynamic>> data = await _channel.invokeListMethod(
         'fetchUserAttributes',
         <String, dynamic>{
           'data': request != null ? request.serializeAsMap() : {},
@@ -246,7 +250,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       );
       res = formatFetchAttributesResponse(data);
       return res;
-    } on PlatformException catch(e) {
+    } on PlatformException catch (e) {
       castAndThrowPlatformException(e);
     }
     return res;
@@ -254,40 +258,48 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   @override
   Future<SignInResult> signInWithWebUI({SignInWithWebUIRequest request}) async {
-   SignInResult res;
+    SignInResult res;
     try {
       final Map<String, dynamic> data =
-      await _channel.invokeMapMethod<String, dynamic>(
+          await _channel.invokeMapMethod<String, dynamic>(
         'signInWithWebUI',
         <String, dynamic>{
           'data': request != null ? request.serializeAsMap() : null,
         },
       );
       return _formatSignInResponse(data, "signIn");
-    } on PlatformException catch(e) {
+    } on PlatformException catch (e) {
       castAndThrowPlatformException(e);
     }
     return res;
   }
 
   SignUpResult _formatSignUpResponse(Map<String, dynamic> res, method) {
-    return CognitoSignUpResult(isSignUpComplete: res["isSignUpComplete"], nextStep: AuthNextSignUpStep(
-      signUpStep: res["nextStep"]["signUpStep"],
-      codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
-      additionalInfo: res["nextStep"]["additionalInfo"] is String ? jsonDecode(res["nextStep"]["additionalInfo"]) : {}
-    ));
+    return CognitoSignUpResult(
+        isSignUpComplete: res["isSignUpComplete"],
+        nextStep: AuthNextSignUpStep(
+            signUpStep: res["nextStep"]["signUpStep"],
+            codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
+            additionalInfo: res["nextStep"]["additionalInfo"] is String
+                ? jsonDecode(res["nextStep"]["additionalInfo"])
+                : {}));
   }
 
-  ResendSignUpCodeResult _formatResendSignUpResponse(Map<String, dynamic> res, method) {
-    return CognitoResendSignUpCodeResult(codeDeliveryDetails: res["codeDeliveryDetails"]);
+  ResendSignUpCodeResult _formatResendSignUpResponse(
+      Map<String, dynamic> res, method) {
+    return CognitoResendSignUpCodeResult(
+        codeDeliveryDetails: res["codeDeliveryDetails"]);
   }
 
   SignInResult _formatSignInResponse(Map<String, dynamic> res, String method) {
-    return CognitoSignInResult(isSignedIn: res["isSignedIn"], nextStep: AuthNextSignInStep(
-      signInStep: res["nextStep"]["signInStep"],
-      codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
-      additionalInfo: res["nextStep"]["additionalInfo"] is String ? jsonDecode(res["nextStep"]["additionalInfo"]) : {}
-    ));
+    return CognitoSignInResult(
+        isSignedIn: res["isSignedIn"],
+        nextStep: AuthNextSignInStep(
+            signInStep: res["nextStep"]["signInStep"],
+            codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
+            additionalInfo: res["nextStep"]["additionalInfo"] is String
+                ? jsonDecode(res["nextStep"]["additionalInfo"])
+                : {}));
   }
 
   UpdatePasswordResult _formatPasswordResponse(Map<String, dynamic> res) {
@@ -300,25 +312,29 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   AuthUser _formatAuthUserResponse(Map<String, dynamic> authUserResponse) {
     return AuthUser(
-      userId: authUserResponse["userId"],
-      username: authUserResponse["username"]
-    );
+        userId: authUserResponse["userId"],
+        username: authUserResponse["username"]);
   }
 
-  List<AuthUserAttribute> formatFetchAttributesResponse(List<Map<dynamic, dynamic>> attributeResponse) {
+  List<AuthUserAttribute> formatFetchAttributesResponse(
+      List<Map<dynamic, dynamic>> attributeResponse) {
     List<AuthUserAttribute> attributes = [];
     attributeResponse.forEach((element) {
-      attributes.add(AuthUserAttribute.init(userAttributeKey: element["key"], value: element["value"]));
+      attributes.add(AuthUserAttribute.init(
+          userAttributeKey: element["key"], value: element["value"]));
     });
     return attributes;
   }
 
   ResetPasswordResult _formatResetPasswordResponse(Map<String, dynamic> res) {
-    return CognitoResetPasswordResult( isPasswordReset: res["isPasswordReset"], nextStep: ResetPasswordStep(
-      updateStep: res["nextStep"]["resetPasswordStep"],
-      codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
-      additionalInfo: res["nextStep"]["additionalInfo"] is String ? jsonDecode(res["nextStep"]["additionalInfo"]) : {}
-    ));
+    return CognitoResetPasswordResult(
+        isPasswordReset: res["isPasswordReset"],
+        nextStep: ResetPasswordStep(
+            updateStep: res["nextStep"]["resetPasswordStep"],
+            codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
+            additionalInfo: res["nextStep"]["additionalInfo"] is String
+                ? jsonDecode(res["nextStep"]["additionalInfo"])
+                : {}));
   }
 
   AuthSession _formatSessionResponse(Map<String, dynamic> res) {

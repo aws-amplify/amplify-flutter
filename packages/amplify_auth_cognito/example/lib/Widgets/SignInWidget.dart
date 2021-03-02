@@ -147,18 +147,17 @@ class _SignInWidgetState extends State<SignInWidget> {
                   ),
                 ],
               ),
-             ListView(
-                shrinkWrap: true,
-                padding: const EdgeInsets.all(5.0),
-                children: [
-                  ElevatedButton(
-                    key: Key('signin-webui-button'),
-                    onPressed: _signInWithSocialWebUI,
-                    child: const Text('Sign In With Social Provider'),
-                  ),
-                  DropdownButton<AuthProvider>(
+              ListView(
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.all(5.0),
+                  children: [
+                    ElevatedButton(
+                      key: Key('signin-webui-button'),
+                      onPressed: _signInWithSocialWebUI,
+                      child: const Text('Sign In With Social Provider'),
+                    ),
+                    DropdownButton<AuthProvider>(
                       value: provider,
-
                       icon: Icon(Icons.arrow_downward),
                       iconSize: 24,
                       elevation: 16,
@@ -172,16 +171,19 @@ class _SignInWidgetState extends State<SignInWidget> {
                           provider = newValue;
                         });
                       },
-                      items: <AuthProvider>[AuthProvider.google, AuthProvider.facebook, AuthProvider.amazon]
-                          .map<DropdownMenuItem<AuthProvider>>((AuthProvider value) {
+                      items: <AuthProvider>[
+                        AuthProvider.google,
+                        AuthProvider.facebook,
+                        AuthProvider.amazon
+                      ].map<DropdownMenuItem<AuthProvider>>(
+                          (AuthProvider value) {
                         return DropdownMenuItem<AuthProvider>(
                           value: value,
                           child: Text(value.toString()),
                         );
                       }).toList(),
                     ),
-                ]
-              )
+                  ])
             ],
           ),
         ),

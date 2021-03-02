@@ -32,8 +32,7 @@ class UnknownException extends AuthException {
 
   /// Instantiates and return a new `AuthException` from the
   /// serialized exception data
-  static UnknownException fromMap(
-      Map<String, String> serializedException) {
+  static UnknownException fromMap(Map<String, String> serializedException) {
     return UnknownException._private(
         AuthException.fromMap(serializedException));
   }

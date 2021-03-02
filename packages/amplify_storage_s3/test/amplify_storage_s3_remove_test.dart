@@ -47,9 +47,10 @@ void main() {
       () async {
     Map<String, String> details = Map.from({
       'message': 'Could not remove file.',
-      'recoverySuggestion':  'Check permissions.',
+      'recoverySuggestion': 'Check permissions.',
     });
-    PlatformException exception = PlatformException(code: 'StorageException', details: details);
+    PlatformException exception =
+        PlatformException(code: 'StorageException', details: details);
     storageChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       return throw exception;
     });

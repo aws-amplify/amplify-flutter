@@ -45,25 +45,32 @@ void main() {
   });
 
   test('Add channel method inserts into available streams', () async {
-    Amplify.Hub.addChannel(HubChannel.Auth, mockPluginController.thisController);
+    Amplify.Hub.addChannel(
+        HubChannel.Auth, mockPluginController.thisController);
     expect(Amplify.Hub.availableStreams.length, equals(1));
-
   });
 
-  test('When channel is added and Hub is listening, underlying channel should have listener', () async {
-    Amplify.Hub.addChannel(HubChannel.Auth, mockPluginController.thisController);
+  test(
+      'When channel is added and Hub is listening, underlying channel should have listener',
+      () async {
+    Amplify.Hub.addChannel(
+        HubChannel.Auth, mockPluginController.thisController);
     StreamController underlying = mockPluginController.underlyingStream;
     await Amplify.Hub.listen([HubChannel.Auth], (msg) {});
     expect(underlying.hasListener, true);
   });
 
-  test('Underlying stream event is rebroadcast on the controller returned from listen', () async {
-    Amplify.Hub.addChannel(HubChannel.Auth, mockPluginController.thisController);
+  test(
+      'Underlying stream event is rebroadcast on the controller returned from listen',
+      () async {
+    Amplify.Hub.addChannel(
+        HubChannel.Auth, mockPluginController.thisController);
     StreamController underlying = mockPluginController.underlyingStream;
-    final String reBroadcastEvent = 'hear me!'; 
+    final String reBroadcastEvent = 'hear me!';
     Amplify.Hub.listen([HubChannel.Auth], (msg) {});
     underlying.add(reBroadcastEvent);
-    expectLater(Amplify.Hub.availableStreams[HubChannel.Auth], emits(reBroadcastEvent));
+    expectLater(
+        Amplify.Hub.availableStreams[HubChannel.Auth], emits(reBroadcastEvent));
   });
 
   // TODO: Figure out async cancellation tests

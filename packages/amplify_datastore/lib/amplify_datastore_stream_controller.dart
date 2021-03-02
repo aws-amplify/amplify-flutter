@@ -26,12 +26,12 @@ import 'package:flutter/services.dart';
 
 import 'types/DataStoreHubEvents/OutboxStatusEvent.dart';
 
-EventChannel channel = const EventChannel("com.amazonaws.amplify/datastore_hub_events");
+EventChannel channel =
+    const EventChannel("com.amazonaws.amplify/datastore_hub_events");
 ModelProviderInterface modelProvider;
 StreamSubscription eventStream;
 
 class DataStoreStreamController {
-  
   StreamController get datastoreStreamController {
     return _controller;
   }
@@ -47,60 +47,76 @@ StreamController _controller = StreamController<DataStoreHubEvent>.broadcast(
 );
 
 _onListen() {
-  if (eventStream == null ) {
+  if (eventStream == null) {
     eventStream = channel.receiveBroadcastStream(1).listen((event) {
-      switch(event["eventName"]) {
-        case "ready": {
-          _rebroadcast(event["eventName"]);
-        }
-        break;
-        case "networkStatus": {
-          _rebroadcast(event["eventName"], payload: NetworkStatusEvent(event));
-        }
-        break;
-        case 'subscriptionsEstablished': {
-          _rebroadcast(event["eventName"]);
-        }
-        break;
-        case "syncQueriesStarted": {
-          _rebroadcast(event["eventName"], payload: SyncQueriesStartedEvent(event));
-        }
-        break;
-        case "modelSynced": {
-          _rebroadcast(event["eventName"], payload: ModelSyncedEvent(event));
-        }
-        break;
-        case "syncQueriesReady": {
-          _rebroadcast(event["eventName"]);
-        }
-        break;
-        case "outboxMutationEnqueued": {
-          _rebroadcast(event["eventName"], payload: OutboxMutationEvent(event, modelProvider, event["eventName"]));
-        }
-        break;
-        case "outboxMutationProcessed": {
-          _rebroadcast(event["eventName"], payload: OutboxMutationEvent(event, modelProvider, event["eventName"]));
-        }
-        break;
-        case "outboxStatus": {
-          _rebroadcast(event["eventName"], payload: OutboxStatusEvent(event));
-        }
-        break;
-        default: {
-          print('An Unrecognized DataStore Hub event has been detected on the event channel.');
-        }
+      switch (event["eventName"]) {
+        case "ready":
+          {
+            _rebroadcast(event["eventName"]);
+          }
+          break;
+        case "networkStatus":
+          {
+            _rebroadcast(event["eventName"],
+                payload: NetworkStatusEvent(event));
+          }
+          break;
+        case 'subscriptionsEstablished':
+          {
+            _rebroadcast(event["eventName"]);
+          }
+          break;
+        case "syncQueriesStarted":
+          {
+            _rebroadcast(event["eventName"],
+                payload: SyncQueriesStartedEvent(event));
+          }
+          break;
+        case "modelSynced":
+          {
+            _rebroadcast(event["eventName"], payload: ModelSyncedEvent(event));
+          }
+          break;
+        case "syncQueriesReady":
+          {
+            _rebroadcast(event["eventName"]);
+          }
+          break;
+        case "outboxMutationEnqueued":
+          {
+            _rebroadcast(event["eventName"],
+                payload: OutboxMutationEvent(
+                    event, modelProvider, event["eventName"]));
+          }
+          break;
+        case "outboxMutationProcessed":
+          {
+            _rebroadcast(event["eventName"],
+                payload: OutboxMutationEvent(
+                    event, modelProvider, event["eventName"]));
+          }
+          break;
+        case "outboxStatus":
+          {
+            _rebroadcast(event["eventName"], payload: OutboxStatusEvent(event));
+          }
+          break;
+        default:
+          {
+            print(
+                'An Unrecognized DataStore Hub event has been detected on the event channel.');
+          }
       }
     });
   }
 }
 
-_rebroadcast(String eventName, { HubEventPayload payload}) {
+_rebroadcast(String eventName, {HubEventPayload payload}) {
   try {
     _controller.add(DataStoreHubEvent(eventName, payload: payload));
   } catch (e) {
     print(e);
   }
-  
 }
 
 _onCancel() {

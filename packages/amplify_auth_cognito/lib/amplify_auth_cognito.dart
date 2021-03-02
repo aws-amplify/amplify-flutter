@@ -34,7 +34,6 @@ class AmplifyAuthCognito extends AuthPluginInterface {
   static AmplifyAuthCognito _instance = AmplifyAuthCognitoMethodChannel();
   static AuthStreamController streamWrapper = AuthStreamController();
 
-
   static set instance(AuthPluginInterface instance) {
     PlatformInterface.verifyToken(instance, _token);
     _instance = instance;
@@ -100,7 +99,8 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     return res;
   }
 
-  Future<List<AuthUserAttribute>> fetchUserAttributes({AuthUserAttributeRequest request}) async {
+  Future<List<AuthUserAttribute>> fetchUserAttributes(
+      {AuthUserAttributeRequest request}) async {
     final res = await _instance.fetchUserAttributes();
     return res;
   }
@@ -112,6 +112,6 @@ class AmplifyAuthCognito extends AuthPluginInterface {
 
   Future<SignInResult> signInWithWebUI({SignInWithWebUIRequest request}) async {
     final res = await _instance.signInWithWebUI(request: request);
-    return res; 
+    return res;
   }
 }

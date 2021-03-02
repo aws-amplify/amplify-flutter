@@ -26,4 +26,3 @@ class CognitoConfirmSignInOptions extends ConfirmSignInOptions {
     return pendingRequest;
   }
 }
-

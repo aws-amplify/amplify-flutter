@@ -24,4 +24,4 @@ class CognitoSessionOptions extends AuthSessionOptions {
     pendingRequest["getAWSCredentials"] = getAWSCredentials;
     return pendingRequest;
   }
-} 
+}

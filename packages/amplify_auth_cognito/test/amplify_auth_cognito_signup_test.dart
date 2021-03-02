@@ -40,11 +40,9 @@ void main() {
               }
             });
           case 2:
-          return throw PlatformException(
-            code: "UnknownException",
-            details: Map.from({
-              "message": "I am an exception"
-            }));
+            return throw PlatformException(
+                code: "UnknownException",
+                details: Map.from({"message": "I am an exception"}));
         }
         ;
       }

@@ -15,7 +15,7 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when Amplify could not perform the action because 
+/// Thrown when Amplify could not perform the action because
 /// alias (an account with certain email or phone) already exists in the system .
 class AliasExistsException extends AuthException {
   /// Named constructor
@@ -33,8 +33,7 @@ class AliasExistsException extends AuthException {
 
   /// Instantiates and return a new `AuthException` from the
   /// serialized exception data
-  static AliasExistsException fromMap(
-      Map<String, String> serializedException) {
+  static AliasExistsException fromMap(Map<String, String> serializedException) {
     return AliasExistsException._private(
         AuthException.fromMap(serializedException));
   }

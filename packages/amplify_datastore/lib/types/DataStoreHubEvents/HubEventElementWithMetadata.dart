@@ -21,9 +21,13 @@ class HubEventElementWithMetadata extends HubEventElement {
   int lastChangedAt;
   bool deleted;
 
-  HubEventElementWithMetadata(Map<dynamic, dynamic> serializedData, ModelProviderInterface provider) : super(serializedData, provider) {
-    Map<String, dynamic> serializedElement = new Map<String, dynamic>.from(serializedData["element"]);
-    Map<String, dynamic> metadata = new Map<String, dynamic>.from(serializedElement["syncMetadata"]);
+  HubEventElementWithMetadata(
+      Map<dynamic, dynamic> serializedData, ModelProviderInterface provider)
+      : super(serializedData, provider) {
+    Map<String, dynamic> serializedElement =
+        new Map<String, dynamic>.from(serializedData["element"]);
+    Map<String, dynamic> metadata =
+        new Map<String, dynamic>.from(serializedElement["syncMetadata"]);
     version = metadata["_version"];
     lastChangedAt = metadata["_lastChangedAt"];
     deleted = metadata["_deleted"];

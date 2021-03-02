@@ -5,21 +5,21 @@ import 'dart:math';
 import './finders.dart';
 
 void main() {
-
   var random = new Random().nextInt(9999).toString();
   var dynamicUsername = "user" + random;
   var dynamicPassword = "password" + random;
 
-  isPresent(SerializableFinder byValueKey, FlutterDriver driver, {Duration timeout = const Duration(seconds: 1)}) async {
+  isPresent(SerializableFinder byValueKey, FlutterDriver driver,
+      {Duration timeout = const Duration(seconds: 1)}) async {
     try {
-      await driver.waitFor(byValueKey,timeout: timeout);
+      await driver.waitFor(byValueKey, timeout: timeout);
       return true;
-    } catch(exception) {
+    } catch (exception) {
       return false;
     }
   }
-  group('Cognito Example App', () {
 
+  group('Cognito Example App', () {
     FlutterDriver driver;
 
     // Connect to the Flutter driver before running any tests.
@@ -41,8 +41,9 @@ void main() {
       expect(authState, "User not signed in");
     });
 
-    test('attempts user signup and displays invalid parameter exception w/ malformed email', () async {
-
+    test(
+        'attempts user signup and displays invalid parameter exception w/ malformed email',
+        () async {
       // navigate to sign up widget
       await driver.tap(gotoSignUpButtonFinder);
 
@@ -71,12 +72,13 @@ void main() {
       // test
       expect(authState, "User not signed in");
       expect(error, "AMPLIFY_SIGNUP_FAILED");
-      expect(["INVALID_PARAMETER", "PLATFORM_EXCEPTIONS"].contains(exception1), true);
-      expect(["INVALID_PARAMETER", "PLATFORM_EXCEPTIONS"].contains(exception2), true);
+      expect(["INVALID_PARAMETER", "PLATFORM_EXCEPTIONS"].contains(exception1),
+          true);
+      expect(["INVALID_PARAMETER", "PLATFORM_EXCEPTIONS"].contains(exception2),
+          true);
     });
 
     test('signs up a new user and display confirmation component', () async {
-
       // fill out signup form
       await driver.tap(signupUsernameFinder);
       await driver.enterText(dynamicUsername);
@@ -101,7 +103,6 @@ void main() {
     });
 
     test('attempts confirmation and displays error', () async {
-
       // fill out confirmation form
       await driver.tap(confirmSignUpUsernameFinder);
       await driver.enterText(dynamicUsername);
@@ -118,12 +119,13 @@ void main() {
 
       // test
       expect(error, "AMPLIFY_CONFIRM_SIGNUP_FAILED");
-      expect(["CODE_MISMATCH", "PLATFORM_EXCEPTIONS"].contains(exception1), true);
-      expect(["CODE_MISMATCH", "PLATFORM_EXCEPTIONS"].contains(exception2), true);
+      expect(
+          ["CODE_MISMATCH", "PLATFORM_EXCEPTIONS"].contains(exception1), true);
+      expect(
+          ["CODE_MISMATCH", "PLATFORM_EXCEPTIONS"].contains(exception2), true);
     });
 
     test('attempts getCurrentUser and displays error', () async {
-
       // navigate to signin widget
       await driver.tap(gotoSignInButtonFinder);
 
@@ -145,7 +147,6 @@ void main() {
     });
 
     test('attempts fetchSession and displays error', () async {
-
       // clicks fetchSession
       await driver.tap(sessionButtonFinder);
 

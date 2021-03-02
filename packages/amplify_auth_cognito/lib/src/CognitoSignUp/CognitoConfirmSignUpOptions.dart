@@ -14,6 +14,7 @@
  */
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
+
 class CognitoConfirmSignUpOptions extends ConfirmSignUpOptions {
   Map<String, String> validationData;
   CognitoConfirmSignUpOptions({this.validationData}) : super();

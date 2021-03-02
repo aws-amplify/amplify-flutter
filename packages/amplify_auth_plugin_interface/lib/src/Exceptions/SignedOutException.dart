@@ -32,8 +32,7 @@ class SignedOutException extends AuthException {
 
   /// Instantiates and return a new `AuthException` from the
   /// serialized exception data
-  static SignedOutException fromMap(
-      Map<String, String> serializedException) {
+  static SignedOutException fromMap(Map<String, String> serializedException) {
     return SignedOutException._private(
         AuthException.fromMap(serializedException));
   }

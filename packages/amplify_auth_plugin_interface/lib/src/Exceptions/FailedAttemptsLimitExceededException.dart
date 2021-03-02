@@ -15,7 +15,7 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when Amplify could not perform the action because 
+/// Thrown when Amplify could not perform the action because
 /// user made too many failed attempts for a given action.
 class FailedAttemptsLimitExceededException extends AuthException {
   /// Named constructor

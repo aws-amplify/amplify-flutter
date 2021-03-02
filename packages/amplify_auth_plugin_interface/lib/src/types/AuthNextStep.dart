@@ -22,9 +22,8 @@ class AuthNextStep {
   AuthNextStep({@required codeDeliveryDetails, additionalInfo = const {}}) {
     this.additionalInfo = additionalInfo;
     this.codeDeliveryDetails = AuthCodeDeliveryDetails(
-      attributeName: codeDeliveryDetails["attributeName"] ?? "",
-      deliveryMedium: codeDeliveryDetails["deliveryMedium"] ?? "",
-      destination: codeDeliveryDetails["destination"]?? ""
-    );
+        attributeName: codeDeliveryDetails["attributeName"] ?? "",
+        deliveryMedium: codeDeliveryDetails["deliveryMedium"] ?? "",
+        destination: codeDeliveryDetails["destination"] ?? "");
   }
 }

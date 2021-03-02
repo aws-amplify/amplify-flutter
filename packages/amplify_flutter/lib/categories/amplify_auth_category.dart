@@ -122,7 +122,8 @@ class AuthCategory {
         : throw _pluginNotAddedException("Auth");
   }
 
-  Future<List<AuthUserAttribute>> fetchUserAttributes({AuthUserAttributeOptions options}) {
+  Future<List<AuthUserAttribute>> fetchUserAttributes(
+      {AuthUserAttributeOptions options}) {
     var request = AuthUserAttributeRequest(options: options);
     return plugins.length == 1
         ? plugins[0].fetchUserAttributes(request: request)

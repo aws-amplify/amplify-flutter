@@ -89,9 +89,7 @@ void main() {
         assert(methodCall.arguments["data"]["confirmationCode"] is String);
         return throw PlatformException(
             code: "UnknownException",
-            details: Map.from({
-              "message": "I am an exception"
-            }));
+            details: Map.from({"message": "I am an exception"}));
       } else {
         return true;
       }

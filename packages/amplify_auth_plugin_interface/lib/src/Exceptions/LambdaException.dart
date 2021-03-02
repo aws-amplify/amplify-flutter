@@ -32,9 +32,7 @@ class LambdaException extends AuthException {
 
   /// Instantiates and return a new `AuthException` from the
   /// serialized exception data
-  static LambdaException fromMap(
-      Map<String, String> serializedException) {
-    return LambdaException._private(
-        AuthException.fromMap(serializedException));
+  static LambdaException fromMap(Map<String, String> serializedException) {
+    return LambdaException._private(AuthException.fromMap(serializedException));
   }
 }

@@ -15,7 +15,6 @@
 
 import 'package:flutter/foundation.dart';
 
-
 class AuthUser {
   String userId;
   String username;

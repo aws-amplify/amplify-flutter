@@ -14,6 +14,7 @@
  */
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
+
 class CognitoSignInOptions extends SignInOptions {
   Map<String, String> clientMetadata;
   CognitoSignInOptions({this.clientMetadata}) : super();
@@ -25,4 +26,3 @@ class CognitoSignInOptions extends SignInOptions {
     return pendingRequest;
   }
 }
-

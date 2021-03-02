@@ -13,7 +13,8 @@ final signupEmailFinder = find.byValueKey('signup-email-input');
 final signupPhoneFinder = find.byValueKey('signup-phone-input');
 final signinUsernameFinder = find.byValueKey('signin-username-input');
 final signinPasswordFinder = find.byValueKey('signin-password-input');
-final confirmSignUpUsernameFinder = find.byValueKey('confirm-signup-username-input');
+final confirmSignUpUsernameFinder =
+    find.byValueKey('confirm-signup-username-input');
 final confirmSignUpCodeFinder = find.byValueKey('confirm-signup-code-input');
 
 // Button Widgets
@@ -27,7 +28,6 @@ final signoutButtonFinder = find.byValueKey('signout-button');
 final sessionButtonFinder = find.byValueKey('session-button');
 final curretUserButtonFinder = find.byValueKey('current-user-button');
 final confirmSignUpButtonFinder = find.byValueKey('confirm-user-button');
-
 
 // Layout Widgets
 final errorCardFinder = find.byValueKey('error-card');

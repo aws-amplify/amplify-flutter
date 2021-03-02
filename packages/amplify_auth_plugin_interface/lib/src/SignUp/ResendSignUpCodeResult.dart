@@ -17,13 +17,12 @@ import 'package:flutter/foundation.dart';
 
 import '../types/AuthCodeDeliveryDetails.dart';
 
-class ResendSignUpCodeResult { 
+class ResendSignUpCodeResult {
   AuthCodeDeliveryDetails codeDeliveryDetails;
   ResendSignUpCodeResult({@required codeDeliveryDetails}) {
     this.codeDeliveryDetails = AuthCodeDeliveryDetails(
-      attributeName: codeDeliveryDetails["attributeName"] ?? "",
-      deliveryMedium: codeDeliveryDetails["deliveryMedium"] ?? "",
-      destination: codeDeliveryDetails["destination"]?? ""
-    );
+        attributeName: codeDeliveryDetails["attributeName"] ?? "",
+        deliveryMedium: codeDeliveryDetails["deliveryMedium"] ?? "",
+        destination: codeDeliveryDetails["destination"] ?? "");
   }
 }
