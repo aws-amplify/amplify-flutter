@@ -33,6 +33,9 @@ class AuthCategory {
   /// [LambdaException] or [UsernameExistsException].
   /// Other AuthException subclasses are possible as a result of network issues,
   /// misconfiguration, repeated attempts, internal service errors or other less common reasons.
+  ///
+  /// When using the amplify_auth_cognito plugin, you can use the [CognitoSignUpOptions] subclass
+  /// to pass user attributes and validation data for the sign up process.
   Future<SignUpResult> signUp(
       {@required String username, @required password, SignUpOptions options}) {
     var request =
@@ -83,9 +86,6 @@ class AuthCategory {
   /// [PasswordResetRequiredException], [UserNotConfirmedException] or [UserNotFoundException].
   /// Other AuthException subclasses are possible as a result of network issues,
   /// misconfiguration, repeated attempts, internal service errors or other less common reasons.
-  ///
-  /// When using the mplify_auth_cognito plugin, you can call this method with [getAWSCredentials] set to true,
-  /// and cast the response to [CognitoAuthSession] to access Amazon Cognito credentials and tokens.
   Future<SignInResult> signIn(
       {@required String username,
       @required String password,
@@ -215,6 +215,9 @@ class AuthCategory {
   /// Throws an [AuthException], or possibly a subclass such as [SessionExpiredException] or [SignedOutException].
   /// Other AuthException subclasses are possible as a result of network issues,
   /// misconfiguration, internal service errors or other less common reasons.
+  ///
+  /// When using the mplify_auth_cognito plugin, you can call this method with [getAWSCredentials] set to true,
+  /// and cast the response to [CognitoAuthSession] to access Amazon Cognito credentials and tokens.
   Future<AuthSession> fetchAuthSession({AuthSessionOptions options}) {
     var request = AuthSessionRequest(options: options);
     return plugins.length == 1
