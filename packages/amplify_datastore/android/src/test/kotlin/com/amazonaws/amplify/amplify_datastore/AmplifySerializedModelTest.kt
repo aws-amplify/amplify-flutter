@@ -21,59 +21,43 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
-@RunWith(RobolectricTestRunner::class)
-class AmplifySerializedModelTest {
+@RunWith(RobolectricTestRunner::class) class AmplifySerializedModelTest {
 
-    var serializedModelMaps : Map<String, Any> = (readMapFromFile("model_schema",
-            "serialized_model_maps.json",
-            HashMap::class.java) as HashMap<String, Any>)
+    var serializedModelMaps: Map<String, Any> =
+        (
+            readMapFromFile("model_schema", "serialized_model_maps.json", HashMap::class.java)
+                as HashMap<String, Any>
+            )
 
-    @Test
-    fun test_schema_blog_with_hasMany() {
+    @Test fun test_schema_blog_with_hasMany() {
         var flutterSerializedModel = FlutterSerializedModel(blogSerializedModel)
         var refMap = serializedModelMaps["BlogSerializedMap"] as Map<String, Any>
 
         // Verify result
-        Assert.assertEquals(
-                flutterSerializedModel.toMap(),
-                refMap
-        )
+        Assert.assertEquals(flutterSerializedModel.toMap(), refMap)
     }
 
-    @Test
-    fun test_schema_comment_with_hasMany() {
+    @Test fun test_schema_comment_with_hasMany() {
         var flutterSerializedModel = FlutterSerializedModel(commentSerializedModel)
         var refMap = serializedModelMaps["CommentSerializedMap"] as Map<String, Any>
 
         // Verify result
-        Assert.assertEquals(
-                flutterSerializedModel.toMap(),
-                refMap
-        )
+        Assert.assertEquals(flutterSerializedModel.toMap(), refMap)
     }
 
-    @Test
-    fun test_schema_post_with_hasMany() {
+    @Test fun test_schema_post_with_hasMany() {
         var flutterSerializedModel = FlutterSerializedModel(postSerializedModel)
         var refMap = serializedModelMaps["PostSerializedMap"] as Map<String, Any>
 
         // Verify result
-        Assert.assertEquals(
-                flutterSerializedModel.toMap(),
-                refMap
-        )
+        Assert.assertEquals(flutterSerializedModel.toMap(), refMap)
     }
 
-    @Test
-    fun test_schema_allType_with_hasMany() {
+    @Test fun test_schema_allType_with_hasMany() {
         var flutterSerializedModel = FlutterSerializedModel(allTypeModelSerializedModel)
         var refMap = serializedModelMaps["AllTypeModelSerializedMap"] as Map<String, Any>
 
         // Verify result
-        Assert.assertEquals(
-                flutterSerializedModel.toMap(),
-                refMap
-        )
+        Assert.assertEquals(flutterSerializedModel.toMap(), refMap)
     }
 }
-

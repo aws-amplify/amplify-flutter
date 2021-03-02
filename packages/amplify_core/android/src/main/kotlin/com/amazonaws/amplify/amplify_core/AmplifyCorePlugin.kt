@@ -31,7 +31,7 @@ class AmplifyCorePlugin : FlutterPlugin, MethodCallHandler {
     private lateinit var channel: MethodChannel
 
     override fun onAttachedToEngine(
-        @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding
+        @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding,
     ) {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "amplify_core")
         channel.setMethodCallHandler(this)

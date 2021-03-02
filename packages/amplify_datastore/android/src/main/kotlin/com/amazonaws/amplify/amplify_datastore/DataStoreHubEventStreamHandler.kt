@@ -17,7 +17,6 @@ package com.amazonaws.amplify.amplify_datastore
 
 import android.os.Handler
 import android.os.Looper
-import com.amazonaws.amplify.amplify_datastore.types.hub.*
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.datastore.DataStoreChannelEventName
 import com.amplifyframework.datastore.appsync.SerializedModel
@@ -32,18 +31,19 @@ import com.amplifyframework.hub.SubscriptionToken
 import io.flutter.plugin.common.EventChannel
 import java.util.concurrent.CountDownLatch
 
-
 class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
     private var eventSink: EventChannel.EventSink? = null
     private val handler = Handler(Looper.getMainLooper())
     private lateinit var token: SubscriptionToken
     private val LOG = Amplify.Logging.forNamespace("amplify:flutter:datastore")
-    private var forwardHubResponse : (event: Map<String, Any>) -> Unit
+    private var forwardHubResponse: (event: Map<String, Any>) -> Unit
 
-    constructor(){
-        forwardHubResponse = {event: Map<String, Any> -> handler.post {
-            eventSink?.success(event)
-        }}
+    constructor() {
+        forwardHubResponse = { event: Map<String, Any> ->
+            handler.post {
+                eventSink?.success(event)
+            }
+        }
     }
 
     constructor(latch: CountDownLatch) {
@@ -55,9 +55,8 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
         token = getHubListener()
     }
 
-     fun getHubListener(): SubscriptionToken {
-        return Amplify.Hub.subscribe(HubChannel.DATASTORE
-        ) { hubEvent: HubEvent<*> ->
+    fun getHubListener(): SubscriptionToken {
+        return Amplify.Hub.subscribe(HubChannel.DATASTORE) { hubEvent: HubEvent<*> ->
             try {
                 when (hubEvent.name) {
                     DataStoreChannelEventName.NETWORK_STATUS.toString() -> {
@@ -74,13 +73,19 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                             var res = FlutterSubscriptionsEstablishedEvent(hubEvent.name)
                             sendEvent(res.toValueMap())
                         } catch (e: Exception) {
-                            LOG.error("Failed to parse and send subscriptionsEstablished event: ", e)
+                            LOG.error(
+                                "Failed to parse and send subscriptionsEstablished event: ",
+                                e
+                            )
                         }
                     }
                     DataStoreChannelEventName.SYNC_QUERIES_STARTED.toString() -> {
                         try {
                             var syncQueriesStartedEvent = hubEvent.data as SyncQueriesStartedEvent
-                            var res = FlutterSyncQueriesStartedEvent(hubEvent.name, syncQueriesStartedEvent.models)
+                            var res = FlutterSyncQueriesStartedEvent(
+                                hubEvent.name,
+                                syncQueriesStartedEvent.models
+                            )
                             sendEvent(res.toValueMap())
                         } catch (e: Exception) {
                             LOG.error("Failed to parse and send syncQueriesStarted event: ", e)
@@ -90,19 +95,15 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                         try {
                             var modelSyncedEvent = hubEvent.data as ModelSyncedEvent
                             var res = FlutterModelSyncedEvent(
-                                    hubEvent.name,
-                                    modelSyncedEvent.model,
-                                    modelSyncedEvent.isFullSync,
-                                    modelSyncedEvent.isDeltaSync,
-                                    modelSyncedEvent.added,
-                                    modelSyncedEvent.updated,
-                                    modelSyncedEvent.deleted
+                                hubEvent.name, modelSyncedEvent.model,
+                                modelSyncedEvent.isFullSync, modelSyncedEvent.isDeltaSync,
+                                modelSyncedEvent.added, modelSyncedEvent.updated,
+                                modelSyncedEvent.deleted
                             )
                             sendEvent(res.toValueMap())
                         } catch (e: Exception) {
                             LOG.error("Failed to parse and send modelSynced event: ", e)
                         }
-
                     }
                     DataStoreChannelEventName.SYNC_QUERIES_READY.toString() -> {
                         try {
@@ -124,12 +125,14 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                         try {
                             var outboxMutationEnqueued = hubEvent.data as OutboxMutationEvent<*>
                             if (outboxMutationEnqueued.element.model is SerializedModel) {
-                                var modelName = (outboxMutationEnqueued.element.model as SerializedModel).modelName as String
-                                var res = FlutterOutboxMutationEnqueuedEvent(
-                                        hubEvent.name,
-                                        modelName,
+                                var modelName =
+                                    (outboxMutationEnqueued.element.model as SerializedModel)
+                                        .modelName as String
+                                var res =
+                                    FlutterOutboxMutationEnqueuedEvent(
+                                        hubEvent.name, modelName,
                                         outboxMutationEnqueued.element
-                                )
+                                    )
                                 sendEvent(res.toValueMap())
                             } else {
                                 LOG.error("Element is not an instance of SerializedModel.")
@@ -137,7 +140,6 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                         } catch (e: Exception) {
                             LOG.error("Failed to parse and send outboxMutationEnqueued event: ", e)
                         }
-
                     }
                     DataStoreChannelEventName.OUTBOX_MUTATION_PROCESSED.toString() -> {
                         try {
@@ -145,16 +147,17 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                             if (outboxMutationProcessed.element.model is SerializedModel) {
                                 var modelName = outboxMutationProcessed.modelName
                                 var res = FlutterOutboxMutationProcessedEvent(
-                                        hubEvent.name,
-                                        modelName,
-                                        outboxMutationProcessed.element
+                                    hubEvent.name,
+                                    modelName, outboxMutationProcessed.element
                                 )
                                 sendEvent(res.toValueMap())
                             } else {
                                 LOG.error("Element is not an instance of SerializedModel.")
                             }
                         } catch (e: Exception) {
-                            LOG.error("Failed to parse and send outboxMutationProcessed event: ", e)
+                            LOG.error(
+                                "Failed to parse and send outboxMutationProcessed event: ", e
+                            )
                         }
                     }
                     DataStoreChannelEventName.OUTBOX_STATUS.toString() -> {
@@ -174,12 +177,11 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                 LOG.error("Error parsing DataStore Hub event.")
             }
         }
-     }
+    }
 
-     fun sendEvent(flutterEvent: Map<String, Any>) {
-         forwardHubResponse(flutterEvent)
-     }
-
+    fun sendEvent(flutterEvent: Map<String, Any>) {
+        forwardHubResponse(flutterEvent)
+    }
 
     override fun onCancel(p0: Any?) {
         eventSink = null

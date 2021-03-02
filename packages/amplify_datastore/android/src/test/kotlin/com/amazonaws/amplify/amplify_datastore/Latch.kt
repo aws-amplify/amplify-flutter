@@ -37,7 +37,10 @@ object Latch {
         didCountDown = try {
             latch.await(waitTimeMs, TimeUnit.MILLISECONDS)
         } catch (interruptedException: InterruptedException) {
-            throw RuntimeException("Thread interrupted while wait for latch count down.", interruptedException)
+            throw RuntimeException(
+                "Thread interrupted while wait for latch count down.",
+                interruptedException
+            )
         }
         if (!didCountDown || latch.count != 0L) {
             throw RuntimeException("Failed to count down latch within " + waitTimeMs + "ms.")

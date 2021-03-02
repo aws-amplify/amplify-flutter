@@ -17,57 +17,29 @@ package com.amazonaws.amplify.amplify_datastore
 
 import com.amplifyframework.datastore.appsync.SerializedModel
 
-val blogSerializedModel = SerializedModel.builder()
-        .serializedData(
-                mapOf(
-                        "id" to "999",
-                        "name" to "blog name"
-                )
-        ).modelSchema(
-                blogSchema
-        ).build()
+val blogSerializedModel =
+    SerializedModel.builder().serializedData(mapOf("id" to "999", "name" to "blog name"))
+        .modelSchema(blogSchema).build()
 
-var commentSerializedModel = SerializedModel.builder()
-        .serializedData(
-                mapOf(
-                        "id" to "999",
-                        "post" to mapOf(
-                                "id" to "555"
-                        ),
-                        "content" to "content"
-                )
-        ).modelSchema(
-                commentSchema
-        ).build()
+var commentSerializedModel = SerializedModel.builder().serializedData(
+    mapOf("id" to "999", "post" to mapOf("id" to "555"), "content" to "content")
+)
+    .modelSchema(commentSchema).build()
 
-var postSerializedModel = SerializedModel.builder()
-        .serializedData(
-                mapOf(
-                        "id" to "999",
-                        "title" to "post title",
-                        "created" to "2020-11-25T01:28:49.000Z",
-                        "blog" to mapOf(
-                                "id" to "555"
-                        )
-                )
-        ).modelSchema(
-                postSchema
-        ).build()
+var postSerializedModel = SerializedModel.builder().serializedData(
+    mapOf(
+        "id" to "999", "title" to "post title", "created" to "2020-11-25T01:28:49.000Z",
+        "blog" to mapOf("id" to "555")
+    )
+)
+    .modelSchema(postSchema).build()
 
-var allTypeModelSerializedModel = SerializedModel.builder()
-        .serializedData(
-                mapOf(
-                        "id" to "999",
-                        "stringType" to "string value",
-                        "intType" to 10,
-                        "floatType" to 9.99,
-                        "boolType" to true,
-                        "dateType" to "2020-09-09",
-                        "dateTimeType" to "2020-11-25T01:28:49.000Z",
-                        "timeType" to "20:20:20:020",
-                        "timestampType" to 999,
-                        "enumType" to "maybe"
-                )
-        ).modelSchema(
-                allTypeModelSchema
-        ).build()
+var allTypeModelSerializedModel = SerializedModel.builder().serializedData(
+    mapOf(
+        "id" to "999", "stringType" to "string value", "intType" to 10, "floatType" to 9.99,
+        "boolType" to true, "dateType" to "2020-09-09",
+        "dateTimeType" to "2020-11-25T01:28:49.000Z", "timeType" to "20:20:20:020",
+        "timestampType" to 999, "enumType" to "maybe"
+    )
+)
+    .modelSchema(allTypeModelSchema).build()

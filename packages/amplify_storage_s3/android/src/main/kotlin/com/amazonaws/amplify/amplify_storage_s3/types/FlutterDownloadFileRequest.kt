@@ -29,13 +29,15 @@ data class FlutterDownloadFileRequest(val request: Map<String, *>) {
     private fun setOptions(request: Map<String, *>): StorageDownloadFileOptions {
         if (request["options"] != null) {
             val optionsMap = request["options"] as Map<String, *>
-            var options: StorageDownloadFileOptions.Builder<*> = StorageDownloadFileOptions.builder()
+            var options: StorageDownloadFileOptions.Builder<*> =
+                StorageDownloadFileOptions.builder()
 
             optionsMap.forEach { (optionKey, optionValue) ->
                 when (optionKey) {
                     "accessLevel" -> {
                         val accessLevelStringOption = optionValue as String
-                        val accessLevel: StorageAccessLevel? = StorageAccessLevel.values().find { it.name == accessLevelStringOption.toUpperCase() }
+                        val accessLevel: StorageAccessLevel? = StorageAccessLevel.values()
+                            .find { it.name == accessLevelStringOption.toUpperCase() }
                         options.accessLevel(accessLevel)
                     }
                     "targetIdentityId" -> {
@@ -51,11 +53,17 @@ data class FlutterDownloadFileRequest(val request: Map<String, *>) {
     companion object {
         private const val validationErrorMessage: String = "DownloadFile request malformed."
         fun validate(request: Map<String, *>) {
-            if(request["path"] !is String) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("path" ))
+            if (request["path"] !is String) {
+                throw InvalidRequestException(
+                    validationErrorMessage,
+                    ExceptionMessages.missingAttribute.format("path")
+                )
             }
-            if(request["key"] !is String) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "key" ))
+            if (request["key"] !is String) {
+                throw InvalidRequestException(
+                    validationErrorMessage,
+                    ExceptionMessages.missingAttribute.format("key")
+                )
             }
         }
     }

@@ -31,19 +31,16 @@ import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.robolectric.RobolectricTestRunner
 
-
-@RunWith(RobolectricTestRunner::class)
-class AmplifyTest {
+@RunWith(RobolectricTestRunner::class) class AmplifyTest {
 
     lateinit var plugin: Amplify
 
     private val context: Context = mock(Context::class.java)
     private val flutterEngine = mock(FlutterEngine::class.java)
     private var flutterPluginBinding: FlutterPlugin.FlutterPluginBinding =
-            mock(FlutterPlugin.FlutterPluginBinding::class.java)
+        mock(FlutterPlugin.FlutterPluginBinding::class.java)
 
-    @Before
-    fun setup() {
+    @Before fun setup() {
         plugin = Amplify()
         `when`(flutterPluginBinding.applicationContext).thenReturn(context)
         `when`(flutterPluginBinding.flutterEngine).thenReturn(flutterEngine)
@@ -51,13 +48,10 @@ class AmplifyTest {
         plugin.onAttachedToEngine(flutterPluginBinding)
     }
 
-    @Test
-    fun configure_throwExceptionOnSecondCall() {
+    @Test fun configure_throwExceptionOnSecondCall() {
         // Setup
-        val arguments: HashMap<String, Any> = hashMapOf(
-                "version" to "1",
-                "configuration" to "{\"testKey\": \"test value\"}"
-        )
+        val arguments: HashMap<String, Any> =
+            hashMapOf("version" to "1", "configuration" to "{\"testKey\": \"test value\"}")
         val call = MethodCall("configure", arguments)
 
         // Act
@@ -65,16 +59,20 @@ class AmplifyTest {
         plugin.onMethodCall(call, mockFirstCallResult)
 
         // Assert that first configure is successful
-        verify(mockFirstCallResult, times(1)).success(true);
+        verify(mockFirstCallResult, times(1)).success(true)
 
         // Act again
         val mockSecondCallResult: MethodChannel.Result = mock(MethodChannel.Result::class.java)
         plugin.onMethodCall(call, mockSecondCallResult)
 
         // Assert that second configure returns error
-        verify(mockSecondCallResult, times(1)).error("AmplifyAlreadyConfiguredException",
-                ExceptionMessages.defaultFallbackExceptionMessage,
-                mapOf("message" to "Amplify has already been configured.",
-                        "recoverySuggestion" to "Remove the duplicate call to `Amplify.configure()`"))
+        verify(mockSecondCallResult, times(1)).error(
+            "AmplifyAlreadyConfiguredException",
+            ExceptionMessages.defaultFallbackExceptionMessage,
+            mapOf(
+                "message" to "Amplify has already been configured.",
+                "recoverySuggestion" to "Remove the duplicate call to `Amplify.configure()`"
+            )
+        )
     }
 }

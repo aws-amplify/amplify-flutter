@@ -22,10 +22,9 @@ import com.amplifyframework.util.Immutable
 import java.util.Collections
 
 class FlutterModelProvider private constructor() : ModelProvider {
-    private val modelSchemaMap: MutableMap<String, ModelSchema> =
-            HashMap()
+    private val modelSchemaMap: MutableMap<String, ModelSchema> = HashMap()
 
-    private lateinit var version: String;
+    private lateinit var version: String
 
     override fun models(): Set<Class<out Model?>>? {
         return Collections.emptySet()
@@ -56,8 +55,7 @@ class FlutterModelProvider private constructor() : ModelProvider {
         val instance: FlutterModelProvider
             get() {
                 if (flutterGeneratedModelInstance == null) {
-                    flutterGeneratedModelInstance =
-                            FlutterModelProvider()
+                    flutterGeneratedModelInstance = FlutterModelProvider()
                 }
                 return flutterGeneratedModelInstance!! // We know it's not null right now
             }

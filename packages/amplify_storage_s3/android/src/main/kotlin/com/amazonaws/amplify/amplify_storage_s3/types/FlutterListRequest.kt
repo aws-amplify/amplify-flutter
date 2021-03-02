@@ -33,7 +33,8 @@ data class FlutterListRequest(val request: Map<String, *>) {
                 when (optionKey) {
                     "accessLevel" -> {
                         val accessLevelStringOption = optionValue as String
-                        val accessLevel: StorageAccessLevel? = StorageAccessLevel.values().find { it.name == accessLevelStringOption.toUpperCase() }
+                        val accessLevel: StorageAccessLevel? = StorageAccessLevel.values()
+                            .find { it.name == accessLevelStringOption.toUpperCase() }
                         options.accessLevel(accessLevel)
                     }
                     "targetIdentityId" -> {
@@ -49,8 +50,11 @@ data class FlutterListRequest(val request: Map<String, *>) {
     companion object {
         private const val validationErrorMessage: String = "List request malformed."
         fun validate(request: Map<String, *>) {
-            if(request["path"] !is String?) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "path" ))
+            if (request["path"] !is String?) {
+                throw InvalidRequestException(
+                    validationErrorMessage,
+                    ExceptionMessages.missingAttribute.format("path")
+                )
             }
         }
     }

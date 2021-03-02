@@ -36,10 +36,13 @@ public class AmplifyAnalyticsPinpointPlugin : FlutterPlugin, ActivityAware, Meth
     private var mainActivity: Activity? = null
 
     override fun onAttachedToEngine(
-            @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+        @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding,
+    ) {
 
-        channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(),
-                "com.amazonaws.amplify/analytics_pinpoint")
+        channel = MethodChannel(
+            flutterPluginBinding.getFlutterEngine().getDartExecutor(),
+            "com.amazonaws.amplify/analytics_pinpoint"
+        )
         channel.setMethodCallHandler(this)
 
         // Edge case for getting Application for AWSPinpointAnalyticsPlugin initialization
@@ -51,7 +54,10 @@ public class AmplifyAnalyticsPinpointPlugin : FlutterPlugin, ActivityAware, Meth
                 try {
                     Amplify.addPlugin(AWSPinpointAnalyticsPlugin(context))
                 } catch (e: Exception) {
-                    LOG.error("Failed to add AnalyticsPinpoint plugin. Is Amplify already configured and app restarted?")
+                    LOG.error(
+                        "Failed to add AnalyticsPinpoint plugin. " +
+                            "Is Amplify already configured and app restarted?"
+                    )
                     LOG.error("Exception: $e")
                     return
                 }
@@ -65,7 +71,6 @@ public class AmplifyAnalyticsPinpointPlugin : FlutterPlugin, ActivityAware, Meth
         if (context as Application == null) {
             Log.e(TAG, "Failed to resolve Application from Context, AWS Pinpoint not initialized")
         }
-
     }
 
     // This static function is optional and equivalent to onAttachedToEngine. It supports the old
@@ -74,10 +79,10 @@ public class AmplifyAnalyticsPinpointPlugin : FlutterPlugin, ActivityAware, Meth
         const val TAG = "AmplifyAnalyticsPinpointPlugin"
         val LOG = Amplify.Logging.forNamespace("amplify:flutter:analytics_pinpoint")
 
-        @JvmStatic
-        fun registerWith(registrar: Registrar) {
-            val channel =
-                    MethodChannel(registrar.messenger(), "com.amazonaws.amplify/analytics_pinpoint")
+        @JvmStatic fun registerWith(registrar: Registrar) {
+            val channel = MethodChannel(
+                registrar.messenger(), "com.amazonaws.amplify/analytics_pinpoint"
+            )
             Amplify.addPlugin(AWSPinpointAnalyticsPlugin(registrar.activity().application))
             LOG.info("Added AnalyticsPinpoint plugin")
         }
@@ -87,20 +92,17 @@ public class AmplifyAnalyticsPinpointPlugin : FlutterPlugin, ActivityAware, Meth
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
 
         when (call.method) {
-            "recordEvent" ->
-                AmplifyAnalyticsBridge.recordEvent(call.arguments, result)
-            "flushEvents" ->
-                AmplifyAnalyticsBridge.flushEvents(result)
-            "registerGlobalProperties" ->
-                AmplifyAnalyticsBridge.registerGlobalProperties(call.arguments, result)
-            "unregisterGlobalProperties" ->
-                AmplifyAnalyticsBridge.unregisterGlobalProperties(call.arguments, result)
-            "enable" ->
-                AmplifyAnalyticsBridge.enable(result)
-            "disable" ->
-                AmplifyAnalyticsBridge.disable(result)
-            "identifyUser" ->
-                AmplifyAnalyticsBridge.identifyUser(call.arguments, result)
+            "recordEvent" -> AmplifyAnalyticsBridge.recordEvent(call.arguments, result)
+            "flushEvents" -> AmplifyAnalyticsBridge.flushEvents(result)
+            "registerGlobalProperties" -> AmplifyAnalyticsBridge.registerGlobalProperties(
+                call.arguments, result
+            )
+            "unregisterGlobalProperties" -> AmplifyAnalyticsBridge.unregisterGlobalProperties(
+                call.arguments, result
+            )
+            "enable" -> AmplifyAnalyticsBridge.enable(result)
+            "disable" -> AmplifyAnalyticsBridge.disable(result)
+            "identifyUser" -> AmplifyAnalyticsBridge.identifyUser(call.arguments, result)
 
             else -> result.notImplemented()
         }
@@ -125,6 +127,4 @@ public class AmplifyAnalyticsPinpointPlugin : FlutterPlugin, ActivityAware, Meth
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
     }
-
-
 }

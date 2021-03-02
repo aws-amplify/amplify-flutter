@@ -25,23 +25,27 @@ class QuerySortBuilderTest {
     private val id: QueryField = QueryField.field("post.id")
     private val rating: QueryField = QueryField.field("rating")
 
-    @Test
-    fun test_when_sorting_by_id_ascending() {
+    @Test fun test_when_sorting_by_id_ascending() {
         Assert.assertEquals(
-                Where.sorted(id.ascending()).sortBy,
-                QuerySortBuilder.fromSerializedList(
-                        readMapFromFile("query_sort",
-                                        "sort_by_id_ascending.json",
-                                        List::class.java) as List<HashMap<String, Any>>))
+            Where.sorted(id.ascending()).sortBy,
+            QuerySortBuilder.fromSerializedList(
+                readMapFromFile(
+                    "query_sort", "sort_by_id_ascending.json",
+                    List::class.java
+                ) as List<HashMap<String, Any>>
+            )
+        )
     }
 
-    @Test
-    fun test_when_sorting_by_id_ascending_and_rating_descending() {
+    @Test fun test_when_sorting_by_id_ascending_and_rating_descending() {
         Assert.assertEquals(
-                Where.sorted(id.ascending(), rating.descending()).sortBy,
-                QuerySortBuilder.fromSerializedList(
-                        readMapFromFile("query_sort",
-                                        "multiple_sorting.json",
-                                        List::class.java) as List<HashMap<String, Any>>))
+            Where.sorted(id.ascending(), rating.descending()).sortBy,
+            QuerySortBuilder.fromSerializedList(
+                readMapFromFile(
+                    "query_sort", "multiple_sorting.json",
+                    List::class.java
+                ) as List<HashMap<String, Any>>
+            )
+        )
     }
 }

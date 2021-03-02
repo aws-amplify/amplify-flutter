@@ -23,67 +23,49 @@ import org.robolectric.RobolectricTestRunner
 
 // test that map received then transformed to flutter equivalent
 // generates appropriate native equivalent
-@RunWith(RobolectricTestRunner::class)
-class AmplifyModelSchemaTest {
+@RunWith(RobolectricTestRunner::class) class AmplifyModelSchemaTest {
 
-    var schemasMap : Map<String, Any> = (readMapFromFile("model_schema",
-            "model_schema_maps.json",
-            HashMap::class.java) as HashMap<String, Any>)
+    var schemasMap: Map<String, Any> = (
+        readMapFromFile(
+            "model_schema", "model_schema_maps.json",
+            HashMap::class.java
+        ) as HashMap<String, Any>
+        )
 
-    @Test
-    fun test_schema_blog_with_hasMany() {
+    @Test fun test_schema_blog_with_hasMany() {
         var inputMap = schemasMap["BlogSchema"] as Map<String, Any>
         var modelSchema = FlutterModelSchema(inputMap)
         // Verify result
-        assertEquals(
-                modelSchema.convertToNativeModelSchema(),
-                blogSchema
-        )
+        assertEquals(modelSchema.convertToNativeModelSchema(), blogSchema)
     }
 
-    @Test
-    fun test_schema_comment_with_belongsTo() {
+    @Test fun test_schema_comment_with_belongsTo() {
         var inputMap = schemasMap["CommentSchema"] as Map<String, Any>
         var modelSchema = FlutterModelSchema(inputMap)
         // Verify result
-        assertEquals(
-                modelSchema.convertToNativeModelSchema(),
-                commentSchema
-        )
+        assertEquals(modelSchema.convertToNativeModelSchema(), commentSchema)
     }
 
-    @Test
-    fun test_schema_post_with_datetime_int_hasMany_belongsTo() {
+    @Test fun test_schema_post_with_datetime_int_hasMany_belongsTo() {
         var inputMap = schemasMap["PostSchema"] as Map<String, Any>
         var modelSchema = FlutterModelSchema(inputMap)
         // Verify result
-        assertEquals(
-                modelSchema.convertToNativeModelSchema(),
-                postSchema
-        )
+        assertEquals(modelSchema.convertToNativeModelSchema(), postSchema)
     }
 
-    @Test
-    fun test_schema_postAuthComplex_with_authRules() {
+    @Test fun test_schema_postAuthComplex_with_authRules() {
         // Generate Flutter ModelSchema from map input
         var inputMap = schemasMap["PostAuthComplexSchema"] as Map<String, Any>
         var modelSchema = FlutterModelSchema(inputMap)
         // Verify result
-        assertEquals(
-                modelSchema.convertToNativeModelSchema(),
-                postAuthComplexSchema
-        )
+        assertEquals(modelSchema.convertToNativeModelSchema(), postAuthComplexSchema)
     }
 
-    @Test
-    fun test_schema_allTypeModel() {
+    @Test fun test_schema_allTypeModel() {
         // Generate Flutter ModelSchema from map input
         var inputMap = schemasMap["AllTypeModelSchema"] as Map<String, Any>
         var modelSchema = FlutterModelSchema(inputMap)
         // Verify result
-        assertEquals(
-                modelSchema.convertToNativeModelSchema(),
-                allTypeModelSchema
-        )
+        assertEquals(modelSchema.convertToNativeModelSchema(), allTypeModelSchema)
     }
 }

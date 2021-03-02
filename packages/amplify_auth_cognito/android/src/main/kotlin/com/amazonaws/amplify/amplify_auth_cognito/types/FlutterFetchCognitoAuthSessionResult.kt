@@ -25,60 +25,58 @@ import com.google.gson.reflect.TypeToken
 var gson = Gson()
 
 data class FlutterFetchCognitoAuthSessionResult(private val raw: AWSCognitoAuthSession) {
-  private val isSignedIn: Boolean = raw.isSignedIn
-  private val identityId: String? = raw.identityId.value as String?
-  private val userSub: String? = raw.userSub.value as String?
-  private val credentials: AuthSessionResult<AWSCredentials>? = raw.awsCredentials
-  private val tokens: AuthSessionResult<AWSCognitoUserPoolTokens>? = raw.userPoolTokens
+    private val isSignedIn: Boolean = raw.isSignedIn
+    private val identityId: String? = raw.identityId.value as String?
+    private val userSub: String? = raw.userSub.value as String?
+    private val credentials: AuthSessionResult<AWSCredentials>? = raw.awsCredentials
+    private val tokens: AuthSessionResult<AWSCognitoUserPoolTokens>? = raw.userPoolTokens
 
-  fun toValueMap(): Map<String, Any?> {
-    return mapOf(
-      "isSignedIn" to this.isSignedIn,
-      "identityId" to this.identityId,
-      "userSub" to this.userSub,
-      "credentials" to serializeCredentials(this.credentials),
-      "tokens" to serializeTokens(this.tokens)
-    )
-  }
-
-  //parse userpool tokens
-  fun serializeTokens(res: AuthSessionResult<AWSCognitoUserPoolTokens>?): Map<String, Any>? {
-    var map = res.serializeToMap();
-    return if (map != null && map.containsKey("value")) {
-      var values = map["value"] as Map<String, Any>
-      return if (!values.containsKey("error")) {
-        values
-      } else {
-        null
-      }
-    } else {
-      null
+    fun toValueMap(): Map<String, Any?> {
+        return mapOf(
+            "isSignedIn" to this.isSignedIn, "identityId" to this.identityId,
+            "userSub" to this.userSub, "credentials" to serializeCredentials(this.credentials),
+            "tokens" to serializeTokens(this.tokens)
+        )
     }
-  }
 
-  //parse credentials
-  fun serializeCredentials(res: AuthSessionResult<AWSCredentials>?): Map<String, Any>? {
-    var map = res.serializeToMap();
-    return if (map != null && map.containsKey("value")) {
-      var values = map["value"] as Map<String, Any>
-      return if (!values.containsKey("error")) {
-        values
-      } else {
-        null
-      }
-    } else {
-      null
+    // parse userpool tokens
+    fun serializeTokens(res: AuthSessionResult<AWSCognitoUserPoolTokens>?): Map<String, Any>? {
+        var map = res.serializeToMap()
+        return if (map != null && map.containsKey("value")) {
+            var values = map["value"] as Map<String, Any>
+            return if (!values.containsKey("error")) {
+                values
+            } else {
+                null
+            }
+        } else {
+            null
+        }
     }
-  }
 
-  //convert a data class to a map
-  fun <T> T.serializeToMap(): Map<String, Any> {
-    return convert()
-  }
+    // parse credentials
+    fun serializeCredentials(res: AuthSessionResult<AWSCredentials>?): Map<String, Any>? {
+        var map = res.serializeToMap()
+        return if (map != null && map.containsKey("value")) {
+            var values = map["value"] as Map<String, Any>
+            return if (!values.containsKey("error")) {
+                values
+            } else {
+                null
+            }
+        } else {
+            null
+        }
+    }
 
-  //convert an object of type I to type O
-  inline fun <I, reified O> I.convert(): O {
-    val json = gson.toJson(this)
-    return gson.fromJson(json, object : TypeToken<O>() {}.type)
-  }
+    // convert a data class to a map
+    fun <T> T.serializeToMap(): Map<String, Any> {
+        return convert()
+    }
+
+    // convert an object of type I to type O
+    inline fun <I, reified O> I.convert(): O {
+        val json = gson.toJson(this)
+        return gson.fromJson(json, object : TypeToken<O>() {}.type)
+    }
 }

@@ -19,15 +19,18 @@ import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 
 data class FlutterConfirmSignInRequest(val map: HashMap<String, *>) {
-  val confirmationCode: String = map["confirmationCode"] as String;
-  val options: HashMap<String, *>? = map["options"] as HashMap<String, *>?;
+    val confirmationCode: String = map["confirmationCode"] as String
+    val options: HashMap<String, *>? = map["options"] as HashMap<String, *>?
 
-  companion object {
-    private const val validationErrorMessage: String = "ConfirmSignIn Request malformed."
-    fun validate(req : HashMap<String, *>?) {
-      if (req == null || req !is HashMap<String, *>) {
-        throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "request map" ))
-      }
+    companion object {
+        private const val validationErrorMessage: String = "ConfirmSignIn Request malformed."
+        fun validate(req: HashMap<String, *>?) {
+            if (req == null || req !is HashMap<String, *>) {
+                throw InvalidRequestException(
+                    validationErrorMessage,
+                    ExceptionMessages.missingAttribute.format("request map")
+                )
+            }
+        }
     }
-  }
 }

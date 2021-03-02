@@ -19,17 +19,20 @@ import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 
 data class FlutterResendSignUpCodeRequest(val map: HashMap<String, *>) {
-  val username: String = map["username"] as String;
-  val options: HashMap<String, *>? = map["options"] as HashMap<String, *>?;
+    val username: String = map["username"] as String
+    val options: HashMap<String, *>? = map["options"] as HashMap<String, *>?
 
-  companion object {
-    private const val validationErrorMessage: String = "ResendSignUpCode Request malformed."
-    fun validate(req : HashMap<String, *>?) {
-      if (req != null) {
-        if (!req.containsKey("username") && req["username"] != "") {
-          throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "username" ))
+    companion object {
+        private const val validationErrorMessage: String = "ResendSignUpCode Request malformed."
+        fun validate(req: HashMap<String, *>?) {
+            if (req != null) {
+                if (!req.containsKey("username") && req["username"] != "") {
+                    throw InvalidRequestException(
+                        validationErrorMessage,
+                        ExceptionMessages.missingAttribute.format("username")
+                    )
+                }
+            }
         }
-      }
     }
-  }
 }

@@ -40,6 +40,12 @@ scripts:
     melos exec -c 1 -- \
       flutter format .
 
+    melos exec -c 1 -- \
+      ktlint \
+        --format \
+        --android \
+        '$(find . -name "*.kt")'
+
   analyze: >
     melos exec -c 1 --no-private --ignore="*example*" -- \
       pub global run tuneup check

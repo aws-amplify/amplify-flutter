@@ -24,7 +24,7 @@ data class FlutterModelField(val map: Map<String, Any>) {
 
     // Type of the field is the data type of the instance variables
     // of the Model class.
-    private val type: FlutterModelFieldType = FlutterModelFieldType( map["type"] as Map<String, Any>)
+    private val type: FlutterModelFieldType = FlutterModelFieldType(map["type"] as Map<String, Any>)
 
     // If the field is a required or an optional field
     private val isRequired: Boolean = map["isRequired"] as Boolean
@@ -34,43 +34,39 @@ data class FlutterModelField(val map: Map<String, Any>) {
     private val isArray: Boolean = map["isArray"] as Boolean
 
     // True if the field is an enumeration type.
-    private val isEnum: Boolean = type.isEnum();
+    private val isEnum: Boolean = type.isEnum()
 
     // True if the field is an instance of model.
-    private val isModel: Boolean = type.isModel();
+    private val isModel: Boolean = type.isModel()
 
     // An array of rules for owner based authorization
     private val authRules: List<FlutterAuthRule>? =
-            (map["authRules"] as List<Map<String, Any>>?)?.map { serializedAuthRule ->
-                FlutterAuthRule(serializedAuthRule)
-            }
+        (map["authRules"] as List<Map<String, Any>>?)?.map { serializedAuthRule ->
+            FlutterAuthRule(serializedAuthRule)
+        }
 
     // Association (if any) of the model
     private val flutterModelAssociation: FlutterModelAssociation? =
-            if ( map["association"] == null ) null
-            else FlutterModelAssociation(map["association"] as Map<String, Any>)
-
+        if (map["association"] == null) null
+        else FlutterModelAssociation(map["association"] as Map<String, Any>)
 
     fun getModelAssociation(): FlutterModelAssociation? {
-        return flutterModelAssociation;
+        return flutterModelAssociation
     }
 
     fun convertToNativeModelField(): ModelField {
-        var builder: ModelField.ModelFieldBuilder = ModelField.builder()
-                .name(name)
-                .javaClassForValue( type.getJavaClass() )
-                .targetType( type.getTargetType() )
-                .isRequired(isRequired)
-                .isArray(isArray)
-                .isEnum(isEnum)
-                .isModel(isModel)
+        var builder: ModelField.ModelFieldBuilder =
+            ModelField.builder().name(name).javaClassForValue(type.getJavaClass())
+                .targetType(type.getTargetType()).isRequired(isRequired).isArray(isArray)
+                .isEnum(isEnum).isModel(isModel)
 
         if (!authRules.isNullOrEmpty()) {
-            builder = builder.authRules(authRules.map { authRule ->
-                authRule.convertToNativeAuthRule()
-            })
+            builder = builder.authRules(
+                authRules.map { authRule ->
+                    authRule.convertToNativeAuthRule()
+                }
+            )
         }
         return builder.build()
     }
-
 }

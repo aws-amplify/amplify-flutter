@@ -30,7 +30,7 @@ data class FlutterModelFieldType(val map: Map<String, Any>) {
 
     // This should always return false, enums are passed in as strings to Android
     fun isEnum(): Boolean {
-        return false;
+        return false
     }
 
     fun isModel(): Boolean {
@@ -51,7 +51,8 @@ data class FlutterModelFieldType(val map: Map<String, Any>) {
             "model" -> ofModelName!!
             "collection" -> ofModelName!!
             else -> throw Exception(
-                    "FlutterModelFieldType.getModelTargetType - invalid fieldType supplied: $fieldType")
+                "FlutterModelFieldType.getModelTargetType - invalid fieldType supplied: $fieldType"
+            )
         }
     }
 
@@ -69,7 +70,8 @@ data class FlutterModelFieldType(val map: Map<String, Any>) {
             "model" -> Model::class.java
             "collection" -> List::class.java
             else -> throw Exception(
-                    "FlutterModelFieldType.getJavaClass - invalid fieldType supplied: $fieldType")
+                "FlutterModelFieldType.getJavaClass - invalid fieldType supplied: $fieldType"
+            )
         }
     }
 }

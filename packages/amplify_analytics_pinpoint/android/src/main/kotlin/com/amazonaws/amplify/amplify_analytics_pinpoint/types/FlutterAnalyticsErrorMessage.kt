@@ -14,7 +14,6 @@
  * permissions and limitations under the License.
  */
 
-
 package com.amazonaws.amplify.amplify_analytics_pinpoint.types
 
 const val PLATFORM_EXCEPTIONS = "PLATFORM_EXCEPTIONS"

@@ -3,7 +3,6 @@ package com.amazonaws.amplify.amplify_api.rest_api
 import android.os.Handler
 import android.os.Looper
 import com.amazonaws.amplify.amplify_api.FlutterApiRequest
-import com.amazonaws.amplify.amplify_api.FlutterGraphQLApi
 import com.amazonaws.amplify.amplify_api.OperationsManager
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
 import com.amplifyframework.api.ApiException
@@ -16,18 +15,21 @@ import io.flutter.plugin.common.MethodChannel.Result
 import kotlin.reflect.KFunction3
 import kotlin.reflect.KFunction4
 
-typealias FunctionWithoutApiName = KFunction3<
-        @ParameterName(name = "restOptions") RestOptions,
-        @ParameterName(name = "restConsumer") Consumer<RestResponse>,
-        @ParameterName(name = "exceptionConsumer") Consumer<ApiException>,
-        RestOperation?>
+typealias FunctionWithoutApiName = KFunction3<@ParameterName(
+        name = "restOptions"
+    ) RestOptions, @ParameterName(
+        name = "restConsumer"
+    ) Consumer<RestResponse>, @ParameterName(
+        name = "exceptionConsumer"
+    ) Consumer<ApiException>, RestOperation?>
 
-typealias FunctionWithApiName = KFunction4<
-        @ParameterName(name = "apiName") String,
-        @ParameterName(name = "restOptions") RestOptions,
-        @ParameterName(name = "restConsumer") Consumer<RestResponse>,
-        @ParameterName(name = "exceptionConsumer") Consumer<ApiException>,
-        RestOperation?>
+typealias FunctionWithApiName = KFunction4<@ParameterName(name = "apiName") String, @ParameterName(
+        name = "restOptions"
+    ) RestOptions, @ParameterName(
+        name = "restConsumer"
+    ) Consumer<RestResponse>, @ParameterName(
+        name = "exceptionConsumer"
+    ) Consumer<ApiException>, RestOperation?>
 
 class FlutterRestApi {
 
@@ -36,13 +38,13 @@ class FlutterRestApi {
         private val handler = Handler(Looper.getMainLooper())
 
         private fun restFunctionHelper(
-                methodName: String,
-                flutterResult: Result,
-                request: Map<String, Any>,
-                functionWithoutApiName: FunctionWithoutApiName,
-                functionWithApiName: FunctionWithApiName
+            methodName: String,
+            flutterResult: Result,
+            request: Map<String, Any>,
+            functionWithoutApiName: FunctionWithoutApiName,
+            functionWithApiName: FunctionWithApiName,
         ) {
-            var cancelToken : String
+            var cancelToken: String
             var apiName: String?
             var options: RestOptions
 
@@ -52,8 +54,10 @@ class FlutterRestApi {
                 options = FlutterApiRequest.getRestOptions(request)
             } catch (e: Exception) {
                 handler.post {
-                    ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
-                            ExceptionUtil.createSerializedUnrecognizedError(e))
+                    ExceptionUtil.postExceptionToFlutterChannel(
+                        flutterResult, "ApiException",
+                        ExceptionUtil.createSerializedUnrecognizedError(e)
+                    )
                 }
                 return
             }
@@ -61,51 +65,70 @@ class FlutterRestApi {
             try {
                 var operation: RestOperation?
                 if (apiName == null) {
-                    operation = functionWithoutApiName(options,
-                            Consumer { result ->
-                                if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
-                                //LOG.debug("$methodName operation succeeded with response: $result")
-                                prepareRestResponseResult(flutterResult, result, methodName) },
-                            Consumer { exception ->
-                                if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
-                                //LOG.error("$methodName operation failed", exception)
-                                handler.post {
-                                    ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
-                                            ExceptionUtil.createSerializedError(exception))
-                                }
+                    operation = functionWithoutApiName(
+                        options,
+                        Consumer { result ->
+                            if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(
+                                cancelToken
+                            )
+                            // LOG.debug("$methodName operation succeeded with response: $result")
+                            prepareRestResponseResult(flutterResult, result, methodName)
+                        },
+                        Consumer { exception ->
+                            if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(
+                                cancelToken
+                            )
+                            // LOG.error("$methodName operation failed", exception)
+                            handler.post {
+                                ExceptionUtil.postExceptionToFlutterChannel(
+                                    flutterResult,
+                                    "ApiException", ExceptionUtil.createSerializedError(exception)
+                                )
                             }
+                        }
                     )
                 } else {
                     operation = functionWithApiName(
-                            apiName,
-                            options,
-                            Consumer { result ->
-                                if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
-                                //LOG.debug("$methodName operation succeeded with response: $result")
-                                prepareRestResponseResult(flutterResult, result, methodName) },
-                            Consumer { exception ->
-                                if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
-                                //LOG.error("$methodName operation failed", exception)
-                                handler.post {
-                                    ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
-                                            ExceptionUtil.createSerializedError(exception))
-                                }
+                        apiName, options,
+                        Consumer { result ->
+                            if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(
+                                cancelToken
+                            )
+                            // LOG.debug("$methodName operation succeeded with response: $result")
+                            prepareRestResponseResult(flutterResult, result, methodName)
+                        },
+                        Consumer { exception ->
+                            if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(
+                                cancelToken
+                            )
+                            // LOG.error("$methodName operation failed", exception)
+                            handler.post {
+                                ExceptionUtil.postExceptionToFlutterChannel(
+                                    flutterResult,
+                                    "ApiException", ExceptionUtil.createSerializedError(exception)
+                                )
                             }
+                        }
                     )
                 }
-                if(operation != null) {
+                if (operation != null) {
                     OperationsManager.addOperation(cancelToken, operation)
                 }
-
             } catch (e: Exception) {
                 handler.post {
-                    ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
-                            ExceptionUtil.createSerializedUnrecognizedError(e))
+                    ExceptionUtil.postExceptionToFlutterChannel(
+                        flutterResult, "ApiException",
+                        ExceptionUtil.createSerializedUnrecognizedError(e)
+                    )
                 }
             }
         }
 
-        private fun prepareRestResponseResult(flutterResult: Result, result: RestResponse, methodName: String) {
+        private fun prepareRestResponseResult(
+            flutterResult: Result,
+            result: RestResponse,
+            methodName: String,
+        ) {
 
             var restResponse = FlutterSerializedRestResponse(result)
 
@@ -123,12 +146,15 @@ class FlutterRestApi {
              */
             if (!result.code.isSuccessful) {
                 handler.post {
-                    ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
-                            ExceptionUtil.createSerializedError(
-                                    ApiException(
-                                            "The HTTP response status code is [" + result.code.toString().substring(16, 19) + "].",
-                                            recoverySuggestion)
+                    ExceptionUtil.postExceptionToFlutterChannel(
+                        flutterResult, "ApiException",
+                        ExceptionUtil.createSerializedError(
+                            ApiException(
+                                "The HTTP response status code is [" + result.code.toString()
+                                    .substring(16, 19) + "].",
+                                recoverySuggestion
                             )
+                        )
                     )
                 }
                 return
@@ -163,22 +189,23 @@ class FlutterRestApi {
             restFunctionHelper("patch", flutterResult, arguments, this::patch, this::patch)
         }
 
-
         /*
         GET
         */
         private fun get(
-                restOptions: RestOptions,
-                restConsumer: Consumer<RestResponse>,
-                exceptionConsumer: Consumer<ApiException>): RestOperation? {
+            restOptions: RestOptions,
+            restConsumer: Consumer<RestResponse>,
+            exceptionConsumer: Consumer<ApiException>,
+        ): RestOperation? {
             return Amplify.API.get(restOptions, restConsumer, exceptionConsumer)
         }
 
         private fun get(
-                apiName: String,
-                restOptions: RestOptions,
-                restConsumer: Consumer<RestResponse>,
-                exceptionConsumer: Consumer<ApiException>): RestOperation? {
+            apiName: String,
+            restOptions: RestOptions,
+            restConsumer: Consumer<RestResponse>,
+            exceptionConsumer: Consumer<ApiException>,
+        ): RestOperation? {
             return Amplify.API.get(apiName, restOptions, restConsumer, exceptionConsumer)
         }
 
@@ -186,17 +213,19 @@ class FlutterRestApi {
         POST
          */
         private fun post(
-                restOptions: RestOptions,
-                restConsumer: Consumer<RestResponse>,
-                exceptionConsumer: Consumer<ApiException>): RestOperation? {
+            restOptions: RestOptions,
+            restConsumer: Consumer<RestResponse>,
+            exceptionConsumer: Consumer<ApiException>,
+        ): RestOperation? {
             return Amplify.API.post(restOptions, restConsumer, exceptionConsumer)
         }
 
         private fun post(
-                apiName: String,
-                restOptions: RestOptions,
-                restConsumer: Consumer<RestResponse>,
-                exceptionConsumer: Consumer<ApiException>): RestOperation? {
+            apiName: String,
+            restOptions: RestOptions,
+            restConsumer: Consumer<RestResponse>,
+            exceptionConsumer: Consumer<ApiException>,
+        ): RestOperation? {
             return Amplify.API.post(apiName, restOptions, restConsumer, exceptionConsumer)
         }
 
@@ -204,17 +233,19 @@ class FlutterRestApi {
         PUT
          */
         private fun put(
-                restOptions: RestOptions,
-                restConsumer: Consumer<RestResponse>,
-                exceptionConsumer: Consumer<ApiException>): RestOperation? {
+            restOptions: RestOptions,
+            restConsumer: Consumer<RestResponse>,
+            exceptionConsumer: Consumer<ApiException>,
+        ): RestOperation? {
             return Amplify.API.put(restOptions, restConsumer, exceptionConsumer)
         }
 
         private fun put(
-                apiName: String,
-                restOptions: RestOptions,
-                restConsumer: Consumer<RestResponse>,
-                exceptionConsumer: Consumer<ApiException>): RestOperation? {
+            apiName: String,
+            restOptions: RestOptions,
+            restConsumer: Consumer<RestResponse>,
+            exceptionConsumer: Consumer<ApiException>,
+        ): RestOperation? {
             return Amplify.API.put(apiName, restOptions, restConsumer, exceptionConsumer)
         }
 
@@ -222,17 +253,19 @@ class FlutterRestApi {
         DELETE
          */
         private fun delete(
-                restOptions: RestOptions,
-                restConsumer: Consumer<RestResponse>,
-                exceptionConsumer: Consumer<ApiException>): RestOperation? {
+            restOptions: RestOptions,
+            restConsumer: Consumer<RestResponse>,
+            exceptionConsumer: Consumer<ApiException>,
+        ): RestOperation? {
             return Amplify.API.delete(restOptions, restConsumer, exceptionConsumer)
         }
 
         private fun delete(
-                apiName: String,
-                restOptions: RestOptions,
-                restConsumer: Consumer<RestResponse>,
-                exceptionConsumer: Consumer<ApiException>): RestOperation? {
+            apiName: String,
+            restOptions: RestOptions,
+            restConsumer: Consumer<RestResponse>,
+            exceptionConsumer: Consumer<ApiException>,
+        ): RestOperation? {
             return Amplify.API.delete(apiName, restOptions, restConsumer, exceptionConsumer)
         }
 
@@ -240,17 +273,19 @@ class FlutterRestApi {
         HEAD
         */
         private fun head(
-                restOptions: RestOptions,
-                restConsumer: Consumer<RestResponse>,
-                exceptionConsumer: Consumer<ApiException>): RestOperation? {
+            restOptions: RestOptions,
+            restConsumer: Consumer<RestResponse>,
+            exceptionConsumer: Consumer<ApiException>,
+        ): RestOperation? {
             return Amplify.API.head(restOptions, restConsumer, exceptionConsumer)
         }
 
         private fun head(
-                apiName: String,
-                restOptions: RestOptions,
-                restConsumer: Consumer<RestResponse>,
-                exceptionConsumer: Consumer<ApiException>): RestOperation? {
+            apiName: String,
+            restOptions: RestOptions,
+            restConsumer: Consumer<RestResponse>,
+            exceptionConsumer: Consumer<ApiException>,
+        ): RestOperation? {
             return Amplify.API.head(apiName, restOptions, restConsumer, exceptionConsumer)
         }
 
@@ -258,17 +293,19 @@ class FlutterRestApi {
         PATCH
         */
         private fun patch(
-                restOptions: RestOptions,
-                restConsumer: Consumer<RestResponse>,
-                exceptionConsumer: Consumer<ApiException>): RestOperation? {
+            restOptions: RestOptions,
+            restConsumer: Consumer<RestResponse>,
+            exceptionConsumer: Consumer<ApiException>,
+        ): RestOperation? {
             return Amplify.API.patch(restOptions, restConsumer, exceptionConsumer)
         }
 
         private fun patch(
-                apiName: String,
-                restOptions: RestOptions,
-                restConsumer: Consumer<RestResponse>,
-                exceptionConsumer: Consumer<ApiException>): RestOperation? {
+            apiName: String,
+            restOptions: RestOptions,
+            restConsumer: Consumer<RestResponse>,
+            exceptionConsumer: Consumer<ApiException>,
+        ): RestOperation? {
             return Amplify.API.patch(apiName, restOptions, restConsumer, exceptionConsumer)
         }
     }

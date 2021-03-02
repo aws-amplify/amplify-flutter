@@ -4,9 +4,12 @@ val getSuccessData = "{\"success\":\"get call succeed!\",\"url\":\"/items\"}".to
 
 val toStoreData = "{\"name\":\"Mow the lawn\"}".toByteArray()
 
-val postSuccessData = "{\"success\": \"post call succeed!\",\"url\":\"/items?queryParameterA=queryValueA&queryParameterB=queryValueB\",\"body\": {\"name\": \"Mow the lawn\"}}".toByteArray()
+val postSuccessData = "{\"success\": \"post call succeed!\"," +
+    "\"url\":\"/items?queryParameterA=queryValueA&queryParameterB=queryValueB\"," +
+    "\"body\": {\"name\": \"Mow the lawn\"}}".toByteArray()
 
-val putSuccessData = "{\"success\": \"put call succeed!\",\"body\": {\"name\": \"Mow the lawn\"}}".toByteArray()
+val putSuccessData = "{\"success\": \"put call succeed!\"," +
+    "\"body\": {\"name\": \"Mow the lawn\"}}".toByteArray()
 
 val deleteSuccessData = "{\"success\": \"delete call succeed!\",\"url\": \"items\"}".toByteArray()
 

@@ -19,11 +19,9 @@ import com.amplifyframework.datastore.appsync.SerializedModel
 
 data class FlutterSubscriptionEvent(val serializedModel: SerializedModel, val eventType: String) {
     private val serializedItem: Map<String, Any> =
-            FlutterSerializedModel(serializedModel = serializedModel).toMap()
+        FlutterSerializedModel(serializedModel = serializedModel).toMap()
 
     fun toMap(): Map<String, Any> {
-        return mapOf(
-                "item" to serializedItem,
-                "eventType" to eventType)
+        return mapOf("item" to serializedItem, "eventType" to eventType)
     }
 }

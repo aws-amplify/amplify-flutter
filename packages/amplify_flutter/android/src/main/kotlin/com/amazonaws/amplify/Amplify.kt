@@ -38,7 +38,6 @@ import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
 import org.json.JSONObject
 
-
 /** Amplify */
 class Amplify : FlutterPlugin, ActivityAware, MethodCallHandler {
 
@@ -47,17 +46,19 @@ class Amplify : FlutterPlugin, ActivityAware, MethodCallHandler {
     private var mainActivity: Activity? = null
 
     override fun onAttachedToEngine(
-            @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(),
-                "com.amazonaws.amplify/amplify")
-        channel.setMethodCallHandler(this);
-        context = flutterPluginBinding.applicationContext;
+        @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding,
+    ) {
+        channel = MethodChannel(
+            flutterPluginBinding.getFlutterEngine().getDartExecutor(),
+            "com.amazonaws.amplify/amplify"
+        )
+        channel.setMethodCallHandler(this)
+        context = flutterPluginBinding.applicationContext
         Log.i("Amplify Flutter", "Added Core plugin")
     }
 
     companion object {
-        @JvmStatic
-        fun registerWith(registrar: Registrar) {
+        @JvmStatic fun registerWith(registrar: Registrar) {
             val channel = MethodChannel(registrar.messenger(), "com.amazonaws.amplify/amplify")
             Log.i("Amplify Flutter", "Added Core plugin")
         }
@@ -66,28 +67,36 @@ class Amplify : FlutterPlugin, ActivityAware, MethodCallHandler {
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
 
         when (call.method) {
-            "configure" ->
-                try {
-                    val arguments = call.arguments as HashMap<*, *>
-                    val version = arguments["version"] as String
-                    val configuration = arguments["configuration"] as String
+            "configure" -> try {
+                val arguments = call.arguments as HashMap<*, *>
+                val version = arguments["version"] as String
+                val configuration = arguments["configuration"] as String
 
-                    onConfigure(result, version, configuration)
-                } catch (e: Exception) {
-                    postExceptionToFlutterChannel(result, "AmplifyException",
-                            createSerializedError(
-                                    "Failed to parse the configuration.",
-                                    "Please check your amplifyconfiguration.dart if you are " +
-                                            "manually updating it, else please create an issue.",
-                                    e.toString()))
-                }
+                onConfigure(result, version, configuration)
+            } catch (e: Exception) {
+                postExceptionToFlutterChannel(
+                    result, "AmplifyException",
+                    createSerializedError(
+                        "Failed to parse the configuration.",
+                        "Please check your amplifyconfiguration.dart if you are " +
+                            "manually updating it, else please create an issue.",
+                        e.toString()
+                    )
+                )
+            }
             else -> result.notImplemented()
         }
     }
 
-    private fun prepareAnalyticsError(@NonNull flutterResult: Result, @NonNull exception: AnalyticsException) {
+    private fun prepareAnalyticsError(
+        @NonNull flutterResult: Result,
+        @NonNull exception: AnalyticsException,
+    ) {
         Handler(Looper.getMainLooper()).post {
-            postExceptionToFlutterChannel(flutterResult, "AnalyticsException", createSerializedError(exception))
+            postExceptionToFlutterChannel(
+                flutterResult, "AnalyticsException",
+                createSerializedError(exception)
+            )
         }
     }
 
@@ -111,24 +120,25 @@ class Amplify : FlutterPlugin, ActivityAware, MethodCallHandler {
         channel.setMethodCallHandler(null)
     }
 
-    private fun onConfigure(@NonNull result: Result, @NonNull version: String,
-            @NonNull config: String) {
+    private fun onConfigure(
+        @NonNull result: Result,
+        @NonNull version: String,
+        @NonNull config: String,
+    ) {
         try {
             val configuration = AmplifyConfiguration.builder(JSONObject(config))
-                    .addPlatform(UserAgent.Platform.FLUTTER, version)
-                    .devMenuEnabled(false)
-                    .build()
+                .addPlatform(UserAgent.Platform.FLUTTER, version).devMenuEnabled(false).build()
             Amplify.configure(configuration, context)
-            result.success(true);
+            result.success(true)
         } catch (e: AnalyticsException) {
-            prepareAnalyticsError(result, e);
+            prepareAnalyticsError(result, e)
         } catch (e: Amplify.AlreadyConfiguredException) {
-            postExceptionToFlutterChannel(result, "AmplifyAlreadyConfiguredException",
-                    createSerializedError(e))
+            postExceptionToFlutterChannel(
+                result, "AmplifyAlreadyConfiguredException",
+                createSerializedError(e)
+            )
         } catch (e: AmplifyException) {
-            postExceptionToFlutterChannel(result, "AmplifyException",
-                    createSerializedError(e))
+            postExceptionToFlutterChannel(result, "AmplifyException", createSerializedError(e))
         }
-
     }
 }

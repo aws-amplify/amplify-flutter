@@ -43,19 +43,22 @@ class AmplifyAnalyticsBuilder {
                     }
                     // This case should not be possible as AnalyticsProperties is typed on Dart side
                     else -> {
-                        throw IllegalArgumentException("Warning unrecognized object type sent for AnalyticsProperties")
+                        throw IllegalArgumentException(
+                            "Warning unrecognized object type sent for AnalyticsProperties"
+                        )
                     }
                 }
-
             }
 
             return propertiesBuilder.build()
         }
 
-        fun createAnalyticsEvent(name: String, propertiesMap: HashMap<String, Any>): AnalyticsEvent {
+        fun createAnalyticsEvent(
+            name: String,
+            propertiesMap: HashMap<String, Any>,
+        ): AnalyticsEvent {
 
-            val eventBuilder: AnalyticsEvent.Builder = AnalyticsEvent.builder()
-                    .name(name)
+            val eventBuilder: AnalyticsEvent.Builder = AnalyticsEvent.builder().name(name)
 
             for ((key, value) in propertiesMap) {
 
@@ -74,7 +77,10 @@ class AmplifyAnalyticsBuilder {
                     }
                     // This case should not be possible as AnalyticsEvent is typed on Dart side
                     else -> {
-                        throw IllegalArgumentException("Warning unrecognized object type sent via MethodChannel-AnalyticsProperties for AnalyticsEvent")
+                        throw IllegalArgumentException(
+                            "Warning unrecognized object type sent via " +
+                                "MethodChannel-AnalyticsProperties for AnalyticsEvent"
+                        )
                     }
                 }
             }
@@ -88,26 +94,28 @@ class AmplifyAnalyticsBuilder {
 
             for (item in userProfileMap) {
                 when (item.key) {
-                    "name" ->
-                        userProfileBuilder.name(item.value as String)
-                    "email" ->
-                        userProfileBuilder.email(item.value as String)
-                    "plan" ->
-                        userProfileBuilder.plan(item.value as String)
+                    "name" -> userProfileBuilder.name(item.value as String)
+                    "email" -> userProfileBuilder.email(item.value as String)
+                    "plan" -> userProfileBuilder.plan(item.value as String)
                     "location" -> {
                         val locationMap = item.value as HashMap<String, String>
                         userProfileBuilder.location(createUserLocation(locationMap))
                     }
                     "propertiesMap" -> {
                         val propertiesMap = item.value as HashMap<String, Any>
-                        userProfileBuilder.customProperties(createAnalyticsProperties(propertiesMap))
+                        userProfileBuilder.customProperties(
+                            createAnalyticsProperties(propertiesMap)
+                        )
                     }
                     "propertiesTypesMap" -> {
                         // Ignore, we can infer types just using propertiesMap
                     }
                     // This case should not be possible as UserProfile is typed on Dart side
                     else -> {
-                        throw IllegalArgumentException("Warning unrecognized object type sent via MethodChannel-AnalyticsProperties for UserProfile")
+                        throw IllegalArgumentException(
+                            "Warning unrecognized object type sent via " +
+                                "MethodChannel-AnalyticsProperties for UserProfile"
+                        )
                     }
                 }
             }
@@ -121,21 +129,18 @@ class AmplifyAnalyticsBuilder {
 
             for (item in userLocationMap) {
                 when (item.key) {
-                    "latitude" ->
-                        locationBuilder.latitude(item.value as Double)
-                    "longitude" ->
-                        locationBuilder.longitude(item.value as Double)
-                    "postalCode" ->
-                        locationBuilder.postalCode(item.value as String)
-                    "city" ->
-                        locationBuilder.city(item.value as String)
-                    "region" ->
-                        locationBuilder.region(item.value as String)
-                    "country" ->
-                        locationBuilder.country(item.value as String)
+                    "latitude" -> locationBuilder.latitude(item.value as Double)
+                    "longitude" -> locationBuilder.longitude(item.value as Double)
+                    "postalCode" -> locationBuilder.postalCode(item.value as String)
+                    "city" -> locationBuilder.city(item.value as String)
+                    "region" -> locationBuilder.region(item.value as String)
+                    "country" -> locationBuilder.country(item.value as String)
                     // This case should not be possible as UserLocation is typed on Dart side
                     else -> {
-                        throw IllegalArgumentException("Warning unrecognized object type sent via MethodChannel-AnalyticsProperties for UserLocation")
+                        throw IllegalArgumentException(
+                            "Warning unrecognized object type sent via " +
+                                "MethodChannel-AnalyticsProperties for UserLocation"
+                        )
                     }
                 }
             }
@@ -143,5 +148,4 @@ class AmplifyAnalyticsBuilder {
             return locationBuilder.build()
         }
     }
-
 }

@@ -33,7 +33,8 @@ data class FlutterGetUrlRequest(val request: Map<String, *>) {
                 when (optionKey) {
                     "accessLevel" -> {
                         val accessLevelStringOption = optionValue as String
-                        val accessLevel: StorageAccessLevel? = StorageAccessLevel.values().find { it.name == accessLevelStringOption.toUpperCase() }
+                        val accessLevel: StorageAccessLevel? = StorageAccessLevel.values()
+                            .find { it.name == accessLevelStringOption.toUpperCase() }
                         options.accessLevel(accessLevel)
                     }
                     "targetIdentityId" -> {
@@ -52,8 +53,11 @@ data class FlutterGetUrlRequest(val request: Map<String, *>) {
     companion object {
         private const val validationErrorMessage: String = "GetUrl request malformed."
         fun validate(request: Map<String, *>) {
-            if(request["key"] !is String? || request["key"] == null) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("key" ))
+            if (request["key"] !is String? || request["key"] == null) {
+                throw InvalidRequestException(
+                    validationErrorMessage,
+                    ExceptionMessages.missingAttribute.format("key")
+                )
             }
         }
     }

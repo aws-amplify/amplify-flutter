@@ -18,7 +18,6 @@ package com.amazonaws.amplify.amplify_api
 import android.os.Handler
 import android.os.Looper
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
-import com.amplifyframework.api.graphql.GraphQLResponse
 import io.flutter.plugin.common.EventChannel
 
 class GraphQLSubscriptionStreamHandler : EventChannel.StreamHandler {
@@ -35,10 +34,8 @@ class GraphQLSubscriptionStreamHandler : EventChannel.StreamHandler {
 
     fun sendEvent(payload: Map<String, Any>?, id: String, type: GraphQLSubscriptionEventTypes) {
         handler.post {
-            var result: MutableMap<String, Any?> = mutableMapOf(
-                    "id" to id,
-                    "type" to type.toString()
-            )
+            var result: MutableMap<String, Any?> =
+                mutableMapOf("id" to id, "type" to type.toString())
             if (type == GraphQLSubscriptionEventTypes.DATA) {
                 result["payload"] = payload
             }
@@ -48,6 +45,8 @@ class GraphQLSubscriptionStreamHandler : EventChannel.StreamHandler {
     }
 
     fun sendError(errorCode: String, details: Map<String, Any?>) {
-        handler.post { eventSink?.error(errorCode, ExceptionMessages.defaultFallbackExceptionMessage, details) }
+        handler.post {
+            eventSink?.error(errorCode, ExceptionMessages.defaultFallbackExceptionMessage, details)
+        }
     }
 }

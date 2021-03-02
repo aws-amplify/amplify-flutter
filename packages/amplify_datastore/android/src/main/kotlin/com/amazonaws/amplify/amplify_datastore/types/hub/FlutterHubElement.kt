@@ -17,18 +17,16 @@ package com.amazonaws.amplify.amplify_datastore.types.hub
 
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSerializedModel
 import com.amplifyframework.core.model.Model
-import com.amplifyframework.core.model.temporal.Temporal
-import com.amplifyframework.datastore.appsync.ModelMetadata
-import com.amplifyframework.datastore.appsync.ModelWithMetadata
 import com.amplifyframework.datastore.appsync.SerializedModel
-import com.amplifyframework.datastore.syncengine.LastSyncMetadata
 import com.amplifyframework.datastore.syncengine.OutboxMutationEvent
 
 data class FlutterHubElement(
-        private val modelWithMetadata: OutboxMutationEvent.OutboxMutationEventElement<out Model>
+    private val modelWithMetadata: OutboxMutationEvent.OutboxMutationEventElement<out Model>,
 ) {
     fun toValueMap(): Map<String, Any> {
-        var serializedModel: MutableMap<String, Any> = FlutterSerializedModel(this.modelWithMetadata.model as SerializedModel).toMap().toMutableMap()
+        var serializedModel: MutableMap<String, Any> =
+            FlutterSerializedModel(this.modelWithMetadata.model as SerializedModel).toMap()
+                .toMutableMap()
         return mapOf(
             "syncMetadata" to FlutterSyncMetaData(this.modelWithMetadata).toValueMap(),
             "model" to serializedModel

@@ -26,18 +26,19 @@ import com.amplifyframework.core.model.query.predicate.QueryPredicate
 class QueryOptionsBuilder {
 
     companion object {
-        @JvmStatic
-        fun fromSerializedMap(request: Map<String, Any>?): QueryOptions {
+        @JvmStatic fun fromSerializedMap(request: Map<String, Any>?): QueryOptions {
             var queryOptions: QueryOptions = Where.matchesAll()
             if (request == null) {
                 return queryOptions
             }
             var queryPredicate: QueryPredicate? = QueryPredicateBuilder.fromSerializedMap(
-                    request["queryPredicate"].safeCastToMap())
-            var querySortInput: List<QuerySortBy>? = QuerySortBuilder.fromSerializedList(
-                    request["querySort"].safeCastToList())
+                request["queryPredicate"].safeCastToMap()
+            )
+            var querySortInput: List<QuerySortBy>? =
+                QuerySortBuilder.fromSerializedList(request["querySort"].safeCastToList())
             var queryPagination: QueryPaginationInput? = QueryPaginationBuilder.fromSerializedMap(
-                    request["queryPagination"].safeCastToMap())
+                request["queryPagination"].safeCastToMap()
+            )
 
             if (queryPredicate != null) {
                 queryOptions = queryOptions.matches(queryPredicate)
@@ -51,5 +52,4 @@ class QueryOptionsBuilder {
             return queryOptions
         }
     }
-
 }

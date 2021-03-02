@@ -18,7 +18,6 @@ package com.amazonaws.amplify.amplify_datastore
 import android.os.Handler
 import android.os.Looper
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
-import com.amplifyframework.datastore.appsync.SerializedModel
 import io.flutter.plugin.common.EventChannel
 
 class DataStoreObserveEventStreamHandler : EventChannel.StreamHandler {
@@ -37,7 +36,9 @@ class DataStoreObserveEventStreamHandler : EventChannel.StreamHandler {
     }
 
     fun error(errorCode: String, details: Any?) {
-        handler.post { eventSink?.error(errorCode, ExceptionMessages.defaultFallbackExceptionMessage, details) }
+        handler.post {
+            eventSink?.error(errorCode, ExceptionMessages.defaultFallbackExceptionMessage, details)
+        }
     }
 
     override fun onCancel(p0: Any?) {

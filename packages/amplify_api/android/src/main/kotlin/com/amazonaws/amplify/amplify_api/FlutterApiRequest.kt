@@ -17,8 +17,6 @@ package com.amazonaws.amplify.amplify_api
 
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.api.rest.RestOptions
-import io.flutter.plugin.common.MethodChannel
-
 
 class FlutterApiRequest {
     companion object {
@@ -33,32 +31,32 @@ class FlutterApiRequest {
         private val HEADERS_KEY = "headers"
 
         // ====== Rest API ======
-        fun getCancelToken(request: Map<String, Any>) : String {
+        fun getCancelToken(request: Map<String, Any>): String {
             try {
                 return request[CANCEL_TOKEN_KEY] as String
             } catch (cause: Exception) {
                 throw AmplifyException(
-                        "The cancelToken request argument was not passed as a String",
-                        cause,
-                        "The request should include the cancelToken as a String")
+                    "The cancelToken request argument was not passed as a String", cause,
+                    "The request should include the cancelToken as a String"
+                )
             }
             return request[CANCEL_TOKEN_KEY] as String
         }
 
-        fun getApiPath(request: Map<String, Any>) : String? {
+        fun getApiPath(request: Map<String, Any>): String? {
             try {
                 val restOptionsMap = request[REST_OPTIONS_KEY] as Map<String, Any>
                 return restOptionsMap[API_NAME_KEY] as String?
             } catch (cause: Exception) {
                 throw AmplifyException(
-                        "The apiPath request argument was not passed as a String",
-                        cause,
-                        "The request should include the apiPath as a String")
+                    "The apiPath request argument was not passed as a String",
+                    cause, "The request should include the apiPath as a String"
+                )
             }
             return request[CANCEL_TOKEN_KEY] as String
         }
 
-        fun getRestOptions(request: Map<String, Any>) : RestOptions {
+        fun getRestOptions(request: Map<String, Any>): RestOptions {
 
             try {
                 val builder: RestOptions.Builder = RestOptions.builder()
@@ -84,36 +82,35 @@ class FlutterApiRequest {
                 return builder.build()
             } catch (cause: Exception) {
                 throw AmplifyException(
-                        "The restOptions request argument was not passed as a dictionary",
-                        cause,
-                        "The request should include the restOptions argument as a [String: Any] dictionary")
+                    "The restOptions request argument was not passed as a dictionary", cause,
+                    "The request should include the restOptions argument as a " +
+                        "[String: Any] dictionary"
+                )
             }
         }
 
         // ====== GraphQL ======
-        @JvmStatic
-        fun getGraphQLDocument(request: Map<String, Any>): String {
+        @JvmStatic fun getGraphQLDocument(request: Map<String, Any>): String {
             try {
                 return request["document"] as String
             } catch (cause: Exception) {
-                   throw AmplifyException(
-                            "The graphQL document request argument was not passed as a String",
-                            cause,
-                            "The request should include the graphQL document as a String")
+                throw AmplifyException(
+                    "The graphQL document request argument was not passed as a String", cause,
+                    "The request should include the graphQL document as a String"
+                )
             }
         }
 
-        @JvmStatic
-        fun getVariables(request: Map<String, Any>): Map<String, Any> {
+        @JvmStatic fun getVariables(request: Map<String, Any>): Map<String, Any> {
             try {
                 return request["variables"] as Map<String, Any>
             } catch (cause: Exception) {
                 throw AmplifyException(
-                        "The variables request argument was not passed as a dictionary",
-                        cause,
-                        "The request should include the variables argument as a [String: Any] dictionary")
+                    "The variables request argument was not passed as a dictionary", cause,
+                    "The request should include the variables argument as " +
+                        "a [String: Any] dictionary"
+                )
             }
         }
-
     }
 }

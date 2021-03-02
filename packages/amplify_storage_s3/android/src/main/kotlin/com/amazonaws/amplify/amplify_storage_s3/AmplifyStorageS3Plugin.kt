@@ -28,8 +28,6 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import io.flutter.plugin.common.PluginRegistry.Registrar
-
 
 class AmplifyStorageS3Plugin : FlutterPlugin, ActivityAware, MethodCallHandler {
 
@@ -38,14 +36,21 @@ class AmplifyStorageS3Plugin : FlutterPlugin, ActivityAware, MethodCallHandler {
     private var mainActivity: Activity? = null
     private val LOG = Amplify.Logging.forNamespace("amplify:flutter:storage_s3")
 
-    override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "com.amazonaws.amplify/storage_s3")
+    override fun onAttachedToEngine(
+        @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding,
+    ) {
+        channel = MethodChannel(
+            flutterPluginBinding.getFlutterEngine().getDartExecutor(),
+            "com.amazonaws.amplify/storage_s3"
+        )
         channel.setMethodCallHandler(this)
         context = flutterPluginBinding.applicationContext
         try {
             Amplify.addPlugin(AWSS3StoragePlugin())
         } catch (e: Exception) {
-            LOG.error("Failed to add StorageS3 plugin. Is Amplify already configured and app restarted?")
+            LOG.error(
+                "Failed to add StorageS3 plugin. Is Amplify already configured and app restarted?"
+            )
             LOG.error("Exception: $e")
             return
         }
@@ -54,20 +59,20 @@ class AmplifyStorageS3Plugin : FlutterPlugin, ActivityAware, MethodCallHandler {
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         when (call.method) {
-            "uploadFile" ->
-                AmplifyStorageOperations.uploadFile(result, call.arguments as Map<String, *>)
-            "getUrl" ->
-                AmplifyStorageOperations.getUrl(result, call.arguments as Map<String, *>)
-            "remove" ->
-                AmplifyStorageOperations.remove(result, call.arguments as Map<String, *>)
-            "list" ->
-                AmplifyStorageOperations.list(result, call.arguments as Map<String, *>)
-            "downloadFile" ->
-                AmplifyStorageOperations.downloadFile(result, call.arguments as Map<String, *>)
+            "uploadFile" -> AmplifyStorageOperations.uploadFile(
+                result,
+                call.arguments as Map<String, *>
+            )
+            "getUrl" -> AmplifyStorageOperations.getUrl(result, call.arguments as Map<String, *>)
+            "remove" -> AmplifyStorageOperations.remove(result, call.arguments as Map<String, *>)
+            "list" -> AmplifyStorageOperations.list(result, call.arguments as Map<String, *>)
+            "downloadFile" -> AmplifyStorageOperations.downloadFile(
+                result,
+                call.arguments as Map<String, *>
+            )
             else -> result.notImplemented()
         }
     }
-
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         this.mainActivity = binding.activity

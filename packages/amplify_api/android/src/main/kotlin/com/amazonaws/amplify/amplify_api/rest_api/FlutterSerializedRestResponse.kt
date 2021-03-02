@@ -21,8 +21,6 @@ data class FlutterSerializedRestResponse(private var raw: RestResponse) {
     val data: ByteArray = raw.data.rawBytes
 
     fun toValueMap(): Map<String, Any> {
-        return mapOf(
-                "data" to data
-        )
+        return mapOf("data" to data)
     }
 }

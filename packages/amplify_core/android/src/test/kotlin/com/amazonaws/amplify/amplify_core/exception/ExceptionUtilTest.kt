@@ -24,23 +24,19 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
-@RunWith(RobolectricTestRunner::class)
-class ExceptionUtilTest {
+@RunWith(RobolectricTestRunner::class) class ExceptionUtilTest {
 
     lateinit var util: ExceptionUtil
 
-    @Before
-    fun setup() {
+    @Before fun setup() {
         util = ExceptionUtil()
     }
 
-    @Test
-    fun serialize_AmplifyException_with_cause() {
+    @Test fun serialize_AmplifyException_with_cause() {
         // Setup data
         val exceptionWithCause =
             AmplifyException(
-                "test message",
-                NumberFormatException("test exception"),
+                "test message", NumberFormatException("test exception"),
                 "test recovery"
             )
 
@@ -50,41 +46,33 @@ class ExceptionUtilTest {
         // Verify the results
         assertEquals(
             mapOf(
-                "message" to "test message",
-                "recoverySuggestion" to "test recovery",
+                "message" to "test message", "recoverySuggestion" to "test recovery",
                 "underlyingException" to "java.lang.NumberFormatException: test exception"
             ),
             actualMap
         )
     }
 
-    @Test
-    fun serialize_AmplifyException_without_cause() {
+    @Test fun serialize_AmplifyException_without_cause() {
         // Setup data
-        val exceptionWithCause =
-            AmplifyException("test message", "test recovery")
+        val exceptionWithCause = AmplifyException("test message", "test recovery")
 
         // Make the call
         val actualMap = ExceptionUtil.createSerializedError(exceptionWithCause)
 
         // Verify the results
         assertEquals(
-            mapOf(
-                "message" to "test message",
-                "recoverySuggestion" to "test recovery"
-            ),
+            mapOf("message" to "test message", "recoverySuggestion" to "test recovery"),
             actualMap
         )
     }
 
     // 1 level of subclassing from AmplifyException
-    @Test
-    fun serialize_DataStoreException() {
+    @Test fun serialize_DataStoreException() {
         // Setup data
         val exceptionWithCause =
             DataStoreException(
-                "test message",
-                NumberFormatException("test exception"),
+                "test message", NumberFormatException("test exception"),
                 "test recovery"
             )
 
@@ -94,8 +82,7 @@ class ExceptionUtilTest {
         // Verify the results
         assertEquals(
             mapOf(
-                "message" to "test message",
-                "recoverySuggestion" to "test recovery",
+                "message" to "test message", "recoverySuggestion" to "test recovery",
                 "underlyingException" to "java.lang.NumberFormatException: test exception"
             ),
             actualMap
@@ -103,15 +90,12 @@ class ExceptionUtilTest {
     }
 
     // Some level of recursive exception (AmplifyException cause)
-    @Test
-    fun serialize_DataStoreException_with_AmplifyException_as_cause() {
+    @Test fun serialize_DataStoreException_with_AmplifyException_as_cause() {
         // Setup data
-        val exceptionWithCause =
-            DataStoreException(
-                "test message",
-                AmplifyException("nested test exception", "nested test recovery"),
-                "test recovery"
-            )
+        val exceptionWithCause = DataStoreException(
+            "test message",
+            AmplifyException("nested test exception", "nested test recovery"), "test recovery"
+        )
 
         // Make the call
         val actualMap = ExceptionUtil.createSerializedError(exceptionWithCause)
@@ -119,23 +103,21 @@ class ExceptionUtilTest {
         // Verify the results
         assertEquals(
             mapOf(
-                "message" to "test message",
-                "recoverySuggestion" to "test recovery",
-                "underlyingException" to "AmplifyException{message=nested test exception, cause=null, recoverySuggestion=nested test recovery}"
+                "message" to "test message", "recoverySuggestion" to "test recovery",
+                "underlyingException" to "AmplifyException{message=nested test exception, " +
+                    "cause=null, recoverySuggestion=nested test recovery}"
             ),
             actualMap
         )
     }
 
     // 2 levels of subclassing + extra fields
-    @Test
-    fun serialize_GraphQLResponseExceptionException_with_extra_fields() {
+    @Test fun serialize_GraphQLResponseExceptionException_with_extra_fields() {
         // Setup data
-        val graphqlException =
-            DataStoreException.GraphQLResponseException(
-                "test message",
-                listOf(GraphQLResponse.Error("test graphql error", null, null, null))
-            )
+        val graphqlException = DataStoreException.GraphQLResponseException(
+            "test message",
+            listOf(GraphQLResponse.Error("test graphql error", null, null, null))
+        )
 
         // Make the call
         val actualMap = ExceptionUtil.createSerializedError(graphqlException)

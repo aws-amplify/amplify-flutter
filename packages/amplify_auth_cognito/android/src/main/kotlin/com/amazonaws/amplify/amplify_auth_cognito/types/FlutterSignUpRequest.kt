@@ -27,36 +27,47 @@ import com.amplifyframework.auth.cognito.options.AWSCognitoAuthSignUpOptions
 import java.lang.reflect.Method
 
 data class FlutterSignUpRequest(val map: HashMap<String, *>) {
-    var standardAttributes: Array<String> = arrayOf("address", "birthdate", "email", "family_name", "gender", "given_name", "locale", "middle_name", "name", "nickname", "phone_number", "preferred_username", "picture", "profile", "updated_at", "website", "zoneinfo")
+    var standardAttributes: Array<String> =
+        arrayOf(
+            "address", "birthdate", "email", "family_name", "gender", "given_name",
+            "locale", "middle_name", "name", "nickname", "phone_number",
+            "preferred_username", "picture", "profile", "updated_at", "website", "zoneinfo"
+        )
     val username: String = map["username"] as String
     val password: String = map["password"] as String
-    val options: AWSCognitoAuthSignUpOptions = formatOptions(map["options"] as HashMap<String, String>)
+    val options: AWSCognitoAuthSignUpOptions =
+        formatOptions(map["options"] as HashMap<String, String>)
 
-    private fun formatOptions(@NonNull rawOptions: HashMap<String, String>): AWSCognitoAuthSignUpOptions {
-        var options =  AWSCognitoAuthSignUpOptions.builder();
-        var authUserAttributes: MutableList<AuthUserAttribute> = mutableListOf();
-        var attributeMethods = AuthUserAttributeKey::class.java.declaredMethods;
-        var validationData = rawOptions["validationData"] as? MutableMap<String, String>;
+    private fun formatOptions(
+        @NonNull rawOptions: HashMap<String, String>,
+    ): AWSCognitoAuthSignUpOptions {
+        var options = AWSCognitoAuthSignUpOptions.builder()
+        var authUserAttributes: MutableList<AuthUserAttribute> = mutableListOf()
+        var attributeMethods = AuthUserAttributeKey::class.java.declaredMethods
+        var validationData = rawOptions["validationData"] as? MutableMap<String, String>
 
         (rawOptions["userAttributes"] as HashMap<String, String>).forEach { (key, value) ->
-            var keyCopy: String = key;
-            if(!standardAttributes.contains(keyCopy)){
-                if (!key.startsWith("custom:")){
-                    keyCopy = "custom:" + keyCopy;
+            var keyCopy: String = key
+            if (!standardAttributes.contains(keyCopy)) {
+                if (!key.startsWith("custom:")) {
+                    keyCopy = "custom:" + keyCopy
                 }
-                authUserAttributes.add(AuthUserAttribute(AuthUserAttributeKey.custom(keyCopy), value))
+                authUserAttributes.add(
+                    AuthUserAttribute(AuthUserAttributeKey.custom(keyCopy), value)
+                )
             } else {
-                var t: Method = attributeMethods.asIterable().find { it.name.equals(convertSnakeToCamel(key)) } as Method;
-                var attr: AuthUserAttributeKey = t.invoke(null) as AuthUserAttributeKey;
-                authUserAttributes.add(AuthUserAttribute(attr, value));
+                var t: Method = attributeMethods.asIterable()
+                    .find { it.name.equals(convertSnakeToCamel(key)) } as Method
+                var attr: AuthUserAttributeKey = t.invoke(null) as AuthUserAttributeKey
+                authUserAttributes.add(AuthUserAttribute(attr, value))
             }
         }
-        options.userAttributes(authUserAttributes);
+        options.userAttributes(authUserAttributes)
 
         if (validationData is MutableMap<String, String>) {
             options.validationData(validationData)
         }
-        return options.build();
+        return options.build()
     }
 
     // Amplify Android expects camel case, while iOS expects snake.  So at least one plugin implementation should convert.
@@ -64,32 +75,43 @@ data class FlutterSignUpRequest(val map: HashMap<String, *>) {
         val camelCase = StringBuilder()
         var prevChar = '$'
         string.forEach {
-            if(prevChar.equals('_')){
+            if (prevChar.equals('_')) {
                 camelCase.append(it.toUpperCase())
-            }else if(!it.equals('_')){
+            } else if (!it.equals('_')) {
                 camelCase.append(it)
             }
             prevChar = it
         }
-        return camelCase.toString();
+        return camelCase.toString()
     }
 
     companion object {
         private const val validationErrorMessage: String = "SignUp Request malformed."
-        fun validate(req : HashMap<String, *>?) {
+        fun validate(req: HashMap<String, *>?) {
             if (req == null) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "request map" ))
+                throw InvalidRequestException(
+                    validationErrorMessage,
+                    ExceptionMessages.missingAttribute.format("request map")
+                )
             }
             if (req.get("options") == null) {
-                throw AmplifyException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "options map" ))
+                throw AmplifyException(
+                    validationErrorMessage,
+                    ExceptionMessages.missingAttribute.format("options map")
+                )
             }
             if (!(req?.get("options") as HashMap<String, String>).containsKey("userAttributes")) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "userAttributes" ))
+                throw InvalidRequestException(
+                    validationErrorMessage,
+                    ExceptionMessages.missingAttribute.format("userAttributes")
+                )
             }
             if (!req.containsKey("password")) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "password" ))
+                throw InvalidRequestException(
+                    validationErrorMessage,
+                    ExceptionMessages.missingAttribute.format("password")
+                )
             }
         }
     }
-
 }

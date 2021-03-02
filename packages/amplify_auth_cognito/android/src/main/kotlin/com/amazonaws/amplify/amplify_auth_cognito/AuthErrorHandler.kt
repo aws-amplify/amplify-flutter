@@ -19,8 +19,8 @@ import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
 import com.amazonaws.AmazonClientException
-import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
+import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.exceptions.CognitoCodeExpiredException
 import com.amazonaws.services.cognitoidentityprovider.model.InvalidLambdaResponseException
 import com.amazonaws.services.cognitoidentityprovider.model.MFAMethodNotFoundException
@@ -49,33 +49,51 @@ class AuthErrorHandler {
         if (error is AuthException) {
             when (error) {
                 is AuthException.AliasExistsException -> errorCode = "AliasExistsException"
-                is AuthException.CodeDeliveryFailureException -> errorCode = "CodeDeliveryFailureException"
+                is AuthException.CodeDeliveryFailureException ->
+                    errorCode =
+                        "CodeDeliveryFailureException"
                 is AuthException.CodeExpiredException -> errorCode = "CodeExpiredException"
                 is AuthException.CodeMismatchException -> errorCode = "CodeMismatchException"
-                is AuthException.FailedAttemptsLimitExceededException -> errorCode = "FailedAttemptsLimitExceededException"
-                is AuthException.InvalidAccountTypeException -> errorCode = "InvalidAccountTypeException"
-                is AuthException.InvalidParameterException -> errorCode = "InvalidParameterException"
+                is AuthException.FailedAttemptsLimitExceededException ->
+                    errorCode =
+                        "FailedAttemptsLimitExceededException"
+                is AuthException.InvalidAccountTypeException ->
+                    errorCode =
+                        "InvalidAccountTypeException"
+                is AuthException.InvalidParameterException ->
+                    errorCode =
+                        "InvalidParameterException"
                 is AuthException.InvalidPasswordException -> errorCode = "InvalidPasswordException"
                 is AuthException.LimitExceededException -> errorCode = "LimitExceededException"
-                is AuthException.PasswordResetRequiredException -> errorCode = "PasswordResetRequiredException"
-                is AuthException.ResourceNotFoundException -> errorCode = "ResourceNotFoundException"
+                is AuthException.PasswordResetRequiredException ->
+                    errorCode =
+                        "PasswordResetRequiredException"
+                is AuthException.ResourceNotFoundException ->
+                    errorCode =
+                        "ResourceNotFoundException"
                 is AuthException.SessionExpiredException -> errorCode = "SessionExpiredException"
                 is AuthException.SignedOutException -> errorCode = "SignedOutException"
                 is AuthException.UnknownException -> errorCode = "UnknownException"
                 is AuthException.UserCancelledException -> errorCode = "UserCancelledException"
                 is AuthException.UsernameExistsException -> errorCode = "UsernameExistsException"
-                is AuthException.UserNotConfirmedException -> errorCode = "UserNotConfirmedException"
+                is AuthException.UserNotConfirmedException ->
+                    errorCode =
+                        "UserNotConfirmedException"
                 is AuthException.UserNotFoundException -> errorCode = "UserNotFoundException"
                 else -> when (error.cause) {
                     is CognitoCodeExpiredException -> errorCode = "CodeExpiredException"
                     is InvalidLambdaResponseException -> errorCode = "LambdaException"
                     is MFAMethodNotFoundException -> errorCode = "MFAMethodNotFoundException"
                     is NotAuthorizedException -> errorCode = "NotAuthorizedException"
-                    is SoftwareTokenMFANotFoundException -> errorCode = "SoftwareTokenMFANotFoundException"
+                    is SoftwareTokenMFANotFoundException ->
+                        errorCode =
+                            "SoftwareTokenMFANotFoundException"
                     is TooManyRequestsException -> errorCode = "TooManyRequestsException"
                     is UnexpectedLambdaException -> errorCode = "LambdaException"
                     is UserLambdaValidationException -> errorCode = "LambdaException"
-                    is TooManyFailedAttemptsException -> errorCode = "FailedAttemptsLimitExceededException"
+                    is TooManyFailedAttemptsException ->
+                        errorCode =
+                            "FailedAttemptsLimitExceededException"
                 }
             }
         }
@@ -86,31 +104,40 @@ class AuthErrorHandler {
         var serializedError: Map<String, Any?> = emptyMap()
         if (error is AmplifyException) {
             serializedError = ExceptionUtil.createSerializedError(error)
-        // Need to catch and handle errors that originate in aws-android-sdk untransformed
+            // Need to catch and handle errors that originate in aws-android-sdk untransformed
         } else if (error is AmazonClientException) {
-            var message: String = if (error.message != null) error.message!! else ExceptionMessages.missingExceptionMessage
-            serializedError = ExceptionUtil.createSerializedError(message, ExceptionMessages.missingRecoverySuggestion, error.toString())
+            var message: String =
+                if (error.message != null)
+                    error.message!!
+                else
+                    ExceptionMessages.missingExceptionMessage
+            serializedError = ExceptionUtil.createSerializedError(
+                message,
+                ExceptionMessages.missingRecoverySuggestion, error.toString()
+            )
         }
 
         var errorCode = getErrorCode(error)
         LOG.error(errorCode, error)
-        Handler (Looper.getMainLooper()).post {
+        Handler(Looper.getMainLooper()).post {
             ExceptionUtil.postExceptionToFlutterChannel(flutterResult, errorCode, serializedError)
         }
     }
 
-    fun prepareGenericException(@NonNull flutterResult: MethodChannel.Result, @NonNull error: Exception) {
+    fun prepareGenericException(
+        @NonNull flutterResult: MethodChannel.Result,
+        @NonNull error: Exception,
+    ) {
         val errorCode = "AuthException"
         LOG.error(errorCode, error)
-        val serializedError: Map<String, Any?> = ExceptionUtil.createSerializedError(
+        val serializedError: Map<String, Any?> =
+            ExceptionUtil.createSerializedError(
                 ExceptionMessages.missingExceptionMessage,
-                ExceptionMessages.missingRecoverySuggestion,
-                error.toString())
-        
+                ExceptionMessages.missingRecoverySuggestion, error.toString()
+            )
+
         Handler(Looper.getMainLooper()).post {
-            ExceptionUtil.postExceptionToFlutterChannel(flutterResult,
-                    errorCode,
-                    serializedError)
+            ExceptionUtil.postExceptionToFlutterChannel(flutterResult, errorCode, serializedError)
         }
     }
 }

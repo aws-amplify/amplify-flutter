@@ -15,17 +15,10 @@
 
 package com.amazonaws.amplify.amplify_analytics_pinpoint
 
-import android.os.Handler
-import android.os.Looper
 import androidx.annotation.NonNull
-
 import com.amplifyframework.core.Amplify
-
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.Result
-
-import com.amazonaws.amplify.amplify_analytics_pinpoint.types.FlutterAnalyticsErrorMessage
-import com.amazonaws.amplify.amplify_analytics_pinpoint.types.PLATFORM_EXCEPTIONS
 
 class AmplifyAnalyticsBridge {
     companion object Bridge {
@@ -36,17 +29,18 @@ class AmplifyAnalyticsBridge {
             val argumentsMap = arguments as HashMap<*, *>
             val name = argumentsMap["name"] as String
 
-            var properties : HashMap<String, Any>
+            var properties: HashMap<String, Any>
 
-            properties = if(argumentsMap.containsKey("propertiesMap")){
-                argumentsMap["propertiesMap"] as HashMap<String, Any>;
-            } else{
+            properties = if (argumentsMap.containsKey("propertiesMap")) {
+                argumentsMap["propertiesMap"] as HashMap<String, Any>
+            } else {
                 HashMap<String, Any>()
             }
 
             Amplify.Analytics.recordEvent(
-                    AmplifyAnalyticsBuilder.createAnalyticsEvent(name, properties));
-            result.success(true);
+                AmplifyAnalyticsBuilder.createAnalyticsEvent(name, properties)
+            )
+            result.success(true)
         }
 
         fun flushEvents(@NonNull result: MethodChannel.Result) {
@@ -54,28 +48,34 @@ class AmplifyAnalyticsBridge {
             result.success(true)
         }
 
-        fun registerGlobalProperties(@NonNull arguments: Any, @NonNull result: MethodChannel.Result) {
+        fun registerGlobalProperties(
+            @NonNull arguments: Any,
+            @NonNull result: MethodChannel.Result,
+        ) {
             val argumentsMap = arguments as HashMap<*, *>
-            var properties : HashMap<String, Any>
+            var properties: HashMap<String, Any>
 
-            properties = if(argumentsMap.containsKey("propertiesMap")){
-                argumentsMap["propertiesMap"] as HashMap<String, Any>;
-            } else{
+            properties = if (argumentsMap.containsKey("propertiesMap")) {
+                argumentsMap["propertiesMap"] as HashMap<String, Any>
+            } else {
                 HashMap<String, Any>()
             }
 
             Amplify.Analytics.registerGlobalProperties(
-                    AmplifyAnalyticsBuilder.createAnalyticsProperties(properties))
+                AmplifyAnalyticsBuilder.createAnalyticsProperties(properties)
+            )
             result.success(true)
         }
 
-        fun unregisterGlobalProperties(@NonNull arguments: Any, @NonNull result: MethodChannel.Result) {
+        fun unregisterGlobalProperties(
+            @NonNull arguments: Any,
+            @NonNull result: MethodChannel.Result,
+        ) {
             val propertyNames = (arguments as ArrayList<String>).toSet<String>()
 
-            if(propertyNames.isEmpty()){
+            if (propertyNames.isEmpty()) {
                 Amplify.Analytics.unregisterGlobalProperties()
-            }
-            else{
+            } else {
                 for (name in propertyNames) {
                     Amplify.Analytics.unregisterGlobalProperties(name)
                 }
@@ -98,8 +98,10 @@ class AmplifyAnalyticsBridge {
             val userId = argumentsMap["userId"] as String
             val userProfileMap = argumentsMap["userProfileMap"] as HashMap<String, Object>
 
-            Amplify.Analytics.identifyUser(userId,
-                    AmplifyAnalyticsBuilder.createUserProfile(userProfileMap))
+            Amplify.Analytics.identifyUser(
+                userId,
+                AmplifyAnalyticsBuilder.createUserProfile(userProfileMap)
+            )
             result.success(true)
         }
     }

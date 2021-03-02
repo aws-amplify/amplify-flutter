@@ -30,13 +30,16 @@ class AuthCognitoHubEventStreamHandler : EventChannel.StreamHandler {
     private var eventSink: EventChannel.EventSink? = null
     private val handler = Handler(Looper.getMainLooper())
     private lateinit var token: SubscriptionToken
-    private val LOG = Amplify.Logging.forNamespace("amplify:flutter:auth_cognito_hub_evnet_stream_handler")
-    private var forwardHubResponse : (event: Map<String, Any>) -> Unit
+    private val LOG =
+        Amplify.Logging.forNamespace("amplify:flutter:auth_cognito_hub_evnet_stream_handler")
+    private var forwardHubResponse: (event: Map<String, Any>) -> Unit
 
-    constructor(){
-        forwardHubResponse = {event: Map<String, Any> -> handler.post {
-            eventSink?.success(event)
-        }}
+    constructor() {
+        forwardHubResponse = { event: Map<String, Any> ->
+            handler.post {
+                eventSink?.success(event)
+            }
+        }
     }
 
     constructor(latch: CountDownLatch) {
@@ -48,29 +51,30 @@ class AuthCognitoHubEventStreamHandler : EventChannel.StreamHandler {
         token = getHubListener()
     }
 
-     fun getHubListener(): SubscriptionToken {
+    fun getHubListener(): SubscriptionToken {
         return Amplify.Hub.subscribe(HubChannel.AUTH) { hubEvent: HubEvent<*> ->
-          if (hubEvent.name == InitializationStatus.SUCCEEDED.toString()) {
-            LOG.info("AuthPlugin successfully initialized")
-          } else if (hubEvent.name == InitializationStatus.FAILED.toString()) {
-            LOG.info("AuthPlugin failed to initialize")
-          } else {
-            when (AuthChannelEventName.valueOf(hubEvent.name)) {
-              AuthChannelEventName.SIGNED_IN,
-              AuthChannelEventName.SIGNED_OUT,
-              AuthChannelEventName.SESSION_EXPIRED -> {
-                var hubEvent = mapOf("eventName" to hubEvent.name)
-                sendEvent(hubEvent)
-              }
-              else -> LOG.info("Unrecognized Auth Event")
+            if (hubEvent.name == InitializationStatus.SUCCEEDED.toString()) {
+                LOG.info("AuthPlugin successfully initialized")
+            } else if (hubEvent.name == InitializationStatus.FAILED.toString()) {
+                LOG.info("AuthPlugin failed to initialize")
+            } else {
+                when (AuthChannelEventName.valueOf(hubEvent.name)) {
+                    AuthChannelEventName.SIGNED_IN,
+                    AuthChannelEventName.SIGNED_OUT,
+                    AuthChannelEventName.SESSION_EXPIRED,
+                    -> {
+                        var hubEvent = mapOf("eventName" to hubEvent.name)
+                        sendEvent(hubEvent)
+                    }
+                    else -> LOG.info("Unrecognized Auth Event")
+                }
             }
-          }
         }
-     }
+    }
 
-     fun sendEvent(flutterEvent: Map<String, Any>) {
-         forwardHubResponse(flutterEvent)
-     }
+    fun sendEvent(flutterEvent: Map<String, Any>) {
+        forwardHubResponse(flutterEvent)
+    }
 
     override fun onCancel(p0: Any?) {
         eventSink = null

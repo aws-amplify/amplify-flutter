@@ -28,21 +28,15 @@ import java.lang.reflect.Type
 
 class ExceptionUtil {
     companion object {
-        @JvmStatic
-        fun postExceptionToFlutterChannel(
+        @JvmStatic fun postExceptionToFlutterChannel(
             @NonNull result: Result,
             errorCode: String,
-            details: Map<String, Any?>
+            details: Map<String, Any?>,
         ) {
-            result.error(
-                errorCode,
-                ExceptionMessages.defaultFallbackExceptionMessage,
-                details
-            )
+            result.error(errorCode, ExceptionMessages.defaultFallbackExceptionMessage, details)
         }
 
-        @JvmStatic
-        fun createSerializedError(@NonNull e: AmplifyException): Map<String, Any?> {
+        @JvmStatic fun createSerializedError(@NonNull e: AmplifyException): Map<String, Any?> {
             val gsonBuilder = GsonBuilder()
             gsonBuilder.registerTypeAdapter(Throwable::class.java, ThrowableSerializer())
             val gson = gsonBuilder.create()
@@ -64,16 +58,17 @@ class ExceptionUtil {
             }
         }
 
-        @JvmStatic
-        fun createSerializedUnrecognizedError(@NonNull e: Exception): Map<String, Any?> {
-            return createSerializedError(ExceptionMessages.missingExceptionMessage, null, e.toString())
+        @JvmStatic fun createSerializedUnrecognizedError(@NonNull e: Exception): Map<String, Any?> {
+            return createSerializedError(
+                ExceptionMessages.missingExceptionMessage, null,
+                e.toString()
+            )
         }
 
-        @JvmStatic
-        fun createSerializedError(
+        @JvmStatic fun createSerializedError(
             message: String,
             recoverySuggestion: String?,
-            cause: String?
+            cause: String?,
         ): Map<String, String?> {
             return mapOf(
                 "message" to message,
@@ -91,7 +86,7 @@ class ThrowableSerializer : JsonSerializer<Throwable> {
     override fun serialize(
         src: Throwable?,
         typeOfSrc: Type?,
-        context: JsonSerializationContext?
+        context: JsonSerializationContext?,
     ): JsonElement {
         return JsonPrimitive(src.toString())
     }
