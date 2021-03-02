@@ -337,14 +337,21 @@ class DataStorePluginUnitTests: XCTestCase {
                 // Return from the mock
                 completion(.emptyResult)
             }
+
+            let mockPublisher = PassthroughSubject<MutationEvent, DataStoreError>()
+            override func onObserve() throws -> AnyPublisher<MutationEvent, DataStoreError> {
+                mockPublisher.eraseToAnyPublisher()
+            }
         }
         let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
         pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, flutterModelRegistration: flutterModelSchemaRegistration)
 
+        XCTAssertNil(pluginUnderTest.observeSubscription)
         pluginUnderTest.onClear(
             flutterResult: {(result) in
                 XCTAssertNil(result)
             })
+        XCTAssertNotNil(pluginUnderTest.observeSubscription)
     }
 
     func test_clear_failure_with_unknown_error() throws {
