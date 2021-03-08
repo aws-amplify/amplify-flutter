@@ -30,10 +30,9 @@ Amplify Flutter current supports iOS and Android.  This issue is reproducible in
 
 <details>
 
-  <summary>Output of<code>flutter doctor -v</code></summary> 
-  ```
-Paste your output of `flutter doctor -v` here
-  ```
+  <summary>Output of<code>flutter doctor -v</code></summary>
+  
+  ```Paste your output of "flutter doctor -v" here```
 
 </details>
 
