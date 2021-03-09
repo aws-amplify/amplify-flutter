@@ -28,6 +28,14 @@ Amplify Flutter current supports iOS and Android.  This issue is reproducible in
 [] Android
 [] iOS
 
+<details>
+
+  <summary>Output of <code>flutter doctor -v</code></summary>
+  
+  ```Paste your output of "flutter doctor -v" here```
+
+</details>
+
 **Smartphone (please complete the following information):**
  - Device: [e.g. iPhone6]
  - OS: [e.g. iOS8.1]
