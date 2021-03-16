@@ -14,7 +14,7 @@ dependencies:
   amplify_core: 0.1.0
   plugin_platform_interface: ^1.0.1
   date_time_format: ^1.1.0
-  uuid: ^2.2.2
+  uuid: ^3.0.1
   meta: ^1.1.8
   collection: ^1.14.13
 

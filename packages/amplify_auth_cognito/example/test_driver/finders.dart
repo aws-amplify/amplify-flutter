@@ -1,3 +1,4 @@
+/*
 import 'package:flutter_driver/flutter_driver.dart';
 
 // Text Widgets
@@ -34,3 +35,4 @@ final errorCardFinder = find.byValueKey('error-card');
 final signInFinder = find.byValueKey('signin-component');
 final signUpFinder = find.byValueKey('signup-component');
 final confirmSignUpFinder = find.byValueKey('confirm-signup-component');
+ */

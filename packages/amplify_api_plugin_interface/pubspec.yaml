@@ -12,7 +12,7 @@ dependencies:
     sdk: flutter
   amplify_core: 0.1.0
   meta: ^1.1.8
-  uuid: ^2.2.2
+  uuid: ^3.0.1
 
 dev_dependencies:
   flutter_test:
