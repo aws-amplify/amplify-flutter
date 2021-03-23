@@ -12,8 +12,11 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-class AuthUserOptions {
 
+// ignore_for_file: public_member_api_docs
+
+/// A base type for plugin implementations of get user options 
+class AuthUserOptions {
   const AuthUserOptions();
   Map<String, dynamic> serializeAsMap() {
     throw UnimplementedError('serializeAsMap() has not been implemented on AuthUserOptions.');

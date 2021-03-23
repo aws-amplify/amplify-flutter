@@ -13,11 +13,16 @@
  * permissions and limitations under the License.
  */
 
+// ignore_for_file: public_member_api_docs
+
 import 'package:flutter/foundation.dart';
 
-
+/// Holds the key and value for a user attribute.
 class AuthUserAttribute {
+  /// Attribute key
   String userAttributeKey;
+
+  /// Attribute value
   var value;
   AuthUserAttribute.init({@required this.userAttributeKey, @required this.value}) {
     this.userAttributeKey = userAttributeKey;

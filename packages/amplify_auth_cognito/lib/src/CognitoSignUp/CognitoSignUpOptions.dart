@@ -15,8 +15,13 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
+/// A Cognito extension of SignUpOptions
 class CognitoSignUpOptions extends SignUpOptions {
+
+  /// ClientMetadata for Cognito Lambda triggers
   Map<String, String> validationData;
+
+  // ignore: public_member_api_docs
   CognitoSignUpOptions({userAttributes, this.validationData}) : super(userAttributes: userAttributes);
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};

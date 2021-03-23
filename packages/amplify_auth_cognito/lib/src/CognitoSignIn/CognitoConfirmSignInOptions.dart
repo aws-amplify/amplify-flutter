@@ -15,8 +15,12 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
+/// A Cognito extension of ConfirmSignInOptions
 class CognitoConfirmSignInOptions extends ConfirmSignInOptions {
+  /// ClientMetadata for Cognito Lambda triggers
   Map<String, String> clientMetadata;
+  
+  // ignore: public_member_api_docs
   CognitoConfirmSignInOptions({this.clientMetadata}) : super();
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};

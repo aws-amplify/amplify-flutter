@@ -15,10 +15,17 @@
 
 import './PasswordOptions.dart';
 import 'package:flutter/foundation.dart';
+// ignore_for_file: public_member_api_docs
 
+/// Encapsulates parameters for a update password operation
 class UpdatePasswordRequest {
+  /// The new password desired on the user account
   String newPassword;
+
+  /// The user's existing password
   String oldPassword;
+
+  /// Advanced options
   PasswordOptions options;
 
   UpdatePasswordRequest({@required this.newPassword, @required this.oldPassword, this.options});

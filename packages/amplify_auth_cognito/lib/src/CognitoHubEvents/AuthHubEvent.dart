@@ -16,6 +16,8 @@
 import 'package:amplify_core/types/hub/HubEvent.dart';
 import 'package:amplify_core/types/hub/HubEventPayload.dart';
 
+/// The Auth HubEvent subclass
 class AuthHubEvent extends HubEvent {
+    // ignore: public_member_api_docs
     AuthHubEvent(String eventName, {HubEventPayload payload}) : super(eventName, payload: payload);
 }

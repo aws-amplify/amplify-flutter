@@ -13,12 +13,17 @@
  * permissions and limitations under the License.
  */
 
+// ignore_for_file: public_member_api_docs
+
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
 
-
+/// Wraps the result of a sign in operation.
 class SignInResult {
+  /// Indicator of whether the authentication process is complete
   bool isSignedIn;
+
+  /// Describes the next step in the authentication process
   AuthNextSignInStep nextStep;
   SignInResult({@required this.isSignedIn, this.nextStep}) {
     this.isSignedIn = isSignedIn;

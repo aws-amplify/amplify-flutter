@@ -13,10 +13,15 @@
  * permissions and limitations under the License.
  */
 
+// ignore_for_file: public_member_api_docs
+
 import './AuthSessionOptions.dart';
 
+/// Encapsulates parameters for a fetch session operation
 class AuthSessionRequest {
+  /// Advanced options
   AuthSessionOptions options;
+  
   AuthSessionRequest({this.options});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};

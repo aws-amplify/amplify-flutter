@@ -13,6 +13,9 @@
  * permissions and limitations under the License.
  */
 
+// ignore_for_file: public_member_api_docs
+
+/// A base type for plugin implementations of sign out options
 abstract class SignOutOptions {
   const SignOutOptions();
   Map<String, dynamic> serializeAsMap() {

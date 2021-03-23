@@ -13,13 +13,22 @@
  * permissions and limitations under the License.
  */
 
+// ignore_for_file: public_member_api_docs
+
 import 'package:flutter/foundation.dart';
 import './ConfirmSignUpOptions.dart';
 
+/// Encapsulates parameters for a confirm sign up operation
 class ConfirmSignUpRequest {
+  /// A login identifier e.g. `tony44`; or an email/phone number, depending on configuration
   String username;
+
+  /// The confirmation code the user received
   String confirmationCode;
+
+  /// Advanced options
   ConfirmSignUpOptions options;
+  
   ConfirmSignUpRequest({@required this.username, @required this.confirmationCode, this.options});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};

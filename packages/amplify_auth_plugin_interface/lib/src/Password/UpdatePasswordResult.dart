@@ -14,6 +14,8 @@
  * permissions and limitations under the License.
  */
 
+/// Wraps the result of an update password operation.
 class UpdatePasswordResult { 
+  // ignore: public_member_api_docs
   UpdatePasswordResult() {}
 } 

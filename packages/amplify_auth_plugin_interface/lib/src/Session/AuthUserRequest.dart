@@ -12,10 +12,16 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+
+// ignore_for_file: public_member_api_docs
+
 import './AuthUserOptions.dart';
 
+/// Encapsulates parameters for a fetch session operation
 class AuthUserRequest {
+  /// Advanced options
   AuthUserOptions options;
+
   AuthUserRequest();
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};

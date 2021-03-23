@@ -14,10 +14,15 @@
  */
 
 import './PasswordOptions.dart';
-import 'package:flutter/foundation.dart';
+// ignore_for_file: public_member_api_docs
 
+/// Encapsulates parameters for a ResetPassword operation
 class ResetPasswordRequest {
+
+  /// A login identifier e.g. `superdog22`; or an email/phone number, depending on configuration
   String username;
+
+  /// Advanced options
   PasswordOptions options;
 
   ResetPasswordRequest({this.username, this.options});

@@ -16,7 +16,12 @@
 import 'package:flutter/foundation.dart';
 import '../types/AuthNextStep.dart';
 
+/// Describes the next step in the sign up process,
+/// as well as the channels being used to facilitate the process
 class AuthNextSignUpStep extends AuthNextStep {
+  /// The next step in the sign up process
   String signUpStep;
+
+  // ignore: public_member_api_docs
   AuthNextSignUpStep({additionalInfo, @required codeDeliveryDetails, @required this.signUpStep}) : super(additionalInfo: additionalInfo, codeDeliveryDetails: codeDeliveryDetails);
 }

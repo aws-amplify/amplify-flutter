@@ -15,8 +15,11 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
+/// Used to encapsulate optional parameters such as clientMetadata for a password operation
 class CognitoUpdatePasswordOptions extends PasswordOptions {
+  /// ClientMetadata for Cognito Lambda triggers
   Map<String, String> clientMetadata;
+  // ignore: public_member_api_docs
   CognitoUpdatePasswordOptions({this.clientMetadata}) : super();
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
