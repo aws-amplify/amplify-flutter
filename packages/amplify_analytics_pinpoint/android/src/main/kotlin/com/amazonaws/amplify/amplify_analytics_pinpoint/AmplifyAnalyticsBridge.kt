@@ -35,7 +35,7 @@ class AmplifyAnalyticsBridge {
                 Amplify.addPlugin(AWSPinpointAnalyticsPlugin(context as Application?))
                 LOG.info("Added AnalyticsPinpoint plugin")
             } catch (e: Exception) {
-                handleAddPluginException("Datastore", e, flutterResult)
+                handleAddPluginException("Analytics", e, flutterResult)
                 return
             }
             flutterResult.success(null)
