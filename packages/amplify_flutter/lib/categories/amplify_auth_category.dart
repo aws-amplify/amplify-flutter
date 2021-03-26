@@ -9,10 +9,11 @@ class AuthCategory {
   static List<AuthPluginInterface> plugins = [];
 
   /// `Add plugin` method
-  void addPlugin(AuthPluginInterface plugin) {
-    // TODO: Discuss and support multiple plugins
+  Future<void> addPlugin(AuthPluginInterface plugin) async {
+    //TODO: Allow for multiple plugins to work simultaneously
     if (plugins.length == 0) {
       plugins.add(plugin);
+      await plugin.addPlugin();
     } else {
       throw AmplifyException("Auth plugin has already been added, " +
           "multiple plugins for Auth category are currently not supported.");
@@ -122,7 +123,8 @@ class AuthCategory {
         : throw _pluginNotAddedException("Auth");
   }
 
-  Future<List<AuthUserAttribute>> fetchUserAttributes({AuthUserAttributeOptions options}) {
+  Future<List<AuthUserAttribute>> fetchUserAttributes(
+      {AuthUserAttributeOptions options}) {
     var request = AuthUserAttributeRequest(options: options);
     return plugins.length == 1
         ? plugins[0].fetchUserAttributes(request: request)

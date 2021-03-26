@@ -22,6 +22,7 @@ import androidx.annotation.VisibleForTesting
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedError
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedUnrecognizedError
+import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterModelSchema
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSerializedModel
@@ -145,19 +146,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         try {
             Amplify.addPlugin(AWSDataStorePlugin(modelProvider))
         } catch (e: Exception) {
-            var errorDetails: Map<String, Any?>
-            var errorCode = "DataStoreException"
-            if (e.message == "The client tried to add a plugin after calling configure().") {
-                errorCode = "AmplifyAlreadyConfiguredException"
-            }
-            when (e) {
-                is DataStoreException -> errorDetails = createSerializedError(e)
-                is AmplifyException -> errorDetails = createSerializedError(e)
-                else -> errorDetails = createSerializedUnrecognizedError(e)
-            }
-            postExceptionToFlutterChannel(flutterResult, errorCode,
-                    errorDetails)
-            return
+            handleAddPluginException("Datastore", e, flutterResult)
+            return 
         }
         flutterResult.success(null)
     }

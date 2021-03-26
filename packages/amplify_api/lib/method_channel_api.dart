@@ -28,6 +28,16 @@ const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/api');
 class AmplifyAPIMethodChannel extends AmplifyAPI {
   var _allSubscriptionsStream = null;
 
+  @override
+  Future<void> addPlugin() async {
+    try {
+      return await _channel.invokeMethod('addPlugin');
+    } on PlatformException catch (e) {
+      throw AmplifyException("API plugin has already been added, " +
+          "multiple plugins for API category are currently not supported.");
+    }
+  }
+
   // ====== GraphQL ======
   @override
   GraphQLOperation<T> query<T>({@required GraphQLRequest<T> request}) {

@@ -25,6 +25,10 @@ export 'src/types.dart';
 abstract class StoragePluginInterface extends AmplifyPluginInterface {
   StoragePluginInterface({@required Object token}) : super(token: token);
 
+  Future<void> addPlugin() async {
+    throw UnimplementedError('addPlugin() has not been implemented.');
+  }
+
   Future<UploadFileResult> uploadFile({@required UploadFileRequest request}) {
     throw UnimplementedError('uploadFile() has not been implemented.');
   }

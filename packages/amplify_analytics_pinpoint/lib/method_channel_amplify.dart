@@ -14,6 +14,7 @@
  */
 
 import 'package:amplify_analytics_plugin_interface/amplify_analytics_plugin_interface.dart';
+import 'package:amplify_core/types/exception/AmplifyException.dart';
 import 'package:flutter/services.dart';
 
 import 'amplify_analytics_pinpoint.dart';
@@ -22,6 +23,16 @@ const MethodChannel _channel =
     MethodChannel('com.amazonaws.amplify/analytics_pinpoint');
 
 class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpoint {
+  @override
+  Future<void> addPlugin() async {
+    try {
+      return await _channel.invokeMethod('addPlugin');
+    } on PlatformException catch (e) {
+      throw AmplifyException("Analytics plugin has already been added, " +
+          "multiple plugins for Analytics category are currently not supported.");
+    }
+  }
+
   @override
   Future<void> recordEvent({AnalyticsEvent event}) async {
     var name = event.name;

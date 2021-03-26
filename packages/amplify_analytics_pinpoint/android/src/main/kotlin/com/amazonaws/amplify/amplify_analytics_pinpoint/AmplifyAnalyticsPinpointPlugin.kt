@@ -17,6 +17,7 @@ package com.amazonaws.amplify.amplify_analytics_pinpoint
 
 import android.app.Activity
 import android.app.Application
+import android.content.Context
 import android.util.Log
 import androidx.annotation.NonNull
 import com.amplifyframework.analytics.pinpoint.AWSPinpointAnalyticsPlugin
@@ -34,6 +35,7 @@ public class AmplifyAnalyticsPinpointPlugin : FlutterPlugin, ActivityAware, Meth
 
     private lateinit var channel: MethodChannel
     private var mainActivity: Activity? = null
+    private lateinit var context: Context
 
     override fun onAttachedToEngine(
             @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
@@ -41,31 +43,7 @@ public class AmplifyAnalyticsPinpointPlugin : FlutterPlugin, ActivityAware, Meth
         channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(),
                 "com.amazonaws.amplify/analytics_pinpoint")
         channel.setMethodCallHandler(this)
-
-        // Edge case for getting Application for AWSPinpointAnalyticsPlugin initialization
-        // https://github.com/flutter/flutter/issues/47048
-        var context = flutterPluginBinding.applicationContext
-
-        while (context != null) {
-            if (context as Application != null) {
-                try {
-                    Amplify.addPlugin(AWSPinpointAnalyticsPlugin(context))
-                } catch (e: Exception) {
-                    LOG.error("Failed to add AnalyticsPinpoint plugin. Is Amplify already configured and app restarted?")
-                    LOG.error("Exception: $e")
-                    return
-                }
-                LOG.info("Added AnalyticsPinpoint plugin")
-                break
-            } else {
-                context = context.applicationContext
-            }
-        }
-
-        if (context as Application == null) {
-            Log.e(TAG, "Failed to resolve Application from Context, AWS Pinpoint not initialized")
-        }
-
+        context = flutterPluginBinding.applicationContext;
     }
 
     // This static function is optional and equivalent to onAttachedToEngine. It supports the old
@@ -87,6 +65,8 @@ public class AmplifyAnalyticsPinpointPlugin : FlutterPlugin, ActivityAware, Meth
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
 
         when (call.method) {
+            "addPlugin" ->
+                AmplifyAnalyticsBridge.addPlugin(result, context)
             "recordEvent" ->
                 AmplifyAnalyticsBridge.recordEvent(call.arguments, result)
             "flushEvents" ->
