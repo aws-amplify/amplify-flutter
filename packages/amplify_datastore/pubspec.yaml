@@ -12,9 +12,8 @@ dependencies:
     sdk: flutter
   amplify_datastore_plugin_interface: 0.1.0
   amplify_core: 0.1.0
-  plugin_platform_interface: ^1.0.1
+  plugin_platform_interface: ^2.0.0
   date_time_format: ^1.1.0
-  uuid: ^2.2.2
   meta: ^1.1.8
   collection: ^1.14.13
 

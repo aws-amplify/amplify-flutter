@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  plugin_platform_interface: ^1.0.1
+  plugin_platform_interface: ^2.0.0
   amplify_storage_plugin_interface: 0.1.0
   amplify_analytics_plugin_interface: 0.1.0
   amplify_auth_plugin_interface: 0.1.0
