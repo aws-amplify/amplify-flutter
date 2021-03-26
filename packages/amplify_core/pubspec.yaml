@@ -8,8 +8,8 @@ environment:
   flutter: ">=1.17.0 <2.0.0"
 
 dependencies:
-  plugin_platform_interface: ^1.0.1
   meta: ^1.1.8
+  plugin_platform_interface: ^2.0.0
   flutter:
     sdk: flutter
 
