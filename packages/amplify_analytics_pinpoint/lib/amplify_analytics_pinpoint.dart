@@ -42,6 +42,10 @@ class AmplifyAnalyticsPinpoint extends AnalyticsPluginInterface {
 
   // Public facing methods
 
+  Future<void> addPlugin() async {
+    return _instance.addPlugin();
+  }
+
   Future<void> recordEvent({@required AnalyticsEvent event}) async {
     return _instance.recordEvent(event: event);
   }

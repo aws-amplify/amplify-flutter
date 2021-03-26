@@ -17,6 +17,7 @@ import Flutter
 import UIKit
 import Amplify
 import AmplifyPlugins
+import amplify_core
 
 public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
     
@@ -37,12 +38,6 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
         let instance = SwiftAmplifyApiPlugin()
         eventchannel.setStreamHandler(instance.graphQLSubscriptionsStreamHandler)
         registrar.addMethodCallDelegate(instance, channel: methodchannel)
-        do {
-            try Amplify.add(plugin: AWSAPIPlugin())
-            print("Successfully added API Plugin")
-        } catch {
-            print("Failed to add Amplify API Plugin \(error)")
-        }
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -51,12 +46,36 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
     
     // Create separate method to allow unit testing as we cannot mock "FlutterMethodCall"
     public func innerHandle(method: String, callArgs: Any, result: @escaping FlutterResult){
-        
         do {
             if(method == "cancel"){
                 let cancelToken = try FlutterApiRequest.getCancelToken(args: callArgs)
                 onCancel(flutterResult: result, cancelToken: cancelToken)
                 return
+            }
+            else if(method == "addPlugin"){
+                do {
+                    try Amplify.add(plugin: AWSAPIPlugin() )
+                    result(true)
+                } catch let error{
+                    if(error is APIError){
+                        let apiError = error as! APIError
+
+                        ErrorUtil.postErrorToFlutterChannel(
+                            result: result,
+                            errorCode: "APIException",
+                            details: [
+                                "message" : apiError.errorDescription,
+                                "recoverySuggestion" : apiError.recoverySuggestion,
+                                "underlyingError": apiError.underlyingError != nil ? apiError.underlyingError!.localizedDescription : ""
+                            ]
+                        )
+                    }
+                    else{
+                        print("Failed to add Amplify API Plugin \(error)")
+                        result(false)
+                    }
+                    return
+                }
             }
             
             let arguments = try FlutterApiRequest.getMap(args: callArgs as Any)

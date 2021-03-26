@@ -27,6 +27,10 @@ abstract class AnalyticsPluginInterface extends AmplifyPluginInterface {
   /// Constructs a AmplifyPlatform.
   AnalyticsPluginInterface({@required Object token}) : super(token: token);
 
+  Future<void> addPlugin() async {
+    throw UnimplementedError('addPlugin() has not been implemented.');
+  }
+
   Future<void> recordEvent({@required AnalyticsEvent event}) async {
     throw UnimplementedError('recordEvent() has not been implemented.');
   }

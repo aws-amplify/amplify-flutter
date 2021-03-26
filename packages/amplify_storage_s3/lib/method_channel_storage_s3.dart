@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_core/types/exception/AmplifyException.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
@@ -25,6 +26,16 @@ const MethodChannel _channel =
 
 /// An implementation of [AmplifyPlatform] that uses method channels.
 class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
+  @override
+  Future<void> addPlugin() async {
+    try {
+      return await _channel.invokeMethod('addPlugin');
+    } on PlatformException catch (e) {
+      throw AmplifyException("Storage plugin has already been added, " +
+          "multiple plugins for Storage category are currently not supported.");
+    }
+  }
+
   @override
   Future<UploadFileResult> uploadFile(
       {@required UploadFileRequest request}) async {
@@ -165,14 +176,12 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
 
   StorageException _prepareExceptionForMalformedResult(
       {@required String methodName, @required String fieldName}) {
-    return StorageException(
-      'Error formatting platform channel result',
-      recoverySuggestion: 'Operation $methodName failed: $fieldName cannot be null.');
+    return StorageException('Error formatting platform channel result',
+        recoverySuggestion:
+            'Operation $methodName failed: $fieldName cannot be null.');
   }
 
   StorageException _convertToStorageException(PlatformException e) {
-    return  StorageException.fromMap(
-      Map<String, String>.from(e.details));
+    return StorageException.fromMap(Map<String, String>.from(e.details));
   }
 }
-

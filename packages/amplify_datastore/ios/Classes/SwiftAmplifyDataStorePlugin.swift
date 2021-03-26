@@ -109,10 +109,16 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     ErrorMessages.missingRecoverySuggestion),
                 flutterResult: result)
             return
-        }
-        catch {
-            print("Failed to initialize DataStore with \(error)")
-            result(false)
+        } catch let error {
+            if(error is DataStoreError){
+                FlutterDataStoreErrorHandler.handleDataStoreError(
+                    error: error as! DataStoreError,
+                    flutterResult: result)
+            }
+            else{
+                print("Failed to initialize DataStore with \(error)")
+                result(false)
+            }
             return
         }
 
