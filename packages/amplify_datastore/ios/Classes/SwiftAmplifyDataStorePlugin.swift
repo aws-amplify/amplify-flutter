@@ -61,20 +61,20 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         }
 
         switch call.method {
-        case "configureModelProvider":
-            onConfigureModelProvider(args: arguments, result: result)
-        case "query":
-            onQuery(args: arguments, flutterResult: result)
-        case "save":
-            onSave(args: arguments, flutterResult: result)
-        case "delete":
-            onDelete(args: arguments, flutterResult: result)
-        case "setupObserve":
-            onSetupObserve(flutterResult: result)
-        case "clear":
-            onClear(flutterResult: result)
-        default:
-            result(FlutterMethodNotImplemented)
+            case "configureModelProvider":
+                onConfigureModelProvider(args: arguments, result: result)
+            case "query":
+                onQuery(args: arguments, flutterResult: result)
+            case "save":
+                onSave(args: arguments, flutterResult: result)
+            case "delete":
+                onDelete(args: arguments, flutterResult: result)
+            case "setupObserve":
+                onSetupObserve(flutterResult: result)
+            case "clear":
+                onClear(flutterResult: result)
+            default:
+                result(FlutterMethodNotImplemented)
         }
     }
 
@@ -97,8 +97,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
 
             self.dataStoreHubEventStreamHandler?.registerModelsForHub(flutterModels: flutterModelRegistration)
 
-            let dataStorePlugin = AWSDataStorePlugin(modelRegistration: flutterModelRegistration)
-            try Amplify.add(plugin: dataStorePlugin)
+            try bridge.addPlugin(modelRegistration: flutterModelRegistration) 
             Amplify.Logging.logLevel = .info
             print("Amplify configured with DataStore plugin")
             result(true)

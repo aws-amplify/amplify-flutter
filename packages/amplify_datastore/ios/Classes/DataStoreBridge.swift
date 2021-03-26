@@ -20,6 +20,10 @@ import Combine
 
 public class DataStoreBridge {
     
+    func addPlugin(modelRegistration : FlutterModels) throws {
+        try Amplify.add(plugin: AWSDataStorePlugin(modelRegistration: modelRegistration) )
+    }
+    
     func getPlugin() throws -> AWSDataStorePlugin {
         return try Amplify.DataStore.getPlugin(for: "awsDataStorePlugin") as! AWSDataStorePlugin
     }

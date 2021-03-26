@@ -41,20 +41,20 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        innerHandle(method: call.method, callArgs: call.arguments as Any, result: result)
+        innerHandle(method: call.method, callArgs: call.arguments as Any?, result: result)
     }
     
     // Create separate method to allow unit testing as we cannot mock "FlutterMethodCall"
-    public func innerHandle(method: String, callArgs: Any, result: @escaping FlutterResult){
+    public func innerHandle(method: String, callArgs: Any?, result: @escaping FlutterResult){
         do {
             if(method == "cancel"){
-                let cancelToken = try FlutterApiRequest.getCancelToken(args: callArgs)
+                let cancelToken = try FlutterApiRequest.getCancelToken(args: callArgs!)
                 onCancel(flutterResult: result, cancelToken: cancelToken)
                 return
             }
             else if(method == "addPlugin"){
                 do {
-                    try Amplify.add(plugin: AWSAPIPlugin() )
+                    try bridge.addPlugin()
                     result(true)
                 } catch let error{
                     if(error is APIError){
@@ -74,8 +74,8 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
                         print("Failed to add Amplify API Plugin \(error)")
                         result(false)
                     }
-                    return
                 }
+                return
             }
             
             let arguments = try FlutterApiRequest.getMap(args: callArgs as Any)

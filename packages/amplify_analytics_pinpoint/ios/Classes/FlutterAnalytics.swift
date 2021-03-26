@@ -24,9 +24,9 @@ import amplify_core
 
 public class FlutterAnalytics {
 
-    public static func addPlugin(result: @escaping FlutterResult) {
+    public static func addPlugin(result: @escaping FlutterResult, bridge: AnalyticsBridge) {
         do {
-            try Amplify.add(plugin: AWSPinpointAnalyticsPlugin() )
+            try bridge.addPlugin()
             result(true)
         } catch let error{
             if(error is AnalyticsError){

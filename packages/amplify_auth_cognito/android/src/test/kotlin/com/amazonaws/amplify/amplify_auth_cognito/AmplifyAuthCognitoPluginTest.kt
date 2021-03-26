@@ -16,8 +16,10 @@
 package com.amazonaws.amplify.amplify_auth_cognito
 
 import android.app.Activity
+import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.BasicAWSCredentials
+import com.amplifyframework.AmplifyException
 import com.amplifyframework.auth.*
 import com.amplifyframework.auth.options.AuthSignOutOptions
 import com.amplifyframework.auth.options.AuthSignUpOptions
@@ -31,6 +33,7 @@ import com.amplifyframework.auth.result.step.*
 import com.amplifyframework.core.Action
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
+import com.amplifyframework.core.plugin.Plugin
 import com.amplifyframework.logging.Logger
 import com.google.gson.internal.LinkedTreeMap
 import io.flutter.plugin.common.MethodCall
@@ -402,8 +405,6 @@ class AmplifyAuthCognitoPluginTest {
         // Assert
         verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>())
     }
-
-
 
     private fun setFinalStatic(field: Field, newValue: Any?) {
         field.isAccessible = true
