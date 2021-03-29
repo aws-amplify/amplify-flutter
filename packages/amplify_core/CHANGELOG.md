@@ -1,3 +1,14 @@
+## 0.1.1 (2021-03-29)
+
+### Bug Fixes
+
+- fix: Move AddPlugin from Register to MethodChannel (#411)
+- fix: upgrade plugin_platform_interface (#447)
+
+### Features
+
+- feat(amplify_core): add ktlint to amplify_core android (#403)
+
 ## 0.1.0 (2021-02-15)
 
 ### Chores
