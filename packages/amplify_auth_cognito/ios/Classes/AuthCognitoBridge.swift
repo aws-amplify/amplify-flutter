@@ -22,6 +22,9 @@ class AuthCognitoBridge {
     
     var errorHandler = AuthErrorHandler()
     
+    func addPlugin() throws {
+        try Amplify.add(plugin: AWSCognitoAuthPlugin() )
+    }
     
     func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest) {
         let options = AuthSignUpRequest.Options(userAttributes: request.userAttributes)

@@ -41,7 +41,7 @@ public class SwiftAmplifyAnalyticsPinpointPlugin: NSObject, FlutterPlugin {
     public func innerHandle(method: String, callArgs: Any?, result: @escaping FlutterResult){
         switch method{
             case "addPlugin":
-                FlutterAnalytics.addPlugin(result: result)
+                FlutterAnalytics.addPlugin(result: result, bridge: bridge)
             case "recordEvent":
                 FlutterAnalytics.record(arguments: callArgs, result: result, bridge: bridge)
             case "flushEvents":

@@ -18,6 +18,10 @@ import AmplifyPlugins
 import Flutter
 
 public class ApiBridge {
+    
+    func addPlugin() throws {
+        try Amplify.add(plugin: AWSAPIPlugin() )
+    }
         
     func get(request: RESTRequest, listener: RESTOperation.ResultListener?) -> RESTOperation?{
         return Amplify.API.get(request: request, listener: listener)

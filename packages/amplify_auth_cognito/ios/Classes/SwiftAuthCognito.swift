@@ -62,29 +62,29 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         if(call.method == "addPlugin"){
-                do {
-                    try Amplify.add(plugin: AWSCognitoAuthPlugin() )
-                    result(true)
-                } catch let error{
-                    if(error is AuthError){
-                        let authError = error as! AuthError
+            do {
+                try cognito.addPlugin()
+                result(true)
+            } catch let error{
+                if(error is AuthError){
+                    let authError = error as! AuthError
 
-                        ErrorUtil.postErrorToFlutterChannel(
-                            result: result,
-                            errorCode: "AuthException",
-                            details: [
-                                "message" : authError.errorDescription,
-                                "recoverySuggestion" : authError.recoverySuggestion,
-                                "underlyingError": authError.underlyingError != nil ? authError.underlyingError!.localizedDescription : ""
-                            ]
-                        )
-                    }
-                    else{
-                        print("Failed to add Amplify Auth Plugin \(error)")
-                        result(false)
-                    }
-                    return
+                    ErrorUtil.postErrorToFlutterChannel(
+                        result: result,
+                        errorCode: "AuthException",
+                        details: [
+                            "message" : authError.errorDescription,
+                            "recoverySuggestion" : authError.recoverySuggestion,
+                            "underlyingError": authError.underlyingError != nil ? authError.underlyingError!.localizedDescription : ""
+                        ]
+                    )
                 }
+                else{
+                    print("Failed to add Amplify Auth Plugin \(error)")
+                    result(false)
+                }
+            }
+            return
         }
 
         var arguments: Dictionary<String, AnyObject> = [:]

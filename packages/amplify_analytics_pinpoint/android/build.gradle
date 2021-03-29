@@ -63,8 +63,7 @@ dependencies {
     implementation 'com.amplifyframework:aws-analytics-pinpoint:1.16.13'
     implementation 'com.amplifyframework:aws-auth-cognito:1.16.13'
     testImplementation 'junit:junit:4.13'
-    testImplementation 'org.mockito:mockito-core:3.1.0'
-    testImplementation 'org.mockito:mockito-inline:3.1.0'
+    testImplementation 'org.mockito:mockito-inline:3.5.13'
     testImplementation 'androidx.test:core:1.2.0'
     testImplementation 'org.robolectric:robolectric:4.3.1'
 }

@@ -17,6 +17,10 @@ import Amplify
 import AmplifyPlugins
 
 public class AnalyticsBridge {
+    
+    func addPlugin() throws {
+        try Amplify.add(plugin: AWSPinpointAnalyticsPlugin())
+    }
 
     func record(event: AnalyticsEvent){
         Amplify.Analytics.record(event: event)

@@ -11,6 +11,7 @@
 		26AECB412893A7A959622364 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1727BF3FA0D464713D41A3 /* Pods_Runner.framework */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
+		8482614E260EA3C40097A999 /* AmplifyAddPluginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8482614D260EA3C40097A999 /* AmplifyAddPluginTests.swift */; };
 		9674FCEAE95127916BA4C1B4 /* Pods_unit_tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2AB19942AD94335DB089EE /* Pods_unit_tests.framework */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
@@ -49,6 +50,7 @@
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
 		7F732F1CF7D7EF9EA74B414F /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		8438DFB604CC96F8F9D6DAF2 /* Pods-unit_tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.release.xcconfig"; path = "Target Support Files/Pods-unit_tests/Pods-unit_tests.release.xcconfig"; sourceTree = "<group>"; };
+		8482614D260EA3C40097A999 /* AmplifyAddPluginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplifyAddPluginTests.swift; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
 		97C146EE1CF9000F007C117D /* Runner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runner.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -145,6 +147,7 @@
 				9CEFDF1625113C2F001481FC /* Info.plist */,
 				9CC45C2325A4F7E90055E103 /* amplify_auth_cognito_hub_tests.swift */,
 				9C3D802A25C1F82800728B7B /* MockErrorConstants.swift */,
+				8482614D260EA3C40097A999 /* AmplifyAddPluginTests.swift */,
 			);
 			path = unit_tests;
 			sourceTree = "<group>";
@@ -401,6 +404,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C3D802825C1F52600728B7B /* amplify_auth_error_handling_tests.swift in Sources */,
+				8482614E260EA3C40097A999 /* AmplifyAddPluginTests.swift in Sources */,
 				9CC45C2425A4F7E90055E103 /* amplify_auth_cognito_hub_tests.swift in Sources */,
 				9C404087251AA2430036C5FE /* MockAuthSession.swift in Sources */,
 				9C3D802B25C1F82800728B7B /* MockErrorConstants.swift in Sources */,

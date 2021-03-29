@@ -16,6 +16,7 @@
 		847189C72565F81B00D6798A /* ModelSchemaEquatableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847189C52565F81B00D6798A /* ModelSchemaEquatableExtensions.swift */; };
 		847189C82565F81B00D6798A /* AmplifyModelSchemaUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847189C62565F81B00D6798A /* AmplifyModelSchemaUnitTests.swift */; };
 		847189D82565FAF200D6798A /* model_schema_maps.json in Resources */ = {isa = PBXBuildFile; fileRef = 847189D72565FAF200D6798A /* model_schema_maps.json */; };
+		848261552610FECA0097A999 /* AmplifyAddPluginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848261542610FECA0097A999 /* AmplifyAddPluginTests.swift */; };
 		84A03068257714C0007106B9 /* AmplifySerializedModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A03067257714C0007106B9 /* AmplifySerializedModelUnitTests.swift */; };
 		84A0307D25771DEC007106B9 /* FlutterSerializedModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0307C25771DEC007106B9 /* FlutterSerializedModelData.swift */; };
 		84A0308225771E15007106B9 /* serialized_model_maps.json in Resources */ = {isa = PBXBuildFile; fileRef = 84A0308125771E15007106B9 /* serialized_model_maps.json */; };
@@ -74,6 +75,7 @@
 		847189C52565F81B00D6798A /* ModelSchemaEquatableExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelSchemaEquatableExtensions.swift; sourceTree = "<group>"; };
 		847189C62565F81B00D6798A /* AmplifyModelSchemaUnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmplifyModelSchemaUnitTests.swift; sourceTree = "<group>"; };
 		847189D72565FAF200D6798A /* model_schema_maps.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_schema_maps.json; sourceTree = "<group>"; };
+		848261542610FECA0097A999 /* AmplifyAddPluginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplifyAddPluginTests.swift; sourceTree = "<group>"; };
 		84A03067257714C0007106B9 /* AmplifySerializedModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplifySerializedModelUnitTests.swift; sourceTree = "<group>"; };
 		84A0307C25771DEC007106B9 /* FlutterSerializedModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlutterSerializedModelData.swift; sourceTree = "<group>"; };
 		84A0308125771E15007106B9 /* serialized_model_maps.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = serialized_model_maps.json; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 				B4A5C37D2548A5D000B9E501 /* QuerySortBuilderUnitTests.swift */,
 				B4A5C44E2548EF7800B9E501 /* resources */,
 				9CD33316256ED83700C1CC2A /* DataStoreHubEventStreamHandlerTests.swift */,
+				848261542610FECA0097A999 /* AmplifyAddPluginTests.swift */,
 			);
 			path = unit_tests;
 			sourceTree = "<group>";
@@ -541,6 +544,7 @@
 				9CD33317256ED83700C1CC2A /* DataStoreHubEventStreamHandlerTests.swift in Sources */,
 				B409DE75254BAC5A006AECDB /* GetJsonFromFileUtil.swift in Sources */,
 				847189C82565F81B00D6798A /* AmplifyModelSchemaUnitTests.swift in Sources */,
+				848261552610FECA0097A999 /* AmplifyAddPluginTests.swift in Sources */,
 				84A0307D25771DEC007106B9 /* FlutterSerializedModelData.swift in Sources */,
 				B4A5C3F42548C7B500B9E501 /* QueryPaginationUnitTests.swift in Sources */,
 				847189C22565F41700D6798A /* SchemaData.swift in Sources */,

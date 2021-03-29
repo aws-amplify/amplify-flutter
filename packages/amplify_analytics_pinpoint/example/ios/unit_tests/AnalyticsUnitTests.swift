@@ -17,10 +17,11 @@ import XCTest
 import Amplify
 @testable import AmplifyPlugins
 @testable import amplify_analytics_pinpoint
+@testable import amplify_core
 
 class AnalyticsUnitTests: XCTestCase {
 
-    var pluginUnderTest: SwiftAmplifyAnalyticsPinpointPlugin = SwiftAmplifyAnalyticsPinpointPlugin()
+    var flutterPlugin: SwiftAmplifyAnalyticsPinpointPlugin = SwiftAmplifyAnalyticsPinpointPlugin()
 
     func test_recordEvent_returnsSuccess() throws {
         class MockAnalyticsBridge: AnalyticsBridge {
@@ -29,9 +30,9 @@ class AnalyticsUnitTests: XCTestCase {
             }
         }
         
-        pluginUnderTest = SwiftAmplifyAnalyticsPinpointPlugin(bridge: MockAnalyticsBridge())
+        flutterPlugin = SwiftAmplifyAnalyticsPinpointPlugin(bridge: MockAnalyticsBridge())
         
-        pluginUnderTest.innerHandle(
+        flutterPlugin.innerHandle(
             method: "recordEvent",
             callArgs: [
                 "name" : "amplify-event"
@@ -64,7 +65,7 @@ class AnalyticsUnitTests: XCTestCase {
             }
         }
         
-        pluginUnderTest = SwiftAmplifyAnalyticsPinpointPlugin(bridge: MockAnalyticsBridge())
+        flutterPlugin = SwiftAmplifyAnalyticsPinpointPlugin(bridge: MockAnalyticsBridge())
         
         let propertiesMap : [String : Any] = [
             "AnalyticsStringProperty" : "Pancakes",
@@ -84,7 +85,7 @@ class AnalyticsUnitTests: XCTestCase {
             "propertiesTypesMap" : propertiesTypesMap
         ]
         
-        pluginUnderTest.innerHandle(
+        flutterPlugin.innerHandle(
             method: "recordEvent",
             callArgs: arguments,
             result: { (results) in
@@ -99,9 +100,9 @@ class AnalyticsUnitTests: XCTestCase {
             }
         }
         
-        pluginUnderTest = SwiftAmplifyAnalyticsPinpointPlugin(bridge: MockAnalyticsBridge())
+        flutterPlugin = SwiftAmplifyAnalyticsPinpointPlugin(bridge: MockAnalyticsBridge())
         
-        pluginUnderTest.innerHandle(
+        flutterPlugin.innerHandle(
             method: "flushEvents",
             callArgs: nil,
             result: { (results) in
@@ -128,7 +129,7 @@ class AnalyticsUnitTests: XCTestCase {
             }
         }
         
-        pluginUnderTest = SwiftAmplifyAnalyticsPinpointPlugin(bridge: MockAnalyticsBridge())
+        flutterPlugin = SwiftAmplifyAnalyticsPinpointPlugin(bridge: MockAnalyticsBridge())
         
         let propertiesMap : [String : Any] = [
             "AnalyticsStringProperty" : "Pancakes",
@@ -147,7 +148,7 @@ class AnalyticsUnitTests: XCTestCase {
             "propertiesTypesMap" : propertiesTypesMap
         ]
         
-        pluginUnderTest.innerHandle(
+        flutterPlugin.innerHandle(
             method: "registerGlobalProperties",
             callArgs: arguments,
             result: { (results) in
@@ -181,7 +182,7 @@ class AnalyticsUnitTests: XCTestCase {
             }
         }
         
-        pluginUnderTest = SwiftAmplifyAnalyticsPinpointPlugin(bridge: MockAnalyticsBridge())
+        flutterPlugin = SwiftAmplifyAnalyticsPinpointPlugin(bridge: MockAnalyticsBridge())
         
         let locationMap : [String : Any] = [
             "latitude" : 47.6154086,
@@ -219,7 +220,7 @@ class AnalyticsUnitTests: XCTestCase {
             "userProfileMap" : userProfileMap
         ]
 
-        pluginUnderTest.innerHandle(
+        flutterPlugin.innerHandle(
             method: "identifyUser",
             callArgs: userMap,
             result: { (results) in
@@ -238,7 +239,7 @@ class AnalyticsUnitTests: XCTestCase {
             }
         }
         
-        pluginUnderTest = SwiftAmplifyAnalyticsPinpointPlugin(bridge: MockAnalyticsBridge())
+        flutterPlugin = SwiftAmplifyAnalyticsPinpointPlugin(bridge: MockAnalyticsBridge())
         
         let userProfileMap : [String : Any] = [
             "name" : "test-user",
@@ -251,7 +252,7 @@ class AnalyticsUnitTests: XCTestCase {
             "userProfileMap" : userProfileMap
         ]
 
-        pluginUnderTest.innerHandle(
+        flutterPlugin.innerHandle(
             method: "identifyUser",
             callArgs: userMap,
             result: { (results) in
@@ -259,7 +260,4 @@ class AnalyticsUnitTests: XCTestCase {
             }
         )
     }
- 
-
 }
-
