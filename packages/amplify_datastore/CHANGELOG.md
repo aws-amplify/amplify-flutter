@@ -1,5 +1,8 @@
 ## 0.1.1 (2021-03-29)
 
+### Chores
+- chore: remove upper constraints for flutter 2.0 (#479)
+
 ### Bug Fixes
 
 - fix(amplify_datastore): avoid tearing down iOS subscription after clear() (#399)
