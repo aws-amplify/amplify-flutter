@@ -2,6 +2,7 @@
 
 ### Chores
 
+- chore: remove upper constraints for flutter 2.0 (#479)
 - chore(amplify_flutter): Add isConfigured API to Amplify (#452)
 
 ### Bug Fixes
