@@ -1,3 +1,12 @@
+## 0.1.1 (2021-03-29)
+
+### Bug Fixes
+
+- fix: Move AddPlugin from Register to MethodChannel (#411)
+- fix: upgrade plugin_platform_interface (#447)
+- fix: upgrade uuid (#448)
+- fix: call return in addPlugin (#478)
+
 ## 0.1.0 (2021-02-15)
 
 ### Features
