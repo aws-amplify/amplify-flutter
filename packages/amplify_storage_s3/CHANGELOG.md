@@ -4,6 +4,7 @@
 
 - fix: Move AddPlugin from Register to MethodChannel (#411)
 - fix: upgrade plugin_platform_interface (#447)
+- fix: Send only one error response when S3 download fails #456
 
 ## 0.1.0 (2021-02-15)
 
