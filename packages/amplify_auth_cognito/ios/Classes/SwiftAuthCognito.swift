@@ -83,8 +83,8 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
                         print("Failed to add Amplify Auth Plugin \(error)")
                         result(false)
                     }
-                    return
                 }
+                return
         }
 
         var arguments: Dictionary<String, AnyObject> = [:]

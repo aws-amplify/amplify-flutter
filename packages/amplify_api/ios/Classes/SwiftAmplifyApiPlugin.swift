@@ -74,8 +74,8 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
                         print("Failed to add Amplify API Plugin \(error)")
                         result(false)
                     }
-                    return
                 }
+                return
             }
             
             let arguments = try FlutterApiRequest.getMap(args: callArgs as Any)
