@@ -5,7 +5,7 @@ homepage: https://github.com/aws-amplify/amplify-flutter/tree/master/packages/am
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
-  flutter: ">=1.20.0 <2.0.0"
+  flutter: ">=1.20.0"
 
 dependencies:
   flutter:
