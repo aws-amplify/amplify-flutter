@@ -37,7 +37,7 @@ class AmplifyAnalyticsPinpoint extends AnalyticsPluginInterface {
   /// class that extends [AnalyticsPluginInterface] when they register themselves.
   static set instance(AnalyticsPluginInterface instance) {
     PlatformInterface.verifyToken(instance, _token);
-    _instance = instance;
+    _instance = instance as AmplifyAnalyticsPinpoint;
   }
 
   // Public facing methods
@@ -46,7 +46,7 @@ class AmplifyAnalyticsPinpoint extends AnalyticsPluginInterface {
     return _instance.addPlugin();
   }
 
-  Future<void> recordEvent({@required AnalyticsEvent event}) async {
+  Future<void> recordEvent({required AnalyticsEvent event}) async {
     return _instance.recordEvent(event: event);
   }
 
@@ -55,13 +55,13 @@ class AmplifyAnalyticsPinpoint extends AnalyticsPluginInterface {
   }
 
   Future<void> registerGlobalProperties(
-      {@required AnalyticsProperties globalProperties}) async {
+      {required AnalyticsProperties globalProperties}) async {
     return _instance.registerGlobalProperties(
         globalProperties: globalProperties);
   }
 
   Future<void> unregisterGlobalProperties(
-      {@required List<String> propertyNames}) async {
+      {required List<String> propertyNames}) async {
     return _instance.unregisterGlobalProperties(propertyNames: propertyNames);
   }
 
@@ -74,8 +74,8 @@ class AmplifyAnalyticsPinpoint extends AnalyticsPluginInterface {
   }
 
   Future<void> identifyUser(
-      {@required String userId,
-      @required AnalyticsUserProfile userProfile}) async {
+      {required String userId,
+      required AnalyticsUserProfile userProfile}) async {
     return _instance.identifyUser(userId: userId, userProfile: userProfile);
   }
 }
