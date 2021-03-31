@@ -19,10 +19,10 @@ import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart
 import 'package:flutter/material.dart';
 
 class AWSCognitoUserPoolTokens {
-  String accessToken;
-  String idToken;
-  String refreshToken;
-  AWSCognitoUserPoolTokens.init({@required LinkedHashMap<dynamic, dynamic> tokens}) {
+  String? accessToken;
+  String? idToken;
+  String? refreshToken;
+  AWSCognitoUserPoolTokens.init({required LinkedHashMap<dynamic, dynamic> tokens}) {
     if (tokens != null) {
       this.accessToken = tokens["accessToken"];
       this.idToken = tokens["idToken"];

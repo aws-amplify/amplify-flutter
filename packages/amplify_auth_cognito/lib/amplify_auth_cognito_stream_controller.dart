@@ -18,7 +18,7 @@ import 'package:flutter/services.dart';
 import 'src/CognitoHubEvents/AuthHubEvent.dart';
 
 EventChannel channel = const EventChannel("com.amazonaws.amplify/auth_cognito_events");
-StreamSubscription eventStream;
+StreamSubscription? eventStream;
 
 class AuthStreamController {
   StreamController get authStreamController {
@@ -57,7 +57,7 @@ _onListen() {
 
 _onCancel() {
   if (!_authStreamController.hasListener) {
-    eventStream.cancel();
+    eventStream!.cancel();
     eventStream = null;
   }
 } 

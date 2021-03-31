@@ -19,10 +19,10 @@ import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart
 import 'package:flutter/material.dart';
 
 class AWSCredentials {
-  String awsAccessKey;
-  String awsSecretKey;
-  String sessionToken;
-  AWSCredentials.init({@required LinkedHashMap<dynamic, dynamic> creds}) {
+  String? awsAccessKey;
+  String? awsSecretKey;
+  String? sessionToken;
+  AWSCredentials.init({required LinkedHashMap<dynamic, dynamic> creds}) {
     if (creds != null) {
       this.awsAccessKey = creds.containsKey("awsAccessKey") ? creds["awsAccessKey"] : null;
       this.awsSecretKey = creds.containsKey("awsSecretKey") ? creds["awsSecretKey"] : null;

@@ -37,14 +37,14 @@ void main() {
   });
 
   tearDown(() {
-    ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(channelName, null);
+    ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(channelName, null);
   });
 
   handler(event) {
-    ServicesBinding.instance.defaultBinaryMessenger.handlePlatformMessage(
+    ServicesBinding.instance!.defaultBinaryMessenger.handlePlatformMessage(
       channelName,
       event,
-      (ByteData reply) {},
+      (ByteData? reply) {},
     );
   }
 
@@ -54,9 +54,9 @@ void main() {
       handler(event);
     }
 
-    await ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
+    await ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
       channelName,
-      (ByteData message) async {
+      (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
       },
     );
@@ -78,9 +78,9 @@ void main() {
       handler(event);
     }
 
-    await ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
+    await ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
       channelName,
-      (ByteData message) async {
+      (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
       },
     );
@@ -101,9 +101,9 @@ void main() {
       handler(event);
     }
 
-    await ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
+    await ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
       channelName,
-      (ByteData message) async {
+      (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
       },
     );
@@ -124,9 +124,9 @@ void main() {
       handler(event);
     }
 
-    await ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
+    await ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
       channelName,
-      (ByteData message) async {
+      (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
       },
     );
