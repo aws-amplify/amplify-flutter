@@ -46,13 +46,13 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
 
   @override
   Future<UploadFileResult> uploadFile(
-      {@required UploadFileRequest request}) async {
+      {required UploadFileRequest request}) async {
     try {
       final Map<String, dynamic> data =
-          await _channel.invokeMapMethod<String, dynamic>(
+      (await _channel.invokeMapMethod<String, dynamic>(
         'uploadFile',
         request.serializeAsMap(),
-      );
+      ))!;
       UploadFileResult result = _formatUploadFileResult(data);
       return result;
     } on PlatformException catch (e) {
@@ -61,13 +61,13 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
   }
 
   @override
-  Future<GetUrlResult> getUrl({@required GetUrlRequest request}) async {
+  Future<GetUrlResult> getUrl({required GetUrlRequest request}) async {
     try {
       final Map<String, dynamic> data =
-          await _channel.invokeMapMethod<String, dynamic>(
+      (await _channel.invokeMapMethod<String, dynamic>(
         'getUrl',
         request.serializeAsMap(),
-      );
+      ))!;
       GetUrlResult result = _formatGetUrlResult(data);
       return result;
     } on PlatformException catch (e) {
@@ -76,13 +76,13 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
   }
 
   @override
-  Future<RemoveResult> remove({@required RemoveRequest request}) async {
+  Future<RemoveResult> remove({required RemoveRequest request}) async {
     try {
       final Map<String, dynamic> data =
-          await _channel.invokeMapMethod<String, dynamic>(
+      (await _channel.invokeMapMethod<String, dynamic>(
         'remove',
         request.serializeAsMap(),
-      );
+      ))!;
       RemoveResult result = _formatRemoveResult(data);
       return result;
     } on PlatformException catch (e) {
@@ -91,13 +91,13 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
   }
 
   @override
-  Future<ListResult> list({@required ListRequest request}) async {
+  Future<ListResult> list({required ListRequest request}) async {
     try {
       final Map<String, dynamic> data =
-          await _channel.invokeMapMethod<String, dynamic>(
+      (await _channel.invokeMapMethod<String, dynamic>(
         'list',
         request.serializeAsMap(),
-      );
+      ))!;
       ListResult result = _formatListResult(data);
       return result;
     } on PlatformException catch (e) {
@@ -107,13 +107,13 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
 
   @override
   Future<DownloadFileResult> downloadFile(
-      {@required DownloadFileRequest request}) async {
+      {required DownloadFileRequest request}) async {
     try {
       final Map<String, dynamic> data =
-          await _channel.invokeMapMethod<String, dynamic>(
+      (await _channel.invokeMapMethod<String, dynamic>(
         'downloadFile',
         request.serializeAsMap(),
-      );
+      ))!;
       DownloadFileResult result = _formatDownloadFileResult(data);
       return result;
     } on PlatformException catch (e) {
@@ -183,10 +183,10 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
   }
 
   StorageException _prepareExceptionForMalformedResult(
-      {@required String methodName, @required String fieldName}) {
-    return StorageException('Error formatting platform channel result',
-        recoverySuggestion:
-            'Operation $methodName failed: $fieldName cannot be null.');
+      {required String methodName, required String fieldName}) {
+    return StorageException(
+      'Error formatting platform channel result',
+      recoverySuggestion: 'Operation $methodName failed: $fieldName cannot be null.');
   }
 
   StorageException _convertToStorageException(PlatformException e) {

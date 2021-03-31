@@ -17,7 +17,7 @@ import 'package:flutter/foundation.dart';
 import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 
 class S3DownloadFileOptions extends DownloadFileOptions {
-  String targetIdentityId;
+  String? targetIdentityId;
   S3DownloadFileOptions(
       {StorageAccessLevel accessLevel = StorageAccessLevel.guest,
       this.targetIdentityId})

@@ -36,7 +36,7 @@ class AmplifyStorageS3 extends StoragePluginInterface {
 
   static set instance(StoragePluginInterface instance) {
     PlatformInterface.verifyToken(instance, _token);
-    _instance = instance;
+    _instance = instance as AmplifyStorageS3;
   }
 
   @override
@@ -45,28 +45,28 @@ class AmplifyStorageS3 extends StoragePluginInterface {
   }
 
   @override
-  Future<UploadFileResult> uploadFile({@required UploadFileRequest request}) {
+  Future<UploadFileResult> uploadFile({required UploadFileRequest request}) {
     return _instance.uploadFile(request: request);
   }
 
   @override
-  Future<GetUrlResult> getUrl({@required GetUrlRequest request}) {
+  Future<GetUrlResult> getUrl({required GetUrlRequest request}) {
     return _instance.getUrl(request: request);
   }
 
   @override
-  Future<RemoveResult> remove({@required RemoveRequest request}) {
+  Future<RemoveResult> remove({required RemoveRequest request}) {
     return _instance.remove(request: request);
   }
 
   @override
-  Future<ListResult> list({@required ListRequest request}) {
+  Future<ListResult> list({required ListRequest request}) {
     return _instance.list(request: request);
   }
 
   @override
   Future<DownloadFileResult> downloadFile(
-      {@required DownloadFileRequest request}) {
+      {required DownloadFileRequest request}) {
     return _instance.downloadFile(request: request);
   }
 }
