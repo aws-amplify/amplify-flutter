@@ -148,10 +148,10 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   }) async {
     try {
       final Map<String, dynamic> result =
-          await (_channel.invokeMapMethod<String, dynamic>(
+      (await (_channel.invokeMapMethod<String, dynamic>(
         methodName,
         request.serializeAsMap(),
-      ) as FutureOr<Map<String, dynamic>>);
+      )))!;
 
       final errors = _deserializeGraphQLResponseErrors(result);
 
@@ -206,8 +206,8 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
 
     // Attempt switch to proper async
     try {
-      final Map<String, dynamic> data = await (_channel
-          .invokeMapMethod<String, dynamic>(methodName, inputsMap) as FutureOr<Map<String, dynamic>>);
+      final Map<String, dynamic> data = (await (_channel
+          .invokeMapMethod<String, dynamic>(methodName, inputsMap)))!;
       return _formatRestResponse(data);
     } on PlatformException catch (e) {
       throw _deserializeException(e);
