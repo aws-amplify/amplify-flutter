@@ -25,7 +25,6 @@ import 'src/types/models/model.dart';
 import 'src/types/query/query_field.dart';
 import 'src/types/models/subscription_event.dart';
 
-export 'src/types/models/flutter_serialized_model.dart';
 export 'src/types/models/model.dart';
 export 'src/types/models/model_schema.dart';
 export 'src/types/query/query_field.dart';
@@ -48,11 +47,11 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
 
   /// Constructs an AmplifyPlatform.
   DataStorePluginInterface(
-      {@required Object token, @required this.modelProvider})
+      {required Object token, required this.modelProvider})
       : super(token: token);
 
   Future<void> configureModelProvider(
-      {@required ModelProviderInterface modelProvider}) {
+      {required ModelProviderInterface modelProvider}) {
     throw UnimplementedError(
         'configureModelProvider() has not been implemented.');
   }
@@ -62,14 +61,14 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
         'streamController getter has not been implemented.');
   }
 
-  Future<void> configure({String configuration}) {
+  Future<void> configure({String? configuration}) {
     throw UnimplementedError('configure() has not been implemented.');
   }
 
   Future<List<T>> query<T extends Model>(ModelType<T> modelType,
-      {QueryPredicate where,
-      QueryPagination pagination,
-      List<QuerySortBy> sortBy}) {
+      {QueryPredicate? where,
+      QueryPagination? pagination,
+      List<QuerySortBy>? sortBy}) {
     throw UnimplementedError('query() has not been implemented.');
   }
 

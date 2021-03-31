@@ -22,7 +22,7 @@ import 'package:flutter/foundation.dart';
 class Comment extends Model {
   static const classType = const CommentType();
   final String id;
-  final Post post;
+  final Post? post;
   final String content;
 
   @override
@@ -34,9 +34,9 @@ class Comment extends Model {
   }
 
   const Comment._internal(
-      {@required this.id, this.post, @required this.content});
+      {required this.id, this.post, required this.content});
 
-  factory Comment({@required String id, Post post, @required String content}) {
+  factory Comment({required String id, Post? post, required String content}) {
     return Comment._internal(
         id: id == null ? UUID.getUUID() : id, post: post, content: content);
   }
@@ -70,7 +70,7 @@ class Comment extends Model {
     return buffer.toString();
   }
 
-  Comment copyWith({@required String id, Post post, @required String content}) {
+  Comment copyWith({required String id, Post? post, required String content}) {
     return Comment(
         id: id ?? this.id,
         post: post ?? this.post,

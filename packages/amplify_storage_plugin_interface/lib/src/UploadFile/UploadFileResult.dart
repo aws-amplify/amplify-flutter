@@ -18,5 +18,5 @@ import 'package:flutter/foundation.dart';
 class UploadFileResult {
   final String key;
 
-  UploadFileResult({@required this.key});
+  UploadFileResult({required this.key});
 }

@@ -27,7 +27,7 @@ class AmplifyHub {
   StreamSubscription listen(
       List<HubChannel> channels, Listener listener) {
     List<StreamSubscription> platformSubscriptions = [];
-    StreamController controller;
+    late StreamController controller;
 
     cancelPluginStreams() {
       platformSubscriptions.forEach((ps) {
@@ -40,7 +40,7 @@ class AmplifyHub {
           channels.forEach((c) {
             if (availableStreams[c] != null) {
               StreamSubscription subscription =
-                  availableStreams[c].listen((msg) {
+                  availableStreams[c]!.listen((msg) {
                 /// Emit events via Hub
                 controller.add(msg);
               });

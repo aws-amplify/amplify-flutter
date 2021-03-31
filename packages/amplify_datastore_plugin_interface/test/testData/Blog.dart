@@ -24,7 +24,7 @@ class Blog extends Model {
   static const classType = const BlogType();
   final String id;
   final String name;
-  final List<Post> posts;
+  final List<Post>? posts;
 
   @override
   getInstanceType() => classType;
@@ -34,9 +34,9 @@ class Blog extends Model {
     return id;
   }
 
-  const Blog._internal({@required this.id, @required this.name, this.posts});
+  const Blog._internal({required this.id, required this.name, this.posts});
 
-  factory Blog({@required String id, @required String name, List<Post> posts}) {
+  factory Blog({required String id, required String name, List<Post>? posts}) {
     return Blog._internal(
         id: id == null ? UUID.getUUID() : id,
         name: name,
@@ -72,7 +72,7 @@ class Blog extends Model {
   }
 
   Blog copyWith(
-      {@required String id, @required String name, List<Post> posts}) {
+      {required String id, required String name, List<Post>? posts}) {
     return Blog(
         id: id ?? this.id, name: name ?? this.name, posts: posts ?? this.posts);
   }

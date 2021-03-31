@@ -20,7 +20,7 @@ import './SignUpOptions.dart';
 class ResendSignUpCodeRequest {
   String username;
 
-  ResendSignUpCodeRequest({@required this.username,});
+  ResendSignUpCodeRequest({required this.username,});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     pendingRequest['username'] = username;

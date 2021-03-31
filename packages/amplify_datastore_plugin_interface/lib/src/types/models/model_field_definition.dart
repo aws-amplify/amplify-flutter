@@ -25,25 +25,25 @@ class ModelFieldDefinition {
   final ModelFieldType type;
   final bool isRequired;
   final bool isArray;
-  final ModelAssociation association;
-  final List<AuthRule> authRules;
+  final ModelAssociation? association;
+  final List<AuthRule>? authRules;
 
   const ModelFieldDefinition({
-    this.name,
-    this.type,
-    this.isRequired,
+    required this.name,
+    required this.type,
+    required this.isRequired,
     this.isArray = false,
     this.association,
     this.authRules,
   });
 
   static ModelFieldDefinition field(
-      {@required QueryField key,
+      {required QueryField key,
       bool isRequired = true,
       bool isArray = false,
       ModelFieldType ofType = const ModelFieldType(ModelFieldTypeEnum.string),
-      ModelAssociation association,
-      List<AuthRule> authRules}) {
+      ModelAssociation? association,
+      List<AuthRule>? authRules}) {
     return ModelFieldDefinition(
         name: key.fieldName,
         type: ofType,
@@ -66,10 +66,10 @@ class ModelFieldDefinition {
   }
 
   static ModelFieldDefinition hasMany({
-    @required QueryField key,
+    required QueryField key,
     bool isRequired = true,
-    @required String ofModelName,
-    @required QueryField associatedKey,
+    required String ofModelName,
+    required QueryField associatedKey,
   }) {
     return field(
         key: key,
@@ -84,10 +84,10 @@ class ModelFieldDefinition {
   }
 
   static ModelFieldDefinition hasOne({
-    @required QueryField key,
+    required QueryField key,
     bool isRequired = true,
-    @required String ofModelName,
-    @required QueryField associatedKey,
+    required String ofModelName,
+    required QueryField associatedKey,
   }) {
     return field(
         key: key,
@@ -101,18 +101,18 @@ class ModelFieldDefinition {
   }
 
   static ModelFieldDefinition belongsTo(
-      {@required QueryField key,
+      {required QueryField key,
       bool isRequired: true,
-      @required String ofModelName,
-      QueryField associatedKey,
-      String targetName}) {
+      required String ofModelName,
+      QueryField? associatedKey,
+      String? targetName}) {
     // Extra code needed due to lack of nullability support
-    String associatedName;
-    String associatedType;
+    String? associatedName;
+    String? associatedType;
 
     associatedName = associatedKey?.fieldName;
     associatedType = associatedKey?.fieldType != null
-        ? associatedKey.fieldType.ofModelName
+        ? associatedKey!.fieldType!.ofModelName
         : ofModelName;
 
     return field(

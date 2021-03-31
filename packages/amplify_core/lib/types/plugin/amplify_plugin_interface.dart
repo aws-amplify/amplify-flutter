@@ -19,5 +19,5 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 /// Interface for all amplify plugins
 abstract class AmplifyPluginInterface extends PlatformInterface {
   /// Constructs a plugin
-  AmplifyPluginInterface({@required Object token}) : super(token: token);
+  AmplifyPluginInterface({required Object token}) : super(token: token);
 }

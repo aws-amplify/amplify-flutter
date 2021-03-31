@@ -18,15 +18,15 @@ import './GetUrlOptions.dart';
 
 class GetUrlRequest {
   String key;
-  GetUrlOptions options;
+  GetUrlOptions? options;
 
-  GetUrlRequest({@required this.key, this.options});
+  GetUrlRequest({required this.key, this.options});
 
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> result = <String, dynamic>{};
     result['key'] = key;
     if (options != null) {
-      result['options'] = options.serializeAsMap();
+      result['options'] = options!.serializeAsMap();
     }
     return result;
   }

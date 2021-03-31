@@ -20,9 +20,9 @@ class ConfirmPasswordRequest {
   String username;
   String newPassword;
   String confirmationCode;
-  PasswordOptions options;
+  PasswordOptions? options;
 
-  ConfirmPasswordRequest({@required this.username, @required this.newPassword, @required this.confirmationCode, this.options});
+  ConfirmPasswordRequest({required this.username, required this.newPassword, required this.confirmationCode, this.options});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     pendingRequest['username'] = username;
@@ -30,7 +30,7 @@ class ConfirmPasswordRequest {
     pendingRequest['confirmationCode'] = confirmationCode;
 
     if (options != null) {
-      pendingRequest['options'] = options.serializeAsMap();
+      pendingRequest['options'] = options!.serializeAsMap();
     }
     return pendingRequest;
   }

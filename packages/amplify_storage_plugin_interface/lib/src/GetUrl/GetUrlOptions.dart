@@ -19,7 +19,7 @@ import '../Storage/StorageOptions.dart';
 
 class GetUrlOptions extends StorageOptions {
   StorageAccessLevel accessLevel;
-  int expires;
+  int? expires;
 
   GetUrlOptions({this.accessLevel = StorageAccessLevel.guest, this.expires})
       : super();

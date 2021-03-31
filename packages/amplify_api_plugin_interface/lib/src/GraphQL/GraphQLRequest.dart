@@ -22,7 +22,7 @@ class GraphQLRequest<T> {
   Map<String, dynamic> variables = {};
   String cancelToken = UUID.getUUID();
 
-  GraphQLRequest({@required this.document, Map<String, dynamic> variables}) {
+  GraphQLRequest({required this.document, Map<String, dynamic>? variables}) {
     if (variables != null) {
       this.variables = variables;
     }

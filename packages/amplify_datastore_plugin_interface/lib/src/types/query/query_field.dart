@@ -26,9 +26,9 @@ part 'query_sort.dart';
 
 class QueryField {
   final String fieldName;
-  final ModelFieldType fieldType;
+  final ModelFieldType? fieldType;
 
-  const QueryField({@required this.fieldName, this.fieldType});
+  const QueryField({required this.fieldName, this.fieldType});
 
   // Equal operation with operator overloading
   QueryPredicateOperation eq(dynamic value) => new QueryPredicateOperation(

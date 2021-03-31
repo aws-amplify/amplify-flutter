@@ -18,10 +18,10 @@ import 'package:flutter/foundation.dart';
 import './RestResponse.dart';
 
 class RestOperation {
-  Function _cancel;
+  late Function _cancel;
   Future<RestResponse> response;
 
-  RestOperation({@required this.response, @required Function cancel}) {
+  RestOperation({required this.response, required Function cancel}) {
     _cancel = cancel;
   }
 

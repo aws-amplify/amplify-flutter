@@ -19,16 +19,12 @@ import 'model_field_definition.dart';
 import 'model_schema.dart';
 
 class ModelSchemaDefinition {
-  String name;
-  String pluralName;
-  List<AuthRule> authRules;
-  Map<String, ModelField> fields;
+  String? name;
+  String? pluralName;
+  List<AuthRule>? authRules;
+  late Map<String, ModelField> fields;
 
-  ModelSchemaDefinition({
-    this.name,
-    this.pluralName,
-    this.authRules,
-  }) {
+  ModelSchemaDefinition({this.name, this.pluralName, this.authRules}) {
     fields = Map<String, ModelField>();
   }
 
@@ -38,7 +34,7 @@ class ModelSchemaDefinition {
 
   ModelSchema build() {
     return ModelSchema(
-      name: name,
+      name: name!,
       pluralName: pluralName,
       authRules: authRules,
       fields: fields,

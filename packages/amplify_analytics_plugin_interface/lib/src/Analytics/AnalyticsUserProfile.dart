@@ -16,18 +16,18 @@
 import '../../amplify_analytics_plugin_interface.dart';
 
 class AnalyticsUserProfile {
-  String name;
-  String email;
-  String plan;
-  AnalyticsUserProfileLocation location;
-  AnalyticsProperties properties;
+  String? name;
+  String? email;
+  String? plan;
+  AnalyticsUserProfileLocation? location;
+  AnalyticsProperties? properties;
 
   AnalyticsUserProfile(
-      {String name,
-      String email,
-      String plan,
-      AnalyticsUserProfileLocation location,
-      AnalyticsProperties analyticsProperties}) {
+      {String? name,
+      String? email,
+      String? plan,
+      AnalyticsUserProfileLocation? location,
+      AnalyticsProperties? analyticsProperties}) {
     this.name = name;
     this.email = email;
     this.plan = plan;
@@ -35,8 +35,8 @@ class AnalyticsUserProfile {
     this.properties = analyticsProperties;
   }
 
-  Map<String, Object> getAllProperties() {
-    Map<String, Object> allProperties = {};
+  Map<String, Object?> getAllProperties() {
+    Map<String, Object?> allProperties = {};
 
     if (name != null) {
       allProperties["name"] = name;
@@ -48,11 +48,11 @@ class AnalyticsUserProfile {
       allProperties["plan"] = plan;
     }
     if (location != null) {
-      allProperties["location"] = location.getAllProperties();
+      allProperties["location"] = location!.getAllProperties();
     }
     if (properties != null) {
-      allProperties["propertiesMap"] = properties.getAllProperties();
-      allProperties["propertiesTypesMap"] = properties.getAllPropertiesTypes();
+      allProperties["propertiesMap"] = properties!.getAllProperties();
+      allProperties["propertiesTypesMap"] = properties!.getAllPropertiesTypes();
     }
 
     return allProperties;

@@ -18,8 +18,8 @@ import './ConfirmSignInOptions.dart';
 
 class ConfirmSignInRequest {
   String confirmationValue;
-  ConfirmSignInOptions options;
-  ConfirmSignInRequest({@required this.confirmationValue, this.options});
+  ConfirmSignInOptions? options;
+  ConfirmSignInRequest({required this.confirmationValue, this.options});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     pendingRequest["confirmationCode"] = confirmationValue;

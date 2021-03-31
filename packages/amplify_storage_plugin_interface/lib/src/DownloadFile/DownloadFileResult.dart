@@ -19,5 +19,5 @@ import 'dart:io';
 class DownloadFileResult {
   File file;
 
-  DownloadFileResult({@required this.file});
+  DownloadFileResult({required this.file});
 }

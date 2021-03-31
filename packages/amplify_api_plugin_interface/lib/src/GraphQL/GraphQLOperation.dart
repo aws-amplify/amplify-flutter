@@ -17,10 +17,10 @@ import 'package:flutter/foundation.dart';
 import '../types.dart';
 
 class GraphQLOperation<T> {
-  Function _cancel;
+  late Function _cancel;
   Future<GraphQLResponse<T>> response;
 
-  GraphQLOperation({@required this.response, @required Function cancel}) {
+  GraphQLOperation({required this.response, required Function cancel}) {
     _cancel = cancel;
   }
 

@@ -18,8 +18,8 @@ import 'package:flutter/foundation.dart';
 import '../types/AuthCodeDeliveryDetails.dart';
 
 class ResendSignUpCodeResult { 
-  AuthCodeDeliveryDetails codeDeliveryDetails;
-  ResendSignUpCodeResult({@required codeDeliveryDetails}) {
+  late AuthCodeDeliveryDetails codeDeliveryDetails;
+  ResendSignUpCodeResult({required codeDeliveryDetails}) {
     this.codeDeliveryDetails = AuthCodeDeliveryDetails(
       attributeName: codeDeliveryDetails["attributeName"] ?? "",
       deliveryMedium: codeDeliveryDetails["deliveryMedium"] ?? "",

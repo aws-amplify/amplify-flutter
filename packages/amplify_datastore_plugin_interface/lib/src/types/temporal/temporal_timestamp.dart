@@ -20,7 +20,7 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 /// Negative values are also accepted and these represent the number of seconds
 /// til 1970-01-01T00:00Z.
 class TemporalTimestamp {
-  int _secondsSinceEpoch;
+  late int _secondsSinceEpoch;
 
   /// Constructs a new TemporalTimestamp at the current date.
   static TemporalTimestamp now() {

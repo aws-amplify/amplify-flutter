@@ -19,5 +19,5 @@ import 'package:flutter/foundation.dart';
 class GraphQLResponseError {
   String message;
 
-  GraphQLResponseError({@required this.message});
+  GraphQLResponseError({required this.message});
 }

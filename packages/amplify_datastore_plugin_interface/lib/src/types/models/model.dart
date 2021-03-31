@@ -23,7 +23,7 @@ abstract class Model {
 
   ModelType getInstanceType();
 
-  const Model({this.id});
+  const Model({required this.id});
 
   String getId() {
     return id;
@@ -32,7 +32,7 @@ abstract class Model {
   Map<String, dynamic> toJson();
 
   static ModelSchema defineSchema(
-      {@required Function(ModelSchemaDefinition) define}) {
+      {required Function(ModelSchemaDefinition) define}) {
     var definition = ModelSchemaDefinition();
 
     define(definition);
@@ -84,7 +84,7 @@ abstract class ModelType<T extends Model> {
   // Checks and casts.
   bool isInstance(Object o) => o is T;
   T cast(Object o) => o as T;
-  T safeCast(Object o) => o is T ? o : null;
+  T? safeCast(Object o) => o is T ? o : null;
 
   // Subtyping checks.
   bool operator >=(ModelType other) => other is ModelType<T>;

@@ -18,7 +18,7 @@ import 'HubEventPayload.dart';
 
 class HubEvent {
   String eventName;
-  HubEventPayload payload;
+  HubEventPayload? payload;
 
-  HubEvent(String this.eventName, { HubEventPayload this.payload }){}
+  HubEvent(String this.eventName, { HubEventPayload? this.payload }){}
 }

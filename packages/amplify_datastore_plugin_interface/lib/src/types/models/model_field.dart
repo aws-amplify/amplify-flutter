@@ -16,6 +16,7 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 
 import 'auth_rule.dart';
 import 'model_association.dart';
@@ -24,37 +25,37 @@ import 'model_field_type.dart';
 class ModelField {
   // Name of the field is the name of the instance variable
   // of the Model class.
-  final String name;
+  final String? name;
 
   // Type of the field is the data type of the instance variables
   // of the Model class.
-  final ModelFieldType type;
+  final ModelFieldType? type;
 
   // If the field is a required or an optional field
-  final bool isRequired;
+  final bool? isRequired;
 
-  final bool isArray;
+  final bool? isArray;
+
+  final ModelAssociation? association; //opt
 
   // An array of rules for owner based authorization
-  final List<AuthRule> authRules;
-
-  final ModelAssociation association; //opt
+  final List<AuthRule>? authRules;
 
   const ModelField(
-      {this.name,
-      this.type,
-      this.isRequired,
+      {required this.name,
+      required this.type,
+      required this.isRequired,
       this.isArray = false,
       this.association,
       this.authRules});
 
   ModelField copyWith({
-    String name,
-    String type,
-    bool isRequired,
-    bool isArray,
-    ModelAssociation association,
-    List<AuthRule> authRules,
+    String? name,
+    ModelFieldType? type,
+    bool? isRequired,
+    bool? isArray,
+    ModelAssociation? association,
+    List<AuthRule>? authRules,
   }) {
     return ModelField(
       name: name ?? this.name,
@@ -69,18 +70,16 @@ class ModelField {
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {
       'name': name,
-      'type': type.toMap(),
+      'type': type!.toMap(),
       'isRequired': isRequired,
       'isArray': isArray,
       'association': association?.toMap(),
-      'authRules': authRules?.map((x) => x?.toMap())?.toList(),
+      'authRules': authRules?.map((x) => x.toMap()).toList(),
     };
     return Map.from(map)..removeWhere((k, v) => v == null);
   }
 
   factory ModelField.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-
     return ModelField(
       name: map['name'],
       type: map['type'],

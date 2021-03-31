@@ -20,16 +20,16 @@ import 'dart:io';
 class DownloadFileRequest {
   String key;
   File local;
-  DownloadFileOptions options;
+  DownloadFileOptions? options;
 
-  DownloadFileRequest({@required this.key, @required this.local, this.options});
+  DownloadFileRequest({required this.key, required this.local, this.options});
 
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> result = <String, dynamic>{};
     result['path'] = local.absolute.path;
     result['key'] = key;
     if (options != null) {
-      result['options'] = options.serializeAsMap();
+      result['options'] = options!.serializeAsMap();
     }
     return result;
   }

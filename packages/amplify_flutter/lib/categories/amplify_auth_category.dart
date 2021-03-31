@@ -27,7 +27,7 @@ class AuthCategory {
   }
 
   Future<SignUpResult> signUp(
-      {@required String username, @required password, SignUpOptions options}) {
+      {required String username, required password, required SignUpOptions options}) {
     var request =
         SignUpRequest(username: username, password: password, options: options);
     return plugins.length == 1
@@ -36,9 +36,9 @@ class AuthCategory {
   }
 
   Future<SignUpResult> confirmSignUp(
-      {@required String username,
-      @required String confirmationCode,
-      ConfirmSignUpOptions options}) {
+      {required String username,
+      required String confirmationCode,
+      ConfirmSignUpOptions? options}) {
     var request = ConfirmSignUpRequest(
         username: username,
         confirmationCode: confirmationCode,
@@ -48,7 +48,7 @@ class AuthCategory {
         : throw _pluginNotAddedException("Auth");
   }
 
-  Future<ResendSignUpCodeResult> resendSignUpCode({@required String username}) {
+  Future<ResendSignUpCodeResult> resendSignUpCode({required String username}) {
     var request = ResendSignUpCodeRequest(username: username);
     return plugins.length == 1
         ? plugins[0].resendSignUpCode(request: request)
@@ -56,9 +56,9 @@ class AuthCategory {
   }
 
   Future<SignInResult> signIn(
-      {@required String username,
-      @required String password,
-      SignInOptions options}) {
+      {required String username,
+      required String password,
+      SignInOptions? options}) {
     var request =
         SignInRequest(username: username, password: password, options: options);
     return plugins.length == 1
@@ -67,7 +67,7 @@ class AuthCategory {
   }
 
   Future<SignInResult> confirmSignIn(
-      {@required String confirmationValue, ConfirmSignInOptions options}) {
+      {required String confirmationValue, ConfirmSignInOptions? options}) {
     var request = ConfirmSignInRequest(
         confirmationValue: confirmationValue, options: options);
     return plugins.length == 1
@@ -75,7 +75,7 @@ class AuthCategory {
         : throw _pluginNotAddedException("Auth");
   }
 
-  Future<SignOutResult> signOut({SignOutOptions options}) {
+  Future<SignOutResult> signOut({SignOutOptions? options}) {
     var request = SignOutRequest(options: options);
     return plugins.length == 1
         ? plugins[0].signOut(request: request)
@@ -83,9 +83,9 @@ class AuthCategory {
   }
 
   Future<UpdatePasswordResult> updatePassword(
-      {@required String oldPassword,
-      @required String newPassword,
-      PasswordOptions options}) {
+      {required String oldPassword,
+      required String newPassword,
+      PasswordOptions? options}) {
     var request = UpdatePasswordRequest(
         oldPassword: oldPassword, newPassword: newPassword, options: options);
     return plugins.length == 1
@@ -94,7 +94,7 @@ class AuthCategory {
   }
 
   Future<ResetPasswordResult> resetPassword(
-      {@required String username, PasswordOptions options}) {
+      {required String username, PasswordOptions? options}) {
     var request = ResetPasswordRequest(username: username, options: options);
     return plugins.length == 1
         ? plugins[0].resetPassword(request: request)
@@ -102,10 +102,10 @@ class AuthCategory {
   }
 
   Future<UpdatePasswordResult> confirmPassword(
-      {@required String username,
-      @required String newPassword,
-      @required String confirmationCode,
-      PasswordOptions options}) {
+      {required String username,
+      required String newPassword,
+      required String confirmationCode,
+      PasswordOptions? options}) {
     var request = ConfirmPasswordRequest(
         username: username,
         newPassword: newPassword,
@@ -123,22 +123,21 @@ class AuthCategory {
         : throw _pluginNotAddedException("Auth");
   }
 
-  Future<List<AuthUserAttribute>> fetchUserAttributes(
-      {AuthUserAttributeOptions options}) {
+  Future<List<AuthUserAttribute>> fetchUserAttributes({AuthUserAttributeOptions? options}) {
     var request = AuthUserAttributeRequest(options: options);
     return plugins.length == 1
         ? plugins[0].fetchUserAttributes(request: request)
         : throw _pluginNotAddedException("Auth");
   }
 
-  Future<AuthSession> fetchAuthSession({AuthSessionOptions options}) {
+  Future<AuthSession> fetchAuthSession({AuthSessionOptions? options}) {
     var request = AuthSessionRequest(options: options);
     return plugins.length == 1
         ? plugins[0].fetchAuthSession(request: request)
         : throw _pluginNotAddedException("Auth");
   }
 
-  Future<SignInResult> signInWithWebUI({AuthProvider provider}) {
+  Future<SignInResult> signInWithWebUI({AuthProvider? provider}) {
     var request = SignInWithWebUIRequest(provider: provider);
     return plugins.length == 1
         ? plugins[0].signInWithWebUI(request: request)

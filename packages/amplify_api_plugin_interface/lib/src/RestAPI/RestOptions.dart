@@ -17,22 +17,19 @@ import 'package:flutter/foundation.dart';
 import 'dart:typed_data';
 
 class RestOptions {
-  String apiName;
+  String? apiName;
   String path;
-  Uint8List body;
-  Map<String, String> queryParameters;
-  Map<String, String> headers;
+  Uint8List? body;
+  Map<String, String>? queryParameters;
+  Map<String, String>? headers;
 
   RestOptions({
     this.apiName,
-    @required this.path,
+    required this.path,
     this.body,
     this.queryParameters,
     this.headers,
-  }) {
-    if (path == null)
-      throw new Exception("Error no path provided to RestOptions");
-  }
+  });
 
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> restOptionsMap = <String, dynamic>{};
@@ -41,9 +38,8 @@ class RestOptions {
       restOptionsMap["apiName"] = apiName;
     }
 
-    if (this.path != null) {
-      restOptionsMap["path"] = path;
-    }
+    restOptionsMap["path"] = path;
+
     if (this.body != null) {
       restOptionsMap["body"] = body;
     }

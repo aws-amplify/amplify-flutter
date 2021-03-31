@@ -16,12 +16,12 @@
 import './AuthUserAttributeOptions.dart';
 
 class AuthUserAttributeRequest {
-  AuthUserAttributeOptions options;
+  AuthUserAttributeOptions? options;
   AuthUserAttributeRequest({this.options});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     if (options != null) {
-      pendingRequest['options'] = options.serializeAsMap();
+      pendingRequest['options'] = options!.serializeAsMap();
     }
     return pendingRequest;
   }

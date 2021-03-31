@@ -20,10 +20,10 @@ class AmplifyException implements Exception {
   final String message;
 
   /// How to recover from this exception (Optional)
-  final String recoverySuggestion;
+  final String? recoverySuggestion;
 
   /// Underlying cause of this exception helpful for debugging (Optional)
-  final String underlyingException;
+  final String? underlyingException;
 
   /// Named constructor
   const AmplifyException(this.message,
@@ -32,7 +32,7 @@ class AmplifyException implements Exception {
   /// Instantiates and return a new `AmplifyException` from the
   /// serialized exception data
   static AmplifyException fromMap(Map<String, String> serializedException) {
-    return AmplifyException(serializedException["message"],
+    return AmplifyException(serializedException["message"]!,
         recoverySuggestion: serializedException["recoverySuggestion"] ?? null,
         underlyingException:
             serializedException["underlyingException"] ?? null);

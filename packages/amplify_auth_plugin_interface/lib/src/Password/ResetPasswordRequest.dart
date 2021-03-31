@@ -17,8 +17,8 @@ import './PasswordOptions.dart';
 import 'package:flutter/foundation.dart';
 
 class ResetPasswordRequest {
-  String username;
-  PasswordOptions options;
+  String? username;
+  PasswordOptions? options;
 
   ResetPasswordRequest({this.username, this.options});
   Map<String, dynamic> serializeAsMap() {
@@ -27,7 +27,7 @@ class ResetPasswordRequest {
       pendingRequest['username'] = username;
     }
     if (options != null) {
-      pendingRequest['options'] = options.serializeAsMap();
+      pendingRequest['options'] = options!.serializeAsMap();
     }
     return pendingRequest;
   }

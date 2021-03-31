@@ -39,7 +39,7 @@ class Temporal {
         caseSensitive: false,
         multiLine: false);
 
-    var match = regExp.matchAsPrefix(offsetString);
+    var match = regExp.matchAsPrefix(offsetString)!;
 
     int sign = match.group(1) == "+" ? 1 : -1;
     int hours = sign * Temporal.getIntOr0(match.group(2));
@@ -48,7 +48,7 @@ class Temporal {
     return Duration(hours: hours, minutes: minutes, seconds: seconds);
   }
 
-  static int getIntOr0(String toParse) {
+  static int getIntOr0(String? toParse) {
     return toParse != null ? int.parse(toParse) : 0;
   }
 

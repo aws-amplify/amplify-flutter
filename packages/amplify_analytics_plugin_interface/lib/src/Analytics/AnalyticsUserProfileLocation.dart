@@ -15,15 +15,15 @@
 
 class AnalyticsUserProfileLocation {
 
-  double latitude;
-  double longitude;
-  String postalCode;
-  String city;
-  String region;
-  String country;
+  double? latitude;
+  double? longitude;
+  String? postalCode;
+  String? city;
+  String? region;
+  String? country;
 
   AnalyticsUserProfileLocation({
-    double latitude, double longitude, String postalCode, String city, String region, String country
+    double? latitude, double? longitude, String? postalCode, String? city, String? region, String? country
   }){
     this.latitude = latitude;
     this.longitude = longitude;
@@ -33,9 +33,9 @@ class AnalyticsUserProfileLocation {
     this.country = country;
   }
 
-  Map<String, Object> getAllProperties(){
+  Map<String, Object?> getAllProperties(){
 
-    Map<String, Object> allProperties = {};
+    Map<String, Object?> allProperties = {};
 
     if(latitude != null ){
       allProperties["latitude"] = latitude;
