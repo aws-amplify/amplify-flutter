@@ -33,7 +33,7 @@ class AmplifyAPI extends APIPluginInterface {
 
   static set instance(APIPluginInterface instance) {
     PlatformInterface.verifyToken(instance, _token);
-    _instance = instance;
+    _instance = instance as AmplifyAPI;
   }
 
   @override
@@ -43,21 +43,21 @@ class AmplifyAPI extends APIPluginInterface {
 
   // ====== GraphQL =======
   @override
-  GraphQLOperation<T> query<T>({@required GraphQLRequest<T> request}) {
+  GraphQLOperation<T> query<T>({required GraphQLRequest<T> request}) {
     return _instance.query(request: request);
   }
 
   @override
-  GraphQLOperation<T> mutate<T>({@required GraphQLRequest<T> request}) {
+  GraphQLOperation<T> mutate<T>({required GraphQLRequest<T> request}) {
     return _instance.mutate(request: request);
   }
 
   GraphQLSubscriptionOperation<T> subscribe<T>(
-      {@required GraphQLRequest<T> request,
-      @required Function(GraphQLResponse<T>) onData,
-      Function() onEstablished,
-      Function(dynamic) onError,
-      Function() onDone}) {
+      {required GraphQLRequest<T> request,
+      required Function(GraphQLResponse<T>) onData,
+      Function()? onEstablished,
+      Function(dynamic)? onError,
+      Function()? onDone}) {
     return _instance.subscribe(
         request: request,
         onEstablished: onEstablished,
@@ -73,32 +73,32 @@ class AmplifyAPI extends APIPluginInterface {
   }
 
   @override
-  RestOperation get({@required RestOptions restOptions}) {
+  RestOperation get({required RestOptions restOptions}) {
     return _instance.get(restOptions: restOptions);
   }
 
   @override
-  RestOperation put({@required RestOptions restOptions}) {
+  RestOperation put({required RestOptions restOptions}) {
     return _instance.put(restOptions: restOptions);
   }
 
   @override
-  RestOperation post({@required RestOptions restOptions}) {
+  RestOperation post({required RestOptions restOptions}) {
     return _instance.post(restOptions: restOptions);
   }
 
   @override
-  RestOperation delete({@required RestOptions restOptions}) {
+  RestOperation delete({required RestOptions restOptions}) {
     return _instance.delete(restOptions: restOptions);
   }
 
   @override
-  RestOperation head({@required RestOptions restOptions}) {
+  RestOperation head({required RestOptions restOptions}) {
     return _instance.head(restOptions: restOptions);
   }
 
   @override
-  RestOperation patch({@required RestOptions restOptions}) {
+  RestOperation patch({required RestOptions restOptions}) {
     return _instance.patch(restOptions: restOptions);
   }
 }
