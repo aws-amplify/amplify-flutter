@@ -13,10 +13,13 @@
  * permissions and limitations under the License.
  */
 
-
 import '../types/AuthNextStep.dart';
 
 class AuthNextSignInStep extends AuthNextStep {
   String signInStep;
-  AuthNextSignInStep({required additionalInfo, required codeDeliveryDetails, required this.signInStep}) : super(additionalInfo: additionalInfo, codeDeliveryDetails: codeDeliveryDetails);
+  AuthNextSignInStep(
+      {additionalInfo, required codeDeliveryDetails, required this.signInStep})
+      : super(
+            additionalInfo: additionalInfo,
+            codeDeliveryDetails: codeDeliveryDetails);
 }
