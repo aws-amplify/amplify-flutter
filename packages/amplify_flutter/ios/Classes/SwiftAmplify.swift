@@ -45,7 +45,7 @@ public class SwiftAmplify: NSObject, FlutterPlugin {
     private func onConfigure(result: FlutterResult, version: String, configuration: String) {
 
         if (isConfigured) {
-            ErrorUtil.postReloadErrorToFlutterChannel(
+            ErrorUtil.postRestartErrorToFlutterChannel(
                             result: result,
                             errorCode: HotReloadExceptionCode.CONFIGURED,
                             details: createSerializedError(

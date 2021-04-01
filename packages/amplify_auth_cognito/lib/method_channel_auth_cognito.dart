@@ -32,6 +32,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     try {
       return await _channel.invokeMethod('addPlugin');
     } on PlatformException catch (e) {
+      // Swallow PluginAddedHotRestartException to handle hot restart
       if (e.code == AmplifyExceptionMessages.pluginHotRestartException) {
         print("The auth plugin was detected in the underlying platform.");
       } else {
