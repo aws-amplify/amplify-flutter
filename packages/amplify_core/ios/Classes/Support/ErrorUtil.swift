@@ -16,6 +16,7 @@
 import Flutter
 
 public class ErrorUtil {
+    
     public static func postErrorToFlutterChannel(result: FlutterResult,
                                           errorCode: String,
                                           details: Dictionary<String, String>)  {
@@ -32,5 +33,13 @@ public class ErrorUtil {
         serializedException["recoverySuggestion"] = recoverySuggestion
         serializedException["underlyingException"] = underlyingError
         return serializedException
+    }
+    
+    public static func postRestartErrorToFlutterChannel(result: FlutterResult,
+                                          errorCode: HotReloadExceptionCode,
+                                          details: Dictionary<String, String>)  {
+        result(FlutterError(code: errorCode.rawValue,
+                            message: ErrorMessages.defaultFallbackErrorMessage,
+                            details: details))
     }
 }

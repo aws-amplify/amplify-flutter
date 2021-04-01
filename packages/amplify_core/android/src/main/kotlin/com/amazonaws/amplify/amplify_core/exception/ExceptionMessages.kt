@@ -41,5 +41,17 @@ class ExceptionMessages {
         @JvmStatic
         val missingAttribute: String =
             "Ensure that %s attribute is present"
+
+        @JvmStatic
+        val hotRestartConfigExceptionMessage: String =
+            "An exception has occurred configuring Amplify, most likely because of a hot restart."
+
+        @JvmStatic
+        val hotRestartPluginExceptionMessage: String =
+                "An exception has occurred adding the %s plugin, most likely because of a hot restart."
+
+        @JvmStatic
+        val hotRestartRecoverySuggestion: String =
+            "You should not be encountering this exception. $createGithubIssueString"
     }
 }

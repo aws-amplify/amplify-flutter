@@ -27,6 +27,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
     private let cognito: AuthCognitoBridge
     private let authCognitoHubEventStreamHandler: AuthCognitoHubEventStreamHandler?
     var errorHandler = AuthErrorHandler()
+    private var pluginAdded: Bool = false;
     
     init(cognito: AuthCognitoBridge = AuthCognitoBridge(),
          authCognitoHubEventStreamHandler: AuthCognitoHubEventStreamHandler = AuthCognitoHubEventStreamHandler()) {
@@ -62,8 +63,21 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         if(call.method == "addPlugin"){
+                if (pluginAdded) {
+                    return ErrorUtil.postErrorToFlutterChannel(
+                        result: result,
+                        errorCode: "PluginHotRestartException",
+                        details: [
+                            "message" : "pluginAddded",
+                            "recoverySuggestion" : "pluginAdded"
+
+                        ]
+                    )
+                }
+
                 do {
                     try Amplify.add(plugin: AWSCognitoAuthPlugin() )
+                    pluginAdded = true
                     result(true)
                 } catch let error{
                     if(error is AuthError){

@@ -16,6 +16,7 @@
 package com.amazonaws.amplify.amplify_core.exception
 
 import androidx.annotation.NonNull
+import androidx.annotation.Nullable
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.datastore.DataStoreException
 import com.google.gson.GsonBuilder
@@ -97,6 +98,18 @@ class ExceptionUtil {
                 is AmplifyException -> createSerializedError(e)
                 else -> createSerializedUnrecognizedError(e)
             }
+            postExceptionToFlutterChannel(flutterResult, errorCode,
+                    errorDetails)
+        }
+
+        @JvmStatic
+        fun handleRestartException( @NonNull e : HotReloadExceptionCode, @NonNull flutterResult : Result, @NonNull message: String, @NonNull suggestion: String){
+            var errorDetails: Map<String, Any?> = createSerializedError(
+                    message,
+                    suggestion,
+                    null)
+            var errorCode = e.code
+
             postExceptionToFlutterChannel(flutterResult, errorCode,
                     errorDetails)
         }

@@ -22,6 +22,8 @@ import amplify_core
 
 public class SwiftAmplify: NSObject, FlutterPlugin {
 
+    var isConfigured: Bool = false;
+
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "com.amazonaws.amplify/amplify", binaryMessenger: registrar.messenger())
         let instance = SwiftAmplify()
@@ -41,10 +43,22 @@ public class SwiftAmplify: NSObject, FlutterPlugin {
     }
 
     private func onConfigure(result: FlutterResult, version: String, configuration: String) {
+
+        if (isConfigured) {
+            ErrorUtil.postReloadErrorToFlutterChannel(
+                            result: result,
+                            errorCode: HotReloadExceptionCode.CONFIGURED,
+                            details: createSerializedError(
+                                message: ErrorMessages.hotRestartConfigExceptionMessage,
+                                recoverySuggestion: ErrorMessages.hotRestartRecoverySuggestion,
+                                underlyingError: nil))
+                    }
+
         do {
             let amplifyConfiguration = try JSONDecoder().decode(AmplifyConfiguration.self, from: configuration.data(using: .utf8)!)
             AmplifyAWSServiceConfiguration.addUserAgentPlatform(.flutter, version: version)
             try Amplify.configure(amplifyConfiguration)
+            isConfigured = true
             result(true)
         } catch let error as AnalyticsError {
             ErrorUtil.postErrorToFlutterChannel(

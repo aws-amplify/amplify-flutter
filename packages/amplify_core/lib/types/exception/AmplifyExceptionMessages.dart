@@ -28,4 +28,9 @@ class AmplifyExceptionMessages {
 
   static const missingExceptionMessage =
       'An unknown exception has happened. ' + _createGithubIssueString;
+
+  static const configHotRestartException = 'AmplifyConfiguredHotRestartException';
+
+  static const pluginHotRestartException = 'PluginAddedHotRestartException';
+
 }

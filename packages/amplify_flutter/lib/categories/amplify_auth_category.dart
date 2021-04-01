@@ -11,9 +11,14 @@ class AuthCategory {
   /// `Add plugin` method
   Future<void> addPlugin(AuthPluginInterface plugin) async {
     //TODO: Allow for multiple plugins to work simultaneously
-    if (plugins.length == 0) {
-      plugins.add(plugin);
-      await plugin.addPlugin();
+    if (plugins.length < 1) {
+      try {
+        await plugin.addPlugin();
+        plugins.add(plugin);
+      } catch (e) {
+        print(e);
+      }
+
     } else {
       throw AmplifyException("Auth plugin has already been added, " +
           "multiple plugins for Auth category are currently not supported.");

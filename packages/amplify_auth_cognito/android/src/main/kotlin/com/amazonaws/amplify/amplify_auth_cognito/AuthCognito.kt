@@ -40,7 +40,10 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthUser
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendSignUpCodeResult
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignInWithWebUIRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchUserAttributesResult
+import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
+import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleRestartException
+import com.amazonaws.amplify.amplify_core.exception.HotReloadExceptionCode
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthProvider
 import com.amplifyframework.auth.AuthSession
@@ -77,6 +80,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
   private val authCognitoHubEventStreamHandler: AuthCognitoHubEventStreamHandler
   var eventMessenger: BinaryMessenger? = null
   private lateinit var activityBinding: ActivityPluginBinding
+  private var pluginAdded: Boolean = false;
 
   constructor() {
       authCognitoHubEventStreamHandler = AuthCognitoHubEventStreamHandler()
@@ -134,13 +138,22 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
 
     if(call.method == "addPlugin"){
+      if (pluginAdded) {
+        return handleRestartException(
+                HotReloadExceptionCode.PLUGIN_ADDED,
+                result,
+                ExceptionMessages.hotRestartPluginExceptionMessage.format( "Auth" ),
+                ExceptionMessages.hotRestartRecoverySuggestion
+        )
+      }
       try {
         Amplify.addPlugin(AWSCognitoAuthPlugin())
         LOG.info("Added Auth plugin")
+        pluginAdded = true;
+        result.success(null)
       } catch (e: Exception) {
         handleAddPluginException("Auth", e, result)
       }
-      result.success(null)
       return
     }
 

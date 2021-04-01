@@ -46,7 +46,6 @@ class _MyAppState extends State<MyApp> {
   final newPasswordController = TextEditingController();
   StreamSubscription subscription;
 
-  bool _isAmplifyConfigured = false;
   AmplifyAuthCognito auth;
   String displayState;
   String authState = 'User not signed in';
@@ -56,6 +55,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    _configureAmplify();
   }
 
   void showResult(_authState) async {
@@ -82,7 +82,13 @@ class _MyAppState extends State<MyApp> {
 
   void _configureAmplify() async {
     auth = AmplifyAuthCognito();
-    await Amplify.addPlugin(auth);
+
+    // try {
+    //   await Amplify.addPlugin(auth);
+    // } catch (e) {
+    //   print(e);
+    // }
+
     var isSignedIn = false;
 
     subscription = Amplify.Hub.listen([HubChannel.Auth], (hubEvent) {
@@ -119,6 +125,13 @@ class _MyAppState extends State<MyApp> {
       print(
           'Amplify was already configured. Looks like app restarted on android.');
     }
+
+    try {
+      await Amplify.addPlugin(auth);
+    } catch (e) {
+      print(e);
+    }
+
     try {
       isSignedIn = await _isSignedIn();
     } on AmplifyException catch (e) {
@@ -126,7 +139,6 @@ class _MyAppState extends State<MyApp> {
     }
 
     setState(() {
-      _isAmplifyConfigured = true;
       displayState = isSignedIn ? 'SIGNED_IN' : 'SHOW_SIGN_IN';
       authState = isSignedIn ? 'User already signed in' : 'User not signed in';
     });
@@ -318,12 +330,6 @@ class _MyAppState extends State<MyApp> {
                           ConfirmResetWidget(showResult, changeDisplay,
                               setError, _backToSignIn),
                       if (this.displayState == "SIGNED_IN") showApp(),
-                      ElevatedButton(
-                        key: Key('configure-button'),
-                        onPressed:
-                            _isAmplifyConfigured ? null : _configureAmplify,
-                        child: const Text('configure'),
-                      ),
                       if (error != null) showErrors()
                     ])
               ],
