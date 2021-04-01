@@ -13,11 +13,9 @@
  * permissions and limitations under the License.
  */
 
-
-
 class AuthSession {
-  bool? isSignedIn;
-  AuthSession({this.isSignedIn}) {
+  bool isSignedIn;
+  AuthSession({required this.isSignedIn}) {
     this.isSignedIn = isSignedIn;
   }
 }
