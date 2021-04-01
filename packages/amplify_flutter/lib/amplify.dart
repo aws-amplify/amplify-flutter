@@ -183,6 +183,7 @@ class AmplifyClass extends PlatformInterface {
       }
     } on PlatformException catch (e) {
       if (e.code == AmplifyExceptionMessages.configHotRestartException) {
+        _isConfigured = true;
         print(
             "Configure has already been called, most likely because of a hot restart. Cannot re-configure.");
       } else if (e.code == 'AnalyticsException') {
