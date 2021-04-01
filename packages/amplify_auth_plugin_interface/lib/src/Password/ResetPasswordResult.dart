@@ -13,8 +13,8 @@
  * permissions and limitations under the License.
  */
 
+
 import './ResetPasswordStep.dart';
-import 'package:flutter/foundation.dart';
 
 class ResetPasswordResult { 
   bool isPasswordReset;

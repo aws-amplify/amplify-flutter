@@ -16,7 +16,7 @@
 library query_field;
 
 import 'package:amplify_datastore_plugin_interface/src/types/models/model_field_type.dart';
-import 'package:flutter/foundation.dart';
+
 import '../temporal/datetime_parse.dart';
 
 part 'query_field_operators.dart';

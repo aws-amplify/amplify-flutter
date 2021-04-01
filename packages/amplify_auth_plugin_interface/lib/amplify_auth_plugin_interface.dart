@@ -17,8 +17,6 @@ library amplify_auth_plugin_interface;
 
 import 'dart:async';
 import 'package:amplify_auth_plugin_interface/src/Session/AuthUserAttributeRequest.dart';
-import 'package:flutter/foundation.dart';
-import 'package:meta/meta.dart';
 import 'package:amplify_core/types/index.dart';
 import 'src/Session/AuthUserAttribute.dart';
 import 'src/types.dart';

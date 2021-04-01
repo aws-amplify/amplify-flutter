@@ -13,8 +13,8 @@
  * permissions and limitations under the License.
  */
 
+
 import './SignUpOptions.dart';
-import 'package:flutter/foundation.dart';
 
 class SignUpRequest {
   String username;

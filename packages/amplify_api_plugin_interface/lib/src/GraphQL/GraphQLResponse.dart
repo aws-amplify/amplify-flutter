@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
 import '../types.dart';
 
 class GraphQLResponse<T> {

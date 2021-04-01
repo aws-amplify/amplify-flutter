@@ -15,14 +15,12 @@
 
 library model_schema;
 
-import 'package:flutter/foundation.dart';
-
-import 'auth_rule.dart';
-import 'model_association.dart';
-import 'model_field.dart';
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
+
+import 'auth_rule.dart';
+import 'model_field.dart';
 
 class ModelSchema {
   final String name;

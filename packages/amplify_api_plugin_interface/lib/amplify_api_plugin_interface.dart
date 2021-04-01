@@ -16,7 +16,7 @@
 library amplify_api_plugin_interface;
 
 import 'dart:async';
-import 'package:meta/meta.dart';
+
 import 'package:amplify_core/types/index.dart';
 
 import 'src/types.dart';
@@ -28,7 +28,7 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
   Future<void> addPlugin() async {
     throw UnimplementedError('addPlugin() has not been implemented.');
   }
-  
+
   // ====== GraphQL =======
   GraphQLOperation<T> query<T>({required GraphQLRequest<T> request}) {
     throw UnimplementedError('query() has not been implemented.');

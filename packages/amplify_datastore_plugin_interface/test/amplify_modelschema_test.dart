@@ -21,7 +21,6 @@ We need to verify that each conversion step (->) is done correctly and each stat
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:amplify_datastore_plugin_interface/src/types/models/model_association.dart';
-
 import 'package:flutter_test/flutter_test.dart';
 
 import 'testData/ModelProvider.dart';

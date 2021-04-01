@@ -16,7 +16,6 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
 
 import 'auth_rule.dart';
 import 'model_association.dart';

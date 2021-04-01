@@ -13,8 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
-
 import 'model_schema.dart';
 import 'model_schema_definition.dart';
 

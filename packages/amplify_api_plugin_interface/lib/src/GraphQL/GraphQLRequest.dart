@@ -13,8 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
-
 import '../UUID.dart';
 
 class GraphQLRequest<T> {

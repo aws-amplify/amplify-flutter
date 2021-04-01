@@ -13,9 +13,10 @@
 * permissions and limitations under the License.
 */
 
-import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
+
+import 'ModelProvider.dart';
 
 /** This is an auto generated class representing the Comment type in your schema. */
 @immutable
@@ -33,8 +34,7 @@ class Comment extends Model {
     return id;
   }
 
-  const Comment._internal(
-      {required this.id, this.post, required this.content});
+  const Comment._internal({required this.id, this.post, required this.content});
 
   factory Comment({required String id, Post? post, required String content}) {
     return Comment._internal(

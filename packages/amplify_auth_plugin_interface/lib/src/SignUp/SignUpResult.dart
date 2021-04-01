@@ -13,8 +13,8 @@
  * permissions and limitations under the License.
  */
 
+
 import './AuthNextSignUpStep.dart';
-import 'package:flutter/foundation.dart';
 
 class SignUpResult { 
   bool isSignUpComplete;

@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
 import 'dart:typed_data';
 
 class RestOptions {

@@ -13,10 +13,11 @@
 * permissions and limitations under the License.
 */
 
-import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
+
+import 'ModelProvider.dart';
 
 /** This is an auto generated class representing the Blog type in your schema. */
 @immutable
@@ -71,8 +72,7 @@ class Blog extends Model {
     return buffer.toString();
   }
 
-  Blog copyWith(
-      {required String id, required String name, List<Post>? posts}) {
+  Blog copyWith({required String id, required String name, List<Post>? posts}) {
     return Blog(
         id: id ?? this.id, name: name ?? this.name, posts: posts ?? this.posts);
   }

@@ -14,7 +14,6 @@
  */
 
 import '../Storage/StorageItem.dart';
-import 'package:flutter/foundation.dart';
 
 class ListResult {
   List<StorageItem> items;

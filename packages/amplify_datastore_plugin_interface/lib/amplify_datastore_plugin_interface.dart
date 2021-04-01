@@ -18,7 +18,6 @@ library amplify_datastore_plugin_interface;
 import 'dart:async';
 
 import 'package:amplify_datastore_plugin_interface/src/types/models/model_provider.dart';
-import 'package:flutter/foundation.dart';
 import 'package:amplify_core/types/index.dart';
 
 import 'src/types/models/model.dart';

@@ -14,7 +14,6 @@
  */
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:flutter/foundation.dart';
 
 import 'auth_rule.dart';
 import 'model_association.dart';

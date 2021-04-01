@@ -13,8 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
-
 //TODO: This class needs to be fleshed out further to match the GraphQLError spec
 class GraphQLResponseError {
   String message;

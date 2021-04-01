@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
+
 
 class AuthCodeDeliveryDetails {
   String attributeName;
