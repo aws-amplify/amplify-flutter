@@ -37,13 +37,12 @@ export 'package:amplify_core/types/index.dart';
 part 'method_channel_amplify.dart';
 
 /// Top level singleton Amplify object.
-final AmplifyClass Amplify = new AmplifyClass();
+final AmplifyClass Amplify = new AmplifyClass._private();
 
 /// This is a private class and customers are not expected to
 /// instantiate an object of this class. Please use top level
 /// `Amplify` singleton object for making calls to methods of this class.
 class AmplifyClass extends PlatformInterface {
-
   // ignore: public_member_api_docs
   AuthCategory Auth = const AuthCategory();
   // ignore: public_member_api_docs
@@ -198,7 +197,7 @@ class AmplifyClass extends PlatformInterface {
   }
 
   /// Constructs a Core platform.
-  AmplifyClass() : super(token: _token);
+  AmplifyClass._private() : super(token: _token);
 
   static final Object _token = Object();
 
