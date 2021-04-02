@@ -17,10 +17,12 @@ import Flutter
 import UIKit
 import Amplify
 import AmplifyPlugins
+import amplify_core
 
 public class SwiftAmplifyAnalyticsPinpointPlugin: NSObject, FlutterPlugin {
     
     private let bridge: AnalyticsBridge
+    var pluginAdded: Bool = false
     
     init(
         bridge: AnalyticsBridge = AnalyticsBridge()
@@ -41,7 +43,18 @@ public class SwiftAmplifyAnalyticsPinpointPlugin: NSObject, FlutterPlugin {
     public func innerHandle(method: String, callArgs: Any?, result: @escaping FlutterResult){
         switch method{
             case "addPlugin":
-                FlutterAnalytics.addPlugin(result: result)
+                
+                if (pluginAdded) {
+                    let serializedError = ErrorUtil.createSerializedError(message: String(format: ErrorMessages.hotRestartConfigExceptionMessage, "Analytics"),
+                                                                          recoverySuggestion: ErrorMessages.hotRestartRecoverySuggestion,
+                                                                          underlyingError: nil)
+                    ErrorUtil.postRestartErrorToFlutterChannel(result: result,
+                                                               errorCode: HotReloadExceptionCode.PLUGIN_ADDED,
+                                                               details: serializedError)
+                    
+                } else {
+                    FlutterAnalytics.addPlugin(result: result, pluginAdded: &pluginAdded)
+                }
             case "recordEvent":
                 FlutterAnalytics.record(arguments: callArgs, result: result, bridge: bridge)
             case "flushEvents":

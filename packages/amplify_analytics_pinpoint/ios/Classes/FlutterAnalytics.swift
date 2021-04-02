@@ -23,10 +23,10 @@ import AWSCore
 import amplify_core
 
 public class FlutterAnalytics {
-
-    public static func addPlugin(result: @escaping FlutterResult) {
+    public static func addPlugin(result: @escaping FlutterResult, pluginAdded: inout Bool) {
         do {
             try Amplify.add(plugin: AWSPinpointAnalyticsPlugin() )
+            pluginAdded = true
             result(true)
         } catch let error{
             if(error is AnalyticsError){

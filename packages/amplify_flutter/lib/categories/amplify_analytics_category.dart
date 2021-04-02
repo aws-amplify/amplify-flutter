@@ -22,7 +22,7 @@ class AnalyticsCategory {
 
   Future<void> addPlugin(AnalyticsPluginInterface plugin) async {
     //TODO: Allow for multiple plugins to work simultaneously
-    if (plugins.length == 0) {
+    if (plugins.length < 1) {
       plugins.add(plugin);
       await plugin.addPlugin();
     } else {

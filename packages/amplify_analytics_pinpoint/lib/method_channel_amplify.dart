@@ -15,6 +15,7 @@
 
 import 'package:amplify_analytics_plugin_interface/amplify_analytics_plugin_interface.dart';
 import 'package:amplify_core/types/exception/AmplifyException.dart';
+import 'package:amplify_core/types/exception/AmplifyExceptionMessages.dart';
 import 'package:flutter/services.dart';
 
 import 'amplify_analytics_pinpoint.dart';
@@ -27,9 +28,13 @@ class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpoint {
   Future<void> addPlugin() async {
     try {
       return await _channel.invokeMethod('addPlugin');
-    } on PlatformException catch (e) {
-      throw AmplifyException("Analytics plugin has already been added, " +
-          "multiple plugins for Analytics category are currently not supported.");
+    } on PlatformException catch (e) { // Swallow PluginAddedHotRestartException to handle hot restart
+      if (e.code == AmplifyExceptionMessages.pluginHotRestartException) {
+        print("The Analytics plugin was detected in the underlying platform.");
+      } else {
+        throw AmplifyException("Analytics plugin has already been added, " +
+            "multiple plugins for Analytics category are currently not supported.");
+      }
     }
   }
 
