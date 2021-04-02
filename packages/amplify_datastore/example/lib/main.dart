@@ -65,7 +65,7 @@ class _MyAppState extends State<MyApp> {
   bool _isAmplifyConfigured = false;
   String _queriesToView = "Post"; //default view
   Blog _selectedBlogForNewPost;
-  Post _selectedPostForNewComment;
+  Post? _selectedPostForNewComment;
   Stream<SubscriptionEvent<Post>> postStream;
   Stream<SubscriptionEvent<Blog>> blogStream;
   Stream<SubscriptionEvent<Comment>> commentStream;

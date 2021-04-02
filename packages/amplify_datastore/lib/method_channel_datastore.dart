@@ -29,13 +29,14 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   /// This is needed before the Amplify.configure() can be called, since the native
   /// plugins are needed to be added before that.
   Future<void> configureModelProvider(
-      {required ModelProviderInterface modelProvider}) async {
+      {ModelProviderInterface? modelProvider}) async {
     try {
       return await _channel
           .invokeMethod('configureModelProvider', <String, dynamic>{
-        'modelSchemas':
-            modelProvider.modelSchemas.map((schema) => schema.toMap()).toList(),
-        'modelProviderVersion': modelProvider.version
+        'modelSchemas': modelProvider!.modelSchemas
+            .map((schema) => schema.toMap())
+            .toList(),
+        'modelProviderVersion': modelProvider!.version
       });
     } on PlatformException catch (e) {
       if (e.code == "AmplifyAlreadyConfiguredException") {
