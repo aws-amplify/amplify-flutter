@@ -36,7 +36,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         'modelSchemas': modelProvider!.modelSchemas
             .map((schema) => schema.toMap())
             .toList(),
-        'modelProviderVersion': modelProvider!.version
+        'modelProviderVersion': modelProvider.version
       });
     } on PlatformException catch (e) {
       if (e.code == "AmplifyAlreadyConfiguredException") {
@@ -64,13 +64,12 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
       List<QuerySortBy>? sortBy}) async {
     try {
       final List<Map<dynamic, dynamic>> serializedResults =
-          await (_channel.invokeListMethod('query', <String, dynamic>{
+          (await (_channel.invokeListMethod('query', <String, dynamic>{
         'modelName': modelType.modelName(),
         'queryPredicate': where?.serializeAsMap(),
         'queryPagination': pagination?.serializeAsMap(),
-        'querySort':
-            sortBy?.map((element) => element?.serializeAsMap())?.toList()
-      }) as FutureOr<List<Map<dynamic, dynamic>>>);
+        'querySort': sortBy?.map((element) => element.serializeAsMap()).toList()
+      })))!;
 
       return serializedResults
           .map((serializedResult) => modelType.fromJson(

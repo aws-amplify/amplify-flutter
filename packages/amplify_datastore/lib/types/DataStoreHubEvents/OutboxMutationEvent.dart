@@ -19,11 +19,14 @@ import 'package:amplify_core/types/hub/HubEventPayload.dart';
 import 'HubEventElement.dart';
 
 class OutboxMutationEvent extends HubEventPayload {
-  HubEventElement element;
-  String modelName;
+  late HubEventElement element;
+  late String modelName;
 
-  OutboxMutationEvent(Map<dynamic, dynamic> serializedData, ModelProviderInterface provider, String eventName) {
-    element = eventName == "outboxMutationEnqueued" ? HubEventElement(serializedData, provider) : HubEventElementWithMetadata(serializedData, provider) ;
+  OutboxMutationEvent(Map<dynamic, dynamic> serializedData,
+      ModelProviderInterface provider, String eventName) {
+    element = eventName == "outboxMutationEnqueued"
+        ? HubEventElement(serializedData, provider)
+        : HubEventElementWithMetadata(serializedData, provider);
     modelName = serializedData["modelName"] as String;
   }
 }

@@ -42,11 +42,14 @@ export 'src/types/models/subscription_event.dart';
 export 'src/publicTypes.dart';
 
 abstract class DataStorePluginInterface extends AmplifyPluginInterface {
-  final ModelProviderInterface modelProvider;
+  late ModelProviderInterface modelProvider;
 
-  /// Constructs an AmplifyPlatform.
-  DataStorePluginInterface(
-      {required Object token, required this.modelProvider})
+  /// Constructs an AmplifyPlatform
+  @protected
+  DataStorePluginInterface.protected({required Object token})
+      : super(token: token);
+
+  DataStorePluginInterface({required Object token, required this.modelProvider})
       : super(token: token);
 
   Future<void> configureModelProvider(

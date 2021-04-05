@@ -32,7 +32,7 @@ Widget addPostWidget(
     TextEditingController titleController,
     TextEditingController ratingController,
     bool isAmplifyConfigured,
-    Blog defaultBlog,
+    Blog? defaultBlog,
     List<Blog> allBlogs,
     Function saveFn,
     _MyAppState app) {
@@ -94,7 +94,7 @@ Widget addPostWidget(
 Widget addCommentWidget(
     TextEditingController controller,
     bool isAmplifyConfigured,
-    Post defaultPost,
+    Post? defaultPost,
     List<Post> allPosts,
     Function saveFn,
     _MyAppState app) {

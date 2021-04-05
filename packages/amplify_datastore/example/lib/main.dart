@@ -64,14 +64,14 @@ class _MyAppState extends State<MyApp> {
   List<String> _commentStreamingData = <String>[];
   bool _isAmplifyConfigured = false;
   String _queriesToView = "Post"; //default view
-  Blog _selectedBlogForNewPost;
+  Blog? _selectedBlogForNewPost;
   Post? _selectedPostForNewComment;
-  Stream<SubscriptionEvent<Post>> postStream;
-  Stream<SubscriptionEvent<Blog>> blogStream;
-  Stream<SubscriptionEvent<Comment>> commentStream;
-  StreamSubscription hubSubscription;
+  late Stream<SubscriptionEvent<Post>> postStream;
+  late Stream<SubscriptionEvent<Blog>> blogStream;
+  late Stream<SubscriptionEvent<Comment>> commentStream;
+  late StreamSubscription hubSubscription;
   bool _listeningToHub = true;
-  AmplifyDataStore datastorePlugin;
+  late AmplifyDataStore datastorePlugin;
 
   final _titleController = TextEditingController();
   final _ratingController = TextEditingController();
@@ -423,7 +423,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    WidgetsBinding.instance.addPostFrameCallback((_) => executeAfterBuild());
+    WidgetsBinding.instance!.addPostFrameCallback((_) => executeAfterBuild());
   }
 
   Future<void> executeAfterBuild() async {
