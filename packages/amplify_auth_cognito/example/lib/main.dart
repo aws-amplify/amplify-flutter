@@ -18,6 +18,8 @@ import 'dart:async';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
+import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'Widgets/ConfirmResetWidget.dart';
 import 'Widgets/ConfirmSignInWidget.dart';
@@ -47,6 +49,10 @@ class _MyAppState extends State<MyApp> {
   StreamSubscription subscription;
 
   AmplifyAuthCognito auth;
+  AmplifyStorageS3 storage;
+  AmplifyAnalyticsPinpoint analytics;
+
+
   String displayState;
   String authState = 'User not signed in';
   String lastHubEvent = '';
@@ -82,9 +88,24 @@ class _MyAppState extends State<MyApp> {
 
   void _configureAmplify() async {
     auth = AmplifyAuthCognito();
+    storage = AmplifyStorageS3();
+    analytics = AmplifyAnalyticsPinpoint();
+
+
+    try {
+      await Amplify.addPlugin(auth);
+    } catch (e) {
+      print(e);
+    }
+
+    try {
+      await Amplify.addPlugin(analytics);
+    } catch (e) {
+      print(e);
+    }
 
     // try {
-    //   await Amplify.addPlugin(auth);
+    //   await Amplify.addPlugin(storage);
     // } catch (e) {
     //   print(e);
     // }
@@ -124,12 +145,6 @@ class _MyAppState extends State<MyApp> {
     } on AmplifyAlreadyConfiguredException {
       print(
           'Amplify was already configured. Looks like app restarted on android.');
-    }
-
-    try {
-      await Amplify.addPlugin(auth);
-    } catch (e) {
-      print(e);
     }
 
     try {
@@ -330,7 +345,10 @@ class _MyAppState extends State<MyApp> {
                           ConfirmResetWidget(showResult, changeDisplay,
                               setError, _backToSignIn),
                       if (this.displayState == "SIGNED_IN") showApp(),
-                      if (error != null) showErrors()
+                      if (error != null) showErrors(),
+                      ElevatedButton(
+                          onPressed: _configureAmplify,
+                          child: const Text('Configure'))
                     ])
               ],
             ),

@@ -63,8 +63,6 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         if(call.method == "addPlugin"){
-                print("addPlugin ??????")
-                print(pluginAdded)
                 if (pluginAdded) {
                     let serializedError = ErrorUtil.createSerializedError(message: String(format: ErrorMessages.hotRestartConfigExceptionMessage, "Auth"),
                                                                  recoverySuggestion: ErrorMessages.hotRestartRecoverySuggestion,
@@ -75,6 +73,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
                 } else {
                     do {
                         try Amplify.add(plugin: AWSCognitoAuthPlugin() )
+                        pluginAdded = true
                         result(true)
                     } catch let error{
                         if(error is AuthError){
