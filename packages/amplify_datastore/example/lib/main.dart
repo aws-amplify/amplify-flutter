@@ -293,7 +293,7 @@ class _MyAppState extends State<MyApp> {
   deletePost(String id) async {
     try {
       _selectedPostForNewComment = null;
-      await Amplify.DataStore.delete(Post(id: id, title: null));
+      await Amplify.DataStore.delete(Post(id: id, title: ""));
       runQueries();
     } catch (e) {
       print(e);
@@ -303,7 +303,7 @@ class _MyAppState extends State<MyApp> {
   deleteBlog(String id) async {
     try {
       _selectedBlogForNewPost = null;
-      await Amplify.DataStore.delete(Blog(id: id, name: null));
+      await Amplify.DataStore.delete(Blog(id: id, name: ""));
       runQueries();
     } catch (e) {
       print(e);
@@ -312,7 +312,7 @@ class _MyAppState extends State<MyApp> {
 
   deleteComment(String id) async {
     try {
-      await Amplify.DataStore.delete(Comment(id: id, content: null));
+      await Amplify.DataStore.delete(Comment(id: id, content: ""));
       runQueries();
     } catch (e) {
       print(e);

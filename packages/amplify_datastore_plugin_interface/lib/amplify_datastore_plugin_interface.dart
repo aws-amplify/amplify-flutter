@@ -19,6 +19,7 @@ import 'dart:async';
 
 import 'package:amplify_datastore_plugin_interface/src/types/models/model_provider.dart';
 import 'package:amplify_core/types/index.dart';
+import 'package:meta/meta.dart';
 
 import 'src/types/models/model.dart';
 import 'src/types/query/query_field.dart';
@@ -45,11 +46,12 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   late ModelProviderInterface modelProvider;
 
   /// Constructs an AmplifyPlatform
-  @protected
-  DataStorePluginInterface.protected({required Object token})
+  DataStorePluginInterface({required Object token, required this.modelProvider})
       : super(token: token);
 
-  DataStorePluginInterface({required Object token, required this.modelProvider})
+  /// Internal use constructor
+  @protected
+  DataStorePluginInterface.protected({required Object token})
       : super(token: token);
 
   Future<void> configureModelProvider(

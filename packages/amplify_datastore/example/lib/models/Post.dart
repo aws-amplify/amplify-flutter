@@ -25,11 +25,31 @@ import 'package:flutter/foundation.dart';
 class Post extends Model {
   static const classType = const PostType();
   final String id;
-  final String title;
-  final int? rating;
-  final TemporalDateTime? created;
-  final Blog? blog;
-  final List<Comment>? comments;
+  final String? _title;
+  final int? _rating;
+  final TemporalDateTime? _created;
+  final Blog? _blog;
+  final List<Comment>? _comments;
+
+  String get title {
+    return _title!;
+  }
+
+  int get rating {
+    return _rating!;
+  }
+
+  TemporalDateTime? get created {
+    return _created;
+  }
+
+  Blog? get blog {
+    return _blog;
+  }
+
+  List<Comment>? get comments {
+    return _comments;
+  }
 
   @override
   getInstanceType() => classType;
@@ -41,11 +61,16 @@ class Post extends Model {
 
   const Post._internal(
       {required this.id,
-      required this.title,
-      this.rating,
-      this.created,
-      this.blog,
-      this.comments});
+      required title,
+      required rating,
+      created,
+      blog,
+      comments})
+      : _title = title,
+        _rating = rating,
+        _created = created,
+        _blog = blog,
+        _comments = comments;
 
   factory Post(
       {String? id,
@@ -57,7 +82,7 @@ class Post extends Model {
     return Post._internal(
         id: id == null ? UUID.getUUID() : id,
         title: title,
-        rating: rating,
+        rating: rating!,
         created: created,
         blog: blog,
         comments: comments != null ? List.unmodifiable(comments) : comments);
@@ -117,15 +142,15 @@ class Post extends Model {
 
   Post.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        title = json['title'],
-        rating = json['rating'],
-        created = json['created'] != null
+        _title = json['title'],
+        _rating = json['rating'],
+        _created = json['created'] != null
             ? TemporalDateTime.fromString(json['created'])
             : null,
-        blog = json['blog'] != null
+        _blog = json['blog'] != null
             ? Blog.fromJson(new Map<String, dynamic>.from(json['blog']))
             : null,
-        comments = json['comments'] is List
+        _comments = json['comments'] is List
             ? (json['comments'] as List)
                 .map((e) => Comment.fromJson(new Map<String, dynamic>.from(e)))
                 .toList()
@@ -137,7 +162,7 @@ class Post extends Model {
         'rating': rating,
         'created': created?.format(),
         'blog': blog?.toJson(),
-        'comments': comments?.map((e) => e?.toJson())?.toList()
+        'comments': comments?.map((e) => e.toJson()).toList()
       };
 
   static final QueryField ID = QueryField(fieldName: "post.id");

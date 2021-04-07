@@ -25,8 +25,16 @@ import 'package:flutter/foundation.dart';
 class Blog extends Model {
   static const classType = const BlogType();
   final String id;
-  final String name;
-  final List<Post>? posts;
+  final String? _name;
+  final List<Post>? _posts;
+
+  String get name {
+    return _name!;
+  }
+
+  List<Post>? get posts {
+    return _posts;
+  }
 
   @override
   getInstanceType() => classType;
@@ -36,7 +44,9 @@ class Blog extends Model {
     return id;
   }
 
-  const Blog._internal({required this.id, required this.name, this.posts});
+  const Blog._internal({required this.id, required name, posts})
+      : _name = name,
+        _posts = posts;
 
   factory Blog({String? id, required String name, List<Post>? posts}) {
     return Blog._internal(
@@ -80,18 +90,15 @@ class Blog extends Model {
 
   Blog.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        name = json['name'],
-        posts = json['posts'] is List
+        _name = json['name'],
+        _posts = json['posts'] is List
             ? (json['posts'] as List)
                 .map((e) => Post.fromJson(new Map<String, dynamic>.from(e)))
                 .toList()
             : null;
 
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': name,
-        'posts': posts?.map((e) => e?.toJson())?.toList()
-      };
+  Map<String, dynamic> toJson() =>
+      {'id': id, 'name': name, 'posts': posts?.map((e) => e.toJson()).toList()};
 
   static final QueryField ID = QueryField(fieldName: "blog.id");
   static final QueryField NAME = QueryField(fieldName: "name");

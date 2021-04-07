@@ -31,6 +31,10 @@ class AmplifyDataStore extends DataStorePluginInterface {
   AmplifyDataStore({required ModelProviderInterface modelProvider})
       : super(token: _token, modelProvider: modelProvider);
 
+  /// Internal use constructor
+  @protected
+  AmplifyDataStore.protected() : super.protected(token: _token);
+
   static AmplifyDataStore _instance = AmplifyDataStoreMethodChannel();
   static DataStoreStreamController streamWrapper = DataStoreStreamController();
 
@@ -48,7 +52,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
       {ModelProviderInterface? modelProvider}) async {
     ModelProviderInterface provider =
         modelProvider == null ? this.modelProvider : modelProvider;
-    if (provider == null || provider.modelSchemas.isEmpty) {
+    if (provider.modelSchemas.isEmpty) {
       throw DataStoreException('No modelProvider or modelSchemas found',
           recoverySuggestion:
               'Pass in a modelProvider instance while instantiating DataStorePlugin');

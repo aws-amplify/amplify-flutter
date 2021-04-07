@@ -25,6 +25,9 @@ const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/datastore');
 class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   dynamic _allModelsStreamFromMethodChannel = null;
 
+  /// Internal use constructor
+  AmplifyDataStoreMethodChannel() : super.protected();
+
   /// This method adds model schemas which is necessary to instantiate native plugins
   /// This is needed before the Amplify.configure() can be called, since the native
   /// plugins are needed to be added before that.

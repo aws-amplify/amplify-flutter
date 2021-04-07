@@ -24,8 +24,16 @@ import 'package:flutter/foundation.dart';
 class Comment extends Model {
   static const classType = const CommentType();
   final String id;
-  final Post? post;
-  final String content;
+  final Post? _post;
+  final String? _content;
+
+  Post? get post {
+    return _post;
+  }
+
+  String get content {
+    return _content!;
+  }
 
   @override
   getInstanceType() => classType;
@@ -35,8 +43,9 @@ class Comment extends Model {
     return id;
   }
 
-  const Comment._internal(
-      {required this.id, this.post, required this.content});
+  const Comment._internal({required this.id, post, required content})
+      : _post = post,
+        _content = content;
 
   factory Comment({String? id, Post? post, required String content}) {
     return Comment._internal(
@@ -81,10 +90,10 @@ class Comment extends Model {
 
   Comment.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        post = json['post'] != null
+        _post = json['post'] != null
             ? Post.fromJson(new Map<String, dynamic>.from(json['post']))
             : null,
-        content = json['content'];
+        _content = json['content'];
 
   Map<String, dynamic> toJson() =>
       {'id': id, 'post': post?.toJson(), 'content': content};
