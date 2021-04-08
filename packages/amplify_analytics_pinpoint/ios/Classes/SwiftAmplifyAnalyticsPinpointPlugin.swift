@@ -43,18 +43,7 @@ public class SwiftAmplifyAnalyticsPinpointPlugin: NSObject, FlutterPlugin {
     public func innerHandle(method: String, callArgs: Any?, result: @escaping FlutterResult){
         switch method{
             case "addPlugin":
-                
-                if (pluginAdded) {
-                    let serializedError = ErrorUtil.createSerializedError(message: String(format: ErrorMessages.hotRestartConfigExceptionMessage, "Analytics"),
-                                                                          recoverySuggestion: ErrorMessages.hotRestartRecoverySuggestion,
-                                                                          underlyingError: nil)
-                    ErrorUtil.postRestartErrorToFlutterChannel(result: result,
-                                                               errorCode: HotReloadExceptionCode.PLUGIN_ADDED,
-                                                               details: serializedError)
-                    
-                } else {
-                    FlutterAnalytics.addPlugin(result: result, pluginAdded: &pluginAdded)
-                }
+                FlutterAnalytics.addPlugin(result: result)
             case "recordEvent":
                 FlutterAnalytics.record(arguments: callArgs, result: result, bridge: bridge)
             case "flushEvents":

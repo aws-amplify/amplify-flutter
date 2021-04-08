@@ -16,9 +16,8 @@
 package com.amazonaws.amplify.amplify_core.exception
 
 import androidx.annotation.NonNull
-import androidx.annotation.Nullable
 import com.amplifyframework.AmplifyException
-import com.amplifyframework.datastore.DataStoreException
+import com.amplifyframework.core.Amplify
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonElement
 import com.google.gson.JsonPrimitive
@@ -91,8 +90,8 @@ class ExceptionUtil {
         fun handleAddPluginException(@NonNull pluginName : String, @NonNull e : Exception, @NonNull flutterResult : Result){
             var errorDetails: Map<String, Any?>
             var errorCode = pluginName + "Exception"
-            if (e.message == "The client tried to add a plugin after calling configure().") {
-                errorCode = "AmplifyAlreadyConfiguredException"
+            if (e is Amplify.AlreadyConfiguredException) {
+                errorCode = "AlreadyConfiguredException"
             }
             errorDetails = when (e) {
                 is AmplifyException -> createSerializedError(e)

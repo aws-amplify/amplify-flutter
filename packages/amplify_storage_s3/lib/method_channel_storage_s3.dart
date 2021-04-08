@@ -14,6 +14,7 @@
  */
 
 import 'package:amplify_core/types/exception/AmplifyException.dart';
+import 'package:amplify_core/types/exception/AmplifyAlreadyConfiguredException.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
@@ -31,8 +32,14 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
     try {
       return await _channel.invokeMethod('addPlugin');
     } on PlatformException catch (e) {
-      throw AmplifyException("Storage plugin has already been added, " +
-          "multiple plugins for Storage category are currently not supported.");
+      if (e.code == "AlreadyConfiguredException") {
+        throw AmplifyAlreadyConfiguredException('Amplify has already been configured and adding plugins after configure is not supported.',
+            recoverySuggestion:
+            'Check if Amplify is already configured using Amplify.isConfigured.');
+      } else {
+        throw AmplifyException("Storage plugin has already been added, " +
+            "multiple plugins for Auth category are currently not supported.");
+      }
     }
   }
 

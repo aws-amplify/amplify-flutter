@@ -68,7 +68,7 @@ class AmplifyClass extends PlatformInterface {
   /// Throws AmplifyAlreadyConfiguredException if
   /// this method is called after configure (e.g. during hot reload).
   Future<void> addPlugin(AmplifyPluginInterface plugin) async {
-    if (!isConfigured) {
+    if (true) {
       try {
         if (plugin is AuthPluginInterface) {
           await Auth.addPlugin(plugin);
@@ -190,7 +190,7 @@ class AmplifyClass extends PlatformInterface {
         throw AnalyticsException.fromMap(Map<String, String>.from(e.details));
       } else if (e.code == 'AmplifyException') {
         throw AmplifyException.fromMap(Map<String, String>.from(e.details));
-      } else if (e.code == 'AmplifyAlreadyConfiguredException') {
+      } else if (e.code == 'AlreadyConfiguredException') {
         throw AmplifyAlreadyConfiguredException.fromMap(
             Map<String, String>.from(e.details));
       } else {

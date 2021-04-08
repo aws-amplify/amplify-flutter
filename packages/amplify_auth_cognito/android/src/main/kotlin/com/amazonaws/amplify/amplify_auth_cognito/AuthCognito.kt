@@ -80,7 +80,6 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
   private val authCognitoHubEventStreamHandler: AuthCognitoHubEventStreamHandler
   var eventMessenger: BinaryMessenger? = null
   private lateinit var activityBinding: ActivityPluginBinding
-  private var pluginAdded: Boolean = false;
 
   constructor() {
       authCognitoHubEventStreamHandler = AuthCognitoHubEventStreamHandler()
@@ -138,18 +137,9 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
 
     if(call.method == "addPlugin"){
-      if (pluginAdded) {
-        return handleRestartException(
-                HotReloadExceptionCode.PLUGIN_ADDED,
-                result,
-                ExceptionMessages.hotRestartPluginExceptionMessage.format( "Auth" ),
-                ExceptionMessages.hotRestartRecoverySuggestion
-        )
-      }
       try {
         Amplify.addPlugin(AWSCognitoAuthPlugin())
         LOG.info("Added Auth plugin")
-        pluginAdded = true;
         result.success(null)
       } catch (e: Exception) {
         handleAddPluginException("Auth", e, result)

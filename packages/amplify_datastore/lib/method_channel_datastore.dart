@@ -37,7 +37,13 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         'modelProviderVersion': modelProvider.version
       });
     } on PlatformException catch (e) {
-      throw _deserializeException(e);
+      if (e.code == "AlreadyConfiguredException") {
+        throw AmplifyAlreadyConfiguredException('Amplify has already been configured and adding plugins after configure is not supported.',
+            recoverySuggestion:
+            'Check if Amplify is already configured using Amplify.isConfigured.');
+      } else {
+        throw _deserializeException(e);
+      }
     }
   }
 

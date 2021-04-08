@@ -23,10 +23,9 @@ import AWSCore
 import amplify_core
 
 public class FlutterAnalytics {
-    public static func addPlugin(result: @escaping FlutterResult, pluginAdded: inout Bool) {
+    public static func addPlugin(result: @escaping FlutterResult) {
         do {
             try Amplify.add(plugin: AWSPinpointAnalyticsPlugin() )
-            pluginAdded = true
             result(true)
         } catch let error{
             if(error is AnalyticsError){
@@ -40,8 +39,23 @@ public class FlutterAnalytics {
                         "recoverySuggestion" : analyticsError.recoverySuggestion,
                         "underlyingError": analyticsError.underlyingError != nil ? analyticsError.underlyingError!.localizedDescription : ""
                     ])
-            }
-            else{
+            } else if(error is ConfigurationError) {
+                let configError = error as! ConfigurationError
+                
+                var errorCode = "AnalyticsException"
+                if case .amplifyAlreadyConfigured = configError {
+                   errorCode = "AlreadyConfiguredException"
+                }
+                ErrorUtil.postErrorToFlutterChannel(
+                    result: result,
+                    errorCode: errorCode,
+                    details: [
+                        "message" : configError.errorDescription,
+                        "recoverySuggestion" : configError.recoverySuggestion,
+                        "underlyingError": configError.underlyingError != nil ? configError.underlyingError!.localizedDescription : ""
+                    ]
+                )
+            } else{
                 print("Failed to add Amplify Analytics Plugin \(error)")
                 result(false)
             }

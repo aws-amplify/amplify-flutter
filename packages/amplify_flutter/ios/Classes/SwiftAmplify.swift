@@ -43,68 +43,55 @@ public class SwiftAmplify: NSObject, FlutterPlugin {
     }
 
     private func onConfigure(result: FlutterResult, version: String, configuration: String) {
-        print("isConfigured???")
-        print(isConfigured)
-        if (isConfigured) {
-            print("if block")
-            ErrorUtil.postRestartErrorToFlutterChannel(
-                            result: result,
-                            errorCode: HotReloadExceptionCode.CONFIGURED,
-                            details: createSerializedError(
-                                message: ErrorMessages.hotRestartConfigExceptionMessage,
-                                recoverySuggestion: ErrorMessages.hotRestartRecoverySuggestion,
-                                underlyingError: nil))
-        } else {
-            print ("else block")
-            do {
-                let amplifyConfiguration = try JSONDecoder().decode(AmplifyConfiguration.self, from: configuration.data(using: .utf8)!)
-                AmplifyAWSServiceConfiguration.addUserAgentPlatform(.flutter, version: version)
-                try Amplify.configure(amplifyConfiguration)
-                isConfigured = true
-                result(true)
-            } catch let error as AnalyticsError {
+
+        do {
+            let amplifyConfiguration = try JSONDecoder().decode(AmplifyConfiguration.self, from: configuration.data(using: .utf8)!)
+            AmplifyAWSServiceConfiguration.addUserAgentPlatform(.flutter, version: version)
+            try Amplify.configure(amplifyConfiguration)
+            isConfigured = true
+            result(true)
+        } catch let error as AnalyticsError {
+            ErrorUtil.postErrorToFlutterChannel(
+                result: result,
+                errorCode: "AnalyticsException",
+                details: createSerializedError(error: error)
+            )
+        } catch let error as ConfigurationError {
+            switch error {
+            case .amplifyAlreadyConfigured(_, _, _):
                 ErrorUtil.postErrorToFlutterChannel(
                     result: result,
-                    errorCode: "AnalyticsException",
-                    details: createSerializedError(error: error)
-                )
-            } catch let error as ConfigurationError {
-                switch error {
-                case .amplifyAlreadyConfigured(_, _, _):
-                    ErrorUtil.postErrorToFlutterChannel(
-                        result: result,
-                        errorCode: "AmplifyAlreadyConfigured",
-                        details: createSerializedError(error: error))
-                default:
-                    ErrorUtil.postErrorToFlutterChannel(
-                        result: result,
-                        errorCode: "AmplifyException",
-                        details: createSerializedError(error: error))
-                }
-            } catch let error as PluginError {
-                switch error {
-                case .pluginConfigurationError(let errorDescription, _, let error):
-                    ErrorUtil.postErrorToFlutterChannel(result: result,
-                                                        errorCode: "AmplifyException",
-                                                        details: createSerializedError(message: "Please check your pubspec.yaml if you are depending on " +
-                                                            "an amplify plugin and not using in your app. Underlying error message: " + errorDescription,
-                                                                                       recoverySuggestion: "Remove amplify plugins from your pubspec.yaml that you are not using in your app.",
-                                                                                       underlyingError: error?.localizedDescription))
-                default:
-                    ErrorUtil.postErrorToFlutterChannel(
-                        result: result,
-                        errorCode: "AmplifyException",
-                        details: createSerializedError(error: error))
-                }
-            } catch {
+                    errorCode: "AlreadyConfiguredException",
+                    details: createSerializedError(error: error))
+            default:
                 ErrorUtil.postErrorToFlutterChannel(
                     result: result,
                     errorCode: "AmplifyException",
-                    details: createSerializedError(message: "Failed to parse the configuration.",
-                                                   recoverySuggestion: "Please check your amplifyconfiguration.dart if you are" +
-                                                    "manually updating it, else please create an issue.",
-                                                   underlyingError: error.localizedDescription))
+                    details: createSerializedError(error: error))
             }
+        } catch let error as PluginError {
+            switch error {
+            case .pluginConfigurationError(let errorDescription, _, let error):
+                ErrorUtil.postErrorToFlutterChannel(result: result,
+                                                    errorCode: "AmplifyException",
+                                                    details: createSerializedError(message: "Please check your pubspec.yaml if you are depending on " +
+                                                        "an amplify plugin and not using in your app. Underlying error message: " + errorDescription,
+                                                                                   recoverySuggestion: "Remove amplify plugins from your pubspec.yaml that you are not using in your app.",
+                                                                                   underlyingError: error?.localizedDescription))
+            default:
+                ErrorUtil.postErrorToFlutterChannel(
+                    result: result,
+                    errorCode: "AmplifyException",
+                    details: createSerializedError(error: error))
+            }
+        } catch {
+            ErrorUtil.postErrorToFlutterChannel(
+                result: result,
+                errorCode: "AmplifyException",
+                details: createSerializedError(message: "Failed to parse the configuration.",
+                                               recoverySuggestion: "Please check your amplifyconfiguration.dart if you are" +
+                                                "manually updating it, else please create an issue.",
+                                               underlyingError: error.localizedDescription))
         }
 
     }

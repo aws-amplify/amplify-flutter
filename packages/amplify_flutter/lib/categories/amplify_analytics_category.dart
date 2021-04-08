@@ -22,12 +22,19 @@ class AnalyticsCategory {
 
   Future<void> addPlugin(AnalyticsPluginInterface plugin) async {
     //TODO: Allow for multiple plugins to work simultaneously
-    if (plugins.length < 1) {
-      plugins.add(plugin);
-      await plugin.addPlugin();
+    if (plugins.length == 0) {
+      try {
+        await plugin.addPlugin();
+        plugins.add(plugin);
+      } on AmplifyAlreadyConfiguredException catch (e) {
+        plugins.add(plugin);
+      } on PlatformException catch (e) {
+        throw AmplifyException.fromMap(
+            Map<String, String>.from(e.details));
+      }
     } else {
       throw AmplifyException("Analytics plugin has already been added, " +
-          "multiple plugins for Analytics category are currently not supported.");
+          "multiple plugins for Auth category are currently not supported.");
     }
   }
 

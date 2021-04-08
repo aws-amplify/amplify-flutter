@@ -32,22 +32,11 @@ class AmplifyAnalyticsBridge {
     companion object Bridge {
 
         private val LOG = AmplifyAnalyticsPinpointPlugin.LOG
-        private var pluginAdded: Boolean = false;
 
         fun addPlugin(@NonNull flutterResult: MethodChannel.Result, @NonNull context: Context) {
-            if (pluginAdded) {
-                return handleRestartException(
-                        HotReloadExceptionCode.PLUGIN_ADDED,
-                        flutterResult,
-                        ExceptionMessages.hotRestartPluginExceptionMessage.format( "Analytics" ),
-                        ExceptionMessages.hotRestartRecoverySuggestion
-                )
-            }
-
             try {
                 Amplify.addPlugin(AWSPinpointAnalyticsPlugin(context as Application?))
                 LOG.info("Added AnalyticsPinpoint plugin")
-                pluginAdded = true;
                 flutterResult.success(null)
             } catch (e: Exception) {
                 handleAddPluginException("Analytics", e, flutterResult)

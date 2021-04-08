@@ -33,8 +33,14 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     try {
       return await _channel.invokeMethod('addPlugin');
     } on PlatformException catch (e) {
-      throw AmplifyException("API plugin has already been added, " +
-          "multiple plugins for API category are currently not supported.");
+      if (e.code == "AlreadyConfiguredException") {
+        throw AmplifyAlreadyConfiguredException('Amplify has already been configured and adding plugins after configure is not supported.',
+            recoverySuggestion:
+            'Check if Amplify is already configured using Amplify.isConfigured.');
+      } else {
+        throw AmplifyException("DataStore plugin has already been added, " +
+                  "multiple plugins for API category are currently not supported.");
+      }
     }
   }
 

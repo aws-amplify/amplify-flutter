@@ -118,25 +118,25 @@ class Amplify : FlutterPlugin, ActivityAware, MethodCallHandler {
     private fun onConfigure(@NonNull result: Result, @NonNull version: String,
             @NonNull config: String) {
         try {
-            if (isConfigured) {
-                return ExceptionUtil.handleRestartException(
-                        HotReloadExceptionCode.CONFIGURED,
-                        result,
-                        ExceptionMessages.hotRestartConfigExceptionMessage,
-                        ExceptionMessages.hotRestartRecoverySuggestion
-                )
-            }
+//            if (isConfigured) {
+//                return ExceptionUtil.handleRestartException(
+//                        HotReloadExceptionCode.CONFIGURED,
+//                        result,
+//                        ExceptionMessages.hotRestartConfigExceptionMessage,
+//                        ExceptionMessages.hotRestartRecoverySuggestion
+//                )
+//            }
             val configuration = AmplifyConfiguration.builder(JSONObject(config))
                     .addPlatform(UserAgent.Platform.FLUTTER, version)
                     .devMenuEnabled(false)
                     .build()
             Amplify.configure(configuration, context)
-            isConfigured = true;
+
             result.success(true);
         } catch (e: AnalyticsException) {
             prepareAnalyticsError(result, e);
         } catch (e: Amplify.AlreadyConfiguredException) {
-            postExceptionToFlutterChannel(result, "AmplifyAlreadyConfiguredException",
+            postExceptionToFlutterChannel(result, "AlreadyConfiguredException",
                     createSerializedError(e))
         } catch (e: AmplifyException) {
             postExceptionToFlutterChannel(result, "AmplifyException",

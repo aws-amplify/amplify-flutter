@@ -46,8 +46,23 @@ public class SwiftAmplifyStorageS3Plugin: NSObject, FlutterPlugin {
                         "recoverySuggestion" : storageError.recoverySuggestion,
                         "underlyingError": storageError.underlyingError != nil ? storageError.underlyingError!.localizedDescription : ""
                     ])
-            }
-            else{
+            } else if(error is ConfigurationError) {
+                let configError = error as! ConfigurationError
+                
+                var errorCode = "StorageException"
+                if case .amplifyAlreadyConfigured = configError {
+                   errorCode = "AlreadyConfiguredException"
+                }
+                ErrorUtil.postErrorToFlutterChannel(
+                    result: result,
+                    errorCode: errorCode,
+                    details: [
+                        "message" : configError.errorDescription,
+                        "recoverySuggestion" : configError.recoverySuggestion,
+                        "underlyingError": configError.underlyingError != nil ? configError.underlyingError!.localizedDescription : ""
+                    ]
+                )
+            } else{
                 print("Failed to add Amplify Storage Plugin \(error)")
                 result(false)
             }

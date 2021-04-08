@@ -63,39 +63,44 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         if(call.method == "addPlugin"){
-                if (pluginAdded) {
-                    let serializedError = ErrorUtil.createSerializedError(message: String(format: ErrorMessages.hotRestartConfigExceptionMessage, "Auth"),
-                                                                 recoverySuggestion: ErrorMessages.hotRestartRecoverySuggestion,
-                                                                 underlyingError: nil)
-                    ErrorUtil.postRestartErrorToFlutterChannel(result: result,
-                                                               errorCode: HotReloadExceptionCode.PLUGIN_ADDED,
-                                                               details: serializedError)
-                } else {
-                    do {
-                        try Amplify.add(plugin: AWSCognitoAuthPlugin() )
-                        pluginAdded = true
-                        result(true)
-                    } catch let error{
-                        if(error is AuthError){
-                            let authError = error as! AuthError
+            do {
+                try Amplify.add(plugin: AWSCognitoAuthPlugin() )
+                result(true)
+            } catch let error{
+                if(error is AuthError){
+                    let authError = error as! AuthError
 
-                            ErrorUtil.postErrorToFlutterChannel(
-                                result: result,
-                                errorCode: "AuthException",
-                                details: [
-                                    "message" : authError.errorDescription,
-                                    "recoverySuggestion" : authError.recoverySuggestion,
-                                    "underlyingError": authError.underlyingError != nil ? authError.underlyingError!.localizedDescription : ""
-                                ]
-                            )
-                        }
-                        else{
-                            print("Failed to add Amplify Auth Plugin \(error)")
-                            result(false)
-                        }
+                    ErrorUtil.postErrorToFlutterChannel(
+                        result: result,
+                        errorCode: "AuthException",
+                        details: [
+                            "message" : authError.errorDescription,
+                            "recoverySuggestion" : authError.recoverySuggestion,
+                            "underlyingError": authError.underlyingError != nil ? authError.underlyingError!.localizedDescription : ""
+                        ]
+                    )
+                } else if(error is ConfigurationError) {
+                    let configError = error as! ConfigurationError
+                    
+                    var errorCode = "AuthException"
+                    if case .amplifyAlreadyConfigured = configError {
+                       errorCode = "AlreadyConfiguredException"
                     }
-                    return
+                    ErrorUtil.postErrorToFlutterChannel(
+                        result: result,
+                        errorCode: errorCode,
+                        details: [
+                            "message" : configError.errorDescription,
+                            "recoverySuggestion" : configError.recoverySuggestion,
+                            "underlyingError": configError.underlyingError != nil ? configError.underlyingError!.localizedDescription : ""
+                        ]
+                    )
+                } else{
+                    print("Failed to add Amplify Auth Plugin \(error)")
+                    result(false)
                 }
+            }
+            return
         }
 
         var arguments: Dictionary<String, AnyObject> = [:]

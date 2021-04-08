@@ -15,6 +15,7 @@
 
 import 'package:amplify_core/types/exception/AmplifyException.dart';
 import 'package:amplify_core/types/exception/AmplifyExceptionMessages.dart';
+import 'package:amplify_core/types/exception/AmplifyAlreadyConfiguredException.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
@@ -32,9 +33,10 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     try {
       return await _channel.invokeMethod('addPlugin');
     } on PlatformException catch (e) {
-      // Swallow PluginAddedHotRestartException to handle hot restart
-      if (e.code == AmplifyExceptionMessages.pluginHotRestartException) {
-        print("The auth plugin was detected in the underlying platform.");
+      if (e.code == "AlreadyConfiguredException") {
+        throw AmplifyAlreadyConfiguredException('Amplify has already been configured and adding plugins after configure is not supported.',
+            recoverySuggestion:
+            'Check if Amplify is already configured using Amplify.isConfigured.');
       } else {
         throw AmplifyException("Auth plugin has already been added, " +
             "multiple plugins for Auth category are currently not supported.");
