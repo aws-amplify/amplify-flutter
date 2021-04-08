@@ -110,9 +110,7 @@ class ModelFieldDefinition {
     String? associatedType;
 
     associatedName = associatedKey?.fieldName;
-    associatedType = associatedKey?.fieldType != null
-        ? associatedKey!.fieldType!.ofModelName
-        : ofModelName;
+    associatedType = associatedKey?.fieldType?.ofModelName ?? ofModelName;
 
     return field(
         key: key,

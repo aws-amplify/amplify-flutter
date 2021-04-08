@@ -13,10 +13,13 @@
  * permissions and limitations under the License.
  */
 
-
 import '../types/AuthNextStep.dart';
 
 class ResetPasswordStep extends AuthNextStep {
   String updateStep;
-  ResetPasswordStep({required additionalInfo, required codeDeliveryDetails, required this.updateStep}) : super(additionalInfo: additionalInfo, codeDeliveryDetails: codeDeliveryDetails);
+  ResetPasswordStep(
+      {additionalInfo, required codeDeliveryDetails, required this.updateStep})
+      : super(
+            additionalInfo: additionalInfo,
+            codeDeliveryDetails: codeDeliveryDetails);
 }

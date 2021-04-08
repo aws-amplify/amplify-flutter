@@ -19,9 +19,8 @@ class GraphQLOperation<T> {
   late Function _cancel;
   Future<GraphQLResponse<T>> response;
 
-  GraphQLOperation({required this.response, required Function cancel}) {
-    _cancel = cancel;
-  }
+  GraphQLOperation({required this.response, required Function cancel})
+      : _cancel = cancel;
 
   void cancel() {
     _cancel();

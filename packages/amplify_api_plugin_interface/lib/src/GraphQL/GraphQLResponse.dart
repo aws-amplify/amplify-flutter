@@ -17,7 +17,7 @@ import '../types.dart';
 
 class GraphQLResponse<T> {
   T data;
-  List<GraphQLResponseError>? errors = [];
+  List<GraphQLResponseError>? errors;
 
   GraphQLResponse({required this.data, this.errors});
 }

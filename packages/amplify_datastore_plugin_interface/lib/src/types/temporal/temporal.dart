@@ -39,6 +39,7 @@ class Temporal {
         caseSensitive: false,
         multiLine: false);
 
+    if (!regExp.hasMatch(offsetString)) return Duration();
     var match = regExp.matchAsPrefix(offsetString)!;
 
     int sign = match.group(1) == "+" ? 1 : -1;

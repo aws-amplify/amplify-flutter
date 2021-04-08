@@ -13,9 +13,6 @@
  * permissions and limitations under the License.
  */
 
-
-
-
 class AuthUser {
   String userId;
   String username;

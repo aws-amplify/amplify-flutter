@@ -24,16 +24,16 @@ import 'model_field_type.dart';
 class ModelField {
   // Name of the field is the name of the instance variable
   // of the Model class.
-  final String? name;
+  final String name;
 
   // Type of the field is the data type of the instance variables
   // of the Model class.
-  final ModelFieldType? type;
+  final ModelFieldType type;
 
   // If the field is a required or an optional field
-  final bool? isRequired;
+  final bool isRequired;
 
-  final bool? isArray;
+  final bool isArray;
 
   final ModelAssociation? association; //opt
 
@@ -69,7 +69,7 @@ class ModelField {
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {
       'name': name,
-      'type': type!.toMap(),
+      'type': type.toMap(),
       'isRequired': isRequired,
       'isArray': isArray,
       'association': association?.toMap(),
