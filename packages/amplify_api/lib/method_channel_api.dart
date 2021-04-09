@@ -19,6 +19,7 @@ import 'dart:typed_data';
 import 'package:amplify_core/types/index.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
+import 'package:amplify_core/types/exception/AmplifyExceptionMessages.dart';
 import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 
 import 'amplify_api.dart';
@@ -34,9 +35,8 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
       return await _channel.invokeMethod('addPlugin');
     } on PlatformException catch (e) {
       if (e.code == "AlreadyConfiguredException") {
-        throw AmplifyAlreadyConfiguredException('Amplify has already been configured and adding plugins after configure is not supported.',
-            recoverySuggestion:
-            'Check if Amplify is already configured using Amplify.isConfigured.');
+        throw AmplifyAlreadyConfiguredException(AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+            recoverySuggestion: AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
       } else {
         throw AmplifyException("DataStore plugin has already been added, " +
                   "multiple plugins for API category are currently not supported.");

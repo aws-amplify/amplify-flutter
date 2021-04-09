@@ -171,7 +171,6 @@ class AmplifyClass extends PlatformInterface {
               'Inspect your amplifyconfiguration.dart and ensure that the string is proper json',
           underlyingException: e.toString());
     }
-
     try {
       var res = await AmplifyClass.instance
           ._configurePlatforms(_getVersion(), configuration);
@@ -182,11 +181,7 @@ class AmplifyClass extends PlatformInterface {
                 AmplifyExceptionMessages.missingRecoverySuggestion);
       }
     } on PlatformException catch (e) {
-      if (e.code == AmplifyExceptionMessages.configHotRestartException) {
-        _isConfigured = true;
-        print(
-            "Configure has already been called, most likely because of a hot restart. Cannot re-configure.");
-      } else if (e.code == 'AnalyticsException') {
+      if (e.code == 'AnalyticsException') {
         throw AnalyticsException.fromMap(Map<String, String>.from(e.details));
       } else if (e.code == 'AmplifyException') {
         throw AmplifyException.fromMap(Map<String, String>.from(e.details));

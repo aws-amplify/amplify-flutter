@@ -24,8 +24,6 @@ import com.amplifyframework.core.Amplify
 import io.flutter.plugin.common.MethodChannel
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
-import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleRestartException
-import com.amazonaws.amplify.amplify_core.exception.HotReloadExceptionCode
 import com.amplifyframework.analytics.pinpoint.AWSPinpointAnalyticsPlugin
 
 class AmplifyAnalyticsBridge {

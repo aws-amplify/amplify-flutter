@@ -34,9 +34,8 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return await _channel.invokeMethod('addPlugin');
     } on PlatformException catch (e) {
       if (e.code == "AlreadyConfiguredException") {
-        throw AmplifyAlreadyConfiguredException('Amplify has already been configured and adding plugins after configure is not supported.',
-            recoverySuggestion:
-            'Check if Amplify is already configured using Amplify.isConfigured.');
+        throw AmplifyAlreadyConfiguredException(AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+            recoverySuggestion: AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
       } else {
         throw AmplifyException("Auth plugin has already been added, " +
             "multiple plugins for Auth category are currently not supported.");

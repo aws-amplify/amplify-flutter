@@ -31,9 +31,8 @@ class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpoint {
       return await _channel.invokeMethod('addPlugin');
     } on PlatformException catch (e) { // Swallow PluginAddedHotRestartException to handle hot restart
       if (e.code == 'AlreadyConfiguredException') {
-        throw AmplifyAlreadyConfiguredException('Amplify has already been configured and adding plugins after configure is not supported.',
-            recoverySuggestion:
-            'Check if Amplify is already configured using Amplify.isConfigured.');
+        throw AmplifyAlreadyConfiguredException(AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+            recoverySuggestion: AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
       } else {
         throw AmplifyException("Analytics plugin has already been added, " +
             "multiple plugins for Analytics category are currently not supported.");

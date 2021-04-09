@@ -42,8 +42,6 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignInWithWebUIRe
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchUserAttributesResult
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
-import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleRestartException
-import com.amazonaws.amplify.amplify_core.exception.HotReloadExceptionCode
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthProvider
 import com.amplifyframework.auth.AuthSession

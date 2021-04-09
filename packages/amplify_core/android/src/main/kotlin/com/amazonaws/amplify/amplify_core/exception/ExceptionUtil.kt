@@ -100,18 +100,6 @@ class ExceptionUtil {
             postExceptionToFlutterChannel(flutterResult, errorCode,
                     errorDetails)
         }
-
-        @JvmStatic
-        fun handleRestartException( @NonNull e : HotReloadExceptionCode, @NonNull flutterResult : Result, @NonNull message: String, @NonNull suggestion: String){
-            var errorDetails: Map<String, Any?> = createSerializedError(
-                    message,
-                    suggestion,
-                    null)
-            var errorCode = e.code
-
-            postExceptionToFlutterChannel(flutterResult, errorCode,
-                    errorDetails)
-        }
     }
 }
 

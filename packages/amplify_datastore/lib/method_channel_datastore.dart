@@ -16,6 +16,7 @@
 import 'package:amplify_core/types/index.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:flutter/services.dart';
+import 'package:amplify_core/types/exception/AmplifyExceptionMessages.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/datastore');
@@ -38,9 +39,8 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
       });
     } on PlatformException catch (e) {
       if (e.code == "AlreadyConfiguredException") {
-        throw AmplifyAlreadyConfiguredException('Amplify has already been configured and adding plugins after configure is not supported.',
-            recoverySuggestion:
-            'Check if Amplify is already configured using Amplify.isConfigured.');
+        throw AmplifyAlreadyConfiguredException(AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+            recoverySuggestion: AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
       } else {
         throw _deserializeException(e);
       }
