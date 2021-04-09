@@ -27,7 +27,7 @@ class ResetPasswordRequest {
       pendingRequest['username'] = username;
     }
     if (options != null) {
-      pendingRequest['options'] = options!.serializeAsMap();
+      pendingRequest['options'] = options.serializeAsMap();
     }
     return pendingRequest;
   }
