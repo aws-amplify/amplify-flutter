@@ -27,7 +27,6 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
     private let cognito: AuthCognitoBridge
     private let authCognitoHubEventStreamHandler: AuthCognitoHubEventStreamHandler?
     var errorHandler = AuthErrorHandler()
-    private var pluginAdded: Bool = false;
     
     init(cognito: AuthCognitoBridge = AuthCognitoBridge(),
          authCognitoHubEventStreamHandler: AuthCognitoHubEventStreamHandler = AuthCognitoHubEventStreamHandler()) {

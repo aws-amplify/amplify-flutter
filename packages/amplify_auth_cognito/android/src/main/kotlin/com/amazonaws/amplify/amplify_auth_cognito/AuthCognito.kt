@@ -40,7 +40,6 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthUser
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendSignUpCodeResult
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignInWithWebUIRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchUserAttributesResult
-import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthProvider

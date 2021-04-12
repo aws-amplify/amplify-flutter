@@ -16,7 +16,6 @@
 import Flutter
 
 public class ErrorUtil {
-    
     public static func postErrorToFlutterChannel(result: FlutterResult,
                                           errorCode: String,
                                           details: Dictionary<String, String>)  {

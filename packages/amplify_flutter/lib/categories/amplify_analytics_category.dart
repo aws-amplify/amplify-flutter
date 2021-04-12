@@ -34,7 +34,7 @@ class AnalyticsCategory {
       }
     } else {
       throw AmplifyException("Analytics plugin has already been added, " +
-          "multiple plugins for Auth category are currently not supported.");
+          "multiple plugins for Analytics category are currently not supported.");
     }
   }
 

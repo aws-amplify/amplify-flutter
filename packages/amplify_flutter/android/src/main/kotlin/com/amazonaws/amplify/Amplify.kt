@@ -25,7 +25,6 @@ import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedError
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
-import com.amazonaws.amplify.amplify_core.exception.HotReloadExceptionCode
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.analytics.AnalyticsException
 import com.amplifyframework.core.Amplify
@@ -48,7 +47,6 @@ class Amplify : FlutterPlugin, ActivityAware, MethodCallHandler {
     private lateinit var channel: MethodChannel
     private lateinit var context: Context
     private var mainActivity: Activity? = null
-    private var isConfigured = false;
 
     override fun onAttachedToEngine(
             @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
@@ -75,7 +73,6 @@ class Amplify : FlutterPlugin, ActivityAware, MethodCallHandler {
                     val arguments = call.arguments as HashMap<*, *>
                     val version = arguments["version"] as String
                     val configuration = arguments["configuration"] as String
-
                     onConfigure(result, version, configuration)
                 } catch (e: Exception) {
                     postExceptionToFlutterChannel(result, "AmplifyException",
@@ -118,14 +115,6 @@ class Amplify : FlutterPlugin, ActivityAware, MethodCallHandler {
     private fun onConfigure(@NonNull result: Result, @NonNull version: String,
             @NonNull config: String) {
         try {
-//            if (isConfigured) {
-//                return ExceptionUtil.handleRestartException(
-//                        HotReloadExceptionCode.CONFIGURED,
-//                        result,
-//                        ExceptionMessages.hotRestartConfigExceptionMessage,
-//                        ExceptionMessages.hotRestartRecoverySuggestion
-//                )
-//            }
             val configuration = AmplifyConfiguration.builder(JSONObject(config))
                     .addPlatform(UserAgent.Platform.FLUTTER, version)
                     .devMenuEnabled(false)

@@ -16,12 +16,9 @@
 package com.amazonaws.amplify.amplify_auth_cognito
 
 import android.app.Activity
-import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
 import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.BasicAWSCredentials
-import com.amazonaws.services.cognitoidentityprovider.model.AliasExistsException
 import com.amplifyframework.auth.*
-import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
 import com.amplifyframework.auth.options.AuthSignOutOptions
 import com.amplifyframework.auth.options.AuthSignUpOptions
 import com.amplifyframework.auth.result.AuthResetPasswordResult
@@ -34,7 +31,6 @@ import com.amplifyframework.auth.result.step.*
 import com.amplifyframework.core.Action
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
-import com.amplifyframework.core.plugin.Plugin
 import com.amplifyframework.logging.Logger
 import com.google.gson.internal.LinkedTreeMap
 import io.flutter.plugin.common.MethodCall
@@ -43,7 +39,6 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers
-import org.mockito.Mockito
 import org.mockito.Mockito.*
 import org.mockito.invocation.InvocationOnMock
 import org.robolectric.RobolectricTestRunner
@@ -54,7 +49,6 @@ import java.lang.reflect.Modifier
 class AmplifyAuthCognitoPluginTest {
 
     lateinit var plugin: AuthCognito
-    lateinit var mockAmplify: Amplify
 
     private val mockResult = mock(MethodChannel.Result::class.java)
     private val codeDeliveryDetails = AuthCodeDeliveryDetails("test@test.com", AuthCodeDeliveryDetails.DeliveryMedium.EMAIL, "email")
@@ -69,7 +63,6 @@ class AmplifyAuthCognitoPluginTest {
 
     @Before
     fun setup() {
-        mockAmplify = mock(Amplify::class.java)
         plugin = AuthCognito(AuthCognitoHubEventStreamHandler(), mock(Activity::class.java))
         val mockLog = mock(Logger::class.java)
 

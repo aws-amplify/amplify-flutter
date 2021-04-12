@@ -18,8 +18,6 @@ import 'dart:async';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
-import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'Widgets/ConfirmResetWidget.dart';
 import 'Widgets/ConfirmSignInWidget.dart';
@@ -49,10 +47,6 @@ class _MyAppState extends State<MyApp> {
   StreamSubscription subscription;
 
   AmplifyAuthCognito auth;
-  AmplifyStorageS3 storage;
-  AmplifyAnalyticsPinpoint analytics;
-
-
   String displayState;
   String authState = 'User not signed in';
   String lastHubEvent = '';
@@ -88,28 +82,13 @@ class _MyAppState extends State<MyApp> {
 
   void _configureAmplify() async {
     auth = AmplifyAuthCognito();
-    storage = AmplifyStorageS3();
-    analytics = AmplifyAnalyticsPinpoint();
-
 
     try {
       await Amplify.addPlugin(auth);
     } catch (e) {
       print(e);
     }
-
-    try {
-      await Amplify.addPlugin(analytics);
-    } catch (e) {
-      print(e);
-    }
-
-    // try {
-    //   await Amplify.addPlugin(storage);
-    // } catch (e) {
-    //   print(e);
-    // }
-
+    
     var isSignedIn = false;
 
     subscription = Amplify.Hub.listen([HubChannel.Auth], (hubEvent) {
@@ -160,8 +139,19 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<bool> _isSignedIn() async {
-    final session = await Amplify.Auth.fetchAuthSession();
-    return session.isSignedIn;
+    // final session = await Amplify.Auth.fetchAuthSession();
+    return false;
+    // return session.isSignedIn;
+  }
+
+  void _addPluginAuth() async {
+    auth = AmplifyAuthCognito();
+
+    try {
+      await Amplify.addPlugin(auth);
+    } catch (e) {
+      print(e);
+    }
   }
 
   void _signOut() async {
@@ -178,14 +168,14 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _fetchSession() async {
-    try {
-      CognitoAuthSession res = await Amplify.Auth.fetchAuthSession(
-          options: CognitoSessionOptions(getAWSCredentials: true));
-      showResult('Session Sign In Status = ' + res.isSignedIn.toString());
-    } on AmplifyException catch (e) {
-      setError(e);
-      print(e);
-    }
+    // try {
+    //   CognitoAuthSession res = await Amplify.Auth.fetchAuthSession(
+    //       options: CognitoSessionOptions(getAWSCredentials: true));
+    //   showResult('Session Sign In Status = ' + res.isSignedIn.toString());
+    // } on AmplifyException catch (e) {
+    //   setError(e);
+    //   print(e);
+    // }
   }
 
   void _getCurrentUser() async {
@@ -348,7 +338,11 @@ class _MyAppState extends State<MyApp> {
                       if (error != null) showErrors(),
                       ElevatedButton(
                           onPressed: _configureAmplify,
-                          child: const Text('Configure'))
+                          child: const Text('Configure')),
+                      ElevatedButton(
+                        onPressed: _addPluginAuth,
+                        child: const Text('Add Auth Plugin Again'),
+                      )
                     ])
               ],
             ),

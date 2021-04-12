@@ -68,7 +68,7 @@ class AmplifyClass extends PlatformInterface {
   /// Throws AmplifyAlreadyConfiguredException if
   /// this method is called after configure (e.g. during hot reload).
   Future<void> addPlugin(AmplifyPluginInterface plugin) async {
-    if (true) {
+    if (!isConfigured) {
       try {
         if (plugin is AuthPluginInterface) {
           await Auth.addPlugin(plugin);

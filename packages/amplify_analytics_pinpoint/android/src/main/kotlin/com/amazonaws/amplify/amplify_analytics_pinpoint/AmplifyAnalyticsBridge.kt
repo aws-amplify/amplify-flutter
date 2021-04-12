@@ -23,7 +23,6 @@ import com.amplifyframework.core.Amplify
 
 import io.flutter.plugin.common.MethodChannel
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
-import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amplifyframework.analytics.pinpoint.AWSPinpointAnalyticsPlugin
 
 class AmplifyAnalyticsBridge {

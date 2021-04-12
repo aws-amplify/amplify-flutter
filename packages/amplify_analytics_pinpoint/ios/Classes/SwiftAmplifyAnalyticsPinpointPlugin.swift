@@ -17,12 +17,10 @@ import Flutter
 import UIKit
 import Amplify
 import AmplifyPlugins
-import amplify_core
 
 public class SwiftAmplifyAnalyticsPinpointPlugin: NSObject, FlutterPlugin {
     
     private let bridge: AnalyticsBridge
-    var pluginAdded: Bool = false
     
     init(
         bridge: AnalyticsBridge = AnalyticsBridge()
