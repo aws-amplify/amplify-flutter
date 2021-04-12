@@ -60,7 +60,6 @@ class AmplifyAuthCognitoPluginTest {
     private val mockResetPasswordResult = AuthResetPasswordResult(false, resetStep)
     private var mockAuth = mock(AuthCategory::class.java)
 
-
     @Before
     fun setup() {
         plugin = AuthCognito(AuthCognitoHubEventStreamHandler(), mock(Activity::class.java))
