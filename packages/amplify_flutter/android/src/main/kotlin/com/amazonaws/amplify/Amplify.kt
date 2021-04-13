@@ -124,7 +124,7 @@ class Amplify : FlutterPlugin, ActivityAware, MethodCallHandler {
             result.success(true);
         } catch (e: AnalyticsException) {
             prepareAnalyticsError(result, e);
-        } catch (e: Amplify.AmplifyAlreadyConfiguredException) {
+        } catch (e: Amplify.AlreadyConfiguredException) {
             postExceptionToFlutterChannel(result, "AmplifyAlreadyConfiguredException",
                     createSerializedError(e))
         } catch (e: AmplifyException) {
