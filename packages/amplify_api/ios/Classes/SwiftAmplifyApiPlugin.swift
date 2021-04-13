@@ -74,7 +74,7 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
                         
                         var errorCode = "APIException"
                         if case .amplifyAlreadyConfigured = configError {
-                            errorCode = "AlreadyConfiguredException"
+                            errorCode = "AmplifyAlreadyConfiguredException"
                         }
                         ErrorUtil.postErrorToFlutterChannel(
                             result: result,

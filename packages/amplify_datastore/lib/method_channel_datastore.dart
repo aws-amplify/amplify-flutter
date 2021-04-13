@@ -38,7 +38,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         'modelProviderVersion': modelProvider.version
       });
     } on PlatformException catch (e) {
-      if (e.code == "AlreadyConfiguredException") {
+      if (e.code == "AmplifyAlreadyConfiguredException") {
         throw AmplifyAlreadyConfiguredException(AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
             recoverySuggestion: AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
       } else {

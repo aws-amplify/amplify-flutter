@@ -44,7 +44,7 @@ public class FlutterAnalytics {
                 
                 var errorCode = "AnalyticsException"
                 if case .amplifyAlreadyConfigured = configError {
-                   errorCode = "AlreadyConfiguredException"
+                   errorCode = "AmplifyAlreadyConfiguredException"
                 }
                 ErrorUtil.postErrorToFlutterChannel(
                     result: result,

@@ -34,7 +34,7 @@ void main() {
         if (!platformError) {
           return true;
         } else {
-          throw PlatformException(code: "AlreadyConfiguredException");
+          throw PlatformException(code: "AmplifyAlreadyConfiguredException");
         }
       } else {
         return true;
@@ -56,7 +56,7 @@ void main() {
     }
   });
 
-  test('Exception is not thrown if platform exception contains "AlreadyConfiguredException" code', () async {
+  test('Exception is not thrown if platform exception contains "AmplifyAlreadyConfiguredException" code', () async {
     platformError = true;
     try {
       await Amplify.addPlugin(auth);

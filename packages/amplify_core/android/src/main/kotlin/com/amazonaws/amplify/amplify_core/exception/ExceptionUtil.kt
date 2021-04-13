@@ -91,7 +91,7 @@ class ExceptionUtil {
             var errorDetails: Map<String, Any?>
             var errorCode = pluginName + "Exception"
             if (e is Amplify.AlreadyConfiguredException) {
-                errorCode = "AlreadyConfiguredException"
+                errorCode = "AmplifyAlreadyConfiguredException"
             }
             errorDetails = when (e) {
                 is AmplifyException -> createSerializedError(e)

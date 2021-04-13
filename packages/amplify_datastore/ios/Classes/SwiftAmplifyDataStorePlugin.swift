@@ -118,7 +118,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                 let configError = error as! ConfigurationError
                 var errorCode = "DataStoreException"
                 if case .amplifyAlreadyConfigured = configError {
-                    errorCode = "AlreadyConfiguredException"
+                    errorCode = "AmplifyAlreadyConfiguredException"
                 }
                 ErrorUtil.postErrorToFlutterChannel(
                     result: result,

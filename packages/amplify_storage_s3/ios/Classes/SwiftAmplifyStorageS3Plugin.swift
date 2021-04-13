@@ -51,7 +51,7 @@ public class SwiftAmplifyStorageS3Plugin: NSObject, FlutterPlugin {
                 
                 var errorCode = "StorageException"
                 if case .amplifyAlreadyConfigured = configError {
-                   errorCode = "AlreadyConfiguredException"
+                   errorCode = "AmplifyAlreadyConfiguredException"
                 }
                 ErrorUtil.postErrorToFlutterChannel(
                     result: result,

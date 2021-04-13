@@ -83,7 +83,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
                     
                     var errorCode = "AuthException"
                     if case .amplifyAlreadyConfigured = configError {
-                       errorCode = "AlreadyConfiguredException"
+                       errorCode = "AmplifyAlreadyConfiguredException"
                     }
                     ErrorUtil.postErrorToFlutterChannel(
                         result: result,
