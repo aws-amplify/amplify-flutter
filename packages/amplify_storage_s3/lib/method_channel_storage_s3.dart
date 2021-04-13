@@ -37,8 +37,8 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
         throw AmplifyAlreadyConfiguredException(AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
             recoverySuggestion: AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
       } else {
-        throw AmplifyException("Storage plugin has already been added, " +
-            "multiple plugins for Auth category are currently not supported.");
+        throw AmplifyException.fromMap(
+            Map<String, String>.from(e.details));
       }
     }
   }
