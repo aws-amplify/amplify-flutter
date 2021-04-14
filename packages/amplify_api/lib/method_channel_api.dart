@@ -38,8 +38,8 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
         throw AmplifyAlreadyConfiguredException(AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
             recoverySuggestion: AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
       } else {
-        throw AmplifyException("DataStore plugin has already been added, " +
-                  "multiple plugins for API category are currently not supported.");
+        throw AmplifyException.fromMap(
+            Map<String, String>.from(e.details));
       }
     }
   }

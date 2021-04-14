@@ -46,6 +46,7 @@ class _MyAppState extends State<MyApp> {
   final newPasswordController = TextEditingController();
   StreamSubscription subscription;
 
+  bool _isAmplifyConfigured = false;
   AmplifyAuthCognito auth;
   String displayState;
   String authState = 'User not signed in';
@@ -55,7 +56,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    _configureAmplify();
   }
 
   void showResult(_authState) async {
@@ -82,13 +82,7 @@ class _MyAppState extends State<MyApp> {
 
   void _configureAmplify() async {
     auth = AmplifyAuthCognito();
-
-    try {
-      await Amplify.addPlugin(auth);
-    } catch (e) {
-      print(e);
-    }
-    
+    await Amplify.addPlugin(auth);
     var isSignedIn = false;
 
     subscription = Amplify.Hub.listen([HubChannel.Auth], (hubEvent) {
@@ -125,7 +119,6 @@ class _MyAppState extends State<MyApp> {
       print(
           'Amplify was already configured. Looks like app restarted on android.');
     }
-
     try {
       isSignedIn = await _isSignedIn();
     } on AmplifyException catch (e) {
@@ -133,25 +126,15 @@ class _MyAppState extends State<MyApp> {
     }
 
     setState(() {
+      _isAmplifyConfigured = true;
       displayState = isSignedIn ? 'SIGNED_IN' : 'SHOW_SIGN_IN';
       authState = isSignedIn ? 'User already signed in' : 'User not signed in';
     });
   }
 
   Future<bool> _isSignedIn() async {
-    // final session = await Amplify.Auth.fetchAuthSession();
-    return false;
-    // return session.isSignedIn;
-  }
-
-  void _addPluginAuth() async {
-    auth = AmplifyAuthCognito();
-
-    try {
-      await Amplify.addPlugin(auth);
-    } catch (e) {
-      print(e);
-    }
+    final session = await Amplify.Auth.fetchAuthSession();
+    return session.isSignedIn;
   }
 
   void _signOut() async {
@@ -168,14 +151,14 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _fetchSession() async {
-    // try {
-    //   CognitoAuthSession res = await Amplify.Auth.fetchAuthSession(
-    //       options: CognitoSessionOptions(getAWSCredentials: true));
-    //   showResult('Session Sign In Status = ' + res.isSignedIn.toString());
-    // } on AmplifyException catch (e) {
-    //   setError(e);
-    //   print(e);
-    // }
+    try {
+      CognitoAuthSession res = await Amplify.Auth.fetchAuthSession(
+          options: CognitoSessionOptions(getAWSCredentials: true));
+      showResult('Session Sign In Status = ' + res.isSignedIn.toString());
+    } on AmplifyException catch (e) {
+      setError(e);
+      print(e);
+    }
   }
 
   void _getCurrentUser() async {
@@ -335,14 +318,13 @@ class _MyAppState extends State<MyApp> {
                           ConfirmResetWidget(showResult, changeDisplay,
                               setError, _backToSignIn),
                       if (this.displayState == "SIGNED_IN") showApp(),
-                      if (error != null) showErrors(),
                       ElevatedButton(
-                          onPressed: _configureAmplify,
-                          child: const Text('Configure')),
-                      ElevatedButton(
-                        onPressed: _addPluginAuth,
-                        child: const Text('Add Auth Plugin Again'),
-                      )
+                        key: Key('configure-button'),
+                        onPressed:
+                            _isAmplifyConfigured ? null : _configureAmplify,
+                        child: const Text('configure'),
+                      ),
+                      if (error != null) showErrors()
                     ])
               ],
             ),

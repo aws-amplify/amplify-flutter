@@ -43,7 +43,7 @@ class _RestApiViewState extends State<RestApiView> {
           restOptions: RestOptions(
               path: _apiPathController.text,
               body:
-                  Uint8List.fromList("{\"name\":\"Mow the lawn2\"}".codeUnits)));
+                  Uint8List.fromList("{\"name\":\"Mow the lawn\"}".codeUnits)));
 
       _lastRestOperation = restOperation;
       RestResponse response = await restOperation.response;
@@ -62,7 +62,7 @@ class _RestApiViewState extends State<RestApiView> {
           restOptions: RestOptions(
               path: _apiPathController.text,
               body:
-                  Uint8List.fromList("{\"name\":\"Mow the lawn post RESTARTED ANDROID\"}".codeUnits)));
+                  Uint8List.fromList("{\"name\":\"Mow the lawn\"}".codeUnits)));
 
       _lastRestOperation = restOperation;
       RestResponse response = await restOperation.response;

@@ -33,12 +33,4 @@ public class ErrorUtil {
         serializedException["underlyingException"] = underlyingError
         return serializedException
     }
-    
-    public static func postRestartErrorToFlutterChannel(result: FlutterResult,
-                                          errorCode: HotReloadExceptionCode,
-                                          details: Dictionary<String, String>)  {
-        result(FlutterError(code: errorCode.rawValue,
-                            message: ErrorMessages.defaultFallbackErrorMessage,
-                            details: details))
-    }
 }

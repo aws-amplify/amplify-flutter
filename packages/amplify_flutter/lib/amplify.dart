@@ -186,6 +186,7 @@ class AmplifyClass extends PlatformInterface {
       } else if (e.code == 'AmplifyException') {
         throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       } else if (e.code == 'AmplifyAlreadyConfiguredException') {
+        _isConfigured = true;
         throw AmplifyAlreadyConfiguredException.fromMap(
             Map<String, String>.from(e.details));
       } else {

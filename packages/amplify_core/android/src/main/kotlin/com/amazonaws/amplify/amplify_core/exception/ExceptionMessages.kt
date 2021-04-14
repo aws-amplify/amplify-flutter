@@ -41,9 +41,5 @@ class ExceptionMessages {
         @JvmStatic
         val missingAttribute: String =
             "Ensure that %s attribute is present"
-
-        @JvmStatic
-        val hotRestartRecoverySuggestion: String =
-            "You should not be encountering this exception. $createGithubIssueString"
     }
 }
