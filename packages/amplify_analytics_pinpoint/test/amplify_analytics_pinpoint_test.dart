@@ -26,63 +26,162 @@ void main() {
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  setUp(() {
-    analyticsChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return true;
-    });
-  });
+  final eventName = 'test';
+  final userId = 'testUser';
+  final name = 'Darth Vader';
+  final email = 'vader@sith.com';
+  final plan = 'plan';
 
   tearDown(() {
     analyticsChannel.setMockMethodCallHandler(null);
   });
 
   // test sending basic events
-  test('recordEvent results in true', () async {
-    var event = AnalyticsEvent("test");
+  test('recordEvent correctly serializes input to method channel', () async {
+    analyticsChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      expect(methodCall.arguments,
+          {'name': eventName, 'propertiesMap': {}, 'propertiesTypesMap': {}});
+    });
 
-    analytics.recordEvent(event: event);
+    var event = AnalyticsEvent(eventName);
+    expect(analytics.recordEvent(event: event), completes);
   });
 
-  test('recordEvent results in true', () async {
-    var event = AnalyticsEvent("test");
-
-    event.properties.addBoolProperty("boolKey", true);
-    event.properties.addDoubleProperty("doubleKey", 10.0);
-    event.properties.addIntProperty("intKey", 10);
-    event.properties.addStringProperty("stringKey", "stringValue");
-
-    analytics.recordEvent(event: event);
+  test('flushEvents executes successfully', () async {
+    analyticsChannel.setMockMethodCallHandler((MethodCall methodCall) async {});
+    expect(analytics.flushEvents(), completes);
   });
 
-  test('registerGlobalProperties results in true', () async {
+  test('enable executes successfully', () async {
+    analyticsChannel.setMockMethodCallHandler((MethodCall methodCall) async {});
+    expect(analytics.enable(), completes);
+  });
+
+  test('disable executes successfully', () async {
+    analyticsChannel.setMockMethodCallHandler((MethodCall methodCall) async {});
+    expect(analytics.disable(), completes);
+  });
+
+  test(
+      'unregisterGlobalProperties correctly serializes input to method channel',
+      () async {
+    final propertiesToUnregister = ['name'];
+    analyticsChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      expect(methodCall.arguments, propertiesToUnregister);
+    });
+    expect(
+        analytics.unregisterGlobalProperties(
+            propertyNames: propertiesToUnregister),
+        completes);
+  });
+
+  test(
+      'recordEvent adds properties to event and correctly serializes input to method channel',
+      () async {
+    var event = AnalyticsEvent(eventName);
+    analyticsChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      expect(methodCall.arguments, {
+        'name': eventName,
+        'propertiesMap': {
+          'boolKey': true,
+          'doubleKey': 10.0,
+          'intKey': 10,
+          'stringKey': 'stringValue'
+        },
+        'propertiesTypesMap': {
+          'boolKey': 'BOOL',
+          'doubleKey': 'DOUBLE',
+          'intKey': 'INT',
+          'stringKey': 'STRING'
+        }
+      });
+    });
+
+    event.properties.addBoolProperty('boolKey', true);
+    event.properties.addDoubleProperty('doubleKey', 10.0);
+    event.properties.addIntProperty('intKey', 10);
+    event.properties.addStringProperty('stringKey', 'stringValue');
+
+    expect(analytics.recordEvent(event: event), completes);
+  });
+
+  test(
+      'registerGlobalProperties correctly serializes basic input to method channel',
+      () async {
+    analyticsChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      expect(methodCall.arguments,
+          {'propertiesMap': {}, 'propertiesTypesMap': {}});
+    });
+
+    var globalProperties = AnalyticsProperties();
+    expect(
+        analytics.registerGlobalProperties(globalProperties: globalProperties),
+        completes);
+  });
+
+  test(
+      'registerGlobalProperties adds properties and correctly serializes input to method channel',
+      () async {
+    analyticsChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      expect(methodCall.arguments, {
+        'propertiesMap': {
+          'boolKey': true,
+          'doubleKey': 10.0,
+          'intKey': 10,
+          'stringKey': 'stringValue'
+        },
+        'propertiesTypesMap': {
+          'boolKey': 'BOOL',
+          'doubleKey': 'DOUBLE',
+          'intKey': 'INT',
+          'stringKey': 'STRING'
+        }
+      });
+    });
+
     var globalProperties = AnalyticsProperties();
 
-    await analytics.registerGlobalProperties(
-        globalProperties: globalProperties);
+    globalProperties.addBoolProperty('boolKey', true);
+    globalProperties.addDoubleProperty('doubleKey', 10.0);
+    globalProperties.addIntProperty('intKey', 10);
+    globalProperties.addStringProperty('stringKey', 'stringValue');
+
+    expect(
+        analytics.registerGlobalProperties(globalProperties: globalProperties),
+        completes);
   });
 
-  test('registerGlobalProperties results in true', () async {
-    var globalProperties = AnalyticsProperties();
+  test('identify user correctly serializes minimal input to method channel',
+      () async {
+    analyticsChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      expect(methodCall.arguments, {'userId': userId, 'userProfileMap': {}});
+    });
 
-    globalProperties.addBoolProperty("boolKey", true);
-    globalProperties.addDoubleProperty("doubleKey", 10.0);
-    globalProperties.addIntProperty("intKey", 10);
-    globalProperties.addStringProperty("stringKey", "stringValue");
-
-    await analytics.registerGlobalProperties(
-        globalProperties: globalProperties);
-  });
-
-  test('identify user results in true', () async {
     var userProfile = AnalyticsUserProfile();
-    await analytics.identifyUser(userId: "testUser", userProfile: userProfile);
+    expect(analytics.identifyUser(userId: userId, userProfile: userProfile),
+        completes);
   });
 
-  test('identify user results in true', () async {
+  test('identify user correctly serializes basic input to method channel',
+      () async {
+    analyticsChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      expect(methodCall.arguments, {
+        'userId': userId,
+        'userProfileMap': {
+          'name': name,
+          'email': email,
+          'plan': plan,
+          'location': {},
+          'propertiesMap': {},
+          'propertiesTypesMap': {}
+        }
+      });
+    });
+
     var userProfile = AnalyticsUserProfile();
-    userProfile.name = "name";
-    userProfile.email = "email";
-    userProfile.plan = "plan";
+    userProfile.name = name;
+    userProfile.email = email;
+    userProfile.plan = plan;
 
     var analyticsUserLocation = new AnalyticsUserProfileLocation();
     userProfile.location = analyticsUserLocation;
@@ -90,31 +189,72 @@ void main() {
     var analyticsProperties = new AnalyticsProperties();
     userProfile.properties = analyticsProperties;
 
-    analytics.identifyUser(userId: "testUser", userProfile: userProfile);
+    expect(analytics.identifyUser(userId: userId, userProfile: userProfile),
+        completes);
   });
 
-  test('identify user results in true', () async {
+  test('identify user correctly serializes additional input to method channel',
+      () async {
+    final city = 'San Francisco';
+    final region = 'California';
+    final country = 'USA';
+    final latitude = 5.0;
+    final longitude = 5.0;
+    final postalCode = '94070';
+
+    analyticsChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      expect(methodCall.arguments, {
+        'userId': userId,
+        'userProfileMap': {
+          'name': name,
+          'email': email,
+          'plan': plan,
+          'location': {
+            'latitude': latitude,
+            'longitude': longitude,
+            'postalCode': postalCode,
+            'city': city,
+            'region': region,
+            'country': country
+          },
+          'propertiesMap': {
+            'boolKey': true,
+            'doubleKey': 10.0,
+            'intKey': 10,
+            'stringKey': 'stringValue'
+          },
+          'propertiesTypesMap': {
+            'boolKey': 'BOOL',
+            'doubleKey': 'DOUBLE',
+            'intKey': 'INT',
+            'stringKey': 'STRING'
+          }
+        }
+      });
+    });
+
     var userProfile = AnalyticsUserProfile();
-    userProfile.name = "name";
-    userProfile.email = "email";
-    userProfile.plan = "plan";
+    userProfile.name = name;
+    userProfile.email = email;
+    userProfile.plan = plan;
 
     var analyticsUserLocation = new AnalyticsUserProfileLocation();
-    analyticsUserLocation.latitude = 5;
-    analyticsUserLocation.longitude = 5;
-    analyticsUserLocation.postalCode = "94070";
-    analyticsUserLocation.city = "SanFrancisco";
-    analyticsUserLocation.region = "California";
-    analyticsUserLocation.country = "USA";
+    analyticsUserLocation.latitude = latitude;
+    analyticsUserLocation.longitude = longitude;
+    analyticsUserLocation.postalCode = postalCode;
+    analyticsUserLocation.city = city;
+    analyticsUserLocation.region = region;
+    analyticsUserLocation.country = country;
     userProfile.location = analyticsUserLocation;
 
     var analyticsProperties = new AnalyticsProperties();
-    analyticsProperties.addBoolProperty("boolKey", true);
-    analyticsProperties.addDoubleProperty("doubleKey", 10.0);
-    analyticsProperties.addIntProperty("intKey", 10);
-    analyticsProperties.addStringProperty("stringKey", "stringValue");
+    analyticsProperties.addBoolProperty('boolKey', true);
+    analyticsProperties.addDoubleProperty('doubleKey', 10.0);
+    analyticsProperties.addIntProperty('intKey', 10);
+    analyticsProperties.addStringProperty('stringKey', 'stringValue');
     userProfile.properties = analyticsProperties;
 
-    await analytics.identifyUser(userId: "testUser", userProfile: userProfile);
+    expect(analytics.identifyUser(userId: userId, userProfile: userProfile),
+        completes);
   });
 }
