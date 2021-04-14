@@ -21,8 +21,6 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import androidx.annotation.NonNull
-import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
-import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedError
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
 import com.amplifyframework.AmplifyException
@@ -120,7 +118,6 @@ class Amplify : FlutterPlugin, ActivityAware, MethodCallHandler {
                     .devMenuEnabled(false)
                     .build()
             Amplify.configure(configuration, context)
-
             result.success(true);
         } catch (e: AnalyticsException) {
             prepareAnalyticsError(result, e);
