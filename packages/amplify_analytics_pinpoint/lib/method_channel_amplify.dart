@@ -29,7 +29,7 @@ class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpoint {
   Future<void> addPlugin() async {
     try {
       return await _channel.invokeMethod('addPlugin');
-    } on PlatformException catch (e) { // Swallow PluginAddedHotRestartException to handle hot restart
+    } on PlatformException catch (e) {
       if (e.code == 'AmplifyAlreadyConfiguredException') {
         throw AmplifyAlreadyConfiguredException(
           AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
