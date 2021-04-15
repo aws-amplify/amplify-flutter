@@ -1,3 +1,9 @@
+## 0.1.2 (2021-04-15)
+
+### Bug Fixes
+
+- fix: handle hot restart (#491)
+
 ## 0.1.1 (2021-03-29)
 
 ### Bug Fixes
