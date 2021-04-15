@@ -35,7 +35,8 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
       return await _channel.invokeMethod('addPlugin');
     } on PlatformException catch (e) {
       if (e.code == "AmplifyAlreadyConfiguredException") {
-        throw AmplifyAlreadyConfiguredException(AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+        throw AmplifyAlreadyConfiguredException(
+            AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
             recoverySuggestion: AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
       } else {
         throw AmplifyException.fromMap(

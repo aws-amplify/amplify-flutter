@@ -143,7 +143,6 @@ class AuthCategory {
     return plugins.length == 1
         ? plugins[0].getCurrentUser(request: request)
         : throw _pluginNotAddedException("Auth");
-
   }
 
   Future<List<AuthUserAttribute>> fetchUserAttributes(

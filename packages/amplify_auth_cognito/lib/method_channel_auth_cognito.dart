@@ -34,8 +34,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       return await _channel.invokeMethod('addPlugin');
     } on PlatformException catch (e) {
       if (e.code == "AmplifyAlreadyConfiguredException") {
-        throw AmplifyAlreadyConfiguredException(AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
-            recoverySuggestion: AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
+        throw AmplifyAlreadyConfiguredException(
+          AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+          recoverySuggestion: AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
       } else {
         throw AmplifyException.fromMap(
             Map<String, String>.from(e.details));

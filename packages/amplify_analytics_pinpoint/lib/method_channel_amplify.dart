@@ -31,8 +31,9 @@ class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpoint {
       return await _channel.invokeMethod('addPlugin');
     } on PlatformException catch (e) { // Swallow PluginAddedHotRestartException to handle hot restart
       if (e.code == 'AmplifyAlreadyConfiguredException') {
-        throw AmplifyAlreadyConfiguredException(AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
-            recoverySuggestion: AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
+        throw AmplifyAlreadyConfiguredException(
+          AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+          recoverySuggestion: AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
       } else {
         throw AmplifyException.fromMap(
             Map<String, String>.from(e.details));
