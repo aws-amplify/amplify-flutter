@@ -20,11 +20,20 @@ struct FlutterSignInRequest {
   var username: String?
   var password: String?
   var options: Dictionary<String, Any>? = [:]
+  var validationData: Dictionary<String, Any>? = [:]
   init(dict: NSMutableDictionary){
     self.username = dict["username"] as! String?
     self.password = dict["password"] as! String?
-    self.options = dict["options"] as! Dictionary<String, Any>?
+    self.options = dict["options"] as? Dictionary<String, Any>
+    self.validationData = self.formatValidationData(options: dict["options"] as! Dictionary<String, Any>)
   }
+
+  func formatValidationData(options: Dictionary<String, Any>) -> Dictionary<String, Any> {
+    let validationData: Dictionary<String, Any> = options["validationData"] as! Dictionary<String, String>
+
+    return validationData
+  }
+
   static func validate(dict: NSMutableDictionary) throws {
     let validationErrorMessage = "SignIn Request malformed."
     if (dict["username"] == nil && dict["options"] == nil) {

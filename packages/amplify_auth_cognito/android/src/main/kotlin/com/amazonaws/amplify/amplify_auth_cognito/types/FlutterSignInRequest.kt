@@ -23,7 +23,16 @@ import com.amplifyframework.core.Amplify
 data class FlutterSignInRequest(val map: HashMap<String, *>) {
   val username: String = map["username"] as String;
   val password: String = map["password"] as String;
-  val options: HashMap<String, *>? = map["options"] as HashMap<String, *>?;
+  val options: AWSCognitoAuthSignInOptions = formatOptions(map["options"] as HashMap<String, *>)
+
+  private fun formatOptions(@NonNull rawOptions: HashMap<String, *>): AWSCognitoAuthSignInOptions {
+    var options =  AWSCognitoAuthSignInOptions.builder();
+
+    if(rawOptions["validationData"] != null)
+      options.metadata(rawOptions["validationData"] as HashMap<String, String>);
+
+    return options.build();
+  }
 
   companion object {
     private const val validationErrorMessage: String = "SignIn Request malformed."
