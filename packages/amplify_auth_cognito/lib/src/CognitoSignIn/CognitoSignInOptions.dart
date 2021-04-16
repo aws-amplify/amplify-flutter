@@ -15,16 +15,12 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 class CognitoSignInOptions extends SignInOptions {
-  Map<String, String> validationData;
   Map<String, String> clientMetadata;
-  CognitoSignInOptions({this.validationData, this.clientMetadata}) : super();
+  CognitoSignInOptions({this.clientMetadata}) : super();
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     if (this.clientMetadata != null) {
       pendingRequest["clientMetadata"] = clientMetadata;
-    }
-    if (this.validationData != null) {
-      pendingRequest["validationData"] = validationData;
     }
     return pendingRequest;
   }
