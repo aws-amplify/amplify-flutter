@@ -41,6 +41,7 @@ public class SwiftAmplify: NSObject, FlutterPlugin {
     }
 
     private func onConfigure(result: FlutterResult, version: String, configuration: String) {
+
         do {
             let amplifyConfiguration = try JSONDecoder().decode(AmplifyConfiguration.self, from: configuration.data(using: .utf8)!)
             AmplifyAWSServiceConfiguration.addUserAgentPlatform(.flutter, version: version)
@@ -57,7 +58,7 @@ public class SwiftAmplify: NSObject, FlutterPlugin {
             case .amplifyAlreadyConfigured(_, _, _):
                 ErrorUtil.postErrorToFlutterChannel(
                     result: result,
-                    errorCode: "AmplifyAlreadyConfigured",
+                    errorCode: "AmplifyAlreadyConfiguredException",
                     details: createSerializedError(error: error))
             default:
                 ErrorUtil.postErrorToFlutterChannel(
