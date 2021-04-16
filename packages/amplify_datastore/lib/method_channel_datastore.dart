@@ -16,6 +16,7 @@
 import 'package:amplify_core/types/index.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:flutter/services.dart';
+import 'package:amplify_core/types/exception/AmplifyExceptionMessages.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/datastore');
@@ -37,7 +38,13 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         'modelProviderVersion': modelProvider.version
       });
     } on PlatformException catch (e) {
-      throw _deserializeException(e);
+      if (e.code == "AmplifyAlreadyConfiguredException") {
+        throw AmplifyAlreadyConfiguredException(
+          AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+          recoverySuggestion: AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
+      } else {
+        throw _deserializeException(e);
+      }
     }
   }
 

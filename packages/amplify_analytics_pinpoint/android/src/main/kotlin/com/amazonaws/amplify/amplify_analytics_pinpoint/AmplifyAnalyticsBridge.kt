@@ -34,11 +34,11 @@ class AmplifyAnalyticsBridge {
             try {
                 Amplify.addPlugin(AWSPinpointAnalyticsPlugin(context as Application?))
                 LOG.info("Added AnalyticsPinpoint plugin")
+                flutterResult.success(null)
             } catch (e: Exception) {
                 handleAddPluginException("Analytics", e, flutterResult)
                 return
             }
-            flutterResult.success(null)
         }
 
         fun recordEvent(@NonNull arguments: Any, @NonNull result: MethodChannel.Result) {

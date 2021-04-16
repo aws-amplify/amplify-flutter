@@ -71,10 +71,10 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
             try {
                 Amplify.addPlugin(AWSApiPlugin())
                 LOG.info("Added API plugin")
+                result.success(null)
             } catch (e: Exception) {
                 handleAddPluginException("API", e, result)
             }
-            result.success(null)
             return
         }
 

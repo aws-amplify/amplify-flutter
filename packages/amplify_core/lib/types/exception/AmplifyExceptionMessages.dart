@@ -28,4 +28,9 @@ class AmplifyExceptionMessages {
 
   static const missingExceptionMessage =
       'An unknown exception has happened. ' + _createGithubIssueString;
+
+  static const alreadyConfiguredDefaultMessage =
+      'Amplify has already been configured and adding plugins after configure is not supported.';
+  
+  static const alreadyConfiguredDefaultSuggestion = 'Check if Amplify is already configured using Amplify.isConfigured.';
 }
