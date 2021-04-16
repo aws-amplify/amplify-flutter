@@ -15,21 +15,23 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
+import androidx.annotation.NonNull
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 import com.amplifyframework.auth.AuthUser
+import com.amplifyframework.auth.cognito.options.AWSCognitoAuthSignInOptions
 import com.amplifyframework.core.Amplify
 
 data class FlutterSignInRequest(val map: HashMap<String, *>) {
   val username: String = map["username"] as String;
   val password: String = map["password"] as String;
-  val options: AWSCognitoAuthSignInOptions = formatOptions(map["options"] as HashMap<String, *>)
+  val options: AWSCognitoAuthSignInOptions = formatOptions(map["options"] as HashMap<String, *>?)
 
-  private fun formatOptions(@NonNull rawOptions: HashMap<String, *>): AWSCognitoAuthSignInOptions {
+  private fun formatOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthSignInOptions {
     var options =  AWSCognitoAuthSignInOptions.builder();
 
-    if(rawOptions["validationData"] != null)
-      options.metadata(rawOptions["validationData"] as HashMap<String, String>);
+    if(rawOptions?.get("clientMetadata") != null)
+      options.metadata(rawOptions["clientMetadata"] as HashMap<String, String>);
 
     return options.build();
   }
