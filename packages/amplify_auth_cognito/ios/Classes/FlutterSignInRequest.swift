@@ -20,7 +20,7 @@ struct FlutterSignInRequest {
   var username: String?
   var password: String?
   var options: Dictionary<String, Any>? = [:]
-  var validationData: Dictionary<String, Any>? = [:]
+  var validationData: Dictionary<String, String>? = [:]
   init(dict: NSMutableDictionary){
     self.username = dict["username"] as! String?
     self.password = dict["password"] as! String?
@@ -28,8 +28,8 @@ struct FlutterSignInRequest {
     self.validationData = self.formatValidationData(options: dict["options"] as! Dictionary<String, Any>)
   }
 
-  func formatValidationData(options: Dictionary<String, Any>) -> Dictionary<String, Any> {
-    let validationData: Dictionary<String, Any> = options["validationData"] as! Dictionary<String, String>
+  func formatValidationData(options: Dictionary<String, Any>) -> Dictionary<String, String> {
+    let validationData: Dictionary<String, String> = options["validationData"] as! Dictionary<String, String>
 
     return validationData
   }
