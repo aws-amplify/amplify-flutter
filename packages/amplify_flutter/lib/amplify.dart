@@ -171,7 +171,6 @@ class AmplifyClass extends PlatformInterface {
               'Inspect your amplifyconfiguration.dart and ensure that the string is proper json',
           underlyingException: e.toString());
     }
-
     try {
       var res = await AmplifyClass.instance
           ._configurePlatforms(_getVersion(), configuration);
@@ -187,6 +186,7 @@ class AmplifyClass extends PlatformInterface {
       } else if (e.code == 'AmplifyException') {
         throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       } else if (e.code == 'AmplifyAlreadyConfiguredException') {
+        _isConfigured = true;
         throw AmplifyAlreadyConfiguredException.fromMap(
             Map<String, String>.from(e.details));
       } else {

@@ -37,7 +37,7 @@ class amplify_flutter_exampleTests: XCTestCase {
         plugin.handle(call, result: {(result)->Void in
             
             if let exception = result as? FlutterError {
-                XCTAssertEqual(exception.code, "AmplifyAlreadyConfigured")
+                XCTAssertEqual(exception.code, "AmplifyAlreadyConfiguredException")
                 XCTAssertEqual(exception.message, ErrorMessages.defaultFallbackErrorMessage)
                 XCTAssertEqual(exception.details as? [String: String], ["underlyingException": "nil",
                                                                         "recoverySuggestion": "Remove the duplicate call to `Amplify.configure()`",

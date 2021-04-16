@@ -50,10 +50,10 @@ class AmplifyStorageS3Plugin : FlutterPlugin, ActivityAware, MethodCallHandler {
             try {
                 Amplify.addPlugin(AWSS3StoragePlugin())
                 Log.i("AmplifyFlutter", "Added StorageS3 plugin")
+                result.success(null)
             } catch (e: Exception) {
                 handleAddPluginException("Storage", e, result)
             }
-            result.success(null)
             return
         }
 

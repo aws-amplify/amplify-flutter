@@ -57,8 +57,8 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "com.amplifyframework:aws-datastore:1.16.13"
-    implementation "com.amplifyframework:aws-api-appsync:1.16.13"
+    implementation "com.amplifyframework:aws-datastore:1.17.3"
+    implementation "com.amplifyframework:aws-api-appsync:1.17.3"
     testImplementation 'junit:junit:4.13'
     testImplementation 'org.mockito:mockito-core:3.1.0'
     testImplementation 'org.mockito:mockito-inline:3.1.0'

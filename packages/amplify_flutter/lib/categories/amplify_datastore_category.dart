@@ -27,11 +27,18 @@ class DataStoreCategory {
   Future<void> addPlugin(DataStorePluginInterface plugin) async {
     // TODO: Discuss and support multiple plugins
     if (plugins.length == 0) {
-      plugins.add(plugin);
-      // Extra step to configure datastore specifically.
-      // Note: The native datastore plugins are not added
-      // in the `onAttachedToEngine` but rather in the `configure()
-      await plugin.configureModelProvider(modelProvider: plugin.modelProvider);
+      try {
+        // Extra step to configure datastore specifically.
+        // Note: The native datastore plugins are not added
+        // in the `onAttachedToEngine` but rather in the `configure()
+        await plugin.configureModelProvider(modelProvider: plugin.modelProvider);
+        plugins.add(plugin);
+      } on AmplifyAlreadyConfiguredException catch (e) {
+        plugins.add(plugin);
+      } on PlatformException catch (e) {
+        throw AmplifyException.fromMap(
+            Map<String, String>.from(e.details));
+      }
     } else {
       throw AmplifyException("DataStore plugin has already been added, " +
           "multiple plugins for DataStore category are currently not supported.");
