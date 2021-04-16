@@ -259,6 +259,38 @@ class AnalyticsUnitTests: XCTestCase {
             }
         )
     }
+    
+    func test_enable_returnsSuccess() throws {
+        class MockAnalyticsBridge: AnalyticsBridge {
+            override func enable(){}
+        }
+        
+        pluginUnderTest = SwiftAmplifyAnalyticsPinpointPlugin(bridge: MockAnalyticsBridge())
+        
+        pluginUnderTest.innerHandle(
+            method: "enable",
+            callArgs: [],
+            result: { (results) in
+                XCTAssertEqual(results as! Bool, true)
+            }
+        )
+    }
+    
+    func test_disable_returnsSuccess() throws {
+        class MockAnalyticsBridge: AnalyticsBridge {
+            override func disable(){}
+        }
+        
+        pluginUnderTest = SwiftAmplifyAnalyticsPinpointPlugin(bridge: MockAnalyticsBridge())
+        
+        pluginUnderTest.innerHandle(
+            method: "disable",
+            callArgs: [],
+            result: { (results) in
+                XCTAssertEqual(results as! Bool, true)
+            }
+        )
+    }
  
 
 }
