@@ -69,8 +69,23 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
                                 "underlyingError": apiError.underlyingError != nil ? apiError.underlyingError!.localizedDescription : ""
                             ]
                         )
-                    }
-                    else{
+                    } else if(error is ConfigurationError) {
+                        let configError = error as! ConfigurationError
+                        
+                        var errorCode = "APIException"
+                        if case .amplifyAlreadyConfigured = configError {
+                            errorCode = "AmplifyAlreadyConfiguredException"
+                        }
+                        ErrorUtil.postErrorToFlutterChannel(
+                            result: result,
+                            errorCode: errorCode,
+                            details: [
+                                "message" : configError.errorDescription,
+                                "recoverySuggestion" : configError.recoverySuggestion,
+                                "underlyingError": configError.underlyingError != nil ? configError.underlyingError!.localizedDescription : ""
+                            ]
+                        )
+                    } else{
                         print("Failed to add Amplify API Plugin \(error)")
                         result(false)
                     }

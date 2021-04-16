@@ -75,6 +75,6 @@ class AmplifyTest {
         verify(mockSecondCallResult, times(1)).error("AmplifyAlreadyConfiguredException",
                 ExceptionMessages.defaultFallbackExceptionMessage,
                 mapOf("message" to "Amplify has already been configured.",
-                        "recoverySuggestion" to "Remove the duplicate call to `Amplify.configure()`"))
+                        "recoverySuggestion" to "Remove the duplicate call to `Amplify.configure()`."))
     }
 }

@@ -137,10 +137,10 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       try {
         Amplify.addPlugin(AWSCognitoAuthPlugin())
         LOG.info("Added Auth plugin")
+        result.success(null)
       } catch (e: Exception) {
         handleAddPluginException("Auth", e, result)
       }
-      result.success(null)
       return
     }
 

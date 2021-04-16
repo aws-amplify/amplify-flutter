@@ -71,7 +71,6 @@ class Amplify : FlutterPlugin, ActivityAware, MethodCallHandler {
                     val arguments = call.arguments as HashMap<*, *>
                     val version = arguments["version"] as String
                     val configuration = arguments["configuration"] as String
-
                     onConfigure(result, version, configuration)
                 } catch (e: Exception) {
                     postExceptionToFlutterChannel(result, "AmplifyException",
