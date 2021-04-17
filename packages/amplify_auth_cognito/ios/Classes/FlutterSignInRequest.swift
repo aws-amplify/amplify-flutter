@@ -14,6 +14,8 @@
  */
 
 import Foundation
+import AmplifyPlugins
+import AWSCore
 import amplify_core
 
 struct FlutterSignInRequest {
@@ -23,8 +25,15 @@ struct FlutterSignInRequest {
   init(dict: NSMutableDictionary){
     self.username = dict["username"] as! String?
     self.password = dict["password"] as! String?
-    self.options = dict["options"] as? Dictionary<String, Any>?
+    self.options = dict["options"] as! Dictionary<String, Any>?
   }
+    
+   func formatOptions(options: Dictionary<String, Any>?) -> AWSAuthSignInOptions {
+        return AWSAuthSignInOptions(
+            metadata: options?["clientMetadata"] as? [String : String]
+        )
+
+    }
 
   static func validate(dict: NSMutableDictionary) throws {
     let validationErrorMessage = "SignIn Request malformed."
