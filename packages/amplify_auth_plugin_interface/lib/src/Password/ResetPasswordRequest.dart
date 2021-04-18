@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-
 import './PasswordOptions.dart';
 
 class ResetPasswordRequest {
@@ -27,7 +26,7 @@ class ResetPasswordRequest {
       pendingRequest['username'] = username;
     }
     if (options != null) {
-      pendingRequest['options'] = options.serializeAsMap();
+      pendingRequest['options'] = options!.serializeAsMap();
     }
     return pendingRequest;
   }

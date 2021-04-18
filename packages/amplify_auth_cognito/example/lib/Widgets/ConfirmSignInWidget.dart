@@ -24,8 +24,8 @@ class _ConfirmSignInWidgetState extends State<ConfirmSignInWidget> {
     try {
       var res = await Amplify.Auth.confirmSignIn(
           confirmationValue: confirmationCodeController.text.trim());
-      widget.showResult('Confirm Sign In Status = ' + res.nextStep.signInStep);
-      widget.changeDisplay(res.nextStep.signInStep == 'DONE'
+      widget.showResult('Confirm Sign In Status = ' + res.nextStep!.signInStep);
+      widget.changeDisplay(res.nextStep!.signInStep == 'DONE'
           ? 'SIGNED_IN'
           : 'SHOW_CONFIRM_SIGN_IN');
     } on AmplifyException catch (e) {
@@ -58,7 +58,7 @@ class _ConfirmSignInWidgetState extends State<ConfirmSignInWidget> {
               const Padding(padding: EdgeInsets.all(10.0)),
               ElevatedButton(
                 key: Key('goto-signin-button'),
-                onPressed: widget.backToSignIn,
+                onPressed: () => widget.backToSignIn,
                 child: const Text('Back to Sign In'),
               ),
             ],
