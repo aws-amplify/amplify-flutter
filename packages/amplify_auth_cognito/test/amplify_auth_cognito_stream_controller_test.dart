@@ -24,7 +24,8 @@ import 'package:amplify_core/test_utils/get_json_from_file.dart';
 var log = [];
 
 void main() {
-  const MethodChannel authChannel = MethodChannel('com.amazonaws.amplify/auth_cognito');
+  const MethodChannel authChannel =
+      MethodChannel('com.amazonaws.amplify/auth_cognito');
   const String channelName = 'com.amazonaws.amplify/auth_cognito_events';
   AuthStreamController controller = AuthStreamController();
   StreamController authStreamController = controller.authStreamController;
@@ -37,7 +38,8 @@ void main() {
   });
 
   tearDown(() {
-    ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(channelName, null);
+    ServicesBinding.instance!.defaultBinaryMessenger
+        .setMockMessageHandler(channelName, null);
   });
 
   handler(event) {
@@ -49,12 +51,12 @@ void main() {
   }
 
   test('Can receive Signed In Event', () async {
-    var json =  await getJsonFromFile('hub/signedInEvent.json');
+    var json = await getJsonFromFile('hub/signedInEvent.json');
     void emitEvent(ByteData event) {
       handler(event);
     }
 
-    await ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
+    ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
       channelName,
       (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
@@ -68,63 +70,63 @@ void main() {
 
     await Future<void>.delayed(Duration.zero);
     sub.cancel();
-    expect(events.last, isInstanceOf<AuthHubEvent>());   
+    expect(events.last, isInstanceOf<AuthHubEvent>());
     expect(events.last.eventName, equals("SIGNED_IN"));
   });
 
   test('Can receive Signed Out Event', () async {
-    var json =  await getJsonFromFile('hub/signedOutEvent.json');
+    var json = await getJsonFromFile('hub/signedOutEvent.json');
     void emitEvent(ByteData event) {
       handler(event);
     }
 
-    await ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
+    ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
       channelName,
       (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
       },
     );
     List<AuthHubEvent> events = [];
-    StreamSubscription sub  = authStreamController.stream.listen((event) {
+    StreamSubscription sub = authStreamController.stream.listen((event) {
       events.add(event);
     });
 
     await Future<void>.delayed(Duration.zero);
     sub.cancel();
-    expect(events.last, isInstanceOf<AuthHubEvent>());   
+    expect(events.last, isInstanceOf<AuthHubEvent>());
     expect(events.last.eventName, equals("SIGNED_OUT"));
   });
 
   test('Can receive Session Expired Event', () async {
-    var json =  await getJsonFromFile('hub/sessionExpiredEvent.json');
+    var json = await getJsonFromFile('hub/sessionExpiredEvent.json');
     void emitEvent(ByteData event) {
       handler(event);
     }
 
-    await ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
+    ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
       channelName,
       (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
       },
     );
     List<AuthHubEvent> events = [];
-    StreamSubscription sub  = authStreamController.stream.listen((event) {
+    StreamSubscription sub = authStreamController.stream.listen((event) {
       events.add(event);
     });
-    
+
     await Future<void>.delayed(Duration.zero);
     sub.cancel();
     expect(events.last, isInstanceOf<AuthHubEvent>());
     expect(events.last.eventName, equals("SESSION_EXPIRED"));
   });
 
-  test('Can handle unknown event',  overridePrint(() async {
-    var json =  await getJsonFromFile('hub/unknownEvent.json');
+  test('Can handle unknown event', overridePrint(() async {
+    var json = await getJsonFromFile('hub/unknownEvent.json');
     void emitEvent(ByteData event) {
       handler(event);
     }
 
-    await ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
+    ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
       channelName,
       (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
@@ -132,18 +134,17 @@ void main() {
     );
 
     StreamSubscription sub = authStreamController.stream.listen((event) {});
-    
+
     await Future<void>.delayed(Duration.zero);
     sub.cancel();
-    expect(log.last, 'An Unrecognized Auth Hub event has been detected on the event channel.');
+    expect(log.last,
+        'An Unrecognized Auth Hub event has been detected on the event channel.');
   }));
 }
 
 void Function() overridePrint(void testFn()) => () {
-  var spec = new ZoneSpecification(
-    print: (_, __, ___, String msg) {
-      log.add(msg);
-    }
-  );
-  return Zone.current.fork(specification: spec).run<void>(testFn);
-};
+      var spec = new ZoneSpecification(print: (_, __, ___, String msg) {
+        log.add(msg);
+      });
+      return Zone.current.fork(specification: spec).run<void>(testFn);
+    };

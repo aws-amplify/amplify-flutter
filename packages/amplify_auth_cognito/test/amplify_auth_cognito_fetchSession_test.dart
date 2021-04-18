@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:collection';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -36,10 +38,8 @@ void main() {
           };
         case 2:
           return throw PlatformException(
-            code: "UnknownException",
-            details: Map.from({
-              "message": "I am an exception"
-            }));
+              code: "UnknownException",
+              details: Map.from({"message": "I am an exception"}));
       }
     });
   });
@@ -81,8 +81,11 @@ void main() {
     var rawValues = {"isSignedIn": true, "tokens": tokens};
 
     var session = CognitoAuthSession.init(sessionValues: rawValues);
-    expect(session.userPoolTokens!.accessToken,
-        AWSCognitoUserPoolTokens.init(tokens: tokens as LinkedHashMap<dynamic, dynamic>).accessToken);
+    expect(
+        session.userPoolTokens!.accessToken,
+        AWSCognitoUserPoolTokens.init(
+                tokens: tokens as LinkedHashMap<dynamic, dynamic>)
+            .accessToken);
     expect(session.userPoolTokens!.idToken,
         AWSCognitoUserPoolTokens.init(tokens: tokens).idToken);
     expect(session.userPoolTokens!.refreshToken,

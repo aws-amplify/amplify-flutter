@@ -28,7 +28,8 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
   AuthPluginInterface({required Object token}) : super(token: token);
 
   StreamController get streamController {
-    throw UnimplementedError('streamController getter has not been implemented.');
+    throw UnimplementedError(
+        'streamController getter has not been implemented.');
   }
 
   Future<void> addPlugin() async {
@@ -52,7 +53,7 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('signIn() has not been implemented.');
   }
 
-  Future<SignOutResult> signOut({required SignOutRequest request}) {
+  Future<SignOutResult> signOut({SignOutRequest? request}) {
     throw UnimplementedError('signOut() has not been implemented.');
   }
 
@@ -60,7 +61,8 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('confirmSignIn() has not been implemented.');
   }
 
-  Future<UpdatePasswordResult> updatePassword({UpdatePasswordRequest? request}) {
+  Future<UpdatePasswordResult> updatePassword(
+      {UpdatePasswordRequest? request}) {
     throw UnimplementedError('updatePassword() has not been implemented.');
   }
 
@@ -78,7 +80,8 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('getCurrentUser() has not been implemented.');
   }
 
-  Future<List<AuthUserAttribute>> fetchUserAttributes({AuthUserAttributeRequest? request}) {
+  Future<List<AuthUserAttribute>> fetchUserAttributes(
+      {AuthUserAttributeRequest? request}) {
     throw UnimplementedError('fetchUserAttributes() has not been implemented.');
   }
 

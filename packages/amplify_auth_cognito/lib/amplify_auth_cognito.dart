@@ -75,7 +75,7 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     return res;
   }
 
-  Future<SignOutResult> signOut({required SignOutRequest request}) async {
+  Future<SignOutResult> signOut({SignOutRequest? request}) async {
     final res = await _instance.signOut(request: request);
     return res;
   }
@@ -103,7 +103,8 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     return res;
   }
 
-  Future<List<AuthUserAttribute>> fetchUserAttributes({AuthUserAttributeRequest? request}) async {
+  Future<List<AuthUserAttribute>> fetchUserAttributes(
+      {AuthUserAttributeRequest? request}) async {
     final res = await _instance.fetchUserAttributes();
     return res;
   }
@@ -113,7 +114,8 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     return res;
   }
 
-  Future<SignInResult> signInWithWebUI({SignInWithWebUIRequest? request}) async {
+  Future<SignInResult> signInWithWebUI(
+      {SignInWithWebUIRequest? request}) async {
     final res = await _instance.signInWithWebUI(request: request);
     return res;
   }

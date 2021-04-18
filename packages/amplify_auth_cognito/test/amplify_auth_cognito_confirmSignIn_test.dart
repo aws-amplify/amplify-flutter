@@ -94,12 +94,12 @@ void main() {
         return true;
       }
     });
-    AuthException err;
+    late AuthException err;
     try {
       await auth.confirmSignIn(
           request: ConfirmSignInRequest(confirmationValue: "iAmNotLegit"));
     } catch (e) {
-      err = e;
+      err = e as AuthException;
     }
     expect(err.message, "I am an exception");
     expect(err, isInstanceOf<AuthException>());
