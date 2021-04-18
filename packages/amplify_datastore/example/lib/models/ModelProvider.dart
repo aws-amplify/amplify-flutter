@@ -13,6 +13,8 @@
 * permissions and limitations under the License.
 */
 
+// ignore_for_file: public_member_api_docs
+
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'Blog.dart';
 import 'Comment.dart';
@@ -24,7 +26,7 @@ export 'Post.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "b9d8df244e46afeda480eb9ae5d2251f";
+  String version = "33b1717ef9afb390e3f7431e8f3859fc";
   @override
   List<ModelSchema> modelSchemas = [Blog.schema, Comment.schema, Post.schema];
   static final ModelProvider _instance = ModelProvider();
@@ -32,22 +34,28 @@ class ModelProvider implements ModelProviderInterface {
   static ModelProvider get instance => _instance;
 
   ModelType getModelTypeByModelName(String modelName) {
-    switch(modelName) {
-      case "Blog": {
-        return Blog.classType;
-      }
-      break;
-      case "Post": {
-        return Post.classType;
-      }
-      break;
-      case "Comment": {
-        return Comment.classType;
-      }
-      break;
-      default: {
-        throw Exception("Failed to find model in model provider.");
-      }
+    switch (modelName) {
+      case "Blog":
+        {
+          return Blog.classType;
+        }
+        break;
+      case "Comment":
+        {
+          return Comment.classType;
+        }
+        break;
+      case "Post":
+        {
+          return Post.classType;
+        }
+        break;
+      default:
+        {
+          throw Exception(
+              "Failed to find model in model provider for model name: " +
+                  modelName);
+        }
     }
   }
 }

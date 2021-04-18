@@ -27,8 +27,8 @@ import 'package:flutter/services.dart';
 import 'types/DataStoreHubEvents/OutboxStatusEvent.dart';
 
 EventChannel channel = const EventChannel("com.amazonaws.amplify/datastore_hub_events");
-ModelProviderInterface modelProvider;
-StreamSubscription eventStream;
+late ModelProviderInterface modelProvider;
+StreamSubscription? eventStream;
 
 class DataStoreStreamController {
   
@@ -94,7 +94,7 @@ _onListen() {
   }
 }
 
-_rebroadcast(String eventName, { HubEventPayload payload}) {
+_rebroadcast(String eventName, { HubEventPayload? payload}) {
   try {
     _controller.add(DataStoreHubEvent(eventName, payload: payload));
   } catch (e) {
@@ -105,7 +105,7 @@ _rebroadcast(String eventName, { HubEventPayload payload}) {
 
 _onCancel() {
   if (!_controller.hasListener) {
-    eventStream.cancel();
+    eventStream!.cancel();
     eventStream = null;
   }
 }

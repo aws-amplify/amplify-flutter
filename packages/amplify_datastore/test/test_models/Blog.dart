@@ -13,6 +13,8 @@
 * permissions and limitations under the License.
 */
 
+// ignore_for_file: public_member_api_docs
+
 import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:collection/collection.dart';
@@ -24,7 +26,7 @@ class Blog extends Model {
   static const classType = const BlogType();
   final String id;
   final String name;
-  final List<Post> posts;
+  final List<Post>? posts;
 
   @override
   getInstanceType() => classType;
@@ -34,9 +36,9 @@ class Blog extends Model {
     return id;
   }
 
-  const Blog._internal({@required this.id, @required this.name, this.posts});
+  const Blog._internal({required this.id, required this.name, this.posts});
 
-  factory Blog({@required String id, @required String name, List<Post> posts}) {
+  factory Blog({String? id, required String name, List<Post>? posts}) {
     return Blog._internal(
         id: id == null ? UUID.getUUID() : id,
         name: name,
@@ -64,15 +66,14 @@ class Blog extends Model {
     var buffer = new StringBuffer();
 
     buffer.write("Blog {");
-    buffer.write("id=" + id + ", ");
-    buffer.write("name=" + name);
+    buffer.write("id=" + "$id" + ", ");
+    buffer.write("name=" + "$name");
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  Blog copyWith(
-      {@required String id, @required String name, List<Post> posts}) {
+  Blog copyWith({String? id, String? name, List<Post>? posts}) {
     return Blog(
         id: id ?? this.id, name: name ?? this.name, posts: posts ?? this.posts);
   }
@@ -86,8 +87,11 @@ class Blog extends Model {
                 .toList()
             : null;
 
-  Map<String, dynamic> toJson() =>
-      {'id': id, 'name': name, 'posts': posts?.map((e) => e?.toJson())};
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'posts': posts?.map((e) => e?.toJson())?.toList()
+      };
 
   static final QueryField ID = QueryField(fieldName: "blog.id");
   static final QueryField NAME = QueryField(fieldName: "name");

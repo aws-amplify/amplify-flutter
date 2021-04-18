@@ -13,6 +13,8 @@
 * permissions and limitations under the License.
 */
 
+// ignore_for_file: public_member_api_docs
+
 import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:collection/collection.dart';
@@ -24,10 +26,10 @@ class Post extends Model {
   static const classType = const PostType();
   final String id;
   final String title;
-  final int rating;
-  final DateTime created;
-  final Blog blog;
-  final List<Comment> comments;
+  final int? rating;
+  final TemporalDateTime? created;
+  final Blog? blog;
+  final List<Comment>? comments;
 
   @override
   getInstanceType() => classType;
@@ -38,20 +40,20 @@ class Post extends Model {
   }
 
   const Post._internal(
-      {@required this.id,
-      @required this.title,
-      @required this.rating,
+      {required this.id,
+      required this.title,
+      this.rating,
       this.created,
       this.blog,
       this.comments});
 
   factory Post(
-      {@required String id,
-      @required String title,
-      @required int rating,
-      DateTime created,
-      Blog blog,
-      List<Comment> comments}) {
+      {String? id,
+      required String title,
+      int? rating,
+      TemporalDateTime? created,
+      Blog? blog,
+      List<Comment>? comments}) {
     return Post._internal(
         id: id == null ? UUID.getUUID() : id,
         title: title,
@@ -85,13 +87,12 @@ class Post extends Model {
     var buffer = new StringBuffer();
 
     buffer.write("Post {");
-    buffer.write("id=" + id + ", ");
-    buffer.write("title=" + title + ", ");
+    buffer.write("id=" + "$id" + ", ");
+    buffer.write("title=" + "$title" + ", ");
     buffer.write(
         "rating=" + (rating != null ? rating.toString() : "null") + ", ");
-    buffer.write("created=" +
-        (created != null ? created.toDateTimeIso8601String() : "null") +
-        ", ");
+    buffer.write(
+        "created=" + (created != null ? created!.format() : "null") + ", ");
     buffer.write("blog=" + (blog != null ? blog.toString() : "null"));
     buffer.write("}");
 
@@ -99,12 +100,12 @@ class Post extends Model {
   }
 
   Post copyWith(
-      {@required String id,
-      @required String title,
-      @required int rating,
-      DateTime created,
-      Blog blog,
-      List<Comment> comments}) {
+      {String? id,
+      String? title,
+      int? rating,
+      TemporalDateTime? created,
+      Blog? blog,
+      List<Comment>? comments}) {
     return Post(
         id: id ?? this.id,
         title: title ?? this.title,
@@ -118,7 +119,9 @@ class Post extends Model {
       : id = json['id'],
         title = json['title'],
         rating = json['rating'],
-        created = DateTimeParse.fromString(json['created']),
+        created = json['created'] != null
+            ? TemporalDateTime.fromString(json['created'])
+            : null,
         blog = json['blog'] != null
             ? Blog.fromJson(new Map<String, dynamic>.from(json['blog']))
             : null,
@@ -132,9 +135,9 @@ class Post extends Model {
         'id': id,
         'title': title,
         'rating': rating,
-        'created': created?.toDateTimeIso8601String(),
+        'created': created?.format(),
         'blog': blog?.toJson(),
-        'comments': comments?.map((e) => e?.toJson())
+        'comments': comments?.map((e) => e?.toJson())?.toList()
       };
 
   static final QueryField ID = QueryField(fieldName: "post.id");
@@ -163,7 +166,7 @@ class Post extends Model {
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: Post.RATING,
-        isRequired: true,
+        isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.int)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(

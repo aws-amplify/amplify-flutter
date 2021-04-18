@@ -13,6 +13,8 @@
 * permissions and limitations under the License.
 */
 
+// ignore_for_file: public_member_api_docs
+
 import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
@@ -22,7 +24,7 @@ import 'package:flutter/foundation.dart';
 class Comment extends Model {
   static const classType = const CommentType();
   final String id;
-  final Post post;
+  final Post? post;
   final String content;
 
   @override
@@ -34,9 +36,9 @@ class Comment extends Model {
   }
 
   const Comment._internal(
-      {@required this.id, this.post, @required this.content});
+      {required this.id, this.post, required this.content});
 
-  factory Comment({@required String id, Post post, @required String content}) {
+  factory Comment({String? id, Post? post, required String content}) {
     return Comment._internal(
         id: id == null ? UUID.getUUID() : id, post: post, content: content);
   }
@@ -62,15 +64,15 @@ class Comment extends Model {
     var buffer = new StringBuffer();
 
     buffer.write("Comment {");
-    buffer.write("id=" + id + ", ");
-    buffer.write("post=" + post?.toString() + ", ");
-    buffer.write("content=" + content);
+    buffer.write("id=" + "$id" + ", ");
+    buffer.write("post=" + (post != null ? post.toString() : "null") + ", ");
+    buffer.write("content=" + "$content");
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  Comment copyWith({@required String id, Post post, @required String content}) {
+  Comment copyWith({String? id, Post? post, String? content}) {
     return Comment(
         id: id ?? this.id,
         post: post ?? this.post,

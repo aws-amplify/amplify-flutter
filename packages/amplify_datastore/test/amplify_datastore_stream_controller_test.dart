@@ -56,14 +56,14 @@ void main() {
   });
 
   tearDown(() {
-    ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(channelName, null);
+    ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(channelName, null);
   });
 
   handler(event) {
-    ServicesBinding.instance.defaultBinaryMessenger.handlePlatformMessage(
+    ServicesBinding.instance!.defaultBinaryMessenger.handlePlatformMessage(
       channelName,
       event,
-      (ByteData reply) {},
+      (ByteData? reply) {},
     );
   }
 
@@ -73,9 +73,9 @@ void main() {
       handler(event);
     }
 
-    await ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
+    await ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
       channelName,
-      (ByteData message) async {
+      (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
       },
     );
@@ -98,9 +98,9 @@ void main() {
       handler(event);
     }
 
-    await ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
+    await ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
       channelName,
-      (ByteData message) async {
+      (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
       },
     );
@@ -123,9 +123,9 @@ void main() {
       handler(event);
     }
 
-    await ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
+    await ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
       channelName,
-      (ByteData message) async {
+      (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
       },
     );
@@ -148,9 +148,9 @@ void main() {
       handler(event);
     }
 
-    await ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
+    await ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
       channelName,
-      (ByteData message) async {
+      (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
       },
     );
@@ -174,9 +174,9 @@ void main() {
       handler(event);
     }
 
-    await ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
+    await ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
       channelName,
-      (ByteData message) async {
+      (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
       },
     );
@@ -204,9 +204,9 @@ void main() {
       handler(event);
     }
 
-    await ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
+    await ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
       channelName,
-      (ByteData message) async {
+      (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
       },
     );
@@ -220,14 +220,14 @@ void main() {
     sub.cancel();
 
     OutboxMutationEvent payload = events.last.payload as OutboxMutationEvent;
-    DateTime parsedDate = DateTimeParse.fromString(json["element"]["model"]["serializedData"]["created"]);
+    DateTime parsedDate = DateTimeParse.fromString(json["element"]["model"]["serializedData"]["created"])!;
     expect(events.last, isInstanceOf<HubEvent>());
     expect(payload.modelName, "Post");
     expect(payload.element, isInstanceOf<HubEventElement>());
     expect(payload.element.model, isInstanceOf<Model>());
     expect(payload.element.model.getId(), equals("43036c6b-8044-4309-bddc-262b6c686026"));
     expect((payload.element.model as Post).title, equals("Title 1"));
-    expect((payload.element.model as Post).created.isAtSameMomentAs(parsedDate), true);
+    expect((payload.element.model as Post).created!.isAtSameMomentAs(parsedDate), true);
   });  
 
     test('Can receive OutboxMutation (Processed) Event', () async {
@@ -236,9 +236,9 @@ void main() {
       handler(event);
     }
 
-    await ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
+    await ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
       channelName,
-      (ByteData message) async {
+      (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
       },
     );
@@ -252,8 +252,8 @@ void main() {
     sub.cancel();
 
     OutboxMutationEvent payload = events.last.payload as OutboxMutationEvent;
-    HubEventElementWithMetadata element = payload.element;
-    DateTime parsedDate = DateTimeParse.fromString(json["element"]["model"]["serializedData"]["created"]);
+    HubEventElementWithMetadata element = payload.element as HubEventElementWithMetadata;
+    DateTime parsedDate = DateTimeParse.fromString(json["element"]["model"]["serializedData"]["created"])!;
     expect(events.last, isInstanceOf<HubEvent>());
     expect(payload.modelName, "Post");
     expect(element, isInstanceOf<HubEventElement>());
@@ -261,7 +261,7 @@ void main() {
     expect(element.model, isInstanceOf<Model>());
     expect(element.model.getId(), equals("43036c6b-8044-4309-bddc-262b6c686026"));
     expect((element.model as Post).title, equals("Title 1"));
-    expect((element.model as Post).created.isAtSameMomentAs(parsedDate), true);
+    expect((element.model as Post).created!.isAtSameMomentAs(parsedDate), true);
     expect(element.deleted, equals(false));
     expect(element.version, equals(1));
     expect(element.lastChangedAt, equals(null));
@@ -273,9 +273,9 @@ void main() {
       handler(event);
     }
 
-    await ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
+    await ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
       channelName,
-      (ByteData message) async {
+      (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
       },
     );
@@ -300,9 +300,9 @@ void main() {
       handler(event);
     }
 
-    await ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(
+    await ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
       channelName,
-      (ByteData message) async {
+      (ByteData? message) async {
         emitEvent(const StandardMethodCodec().encodeSuccessEnvelope(json));
       },
     );

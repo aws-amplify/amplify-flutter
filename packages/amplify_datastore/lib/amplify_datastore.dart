@@ -28,16 +28,15 @@ class AmplifyDataStore extends DataStorePluginInterface {
   static final Object _token = Object();
 
   /// Constructs an AmplifyDataStore plugin
-  AmplifyDataStore({@required ModelProviderInterface modelProvider})
+  AmplifyDataStore({required ModelProviderInterface modelProvider})
       : super(token: _token, modelProvider: modelProvider);
 
   static AmplifyDataStore _instance = AmplifyDataStoreMethodChannel();
   static DataStoreStreamController streamWrapper = DataStoreStreamController();
-  ModelProviderInterface models;
 
   static set instance(DataStorePluginInterface instance) {
     PlatformInterface.verifyToken(instance, _token);
-    _instance = instance;
+    _instance = instance as AmplifyDataStore;
   }
 
   StreamController get streamController {
@@ -46,7 +45,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
 
   @override
   Future<void> configureModelProvider(
-      {ModelProviderInterface modelProvider}) async {
+      {ModelProviderInterface? modelProvider}) async {
     ModelProviderInterface provider =
         modelProvider == null ? this.modelProvider : modelProvider;
     if (provider == null || provider.modelSchemas.isEmpty) {
@@ -59,15 +58,15 @@ class AmplifyDataStore extends DataStorePluginInterface {
   }
 
   @override
-  Future<void> configure({String configuration}) async {
+  Future<void> configure({String? configuration}) async {
     return _instance.configure(configuration: configuration);
   }
 
   @override
   Future<List<T>> query<T extends Model>(ModelType<T> modelType,
-      {QueryPredicate where,
-      QueryPagination pagination,
-      List<QuerySortBy> sortBy}) async {
+      {QueryPredicate? where,
+      QueryPagination? pagination,
+      List<QuerySortBy>? sortBy}) async {
     return _instance.query(modelType,
         where: where, pagination: pagination, sortBy: sortBy);
   }
