@@ -44,14 +44,14 @@ class _MyAppState extends State<MyApp> {
   final confirmationCodeController = TextEditingController();
   final oldPasswordController = TextEditingController();
   final newPasswordController = TextEditingController();
-  StreamSubscription subscription;
+  late StreamSubscription subscription;
 
   bool _isAmplifyConfigured = false;
-  AmplifyAuthCognito auth;
-  String displayState;
+  late AmplifyAuthCognito auth;
+  String displayState = '';
   String authState = 'User not signed in';
   String lastHubEvent = '';
-  AmplifyException error;
+  AmplifyException? error;
 
   @override
   void initState() {
@@ -153,7 +153,8 @@ class _MyAppState extends State<MyApp> {
   void _fetchSession() async {
     try {
       CognitoAuthSession res = await Amplify.Auth.fetchAuthSession(
-          options: CognitoSessionOptions(getAWSCredentials: true));
+              options: CognitoSessionOptions(getAWSCredentials: true))
+          as CognitoAuthSession;
       showResult('Session Sign In Status = ' + res.isSignedIn.toString());
     } on AmplifyException catch (e) {
       setError(e);
@@ -199,6 +200,7 @@ class _MyAppState extends State<MyApp> {
     changeDisplay('SIGNED_IN');
   }
 
+  // error is not null at this point
   Widget showErrors() {
     return Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -208,12 +210,12 @@ class _MyAppState extends State<MyApp> {
               child: Column(children: [
             Text('Error: ' + error.runtimeType.toString()),
             const Padding(padding: EdgeInsets.all(10.0)),
-            Text('Message: ' + error.message),
-            if (error.recoverySuggestion != null)
-              Text('Recovery: ' + error.recoverySuggestion),
+            Text('Message: ' + error!.message),
+            if (error!.recoverySuggestion != null)
+              Text('Recovery: ' + (error!.recoverySuggestion ?? '')),
             const Padding(padding: EdgeInsets.all(10.0)),
-            if (error.underlyingException != null)
-              Text('Underlying: ' + error.underlyingException),
+            if (error!.underlyingException != null)
+              Text('Underlying: ' + (error!.underlyingException ?? '')),
             const Padding(padding: EdgeInsets.all(10.0)),
           ]))
         ]);

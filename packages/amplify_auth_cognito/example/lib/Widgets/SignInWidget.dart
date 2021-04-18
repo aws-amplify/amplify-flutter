@@ -31,7 +31,7 @@ class _SignInWidgetState extends State<SignInWidget> {
       var res = await Amplify.Auth.signIn(
           username: usernameController.text.trim(),
           password: passwordController.text.trim());
-      widget.showResult('Sign In Status = ' + res.nextStep.signInStep);
+      widget.showResult('Sign In Status = ' + (res.nextStep?.signInStep ?? ''));
       widget
           .changeDisplay(res.isSignedIn ? 'SIGNED_IN' : 'SHOW_CONFIRM_SIGN_IN');
     } on AmplifyException catch (e) {
@@ -122,7 +122,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                   ),
                   ElevatedButton(
                     key: Key('goto-signup-button'),
-                    onPressed: widget.showCreateUser,
+                    onPressed: () => widget.showCreateUser,
                     child: const Text('Create User'),
                   ),
                   ElevatedButton(
@@ -132,33 +132,32 @@ class _SignInWidgetState extends State<SignInWidget> {
                   ),
                   ElevatedButton(
                     key: Key('signout-button'),
-                    onPressed: widget.signOut,
+                    onPressed: () => widget.signOut,
                     child: const Text('SignOut'),
                   ),
                   ElevatedButton(
                     key: Key('session-button'),
-                    onPressed: widget.fetchSession,
+                    onPressed: () => widget.fetchSession,
                     child: const Text('Get Session'),
                   ),
                   ElevatedButton(
                     key: Key('current-user-button'),
-                    onPressed: widget.getCurrentUser,
+                    onPressed: () => widget.getCurrentUser,
                     child: const Text('Get Current User'),
                   ),
                 ],
               ),
-             ListView(
-                shrinkWrap: true,
-                padding: const EdgeInsets.all(5.0),
-                children: [
-                  ElevatedButton(
-                    key: Key('signin-webui-button'),
-                    onPressed: _signInWithSocialWebUI,
-                    child: const Text('Sign In With Social Provider'),
-                  ),
-                  DropdownButton<AuthProvider>(
+              ListView(
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.all(5.0),
+                  children: [
+                    ElevatedButton(
+                      key: Key('signin-webui-button'),
+                      onPressed: _signInWithSocialWebUI,
+                      child: const Text('Sign In With Social Provider'),
+                    ),
+                    DropdownButton<AuthProvider>(
                       value: provider,
-
                       icon: Icon(Icons.arrow_downward),
                       iconSize: 24,
                       elevation: 16,
@@ -167,21 +166,24 @@ class _SignInWidgetState extends State<SignInWidget> {
                         height: 2,
                         color: Colors.deepPurpleAccent,
                       ),
-                      onChanged: (AuthProvider newValue) {
+                      onChanged: (AuthProvider? newValue) {
                         setState(() {
-                          provider = newValue;
+                          provider = newValue!;
                         });
                       },
-                      items: <AuthProvider>[AuthProvider.google, AuthProvider.facebook, AuthProvider.amazon]
-                          .map<DropdownMenuItem<AuthProvider>>((AuthProvider value) {
+                      items: <AuthProvider>[
+                        AuthProvider.google,
+                        AuthProvider.facebook,
+                        AuthProvider.amazon
+                      ].map<DropdownMenuItem<AuthProvider>>(
+                          (AuthProvider value) {
                         return DropdownMenuItem<AuthProvider>(
                           value: value,
                           child: Text(value.toString()),
                         );
                       }).toList(),
                     ),
-                ]
-              )
+                  ])
             ],
           ),
         ),

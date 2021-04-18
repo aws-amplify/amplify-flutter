@@ -23,10 +23,17 @@ class CognitoAuthSession extends AuthSession {
   AWSCognitoUserPoolTokens? userPoolTokens;
   String? userSub;
   String? identityId;
-  CognitoAuthSession({required isSignedIn, this.credentials, this.userPoolTokens, this.userSub, this.identityId}) : super(isSignedIn: isSignedIn);
-  CognitoAuthSession.init({required sessionValues}) {
 
-    this.isSignedIn = sessionValues["isSignedIn"];
+  CognitoAuthSession(
+      {required isSignedIn,
+      this.credentials,
+      this.userPoolTokens,
+      this.userSub,
+      this.identityId})
+      : super(isSignedIn: isSignedIn);
+
+  CognitoAuthSession.init({required sessionValues})
+      : super(isSignedIn: sessionValues["isSignedIn"]) {
     this.identityId = sessionValues["identityId"];
 
     if (sessionValues.containsKey("userSub")) {
@@ -34,13 +41,15 @@ class CognitoAuthSession extends AuthSession {
     }
 
     if (sessionValues.containsKey("credentials")) {
-      this.credentials = AWSCredentials.init(creds: sessionValues["credentials"]);
+      this.credentials =
+          AWSCredentials.init(creds: sessionValues["credentials"]);
     }
 
     if (sessionValues.containsKey("tokens")) {
       var tokenMap = sessionValues["tokens"] as Map?;
       if (tokenMap != null) {
-        this.userPoolTokens = AWSCognitoUserPoolTokens.init(tokens: sessionValues["tokens"]);
+        this.userPoolTokens =
+            AWSCognitoUserPoolTokens.init(tokens: sessionValues["tokens"]);
       }
     }
   }
