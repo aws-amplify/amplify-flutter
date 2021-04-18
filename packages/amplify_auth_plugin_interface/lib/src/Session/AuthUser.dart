@@ -18,3 +18,4 @@ class AuthUser {
   String username;
   AuthUser({required this.userId, required this.username});
 }
+
