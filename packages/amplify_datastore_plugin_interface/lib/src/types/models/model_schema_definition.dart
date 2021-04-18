@@ -19,12 +19,12 @@ import 'model_field_definition.dart';
 import 'model_schema.dart';
 
 class ModelSchemaDefinition {
-  String name;
+  late String name;
   String? pluralName;
   List<AuthRule>? authRules;
   late Map<String, ModelField> fields;
 
-  ModelSchemaDefinition({required this.name, this.pluralName, this.authRules}) {
+  ModelSchemaDefinition() {
     fields = Map<String, ModelField>();
   }
 

@@ -18,6 +18,7 @@ library amplify;
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
@@ -37,7 +38,7 @@ export 'package:amplify_core/types/index.dart';
 part 'method_channel_amplify.dart';
 
 /// Top level singleton Amplify object.
-final AmplifyClass Amplify = new AmplifyClass._private();
+final AmplifyClass Amplify = new AmplifyClass.protected();
 
 /// This is a private class and customers are not expected to
 /// instantiate an object of this class. Please use top level
@@ -197,7 +198,9 @@ class AmplifyClass extends PlatformInterface {
   }
 
   /// Constructs a Core platform.
-  AmplifyClass._private() : super(token: _token);
+  /// Internal Use Only
+  @protected
+  AmplifyClass.protected() : super(token: _token);
 
   static final Object _token = Object();
 
