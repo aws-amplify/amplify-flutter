@@ -269,7 +269,7 @@ class AnalyticsUnitTests: XCTestCase {
         
         pluginUnderTest.innerHandle(
             method: "enable",
-            callArgs: [],
+            callArgs: nil,
             result: { (results) in
                 XCTAssertEqual(results as! Bool, true)
             }
@@ -285,7 +285,7 @@ class AnalyticsUnitTests: XCTestCase {
         
         pluginUnderTest.innerHandle(
             method: "disable",
-            callArgs: [],
+            callArgs: nil,
             result: { (results) in
                 XCTAssertEqual(results as! Bool, true)
             }

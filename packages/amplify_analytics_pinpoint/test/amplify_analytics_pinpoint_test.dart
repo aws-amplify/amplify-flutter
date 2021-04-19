@@ -31,6 +31,21 @@ void main() {
   final name = 'Darth Vader';
   final email = 'vader@sith.com';
   final plan = 'plan';
+  final doubleNum = 10.0;
+  final intNum = 10;
+  final stringValue = 'stringValue';
+  final propertiesMap = {
+    'boolKey': true,
+    'doubleKey': doubleNum,
+    'intKey': intNum,
+    'stringKey': stringValue
+  };
+  final propertiesTypesMap = {
+    'boolKey': 'BOOL',
+    'doubleKey': 'DOUBLE',
+    'intKey': 'INT',
+    'stringKey': 'STRING'
+  };
 
   tearDown(() {
     analyticsChannel.setMockMethodCallHandler(null);
@@ -82,25 +97,15 @@ void main() {
     analyticsChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       expect(methodCall.arguments, {
         'name': eventName,
-        'propertiesMap': {
-          'boolKey': true,
-          'doubleKey': 10.0,
-          'intKey': 10,
-          'stringKey': 'stringValue'
-        },
-        'propertiesTypesMap': {
-          'boolKey': 'BOOL',
-          'doubleKey': 'DOUBLE',
-          'intKey': 'INT',
-          'stringKey': 'STRING'
-        }
+        'propertiesMap': propertiesMap,
+        'propertiesTypesMap': propertiesTypesMap
       });
     });
 
     event.properties.addBoolProperty('boolKey', true);
-    event.properties.addDoubleProperty('doubleKey', 10.0);
-    event.properties.addIntProperty('intKey', 10);
-    event.properties.addStringProperty('stringKey', 'stringValue');
+    event.properties.addDoubleProperty('doubleKey', doubleNum);
+    event.properties.addIntProperty('intKey', intNum);
+    event.properties.addStringProperty('stringKey', stringValue);
 
     expect(analytics.recordEvent(event: event), completes);
   });
@@ -124,27 +129,17 @@ void main() {
       () async {
     analyticsChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       expect(methodCall.arguments, {
-        'propertiesMap': {
-          'boolKey': true,
-          'doubleKey': 10.0,
-          'intKey': 10,
-          'stringKey': 'stringValue'
-        },
-        'propertiesTypesMap': {
-          'boolKey': 'BOOL',
-          'doubleKey': 'DOUBLE',
-          'intKey': 'INT',
-          'stringKey': 'STRING'
-        }
+        'propertiesMap': propertiesMap,
+        'propertiesTypesMap': propertiesTypesMap
       });
     });
 
     var globalProperties = AnalyticsProperties();
 
     globalProperties.addBoolProperty('boolKey', true);
-    globalProperties.addDoubleProperty('doubleKey', 10.0);
-    globalProperties.addIntProperty('intKey', 10);
-    globalProperties.addStringProperty('stringKey', 'stringValue');
+    globalProperties.addDoubleProperty('doubleKey', doubleNum);
+    globalProperties.addIntProperty('intKey', intNum);
+    globalProperties.addStringProperty('stringKey', stringValue);
 
     expect(
         analytics.registerGlobalProperties(globalProperties: globalProperties),
@@ -217,18 +212,8 @@ void main() {
             'region': region,
             'country': country
           },
-          'propertiesMap': {
-            'boolKey': true,
-            'doubleKey': 10.0,
-            'intKey': 10,
-            'stringKey': 'stringValue'
-          },
-          'propertiesTypesMap': {
-            'boolKey': 'BOOL',
-            'doubleKey': 'DOUBLE',
-            'intKey': 'INT',
-            'stringKey': 'STRING'
-          }
+          'propertiesMap': propertiesMap,
+          'propertiesTypesMap': propertiesTypesMap
         }
       });
     });
@@ -249,9 +234,9 @@ void main() {
 
     var analyticsProperties = new AnalyticsProperties();
     analyticsProperties.addBoolProperty('boolKey', true);
-    analyticsProperties.addDoubleProperty('doubleKey', 10.0);
-    analyticsProperties.addIntProperty('intKey', 10);
-    analyticsProperties.addStringProperty('stringKey', 'stringValue');
+    analyticsProperties.addDoubleProperty('doubleKey', doubleNum);
+    analyticsProperties.addIntProperty('intKey', intNum);
+    analyticsProperties.addStringProperty('stringKey', stringValue);
     userProfile.properties = analyticsProperties;
 
     expect(analytics.identifyUser(userId: userId, userProfile: userProfile),
