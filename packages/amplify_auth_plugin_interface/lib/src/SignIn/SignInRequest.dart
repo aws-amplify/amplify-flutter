@@ -29,7 +29,7 @@ class SignInRequest {
       pendingRequest['password'] = password;
     }
     if (options != null) {
-      pendingRequest['options'] = options;
+      pendingRequest['options'] = options.serializeAsMap();
     }
     return pendingRequest;
   }
