@@ -30,6 +30,7 @@ import com.amazonaws.services.cognitoidentityprovider.model.TooManyFailedAttempt
 import com.amazonaws.services.cognitoidentityprovider.model.TooManyRequestsException
 import com.amazonaws.services.cognitoidentityprovider.model.UnexpectedLambdaException
 import com.amazonaws.services.cognitoidentityprovider.model.UserLambdaValidationException
+import com.amazonaws.services.cognitoidentityprovider.model.LimitExceededException
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.core.Amplify
@@ -76,6 +77,7 @@ class AuthErrorHandler {
                     is UnexpectedLambdaException -> errorCode = "LambdaException"
                     is UserLambdaValidationException -> errorCode = "LambdaException"
                     is TooManyFailedAttemptsException -> errorCode = "FailedAttemptsLimitExceededException"
+                    is LimitExceededException -> errorCode = "LimitExceededException"
                 }
             }
         }
