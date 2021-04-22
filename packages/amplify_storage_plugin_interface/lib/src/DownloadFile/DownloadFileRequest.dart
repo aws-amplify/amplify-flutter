@@ -24,12 +24,12 @@ class DownloadFileRequest {
   DownloadFileRequest({required this.key, required this.local, this.options});
 
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> result = <String, dynamic>{};
-    result['path'] = local.absolute.path;
-    result['key'] = key;
-    if (options != null) {
-      result['options'] = options!.serializeAsMap();
-    }
+    final Map<String, dynamic> result = {
+      'path': local.absolute.path,
+      'key': key,
+      'options': options?.serializeAsMap()
+    };
+    result.removeWhere((_, v) => v == null);
     return result;
   }
 }

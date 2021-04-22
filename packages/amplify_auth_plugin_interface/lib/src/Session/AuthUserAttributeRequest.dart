@@ -19,10 +19,10 @@ class AuthUserAttributeRequest {
   AuthUserAttributeOptions? options;
   AuthUserAttributeRequest({this.options});
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    if (options != null) {
-      pendingRequest['options'] = options!.serializeAsMap();
-    }
+    final Map<String, dynamic> pendingRequest = {
+      'options': options?.serializeAsMap()
+    };
+    pendingRequest.removeWhere((_, v) => v == null);
     return pendingRequest;
   }
 }

@@ -22,11 +22,11 @@ class GetUrlRequest {
   GetUrlRequest({required this.key, this.options});
 
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> result = <String, dynamic>{};
-    result['key'] = key;
-    if (options != null) {
-      result['options'] = options!.serializeAsMap();
-    }
+    final Map<String, dynamic> result = {
+      'key': key,
+      'options': options?.serializeAsMap()
+    };
+    result.removeWhere((_, v) => v == null);
     return result;
   }
 }

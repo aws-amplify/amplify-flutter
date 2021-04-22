@@ -18,8 +18,8 @@ class ResendSignUpCodeRequest {
 
   ResendSignUpCodeRequest({required this.username});
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    pendingRequest['username'] = username;
+    final Map<String, dynamic> pendingRequest = {'username': username};
+    pendingRequest.removeWhere((_, v) => v == null);
     return pendingRequest;
   }
 }

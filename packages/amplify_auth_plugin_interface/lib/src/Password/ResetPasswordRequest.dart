@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-
 import './PasswordOptions.dart';
 
 class ResetPasswordRequest {
@@ -23,13 +22,11 @@ class ResetPasswordRequest {
   ResetPasswordRequest({this.username, this.options});
 
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    if (username != null) {
-      pendingRequest['username'] = username;
-    }
-    if (options != null) {
-      pendingRequest['options'] = options.serializeAsMap();
-    }
+    final Map<String, dynamic> pendingRequest = {
+      'username': username,
+      'options': options?.serializeAsMap()
+    };
+    pendingRequest.removeWhere((_, v) => v == null);
     return pendingRequest;
   }
 }

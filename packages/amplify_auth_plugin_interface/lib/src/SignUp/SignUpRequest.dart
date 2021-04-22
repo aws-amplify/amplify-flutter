@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-
 import './SignUpOptions.dart';
 
 class SignUpRequest {
@@ -24,10 +23,12 @@ class SignUpRequest {
   SignUpRequest(
       {required this.username, required this.password, required this.options});
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    pendingRequest['username'] = username;
-    pendingRequest['password'] = password;
-    pendingRequest['options'] = options.serializeAsMap();
+    final Map<String, dynamic> pendingRequest = {
+      'username': username,
+      'password': password,
+      'options': options.serializeAsMap()
+    };
+    pendingRequest.removeWhere((_, v) => v == null);
     return pendingRequest;
   }
 }

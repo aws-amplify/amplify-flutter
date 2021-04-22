@@ -22,13 +22,11 @@ class ListRequest {
   ListRequest({this.path, this.options});
 
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> result = <String, dynamic>{};
-    if (path != null) {
-      result['path'] = path;
-    }
-    if (options != null) {
-      result['options'] = options!.serializeAsMap();
-    }
+    final Map<String, dynamic> result = {
+      'path': path,
+      'options': options?.serializeAsMap()
+    };
+    result.removeWhere((_, v) => v == null);
     return result;
   }
 }

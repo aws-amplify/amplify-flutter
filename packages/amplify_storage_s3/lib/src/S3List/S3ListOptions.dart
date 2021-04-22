@@ -11,14 +11,11 @@ class S3ListOptions extends ListOptions {
 
   @override
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> optionsMap = <String, dynamic>{};
-    if (accessLevel != null) {
-      optionsMap["accessLevel"] = describeEnum(accessLevel);
-    }
-
-    if (targetIdentityId != null) {
-      optionsMap["targetIdentityId"] = targetIdentityId;
-    }
+    final Map<String, dynamic> optionsMap = {
+      'accessLevel': describeEnum(accessLevel),
+      'targetIdentityId': targetIdentityId
+    };
+    optionsMap.removeWhere((_, v) => v == null);
     return optionsMap;
   }
 }

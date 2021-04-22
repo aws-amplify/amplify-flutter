@@ -27,25 +27,15 @@ class AnalyticsUserProfile {
       : this.properties = analyticsProperties;
 
   Map<String, Object?> getAllProperties() {
-    Map<String, Object?> allProperties = {};
-
-    if (name != null) {
-      allProperties["name"] = name;
-    }
-    if (email != null) {
-      allProperties["email"] = email;
-    }
-    if (plan != null) {
-      allProperties["plan"] = plan;
-    }
-    if (location != null) {
-      allProperties["location"] = location!.getAllProperties();
-    }
-    if (properties != null) {
-      allProperties["propertiesMap"] = properties!.getAllProperties();
-      allProperties["propertiesTypesMap"] = properties!.getAllPropertiesTypes();
-    }
-
+    Map<String, Object?> allProperties = {
+      'name': name,
+      'email': email,
+      'plan': plan,
+      'location': location?.getAllProperties(),
+      'propertiesMap': properties?.getAllProperties(),
+      'propertiesTypesMap': properties?.getAllPropertiesTypes()
+    };
+    allProperties.removeWhere((_, v) => v == null);
     return allProperties;
   }
 }
