@@ -13,19 +13,18 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
 import './ConfirmSignInOptions.dart';
 
 class ConfirmSignInRequest {
   String confirmationValue;
-  ConfirmSignInOptions options;
-  ConfirmSignInRequest({@required this.confirmationValue, this.options});
+  ConfirmSignInOptions? options;
+  ConfirmSignInRequest({required this.confirmationValue, this.options});
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    pendingRequest["confirmationCode"] = confirmationValue;
-    if (options != null) {
-      pendingRequest['options'] = options;
-    }
+    final Map<String, dynamic> pendingRequest = {
+      'confirmationCode': confirmationValue,
+      'options': options
+    };
+    pendingRequest.removeWhere((_, v) => v == null);
     return pendingRequest;
   }
 }

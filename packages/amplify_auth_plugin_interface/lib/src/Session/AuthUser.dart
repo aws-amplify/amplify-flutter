@@ -13,11 +13,8 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
-
-
 class AuthUser {
   String userId;
   String username;
-  AuthUser({@required this.userId, @required this.username});
+  AuthUser({required this.userId, required this.username});
 }

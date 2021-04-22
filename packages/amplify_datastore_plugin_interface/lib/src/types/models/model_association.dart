@@ -20,22 +20,22 @@ enum ModelAssociationEnum { HasMany, HasOne, BelongsTo }
 
 class ModelAssociation {
   final ModelAssociationEnum associationType;
-  final String targetName; // opt (used in belongsTo)
-  final String associatedName; // opt (used in hasMany/hasOne)
-  final String associatedType; // opt (used in hasMany/hasOne)
+  final String? targetName; // opt (used in belongsTo)
+  final String? associatedName; // opt (used in hasMany/hasOne)
+  final String? associatedType; // opt (used in hasMany/hasOne)
 
   const ModelAssociation({
-    this.associationType,
+    required this.associationType,
     this.targetName,
     this.associatedName,
     this.associatedType,
   });
 
   ModelAssociation copyWith({
-    String name,
-    String targetName,
-    String associatedName,
-    String associatedType,
+    ModelAssociationEnum? associationType,
+    String? targetName,
+    String? associatedName,
+    String? associatedType,
   }) {
     return ModelAssociation(
       associationType: associationType ?? this.associationType,
@@ -56,8 +56,6 @@ class ModelAssociation {
   }
 
   factory ModelAssociation.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-
     return ModelAssociation(
       associationType: map['associationType'],
       targetName: map['targetName'],

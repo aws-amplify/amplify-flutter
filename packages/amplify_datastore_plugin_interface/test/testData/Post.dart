@@ -13,10 +13,11 @@
 * permissions and limitations under the License.
 */
 
-import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
+
+import 'ModelProvider.dart';
 
 /** This is an auto generated class representing the Post type in your schema. */
 @immutable
@@ -24,10 +25,10 @@ class Post extends Model {
   static const classType = const PostType();
   final String id;
   final String title;
-  final int rating;
-  final DateTime created;
-  final Blog blog;
-  final List<Comment> comments;
+  final int? rating;
+  final DateTime? created;
+  final Blog? blog;
+  final List<Comment>? comments;
 
   @override
   getInstanceType() => classType;
@@ -38,20 +39,20 @@ class Post extends Model {
   }
 
   const Post._internal(
-      {@required this.id,
-      @required this.title,
+      {required this.id,
+      required this.title,
       this.rating,
       this.created,
       this.blog,
       this.comments});
 
   factory Post(
-      {@required String id,
-      @required String title,
-      int rating,
-      DateTime created,
-      Blog blog,
-      List<Comment> comments}) {
+      {required String id,
+      required String title,
+      int? rating,
+      DateTime? created,
+      Blog? blog,
+      List<Comment>? comments}) {
     return Post._internal(
         id: id == null ? UUID.getUUID() : id,
         title: title,
@@ -96,12 +97,12 @@ class Post extends Model {
   }
 
   Post copyWith(
-      {@required String id,
-      @required String title,
-      int rating,
-      DateTime created,
-      Blog blog,
-      List<Comment> comments}) {
+      {required String id,
+      required String title,
+      int? rating,
+      DateTime? created,
+      Blog? blog,
+      List<Comment>? comments}) {
     return Post(
         id: id ?? this.id,
         title: title ?? this.title,

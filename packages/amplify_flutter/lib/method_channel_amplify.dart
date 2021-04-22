@@ -19,8 +19,10 @@ const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/amplify');
 
 /// An implementation of [Core] that uses method channels.
 class MethodChannelAmplify extends AmplifyClass {
+  MethodChannelAmplify() : super.protected();
+
   @override
-  Future<bool> _configurePlatforms(String version, String configuration) {
+  Future<bool?> _configurePlatforms(String version, String configuration) {
     return _channel.invokeMethod<bool>(
       'configure',
       <String, Object>{

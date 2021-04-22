@@ -20,7 +20,7 @@ import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart
 class CodeDeliveryFailureException extends AuthException {
   /// Named constructor
   CodeDeliveryFailureException(String message,
-      {String recoverySuggestion, String underlyingException})
+      {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);

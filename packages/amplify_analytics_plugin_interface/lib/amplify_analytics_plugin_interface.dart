@@ -17,7 +17,6 @@ library amplify_analytics_plugin_interface;
 
 import 'dart:async';
 
-import 'package:meta/meta.dart';
 import 'package:amplify_core/types/index.dart';
 
 import 'src/types.dart';
@@ -25,13 +24,13 @@ export 'src/types.dart';
 
 abstract class AnalyticsPluginInterface extends AmplifyPluginInterface {
   /// Constructs a AmplifyPlatform.
-  AnalyticsPluginInterface({@required Object token}) : super(token: token);
+  AnalyticsPluginInterface({required Object token}) : super(token: token);
 
   Future<void> addPlugin() async {
     throw UnimplementedError('addPlugin() has not been implemented.');
   }
 
-  Future<void> recordEvent({@required AnalyticsEvent event}) async {
+  Future<void> recordEvent({required AnalyticsEvent event}) async {
     throw UnimplementedError('recordEvent() has not been implemented.');
   }
 
@@ -40,13 +39,13 @@ abstract class AnalyticsPluginInterface extends AmplifyPluginInterface {
   }
 
   Future<void> registerGlobalProperties(
-      {@required AnalyticsProperties globalProperties}) async {
+      {required AnalyticsProperties globalProperties}) async {
     throw UnimplementedError(
         'registerGlobalProperties() has not been implemented.');
   }
 
   Future<void> unregisterGlobalProperties(
-      {@required List<String> propertyNames}) async {
+      {required List<String> propertyNames}) async {
     throw UnimplementedError(
         'unregisterGlobalProperties() has not been implemented.');
   }
@@ -60,8 +59,8 @@ abstract class AnalyticsPluginInterface extends AmplifyPluginInterface {
   }
 
   Future<void> identifyUser(
-      {@required String userId,
-      @required AnalyticsUserProfile userProfile}) async {
+      {required String userId,
+      required AnalyticsUserProfile userProfile}) async {
     throw UnimplementedError('identifyUser() has not been implemented.');
   }
 }

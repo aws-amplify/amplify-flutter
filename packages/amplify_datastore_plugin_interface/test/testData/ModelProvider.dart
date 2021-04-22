@@ -14,6 +14,7 @@
 */
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+
 import 'Blog.dart';
 import 'Comment.dart';
 import 'Post.dart';

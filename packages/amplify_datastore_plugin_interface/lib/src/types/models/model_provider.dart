@@ -13,12 +13,13 @@
  * permissions and limitations under the License.
  */
 import 'package:amplify_datastore_plugin_interface/src/types/models/model.dart';
+
 import 'model_schema.dart';
 
 abstract class ModelProviderInterface {
-  String version;
+  late String version;
 
-  List<ModelSchema> modelSchemas;
+  late List<ModelSchema> modelSchemas;
 
   ModelType getModelTypeByModelName(String modelName) {
     throw UnimplementedError(
