@@ -27,7 +27,7 @@ data class FlutterSignInResult(private val raw: AuthSignInResult) {
 
     return mapOf(
       "signInStep" to raw.nextStep.signInStep.toString(),
-      "additionalInfo" to Gson().toJson(raw.nextStep.additionalInfo),
+      "additionalInfo" to (raw.nextStep.additionalInfo ?: emptyMap<String, String>()),
       "codeDeliveryDetails" to mapOf(
         "destination" to (raw.nextStep.codeDeliveryDetails?.destination ?: ""),
         "deliveryMedium" to (raw.nextStep.codeDeliveryDetails?.deliveryMedium?.name ?: ""),
