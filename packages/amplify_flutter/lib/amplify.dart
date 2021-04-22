@@ -172,6 +172,10 @@ class AmplifyClass extends PlatformInterface {
           underlyingException: e.toString());
     }
     try {
+      // Read the version from local pubspec file.
+      File pubspecFile = new File('pubspec.yaml');
+      final String versionFromPubspec =
+          loadYaml(await pubspecFile.readAsString())['version'];
       var res = await AmplifyClass.instance
           ._configurePlatforms(_getVersion(), configuration);
       _isConfigured = res;
