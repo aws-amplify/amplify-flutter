@@ -671,21 +671,65 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func test_signInValidation() {
+    func test_signInSuccessWithOptionsDone() {
+        
+        class SignInMock: AuthCognitoBridge {
+            override func onSignIn(flutterResult: @escaping FlutterResult, request: FlutterSignInRequest) {
+                let signInRes = Result<AuthSignInResult, AuthError>.success(
+                    AuthSignInResult(nextStep:
+                      AuthSignInStep.done)
+                )
+                let signInData = FlutterSignInResult(res: signInRes)
+                flutterResult(signInData)
+            }
+        }
+        
+        plugin = SwiftAuthCognito.init(cognito: SignInMock())
+        
+        _options = ["clientMetadata": ["key": "value"]]
+        _data = [
+            "username": _username,
+            "password": _password,
+            "options": _options
+        ]
+        _args = ["data": _data]
+        let call = FlutterMethodCall(methodName: "signIn", arguments: _args)
+        plugin.handle( call, result: {(result)->Void in
+            if let res = result as? FlutterSignInResult {
+                XCTAssertEqual( true, res.isSignedIn )
+                XCTAssertEqual( "DONE", res.signInStep)
+            } else {
+                XCTFail()
+            }
+        })
+    }
+    
+    func test_signInValidationOptions() {
         var rawData: NSMutableDictionary = ["username":_username]
         
-        // Throws with username only
         XCTAssertThrowsError(try FlutterSignInRequest.validate(dict: rawData))
         
-        // Throws with password only
         rawData = ["password": _password]
         XCTAssertThrowsError(try FlutterSignInRequest.validate(dict: rawData))
         
-        // Succeeds with options only
-        let rawOptions: Dictionary<String, Any> = ["foo": "bar"]
+        let rawOptions: Dictionary<String, Any> = ["clientMetadata" : ["foo": "bar"]]
         rawData = ["options": rawOptions]
         XCTAssertNoThrow(try FlutterSignInRequest.validate(dict: rawData))
-
+        let req = FlutterSignInRequest(dict: rawData)
+        let options = (req.options?.pluginOptions as! AWSAuthSignInOptions)
+        XCTAssertEqual(options.metadata, ["foo": "bar"])
+    }
+    
+    func test_signInValidationNoOptions() {
+        var rawData: NSMutableDictionary = ["username":_username]
+        
+        XCTAssertThrowsError(try FlutterSignInRequest.validate(dict: rawData))
+        
+        rawData = ["password": _password]
+        XCTAssertThrowsError(try FlutterSignInRequest.validate(dict: rawData))
+        let req = FlutterSignInRequest(dict: rawData)
+        let options = (req.options?.pluginOptions as! AWSAuthSignInOptions)
+        XCTAssertEqual(options.metadata, nil)
     }
     
     func test_signInError() {

@@ -1,3 +1,8 @@
+## 0.1.3 (2021-04-21)
+
+- fix(amplify_auth_cognito): SignInOptions and ClientMetadata (#519)
+- fix: handle LimitExceededException on Android (#522)
+
 ## 0.1.2 (2021-04-16)
 
 ### Bug Fixes
