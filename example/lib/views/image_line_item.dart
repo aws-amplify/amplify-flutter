@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'ImagePreview.dart';
+import 'image_preview.dart';
 
 class ImageLineItem extends StatelessWidget {
   final String storageKey;
