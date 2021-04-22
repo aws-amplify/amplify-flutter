@@ -57,7 +57,7 @@ class _MainPageState extends State<MainPage> {
   void _showImageUploader() async {
     String key = await showDialog(
         context: context,
-        child: new SimpleDialog(
+        builder: (_) => new SimpleDialog(
             title: Text("Upload Image"), children: [ImageUploader()]));
 
     if (key.isNotEmpty) {

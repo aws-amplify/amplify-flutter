@@ -19,8 +19,8 @@ import '../Storage/StorageOptions.dart';
 
 class UploadFileOptions extends StorageOptions {
   StorageAccessLevel accessLevel;
-  String contentType;
-  Map<String, String> metadata;
+  String? contentType;
+  Map<String, String>? metadata;
 
   UploadFileOptions(
       {this.accessLevel = StorageAccessLevel.guest,

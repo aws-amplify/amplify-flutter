@@ -13,14 +13,15 @@
  * permissions and limitations under the License.
  */
 
+
 import './PasswordOptions.dart';
-import 'package:flutter/foundation.dart';
 
 class ResetPasswordRequest {
-  String username;
-  PasswordOptions options;
+  String? username;
+  PasswordOptions? options;
 
   ResetPasswordRequest({this.username, this.options});
+
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     if (username != null) {

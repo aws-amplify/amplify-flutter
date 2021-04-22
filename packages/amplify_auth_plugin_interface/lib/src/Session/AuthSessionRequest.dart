@@ -16,12 +16,12 @@
 import './AuthSessionOptions.dart';
 
 class AuthSessionRequest {
-  AuthSessionOptions options;
+  AuthSessionOptions? options;
   AuthSessionRequest({this.options});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     if (options != null) {
-      pendingRequest['options'] = options.serializeAsMap();
+      pendingRequest['options'] = options!.serializeAsMap();
     }
     return pendingRequest;
   }

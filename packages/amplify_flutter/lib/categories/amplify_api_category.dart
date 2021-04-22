@@ -39,24 +39,24 @@ class APICategory {
   }
 
   // ====== GraphQL =======
-  GraphQLOperation<T> query<T>({@required GraphQLRequest<T> request}) {
+  GraphQLOperation<T> query<T>({required GraphQLRequest<T> request}) {
     return plugins.length == 1
         ? plugins[0].query(request: request)
         : throw _pluginNotAddedException("Api");
   }
 
-  GraphQLOperation<T> mutate<T>({@required GraphQLRequest<T> request}) {
+  GraphQLOperation<T> mutate<T>({required GraphQLRequest<T> request}) {
     return plugins.length == 1
         ? plugins[0].mutate(request: request)
         : throw _pluginNotAddedException("Api");
   }
 
   GraphQLSubscriptionOperation<T> subscribe<T>(
-      {@required GraphQLRequest<T> request,
-      @required void Function(GraphQLResponse<T>) onData,
-      @required void Function() onEstablished,
-      @required void Function(dynamic) onError,
-      @required void Function() onDone}) {
+      {required GraphQLRequest<T> request,
+      required void Function(GraphQLResponse<T>) onData,
+      required void Function() onEstablished,
+      required void Function(dynamic) onError,
+      required void Function() onDone}) {
     return plugins.length == 1
         ? plugins[0].subscribe(
             request: request,
@@ -74,37 +74,37 @@ class APICategory {
         : throw _pluginNotAddedException("Api");
   }
 
-  RestOperation get({@required RestOptions restOptions}) {
+  RestOperation get({required RestOptions restOptions}) {
     return plugins.length == 1
         ? plugins[0].get(restOptions: restOptions)
         : throw _pluginNotAddedException("Api");
   }
 
-  RestOperation put({@required RestOptions restOptions}) {
+  RestOperation put({required RestOptions restOptions}) {
     return plugins.length == 1
         ? plugins[0].put(restOptions: restOptions)
         : throw _pluginNotAddedException("Api");
   }
 
-  RestOperation post({@required RestOptions restOptions}) {
+  RestOperation post({required RestOptions restOptions}) {
     return plugins.length == 1
         ? plugins[0].post(restOptions: restOptions)
         : throw _pluginNotAddedException("Api");
   }
 
-  RestOperation delete({@required RestOptions restOptions}) {
+  RestOperation delete({required RestOptions restOptions}) {
     return plugins.length == 1
         ? plugins[0].delete(restOptions: restOptions)
         : throw _pluginNotAddedException("Api");
   }
 
-  RestOperation head({@required RestOptions restOptions}) {
+  RestOperation head({required RestOptions restOptions}) {
     return plugins.length == 1
         ? plugins[0].head(restOptions: restOptions)
         : throw _pluginNotAddedException("Api");
   }
 
-  RestOperation patch({@required RestOptions restOptions}) {
+  RestOperation patch({required RestOptions restOptions}) {
     return plugins.length == 1
         ? plugins[0].patch(restOptions: restOptions)
         : throw _pluginNotAddedException("Api");

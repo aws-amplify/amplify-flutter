@@ -16,8 +16,8 @@
 import './ListOptions.dart';
 
 class ListRequest {
-  String path;
-  ListOptions options;
+  String? path;
+  ListOptions? options;
 
   ListRequest({this.path, this.options});
 
@@ -27,7 +27,7 @@ class ListRequest {
       result['path'] = path;
     }
     if (options != null) {
-      result['options'] = options.serializeAsMap();
+      result['options'] = options!.serializeAsMap();
     }
     return result;
   }

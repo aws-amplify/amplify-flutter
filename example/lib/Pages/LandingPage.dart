@@ -31,15 +31,15 @@ class _LandingPageState extends State<LandingPage> {
       String text, Function onSuccess, Widget dialogWidget) async {
     bool result = await showDialog(
         context: context,
-        child: new SimpleDialog(title: Text(text), children: [
-          dialogWidget,
-          ElevatedButton(
-            child: const Text("Cancel"),
-            onPressed: () {
-              Navigator.pop(context, false);
-            },
-          ),
-        ]));
+        builder: (_) => new SimpleDialog(title: Text(text), children: [
+              dialogWidget,
+              ElevatedButton(
+                child: const Text("Cancel"),
+                onPressed: () {
+                  Navigator.pop(context, false);
+                },
+              ),
+            ]));
 
     if (result) onSuccess();
   }

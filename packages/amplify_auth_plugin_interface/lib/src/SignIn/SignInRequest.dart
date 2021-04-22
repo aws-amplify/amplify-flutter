@@ -16,9 +16,9 @@
 import './SignInOptions.dart';
 
 class SignInRequest {
-  String username;
-  String password;
-  SignInOptions options;
+  String? username;
+  String? password;
+  SignInOptions? options;
   SignInRequest({this.username, this.password, this.options});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};

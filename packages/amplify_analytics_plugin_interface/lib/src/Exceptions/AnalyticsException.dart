@@ -18,7 +18,7 @@ import 'package:amplify_core/types/exception/AmplifyException.dart';
 /// Base Class for Analytics Exceptions
 class AnalyticsException extends AmplifyException {
   AnalyticsException(String message,
-      {String recoverySuggestion, String underlyingException})
+      {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);

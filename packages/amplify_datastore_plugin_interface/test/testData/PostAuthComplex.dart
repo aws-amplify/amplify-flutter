@@ -22,7 +22,7 @@ class PostAuthComplex extends Model {
   static const classType = const PostAuthComplexType();
   final String id;
   final String title;
-  final String owner;
+  final String? owner;
 
   @override
   getInstanceType() => classType;
@@ -33,10 +33,10 @@ class PostAuthComplex extends Model {
   }
 
   const PostAuthComplex._internal(
-      {@required this.id, @required this.title, this.owner});
+      {required this.id, required this.title, this.owner});
 
   factory PostAuthComplex(
-      {@required String id, @required String title, String owner}) {
+      {required String id, required String title, String? owner}) {
     return PostAuthComplex._internal(
         id: id == null ? UUID.getUUID() : id, title: title, owner: owner);
   }
@@ -64,14 +64,14 @@ class PostAuthComplex extends Model {
     buffer.write("PostAuthComplex {");
     buffer.write("id=" + id + ", ");
     buffer.write("title=" + title + ", ");
-    buffer.write("owner=" + owner);
+    buffer.write("owner=" + owner!);
     buffer.write("}");
 
     return buffer.toString();
   }
 
   PostAuthComplex copyWith(
-      {@required String id, @required String title, String owner}) {
+      {required String id, required String title, String? owner}) {
     return PostAuthComplex(
         id: id ?? this.id,
         title: title ?? this.title,
