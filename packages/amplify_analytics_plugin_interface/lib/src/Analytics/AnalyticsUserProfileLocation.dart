@@ -22,19 +22,12 @@ class AnalyticsUserProfileLocation {
   String? country;
 
   AnalyticsUserProfileLocation(
-      {double? latitude,
-      double? longitude,
-      String? postalCode,
-      String? city,
-      String? region,
-      String? country}) {
-    this.latitude = latitude;
-    this.longitude = longitude;
-    this.postalCode = postalCode;
-    this.city = city;
-    this.region = region;
-    this.country = country;
-  }
+      {this.latitude,
+      this.longitude,
+      this.postalCode,
+      this.city,
+      this.region,
+      this.country});
 
   Map<String, Object?> getAllProperties() {
     Map<String, Object?> allProperties = {
