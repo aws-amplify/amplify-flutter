@@ -53,7 +53,7 @@ void main() {
 
   test('PlatformException in getCurrentUser surfaces as AuthError', () async {
     testCode = 2;
-    AuthException err;
+    late AuthException err;
     try {
       await auth.getCurrentUser();
     } on AuthException catch (e) {

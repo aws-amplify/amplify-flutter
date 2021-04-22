@@ -62,11 +62,11 @@ void main() {
       res.isSignedIn,
       equals(expected.isSignedIn));
     expect(
-      res.nextStep.signInStep,
-      equals(expected.nextStep.signInStep));
+      res.nextStep!.signInStep,
+      equals(expected.nextStep!.signInStep));
     expect(
-      res.nextStep.codeDeliveryDetails.attributeName,
-      equals(expected.nextStep.codeDeliveryDetails.attributeName));
+      res.nextStep!.codeDeliveryDetails.attributeName,
+      equals(expected.nextStep!.codeDeliveryDetails.attributeName));
   });
 
     test('signInWithWebUI (with provider) request returns SignInResult', () async {
@@ -78,10 +78,10 @@ void main() {
         res.isSignedIn,
         equals(expected.isSignedIn));
       expect(
-        res.nextStep.signInStep,
-        equals(expected.nextStep.signInStep));
+        res.nextStep!.signInStep,
+        equals(expected.nextStep!.signInStep));
       expect(
-        res.nextStep.codeDeliveryDetails.attributeName,
-        equals(expected.nextStep.codeDeliveryDetails.attributeName));
+        res.nextStep!.codeDeliveryDetails.attributeName,
+        equals(expected.nextStep!.codeDeliveryDetails.attributeName));
   });
 }

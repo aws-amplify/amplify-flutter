@@ -71,7 +71,7 @@ void main() {
 
   test('signIn thrown PlatFormException results in AuthError', () async {
     testCode = 2;
-    AuthException err;
+    late AuthException err;
     try {
       await auth.signIn(
           request: SignInRequest(username: 'testUser', password: '123'));
