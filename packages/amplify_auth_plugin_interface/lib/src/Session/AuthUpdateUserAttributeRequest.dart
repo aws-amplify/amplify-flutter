@@ -13,29 +13,20 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
+// ignore_for_file: public_member_api_docs
 
-class AuthUserAttribute {
-  String userAttributeKey;
-  var value;
-  AuthUserAttribute.init(
-      {@required this.userAttributeKey, @required this.value}) {
-    this.userAttributeKey = userAttributeKey;
-    if (userAttributeKey != 'phone_number') {
-      try {
-        this.value = int.parse(value);
-      } on FormatException {}
-    }
-  }
+import 'AuthUserAttribute.dart';
 
-  /// Creates an object that holds the key and value for a user attribute.
-  AuthUserAttribute({@required this.userAttributeKey, @required this.value}) {}
+/// Encapsulates parameters for a update user attribute operation
+class AuthUpdateUserAttributeRequest {
+  /// The user attribute to update
+  AuthUserAttribute attribute;
 
-  // ignore: public_member_api_docs
+  AuthUpdateUserAttributeRequest({this.attribute});
+
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    pendingRequest['userAttributeKey'] = userAttributeKey;
-    pendingRequest['value'] = value;
+    pendingRequest['attribute'] = attribute.serializeAsMap();
     return pendingRequest;
   }
 }

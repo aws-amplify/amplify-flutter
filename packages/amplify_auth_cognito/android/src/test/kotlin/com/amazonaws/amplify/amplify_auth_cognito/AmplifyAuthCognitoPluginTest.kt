@@ -28,6 +28,7 @@ import com.amplifyframework.auth.cognito.AWSCognitoAuthSession
 import com.amplifyframework.auth.cognito.AWSCognitoUserPoolTokens
 import com.amplifyframework.auth.result.AuthSessionResult
 import com.amplifyframework.auth.result.step.*
+import com.amplifyframework.auth.result.AuthUpdateAttributeResult
 import com.amplifyframework.core.Action
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
@@ -55,9 +56,11 @@ class AmplifyAuthCognitoPluginTest {
     private val signUpStep = AuthNextSignUpStep(AuthSignUpStep.CONFIRM_SIGN_UP_STEP, emptyMap(), codeDeliveryDetails)
     private val signInStep = AuthNextSignInStep(AuthSignInStep.CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE, emptyMap(), codeDeliveryDetails)
     private val resetStep = AuthNextResetPasswordStep(AuthResetPasswordStep.CONFIRM_RESET_PASSWORD_WITH_CODE, emptyMap(), codeDeliveryDetails)
+    private val updateAttributeStep = AuthNextUpdateAttributeStep(AuthUpdateAttributeStep.CONFIRM_ATTRIBUTE_WITH_CODE, emptyMap(), codeDeliveryDetails)
     private val mockSignUpResult = AuthSignUpResult(false, signUpStep, null)
     private val mockSignInResult = AuthSignInResult(false, signInStep)
     private val mockResetPasswordResult = AuthResetPasswordResult(false, resetStep)
+    private val mockUpdateUserAttributeResult = AuthUpdateAttributeResult(true, updateAttributeStep)
     private var mockAuth = mock(AuthCategory::class.java)
 
     @Before
@@ -401,6 +404,43 @@ class AmplifyAuthCognitoPluginTest {
 
         // Assert
         verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>())
+    }
+
+
+    @Test
+    fun updateUserAttribute_returnsSuccess() {
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareUpdateUserAttributeResult(mockResult, mockUpdateUserAttributeResult)
+            null as Void?
+        }.`when`(mockAuth).updateUserAttribute(any(AuthUserAttribute::class.java), ArgumentMatchers.any<Consumer<AuthUpdateAttributeResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        val attribute = hashMapOf(
+            "userAttributeKey" to "email",
+            "value" to "test@test.com"
+        )
+        val data: HashMap<*, *> = hashMapOf(
+                "attribute" to attribute
+        )
+        val arguments = hashMapOf("data" to data)
+        val call = MethodCall("updateUserAttribute", arguments)
+        val res = mapOf(
+                "isUpdated" to true,
+                "nextStep" to mapOf(
+                        "updateAttributeStep" to "CONFIRM_ATTRIBUTE_WITH_CODE",
+                        "additionalInfo" to "{}",
+                        "codeDeliveryDetails" to mapOf(
+                                "destination" to "test@test.com",
+                                "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
+                                "attributeName" to "email"
+                        )
+                )
+        )
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).success(res);
     }
 
 

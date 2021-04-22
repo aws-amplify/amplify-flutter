@@ -25,6 +25,7 @@ import AWSMobileClient
 var _data: NSMutableDictionary = [:]
 var _args: Dictionary<String, Any> = [:]
 var _attributes: Dictionary<String, String> = [:]
+var _attribute: Dictionary<String, String> = [:]
 var _options: Dictionary<String, Any> = [:]
 let _username: String = "testuser"
 let _password: String = "mytestpassword"
@@ -1389,4 +1390,49 @@ class amplify_auth_cognito_tests: XCTestCase {
             }
         })
     }
+
+
+    func test_updateUserAttribute() {
+        
+        class UpdateUserAttributeMock: AuthCognitoBridge {
+            override func onUpdateUserAttribute(flutterResult: @escaping FlutterResult, request: FlutterUpdateUserAttributeRequest){
+                let updateUserAttributeRes = Result<AuthUpdateAttributeResult,AuthError>.success(AuthUpdateAttributeResult(isUpdated: true, nextStep: AuthUpdateAttributeStep.done))
+                let updateUserAttributeData = FlutterUpdateUserAttributeResult(res: updateUserAttributeRes)
+                flutterResult(updateUserAttributeData)
+            }
+        }
+        
+        plugin = SwiftAuthCognito.init(cognito: UpdateUserAttributeMock())
+        
+        _attribute = [
+            "userAttributeKey" : "email",
+            "value": _email
+        ]
+        _data = [
+            "attribute": _attribute,
+        ]
+        _args = ["data": _data]
+        let call = FlutterMethodCall(methodName: "updateUserAttribute", arguments: _args)
+        plugin.handle(call, result: {(result)->Void in
+            if let res = result as? FlutterUpdateUserAttributeResult {
+                XCTAssertEqual( "DONE", res.updateAttributeStep)
+                XCTAssertEqual( true, res.isUpdated)
+            } else {
+                XCTFail()
+            }
+        })
+    }
+    
+    func test_updateUserAttributeValidation() {
+        let rawAttribute: Dictionary<String, Any> = [
+            "userAttributeKey": "email",
+            "value": 1.0
+        ]
+        let rawData: NSMutableDictionary = ["attribute": rawAttribute]
+        
+        // Throws with non int or string value
+        XCTAssertThrowsError(try FlutterUpdateUserAttributeRequest.validate(dict: rawData))
+
+    }
+    
 }

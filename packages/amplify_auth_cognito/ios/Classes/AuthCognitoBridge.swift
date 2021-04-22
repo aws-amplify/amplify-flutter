@@ -218,4 +218,16 @@ class AuthCognitoBridge {
             }
         }
     }
+
+    func onUpdateUserAttribute(flutterResult: @escaping FlutterResult, request: FlutterUpdateUserAttributeRequest) {
+        Amplify.Auth.update(userAttribute: request.attribute) { response in
+            switch response {
+            case .success:
+                let updateAttributeData = FlutterUpdateUserAttributeResult(res: response)
+                flutterResult(updateAttributeData.toJSON())
+            case .failure(let error):
+                self.errorHandler.handleAuthError(authError: error, flutterResult: flutterResult)
+            }
+        }
+    }
 }

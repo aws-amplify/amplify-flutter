@@ -56,6 +56,9 @@ export 'Session/AuthUserRequest.dart';
 export 'Session/AuthUserAttribute.dart';
 export 'Session/AuthUserAttributeOptions.dart';
 export 'Session/AuthUserAttributeRequest.dart';
+export 'Session/AuthUpdateAttributeResult.dart';
+export 'Session/AuthNextUpdateAttributeStep.dart';
+export 'Session/AuthUpdateUserAttributeRequest.dart';
 
 // Exception Classes
 export 'Exceptions/AuthException.dart';

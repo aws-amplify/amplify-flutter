@@ -35,11 +35,11 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     } on PlatformException catch (e) {
       if (e.code == "AmplifyAlreadyConfiguredException") {
         throw AmplifyAlreadyConfiguredException(
-          AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
-          recoverySuggestion: AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
+            AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+            recoverySuggestion:
+                AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
       } else {
-        throw AmplifyException.fromMap(
-            Map<String, String>.from(e.details));
+        throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       }
     }
   }
@@ -293,6 +293,25 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     return res;
   }
 
+  @override
+  Future<AuthUpdateAttributeResult> updateUserAttribute(
+      {AuthUpdateUserAttributeRequest request}) async {
+    AuthUpdateAttributeResult res;
+    try {
+      final Map<String, dynamic> data =
+          await _channel.invokeMapMethod<String, dynamic>(
+        'updateUserAttribute',
+        <String, dynamic>{
+          'data': request != null ? request.serializeAsMap() : null,
+        },
+      );
+      return _formatUpdateUserAttributeResponse(data);
+    } on PlatformException catch (e) {
+      castAndThrowPlatformException(e);
+    }
+    return res;
+  }
+
   SignUpResult _formatSignUpResponse(Map<String, dynamic> res, method) {
     return CognitoSignUpResult(
         isSignUpComplete: res["isSignUpComplete"],
@@ -358,5 +377,17 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   AuthSession _formatSessionResponse(Map<String, dynamic> res) {
     return CognitoAuthSession.init(sessionValues: res);
+  }
+
+  AuthUpdateAttributeResult _formatUpdateUserAttributeResponse(
+      Map<String, dynamic> res) {
+    return AuthUpdateAttributeResult(
+        isUpdated: res["isUpdated"],
+        nextStep: AuthNextUpdateAttributeStep(
+            updateAttributeStep: res["nextStep"]["updateAttributeStep"],
+            codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
+            additionalInfo: res["nextStep"]["additionalInfo"] is String
+                ? jsonDecode(res["nextStep"]["additionalInfo"])
+                : {}));
   }
 }

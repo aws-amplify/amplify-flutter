@@ -33,8 +33,7 @@ class AuthCategory {
       } on AmplifyAlreadyConfiguredException catch (e) {
         plugins.add(plugin);
       } on PlatformException catch (e) {
-        throw AmplifyException.fromMap(
-            Map<String, String>.from(e.details));
+        throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       }
     } else {
       throw AmplifyException("Auth plugin has already been added, " +
@@ -164,6 +163,15 @@ class AuthCategory {
     var request = SignInWithWebUIRequest(provider: provider);
     return plugins.length == 1
         ? plugins[0].signInWithWebUI(request: request)
+        : throw _pluginNotAddedException("Auth");
+  }
+
+  /// Updates a single user attribute and returns a [AuthUpdateAttributeResult]
+  Future<AuthUpdateAttributeResult> updateUserAttribute(
+      {AuthUserAttribute attribute}) {
+    var request = AuthUpdateUserAttributeRequest(attribute: attribute);
+    return plugins.length == 1
+        ? plugins[0].updateUserAttribute(request: request)
         : throw _pluginNotAddedException("Auth");
   }
 }

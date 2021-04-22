@@ -118,4 +118,10 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     final res = await _instance.signInWithWebUI(request: request);
     return res;
   }
+
+  Future<AuthUpdateAttributeResult> updateUserAttribute(
+      {AuthUpdateUserAttributeRequest request}) async {
+    final res = await _instance.updateUserAttribute(request: request);
+    return res;
+  }
 }

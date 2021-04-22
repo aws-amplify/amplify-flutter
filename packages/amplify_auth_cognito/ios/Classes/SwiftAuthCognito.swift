@@ -196,6 +196,14 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
             } catch {
                 self.errorHandler.prepareGenericException(flutterResult: result, error: error)
             }
+        case "updateUserAttribute":
+            do {
+                try FlutterUpdateUserAttributeRequest.validate(dict: data)
+                let request = FlutterUpdateUserAttributeRequest(dict: data)
+                cognito.onUpdateUserAttribute(flutterResult: result, request: request)
+            } catch {
+                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
+            }
         default:
             result(FlutterMethodNotImplemented)
         }

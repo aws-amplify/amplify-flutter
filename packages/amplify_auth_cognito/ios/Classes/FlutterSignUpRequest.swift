@@ -24,7 +24,6 @@ struct FlutterSignUpRequest {
   var password: String
   var userAttributes: [AuthUserAttribute] = []
   var options: Dictionary<String, Any>? = [:]
-  let standardAttributes = ["address", "birthdate", "email", "family_name", "gender", "given_name", "locale", "middle_name", "name", "nickname", "phone_number", "preferred_username", "picture", "profile", "updated_at", "website", "zoneinfo"]
   init(dict: NSMutableDictionary){
     self.username = dict["username"] as! String
     self.password = dict["password"] as! String
@@ -36,11 +35,8 @@ struct FlutterSignUpRequest {
     let rawAttributes: Dictionary<String, Any> = options["userAttributes"] as! Dictionary<String, String>
     var formattedAttributes: Array<AuthUserAttribute> = Array()
     for attr in rawAttributes {
-      if (standardAttributes.contains(attr.key)) {
-        formattedAttributes.append(AuthUserAttribute(.unknown(attr.key), value: attr.value as! String))
-      } else {
-        formattedAttributes.append(AuthUserAttribute(.custom(attr.key), value: attr.value as! String))
-      }
+        let stringValue: String = (attr.value is String) ? attr.value as! String : String(attr.value as! Int)
+        formattedAttributes.append(formatUserAttribute(key: attr.key, value: stringValue))
     }
     return formattedAttributes
   }
