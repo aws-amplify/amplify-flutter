@@ -69,6 +69,15 @@ void main() {
     expect(res.nextStep, isInstanceOf<AuthNextStep>());
   });
 
+  test('signIn request accepts and serializes options',
+          () async {
+        var options = CognitoSignInOptions(clientMetadata: {'key': 'val'});
+        var req = SignInRequest(username: 'testUser', password: '123', options: options).serializeAsMap();
+        expect(req['options'], isInstanceOf<Map>());
+        expect(req['options']['clientMetadata'], isInstanceOf<Map>());
+        expect(req['options']['clientMetadata']['key'], equals('val'));
+  });
+
   test('signIn thrown PlatFormException results in AuthError', () async {
     testCode = 2;
     AuthException err;

@@ -82,7 +82,16 @@ void main() {
     expect(true, res.isMostlyEqual(expectation));
   });
 
-  test('signIn thrown PlatFormException results in AuthException', () async {
+  test('confirmSignIn request accepts and serializes options',
+          () async {
+        var options = CognitoConfirmSignInOptions(clientMetadata: {'key': 'val'});
+        var req = ConfirmSignInRequest(confirmationValue: '1233', options: options).serializeAsMap();
+        expect(req['options'], isInstanceOf<Map>());
+        expect(req['options']['clientMetadata'], isInstanceOf<Map>());
+        expect(req['options']['clientMetadata']['key'], equals('val'));
+  });
+
+  test('confirmSignIn thrown PlatFormException results in AuthException', () async {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == "confirmSignIn") {
         assert(methodCall.arguments["data"] is Map);
