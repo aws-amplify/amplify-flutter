@@ -294,9 +294,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   }
 
   @override
-  Future<AuthUpdateAttributeResult> updateUserAttribute(
-      {AuthUpdateUserAttributeRequest request}) async {
-    AuthUpdateAttributeResult res;
+  Future<UpdateUserAttributeResult> updateUserAttribute(
+      {UpdateUserAttributeRequest request}) async {
+    UpdateUserAttributeResult res;
     try {
       final Map<String, dynamic> data =
           await _channel.invokeMapMethod<String, dynamic>(
@@ -379,9 +379,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     return CognitoAuthSession.init(sessionValues: res);
   }
 
-  AuthUpdateAttributeResult _formatUpdateUserAttributeResponse(
+  UpdateUserAttributeResult _formatUpdateUserAttributeResponse(
       Map<String, dynamic> res) {
-    return AuthUpdateAttributeResult(
+    return UpdateUserAttributeResult(
         isUpdated: res["isUpdated"],
         nextStep: AuthNextUpdateAttributeStep(
             updateAttributeStep: res["nextStep"]["updateAttributeStep"],

@@ -17,7 +17,7 @@ import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart
 import 'package:flutter/foundation.dart';
 
 /// Wraps the result of an update user attribute operation.
-class AuthUpdateAttributeResult {
+class UpdateUserAttributeResult {
   /// True if the user attribute has now been updated. False if it has not yet been updated.
   bool isUpdated;
 
@@ -25,7 +25,7 @@ class AuthUpdateAttributeResult {
   AuthNextUpdateAttributeStep nextStep;
 
   // ignore: public_member_api_docs
-  AuthUpdateAttributeResult({@required this.isUpdated, this.nextStep}) {
+  UpdateUserAttributeResult({@required this.isUpdated, this.nextStep}) {
     this.isUpdated = isUpdated;
     this.nextStep = nextStep;
   }

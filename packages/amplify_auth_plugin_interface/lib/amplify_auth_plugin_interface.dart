@@ -94,8 +94,8 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('signInWithWebUI() has not been implemented.');
   }
 
-  Future<AuthUpdateAttributeResult> updateUserAttribute(
-      {AuthUpdateUserAttributeRequest request}) {
+  Future<UpdateUserAttributeResult> updateUserAttribute(
+      {UpdateUserAttributeRequest request}) {
     throw UnimplementedError('updateUserAttribute() has not been implemented.');
   }
 }

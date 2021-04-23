@@ -18,11 +18,11 @@
 import 'AuthUserAttribute.dart';
 
 /// Encapsulates parameters for a update user attribute operation
-class AuthUpdateUserAttributeRequest {
+class UpdateUserAttributeRequest {
   /// The user attribute to update
   AuthUserAttribute attribute;
 
-  AuthUpdateUserAttributeRequest({this.attribute});
+  UpdateUserAttributeRequest({this.attribute});
 
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};

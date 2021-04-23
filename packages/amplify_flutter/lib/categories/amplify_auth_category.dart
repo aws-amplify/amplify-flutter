@@ -166,10 +166,10 @@ class AuthCategory {
         : throw _pluginNotAddedException("Auth");
   }
 
-  /// Updates a single user attribute and returns a [AuthUpdateAttributeResult]
-  Future<AuthUpdateAttributeResult> updateUserAttribute(
+  /// Updates a single user attribute and returns a [UpdateUserAttributeResult]
+  Future<UpdateUserAttributeResult> updateUserAttribute(
       {AuthUserAttribute attribute}) {
-    var request = AuthUpdateUserAttributeRequest(attribute: attribute);
+    var request = UpdateUserAttributeRequest(attribute: attribute);
     return plugins.length == 1
         ? plugins[0].updateUserAttribute(request: request)
         : throw _pluginNotAddedException("Auth");

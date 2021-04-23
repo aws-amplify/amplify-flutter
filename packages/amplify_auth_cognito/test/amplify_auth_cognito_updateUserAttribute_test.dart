@@ -53,18 +53,18 @@ void main() {
     authChannel.setMockMethodCallHandler(null);
   });
 
-  test('updateUserAttribute request returns a AuthUpdateAttributeResult',
+  test('updateUserAttribute request returns a UpdateUserAttributeResult',
       () async {
     testCode = 1;
     var res = await auth.updateUserAttribute(
-      request: AuthUpdateUserAttributeRequest(
+      request: UpdateUserAttributeRequest(
         attribute: AuthUserAttribute(
           userAttributeKey: 'email',
           value: 'test@test.com',
         ),
       ),
     );
-    expect(res, isInstanceOf<AuthUpdateAttributeResult>());
+    expect(res, isInstanceOf<UpdateUserAttributeResult>());
   });
 
   test(
@@ -72,7 +72,7 @@ void main() {
       () async {
     testCode = 1;
     var res = await auth.updateUserAttribute(
-      request: AuthUpdateUserAttributeRequest(
+      request: UpdateUserAttributeRequest(
         attribute: AuthUserAttribute(
           userAttributeKey: 'email',
           value: 'test@test.com',
@@ -89,7 +89,7 @@ void main() {
     AuthException err;
     try {
       await auth.updateUserAttribute(
-        request: AuthUpdateUserAttributeRequest(
+        request: UpdateUserAttributeRequest(
           attribute: AuthUserAttribute(
             userAttributeKey: 'email',
             value: 'test@test.com',

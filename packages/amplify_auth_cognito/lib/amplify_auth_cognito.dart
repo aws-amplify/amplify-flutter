@@ -119,8 +119,8 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     return res;
   }
 
-  Future<AuthUpdateAttributeResult> updateUserAttribute(
-      {AuthUpdateUserAttributeRequest request}) async {
+  Future<UpdateUserAttributeResult> updateUserAttribute(
+      {UpdateUserAttributeRequest request}) async {
     final res = await _instance.updateUserAttribute(request: request);
     return res;
   }
