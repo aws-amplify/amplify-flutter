@@ -86,7 +86,13 @@ class AuthCognitoBridge {
     }
     
     func onConfirmSignIn(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignInRequest) {
-        _ = Amplify.Auth.confirmSignIn(challengeResponse: request.confirmationCode) { response in
+         
+          let pluginOptions =  AWSAuthConfirmSignInOptions(
+            metadata: ["custom:": "key"]
+          )
+          return AuthConfirmSignInOperation.Request.Options(pluginOptions: pluginOptions)
+        
+            _ = Amplify.Auth.confirmSignIn(challengeResponse: request.confirmationCode, options: options) { response in
             switch response {
             case .success:
                 let signInData = FlutterSignInResult(res: response)
