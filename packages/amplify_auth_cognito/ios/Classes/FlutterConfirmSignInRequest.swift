@@ -14,13 +14,29 @@
  */
 
 import Foundation
+import Amplify
+import AmplifyPlugins
+import AWSCore
 import amplify_core
 
 struct FlutterConfirmSignInRequest {
   var confirmationCode: String
+  var options: AuthConfirmSignInOperation.Request.Options?
+
   init(dict: NSMutableDictionary){
     self.confirmationCode = dict["confirmationCode"] as! String
+    self.options = formatOptions(options: dict["options"] as! Dictionary<String, Any>?)
+
   }
+    
+  func formatOptions(options: Dictionary<String, Any>?) -> AuthConfirmSignInOperation.Request.Options {
+     
+    let pluginOptions =  AWSAuthConfirmSignInOptions(
+      metadata: options?["clientMetadata"] as? [String : String]
+    )
+    return AuthConfirmSignInOperation.Request.Options(pluginOptions: pluginOptions)
+  }
+    
   static func validate(dict: NSMutableDictionary) throws {
     let validationErrorMessage = "ConfirmSignIn Request malformed."
     if (dict["confirmationCode"] == nil && dict["options"] == nil) {
