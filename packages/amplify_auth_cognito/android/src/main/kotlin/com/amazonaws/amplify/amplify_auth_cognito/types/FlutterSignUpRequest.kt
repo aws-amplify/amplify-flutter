@@ -28,7 +28,7 @@ import com.amplifyframework.auth.cognito.options.AWSCognitoAuthSignUpOptions
 data class FlutterSignUpRequest(val map: HashMap<String, *>) {
     val username: String = map["username"] as String
     val password: String = map["password"] as String
-    val options: AWSCognitoAuthSignUpOptions = formatOptions(map["options"] as HashMap<String, String>)
+    val options: AWSCognitoAuthSignUpOptions = formatOptions(map["options"] as HashMap<String, *>)
 
     private fun formatOptions(@NonNull rawOptions: HashMap<String, *>): AWSCognitoAuthSignUpOptions {
         var options =  AWSCognitoAuthSignUpOptions.builder();
