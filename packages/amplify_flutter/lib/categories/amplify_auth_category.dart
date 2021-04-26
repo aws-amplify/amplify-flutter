@@ -174,4 +174,14 @@ class AuthCategory {
         ? plugins[0].updateUserAttribute(request: request)
         : throw _pluginNotAddedException("Auth");
   }
+
+  /// Confirms a user attribute update and returns a [ConfirmUserAttributeResult]
+  Future<ConfirmUserAttributeResult> confirmUserAttribute(
+      {@required String attributeKey, @required String confirmationCode}) {
+    var request = ConfirmUserAttributeRequest(
+        attributeKey: attributeKey, confirmationCode: confirmationCode);
+    return plugins.length == 1
+        ? plugins[0].confirmUserAttribute(request: request)
+        : throw _pluginNotAddedException("Auth");
+  }
 }

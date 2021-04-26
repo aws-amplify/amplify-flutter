@@ -16,11 +16,16 @@
 import Foundation
 import Amplify
 
-func formatUserAttribute(key: String, value: String) -> AuthUserAttribute {
-    if (standardAttributes.contains(key)) {
-        return AuthUserAttribute(.unknown(key), value: value)
+func createAuthUserAttribute(key: String, value: String) -> AuthUserAttribute {
+    let authUserAttributeKey = createAuthUserAttributeKey(keyName: key);
+    return AuthUserAttribute(authUserAttributeKey, value: value)
+}
+
+func createAuthUserAttributeKey(keyName: String) -> AuthUserAttributeKey {
+    if (standardAttributes.contains(keyName)) {
+        return .unknown(keyName)
     } else {
-        return AuthUserAttribute(.custom(key), value: value)
+        return .custom(keyName)
     }
 }
 

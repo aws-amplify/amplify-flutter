@@ -13,21 +13,8 @@
  * permissions and limitations under the License.
  */
 
-// ignore_for_file: public_member_api_docs
-
-import 'package:flutter/foundation.dart';
-import 'AuthUserAttribute.dart';
-
-/// Encapsulates parameters for a update user attribute operation
-class UpdateUserAttributeRequest {
-  /// The user attribute to update
-  AuthUserAttribute attribute;
-
-  UpdateUserAttributeRequest({@required this.attribute});
-
-  Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    pendingRequest['attribute'] = attribute.serializeAsMap();
-    return pendingRequest;
-  }
+/// Wraps the result of a confirm user attribute operation.
+class ConfirmUserAttributeResult {
+  // ignore: public_member_api_docs
+  ConfirmUserAttributeResult() {}
 }

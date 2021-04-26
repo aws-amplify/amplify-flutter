@@ -18,10 +18,9 @@ package com.amazonaws.amplify.amplify_auth_cognito.types
 import androidx.annotation.NonNull
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
-import com.amazonaws.amplify.amplify_auth_cognito.types.formatUserAttribute
+import com.amazonaws.amplify.amplify_auth_cognito.types.createAuthUserAttribute
 import com.amplifyframework.auth.AuthUserAttribute
 import com.amplifyframework.auth.AuthUserAttributeKey
-import java.lang.reflect.Method
 
 data class FlutterUpdateUserAttributeRequest(val map: HashMap<String, *>) {
 
@@ -30,7 +29,7 @@ data class FlutterUpdateUserAttributeRequest(val map: HashMap<String, *>) {
     fun formatUpdateUserAttribute(@NonNull rawAttribute: HashMap<String, *>): AuthUserAttribute {
         var value = rawAttribute["value"].toString();
         var key: String = rawAttribute["userAttributeKey"] as String;
-        var attribute: AuthUserAttribute = formatUserAttribute(key, value);
+        var attribute: AuthUserAttribute = createAuthUserAttribute(key, value);
         return attribute;
     }
 
@@ -40,7 +39,7 @@ data class FlutterUpdateUserAttributeRequest(val map: HashMap<String, *>) {
             if (req == null || req !is HashMap<String, *>) {
                 throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("request map"))
             } else if (!req.containsKey("attribute")) {
-                throw InvalidRequestException(validationErrorMessage, "AuthUserAttribute is missing.")
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "attribute" ))
             } else {
                 var attribute = req["attribute"] as HashMap<String, *>;
                 if (attribute["value"] !is Int && attribute["value"] !is String) {

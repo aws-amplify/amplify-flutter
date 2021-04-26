@@ -16,18 +16,24 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:flutter/foundation.dart';
-import 'AuthUserAttribute.dart';
 
-/// Encapsulates parameters for a update user attribute operation
-class UpdateUserAttributeRequest {
-  /// The user attribute to update
-  AuthUserAttribute attribute;
+/// Encapsulates parameters for a request to confirm a user attribute update
+class ConfirmUserAttributeRequest {
+  /// The key of the user attribute to update
+  String attributeKey;
 
-  UpdateUserAttributeRequest({@required this.attribute});
+  /// The confirmation code the user received after starting the user attribute operation
+  String confirmationCode;
+
+  ConfirmUserAttributeRequest({
+    @required this.attributeKey,
+    @required this.confirmationCode,
+  });
 
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    pendingRequest['attribute'] = attribute.serializeAsMap();
+    pendingRequest['attributeKey'] = attributeKey;
+    pendingRequest['confirmationCode'] = confirmationCode;
     return pendingRequest;
   }
 }

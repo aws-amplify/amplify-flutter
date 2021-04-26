@@ -231,4 +231,16 @@ class AuthCognitoBridge {
             }
         }
     }
+    
+    func onConfirmUserAttribute(flutterResult: @escaping FlutterResult, request: FlutterConfirmUserAttributeRequest) {
+        Amplify.Auth.confirm(userAttribute: request.attributeKey, confirmationCode: request.confirmationCode) { response in
+            switch response {
+            case .success:
+                let emptyMap: Dictionary<String, Any> = [:]
+                flutterResult(emptyMap)
+            case .failure(let error):
+                self.errorHandler.handleAuthError(authError: error, flutterResult: flutterResult)
+            }
+        }
+    }
 }

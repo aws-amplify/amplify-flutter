@@ -25,7 +25,10 @@ class UpdateUserAttributeResult {
   AuthNextUpdateAttributeStep nextStep;
 
   // ignore: public_member_api_docs
-  UpdateUserAttributeResult({@required this.isUpdated, this.nextStep}) {
+  UpdateUserAttributeResult({
+    @required this.isUpdated,
+    @required this.nextStep,
+  }) {
     this.isUpdated = isUpdated;
     this.nextStep = nextStep;
   }

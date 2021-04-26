@@ -28,15 +28,15 @@ struct FlutterSignUpRequest {
     self.username = dict["username"] as! String
     self.password = dict["password"] as! String
     self.options = dict["options"] as? Dictionary<String, Any>
-    self.userAttributes = self.formatUserAttributes(options: dict["options"] as! Dictionary<String, Any>)
+    self.userAttributes = self.createAuthUserAttributes(options: dict["options"] as! Dictionary<String, Any>)
   }
     
-  func formatUserAttributes(options: Dictionary<String, Any>) -> [AuthUserAttribute] {
+  func createAuthUserAttributes(options: Dictionary<String, Any>) -> [AuthUserAttribute] {
     let rawAttributes: Dictionary<String, Any> = options["userAttributes"] as! Dictionary<String, String>
     var formattedAttributes: Array<AuthUserAttribute> = Array()
     for attr in rawAttributes {
         let stringValue: String = (attr.value is String) ? attr.value as! String : String(attr.value as! Int)
-        formattedAttributes.append(formatUserAttribute(key: attr.key, value: stringValue))
+        formattedAttributes.append(createAuthUserAttribute(key: attr.key, value: stringValue))
     }
     return formattedAttributes
   }

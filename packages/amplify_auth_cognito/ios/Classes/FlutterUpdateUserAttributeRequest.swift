@@ -29,7 +29,7 @@ struct FlutterUpdateUserAttributeRequest {
         let key = rawAttribute["userAttributeKey"] as! String
         let value = rawAttribute["value"]!
         let stringValue: String = (value is String) ? value as! String : String(value as! Int)
-        return formatUserAttribute(key: key, value: stringValue)
+        return createAuthUserAttribute(key: key, value: stringValue)
     }
     
     static func validate(dict: NSMutableDictionary) throws {

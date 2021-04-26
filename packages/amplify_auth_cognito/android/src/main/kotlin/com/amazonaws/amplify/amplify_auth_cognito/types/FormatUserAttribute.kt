@@ -20,15 +20,20 @@ import com.amplifyframework.auth.AuthUserAttribute
 import com.amplifyframework.auth.AuthUserAttributeKey
 import java.lang.reflect.Method
 
-fun formatUserAttribute(key: String, value: String): AuthUserAttribute {
+fun createAuthUserAttribute(key: String, value: String): AuthUserAttribute {
+    var authUserAttributeKey: AuthUserAttributeKey = createAuthUserAttributeKey(key);
+    return AuthUserAttribute(authUserAttributeKey, value)
+}
+
+fun createAuthUserAttributeKey(keyName: String): AuthUserAttributeKey {
     var attributeMethods = AuthUserAttributeKey::class.java.declaredMethods;
-    if (!standardAuthAttributes.contains(key)) {
-        var customKey: String = if (key.startsWith("custom:")) key else "custom:" + key;
-        return AuthUserAttribute(AuthUserAttributeKey.custom(customKey), value)
+    if (!standardAuthAttributes.contains(keyName)) {
+        var customKey: String = if (keyName.startsWith("custom:")) keyName else "custom:" + keyName;
+        return AuthUserAttributeKey.custom(customKey)
     } else {
-        var t: Method = attributeMethods.asIterable().find { it.name.equals(convertSnakeToCamel(key)) } as Method;
+        var t: Method = attributeMethods.asIterable().find { it.name.equals(convertSnakeToCamel(keyName)) } as Method;
         var attr: AuthUserAttributeKey = t.invoke(null) as AuthUserAttributeKey;
-        return AuthUserAttribute(attr, value);
+        return attr;
     }
 }
 

@@ -36,7 +36,7 @@ data class FlutterSignUpRequest(val map: HashMap<String, *>) {
         var validationData = rawOptions["validationData"] as? MutableMap<String, String>;
 
         (rawOptions["userAttributes"] as HashMap<String, String>).forEach { (key, value) ->
-            var attribute = formatUserAttribute(key, value);
+            var attribute = createAuthUserAttribute(key, value);
             authUserAttributes.add(attribute);
         }
         options.userAttributes(authUserAttributes);

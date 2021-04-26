@@ -42,6 +42,7 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignInWithWebUIRe
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchUserAttributesResult
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdateUserAttributeRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdateUserAttributeResult
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmUserAttributeRequest
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthProvider
@@ -169,6 +170,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       "fetchUserAttributes" -> onFetchUserAttributes(result)
       "signInWithWebUI" -> onSignInWithWebUI(result, data)
       "updateUserAttribute" -> onUpdateUserAttribute(result, data)
+      "confirmUserAttribute" -> onConfirmUserAttribute(result, data)
       else -> result.notImplemented()
     }
   }
@@ -435,7 +437,22 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       Amplify.Auth.updateUserAttribute(
               req.attribute,
               { result -> prepareUpdateUserAttributeResult(flutterResult, result) },
-              { error -> errorHandler.handleAuthError(flutterResult, error)}
+              { error -> errorHandler.handleAuthError(flutterResult, error) }
+      );
+    } catch (e: Exception) {
+      errorHandler.prepareGenericException(flutterResult, e)
+    }
+  }
+
+  private fun onConfirmUserAttribute (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
+    try {
+      FlutterConfirmUserAttributeRequest.validate(request)
+      var req = FlutterConfirmUserAttributeRequest(request)
+      Amplify.Auth.confirmUserAttribute(
+              req.attributeKey,
+              req.confirmationCode,
+              { prepareConfirmUserAttributeResult(flutterResult) },
+              { error -> errorHandler.handleAuthError(flutterResult, error) }
       );
     } catch (e: Exception) {
       errorHandler.prepareGenericException(flutterResult, e)
@@ -513,6 +530,13 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
     var updateUserAttributeResult = FlutterUpdateUserAttributeResult(result);
     Handler (Looper.getMainLooper()).post {
       flutterResult.success(updateUserAttributeResult.toValueMap());
+    }
+  }
+
+  fun prepareConfirmUserAttributeResult(@NonNull flutterResult: Result) {
+    var parsedResult = mutableMapOf<String, Any>();
+    Handler (Looper.getMainLooper()).post {
+      flutterResult.success(parsedResult);
     }
   }
 }
