@@ -498,6 +498,26 @@ class AmplifyAuthCognitoPluginTest {
         verify(mockResult, times(1)).success(res);
     }
 
+    @Test
+    fun confirmUserAttribute_returnsSuccess() {
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareConfirmUserAttributeResult(mockResult)
+            null as Void?
+        }.`when`(mockAuth).confirmUserAttribute(any(AuthUserAttributeKey::class.java), anyString(), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        val data: HashMap<*, *> = hashMapOf(
+                "attributeKey" to "email",
+                "confirmationCode" to "123456"
+        )
+        val arguments = hashMapOf("data" to data)
+        val call = MethodCall("confirmUserAttribute", arguments)
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
+    }
 
 
     private fun setFinalStatic(field: Field, newValue: Any?) {
