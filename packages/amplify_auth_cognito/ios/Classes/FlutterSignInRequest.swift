@@ -14,17 +14,29 @@
  */
 
 import Foundation
+import Amplify
+import AmplifyPlugins
+import AWSCore
 import amplify_core
 
 struct FlutterSignInRequest {
   var username: String?
   var password: String?
-  var options: Dictionary<String, Any>? = [:]
+  var options: AuthSignInOperation.Request.Options?
   init(dict: NSMutableDictionary){
     self.username = dict["username"] as! String?
     self.password = dict["password"] as! String?
-    self.options = dict["options"] as! Dictionary<String, Any>?
+    self.options = formatOptions(options: dict["options"] as! Dictionary<String, Any>?)
   }
+    
+   func formatOptions(options: Dictionary<String, Any>?) -> AuthSignInOperation.Request.Options {
+    
+     let pluginOptions =  AWSAuthSignInOptions(
+       metadata: options?["clientMetadata"] as? [String : String]
+     )
+     return AuthSignInOperation.Request.Options(pluginOptions: pluginOptions)
+  }
+
   static func validate(dict: NSMutableDictionary) throws {
     let validationErrorMessage = "SignIn Request malformed."
     if (dict["username"] == nil && dict["options"] == nil) {
