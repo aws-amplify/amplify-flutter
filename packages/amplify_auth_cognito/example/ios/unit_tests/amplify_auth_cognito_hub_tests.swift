@@ -31,8 +31,8 @@ class  amplify_auth_cognito_hub_tests: XCTestCase {
             func setExpectation(outerExpect: XCTestExpectation) {
                 innerExpect = outerExpect
             }
-            override func sendEvent(flutterEvent: [String : Any]) {
-                XCTAssertEqual(flutterEvent["eventName"] as! String, "SIGNED_IN")
+            override func sendEvent(eventName: String) {
+                XCTAssertEqual(eventName, "SIGNED_IN")
                 innerExpect?.fulfill()
             }
         }
@@ -54,8 +54,8 @@ class  amplify_auth_cognito_hub_tests: XCTestCase {
             func setExpectation(outerExpect: XCTestExpectation) {
                 innerExpect = outerExpect
             }
-            override func sendEvent(flutterEvent: [String : Any]) {
-                XCTAssertEqual(flutterEvent["eventName"] as! String, "SIGNED_OUT")
+            override func sendEvent(eventName: String) {
+                XCTAssertEqual(eventName, "SIGNED_OUT")
                 innerExpect?.fulfill()
             }
         }
@@ -77,8 +77,8 @@ class  amplify_auth_cognito_hub_tests: XCTestCase {
             func setExpectation(outerExpect: XCTestExpectation) {
                 innerExpect = outerExpect
             }
-            override func sendEvent(flutterEvent: [String : Any]) {
-                XCTAssertEqual(flutterEvent["eventName"] as! String, "SESSION_EXPIRED")
+            override func sendEvent(eventName: String) {
+                XCTAssertEqual(eventName, "SESSION_EXPIRED")
                 innerExpect?.fulfill()
             }
         }
