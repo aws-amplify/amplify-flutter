@@ -1,4 +1,13 @@
+## 0.1.4 (2021-04-27)
+
+### Bug Fixes
+
+- fix: Remove logging of unhandled Hub auth events (#517)
+- fix: Confirm sign in options (#538)
+
 ## 0.1.3 (2021-04-21)
+
+### Bug Fixes
 
 - fix(amplify_auth_cognito): SignInOptions and ClientMetadata (#519)
 - fix: handle LimitExceededException on Android (#522)

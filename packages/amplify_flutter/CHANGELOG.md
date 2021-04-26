@@ -1,3 +1,9 @@
+## 0.1.4 (2021-04-27)
+
+### Bug Fixes
+
+- fix: swallows exception on hot restart (#527)
+
 ## 0.1.3 (2021-04-21)
 
 ## 0.1.2 (2021-04-16)
