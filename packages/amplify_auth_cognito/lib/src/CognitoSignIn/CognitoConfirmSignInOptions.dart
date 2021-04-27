@@ -21,7 +21,7 @@ class CognitoConfirmSignInOptions extends ConfirmSignInOptions {
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     if (this.clientMetadata != null) {
-      pendingRequest["validationData"] = clientMetadata;
+      pendingRequest["clientMetadata"] = clientMetadata;
     }
     return pendingRequest;
   }

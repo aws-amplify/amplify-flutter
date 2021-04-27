@@ -24,7 +24,7 @@ class ConfirmSignInRequest {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     pendingRequest["confirmationCode"] = confirmationValue;
     if (options != null) {
-      pendingRequest['options'] = options;
+      pendingRequest['options'] = options.serializeAsMap();
     }
     return pendingRequest;
   }
