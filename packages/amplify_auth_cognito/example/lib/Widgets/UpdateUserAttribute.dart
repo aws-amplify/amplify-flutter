@@ -94,16 +94,17 @@ class _UpdateUserAttributeWidgetState extends State<UpdateUserAttributeWidget> {
               child: const Text('Update Attribute'),
             ),
             TextButton(
-                onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => ConfirmUserAttribute(
-                        attributeKey: _keyController.text,
-                      ),
+              onPressed: () {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => ConfirmUserAttribute(
+                      attributeKey: _keyController.text,
                     ),
-                  );
-                },
-                child: Text('Confirm User Attribute'))
+                  ),
+                );
+              },
+              child: Text('Confirm User Attribute'),
+            ),
           ],
         ),
       ),

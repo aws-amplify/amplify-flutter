@@ -20,6 +20,11 @@ class _ConfirmUserAttributeState extends State<ConfirmUserAttribute> {
         SnackBar(backgroundColor: Colors.green[800], content: Text(message)));
   }
 
+  void _showInfo(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(backgroundColor: Colors.blue[800], content: Text(message)));
+  }
+
   void _showError(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(backgroundColor: Colors.red[900], content: Text(message)));
@@ -33,6 +38,19 @@ class _ConfirmUserAttributeState extends State<ConfirmUserAttribute> {
       );
       print(res);
       _showSuccess('Attribute Update Confirmed');
+    } on AmplifyException catch (e) {
+      _showError(e.message);
+    }
+  }
+
+  void _resenCode() async {
+    try {
+      var res = await Amplify.Auth.resendUserAttributeConfirmationCode(
+        attributeKey: widget.attributeKey,
+      );
+      print(res);
+      _showInfo(
+          'Confirmation Code Sent via ${res.codeDeliveryDetails.deliveryMedium}');
     } on AmplifyException catch (e) {
       _showError(e.message);
     }
@@ -73,7 +91,10 @@ class _ConfirmUserAttributeState extends State<ConfirmUserAttribute> {
               onPressed: _confirmUpdate,
               child: const Text('Confirm Attribute Update'),
             ),
-            const SizedBox(height: 12),
+            TextButton(
+              onPressed: _resenCode,
+              child: Text('Resend Confirmation Code'),
+            ),
           ],
         ),
       ),
