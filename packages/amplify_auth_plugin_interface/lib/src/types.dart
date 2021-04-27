@@ -61,6 +61,8 @@ export 'Session/UpdateUserAttributeRequest.dart';
 export 'Session/AuthNextUpdateAttributeStep.dart';
 export 'Session/ConfirmUserAttributeRequest.dart';
 export 'Session/ConfirmUserAttributeResult.dart';
+export 'Session/ResendUserAttributeConfirmationCodeRequest.dart';
+export 'Session/ResendUserAttributeConfirmationCodeResult.dart';
 
 // Exception Classes
 export 'Exceptions/AuthException.dart';

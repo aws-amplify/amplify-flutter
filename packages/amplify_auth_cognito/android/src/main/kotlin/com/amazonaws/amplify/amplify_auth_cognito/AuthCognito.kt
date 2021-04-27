@@ -43,6 +43,8 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchUserAttribut
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdateUserAttributeRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdateUserAttributeResult
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmUserAttributeRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendUserAttributeConfirmationCodeRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendUserAttributeConfirmationCodeResult
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthProvider
@@ -56,6 +58,7 @@ import com.amplifyframework.auth.result.AuthSignInResult
 import com.amplifyframework.auth.result.AuthSignUpResult
 import com.amplifyframework.auth.result.AuthUpdateAttributeResult
 import com.amplifyframework.auth.AuthUserAttribute
+import com.amplifyframework.auth.AuthCodeDeliveryDetails
 import com.amplifyframework.core.Amplify
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -171,6 +174,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       "signInWithWebUI" -> onSignInWithWebUI(result, data)
       "updateUserAttribute" -> onUpdateUserAttribute(result, data)
       "confirmUserAttribute" -> onConfirmUserAttribute(result, data)
+      "resendUserAttributeConfirmationCode" -> onResendUserAttributeConfirmationCode(result, data)
       else -> result.notImplemented()
     }
   }
@@ -459,6 +463,22 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
     }
   }
 
+  private fun onResendUserAttributeConfirmationCode (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
+    try {
+      FlutterResendUserAttributeConfirmationCodeRequest.validate(request)
+      var req = FlutterResendUserAttributeConfirmationCodeRequest(request)
+      Amplify.Auth.resendUserAttributeConfirmationCode(
+              req.attributeKey,
+              { result -> prepareResendUserAttributeConfirmationCodeResult(flutterResult, result) },
+              { error -> errorHandler.handleAuthError(flutterResult, error) }
+      );
+    } catch (e: Exception) {
+      errorHandler.prepareGenericException(flutterResult, e)
+    }
+  }
+
+
+
   fun prepareResendSignUpCodeResult(@NonNull flutterResult: Result, @NonNull result: AuthSignUpResult) {
     var resendData = FlutterResendSignUpCodeResult(result);
     Handler (Looper.getMainLooper()).post {
@@ -537,6 +557,13 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
     var parsedResult = mutableMapOf<String, Any>();
     Handler (Looper.getMainLooper()).post {
       flutterResult.success(parsedResult);
+    }
+  }
+
+  fun prepareResendUserAttributeConfirmationCodeResult(@NonNull flutterResult: Result, @NonNull result: AuthCodeDeliveryDetails) {
+    var resendUserAttributeConfirmationCodeResult = FlutterResendUserAttributeConfirmationCodeResult(result);
+    Handler (Looper.getMainLooper()).post {
+      flutterResult.success(resendUserAttributeConfirmationCodeResult.toValueMap());
     }
   }
 }

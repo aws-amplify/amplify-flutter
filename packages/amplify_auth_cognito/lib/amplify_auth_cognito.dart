@@ -130,4 +130,12 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     final res = await _instance.confirmUserAttribute(request: request);
     return res;
   }
+
+  Future<ResendUserAttributeConfirmationCodeResult>
+      resendUserAttributeConfirmationCode(
+          {ResendUserAttributeConfirmationCodeRequest request}) async {
+    final res =
+        await _instance.resendUserAttributeConfirmationCode(request: request);
+    return res;
+  }
 }

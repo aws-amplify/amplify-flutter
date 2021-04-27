@@ -212,6 +212,14 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
             } catch {
                 self.errorHandler.prepareGenericException(flutterResult: result, error: error)
             }
+        case "resendUserAttributeConfirmationCode":
+            do {
+                try FlutterResendUserAttributeConfirmationCodeRequest.validate(dict: data)
+                let request = FlutterResendUserAttributeConfirmationCodeRequest(dict: data)
+                cognito.onResendUserAttributeConfirmationCode(flutterResult: result, request: request)
+            } catch {
+                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
+            }
         default:
             result(FlutterMethodNotImplemented)
         }

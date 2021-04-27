@@ -103,4 +103,10 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
       {ConfirmUserAttributeRequest request}) {
     throw UnimplementedError('updateUserAttribute() has not been implemented.');
   }
+
+  Future<ResendUserAttributeConfirmationCodeResult>
+      resendUserAttributeConfirmationCode(
+          {ResendUserAttributeConfirmationCodeRequest request}) {
+    throw UnimplementedError('updateUserAttribute() has not been implemented.');
+  }
 }

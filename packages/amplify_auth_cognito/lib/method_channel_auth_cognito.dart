@@ -330,6 +330,26 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     return res;
   }
 
+  @override
+  Future<ResendUserAttributeConfirmationCodeResult>
+      resendUserAttributeConfirmationCode(
+          {ResendUserAttributeConfirmationCodeRequest request}) async {
+    ResendUserAttributeConfirmationCodeResult res;
+    try {
+      final Map<String, dynamic> data =
+          await _channel.invokeMapMethod<String, dynamic>(
+        'resendUserAttributeConfirmationCode',
+        <String, dynamic>{
+          'data': request != null ? request.serializeAsMap() : null,
+        },
+      );
+      return _formatResendUserAttributeConfirmationCodeResponse(data);
+    } on PlatformException catch (e) {
+      castAndThrowPlatformException(e);
+    }
+    return res;
+  }
+
   SignUpResult _formatSignUpResponse(Map<String, dynamic> res, method) {
     return CognitoSignUpResult(
         isSignUpComplete: res["isSignUpComplete"],
@@ -411,5 +431,12 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   ConfirmUserAttributeResult _formatConfirmUserAttributeResponse() {
     return ConfirmUserAttributeResult();
+  }
+
+  ResendUserAttributeConfirmationCodeResult
+      _formatResendUserAttributeConfirmationCodeResponse(
+          Map<String, dynamic> res) {
+    return ResendUserAttributeConfirmationCodeResult(
+        codeDeliveryDetails: res["codeDeliveryDetails"]);
   }
 }

@@ -519,6 +519,34 @@ class AmplifyAuthCognitoPluginTest {
         verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
     }
 
+    @Test
+    fun resendUserAttributeConfirmationCode_returnsSuccess() {
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareResendUserAttributeConfirmationCodeResult(mockResult, codeDeliveryDetails)
+            null as Void?
+        }.`when`(mockAuth).resendUserAttributeConfirmationCode(any(AuthUserAttributeKey::class.java), ArgumentMatchers.any<Consumer<AuthCodeDeliveryDetails>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        val data: HashMap<*, *> = hashMapOf(
+                "attributeKey" to "email"
+        )
+        val arguments = hashMapOf("data" to data)
+        val call = MethodCall("resendUserAttributeConfirmationCode", arguments)
+        val res = mapOf(
+                "codeDeliveryDetails" to mapOf(
+                        "destination" to "test@test.com",
+                        "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
+                        "attributeName" to "email"
+                )
+        )
+
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).success(res);
+    }
+
 
     private fun setFinalStatic(field: Field, newValue: Any?) {
         field.isAccessible = true

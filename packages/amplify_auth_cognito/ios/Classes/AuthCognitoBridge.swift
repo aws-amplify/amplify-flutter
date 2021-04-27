@@ -243,4 +243,16 @@ class AuthCognitoBridge {
             }
         }
     }
+    
+    func onResendUserAttributeConfirmationCode(flutterResult: @escaping FlutterResult, request: FlutterResendUserAttributeConfirmationCodeRequest) {
+        Amplify.Auth.resendConfirmationCode(for: request.attributeKey) { response in
+            switch response {
+            case .success:
+                let resentUserAttributeConfirmationCodeData = FlutterResendUserAttributeConfirmationCodeResult(res: response)
+                flutterResult(resentUserAttributeConfirmationCodeData.toJSON())
+            case .failure(let error):
+                self.errorHandler.handleAuthError(authError: error, flutterResult: flutterResult)
+            }
+        }
+    }
 }

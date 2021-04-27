@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -17,10 +17,10 @@ import Flutter
 import Foundation
 import Amplify
 
-struct FlutterResendSignUpCodeResult  {
+struct FlutterResendUserAttributeConfirmationCodeResult  {
     var codeDeliveryDetails: [String: String]
 
-    init(res: AmplifyOperation<AuthResendSignUpCodeRequest, AuthCodeDeliveryDetails, AuthError>.OperationResult){
+    init(res: AmplifyOperation<AuthAttributeResendConfirmationCodeRequest, AuthCodeDeliveryDetails, AuthError>.OperationResult){
       self.codeDeliveryDetails = setCodeDeliveryDetails(res: res)
     }
     
@@ -30,7 +30,7 @@ struct FlutterResendSignUpCodeResult  {
 }
 
 
-private func setCodeDeliveryDetails(res: AmplifyOperation<AuthResendSignUpCodeRequest, AuthCodeDeliveryDetails, AuthError>.OperationResult) -> [String: String] {
+private func setCodeDeliveryDetails(res: AmplifyOperation<AuthAttributeResendConfirmationCodeRequest, AuthCodeDeliveryDetails, AuthError>.OperationResult) -> [String: String] {
     var deliveryMap: [String: String] = [:]
     switch res {
         case .success(let codeDeliveryDetails):
