@@ -16,6 +16,7 @@
 package com.amazonaws.amplify.amplify_auth_cognito
 
 import com.amazonaws.AmazonClientException
+import com.amazonaws.AmazonServiceException
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.BasicAWSCredentials
@@ -590,6 +591,98 @@ class AuthErrorHandlerTest {
                 "recoverySuggestion" to expectedCode,
                 "message" to expectedCode,
                 "underlyingException" to "${cognitoErrorPrefix}LimitExceededException: ${expectedCode}${cognitoErrorSuffix}"        )
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+    }
+
+    @Test
+    fun cognitoInvalidParameterException() {
+        // Arrange
+        val expectedCode = "InvalidParameterException"
+        val exception = AuthException(expectedCode, InvalidParameterException(expectedCode), expectedCode)
+        doAnswer { invocation: InvocationOnMock ->
+            errorHandler.handleAuthError(mockResult, exception)
+            null as Void?
+        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        val call = MethodCall("signOut", arguments)
+
+        val details = mapOf(
+                "recoverySuggestion" to expectedCode,
+                "message" to expectedCode,
+                "underlyingException" to "${cognitoErrorPrefix}InvalidParameterException: ${expectedCode}${cognitoErrorSuffix}"        )
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+    }
+
+    @Test
+    fun cognitoExpiredCodeException() {
+        // Arrange
+        val expectedCode = "CodeExpiredException"
+        val exception = AuthException(expectedCode, ExpiredCodeException(expectedCode), expectedCode)
+        doAnswer { invocation: InvocationOnMock ->
+            errorHandler.handleAuthError(mockResult, exception)
+            null as Void?
+        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        val call = MethodCall("signOut", arguments)
+
+        val details = mapOf(
+                "recoverySuggestion" to expectedCode,
+                "message" to expectedCode,
+                "underlyingException" to "${cognitoErrorPrefix}ExpiredCodeException: ${expectedCode}${cognitoErrorSuffix}"        )
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+    }
+
+    @Test
+    fun cognitoCodeMismatchException() {
+        // Arrange
+        val expectedCode = "CodeMismatchException"
+        val exception = AuthException(expectedCode, CodeMismatchException(expectedCode), expectedCode)
+        doAnswer { invocation: InvocationOnMock ->
+            errorHandler.handleAuthError(mockResult, exception)
+            null as Void?
+        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        val call = MethodCall("signOut", arguments)
+
+        val details = mapOf(
+                "recoverySuggestion" to expectedCode,
+                "message" to expectedCode,
+                "underlyingException" to "${cognitoErrorPrefix}CodeMismatchException: ${expectedCode}${cognitoErrorSuffix}"        )
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+    }
+
+    @Test
+    fun cognitoCodeDeliveryFailureException() {
+        // Arrange
+        val expectedCode = "CodeDeliveryFailureException"
+        val exception = AuthException(expectedCode, CodeDeliveryFailureException(expectedCode), expectedCode)
+        doAnswer { invocation: InvocationOnMock ->
+            errorHandler.handleAuthError(mockResult, exception)
+            null as Void?
+        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        val call = MethodCall("signOut", arguments)
+
+        val details = mapOf(
+                "recoverySuggestion" to expectedCode,
+                "message" to expectedCode,
+                "underlyingException" to "${cognitoErrorPrefix}CodeDeliveryFailureException: ${expectedCode}${cognitoErrorSuffix}"        )
 
         // Act
         plugin.onMethodCall(call, mockResult)
