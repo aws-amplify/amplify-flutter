@@ -40,7 +40,7 @@ class _UpdateUserAttributeWidgetState extends State<UpdateUserAttributeWidget> {
     try {
       var res = await Amplify.Auth.updateUserAttribute(
         attribute: AuthUserAttribute(
-          userAttributeKey: _keyController.text,
+          userAttributeKey: _keyController.text.replaceAll('custom:', ''),
           value: widget.isInt
               ? int.parse(_valueController.text)
               : _valueController.text,
