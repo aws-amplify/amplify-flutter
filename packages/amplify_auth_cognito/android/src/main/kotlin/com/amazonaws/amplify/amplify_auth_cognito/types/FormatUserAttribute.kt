@@ -18,56 +18,38 @@ package com.amazonaws.amplify.amplify_auth_cognito.types
 import androidx.annotation.NonNull
 import com.amplifyframework.auth.AuthUserAttribute
 import com.amplifyframework.auth.AuthUserAttributeKey
+import java.lang.Error
 import java.lang.reflect.Method
 
 fun createAuthUserAttribute(key: String, value: String): AuthUserAttribute {
-    var authUserAttributeKey: AuthUserAttributeKey = createAuthUserAttributeKey(key);
+    val authUserAttributeKey: AuthUserAttributeKey = createAuthUserAttributeKey(key);
     return AuthUserAttribute(authUserAttributeKey, value)
 }
 
 fun createAuthUserAttributeKey(keyName: String): AuthUserAttributeKey {
-    var attributeMethods = AuthUserAttributeKey::class.java.declaredMethods;
-    if (!standardAuthAttributes.contains(keyName)) {
-        var customKey: String = if (keyName.startsWith("custom:")) keyName else "custom:" + keyName;
-        return AuthUserAttributeKey.custom(customKey)
-    } else {
-        var t: Method = attributeMethods.asIterable().find { it.name.equals(convertSnakeToCamel(keyName)) } as Method;
-        var attr: AuthUserAttributeKey = t.invoke(null) as AuthUserAttributeKey;
-        return attr;
+    when (keyName) {
+        "address" -> return AuthUserAttributeKey.address()
+        "birthdate" -> return AuthUserAttributeKey.birthdate()
+        "email" -> return AuthUserAttributeKey.email()
+        "family_name" -> return AuthUserAttributeKey.familyName()
+        "gender" -> return AuthUserAttributeKey.gender()
+        "given_name" -> return AuthUserAttributeKey.givenName()
+        "locale" -> return AuthUserAttributeKey.locale()
+        "middle_name" -> return AuthUserAttributeKey.middleName()
+        "name" -> return AuthUserAttributeKey.name()
+        "nickname" -> return AuthUserAttributeKey.nickname()
+        "phone_number" -> return AuthUserAttributeKey.phoneNumber()
+        "picture" -> return AuthUserAttributeKey.picture()
+        "preferred_username" -> return AuthUserAttributeKey.preferredUsername()
+        "profile" -> return AuthUserAttributeKey.profile()
+        "updatedAt" -> return AuthUserAttributeKey.updatedAt()
+        "website" -> return AuthUserAttributeKey.website()
+        "zoneInfo" -> return AuthUserAttributeKey.zoneInfo()
+        else -> return createCustomAuthUserAttributeKey(keyName)
     }
 }
 
-// Amplify Android expects camel case, while iOS expects snake.  So at least one plugin implementation should convert.
-private fun convertSnakeToCamel(@NonNull string: String): String {
-    val camelCase = StringBuilder()
-    var prevChar = '$'
-    string.forEach {
-        if (prevChar.equals('_')) {
-            camelCase.append(it.toUpperCase())
-        } else if (!it.equals('_')) {
-            camelCase.append(it)
-        }
-        prevChar = it
-    }
-    return camelCase.toString();
+private fun createCustomAuthUserAttributeKey(keyName: String): AuthUserAttributeKey {
+    val customKey: String = if (keyName.startsWith("custom:")) keyName else "custom:$keyName";
+    return AuthUserAttributeKey.custom(customKey)
 }
-
-private var standardAuthAttributes: Array<String> = arrayOf(
-        "address",
-        "birthdate",
-        "email",
-        "family_name",
-        "gender",
-        "given_name",
-        "locale",
-        "middle_name",
-        "name",
-        "nickname",
-        "phone_number",
-        "preferred_username",
-        "picture",
-        "profile",
-        "updated_at",
-        "website",
-        "zoneinfo"
-)

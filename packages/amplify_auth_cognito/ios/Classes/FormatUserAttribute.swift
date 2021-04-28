@@ -22,11 +22,34 @@ func createAuthUserAttribute(key: String, value: String) -> AuthUserAttribute {
 }
 
 func createAuthUserAttributeKey(keyName: String) -> AuthUserAttributeKey {
-    if (standardAttributes.contains(keyName)) {
-        return .unknown(keyName)
-    } else {
-        return .custom(keyName)
+    switch keyName {
+    case "address":
+        return AuthUserAttributeKey.address
+    case "birthdate":
+        return AuthUserAttributeKey.birthDate
+    case "email":
+        return AuthUserAttributeKey.email
+    case "family_name":
+        return AuthUserAttributeKey.familyName
+    case "gender":
+        return AuthUserAttributeKey.gender
+    case "given_name":
+        return AuthUserAttributeKey.givenName
+    case "locale":
+        return AuthUserAttributeKey.locale
+    case "middle_name":
+        return AuthUserAttributeKey.middleName
+    case "name":
+        return AuthUserAttributeKey.name
+    case "nickname":
+        return AuthUserAttributeKey.nickname
+    case "phone_number":
+        return AuthUserAttributeKey.phoneNumber
+    case "picture":
+        return AuthUserAttributeKey.picture
+    case "preferred_username":
+        return AuthUserAttributeKey.preferredUsername
+    default:
+        return AuthUserAttributeKey.custom(keyName)
     }
 }
-
-let standardAttributes = ["address", "birthdate", "email", "family_name", "gender", "given_name", "locale", "middle_name", "name", "nickname", "phone_number", "preferred_username", "picture", "profile", "updated_at", "website", "zoneinfo"]

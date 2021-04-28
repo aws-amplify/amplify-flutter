@@ -499,6 +499,42 @@ class AmplifyAuthCognitoPluginTest {
     }
 
     @Test
+    fun updateUserAttributeCustom_returnsSuccess() {
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareUpdateUserAttributeResult(mockResult, mockUpdateUserAttributeResult)
+            null as Void?
+        }.`when`(mockAuth).updateUserAttribute(any(AuthUserAttribute::class.java), ArgumentMatchers.any<Consumer<AuthUpdateAttributeResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        val attribute = hashMapOf(
+                "userAttributeKey" to "my_custom_attribute",
+                "value" to "custom attribute value"
+        )
+        val data: HashMap<*, *> = hashMapOf(
+                "attribute" to attribute
+        )
+        val arguments = hashMapOf("data" to data)
+        val call = MethodCall("updateUserAttribute", arguments)
+        val res = mapOf(
+                "isUpdated" to true,
+                "nextStep" to mapOf(
+                        "updateAttributeStep" to "CONFIRM_ATTRIBUTE_WITH_CODE",
+                        "additionalInfo" to "{}",
+                        "codeDeliveryDetails" to mapOf(
+                                "destination" to "test@test.com",
+                                "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
+                                "attributeName" to "email"
+                        )
+                )
+        )
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).success(res);
+    }
+
+    @Test
     fun confirmUserAttribute_returnsSuccess() {
         // Arrange
         doAnswer { invocation: InvocationOnMock ->
