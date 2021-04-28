@@ -18,7 +18,6 @@ package com.amazonaws.amplify.amplify_auth_cognito.types
 import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
-import com.amazonaws.amplify.amplify_auth_cognito.types.createAuthUserAttributeKey
 
 data class FlutterResendUserAttributeConfirmationCodeRequest(val map: HashMap<String, *>) {
     val attributeKey: AuthUserAttributeKey = createAuthUserAttributeKey(map["attributeKey"] as String);

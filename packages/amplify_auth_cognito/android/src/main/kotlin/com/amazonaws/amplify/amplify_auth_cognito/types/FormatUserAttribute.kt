@@ -15,11 +15,8 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
-import androidx.annotation.NonNull
 import com.amplifyframework.auth.AuthUserAttribute
 import com.amplifyframework.auth.AuthUserAttributeKey
-import java.lang.Error
-import java.lang.reflect.Method
 
 fun createAuthUserAttribute(key: String, value: String): AuthUserAttribute {
     val authUserAttributeKey: AuthUserAttributeKey = createAuthUserAttributeKey(key);

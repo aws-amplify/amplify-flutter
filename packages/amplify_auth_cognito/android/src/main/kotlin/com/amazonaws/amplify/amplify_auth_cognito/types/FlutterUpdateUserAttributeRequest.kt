@@ -18,9 +18,7 @@ package com.amazonaws.amplify.amplify_auth_cognito.types
 import androidx.annotation.NonNull
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
-import com.amazonaws.amplify.amplify_auth_cognito.types.createAuthUserAttribute
 import com.amplifyframework.auth.AuthUserAttribute
-import com.amplifyframework.auth.AuthUserAttributeKey
 
 data class FlutterUpdateUserAttributeRequest(val map: HashMap<String, *>) {
 
