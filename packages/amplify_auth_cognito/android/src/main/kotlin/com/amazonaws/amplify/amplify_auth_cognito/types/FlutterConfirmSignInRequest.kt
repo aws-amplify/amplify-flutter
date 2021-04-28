@@ -17,10 +17,20 @@ package com.amazonaws.amplify.amplify_auth_cognito.types
 
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
+import com.amplifyframework.auth.cognito.options.AWSCognitoAuthConfirmSignInOptions
 
 data class FlutterConfirmSignInRequest(val map: HashMap<String, *>) {
   val confirmationCode: String = map["confirmationCode"] as String;
-  val options: HashMap<String, *>? = map["options"] as HashMap<String, *>?;
+  val options: AWSCognitoAuthConfirmSignInOptions = formatOptions(map["options"] as HashMap<String, *>?)
+
+  private fun formatOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthConfirmSignInOptions {
+    val options =  AWSCognitoAuthConfirmSignInOptions.builder();
+
+    if(rawOptions?.get("clientMetadata") != null)
+      options.metadata(rawOptions["clientMetadata"] as HashMap<String, String>);
+
+    return options.build();
+  }
 
   companion object {
     private const val validationErrorMessage: String = "ConfirmSignIn Request malformed."

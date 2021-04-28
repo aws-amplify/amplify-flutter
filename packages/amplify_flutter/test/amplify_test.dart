@@ -29,6 +29,7 @@ void main() {
       MethodChannel('com.amazonaws.amplify/auth_cognito');
   const MethodChannel analyticsChannel =
       MethodChannel('com.amazonaws.amplify/analytics_pinpoint');
+  var platformConfigured = false;
 
   // Test data
   String invalidConfiguration = 'How dare you call me invalid';
@@ -77,7 +78,11 @@ void main() {
 
   setUp(() {
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return true;
+      if (!platformConfigured) {
+        return true;
+      } else {
+        throw PlatformException(code: 'AmplifyAlreadyConfiguredException');
+      }
     });
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       return true;
@@ -214,5 +219,15 @@ void main() {
       return;
     }
     fail('an exception should have been thrown');
+  });
+
+  test('PlatformException with AmplifyAlreadyConfiguredException code is swallowed', () async {
+    platformConfigured = true;
+
+    try {
+      await amplify.configure(validJsonConfiguration);
+    } catch (e) {
+      fail('AmplifyAlreadyConfiguredException was not swallowed');
+    }
   });
 }

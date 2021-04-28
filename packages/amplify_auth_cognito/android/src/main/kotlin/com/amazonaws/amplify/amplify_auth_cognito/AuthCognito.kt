@@ -259,6 +259,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
         var req = FlutterConfirmSignInRequest(request)
         Amplify.Auth.confirmSignIn(
                 req.confirmationCode,
+                req.options,
                 { result -> prepareSignInResult(flutterResult, result)},
                 { error -> errorHandler.handleAuthError(flutterResult, error)}
         );

@@ -132,7 +132,7 @@ class AmplifyClass extends PlatformInterface {
   }
 
   String _getVersion() {
-    return '0.1.1';
+    return '0.1.4';
   }
 
   /// Configures Amplify with the provided configuration string.
@@ -187,8 +187,6 @@ class AmplifyClass extends PlatformInterface {
         throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       } else if (e.code == 'AmplifyAlreadyConfiguredException') {
         _isConfigured = true;
-        throw AmplifyAlreadyConfiguredException.fromMap(
-            Map<String, String>.from(e.details));
       } else {
         // This shouldn't happen. All exceptions coming from platform for
         // amplify_flutter should have a known code. Throw an unknown error.

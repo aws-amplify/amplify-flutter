@@ -32,24 +32,22 @@ public class AuthCognitoHubEventStreamHandler: NSObject, FlutterStreamHandler {
         self.token = Amplify.Hub.listen(to: .auth) { (payload) in
             switch payload.eventName {
             case HubPayload.EventName.Auth.signedIn:
-                let hubEvent: Dictionary<String, Any> = ["eventName" : "SIGNED_IN"]
-                self.sendEvent(flutterEvent: hubEvent)
+                self.sendEvent(eventName: "SIGNED_IN")
             case HubPayload.EventName.Auth.sessionExpired:
-                let hubEvent: Dictionary<String, Any> = ["eventName" : "SESSION_EXPIRED"]
-                self.sendEvent(flutterEvent: hubEvent)
+                self.sendEvent(eventName: "SESSION_EXPIRED")
             case HubPayload.EventName.Auth.signedOut:
-                let hubEvent: Dictionary<String, Any> = ["eventName" : "SIGNED_OUT"]
-                self.sendEvent(flutterEvent: hubEvent)
+                self.sendEvent(eventName: "SIGNED_OUT")
             case HubPayload.EventName.Amplify.configured:
                 print("AuthPlugin successfully initialized")
             default:
-                print("Unrecognized Auth Event")
+                return // rather than polluting logs with unhandled platform events, simply do nothing
             }
         }
     }
 
-    func sendEvent(flutterEvent: [String : Any]) {
-        eventSink?(flutterEvent)
+    func sendEvent(eventName: String) {
+        let hubEvent: Dictionary<String, Any> = ["eventName" : eventName]
+        eventSink?(hubEvent)
     }
 
     public func onCancel(withArguments arguments: Any?) -> FlutterError? {
