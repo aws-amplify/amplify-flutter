@@ -24,10 +24,10 @@ data class FlutterUpdateUserAttributeRequest(val map: HashMap<String, *>) {
 
     val attribute: AuthUserAttribute = formatUpdateUserAttribute(map["attribute"] as HashMap<String, *>);
 
-    fun formatUpdateUserAttribute(@NonNull rawAttribute: HashMap<String, *>): AuthUserAttribute {
-        var value = rawAttribute["value"].toString();
-        var key: String = rawAttribute["userAttributeKey"] as String;
-        var attribute: AuthUserAttribute = createAuthUserAttribute(key, value);
+    private fun formatUpdateUserAttribute(@NonNull rawAttribute: HashMap<String, *>): AuthUserAttribute {
+        val value = rawAttribute["value"].toString();
+        val key: String = rawAttribute["userAttributeKey"] as String;
+        val attribute: AuthUserAttribute = createAuthUserAttribute(key, value);
         return attribute;
     }
 
@@ -39,9 +39,9 @@ data class FlutterUpdateUserAttributeRequest(val map: HashMap<String, *>) {
             } else if (!req.containsKey("attribute")) {
                 throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "attribute" ))
             } else {
-                var attribute = req["attribute"] as HashMap<String, *>;
-                if (attribute["value"] !is Int && attribute["value"] !is String) {
-                    throw InvalidRequestException(validationErrorMessage, "Attribute value is not a Number or a String.")
+                val attribute = req["attribute"] as HashMap<String, *>;
+                if (attribute["value"] !is String) {
+                    throw InvalidRequestException(validationErrorMessage, "Attribute value is not a String.")
                 }
             }
         }

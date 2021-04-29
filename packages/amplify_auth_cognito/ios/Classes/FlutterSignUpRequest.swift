@@ -35,8 +35,7 @@ struct FlutterSignUpRequest {
     let rawAttributes: Dictionary<String, Any> = options["userAttributes"] as! Dictionary<String, String>
     var formattedAttributes: Array<AuthUserAttribute> = Array()
     for attr in rawAttributes {
-        let stringValue: String = (attr.value is String) ? attr.value as! String : String(attr.value as! Int)
-        formattedAttributes.append(createAuthUserAttribute(key: attr.key, value: stringValue))
+        formattedAttributes.append(createAuthUserAttribute(key: attr.key, value: attr.value as! String))
     }
     return formattedAttributes
   }

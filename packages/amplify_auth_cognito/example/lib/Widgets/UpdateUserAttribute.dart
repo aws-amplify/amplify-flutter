@@ -1,4 +1,3 @@
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +7,7 @@ import 'ConfirmUserAttribute.dart';
 // ignore_for_file: public_member_api_docs
 class UpdateUserAttributeWidget extends StatefulWidget {
   final String attributeKey;
-  final bool isInt;
-  UpdateUserAttributeWidget({this.attributeKey, this.isInt = false});
+  UpdateUserAttributeWidget({this.attributeKey});
 
   @override
   _UpdateUserAttributeWidgetState createState() =>
@@ -36,15 +34,11 @@ class _UpdateUserAttributeWidgetState extends State<UpdateUserAttributeWidget> {
         SnackBar(backgroundColor: Colors.red[900], content: Text(message)));
   }
 
-  void _updateEmail() async {
+  void _updateAttribute() async {
     try {
       var res = await Amplify.Auth.updateUserAttribute(
-        attribute: AuthUserAttribute(
-          userAttributeKey: _keyController.text.replaceAll('custom:', ''),
-          value: widget.isInt
-              ? int.parse(_valueController.text)
-              : _valueController.text,
-        ),
+        userAttributeKey: _keyController.text.replaceAll('custom:', ''),
+        value: _valueController.text,
       );
       if (res.nextStep.updateAttributeStep == 'CONFIRM_ATTRIBUTE_WITH_CODE') {
         _showInfo(
@@ -90,7 +84,7 @@ class _UpdateUserAttributeWidgetState extends State<UpdateUserAttributeWidget> {
             ),
             const SizedBox(height: 12),
             ElevatedButton(
-              onPressed: _updateEmail,
+              onPressed: _updateAttribute,
               child: const Text('Update Attribute'),
             ),
             TextButton(

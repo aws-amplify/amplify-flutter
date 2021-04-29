@@ -91,7 +91,6 @@ class _ViewUserAttributesState extends State<ViewUserAttributes> {
                           MaterialPageRoute(
                             builder: (context) => UpdateUserAttributeWidget(
                               attributeKey: key,
-                              isInt: isInt,
                             ),
                           ),
                         );

@@ -27,9 +27,8 @@ struct FlutterUpdateUserAttributeRequest {
     
     func formatUpdateUserAttribute(rawAttribute: Dictionary<String, Any>) -> AuthUserAttribute {
         let key = rawAttribute["userAttributeKey"] as! String
-        let value = rawAttribute["value"]!
-        let stringValue: String = (value is String) ? value as! String : String(value as! Int)
-        return createAuthUserAttribute(key: key, value: stringValue)
+        let value = rawAttribute["value"] as! String
+        return createAuthUserAttribute(key: key, value: value)
     }
     
     static func validate(dict: NSMutableDictionary) throws {
@@ -42,8 +41,8 @@ struct FlutterUpdateUserAttributeRequest {
                 throw InvalidRequestError.auth(comment: validationErrorMessage, suggestion: String(format: ErrorMessages.missingAttribute, "attribute"))
             } else if (attributeMap["value"] == nil) {
                 throw InvalidRequestError.auth(comment: validationErrorMessage, suggestion: String(format: ErrorMessages.missingAttribute, "attribute"))
-            } else if (!(attributeMap["value"] is String) && !(attributeMap["value"] is Int)) {
-                throw InvalidRequestError.auth(comment: validationErrorMessage, suggestion: "Attribute value is not a Number or a String.")
+            } else if (!(attributeMap["value"] is String)) {
+                throw InvalidRequestError.auth(comment: validationErrorMessage, suggestion: "Attribute value is not a String.")
             }
         }
     }

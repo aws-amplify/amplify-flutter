@@ -58,10 +58,8 @@ void main() {
     testCode = 1;
     var res = await auth.updateUserAttribute(
       request: UpdateUserAttributeRequest(
-        attribute: AuthUserAttribute(
-          userAttributeKey: 'email',
-          value: 'test@test.com',
-        ),
+        userAttributeKey: 'email',
+        value: 'test@test.com',
       ),
     );
     expect(res, isInstanceOf<UpdateUserAttributeResult>());
@@ -73,10 +71,8 @@ void main() {
     testCode = 1;
     var res = await auth.updateUserAttribute(
       request: UpdateUserAttributeRequest(
-        attribute: AuthUserAttribute(
-          userAttributeKey: 'email',
-          value: 'test@test.com',
-        ),
+        userAttributeKey: 'email',
+        value: 'test@test.com',
       ),
     );
     expect(res.nextStep, isInstanceOf<AuthNextUpdateAttributeStep>());
@@ -90,10 +86,8 @@ void main() {
     try {
       await auth.updateUserAttribute(
         request: UpdateUserAttributeRequest(
-          attribute: AuthUserAttribute(
-            userAttributeKey: 'email',
-            value: 'test@test.com',
-          ),
+          userAttributeKey: 'email',
+          value: 'test@test.com',
         ),
       );
     } on AuthException catch (e) {

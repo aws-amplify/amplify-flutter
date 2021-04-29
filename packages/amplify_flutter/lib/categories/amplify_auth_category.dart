@@ -167,17 +167,22 @@ class AuthCategory {
   }
 
   /// Updates a single user attribute and returns a [UpdateUserAttributeResult]
-  Future<UpdateUserAttributeResult> updateUserAttribute(
-      {AuthUserAttribute attribute}) {
-    var request = UpdateUserAttributeRequest(attribute: attribute);
+  Future<UpdateUserAttributeResult> updateUserAttribute({
+    @required String userAttributeKey,
+    @required String value,
+  }) {
+    var request = UpdateUserAttributeRequest(
+        userAttributeKey: userAttributeKey, value: value);
     return plugins.length == 1
         ? plugins[0].updateUserAttribute(request: request)
         : throw _pluginNotAddedException("Auth");
   }
 
   /// Confirms a user attribute update and returns a [ConfirmUserAttributeResult]
-  Future<ConfirmUserAttributeResult> confirmUserAttribute(
-      {@required String attributeKey, @required String confirmationCode}) {
+  Future<ConfirmUserAttributeResult> confirmUserAttribute({
+    @required String attributeKey,
+    @required String confirmationCode,
+  }) {
     var request = ConfirmUserAttributeRequest(
         attributeKey: attributeKey, confirmationCode: confirmationCode);
     return plugins.length == 1

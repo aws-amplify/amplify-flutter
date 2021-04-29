@@ -1508,37 +1508,6 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func test_updateUserAttributeInt() {
-        
-        class UpdateUserAttributeMock: AuthCognitoBridge {
-            override func onUpdateUserAttribute(flutterResult: @escaping FlutterResult, request: FlutterUpdateUserAttributeRequest){
-                let updateUserAttributeRes = Result<AuthUpdateAttributeResult,AuthError>.success(AuthUpdateAttributeResult(isUpdated: true, nextStep: AuthUpdateAttributeStep.done))
-                let updateUserAttributeData = FlutterUpdateUserAttributeResult(res: updateUserAttributeRes)
-                flutterResult(updateUserAttributeData)
-            }
-        }
-        
-        plugin = SwiftAuthCognito.init(cognito: UpdateUserAttributeMock())
-        
-        _attribute = [
-            "userAttributeKey" : "my_integer_attribute",
-            "value": 1
-        ]
-        _data = [
-            "attribute": _attribute,
-        ]
-        _args = ["data": _data]
-        let call = FlutterMethodCall(methodName: "updateUserAttribute", arguments: _args)
-        plugin.handle(call, result: {(result)->Void in
-            if let res = result as? FlutterUpdateUserAttributeResult {
-                XCTAssertEqual( "DONE", res.updateAttributeStep)
-                XCTAssertEqual( true, res.isUpdated)
-            } else {
-                XCTFail()
-            }
-        })
-    }
-    
     func test_updateUserAttributeValidation() {
         var rawAttribute: Dictionary<String, Any>
         var rawData: NSMutableDictionary
@@ -1561,10 +1530,10 @@ class amplify_auth_cognito_tests: XCTestCase {
         rawData = ["attribute": rawAttribute]
         XCTAssertThrowsError(try FlutterUpdateUserAttributeRequest.validate(dict: rawData))
 
-        // Throws an error with non int or string value
+        // Throws an error with non string value
         rawAttribute = [
             "userAttributeKey": "email",
-            "value": 1.0
+            "value": 1
         ]
         rawData = ["attribute": rawAttribute]
         XCTAssertThrowsError(try FlutterUpdateUserAttributeRequest.validate(dict: rawData))
