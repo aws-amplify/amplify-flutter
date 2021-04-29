@@ -7,8 +7,8 @@ class UpdatePasswordWidget extends StatefulWidget {
   final Function showResult;
   final Function changeDisplay;
   final Function setError;
-  final Function backToSignIn;
-  final Function backToApp;
+  final VoidCallback backToSignIn;
+  final VoidCallback backToApp;
 
   UpdatePasswordWidget(this.showResult, this.changeDisplay, this.setError,
       this.backToSignIn, this.backToApp);
@@ -66,13 +66,13 @@ class _UpdatePasswordWidgetState extends State<UpdatePasswordWidget> {
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
               ElevatedButton(
-                onPressed: () => widget.backToApp,
+                onPressed: widget.backToApp,
                 child: const Text('Back to App'),
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
               ElevatedButton(
                 key: Key('goto-signin-button'),
-                onPressed: () => widget.backToSignIn,
+                onPressed: widget.backToSignIn,
                 child: const Text('Back to Sign In'),
               ),
             ],

@@ -22,11 +22,9 @@ class AWSCredentials {
   String? awsAccessKey;
   String? awsSecretKey;
   String? sessionToken;
-  AWSCredentials.init({required LinkedHashMap<dynamic, dynamic> creds}) {
-    if (creds != null) {
-      this.awsAccessKey = creds.containsKey("awsAccessKey") ? creds["awsAccessKey"] : null;
-      this.awsSecretKey = creds.containsKey("awsSecretKey") ? creds["awsSecretKey"] : null;
-      this.sessionToken = creds.containsKey("sessionToken") ? creds["sessionToken"] : null;
-    }
-  }
+
+  AWSCredentials.init({required LinkedHashMap<dynamic, dynamic> creds})
+      : this.awsAccessKey = creds["awsAccessKey"],
+        this.awsSecretKey = creds["awsSecretKey"],
+        this.sessionToken = creds["sessionToken"];
 }

@@ -8,7 +8,7 @@ class ConfirmResetWidget extends StatefulWidget {
   final Function showResult;
   final Function changeDisplay;
   final Function setError;
-  final Function backToSignIn;
+  final VoidCallback backToSignIn;
 
   ConfirmResetWidget(
       this.showResult, this.changeDisplay, this.setError, this.backToSignIn);
@@ -75,7 +75,7 @@ class _ConfirmWidgetState extends State<ConfirmResetWidget> {
               const Padding(padding: EdgeInsets.all(10.0)),
               ElevatedButton(
                 key: Key('goto-signin-button'),
-                onPressed: () => widget.backToSignIn,
+                onPressed: widget.backToSignIn,
                 child: const Text('Back to Sign In'),
               ),
             ],

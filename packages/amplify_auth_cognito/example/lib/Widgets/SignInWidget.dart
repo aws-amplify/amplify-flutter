@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 class SignInWidget extends StatefulWidget {
   final Function showResult;
   final Function changeDisplay;
-  final Function showCreateUser;
-  final Function signOut;
-  final Function fetchSession;
-  final Function getCurrentUser;
+  final VoidCallback showCreateUser;
+  final VoidCallback signOut;
+  final VoidCallback fetchSession;
+  final VoidCallback getCurrentUser;
   final Function setError;
 
   // ignore: public_member_api_docs
@@ -31,7 +31,8 @@ class _SignInWidgetState extends State<SignInWidget> {
       var res = await Amplify.Auth.signIn(
           username: usernameController.text.trim(),
           password: passwordController.text.trim());
-      widget.showResult('Sign In Status = ' + (res.nextStep?.signInStep ?? ''));
+      widget.showResult(
+          'Sign In Status = ' + (res.nextStep?.signInStep ?? 'null'));
       widget
           .changeDisplay(res.isSignedIn ? 'SIGNED_IN' : 'SHOW_CONFIRM_SIGN_IN');
     } on AmplifyException catch (e) {
@@ -122,7 +123,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                   ),
                   ElevatedButton(
                     key: Key('goto-signup-button'),
-                    onPressed: () => widget.showCreateUser,
+                    onPressed: widget.showCreateUser,
                     child: const Text('Create User'),
                   ),
                   ElevatedButton(
@@ -132,17 +133,17 @@ class _SignInWidgetState extends State<SignInWidget> {
                   ),
                   ElevatedButton(
                     key: Key('signout-button'),
-                    onPressed: () => widget.signOut,
+                    onPressed: widget.signOut,
                     child: const Text('SignOut'),
                   ),
                   ElevatedButton(
                     key: Key('session-button'),
-                    onPressed: () => widget.fetchSession,
+                    onPressed: widget.fetchSession,
                     child: const Text('Get Session'),
                   ),
                   ElevatedButton(
                     key: Key('current-user-button'),
-                    onPressed: () => widget.getCurrentUser,
+                    onPressed: widget.getCurrentUser,
                     child: const Text('Get Current User'),
                   ),
                 ],
@@ -168,7 +169,9 @@ class _SignInWidgetState extends State<SignInWidget> {
                       ),
                       onChanged: (AuthProvider? newValue) {
                         setState(() {
-                          provider = newValue!;
+                          if (newValue != null) {
+                            provider = newValue;
+                          }
                         });
                       },
                       items: <AuthProvider>[

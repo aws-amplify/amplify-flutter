@@ -31,13 +31,15 @@ void main() {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       switch (testCode) {
         case 1:
-          return {"username": "testUser", "userSub": "testSub"};
+          return {
+            "username": "testUser",
+            "userId": "testUserId",
+            "userSub": "testSub"
+          };
         case 2:
           return throw PlatformException(
-            code: "UnknownException",
-            details: Map.from({
-              "message": "I am an exception"
-            }));
+              code: "UnknownException",
+              details: Map.from({"message": "I am an exception"}));
       }
     });
   });

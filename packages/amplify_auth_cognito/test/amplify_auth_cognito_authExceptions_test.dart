@@ -42,8 +42,8 @@ void main() {
     } catch (e) {
       amplifyException = e as AmplifyException;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
+    expect(amplifyException, isA<AmplifyException>());
+    expect(amplifyException, isA<AuthException>());
     expect(amplifyException.message, message);
     expect(amplifyException.recoverySuggestion, recoverySuggestion);
     expect(amplifyException.underlyingException, underlyingException);
@@ -59,9 +59,9 @@ void main() {
     } catch (e) {
       amplifyException = e as AmplifyException;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<AliasExistsException>());
+    expect(amplifyException, isA<AmplifyException>());
+    expect(amplifyException, isA<AuthException>());
+    expect(amplifyException, isA<AliasExistsException>());
     expect(amplifyException.message, message);
     expect(amplifyException.recoverySuggestion, recoverySuggestion);
     expect(amplifyException.underlyingException, underlyingException);
@@ -77,9 +77,9 @@ void main() {
     } catch (e) {
       amplifyException = e as AmplifyException;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<CodeDeliveryFailureException>());
+    expect(amplifyException, isA<AmplifyException>());
+    expect(amplifyException, isA<AuthException>());
+    expect(amplifyException, isA<CodeDeliveryFailureException>());
     expect(amplifyException.message, message);
     expect(amplifyException.recoverySuggestion, recoverySuggestion);
     expect(amplifyException.underlyingException, underlyingException);
@@ -95,9 +95,9 @@ void main() {
     } catch (e) {
       amplifyException = e as AmplifyException;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<CodeExpiredException>());
+    expect(amplifyException, isA<AmplifyException>());
+    expect(amplifyException, isA<AuthException>());
+    expect(amplifyException, isA<CodeExpiredException>());
     expect(amplifyException.message, message);
     expect(amplifyException.recoverySuggestion, recoverySuggestion);
     expect(amplifyException.underlyingException, underlyingException);
@@ -113,9 +113,9 @@ void main() {
     } catch (e) {
       amplifyException = e as AmplifyException;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<CodeMismatchException>());
+    expect(amplifyException, isA<AmplifyException>());
+    expect(amplifyException, isA<AuthException>());
+    expect(amplifyException, isA<CodeMismatchException>());
     expect(amplifyException.message, message);
     expect(amplifyException.recoverySuggestion, recoverySuggestion);
     expect(amplifyException.underlyingException, underlyingException);
@@ -132,10 +132,9 @@ void main() {
     } catch (e) {
       amplifyException = e as AmplifyException;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(
-        amplifyException, isInstanceOf<FailedAttemptsLimitExceededException>());
+    expect(amplifyException, isA<AmplifyException>());
+    expect(amplifyException, isA<AuthException>());
+    expect(amplifyException, isA<FailedAttemptsLimitExceededException>());
     expect(amplifyException.message, message);
     expect(amplifyException.recoverySuggestion, recoverySuggestion);
     expect(amplifyException.underlyingException, underlyingException);
@@ -151,9 +150,9 @@ void main() {
     } catch (e) {
       amplifyException = e as AmplifyException;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<InvalidAccountTypeException>());
+    expect(amplifyException, isA<AmplifyException>());
+    expect(amplifyException, isA<AuthException>());
+    expect(amplifyException, isA<InvalidAccountTypeException>());
     expect(amplifyException.message, message);
     expect(amplifyException.recoverySuggestion, recoverySuggestion);
     expect(amplifyException.underlyingException, underlyingException);
@@ -169,9 +168,9 @@ void main() {
     } catch (e) {
       amplifyException = e as AmplifyException;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<InvalidParameterException>());
+    expect(amplifyException, isA<AmplifyException>());
+    expect(amplifyException, isA<AuthException>());
+    expect(amplifyException, isA<InvalidParameterException>());
     expect(amplifyException.message, message);
     expect(amplifyException.recoverySuggestion, recoverySuggestion);
     expect(amplifyException.underlyingException, underlyingException);
@@ -187,9 +186,9 @@ void main() {
     } catch (e) {
       amplifyException = e as AmplifyException;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<InvalidPasswordException>());
+    expect(amplifyException, isA<AmplifyException>());
+    expect(amplifyException, isA<AuthException>());
+    expect(amplifyException, isA<InvalidPasswordException>());
     expect(amplifyException.message, message);
     expect(amplifyException.recoverySuggestion, recoverySuggestion);
     expect(amplifyException.underlyingException, underlyingException);
@@ -204,9 +203,9 @@ void main() {
     } catch (e) {
       amplifyException = e as AmplifyException;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<LambdaException>());
+    expect(amplifyException, isA<AmplifyException>());
+    expect(amplifyException, isA<AuthException>());
+    expect(amplifyException, isA<LambdaException>());
     expect(amplifyException.message, message);
     expect(amplifyException.recoverySuggestion, recoverySuggestion);
     expect(amplifyException.underlyingException, underlyingException);
@@ -222,9 +221,9 @@ void main() {
     } catch (e) {
       amplifyException = e as AmplifyException;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<MFAMethodNotFoundException>());
+    expect(amplifyException, isA<AmplifyException>());
+    expect(amplifyException, isA<AuthException>());
+    expect(amplifyException, isA<MFAMethodNotFoundException>());
     expect(amplifyException.message, message);
     expect(amplifyException.recoverySuggestion, recoverySuggestion);
     expect(amplifyException.underlyingException, underlyingException);
@@ -240,9 +239,9 @@ void main() {
     } catch (e) {
       amplifyException = e as AmplifyException;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<NotAuthorizedException>());
+    expect(amplifyException, isA<AmplifyException>());
+    expect(amplifyException, isA<AuthException>());
+    expect(amplifyException, isA<NotAuthorizedException>());
     expect(amplifyException.message, message);
     expect(amplifyException.recoverySuggestion, recoverySuggestion);
     expect(amplifyException.underlyingException, underlyingException);
@@ -259,9 +258,9 @@ void main() {
     } catch (e) {
       amplifyException = e as AmplifyException;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<PasswordResetRequiredException>());
+    expect(amplifyException, isA<AmplifyException>());
+    expect(amplifyException, isA<AuthException>());
+    expect(amplifyException, isA<PasswordResetRequiredException>());
     expect(amplifyException.message, message);
     expect(amplifyException.recoverySuggestion, recoverySuggestion);
     expect(amplifyException.underlyingException, underlyingException);
@@ -277,9 +276,9 @@ void main() {
     } catch (e) {
       amplifyException = e as AmplifyException;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<ResourceNotFoundException>());
+    expect(amplifyException, isA<AmplifyException>());
+    expect(amplifyException, isA<AuthException>());
+    expect(amplifyException, isA<ResourceNotFoundException>());
     expect(amplifyException.message, message);
     expect(amplifyException.recoverySuggestion, recoverySuggestion);
     expect(amplifyException.underlyingException, underlyingException);
@@ -295,9 +294,9 @@ void main() {
     } catch (e) {
       amplifyException = e as AmplifyException;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<SessionExpiredException>());
+    expect(amplifyException, isA<AmplifyException>());
+    expect(amplifyException, isA<AuthException>());
+    expect(amplifyException, isA<SessionExpiredException>());
     expect(amplifyException.message, message);
     expect(amplifyException.recoverySuggestion, recoverySuggestion);
     expect(amplifyException.underlyingException, underlyingException);
@@ -314,10 +313,9 @@ void main() {
     } catch (e) {
       amplifyException = e as AmplifyException;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(
-        amplifyException, isInstanceOf<SessionUnavailableServiceException>());
+    expect(amplifyException, isA<AmplifyException>());
+    expect(amplifyException, isA<AuthException>());
+    expect(amplifyException, isA<SessionUnavailableServiceException>());
     expect(amplifyException.message, message);
     expect(amplifyException.recoverySuggestion, recoverySuggestion);
     expect(amplifyException.underlyingException, underlyingException);
@@ -334,10 +332,9 @@ void main() {
     } catch (e) {
       amplifyException = e as AmplifyException;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(
-        amplifyException, isInstanceOf<SessionUnavailableOfflineException>());
+    expect(amplifyException, isA<AmplifyException>());
+    expect(amplifyException, isA<AuthException>());
+    expect(amplifyException, isA<SessionUnavailableOfflineException>());
     expect(amplifyException.message, message);
     expect(amplifyException.recoverySuggestion, recoverySuggestion);
     expect(amplifyException.underlyingException, underlyingException);
@@ -352,9 +349,9 @@ void main() {
     } catch (e) {
       amplifyException = e as AmplifyException;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<SignedOutException>());
+    expect(amplifyException, isA<AmplifyException>());
+    expect(amplifyException, isA<AuthException>());
+    expect(amplifyException, isA<SignedOutException>());
     expect(amplifyException.message, message);
     expect(amplifyException.recoverySuggestion, recoverySuggestion);
     expect(amplifyException.underlyingException, underlyingException);
@@ -371,9 +368,9 @@ void main() {
     } catch (e) {
       amplifyException = e as AmplifyException;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<SoftwareTokenMFANotFoundException>());
+    expect(amplifyException, isA<AmplifyException>());
+    expect(amplifyException, isA<AuthException>());
+    expect(amplifyException, isA<SoftwareTokenMFANotFoundException>());
     expect(amplifyException.message, message);
     expect(amplifyException.recoverySuggestion, recoverySuggestion);
     expect(amplifyException.underlyingException, underlyingException);
@@ -389,9 +386,9 @@ void main() {
     } catch (e) {
       amplifyException = e as AmplifyException;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<TooManyRequestsException>());
+    expect(amplifyException, isA<AmplifyException>());
+    expect(amplifyException, isA<AuthException>());
+    expect(amplifyException, isA<TooManyRequestsException>());
     expect(amplifyException.message, message);
     expect(amplifyException.recoverySuggestion, recoverySuggestion);
     expect(amplifyException.underlyingException, underlyingException);
@@ -406,9 +403,9 @@ void main() {
     } catch (e) {
       amplifyException = e as AmplifyException;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<UnknownException>());
+    expect(amplifyException, isA<AmplifyException>());
+    expect(amplifyException, isA<AuthException>());
+    expect(amplifyException, isA<UnknownException>());
     expect(amplifyException.message, message);
     expect(amplifyException.recoverySuggestion, recoverySuggestion);
     expect(amplifyException.underlyingException, underlyingException);
@@ -424,9 +421,9 @@ void main() {
     } catch (e) {
       amplifyException = e as AmplifyException;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<UserCancelledException>());
+    expect(amplifyException, isA<AmplifyException>());
+    expect(amplifyException, isA<AuthException>());
+    expect(amplifyException, isA<UserCancelledException>());
     expect(amplifyException.message, message);
     expect(amplifyException.recoverySuggestion, recoverySuggestion);
     expect(amplifyException.underlyingException, underlyingException);
@@ -442,9 +439,9 @@ void main() {
     } catch (e) {
       amplifyException = e as AmplifyException;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<UsernameExistsException>());
+    expect(amplifyException, isA<AmplifyException>());
+    expect(amplifyException, isA<AuthException>());
+    expect(amplifyException, isA<UsernameExistsException>());
     expect(amplifyException.message, message);
     expect(amplifyException.recoverySuggestion, recoverySuggestion);
     expect(amplifyException.underlyingException, underlyingException);
@@ -460,9 +457,9 @@ void main() {
     } catch (e) {
       amplifyException = e as AmplifyException;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<UserNotConfirmedException>());
+    expect(amplifyException, isA<AmplifyException>());
+    expect(amplifyException, isA<AuthException>());
+    expect(amplifyException, isA<UserNotConfirmedException>());
     expect(amplifyException.message, message);
     expect(amplifyException.recoverySuggestion, recoverySuggestion);
     expect(amplifyException.underlyingException, underlyingException);
@@ -478,9 +475,9 @@ void main() {
     } catch (e) {
       amplifyException = e as AmplifyException;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<UserNotFoundException>());
+    expect(amplifyException, isA<AmplifyException>());
+    expect(amplifyException, isA<AuthException>());
+    expect(amplifyException, isA<UserNotFoundException>());
     expect(amplifyException.message, message);
     expect(amplifyException.recoverySuggestion, recoverySuggestion);
     expect(amplifyException.underlyingException, underlyingException);
