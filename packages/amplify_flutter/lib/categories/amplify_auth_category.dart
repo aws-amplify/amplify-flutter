@@ -193,8 +193,8 @@ class AuthCategory {
   /// Resends a confirmation code for the given attribute and returns a [ResendUserAttributeConfirmationCodeResult]
   Future<ResendUserAttributeConfirmationCodeResult>
       resendUserAttributeConfirmationCode({@required String userAttributeKey}) {
-    var request =
-        ResendUserAttributeConfirmationCodeRequest(userAttributeKey: userAttributeKey);
+    var request = ResendUserAttributeConfirmationCodeRequest(
+        userAttributeKey: userAttributeKey);
     return plugins.length == 1
         ? plugins[0].resendUserAttributeConfirmationCode(request: request)
         : throw _pluginNotAddedException("Auth");
