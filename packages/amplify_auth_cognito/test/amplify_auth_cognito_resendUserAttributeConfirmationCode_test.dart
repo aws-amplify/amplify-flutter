@@ -55,7 +55,7 @@ void main() {
     testCode = 1;
     var res = await auth.resendUserAttributeConfirmationCode(
       request: ResendUserAttributeConfirmationCodeRequest(
-        attributeKey: 'email',
+        userAttributeKey: 'email',
       ),
     );
     expect(res, isInstanceOf<ResendUserAttributeConfirmationCodeResult>());
@@ -69,7 +69,7 @@ void main() {
     try {
       await auth.resendUserAttributeConfirmationCode(
         request: ResendUserAttributeConfirmationCodeRequest(
-          attributeKey: 'email',
+          userAttributeKey: 'email',
         ),
       );
     } on AuthException catch (e) {

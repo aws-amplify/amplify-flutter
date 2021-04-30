@@ -233,7 +233,7 @@ class AuthCognitoBridge {
     }
     
     func onConfirmUserAttribute(flutterResult: @escaping FlutterResult, request: FlutterConfirmUserAttributeRequest) {
-        Amplify.Auth.confirm(userAttribute: request.attributeKey, confirmationCode: request.confirmationCode) { response in
+        Amplify.Auth.confirm(userAttribute: request.userAttributeKey, confirmationCode: request.confirmationCode) { response in
             switch response {
             case .success:
                 let emptyMap: Dictionary<String, Any> = [:]
@@ -245,7 +245,7 @@ class AuthCognitoBridge {
     }
     
     func onResendUserAttributeConfirmationCode(flutterResult: @escaping FlutterResult, request: FlutterResendUserAttributeConfirmationCodeRequest) {
-        Amplify.Auth.resendConfirmationCode(for: request.attributeKey) { response in
+        Amplify.Auth.resendConfirmationCode(for: request.userAttributeKey) { response in
             switch response {
             case .success:
                 let resentUserAttributeConfirmationCodeData = FlutterResendUserAttributeConfirmationCodeResult(res: response)

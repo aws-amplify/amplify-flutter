@@ -19,18 +19,18 @@ import Amplify
 import amplify_core
 
 struct FlutterConfirmUserAttributeRequest {
-    var attributeKey: AuthUserAttributeKey
+    var userAttributeKey: AuthUserAttributeKey
     var confirmationCode: String
     
     init(dict: NSMutableDictionary) {
-        self.attributeKey = createAuthUserAttributeKey(keyName: dict["attributeKey"] as! String)
+        self.userAttributeKey = createAuthUserAttributeKey(keyName: dict["userAttributeKey"] as! String)
         self.confirmationCode = dict["confirmationCode"] as! String
     }
     
     static func validate(dict: NSMutableDictionary) throws {
         let validationErrorMessage = "ConfirmUserAttribute Request malformed."
-        if (dict["attributeKey"] == nil) {
-            throw InvalidRequestError.auth(comment: validationErrorMessage, suggestion: String(format: ErrorMessages.missingAttribute, "attributeKey"))
+        if (dict["userAttributeKey"] == nil) {
+            throw InvalidRequestError.auth(comment: validationErrorMessage, suggestion: String(format: ErrorMessages.missingAttribute, "userAttributeKey"))
         } else if (dict["confirmationCode"] == nil) {
             throw InvalidRequestError.auth(comment: validationErrorMessage, suggestion: String(format: ErrorMessages.missingAttribute, "confirmationCode"))
         }

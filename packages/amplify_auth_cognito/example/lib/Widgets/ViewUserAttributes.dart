@@ -90,7 +90,7 @@ class _ViewUserAttributesState extends State<ViewUserAttributes> {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => UpdateUserAttributeWidget(
-                              attributeKey: key,
+                              userAttributeKey: key,
                             ),
                           ),
                         );

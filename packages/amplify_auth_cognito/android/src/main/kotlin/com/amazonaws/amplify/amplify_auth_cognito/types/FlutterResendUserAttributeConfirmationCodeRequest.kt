@@ -20,14 +20,14 @@ import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 
 data class FlutterResendUserAttributeConfirmationCodeRequest(val map: HashMap<String, *>) {
-    val attributeKey: AuthUserAttributeKey = createAuthUserAttributeKey(map["attributeKey"] as String);
+    val userAttributeKey: AuthUserAttributeKey = createAuthUserAttributeKey(map["userAttributeKey"] as String);
 
     companion object {
         private const val validationErrorMessage: String = "ResendUserAttributeConfirmationCode Request malformed."
         fun validate(req : HashMap<String, *>?) {
             if (req != null) {
-                if (!req.containsKey("attributeKey") && req["attributeKey"] != "") {
-                    throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "attributeKey" ))
+                if (!req.containsKey("userAttributeKey") && req["userAttributeKey"] != "") {
+                    throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "userAttributeKey" ))
                 }
             }
         }

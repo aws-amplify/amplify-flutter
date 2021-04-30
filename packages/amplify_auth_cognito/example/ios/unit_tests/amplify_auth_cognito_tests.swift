@@ -1593,7 +1593,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         plugin = SwiftAuthCognito.init(cognito: ConfirmUserAttributeMock())
 
         _data = [
-            "attributeKey": "email",
+            "userAttributeKey": "email",
             "confirmationCode": _confirmationCode,
         ]
         _args = ["data": _data]
@@ -1615,11 +1615,11 @@ class amplify_auth_cognito_tests: XCTestCase {
         XCTAssertThrowsError(try FlutterConfirmUserAttributeRequest.validate(dict: rawData))
 
         // Throws with no confirmation code
-        rawData = ["attributeKey": "email"]
+        rawData = ["userAttributeKey": "email"]
         XCTAssertThrowsError(try FlutterConfirmUserAttributeRequest.validate(dict: rawData))
         
         // Does not thow an error with valid parameters
-        rawData = ["attributeKey": "email", "confirmationCode": _confirmationCode]
+        rawData = ["userAttributeKey": "email", "confirmationCode": _confirmationCode]
         XCTAssertNoThrow(try FlutterConfirmUserAttributeRequest.validate(dict: rawData))
 
     }
@@ -1636,7 +1636,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         plugin = SwiftAuthCognito.init(cognito: ConfirmUserAttributeMock())
 
         _data = [
-            "attributeKey": "email",
+            "userAttributeKey": "email",
             "confirmationCode": _confirmationCode,
         ]
         _args = ["data": _data]
@@ -1667,7 +1667,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         plugin = SwiftAuthCognito.init(cognito: ResendUserAttributeConfirmationCodeMock())
         
         _data = [
-            "attributeKey" : "email",
+            "userAttributeKey" : "email",
         ]
         _args = ["data": _data]
         let call = FlutterMethodCall(methodName: "resendUserAttributeConfirmationCode", arguments: _args)
@@ -1685,12 +1685,12 @@ class amplify_auth_cognito_tests: XCTestCase {
     func test_resendUserAttributeConfirmationCodeValidation() {
         var rawData: NSMutableDictionary
 
-        // Throws with no attributeKey
+        // Throws with no userAttributeKey
         rawData = [:]
         XCTAssertThrowsError(try FlutterResendUserAttributeConfirmationCodeRequest.validate(dict: rawData))
         
         // Does not thow an error with valid parameters
-        rawData = ["attributeKey": "email"]
+        rawData = ["userAttributeKey": "email"]
         XCTAssertNoThrow(try FlutterResendUserAttributeConfirmationCodeRequest.validate(dict: rawData))
 
     }
@@ -1707,7 +1707,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         plugin = SwiftAuthCognito.init(cognito: ResendUserAttributeConfirmationCodeMock())
 
         _data = [
-            "attributeKey" : "email",
+            "userAttributeKey" : "email",
         ]
         _args = ["data": _data]
         let call = FlutterMethodCall(methodName: "resendUserAttributeConfirmationCode", arguments: _args)

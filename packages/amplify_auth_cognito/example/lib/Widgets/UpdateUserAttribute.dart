@@ -6,8 +6,8 @@ import 'ConfirmUserAttribute.dart';
 
 // ignore_for_file: public_member_api_docs
 class UpdateUserAttributeWidget extends StatefulWidget {
-  final String attributeKey;
-  UpdateUserAttributeWidget({this.attributeKey});
+  final String userAttributeKey;
+  UpdateUserAttributeWidget({this.userAttributeKey});
 
   @override
   _UpdateUserAttributeWidgetState createState() =>
@@ -53,8 +53,8 @@ class _UpdateUserAttributeWidgetState extends State<UpdateUserAttributeWidget> {
 
   @override
   void initState() {
-    isNewAttribute = widget.attributeKey == null;
-    _keyController = TextEditingController(text: widget.attributeKey);
+    isNewAttribute = widget.userAttributeKey == null;
+    _keyController = TextEditingController(text: widget.userAttributeKey);
     super.initState();
   }
 
@@ -92,7 +92,7 @@ class _UpdateUserAttributeWidgetState extends State<UpdateUserAttributeWidget> {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                     builder: (context) => ConfirmUserAttribute(
-                      attributeKey: _keyController.text,
+                      userAttributeKey: _keyController.text,
                     ),
                   ),
                 );

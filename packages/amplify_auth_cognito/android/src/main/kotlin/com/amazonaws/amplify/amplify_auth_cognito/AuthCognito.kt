@@ -454,7 +454,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       FlutterConfirmUserAttributeRequest.validate(request)
       var req = FlutterConfirmUserAttributeRequest(request)
       Amplify.Auth.confirmUserAttribute(
-              req.attributeKey,
+              req.userAttributeKey,
               req.confirmationCode,
               { prepareConfirmUserAttributeResult(flutterResult) },
               { error -> errorHandler.handleAuthError(flutterResult, error) }
@@ -469,7 +469,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       FlutterResendUserAttributeConfirmationCodeRequest.validate(request)
       var req = FlutterResendUserAttributeConfirmationCodeRequest(request)
       Amplify.Auth.resendUserAttributeConfirmationCode(
-              req.attributeKey,
+              req.userAttributeKey,
               { result -> prepareResendUserAttributeConfirmationCodeResult(flutterResult, result) },
               { error -> errorHandler.handleAuthError(flutterResult, error) }
       );

@@ -52,7 +52,7 @@ void main() {
     testCode = 1;
     var res = await auth.confirmUserAttribute(
       request: ConfirmUserAttributeRequest(
-        attributeKey: 'email',
+        userAttributeKey: 'email',
         confirmationCode: '123456',
       ),
     );
@@ -66,7 +66,7 @@ void main() {
     try {
       await auth.confirmUserAttribute(
         request: ConfirmUserAttributeRequest(
-          attributeKey: 'email',
+          userAttributeKey: 'email',
           confirmationCode: '123456',
         ),
       );

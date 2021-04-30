@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 // ignore_for_file: public_member_api_docs
 class ConfirmUserAttribute extends StatefulWidget {
-  final String attributeKey;
-  ConfirmUserAttribute({@required this.attributeKey});
+  final String userAttributeKey;
+  ConfirmUserAttribute({@required this.userAttributeKey});
 
   @override
   _ConfirmUserAttributeState createState() => _ConfirmUserAttributeState();
@@ -33,7 +33,7 @@ class _ConfirmUserAttributeState extends State<ConfirmUserAttribute> {
   void _confirmUpdate() async {
     try {
       var res = await Amplify.Auth.confirmUserAttribute(
-        attributeKey: widget.attributeKey,
+        userAttributeKey: widget.userAttributeKey,
         confirmationCode: _confirmationCodeController.text,
       );
       print(res);
@@ -46,7 +46,7 @@ class _ConfirmUserAttributeState extends State<ConfirmUserAttribute> {
   void _resenCode() async {
     try {
       var res = await Amplify.Auth.resendUserAttributeConfirmationCode(
-        attributeKey: widget.attributeKey,
+        userAttributeKey: widget.userAttributeKey,
       );
       print(res);
       _showInfo(
@@ -58,7 +58,7 @@ class _ConfirmUserAttributeState extends State<ConfirmUserAttribute> {
 
   @override
   void initState() {
-    isNewAttribute = widget.attributeKey == null;
+    isNewAttribute = widget.userAttributeKey == null;
     super.initState();
   }
 
@@ -74,7 +74,7 @@ class _ConfirmUserAttributeState extends State<ConfirmUserAttribute> {
           children: [
             const SizedBox(height: 12),
             TextFormField(
-              initialValue: widget.attributeKey,
+              initialValue: widget.userAttributeKey,
               enabled: false,
               decoration: const InputDecoration(
                 labelText: 'Attribute Name',

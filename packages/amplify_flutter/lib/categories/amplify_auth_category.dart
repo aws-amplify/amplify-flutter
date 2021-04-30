@@ -180,11 +180,11 @@ class AuthCategory {
 
   /// Confirms a user attribute update and returns a [ConfirmUserAttributeResult]
   Future<ConfirmUserAttributeResult> confirmUserAttribute({
-    @required String attributeKey,
+    @required String userAttributeKey,
     @required String confirmationCode,
   }) {
     var request = ConfirmUserAttributeRequest(
-        attributeKey: attributeKey, confirmationCode: confirmationCode);
+        userAttributeKey: userAttributeKey, confirmationCode: confirmationCode);
     return plugins.length == 1
         ? plugins[0].confirmUserAttribute(request: request)
         : throw _pluginNotAddedException("Auth");
@@ -192,9 +192,9 @@ class AuthCategory {
 
   /// Resends a confirmation code for the given attribute and returns a [ResendUserAttributeConfirmationCodeResult]
   Future<ResendUserAttributeConfirmationCodeResult>
-      resendUserAttributeConfirmationCode({@required String attributeKey}) {
+      resendUserAttributeConfirmationCode({@required String userAttributeKey}) {
     var request =
-        ResendUserAttributeConfirmationCodeRequest(attributeKey: attributeKey);
+        ResendUserAttributeConfirmationCodeRequest(userAttributeKey: userAttributeKey);
     return plugins.length == 1
         ? plugins[0].resendUserAttributeConfirmationCode(request: request)
         : throw _pluginNotAddedException("Auth");

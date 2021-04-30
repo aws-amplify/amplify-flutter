@@ -20,15 +20,15 @@ import 'package:flutter/foundation.dart';
 /// Encapsulates parameters for a request to resend a user attribute confirmation code
 class ResendUserAttributeConfirmationCodeRequest {
   /// The key of the user attribute to resend the confirmation code for
-  String attributeKey;
+  String userAttributeKey;
 
   ResendUserAttributeConfirmationCodeRequest({
-    @required this.attributeKey,
+    @required this.userAttributeKey,
   });
 
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    pendingRequest['attributeKey'] = attributeKey;
+    pendingRequest['userAttributeKey'] = userAttributeKey;
     return pendingRequest;
   }
 }

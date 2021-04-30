@@ -20,7 +20,7 @@ import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 
 data class FlutterConfirmUserAttributeRequest(val map: HashMap<String, *>) {
-    val attributeKey: AuthUserAttributeKey = createAuthUserAttributeKey(map["attributeKey"] as String);
+    val userAttributeKey: AuthUserAttributeKey = createAuthUserAttributeKey(map["userAttributeKey"] as String);
     val confirmationCode: String = map["confirmationCode"] as String;
 
     companion object {
@@ -28,8 +28,8 @@ data class FlutterConfirmUserAttributeRequest(val map: HashMap<String, *>) {
         fun validate(req : HashMap<String, *>?) {
             if (req == null || req !is HashMap<String, *>) {
                 throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("request map"))
-            } else if (!req.containsKey("attributeKey")) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "attributeKey" ))
+            } else if (!req.containsKey("userAttributeKey")) {
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "userAttributeKey" ))
             } else if (!req.containsKey("confirmationCode")) {
                 throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "confirmationCode" ))
             }

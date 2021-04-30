@@ -573,7 +573,7 @@ class AmplifyAuthCognitoPluginTest {
             null as Void?
         }.`when`(mockAuth).confirmUserAttribute(any(AuthUserAttributeKey::class.java), anyString(), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val data: HashMap<*, *> = hashMapOf(
-                "attributeKey" to "email",
+                "userAttributeKey" to "email",
                 "confirmationCode" to "123456"
         )
         val arguments = hashMapOf("data" to data)
@@ -594,7 +594,7 @@ class AmplifyAuthCognitoPluginTest {
             null as Void?
         }.`when`(mockAuth).resendUserAttributeConfirmationCode(any(AuthUserAttributeKey::class.java), ArgumentMatchers.any<Consumer<AuthCodeDeliveryDetails>>(), ArgumentMatchers.any<Consumer<AuthException>>())
         val data: HashMap<*, *> = hashMapOf(
-                "attributeKey" to "email"
+                "userAttributeKey" to "email"
         )
         val arguments = hashMapOf("data" to data)
         val call = MethodCall("resendUserAttributeConfirmationCode", arguments)

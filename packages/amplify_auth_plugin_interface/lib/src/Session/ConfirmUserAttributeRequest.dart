@@ -20,19 +20,19 @@ import 'package:flutter/foundation.dart';
 /// Encapsulates parameters for a request to confirm a user attribute update
 class ConfirmUserAttributeRequest {
   /// The key of the user attribute to update
-  String attributeKey;
+  String userAttributeKey;
 
   /// The confirmation code the user received after starting the user attribute operation
   String confirmationCode;
 
   ConfirmUserAttributeRequest({
-    @required this.attributeKey,
+    @required this.userAttributeKey,
     @required this.confirmationCode,
   });
 
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    pendingRequest['attributeKey'] = attributeKey;
+    pendingRequest['userAttributeKey'] = userAttributeKey;
     pendingRequest['confirmationCode'] = confirmationCode;
     return pendingRequest;
   }
