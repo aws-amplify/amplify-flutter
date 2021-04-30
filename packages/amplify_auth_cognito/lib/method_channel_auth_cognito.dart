@@ -16,6 +16,7 @@
 import 'package:amplify_core/types/exception/AmplifyException.dart';
 import 'package:amplify_core/types/exception/AmplifyExceptionMessages.dart';
 import 'package:amplify_core/types/exception/AmplifyAlreadyConfiguredException.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
@@ -295,7 +296,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   @override
   Future<UpdateUserAttributeResult> updateUserAttribute(
-      {UpdateUserAttributeRequest request}) async {
+      {@required UpdateUserAttributeRequest request}) async {
     UpdateUserAttributeResult res;
     try {
       final Map<String, dynamic> data =
@@ -314,7 +315,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   @override
   Future<ConfirmUserAttributeResult> confirmUserAttribute(
-      {ConfirmUserAttributeRequest request}) async {
+      {@required ConfirmUserAttributeRequest request}) async {
     ConfirmUserAttributeResult res;
     try {
       await _channel.invokeMapMethod<String, dynamic>(
@@ -332,8 +333,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   @override
   Future<ResendUserAttributeConfirmationCodeResult>
-      resendUserAttributeConfirmationCode(
-          {ResendUserAttributeConfirmationCodeRequest request}) async {
+      resendUserAttributeConfirmationCode({
+    @required ResendUserAttributeConfirmationCodeRequest request,
+  }) async {
     ResendUserAttributeConfirmationCodeResult res;
     try {
       final Map<String, dynamic> data =
