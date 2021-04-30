@@ -38,9 +38,9 @@ struct FlutterUpdateUserAttributeRequest {
         } else {
             let attributeMap = dict["attribute"] as! Dictionary<String, Any>;
             if (attributeMap["userAttributeKey"] == nil) {
-                throw InvalidRequestError.auth(comment: validationErrorMessage, suggestion: String(format: ErrorMessages.missingAttribute, "attribute"))
+                throw InvalidRequestError.auth(comment: validationErrorMessage, suggestion: String(format: ErrorMessages.missingAttribute, "userAttributeKey"))
             } else if (attributeMap["value"] == nil) {
-                throw InvalidRequestError.auth(comment: validationErrorMessage, suggestion: String(format: ErrorMessages.missingAttribute, "attribute"))
+                throw InvalidRequestError.auth(comment: validationErrorMessage, suggestion: String(format: ErrorMessages.missingAttribute, "value"))
             } else if (!(attributeMap["value"] is String)) {
                 throw InvalidRequestError.auth(comment: validationErrorMessage, suggestion: "Attribute value is not a String.")
             }
