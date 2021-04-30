@@ -41,7 +41,7 @@ fun createAuthUserAttributeKey(keyName: String): AuthUserAttributeKey {
         "profile" -> return AuthUserAttributeKey.profile()
         "updated_at" -> return AuthUserAttributeKey.updatedAt()
         "website" -> return AuthUserAttributeKey.website()
-        "zoneInfo" -> return AuthUserAttributeKey.zoneInfo()
+        "zoneinfo" -> return AuthUserAttributeKey.zoneInfo()
         else -> return createCustomAuthUserAttributeKey(keyName)
     }
 }
