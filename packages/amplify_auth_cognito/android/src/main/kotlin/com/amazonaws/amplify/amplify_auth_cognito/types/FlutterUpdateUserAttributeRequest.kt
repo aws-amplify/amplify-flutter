@@ -40,7 +40,11 @@ data class FlutterUpdateUserAttributeRequest(val map: HashMap<String, *>) {
                 throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "attribute" ))
             } else {
                 val attribute = req["attribute"] as HashMap<String, *>;
-                if (attribute["value"] !is String) {
+                if (!attribute.containsKey("value")) {
+                    throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "value" ))
+                } else if (!attribute.containsKey("userAttributeKey")) {
+                    throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "userAttributeKey" ))
+                } else if (attribute["value"] !is String) {
                     throw InvalidRequestException(validationErrorMessage, "Attribute value is not a String.")
                 }
             }

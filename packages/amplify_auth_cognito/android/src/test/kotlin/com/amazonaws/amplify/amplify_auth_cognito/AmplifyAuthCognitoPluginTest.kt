@@ -16,6 +16,10 @@
 package com.amazonaws.amplify.amplify_auth_cognito
 
 import android.app.Activity
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmUserAttributeRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendUserAttributeConfirmationCodeRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdateUserAttributeRequest
+import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.BasicAWSCredentials
 import com.amplifyframework.auth.*
@@ -39,6 +43,8 @@ import com.amplifyframework.logging.Logger
 import com.google.gson.internal.LinkedTreeMap
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
+import org.junit.Assert.assertThrows
+import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -565,6 +571,56 @@ class AmplifyAuthCognitoPluginTest {
         verify(mockResult, times(1)).success(res);
     }
 
+    @Test()
+    fun updateUserAttribute_validation() {
+        var attribute: HashMap<String, String>
+        var data: HashMap<String, *>
+
+        // Throws an exception with no attribute
+        data = hashMapOf(
+                "foo" to "bar"
+        )
+        assertThrows(InvalidRequestException::class.java) {
+            FlutterUpdateUserAttributeRequest.validate(data)
+        }
+
+        // Throws an exception with no userAttributeKey
+        attribute = hashMapOf(
+                "value" to "custom attribute value"
+        )
+        data = hashMapOf(
+                "attribute" to attribute
+        )
+        assertThrows(InvalidRequestException::class.java) {
+            FlutterUpdateUserAttributeRequest.validate(data)
+        }
+
+        // Throws an exception with no value
+        attribute = hashMapOf(
+                "userAttributeKey" to "my_custom_attribute"
+        )
+        data = hashMapOf(
+                "attribute" to attribute
+        )
+        assertThrows(InvalidRequestException::class.java) {
+            FlutterUpdateUserAttributeRequest.validate(data)
+        }
+
+        // Does not thrown an exception with valid params
+        attribute = hashMapOf(
+                "userAttributeKey" to "my_custom_attribute",
+                "value" to "custom attribute value"
+        )
+        data = hashMapOf(
+                "attribute" to attribute
+        )
+        try {
+            FlutterUpdateUserAttributeRequest.validate(data)
+        } catch (e: Exception) {
+            fail("Expected no exception to be thrown with valid data")
+        }
+    }
+
     @Test
     fun confirmUserAttribute_returnsSuccess() {
         // Arrange
@@ -584,6 +640,38 @@ class AmplifyAuthCognitoPluginTest {
 
         // Assert
         verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
+    }
+
+    @Test()
+    fun confirmUserAttribute_validation() {
+        var data: HashMap<String, *>
+
+        // Throws an exception with no userAttributeKey
+        data = hashMapOf(
+                "confirmationCode" to "123456"
+        )
+        assertThrows(InvalidRequestException::class.java) {
+            FlutterConfirmUserAttributeRequest.validate(data)
+        }
+
+        // Throws an exception with no confirmationCode
+        data = hashMapOf(
+                "userAttributeKey" to "email"
+        )
+        assertThrows(InvalidRequestException::class.java) {
+            FlutterConfirmUserAttributeRequest.validate(data)
+        }
+
+        // Does not thrown an exception with valid params
+        data = hashMapOf(
+                "userAttributeKey" to "email",
+                "confirmationCode" to "123456"
+        )
+        try {
+            FlutterConfirmUserAttributeRequest.validate(data)
+        } catch (e: Exception) {
+            fail("Expected no exception to be thrown with valid data")
+        }
     }
 
     @Test
@@ -606,12 +694,34 @@ class AmplifyAuthCognitoPluginTest {
                 )
         )
 
-
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
         verify(mockResult, times(1)).success(res);
+    }
+
+    @Test()
+    fun resendUserAttributeConfirmationCode_validation() {
+        var data: HashMap<String, *>
+
+        // Throws an exception with no userAttributeKey
+        data = hashMapOf(
+                "foo" to "bar"
+        )
+        assertThrows(InvalidRequestException::class.java) {
+            FlutterResendUserAttributeConfirmationCodeRequest.validate(data)
+        }
+
+        // Does not thrown an exception with valid params
+        data = hashMapOf(
+                "userAttributeKey" to "email"
+        )
+        try {
+            FlutterResendUserAttributeConfirmationCodeRequest.validate(data)
+        } catch (e: Exception) {
+            fail("Expected no exception to be thrown with valid data")
+        }
     }
 
 

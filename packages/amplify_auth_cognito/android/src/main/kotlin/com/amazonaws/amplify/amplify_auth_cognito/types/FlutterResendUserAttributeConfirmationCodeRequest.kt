@@ -26,7 +26,7 @@ data class FlutterResendUserAttributeConfirmationCodeRequest(val map: HashMap<St
         private const val validationErrorMessage: String = "ResendUserAttributeConfirmationCode Request malformed."
         fun validate(req : HashMap<String, *>?) {
             if (req != null) {
-                if (!req.containsKey("userAttributeKey") && req["userAttributeKey"] != "") {
+                if (!req.containsKey("userAttributeKey")) {
                     throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "userAttributeKey" ))
                 }
             }
