@@ -26,7 +26,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  List<String> itemKeys = new List<String>();
+  List<String> itemKeys = [];
 
   @override
   void initState() {
@@ -57,8 +57,10 @@ class _MainPageState extends State<MainPage> {
   void _showImageUploader() async {
     String key = await showDialog(
         context: context,
-        child: new SimpleDialog(
-            title: Text("Upload Image"), children: [ImageUploader()]));
+        builder: (BuildContext context) {
+          return new SimpleDialog(
+              title: Text("Upload Image"), children: [ImageUploader()]);
+        });
 
     if (key.isNotEmpty) {
       var newList = itemKeys.toList();
