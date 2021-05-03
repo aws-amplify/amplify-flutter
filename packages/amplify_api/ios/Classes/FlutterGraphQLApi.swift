@@ -24,8 +24,10 @@ class FlutterGraphQLApi {
             let document = try FlutterApiRequest.getGraphQLDocument(methodChannelRequest: request)
             let variables = try FlutterApiRequest.getVariables(methodChannelRequest: request)
             let cancelToken = try FlutterApiRequest.getCancelToken(methodChannelRequest: request)
+            let apiName = try FlutterApiRequest.getApiName(methodChannelRequest: request)
 
-            let request = GraphQLRequest<String>(document: document,
+            let request = GraphQLRequest<String>(apiName: apiName,
+                                                document: document,
                                                  variables: variables,
                                                  responseType: String.self)
 
@@ -79,8 +81,10 @@ class FlutterGraphQLApi {
             let document = try FlutterApiRequest.getGraphQLDocument(methodChannelRequest: request)
             let variables = try FlutterApiRequest.getVariables(methodChannelRequest: request)
             let cancelToken = try FlutterApiRequest.getCancelToken(methodChannelRequest: request)
+            let apiName = try FlutterApiRequest.getApiName(methodChannelRequest: request)
 
-            let request = GraphQLRequest<String>(document: document,
+            let request = GraphQLRequest<String>(apiName: apiName,
+                                                document: document,
                                                  variables: variables,
                                                  responseType: String.self)
 
@@ -136,9 +140,11 @@ class FlutterGraphQLApi {
             let document = try FlutterApiRequest.getGraphQLDocument(methodChannelRequest: request)
             let variables = try FlutterApiRequest.getVariables(methodChannelRequest: request)
             let id = try FlutterApiRequest.getCancelToken(methodChannelRequest: request)
+            let apiName = try FlutterApiRequest.getApiName(methodChannelRequest: request)
             var established = false
 
-            let request = GraphQLRequest<String>(document: document,
+            let request = GraphQLRequest<String>(apiName: apiName,
+                                                 document: document,
                                                  variables: variables,
                                                  responseType: String.self)
 
