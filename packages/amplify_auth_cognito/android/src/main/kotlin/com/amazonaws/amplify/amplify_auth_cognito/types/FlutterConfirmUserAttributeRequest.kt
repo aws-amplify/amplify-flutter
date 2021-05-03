@@ -26,7 +26,7 @@ data class FlutterConfirmUserAttributeRequest(val map: HashMap<String, *>) {
     companion object {
         private const val validationErrorMessage: String = "ConfirmUserAttribute Request malformed."
         fun validate(req : HashMap<String, *>?) {
-            if (req == null || req !is HashMap<String, *>) {
+            if (req == null) {
                 throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("request map"))
             } else if (!req.containsKey("userAttributeKey")) {
                 throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "userAttributeKey" ))

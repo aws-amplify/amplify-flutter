@@ -34,12 +34,12 @@ data class FlutterUpdateUserAttributeRequest(val map: HashMap<String, *>) {
     companion object {
         private const val validationErrorMessage: String = "UpdateUserAttributeRequest Request malformed."
         fun validate(req : HashMap<String, *>?) {
-            if (req == null || req !is HashMap<String, *>) {
+            if (req == null) {
                 throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("request map"))
-            } else if (!req.containsKey("attribute")) {
+            } else if (!req.containsKey("attribute") || req["attribute"] !is HashMap<*, *>) {
                 throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "attribute" ))
             } else {
-                val attribute = req["attribute"] as HashMap<String, *>;
+                val attribute = req["attribute"] as HashMap<*, *>;
                 if (!attribute.containsKey("value")) {
                     throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "value" ))
                 } else if (!attribute.containsKey("userAttributeKey")) {

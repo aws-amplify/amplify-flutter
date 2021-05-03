@@ -26,11 +26,9 @@ struct FlutterResendUserAttributeConfirmationCodeRequest {
     }
     
     static func validate(dict: NSMutableDictionary) throws {
-        let validationErrorMessage = "ConfirmUserAttribute Request malformed."
+        let validationErrorMessage = "ResendUserAttributeConfirmationCode Request malformed."
         if (dict["userAttributeKey"] == nil) {
             throw InvalidRequestError.auth(comment: validationErrorMessage, suggestion: String(format: ErrorMessages.missingAttribute, "userAttributeKey"))
         }
     }
 }
-
-
