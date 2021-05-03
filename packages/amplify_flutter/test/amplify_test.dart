@@ -25,6 +25,11 @@ import 'package:amplify_flutter/amplify.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('com.amazonaws.amplify/amplify');
+  const MethodChannel authChannel =
+      MethodChannel('com.amazonaws.amplify/auth_cognito');
+  const MethodChannel analyticsChannel =
+      MethodChannel('com.amazonaws.amplify/analytics_pinpoint');
+  var platformConfigured = false;
 
   // Test data
   String invalidConfiguration = 'How dare you call me invalid';
@@ -33,12 +38,13 @@ void main() {
   const amplifyAlreadyConfiguredException = AmplifyAlreadyConfiguredException(
       'Amplify has already been configured and re-configuration is not supported.',
       recoverySuggestion:
-          'Catch AmplifyAlreadyConfiguredException in your app to avoid this state.');
+          'Check if Amplify is already configured using Amplify.isConfigured.');
 
-  const amplifyAlreadyConfiguredForAddPluginException = AmplifyException(
-      'Amplify has already been configured and adding plugins after configure is not supported.',
-      recoverySuggestion:
-          'Catch AmplifyAlreadyConfiguredException in your app to avoid this state.');
+  const amplifyAlreadyConfiguredForAddPluginException =
+      AmplifyAlreadyConfiguredException(
+          'Amplify has already been configured and adding plugins after configure is not supported.',
+          recoverySuggestion:
+              'Check if Amplify is already configured using Amplify.isConfigured.');
 
   AmplifyException multiplePluginsForAuthException = AmplifyException(
       'Amplify plugin AmplifyAuthCognito was not added successfully.',
@@ -60,6 +66,11 @@ void main() {
       recoverySuggestion:
           'Add Auth plugin to Amplify and call configure before calling Auth related APIs');
 
+  const amplifyConfigurationFailed = AmplifyException(
+      'Amplify failed to configure.',
+      recoverySuggestion:
+          'We currently don\'t have a recovery suggestion for this exception.');
+
   TestWidgetsFlutterBinding.ensureInitialized();
 
   // Class under test
@@ -67,6 +78,16 @@ void main() {
 
   setUp(() {
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
+      if (!platformConfigured) {
+        return true;
+      } else {
+        throw PlatformException(code: 'AmplifyAlreadyConfiguredException');
+      }
+    });
+    authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      return true;
+    });
+    analyticsChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       return true;
     });
     // We want to instantiate a new instance for each test so we start
@@ -81,6 +102,29 @@ void main() {
 
   tearDown(() {
     channel.setMockMethodCallHandler(null);
+    authChannel.setMockMethodCallHandler(null);
+    analyticsChannel.setMockMethodCallHandler(null);
+  });
+
+  test('before calling configure, isConfigure should be false', () {
+    expect(amplify.isConfigured, false);
+  });
+
+  test('after calling configure, isConfigure should be true', () async {
+    await amplify.configure(validJsonConfiguration);
+    expect(amplify.isConfigured, true);
+  });
+
+  test('Failed configure should result in isConfigure to be false', () async {
+    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+      return false; // configuration failed
+    });
+    try {
+      await amplify.configure(validJsonConfiguration);
+    } catch (e) {
+      expect(e, amplifyConfigurationFailed);
+    }
+    expect(amplify.isConfigured, false);
   });
 
   test('configure should result in AmplifyException when null value is passed',
@@ -89,6 +133,7 @@ void main() {
         .configure(null)
         .then((v) => fail('configuration should have been failed.'))
         .catchError((e) => expect(e, nullConfigurationException));
+    expect(amplify.isConfigured, false);
   });
 
   test(
@@ -110,6 +155,7 @@ void main() {
         .configure(invalidConfiguration)
         .then((v) => fail('configuration should have been failed.'))
         .catchError((e) => expect(e, invalidConfigurationException));
+    expect(amplify.isConfigured, false);
   });
 
   test('calling configure twice results in an exception', () async {
@@ -118,6 +164,7 @@ void main() {
       await amplify.configure(validJsonConfiguration);
     } catch (e) {
       expect(e, amplifyAlreadyConfiguredException);
+      expect(amplify.isConfigured, true);
       return;
     }
     fail('an exception should have been thrown');
@@ -128,11 +175,13 @@ void main() {
     await amplify
         .addPlugins([AmplifyAuthCognito(), AmplifyAnalyticsPinpoint()]);
     await amplify.configure(validJsonConfiguration);
+    expect(amplify.isConfigured, true);
   });
 
   test('adding single plugins using addPlugin method doesn\'t throw', () async {
     await amplify.addPlugin(AmplifyAuthCognito());
     await amplify.configure(validJsonConfiguration);
+    expect(amplify.isConfigured, true);
   });
 
   test('adding multiple plugins from same Auth category throws exception',
@@ -142,6 +191,7 @@ void main() {
       await amplify.addPlugin(AmplifyAuthCognito());
     } catch (e) {
       expect(e, multiplePluginsForAuthException);
+      expect(amplify.isConfigured, false);
       return;
     }
     fail('an exception should have been thrown');
@@ -154,6 +204,7 @@ void main() {
       await amplify.addPlugin(AmplifyAnalyticsPinpoint());
     } catch (e) {
       expect(e, amplifyAlreadyConfiguredForAddPluginException);
+      expect(amplify.isConfigured, true);
       return;
     }
     fail('an exception should have been thrown');
@@ -168,5 +219,15 @@ void main() {
       return;
     }
     fail('an exception should have been thrown');
+  });
+
+  test('PlatformException with AmplifyAlreadyConfiguredException code is swallowed', () async {
+    platformConfigured = true;
+
+    try {
+      await amplify.configure(validJsonConfiguration);
+    } catch (e) {
+      fail('AmplifyAlreadyConfiguredException was not swallowed');
+    }
   });
 }

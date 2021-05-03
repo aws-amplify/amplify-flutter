@@ -14,6 +14,9 @@
  */
 
 import 'package:amplify_analytics_plugin_interface/amplify_analytics_plugin_interface.dart';
+import 'package:amplify_core/types/exception/AmplifyException.dart';
+import 'package:amplify_core/types/exception/AmplifyExceptionMessages.dart';
+import 'package:amplify_core/types/exception/AmplifyAlreadyConfiguredException.dart';
 import 'package:flutter/services.dart';
 
 import 'amplify_analytics_pinpoint.dart';
@@ -22,6 +25,22 @@ const MethodChannel _channel =
     MethodChannel('com.amazonaws.amplify/analytics_pinpoint');
 
 class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpoint {
+  @override
+  Future<void> addPlugin() async {
+    try {
+      return await _channel.invokeMethod('addPlugin');
+    } on PlatformException catch (e) {
+      if (e.code == 'AmplifyAlreadyConfiguredException') {
+        throw AmplifyAlreadyConfiguredException(
+          AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+          recoverySuggestion: AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
+      } else {
+        throw AmplifyException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+    }
+  }
+
   @override
   Future<void> recordEvent({AnalyticsEvent event}) async {
     var name = event.name;

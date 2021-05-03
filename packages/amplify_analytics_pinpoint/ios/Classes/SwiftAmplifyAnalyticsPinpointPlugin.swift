@@ -32,12 +32,6 @@ public class SwiftAmplifyAnalyticsPinpointPlugin: NSObject, FlutterPlugin {
         let channel = FlutterMethodChannel(name: "com.amazonaws.amplify/analytics_pinpoint", binaryMessenger: registrar.messenger())
         let instance = SwiftAmplifyAnalyticsPinpointPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
-
-        do {
-            try Amplify.add(plugin: AWSPinpointAnalyticsPlugin() )
-        } catch {
-            print("Failed to add Amplify AWS Plugin \(error)")
-        }
     }
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -46,6 +40,8 @@ public class SwiftAmplifyAnalyticsPinpointPlugin: NSObject, FlutterPlugin {
     
     public func innerHandle(method: String, callArgs: Any?, result: @escaping FlutterResult){
         switch method{
+            case "addPlugin":
+                FlutterAnalytics.addPlugin(result: result)
             case "recordEvent":
                 FlutterAnalytics.record(arguments: callArgs, result: result, bridge: bridge)
             case "flushEvents":

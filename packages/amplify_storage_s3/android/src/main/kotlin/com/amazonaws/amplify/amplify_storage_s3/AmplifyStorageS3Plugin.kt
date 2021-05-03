@@ -19,6 +19,7 @@ import android.app.Activity
 import android.content.Context
 import android.util.Log
 import androidx.annotation.NonNull
+import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.storage.s3.AWSS3StoragePlugin
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -42,17 +43,20 @@ class AmplifyStorageS3Plugin : FlutterPlugin, ActivityAware, MethodCallHandler {
         channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "com.amazonaws.amplify/storage_s3")
         channel.setMethodCallHandler(this)
         context = flutterPluginBinding.applicationContext
-        try {
-            Amplify.addPlugin(AWSS3StoragePlugin())
-        } catch (e: Exception) {
-            LOG.error("Failed to add StorageS3 plugin. Is Amplify already configured and app restarted?")
-            LOG.error("Exception: $e")
-            return
-        }
-        Log.i("AmplifyFlutter", "Added StorageS3 plugin")
     }
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
+        if(call.method == "addPlugin"){
+            try {
+                Amplify.addPlugin(AWSS3StoragePlugin())
+                Log.i("AmplifyFlutter", "Added StorageS3 plugin")
+                result.success(null)
+            } catch (e: Exception) {
+                handleAddPluginException("Storage", e, result)
+            }
+            return
+        }
+
         when (call.method) {
             "uploadFile" ->
                 AmplifyStorageOperations.uploadFile(result, call.arguments as Map<String, *>)

@@ -40,6 +40,7 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthUser
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendSignUpCodeResult
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignInWithWebUIRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchUserAttributesResult
+import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthProvider
 import com.amplifyframework.auth.AuthSession
@@ -95,14 +96,6 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
     hubEventChannel = EventChannel(flutterPluginBinding.binaryMessenger,
                                   "com.amazonaws.amplify/auth_cognito_events")
     hubEventChannel.setStreamHandler(authCognitoHubEventStreamHandler)
-    try {
-      Amplify.addPlugin(AWSCognitoAuthPlugin())
-    } catch (e: Exception) {
-      LOG.error("Failed to add AuthCognito plugin. Is Amplify already configured and app restarted?")
-      LOG.error("Exception: $e")
-      return
-    }
-    LOG.info("Added AuthCognito plugin")
   }
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
@@ -139,6 +132,18 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
   };
 
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
+
+    if(call.method == "addPlugin"){
+      try {
+        Amplify.addPlugin(AWSCognitoAuthPlugin())
+        LOG.info("Added Auth plugin")
+        result.success(null)
+      } catch (e: Exception) {
+        handleAddPluginException("Auth", e, result)
+      }
+      return
+    }
+
     var data : HashMap<String, Any> = HashMap<String, Any> ()
     try {
       data = checkData(checkArguments(call.arguments));
@@ -229,6 +234,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       Amplify.Auth.signIn(
               req.username,
               req.password,
+              req.options,
               { result -> prepareSignInResult(flutterResult, result) },
               { error -> errorHandler.handleAuthError(flutterResult, error)}
       );
@@ -243,6 +249,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
         var req = FlutterConfirmSignInRequest(request)
         Amplify.Auth.confirmSignIn(
                 req.confirmationCode,
+                req.options,
                 { result -> prepareSignInResult(flutterResult, result)},
                 { error -> errorHandler.handleAuthError(flutterResult, error)}
         );

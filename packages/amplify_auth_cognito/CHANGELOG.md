@@ -1,3 +1,32 @@
+## 0.1.4 (2021-04-27)
+
+### Bug Fixes
+
+- fix: Remove logging of unhandled Hub auth events (#517)
+- fix: Confirm sign in options (#538)
+
+## 0.1.3 (2021-04-21)
+
+### Bug Fixes
+
+- fix(amplify_auth_cognito): SignInOptions and ClientMetadata (#519)
+- fix: handle LimitExceededException on Android (#522)
+
+## 0.1.2 (2021-04-16)
+
+### Bug Fixes
+
+- fix: handle hot restart (#491)
+
+## 0.1.1 (2021-03-29)
+
+### Bug Fixes
+
+- fix: Move AddPlugin from Register to MethodChannel (#411)
+- fix: upgrade plugin_platform_interface (#447)
+- fix: upgrade uuid (#448)
+- fix: call return in addPlugin (#478)
+
 ## 0.1.0 (2021-02-15)
 
 ### Features

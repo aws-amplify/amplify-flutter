@@ -40,6 +40,11 @@ class AmplifyStorageS3 extends StoragePluginInterface {
   }
 
   @override
+  Future<void> addPlugin() async {
+    return _instance.addPlugin();
+  }
+
+  @override
   Future<UploadFileResult> uploadFile({@required UploadFileRequest request}) {
     return _instance.uploadFile(request: request);
   }

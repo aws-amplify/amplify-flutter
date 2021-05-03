@@ -62,20 +62,21 @@ class AmplifyClass extends PlatformInterface {
   AmplifyHub Hub = AmplifyHub();
 
   /// Adds one plugin at a time. Note: this method can only
-  /// be called before Amplify has been configured.
+  /// be called before Amplify has been configured. Customers are expected
+  /// to check the configuration state by calling `Amplify.isConfigured`
   ///
   /// Throws AmplifyAlreadyConfiguredException if
   /// this method is called after configure (e.g. during hot reload).
   Future<void> addPlugin(AmplifyPluginInterface plugin) async {
-    if (!_isConfigured) {
+    if (!isConfigured) {
       try {
         if (plugin is AuthPluginInterface) {
-          Auth.addPlugin(plugin);
+          await Auth.addPlugin(plugin);
           Hub.addChannel(HubChannel.Auth, plugin.streamController);
         } else if (plugin is AnalyticsPluginInterface) {
-          Analytics.addPlugin(plugin);
+          await Analytics.addPlugin(plugin);
         } else if (plugin is StoragePluginInterface) {
-          Storage.addPlugin(plugin);
+          await Storage.addPlugin(plugin);
         } else if (plugin is DataStorePluginInterface) {
           try {
             await DataStore.addPlugin(plugin);
@@ -110,13 +111,14 @@ class AmplifyClass extends PlatformInterface {
       throw AmplifyAlreadyConfiguredException(
           'Amplify has already been configured and adding plugins after configure is not supported.',
           recoverySuggestion:
-              'Catch AmplifyAlreadyConfiguredException in your app to avoid this state.');
+              'Check if Amplify is already configured using Amplify.isConfigured.');
     }
     return;
   }
 
   /// Adds multiple plugins at the same time. Note: this method can only
-  /// be called before Amplify has been configured.
+  /// be called before Amplify has been configured. Customers are expected
+  /// to check the configuration state by calling `Amplify.isConfigured`
   Future<void> addPlugins(List<AmplifyPluginInterface> plugins) async {
     plugins.forEach((plugin) async {
       await addPlugin(plugin);
@@ -124,24 +126,30 @@ class AmplifyClass extends PlatformInterface {
     return;
   }
 
+  /// Returns whether Amplify has been configured or not.
+  bool get isConfigured {
+    return _isConfigured;
+  }
+
   String _getVersion() {
-    return '0.1.0';
+    return '0.1.4';
   }
 
   /// Configures Amplify with the provided configuration string.
-  /// This method can only be called once, after all the plugins
+  /// **This method can only be called once**, after all the plugins
   /// have been added and no plugin shall be added after amplify
-  /// is configured.
+  /// is configured. Customers are expected to call `Amplify.isConfigured`
+  /// to check if their app is configured before calling this method.
   ///
   /// Throws AmplifyAlreadyConfiguredException if
   /// this method is called again (e.g. during hot reload).
   Future<void> configure(String configuration) async {
     // Validation #1
-    if (_isConfigured) {
+    if (isConfigured) {
       throw AmplifyAlreadyConfiguredException(
           'Amplify has already been configured and re-configuration is not supported.',
           recoverySuggestion:
-              'Catch AmplifyAlreadyConfiguredException in your app to avoid this state.');
+              'Check if Amplify is already configured using Amplify.isConfigured.');
     }
 
     // Validation #2
@@ -163,7 +171,6 @@ class AmplifyClass extends PlatformInterface {
               'Inspect your amplifyconfiguration.dart and ensure that the string is proper json',
           underlyingException: e.toString());
     }
-
     try {
       var res = await AmplifyClass.instance
           ._configurePlatforms(_getVersion(), configuration);
@@ -179,8 +186,7 @@ class AmplifyClass extends PlatformInterface {
       } else if (e.code == 'AmplifyException') {
         throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       } else if (e.code == 'AmplifyAlreadyConfiguredException') {
-        throw AmplifyAlreadyConfiguredException.fromMap(
-            Map<String, String>.from(e.details));
+        _isConfigured = true;
       } else {
         // This shouldn't happen. All exceptions coming from platform for
         // amplify_flutter should have a known code. Throw an unknown error.

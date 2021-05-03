@@ -36,6 +36,11 @@ class AmplifyAPI extends APIPluginInterface {
     _instance = instance;
   }
 
+  @override
+  Future<void> addPlugin() async {
+    return _instance.addPlugin();
+  }
+
   // ====== GraphQL =======
   @override
   GraphQLOperation<T> query<T>({@required GraphQLRequest<T> request}) {

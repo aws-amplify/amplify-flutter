@@ -19,13 +19,16 @@ import android.app.Activity
 import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.BasicAWSCredentials
 import com.amplifyframework.auth.*
-import com.amplifyframework.auth.options.AuthSignOutOptions
 import com.amplifyframework.auth.options.AuthSignUpOptions
 import com.amplifyframework.auth.result.AuthResetPasswordResult
 import com.amplifyframework.auth.result.AuthSignInResult
 import com.amplifyframework.auth.result.AuthSignUpResult
 import com.amplifyframework.auth.cognito.AWSCognitoAuthSession
 import com.amplifyframework.auth.cognito.AWSCognitoUserPoolTokens
+import com.amplifyframework.auth.cognito.options.AWSCognitoAuthConfirmSignInOptions
+import com.amplifyframework.auth.cognito.options.AWSCognitoAuthSignInOptions
+import com.amplifyframework.auth.options.AuthConfirmSignInOptions
+import com.amplifyframework.auth.options.AuthSignInOptions
 import com.amplifyframework.auth.result.AuthSessionResult
 import com.amplifyframework.auth.result.step.*
 import com.amplifyframework.core.Action
@@ -164,12 +167,66 @@ class AmplifyAuthCognitoPluginTest {
     }
 
     @Test
-    fun confirmSignIn_returnsSuccess() {
+    fun signInNoOptions_returnsSuccess() {
         // Arrange
         doAnswer { invocation: InvocationOnMock ->
             plugin.prepareSignInResult(mockResult, mockSignInResult)
             null as Void?
-        }.`when`(mockAuth).confirmSignIn(anyString(), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).signIn(anyString(), anyString(), ArgumentMatchers.any<AuthSignInOptions>(), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+
+        val data: HashMap<*, *> = hashMapOf(
+            "username" to "testUser",
+            "password" to "testPassword"
+        )
+        val arguments: HashMap<String, Any> = hashMapOf("data" to data)
+        val call = MethodCall("signIn", arguments)
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        var expectedOptions = AWSCognitoAuthSignInOptions.builder().build()
+        verify(mockAuth).signIn(ArgumentMatchers.eq("testUser"), ArgumentMatchers.eq("testPassword"), ArgumentMatchers.eq(expectedOptions), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
+    }
+
+    @Test
+    fun signInWithOptions_returnsSuccess() {
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareSignInResult(mockResult, mockSignInResult)
+            null as Void?
+        }.`when`(mockAuth).signIn(anyString(), anyString(), ArgumentMatchers.any<AuthSignInOptions>(), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+
+        val metadata = hashMapOf(
+                "key" to "value"
+        )
+        val data: HashMap<*, *> = hashMapOf(
+            "username" to "testUser",
+            "password" to "testPassword",
+            "options" to hashMapOf(
+                "clientMetadata" to metadata
+            )
+        )
+        val arguments: HashMap<String, Any> = hashMapOf("data" to data)
+        val call = MethodCall("signIn", arguments)
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        var expectedOptions = AWSCognitoAuthSignInOptions.builder().metadata(metadata).build()
+        verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
+        verify(mockAuth).signIn(ArgumentMatchers.eq("testUser"), ArgumentMatchers.eq("testPassword"), ArgumentMatchers.eq(expectedOptions), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+    }
+
+    @Test
+    fun confirmSignInNoOptions_returnsSuccess() {
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareSignInResult(mockResult, mockSignInResult)
+            null as Void?
+        }.`when`(mockAuth).confirmSignIn(anyString(), ArgumentMatchers.any<AuthConfirmSignInOptions>(), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
 
         val data: HashMap<*, *> = hashMapOf(
             "confirmationCode" to "confirmationCode"
@@ -182,6 +239,35 @@ class AmplifyAuthCognitoPluginTest {
 
         // Assert
         verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
+    }
+
+    @Test
+    fun confirmSignInWithOptions_returnsSuccess() {
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareSignInResult(mockResult, mockSignInResult)
+            null as Void?
+        }.`when`(mockAuth).confirmSignIn(anyString(), ArgumentMatchers.any<AuthConfirmSignInOptions>(), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+
+        val metadata = hashMapOf(
+                "key" to "value"
+        )
+        val data: HashMap<*, *> = hashMapOf(
+            "confirmationCode" to "confirmationCode",
+            "options" to hashMapOf(
+                "clientMetadata" to metadata
+            )
+        )
+        val arguments: HashMap<String, Any> = hashMapOf("data" to data)
+        val call = MethodCall("confirmSignIn", arguments)
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        var expectedOptions = AWSCognitoAuthConfirmSignInOptions.builder().metadata(metadata).build()
+        verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
+        verify(mockAuth).confirmSignIn(ArgumentMatchers.eq("confirmationCode"), ArgumentMatchers.eq(expectedOptions), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
     }
 
     @Test

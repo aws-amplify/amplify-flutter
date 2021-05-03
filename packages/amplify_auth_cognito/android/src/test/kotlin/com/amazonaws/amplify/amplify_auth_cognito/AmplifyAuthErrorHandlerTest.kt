@@ -575,6 +575,29 @@ class AuthErrorHandlerTest {
         verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
     }
 
+    @Test
+    fun cognitoLimitExceededException() {
+        // Arrange
+        val expectedCode = "LimitExceededException"
+        val exception = AuthException(expectedCode, LimitExceededException(expectedCode), expectedCode)
+        doAnswer { invocation: InvocationOnMock ->
+            errorHandler.handleAuthError(mockResult, exception)
+            null as Void?
+        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        val call = MethodCall("signOut", arguments)
+
+        val details = mapOf(
+                "recoverySuggestion" to expectedCode,
+                "message" to expectedCode,
+                "underlyingException" to "${cognitoErrorPrefix}LimitExceededException: ${expectedCode}${cognitoErrorSuffix}"        )
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+    }
+
     private fun setFinalStatic(field: Field, newValue: Any?) {
         field.isAccessible = true
         val modifiersField: Field = Field::class.java.getDeclaredField("modifiers")

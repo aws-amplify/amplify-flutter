@@ -1,3 +1,23 @@
+## 0.1.4 (2021-04-27)
+
+## 0.1.3 (2021-04-21)
+
+## 0.1.2 (2021-04-16)
+
+### Bug Fixes
+
+- fix: handle hot restart (#491)
+
+## 0.1.1 (2021-03-29)
+
+### Chores
+- chore: remove upper constraints for flutter 2.0 (#479)
+
+### Bug Fixes
+
+- fix: Move AddPlugin from Register to MethodChannel (#411)
+- fix: upgrade uuid #448
+
 ## 0.1.0 (2021-02-15)
 
 ### Chores

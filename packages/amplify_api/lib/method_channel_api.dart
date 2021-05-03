@@ -19,6 +19,7 @@ import 'dart:typed_data';
 import 'package:amplify_core/types/index.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
+import 'package:amplify_core/types/exception/AmplifyExceptionMessages.dart';
 import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 
 import 'amplify_api.dart';
@@ -27,6 +28,22 @@ const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/api');
 
 class AmplifyAPIMethodChannel extends AmplifyAPI {
   var _allSubscriptionsStream = null;
+
+  @override
+  Future<void> addPlugin() async {
+    try {
+      return await _channel.invokeMethod('addPlugin');
+    } on PlatformException catch (e) {
+      if (e.code == "AmplifyAlreadyConfiguredException") {
+        throw AmplifyAlreadyConfiguredException(
+            AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+            recoverySuggestion: AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
+      } else {
+        throw AmplifyException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+    }
+  }
 
   // ====== GraphQL ======
   @override

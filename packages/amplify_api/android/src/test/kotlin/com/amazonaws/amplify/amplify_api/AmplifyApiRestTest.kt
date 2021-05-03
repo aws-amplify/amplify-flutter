@@ -64,7 +64,7 @@ class AmplifyApiRestTest {
     fun test_get_returns_success(){
 
         var data = getSuccessData
-        var restResponse = RestResponse(200, data)
+        var restResponse = RestResponse(200, null, data)
 
         Mockito.doAnswer { invocation ->
             (invocation.arguments[1] as Consumer<RestResponse>).accept(
@@ -114,7 +114,7 @@ class AmplifyApiRestTest {
         var body = toStoreData
         var data = postSuccessData
 
-        var restResponse = RestResponse(200, data)
+        var restResponse = RestResponse(200, null, data)
 
         Mockito.doAnswer { invocation ->
             (invocation.arguments[2] as Consumer<RestResponse>).accept(
@@ -190,7 +190,7 @@ class AmplifyApiRestTest {
         var body = toStoreData
         var data = putSuccessData
 
-        var restResponse = RestResponse(200, data)
+        var restResponse = RestResponse(200, null, data)
 
         Mockito.doAnswer { invocation ->
             (invocation.arguments[1] as Consumer<RestResponse>).accept(
@@ -227,7 +227,7 @@ class AmplifyApiRestTest {
     fun test_delete_returns_success(){
 
         var data = deleteSuccessData
-        var restResponse = RestResponse(200, data)
+        var restResponse = RestResponse(200, null, data)
 
         Mockito.doAnswer { invocation ->
             (invocation.arguments[1] as Consumer<RestResponse>).accept(
@@ -264,7 +264,7 @@ class AmplifyApiRestTest {
     fun test_get_status_code_error(){
 
         var data = getFailedData
-        var restResponse = RestResponse(400, data)
+        var restResponse = RestResponse(400, null, data)
 
         Mockito.doAnswer { invocation ->
             (invocation.arguments[1] as Consumer<RestResponse>).accept(
@@ -308,7 +308,7 @@ class AmplifyApiRestTest {
     fun test_get_invalid_input_map_error(){
 
         var data = getFailedData
-        var restResponse = RestResponse(400, data)
+        var restResponse = RestResponse(400, null, data)
 
         Mockito.doAnswer { invocation ->
             (invocation.arguments[1] as Consumer<RestResponse>).accept(
@@ -344,7 +344,7 @@ class AmplifyApiRestTest {
     fun test_cancel_get_returns_success(){
 
         var data = getSuccessData
-        var restResponse = RestResponse(200, data)
+        var restResponse = RestResponse(200, null, data)
         var cancelToken = "someCode"
 
         Mockito.doAnswer { invocation ->
@@ -407,7 +407,7 @@ class AmplifyApiRestTest {
     fun test_multiple_cancel_success(){
 
         var data = getSuccessData
-        var restResponse = RestResponse(200, data)
+        var restResponse = RestResponse(200, null, data)
         var cancelToken = "someCode"
 
         Mockito.doAnswer { invocation ->

@@ -35,8 +35,8 @@ class AmplifyStorageOperations {
         private val LOG = Amplify.Logging.forNamespace("amplify:flutter:storage_s3")
 
         fun uploadFile(@NonNull flutterResult: MethodChannel.Result, @NonNull request: Map<String, *>) {
-            var responseSent = false
             try {
+                var responseSent = false
                 FlutterUploadFileRequest.validate(request)
                 val req = FlutterUploadFileRequest(request)
                 Amplify.Storage.uploadFile(
@@ -115,6 +115,7 @@ class AmplifyStorageOperations {
 
         fun downloadFile(@NonNull flutterResult: MethodChannel.Result, @NonNull request: Map<String, *>) {
             try {
+                var responseSent = false
                 FlutterDownloadFileRequest.validate(request)
                 val req = FlutterDownloadFileRequest(request)
                 Amplify.Storage.downloadFile(req.key,
@@ -124,7 +125,12 @@ class AmplifyStorageOperations {
                             prepareDownloadFileResponse(flutterResult, result)
                         },
                         { error ->
-                            prepareError(flutterResult, error)
+                            if (!responseSent) {
+                                responseSent = true
+                                prepareError(flutterResult, error)
+                            } else {
+                                LOG.error("StorageException", error)
+                            }
                         }
                 )
             } catch(e: Exception) {

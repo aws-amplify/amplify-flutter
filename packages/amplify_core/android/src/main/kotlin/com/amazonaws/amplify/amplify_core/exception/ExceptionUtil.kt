@@ -17,6 +17,7 @@ package com.amazonaws.amplify.amplify_core.exception
 
 import androidx.annotation.NonNull
 import com.amplifyframework.AmplifyException
+import com.amplifyframework.core.Amplify
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonElement
 import com.google.gson.JsonPrimitive
@@ -83,6 +84,21 @@ class ExceptionUtil {
                     ),
                 "underlyingException" to cause
             )
+        }
+
+        @JvmStatic
+        fun handleAddPluginException(@NonNull pluginName : String, @NonNull e : Exception, @NonNull flutterResult : Result){
+            var errorDetails: Map<String, Any?>
+            var errorCode = pluginName + "Exception"
+            if (e is Amplify.AlreadyConfiguredException) {
+                errorCode = "AmplifyAlreadyConfiguredException"
+            }
+            errorDetails = when (e) {
+                is AmplifyException -> createSerializedError(e)
+                else -> createSerializedUnrecognizedError(e)
+            }
+            postExceptionToFlutterChannel(flutterResult, errorCode,
+                    errorDetails)
         }
     }
 }

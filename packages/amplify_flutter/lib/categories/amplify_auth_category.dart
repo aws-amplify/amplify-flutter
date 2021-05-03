@@ -1,3 +1,18 @@
+/*
+ * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
 part of amplify_interface;
 
 /// Interface for Auth category. This expose all the APIs that
@@ -9,10 +24,18 @@ class AuthCategory {
   static List<AuthPluginInterface> plugins = [];
 
   /// `Add plugin` method
-  void addPlugin(AuthPluginInterface plugin) {
-    // TODO: Discuss and support multiple plugins
+  Future<void> addPlugin(AuthPluginInterface plugin) async {
+    //TODO: Allow for multiple plugins to work simultaneously
     if (plugins.length == 0) {
-      plugins.add(plugin);
+      try {
+        await plugin.addPlugin();
+        plugins.add(plugin);
+      } on AmplifyAlreadyConfiguredException catch (e) {
+        plugins.add(plugin);
+      } on PlatformException catch (e) {
+        throw AmplifyException.fromMap(
+            Map<String, String>.from(e.details));
+      }
     } else {
       throw AmplifyException("Auth plugin has already been added, " +
           "multiple plugins for Auth category are currently not supported.");
@@ -122,7 +145,8 @@ class AuthCategory {
         : throw _pluginNotAddedException("Auth");
   }
 
-  Future<List<AuthUserAttribute>> fetchUserAttributes({AuthUserAttributeOptions options}) {
+  Future<List<AuthUserAttribute>> fetchUserAttributes(
+      {AuthUserAttributeOptions options}) {
     var request = AuthUserAttributeRequest(options: options);
     return plugins.length == 1
         ? plugins[0].fetchUserAttributes(request: request)

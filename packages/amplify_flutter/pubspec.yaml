@@ -1,28 +1,31 @@
 name: amplify_flutter
 description: The top level module for Amplify Flutter.
-version: 0.1.0
+version: 0.1.4
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify_flutter
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
-  flutter: ">=1.17.0 <2.0.0"
+  flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  plugin_platform_interface: ^1.0.1
-  amplify_storage_plugin_interface: 0.1.0
-  amplify_analytics_plugin_interface: 0.1.0
-  amplify_auth_plugin_interface: 0.1.0
-  amplify_datastore_plugin_interface: 0.1.0
-  amplify_api_plugin_interface: 0.1.0
-  amplify_core: 0.1.0
+  plugin_platform_interface: ^2.0.0
+  amplify_storage_plugin_interface: 0.1.4
+  amplify_analytics_plugin_interface: 0.1.4
+  amplify_auth_plugin_interface: 0.1.4
+  amplify_datastore_plugin_interface: 0.1.4
+  amplify_api_plugin_interface: 0.1.4
+  amplify_core: 0.1.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  amplify_auth_cognito: 0.1.0
-  amplify_analytics_pinpoint: 0.1.0
+  amplify_api: 0.1.4
+  amplify_analytics_pinpoint: 0.1.4
+  amplify_auth_cognito: 0.1.4
+  amplify_datastore: 0.1.4
+  amplify_storage_s3: 0.1.4
 
 flutter:
   plugin:
