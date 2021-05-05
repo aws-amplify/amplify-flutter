@@ -42,6 +42,7 @@ struct FlutterUpdateUserAttributeRequest {
             } else if (attributeMap["value"] == nil) {
                 throw InvalidRequestError.auth(comment: validationErrorMessage, suggestion: String(format: ErrorMessages.missingAttribute, "value"))
             } else if (!(attributeMap["value"] is String)) {
+                // iOS SDK expects a string for user attr values, regardless of the configuration in cognito
                 throw InvalidRequestError.auth(comment: validationErrorMessage, suggestion: "Attribute value is not a String.")
             }
         }

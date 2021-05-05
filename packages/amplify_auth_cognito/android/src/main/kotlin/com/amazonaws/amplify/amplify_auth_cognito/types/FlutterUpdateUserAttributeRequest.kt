@@ -45,6 +45,7 @@ data class FlutterUpdateUserAttributeRequest(val map: HashMap<String, *>) {
                 } else if (!attribute.containsKey("userAttributeKey")) {
                     throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "userAttributeKey" ))
                 } else if (attribute["value"] !is String) {
+                    // Android SDK expects a string for user attr values, regardless of the configuration in cognito
                     throw InvalidRequestException(validationErrorMessage, "Attribute value is not a String.")
                 }
             }
