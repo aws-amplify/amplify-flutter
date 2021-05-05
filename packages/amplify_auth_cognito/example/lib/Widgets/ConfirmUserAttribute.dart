@@ -43,7 +43,7 @@ class _ConfirmUserAttributeState extends State<ConfirmUserAttribute> {
     }
   }
 
-  void _resenCode() async {
+  void _resendCode() async {
     try {
       var res = await Amplify.Auth.resendUserAttributeConfirmationCode(
         userAttributeKey: widget.userAttributeKey,
@@ -92,7 +92,7 @@ class _ConfirmUserAttributeState extends State<ConfirmUserAttribute> {
               child: const Text('Confirm Attribute Update'),
             ),
             TextButton(
-              onPressed: _resenCode,
+              onPressed: _resendCode,
               child: Text('Resend Confirmation Code'),
             ),
           ],
