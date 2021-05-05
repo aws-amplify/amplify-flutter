@@ -12,7 +12,6 @@ class ConfirmUserAttribute extends StatefulWidget {
 }
 
 class _ConfirmUserAttributeState extends State<ConfirmUserAttribute> {
-  bool isNewAttribute = false;
   final _confirmationCodeController = TextEditingController();
 
   void _showSuccess(String message) {
@@ -32,12 +31,11 @@ class _ConfirmUserAttributeState extends State<ConfirmUserAttribute> {
 
   void _confirmUpdate() async {
     try {
-      var res = await Amplify.Auth.confirmUserAttribute(
+      await Amplify.Auth.confirmUserAttribute(
         userAttributeKey: widget.userAttributeKey,
         confirmationCode: _confirmationCodeController.text,
       );
-      print(res);
-      _showSuccess('Attribute Update Confirmed');
+      _showSuccess('Attribute Confirmed Successfully');
     } on AmplifyException catch (e) {
       _showError(e.message);
     }
@@ -48,7 +46,6 @@ class _ConfirmUserAttributeState extends State<ConfirmUserAttribute> {
       var res = await Amplify.Auth.resendUserAttributeConfirmationCode(
         userAttributeKey: widget.userAttributeKey,
       );
-      print(res);
       _showInfo(
           'Confirmation Code Sent via ${res.codeDeliveryDetails.deliveryMedium}');
     } on AmplifyException catch (e) {
@@ -57,16 +54,10 @@ class _ConfirmUserAttributeState extends State<ConfirmUserAttribute> {
   }
 
   @override
-  void initState() {
-    isNewAttribute = widget.userAttributeKey == null;
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Update Attribute'),
+        title: Text('Confirm Attribute'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),

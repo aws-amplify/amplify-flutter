@@ -44,7 +44,7 @@ class _UpdateUserAttributeWidgetState extends State<UpdateUserAttributeWidget> {
         _showInfo(
             'Confirmation Code Sent via ${res.nextStep.codeDeliveryDetails.deliveryMedium}');
       } else {
-        _showSuccess('Attribute Update');
+        _showSuccess('Attribute Updated Successfully');
       }
     } on AmplifyException catch (e) {
       _showError(e.message);
