@@ -22,7 +22,6 @@ import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.auth.AuthUserAttribute
-import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthSignUpOptions
 
 data class FlutterSignUpRequest(val map: HashMap<String, *>) {
@@ -45,21 +44,6 @@ data class FlutterSignUpRequest(val map: HashMap<String, *>) {
             options.validationData(validationData)
         }
         return options.build();
-    }
-
-    // Amplify Android expects camel case, while iOS expects snake.  So at least one plugin implementation should convert.
-    private fun convertSnakeToCamel(@NonNull string: String): String {
-        val camelCase = StringBuilder()
-        var prevChar = '$'
-        string.forEach {
-            if(prevChar.equals('_')){
-                camelCase.append(it.toUpperCase())
-            }else if(!it.equals('_')){
-                camelCase.append(it)
-            }
-            prevChar = it
-        }
-        return camelCase.toString();
     }
 
     companion object {
