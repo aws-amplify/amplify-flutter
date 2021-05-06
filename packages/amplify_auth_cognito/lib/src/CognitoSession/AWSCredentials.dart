@@ -13,17 +13,12 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:collection';
-import 'dart:io' show Platform;
-import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
-import 'package:flutter/material.dart';
-
 class AWSCredentials {
   String? awsAccessKey;
   String? awsSecretKey;
   String? sessionToken;
 
-  AWSCredentials.init({required LinkedHashMap<dynamic, dynamic> creds})
+  AWSCredentials.init({required Map<dynamic, dynamic> creds})
       : this.awsAccessKey = creds["awsAccessKey"],
         this.awsSecretKey = creds["awsSecretKey"],
         this.sessionToken = creds["sessionToken"];

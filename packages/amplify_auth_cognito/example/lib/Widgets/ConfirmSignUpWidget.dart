@@ -39,7 +39,7 @@ class _ConfirmSignUpWidgetState extends State<ConfirmSignUpWidget> {
         username: usernameController.text.trim(),
       );
       widget.showResult(
-          'Sign Up Code Resent to ' + res.codeDeliveryDetails.destination);
+          'Sign Up Code Resent to ${res.codeDeliveryDetails.destination}');
     } on AmplifyException catch (e) {
       widget.setError(e);
     }

@@ -60,9 +60,10 @@ void main() {
       AuthSessionRequest req = AuthSessionRequest();
       expect(await auth.fetchAuthSession(), isInstanceOf<SignInResult>());
     } on AuthException catch (e) {
-      err = e;
+      expect(e.message, "I am an exception");
+      return;
     }
-    expect(err.message, "I am an exception");
+    fail("No AuthException Thrown");
   });
 
   test('CognitoAuthSession handles null tokens', () async {

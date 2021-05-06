@@ -59,8 +59,9 @@ void main() {
     try {
       await auth.getCurrentUser();
     } on AuthException catch (e) {
-      err = e;
+      expect(e.message, "I am an exception");
+      return;
     }
-    expect(err.message, "I am an exception");
+    fail("No AuthException Thrown");
   });
 }
