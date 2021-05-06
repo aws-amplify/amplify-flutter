@@ -375,9 +375,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
         nextStep: AuthNextSignInStep(
             signInStep: res["nextStep"]["signInStep"],
             codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
-            additionalInfo: res["nextStep"]["additionalInfo"] is String
-                ? jsonDecode(res["nextStep"]["additionalInfo"])
-                : {}));
+            additionalInfo: res["nextStep"]["additionalInfo"] ?? {}));
   }
 
   UpdatePasswordResult _formatPasswordResponse(Map<String, dynamic> res) {
