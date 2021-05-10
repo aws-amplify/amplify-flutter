@@ -23,7 +23,7 @@ extension DateTimeParse on DateTime {
     return DateTimeFormat.format(this, format: DateTimeFormats.iso8601);
   }
 
-  static DateTime fromString(String input) {
+  static DateTime? fromString(String? input) {
     return input == null ? null : DateTime.parse(input);
   }
 }

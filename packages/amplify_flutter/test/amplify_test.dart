@@ -74,7 +74,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   // Class under test
-  AmplifyClass amplify;
+  late AmplifyClass amplify;
 
   setUp(() {
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
@@ -139,7 +139,7 @@ void main() {
   test(
       'configure should result in AmplifyException when invalid value is passed',
       () async {
-    FormatException formatException = null;
+    FormatException? formatException = null;
     // Setup the expected exception
     try {
       jsonDecode(invalidConfiguration);

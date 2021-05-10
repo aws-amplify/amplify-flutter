@@ -26,17 +26,12 @@ class S3GetUrlOptions extends GetUrlOptions {
 
   @override
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> optionsMap = <String, dynamic>{};
-
-    optionsMap["accessLevel"] = describeEnum(accessLevel);
-
-    if (expires != null) {
-      optionsMap["expires"] = expires;
-    }
-
-    if (targetIdentityId != null) {
-      optionsMap["targetIdentityId"] = targetIdentityId;
-    }
+    final Map<String, dynamic> optionsMap = {
+      'accessLevel': describeEnum(accessLevel),
+      'expires': expires,
+      'targetIdentityId': targetIdentityId
+    };
+    optionsMap.removeWhere((_, v) => v == null);
     return optionsMap;
   }
 }

@@ -19,12 +19,9 @@ import 'AuthCodeDeliveryDetails.dart';
 class AuthNextStep {
   Map<dynamic, dynamic> additionalInfo;
   AuthCodeDeliveryDetails codeDeliveryDetails;
-  AuthNextStep({@required codeDeliveryDetails, additionalInfo = const {}}) {
-    this.additionalInfo = additionalInfo;
-    this.codeDeliveryDetails = AuthCodeDeliveryDetails(
-      attributeName: codeDeliveryDetails["attributeName"] ?? "",
-      deliveryMedium: codeDeliveryDetails["deliveryMedium"] ?? "",
-      destination: codeDeliveryDetails["destination"]?? ""
-    );
-  }
+  AuthNextStep({required codeDeliveryDetails, this.additionalInfo = const {}})
+      : this.codeDeliveryDetails = AuthCodeDeliveryDetails(
+            attributeName: codeDeliveryDetails["attributeName"] ?? "",
+            deliveryMedium: codeDeliveryDetails["deliveryMedium"] ?? "",
+            destination: codeDeliveryDetails["destination"] ?? "");
 }

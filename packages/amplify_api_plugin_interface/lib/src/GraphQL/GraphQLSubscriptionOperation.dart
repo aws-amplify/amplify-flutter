@@ -13,12 +13,10 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
-
 class GraphQLSubscriptionOperation<T> {
-  Function _cancel;
+  late Function _cancel;
 
-  GraphQLSubscriptionOperation({@required Function cancel}) {
+  GraphQLSubscriptionOperation({required Function cancel}) {
     _cancel = cancel;
   }
 
