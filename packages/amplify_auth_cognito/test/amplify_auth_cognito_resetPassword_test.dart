@@ -32,7 +32,10 @@ void main() {
           "isPasswordReset": false,
           "nextStep": {
             "resetPasswordStep": "DONE",
-            "codeDeliveryDetails": {"atttibuteName": "email"}
+            "codeDeliveryDetails": {
+              "attributeName": "email",
+              "destination": "test@test.test"
+            }
           }
         };
       } else {

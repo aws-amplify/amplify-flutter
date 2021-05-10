@@ -293,7 +293,10 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   ResendSignUpCodeResult _formatResendSignUpResponse(
       Map<String, dynamic> res, method) {
-    return CognitoResendSignUpCodeResult(res["codeDeliveryDetails"]);
+    return CognitoResendSignUpCodeResult(AuthCodeDeliveryDetails(
+        attributeName: res["codeDeliveryDetails"]["attributeName"] ?? null,
+        deliveryMedium: res["codeDeliveryDetails"]["deliveryMedium"],
+        destination: res["codeDeliveryDetails"]["destination"]));
   }
 
   SignInResult _formatSignInResponse(Map<String, dynamic> res, String method) {

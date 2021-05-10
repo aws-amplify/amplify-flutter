@@ -22,14 +22,14 @@ extension IsEqual on SignInResult {
   bool isMostlyEqual(SignInResult comparator) {
     return comparator.isSignedIn == isSignedIn &&
         comparator.nextStep!.signInStep == nextStep!.signInStep &&
-        comparator.nextStep!.additionalInfo.length ==
-            nextStep!.additionalInfo.length &&
-        comparator.nextStep!.codeDeliveryDetails.destination ==
-            nextStep!.codeDeliveryDetails.destination &&
-        comparator.nextStep!.codeDeliveryDetails.attributeName ==
-            nextStep!.codeDeliveryDetails.attributeName &&
-        comparator.nextStep!.codeDeliveryDetails.deliveryMedium ==
-            nextStep!.codeDeliveryDetails.deliveryMedium;
+        comparator.nextStep!.additionalInfo?.length ==
+            nextStep!.additionalInfo?.length &&
+        comparator.nextStep!.codeDeliveryDetails!.destination ==
+            nextStep!.codeDeliveryDetails!.destination &&
+        comparator.nextStep!.codeDeliveryDetails!.attributeName ==
+            nextStep!.codeDeliveryDetails!.attributeName &&
+        comparator.nextStep!.codeDeliveryDetails!.deliveryMedium ==
+            nextStep!.codeDeliveryDetails!.deliveryMedium;
   }
 }
 
@@ -55,8 +55,8 @@ void main() {
           "nextStep": {
             "signInStep": "DONE",
             "codeDeliveryDetails": {
-              "deliveryMedium": "EMAIL",
               "attributeName": "email",
+              "deliveryMedium": "EMAIL",
               "destination": "test@test.test"
             }
           }
@@ -69,12 +69,11 @@ void main() {
     var expectation = CognitoSignInResult(
         isSignedIn: false,
         nextStep: AuthNextSignInStep(
-          additionalInfo: {},
-          codeDeliveryDetails: {
-            "deliveryMedium": "EMAIL",
-            "attributeName": "email",
-            "destination": "test@test.test"
-          },
+          additionalInfo: null,
+          codeDeliveryDetails: AuthCodeDeliveryDetails(
+              attributeName: "email",
+              deliveryMedium: "EMAIL",
+              destination: "test@test.test"),
           signInStep: "DONE",
         ));
     var res = await auth.confirmSignIn(
