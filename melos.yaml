@@ -8,7 +8,7 @@ packages:
 scripts:
   copy_dummy_config: >
     melos exec --scope="*example*" --fail-fast -- \
-      cp ../../../.circleci/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart
+      cp -n ../../../.circleci/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart | true
 
   build:examples:ios: >
     melos exec -c 1 --scope="*example*" --fail-fast -- \
@@ -26,6 +26,9 @@ scripts:
 
   test:unit:ios: >
     ./.circleci/test_all_plugins.sh ios-test && exit 0
+
+  test:integration: >
+    ./.circleci/run_integration_tests.sh ios-test && exit 0
 
   upload:coverage:ios: >
     ./build-support/codecov.sh -F ios-unit-tests
