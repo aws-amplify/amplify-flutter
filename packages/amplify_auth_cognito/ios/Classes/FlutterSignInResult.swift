@@ -65,22 +65,12 @@ func setCodeDeliveryDetails(res: AmplifyOperation<AuthSignInRequest, AuthSignInR
           if case let .confirmSignInWithSMSMFACode(deliveryDetails, _) = signInResult.nextStep {
             if case let .sms(e) = deliveryDetails.destination {
               deliveryMap["destination"] = e! as String
-              deliveryMap["attributeName"] = deliveryDetails.attributeKey != nil ? "" : nil
-              deliveryMap["deliveryMedium"] = "SMS"
             }
           }
-          if case .resetPassword(_) = signInResult.nextStep {
-            deliveryMap = ["deliveryMedium" : "UNKNOWN"]
-          }
-          if case .confirmSignInWithCustomChallenge(_) = signInResult.nextStep {
-            deliveryMap = [:] 
-          }
-          if case .confirmSignInWithNewPassword(_) = signInResult.nextStep {
-            deliveryMap = [:] 
-          }
-          if case .done = signInResult.nextStep {
-            deliveryMap = [:] 
-          }
+          if case .resetPassword(_) = signInResult.nextStep {}
+          if case .confirmSignInWithCustomChallenge(_) = signInResult.nextStep {}
+          if case .confirmSignInWithNewPassword(_) = signInResult.nextStep {}
+          if case .done = signInResult.nextStep {}
         case .failure:
             deliveryMap = [:]
     }
