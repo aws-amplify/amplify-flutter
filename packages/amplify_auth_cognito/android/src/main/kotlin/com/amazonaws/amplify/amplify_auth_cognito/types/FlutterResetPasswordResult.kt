@@ -15,6 +15,7 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
+import com.amplifyframework.auth.AuthCodeDeliveryDetails
 import com.amplifyframework.auth.result.AuthResetPasswordResult
 import com.google.gson.Gson
 
@@ -23,15 +24,29 @@ data class FlutterResetPasswordResult(private val raw: AuthResetPasswordResult) 
   val nextStep: Map<String, Any> = setNextStep();
 
   private fun setNextStep(): Map<String, Any> {
-    return mapOf(
-      "resetPasswordStep" to raw.nextStep.resetPasswordStep.toString(),
-      "additionalInfo" to Gson().toJson(raw.nextStep.additionalInfo),
-      "codeDeliveryDetails" to mapOf(
-        "destination" to (raw.nextStep.codeDeliveryDetails?.destination ?: ""),
-        "deliveryMedium" to (raw.nextStep.codeDeliveryDetails?.deliveryMedium?.name ?: ""),
-        "attributeName" to (raw.nextStep.codeDeliveryDetails?.attributeName ?: "")
+    val result =  mutableMapOf<String, Any>("resetPasswordStep" to raw.nextStep.resetPasswordStep.toString())
+    val codeDeliveryDetails = emptyMap<String, String?>().toMutableMap()
+
+    if (raw.nextStep.codeDeliveryDetails is AuthCodeDeliveryDetails) {
+      var authCodeDeliveryDetails: AuthCodeDeliveryDetails = raw.nextStep.codeDeliveryDetails!!
+      codeDeliveryDetails.putAll(mapOf(
+              "destination" to authCodeDeliveryDetails.destination,
+              "deliveryMedium" to authCodeDeliveryDetails.deliveryMedium.name)
       )
-    )
+      if (raw.nextStep.codeDeliveryDetails!!.attributeName != null) {
+        codeDeliveryDetails["attributeName"] = authCodeDeliveryDetails.attributeName
+      }
+    }
+
+    if (codeDeliveryDetails.isNotEmpty()) {
+      result["codeDeliveryDetails"] = codeDeliveryDetails
+    }
+
+    if (raw.nextStep.additionalInfo?.isNotEmpty() == true) {
+      result["additionalInfo"] = Gson().toJson(raw.nextStep.additionalInfo)
+    }
+
+    return result
   }
 
   fun toValueMap(): Map<String, Any> {

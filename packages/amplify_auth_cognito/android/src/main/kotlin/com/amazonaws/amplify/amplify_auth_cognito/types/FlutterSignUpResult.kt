@@ -15,22 +15,37 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
+import com.amplifyframework.auth.AuthCodeDeliveryDetails
 import com.amplifyframework.auth.result.AuthSignUpResult
 import com.google.gson.Gson
 
 data class FlutterSignUpResult(private var raw: AuthSignUpResult) {
   val isSignUpComplete: Boolean = raw.isSignUpComplete
-  val nextStep: Map<String, Any> = setNextStep();
+  val nextStep: Map<String, Any> = setNextStep()
   private fun setNextStep(): Map<String, Any> {
-    return mapOf(
-      "signUpStep" to raw.nextStep.signUpStep.toString(),
-      "additionalInfo" to Gson().toJson(raw.nextStep.additionalInfo),
-      "codeDeliveryDetails" to mapOf(
-        "destination" to (raw.nextStep.codeDeliveryDetails?.destination ?: ""),
-        "deliveryMedium" to (raw.nextStep.codeDeliveryDetails?.deliveryMedium?.name ?: ""),
-        "attributeName" to (raw.nextStep.codeDeliveryDetails?.attributeName ?: "")
+    val result =  mutableMapOf<String, Any>("signUpStep" to raw.nextStep.signUpStep.toString())
+    val codeDeliveryDetails = emptyMap<String, String?>().toMutableMap()
+
+    if (raw.nextStep.codeDeliveryDetails is AuthCodeDeliveryDetails) {
+      var authCodeDeliveryDetails: AuthCodeDeliveryDetails = raw.nextStep.codeDeliveryDetails!!
+      codeDeliveryDetails.putAll(mapOf(
+        "destination" to authCodeDeliveryDetails.destination,
+        "deliveryMedium" to authCodeDeliveryDetails.deliveryMedium.name)
       )
-    )
+      if (raw.nextStep.codeDeliveryDetails!!.attributeName != null) {
+        codeDeliveryDetails.put("attributeName", authCodeDeliveryDetails.attributeName)
+      }
+    }
+
+    if (codeDeliveryDetails.isNotEmpty()) {
+      result["codeDeliveryDetails"] = codeDeliveryDetails
+    }
+
+    if (raw.nextStep.additionalInfo?.isNotEmpty() == true) {
+      result["additionalInfo"] = Gson().toJson(raw.nextStep.additionalInfo)
+    }
+
+    return result
   }
 
   fun toValueMap(): Map<String, Any> {
