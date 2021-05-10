@@ -13,8 +13,8 @@ fun setNextStep(resultKey: String, resultValue: String, codeDeliveryDetails: Aut
                "destination" to codeDeliveryDetails.destination,
                "deliveryMedium" to codeDeliveryDetails.deliveryMedium.name)
        )
-       if (codeDeliveryDetails!!.attributeName != null) {
-           codeDeliveryDetailsResult.put("attributeName", codeDeliveryDetails.attributeName)
+       if (codeDeliveryDetails.attributeName != null) {
+           codeDeliveryDetailsResult["attributeName"] = codeDeliveryDetails.attributeName
        }
    }
 

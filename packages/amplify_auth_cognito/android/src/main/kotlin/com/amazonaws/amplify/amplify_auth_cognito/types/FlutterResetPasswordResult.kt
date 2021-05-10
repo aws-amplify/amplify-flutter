@@ -16,10 +16,12 @@
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
 import com.amplifyframework.auth.result.AuthResetPasswordResult
+import com.amazonaws.amplify.amplify_auth_cognito.setNextStep
+
 
 data class FlutterResetPasswordResult(private val raw: AuthResetPasswordResult) {
   val isPasswordReset: Boolean = raw.isPasswordReset
-  val nextStep: Map<String, Any> = com.amazonaws.amplify.amplify_auth_cognito.setNextStep(
+  val nextStep: Map<String, Any> = setNextStep(
     "resetPasswordStep",
     raw.nextStep.resetPasswordStep.toString(),
     raw.nextStep.codeDeliveryDetails,

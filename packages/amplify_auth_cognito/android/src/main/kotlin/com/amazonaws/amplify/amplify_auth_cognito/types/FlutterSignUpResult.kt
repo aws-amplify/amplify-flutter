@@ -16,9 +16,7 @@
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
 import com.amazonaws.amplify.amplify_auth_cognito.setNextStep
-import com.amplifyframework.auth.AuthCodeDeliveryDetails
 import com.amplifyframework.auth.result.AuthSignUpResult
-import com.google.gson.Gson
 
 data class FlutterSignUpResult(private var raw: AuthSignUpResult) {
   val isSignUpComplete: Boolean = raw.isSignUpComplete
