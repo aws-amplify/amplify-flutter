@@ -18,12 +18,12 @@ import 'package:flutter/foundation.dart';
 import './AuthProvider.dart';
 
 class SignInWithWebUIRequest {
-  AuthProvider provider;
+  AuthProvider? provider;
   SignInWithWebUIRequest({this.provider});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     if (this.provider != null) {
-      pendingRequest["authProvider"] = describeEnum(provider);
+      pendingRequest["authProvider"] = describeEnum(provider!);
     }
     return pendingRequest;
   }

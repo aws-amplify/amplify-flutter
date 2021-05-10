@@ -13,10 +13,8 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
-
 class RemoveResult {
   String key;
 
-  RemoveResult({@required this.key});
+  RemoveResult({required this.key});
 }

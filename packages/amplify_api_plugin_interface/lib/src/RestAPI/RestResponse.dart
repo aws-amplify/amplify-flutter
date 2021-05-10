@@ -14,9 +14,8 @@
  */
 
 import 'dart:typed_data';
-import 'package:flutter/foundation.dart';
 
 class RestResponse {
   Uint8List data;
-  RestResponse({@required this.data});
+  RestResponse({required this.data});
 }

@@ -15,7 +15,7 @@
 import './AuthUserOptions.dart';
 
 class AuthUserRequest {
-  AuthUserOptions options;
+  AuthUserOptions? options;
   AuthUserRequest();
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};

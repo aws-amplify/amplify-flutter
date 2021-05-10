@@ -19,7 +19,7 @@ import 'package:amplify_core/types/exception/AmplifyException.dart';
 class DataStoreException extends AmplifyException {
   /// Named constructor
   const DataStoreException(String message,
-      {String recoverySuggestion, String underlyingException})
+      {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
