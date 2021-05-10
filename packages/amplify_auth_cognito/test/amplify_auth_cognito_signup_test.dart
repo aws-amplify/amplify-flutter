@@ -36,7 +36,10 @@ void main() {
               "isSignUpComplete": false,
               "nextStep": {
                 "signUpStep": "DONE",
-                "codeDeliveryDetails": {"attributeName": "email"}
+                "codeDeliveryDetails": {
+                  "attributeName": "email",
+                  "destination": "test@test.test"
+                }
               }
             });
           case 2:

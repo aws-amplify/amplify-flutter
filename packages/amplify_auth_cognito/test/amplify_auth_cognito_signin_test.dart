@@ -35,7 +35,7 @@ void main() {
             "isSignedIn": false,
             "nextStep": {
               "signInStep": "DONE",
-              "codeDeliveryDetails": {"atttibuteName": "email"}
+              "codeDeliveryDetails": {"destination": "test@test.test"}
             }
           };
         case 2:
