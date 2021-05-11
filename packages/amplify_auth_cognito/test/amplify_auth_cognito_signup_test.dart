@@ -36,16 +36,15 @@ void main() {
               "isSignUpComplete": false,
               "nextStep": {
                 "signUpStep": "DONE",
-                "codeDeliveryDetails": {
-                  "attributeName": "email",
-                  "destination": "test@test.test"
-                }
+                "codeDeliveryDetails": {"attributeName": "email"}
               }
             });
           case 2:
-            return throw PlatformException(
-                code: "UnknownException",
-                details: Map.from({"message": "I am an exception"}));
+          return throw PlatformException(
+            code: "UnknownException",
+            details: Map.from({
+              "message": "I am an exception"
+            }));
         }
         ;
       }
@@ -85,7 +84,7 @@ void main() {
 
   test('signUp thrown PlatFormException results in AuthError', () async {
     testCode = 2;
-    late AuthException err;
+    AuthException err;
     try {
       await auth.signUp(
           request: SignUpRequest(
@@ -95,9 +94,8 @@ void main() {
                 "email": "test@test.com",
               })));
     } on AuthException catch (e) {
-      expect(e.message, "I am an exception");
-      return;
+      err = e;
     }
-    fail("No AmplifyException Thrown");
+    expect(err.message, "I am an exception");
   });
 }

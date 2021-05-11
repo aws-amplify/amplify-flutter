@@ -18,7 +18,7 @@ import '../types/AuthNextStep.dart';
 class ResetPasswordStep extends AuthNextStep {
   String updateStep;
   ResetPasswordStep(
-      {additionalInfo, codeDeliveryDetails, required this.updateStep})
+      {additionalInfo, required codeDeliveryDetails, required this.updateStep})
       : super(
             additionalInfo: additionalInfo,
             codeDeliveryDetails: codeDeliveryDetails);

@@ -31,15 +31,13 @@ void main() {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       switch (testCode) {
         case 1:
-          return {
-            "username": "testUser",
-            "userId": "testUserId",
-            "userSub": "testSub"
-          };
+          return {"username": "testUser", "userSub": "testSub"};
         case 2:
           return throw PlatformException(
-              code: "UnknownException",
-              details: Map.from({"message": "I am an exception"}));
+            code: "UnknownException",
+            details: Map.from({
+              "message": "I am an exception"
+            }));
       }
     });
   });
@@ -55,13 +53,12 @@ void main() {
 
   test('PlatformException in getCurrentUser surfaces as AuthError', () async {
     testCode = 2;
-    late AuthException err;
+    AuthException err;
     try {
       await auth.getCurrentUser();
     } on AuthException catch (e) {
-      expect(e.message, "I am an exception");
-      return;
+      err = e;
     }
-    fail("No AuthException Thrown");
+    expect(err.message, "I am an exception");
   });
 }

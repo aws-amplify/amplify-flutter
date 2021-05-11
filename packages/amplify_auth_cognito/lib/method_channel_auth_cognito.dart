@@ -35,286 +35,288 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     } on PlatformException catch (e) {
       if (e.code == "AmplifyAlreadyConfiguredException") {
         throw AmplifyAlreadyConfiguredException(
-            AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
-            recoverySuggestion:
-                AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
+          AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+          recoverySuggestion: AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
       } else {
-        throw AmplifyException.fromMap(Map<String, String>.from(e.details));
+        throw AmplifyException.fromMap(
+            Map<String, String>.from(e.details));
       }
     }
   }
 
   @override
-  Future<SignUpResult> signUp({required SignUpRequest request}) async {
+  Future<SignUpResult> signUp({SignUpRequest request}) async {
+    SignUpResult res;
     try {
-      final Map<String, dynamic>? data =
-          (await (_channel.invokeMapMethod<String, dynamic>(
+      final Map<String, dynamic> data =
+          await _channel.invokeMapMethod<String, dynamic>(
         'signUp',
         <String, dynamic>{
           'data': request.serializeAsMap(),
         },
-      )));
-      if (data == null) throw nullMapFromMethodChannelException;
-      return _formatSignUpResponse(data, "signUp");
+      );
+      res = _formatSignUpResponse(data, "signUp");
     } on PlatformException catch (e) {
-      throw castAndReturnPlatformException(e);
+      castAndThrowPlatformException(e);
     }
+    return res;
   }
 
   @override
-  Future<SignUpResult> confirmSignUp(
-      {required ConfirmSignUpRequest request}) async {
+  Future<SignUpResult> confirmSignUp({ConfirmSignUpRequest request}) async {
+    SignUpResult res;
     try {
-      final Map<String, dynamic>? data =
-          (await (_channel.invokeMapMethod<String, dynamic>(
+      final Map<String, dynamic> data =
+          await _channel.invokeMapMethod<String, dynamic>(
         'confirmSignUp',
         <String, dynamic>{
           'data': request.serializeAsMap(),
         },
-      )));
-      if (data == null) throw nullMapFromMethodChannelException;
-      return _formatSignUpResponse(data, "confirmSignUp");
+      );
+      res = _formatSignUpResponse(data, "confirmSignUp");
+      return res;
     } on PlatformException catch (e) {
-      throw castAndReturnPlatformException(e);
+      castAndThrowPlatformException(e);
     }
+    return res;
   }
 
   @override
   Future<ResendSignUpCodeResult> resendSignUpCode(
-      {required ResendSignUpCodeRequest request}) async {
+      {ResendSignUpCodeRequest request}) async {
+    ResendSignUpCodeResult res;
     try {
-      final Map<String, dynamic>? data =
-          (await (_channel.invokeMapMethod<String, dynamic>(
+      final Map<String, dynamic> data =
+          await _channel.invokeMapMethod<String, dynamic>(
         'resendSignUpCode',
         <String, dynamic>{
           'data': request.serializeAsMap(),
         },
-      )));
-      if (data == null) throw nullMapFromMethodChannelException;
-      return _formatResendSignUpResponse(data, "resendSignUpCode");
+      );
+      res = _formatResendSignUpResponse(data, "resendSignUpCode");
+      return res;
     } on PlatformException catch (e) {
-      throw castAndReturnPlatformException(e);
+      castAndThrowPlatformException(e);
     }
+    return res;
   }
 
   @override
-  Future<SignInResult> signIn({required SignInRequest request}) async {
+  Future<SignInResult> signIn({SignInRequest request}) async {
+    SignInResult res;
     try {
-      final Map<String, dynamic>? data =
-          (await (_channel.invokeMapMethod<String, dynamic>(
+      final Map<String, dynamic> data =
+          await _channel.invokeMapMethod<String, dynamic>(
         'signIn',
         <String, dynamic>{
           'data': request.serializeAsMap(),
         },
-      )));
-      if (data == null) throw nullMapFromMethodChannelException;
-      return _formatSignInResponse(data, "signIn");
+      );
+      res = _formatSignInResponse(data, "signIn");
+      return res;
     } on PlatformException catch (e) {
-      throw castAndReturnPlatformException(e);
+      castAndThrowPlatformException(e);
     }
+    return res;
   }
 
   @override
-  Future<SignInResult> confirmSignIn({ConfirmSignInRequest? request}) async {
+  Future<SignInResult> confirmSignIn({ConfirmSignInRequest request}) async {
+    SignInResult res;
     try {
-      final Map<String, dynamic>? data =
-          (await (_channel.invokeMapMethod<String, dynamic>(
+      final Map<String, dynamic> data =
+          await _channel.invokeMapMethod<String, dynamic>(
         'confirmSignIn',
         <String, dynamic>{
           'data': request != null ? request.serializeAsMap() : null,
         },
-      )));
-      if (data == null) throw nullMapFromMethodChannelException;
-      return _formatSignInResponse(data, "confirmSignIn");
+      );
+      res = _formatSignInResponse(data, "confirmSignIn");
+      return res;
     } on PlatformException catch (e) {
-      throw castAndReturnPlatformException(e);
+      castAndThrowPlatformException(e);
     }
+    return res;
   }
 
   @override
-  Future<SignOutResult> signOut({SignOutRequest? request}) async {
+  Future<SignOutResult> signOut({SignOutRequest request}) async {
+    SignOutResult res;
     try {
-      final Map<String, dynamic>? data =
-          (await (_channel.invokeMapMethod<String, dynamic>(
+      final Map<String, dynamic> data =
+          await _channel.invokeMapMethod<String, dynamic>(
         'signOut',
         <String, dynamic>{
           'data': request != null ? request.serializeAsMap() : {},
         },
-      )));
-      if (data == null) throw nullMapFromMethodChannelException;
-      return _formatSignOutResponse(data);
+      );
+      res = _formatSignOutResponse(data);
+      return res;
     } on PlatformException catch (e) {
-      throw castAndReturnPlatformException(e);
+      castAndThrowPlatformException(e);
     }
+    return res;
   }
 
   @override
   Future<UpdatePasswordResult> updatePassword(
-      {UpdatePasswordRequest? request}) async {
+      {UpdatePasswordRequest request}) async {
+    UpdatePasswordResult res;
     try {
-      final Map<String, dynamic>? data =
-          (await (_channel.invokeMapMethod<String, dynamic>(
+      final Map<String, dynamic> data =
+          await _channel.invokeMapMethod<String, dynamic>(
         'updatePassword',
         <String, dynamic>{
           'data': request != null ? request.serializeAsMap() : null,
         },
-      )));
-      if (data == null) throw nullMapFromMethodChannelException;
-      return _formatPasswordResponse(data);
+      );
+      res = _formatPasswordResponse(data);
+      return res;
     } on PlatformException catch (e) {
-      throw castAndReturnPlatformException(e);
+      castAndThrowPlatformException(e);
     }
+    return res;
   }
 
   @override
   Future<ResetPasswordResult> resetPassword(
-      {ResetPasswordRequest? request}) async {
+      {ResetPasswordRequest request}) async {
+    ResetPasswordResult res;
     try {
-      final Map<String, dynamic>? data =
-          (await (_channel.invokeMapMethod<String, dynamic>(
+      final Map<String, dynamic> data =
+          await _channel.invokeMapMethod<String, dynamic>(
         'resetPassword',
         <String, dynamic>{
           'data': request != null ? request.serializeAsMap() : null,
         },
-      )));
-      if (data == null) throw nullMapFromMethodChannelException;
-      return _formatResetPasswordResponse(data);
+      );
+      res = _formatResetPasswordResponse(data);
+      return res;
     } on PlatformException catch (e) {
-      throw castAndReturnPlatformException(e);
+      castAndThrowPlatformException(e);
     }
+    return res;
   }
 
   @override
   Future<UpdatePasswordResult> confirmPassword(
-      {ConfirmPasswordRequest? request}) async {
+      {ConfirmPasswordRequest request}) async {
+    UpdatePasswordResult res;
     try {
-      final Map<String, dynamic>? data =
-          (await (_channel.invokeMapMethod<String, dynamic>(
+      final Map<String, dynamic> data =
+          await _channel.invokeMapMethod<String, dynamic>(
         'confirmPassword',
         <String, dynamic>{
           'data': request != null ? request.serializeAsMap() : null,
         },
-      )));
-      if (data == null) throw nullMapFromMethodChannelException;
-      return _formatPasswordResponse(data);
+      );
+      res = _formatPasswordResponse(data);
+      return res;
     } on PlatformException catch (e) {
-      throw castAndReturnPlatformException(e);
+      castAndThrowPlatformException(e);
     }
+    return res;
   }
 
   @override
-  Future<AuthSession> fetchAuthSession({AuthSessionRequest? request}) async {
+  Future<AuthSession> fetchAuthSession({AuthSessionRequest request}) async {
+    AuthSession res;
     try {
-      final Map<String, dynamic>? data =
-          (await (_channel.invokeMapMethod<String, dynamic>(
+      final Map<String, dynamic> data =
+          await _channel.invokeMapMethod<String, dynamic>(
         'fetchAuthSession',
         <String, dynamic>{
           'data': request != null ? request.serializeAsMap() : {},
         },
-      )));
-      if (data == null) throw nullMapFromMethodChannelException;
-      return _formatSessionResponse(data);
+      );
+      res = _formatSessionResponse(data);
+      return res;
     } on PlatformException catch (e) {
-      throw castAndReturnPlatformException(e);
+      castAndThrowPlatformException(e);
     }
+    return res;
   }
 
   @override
-  Future<AuthUser> getCurrentUser({AuthUserRequest? request}) async {
+  Future<AuthUser> getCurrentUser({AuthUserRequest request}) async {
+    AuthUser res;
     try {
-      final Map<String, dynamic>? data =
-          (await (_channel.invokeMapMethod<String, dynamic>(
+      final Map<String, dynamic> data =
+          await _channel.invokeMapMethod<String, dynamic>(
         'getCurrentUser',
         <String, dynamic>{
           'data': request != null ? request.serializeAsMap() : {},
         },
-      )));
-      if (data == null) throw nullMapFromMethodChannelException;
-      return _formatAuthUserResponse(data);
+      );
+      res = _formatAuthUserResponse(data);
+      return res;
     } on PlatformException catch (e) {
-      throw castAndReturnPlatformException(e);
+      castAndThrowPlatformException(e);
     }
+    return res;
   }
 
   @override
   Future<List<AuthUserAttribute>> fetchUserAttributes(
-      {AuthUserAttributeRequest? request}) async {
+      {AuthUserAttributeRequest request}) async {
+    List<AuthUserAttribute> res;
     try {
-      final List<Map<dynamic, dynamic>>? data =
-          (await (_channel.invokeListMethod(
+      final List<Map<dynamic, dynamic>> data = await _channel.invokeListMethod(
         'fetchUserAttributes',
         <String, dynamic>{
           'data': request != null ? request.serializeAsMap() : {},
         },
-      )));
-      if (data == null) throw nullMapFromMethodChannelException;
-      return formatFetchAttributesResponse(data);
+      );
+      res = formatFetchAttributesResponse(data);
+      return res;
     } on PlatformException catch (e) {
-      throw castAndReturnPlatformException(e);
+      castAndThrowPlatformException(e);
     }
+    return res;
   }
 
   @override
-  Future<SignInResult> signInWithWebUI(
-      {SignInWithWebUIRequest? request}) async {
+  Future<SignInResult> signInWithWebUI({SignInWithWebUIRequest request}) async {
+    SignInResult res;
     try {
-      final Map<String, dynamic>? data =
-          (await (_channel.invokeMapMethod<String, dynamic>(
+      final Map<String, dynamic> data =
+          await _channel.invokeMapMethod<String, dynamic>(
         'signInWithWebUI',
         <String, dynamic>{
           'data': request != null ? request.serializeAsMap() : null,
         },
-      )));
-      if (data == null) throw nullMapFromMethodChannelException;
+      );
       return _formatSignInResponse(data, "signIn");
     } on PlatformException catch (e) {
-      throw castAndReturnPlatformException(e);
+      castAndThrowPlatformException(e);
     }
+    return res;
   }
 
   SignUpResult _formatSignUpResponse(Map<String, dynamic> res, method) {
-    var codeDeliveryDetails = res["nextStep"]["codeDeliveryDetails"];
     return CognitoSignUpResult(
         isSignUpComplete: res["isSignUpComplete"],
         nextStep: AuthNextSignUpStep(
             signUpStep: res["nextStep"]["signUpStep"],
-            codeDeliveryDetails: codeDeliveryDetails != null
-            ? AuthCodeDeliveryDetails(
-              attributeName: codeDeliveryDetails["attributeName"],
-              deliveryMedium: codeDeliveryDetails["deliveryMedium"],
-              destination: codeDeliveryDetails["destination"])
-            : null,
+            codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
             additionalInfo: res["nextStep"]["additionalInfo"] is String
-            ? jsonDecode(res["nextStep"]["additionalInfo"])
-            : null
-        ));
+                ? jsonDecode(res["nextStep"]["additionalInfo"])
+                : {}));
   }
-
 
   ResendSignUpCodeResult _formatResendSignUpResponse(
       Map<String, dynamic> res, method) {
-    return CognitoResendSignUpCodeResult(AuthCodeDeliveryDetails(
-        attributeName: res["codeDeliveryDetails"]["attributeName"] ?? null,
-        deliveryMedium: res["codeDeliveryDetails"]["deliveryMedium"],
-        destination: res["codeDeliveryDetails"]["destination"]));
+    return CognitoResendSignUpCodeResult(
+        codeDeliveryDetails: res["codeDeliveryDetails"]);
   }
 
   SignInResult _formatSignInResponse(Map<String, dynamic> res, String method) {
-    var codeDeliveryDetails = res["nextStep"]["codeDeliveryDetails"];
     return CognitoSignInResult(
         isSignedIn: res["isSignedIn"],
         nextStep: AuthNextSignInStep(
             signInStep: res["nextStep"]["signInStep"],
-            codeDeliveryDetails: codeDeliveryDetails != null
-                ? AuthCodeDeliveryDetails(
-                attributeName: codeDeliveryDetails["attributeName"],
-                deliveryMedium: codeDeliveryDetails["deliveryMedium"],
-                destination: codeDeliveryDetails["destination"])
-                : null,
-            additionalInfo: res["nextStep"]["additionalInfo"] is String
-                ? jsonDecode(res["nextStep"]["additionalInfo"])
-                : null
-          ));
+            codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
+            additionalInfo: res["nextStep"]["additionalInfo"] ?? {}));
   }
 
   UpdatePasswordResult _formatPasswordResponse(Map<String, dynamic> res) {
@@ -342,21 +344,14 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   }
 
   ResetPasswordResult _formatResetPasswordResponse(Map<String, dynamic> res) {
-    var codeDeliveryDetails = res["nextStep"]["codeDeliveryDetails"];
     return CognitoResetPasswordResult(
         isPasswordReset: res["isPasswordReset"],
         nextStep: ResetPasswordStep(
             updateStep: res["nextStep"]["resetPasswordStep"],
-            codeDeliveryDetails: codeDeliveryDetails != null
-              ? AuthCodeDeliveryDetails(
-              attributeName: codeDeliveryDetails["attributeName"] ?? null,
-              deliveryMedium: codeDeliveryDetails["deliveryMedium"] ?? null,
-              destination: codeDeliveryDetails["destination"])
-              : null,
+            codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
             additionalInfo: res["nextStep"]["additionalInfo"] is String
-              ? jsonDecode(res["nextStep"]["additionalInfo"])
-              : null
-        ));
+                ? jsonDecode(res["nextStep"]["additionalInfo"])
+                : {}));
   }
 
   AuthSession _formatSessionResponse(Map<String, dynamic> res) {

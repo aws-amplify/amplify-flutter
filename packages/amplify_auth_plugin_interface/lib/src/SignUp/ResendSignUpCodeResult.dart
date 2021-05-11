@@ -17,5 +17,9 @@ import '../types/AuthCodeDeliveryDetails.dart';
 
 class ResendSignUpCodeResult {
   AuthCodeDeliveryDetails codeDeliveryDetails;
-  ResendSignUpCodeResult(this.codeDeliveryDetails);
+  ResendSignUpCodeResult({required codeDeliveryDetails})
+      : this.codeDeliveryDetails = AuthCodeDeliveryDetails(
+            attributeName: codeDeliveryDetails["attributeName"],
+            deliveryMedium: codeDeliveryDetails["deliveryMedium"],
+            destination: codeDeliveryDetails["destination"]);
 }

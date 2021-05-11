@@ -21,15 +21,15 @@ extension IsEqual on SignInResult {
   // This method only checks the length of the additionalInfo field, and the values of all other fields
   bool isMostlyEqual(SignInResult comparator) {
     return comparator.isSignedIn == isSignedIn &&
-        comparator.nextStep!.signInStep == nextStep!.signInStep &&
-        comparator.nextStep!.additionalInfo?.length ==
-            nextStep!.additionalInfo?.length &&
-        comparator.nextStep!.codeDeliveryDetails!.destination ==
-            nextStep!.codeDeliveryDetails!.destination &&
-        comparator.nextStep!.codeDeliveryDetails!.attributeName ==
-            nextStep!.codeDeliveryDetails!.attributeName &&
-        comparator.nextStep!.codeDeliveryDetails!.deliveryMedium ==
-            nextStep!.codeDeliveryDetails!.deliveryMedium;
+        comparator.nextStep.signInStep == nextStep.signInStep &&
+        comparator.nextStep.additionalInfo.length ==
+            nextStep.additionalInfo.length &&
+        comparator.nextStep.codeDeliveryDetails.destination ==
+            nextStep.codeDeliveryDetails.destination &&
+        comparator.nextStep.codeDeliveryDetails.attributeName ==
+            nextStep.codeDeliveryDetails.attributeName &&
+        comparator.nextStep.codeDeliveryDetails.deliveryMedium ==
+            nextStep.codeDeliveryDetails.deliveryMedium;
   }
 }
 
@@ -55,8 +55,8 @@ void main() {
           "nextStep": {
             "signInStep": "DONE",
             "codeDeliveryDetails": {
-              "attributeName": "email",
               "deliveryMedium": "EMAIL",
+              "attributeName": "email",
               "destination": "test@test.test"
             }
           }
@@ -69,11 +69,12 @@ void main() {
     var expectation = CognitoSignInResult(
         isSignedIn: false,
         nextStep: AuthNextSignInStep(
-          additionalInfo: null,
-          codeDeliveryDetails: AuthCodeDeliveryDetails(
-              attributeName: "email",
-              deliveryMedium: "EMAIL",
-              destination: "test@test.test"),
+          additionalInfo: {},
+          codeDeliveryDetails: {
+            "deliveryMedium": "EMAIL",
+            "attributeName": "email",
+            "destination": "test@test.test"
+          },
           signInStep: "DONE",
         ));
     var res = await auth.confirmSignIn(
@@ -97,20 +98,21 @@ void main() {
         assert(methodCall.arguments["data"]["confirmationCode"] is String);
         return throw PlatformException(
             code: "UnknownException",
-            details: Map.from({"message": "I am an exception"}));
+            details: Map.from({
+              "message": "I am an exception"
+            }));
       } else {
         return true;
       }
     });
-    late AuthException err;
+    AuthException err;
     try {
       await auth.confirmSignIn(
           request: ConfirmSignInRequest(confirmationValue: "iAmNotLegit"));
-    } on AuthException catch (e) {
-      expect(e.message, "I am an exception");
-      expect(e, isInstanceOf<AuthException>());
-      return;
+    } catch (e) {
+      err = e;
     }
-    fail("No AuthException Thrown");
+    expect(err.message, "I am an exception");
+    expect(err, isInstanceOf<AuthException>());
   });
 }

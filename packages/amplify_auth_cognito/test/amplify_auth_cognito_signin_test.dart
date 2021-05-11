@@ -35,13 +35,15 @@ void main() {
             "isSignedIn": false,
             "nextStep": {
               "signInStep": "DONE",
-              "codeDeliveryDetails": {"destination": "test@test.test"}
+              "codeDeliveryDetails": {"atttibuteName": "email"}
             }
           };
         case 2:
           return throw PlatformException(
-              code: "UnknownException",
-              details: Map.from({"message": "I am an exception"}));
+            code: "UnknownException",
+            details: Map.from({
+              "message": "I am an exception"
+            }));
       }
     });
   });
@@ -78,14 +80,13 @@ void main() {
 
   test('signIn thrown PlatFormException results in AuthError', () async {
     testCode = 2;
-    late AuthException err;
+    AuthException err;
     try {
       await auth.signIn(
           request: SignInRequest(username: 'testUser', password: '123'));
     } on AuthException catch (e) {
-      expect(e.message, "I am an exception");
-      return;
+      err = e;
     }
-    fail("No AmplifyException Thrown");
+    expect(err.message, "I am an exception");
   });
 }

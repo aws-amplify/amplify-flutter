@@ -24,7 +24,7 @@ class ConfirmSignInRequest {
       'confirmationCode': confirmationValue,
     };
     if (options != null) {
-      pendingRequest['options'] = options?.serializeAsMap();
+      pendingRequest['options'] = options;
     }
     return pendingRequest;
   }

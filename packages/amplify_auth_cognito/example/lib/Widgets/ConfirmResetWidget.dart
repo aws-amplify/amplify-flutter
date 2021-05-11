@@ -8,7 +8,7 @@ class ConfirmResetWidget extends StatefulWidget {
   final Function showResult;
   final Function changeDisplay;
   final Function setError;
-  final VoidCallback backToSignIn;
+  final Function backToSignIn;
 
   ConfirmResetWidget(
       this.showResult, this.changeDisplay, this.setError, this.backToSignIn);

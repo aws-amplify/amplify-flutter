@@ -44,14 +44,14 @@ class _MyAppState extends State<MyApp> {
   final confirmationCodeController = TextEditingController();
   final oldPasswordController = TextEditingController();
   final newPasswordController = TextEditingController();
-  late StreamSubscription subscription;
+  StreamSubscription subscription;
 
   bool _isAmplifyConfigured = false;
-  late AmplifyAuthCognito auth;
-  String displayState = '';
+  AmplifyAuthCognito auth;
+  String displayState;
   String authState = 'User not signed in';
   String lastHubEvent = '';
-  AmplifyException? _error;
+  AmplifyException error;
 
   @override
   void initState() {
@@ -60,7 +60,7 @@ class _MyAppState extends State<MyApp> {
 
   void showResult(_authState) async {
     setState(() {
-      _error = null;
+      error = null;
       authState = _authState;
     });
     print(authState);
@@ -68,7 +68,7 @@ class _MyAppState extends State<MyApp> {
 
   void changeDisplay(_displayState) async {
     setState(() {
-      _error = null;
+      error = null;
       displayState = _displayState;
     });
     print(displayState);
@@ -76,7 +76,7 @@ class _MyAppState extends State<MyApp> {
 
   void setError(AmplifyException e) async {
     setState(() {
-      _error = e;
+      error = e;
     });
   }
 
@@ -144,7 +144,7 @@ class _MyAppState extends State<MyApp> {
       changeDisplay('SHOW_SIGN_IN');
     } on AmplifyException catch (e) {
       setState(() {
-        _error = e;
+        error = e;
       });
       print(e);
     }
@@ -153,8 +153,7 @@ class _MyAppState extends State<MyApp> {
   void _fetchSession() async {
     try {
       CognitoAuthSession res = await Amplify.Auth.fetchAuthSession(
-              options: CognitoSessionOptions(getAWSCredentials: true))
-          as CognitoAuthSession;
+          options: CognitoSessionOptions(getAWSCredentials: true));
       showResult('Session Sign In Status = ' + res.isSignedIn.toString());
     } on AmplifyException catch (e) {
       setError(e);
@@ -200,22 +199,21 @@ class _MyAppState extends State<MyApp> {
     changeDisplay('SIGNED_IN');
   }
 
-  // error is not null at this point
-  Widget showError(AmplifyException error) {
+  Widget showErrors() {
     return Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Expanded(
               // wrap your Column in Expanded
               child: Column(children: [
-            Text('Error: ${error.runtimeType.toString()}'),
+            Text('Error: ' + error.runtimeType.toString()),
             const Padding(padding: EdgeInsets.all(10.0)),
-            Text('Message: ${error.message}'),
+            Text('Message: ' + error.message),
             if (error.recoverySuggestion != null)
-              Text('Recovery: ${error.recoverySuggestion}'),
+              Text('Recovery: ' + error.recoverySuggestion),
             const Padding(padding: EdgeInsets.all(10.0)),
             if (error.underlyingException != null)
-              Text('Underlying: + ${error.underlyingException}'),
+              Text('Underlying: ' + error.underlyingException),
             const Padding(padding: EdgeInsets.all(10.0)),
           ]))
         ]);
@@ -326,7 +324,7 @@ class _MyAppState extends State<MyApp> {
                             _isAmplifyConfigured ? null : _configureAmplify,
                         child: const Text('configure'),
                       ),
-                      if (_error != null) showError(_error!)
+                      if (error != null) showErrors()
                     ])
               ],
             ),

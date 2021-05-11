@@ -26,12 +26,12 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   var expected = CognitoSignInResult(
-      isSignedIn: true,
-      nextStep: AuthNextSignInStep(
-          signInStep: "DONE",
-          codeDeliveryDetails: AuthCodeDeliveryDetails(
-              attributeName: "email", destination: "test@test.test"),
-          additionalInfo: {}));
+    isSignedIn: true,
+    nextStep: AuthNextSignInStep(
+      signInStep: "DONE", 
+      codeDeliveryDetails: {"attributeName": "email"},
+      additionalInfo: {}
+  ));
 
   setUp(() {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
@@ -40,10 +40,7 @@ void main() {
           "isSignedIn": true,
           "nextStep": {
             "signInStep": "DONE",
-            "codeDeliveryDetails": {
-              "attributeName": "email",
-              "destination": "test@test.test"
-            }
+            "codeDeliveryDetails": {"attributeName": "email"}
           }
         };
       } else {
@@ -57,22 +54,34 @@ void main() {
   });
 
   test('signInWithWebUI (no providers) request returns SignInResult', () async {
-    var res = await auth.signInWithWebUI();
-    expect(res, isInstanceOf<SignInResult>());
-    expect(res.isSignedIn, equals(expected.isSignedIn));
-    expect(res.nextStep!.signInStep, equals(expected.nextStep!.signInStep));
-    expect(res.nextStep!.codeDeliveryDetails!.attributeName,
-        equals(expected.nextStep!.codeDeliveryDetails!.attributeName));
+    var res =  await auth.signInWithWebUI();
+    expect(
+        res,
+        isInstanceOf<SignInResult>());
+    expect(
+      res.isSignedIn,
+      equals(expected.isSignedIn));
+    expect(
+      res.nextStep.signInStep,
+      equals(expected.nextStep.signInStep));
+    expect(
+      res.nextStep.codeDeliveryDetails.attributeName,
+      equals(expected.nextStep.codeDeliveryDetails.attributeName));
   });
 
-  test('signInWithWebUI (with provider) request returns SignInResult',
-      () async {
-    var res = await auth.signInWithWebUI(
-        request: SignInWithWebUIRequest(provider: AuthProvider.amazon));
-    expect(res, isInstanceOf<SignInResult>());
-    expect(res.isSignedIn, equals(expected.isSignedIn));
-    expect(res.nextStep!.signInStep, equals(expected.nextStep!.signInStep));
-    expect(res.nextStep!.codeDeliveryDetails!.attributeName,
-        equals(expected.nextStep!.codeDeliveryDetails!.attributeName));
+    test('signInWithWebUI (with provider) request returns SignInResult', () async {
+      var res =  await auth.signInWithWebUI(request: SignInWithWebUIRequest(provider: AuthProvider.amazon));
+      expect(
+          res,
+          isInstanceOf<SignInResult>());
+      expect(
+        res.isSignedIn,
+        equals(expected.isSignedIn));
+      expect(
+        res.nextStep.signInStep,
+        equals(expected.nextStep.signInStep));
+      expect(
+        res.nextStep.codeDeliveryDetails.attributeName,
+        equals(expected.nextStep.codeDeliveryDetails.attributeName));
   });
 }

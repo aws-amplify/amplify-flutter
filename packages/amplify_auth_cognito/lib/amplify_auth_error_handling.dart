@@ -17,156 +17,128 @@ import 'package:amplify_core/types/index.dart';
 import 'package:flutter/services.dart';
 import 'amplify_auth_cognito.dart';
 
-AmplifyException nullMapFromMethodChannelException =
-    AmplifyException(AmplifyExceptionMessages.nullReturnedFromMethodChannel);
-
 /// Converts MethodChannel error data to Dart AuthException subclass
-Exception castAndReturnPlatformException(PlatformException e) {
-  switch (e.code) {
-    case "AliasExistsException":
-      {
-        return AliasExistsException.fromMap(
+void castAndThrowPlatformException(PlatformException e) {
+    switch(e.code) {
+      case "AliasExistsException": {
+        throw AliasExistsException.fromMap(
             Map<String, String>.from(e.details));
       }
-    case "CodeDeliveryFailureException":
-      {
-        return CodeDeliveryFailureException.fromMap(
+      case "CodeDeliveryFailureException": {
+        throw CodeDeliveryFailureException.fromMap(
             Map<String, String>.from(e.details));
       }
-    case "CodeExpiredException":
-    case "CognitoCodeExpiredException":
-      {
-        return CodeExpiredException.fromMap(
+      case "CodeExpiredException":
+      case "CognitoCodeExpiredException": {
+        throw CodeExpiredException.fromMap(
             Map<String, String>.from(e.details));
       }
-    case "CodeMismatchException":
-      {
-        return CodeMismatchException.fromMap(
+      case "CodeMismatchException": {
+        throw CodeMismatchException.fromMap(
             Map<String, String>.from(e.details));
       }
-    case "FailedAttemptsLimitExceededException":
-      {
-        return FailedAttemptsLimitExceededException.fromMap(
+      case "FailedAttemptsLimitExceededException": {
+        throw FailedAttemptsLimitExceededException.fromMap(
             Map<String, String>.from(e.details));
       }
-    case "InternalErrorException":
-      {
-        return InternalErrorException.fromMap(
+      case "InternalErrorException": {
+        throw InternalErrorException.fromMap(
             Map<String, String>.from(e.details));
       }
-    case "InvalidAccountTypeException":
-      {
-        return InvalidAccountTypeException.fromMap(
+      case "InvalidAccountTypeException": {
+        throw InvalidAccountTypeException.fromMap(
             Map<String, String>.from(e.details));
       }
-    case "InvalidParameterException":
-      {
-        return InvalidParameterException.fromMap(
+      case "InvalidParameterException": {
+        throw InvalidParameterException.fromMap(
             Map<String, String>.from(e.details));
       }
-    case "InvalidPasswordException":
-      {
-        return InvalidPasswordException.fromMap(
+      case "InvalidPasswordException": {
+        throw InvalidPasswordException.fromMap(
             Map<String, String>.from(e.details));
       }
-    case "LambdaException":
-      {
-        return LambdaException.fromMap(Map<String, String>.from(e.details));
-      }
-    case "LimitExceededException":
-      {
-        return LimitExceededException.fromMap(
+      case "LambdaException": {
+        throw LambdaException.fromMap(
             Map<String, String>.from(e.details));
       }
-    case "MFAMethodNotFoundException":
-      {
-        return MFAMethodNotFoundException.fromMap(
+      case "LimitExceededException": {
+        throw LimitExceededException.fromMap(
             Map<String, String>.from(e.details));
       }
-    case "NotAuthorizedException":
-      {
-        return NotAuthorizedException.fromMap(
+      case "MFAMethodNotFoundException": {
+        throw MFAMethodNotFoundException.fromMap(
             Map<String, String>.from(e.details));
       }
-    case "PasswordResetRequiredException":
-      {
-        return PasswordResetRequiredException.fromMap(
+      case "NotAuthorizedException": {
+        throw NotAuthorizedException.fromMap(
             Map<String, String>.from(e.details));
       }
-    case "ResourceNotFoundException":
-      {
-        return ResourceNotFoundException.fromMap(
+      case "PasswordResetRequiredException": {
+        throw PasswordResetRequiredException.fromMap(
             Map<String, String>.from(e.details));
       }
-    case "SessionExpiredException":
-      {
-        return SessionExpiredException.fromMap(
+      case "ResourceNotFoundException": {
+        throw ResourceNotFoundException.fromMap(
             Map<String, String>.from(e.details));
       }
-    case "SessionUnavailableOfflineException":
-      {
-        return SessionUnavailableOfflineException.fromMap(
+      case "SessionExpiredException": {
+        throw SessionExpiredException.fromMap(
             Map<String, String>.from(e.details));
       }
-    case "SessionUnavailableServiceException":
-      {
-        return SessionUnavailableServiceException.fromMap(
+      case "SessionUnavailableOfflineException": {
+        throw SessionUnavailableOfflineException.fromMap(
             Map<String, String>.from(e.details));
       }
-    case "SignedOutException":
-      {
-        return SignedOutException.fromMap(Map<String, String>.from(e.details));
-      }
-    case "SoftwareTokenMFANotFoundException":
-      {
-        return SoftwareTokenMFANotFoundException.fromMap(
+      case "SessionUnavailableServiceException": {
+        throw SessionUnavailableServiceException.fromMap(
             Map<String, String>.from(e.details));
       }
-    case "TooManyFailedAttemptsException":
-      {
-        return TooManyFailedAttemptsException.fromMap(
+      case "SignedOutException": {
+        throw SignedOutException.fromMap(
             Map<String, String>.from(e.details));
       }
-    case "TooManyRequestsException":
-      {
-        return TooManyRequestsException.fromMap(
+      case "SoftwareTokenMFANotFoundException": {
+        throw SoftwareTokenMFANotFoundException.fromMap(
             Map<String, String>.from(e.details));
       }
-    case "UnknownException":
-      {
-        return UnknownException.fromMap(Map<String, String>.from(e.details));
-      }
-    case "UserCancelledException":
-      {
-        return UserCancelledException.fromMap(
+      case "TooManyFailedAttemptsException": {
+        throw TooManyFailedAttemptsException.fromMap(
             Map<String, String>.from(e.details));
       }
-    case "UsernameExistsException":
-      {
-        return UsernameExistsException.fromMap(
+      case "TooManyRequestsException": {
+        throw TooManyRequestsException.fromMap(
             Map<String, String>.from(e.details));
       }
-    case "UserNotConfirmedException":
-      {
-        return UserNotConfirmedException.fromMap(
+      case "UnknownException": {
+        throw UnknownException.fromMap(
             Map<String, String>.from(e.details));
       }
-    case "UserNotFoundException":
-      {
-        return UserNotFoundException.fromMap(
+      case "UserCancelledException": {
+        throw UserCancelledException.fromMap(
             Map<String, String>.from(e.details));
       }
-    case "AuthException":
-      {
-        return AuthException.fromMap(Map<String, String>.from(e.details));
+      case "UsernameExistsException": {
+        throw UsernameExistsException.fromMap(
+            Map<String, String>.from(e.details));
       }
-    case "AmplifyException":
-      {
-        return AmplifyException.fromMap(Map<String, String>.from(e.details));
+      case "UserNotConfirmedException": {
+        throw UserNotConfirmedException.fromMap(
+            Map<String, String>.from(e.details));
       }
-    default:
-      {
-        return e;
+      case "UserNotFoundException": {
+        throw UserNotFoundException.fromMap(
+            Map<String, String>.from(e.details));
       }
+      case "AuthException": {
+        throw AuthException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      case "AmplifyException": {
+        throw AmplifyException.fromMap(
+            Map<String, String>.from(e.details));
+      }
+      default: {
+        throw e;
+      }
+    }
   }
-}

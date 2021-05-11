@@ -29,10 +29,7 @@ void main() {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == "resendSignUpCode") {
         return {
-          "codeDeliveryDetails": {
-            "attributeName": "email",
-            "destination": "test@test.test"
-          }
+          "codeDeliveryDetails": {"atttibuteName": "email"}
         };
       } else {
         return true;

@@ -17,9 +17,8 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'src/CognitoHubEvents/AuthHubEvent.dart';
 
-EventChannel channel =
-    const EventChannel("com.amazonaws.amplify/auth_cognito_events");
-StreamSubscription? eventStream;
+EventChannel channel = const EventChannel("com.amazonaws.amplify/auth_cognito_events");
+StreamSubscription eventStream;
 
 class AuthStreamController {
   StreamController get authStreamController {
@@ -27,36 +26,30 @@ class AuthStreamController {
   }
 }
 
-StreamController _authStreamController =
-    StreamController<AuthHubEvent>.broadcast(
+StreamController _authStreamController = StreamController<AuthHubEvent>.broadcast(
   onListen: _onListen,
   onCancel: _onCancel,
 );
 
 _onListen() {
-  if (eventStream == null) {
+  if (eventStream == null ) {
     eventStream = channel.receiveBroadcastStream(1).listen((event) {
-      switch (event["eventName"]) {
-        case "SIGNED_IN":
-          {
-            _authStreamController.add(AuthHubEvent(event["eventName"]));
-          }
-          break;
-        case "SIGNED_OUT":
-          {
-            _authStreamController.add(AuthHubEvent(event["eventName"]));
-          }
-          break;
-        case "SESSION_EXPIRED":
-          {
-            _authStreamController.add(AuthHubEvent(event["eventName"]));
-          }
-          break;
-        default:
-          {
-            print(
-                'An Unrecognized Auth Hub event has been detected on the event channel.');
-          }
+      switch(event["eventName"]) {
+        case "SIGNED_IN": {
+          _authStreamController.add(AuthHubEvent(event["eventName"]));
+        }
+        break;
+        case "SIGNED_OUT": {
+          _authStreamController.add(AuthHubEvent(event["eventName"]));
+        }
+        break;
+        case "SESSION_EXPIRED": {
+          _authStreamController.add(AuthHubEvent(event["eventName"]));
+        }
+        break;
+        default: {
+          print('An Unrecognized Auth Hub event has been detected on the event channel.');
+        }
       }
     });
   }
@@ -64,7 +57,7 @@ _onListen() {
 
 _onCancel() {
   if (!_authStreamController.hasListener) {
-    eventStream?.cancel();
+    eventStream.cancel();
     eventStream = null;
   }
-}
+} 

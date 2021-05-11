@@ -32,10 +32,7 @@ void main() {
           "isSignUpComplete": false,
           "nextStep": {
             "signUpStep": "DONE",
-            "codeDeliveryDetails": {
-              "attributeName": "email",
-              "destination": "test@test.test"
-            }
+            "codeDeliveryDetails": {"atttibuteName": "email"}
           }
         };
       } else {
