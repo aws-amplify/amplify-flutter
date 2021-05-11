@@ -150,6 +150,7 @@ releasable_branches: &releasable_branches
 workflows:
   test_deploy:
     jobs:
+      - format_analyze
       - unit_test_flutter
       - unit_test_android
       - unit_test_ios
