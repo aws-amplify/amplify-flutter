@@ -16,23 +16,16 @@
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
 import com.amplifyframework.auth.result.AuthResetPasswordResult
-import com.google.gson.Gson
+import com.amazonaws.amplify.amplify_auth_cognito.setNextStep
+
 
 data class FlutterResetPasswordResult(private val raw: AuthResetPasswordResult) {
   val isPasswordReset: Boolean = raw.isPasswordReset
-  val nextStep: Map<String, Any> = setNextStep();
-
-  private fun setNextStep(): Map<String, Any> {
-    return mapOf(
-      "resetPasswordStep" to raw.nextStep.resetPasswordStep.toString(),
-      "additionalInfo" to Gson().toJson(raw.nextStep.additionalInfo),
-      "codeDeliveryDetails" to mapOf(
-        "destination" to (raw.nextStep.codeDeliveryDetails?.destination ?: ""),
-        "deliveryMedium" to (raw.nextStep.codeDeliveryDetails?.deliveryMedium?.name ?: ""),
-        "attributeName" to (raw.nextStep.codeDeliveryDetails?.attributeName ?: "")
-      )
-    )
-  }
+  val nextStep: Map<String, Any> = setNextStep(
+    "resetPasswordStep",
+    raw.nextStep.resetPasswordStep.toString(),
+    raw.nextStep.codeDeliveryDetails,
+    raw.nextStep.additionalInfo)
 
   fun toValueMap(): Map<String, Any> {
     return mapOf(

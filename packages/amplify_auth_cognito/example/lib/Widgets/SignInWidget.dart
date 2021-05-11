@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 class SignInWidget extends StatefulWidget {
   final Function showResult;
   final Function changeDisplay;
-  final Function showCreateUser;
-  final Function signOut;
-  final Function fetchSession;
-  final Function getCurrentUser;
+  final VoidCallback showCreateUser;
+  final VoidCallback signOut;
+  final VoidCallback fetchSession;
+  final VoidCallback getCurrentUser;
   final Function setError;
 
   // ignore: public_member_api_docs
@@ -31,7 +31,8 @@ class _SignInWidgetState extends State<SignInWidget> {
       var res = await Amplify.Auth.signIn(
           username: usernameController.text.trim(),
           password: passwordController.text.trim());
-      widget.showResult('Sign In Status = ' + res.nextStep.signInStep);
+      widget.showResult(
+          'Sign In Status = ' + (res.nextStep?.signInStep ?? 'null'));
       widget
           .changeDisplay(res.isSignedIn ? 'SIGNED_IN' : 'SHOW_CONFIRM_SIGN_IN');
     } on AmplifyException catch (e) {
@@ -147,18 +148,17 @@ class _SignInWidgetState extends State<SignInWidget> {
                   ),
                 ],
               ),
-             ListView(
-                shrinkWrap: true,
-                padding: const EdgeInsets.all(5.0),
-                children: [
-                  ElevatedButton(
-                    key: Key('signin-webui-button'),
-                    onPressed: _signInWithSocialWebUI,
-                    child: const Text('Sign In With Social Provider'),
-                  ),
-                  DropdownButton<AuthProvider>(
+              ListView(
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.all(5.0),
+                  children: [
+                    ElevatedButton(
+                      key: Key('signin-webui-button'),
+                      onPressed: _signInWithSocialWebUI,
+                      child: const Text('Sign In With Social Provider'),
+                    ),
+                    DropdownButton<AuthProvider>(
                       value: provider,
-
                       icon: Icon(Icons.arrow_downward),
                       iconSize: 24,
                       elevation: 16,
@@ -167,21 +167,26 @@ class _SignInWidgetState extends State<SignInWidget> {
                         height: 2,
                         color: Colors.deepPurpleAccent,
                       ),
-                      onChanged: (AuthProvider newValue) {
+                      onChanged: (AuthProvider? newValue) {
                         setState(() {
-                          provider = newValue;
+                          if (newValue != null) {
+                            provider = newValue;
+                          }
                         });
                       },
-                      items: <AuthProvider>[AuthProvider.google, AuthProvider.facebook, AuthProvider.amazon]
-                          .map<DropdownMenuItem<AuthProvider>>((AuthProvider value) {
+                      items: <AuthProvider>[
+                        AuthProvider.google,
+                        AuthProvider.facebook,
+                        AuthProvider.amazon
+                      ].map<DropdownMenuItem<AuthProvider>>(
+                          (AuthProvider value) {
                         return DropdownMenuItem<AuthProvider>(
                           value: value,
                           child: Text(value.toString()),
                         );
                       }).toList(),
                     ),
-                ]
-              )
+                  ])
             ],
           ),
         ),
