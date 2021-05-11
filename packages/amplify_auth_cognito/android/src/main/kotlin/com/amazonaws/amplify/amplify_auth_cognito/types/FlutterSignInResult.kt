@@ -16,7 +16,6 @@
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
 import com.amplifyframework.auth.result.AuthSignInResult
-import com.google.gson.Gson
 
 data class FlutterSignInResult(private val raw: AuthSignInResult) {
   val isSignedIn: Boolean = raw.isSignInComplete
