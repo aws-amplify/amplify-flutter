@@ -92,7 +92,7 @@ void main() {
     });
     // We want to instantiate a new instance for each test so we start
     // with a fresh state as `Amplify` singleton holds a state.
-    amplify = new AmplifyClass();
+    amplify = new AmplifyClass.protected();
 
     // We only use Auth and Analytics category for testing this class.
     // Clear out their plugins before each test for a fresh state.
