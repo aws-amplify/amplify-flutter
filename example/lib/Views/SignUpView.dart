@@ -43,7 +43,7 @@ class _SignUpViewState extends State<SignUpView> {
       _signUpError = "";
     });
 
-    Map<String, dynamic> userAttributes = {
+    Map<String, String> userAttributes = {
       "email": emailController.text,
       "phone_number": phoneController.text,
     };
