@@ -41,7 +41,7 @@ commands:
             melos bootstrap
 
 jobs:
-  format_analyze:
+  format_flutter:
     executor: docker-executor
     steps:
       - install_flutter
@@ -51,8 +51,15 @@ jobs:
       - run:
           name: Validate formatting
           command: ./.circleci/validate_formatting.sh
-      # analyze is temp disabled until issues are addressed
-      # - run: melos run analyze
+
+  # analyze_flutter is temp disabled until issues are addressed
+  analyze_flutter:
+    executor: docker-executor
+    steps:
+      - install_flutter
+      - checkout
+      - install_melos
+      - run: melos run analyze
 
   unit_test_flutter:
     executor: docker-executor
@@ -151,7 +158,7 @@ releasable_branches: &releasable_branches
 workflows:
   test_deploy:
     jobs:
-      - format_analyze
+      - format_flutter
       - unit_test_flutter
       - unit_test_android
       - unit_test_ios
