@@ -22,9 +22,11 @@ class ImageLineItem extends StatelessWidget {
               onPressed: () => {
                     showDialog(
                         context: context,
-                        child: new SimpleDialog(
-                            title: Text(storageKey),
-                            children: [ImagePreview(storageKey: storageKey)]))
+                        builder: (BuildContext context) {
+                          return new SimpleDialog(
+                              title: Text(storageKey),
+                              children: [ImagePreview(storageKey: storageKey)]);
+                        })
                   })
         ]));
   }
