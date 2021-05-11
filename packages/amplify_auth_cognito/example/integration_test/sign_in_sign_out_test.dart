@@ -42,9 +42,17 @@ void main() {
     });
 
     testWidgets('should signOut', (WidgetTester tester) async {
+      // Ensure signed in before testing signOut.
+      final initalAuthRes = await Amplify.Auth.fetchAuthSession();
+      if (!initalAuthRes.isSignedIn) {
+        await Amplify.Auth.signIn(username: username, password: password);
+        final secondAuthSession = await Amplify.Auth.fetchAuthSession();
+        expect(secondAuthSession.isSignedIn, true);
+      }
+
       await Amplify.Auth.signOut();
-      final res = await Amplify.Auth.fetchAuthSession();
-      expect(res.isSignedIn, false);
+      final finalAuthSession = await Amplify.Auth.fetchAuthSession();
+      expect(finalAuthSession.isSignedIn, false);
     });
   });
 }
