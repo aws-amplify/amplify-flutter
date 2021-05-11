@@ -1,8 +1,21 @@
+/*
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_flutter/amplify.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 
 import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
@@ -10,16 +23,11 @@ import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  var username;
-  var password;
-  final email = 'amplify-flutter-test@amazon.com';
-  final phoneNumber = '+15555551234';
+  const username = String.fromEnvironment('TEST_COGNITO_USERNAME');
+  const password = String.fromEnvironment('TEST_COGNITO_PASSWORD');
 
   group('signIn and signOut', () {
     setUpAll(() async {
-      await DotEnv.load(fileName: '.env');
-      username = env['TEST_COGNITO_USERNAME'];
-      password = env['TEST_COGNITO_PASSWORD'];
       if (!Amplify.isConfigured) {
         final authPlugin = AmplifyAuthCognito();
         await Amplify.addPlugins([authPlugin]);
@@ -30,11 +38,6 @@ void main() {
     testWidgets('should signIn a user', (WidgetTester tester) async {
       final res =
           await Amplify.Auth.signIn(username: username, password: password);
-      expect(res.isSignedIn, true);
-    });
-
-    testWidgets('should fetchAuthSession', (WidgetTester tester) async {
-      final res = await Amplify.Auth.fetchAuthSession();
       expect(res.isSignedIn, true);
     });
 

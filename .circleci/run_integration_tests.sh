@@ -22,10 +22,16 @@ for plugin_dir in */; do
     if [ -d "example/integration_test" ]; then
         echo "===Running integration tests for $plugin==="
         cd example
-
+        
         for device in "${devices[@]}"
         do
-          if flutter drive --driver=test_driver/integration_test.dart --target=integration_test/main_test.dart -d $device; then
+          drive_options=( --driver=test_driver/integration_test.dart --target=integration_test/main_test.dart -d $device )
+          # auth tests require environmental variables passed to --dart-define
+          if [[ $plugin == "amplify_auth_cognito" ]]; then
+            drive_options+=( --dart-define=TEST_COGNITO_USERNAME=$TEST_COGNITO_USERNAME --dart-define=TEST_COGNITO_PASSWORD=$TEST_COGNITO_PASSWORD )
+          fi
+
+          if flutter drive "${drive_options[@]}" ; then
             tput setaf 2 # green
             echo "$plugin $device integration tests passed"
             tput sgr0
