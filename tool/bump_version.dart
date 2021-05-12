@@ -16,13 +16,14 @@
 import 'dart:io';
 
 void main() async {
-  await bumpVersionInAllPubspecFilesAndAddBlankEntryToChangelogs();
+  await _bumpVersionInFiles();
 }
 
-/// When executed, first prompts the user to enter old version, new version, and date.
-/// It then looks for instances of old version in pubspec files and updates them to new version.
-/// It also adds a blank entry to the top of CHANGELOG.md files.
-Future<void> bumpVersionInAllPubspecFilesAndAddBlankEntryToChangelogs() async {
+/// When executed, first prompts the user to enter old version, new version, and date. It then
+///   1. looks for instances of old version in pubspec files and updates them to new version.
+///   2. replaces the version string in the top-level `amplify.dart` file.
+///   3. adds a blank entry to the top of CHANGELOG.md files.
+Future<void> _bumpVersionInFiles() async {
   Future<void> _addTextToTopOfFile(String filePath, String textToAdd) async {
     final file = File(filePath);
     var contents = await file.readAsString();
