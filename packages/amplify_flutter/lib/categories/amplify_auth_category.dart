@@ -33,8 +33,7 @@ class AuthCategory {
       } on AmplifyAlreadyConfiguredException catch (e) {
         plugins.add(plugin);
       } on PlatformException catch (e) {
-        throw AmplifyException.fromMap(
-            Map<String, String>.from(e.details));
+        throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       }
     } else {
       throw AmplifyException("Auth plugin has already been added, " +
@@ -164,6 +163,40 @@ class AuthCategory {
     var request = SignInWithWebUIRequest(provider: provider);
     return plugins.length == 1
         ? plugins[0].signInWithWebUI(request: request)
+        : throw _pluginNotAddedException("Auth");
+  }
+
+  /// Updates a single user attribute and returns a [UpdateUserAttributeResult]
+  Future<UpdateUserAttributeResult> updateUserAttribute({
+    @required String userAttributeKey,
+    @required String value,
+  }) {
+    var request = UpdateUserAttributeRequest(
+        userAttributeKey: userAttributeKey, value: value);
+    return plugins.length == 1
+        ? plugins[0].updateUserAttribute(request: request)
+        : throw _pluginNotAddedException("Auth");
+  }
+
+  /// Confirms a user attribute update and returns a [ConfirmUserAttributeResult]
+  Future<ConfirmUserAttributeResult> confirmUserAttribute({
+    @required String userAttributeKey,
+    @required String confirmationCode,
+  }) {
+    var request = ConfirmUserAttributeRequest(
+        userAttributeKey: userAttributeKey, confirmationCode: confirmationCode);
+    return plugins.length == 1
+        ? plugins[0].confirmUserAttribute(request: request)
+        : throw _pluginNotAddedException("Auth");
+  }
+
+  /// Resends a confirmation code for the given attribute and returns a [ResendUserAttributeConfirmationCodeResult]
+  Future<ResendUserAttributeConfirmationCodeResult>
+      resendUserAttributeConfirmationCode({@required String userAttributeKey}) {
+    var request = ResendUserAttributeConfirmationCodeRequest(
+        userAttributeKey: userAttributeKey);
+    return plugins.length == 1
+        ? plugins[0].resendUserAttributeConfirmationCode(request: request)
         : throw _pluginNotAddedException("Auth");
   }
 }

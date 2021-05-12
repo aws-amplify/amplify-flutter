@@ -13,29 +13,27 @@
  * permissions and limitations under the License.
  */
 
+// ignore_for_file: public_member_api_docs
+
 import 'package:flutter/foundation.dart';
 
-class AuthUserAttribute {
+/// Encapsulates parameters for a request to confirm a user attribute update
+class ConfirmUserAttributeRequest {
+  /// The key of the user attribute to update
   String userAttributeKey;
-  var value;
-  AuthUserAttribute.init(
-      {@required this.userAttributeKey, @required this.value}) {
-    this.userAttributeKey = userAttributeKey;
-    if (userAttributeKey != 'phone_number') {
-      try {
-        this.value = int.parse(value);
-      } on FormatException {}
-    }
-  }
 
-  /// Creates an object that holds the key and value for a user attribute.
-  AuthUserAttribute({@required this.userAttributeKey, @required this.value}) {}
+  /// The confirmation code the user received after starting the user attribute operation
+  String confirmationCode;
 
-  // ignore: public_member_api_docs
+  ConfirmUserAttributeRequest({
+    @required this.userAttributeKey,
+    @required this.confirmationCode,
+  });
+
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     pendingRequest['userAttributeKey'] = userAttributeKey;
-    pendingRequest['value'] = value;
+    pendingRequest['confirmationCode'] = confirmationCode;
     return pendingRequest;
   }
 }

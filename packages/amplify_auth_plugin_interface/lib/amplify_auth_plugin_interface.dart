@@ -91,4 +91,22 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
   Future<SignInResult> signInWithWebUI({SignInWithWebUIRequest request}) {
     throw UnimplementedError('signInWithWebUI() has not been implemented.');
   }
+
+  Future<UpdateUserAttributeResult> updateUserAttribute(
+      {@required UpdateUserAttributeRequest request}) {
+    throw UnimplementedError('updateUserAttribute() has not been implemented.');
+  }
+
+  Future<ConfirmUserAttributeResult> confirmUserAttribute(
+      {@required ConfirmUserAttributeRequest request}) {
+    throw UnimplementedError(
+        'confirmUserAttribute() has not been implemented.');
+  }
+
+  Future<ResendUserAttributeConfirmationCodeResult>
+      resendUserAttributeConfirmationCode(
+          {@required ResendUserAttributeConfirmationCodeRequest request}) {
+    throw UnimplementedError(
+        'resendUserAttributeConfirmationCode() has not been implemented.');
+  }
 }

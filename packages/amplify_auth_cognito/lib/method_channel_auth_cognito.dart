@@ -16,6 +16,7 @@
 import 'package:amplify_core/types/exception/AmplifyException.dart';
 import 'package:amplify_core/types/exception/AmplifyExceptionMessages.dart';
 import 'package:amplify_core/types/exception/AmplifyAlreadyConfiguredException.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
@@ -35,11 +36,11 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     } on PlatformException catch (e) {
       if (e.code == "AmplifyAlreadyConfiguredException") {
         throw AmplifyAlreadyConfiguredException(
-          AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
-          recoverySuggestion: AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
+            AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+            recoverySuggestion:
+                AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
       } else {
-        throw AmplifyException.fromMap(
-            Map<String, String>.from(e.details));
+        throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       }
     }
   }
@@ -293,6 +294,64 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     return res;
   }
 
+  @override
+  Future<UpdateUserAttributeResult> updateUserAttribute(
+      {@required UpdateUserAttributeRequest request}) async {
+    UpdateUserAttributeResult res;
+    try {
+      final Map<String, dynamic> data =
+          await _channel.invokeMapMethod<String, dynamic>(
+        'updateUserAttribute',
+        <String, dynamic>{
+          'data': request != null ? request.serializeAsMap() : null,
+        },
+      );
+      return _formatUpdateUserAttributeResponse(data);
+    } on PlatformException catch (e) {
+      castAndThrowPlatformException(e);
+    }
+    return res;
+  }
+
+  @override
+  Future<ConfirmUserAttributeResult> confirmUserAttribute(
+      {@required ConfirmUserAttributeRequest request}) async {
+    ConfirmUserAttributeResult res;
+    try {
+      await _channel.invokeMapMethod<String, dynamic>(
+        'confirmUserAttribute',
+        <String, dynamic>{
+          'data': request != null ? request.serializeAsMap() : null,
+        },
+      );
+      return _formatConfirmUserAttributeResponse();
+    } on PlatformException catch (e) {
+      castAndThrowPlatformException(e);
+    }
+    return res;
+  }
+
+  @override
+  Future<ResendUserAttributeConfirmationCodeResult>
+      resendUserAttributeConfirmationCode({
+    @required ResendUserAttributeConfirmationCodeRequest request,
+  }) async {
+    ResendUserAttributeConfirmationCodeResult res;
+    try {
+      final Map<String, dynamic> data =
+          await _channel.invokeMapMethod<String, dynamic>(
+        'resendUserAttributeConfirmationCode',
+        <String, dynamic>{
+          'data': request != null ? request.serializeAsMap() : null,
+        },
+      );
+      return _formatResendUserAttributeConfirmationCodeResponse(data);
+    } on PlatformException catch (e) {
+      castAndThrowPlatformException(e);
+    }
+    return res;
+  }
+
   SignUpResult _formatSignUpResponse(Map<String, dynamic> res, method) {
     return CognitoSignUpResult(
         isSignUpComplete: res["isSignUpComplete"],
@@ -356,5 +415,28 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   AuthSession _formatSessionResponse(Map<String, dynamic> res) {
     return CognitoAuthSession.init(sessionValues: res);
+  }
+
+  UpdateUserAttributeResult _formatUpdateUserAttributeResponse(
+      Map<String, dynamic> res) {
+    return UpdateUserAttributeResult(
+        isUpdated: res["isUpdated"],
+        nextStep: AuthNextUpdateAttributeStep(
+            updateAttributeStep: res["nextStep"]["updateAttributeStep"],
+            codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
+            additionalInfo: res["nextStep"]["additionalInfo"] is String
+                ? jsonDecode(res["nextStep"]["additionalInfo"])
+                : {}));
+  }
+
+  ConfirmUserAttributeResult _formatConfirmUserAttributeResponse() {
+    return ConfirmUserAttributeResult();
+  }
+
+  ResendUserAttributeConfirmationCodeResult
+      _formatResendUserAttributeConfirmationCodeResponse(
+          Map<String, dynamic> res) {
+    return ResendUserAttributeConfirmationCodeResult(
+        codeDeliveryDetails: res["codeDeliveryDetails"]);
   }
 }
