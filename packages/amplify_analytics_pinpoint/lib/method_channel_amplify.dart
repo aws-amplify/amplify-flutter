@@ -74,10 +74,7 @@ class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpoint {
   }
 
   @override
-  Future<void> unregisterGlobalProperties({List<String>? propertyNames}) async {
-    if (propertyNames == null) {
-      propertyNames = <String>[];
-    }
+  Future<void> unregisterGlobalProperties({List<String>? propertyNames = const []}) async {
     await _channel.invokeMethod<bool>(
         'unregisterGlobalProperties', propertyNames);
   }
