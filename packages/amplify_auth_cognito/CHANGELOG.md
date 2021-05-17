@@ -1,3 +1,13 @@
+## 0.1.5 (2020-05-17)
+
+### Features
+
+- feat: add user attribute auth methods `updateUserAttribute`, `confirmUserAttribute`, `resendUserAttributeConfirmationCode` (#533)
+
+### Bug Fixes
+
+- fix: pass additionalInfo to `AuthNextSignUpStep` (#545)
+
 ## 0.1.4 (2021-04-27)
 
 ### Bug Fixes
