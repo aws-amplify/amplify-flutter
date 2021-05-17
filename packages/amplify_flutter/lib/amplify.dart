@@ -132,7 +132,7 @@ class AmplifyClass extends PlatformInterface {
   }
 
   String _getVersion() {
-    return '0.1.4';
+    return '0.1.5';
   }
 
   /// Configures Amplify with the provided configuration string.
