@@ -26,6 +26,9 @@ import 'amplify_api.dart';
 
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/api');
 
+AmplifyException nullMapFromMethodChannelException =
+    AmplifyException(AmplifyExceptionMessages.nullReturnedFromMethodChannel);
+
 class AmplifyAPIMethodChannel extends AmplifyAPI {
   dynamic _allSubscriptionsStream = null;
 
@@ -37,10 +40,10 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
       if (e.code == "AmplifyAlreadyConfiguredException") {
         throw AmplifyAlreadyConfiguredException(
             AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
-            recoverySuggestion: AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
+            recoverySuggestion:
+                AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
       } else {
-        throw AmplifyException.fromMap(
-            Map<String, String>.from(e.details));
+        throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       }
     }
   }
@@ -107,7 +110,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
 
     StreamSubscription _subscription = filteredStream.listen((event) {
       if (event['type'] == 'DONE') {
-        onDone!();
+        if (onDone != null) onDone();
       } else {
         final payload = new Map<String, dynamic>.from(event['payload']);
 
@@ -147,12 +150,12 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     required GraphQLRequest<T> request,
   }) async {
     try {
-      final Map<String, dynamic> result =
-      (await (_channel.invokeMapMethod<String, dynamic>(
+      final Map<String, dynamic>? result =
+          (await (_channel.invokeMapMethod<String, dynamic>(
         methodName,
         request.serializeAsMap(),
-      )))!;
-
+      )));
+      if (result == null) throw nullMapFromMethodChannelException;
       final errors = _deserializeGraphQLResponseErrors(result);
 
       GraphQLResponse<T> response =
@@ -206,8 +209,9 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
 
     // Attempt switch to proper async
     try {
-      final Map<String, dynamic> data = (await (_channel
-          .invokeMapMethod<String, dynamic>(methodName, inputsMap)))!;
+      final Map<String, dynamic>? data = (await (_channel
+          .invokeMapMethod<String, dynamic>(methodName, inputsMap)));
+      if (data == null) throw nullMapFromMethodChannelException;
       return _formatRestResponse(data);
     } on PlatformException catch (e) {
       throw _deserializeException(e);
