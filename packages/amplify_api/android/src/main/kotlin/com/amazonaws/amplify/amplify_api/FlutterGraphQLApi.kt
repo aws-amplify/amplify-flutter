@@ -163,7 +163,7 @@ class FlutterGraphQLApi {
                     ),
                     responseCallback,
                     errorCallback
-            )
+                )
             } else {
                 operation = Amplify.API.mutate(
                     SimpleGraphQLRequest<String>(
@@ -172,26 +172,9 @@ class FlutterGraphQLApi {
                             String::class.java,
                             GsonVariablesSerializer()
                     ),
-                    { response ->
-                        if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
-
-                        var result: Map<String, Any> = mapOf(
-                                "data" to response.data,
-                                "errors" to response.errors.map { it.message }
-                        )
-                        LOG.debug("GraphQL mutate operation succeeded with response : $result")
-                        handler.post { flutterResult.success(result) }
-                    },
-                    { exception ->
-                        if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
-
-                        LOG.error("GraphQL mutate operation failed", exception)
-                        handler.post {
-                            ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
-                                    ExceptionUtil.createSerializedError(exception))
-                        }
-                    }
-            )
+                    responseCallback,
+                    errorCallback
+                )
             }
 
 
