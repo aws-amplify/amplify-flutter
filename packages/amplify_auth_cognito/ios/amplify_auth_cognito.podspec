@@ -17,6 +17,7 @@ Pod::Spec.new do |s|
   s.dependency 'Flutter'
   s.dependency 'Amplify', '~> 1.9.2'
   s.dependency 'AmplifyPlugins/AWSCognitoAuthPlugin', '~> 1.9.2'
+  s.dependency 'ObjectMapper'
   s.dependency 'amplify_core'
   s.platform = :ios, '11.0'
 
