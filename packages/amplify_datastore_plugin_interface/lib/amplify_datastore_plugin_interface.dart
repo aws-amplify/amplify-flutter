@@ -51,10 +51,13 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
       {@required Object token, @required this.modelProvider})
       : super(token: token);
 
-  Future<void> configureModelProvider(
+  Future<void> configureDataStore(
       {@required ModelProviderInterface modelProvider}) {
-    throw UnimplementedError(
-        'configureModelProvider() has not been implemented.');
+    throw UnimplementedError('configureDataStore() has not been implemented.');
+  }
+
+  Future<void> setUpObserve() {
+    throw UnimplementedError('setUpObserve() has not been implemented.');
   }
 
   StreamController get streamController {

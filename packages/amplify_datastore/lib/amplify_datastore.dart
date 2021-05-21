@@ -45,7 +45,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
   }
 
   @override
-  Future<void> configureModelProvider(
+  Future<void> configureDataStore(
       {ModelProviderInterface modelProvider}) async {
     ModelProviderInterface provider =
         modelProvider == null ? this.modelProvider : modelProvider;
@@ -55,8 +55,11 @@ class AmplifyDataStore extends DataStorePluginInterface {
               'Pass in a modelProvider instance while instantiating DataStorePlugin');
     }
     streamWrapper.registerModelsForHub(provider);
-    return _instance.configureModelProvider(modelProvider: modelProvider);
+    return _instance.configureDataStore(modelProvider: modelProvider);
   }
+
+  @override
+  Future<void> setUpObserve() async => _instance.setUpObserve();
 
   @override
   Future<void> configure({String configuration}) async {
@@ -82,6 +85,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
     return _instance.save(model);
   }
 
+  @override
   Stream<SubscriptionEvent<T>> observe<T extends Model>(
       ModelType<T> modelType) {
     return _instance.observe(modelType);

@@ -107,13 +107,13 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             "delete" -> onDelete(result, data)
             "save" -> onSave(result, data)
             "clear" -> onClear(result)
-            "setupObserve" -> onSetupObserve(result)
-            "configureModelProvider" -> onConfigureModelProvider(result, data)
+            "setUpObserve" -> onSetUpObserve(result)
+            "configureDataStore" -> onConfigureDataStore(result, data)
             else -> result.notImplemented()
         }
     }
 
-    private fun onConfigureModelProvider(flutterResult: Result, request: Map<String, Any>) {
+    private fun onConfigureDataStore(flutterResult: Result, request: Map<String, Any>) {
 
         if (!request.containsKey("modelSchemas") || !request.containsKey(
                         "modelProviderVersion") || request["modelSchemas"] !is List<*>) {
@@ -304,7 +304,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         )
     }
 
-    fun onSetupObserve(result: Result) {
+    fun onSetUpObserve(flutterResult: Result) {
         val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
 
         plugin.observe(
@@ -327,7 +327,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 },
                 { LOG.info("Observation complete.") }
         )
-        result.success(true)
+        flutterResult.success(true)
     }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
