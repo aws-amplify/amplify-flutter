@@ -18,7 +18,6 @@ library amplify_storage_plugin;
 import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import './method_channel_storage_s3.dart';
-import 'package:flutter/foundation.dart';
 
 export './src/types.dart';
 export 'package:amplify_storage_plugin_interface/src/types.dart';
@@ -29,14 +28,14 @@ class AmplifyStorageS3 extends StoragePluginInterface {
   /// Constructs a AmplifyStoragePlugin.
   AmplifyStorageS3() : super(token: _token);
 
-  static AmplifyStorageS3 _instance = AmplifyStorageS3MethodChannel();
+  static StoragePluginInterface _instance = AmplifyStorageS3MethodChannel();
 
   /// The default instance of [AmplifyStoragePlugin] to use.
   static StoragePluginInterface get instance => _instance;
 
   static set instance(StoragePluginInterface instance) {
     PlatformInterface.verifyToken(instance, _token);
-    _instance = instance as AmplifyStorageS3;
+    _instance = instance;
   }
 
   @override

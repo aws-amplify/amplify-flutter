@@ -12,8 +12,8 @@ class S3ListOptions extends ListOptions {
   @override
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> optionsMap = <String, dynamic>{
-      'accessLevel' : describeEnum(accessLevel),
-      'targetIdentifyId' : targetIdentityId
+      'accessLevel': describeEnum(accessLevel),
+      'targetIdentifyId': targetIdentityId
     };
     optionsMap.removeWhere((_, v) => v == null);
     return optionsMap;
