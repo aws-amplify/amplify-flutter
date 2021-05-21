@@ -123,13 +123,14 @@ class FlutterRestApi {
              */
             if (!result.code.isSuccessful) {
                 handler.post {
-                    ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
-                            ExceptionUtil.createSerializedError(
-                                    ApiException(
-                                            "The HTTP response status code is [" + result.code.toString().substring(16, 19) + "].",
-                                            recoverySuggestion)
-                            )
+                    var serializedError = ExceptionUtil.createSerializedError(
+                            ApiException(
+                                    "The HTTP response status code is [" + result.code.toString().substring(16, 19) + "].",
+                                    recoverySuggestion)
                     )
+                    var httpStatusCode = result.code?.hashCode()?.toString();
+                    var serializedErrorWithStatusCode = mapOf("httpStatusCode" to httpStatusCode) + serializedError;
+                    ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException", serializedErrorWithStatusCode)
                 }
                 return
             } else {
