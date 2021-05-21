@@ -37,10 +37,10 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
       if (e.code == "AmplifyAlreadyConfiguredException") {
         throw AmplifyAlreadyConfiguredException(
             AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
-            recoverySuggestion: AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
+            recoverySuggestion:
+                AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
       } else {
-        throw AmplifyException.fromMap(
-            Map<String, String>.from(e.details));
+        throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       }
     }
   }
@@ -271,6 +271,11 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   // ====== GENERAL METHODS ======
 
   ApiException _deserializeException(PlatformException e) {
+    // TEMP question: Would it also be possible/desirable to define more specific error
+    // exception classes here? For example, could we define HTTPNotFoundError (extends ApiError)
+    // and look at the serialized httpStatusCode to define which one to create.
+    // That way, customers would not need `code == 404` etc...
+
     if (e.code == 'ApiException') {
       return ApiException.fromMap(Map<String, String>.from(e.details));
     } else {

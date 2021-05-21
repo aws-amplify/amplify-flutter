@@ -29,7 +29,8 @@ class ApiException extends AmplifyException {
             underlyingException: underlyingException);
 
   /// Constructor for down casting an AmplifyException to this exception
-  ApiException._private(AmplifyException exception, int httpStatusCodeFromException)
+  ApiException._private(
+      AmplifyException exception, int httpStatusCodeFromException)
       : httpStatusCode = httpStatusCodeFromException,
         super(exception.message,
             recoverySuggestion: exception.recoverySuggestion,
@@ -38,7 +39,9 @@ class ApiException extends AmplifyException {
   /// Instantiates and return a new `ApiException` from the
   /// serialized exception data
   static ApiException fromMap(Map<String, String> serializedException) {
-    final statusCode = int.tryParse(serializedException["httpStatusCode"] ?? "") ?? null;
-    return ApiException._private(AmplifyException.fromMap(serializedException), statusCode);
+    final statusCode =
+        int.tryParse(serializedException["httpStatusCode"] ?? "") ?? null;
+    return ApiException._private(
+        AmplifyException.fromMap(serializedException), statusCode);
   }
 }

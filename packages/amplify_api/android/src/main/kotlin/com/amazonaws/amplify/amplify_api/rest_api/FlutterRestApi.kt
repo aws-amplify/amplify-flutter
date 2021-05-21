@@ -116,19 +116,14 @@ class FlutterRestApi {
                     """
 
             // if code is not 200 then throw an exception
-            /*
-            result.code.toString = "Code{" +
-                "statusCode=" + statusCode +
-                '}';
-             */
             if (!result.code.isSuccessful) {
                 handler.post {
+                    var httpStatusCode = result.code?.hashCode()?.toString();
                     var serializedError = ExceptionUtil.createSerializedError(
                             ApiException(
-                                    "The HTTP response status code is [" + result.code.toString().substring(16, 19) + "].",
+                                    "The HTTP response status code is [$httpStatusCode].",
                                     recoverySuggestion)
                     )
-                    var httpStatusCode = result.code?.hashCode()?.toString();
                     var serializedErrorWithStatusCode = mapOf("httpStatusCode" to httpStatusCode) + serializedError;
                     ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException", serializedErrorWithStatusCode)
                 }
