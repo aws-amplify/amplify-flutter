@@ -16,7 +16,6 @@
 library amplify_analytics_pinpoint;
 
 import 'package:amplify_analytics_plugin_interface/amplify_analytics_plugin_interface.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import './method_channel_amplify.dart';
@@ -28,7 +27,7 @@ class AmplifyAnalyticsPinpoint extends AnalyticsPluginInterface {
 
   AmplifyAnalyticsPinpoint() : super(token: _token);
 
-  static AmplifyAnalyticsPinpoint _instance =
+  static AnalyticsPluginInterface _instance =
       AmplifyAnalyticsPinpointMethodChannel();
 
   static AnalyticsPluginInterface get instance => _instance;
@@ -37,7 +36,7 @@ class AmplifyAnalyticsPinpoint extends AnalyticsPluginInterface {
   /// class that extends [AnalyticsPluginInterface] when they register themselves.
   static set instance(AnalyticsPluginInterface instance) {
     PlatformInterface.verifyToken(instance, _token);
-    _instance = instance as AmplifyAnalyticsPinpoint;
+    _instance = instance;
   }
 
   // Public facing methods
