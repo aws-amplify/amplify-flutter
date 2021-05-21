@@ -31,13 +31,12 @@ class DataStoreCategory {
         // Extra step to configure datastore specifically.
         // Note: The native datastore plugins are not added
         // in the `onAttachedToEngine` but rather in the `configure()
-        await plugin.configureModelProvider(modelProvider: plugin.modelProvider);
+        await plugin.configureDataStore(modelProvider: plugin.modelProvider);
         plugins.add(plugin);
       } on AmplifyAlreadyConfiguredException catch (e) {
         plugins.add(plugin);
       } on PlatformException catch (e) {
-        throw AmplifyException.fromMap(
-            Map<String, String>.from(e.details));
+        throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       }
     } else {
       throw AmplifyException("DataStore plugin has already been added, " +
@@ -45,9 +44,24 @@ class DataStoreCategory {
     }
   }
 
+  /// Set up DataStore observe. Since this method is called after Amplify is
+  /// configured, with or without a DataStore plugin, allow it to be
+  /// conditionally run without throwing an exception if the plugin isn't added.
+  Future<void> setUpObserve() async {
+    if (plugins.length == 1) {
+      await plugins[0].setUpObserve();
+    }
+  }
+
   StreamController get streamController {
     return plugins.length == 1
         ? plugins[0].streamController
+        : throw _pluginNotAddedException("DataStore");
+  }
+
+  Future<void> configure(String configuration) async {
+    return plugins.length == 1
+        ? plugins[0].configure(configuration: configuration)
         : throw _pluginNotAddedException("DataStore");
   }
 
@@ -84,11 +98,5 @@ class DataStoreCategory {
     return plugins.length == 1
         ? plugins[0].clear()
         : throw _pluginNotAddedException("DataStore");
-  }
-
-  Future<void> configure(String configuration) async {
-    return plugins.forEach((plugin) {
-      plugin.configure(configuration: configuration);
-    });
   }
 }

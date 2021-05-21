@@ -25,14 +25,15 @@ const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/datastore');
 class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   var _allModelsStreamFromMethodChannel = null;
 
-  /// This method adds model schemas which is necessary to instantiate native plugins
-  /// This is needed before the Amplify.configure() can be called, since the native
-  /// plugins are needed to be added before that.
-  Future<void> configureModelProvider(
+  /// This method instantiates the native DataStore plugins with plugin
+  /// configurations. This needs to happen before Amplify.configure() can be
+  /// called.
+  @override
+  Future<void> configureDataStore(
       {ModelProviderInterface modelProvider}) async {
     try {
       return await _channel
-          .invokeMethod('configureModelProvider', <String, dynamic>{
+          .invokeMethod('configureDataStore', <String, dynamic>{
         'modelSchemas':
             modelProvider.modelSchemas.map((schema) => schema.toMap()).toList(),
         'modelProviderVersion': modelProvider.version
@@ -40,20 +41,28 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
     } on PlatformException catch (e) {
       if (e.code == "AmplifyAlreadyConfiguredException") {
         throw AmplifyAlreadyConfiguredException(
-          AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
-          recoverySuggestion: AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
+            AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+            recoverySuggestion:
+                AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
       } else {
         throw _deserializeException(e);
       }
     }
   }
 
-  /// This methods configure an event channel to carry datastore observe events. This
-  /// can only be done after Amplify.configure() is called and before any observe()
-  /// method is called.
+  /// This method sets up an event channel to carry datastore observe events.
+  /// This is invoked as the last step of Amplify.configure() and must be called
+  /// before any observe() method is called. This is the first step to
+  /// configuring datastore.
+  @override
+  Future<void> setUpObserve() async {
+    return _channel.invokeMethod('setUpObserve', {});
+  }
+
+  @override
   Future<void> configure({String configuration}) async {
-    // First step to configure datastore is to setup an event channel for observe
-    return _channel.invokeMethod('setupObserve', {});
+    // Reserving this method signature for native `DataStore.configure()`
+    // invocation as needed in the future
   }
 
   @override

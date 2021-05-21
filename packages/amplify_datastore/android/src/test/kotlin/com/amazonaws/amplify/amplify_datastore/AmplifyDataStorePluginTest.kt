@@ -407,7 +407,7 @@ class AmplifyDataStorePluginTest {
                 any<Consumer<DataStoreException>>(),
                 any<Action>())
 
-        flutterPlugin.onSetupObserve(mockResult)
+        flutterPlugin.onSetUpObserve(mockResult)
 
         verify(mockResult, times(1)).success(true)
         verify(mockStreamHandler, times(1)).sendEvent(eventData)
@@ -427,7 +427,7 @@ class AmplifyDataStorePluginTest {
                 any<Consumer<DataStoreException>>(),
                 any<Action>())
 
-        flutterPlugin.onSetupObserve(mockResult)
+        flutterPlugin.onSetUpObserve(mockResult)
 
         verify(mockResult, times(1)).success(true)
         verify(mockStreamHandler, times(1)).error(
