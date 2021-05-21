@@ -16,6 +16,7 @@
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api_example/graphql_api_view.dart';
 import 'package:amplify_api_example/rest_api_view.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 import 'amplifyconfiguration.dart';
@@ -34,6 +35,7 @@ class _MyAppState extends State<MyApp> {
   bool _showRestApiView = true;
 
   AmplifyAPI apiRest;
+  AmplifyAuthCognito auth;
 
   @override
   void initState() {
@@ -43,8 +45,9 @@ class _MyAppState extends State<MyApp> {
 
   void _configureAmplify() async {
     apiRest = AmplifyAPI();
+    auth = AmplifyAuthCognito();
 
-    Amplify.addPlugin(apiRest);
+    Amplify.addPlugins([auth, apiRest]);
     try {
       await Amplify.configure(amplifyconfig);
     } on AmplifyAlreadyConfiguredException {

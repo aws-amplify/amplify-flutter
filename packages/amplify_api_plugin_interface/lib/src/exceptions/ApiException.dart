@@ -17,22 +17,28 @@ import 'package:amplify_core/types/exception/AmplifyException.dart';
 
 /// Exception thrown from Api Category
 class ApiException extends AmplifyException {
+  /// HTTP status of response, only available if error
+  final int httpStatusCode;
+
   /// Named constructor
-  const ApiException(String message,
-      {String recoverySuggestion, String underlyingException})
-      : super(message,
+  ApiException(String message,
+      {String recoverySuggestion, String underlyingException, int statusCode})
+      : httpStatusCode = statusCode,
+        super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
 
   /// Constructor for down casting an AmplifyException to this exception
-  ApiException._private(AmplifyException exception)
-      : super(exception.message,
+  ApiException._private(AmplifyException exception, int httpStatusCodeFromException)
+      : httpStatusCode = httpStatusCodeFromException,
+        super(exception.message,
             recoverySuggestion: exception.recoverySuggestion,
             underlyingException: exception.underlyingException);
 
   /// Instantiates and return a new `ApiException` from the
   /// serialized exception data
   static ApiException fromMap(Map<String, String> serializedException) {
-    return ApiException._private(AmplifyException.fromMap(serializedException));
+    final statusCode = int.tryParse(serializedException["httpStatusCode"] ?? "") ?? null;
+    return ApiException._private(AmplifyException.fromMap(serializedException), statusCode);
   }
 }
