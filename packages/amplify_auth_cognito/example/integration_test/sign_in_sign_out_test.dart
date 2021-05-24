@@ -17,14 +17,17 @@ import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:uuid/uuid.dart';
 
 import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
+
+final uuid = Uuid();
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  const username = String.fromEnvironment('TEST_COGNITO_USERNAME');
-  const password = String.fromEnvironment('TEST_COGNITO_PASSWORD');
+  final username = 'TEMP_USER${uuid.v4()}';
+  final password = uuid.v4();
 
   group('signIn and signOut', () {
     setUpAll(() async {
@@ -33,6 +36,14 @@ void main() {
         await Amplify.addPlugins([authPlugin]);
         await Amplify.configure(amplifyconfig);
       }
+
+      await Amplify.Auth.signUp(
+          username: username,
+          password: password,
+          options: CognitoSignUpOptions(userAttributes: {
+            'email': 'test-amplify-flutter${uuid.v4()}@amazon.com',
+            'phone_number': '+15555551234'
+          }));
     });
 
     testWidgets('should signIn a user', (WidgetTester tester) async {
