@@ -46,6 +46,16 @@ scripts:
         - integration_test/main_test.dart
       scope: "*example*"
 
+  provision_integration_test_resources:
+    run: melos exec "./tool/provision_integration_test_resources.sh"
+    description: Creates and pushes amplify environments necessary to run integration tests in example apps. Runs only on apps with provision script.
+      - Requires amplify CLI configured and connected to AWS account.
+      - Will run `amplify push` within example apps, creating real AWS resources on your AWS account which may be subject to billing. See https://aws.amazon.com/amplify/pricing/.
+    select-package:
+      file-exists:
+        - tool/provision_integration_test_resources.sh
+      scope: "*example*"
+
   upload:coverage:ios: >
     ./build-support/codecov.sh -F ios-unit-tests
 

@@ -26,7 +26,7 @@ final uuid = Uuid();
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  final username = 'TEMP_USER${uuid.v4()}';
+  final username = 'TEMP_USER-${uuid.v4()}';
   final password = uuid.v4();
 
   group('signIn and signOut', () {
@@ -41,7 +41,7 @@ void main() {
           username: username,
           password: password,
           options: CognitoSignUpOptions(userAttributes: {
-            'email': 'test-amplify-flutter${uuid.v4()}@amazon.com',
+            'email': 'test-amplify-flutter-${uuid.v4()}@test${uuid.v4()}.com',
             'phone_number': '+15555551234'
           }));
     });
@@ -57,13 +57,13 @@ void main() {
       final initalAuthRes = await Amplify.Auth.fetchAuthSession();
       if (!initalAuthRes.isSignedIn) {
         await Amplify.Auth.signIn(username: username, password: password);
-        final secondAuthSession = await Amplify.Auth.fetchAuthSession();
-        expect(secondAuthSession.isSignedIn, true);
+        final secondAuthRes = await Amplify.Auth.fetchAuthSession();
+        expect(secondAuthRes.isSignedIn, true);
       }
 
       await Amplify.Auth.signOut();
-      final finalAuthSession = await Amplify.Auth.fetchAuthSession();
-      expect(finalAuthSession.isSignedIn, false);
+      final finalAuthRes = await Amplify.Auth.fetchAuthSession();
+      expect(finalAuthRes.isSignedIn, false);
     });
   });
 }
