@@ -30,13 +30,19 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   /// called.
   @override
   Future<void> configureDataStore(
-      {ModelProviderInterface modelProvider}) async {
+      {ModelProviderInterface modelProvider,
+      int syncInterval,
+      int syncMaxRecords,
+      int syncPageSize}) async {
     try {
       return await _channel
           .invokeMethod('configureDataStore', <String, dynamic>{
         'modelSchemas':
             modelProvider.modelSchemas.map((schema) => schema.toMap()).toList(),
-        'modelProviderVersion': modelProvider.version
+        'modelProviderVersion': modelProvider.version,
+        'syncInterval': syncInterval,
+        'syncMaxRecords': syncMaxRecords,
+        'syncPageSize': syncPageSize
       });
     } on PlatformException catch (e) {
       if (e.code == "AmplifyAlreadyConfiguredException") {
