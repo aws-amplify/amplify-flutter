@@ -297,7 +297,8 @@ class AmplifyApiRestTest {
                     For more information on HTTP status codes, take a look at
                     https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
                     """,
-                        "message" to "The HTTP response status code is [400]."
+                        "message" to "The HTTP response status code is [400].",
+                        "httpStatusCode" to "400"
                 )
         )
 
