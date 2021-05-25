@@ -18,7 +18,6 @@ library amplify_api_plugin;
 import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import './method_channel_api.dart';
-import 'package:flutter/foundation.dart';
 export 'package:amplify_api_plugin_interface/src/types.dart';
 
 class AmplifyAPI extends APIPluginInterface {
@@ -29,11 +28,11 @@ class AmplifyAPI extends APIPluginInterface {
   static AmplifyAPI _instance = AmplifyAPIMethodChannel();
 
   /// The default instance of [AmplifyAPIPlugin] to use.
-  static APIPluginInterface get instance => _instance;
+  static AmplifyAPI get instance => _instance;
 
-  static set instance(APIPluginInterface instance) {
+  static set instance(AmplifyAPI instance) {
     PlatformInterface.verifyToken(instance, _token);
-    _instance = instance as AmplifyAPI;
+    _instance = instance;
   }
 
   @override
