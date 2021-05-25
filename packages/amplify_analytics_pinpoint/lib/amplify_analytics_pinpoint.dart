@@ -27,14 +27,14 @@ class AmplifyAnalyticsPinpoint extends AnalyticsPluginInterface {
 
   AmplifyAnalyticsPinpoint() : super(token: _token);
 
-  static AnalyticsPluginInterface _instance =
+  static AmplifyAnalyticsPinpoint _instance =
       AmplifyAnalyticsPinpointMethodChannel();
 
-  static AnalyticsPluginInterface get instance => _instance;
+  static AmplifyAnalyticsPinpoint get instance => _instance;
 
   /// Platform-specific plugins should set this with their own platform-specific
   /// class that extends [AnalyticsPluginInterface] when they register themselves.
-  static set instance(AnalyticsPluginInterface instance) {
+  static set instance(AmplifyAnalyticsPinpoint instance) {
     PlatformInterface.verifyToken(instance, _token);
     _instance = instance;
   }
