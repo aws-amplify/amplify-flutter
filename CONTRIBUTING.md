@@ -165,17 +165,17 @@ apps which have integration tests written (skipping those that don't). It runs o
 apps where the tests run. The process for creating those is noted below.
 
 To run all integration tests on available platforms:
-```console
+```bash
 $ melos run test:integration
 ```
 
 To run all tests just on Android (also works for `ios` instead of `android`):
-```console
+```bash
 $ melos run test:integration:android
 ```
 
 To run a single test file on device matching "sdk":
-```console
+```bash
 $ cd packages/amplify_auth_cognito/example
 $ flutter drive --driver=test_driver/integration_test.dart --target=integration_test/sign_in_sign_out_test.dart -d sdk
 ```
@@ -188,39 +188,56 @@ If you already have an amplify environment configured for an app, this command w
 environment and check it out.
 
 Create all the amplify environments in the example apps which have provisioning scripts (takes several minutes). Note that you may need to give yourself permission to execute the scripts.:
-```console
+```bash
 $ melos run provision_integration_test_resources
 ```
 
 The auth tests require some additional configuration to support lambda triggers for automatically 
 verifying temporary test users. Note that this should only be done for the test environment, never a production one. This can be done manually by [following this process](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html#aws-lambda-triggers-pre-registration-example-2) or by following these instructions for the amplify CLI:
 
-```console
+```
 $ cd packages/amplify_auth_cognito/example
 $ amplify update auth
-Please note that certain attributes may not be overwritten if you choose to use defaults settings.
-Using service: Cognito, provided by: awscloudformation
- What do you want to do? Walkthrough all the auth configurations
- Select the authentication/authorization services that you want to use: User Sign-Up, Sign-In, connected with AWS IAM controls (
-Enables per-user Storage features for images or other content, Analytics, and more)
- Please enter a name for your identity pool. authintegrationtest
- Allow unauthenticated logins? (Provides scoped down permissions that you can control via AWS IAM) No
- Do you want to enable 3rd party authentication providers in your identity pool? No
- Do you want to add User Pool Groups? No
- Do you want to add an admin queries API? No
- Multifactor authentication (MFA) user login options: OFF
- Email based user registration/forgot password: Enabled (Requires per-user email entry at registration)
- Please specify an email verification subject: Your verification code
- Please specify an email verification message: Your verification code is {####}
- Do you want to override the default password policy for this User Pool? No
- Specify the app's refresh token expiration period (in days): 30
- Do you want to specify the user attributes this app can read and write? No
- Do you want to enable any of the following capabilities? 
- Do you want to use an OAuth flow? No
-? Do you want to configure Lambda Triggers for Cognito? Yes
-? Which triggers do you want to enable for Cognito Pre Sign-up
-? What functionality do you want to use for Pre Sign-up Create your own module
-Successfully added resource authintegrationtestPreSignup locally.
+  Please note that certain attributes may not be overwritten if you choose to use defaults settings.
+  Using service: Cognito, provided by: awscloudformation
+  What do you want to do?
+    Walkthrough all the auth configurations
+  Select the authentication/authorization services that you want to use:
+    User Sign-Up, Sign-In, connected with AWS IAM controls ( Enables per-user Storage features for images or other content, Analytics, and more)
+  Please enter a name for your identity pool.
+    authintegrationtest
+  Allow unauthenticated logins? (Provides scoped down permissions that you can control via AWS IAM)
+    No
+  Do you want to enable 3rd party authentication providers in your identity pool?
+    No
+  Do you want to add User Pool Groups?
+    No
+  Do you want to add an admin queries API?
+    No
+  Multifactor authentication (MFA) user login options:
+    OFF
+  Email based user registration/forgot password:
+    Enabled (Requires per-user email entry at registration)
+  Please specify an email verification subject:
+    Your verification code
+  Please specify an email verification message:
+    Your verification code is {####}
+  Do you want to override the default password policy for this User Pool?
+    No
+  Specify the app's refresh token expiration period (in days):
+    30
+  Do you want to specify the user attributes this app can read and write?
+    No
+  Do you want to enable any of the following capabilities? 
+  Do you want to use an OAuth flow?
+    No
+  ? Do you want to configure Lambda Triggers for Cognito?
+    Yes
+  ? Which triggers do you want to enable for Cognito
+    Pre Sign-up
+  ? What functionality do you want to use for Pre Sign-up
+    Create your own module
+  Successfully added resource authintegrationtestPreSignup locally.
 ```
 
 When prompted to edit the function now, choose "yes" and add the following code to the `custom.js` file 
@@ -248,7 +265,7 @@ exports.handler = (event, context, callback) => {
 ```
 
 Finally, run a push to update the resources with the new function resource (lambda trigger):
-```console
+```bash
 $ amplify push
 ```
 
