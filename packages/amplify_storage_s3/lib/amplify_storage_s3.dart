@@ -28,12 +28,12 @@ class AmplifyStorageS3 extends StoragePluginInterface {
   /// Constructs a AmplifyStoragePlugin.
   AmplifyStorageS3() : super(token: _token);
 
-  static StoragePluginInterface _instance = AmplifyStorageS3MethodChannel();
+  static AmplifyStorageS3 _instance = AmplifyStorageS3MethodChannel();
 
   /// The default instance of [AmplifyStoragePlugin] to use.
-  static StoragePluginInterface get instance => _instance;
+  static AmplifyStorageS3 get instance => _instance;
 
-  static set instance(StoragePluginInterface instance) {
+  static set instance(AmplifyStorageS3 instance) {
     PlatformInterface.verifyToken(instance, _token);
     _instance = instance;
   }
