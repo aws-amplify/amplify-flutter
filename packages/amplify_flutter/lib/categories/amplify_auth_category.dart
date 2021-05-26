@@ -48,7 +48,9 @@ class AuthCategory {
   }
 
   Future<SignUpResult> signUp(
-      {required String username, required password, required SignUpOptions options}) {
+      {required String username,
+      required password,
+      required SignUpOptions options}) {
     var request =
         SignUpRequest(username: username, password: password, options: options);
     return plugins.length == 1
@@ -144,7 +146,8 @@ class AuthCategory {
         : throw _pluginNotAddedException("Auth");
   }
 
-  Future<List<AuthUserAttribute>> fetchUserAttributes({AuthUserAttributeOptions? options}) {
+  Future<List<AuthUserAttribute>> fetchUserAttributes(
+      {AuthUserAttributeOptions? options}) {
     var request = AuthUserAttributeRequest(options: options);
     return plugins.length == 1
         ? plugins[0].fetchUserAttributes(request: request)
@@ -167,8 +170,8 @@ class AuthCategory {
 
   /// Updates a single user attribute and returns a [UpdateUserAttributeResult]
   Future<UpdateUserAttributeResult> updateUserAttribute({
-    @required String userAttributeKey,
-    @required String value,
+    required String userAttributeKey,
+    required String value,
   }) {
     var request = UpdateUserAttributeRequest(
         userAttributeKey: userAttributeKey, value: value);
@@ -179,8 +182,8 @@ class AuthCategory {
 
   /// Confirms a user attribute update and returns a [ConfirmUserAttributeResult]
   Future<ConfirmUserAttributeResult> confirmUserAttribute({
-    @required String userAttributeKey,
-    @required String confirmationCode,
+    required String userAttributeKey,
+    required String confirmationCode,
   }) {
     var request = ConfirmUserAttributeRequest(
         userAttributeKey: userAttributeKey, confirmationCode: confirmationCode);
@@ -191,7 +194,7 @@ class AuthCategory {
 
   /// Resends a confirmation code for the given attribute and returns a [ResendUserAttributeConfirmationCodeResult]
   Future<ResendUserAttributeConfirmationCodeResult>
-      resendUserAttributeConfirmationCode({@required String userAttributeKey}) {
+      resendUserAttributeConfirmationCode({required String userAttributeKey}) {
     var request = ResendUserAttributeConfirmationCodeRequest(
         userAttributeKey: userAttributeKey);
     return plugins.length == 1

@@ -127,15 +127,6 @@ void main() {
     expect(amplify.isConfigured, false);
   });
 
-  test('configure should result in AmplifyException when null value is passed',
-      () async {
-    amplify
-        .configure(null)
-        .then((v) => fail('configuration should have been failed.'))
-        .catchError((e) => expect(e, nullConfigurationException));
-    expect(amplify.isConfigured, false);
-  });
-
   test(
       'configure should result in AmplifyException when invalid value is passed',
       () async {
@@ -143,9 +134,12 @@ void main() {
     // Setup the expected exception
     try {
       jsonDecode(invalidConfiguration);
-    } catch (e) {
+    } on FormatException catch (e) {
       formatException = e;
+    } catch (e) {
+      expect(e, isA<FormatException>());
     }
+
     AmplifyException invalidConfigurationException = AmplifyException(
         'The provided configuration is not a valid json. Check underlyingException.',
         recoverySuggestion:
@@ -221,7 +215,9 @@ void main() {
     fail('an exception should have been thrown');
   });
 
-  test('PlatformException with AmplifyAlreadyConfiguredException code is swallowed', () async {
+  test(
+      'PlatformException with AmplifyAlreadyConfiguredException code is swallowed',
+      () async {
     platformConfigured = true;
 
     try {
