@@ -17,11 +17,11 @@ import 'package:flutter/foundation.dart';
 import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 
 class S3UploadFileOptions extends UploadFileOptions {
-  String targetIdentityId;
+  String? targetIdentityId;
   S3UploadFileOptions(
       {StorageAccessLevel accessLevel = StorageAccessLevel.guest,
-      String contentType,
-      Map<String, String> metadata,
+      String? contentType,
+      Map<String, String>? metadata,
       this.targetIdentityId})
       : super(
             accessLevel: accessLevel,

@@ -17,10 +17,10 @@ import 'package:flutter/foundation.dart';
 import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 
 class S3GetUrlOptions extends GetUrlOptions {
-  String targetIdentityId;
+  String? targetIdentityId;
   S3GetUrlOptions(
       {StorageAccessLevel accessLevel = StorageAccessLevel.guest,
-      int expires,
+      int? expires,
       this.targetIdentityId})
       : super(accessLevel: accessLevel, expires: expires);
 
