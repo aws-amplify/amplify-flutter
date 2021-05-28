@@ -228,6 +228,18 @@ class AuthCognitoBridge {
         }
     }
     
+    func onUpdateUserAttributes(flutterResult: @escaping FlutterResult, request: FlutterUpdateUserAttributesRequest) {
+        Amplify.Auth.update(userAttributes: request.attributes) { response in
+            switch response {
+            case .success:
+                let updateAttributesData = FlutterUpdateUserAttributesResult(res: response)
+                flutterResult(updateAttributesData.toJSON())
+            case .failure(let error):
+                self.errorHandler.handleAuthError(authError: error, flutterResult: flutterResult)
+            }
+        }
+    }
+    
     func onConfirmUserAttribute(flutterResult: @escaping FlutterResult, request: FlutterConfirmUserAttributeRequest) {
         Amplify.Auth.confirm(userAttribute: request.userAttributeKey, confirmationCode: request.confirmationCode) { response in
             switch response {

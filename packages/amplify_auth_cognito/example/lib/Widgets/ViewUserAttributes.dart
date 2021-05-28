@@ -2,6 +2,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 
+import 'UpdateMultipleUserAttributes.dart';
 import 'UpdateUserAttribute.dart';
 
 // ignore: public_member_api_docs
@@ -57,6 +58,19 @@ class _ViewUserAttributesState extends State<ViewUserAttributes> {
       appBar: AppBar(
         title: Text('User Attributes'),
         actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => UpdateMultipleUserAttributesWidget(),
+                ),
+              );
+            },
+            child: Text(
+              'Bulk Update',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
           IconButton(
             icon: Icon(Icons.refresh),
             onPressed: () => _fetchAttributes(isRefresh: true),

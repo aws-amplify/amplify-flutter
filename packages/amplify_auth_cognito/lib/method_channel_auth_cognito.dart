@@ -314,6 +314,25 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   }
 
   @override
+  Future<Map<String, UpdateUserAttributeResult>> updateUserAttributes(
+      {@required UpdateUserAttributesRequest request}) async {
+    Map<String, UpdateUserAttributeResult> res;
+    try {
+      final Map<String, dynamic> data =
+          await _channel.invokeMapMethod<String, dynamic>(
+        'updateUserAttributes',
+        <String, dynamic>{
+          'data': request != null ? request.serializeAsMap() : null,
+        },
+      );
+      return _formatUpdateUserAttributesResponse(data);
+    } on PlatformException catch (e) {
+      castAndThrowPlatformException(e);
+    }
+    return res;
+  }
+
+  @override
   Future<ConfirmUserAttributeResult> confirmUserAttribute(
       {@required ConfirmUserAttributeRequest request}) async {
     ConfirmUserAttributeResult res;
@@ -428,6 +447,16 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
                 ? jsonDecode(res["nextStep"]["additionalInfo"])
                 : {}));
   }
+
+  Map<String, UpdateUserAttributeResult> _formatUpdateUserAttributesResponse(
+      Map<String, dynamic> res) {
+    return res.map((key, value) => MapEntry(
+        key,
+        _formatUpdateUserAttributeResponse(
+            new Map<String, dynamic>.from(value))));
+  }
+
+  // _TypeError (type '_InternalLinkedHashMap<dynamic, dynamic>' is not a subtype of type 'Map<String, dynamic>')
 
   ConfirmUserAttributeResult _formatConfirmUserAttributeResponse() {
     return ConfirmUserAttributeResult();
