@@ -204,17 +204,17 @@ class GraphQLApiUnitTests {
         val graphQLResponse: GraphQLResponse<String> = GraphQLResponse("result", null)
 
         doAnswer { invocation ->
+            Assert.assertEquals(testRequest["apiName"] as String, invocation.arguments[0])
             Assert.assertEquals(
                     SimpleGraphQLRequest<String>(
-                            testRequest["apiName"] = as String,
                             testRequest["document"] as String,
                             testRequest["variables"] as Map<String, Any>,
                             String::class.java,
                             GsonVariablesSerializer()
                     ),
-                    invocation.arguments[0]
+                    invocation.arguments[1]
             )
-            (invocation.arguments[1] as Consumer<GraphQLResponse<String>>).accept(
+            (invocation.arguments[2] as Consumer<GraphQLResponse<String>>).accept(
                     graphQLResponse
             )
             mockGraphQLOperation
@@ -378,17 +378,17 @@ class GraphQLApiUnitTests {
         val graphQLResponse: GraphQLResponse<String> = GraphQLResponse("mutate result", null)
 
         doAnswer { invocation ->
+            Assert.assertEquals(testRequest["apiName"] as String, invocation.arguments[0])
             Assert.assertEquals(
                     SimpleGraphQLRequest<String>(
-                            testRequest["apiName"] = as String,
                             testRequest["document"] as String,
                             testRequest["variables"] as Map<String, Any>,
                             String::class.java,
                             GsonVariablesSerializer()
                     ),
-                    invocation.arguments[0]
+                    invocation.arguments[1]
             )
-            (invocation.arguments[1] as Consumer<GraphQLResponse<String>>).accept(
+            (invocation.arguments[2] as Consumer<GraphQLResponse<String>>).accept(
                     graphQLResponse
             )
             mockGraphQLOperation
@@ -672,17 +672,17 @@ class GraphQLApiUnitTests {
         testRequest["cancelToken"] = id
 
         doAnswer { invocation ->
+            Assert.assertEquals(testRequest["apiName"] as String, invocation.arguments[0])
             Assert.assertEquals(
                     SimpleGraphQLRequest<String>(
-                            testRequest["apiName"] = as Stirng,
                             testRequest["document"] as String,
                             testRequest["variables"] as Map<String, Any>,
                             String::class.java,
                             GsonVariablesSerializer()
                     ),
-                    invocation.arguments[0]
+                    invocation.arguments[1]
             )
-            (invocation.arguments[1] as Consumer<String>).accept(
+            (invocation.arguments[2] as Consumer<String>).accept(
                 id
             )
             mockGraphQLOperation
