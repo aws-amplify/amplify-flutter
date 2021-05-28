@@ -22,7 +22,6 @@ import androidx.annotation.NonNull
 import androidx.annotation.VisibleForTesting
 import com.amazonaws.amplify.amplify_api.rest_api.FlutterRestApi
 import com.amplifyframework.api.aws.AWSApiPlugin
-import com.amplifyframework.api.aws.ApiAuthProviders
 import com.amplifyframework.core.Amplify
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.EventChannel
@@ -33,7 +32,6 @@ import io.flutter.plugin.common.MethodChannel.Result
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedUnrecognizedError
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
-import com.amazonaws.mobile.client.AWSMobileClient
 
 /** AmplifyApiPlugin */
 class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
@@ -71,15 +69,7 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
         }
         else if(methodName == "addPlugin"){
             try {
-                val authProviders = ApiAuthProviders.builder()
-                    .awsCredentialsProvider(AWSMobileClient.getInstance())
-                    .build()
-
-                val apiPlugin = AWSApiPlugin.builder()
-                    .apiAuthProviders(authProviders)
-                    .build()
-
-                Amplify.addPlugin(apiPlugin)
+                Amplify.addPlugin(AWSApiPlugin())
                 LOG.info("Added API plugin")
                 result.success(null)
             } catch (e: Exception) {
