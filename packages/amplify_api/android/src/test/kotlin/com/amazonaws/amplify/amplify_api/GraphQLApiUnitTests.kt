@@ -219,6 +219,7 @@ class GraphQLApiUnitTests {
             )
             mockGraphQLOperation
         }.`when`(mockApi).query(
+                any<String>(),
                 any<GraphQLRequest<String>>(),
                 any(),
                 any())
@@ -393,6 +394,7 @@ class GraphQLApiUnitTests {
             )
             mockGraphQLOperation
         }.`when`(mockApi).mutate(
+                any<String>(),
                 any<GraphQLRequest<String>>(),
                 any<Consumer<GraphQLResponse<String>>>(),
                 any())
@@ -687,6 +689,7 @@ class GraphQLApiUnitTests {
             )
             mockGraphQLOperation
         }.`when`(mockApi).subscribe(
+                any<String>(),
                 any<GraphQLRequest<String>>(),
                 any<Consumer<String>>(),
                 any<Consumer<GraphQLResponse<String>>>(),
@@ -728,8 +731,8 @@ class GraphQLApiUnitTests {
                 "ApiException",
                 ExceptionMessages.defaultFallbackExceptionMessage,
                 mapOf(
-                        "message" to "The apiName request argument was not passed as a String",
-                        "recoverySuggestion" to "The request should include the apiName as a String",
+                        "message" to ExceptionMessages.missingExceptionMessage,
+                        "recoverySuggestion" to ExceptionMessages.missingRecoverySuggestion,
                         "underlyingException" to underlyingInvalidApiException
                 )
         )
