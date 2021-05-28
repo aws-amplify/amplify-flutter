@@ -48,7 +48,7 @@ class FlutterApiRequest {
         if let apiNameValue = methodChannelRequest["apiName"]{
             guard let apiName = apiNameValue as? String else {
                   throw APIError.invalidConfiguration("The apiName request argument was not passed as a String",
-                                                "The request should include the apiName document as a String. [Received\(apiNameValue)]")
+                                                "The request should include the apiName document as a String")
             }
             return apiName
         }

@@ -55,7 +55,9 @@ void main() {
 
     var operation = await api.mutate(
         request: GraphQLRequest<String>(
-            document: graphQLDocument, variables: {'name': 'Test App Blog'}));
+            document: graphQLDocument,
+            variables: {'name': 'Test App Blog'},
+            apiName: "publicApi"));
 
     var response = await operation.response;
     expect(response.data, mutationResult.toString());

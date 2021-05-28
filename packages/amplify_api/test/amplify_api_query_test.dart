@@ -72,7 +72,8 @@ void main() {
     }''';
 
     var operation = await api.query<String>(
-        request: GraphQLRequest(document: graphQLDocument, variables: {}));
+        request: GraphQLRequest(
+            document: graphQLDocument, variables: {}, apiName: "publicApi"));
 
     var response = await operation.response;
     expect(response.data, queryResult.toString());
