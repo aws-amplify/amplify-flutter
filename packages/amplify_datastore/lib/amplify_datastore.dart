@@ -59,9 +59,6 @@ class AmplifyDataStore extends DataStorePluginInterface {
   }
 
   @override
-  Future<void> setUpObserve() async => _instance.setUpObserve();
-
-  @override
   Future<void> configure({String configuration}) async {
     return _instance.configure(configuration: configuration);
   }

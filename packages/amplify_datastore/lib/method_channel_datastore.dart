@@ -50,19 +50,13 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
     }
   }
 
-  /// This method sets up an event channel to carry datastore observe events.
-  /// This is invoked as the last step of Amplify.configure() and must be called
-  /// before any observe() method is called. This is the first step to
-  /// configuring datastore.
-  @override
-  Future<void> setUpObserve() async {
-    return _channel.invokeMethod('setUpObserve', {});
-  }
-
+  /// This method performs the steps necessary to configure this plugin.
+  /// Currently, it only sets up an event channel to carry datastore observe
+  /// and is invoked as the last step of Amplify.configure(). This must be
+  /// called before any observe() method is called.
   @override
   Future<void> configure({String configuration}) async {
-    // Reserving this method signature for native `DataStore.configure()`
-    // invocation as needed in the future
+    return _channel.invokeMethod('setUpObserve', {});
   }
 
   @override

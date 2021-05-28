@@ -193,7 +193,7 @@ class AmplifyClass extends PlatformInterface {
       }
     }
 
-    await DataStore.setUpObserve();
+    await DataStore.configure(configuration);
   }
 
   /// Adds the configuration and return true if it was successful.

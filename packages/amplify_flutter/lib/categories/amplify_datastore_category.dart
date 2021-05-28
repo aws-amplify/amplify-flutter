@@ -44,15 +44,6 @@ class DataStoreCategory {
     }
   }
 
-  /// Set up DataStore observe. Since this method is called after Amplify is
-  /// configured, with or without a DataStore plugin, allow it to be
-  /// conditionally run without throwing an exception if the plugin isn't added.
-  Future<void> setUpObserve() async {
-    if (plugins.length == 1) {
-      await plugins[0].setUpObserve();
-    }
-  }
-
   StreamController get streamController {
     return plugins.length == 1
         ? plugins[0].streamController

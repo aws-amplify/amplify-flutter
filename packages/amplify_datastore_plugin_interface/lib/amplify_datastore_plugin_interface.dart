@@ -56,10 +56,6 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('configureDataStore() has not been implemented.');
   }
 
-  Future<void> setUpObserve() {
-    throw UnimplementedError('setUpObserve() has not been implemented.');
-  }
-
   StreamController get streamController {
     throw UnimplementedError(
         'streamController getter has not been implemented.');
