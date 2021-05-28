@@ -27,9 +27,25 @@ export 'package:amplify_datastore_plugin_interface/src/publicTypes.dart';
 class AmplifyDataStore extends DataStorePluginInterface {
   static final Object _token = Object();
 
-  /// Constructs an AmplifyDataStore plugin
-  AmplifyDataStore({@required ModelProviderInterface modelProvider})
-      : super(token: _token, modelProvider: modelProvider);
+  /// Constructs an AmplifyDataStore plugin with mandatory [modelProvider]
+  /// and optional datastore configuration properties including
+  ///
+  /// [syncInterval]: datastore syncing interval (in seconds)
+  ///
+  /// [syncMaxRecords]: max number of records to sync
+  ///
+  /// [syncPageSize]: page size to sync
+  AmplifyDataStore(
+      {@required ModelProviderInterface modelProvider,
+      int syncInterval,
+      int syncMaxRecords,
+      int syncPageSize})
+      : super(
+            token: _token,
+            modelProvider: modelProvider,
+            syncInterval: syncInterval,
+            syncMaxRecords: syncMaxRecords,
+            syncPageSize: syncPageSize);
 
   static AmplifyDataStore _instance = AmplifyDataStoreMethodChannel();
   static DataStoreStreamController streamWrapper = DataStoreStreamController();
@@ -46,7 +62,10 @@ class AmplifyDataStore extends DataStorePluginInterface {
 
   @override
   Future<void> configureDataStore(
-      {ModelProviderInterface modelProvider}) async {
+      {ModelProviderInterface modelProvider,
+      int syncInterval,
+      int syncMaxRecords,
+      int syncPageSize}) async {
     ModelProviderInterface provider =
         modelProvider == null ? this.modelProvider : modelProvider;
     if (provider == null || provider.modelSchemas.isEmpty) {
@@ -55,7 +74,11 @@ class AmplifyDataStore extends DataStorePluginInterface {
               'Pass in a modelProvider instance while instantiating DataStorePlugin');
     }
     streamWrapper.registerModelsForHub(provider);
-    return _instance.configureDataStore(modelProvider: modelProvider);
+    return _instance.configureDataStore(
+        modelProvider: modelProvider,
+        syncInterval: this.syncInterval,
+        syncMaxRecords: this.syncMaxRecords,
+        syncPageSize: this.syncPageSize);
   }
 
   @override

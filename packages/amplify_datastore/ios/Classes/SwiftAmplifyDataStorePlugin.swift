@@ -85,6 +85,10 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             return //TODO
         }
 
+        let syncInterval = args["syncInterval"] as? Double ?? DataStoreConfiguration.defaultSyncInterval
+        let syncMaxRecords = args["syncMaxRecords"] as? UInt ?? DataStoreConfiguration.defaultSyncMaxRecords
+        let syncPageSize = args["syncPageSize"] as? UInt ?? DataStoreConfiguration.defaultSyncPageSize
+
         do {
 
             let modelSchemas: [ModelSchema] = try modelSchemaList.map {
@@ -97,7 +101,11 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
 
             self.dataStoreHubEventStreamHandler?.registerModelsForHub(flutterModels: flutterModelRegistration)
 
-            let dataStorePlugin = AWSDataStorePlugin(modelRegistration: flutterModelRegistration)
+            let dataStorePlugin = AWSDataStorePlugin(modelRegistration: flutterModelRegistration,
+                configuration: .custom(
+                    syncInterval: syncInterval,
+                    syncMaxRecords: syncMaxRecords,
+                    syncPageSize: syncPageSize))
             try Amplify.add(plugin: dataStorePlugin)
             Amplify.Logging.logLevel = .info
             print("Amplify configured with DataStore plugin")

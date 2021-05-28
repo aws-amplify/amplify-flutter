@@ -58,7 +58,7 @@ android {
 
 dependencies {
     api amplifyCore
-    implementation 'com.amplifyframework:core:1.17.4'
+    implementation 'com.amplifyframework:core:1.17.6'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     testImplementation 'junit:junit:4.13'
     testImplementation 'org.mockito:mockito-core:3.1.0'
