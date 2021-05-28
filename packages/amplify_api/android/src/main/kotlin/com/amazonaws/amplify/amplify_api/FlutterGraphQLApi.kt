@@ -82,7 +82,7 @@ class FlutterGraphQLApi {
 
             if (apiName != null) {
                 operation = Amplify.API.query(
-                    apiName!!,
+                    apiName,
                     SimpleGraphQLRequest<String>(
                             document,
                             variables,
@@ -154,7 +154,7 @@ class FlutterGraphQLApi {
 
             if (apiName != null ) {
                 operation = Amplify.API.mutate(
-                    apiName!!,
+                    apiName,
                     SimpleGraphQLRequest<String>(
                             document,
                             variables,
@@ -241,7 +241,7 @@ class FlutterGraphQLApi {
 
             if (apiName != null){
                 operation = Amplify.API.subscribe(
-                    apiName!!,
+                    apiName,
                     SimpleGraphQLRequest<String>(
                             document,
                             variables,

@@ -115,9 +115,7 @@ class FlutterApiRequest {
             }
         }
 
-        // ====== SHARED ======
-
-        
+        @JvmStatic
         fun getApiName(request: Map<String, Any>) : String? {
             if (request[API_NAME_KEY] != null) {
                 try {
