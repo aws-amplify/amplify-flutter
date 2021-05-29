@@ -29,19 +29,19 @@ void main() {
   final request = GraphQLRequest<String>(document: 'test document');
   var isOnEstablishCalled = false;
   var isOnDoneCalled = false;
-  var eventData = null;
-  var errorEvent = null;
+  dynamic eventData = null;
+  dynamic errorEvent = null;
 
   tearDown(() {
-    ServicesBinding.instance.defaultBinaryMessenger
+    ServicesBinding.instance!.defaultBinaryMessenger
         .setMockMessageHandler(channelName, null);
   });
 
   handler(event) {
-    ServicesBinding.instance.defaultBinaryMessenger.handlePlatformMessage(
+    ServicesBinding.instance!.defaultBinaryMessenger.handlePlatformMessage(
       channelName,
       event,
-      (ByteData reply) {},
+      (ByteData? reply) {},
     );
   }
 
