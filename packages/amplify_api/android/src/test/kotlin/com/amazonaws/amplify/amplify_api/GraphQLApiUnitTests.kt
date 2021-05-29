@@ -46,8 +46,9 @@ const val underlyingMalformedException =
 
 const val underlyingInvalidApiException =
         "AmplifyException{message=The apiName request argument " +
-        "was not passed as a String, cause=kotlin.TypeCastException: null cannot be cast to " +
-        "non-null type kotlin.String, recoverySuggestion=The request should include the apiName as a String}"
+        "was not passed as a String, cause=java.lang.ClassCastException: class java.lang.Integer cannot be cast " +
+        "to class java.lang.String (java.lang.Integer and java.lang.String are in module java.base of loader 'bootstrap'), " +
+        "recoverySuggestion=The request should include the apiName as a String}"
 
 @RunWith(RobolectricTestRunner::class)
 class GraphQLApiUnitTests {
