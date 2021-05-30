@@ -70,11 +70,7 @@ class AuthCognitoBridge {
               case .success(let signInResult):
                 switch signInResult.nextStep {
                   case .confirmSignUp:
-                    // This avoids importing the mobileclient code
-                    enum ErrorShim: Error {
-                        case userNotConfirmed
-                    }
-                    self.errorHandler.handleAuthError(authError: AuthError.service("User is not confirmed.", "See attached exception for more details", ErrorShim.userNotConfirmed), flutterResult: flutterResult)
+                    self.errorHandler.handleAuthError(authError: AuthError.service("User is not confirmed.", "See attached exception for more details", AWSCognitoAuthError.userNotConfirmed), flutterResult: flutterResult)
                   default:
                     let signInData = FlutterSignInResult(res: response)
                     flutterResult(signInData.toJSON())
@@ -216,6 +212,42 @@ class AuthCognitoBridge {
                 case .failure(let error):
                     self.errorHandler.handleAuthError(authError: error , flutterResult: flutterResult)
 
+            }
+        }
+    }
+
+    func onUpdateUserAttribute(flutterResult: @escaping FlutterResult, request: FlutterUpdateUserAttributeRequest) {
+        Amplify.Auth.update(userAttribute: request.attribute) { response in
+            switch response {
+            case .success:
+                let updateAttributeData = FlutterUpdateUserAttributeResult(res: response)
+                flutterResult(updateAttributeData.toJSON())
+            case .failure(let error):
+                self.errorHandler.handleAuthError(authError: error, flutterResult: flutterResult)
+            }
+        }
+    }
+    
+    func onConfirmUserAttribute(flutterResult: @escaping FlutterResult, request: FlutterConfirmUserAttributeRequest) {
+        Amplify.Auth.confirm(userAttribute: request.userAttributeKey, confirmationCode: request.confirmationCode) { response in
+            switch response {
+            case .success:
+                let emptyMap: Dictionary<String, Any> = [:]
+                flutterResult(emptyMap)
+            case .failure(let error):
+                self.errorHandler.handleAuthError(authError: error, flutterResult: flutterResult)
+            }
+        }
+    }
+    
+    func onResendUserAttributeConfirmationCode(flutterResult: @escaping FlutterResult, request: FlutterResendUserAttributeConfirmationCodeRequest) {
+        Amplify.Auth.resendConfirmationCode(for: request.userAttributeKey) { response in
+            switch response {
+            case .success:
+                let resentUserAttributeConfirmationCodeData = FlutterResendUserAttributeConfirmationCodeResult(res: response)
+                flutterResult(resentUserAttributeConfirmationCodeData.toJSON())
+            case .failure(let error):
+                self.errorHandler.handleAuthError(authError: error, flutterResult: flutterResult)
             }
         }
     }

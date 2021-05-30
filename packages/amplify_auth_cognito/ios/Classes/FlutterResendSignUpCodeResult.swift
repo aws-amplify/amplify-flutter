@@ -30,7 +30,7 @@ struct FlutterResendSignUpCodeResult  {
 }
 
 
-func setCodeDeliveryDetails(res: AmplifyOperation<AuthResendSignUpCodeRequest, AuthCodeDeliveryDetails, AuthError>.OperationResult) -> [String: String] {
+private func setCodeDeliveryDetails(res: AmplifyOperation<AuthResendSignUpCodeRequest, AuthCodeDeliveryDetails, AuthError>.OperationResult) -> [String: String] {
     var deliveryMap: [String: String] = [:]
     switch res {
         case .success(let codeDeliveryDetails):

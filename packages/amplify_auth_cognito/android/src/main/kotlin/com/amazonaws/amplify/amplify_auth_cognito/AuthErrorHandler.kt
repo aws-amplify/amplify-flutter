@@ -31,6 +31,11 @@ import com.amazonaws.services.cognitoidentityprovider.model.TooManyRequestsExcep
 import com.amazonaws.services.cognitoidentityprovider.model.UnexpectedLambdaException
 import com.amazonaws.services.cognitoidentityprovider.model.UserLambdaValidationException
 import com.amazonaws.services.cognitoidentityprovider.model.LimitExceededException
+import com.amazonaws.services.cognitoidentityprovider.model.InvalidParameterException
+import com.amazonaws.services.cognitoidentityprovider.model.ExpiredCodeException
+import com.amazonaws.services.cognitoidentityprovider.model.CodeMismatchException
+import com.amazonaws.services.cognitoidentityprovider.model.CodeDeliveryFailureException
+
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.core.Amplify
@@ -78,6 +83,10 @@ class AuthErrorHandler {
                     is UserLambdaValidationException -> errorCode = "LambdaException"
                     is TooManyFailedAttemptsException -> errorCode = "FailedAttemptsLimitExceededException"
                     is LimitExceededException -> errorCode = "LimitExceededException"
+                    is InvalidParameterException -> errorCode = "InvalidParameterException"
+                    is ExpiredCodeException -> errorCode = "CodeExpiredException"
+                    is CodeMismatchException -> errorCode = "CodeMismatchException"
+                    is CodeDeliveryFailureException -> errorCode = "CodeDeliveryFailureException"
                 }
             }
         }
