@@ -44,6 +44,14 @@ void main() {
             'email': 'test-amplify-flutter-${uuid.v4()}@test${uuid.v4()}.com',
             'phone_number': '+15555551234'
           }));
+
+      // ensure no user is currently signed in
+      try {
+        await Amplify.Auth.signOut();
+        // ignore: unused_catch_clause
+      } on AuthException catch (e) {
+        // Ignore a signOut error because we only care when someone signed in.
+      }
     });
 
     testWidgets('should signIn a user', (WidgetTester tester) async {

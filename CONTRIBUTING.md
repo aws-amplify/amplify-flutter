@@ -10,12 +10,12 @@ Thank you for your interest in contributing to our project! <3 Whether it's a bu
   - [Steps towards contributions](#steps-towards-contributions)
 - [Pull Requests](#pull-requests)
 - [Debugging](#debugging)
-- [Release](#release)
-  - [Finding contributions to work on](#finding-contributions-to-work-on)
-  - [Related Repositories](#related-repositories)
-  - [Code of Conduct](#code-of-conduct)
-  - [Security issue notifications](#security-issue-notifications)
-  - [Licensing](#licensing)
+- [Integration Tests](#integration-tests)
+- [Finding contributions to work on](#finding-contributions-to-work-on)
+- [Related Repositories](#related-repositories)
+- [Code of Conduct](#code-of-conduct)
+- [Security issue notifications](#security-issue-notifications)
+- [Licensing](#licensing)
 
 # Our History and Ethos
 
@@ -126,13 +126,6 @@ _[Skip step 1 to 3 if you have already done this]_
 8. Finally, the Amplify team will review your PR. Add reviewers based on the core member who is tracking the issue with you or code owners.
    _In the meantime, address any automated check that fail (such as linting, unit tests, etc. in CI)_
 
-# Release
-
-To give a bird's eye view of the release cycle:
-
-- We follow semantic versioning for our releases
-- Every merge into the `main` ends up as `unstable` package in the npm
-- The core team will cut a release out to `stable` from `unstable` bi-weekly
 
 ## Finding contributions to work on
 
@@ -191,6 +184,9 @@ Create all the amplify environments in the example apps which have provisioning 
 ```bash
 $ melos run provision_integration_test_resources
 ```
+
+Note: you will need to have [`jq`](https://github.com/stedolan/jq) installed, which you can install by running `brew install jq`. 
+The provisioning script uses the [Amplify CLI headless mode](https://docs.amplify.aws/cli/usage/headless).
 
 The auth tests require some additional configuration to support lambda triggers for automatically 
 verifying temporary test users. Note that this should only be done for the test environment, never a production one. This can be done manually by [following this process](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html#aws-lambda-triggers-pre-registration-example-2) or by following these instructions for the amplify CLI:
