@@ -11,11 +11,12 @@ Thank you for your interest in contributing to our project! <3 Whether it's a bu
 - [Pull Requests](#pull-requests)
 - [Debugging](#debugging)
 - [Integration Tests](#integration-tests)
-- [Finding contributions to work on](#finding-contributions-to-work-on)
-- [Related Repositories](#related-repositories)
-- [Code of Conduct](#code-of-conduct)
-- [Security issue notifications](#security-issue-notifications)
-- [Licensing](#licensing)
+- [Release](#release)
+  - [Finding contributions to work on](#finding-contributions-to-work-on)
+  - [Related Repositories](#related-repositories)
+  - [Code of Conduct](#code-of-conduct)
+  - [Security issue notifications](#security-issue-notifications)
+  - [Licensing](#licensing)
 
 # Our History and Ethos
 
@@ -126,6 +127,9 @@ _[Skip step 1 to 3 if you have already done this]_
 8. Finally, the Amplify team will review your PR. Add reviewers based on the core member who is tracking the issue with you or code owners.
    _In the meantime, address any automated check that fail (such as linting, unit tests, etc. in CI)_
 
+# Release
+
+We follow semantic versioning for our releases.
 
 ## Finding contributions to work on
 
