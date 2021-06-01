@@ -13,15 +13,13 @@
  * permissions and limitations under the License.
  */
 
-package com.amazonaws.amplify.amplify_auth_cognito.types
+package com.amazonaws.amplify.amplify_auth_cognito.utils
 
-import com.amazonaws.amplify.amplify_auth_cognito.utils.serializeAuthUpdateAttributeResult
 import com.amplifyframework.auth.result.AuthUpdateAttributeResult
 
-data class FlutterUpdateUserAttributeResult(private val raw: AuthUpdateAttributeResult) {
-    val result: AuthUpdateAttributeResult = raw;
-
-    fun toValueMap(): Map<String, Any> {
-        return serializeAuthUpdateAttributeResult(result)
-    }
+fun serializeAuthUpdateAttributeResult(result: AuthUpdateAttributeResult): Map<String, Any> {
+    return mapOf(
+            "isUpdated" to result.isUpdated,
+            "nextStep" to serializeAuthNextStep(result.nextStep, "updateAttributeStep" to result.nextStep.updateAttributeStep.toString())
+    )
 }

@@ -15,6 +15,8 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
+import com.amazonaws.amplify.amplify_auth_cognito.utils.createAuthUserAttribute
+import com.amazonaws.amplify.amplify_auth_cognito.utils.validateUserAttribute
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 import com.amplifyframework.auth.AuthUserAttribute
@@ -36,16 +38,7 @@ data class FlutterUpdateUserAttributesRequest(val map: HashMap<String, *>) {
                 if (attributes.isEmpty()) {
                     throw InvalidRequestException(validationErrorMessage, "The request must have at least one attribute.")
                 } else {
-                    for (attribute in attributes) {
-                        if (!attribute.containsKey("value")) {
-                            throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("value"))
-                        } else if (!attribute.containsKey("userAttributeKey")) {
-                            throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("userAttributeKey"))
-                        } else if (attribute["value"] !is String) {
-                            // Android SDK expects a string for user attr values, regardless of the configuration in cognito
-                            throw InvalidRequestException(validationErrorMessage, "Attribute value is not a String.")
-                        }
-                    }
+                    attributes.forEach { validateUserAttribute(it, validationErrorMessage) }
                 }
             }
         }
