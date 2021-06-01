@@ -730,7 +730,7 @@ class AmplifyAuthCognitoPluginTest {
             FlutterUpdateUserAttributesRequest.validate(data)
         }
 
-        // Does not thrown an exception with valid params
+        // Does not throw an exception with valid params
         attributeOne = hashMapOf(
                 "userAttributeKey" to "my_custom_attribute",
                 "value" to "custom attribute value"

@@ -453,7 +453,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     return res.map((key, value) => MapEntry(
         key,
         _formatUpdateUserAttributeResponse(
-            new Map<String, dynamic>.from(value))));
+           Map<String, dynamic>.from(value))));
   }
 
   // _TypeError (type '_InternalLinkedHashMap<dynamic, dynamic>' is not a subtype of type 'Map<String, dynamic>')

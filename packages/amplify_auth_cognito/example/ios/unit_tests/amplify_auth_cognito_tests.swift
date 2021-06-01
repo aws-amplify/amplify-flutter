@@ -25,7 +25,7 @@ import AWSMobileClient
 var _data: NSMutableDictionary = [:]
 var _args: Dictionary<String, Any> = [:]
 var _attributes: Dictionary<String, String> = [:]
-var _attributeArray: Array<Dictionary<String, String>> = Array<Dictionary<String, String>>()
+var _attributeArray: Array<Dictionary<String, String>> = []
 var _attribute: Dictionary<String, Any> = [:]
 var _options: Dictionary<String, Any> = [:]
 let _username: String = "testuser"
