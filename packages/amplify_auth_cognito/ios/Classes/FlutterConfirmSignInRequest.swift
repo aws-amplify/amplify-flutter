@@ -29,8 +29,16 @@ struct FlutterConfirmSignInRequest {
   }
     
   func formatOptions(options: Dictionary<String, Any>?) -> AuthConfirmSignInOperation.Request.Options {
-     
+    let rawAttributes = options?["userAttributes"] as? [String : String]
+    var userAttributes: [AuthUserAttribute] = [];
+    if (rawAttributes != nil) {
+      for (key, value) in rawAttributes ?? [:] {
+        userAttributes.append(AuthUserAttribute(createAuthUserAttributeKey(keyName: key), value: value))
+      }
+    }
+    
     let pluginOptions =  AWSAuthConfirmSignInOptions(
+      userAttributes: userAttributes,
       metadata: options?["clientMetadata"] as? [String : String]
     )
     return AuthConfirmSignInOperation.Request.Options(pluginOptions: pluginOptions)
@@ -43,4 +51,37 @@ struct FlutterConfirmSignInRequest {
                                           suggestion: String(format: ErrorMessages.missingAttribute, "confirmationCode"))
     }
   }
+    
+//  func createAttribute(key: String, value: String) -> AuthUserAttribute {
+//    switch key {
+//      case "address":
+//        return AuthUserAttribute(AuthUserAttributeKey.address, value: value)
+//      case "birthdate":
+//        return AuthUserAttribute(AuthUserAttributeKey.birthDate, value: value)
+//      case "email":
+//        return AuthUserAttribute(AuthUserAttributeKey.email, value: value)
+//      case "family_name":
+//        return AuthUserAttribute(AuthUserAttributeKey.familyName, value: value)
+//      case "gender":
+//        return AuthUserAttribute(AuthUserAttributeKey.gender, value: value)
+//      case "given_name":
+//        return AuthUserAttribute(AuthUserAttributeKey.givenName, value: value)
+//      case "locale":
+//        return AuthUserAttribute(AuthUserAttributeKey.locale, value: value)
+//      case "middle_name":
+//        return AuthUserAttribute(AuthUserAttributeKey.middleName, value: value)
+//      case "name":
+//        return AuthUserAttribute(AuthUserAttributeKey.name, value: value)
+//      case "nickname":
+//        return AuthUserAttribute(AuthUserAttributeKey.nickname, value: value)
+//      case "phone_number":
+//        return AuthUserAttribute(AuthUserAttributeKey.phoneNumber, value: value)
+//      case "picture":
+//        return AuthUserAttribute(AuthUserAttributeKey.picture, value: value)
+//      case "preferred_username":
+//        return AuthUserAttribute(AuthUserAttributeKey.preferredUsername, value: value)
+//      default:
+//        return AuthUserAttribute(AuthUserAttributeKey.unknown(key), value: value)
+//    }
+//  }
 }

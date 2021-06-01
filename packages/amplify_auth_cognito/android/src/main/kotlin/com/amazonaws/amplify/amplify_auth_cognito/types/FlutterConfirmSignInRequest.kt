@@ -17,6 +17,8 @@ package com.amazonaws.amplify.amplify_auth_cognito.types
 
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
+import com.amplifyframework.auth.AuthUserAttribute
+import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthConfirmSignInOptions
 
 data class FlutterConfirmSignInRequest(val map: HashMap<String, *>) {
@@ -28,6 +30,15 @@ data class FlutterConfirmSignInRequest(val map: HashMap<String, *>) {
 
     if(rawOptions?.get("clientMetadata") != null)
       options.metadata(rawOptions["clientMetadata"] as HashMap<String, String>);
+
+    if(rawOptions?.get("userAttributes") != null) {
+      var attributes = mutableListOf<AuthUserAttribute>();
+      var rawAttributes = rawOptions["userAttributes"] as HashMap<String, String>;
+      rawAttributes.forEach { (key, value) ->
+        attributes.add(createAuthUserAttribute(key, value))
+      }
+      options.userAttributes(attributes);
+    }
 
     return options.build();
   }
