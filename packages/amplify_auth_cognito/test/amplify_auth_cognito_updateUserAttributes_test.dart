@@ -27,6 +27,8 @@ void main() {
 
   int testCode = 0;
 
+  final String exceptionMessage = "exception message";
+
   setUp(() {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == "updateUserAttributes") {
@@ -44,14 +46,14 @@ void main() {
                 "isUpdated": true,
                 "nextStep": {
                   "updateAttributeStep": "DONE",
-                  "codeDeliveryDetails": {"attributeName": "email"}
+                  "codeDeliveryDetails": {"attributeName": "name"}
                 }
               }
             });
           case 2:
             return throw PlatformException(
               code: "UnknownException",
-              details: Map.from({"message": "I am an exception"}),
+              details: Map.from({"message": exceptionMessage}),
             );
         }
       }
@@ -85,7 +87,6 @@ void main() {
       ]),
     );
     expect(res["email"].nextStep, isInstanceOf<AuthNextUpdateAttributeStep>());
-    expect(res["email"].nextStep, isInstanceOf<AuthNextStep>());
   });
 
   test('updateUserAttributes thrown PlatFormException results in AuthError',
@@ -103,6 +104,6 @@ void main() {
     } on AuthException catch (e) {
       err = e;
     }
-    expect(err.message, "I am an exception");
+    expect(err.message, exceptionMessage);
   });
 }

@@ -322,7 +322,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
           await _channel.invokeMapMethod<String, dynamic>(
         'updateUserAttributes',
         <String, dynamic>{
-          'data': request != null ? request.serializeAsMap() : null,
+          'data': request.serializeAsMap(),
         },
       );
       return _formatUpdateUserAttributesResponse(data);
@@ -455,8 +455,6 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
         _formatUpdateUserAttributeResponse(
            Map<String, dynamic>.from(value))));
   }
-
-  // _TypeError (type '_InternalLinkedHashMap<dynamic, dynamic>' is not a subtype of type 'Map<String, dynamic>')
 
   ConfirmUserAttributeResult _formatConfirmUserAttributeResponse() {
     return ConfirmUserAttributeResult();

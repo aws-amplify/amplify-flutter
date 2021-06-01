@@ -13,17 +13,17 @@ class _UserAttributeController {
 }
 
 // ignore_for_file: public_member_api_docs
-class UpdateMultipleUserAttributesWidget extends StatefulWidget {
-  UpdateMultipleUserAttributesWidget();
+class UpdateUserAttributesWidget extends StatefulWidget {
+  UpdateUserAttributesWidget();
 
   @override
-  _UpdateMultipleUserAttributesWidgetState createState() =>
-      _UpdateMultipleUserAttributesWidgetState();
+  _UpdateUserAttributesWidgetState createState() =>
+      _UpdateUserAttributesWidgetState();
 }
 
-class _UpdateMultipleUserAttributesWidgetState
-    extends State<UpdateMultipleUserAttributesWidget> {
-  List<_UserAttributeController> _userAttributeControllers = [
+class _UpdateUserAttributesWidgetState
+    extends State<UpdateUserAttributesWidget> {
+  final List<_UserAttributeController> _userAttributeControllers = [
     _UserAttributeController(keyValue: 'name'),
     _UserAttributeController(keyValue: 'preferred_username'),
   ];
@@ -103,14 +103,11 @@ class _UpdateMultipleUserAttributesWidgetState
             children: [
               ..._userAttributeControllers.map((element) {
                 return Card(
-                  child: Stack(
-                    children: [
-                      
+                    child: Stack(children: [
                   Padding(
                     padding:
                         const EdgeInsets.only(left: 16, bottom: 24, right: 16),
                     child: Column(children: [
-                      
                       TextFormField(
                         controller: element.keyController,
                         decoration: const InputDecoration(
@@ -136,22 +133,19 @@ class _UpdateMultipleUserAttributesWidgetState
                     ]),
                   ),
                   Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          IconButton(
-                            padding: EdgeInsets.zero,
-                            icon: Icon(
-                              Icons.close,
-                              size: 18,
-                            ),
-                            onPressed: () => _removeAttribute(element),
-                          )
-                        ],
-                      ),
-                    ]
-                  )
-
-                );
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      IconButton(
+                        padding: EdgeInsets.zero,
+                        icon: Icon(
+                          Icons.close,
+                          size: 18,
+                        ),
+                        onPressed: () => _removeAttribute(element),
+                      )
+                    ],
+                  ),
+                ]));
               }),
               const SizedBox(height: 12),
               ElevatedButton(

@@ -2,7 +2,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 
-import 'UpdateMultipleUserAttributes.dart';
+import 'UpdateUserAttributes.dart';
 import 'UpdateUserAttribute.dart';
 
 // ignore: public_member_api_docs
@@ -62,7 +62,7 @@ class _ViewUserAttributesState extends State<ViewUserAttributes> {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => UpdateMultipleUserAttributesWidget(),
+                  builder: (context) => UpdateUserAttributesWidget(),
                 ),
               );
             },

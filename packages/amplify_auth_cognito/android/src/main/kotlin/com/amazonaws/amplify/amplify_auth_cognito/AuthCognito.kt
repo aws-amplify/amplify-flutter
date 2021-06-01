@@ -160,7 +160,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
     } catch(e: Exception) {
       return errorHandler.prepareGenericException(result, e)
     }
-    
+
     when (call.method) {
       "signUp" -> onSignUp(result, data)
       "confirmSignUp" -> onConfirmSignUp(result, data)

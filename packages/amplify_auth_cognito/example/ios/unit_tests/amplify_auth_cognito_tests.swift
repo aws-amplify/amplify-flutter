@@ -1598,7 +1598,6 @@ class amplify_auth_cognito_tests: XCTestCase {
         
         plugin = SwiftAuthCognito.init(cognito: UpdateUserAttributesMock())
         
-        
         _attributeArray = [
             [
                 "userAttributeKey" : "email",

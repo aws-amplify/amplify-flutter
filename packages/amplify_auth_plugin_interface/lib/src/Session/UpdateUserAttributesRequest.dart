@@ -21,12 +21,12 @@ class UpdateUserAttributesRequest {
   /// The list of user attribute to update
   final List<AuthUserAttribute> attributes;
 
-  // ignore: public_member_api_docs
+  /// Default constructor
   UpdateUserAttributesRequest({
     @required this.attributes,
   });
 
-  // ignore: public_member_api_docs
+  /// Serialize the object to a map for use over the method channel
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     pendingRequest['attributes'] =
