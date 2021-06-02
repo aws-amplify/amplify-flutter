@@ -34,14 +34,7 @@ struct FlutterUpdateUserAttributesRequest {
         } else {
             let attributes = dict["attributes"] as! Array<Dictionary<String, Any>>;
             for attribute in attributes {
-                if (attribute["userAttributeKey"] == nil) {
-                    throw InvalidRequestError.auth(comment: validationErrorMessage, suggestion: String(format: ErrorMessages.missingAttribute, "userAttributeKey"))
-                } else if (attribute["value"] == nil) {
-                    throw InvalidRequestError.auth(comment: validationErrorMessage, suggestion: String(format: ErrorMessages.missingAttribute, "value"))
-                } else if (!(attribute["value"] is String)) {
-                    // iOS SDK expects a string for user attr values, regardless of the configuration in cognito
-                    throw InvalidRequestError.auth(comment: validationErrorMessage, suggestion: "Attribute value is not a String.")
-                }
+                try validateUserAttribute(attribute: attribute, validationErrorMessage: validationErrorMessage)
             }
         }
     }

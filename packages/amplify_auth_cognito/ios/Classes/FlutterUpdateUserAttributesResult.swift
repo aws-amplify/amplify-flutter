@@ -30,66 +30,6 @@ struct FlutterUpdateUserAttributesResult {
     }
     
     func toJSON() -> Dictionary<String, Any> {
-        return Dictionary(uniqueKeysWithValues: self.attributes.map { key, value in (key.rawValue, createAttributeJSON(updateResult: value))})
+        return Dictionary(uniqueKeysWithValues: self.attributes.map { key, value in (key.rawValue, serializeAuthUpdateAttributeResult(result: value))})
     }
-}
-
-func createAttributeJSON(updateResult: AuthUpdateAttributeResult) ->Dictionary<String, Any> {
-    return [
-        "isUpdated": isUpdated(updateResult: updateResult),
-        "nextStep": [
-            "updateAttributeStep": setState(updateResult: updateResult),
-            "additionalInfo": setAdditionalInfo(updateResult: updateResult),
-            "codeDeliveryDetails": setCodeDeliveryDetails(updateResult: updateResult)
-        ]]
-}
-
-func isUpdated(updateResult: AuthUpdateAttributeResult) -> Bool {
-    return updateResult.isUpdated
-}
-
-func setCodeDeliveryDetails(updateResult: AuthUpdateAttributeResult) -> [String: String] {
-    var deliveryMap: [String: String] = [:]
-    if case let .confirmAttributeWithCode(deliveryDetails, _) = updateResult.nextStep {
-        if case let .email(e) = deliveryDetails.destination {
-            deliveryMap["destination"] = e! as String
-            deliveryMap["attributeName"] = "email"
-            deliveryMap["deliveryMedium"] = "EMAIL"
-        }
-        
-        if case let .phone(e) = deliveryDetails.destination {
-            deliveryMap["destination"] = e! as String
-            deliveryMap["attributeName"] = "phone"
-        }
-        
-        if case let .sms(e) = deliveryDetails.destination {
-            deliveryMap["destination"] = e! as String
-            deliveryMap["attributeName"] = "sms"
-            deliveryMap["deliveryMedium"] = "SMS"
-        }
-        
-        if case let .unknown(e) = deliveryDetails.destination {
-            deliveryMap["destination"] = e! as String
-            deliveryMap["attributeName"] = "unknown"
-        }
-    }
-    return deliveryMap
-}
-
-func setAdditionalInfo(updateResult:  AuthUpdateAttributeResult) -> [String: String] {
-    var infoMap: [String: String] = [:]
-    if case let .confirmAttributeWithCode(_, additionalInfo) = updateResult.nextStep {
-        infoMap = additionalInfo ?? [:]
-    }
-    return infoMap
-}
-
-func setState(updateResult: AuthUpdateAttributeResult) -> String {
-    if case .done = updateResult.nextStep {
-        return "DONE"
-    }
-    if case .confirmAttributeWithCode = updateResult.nextStep {
-        return "CONFIRM_ATTRIBUTE_WITH_CODE"
-    }
-    return "ERROR"
 }

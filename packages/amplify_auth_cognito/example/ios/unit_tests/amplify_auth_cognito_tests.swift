@@ -1470,8 +1470,11 @@ class amplify_auth_cognito_tests: XCTestCase {
         let call = FlutterMethodCall(methodName: "updateUserAttribute", arguments: _args)
         plugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterUpdateUserAttributeResult {
-                XCTAssertEqual( "DONE", res.updateAttributeStep)
-                XCTAssertEqual( true, res.isUpdated)
+                let isUpdated = res.toJSON()["isUpdated"] as! Bool
+                let nextStep = res.toJSON()["nextStep"] as! Dictionary<String, Any>
+                let updateAttributeStep = nextStep["updateAttributeStep"] as! String
+                XCTAssertEqual( true, isUpdated)
+                XCTAssertEqual( "DONE", updateAttributeStep)
             } else {
                 XCTFail()
             }
@@ -1501,8 +1504,12 @@ class amplify_auth_cognito_tests: XCTestCase {
         let call = FlutterMethodCall(methodName: "updateUserAttribute", arguments: _args)
         plugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterUpdateUserAttributeResult {
-                XCTAssertEqual( "DONE", res.updateAttributeStep)
-                XCTAssertEqual( true, res.isUpdated)
+                let isUpdated = res.toJSON()["isUpdated"] as! Bool
+                let nextStep = res.toJSON()["nextStep"] as! Dictionary<String, Any>
+                let updateAttributeStep = nextStep["updateAttributeStep"] as! String
+                XCTAssertEqual( true, isUpdated)
+                XCTAssertEqual( "DONE", updateAttributeStep)
+
             } else {
                 XCTFail()
             }
