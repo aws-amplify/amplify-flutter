@@ -178,8 +178,9 @@ void main() {
     }''';
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      Map<String, dynamic> methodCallArguments = methodCall.arguments;
-      expect(methodCall.arguments, {});
+      Map<String, dynamic> methodCallArguments =
+          Map<String, dynamic>.from(methodCall.arguments);
+      expect(methodCallArguments['apiName'], {});
     });
     var operation = api.query<String>(
         request: GraphQLRequest(
@@ -200,7 +201,9 @@ void main() {
     }''';
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      expect(methodCall.arguments, {});
+      Map<String, dynamic> methodCallArguments =
+          Map<String, dynamic>.from(methodCall.arguments);
+      expect(methodCallArguments['apiName'], null);
     });
     var operation = api.query<String>(
         request: GraphQLRequest(document: graphQLDocument, variables: {}));
