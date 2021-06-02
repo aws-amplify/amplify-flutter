@@ -25,6 +25,33 @@ const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/datastore');
 class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   var _allModelsStreamFromMethodChannel = null;
 
+  /// This method adds model schemas which is necessary to instantiate native plugins
+  /// This is needed before the Amplify.configure() can be called, since the native
+  /// plugins are needed to be added before that. As this function is marked for
+  /// deprecation, it actually now invokes configureDataStore internally.
+  @deprecated
+  @override
+  Future<void> configureModelProvider(
+      {ModelProviderInterface modelProvider}) async {
+    try {
+      return await _channel
+          .invokeMethod('configureDataStore', <String, dynamic>{
+        'modelSchemas':
+            modelProvider.modelSchemas.map((schema) => schema.toMap()).toList(),
+        'modelProviderVersion': modelProvider.version
+      });
+    } on PlatformException catch (e) {
+      if (e.code == "AmplifyAlreadyConfiguredException") {
+        throw AmplifyAlreadyConfiguredException(
+            AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+            recoverySuggestion:
+                AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
+      } else {
+        throw _deserializeException(e);
+      }
+    }
+  }
+
   /// This method instantiates the native DataStore plugins with plugin
   /// configurations. This needs to happen before Amplify.configure() can be
   /// called.

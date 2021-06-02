@@ -65,6 +65,18 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
       this.syncPageSize})
       : super(token: token);
 
+  StreamController get streamController {
+    throw UnimplementedError(
+        'streamController getter has not been implemented.');
+  }
+
+  @deprecated
+  Future<void> configureModelProvider(
+      {@required ModelProviderInterface modelProvider}) {
+    throw UnimplementedError(
+        'configureModelProvider() has not been implemented.');
+  }
+
   /// Configure AmplifyDataStore plugin with mandatory [modelProvider]
   /// and optional datastore configuration properties including
   ///
@@ -79,11 +91,6 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
       int syncMaxRecords,
       int syncPageSize}) {
     throw UnimplementedError('configureDataStore() has not been implemented.');
-  }
-
-  StreamController get streamController {
-    throw UnimplementedError(
-        'streamController getter has not been implemented.');
   }
 
   Future<void> configure({String configuration}) {
