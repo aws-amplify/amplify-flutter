@@ -16,10 +16,20 @@
 package com.amazonaws.amplify.amplify_auth_cognito.utils
 
 import com.amplifyframework.auth.result.AuthUpdateAttributeResult
+import com.amplifyframework.auth.result.step.AuthNextUpdateAttributeStep
+import com.google.gson.Gson
 
 fun serializeAuthUpdateAttributeResult(result: AuthUpdateAttributeResult): Map<String, Any> {
     return mapOf(
             "isUpdated" to result.isUpdated,
-            "nextStep" to serializeAuthNextStep(result.nextStep, "updateAttributeStep" to result.nextStep.updateAttributeStep.toString())
+            "nextStep" to serializeAuthUpdateAttributeStep(result.nextStep)
+    )
+}
+
+fun serializeAuthUpdateAttributeStep(nextStep: AuthNextUpdateAttributeStep): Map<String, Any> {
+    return mapOf(
+            "updateAttributeStep" to nextStep.updateAttributeStep.toString(),
+            "additionalInfo" to Gson().toJson(nextStep.additionalInfo),
+            "codeDeliveryDetails" to serializeAuthCodeDeliveryDetails(nextStep.codeDeliveryDetails)
     )
 }
