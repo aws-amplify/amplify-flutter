@@ -186,7 +186,7 @@ void main() {
     await operation.response;
   });
 
-  test('query should not serialize apiName when not included in reques',
+  test('query should not serialize apiName when not included in request',
       () async {
     String graphQLDocument = '''query MyQuery {
       listBlogs {
