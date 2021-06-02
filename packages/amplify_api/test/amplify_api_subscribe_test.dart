@@ -26,8 +26,7 @@ void main() {
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  final request =
-      GraphQLRequest<String>(document: 'test document', apiName: "publicApi");
+  final request = GraphQLRequest<String>(document: 'test document');
   var isOnEstablishCalled = false;
   var isOnDoneCalled = false;
   var eventData = null;
