@@ -115,8 +115,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         }
     }
 
-    private fun onConfigureDataStore(flutterResult: Result, request: Map<String, Any>) {
-
+    @VisibleForTesting
+    fun onConfigureDataStore(flutterResult: Result, request: Map<String, Any>) {
         if (!request.containsKey("modelSchemas") || !request.containsKey(
                         "modelProviderVersion") || request["modelSchemas"] !is List<*>) {
             handler.post {
@@ -144,17 +144,16 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         }
 
         modelProvider.setVersion(request["modelProviderVersion"] as String)
-
-        val defaultDataStoreConfiguration = DataStoreConfiguration.defaults();
+        val defaultDataStoreConfiguration = DataStoreConfiguration.defaults()
         val syncInterval: Long =
             (request["syncInterval"] as? Int)?.toLong()
-                ?: defaultDataStoreConfiguration.syncIntervalInMinutes;
+                ?: defaultDataStoreConfiguration.syncIntervalInMinutes
         val syncMaxRecords: Int =
             (request["syncMaxRecords"] as? Int)
-                ?: defaultDataStoreConfiguration.syncMaxRecords;
+                ?: defaultDataStoreConfiguration.syncMaxRecords
         val syncPageSize: Int =
             (request["syncPageSize"] as? Int)
-                ?: defaultDataStoreConfiguration.syncPageSize;
+                ?: defaultDataStoreConfiguration.syncPageSize
 
         try {
             Amplify.addPlugin(

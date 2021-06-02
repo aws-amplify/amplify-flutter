@@ -90,7 +90,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
     }
     streamWrapper.registerModelsForHub(provider);
     return _instance.configureDataStore(
-        modelProvider: modelProvider,
+        modelProvider: provider,
         syncInterval: this.syncInterval,
         syncMaxRecords: this.syncMaxRecords,
         syncPageSize: this.syncPageSize);

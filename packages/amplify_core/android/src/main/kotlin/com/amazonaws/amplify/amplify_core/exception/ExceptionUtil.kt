@@ -87,7 +87,7 @@ class ExceptionUtil {
         }
 
         @JvmStatic
-        fun handleAddPluginException(@NonNull pluginName : String, @NonNull e : Exception, @NonNull flutterResult : Result){
+        fun handleAddPluginException(@NonNull pluginName: String, @NonNull e: Exception, @NonNull flutterResult: Result) {
             var errorDetails: Map<String, Any?>
             var errorCode = pluginName + "Exception"
             if (e is Amplify.AlreadyConfiguredException) {
@@ -97,8 +97,7 @@ class ExceptionUtil {
                 is AmplifyException -> createSerializedError(e)
                 else -> createSerializedUnrecognizedError(e)
             }
-            postExceptionToFlutterChannel(flutterResult, errorCode,
-                    errorDetails)
+            postExceptionToFlutterChannel(flutterResult, errorCode, errorDetails)
         }
     }
 }
