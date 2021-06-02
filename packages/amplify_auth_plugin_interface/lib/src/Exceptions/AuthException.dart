@@ -18,7 +18,7 @@ import 'package:amplify_core/types/exception/AmplifyException.dart';
 /// Base Class for Auth Exceptions
 class AuthException extends AmplifyException {
   AuthException(String message,
-      {String recoverySuggestion, String underlyingException})
+      {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);

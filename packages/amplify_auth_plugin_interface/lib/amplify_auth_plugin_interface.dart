@@ -17,8 +17,6 @@ library amplify_auth_plugin_interface;
 
 import 'dart:async';
 import 'package:amplify_auth_plugin_interface/src/Session/AuthUserAttributeRequest.dart';
-import 'package:flutter/foundation.dart';
-import 'package:meta/meta.dart';
 import 'package:amplify_core/types/index.dart';
 import 'src/Session/AuthUserAttribute.dart';
 import 'src/types.dart';
@@ -27,7 +25,7 @@ export 'src/types.dart';
 // ignore_for_file: public_member_api_docs
 abstract class AuthPluginInterface extends AmplifyPluginInterface {
   /// Constructs a AmplifyPlatform.
-  AuthPluginInterface({@required Object token}) : super(token: token);
+  AuthPluginInterface({required Object token}) : super(token: token);
 
   StreamController get streamController {
     throw UnimplementedError('streamController getter has not been implemented.');
@@ -37,58 +35,58 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('addPlugin() has not been implemented.');
   }
 
-  Future<SignUpResult> signUp({@required SignUpRequest request}) {
+  Future<SignUpResult> signUp({required SignUpRequest request}) {
     throw UnimplementedError('signUp() has not been implemented.');
   }
 
-  Future<SignUpResult> confirmSignUp({@required ConfirmSignUpRequest request}) {
+  Future<SignUpResult> confirmSignUp({required ConfirmSignUpRequest request}) {
     throw UnimplementedError('confirmSignUp() has not been implemented.');
   }
 
   Future<ResendSignUpCodeResult> resendSignUpCode(
-      {@required ResendSignUpCodeRequest request}) {
+      {required ResendSignUpCodeRequest request}) {
     throw UnimplementedError('resendSignUpCode() has not been implemented.');
   }
 
-  Future<SignInResult> signIn({@required SignInRequest request}) {
+  Future<SignInResult> signIn({required SignInRequest request}) {
     throw UnimplementedError('signIn() has not been implemented.');
   }
 
-  Future<SignOutResult> signOut({@required SignOutRequest request}) {
+  Future<SignOutResult> signOut({required SignOutRequest request}) {
     throw UnimplementedError('signOut() has not been implemented.');
   }
 
-  Future<SignInResult> confirmSignIn({@required ConfirmSignInRequest request}) {
+  Future<SignInResult> confirmSignIn({required ConfirmSignInRequest request}) {
     throw UnimplementedError('confirmSignIn() has not been implemented.');
   }
 
-  Future<UpdatePasswordResult> updatePassword({UpdatePasswordRequest request}) {
+  Future<UpdatePasswordResult> updatePassword({UpdatePasswordRequest? request}) {
     throw UnimplementedError('updatePassword() has not been implemented.');
   }
 
   Future<ResetPasswordResult> resetPassword(
-      {@required ResetPasswordRequest request}) {
+      {required ResetPasswordRequest request}) {
     throw UnimplementedError('resetPassword() has not been implemented.');
   }
 
   Future<UpdatePasswordResult> confirmPassword(
-      {ConfirmPasswordRequest request}) {
+      {ConfirmPasswordRequest? request}) {
     throw UnimplementedError('confirmPassword() has not been implemented.');
   }
 
-  Future<AuthUser> getCurrentUser({AuthUserRequest request}) {
+  Future<AuthUser> getCurrentUser({AuthUserRequest? request}) {
     throw UnimplementedError('getCurrentUser() has not been implemented.');
   }
 
-  Future<List<AuthUserAttribute>> fetchUserAttributes({AuthUserAttributeRequest request}) {
+  Future<List<AuthUserAttribute>> fetchUserAttributes({AuthUserAttributeRequest? request}) {
     throw UnimplementedError('fetchUserAttributes() has not been implemented.');
   }
 
-  Future<AuthSession> fetchAuthSession({@required AuthSessionRequest request}) {
+  Future<AuthSession> fetchAuthSession({required AuthSessionRequest request}) {
     throw UnimplementedError('fetchAuthSession() has not been implemented.');
   }
 
-  Future<SignInResult> signInWithWebUI({SignInWithWebUIRequest request}) {
+  Future<SignInResult> signInWithWebUI({SignInWithWebUIRequest? request}) {
     throw UnimplementedError('signInWithWebUI() has not been implemented.');
   }
 

@@ -13,13 +13,12 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
+
 
 class AuthUserAttribute {
   String userAttributeKey;
   var value;
-  AuthUserAttribute.init(
-      {@required this.userAttributeKey, @required this.value}) {
+  AuthUserAttribute.init({required this.userAttributeKey, required this.value}) {
     this.userAttributeKey = userAttributeKey;
     if (userAttributeKey != 'phone_number') {
       try {

@@ -52,9 +52,9 @@ class DataStoreCategory {
   }
 
   Future<List<T>> query<T extends Model>(ModelType<T> modelType,
-      {QueryPredicate where,
-      QueryPagination pagination,
-      List<QuerySortBy> sortBy}) {
+      {QueryPredicate? where,
+      QueryPagination? pagination,
+      List<QuerySortBy>? sortBy}) {
     return plugins.length == 1
         ? plugins[0].query(modelType,
             where: where, pagination: pagination, sortBy: sortBy)
