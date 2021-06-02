@@ -30,6 +30,6 @@ struct FlutterUpdateUserAttributeResult {
     }
 
     func toJSON() -> Dictionary<String, Any> {
-        return self.result == nil ? [:] : serializeAuthUpdateAttributeResult(result: self.result!)
+        return serializeAuthUpdateAttributeResult(result: self.result)
     }
 }

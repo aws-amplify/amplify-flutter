@@ -16,14 +16,14 @@
 import Foundation
 import Amplify
 
-func serializeAuthUpdateAttributeResult(result: AuthUpdateAttributeResult) -> Dictionary<String, Any> {
+func serializeAuthUpdateAttributeResult(result: AuthUpdateAttributeResult?) -> Dictionary<String, Any> {
     return [
-        "isUpdated": result.isUpdated,
-        "nextStep": serializeAuthUpdateAttributeStep(nextStep: result.nextStep)
+        "isUpdated": result?.isUpdated ?? false,
+        "nextStep": serializeAuthUpdateAttributeStep(nextStep: result?.nextStep)
     ]
 }
 
-private func serializeAuthUpdateAttributeStep(nextStep: AuthUpdateAttributeStep) -> Dictionary<String, Any> {
+private func serializeAuthUpdateAttributeStep(nextStep: AuthUpdateAttributeStep?) -> Dictionary<String, Any> {
     let serializedUpdateAttributeStep = serializeUpdateAttributeStep(nextStep: nextStep)
     var serializedAdditionalInfo: Dictionary<String, Any> = [:]
     var serializedCodeDeliveryDetails: Dictionary<String, Any>  = [:]
@@ -38,7 +38,7 @@ private func serializeAuthUpdateAttributeStep(nextStep: AuthUpdateAttributeStep)
     ]
 }
 
-private func serializeUpdateAttributeStep(nextStep: AuthUpdateAttributeStep) -> String {
+private func serializeUpdateAttributeStep(nextStep: AuthUpdateAttributeStep?) -> String {
     if case .done = nextStep {
         return "DONE"
     }
