@@ -50,12 +50,6 @@ func createAuthUserAttributeKey(keyName: String) -> AuthUserAttributeKey {
     case "preferred_username":
         return AuthUserAttributeKey.preferredUsername
     default:
-        // amplify-ios does not currently include enums for these keyNames
-        let unknownKeys = ["profile", "updated_at", "website", "zoneinfo"]
-        if (unknownKeys.contains(keyName)) {
-            return AuthUserAttributeKey.unknown(keyName)
-        } else {
-            return AuthUserAttributeKey.custom(keyName)
-        }
+        return AuthUserAttributeKey.custom(keyName)
     }
 }
