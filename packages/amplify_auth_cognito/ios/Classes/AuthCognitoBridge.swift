@@ -70,11 +70,7 @@ class AuthCognitoBridge {
               case .success(let signInResult):
                 switch signInResult.nextStep {
                   case .confirmSignUp:
-                    // This avoids importing the mobileclient code
-                    enum ErrorShim: Error {
-                        case userNotConfirmed
-                    }
-                    self.errorHandler.handleAuthError(authError: AuthError.service("User is not confirmed.", "See attached exception for more details", ErrorShim.userNotConfirmed), flutterResult: flutterResult)
+                    self.errorHandler.handleAuthError(authError: AuthError.service("User is not confirmed.", "See attached exception for more details", AWSCognitoAuthError.userNotConfirmed), flutterResult: flutterResult)
                   default:
                     let signInData = FlutterSignInResult(res: response)
                     flutterResult(signInData.toJSON())
