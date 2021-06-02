@@ -30,7 +30,6 @@ import com.amplifyframework.core.Action
 import com.amplifyframework.api.ApiException
 import io.flutter.plugin.common.MethodChannel
 
-
 class FlutterGraphQLApi {
     companion object {
         private val handler = Handler(Looper.getMainLooper())
@@ -57,8 +56,8 @@ class FlutterGraphQLApi {
             }
             
             var operation: GraphQLOperation<String>? = null 
-
-            var responseCallback  = Consumer<GraphQLResponse<String>> { response ->
+            
+            var responseCallback = Consumer<GraphQLResponse<String>> { response ->
                 if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
 
                 var result: Map<String, Any> = mapOf(
@@ -69,7 +68,7 @@ class FlutterGraphQLApi {
                 handler.post { flutterResult.success(result) }
             }
 
-            var errorCallback  = Consumer<ApiException>  { exception ->
+            var errorCallback = Consumer<ApiException>  { exception ->
                 if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
 
                 LOG.error("GraphQL mutate operation failed", exception)
@@ -78,7 +77,6 @@ class FlutterGraphQLApi {
                             ExceptionUtil.createSerializedError(exception))
                 }
             }
-
 
             if (apiName != null) {
                 operation = Amplify.API.query(
@@ -131,9 +129,9 @@ class FlutterGraphQLApi {
             }
             var operation: GraphQLOperation<String?>? = null
 
-            var responseCallback  = Consumer<GraphQLResponse<String>> { response ->
+            var responseCallback = Consumer<GraphQLResponse<String>> { response ->
                 if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
-
+                
                 var result: Map<String, Any> = mapOf(
                         "data" to response.data,
                         "errors" to response.errors.map { it.message }
@@ -142,9 +140,9 @@ class FlutterGraphQLApi {
                 handler.post { flutterResult.success(result) }
             }
 
-            var errorCallback  = Consumer<ApiException>  { exception ->
+            var errorCallback = Consumer<ApiException> { exception ->
                  if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
-
+                    
                     LOG.error("GraphQL mutate operation failed", exception)
                     handler.post {
                         ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
