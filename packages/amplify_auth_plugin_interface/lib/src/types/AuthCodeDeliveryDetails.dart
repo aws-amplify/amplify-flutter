@@ -16,7 +16,7 @@
 class AuthCodeDeliveryDetails {
   String? attributeName;
   String? deliveryMedium;
-  String destination;
+  late String destination;
   AuthCodeDeliveryDetails(
       {this.attributeName, this.deliveryMedium, required this.destination});
 }

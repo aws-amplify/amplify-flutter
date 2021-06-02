@@ -420,11 +420,18 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   UpdateUserAttributeResult _formatUpdateUserAttributeResponse(
       Map<String, dynamic> res) {
+    var codeDeliveryDetails = res["nextStep"]["codeDeliveryDetails"];
     return UpdateUserAttributeResult(
         isUpdated: res["isUpdated"],
         nextStep: AuthNextUpdateAttributeStep(
             updateAttributeStep: res["nextStep"]["updateAttributeStep"],
-            codeDeliveryDetails: res["nextStep"]["codeDeliveryDetails"],
+            codeDeliveryDetails: codeDeliveryDetails != null
+                ? AuthCodeDeliveryDetails(
+                    attributeName: codeDeliveryDetails["attributeName"] ?? null,
+                    deliveryMedium:
+                        codeDeliveryDetails["deliveryMedium"] ?? null,
+                    destination: codeDeliveryDetails["destination"])
+                : null,
             additionalInfo: res["nextStep"]["additionalInfo"] is String
                 ? jsonDecode(res["nextStep"]["additionalInfo"])
                 : {}));

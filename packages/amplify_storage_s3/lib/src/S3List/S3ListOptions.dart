@@ -13,7 +13,7 @@ class S3ListOptions extends ListOptions {
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> optionsMap = <String, dynamic>{
       'accessLevel': describeEnum(accessLevel),
-      'targetIdentifyId': targetIdentityId
+      'targetIdentityId': targetIdentityId
     };
     optionsMap.removeWhere((_, v) => v == null);
     return optionsMap;

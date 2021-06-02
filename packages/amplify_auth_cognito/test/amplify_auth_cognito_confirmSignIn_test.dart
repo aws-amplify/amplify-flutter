@@ -102,7 +102,6 @@ void main() {
         return true;
       }
     });
-    late AuthException err;
     try {
       await auth.confirmSignIn(
           request: ConfirmSignInRequest(confirmationValue: "iAmNotLegit"));
