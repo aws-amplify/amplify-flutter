@@ -13,12 +13,11 @@
  * permissions and limitations under the License.
  */
 
-
-
 class AuthUserAttribute {
   String userAttributeKey;
   var value;
-  AuthUserAttribute.init({required this.userAttributeKey, required this.value}) {
+  AuthUserAttribute.init(
+      {required this.userAttributeKey, required this.value}) {
     this.userAttributeKey = userAttributeKey;
     if (userAttributeKey != 'phone_number') {
       try {
@@ -28,7 +27,7 @@ class AuthUserAttribute {
   }
 
   /// Creates an object that holds the key and value for a user attribute.
-  AuthUserAttribute({@required this.userAttributeKey, @required this.value}) {}
+  AuthUserAttribute({required this.userAttributeKey, required this.value}) {}
 
   // ignore: public_member_api_docs
   Map<String, dynamic> serializeAsMap() {

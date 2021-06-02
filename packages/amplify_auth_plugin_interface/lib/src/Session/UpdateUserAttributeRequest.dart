@@ -24,8 +24,8 @@ class UpdateUserAttributeRequest {
   final AuthUserAttribute attribute;
 
   UpdateUserAttributeRequest({
-    @required String userAttributeKey,
-    @required String value,
+    required String userAttributeKey,
+    required String value,
   }) : attribute = AuthUserAttribute(
           userAttributeKey: userAttributeKey,
           value: value,
