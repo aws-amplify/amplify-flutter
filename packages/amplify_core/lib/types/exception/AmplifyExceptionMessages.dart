@@ -31,6 +31,10 @@ class AmplifyExceptionMessages {
 
   static const alreadyConfiguredDefaultMessage =
       'Amplify has already been configured and adding plugins after configure is not supported.';
-  
-  static const alreadyConfiguredDefaultSuggestion = 'Check if Amplify is already configured using Amplify.isConfigured.';
+
+  static const alreadyConfiguredDefaultSuggestion =
+      'Check if Amplify is already configured using Amplify.isConfigured.';
+
+  static const nullReturnedFromMethodChannel =
+      'The value returned from the MethodChannel is null';
 }
