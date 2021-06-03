@@ -181,6 +181,7 @@ void main() {
       Map<String, dynamic> methodCallArguments =
           Map<String, dynamic>.from(methodCall.arguments);
       expect(methodCallArguments['apiName'], apiName);
+      return {'errors': []};
     });
     var operation = api.query<String>(
         request: GraphQLRequest(
@@ -204,6 +205,7 @@ void main() {
       Map<String, dynamic> methodCallArguments =
           Map<String, dynamic>.from(methodCall.arguments);
       expect(methodCallArguments['apiName'], null);
+      return {'errors': []};
     });
     var operation = api.query<String>(
         request: GraphQLRequest(document: graphQLDocument, variables: {}));
