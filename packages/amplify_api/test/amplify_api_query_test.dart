@@ -178,9 +178,7 @@ void main() {
     }''';
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      Map<String, dynamic> methodCallArguments =
-          Map<String, dynamic>.from(methodCall.arguments);
-      expect(methodCallArguments['apiName'], apiName);
+      expect(methodCall.arguments['apiName'], apiName);
       return {'errors': []};
     });
     var operation = api.query<String>(
@@ -202,9 +200,7 @@ void main() {
     }''';
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      Map<String, dynamic> methodCallArguments =
-          Map<String, dynamic>.from(methodCall.arguments);
-      expect(methodCallArguments['apiName'], null);
+      expect(methodCall.arguments['apiName'], null);
       return {'errors': []};
     });
     var operation = api.query<String>(
