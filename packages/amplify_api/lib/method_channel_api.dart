@@ -26,9 +26,6 @@ import 'amplify_api.dart';
 
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/api');
 
-AmplifyException nullMapFromMethodChannelException =
-    AmplifyException(AmplifyExceptionMessages.nullReturnedFromMethodChannel);
-
 class AmplifyAPIMethodChannel extends AmplifyAPI {
   dynamic _allSubscriptionsStream = null;
 
@@ -155,7 +152,9 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
         methodName,
         request.serializeAsMap(),
       )));
-      if (result == null) throw nullMapFromMethodChannelException;
+      if (result == null)
+        throw AmplifyException(
+            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       final errors = _deserializeGraphQLResponseErrors(result);
 
       GraphQLResponse<T> response =
@@ -211,7 +210,9 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     try {
       final Map<String, dynamic>? data = (await (_channel
           .invokeMapMethod<String, dynamic>(methodName, inputsMap)));
-      if (data == null) throw nullMapFromMethodChannelException;
+      if (data == null)
+        throw AmplifyException(
+            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       return _formatRestResponse(data);
     } on PlatformException catch (e) {
       throw _deserializeException(e);

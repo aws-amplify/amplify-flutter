@@ -17,9 +17,6 @@ import 'package:amplify_core/types/index.dart';
 import 'package:flutter/services.dart';
 import 'amplify_auth_cognito.dart';
 
-AmplifyException nullMapFromMethodChannelException =
-    AmplifyException(AmplifyExceptionMessages.nullReturnedFromMethodChannel);
-
 /// Converts MethodChannel error data to Dart AuthException subclass
 Exception castAndReturnPlatformException(PlatformException e) {
   switch (e.code) {
