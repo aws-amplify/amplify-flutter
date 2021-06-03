@@ -51,9 +51,9 @@ class DataStoreCategory {
   }
 
   Future<void> configure(String configuration) async {
-    return plugins.length == 1
-        ? plugins[0].configure(configuration: configuration)
-        : throw _pluginNotAddedException("DataStore");
+    if (plugins.length == 1) {
+      return plugins[0].configure(configuration: configuration);
+    }
   }
 
   Future<List<T>> query<T extends Model>(ModelType<T> modelType,
