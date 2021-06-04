@@ -1,5 +1,5 @@
 /*
-* Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+* Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 *
 * Licensed under the Apache License, Version 2.0 (the "License").
 * You may not use this file except in compliance with the License.
@@ -76,8 +76,8 @@ class Blog extends Model {
     var buffer = new StringBuffer();
 
     buffer.write("Blog {");
-    buffer.write("id=$id" + ", ");
-    buffer.write("name=$_name");
+    buffer.write("id=" + "$id" + ", ");
+    buffer.write("name=" + "$_name");
     buffer.write("}");
 
     return buffer.toString();

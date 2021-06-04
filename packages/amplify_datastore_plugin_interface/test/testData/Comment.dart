@@ -1,5 +1,5 @@
 /*
-* Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+* Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 *
 * Licensed under the Apache License, Version 2.0 (the "License").
 * You may not use this file except in compliance with the License.
@@ -73,9 +73,9 @@ class Comment extends Model {
     var buffer = new StringBuffer();
 
     buffer.write("Comment {");
-    buffer.write("id=$id" + ", ");
+    buffer.write("id=" + "$id" + ", ");
     buffer.write("post=" + (_post != null ? _post.toString() : "null") + ", ");
-    buffer.write("content=$_content");
+    buffer.write("content=" + "$_content");
     buffer.write("}");
 
     return buffer.toString();
