@@ -20,19 +20,11 @@ import com.google.gson.Gson
 
 data class FlutterUpdateUserAttributeResult(private val raw: AuthUpdateAttributeResult) {
     val isUpdated: Boolean = raw.isUpdated
-    val nextStep: Map<String, Any> = setNextStep();
-
-    private fun setNextStep(): Map<String, Any> {
-        return mapOf(
-            "updateAttributeStep" to raw.nextStep.updateAttributeStep.toString(),
-            "additionalInfo" to Gson().toJson(raw.nextStep.additionalInfo),
-            "codeDeliveryDetails" to mapOf(
-                "destination" to (raw.nextStep.codeDeliveryDetails?.destination ?: ""),
-                "deliveryMedium" to (raw.nextStep.codeDeliveryDetails?.deliveryMedium?.name ?: ""),
-                "attributeName" to (raw.nextStep.codeDeliveryDetails?.attributeName ?: "")
-            )
-        )
-    }
+    val nextStep: Map<String, Any> = com.amazonaws.amplify.amplify_auth_cognito.setNextStep(
+            "updateAttributeStep",
+            raw.nextStep.updateAttributeStep.toString(),
+            raw.nextStep.codeDeliveryDetails,
+            raw.nextStep.additionalInfo)
 
     fun toValueMap(): Map<String, Any> {
         return mapOf(
