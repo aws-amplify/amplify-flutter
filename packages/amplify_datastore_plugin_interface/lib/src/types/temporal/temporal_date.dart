@@ -74,7 +74,7 @@ class TemporalDate {
 
     // Validate
     String? regexString = regExp.stringMatch(iso8601String);
-    if (regexString != iso8601String) {
+    if (regexString == null || regexString != iso8601String) {
       throw AmplifyException("Invalid ISO8601 String Input",
           recoverySuggestion:
               "Please provide an extended ISO 8601 date string in the format YYYY-MM-DD with an optional time zone offset ±hh:mm:ss.  " +
