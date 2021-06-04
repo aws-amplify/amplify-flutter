@@ -33,6 +33,12 @@ class FlutterRestApi {
     companion object {
         private val LOG = Amplify.Logging.forNamespace("amplify:flutter:api")
         private val handler = Handler(Looper.getMainLooper())
+        private const val GET = "get"
+        private const val POST = "post"
+        private const val PUT = "put"
+        private const val DELETE = "delete"
+        private const val HEAD = "head"
+        private const val PATCH = "patch"
 
         private fun restFunctionHelper(
                 methodName: String,
@@ -58,6 +64,18 @@ class FlutterRestApi {
             }
 
             try {
+                // Needed to prevent Android library from throwing a fatal error when body not present in some methods. https://github.com/aws-amplify/amplify-android/issues/1355
+                if (!options.hasData() && (methodName == PUT || methodName == POST || methodName == PATCH)) {
+                    handler.post {
+                        ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
+                                ExceptionUtil.createSerializedError(
+                                        ApiException("$methodName request must have a body", "Add a body to the request.")
+                                )
+                        )
+                    }
+                    return
+                }
+
                 var operation: RestOperation?
                 if (apiName == null) {
                     operation = functionWithoutApiName(options,
@@ -116,27 +134,27 @@ class FlutterRestApi {
         }
 
         fun get(flutterResult: Result, arguments: Map<String, Any>) {
-            restFunctionHelper("get", flutterResult, arguments, this::get, this::get)
+            restFunctionHelper(GET, flutterResult, arguments, this::get, this::get)
         }
 
         fun post(flutterResult: Result, arguments: Map<String, Any>) {
-            restFunctionHelper("post", flutterResult, arguments, this::post, this::post)
+            restFunctionHelper(POST, flutterResult, arguments, this::post, this::post)
         }
 
         fun put(flutterResult: Result, arguments: Map<String, Any>) {
-            restFunctionHelper("put", flutterResult, arguments, this::put, this::put)
+            restFunctionHelper(PUT, flutterResult, arguments, this::put, this::put)
         }
 
         fun delete(flutterResult: Result, arguments: Map<String, Any>) {
-            restFunctionHelper("delete", flutterResult, arguments, this::delete, this::delete)
+            restFunctionHelper(DELETE, flutterResult, arguments, this::delete, this::delete)
         }
 
         fun head(flutterResult: Result, arguments: Map<String, Any>) {
-            restFunctionHelper("head", flutterResult, arguments, this::head, this::head)
+            restFunctionHelper(HEAD, flutterResult, arguments, this::head, this::head)
         }
 
         fun patch(flutterResult: Result, arguments: Map<String, Any>) {
-            restFunctionHelper("patch", flutterResult, arguments, this::patch, this::patch)
+            restFunctionHelper(PATCH, flutterResult, arguments, this::patch, this::patch)
         }
 
 
