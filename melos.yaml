@@ -42,14 +42,14 @@ scripts:
 
   analyze: >
     melos exec -c 1 --no-private --ignore="*example*" -- \
-      dart pub global run tuneup check
+      flutter pub global run tuneup check
 
   lint:pub: >
     melos exec -c 5 --fail-fast --no-private --ignore="*example*" -- \
-      dart pub publish --dry-run
+      flutter pub publish --dry-run
 
   postbootstrap: >
-    (tuneup --version || dart pub global activate tuneup) && melos run copy_dummy_config
+    (tuneup --version || flutter pub global activate tuneup) && melos run copy_dummy_config
 
   postclean: >
     melos exec -- \
