@@ -1344,7 +1344,7 @@ class amplify_auth_cognito_tests: XCTestCase {
                 XCTAssertEqual(false, res.toJSON()["isSignedIn"] as? Bool)
                 XCTAssertEqual("testid", res.toJSON()["identityId"] as? String)
                 // userSub error will result in map with one 'error' key
-                XCTAssertEqual(nil, (res.toJSON()["tokens"] as?  [String: String]))
+                XCTAssertNil(res.toJSON()["tokens"] as?  [String: String])
                 // credentials map should have access key and secret key
                 XCTAssertEqual(2, (res.toJSON()["credentials"] as?  [String: String])!.count)
             } else {
@@ -1389,7 +1389,7 @@ class amplify_auth_cognito_tests: XCTestCase {
                 // all tokens should be present with userpool-only access
                 XCTAssertEqual(3, (res.toJSON()["tokens"] as?  [String: String])!.count)
                 // credentials map should be empty
-                XCTAssertEqual(nil, (res.toJSON()["credentials"] as?  [String: String]))
+                XCTAssertNil(res.toJSON()["credentials"] as?  [String: String])
             } else {
                 XCTFail()
             }

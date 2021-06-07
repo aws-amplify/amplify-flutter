@@ -29,7 +29,7 @@ struct FlutterUpdateUserAttributeResult {
       self.additionalInfo = setAdditionalInfo(res: res)
       self.codeDeliveryDetails = setCodeDeliveryDetails(res: res)
     }
-    
+
     func toJSON() -> Dictionary<String, Any> {
       var result: Dictionary<String, Any> = ["isUpdated": self.isUpdated]
       var nextStep: Dictionary<String, Any> = ["updateAttributeStep": self.updateAttributeStep]

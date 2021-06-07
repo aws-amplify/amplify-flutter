@@ -15,12 +15,12 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
+import com.amazonaws.amplify.amplify_auth_cognito.setNextStep
 import com.amplifyframework.auth.result.AuthUpdateAttributeResult
-import com.google.gson.Gson
 
 data class FlutterUpdateUserAttributeResult(private val raw: AuthUpdateAttributeResult) {
     val isUpdated: Boolean = raw.isUpdated
-    val nextStep: Map<String, Any> = com.amazonaws.amplify.amplify_auth_cognito.setNextStep(
+    val nextStep: Map<String, Any> = setNextStep(
             "updateAttributeStep",
             raw.nextStep.updateAttributeStep.toString(),
             raw.nextStep.codeDeliveryDetails,
