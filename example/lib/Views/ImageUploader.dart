@@ -6,10 +6,14 @@ import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 
 class ImageUploader extends StatelessWidget {
   void _upload(BuildContext context) async {
+    List<PlatformFile>? _paths;
     try {
       print('In upload');
       // Uploading the file with options
-      File local = await FilePicker.getFile(type: FileType.image);
+      _paths =
+          (await FilePicker.platform.pickFiles(type: FileType.image))?.files;
+
+      File local = File(_paths!.single.path!);
       local.existsSync();
       final key = new DateTime.now().toString();
       Map<String, String> metadata = <String, String>{};
