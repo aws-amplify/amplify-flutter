@@ -14,24 +14,37 @@
  */
 
 import Foundation
+import Amplify
+import AmplifyPlugins
 import amplify_core
 
 struct FlutterConfirmSignUpRequest {
-  var username: String
-  var confirmationCode: String
-  init(dict: NSMutableDictionary){
-    self.username = dict["username"] as! String
-    self.confirmationCode = dict["confirmationCode"] as! String
-  }
-  static func validate(dict: NSMutableDictionary) throws {
-    let validationErrorMessage = "ConfirmSignUp Request malformed."
-    if (dict["username"] == nil && dict["options"] == nil) {
-        throw InvalidRequestError.auth(comment: validationErrorMessage,
-                                          suggestion: String(format: ErrorMessages.missingAttribute, "username"))
+    var username: String
+    var confirmationCode: String
+    var options: AuthConfirmSignUpRequest.Options?
+    
+    init(dict: NSMutableDictionary){
+        self.username = dict["username"] as! String
+        self.confirmationCode = dict["confirmationCode"] as! String
+        self.options = formatOptions(options: dict["options"] as! Dictionary<String, Any>?)
     }
-    if (dict["confirmationCode"] == nil && dict["options"] == nil) {
-        throw InvalidRequestError.auth(comment: validationErrorMessage,
-                                          suggestion: String(format: ErrorMessages.missingAttribute, "confirmationCode"))
+    
+    func formatOptions(options: Dictionary<String, Any>?) -> AuthConfirmSignUpRequest.Options {
+        let pluginOptions =  AWSAuthConfirmSignUpOptions(
+            metadata: options?["clientMetadata"] as? [String : String]
+        )
+        return AuthConfirmSignUpRequest.Options(pluginOptions: pluginOptions)
     }
-  }
+
+    static func validate(dict: NSMutableDictionary) throws {
+        let validationErrorMessage = "ConfirmSignUp Request malformed."
+        if (dict["username"] == nil && dict["options"] == nil) {
+            throw InvalidRequestError.auth(comment: validationErrorMessage,
+                                           suggestion: String(format: ErrorMessages.missingAttribute, "username"))
+        }
+        if (dict["confirmationCode"] == nil && dict["options"] == nil) {
+            throw InvalidRequestError.auth(comment: validationErrorMessage,
+                                           suggestion: String(format: ErrorMessages.missingAttribute, "confirmationCode"))
+        }
+    }
 }

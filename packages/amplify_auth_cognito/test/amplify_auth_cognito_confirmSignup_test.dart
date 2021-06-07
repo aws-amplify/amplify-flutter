@@ -45,6 +45,20 @@ void main() {
     authChannel.setMockMethodCallHandler(null);
   });
 
+  test('confirmSignUp request accepts and serializes options', () async {
+    final mockKey = 'key';
+    final mockValue = 'value';
+    final mockOptions =
+        CognitoConfirmSignUpOptions(clientMetadata: {mockKey: mockValue});
+    final requst = ConfirmSignUpRequest(
+            username: 'user', confirmationCode: '123456', options: mockOptions)
+        .serializeAsMap();
+
+    expect(requst['options'], isInstanceOf<Map>());
+    expect(requst['options']['clientMetadata'], isInstanceOf<Map>());
+    expect(requst['options']['clientMetadata'][mockKey], mockValue);
+  });
+
   test('confirmnSignUp request returns a SignUpResult', () async {
     expect(
         await auth.confirmSignUp(
