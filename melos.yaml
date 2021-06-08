@@ -71,14 +71,14 @@ scripts:
 
   analyze: >
     melos exec -c 1 --no-private --ignore="*example*" -- \
-      pub global run tuneup check
+      flutter pub global run tuneup check
 
   lint:pub: >
     melos exec -c 5 --fail-fast --no-private --ignore="*example*" -- \
-      pub publish --dry-run
+      flutter pub publish --dry-run
 
   postbootstrap: >
-    (tuneup --version || pub global activate tuneup) && melos run copy_dummy_config
+     melos run copy_dummy_config
 
   postclean: >
     melos exec -- \
