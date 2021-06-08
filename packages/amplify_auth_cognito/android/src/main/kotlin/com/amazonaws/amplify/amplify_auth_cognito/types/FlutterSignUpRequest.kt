@@ -18,6 +18,7 @@
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
 import androidx.annotation.NonNull
+import com.amazonaws.amplify.amplify_auth_cognito.utils.createAuthUserAttribute
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 import com.amplifyframework.AmplifyException

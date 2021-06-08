@@ -178,6 +178,16 @@ class AuthCategory {
         : throw _pluginNotAddedException("Auth");
   }
 
+  /// Updates multiple user attributes and returns a map of  [UpdateUserAttributeResult]
+  Future<Map<String, UpdateUserAttributeResult>> updateUserAttributes({
+    @required List<AuthUserAttribute> attributes,
+  }) {
+    var request = UpdateUserAttributesRequest(attributes: attributes);
+    return plugins.length == 1
+        ? plugins[0].updateUserAttributes(request: request)
+        : throw _pluginNotAddedException("Auth");
+  }
+
   /// Confirms a user attribute update and returns a [ConfirmUserAttributeResult]
   Future<ConfirmUserAttributeResult> confirmUserAttribute({
     @required String userAttributeKey,
