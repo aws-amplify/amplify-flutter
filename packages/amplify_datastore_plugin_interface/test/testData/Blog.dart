@@ -90,7 +90,7 @@ class Blog extends Model {
 
   Blog.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _name = json['name'],
+        _name = json['name'] ?? "",
         _posts = json['posts'] is List
             ? (json['posts'] as List)
                 .map((e) => Post.fromJson(new Map<String, dynamic>.from(e)))

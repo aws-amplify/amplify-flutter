@@ -75,14 +75,14 @@ class Post extends Model {
   factory Post(
       {String? id,
       required String title,
-      int? rating,
+      required int rating,
       TemporalDateTime? created,
       Blog? blog,
       List<Comment>? comments}) {
     return Post._internal(
         id: id == null ? UUID.getUUID() : id,
         title: title,
-        rating: rating!,
+        rating: rating,
         created: created,
         blog: blog,
         comments: comments != null ? List.unmodifiable(comments) : comments);
@@ -141,8 +141,8 @@ class Post extends Model {
 
   Post.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _title = json['title'],
-        _rating = json['rating'],
+        _title = json['title'] ?? "",
+        _rating = json['rating'] ?? 0,
         _created = json['created'] != null
             ? TemporalDateTime.fromString(json['created'])
             : null,

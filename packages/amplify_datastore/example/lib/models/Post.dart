@@ -35,8 +35,8 @@ class Post extends Model {
     return _title!;
   }
 
-  int get rating {
-    return _rating!;
+  int? get rating {
+    return _rating;
   }
 
   TemporalDateTime? get created {
@@ -60,12 +60,7 @@ class Post extends Model {
   }
 
   const Post._internal(
-      {required this.id,
-      required title,
-      required rating,
-      created,
-      blog,
-      comments})
+      {required this.id, required title, rating, created, blog, comments})
       : _title = title,
         _rating = rating,
         _created = created,
@@ -82,7 +77,7 @@ class Post extends Model {
     return Post._internal(
         id: id == null ? UUID.getUUID() : id,
         title: title,
-        rating: rating!,
+        rating: rating,
         created: created,
         blog: blog,
         comments: comments != null ? List.unmodifiable(comments) : comments);
@@ -97,11 +92,11 @@ class Post extends Model {
     if (identical(other, this)) return true;
     return other is Post &&
         id == other.id &&
-        title == other.title &&
-        rating == other.rating &&
-        created == other.created &&
-        blog == other.blog &&
-        DeepCollectionEquality().equals(comments, other.comments);
+        _title == other.title &&
+        _rating == other.rating &&
+        _created == other.created &&
+        _blog == other.blog &&
+        DeepCollectionEquality().equals(_comments, other.comments);
   }
 
   @override
@@ -113,12 +108,11 @@ class Post extends Model {
 
     buffer.write("Post {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("title=" + "$title" + ", ");
+    buffer.write("title=" + "$_title" + ", ");
+    buffer.write("rating=" + "$_rating" + ", ");
     buffer.write(
-        "rating=" + (rating != null ? rating.toString() : "null") + ", ");
-    buffer.write(
-        "created=" + (created != null ? created!.format() : "null") + ", ");
-    buffer.write("blog=" + (blog != null ? blog.toString() : "null"));
+        "created=" + (_created != null ? _created!.format() : "null") + ", ");
+    buffer.write("blog=" + (_blog != null ? _blog.toString() : "null"));
     buffer.write("}");
 
     return buffer.toString();
@@ -142,7 +136,7 @@ class Post extends Model {
 
   Post.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _title = json['title'],
+        _title = json['title'] ?? "",
         _rating = json['rating'],
         _created = json['created'] != null
             ? TemporalDateTime.fromString(json['created'])
@@ -158,11 +152,11 @@ class Post extends Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'title': title,
-        'rating': rating,
-        'created': created?.format(),
-        'blog': blog?.toJson(),
-        'comments': comments?.map((e) => e.toJson()).toList()
+        'title': _title,
+        'rating': _rating,
+        'created': _created?.format(),
+        'blog': _blog?.toJson(),
+        'comments': _comments?.map((e) => e.toJson()).toList()
       };
 
   static final QueryField ID = QueryField(fieldName: "post.id");

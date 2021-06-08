@@ -93,7 +93,7 @@ class Comment extends Model {
         _post = json['post'] != null
             ? Post.fromJson(new Map<String, dynamic>.from(json['post']))
             : null,
-        _content = json['content'];
+        _content = json['content'] ?? "";
 
   Map<String, dynamic> toJson() =>
       {'id': id, 'post': _post?.toJson(), 'content': _content};

@@ -293,7 +293,7 @@ class _MyAppState extends State<MyApp> {
   deletePost(String id) async {
     try {
       _selectedPostForNewComment = null;
-      await Amplify.DataStore.delete(Post(id: id, title: ""));
+      await Amplify.DataStore.delete(Post(id: id, title: "", rating: 0));
       runQueries();
     } catch (e) {
       print(e);

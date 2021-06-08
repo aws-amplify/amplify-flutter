@@ -64,8 +64,8 @@ class Blog extends Model {
     if (identical(other, this)) return true;
     return other is Blog &&
         id == other.id &&
-        name == other.name &&
-        DeepCollectionEquality().equals(posts, other.posts);
+        _name == other.name &&
+        DeepCollectionEquality().equals(_posts, other.posts);
   }
 
   @override
@@ -77,7 +77,7 @@ class Blog extends Model {
 
     buffer.write("Blog {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("name=" + "$name");
+    buffer.write("name=" + "$_name");
     buffer.write("}");
 
     return buffer.toString();
@@ -90,15 +90,18 @@ class Blog extends Model {
 
   Blog.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _name = json['name'],
+        _name = json['name'] ?? "",
         _posts = json['posts'] is List
             ? (json['posts'] as List)
                 .map((e) => Post.fromJson(new Map<String, dynamic>.from(e)))
                 .toList()
             : null;
 
-  Map<String, dynamic> toJson() =>
-      {'id': id, 'name': name, 'posts': posts?.map((e) => e.toJson()).toList()};
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': _name,
+        'posts': _posts?.map((e) => e.toJson()).toList()
+      };
 
   static final QueryField ID = QueryField(fieldName: "blog.id");
   static final QueryField NAME = QueryField(fieldName: "name");

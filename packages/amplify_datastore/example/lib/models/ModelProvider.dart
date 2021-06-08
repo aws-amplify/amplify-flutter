@@ -19,10 +19,12 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'Blog.dart';
 import 'Comment.dart';
 import 'Post.dart';
+import 'PostAuthComplex.dart';
 
 export 'Blog.dart';
 export 'Comment.dart';
 export 'Post.dart';
+export 'PostAuthComplex.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
@@ -39,17 +41,19 @@ class ModelProvider implements ModelProviderInterface {
         {
           return Blog.classType;
         }
-        break;
       case "Comment":
         {
           return Comment.classType;
         }
-        break;
       case "Post":
         {
           return Post.classType;
         }
-        break;
+      case "PostAuthComplex":
+        {
+          return PostAuthComplex.classType;
+        }
+
       default:
         {
           throw Exception(

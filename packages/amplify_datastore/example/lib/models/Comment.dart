@@ -61,8 +61,8 @@ class Comment extends Model {
     if (identical(other, this)) return true;
     return other is Comment &&
         id == other.id &&
-        post == other.post &&
-        content == other.content;
+        _post == other.post &&
+        _content == other.content;
   }
 
   @override
@@ -74,8 +74,8 @@ class Comment extends Model {
 
     buffer.write("Comment {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("post=" + (post != null ? post.toString() : "null") + ", ");
-    buffer.write("content=" + "$content");
+    buffer.write("post=" + (_post != null ? _post.toString() : "null") + ", ");
+    buffer.write("content=" + "$_content");
     buffer.write("}");
 
     return buffer.toString();
@@ -93,10 +93,10 @@ class Comment extends Model {
         _post = json['post'] != null
             ? Post.fromJson(new Map<String, dynamic>.from(json['post']))
             : null,
-        _content = json['content'];
+        _content = json['content'] ?? "";
 
   Map<String, dynamic> toJson() =>
-      {'id': id, 'post': post?.toJson(), 'content': content};
+      {'id': id, 'post': _post?.toJson(), 'content': _content};
 
   static final QueryField ID = QueryField(fieldName: "comment.id");
   static final QueryField POST = QueryField(
