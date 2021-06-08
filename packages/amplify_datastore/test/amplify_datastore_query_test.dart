@@ -49,7 +49,9 @@ void main() {
         Comment(
             id: '39c3c0e6-8726-436e-8cdf-bff38e9a62da',
             content: 'Loving Amplify Datastore!',
-            post: Post(id: 'e50ffa8f-783b-4780-89b4-27043ffc35be')));
+            post: Post(
+                id: 'e50ffa8f-783b-4780-89b4-27043ffc35be',
+                title: ""))); // TODO POSSIBLE ISSUE HERE CONSTRUCTOR ID ONLY
   });
 
   test('query returns 2 sucessful results', () async {
@@ -70,7 +72,7 @@ void main() {
         posts[1],
         Post(
             id: '43036c6b-8044-4309-bddc-262b6c686026',
-            created: DateTime.parse("2020-02-20T20:20:20-08:00"),
+            created: TemporalDateTime.fromString("2020-02-20T20:20:20-08:00"),
             title: 'Title 2'));
   });
 

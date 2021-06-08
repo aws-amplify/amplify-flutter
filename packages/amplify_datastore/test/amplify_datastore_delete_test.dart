@@ -44,7 +44,7 @@ void main() {
     Post instance = Post(
         title: model['title'],
         rating: model['rating'],
-        created: DateTime.parse(model['created']),
+        created: TemporalDateTime.fromString(model['created']),
         id: model['id']);
     Future<void> deleteFuture = dataStore.delete(instance);
     expect(deleteFuture, completes);
