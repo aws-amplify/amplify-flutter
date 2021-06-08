@@ -17,19 +17,19 @@
 import Foundation
 import Amplify
 
-struct FlutterUpdateUserAttributeResult {
-    var result: AuthUpdateAttributeResult?
-
-    init(res: AmplifyOperation<AuthUpdateUserAttributeRequest, AuthUpdateAttributeResult, AuthError>.OperationResult){
+struct FlutterUpdateUserAttributesResult {
+    var attributes: Dictionary<AuthUserAttributeKey, AuthUpdateAttributeResult>
+    
+    init(res: AmplifyOperation<AuthUpdateUserAttributesRequest, Dictionary<AuthUserAttributeKey, AuthUpdateAttributeResult>, AuthError>.OperationResult){
         switch res {
-        case .success(let res):
-            self.result = res
+        case .success(let resultMap):
+            self.attributes = resultMap
         case .failure:
-            self.result = nil
+            self.attributes = [:]
         }
     }
-
+    
     func toJSON() -> Dictionary<String, Any> {
-        return serializeAuthUpdateAttributeResult(result: self.result)
+        return Dictionary(uniqueKeysWithValues: self.attributes.map { key, value in (key.rawValue, serializeAuthUpdateAttributeResult(result: value))})
     }
 }

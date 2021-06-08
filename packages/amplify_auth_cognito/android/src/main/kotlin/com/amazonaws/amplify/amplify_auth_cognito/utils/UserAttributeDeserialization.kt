@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package com.amazonaws.amplify.amplify_auth_cognito.types
+package com.amazonaws.amplify.amplify_auth_cognito.utils
 
 import com.amplifyframework.auth.AuthUserAttribute
 import com.amplifyframework.auth.AuthUserAttributeKey

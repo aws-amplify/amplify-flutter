@@ -16,12 +16,15 @@
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
 import com.amazonaws.amplify.amplify_auth_cognito.utils.serializeAuthUpdateAttributeResult
+import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.auth.result.AuthUpdateAttributeResult
 
-data class FlutterUpdateUserAttributeResult(private val raw: AuthUpdateAttributeResult) {
-    val result: AuthUpdateAttributeResult = raw;
+data class FlutterUpdateUserAttributesResult(private val raw: Map<AuthUserAttributeKey, AuthUpdateAttributeResult>) {
+    val attributes: Map<AuthUserAttributeKey, AuthUpdateAttributeResult> = raw;
 
     fun toValueMap(): Map<String, Any> {
-        return serializeAuthUpdateAttributeResult(result)
+        return attributes.entries.associate {
+            it.key.keyString to serializeAuthUpdateAttributeResult(it.value)
+        }
     }
 }

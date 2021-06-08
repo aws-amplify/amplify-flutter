@@ -58,6 +58,7 @@ export 'Session/AuthUserAttributeOptions.dart';
 export 'Session/AuthUserAttributeRequest.dart';
 export 'Session/UpdateUserAttributeResult.dart';
 export 'Session/UpdateUserAttributeRequest.dart';
+export 'Session/UpdateUserAttributesRequest.dart';
 export 'Session/AuthNextUpdateAttributeStep.dart';
 export 'Session/ConfirmUserAttributeRequest.dart';
 export 'Session/ConfirmUserAttributeResult.dart';
