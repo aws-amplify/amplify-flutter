@@ -517,7 +517,6 @@ class AmplifyAuthCognitoPluginTest {
                 "isUpdated" to true,
                 "nextStep" to mapOf(
                         "updateAttributeStep" to "CONFIRM_ATTRIBUTE_WITH_CODE",
-                        "additionalInfo" to "{}",
                         "codeDeliveryDetails" to mapOf(
                                 "destination" to "test@test.com",
                                 "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
@@ -553,7 +552,6 @@ class AmplifyAuthCognitoPluginTest {
                 "isUpdated" to true,
                 "nextStep" to mapOf(
                         "updateAttributeStep" to "CONFIRM_ATTRIBUTE_WITH_CODE",
-                        "additionalInfo" to "{}",
                         "codeDeliveryDetails" to mapOf(
                                 "destination" to "test@test.com",
                                 "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
