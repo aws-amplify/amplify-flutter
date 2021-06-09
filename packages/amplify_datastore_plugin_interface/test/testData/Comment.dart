@@ -73,9 +73,9 @@ class Comment extends Model {
     var buffer = new StringBuffer();
 
     buffer.write("Comment {");
-    buffer.write("id=" + "$id" + ", ");
+    buffer.write("id=$id" + ", ");
     buffer.write("post=" + (_post != null ? _post.toString() : "null") + ", ");
-    buffer.write("content=" + "$_content");
+    buffer.write("content=$_content");
     buffer.write("}");
 
     return buffer.toString();

@@ -70,9 +70,9 @@ class PostAuthComplex extends Model {
     var buffer = new StringBuffer();
 
     buffer.write("PostAuthComplex {");
-    buffer.write("id=" + "$id" + ", ");
-    buffer.write("title=" + "$_title" + ", ");
-    buffer.write("owner=" + "$_owner");
+    buffer.write("id=$id" + ", ");
+    buffer.write("title=$_title" + ", ");
+    buffer.write("owner=$_owner");
     buffer.write("}");
 
     return buffer.toString();

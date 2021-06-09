@@ -76,8 +76,8 @@ class Blog extends Model {
     var buffer = new StringBuffer();
 
     buffer.write("Blog {");
-    buffer.write("id=" + "$id" + ", ");
-    buffer.write("name=" + "$_name");
+    buffer.write("id=$id" + ", ");
+    buffer.write("name=$_name");
     buffer.write("}");
 
     return buffer.toString();
