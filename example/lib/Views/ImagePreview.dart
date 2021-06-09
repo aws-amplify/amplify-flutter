@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class ImagePreview extends StatefulWidget {
   final String storageKey;
 
-  ImagePreview({Key key, this.storageKey}) : super(key: key);
+  ImagePreview({Key? key, required this.storageKey}) : super(key: key);
 
   @override
   _ImagePreviewState createState() => _ImagePreviewState();

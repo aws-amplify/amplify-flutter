@@ -21,8 +21,16 @@ import 'package:flutter/foundation.dart';
 class PostAuthComplex extends Model {
   static const classType = const PostAuthComplexType();
   final String id;
-  final String title;
-  final String? owner;
+  final String? _title;
+  final String? _owner;
+
+  String get title {
+    return _title!;
+  }
+
+  String? get owner {
+    return _owner;
+  }
 
   @override
   getInstanceType() => classType;
@@ -32,11 +40,11 @@ class PostAuthComplex extends Model {
     return id;
   }
 
-  const PostAuthComplex._internal(
-      {required this.id, required this.title, this.owner});
+  const PostAuthComplex._internal({required this.id, required title, owner})
+      : _title = title,
+        _owner = owner;
 
-  factory PostAuthComplex(
-      {required String id, required String title, String? owner}) {
+  factory PostAuthComplex({String? id, required String title, String? owner}) {
     return PostAuthComplex._internal(
         id: id == null ? UUID.getUUID() : id, title: title, owner: owner);
   }
@@ -50,8 +58,8 @@ class PostAuthComplex extends Model {
     if (identical(other, this)) return true;
     return other is PostAuthComplex &&
         id == other.id &&
-        title == other.title &&
-        owner == other.owner;
+        _title == other.title &&
+        _owner == other.owner;
   }
 
   @override
@@ -62,16 +70,15 @@ class PostAuthComplex extends Model {
     var buffer = new StringBuffer();
 
     buffer.write("PostAuthComplex {");
-    buffer.write("id=" + id + ", ");
-    buffer.write("title=" + title + ", ");
-    buffer.write("owner=" + owner!);
+    buffer.write("id=$id" + ", ");
+    buffer.write("title=$_title" + ", ");
+    buffer.write("owner=$_owner");
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  PostAuthComplex copyWith(
-      {required String id, required String title, String? owner}) {
+  PostAuthComplex copyWith({String? id, String? title, String? owner}) {
     return PostAuthComplex(
         id: id ?? this.id,
         title: title ?? this.title,
@@ -80,10 +87,10 @@ class PostAuthComplex extends Model {
 
   PostAuthComplex.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        title = json['title'],
-        owner = json['owner'];
+        _title = json['title'],
+        _owner = json['owner'];
 
-  Map<String, dynamic> toJson() => {'id': id, 'title': title, 'owner': owner};
+  Map<String, dynamic> toJson() => {'id': id, 'title': _title, 'owner': _owner};
 
   static final QueryField ID = QueryField(fieldName: "postAuthComplex.id");
   static final QueryField TITLE = QueryField(fieldName: "title");

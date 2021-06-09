@@ -17,17 +17,13 @@ import 'model_schema.dart';
 import 'model_schema_definition.dart';
 
 abstract class Model {
-  final String id;
-
   ModelType getInstanceType();
 
-  const Model({required this.id});
-
-  String getId() {
-    return id;
-  }
+  String getId();
 
   Map<String, dynamic> toJson();
+
+  const Model();
 
   static ModelSchema defineSchema(
       {required Function(ModelSchemaDefinition) define}) {

@@ -13,19 +13,28 @@
 * permissions and limitations under the License.
 */
 
+// ignore_for_file: public_member_api_docs
+
+import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
-
-import 'ModelProvider.dart';
 
 /** This is an auto generated class representing the Blog type in your schema. */
 @immutable
 class Blog extends Model {
   static const classType = const BlogType();
   final String id;
-  final String name;
-  final List<Post>? posts;
+  final String? _name;
+  final List<Post>? _posts;
+
+  String get name {
+    return _name!;
+  }
+
+  List<Post>? get posts {
+    return _posts;
+  }
 
   @override
   getInstanceType() => classType;
@@ -35,9 +44,11 @@ class Blog extends Model {
     return id;
   }
 
-  const Blog._internal({required this.id, required this.name, this.posts});
+  const Blog._internal({required this.id, required name, posts})
+      : _name = name,
+        _posts = posts;
 
-  factory Blog({required String id, required String name, List<Post>? posts}) {
+  factory Blog({String? id, required String name, List<Post>? posts}) {
     return Blog._internal(
         id: id == null ? UUID.getUUID() : id,
         name: name,
@@ -53,8 +64,8 @@ class Blog extends Model {
     if (identical(other, this)) return true;
     return other is Blog &&
         id == other.id &&
-        name == other.name &&
-        DeepCollectionEquality().equals(posts, other.posts);
+        _name == other.name &&
+        DeepCollectionEquality().equals(_posts, other.posts);
   }
 
   @override
@@ -65,29 +76,32 @@ class Blog extends Model {
     var buffer = new StringBuffer();
 
     buffer.write("Blog {");
-    buffer.write("id=" + id + ", ");
-    buffer.write("name=" + name);
+    buffer.write("id=$id" + ", ");
+    buffer.write("name=$_name");
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  Blog copyWith({required String id, required String name, List<Post>? posts}) {
+  Blog copyWith({String? id, String? name, List<Post>? posts}) {
     return Blog(
         id: id ?? this.id, name: name ?? this.name, posts: posts ?? this.posts);
   }
 
   Blog.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        name = json['name'],
-        posts = json['posts'] is List
+        _name = json['name'],
+        _posts = json['posts'] is List
             ? (json['posts'] as List)
                 .map((e) => Post.fromJson(new Map<String, dynamic>.from(e)))
                 .toList()
             : null;
 
-  Map<String, dynamic> toJson() =>
-      {'id': id, 'name': name, 'posts': posts?.map((e) => e?.toJson())};
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': _name,
+        'posts': _posts?.map((e) => e.toJson()).toList()
+      };
 
   static final QueryField ID = QueryField(fieldName: "blog.id");
   static final QueryField NAME = QueryField(fieldName: "name");

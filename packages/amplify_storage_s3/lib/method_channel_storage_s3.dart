@@ -26,8 +26,6 @@ import 'amplify_storage_s3.dart';
 const MethodChannel _channel =
     MethodChannel('com.amazonaws.amplify/storage_s3');
 
-const AmplifyException nullMapFromMethodChannelException = AmplifyException(AmplifyExceptionMessages.nullReturnedFromMethodChannel);
-
 /// An implementation of [AmplifyPlatform] that uses method channels.
 class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
   @override
@@ -55,7 +53,9 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
         'uploadFile',
         request.serializeAsMap(),
       ));
-      if (data == null) throw nullMapFromMethodChannelException;
+      if (data == null)
+        throw AmplifyException(
+            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       UploadFileResult result = _formatUploadFileResult(data);
       return result;
     } on PlatformException catch (e) {
@@ -71,7 +71,9 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
         'getUrl',
         request.serializeAsMap(),
       ));
-      if (data == null) throw nullMapFromMethodChannelException;
+      if (data == null)
+        throw AmplifyException(
+            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       GetUrlResult result = _formatGetUrlResult(data);
       return result;
     } on PlatformException catch (e) {
@@ -87,7 +89,9 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
         'remove',
         request.serializeAsMap(),
       ));
-      if (data == null) throw nullMapFromMethodChannelException;
+      if (data == null)
+        throw AmplifyException(
+            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       RemoveResult result = _formatRemoveResult(data);
       return result;
     } on PlatformException catch (e) {
@@ -103,7 +107,9 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
         'list',
         request.serializeAsMap(),
       ));
-      if (data == null) throw nullMapFromMethodChannelException;
+      if (data == null)
+        throw AmplifyException(
+            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       ListResult result = _formatListResult(data);
       return result;
     } on PlatformException catch (e) {
@@ -120,7 +126,9 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
         'downloadFile',
         request.serializeAsMap(),
       ));
-      if (data == null) throw nullMapFromMethodChannelException;
+      if (data == null)
+        throw AmplifyException(
+            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       DownloadFileResult result = _formatDownloadFileResult(data);
       return result;
     } on PlatformException catch (e) {

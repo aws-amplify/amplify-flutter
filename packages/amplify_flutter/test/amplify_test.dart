@@ -147,7 +147,6 @@ void main() {
         underlyingException: formatException.toString());
     amplify
         .configure(invalidConfiguration)
-        .then((v) => fail('configuration should have been failed.'))
         .catchError((e) => expect(e, invalidConfigurationException));
     expect(amplify.isConfigured, false);
   });
