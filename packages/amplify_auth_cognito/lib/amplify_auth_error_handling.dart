@@ -57,6 +57,10 @@ void castAndThrowPlatformException(PlatformException e) {
         throw InvalidPasswordException.fromMap(
             Map<String, String>.from(e.details));
       }
+      case "InvalidStateException": {
+        throw InvalidStateException.fromMap(
+            Map<String, String>.from(e.details));
+      }
       case "LambdaException": {
         throw LambdaException.fromMap(
             Map<String, String>.from(e.details));

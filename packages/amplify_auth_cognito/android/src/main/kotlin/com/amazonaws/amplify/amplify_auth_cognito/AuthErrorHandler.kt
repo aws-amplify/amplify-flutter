@@ -19,6 +19,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
 import com.amazonaws.AmazonClientException
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterInvalidStateException
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.exceptions.CognitoCodeExpiredException
@@ -72,6 +73,7 @@ class AuthErrorHandler {
                 is AuthException.UsernameExistsException -> errorCode = "UsernameExistsException"
                 is AuthException.UserNotConfirmedException -> errorCode = "UserNotConfirmedException"
                 is AuthException.UserNotFoundException -> errorCode = "UserNotFoundException"
+                is FlutterInvalidStateException -> errorCode = "InvalidStateException"
                 else -> when (error.cause) {
                     is CognitoCodeExpiredException -> errorCode = "CodeExpiredException"
                     is InvalidLambdaResponseException -> errorCode = "LambdaException"

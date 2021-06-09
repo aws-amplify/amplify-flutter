@@ -40,6 +40,7 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthUser
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendSignUpCodeResult
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignInWithWebUIRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchUserAttributesResult
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterInvalidStateException
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdateUserAttributeRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdateUserAttributeResult
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdateUserAttributesRequest
@@ -252,6 +253,8 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
               { result -> prepareSignInResult(flutterResult, result) },
               { error -> errorHandler.handleAuthError(flutterResult, error)}
       );
+    } catch (e: FlutterInvalidStateException) {
+      errorHandler.handleAuthError(flutterResult, e)
     } catch (e: Exception) {
       errorHandler.prepareGenericException(flutterResult, e)
     }

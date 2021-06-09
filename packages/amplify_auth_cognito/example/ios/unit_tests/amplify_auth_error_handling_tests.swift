@@ -396,7 +396,7 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
         errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
-               XCTAssertEqual( "AuthException", res.code )
+               XCTAssertEqual( "InvalidStateException", res.code )
                XCTAssertEqual( MockErrorConstants.invalidStateError, details?["recoverySuggestion"])
                XCTAssertEqual( "Invalid State", details?["message"])
             } else {
