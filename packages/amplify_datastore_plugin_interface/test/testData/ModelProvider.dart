@@ -13,8 +13,9 @@
 * permissions and limitations under the License.
 */
 
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+// ignore_for_file: public_member_api_docs
 
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'Blog.dart';
 import 'Comment.dart';
 import 'Post.dart';
@@ -27,7 +28,7 @@ export 'PostAuthComplex.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "6319a5b46c3ea5e5817b63396bc464bb";
+  String version = "33b1717ef9afb390e3f7431e8f3859fc";
   @override
   List<ModelSchema> modelSchemas = [
     Blog.schema,
@@ -45,20 +46,24 @@ class ModelProvider implements ModelProviderInterface {
         {
           return Blog.classType;
         }
-        break;
-      case "Post":
-        {
-          return Post.classType;
-        }
-        break;
       case "Comment":
         {
           return Comment.classType;
         }
-        break;
+      case "Post":
+        {
+          return Post.classType;
+        }
+      case "PostAuthComplex":
+        {
+          return PostAuthComplex.classType;
+        }
+
       default:
         {
-          throw Exception("Failed to find model in model provider.");
+          throw Exception(
+              "Failed to find model in model provider for model name: " +
+                  modelName);
         }
     }
   }

@@ -55,7 +55,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
           'data': request.serializeAsMap(),
         },
       )));
-      if (data == null) throw nullMapFromMethodChannelException;
+      if (data == null)
+        throw AmplifyException(
+            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       return _formatSignUpResponse(data, "signUp");
     } on PlatformException catch (e) {
       throw castAndReturnPlatformException(e);
@@ -73,7 +75,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
           'data': request.serializeAsMap(),
         },
       )));
-      if (data == null) throw nullMapFromMethodChannelException;
+      if (data == null)
+        throw AmplifyException(
+            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       return _formatSignUpResponse(data, "confirmSignUp");
     } on PlatformException catch (e) {
       throw castAndReturnPlatformException(e);
@@ -91,7 +95,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
           'data': request.serializeAsMap(),
         },
       )));
-      if (data == null) throw nullMapFromMethodChannelException;
+      if (data == null)
+        throw AmplifyException(
+            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       return _formatResendSignUpResponse(data, "resendSignUpCode");
     } on PlatformException catch (e) {
       throw castAndReturnPlatformException(e);
@@ -108,7 +114,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
           'data': request.serializeAsMap(),
         },
       )));
-      if (data == null) throw nullMapFromMethodChannelException;
+      if (data == null)
+        throw AmplifyException(
+            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       return _formatSignInResponse(data, "signIn");
     } on PlatformException catch (e) {
       throw castAndReturnPlatformException(e);
@@ -125,7 +133,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
           'data': request != null ? request.serializeAsMap() : null,
         },
       )));
-      if (data == null) throw nullMapFromMethodChannelException;
+      if (data == null)
+        throw AmplifyException(
+            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       return _formatSignInResponse(data, "confirmSignIn");
     } on PlatformException catch (e) {
       throw castAndReturnPlatformException(e);
@@ -142,7 +152,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
           'data': request != null ? request.serializeAsMap() : {},
         },
       )));
-      if (data == null) throw nullMapFromMethodChannelException;
+      if (data == null)
+        throw AmplifyException(
+            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       return _formatSignOutResponse(data);
     } on PlatformException catch (e) {
       throw castAndReturnPlatformException(e);
@@ -160,7 +172,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
           'data': request != null ? request.serializeAsMap() : null,
         },
       )));
-      if (data == null) throw nullMapFromMethodChannelException;
+      if (data == null)
+        throw AmplifyException(
+            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       return _formatPasswordResponse(data);
     } on PlatformException catch (e) {
       throw castAndReturnPlatformException(e);
@@ -178,7 +192,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
           'data': request != null ? request.serializeAsMap() : null,
         },
       )));
-      if (data == null) throw nullMapFromMethodChannelException;
+      if (data == null)
+        throw AmplifyException(
+            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       return _formatResetPasswordResponse(data);
     } on PlatformException catch (e) {
       throw castAndReturnPlatformException(e);
@@ -196,7 +212,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
           'data': request != null ? request.serializeAsMap() : null,
         },
       )));
-      if (data == null) throw nullMapFromMethodChannelException;
+      if (data == null)
+        throw AmplifyException(
+            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       return _formatPasswordResponse(data);
     } on PlatformException catch (e) {
       throw castAndReturnPlatformException(e);
@@ -213,7 +231,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
           'data': request != null ? request.serializeAsMap() : {},
         },
       )));
-      if (data == null) throw nullMapFromMethodChannelException;
+      if (data == null)
+        throw AmplifyException(
+            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       return _formatSessionResponse(data);
     } on PlatformException catch (e) {
       throw castAndReturnPlatformException(e);
@@ -230,7 +250,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
           'data': request != null ? request.serializeAsMap() : {},
         },
       )));
-      if (data == null) throw nullMapFromMethodChannelException;
+      if (data == null)
+        throw AmplifyException(
+            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       return _formatAuthUserResponse(data);
     } on PlatformException catch (e) {
       throw castAndReturnPlatformException(e);
@@ -248,7 +270,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
           'data': request != null ? request.serializeAsMap() : {},
         },
       )));
-      if (data == null) throw nullMapFromMethodChannelException;
+      if (data == null)
+        throw AmplifyException(
+            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       return formatFetchAttributesResponse(data);
     } on PlatformException catch (e) {
       throw castAndReturnPlatformException(e);
@@ -266,7 +290,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
           'data': request != null ? request.serializeAsMap() : null,
         },
       )));
-      if (data == null) throw nullMapFromMethodChannelException;
+      if (data == null)
+        throw AmplifyException(
+            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       return _formatSignInResponse(data, "signIn");
     } on PlatformException catch (e) {
       throw castAndReturnPlatformException(e);
@@ -285,7 +311,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
           'data': request != null ? request.serializeAsMap() : null,
         },
       );
-      if (data == null) throw nullMapFromMethodChannelException;
+      if (data == null)
+        throw AmplifyException(
+            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       return _formatUpdateUserAttributeResponse(data);
     } on PlatformException catch (e) {
       throw castAndReturnPlatformException(e);
@@ -323,7 +351,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
           'data': request != null ? request.serializeAsMap() : null,
         },
       );
-      if (data == null) throw nullMapFromMethodChannelException;
+      if (data == null)
+        throw AmplifyException(
+            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       return _formatResendUserAttributeConfirmationCodeResponse(data);
     } on PlatformException catch (e) {
       throw castAndReturnPlatformException(e);

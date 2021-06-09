@@ -13,22 +13,43 @@
 * permissions and limitations under the License.
 */
 
+// ignore_for_file: public_member_api_docs
+
+import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
-
-import 'ModelProvider.dart';
 
 /** This is an auto generated class representing the Post type in your schema. */
 @immutable
 class Post extends Model {
   static const classType = const PostType();
   final String id;
-  final String title;
-  final int? rating;
-  final DateTime? created;
-  final Blog? blog;
-  final List<Comment>? comments;
+  final String? _title;
+  final int? _rating;
+  final TemporalDateTime? _created;
+  final Blog? _blog;
+  final List<Comment>? _comments;
+
+  String get title {
+    return _title!;
+  }
+
+  int get rating {
+    return _rating!;
+  }
+
+  TemporalDateTime? get created {
+    return _created;
+  }
+
+  Blog? get blog {
+    return _blog;
+  }
+
+  List<Comment>? get comments {
+    return _comments;
+  }
 
   @override
   getInstanceType() => classType;
@@ -40,23 +61,28 @@ class Post extends Model {
 
   const Post._internal(
       {required this.id,
-      required this.title,
-      this.rating,
-      this.created,
-      this.blog,
-      this.comments});
+      required title,
+      required rating,
+      created,
+      blog,
+      comments})
+      : _title = title,
+        _rating = rating,
+        _created = created,
+        _blog = blog,
+        _comments = comments;
 
   factory Post(
-      {required String id,
+      {String? id,
       required String title,
       int? rating,
-      DateTime? created,
+      TemporalDateTime? created,
       Blog? blog,
       List<Comment>? comments}) {
     return Post._internal(
         id: id == null ? UUID.getUUID() : id,
         title: title,
-        rating: rating,
+        rating: rating!,
         created: created,
         blog: blog,
         comments: comments != null ? List.unmodifiable(comments) : comments);
@@ -71,11 +97,11 @@ class Post extends Model {
     if (identical(other, this)) return true;
     return other is Post &&
         id == other.id &&
-        title == other.title &&
-        rating == other.rating &&
-        created == other.created &&
-        blog == other.blog &&
-        DeepCollectionEquality().equals(comments, other.comments);
+        _title == other.title &&
+        _rating == other.rating &&
+        _created == other.created &&
+        _blog == other.blog &&
+        DeepCollectionEquality().equals(_comments, other.comments);
   }
 
   @override
@@ -86,21 +112,22 @@ class Post extends Model {
     var buffer = new StringBuffer();
 
     buffer.write("Post {");
-    buffer.write("id=" + id + ", ");
-    buffer.write("title=" + title + ", ");
-    buffer.write("rating=" + rating?.toString() + ", ");
-    buffer.write("created=" + created?.toDateTimeIso8601String() + ", ");
-    buffer.write("blog=" + blog?.toString());
+    buffer.write("id=$id" + ", ");
+    buffer.write("title=$_title" + ", ");
+    buffer.write("rating=$_rating" + ", ");
+    buffer.write(
+        "created=" + (_created != null ? _created!.format() : "null") + ", ");
+    buffer.write("blog=" + (_blog != null ? _blog.toString() : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
   Post copyWith(
-      {required String id,
-      required String title,
+      {String? id,
+      String? title,
       int? rating,
-      DateTime? created,
+      TemporalDateTime? created,
       Blog? blog,
       List<Comment>? comments}) {
     return Post(
@@ -114,13 +141,15 @@ class Post extends Model {
 
   Post.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        title = json['title'],
-        rating = json['rating'],
-        created = DateTimeParse.fromString(json['created']),
-        blog = json['blog'] != null
+        _title = json['title'],
+        _rating = json['rating'],
+        _created = json['created'] != null
+            ? TemporalDateTime.fromString(json['created'])
+            : null,
+        _blog = json['blog'] != null
             ? Blog.fromJson(new Map<String, dynamic>.from(json['blog']))
             : null,
-        comments = json['comments'] is List
+        _comments = json['comments'] is List
             ? (json['comments'] as List)
                 .map((e) => Comment.fromJson(new Map<String, dynamic>.from(e)))
                 .toList()
@@ -128,11 +157,11 @@ class Post extends Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'title': title,
-        'rating': rating,
-        'created': created?.toDateTimeIso8601String(),
-        'blog': blog?.toJson(),
-        'comments': comments?.map((e) => e?.toJson())
+        'title': _title,
+        'rating': _rating,
+        'created': _created?.format(),
+        'blog': _blog?.toJson(),
+        'comments': _comments?.map((e) => e.toJson()).toList()
       };
 
   static final QueryField ID = QueryField(fieldName: "post.id");
