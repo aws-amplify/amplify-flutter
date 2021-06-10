@@ -39,7 +39,7 @@ class AuthCognitoBridge {
     
     
     func onConfirmSignUp(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignUpRequest) {
-        _ = Amplify.Auth.confirmSignUp(for: request.username, confirmationCode:request.confirmationCode) { response in
+        _ = Amplify.Auth.confirmSignUp(for: request.username, confirmationCode:request.confirmationCode, options: request.options) { response in
             switch response {
             case .success:
                 let signUpData = FlutterSignUpResult(res: response)
@@ -67,15 +67,15 @@ class AuthCognitoBridge {
 
         _ = Amplify.Auth.signIn(username: request.username, password:request.password, options: request.options) { response in
             switch response {
-              case .success(let signInResult):
+            case .success(let signInResult):
                 switch signInResult.nextStep {
-                  case .confirmSignUp:
+                case .confirmSignUp:
                     self.errorHandler.handleAuthError(authError: AuthError.service("User is not confirmed.", "See attached exception for more details", AWSCognitoAuthError.userNotConfirmed), flutterResult: flutterResult)
-                  default:
+                default:
                     let signInData = FlutterSignInResult(res: response)
                     flutterResult(signInData.toJSON())
                 }
-              case .failure(let signInError):
+            case .failure(let signInError):
                 self.errorHandler.handleAuthError(authError: signInError, flutterResult: flutterResult)
             }
         }
@@ -181,11 +181,11 @@ class AuthCognitoBridge {
     func onFetchUserAttributes(flutterResult: @escaping FlutterResult) {
         Amplify.Auth.fetchUserAttributes() { result in
             switch result {
-                case .success(let attributes):
-                    let attributeData = FlutterFetchUserAttributesResult(res: attributes)
-                    flutterResult(attributeData.toList())
-                case .failure(let fetchAttributeError):
-                    self.errorHandler.handleAuthError(authError: fetchAttributeError, flutterResult: flutterResult)
+            case .success(let attributes):
+                let attributeData = FlutterFetchUserAttributesResult(res: attributes)
+                flutterResult(attributeData.toList())
+            case .failure(let fetchAttributeError):
+                self.errorHandler.handleAuthError(authError: fetchAttributeError, flutterResult: flutterResult)
             }
         }
     }
@@ -193,11 +193,11 @@ class AuthCognitoBridge {
     func onSignInWithWebUI(flutterResult: @escaping FlutterResult) {
         Amplify.Auth.signInWithWebUI(presentationAnchor: UIApplication.shared.keyWindow!) { result in
             switch result {
-                case .success:
-                    let signInData = FlutterSignInResult(res: result)
-                    flutterResult(signInData.toJSON())
-                case .failure(let error):
-                    self.errorHandler.handleAuthError(authError: error , flutterResult: flutterResult)
+            case .success:
+                let signInData = FlutterSignInResult(res: result)
+                flutterResult(signInData.toJSON())
+            case .failure(let error):
+                self.errorHandler.handleAuthError(authError: error , flutterResult: flutterResult)
 
             }
         }
@@ -206,11 +206,11 @@ class AuthCognitoBridge {
     func onSignInWithSocialWebUI(flutterResult: @escaping FlutterResult, request: FlutterSignInWithWebUIRequest) {
         Amplify.Auth.signInWithWebUI(for: request.provider!, presentationAnchor: UIApplication.shared.keyWindow!) { result in
             switch result {
-                case .success:
-                    let signInData = FlutterSignInResult(res: result)
-                    flutterResult(signInData.toJSON())
-                case .failure(let error):
-                    self.errorHandler.handleAuthError(authError: error , flutterResult: flutterResult)
+            case .success:
+                let signInData = FlutterSignInResult(res: result)
+                flutterResult(signInData.toJSON())
+            case .failure(let error):
+                self.errorHandler.handleAuthError(authError: error , flutterResult: flutterResult)
 
             }
         }
@@ -222,6 +222,18 @@ class AuthCognitoBridge {
             case .success:
                 let updateAttributeData = FlutterUpdateUserAttributeResult(res: response)
                 flutterResult(updateAttributeData.toJSON())
+            case .failure(let error):
+                self.errorHandler.handleAuthError(authError: error, flutterResult: flutterResult)
+            }
+        }
+    }
+    
+    func onUpdateUserAttributes(flutterResult: @escaping FlutterResult, request: FlutterUpdateUserAttributesRequest) {
+        Amplify.Auth.update(userAttributes: request.attributes) { response in
+            switch response {
+            case .success:
+                let updateAttributesData = FlutterUpdateUserAttributesResult(res: response)
+                flutterResult(updateAttributesData.toJSON())
             case .failure(let error):
                 self.errorHandler.handleAuthError(authError: error, flutterResult: flutterResult)
             }

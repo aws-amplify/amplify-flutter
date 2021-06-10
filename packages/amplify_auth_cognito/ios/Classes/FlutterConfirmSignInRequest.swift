@@ -16,7 +16,6 @@
 import Foundation
 import Amplify
 import AmplifyPlugins
-import AWSCore
 import amplify_core
 
 struct FlutterConfirmSignInRequest {

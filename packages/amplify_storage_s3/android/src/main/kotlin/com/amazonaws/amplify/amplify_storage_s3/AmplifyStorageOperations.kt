@@ -36,7 +36,6 @@ class AmplifyStorageOperations {
 
         fun uploadFile(@NonNull flutterResult: MethodChannel.Result, @NonNull request: Map<String, *>) {
             try {
-                var responseSent = false
                 FlutterUploadFileRequest.validate(request)
                 val req = FlutterUploadFileRequest(request)
                 Amplify.Storage.uploadFile(
@@ -47,12 +46,7 @@ class AmplifyStorageOperations {
                             prepareUploadFileResponse(flutterResult, result)
                         },
                         { error ->
-                            if (!responseSent) {
-                                responseSent = true
-                                prepareError(flutterResult, error)
-                            } else {
-                                LOG.error("StorageException", error)
-                            }
+                            prepareError(flutterResult, error)
                         })
             } catch(e: Exception) {
                 prepareError(flutterResult, e)
@@ -115,7 +109,6 @@ class AmplifyStorageOperations {
 
         fun downloadFile(@NonNull flutterResult: MethodChannel.Result, @NonNull request: Map<String, *>) {
             try {
-                var responseSent = false
                 FlutterDownloadFileRequest.validate(request)
                 val req = FlutterDownloadFileRequest(request)
                 Amplify.Storage.downloadFile(req.key,
@@ -125,12 +118,7 @@ class AmplifyStorageOperations {
                             prepareDownloadFileResponse(flutterResult, result)
                         },
                         { error ->
-                            if (!responseSent) {
-                                responseSent = true
-                                prepareError(flutterResult, error)
-                            } else {
-                                LOG.error("StorageException", error)
-                            }
+                            prepareError(flutterResult, error)
                         }
                 )
             } catch(e: Exception) {
