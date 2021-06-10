@@ -1,7 +1,7 @@
 ![AWS Amplify](https://s3.amazonaws.com/aws-mobile-hub-images/aws-amplify-logo.png)
 
 [![discord](https://img.shields.io/discord/308323056592486420?logo=discord)](https://discord.gg/jWVbPfC)
-[![CircleCI](https://circleci.com/gh/aws-amplify/amplify-flutter.svg?style=shield)](https://circleci.com/gh/circleci/circleci-docs)
+[![CircleCI](https://circleci.com/gh/aws-amplify/amplify-flutter.svg?style=shield)](https://app.circleci.com/pipelines/github/aws-amplify/amplify-flutter)
 
 ## Amplify Flutter
 
