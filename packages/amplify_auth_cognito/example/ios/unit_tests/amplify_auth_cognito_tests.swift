@@ -348,6 +348,30 @@ class amplify_auth_cognito_tests: XCTestCase {
             }
         })
     }
+
+    func test_confirmSignUpForwardOptions() {
+        let mockOptions: Dictionary<String, Any> = ["clientMetadata": ["key": "value"]]
+        func mockResult (args: Optional<Any>) {}
+
+        class ConfirmSignUpMock: AuthCognitoBridge {
+            override func onConfirmSignUp(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignUpRequest){
+                let options = request.options?.pluginOptions as! AWSAuthConfirmSignUpOptions
+                XCTAssertEqual(options.metadata, ["key": "value"])
+                flutterResult(true)
+            }
+        }
+
+        plugin = SwiftAuthCognito.init(cognito: ConfirmSignUpMock())
+
+        _data = [
+            "username": _username,
+            "confirmationCode": _confirmationCode,
+            "options": mockOptions
+        ]
+        _args = ["data": _data]
+        let call = FlutterMethodCall(methodName: "confirmSignUp", arguments: _args)
+        plugin.handle(call, result: mockResult)
+    }
     
     func test_confirmSignUpValidation() {
         let rawOptions: Dictionary<String, Any> = ["foo": "bar"]
