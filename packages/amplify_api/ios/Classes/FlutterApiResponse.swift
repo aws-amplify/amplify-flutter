@@ -43,7 +43,7 @@ class FlutterApiResponse {
             print("An unknown error occured: \(errorDescription)")
             
             ErrorUtil.postErrorToFlutterChannel(result: flutterResult, errorCode: "ApiException",
-                                                details: ErrorUtil.createSerializedError(message: errorDescription, recoverySuggestion: recoverySuggestion, underlyingError: nil))
+                                                details: ErrorUtil.createSerializedError(message: errorDescription, recoverySuggestion: recoverySuggestion, underlyingError: nil, httpStatusCode: nil))
         }
     }
     

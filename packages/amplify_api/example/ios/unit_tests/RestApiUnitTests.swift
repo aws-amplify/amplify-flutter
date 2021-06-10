@@ -174,6 +174,7 @@ class RestApiUnitTests: XCTestCase {
 
                 XCTAssertEqual(referenceError.errorDescription, errorMap["message"])
                 XCTAssertEqual(referenceError.recoverySuggestion, errorMap["recoverySuggestion"])
+                XCTAssertEqual("400", errorMap["httpStatusCode"])
             }
         )
     }
