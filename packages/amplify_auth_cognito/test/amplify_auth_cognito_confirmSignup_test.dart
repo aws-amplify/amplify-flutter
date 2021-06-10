@@ -50,7 +50,7 @@ void main() {
     final mockValue = 'value';
     final mockOptions =
         CognitoConfirmSignUpOptions(clientMetadata: {mockKey: mockValue});
-    final requst = ConfirmSignUpRequest(
+    final request = ConfirmSignUpRequest(
             username: 'user', confirmationCode: '123456', options: mockOptions)
         .serializeAsMap();
 
