@@ -8,6 +8,7 @@ Thank you for your interest in contributing to our project! <3 Whether it's a bu
   - [Setting up for local development](#setting-up-for-local-development)
   - [Steps towards contributions](#steps-towards-contributions)
 - [Pull Requests](#pull-requests)
+- [Integration Tests](#integration-tests)
 - [Release](#release)
   - [Finding contributions to work on](#finding-contributions-to-work-on)
   - [Related Repositories](#related-repositories)
@@ -126,11 +127,7 @@ _[Skip step 1 to 3 if you have already done this]_
 
 # Release
 
-To give a bird's eye view of the release cycle:
-
-- We follow semantic versioning for our releases
-- Every merge into the `main` ends up as `unstable` package in the npm
-- The core team will cut a release out to `stable` from `unstable` bi-weekly
+We follow semantic versioning for our releases.
 
 ## Finding contributions to work on
 
@@ -152,6 +149,123 @@ toolkit for interacting with AWS backend resources.
 1. [AWS SDK for Android](https://github.com/aws-amplify/aws-sdk-android)
 2. [AWS SDK for iOS](https://github.com/aws-amplify/aws-sdk-ios)
 3. [AWS SDK for JavaScript](https://github.com/aws/aws-sdk-js)
+
+## Integration Tests
+
+In addition to unit tests which mock Amplify API interaction, this repository has integration tests which 
+test functionality with real Amplify backends. The integration test script will execute tests in example 
+apps which have integration tests written (skipping those that don't). It runs on Android and iOS simulators.
+
+**Note:** To run integration tests, you will need prerequisite Amplify resources in the example 
+apps where the tests run. The process for creating those is noted below.
+
+To run all integration tests on available platforms:
+```bash
+$ melos run test:integration
+```
+
+To run all tests just on Android (also works for `ios` instead of `android`):
+```bash
+$ melos run test:integration:android
+```
+
+To run a single test file on device matching "sdk":
+```bash
+$ cd packages/amplify_auth_cognito/example
+$ flutter drive --driver=test_driver/integration_test.dart --target=integration_test/sign_in_sign_out_test.dart -d sdk
+```
+
+## Provision Resources For Integration Tests
+
+Any app with integration tests will have a script `tool/provision_integration_test_resources.sh` which will call `amplify init` and `amplify push` with preconfigured amplify environments for that app. 
+Executing it will create real AWS resources. It requires [the Amplify CLI](https://docs.amplify.aws/cli). It does not need to run every time you run the tests. Run it once to set up or update your environments. 
+If you already have an amplify environment configured for an app, this command will create a "test" 
+environment and check it out.
+
+Create all the amplify environments in the example apps which have provisioning scripts (takes several minutes). Note that you may need to give yourself permission to execute the scripts.:
+```bash
+$ melos run provision_integration_test_resources
+```
+
+Note: you will need to have [`jq`](https://github.com/stedolan/jq) installed, which you can install by running `brew install jq`. 
+The provisioning script uses the [Amplify CLI headless mode](https://docs.amplify.aws/cli/usage/headless).
+
+The auth tests require some additional configuration to support lambda triggers for automatically 
+verifying temporary test users. Note that this should only be done for the test environment, never a production one. This can be done manually by [following this process](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html#aws-lambda-triggers-pre-registration-example-2) or by following these instructions for the amplify CLI:
+
+```
+$ cd packages/amplify_auth_cognito/example
+$ amplify update auth
+  Please note that certain attributes may not be overwritten if you choose to use defaults settings.
+  Using service: Cognito, provided by: awscloudformation
+  What do you want to do?
+    Walkthrough all the auth configurations
+  Select the authentication/authorization services that you want to use:
+    User Sign-Up, Sign-In, connected with AWS IAM controls ( Enables per-user Storage features for images or other content, Analytics, and more)
+  Please enter a name for your identity pool.
+    authintegrationtest
+  Allow unauthenticated logins? (Provides scoped down permissions that you can control via AWS IAM)
+    No
+  Do you want to enable 3rd party authentication providers in your identity pool?
+    No
+  Do you want to add User Pool Groups?
+    No
+  Do you want to add an admin queries API?
+    No
+  Multifactor authentication (MFA) user login options:
+    OFF
+  Email based user registration/forgot password:
+    Enabled (Requires per-user email entry at registration)
+  Please specify an email verification subject:
+    Your verification code
+  Please specify an email verification message:
+    Your verification code is {####}
+  Do you want to override the default password policy for this User Pool?
+    No
+  Specify the app's refresh token expiration period (in days):
+    30
+  Do you want to specify the user attributes this app can read and write?
+    No
+  Do you want to enable any of the following capabilities? 
+  Do you want to use an OAuth flow?
+    No
+  ? Do you want to configure Lambda Triggers for Cognito?
+    Yes
+  ? Which triggers do you want to enable for Cognito
+    Pre Sign-up
+  ? What functionality do you want to use for Pre Sign-up
+    Create your own module
+  Successfully added resource authintegrationtestPreSignup locally.
+```
+
+When prompted to edit the function now, choose "yes" and add the following code to the `custom.js` file 
+created by the amplify CLI, from [documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html#aws-lambda-triggers-pre-registration-example-2).
+
+```js
+exports.handler = (event, context, callback) => {
+
+  // Confirm the user
+  event.response.autoConfirmUser = true;
+
+  // Set the email as verified if it is in the request
+  if (event.request.userAttributes.hasOwnProperty("email")) {
+      event.response.autoVerifyEmail = true;
+  }
+
+  // Set the phone number as verified if it is in the request
+  if (event.request.userAttributes.hasOwnProperty("phone_number")) {
+      event.response.autoVerifyPhone = true;
+  }
+
+  // Return to Amazon Cognito
+  callback(null, event);
+};
+```
+
+Finally, run a push to update the resources with the new function resource (lambda trigger):
+```bash
+$ amplify push
+```
 
 ## Code of Conduct
 

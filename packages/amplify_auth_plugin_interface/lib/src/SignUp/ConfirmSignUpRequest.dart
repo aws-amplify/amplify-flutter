@@ -20,7 +20,10 @@ class ConfirmSignUpRequest {
   String username;
   String confirmationCode;
   ConfirmSignUpOptions options;
-  ConfirmSignUpRequest({@required this.username, @required this.confirmationCode, this.options});
+
+  ConfirmSignUpRequest(
+      {@required this.username, @required this.confirmationCode, this.options});
+
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     pendingRequest['username'] = username;

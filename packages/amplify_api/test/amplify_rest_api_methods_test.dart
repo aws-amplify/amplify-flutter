@@ -171,6 +171,78 @@ void main() {
     }
   });
 
+  test('GET exception adds the httpStatusCode to exception if available',
+      () async {
+    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      if (methodCall.method == "get") {
+        throw PlatformException(code: 'ApiException', details: {
+          'message': 'AMPLIFY_API_MUTATE_FAILED',
+          'recoverySuggestion': 'some insightful suggestion',
+          'underlyingException': 'Act of God',
+          'httpStatusCode': '500'
+        });
+      }
+    });
+
+    try {
+      RestOperation restOperation = api.get(
+          restOptions: RestOptions(
+        path: "/items",
+      ));
+      await restOperation.response;
+    } on ApiException catch (e) {
+      expect(e.httpStatusCode, 500);
+    }
+  });
+
+  test('GET exception does not add httpStatusCode if not a valid status code',
+      () async {
+    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      if (methodCall.method == "get") {
+        throw PlatformException(code: 'ApiException', details: {
+          'message': 'AMPLIFY_API_MUTATE_FAILED',
+          'recoverySuggestion': 'some insightful suggestion',
+          'underlyingException': 'Act of God',
+          'httpStatusCode': '999'
+        });
+      }
+    });
+
+    try {
+      RestOperation restOperation = api.get(
+          restOptions: RestOptions(
+        path: "/items",
+      ));
+      await restOperation.response;
+    } on ApiException catch (e) {
+      expect(e.httpStatusCode, null);
+    }
+  });
+
+  test(
+      'GET exception does not add httpStatusCode if not available in serialized error',
+      () async {
+    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      if (methodCall.method == "get") {
+        throw PlatformException(code: 'ApiException', details: {
+          'message': 'AMPLIFY_API_MUTATE_FAILED',
+          'recoverySuggestion': 'some insightful suggestion',
+          'underlyingException': 'Act of God',
+        });
+      }
+    });
+
+    try {
+      RestOperation restOperation = api.get(
+          restOptions: RestOptions(
+        path: "/items",
+      ));
+      await restOperation.response;
+    } on ApiException catch (e) {
+      expect(e.httpStatusCode, null);
+    }
+  });
+
   test('CANCEL success does not throw error', () async {
     // Need to reply with PLACEHOLDER to avoid null issues in _formatRestResponse
     // In actual production code, the methodChannel doesn't respond to the future response
