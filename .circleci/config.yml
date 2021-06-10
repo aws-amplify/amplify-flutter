@@ -40,6 +40,13 @@ commands:
             flutter pub global activate melos 0.4.5
             melos bootstrap
 
+  install_tuneup:
+    steps:
+      - run:
+          name: Install tuneup
+          command: |
+            flutter pub global activate tuneup
+
 jobs:
   format_analyze:
     executor: docker-executor
@@ -47,6 +54,7 @@ jobs:
       - install_flutter
       - checkout
       - install_melos
+      - install_tuneup
       - run: melos run format
       - run:
           name: Validate formatting

@@ -6,9 +6,12 @@ packages:
   - packages/**/example/*
 
 scripts:
+  setup_tuneup: >
+    flutter pub global activate tuneup
+
   copy_dummy_config: >
     melos exec --scope="*example*" --fail-fast -- \
-      cp -n ../../../.circleci/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart | true
+      cp -n "\$MELOS_ROOT_PATH"/.circleci/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart | true
 
   build:examples:ios: >
     melos exec -c 1 --scope="*example*" --fail-fast -- \
@@ -29,9 +32,10 @@ scripts:
 
   test:integration:
     run: melos run test:integration:android && melos run test:integration:ios
-    description: Run all integration tests for all package example apps on Android and iOS simulators. Skips if no tests available.
+    description:
+      Run all integration tests for all package example apps on Android and iOS simulators. Skips if no tests available.
       - Requires running Android and iOS simulators.
-    
+
   test:integration:android:
     run: melos exec "flutter drive --driver=test_driver/integration_test.dart --target=integration_test/main_test.dart -d sdk"
     select-package:
@@ -48,7 +52,8 @@ scripts:
 
   provision_integration_test_resources:
     run: melos exec "./tool/provision_integration_test_resources.sh"
-    description: Creates and pushes amplify environments necessary to run integration tests in example apps. Runs only on apps with provision script.
+    description:
+      Creates and pushes amplify environments necessary to run integration tests in example apps. Runs only on apps with provision script.
       - Requires amplify CLI configured and connected to AWS account.
       - Will run `amplify push` within example apps.
     select-package:
@@ -69,16 +74,20 @@ scripts:
     melos exec -c 1 -- \
       flutter format .
 
-  analyze: >
-    melos exec -c 1 --no-private --ignore="*example*" -- \
-      flutter pub global run tuneup check
+  analyze:
+    run: melos exec -c 1 --no-private -- flutter pub global run tuneup check
+    description: >
+      Run tuneup check over all packages. Requires tuneup. You can use `melos run setup_tuneup`.
+    select-package:
+      ignore:
+        - "*example*"
 
   lint:pub: >
     melos exec -c 5 --fail-fast --no-private --ignore="*example*" -- \
       flutter pub publish --dry-run
 
   postbootstrap: >
-    (tuneup --version || flutter pub global activate tuneup) && melos run copy_dummy_config
+    melos run copy_dummy_config
 
   postclean: >
     melos exec -- \
