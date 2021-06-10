@@ -31,8 +31,10 @@ import com.amplifyframework.auth.result.AuthSignUpResult
 import com.amplifyframework.auth.cognito.AWSCognitoAuthSession
 import com.amplifyframework.auth.cognito.AWSCognitoUserPoolTokens
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthConfirmSignInOptions
+import com.amplifyframework.auth.cognito.options.AWSCognitoAuthConfirmSignUpOptions
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthSignInOptions
 import com.amplifyframework.auth.options.AuthConfirmSignInOptions
+import com.amplifyframework.auth.options.AuthConfirmSignUpOptions
 import com.amplifyframework.auth.options.AuthSignInOptions
 import com.amplifyframework.auth.result.AuthSessionResult
 import com.amplifyframework.auth.result.step.*
@@ -123,12 +125,18 @@ class AmplifyAuthCognitoPluginTest {
     }
 
     @Test
-    fun confirmSignUp_returnsSuccess() {
+    fun confirmSignUpWithoutOptions_returnsSuccess() {
         // Arrange
         doAnswer { invocation: InvocationOnMock ->
             plugin.prepareSignUpResult(mockResult, mockSignUpResult)
             null as Void?
-        }.`when`(mockAuth).confirmSignUp(anyString(), anyString(), ArgumentMatchers.any<Consumer<AuthSignUpResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).confirmSignUp(
+            anyString(),
+            anyString(),
+            ArgumentMatchers.any<AuthConfirmSignUpOptions>(),
+            ArgumentMatchers.any<Consumer<AuthSignUpResult>>(),
+            ArgumentMatchers.any<Consumer<AuthException>>()
+        )
 
         val data = hashMapOf(
             "username" to "testUser",
@@ -154,6 +162,67 @@ class AmplifyAuthCognitoPluginTest {
 
         // Assert
         verify(mockResult, times(1)).success(res);
+    }
+
+    @Test
+    fun confirmSignUpWithOptions_returnsSuccess() {
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareSignUpResult(mockResult, mockSignUpResult)
+            null as Void?
+        }.`when`(mockAuth).confirmSignUp(
+            anyString(),
+            anyString(),
+            ArgumentMatchers.any<AuthConfirmSignUpOptions>(),
+            ArgumentMatchers.any<Consumer<AuthSignUpResult>>(),
+            ArgumentMatchers.any<Consumer<AuthException>>()
+        )
+
+        val mockClientMetadata = hashMapOf(
+            "key" to "value"
+        )
+        val mockUsername = "testUser"
+        val mockConfirmationCode = "123456"
+        val data = hashMapOf(
+            "username" to mockUsername,
+            "confirmationCode" to mockConfirmationCode,
+            "options" to hashMapOf(
+               "clientMetadata" to mockClientMetadata
+            )
+        )
+        val arguments = hashMapOf("data" to data)
+        val call = MethodCall("confirmSignUp", arguments)
+        val res = mapOf(
+            "isSignUpComplete" to false,
+            "nextStep" to mapOf(
+                "signUpStep" to "CONFIRM_SIGN_UP_STEP",
+                "additionalInfo" to "{}",
+                "codeDeliveryDetails" to mapOf(
+                    "destination" to "test@test.com",
+                    "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
+                    "attributeName" to "email"
+                )
+            )
+        )
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).success(res)
+
+        var expectedOptions = AWSCognitoAuthConfirmSignUpOptions
+            .builder()
+            .clientMetadata(mockClientMetadata)
+            .build()
+
+        verify(mockAuth).confirmSignUp(
+            ArgumentMatchers.eq(mockUsername),
+            ArgumentMatchers.eq(mockConfirmationCode),
+            ArgumentMatchers.eq(expectedOptions),
+            ArgumentMatchers.any<Consumer<AuthSignUpResult>>(),
+            ArgumentMatchers.any<Consumer<AuthException>>()
+        )
     }
 
     @Test
