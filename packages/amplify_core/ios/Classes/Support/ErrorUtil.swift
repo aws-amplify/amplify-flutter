@@ -26,11 +26,13 @@ public class ErrorUtil {
     
     public static func createSerializedError(message: String,
                                        recoverySuggestion: String?,
-                                       underlyingError: String?) -> Dictionary<String, String> {
+                                       underlyingError: String?,
+                                       httpStatusCode: String?) -> Dictionary<String, String> {
         var serializedException: Dictionary<String, String> = [:]
         serializedException["message"] = message
         serializedException["recoverySuggestion"] = recoverySuggestion
         serializedException["underlyingException"] = underlyingError
+        serializedException["httpStatusCode"] = httpStatusCode
         return serializedException
     }
 }
