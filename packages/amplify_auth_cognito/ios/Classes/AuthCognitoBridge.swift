@@ -24,9 +24,8 @@ class AuthCognitoBridge {
     
     
     func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest) {
-        let options = AuthSignUpRequest.Options(userAttributes: request.userAttributes)
         
-        _ = Amplify.Auth.signUp(username: request.username, password:request.password, options: options) { response in
+        _ = Amplify.Auth.signUp(username: request.username, password:request.password, options: request.options) { response in
             switch response {
             case .success:
                 let signUpData = FlutterSignUpResult(res: response)

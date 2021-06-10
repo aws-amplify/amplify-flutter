@@ -21,7 +21,7 @@ class SignUpRequest {
   String password;
   SignUpOptions options;
 
-  SignUpRequest({@required this.username, @required this.password, @required this.options});
+  SignUpRequest({@required this.username, @required this.password, this.options});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     pendingRequest['username'] = username;

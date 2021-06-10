@@ -23,7 +23,9 @@ class CognitoSignUpOptions extends SignUpOptions {
     if (this.validationData != null) {
       pendingRequest["validationData"] = validationData;
     }
-    pendingRequest["userAttributes"] = userAttributes;
+    if (this.userAttributes != null) {
+      pendingRequest["userAttributes"] = userAttributes;
+    }
     return pendingRequest;
   }
 }
