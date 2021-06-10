@@ -21,9 +21,8 @@ import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.ModelAssociation
 import com.amplifyframework.core.model.ModelField
 import com.amplifyframework.core.model.ModelSchema
-import com.amplifyframework.core.model.temporal.Temporal
 import com.amplifyframework.core.model.SerializedModel
-
+import com.amplifyframework.core.model.temporal.Temporal
 
 val postSchema = ModelSchema.builder()
         .name("Post")

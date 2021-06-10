@@ -56,20 +56,41 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   /// configurations. This needs to happen before Amplify.configure() can be
   /// called.
   @override
-  Future<void> configureDataStore(
-      {ModelProviderInterface modelProvider,
-      int syncInterval,
-      int syncMaxRecords,
-      int syncPageSize}) async {
+  Future<void> configureDataStore({
+    ModelProviderInterface modelProvider,
+    List<DataStoreSyncExpression> syncExpressions,
+    int syncInterval,
+    int syncMaxRecords,
+    int syncPageSize,
+  }) async {
+    _channel.setMethodCallHandler((MethodCall call) async {
+      switch (call.method) {
+        case 'resolveQueryPredicate':
+          String id = call.arguments;
+          if (id == null) {
+            throw ArgumentError(
+                'resolveQueryPredicate must be called with an id');
+          }
+          return syncExpressions
+              .firstWhere((syncExpression) => syncExpression.id == id)
+              .resolveQueryPredicate()
+              .serializeAsMap();
+        default:
+          throw UnimplementedError('${call.method} has not been implemented.');
+      }
+    });
     try {
       return await _channel
           .invokeMethod('configureDataStore', <String, dynamic>{
         'modelSchemas':
             modelProvider.modelSchemas.map((schema) => schema.toMap()).toList(),
         'modelProviderVersion': modelProvider.version,
+        'syncExpressions': syncExpressions
+            .map((syncExpression) => syncExpression.toMap())
+            .toList(),
         'syncInterval': syncInterval,
         'syncMaxRecords': syncMaxRecords,
-        'syncPageSize': syncPageSize
+        'syncPageSize': syncPageSize,
       });
     } on PlatformException catch (e) {
       if (e.code == "AmplifyAlreadyConfiguredException") {
