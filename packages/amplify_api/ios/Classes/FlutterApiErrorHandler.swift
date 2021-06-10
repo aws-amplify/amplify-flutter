@@ -27,9 +27,17 @@ class FlutterApiErrorHandler {
     }
     
     static func createSerializedError(error: APIError) -> Dictionary<String, String> {
+        let httpStatusCode: String?
+        switch error {
+        case .httpStatusError(let statusCode, _):
+            httpStatusCode = String(statusCode)
+        default:
+            httpStatusCode = nil
+        }
         return ErrorUtil.createSerializedError(message: error.errorDescription,
                                      recoverySuggestion: error.recoverySuggestion,
-                                     underlyingError: error.underlyingError?.localizedDescription)
+                                     underlyingError: error.underlyingError?.localizedDescription,
+                                     httpStatusCode: httpStatusCode)
     }
     
 }
