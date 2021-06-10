@@ -13,10 +13,14 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_core/test_utils/get_json_from_file.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/services.dart';
 import 'test_models/ModelProvider.dart';
+import 'test_models/Blog.dart';
+import 'test_models/Post.dart';
 
 void main() {
   const mockSyncInterval = 3600;
@@ -28,6 +32,10 @@ void main() {
 
   AmplifyDataStore dataStore = AmplifyDataStore(
       modelProvider: ModelProvider.instance,
+      syncExpressions: [
+        DataStoreSyncExpression(Blog.classType, () => Blog.NAME.eq('foo')),
+        DataStoreSyncExpression(Post.classType, () => Post.TITLE.eq('bar'))
+      ],
       syncInterval: mockSyncInterval,
       syncMaxRecords: mockSyncMaxRecords,
       syncPageSize: mockSyncPagesize);
@@ -40,21 +48,31 @@ void main() {
 
   test('DataStore custom configuration should be passed via MethodChannel',
       () async {
+    var expectedBlogExpression =
+        await getJsonFromFile('sync_expressions/blog_name.json');
+    var expectedPostExpression =
+        await getJsonFromFile('sync_expressions/post_title.json');
     dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == "configureDataStore") {
         final modelSchemas = methodCall.arguments['modelSchemas'];
+        final syncExpressions = methodCall.arguments['syncExpressions'];
         final syncInterval = methodCall.arguments['syncInterval'];
         final syncMaxRecords = methodCall.arguments['syncMaxRecords'];
         final syncPageSize = methodCall.arguments['syncPageSize'];
 
         expect(
             modelSchemas,
-            equals(ModelProvider.instance.modelSchemas
+            ModelProvider.instance.modelSchemas
                 .map((schema) => schema.toMap())
-                .toList()));
-        expect(syncInterval, equals(syncInterval));
-        expect(syncMaxRecords, equals(mockSyncMaxRecords));
-        expect(syncPageSize, equals(mockSyncPagesize));
+                .toList());
+        expect(syncExpressions.map((expression) {
+          // Ignore generated ID
+          (expression as Map).remove("id");
+          return expression;
+        }), [expectedBlogExpression, expectedPostExpression]);
+        expect(syncInterval, mockSyncInterval);
+        expect(syncMaxRecords, mockSyncMaxRecords);
+        expect(syncPageSize, mockSyncPagesize);
       }
     });
 

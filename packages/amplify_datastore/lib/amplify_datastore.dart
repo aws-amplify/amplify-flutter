@@ -30,19 +30,23 @@ class AmplifyDataStore extends DataStorePluginInterface {
   /// Constructs an AmplifyDataStore plugin with mandatory [modelProvider]
   /// and optional datastore configuration properties including
   ///
+  /// [syncExpressions]: list of sync expressions to filter datastore sync against
+  ///
   /// [syncInterval]: datastore syncing interval (in seconds)
   ///
   /// [syncMaxRecords]: max number of records to sync
   ///
   /// [syncPageSize]: page size to sync
-  AmplifyDataStore(
-      {required ModelProviderInterface modelProvider,
-      int? syncInterval,
-      int? syncMaxRecords,
-      int? syncPageSize})
-      : super(
+  AmplifyDataStore({
+    required ModelProviderInterface modelProvider,
+    List<DataStoreSyncExpression> syncExpressions = const [],
+    int? syncInterval,
+    int? syncMaxRecords,
+    int? syncPageSize,
+  }) : super(
             token: _token,
             modelProvider: modelProvider,
+            syncExpressions: syncExpressions,
             syncInterval: syncInterval,
             syncMaxRecords: syncMaxRecords,
             syncPageSize: syncPageSize);
@@ -64,11 +68,13 @@ class AmplifyDataStore extends DataStorePluginInterface {
   }
 
   @override
-  Future<void> configureDataStore(
-      {ModelProviderInterface? modelProvider,
-      int? syncInterval,
-      int? syncMaxRecords,
-      int? syncPageSize}) async {
+  Future<void> configureDataStore({
+    ModelProviderInterface? modelProvider,
+    List<DataStoreSyncExpression>? syncExpressions,
+    int? syncInterval,
+    int? syncMaxRecords,
+    int? syncPageSize,
+  }) async {
     ModelProviderInterface provider = modelProvider ?? this.modelProvider!;
     if (provider.modelSchemas.isEmpty) {
       throw DataStoreException('No modelProvider or modelSchemas found',
@@ -77,10 +83,12 @@ class AmplifyDataStore extends DataStorePluginInterface {
     }
     streamWrapper.registerModelsForHub(provider);
     return _instance.configureDataStore(
-        modelProvider: provider,
-        syncInterval: this.syncInterval,
-        syncMaxRecords: this.syncMaxRecords,
-        syncPageSize: this.syncPageSize);
+      modelProvider: provider,
+      syncExpressions: this.syncExpressions,
+      syncInterval: this.syncInterval,
+      syncMaxRecords: this.syncMaxRecords,
+      syncPageSize: this.syncPageSize,
+    );
   }
 
   @override
