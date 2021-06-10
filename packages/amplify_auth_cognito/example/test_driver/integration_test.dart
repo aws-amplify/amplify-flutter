@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -14,22 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import Foundation
-import Amplify
+import 'package:integration_test/integration_test_driver.dart';
 
-struct FlutterUpdateUserAttributeResult {
-    var result: AuthUpdateAttributeResult?
-
-    init(res: AmplifyOperation<AuthUpdateUserAttributeRequest, AuthUpdateAttributeResult, AuthError>.OperationResult){
-        switch res {
-        case .success(let res):
-            self.result = res
-        case .failure:
-            self.result = nil
-        }
-    }
-
-    func toJSON() -> Dictionary<String, Any> {
-        return serializeAuthUpdateAttributeResult(result: self.result)
-    }
-}
+Future<void> main() => integrationDriver();
