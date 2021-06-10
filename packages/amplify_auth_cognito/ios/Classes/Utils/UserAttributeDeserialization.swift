@@ -56,7 +56,8 @@ func createAuthUserAttributeKey(keyName: String) -> AuthUserAttributeKey {
             return AuthUserAttributeKey.unknown(keyName)
         } else {
             // amplify-ios prepends 'custom:' to custom keys
-            let customKeyName = keyName.starts(with: "custom:") ? String(keyName.dropFirst(7)) : keyName
+            let customKeyPrefix = "custom:"
+            let customKeyName = keyName.starts(with: customKeyPrefix) ? String(keyName.dropFirst(customKeyPrefix.count)) : keyName
             return AuthUserAttributeKey.custom(customKeyName)
         }
     }
