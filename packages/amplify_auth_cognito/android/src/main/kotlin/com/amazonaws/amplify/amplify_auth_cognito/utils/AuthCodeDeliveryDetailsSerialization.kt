@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -14,22 +13,16 @@
  * permissions and limitations under the License.
  */
 
-import Foundation
-import Amplify
 
-struct FlutterUpdateUserAttributeResult {
-    var result: AuthUpdateAttributeResult?
+package com.amazonaws.amplify.amplify_auth_cognito.utils
 
-    init(res: AmplifyOperation<AuthUpdateUserAttributeRequest, AuthUpdateAttributeResult, AuthError>.OperationResult){
-        switch res {
-        case .success(let res):
-            self.result = res
-        case .failure:
-            self.result = nil
-        }
-    }
+import com.amplifyframework.auth.AuthCodeDeliveryDetails
 
-    func toJSON() -> Dictionary<String, Any> {
-        return serializeAuthUpdateAttributeResult(result: self.result)
-    }
+fun serializeAuthCodeDeliveryDetails(deliveryDetails: AuthCodeDeliveryDetails?): Map<String, Any> {
+    return mapOf(
+            "destination" to (deliveryDetails?.destination ?: ""),
+            "deliveryMedium" to (deliveryDetails?.deliveryMedium?.name
+                    ?: ""),
+            "attributeName" to (deliveryDetails?.attributeName ?: "")
+    )
 }
