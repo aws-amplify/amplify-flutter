@@ -25,12 +25,12 @@ data class FlutterConfirmSignUpRequest(val map: HashMap<String, *>) {
     val options: AWSCognitoAuthConfirmSignUpOptions = formatOptions(map["options"] as HashMap<String, *>?);
 
     private fun formatOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthConfirmSignUpOptions {
-        val options =  AWSCognitoAuthConfirmSignUpOptions.builder();
+        val optionsBuilder =  AWSCognitoAuthConfirmSignUpOptions.builder();
 
         if(rawOptions?.get("clientMetadata") != null)
-            options.clientMetadata(rawOptions["clientMetadata"] as HashMap<String, String>);
+            optionsBuilder.clientMetadata(rawOptions["clientMetadata"] as HashMap<String, String>);
 
-        return options.build();
+        return optionsBuilder.build();
     }
 
     companion object {

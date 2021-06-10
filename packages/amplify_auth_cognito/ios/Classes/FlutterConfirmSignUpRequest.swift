@@ -30,7 +30,7 @@ struct FlutterConfirmSignUpRequest {
     }
     
     func formatOptions(options: Dictionary<String, Any>?) -> AuthConfirmSignUpRequest.Options {
-        let pluginOptions =  AWSAuthConfirmSignUpOptions(
+        let pluginOptions = AWSAuthConfirmSignUpOptions(
             metadata: options?["clientMetadata"] as? [String : String]
         )
         return AuthConfirmSignUpRequest.Options(pluginOptions: pluginOptions)

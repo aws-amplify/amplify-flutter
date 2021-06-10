@@ -46,17 +46,16 @@ void main() {
   });
 
   test('confirmSignUp request accepts and serializes options', () async {
-    final mockKey = 'key';
-    final mockValue = 'value';
+    final mockClientMetadata = {"key": "value"};
     final mockOptions =
-        CognitoConfirmSignUpOptions(clientMetadata: {mockKey: mockValue});
+        CognitoConfirmSignUpOptions(clientMetadata: mockClientMetadata);
     final request = ConfirmSignUpRequest(
             username: 'user', confirmationCode: '123456', options: mockOptions)
         .serializeAsMap();
 
-    expect(requst['options'], isInstanceOf<Map>());
-    expect(requst['options']['clientMetadata'], isInstanceOf<Map>());
-    expect(requst['options']['clientMetadata'][mockKey], mockValue);
+    expect(request['options'], isInstanceOf<Map>());
+    expect(request['options']['clientMetadata'], isInstanceOf<Map>());
+    expect(request['options']['clientMetadata'], mockClientMetadata);
   });
 
   test('confirmnSignUp request returns a SignUpResult', () async {
