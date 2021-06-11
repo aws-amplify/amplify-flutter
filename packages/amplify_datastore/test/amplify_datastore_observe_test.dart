@@ -43,7 +43,7 @@ void main() {
 
   test('configure sets up the observe event channel', () async {
     dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      expect("setupObserve", methodCall.method);
+      expect("setUpObserve", methodCall.method);
     });
     dataStore.configure(configuration: '');
   });
