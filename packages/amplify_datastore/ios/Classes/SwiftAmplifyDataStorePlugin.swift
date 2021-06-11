@@ -61,16 +61,16 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         }
 
         switch call.method {
-        case "configureModelProvider":
-            onConfigureModelProvider(args: arguments, result: result)
+        case "configureDataStore":
+            onConfigureDataStore(args: arguments, result: result)
         case "query":
             onQuery(args: arguments, flutterResult: result)
         case "save":
             onSave(args: arguments, flutterResult: result)
         case "delete":
             onDelete(args: arguments, flutterResult: result)
-        case "setupObserve":
-            onSetupObserve(flutterResult: result)
+        case "setUpObserve":
+            onSetUpObserve(flutterResult: result)
         case "clear":
             onClear(flutterResult: result)
         default:
@@ -78,12 +78,16 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         }
     }
 
-    private func onConfigureModelProvider(args: [String: Any], result: @escaping FlutterResult) {
+    private func onConfigureDataStore(args: [String: Any], result: @escaping FlutterResult) {
 
         guard let modelSchemaList = args["modelSchemas"] as? [[String: Any]] else {
             result(false)
             return //TODO
         }
+
+        let syncInterval = args["syncInterval"] as? Double ?? DataStoreConfiguration.defaultSyncInterval
+        let syncMaxRecords = args["syncMaxRecords"] as? UInt ?? DataStoreConfiguration.defaultSyncMaxRecords
+        let syncPageSize = args["syncPageSize"] as? UInt ?? DataStoreConfiguration.defaultSyncPageSize
 
         do {
 
@@ -97,7 +101,11 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
 
             self.dataStoreHubEventStreamHandler?.registerModelsForHub(flutterModels: flutterModelRegistration)
 
-            let dataStorePlugin = AWSDataStorePlugin(modelRegistration: flutterModelRegistration)
+            let dataStorePlugin = AWSDataStorePlugin(modelRegistration: flutterModelRegistration,
+                configuration: .custom(
+                    syncInterval: syncInterval,
+                    syncMaxRecords: syncMaxRecords,
+                    syncPageSize: syncPageSize))
             try Amplify.add(plugin: dataStorePlugin)
             Amplify.Logging.logLevel = .info
             print("Amplify configured with DataStore plugin")
@@ -254,7 +262,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         }
     }
 
-    public func onSetupObserve(flutterResult: @escaping FlutterResult) {
+    public func onSetUpObserve(flutterResult: @escaping FlutterResult) {
         do {
             observeSubscription = try observeSubscription ?? bridge.onObserve().sink { completion in
                 switch completion {
@@ -291,6 +299,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             print("Failed to get the datastore plugin \(error)")
             flutterResult(false)
         }
+        flutterResult(nil)
     }
 
     func onClear(flutterResult: @escaping FlutterResult) {
@@ -307,7 +316,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     // iOS tears down the publisher after clear. Let's setup again.
                     // See https://github.com/aws-amplify/amplify-flutter/issues/395
                     self.observeSubscription = nil
-                    self.onSetupObserve(flutterResult: flutterResult)
+                    self.onSetUpObserve(flutterResult: flutterResult)
                     flutterResult(nil)
                 }
             }

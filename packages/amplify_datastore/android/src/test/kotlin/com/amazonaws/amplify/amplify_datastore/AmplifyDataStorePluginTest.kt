@@ -33,6 +33,7 @@ import com.amplifyframework.core.model.query.predicate.QueryPredicates
 import com.amplifyframework.core.model.temporal.Temporal
 import com.amplifyframework.datastore.AWSDataStorePlugin
 import com.amplifyframework.datastore.DataStoreCategory
+import com.amplifyframework.datastore.DataStoreConfiguration
 import com.amplifyframework.datastore.DataStoreException
 import com.amplifyframework.datastore.DataStoreItemChange
 import com.amplifyframework.datastore.appsync.SerializedModel
@@ -48,11 +49,14 @@ import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.mockStatic
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoInteractions
+import org.mockito.Mockito.RETURNS_SELF
 import org.mockito.invocation.InvocationOnMock
 import org.robolectric.RobolectricTestRunner
+import java.util.concurrent.TimeUnit
 
 @RunWith(RobolectricTestRunner::class)
 class AmplifyDataStorePluginTest {
@@ -69,6 +73,23 @@ class AmplifyDataStorePluginTest {
             mock(DataStoreHubEventStreamHandler::class.java)
     private val dataStoreException =
             DataStoreException("Some useful exception message", "Some useful recovery message")
+    private val mockModelSchemas = mutableListOf(mapOf(
+        "name" to "Post",
+        "pluralName" to "Posts",
+        "fields" to mapOf(
+            "blog" to mapOf(
+                "name" to "blog",
+                "targetType" to "Blog",
+                "isRequired" to false,
+                "isArray" to false,
+                "type" to mapOf(
+                    "fieldType" to "string"
+                )
+            )
+        )
+    ))
+    private val defaultDataStoreConfiguration = DataStoreConfiguration.defaults()
+    private val mockDataStoreConfigurationBuilder = mock(DataStoreConfiguration.Builder::class.java, RETURNS_SELF)
 
     @Before
     fun setup() {
@@ -96,6 +117,48 @@ class AmplifyDataStorePluginTest {
         )
         setFinalStatic(Amplify::class.java.getDeclaredField("DataStore"), mockDataStore)
         `when`(mockDataStore.getPlugin("awsDataStorePlugin")).thenReturn(mockAmplifyDataStorePlugin)
+    }
+
+    @Test
+    fun test_default_datastore_configuration() {
+        val mockRequestWithoutCustomConfig = mapOf(
+            "modelSchemas" to mockModelSchemas,
+            "modelProviderVersion" to "1.0"
+        )
+
+        mockStatic(DataStoreConfiguration::class.java).use { mockedDataStoreConfiguration ->
+            mockedDataStoreConfiguration.`when`<Any> { DataStoreConfiguration.defaults() }.thenReturn(defaultDataStoreConfiguration)
+            mockedDataStoreConfiguration.`when`<Any> { DataStoreConfiguration.builder() }.thenReturn(mockDataStoreConfigurationBuilder)
+
+            flutterPlugin.onConfigureDataStore(mockResult, mockRequestWithoutCustomConfig)
+            verify(mockDataStoreConfigurationBuilder, times(1)).syncInterval(defaultDataStoreConfiguration.syncIntervalInMinutes, TimeUnit.MINUTES)
+            verify(mockDataStoreConfigurationBuilder, times(1)).syncMaxRecords(defaultDataStoreConfiguration.syncMaxRecords)
+            verify(mockDataStoreConfigurationBuilder, times(1)).syncPageSize(defaultDataStoreConfiguration.syncPageSize)
+        }
+    }
+
+    @Test
+    fun test_custom_datastore_configuration() {
+        val mockSyncInterval = 3600
+        val mockSyncMaxRecords = 60000
+        val mockSyncPageSize = 500
+        val mockRequestWithCustomConfig = mapOf(
+            "modelSchemas" to mockModelSchemas,
+            "syncInterval" to mockSyncInterval,
+            "syncMaxRecords" to mockSyncMaxRecords,
+            "syncPageSize" to mockSyncPageSize,
+            "modelProviderVersion" to "1.0"
+        )
+
+        mockStatic(DataStoreConfiguration::class.java).use { mockedDataStoreConfiguration ->
+            mockedDataStoreConfiguration.`when`<Any> { DataStoreConfiguration.defaults() }.thenReturn(defaultDataStoreConfiguration)
+            mockedDataStoreConfiguration.`when`<Any> { DataStoreConfiguration.builder() }.thenReturn(mockDataStoreConfigurationBuilder)
+
+            flutterPlugin.onConfigureDataStore(mockResult, mockRequestWithCustomConfig)
+            verify(mockDataStoreConfigurationBuilder, times(1)).syncInterval(mockSyncInterval.toLong(), TimeUnit.MINUTES)
+            verify(mockDataStoreConfigurationBuilder, times(1)).syncMaxRecords(mockSyncMaxRecords)
+            verify(mockDataStoreConfigurationBuilder, times(1)).syncPageSize(mockSyncPageSize)
+        }
     }
 
     @Test
@@ -407,7 +470,7 @@ class AmplifyDataStorePluginTest {
                 any<Consumer<DataStoreException>>(),
                 any<Action>())
 
-        flutterPlugin.onSetupObserve(mockResult)
+        flutterPlugin.onSetUpObserve(mockResult)
 
         verify(mockResult, times(1)).success(true)
         verify(mockStreamHandler, times(1)).sendEvent(eventData)
@@ -427,7 +490,7 @@ class AmplifyDataStorePluginTest {
                 any<Consumer<DataStoreException>>(),
                 any<Action>())
 
-        flutterPlugin.onSetupObserve(mockResult)
+        flutterPlugin.onSetUpObserve(mockResult)
 
         verify(mockResult, times(1)).success(true)
         verify(mockStreamHandler, times(1)).error(
