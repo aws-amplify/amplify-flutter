@@ -52,8 +52,7 @@ class _UpdateUserAttributesWidgetState
         var attributes = _userAttributeControllers
             .map(
               (controller) => AuthUserAttribute(
-                userAttributeKey:
-                    controller.keyController.text.replaceAll('custom:', ''),
+                userAttributeKey: controller.keyController.text,
                 value: controller.valueController.text,
               ),
             )
