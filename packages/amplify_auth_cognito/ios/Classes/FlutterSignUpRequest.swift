@@ -22,7 +22,6 @@ import amplify_core
 struct FlutterSignUpRequest {
     var username: String
     var password: String
-    var userAttributes: [AuthUserAttribute] = []
     var options: AuthSignUpRequest.Options?
     init(dict: NSMutableDictionary){
         self.username = dict["username"] as! String
@@ -30,7 +29,7 @@ struct FlutterSignUpRequest {
         self.options = createOptions(options: dict["options"] as? Dictionary<String, Any>)
     }
     
-    func createOptions(options: Dictionary<String, Any>?) -> AuthSignUpRequest.Options? {
+    private func createOptions(options: Dictionary<String, Any>?) -> AuthSignUpRequest.Options? {
         if (options == nil) {
             return nil
         }
@@ -45,7 +44,7 @@ struct FlutterSignUpRequest {
         
     }
     
-    func createAuthUserAttributes(options: Dictionary<String, Any>) -> [AuthUserAttribute] {
+    private func createAuthUserAttributes(options: Dictionary<String, Any>) -> [AuthUserAttribute] {
         let rawAttributes: Dictionary<String, Any> = options["userAttributes"] as! Dictionary<String, String>
         var formattedAttributes: Array<AuthUserAttribute> = Array()
         for attr in rawAttributes {
