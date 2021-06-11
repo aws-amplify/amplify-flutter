@@ -16,6 +16,8 @@
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
 import androidx.annotation.NonNull
+import com.amazonaws.amplify.amplify_auth_cognito.utils.createAuthUserAttribute
+import com.amazonaws.amplify.amplify_auth_cognito.utils.validateUserAttribute
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 import com.amplifyframework.auth.AuthUserAttribute
@@ -33,21 +35,14 @@ data class FlutterUpdateUserAttributeRequest(val map: HashMap<String, *>) {
 
     companion object {
         private const val validationErrorMessage: String = "UpdateUserAttributeRequest Request malformed."
-        fun validate(req : HashMap<String, *>?) {
+        fun validate(req: HashMap<String, *>?) {
             if (req == null) {
                 throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("request map"))
             } else if (!req.containsKey("attribute") || req["attribute"] !is HashMap<*, *>) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "attribute" ))
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("attribute"))
             } else {
                 val attribute = req["attribute"] as HashMap<*, *>;
-                if (!attribute.containsKey("value")) {
-                    throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "value" ))
-                } else if (!attribute.containsKey("userAttributeKey")) {
-                    throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "userAttributeKey" ))
-                } else if (attribute["value"] !is String) {
-                    // Android SDK expects a string for user attr values, regardless of the configuration in cognito
-                    throw InvalidRequestException(validationErrorMessage, "Attribute value is not a String.")
-                }
+                validateUserAttribute(attribute, validationErrorMessage)
             }
         }
     }

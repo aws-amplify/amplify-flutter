@@ -15,29 +15,13 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
+import com.amazonaws.amplify.amplify_auth_cognito.utils.serializeAuthUpdateAttributeResult
 import com.amplifyframework.auth.result.AuthUpdateAttributeResult
-import com.google.gson.Gson
 
 data class FlutterUpdateUserAttributeResult(private val raw: AuthUpdateAttributeResult) {
-    val isUpdated: Boolean = raw.isUpdated
-    val nextStep: Map<String, Any> = setNextStep();
-
-    private fun setNextStep(): Map<String, Any> {
-        return mapOf(
-            "updateAttributeStep" to raw.nextStep.updateAttributeStep.toString(),
-            "additionalInfo" to Gson().toJson(raw.nextStep.additionalInfo),
-            "codeDeliveryDetails" to mapOf(
-                "destination" to (raw.nextStep.codeDeliveryDetails?.destination ?: ""),
-                "deliveryMedium" to (raw.nextStep.codeDeliveryDetails?.deliveryMedium?.name ?: ""),
-                "attributeName" to (raw.nextStep.codeDeliveryDetails?.attributeName ?: "")
-            )
-        )
-    }
+    val result: AuthUpdateAttributeResult = raw;
 
     fun toValueMap(): Map<String, Any> {
-        return mapOf(
-            "isUpdated" to this.isUpdated,
-            "nextStep" to this.nextStep
-        )
+        return serializeAuthUpdateAttributeResult(result)
     }
 }
