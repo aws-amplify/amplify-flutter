@@ -209,7 +209,7 @@ class FlutterGraphQLApi {
                 handler.post { flutterResult.success(null) }
             }
 
-            var responseCallback  = Consumer<GraphQLResponse<String>> { response ->
+            var responseCallback = Consumer<GraphQLResponse<String>> { response ->
                 val payload: Map<String, Any> = mapOf(
                         "data" to response.data,
                         "errors" to response.errors.map { it.message }
@@ -218,7 +218,7 @@ class FlutterGraphQLApi {
                 graphqlSubscriptionStreamHandler.sendEvent(payload, id, GraphQLSubscriptionEventTypes.DATA)
             }
 
-            var errorCallback  = Consumer<ApiException>  { 
+            var errorCallback = Consumer<ApiException>  { 
                 if (!id.isNullOrEmpty()) OperationsManager.removeOperation(id)
                 if (established) {
                     graphqlSubscriptionStreamHandler.sendError("ApiException", ExceptionUtil.createSerializedError(it))
