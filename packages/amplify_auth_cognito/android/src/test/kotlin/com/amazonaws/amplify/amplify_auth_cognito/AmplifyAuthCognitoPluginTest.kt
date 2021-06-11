@@ -123,6 +123,40 @@ class AmplifyAuthCognitoPluginTest {
     }
 
     @Test
+    fun signUpNoOptions_returnsSuccess() {
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareSignUpResult(mockResult, mockSignUpResult)
+            null as Void?
+        }.`when`(mockAuth).signUp(anyString(), anyString(), any(AuthSignUpOptions::class.java), ArgumentMatchers.any<Consumer<AuthSignUpResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+
+        val data: HashMap<*, *> = hashMapOf(
+                "username" to "test@test.com",
+                "password" to "testPassword"
+        )
+        val arguments = hashMapOf("data" to data)
+        val call = MethodCall("signUp", arguments)
+        val res = mapOf(
+                "isSignUpComplete" to false,
+                "nextStep" to mapOf(
+                        "signUpStep" to "CONFIRM_SIGN_UP_STEP",
+                        "additionalInfo" to "{}",
+                        "codeDeliveryDetails" to mapOf(
+                                "destination" to "test@test.com",
+                                "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
+                                "attributeName" to "email"
+                        )
+                )
+        )
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).success(res);
+    }
+
+    @Test
     fun confirmSignUp_returnsSuccess() {
         // Arrange
         doAnswer { invocation: InvocationOnMock ->

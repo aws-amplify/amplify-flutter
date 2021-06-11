@@ -29,18 +29,18 @@ data class FlutterSignUpRequest(val map: HashMap<String, *>) {
     val options: AWSCognitoAuthSignUpOptions = formatOptions(map["options"] as HashMap<String, *>?)
 
     private fun formatOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthSignUpOptions {
-        val options =  AWSCognitoAuthSignUpOptions.builder();
+        val options =  AWSCognitoAuthSignUpOptions.builder()
         if (rawOptions != null) {
-            val authUserAttributes: MutableList<AuthUserAttribute> = mutableListOf();
+            val authUserAttributes: MutableList<AuthUserAttribute> = mutableListOf()
             val attributeData = rawOptions["userAttributes"] as? MutableMap<String, String>
-            val validationData = rawOptions["validationData"] as? MutableMap<String, String>;
+            val validationData = rawOptions["validationData"] as? MutableMap<String, String>
 
             if (attributeData is MutableMap<String, String>) {
                 attributeData.forEach { (key, value) ->
-                    val attribute = createAuthUserAttribute(key, value);
-                    authUserAttributes.add(attribute);
+                    val attribute = createAuthUserAttribute(key, value)
+                    authUserAttributes.add(attribute)
                 }
-                options.userAttributes(authUserAttributes);
+                options.userAttributes(authUserAttributes)
             }
 
             if (validationData is MutableMap<String, String>) {
@@ -48,7 +48,7 @@ data class FlutterSignUpRequest(val map: HashMap<String, *>) {
             }
 
         }
-        return options.build();
+        return options.build()
     }
 
     companion object {
