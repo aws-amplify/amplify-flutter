@@ -37,7 +37,7 @@ class _UpdateUserAttributeWidgetState extends State<UpdateUserAttributeWidget> {
   void _updateAttribute() async {
     try {
       var res = await Amplify.Auth.updateUserAttribute(
-        userAttributeKey: _keyController.text.replaceAll('custom:', ''),
+        userAttributeKey: _keyController.text,
         value: _valueController.text,
       );
       if (res.nextStep.updateAttributeStep == 'CONFIRM_ATTRIBUTE_WITH_CODE') {
