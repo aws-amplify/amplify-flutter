@@ -161,7 +161,7 @@ test functionality with real Amplify backends. The integration test script will 
 apps which have integration tests written (skipping those that don't). It runs on Android and iOS simulators.
 
 **Note:** To run integration tests, you will need prerequisite Amplify resources in the example 
-apps where the tests run. The process for creating those is noted below. You will also need to installed dependencies with `melos bootstrap`.
+apps where the tests run. The process for creating those is noted below. You will also need to install dependencies with `melos bootstrap`.
 
 To run all integration tests on available platforms:
 ```bash
