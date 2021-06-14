@@ -219,6 +219,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       Amplify.Auth.confirmSignUp(
               req.username,
               req.confirmationCode,
+              req.options,
               { result -> prepareSignUpResult(flutterResult, result)},
               { error -> errorHandler.handleAuthError(flutterResult, error)}
       )

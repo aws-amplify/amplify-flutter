@@ -38,6 +38,7 @@ import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.query.QueryOptions
 import com.amplifyframework.core.model.query.predicate.QueryPredicates
 import com.amplifyframework.datastore.AWSDataStorePlugin
+import com.amplifyframework.datastore.DataStoreConfiguration
 import com.amplifyframework.datastore.DataStoreException
 import com.amplifyframework.datastore.appsync.SerializedModel
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -46,6 +47,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import java.util.concurrent.TimeUnit
 
 /** AmplifyDataStorePlugin */
 class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
@@ -107,14 +109,14 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             "delete" -> onDelete(result, data)
             "save" -> onSave(result, data)
             "clear" -> onClear(result)
-            "setupObserve" -> onSetupObserve(result)
-            "configureModelProvider" -> onConfigureModelProvider(result, data)
+            "setUpObserve" -> onSetUpObserve(result)
+            "configureDataStore" -> onConfigureDataStore(result, data)
             else -> result.notImplemented()
         }
     }
 
-    private fun onConfigureModelProvider(flutterResult: Result, request: Map<String, Any>) {
-
+    @VisibleForTesting
+    fun onConfigureDataStore(flutterResult: Result, request: Map<String, Any>) {
         if (!request.containsKey("modelSchemas") || !request.containsKey(
                         "modelProviderVersion") || request["modelSchemas"] !is List<*>) {
             handler.post {
@@ -142,12 +144,35 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         }
 
         modelProvider.setVersion(request["modelProviderVersion"] as String)
+        val defaultDataStoreConfiguration = DataStoreConfiguration.defaults()
+        val syncInterval: Long =
+            (request["syncInterval"] as? Int)?.toLong()
+                ?: defaultDataStoreConfiguration.syncIntervalInMinutes
+        val syncMaxRecords: Int =
+            (request["syncMaxRecords"] as? Int)
+                ?: defaultDataStoreConfiguration.syncMaxRecords
+        val syncPageSize: Int =
+            (request["syncPageSize"] as? Int)
+                ?: defaultDataStoreConfiguration.syncPageSize
 
         try {
-            Amplify.addPlugin(AWSDataStorePlugin(modelProvider))
+            Amplify.addPlugin(
+                AWSDataStorePlugin
+                    .builder()
+                    .modelProvider(modelProvider)
+                    .dataStoreConfiguration(
+                        DataStoreConfiguration
+                            .builder()
+                            .syncInterval(syncInterval, TimeUnit.MINUTES)
+                            .syncMaxRecords(syncMaxRecords)
+                            .syncPageSize(syncPageSize)
+                            .build()
+                    )
+                    .build()
+            )
         } catch (e: Exception) {
             handleAddPluginException("Datastore", e, flutterResult)
-            return 
+            return
         }
         flutterResult.success(null)
     }
@@ -304,7 +329,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         )
     }
 
-    fun onSetupObserve(result: Result) {
+    fun onSetUpObserve(flutterResult: Result) {
         val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
 
         plugin.observe(
@@ -327,7 +352,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 },
                 { LOG.info("Observation complete.") }
         )
-        result.success(true)
+        flutterResult.success(true)
     }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
