@@ -13,9 +13,56 @@
  * permissions and limitations under the License.
  */
 
-//TODO: This class needs to be fleshed out further to match the GraphQLError spec
-class GraphQLResponseError {
-  String message;
+import 'dart:convert';
 
-  GraphQLResponseError({required this.message});
+import 'package:meta/meta.dart';
+
+/// Contains an error produced via a GraphQL invocation. Corresponds to one
+/// entry in the `errors` field on a GraphQL response.
+///
+/// [locations] and [path] may be null.
+class GraphQLResponseError {
+  /// The description of the error.
+  final String message;
+
+  /// The locations of the error-causing fields in the request document.
+  final List<GraphQLResponseErrorLocation>? locations;
+
+  /// The key paths of the error-causing fields in the response JSON.
+  final List<dynamic>? path;
+
+  const GraphQLResponseError({
+    required this.message,
+    this.locations,
+    this.path,
+  });
+
+  Map<String, dynamic> toJson() => {
+        'message': message,
+        if (locations != null) 'locations': locations,
+        if (path != null) 'path': path,
+      };
+
+  @override
+  String toString() {
+    return 'GraphQLResponseError${prettyPrintJson(toJson())}';
+  }
+}
+
+/// Represents a location in the GraphQL response where an error occurred. [line]
+/// and [column] correspond to the beginning of the syntax element associated
+/// with the error.
+class GraphQLResponseErrorLocation {
+  /// The line in the GraphQL response where the syntax element starts.
+  final int line;
+
+  /// The column in the GraphQL response where the syntax element starts.
+  final int column;
+
+  const GraphQLResponseErrorLocation(this.line, this.column);
+
+  Map<String, dynamic> toJson() => {
+        'line': line,
+        'column': column,
+      };
 }
