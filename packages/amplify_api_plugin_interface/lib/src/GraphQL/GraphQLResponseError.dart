@@ -13,9 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:convert';
-
-import 'package:meta/meta.dart';
+import '../util.dart';
 
 /// Contains an error produced via a GraphQL invocation. Corresponds to one
 /// entry in the `errors` field on a GraphQL response.
@@ -28,7 +26,7 @@ class GraphQLResponseError {
   /// The locations of the error-causing fields in the request document.
   final List<GraphQLResponseErrorLocation>? locations;
 
-  /// The key paths of the error-causing fields in the response JSON.
+  /// The key path of the error-causing field in the response's `data` object.
   final List<dynamic>? path;
 
   const GraphQLResponseError({
@@ -49,14 +47,16 @@ class GraphQLResponseError {
   }
 }
 
-/// Represents a location in the GraphQL response where an error occurred. [line]
-/// and [column] correspond to the beginning of the syntax element associated
+/// Represents a location in the GraphQL request document where an error occurred.
+/// [line] and [column] correspond to the beginning of the syntax element associated
 /// with the error.
 class GraphQLResponseErrorLocation {
-  /// The line in the GraphQL response where the syntax element starts.
+  /// The line in the GraphQL request document where the error-causing syntax
+  /// element starts.
   final int line;
 
-  /// The column in the GraphQL response where the syntax element starts.
+  /// The column in the GraphQL request document where the error-causing syntax
+  /// element starts.
   final int column;
 
   const GraphQLResponseErrorLocation(this.line, this.column);
