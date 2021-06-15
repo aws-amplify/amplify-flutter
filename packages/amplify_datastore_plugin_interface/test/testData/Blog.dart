@@ -64,8 +64,8 @@ class Blog extends Model {
     if (identical(other, this)) return true;
     return other is Blog &&
         id == other.id &&
-        _name == other.name &&
-        DeepCollectionEquality().equals(_posts, other.posts);
+        _name == other._name &&
+        DeepCollectionEquality().equals(_posts, other._posts);
   }
 
   @override
@@ -90,7 +90,7 @@ class Blog extends Model {
 
   Blog.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _name = json['name'] ?? "",
+        _name = json['name'],
         _posts = json['posts'] is List
             ? (json['posts'] as List)
                 .map((e) => Post.fromJson(new Map<String, dynamic>.from(e)))

@@ -35,8 +35,8 @@ class Post extends Model {
     return _title!;
   }
 
-  int get rating {
-    return _rating!;
+  int? get rating {
+    return _rating;
   }
 
   TemporalDateTime? get created {
@@ -60,12 +60,7 @@ class Post extends Model {
   }
 
   const Post._internal(
-      {required this.id,
-      required title,
-      required rating,
-      created,
-      blog,
-      comments})
+      {required this.id, required title, rating, created, blog, comments})
       : _title = title,
         _rating = rating,
         _created = created,
@@ -75,7 +70,7 @@ class Post extends Model {
   factory Post(
       {String? id,
       required String title,
-      required int rating,
+      int? rating,
       TemporalDateTime? created,
       Blog? blog,
       List<Comment>? comments}) {
@@ -97,11 +92,11 @@ class Post extends Model {
     if (identical(other, this)) return true;
     return other is Post &&
         id == other.id &&
-        _title == other.title &&
-        _rating == other.rating &&
-        _created == other.created &&
-        _blog == other.blog &&
-        DeepCollectionEquality().equals(_comments, other.comments);
+        _title == other._title &&
+        _rating == other._rating &&
+        _created == other._created &&
+        _blog == other._blog &&
+        DeepCollectionEquality().equals(_comments, other._comments);
   }
 
   @override
@@ -141,8 +136,8 @@ class Post extends Model {
 
   Post.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _title = json['title'] ?? "",
-        _rating = json['rating'] ?? 0,
+        _title = json['title'],
+        _rating = json['rating'],
         _created = json['created'] != null
             ? TemporalDateTime.fromString(json['created'])
             : null,

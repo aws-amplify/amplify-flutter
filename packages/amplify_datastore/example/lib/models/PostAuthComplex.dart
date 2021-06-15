@@ -58,8 +58,8 @@ class PostAuthComplex extends Model {
     if (identical(other, this)) return true;
     return other is PostAuthComplex &&
         id == other.id &&
-        _title == other.title &&
-        _owner == other.owner;
+        _title == other._title &&
+        _owner == other._owner;
   }
 
   @override
@@ -87,7 +87,7 @@ class PostAuthComplex extends Model {
 
   PostAuthComplex.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _title = json['title'] ?? "",
+        _title = json['title'],
         _owner = json['owner'];
 
   Map<String, dynamic> toJson() => {'id': id, 'title': _title, 'owner': _owner};
