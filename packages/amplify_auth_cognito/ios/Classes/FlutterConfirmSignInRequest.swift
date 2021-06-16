@@ -29,12 +29,9 @@ struct FlutterConfirmSignInRequest {
   }
     
   func formatOptions(options: Dictionary<String, Any>?) -> AuthConfirmSignInOperation.Request.Options {
-    let rawAttributes = options?["userAttributes"] as? [String : String]
-    var userAttributes: [AuthUserAttribute] = [];
-    if (rawAttributes != nil) {
-      for (key, value) in rawAttributes ?? [:] {
-        userAttributes.append(AuthUserAttribute(createAuthUserAttributeKey(keyName: key), value: value))
-      }
+    let rawAttributes = options?["userAttributes"] as? [String : String] ?? [:]
+    let userAttributes: [AuthUserAttribute] = rawAttributes.map { key, value in
+      AuthUserAttribute(createAuthUserAttributeKey(keyName: key), value: value)
     }
     
     let pluginOptions =  AWSAuthConfirmSignInOptions(

@@ -88,7 +88,7 @@ void main() {
 
   test('confirmSignIn request accepts and serializes options',
           () async {
-        var options = CognitoConfirmSignInOptions(clientMetadata: {testMetadataKey: testMetaDataAttribute}, userAttributes: {testAttributeKey: 'test@test.test'});
+        var options = CognitoConfirmSignInOptions(clientMetadata: {testMetadataKey: testMetaDataAttribute}, userAttributes: {testAttributeKey: testEmailValue});
         var req = ConfirmSignInRequest(confirmationValue: '1233', options: options).serializeAsMap();
         expect(req['options'], isInstanceOf<Map>());
         expect(req['options']['clientMetadata'], isInstanceOf<Map>());

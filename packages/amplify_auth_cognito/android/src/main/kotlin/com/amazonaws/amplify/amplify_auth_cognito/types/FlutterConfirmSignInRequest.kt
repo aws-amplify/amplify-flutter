@@ -31,14 +31,12 @@ data class FlutterConfirmSignInRequest(val map: HashMap<String, *>) {
     if(rawOptions?.get("clientMetadata") != null)
       options.metadata(rawOptions["clientMetadata"] as HashMap<String, String>);
 
-    if(rawOptions?.get("userAttributes") != null) {
-      var attributes = mutableListOf<AuthUserAttribute>();
-      var rawAttributes = rawOptions["userAttributes"] as HashMap<String, String>;
-      rawAttributes.forEach { (key, value) ->
-        attributes.add(createAuthUserAttribute(key, value))
-      }
-      options.userAttributes(attributes);
+    val rawAttributes = rawOptions?.get("userAttributes") as HashMap<String, String>? ?: emptyMap<String, String>()
+    val attributes = rawAttributes.map { (key, value) ->
+      createAuthUserAttribute(key, value)
     }
+
+    options.userAttributes(attributes)
 
     return options.build();
   }
