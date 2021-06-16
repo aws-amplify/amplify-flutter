@@ -225,7 +225,7 @@ void main() {
     sub.cancel();
 
     OutboxMutationEvent payload = events.last.payload as OutboxMutationEvent;
-    DateTime parsedDate = DateTimeParse.fromString(
+    TemporalDateTime parsedDate = TemporalDateTime.fromString(
         json["element"]["model"]["serializedData"]["created"])!;
     expect(events.last, isInstanceOf<HubEvent>());
     expect(payload.modelName, "Post");
@@ -262,7 +262,7 @@ void main() {
     OutboxMutationEvent payload = events.last.payload as OutboxMutationEvent;
     HubEventElementWithMetadata element =
         payload.element as HubEventElementWithMetadata;
-    DateTime parsedDate = DateTimeParse.fromString(
+    TemporalDateTime parsedDate = TemporalDateTime.fromString(
         json["element"]["model"]["serializedData"]["created"])!;
     expect(events.last, isInstanceOf<HubEvent>());
     expect(payload.modelName, "Post");
@@ -275,7 +275,7 @@ void main() {
     expect((element.model as Post).created, equals(parsedDate));
     expect(element.deleted, equals(false));
     expect(element.version, equals(1));
-    expect(element.lastChangedAt, equals(null));
+    expect(element.lastChangedAt, equals(1));
   });
 
   test('Can receive OutboxStatus Event', () async {

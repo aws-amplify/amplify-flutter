@@ -35,12 +35,12 @@ class Post extends Model {
     return _title!;
   }
 
-  int? get rating {
-    return _rating;
+  int get rating {
+    return _rating!;
   }
 
-  TemporalDateTime? get created {
-    return _created;
+  TemporalDateTime get created {
+    return _created!;
   }
 
   Blog? get blog {
@@ -60,7 +60,12 @@ class Post extends Model {
   }
 
   const Post._internal(
-      {required this.id, required title, rating, created, blog, comments})
+      {required this.id,
+      required title,
+      required rating,
+      required created,
+      blog,
+      comments})
       : _title = title,
         _rating = rating,
         _created = created,
@@ -70,8 +75,8 @@ class Post extends Model {
   factory Post(
       {String? id,
       required String title,
-      int? rating,
-      TemporalDateTime? created,
+      required int rating,
+      required TemporalDateTime created,
       Blog? blog,
       List<Comment>? comments}) {
     return Post._internal(
@@ -185,12 +190,12 @@ class Post extends Model {
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: Post.RATING,
-        isRequired: false,
+        isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.int)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: Post.CREATED,
-        isRequired: false,
+        isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(

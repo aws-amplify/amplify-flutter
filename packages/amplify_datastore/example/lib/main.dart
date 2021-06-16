@@ -260,7 +260,11 @@ class _MyAppState extends State<MyApp> {
 
   savePost(String title, int rating, Blog associatedBlog) async {
     try {
-      Post post = Post(title: title, rating: rating, blog: associatedBlog);
+      Post post = Post(
+          title: title,
+          rating: rating,
+          created: TemporalDateTime.now(),
+          blog: associatedBlog);
       await Amplify.DataStore.save(post);
       runQueries();
     } catch (e) {
@@ -293,7 +297,8 @@ class _MyAppState extends State<MyApp> {
   deletePost(String id) async {
     try {
       _selectedPostForNewComment = null;
-      await Amplify.DataStore.delete(Post(id: id, title: "", rating: 0));
+      await Amplify.DataStore.delete(
+          Post(id: id, title: "", rating: 0, created: TemporalDateTime.now()));
       runQueries();
     } catch (e) {
       print(e);
