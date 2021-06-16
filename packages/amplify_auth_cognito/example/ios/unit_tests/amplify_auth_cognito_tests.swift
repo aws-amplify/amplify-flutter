@@ -841,12 +841,17 @@ class amplify_auth_cognito_tests: XCTestCase {
     
     func test_confirmSignInValidationOptions() {
         let rawData: NSMutableDictionary = ["confirmationCode": _confirmationCode]
-        let rawOptions: Dictionary<String, Any> = ["clientMetadata" : ["foo": "bar"]]
+        let rawOptions: Dictionary<String, Any> = [
+            "clientMetadata" : ["foo": "bar"],
+            "userAttributes": ["email": "test@test.test"]
+        ]
         rawData["options"] = rawOptions
         XCTAssertNoThrow(try FlutterConfirmSignInRequest.validate(dict: rawData))
         let req = FlutterConfirmSignInRequest(dict: rawData)
         let options = (req.options?.pluginOptions as! AWSAuthConfirmSignInOptions)
         XCTAssertEqual(options.metadata, ["foo": "bar"])
+        XCTAssertEqual(options.userAttributes?[0].key, .email)
+        XCTAssertEqual(options.userAttributes?[0].value, "test@test.test")
     }
     
     func test_confirmSignInValidationNoOptions() {
