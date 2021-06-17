@@ -27,7 +27,7 @@ import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-//import 'amplifyconfiguration.dart';
+import 'amplifyconfiguration.dart';
 import 'models/ModelProvider.dart';
 
 part 'queries_display_widgets.dart';
@@ -100,7 +100,7 @@ class _MyAppState extends State<MyApp> {
       // await Amplify.addPlugin(AmplifyAPI());
 
       // Configure
-      await Amplify.configure("{}");
+      await Amplify.configure(amplifyConfig);
     } on AmplifyAlreadyConfiguredException {
       print(
           'Amplify was already configured. Looks like app restarted on android.');
