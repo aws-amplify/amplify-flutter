@@ -23,13 +23,21 @@ import 'package:flutter/foundation.dart';
 /** This is an auto generated class representing the Post type in your schema. */
 @immutable
 class Post extends Model {
-  static const classType = const PostType();
+  static const classType = const _PostModelType();
   final String id;
   final String? _title;
   final int? _rating;
   final TemporalDateTime? _created;
   final Blog? _blog;
   final List<Comment>? _comments;
+
+  @override
+  getInstanceType() => classType;
+
+  @override
+  String getId() {
+    return id;
+  }
 
   String get title {
     return _title!;
@@ -49,14 +57,6 @@ class Post extends Model {
 
   List<Comment>? get comments {
     return _comments;
-  }
-
-  @override
-  getInstanceType() => classType;
-
-  @override
-  String getId() {
-    return id;
   }
 
   const Post._internal(
@@ -114,9 +114,10 @@ class Post extends Model {
     buffer.write("Post {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("title=" + "$_title" + ", ");
-    buffer.write("rating=" + "$_rating" + ", ");
     buffer.write(
-        "created=" + (_created != null ? _created!.format() : "null") + ", ");
+        "rating=" + (_rating != null ? _rating.toString() : "null") + ", ");
+    buffer.write(
+        "created=" + (_created != null ? _created.format() : "null") + ", ");
     buffer.write("blog=" + (_blog != null ? _blog.toString() : "null"));
     buffer.write("}");
 
@@ -161,7 +162,7 @@ class Post extends Model {
         'rating': _rating,
         'created': _created?.format(),
         'blog': _blog?.toJson(),
-        'comments': _comments?.map((e) => e.toJson()).toList()
+        'comments': _comments?.map((e) => e?.toJson())?.toList()
       };
 
   static final QueryField ID = QueryField(fieldName: "post.id");
@@ -212,8 +213,8 @@ class Post extends Model {
   });
 }
 
-class PostType extends ModelType<Post> {
-  const PostType();
+class _PostModelType extends ModelType<Post> {
+  const _PostModelType();
 
   @override
   Post fromJson(Map<String, dynamic> jsonData) {

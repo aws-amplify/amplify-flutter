@@ -22,18 +22,10 @@ import 'package:flutter/foundation.dart';
 /** This is an auto generated class representing the Comment type in your schema. */
 @immutable
 class Comment extends Model {
-  static const classType = const CommentType();
+  static const classType = const _CommentModelType();
   final String id;
   final Post? _post;
   final String? _content;
-
-  Post? get post {
-    return _post;
-  }
-
-  String get content {
-    return _content!;
-  }
 
   @override
   getInstanceType() => classType;
@@ -41,6 +33,14 @@ class Comment extends Model {
   @override
   String getId() {
     return id;
+  }
+
+  Post? get post {
+    return _post;
+  }
+
+  String get content {
+    return _content!;
   }
 
   const Comment._internal({required this.id, post, required content})
@@ -124,8 +124,8 @@ class Comment extends Model {
   });
 }
 
-class CommentType extends ModelType<Comment> {
-  const CommentType();
+class _CommentModelType extends ModelType<Comment> {
+  const _CommentModelType();
 
   @override
   Comment fromJson(Map<String, dynamic> jsonData) {
