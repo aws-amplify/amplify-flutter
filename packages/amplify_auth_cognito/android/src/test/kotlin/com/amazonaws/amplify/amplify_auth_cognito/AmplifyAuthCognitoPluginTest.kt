@@ -330,12 +330,16 @@ class AmplifyAuthCognitoPluginTest {
         }.`when`(mockAuth).confirmSignIn(anyString(), ArgumentMatchers.any<AuthConfirmSignInOptions>(), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
 
         val metadata = hashMapOf(
-                "key" to "value"
+            "key" to "value"
+        )
+        val userAttributes = hashMapOf(
+           "email" to "test@test.test"
         )
         val data: HashMap<*, *> = hashMapOf(
             "confirmationCode" to "confirmationCode",
             "options" to hashMapOf(
-                "clientMetadata" to metadata
+                "clientMetadata" to metadata,
+                "userAttributes" to userAttributes
             )
         )
         val arguments: HashMap<String, Any> = hashMapOf("data" to data)
@@ -345,7 +349,8 @@ class AmplifyAuthCognitoPluginTest {
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        var expectedOptions = AWSCognitoAuthConfirmSignInOptions.builder().metadata(metadata).build()
+        var attributeList = mutableListOf<AuthUserAttribute>(AuthUserAttribute(AuthUserAttributeKey.custom("email"), "test@test.test"))
+        var expectedOptions = AWSCognitoAuthConfirmSignInOptions.builder().metadata(metadata).userAttributes(attributeList).build()
         verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
         verify(mockAuth).confirmSignIn(ArgumentMatchers.eq("confirmationCode"), ArgumentMatchers.eq(expectedOptions), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
     }
