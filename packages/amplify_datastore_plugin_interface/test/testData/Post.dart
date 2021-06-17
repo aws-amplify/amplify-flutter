@@ -1,5 +1,5 @@
 /*
-* Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+* Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 *
 * Licensed under the Apache License, Version 2.0 (the "License").
 * You may not use this file except in compliance with the License.
@@ -115,10 +115,10 @@ class Post extends Model {
     buffer.write("id=" + "$id" + ", ");
     buffer.write("title=" + "$_title" + ", ");
     buffer.write(
-        "rating=" + (_rating != null ? _rating.toString() : "null") + ", ");
+        "rating=" + (_rating != null ? _rating!.toString() : "null") + ", ");
     buffer.write(
-        "created=" + (_created != null ? _created.format() : "null") + ", ");
-    buffer.write("blog=" + (_blog != null ? _blog.toString() : "null"));
+        "created=" + (_created != null ? _created!.format() : "null") + ", ");
+    buffer.write("blog=" + (_blog != null ? _blog!.toString() : "null"));
     buffer.write("}");
 
     return buffer.toString();
