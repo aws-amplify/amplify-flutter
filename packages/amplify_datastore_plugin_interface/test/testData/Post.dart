@@ -148,11 +148,13 @@ class Post extends Model {
             ? TemporalDateTime.fromString(json['created'])
             : null,
         _blog = json['blog'] != null
-            ? Blog.fromJson(new Map<String, dynamic>.from(json['blog']))
+            ? Blog.fromJson(
+                new Map<String, dynamic>.from(json['blog']['serializedData']))
             : null,
         _comments = json['comments'] is List
             ? (json['comments'] as List)
-                .map((e) => Comment.fromJson(new Map<String, dynamic>.from(e)))
+                .map((e) => Comment.fromJson(
+                    new Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
             : null;
 

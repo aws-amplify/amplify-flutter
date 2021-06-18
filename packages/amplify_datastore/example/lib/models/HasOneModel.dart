@@ -94,7 +94,7 @@ class HasOneModel extends Model {
         _title = json['title'],
         _child = json['child'] != null
             ? BelongsToModel.fromJson(
-                new Map<String, dynamic>.from(json['child']))
+                new Map<String, dynamic>.from(json['child']['serializedData']))
             : null;
 
   Map<String, dynamic> toJson() =>

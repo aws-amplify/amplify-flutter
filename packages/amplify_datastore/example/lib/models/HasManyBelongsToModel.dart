@@ -96,7 +96,7 @@ class HasManyBelongsToModel extends Model {
         _title = json['title'],
         _parent = json['parent'] != null
             ? HasManyModel.fromJson(
-                new Map<String, dynamic>.from(json['parent']))
+                new Map<String, dynamic>.from(json['parent']['serializedData']))
             : null;
 
   Map<String, dynamic> toJson() =>

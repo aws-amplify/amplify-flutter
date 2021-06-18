@@ -26,7 +26,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   dynamic _allModelsStreamFromMethodChannel = null;
 
   /// Internal use constructor
-  AmplifyDataStoreMethodChannel() : super.protected();
+  AmplifyDataStoreMethodChannel() : super.tokenOnly();
 
   /// This method adds model schemas which is necessary to instantiate native plugins
   /// This is needed before the Amplify.configure() can be called, since the native

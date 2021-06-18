@@ -1,5 +1,5 @@
 /*
-* Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+* Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 *
 * Licensed under the Apache License, Version 2.0 (the "License").
 * You may not use this file except in compliance with the License.
@@ -23,10 +23,10 @@ import 'package:flutter/foundation.dart';
 /** This is an auto generated class representing the Blog type in your schema. */
 @immutable
 class Blog extends Model {
-  static const classType = const BlogType();
+  static const classType = const _BlogModelType();
   final String id;
-  final String name;
-  final List<Post>? posts;
+  final String? _name;
+  final List<Post>? _posts;
 
   @override
   getInstanceType() => classType;
@@ -36,7 +36,17 @@ class Blog extends Model {
     return id;
   }
 
-  const Blog._internal({required this.id, required this.name, this.posts});
+  String get name {
+    return _name!;
+  }
+
+  List<Post>? get posts {
+    return _posts;
+  }
+
+  const Blog._internal({required this.id, required name, posts})
+      : _name = name,
+        _posts = posts;
 
   factory Blog({String? id, required String name, List<Post>? posts}) {
     return Blog._internal(
@@ -54,8 +64,8 @@ class Blog extends Model {
     if (identical(other, this)) return true;
     return other is Blog &&
         id == other.id &&
-        name == other.name &&
-        DeepCollectionEquality().equals(posts, other.posts);
+        _name == other._name &&
+        DeepCollectionEquality().equals(_posts, other._posts);
   }
 
   @override
@@ -67,7 +77,7 @@ class Blog extends Model {
 
     buffer.write("Blog {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("name=" + "$name");
+    buffer.write("name=" + "$_name");
     buffer.write("}");
 
     return buffer.toString();
@@ -80,17 +90,18 @@ class Blog extends Model {
 
   Blog.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        name = json['name'],
-        posts = json['posts'] is List
+        _name = json['name'],
+        _posts = json['posts'] is List
             ? (json['posts'] as List)
-                .map((e) => Post.fromJson(new Map<String, dynamic>.from(e)))
+                .map((e) => Post.fromJson(
+                    new Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
             : null;
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'name': name,
-        'posts': posts?.map((e) => e?.toJson())?.toList()
+        'name': _name,
+        'posts': _posts?.map((e) => e?.toJson())?.toList()
       };
 
   static final QueryField ID = QueryField(fieldName: "blog.id");
@@ -119,8 +130,8 @@ class Blog extends Model {
   });
 }
 
-class BlogType extends ModelType<Blog> {
-  const BlogType();
+class _BlogModelType extends ModelType<Blog> {
+  const _BlogModelType();
 
   @override
   Blog fromJson(Map<String, dynamic> jsonData) {

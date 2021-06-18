@@ -101,7 +101,7 @@ class HasManyModel extends Model {
         _children = json['children'] is List
             ? (json['children'] as List)
                 .map((e) => HasManyBelongsToModel.fromJson(
-                    new Map<String, dynamic>.from(e)))
+                    new Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
             : null;
 

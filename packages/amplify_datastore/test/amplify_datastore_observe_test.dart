@@ -63,6 +63,7 @@ void main() {
           Post(
               id: "43036c6b-8044-4309-bddc-262b6c686026",
               title: "Title 2",
+              rating: 0,
               created:
                   TemporalDateTime.fromString("2020-02-20T20:20:20-08:00")));
       expect(event.eventType, EventType.create);

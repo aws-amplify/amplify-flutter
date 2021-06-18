@@ -33,7 +33,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
 
   /// Internal use constructor
   @protected
-  AmplifyDataStore.protected() : super.protected(token: _token);
+  AmplifyDataStore.tokenOnly() : super.tokenOnly(token: _token);
 
   static AmplifyDataStore _instance = AmplifyDataStoreMethodChannel();
   static DataStoreStreamController streamWrapper = DataStoreStreamController();

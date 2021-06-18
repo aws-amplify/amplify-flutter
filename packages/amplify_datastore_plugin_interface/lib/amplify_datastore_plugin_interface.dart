@@ -51,7 +51,7 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
 
   /// Internal use constructor
   @protected
-  DataStorePluginInterface.protected({required Object token})
+  DataStorePluginInterface.tokenOnly({required Object token})
       : super(token: token);
 
   Future<void> configureModelProvider(

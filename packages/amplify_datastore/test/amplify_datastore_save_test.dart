@@ -64,9 +64,9 @@ void main() {
     });
     expect(
         () => dataStore.save(Post(
-              title: 'Test Post',
-              rating: 10,
-            )),
+            title: 'Test Post',
+            rating: 10,
+            created: TemporalDateTime.fromString("2020-02-20T20:20:20-08:00"))),
         throwsA(isA<DataStoreException>()
             .having((exception) => exception.message, 'message',
                 'Save failed for whatever known reason')

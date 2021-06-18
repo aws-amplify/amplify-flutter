@@ -93,7 +93,8 @@ class Blog extends Model {
         _name = json['name'],
         _posts = json['posts'] is List
             ? (json['posts'] as List)
-                .map((e) => Post.fromJson(new Map<String, dynamic>.from(e)))
+                .map((e) => Post.fromJson(
+                    new Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
             : null;
 

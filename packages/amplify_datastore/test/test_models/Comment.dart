@@ -1,5 +1,5 @@
 /*
-* Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+* Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 *
 * Licensed under the Apache License, Version 2.0 (the "License").
 * You may not use this file except in compliance with the License.
@@ -22,10 +22,10 @@ import 'package:flutter/foundation.dart';
 /** This is an auto generated class representing the Comment type in your schema. */
 @immutable
 class Comment extends Model {
-  static const classType = const CommentType();
+  static const classType = const _CommentModelType();
   final String id;
-  final Post? post;
-  final String content;
+  final Post? _post;
+  final String? _content;
 
   @override
   getInstanceType() => classType;
@@ -35,8 +35,17 @@ class Comment extends Model {
     return id;
   }
 
-  const Comment._internal(
-      {required this.id, this.post, required this.content});
+  Post? get post {
+    return _post;
+  }
+
+  String get content {
+    return _content!;
+  }
+
+  const Comment._internal({required this.id, post, required content})
+      : _post = post,
+        _content = content;
 
   factory Comment({String? id, Post? post, required String content}) {
     return Comment._internal(
@@ -52,8 +61,8 @@ class Comment extends Model {
     if (identical(other, this)) return true;
     return other is Comment &&
         id == other.id &&
-        post == other.post &&
-        content == other.content;
+        _post == other._post &&
+        _content == other._content;
   }
 
   @override
@@ -65,8 +74,8 @@ class Comment extends Model {
 
     buffer.write("Comment {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("post=" + (post != null ? post.toString() : "null") + ", ");
-    buffer.write("content=" + "$content");
+    buffer.write("post=" + (_post != null ? _post!.toString() : "null") + ", ");
+    buffer.write("content=" + "$_content");
     buffer.write("}");
 
     return buffer.toString();
@@ -81,13 +90,14 @@ class Comment extends Model {
 
   Comment.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        post = json['post'] != null
-            ? Post.fromJson(new Map<String, dynamic>.from(json['post']))
+        _post = json['post'] != null
+            ? Post.fromJson(
+                new Map<String, dynamic>.from(json['post']['serializedData']))
             : null,
-        content = json['content'];
+        _content = json['content'];
 
   Map<String, dynamic> toJson() =>
-      {'id': id, 'post': post?.toJson(), 'content': content};
+      {'id': id, 'post': _post?.toJson(), 'content': _content};
 
   static final QueryField ID = QueryField(fieldName: "comment.id");
   static final QueryField POST = QueryField(
@@ -115,8 +125,8 @@ class Comment extends Model {
   });
 }
 
-class CommentType extends ModelType<Comment> {
-  const CommentType();
+class _CommentModelType extends ModelType<Comment> {
+  const _CommentModelType();
 
   @override
   Comment fromJson(Map<String, dynamic> jsonData) {

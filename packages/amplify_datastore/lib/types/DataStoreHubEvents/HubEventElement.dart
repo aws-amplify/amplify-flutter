@@ -18,14 +18,15 @@ import 'package:collection/collection.dart';
 
 class HubEventElement {
   late Model model;
+
   HubEventElement(
       Map<dynamic, dynamic> serializedData, ModelProviderInterface provider) {
     Map<String, dynamic> serializedElement =
-        new Map<String, dynamic>.from(serializedData["element"]);
+        Map<String, dynamic>.from(serializedData["element"]);
     Map<String, dynamic> modelData =
-        new Map<String, dynamic>.from(serializedElement["model"]);
+        Map<String, dynamic>.from(serializedElement["model"]);
     Map<String, dynamic> serializedModelData =
-        new Map<String, dynamic>.from(modelData["serializedData"]);
+        Map<String, dynamic>.from(modelData["serializedData"]);
     model = provider
         .getModelTypeByModelName(serializedData['modelName'])
         .fromJson(serializedModelData);

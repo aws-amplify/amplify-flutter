@@ -360,13 +360,13 @@ class _MyAppState extends State<MyApp> {
 
             // Row for saving post
             addPostWidget(
-                _titleController,
-                _ratingController,
-                _isAmplifyConfigured,
-                _selectedBlogForNewPost,
-                _blogs,
-                savePost,
-                this),
+                titleController: _titleController,
+                ratingController: _ratingController,
+                isAmplifyConfigured: _isAmplifyConfigured,
+                allBlogs: _blogs,
+                saveFn: savePost,
+                app: this,
+                defaultBlog: _selectedBlogForNewPost),
 
             // Row for saving comment
             addCommentWidget(_contentController, _isAmplifyConfigured,
@@ -428,7 +428,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    WidgetsBinding.instance!.addPostFrameCallback((_) => executeAfterBuild());
+    WidgetsBinding.instance?.addPostFrameCallback((_) => executeAfterBuild());
   }
 
   Future<void> executeAfterBuild() async {
