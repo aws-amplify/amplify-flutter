@@ -100,7 +100,7 @@ class _MyAppState extends State<MyApp> {
       // await Amplify.addPlugin(AmplifyAPI());
 
       // Configure
-      await Amplify.configure(amplifyConfig);
+      await Amplify.configure("{}");
     } on AmplifyAlreadyConfiguredException {
       print(
           'Amplify was already configured. Looks like app restarted on android.');
