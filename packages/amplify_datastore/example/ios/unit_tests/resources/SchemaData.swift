@@ -23,12 +23,13 @@ struct SchemaData {
         name: "Post",
         pluralName: "Posts",
         fields: [
-        "id" : ModelField(name: "id", type: .string, isRequired: true, isArray: false),
-        "title" : ModelField(name: "title", type: .string, isRequired: true, isArray: false),
-        "created" : ModelField(name: "created", type: .dateTime, isRequired: false, isArray: false),
-        "rating" : ModelField(name: "rating", type: .int, isRequired: false, isArray: false),
-        "blog" : ModelField(name: "blog", type: .model(name: "Blog"), isRequired: false, isArray: false, association: ModelAssociation.belongsTo(targetName: "blogID")),
-        "comments" : ModelField(name: "comments", type: .collection(of: "Comment"), isRequired: false, isArray: true, association: ModelAssociation.hasMany(associatedFieldName: "post") )
+            "id": ModelField(name: "id", type: .string, isRequired: true, isArray: false),
+            "title": ModelField(name: "title", type: .string, isRequired: true, isArray: false),
+            "created": ModelField(name: "created", type: .dateTime, isRequired: false, isArray: false),
+            "rating": ModelField(name: "rating", type: .int, isRequired: false, isArray: false),
+            "blog": ModelField(name: "blog", type: .model(name: "Blog"), isRequired: false, isArray: false, association: ModelAssociation.belongsTo(targetName: "blogID")),
+            "comments": ModelField(name: "comments", type: .collection(of: "Comment"), isRequired: false, isArray: true, association: ModelAssociation.hasMany(associatedFieldName: "post")),
+            "author": ModelField(name: "author", type: .model(name: "Author"), isRequired: true, isArray: false, association: ModelAssociation.belongsTo(targetName: "authorId"))
         ]
     )
     
@@ -44,15 +45,15 @@ struct SchemaData {
 
     
     static var BlogSchema : ModelSchema = ModelSchema(
-            name: "Blog",
-            pluralName: "Blogs",
-            fields: [
-                "id" : ModelField(name: "id", type: .string, isRequired: true, isArray: false),
-                "name" : ModelField(name: "name", type: .string, isRequired: true, isArray: false),
-                "posts" : ModelField(name: "posts", type: .collection(of: "Post"), isRequired: false, isArray: true, association: ModelAssociation.hasMany(associatedFieldName: "blog")
-                )
-            ]
-        )
+        name: "Blog",
+        pluralName: "Blogs",
+        fields: [
+            "id" : ModelField(name: "id", type: .string, isRequired: true, isArray: false),
+            "name" : ModelField(name: "name", type: .string, isRequired: true, isArray: false),
+            "posts" : ModelField(name: "posts", type: .collection(of: "Post"), isRequired: false, isArray: true, association: ModelAssociation.hasMany(associatedFieldName: "blog")
+            )
+        ]
+    )
     
     static var PostAuthComplexSchema : ModelSchema = ModelSchema(
         name: "PostAuthComplex",
