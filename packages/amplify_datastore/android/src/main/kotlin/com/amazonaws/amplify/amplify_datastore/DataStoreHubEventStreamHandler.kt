@@ -19,8 +19,8 @@ import android.os.Handler
 import android.os.Looper
 import com.amazonaws.amplify.amplify_datastore.types.hub.*
 import com.amplifyframework.core.Amplify
+import com.amplifyframework.core.model.SerializedModel
 import com.amplifyframework.datastore.DataStoreChannelEventName
-import com.amplifyframework.datastore.appsync.SerializedModel
 import com.amplifyframework.datastore.events.ModelSyncedEvent
 import com.amplifyframework.datastore.events.NetworkStatusEvent
 import com.amplifyframework.datastore.events.OutboxStatusEvent
