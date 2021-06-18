@@ -155,18 +155,34 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
         }
     }
 
-    private static func generateSerializedJsonData(values: [String: JSONValue]) -> [String: Any] {
+    private static func getModelSchema(flutterModelRegistration: FlutterModels, modelName: String) throws -> ModelSchema {
+        do {
+            return try FlutterDataStoreRequestUtils.getModelSchema(modelSchemas: flutterModelRegistration.modelSchemas, modelName: modelName)
+        } catch let error {
+            print("model \(modelName) is not registered.")
+            throw error
+        }
+    }
+
+    private static func generateSerializedJsonData(values: [String: JSONValue], flutterModelRegistration: FlutterModels, modelName: String) throws -> [String: Any] {
+        let modelSchema = try getModelSchema(flutterModelRegistration: flutterModelRegistration, modelName: modelName)
         var result = [String: Any]()
 
         for (key, value) in values {
+            let field = modelSchema.field(withName: key)
             if case .object(let deserializedValue) = value {
                 // If a field that has many models
                 if (deserializedValue["associatedField"] != nil && deserializedValue["associatedId"] != nil) {
                     result[key] = Array<Any>();
                 }
                 // If a field that has one or belongs to a model
-                else if case .string(_) = deserializedValue["id"] {
-                    result[key] = generateSerializedJsonData(values: deserializedValue)
+                else if case .string(let modelId) = deserializedValue["id"],
+                        case .model(let nextModelName) = field!.type {
+                    result[key] = [
+                        "id": modelId,
+                        "modelName": nextModelName,
+                        "serializedData": try generateSerializedJsonData(values: deserializedValue, flutterModelRegistration: flutterModelRegistration, modelName: nextModelName)
+                    ]
                 }
             } else if case .string(let deserializedValue) = value {
                 result[key] = deserializedValue
@@ -182,7 +198,8 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
         return result;
     }
 
-    private func generateSerializedData(modelSchema: ModelSchema) -> [String: Any]{
+    private func generateSerializedData(flutterModelRegistration: FlutterModels, modelName: String) throws -> [String: Any]{
+        let modelSchema = try FlutterSerializedModel.getModelSchema(flutterModelRegistration: flutterModelRegistration, modelName: modelName)
         var result = [String: Any]()
 
         for(key, value) in values {
@@ -194,10 +211,14 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
 
             if case .model = field?.type{
                 let map = jsonValue(for: key, modelSchema: modelSchema) as! [String: JSONValue]
-                if case .string(_) = map["id"],
-                   case .model(_) = field!.type
+                if case .string(let modelId) = map["id"],
+                   case .model(let modelName) = field!.type
                 {
-                    result[key] = FlutterSerializedModel.generateSerializedJsonData(values: map)
+                    result[key] = [
+                        "id": modelId,
+                        "modelName": modelName,
+                        "serializedData": try FlutterSerializedModel.generateSerializedJsonData(values: map, flutterModelRegistration: flutterModelRegistration, modelName: modelName)
+                    ]
                 }
             } else if case .collection = field?.type{
                 continue
@@ -230,15 +251,15 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
                 result[key] = jsonValue(for: key, modelSchema: modelSchema)!
             }
         }
-        
+
         return result;
     }
     
-    public func toMap(modelSchema: ModelSchema) -> [String: Any] {
+    public func toMap(flutterModelRegistration: FlutterModels, modelName: String) throws -> [String: Any] {
         return [
             "id": id,
-            "modelName": modelSchema.name,
-            "serializedData": generateSerializedData(modelSchema: modelSchema)
+            "modelName": modelName,
+            "serializedData": try generateSerializedData(flutterModelRegistration: flutterModelRegistration, modelName: modelName)
         ]
     }
 }

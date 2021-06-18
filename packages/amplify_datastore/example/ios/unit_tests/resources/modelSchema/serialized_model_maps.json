@@ -27,15 +27,27 @@
             "created": "2020-11-25T01:28:49.000Z",
             "blog": {
                 "id": "555",
-                "name": "Blog 1"
+                "modelName": "Blog",
+                "serializedData": {
+                    "id": "555",
+                    "name": "Blog 1"
+                }
             },
             "author": {
                 "id": "666",
-                "name": "Someone Testing",
-                "department": {
-                    "id": "777",
-                    "name": "Department 1",
-                    "description": "Testing department 1"
+                "modelName": "Author",
+                "serializedData": {
+                    "id": "666",
+                    "name": "Someone Testing",
+                    "department": {
+                        "id": "777",
+                        "modelName": "Department",
+                        "serializedData": {
+                            "id": "777",
+                            "name": "Department 1",
+                            "description": "Testing department 1"
+                        }
+                    }
                 }
             }
         }
