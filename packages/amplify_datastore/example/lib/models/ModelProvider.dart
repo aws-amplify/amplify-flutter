@@ -16,23 +16,42 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'AllTypeModel.dart';
+import 'AllTypeOptionalModel.dart';
+import 'BelongsToModel.dart';
 import 'Blog.dart';
 import 'Comment.dart';
+import 'HasManyBelongsToModel.dart';
+import 'HasManyModel.dart';
+import 'HasOneModel.dart';
 import 'Post.dart';
 import 'PostAuthComplex.dart';
 
+export 'AllTypeModel.dart';
+export 'AllTypeOptionalModel.dart';
+export 'BelongsToModel.dart';
 export 'Blog.dart';
 export 'Comment.dart';
+export 'HasManyBelongsToModel.dart';
+export 'HasManyModel.dart';
+export 'HasOneModel.dart';
 export 'Post.dart';
 export 'PostAuthComplex.dart';
+export 'TestEnum.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "5ee93d96fa0382550bdc4eeb8d8d4dc4";
+  String version = "0e8e5514647b80c1bbfff044f1df24f0";
   @override
   List<ModelSchema> modelSchemas = [
+    AllTypeModel.schema,
+    AllTypeOptionalModel.schema,
+    BelongsToModel.schema,
     Blog.schema,
     Comment.schema,
+    HasManyBelongsToModel.schema,
+    HasManyModel.schema,
+    HasOneModel.schema,
     Post.schema,
     PostAuthComplex.schema
   ];
@@ -42,6 +61,21 @@ class ModelProvider implements ModelProviderInterface {
 
   ModelType getModelTypeByModelName(String modelName) {
     switch (modelName) {
+      case "AllTypeModel":
+        {
+          return AllTypeModel.classType;
+        }
+        break;
+      case "AllTypeOptionalModel":
+        {
+          return AllTypeOptionalModel.classType;
+        }
+        break;
+      case "BelongsToModel":
+        {
+          return BelongsToModel.classType;
+        }
+        break;
       case "Blog":
         {
           return Blog.classType;
@@ -50,6 +84,21 @@ class ModelProvider implements ModelProviderInterface {
       case "Comment":
         {
           return Comment.classType;
+        }
+        break;
+      case "HasManyBelongsToModel":
+        {
+          return HasManyBelongsToModel.classType;
+        }
+        break;
+      case "HasManyModel":
+        {
+          return HasManyModel.classType;
+        }
+        break;
+      case "HasOneModel":
+        {
+          return HasOneModel.classType;
         }
         break;
       case "Post":
