@@ -23,25 +23,32 @@ const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/datastore');
 
 /// An implementation of [AmplifyDataStore] that uses method channels.
 class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
-  var _allModelsStreamFromMethodChannel = null;
+  dynamic _allModelsStreamFromMethodChannel = null;
+
+  /// Internal use constructor
+  AmplifyDataStoreMethodChannel() : super.tokenOnly();
 
   /// This method adds model schemas which is necessary to instantiate native plugins
   /// This is needed before the Amplify.configure() can be called, since the native
   /// plugins are needed to be added before that.
+  /// NOTE: modelProvider is nullable because the parent AmplifyDataStore class
+  /// provides a default value
   Future<void> configureModelProvider(
-      {ModelProviderInterface modelProvider}) async {
+      {ModelProviderInterface? modelProvider}) async {
     try {
       return await _channel
           .invokeMethod('configureModelProvider', <String, dynamic>{
-        'modelSchemas':
-            modelProvider.modelSchemas.map((schema) => schema.toMap()).toList(),
+        'modelSchemas': modelProvider!.modelSchemas
+            .map((schema) => schema.toMap())
+            .toList(),
         'modelProviderVersion': modelProvider.version
       });
     } on PlatformException catch (e) {
       if (e.code == "AmplifyAlreadyConfiguredException") {
         throw AmplifyAlreadyConfiguredException(
-          AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
-          recoverySuggestion: AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
+            AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+            recoverySuggestion:
+                AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
       } else {
         throw _deserializeException(e);
       }
@@ -51,26 +58,27 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   /// This methods configure an event channel to carry datastore observe events. This
   /// can only be done after Amplify.configure() is called and before any observe()
   /// method is called.
-  Future<void> configure({String configuration}) async {
+  Future<void> configure({String? configuration}) async {
     // First step to configure datastore is to setup an event channel for observe
     return _channel.invokeMethod('setupObserve', {});
   }
 
   @override
   Future<List<T>> query<T extends Model>(ModelType<T> modelType,
-      {QueryPredicate where,
-      QueryPagination pagination,
-      List<QuerySortBy> sortBy}) async {
+      {QueryPredicate? where,
+      QueryPagination? pagination,
+      List<QuerySortBy>? sortBy}) async {
     try {
-      final List<Map<dynamic, dynamic>> serializedResults =
-          await _channel.invokeListMethod('query', <String, dynamic>{
+      final List<Map<dynamic, dynamic>>? serializedResults =
+          await (_channel.invokeListMethod('query', <String, dynamic>{
         'modelName': modelType.modelName(),
         'queryPredicate': where?.serializeAsMap(),
         'queryPagination': pagination?.serializeAsMap(),
-        'querySort':
-            sortBy?.map((element) => element?.serializeAsMap())?.toList()
-      });
-
+        'querySort': sortBy?.map((element) => element.serializeAsMap()).toList()
+      }));
+      if (serializedResults == null)
+        throw AmplifyException(
+            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       return serializedResults
           .map((serializedResult) => modelType.fromJson(
               new Map<String, dynamic>.from(

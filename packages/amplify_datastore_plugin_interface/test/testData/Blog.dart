@@ -23,18 +23,10 @@ import 'package:flutter/foundation.dart';
 /** This is an auto generated class representing the Blog type in your schema. */
 @immutable
 class Blog extends Model {
-  static const classType = const BlogType();
+  static const classType = const _BlogModelType();
   final String id;
   final String? _name;
   final List<Post>? _posts;
-
-  String get name {
-    return _name!;
-  }
-
-  List<Post>? get posts {
-    return _posts;
-  }
 
   @override
   getInstanceType() => classType;
@@ -42,6 +34,14 @@ class Blog extends Model {
   @override
   String getId() {
     return id;
+  }
+
+  String get name {
+    return _name!;
+  }
+
+  List<Post>? get posts {
+    return _posts;
   }
 
   const Blog._internal({required this.id, required name, posts})
@@ -64,8 +64,8 @@ class Blog extends Model {
     if (identical(other, this)) return true;
     return other is Blog &&
         id == other.id &&
-        _name == other.name &&
-        DeepCollectionEquality().equals(_posts, other.posts);
+        _name == other._name &&
+        DeepCollectionEquality().equals(_posts, other._posts);
   }
 
   @override
@@ -76,8 +76,8 @@ class Blog extends Model {
     var buffer = new StringBuffer();
 
     buffer.write("Blog {");
-    buffer.write("id=$id" + ", ");
-    buffer.write("name=$_name");
+    buffer.write("id=" + "$id" + ", ");
+    buffer.write("name=" + "$_name");
     buffer.write("}");
 
     return buffer.toString();
@@ -93,14 +93,15 @@ class Blog extends Model {
         _name = json['name'],
         _posts = json['posts'] is List
             ? (json['posts'] as List)
-                .map((e) => Post.fromJson(new Map<String, dynamic>.from(e)))
+                .map((e) => Post.fromJson(
+                    new Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
             : null;
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': _name,
-        'posts': _posts?.map((e) => e.toJson()).toList()
+        'posts': _posts?.map((e) => e?.toJson())?.toList()
       };
 
   static final QueryField ID = QueryField(fieldName: "blog.id");
@@ -129,8 +130,8 @@ class Blog extends Model {
   });
 }
 
-class BlogType extends ModelType<Blog> {
-  const BlogType();
+class _BlogModelType extends ModelType<Blog> {
+  const _BlogModelType();
 
   @override
   Blog fromJson(Map<String, dynamic> jsonData) {

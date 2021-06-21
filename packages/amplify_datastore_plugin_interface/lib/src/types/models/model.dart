@@ -40,30 +40,7 @@ abstract class ModelType<T extends Model> {
   const ModelType();
 
   T fromSerializedMap(Map<String, dynamic> serializedMap) {
-    return fromJson(serializedMapToJson(serializedMap));
-  }
-
-  Map<String, dynamic> serializedMapToJson(Map<String, dynamic> serializedMap) {
-    Map<String, dynamic> resultMap = {};
-
-    if (serializedMap.length == 0 ||
-        !serializedMap.containsKey("serializedData")) {
-      return resultMap;
-    }
-
-    serializedMap =
-        new Map<String, dynamic>.from(serializedMap["serializedData"]);
-
-    serializedMap.forEach((key, value) {
-      if (value is Map) {
-        resultMap[key] =
-            serializedMapToJson(new Map<String, dynamic>.from(value));
-      } else {
-        resultMap[key] = value;
-      }
-    });
-
-    return resultMap;
+    return fromJson(serializedMap['serializedData']);
   }
 
   T fromJson(Map<String, dynamic> jsonData);

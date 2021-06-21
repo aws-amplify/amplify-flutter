@@ -15,16 +15,17 @@
 
 // ignore_for_file: public_member_api_docs
 
+import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the PostAuthComplex type in your schema. */
+/** This is an auto generated class representing the HasOneModel type in your schema. */
 @immutable
-class PostAuthComplex extends Model {
-  static const classType = const _PostAuthComplexModelType();
+class HasOneModel extends Model {
+  static const classType = const _HasOneModelModelType();
   final String id;
   final String? _title;
-  final String? _owner;
+  final BelongsToModel? _child;
 
   @override
   getInstanceType() => classType;
@@ -38,17 +39,18 @@ class PostAuthComplex extends Model {
     return _title!;
   }
 
-  String? get owner {
-    return _owner;
+  BelongsToModel? get child {
+    return _child;
   }
 
-  const PostAuthComplex._internal({required this.id, required title, owner})
+  const HasOneModel._internal({required this.id, required title, child})
       : _title = title,
-        _owner = owner;
+        _child = child;
 
-  factory PostAuthComplex({String? id, required String title, String? owner}) {
-    return PostAuthComplex._internal(
-        id: id == null ? UUID.getUUID() : id, title: title, owner: owner);
+  factory HasOneModel(
+      {String? id, required String title, BelongsToModel? child}) {
+    return HasOneModel._internal(
+        id: id == null ? UUID.getUUID() : id, title: title, child: child);
   }
 
   bool equals(Object other) {
@@ -58,10 +60,10 @@ class PostAuthComplex extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is PostAuthComplex &&
+    return other is HasOneModel &&
         id == other.id &&
         _title == other._title &&
-        _owner == other._owner;
+        _child == other._child;
   }
 
   @override
@@ -71,69 +73,64 @@ class PostAuthComplex extends Model {
   String toString() {
     var buffer = new StringBuffer();
 
-    buffer.write("PostAuthComplex {");
+    buffer.write("HasOneModel {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("title=" + "$_title" + ", ");
-    buffer.write("owner=" + "$_owner");
+    buffer.write("child=" + (_child != null ? _child!.toString() : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  PostAuthComplex copyWith({String? id, String? title, String? owner}) {
-    return PostAuthComplex(
+  HasOneModel copyWith({String? id, String? title, BelongsToModel? child}) {
+    return HasOneModel(
         id: id ?? this.id,
         title: title ?? this.title,
-        owner: owner ?? this.owner);
+        child: child ?? this.child);
   }
 
-  PostAuthComplex.fromJson(Map<String, dynamic> json)
+  HasOneModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _title = json['title'],
-        _owner = json['owner'];
+        _child = json['child'] != null
+            ? BelongsToModel.fromJson(
+                new Map<String, dynamic>.from(json['child']['serializedData']))
+            : null;
 
-  Map<String, dynamic> toJson() => {'id': id, 'title': _title, 'owner': _owner};
+  Map<String, dynamic> toJson() =>
+      {'id': id, 'title': _title, 'child': _child?.toJson()};
 
-  static final QueryField ID = QueryField(fieldName: "postAuthComplex.id");
+  static final QueryField ID = QueryField(fieldName: "hasOneModel.id");
   static final QueryField TITLE = QueryField(fieldName: "title");
-  static final QueryField OWNER = QueryField(fieldName: "owner");
+  static final QueryField CHILD = QueryField(
+      fieldName: "child",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (BelongsToModel).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "PostAuthComplex";
-    modelSchemaDefinition.pluralName = "PostAuthComplexes";
-
-    modelSchemaDefinition.authRules = [
-      AuthRule(
-          authStrategy: AuthStrategy.OWNER,
-          ownerField: "owner",
-          identityClaim: "cognito:username",
-          operations: [
-            ModelOperation.CREATE,
-            ModelOperation.UPDATE,
-            ModelOperation.DELETE,
-            ModelOperation.READ
-          ])
-    ];
+    modelSchemaDefinition.name = "HasOneModel";
+    modelSchemaDefinition.pluralName = "HasOneModels";
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: PostAuthComplex.TITLE,
+        key: HasOneModel.TITLE,
         isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: PostAuthComplex.OWNER,
+    modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
+        key: HasOneModel.CHILD,
         isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+        targetName: "hasOneModelChildId",
+        ofModelName: (BelongsToModel).toString()));
   });
 }
 
-class _PostAuthComplexModelType extends ModelType<PostAuthComplex> {
-  const _PostAuthComplexModelType();
+class _HasOneModelModelType extends ModelType<HasOneModel> {
+  const _HasOneModelModelType();
 
   @override
-  PostAuthComplex fromJson(Map<String, dynamic> jsonData) {
-    return PostAuthComplex.fromJson(jsonData);
+  HasOneModel fromJson(Map<String, dynamic> jsonData) {
+    return HasOneModel.fromJson(jsonData);
   }
 }

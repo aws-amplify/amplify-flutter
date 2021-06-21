@@ -28,7 +28,7 @@ export 'PostAuthComplex.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "33b1717ef9afb390e3f7431e8f3859fc";
+  String version = "0e8e5514647b80c1bbfff044f1df24f0";
   @override
   List<ModelSchema> modelSchemas = [
     Blog.schema,
@@ -46,19 +46,21 @@ class ModelProvider implements ModelProviderInterface {
         {
           return Blog.classType;
         }
+        break;
       case "Comment":
         {
           return Comment.classType;
         }
+        break;
       case "Post":
         {
           return Post.classType;
         }
+        break;
       case "PostAuthComplex":
         {
           return PostAuthComplex.classType;
         }
-
       default:
         {
           throw Exception(

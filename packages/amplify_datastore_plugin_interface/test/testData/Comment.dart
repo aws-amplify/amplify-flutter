@@ -22,18 +22,10 @@ import 'package:flutter/foundation.dart';
 /** This is an auto generated class representing the Comment type in your schema. */
 @immutable
 class Comment extends Model {
-  static const classType = const CommentType();
+  static const classType = const _CommentModelType();
   final String id;
   final Post? _post;
   final String? _content;
-
-  Post? get post {
-    return _post;
-  }
-
-  String get content {
-    return _content!;
-  }
 
   @override
   getInstanceType() => classType;
@@ -41,6 +33,14 @@ class Comment extends Model {
   @override
   String getId() {
     return id;
+  }
+
+  Post? get post {
+    return _post;
+  }
+
+  String get content {
+    return _content!;
   }
 
   const Comment._internal({required this.id, post, required content})
@@ -61,8 +61,8 @@ class Comment extends Model {
     if (identical(other, this)) return true;
     return other is Comment &&
         id == other.id &&
-        _post == other.post &&
-        _content == other.content;
+        _post == other._post &&
+        _content == other._content;
   }
 
   @override
@@ -73,9 +73,9 @@ class Comment extends Model {
     var buffer = new StringBuffer();
 
     buffer.write("Comment {");
-    buffer.write("id=$id" + ", ");
-    buffer.write("post=" + (_post != null ? _post.toString() : "null") + ", ");
-    buffer.write("content=$_content");
+    buffer.write("id=" + "$id" + ", ");
+    buffer.write("post=" + (_post != null ? _post!.toString() : "null") + ", ");
+    buffer.write("content=" + "$_content");
     buffer.write("}");
 
     return buffer.toString();
@@ -91,7 +91,8 @@ class Comment extends Model {
   Comment.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _post = json['post'] != null
-            ? Post.fromJson(new Map<String, dynamic>.from(json['post']))
+            ? Post.fromJson(
+                new Map<String, dynamic>.from(json['post']['serializedData']))
             : null,
         _content = json['content'];
 
@@ -124,8 +125,8 @@ class Comment extends Model {
   });
 }
 
-class CommentType extends ModelType<Comment> {
-  const CommentType();
+class _CommentModelType extends ModelType<Comment> {
+  const _CommentModelType();
 
   @override
   Comment fromJson(Map<String, dynamic> jsonData) {

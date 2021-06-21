@@ -70,15 +70,5 @@ void main() {
         }
       }
     };
-
-    expect(Comment.classType.serializedMapToJson(inputMap), {
-      "id": "1",
-      "name": "My name is Parent",
-      "child": {
-        "id": "2",
-        "name": "My name is Child",
-        "innerChild": {"id": "3", "name": "My name is InnerChild"}
-      }
-    });
   });
 }
