@@ -1,6 +1,6 @@
 name: amplify_datastore
 description: The Amplify Flutter DataStore category plugin.
-version: 0.2.0-nullsafety.0
+version: 0.2.0-nullsafety.1
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify_datastore
 
 environment:
@@ -10,8 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  amplify_datastore_plugin_interface: 0.2.0-nullsafety.0
-  amplify_core: 0.2.0-nullsafety.0
+  amplify_datastore_plugin_interface: 0.2.0-nullsafety.1
+  amplify_core: 0.2.0-nullsafety.1
   plugin_platform_interface: ^2.0.0
   meta: ^1.1.8
   collection: ^1.14.13

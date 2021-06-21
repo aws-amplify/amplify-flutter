@@ -1,6 +1,6 @@
 name: amplify_flutter
 description: The top level module for Amplify Flutter.
-version: 0.2.0-nullsafety.0
+version: 0.2.0-nullsafety.1
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify_flutter
 
 environment:
@@ -11,21 +11,21 @@ dependencies:
   flutter:
     sdk: flutter
   plugin_platform_interface: ^2.0.0
-  amplify_storage_plugin_interface: 0.2.0-nullsafety.0
-  amplify_analytics_plugin_interface: 0.2.0-nullsafety.0
-  amplify_auth_plugin_interface: 0.2.0-nullsafety.0
-  amplify_datastore_plugin_interface: 0.2.0-nullsafety.0
-  amplify_api_plugin_interface: 0.2.0-nullsafety.0
-  amplify_core: 0.2.0-nullsafety.0
+  amplify_storage_plugin_interface: 0.2.0-nullsafety.1
+  amplify_analytics_plugin_interface: 0.2.0-nullsafety.1
+  amplify_auth_plugin_interface: 0.2.0-nullsafety.1
+  amplify_datastore_plugin_interface: 0.2.0-nullsafety.1
+  amplify_api_plugin_interface: 0.2.0-nullsafety.1
+  amplify_core: 0.2.0-nullsafety.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  amplify_api: 0.2.0-nullsafety.0
-  amplify_analytics_pinpoint: 0.2.0-nullsafety.0
-  amplify_auth_cognito: 0.2.0-nullsafety.0
-  amplify_datastore: 0.2.0-nullsafety.0
-  amplify_storage_s3: 0.2.0-nullsafety.0
+  amplify_api: 0.2.0-nullsafety.1
+  amplify_analytics_pinpoint: 0.2.0-nullsafety.1
+  amplify_auth_cognito: 0.2.0-nullsafety.1
+  amplify_datastore: 0.2.0-nullsafety.1
+  amplify_storage_s3: 0.2.0-nullsafety.1
 
 flutter:
   plugin:

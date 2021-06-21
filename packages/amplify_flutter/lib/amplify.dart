@@ -131,7 +131,7 @@ class AmplifyClass extends PlatformInterface {
   }
 
   String _getVersion() {
-    return '0.2.0-nullsafety.0';
+    return '0.2.0-nullsafety.1';
   }
 
   /// Configures Amplify with the provided configuration string.

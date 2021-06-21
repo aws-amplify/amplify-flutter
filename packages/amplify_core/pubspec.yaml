@@ -1,6 +1,6 @@
 name: amplify_core
 description: The base package shared across Amplify Flutter library.
-version: 0.2.0-nullsafety.0
+version: 0.2.0-nullsafety.1
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify_core
 
 environment:
