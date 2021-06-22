@@ -54,7 +54,7 @@ class FlutterRestApi {
             try {
                 cancelToken = FlutterApiRequest.getCancelToken(request)
                 apiName = FlutterApiRequest.getApiPath(request)
-                options = FlutterApiRequest.getRestOptions(request, (methodName == PUT || methodName == POST || methodName == PATCH))
+                options = FlutterApiRequest.getRestOptions(request, methodName)
             } catch (e: Exception) {
                 handler.post {
                     ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
@@ -64,6 +64,18 @@ class FlutterRestApi {
             }
 
             try {
+                // Needed to prevent Android library from throwing a fatal error when body not present in some methods. https://github.com/aws-amplify/amplify-android/issues/1355
+                if (!options.hasData() && (methodName == PUT || methodName == POST || methodName == PATCH)) {
+                    handler.post {
+                        ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
+                                ExceptionUtil.createSerializedError(
+                                        ApiException("$methodName request must have a body", "Add a body to the request.")
+                                )
+                        )
+                    }
+                    return
+                }
+
                 var operation: RestOperation?
                 if (apiName == null) {
                     operation = functionWithoutApiName(options,
