@@ -40,7 +40,7 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
         let typeName = json["__typename"]
         
         guard case .string(let modelName) = typeName else {
-            // This shouldn't happen since [FlutterModels.version] is updated. The local model
+            // This shouldn't happen since [FlutterModels.version] has been updated. The local model
             // cache should be cleared upon configuring the new plugin and all new models should
             // be saved with the `__typename` schema field.
             //
