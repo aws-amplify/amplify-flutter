@@ -58,7 +58,7 @@ class FlutterApiRequest {
             return request[CANCEL_TOKEN_KEY] as String
         }
 
-        fun getRestOptions(request: Map<String, Any>) : RestOptions {
+        fun getRestOptions(request: Map<String, Any>, methodName: String) : RestOptions {
 
             try {
                 val builder: RestOptions.Builder = RestOptions.builder()
@@ -80,6 +80,10 @@ class FlutterApiRequest {
                             builder.addHeaders(value as Map<String, String>)
                         }
                     }
+                }
+
+                if (methodName == "PATCH" && request[BODY_KEY] == null) {
+                    builder.addBody("".toByteArray())
                 }
                 return builder.build()
             } catch (cause: Exception) {
