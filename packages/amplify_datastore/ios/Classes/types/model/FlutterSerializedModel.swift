@@ -39,10 +39,13 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
         let json = try JSONValue(from: decoder)
         let typeName = json["__typename"]
         
-        // Before adding __typename as a required schema field, models were stored locally without it.
-        // To transition users to the new schema, they will need to call `.clear` to re-save models
-        // with the __typename field.
         guard case .string(let modelName) = typeName else {
+            // This shouldn't happen since [FlutterModels.version] is updated. The local model
+            // cache should be cleared upon configuring the new plugin and all new models should
+            // be saved with the `__typename` schema field.
+            //
+            // Since this initializer is only called from the internal storage engine, it follows
+            // that both remote data and local data will always have the `__typename` field.
             throw DataStoreError.decodingError(
                 "Invalid model cache",
                 "Please call Amplify.DataStore.clear() to reset the local model cache."
