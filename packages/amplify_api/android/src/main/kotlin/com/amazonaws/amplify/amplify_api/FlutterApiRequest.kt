@@ -58,7 +58,7 @@ class FlutterApiRequest {
             return request[CANCEL_TOKEN_KEY] as String
         }
 
-        fun getRestOptions(request: Map<String, Any>, requiresBody: Boolean) : RestOptions {
+        fun getRestOptions(request: Map<String, Any>, methodName: String) : RestOptions {
 
             try {
                 val builder: RestOptions.Builder = RestOptions.builder()
@@ -82,9 +82,8 @@ class FlutterApiRequest {
                     }
                 }
 
-                // Needed to prevent Android library from throwing a fatal error when body not present in some methods. https://github.com/aws-amplify/amplify-android/issues/1355
-                if (requiresBody && restOptionsMap[BODY_KEY] == null) {
-                    builder.addBody(" ".toByteArray())
+                if (methodName == "PATCH" && request[BODY_KEY] == null) {
+                    builder.addBody("".toByteArray())
                 }
                 return builder.build()
             } catch (cause: Exception) {
