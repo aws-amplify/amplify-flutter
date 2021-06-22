@@ -97,4 +97,91 @@ class AmplifySerializedModelUnitTests: XCTestCase {
         XCTAssertEqual(ourSd["timeType"] as! String , refSd["timeType"] as! String);
         XCTAssertEqual(ourSd["enumType"] as! String , refSd["enumType"] as! String);
     }
+    
+    /// Tests that models initialized via a [Decoder], i.e. those persisted to storage, must include `__typename`.
+    func test_model_deserialization_fails_without_typename() throws {
+        let encodedBlog = """
+        {
+            "id": "abc",
+            "name": "My Blog"
+        }
+        """.data(using: .utf8)!
+        XCTAssertThrowsError(try JSONDecoder().decode(FlutterSerializedModel.self, from: encodedBlog))
+    }
+    
+    /// Tests that models initialized via a [Decoder], i.e. those persisted to storage, must include `__typename`.
+    func test_model_deserialization_succeeds_with_typename() throws {
+        let encodedBlog = """
+        {
+            "__typename": "Blog",
+            "id": "abc",
+            "name": "My Blog"
+        }
+        """.data(using: .utf8)!
+        XCTAssertNoThrow(try JSONDecoder().decode(FlutterSerializedModel.self, from: encodedBlog))
+    }
+    
+    /// Verifies that all schema fields are included during SQLite encoding. In the case of `__typename`, this also
+    /// verifies its persistence even if not present in [FlutterSerializedModel.values].
+    func test_model_serialization_includes_all_schema_fields() throws {
+        let blog = FlutterSerializedModelData.BlogSerializedModel
+        let modelSchema = SchemaData.BlogSchema
+        let jsonFields = modelSchema.jsonFields(for: blog)
+        
+        guard let typeName = jsonFields["__typename"] as? String,
+              let id = jsonFields["id"] as? String,
+              let name = jsonFields["name"] as? String else {
+            XCTFail("Null values found in persisted dict: \(jsonFields)")
+            return
+        }
+        
+        let blogName = blog.values["name"]!.value as! String
+        
+        XCTAssertEqual(typeName, blog.modelName)
+        XCTAssertEqual(id, blog.id)
+        XCTAssertEqual(name, blogName)
+    }
+}
+
+extension JSONValue {
+    var value: Any? {
+        switch self {
+        case .array(let array):
+            return array
+        case .boolean(let boolean):
+            return boolean
+        case .number(let number):
+            return number
+        case .object(let object):
+            return object
+        case .string(let string):
+            return string
+        case .null:
+            return nil
+        }
+    }
+}
+
+extension ModelSchema {
+    /// Replicates logic in Model+SQLite.swift which is used to populate values in INSERT/UPDATE statements.
+    ///
+    /// Basically, this tests [FlutterSerializedModel.jsonValue]. If nested models are added later, the logic can be further
+    /// aligned with Model+SQLite.swift to test for proper serialization of those models.
+    func jsonFields(for model: FlutterSerializedModel) -> [String: Any?] {
+        fields.mapValues { field -> Any? in
+            guard let optionalJsonValue = model.jsonValue(for: field.name, modelSchema: self),
+                  let jsonValue = optionalJsonValue else {
+                return nil
+            }
+            
+            let value: Any
+            if case Optional<Any>.some(let unwrappedValue) = jsonValue {
+                value = unwrappedValue
+            } else {
+                return nil
+            }
+            
+            return value
+        }
+    }
 }

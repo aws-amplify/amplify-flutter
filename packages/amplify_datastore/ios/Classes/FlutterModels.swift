@@ -42,7 +42,7 @@ final public class FlutterModels: AmplifyModelRegistration {
                 if case .array(let jsonArray) = jsonValue,
                    case .object(let jsonObj) = jsonArray[0],
                    case .string(let id) = jsonObj["id"] {
-                    let model = FlutterSerializedModel(id: id, map: jsonObj)
+                    let model = FlutterSerializedModel(id: id, map: jsonObj, modelName: entry.key)
                     return model
                 }
                 throw DataStoreError.decodingError(

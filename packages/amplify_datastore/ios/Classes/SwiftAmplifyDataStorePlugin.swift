@@ -194,7 +194,11 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             let serializedModelData = try FlutterDataStoreRequestUtils.getSerializedModelData(methodChannelArguments: args)
             let modelID = try FlutterDataStoreRequestUtils.getModelID(serializedModelData: serializedModelData)
 
-            let serializedModel = FlutterSerializedModel(id: modelID, map: try FlutterDataStoreRequestUtils.getJSONValue(serializedModelData))
+            let serializedModel = FlutterSerializedModel(
+                id: modelID,
+                map: try FlutterDataStoreRequestUtils.getJSONValue(serializedModelData),
+                modelName: modelName
+            )
 
             try bridge.onSave(
                 serializedModel: serializedModel,
@@ -232,7 +236,11 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             let serializedModelData = try FlutterDataStoreRequestUtils.getSerializedModelData(methodChannelArguments: args)
             let modelID = try FlutterDataStoreRequestUtils.getModelID(serializedModelData: serializedModelData)
 
-            let serializedModel = FlutterSerializedModel(id: modelID, map: try FlutterDataStoreRequestUtils.getJSONValue(serializedModelData))
+            let serializedModel = FlutterSerializedModel(
+                id: modelID,
+                map: try FlutterDataStoreRequestUtils.getJSONValue(serializedModelData),
+                modelName: modelName
+            )
 
             try bridge.onDelete(
                 serializedModel: serializedModel,

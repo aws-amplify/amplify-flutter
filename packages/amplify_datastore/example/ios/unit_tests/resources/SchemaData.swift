@@ -23,12 +23,13 @@ struct SchemaData {
         name: "Post",
         pluralName: "Posts",
         fields: [
-        "id" : ModelField(name: "id", type: .string, isRequired: true, isArray: false),
-        "title" : ModelField(name: "title", type: .string, isRequired: true, isArray: false),
-        "created" : ModelField(name: "created", type: .dateTime, isRequired: false, isArray: false),
-        "rating" : ModelField(name: "rating", type: .int, isRequired: false, isArray: false),
-        "blog" : ModelField(name: "blog", type: .model(name: "Blog"), isRequired: false, isArray: false, association: ModelAssociation.belongsTo(targetName: "blogID")),
-        "comments" : ModelField(name: "comments", type: .collection(of: "Comment"), isRequired: false, isArray: true, association: ModelAssociation.hasMany(associatedFieldName: "post") )
+            "__typename": ModelField(name: "__typename", type: .string, isRequired: true, isArray: false),
+            "id" : ModelField(name: "id", type: .string, isRequired: true, isArray: false),
+            "title" : ModelField(name: "title", type: .string, isRequired: true, isArray: false),
+            "created" : ModelField(name: "created", type: .dateTime, isRequired: false, isArray: false),
+            "rating" : ModelField(name: "rating", type: .int, isRequired: false, isArray: false),
+            "blog" : ModelField(name: "blog", type: .model(name: "Blog"), isRequired: false, isArray: false, association: ModelAssociation.belongsTo(targetName: "blogID")),
+            "comments" : ModelField(name: "comments", type: .collection(of: "Comment"), isRequired: false, isArray: true, association: ModelAssociation.hasMany(associatedFieldName: "post") )
         ]
     )
     
@@ -36,6 +37,7 @@ struct SchemaData {
         name: "Comment",
         pluralName: "Comments",
         fields: [
+            "__typename": ModelField(name: "__typename", type: .string, isRequired: true, isArray: false),
             "id" : ModelField(name: "id", type: .string, isRequired: true, isArray: false),
             "post" : ModelField(name: "post", type: .model(name: "Post"), isRequired: false, isArray: true, association: ModelAssociation.belongsTo(targetName: "postID")),
             "content" : ModelField(name: "content", type: .string, isRequired: true, isArray: false)
@@ -47,6 +49,7 @@ struct SchemaData {
             name: "Blog",
             pluralName: "Blogs",
             fields: [
+                "__typename": ModelField(name: "__typename", type: .string, isRequired: true, isArray: false),
                 "id" : ModelField(name: "id", type: .string, isRequired: true, isArray: false),
                 "name" : ModelField(name: "name", type: .string, isRequired: true, isArray: false),
                 "posts" : ModelField(name: "posts", type: .collection(of: "Post"), isRequired: false, isArray: true, association: ModelAssociation.hasMany(associatedFieldName: "blog")
@@ -68,6 +71,7 @@ struct SchemaData {
             )
         ],
         fields: [
+            "__typename": ModelField(name: "__typename", type: .string, isRequired: true, isArray: false),
             "id" : ModelField(name: "id", type: .string, isRequired: true, isArray: false),
             "title" : ModelField(name: "title", type: .string, isRequired: true, isArray: false),
             "owner" : ModelField(name: "owner", type: .string, isRequired: false, isArray: false),
@@ -78,6 +82,7 @@ struct SchemaData {
         name: "AllTypeModel",
         pluralName: "AllTypeModels",
         fields: [
+            "__typename": ModelField(name: "__typename", type: .string, isRequired: true, isArray: false),
             "id" : ModelField(name: "id", type: .string, isRequired: true, isArray: false),
             "stringType" : ModelField(name: "stringType", type: .string, isRequired: true, isArray: false),
             "intType" : ModelField(name: "intType", type: .int, isRequired: true, isArray: false),

@@ -21,10 +21,14 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
     public let id: String
 
     public var values: [String: JSONValue]
+    
+    /// Overrides the default getter on [Model], allowing DataStore internals to correctly identify and deserialize wrapped models.
+    public let modelName: String
 
-    public init(id: String = UUID().uuidString, map: [String: JSONValue]) {
+    public init(id: String = UUID().uuidString, map: [String: JSONValue], modelName: String) {
         self.id = id
         self.values = map
+        self.modelName = modelName
     }
 
     public init(from decoder: Decoder) throws {
@@ -34,6 +38,18 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
         
         let json = try JSONValue(from: decoder)
         let typeName = json["__typename"]
+        
+        // Before adding __typename as a required schema field, models were stored locally without it.
+        // To transition users to the new schema, they will need to call `.clear` to re-save models
+        // with the __typename field.
+        guard case .string(let modelName) = typeName else {
+            throw DataStoreError.decodingError(
+                "Invalid model cache",
+                "Please call Amplify.DataStore.clear() to reset the local model cache."
+            )
+        }
+        self.modelName = modelName
+        
         let modified = FlutterSerializedModel.removeReservedNames(json)
         
         if case .object(var v) = modified {
@@ -77,6 +93,9 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
     public func jsonValue(for key: String) -> Any?? {
         if key == "id" {
             return id
+        }
+        if key == "__typename" {
+            return modelName
         }
         switch values[key] {
         case .some(.array(let deserializedValue)):

@@ -25,7 +25,9 @@ let amplifySuccessResults: [FlutterSerializedModel] =
     (try! readJsonArray(filePath: "2_results") as! [[String: Any]]).map { (serializedModel) in
         FlutterSerializedModel.init(
             id: serializedModel["id"] as! String,
-            map: try! getJSONValue(serializedModel["serializedData"] as! [String : Any]))
+            map: try! getJSONValue(serializedModel["serializedData"] as! [String : Any]),
+            modelName: "Post"
+        )
     }
 
 let id: QueryField = field("id")

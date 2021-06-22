@@ -62,6 +62,21 @@ struct FlutterModelSchema {
     }
     
     public func convertToNativeModelSchema() throws -> ModelSchema {
+        var fields = try fields.mapValues { try $0.convertToNativeModelField() }
+        
+        // Appends typename field so that future JSON values retrieved from the storage engine
+        // are identifiable, even as opaque JSON strings.
+        fields["__typename"] = ModelField(
+            name: "__typename",
+            type: .string,
+            isRequired: true,
+            isReadOnly: true,
+            isArray: false,
+            attributes: [],
+            association: nil,
+            authRules: []
+        )
+        
         return ModelSchema.init(
             name: name,
             pluralName: pluralName,
@@ -69,7 +84,7 @@ struct FlutterModelSchema {
                             $0.convertToNativeAuthRule()
                         } ?? [AuthRule](),
             attributes: attributes,
-            fields: try fields.mapValues { try $0.convertToNativeModelField() }
+            fields: fields
         )
     }
 }
