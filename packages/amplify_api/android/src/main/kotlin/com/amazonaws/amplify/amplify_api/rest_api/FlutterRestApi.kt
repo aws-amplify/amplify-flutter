@@ -55,7 +55,7 @@ class FlutterRestApi {
             try {
                 cancelToken = FlutterApiRequest.getCancelToken(request)
                 apiName = FlutterApiRequest.getApiPath(request)
-                options = FlutterApiRequest.getRestOptions(request, methodName)
+                options = FlutterApiRequest.getRestOptions(request)
             } catch (e: Exception) {
                 handler.post {
                     ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
