@@ -176,50 +176,14 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             (request["syncPageSize"] as? Int)
                 ?: defaultDataStoreConfiguration.syncPageSize
 
-        syncExpressions.forEach { syncExpression ->
-            try {
-                val id = syncExpression["id"] as String
-                val modelName = syncExpression["modelName"] as String
-                val queryPredicate =
-                    QueryPredicateBuilder.fromSerializedMap(syncExpression["queryPredicate"].safeCastToMap())!!
-                dataStoreConfigurationBuilder.syncExpression(modelName) {
-                    var resolvedQueryPredicate = queryPredicate
-                    val latch = CountDownLatch(1)
-                    handler.post {
-                        channel.invokeMethod("resolveQueryPredicate", id, object : Result {
-                            override fun success(result: Any?) {
-                                try {
-                                    resolvedQueryPredicate =
-                                        QueryPredicateBuilder.fromSerializedMap(result.safeCastToMap())!!
-
-                                } catch (e: Exception) {
-                                    LOG.error("Failed to resolve query predicate. Reverting to original query predicate.")
-                                }
-                                latch.countDown()
-                            }
-
-                            override fun error(code: String?, msg: String?, details: Any?) {
-                                LOG.error("Failed to resolve query predicate. Reverting to original query predicate.")
-                                latch.countDown()
-                            }
-
-                            override fun notImplemented() {
-                                LOG.error("resolveQueryPredicate not implemented.")
-                                latch.countDown()
-                            }
-                        })
-                    }
-                    latch.await()
-                    resolvedQueryPredicate
-                }
-            } catch (e: Exception) {
-                handler.post {
-                    postExceptionToFlutterChannel(
-                        flutterResult, "DataStoreException",
-                        createSerializedUnrecognizedError(e)
-                    )
-                }
-                return
+        try {
+            buildSyncExpressions(syncExpressions, dataStoreConfigurationBuilder)
+        } catch (e: Exception) {
+            handler.post {
+                postExceptionToFlutterChannel(
+                    flutterResult, "DataStoreException",
+                    createSerializedUnrecognizedError(e)
+                )
             }
         }
 
@@ -453,6 +417,53 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         }
         return args.safeCastToMap()!!
     }
+
+    private fun buildSyncExpressions(
+        @NonNull syncExpressions: List<Map<String, Any>>,
+        @NonNull dataStoreConfigurationBuilder: DataStoreConfiguration.Builder
+    ) {
+        syncExpressions.forEach { syncExpression ->
+            try {
+                val id = syncExpression["id"] as String
+                val modelName = syncExpression["modelName"] as String
+                val queryPredicate =
+                    QueryPredicateBuilder.fromSerializedMap(syncExpression["queryPredicate"].safeCastToMap())!!
+                dataStoreConfigurationBuilder.syncExpression(modelName) {
+                    var resolvedQueryPredicate = queryPredicate
+                    val latch = CountDownLatch(1)
+                    handler.post {
+                        channel.invokeMethod("resolveQueryPredicate", id, object : Result {
+                            override fun success(result: Any?) {
+                                try {
+                                    resolvedQueryPredicate =
+                                        QueryPredicateBuilder.fromSerializedMap(result.safeCastToMap())!!
+
+                                } catch (e: Exception) {
+                                    LOG.error("Failed to resolve query predicate. Reverting to original query predicate.")
+                                }
+                                latch.countDown()
+                            }
+
+                            override fun error(code: String?, msg: String?, details: Any?) {
+                                LOG.error("Failed to resolve query predicate. Reverting to original query predicate.")
+                                latch.countDown()
+                            }
+
+                            override fun notImplemented() {
+                                LOG.error("resolveQueryPredicate not implemented.")
+                                latch.countDown()
+                            }
+                        })
+                    }
+                    latch.await()
+                    resolvedQueryPredicate
+                }
+            } catch (e: Exception) {
+                throw e
+            }
+        }
+    }
+
 
     @VisibleForTesting
     fun deserializeNestedModels(serializedModelData: Map<String, Any>): Map<String, Any> {

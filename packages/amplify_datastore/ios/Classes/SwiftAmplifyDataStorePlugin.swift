@@ -25,9 +25,10 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     
     private let bridge: DataStoreBridge
     private let flutterModelRegistration: FlutterModels
-    var observeSubscription: AnyCancellable?
     private let dataStoreObserveEventStreamHandler: DataStoreObserveEventStreamHandler?
     private let dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler?
+    private var channel: FlutterMethodChannel?
+    var observeSubscription: AnyCancellable?
     
     init(bridge: DataStoreBridge = DataStoreBridge(),
          flutterModelRegistration: FlutterModels = FlutterModels(),
@@ -41,12 +42,12 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     
     public static func register(with registrar: FlutterPluginRegistrar) {
         let instance = SwiftAmplifyDataStorePlugin()
-        let channel = FlutterMethodChannel(name: "com.amazonaws.amplify/datastore", binaryMessenger: registrar.messenger())
         let observeChannel = FlutterEventChannel(name: "com.amazonaws.amplify/datastore_observe_events", binaryMessenger: registrar.messenger())
         let hubChannel = FlutterEventChannel(name: "com.amazonaws.amplify/datastore_hub_events", binaryMessenger: registrar.messenger())
+        instance.channel = FlutterMethodChannel(name: "com.amazonaws.amplify/datastore", binaryMessenger: registrar.messenger())
         observeChannel.setStreamHandler(instance.dataStoreObserveEventStreamHandler)
         hubChannel.setStreamHandler(instance.dataStoreHubEventStreamHandler)
-        registrar.addMethodCallDelegate(instance, channel: channel)
+        registrar.addMethodCallDelegate(instance, channel: instance.channel!)
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -86,15 +87,16 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             return //TODO
         }
         
-        let syncExpressionList = args["syncExpressions"] as! [[String: Any]]
+        guard channel != nil else {
+            return
+        }
+        
+        let syncExpressionList = args["syncExpressions"] as? [[String: Any]] ?? []
         let syncInterval = args["syncInterval"] as? Double ?? DataStoreConfiguration.defaultSyncInterval
         let syncMaxRecords = args["syncMaxRecords"] as? UInt ?? DataStoreConfiguration.defaultSyncMaxRecords
         let syncPageSize = args["syncPageSize"] as? UInt ?? DataStoreConfiguration.defaultSyncPageSize
-        let controller = UIApplication.shared.windows.first { $0.isKeyWindow }!.rootViewController as! FlutterViewController
-        let channel = FlutterMethodChannel(name: "com.amazonaws.amplify/datastore", binaryMessenger: controller.binaryMessenger)
         
         do {
-            
             
             let modelSchemas: [ModelSchema] = try modelSchemaList.map {
                 try FlutterModelSchema.init(serializedData: $0).convertToNativeModelSchema()
@@ -104,26 +106,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                 flutterModelRegistration.addModelSchema(modelName: modelSchema.name, modelSchema: modelSchema)
             }
             
-            let syncExpressions: [DataStoreSyncExpression] = try syncExpressionList.map { syncExpression in
-                let id = syncExpression["id"] as! String
-                let modelName = syncExpression["modelName"] as! String
-                let queryPredicate = try QueryPredicateBuilder.fromSerializedMap(syncExpression["queryPredicate"] as? [String: Any])
-                let modelSchema = flutterModelRegistration.modelSchemas[modelName]
-                return DataStoreSyncExpression.syncExpression(modelSchema!) {
-                    var resolvedQueryPredicate = queryPredicate
-                    let semaphore = DispatchSemaphore(value: 0)
-                    channel.invokeMethod("resolveQueryPredicate", arguments: id) { result in
-                        do {
-                            resolvedQueryPredicate = try QueryPredicateBuilder.fromSerializedMap(result as? [String: Any])
-                        } catch {
-                            print("Failed to resolve query predicate. Reverting to original query predicate.")
-                        }
-                        semaphore.signal()
-                    }
-                    semaphore.wait()
-                    return resolvedQueryPredicate
-                }
-            }
+            let syncExpressions: [DataStoreSyncExpression] = try createSyncExpressions(syncExpressionList: syncExpressionList)
             
             self.dataStoreHubEventStreamHandler?.registerModelsForHub(flutterModels: flutterModelRegistration)
             
@@ -362,6 +345,29 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                                                "Check the values that are being passed from Dart.")
         }
         return res;
+    }
+    
+    private func createSyncExpressions(syncExpressionList: [[String: Any]]) throws -> [DataStoreSyncExpression] {
+        return try syncExpressionList.map { syncExpression in
+            let id = syncExpression["id"] as! String
+            let modelName = syncExpression["modelName"] as! String
+            let queryPredicate = try QueryPredicateBuilder.fromSerializedMap(syncExpression["queryPredicate"] as? [String: Any])
+            let modelSchema = flutterModelRegistration.modelSchemas[modelName]
+            return DataStoreSyncExpression.syncExpression(modelSchema!) {
+                var resolvedQueryPredicate = queryPredicate
+                let semaphore = DispatchSemaphore(value: 0)
+                self.channel!.invokeMethod("resolveQueryPredicate", arguments: id) { result in
+                    do {
+                        resolvedQueryPredicate = try QueryPredicateBuilder.fromSerializedMap(result as? [String: Any])
+                    } catch {
+                        print("Failed to resolve query predicate. Reverting to original query predicate.")
+                    }
+                    semaphore.signal()
+                }
+                semaphore.wait()
+                return resolvedQueryPredicate
+            }
+        }
     }
     
     // TODO: Remove once all configure is moved to the bridge

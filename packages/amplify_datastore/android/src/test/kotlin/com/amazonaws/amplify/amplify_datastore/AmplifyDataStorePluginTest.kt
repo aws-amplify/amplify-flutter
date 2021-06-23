@@ -574,17 +574,6 @@ class AmplifyDataStorePluginTest {
 
     @Test
     fun test_observe_success_event() {
-<<<<<<< HEAD
-        flutterPlugin = AmplifyDataStorePlugin(eventHandler = mockStreamHandler,
-                hubEventHandler = mockHubHandler)
-        val eventData: HashMap<String, Any> = (readMapFromFile("observe_api",
-                "post_type_success_event.json",
-                HashMap::class.java) as HashMap<String, Any>)
-        val modelData = mapOf("id" to "43036c6b-8044-4309-bddc-262b6c686026",
-                "title" to "Title 2",
-                "rating" to 0,
-                "created" to Temporal.DateTime("2020-02-20T20:20:20-08:00"))
-=======
         flutterPlugin = AmplifyDataStorePlugin(
             eventHandler = mockStreamHandler,
             hubEventHandler = mockHubHandler
@@ -597,9 +586,9 @@ class AmplifyDataStorePluginTest {
         val modelData = mapOf(
             "id" to "43036c6b-8044-4309-bddc-262b6c686026",
             "title" to "Title 2",
+            "rating" to 0,
             "created" to Temporal.DateTime("2020-02-20T20:20:20-08:00")
         )
->>>>>>> 9c88b30 (feat(datastore): Add selective sync)
         val instance = SerializedModel.builder()
             .serializedData(modelData)
             .modelSchema(modelSchema)

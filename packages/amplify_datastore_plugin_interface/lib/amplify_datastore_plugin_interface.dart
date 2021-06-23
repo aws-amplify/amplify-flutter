@@ -26,6 +26,7 @@ import 'src/types/models/subscription_event.dart';
 import 'src/types/sync/DataStoreSyncExpression.dart';
 import 'src/types/query/query_field.dart';
 
+export 'src/types/models/auth_rule.dart';
 export 'src/types/models/model.dart';
 export 'src/types/models/model_field.dart';
 export 'src/types/models/model_field_definition.dart';
@@ -85,11 +86,13 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   /// [syncMaxRecords]: max number of records to sync
   ///
   /// [syncPageSize]: page size to sync
-  Future<void> configureDataStore(
-      {required ModelProviderInterface modelProvider,
-      int? syncInterval,
-      int? syncMaxRecords,
-      int? syncPageSize}) {
+  Future<void> configureDataStore({
+    required ModelProviderInterface modelProvider,
+    List<DataStoreSyncExpression>? syncExpressions,
+    int? syncInterval,
+    int? syncMaxRecords,
+    int? syncPageSize,
+  }) {
     throw UnimplementedError('configureDataStore() has not been implemented.');
   }
 
