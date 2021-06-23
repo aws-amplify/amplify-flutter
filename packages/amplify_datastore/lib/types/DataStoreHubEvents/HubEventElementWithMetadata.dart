@@ -17,19 +17,18 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'HubEventElement.dart';
 
 class HubEventElementWithMetadata extends HubEventElement {
-  late int version;
-  late int lastChangedAt;
-  late bool deleted;
+  late final int version;
+  late final int lastChangedAt;
+  late final bool? deleted;
 
   HubEventElementWithMetadata(
-      Map<dynamic, dynamic> serializedData, ModelProviderInterface provider)
-      : super(serializedData, provider) {
-    Map<String, dynamic> serializedElement =
-        new Map<String, dynamic>.from(serializedData["element"]);
-    Map<String, dynamic> metadata =
-        new Map<String, dynamic>.from(serializedElement["syncMetadata"]);
-    version = metadata["_version"];
-    lastChangedAt = metadata["_lastChangedAt"];
-    deleted = metadata["_deleted"];
+    Map serializedData,
+    ModelProviderInterface provider,
+  ) : super(serializedData, provider) {
+    var serializedElement = serializedData['element'] as Map;
+    var metadata = serializedElement['syncMetadata'] as Map;
+    version = metadata['_version'] as int;
+    lastChangedAt = metadata['_lastChangedAt'] as int;
+    deleted = metadata['_deleted'] as bool?;
   }
 }

@@ -14,21 +14,21 @@
  */
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:collection/collection.dart';
 
 class HubEventElement {
-  late Model model;
+  late final Model model;
 
   HubEventElement(
-      Map<dynamic, dynamic> serializedData, ModelProviderInterface provider) {
-    Map<String, dynamic> serializedElement =
-        Map<String, dynamic>.from(serializedData["element"]);
-    Map<String, dynamic> modelData =
-        Map<String, dynamic>.from(serializedElement["model"]);
-    Map<String, dynamic> serializedModelData =
-        Map<String, dynamic>.from(modelData["serializedData"]);
+    Map serializedData,
+    ModelProviderInterface provider,
+  ) {
+    var serializedElement = serializedData['element'] as Map;
+    var modelName = serializedData['modelName'] as String;
+    var modelData = serializedElement['model'] as Map;
+    var serializedModelData =
+        (modelData['serializedData'] as Map).cast<String, dynamic>();
     model = provider
-        .getModelTypeByModelName(serializedData['modelName'])
+        .getModelTypeByModelName(modelName)
         .fromJson(serializedModelData);
   }
 }
