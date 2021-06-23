@@ -1,6 +1,6 @@
 name: amplify_api_plugin_interface
 description: The Amplify Flutter API category plugin interface.
-version: 0.1.5
+version: 0.1.6
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify_api_plugin_interface
 
 environment:
@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  amplify_core: 0.1.5
+  amplify_core: 0.1.6
   meta: ^1.1.8
   uuid: ^3.0.1
 

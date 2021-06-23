@@ -1,3 +1,24 @@
+## 0.1.6 (2021-06-23)
+
+### Features
+
+- feat(amplify_auth_cognito): add updateUserAttributes (batch) (#601)
+- feat: add updateUserAttributes (batch) (#601)
+
+### Bug Fixes
+
+- fix: amplify-ios version bump (#648)
+- fix: adds userAttributes to confirmSignIn (#607)
+- fix(amplify_auth_cognito): iOS/Android user attribute inconsistencies (#620)
+- fix: Add clientMetadata to confirmSignUp API options (#619)
+- fix: address issue #577 by changing iOS error to UserNotConfirmedException (#583)
+
+### Chores
+
+- chore: upgrade amplify-android to 1.19.0 (#650)
+- chore: foundation for integration tests and basic auth suite with signIn and signOut (#568)
+- chore: pin Amplify iOS to '~> 1.9.2' (#589)
+
 ## 0.1.5 (2021-05-17)
 
 ### Features

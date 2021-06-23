@@ -1,3 +1,13 @@
+## 0.1.6 (2021-06-23)
+
+### Features
+
+- feat: Add support of DataStore custom configuration (#610)
+
+### Chores
+
+- chore: add httpStatusCode property to ApiException when available from REST response (#590)
+
 ## 0.1.5 (2021-05-17)
 
 ## 0.1.4 (2021-04-27)
