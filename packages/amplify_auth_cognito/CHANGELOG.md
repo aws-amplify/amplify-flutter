@@ -2,7 +2,6 @@
 
 ### Features
 
-- feat(amplify_auth_cognito): add updateUserAttributes (batch) (#601)
 - feat: add updateUserAttributes (batch) (#601)
 
 ### Bug Fixes
