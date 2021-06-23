@@ -4,3 +4,4 @@ export 'types/temporal/temporal_datetime.dart';
 export 'types/temporal/temporal_timestamp.dart';
 
 export 'types/exception/DataStoreException.dart';
+export 'types/exception/DataStoreExceptionMessages.dart';
