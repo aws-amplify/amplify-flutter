@@ -13,22 +13,44 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'HubEventElement.dart';
+part of 'HubEventElement.dart';
 
+/// The model and metadata associated with a DataStore `outboxMutationProcessed`
+/// Hub event.
 class HubEventElementWithMetadata extends HubEventElement {
-  late final int version;
-  late final int lastChangedAt;
-  late final bool? deleted;
+  /// The version of the model.
+  final int version;
 
-  HubEventElementWithMetadata(
-    Map serializedData,
+  /// The last time the model was updated locally.
+  final DateTime lastChangedAt;
+
+  /// Whether or not the model was deleted.
+  final bool deleted;
+
+  const HubEventElementWithMetadata(
+    Model model, {
+    required this.version,
+    required this.lastChangedAt,
+    required this.deleted,
+  }) : super(model);
+
+  factory HubEventElementWithMetadata.fromMap(
+    Map serializedHubEventElement,
     ModelProviderInterface provider,
-  ) : super(serializedData, provider) {
-    var serializedElement = serializedData['element'] as Map;
+  ) {
+    var model = _parseModelFromMap(serializedHubEventElement, provider);
+    var serializedElement = serializedHubEventElement['element'] as Map;
     var metadata = serializedElement['syncMetadata'] as Map;
-    version = metadata['_version'] as int;
-    lastChangedAt = metadata['_lastChangedAt'] as int;
-    deleted = metadata['_deleted'] as bool?;
+    var version = metadata['_version'] as int;
+    var lastChangedAtSeconds = metadata['_lastChangedAt'] as int;
+    var lastChangedAt =
+        DateTime.fromMillisecondsSinceEpoch(1000 * lastChangedAtSeconds);
+    var deleted = metadata['_deleted'] as bool? ?? false;
+    return HubEventElementWithMetadata(
+      model,
+      version: version,
+      lastChangedAt: lastChangedAt,
+      deleted: deleted,
+    );
   }
 }
