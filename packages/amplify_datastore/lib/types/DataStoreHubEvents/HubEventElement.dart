@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:ui';
+import 'dart:ui' show hashValues;
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
