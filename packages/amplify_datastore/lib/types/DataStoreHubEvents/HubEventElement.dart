@@ -13,8 +13,9 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:ui';
+
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:flutter/material.dart';
 
 part 'HubEventElementWithMetadata.dart';
 
