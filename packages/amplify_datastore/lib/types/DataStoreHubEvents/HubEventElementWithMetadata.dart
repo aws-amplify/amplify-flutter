@@ -53,4 +53,16 @@ class HubEventElementWithMetadata extends HubEventElement {
       deleted: deleted,
     );
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is HubEventElementWithMetadata &&
+          model == other.model &&
+          version == other.version &&
+          lastChangedAt == other.lastChangedAt &&
+          deleted == other.deleted;
+
+  @override
+  int get hashCode => hashValues(model, version, lastChangedAt, deleted);
 }

@@ -14,6 +14,7 @@
  */
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:flutter/material.dart';
 
 part 'HubEventElementWithMetadata.dart';
 
@@ -32,6 +33,14 @@ class HubEventElement {
     var model = _parseModelFromMap(serializedHubEventElement, provider);
     return HubEventElement(model);
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is HubEventElement && model == other.model;
+
+  @override
+  int get hashCode => model.hashCode;
 }
 
 /// Retrieves the model instance from [serializedHubEventElement].

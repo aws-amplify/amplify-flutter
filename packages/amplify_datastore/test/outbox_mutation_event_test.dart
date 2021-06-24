@@ -30,6 +30,7 @@ void main() async {
     created: TemporalDateTime.fromString('2020-02-20T20:20:20-08:00'),
   );
 
+  var expectedEnqueuedHubEvent = HubEventElement(expectedPost);
   var expectedProcessedHubEvent = HubEventElementWithMetadata(
     expectedPost,
     version: 1,
@@ -49,8 +50,7 @@ void main() async {
       });
 
       test('fromMap', () {
-        var enqueuedPost = enqueuedHubEventElement.model as Post;
-        expect(enqueuedPost, expectedPost);
+        expect(enqueuedHubEventElement, expectedEnqueuedHubEvent);
       });
     });
 
@@ -66,20 +66,7 @@ void main() async {
         test('all fields', () {
           var processedHubEventElement = outboxMutationProcessedEvent.element
               as HubEventElementWithMetadata;
-          var processedPost = processedHubEventElement.model as Post;
-          expect(processedPost, expectedPost);
-          expect(
-            processedHubEventElement.version,
-            expectedProcessedHubEvent.version,
-          );
-          expect(
-            processedHubEventElement.lastChangedAt,
-            expectedProcessedHubEvent.lastChangedAt,
-          );
-          expect(
-            processedHubEventElement.deleted,
-            expectedProcessedHubEvent.deleted,
-          );
+          expect(processedHubEventElement, expectedProcessedHubEvent);
         });
 
         test('_deleted = null', () {
@@ -93,10 +80,7 @@ void main() async {
           );
           var processedHubEventElement = outboxMutationProcessedEvent.element
               as HubEventElementWithMetadata;
-          expect(
-            processedHubEventElement.deleted,
-            expectedProcessedHubEvent.deleted,
-          );
+          expect(processedHubEventElement.deleted, false);
         });
       });
     });
