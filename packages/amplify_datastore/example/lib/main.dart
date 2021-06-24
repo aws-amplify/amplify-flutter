@@ -312,6 +312,7 @@ class _MyAppState extends State<MyApp> {
   deleteBlog(String id) async {
     try {
       _selectedBlogForNewPost = null;
+      _selectedPostForNewComment = null;
       await Amplify.DataStore.delete(Blog(id: id, name: ""));
       runQueries();
     } catch (e) {
