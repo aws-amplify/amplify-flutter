@@ -21,6 +21,14 @@ import Amplify
 
 class AmplifySerializedModelUnitTests: XCTestCase {
     
+    override class func setUp() {
+        let models = FlutterModels()
+        models.addModelSchema(modelName: "Blog", modelSchema: SchemaData.BlogSchema)
+        models.addModelSchema(modelName: "Post", modelSchema: SchemaData.PostSchema)
+        models.addModelSchema(modelName: "Comment", modelSchema: SchemaData.CommentSchema)
+        models.registerModels(registry: ModelRegistry.self)
+    }
+    
     let serializedModelMaps: [String: Any] = try! readJsonMap(filePath: "serialized_model_maps")
 
      func test_blog_hasMany_serialization() throws {
@@ -98,7 +106,7 @@ class AmplifySerializedModelUnitTests: XCTestCase {
         XCTAssertEqual(ourSd["enumType"] as! String , refSd["enumType"] as! String);
     }
     
-    /// Tests that models initialized via a [Decoder], i.e. those persisted to storage, must include `__typename`.
+    /// Tests that models initialized via a [Decoder], and not via [ModelRegistry], must include `__typename`.
     func test_model_deserialization_fails_without_typename() throws {
         let encodedBlog = """
         {
@@ -109,7 +117,7 @@ class AmplifySerializedModelUnitTests: XCTestCase {
         XCTAssertThrowsError(try JSONDecoder().decode(FlutterSerializedModel.self, from: encodedBlog))
     }
     
-    /// Tests that models initialized via a [Decoder], i.e. those persisted to storage, must include `__typename`.
+    /// Tests that models initialized via a [Decoder], and not via [ModelRegistry], must include `__typename`.
     func test_model_deserialization_succeeds_with_typename() throws {
         let encodedBlog = """
         {
@@ -119,6 +127,56 @@ class AmplifySerializedModelUnitTests: XCTestCase {
         }
         """.data(using: .utf8)!
         XCTAssertNoThrow(try JSONDecoder().decode(FlutterSerializedModel.self, from: encodedBlog))
+    }
+    
+    /// Tests that models initialized via [ModelRegistry] can be deserialized from an object.
+    func test_model_registry_deserialization_succeeds_as_object() throws {
+        let modelName = "Blog"
+        let jsonWithTypename = """
+        {
+            "__typename": "Blog",
+            "id": "abc",
+            "name": "My Blog"
+        }
+        """
+        let modelWithTypename: Model = try ModelRegistry.decode(modelName: modelName, from: jsonWithTypename)
+        XCTAssertEqual(modelWithTypename.modelName, modelName)
+        
+        let jsonWithoutTypename = """
+        {
+            "id": "abc",
+            "name": "My Blog"
+        }
+        """
+        let modelWithoutTypename: Model = try ModelRegistry.decode(modelName: modelName, from: jsonWithoutTypename)
+        XCTAssertEqual(modelWithoutTypename.modelName, modelName)
+    }
+    
+    /// Tests that models initialized via [ModelRegistry] can be deserialized from an array.
+    func test_model_registry_deserialization_succeeds_as_array() throws {
+        let modelName = "Blog"
+        let jsonWithTypename = """
+        [
+            {
+                "__typename": "Blog",
+                "id": "abc",
+                "name": "My Blog"
+            }
+        ]
+        """
+        let modelWithTypename: Model = try ModelRegistry.decode(modelName: modelName, from: jsonWithTypename)
+        XCTAssertEqual(modelWithTypename.modelName, modelName)
+        
+        let jsonWithoutTypename = """
+        [
+            {
+                "id": "abc",
+                "name": "My Blog"
+            }
+        ]
+        """
+        let modelWithoutTypename: Model = try ModelRegistry.decode(modelName: modelName, from: jsonWithoutTypename)
+        XCTAssertEqual(modelWithoutTypename.modelName, modelName)
     }
     
     /// Verifies that all schema fields are included during SQLite encoding. In the case of `__typename`, this also
