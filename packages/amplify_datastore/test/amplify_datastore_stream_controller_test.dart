@@ -20,7 +20,6 @@ import 'package:amplify_core/types/index.dart';
 import 'package:amplify_datastore/amplify_datastore_stream_controller.dart';
 import 'package:amplify_datastore/types/DataStoreHubEvents/DataStoreHubEvent.dart';
 import 'package:amplify_datastore/types/DataStoreHubEvents/HubEventElement.dart';
-import 'package:amplify_datastore/types/DataStoreHubEvents/HubEventElementWithMetadata.dart';
 import 'package:amplify_datastore/types/DataStoreHubEvents/ModelSyncedEvent.dart';
 import 'package:amplify_datastore/types/DataStoreHubEvents/NetworkStatusEvent.dart';
 import 'package:amplify_datastore/types/DataStoreHubEvents/OutboxMutationEvent.dart';
@@ -275,7 +274,7 @@ void main() {
     expect((element.model as Post).created, equals(parsedDate));
     expect(element.deleted, equals(false));
     expect(element.version, equals(1));
-    expect(element.lastChangedAt, equals(1));
+    expect(element.lastChangedAt, equals(1624492860));
   });
 
   test('Can receive OutboxStatus Event', () async {
