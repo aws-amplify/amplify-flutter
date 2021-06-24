@@ -274,7 +274,7 @@ void main() {
     expect((element.model as Post).created, equals(parsedDate));
     expect(element.deleted, equals(false));
     expect(element.version, equals(1));
-    expect(element.lastChangedAt, equals(DateTime(2021, 6, 23, 17, 1, 0)));
+    expect(element.lastChangedAt, equals(1624492860));
   });
 
   test('Can receive OutboxStatus Event', () async {

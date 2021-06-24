@@ -21,8 +21,8 @@ class HubEventElementWithMetadata extends HubEventElement {
   /// The version of the model.
   final int version;
 
-  /// The last time the model was updated locally.
-  final DateTime lastChangedAt;
+  /// The last time the model was updated locally, in seconds since epoch.
+  final int lastChangedAt;
 
   /// Whether or not the model was deleted.
   final bool deleted;
@@ -42,9 +42,7 @@ class HubEventElementWithMetadata extends HubEventElement {
     var serializedElement = serializedHubEventElement['element'] as Map;
     var metadata = serializedElement['syncMetadata'] as Map;
     var version = metadata['_version'] as int;
-    var lastChangedAtSeconds = metadata['_lastChangedAt'] as int;
-    var lastChangedAt =
-        DateTime.fromMillisecondsSinceEpoch(1000 * lastChangedAtSeconds);
+    var lastChangedAt = metadata['_lastChangedAt'] as int;
     var deleted = metadata['_deleted'] as bool? ?? false;
     return HubEventElementWithMetadata(
       model,
@@ -53,16 +51,4 @@ class HubEventElementWithMetadata extends HubEventElement {
       deleted: deleted,
     );
   }
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is HubEventElementWithMetadata &&
-          model == other.model &&
-          version == other.version &&
-          lastChangedAt == other.lastChangedAt &&
-          deleted == other.deleted;
-
-  @override
-  int get hashCode => hashValues(model, version, lastChangedAt, deleted);
 }

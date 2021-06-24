@@ -34,14 +34,6 @@ class HubEventElement {
     var model = _parseModelFromMap(serializedHubEventElement, provider);
     return HubEventElement(model);
   }
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is HubEventElement && model == other.model;
-
-  @override
-  int get hashCode => model.hashCode;
 }
 
 /// Retrieves the model instance from [serializedHubEventElement].

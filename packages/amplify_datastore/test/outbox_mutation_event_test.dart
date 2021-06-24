@@ -30,11 +30,10 @@ void main() async {
     created: TemporalDateTime.fromString('2020-02-20T20:20:20-08:00'),
   );
 
-  var expectedEnqueuedHubEvent = HubEventElement(expectedPost);
   var expectedProcessedHubEvent = HubEventElementWithMetadata(
     expectedPost,
     version: 1,
-    lastChangedAt: DateTime(2021, 6, 23, 17, 1, 0),
+    lastChangedAt: 1624492860,
     deleted: false,
   );
 
@@ -45,12 +44,17 @@ void main() async {
       test('is HubEventElement', () {
         expect(
           enqueuedHubEventElement,
+          isA<HubEventElement>(),
+        );
+        expect(
+          enqueuedHubEventElement,
           isNot(isA<HubEventElementWithMetadata>()),
         );
       });
 
       test('fromMap', () {
-        expect(enqueuedHubEventElement, expectedEnqueuedHubEvent);
+        var post = enqueuedHubEventElement.model as Post;
+        expect(post, expectedPost);
       });
     });
 
@@ -66,7 +70,22 @@ void main() async {
         test('all fields', () {
           var processedHubEventElement = outboxMutationProcessedEvent.element
               as HubEventElementWithMetadata;
-          expect(processedHubEventElement, expectedProcessedHubEvent);
+          expect(
+            processedHubEventElement.model,
+            expectedProcessedHubEvent.model,
+          );
+          expect(
+            processedHubEventElement.version,
+            expectedProcessedHubEvent.version,
+          );
+          expect(
+            processedHubEventElement.lastChangedAt,
+            expectedProcessedHubEvent.lastChangedAt,
+          );
+          expect(
+            processedHubEventElement.deleted,
+            expectedProcessedHubEvent.deleted,
+          );
         });
 
         test('_deleted = null', () {
