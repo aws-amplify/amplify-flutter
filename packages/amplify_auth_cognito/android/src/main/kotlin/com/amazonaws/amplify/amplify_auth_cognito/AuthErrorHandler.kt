@@ -23,18 +23,10 @@ import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.exceptions.CognitoCodeExpiredException
 import com.amazonaws.services.cognitoidentityprovider.model.InvalidLambdaResponseException
-import com.amazonaws.services.cognitoidentityprovider.model.MFAMethodNotFoundException
-import com.amazonaws.services.cognitoidentityprovider.model.NotAuthorizedException
-import com.amazonaws.services.cognitoidentityprovider.model.SoftwareTokenMFANotFoundException
 import com.amazonaws.services.cognitoidentityprovider.model.TooManyFailedAttemptsException
-import com.amazonaws.services.cognitoidentityprovider.model.TooManyRequestsException
 import com.amazonaws.services.cognitoidentityprovider.model.UnexpectedLambdaException
 import com.amazonaws.services.cognitoidentityprovider.model.UserLambdaValidationException
-import com.amazonaws.services.cognitoidentityprovider.model.LimitExceededException
-import com.amazonaws.services.cognitoidentityprovider.model.InvalidParameterException
 import com.amazonaws.services.cognitoidentityprovider.model.ExpiredCodeException
-import com.amazonaws.services.cognitoidentityprovider.model.CodeMismatchException
-import com.amazonaws.services.cognitoidentityprovider.model.CodeDeliveryFailureException
 
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.auth.AuthException
@@ -52,41 +44,57 @@ class AuthErrorHandler {
             AmazonClientException, AmazonServiceException
         */
 
+        // error codes that are handled on the Dart side, excluding AuthException
+        val supportedErrorCodes = listOf<String>(
+                "AliasExistsException",
+                "CodeDeliveryFailureException",
+                "CodeExpiredException",
+                "CodeMismatchException",
+                "FailedAttemptsLimitExceededException",
+                "InternalErrorException",
+                "InvalidAccountTypeException",
+                "InvalidParameterException",
+                "InvalidPasswordException",
+                "LambdaException",
+                "LimitExceededException",
+                "MFAMethodNotFoundException",
+                "NotAuthorizedException",
+                "PasswordResetRequiredException",
+                "ResourceNotFoundException",
+                "SessionExpiredException",
+                "SessionUnavailableOfflineException",
+                "SessionUnavailableServiceException",
+                "SignedOutException",
+                "SoftwareTokenMFANotFoundException",
+                "TooManyFailedAttemptsException",
+                "TooManyRequestsException",
+                "UnknownException",
+                "UserCancelledException",
+                "UsernameExistsException",
+                "UserNotConfirmedException",
+                "UserNotFoundException",
+                "AmplifyException"
+        )
+
         if (error is AuthException) {
-            when (error) {
-                is AuthException.AliasExistsException -> errorCode = "AliasExistsException"
-                is AuthException.CodeDeliveryFailureException -> errorCode = "CodeDeliveryFailureException"
-                is AuthException.CodeExpiredException -> errorCode = "CodeExpiredException"
-                is AuthException.CodeMismatchException -> errorCode = "CodeMismatchException"
-                is AuthException.FailedAttemptsLimitExceededException -> errorCode = "FailedAttemptsLimitExceededException"
-                is AuthException.InvalidAccountTypeException -> errorCode = "InvalidAccountTypeException"
-                is AuthException.InvalidParameterException -> errorCode = "InvalidParameterException"
-                is AuthException.InvalidPasswordException -> errorCode = "InvalidPasswordException"
-                is AuthException.LimitExceededException -> errorCode = "LimitExceededException"
-                is AuthException.PasswordResetRequiredException -> errorCode = "PasswordResetRequiredException"
-                is AuthException.ResourceNotFoundException -> errorCode = "ResourceNotFoundException"
-                is AuthException.SessionExpiredException -> errorCode = "SessionExpiredException"
-                is AuthException.SignedOutException -> errorCode = "SignedOutException"
-                is AuthException.UnknownException -> errorCode = "UnknownException"
-                is AuthException.UserCancelledException -> errorCode = "UserCancelledException"
-                is AuthException.UsernameExistsException -> errorCode = "UsernameExistsException"
-                is AuthException.UserNotConfirmedException -> errorCode = "UserNotConfirmedException"
-                is AuthException.UserNotFoundException -> errorCode = "UserNotFoundException"
-                else -> when (error.cause) {
-                    is CognitoCodeExpiredException -> errorCode = "CodeExpiredException"
-                    is InvalidLambdaResponseException -> errorCode = "LambdaException"
-                    is MFAMethodNotFoundException -> errorCode = "MFAMethodNotFoundException"
-                    is NotAuthorizedException -> errorCode = "NotAuthorizedException"
-                    is SoftwareTokenMFANotFoundException -> errorCode = "SoftwareTokenMFANotFoundException"
-                    is TooManyRequestsException -> errorCode = "TooManyRequestsException"
-                    is UnexpectedLambdaException -> errorCode = "LambdaException"
-                    is UserLambdaValidationException -> errorCode = "LambdaException"
-                    is TooManyFailedAttemptsException -> errorCode = "FailedAttemptsLimitExceededException"
-                    is LimitExceededException -> errorCode = "LimitExceededException"
-                    is InvalidParameterException -> errorCode = "InvalidParameterException"
-                    is ExpiredCodeException -> errorCode = "CodeExpiredException"
-                    is CodeMismatchException -> errorCode = "CodeMismatchException"
-                    is CodeDeliveryFailureException -> errorCode = "CodeDeliveryFailureException"
+            when {
+                supportedErrorCodes.contains(error.javaClass.simpleName) -> {
+                    errorCode = error.javaClass.simpleName;
+                }
+                supportedErrorCodes.contains(error.cause?.javaClass?.simpleName) -> {
+                    errorCode = error.cause!!.javaClass.simpleName;
+                }
+                else -> {
+                    when (error.cause) {
+                        // The following codes have to be explicitly mapped because the Exception
+                        // name does not match the amplify exception name
+                        is ExpiredCodeException -> errorCode = "CodeExpiredException"
+                        is CognitoCodeExpiredException -> errorCode = "CodeExpiredException"
+                        is TooManyFailedAttemptsException -> errorCode = "FailedAttemptsLimitExceededException"
+                        is InvalidLambdaResponseException -> errorCode = "LambdaException"
+                        is UnexpectedLambdaException -> errorCode = "LambdaException"
+                        is UserLambdaValidationException -> errorCode = "LambdaException"
+                    }
                 }
             }
         }

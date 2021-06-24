@@ -366,7 +366,7 @@ class AuthErrorHandlerTest {
     @Test
     fun sessionUnavailableOfflineException() {
         // Arrange
-        val expectedCode = "AuthException"
+        val expectedCode = "SessionUnavailableOfflineException"
         val exception: AuthException = AuthException.SessionUnavailableOfflineException(AmazonClientException(expectedCode))
         doAnswer { invocation: InvocationOnMock ->
             errorHandler.handleAuthError(mockResult, exception)
@@ -377,7 +377,7 @@ class AuthErrorHandlerTest {
         val details = mapOf(
                 "recoverySuggestion" to "Check online connectivity and retry operation.",
                 "message" to "Unable to fetch/refresh credentials because the server is unreachable.",
-                "underlyingException" to "com.amazonaws.AmazonClientException: AuthException"
+                "underlyingException" to "com.amazonaws.AmazonClientException: SessionUnavailableOfflineException"
         )
 
         // Act
@@ -390,7 +390,7 @@ class AuthErrorHandlerTest {
     @Test
     fun sessionUnavailableServiceException() {
         // Arrange
-        val expectedCode = "AuthException"
+        val expectedCode = "SessionUnavailableServiceException"
         val exception: AuthException = AuthException.SessionUnavailableServiceException(AmazonClientException(expectedCode))
         doAnswer { invocation: InvocationOnMock ->
             errorHandler.handleAuthError(mockResult, exception)
@@ -401,7 +401,7 @@ class AuthErrorHandlerTest {
         val details = mapOf(
                 "recoverySuggestion" to "Retry with exponential backoff.",
                 "message" to "Unable to fetch/refresh credentials because of a service error.",
-                "underlyingException" to "com.amazonaws.AmazonClientException: AuthException"
+                "underlyingException" to "com.amazonaws.AmazonClientException: SessionUnavailableServiceException"
         )
 
         // Act
