@@ -31,8 +31,9 @@ class HubEventElementWithMetadata extends HubEventElement {
     Model model, {
     required this.version,
     required this.lastChangedAt,
-    required this.deleted,
-  }) : super(model);
+    bool? deleted,
+  })  : deleted = deleted ?? false,
+        super(model);
 
   factory HubEventElementWithMetadata.fromMap(
     Map serializedHubEventElement,
@@ -43,7 +44,7 @@ class HubEventElementWithMetadata extends HubEventElement {
     var metadata = serializedElement['syncMetadata'] as Map;
     var version = metadata['_version'] as int;
     var lastChangedAt = metadata['_lastChangedAt'] as int;
-    var deleted = metadata['_deleted'] as bool? ?? false;
+    var deleted = metadata['_deleted'] as bool?;
     return HubEventElementWithMetadata(
       model,
       version: version,
