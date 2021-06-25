@@ -182,7 +182,7 @@ class AuthCategory {
 
   /// Updates multiple user attributes and returns a map of  [UpdateUserAttributeResult]
   Future<Map<String, UpdateUserAttributeResult>> updateUserAttributes({
-    @required List<AuthUserAttribute> attributes,
+    required List<AuthUserAttribute> attributes,
   }) {
     var request = UpdateUserAttributesRequest(attributes: attributes);
     return plugins.length == 1
