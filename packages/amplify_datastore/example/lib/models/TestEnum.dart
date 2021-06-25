@@ -15,4 +15,8 @@
 
 // ignore_for_file: public_member_api_docs
 
-enum TestEnum { yes, no, maybe }
+enum TestEnum {
+  yes,
+  no,
+  maybe
+}

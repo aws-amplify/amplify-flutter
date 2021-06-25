@@ -43,80 +43,56 @@ class ModelProvider implements ModelProviderInterface {
   @override
   String version = "0e8e5514647b80c1bbfff044f1df24f0";
   @override
-  List<ModelSchema> modelSchemas = [
-    AllTypeModel.schema,
-    AllTypeOptionalModel.schema,
-    BelongsToModel.schema,
-    Blog.schema,
-    Comment.schema,
-    HasManyBelongsToModel.schema,
-    HasManyModel.schema,
-    HasOneModel.schema,
-    Post.schema,
-    PostAuthComplex.schema
-  ];
+  List<ModelSchema> modelSchemas = [AllTypeModel.schema, AllTypeOptionalModel.schema, BelongsToModel.schema, Blog.schema, Comment.schema, HasManyBelongsToModel.schema, HasManyModel.schema, HasOneModel.schema, Post.schema, PostAuthComplex.schema];
   static final ModelProvider _instance = ModelProvider();
 
   static ModelProvider get instance => _instance;
-
+  
   ModelType getModelTypeByModelName(String modelName) {
-    switch (modelName) {
-      case "AllTypeModel":
-        {
-          return AllTypeModel.classType;
-        }
-        break;
-      case "AllTypeOptionalModel":
-        {
-          return AllTypeOptionalModel.classType;
-        }
-        break;
-      case "BelongsToModel":
-        {
-          return BelongsToModel.classType;
-        }
-        break;
-      case "Blog":
-        {
-          return Blog.classType;
-        }
-        break;
-      case "Comment":
-        {
-          return Comment.classType;
-        }
-        break;
-      case "HasManyBelongsToModel":
-        {
-          return HasManyBelongsToModel.classType;
-        }
-        break;
-      case "HasManyModel":
-        {
-          return HasManyModel.classType;
-        }
-        break;
-      case "HasOneModel":
-        {
-          return HasOneModel.classType;
-        }
-        break;
-      case "Post":
-        {
-          return Post.classType;
-        }
-        break;
-      case "PostAuthComplex":
-        {
-          return PostAuthComplex.classType;
-        }
-        break;
-      default:
-        {
-          throw Exception(
-              "Failed to find model in model provider for model name: " +
-                  modelName);
-        }
+    switch(modelName) {
+    case "AllTypeModel": {
+    return AllTypeModel.classType;
+    }
+    break;
+    case "AllTypeOptionalModel": {
+    return AllTypeOptionalModel.classType;
+    }
+    break;
+    case "BelongsToModel": {
+    return BelongsToModel.classType;
+    }
+    break;
+    case "Blog": {
+    return Blog.classType;
+    }
+    break;
+    case "Comment": {
+    return Comment.classType;
+    }
+    break;
+    case "HasManyBelongsToModel": {
+    return HasManyBelongsToModel.classType;
+    }
+    break;
+    case "HasManyModel": {
+    return HasManyModel.classType;
+    }
+    break;
+    case "HasOneModel": {
+    return HasOneModel.classType;
+    }
+    break;
+    case "Post": {
+    return Post.classType;
+    }
+    break;
+    case "PostAuthComplex": {
+    return PostAuthComplex.classType;
+    }
+    break;
+    default: {
+    throw Exception("Failed to find model in model provider for model name: " + modelName);
+    }
     }
   }
 }

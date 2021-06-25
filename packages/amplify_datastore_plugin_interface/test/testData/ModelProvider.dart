@@ -61,6 +61,7 @@ class ModelProvider implements ModelProviderInterface {
         {
           return PostAuthComplex.classType;
         }
+        break;
       default:
         {
           throw Exception(
