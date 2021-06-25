@@ -163,4 +163,48 @@ void main() {
     }
     throw new Exception('Expected an ApiException');
   });
+
+  test('query should serialize apiName parameter when included in request',
+      () async {
+    var apiName = "publicApi";
+    String graphQLDocument = '''query MyQuery {
+      listBlogs {
+        items {
+          id
+          name
+          createdAt
+        }
+      }
+    }''';
+
+    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      expect(methodCall.arguments['apiName'], apiName);
+      return {'errors': []};
+    });
+    var operation = api.query<String>(
+        request: GraphQLRequest(
+            document: graphQLDocument, variables: {}, apiName: apiName));
+    await operation.response;
+  });
+
+  test('query should not serialize apiName when not included in request',
+      () async {
+    String graphQLDocument = '''query MyQuery {
+      listBlogs {
+        items {
+          id
+          name
+          createdAt
+        }
+      }
+    }''';
+
+    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      expect(methodCall.arguments['apiName'], null);
+      return {'errors': []};
+    });
+    var operation = api.query<String>(
+        request: GraphQLRequest(document: graphQLDocument, variables: {}));
+    await operation.response;
+  });
 }

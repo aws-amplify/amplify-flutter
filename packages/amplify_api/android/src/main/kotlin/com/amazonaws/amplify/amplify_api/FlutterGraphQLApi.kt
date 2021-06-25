@@ -22,7 +22,12 @@ import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
 import com.amplifyframework.api.aws.GsonVariablesSerializer
 import com.amplifyframework.api.graphql.SimpleGraphQLRequest
 import com.amplifyframework.api.graphql.SubscriptionType
+import com.amplifyframework.api.graphql.GraphQLOperation
+import com.amplifyframework.api.graphql.GraphQLResponse
 import com.amplifyframework.core.Amplify
+import com.amplifyframework.core.Consumer
+import com.amplifyframework.core.Action
+import com.amplifyframework.api.ApiException
 import io.flutter.plugin.common.MethodChannel
 
 class FlutterGraphQLApi {
@@ -32,11 +37,13 @@ class FlutterGraphQLApi {
 
         @JvmStatic
         fun query(flutterResult: MethodChannel.Result, request: Map<String, Any>) {
+            var apiName: String?
             var document: String
             var variables: Map<String, Any>
             var cancelToken: String
 
             try {
+                apiName = FlutterApiRequest.getApiName(request)
                 document = FlutterApiRequest.getGraphQLDocument(request)
                 variables = FlutterApiRequest.getVariables(request)
                 cancelToken = FlutterApiRequest.getCancelToken(request)
@@ -47,33 +54,55 @@ class FlutterGraphQLApi {
                 }
                 return
             }
-            var operation = Amplify.API.query(
+            
+            var operation: GraphQLOperation<String>? = null 
+            
+            var responseCallback = Consumer<GraphQLResponse<String>> { response ->
+                if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
+
+                var result: Map<String, Any> = mapOf(
+                        "data" to response.data,
+                        "errors" to response.errors.map { it.message }
+                )
+                LOG.debug("GraphQL query operation succeeded with response: $result")
+                handler.post { flutterResult.success(result) }
+            }
+
+            var errorCallback = Consumer<ApiException>  { exception ->
+                if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
+
+                LOG.error("GraphQL mutate operation failed", exception)
+                handler.post {
+                    ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
+                            ExceptionUtil.createSerializedError(exception))
+                }
+            }
+
+            if (apiName != null) {
+                operation = Amplify.API.query(
+                    apiName,
                     SimpleGraphQLRequest<String>(
                             document,
                             variables,
                             String::class.java,
                             GsonVariablesSerializer()
                     ),
-                    { response ->
-                        if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
+                    responseCallback,
+                    errorCallback
+                )
+            } else {
+                operation = Amplify.API.query(
+                    SimpleGraphQLRequest<String>(
+                            document,
+                            variables,
+                            String::class.java,
+                            GsonVariablesSerializer()
+                    ),
+                    responseCallback,
+                    errorCallback
+                )
+            }
 
-                        var result: Map<String, Any> = mapOf(
-                                "data" to response.data,
-                                "errors" to response.errors.map { it.message }
-                        )
-                        LOG.debug("GraphQL query operation succeeded with response: $result")
-                        handler.post { flutterResult.success(result) }
-                    },
-                    { exception ->
-                        if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
-
-                        LOG.error("GraphQL query operation failed", exception)
-                        handler.post {
-                            ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
-                                    ExceptionUtil.createSerializedError(exception))
-                        }
-                    }
-            )
             if (operation != null) {
                 OperationsManager.addOperation(cancelToken, operation)
             }
@@ -81,11 +110,13 @@ class FlutterGraphQLApi {
 
         @JvmStatic
         fun mutate(flutterResult: MethodChannel.Result, request: Map<String, Any>) {
+            var apiName: String?
             var document: String
             var variables: Map<String, Any>
             var cancelToken: String
 
             try {
+                apiName = FlutterApiRequest.getApiName(request)
                 document = FlutterApiRequest.getGraphQLDocument(request)
                 variables = FlutterApiRequest.getVariables(request)
                 cancelToken = FlutterApiRequest.getCancelToken(request)
@@ -96,33 +127,55 @@ class FlutterGraphQLApi {
                 }
                 return
             }
-            var operation = Amplify.API.mutate(
+            var operation: GraphQLOperation<String?>? = null
+
+            var responseCallback = Consumer<GraphQLResponse<String>> { response ->
+                if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
+                
+                var result: Map<String, Any> = mapOf(
+                        "data" to response.data,
+                        "errors" to response.errors.map { it.message }
+                )
+                LOG.debug("GraphQL mutate operation succeeded with response : $result")
+                handler.post { flutterResult.success(result) }
+            }
+
+            var errorCallback = Consumer<ApiException> { exception ->
+                 if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
+                    
+                    LOG.error("GraphQL mutate operation failed", exception)
+                    handler.post {
+                        ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
+                                ExceptionUtil.createSerializedError(exception))
+                    }
+            }
+
+            if (apiName != null ) {
+                operation = Amplify.API.mutate(
+                    apiName,
                     SimpleGraphQLRequest<String>(
                             document,
                             variables,
                             String::class.java,
                             GsonVariablesSerializer()
                     ),
-                    { response ->
-                        if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
+                    responseCallback,
+                    errorCallback
+                )
+            } else {
+                operation = Amplify.API.mutate(
+                    SimpleGraphQLRequest<String>(
+                            document,
+                            variables,
+                            String::class.java,
+                            GsonVariablesSerializer()
+                    ),
+                    responseCallback,
+                    errorCallback
+                )
+            }
 
-                        var result: Map<String, Any> = mapOf(
-                                "data" to response.data,
-                                "errors" to response.errors.map { it.message }
-                        )
-                        LOG.debug("GraphQL mutate operation succeeded with response : $result")
-                        handler.post { flutterResult.success(result) }
-                    },
-                    { exception ->
-                        if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
 
-                        LOG.error("GraphQL mutate operation failed", exception)
-                        handler.post {
-                            ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
-                                    ExceptionUtil.createSerializedError(exception))
-                        }
-                    }
-            )
             if (operation != null) {
                 OperationsManager.addOperation(cancelToken, operation)
             }
@@ -130,12 +183,14 @@ class FlutterGraphQLApi {
 
         @JvmStatic
         fun subscribe(flutterResult: MethodChannel.Result, request: Map<String, Any>, graphqlSubscriptionStreamHandler: GraphQLSubscriptionStreamHandler) {
+            var apiName: String?
             var document: String
             var variables: Map<String, Any>
             var id: String
             var established = false
 
             try {
+                apiName = FlutterApiRequest.getApiName(request)
                 document = FlutterApiRequest.getGraphQLDocument(request)
                 variables = FlutterApiRequest.getVariables(request)
                 id = FlutterApiRequest.getCancelToken(request)
@@ -146,43 +201,70 @@ class FlutterGraphQLApi {
                 }
                 return
             }
-            var operation = Amplify.API.subscribe(
+            var operation: GraphQLOperation<String?>? = null
+
+            var conectionCallback  = Consumer<String> {
+                established = true
+                LOG.debug("Subscription established: $id")
+                handler.post { flutterResult.success(null) }
+            }
+
+            var responseCallback = Consumer<GraphQLResponse<String>> { response ->
+                val payload: Map<String, Any> = mapOf(
+                        "data" to response.data,
+                        "errors" to response.errors.map { it.message }
+                )
+                LOG.debug("GraphQL subscription event received: $payload")
+                graphqlSubscriptionStreamHandler.sendEvent(payload, id, GraphQLSubscriptionEventTypes.DATA)
+            }
+
+            var errorCallback = Consumer<ApiException>  { 
+                if (!id.isNullOrEmpty()) OperationsManager.removeOperation(id)
+                if (established) {
+                    graphqlSubscriptionStreamHandler.sendError("ApiException", ExceptionUtil.createSerializedError(it))
+                } else {
+                    handler.post {
+                        ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
+                                ExceptionUtil.createSerializedError(it))
+                    }
+                }
+            }
+
+            var disconnectionCallback = Action {
+                if (!id.isNullOrEmpty()) OperationsManager.removeOperation(id)
+                LOG.debug("Subscription has been closed successfully")
+                graphqlSubscriptionStreamHandler.sendEvent(null, id, GraphQLSubscriptionEventTypes.DONE)
+            }
+
+
+            if (apiName != null){
+                operation = Amplify.API.subscribe(
+                    apiName,
                     SimpleGraphQLRequest<String>(
                             document,
                             variables,
                             String::class.java,
                             GsonVariablesSerializer()
                     ),
-                    {
-                        established = true
-                        LOG.debug("Subscription established: $id")
-                        handler.post { flutterResult.success(null) }
-                    },
-                    {response ->
-                        val payload: Map<String, Any> = mapOf(
-                                "data" to response.data,
-                                "errors" to response.errors.map { it.message }
-                        )
-                        LOG.debug("GraphQL subscription event received: $payload")
-                        graphqlSubscriptionStreamHandler.sendEvent(payload, id, GraphQLSubscriptionEventTypes.DATA)
-                    },
-                    {
-                        if (!id.isNullOrEmpty()) OperationsManager.removeOperation(id)
-                        if (established) {
-                            graphqlSubscriptionStreamHandler.sendError("ApiException", ExceptionUtil.createSerializedError(it))
-                        } else {
-                            handler.post {
-                                ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
-                                        ExceptionUtil.createSerializedError(it))
-                            }
-                        }
-                    },
-                    {
-                        if (!id.isNullOrEmpty()) OperationsManager.removeOperation(id)
-                        LOG.debug("Subscription has been closed successfully")
-                        graphqlSubscriptionStreamHandler.sendEvent(null, id, GraphQLSubscriptionEventTypes.DONE)
-                    }
-            )
+                    conectionCallback,
+                    responseCallback,
+                    errorCallback,
+                    disconnectionCallback
+                )
+            } else {
+                operation = Amplify.API.subscribe(
+                    SimpleGraphQLRequest<String>(
+                            document,
+                            variables,
+                            String::class.java,
+                            GsonVariablesSerializer()
+                    ),
+                    conectionCallback,
+                    responseCallback,
+                    errorCallback,
+                    disconnectionCallback
+                )
+            }
             if (operation != null) {
                 OperationsManager.addOperation(id, operation)
             }
