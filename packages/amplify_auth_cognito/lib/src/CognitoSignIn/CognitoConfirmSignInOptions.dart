@@ -17,13 +17,17 @@ import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart
 
 class CognitoConfirmSignInOptions extends ConfirmSignInOptions {
   Map<String, String>? clientMetadata;
-  CognitoConfirmSignInOptions({this.clientMetadata}) : super();
+  Map<String, String>? userAttributes;
+  CognitoConfirmSignInOptions({this.clientMetadata, this.userAttributes})
+      : super();
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     if (this.clientMetadata != null) {
       pendingRequest["clientMetadata"] = clientMetadata;
     }
+    if (this.userAttributes != null) {
+      pendingRequest["userAttributes"] = userAttributes;
+    }
     return pendingRequest;
   }
 }
-

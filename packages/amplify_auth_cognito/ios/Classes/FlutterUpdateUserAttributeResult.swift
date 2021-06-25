@@ -18,10 +18,7 @@ import Foundation
 import Amplify
 
 struct FlutterUpdateUserAttributeResult {
-    var isUpdated: Bool
-    var updateAttributeStep: String;
-    var additionalInfo: [String: String]
-    var codeDeliveryDetails: [String: String]
+    var result: AuthUpdateAttributeResult?
 
     init(res: AmplifyOperation<AuthUpdateUserAttributeRequest, AuthUpdateAttributeResult, AuthError>.OperationResult){
       self.isUpdated = isComplete(res: res)
@@ -33,17 +30,17 @@ struct FlutterUpdateUserAttributeResult {
     func toJSON() -> Dictionary<String, Any> {
       var result: Dictionary<String, Any> = ["isUpdated": self.isUpdated]
       var nextStep: Dictionary<String, Any> = ["updateAttributeStep": self.updateAttributeStep]
-      
+
       if (!self.codeDeliveryDetails.isEmpty) {
         nextStep["codeDeliveryDetails"] = self.codeDeliveryDetails
       }
-        
+
       if (!self.additionalInfo.isEmpty) {
         nextStep["additionalInfo"] = self.additionalInfo
       }
-        
+
       result["nextStep"] = nextStep
-        
+
       return result
     }
 }
@@ -116,7 +113,11 @@ func setState(res: AmplifyOperation<AuthUpdateUserAttributeRequest, AuthUpdateAt
             return "CONFIRM_ATTRIBUTE_WITH_CODE"
           }
         case .failure:
-           return "ERROR"
+            self.result = nil
+        }
     }
-    return state
+
+    func toJSON() -> Dictionary<String, Any> {
+        return serializeAuthUpdateAttributeResult(result: self.result)
+    }
 }

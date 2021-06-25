@@ -27,9 +27,6 @@ data class FlutterUpdateUserAttributeResult(private val raw: AuthUpdateAttribute
             raw.nextStep.additionalInfo)
 
     fun toValueMap(): Map<String, Any> {
-        return mapOf(
-            "isUpdated" to this.isUpdated,
-            "nextStep" to this.nextStep
-        )
+        return serializeAuthUpdateAttributeResult(result)
     }
 }

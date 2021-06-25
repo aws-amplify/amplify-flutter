@@ -118,12 +118,8 @@ class AmplifyClass extends PlatformInterface {
   /// Adds multiple plugins at the same time. Note: this method can only
   /// be called before Amplify has been configured. Customers are expected
   /// to check the configuration state by calling `Amplify.isConfigured`
-  Future<void> addPlugins(List<AmplifyPluginInterface> plugins) async {
-    plugins.forEach((plugin) async {
-      await addPlugin(plugin);
-    });
-    return;
-  }
+  Future<void> addPlugins(List<AmplifyPluginInterface> plugins) =>
+      Future.wait(plugins.map((plugin) => addPlugin(plugin)));
 
   /// Returns whether Amplify has been configured or not.
   bool get isConfigured {

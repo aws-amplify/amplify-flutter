@@ -39,6 +39,10 @@ void main() {
 
   AmplifyAuthCognito auth = AmplifyAuthCognito();
   TestWidgetsFlutterBinding.ensureInitialized();
+  const testAttributeKey = 'email';
+  const testEmailValue = 'test@test.test';
+  const testMetadataKey = 'key';
+  const testMetaDataAttribute = 'val';
 
   tearDown(() {
     authChannel.setMockMethodCallHandler(null);
@@ -55,9 +59,15 @@ void main() {
           "nextStep": {
             "signInStep": "DONE",
             "codeDeliveryDetails": {
+<<<<<<< HEAD
               "attributeName": "email",
               "deliveryMedium": "EMAIL",
               "destination": "test@test.test"
+=======
+              "deliveryMedium": "EMAIL",
+              "attributeName": testAttributeKey,
+              "destination": testEmailValue
+>>>>>>> b432213fdfbacf7e0ec29981e95b81c1cbfd22c3
             }
           }
         };
@@ -69,11 +79,20 @@ void main() {
     var expectation = CognitoSignInResult(
         isSignedIn: false,
         nextStep: AuthNextSignInStep(
+<<<<<<< HEAD
           additionalInfo: null,
           codeDeliveryDetails: AuthCodeDeliveryDetails(
               attributeName: "email",
               deliveryMedium: "EMAIL",
               destination: "test@test.test"),
+=======
+          additionalInfo: {},
+          codeDeliveryDetails: {
+            "deliveryMedium": "EMAIL",
+            "attributeName": testAttributeKey,
+            "destination": testEmailValue
+          },
+>>>>>>> b432213fdfbacf7e0ec29981e95b81c1cbfd22c3
           signInStep: "DONE",
         ));
     var res = await auth.confirmSignIn(
@@ -83,11 +102,13 @@ void main() {
 
   test('confirmSignIn request accepts and serializes options',
           () async {
-        var options = CognitoConfirmSignInOptions(clientMetadata: {'key': 'val'});
+        var options = CognitoConfirmSignInOptions(clientMetadata: {testMetadataKey: testMetaDataAttribute}, userAttributes: {testAttributeKey: testEmailValue});
         var req = ConfirmSignInRequest(confirmationValue: '1233', options: options).serializeAsMap();
         expect(req['options'], isInstanceOf<Map>());
         expect(req['options']['clientMetadata'], isInstanceOf<Map>());
-        expect(req['options']['clientMetadata']['key'], equals('val'));
+        expect(req['options']['clientMetadata'][testMetadataKey], equals(testMetaDataAttribute));
+        expect(req['options']['userAttributes'], isInstanceOf<Map>());
+        expect(req['options']['userAttributes'][testAttributeKey], equals(testEmailValue));
   });
 
   test('confirmSignIn thrown PlatFormException results in AuthException', () async {
