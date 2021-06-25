@@ -9,6 +9,9 @@ scripts:
   setup_tuneup: >
     flutter pub global activate tuneup
 
+  setup_dartdoc: >
+    flutter pub global activate dartdoc
+
   copy_dummy_config: >
     melos exec --scope="*example*" --fail-fast -- \
       cp -n "\$MELOS_ROOT_PATH"/.circleci/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart | true
@@ -78,6 +81,14 @@ scripts:
     run: melos exec -c 1 --no-private -- flutter pub global run tuneup check
     description: >
       Run tuneup check over all packages. Requires tuneup. You can use `melos run setup_tuneup`.
+    select-package:
+      ignore:
+        - "*example*"
+
+  doc:
+    run: melos exec --no-private -- flutter pub global run dartdoc
+    description: >
+      Run dartdoc on all packages. Use `melos run setup_dartdoc` if you need to activate it.
     select-package:
       ignore:
         - "*example*"
