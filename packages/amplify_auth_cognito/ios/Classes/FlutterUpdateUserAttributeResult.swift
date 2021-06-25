@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -13,38 +12,36 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-
 import Foundation
 import Amplify
-
 struct FlutterUpdateUserAttributeResult {
-    var result: AuthUpdateAttributeResult?
-
+    var isUpdated: Bool
+    var updateAttributeStep: String;
+    var additionalInfo: [String: String]
+    var codeDeliveryDetails: [String: String]
     init(res: AmplifyOperation<AuthUpdateUserAttributeRequest, AuthUpdateAttributeResult, AuthError>.OperationResult){
       self.isUpdated = isComplete(res: res)
       self.updateAttributeStep = setState(res: res)
       self.additionalInfo = setAdditionalInfo(res: res)
       self.codeDeliveryDetails = setCodeDeliveryDetails(res: res)
     }
-
     func toJSON() -> Dictionary<String, Any> {
       var result: Dictionary<String, Any> = ["isUpdated": self.isUpdated]
       var nextStep: Dictionary<String, Any> = ["updateAttributeStep": self.updateAttributeStep]
-
+      
       if (!self.codeDeliveryDetails.isEmpty) {
         nextStep["codeDeliveryDetails"] = self.codeDeliveryDetails
       }
-
+        
       if (!self.additionalInfo.isEmpty) {
         nextStep["additionalInfo"] = self.additionalInfo
       }
-
+        
       result["nextStep"] = nextStep
-
+        
       return result
     }
 }
-
 func isComplete(res: AmplifyOperation<AuthUpdateUserAttributeRequest, AuthUpdateAttributeResult, AuthError>.OperationResult) -> Bool {
   var complete: Bool = false;
   switch res {
@@ -55,7 +52,6 @@ func isComplete(res: AmplifyOperation<AuthUpdateUserAttributeRequest, AuthUpdate
   }
   return complete;
 }
-
 func setCodeDeliveryDetails(res: AmplifyOperation<AuthUpdateUserAttributeRequest, AuthUpdateAttributeResult, AuthError>.OperationResult) -> [String: String] {
     var deliveryMap: [String: String] = [:]
     switch res {
@@ -66,18 +62,15 @@ func setCodeDeliveryDetails(res: AmplifyOperation<AuthUpdateUserAttributeRequest
               deliveryMap["attributeName"] = "email"
               deliveryMap["deliveryMedium"] = "EMAIL"
             }
-
             if case let .phone(e) = deliveryDetails.destination {
               deliveryMap["destination"] = e! as String
               deliveryMap["attributeName"] = "phone"
             }
-
             if case let .sms(e) = deliveryDetails.destination {
               deliveryMap["destination"] = e! as String
               deliveryMap["attributeName"] = "sms"
               deliveryMap["deliveryMedium"] = "SMS"
             }
-
             if case let .unknown(e) = deliveryDetails.destination {
               deliveryMap["destination"] = e! as String
               deliveryMap["attributeName"] = "unknown"
@@ -88,7 +81,6 @@ func setCodeDeliveryDetails(res: AmplifyOperation<AuthUpdateUserAttributeRequest
     }
     return deliveryMap
 }
-
 func setAdditionalInfo(res:  AmplifyOperation<AuthUpdateUserAttributeRequest, AuthUpdateAttributeResult, AuthError>.OperationResult) -> [String: String] {
     var infoMap: [String: String] = [:]
     switch res {
@@ -101,7 +93,6 @@ func setAdditionalInfo(res:  AmplifyOperation<AuthUpdateUserAttributeRequest, Au
     }
     return infoMap
 }
-
 func setState(res: AmplifyOperation<AuthUpdateUserAttributeRequest, AuthUpdateAttributeResult, AuthError>.OperationResult) -> String {
     let state: String = "ERROR"
     switch res {
@@ -113,11 +104,8 @@ func setState(res: AmplifyOperation<AuthUpdateUserAttributeRequest, AuthUpdateAt
             return "CONFIRM_ATTRIBUTE_WITH_CODE"
           }
         case .failure:
-            self.result = nil
-        }
+           return "ERROR"
     }
-
-    func toJSON() -> Dictionary<String, Any> {
-        return serializeAuthUpdateAttributeResult(result: self.result)
-    }
+    return state
 }
+
