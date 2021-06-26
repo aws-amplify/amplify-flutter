@@ -194,7 +194,6 @@ class AmplifyAuthCognitoPluginTest {
             "isSignUpComplete" to false,
             "nextStep" to mapOf(
                 "signUpStep" to "CONFIRM_SIGN_UP_STEP",
-                "additionalInfo" to "{}",
                 "codeDeliveryDetails" to mapOf(
                     "destination" to "test@test.com",
                     "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
@@ -597,7 +596,8 @@ class AmplifyAuthCognitoPluginTest {
                                 "destination" to "test@test.com",
                                 "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
                                 "attributeName" to "email"
-                        )
+                        ),
+                        "additionalInfo" to "{}"
                 )
         )
 
@@ -632,7 +632,8 @@ class AmplifyAuthCognitoPluginTest {
                                 "destination" to "test@test.com",
                                 "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
                                 "attributeName" to "email"
-                        )
+                        ),
+                        "additionalInfo" to "{}"
                 )
         )
 
