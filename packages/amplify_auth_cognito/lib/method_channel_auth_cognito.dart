@@ -323,7 +323,6 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   @override
   Future<Map<String, UpdateUserAttributeResult>> updateUserAttributes(
       {required UpdateUserAttributesRequest request}) async {
-    Map<String, UpdateUserAttributeResult> res;
     try {
       final Map<String, dynamic>? data =
           await _channel.invokeMapMethod<String, dynamic>(
@@ -332,9 +331,10 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
           'data': request.serializeAsMap(),
         },
       );
-      if (data == null)
+      if (data == null) {
         throw AmplifyException(
             AmplifyExceptionMessages.nullReturnedFromMethodChannel);
+      }
       return _formatUpdateUserAttributesResponse(data);
     } on PlatformException catch (e) {
       throw castAndReturnPlatformException(e);

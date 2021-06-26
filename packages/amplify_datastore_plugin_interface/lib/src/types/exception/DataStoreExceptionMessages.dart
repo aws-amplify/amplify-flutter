@@ -19,7 +19,7 @@
 class DataStoreExceptionMessages {
   static const codeGenRequiredFieldForceCastExceptionMessage =
       "The field you are accessing is not nullable but has a null value."
-      "It was marked as required (!) in your schema.graphql but the containing model class was initialized without settings its value.";
+      "It was marked as required (!) in your schema.graphql but the containing model class was initialized without setting its value.";
 
   static const codeGenRequiredFieldForceCastRecoverySuggestion =
       "Please validate that the containing model class was initialized properly with all requried fields being initialized."

@@ -180,7 +180,7 @@ class AuthCategory {
         : throw _pluginNotAddedException("Auth");
   }
 
-  /// Updates multiple user attributes and returns a map of  [UpdateUserAttributeResult]
+  /// Updates multiple user attributes and returns a map of [UpdateUserAttributeResult]
   Future<Map<String, UpdateUserAttributeResult>> updateUserAttributes({
     required List<AuthUserAttribute> attributes,
   }) {

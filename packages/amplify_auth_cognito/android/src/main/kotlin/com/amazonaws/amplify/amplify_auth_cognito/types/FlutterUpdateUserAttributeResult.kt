@@ -15,22 +15,13 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
-import com.amazonaws.amplify.amplify_auth_cognito.setNextStep
 import com.amazonaws.amplify.amplify_auth_cognito.utils.serializeAuthUpdateAttributeResult
 import com.amplifyframework.auth.result.AuthUpdateAttributeResult
 
 data class FlutterUpdateUserAttributeResult(private val raw: AuthUpdateAttributeResult) {
-    val isUpdated: Boolean = raw.isUpdated
-    val nextStep: Map<String, Any> = setNextStep(
-            "updateAttributeStep",
-            raw.nextStep.updateAttributeStep.toString(),
-            raw.nextStep.codeDeliveryDetails,
-            raw.nextStep.additionalInfo)
+    val result: AuthUpdateAttributeResult = raw;
 
     fun toValueMap(): Map<String, Any> {
-        return mapOf(
-                "isUpdated" to this.isUpdated,
-                "nextStep" to this.nextStep
-        )
+        return serializeAuthUpdateAttributeResult(result)
     }
 }

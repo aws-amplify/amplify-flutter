@@ -47,13 +47,13 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   late final ModelProviderInterface modelProvider;
 
   /// Datastore sync interval (in seconds)
-  late final int? syncInterval;
+  int? syncInterval;
 
   /// Datastore max number of records to sync
-  late final int? syncMaxRecords;
+  int? syncMaxRecords;
 
   /// Datastore page size to sync
-  late final int? syncPageSize;
+  int? syncPageSize;
 
   /// Constructs an AmplifyPlatform.
   DataStorePluginInterface(

@@ -20,7 +20,6 @@ class ApiException extends AmplifyException {
   /// HTTP status of response, only available if error
   final int? httpStatusCode;
 
-  /// Named constructor
   const ApiException(String message,
       {String? recoverySuggestion,
       String? underlyingException,
