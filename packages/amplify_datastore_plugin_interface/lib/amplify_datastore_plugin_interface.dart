@@ -44,7 +44,7 @@ export 'src/publicTypes.dart';
 
 abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   /// modelProvider
-  late final ModelProviderInterface modelProvider;
+  ModelProviderInterface? modelProvider;
 
   /// Datastore sync interval (in seconds)
   int? syncInterval;

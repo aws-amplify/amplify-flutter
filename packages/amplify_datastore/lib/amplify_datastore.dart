@@ -68,7 +68,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
   Future<void> configureModelProvider(
       {ModelProviderInterface? modelProvider}) async {
     ModelProviderInterface provider =
-        modelProvider == null ? this.modelProvider : modelProvider;
+        (modelProvider == null ? this.modelProvider : modelProvider)!;
     if (provider.modelSchemas.isEmpty) {
       throw DataStoreException('No modelProvider or modelSchemas found',
           recoverySuggestion:

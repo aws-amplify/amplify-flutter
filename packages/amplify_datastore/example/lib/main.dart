@@ -96,11 +96,15 @@ class _MyAppState extends State<MyApp> {
       datastorePlugin = AmplifyDataStore(modelProvider: ModelProvider.instance);
       await Amplify.addPlugin(datastorePlugin);
 
-      // Uncomment the below line to enable online sync
-      // await Amplify.addPlugin(AmplifyAPI());
-
       // Configure
+
+      // Uncomment the below lines to enable online sync.
+      // await Amplify.addPlugin(AmplifyAPI());
+      // await Amplify.configure(amplifyconfig);
+
+      // Remove this line when using the lines above for online sync
       await Amplify.configure("{}");
+
     } on AmplifyAlreadyConfiguredException {
       print(
           'Amplify was already configured. Looks like app restarted on android.');
