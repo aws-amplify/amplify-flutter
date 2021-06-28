@@ -18,6 +18,7 @@
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
 
+
 /** This is an auto generated class representing the PostAuthComplex type in your schema. */
 @immutable
 class PostAuthComplex extends Model {
@@ -28,110 +29,113 @@ class PostAuthComplex extends Model {
 
   @override
   getInstanceType() => classType;
-
+  
   @override
   String getId() {
     return id;
   }
-
+  
   String get title {
     return _title!;
   }
-
+  
   String? get owner {
     return _owner;
   }
-
-  const PostAuthComplex._internal({required this.id, required title, owner})
-      : _title = title,
-        _owner = owner;
-
+  
+  const PostAuthComplex._internal({required this.id, required title, owner}): _title = title, _owner = owner;
+  
   factory PostAuthComplex({String? id, required String title, String? owner}) {
     return PostAuthComplex._internal(
-        id: id == null ? UUID.getUUID() : id, title: title, owner: owner);
+      id: id == null ? UUID.getUUID() : id,
+      title: title,
+      owner: owner);
   }
-
+  
   bool equals(Object other) {
     return this == other;
   }
-
+  
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is PostAuthComplex &&
-        id == other.id &&
-        _title == other._title &&
-        _owner == other._owner;
+      id == other.id &&
+      _title == other._title &&
+      _owner == other._owner;
   }
-
+  
   @override
   int get hashCode => toString().hashCode;
-
+  
   @override
   String toString() {
     var buffer = new StringBuffer();
-
+    
     buffer.write("PostAuthComplex {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("title=" + "$_title" + ", ");
     buffer.write("owner=" + "$_owner");
     buffer.write("}");
-
+    
     return buffer.toString();
   }
-
+  
   PostAuthComplex copyWith({String? id, String? title, String? owner}) {
     return PostAuthComplex(
-        id: id ?? this.id,
-        title: title ?? this.title,
-        owner: owner ?? this.owner);
+      id: id ?? this.id,
+      title: title ?? this.title,
+      owner: owner ?? this.owner);
   }
-
-  PostAuthComplex.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _title = json['title'],
-        _owner = json['owner'];
-
-  Map<String, dynamic> toJson() => {'id': id, 'title': _title, 'owner': _owner};
+  
+  PostAuthComplex.fromJson(Map<String, dynamic> json)  
+    : id = json['id'],
+      _title = json['title'],
+      _owner = json['owner'];
+  
+  Map<String, dynamic> toJson() => {
+    'id': id, 'title': _title, 'owner': _owner
+  };
 
   static final QueryField ID = QueryField(fieldName: "postAuthComplex.id");
   static final QueryField TITLE = QueryField(fieldName: "title");
   static final QueryField OWNER = QueryField(fieldName: "owner");
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "PostAuthComplex";
     modelSchemaDefinition.pluralName = "PostAuthComplexes";
-
+    
     modelSchemaDefinition.authRules = [
       AuthRule(
-          authStrategy: AuthStrategy.OWNER,
-          ownerField: "owner",
-          identityClaim: "cognito:username",
-          operations: [
-            ModelOperation.CREATE,
-            ModelOperation.UPDATE,
-            ModelOperation.DELETE,
-            ModelOperation.READ
-          ])
+        authStrategy: AuthStrategy.OWNER,
+        ownerField: "owner",
+        identityClaim: "cognito:username",
+        operations: [
+          ModelOperation.CREATE,
+          ModelOperation.UPDATE,
+          ModelOperation.DELETE,
+          ModelOperation.READ
+        ])
     ];
-
+    
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
-
+    
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: PostAuthComplex.TITLE,
-        isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
-
+      key: PostAuthComplex.TITLE,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: PostAuthComplex.OWNER,
-        isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+      key: PostAuthComplex.OWNER,
+      isRequired: false,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
   });
 }
 
 class _PostAuthComplexModelType extends ModelType<PostAuthComplex> {
   const _PostAuthComplexModelType();
-
+  
   @override
   PostAuthComplex fromJson(Map<String, dynamic> jsonData) {
     return PostAuthComplex.fromJson(jsonData);

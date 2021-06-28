@@ -230,9 +230,8 @@ class DataStorePluginUnitTests: XCTestCase {
                                                       flutterModelRegistration: flutterModelSchemaRegistration,
                                                       dataStoreObserveEventStreamHandler: streamHandler)
 
-        pluginUnderTest.onSetupObserve(flutterResult: {
-            (results) -> Void in
-            XCTAssertTrue(results as! Bool)
+        pluginUnderTest.onSetUpObserve(flutterResult: { result in
+            XCTAssertNil(result)
         })
 
         dataStoreBridge.mockPublisher.send(MutationEvent(
@@ -273,9 +272,8 @@ class DataStorePluginUnitTests: XCTestCase {
                                                       flutterModelRegistration: flutterModelSchemaRegistration,
                                                       dataStoreObserveEventStreamHandler: streamHandler)
 
-        pluginUnderTest.onSetupObserve(flutterResult: {
-            (results) -> Void in
-            XCTAssertTrue(results as! Bool)
+        pluginUnderTest.onSetUpObserve(flutterResult: { result in
+            XCTAssertNil(result)
         })
 
         dataStoreBridge.mockPublisher.send(MutationEvent(
@@ -315,9 +313,8 @@ class DataStorePluginUnitTests: XCTestCase {
                                                       flutterModelRegistration: flutterModelSchemaRegistration,
                                                       dataStoreObserveEventStreamHandler: streamHandler)
 
-        pluginUnderTest.onSetupObserve(flutterResult: {
-            (results) -> Void in
-            XCTAssertTrue(results as! Bool)
+        pluginUnderTest.onSetUpObserve(flutterResult: { result in
+            XCTAssertNil(result)
         })
 
         dataStoreBridge.mockPublisher.send(completion:

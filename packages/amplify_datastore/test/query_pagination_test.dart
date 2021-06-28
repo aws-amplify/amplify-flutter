@@ -16,7 +16,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

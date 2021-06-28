@@ -16,7 +16,6 @@
 import Foundation
 import Amplify
 import AmplifyPlugins
-import AWSCore
 import amplify_core
 
 struct FlutterConfirmSignInRequest {
@@ -30,8 +29,13 @@ struct FlutterConfirmSignInRequest {
   }
     
   func formatOptions(options: Dictionary<String, Any>?) -> AuthConfirmSignInOperation.Request.Options {
-     
+    let rawAttributes = options?["userAttributes"] as? [String : String] ?? [:]
+    let userAttributes: [AuthUserAttribute] = rawAttributes.map { key, value in
+      AuthUserAttribute(createAuthUserAttributeKey(keyName: key), value: value)
+    }
+    
     let pluginOptions =  AWSAuthConfirmSignInOptions(
+      userAttributes: userAttributes,
       metadata: options?["clientMetadata"] as? [String : String]
     )
     return AuthConfirmSignInOperation.Request.Options(pluginOptions: pluginOptions)

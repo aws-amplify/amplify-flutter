@@ -15,7 +15,6 @@
 
 // ignore_for_file: public_member_api_docs
 
-import 'package:flutter/foundation.dart';
 import 'AuthUserAttribute.dart';
 
 /// Encapsulates parameters for a update user attribute operation
