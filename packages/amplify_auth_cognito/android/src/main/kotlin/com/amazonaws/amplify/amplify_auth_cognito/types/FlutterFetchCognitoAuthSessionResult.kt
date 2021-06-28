@@ -79,6 +79,6 @@ data class FlutterFetchCognitoAuthSessionResult(private val raw: AWSCognitoAuthS
   //convert an object of type I to type O
   inline fun <I, reified O> I.convert(): O {
     val json = gson.toJson(this)
-    return gson.fromJson(json, object : TypeToken<O>() {}.type)
+    return gson.fromJson(json, O::class.java)
   }
 }
