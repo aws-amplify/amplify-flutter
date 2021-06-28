@@ -63,6 +63,21 @@ class AmplifyDataStore extends DataStorePluginInterface {
     return streamWrapper.datastoreStreamController;
   }
 
+  @deprecated
+  @override
+  Future<void> configureModelProvider(
+      {ModelProviderInterface? modelProvider}) async {
+    ModelProviderInterface provider =
+        (modelProvider == null ? this.modelProvider : modelProvider)!;
+    if (provider.modelSchemas.isEmpty) {
+      throw DataStoreException('No modelProvider or modelSchemas found',
+          recoverySuggestion:
+              'Pass in a modelProvider instance while instantiating DataStorePlugin');
+    }
+    streamWrapper.registerModelsForHub(provider);
+    return _instance.configureModelProvider(modelProvider: modelProvider);
+  }
+
   @override
   Future<void> configureDataStore(
       {ModelProviderInterface? modelProvider,
