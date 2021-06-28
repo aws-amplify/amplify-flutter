@@ -1,3 +1,20 @@
+## 0.1.6 (2021-06-23)
+
+### Features
+
+- feat: add updateUserAttributes (batch) (#601)
+
+### Fixes
+
+- fix: amplify-ios version bump (#648)
+- fix: adds userAttributes to confirmSignIn (#607)
+- fix: Add clientMetadata to confirmSignUp API options (#619)
+
+### Chores
+
+- chore: upgrade amplify-android to 1.19.0 (#650)
+- chore: pin Amplify iOS to '~> 1.9.2' (#589)
+
 ## 0.1.5 (2021-05-17)
 
 ## 0.1.4 (2021-04-27)

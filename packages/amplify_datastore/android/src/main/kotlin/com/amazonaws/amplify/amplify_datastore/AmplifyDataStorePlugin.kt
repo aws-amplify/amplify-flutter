@@ -35,12 +35,12 @@ import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
 import com.amplifyframework.core.async.Cancelable
 import com.amplifyframework.core.model.Model
+import com.amplifyframework.core.model.SerializedModel
 import com.amplifyframework.core.model.query.QueryOptions
 import com.amplifyframework.core.model.query.predicate.QueryPredicates
 import com.amplifyframework.datastore.AWSDataStorePlugin
 import com.amplifyframework.datastore.DataStoreConfiguration
 import com.amplifyframework.datastore.DataStoreException
-import com.amplifyframework.datastore.appsync.SerializedModel
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall

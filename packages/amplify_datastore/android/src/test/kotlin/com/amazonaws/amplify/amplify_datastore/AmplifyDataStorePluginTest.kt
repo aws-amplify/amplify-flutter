@@ -23,6 +23,7 @@ import com.amplifyframework.core.Consumer
 import com.amplifyframework.core.async.Cancelable
 import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.ModelSchema
+import com.amplifyframework.core.model.SerializedModel
 import com.amplifyframework.core.model.query.Page
 import com.amplifyframework.core.model.query.QueryOptions
 import com.amplifyframework.core.model.query.Where
@@ -36,7 +37,6 @@ import com.amplifyframework.datastore.DataStoreCategory
 import com.amplifyframework.datastore.DataStoreConfiguration
 import com.amplifyframework.datastore.DataStoreException
 import com.amplifyframework.datastore.DataStoreItemChange
-import com.amplifyframework.datastore.appsync.SerializedModel
 import io.flutter.plugin.common.MethodChannel
 import java.lang.reflect.Field
 import java.lang.reflect.Modifier
