@@ -31,7 +31,7 @@ class DataStoreCategory {
         // Extra step to configure datastore specifically.
         // Note: The native datastore plugins are not added
         // in the `onAttachedToEngine` but rather in the `configure()
-        await plugin.configureDataStore(modelProvider: plugin.modelProvider);
+        await plugin.configureDataStore(modelProvider: plugin.modelProvider!);
         plugins.add(plugin);
       } on AmplifyAlreadyConfiguredException catch (e) {
         plugins.add(plugin);
