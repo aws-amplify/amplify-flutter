@@ -738,11 +738,7 @@ class AmplifyAuthCognitoPluginTest {
                         "nextStep" to mapOf(
                                 "updateAttributeStep" to "DONE",
                                 "additionalInfo" to "{}",
-                                "codeDeliveryDetails" to mapOf(
-                                        "destination" to "",
-                                        "deliveryMedium" to "",
-                                        "attributeName" to ""
-                                )
+                                "codeDeliveryDetails" to null
                         )
                 )
         )
