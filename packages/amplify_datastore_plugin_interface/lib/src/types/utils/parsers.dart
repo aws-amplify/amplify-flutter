@@ -23,4 +23,4 @@ String? enumToString(Object? o) =>
 
 // only to be used internally by amplify-flutter library
 T? enumFromString<T>(String? key, List<T> values) =>
-    key == null ? null : values.firstWhereOrNull((v) => key == enumToString(v));
+    values.firstWhereOrNull((v) => key == enumToString(v));
