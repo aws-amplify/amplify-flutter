@@ -1,7 +1,7 @@
 ![AWS Amplify](https://s3.amazonaws.com/aws-mobile-hub-images/aws-amplify-logo.png)
 
 [![discord](https://img.shields.io/discord/308323056592486420?logo=discord)](https://discord.gg/jWVbPfC)
-[![CircleCI](https://circleci.com/gh/aws-amplify/amplify-flutter/tree/master.svg?style=shield)](https://circleci.com/gh/aws-amplify/amplify-flutter/tree/master)
+[![CircleCI](https://circleci.com/gh/aws-amplify/amplify-flutter/tree/main.svg?style=shield)](https://circleci.com/gh/aws-amplify/amplify-flutter/tree/main)
 
 ## Amplify Flutter
 
@@ -10,7 +10,7 @@ AWS Amplify provides a declarative and easy-to-use interface across different ca
 We are iterating and looking for feedback and collaboration, so please [**let us know your feedback**](https://github.com/aws-amplify/amplify-flutter/issues/5) on our direction and roadmap.
 
 - [Getting Started Guide](https://docs.amplify.aws/start/getting-started/setup/q/integration/flutter)
-- [Example Application](https://github.com/aws-amplify/amplify-flutter/tree/master/example)
+- [Example Application](https://github.com/aws-amplify/amplify-flutter/tree/main/example)
 - [Roadmap/Provide Feedback](https://github.com/aws-amplify/amplify-flutter/issues/5)
 
 ⚠️ **For breaking changes from the developer preview versions please refer to this [issue](https://github.com/aws-amplify/amplify-flutter/issues/274) for migration details.**
