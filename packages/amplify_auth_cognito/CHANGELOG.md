@@ -1,5 +1,10 @@
 ## 0.2.0 (2021-06-30)
 
+### Breaking Changes
+
+- AuthCodeDeliveryDetails are now nullable within the nextStep member of the CognitoSignInResult, CognitoSignUpResult, and CognitoResetPasswordResult classes.
+- AWSCredentials and AWSCognitoUserPoolTokens are now nullable within the CognitoAuthSession class.
+
 ### Features
 
 - feat: Null Safety Auth (#536)
