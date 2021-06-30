@@ -1,5 +1,9 @@
 ## 0.2.0 (2021-06-30)
 
+### Breaking Changes
+
+- The previously deprecated configureModelProvider function has been removed.
+
 ### Features
 
 - feat: Null safety datastore (#649)
