@@ -34,12 +34,12 @@ class FlutterRestApi {
     companion object {
         private val LOG = Amplify.Logging.forNamespace("amplify:flutter:api")
         private val handler = Handler(Looper.getMainLooper())
-        private const val GET = "get"
-        private const val POST = "post"
-        private const val PUT = "put"
-        private const val DELETE = "delete"
-        private const val HEAD = "head"
-        private const val PATCH = "patch"
+        const val GET = "get"
+        const val POST = "post"
+        const val PUT = "put"
+        const val DELETE = "delete"
+        const val HEAD = "head"
+        const val PATCH = "patch"
 
         private fun restFunctionHelper(
                 methodName: String,
@@ -48,7 +48,7 @@ class FlutterRestApi {
                 functionWithoutApiName: FunctionWithoutApiName,
                 functionWithApiName: FunctionWithApiName
         ) {
-            var cancelToken : String
+            var cancelToken: String
             var apiName: String?
             var options: RestOptions
 
@@ -56,6 +56,15 @@ class FlutterRestApi {
                 cancelToken = FlutterApiRequest.getCancelToken(request)
                 apiName = FlutterApiRequest.getApiPath(request)
                 options = FlutterApiRequest.getRestOptions(request)
+
+                // Needed to prevent Android library from throwing a fatal error when body not present in some methods. https://github.com/aws-amplify/amplify-android/issues/1355
+                FlutterApiRequest.checkForEmptyBodyIfRequired(options, methodName)
+            } catch (e: ApiException) {
+                handler.post {
+                    ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
+                            ExceptionUtil.createSerializedError(e))
+                }
+                return
             } catch (e: Exception) {
                 handler.post {
                     ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
@@ -65,25 +74,14 @@ class FlutterRestApi {
             }
 
             try {
-                // Needed to prevent Android library from throwing a fatal error when body not present in some methods. https://github.com/aws-amplify/amplify-android/issues/1355
-                if (!options.hasData() && (methodName == PUT || methodName == POST || methodName == PATCH)) {
-                    handler.post {
-                        ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
-                                ExceptionUtil.createSerializedError(
-                                        ApiException("$methodName request must have a body", "Add a body to the request.")
-                                )
-                        )
-                    }
-                    return
-                }
-
                 var operation: RestOperation?
                 if (apiName == null) {
                     operation = functionWithoutApiName(options,
                             Consumer { result ->
                                 if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
                                 //LOG.debug("$methodName operation succeeded with response: $result")
-                                prepareRestResponseResult(flutterResult, result, methodName) },
+                                prepareRestResponseResult(flutterResult, result, methodName)
+                            },
                             Consumer { exception ->
                                 if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
                                 //LOG.error("$methodName operation failed", exception)
@@ -100,7 +98,8 @@ class FlutterRestApi {
                             Consumer { result ->
                                 if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
                                 //LOG.debug("$methodName operation succeeded with response: $result")
-                                prepareRestResponseResult(flutterResult, result, methodName) },
+                                prepareRestResponseResult(flutterResult, result, methodName)
+                            },
                             Consumer { exception ->
                                 if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
                                 //LOG.error("$methodName operation failed", exception)
@@ -111,7 +110,7 @@ class FlutterRestApi {
                             }
                     )
                 }
-                if(operation != null) {
+                if (operation != null) {
                     OperationsManager.addOperation(cancelToken, operation)
                 }
 
