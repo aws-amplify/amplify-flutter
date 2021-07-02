@@ -342,6 +342,25 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   }
 
   @override
+  Future<Map<String, UpdateUserAttributeResult>> updateUserAttributes(
+      {@required UpdateUserAttributesRequest request}) async {
+    Map<String, UpdateUserAttributeResult> res;
+    try {
+      final Map<String, dynamic> data =
+          await _channel.invokeMapMethod<String, dynamic>(
+        'updateUserAttributes',
+        <String, dynamic>{
+          'data': request.serializeAsMap(),
+        },
+      );
+      return _formatUpdateUserAttributesResponse(data);
+    } on PlatformException catch (e) {
+      castAndThrowPlatformException(e);
+    }
+    return res;
+  }
+
+  @override
   Future<ConfirmUserAttributeResult> confirmUserAttribute(
       {ConfirmUserAttributeRequest? request}) async {
     ConfirmUserAttributeResult res;

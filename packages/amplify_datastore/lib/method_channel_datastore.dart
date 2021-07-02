@@ -60,6 +60,37 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
     }
   }
 
+  /// This method instantiates the native DataStore plugins with plugin
+  /// configurations. This needs to happen before Amplify.configure() can be
+  /// called.
+  @override
+  Future<void> configureDataStore(
+      {ModelProviderInterface modelProvider,
+      int syncInterval,
+      int syncMaxRecords,
+      int syncPageSize}) async {
+    try {
+      return await _channel
+          .invokeMethod('configureDataStore', <String, dynamic>{
+        'modelSchemas':
+            modelProvider.modelSchemas.map((schema) => schema.toMap()).toList(),
+        'modelProviderVersion': modelProvider.version,
+        'syncInterval': syncInterval,
+        'syncMaxRecords': syncMaxRecords,
+        'syncPageSize': syncPageSize
+      });
+    } on PlatformException catch (e) {
+      if (e.code == "AmplifyAlreadyConfiguredException") {
+        throw AmplifyAlreadyConfiguredException(
+            AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+            recoverySuggestion:
+                AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
+      } else {
+        throw _deserializeException(e);
+      }
+    }
+  }
+
   /// This method performs the steps necessary to configure this plugin.
   /// Currently, it only sets up an event channel to carry datastore observe
   /// and is invoked as the last step of Amplify.configure(). This must be

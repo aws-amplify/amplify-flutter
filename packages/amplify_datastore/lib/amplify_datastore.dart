@@ -63,6 +63,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
     return streamWrapper.datastoreStreamController;
   }
 
+  @deprecated
   @override
   Future<void> configureDataStore(
       {ModelProviderInterface? modelProvider,
@@ -71,6 +72,27 @@ class AmplifyDataStore extends DataStorePluginInterface {
       int? syncPageSize}) async {
     ModelProviderInterface provider = modelProvider ?? this.modelProvider!;
     if (provider.modelSchemas.isEmpty) {
+      throw DataStoreException('No modelProvider or modelSchemas found',
+          recoverySuggestion:
+              'Pass in a modelProvider instance while instantiating DataStorePlugin');
+    }
+    streamWrapper.registerModelsForHub(provider);
+    return _instance.configureDataStore(
+        modelProvider: provider,
+        syncInterval: this.syncInterval,
+        syncMaxRecords: this.syncMaxRecords,
+        syncPageSize: this.syncPageSize);
+  }
+
+  @override
+  Future<void> configureDataStore(
+      {ModelProviderInterface modelProvider,
+      int syncInterval,
+      int syncMaxRecords,
+      int syncPageSize}) async {
+    ModelProviderInterface provider =
+        modelProvider == null ? this.modelProvider : modelProvider;
+    if (provider == null || provider.modelSchemas.isEmpty) {
       throw DataStoreException('No modelProvider or modelSchemas found',
           recoverySuggestion:
               'Pass in a modelProvider instance while instantiating DataStorePlugin');
