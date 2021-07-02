@@ -93,11 +93,10 @@ class FlutterApiRequest {
         }
 
         @JvmStatic
-        fun checkForEmptyBodyIfRequired(options: RestOptions, methodName: String): Void? {
+        fun checkForEmptyBodyIfRequired(options: RestOptions, methodName: String) {
             if ((methodName == FlutterRestApi.PUT || methodName == FlutterRestApi.POST || methodName == FlutterRestApi.PATCH) && !options.hasData()) {
                 throw ApiException("$methodName request must have a body", "Add a body to the request.")
             }
-            return null
         }
 
         // ====== GraphQL ======
