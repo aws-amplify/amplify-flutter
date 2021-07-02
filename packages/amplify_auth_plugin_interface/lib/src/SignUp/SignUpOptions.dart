@@ -15,11 +15,10 @@
 
 import 'package:flutter/foundation.dart';
 
-class SignUpOptions {
+abstract class SignUpOptions {
   final Map<String, String> userAttributes;
+
   const SignUpOptions({@required this.userAttributes});
 
-  Map<String, dynamic> serializeAsMap() {
-    throw UnimplementedError('serializeAsMap() has not been implemented on SignUpOptions.');
-  }
+  Map<String, dynamic> serializeAsMap();
 }
