@@ -36,7 +36,7 @@ void main() {
         switch (testCode) {
           case 1:
             return Map.of({
-              CognitoUserAttributes.email: {
+              "email": {
                 "isUpdated": true,
                 "nextStep": {
                   "updateAttributeStep": "DONE",
