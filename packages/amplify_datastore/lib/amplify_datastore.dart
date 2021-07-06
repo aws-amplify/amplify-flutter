@@ -44,12 +44,13 @@ class AmplifyDataStore extends DataStorePluginInterface {
     int? syncMaxRecords,
     int? syncPageSize,
   }) : super(
-            token: _token,
-            modelProvider: modelProvider,
-            syncExpressions: syncExpressions,
-            syncInterval: syncInterval,
-            syncMaxRecords: syncMaxRecords,
-            syncPageSize: syncPageSize);
+          token: _token,
+          modelProvider: modelProvider,
+          syncExpressions: syncExpressions,
+          syncInterval: syncInterval,
+          syncMaxRecords: syncMaxRecords,
+          syncPageSize: syncPageSize,
+        );
 
   /// Internal use constructor
   @protected
