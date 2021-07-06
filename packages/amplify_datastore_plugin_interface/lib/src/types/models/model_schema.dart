@@ -15,31 +15,31 @@
 
 library model_schema;
 
-import 'auth_rule.dart';
-import 'model_association.dart';
-import 'model_field.dart';
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
 
+import 'auth_rule.dart';
+import 'model_field.dart';
+
 class ModelSchema {
   final String name;
-  final String pluralName; //opt
-  final List<AuthRule> authRules; //opt
-  final Map<String, ModelField> fields;
+  final String? pluralName; //opt
+  final List<AuthRule>? authRules; //opt
+  final Map<String, ModelField>? fields;
 
   const ModelSchema({
-    this.name,
+    required this.name,
     this.pluralName,
     this.authRules,
     this.fields,
   });
 
   ModelSchema copyWith(
-      {String name,
-      String pluralName,
-      List<AuthRule> authRules,
-      Map<String, ModelField> fields}) {
+      {String? name,
+      String? pluralName,
+      List<AuthRule>? authRules,
+      Map<String, ModelField>? fields}) {
     return ModelSchema(
         name: name ?? this.name,
         pluralName: pluralName ?? this.pluralName,
@@ -51,15 +51,13 @@ class ModelSchema {
     Map<String, dynamic> map = {
       'name': name,
       'pluralName': pluralName,
-      'authRules': authRules?.map((x) => x?.toMap())?.toList(),
+      'authRules': authRules?.map((x) => x.toMap()).toList(),
       'fields': fields?.map((key, value) => MapEntry('$key', value.toMap())),
     };
     return Map.from(map)..removeWhere((k, v) => v == null);
   }
 
   factory ModelSchema.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-
     return ModelSchema(
       name: map['name'],
       pluralName: map['pluralName'],

@@ -13,17 +13,13 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
-
-import './SignUpOptions.dart';
-
 class ResendSignUpCodeRequest {
   String username;
 
-  ResendSignUpCodeRequest({@required this.username,});
+  ResendSignUpCodeRequest({required this.username});
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    pendingRequest['username'] = username;
+    final Map<String, dynamic> pendingRequest = {'username': username};
+    pendingRequest.removeWhere((_, v) => v == null);
     return pendingRequest;
   }
 }

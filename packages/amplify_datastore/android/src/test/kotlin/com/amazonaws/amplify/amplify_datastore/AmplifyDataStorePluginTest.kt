@@ -103,13 +103,16 @@ class AmplifyDataStorePluginTest {
                         .serializedData(
                                 mapOf("id" to "4281dfba-96c8-4a38-9a8e-35c7e893ea47",
                                         "title" to "Title 1",
-                                        "rating" to 4))
+                                        "rating" to 4,
+                                        "created" to Temporal.DateTime("2020-02-20T20:20:20+03:50")
+                                ))
                         .modelSchema(modelSchema)
                         .build(),
                 SerializedModel.builder()
                         .serializedData(
                                 mapOf("id" to "43036c6b-8044-4309-bddc-262b6c686026",
                                         "title" to "Title 2",
+                                        "rating" to 6,
                                         "created" to Temporal.DateTime(
                                                 "2020-02-20T20:20:20-08:00")))
                         .modelSchema(modelSchema)
@@ -448,6 +451,7 @@ class AmplifyDataStorePluginTest {
                 HashMap::class.java) as HashMap<String, Any>)
         val modelData = mapOf("id" to "43036c6b-8044-4309-bddc-262b6c686026",
                 "title" to "Title 2",
+                "rating" to 0,
                 "created" to Temporal.DateTime("2020-02-20T20:20:20-08:00"))
         val instance = SerializedModel.builder()
                 .serializedData(modelData)

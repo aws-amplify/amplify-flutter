@@ -119,7 +119,7 @@ Widget getWidgetToDisplayPost(
                   _postsToView[i].rating.toString() +
                   ", blog: " +
                   allBlogs
-                      .firstWhere((blog) => blog.id == _postsToView[i].blog.id)
+                      .firstWhere((blog) => blog.id == _postsToView[i].blog?.id)
                       .name,
               style: TextStyle(fontSize: 14.0),
             ),
@@ -154,7 +154,7 @@ Widget getWidgetToDisplayComment(
                   " and post: " +
                   allPosts
                       .firstWhere(
-                          (post) => post.id == _commentsToView[i].post.id)
+                          (post) => post.id == _commentsToView[i].post?.id)
                       .title,
               style: TextStyle(fontSize: 14.0),
             ),

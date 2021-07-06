@@ -17,14 +17,7 @@ import 'package:flutter/foundation.dart';
 import 'AuthCodeDeliveryDetails.dart';
 
 class AuthNextStep {
-  Map<dynamic, dynamic> additionalInfo;
-  AuthCodeDeliveryDetails codeDeliveryDetails;
-  AuthNextStep({@required codeDeliveryDetails, additionalInfo = const {}}) {
-    this.additionalInfo = additionalInfo;
-    this.codeDeliveryDetails = AuthCodeDeliveryDetails(
-      attributeName: codeDeliveryDetails["attributeName"] ?? "",
-      deliveryMedium: codeDeliveryDetails["deliveryMedium"] ?? "",
-      destination: codeDeliveryDetails["destination"]?? ""
-    );
-  }
+  Map<dynamic, dynamic>? additionalInfo;
+  AuthCodeDeliveryDetails? codeDeliveryDetails;
+  AuthNextStep({ this.codeDeliveryDetails, this.additionalInfo });
 }

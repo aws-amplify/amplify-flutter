@@ -38,41 +38,50 @@ class AnalyticsCategory {
     }
   }
 
-  Future<void> recordEvent({AnalyticsEvent event}) async {
-    return Future.wait(
-        plugins.map((plugin) => plugin.recordEvent(event: event)));
+  Future<void> recordEvent({required AnalyticsEvent event}) async {
+    return plugins.length == 1
+        ? plugins[0].recordEvent(event: event)
+        : throw _pluginNotAddedException("Analytics");
   }
 
   Future<void> flushEvents() async {
-    return Future.wait(plugins.map((plugin) => plugin.flushEvents()));
+    return plugins.length == 1
+        ? plugins[0].flushEvents()
+        : throw _pluginNotAddedException("Analytics");
   }
 
   Future<void> registerGlobalProperties(
-      {AnalyticsProperties globalProperties}) async {
-    return Future.wait(plugins.map((plugin) =>
-        plugin.registerGlobalProperties(globalProperties: globalProperties)));
+      {required AnalyticsProperties globalProperties}) async {
+    return plugins.length == 1
+        ? plugins[0]
+            .registerGlobalProperties(globalProperties: globalProperties)
+        : throw _pluginNotAddedException("Analytics");
   }
 
-  Future<void> unregisterGlobalProperties({List<String> propertyNames}) async {
-    if (propertyNames == null) {
-      propertyNames = List<String>();
-    }
-
-    return Future.wait(plugins.map((plugin) =>
-        plugin.unregisterGlobalProperties(propertyNames: propertyNames)));
+  Future<void> unregisterGlobalProperties(
+      {List<String> propertyNames = const <String>[]}) async {
+    return plugins.length == 1
+        ? plugins[0].unregisterGlobalProperties(propertyNames: propertyNames)
+        : throw _pluginNotAddedException("Analytics");
   }
 
   Future<void> enable() async {
-    return Future.wait(plugins.map((plugin) => plugin.enable()));
+    return plugins.length == 1
+        ? plugins[0].enable()
+        : throw _pluginNotAddedException("Analytics");
   }
 
   Future<void> disable() async {
-    return Future.wait(plugins.map((plugin) => plugin.disable()));
+    return plugins.length == 1
+        ? plugins[0].disable()
+        : throw _pluginNotAddedException("Analytics");
   }
 
   Future<void> identifyUser(
-      {String userId, AnalyticsUserProfile userProfile}) async {
-    return Future.wait(plugins.map((plugin) =>
-        plugin.identifyUser(userId: userId, userProfile: userProfile)));
+      {required String userId,
+      required AnalyticsUserProfile userProfile}) async {
+    return plugins.length == 1
+        ? plugins[0].identifyUser(userId: userId, userProfile: userProfile)
+        : throw _pluginNotAddedException("Analytics");
   }
 }

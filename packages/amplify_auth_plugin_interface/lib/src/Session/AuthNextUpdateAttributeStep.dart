@@ -32,8 +32,8 @@ class AuthNextUpdateAttributeStep extends AuthNextStep {
   // ignore: public_member_api_docs
   AuthNextUpdateAttributeStep(
       {additionalInfo,
-      @required codeDeliveryDetails,
-      @required this.updateAttributeStep})
+      required codeDeliveryDetails,
+      required this.updateAttributeStep})
       : super(
             additionalInfo: additionalInfo,
             codeDeliveryDetails: codeDeliveryDetails);

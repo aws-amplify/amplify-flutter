@@ -31,7 +31,7 @@ class DataStoreCategory {
         // Extra step to configure datastore specifically.
         // Note: The native datastore plugins are not added
         // in the `onAttachedToEngine` but rather in the `configure()
-        await plugin.configureDataStore(modelProvider: plugin.modelProvider);
+        await plugin.configureDataStore(modelProvider: plugin.modelProvider!);
         plugins.add(plugin);
       } on AmplifyAlreadyConfiguredException catch (e) {
         plugins.add(plugin);
@@ -57,9 +57,9 @@ class DataStoreCategory {
   }
 
   Future<List<T>> query<T extends Model>(ModelType<T> modelType,
-      {QueryPredicate where,
-      QueryPagination pagination,
-      List<QuerySortBy> sortBy}) {
+      {QueryPredicate? where,
+      QueryPagination? pagination,
+      List<QuerySortBy>? sortBy}) {
     return plugins.length == 1
         ? plugins[0].query(modelType,
             where: where, pagination: pagination, sortBy: sortBy)

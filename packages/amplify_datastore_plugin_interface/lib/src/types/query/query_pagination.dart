@@ -16,7 +16,7 @@
 part of 'query_field.dart';
 
 class QueryPagination {
-  final int page;
+  final int? page;
   final int limit;
 
   const QueryPagination({this.page, this.limit = 100});

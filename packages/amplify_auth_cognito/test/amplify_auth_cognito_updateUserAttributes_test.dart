@@ -39,14 +39,20 @@ void main() {
                 "isUpdated": true,
                 "nextStep": {
                   "updateAttributeStep": "DONE",
-                  "codeDeliveryDetails": {"attributeName": "email"}
+                  "codeDeliveryDetails": {
+                    "attributeName": "email",
+                    "destination": "test@test.com"
+                  }
                 }
               },
               "name": {
                 "isUpdated": true,
                 "nextStep": {
                   "updateAttributeStep": "DONE",
-                  "codeDeliveryDetails": {"attributeName": "name"}
+                  "codeDeliveryDetails": {
+                    "attributeName": "name",
+                    "destination": "test@test.com"
+                  }
                 }
               }
             });
@@ -86,7 +92,7 @@ void main() {
         AuthUserAttribute(userAttributeKey: "name", value: "testname")
       ]),
     );
-    expect(res["email"].nextStep, isInstanceOf<AuthNextUpdateAttributeStep>());
+    expect(res["email"]!.nextStep, isInstanceOf<AuthNextUpdateAttributeStep>());
   });
 
   test('updateUserAttributes thrown PlatFormException results in AuthError',
@@ -102,8 +108,9 @@ void main() {
         ]),
       );
     } on AuthException catch (e) {
-      err = e;
+      expect(e.message, exceptionMessage);
+      return;
     }
-    expect(err.message, exceptionMessage);
+    fail("No AmplifyException Thrown");
   });
 }

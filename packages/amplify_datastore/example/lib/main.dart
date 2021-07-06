@@ -64,14 +64,14 @@ class _MyAppState extends State<MyApp> {
   List<String> _commentStreamingData = <String>[];
   bool _isAmplifyConfigured = false;
   String _queriesToView = "Post"; //default view
-  Blog _selectedBlogForNewPost;
-  Post _selectedPostForNewComment;
-  Stream<SubscriptionEvent<Post>> postStream;
-  Stream<SubscriptionEvent<Blog>> blogStream;
-  Stream<SubscriptionEvent<Comment>> commentStream;
-  StreamSubscription hubSubscription;
+  Blog? _selectedBlogForNewPost;
+  Post? _selectedPostForNewComment;
+  late Stream<SubscriptionEvent<Post>> postStream;
+  late Stream<SubscriptionEvent<Blog>> blogStream;
+  late Stream<SubscriptionEvent<Comment>> commentStream;
+  late StreamSubscription hubSubscription;
   bool _listeningToHub = true;
-  AmplifyDataStore datastorePlugin;
+  late AmplifyDataStore datastorePlugin;
 
   final _titleController = TextEditingController();
   final _ratingController = TextEditingController();
@@ -96,11 +96,15 @@ class _MyAppState extends State<MyApp> {
       datastorePlugin = AmplifyDataStore(modelProvider: ModelProvider.instance);
       await Amplify.addPlugin(datastorePlugin);
 
-      // Uncomment the below line to enable online sync
-      // await Amplify.addPlugin(AmplifyAPI());
-
       // Configure
-      await Amplify.configure(amplifyconfig);
+
+      // Uncomment the below lines to enable online sync.
+      // await Amplify.addPlugin(AmplifyAPI());
+      // await Amplify.configure(amplifyconfig);
+
+      // Remove this line when using the lines above for online sync
+      await Amplify.configure("{}");
+
     } on AmplifyAlreadyConfiguredException {
       print(
           'Amplify was already configured. Looks like app restarted on android.');
@@ -260,7 +264,11 @@ class _MyAppState extends State<MyApp> {
 
   savePost(String title, int rating, Blog associatedBlog) async {
     try {
-      Post post = Post(title: title, rating: rating, blog: associatedBlog);
+      Post post = Post(
+          title: title,
+          rating: rating,
+          created: TemporalDateTime.now(),
+          blog: associatedBlog);
       await Amplify.DataStore.save(post);
       runQueries();
     } catch (e) {
@@ -293,7 +301,8 @@ class _MyAppState extends State<MyApp> {
   deletePost(String id) async {
     try {
       _selectedPostForNewComment = null;
-      await Amplify.DataStore.delete(Post(id: id, title: null));
+      await Amplify.DataStore.delete(
+          Post(id: id, title: "", rating: 0, created: TemporalDateTime.now()));
       runQueries();
     } catch (e) {
       print(e);
@@ -303,7 +312,7 @@ class _MyAppState extends State<MyApp> {
   deleteBlog(String id) async {
     try {
       _selectedBlogForNewPost = null;
-      await Amplify.DataStore.delete(Blog(id: id, name: null));
+      await Amplify.DataStore.delete(Blog(id: id, name: ""));
       runQueries();
     } catch (e) {
       print(e);
@@ -312,7 +321,7 @@ class _MyAppState extends State<MyApp> {
 
   deleteComment(String id) async {
     try {
-      await Amplify.DataStore.delete(Comment(id: id, content: null));
+      await Amplify.DataStore.delete(Comment(id: id, content: ""));
       runQueries();
     } catch (e) {
       print(e);
@@ -355,13 +364,13 @@ class _MyAppState extends State<MyApp> {
 
             // Row for saving post
             addPostWidget(
-                _titleController,
-                _ratingController,
-                _isAmplifyConfigured,
-                _selectedBlogForNewPost,
-                _blogs,
-                savePost,
-                this),
+                titleController: _titleController,
+                ratingController: _ratingController,
+                isAmplifyConfigured: _isAmplifyConfigured,
+                allBlogs: _blogs,
+                saveFn: savePost,
+                app: this,
+                defaultBlog: _selectedBlogForNewPost),
 
             // Row for saving comment
             addCommentWidget(_contentController, _isAmplifyConfigured,
@@ -423,7 +432,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    WidgetsBinding.instance.addPostFrameCallback((_) => executeAfterBuild());
+    WidgetsBinding.instance?.addPostFrameCallback((_) => executeAfterBuild());
   }
 
   Future<void> executeAfterBuild() async {

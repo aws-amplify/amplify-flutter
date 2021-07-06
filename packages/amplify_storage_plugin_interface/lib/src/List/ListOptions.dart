@@ -24,8 +24,9 @@ class ListOptions extends StorageOptions {
 
   @override
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> optionsMap = <String, dynamic>{};
-    optionsMap["accessLevel"] = describeEnum(accessLevel);
+    final Map<String, dynamic> optionsMap = {
+      'accessLevel': describeEnum(accessLevel)
+    };
     return optionsMap;
   }
 }
