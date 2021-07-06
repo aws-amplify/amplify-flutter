@@ -13,10 +13,13 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
 import '../types/AuthNextStep.dart';
 
 class ResetPasswordStep extends AuthNextStep {
   String updateStep;
-  ResetPasswordStep({additionalInfo, @required codeDeliveryDetails, @required this.updateStep}) : super(additionalInfo: additionalInfo, codeDeliveryDetails: codeDeliveryDetails);
+  ResetPasswordStep(
+      {additionalInfo, codeDeliveryDetails, required this.updateStep})
+      : super(
+            additionalInfo: additionalInfo,
+            codeDeliveryDetails: codeDeliveryDetails);
 }

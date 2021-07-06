@@ -13,47 +13,32 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
 import 'dart:typed_data';
 
 class RestOptions {
-  String apiName;
+  String? apiName;
   String path;
-  Uint8List body;
-  Map<String, String> queryParameters;
-  Map<String, String> headers;
+  Uint8List? body;
+  Map<String, String>? queryParameters;
+  Map<String, String>? headers;
 
   RestOptions({
+    required this.path,
     this.apiName,
-    @required this.path,
     this.body,
     this.queryParameters,
     this.headers,
-  }) {
-    if (path == null)
-      throw new Exception("Error no path provided to RestOptions");
-  }
+  });
 
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> restOptionsMap = <String, dynamic>{};
-
-    if (this.apiName != null) {
-      restOptionsMap["apiName"] = apiName;
-    }
-
-    if (this.path != null) {
-      restOptionsMap["path"] = path;
-    }
-    if (this.body != null) {
-      restOptionsMap["body"] = body;
-    }
-    if (this.queryParameters != null) {
-      restOptionsMap["queryParameters"] = queryParameters;
-    }
-    if (this.headers != null) {
-      restOptionsMap["headers"] = headers;
-    }
-
+    final Map<String, dynamic> restOptionsMap = {
+      "apiName": apiName,
+      "path": path,
+      "body": body,
+      "queryParameters": queryParameters,
+      "headers": headers
+    };
+    restOptionsMap.removeWhere((_, v) => v == null);
     return restOptionsMap;
   }
 }

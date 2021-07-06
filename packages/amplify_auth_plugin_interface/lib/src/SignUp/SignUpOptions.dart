@@ -13,13 +13,12 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
-
 class SignUpOptions {
-  final Map<String, String> userAttributes;
+  final Map<String, String>? userAttributes;
   const SignUpOptions({this.userAttributes});
 
   Map<String, dynamic> serializeAsMap() {
-    throw UnimplementedError('serializeAsMap() has not been implemented on SignUpOptions.');
+    throw UnimplementedError(
+        'serializeAsMap() has not been implemented on SignUpOptions.');
   }
 }

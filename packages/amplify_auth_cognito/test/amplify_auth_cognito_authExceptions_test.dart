@@ -33,403 +33,428 @@ void main() {
 
   tearDown(() {});
 
-
   test('castAndThrowPlatformException returns an AuthException', () async {
-    PlatformException exception = PlatformException(code: "AuthException", details: details);
-    AmplifyException amplifyException;
+    PlatformException exception =
+        PlatformException(code: "AuthException", details: details);
     try {
-      await castAndThrowPlatformException(exception);
-    } catch (e) {
-      amplifyException = e;
+      throw castAndReturnPlatformException(exception);
+    } on AmplifyException catch (e) {
+      expect(e, isA<AmplifyException>());
+      expect(e, isA<AuthException>());
+      expect(e.message, message);
+      expect(e.recoverySuggestion, recoverySuggestion);
+      expect(e.underlyingException, underlyingException);
+      return;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException.message, message);
-    expect(amplifyException.recoverySuggestion, recoverySuggestion);
-    expect(amplifyException.underlyingException, underlyingException);
   });
 
-  test('castAndThrowPlatformException returns an AliasExistsException', () async {
-    PlatformException exception = PlatformException(code: "AliasExistsException", details: details);
-    AmplifyException amplifyException;
+  test('castAndThrowPlatformException returns an AliasExistsException',
+      () async {
+    PlatformException exception =
+        PlatformException(code: "AliasExistsException", details: details);
     try {
-      await castAndThrowPlatformException(exception);
-    } catch (e) {
-      amplifyException = e;
+      throw castAndReturnPlatformException(exception);
+    } on AmplifyException catch (e) {
+      expect(e, isA<AmplifyException>());
+      expect(e, isA<AuthException>());
+      expect(e, isA<AliasExistsException>());
+      expect(e.message, message);
+      expect(e.recoverySuggestion, recoverySuggestion);
+      expect(e.underlyingException, underlyingException);
+      return;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<AliasExistsException>());
-    expect(amplifyException.message, message);
-    expect(amplifyException.recoverySuggestion, recoverySuggestion);
-    expect(amplifyException.underlyingException, underlyingException);
   });
 
-  test('castAndThrowPlatformException returns an CodeDeliveryFailureException', () async {
-    PlatformException exception = PlatformException(code: "CodeDeliveryFailureException", details: details);
-    AmplifyException amplifyException;
+  test('castAndThrowPlatformException returns an CodeDeliveryFailureException',
+      () async {
+    PlatformException exception = PlatformException(
+        code: "CodeDeliveryFailureException", details: details);
     try {
-      await castAndThrowPlatformException(exception);
-    } catch (e) {
-      amplifyException = e;
+      throw castAndReturnPlatformException(exception);
+    } on AmplifyException catch (e) {
+      expect(e, isA<AmplifyException>());
+      expect(e, isA<AuthException>());
+      expect(e, isA<CodeDeliveryFailureException>());
+      expect(e.message, message);
+      expect(e.recoverySuggestion, recoverySuggestion);
+      expect(e.underlyingException, underlyingException);
+      return;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<CodeDeliveryFailureException>());
-    expect(amplifyException.message, message);
-    expect(amplifyException.recoverySuggestion, recoverySuggestion);
-    expect(amplifyException.underlyingException, underlyingException);
   });
 
-  test('castAndThrowPlatformException returns an CodeExpiredException', () async {
-    PlatformException exception = PlatformException(code: "CodeExpiredException", details: details);
-    AmplifyException amplifyException;
+  test('castAndThrowPlatformException returns an CodeExpiredException',
+      () async {
+    PlatformException exception =
+        PlatformException(code: "CodeExpiredException", details: details);
     try {
-      await castAndThrowPlatformException(exception);
-    } catch (e) {
-      amplifyException = e;
+      throw castAndReturnPlatformException(exception);
+    } on AmplifyException catch (e) {
+      expect(e, isA<AmplifyException>());
+      expect(e, isA<AuthException>());
+      expect(e, isA<CodeExpiredException>());
+      expect(e.message, message);
+      expect(e.recoverySuggestion, recoverySuggestion);
+      expect(e.underlyingException, underlyingException);
+      return;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<CodeExpiredException>());
-    expect(amplifyException.message, message);
-    expect(amplifyException.recoverySuggestion, recoverySuggestion);
-    expect(amplifyException.underlyingException, underlyingException);
   });
 
-  test('castAndThrowPlatformException returns an CodeMismatchException', () async {
-    PlatformException exception = PlatformException(code: "CodeMismatchException", details: details);
-    AmplifyException amplifyException;
+  test('castAndThrowPlatformException returns an CodeMismatchException',
+      () async {
+    PlatformException exception =
+        PlatformException(code: "CodeMismatchException", details: details);
     try {
-      await castAndThrowPlatformException(exception);
-    } catch (e) {
-      amplifyException = e;
+      throw castAndReturnPlatformException(exception);
+    } on AmplifyException catch (e) {
+      expect(e, isA<AmplifyException>());
+      expect(e, isA<AuthException>());
+      expect(e, isA<CodeMismatchException>());
+      expect(e.message, message);
+      expect(e.recoverySuggestion, recoverySuggestion);
+      expect(e.underlyingException, underlyingException);
+      return;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<CodeMismatchException>());
-    expect(amplifyException.message, message);
-    expect(amplifyException.recoverySuggestion, recoverySuggestion);
-    expect(amplifyException.underlyingException, underlyingException);
   });
 
-  test('castAndThrowPlatformException returns an FailedAttemptsLimitExceededException', () async {
-    PlatformException exception = PlatformException(code: "FailedAttemptsLimitExceededException", details: details);
-    AmplifyException amplifyException;
+  test(
+      'castAndThrowPlatformException returns an FailedAttemptsLimitExceededException',
+      () async {
+    PlatformException exception = PlatformException(
+        code: "FailedAttemptsLimitExceededException", details: details);
     try {
-      await castAndThrowPlatformException(exception);
-    } catch (e) {
-      amplifyException = e;
+      throw castAndReturnPlatformException(exception);
+    } on AmplifyException catch (e) {
+      expect(e, isA<AmplifyException>());
+      expect(e, isA<AuthException>());
+      expect(e, isA<FailedAttemptsLimitExceededException>());
+      expect(e.message, message);
+      expect(e.recoverySuggestion, recoverySuggestion);
+      expect(e.underlyingException, underlyingException);
+      return;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<FailedAttemptsLimitExceededException>());
-    expect(amplifyException.message, message);
-    expect(amplifyException.recoverySuggestion, recoverySuggestion);
-    expect(amplifyException.underlyingException, underlyingException);
   });
 
-  test('castAndThrowPlatformException returns an InvalidAccountTypeException', () async {
-    PlatformException exception = PlatformException(code: "InvalidAccountTypeException", details: details);
-    AmplifyException amplifyException;
+  test('castAndThrowPlatformException returns an InvalidAccountTypeException',
+      () async {
+    PlatformException exception = PlatformException(
+        code: "InvalidAccountTypeException", details: details);
     try {
-      await castAndThrowPlatformException(exception);
-    } catch (e) {
-      amplifyException = e;
+      throw castAndReturnPlatformException(exception);
+    } on AmplifyException catch (e) {
+      expect(e, isA<AmplifyException>());
+      expect(e, isA<AuthException>());
+      expect(e, isA<InvalidAccountTypeException>());
+      expect(e.message, message);
+      expect(e.recoverySuggestion, recoverySuggestion);
+      expect(e.underlyingException, underlyingException);
+      return;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<InvalidAccountTypeException>());
-    expect(amplifyException.message, message);
-    expect(amplifyException.recoverySuggestion, recoverySuggestion);
-    expect(amplifyException.underlyingException, underlyingException);
   });
 
-  test('castAndThrowPlatformException returns an InvalidParameterException', () async {
-    PlatformException exception = PlatformException(code: "InvalidParameterException", details: details);
-    AmplifyException amplifyException;
+  test('castAndThrowPlatformException returns an InvalidParameterException',
+      () async {
+    PlatformException exception =
+        PlatformException(code: "InvalidParameterException", details: details);
     try {
-      await castAndThrowPlatformException(exception);
-    } catch (e) {
-      amplifyException = e;
+      throw castAndReturnPlatformException(exception);
+    } on AmplifyException catch (e) {
+      expect(e, isA<AmplifyException>());
+      expect(e, isA<AuthException>());
+      expect(e, isA<InvalidParameterException>());
+      expect(e.message, message);
+      expect(e.recoverySuggestion, recoverySuggestion);
+      expect(e.underlyingException, underlyingException);
+      return;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<InvalidParameterException>());
-    expect(amplifyException.message, message);
-    expect(amplifyException.recoverySuggestion, recoverySuggestion);
-    expect(amplifyException.underlyingException, underlyingException);
   });
 
-  test('castAndThrowPlatformException returns an InvalidPasswordException', () async {
-    PlatformException exception = PlatformException(code: "InvalidPasswordException", details: details);
-    AmplifyException amplifyException;
+  test('castAndThrowPlatformException returns an InvalidPasswordException',
+      () async {
+    PlatformException exception =
+        PlatformException(code: "InvalidPasswordException", details: details);
     try {
-      await castAndThrowPlatformException(exception);
-    } catch (e) {
-      amplifyException = e;
+      throw castAndReturnPlatformException(exception);
+    } on AmplifyException catch (e) {
+      expect(e, isA<AmplifyException>());
+      expect(e, isA<AuthException>());
+      expect(e, isA<InvalidPasswordException>());
+      expect(e.message, message);
+      expect(e.recoverySuggestion, recoverySuggestion);
+      expect(e.underlyingException, underlyingException);
+      return;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<InvalidPasswordException>());
-    expect(amplifyException.message, message);
-    expect(amplifyException.recoverySuggestion, recoverySuggestion);
-    expect(amplifyException.underlyingException, underlyingException);
   });
 
   test('castAndThrowPlatformException returns an LambdaException', () async {
-    PlatformException exception = PlatformException(code: "LambdaException", details: details);
-    AmplifyException amplifyException;
+    PlatformException exception =
+        PlatformException(code: "LambdaException", details: details);
     try {
-      await castAndThrowPlatformException(exception);
-    } catch (e) {
-      amplifyException = e;
+      throw castAndReturnPlatformException(exception);
+    } on AmplifyException catch (e) {
+      expect(e, isA<AmplifyException>());
+      expect(e, isA<AuthException>());
+      expect(e, isA<LambdaException>());
+      expect(e.message, message);
+      expect(e.recoverySuggestion, recoverySuggestion);
+      expect(e.underlyingException, underlyingException);
+      return;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<LambdaException>());
-    expect(amplifyException.message, message);
-    expect(amplifyException.recoverySuggestion, recoverySuggestion);
-    expect(amplifyException.underlyingException, underlyingException);
   });
 
-  test('castAndThrowPlatformException returns an MFAMethodNotFoundException', () async {
-    PlatformException exception = PlatformException(code: "MFAMethodNotFoundException", details: details);
-    AmplifyException amplifyException;
+  test('castAndThrowPlatformException returns an MFAMethodNotFoundException',
+      () async {
+    PlatformException exception =
+        PlatformException(code: "MFAMethodNotFoundException", details: details);
     try {
-      await castAndThrowPlatformException(exception);
-    } catch (e) {
-      amplifyException = e;
+      throw castAndReturnPlatformException(exception);
+    } on AmplifyException catch (e) {
+      expect(e, isA<AmplifyException>());
+      expect(e, isA<AuthException>());
+      expect(e, isA<MFAMethodNotFoundException>());
+      expect(e.message, message);
+      expect(e.recoverySuggestion, recoverySuggestion);
+      expect(e.underlyingException, underlyingException);
+      return;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<MFAMethodNotFoundException>());
-    expect(amplifyException.message, message);
-    expect(amplifyException.recoverySuggestion, recoverySuggestion);
-    expect(amplifyException.underlyingException, underlyingException);
   });
 
-  test('castAndThrowPlatformException returns an NotAuthorizedException', () async {
-    PlatformException exception = PlatformException(code: "NotAuthorizedException", details: details);
-    AmplifyException amplifyException;
+  test('castAndThrowPlatformException returns an NotAuthorizedException',
+      () async {
+    PlatformException exception =
+        PlatformException(code: "NotAuthorizedException", details: details);
     try {
-      await castAndThrowPlatformException(exception);
-    } catch (e) {
-      amplifyException = e;
+      throw castAndReturnPlatformException(exception);
+    } on AmplifyException catch (e) {
+      expect(e, isA<AmplifyException>());
+      expect(e, isA<AuthException>());
+      expect(e, isA<NotAuthorizedException>());
+      expect(e.message, message);
+      expect(e.recoverySuggestion, recoverySuggestion);
+      expect(e.underlyingException, underlyingException);
+      return;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<NotAuthorizedException>());
-    expect(amplifyException.message, message);
-    expect(amplifyException.recoverySuggestion, recoverySuggestion);
-    expect(amplifyException.underlyingException, underlyingException);
   });
 
-  test('castAndThrowPlatformException returns an PasswordResetRequiredException', () async {
-    PlatformException exception = PlatformException(code: "PasswordResetRequiredException", details: details);
-    AmplifyException amplifyException;
+  test(
+      'castAndThrowPlatformException returns an PasswordResetRequiredException',
+      () async {
+    PlatformException exception = PlatformException(
+        code: "PasswordResetRequiredException", details: details);
     try {
-      await castAndThrowPlatformException(exception);
-    } catch (e) {
-      amplifyException = e;
+      throw castAndReturnPlatformException(exception);
+    } on AmplifyException catch (e) {
+      expect(e, isA<AmplifyException>());
+      expect(e, isA<AuthException>());
+      expect(e, isA<PasswordResetRequiredException>());
+      expect(e.message, message);
+      expect(e.recoverySuggestion, recoverySuggestion);
+      expect(e.underlyingException, underlyingException);
+      return;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<PasswordResetRequiredException>());
-    expect(amplifyException.message, message);
-    expect(amplifyException.recoverySuggestion, recoverySuggestion);
-    expect(amplifyException.underlyingException, underlyingException);
   });
 
-  test('castAndThrowPlatformException returns an ResourceNotFoundException', () async {
-    PlatformException exception = PlatformException(code: "ResourceNotFoundException", details: details);
-    AmplifyException amplifyException;
+  test('castAndThrowPlatformException returns an ResourceNotFoundException',
+      () async {
+    PlatformException exception =
+        PlatformException(code: "ResourceNotFoundException", details: details);
     try {
-      await castAndThrowPlatformException(exception);
-    } catch (e) {
-      amplifyException = e;
+      throw castAndReturnPlatformException(exception);
+    } on AmplifyException catch (e) {
+      expect(e, isA<AmplifyException>());
+      expect(e, isA<AuthException>());
+      expect(e, isA<ResourceNotFoundException>());
+      expect(e.message, message);
+      expect(e.recoverySuggestion, recoverySuggestion);
+      expect(e.underlyingException, underlyingException);
+      return;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<ResourceNotFoundException>());
-    expect(amplifyException.message, message);
-    expect(amplifyException.recoverySuggestion, recoverySuggestion);
-    expect(amplifyException.underlyingException, underlyingException);
   });
 
-  test('castAndThrowPlatformException returns an SessionExpiredException', () async {
-    PlatformException exception = PlatformException(code: "SessionExpiredException", details: details);
-    AmplifyException amplifyException;
+  test('castAndThrowPlatformException returns an SessionExpiredException',
+      () async {
+    PlatformException exception =
+        PlatformException(code: "SessionExpiredException", details: details);
     try {
-      await castAndThrowPlatformException(exception);
-    } catch (e) {
-      amplifyException = e;
+      throw castAndReturnPlatformException(exception);
+    } on AmplifyException catch (e) {
+      expect(e, isA<AmplifyException>());
+      expect(e, isA<AuthException>());
+      expect(e, isA<SessionExpiredException>());
+      expect(e.message, message);
+      expect(e.recoverySuggestion, recoverySuggestion);
+      expect(e.underlyingException, underlyingException);
+      return;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<SessionExpiredException>());
-    expect(amplifyException.message, message);
-    expect(amplifyException.recoverySuggestion, recoverySuggestion);
-    expect(amplifyException.underlyingException, underlyingException);
   });
 
-  test('castAndThrowPlatformException returns an SessionUnavailableServiceException', () async {
-    PlatformException exception = PlatformException(code: "SessionUnavailableServiceException", details: details);
-    AmplifyException amplifyException;
+  test(
+      'castAndThrowPlatformException returns an SessionUnavailableServiceException',
+      () async {
+    PlatformException exception = PlatformException(
+        code: "SessionUnavailableServiceException", details: details);
     try {
-      await castAndThrowPlatformException(exception);
-    } catch (e) {
-      amplifyException = e;
+      throw castAndReturnPlatformException(exception);
+    } on AmplifyException catch (e) {
+      expect(e, isA<AmplifyException>());
+      expect(e, isA<AuthException>());
+      expect(e, isA<SessionUnavailableServiceException>());
+      expect(e.message, message);
+      expect(e.recoverySuggestion, recoverySuggestion);
+      expect(e.underlyingException, underlyingException);
+      return;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<SessionUnavailableServiceException>());
-    expect(amplifyException.message, message);
-    expect(amplifyException.recoverySuggestion, recoverySuggestion);
-    expect(amplifyException.underlyingException, underlyingException);
   });
 
-  test('castAndThrowPlatformException returns an SessionUnavailableOfflineException', () async {
-    PlatformException exception = PlatformException(code: "SessionUnavailableOfflineException", details: details);
-    AmplifyException amplifyException;
+  test(
+      'castAndThrowPlatformException returns an SessionUnavailableOfflineException',
+      () async {
+    PlatformException exception = PlatformException(
+        code: "SessionUnavailableOfflineException", details: details);
     try {
-      await castAndThrowPlatformException(exception);
-    } catch (e) {
-      amplifyException = e;
+      throw castAndReturnPlatformException(exception);
+    } on AmplifyException catch (e) {
+      expect(e, isA<AmplifyException>());
+      expect(e, isA<AuthException>());
+      expect(e, isA<SessionUnavailableOfflineException>());
+      expect(e.message, message);
+      expect(e.recoverySuggestion, recoverySuggestion);
+      expect(e.underlyingException, underlyingException);
+      return;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<SessionUnavailableOfflineException>());
-    expect(amplifyException.message, message);
-    expect(amplifyException.recoverySuggestion, recoverySuggestion);
-    expect(amplifyException.underlyingException, underlyingException);
   });
 
   test('castAndThrowPlatformException returns an SignedOutException', () async {
-    PlatformException exception = PlatformException(code: "SignedOutException", details: details);
-    AmplifyException amplifyException;
+    PlatformException exception =
+        PlatformException(code: "SignedOutException", details: details);
     try {
-      await castAndThrowPlatformException(exception);
-    } catch (e) {
-      amplifyException = e;
+      throw castAndReturnPlatformException(exception);
+    } on AmplifyException catch (e) {
+      expect(e, isA<AmplifyException>());
+      expect(e, isA<AuthException>());
+      expect(e, isA<SignedOutException>());
+      expect(e.message, message);
+      expect(e.recoverySuggestion, recoverySuggestion);
+      expect(e.underlyingException, underlyingException);
+      return;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<SignedOutException>());
-    expect(amplifyException.message, message);
-    expect(amplifyException.recoverySuggestion, recoverySuggestion);
-    expect(amplifyException.underlyingException, underlyingException);
   });
 
-  test('castAndThrowPlatformException returns an SoftwareTokenMFANotFoundException', () async {
-    PlatformException exception = PlatformException(code: "SoftwareTokenMFANotFoundException", details: details);
-    AmplifyException amplifyException;
+  test(
+      'castAndThrowPlatformException returns an SoftwareTokenMFANotFoundException',
+      () async {
+    PlatformException exception = PlatformException(
+        code: "SoftwareTokenMFANotFoundException", details: details);
     try {
-      await castAndThrowPlatformException(exception);
-    } catch (e) {
-      amplifyException = e;
+      throw castAndReturnPlatformException(exception);
+    } on AmplifyException catch (e) {
+      expect(e, isA<AmplifyException>());
+      expect(e, isA<AuthException>());
+      expect(e, isA<SoftwareTokenMFANotFoundException>());
+      expect(e.message, message);
+      expect(e.recoverySuggestion, recoverySuggestion);
+      expect(e.underlyingException, underlyingException);
+      return;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<SoftwareTokenMFANotFoundException>());
-    expect(amplifyException.message, message);
-    expect(amplifyException.recoverySuggestion, recoverySuggestion);
-    expect(amplifyException.underlyingException, underlyingException);
   });
 
-  test('castAndThrowPlatformException returns an TooManyRequestsException', () async {
-    PlatformException exception = PlatformException(code: "TooManyRequestsException", details: details);
-    AmplifyException amplifyException;
+  test('castAndThrowPlatformException returns an TooManyRequestsException',
+      () async {
+    PlatformException exception =
+        PlatformException(code: "TooManyRequestsException", details: details);
     try {
-      await castAndThrowPlatformException(exception);
-    } catch (e) {
-      amplifyException = e;
+      throw castAndReturnPlatformException(exception);
+    } on AmplifyException catch (e) {
+      expect(e, isA<AmplifyException>());
+      expect(e, isA<AuthException>());
+      expect(e, isA<TooManyRequestsException>());
+      expect(e.message, message);
+      expect(e.recoverySuggestion, recoverySuggestion);
+      expect(e.underlyingException, underlyingException);
+      return;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<TooManyRequestsException>());
-    expect(amplifyException.message, message);
-    expect(amplifyException.recoverySuggestion, recoverySuggestion);
-    expect(amplifyException.underlyingException, underlyingException);
   });
 
   test('castAndThrowPlatformException returns an UnknownException', () async {
-    PlatformException exception = PlatformException(code: "UnknownException", details: details);
-    AmplifyException amplifyException;
+    PlatformException exception =
+        PlatformException(code: "UnknownException", details: details);
     try {
-      await castAndThrowPlatformException(exception);
-    } catch (e) {
-      amplifyException = e;
+      throw castAndReturnPlatformException(exception);
+    } on AmplifyException catch (e) {
+      expect(e, isA<AmplifyException>());
+      expect(e, isA<AuthException>());
+      expect(e, isA<UnknownException>());
+      expect(e.message, message);
+      expect(e.recoverySuggestion, recoverySuggestion);
+      expect(e.underlyingException, underlyingException);
+      return;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<UnknownException>());
-    expect(amplifyException.message, message);
-    expect(amplifyException.recoverySuggestion, recoverySuggestion);
-    expect(amplifyException.underlyingException, underlyingException);
   });
 
-  test('castAndThrowPlatformException returns an UserCancelledException', () async {
-    PlatformException exception = PlatformException(code: "UserCancelledException", details: details);
-    AmplifyException amplifyException;
+  test('castAndThrowPlatformException returns an UserCancelledException',
+      () async {
+    PlatformException exception =
+        PlatformException(code: "UserCancelledException", details: details);
     try {
-      await castAndThrowPlatformException(exception);
-    } catch (e) {
-      amplifyException = e;
+      throw castAndReturnPlatformException(exception);
+    } on AmplifyException catch (e) {
+      expect(e, isA<AmplifyException>());
+      expect(e, isA<AuthException>());
+      expect(e, isA<UserCancelledException>());
+      expect(e.message, message);
+      expect(e.recoverySuggestion, recoverySuggestion);
+      expect(e.underlyingException, underlyingException);
+      return;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<UserCancelledException>());
-    expect(amplifyException.message, message);
-    expect(amplifyException.recoverySuggestion, recoverySuggestion);
-    expect(amplifyException.underlyingException, underlyingException);
   });
 
-  test('castAndThrowPlatformException returns an UsernameExistsException', () async {
-    PlatformException exception = PlatformException(code: "UsernameExistsException", details: details);
-    AmplifyException amplifyException;
+  test('castAndThrowPlatformException returns an UsernameExistsException',
+      () async {
+    PlatformException exception =
+        PlatformException(code: "UsernameExistsException", details: details);
     try {
-      await castAndThrowPlatformException(exception);
-    } catch (e) {
-      amplifyException = e;
+      throw castAndReturnPlatformException(exception);
+    } on AmplifyException catch (e) {
+      expect(e, isA<AmplifyException>());
+      expect(e, isA<AuthException>());
+      expect(e, isA<UsernameExistsException>());
+      expect(e.message, message);
+      expect(e.recoverySuggestion, recoverySuggestion);
+      expect(e.underlyingException, underlyingException);
+      return;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<UsernameExistsException>());
-    expect(amplifyException.message, message);
-    expect(amplifyException.recoverySuggestion, recoverySuggestion);
-    expect(amplifyException.underlyingException, underlyingException);
   });
 
-  test('castAndThrowPlatformException returns an UserNotConfirmedException', () async {
-    PlatformException exception = PlatformException(code: "UserNotConfirmedException", details: details);
-    AmplifyException amplifyException;
+  test('castAndThrowPlatformException returns an UserNotConfirmedException',
+      () async {
+    PlatformException exception =
+        PlatformException(code: "UserNotConfirmedException", details: details);
     try {
-      await castAndThrowPlatformException(exception);
-    } catch (e) {
-      amplifyException = e;
+      throw castAndReturnPlatformException(exception);
+    } on AmplifyException catch (e) {
+      expect(e, isA<AmplifyException>());
+      expect(e, isA<AuthException>());
+      expect(e, isA<UserNotConfirmedException>());
+      expect(e.message, message);
+      expect(e.recoverySuggestion, recoverySuggestion);
+      expect(e.underlyingException, underlyingException);
+      return;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<UserNotConfirmedException>());
-    expect(amplifyException.message, message);
-    expect(amplifyException.recoverySuggestion, recoverySuggestion);
-    expect(amplifyException.underlyingException, underlyingException);
   });
 
-  test('castAndThrowPlatformException returns an UserNotFoundException', () async {
-    PlatformException exception = PlatformException(code: "UserNotFoundException", details: details);
-    AmplifyException amplifyException;
+  test('castAndThrowPlatformException returns an UserNotFoundException',
+      () async {
+    PlatformException exception =
+        PlatformException(code: "UserNotFoundException", details: details);
     try {
-      await castAndThrowPlatformException(exception);
-    } catch (e) {
-      amplifyException = e;
+      throw castAndReturnPlatformException(exception);
+    } on AmplifyException catch (e) {
+      expect(e, isA<AmplifyException>());
+      expect(e, isA<AuthException>());
+      expect(e, isA<UserNotFoundException>());
+      expect(e.message, message);
+      expect(e.recoverySuggestion, recoverySuggestion);
+      expect(e.underlyingException, underlyingException);
+      return;
     }
-    expect(amplifyException, isInstanceOf<AmplifyException>());
-    expect(amplifyException, isInstanceOf<AuthException>());
-    expect(amplifyException, isInstanceOf<UserNotFoundException>());
-    expect(amplifyException.message, message);
-    expect(amplifyException.recoverySuggestion, recoverySuggestion);
-    expect(amplifyException.underlyingException, underlyingException);
   });
 }

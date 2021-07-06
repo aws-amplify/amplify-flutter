@@ -23,6 +23,7 @@ import com.amplifyframework.core.Consumer
 import com.amplifyframework.core.async.Cancelable
 import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.ModelSchema
+import com.amplifyframework.core.model.SerializedModel
 import com.amplifyframework.core.model.query.Page
 import com.amplifyframework.core.model.query.QueryOptions
 import com.amplifyframework.core.model.query.Where
@@ -36,7 +37,6 @@ import com.amplifyframework.datastore.DataStoreCategory
 import com.amplifyframework.datastore.DataStoreConfiguration
 import com.amplifyframework.datastore.DataStoreException
 import com.amplifyframework.datastore.DataStoreItemChange
-import com.amplifyframework.datastore.appsync.SerializedModel
 import io.flutter.plugin.common.MethodChannel
 import java.lang.reflect.Field
 import java.lang.reflect.Modifier
@@ -103,13 +103,16 @@ class AmplifyDataStorePluginTest {
                         .serializedData(
                                 mapOf("id" to "4281dfba-96c8-4a38-9a8e-35c7e893ea47",
                                         "title" to "Title 1",
-                                        "rating" to 4))
+                                        "rating" to 4,
+                                        "created" to Temporal.DateTime("2020-02-20T20:20:20+03:50")
+                                ))
                         .modelSchema(modelSchema)
                         .build(),
                 SerializedModel.builder()
                         .serializedData(
                                 mapOf("id" to "43036c6b-8044-4309-bddc-262b6c686026",
                                         "title" to "Title 2",
+                                        "rating" to 6,
                                         "created" to Temporal.DateTime(
                                                 "2020-02-20T20:20:20-08:00")))
                         .modelSchema(modelSchema)
@@ -448,6 +451,7 @@ class AmplifyDataStorePluginTest {
                 HashMap::class.java) as HashMap<String, Any>)
         val modelData = mapOf("id" to "43036c6b-8044-4309-bddc-262b6c686026",
                 "title" to "Title 2",
+                "rating" to 0,
                 "created" to Temporal.DateTime("2020-02-20T20:20:20-08:00"))
         val instance = SerializedModel.builder()
                 .serializedData(modelData)

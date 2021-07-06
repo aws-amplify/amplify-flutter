@@ -18,10 +18,11 @@ import 'package:flutter/foundation.dart';
 
 class CognitoSessionOptions extends AuthSessionOptions {
   bool getAWSCredentials;
-  CognitoSessionOptions({@required this.getAWSCredentials}) : super();
+  CognitoSessionOptions({required this.getAWSCredentials}) : super();
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    pendingRequest["getAWSCredentials"] = getAWSCredentials;
+    final Map<String, dynamic> pendingRequest = {
+      'getAWSCredentials': getAWSCredentials
+    };
     return pendingRequest;
   }
-} 
+}
