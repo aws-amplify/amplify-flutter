@@ -16,37 +16,36 @@
 library amplify_storage_plugin_interface;
 
 import 'dart:async';
-import 'package:meta/meta.dart';
 import 'package:amplify_core/types/index.dart';
 
 import 'src/types.dart';
 export 'src/types.dart';
 
 abstract class StoragePluginInterface extends AmplifyPluginInterface {
-  StoragePluginInterface({@required Object token}) : super(token: token);
+  StoragePluginInterface({required Object token}) : super(token: token);
 
   Future<void> addPlugin() async {
     throw UnimplementedError('addPlugin() has not been implemented.');
   }
 
-  Future<UploadFileResult> uploadFile({@required UploadFileRequest request}) {
+  Future<UploadFileResult> uploadFile({required UploadFileRequest request}) {
     throw UnimplementedError('uploadFile() has not been implemented.');
   }
 
-  Future<GetUrlResult> getUrl({@required GetUrlRequest request}) {
+  Future<GetUrlResult> getUrl({required GetUrlRequest request}) {
     throw UnimplementedError('getUrl() has not been implemented.');
   }
 
-  Future<RemoveResult> remove({@required RemoveRequest request}) {
+  Future<RemoveResult> remove({required RemoveRequest request}) {
     throw UnimplementedError('remove() has not been implemented.');
   }
 
-  Future<ListResult> list({@required ListRequest request}) {
+  Future<ListResult> list({required ListRequest request}) {
     throw UnimplementedError('list() has not been implemented.');
   }
 
   Future<DownloadFileResult> downloadFile(
-      {@required DownloadFileRequest request}) {
+      {required DownloadFileRequest request}) {
     throw UnimplementedError('downloadFile() has not been implemented.');
   }
 }

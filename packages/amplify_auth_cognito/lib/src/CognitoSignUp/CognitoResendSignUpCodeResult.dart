@@ -16,5 +16,5 @@
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
 class CognitoResendSignUpCodeResult extends ResendSignUpCodeResult {
-  CognitoResendSignUpCodeResult({codeDeliveryDetails}) : super(codeDeliveryDetails: codeDeliveryDetails);
+  CognitoResendSignUpCodeResult(codeDeliveryDetails) : super(codeDeliveryDetails);
 }

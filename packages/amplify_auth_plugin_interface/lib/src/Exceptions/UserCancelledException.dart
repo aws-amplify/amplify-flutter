@@ -19,7 +19,7 @@ import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart
 class UserCancelledException extends AuthException {
   /// Named constructor
   UserCancelledException(String message,
-      {String recoverySuggestion, String underlyingException})
+      {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);

@@ -23,7 +23,7 @@ class ResendUserAttributeConfirmationCodeRequest {
   String userAttributeKey;
 
   ResendUserAttributeConfirmationCodeRequest({
-    @required this.userAttributeKey,
+    required this.userAttributeKey,
   });
 
   Map<String, dynamic> serializeAsMap() {

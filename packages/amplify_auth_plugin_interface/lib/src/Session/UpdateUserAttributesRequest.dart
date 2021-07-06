@@ -23,7 +23,7 @@ class UpdateUserAttributesRequest {
 
   /// Default constructor
   UpdateUserAttributesRequest({
-    @required this.attributes,
+    required this.attributes,
   });
 
   /// Serialize the object to a map for use over the method channel

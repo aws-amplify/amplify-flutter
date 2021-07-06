@@ -51,7 +51,7 @@ void main() {
     });
     // We want to instantiate a new instance for each test so we start
     // with a fresh state as `Amplify` singleton holds a state.
-    amplify = new AmplifyClass();
+    amplify = new AmplifyClass.protected();
 
     // Clear out plugins before each test for a fresh state.
     StorageCategory.plugins.clear();
@@ -62,8 +62,9 @@ void main() {
     storageChannel.setMockMethodCallHandler(null);
   });
 
-
-  test('Exception is not thrown if platform exception contains "AmplifyAlreadyConfiguredException" code', () async {
+  test(
+      'Exception is not thrown if platform exception contains "AmplifyAlreadyConfiguredException" code',
+      () async {
     platformError = true;
     try {
       await Amplify.addPlugin(AmplifyStorageS3());
@@ -72,7 +73,9 @@ void main() {
     }
   });
 
-  test('Plugin is added if platform exception contains "AmplifyAlreadyConfiguredException" code', () async {
+  test(
+      'Plugin is added if platform exception contains "AmplifyAlreadyConfiguredException" code',
+      () async {
     platformError = true;
     await Amplify.addPlugin(AmplifyStorageS3());
     expect(StorageCategory.plugins.length, 1);
@@ -83,9 +86,11 @@ void main() {
       await Amplify.addPlugin(AmplifyStorageS3());
       await Amplify.addPlugin(AmplifyStorageS3());
       fail("exception not thrown");
+    } on AmplifyException catch (e) {
+      expect(e.message,
+          'Amplify plugin AmplifyStorageS3 was not added successfully.');
     } catch (e) {
       expect(e, isA<AmplifyException>());
-      expect(e.message, 'Amplify plugin AmplifyStorageS3 was not added successfully.');
     }
   });
 }

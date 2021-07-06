@@ -36,7 +36,7 @@ class AmplifyAuthCognito extends AuthPluginInterface {
 
   static set instance(AuthPluginInterface instance) {
     PlatformInterface.verifyToken(instance, _token);
-    _instance = instance;
+    _instance = instance as AmplifyAuthCognito;
   }
 
   Future<void> addPlugin() async {
@@ -47,99 +47,100 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     return streamWrapper.authStreamController;
   }
 
-  Future<SignUpResult> signUp({@required SignUpRequest request}) async {
+  Future<SignUpResult> signUp({required SignUpRequest request}) async {
     final res = await _instance.signUp(request: request);
     return res;
   }
 
   Future<SignUpResult> confirmSignUp(
-      {@required ConfirmSignUpRequest request}) async {
+      {required ConfirmSignUpRequest request}) async {
     final res = await _instance.confirmSignUp(request: request);
     return res;
   }
 
   Future<ResendSignUpCodeResult> resendSignUpCode(
-      {@required ResendSignUpCodeRequest request}) async {
+      {required ResendSignUpCodeRequest request}) async {
     final res = await _instance.resendSignUpCode(request: request);
     return res;
   }
 
-  Future<SignInResult> signIn({@required SignInRequest request}) async {
+  Future<SignInResult> signIn({required SignInRequest request}) async {
     final res = await _instance.signIn(request: request);
     return res;
   }
 
   Future<SignInResult> confirmSignIn(
-      {@required ConfirmSignInRequest request}) async {
+      {required ConfirmSignInRequest request}) async {
     final res = await _instance.confirmSignIn(request: request);
     return res;
   }
 
-  Future<SignOutResult> signOut({@required SignOutRequest request}) async {
+  Future<SignOutResult> signOut({SignOutRequest? request}) async {
     final res = await _instance.signOut(request: request);
     return res;
   }
 
   Future<UpdatePasswordResult> updatePassword(
-      {UpdatePasswordRequest request}) async {
+      {UpdatePasswordRequest? request}) async {
     final res = await _instance.updatePassword(request: request);
     return res;
   }
 
   Future<ResetPasswordResult> resetPassword(
-      {ResetPasswordRequest request}) async {
+      {ResetPasswordRequest? request}) async {
     final res = await _instance.resetPassword(request: request);
     return res;
   }
 
   Future<UpdatePasswordResult> confirmPassword(
-      {ConfirmPasswordRequest request}) async {
+      {ConfirmPasswordRequest? request}) async {
     final res = await _instance.confirmPassword(request: request);
     return res;
   }
 
-  Future<AuthUser> getCurrentUser({AuthUserRequest request}) async {
+  Future<AuthUser> getCurrentUser({AuthUserRequest? request}) async {
     final res = await _instance.getCurrentUser();
     return res;
   }
 
   Future<List<AuthUserAttribute>> fetchUserAttributes(
-      {AuthUserAttributeRequest request}) async {
+      {AuthUserAttributeRequest? request}) async {
     final res = await _instance.fetchUserAttributes();
     return res;
   }
 
-  Future<AuthSession> fetchAuthSession({AuthSessionRequest request}) async {
+  Future<AuthSession> fetchAuthSession({AuthSessionRequest? request}) async {
     final res = await _instance.fetchAuthSession(request: request);
     return res;
   }
 
-  Future<SignInResult> signInWithWebUI({SignInWithWebUIRequest request}) async {
+  Future<SignInResult> signInWithWebUI(
+      {SignInWithWebUIRequest? request}) async {
     final res = await _instance.signInWithWebUI(request: request);
     return res;
   }
 
   Future<UpdateUserAttributeResult> updateUserAttribute(
-      {@required UpdateUserAttributeRequest request}) async {
+      {UpdateUserAttributeRequest? request}) async {
     final res = await _instance.updateUserAttribute(request: request);
     return res;
   }
 
   Future<Map<String, UpdateUserAttributeResult>> updateUserAttributes(
-      {@required UpdateUserAttributesRequest request}) async {
+      {required UpdateUserAttributesRequest request}) async {
     final res = await _instance.updateUserAttributes(request: request);
     return res;
   }
 
   Future<ConfirmUserAttributeResult> confirmUserAttribute(
-      {@required ConfirmUserAttributeRequest request}) async {
+      {ConfirmUserAttributeRequest? request}) async {
     final res = await _instance.confirmUserAttribute(request: request);
     return res;
   }
 
   Future<ResendUserAttributeConfirmationCodeResult>
       resendUserAttributeConfirmationCode({
-    @required ResendUserAttributeConfirmationCodeRequest request,
+    ResendUserAttributeConfirmationCodeRequest? request,
   }) async {
     final res =
         await _instance.resendUserAttributeConfirmationCode(request: request);

@@ -18,8 +18,8 @@ library amplify_datastore_plugin_interface;
 import 'dart:async';
 
 import 'package:amplify_datastore_plugin_interface/src/types/models/model_provider.dart';
-import 'package:flutter/foundation.dart';
 import 'package:amplify_core/types/index.dart';
+import 'package:meta/meta.dart';
 
 import 'src/types/models/model.dart';
 import 'src/types/models/subscription_event.dart';
@@ -27,7 +27,6 @@ import 'src/types/sync/DataStoreSyncExpression.dart';
 import 'src/types/query/query_field.dart';
 
 export 'src/types/models/auth_rule.dart';
-export 'src/types/models/flutter_serialized_model.dart';
 export 'src/types/models/model.dart';
 export 'src/types/models/model_field.dart';
 export 'src/types/models/model_field_definition.dart';
@@ -45,40 +44,38 @@ export 'src/publicTypes.dart';
 
 abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   /// modelProvider
-  final ModelProviderInterface modelProvider;
+  ModelProviderInterface? modelProvider;
 
   /// list of sync expressions to filter datastore sync against
-  final List<DataStoreSyncExpression> syncExpressions;
+  List<DataStoreSyncExpression>? syncExpressions;
 
   /// Datastore sync interval (in seconds)
-  final int syncInterval;
+  int? syncInterval;
 
   /// Datastore max number of records to sync
-  final int syncMaxRecords;
+  int? syncMaxRecords;
 
   /// Datastore page size to sync
-  final int syncPageSize;
+  int? syncPageSize;
 
   /// Constructs an AmplifyPlatform.
   DataStorePluginInterface({
-    @required Object token,
-    @required this.modelProvider,
+    required Object token,
+    required this.modelProvider,
     this.syncExpressions,
     this.syncInterval,
     this.syncMaxRecords,
     this.syncPageSize,
   }) : super(token: token);
 
+  /// Internal use constructor
+  @protected
+  DataStorePluginInterface.tokenOnly({required Object token})
+      : super(token: token);
+
   StreamController get streamController {
     throw UnimplementedError(
         'streamController getter has not been implemented.');
-  }
-
-  @deprecated
-  Future<void> configureModelProvider(
-      {@required ModelProviderInterface modelProvider}) {
-    throw UnimplementedError(
-        'configureModelProvider() has not been implemented.');
   }
 
   /// Configure AmplifyDataStore plugin with mandatory [modelProvider]
@@ -90,21 +87,21 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   ///
   /// [syncPageSize]: page size to sync
   Future<void> configureDataStore(
-      {@required ModelProviderInterface modelProvider,
-      int syncInterval,
-      int syncMaxRecords,
-      int syncPageSize}) {
+      {required ModelProviderInterface modelProvider,
+      int? syncInterval,
+      int? syncMaxRecords,
+      int? syncPageSize}) {
     throw UnimplementedError('configureDataStore() has not been implemented.');
   }
 
-  Future<void> configure({String configuration}) {
+  Future<void> configure({String? configuration}) {
     throw UnimplementedError('configure() has not been implemented.');
   }
 
   Future<List<T>> query<T extends Model>(ModelType<T> modelType,
-      {QueryPredicate where,
-      QueryPagination pagination,
-      List<QuerySortBy> sortBy}) {
+      {QueryPredicate? where,
+      QueryPagination? pagination,
+      List<QuerySortBy>? sortBy}) {
     throw UnimplementedError('query() has not been implemented.');
   }
 

@@ -32,13 +32,24 @@ data class FlutterFetchCognitoAuthSessionResult(private val raw: AWSCognitoAuthS
   private val tokens: AuthSessionResult<AWSCognitoUserPoolTokens>? = raw.userPoolTokens
 
   fun toValueMap(): Map<String, Any?> {
-    return mapOf(
+    var serializedMap = mutableMapOf<String, Any?>(
       "isSignedIn" to this.isSignedIn,
       "identityId" to this.identityId,
-      "userSub" to this.userSub,
-      "credentials" to serializeCredentials(this.credentials),
-      "tokens" to serializeTokens(this.tokens)
+      "userSub" to this.userSub
     )
+
+    var credentials =  serializeCredentials(this.credentials)
+    var tokens =  serializeTokens(this.tokens)
+
+    if (credentials != null) {
+      serializedMap["credentials"] = credentials
+    }
+
+    if (tokens != null) {
+      serializedMap["tokens"] = tokens
+    }
+
+    return serializedMap;
   }
 
   //parse userpool tokens
@@ -79,6 +90,6 @@ data class FlutterFetchCognitoAuthSessionResult(private val raw: AWSCognitoAuthS
   //convert an object of type I to type O
   inline fun <I, reified O> I.convert(): O {
     val json = gson.toJson(this)
-    return gson.fromJson(json, object : TypeToken<O>() {}.type)
+    return gson.fromJson(json, O::class.java)
   }
 }

@@ -24,18 +24,13 @@ func serializeAuthUpdateAttributeResult(result: AuthUpdateAttributeResult?) -> D
 }
 
 private func serializeAuthUpdateAttributeStep(nextStep: AuthUpdateAttributeStep?) -> Dictionary<String, Any> {
-    let serializedUpdateAttributeStep = serializeUpdateAttributeStep(nextStep: nextStep)
-    var serializedAdditionalInfo: Dictionary<String, Any> = [:]
-    var serializedCodeDeliveryDetails: Dictionary<String, Any>  = [:]
+    var serializedNextStep: Dictionary<String, Any> = [:]
+    serializedNextStep["updateAttributeStep"] = serializeUpdateAttributeStep(nextStep: nextStep)
     if case let .confirmAttributeWithCode(deliveryDetails, additionalInfo) = nextStep {
-        serializedAdditionalInfo = additionalInfo ?? [:]
-        serializedCodeDeliveryDetails = serializeAuthCodeDeliveryDetails(deliveryDetails: deliveryDetails)
+        serializedNextStep["additionalInfo"] = additionalInfo ?? [:]
+        serializedNextStep["codeDeliveryDetails"] = serializeAuthCodeDeliveryDetails(deliveryDetails: deliveryDetails)
     }
-    return [
-        "updateAttributeStep": serializedUpdateAttributeStep,
-        "additionalInfo": serializedAdditionalInfo,
-        "codeDeliveryDetails": serializedCodeDeliveryDetails
-    ]
+    return serializedNextStep
 }
 
 private func serializeUpdateAttributeStep(nextStep: AuthUpdateAttributeStep?) -> String {

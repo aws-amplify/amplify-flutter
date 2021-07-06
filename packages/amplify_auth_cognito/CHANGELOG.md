@@ -1,3 +1,28 @@
+## 0.2.0 (2021-06-30)
+
+### Breaking Changes
+
+- AuthCodeDeliveryDetails are now nullable within the nextStep member of the CognitoSignInResult, CognitoSignUpResult, and CognitoResetPasswordResult classes.
+- AWSCredentials and AWSCognitoUserPoolTokens are now nullable within the CognitoAuthSession class.
+
+### Features
+
+- feat: Null Safety Auth (#536)
+- feat: Null safety core (#492)
+
+### Bug Fixes
+
+- fix: uses nextStep helper for signInResult on Android (#689)
+- fix(amplify_auth_cognito): update user attribute serialization (#684)
+- fix(amplify_auth_cognito): Remove use of TypeToken (#683)
+- fix(auth_auth_cognito): Type mismatch: inferred type (#653)
+- fix: Null safety master fixes pr (#614)
+- fix(amplify_auth_cognito): fixes auth null safety issues #613
+
+### Chores
+
+- chore: Null safety master rebase (#676)
+
 ## 0.1.6 (2021-06-23)
 
 ### Features
