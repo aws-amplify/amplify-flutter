@@ -13,24 +13,23 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
 import './DownloadFileOptions.dart';
 import 'dart:io';
 
 class DownloadFileRequest {
   String key;
   File local;
-  DownloadFileOptions options;
+  DownloadFileOptions? options;
 
-  DownloadFileRequest({@required this.key, @required this.local, this.options});
+  DownloadFileRequest({required this.key, required this.local, this.options});
 
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> result = <String, dynamic>{};
-    result['path'] = local.absolute.path;
-    result['key'] = key;
-    if (options != null) {
-      result['options'] = options.serializeAsMap();
-    }
+    final Map<String, dynamic> result = {
+      'path': local.absolute.path,
+      'key': key,
+      'options': options?.serializeAsMap()
+    };
+    result.removeWhere((_, v) => v == null);
     return result;
   }
 }

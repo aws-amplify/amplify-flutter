@@ -16,12 +16,12 @@
 import 'package:amplify_core/types/hub/HubEventPayload.dart';
 
 class ModelSyncedEvent extends HubEventPayload {
-  String modelName;
-  bool isFullSync;
-  bool isDeltaSync;
-  int added;
-  int updated;
-  int deleted;
+  late String modelName;
+  late bool isFullSync;
+  late bool isDeltaSync;
+  late int added;
+  late int updated;
+  late int deleted;
   ModelSyncedEvent(Map<dynamic, dynamic> serializedData) {
     modelName = serializedData["model"];
     isFullSync = serializedData["isFullSync"];

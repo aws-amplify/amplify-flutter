@@ -46,9 +46,14 @@ void main() {
     expect(
         comments[0],
         Comment(
-            id: '39c3c0e6-8726-436e-8cdf-bff38e9a62da',
-            content: 'Loving Amplify Datastore!',
-            post: Post(id: 'e50ffa8f-783b-4780-89b4-27043ffc35be')));
+          id: '39c3c0e6-8726-436e-8cdf-bff38e9a62da',
+          content: 'Loving Amplify Datastore!',
+          post: Post(
+              id: 'e50ffa8f-783b-4780-89b4-27043ffc35be',
+              title: "some title",
+              rating: 10,
+              created: TemporalDateTime.fromString("2020-11-25T01:28:49Z")),
+        ));
   });
 
   test('query returns 2 sucessful results', () async {
@@ -63,13 +68,15 @@ void main() {
         posts[0],
         Post(
             id: '4281dfba-96c8-4a38-9a8e-35c7e893ea47',
+            created: TemporalDateTime.fromString("2020-02-20T20:20:20+03:50"),
             rating: 4,
             title: 'Title 1'));
     expect(
         posts[1],
         Post(
             id: '43036c6b-8044-4309-bddc-262b6c686026',
-            created: DateTime.parse("2020-02-20T20:20:20-08:00"),
+            created: TemporalDateTime.fromString("2020-02-20T20:20:20-08:00"),
+            rating: 6,
             title: 'Title 2'));
   });
 

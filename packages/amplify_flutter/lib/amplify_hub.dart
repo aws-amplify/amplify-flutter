@@ -16,6 +16,7 @@
 import 'dart:async';
 
 import 'package:amplify_core/types/index.dart';
+
 import 'amplify.dart';
 
 typedef void Listener(dynamic event);
@@ -24,10 +25,9 @@ class AmplifyHub {
   final Map<HubChannel, Stream> availableStreams = {};
 
   /// Expose listen method which instantiates new StreamController listening to one or more availableStreams
-  StreamSubscription listen(
-      List<HubChannel> channels, Listener listener) {
+  StreamSubscription listen(List<HubChannel> channels, Listener listener) {
     List<StreamSubscription> platformSubscriptions = [];
-    StreamController controller;
+    late StreamController controller;
 
     cancelPluginStreams() {
       platformSubscriptions.forEach((ps) {
@@ -40,7 +40,7 @@ class AmplifyHub {
           channels.forEach((c) {
             if (availableStreams[c] != null) {
               StreamSubscription subscription =
-                  availableStreams[c].listen((msg) {
+                  availableStreams[c]!.listen((msg) {
                 /// Emit events via Hub
                 controller.add(msg);
               });

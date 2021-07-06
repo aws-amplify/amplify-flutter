@@ -14,21 +14,21 @@
  */
 
 import './PasswordOptions.dart';
-import 'package:flutter/foundation.dart';
 
 class UpdatePasswordRequest {
   String newPassword;
   String oldPassword;
-  PasswordOptions options;
+  PasswordOptions? options;
 
-  UpdatePasswordRequest({@required this.newPassword, @required this.oldPassword, this.options});
+  UpdatePasswordRequest(
+      {required this.newPassword, required this.oldPassword, this.options});
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    pendingRequest['newPassword'] = newPassword;
-    pendingRequest['oldPassword'] = oldPassword;
-    if (options != null) {
-      pendingRequest['options'] = options.serializeAsMap();
-    }
+    final Map<String, dynamic> pendingRequest = {
+      'newPassword': newPassword,
+      'oldPassword': oldPassword,
+      'options': options?.serializeAsMap()
+    };
+    pendingRequest.removeWhere((_, v) => v == null);
     return pendingRequest;
   }
 }

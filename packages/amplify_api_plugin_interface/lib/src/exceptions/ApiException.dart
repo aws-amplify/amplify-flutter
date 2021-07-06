@@ -18,19 +18,19 @@ import 'package:amplify_core/types/exception/AmplifyException.dart';
 /// Exception thrown from Api Category
 class ApiException extends AmplifyException {
   /// HTTP status of response, only available if error
-  final int httpStatusCode;
+  final int? httpStatusCode;
 
-  /// Named constructor
-  ApiException(String message,
-      {String recoverySuggestion, String underlyingException, int statusCode})
-      : httpStatusCode = statusCode,
-        super(message,
+  const ApiException(String message,
+      {String? recoverySuggestion,
+      String? underlyingException,
+      this.httpStatusCode})
+      : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
 
   /// Constructor for down casting an AmplifyException to this exception
   ApiException._private(
-      AmplifyException exception, int httpStatusCodeFromException)
+      AmplifyException exception, int? httpStatusCodeFromException)
       : httpStatusCode = httpStatusCodeFromException,
         super(exception.message,
             recoverySuggestion: exception.recoverySuggestion,

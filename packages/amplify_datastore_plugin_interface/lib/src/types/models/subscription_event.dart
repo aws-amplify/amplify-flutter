@@ -24,12 +24,11 @@ class SubscriptionEvent<T extends Model> {
   final ModelType<T> modelType;
   final EventType eventType;
 
-  const SubscriptionEvent({this.item, this.modelType, this.eventType});
+  const SubscriptionEvent(
+      {required this.item, required this.modelType, required this.eventType});
 
   factory SubscriptionEvent.fromMap(
       Map<dynamic, dynamic> map, ModelType<T> modelType) {
-    if (map == null) return null;
-
     Map<String, dynamic> serializedItem =
         Map<String, dynamic>.from(map["item"]);
 
@@ -37,7 +36,7 @@ class SubscriptionEvent<T extends Model> {
         item: modelType.fromJson(
             Map<String, dynamic>.from(serializedItem["serializedData"])),
         eventType: EventType.values
-            .firstWhere((e) => describeEnum(e) == map["eventType"] as String),
+            .firstWhere((e) => describeEnum(e) == map["eventType"] as String?),
         modelType: modelType);
   }
 }

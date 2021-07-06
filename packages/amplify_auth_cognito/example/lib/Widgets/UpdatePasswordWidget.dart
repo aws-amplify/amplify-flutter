@@ -7,8 +7,8 @@ class UpdatePasswordWidget extends StatefulWidget {
   final Function showResult;
   final Function changeDisplay;
   final Function setError;
-  final Function backToSignIn;
-  final Function backToApp;
+  final VoidCallback backToSignIn;
+  final VoidCallback backToApp;
 
   UpdatePasswordWidget(this.showResult, this.changeDisplay, this.setError,
       this.backToSignIn, this.backToApp);

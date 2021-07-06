@@ -18,6 +18,7 @@ library amplify;
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
@@ -37,14 +38,12 @@ export 'package:amplify_core/types/index.dart';
 part 'method_channel_amplify.dart';
 
 /// Top level singleton Amplify object.
-final AmplifyClass Amplify = new AmplifyClass._private();
+final AmplifyClass Amplify = new AmplifyClass.protected();
 
 /// This is a private class and customers are not expected to
 /// instantiate an object of this class. Please use top level
 /// `Amplify` singleton object for making calls to methods of this class.
 class AmplifyClass extends PlatformInterface {
-  AmplifyClass._private();
-
   // ignore: public_member_api_docs
   AuthCategory Auth = const AuthCategory();
   // ignore: public_member_api_docs
@@ -128,7 +127,7 @@ class AmplifyClass extends PlatformInterface {
   }
 
   String _getVersion() {
-    return '0.1.5';
+    return '0.2.0';
   }
 
   /// Configures Amplify with the provided configuration string.
@@ -148,16 +147,7 @@ class AmplifyClass extends PlatformInterface {
               'Check if Amplify is already configured using Amplify.isConfigured.');
     }
 
-    // Validation #2
-    if (configuration == null) {
-      throw AmplifyException('Configuration passed in null.',
-          recoverySuggestion:
-              'Make sure that your amplifyconfiguration.dart file' +
-                  ' exists and has string constant ``amplifyconfig` and that' +
-                  ' you are calling configure() correctly.');
-    }
-
-    // Validation #3. Try decoding the json string
+    // Validation #2. Try decoding the json string
     try {
       jsonDecode(configuration);
     } on FormatException catch (e) {
@@ -168,10 +158,10 @@ class AmplifyClass extends PlatformInterface {
           underlyingException: e.toString());
     }
     try {
-      var res = await AmplifyClass.instance
+      bool? res = await AmplifyClass.instance
           ._configurePlatforms(_getVersion(), configuration);
-      _isConfigured = res;
-      if (!res) {
+      _isConfigured = res ?? false;
+      if (!_isConfigured) {
         throw AmplifyException('Amplify failed to configure.',
             recoverySuggestion:
                 AmplifyExceptionMessages.missingRecoverySuggestion);
@@ -197,12 +187,14 @@ class AmplifyClass extends PlatformInterface {
   }
 
   /// Adds the configuration and return true if it was successful.
-  Future<bool> _configurePlatforms(String version, String configuration) {
+  Future<bool?> _configurePlatforms(String version, String configuration) {
     throw UnimplementedError('_configurePlatforms() has not been implemented.');
   }
 
   /// Constructs a Core platform.
-  AmplifyClass() : super(token: _token);
+  /// Internal Use Only
+  @protected
+  AmplifyClass.protected() : super(token: _token);
 
   static final Object _token = Object();
 
