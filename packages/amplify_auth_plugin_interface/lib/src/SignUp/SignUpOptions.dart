@@ -13,11 +13,9 @@
  * permissions and limitations under the License.
  */
 
-
-
 abstract class SignUpOptions {
   final Map<String, String> userAttributes;
-  
+
   const SignUpOptions({required this.userAttributes});
 
   Map<String, dynamic> serializeAsMap();

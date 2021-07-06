@@ -19,7 +19,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 
 void main() {
-  const MethodChannel authChannel = MethodChannel('com.amazonaws.amplify/auth_cognito');
+  const MethodChannel authChannel =
+      MethodChannel('com.amazonaws.amplify/auth_cognito');
 
   AmplifyAuthCognito auth = AmplifyAuthCognito();
 
@@ -49,7 +50,9 @@ void main() {
     authChannel.setMockMethodCallHandler(null);
   });
 
-  test('resendUserAttributeConfirmationCode request returns a ResendUserAttributeConfirmationCodeResult', () async {
+  test(
+      'resendUserAttributeConfirmationCode request returns a ResendUserAttributeConfirmationCodeResult',
+      () async {
     testCode = 1;
     var res = await auth.resendUserAttributeConfirmationCode(
       request: ResendUserAttributeConfirmationCodeRequest(
@@ -59,7 +62,9 @@ void main() {
     expect(res, isInstanceOf<ResendUserAttributeConfirmationCodeResult>());
   });
 
-  test('resendUserAttributeConfirmationCode thrown PlatFormException results in AuthError', () async {
+  test(
+      'resendUserAttributeConfirmationCode thrown PlatFormException results in AuthError',
+      () async {
     testCode = 2;
     try {
       await auth.resendUserAttributeConfirmationCode(
