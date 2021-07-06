@@ -113,13 +113,13 @@ void main() {
         'rating': {
           'name': 'rating',
           'type': {'fieldType': 'int'},
-          'isRequired': false,
+          'isRequired': true,
           'isArray': false,
         },
         'created': {
           'name': 'created',
           'type': {'fieldType': 'dateTime'},
-          'isRequired': false,
+          'isRequired': true,
           'isArray': false,
         },
         'blog': {

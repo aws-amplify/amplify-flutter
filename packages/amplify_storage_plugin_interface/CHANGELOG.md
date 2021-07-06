@@ -1,3 +1,13 @@
+## 0.2.0 (2021-06-30)
+
+### Features
+
+- feat: Null safety core (#492)
+
+### Chores
+
+- chore: Null safety master rebase (#676)
+
 ## 0.1.6 (2021-06-23)
 
 ## 0.1.5 (2021-05-17)

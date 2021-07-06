@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 // ignore_for_file: public_member_api_docs
 
 class _UserAttributeController {
-  TextEditingController keyController;
-  TextEditingController valueController;
-  _UserAttributeController({String keyValue}) {
+  late TextEditingController keyController;
+  late TextEditingController valueController;
+  _UserAttributeController({String? keyValue}) {
     keyController = TextEditingController(text: keyValue);
     valueController = TextEditingController();
   }
@@ -47,7 +47,7 @@ class _UpdateUserAttributesWidgetState
   }
 
   void _updateAttributes() async {
-    if (_formKey.currentState.validate()) {
+    if (_formKey.currentState!.validate()) {
       try {
         var attributes = _userAttributeControllers
             .map(
@@ -113,8 +113,8 @@ class _UpdateUserAttributesWidgetState
                         decoration: const InputDecoration(
                           labelText: 'Attribute Name',
                         ),
-                        validator: (String value) {
-                          if (value.isEmpty) {
+                        validator: (value) {
+                          if (value == null) {
                             return 'An Attribute name is required.';
                           }
                         },
@@ -124,8 +124,8 @@ class _UpdateUserAttributesWidgetState
                         decoration: const InputDecoration(
                           labelText: 'Attribute Value',
                         ),
-                        validator: (String value) {
-                          if (value.isEmpty) {
+                        validator: (value) {
+                          if (value == null) {
                             return 'An Attribute value is required.';
                           }
                         },

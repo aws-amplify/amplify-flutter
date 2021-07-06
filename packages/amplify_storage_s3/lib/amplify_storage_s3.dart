@@ -18,7 +18,6 @@ library amplify_storage_plugin;
 import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import './method_channel_storage_s3.dart';
-import 'package:flutter/foundation.dart';
 
 export './src/types.dart';
 export 'package:amplify_storage_plugin_interface/src/types.dart';
@@ -32,9 +31,9 @@ class AmplifyStorageS3 extends StoragePluginInterface {
   static AmplifyStorageS3 _instance = AmplifyStorageS3MethodChannel();
 
   /// The default instance of [AmplifyStoragePlugin] to use.
-  static StoragePluginInterface get instance => _instance;
+  static AmplifyStorageS3 get instance => _instance;
 
-  static set instance(StoragePluginInterface instance) {
+  static set instance(AmplifyStorageS3 instance) {
     PlatformInterface.verifyToken(instance, _token);
     _instance = instance;
   }
@@ -45,28 +44,28 @@ class AmplifyStorageS3 extends StoragePluginInterface {
   }
 
   @override
-  Future<UploadFileResult> uploadFile({@required UploadFileRequest request}) {
+  Future<UploadFileResult> uploadFile({required UploadFileRequest request}) {
     return _instance.uploadFile(request: request);
   }
 
   @override
-  Future<GetUrlResult> getUrl({@required GetUrlRequest request}) {
+  Future<GetUrlResult> getUrl({required GetUrlRequest request}) {
     return _instance.getUrl(request: request);
   }
 
   @override
-  Future<RemoveResult> remove({@required RemoveRequest request}) {
+  Future<RemoveResult> remove({required RemoveRequest request}) {
     return _instance.remove(request: request);
   }
 
   @override
-  Future<ListResult> list({@required ListRequest request}) {
+  Future<ListResult> list({required ListRequest request}) {
     return _instance.list(request: request);
   }
 
   @override
   Future<DownloadFileResult> downloadFile(
-      {@required DownloadFileRequest request}) {
+      {required DownloadFileRequest request}) {
     return _instance.downloadFile(request: request);
   }
 }
