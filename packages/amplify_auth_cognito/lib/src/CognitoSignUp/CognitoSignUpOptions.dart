@@ -16,16 +16,15 @@
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
 class CognitoSignUpOptions extends SignUpOptions {
-  Map<String, String> validationData;
-  CognitoSignUpOptions({userAttributes, this.validationData}) : super(userAttributes: userAttributes);
+  Map<String, String>? validationData;
+  CognitoSignUpOptions({userAttributes, this.validationData})
+      : super(userAttributes: userAttributes);
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    if (this.validationData != null) {
-      pendingRequest["validationData"] = validationData;
-    }
-    if (this.userAttributes != null) {
-      pendingRequest["userAttributes"] = userAttributes;
-    }
+    final Map<String, dynamic> pendingRequest = {
+      'validationData': validationData,
+      'userAttributes': userAttributes
+    };
+    pendingRequest.removeWhere((_, v) => v == null);
     return pendingRequest;
   }
 }

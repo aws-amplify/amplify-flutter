@@ -31,14 +31,20 @@ struct FlutterSignUpResult  {
     }
     
     func toJSON() -> Dictionary<String, Any> {
-      return [
-        "isSignUpComplete": self.isSignUpComplete,
-        "nextStep": [
-            "signUpStep": self.signUpStep,
-            "additionalInfo": self.additionalInfo,
-            "codeDeliveryDetails": self.codeDeliveryDetails
-        ]
-      ]
+      var result: Dictionary<String, Any> = ["isSignUpComplete": self.isSignUpComplete]
+      var nextStep: Dictionary<String, Any> = ["signUpStep": self.signUpStep]
+      
+      if (!self.codeDeliveryDetails.isEmpty) {
+        nextStep["codeDeliveryDetails"] = self.codeDeliveryDetails
+      }
+        
+      if (!self.additionalInfo.isEmpty) {
+        nextStep["additionalInfo"] = self.additionalInfo
+      }
+        
+      result["nextStep"] = nextStep
+        
+      return result
     }
 }
 

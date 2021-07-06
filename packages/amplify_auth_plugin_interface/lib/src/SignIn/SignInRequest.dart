@@ -16,21 +16,17 @@
 import './SignInOptions.dart';
 
 class SignInRequest {
-  String username;
-  String password;
-  SignInOptions options;
+  String? username;
+  String? password;
+  SignInOptions? options;
   SignInRequest({this.username, this.password, this.options});
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    if (username != null) {
-      pendingRequest['username'] = username;
-    }
-    if (password != null) {
-      pendingRequest['password'] = password;
-    }
-    if (options != null) {
-      pendingRequest['options'] = options.serializeAsMap();
-    }
+    final Map<String, dynamic> pendingRequest = {
+      'username': username,
+      'password': password,
+      'options': options?.serializeAsMap()
+    };
+    pendingRequest.removeWhere((_, v) => v == null);
     return pendingRequest;
   }
 }

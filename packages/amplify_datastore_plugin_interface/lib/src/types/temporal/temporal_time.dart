@@ -22,9 +22,9 @@ import 'temporal.dart';
 /// hh:mm:ss.sss
 /// https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html#appsync-defined-scalars
 class TemporalTime {
-  DateTime _dateTime;
+  late DateTime _dateTime;
   int _nanoseconds = 0; // DateTime only stores millisecond and microsecond
-  Duration _offset;
+  Duration? _offset;
 
   /// Constructs a new TemporalTime at the current date.
   static TemporalTime now() {
@@ -70,8 +70,8 @@ class TemporalTime {
         multiLine: false);
 
     // Validate
-    String regexString = regExp.stringMatch(iso8601String);
-    if (regexString != iso8601String) {
+    String? regexString = regExp.stringMatch(iso8601String);
+    if (regexString == null || regexString != iso8601String) {
       throw AmplifyException("Invalid ISO8601 String Input",
           recoverySuggestion:
               "Please provide an extended ISO 8601 time string in the format hh:mm:ss.sss with an optional time zone offset ±hh:mm:ss.  " +
@@ -82,10 +82,10 @@ class TemporalTime {
     regexString = iso8601String.replaceAll(new RegExp(r'(z|Z)'), '');
 
     // Extract Time
-    var match = regExp.matchAsPrefix(regexString);
+    var match = regExp.matchAsPrefix(regexString)!;
 
-    int hours = int.parse(match.group(1));
-    int minutes = int.parse(match.group(2));
+    int hours = int.parse(match.group(1)!);
+    int minutes = int.parse(match.group(2)!);
     int seconds = Temporal.getIntOr0(match.group(4));
 
     int totalNanoseconds = Temporal.getIntOr0(match.group(6));
@@ -97,13 +97,13 @@ class TemporalTime {
         1970, 1, 1, hours, minutes, seconds, milliseconds, microseconds);
 
     // Extract Offset
-    if (match.group(7) != null && match.group(7).isNotEmpty)
-      _offset = Temporal.offsetToDuration(match.group(7));
+    if (match.group(7) != null && match.group(7)!.isNotEmpty)
+      _offset = Temporal.offsetToDuration(match.group(7)!);
     else if (iso8601String.toLowerCase().contains("z")) _offset = Duration();
   }
 
   /// Return offset
-  Duration getOffset() {
+  Duration? getOffset() {
     return _offset;
   }
 
@@ -128,10 +128,10 @@ class TemporalTime {
     }
 
     if (_offset != null) {
-      if (_offset.inSeconds == 0) {
+      if (_offset!.inSeconds == 0) {
         buffer.write("Z");
       } else {
-        buffer.write(Temporal.durationToOffset(_offset));
+        buffer.write(Temporal.durationToOffset(_offset!));
       }
     }
 

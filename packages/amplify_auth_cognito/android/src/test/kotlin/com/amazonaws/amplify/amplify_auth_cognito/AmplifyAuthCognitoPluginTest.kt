@@ -108,7 +108,6 @@ class AmplifyAuthCognitoPluginTest {
             "isSignUpComplete" to false,
             "nextStep" to mapOf(
                 "signUpStep" to "CONFIRM_SIGN_UP_STEP",
-                "additionalInfo" to "{}",
                 "codeDeliveryDetails" to mapOf(
                     "destination" to "test@test.com",
                     "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
@@ -182,7 +181,6 @@ class AmplifyAuthCognitoPluginTest {
             "isSignUpComplete" to false,
             "nextStep" to mapOf(
                 "signUpStep" to "CONFIRM_SIGN_UP_STEP",
-                "additionalInfo" to "{}",
                 "codeDeliveryDetails" to mapOf(
                     "destination" to "test@test.com",
                     "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
@@ -230,7 +228,6 @@ class AmplifyAuthCognitoPluginTest {
             "isSignUpComplete" to false,
             "nextStep" to mapOf(
                 "signUpStep" to "CONFIRM_SIGN_UP_STEP",
-                "additionalInfo" to "{}",
                 "codeDeliveryDetails" to mapOf(
                     "destination" to "test@test.com",
                     "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
@@ -364,12 +361,16 @@ class AmplifyAuthCognitoPluginTest {
         }.`when`(mockAuth).confirmSignIn(anyString(), ArgumentMatchers.any<AuthConfirmSignInOptions>(), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
 
         val metadata = hashMapOf(
-                "key" to "value"
+            "key" to "value"
+        )
+        val userAttributes = hashMapOf(
+           "email" to "test@test.test"
         )
         val data: HashMap<*, *> = hashMapOf(
             "confirmationCode" to "confirmationCode",
             "options" to hashMapOf(
-                "clientMetadata" to metadata
+                "clientMetadata" to metadata,
+                "userAttributes" to userAttributes
             )
         )
         val arguments: HashMap<String, Any> = hashMapOf("data" to data)
@@ -379,7 +380,8 @@ class AmplifyAuthCognitoPluginTest {
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        var expectedOptions = AWSCognitoAuthConfirmSignInOptions.builder().metadata(metadata).build()
+        var attributeList = mutableListOf<AuthUserAttribute>(AuthUserAttribute(AuthUserAttributeKey.custom("email"), "test@test.test"))
+        var expectedOptions = AWSCognitoAuthConfirmSignInOptions.builder().metadata(metadata).userAttributes(attributeList).build()
         verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
         verify(mockAuth).confirmSignIn(ArgumentMatchers.eq("confirmationCode"), ArgumentMatchers.eq(expectedOptions), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
     }
@@ -624,12 +626,12 @@ class AmplifyAuthCognitoPluginTest {
                 "isUpdated" to true,
                 "nextStep" to mapOf(
                         "updateAttributeStep" to "CONFIRM_ATTRIBUTE_WITH_CODE",
-                        "additionalInfo" to "{}",
                         "codeDeliveryDetails" to mapOf(
                                 "destination" to "test@test.com",
                                 "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
                                 "attributeName" to "email"
-                        )
+                        ),
+                        "additionalInfo" to "{}"
                 )
         )
 
@@ -660,12 +662,12 @@ class AmplifyAuthCognitoPluginTest {
                 "isUpdated" to true,
                 "nextStep" to mapOf(
                         "updateAttributeStep" to "CONFIRM_ATTRIBUTE_WITH_CODE",
-                        "additionalInfo" to "{}",
                         "codeDeliveryDetails" to mapOf(
                                 "destination" to "test@test.com",
                                 "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
                                 "attributeName" to "email"
-                        )
+                        ),
+                        "additionalInfo" to "{}"
                 )
         )
 
@@ -770,11 +772,7 @@ class AmplifyAuthCognitoPluginTest {
                         "nextStep" to mapOf(
                                 "updateAttributeStep" to "DONE",
                                 "additionalInfo" to "{}",
-                                "codeDeliveryDetails" to mapOf(
-                                        "destination" to "",
-                                        "deliveryMedium" to "",
-                                        "attributeName" to ""
-                                )
+                                "codeDeliveryDetails" to null
                         )
                 )
         )

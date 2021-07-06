@@ -74,7 +74,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   // Class under test
-  AmplifyClass amplify;
+  late AmplifyClass amplify;
 
   setUp(() {
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
@@ -92,7 +92,7 @@ void main() {
     });
     // We want to instantiate a new instance for each test so we start
     // with a fresh state as `Amplify` singleton holds a state.
-    amplify = new AmplifyClass();
+    amplify = new AmplifyClass.protected();
 
     // We only use Auth and Analytics category for testing this class.
     // Clear out their plugins before each test for a fresh state.
@@ -127,25 +127,19 @@ void main() {
     expect(amplify.isConfigured, false);
   });
 
-  test('configure should result in AmplifyException when null value is passed',
-      () async {
-    amplify
-        .configure(null)
-        .then((v) => fail('configuration should have been failed.'))
-        .catchError((e) => expect(e, nullConfigurationException));
-    expect(amplify.isConfigured, false);
-  });
-
   test(
       'configure should result in AmplifyException when invalid value is passed',
       () async {
-    FormatException formatException = null;
+    FormatException? formatException = null;
     // Setup the expected exception
     try {
       jsonDecode(invalidConfiguration);
-    } catch (e) {
+    } on FormatException catch (e) {
       formatException = e;
+    } catch (e) {
+      expect(e, isA<FormatException>());
     }
+
     AmplifyException invalidConfigurationException = AmplifyException(
         'The provided configuration is not a valid json. Check underlyingException.',
         recoverySuggestion:
@@ -153,7 +147,6 @@ void main() {
         underlyingException: formatException.toString());
     amplify
         .configure(invalidConfiguration)
-        .then((v) => fail('configuration should have been failed.'))
         .catchError((e) => expect(e, invalidConfigurationException));
     expect(amplify.isConfigured, false);
   });
@@ -221,7 +214,9 @@ void main() {
     fail('an exception should have been thrown');
   });
 
-  test('PlatformException with AmplifyAlreadyConfiguredException code is swallowed', () async {
+  test(
+      'PlatformException with AmplifyAlreadyConfiguredException code is swallowed',
+      () async {
     platformConfigured = true;
 
     try {

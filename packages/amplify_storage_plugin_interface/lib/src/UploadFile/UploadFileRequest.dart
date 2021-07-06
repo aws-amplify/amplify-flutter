@@ -13,24 +13,23 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
 import './UploadFileOptions.dart';
 import 'dart:io';
 
 class UploadFileRequest {
   File local;
   String key;
-  UploadFileOptions options;
+  UploadFileOptions? options;
 
-  UploadFileRequest({@required this.local, @required this.key, this.options});
+  UploadFileRequest({required this.local, required this.key, this.options});
 
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> result = <String, dynamic>{};
-    result['path'] = local.absolute.path;
-    result['key'] = key;
-    if (options != null) {
-      result['options'] = options.serializeAsMap();
-    }
+    final Map<String, dynamic> result = {
+      'path': local.absolute.path,
+      'key': key,
+      'options': options?.serializeAsMap()
+    };
+    result.removeWhere((_, v) => v == null);
     return result;
   }
 }

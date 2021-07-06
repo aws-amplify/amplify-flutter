@@ -27,13 +27,13 @@ import com.amazonaws.amplify.amplify_datastore.types.hub.FlutterReadyEvent
 import com.amazonaws.amplify.amplify_datastore.types.hub.FlutterOutboxMutationEnqueuedEvent
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.model.ModelSchema
+import com.amplifyframework.core.model.SerializedModel
 import com.amplifyframework.core.model.temporal.Temporal
 import com.amplifyframework.datastore.DataStoreCategory
 import com.amplifyframework.datastore.AWSDataStorePlugin
 import com.amplifyframework.datastore.DataStoreChannelEventName
 import com.amplifyframework.datastore.appsync.ModelMetadata
 import com.amplifyframework.datastore.appsync.ModelWithMetadata
-import com.amplifyframework.datastore.appsync.SerializedModel
 import com.amplifyframework.datastore.events.ModelSyncedEvent
 import com.amplifyframework.datastore.events.NetworkStatusEvent
 import com.amplifyframework.datastore.events.OutboxStatusEvent
