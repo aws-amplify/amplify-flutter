@@ -10,3 +10,5 @@ String generateEmail() =>
 String generatePassword() => uuid.v4();
 
 String generateUsername() => 'TEMP_USER-${uuid.v4()}';
+
+String generateNameAttribute() => 'FAKE-NAME-${uuid.v4()}';
