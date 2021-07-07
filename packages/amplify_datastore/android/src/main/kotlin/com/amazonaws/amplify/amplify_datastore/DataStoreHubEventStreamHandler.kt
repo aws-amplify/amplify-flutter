@@ -167,7 +167,7 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                         }
                     }
                     else -> {
-                        LOG.error("Unrecognized DataStoreHubEvent: " + hubEvent.name)
+                        LOG.info("Unhandled DataStoreHubEvent: " + hubEvent.name + "\n" + hubEvent.data.toString())
                     }
                 }
             } catch (e: Exception) {
