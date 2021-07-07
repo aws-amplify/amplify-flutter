@@ -43,7 +43,7 @@ class GraphQLResponseError {
 
   @override
   String toString() {
-    return 'GraphQLResponseError${prettyPrintJson(toJson())}';
+    return 'GraphQLResponseError${prettyPrintJson(this)}';
   }
 }
 
