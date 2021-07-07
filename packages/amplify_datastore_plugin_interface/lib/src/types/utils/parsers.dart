@@ -16,9 +16,11 @@
 // ignore_for_file: public_member_api_docs
 
 // only to be used internally by amplify-flutter library
-String enumToString(Object o) =>
+import 'package:collection/collection.dart' show IterableExtension;
+
+String? enumToString(Object? o) =>
     o != null ? o.toString().split('.').last : null;
 
 // only to be used internally by amplify-flutter library
-T enumFromString<T>(String key, List<T> values) =>
-    values.firstWhere((v) => key == enumToString(v), orElse: () => null);
+T? enumFromString<T>(String? key, List<T> values) =>
+    values.firstWhereOrNull((v) => key == enumToString(v));

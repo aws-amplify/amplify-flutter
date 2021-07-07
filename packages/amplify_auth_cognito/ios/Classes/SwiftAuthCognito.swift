@@ -196,6 +196,38 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
             } catch {
                 self.errorHandler.prepareGenericException(flutterResult: result, error: error)
             }
+        case "updateUserAttribute":
+            do {
+                try FlutterUpdateUserAttributeRequest.validate(dict: data)
+                let request = FlutterUpdateUserAttributeRequest(dict: data)
+                cognito.onUpdateUserAttribute(flutterResult: result, request: request)
+            } catch {
+                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
+            }
+        case "updateUserAttributes":
+            do {
+                try FlutterUpdateUserAttributesRequest.validate(dict: data)
+                let request = FlutterUpdateUserAttributesRequest(dict: data)
+                cognito.onUpdateUserAttributes(flutterResult: result, request: request)
+            } catch {
+                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
+            }
+        case "confirmUserAttribute":
+            do {
+                try FlutterConfirmUserAttributeRequest.validate(dict: data)
+                let request = FlutterConfirmUserAttributeRequest(dict: data)
+                cognito.onConfirmUserAttribute(flutterResult: result, request: request)
+            } catch {
+                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
+            }
+        case "resendUserAttributeConfirmationCode":
+            do {
+                try FlutterResendUserAttributeConfirmationCodeRequest.validate(dict: data)
+                let request = FlutterResendUserAttributeConfirmationCodeRequest(dict: data)
+                cognito.onResendUserAttributeConfirmationCode(flutterResult: result, request: request)
+            } catch {
+                self.errorHandler.prepareGenericException(flutterResult: result, error: error)
+            }
         default:
             result(FlutterMethodNotImplemented)
         }

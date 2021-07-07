@@ -15,31 +15,22 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
+import com.amazonaws.amplify.amplify_auth_cognito.setNextStep
 import com.amplifyframework.auth.result.AuthSignInResult
-import com.google.gson.Gson
 
 data class FlutterSignInResult(private val raw: AuthSignInResult) {
   val isSignedIn: Boolean = raw.isSignInComplete
-  val nextStep: Map<String, Any> = setNextStep();
+  val nextStep: Map<String, Any> = setNextStep(
+          "signInStep",
+          raw.nextStep.signInStep.toString(),
+          raw.nextStep.codeDeliveryDetails,
+          raw.nextStep.additionalInfo)
 
-  private fun setNextStep(): Map<String, Any> {
-    val res: Map<String, Any> = emptyMap();
-
-    return mapOf(
-      "signInStep" to raw.nextStep.signInStep.toString(),
-      "additionalInfo" to (raw.nextStep.additionalInfo ?: emptyMap<String, String>()),
-      "codeDeliveryDetails" to mapOf(
-        "destination" to (raw.nextStep.codeDeliveryDetails?.destination ?: ""),
-        "deliveryMedium" to (raw.nextStep.codeDeliveryDetails?.deliveryMedium?.name ?: ""),
-        "attributeName" to (raw.nextStep.codeDeliveryDetails?.attributeName ?: "")
-      )
-    )
-  }
 
   fun toValueMap(): Map<String, Any> {
     return mapOf(
-      "isSignedIn" to this.isSignedIn,
-      "nextStep" to this.nextStep
+            "isSignedIn" to this.isSignedIn,
+            "nextStep" to this.nextStep
     )
   }
 }

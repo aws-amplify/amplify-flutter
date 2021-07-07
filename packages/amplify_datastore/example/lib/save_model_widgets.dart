@@ -29,13 +29,13 @@ Widget addBlogWidget(TextEditingController controller, bool isAmplifyConfigured,
 }
 
 Widget addPostWidget(
-    TextEditingController titleController,
-    TextEditingController ratingController,
-    bool isAmplifyConfigured,
-    Blog defaultBlog,
-    List<Blog> allBlogs,
-    Function saveFn,
-    _MyAppState app) {
+    {required TextEditingController titleController,
+    required TextEditingController ratingController,
+    required bool isAmplifyConfigured,
+    required List<Blog> allBlogs,
+    required Function saveFn,
+    required _MyAppState app,
+    Blog? defaultBlog}) {
   return Row(
     children: [
       divider,
@@ -94,7 +94,7 @@ Widget addPostWidget(
 Widget addCommentWidget(
     TextEditingController controller,
     bool isAmplifyConfigured,
-    Post defaultPost,
+    Post? defaultPost,
     List<Post> allPosts,
     Function saveFn,
     _MyAppState app) {

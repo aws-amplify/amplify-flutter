@@ -18,38 +18,26 @@
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
 import androidx.annotation.NonNull
+import com.amazonaws.amplify.amplify_auth_cognito.utils.createAuthUserAttribute
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.auth.AuthUserAttribute
-import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthSignUpOptions
-import java.lang.reflect.Method
 
 data class FlutterSignUpRequest(val map: HashMap<String, *>) {
-    var standardAttributes: Array<String> = arrayOf("address", "birthdate", "email", "family_name", "gender", "given_name", "locale", "middle_name", "name", "nickname", "phone_number", "preferred_username", "picture", "profile", "updated_at", "website", "zoneinfo")
     val username: String = map["username"] as String
     val password: String = map["password"] as String
-    val options: AWSCognitoAuthSignUpOptions = formatOptions(map["options"] as HashMap<String, String>)
+    val options: AWSCognitoAuthSignUpOptions = formatOptions(map["options"] as HashMap<String, *>)
 
-    private fun formatOptions(@NonNull rawOptions: HashMap<String, String>): AWSCognitoAuthSignUpOptions {
+    private fun formatOptions(@NonNull rawOptions: HashMap<String, *>): AWSCognitoAuthSignUpOptions {
         var options =  AWSCognitoAuthSignUpOptions.builder();
         var authUserAttributes: MutableList<AuthUserAttribute> = mutableListOf();
-        var attributeMethods = AuthUserAttributeKey::class.java.declaredMethods;
         var validationData = rawOptions["validationData"] as? MutableMap<String, String>;
 
         (rawOptions["userAttributes"] as HashMap<String, String>).forEach { (key, value) ->
-            var keyCopy: String = key;
-            if(!standardAttributes.contains(keyCopy)){
-                if (!key.startsWith("custom:")){
-                    keyCopy = "custom:" + keyCopy;
-                }
-                authUserAttributes.add(AuthUserAttribute(AuthUserAttributeKey.custom(keyCopy), value))
-            } else {
-                var t: Method = attributeMethods.asIterable().find { it.name.equals(convertSnakeToCamel(key)) } as Method;
-                var attr: AuthUserAttributeKey = t.invoke(null) as AuthUserAttributeKey;
-                authUserAttributes.add(AuthUserAttribute(attr, value));
-            }
+            var attribute = createAuthUserAttribute(key, value);
+            authUserAttributes.add(attribute);
         }
         options.userAttributes(authUserAttributes);
 
@@ -57,21 +45,6 @@ data class FlutterSignUpRequest(val map: HashMap<String, *>) {
             options.validationData(validationData)
         }
         return options.build();
-    }
-
-    // Amplify Android expects camel case, while iOS expects snake.  So at least one plugin implementation should convert.
-    private fun convertSnakeToCamel(@NonNull string: String): String {
-        val camelCase = StringBuilder()
-        var prevChar = '$'
-        string.forEach {
-            if(prevChar.equals('_')){
-                camelCase.append(it.toUpperCase())
-            }else if(!it.equals('_')){
-                camelCase.append(it)
-            }
-            prevChar = it
-        }
-        return camelCase.toString();
     }
 
     companion object {

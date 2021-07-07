@@ -23,6 +23,7 @@ import com.amplifyframework.core.Consumer
 import com.amplifyframework.core.async.Cancelable
 import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.ModelSchema
+import com.amplifyframework.core.model.SerializedModel
 import com.amplifyframework.core.model.query.Page
 import com.amplifyframework.core.model.query.QueryOptions
 import com.amplifyframework.core.model.query.Where
@@ -33,9 +34,9 @@ import com.amplifyframework.core.model.query.predicate.QueryPredicates
 import com.amplifyframework.core.model.temporal.Temporal
 import com.amplifyframework.datastore.AWSDataStorePlugin
 import com.amplifyframework.datastore.DataStoreCategory
+import com.amplifyframework.datastore.DataStoreConfiguration
 import com.amplifyframework.datastore.DataStoreException
 import com.amplifyframework.datastore.DataStoreItemChange
-import com.amplifyframework.datastore.appsync.SerializedModel
 import io.flutter.plugin.common.MethodChannel
 import java.lang.reflect.Field
 import java.lang.reflect.Modifier
@@ -48,11 +49,14 @@ import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.mockStatic
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoInteractions
+import org.mockito.Mockito.RETURNS_SELF
 import org.mockito.invocation.InvocationOnMock
 import org.robolectric.RobolectricTestRunner
+import java.util.concurrent.TimeUnit
 
 @RunWith(RobolectricTestRunner::class)
 class AmplifyDataStorePluginTest {
@@ -69,6 +73,23 @@ class AmplifyDataStorePluginTest {
             mock(DataStoreHubEventStreamHandler::class.java)
     private val dataStoreException =
             DataStoreException("Some useful exception message", "Some useful recovery message")
+    private val mockModelSchemas = mutableListOf(mapOf(
+        "name" to "Post",
+        "pluralName" to "Posts",
+        "fields" to mapOf(
+            "blog" to mapOf(
+                "name" to "blog",
+                "targetType" to "Blog",
+                "isRequired" to false,
+                "isArray" to false,
+                "type" to mapOf(
+                    "fieldType" to "string"
+                )
+            )
+        )
+    ))
+    private val defaultDataStoreConfiguration = DataStoreConfiguration.defaults()
+    private val mockDataStoreConfigurationBuilder = mock(DataStoreConfiguration.Builder::class.java, RETURNS_SELF)
 
     @Before
     fun setup() {
@@ -82,13 +103,16 @@ class AmplifyDataStorePluginTest {
                         .serializedData(
                                 mapOf("id" to "4281dfba-96c8-4a38-9a8e-35c7e893ea47",
                                         "title" to "Title 1",
-                                        "rating" to 4))
+                                        "rating" to 4,
+                                        "created" to Temporal.DateTime("2020-02-20T20:20:20+03:50")
+                                ))
                         .modelSchema(modelSchema)
                         .build(),
                 SerializedModel.builder()
                         .serializedData(
                                 mapOf("id" to "43036c6b-8044-4309-bddc-262b6c686026",
                                         "title" to "Title 2",
+                                        "rating" to 6,
                                         "created" to Temporal.DateTime(
                                                 "2020-02-20T20:20:20-08:00")))
                         .modelSchema(modelSchema)
@@ -96,6 +120,48 @@ class AmplifyDataStorePluginTest {
         )
         setFinalStatic(Amplify::class.java.getDeclaredField("DataStore"), mockDataStore)
         `when`(mockDataStore.getPlugin("awsDataStorePlugin")).thenReturn(mockAmplifyDataStorePlugin)
+    }
+
+    @Test
+    fun test_default_datastore_configuration() {
+        val mockRequestWithoutCustomConfig = mapOf(
+            "modelSchemas" to mockModelSchemas,
+            "modelProviderVersion" to "1.0"
+        )
+
+        mockStatic(DataStoreConfiguration::class.java).use { mockedDataStoreConfiguration ->
+            mockedDataStoreConfiguration.`when`<Any> { DataStoreConfiguration.defaults() }.thenReturn(defaultDataStoreConfiguration)
+            mockedDataStoreConfiguration.`when`<Any> { DataStoreConfiguration.builder() }.thenReturn(mockDataStoreConfigurationBuilder)
+
+            flutterPlugin.onConfigureDataStore(mockResult, mockRequestWithoutCustomConfig)
+            verify(mockDataStoreConfigurationBuilder, times(1)).syncInterval(defaultDataStoreConfiguration.syncIntervalInMinutes, TimeUnit.MINUTES)
+            verify(mockDataStoreConfigurationBuilder, times(1)).syncMaxRecords(defaultDataStoreConfiguration.syncMaxRecords)
+            verify(mockDataStoreConfigurationBuilder, times(1)).syncPageSize(defaultDataStoreConfiguration.syncPageSize)
+        }
+    }
+
+    @Test
+    fun test_custom_datastore_configuration() {
+        val mockSyncInterval = 3600
+        val mockSyncMaxRecords = 60000
+        val mockSyncPageSize = 500
+        val mockRequestWithCustomConfig = mapOf(
+            "modelSchemas" to mockModelSchemas,
+            "syncInterval" to mockSyncInterval,
+            "syncMaxRecords" to mockSyncMaxRecords,
+            "syncPageSize" to mockSyncPageSize,
+            "modelProviderVersion" to "1.0"
+        )
+
+        mockStatic(DataStoreConfiguration::class.java).use { mockedDataStoreConfiguration ->
+            mockedDataStoreConfiguration.`when`<Any> { DataStoreConfiguration.defaults() }.thenReturn(defaultDataStoreConfiguration)
+            mockedDataStoreConfiguration.`when`<Any> { DataStoreConfiguration.builder() }.thenReturn(mockDataStoreConfigurationBuilder)
+
+            flutterPlugin.onConfigureDataStore(mockResult, mockRequestWithCustomConfig)
+            verify(mockDataStoreConfigurationBuilder, times(1)).syncInterval(mockSyncInterval.toLong(), TimeUnit.MINUTES)
+            verify(mockDataStoreConfigurationBuilder, times(1)).syncMaxRecords(mockSyncMaxRecords)
+            verify(mockDataStoreConfigurationBuilder, times(1)).syncPageSize(mockSyncPageSize)
+        }
     }
 
     @Test
@@ -385,6 +451,7 @@ class AmplifyDataStorePluginTest {
                 HashMap::class.java) as HashMap<String, Any>)
         val modelData = mapOf("id" to "43036c6b-8044-4309-bddc-262b6c686026",
                 "title" to "Title 2",
+                "rating" to 0,
                 "created" to Temporal.DateTime("2020-02-20T20:20:20-08:00"))
         val instance = SerializedModel.builder()
                 .serializedData(modelData)
@@ -407,7 +474,7 @@ class AmplifyDataStorePluginTest {
                 any<Consumer<DataStoreException>>(),
                 any<Action>())
 
-        flutterPlugin.onSetupObserve(mockResult)
+        flutterPlugin.onSetUpObserve(mockResult)
 
         verify(mockResult, times(1)).success(true)
         verify(mockStreamHandler, times(1)).sendEvent(eventData)
@@ -427,7 +494,7 @@ class AmplifyDataStorePluginTest {
                 any<Consumer<DataStoreException>>(),
                 any<Action>())
 
-        flutterPlugin.onSetupObserve(mockResult)
+        flutterPlugin.onSetUpObserve(mockResult)
 
         verify(mockResult, times(1)).success(true)
         verify(mockStreamHandler, times(1)).error(

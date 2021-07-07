@@ -47,9 +47,9 @@ class ExceptionUtil {
             val gsonBuilder = GsonBuilder()
             gsonBuilder.registerTypeAdapter(Throwable::class.java, ThrowableSerializer())
             val gson = gsonBuilder.create()
-            val mapType = object : TypeToken<Map<String, Any>>() {}.type
             val serializedJsonException = gson.toJson(e)
-            var serializedMap: Map<String, Any> = gson.fromJson(serializedJsonException, mapType)
+            @Suppress("UNCHECKED_CAST")
+            var serializedMap: Map<String, Any> = gson.fromJson(serializedJsonException, Map::class.java) as Map<String, Any>
 
             // Remove unnecessary fields
             serializedMap =
@@ -87,7 +87,7 @@ class ExceptionUtil {
         }
 
         @JvmStatic
-        fun handleAddPluginException(@NonNull pluginName : String, @NonNull e : Exception, @NonNull flutterResult : Result){
+        fun handleAddPluginException(@NonNull pluginName: String, @NonNull e: Exception, @NonNull flutterResult: Result) {
             var errorDetails: Map<String, Any?>
             var errorCode = pluginName + "Exception"
             if (e is Amplify.AlreadyConfiguredException) {
@@ -97,8 +97,7 @@ class ExceptionUtil {
                 is AmplifyException -> createSerializedError(e)
                 else -> createSerializedUnrecognizedError(e)
             }
-            postExceptionToFlutterChannel(flutterResult, errorCode,
-                    errorDetails)
+            postExceptionToFlutterChannel(flutterResult, errorCode, errorDetails)
         }
     }
 }

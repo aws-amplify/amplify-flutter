@@ -13,11 +13,10 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
 import 'dart:io';
 
 class DownloadFileResult {
   File file;
 
-  DownloadFileResult({@required this.file});
+  DownloadFileResult({required this.file});
 }

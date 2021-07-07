@@ -33,8 +33,7 @@ class AuthCategory {
       } on AmplifyAlreadyConfiguredException catch (e) {
         plugins.add(plugin);
       } on PlatformException catch (e) {
-        throw AmplifyException.fromMap(
-            Map<String, String>.from(e.details));
+        throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       }
     } else {
       throw AmplifyException("Auth plugin has already been added, " +
@@ -49,7 +48,9 @@ class AuthCategory {
   }
 
   Future<SignUpResult> signUp(
-      {@required String username, @required password, SignUpOptions options}) {
+      {required String username,
+      required password,
+      required SignUpOptions options}) {
     var request =
         SignUpRequest(username: username, password: password, options: options);
     return plugins.length == 1
@@ -58,9 +59,9 @@ class AuthCategory {
   }
 
   Future<SignUpResult> confirmSignUp(
-      {@required String username,
-      @required String confirmationCode,
-      ConfirmSignUpOptions options}) {
+      {required String username,
+      required String confirmationCode,
+      ConfirmSignUpOptions? options}) {
     var request = ConfirmSignUpRequest(
         username: username,
         confirmationCode: confirmationCode,
@@ -70,7 +71,7 @@ class AuthCategory {
         : throw _pluginNotAddedException("Auth");
   }
 
-  Future<ResendSignUpCodeResult> resendSignUpCode({@required String username}) {
+  Future<ResendSignUpCodeResult> resendSignUpCode({required String username}) {
     var request = ResendSignUpCodeRequest(username: username);
     return plugins.length == 1
         ? plugins[0].resendSignUpCode(request: request)
@@ -78,9 +79,9 @@ class AuthCategory {
   }
 
   Future<SignInResult> signIn(
-      {@required String username,
-      @required String password,
-      SignInOptions options}) {
+      {required String username,
+      required String password,
+      SignInOptions? options}) {
     var request =
         SignInRequest(username: username, password: password, options: options);
     return plugins.length == 1
@@ -89,7 +90,7 @@ class AuthCategory {
   }
 
   Future<SignInResult> confirmSignIn(
-      {@required String confirmationValue, ConfirmSignInOptions options}) {
+      {required String confirmationValue, ConfirmSignInOptions? options}) {
     var request = ConfirmSignInRequest(
         confirmationValue: confirmationValue, options: options);
     return plugins.length == 1
@@ -97,7 +98,7 @@ class AuthCategory {
         : throw _pluginNotAddedException("Auth");
   }
 
-  Future<SignOutResult> signOut({SignOutOptions options}) {
+  Future<SignOutResult> signOut({SignOutOptions? options}) {
     var request = SignOutRequest(options: options);
     return plugins.length == 1
         ? plugins[0].signOut(request: request)
@@ -105,9 +106,9 @@ class AuthCategory {
   }
 
   Future<UpdatePasswordResult> updatePassword(
-      {@required String oldPassword,
-      @required String newPassword,
-      PasswordOptions options}) {
+      {required String oldPassword,
+      required String newPassword,
+      PasswordOptions? options}) {
     var request = UpdatePasswordRequest(
         oldPassword: oldPassword, newPassword: newPassword, options: options);
     return plugins.length == 1
@@ -116,7 +117,7 @@ class AuthCategory {
   }
 
   Future<ResetPasswordResult> resetPassword(
-      {@required String username, PasswordOptions options}) {
+      {required String username, PasswordOptions? options}) {
     var request = ResetPasswordRequest(username: username, options: options);
     return plugins.length == 1
         ? plugins[0].resetPassword(request: request)
@@ -124,10 +125,10 @@ class AuthCategory {
   }
 
   Future<UpdatePasswordResult> confirmPassword(
-      {@required String username,
-      @required String newPassword,
-      @required String confirmationCode,
-      PasswordOptions options}) {
+      {required String username,
+      required String newPassword,
+      required String confirmationCode,
+      PasswordOptions? options}) {
     var request = ConfirmPasswordRequest(
         username: username,
         newPassword: newPassword,
@@ -146,24 +147,68 @@ class AuthCategory {
   }
 
   Future<List<AuthUserAttribute>> fetchUserAttributes(
-      {AuthUserAttributeOptions options}) {
+      {AuthUserAttributeOptions? options}) {
     var request = AuthUserAttributeRequest(options: options);
     return plugins.length == 1
         ? plugins[0].fetchUserAttributes(request: request)
         : throw _pluginNotAddedException("Auth");
   }
 
-  Future<AuthSession> fetchAuthSession({AuthSessionOptions options}) {
+  Future<AuthSession> fetchAuthSession({AuthSessionOptions? options}) {
     var request = AuthSessionRequest(options: options);
     return plugins.length == 1
         ? plugins[0].fetchAuthSession(request: request)
         : throw _pluginNotAddedException("Auth");
   }
 
-  Future<SignInResult> signInWithWebUI({AuthProvider provider}) {
+  Future<SignInResult> signInWithWebUI({AuthProvider? provider}) {
     var request = SignInWithWebUIRequest(provider: provider);
     return plugins.length == 1
         ? plugins[0].signInWithWebUI(request: request)
+        : throw _pluginNotAddedException("Auth");
+  }
+
+  /// Updates a single user attribute and returns a [UpdateUserAttributeResult]
+  Future<UpdateUserAttributeResult> updateUserAttribute({
+    required String userAttributeKey,
+    required String value,
+  }) {
+    var request = UpdateUserAttributeRequest(
+        userAttributeKey: userAttributeKey, value: value);
+    return plugins.length == 1
+        ? plugins[0].updateUserAttribute(request: request)
+        : throw _pluginNotAddedException("Auth");
+  }
+
+  /// Updates multiple user attributes and returns a map of [UpdateUserAttributeResult]
+  Future<Map<String, UpdateUserAttributeResult>> updateUserAttributes({
+    required List<AuthUserAttribute> attributes,
+  }) {
+    var request = UpdateUserAttributesRequest(attributes: attributes);
+    return plugins.length == 1
+        ? plugins[0].updateUserAttributes(request: request)
+        : throw _pluginNotAddedException("Auth");
+  }
+
+  /// Confirms a user attribute update and returns a [ConfirmUserAttributeResult]
+  Future<ConfirmUserAttributeResult> confirmUserAttribute({
+    required String userAttributeKey,
+    required String confirmationCode,
+  }) {
+    var request = ConfirmUserAttributeRequest(
+        userAttributeKey: userAttributeKey, confirmationCode: confirmationCode);
+    return plugins.length == 1
+        ? plugins[0].confirmUserAttribute(request: request)
+        : throw _pluginNotAddedException("Auth");
+  }
+
+  /// Resends a confirmation code for the given attribute and returns a [ResendUserAttributeConfirmationCodeResult]
+  Future<ResendUserAttributeConfirmationCodeResult>
+      resendUserAttributeConfirmationCode({required String userAttributeKey}) {
+    var request = ResendUserAttributeConfirmationCodeRequest(
+        userAttributeKey: userAttributeKey);
+    return plugins.length == 1
+        ? plugins[0].resendUserAttributeConfirmationCode(request: request)
         : throw _pluginNotAddedException("Auth");
   }
 }

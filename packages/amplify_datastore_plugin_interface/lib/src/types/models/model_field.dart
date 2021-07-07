@@ -35,26 +35,26 @@ class ModelField {
 
   final bool isArray;
 
-  // An array of rules for owner based authorization
-  final List<AuthRule> authRules;
+  final ModelAssociation? association; //opt
 
-  final ModelAssociation association; //opt
+  // An array of rules for owner based authorization
+  final List<AuthRule>? authRules;
 
   const ModelField(
-      {this.name,
-      this.type,
-      this.isRequired,
+      {required this.name,
+      required this.type,
+      required this.isRequired,
       this.isArray = false,
       this.association,
       this.authRules});
 
   ModelField copyWith({
-    String name,
-    String type,
-    bool isRequired,
-    bool isArray,
-    ModelAssociation association,
-    List<AuthRule> authRules,
+    String? name,
+    ModelFieldType? type,
+    bool? isRequired,
+    bool? isArray,
+    ModelAssociation? association,
+    List<AuthRule>? authRules,
   }) {
     return ModelField(
       name: name ?? this.name,
@@ -73,14 +73,12 @@ class ModelField {
       'isRequired': isRequired,
       'isArray': isArray,
       'association': association?.toMap(),
-      'authRules': authRules?.map((x) => x?.toMap())?.toList(),
+      'authRules': authRules?.map((x) => x.toMap()).toList(),
     };
     return Map.from(map)..removeWhere((k, v) => v == null);
   }
 
   factory ModelField.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-
     return ModelField(
       name: map['name'],
       type: map['type'],

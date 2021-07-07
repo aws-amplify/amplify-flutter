@@ -14,14 +14,37 @@
  */
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:collection/collection.dart';
 
+part 'HubEventElementWithMetadata.dart';
+
+/// The model associated with a DataStore `outboxMutationEnqueued` or
+/// `outboxMutationProcessed` Hub event.
 class HubEventElement {
-  Model model;
-  HubEventElement(Map<dynamic, dynamic> serializedData, ModelProviderInterface provider) {
-    Map<String, dynamic> serializedElement = new Map<String, dynamic>.from(serializedData["element"]);
-    Map<String, dynamic> modelData = new Map<String, dynamic>.from(serializedElement["model"]);
-    Map<String, dynamic> serializedModelData = new Map<String, dynamic>.from(modelData["serializedData"]);
-    model = provider.getModelTypeByModelName(serializedData['modelName']).fromJson(serializedModelData);
+  /// The instance of the mutated model.
+  final Model model;
+
+  const HubEventElement(this.model);
+
+  factory HubEventElement.fromMap(
+    Map serializedHubEventElement,
+    ModelProviderInterface provider,
+  ) {
+    var model = _parseModelFromMap(serializedHubEventElement, provider);
+    return HubEventElement(model);
   }
+}
+
+/// Retrieves the model instance from [serializedHubEventElement].
+Model _parseModelFromMap(
+  Map serializedHubEventElement,
+  ModelProviderInterface provider,
+) {
+  var serializedElement = serializedHubEventElement['element'] as Map;
+  var modelName = serializedHubEventElement['modelName'] as String;
+  var modelData = serializedElement['model'] as Map;
+  var serializedModelData =
+      (modelData['serializedData'] as Map).cast<String, dynamic>();
+  return provider
+      .getModelTypeByModelName(modelName)
+      .fromJson(serializedModelData);
 }

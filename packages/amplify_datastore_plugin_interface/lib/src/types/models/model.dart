@@ -13,26 +13,20 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
-
 import 'model_schema.dart';
 import 'model_schema_definition.dart';
 
 abstract class Model {
-  final String id;
-
   ModelType getInstanceType();
 
-  const Model({this.id});
-
-  String getId() {
-    return id;
-  }
+  String getId();
 
   Map<String, dynamic> toJson();
 
+  const Model();
+
   static ModelSchema defineSchema(
-      {@required Function(ModelSchemaDefinition) define}) {
+      {required Function(ModelSchemaDefinition) define}) {
     var definition = ModelSchemaDefinition();
 
     define(definition);
@@ -46,30 +40,7 @@ abstract class ModelType<T extends Model> {
   const ModelType();
 
   T fromSerializedMap(Map<String, dynamic> serializedMap) {
-    return fromJson(serializedMapToJson(serializedMap));
-  }
-
-  Map<String, dynamic> serializedMapToJson(Map<String, dynamic> serializedMap) {
-    Map<String, dynamic> resultMap = {};
-
-    if (serializedMap.length == 0 ||
-        !serializedMap.containsKey("serializedData")) {
-      return resultMap;
-    }
-
-    serializedMap =
-        new Map<String, dynamic>.from(serializedMap["serializedData"]);
-
-    serializedMap.forEach((key, value) {
-      if (value is Map) {
-        resultMap[key] =
-            serializedMapToJson(new Map<String, dynamic>.from(value));
-      } else {
-        resultMap[key] = value;
-      }
-    });
-
-    return resultMap;
+    return fromJson(serializedMap['serializedData']);
   }
 
   T fromJson(Map<String, dynamic> jsonData);
@@ -84,7 +55,7 @@ abstract class ModelType<T extends Model> {
   // Checks and casts.
   bool isInstance(Object o) => o is T;
   T cast(Object o) => o as T;
-  T safeCast(Object o) => o is T ? o : null;
+  T? safeCast(Object o) => o is T ? o : null;
 
   // Subtyping checks.
   bool operator >=(ModelType other) => other is ModelType<T>;

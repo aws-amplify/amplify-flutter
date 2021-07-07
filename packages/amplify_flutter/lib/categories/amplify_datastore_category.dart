@@ -31,13 +31,12 @@ class DataStoreCategory {
         // Extra step to configure datastore specifically.
         // Note: The native datastore plugins are not added
         // in the `onAttachedToEngine` but rather in the `configure()
-        await plugin.configureModelProvider(modelProvider: plugin.modelProvider);
+        await plugin.configureDataStore(modelProvider: plugin.modelProvider!);
         plugins.add(plugin);
       } on AmplifyAlreadyConfiguredException catch (e) {
         plugins.add(plugin);
       } on PlatformException catch (e) {
-        throw AmplifyException.fromMap(
-            Map<String, String>.from(e.details));
+        throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       }
     } else {
       throw AmplifyException("DataStore plugin has already been added, " +
@@ -51,10 +50,16 @@ class DataStoreCategory {
         : throw _pluginNotAddedException("DataStore");
   }
 
+  Future<void> configure(String configuration) async {
+    if (plugins.length == 1) {
+      return plugins[0].configure(configuration: configuration);
+    }
+  }
+
   Future<List<T>> query<T extends Model>(ModelType<T> modelType,
-      {QueryPredicate where,
-      QueryPagination pagination,
-      List<QuerySortBy> sortBy}) {
+      {QueryPredicate? where,
+      QueryPagination? pagination,
+      List<QuerySortBy>? sortBy}) {
     return plugins.length == 1
         ? plugins[0].query(modelType,
             where: where, pagination: pagination, sortBy: sortBy)
@@ -84,11 +89,5 @@ class DataStoreCategory {
     return plugins.length == 1
         ? plugins[0].clear()
         : throw _pluginNotAddedException("DataStore");
-  }
-
-  Future<void> configure(String configuration) async {
-    return plugins.forEach((plugin) {
-      plugin.configure(configuration: configuration);
-    });
   }
 }

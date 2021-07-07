@@ -1,3 +1,38 @@
+## 0.2.0 (2021-06-30)
+
+### Features
+
+- feat(amplify_api): Null safety api (#484)
+- feat: Null safety core (#492)
+
+### Bug Fixes
+
+- fix: Null safety master fixes pr (#614)
+
+### Chores
+
+- chore: Null safety master rebase (#676)
+
+## 0.1.6 (2021-06-23)
+
+### Features
+
+- feat: add updateUserAttributes (batch) (#601)
+
+### Fixes
+
+- fix: amplify-ios version bump (#648)
+- fix: adds userAttributes to confirmSignIn (#607)
+- fix: Add clientMetadata to confirmSignUp API options (#619)
+
+### Chores
+
+- chore: upgrade amplify-android to 1.19.0 (#650)
+- chore: add httpStatusCode property to ApiException when available from REST response (#590)
+- chore: pin Amplify iOS to '~> 1.9.2' (#589)
+
+## 0.1.5 (2021-05-17)
+
 ## 0.1.4 (2021-04-27)
 
 ## 0.1.3 (2021-04-21)
