@@ -40,7 +40,7 @@ class IsRedirectActivityDeclaredTest {
     }
 
     /**
-    * Test that the isRedirectActivityDeclared method will return true
+    * Test that the isRedirectActivityDeclared method will return false
     * when the customer's manifest file includes an activity and intent filter for
     * com.amazonaws.mobileconnectors.cognitoauth.activities.CustomTabsRedirectActivity
     */
