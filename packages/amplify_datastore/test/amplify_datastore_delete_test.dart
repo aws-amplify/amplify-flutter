@@ -44,7 +44,7 @@ void main() {
     Post instance = Post(
         title: model['title'],
         rating: model['rating'],
-        created: DateTime.parse(model['created']),
+        created: TemporalDateTime.fromString(model['created']),
         id: model['id']);
     Future<void> deleteFuture = dataStore.delete(instance);
     expect(deleteFuture, completes);
@@ -62,7 +62,10 @@ void main() {
     });
     expect(
         () => dataStore.delete(Post(
-            title: 'test title', id: '4281dfba-96c8-4a38-9a8e-35c7e893ea47')),
+            id: '4281dfba-96c8-4a38-9a8e-35c7e893ea47',
+            title: 'test title',
+            rating: 0,
+            created: TemporalDateTime.now())),
         throwsA(isA<DataStoreException>()
             .having((exception) => exception.message, 'message',
                 'Delete failed for whatever known reason')

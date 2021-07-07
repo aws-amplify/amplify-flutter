@@ -19,6 +19,8 @@ import 'package:amplify_api_example/rest_api_view.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 import 'amplifyconfiguration.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -45,6 +47,8 @@ class _MyAppState extends State<MyApp> {
     apiRest = AmplifyAPI();
 
     Amplify.addPlugin(apiRest);
+    Amplify.addPlugin(AmplifyAuthCognito());
+
     try {
       await Amplify.configure(amplifyconfig);
     } on AmplifyAlreadyConfiguredException {

@@ -16,34 +16,34 @@
 library amplify_api_plugin_interface;
 
 import 'dart:async';
-import 'package:meta/meta.dart';
+
 import 'package:amplify_core/types/index.dart';
 
 import 'src/types.dart';
 export 'src/types.dart';
 
 abstract class APIPluginInterface extends AmplifyPluginInterface {
-  APIPluginInterface({@required Object token}) : super(token: token);
+  APIPluginInterface({required Object token}) : super(token: token);
 
   Future<void> addPlugin() async {
     throw UnimplementedError('addPlugin() has not been implemented.');
   }
-  
+
   // ====== GraphQL =======
-  GraphQLOperation<T> query<T>({@required GraphQLRequest<T> request}) {
+  GraphQLOperation<T> query<T>({required GraphQLRequest<T> request}) {
     throw UnimplementedError('query() has not been implemented.');
   }
 
-  GraphQLOperation<T> mutate<T>({@required GraphQLRequest<T> request}) {
+  GraphQLOperation<T> mutate<T>({required GraphQLRequest<T> request}) {
     throw UnimplementedError('mutate() has not been implemented.');
   }
 
   GraphQLSubscriptionOperation<T> subscribe<T>(
-      {@required GraphQLRequest<T> request,
-      @required void Function(GraphQLResponse<T>) onData,
-      Function() onEstablished,
-      Function(dynamic) onError,
-      Function() onDone}) {
+      {required GraphQLRequest<T> request,
+      required void Function(GraphQLResponse<T>) onData,
+      Function()? onEstablished,
+      Function(dynamic)? onError,
+      Function()? onDone}) {
     throw UnimplementedError('subscribe() has not been implemented.');
   }
 
@@ -52,27 +52,27 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('cancelRequest has not been implemented.');
   }
 
-  RestOperation get({@required RestOptions restOptions}) {
+  RestOperation get({required RestOptions restOptions}) {
     throw UnimplementedError('get has not been implemented.');
   }
 
-  RestOperation put({@required RestOptions restOptions}) {
+  RestOperation put({required RestOptions restOptions}) {
     throw UnimplementedError('put has not been implemented.');
   }
 
-  RestOperation post({@required RestOptions restOptions}) {
+  RestOperation post({required RestOptions restOptions}) {
     throw UnimplementedError('post has not been implemented.');
   }
 
-  RestOperation delete({@required RestOptions restOptions}) {
+  RestOperation delete({required RestOptions restOptions}) {
     throw UnimplementedError('delete has not been implemented.');
   }
 
-  RestOperation head({@required RestOptions restOptions}) {
+  RestOperation head({required RestOptions restOptions}) {
     throw UnimplementedError('head has not been implemented.');
   }
 
-  RestOperation patch({@required RestOptions restOptions}) {
+  RestOperation patch({required RestOptions restOptions}) {
     throw UnimplementedError('patch has not been implemented.');
   }
 }

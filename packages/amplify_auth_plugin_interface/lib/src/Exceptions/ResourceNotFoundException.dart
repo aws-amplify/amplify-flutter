@@ -19,7 +19,7 @@ import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart
 class ResourceNotFoundException extends AuthException {
   /// Named constructor
   ResourceNotFoundException(String message,
-      {String recoverySuggestion, String underlyingException})
+      {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);

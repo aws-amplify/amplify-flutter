@@ -23,8 +23,8 @@ import 'temporal.dart';
 /// YYYY-MM-DD (ISO_LOCAL_DATE)
 /// https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html#appsync-defined-scalars
 class TemporalDate {
-  DateTime _dateTime;
-  Duration _offset;
+  late DateTime _dateTime;
+  Duration? _offset;
 
   /// Constructs a new TemporalDate at the current date.
   static TemporalDate now() {
@@ -73,8 +73,8 @@ class TemporalDate {
         multiLine: false);
 
     // Validate
-    String regexString = regExp.stringMatch(iso8601String);
-    if (regexString != iso8601String) {
+    String? regexString = regExp.stringMatch(iso8601String);
+    if (regexString == null || regexString != iso8601String) {
       throw AmplifyException("Invalid ISO8601 String Input",
           recoverySuggestion:
               "Please provide an extended ISO 8601 date string in the format YYYY-MM-DD with an optional time zone offset ±hh:mm:ss.  " +
@@ -85,20 +85,20 @@ class TemporalDate {
     regexString = iso8601String.replaceAll(new RegExp(r'(z|Z)'), '');
 
     // Extract Date
-    var match = regExp.matchAsPrefix(regexString);
+    var match = regExp.matchAsPrefix(regexString)!;
 
     // Parse cannot take a YYYY-MM-DD as UTC!
-    DateTime dateTime = DateTime.parse(match.group(1));
+    DateTime dateTime = DateTime.parse(match.group(1)!);
     _dateTime = DateTime.utc(dateTime.year, dateTime.month, dateTime.day);
 
     // Extract Offset
-    if (match.group(2) != null && match.group(2).isNotEmpty)
-      _offset = Temporal.offsetToDuration(match.group(2));
+    if (match.group(2) != null && match.group(2)!.isNotEmpty)
+      _offset = Temporal.offsetToDuration(match.group(2)!);
     else if (iso8601String.toLowerCase().contains("z")) _offset = Duration();
   }
 
   /// Return offset
-  Duration getOffset() {
+  Duration? getOffset() {
     return _offset;
   }
 
@@ -117,10 +117,10 @@ class TemporalDate {
     // Duration.toString returns string of form -9:30:00.000000 / 9:30:00.000000
     // But we need -09:30 / +09:30
     if (_offset != null) {
-      if (_offset.inSeconds == 0) {
+      if (_offset!.inSeconds == 0) {
         buffer.write("Z");
       } else {
-        buffer.write(Temporal.durationToOffset(_offset));
+        buffer.write(Temporal.durationToOffset(_offset!));
       }
     }
 

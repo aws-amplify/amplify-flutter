@@ -62,7 +62,6 @@ void main() {
   test('confirmUserAttribute thrown PlatFormException results in AuthError',
       () async {
     testCode = 2;
-    AuthException err;
     try {
       await auth.confirmUserAttribute(
         request: ConfirmUserAttributeRequest(
@@ -71,8 +70,7 @@ void main() {
         ),
       );
     } on AuthException catch (e) {
-      err = e;
+      expect(e.message, "I am an exception");
     }
-    expect(err.message, "I am an exception");
   });
 }

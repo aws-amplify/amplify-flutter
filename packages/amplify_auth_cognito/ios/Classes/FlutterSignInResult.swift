@@ -30,14 +30,20 @@ struct FlutterSignInResult  {
     }
     
     func toJSON() -> Dictionary<String, Any> {
-      return [
-        "isSignedIn": self.isSignedIn,
-        "nextStep": [
-            "signInStep": self.signInStep,
-            "additionalInfo": self.additionalInfo,
-            "codeDeliveryDetails": self.codeDeliveryDetails
-        ]
-      ]
+      var result: Dictionary<String, Any> = ["isSignedIn": self.isSignedIn]
+      var nextStep: Dictionary<String, Any> = ["signInStep": self.signInStep]
+      
+      if (!self.codeDeliveryDetails.isEmpty) {
+        nextStep["codeDeliveryDetails"] = self.codeDeliveryDetails
+      }
+        
+      if (!self.additionalInfo.isEmpty) {
+        nextStep["additionalInfo"] = self.additionalInfo
+      }
+        
+      result["nextStep"] = nextStep
+        
+      return result
    }
 }
 
@@ -58,23 +64,14 @@ func setCodeDeliveryDetails(res: AmplifyOperation<AuthSignInRequest, AuthSignInR
         case .success(let signInResult):
           if case let .confirmSignInWithSMSMFACode(deliveryDetails, _) = signInResult.nextStep {
             if case let .sms(e) = deliveryDetails.destination {
-              deliveryMap["destination"] = e! as String
-              deliveryMap["attributeName"] = ""
               deliveryMap["deliveryMedium"] = "SMS"
+              deliveryMap["destination"] = e! as String
             }
           }
-          if case .resetPassword(_) = signInResult.nextStep {
-            deliveryMap = ["deliveryMedium" : "UNKNOWN"]
-          }
-          if case .confirmSignInWithCustomChallenge(_) = signInResult.nextStep {
-            deliveryMap = [:] 
-          }
-          if case .confirmSignInWithNewPassword(_) = signInResult.nextStep {
-            deliveryMap = [:] 
-          }
-          if case .done = signInResult.nextStep {
-            deliveryMap = [:] 
-          }
+          if case .resetPassword(_) = signInResult.nextStep {}
+          if case .confirmSignInWithCustomChallenge(_) = signInResult.nextStep {}
+          if case .confirmSignInWithNewPassword(_) = signInResult.nextStep {}
+          if case .done = signInResult.nextStep {}
         case .failure:
             deliveryMap = [:]
     }

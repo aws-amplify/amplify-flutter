@@ -18,7 +18,7 @@ import 'package:flutter/foundation.dart';
 class ModelFieldType {
   final ModelFieldTypeEnum fieldType;
 
-  final String ofModelName; //opt
+  final String? ofModelName; //opt
 
   const ModelFieldType(this.fieldType, {this.ofModelName});
 

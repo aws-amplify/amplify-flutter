@@ -36,7 +36,10 @@ void main() {
               "isUpdated": true,
               "nextStep": {
                 "updateAttributeStep": "DONE",
-                "codeDeliveryDetails": {"attributeName": "email"}
+                "codeDeliveryDetails": {
+                  "attributeName": "email",
+                  "destination": "test@test.test"
+                }
               }
             });
           case 2:
@@ -82,7 +85,6 @@ void main() {
   test('updateUserAttribute thrown PlatFormException results in AuthError',
       () async {
     testCode = 2;
-    AuthException err;
     try {
       await auth.updateUserAttribute(
         request: UpdateUserAttributeRequest(
@@ -91,8 +93,7 @@ void main() {
         ),
       );
     } on AuthException catch (e) {
-      err = e;
+      expect(e.message, "I am an exception");
     }
-    expect(err.message, "I am an exception");
   });
 }
