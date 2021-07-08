@@ -20,12 +20,15 @@ import Amplify
 public struct FlutterSerializedRestResponse {
     
     private var statusCode: Int
-    private var headers: [AnyHashable: Any]?
+    private var headers: [String: String]?
     private var data: Data?
     
     init(statusCode: Int = 200, headers: [AnyHashable: Any]?, data: Data?) {
+        let stringHeaders = headers?
+            .filter { $0.key is String }
+            .compactMapValues { $0 as? String } as! [String: String]
         self.statusCode = statusCode
-        self.headers = headers
+        self.headers = stringHeaders
         self.data = data
     }
     
