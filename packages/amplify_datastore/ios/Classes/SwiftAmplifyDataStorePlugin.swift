@@ -99,13 +99,13 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                 flutterModelRegistration.addModelSchema(modelName: modelSchema.name, modelSchema: modelSchema)
             }
 
-            self.dataStoreHubEventStreamHandler?.registerModelsForHub(flutterModels: flutterModelRegistration)
+            self.dataStoreHubEventStreamHandler?.registerModelsForHub(flutterModelRegistration: self.flutterModelRegistration)
 
             let dataStorePlugin = AWSDataStorePlugin(modelRegistration: flutterModelRegistration,
-                configuration: .custom(
-                    syncInterval: syncInterval,
-                    syncMaxRecords: syncMaxRecords,
-                    syncPageSize: syncPageSize))
+                                                     configuration: .custom(
+                                                        syncInterval: syncInterval,
+                                                        syncMaxRecords: syncMaxRecords,
+                                                        syncPageSize: syncPageSize))
             try Amplify.add(plugin: dataStorePlugin)
             Amplify.Logging.logLevel = .info
             print("Amplify configured with DataStore plugin")
@@ -165,21 +165,29 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     FlutterDataStoreErrorHandler.handleDataStoreError(error: error,
                                                                       flutterResult: flutterResult)
                 case .success(let res):
-                    let serializedResults = res.map { (queryResult) -> [String: Any] in
-                        return queryResult.toMap(modelSchema: modelSchema)
+                    do {
+                        let serializedResults = try res.map { (queryResult) -> [String: Any] in
+                            return try queryResult.toMap(flutterModelRegistration: self.flutterModelRegistration, modelName: modelName)
+                        }
+                        flutterResult(serializedResults)
+                    } catch let error as DataStoreError {
+                        print("Failed to parse query result with \(error)")
+                        FlutterDataStoreErrorHandler.handleDataStoreError(
+                            error: error,
+                            flutterResult: flutterResult)
+                    } catch {
+                        print("An unexpected error occured when parsing query result with \(error)")
+                        FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
+                                                                          flutterResult: flutterResult)
                     }
-                    flutterResult(serializedResults)
-                    return
                 }
             }
-        }
-        catch let error as DataStoreError {
+        } catch let error as DataStoreError {
             print("Failed to parse query arguments with \(error)")
             FlutterDataStoreErrorHandler.handleDataStoreError(
                 error: error,
                 flutterResult: flutterResult)
-        }
-        catch {
+        } catch {
             print("An unexpected error occured when parsing query arguments: \(error)")
             FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
                                                               flutterResult: flutterResult)
@@ -278,10 +286,6 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             } receiveValue: { (mutationEvent) in
                 do {
                     let serializedEvent = try mutationEvent.decodeModel(as: FlutterSerializedModel.self)
-                    guard let modelSchema = self.flutterModelRegistration.modelSchemas[mutationEvent.modelName] else {
-                        print("Received mutation event for a model \(mutationEvent.modelName) that is not registered.")
-                        return
-                    }
                     guard let eventType = EventType(rawValue: mutationEvent.mutationType) else {
                         print("Received mutation event for an unknown mutation type \(mutationEvent.mutationType).")
                         return
@@ -289,7 +293,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     let flutterSubscriptionEvent = FlutterSubscriptionEvent.init(
                         item: serializedEvent,
                         eventType: eventType)
-                    self.dataStoreObserveEventStreamHandler?.sendEvent(flutterEvent: flutterSubscriptionEvent.toJSON(modelSchema: modelSchema))
+                    self.dataStoreObserveEventStreamHandler?.sendEvent(flutterEvent: try flutterSubscriptionEvent.toJSON(flutterModelRegistration: self.flutterModelRegistration, modelName: mutationEvent.modelName))
                 } catch {
                     print("Failed to parse the event \(error)")
                     // TODO communicate using datastore error handler?

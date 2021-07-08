@@ -24,19 +24,14 @@ struct FlutterOutboxMutationProcessedEvent: FlutterHubEvent {
     var modelName: String
     var element:  FlutterHubElement
     
-    init(outboxMutationProcessed: OutboxMutationEvent, eventName: String, schema: ModelSchema?) throws {
+    init(outboxMutationProcessed: OutboxMutationEvent, eventName: String, flutterModelRegistration: FlutterModels) throws {
         self.eventName = shortEventName(eventName: eventName)
         self.modelName = outboxMutationProcessed.modelName
         do {
-            if (schema != nil) {
-                self.element = try FlutterHubElement(hubElement: outboxMutationProcessed.element, schema: schema!)
-            } else {
-                throw FlutterDataStoreError.acquireSchemaForHub
-            }
+            self.element = try FlutterHubElement(hubElement: outboxMutationProcessed.element, flutterModelRegistration: flutterModelRegistration, modelName: self.modelName)
         } catch {
-            throw error
+            throw FlutterDataStoreError.acquireSchemaForHub
         }
-        
     }
     
     func toValueMap() -> Dictionary<String, Any> {

@@ -25,9 +25,9 @@ struct FlutterSubscriptionEvent {
         self.eventType = eventType
     }
 
-    public func toJSON(modelSchema: ModelSchema) -> [String: Any] {
+    public func toJSON(flutterModelRegistration: FlutterModels, modelName: String) throws -> [String: Any] {
         return [
-            "item": self.item.toMap(modelSchema: modelSchema),
+            "item": try self.item.toMap(flutterModelRegistration: flutterModelRegistration, modelName: modelName),
             "eventType": self.eventType.rawValue
         ]
     }}

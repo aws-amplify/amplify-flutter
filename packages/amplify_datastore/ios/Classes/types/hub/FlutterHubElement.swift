@@ -28,11 +28,11 @@ public struct FlutterHubElement {
     var lastChangedAt: Int?
     var deleted: Bool?
     
-    init(hubElement: OutboxMutationEvent.OutboxMutationEventElement, schema: ModelSchema) throws {
+    init(hubElement: OutboxMutationEvent.OutboxMutationEventElement, flutterModelRegistration: FlutterModels, modelName: String) throws {
         guard let model = hubElement.model as? FlutterSerializedModel else {
-                  throw FlutterDataStoreError.hubEventCast
-              }
-        self.model = model.toMap(modelSchema: schema)
+            throw FlutterDataStoreError.hubEventCast
+        }
+        self.model = try model.toMap(flutterModelRegistration: flutterModelRegistration, modelName: modelName)
         self.version = hubElement.version
         self.lastChangedAt = hubElement.lastChangedAt
         self.deleted = hubElement.deleted
@@ -48,6 +48,5 @@ public struct FlutterHubElement {
             ]
         ]
     }
-    
 }
 
