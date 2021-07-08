@@ -16,7 +16,6 @@
 package com.amazonaws.amplify.amplify_api
 
 
-import com.amazonaws.amplify.amplify_api.rest_api.FlutterSerializedRestResponse
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amplifyframework.api.ApiCategory
 import com.amplifyframework.api.ApiException
@@ -53,7 +52,6 @@ class AmplifyApiRestTest {
     fun setup() {
         flutterPlugin = AmplifyApiPlugin()
         setFinalStatic(Amplify::class.java.getDeclaredField("API"), mockApi)
-        ResponseSerializationTests.suite()
     }
 
     @Test
@@ -101,11 +99,11 @@ class AmplifyApiRestTest {
         )
 
         verify(mockResult).success(
-                mapOf(
+            mapOf(
                 "statusCode" to statusCode,
                 "headers" to headers,
-                        "data" to restResponse.data.rawBytes
-                )
+                "data" to restResponse.data.rawBytes
+            )
         )
 
     }
@@ -183,11 +181,11 @@ class AmplifyApiRestTest {
          */
 
         verify(mockResult).success(
-                mapOf(
+            mapOf(
                 "statusCode" to statusCode,
                 "headers" to headers,
-                        "data" to restResponse.data.rawBytes
-                )
+                "data" to restResponse.data.rawBytes
+            )
         )
 
     }
@@ -226,11 +224,11 @@ class AmplifyApiRestTest {
         )
 
         verify(mockResult).success(
-                mapOf(
+            mapOf(
                 "statusCode" to statusCode,
                 "headers" to headers,
-                        "data" to restResponse.data.rawBytes
-                )
+                "data" to restResponse.data.rawBytes
+            )
         )
 
     }
@@ -266,11 +264,11 @@ class AmplifyApiRestTest {
         )
 
         verify(mockResult).success(
-                mapOf(
+            mapOf(
                 "statusCode" to statusCode,
                 "headers" to headers,
-                        "data" to restResponse.data.rawBytes
-                )
+                "data" to restResponse.data.rawBytes
+            )
         )
 
     }
@@ -309,11 +307,11 @@ class AmplifyApiRestTest {
         )
 
         verify(mockResult, times(1)).success(
-                mapOf(
+            mapOf(
                 "statusCode" to statusCode,
                 "headers" to headers,
                 "data" to restResponse.data.rawBytes
-                )
+            )
         )
 
     }
