@@ -1,0 +1,12 @@
+{
+  "modelName": "Post",
+  "queryPredicate": {
+    "queryPredicateOperation": {
+      "field": "title",
+      "fieldOperator": {
+        "operatorName": "equal",
+        "value": "bar"
+      }
+    }
+  }
+}
