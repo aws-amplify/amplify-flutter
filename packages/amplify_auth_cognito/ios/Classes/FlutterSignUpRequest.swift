@@ -30,27 +30,18 @@ struct FlutterSignUpRequest {
     }
     
     private func createOptions(options: Dictionary<String, Any>?) -> AuthSignUpRequest.Options? {
-        if (options == nil) {
-            return nil
+        if ((options?["userAttributes"] is Dictionary<String, String>)) {
+            let rawAttributes = options!["userAttributes"] as! Dictionary<String, String>
+            let userAttributes = createAuthUserAttributes(rawAttributes: rawAttributes)
+            return AuthSignUpRequest.Options(userAttributes: userAttributes)
         }
-        var formattedAttributes: Array<AuthUserAttribute> = Array()
-        if (options!["userAttributes"] is Dictionary<String, String>) {
-            let rawAttributes: Dictionary<String, Any> = options!["userAttributes"] as! Dictionary<String, String>
-            for attr in rawAttributes {
-                formattedAttributes.append(createAuthUserAttribute(key: attr.key, value: attr.value as! String))
-            }
-        }
-        return AuthSignUpRequest.Options(userAttributes: formattedAttributes)
-        
+        return nil
     }
     
-    private func createAuthUserAttributes(options: Dictionary<String, Any>) -> [AuthUserAttribute] {
-        let rawAttributes: Dictionary<String, Any> = options["userAttributes"] as! Dictionary<String, String>
-        var formattedAttributes: Array<AuthUserAttribute> = Array()
-        for attr in rawAttributes {
-            formattedAttributes.append(createAuthUserAttribute(key: attr.key, value: attr.value as! String))
+    private func createAuthUserAttributes(rawAttributes: Dictionary<String, String>) -> [AuthUserAttribute] {
+        return rawAttributes.map { attr in
+            createAuthUserAttribute(key: attr.key, value: attr.value)
         }
-        return formattedAttributes
     }
     
     static func validate(dict: NSMutableDictionary) throws {

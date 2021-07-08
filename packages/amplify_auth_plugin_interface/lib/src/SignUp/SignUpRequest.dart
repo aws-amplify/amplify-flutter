@@ -25,10 +25,8 @@ class SignUpRequest {
     final Map<String, dynamic> pendingRequest = {
       'username': username,
       'password': password,
+      'options': options?.serializeAsMap()
     };
-    if (options != null) {
-      pendingRequest['options'] = options!.serializeAsMap();
-    }
     pendingRequest.removeWhere((_, v) => v == null);
     return pendingRequest;
   }
