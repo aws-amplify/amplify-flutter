@@ -1,5 +1,5 @@
 name: amplify_api
-description: The Amplify Flutter API category plugin.
+description: The Amplify Flutter API category plugin, supporting GraphQL and REST operations.
 version: 0.2.0
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify_api
 
