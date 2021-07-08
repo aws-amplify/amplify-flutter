@@ -124,9 +124,8 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
     if (!isHostedUIActivity && requestCode == AWSCognitoAuthPlugin.WEB_UI_SIGN_IN_ACTIVITY_CODE) {
       Amplify.Auth.handleWebUISignInResponse(data)
       return true
-    }  else {
-      return false
     }
+    return false
   }
 
   private fun checkData(@NonNull args: HashMap<String, Any>): HashMap<String, Any> {
