@@ -153,7 +153,7 @@ releasable_branches: &releasable_branches
   branches:
     only:
       - release
-      - master
+      - main
 
 workflows:
   test_deploy:
