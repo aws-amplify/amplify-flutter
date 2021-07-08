@@ -13,9 +13,37 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:convert';
 import 'dart:typed_data';
 
+/// An HTTP response from a REST API.
 class RestResponse {
-  Uint8List data;
-  RestResponse({required this.data});
+  /// The response status code.
+  final int statusCode;
+
+  /// The response headers.
+  ///
+  /// Will be `null` if unavailable from the platform.
+  final Map<String, String>? headers;
+
+  /// The response body bytes.
+  final Uint8List data;
+
+  /// The decoded body (using UTF-8).
+  ///
+  /// For custom processing, use [data] to get the raw body bytes.
+  late final String body;
+
+  RestResponse({
+    required Uint8List? data,
+    required this.headers,
+    required this.statusCode,
+  }) : data = data ?? Uint8List(0) {
+    body = utf8.decode(this.data, allowMalformed: true);
+  }
+
+  @override
+  String toString() {
+    return 'RestResponse{ statusCode=$statusCode, headers=$headers, body="$body" }';
+  }
 }

@@ -16,14 +16,13 @@
 package com.amazonaws.amplify.amplify_api
 
 
-import com.amazonaws.amplify.amplify_api.AmplifyApiPlugin
+import com.amazonaws.amplify.amplify_api.rest_api.FlutterSerializedRestResponse
+import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amplifyframework.api.ApiCategory
 import com.amplifyframework.api.ApiException
-import com.amplifyframework.api.aws.AWSApiPlugin
 import com.amplifyframework.api.rest.RestOperation
 import com.amplifyframework.api.rest.RestOptions
 import com.amplifyframework.api.rest.RestResponse
-
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
 import io.flutter.plugin.common.MethodCall
@@ -34,15 +33,11 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
-import org.mockito.ArgumentMatchers
 import org.mockito.Mockito
 import org.mockito.Mockito.*
-import org.mockito.invocation.InvocationOnMock
 import org.robolectric.RobolectricTestRunner
 import java.lang.reflect.Field
 import java.lang.reflect.Modifier
-import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
-import com.amplifyframework.AmplifyException
 
 
 @RunWith(RobolectricTestRunner::class)
@@ -58,13 +53,18 @@ class AmplifyApiRestTest {
     fun setup() {
         flutterPlugin = AmplifyApiPlugin()
         setFinalStatic(Amplify::class.java.getDeclaredField("API"), mockApi)
+        ResponseSerializationTests.suite()
     }
 
     @Test
     fun test_get_returns_success(){
 
-        var data = getSuccessData
-        var restResponse = RestResponse(200, null, data)
+        val statusCode = 200
+        val headers = mapOf(
+            "key" to "value"
+        )
+        val data = getSuccessData
+        val restResponse = RestResponse(statusCode, headers, data)
 
         Mockito.doAnswer { invocation ->
             (invocation.arguments[1] as Consumer<RestResponse>).accept(
@@ -76,7 +76,7 @@ class AmplifyApiRestTest {
                 any(),
                 any())
 
-        var arguments : Map<String, Any> = mapOf(
+        val arguments : Map<String, Any> = mapOf(
                 "restOptions" to mapOf(
                     "path" to "/items"
                 ),
@@ -102,6 +102,8 @@ class AmplifyApiRestTest {
 
         verify(mockResult).success(
                 mapOf(
+                "statusCode" to statusCode,
+                "headers" to headers,
                         "data" to restResponse.data.rawBytes
                 )
         )
@@ -111,10 +113,14 @@ class AmplifyApiRestTest {
     @Test
     fun test_post_returns_success(){
 
-        var body = toStoreData
-        var data = postSuccessData
+        val statusCode = 200
+        val headers = mapOf(
+            "key" to "value"
+        )
+        val body = toStoreData
+        val data = postSuccessData
 
-        var restResponse = RestResponse(200, null, data)
+        val restResponse = RestResponse(statusCode, headers, data)
 
         Mockito.doAnswer { invocation ->
             (invocation.arguments[2] as Consumer<RestResponse>).accept(
@@ -127,7 +133,7 @@ class AmplifyApiRestTest {
                 any(),
                 any())
 
-        var arguments : Map<String, Any> = mapOf(
+        val arguments : Map<String, Any> = mapOf(
                 "restOptions" to mapOf(
                         "path" to "/items",
                         "body" to body,
@@ -178,6 +184,8 @@ class AmplifyApiRestTest {
 
         verify(mockResult).success(
                 mapOf(
+                "statusCode" to statusCode,
+                "headers" to headers,
                         "data" to restResponse.data.rawBytes
                 )
         )
@@ -187,10 +195,12 @@ class AmplifyApiRestTest {
     @Test
     fun test_put_all_inputs_returns_success(){
 
-        var body = toStoreData
-        var data = putSuccessData
+        val statusCode = 200
+        val headers = null
+        val body = toStoreData
+        val data = putSuccessData
 
-        var restResponse = RestResponse(200, null, data)
+        val restResponse = RestResponse(statusCode, headers, data)
 
         Mockito.doAnswer { invocation ->
             (invocation.arguments[1] as Consumer<RestResponse>).accept(
@@ -202,7 +212,7 @@ class AmplifyApiRestTest {
                 any(),
                 any())
 
-        var arguments : Map<String, Any> = mapOf(
+        val arguments : Map<String, Any> = mapOf(
                 "restOptions" to mapOf(
                         "path" to "/items",
                         "body" to body
@@ -217,6 +227,8 @@ class AmplifyApiRestTest {
 
         verify(mockResult).success(
                 mapOf(
+                "statusCode" to statusCode,
+                "headers" to headers,
                         "data" to restResponse.data.rawBytes
                 )
         )
@@ -226,8 +238,10 @@ class AmplifyApiRestTest {
     @Test
     fun test_delete_returns_success(){
 
-        var data = deleteSuccessData
-        var restResponse = RestResponse(200, null, data)
+        val statusCode = 200
+        val headers = null
+        val data = deleteSuccessData
+        val restResponse = RestResponse(statusCode, headers, data)
 
         Mockito.doAnswer { invocation ->
             (invocation.arguments[1] as Consumer<RestResponse>).accept(
@@ -239,7 +253,7 @@ class AmplifyApiRestTest {
                 any(),
                 any())
 
-        var arguments : Map<String, Any> = mapOf(
+        val arguments : Map<String, Any> = mapOf(
                 "restOptions" to mapOf(
                         "path" to "/items"
                 ),
@@ -253,6 +267,8 @@ class AmplifyApiRestTest {
 
         verify(mockResult).success(
                 mapOf(
+                "statusCode" to statusCode,
+                "headers" to headers,
                         "data" to restResponse.data.rawBytes
                 )
         )
@@ -263,8 +279,12 @@ class AmplifyApiRestTest {
     @Test
     fun test_get_status_code_error(){
 
-        var data = getFailedData
-        var restResponse = RestResponse(400, null, data)
+        val statusCode = 400
+        val headers = mapOf(
+            "key" to "value"
+        )
+        val data = getFailedData
+        val restResponse = RestResponse(statusCode, headers, data)
 
         Mockito.doAnswer { invocation ->
             (invocation.arguments[1] as Consumer<RestResponse>).accept(
@@ -276,7 +296,7 @@ class AmplifyApiRestTest {
                 any(),
                 any())
 
-        var arguments : Map<String, Any> = mapOf(
+        val arguments : Map<String, Any> = mapOf(
                 "restOptions" to mapOf(
                         "path" to "/items"
                 ),
@@ -288,17 +308,11 @@ class AmplifyApiRestTest {
                 mockResult
         )
 
-        verify(mockResult, times(1)).error(
-                "ApiException",
-                ExceptionMessages.defaultFallbackExceptionMessage,
+        verify(mockResult, times(1)).success(
                 mapOf(
-                        "recoverySuggestion" to """
-                    The metadata associated with the response is contained in the HTTPURLResponse.
-                    For more information on HTTP status codes, take a look at
-                    https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
-                    """,
-                        "message" to "The HTTP response status code is [400].",
-                        "httpStatusCode" to "400"
+                "statusCode" to statusCode,
+                "headers" to headers,
+                "data" to restResponse.data.rawBytes
                 )
         )
 
@@ -308,8 +322,8 @@ class AmplifyApiRestTest {
     @Test
     fun test_get_invalid_input_map_error(){
 
-        var data = getFailedData
-        var restResponse = RestResponse(400, null, data)
+        val data = getFailedData
+        val restResponse = RestResponse(400, null, data)
 
         Mockito.doAnswer { invocation ->
             (invocation.arguments[1] as Consumer<RestResponse>).accept(
@@ -321,7 +335,7 @@ class AmplifyApiRestTest {
                 any(),
                 any())
 
-        var arguments : Map<String, Any> = mapOf(
+        val arguments : Map<String, Any> = mapOf(
         )
 
         flutterPlugin.onMethodCall(
@@ -456,7 +470,6 @@ class AmplifyApiRestTest {
                 "Operation does not exist"
         )
     }
-
 
     private fun setFinalStatic(field: Field, newValue: Any?) {
         field.isAccessible = true

@@ -19,14 +19,22 @@ import Amplify
 
 public struct FlutterSerializedRestResponse {
     
-    private var data: Data
+    private var statusCode: Int
+    private var headers: [AnyHashable: Any]?
+    private var data: Data?
     
-    init(data: Data) {
+    init(statusCode: Int = 200, headers: [AnyHashable: Any]?, data: Data?) {
+        self.statusCode = statusCode
+        self.headers = headers
         self.data = data
     }
     
-    func toValueMap() -> [String: Any] {
-        return [ "data" : data ]
+    func toValueMap() -> [String: Any?] {
+        return [
+            "statusCode": statusCode,
+            "headers": headers,
+            "data" : data
+        ]
     }
 
     
