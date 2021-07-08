@@ -49,6 +49,7 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmUserAttrib
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendUserAttributeConfirmationCodeRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendUserAttributeConfirmationCodeResult
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
+import com.amazonaws.amplify.amplify_auth_cognito.utils.isRedirectActivityDeclared
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthProvider
 import com.amplifyframework.auth.AuthSession
@@ -120,12 +121,12 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
   override fun onDetachedFromActivity() {}
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
-      if (requestCode == AWSCognitoAuthPlugin.WEB_UI_SIGN_IN_ACTIVITY_CODE) {
-        Amplify.Auth.handleWebUISignInResponse(data)
-        return true
-      }  else {
-        return false
-      }
+    var isHostedUIActivity = isRedirectActivityDeclared(context)
+    if (!isHostedUIActivity && requestCode == AWSCognitoAuthPlugin.WEB_UI_SIGN_IN_ACTIVITY_CODE) {
+      Amplify.Auth.handleWebUISignInResponse(data)
+      return true
+    }
+    return false
   }
 
   private fun checkData(@NonNull args: HashMap<String, Any>): HashMap<String, Any> {
