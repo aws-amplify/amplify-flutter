@@ -220,16 +220,12 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   }
 
   RestResponse _formatRestResponse(Map<String, dynamic> res) {
-    try {
-      return RestResponse(data: res["data"] as Uint8List);
-    }
-    // This shouldn't happen.  RestResponse should be properly formatted from native
-    on Exception catch (e) {
-      throw ApiException(AmplifyExceptionMessages.missingExceptionMessage,
-          recoverySuggestion:
-              AmplifyExceptionMessages.missingRecoverySuggestion,
-          underlyingException: e.toString());
-    }
+    final headers = res['headers'] as Map?;
+    return RestResponse(
+      data: res["data"] as Uint8List?,
+      headers: headers == null ? null : Map<String, String>.from(headers),
+      statusCode: res['statusCode'] as int,
+    );
   }
 
   @override

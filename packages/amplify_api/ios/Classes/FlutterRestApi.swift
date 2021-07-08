@@ -37,12 +37,27 @@ public class FlutterRestApi {
                         if(!cancelToken.isEmpty){
                             OperationsManager.removeOperation(cancelToken: cancelToken)
                         }
-                        self.prepareRestResponseResult(flutterResult: flutterResult, data: data, cancelToken: cancelToken)
+                        self.prepareRestResponseResult(
+                            flutterResult: flutterResult,
+                            statusCode: 200,
+                            data: data)
                     case .failure(let apiError):
                         if(!cancelToken.isEmpty){
                             OperationsManager.removeOperation(cancelToken: cancelToken)
                         }
-                        FlutterApiErrorHandler.handleApiError(error: apiError, flutterResult: flutterResult)
+                        guard case let .httpStatusError(statusCode, httpResponse) = apiError else {
+                            FlutterApiErrorHandler.handleApiError(error: apiError, flutterResult: flutterResult)
+                            return
+                        }
+                        var body: Data? = nil
+                        if let awsResponse = httpResponse as? AWSHTTPURLResponse {
+                            body = awsResponse.body
+                        }
+                        self.prepareRestResponseResult(
+                            flutterResult: flutterResult,
+                            statusCode: statusCode,
+                            data: body,
+                            headers: httpResponse.allHeaderFields)
                 }
             }
             if(restOperation != nil){
@@ -57,8 +72,13 @@ public class FlutterRestApi {
         }
     }
 
-    private static func prepareRestResponseResult(flutterResult: @escaping FlutterResult, data: Data, cancelToken: String = ""){
-        let restResponse : FlutterSerializedRestResponse = FlutterSerializedRestResponse(data: data)
+    private static func prepareRestResponseResult(
+        flutterResult: @escaping FlutterResult,
+        statusCode: Int,
+        data: Data?,
+        headers: [AnyHashable: Any]? = nil
+    ) {
+        let restResponse = FlutterSerializedRestResponse(statusCode: statusCode, headers: headers, data: data)
         flutterResult(restResponse.toValueMap())
     }
     

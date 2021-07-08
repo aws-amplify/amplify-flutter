@@ -140,13 +140,17 @@ class RestApiUnitTests: XCTestCase {
 
     func test_get_status_code_error() throws {
         
-        
         class MockApiBridge: ApiBridge {
             override func get(request: RESTRequest, listener: ((AmplifyOperation<RESTOperationRequest, Data, APIError>.OperationResult) -> Void)?) -> RESTOperation?{
                 
                 XCTAssertEqual(request.path, "/items")
 
-                listener?(.failure(APIError.httpStatusError(400, HTTPURLResponse())))
+                let httpResponse = HTTPURLResponse(
+                    url: URL(string: "dummyURL")!,
+                    statusCode: 0,
+                    httpVersion: nil,
+                    headerFields: [ "key": "value" ])!
+                listener?(.failure(APIError.httpStatusError(400, httpResponse)))
                 
                 return nil
             }
@@ -164,17 +168,10 @@ class RestApiUnitTests: XCTestCase {
             ],
             result: { (results) in
                 
-                let apiException = results as! FlutterError
+                let apiException = results as! [String: Any]
                 
-                XCTAssertEqual(apiException.code, "ApiException")
-                XCTAssertEqual(apiException.message, ErrorMessages.defaultFallbackErrorMessage)
-                
-                let errorMap: [String: String] = apiException.details as! [String : String]
-                let referenceError = APIError.httpStatusError(400, HTTPURLResponse())
-
-                XCTAssertEqual(referenceError.errorDescription, errorMap["message"])
-                XCTAssertEqual(referenceError.recoverySuggestion, errorMap["recoverySuggestion"])
-                XCTAssertEqual("400", errorMap["httpStatusCode"])
+                XCTAssertEqual(apiException["statusCode"]! as! Int, 400)
+                XCTAssertEqual(apiException["headers"]! as! [String: String], [ "key": "value" ])
             }
         )
     }

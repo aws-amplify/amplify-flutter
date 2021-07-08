@@ -20,6 +20,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_api/amplify_api.dart';
 
+const statusOK = 200;
+
 void main() {
   const MethodChannel apiChannel = MethodChannel('com.amazonaws.amplify/api');
 
@@ -47,7 +49,7 @@ void main() {
         expect(restOptions["queryParameters"], queryParameters);
         expect(restOptions["headers"], headers);
 
-        return {"data": responseData};
+        return {"data": responseData, 'statusCode': statusOK};
       }
     });
 
@@ -84,7 +86,7 @@ void main() {
         expect(restOptions["queryParameters"], queryParameters);
         expect(restOptions["headers"], headers);
 
-        return {"data": responseData};
+        return {"data": responseData, 'statusCode': statusOK};
       }
     });
 
@@ -110,7 +112,7 @@ void main() {
         Map<dynamic, dynamic> restOptions = methodCall.arguments["restOptions"];
         expect(restOptions["path"], "/items");
 
-        return {"data": responseData};
+        return {"data": responseData, 'statusCode': statusOK};
       }
     });
 
@@ -133,7 +135,7 @@ void main() {
         Map<dynamic, dynamic> restOptions = methodCall.arguments["restOptions"];
         expect(restOptions["path"], "/items");
 
-        return {"data": responseData};
+        return {"data": responseData, 'statusCode': statusOK};
       }
     });
 
@@ -253,7 +255,7 @@ void main() {
       if (methodCall.method == "get") {
         Map<dynamic, dynamic> restOptions = methodCall.arguments["restOptions"];
         expect(restOptions["path"], "/items");
-        return {"data": responseData};
+        return {"data": responseData, 'statusCode': statusOK};
       }
     });
 
