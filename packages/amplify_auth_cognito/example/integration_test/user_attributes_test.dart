@@ -20,6 +20,21 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
 
+const emailAttributeKey = 'email';
+const nameAttributeKey = 'name';
+const phoneNumberAttributeKey = 'phone_number';
+const givenNameAttributeKey = 'given_name';
+const emailVerifiedAttributeKey = 'email_verified';
+
+dynamic getAttributeValueFromList(
+  List<AuthUserAttribute> userAttributes,
+  String keyName,
+) {
+  return userAttributes
+      .firstWhere((attribute) => attribute.userAttributeKey == keyName)
+      .value;
+}
+
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
@@ -37,46 +52,79 @@ void main() {
           username: username,
           password: password,
           options: CognitoSignUpOptions(userAttributes: {
-            'email': email,
-            'phone_number': phoneNumber,
-            'name': name
+            emailAttributeKey: email,
+            phoneNumberAttributeKey: phoneNumber,
+            nameAttributeKey: name
           }));
       await Amplify.Auth.signIn(username: username, password: password);
     });
 
     testWidgets('should fetch a users attributes', (WidgetTester tester) async {
       var userAttributes = await Amplify.Auth.fetchUserAttributes();
-      var emailAttribute = userAttributes
-          .firstWhere((attribute) => attribute.userAttributeKey == 'email')
-          .value;
-      var phoneNumberAttribute = userAttributes
-          .firstWhere(
-              (attribute) => attribute.userAttributeKey == 'phone_number')
-          .value;
-      var nameAttribute = userAttributes
-          .firstWhere((attribute) => attribute.userAttributeKey == 'name')
-          .value;
 
-      expect(emailAttribute, email);
-      expect(phoneNumberAttribute, phoneNumber);
-      expect(nameAttribute, name);
+      var emailAttributeValue = getAttributeValueFromList(
+        userAttributes,
+        emailAttributeKey,
+      );
+      var phoneNumberAttributeValue = getAttributeValueFromList(
+        userAttributes,
+        phoneNumberAttributeKey,
+      );
+      var nameAttributeValue = getAttributeValueFromList(
+        userAttributes,
+        nameAttributeKey,
+      );
+
+      expect(emailAttributeValue, email);
+      expect(phoneNumberAttributeValue, phoneNumber);
+      expect(nameAttributeValue, name);
     });
 
     group('updateUserAttribute', () {
       testWidgets('should update a single users attribute',
           (WidgetTester tester) async {
         final updatedName = generateNameAttribute();
-        await Amplify.Auth.updateUserAttribute(
-          userAttributeKey: 'name',
+        var res = await Amplify.Auth.updateUserAttribute(
+          userAttributeKey: nameAttributeKey,
           value: updatedName,
         );
 
-        var userAttributes = await Amplify.Auth.fetchUserAttributes();
-        var nameAttribute = userAttributes
-            .firstWhere((attribute) => attribute.userAttributeKey == 'name')
-            .value;
+        expect(res.nextStep.updateAttributeStep, 'DONE');
 
-        expect(nameAttribute, updatedName);
+        var userAttributes = await Amplify.Auth.fetchUserAttributes();
+
+        var nameAttributeValue = getAttributeValueFromList(
+          userAttributes,
+          nameAttributeKey,
+        );
+
+        expect(nameAttributeValue, updatedName);
+      });
+
+      testWidgets('should require confirmation for an email attribute',
+          (WidgetTester tester) async {
+        final updatedEmail = generateEmail();
+        var res = await Amplify.Auth.updateUserAttribute(
+          userAttributeKey: emailAttributeKey,
+          value: updatedEmail,
+        );
+
+        expect(res.nextStep.updateAttributeStep, 'CONFIRM_ATTRIBUTE_WITH_CODE');
+
+        var userAttributes = await Amplify.Auth.fetchUserAttributes();
+
+        var emailAttributeValue = getAttributeValueFromList(
+          userAttributes,
+          emailAttributeKey,
+        );
+
+        var emailVerifiedAttributeValue = getAttributeValueFromList(
+          userAttributes,
+          emailVerifiedAttributeKey,
+        );
+
+        expect(emailAttributeValue, updatedEmail);
+        expect(emailVerifiedAttributeValue, 'false');
       });
 
       testWidgets(
@@ -99,7 +147,7 @@ void main() {
           (WidgetTester tester) async {
         try {
           await Amplify.Auth.updateUserAttribute(
-            userAttributeKey: 'email',
+            userAttributeKey: emailAttributeKey,
             value: 'invalidEmailFormat.com',
           );
         } catch (e) {
@@ -114,23 +162,33 @@ void main() {
       testWidgets('should update multiple users attributes',
           (WidgetTester tester) async {
         final updatedName = generateNameAttribute();
-        final givenName = generateNameAttribute();
-        await Amplify.Auth.updateUserAttributes(attributes: [
-          AuthUserAttribute(userAttributeKey: 'name', value: updatedName),
-          AuthUserAttribute(userAttributeKey: 'given_name', value: givenName),
-        ]);
+        final updatedGivenName = generateNameAttribute();
+        await Amplify.Auth.updateUserAttributes(
+          attributes: [
+            AuthUserAttribute(
+              userAttributeKey: nameAttributeKey,
+              value: updatedName,
+            ),
+            AuthUserAttribute(
+              userAttributeKey: givenNameAttributeKey,
+              value: updatedGivenName,
+            ),
+          ],
+        );
 
         var userAttributes = await Amplify.Auth.fetchUserAttributes();
-        var nameAttribute = userAttributes
-            .firstWhere((attribute) => attribute.userAttributeKey == 'name')
-            .value;
-        var givenNameAttribute = userAttributes
-            .firstWhere(
-                (attribute) => attribute.userAttributeKey == 'given_name')
-            .value;
+        var nameAttributeValue = getAttributeValueFromList(
+          userAttributes,
+          nameAttributeKey,
+        );
 
-        expect(nameAttribute, updatedName);
-        expect(givenNameAttribute, givenName);
+        var givenNameAttributeValue = getAttributeValueFromList(
+          userAttributes,
+          givenNameAttributeKey,
+        );
+
+        expect(nameAttributeValue, updatedName);
+        expect(givenNameAttributeValue, updatedGivenName);
       });
 
       testWidgets(
@@ -138,7 +196,7 @@ void main() {
           (WidgetTester tester) async {
         // set initial state
         await Amplify.Auth.updateUserAttribute(
-          userAttributeKey: 'name',
+          userAttributeKey: nameAttributeKey,
           value: name,
         );
 
@@ -146,18 +204,24 @@ void main() {
         final updatedName = generateNameAttribute();
         try {
           await Amplify.Auth.updateUserAttributes(attributes: [
-            AuthUserAttribute(userAttributeKey: 'name', value: updatedName),
             AuthUserAttribute(
-                userAttributeKey: 'fake-key-name', value: 'mock-value'),
+              userAttributeKey: nameAttributeKey,
+              value: updatedName,
+            ),
+            AuthUserAttribute(
+              userAttributeKey: 'fake-key-name',
+              value: 'mock-value',
+            ),
           ]);
         } catch (e) {
           expect(e, TypeMatcher<InvalidParameterException>());
           var userAttributes = await Amplify.Auth.fetchUserAttributes();
-          var nameAttribute = userAttributes
-              .firstWhere((attribute) => attribute.userAttributeKey == 'name')
-              .value;
+          var nameAttributeValue = getAttributeValueFromList(
+            userAttributes,
+            nameAttributeKey,
+          );
           // assert no update was made
-          expect(nameAttribute, name);
+          expect(nameAttributeValue, name);
           return;
         }
         throw Exception('Expected InvalidParameterException');
