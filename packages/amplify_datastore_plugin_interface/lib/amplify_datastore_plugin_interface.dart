@@ -37,10 +37,12 @@ export 'src/types/models/model_provider.dart';
 export 'src/types/models/auth_rule.dart';
 
 export 'src/types/temporal/datetime_parse.dart';
-export 'src/types/utils/parsers.dart';
 export 'src/types/models/subscription_event.dart';
 
 export 'src/publicTypes.dart';
+
+// export from DS for use in generated models
+export 'package:amplify_core/utils/index.dart';
 
 abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   /// modelProvider

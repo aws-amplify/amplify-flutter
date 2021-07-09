@@ -16,8 +16,6 @@
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-enum TestEnum { YES, NO, MAYBE }
-
 void main() {
   test('DateTimeParse.toDateTimeIso8601String generated proper string', () {
     DateTime dateTime = DateTime(2010, 10, 10, 10, 10, 10, 10);
@@ -27,28 +25,5 @@ void main() {
   test('DateTimeParse.fromString generates proper DateTime', () {
     expect(DateTimeParse.fromString("2010-10-10T10:10:10.010"),
         DateTime(2010, 10, 10, 10, 10, 10, 10));
-  });
-
-  test('parsers.enumToString generates proper string', () {
-    expect(enumToString(TestEnum.MAYBE), "MAYBE");
-  });
-
-  test('parsers.enumToString generates null for null enum value', () {
-    expect(enumToString(null), null);
-  });
-
-  test('parsers.enumFromString generates proper enum', () {
-    expect(enumFromString<TestEnum>("MAYBE", TestEnum.values), TestEnum.MAYBE);
-  });
-
-  test('parsers.enumFromString generates null for non existing enum values',
-      () {
-    expect(enumFromString<TestEnum>("RANDOM", TestEnum.values), null);
-  });
-
-  test(
-      'parsers.enumFromString generates null for empty string representing enum',
-      () {
-    expect(enumFromString<TestEnum>("", TestEnum.values), null);
   });
 }
