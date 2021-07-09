@@ -30,7 +30,7 @@ struct FlutterSignUpRequest {
     }
     
     private func createOptions(options: Dictionary<String, Any>?) -> AuthSignUpRequest.Options? {
-        if ((options?["userAttributes"] is Dictionary<String, String>)) {
+        if (options?["userAttributes"] is Dictionary<String, String>) {
             let rawAttributes = options!["userAttributes"] as! Dictionary<String, String>
             let userAttributes = createAuthUserAttributes(rawAttributes: rawAttributes)
             return AuthSignUpRequest.Options(userAttributes: userAttributes)
