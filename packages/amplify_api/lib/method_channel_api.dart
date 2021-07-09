@@ -158,7 +158,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
       final errors = _deserializeGraphQLResponseErrors(result);
 
       GraphQLResponse<T> response =
-          GraphQLResponse<T>(data: result['data'], errors: errors);
+          GraphQLResponse<T>(data: result['data'] ?? '', errors: errors);
 
       return response;
     } on PlatformException catch (e) {
