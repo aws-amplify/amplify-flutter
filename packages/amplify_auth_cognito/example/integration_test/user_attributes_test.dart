@@ -80,12 +80,27 @@ void main() {
       });
 
       testWidgets(
-          'should throw an InvalidParameterException for an invalid attribute',
+          'should throw an InvalidParameterException for an invalid attribute key',
           (WidgetTester tester) async {
         try {
           await Amplify.Auth.updateUserAttribute(
             userAttributeKey: 'fake-key-name',
             value: 'mock-value',
+          );
+        } catch (e) {
+          expect(e, TypeMatcher<InvalidParameterException>());
+          return;
+        }
+        throw Exception('Expected InvalidParameterException');
+      });
+
+      testWidgets(
+          'should throw an InvalidParameterException for an invalid attribute value',
+          (WidgetTester tester) async {
+        try {
+          await Amplify.Auth.updateUserAttribute(
+            userAttributeKey: 'email',
+            value: 'invalidEmailFormat.com',
           );
         } catch (e) {
           expect(e, TypeMatcher<InvalidParameterException>());
