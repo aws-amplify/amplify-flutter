@@ -55,7 +55,7 @@ data class FlutterSignInRequest(val map: HashMap<String, *>) {
       try {
         var user: AuthUser? = Amplify.Auth.currentUser;
         if (user != null) {
-          throw FlutterInvalidStateException("There is already a user  signed in.", "Sign out before calling sign in.")
+          throw FlutterInvalidStateException("There is already a user signed in.", "Sign out before calling sign in.")
         }
       } catch (e: Exception) {
         if (e is FlutterInvalidStateException) {
