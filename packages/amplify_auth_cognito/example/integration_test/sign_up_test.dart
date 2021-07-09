@@ -24,42 +24,41 @@ import 'utils/setup_utils.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  final username = generateUsername();
-  final password = generatePassword();
-
-  group('signIn and signOut', () {
+  group('signUp', () {
     setUpAll(() async {
       await configureAuth();
+      await signOutUser();
+    });
 
-      await Amplify.Auth.signUp(
+    testWidgets('should signUp a user with valid parameters',
+        (WidgetTester tester) async {
+      final username = generateUsername();
+      final password = generatePassword();
+
+      var res = await Amplify.Auth.signUp(
           username: username,
           password: password,
           options: CognitoSignUpOptions(userAttributes: {
             'email': generateEmail(),
             'phone_number': mockPhoneNumber
           }));
-
-      await signOutUser();
+      // should be uncommented when https://github.com/aws-amplify/amplify-flutter/issues/581 is closed
+      // currently this just confirms there is no error thrown
+      // expect(res.isSignUpComplete, true);
     });
 
-    testWidgets('should signIn a user', (WidgetTester tester) async {
-      final res =
-          await Amplify.Auth.signIn(username: username, password: password);
-      expect(res.isSignedIn, true);
-    });
-
-    testWidgets('should signOut', (WidgetTester tester) async {
-      // Ensure signed in before testing signOut.
-      final initalAuthRes = await Amplify.Auth.fetchAuthSession();
-      if (!initalAuthRes.isSignedIn) {
-        await Amplify.Auth.signIn(username: username, password: password);
-        final secondAuthRes = await Amplify.Auth.fetchAuthSession();
-        expect(secondAuthRes.isSignedIn, true);
+    testWidgets(
+        'should throw an InvalidParameterException without required attributes',
+        (WidgetTester tester) async {
+      final username = generateUsername();
+      final password = generatePassword();
+      try {
+        await Amplify.Auth.signUp(username: username, password: password);
+      } catch (e) {
+        expect(e, TypeMatcher<InvalidParameterException>());
+        return;
       }
-
-      await Amplify.Auth.signOut();
-      final finalAuthRes = await Amplify.Auth.fetchAuthSession();
-      expect(finalAuthRes.isSignedIn, false);
+      throw Exception('Expected InvalidParameterException');
     });
   });
 }
