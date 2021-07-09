@@ -1162,7 +1162,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         plugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterError {
                 let details = res.details as? Dictionary<String, String>
-                XCTAssertEqual( "AuthException", res.code )
+                XCTAssertEqual( "InvalidStateException", res.code )
                 XCTAssertEqual( nil, details?["underlyingException"])
                 XCTAssertEqual( MockErrorConstants.invalidStateError, details?["recoverySuggestion"])
                 XCTAssertEqual( "Invalid state", details?["message"])
@@ -1217,7 +1217,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         plugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterError {
                 let details = res.details as? Dictionary<String, String>
-                XCTAssertEqual( "AuthException", res.code )
+                XCTAssertEqual( "InvalidStateException", res.code )
                 XCTAssertEqual( nil, details?["underlyingException"])
                 XCTAssertEqual( MockErrorConstants.invalidStateError, details?["recoverySuggestion"])
                 XCTAssertEqual( "Invalid state", details?["message"])
