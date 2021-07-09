@@ -96,6 +96,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
+    
     func test_signUpSuccessPhone() {
         
         class SignUpMock: AuthCognitoBridge {
@@ -281,12 +282,32 @@ class amplify_auth_cognito_tests: XCTestCase {
         XCTAssertNoThrow(try FlutterSignUpRequest.validate(dict: rawData))
     }
     
-    func test_signUpFormatAttributes() {
+    func test_signUpFormatAttributesWithUserAttributes() {
         let rawAttributes: Dictionary<String, Any> = ["email": _email, "customAttribute": "female"]
         let rawOptions: Dictionary<String, Any> = ["userAttributes": rawAttributes]
         let rawData: NSMutableDictionary = ["options":rawOptions, "username": _username, "password": _password]
         let request = FlutterSignUpRequest(dict: rawData);
         XCTAssertEqual(2, request.options?.userAttributes?.count)
+    }
+    
+    func test_signUpFormatAttributesWithClientMetadata() {
+        let metadata: Dictionary<String, Any> = ["attribute": "value"]
+        let rawOptions: Dictionary<String, Any> = ["clientMetadata": metadata]
+        let rawData: NSMutableDictionary = ["options":rawOptions, "username": _username, "password": _password]
+        let request = FlutterSignUpRequest(dict: rawData);
+        let options = request.options?.pluginOptions as! AWSAuthSignUpOptions
+        XCTAssertEqual("value", options.metadata!["attribute"])
+        XCTAssertNil(options.validationData)
+    }
+    
+    func test_signUpFormatAttributesWithValidationdata() {
+        let validationData: Dictionary<String, Any> = ["attribute": "value"]
+        let rawOptions: Dictionary<String, Any> = ["validationData": validationData]
+        let rawData: NSMutableDictionary = ["options":rawOptions, "username": _username, "password": _password]
+        let request = FlutterSignUpRequest(dict: rawData);
+        let options = request.options?.pluginOptions as! AWSAuthSignUpOptions
+        XCTAssertEqual("value", options.validationData!["attribute"])
+        XCTAssertNil(options.metadata)
     }
     
     func test_signUpError() {
