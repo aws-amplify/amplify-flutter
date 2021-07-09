@@ -28,7 +28,7 @@ void main() {
   var expected = CognitoSignInResult(
       isSignedIn: true,
       nextStep: AuthNextSignInStep(
-          signInStep: "DONE",
+          signInStep: AuthSignInStep.done,
           codeDeliveryDetails: AuthCodeDeliveryDetails(
               attributeName: "email", destination: "test@test.test"),
           additionalInfo: {}));

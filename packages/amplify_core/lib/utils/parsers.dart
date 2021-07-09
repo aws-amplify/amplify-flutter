@@ -28,10 +28,12 @@ T? enumFromString<T>(String? key, List<T> values) =>
 // only to be used internally by amplify-flutter library
 String? upperSnakeCaseToCamelCase(String? value) {
   try {
-    value!
+    return value!
         .toLowerCase()
         .split('_')
-        .map((e) => e[0].toUpperCase() + e.substring(1))
+        .mapIndexed((index, element) => index == 0
+            ? element
+            : element[0].toUpperCase() + element.substring(1))
         .join('');
   } catch (e) {
     return null;
