@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/types/exception/AmplifyException.dart';
 import 'package:amplify_core/types/exception/AmplifyExceptionMessages.dart';
 import 'package:amplify_core/types/exception/AmplifyAlreadyConfiguredException.dart';
@@ -386,7 +387,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     return CognitoSignUpResult(
         isSignUpComplete: res["isSignUpComplete"],
         nextStep: AuthNextSignUpStep(
-            signUpStep: res["nextStep"]["signUpStep"],
+            signUpStep: authSignUpStepFromString(res["nextStep"]["signUpStep"]),
             codeDeliveryDetails: codeDeliveryDetails != null
                 ? AuthCodeDeliveryDetails(
                     attributeName: codeDeliveryDetails["attributeName"],
@@ -411,7 +412,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     return CognitoSignInResult(
         isSignedIn: res["isSignedIn"],
         nextStep: AuthNextSignInStep(
-            signInStep: res["nextStep"]["signInStep"],
+            signInStep: authSignInStepFromString(res["nextStep"]["signInStep"]),
             codeDeliveryDetails: codeDeliveryDetails != null
                 ? AuthCodeDeliveryDetails(
                     attributeName: codeDeliveryDetails["attributeName"],
@@ -504,4 +505,18 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     return ResendUserAttributeConfirmationCodeResult(
         codeDeliveryDetails: res["codeDeliveryDetails"]);
   }
+}
+
+AuthSignInStep authSignInStepFromString(String value) {
+  return enumFromString<AuthSignInStep>(
+    upperSnakeCaseToCamelCase(value),
+    AuthSignInStep.values,
+  )!;
+}
+
+AuthSignUpStep authSignUpStepFromString(String value) {
+  return enumFromString<AuthSignUpStep>(
+    upperSnakeCaseToCamelCase(value),
+    AuthSignUpStep.values,
+  )!;
 }

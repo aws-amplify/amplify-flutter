@@ -31,8 +31,8 @@ class _SignInWidgetState extends State<SignInWidget> {
       var res = await Amplify.Auth.signIn(
           username: usernameController.text.trim(),
           password: passwordController.text.trim());
-      widget.showResult(
-          'Sign In Status = ' + (res.nextStep?.signInStep ?? 'null'));
+      widget.showResult('Sign In Status = ' +
+          (res.nextStep?.signInStep.toString() ?? 'null'));
       widget
           .changeDisplay(res.isSignedIn ? 'SIGNED_IN' : 'SHOW_CONFIRM_SIGN_IN');
     } on AmplifyException catch (e) {

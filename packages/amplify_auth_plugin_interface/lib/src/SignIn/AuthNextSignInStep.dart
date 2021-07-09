@@ -13,10 +13,13 @@
  * permissions and limitations under the License.
  */
 
+import '../../amplify_auth_plugin_interface.dart';
 import '../types/AuthNextStep.dart';
+import 'AuthSignInStep.dart';
 
 class AuthNextSignInStep extends AuthNextStep {
-  String signInStep;
+  /// Represents the various common steps a user could be in for the sign in flow.
+  AuthSignInStep signInStep;
   AuthNextSignInStep(
       {additionalInfo, codeDeliveryDetails, required this.signInStep})
       : super(

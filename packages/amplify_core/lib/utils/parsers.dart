@@ -26,8 +26,14 @@ T? enumFromString<T>(String? key, List<T> values) =>
     values.firstWhereOrNull((v) => key == enumToString(v));
 
 // only to be used internally by amplify-flutter library
-String upperSnakeCaseToCamelCase(String value) => value
-    .toLowerCase()
-    .split('_')
-    .map((e) => e[0].toUpperCase() + e.substring(1))
-    .join('');
+String? upperSnakeCaseToCamelCase(String? value) {
+  try {
+    value!
+        .toLowerCase()
+        .split('_')
+        .map((e) => e[0].toUpperCase() + e.substring(1))
+        .join('');
+  } catch (e) {
+    return null;
+  }
+}

@@ -33,9 +33,11 @@ class _SignUpWidgetState extends State<SignUpWidget> {
           username: usernameController.text.trim(),
           password: passwordController.text.trim(),
           options: CognitoSignUpOptions(userAttributes: userAttributes));
-      widget.showResult('Sign Up Status = ' + res.nextStep.signUpStep);
-      widget.changeDisplay(
-          res.nextStep.signUpStep != 'DONE' ? 'SHOW_CONFIRM' : 'SHOW_SIGN_UP');
+      widget
+          .showResult('Sign Up Status = ' + res.nextStep.signUpStep.toString());
+      widget.changeDisplay(res.nextStep.signUpStep != AuthSignUpStep.done
+          ? 'SHOW_CONFIRM'
+          : 'SHOW_SIGN_UP');
     } on AmplifyException catch (e) {
       widget.setError(e);
     }

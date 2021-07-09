@@ -14,9 +14,11 @@
  */
 
 import '../types/AuthNextStep.dart';
+import 'AuthSignUpStep.dart';
 
 class AuthNextSignUpStep extends AuthNextStep {
-  String signUpStep;
+  /// Represents the various common steps a user could be in for the sign up flow.
+  AuthSignUpStep signUpStep;
   AuthNextSignUpStep(
       {additionalInfo, codeDeliveryDetails, required this.signUpStep})
       : super(
