@@ -17,6 +17,7 @@ package com.amazonaws.amplify.amplify_auth_cognito
 
 import com.amazonaws.AmazonClientException
 import com.amazonaws.AmazonServiceException
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterInvalidStateException
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.BasicAWSCredentials
@@ -258,6 +259,30 @@ class AuthErrorHandlerTest {
                 "recoverySuggestion" to "Enter correct password.",
                 "message" to "The password given is invalid.",
                 "underlyingException" to "${cognitoErrorPrefix}${expectedCode}: ${expectedCode}${cognitoErrorSuffix}"
+        )
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).error(expectedCode, defaultMessage, details);
+    }
+
+    @Test
+    fun invalidStateException() {
+        // Arrange
+        val expectedCode = "InvalidStateException"
+        val exception: AuthException = FlutterInvalidStateException("Invalid state message", "Invalid state recovery message")
+        doAnswer { invocation: InvocationOnMock ->
+            errorHandler.handleAuthError(mockResult, exception)
+            null as Void?
+        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        val call = MethodCall("signOut", arguments)
+
+        val details = mapOf(
+                "recoverySuggestion" to "Invalid state recovery message",
+                "message" to "Invalid state message",
+                "underlyingException" to "java.lang.Exception: invalidState"
         )
 
         // Act
