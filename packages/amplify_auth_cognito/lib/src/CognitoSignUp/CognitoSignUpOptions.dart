@@ -22,11 +22,8 @@ class CognitoSignUpOptions extends SignUpOptions {
   ///
   /// Currently supported on `Android` only.
   final Map<String, String>? validationData;
-  
 
-
- 
-  /// Additional custom attributes to be sent to the service such as information 
+  /// Additional custom attributes to be sent to the service such as information
   /// about the client.
   ///
   final Map<String, String>? clientMetadata;
@@ -62,11 +59,11 @@ class CognitoSignUpOptions extends SignUpOptions {
   ///     - Phone number verification is enabled
   ///     - Phone number was marked as a required attribute
   ///   - **and** users sign up with a chosen username or email
-  const CognitoSignUpOptions({
-    Map<String, String> userAttributes = const {},
-    this.validationData,
-    this.clientMetadata
-  }) : super(userAttributes: userAttributes);
+  const CognitoSignUpOptions(
+      {Map<String, String> userAttributes = const {},
+      this.validationData,
+      this.clientMetadata})
+      : super(userAttributes: userAttributes);
 
   @override
   Map<String, dynamic> serializeAsMap() {
