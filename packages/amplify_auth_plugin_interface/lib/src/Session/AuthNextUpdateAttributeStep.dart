@@ -14,20 +14,19 @@
  */
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
-import 'package:flutter/foundation.dart';
 
-/// This wraps all the details around the next step in the user attribute update process.
+import 'AuthUpdateAttributeStep.dart';
+
+/// This object represents all the details around the next step in the user attribute update process.
 ///
 /// It contains [updateAttributeStep] to denote the step and supplements it with
 /// optional additional details.
+///
+/// /// If there is no next step, [updateAttributeStep] will have a value of [AuthUpdateAttributeStep.done].
 class AuthNextUpdateAttributeStep extends AuthNextStep {
-  /// Represents the steps a user could be in for the user attribute update flow.
-  ///
-  /// Will have a value of `"CONFIRM_ATTRIBUTE_WITH_CODE"` if the user was sent a
-  /// code to enable the update of their user attribute.
-  ///
-  /// Will have a value of `"DONE"` if the flow is completed and no further steps are needed.
-  String updateAttributeStep;
+  /// Represents the various common steps a user could be in for the the
+  /// user attribute update flow.
+  AuthUpdateAttributeStep updateAttributeStep;
 
   // ignore: public_member_api_docs
   AuthNextUpdateAttributeStep(

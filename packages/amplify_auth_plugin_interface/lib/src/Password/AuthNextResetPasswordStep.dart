@@ -14,19 +14,19 @@
  */
 
 import '../types/AuthNextStep.dart';
-import 'AuthSignUpStep.dart';
+import 'AuthResetPasswordStep.dart';
 
-/// This object represents all details around the next step in the sign up process.
+/// This object represents all details around the next step in the reset password process.
 ///
-/// It holds an instance of the [AuthSignUpStep] enum to denote the step itself
-/// and supplements it with additional details which can optionally accompany it.
+/// It holds an instance of the [AuthResetPasswordStep] enum to denote the step itself and
+/// supplements it with additional details which can optionally accompany it.
 ///
-/// If there is no next step, [signUpStep] will have a value of [AuthSignUpStep.done].
-class AuthNextSignUpStep extends AuthNextStep {
-  /// Represents the various common steps a user could be in for the sign up flow.
-  AuthSignUpStep signUpStep;
-  AuthNextSignUpStep(
-      {additionalInfo, codeDeliveryDetails, required this.signUpStep})
+/// If there is no next step, [resetPasswordStep] will have a value of [AuthResetPasswordStep.done].
+class AuthNextResetPasswordStep extends AuthNextStep {
+  /// Represents the various common steps a user could be in for the reset password flow.
+  AuthResetPasswordStep resetPasswordStep;
+  AuthNextResetPasswordStep(
+      {additionalInfo, codeDeliveryDetails, required this.resetPasswordStep})
       : super(
             additionalInfo: additionalInfo,
             codeDeliveryDetails: codeDeliveryDetails);

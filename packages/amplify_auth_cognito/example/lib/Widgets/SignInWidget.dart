@@ -67,7 +67,8 @@ class _SignInWidgetState extends State<SignInWidget> {
       var res = await Amplify.Auth.resetPassword(
         username: usernameController.text.trim(),
       );
-      widget.showResult('Reset Password Status = ' + res.nextStep.updateStep);
+      widget.showResult('Reset Password Status = ' +
+          res.nextStep.resetPasswordStep.toString());
       widget.changeDisplay('SHOW_CONFIRM_RESET');
     } on AmplifyException catch (e) {
       widget.setError(e);

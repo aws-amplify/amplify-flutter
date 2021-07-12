@@ -17,6 +17,12 @@ import '../../amplify_auth_plugin_interface.dart';
 import '../types/AuthNextStep.dart';
 import 'AuthSignInStep.dart';
 
+/// This object represents all details around the next step in the sign in process.
+///
+/// It holds an instance of the [AuthSignInStep] enum to denote the step itself
+/// and supplements it with additional details which can optionally accompany it.
+///
+/// If there is no next step, [signInStep] will have a value of [AuthSignInStep.done].
 class AuthNextSignInStep extends AuthNextStep {
   /// Represents the various common steps a user could be in for the sign in flow.
   AuthSignInStep signInStep;

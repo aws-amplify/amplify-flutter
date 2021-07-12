@@ -52,6 +52,6 @@ void main() {
     var res = await auth.resetPassword(
         request: ResetPasswordRequest(username: 'testUser'));
     expect(res, isInstanceOf<ResetPasswordResult>());
-    expect(res.nextStep.updateStep, "DONE");
+    expect(res.nextStep.resetPasswordStep, AuthResetPasswordStep.done);
   });
 }

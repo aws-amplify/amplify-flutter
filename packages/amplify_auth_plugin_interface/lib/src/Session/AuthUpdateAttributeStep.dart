@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,13 +13,14 @@
  * permissions and limitations under the License.
  */
 
-import '../types/AuthNextStep.dart';
+/// Represents the various common steps a user could be in for the the
+/// user attribute update flow.
+enum AuthUpdateAttributeStep {
+  /// A code was sent to enable the user to update their user attribute.
+  /// Submit this code using [confirmUserAttribute] with the confirmation
+  /// code sent to the user.
+  confirmAttributeWithCode,
 
-class ResetPasswordStep extends AuthNextStep {
-  String updateStep;
-  ResetPasswordStep(
-      {additionalInfo, codeDeliveryDetails, required this.updateStep})
-      : super(
-            additionalInfo: additionalInfo,
-            codeDeliveryDetails: codeDeliveryDetails);
+  /// The flow is completed and no further steps are needed.
+  done
 }

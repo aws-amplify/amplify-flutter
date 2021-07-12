@@ -452,8 +452,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     var codeDeliveryDetails = res["nextStep"]["codeDeliveryDetails"];
     return CognitoResetPasswordResult(
         isPasswordReset: res["isPasswordReset"],
-        nextStep: ResetPasswordStep(
-            updateStep: res["nextStep"]["resetPasswordStep"],
+        nextStep: AuthNextResetPasswordStep(
+            resetPasswordStep: authResetPasswordStepFromString(
+                res["nextStep"]["resetPasswordStep"]),
             codeDeliveryDetails: codeDeliveryDetails != null
                 ? AuthCodeDeliveryDetails(
                     attributeName: codeDeliveryDetails["attributeName"] ?? null,
@@ -476,7 +477,8 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     return UpdateUserAttributeResult(
         isUpdated: res["isUpdated"],
         nextStep: AuthNextUpdateAttributeStep(
-            updateAttributeStep: res["nextStep"]["updateAttributeStep"],
+            updateAttributeStep: authUpdateAttributeStepFromString(
+                res["nextStep"]["updateAttributeStep"]),
             codeDeliveryDetails: codeDeliveryDetails != null
                 ? AuthCodeDeliveryDetails(
                     attributeName: codeDeliveryDetails["attributeName"] ?? null,
@@ -518,5 +520,19 @@ AuthSignUpStep authSignUpStepFromString(String value) {
   return enumFromString<AuthSignUpStep>(
     upperSnakeCaseToCamelCase(value),
     AuthSignUpStep.values,
+  )!;
+}
+
+AuthUpdateAttributeStep authUpdateAttributeStepFromString(String value) {
+  return enumFromString<AuthUpdateAttributeStep>(
+    upperSnakeCaseToCamelCase(value),
+    AuthUpdateAttributeStep.values,
+  )!;
+}
+
+AuthResetPasswordStep authResetPasswordStepFromString(String value) {
+  return enumFromString<AuthResetPasswordStep>(
+    upperSnakeCaseToCamelCase(value),
+    AuthResetPasswordStep.values,
   )!;
 }
