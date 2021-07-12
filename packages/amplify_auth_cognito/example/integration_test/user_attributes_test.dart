@@ -59,25 +59,28 @@ void main() {
       await Amplify.Auth.signIn(username: username, password: password);
     });
 
-    testWidgets('should fetch a users attributes', (WidgetTester tester) async {
-      var userAttributes = await Amplify.Auth.fetchUserAttributes();
+    group('fetchUserAttributes', () {
+      testWidgets('should fetch a users attributes',
+          (WidgetTester tester) async {
+        var userAttributes = await Amplify.Auth.fetchUserAttributes();
 
-      var emailAttributeValue = getAttributeValueFromList(
-        userAttributes,
-        emailAttributeKey,
-      );
-      var phoneNumberAttributeValue = getAttributeValueFromList(
-        userAttributes,
-        phoneNumberAttributeKey,
-      );
-      var nameAttributeValue = getAttributeValueFromList(
-        userAttributes,
-        nameAttributeKey,
-      );
+        var emailAttributeValue = getAttributeValueFromList(
+          userAttributes,
+          emailAttributeKey,
+        );
+        var phoneNumberAttributeValue = getAttributeValueFromList(
+          userAttributes,
+          phoneNumberAttributeKey,
+        );
+        var nameAttributeValue = getAttributeValueFromList(
+          userAttributes,
+          nameAttributeKey,
+        );
 
-      expect(emailAttributeValue, email);
-      expect(phoneNumberAttributeValue, phoneNumber);
-      expect(nameAttributeValue, name);
+        expect(emailAttributeValue, email);
+        expect(phoneNumberAttributeValue, phoneNumber);
+        expect(nameAttributeValue, name);
+      });
     });
 
     group('updateUserAttribute', () {
@@ -145,10 +148,11 @@ void main() {
       testWidgets(
           'should throw an InvalidParameterException for an invalid attribute value',
           (WidgetTester tester) async {
+        const invalidEmailAddress = 'invalidEmailFormat.com';
         try {
           await Amplify.Auth.updateUserAttribute(
             userAttributeKey: emailAttributeKey,
-            value: 'invalidEmailFormat.com',
+            value: invalidEmailAddress,
           );
         } catch (e) {
           expect(e, TypeMatcher<InvalidParameterException>());
