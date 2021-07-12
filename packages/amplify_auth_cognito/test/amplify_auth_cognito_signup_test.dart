@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_auth_cognito/src/CognitoSignUp/cognito_user_attributes.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -64,7 +65,7 @@ void main() {
             username: 'testUser',
             password: '123',
             options: CognitoSignUpOptions(userAttributes: {
-              "email": "test@test.com",
+              CognitoUserAttributes.email: "test@test.com",
             })));
     expect(res, isInstanceOf<SignUpResult>());
   });
@@ -77,7 +78,7 @@ void main() {
             username: 'testUser',
             password: '123',
             options: CognitoSignUpOptions(userAttributes: {
-              "email": "test@test.com",
+              CognitoUserAttributes.email: "test@test.com",
             })));
     expect(res.nextStep, isInstanceOf<AuthNextSignUpStep>());
     expect(res.nextStep, isInstanceOf<AuthNextStep>());
@@ -92,7 +93,7 @@ void main() {
               username: 'testUser',
               password: '123',
               options: CognitoSignUpOptions(userAttributes: {
-                "email": "test@test.com",
+                CognitoUserAttributes.email: "test@test.com",
               })));
     } on AuthException catch (e) {
       expect(e.message, "I am an exception");
