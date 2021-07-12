@@ -234,6 +234,41 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
+    func test_signUpSuccessNoOptions() {
+        
+        class SignUpMock: AuthCognitoBridge {
+            override func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest){
+                let signUpRes = Result<AuthSignUpResult,AuthError>.success(
+                    AuthSignUpResult(AuthSignUpStep.confirmUser(AuthCodeDeliveryDetails(destination: DeliveryDestination.email(_email)), ["foo": "bar"])))
+                let signUpData = FlutterSignUpResult(res: signUpRes)
+                flutterResult(signUpData)
+            }
+        }
+        
+        plugin = SwiftAuthCognito.init(cognito: SignUpMock())
+
+        _attributes = ["email" : _email]
+        _data = [
+            "username": _username,
+            "password": _password,
+        ]
+        _args = ["data": _data]
+        let call = FlutterMethodCall(methodName: "signUp", arguments: _args)
+        plugin.handle(call, result: {(result)->Void in
+            if let res = result as? FlutterSignUpResult {
+                XCTAssertEqual( false, res.isSignUpComplete )
+                XCTAssertEqual( "CONFIRM_SIGN_UP_STEP", res.signUpStep)
+                let codeDeliveryJson = ((res.toJSON()["nextStep"] as! [String: Any])["codeDeliveryDetails"] as! [String: String])
+                let additionalInfoJson = ((res.toJSON()["nextStep"] as! [String: Any])["additionalInfo"] as! [String: String])
+                XCTAssertEqual(_email, codeDeliveryJson["destination"]!)
+                XCTAssertEqual("bar", additionalInfoJson["foo"]!)
+
+            } else {
+                XCTFail()
+            }
+        })
+    }
+    
     func test_signUpValidation() {
         let rawOptions: Dictionary<String, Any> = ["foo": "bar"]
         var rawData: NSMutableDictionary = ["options":rawOptions]
@@ -241,9 +276,9 @@ class amplify_auth_cognito_tests: XCTestCase {
         // Throws with no password
         XCTAssertThrowsError(try FlutterSignUpRequest.validate(dict: rawData))
 
-        // Throws with no options
+        // Does not thow an error with valid parameters
         rawData = ["password": _password]
-        XCTAssertThrowsError(try FlutterSignUpRequest.validate(dict: rawData))
+        XCTAssertNoThrow(try FlutterSignUpRequest.validate(dict: rawData))
     }
     
     func test_signUpFormatAttributes() {
@@ -251,7 +286,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         let rawOptions: Dictionary<String, Any> = ["userAttributes": rawAttributes]
         let rawData: NSMutableDictionary = ["options":rawOptions, "username": _username, "password": _password]
         let request = FlutterSignUpRequest(dict: rawData);
-        XCTAssertEqual(2, request.userAttributes.count)
+        XCTAssertEqual(2, request.options?.userAttributes?.count)
     }
     
     func test_signUpError() {
@@ -1127,7 +1162,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         plugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterError {
                 let details = res.details as? Dictionary<String, String>
-                XCTAssertEqual( "AuthException", res.code )
+                XCTAssertEqual( "InvalidStateException", res.code )
                 XCTAssertEqual( nil, details?["underlyingException"])
                 XCTAssertEqual( MockErrorConstants.invalidStateError, details?["recoverySuggestion"])
                 XCTAssertEqual( "Invalid state", details?["message"])
@@ -1182,7 +1217,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         plugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterError {
                 let details = res.details as? Dictionary<String, String>
-                XCTAssertEqual( "AuthException", res.code )
+                XCTAssertEqual( "InvalidStateException", res.code )
                 XCTAssertEqual( nil, details?["underlyingException"])
                 XCTAssertEqual( MockErrorConstants.invalidStateError, details?["recoverySuggestion"])
                 XCTAssertEqual( "Invalid state", details?["message"])

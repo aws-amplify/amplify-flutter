@@ -20,6 +20,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
 
 import 'sign_in_sign_out_test.dart' as sign_in_sign_out_tests;
+import 'sign_up_test.dart' as sign_up_tests;
 
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -32,5 +33,6 @@ void main() async {
     });
 
     sign_in_sign_out_tests.main();
+    sign_up_tests.main();
   });
 }
