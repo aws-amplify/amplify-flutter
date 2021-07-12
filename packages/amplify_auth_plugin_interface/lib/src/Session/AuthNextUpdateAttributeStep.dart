@@ -22,7 +22,7 @@ import 'AuthUpdateAttributeStep.dart';
 /// It contains [updateAttributeStep] to denote the step and supplements it with
 /// optional additional details.
 ///
-/// /// If there is no next step, [updateAttributeStep] will have a value of [AuthUpdateAttributeStep.done].
+/// If there is no next step, [updateAttributeStep] will have a value of [AuthUpdateAttributeStep.done].
 class AuthNextUpdateAttributeStep extends AuthNextStep {
   /// Represents the various common steps a user could be in for the the
   /// user attribute update flow.
