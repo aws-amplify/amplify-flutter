@@ -37,18 +37,10 @@ scripts:
       - Requires running Android and iOS simulators.
 
   test:integration:android:
-    run: melos exec "flutter drive --no-pub --driver=test_driver/integration_test.dart --target=integration_test/main_test.dart -d sdk"
-    select-package:
-      file-exists:
-        - integration_test/main_test.dart
-      scope: "*example*"
+    run: melos exec -c 1 --scope="*example*" --file-exists="integration_test/main_test.dart" "flutter drive --no-pub --driver=test_driver/integration_test.dart --target=integration_test/main_test.dart -d sdk"
 
   test:integration:ios:
-    run: melos exec "flutter drive --no-pub --driver=test_driver/integration_test.dart --target=integration_test/main_test.dart -d iPhone"
-    select-package:
-      file-exists:
-        - integration_test/main_test.dart
-      scope: "*example*"
+    run: melos exec -c 1 --scope="*example*" --file-exists="integration_test/main_test.dart" "flutter drive --no-pub --driver=test_driver/integration_test.dart --target=integration_test/main_test.dart -d iPhone"
 
   provision_integration_test_resources:
     run: melos exec "./tool/provision_integration_test_resources.sh"
