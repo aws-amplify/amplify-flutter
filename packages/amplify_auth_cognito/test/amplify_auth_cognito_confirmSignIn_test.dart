@@ -77,7 +77,7 @@ void main() {
               deliveryMedium: "EMAIL",
               attributeName: testAttributeKey,
               destination: testEmailValue),
-          signInStep: "DONE",
+          signInStep: AuthSignInStep.done,
         ));
     var res = await auth.confirmSignIn(
         request: ConfirmSignInRequest(confirmationValue: "iAmLegit"));

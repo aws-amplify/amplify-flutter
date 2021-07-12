@@ -1,3 +1,4 @@
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,8 @@ class _UpdateUserAttributeWidgetState extends State<UpdateUserAttributeWidget> {
         userAttributeKey: _keyController.text,
         value: _valueController.text,
       );
-      if (res.nextStep.updateAttributeStep == 'CONFIRM_ATTRIBUTE_WITH_CODE') {
+      if (res.nextStep.updateAttributeStep ==
+          AuthUpdateAttributeStep.confirmAttributeWithCode) {
         _showInfo(
             'Confirmation Code Sent via ${res.nextStep.codeDeliveryDetails?.deliveryMedium}');
       } else {

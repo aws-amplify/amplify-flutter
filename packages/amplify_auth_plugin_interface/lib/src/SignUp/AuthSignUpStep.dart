@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,13 +13,12 @@
  * permissions and limitations under the License.
  */
 
-import 'AuthNextResetPasswordStep.dart';
+/// Represents the various common steps a user could be in for the sign up flow.
+enum AuthSignUpStep {
+  /// The user is registered but confirmSignUp needs to be called with
+  /// the confirmation code sent to the user before they can sign in.
+  confirmSignUp,
 
-class ResetPasswordResult {
-  bool isPasswordReset;
-  AuthNextResetPasswordStep nextStep;
-  ResetPasswordResult({required this.isPasswordReset, required this.nextStep}) {
-    this.isPasswordReset = isPasswordReset;
-    this.nextStep = nextStep;
-  }
+  /// The flow is completed and no further steps are needed.
+  done
 }

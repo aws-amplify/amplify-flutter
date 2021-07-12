@@ -13,11 +13,16 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
 import 'AuthCodeDeliveryDetails.dart';
 
-class AuthNextStep {
+/// Abstract class that the various auth next step classes extend
+abstract class AuthNextStep {
+  /// Contains possible extra info to go with the next step.
   Map<dynamic, dynamic>? additionalInfo;
+
+  /// Details about how a code was sent, if relevant to the current step.
   AuthCodeDeliveryDetails? codeDeliveryDetails;
-  AuthNextStep({ this.codeDeliveryDetails, this.additionalInfo });
+
+  /// Default constructor
+  AuthNextStep({this.codeDeliveryDetails, this.additionalInfo});
 }

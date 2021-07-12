@@ -62,7 +62,7 @@ class _UpdateUserAttributesWidgetState
         var attributesWithConfirmation = res.entries
             .where((element) =>
                 element.value.nextStep.updateAttributeStep ==
-                'CONFIRM_ATTRIBUTE_WITH_CODE')
+                AuthUpdateAttributeStep.confirmAttributeWithCode)
             .map((element) => element.key)
             .toList();
         if (attributesWithConfirmation.isNotEmpty) {

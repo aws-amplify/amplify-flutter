@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/types/exception/AmplifyException.dart';
 import 'package:amplify_core/types/exception/AmplifyExceptionMessages.dart';
 import 'package:amplify_core/types/exception/AmplifyAlreadyConfiguredException.dart';
@@ -386,7 +387,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     return CognitoSignUpResult(
         isSignUpComplete: res["isSignUpComplete"],
         nextStep: AuthNextSignUpStep(
-            signUpStep: res["nextStep"]["signUpStep"],
+            signUpStep: authSignUpStepFromString(res["nextStep"]["signUpStep"]),
             codeDeliveryDetails: codeDeliveryDetails != null
                 ? AuthCodeDeliveryDetails(
                     attributeName: codeDeliveryDetails["attributeName"],
@@ -411,7 +412,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     return CognitoSignInResult(
         isSignedIn: res["isSignedIn"],
         nextStep: AuthNextSignInStep(
-            signInStep: res["nextStep"]["signInStep"],
+            signInStep: authSignInStepFromString(res["nextStep"]["signInStep"]),
             codeDeliveryDetails: codeDeliveryDetails != null
                 ? AuthCodeDeliveryDetails(
                     attributeName: codeDeliveryDetails["attributeName"],
@@ -451,8 +452,9 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     var codeDeliveryDetails = res["nextStep"]["codeDeliveryDetails"];
     return CognitoResetPasswordResult(
         isPasswordReset: res["isPasswordReset"],
-        nextStep: ResetPasswordStep(
-            updateStep: res["nextStep"]["resetPasswordStep"],
+        nextStep: AuthNextResetPasswordStep(
+            resetPasswordStep: authResetPasswordStepFromString(
+                res["nextStep"]["resetPasswordStep"]),
             codeDeliveryDetails: codeDeliveryDetails != null
                 ? AuthCodeDeliveryDetails(
                     attributeName: codeDeliveryDetails["attributeName"] ?? null,
@@ -475,7 +477,8 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     return UpdateUserAttributeResult(
         isUpdated: res["isUpdated"],
         nextStep: AuthNextUpdateAttributeStep(
-            updateAttributeStep: res["nextStep"]["updateAttributeStep"],
+            updateAttributeStep: authUpdateAttributeStepFromString(
+                res["nextStep"]["updateAttributeStep"]),
             codeDeliveryDetails: codeDeliveryDetails != null
                 ? AuthCodeDeliveryDetails(
                     attributeName: codeDeliveryDetails["attributeName"] ?? null,
@@ -504,4 +507,32 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     return ResendUserAttributeConfirmationCodeResult(
         codeDeliveryDetails: res["codeDeliveryDetails"]);
   }
+}
+
+AuthSignInStep authSignInStepFromString(String value) {
+  return enumFromString<AuthSignInStep>(
+    upperSnakeCaseToCamelCase(value),
+    AuthSignInStep.values,
+  )!;
+}
+
+AuthSignUpStep authSignUpStepFromString(String value) {
+  return enumFromString<AuthSignUpStep>(
+    upperSnakeCaseToCamelCase(value),
+    AuthSignUpStep.values,
+  )!;
+}
+
+AuthUpdateAttributeStep authUpdateAttributeStepFromString(String value) {
+  return enumFromString<AuthUpdateAttributeStep>(
+    upperSnakeCaseToCamelCase(value),
+    AuthUpdateAttributeStep.values,
+  )!;
+}
+
+AuthResetPasswordStep authResetPasswordStepFromString(String value) {
+  return enumFromString<AuthResetPasswordStep>(
+    upperSnakeCaseToCamelCase(value),
+    AuthResetPasswordStep.values,
+  )!;
 }
