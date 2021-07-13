@@ -6,7 +6,8 @@ class RestException extends ApiException {
   /// The HTTP response from the server.
   final RestResponse response;
 
-  RestException(this.response) : super(response.body);
+  RestException(this.response)
+      : super(response.body, httpStatusCode: response.statusCode);
 
   @override
   String toString() {
