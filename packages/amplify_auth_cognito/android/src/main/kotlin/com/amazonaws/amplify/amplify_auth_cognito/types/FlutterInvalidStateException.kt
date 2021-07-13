@@ -18,5 +18,5 @@ package com.amazonaws.amplify.amplify_auth_cognito.types
 import com.amplifyframework.auth.AuthException
 
 class FlutterInvalidStateException: AuthException {
-    constructor(message: String, recoverySuggestion: String) : super(message, Exception("invalidSate"), recoverySuggestion)
+    constructor(message: String, recoverySuggestion: String) : super(message, Exception("invalidState"), recoverySuggestion)
 }

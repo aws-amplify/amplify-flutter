@@ -17,34 +17,36 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
-import androidx.annotation.NonNull
 import com.amazonaws.amplify.amplify_auth_cognito.utils.createAuthUserAttribute
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
-import com.amplifyframework.AmplifyException
 import com.amplifyframework.auth.AuthUserAttribute
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthSignUpOptions
 
 data class FlutterSignUpRequest(val map: HashMap<String, *>) {
     val username: String = map["username"] as String
     val password: String = map["password"] as String
-    val options: AWSCognitoAuthSignUpOptions = formatOptions(map["options"] as HashMap<String, *>)
+    val options: AWSCognitoAuthSignUpOptions = formatOptions(map["options"] as HashMap<String, *>?)
 
-    private fun formatOptions(@NonNull rawOptions: HashMap<String, *>): AWSCognitoAuthSignUpOptions {
-        var options =  AWSCognitoAuthSignUpOptions.builder();
-        var authUserAttributes: MutableList<AuthUserAttribute> = mutableListOf();
-        var validationData = rawOptions["validationData"] as? MutableMap<String, String>;
+    private fun formatOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthSignUpOptions {
+        val optionsBuilder =  AWSCognitoAuthSignUpOptions.builder()
+        if (rawOptions != null) {
+            val attributeData = rawOptions["userAttributes"] as? MutableMap<String, String>
+            val validationData = rawOptions["validationData"] as? MutableMap<String, String>
 
-        (rawOptions["userAttributes"] as HashMap<String, String>).forEach { (key, value) ->
-            var attribute = createAuthUserAttribute(key, value);
-            authUserAttributes.add(attribute);
+            if (attributeData is MutableMap<String, String>) {
+                val authUserAttributes: List<AuthUserAttribute> = attributeData.map { (key, value) ->
+                    createAuthUserAttribute(key, value)
+                }
+                optionsBuilder.userAttributes(authUserAttributes)
+            }
+
+            if (validationData is MutableMap<String, String>) {
+                optionsBuilder.validationData(validationData)
+            }
+
         }
-        options.userAttributes(authUserAttributes);
-
-        if (validationData is MutableMap<String, String>) {
-            options.validationData(validationData)
-        }
-        return options.build();
+        return optionsBuilder.build()
     }
 
     companion object {
@@ -52,12 +54,6 @@ data class FlutterSignUpRequest(val map: HashMap<String, *>) {
         fun validate(req : HashMap<String, *>?) {
             if (req == null) {
                 throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "request map" ))
-            }
-            if (req.get("options") == null) {
-                throw AmplifyException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "options map" ))
-            }
-            if (!(req?.get("options") as HashMap<String, String>).containsKey("userAttributes")) {
-                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "userAttributes" ))
             }
             if (!req.containsKey("password")) {
                 throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format( "password" ))
