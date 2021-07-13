@@ -12,8 +12,6 @@ import com.amplifyframework.api.rest.RestResponse
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
 import io.flutter.plugin.common.MethodChannel.Result
-import okhttp3.internal.http.HttpMethod
-import java.util.*
 import kotlin.reflect.KFunction3
 import kotlin.reflect.KFunction4
 
@@ -57,17 +55,6 @@ class FlutterRestApi {
                             ExceptionUtil.createSerializedUnrecognizedError(e))
                 }
                 return
-            }
-
-            // Protect against empty bodies, causing Okhttp3 to crash. ByteArray must be non-empty
-            // so that AppSync SDK does not swap it for null.
-            if (HttpMethod.requiresRequestBody(methodName.toUpperCase(Locale.ROOT)) && !options.hasData()) {
-                options = RestOptions.builder()
-                    .addPath(options.path)
-                    .addHeaders(options.headers)
-                    .addBody(ByteArray(1))
-                    .addQueryParameters(options.queryParameters)
-                    .build()
             }
 
             try {
