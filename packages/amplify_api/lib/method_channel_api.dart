@@ -219,13 +219,22 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     }
   }
 
+  bool _shouldThrow(int statusCode) {
+    return statusCode < 200 || statusCode > 299;
+  }
+
   RestResponse _formatRestResponse(Map<String, dynamic> res) {
+    final statusCode = res['statusCode'] as int;
     final headers = res['headers'] as Map?;
-    return RestResponse(
+    final response = RestResponse(
       data: res["data"] as Uint8List?,
       headers: headers == null ? null : Map<String, String>.from(headers),
-      statusCode: res['statusCode'] as int,
+      statusCode: statusCode,
     );
+    if (_shouldThrow(statusCode)) {
+      throw RestException(response);
+    }
+    return response;
   }
 
   @override

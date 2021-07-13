@@ -26,25 +26,35 @@ public class FlutterRestApi {
     private static func restFunctionHelper(
         methodName: String,
         flutterResult: @escaping FlutterResult,
-        request: [String: Any], function: (RESTRequest, RESTOperation.ResultListener?) -> RESTOperation? ){
+        request: [String: Any], function: (RESTRequest, RESTOperation.ResultListener?) -> RESTOperation ){
         do {
             let cancelToken = try FlutterApiRequest.getCancelToken(methodChannelRequest: request)
-            let restRequest = try FlutterApiRequest.getRestRequest(methodChannelRequest: request)
+            let restRequest = try FlutterApiRequest.getRestRequest(methodChannelRequest: request, cancelToken: cancelToken)
              
             let restOperation = function(restRequest) { result in
                 switch result {
                     case .success(let data):
-                        if(!cancelToken.isEmpty){
-                            OperationsManager.removeOperation(cancelToken: cancelToken)
+                        guard let urlResponse = OperationsManager.getResponse(for: cancelToken) else {
+                            FlutterApiErrorHandler.handleApiError(
+                                error: APIError.operationError(
+                                    "No response from server.",
+                                    "Try sending your request again."),
+                                flutterResult: flutterResult)
+                            return
                         }
+                        let statusCode = urlResponse.statusCode
+                        let headers = urlResponse.allHeaderFields
+                        
+                        OperationsManager.removeOperation(cancelToken: cancelToken)
+                        
                         self.prepareRestResponseResult(
                             flutterResult: flutterResult,
-                            statusCode: 200,
-                            data: data)
+                            statusCode: statusCode,
+                            data: data,
+                            headers: headers)
                     case .failure(let apiError):
-                        if(!cancelToken.isEmpty){
-                            OperationsManager.removeOperation(cancelToken: cancelToken)
-                        }
+                        OperationsManager.removeOperation(cancelToken: cancelToken)
+                        
                         guard case let .httpStatusError(statusCode, httpResponse) = apiError else {
                             FlutterApiErrorHandler.handleApiError(error: apiError, flutterResult: flutterResult)
                             return
@@ -60,9 +70,8 @@ public class FlutterRestApi {
                             headers: httpResponse.allHeaderFields)
                 }
             }
-            if(restOperation != nil){
-                OperationsManager.addOperation(cancelToken: cancelToken, operation: restOperation!)
-            }
+            
+            OperationsManager.addOperation(cancelToken: cancelToken, operation: restOperation)
         } catch let error as APIError {
             print("Failed to parse query arguments with \(error)")
             FlutterApiErrorHandler.handleApiError(error: error, flutterResult: flutterResult)
@@ -76,7 +85,7 @@ public class FlutterRestApi {
         flutterResult: @escaping FlutterResult,
         statusCode: Int,
         data: Data?,
-        headers: [AnyHashable: Any]? = nil
+        headers: [AnyHashable: Any]
     ) {
         let restResponse = FlutterSerializedRestResponse(statusCode: statusCode, headers: headers, data: data)
         flutterResult(restResponse.toValueMap())

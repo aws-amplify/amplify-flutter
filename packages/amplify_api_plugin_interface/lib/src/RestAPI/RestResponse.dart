@@ -16,7 +16,10 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-/// An HTTP response from a REST API.
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+
+/// An HTTP response from a REST API call.
 class RestResponse {
   /// The response status code.
   final int statusCode;
@@ -43,7 +46,18 @@ class RestResponse {
   }
 
   @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is RestResponse &&
+          statusCode == other.statusCode &&
+          headers == other.headers &&
+          listEquals(data, other.data);
+
+  @override
+  int get hashCode => hashValues(statusCode, headers, hashList(data));
+
+  @override
   String toString() {
-    return 'RestResponse{ statusCode=$statusCode, headers=$headers, body="$body" }';
+    return 'RestResponse{ statusCode=$statusCode, headers=$headers, body=$body }';
   }
 }
