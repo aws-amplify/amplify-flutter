@@ -104,32 +104,6 @@ void main() {
         expect(nameAttributeValue, updatedName);
       });
 
-      testWidgets('should require confirmation for an email attribute',
-          (WidgetTester tester) async {
-        final updatedEmail = generateEmail();
-        var res = await Amplify.Auth.updateUserAttribute(
-          userAttributeKey: emailAttributeKey,
-          value: updatedEmail,
-        );
-
-        expect(res.nextStep.updateAttributeStep, 'CONFIRM_ATTRIBUTE_WITH_CODE');
-
-        var userAttributes = await Amplify.Auth.fetchUserAttributes();
-
-        var emailAttributeValue = getAttributeValueFromList(
-          userAttributes,
-          emailAttributeKey,
-        );
-
-        var emailVerifiedAttributeValue = getAttributeValueFromList(
-          userAttributes,
-          emailVerifiedAttributeKey,
-        );
-
-        expect(emailAttributeValue, updatedEmail);
-        expect(emailVerifiedAttributeValue, 'false');
-      });
-
       testWidgets(
           'should throw an InvalidParameterException for an invalid attribute key',
           (WidgetTester tester) async {
