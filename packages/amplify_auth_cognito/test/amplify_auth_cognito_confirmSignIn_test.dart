@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_auth_cognito/src/CognitoSignUp/cognito_user_attributes.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -39,7 +40,7 @@ void main() {
 
   AmplifyAuthCognito auth = AmplifyAuthCognito();
   TestWidgetsFlutterBinding.ensureInitialized();
-  const testAttributeKey = 'email';
+  const testAttributeKey = CognitoUserAttributes.email;
   const testEmailValue = 'test@test.test';
   const testMetadataKey = 'key';
   const testMetaDataAttribute = 'val';
