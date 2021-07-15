@@ -16,12 +16,9 @@
 import 'dart:async';
 
 StreamController fakeEventChannel = StreamController<dynamic>.broadcast(
-  onListen: () => print('listening'),
-  onCancel: () => print('canceling')
-);
+    onListen: () => print('listening'), onCancel: () => print('canceling'));
 
 class MockStreamController {
-
   StreamController get thisController {
     return controller;
   }

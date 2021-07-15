@@ -104,7 +104,6 @@ class _MyAppState extends State<MyApp> {
 
       // Remove this line when using the lines above for online sync
       await Amplify.configure("{}");
-
     } on AmplifyAlreadyConfiguredException {
       print(
           'Amplify was already configured. Looks like app restarted on android.');

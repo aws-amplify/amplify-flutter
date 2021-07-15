@@ -32,11 +32,11 @@ class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpoint {
     } on PlatformException catch (e) {
       if (e.code == 'AmplifyAlreadyConfiguredException') {
         throw AmplifyAlreadyConfiguredException(
-          AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
-          recoverySuggestion: AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
+            AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+            recoverySuggestion:
+                AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
       } else {
-        throw AmplifyException.fromMap(
-            Map<String, String>.from(e.details));
+        throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       }
     }
   }
@@ -74,7 +74,8 @@ class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpoint {
   }
 
   @override
-  Future<void> unregisterGlobalProperties({List<String>? propertyNames = const []}) async {
+  Future<void> unregisterGlobalProperties(
+      {List<String>? propertyNames = const []}) async {
     await _channel.invokeMethod<bool>(
         'unregisterGlobalProperties', propertyNames);
   }
@@ -95,7 +96,8 @@ class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpoint {
 
   @override
   Future<void> identifyUser(
-      {required String userId, required AnalyticsUserProfile userProfile}) async {
+      {required String userId,
+      required AnalyticsUserProfile userProfile}) async {
     await _channel.invokeMethod<bool>(
       'identifyUser',
       <String, Object>{
