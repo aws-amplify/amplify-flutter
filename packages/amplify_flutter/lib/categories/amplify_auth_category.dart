@@ -48,9 +48,7 @@ class AuthCategory {
   }
 
   Future<SignUpResult> signUp(
-      {required String username,
-      required password,
-      required SignUpOptions options}) {
+      {required String username, required password, SignUpOptions? options}) {
     var request =
         SignUpRequest(username: username, password: password, options: options);
     return plugins.length == 1

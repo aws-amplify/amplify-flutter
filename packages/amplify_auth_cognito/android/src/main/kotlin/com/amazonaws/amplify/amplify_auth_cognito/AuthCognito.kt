@@ -40,6 +40,7 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthUser
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendSignUpCodeResult
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignInWithWebUIRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchUserAttributesResult
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterInvalidStateException
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdateUserAttributeRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdateUserAttributeResult
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdateUserAttributesRequest
@@ -48,6 +49,7 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmUserAttrib
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendUserAttributeConfirmationCodeRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendUserAttributeConfirmationCodeResult
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
+import com.amazonaws.amplify.amplify_auth_cognito.utils.isRedirectActivityDeclared
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthProvider
 import com.amplifyframework.auth.AuthSession
@@ -119,12 +121,12 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
   override fun onDetachedFromActivity() {}
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
-      if (requestCode == AWSCognitoAuthPlugin.WEB_UI_SIGN_IN_ACTIVITY_CODE) {
-        Amplify.Auth.handleWebUISignInResponse(data)
-        return true
-      }  else {
-        return false
-      }
+    var isHostedUIActivity = isRedirectActivityDeclared(context)
+    if (!isHostedUIActivity && requestCode == AWSCognitoAuthPlugin.WEB_UI_SIGN_IN_ACTIVITY_CODE) {
+      Amplify.Auth.handleWebUISignInResponse(data)
+      return true
+    }
+    return false
   }
 
   private fun checkData(@NonNull args: HashMap<String, Any>): HashMap<String, Any> {
@@ -253,6 +255,8 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
               { result -> prepareSignInResult(flutterResult, result) },
               { error -> errorHandler.handleAuthError(flutterResult, error)}
       );
+    } catch (e: FlutterInvalidStateException) {
+      errorHandler.handleAuthError(flutterResult, e)
     } catch (e: Exception) {
       errorHandler.prepareGenericException(flutterResult, e)
     }
