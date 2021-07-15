@@ -1,4 +1,4 @@
-name: amplify_authenticator
+name: amplify_flutter_authenticator
 description: A new Flutter package project.
 version: 0.0.1
 homepage:
@@ -10,6 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  amplify_auth_cognito: ^0.2.0
+  amplify_flutter: ^0.2.0
 
 dev_dependencies:
   flutter_test:

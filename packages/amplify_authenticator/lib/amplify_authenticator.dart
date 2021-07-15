@@ -15,8 +15,119 @@
 
 library amplify_authenticator;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
+import 'package:flutter/material.dart';
+
+//State
+import 'package:amplify_flutter_authenticator/src/state/inherited_forms.dart';
+import 'package:amplify_flutter_authenticator/src/state/inherited_auth_bloc.dart';
+import 'package:amplify_flutter_authenticator/src/state/inherited_auth_viewmodel.dart';
+
+//Screens
+import 'package:amplify_flutter_authenticator/src/screens/loading_screen.dart';
+import 'package:amplify_flutter_authenticator/src/screens/signin_screen.dart';
+import 'package:amplify_flutter_authenticator/src/screens/signup_screen.dart';
+import 'package:amplify_flutter_authenticator/src/screens/confirm_signup_screen.dart';
+
+//Bloc
+import 'package:amplify_flutter_authenticator/src/blocs/auth/auth_data.dart';
+import 'package:amplify_flutter_authenticator/src/blocs/auth/auth_bloc.dart';
+
+//Model
+import 'package:amplify_flutter_authenticator/src/models/auth_viewmodel.dart';
+
+//Services
+import 'package:amplify_flutter_authenticator/src/services/amplify_configure.dart';
+import 'package:amplify_flutter_authenticator/src/services/amplify_auth_service.dart';
+
+//Widgets
+import 'package:amplify_flutter_authenticator/src/widgets/forms.dart';
+import 'package:amplify_flutter_authenticator/src/widgets/default_forms.dart';
+
+export 'package:amplify_flutter_authenticator/src/widgets/forms.dart';
+export 'package:amplify_flutter_authenticator/src/widgets/form_fields.dart';
+export 'package:amplify_flutter_authenticator/src/widgets/buttons.dart'
+    show SignOutButton;
+
+class Authenticator extends StatefulWidget {
+  // ignore: public_member_api_docs
+  Authenticator(
+      {required this.child, signInForm, signUpForm, confirmSignUpForm}) {
+    this.signInForm = signInForm ?? DefaultForms.signInForm();
+    this.signUpForm = signUpForm ?? DefaultForms.signUpForm();
+    this.confirmSignUpForm =
+        confirmSignUpForm ?? DefaultForms.confirmSignUpForm();
+  }
+
+  SignInForm? signInForm;
+  SignUpForm? signUpForm;
+  ConfirmSignUpForm? confirmSignUpForm;
+
+  Widget child;
+
+  @override
+  _AuthenticatorState createState() => _AuthenticatorState();
+}
+
+class _AuthenticatorState extends State<Authenticator> {
+  bool isConfigure = false;
+  AuthService _authService = AmplifyAuthService();
+
+  AmplifyConfigureService _amplifyConfigureService = AmplifyConfigureService();
+
+  StateMachineBloc? _stateMachineBloc;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _stateMachineBloc = StateMachineBloc(_authService, _amplifyConfigureService)
+      ..authEvent.add(GetCurrentUser());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return InheritedAuthBloc(
+        authBloc: _stateMachineBloc,
+        child: InheritedAuthViewModel(
+            authViewModel: AuthViewModel(_stateMachineBloc!),
+            child: InheritedForms(
+                signInForm: widget.signInForm!,
+                signUpForm: widget.signUpForm!,
+                confirmSignUpForm: widget.confirmSignUpForm!,
+                child: Scaffold(
+                  body: StreamBuilder(
+                    stream: _stateMachineBloc!.stream,
+                    builder: (context, snapshot) {
+                      final state = snapshot.data ?? const AuthLoading();
+                      Widget? screen;
+                      if (state is AuthLoading) {
+                        screen = LoadingScreen();
+                      } else if (state is Authenticated) {
+                        return widget.child;
+                      } else if (state is AuthFlow &&
+                          state.screen == AuthScreen.signin) {
+                        screen = SignInScreen();
+                      } else if (state is AuthFlow &&
+                          state.screen == AuthScreen.signup) {
+                        screen = SignUpScreen();
+                      } else if (state is AuthFlow &&
+                          state.screen == AuthScreen.confirmSignUp) {
+                        screen = ConfirmSignUpScreen();
+                      }
+
+                      return Center(
+                        child: SingleChildScrollView(
+                          child: screen,
+                        ),
+                      );
+                    },
+                  ),
+                ))));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _stateMachineBloc!.dispose();
+  }
 }
