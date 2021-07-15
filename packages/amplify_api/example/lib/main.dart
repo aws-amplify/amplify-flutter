@@ -34,8 +34,6 @@ class _MyAppState extends State<MyApp> {
   bool _isAmplifyConfigured = false;
   bool _showRestApiView = true;
 
-  AmplifyAPI apiRest;
-
   @override
   void initState() {
     super.initState();
@@ -43,10 +41,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _configureAmplify() async {
-    apiRest = AmplifyAPI();
-
-    Amplify.addPlugin(apiRest);
-    Amplify.addPlugin(AmplifyAuthCognito());
+    Amplify.addPlugins([AmplifyAuthCognito(), AmplifyAPI()]);
 
     try {
       await Amplify.configure(amplifyconfig);
