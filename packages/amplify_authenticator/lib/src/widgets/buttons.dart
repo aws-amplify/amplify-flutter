@@ -51,7 +51,6 @@ class ConfirmButton extends StatelessWidget {
   }
 }
 
-
 class ConfirmSignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -64,7 +63,6 @@ class ConfirmSignInButton extends StatelessWidget {
         text: "CONFIRM");
   }
 }
-
 
 class SignOutButton extends StatelessWidget {
   @override

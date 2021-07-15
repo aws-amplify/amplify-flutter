@@ -33,7 +33,6 @@ class AuthenticatorContainerConstants extends AuthenticatorConstants {
 class FormFieldConstants extends AuthenticatorConstants {
   static const marginBottom =
       EdgeInsets.only(left: 0, top: 0, right: 0, bottom: 20);
-
   static const gap = EdgeInsets.only(bottom: 8);
 }
 

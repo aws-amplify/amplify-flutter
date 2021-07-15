@@ -118,7 +118,6 @@ class Authenticator extends StatefulWidget {
   ///           ])
   ///
   /// ```
-
   late final SignInForm signInForm;
 
   /// This form will support the following form field types:
@@ -141,7 +140,6 @@ class Authenticator extends StatefulWidget {
   /// * updated_at
   /// * website
   /// * custom
-
   ///
   /// ### Example
   /// ```dart
@@ -195,7 +193,6 @@ class Authenticator extends StatefulWidget {
   /// * updated_at
   /// * website
   /// * custom
-
   ///
   /// ### Example
   /// ```dart
@@ -215,7 +212,6 @@ class Authenticator extends StatefulWidget {
   ///                     ])
   ///
   /// ```
-
   late final ConfirmSignInForm confirmSignInForm;
 
  

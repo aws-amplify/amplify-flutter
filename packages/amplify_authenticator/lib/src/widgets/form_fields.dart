@@ -1,4 +1,3 @@
-
 import 'package:amplify_authenticator/src/enums/confirm_signin_types.dart';
 
 import 'package:amplify_authenticator/src/keys.dart';
@@ -9,7 +8,6 @@ import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/enums/signin_types.dart';
 import 'package:amplify_authenticator/src/enums/signup_types.dart';
 import 'package:amplify_authenticator/src/enums/confirm_signup_types.dart';
-
 
 class SignInFormField extends StatelessWidget {
   /// Requires a custom title, hint text, a type (username, password, etc)
@@ -88,7 +86,6 @@ class SignInFormField extends StatelessWidget {
         obscureText: _obscureText);
   }
 }
-
 
 class SignUpFormField extends StatelessWidget {
   /// Requires a custom title, hint text, a type (username, password, etc)
@@ -276,7 +273,6 @@ class SignUpFormField extends StatelessWidget {
   }
 }
 
-
 class ConfirmSignUpFormField extends StatelessWidget {
   /// Requires a custom title, hint text, a type (username, password, etc)
   /// and an optional callback for input validation.
@@ -358,7 +354,6 @@ class ConfirmSignUpFormField extends StatelessWidget {
         obscureText: _obscureText);
   }
 }
-
 
 class ConfirmSignInFormField extends StatelessWidget {
   /// Requires a custom title, hint text, a type (code, password, etc)
@@ -545,4 +540,3 @@ class ConfirmSignInFormField extends StatelessWidget {
         obscureText: _obscureText);
   }
 }
-

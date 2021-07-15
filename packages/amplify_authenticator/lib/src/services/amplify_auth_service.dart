@@ -17,15 +17,12 @@ abstract class AuthService {
 
   Future<bool> get isLoggedIn;
 
-
   Future<void> confirmSignIn(String code, Map<String, String> attributes);
-
 }
 
 class AmplifyAuthService implements AuthService {
   @override
   Future<SignInResult> signIn(String username, String password) async {
-
     //making sure no user is logged in before logging in a new user
 
     if (await isLoggedIn) {
@@ -63,13 +60,11 @@ class AmplifyAuthService implements AuthService {
     }
   }
 
-
   Future<void> confirmSignIn(
       String code, Map<String, String> attributes) async {
     await Amplify.Auth.confirmSignIn(
         confirmationValue: code,
         options: CognitoConfirmSignInOptions(userAttributes: attributes));
-
   }
 
   @override
@@ -93,7 +88,6 @@ class AmplifyAuthService implements AuthService {
   Future<bool> get isLoggedIn async {
     try {
       final result = await Amplify.Auth.fetchAuthSession();
-
       return result.isSignedIn;
     } on SignedOutException {
       return false;
