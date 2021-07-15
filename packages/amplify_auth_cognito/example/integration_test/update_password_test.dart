@@ -28,13 +28,14 @@ void main() {
   late String password;
 
   group('updatePassword', () {
-    // create new user for each test
+    setUpAll(() async {
+      await configureAuth();
+    });
+
     setUp(() async {
+      // create new user for each test
       username = generateUsername();
       password = generatePassword();
-
-      await configureAuth();
-
       await Amplify.Auth.signUp(
           username: username,
           password: password,
