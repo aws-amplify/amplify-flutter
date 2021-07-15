@@ -28,7 +28,7 @@ void main() {
   final username = generateUsername();
   final password = generatePassword();
 
-  group('fetchSession', () {
+  group('getCurrentUser', () {
     setUpAll(() async {
       await configureAuth();
 
@@ -51,36 +51,28 @@ void main() {
       );
     });
 
-    testWidgets('should return user credentials if getAWSCredentials is true',
+    testWidgets('should return the current user',
         (WidgetTester tester) async {
-      var res = await Amplify.Auth.fetchAuthSession(
-        options: CognitoSessionOptions(getAWSCredentials: true),
-      ) as CognitoAuthSession;
-
-      expect(res.isSignedIn, isTrue);
-      expect(isValidUserSub(res.userSub), isTrue);
-      expect(isValidIdentityId(res.identityId), isTrue);
-      expect(isValidAWSCredentials(res.credentials), isTrue);
-      expect(isValidAWSCognitoUserPoolTokens(res.userPoolTokens), isTrue);
+      var authUser = await Amplify.Auth.getCurrentUser();
+      // usernames need to be compared case insensitive due to
+      // https://github.com/aws-amplify/amplify-flutter/issues/723
+      expect(authUser.username.toLowerCase(), username.toLowerCase());
+      expect(isValidUserSub(authUser.userId), isTrue);
     });
 
-    testWidgets('should not return user credentials without getAWSCredentials',
-        (WidgetTester tester) async {
-      var res = await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
 
-      expect(res.isSignedIn, isTrue);
-      expect(isValidUserSub(res.userSub), isFalse);
-      expect(isValidIdentityId(res.identityId), isFalse);
-      expect(isValidAWSCredentials(res.credentials), isFalse);
-      expect(isValidAWSCognitoUserPoolTokens(res.userPoolTokens), isFalse);
-    });
-
-    testWidgets('should return isSignedIn as false if the user is signed out',
+    testWidgets('should throw SignedOutException if the user is signed out',
         (WidgetTester tester) async {
       await Amplify.Auth.signOut();
-      var res = await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
-      expect(res.isSignedIn, isFalse);
+      try {
+        await Amplify.Auth.getCurrentUser();
+      } catch (e) {
+        expect(e, TypeMatcher<SignedOutException>());
+        return;
+      }
+      throw Exception('Expected SignedOutException');
     });
   });
 }
+
 
