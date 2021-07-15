@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:amplify_flutter_authenticator/src/widgets/buttons.dart';
-import 'package:amplify_flutter_authenticator/src/widgets/containers.dart';
+import 'package:amplify_authenticator/src/widgets/buttons.dart';
+import 'package:amplify_authenticator/src/widgets/containers.dart';
 
 class FormFields extends StatelessWidget {
   FormFields({required this.children});

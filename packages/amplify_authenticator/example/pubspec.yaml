@@ -23,10 +23,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  amplify_flutter:
-    path: ../../amplify_flutter
-  amplify_auth_cognito:
-    path: ../../amplify_auth_cognito
+  amplify_auth_cognito: ^0.2.0
+  amplify_flutter: ^0.2.0
   amplify_authenticator:
     path: ../
 

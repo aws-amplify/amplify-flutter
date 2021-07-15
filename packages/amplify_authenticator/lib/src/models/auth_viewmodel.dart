@@ -1,6 +1,6 @@
-import 'package:amplify_flutter_authenticator/src/blocs/auth/auth_bloc.dart';
-import 'package:amplify_flutter_authenticator/src/blocs/auth/auth_data.dart';
-import 'package:amplify_flutter_authenticator/src/utils/base_viewmodel.dart';
+import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
+import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
+import 'package:amplify_authenticator/src/utils/base_viewmodel.dart';
 
 class AuthViewModel extends BaseViewModel {
   AuthViewModel(this._authBloc);

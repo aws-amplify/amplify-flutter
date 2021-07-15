@@ -1,8 +1,8 @@
-import 'package:amplify_flutter_authenticator/src/constants/authenticator_constants.dart';
-import 'package:amplify_flutter_authenticator/src/constants/theme_constants.dart';
 import 'package:flutter/material.dart';
 
-import 'package:amplify_flutter_authenticator/src/state/inherited_auth_viewmodel.dart';
+import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
+import 'package:amplify_authenticator/src/constants/theme_constants.dart';
+import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
 
 //Sign Up
 class SignUpButton extends StatelessWidget {

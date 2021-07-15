@@ -1,6 +1,7 @@
-import 'package:amplify_flutter_authenticator/src/constants/authenticator_constants.dart';
-import 'package:amplify_flutter_authenticator/src/constants/theme_constants.dart';
 import 'package:flutter/material.dart';
+
+import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
+import 'package:amplify_authenticator/src/constants/theme_constants.dart';
 
 //Buttons Container
 class ButtonsContainer extends StatelessWidget {

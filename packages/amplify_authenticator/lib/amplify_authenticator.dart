@@ -18,34 +18,34 @@ library amplify_authenticator;
 import 'package:flutter/material.dart';
 
 //State
-import 'package:amplify_flutter_authenticator/src/state/inherited_forms.dart';
-import 'package:amplify_flutter_authenticator/src/state/inherited_auth_bloc.dart';
-import 'package:amplify_flutter_authenticator/src/state/inherited_auth_viewmodel.dart';
+import 'package:amplify_authenticator/src/state/inherited_forms.dart';
+import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
+import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
 
 //Screens
-import 'package:amplify_flutter_authenticator/src/screens/loading_screen.dart';
-import 'package:amplify_flutter_authenticator/src/screens/signin_screen.dart';
-import 'package:amplify_flutter_authenticator/src/screens/signup_screen.dart';
-import 'package:amplify_flutter_authenticator/src/screens/confirm_signup_screen.dart';
+import 'package:amplify_authenticator/src/screens/loading_screen.dart';
+import 'package:amplify_authenticator/src/screens/signin_screen.dart';
+import 'package:amplify_authenticator/src/screens/signup_screen.dart';
+import 'package:amplify_authenticator/src/screens/confirm_signup_screen.dart';
 
 //Bloc
-import 'package:amplify_flutter_authenticator/src/blocs/auth/auth_data.dart';
-import 'package:amplify_flutter_authenticator/src/blocs/auth/auth_bloc.dart';
+import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
+import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 
 //Model
-import 'package:amplify_flutter_authenticator/src/models/auth_viewmodel.dart';
+import 'package:amplify_authenticator/src/models/auth_viewmodel.dart';
 
 //Services
-import 'package:amplify_flutter_authenticator/src/services/amplify_configure.dart';
-import 'package:amplify_flutter_authenticator/src/services/amplify_auth_service.dart';
+import 'package:amplify_authenticator/src/services/amplify_configure.dart';
+import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 
 //Widgets
-import 'package:amplify_flutter_authenticator/src/widgets/forms.dart';
-import 'package:amplify_flutter_authenticator/src/widgets/default_forms.dart';
+import 'package:amplify_authenticator/src/widgets/forms.dart';
+import 'package:amplify_authenticator/src/widgets/default_forms.dart';
 
-export 'package:amplify_flutter_authenticator/src/widgets/forms.dart';
-export 'package:amplify_flutter_authenticator/src/widgets/form_fields.dart';
-export 'package:amplify_flutter_authenticator/src/widgets/buttons.dart'
+export 'package:amplify_authenticator/src/widgets/forms.dart';
+export 'package:amplify_authenticator/src/widgets/form_fields.dart';
+export 'package:amplify_authenticator/src/widgets/buttons.dart'
     show SignOutButton;
 
 class Authenticator extends StatefulWidget {

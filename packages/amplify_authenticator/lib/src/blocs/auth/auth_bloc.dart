@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:amplify_flutter_authenticator/src/blocs/auth/auth_data.dart';
+import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
 
-import 'package:amplify_flutter_authenticator/src/services/amplify_auth_service.dart';
-import 'package:amplify_flutter_authenticator/src/services/amplify_configure.dart';
+import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
+import 'package:amplify_authenticator/src/services/amplify_configure.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';

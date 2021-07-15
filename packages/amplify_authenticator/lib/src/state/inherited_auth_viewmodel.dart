@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:amplify_flutter_authenticator/src/models/auth_viewmodel.dart';
+import 'package:amplify_authenticator/src/models/auth_viewmodel.dart';
 
 class InheritedAuthViewModel extends InheritedNotifier {
   InheritedAuthViewModel({required this.authViewModel, Widget? child})

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:amplify_flutter_authenticator/src/blocs/auth/auth_bloc.dart';
+import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 
 class InheritedAuthBloc extends InheritedWidget {
   final StateMachineBloc? authBloc;
