@@ -51,6 +51,23 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    _amplifyConfig();
+  }
+
+// Amplify Configuration
+  void _amplifyConfig() async {
+    try {
+      await Amplify.addPlugin(AmplifyAuthCognito());
+      // await Amplify.configure(amplifyconfig);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Authenticator(
       child: const CustomersApp(),
