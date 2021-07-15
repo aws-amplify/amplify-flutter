@@ -69,10 +69,10 @@ void main() {
       var res = await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
 
       expect(res.isSignedIn, isTrue);
-      expect(isValidUserSub(res.userSub), isFalse);
-      expect(isValidIdentityId(res.identityId), isFalse);
-      expect(isValidAWSCredentials(res.credentials), isFalse);
-      expect(isValidAWSCognitoUserPoolTokens(res.userPoolTokens), isFalse);
+      expect(res.userSub, isNull);
+      expect(res.identityId, isNull);
+      expect(res.credentials, isNull);
+      expect(res.userPoolTokens, isNull);
     });
 
     testWidgets('should return isSignedIn as false if the user is signed out',
