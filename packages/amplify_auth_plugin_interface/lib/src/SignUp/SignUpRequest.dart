@@ -18,17 +18,15 @@ import './SignUpOptions.dart';
 class SignUpRequest {
   String username;
   String password;
-  SignUpOptions options;
+  SignUpOptions? options;
 
-  SignUpRequest(
-      {required this.username, required this.password, required this.options});
+  SignUpRequest({required this.username, required this.password, this.options});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = {
       'username': username,
       'password': password,
-      'options': options.serializeAsMap()
+      if (options != null) 'options': options!.serializeAsMap()
     };
-    pendingRequest.removeWhere((_, v) => v == null);
     return pendingRequest;
   }
 }

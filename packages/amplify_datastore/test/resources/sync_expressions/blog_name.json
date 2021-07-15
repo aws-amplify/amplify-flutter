@@ -1,0 +1,12 @@
+{
+  "modelName": "Blog",
+  "queryPredicate": {
+    "queryPredicateOperation": {
+      "field": "name",
+      "fieldOperator": {
+        "operatorName": "equal",
+        "value": "foo"
+      }
+    }
+  }
+}
