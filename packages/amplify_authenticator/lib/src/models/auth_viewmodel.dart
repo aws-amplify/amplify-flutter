@@ -159,29 +159,46 @@ class AuthViewModel extends BaseViewModel {
       password: _password,
     );
     _authBloc.authEvent.add(AuthSignIn(singIn));
+    await Future.any([
+      _authBloc.exceptions.first,
+      _authBloc.stream.first,
+    ]);
+    setBusy(false);
   }
 
   Future<void> signUp() async {
-    //  setBusy(true);
+    setBusy(true);
     final signUp = AuthSignUpData(
         username: _username.trim(),
         password: _password.trim(),
         attributes: authAttributes);
     print(authAttributes);
     _authBloc.authEvent.add(AuthSignUp(signUp));
-
-    //setBusy(false);
+    await Future.any([
+      _authBloc.exceptions.first,
+      _authBloc.stream.first,
+    ]);
+    setBusy(false);
   }
 
   Future<void> confirm() async {
+    setBusy(true);
     final confirmation =
         AuthConfirmSignUpData(code: _code, username: _username.trim());
 
     _authBloc.authEvent.add(AuthConfirmSignUp(confirmation));
+
+    await Future.any([
+      _authBloc.exceptions.first,
+      _authBloc.stream.first,
+    ]);
+    setBusy(false);
   }
 
   Future<void> signOut() async {
+    setBusy(true);
     _authBloc.authEvent.add(AuthSignOut());
+    setBusy(true);
   }
 
   /// Screen change

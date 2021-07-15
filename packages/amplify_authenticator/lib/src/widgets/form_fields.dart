@@ -4,7 +4,9 @@ import 'package:amplify_authenticator/src/constants/authenticator_constants.dart
 import 'package:amplify_authenticator/src/constants/theme_constants.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
 
+// ignore: public_member_api_docs
 class AuthFormField extends StatelessWidget {
+  // ignore: public_member_api_docs
   AuthFormField(
       {required this.title, required this.hintText, required this.type});
   final String? title;

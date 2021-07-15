@@ -57,7 +57,7 @@ class AmplifyAuthService implements AuthService {
   Future<void> confirmSignIn(String username, String code) async {
     final result = await Amplify.Auth.confirmSignIn(
         confirmationValue: code,
-        options: CognitoConfirmSignInOptions(userAttributes: {'address': ""}));
+        options: CognitoConfirmSignInOptions(userAttributes: {}));
   }
 
   @override
@@ -67,7 +67,6 @@ class AmplifyAuthService implements AuthService {
 
   @override
   Future get currentUser async {
-    print(Amplify.isConfigured);
     if (!Amplify.isConfigured) return null;
 
     if (!await isLoggedIn) {
@@ -82,8 +81,7 @@ class AmplifyAuthService implements AuthService {
   Future<bool> get isLoggedIn async {
     try {
       final result = await Amplify.Auth.fetchAuthSession();
-      print(result);
-      print(result.isSignedIn);
+
       return result.isSignedIn;
     } on SignedOutException {
       return false;

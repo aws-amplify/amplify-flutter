@@ -1,6 +1,7 @@
 import 'package:amplify_authenticator/src/widgets/forms.dart';
 import 'package:amplify_authenticator/src/widgets/form_fields.dart';
 
+// ignore: public_member_api_docs
 class DefaultForms {
   static SignInForm signInForm() {
     return SignInForm(

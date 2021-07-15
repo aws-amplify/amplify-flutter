@@ -3,14 +3,12 @@ import 'dart:async';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
 
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
-import 'package:amplify_authenticator/src/services/amplify_configure.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
 class StateMachineBloc {
   final AuthService _authService;
-  final AmplifyConfigureService _amplifyConfigureService;
 
   StreamController<AuthState> _authStateController =
       StreamController<AuthState>.broadcast();
@@ -29,9 +27,13 @@ class StateMachineBloc {
 
   Stream<AuthEvent> get _authEventStream => _authEventController.stream;
 
-  StateMachineBloc(this._authService, this._amplifyConfigureService) {
+  StateMachineBloc(this._authService) {
     _authEventStream.listen(_eventTransformer);
   }
+
+  //Exception Controller
+  final _exceptionController = StreamController<AuthException>.broadcast();
+  Stream<AuthException> get exceptions => _exceptionController.stream;
 
   _eventTransformer(AuthEvent event) {
     if (event is AuthLoad) {
@@ -76,6 +78,7 @@ class StateMachineBloc {
       _controllerSink.add(Authenticated());
     } catch (e) {
       print(e);
+      _exceptionController.add(AuthException(e.toString()));
     }
   }
 
@@ -87,6 +90,7 @@ class StateMachineBloc {
       _controllerSink.add(AuthFlow(screen: AuthScreen.confirmSignUp));
     } catch (e) {
       print(e);
+      _exceptionController.add(AuthException(e.toString()));
     }
   }
 
@@ -96,6 +100,7 @@ class StateMachineBloc {
       _authEventController.add(GetCurrentUser());
     } catch (e) {
       print(e);
+      _exceptionController.add(AuthException(e.toString()));
     }
   }
 
@@ -105,6 +110,7 @@ class StateMachineBloc {
       _authEventController.add(GetCurrentUser());
     } catch (e) {
       print(e);
+      _exceptionController.add(AuthException(e.toString()));
     }
   }
 
@@ -115,5 +121,6 @@ class StateMachineBloc {
   void dispose() {
     _authStateController.close();
     _authEventController.close();
+    _exceptionController.close();
   }
 }

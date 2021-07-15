@@ -36,7 +36,6 @@ import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/models/auth_viewmodel.dart';
 
 //Services
-import 'package:amplify_authenticator/src/services/amplify_configure.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 
 //Widgets
@@ -69,10 +68,7 @@ class Authenticator extends StatefulWidget {
 }
 
 class _AuthenticatorState extends State<Authenticator> {
-  bool isConfigure = false;
   AuthService _authService = AmplifyAuthService();
-
-  AmplifyConfigureService _amplifyConfigureService = AmplifyConfigureService();
 
   StateMachineBloc? _stateMachineBloc;
 
@@ -80,7 +76,7 @@ class _AuthenticatorState extends State<Authenticator> {
   void initState() {
     super.initState();
 
-    _stateMachineBloc = StateMachineBloc(_authService, _amplifyConfigureService)
+    _stateMachineBloc = StateMachineBloc(_authService)
       ..authEvent.add(GetCurrentUser());
   }
 

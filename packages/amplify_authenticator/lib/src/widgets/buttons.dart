@@ -8,17 +8,33 @@ import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
 class SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _authModelView = InheritedAuthViewModel.of(context)!.authViewModel;
-    return ElevatedButton(
-      onPressed: _authModelView.signUp,
-      child: Text("Sign Up"),
-      style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(
-        Theme.of(context).primaryColor != Colors.blue
-            ? Theme.of(context).primaryColor
-            : AuthenticatorColors.primary,
-      )),
-    );
+    final _authViewModel = InheritedAuthViewModel.of(context)!.authViewModel;
+    return AnimatedBuilder(
+        animation: _authViewModel,
+        builder: (context, child) {
+          Widget? _child;
+          var _callback;
+          if (_authViewModel.isBusy) {
+            _child = CircularProgressIndicator(color: Colors.white);
+            _callback = () {};
+          } else {
+            _child = Text("Sign Up");
+            _callback = _authViewModel.signUp;
+          }
+
+          return ElevatedButton(
+            onPressed: _callback,
+            child: _child,
+            style: ButtonStyle(
+                padding:
+                    MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(10)),
+                backgroundColor: MaterialStateProperty.all<Color>(
+                  Theme.of(context).primaryColor != Colors.blue
+                      ? Theme.of(context).primaryColor
+                      : AuthenticatorColors.primary,
+                )),
+          );
+        });
   }
 }
 
@@ -61,17 +77,33 @@ class SignInButton extends StatelessWidget {
 class ConfirmButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _authModelView = InheritedAuthViewModel.of(context)!.authViewModel;
-    return ElevatedButton(
-      onPressed: _authModelView.confirm,
-      child: Text("CONFIRM"),
-      style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(
-        Theme.of(context).primaryColor != Colors.blue
-            ? Theme.of(context).primaryColor
-            : AuthenticatorColors.primary,
-      )),
-    );
+    final _authViewModel = InheritedAuthViewModel.of(context)!.authViewModel;
+    return AnimatedBuilder(
+        animation: _authViewModel,
+        builder: (context, child) {
+          Widget? _child;
+          var _callback;
+          if (_authViewModel.isBusy) {
+            _child = CircularProgressIndicator(color: Colors.white);
+            _callback = () {};
+          } else {
+            _child = Text("CONFIRM");
+            _callback = _authViewModel.confirm;
+          }
+
+          return ElevatedButton(
+            onPressed: _callback,
+            child: _child,
+            style: ButtonStyle(
+                padding:
+                    MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(10)),
+                backgroundColor: MaterialStateProperty.all<Color>(
+                  Theme.of(context).primaryColor != Colors.blue
+                      ? Theme.of(context).primaryColor
+                      : AuthenticatorColors.primary,
+                )),
+          );
+        });
   }
 }
 
@@ -79,17 +111,33 @@ class ConfirmButton extends StatelessWidget {
 class SignOutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _authModelView = InheritedAuthViewModel.of(context)!.authViewModel;
-    return TextButton(
-      onPressed: _authModelView.signOut,
-      child: Text("Sign Out"),
-      style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(
-        Theme.of(context).primaryColor != Colors.blue
-            ? Theme.of(context).primaryColor
-            : AuthenticatorColors.primary,
-      )),
-    );
+    final _authViewModel = InheritedAuthViewModel.of(context)!.authViewModel;
+    return AnimatedBuilder(
+        animation: _authViewModel,
+        builder: (context, child) {
+          Widget? _child;
+          var _callback;
+          if (_authViewModel.isBusy) {
+            _child = CircularProgressIndicator(color: Colors.white);
+            _callback = () {};
+          } else {
+            _child = Text("Sign Out");
+            _callback = _authViewModel.signOut;
+          }
+
+          return ElevatedButton(
+            onPressed: _callback,
+            child: _child,
+            style: ButtonStyle(
+                padding:
+                    MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(10)),
+                backgroundColor: MaterialStateProperty.all<Color>(
+                  Theme.of(context).primaryColor != Colors.blue
+                      ? Theme.of(context).primaryColor
+                      : AuthenticatorColors.primary,
+                )),
+          );
+        });
   }
 }
 
