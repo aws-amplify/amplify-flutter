@@ -25,9 +25,8 @@ class RestApiView extends StatefulWidget {
 }
 
 class _RestApiViewState extends State<RestApiView> {
-  TextEditingController _apiPathController;
-
-  RestOperation _lastRestOperation;
+  late TextEditingController _apiPathController;
+  late RestOperation _lastRestOperation;
 
   @override
   void initState() {
