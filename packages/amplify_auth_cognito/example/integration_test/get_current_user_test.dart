@@ -51,15 +51,13 @@ void main() {
       );
     });
 
-    testWidgets('should return the current user',
-        (WidgetTester tester) async {
+    testWidgets('should return the current user', (WidgetTester tester) async {
       var authUser = await Amplify.Auth.getCurrentUser();
       // usernames need to be compared case insensitive due to
       // https://github.com/aws-amplify/amplify-flutter/issues/723
       expect(authUser.username.toLowerCase(), username.toLowerCase());
       expect(isValidUserSub(authUser.userId), isTrue);
     });
-
 
     testWidgets('should throw SignedOutException if the user is signed out',
         (WidgetTester tester) async {
@@ -74,5 +72,3 @@ void main() {
     });
   });
 }
-
-
