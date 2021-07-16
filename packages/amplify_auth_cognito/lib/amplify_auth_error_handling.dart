@@ -41,6 +41,8 @@ Exception castAndReturnPlatformException(PlatformException e) {
         return CodeMismatchException.fromMap(
             Map<String, String>.from(e.details));
       }
+    case 'DeviceNotTrackedException':
+      return DeviceNotTrackedException.fromMap(e.details as Map);
     case "FailedAttemptsLimitExceededException":
       {
         return FailedAttemptsLimitExceededException.fromMap(

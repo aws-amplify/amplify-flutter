@@ -71,6 +71,7 @@ export 'Exceptions/AliasExistsException.dart';
 export 'Exceptions/CodeDeliveryFailureException.dart';
 export 'Exceptions/CodeExpiredException.dart';
 export 'Exceptions/CodeMismatchException.dart';
+export 'Exceptions/device_not_tracked_exception.dart';
 export 'Exceptions/FailedAttemptsLimitExceededException.dart';
 export 'Exceptions/InternalErrorException.dart';
 export 'Exceptions/InvalidAccountTypeException.dart';
@@ -99,3 +100,4 @@ export 'Exceptions/UserNotFoundException.dart';
 // Utility Classes
 export 'types/AuthCodeDeliveryDetails.dart';
 export 'types/AuthNextStep.dart';
+export 'types/auth_device.dart';
