@@ -127,4 +127,4 @@ class _AuthenticatorState extends State<Authenticator> {
     super.dispose();
     _stateMachineBloc!.dispose();
   }
-}
+
