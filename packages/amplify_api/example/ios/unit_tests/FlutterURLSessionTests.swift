@@ -27,6 +27,17 @@ struct HTTPStatusResponse: Codable {
     let description: String
 }
 
+extension RESTOperationType: CaseIterable {
+    public static var allCases: [RESTOperationType] = [
+        .get,
+        .post,
+        .put,
+        .patch,
+        .head,
+        .delete
+    ]
+}
+
 class MockSessionDelegate: URLSessionBehaviorDelegate {
     let subject: MockObserver
     
@@ -42,7 +53,7 @@ class MockSessionDelegate: URLSessionBehaviorDelegate {
 }
 
 class FlutterURLSessionTests: XCTestCase {
-    static let factory = FlutterURLSessionBehaviorFactory()
+    static let sessionFactory = FlutterURLSessionBehaviorFactory()
     var cancellables = Set<AnyCancellable>()
     
     let testBody = "{\"test\":\"test\"}"
@@ -64,7 +75,7 @@ class FlutterURLSessionTests: XCTestCase {
     
     override func setUpWithError() throws {
         Amplify.reset()
-        awsPlugin = AWSAPIPlugin(sessionFactory: FlutterURLSessionTests.factory)
+        awsPlugin = AWSAPIPlugin(sessionFactory: FlutterURLSessionTests.sessionFactory)
         let config = """
         {
             "UserAgent": "aws-amplify-cli/2.0",
@@ -110,7 +121,7 @@ class FlutterURLSessionTests: XCTestCase {
         }
         let subject = PassthroughSubject<Never, Never>()
         let delegate = MockSessionDelegate(subject: subject)
-        let session = FlutterURLSessionTests.factory.makeSession(withDelegate: delegate)
+        let session = FlutterURLSessionTests.sessionFactory.makeSession(withDelegate: delegate)
         let task = session.dataTaskBehavior(with: request)
         task.resume()
         
@@ -218,54 +229,41 @@ class FlutterURLSessionTests: XCTestCase {
             }
             .store(in: &cancellables)
         
-        waitForExpectations(timeout: 5)
+        waitForExpectations(timeout: 10)
+    }
+    
+    private func runForAllVerbs(_ test: (RESTOperationType, String?) -> ()) {
+        for method in RESTOperationType.allCases {
+            switch method {
+            case .post, .put, .patch:
+                test(method, testBody)
+            default:
+                test(method, nil)
+            }
+        }
     }
     
     func test_session_records_success_response() {
-        runMockTest(statusCode: 200, method: .get)
-        runMockTest(statusCode: 200, method: .post, body: testBody)
-        runMockTest(statusCode: 200, method: .put, body: testBody)
-        runMockTest(statusCode: 200, method: .delete)
-        runMockTest(statusCode: 200, method: .head)
+        runForAllVerbs { method, body in
+            runMockTest(statusCode: 200, method: method, body: body)
+        }
     }
     
     func test_session_records_failure_response() {
-        runMockTest(statusCode: 400, method: .get)
-        runMockTest(statusCode: 400, method: .post, body: testBody)
-        runMockTest(statusCode: 400, method: .put, body: testBody)
-        runMockTest(statusCode: 400, method: .delete)
-        runMockTest(statusCode: 400, method: .head)
+        runForAllVerbs { method, body in
+            runMockTest(statusCode: 400, method: method, body: body)
+        }
     }
     
     func test_aws_operation_records_success_response() {
-        runAWSTest(statusCode: 200, method: .get)
-        runAWSTest(statusCode: 200, method: .post, body: testBody)
-        runAWSTest(statusCode: 200, method: .put, body: testBody)
-        runAWSTest(statusCode: 200, method: .delete)
-        runAWSTest(statusCode: 200, method: .head)
+        runForAllVerbs { method, body in
+            runAWSTest(statusCode: 200, method: method, body: body)
+        }
     }
     
     func test_aws_operation_records_failure_response() {
-        runAWSTest(statusCode: 400, method: .get)
-        runAWSTest(statusCode: 400, method: .post, body: testBody)
-        runAWSTest(statusCode: 400, method: .put, body: testBody)
-        runAWSTest(statusCode: 400, method: .delete)
-        runAWSTest(statusCode: 400, method: .head)
-    }
-}
-
-struct MockOperationRequest: AmplifyOperationRequest {
-    let options: String = ""
-    
-    typealias Options = String
-}
-
-class MockAPIOperation: AmplifyOperation<MockOperationRequest, Data, APIError> {
-    override func main() {
-        finish()
-    }
-    
-    init() {
-        super.init(categoryType: .api, eventName: "mock", request: MockOperationRequest())
+        runForAllVerbs { method, body in
+            runAWSTest(statusCode: 400, method: method, body: body)
+        }
     }
 }
