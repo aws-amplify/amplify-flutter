@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:amplify_analytics_pinpoint_example/test_helper.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
 
@@ -67,21 +70,10 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _registerGlobalProperties() async {
-    print("register global properties: " + _globalProp);
-
-    AnalyticsProperties properties = new AnalyticsProperties();
-    properties.addIntProperty(_globalProp + "_1numKey", 1);
-    properties.addBoolProperty(_globalProp + "_boolKey", true);
-    properties.addDoubleProperty(_globalProp + "_doubleKey", 10.0);
-    properties.addIntProperty(_globalProp + "_intKey", 10);
-    properties.addStringProperty(_globalProp + "_stringKey", "stringValue");
-
-    Amplify.Analytics.registerGlobalProperties(globalProperties: properties);
+    TestHelper.registerGlobalProperties(TestHelper.generateDateTimeID());
   }
 
   void _unregisterGlobalProperties() async {
-    print("unregister global properties: " + _globalProp);
-
     Amplify.Analytics.unregisterGlobalProperties(propertyNames: [_globalProp]);
   }
 
@@ -98,32 +90,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _identifyUser() async {
-    AnalyticsUserProfile analyticsUserProfile = new AnalyticsUserProfile();
-    analyticsUserProfile.name = _userId + "_name";
-    analyticsUserProfile.email = _userId + "_email";
-    analyticsUserProfile.plan = _userId + "_plan";
-
-    AnalyticsUserProfileLocation analyticsUserLocation =
-        new AnalyticsUserProfileLocation();
-    analyticsUserLocation.latitude = 5;
-    analyticsUserLocation.longitude = 5;
-    analyticsUserLocation.postalCode = "94070";
-    analyticsUserLocation.city = "SanFrancisco";
-    analyticsUserLocation.region = "California";
-    analyticsUserLocation.country = "USA";
-
-    analyticsUserProfile.location = analyticsUserLocation;
-
-    AnalyticsProperties properties = new AnalyticsProperties();
-    properties.addStringProperty(_userId + "_stringKey", "stringValue");
-    properties.addIntProperty(_userId + "_intKey", 10);
-    properties.addDoubleProperty(_userId + "_doubleKey", 10.0);
-    properties.addBoolProperty(_userId + "_boolKey", false);
-
-    analyticsUserProfile.properties = properties;
-
-    Amplify.Analytics.identifyUser(
-        userId: _userId, userProfile: analyticsUserProfile);
+    TestHelper.identifyUser(TestHelper.generateDateTimeID());
   }
 
   @override
@@ -241,6 +208,10 @@ class _MyAppState extends State<MyApp> {
                   ElevatedButton(
                       onPressed: _amplifyConfigured ? _disable : null,
                       child: const Text('Disable')),
+                  ElevatedButton(
+                      onPressed:
+                          _amplifyConfigured ? TestHelper.runTestA : null,
+                      child: const Text('Run Test Suite')),
                 ]))
           ])),
     );
