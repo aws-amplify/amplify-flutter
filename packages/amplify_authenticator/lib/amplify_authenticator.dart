@@ -128,3 +128,4 @@ class _AuthenticatorState extends State<Authenticator> {
     _stateMachineBloc!.dispose();
   }
 
+} 
