@@ -5,13 +5,31 @@ import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:flutter/foundation.dart' show SynchronousFuture;
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-
 import 'amplifyconfiguration.dart';
 
+class AuthenticatorLocalizations {
+  AuthenticatorLocalizations(this.locale);
 
+  final Locale locale;
 
+  static AuthenticatorLocalizations of(BuildContext context) {
+    return Localizations.of<AuthenticatorLocalizations>(
+        context, AuthenticatorLocalizations)!;
+  }
 
+  static Map<String, Map<String, String>> _localizedValues = {
+    'en': {
+      'title': 'Hello World',
+    },
+    'es': {
+      'title': 'Hola Mundo',
+    },
+  };
 
+  String get title {
+    return _localizedValues[locale.languageCode]!['title']!;
+  }
+}
 
 void main() {
   runApp(MyApp());
