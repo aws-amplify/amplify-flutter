@@ -54,12 +54,15 @@ class MockSessionDelegate: URLSessionBehaviorDelegate {
 
 class FlutterURLSessionTests: XCTestCase {
     static let sessionFactory = FlutterURLSessionBehaviorFactory()
-    var cancellables = Set<AnyCancellable>()
+    
     
     let testBody = "{\"test\":\"test\"}"
     let httpStatusHeaders = [ "Accept": "application/json" ]
     
+    var cancellables = Set<AnyCancellable>()
+    
     var awsPlugin: AWSAPIPlugin!
+    var flutterPlugin: SwiftAmplifyApiPlugin!
     
     override static func setUp() {
         Amplify.reset()
@@ -75,6 +78,7 @@ class FlutterURLSessionTests: XCTestCase {
     
     override func setUpWithError() throws {
         Amplify.reset()
+        flutterPlugin = SwiftAmplifyApiPlugin()
         awsPlugin = AWSAPIPlugin(sessionFactory: FlutterURLSessionTests.sessionFactory)
         let config = """
         {
@@ -232,6 +236,57 @@ class FlutterURLSessionTests: XCTestCase {
         waitForExpectations(timeout: 10)
     }
     
+    private func runFlutterTest(statusCode: Int, method: RESTOperationType, body: String? = nil) {
+        let cancelToken = "\(statusCode).\(method.rawValue)"
+        var restOptions: [String: Any] = [
+            "path": "/\(statusCode)",
+            "headers": httpStatusHeaders
+        ]
+        if let body = body {
+            restOptions["body"] = body.data(using: .utf8)!
+        }
+        let restRequest: [String: Any] = [
+            "restOptions": restOptions,
+            "cancelToken": cancelToken
+        ]
+        let methodCall = FlutterMethodCall(
+            methodName: method.rawValue.lowercased(),
+            arguments: restRequest)
+        
+        let resultExpectation = expectation(description: "Flutter Method Call completes with RestResponse")
+        let flutterResult: FlutterResult = { (value: Any?) in
+            guard let responseData = value as? [String: Any?] else {
+                XCTFail("Invalid response: \(String(describing: value))")
+                return
+            }
+            XCTAssertEqual(responseData["statusCode"] as! Int, statusCode)
+            
+            let resultData = responseData["data"] as? Data
+            switch method {
+            case .head:
+                XCTAssertTrue(resultData.isEmpty)
+            default:
+                XCTAssertNotNil(resultData)
+                
+                guard let resultHttpStatus = try? JSONDecoder().decode(HTTPStatusResponse.self, from: resultData!) else {
+                    XCTFail("Invalid response data: \(String(data: resultData!, encoding: .utf8) ?? "")")
+                    return
+                }
+                XCTAssertEqual(resultHttpStatus.code, statusCode)
+            }
+            
+            let resultHeaders = responseData["headers"] as? [String: String]
+            XCTAssertNotNil(resultHeaders)
+            XCTAssertTrue(!resultHeaders!.isEmpty)
+            
+            resultExpectation.fulfill()
+        }
+        
+        flutterPlugin.handle(methodCall, result: flutterResult)
+        
+        waitForExpectations(timeout: 10)
+    }
+    
     private func runForAllVerbs(_ test: (RESTOperationType, String?) -> ()) {
         for method in RESTOperationType.allCases {
             switch method {
@@ -264,6 +319,18 @@ class FlutterURLSessionTests: XCTestCase {
     func test_aws_operation_records_failure_response() {
         runForAllVerbs { method, body in
             runAWSTest(statusCode: 400, method: method, body: body)
+        }
+    }
+    
+    func test_flutter_receives_success_response() {
+        runForAllVerbs { method, body in
+            runFlutterTest(statusCode: 200, method: method, body: body)
+        }
+    }
+    
+    func test_flutter_receives_error_response() {
+        runForAllVerbs { method, body in
+            runFlutterTest(statusCode: 400, method: method, body: body)
         }
     }
 }
