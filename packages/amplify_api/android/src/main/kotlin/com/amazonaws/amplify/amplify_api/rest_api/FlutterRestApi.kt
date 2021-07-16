@@ -34,6 +34,12 @@ class FlutterRestApi {
     companion object {
         private val LOG = Amplify.Logging.forNamespace("amplify:flutter:api")
         private val handler = Handler(Looper.getMainLooper())
+        const val GET = "get"
+        const val POST = "post"
+        const val PUT = "put"
+        const val DELETE = "delete"
+        const val HEAD = "head"
+        const val PATCH = "patch"
 
         private fun restFunctionHelper(
                 methodName: String,
@@ -42,7 +48,7 @@ class FlutterRestApi {
                 functionWithoutApiName: FunctionWithoutApiName,
                 functionWithApiName: FunctionWithApiName
         ) {
-            var cancelToken : String
+            var cancelToken: String
             var apiName: String?
             var options: RestOptions
 
@@ -50,6 +56,15 @@ class FlutterRestApi {
                 cancelToken = FlutterApiRequest.getCancelToken(request)
                 apiName = FlutterApiRequest.getApiPath(request)
                 options = FlutterApiRequest.getRestOptions(request)
+
+                // Needed to prevent Android library from throwing a fatal error when body not present in some methods. https://github.com/aws-amplify/amplify-android/issues/1355
+                FlutterApiRequest.checkForEmptyBodyIfRequired(options, methodName)
+            } catch (e: ApiException) {
+                handler.post {
+                    ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
+                            ExceptionUtil.createSerializedError(e))
+                }
+                return
             } catch (e: Exception) {
                 handler.post {
                     ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
@@ -65,7 +80,8 @@ class FlutterRestApi {
                             Consumer { result ->
                                 if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
                                 //LOG.debug("$methodName operation succeeded with response: $result")
-                                prepareRestResponseResult(flutterResult, result, methodName) },
+                                prepareRestResponseResult(flutterResult, result, methodName)
+                            },
                             Consumer { exception ->
                                 if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
                                 //LOG.error("$methodName operation failed", exception)
@@ -82,7 +98,8 @@ class FlutterRestApi {
                             Consumer { result ->
                                 if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
                                 //LOG.debug("$methodName operation succeeded with response: $result")
-                                prepareRestResponseResult(flutterResult, result, methodName) },
+                                prepareRestResponseResult(flutterResult, result, methodName)
+                            },
                             Consumer { exception ->
                                 if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
                                 //LOG.error("$methodName operation failed", exception)
@@ -93,7 +110,7 @@ class FlutterRestApi {
                             }
                     )
                 }
-                if(operation != null) {
+                if (operation != null) {
                     OperationsManager.addOperation(cancelToken, operation)
                 }
 
@@ -136,27 +153,27 @@ class FlutterRestApi {
         }
 
         fun get(flutterResult: Result, arguments: Map<String, Any>) {
-            restFunctionHelper("get", flutterResult, arguments, this::get, this::get)
+            restFunctionHelper(GET, flutterResult, arguments, this::get, this::get)
         }
 
         fun post(flutterResult: Result, arguments: Map<String, Any>) {
-            restFunctionHelper("post", flutterResult, arguments, this::post, this::post)
+            restFunctionHelper(POST, flutterResult, arguments, this::post, this::post)
         }
 
         fun put(flutterResult: Result, arguments: Map<String, Any>) {
-            restFunctionHelper("put", flutterResult, arguments, this::put, this::put)
+            restFunctionHelper(PUT, flutterResult, arguments, this::put, this::put)
         }
 
         fun delete(flutterResult: Result, arguments: Map<String, Any>) {
-            restFunctionHelper("delete", flutterResult, arguments, this::delete, this::delete)
+            restFunctionHelper(DELETE, flutterResult, arguments, this::delete, this::delete)
         }
 
         fun head(flutterResult: Result, arguments: Map<String, Any>) {
-            restFunctionHelper("head", flutterResult, arguments, this::head, this::head)
+            restFunctionHelper(HEAD, flutterResult, arguments, this::head, this::head)
         }
 
         fun patch(flutterResult: Result, arguments: Map<String, Any>) {
-            restFunctionHelper("patch", flutterResult, arguments, this::patch, this::patch)
+            restFunctionHelper(PATCH, flutterResult, arguments, this::patch, this::patch)
         }
 
 
