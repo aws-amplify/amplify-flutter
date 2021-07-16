@@ -1,11 +1,15 @@
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
 import 'package:amplify_authenticator/src/utils/base_viewmodel.dart';
+import 'package:flutter/material.dart';
 
 class AuthViewModel extends BaseViewModel {
   AuthViewModel(this._authBloc);
 
   final StateMachineBloc _authBloc;
+
+  final _formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> get formKey => _formKey;
 
   String _username = "";
   String _password = "";
@@ -153,6 +157,9 @@ class AuthViewModel extends BaseViewModel {
   /// Auth calls
 
   Future<void> signIn() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
     setBusy(true);
     final singIn = AuthSignInData(
       username: _username.trim(),
@@ -167,6 +174,9 @@ class AuthViewModel extends BaseViewModel {
   }
 
   Future<void> signUp() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
     setBusy(true);
     final signUp = AuthSignUpData(
         username: _username.trim(),
@@ -182,6 +192,9 @@ class AuthViewModel extends BaseViewModel {
   }
 
   Future<void> confirm() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
     setBusy(true);
     final confirmation =
         AuthConfirmSignUpData(code: _code, username: _username.trim());

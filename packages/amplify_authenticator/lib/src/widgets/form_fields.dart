@@ -3,35 +3,44 @@ import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
 import 'package:amplify_authenticator/src/constants/theme_constants.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
+import 'package:amplify_authenticator/src/utils/validators.dart';
 
 // ignore: public_member_api_docs
 class AuthFormField extends StatelessWidget {
   // ignore: public_member_api_docs
   AuthFormField(
-      {required this.title, required this.hintText, required this.type});
+      {required this.title,
+      required this.hintText,
+      required this.type,
+      this.validator});
   final String? title;
   final String? hintText;
   final String? type;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
     final _authModelView = InheritedAuthViewModel.of(context)!.authViewModel;
     var _obscureText = false;
     var _callBack;
+    String? Function(String?)? _validator;
     TextInputType? _keyboardType;
     switch (type) {
       case 'username':
         _callBack = _authModelView.setUsername;
         _keyboardType = TextInputType.text;
+        _validator = validateUsername;
         break;
       case 'password':
         _callBack = _authModelView.setPassword;
         _keyboardType = TextInputType.visiblePassword;
         _obscureText = true;
+        _validator = validatePassword;
         break;
       case 'code':
         _callBack = _authModelView.setCode;
         _keyboardType = TextInputType.number;
+        _validator = validateCode;
         break;
       case 'address':
         _callBack = _authModelView.setAddress;
@@ -44,6 +53,7 @@ class AuthFormField extends StatelessWidget {
       case 'email':
         _callBack = _authModelView.setEmail;
         _keyboardType = TextInputType.emailAddress;
+        _validator = validateEmail;
         break;
       case 'family_name':
         _callBack = _authModelView.setFamilyName;
@@ -113,6 +123,7 @@ class AuthFormField extends StatelessWidget {
           Text(title!),
           const Padding(padding: FormFieldConstants.gap),
           TextFormField(
+            validator: validator ?? _validator,
             onChanged: _callBack,
             decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(

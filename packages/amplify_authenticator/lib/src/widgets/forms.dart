@@ -21,16 +21,12 @@ class SignInForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-        child: Column(
-      children: <Widget>[
-        formFields,
-        ButtonsContainer(children: <Widget>[
+    return FormContainer(
+        formFields: formFields,
+        buttonsContainer: ButtonsContainer(children: <Widget>[
           SignInButton(),
           GoToSignUpButton(),
-        ])
-      ],
-    ));
+        ]));
   }
 }
 
@@ -41,15 +37,11 @@ class SignUpForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-        child: Column(
-      children: <Widget>[
-        formFields,
-        ButtonsContainer(
+    return FormContainer(
+        formFields: formFields,
+        buttonsContainer: ButtonsContainer(
           children: <Widget>[SignUpButton(), GoToSignInButton()],
-        ),
-      ],
-    ));
+        ));
   }
 }
 
@@ -60,15 +52,11 @@ class ConfirmSignUpForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-        child: Column(
-      children: <Widget>[
-        formFields,
-        ButtonsContainer(children: <Widget>[
+    return FormContainer(
+        formFields: formFields,
+        buttonsContainer: ButtonsContainer(children: <Widget>[
           BackToSignInButton(),
           ConfirmButton(),
-        ])
-      ],
-    ));
+        ]));
   }
 }
