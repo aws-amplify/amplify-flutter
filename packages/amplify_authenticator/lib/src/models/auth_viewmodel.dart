@@ -198,7 +198,7 @@ class AuthViewModel extends BaseViewModel {
   Future<void> signOut() async {
     setBusy(true);
     _authBloc.authEvent.add(AuthSignOut());
-    setBusy(true);
+    setBusy(false);
   }
 
   /// Screen change

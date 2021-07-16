@@ -3,7 +3,7 @@ import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 
-//import 'amplifyconfiguration.dart';
+import 'amplifyconfiguration.dart';
 
 void main() {
   runApp(MyApp());
@@ -52,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _amplifyConfig() async {
     try {
       await Amplify.addPlugin(AmplifyAuthCognito());
-      // await Amplify.configure(amplifyconfig);
+      await Amplify.configure(amplifyconfig);
     } catch (e) {
       print(e);
     }
@@ -61,6 +61,39 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Authenticator(
+      signUpForm: SignUpForm(
+        formFields: FormFields(children: [
+          AuthFormField(
+            type: 'username',
+            title: "Username*",
+            hintText: "Enter your username",
+          ),
+          AuthFormField(
+              title: 'Password*',
+              hintText: "Enter your password",
+              type: "password"),
+          AuthFormField(
+              title: "Address*",
+              hintText: "Enter your address",
+              type: "address"),
+          AuthFormField(
+              title: "Birthdate*",
+              hintText: "Enter your birthdate",
+              type: "birthdate"),
+          AuthFormField(
+              title: "Email*", hintText: "Enter your email", type: "email"),
+          AuthFormField(
+              title: "Name*", hintText: "Enter your name", type: "name"),
+          AuthFormField(
+              title: "Phone Number*",
+              hintText: "Enter your phone number",
+              type: "phone_number"),
+          AuthFormField(
+              title: "Website*",
+              hintText: "Enter your website",
+              type: "website"),
+        ]),
+      ),
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
