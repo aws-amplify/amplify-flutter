@@ -19,5 +19,5 @@ import 'AuthCodeDeliveryDetails.dart';
 class AuthNextStep {
   Map<dynamic, dynamic>? additionalInfo;
   AuthCodeDeliveryDetails? codeDeliveryDetails;
-  AuthNextStep({ this.codeDeliveryDetails, this.additionalInfo });
+  AuthNextStep({this.codeDeliveryDetails, this.additionalInfo});
 }

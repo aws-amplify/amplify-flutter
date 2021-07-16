@@ -13,9 +13,9 @@
  * permissions and limitations under the License.
  */
 class AuthUserAttributeOptions {
-
   const AuthUserAttributeOptions();
   Map<String, dynamic> serializeAsMap() {
-    throw UnimplementedError('serializeAsMap() has not been implemented on AuthUserAttributeOptions.');
+    throw UnimplementedError(
+        'serializeAsMap() has not been implemented on AuthUserAttributeOptions.');
   }
 }

@@ -19,7 +19,6 @@ import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
 
-
 /** This is an auto generated class representing the HasManyBelongsToModel type in your schema. */
 @immutable
 class HasManyBelongsToModel extends Model {
@@ -30,105 +29,109 @@ class HasManyBelongsToModel extends Model {
 
   @override
   getInstanceType() => classType;
-  
+
   @override
   String getId() {
     return id;
   }
-  
+
   String get title {
     return _title!;
   }
-  
+
   HasManyModel? get parent {
     return _parent;
   }
-  
-  const HasManyBelongsToModel._internal({required this.id, required title, parent}): _title = title, _parent = parent;
-  
-  factory HasManyBelongsToModel({String? id, required String title, HasManyModel? parent}) {
+
+  const HasManyBelongsToModel._internal(
+      {required this.id, required title, parent})
+      : _title = title,
+        _parent = parent;
+
+  factory HasManyBelongsToModel(
+      {String? id, required String title, HasManyModel? parent}) {
     return HasManyBelongsToModel._internal(
-      id: id == null ? UUID.getUUID() : id,
-      title: title,
-      parent: parent);
+        id: id == null ? UUID.getUUID() : id, title: title, parent: parent);
   }
-  
+
   bool equals(Object other) {
     return this == other;
   }
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is HasManyBelongsToModel &&
-      id == other.id &&
-      _title == other._title &&
-      _parent == other._parent;
+        id == other.id &&
+        _title == other._title &&
+        _parent == other._parent;
   }
-  
+
   @override
   int get hashCode => toString().hashCode;
-  
+
   @override
   String toString() {
     var buffer = new StringBuffer();
-    
+
     buffer.write("HasManyBelongsToModel {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("title=" + "$_title" + ", ");
     buffer.write("parent=" + (_parent != null ? _parent!.toString() : "null"));
     buffer.write("}");
-    
+
     return buffer.toString();
   }
-  
-  HasManyBelongsToModel copyWith({String? id, String? title, HasManyModel? parent}) {
-    return HasManyBelongsToModel(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      parent: parent ?? this.parent);
-  }
-  
-  HasManyBelongsToModel.fromJson(Map<String, dynamic> json)  
-    : id = json['id'],
-      _title = json['title'],
-      _parent = json['parent'] != null
-        ? HasManyModel.fromJson(new Map<String, dynamic>.from(json['parent']?['serializedData']))
-        : null;
-  
-  Map<String, dynamic> toJson() => {
-    'id': id, 'title': _title, 'parent': _parent?.toJson()
-  };
 
-  static final QueryField ID = QueryField(fieldName: "hasManyBelongsToModel.id");
+  HasManyBelongsToModel copyWith(
+      {String? id, String? title, HasManyModel? parent}) {
+    return HasManyBelongsToModel(
+        id: id ?? this.id,
+        title: title ?? this.title,
+        parent: parent ?? this.parent);
+  }
+
+  HasManyBelongsToModel.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        _title = json['title'],
+        _parent = json['parent'] != null
+            ? HasManyModel.fromJson(new Map<String, dynamic>.from(
+                json['parent']?['serializedData']))
+            : null;
+
+  Map<String, dynamic> toJson() =>
+      {'id': id, 'title': _title, 'parent': _parent?.toJson()};
+
+  static final QueryField ID =
+      QueryField(fieldName: "hasManyBelongsToModel.id");
   static final QueryField TITLE = QueryField(fieldName: "title");
   static final QueryField PARENT = QueryField(
-    fieldName: "parent",
-    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: (HasManyModel).toString()));
-  static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+      fieldName: "parent",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (HasManyModel).toString()));
+  static var schema =
+      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "HasManyBelongsToModel";
     modelSchemaDefinition.pluralName = "HasManyBelongsToModels";
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: HasManyBelongsToModel.TITLE,
-      isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
+        key: HasManyBelongsToModel.TITLE,
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
-      key: HasManyBelongsToModel.PARENT,
-      isRequired: false,
-      targetName: "hasManyID",
-      ofModelName: (HasManyModel).toString()
-    ));
+        key: HasManyBelongsToModel.PARENT,
+        isRequired: false,
+        targetName: "hasManyID",
+        ofModelName: (HasManyModel).toString()));
   });
 }
 
 class _HasManyBelongsToModelModelType extends ModelType<HasManyBelongsToModel> {
   const _HasManyBelongsToModelModelType();
-  
+
   @override
   HasManyBelongsToModel fromJson(Map<String, dynamic> jsonData) {
     return HasManyBelongsToModel.fromJson(jsonData);
