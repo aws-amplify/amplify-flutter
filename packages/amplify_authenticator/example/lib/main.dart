@@ -2,8 +2,16 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:flutter/foundation.dart' show SynchronousFuture;
+import 'package:flutter_localizations/flutter_localizations.dart';
+
 
 import 'amplifyconfiguration.dart';
+
+
+
+
+
 
 void main() {
   runApp(MyApp());
@@ -15,6 +23,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      localizationsDelegates: const [
+        AuthenticatorLocalizationsDelegate(),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en', ''), // English, no country code
+        Locale('es', ''), // Spanish, no country code
+      ],
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

@@ -17,6 +17,8 @@ library amplify_authenticator;
 
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/screens/confirm_signin_screen.dart';
+import 'package:amplify_authenticator/src/internationalization/AuthenticatorLocalizations.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 //State
@@ -51,8 +53,8 @@ import 'package:amplify_authenticator/src/widgets/default_forms.dart';
 //Exports
 export 'package:amplify_authenticator/src/widgets/forms.dart';
 export 'package:amplify_authenticator/src/widgets/form_fields.dart';
-export 'package:amplify_authenticator/src/widgets/buttons.dart'
-    show SignOutButton;
+export 'package:amplify_authenticator/src/widgets/buttons.dart' show SignOutButton;
+export 'package:amplify_authenticator/src/internationalization/AuthenticatorLocalizationsDelegate.dart';
 
 ///
 // ignore: must_be_immutable
@@ -237,6 +239,12 @@ class _AuthenticatorState extends State<Authenticator> {
 
   @override
   Widget build(BuildContext context) {
+
+    var delegates = context.findAncestorWidgetOfExactType<MaterialApp>()!.localizationsDelegates;
+    var amplifyDelegate = delegates!.firstWhere((delegate) => delegate is AuthenticatorLocalizationsDelegate);
+    // var test =  SynchronousFuture<DemoLocalizations>amplifyDelegate.load(Locale('es'));
+    // SynchronousFuture<AuthenticatorLocalizations>(AuthenticatorLocalizations(Locale('es')));
+
     return InheritedAuthBloc(
         key: const Key(keyInheritedAuthBloc),
         authBloc: _stateMachineBloc,
