@@ -17,12 +17,9 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 
 StreamController fakeEventChannel = StreamController<dynamic>.broadcast(
-  onListen: () => print('listening'),
-  onCancel: () => print('canceling')
-);
+    onListen: () => print('listening'), onCancel: () => print('canceling'));
 
 class FakeStreamController {
-
   StreamController get thisController {
     return controller;
   }

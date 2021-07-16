@@ -16,33 +16,20 @@
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_flutter/amplify.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
+import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_api_example/amplifyconfiguration.dart';
 
-import 'sign_in_sign_out_test.dart' as sign_in_sign_out_tests;
-import 'sign_up_test.dart' as sign_up_tests;
-import 'user_attributes_test.dart' as user_attributes_tests;
-import 'hub_events_test.dart' as hub_events_tests;
-import 'update_password_test.dart' as update_password_tests;
-import 'fetch_session_test.dart' as fetch_session_tests;
-import 'get_current_user_test.dart' as get_current_user_tests;
+import 'graph_ql_tests.dart' as graph_ql_tests;
 
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('amplify_auth_cognito', () {
+  group('amplify_api', () {
     setUpAll(() async {
-      final authPlugin = AmplifyAuthCognito();
-      await Amplify.addPlugins([authPlugin]);
+      await Amplify.addPlugins([AmplifyAPI()]);
       await Amplify.configure(amplifyconfig);
     });
 
-    sign_in_sign_out_tests.main();
-    sign_up_tests.main();
-    user_attributes_tests.main();
-    hub_events_tests.main();
-    update_password_tests.main();
-    fetch_session_tests.main();
-    get_current_user_tests.main();
+    graph_ql_tests.main();
   });
 }

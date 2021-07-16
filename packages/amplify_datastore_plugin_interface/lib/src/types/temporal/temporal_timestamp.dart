@@ -13,8 +13,6 @@
  * permissions and limitations under the License.
  */
 
-
-
 /// The Temporal.Timestamp scalar type represents the number of seconds that have elapsed
 /// since 1970-01-01T00:00Z. Timestamps are serialized and deserialized as numbers.
 /// Negative values are also accepted and these represent the number of seconds
