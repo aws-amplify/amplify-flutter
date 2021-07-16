@@ -75,7 +75,8 @@ void main() {
       'message': 'Could not list files.',
       'recoverySuggestion': 'Check permissions.',
     });
-    PlatformException exception = PlatformException(code: 'StorageException', details: details);
+    PlatformException exception =
+        PlatformException(code: 'StorageException', details: details);
     storageChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       return throw exception;
     });
@@ -88,6 +89,4 @@ void main() {
     }
     throw new Exception('Expected a StorageException');
   });
-
-
 }
