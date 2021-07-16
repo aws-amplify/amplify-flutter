@@ -40,12 +40,9 @@ void main() async {
     sign_in_sign_out_tests.main();
     sign_up_tests.main();
     user_attributes_tests.main();
-<<<<<<< HEAD
     hub_events_tests.main();
     update_password_tests.main();
     fetch_session_tests.main();
     get_current_user_tests.main();
-=======
->>>>>>> chore(auth): integration tests for user attributes (#640)
   });
 }

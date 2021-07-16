@@ -110,6 +110,9 @@ class FlutterApiRequest {
                 print("Invalid RestOption key: " + key)
             }
         }
+        
+        // Add cancel token for later identification.
+        headers[cancelTokenHeader] = cancelToken
 
         // Add cancel token for later identification.
         headers[cancelTokenHeader] = cancelToken
