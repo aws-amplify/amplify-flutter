@@ -7,6 +7,8 @@
 
 AWS Amplify provides a declarative and easy-to-use interface across different categories of cloud operations. Our default implementation works with Amazon Web Services (AWS), but AWS Amplify is designed to be open and pluggable for any custom backend or service. See [AWS Amplify](https://docs.amplify.aws) for further details about the Amplify Framework.
 
+> *Note:* amplify-flutter supports sound null safety as of version 0.2.0. Please see the [amplify docs on null safety](https://docs.amplify.aws/lib/project-setup/null-safety/q/platform/flutter) for more information, as well as the changelogs for each package for any breaking changes.
+
 We are iterating and looking for feedback and collaboration, so please [**let us know your feedback**](https://github.com/aws-amplify/amplify-flutter/issues/5) on our direction and roadmap.
 
 - [Getting Started Guide](https://docs.amplify.aws/start/getting-started/setup/q/integration/flutter)
