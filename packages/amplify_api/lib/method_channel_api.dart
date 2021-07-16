@@ -219,17 +219,22 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     }
   }
 
+  bool _shouldThrow(int statusCode) {
+    return statusCode < 200 || statusCode > 299;
+  }
+
   RestResponse _formatRestResponse(Map<String, dynamic> res) {
-    try {
-      return RestResponse(data: res["data"] as Uint8List);
+    final statusCode = res['statusCode'] as int;
+    final headers = res['headers'] as Map?;
+    final response = RestResponse(
+      data: res["data"] as Uint8List?,
+      headers: headers == null ? null : Map<String, String>.from(headers),
+      statusCode: statusCode,
+    );
+    if (_shouldThrow(statusCode)) {
+      throw RestException(response);
     }
-    // This shouldn't happen.  RestResponse should be properly formatted from native
-    on Exception catch (e) {
-      throw ApiException(AmplifyExceptionMessages.missingExceptionMessage,
-          recoverySuggestion:
-              AmplifyExceptionMessages.missingRecoverySuggestion,
-          underlyingException: e.toString());
-    }
+    return response;
   }
 
   @override
