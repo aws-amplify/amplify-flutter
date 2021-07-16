@@ -18,6 +18,9 @@ import 'package:amplify_core/types/exception/AmplifyException.dart';
 /// Exception thrown from Api Category
 class ApiException extends AmplifyException {
   /// HTTP status of response, only available if error
+  @Deprecated(
+      'Use RestException instead to retrieve the HTTP response. Existing uses of '
+      'ApiException for handling REST errors can be safely replaced with RestException')
   final int? httpStatusCode;
 
   const ApiException(String message,
