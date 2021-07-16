@@ -17,10 +17,22 @@
 
 // only to be used internally by amplify-flutter library
 import 'package:collection/collection.dart' show IterableExtension;
+import 'package:flutter/foundation.dart';
 
-String? enumToString(Object? o) =>
-    o != null ? o.toString().split('.').last : null;
+String? enumToString(Object? obj) {
+  if (obj == null) {
+    return null;
+  }
+
+  return describeEnum(obj);
+}
 
 // only to be used internally by amplify-flutter library
 T? enumFromString<T>(String? key, List<T> values) =>
     values.firstWhereOrNull((v) => key == enumToString(v));
+
+/// check wehather an dynamic type [value] is an enum
+bool isEnum(dynamic data) {
+  final split = data.toString().split('.');
+  return split.length > 1 && split[0] == data.runtimeType.toString();
+}
