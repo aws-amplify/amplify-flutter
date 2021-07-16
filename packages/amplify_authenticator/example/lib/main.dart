@@ -7,30 +7,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'amplifyconfiguration.dart';
 
-class AuthenticatorLocalizations {
-  AuthenticatorLocalizations(this.locale);
-
-  final Locale locale;
-
-  static AuthenticatorLocalizations of(BuildContext context) {
-    return Localizations.of<AuthenticatorLocalizations>(
-        context, AuthenticatorLocalizations)!;
-  }
-
-  static Map<String, Map<String, String>> _localizedValues = {
-    'en': {
-      'title': 'Hello World',
-    },
-    'es': {
-      'title': 'Hola Mundo',
-    },
-  };
-
-  String get title {
-    return _localizedValues[locale.languageCode]!['title']!;
-  }
-}
-
 void main() {
   runApp(MyApp());
 }
@@ -41,15 +17,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      localizationsDelegates: const [
-        AuthenticatorLocalizationsDelegate(),
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale('en', ''), // English, no country code
-        Locale('es', ''), // Spanish, no country code
-      ],
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
