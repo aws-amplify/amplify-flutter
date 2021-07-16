@@ -16,7 +16,7 @@ class AuthFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _authModelView = InheritedAuthViewModel.of(context)!.authViewModel;
-
+    var _obscureText = false;
     var _callBack;
     TextInputType? _keyboardType;
     switch (type) {
@@ -27,6 +27,7 @@ class AuthFormField extends StatelessWidget {
       case 'password':
         _callBack = _authModelView.setPassword;
         _keyboardType = TextInputType.visiblePassword;
+        _obscureText = true;
         break;
       case 'code':
         _callBack = _authModelView.setCode;
@@ -122,6 +123,7 @@ class AuthFormField extends StatelessWidget {
                 hintText: hintText!,
                 border: OutlineInputBorder()),
             keyboardType: _keyboardType,
+            obscureText: _obscureText,
           ),
         ],
       ),
