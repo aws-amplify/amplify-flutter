@@ -22,7 +22,7 @@ export 'GraphQL/GraphQLSubscriptionOperation.dart';
 export 'RestAPI/RestOperation.dart';
 export 'RestAPI/RestOptions.dart';
 export 'RestAPI/RestResponse.dart';
-export 'RestAPI/rest_exception.dart';
+export 'RestAPI/RestException.dart';
 
 export 'UUID.dart';
 
