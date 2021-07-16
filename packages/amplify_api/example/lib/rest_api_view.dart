@@ -41,7 +41,7 @@ class _RestApiViewState extends State<RestApiView> {
       RestOperation restOperation = Amplify.API.put(
         restOptions: RestOptions(
           path: _apiPathController.text,
-          body: utf8.encode('{"name":"Mow the lawn"}'),
+          body: ascii.encode('{"name":"Mow the lawn"}'),
         ),
       );
 
@@ -61,7 +61,7 @@ class _RestApiViewState extends State<RestApiView> {
       RestOperation restOperation = Amplify.API.post(
         restOptions: RestOptions(
           path: _apiPathController.text,
-          body: utf8.encode('{"name":"Mow the lawn"}'),
+          body: ascii.encode('{"name":"Mow the lawn"}'),
         ),
       );
 
