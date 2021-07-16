@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:collection';
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
@@ -21,6 +21,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_api/amplify_api.dart';
 
 const statusOK = 200;
+const statusBadRequest = 400;
+
+// Matchers
+final throwsRestException = throwsA(isA<RestException>());
 
 void main() {
   const MethodChannel apiChannel = MethodChannel('com.amazonaws.amplify/api');
@@ -266,5 +270,43 @@ void main() {
 
     //RestResponse response = await restOperation.response;
     restOperation.cancel();
+  });
+
+  group('non-2xx status code', () {
+    const testBody = 'test';
+    const testResponseHeaders = {'key': 'value'};
+
+    setUpAll(() {
+      apiChannel.setMockMethodCallHandler((call) async {
+        return {
+          'data': utf8.encode(testBody),
+          'statusCode': statusBadRequest,
+          'headers': testResponseHeaders,
+        };
+      });
+    });
+
+    test('throws RestException', () async {
+      final restOp = api.get(restOptions: RestOptions(path: '/'));
+      await expectLater(restOp.response, throwsRestException);
+    });
+
+    test('has valid RestResponse', () async {
+      final restOp = api.get(restOptions: RestOptions(path: '/'));
+
+      RestException restException;
+      try {
+        await restOp.response;
+        fail('RestOperation should throw');
+      } catch (e) {
+        expect(e, isA<RestException>());
+        restException = e as RestException;
+      }
+
+      final response = restException.response;
+      expect(response.statusCode, statusBadRequest);
+      expect(response.headers, testResponseHeaders);
+      expect(response.body, testBody);
+    });
   });
 }
