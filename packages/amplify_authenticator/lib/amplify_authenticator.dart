@@ -240,10 +240,8 @@ class _AuthenticatorState extends State<Authenticator> {
   @override
   Widget build(BuildContext context) {
 
-    var delegates = context.findAncestorWidgetOfExactType<MaterialApp>()!.localizationsDelegates;
-    var amplifyDelegate = delegates!.firstWhere((delegate) => delegate is AuthenticatorLocalizationsDelegate);
-    // var test =  SynchronousFuture<DemoLocalizations>amplifyDelegate.load(Locale('es'));
-    // SynchronousFuture<AuthenticatorLocalizations>(AuthenticatorLocalizations(Locale('es')));
+    // widget.authenticatorLocalizations.of(context).title;
+    
 
     return InheritedAuthBloc(
         key: const Key(keyInheritedAuthBloc),
