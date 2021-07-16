@@ -18,7 +18,6 @@
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
 
-
 /** This is an auto generated class representing the BelongsToModel type in your schema. */
 @immutable
 class BelongsToModel extends Model {
@@ -28,84 +27,78 @@ class BelongsToModel extends Model {
 
   @override
   getInstanceType() => classType;
-  
+
   @override
   String getId() {
     return id;
   }
-  
+
   String get title {
     return _title!;
   }
-  
-  const BelongsToModel._internal({required this.id, required title}): _title = title;
-  
+
+  const BelongsToModel._internal({required this.id, required title})
+      : _title = title;
+
   factory BelongsToModel({String? id, required String title}) {
     return BelongsToModel._internal(
-      id: id == null ? UUID.getUUID() : id,
-      title: title);
+        id: id == null ? UUID.getUUID() : id, title: title);
   }
-  
+
   bool equals(Object other) {
     return this == other;
   }
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is BelongsToModel &&
-      id == other.id &&
-      _title == other._title;
+    return other is BelongsToModel && id == other.id && _title == other._title;
   }
-  
+
   @override
   int get hashCode => toString().hashCode;
-  
+
   @override
   String toString() {
     var buffer = new StringBuffer();
-    
+
     buffer.write("BelongsToModel {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("title=" + "$_title");
     buffer.write("}");
-    
+
     return buffer.toString();
   }
-  
+
   BelongsToModel copyWith({String? id, String? title}) {
-    return BelongsToModel(
-      id: id ?? this.id,
-      title: title ?? this.title);
+    return BelongsToModel(id: id ?? this.id, title: title ?? this.title);
   }
-  
-  BelongsToModel.fromJson(Map<String, dynamic> json)  
-    : id = json['id'],
-      _title = json['title'];
-  
-  Map<String, dynamic> toJson() => {
-    'id': id, 'title': _title
-  };
+
+  BelongsToModel.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        _title = json['title'];
+
+  Map<String, dynamic> toJson() => {'id': id, 'title': _title};
 
   static final QueryField ID = QueryField(fieldName: "belongsToModel.id");
   static final QueryField TITLE = QueryField(fieldName: "title");
-  static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema =
+      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "BelongsToModel";
     modelSchemaDefinition.pluralName = "BelongsToModels";
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: BelongsToModel.TITLE,
-      isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
+        key: BelongsToModel.TITLE,
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
   });
 }
 
 class _BelongsToModelModelType extends ModelType<BelongsToModel> {
   const _BelongsToModelModelType();
-  
+
   @override
   BelongsToModel fromJson(Map<String, dynamic> jsonData) {
     return BelongsToModel.fromJson(jsonData);

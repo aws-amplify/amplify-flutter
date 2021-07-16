@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -14,6 +13,6 @@
  * permissions and limitations under the License.
  */
 
-class UpdatePasswordResult { 
+class UpdatePasswordResult {
   UpdatePasswordResult() {}
-} 
+}
