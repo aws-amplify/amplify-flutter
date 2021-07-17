@@ -54,7 +54,11 @@ import 'package:amplify_authenticator/src/widgets/default_forms.dart';
 export 'package:amplify_authenticator/src/widgets/forms.dart';
 export 'package:amplify_authenticator/src/widgets/form_fields.dart';
 export 'package:amplify_authenticator/src/widgets/buttons.dart' show SignOutButton;
+export 'package:amplify_authenticator/src/internationalization/AuthenticatorLocales.dart';
 export 'package:amplify_authenticator/src/internationalization/AuthenticatorLocalizationsDelegate.dart';
+export 'package:amplify_authenticator/src/internationalization/AuthenticatorLocalizedValues.dart';
+export 'package:amplify_authenticator/src/internationalization/AuthenticatorLocale.dart';
+
 
 ///
 // ignore: must_be_immutable
@@ -239,9 +243,6 @@ class _AuthenticatorState extends State<Authenticator> {
 
   @override
   Widget build(BuildContext context) {
-
-    // widget.authenticatorLocalizations.of(context).title;
-    
 
     return InheritedAuthBloc(
         key: const Key(keyInheritedAuthBloc),

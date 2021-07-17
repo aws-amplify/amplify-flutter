@@ -1,24 +1,23 @@
+import 'package:amplify_authenticator/src/internationalization/AuthenticatorLocale.dart';
+import 'package:amplify_authenticator/src/internationalization/AuthenticatorLocales.dart';
+import 'package:amplify_authenticator/src/internationalization/AuthenticatorLocalizedValues.dart';
 import 'package:flutter/widgets.dart';
 
 class AuthenticatorLocalizations {
-  AuthenticatorLocalizations(this.locale);
 
-  final Locale locale;
+  Locale locale;
+  List<AuthenticatorLocale> localeList;
+
+  // AuthenticatorLocalizations(locale, localeList) : this.locale = locale, this.localeList = localeList;
+    AuthenticatorLocalizations(this.locale, this.localeList);
+
 
   static AuthenticatorLocalizations of(BuildContext context) {
     return Localizations.of<AuthenticatorLocalizations>(context, AuthenticatorLocalizations)!;
   }
 
-  static Map<String, Map<String, String>> _localizedValues = {
-    'en': {
-      'title': 'Hello World',
-    },
-    'es': {
-      'title': 'Hola Mundo',
-    },
-  };
-
   String get title {
-    return _localizedValues[locale.languageCode]!['title']!;
+    var title = localeList.firstWhere((element) => element.languageCode == locale.languageCode).localizationValues.signIn_title;
+    return title != null ? title : 'default title';
   }
 }
