@@ -1,3 +1,4 @@
+import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/widgets/buttons.dart';
 import 'package:amplify_authenticator/src/widgets/containers.dart';
@@ -21,7 +22,10 @@ class SignInForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _authModelView = InheritedAuthViewModel.of(context)!.signInViewModel;
+
     return FormContainer(
+        formKey: _authModelView.formKey,
         formFields: formFields,
         buttonsContainer: ButtonsContainer(children: <Widget>[
           SignInButton(),
@@ -37,7 +41,10 @@ class SignUpForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _authModelView = InheritedAuthViewModel.of(context)!.signUpViewModel;
+
     return FormContainer(
+        formKey: _authModelView.formKey,
         formFields: formFields,
         buttonsContainer: ButtonsContainer(
           children: <Widget>[SignUpButton(), GoToSignInButton()],
@@ -52,7 +59,10 @@ class ConfirmSignUpForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _authModelView =
+        InheritedAuthViewModel.of(context)!.confirmSignUpViewModel;
     return FormContainer(
+        formKey: _authModelView.formKey,
         formFields: formFields,
         buttonsContainer: ButtonsContainer(children: <Widget>[
           BackToSignInButton(),

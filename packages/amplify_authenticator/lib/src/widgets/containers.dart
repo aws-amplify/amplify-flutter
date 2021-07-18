@@ -1,9 +1,57 @@
-import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
 import 'package:flutter/material.dart';
 
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
 import 'package:amplify_authenticator/src/constants/theme_constants.dart';
 import 'package:amplify_authenticator/src/widgets/forms.dart';
+
+//FormFieldContainer
+
+class FormFieldContainer extends StatelessWidget {
+  const FormFieldContainer(
+      {Key? key,
+      required this.keyboardType,
+      required this.callback,
+      required this.hintText,
+      required this.title,
+      required this.validator,
+      required this.obscureText})
+      : super(key: key);
+
+  final String? title;
+  final String? hintText;
+  final String? Function(String?)? validator;
+  final void Function(String) callback;
+  final TextInputType keyboardType;
+  final bool obscureText;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: FormFieldConstants.marginBottom,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(title!),
+          const Padding(padding: FormFieldConstants.gap),
+          TextFormField(
+            validator: validator,
+            onChanged: callback,
+            decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Theme.of(context).primaryColor != Colors.blue
+                            ? Theme.of(context).primaryColor
+                            : AuthenticatorColors.primary)),
+                hintText: hintText!,
+                border: OutlineInputBorder()),
+            keyboardType: keyboardType,
+            obscureText: obscureText,
+          ),
+        ],
+      ),
+    );
+  }
+}
 
 //Buttons Container
 class ButtonsContainer extends StatelessWidget {
@@ -84,17 +132,20 @@ class AuthenticatorContainer extends StatelessWidget {
 
 class FormContainer extends StatelessWidget {
   const FormContainer(
-      {Key? key, required this.formFields, required this.buttonsContainer})
+      {Key? key,
+      required this.formKey,
+      required this.formFields,
+      required this.buttonsContainer})
       : super(key: key);
 
   final FormFields formFields;
   final ButtonsContainer buttonsContainer;
+  final formKey;
 
   @override
   Widget build(BuildContext context) {
-    final _authModelView = InheritedAuthViewModel.of(context)!.authViewModel;
     return Form(
-        key: _authModelView.formKey,
+        key: formKey,
         child: Column(
           children: [formFields, buttonsContainer],
         ));

@@ -32,8 +32,10 @@ import 'package:amplify_authenticator/src/screens/confirm_signup_screen.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 
-//Model
-import 'package:amplify_authenticator/src/models/auth_viewmodel.dart';
+//Views
+import 'package:amplify_authenticator/src/views/signin_viewmodel.dart';
+import 'package:amplify_authenticator/src/views/signup_viewmodel.dart';
+import 'package:amplify_authenticator/src/views/confirm_signup_viewmodel.dart';
 
 //Services
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
@@ -86,7 +88,9 @@ class _AuthenticatorState extends State<Authenticator> {
     return InheritedAuthBloc(
         authBloc: _stateMachineBloc,
         child: InheritedAuthViewModel(
-            authViewModel: AuthViewModel(_stateMachineBloc!),
+            signInViewModel: SignInViewModel(_stateMachineBloc!),
+            signUpViewModel: SignUpViewModel(_stateMachineBloc!),
+            confirmSignUpViewModel: ConfirmSignUpViewModel(_stateMachineBloc!),
             child: InheritedForms(
                 signInForm: widget.signInForm!,
                 signUpForm: widget.signUpForm!,
@@ -127,5 +131,4 @@ class _AuthenticatorState extends State<Authenticator> {
     super.dispose();
     _stateMachineBloc!.dispose();
   }
-
-} 
+}

@@ -1,3 +1,4 @@
+import 'package:amplify_authenticator/src/widgets/containers.dart';
 import 'package:flutter/material.dart';
 
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
@@ -5,10 +6,70 @@ import 'package:amplify_authenticator/src/constants/theme_constants.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/utils/validators.dart';
 
+//Sign In Form Field
+class SignInFormField extends StatelessWidget {
+  const SignInFormField(
+      {Key? key,
+      required this.title,
+      required this.hintText,
+      required this.type,
+      this.validator})
+      : super(key: key);
+
+  final String? title;
+  final String? hintText;
+  final String? type;
+  final String? Function(String?)? validator;
+
+  @override
+  Widget build(BuildContext context) {
+    final _authModelView = InheritedAuthViewModel.of(context)!.signInViewModel;
+    var _obscureText = false;
+    var _callBack;
+    String? Function(String?)? _validator;
+    TextInputType? _keyboardType;
+
+    switch (type) {
+      case 'username':
+        _callBack = _authModelView.setUsername;
+        _keyboardType = TextInputType.text;
+        _validator = validateUsername;
+        break;
+      case 'email':
+        _callBack = _authModelView.setUsername;
+        _keyboardType = TextInputType.emailAddress;
+        _validator = validateUsername;
+        break;
+      case 'phone_number':
+        _callBack = _authModelView.setUsername;
+        _keyboardType = TextInputType.phone;
+        _validator = validateUsername;
+        break;
+      case 'password':
+        _callBack = _authModelView.setPassword;
+        _keyboardType = TextInputType.visiblePassword;
+        _obscureText = true;
+        _validator = validatePassword;
+        break;
+      default:
+        break;
+    }
+
+    return FormFieldContainer(
+        keyboardType: _keyboardType!,
+        callback: _callBack,
+        hintText: hintText,
+        title: title,
+        validator: validator,
+        obscureText: _obscureText);
+  }
+}
+
+//Sign Up Form Field
 // ignore: public_member_api_docs
-class AuthFormField extends StatelessWidget {
+class SignUpFormField extends StatelessWidget {
   // ignore: public_member_api_docs
-  AuthFormField(
+  SignUpFormField(
       {required this.title,
       required this.hintText,
       required this.type,
@@ -20,7 +81,7 @@ class AuthFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _authModelView = InheritedAuthViewModel.of(context)!.authViewModel;
+    final _authModelView = InheritedAuthViewModel.of(context)!.signUpViewModel;
     var _obscureText = false;
     var _callBack;
     String? Function(String?)? _validator;
@@ -36,11 +97,6 @@ class AuthFormField extends StatelessWidget {
         _keyboardType = TextInputType.visiblePassword;
         _obscureText = true;
         _validator = validatePassword;
-        break;
-      case 'code':
-        _callBack = _authModelView.setCode;
-        _keyboardType = TextInputType.number;
-        _validator = validateCode;
         break;
       case 'address':
         _callBack = _authModelView.setAddress;
@@ -139,5 +195,64 @@ class AuthFormField extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+//Confirm Sign Up Form Field
+
+class ConfirmSignUpFormField extends StatelessWidget {
+  const ConfirmSignUpFormField(
+      {Key? key,
+      required this.title,
+      required this.hintText,
+      required this.type,
+      this.validator})
+      : super(key: key);
+
+  final String? title;
+  final String? hintText;
+  final String? type;
+  final String? Function(String?)? validator;
+
+  @override
+  Widget build(BuildContext context) {
+    final _authModelView =
+        InheritedAuthViewModel.of(context)!.confirmSignUpViewModel;
+    var _obscureText = false;
+    var _callBack;
+    String? Function(String?)? _validator;
+    TextInputType? _keyboardType;
+
+    switch (type) {
+      case 'username':
+        _callBack = _authModelView.setUsername;
+        _keyboardType = TextInputType.text;
+
+        break;
+      case 'email':
+        _callBack = _authModelView.setUsername;
+        _keyboardType = TextInputType.emailAddress;
+        _validator = validateUsername;
+        break;
+      case 'phone_number':
+        _callBack = _authModelView.setUsername;
+        _keyboardType = TextInputType.phone;
+        _validator = validateUsername;
+        break;
+      case 'code':
+        _callBack = _authModelView.setCode;
+        _keyboardType = TextInputType.visiblePassword;
+        break;
+      default:
+        break;
+    }
+
+    return FormFieldContainer(
+        keyboardType: _keyboardType!,
+        callback: _callBack,
+        hintText: hintText,
+        title: title,
+        validator: validator,
+        obscureText: _obscureText);
   }
 }

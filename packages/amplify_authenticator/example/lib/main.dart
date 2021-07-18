@@ -63,32 +63,32 @@ class _MyHomePageState extends State<MyHomePage> {
     return Authenticator(
       signUpForm: SignUpForm(
         formFields: FormFields(children: [
-          AuthFormField(
+          SignUpFormField(
             type: 'username',
-            title: "Username*",
+            title: "Email or Phone Number*",
             hintText: "Enter your username",
           ),
-          AuthFormField(
+          SignUpFormField(
               title: 'Password*',
               hintText: "Enter your password",
               type: "password"),
-          AuthFormField(
+          SignUpFormField(
               title: "Address*",
               hintText: "Enter your address",
               type: "address"),
-          AuthFormField(
+          SignUpFormField(
               title: "Birthdate*",
               hintText: "Enter your birthdate",
               type: "birthdate"),
-          AuthFormField(
-              title: "Email*", hintText: "Enter your email", type: "email"),
-          AuthFormField(
+          // SignUpFormField(
+          //     title: "Email*", hintText: "Enter your email", type: "email"),
+          SignUpFormField(
               title: "Name*", hintText: "Enter your name", type: "name"),
-          AuthFormField(
+          SignUpFormField(
               title: "Phone Number*",
               hintText: "Enter your phone number",
               type: "phone_number"),
-          AuthFormField(
+          SignUpFormField(
               title: "Website*",
               hintText: "Enter your website",
               type: "website"),

@@ -8,7 +8,7 @@ import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
 class SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _authViewModel = InheritedAuthViewModel.of(context)!.authViewModel;
+    final _authViewModel = InheritedAuthViewModel.of(context)!.signUpViewModel;
     return AnimatedBuilder(
         animation: _authViewModel,
         builder: (context, child) {
@@ -42,7 +42,7 @@ class SignUpButton extends StatelessWidget {
 class SignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _authViewModel = InheritedAuthViewModel.of(context)!.authViewModel;
+    final _authViewModel = InheritedAuthViewModel.of(context)!.signInViewModel;
 
     return AnimatedBuilder(
         animation: _authViewModel,
@@ -77,7 +77,8 @@ class SignInButton extends StatelessWidget {
 class ConfirmButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _authViewModel = InheritedAuthViewModel.of(context)!.authViewModel;
+    final _authViewModel =
+        InheritedAuthViewModel.of(context)!.confirmSignUpViewModel;
     return AnimatedBuilder(
         animation: _authViewModel,
         builder: (context, child) {
@@ -111,7 +112,7 @@ class ConfirmButton extends StatelessWidget {
 class SignOutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _authViewModel = InheritedAuthViewModel.of(context)!.authViewModel;
+    final _authViewModel = InheritedAuthViewModel.of(context)!.signInViewModel;
     return AnimatedBuilder(
         animation: _authViewModel,
         builder: (context, child) {
@@ -145,7 +146,8 @@ class SignOutButton extends StatelessWidget {
 class BackToSignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _authModelView = InheritedAuthViewModel.of(context)!.authViewModel;
+    final _authModelView =
+        InheritedAuthViewModel.of(context)!.confirmSignUpViewModel;
     return TextButton(
       child: Text(
         "Back to Sign In",
@@ -164,7 +166,7 @@ class BackToSignInButton extends StatelessWidget {
 class GoToSignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _authModelView = InheritedAuthViewModel.of(context)!.authViewModel;
+    final _authModelView = InheritedAuthViewModel.of(context)!.signInViewModel;
     return Row(
       children: [
         Text("No account? ",
@@ -189,7 +191,7 @@ class GoToSignUpButton extends StatelessWidget {
 class GoToSignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _authModelView = InheritedAuthViewModel.of(context)!.authViewModel;
+    final _authModelView = InheritedAuthViewModel.of(context)!.signUpViewModel;
     return Row(
       children: [
         Text("Have an account? ",

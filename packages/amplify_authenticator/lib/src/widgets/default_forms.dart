@@ -7,11 +7,11 @@ class DefaultForms {
     return SignInForm(
       formFields: FormFields(
         children: [
-          AuthFormField(
+          SignInFormField(
               title: 'Username*',
               hintText: "Enter you username",
               type: 'username'),
-          AuthFormField(
+          SignInFormField(
               title: 'Password*',
               hintText: "Enter you password",
               type: 'password')
@@ -24,17 +24,17 @@ class DefaultForms {
     return SignUpForm(
       formFields: FormFields(
         children: [
-          AuthFormField(
+          SignUpFormField(
               title: 'Username*',
               hintText: "Enter you username",
               type: 'username'),
-          AuthFormField(
+          SignUpFormField(
               title: 'Password*',
               hintText: "Enter you password",
               type: 'password'),
-          AuthFormField(
+          SignUpFormField(
               title: 'Email*', hintText: "Enter you email", type: 'email'),
-          AuthFormField(
+          SignUpFormField(
               title: 'Phone Number*',
               hintText: "Enter you phone number",
               type: 'phone_number')
@@ -47,11 +47,11 @@ class DefaultForms {
     return ConfirmSignUpForm(
       formFields: FormFields(
         children: [
-          AuthFormField(
+          ConfirmSignUpFormField(
               title: 'Username*',
               hintText: "Enter you username",
               type: 'username'),
-          AuthFormField(
+          ConfirmSignUpFormField(
               title: 'Verification Code*',
               hintText: "Enter you verification code",
               type: 'code'),
