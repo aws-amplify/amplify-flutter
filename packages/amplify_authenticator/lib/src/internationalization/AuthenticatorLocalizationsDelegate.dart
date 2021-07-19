@@ -16,10 +16,17 @@ class AuthenticatorLocalizationsDelegate extends LocalizationsDelegate<Authentic
 
   @override
   Future<AuthenticatorLocalizations> load(Locale locale) {
-    // Returning a SynchronousFuture here because an async "load" operation
-    // isn't needed to produce an instance of AuthenticatorLocalizations.
 
-    return SynchronousFuture<AuthenticatorLocalizations>(AuthenticatorLocalizations(locale, localeList.locales));
+    try {
+      var currentLocalization = localeList.locales.firstWhere((element) => 
+        element.languageCode == locale.languageCode);
+
+      // Returning a SynchronousFuture here because an async "load" operation
+      // isn't needed to produce an instance of AuthenticatorLocalizations.
+      return SynchronousFuture<AuthenticatorLocalizations>(AuthenticatorLocalizations(currentLocalization));
+    } catch (e) {
+      return SynchronousFuture<AuthenticatorLocalizations>(AuthenticatorLocalizations(defaultAuthenticatorLocale));
+    }
 
   }
 

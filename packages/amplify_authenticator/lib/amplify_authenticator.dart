@@ -90,7 +90,6 @@ class Authenticator extends StatefulWidget {
   ///     - define
   ///
   Authenticator(
-
       {required this.child,
       SignInForm? signInForm,
       SignUpForm? signUpForm,
@@ -239,11 +238,11 @@ class _AuthenticatorState extends State<Authenticator> {
     super.initState();
     _stateMachineBloc = StateMachineBloc(_authService)
       ..authEvent.add(GetCurrentUser());
+
   }
 
   @override
   Widget build(BuildContext context) {
-
     return InheritedAuthBloc(
         key: const Key(keyInheritedAuthBloc),
         authBloc: _stateMachineBloc,
