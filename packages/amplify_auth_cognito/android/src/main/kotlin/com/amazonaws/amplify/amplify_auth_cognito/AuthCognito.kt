@@ -560,7 +560,14 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
   }
 
   fun prepareCognitoSessionFailure(@NonNull flutterResult: Result, @NonNull result: AWSCognitoAuthSession) {
-    errorHandler.handleAuthError(flutterResult, AuthException.SessionExpiredException())
+    // If user pool tokens error is SignedOutException, we send SignedOutException as method call response
+    // because this indicates that the problem is not expired tokens, but total lack of authentication
+    var sessionException: AuthException = if (result.userPoolTokens.error is AuthException.SignedOutException){
+      AuthException.SignedOutException();
+    } else {
+      AuthException.SessionExpiredException()
+    }
+    errorHandler.handleAuthError(flutterResult, sessionException)
   }
 
   fun prepareSessionResult(@NonNull flutterResult: Result, @NonNull result: AuthSession) {
