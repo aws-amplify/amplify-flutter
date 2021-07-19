@@ -31,7 +31,7 @@ String? enumToString(Object? obj) {
 T? enumFromString<T>(String? key, List<T> values) =>
     values.firstWhereOrNull((v) => key == enumToString(v));
 
-/// check wehather an dynamic type [value] is an enum
+/// check whether a dynamic type [value] is an enum
 bool isEnum(dynamic data) {
   final split = data.toString().split('.');
   return split.length > 1 && split[0] == data.runtimeType.toString();
