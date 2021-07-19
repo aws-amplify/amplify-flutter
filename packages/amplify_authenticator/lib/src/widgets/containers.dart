@@ -4,9 +4,9 @@ import 'package:amplify_authenticator/src/constants/authenticator_constants.dart
 import 'package:amplify_authenticator/src/constants/theme_constants.dart';
 import 'package:amplify_authenticator/src/widgets/forms.dart';
 
-//FormFieldContainer
-
+///FormFieldContainer
 class FormFieldContainer extends StatelessWidget {
+  ///FormFieldContainer Constructor
   const FormFieldContainer(
       {Key? key,
       required this.keyboardType,
@@ -17,11 +17,22 @@ class FormFieldContainer extends StatelessWidget {
       required this.obscureText})
       : super(key: key);
 
+  ///Form field title
   final String? title;
+
+  ///Form field hint text
   final String? hintText;
+
+  ///Form field validator
   final String? Function(String?)? validator;
+
+  ///Form field callback
   final void Function(String) callback;
+
+  ///Form field keyboard type
   final TextInputType keyboardType;
+
+  ///Form field obscure text
   final bool obscureText;
 
   @override
@@ -53,10 +64,12 @@ class FormFieldContainer extends StatelessWidget {
   }
 }
 
-//Buttons Container
+///Buttons Container
 class ButtonsContainer extends StatelessWidget {
+  ///Buttons container constructor
   ButtonsContainer({required this.children});
 
+  ///List of buttons
   final List<Widget> children;
 
   @override
@@ -88,10 +101,15 @@ class ButtonsContainer extends StatelessWidget {
   }
 }
 
-//Authenticator Container
+///Authenticator Container
 class AuthenticatorContainer extends StatelessWidget {
+  ///Authenticator container constructor
   AuthenticatorContainer({required this.form, required this.title});
+
+  ///Authenticator's form
   final Widget form;
+
+  ///Authenticator's title
   final String title;
 
   @override
@@ -128,9 +146,9 @@ class AuthenticatorContainer extends StatelessWidget {
   }
 }
 
-//FormContainer
-
+///FormContainer
 class FormContainer extends StatelessWidget {
+  /// Form container constructor
   const FormContainer(
       {Key? key,
       required this.formKey,
@@ -138,8 +156,13 @@ class FormContainer extends StatelessWidget {
       required this.buttonsContainer})
       : super(key: key);
 
+  /// Authenticator's form fields
   final FormFields formFields;
+
+  /// Buttons container
   final ButtonsContainer buttonsContainer;
+
+  /// form key
   final formKey;
 
   @override

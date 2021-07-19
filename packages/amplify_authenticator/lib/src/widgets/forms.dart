@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/widgets/buttons.dart';
 import 'package:amplify_authenticator/src/widgets/containers.dart';
 
+///Form Fields
 class FormFields extends StatelessWidget {
+  ///Form Fields Constructor
   FormFields({required this.children});
+
+  /// A list of form fields
   final List<Widget> children;
 
   @override
@@ -15,9 +19,12 @@ class FormFields extends StatelessWidget {
   }
 }
 
+///Sign In Form
 class SignInForm extends StatelessWidget {
+  ///Sign In Form Constructor
   SignInForm({required this.formFields});
 
+  /// A list of form fields
   final FormFields formFields;
 
   @override
@@ -34,9 +41,12 @@ class SignInForm extends StatelessWidget {
   }
 }
 
+///Sign Up Form
 class SignUpForm extends StatelessWidget {
+  ///Sign Up Form Constructor
   SignUpForm({required this.formFields});
 
+  /// A list of form fields
   final FormFields formFields;
 
   @override
@@ -52,9 +62,12 @@ class SignUpForm extends StatelessWidget {
   }
 }
 
+///Confirm Sign Up Form
 class ConfirmSignUpForm extends StatelessWidget {
+  ///Confirm Sign Up Form Constructor
   ConfirmSignUpForm({required this.formFields});
 
+  /// A list of form fields
   final FormFields formFields;
 
   @override

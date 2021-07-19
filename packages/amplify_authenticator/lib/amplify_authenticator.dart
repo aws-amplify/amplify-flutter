@@ -50,8 +50,10 @@ export 'package:amplify_authenticator/src/widgets/form_fields.dart';
 export 'package:amplify_authenticator/src/widgets/buttons.dart'
     show SignOutButton;
 
+/// Authenticator
+// ignore: must_be_immutable
 class Authenticator extends StatefulWidget {
-  // ignore: public_member_api_docs
+  /// Constructor
   Authenticator(
       {required this.child, signInForm, signUpForm, confirmSignUpForm}) {
     this.signInForm = signInForm ?? DefaultForms.signInForm();
@@ -60,10 +62,16 @@ class Authenticator extends StatefulWidget {
         confirmSignUpForm ?? DefaultForms.confirmSignUpForm();
   }
 
+  ///Custom Form
   SignInForm? signInForm;
+
+  ///Custom Form
   SignUpForm? signUpForm;
+
+  ///Custom Form
   ConfirmSignUpForm? confirmSignUpForm;
 
+  /// Customer's App
   Widget child;
 
   @override

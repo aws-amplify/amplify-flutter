@@ -4,7 +4,7 @@ import 'package:amplify_authenticator/src/constants/authenticator_constants.dart
 import 'package:amplify_authenticator/src/constants/theme_constants.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
 
-//Sign Up
+///Sign Up Button
 class SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class SignUpButton extends StatelessWidget {
   }
 }
 
-//Sign In
+///Sign In Button
 class SignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,7 @@ class SignInButton extends StatelessWidget {
   }
 }
 
-//Confirm Sign Up
+///Confirm Sign Up Button
 class ConfirmButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -108,7 +108,7 @@ class ConfirmButton extends StatelessWidget {
   }
 }
 
-//Sign Out
+///Sign Out Button
 class SignOutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -142,7 +142,7 @@ class SignOutButton extends StatelessWidget {
   }
 }
 
-//Back to Sign In
+///Back to Sign In Button
 class BackToSignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -162,7 +162,7 @@ class BackToSignInButton extends StatelessWidget {
   }
 }
 
-//Go to Sign Up
+///Go to Sign Up Button
 class GoToSignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -187,7 +187,7 @@ class GoToSignUpButton extends StatelessWidget {
   }
 }
 
-//Go to Sign In
+///Go to Sign In Button
 class GoToSignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

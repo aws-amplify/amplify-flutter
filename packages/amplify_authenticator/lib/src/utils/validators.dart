@@ -1,6 +1,7 @@
 final _emailRegex = RegExp(r'^\S+@\S+$');
 final _codeRegex = RegExp(r'\d{6}');
 
+///username validator
 String? validateUsername(String? username) {
   print(username);
   if (username == null || username.isEmpty) {
@@ -9,6 +10,7 @@ String? validateUsername(String? username) {
   return null;
 }
 
+///password validator
 String? validatePassword(String? password) {
   if (password == null || password.isEmpty) {
     return 'Password cannot be empty';
@@ -16,6 +18,7 @@ String? validatePassword(String? password) {
   return null;
 }
 
+///email validator
 String? validateEmail(String? email) {
   if (email == null || email.isEmpty) {
     return 'Email cannot be empty';
@@ -26,6 +29,7 @@ String? validateEmail(String? email) {
   return null;
 }
 
+///code validator
 String? validateCode(String? code) {
   if (code == null || code.isEmpty) {
     return 'Please enter the verification code';

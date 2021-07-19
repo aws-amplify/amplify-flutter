@@ -1,8 +1,9 @@
 import 'package:amplify_authenticator/src/widgets/forms.dart';
 import 'package:amplify_authenticator/src/widgets/form_fields.dart';
 
-// ignore: public_member_api_docs
+/// Default forms when there are no forms being passed inside the authenticator wrapper
 class DefaultForms {
+  /// Default Sign In Form
   static SignInForm signInForm() {
     return SignInForm(
       formFields: FormFields(
@@ -20,6 +21,7 @@ class DefaultForms {
     );
   }
 
+  /// Default Sign un Form
   static SignUpForm signUpForm() {
     return SignUpForm(
       formFields: FormFields(
@@ -43,6 +45,7 @@ class DefaultForms {
     );
   }
 
+  /// Default Confirm Sign Up Form
   static ConfirmSignUpForm confirmSignUpForm() {
     return ConfirmSignUpForm(
       formFields: FormFields(

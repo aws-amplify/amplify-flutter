@@ -7,6 +7,7 @@ import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
+///State Machine Bloc
 class StateMachineBloc {
   final AuthService _authService;
 
@@ -16,6 +17,8 @@ class StateMachineBloc {
   //State Controller
 
   StreamSink<AuthState> get _controllerSink => _authStateController.sink;
+
+  ///State Streamer
   Stream<AuthState> get stream => _authStateController.stream;
 
   //Event Controller
@@ -23,16 +26,20 @@ class StateMachineBloc {
   StreamController<AuthEvent> _authEventController =
       StreamController<AuthEvent>.broadcast();
 
+  /// Event Sink
   StreamSink<AuthEvent> get authEvent => _authEventController.sink;
 
   Stream<AuthEvent> get _authEventStream => _authEventController.stream;
 
+  ///Constructor
   StateMachineBloc(this._authService) {
     _authEventStream.listen(_eventTransformer);
   }
 
   //Exception Controller
   final _exceptionController = StreamController<AuthException>.broadcast();
+
+  ///Exceptions
   Stream<AuthException> get exceptions => _exceptionController.stream;
 
   _eventTransformer(AuthEvent event) {
@@ -73,7 +80,7 @@ class StateMachineBloc {
 
   _signIn(data) async {
     try {
-      var resp = await _authService.signIn(data.username, data.password);
+      await _authService.signIn(data.username, data.password);
 
       _controllerSink.add(Authenticated());
     } catch (e) {
@@ -84,8 +91,7 @@ class StateMachineBloc {
 
   _signUp(data) async {
     try {
-      var resp = await _authService.signUp(
-          data.username, data.password, data.attributes);
+      await _authService.signUp(data.username, data.password, data.attributes);
 
       _controllerSink.add(AuthFlow(screen: AuthScreen.confirmSignUp));
     } catch (e) {
@@ -96,7 +102,7 @@ class StateMachineBloc {
 
   _confirmSignUp(data) async {
     try {
-      var resp = await _authService.confirmSignUp(data.username, data.code);
+      await _authService.confirmSignUp(data.username, data.code);
       _authEventController.add(GetCurrentUser());
     } catch (e) {
       print(e);
@@ -118,6 +124,7 @@ class StateMachineBloc {
     _controllerSink.add(AuthFlow(screen: screen));
   }
 
+  ///dispose
   void dispose() {
     _authStateController.close();
     _authEventController.close();
