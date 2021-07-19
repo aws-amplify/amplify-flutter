@@ -23,9 +23,6 @@ class CognitoSignUpOptions extends SignUpOptions {
   /// Currently supported on `Android` only.
   final Map<String, String>? validationData;
   
-
-
- 
   /// Additional custom attributes to be sent to the service such as information 
   /// about the client.
   ///
