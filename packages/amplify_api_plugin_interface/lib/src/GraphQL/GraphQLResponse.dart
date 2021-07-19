@@ -13,12 +13,11 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
 import '../types.dart';
 
 class GraphQLResponse<T> {
   T data;
-  List<GraphQLResponseError> errors = [];
+  List<GraphQLResponseError> errors;
 
-  GraphQLResponse({@required this.data, this.errors});
+  GraphQLResponse({required this.data, required this.errors});
 }

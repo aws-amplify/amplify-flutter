@@ -23,54 +23,89 @@ const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/datastore');
 
 /// An implementation of [AmplifyDataStore] that uses method channels.
 class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
-  var _allModelsStreamFromMethodChannel = null;
+  dynamic _allModelsStreamFromMethodChannel = null;
 
-  /// This method adds model schemas which is necessary to instantiate native plugins
-  /// This is needed before the Amplify.configure() can be called, since the native
-  /// plugins are needed to be added before that.
-  Future<void> configureModelProvider(
-      {ModelProviderInterface modelProvider}) async {
+  /// Internal use constructor
+  AmplifyDataStoreMethodChannel() : super.tokenOnly();
+
+  /// This method instantiates the native DataStore plugins with plugin
+  /// configurations. This needs to happen before Amplify.configure() can be
+  /// called.
+  @override
+  Future<void> configureDataStore({
+    ModelProviderInterface? modelProvider,
+    List<DataStoreSyncExpression>? syncExpressions,
+    int? syncInterval,
+    int? syncMaxRecords,
+    int? syncPageSize,
+  }) async {
+    _channel.setMethodCallHandler((MethodCall call) async {
+      switch (call.method) {
+        case 'resolveQueryPredicate':
+          String? id = call.arguments;
+          if (id == null) {
+            throw ArgumentError(
+                'resolveQueryPredicate must be called with an id');
+          }
+          return syncExpressions!
+              .firstWhere((syncExpression) => syncExpression.id == id)
+              .resolveQueryPredicate()
+              .serializeAsMap();
+        default:
+          throw UnimplementedError('${call.method} has not been implemented.');
+      }
+    });
     try {
       return await _channel
-          .invokeMethod('configureModelProvider', <String, dynamic>{
-        'modelSchemas':
-            modelProvider.modelSchemas.map((schema) => schema.toMap()).toList(),
-        'modelProviderVersion': modelProvider.version
+          .invokeMethod('configureDataStore', <String, dynamic>{
+        'modelSchemas': modelProvider?.modelSchemas
+            .map((schema) => schema.toMap())
+            .toList(),
+        'modelProviderVersion': modelProvider?.version,
+        'syncExpressions': syncExpressions!
+            .map((syncExpression) => syncExpression.toMap())
+            .toList(),
+        'syncInterval': syncInterval,
+        'syncMaxRecords': syncMaxRecords,
+        'syncPageSize': syncPageSize,
       });
     } on PlatformException catch (e) {
       if (e.code == "AmplifyAlreadyConfiguredException") {
         throw AmplifyAlreadyConfiguredException(
-          AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
-          recoverySuggestion: AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
+            AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+            recoverySuggestion:
+                AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
       } else {
         throw _deserializeException(e);
       }
     }
   }
 
-  /// This methods configure an event channel to carry datastore observe events. This
-  /// can only be done after Amplify.configure() is called and before any observe()
-  /// method is called.
-  Future<void> configure({String configuration}) async {
-    // First step to configure datastore is to setup an event channel for observe
-    return _channel.invokeMethod('setupObserve', {});
+  /// This method performs the steps necessary to configure this plugin.
+  /// Currently, it only sets up an event channel to carry datastore observe
+  /// and is invoked as the last step of Amplify.configure(). This must be
+  /// called before any observe() method is called.
+  @override
+  Future<void> configure({String? configuration}) async {
+    return _channel.invokeMethod('setUpObserve', {});
   }
 
   @override
   Future<List<T>> query<T extends Model>(ModelType<T> modelType,
-      {QueryPredicate where,
-      QueryPagination pagination,
-      List<QuerySortBy> sortBy}) async {
+      {QueryPredicate? where,
+      QueryPagination? pagination,
+      List<QuerySortBy>? sortBy}) async {
     try {
-      final List<Map<dynamic, dynamic>> serializedResults =
-          await _channel.invokeListMethod('query', <String, dynamic>{
+      final List<Map<dynamic, dynamic>>? serializedResults =
+          await (_channel.invokeListMethod('query', <String, dynamic>{
         'modelName': modelType.modelName(),
         'queryPredicate': where?.serializeAsMap(),
         'queryPagination': pagination?.serializeAsMap(),
-        'querySort':
-            sortBy?.map((element) => element?.serializeAsMap())?.toList()
-      });
-
+        'querySort': sortBy?.map((element) => element.serializeAsMap()).toList()
+      }));
+      if (serializedResults == null)
+        throw AmplifyException(
+            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       return serializedResults
           .map((serializedResult) => modelType.fromJson(
               new Map<String, dynamic>.from(

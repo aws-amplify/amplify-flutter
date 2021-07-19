@@ -27,7 +27,7 @@ import 'amplify_api.dart';
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/api');
 
 class AmplifyAPIMethodChannel extends AmplifyAPI {
-  var _allSubscriptionsStream = null;
+  dynamic _allSubscriptionsStream = null;
 
   @override
   Future<void> addPlugin() async {
@@ -37,17 +37,17 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
       if (e.code == "AmplifyAlreadyConfiguredException") {
         throw AmplifyAlreadyConfiguredException(
             AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
-            recoverySuggestion: AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
+            recoverySuggestion:
+                AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
       } else {
-        throw AmplifyException.fromMap(
-            Map<String, String>.from(e.details));
+        throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       }
     }
   }
 
   // ====== GraphQL ======
   @override
-  GraphQLOperation<T> query<T>({@required GraphQLRequest<T> request}) {
+  GraphQLOperation<T> query<T>({required GraphQLRequest<T> request}) {
     Future<GraphQLResponse<T>> response =
         _getMethodChannelResponse(methodName: 'query', request: request);
 
@@ -62,7 +62,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   }
 
   @override
-  GraphQLOperation<T> mutate<T>({@required GraphQLRequest<T> request}) {
+  GraphQLOperation<T> mutate<T>({required GraphQLRequest<T> request}) {
     Future<GraphQLResponse<T>> response =
         _getMethodChannelResponse(methodName: 'mutate', request: request);
 
@@ -78,11 +78,11 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
 
   @override
   GraphQLSubscriptionOperation<T> subscribe<T>(
-      {@required GraphQLRequest<T> request,
-      @required Function(GraphQLResponse<T>) onData,
-      Function() onEstablished,
-      Function(dynamic) onError,
-      Function() onDone}) {
+      {required GraphQLRequest<T> request,
+      required Function(GraphQLResponse<T>) onData,
+      Function()? onEstablished,
+      Function(dynamic)? onError,
+      Function()? onDone}) {
     const _eventChannel =
         EventChannel('com.amazonaws.amplify/api_observe_events');
     _allSubscriptionsStream =
@@ -107,7 +107,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
 
     StreamSubscription _subscription = filteredStream.listen((event) {
       if (event['type'] == 'DONE') {
-        onDone();
+        if (onDone != null) onDone();
       } else {
         final payload = new Map<String, dynamic>.from(event['payload']);
 
@@ -143,20 +143,22 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   }
 
   Future<GraphQLResponse<T>> _getMethodChannelResponse<T>({
-    @required methodName,
-    @required GraphQLRequest<T> request,
+    required methodName,
+    required GraphQLRequest<T> request,
   }) async {
     try {
-      final Map<String, dynamic> result =
-          await _channel.invokeMapMethod<String, dynamic>(
+      final Map<String, dynamic>? result =
+          (await (_channel.invokeMapMethod<String, dynamic>(
         methodName,
         request.serializeAsMap(),
-      );
-
+      )));
+      if (result == null)
+        throw AmplifyException(
+            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       final errors = _deserializeGraphQLResponseErrors(result);
 
       GraphQLResponse<T> response =
-          GraphQLResponse<T>(data: result['data'], errors: errors);
+          GraphQLResponse<T>(data: result['data'] ?? '', errors: errors);
 
       return response;
     } on PlatformException catch (e) {
@@ -165,9 +167,9 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   }
 
   Future<void> _setupSubscription({
-    @required String id,
-    @required GraphQLRequest request,
-    void Function() onEstablished,
+    required String id,
+    required GraphQLRequest request,
+    void Function()? onEstablished,
   }) async {
     try {
       await _channel.invokeMethod<String>(
@@ -186,7 +188,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   // ====== RestAPI ======
   @visibleForTesting
   RestOperation _restFunctionHelper(
-      {@required String methodName, @required RestOptions restOptions}) {
+      {required String methodName, required RestOptions restOptions}) {
     // Send Request cancelToken to Native
     String cancelToken = UUID.getUUID();
 
@@ -206,54 +208,62 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
 
     // Attempt switch to proper async
     try {
-      final Map<String, dynamic> data = await _channel
-          .invokeMapMethod<String, dynamic>(methodName, inputsMap);
+      final Map<String, dynamic>? data = (await (_channel
+          .invokeMapMethod<String, dynamic>(methodName, inputsMap)));
+      if (data == null)
+        throw AmplifyException(
+            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       return _formatRestResponse(data);
     } on PlatformException catch (e) {
       throw _deserializeException(e);
     }
   }
 
+  bool _shouldThrow(int statusCode) {
+    return statusCode < 200 || statusCode > 299;
+  }
+
   RestResponse _formatRestResponse(Map<String, dynamic> res) {
-    try {
-      return RestResponse(data: res["data"] as Uint8List);
+    final statusCode = res['statusCode'] as int;
+    final headers = res['headers'] as Map?;
+    final response = RestResponse(
+      data: res["data"] as Uint8List?,
+      headers: headers == null ? null : Map<String, String>.from(headers),
+      statusCode: statusCode,
+    );
+    if (_shouldThrow(statusCode)) {
+      throw RestException(response);
     }
-    // This shouldn't happen.  RestResponse should be properly formatted from native
-    on Exception catch (e) {
-      throw ApiException(AmplifyExceptionMessages.missingExceptionMessage,
-          recoverySuggestion:
-              AmplifyExceptionMessages.missingRecoverySuggestion,
-          underlyingException: e.toString());
-    }
+    return response;
   }
 
   @override
-  RestOperation get({@required RestOptions restOptions}) {
+  RestOperation get({required RestOptions restOptions}) {
     return _restFunctionHelper(methodName: "get", restOptions: restOptions);
   }
 
   @override
-  RestOperation put({@required RestOptions restOptions}) {
+  RestOperation put({required RestOptions restOptions}) {
     return _restFunctionHelper(methodName: "put", restOptions: restOptions);
   }
 
   @override
-  RestOperation post({@required RestOptions restOptions}) {
+  RestOperation post({required RestOptions restOptions}) {
     return _restFunctionHelper(methodName: "post", restOptions: restOptions);
   }
 
   @override
-  RestOperation delete({@required RestOptions restOptions}) {
+  RestOperation delete({required RestOptions restOptions}) {
     return _restFunctionHelper(methodName: "delete", restOptions: restOptions);
   }
 
   @override
-  RestOperation head({@required RestOptions restOptions}) {
+  RestOperation head({required RestOptions restOptions}) {
     return _restFunctionHelper(methodName: "head", restOptions: restOptions);
   }
 
   @override
-  RestOperation patch({@required RestOptions restOptions}) {
+  RestOperation patch({required RestOptions restOptions}) {
     return _restFunctionHelper(methodName: "patch", restOptions: restOptions);
   }
 

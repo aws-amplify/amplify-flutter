@@ -25,6 +25,7 @@ import AWSMobileClient
 var _data: NSMutableDictionary = [:]
 var _args: Dictionary<String, Any> = [:]
 var _attributes: Dictionary<String, String> = [:]
+var _attributeArray: Array<Dictionary<String, String>> = []
 var _attribute: Dictionary<String, Any> = [:]
 var _options: Dictionary<String, Any> = [:]
 let _username: String = "testuser"
@@ -233,6 +234,41 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
+    func test_signUpSuccessNoOptions() {
+        
+        class SignUpMock: AuthCognitoBridge {
+            override func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest){
+                let signUpRes = Result<AuthSignUpResult,AuthError>.success(
+                    AuthSignUpResult(AuthSignUpStep.confirmUser(AuthCodeDeliveryDetails(destination: DeliveryDestination.email(_email)), ["foo": "bar"])))
+                let signUpData = FlutterSignUpResult(res: signUpRes)
+                flutterResult(signUpData)
+            }
+        }
+        
+        plugin = SwiftAuthCognito.init(cognito: SignUpMock())
+
+        _attributes = ["email" : _email]
+        _data = [
+            "username": _username,
+            "password": _password,
+        ]
+        _args = ["data": _data]
+        let call = FlutterMethodCall(methodName: "signUp", arguments: _args)
+        plugin.handle(call, result: {(result)->Void in
+            if let res = result as? FlutterSignUpResult {
+                XCTAssertEqual( false, res.isSignUpComplete )
+                XCTAssertEqual( "CONFIRM_SIGN_UP_STEP", res.signUpStep)
+                let codeDeliveryJson = ((res.toJSON()["nextStep"] as! [String: Any])["codeDeliveryDetails"] as! [String: String])
+                let additionalInfoJson = ((res.toJSON()["nextStep"] as! [String: Any])["additionalInfo"] as! [String: String])
+                XCTAssertEqual(_email, codeDeliveryJson["destination"]!)
+                XCTAssertEqual("bar", additionalInfoJson["foo"]!)
+
+            } else {
+                XCTFail()
+            }
+        })
+    }
+    
     func test_signUpValidation() {
         let rawOptions: Dictionary<String, Any> = ["foo": "bar"]
         var rawData: NSMutableDictionary = ["options":rawOptions]
@@ -240,9 +276,9 @@ class amplify_auth_cognito_tests: XCTestCase {
         // Throws with no password
         XCTAssertThrowsError(try FlutterSignUpRequest.validate(dict: rawData))
 
-        // Throws with no options
+        // Does not thow an error with valid parameters
         rawData = ["password": _password]
-        XCTAssertThrowsError(try FlutterSignUpRequest.validate(dict: rawData))
+        XCTAssertNoThrow(try FlutterSignUpRequest.validate(dict: rawData))
     }
     
     func test_signUpFormatAttributes() {
@@ -250,7 +286,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         let rawOptions: Dictionary<String, Any> = ["userAttributes": rawAttributes]
         let rawData: NSMutableDictionary = ["options":rawOptions, "username": _username, "password": _password]
         let request = FlutterSignUpRequest(dict: rawData);
-        XCTAssertEqual(2, request.userAttributes.count)
+        XCTAssertEqual(2, request.options?.userAttributes?.count)
     }
     
     func test_signUpError() {
@@ -346,6 +382,30 @@ class amplify_auth_cognito_tests: XCTestCase {
                 XCTFail()
             }
         })
+    }
+
+    func test_confirmSignUpForwardOptions() {
+        let mockOptions: Dictionary<String, Any> = ["clientMetadata": ["key": "value"]]
+        func mockResult (args: Optional<Any>) {}
+
+        class ConfirmSignUpMock: AuthCognitoBridge {
+            override func onConfirmSignUp(flutterResult: @escaping FlutterResult, request: FlutterConfirmSignUpRequest){
+                let options = request.options?.pluginOptions as! AWSAuthConfirmSignUpOptions
+                XCTAssertEqual(options.metadata, ["key": "value"])
+                flutterResult(true)
+            }
+        }
+
+        plugin = SwiftAuthCognito.init(cognito: ConfirmSignUpMock())
+
+        _data = [
+            "username": _username,
+            "confirmationCode": _confirmationCode,
+            "options": mockOptions
+        ]
+        _args = ["data": _data]
+        let call = FlutterMethodCall(methodName: "confirmSignUp", arguments: _args)
+        plugin.handle(call, result: mockResult)
     }
     
     func test_confirmSignUpValidation() {
@@ -816,12 +876,17 @@ class amplify_auth_cognito_tests: XCTestCase {
     
     func test_confirmSignInValidationOptions() {
         let rawData: NSMutableDictionary = ["confirmationCode": _confirmationCode]
-        let rawOptions: Dictionary<String, Any> = ["clientMetadata" : ["foo": "bar"]]
+        let rawOptions: Dictionary<String, Any> = [
+            "clientMetadata" : ["foo": "bar"],
+            "userAttributes": ["email": "test@test.test"]
+        ]
         rawData["options"] = rawOptions
         XCTAssertNoThrow(try FlutterConfirmSignInRequest.validate(dict: rawData))
         let req = FlutterConfirmSignInRequest(dict: rawData)
         let options = (req.options?.pluginOptions as! AWSAuthConfirmSignInOptions)
         XCTAssertEqual(options.metadata, ["foo": "bar"])
+        XCTAssertEqual(options.userAttributes?[0].key, .email)
+        XCTAssertEqual(options.userAttributes?[0].value, "test@test.test")
     }
     
     func test_confirmSignInValidationNoOptions() {
@@ -1097,7 +1162,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         plugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterError {
                 let details = res.details as? Dictionary<String, String>
-                XCTAssertEqual( "AuthException", res.code )
+                XCTAssertEqual( "InvalidStateException", res.code )
                 XCTAssertEqual( nil, details?["underlyingException"])
                 XCTAssertEqual( MockErrorConstants.invalidStateError, details?["recoverySuggestion"])
                 XCTAssertEqual( "Invalid state", details?["message"])
@@ -1152,7 +1217,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         plugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterError {
                 let details = res.details as? Dictionary<String, String>
-                XCTAssertEqual( "AuthException", res.code )
+                XCTAssertEqual( "InvalidStateException", res.code )
                 XCTAssertEqual( nil, details?["underlyingException"])
                 XCTAssertEqual( MockErrorConstants.invalidStateError, details?["recoverySuggestion"])
                 XCTAssertEqual( "Invalid state", details?["message"])
@@ -1344,7 +1409,7 @@ class amplify_auth_cognito_tests: XCTestCase {
                 XCTAssertEqual(false, res.toJSON()["isSignedIn"] as? Bool)
                 XCTAssertEqual("testid", res.toJSON()["identityId"] as? String)
                 // userSub error will result in map with one 'error' key
-                XCTAssertEqual(1, (res.toJSON()["tokens"] as?  [String: String])!.count)
+                XCTAssertNil(res.toJSON()["tokens"] as?  [String: String])
                 // credentials map should have access key and secret key
                 XCTAssertEqual(2, (res.toJSON()["credentials"] as?  [String: String])!.count)
             } else {
@@ -1389,7 +1454,7 @@ class amplify_auth_cognito_tests: XCTestCase {
                 // all tokens should be present with userpool-only access
                 XCTAssertEqual(3, (res.toJSON()["tokens"] as?  [String: String])!.count)
                 // credentials map should be empty
-                XCTAssertEqual(0, (res.toJSON()["credentials"] as?  [String: String])!.count)
+                XCTAssertNil(res.toJSON()["credentials"] as?  [String: String])
             } else {
                 XCTFail()
             }
@@ -1469,8 +1534,11 @@ class amplify_auth_cognito_tests: XCTestCase {
         let call = FlutterMethodCall(methodName: "updateUserAttribute", arguments: _args)
         plugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterUpdateUserAttributeResult {
-                XCTAssertEqual( "DONE", res.updateAttributeStep)
-                XCTAssertEqual( true, res.isUpdated)
+                let isUpdated = res.toJSON()["isUpdated"] as! Bool
+                let nextStep = res.toJSON()["nextStep"] as! Dictionary<String, Any>
+                let updateAttributeStep = nextStep["updateAttributeStep"] as! String
+                XCTAssertEqual( true, isUpdated)
+                XCTAssertEqual( "DONE", updateAttributeStep)
             } else {
                 XCTFail()
             }
@@ -1500,8 +1568,12 @@ class amplify_auth_cognito_tests: XCTestCase {
         let call = FlutterMethodCall(methodName: "updateUserAttribute", arguments: _args)
         plugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterUpdateUserAttributeResult {
-                XCTAssertEqual( "DONE", res.updateAttributeStep)
-                XCTAssertEqual( true, res.isUpdated)
+                let isUpdated = res.toJSON()["isUpdated"] as! Bool
+                let nextStep = res.toJSON()["nextStep"] as! Dictionary<String, Any>
+                let updateAttributeStep = nextStep["updateAttributeStep"] as! String
+                XCTAssertEqual( true, isUpdated)
+                XCTAssertEqual( "DONE", updateAttributeStep)
+
             } else {
                 XCTFail()
             }
@@ -1568,6 +1640,154 @@ class amplify_auth_cognito_tests: XCTestCase {
         ]
         _args = ["data": _data]
         let call = FlutterMethodCall(methodName: "updateUserAttribute", arguments: _args)
+        plugin.handle(call, result: {(result)->Void in
+            if let res = result as? FlutterError {
+                let details = res.details as? Dictionary<String, String>
+                XCTAssertEqual( "InvalidParameterException", res.code )
+                XCTAssert( ((details?["underlyingException"])! as String).contains(MockErrorTemplate))
+                XCTAssertEqual( MockErrorConstants.invalidParameterError, details?["recoverySuggestion"])
+                XCTAssertEqual( "Invalid parameter", details?["message"])
+            } else {
+                XCTFail()
+            }
+        })
+    }
+    
+    func test_updateUserAttributes() {
+        
+        class UpdateUserAttributesMock: AuthCognitoBridge {
+            override func onUpdateUserAttributes(flutterResult: @escaping FlutterResult, request: FlutterUpdateUserAttributesRequest){
+                let updateUserAttributesSuccess = [
+                    AuthUserAttributeKey.email: AuthUpdateAttributeResult(isUpdated: true, nextStep: AuthUpdateAttributeStep.done),
+                    AuthUserAttributeKey.name: AuthUpdateAttributeResult(isUpdated: true, nextStep: AuthUpdateAttributeStep.done)
+                ]
+                let updateUserAttributesRes = Result<Dictionary<AuthUserAttributeKey, AuthUpdateAttributeResult>,AuthError>.success(updateUserAttributesSuccess)
+                let updateUserAttributesData = FlutterUpdateUserAttributesResult(res: updateUserAttributesRes)
+                flutterResult(updateUserAttributesData)
+            }
+        }
+        
+        plugin = SwiftAuthCognito.init(cognito: UpdateUserAttributesMock())
+        
+        _attributeArray = [
+            [
+                "userAttributeKey" : "email",
+                "value": _email
+            ],
+            [
+                "userAttributeKey" : "name",
+                "value": "testname"
+            ]
+        ]
+        _data = [
+            "attributes": _attributeArray,
+        ]
+        _args = ["data": _data]
+        let call = FlutterMethodCall(methodName: "updateUserAttributes", arguments: _args)
+        plugin.handle(call, result: {(result)->Void in
+            if let res = result as? FlutterUpdateUserAttributesResult {
+                let jsonRes = res.toJSON()
+                let emailRes = jsonRes["email"] as! Dictionary<String, Any>
+                let emailNextStep = emailRes["nextStep"] as! Dictionary<String, Any>
+                let nameRes = jsonRes["name"] as! Dictionary<String, Any>
+                let nameNextStep = emailRes["nextStep"] as! Dictionary<String, Any>
+                XCTAssertEqual( true, emailRes["isUpdated"] as! Bool)
+                XCTAssertEqual( "DONE", emailNextStep["updateAttributeStep"] as! String)
+                XCTAssertEqual( true, nameRes["isUpdated"] as! Bool)
+                XCTAssertEqual( "DONE", nameNextStep["updateAttributeStep"] as! String)
+            } else {
+                XCTFail()
+            }
+        })
+    }
+    
+    func test_updateUserAttributesValidation() {
+        var rawAttributes: Array<Dictionary<String, Any>>
+        var rawAttributeOne: Dictionary<String, Any>
+        var rawAttributeTwo: Dictionary<String, Any>
+        var rawData: NSMutableDictionary
+        
+        // Throws an error with no attributes
+        rawData = [:]
+        XCTAssertThrowsError(try FlutterUpdateUserAttributesRequest.validate(dict: rawData))
+        
+        // Throws an error with no attribute key
+        rawAttributeOne = [
+            "value": _email
+        ]
+        rawAttributeTwo = [
+            "userAttributeKey": "name",
+            "value": "testname"
+        ]
+        rawAttributes = [rawAttributeOne, rawAttributeTwo]
+        rawData = ["attributes": rawAttributes]
+        XCTAssertThrowsError(try FlutterUpdateUserAttributesRequest.validate(dict: rawData))
+        
+        // Throws an error with no attribute value
+        rawAttributeOne = [
+            "userAttributeKey": "email",
+        ]
+        rawAttributeTwo = [
+            "userAttributeKey": "name",
+            "value": "testname"
+        ]
+        rawAttributes = [rawAttributeOne, rawAttributeTwo]
+        rawData = ["attributes": rawAttributes]
+        XCTAssertThrowsError(try FlutterUpdateUserAttributesRequest.validate(dict: rawData))
+        
+        // Throws an error with non string value
+        rawAttributeOne = [
+            "userAttributeKey": "email",
+            "value": 1
+        ]
+        rawAttributeTwo = [
+            "userAttributeKey": "name",
+            "value": "testname"
+        ]
+        rawAttributes = [rawAttributeOne, rawAttributeTwo]
+        rawData = ["attributes": rawAttributes]
+        XCTAssertThrowsError(try FlutterUpdateUserAttributesRequest.validate(dict: rawData))
+        
+        // Does not throw an error with valid parameters
+        rawAttributeOne = [
+            "userAttributeKey": "email",
+            "value": _email
+        ]
+        rawAttributeTwo = [
+            "userAttributeKey": "name",
+            "value": "testname"
+        ]
+        rawAttributes = [rawAttributeOne, rawAttributeTwo]
+        rawData = ["attributes": rawAttributes]
+        XCTAssertNoThrow(try FlutterUpdateUserAttributesRequest.validate(dict: rawData))
+    }
+    
+    func test_updateUserAttributesError() {
+        
+        class UpdateUserAttributesMock: AuthCognitoBridge {
+            override func onUpdateUserAttributes(flutterResult: @escaping FlutterResult, request: FlutterUpdateUserAttributesRequest) {
+                let authError = AuthError.service("Invalid parameter", MockErrorConstants.invalidParameterError, AWSCognitoAuthError.invalidParameter)
+                errorHandler.handleAuthError(authError: authError, flutterResult: flutterResult)
+            }
+        }
+        
+        plugin = SwiftAuthCognito.init(cognito: UpdateUserAttributesMock())
+        
+        _attributeArray = [
+            [
+                "userAttributeKey" : "email",
+                "value": _email
+            ],
+            [
+                "userAttributeKey" : "name",
+                "value": "testname"
+            ]
+        ]
+        _data = [
+            "attributes": _attributeArray,
+        ]
+        _args = ["data": _data]
+        let call = FlutterMethodCall(methodName: "updateUserAttributes", arguments: _args)
         plugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterError {
                 let details = res.details as? Dictionary<String, String>

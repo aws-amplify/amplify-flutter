@@ -17,22 +17,38 @@ import 'package:amplify_core/types/exception/AmplifyException.dart';
 
 /// Exception thrown from Api Category
 class ApiException extends AmplifyException {
-  /// Named constructor
+  /// HTTP status of response, only available if error
+  @Deprecated(
+      'Use RestException instead to retrieve the HTTP response. Existing uses of '
+      'ApiException for handling REST errors can be safely replaced with RestException')
+  final int? httpStatusCode;
+
   const ApiException(String message,
-      {String recoverySuggestion, String underlyingException})
+      {String? recoverySuggestion,
+      String? underlyingException,
+      this.httpStatusCode})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
 
   /// Constructor for down casting an AmplifyException to this exception
-  ApiException._private(AmplifyException exception)
-      : super(exception.message,
+  ApiException._private(
+      AmplifyException exception, int? httpStatusCodeFromException)
+      : httpStatusCode = httpStatusCodeFromException,
+        super(exception.message,
             recoverySuggestion: exception.recoverySuggestion,
             underlyingException: exception.underlyingException);
 
   /// Instantiates and return a new `ApiException` from the
   /// serialized exception data
   static ApiException fromMap(Map<String, String> serializedException) {
-    return ApiException._private(AmplifyException.fromMap(serializedException));
+    var statusCode =
+        int.tryParse(serializedException["httpStatusCode"] ?? "") ?? null;
+    // Ensure a valid HTTP status code for an error.
+    if (statusCode != null && (statusCode < 300 || statusCode > 511)) {
+      statusCode = null;
+    }
+    return ApiException._private(
+        AmplifyException.fromMap(serializedException), statusCode);
   }
 }

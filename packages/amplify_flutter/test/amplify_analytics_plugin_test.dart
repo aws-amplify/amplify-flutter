@@ -51,7 +51,7 @@ void main() {
     });
     // We want to instantiate a new instance for each test so we start
     // with a fresh state as `Amplify` singleton holds a state.
-    amplify = new AmplifyClass();
+    amplify = new AmplifyClass.protected();
 
     // Clear out plugins before each test for a fresh state.
     AnalyticsCategory.plugins.clear();
@@ -62,8 +62,9 @@ void main() {
     analyticsChannel.setMockMethodCallHandler(null);
   });
 
-
-  test('Exception is not thrown if platform exception contains "AmplifyAlreadyConfiguredException" code', () async {
+  test(
+      'Exception is not thrown if platform exception contains "AmplifyAlreadyConfiguredException" code',
+      () async {
     platformError = true;
     try {
       await Amplify.addPlugin(AmplifyAnalyticsPinpoint());
@@ -72,7 +73,9 @@ void main() {
     }
   });
 
-  test('Plugin is added if platform exception contains "AmplifyAlreadyConfiguredException" code', () async {
+  test(
+      'Plugin is added if platform exception contains "AmplifyAlreadyConfiguredException" code',
+      () async {
     platformError = true;
     await Amplify.addPlugin(AmplifyAnalyticsPinpoint());
     expect(AnalyticsCategory.plugins.length, 1);
@@ -83,9 +86,11 @@ void main() {
       await Amplify.addPlugin(AmplifyAnalyticsPinpoint());
       await Amplify.addPlugin(AmplifyAnalyticsPinpoint());
       fail("exception not thrown");
+    } on AmplifyException catch (e) {
+      expect(e.message,
+          'Amplify plugin AmplifyAnalyticsPinpoint was not added successfully.');
     } catch (e) {
       expect(e, isA<AmplifyException>());
-      expect(e.message, 'Amplify plugin AmplifyAnalyticsPinpoint was not added successfully.');
     }
   });
 }

@@ -19,27 +19,27 @@ import Flutter
 
 public class ApiBridge {
         
-    func get(request: RESTRequest, listener: RESTOperation.ResultListener?) -> RESTOperation?{
+    func get(request: RESTRequest, listener: RESTOperation.ResultListener?) -> RESTOperation {
         return Amplify.API.get(request: request, listener: listener)
     }
     
-    func put(request: RESTRequest, listener: RESTOperation.ResultListener?) -> RESTOperation?{
+    func put(request: RESTRequest, listener: RESTOperation.ResultListener?) -> RESTOperation {
         return Amplify.API.put(request: request, listener: listener)
     }
 
-    func post(request: RESTRequest, listener: RESTOperation.ResultListener?) -> RESTOperation?{
+    func post(request: RESTRequest, listener: RESTOperation.ResultListener?) -> RESTOperation {
         return Amplify.API.post(request: request, listener: listener)
     }
     
-    func delete(request: RESTRequest, listener: RESTOperation.ResultListener?) -> RESTOperation?{
+    func delete(request: RESTRequest, listener: RESTOperation.ResultListener?) -> RESTOperation {
         return Amplify.API.delete(request: request, listener: listener)
     }
     
-    func head(request: RESTRequest, listener: RESTOperation.ResultListener?) -> RESTOperation?{
+    func head(request: RESTRequest, listener: RESTOperation.ResultListener?) -> RESTOperation {
         return Amplify.API.head(request: request, listener: listener)
     }
 
-    func patch(request: RESTRequest, listener: RESTOperation.ResultListener?) -> RESTOperation?{
+    func patch(request: RESTRequest, listener: RESTOperation.ResultListener?) -> RESTOperation {
         return Amplify.API.patch(request: request, listener: listener)
     }
 

@@ -17,7 +17,7 @@ import 'package:flutter/foundation.dart';
 import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 
 class S3DownloadFileOptions extends DownloadFileOptions {
-  String targetIdentityId;
+  String? targetIdentityId;
   S3DownloadFileOptions(
       {StorageAccessLevel accessLevel = StorageAccessLevel.guest,
       this.targetIdentityId})
@@ -25,11 +25,11 @@ class S3DownloadFileOptions extends DownloadFileOptions {
 
   @override
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> optionsMap = <String, dynamic>{};
-    optionsMap["accessLevel"] = describeEnum(accessLevel);
-    if (targetIdentityId != null) {
-      optionsMap["targetIdentityId"] = targetIdentityId;
-    }
+    final Map<String, dynamic> optionsMap = {
+      'accessLevel': describeEnum(accessLevel),
+      'targetIdentityId': targetIdentityId
+    };
+    optionsMap.removeWhere((_, v) => v == null);
     return optionsMap;
   }
 }

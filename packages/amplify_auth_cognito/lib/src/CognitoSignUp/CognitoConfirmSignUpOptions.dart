@@ -14,13 +14,16 @@
  */
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
+
 class CognitoConfirmSignUpOptions extends ConfirmSignUpOptions {
-  Map<String, String> validationData;
-  CognitoConfirmSignUpOptions({this.validationData}) : super();
+  Map<String, String>? clientMetadata;
+
+  CognitoConfirmSignUpOptions({this.clientMetadata}) : super();
+
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    if (this.validationData != null) {
-      pendingRequest["validationData"] = validationData;
+    if (this.clientMetadata != null) {
+      pendingRequest["clientMetadata"] = clientMetadata;
     }
     return pendingRequest;
   }

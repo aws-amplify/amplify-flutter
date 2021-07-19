@@ -19,7 +19,7 @@ import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart
 class SignedOutException extends AuthException {
   /// Named constructor
   SignedOutException(String message,
-      {String recoverySuggestion, String underlyingException})
+      {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
@@ -32,8 +32,7 @@ class SignedOutException extends AuthException {
 
   /// Instantiates and return a new `AuthException` from the
   /// serialized exception data
-  static SignedOutException fromMap(
-      Map<String, String> serializedException) {
+  static SignedOutException fromMap(Map<String, String> serializedException) {
     return SignedOutException._private(
         AuthException.fromMap(serializedException));
   }

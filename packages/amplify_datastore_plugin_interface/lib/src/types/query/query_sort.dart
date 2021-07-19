@@ -30,7 +30,7 @@ class QuerySortBy {
   final QuerySortOrder order;
   final String field;
 
-  const QuerySortBy({this.order, this.field});
+  const QuerySortBy({required this.order, required this.field});
 
   Map<String, dynamic> serializeAsMap() {
     return <String, dynamic>{'field': field, 'order': order.toShortString()};

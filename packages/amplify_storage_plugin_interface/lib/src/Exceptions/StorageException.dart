@@ -19,7 +19,7 @@ import 'package:amplify_core/types/exception/AmplifyException.dart';
 class StorageException extends AmplifyException {
   /// Named constructor
   const StorageException(String message,
-      {String recoverySuggestion, String underlyingException})
+      {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
@@ -33,6 +33,7 @@ class StorageException extends AmplifyException {
   /// Instantiates and returns a new `StorageException` from the
   /// serialized exception data
   static StorageException fromMap(Map<String, String> serializedException) {
-    return StorageException._private(AmplifyException.fromMap(serializedException));
+    return StorageException._private(
+        AmplifyException.fromMap(serializedException));
   }
 }

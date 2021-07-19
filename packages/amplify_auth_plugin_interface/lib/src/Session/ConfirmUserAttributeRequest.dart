@@ -26,8 +26,8 @@ class ConfirmUserAttributeRequest {
   String confirmationCode;
 
   ConfirmUserAttributeRequest({
-    @required this.userAttributeKey,
-    @required this.confirmationCode,
+    required this.userAttributeKey,
+    required this.confirmationCode,
   });
 
   Map<String, dynamic> serializeAsMap() {

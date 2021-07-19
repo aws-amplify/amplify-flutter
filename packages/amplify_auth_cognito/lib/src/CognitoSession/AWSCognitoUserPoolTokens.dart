@@ -22,11 +22,9 @@ class AWSCognitoUserPoolTokens {
   String accessToken;
   String idToken;
   String refreshToken;
-  AWSCognitoUserPoolTokens.init({@required LinkedHashMap<dynamic, dynamic> tokens}) {
-    if (tokens != null) {
-      this.accessToken = tokens["accessToken"];
-      this.idToken = tokens["idToken"];
-      this.refreshToken = tokens["refreshToken"];
-    }
-  }
+  AWSCognitoUserPoolTokens.init(
+      {required LinkedHashMap<dynamic, dynamic> tokens})
+      : this.accessToken = tokens["accessToken"],
+        this.idToken = tokens["idToken"],
+        this.refreshToken = tokens["refreshToken"];
 }

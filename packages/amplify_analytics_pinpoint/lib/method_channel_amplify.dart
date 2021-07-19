@@ -32,17 +32,17 @@ class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpoint {
     } on PlatformException catch (e) {
       if (e.code == 'AmplifyAlreadyConfiguredException') {
         throw AmplifyAlreadyConfiguredException(
-          AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
-          recoverySuggestion: AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
+            AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+            recoverySuggestion:
+                AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
       } else {
-        throw AmplifyException.fromMap(
-            Map<String, String>.from(e.details));
+        throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       }
     }
   }
 
   @override
-  Future<void> recordEvent({AnalyticsEvent event}) async {
+  Future<void> recordEvent({required AnalyticsEvent event}) async {
     var name = event.name;
     var eventProperties = event.properties;
 
@@ -63,7 +63,7 @@ class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpoint {
 
   @override
   Future<void> registerGlobalProperties(
-      {AnalyticsProperties globalProperties}) async {
+      {required AnalyticsProperties globalProperties}) async {
     await _channel.invokeMethod<bool>(
       'registerGlobalProperties',
       <String, Object>{
@@ -74,7 +74,8 @@ class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpoint {
   }
 
   @override
-  Future<void> unregisterGlobalProperties({List<String> propertyNames}) async {
+  Future<void> unregisterGlobalProperties(
+      {List<String>? propertyNames = const []}) async {
     await _channel.invokeMethod<bool>(
         'unregisterGlobalProperties', propertyNames);
   }
@@ -95,7 +96,8 @@ class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpoint {
 
   @override
   Future<void> identifyUser(
-      {String userId, AnalyticsUserProfile userProfile}) async {
+      {required String userId,
+      required AnalyticsUserProfile userProfile}) async {
     await _channel.invokeMethod<bool>(
       'identifyUser',
       <String, Object>{

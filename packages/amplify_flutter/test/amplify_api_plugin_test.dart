@@ -24,8 +24,7 @@ import 'package:amplify_flutter/amplify.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('com.amazonaws.amplify/amplify');
-  const MethodChannel apiChannel =
-      MethodChannel('com.amazonaws.amplify/api');
+  const MethodChannel apiChannel = MethodChannel('com.amazonaws.amplify/api');
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -51,7 +50,7 @@ void main() {
     });
     // We want to instantiate a new instance for each test so we start
     // with a fresh state as `Amplify` singleton holds a state.
-    amplify = new AmplifyClass();
+    amplify = new AmplifyClass.protected();
 
     // Clear out plugins before each test for a fresh state.
     APICategory.plugins.clear();
@@ -62,8 +61,9 @@ void main() {
     apiChannel.setMockMethodCallHandler(null);
   });
 
-
-  test('Exception is not thrown if platform exception contains "AmplifyAlreadyConfiguredException" code', () async {
+  test(
+      'Exception is not thrown if platform exception contains "AmplifyAlreadyConfiguredException" code',
+      () async {
     platformError = true;
     try {
       await Amplify.addPlugin(AmplifyAPI());
@@ -72,7 +72,9 @@ void main() {
     }
   });
 
-  test('Plugin is added if platform exception contains "AmplifyAlreadyConfiguredException" code', () async {
+  test(
+      'Plugin is added if platform exception contains "AmplifyAlreadyConfiguredException" code',
+      () async {
     platformError = true;
     await Amplify.addPlugin(AmplifyAPI());
     expect(APICategory.plugins.length, 1);
@@ -83,9 +85,11 @@ void main() {
       await Amplify.addPlugin(AmplifyAPI());
       await Amplify.addPlugin(AmplifyAPI());
       fail("exception not thrown");
+    } on AmplifyException catch (e) {
+      expect(
+          e.message, 'Amplify plugin AmplifyAPI was not added successfully.');
     } catch (e) {
       expect(e, isA<AmplifyException>());
-      expect(e.message, 'Amplify plugin AmplifyAPI was not added successfully.');
     }
   });
 }

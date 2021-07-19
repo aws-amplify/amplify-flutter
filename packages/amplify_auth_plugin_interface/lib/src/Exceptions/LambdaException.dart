@@ -19,7 +19,7 @@ import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart
 class LambdaException extends AuthException {
   /// Named constructor
   LambdaException(String message,
-      {String recoverySuggestion, String underlyingException})
+      {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);
@@ -32,9 +32,7 @@ class LambdaException extends AuthException {
 
   /// Instantiates and return a new `AuthException` from the
   /// serialized exception data
-  static LambdaException fromMap(
-      Map<String, String> serializedException) {
-    return LambdaException._private(
-        AuthException.fromMap(serializedException));
+  static LambdaException fromMap(Map<String, String> serializedException) {
+    return LambdaException._private(AuthException.fromMap(serializedException));
   }
 }

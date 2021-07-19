@@ -15,12 +15,12 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when Amplify could not perform the action because 
+/// Thrown when Amplify could not perform the action because
 /// error occured when delivering the confirmation code.
 class CodeDeliveryFailureException extends AuthException {
   /// Named constructor
   CodeDeliveryFailureException(String message,
-      {String recoverySuggestion, String underlyingException})
+      {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);

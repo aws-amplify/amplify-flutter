@@ -13,20 +13,14 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
-
 import '../UUID.dart';
 
 class GraphQLRequest<T> {
   String document;
-  Map<String, dynamic> variables = {};
+  Map<String, dynamic> variables;
   String cancelToken = UUID.getUUID();
 
-  GraphQLRequest({@required this.document, Map<String, dynamic> variables}) {
-    if (variables != null) {
-      this.variables = variables;
-    }
-  }
+  GraphQLRequest({required this.document, this.variables = const {}});
 
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> result = <String, dynamic>{};

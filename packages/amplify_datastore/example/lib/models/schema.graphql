@@ -1,0 +1,108 @@
+"""
+Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License").
+You may not use this file except in compliance with the License.
+A copy of the License is located at
+
+ http://aws.amazon.com/apache2.0
+
+or in the "license" file accompanying this file. This file is distributed
+on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+express or implied. See the License for the specific language governing
+permissions and limitations under the License.
+"""
+
+type Blog @model {
+  id: ID!
+  name: String!
+  posts: [Post] @connection(keyName: "byBlog", fields: ["id"]) 
+}
+
+type Post @model @key(name: "byBlog", fields: ["blogID"]) { 
+  id: ID!
+  title: String!
+  rating: Int!
+  created: AWSDateTime!
+  blogID: ID!
+  blog: Blog @connection(fields: ["blogID"])
+  comments: [Comment] @connection(keyName: "byPost", fields: ["id"])
+}
+
+type Comment @model @key(name: "byPost", fields: ["postID", "content"]) { 
+  id: ID!
+  postID: ID!
+  post: Post @connection(fields: ["postID"]) 
+  content: String!
+}
+
+type PostAuthComplex
+  @model
+  @auth(
+    rules: [
+      { allow: owner, ownerField: "owner", operations: [create, update, delete, read] },
+    ])
+{
+  id: ID!
+  title: String!
+  owner: String
+}
+
+type HasManyModel @model{
+  id: ID!
+  title: String!
+  children: [HasManyBelongsToModel]! @connection(keyName: "byHasMany", fields: ["id"])
+}
+
+type HasManyBelongsToModel @model @key(name: "byHasMany", fields: ["hasManyID"]) {
+  id: ID!
+  title: String!
+  parent: HasManyModel @connection(fields: ["hasManyID"])
+
+  hasManyID: ID! 
+}
+
+type HasOneModel @model{
+  id: ID!
+  title: String!
+  child: BelongsToModel @connection
+}
+
+type BelongsToModel @model{
+  id: ID!
+  title: String! 
+}
+
+enum TestEnum { 
+  yes,
+  no,
+  maybe
+}
+
+type AllTypeModel @model { 
+  id: ID!
+  stringType: String!
+  intType: Int!
+  doubleType: Float!
+  boolType: Boolean!
+  dateType: AWSDate!
+  dateTimeType: AWSDateTime!
+  timeType: AWSTime!
+  timestampType: AWSTimestamp!
+  enumType: TestEnum! 
+  enumList: [TestEnum]!
+}
+
+type AllTypeOptionalModel @model { 
+  id: ID!
+  stringType: String
+  intType: Int
+  doubleType: Float
+  boolType: Boolean
+  dateType: AWSDate
+  dateTimeType: AWSDateTime
+  timeType: AWSTime
+  timestampType: AWSTimestamp
+  enumType: TestEnum 
+  enumList: [TestEnum]
+}

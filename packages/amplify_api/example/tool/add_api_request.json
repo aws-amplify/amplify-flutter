@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "serviceName": "AppSync",
+    "apiName": "apiIntegrationTestGraphQL",
+    "transformSchema": "type Blog @model { id: ID!\n name: String!\n createdAt: AWSDate }",
+    "defaultAuthType":  {
+      "mode": "API_KEY",
+      "expirationTime": 365
+    }
+  }
+}

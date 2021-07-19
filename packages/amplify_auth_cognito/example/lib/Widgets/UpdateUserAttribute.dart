@@ -6,7 +6,7 @@ import 'ConfirmUserAttribute.dart';
 
 // ignore_for_file: public_member_api_docs
 class UpdateUserAttributeWidget extends StatefulWidget {
-  final String userAttributeKey;
+  final String? userAttributeKey;
   UpdateUserAttributeWidget({this.userAttributeKey});
 
   @override
@@ -16,7 +16,7 @@ class UpdateUserAttributeWidget extends StatefulWidget {
 
 class _UpdateUserAttributeWidgetState extends State<UpdateUserAttributeWidget> {
   bool isNewAttribute = false;
-  TextEditingController _keyController;
+  late TextEditingController _keyController;
   final _valueController = TextEditingController();
 
   void _showSuccess(String message) {
@@ -37,12 +37,12 @@ class _UpdateUserAttributeWidgetState extends State<UpdateUserAttributeWidget> {
   void _updateAttribute() async {
     try {
       var res = await Amplify.Auth.updateUserAttribute(
-        userAttributeKey: _keyController.text.replaceAll('custom:', ''),
+        userAttributeKey: _keyController.text,
         value: _valueController.text,
       );
       if (res.nextStep.updateAttributeStep == 'CONFIRM_ATTRIBUTE_WITH_CODE') {
         _showInfo(
-            'Confirmation Code Sent via ${res.nextStep.codeDeliveryDetails.deliveryMedium}');
+            'Confirmation Code Sent via ${res.nextStep.codeDeliveryDetails?.deliveryMedium}');
       } else {
         _showSuccess('Attribute Updated Successfully');
       }

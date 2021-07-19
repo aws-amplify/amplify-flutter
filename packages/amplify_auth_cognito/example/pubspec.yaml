@@ -2,11 +2,12 @@ name: amplify_auth_cognito_example
 description: Demonstrates how to use the amplify_auth_cognito plugin.
 
 # The following line prevents the package from being accidentally published to
-# pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=1.17.0 <2.0.0"
 
 dependencies:
   flutter:
@@ -28,12 +29,19 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   test: any
+  flutter_driver:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
+# Needed to avoid conflict for integration tests until flutter driver has null safe version of crypto https://github.com/flutter/flutter/issues/77282
+dependency_overrides:
+  crypto: ^3.0.0
+
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

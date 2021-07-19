@@ -23,7 +23,7 @@ void main() {
       MethodChannel('com.amazonaws.amplify/storage_s3');
 
   AmplifyStorageS3 storage = AmplifyStorageS3();
-  
+
   TestWidgetsFlutterBinding.ensureInitialized();
 
   tearDown(() {
@@ -52,7 +52,8 @@ void main() {
       'message': 'Could not upload file.',
       'recoverySuggestion': 'Check permissions.',
     });
-    PlatformException exception = PlatformException(code: 'StorageException', details: details);
+    PlatformException exception =
+        PlatformException(code: 'StorageException', details: details);
     storageChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       return throw exception;
     });

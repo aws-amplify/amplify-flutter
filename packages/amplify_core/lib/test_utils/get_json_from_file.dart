@@ -14,8 +14,8 @@
  */
 
 import 'dart:convert';
-import 'dart:io';  
-  
+import 'dart:io';
+
 dynamic getJsonFromFile(String path) async {
   path = 'resources/' + path;
   String jsonString = '';
