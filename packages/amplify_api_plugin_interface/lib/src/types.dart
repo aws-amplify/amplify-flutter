@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 
+export 'GraphQL/GraphQLHelpers.dart';
 export 'GraphQL/GraphQLRequest.dart';
 export 'GraphQL/GraphQLOperation.dart';
 export 'GraphQL/GraphQLResponse.dart';
@@ -22,6 +23,18 @@ export 'GraphQL/GraphQLSubscriptionOperation.dart';
 export 'RestAPI/RestOperation.dart';
 export 'RestAPI/RestOptions.dart';
 export 'RestAPI/RestResponse.dart';
+
+export 'types/models/model.dart';
+export 'types/models/model_association.dart';
+export 'types/models/model_field.dart';
+export 'types/models/model_field_definition.dart';
+export 'types/models/model_field_type.dart';
+export 'types/models/model_provider.dart';
+export 'types/models/model_schema.dart';
+export 'types/models/model_schema_definition.dart';
+export 'types/models/subscription_event.dart';
+export 'types/query/query_field.dart';
+
 
 export 'UUID.dart';
 
