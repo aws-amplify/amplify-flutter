@@ -34,7 +34,6 @@ export 'src/types/models/model_field_type.dart';
 export 'src/types/models/model_provider.dart';
 export 'src/types/models/model_schema.dart';
 export 'src/types/models/model_schema_definition.dart';
-export 'src/types/models/subscription_event.dart';
 export 'src/types/models/uuid.dart';
 export 'src/types/query/query_field.dart';
 export 'src/types/temporal/datetime_parse.dart';
