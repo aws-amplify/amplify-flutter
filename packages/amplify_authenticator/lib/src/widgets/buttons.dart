@@ -23,6 +23,7 @@ class SignUpButton extends StatelessWidget {
           }
 
           return ElevatedButton(
+            key: Key("signUpButton"),
             onPressed: _callback,
             child: _child,
             style: ButtonStyle(
@@ -58,6 +59,7 @@ class SignInButton extends StatelessWidget {
           }
 
           return ElevatedButton(
+            key: Key("signInButton"),
             onPressed: _callback,
             child: _child,
             style: ButtonStyle(
@@ -93,6 +95,7 @@ class ConfirmButton extends StatelessWidget {
           }
 
           return ElevatedButton(
+            key: Key("confirmSignUpButton"),
             onPressed: _callback,
             child: _child,
             style: ButtonStyle(
@@ -127,6 +130,7 @@ class SignOutButton extends StatelessWidget {
           }
 
           return ElevatedButton(
+            key: Key("signOutButton"),
             onPressed: _callback,
             child: _child,
             style: ButtonStyle(
@@ -149,6 +153,7 @@ class BackToSignInButton extends StatelessWidget {
     final _authModelView =
         InheritedAuthViewModel.of(context)!.confirmSignUpViewModel;
     return TextButton(
+      key: Key("backToSignInButton"),
       child: Text(
         "Back to Sign In",
         style: TextStyle(
@@ -174,6 +179,7 @@ class GoToSignUpButton extends StatelessWidget {
               fontSize: AuthenticatorButtonConstants.fontSize,
             )),
         TextButton(
+          key: Key("goToSignUpButton"),
           onPressed: _authModelView.goToSignUp,
           child: Text("Create account",
               style: TextStyle(
@@ -199,6 +205,7 @@ class GoToSignInButton extends StatelessWidget {
               fontSize: AuthenticatorButtonConstants.fontSize,
             )),
         TextButton(
+          key: Key("goToSignInButton"),
           child: Text(
             "Sign In",
             style: TextStyle(

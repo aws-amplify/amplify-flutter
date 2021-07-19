@@ -18,7 +18,7 @@ class StateMachineBloc {
 
   StreamSink<AuthState> get _controllerSink => _authStateController.sink;
 
-  ///State Streamer
+  ///State Stream
   Stream<AuthState> get stream => _authStateController.stream;
 
   //Event Controller

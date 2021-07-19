@@ -45,6 +45,7 @@ class FormFieldContainer extends StatelessWidget {
           Text(title!),
           const Padding(padding: FormFieldConstants.gap),
           TextFormField(
+            key: key,
             validator: validator,
             onChanged: callback,
             decoration: InputDecoration(
