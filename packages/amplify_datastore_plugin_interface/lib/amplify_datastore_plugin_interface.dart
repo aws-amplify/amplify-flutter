@@ -26,6 +26,19 @@ import 'src/types/models/subscription_event.dart';
 import 'src/types/sync/DataStoreSyncExpression.dart';
 import 'src/types/query/query_field.dart';
 
+export 'src/types/models/auth_rule.dart';
+export 'src/types/models/model.dart';
+export 'src/types/models/model_field.dart';
+export 'src/types/models/model_field_definition.dart';
+export 'src/types/models/model_field_type.dart';
+export 'src/types/models/model_provider.dart';
+export 'src/types/models/model_schema.dart';
+export 'src/types/models/model_schema_definition.dart';
+export 'src/types/models/uuid.dart';
+export 'src/types/query/query_field.dart';
+export 'src/types/temporal/datetime_parse.dart';
+export 'src/types/utils/parsers.dart';
+
 export 'src/publicTypes.dart';
 
 abstract class DataStorePluginInterface extends AmplifyPluginInterface {
