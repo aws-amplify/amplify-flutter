@@ -14,8 +14,8 @@
  */
 
 export 'GraphQL/GraphQLHelpers.dart';
-export 'GraphQL/GraphQLRequest.dart';
 export 'GraphQL/GraphQLOperation.dart';
+export 'GraphQL/GraphQLRequest.dart';
 export 'GraphQL/GraphQLResponse.dart';
 export 'GraphQL/GraphQLResponseError.dart';
 export 'GraphQL/GraphQLSubscriptionOperation.dart';
@@ -33,8 +33,11 @@ export 'types/models/model_provider.dart';
 export 'types/models/model_schema.dart';
 export 'types/models/model_schema_definition.dart';
 export 'types/models/subscription_event.dart';
+
 export 'types/query/query_field.dart';
 
+export 'types/pagination/model_pagination.dart';
+export 'types/pagination/paginated_result.dart';
 
 export 'UUID.dart';
 
