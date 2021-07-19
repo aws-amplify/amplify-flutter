@@ -23,7 +23,11 @@ import 'src/types.dart';
 export 'src/types.dart';
 
 abstract class APIPluginInterface extends AmplifyPluginInterface {
-  APIPluginInterface({required Object token}) : super(token: token);
+  /// modelProvider
+  ModelProviderInterface? modelProvider;
+
+  APIPluginInterface({required Object token, this.modelProvider})
+    : super(token: token);
 
   Future<void> addPlugin() async {
     throw UnimplementedError('addPlugin() has not been implemented.');

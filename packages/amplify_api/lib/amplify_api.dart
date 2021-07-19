@@ -22,10 +22,12 @@ export 'package:amplify_api_plugin_interface/src/types.dart';
 
 class AmplifyAPI extends APIPluginInterface {
   static final Object _token = Object();
+  static final ModelProviderInterface _modelProvider = Object() as ModelProviderInterface;
 
-  AmplifyAPI() : super(token: _token);
+  AmplifyAPI(ModelProviderInterface? modelProvider) : super(token: _token, modelProvider: modelProvider);
 
-  static AmplifyAPI _instance = AmplifyAPIMethodChannel();
+
+  static AmplifyAPI _instance = AmplifyAPIMethodChannel(modelProvider: _modelProvider);
 
   /// The default instance of [AmplifyAPIPlugin] to use.
   static AmplifyAPI get instance => _instance;
