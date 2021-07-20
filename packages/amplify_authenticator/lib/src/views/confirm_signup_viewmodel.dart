@@ -15,9 +15,9 @@ class ConfirmSignUpViewModel extends BaseViewModel {
   ///form key
   GlobalKey<FormState> get formKey => _formKey;
 
-  String _username = "";
+  String? _username;
 
-  String _code = "";
+  String? _code;
 
   ///username setter
   void setUsername(value) {
@@ -36,7 +36,7 @@ class ConfirmSignUpViewModel extends BaseViewModel {
     }
     setBusy(true);
     final confirmation =
-        AuthConfirmSignUpData(code: _code.trim(), username: _username.trim());
+        AuthConfirmSignUpData(code: _code!.trim(), username: _username!.trim());
 
     _authBloc.authEvent.add(AuthConfirmSignUp(confirmation));
 
@@ -56,7 +56,7 @@ class ConfirmSignUpViewModel extends BaseViewModel {
 
   ///clean method
   void clean() {
-    _username = "";
-    _code = "";
+    _username = null;
+    _code = null;
   }
 }

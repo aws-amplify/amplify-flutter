@@ -61,6 +61,11 @@ class CustomersApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SignOutButton();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Main App"),
+      ),
+      body: SignOutButton(),
+    );
   }
 }

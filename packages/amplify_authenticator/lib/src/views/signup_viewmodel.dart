@@ -15,32 +15,33 @@ class SignUpViewModel extends BaseViewModel {
   /// form key getter
   GlobalKey<FormState> get formKey => _formKey;
 
-  String _username = "";
-  String _password = "";
-  String _address = "";
-  String _birthdate = "";
-  String _email = "";
-  String _familyName = "";
-  String _gender = "";
-  String _givenName = "";
-  String _locale = "";
-  String _middleName = "";
-  String _name = "";
-  String _nickname = "";
-  String _phoneNumber = "";
-  String _picture = "";
-  String _preferredUsername = "";
-  String _profile = "";
-  String _zoneInfo = "";
-  String _updatedAt = "";
-  String _website = "";
-  String _custom = "";
+  String? _username;
+  String? _password;
+  String? _address;
+  String? _birthdate;
+  String? _email;
+  String? _familyName;
+  String? _gender;
+  String? _givenName;
+  String? _locale;
+  String? _middleName;
+  String? _name;
+  String? _nickname;
+  String? _phoneNumber;
+  String? _picture;
+  String? _preferredUsername;
+  String? _profile;
+  String? _zoneInfo;
+  String? _updatedAt;
+  String? _website;
+  String? _custom;
 
   /// attributes
   Map<String, String> authAttributes = {};
 
   ///username setter
   void setUsername(value) {
+    print(value);
     _username = value;
   }
 
@@ -53,109 +54,109 @@ class SignUpViewModel extends BaseViewModel {
   void setAddress(value, type) {
     _address = value;
 
-    authAttributes[type] = _address.trim();
+    authAttributes[type] = _address!.trim();
   }
 
   /// birthdate setter
   void setBirthdate(value, type) {
     _birthdate = value;
-    authAttributes[type] = _birthdate.trim();
+    authAttributes[type] = _birthdate!.trim();
   }
 
   ///email setter
   void setEmail(value, type) {
     _email = value;
-    authAttributes[type] = _email.trim();
+    authAttributes[type] = _email!.trim();
   }
 
   ///family name setter
   void setFamilyName(value, type) {
     _familyName = value;
-    authAttributes[type] = _familyName.trim();
+    authAttributes[type] = _familyName!.trim();
   }
 
   ///gender setter
   void setGender(value, type) {
     _gender = value;
-    authAttributes[type] = _gender.trim();
+    authAttributes[type] = _gender!.trim();
   }
 
   ///given name setter
   void setGivenName(value, type) {
     _givenName = value;
-    authAttributes[type] = _givenName.trim();
+    authAttributes[type] = _givenName!.trim();
   }
 
   ///locale setter
   void setLocale(value, type) {
     _locale = value;
-    authAttributes[type] = _locale.trim();
+    authAttributes[type] = _locale!.trim();
   }
 
   ///middle name setter
   void setMiddleName(value, type) {
     _middleName = value;
-    authAttributes[type] = _middleName.trim();
+    authAttributes[type] = _middleName!.trim();
   }
 
   ///name setter
   void setName(value, type) {
     _name = value;
-    authAttributes[type] = _name.trim();
+    authAttributes[type] = _name!.trim();
   }
 
   ///nickname setter
   void setNickname(value, type) {
     _nickname = value;
-    authAttributes[type] = _nickname.trim();
+    authAttributes[type] = _nickname!.trim();
   }
 
   ///phone number setter
   void setPhoneNumber(value, type) {
     _phoneNumber = value;
-    authAttributes[type] = _phoneNumber.trim();
+    authAttributes[type] = _phoneNumber!.trim();
   }
 
   /// picture setter
   void setPicture(value, type) {
     _picture = value;
-    authAttributes[type] = _picture.trim();
+    authAttributes[type] = _picture!.trim();
   }
 
   ///preferred username setter
   void setPreferredUsername(value, type) {
     _preferredUsername = value;
-    authAttributes[type] = _preferredUsername.trim();
+    authAttributes[type] = _preferredUsername!.trim();
   }
 
   ///profile setter
   void setProfile(value, type) {
     _profile = value;
-    authAttributes[type] = _profile.trim();
+    authAttributes[type] = _profile!.trim();
   }
 
   /// zone info setter
   void setZoneInfo(value, type) {
     _zoneInfo = value;
-    authAttributes[type] = _zoneInfo.trim();
+    authAttributes[type] = _zoneInfo!.trim();
   }
 
   /// update at setter
   void setUpdatedAt(value, type) {
     _updatedAt = value;
-    authAttributes[type] = _updatedAt.trim();
+    authAttributes[type] = _updatedAt!.trim();
   }
 
   /// website setter
   void setWebsite(value, type) {
     _website = value;
-    authAttributes[type] = _website.trim();
+    authAttributes[type] = _website!.trim();
   }
 
   /// custom setter
   void setCustom(value, type) {
     _website = value;
-    authAttributes[type] = _custom.trim();
+    authAttributes[type] = _custom!.trim();
   }
 
   // Auth calls
@@ -167,8 +168,8 @@ class SignUpViewModel extends BaseViewModel {
     }
     setBusy(true);
     final signUp = AuthSignUpData(
-        username: _username.trim(),
-        password: _password.trim(),
+        username: _username!.trim(),
+        password: _password!.trim(),
         attributes: authAttributes);
     print(authAttributes);
     _authBloc.authEvent.add(AuthSignUp(signUp));
@@ -189,24 +190,24 @@ class SignUpViewModel extends BaseViewModel {
 
   /// clean method
   void clean() {
-    _username = "";
-    _password = "";
-    _address = "";
-    _birthdate = "";
-    _email = "";
-    _familyName = "";
-    _gender = "";
-    _givenName = "";
-    _locale = "";
-    _middleName = "";
-    _name = "";
-    _nickname = "";
-    _phoneNumber = "";
-    _picture = "";
-    _preferredUsername = "";
-    _profile = "";
-    _zoneInfo = "";
-    _updatedAt = "";
-    _website = "";
+    _username = null;
+    _password = null;
+    _address = null;
+    _birthdate = null;
+    _email = null;
+    _familyName = null;
+    _gender = null;
+    _givenName = null;
+    _locale = null;
+    _middleName = null;
+    _name = null;
+    _nickname = null;
+    _phoneNumber = null;
+    _picture = null;
+    _preferredUsername = null;
+    _profile = null;
+    _zoneInfo = null;
+    _updatedAt = null;
+    _website = null;
   }
 }

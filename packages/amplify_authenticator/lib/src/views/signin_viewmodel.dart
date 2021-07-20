@@ -14,8 +14,8 @@ class SignInViewModel extends BaseViewModel {
 
   ///form key
   GlobalKey<FormState> get formKey => _formKey;
-  String _username = "";
-  String _password = "";
+  String? _username;
+  String? _password;
 
   ///username setter
   void setUsername(value) {
@@ -36,8 +36,8 @@ class SignInViewModel extends BaseViewModel {
     }
     setBusy(true);
     final singIn = AuthSignInData(
-      username: _username.trim(),
-      password: _password.trim(),
+      username: _username!.trim(),
+      password: _password!.trim(),
     );
     _authBloc.authEvent.add(AuthSignIn(singIn));
     await Future.any([
@@ -64,7 +64,7 @@ class SignInViewModel extends BaseViewModel {
 
   /// clean method
   void clean() {
-    _username = "";
-    _password = "";
+    _username = null;
+    _password = null;
   }
 }

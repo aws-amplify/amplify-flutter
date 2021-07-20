@@ -107,7 +107,7 @@ class SignUpFormField extends StatelessWidget {
     TextInputType? _keyboardType;
     switch (type) {
       case 'username':
-        _callBack = (value) => _authModelView.setUsername;
+        _callBack = (value) => _authModelView.setUsername(value);
         _keyboardType = TextInputType.text;
         _validator = validator ?? validateUsername;
         _key = Key('usernameSignUpFormField');
