@@ -15,11 +15,15 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
+import 'finders/signIn_finder.dart';
+import 'utils/amplify_configure_setup.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('Sign In and Sign Out', () {
-    setUpAll(() async {});
+    setUpAll(() async {
+      await configureAuth();
+    });
   });
 }
