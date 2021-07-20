@@ -1,12 +1,16 @@
 import 'package:uuid/uuid.dart';
+import 'dart:math';
+
+var random = new Random();
 
 final uuid = Uuid();
 
 final String mockPhoneNumber = '+15555551234';
 
-String generateEmail() =>
-    'test-amplify-flutter-${uuid.v4()}@test${uuid.v4()}.com';
+String generateEmail() => 'flutter-email-${randomNumber()}@test.com';
 
 String generatePassword() => uuid.v4();
 
-String generateUsername() => 'TEMP_USER-${uuid.v4()}';
+String generateUsername() => 'flutter-user-${randomNumber()}';
+
+int randomNumber() => random.nextInt(500);

@@ -6,3 +6,5 @@ final emailSignInFormField = find.byKey(Key('emailSignInFormField'));
 final phoneNumberSignInFormField =
     find.byKey(Key('phoneNumberSignInFormField'));
 final passwordSignInFormField = find.byKey(Key('passwordSignInFormField'));
+final signInButton = find.byKey(Key('signInButton'));
+final signOutButton = find.byKey(Key('signOutButton'));
