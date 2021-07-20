@@ -563,8 +563,8 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
     // If a User Pool token's error is a SignedOutException, we send SignedOutException as
     // method call response because this indicates that the problem is not expired tokens,
     // but total lack of authentication (i.e. the user is signed out)
-    var sessionException: AuthException = if (result.userPoolTokens.error is AuthException.SignedOutException){
-      AuthException.SignedOutException();
+    var sessionException: AuthException = if (result.userPoolTokens.error is AuthException.SignedOutException) {
+      AuthException.SignedOutException()
     } else {
       AuthException.SessionExpiredException()
     }
