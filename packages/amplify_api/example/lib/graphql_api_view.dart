@@ -65,9 +65,7 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
     });
   }
 
-  query() async {
-    Model model;
-    
+  query() async {    
     String graphQLDocument = '''query MyQuery {
       listBlogs {
         items {
