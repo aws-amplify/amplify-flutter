@@ -15,8 +15,6 @@
 
 library query_field;
 
-
-
 import 'package:amplify_api_plugin_interface/src/types/models/model_field_type.dart';
 
 import '../temporal/datetime_parse.dart';

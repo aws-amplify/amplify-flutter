@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-
 import 'package:amplify_api_plugin_interface/src/types/models/model_field.dart';
 import 'package:amplify_api_plugin_interface/src/types/query/query_field.dart';
 

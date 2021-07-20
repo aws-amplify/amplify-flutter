@@ -36,7 +36,6 @@ export 'types/models/model_schema_definition.dart';
 export 'types/models/subscription_event.dart';
 export 'types/query/query_field.dart';
 
-
 export 'UUID.dart';
 
 export './exceptions/ApiException.dart';
