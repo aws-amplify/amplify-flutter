@@ -15,7 +15,6 @@
 
 // TODO: Datastore dependencies temporarily duplicated in API. Eventually they should be moved to core or otherwise reconciled to avoid duplication.
 
-
 import 'dart:convert';
 
 import 'package:collection/collection.dart';

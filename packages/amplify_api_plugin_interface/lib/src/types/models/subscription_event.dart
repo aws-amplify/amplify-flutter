@@ -15,7 +15,6 @@
 
 // TODO: Datastore dependencies temporarily duplicated in API. Eventually they should be moved to core or otherwise reconciled to avoid duplication.
 
-
 library model;
 
 import 'package:flutter/foundation.dart';
