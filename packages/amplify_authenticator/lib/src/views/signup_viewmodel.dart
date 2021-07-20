@@ -34,6 +34,7 @@ class SignUpViewModel extends BaseViewModel {
   String _zoneInfo = "";
   String _updatedAt = "";
   String _website = "";
+  String _custom = "";
 
   /// attributes
   Map<String, String> authAttributes = {};
@@ -49,106 +50,112 @@ class SignUpViewModel extends BaseViewModel {
   }
 
   /// address setter
-  void setAddress(value) {
+  void setAddress(value, type) {
     _address = value;
 
-    authAttributes["address"] = _address.trim();
+    authAttributes[type] = _address.trim();
   }
 
   /// birthdate setter
-  void setBirthdate(value) {
+  void setBirthdate(value, type) {
     _birthdate = value;
-    authAttributes["birthdate"] = _birthdate.trim();
+    authAttributes[type] = _birthdate.trim();
   }
 
   ///email setter
-  void setEmail(value) {
+  void setEmail(value, type) {
     _email = value;
-    authAttributes["email"] = _email.trim();
+    authAttributes[type] = _email.trim();
   }
 
   ///family name setter
-  void setFamilyName(value) {
+  void setFamilyName(value, type) {
     _familyName = value;
-    authAttributes["family_name"] = _familyName.trim();
+    authAttributes[type] = _familyName.trim();
   }
 
   ///gender setter
-  void setGender(value) {
+  void setGender(value, type) {
     _gender = value;
-    authAttributes["gender"] = _gender.trim();
+    authAttributes[type] = _gender.trim();
   }
 
   ///given name setter
-  void setGivenName(value) {
+  void setGivenName(value, type) {
     _givenName = value;
-    authAttributes["given_name"] = _givenName.trim();
+    authAttributes[type] = _givenName.trim();
   }
 
   ///locale setter
-  void setLocale(value) {
+  void setLocale(value, type) {
     _locale = value;
-    authAttributes["locale"] = _locale.trim();
+    authAttributes[type] = _locale.trim();
   }
 
   ///middle name setter
-  void setMiddleName(value) {
+  void setMiddleName(value, type) {
     _middleName = value;
-    authAttributes["middle_name"] = _middleName.trim();
+    authAttributes[type] = _middleName.trim();
   }
 
   ///name setter
-  void setName(value) {
+  void setName(value, type) {
     _name = value;
-    authAttributes["name"] = _name.trim();
+    authAttributes[type] = _name.trim();
   }
 
   ///nickname setter
-  void setNickname(value) {
+  void setNickname(value, type) {
     _nickname = value;
-    authAttributes["nickname"] = _nickname.trim();
+    authAttributes[type] = _nickname.trim();
   }
 
   ///phone number setter
-  void setPhoneNumber(value) {
+  void setPhoneNumber(value, type) {
     _phoneNumber = value;
-    authAttributes["phone_number"] = _phoneNumber.trim();
+    authAttributes[type] = _phoneNumber.trim();
   }
 
   /// picture setter
-  void setPicture(value) {
+  void setPicture(value, type) {
     _picture = value;
-    authAttributes["picture"] = _picture.trim();
+    authAttributes[type] = _picture.trim();
   }
 
   ///preferred username setter
-  void setPreferredUsername(value) {
+  void setPreferredUsername(value, type) {
     _preferredUsername = value;
-    authAttributes["preferred_username"] = _preferredUsername.trim();
+    authAttributes[type] = _preferredUsername.trim();
   }
 
   ///profile setter
-  void setProfile(value) {
+  void setProfile(value, type) {
     _profile = value;
-    authAttributes["profile"] = _profile.trim();
+    authAttributes[type] = _profile.trim();
   }
 
   /// zone info setter
-  void setZoneInfo(value) {
+  void setZoneInfo(value, type) {
     _zoneInfo = value;
-    authAttributes["zoneinfo"] = _zoneInfo.trim();
+    authAttributes[type] = _zoneInfo.trim();
   }
 
   /// update at setter
-  void setUpdatedAt(value) {
+  void setUpdatedAt(value, type) {
     _updatedAt = value;
-    authAttributes["update_at"] = _updatedAt.trim();
+    authAttributes[type] = _updatedAt.trim();
   }
 
   /// website setter
-  void setWebsite(value) {
+  void setWebsite(value, type) {
     _website = value;
-    authAttributes["website"] = _website.trim();
+    authAttributes[type] = _website.trim();
+  }
+
+  /// custom setter
+  void setCustom(value, type) {
+    _website = value;
+    authAttributes[type] = _custom.trim();
   }
 
   // Auth calls

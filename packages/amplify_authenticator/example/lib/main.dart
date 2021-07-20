@@ -33,14 +33,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   void initState() {
     super.initState();
@@ -60,65 +52,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Authenticator(
-      signUpForm: SignUpForm(
-        formFields: FormFields(children: [
-          SignUpFormField(
-            type: 'username',
-            title: "Email or Phone Number*",
-            hintText: "Enter your username",
-          ),
-          SignUpFormField(
-              title: 'Password*',
-              hintText: "Enter your password",
-              type: "password"),
-          SignUpFormField(
-              title: "Address*",
-              hintText: "Enter your address",
-              type: "address"),
-          SignUpFormField(
-              title: "Birthdate*",
-              hintText: "Enter your birthdate",
-              type: "birthdate"),
-          // SignUpFormField(
-          //     title: "Email*", hintText: "Enter your email", type: "email"),
-          SignUpFormField(
-              title: "Name*", hintText: "Enter your name", type: "name"),
-          SignUpFormField(
-              title: "Phone Number*",
-              hintText: "Enter your phone number",
-              type: "phone_number"),
-          SignUpFormField(
-              title: "Website*",
-              hintText: "Enter your website",
-              type: "website"),
-        ]),
-      ),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SignOutButton(),
-              Text(
-                'You have pushed the button this many times:',
-              ),
-              Text(
-                '$_counter',
-                style: Theme.of(context).textTheme.headline4,
-              ),
-            ],
-          ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _incrementCounter,
-          tooltip: 'Increment',
-          child: Icon(Icons.add),
-        ),
-      ),
-    );
+    return Authenticator(child: CustomersApp());
+  }
+}
+
+class CustomersApp extends StatelessWidget {
+  const CustomersApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SignOutButton();
   }
 }
