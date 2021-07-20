@@ -25,16 +25,16 @@ export 'RestAPI/RestResponse.dart';
 export 'RestAPI/RestException.dart';
 
 // TODO: Datastore dependencies temporarily duplicated in API. Eventually they should be moved to core or otherwise reconciled to avoid duplication.
-export 'types/models/model.dart';
-export 'types/models/model_association.dart';
-export 'types/models/model_field.dart';
-export 'types/models/model_field_definition.dart';
-export 'types/models/model_field_type.dart';
-export 'types/models/model_provider.dart';
-export 'types/models/model_schema.dart';
-export 'types/models/model_schema_definition.dart';
-export 'types/models/subscription_event.dart';
-export 'types/query/query_field.dart';
+// export 'types/models/model.dart';
+// export 'types/models/model_association.dart';
+// export 'types/models/model_field.dart';
+// export 'types/models/model_field_definition.dart';
+// export 'types/models/model_field_type.dart';
+// export 'types/models/model_provider.dart';
+// export 'types/models/model_schema.dart';
+// export 'types/models/model_schema_definition.dart';
+// export 'types/models/subscription_event.dart';
+// export 'types/query/query_field.dart';
 
 export 'UUID.dart';
 

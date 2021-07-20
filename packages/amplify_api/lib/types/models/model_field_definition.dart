@@ -15,8 +15,8 @@
 
 // TODO: Datastore dependencies temporarily duplicated in API. Eventually they should be moved to core or otherwise reconciled to avoid duplication.
 
-import 'package:amplify_api_plugin_interface/src/types/models/model_field.dart';
-import 'package:amplify_api_plugin_interface/src/types/query/query_field.dart';
+import 'package:amplify_api/types/models/model_field.dart';
+import 'package:amplify_api/types/query/query_field.dart';
 
 import 'auth_rule.dart';
 import 'model_association.dart';
