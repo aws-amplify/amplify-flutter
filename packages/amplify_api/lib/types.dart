@@ -23,4 +23,7 @@ export 'types/models/model_provider.dart';
 export 'types/models/model_schema.dart';
 export 'types/models/model_schema_definition.dart';
 export 'types/models/subscription_event.dart';
+
 export 'types/query/query_field.dart';
+
+export 'types/temporal/temporal_datetime.dart';
