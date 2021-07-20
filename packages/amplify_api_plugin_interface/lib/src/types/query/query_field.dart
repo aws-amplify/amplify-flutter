@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+// TODO: Datastore dependencies temporarily duplicated in API. Eventually they should be moved to core or otherwise reconciled to avoid duplication.
+
 library query_field;
 
 import 'package:amplify_api_plugin_interface/src/types/models/model_field_type.dart';

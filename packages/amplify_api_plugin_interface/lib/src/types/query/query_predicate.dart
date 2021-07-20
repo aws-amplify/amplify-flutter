@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+// TODO: Datastore dependencies temporarily duplicated in API. Eventually they should be moved to core or otherwise reconciled to avoid duplication.
+
 part of 'query_field.dart';
 
 // Top level global function to be used without the context of the enclosing class

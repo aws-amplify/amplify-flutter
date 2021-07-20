@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+// TODO: Datastore dependencies temporarily duplicated in API. Eventually they should be moved to core or otherwise reconciled to avoid duplication.
+
 import 'package:date_time_format/date_time_format.dart';
 
 // ignore_for_file: public_member_api_docs

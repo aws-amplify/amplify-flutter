@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-export 'GraphQL/GraphQLHelpers.dart';
 export 'GraphQL/GraphQLRequest.dart';
 export 'GraphQL/GraphQLOperation.dart';
 export 'GraphQL/GraphQLResponse.dart';
@@ -25,6 +24,7 @@ export 'RestAPI/RestOptions.dart';
 export 'RestAPI/RestResponse.dart';
 export 'RestAPI/RestException.dart';
 
+// TODO: Datastore dependencies temporarily duplicated in API. Eventually they should be moved to core or otherwise reconciled to avoid duplication.
 export 'types/models/model.dart';
 export 'types/models/model_association.dart';
 export 'types/models/model_field.dart';
