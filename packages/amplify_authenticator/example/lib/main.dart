@@ -63,7 +63,7 @@ class CustomersApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Main App"),
+        title: Text("Customer's App"),
       ),
       body: SignOutButton(),
     );
