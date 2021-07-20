@@ -13,10 +13,10 @@
  * permissions and limitations under the License.
  */
 
-import '../types.dart';
-import 'GraphQLRequest.dart';
+import 'src/types.dart';
+import 'src/GraphQL/GraphQLRequest.dart';
 
-class ModelQueries {
+abstract class ModelQueriesInterface {
   // Get
   static GraphQLRequest<T> get<T extends Model>(
     ModelType modelType, String id) {
@@ -32,7 +32,7 @@ class ModelQueries {
     }
 }
 
-class ModelMutations {
+abstract class ModelMutationsInterface {
   // Create
   static GraphQLRequest<T> create<T extends Model>(Model model) {
     return throw UnimplementedError("create() has not been implemented.");

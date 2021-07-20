@@ -18,16 +18,20 @@ library amplify_api_plugin;
 import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import './method_channel_api.dart';
+import 'package:meta/meta.dart';
+import './graphql_helpers.dart';
 export 'package:amplify_api_plugin_interface/src/types.dart';
 
 class AmplifyAPI extends APIPluginInterface {
   static final Object _token = Object();
-  static final ModelProviderInterface _modelProvider = Object() as ModelProviderInterface;
 
-  AmplifyAPI(ModelProviderInterface? modelProvider) : super(token: _token, modelProvider: modelProvider);
+  AmplifyAPI({ModelProviderInterface? modelProvider}) : super(token: _token, modelProvider: modelProvider);
 
+  /// Internal use constructor
+  @protected
+  AmplifyAPI.tokenOnly() : super.tokenOnly(token: _token);
 
-  static AmplifyAPI _instance = AmplifyAPIMethodChannel(modelProvider: _modelProvider);
+  static AmplifyAPI _instance = AmplifyAPIMethodChannel();
 
   /// The default instance of [AmplifyAPIPlugin] to use.
   static AmplifyAPI get instance => _instance;

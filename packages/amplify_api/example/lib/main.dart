@@ -15,6 +15,7 @@
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api_example/graphql_api_view.dart';
+import 'package:amplify_api_example/models/ModelProvider.dart';
 import 'package:amplify_api_example/rest_api_view.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +45,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _configureAmplify() async {
-    apiRest = AmplifyAPI();
+    apiRest = AmplifyAPI(modelProvider: ModelProvider.instance);
 
     Amplify.addPlugin(apiRest);
     Amplify.addPlugin(AmplifyAuthCognito());

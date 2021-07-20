@@ -29,7 +29,7 @@ const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/api');
 class AmplifyAPIMethodChannel extends AmplifyAPI {
   dynamic _allSubscriptionsStream = null;
 
-  AmplifyAPIMethodChannel({ModelProviderInterface? modelProvider}) : super(modelProvider);
+  AmplifyAPIMethodChannel() : super.tokenOnly();
 
   @override
   Future<void> addPlugin() async {

@@ -17,6 +17,8 @@ import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_api/amplify_api.dart';
 
+import 'models/Blog.dart';
+
 class GraphQLApiView extends StatefulWidget {
   bool isAmplifyConfigured;
 
@@ -75,6 +77,8 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
         }
       }
     }''';
+
+    // GraphQLRequest<Blog> req = ModelQuery.get();
 
     var operation = await Amplify.API
         .query<String>(request: GraphQLRequest(document: graphQLDocument));

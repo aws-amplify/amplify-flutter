@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-export 'GraphQL/GraphQLHelpers.dart';
+export '../amplify_api_graphql_helpers_interface.dart';
 export 'GraphQL/GraphQLOperation.dart';
 export 'GraphQL/GraphQLRequest.dart';
 export 'GraphQL/GraphQLResponse.dart';
@@ -38,6 +38,8 @@ export 'types/query/query_field.dart';
 
 export 'types/pagination/model_pagination.dart';
 export 'types/pagination/paginated_result.dart';
+
+export 'types/temporal/temporal_datetime.dart';
 
 export 'UUID.dart';
 
