@@ -16,11 +16,11 @@ class ConfirmSignUpViewModel extends BaseViewModel {
 
   String? _code;
 
-  void setUsername(value) {
+  void setUsername(String value) {
     _username = value;
   }
 
-  void setCode(value) {
+  void setCode(String value) {
     _code = value;
   }
 

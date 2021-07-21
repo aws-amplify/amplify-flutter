@@ -49,7 +49,7 @@ class FormFieldContainer extends StatelessWidget {
                             ? Theme.of(context).primaryColor
                             : AuthenticatorColors.primary)),
                 hintText: hintText!,
-                border: OutlineInputBorder()),
+                border: const OutlineInputBorder()),
             keyboardType: keyboardType,
             obscureText: obscureText,
           ),
@@ -60,19 +60,19 @@ class FormFieldContainer extends StatelessWidget {
 }
 
 class ButtonsContainer extends StatelessWidget {
-  ButtonsContainer({required this.children});
+  const ButtonsContainer({required this.children});
 
   final List<Widget> children;
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
-    var isDesktop =
+    Size screenSize = MediaQuery.of(context).size;
+    bool isDesktop =
         screenSize.width > AuthenticatorContainerConstants.landScapeView;
 
-    var axis;
-    var mainAlignment;
-    var crossAlignment;
+    Axis axis;
+    MainAxisAlignment mainAlignment;
+    CrossAxisAlignment crossAlignment;
 
     if (isDesktop) {
       axis = Axis.horizontal;
@@ -94,7 +94,7 @@ class ButtonsContainer extends StatelessWidget {
 }
 
 class AuthenticatorContainer extends StatelessWidget {
-  AuthenticatorContainer({required this.form, required this.title});
+  const AuthenticatorContainer({required this.form, required this.title});
 
   final Widget form;
 
@@ -102,10 +102,10 @@ class AuthenticatorContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
-    var isDesktop =
+    Size screenSize = MediaQuery.of(context).size;
+    bool isDesktop =
         screenSize.width > AuthenticatorContainerConstants.landScapeView;
-    var containerWidth;
+    double containerWidth;
 
     if (isDesktop) {
       containerWidth = AuthenticatorContainerConstants.mediumWidth;
@@ -123,7 +123,7 @@ class AuthenticatorContainer extends StatelessWidget {
       child: Column(children: <Widget>[
         Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
               fontWeight: AuthenticatorContainerConstants.titleFontWeight,
               fontSize: AuthenticatorContainerConstants.titleFontSize),
         ),
@@ -146,7 +146,7 @@ class FormContainer extends StatelessWidget {
 
   final ButtonsContainer buttonsContainer;
 
-  final formKey;
+  final Key formKey;
 
   @override
   Widget build(BuildContext context) {

@@ -23,18 +23,18 @@ abstract class AuthService {
 class AmplifyAuthService implements AuthService {
   @override
   Future signIn(String username, String password) async {
-    final user = await currentUser;
+    final AuthUser? user = await currentUser;
     if (user != null) {
       return user;
     }
 
-    final result = await Amplify.Auth.signIn(
+    final SignInResult result = await Amplify.Auth.signIn(
       username: username,
       password: password,
     );
 
     if (!result.isSignedIn) {
-      throw const AuthException('Could not sign in');
+      throw AuthException('Could not sign in');
     }
     return (await currentUser);
   }
@@ -58,7 +58,7 @@ class AmplifyAuthService implements AuthService {
       confirmationCode: code,
     );
     if (!result.isSignUpComplete) {
-      throw const AuthException();
+      throw AuthException('Could not confirm');
     }
   }
 
@@ -98,13 +98,13 @@ class AmplifyAuthService implements AuthService {
 }
 
 /// Auth Exception
-class AuthException implements Exception {
+class AuthenticatorException implements Exception {
   /// exception message
   final String message;
 
   ///Auth Exception constructor
-  const AuthException([this.message = 'An unknown error occurred.']);
+  const AuthenticatorException([this.message = 'An unknown error occurred.']);
 
   @override
-  String toString() => 'AuthException{ message: "$message" }';
+  String toString() => 'AuthenticatorException{ message: "$message" }';
 }

@@ -21,7 +21,7 @@ class AuthChangeScreen extends AuthEvent {
 
 class AuthSignIn extends AuthEvent {
   ///Event data
-  final AuthData data;
+  final AuthSignInData data;
 
   const AuthSignIn(this.data);
 }

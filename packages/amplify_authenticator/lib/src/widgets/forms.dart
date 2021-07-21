@@ -8,7 +8,7 @@ class FormFields extends StatelessWidget {
   ///   1. SignInFormField
   ///   2. SignUpFormField
   ///   3. ConfirmSignUpFormField
-  FormFields({required this.children});
+  const FormFields({required this.children});
 
   /// A list of form fields
   final List<Widget> children;
@@ -16,14 +16,14 @@ class FormFields extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[...children],
+      children: children,
     );
   }
 }
 
 class SignInForm extends StatelessWidget {
   /// Requires a list of sign in form fields.
-  SignInForm({required this.formFields});
+  const SignInForm({required this.formFields});
 
   /// A list of form fields
   final FormFields formFields;
@@ -44,7 +44,7 @@ class SignInForm extends StatelessWidget {
 
 class SignUpForm extends StatelessWidget {
   /// Requires a list of confirm sign up  form fields.
-  SignUpForm({required this.formFields});
+  const SignUpForm({required this.formFields});
 
   /// A list of form fields
   final FormFields formFields;
@@ -68,7 +68,7 @@ class SignUpForm extends StatelessWidget {
 /// This is currently used as a default form.
 class ConfirmSignUpForm extends StatelessWidget {
   /// Requires a list of confirm sign up  form fields.
-  ConfirmSignUpForm({required this.formFields});
+  const ConfirmSignUpForm({required this.formFields});
 
   /// A list of form fields
   ///

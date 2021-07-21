@@ -14,11 +14,11 @@ class SignInViewModel extends BaseViewModel {
   String? _username;
   String? _password;
 
-  void setUsername(value) {
+  void setUsername(String value) {
     _username = value;
   }
 
-  void setPassword(value) {
+  void setPassword(String value) {
     _password = value;
   }
 
@@ -43,7 +43,7 @@ class SignInViewModel extends BaseViewModel {
 
   Future<void> signOut() async {
     setBusy(true);
-    _authBloc.authEvent.add(AuthSignOut());
+    _authBloc.authEvent.add(const AuthSignOut());
     setBusy(false);
   }
 

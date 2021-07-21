@@ -1,39 +1,49 @@
 // Keys for sign in form fields
 
-final String keyUsernameSignInFormfield = 'usernameSignInFormField';
-final String keyEmailSignInFormfield = 'emailSignInFormField';
-final String keyPhoneNumberSignInFormfield = 'phoneNumberSignInFormField';
-final String keyPasswordSignInFormfield = 'passwordSignInFormField';
+const String keyUsernameSignInFormfield = 'usernameSignInFormField';
+const String keyEmailSignInFormfield = 'emailSignInFormField';
+const String keyPhoneNumberSignInFormfield = 'phoneNumberSignInFormField';
+const String keyPasswordSignInFormfield = 'passwordSignInFormField';
 
 // Keys for sign up form fields
 
-final String keyUsernameSignUpFormfield = 'usernameSignUpFormField';
-final String keyPasswordSignUpFormfield = 'passwordSignUpFormField';
-final String keyAddressFormfield = 'addresslSignUpFormField';
-final String keyBirthdateSignUpFormField = 'birthdateSignUpFormField';
-final String keyEmailSignUpFormField = 'emailSignUpFormField';
-final String keyFamilyNameSignUpFormField = 'familyNameSignUpFormField';
-final String keyGenderSignUpFormField = 'genderSignUpFormField';
-final String keyGivenNameSignUpFormField = 'givenNameSignUpFormField';
-final String keyLocaleSignUpFormField = 'localeSignUpFormField';
-final String keyMiddleNameSignUpFormField = 'middleNameSignUpFormField';
-final String keyNameSignUpFormField = 'nameSignUpFormField';
-final String keyNicknameSignUpFormField = 'nicknameSignUpFormField';
-final String keyPhoneNumberSignUpFormField = 'phoneNumberSignUpFormField';
-final String keyPictureSignUpFormField = 'pictureSignUpFormField';
-final String keyPreferredUsernameSignUpFormField =
+const String keyUsernameSignUpFormfield = 'usernameSignUpFormField';
+const String keyPasswordSignUpFormfield = 'passwordSignUpFormField';
+const String keyAddressFormfield = 'addresslSignUpFormField';
+const String keyBirthdateSignUpFormField = 'birthdateSignUpFormField';
+const String keyEmailSignUpFormField = 'emailSignUpFormField';
+const String keyFamilyNameSignUpFormField = 'familyNameSignUpFormField';
+const String keyGenderSignUpFormField = 'genderSignUpFormField';
+const String keyGivenNameSignUpFormField = 'givenNameSignUpFormField';
+const String keyLocaleSignUpFormField = 'localeSignUpFormField';
+const String keyMiddleNameSignUpFormField = 'middleNameSignUpFormField';
+const String keyNameSignUpFormField = 'nameSignUpFormField';
+const String keyNicknameSignUpFormField = 'nicknameSignUpFormField';
+const String keyPhoneNumberSignUpFormField = 'phoneNumberSignUpFormField';
+const String keyPictureSignUpFormField = 'pictureSignUpFormField';
+const String keyPreferredUsernameSignUpFormField =
     'preferredUsernameSignUpFormField';
-final String keyProfileSignUpFormField = 'profileSignUpFormField';
-final String keyZoneinfoSignUpFormField = 'zoneinfoSignUpFormField';
-final String keyUpdatedAtSignUpFormField = 'updatedAtSignUpFormField';
-final String keyWebsiteSignUpFormField = 'websiteSignUpFormField';
-final String keyCustomSignUpFormField = 'customSignUpFormField';
+const String keyProfileSignUpFormField = 'profileSignUpFormField';
+const String keyZoneinfoSignUpFormField = 'zoneinfoSignUpFormField';
+const String keyUpdatedAtSignUpFormField = 'updatedAtSignUpFormField';
+const String keyWebsiteSignUpFormField = 'websiteSignUpFormField';
+const String keyCustomSignUpFormField = 'customSignUpFormField';
 
 // Keys for confirm sign up form fields
 
-final String keyUsernameConfirmSignUpFormfield =
+const String keyUsernameConfirmSignUpFormfield =
     'usernameConfirmSignUpFormField';
-final String keyEmailConfirmSignUpFormfield = 'emailConfirmSignUpFormField';
-final String keyPhoneNumberConfirmSignUpFormfield =
+const String keyEmailConfirmSignUpFormfield = 'emailConfirmSignUpFormField';
+const String keyPhoneNumberConfirmSignUpFormfield =
     'phoneNumberConfirmSignUpFormField';
-final String keyPasswordConfirmSignUpFormfield = 'passwordSignInFormField';
+const String keyPasswordConfirmSignUpFormfield = 'passwordSignInFormField';
+
+//Keys for buttons
+
+const String keySignUpButton = "signUpButton";
+const String keySignInButton = "signInButton";
+const String keyConfirmSignUpButton = "confirmSignUpButton";
+const String keySignOutButton = "signOutButton";
+const String keyBackToSignInButton = "backToSignInButton";
+const String keyGoToSignUpButton = "goToSignUpButton";
+const String keyGoToSignInButton = "goToSignInButton";

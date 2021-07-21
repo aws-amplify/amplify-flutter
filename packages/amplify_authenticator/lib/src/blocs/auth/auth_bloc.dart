@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
 
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
@@ -8,10 +9,10 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class StateMachineBloc {
-  final AuthService _authService;
+  late final AuthService _authService;
 
   /// State controller.
-  StreamController<AuthState> _authStateController =
+  final StreamController<AuthState> _authStateController =
       StreamController<AuthState>.broadcast();
 
   /// Assigns state to the authStateController.
@@ -21,7 +22,7 @@ class StateMachineBloc {
   Stream<AuthState> get stream => _authStateController.stream;
 
   /// Event controller.
-  StreamController<AuthEvent> _authEventController =
+  final StreamController<AuthEvent> _authEventController =
       StreamController<AuthEvent>.broadcast();
 
   /// Assigns events to the event controller, which will be transformed into state.
@@ -29,21 +30,22 @@ class StateMachineBloc {
 
   /// Outputs events into the event transformer.
   late final Stream<AuthEvent> _authEventStream = _authEventController.stream;
+  // ignore: unused_field
   late final StreamSubscription<AuthState> _subscription;
 
   // ignore: public_member_api_docs
   StateMachineBloc(this._authService) {
     _subscription =
         _authEventStream.asyncExpand(_eventTransformer).listen((state) {
-      print(state);
       _controllerSink.add(state);
     });
   }
 
   //Exception Controller
-  final _exceptionController = StreamController<AuthException>.broadcast();
+  final _exceptionController =
+      StreamController<AuthenticatorException>.broadcast();
 
-  Stream<AuthException> get exceptions => _exceptionController.stream;
+  Stream<AuthenticatorException> get exceptions => _exceptionController.stream;
 
   Stream<AuthState> _eventTransformer(AuthEvent event) async* {
     if (event is AuthLoad) {
@@ -69,10 +71,10 @@ class StateMachineBloc {
 
   Stream<AuthState> _getCurrentUser() async* {
     try {
-      final currentUser = await _authService.currentUser;
+      final AuthUser? currentUser = await _authService.currentUser;
 
       if (currentUser != null) {
-        yield Authenticated();
+        yield const Authenticated();
       } else {
         yield AuthFlow(screen: AuthScreen.signin);
       }
@@ -81,36 +83,36 @@ class StateMachineBloc {
     }
   }
 
-  Stream<AuthState> _signIn(data) async* {
+  Stream<AuthState> _signIn(AuthSignInData data) async* {
     try {
       await _authService.signIn(data.username, data.password);
 
-      yield Authenticated();
+      yield const Authenticated();
     } catch (e) {
       print(e);
-      _exceptionController.add(AuthException(e.toString()));
+      _exceptionController.add(AuthenticatorException(e.toString()));
     }
   }
 
-  Stream<AuthState> _signUp(data) async* {
+  Stream<AuthState> _signUp(AuthSignUpData data) async* {
     try {
       await _authService.signUp(data.username, data.password, data.attributes);
 
       yield AuthFlow(screen: AuthScreen.confirmSignUp);
     } catch (e) {
       print(e);
-      _exceptionController.add(AuthException(e.toString()));
+      _exceptionController.add(AuthenticatorException(e.toString()));
     }
   }
 
-  Stream<AuthState> _confirmSignUp(data) async* {
+  Stream<AuthState> _confirmSignUp(AuthConfirmSignUpData data) async* {
     try {
       await _authService.confirmSignUp(data.username, data.code);
 
       _authEventController.add(GetCurrentUser());
     } catch (e) {
       print(e);
-      _exceptionController.add(AuthException(e.toString()));
+      _exceptionController.add(AuthenticatorException(e.toString()));
     }
   }
 
@@ -120,11 +122,11 @@ class StateMachineBloc {
       _authEventController.add(GetCurrentUser());
     } catch (e) {
       print(e);
-      _exceptionController.add(AuthException(e.toString()));
+      _exceptionController.add(AuthenticatorException(e.toString()));
     }
   }
 
-  Stream<AuthState> _changeScreen(screen) async* {
+  Stream<AuthState> _changeScreen(AuthScreen screen) async* {
     yield AuthFlow(screen: screen);
   }
 

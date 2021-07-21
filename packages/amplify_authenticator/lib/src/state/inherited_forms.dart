@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 class InheritedForms extends InheritedWidget {
   // ignore: public_member_api_docs
-  InheritedForms(
+  const InheritedForms(
       {required this.signInForm,
       required this.signUpForm,
       required this.confirmSignUpForm,
-      Widget? child})
-      : super(child: child!);
+      required Widget child})
+      : super(child: child);
 
   final SignInForm signInForm;
 

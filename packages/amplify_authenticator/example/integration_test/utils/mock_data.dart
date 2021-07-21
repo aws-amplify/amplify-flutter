@@ -5,7 +5,7 @@ var random = new Random();
 
 final uuid = Uuid();
 
-final String mockPhoneNumber = '+15555551234';
+const String mockPhoneNumber = '+15555551234';
 
 String generateEmail() => 'flutter-email-${randomNumber()}@test.com';
 

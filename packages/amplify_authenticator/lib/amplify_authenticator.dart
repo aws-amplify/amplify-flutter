@@ -79,7 +79,8 @@ class Authenticator extends StatefulWidget {
   ///     - define
   ///     - define
   ///
-  Authenticator({required this.child, signInForm, signUpForm}) {
+  Authenticator(
+      {required this.child, SignInForm? signInForm, SignUpForm? signUpForm}) {
     this.signInForm = signInForm ?? DefaultForms.signInForm();
     this.signUpForm = signUpForm ?? DefaultForms.signUpForm();
   }
@@ -103,7 +104,7 @@ class Authenticator extends StatefulWidget {
   ///
   /// ```
 
-  SignInForm? signInForm;
+  late final SignInForm signInForm;
 
   /// This form will support the following form field types:
   /// * username
@@ -154,9 +155,9 @@ class Authenticator extends StatefulWidget {
   ///                     ])
   ///
   /// ```
-  SignUpForm? signUpForm;
+  late final SignUpForm signUpForm;
 
-  ConfirmSignUpForm? confirmSignUpForm = DefaultForms.confirmSignUpForm();
+  final ConfirmSignUpForm confirmSignUpForm = DefaultForms.confirmSignUpForm();
 
   /// This widget will be displayed after a user has signed in with some verified credentials.
   Widget child;
@@ -166,14 +167,13 @@ class Authenticator extends StatefulWidget {
 }
 
 class _AuthenticatorState extends State<Authenticator> {
-  AuthService _authService = AmplifyAuthService();
+  final AuthService _authService = AmplifyAuthService();
 
-  StateMachineBloc? _stateMachineBloc;
+  late final StateMachineBloc _stateMachineBloc;
 
   @override
   void initState() {
     super.initState();
-
     _stateMachineBloc = StateMachineBloc(_authService)
       ..authEvent.add(GetCurrentUser());
   }
@@ -183,16 +183,16 @@ class _AuthenticatorState extends State<Authenticator> {
     return InheritedAuthBloc(
         authBloc: _stateMachineBloc,
         child: InheritedAuthViewModel(
-            signInViewModel: SignInViewModel(_stateMachineBloc!),
-            signUpViewModel: SignUpViewModel(_stateMachineBloc!),
-            confirmSignUpViewModel: ConfirmSignUpViewModel(_stateMachineBloc!),
+            signInViewModel: SignInViewModel(_stateMachineBloc),
+            signUpViewModel: SignUpViewModel(_stateMachineBloc),
+            confirmSignUpViewModel: ConfirmSignUpViewModel(_stateMachineBloc),
             child: InheritedForms(
-                signInForm: widget.signInForm!,
-                signUpForm: widget.signUpForm!,
-                confirmSignUpForm: widget.confirmSignUpForm!,
+                signInForm: widget.signInForm,
+                signUpForm: widget.signUpForm,
+                confirmSignUpForm: widget.confirmSignUpForm,
                 child: Scaffold(
                   body: StreamBuilder(
-                    stream: _stateMachineBloc!.stream,
+                    stream: _stateMachineBloc.stream,
                     builder: (context, snapshot) {
                       final state = snapshot.data ?? const AuthLoading();
                       Widget? screen;
@@ -224,6 +224,6 @@ class _AuthenticatorState extends State<Authenticator> {
   @override
   void dispose() {
     super.dispose();
-    _stateMachineBloc!.dispose();
+    _stateMachineBloc.dispose();
   }
 }

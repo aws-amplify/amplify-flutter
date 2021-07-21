@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:amplify_authenticator/src/keys.dart';
+
+import 'package:amplify_authenticator/src/views/confirm_signup_viewmodel.dart';
+import 'package:amplify_authenticator/src/views/signin_viewmodel.dart';
+import 'package:amplify_authenticator/src/views/signup_viewmodel.dart';
 
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
 import 'package:amplify_authenticator/src/constants/theme_constants.dart';
@@ -9,33 +14,31 @@ import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
 class SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _authViewModel = InheritedAuthViewModel.of(context)!.signUpViewModel;
+    final SignUpViewModel _authViewModel =
+        InheritedAuthViewModel.of(context)!.signUpViewModel;
     return AnimatedBuilder(
         animation: _authViewModel,
         builder: (context, child) {
           Widget? _child;
-          var _callback;
+          dynamic _callback;
           if (_authViewModel.isBusy) {
-            _child = CircularProgressIndicator(color: Colors.white);
+            _child = const CircularProgressIndicator(color: Colors.white);
             _callback = () {};
           } else {
-            _child = Text("Sign Up");
+            _child = const Text("Sign Up");
             _callback = _authViewModel.signUp;
           }
 
           return ElevatedButton(
-            key: Key("signUpButton"),
-            onPressed: _callback,
-            child: _child,
-            style: ButtonStyle(
-                padding:
-                    MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(10)),
-                backgroundColor: MaterialStateProperty.all<Color>(
-                  Theme.of(context).primaryColor != Colors.blue
-                      ? Theme.of(context).primaryColor
-                      : AuthenticatorColors.primary,
-                )),
-          );
+              key: const Key(keySignUpButton),
+              onPressed: _callback,
+              child: _child,
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.all(10),
+                primary: Theme.of(context).primaryColor != Colors.blue
+                    ? Theme.of(context).primaryColor
+                    : AuthenticatorColors.primary,
+              ));
         });
   }
 }
@@ -43,34 +46,32 @@ class SignUpButton extends StatelessWidget {
 class SignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _authViewModel = InheritedAuthViewModel.of(context)!.signInViewModel;
+    final SignInViewModel _authViewModel =
+        InheritedAuthViewModel.of(context)!.signInViewModel;
 
     return AnimatedBuilder(
         animation: _authViewModel,
         builder: (context, child) {
           Widget? _child;
-          var _callback;
+          dynamic _callback;
           if (_authViewModel.isBusy) {
-            _child = CircularProgressIndicator(color: Colors.white);
+            _child = const CircularProgressIndicator(color: Colors.white);
             _callback = () {};
           } else {
-            _child = Text("Sign In");
+            _child = const Text("Sign In");
             _callback = _authViewModel.signIn;
           }
 
           return ElevatedButton(
-            key: Key("signInButton"),
-            onPressed: _callback,
-            child: _child,
-            style: ButtonStyle(
-                padding:
-                    MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(10)),
-                backgroundColor: MaterialStateProperty.all<Color>(
-                  Theme.of(context).primaryColor != Colors.blue
-                      ? Theme.of(context).primaryColor
-                      : AuthenticatorColors.primary,
-                )),
-          );
+              key: const Key(keySignInButton),
+              onPressed: _callback,
+              child: _child,
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.all(10),
+                primary: Theme.of(context).primaryColor != Colors.blue
+                    ? Theme.of(context).primaryColor
+                    : AuthenticatorColors.primary,
+              ));
         });
   }
 }
@@ -78,34 +79,31 @@ class SignInButton extends StatelessWidget {
 class ConfirmButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _authViewModel =
+    final ConfirmSignUpViewModel _authViewModel =
         InheritedAuthViewModel.of(context)!.confirmSignUpViewModel;
     return AnimatedBuilder(
         animation: _authViewModel,
         builder: (context, child) {
           Widget? _child;
-          var _callback;
+          dynamic _callback;
           if (_authViewModel.isBusy) {
-            _child = CircularProgressIndicator(color: Colors.white);
+            _child = const CircularProgressIndicator(color: Colors.white);
             _callback = () {};
           } else {
-            _child = Text("CONFIRM");
+            _child = const Text("CONFIRM");
             _callback = _authViewModel.confirm;
           }
 
           return ElevatedButton(
-            key: Key("confirmSignUpButton"),
-            onPressed: _callback,
-            child: _child,
-            style: ButtonStyle(
-                padding:
-                    MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(10)),
-                backgroundColor: MaterialStateProperty.all<Color>(
-                  Theme.of(context).primaryColor != Colors.blue
-                      ? Theme.of(context).primaryColor
-                      : AuthenticatorColors.primary,
-                )),
-          );
+              key: const Key(keyConfirmSignUpButton),
+              onPressed: _callback,
+              child: _child,
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.all(10),
+                primary: Theme.of(context).primaryColor != Colors.blue
+                    ? Theme.of(context).primaryColor
+                    : AuthenticatorColors.primary,
+              ));
         });
   }
 }
@@ -113,33 +111,31 @@ class ConfirmButton extends StatelessWidget {
 class SignOutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _authViewModel = InheritedAuthViewModel.of(context)!.signInViewModel;
+    final SignInViewModel _authViewModel =
+        InheritedAuthViewModel.of(context)!.signInViewModel;
     return AnimatedBuilder(
         animation: _authViewModel,
         builder: (context, child) {
           Widget? _child;
-          var _callback;
+          dynamic _callback;
           if (_authViewModel.isBusy) {
-            _child = CircularProgressIndicator(color: Colors.white);
+            _child = const CircularProgressIndicator(color: Colors.white);
             _callback = () {};
           } else {
-            _child = Text("Sign Out");
+            _child = const Text("Sign Out");
             _callback = _authViewModel.signOut;
           }
 
           return ElevatedButton(
-            key: Key("signOutButton"),
-            onPressed: _callback,
-            child: _child,
-            style: ButtonStyle(
-                padding:
-                    MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(10)),
-                backgroundColor: MaterialStateProperty.all<Color>(
-                  Theme.of(context).primaryColor != Colors.blue
-                      ? Theme.of(context).primaryColor
-                      : AuthenticatorColors.primary,
-                )),
-          );
+              key: const Key(keySignOutButton),
+              onPressed: _callback,
+              child: _child,
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.all(10),
+                primary: Theme.of(context).primaryColor != Colors.blue
+                    ? Theme.of(context).primaryColor
+                    : AuthenticatorColors.primary,
+              ));
         });
   }
 }
@@ -147,10 +143,10 @@ class SignOutButton extends StatelessWidget {
 class BackToSignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _authModelView =
+    final ConfirmSignUpViewModel _authModelView =
         InheritedAuthViewModel.of(context)!.confirmSignUpViewModel;
     return TextButton(
-      key: Key("backToSignInButton"),
+      key: const Key(keyBackToSignInButton),
       child: Text(
         "Back to Sign In",
         style: TextStyle(
@@ -167,15 +163,16 @@ class BackToSignInButton extends StatelessWidget {
 class GoToSignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _authModelView = InheritedAuthViewModel.of(context)!.signInViewModel;
+    final SignInViewModel _authModelView =
+        InheritedAuthViewModel.of(context)!.signInViewModel;
     return Row(
       children: [
-        Text("No account? ",
+        const Text("No account? ",
             style: TextStyle(
               fontSize: AuthenticatorButtonConstants.fontSize,
             )),
         TextButton(
-          key: Key("goToSignUpButton"),
+          key: const Key(keyGoToSignUpButton),
           onPressed: _authModelView.goToSignUp,
           child: Text("Create account",
               style: TextStyle(
@@ -192,15 +189,16 @@ class GoToSignUpButton extends StatelessWidget {
 class GoToSignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _authModelView = InheritedAuthViewModel.of(context)!.signUpViewModel;
+    final SignUpViewModel _authModelView =
+        InheritedAuthViewModel.of(context)!.signUpViewModel;
     return Row(
       children: [
-        Text("Have an account? ",
+        const Text("Have an account? ",
             style: TextStyle(
               fontSize: AuthenticatorButtonConstants.fontSize,
             )),
         TextButton(
-          key: Key("goToSignInButton"),
+          key: const Key(keyGoToSignInButton),
           child: Text(
             "Sign In",
             style: TextStyle(

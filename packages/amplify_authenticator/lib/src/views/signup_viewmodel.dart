@@ -35,102 +35,102 @@ class SignUpViewModel extends BaseViewModel {
 
   Map<String, String> authAttributes = {};
 
-  void setUsername(value) {
+  void setUsername(String value) {
     print(value);
     _username = value;
   }
 
-  void setPassword(value) {
+  void setPassword(String value) {
     _password = value;
   }
 
-  void setAddress(value, type) {
+  void setAddress(String value, String type) {
     _address = value;
 
     authAttributes[type] = _address!.trim();
   }
 
-  void setBirthdate(value, type) {
+  void setBirthdate(String value, String type) {
     _birthdate = value;
     authAttributes[type] = _birthdate!.trim();
   }
 
-  void setEmail(value, type) {
+  void setEmail(String value, String type) {
     _email = value;
     authAttributes[type] = _email!.trim();
   }
 
-  void setFamilyName(value, type) {
+  void setFamilyName(String value, String type) {
     _familyName = value;
     authAttributes[type] = _familyName!.trim();
   }
 
-  void setGender(value, type) {
+  void setGender(String value, String type) {
     _gender = value;
     authAttributes[type] = _gender!.trim();
   }
 
-  void setGivenName(value, type) {
+  void setGivenName(String value, String type) {
     _givenName = value;
     authAttributes[type] = _givenName!.trim();
   }
 
-  void setLocale(value, type) {
+  void setLocale(String value, String type) {
     _locale = value;
     authAttributes[type] = _locale!.trim();
   }
 
-  void setMiddleName(value, type) {
+  void setMiddleName(String value, String type) {
     _middleName = value;
     authAttributes[type] = _middleName!.trim();
   }
 
-  void setName(value, type) {
+  void setName(String value, String type) {
     _name = value;
     authAttributes[type] = _name!.trim();
   }
 
-  void setNickname(value, type) {
+  void setNickname(String value, String type) {
     _nickname = value;
     authAttributes[type] = _nickname!.trim();
   }
 
-  void setPhoneNumber(value, type) {
+  void setPhoneNumber(String value, String type) {
     _phoneNumber = value;
     authAttributes[type] = _phoneNumber!.trim();
   }
 
-  void setPicture(value, type) {
+  void setPicture(String value, String type) {
     _picture = value;
     authAttributes[type] = _picture!.trim();
   }
 
-  void setPreferredUsername(value, type) {
+  void setPreferredUsername(String value, String type) {
     _preferredUsername = value;
     authAttributes[type] = _preferredUsername!.trim();
   }
 
-  void setProfile(value, type) {
+  void setProfile(String value, String type) {
     _profile = value;
     authAttributes[type] = _profile!.trim();
   }
 
-  void setZoneInfo(value, type) {
+  void setZoneInfo(String value, String type) {
     _zoneInfo = value;
     authAttributes[type] = _zoneInfo!.trim();
   }
 
-  void setUpdatedAt(value, type) {
+  void setUpdatedAt(String value, String type) {
     _updatedAt = value;
     authAttributes[type] = _updatedAt!.trim();
   }
 
-  void setWebsite(value, type) {
+  void setWebsite(String value, String type) {
     _website = value;
     authAttributes[type] = _website!.trim();
   }
 
-  void setCustom(value, type) {
+  void setCustom(String value, String type) {
     _website = value;
     authAttributes[type] = _custom!.trim();
   }
@@ -146,7 +146,7 @@ class SignUpViewModel extends BaseViewModel {
         username: _username!.trim(),
         password: _password!.trim(),
         attributes: authAttributes);
-    print(authAttributes);
+
     _authBloc.authEvent.add(AuthSignUp(signUp));
     await Future.any([
       _authBloc.exceptions.first,
