@@ -13,8 +13,13 @@
  * permissions and limitations under the License.
  */
 
+// TODO: Datastore dependencies temporarily added in API. Eventually they should be moved to core or otherwise reconciled to avoid duplication.
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+
 import 'src/types.dart';
 import 'src/GraphQL/GraphQLRequest.dart';
+import 'src/types/pagination/model_pagination.dart';
+import 'src/types/pagination/paginated_result.dart';
 
 abstract class ModelQueriesInterface {
   // Get

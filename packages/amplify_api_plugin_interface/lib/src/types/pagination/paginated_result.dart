@@ -13,8 +13,8 @@
  * permissions and limitations under the License.
  */
 
-
-import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
+// TODO: Datastore dependencies temporarily added in API. Eventually they should be moved to core or otherwise reconciled to avoid duplication.
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
 class PaginatedResult<T extends Model>{
   @override
