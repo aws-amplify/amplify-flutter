@@ -3,7 +3,6 @@ package com.amazonaws.amplify.amplify_api.rest_api
 import android.os.Handler
 import android.os.Looper
 import com.amazonaws.amplify.amplify_api.FlutterApiRequest
-import com.amazonaws.amplify.amplify_api.FlutterGraphQLApi
 import com.amazonaws.amplify.amplify_api.OperationsManager
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
 import com.amplifyframework.api.ApiException
@@ -65,7 +64,7 @@ class FlutterRestApi {
                             Consumer { result ->
                                 if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
                                 //LOG.debug("$methodName operation succeeded with response: $result")
-                                prepareRestResponseResult(flutterResult, result, methodName) },
+                                prepareRestResponseResult(flutterResult, result) },
                             Consumer { exception ->
                                 if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
                                 //LOG.error("$methodName operation failed", exception)
@@ -82,7 +81,7 @@ class FlutterRestApi {
                             Consumer { result ->
                                 if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
                                 //LOG.debug("$methodName operation succeeded with response: $result")
-                                prepareRestResponseResult(flutterResult, result, methodName) },
+                                prepareRestResponseResult(flutterResult, result) },
                             Consumer { exception ->
                                 if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
                                 //LOG.error("$methodName operation failed", exception)
@@ -105,33 +104,14 @@ class FlutterRestApi {
             }
         }
 
-        private fun prepareRestResponseResult(flutterResult: Result, result: RestResponse, methodName: String) {
+        private fun prepareRestResponseResult(
+            flutterResult: Result,
+            result: RestResponse
+        ) {
+            val restResponse = FlutterSerializedRestResponse(result)
 
-            var restResponse = FlutterSerializedRestResponse(result)
-
-            var recoverySuggestion = """
-                    The metadata associated with the response is contained in the HTTPURLResponse.
-                    For more information on HTTP status codes, take a look at
-                    https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
-                    """
-
-            // if code is not 200 then throw an exception
-            if (!result.code.isSuccessful) {
-                handler.post {
-                    var httpStatusCode = result.code?.hashCode()?.toString()
-                    var serializedError = ExceptionUtil.createSerializedError(
-                            ApiException(
-                                    "The HTTP response status code is [$httpStatusCode].",
-                                    recoverySuggestion)
-                    )
-                    var serializedErrorWithStatusCode = mapOf("httpStatusCode" to httpStatusCode) + serializedError
-                    ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException", serializedErrorWithStatusCode)
-                }
-                return
-            } else {
-                Handler(Looper.getMainLooper()).post {
-                    flutterResult.success(restResponse.toValueMap())
-                }
+            Handler(Looper.getMainLooper()).post {
+                flutterResult.success(restResponse.toValueMap())
             }
         }
 

@@ -31,8 +31,7 @@ class AuthException extends AmplifyException {
 
   /// Instantiates and return a new `AmplifyException` from the
   /// serialized exception data
-  static AuthException fromMap(
-      Map<String, String> serializedException) {
+  static AuthException fromMap(Map<String, String> serializedException) {
     return AuthException._private(
         AmplifyException.fromMap(serializedException));
   }

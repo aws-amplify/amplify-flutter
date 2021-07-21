@@ -13,10 +13,9 @@
  * permissions and limitations under the License.
  */
 
-
 import './ResetPasswordStep.dart';
 
-class ResetPasswordResult { 
+class ResetPasswordResult {
   bool isPasswordReset;
   ResetPasswordStep nextStep;
   ResetPasswordResult({required this.isPasswordReset, required this.nextStep}) {

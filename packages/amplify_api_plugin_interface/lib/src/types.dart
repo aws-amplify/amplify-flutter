@@ -23,6 +23,7 @@ export 'GraphQL/GraphQLSubscriptionOperation.dart';
 export 'RestAPI/RestOperation.dart';
 export 'RestAPI/RestOptions.dart';
 export 'RestAPI/RestResponse.dart';
+export 'RestAPI/RestException.dart';
 
 export 'types/models/model.dart';
 export 'types/models/model_association.dart';

@@ -16,6 +16,7 @@
 abstract class PasswordOptions {
   const PasswordOptions();
   Map<String, dynamic> serializeAsMap() {
-    throw UnimplementedError('serializeAsMap() has not been implemented on SignOutOptions.');
+    throw UnimplementedError(
+        'serializeAsMap() has not been implemented on SignOutOptions.');
   }
-} 
+}

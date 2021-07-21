@@ -22,7 +22,8 @@ import 'models/Blog.dart';
 class GraphQLApiView extends StatefulWidget {
   bool isAmplifyConfigured;
 
-  GraphQLApiView({Key key, this.isAmplifyConfigured}) : super(key: key);
+  GraphQLApiView({Key? key, this.isAmplifyConfigured = false})
+      : super(key: key);
 
   @override
   _GraphQLApiViewState createState() => _GraphQLApiViewState();
@@ -30,9 +31,8 @@ class GraphQLApiView extends StatefulWidget {
 
 class _GraphQLApiViewState extends State<GraphQLApiView> {
   String _result = '';
-  Function _unsubscribe;
-
-  GraphQLOperation _lastOperation;
+  late Function _unsubscribe;
+  late GraphQLOperation _lastOperation;
 
   subscribe() async {
     String graphQLDocument = '''subscription MySubscription {
@@ -154,7 +154,7 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
         Padding(padding: EdgeInsets.all(10.0)),
         Center(
           child: RaisedButton(
-            onPressed: widget.isAmplifyConfigured ? _unsubscribe : null,
+            onPressed: widget.isAmplifyConfigured ? () => _unsubscribe() : null,
             child: Text('Unsubscribe'),
           ),
         ),
