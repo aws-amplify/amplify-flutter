@@ -42,9 +42,7 @@ class SignInViewModel extends BaseViewModel {
   }
 
   Future<void> signOut() async {
-    setBusy(true);
     _authBloc.authEvent.add(const AuthSignOut());
-    setBusy(false);
   }
 
 //Screens
