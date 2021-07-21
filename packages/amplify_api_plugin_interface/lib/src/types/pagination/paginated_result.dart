@@ -16,7 +16,7 @@
 // TODO: Datastore dependencies temporarily added in API. Eventually they should be moved to core or otherwise reconciled to avoid duplication.
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
-class PaginatedResult<T extends Model>{
+class PaginatedResult<T extends Model> {
   @override
   String getId() {
     // TODO: implement getId

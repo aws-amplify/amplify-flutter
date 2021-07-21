@@ -27,7 +27,8 @@ export 'package:amplify_api_plugin_interface/src/types.dart';
 class AmplifyAPI extends APIPluginInterface {
   static final Object _token = Object();
 
-  AmplifyAPI({ModelProviderInterface? modelProvider}) : super(token: _token, modelProvider: modelProvider);
+  AmplifyAPI({ModelProviderInterface? modelProvider})
+      : super(token: _token, modelProvider: modelProvider);
 
   /// Internal use constructor
   @protected

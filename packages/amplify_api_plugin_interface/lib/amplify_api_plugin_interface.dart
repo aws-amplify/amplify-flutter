@@ -31,12 +31,11 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
   ModelProviderInterface? modelProvider;
 
   APIPluginInterface({required Object token, this.modelProvider})
-    : super(token: token);
-
-    /// Internal use constructor
-  @protected
-  APIPluginInterface.tokenOnly({required Object token})
       : super(token: token);
+
+  /// Internal use constructor
+  @protected
+  APIPluginInterface.tokenOnly({required Object token}) : super(token: token);
 
   Future<void> addPlugin() async {
     throw UnimplementedError('addPlugin() has not been implemented.');

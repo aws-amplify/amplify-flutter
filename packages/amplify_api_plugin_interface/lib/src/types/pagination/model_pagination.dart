@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-
 class ModelPagination {
   // limit is used for the pagination page limit
   late int limit;
