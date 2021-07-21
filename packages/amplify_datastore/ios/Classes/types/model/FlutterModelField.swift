@@ -23,6 +23,7 @@ public struct FlutterModelField {
     public let type: FlutterModelFieldType
     public let isRequired: Bool
     public let isArray: Bool
+    public let isReadOnly: Bool
     public let association: FlutterModelAssociation?
     public let authRules: [FlutterAuthRule]?
     
@@ -62,6 +63,15 @@ public struct FlutterModelField {
                 desiredType: "Bool")
         }
         self.isArray = isArray
+        
+        guard let isReadOnly = serializedData["isReadOnly"] as? Bool
+        else {
+            throw ModelSchemaError.parse(
+                className: "FlutterModelField",
+                fieldName: "isReadOnly",
+                desiredType: "Bool")
+        }
+        self.isReadOnly = isReadOnly
 
         if let inputAssociationMap = serializedData["association"] as? [String : Any]{
             self.association = try FlutterModelAssociation(serializedData: inputAssociationMap)
@@ -136,6 +146,7 @@ public struct FlutterModelField {
             name: name,
             type: try type.convertToNativeModelField(),
             isRequired: isRequired,
+            isReadOnly: isReadOnly,
             isArray: isArray,
             association: association?.convertToNativeModelAssociation(),
             authRules: authRules?.map{

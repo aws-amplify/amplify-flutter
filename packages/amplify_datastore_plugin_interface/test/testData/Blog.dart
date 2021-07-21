@@ -27,6 +27,8 @@ class Blog extends Model {
   final String id;
   final String? _name;
   final List<Post>? _posts;
+  final TemporalDateTime? _createdAt;
+  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -37,22 +39,49 @@ class Blog extends Model {
   }
 
   String get name {
-    return _name!;
+    try {
+      return _name!;
+    } catch (e) {
+      throw new DataStoreException(
+          DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
   }
 
   List<Post>? get posts {
     return _posts;
   }
 
-  const Blog._internal({required this.id, required name, posts})
-      : _name = name,
-        _posts = posts;
+  TemporalDateTime? get createdAt {
+    return _createdAt;
+  }
 
-  factory Blog({String? id, required String name, List<Post>? posts}) {
+  TemporalDateTime? get updatedAt {
+    return _updatedAt;
+  }
+
+  const Blog._internal(
+      {required this.id, required name, posts, createdAt, updatedAt})
+      : _name = name,
+        _posts = posts,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
+
+  factory Blog(
+      {String? id,
+      required String name,
+      List<Post>? posts,
+      TemporalDateTime? createdAt,
+      TemporalDateTime? updatedAt}) {
     return Blog._internal(
         id: id == null ? UUID.getUUID() : id,
         name: name,
-        posts: posts != null ? List.unmodifiable(posts) : posts);
+        posts: posts != null ? List<Post>.unmodifiable(posts) : posts,
+        createdAt: createdAt,
+        updatedAt: updatedAt);
   }
 
   bool equals(Object other) {
@@ -65,7 +94,9 @@ class Blog extends Model {
     return other is Blog &&
         id == other.id &&
         _name == other._name &&
-        DeepCollectionEquality().equals(_posts, other._posts);
+        DeepCollectionEquality().equals(_posts, other._posts) &&
+        _createdAt == other._createdAt &&
+        _updatedAt == other._updatedAt;
   }
 
   @override
@@ -77,15 +108,29 @@ class Blog extends Model {
 
     buffer.write("Blog {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("name=" + "$_name");
+    buffer.write("name=" + "$_name" + ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  Blog copyWith({String? id, String? name, List<Post>? posts}) {
+  Blog copyWith(
+      {String? id,
+      String? name,
+      List<Post>? posts,
+      TemporalDateTime? createdAt,
+      TemporalDateTime? updatedAt}) {
     return Blog(
-        id: id ?? this.id, name: name ?? this.name, posts: posts ?? this.posts);
+        id: id ?? this.id,
+        name: name ?? this.name,
+        posts: posts ?? this.posts,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
   }
 
   Blog.fromJson(Map<String, dynamic> json)
@@ -93,15 +138,24 @@ class Blog extends Model {
         _name = json['name'],
         _posts = json['posts'] is List
             ? (json['posts'] as List)
+                .where((e) => e?['serializedData'] != null)
                 .map((e) => Post.fromJson(
-                    new Map<String, dynamic>.from(e?['serializedData'])))
+                    new Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
+            : null,
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
             : null;
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': _name,
-        'posts': _posts?.map((e) => e?.toJson())?.toList()
+        'posts': _posts?.map((e) => e?.toJson())?.toList(),
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
       };
 
   static final QueryField ID = QueryField(fieldName: "blog.id");
@@ -110,6 +164,8 @@ class Blog extends Model {
       fieldName: "posts",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: (Post).toString()));
+  static final QueryField CREATEDAT = QueryField(fieldName: "createdAt");
+  static final QueryField UPDATEDAT = QueryField(fieldName: "updatedAt");
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Blog";
@@ -127,6 +183,18 @@ class Blog extends Model {
         isRequired: false,
         ofModelName: (Post).toString(),
         associatedKey: Post.BLOG));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+        key: Blog.CREATEDAT,
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+        key: Blog.UPDATEDAT,
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 

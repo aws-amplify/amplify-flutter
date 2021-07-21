@@ -26,6 +26,8 @@ class Comment extends Model {
   final String id;
   final Post? _post;
   final String? _content;
+  final TemporalDateTime? _createdAt;
+  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -52,13 +54,33 @@ class Comment extends Model {
     }
   }
 
-  const Comment._internal({required this.id, post, required content})
-      : _post = post,
-        _content = content;
+  TemporalDateTime? get createdAt {
+    return _createdAt;
+  }
 
-  factory Comment({String? id, Post? post, required String content}) {
+  TemporalDateTime? get updatedAt {
+    return _updatedAt;
+  }
+
+  const Comment._internal(
+      {required this.id, post, required content, createdAt, updatedAt})
+      : _post = post,
+        _content = content,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
+
+  factory Comment(
+      {String? id,
+      Post? post,
+      required String content,
+      TemporalDateTime? createdAt,
+      TemporalDateTime? updatedAt}) {
     return Comment._internal(
-        id: id == null ? UUID.getUUID() : id, post: post, content: content);
+        id: id == null ? UUID.getUUID() : id,
+        post: post,
+        content: content,
+        createdAt: createdAt,
+        updatedAt: updatedAt);
   }
 
   bool equals(Object other) {
@@ -71,7 +93,9 @@ class Comment extends Model {
     return other is Comment &&
         id == other.id &&
         _post == other._post &&
-        _content == other._content;
+        _content == other._content &&
+        _createdAt == other._createdAt &&
+        _updatedAt == other._updatedAt;
   }
 
   @override
@@ -84,17 +108,29 @@ class Comment extends Model {
     buffer.write("Comment {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("post=" + (_post != null ? _post!.toString() : "null") + ", ");
-    buffer.write("content=" + "$_content");
+    buffer.write("content=" + "$_content" + ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  Comment copyWith({String? id, Post? post, String? content}) {
+  Comment copyWith(
+      {String? id,
+      Post? post,
+      String? content,
+      TemporalDateTime? createdAt,
+      TemporalDateTime? updatedAt}) {
     return Comment(
         id: id ?? this.id,
         post: post ?? this.post,
-        content: content ?? this.content);
+        content: content ?? this.content,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
   }
 
   Comment.fromJson(Map<String, dynamic> json)
@@ -103,10 +139,21 @@ class Comment extends Model {
             ? Post.fromJson(
                 new Map<String, dynamic>.from(json['post']['serializedData']))
             : null,
-        _content = json['content'];
+        _content = json['content'],
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
+            : null;
 
-  Map<String, dynamic> toJson() =>
-      {'id': id, 'post': _post?.toJson(), 'content': _content};
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'post': _post?.toJson(),
+        'content': _content,
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
+      };
 
   static final QueryField ID = QueryField(fieldName: "comment.id");
   static final QueryField POST = QueryField(
@@ -114,6 +161,8 @@ class Comment extends Model {
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: (Post).toString()));
   static final QueryField CONTENT = QueryField(fieldName: "content");
+  static final QueryField CREATEDAT = QueryField(fieldName: "createdAt");
+  static final QueryField UPDATEDAT = QueryField(fieldName: "updatedAt");
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Comment";
@@ -131,6 +180,18 @@ class Comment extends Model {
         key: Comment.CONTENT,
         isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+        key: Comment.CREATEDAT,
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+        key: Comment.UPDATEDAT,
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 

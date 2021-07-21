@@ -39,6 +39,8 @@ data class FlutterModelField(val map: Map<String, Any>) {
     // True if the field is an instance of model.
     private val isModel: Boolean = type.isModel();
 
+    private val isReadOnly: Boolean = map["isReadOnly"] as Boolean
+
     // An array of rules for owner based authorization
     private val authRules: List<FlutterAuthRule>? =
             (map["authRules"] as List<Map<String, Any>>?)?.map { serializedAuthRule ->
@@ -64,6 +66,7 @@ data class FlutterModelField(val map: Map<String, Any>) {
                 .isArray(isArray)
                 .isEnum(isEnum)
                 .isModel(isModel)
+                .isReadOnly(isReadOnly)
 
         if (!authRules.isNullOrEmpty()) {
             builder = builder.authRules(authRules.map { authRule ->
