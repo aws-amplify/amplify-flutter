@@ -43,7 +43,7 @@ extension AWSAuthDevice: Codable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
-        // Do not use `name` since it is set to empty string.
+        // Do not use `name` since it is set by Amplify iOS to empty string.
         try container.encode(attributes?[AWSAuthDevice.deviceNameKey], forKey: .name)
         try container.encode(attributes, forKey: .attributes)
         try container.encode(createdDate, forKey: .createdDate)

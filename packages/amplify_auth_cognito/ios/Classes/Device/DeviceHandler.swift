@@ -100,7 +100,7 @@ struct DeviceHandler {
                     guard let awsAuthDevices = devices as? [AWSAuthDevice],
                           let devicesJSON = try? DeviceHandler.encoder.encode(awsAuthDevices),
                           let devicesMap = try? JSONSerialization.jsonObject(with: devicesJSON, options: []) else {
-                        let error = AuthError.unknown("Error decoding devices: \(devices)", nil)
+                        let error = AuthError.unknown("Error encoding devices: \(devices)", nil)
                         errorHandler.handleAuthError(authError: error, flutterResult: flutterResult)
                         return
                     }
