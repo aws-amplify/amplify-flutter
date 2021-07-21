@@ -13,7 +13,7 @@ bool isValidUserSub(String? value) {
   return uuidRegExp.hasMatch(value);
 }
 
-// validates that the identityId exists and matches an the pattern region:uuid
+// validates that the identityId exists and matches the pattern region:uuid
 bool isValidIdentityId(String? value) {
   if (value == null) {
     return false;

@@ -30,6 +30,7 @@ void main() {
     setUp(() async {
       await configureAuth();
 
+      // create new user for each test
       username = generateUsername();
       password = generatePassword();
 
@@ -126,7 +127,7 @@ void main() {
       final authSession = await Amplify.Auth.fetchAuthSession();
       expect(authSession.isSignedIn, isFalse);
 
-      // call signOut without and expection for an exception
+      // call signOut without an expectation for an exception
       await Amplify.Auth.signOut();
     });
   });
