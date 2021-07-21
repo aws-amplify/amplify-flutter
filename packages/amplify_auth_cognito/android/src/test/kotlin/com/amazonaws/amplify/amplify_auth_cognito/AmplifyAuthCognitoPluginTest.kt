@@ -24,7 +24,6 @@ import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.BasicAWSCredentials
 import com.amplifyframework.auth.*
-import com.amplifyframework.auth.options.AuthSignUpOptions
 import com.amplifyframework.auth.result.AuthResetPasswordResult
 import com.amplifyframework.auth.result.AuthSignInResult
 import com.amplifyframework.auth.result.AuthSignUpResult
@@ -32,10 +31,9 @@ import com.amplifyframework.auth.cognito.AWSCognitoAuthSession
 import com.amplifyframework.auth.cognito.AWSCognitoUserPoolTokens
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthConfirmSignInOptions
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthConfirmSignUpOptions
+import com.amplifyframework.auth.cognito.options.AWSCognitoAuthResendSignUpCodeOptions
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthSignInOptions
-import com.amplifyframework.auth.options.AuthConfirmSignInOptions
-import com.amplifyframework.auth.options.AuthConfirmSignUpOptions
-import com.amplifyframework.auth.options.AuthSignInOptions
+import com.amplifyframework.auth.options.*
 import com.amplifyframework.auth.result.AuthSessionResult
 import com.amplifyframework.auth.result.step.*
 import com.amplifyframework.auth.result.AuthUpdateAttributeResult
@@ -261,7 +259,12 @@ class AmplifyAuthCognitoPluginTest {
         doAnswer { invocation: InvocationOnMock ->
             plugin.prepareSignUpResult(mockResult, mockSignUpResult)
             null as Void?
-        }.`when`(mockAuth).resendSignUpCode(anyString(), ArgumentMatchers.any<Consumer<AuthSignUpResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).resendSignUpCode(
+                anyString(),
+                any(),
+                ArgumentMatchers.any<Consumer<AuthSignUpResult>>(),
+                ArgumentMatchers.any<Consumer<AuthException>>()
+        )
 
         val data: HashMap<*, *> = hashMapOf(
             "username" to "testUser"
@@ -274,6 +277,49 @@ class AmplifyAuthCognitoPluginTest {
 
         // Assert
         verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
+    }
+
+    @Test
+    fun resendSignUpCodeWithOptions_returnsSuccess() {
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareSignUpResult(mockResult, mockSignUpResult)
+            null as Void?
+        }.`when`(mockAuth).resendSignUpCode(
+                anyString(),
+                ArgumentMatchers.any<AuthResendSignUpCodeOptions>(),
+                ArgumentMatchers.any<Consumer<AuthSignUpResult>>(),
+                ArgumentMatchers.any<Consumer<AuthException>>()
+        )
+        val clientMetadata = hashMapOf("attribute" to "value")
+        val options = hashMapOf(
+                "clientMetadata" to clientMetadata
+        )
+        val username = "testUser"
+        val data: HashMap<*, *> = hashMapOf(
+                "username" to username,
+                "options" to options
+        )
+        val arguments: HashMap<String, Any> = hashMapOf("data" to data)
+        val call = MethodCall("resendSignUpCode", arguments)
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
+
+        val expectedOptions = AWSCognitoAuthResendSignUpCodeOptions
+                .builder()
+                .metadata(clientMetadata)
+                .build()
+
+        verify(mockAuth).resendSignUpCode(
+                ArgumentMatchers.eq(username),
+                ArgumentMatchers.eq(expectedOptions),
+                ArgumentMatchers.any<Consumer<AuthSignUpResult>>(),
+                ArgumentMatchers.any<Consumer<AuthException>>()
+        )
     }
 
     @Test

@@ -14,13 +14,25 @@
  */
 
 import Foundation
+import Amplify
+import AmplifyPlugins
 import amplify_core
 
 struct FlutterResendSignUpCodeRequest {
   var username: String
+  var options: AuthResendSignUpCodeRequest.Options?
   init(dict: NSMutableDictionary){
     self.username = dict["username"] as! String
+    self.options = formatOptions(options: dict["options"] as! Dictionary<String, Any>?)
   }
+
+  func formatOptions(options: Dictionary<String, Any>?) -> AuthResendSignUpCodeOperation.Request.Options {
+    let pluginOptions =  AWSAuthResendSignUpCodeOptions(
+        metadata: options?["clientMetadata"] as? [String : String]
+    )
+    return AuthResendSignUpCodeOperation.Request.Options(pluginOptions: pluginOptions)
+  }
+    
   static func validate(dict: NSMutableDictionary) throws {
     let validationErrorMessage = "ResendSignUpCode Request malformed."
     if (dict["username"] == nil) {
