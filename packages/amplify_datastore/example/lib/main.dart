@@ -24,7 +24,6 @@ import 'package:amplify_datastore/amplify_datastore.dart';
 //import 'package:amplify_api/amplify_api.dart';
 
 import 'package:amplify_flutter/amplify.dart';
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'amplifyconfiguration.dart';

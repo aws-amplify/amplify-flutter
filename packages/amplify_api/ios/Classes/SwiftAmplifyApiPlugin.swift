@@ -54,7 +54,7 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
             }
             else if(method == "addPlugin"){
                 do {
-                    try Amplify.add(plugin: AWSAPIPlugin() )
+                    try Amplify.add(plugin: AWSAPIPlugin(sessionFactory: FlutterURLSessionBehaviorFactory()) )
                     result(true)
                 } catch let error{
                     if(error is APIError){
