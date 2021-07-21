@@ -28,10 +28,16 @@ class StateMachineBloc {
   StreamSink<AuthEvent> get authEvent => _authEventController.sink;
 
   /// Outputs events into the event transformer.
-  Stream<AuthEvent> get _authEventStream => _authEventController.stream;
+  late final Stream<AuthEvent> _authEventStream = _authEventController.stream;
+  late final StreamSubscription<AuthState> _subscription;
 
+  // ignore: public_member_api_docs
   StateMachineBloc(this._authService) {
-    _authEventStream.listen(_eventTransformer);
+    _subscription =
+        _authEventStream.asyncExpand(_eventTransformer).listen((state) {
+      print(state);
+      _controllerSink.add(state);
+    });
   }
 
   //Exception Controller
@@ -39,67 +45,68 @@ class StateMachineBloc {
 
   Stream<AuthException> get exceptions => _exceptionController.stream;
 
-  _eventTransformer(AuthEvent event) {
+  Stream<AuthState> _eventTransformer(AuthEvent event) async* {
     if (event is AuthLoad) {
-      _authLoad();
+      yield* _authLoad();
     } else if (event is GetCurrentUser) {
-      _getCurrentUser();
+      yield* _getCurrentUser();
     } else if (event is AuthSignIn) {
-      _signIn(event.data);
+      yield* _signIn(event.data);
     } else if (event is AuthSignUp) {
-      _signUp(event.data);
+      yield* _signUp(event.data);
     } else if (event is AuthConfirmSignUp) {
-      _confirmSignUp(event.data);
+      yield* _confirmSignUp(event.data);
     } else if (event is AuthChangeScreen) {
-      _changeScreen(event.screen);
+      yield* _changeScreen(event.screen);
     } else if (event is AuthSignOut) {
-      _signOut();
+      yield* _signOut();
     }
   }
 
-  void _authLoad() {
-    _controllerSink.add(AuthLoading());
+  Stream<AuthState> _authLoad() async* {
+    yield AuthLoading();
   }
 
-  _getCurrentUser() async {
+  Stream<AuthState> _getCurrentUser() async* {
     try {
       final currentUser = await _authService.currentUser;
 
       if (currentUser != null) {
-        _controllerSink.add(Authenticated());
+        yield Authenticated();
       } else {
-        _controllerSink.add(AuthFlow(screen: AuthScreen.signin));
+        yield AuthFlow(screen: AuthScreen.signin);
       }
     } on Exception catch (e) {
       print(e);
     }
   }
 
-  _signIn(data) async {
+  Stream<AuthState> _signIn(data) async* {
     try {
       await _authService.signIn(data.username, data.password);
 
-      _controllerSink.add(Authenticated());
+      yield Authenticated();
     } catch (e) {
       print(e);
       _exceptionController.add(AuthException(e.toString()));
     }
   }
 
-  _signUp(data) async {
+  Stream<AuthState> _signUp(data) async* {
     try {
       await _authService.signUp(data.username, data.password, data.attributes);
 
-      _controllerSink.add(AuthFlow(screen: AuthScreen.confirmSignUp));
+      yield AuthFlow(screen: AuthScreen.confirmSignUp);
     } catch (e) {
       print(e);
       _exceptionController.add(AuthException(e.toString()));
     }
   }
 
-  _confirmSignUp(data) async {
+  Stream<AuthState> _confirmSignUp(data) async* {
     try {
       await _authService.confirmSignUp(data.username, data.code);
+
       _authEventController.add(GetCurrentUser());
     } catch (e) {
       print(e);
@@ -107,7 +114,7 @@ class StateMachineBloc {
     }
   }
 
-  _signOut() async {
+  Stream<AuthState> _signOut() async* {
     try {
       await _authService.signOut();
       _authEventController.add(GetCurrentUser());
@@ -117,8 +124,8 @@ class StateMachineBloc {
     }
   }
 
-  _changeScreen(screen) {
-    _controllerSink.add(AuthFlow(screen: screen));
+  Stream<AuthState> _changeScreen(screen) async* {
+    yield AuthFlow(screen: screen);
   }
 
   void dispose() {

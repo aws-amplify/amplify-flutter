@@ -1,3 +1,4 @@
+import 'package:amplify_authenticator/src/keys.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/widgets/containers.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
@@ -45,26 +46,26 @@ class SignInFormField extends StatelessWidget {
         _callBack = _authModelView.setUsername;
         _keyboardType = TextInputType.text;
         _validator = validator ?? validateUsername;
-        _key = Key('usernameSignInFormField');
+        _key = Key(keyUsernameSignInFormfield);
         break;
       case 'email':
         _callBack = _authModelView.setUsername;
         _keyboardType = TextInputType.emailAddress;
         _validator = validator ?? validateUsername;
-        _key = Key('emailSignInFormField');
+        _key = Key(keyEmailSignInFormfield);
         break;
       case 'phone_number':
         _callBack = _authModelView.setUsername;
         _keyboardType = TextInputType.phone;
         _validator = validator ?? validateUsername;
-        _key = Key('phoneNumberSignInFormField');
+        _key = Key(keyPhoneNumberSignInFormfield);
         break;
       case 'password':
         _callBack = _authModelView.setPassword;
         _keyboardType = TextInputType.visiblePassword;
         _obscureText = true;
         _validator = validator ?? validatePassword;
-        _key = Key('passwordSignInFormField');
+        _key = Key(keyPasswordSignInFormfield);
         break;
       default:
         break;
@@ -135,121 +136,121 @@ class SignUpFormField extends StatelessWidget {
         _callBack = (value) => _authModelView.setUsername(value);
         _keyboardType = TextInputType.text;
         _validator = validator ?? validateUsername;
-        _key = Key('usernameSignUpFormField');
+        _key = Key(keyUsernameSignUpFormfield);
         break;
       case 'password':
         _callBack = (value) => _authModelView.setPassword(value);
         _keyboardType = TextInputType.visiblePassword;
         _obscureText = true;
         _validator = validator ?? validatePassword;
-        _key = Key('passwordSignUpFormField');
+        _key = Key(keyPasswordSignUpFormfield);
         break;
       case 'address':
         _callBack = (value) => _authModelView.setAddress(value, type);
         _keyboardType = TextInputType.streetAddress;
-        _key = Key('addressSignUpFormField');
+        _key = Key(keyAddressFormfield);
         break;
       case 'birthdate':
         _callBack = (value) => _authModelView.setBirthdate(value, type);
         _keyboardType = TextInputType.text;
-        _key = Key('birthdateSignUpFormField');
+        _key = Key(keyBirthdateSignUpFormField);
         break;
       case 'email':
         _callBack = (value) => _authModelView.setEmail(value, type);
         _keyboardType = TextInputType.emailAddress;
         _validator = validator ?? validateEmail;
-        _key = Key('emailSignUpFormField');
+        _key = Key(keyEmailSignUpFormField);
         break;
       case 'family_name':
         _callBack = (value) => _authModelView.setFamilyName(value, type);
         _keyboardType = TextInputType.text;
         _validator = validator;
-        _key = Key('familyNameSignUpFormField');
+        _key = Key(keyFamilyNameSignUpFormField);
         break;
       case 'gender':
         _callBack = (value) => _authModelView.setGender(value, type);
         _keyboardType = TextInputType.text;
         _validator = validator;
-        _key = Key('genderSignUpFormField');
+        _key = Key(keyGenderSignUpFormField);
         break;
       case 'given_name':
         _callBack = (value) => _authModelView.setGivenName(value, type);
         _keyboardType = TextInputType.text;
         _validator = validator;
-        _key = Key('givenNameSignUpFormField');
+        _key = Key(keyGivenNameSignUpFormField);
         break;
       case 'locale':
         _callBack = (value) => _authModelView.setLocale(value, type);
         _keyboardType = TextInputType.text;
         _validator = validator;
-        _key = Key('localeSignUpFormField');
+        _key = Key(keyLocaleSignUpFormField);
         break;
       case 'middle_name':
         _callBack = (value) => _authModelView.setMiddleName(value, type);
         _keyboardType = TextInputType.text;
         _validator = validator;
-        _key = Key('middleNameSignUpFormField');
+        _key = Key(keyMiddleNameSignUpFormField);
         break;
       case 'name':
         _callBack = (value) => _authModelView.setName(value, type);
         _keyboardType = TextInputType.name;
         _validator = validator;
-        _key = Key('nameSignUpFormField');
+        _key = Key(keyNameSignUpFormField);
         break;
       case 'nickname':
         _callBack = (value) => _authModelView.setNickname(value, type);
         _keyboardType = TextInputType.name;
         _validator = validator;
-        _key = Key('nicknameSignUpFormField');
+        _key = Key(keyNicknameSignUpFormField);
         break;
       case 'phone_number':
         _callBack = (value) => _authModelView.setPhoneNumber(value, type);
         _keyboardType = TextInputType.phone;
         _validator = validator;
-        _key = Key('phoneNumberSignUpFormField');
+        _key = Key(keyPhoneNumberSignUpFormField);
         break;
       case 'picture':
         _callBack = (value) => _authModelView.setPicture(value, type);
         _keyboardType = TextInputType.text;
         _validator = validator;
-        _key = Key('pictureSignUpFormField');
+        _key = Key(keyPictureSignUpFormField);
         break;
       case 'preferredUsername':
         _callBack = (value) => _authModelView.setPreferredUsername(value, type);
         _keyboardType = TextInputType.text;
         _validator = validator;
-        _key = Key('preferredUsernameSignUpFormField');
+        _key = Key(keyPreferredUsernameSignUpFormField);
         break;
       case 'profile':
         _callBack = (value) => _authModelView.setProfile(value, type);
         _keyboardType = TextInputType.text;
         _validator = validator;
-        _key = Key('profileSignUpFormField');
+        _key = Key(keyProfileSignUpFormField);
         break;
       case 'zoneinfo':
         _callBack = (value) => _authModelView.setZoneInfo(value, type);
         _keyboardType = TextInputType.text;
         _validator = validator;
-        _key = Key('zoneinfoSignUpFormField');
+        _key = Key(keyZoneinfoSignUpFormField);
         break;
       case 'updated_at':
         _callBack = (value) => _authModelView.setUpdatedAt(value, type);
         _keyboardType = TextInputType.text;
         _validator = validator;
-        _key = Key('updatedAtSignUpFormField');
+        _key = Key(keyUpdatedAtSignUpFormField);
         break;
       case 'website':
         _callBack = (value) => _authModelView.setWebsite(value, type);
         _keyboardType = TextInputType.text;
         _validator = validator;
-        _key = Key('webisteSignUpFormField');
+        _key = Key(keyWebsiteSignUpFormField);
         break;
       default:
         if (type != null) {
           _callBack = (value) => _authModelView.setCustom(value, type);
           _keyboardType = TextInputType.text;
           _validator = validator;
-          _key = Key('customFormField');
+          _key = Key(keyCustomSignUpFormField);
         }
         print('Please enter a non null type of form field');
         break;
@@ -272,7 +273,7 @@ class ConfirmSignUpFormField extends StatelessWidget {
   ///
   /// It's good to mention that this form field might not be exposed
   /// to the consumer due to the fact that the authenticator may only
-  /// support three custom forms only, sign in, sign up and confirm sign in.
+  /// support three custom forms, sign in, sign up and confirm sign in.
   const ConfirmSignUpFormField(
       {Key? key,
       required this.title,
@@ -311,21 +312,25 @@ class ConfirmSignUpFormField extends StatelessWidget {
         _callBack = _authModelView.setUsername;
         _keyboardType = TextInputType.text;
         _validator = validator ?? validateUsername;
+        _key = Key(keyUsernameConfirmSignUpFormfield);
         break;
       case 'email':
         _callBack = _authModelView.setUsername;
         _keyboardType = TextInputType.emailAddress;
         _validator = validator ?? validateEmail;
+        _key = Key(keyEmailConfirmSignUpFormfield);
         break;
       case 'phone_number':
         _callBack = _authModelView.setUsername;
         _keyboardType = TextInputType.phone;
         _validator = validator;
+        _key = Key(keyPhoneNumberConfirmSignUpFormfield);
         break;
       case 'code':
         _callBack = _authModelView.setCode;
         _keyboardType = TextInputType.visiblePassword;
         _validator = validator;
+        _key = Key(keyPasswordConfirmSignUpFormfield);
         break;
       default:
         print('Please enter a correct type of form field');
