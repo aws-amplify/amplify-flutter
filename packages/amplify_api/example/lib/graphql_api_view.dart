@@ -76,8 +76,6 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
       }
     }''';
 
-    // GraphQLRequest<Blog> req = ModelQuery.get();
-
     var operation = await Amplify.API
         .query<String>(request: GraphQLRequest(document: graphQLDocument));
     _lastOperation = operation;
