@@ -2,28 +2,20 @@ import 'dart:async';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
 
-/// Abstract Auth Service
 abstract class AuthService {
-  ///Sign in service
   Future signIn(String username, String password);
 
-  ///sign out service
   Future<void> signOut();
 
-  /// sign up service
   Future<void> signUp(
       String username, String password, Map<String, String> authAttributes);
 
-  ///confirm sign up service
   Future<void> confirmSignUp(String username, String code);
 
-  ///current user service
   Future get currentUser;
 
-  /// isLoggedIn service
   Future<bool> get isLoggedIn;
 
-  /// confirm sign in service
   Future<void> confirmSignIn(String username, String code);
 }
 

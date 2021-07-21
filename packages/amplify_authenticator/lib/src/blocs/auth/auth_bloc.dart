@@ -7,31 +7,29 @@ import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
-///State Machine Bloc
 class StateMachineBloc {
   final AuthService _authService;
 
+  /// State controller.
   StreamController<AuthState> _authStateController =
       StreamController<AuthState>.broadcast();
 
-  //State Controller
-
+  /// Assigns state to the authStateController.
   StreamSink<AuthState> get _controllerSink => _authStateController.sink;
 
-  ///State Stream
+  /// Outputs states, which allow to render auth screens.
   Stream<AuthState> get stream => _authStateController.stream;
 
-  //Event Controller
-
+  /// Event controller.
   StreamController<AuthEvent> _authEventController =
       StreamController<AuthEvent>.broadcast();
 
-  /// Event Sink
+  /// Assigns events to the event controller, which will be transformed into state.
   StreamSink<AuthEvent> get authEvent => _authEventController.sink;
 
+  /// Outputs events into the event transformer.
   Stream<AuthEvent> get _authEventStream => _authEventController.stream;
 
-  ///Constructor
   StateMachineBloc(this._authService) {
     _authEventStream.listen(_eventTransformer);
   }
@@ -39,7 +37,6 @@ class StateMachineBloc {
   //Exception Controller
   final _exceptionController = StreamController<AuthException>.broadcast();
 
-  ///Exceptions
   Stream<AuthException> get exceptions => _exceptionController.stream;
 
   _eventTransformer(AuthEvent event) {
@@ -124,7 +121,6 @@ class StateMachineBloc {
     _controllerSink.add(AuthFlow(screen: screen));
   }
 
-  ///dispose
   void dispose() {
     _authStateController.close();
     _authEventController.close();

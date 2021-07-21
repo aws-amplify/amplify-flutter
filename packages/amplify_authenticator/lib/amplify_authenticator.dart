@@ -50,28 +50,115 @@ export 'package:amplify_authenticator/src/widgets/form_fields.dart';
 export 'package:amplify_authenticator/src/widgets/buttons.dart'
     show SignOutButton;
 
-/// Authenticator
+///
 // ignore: must_be_immutable
 class Authenticator extends StatefulWidget {
-  /// Constructor
-  Authenticator(
-      {required this.child, signInForm, signUpForm, confirmSignUpForm}) {
+  ///# Amplify Authenticator
+  ///
+  /// A widget that allows customers to authenticate their apps.
+  ///
+  ///This wrapper requires a child widget to be passed as an argument.
+  ///To work with custom forms there is the need to pass up to 3 additional
+  ///arguments, signInForm, signUpForm and confirmSignInForm with their
+  ///respective form fields.
+  ///
+  ///Note that working with custom forms is optional. Thus, if no additional arguments
+  ///are passed, the authenticator will defined the following default forms with their
+  ///respective form fields:
+  ///
+  /// 1. Sign in:
+  ///     - Username
+  ///     - Password
+  /// 2. Sign Up:
+  ///     - Username
+  ///     - Password
+  ///     - Email
+  ///     - Phone Number
+  /// 3. Confirm Sign in
+  ///     - define
+  ///     - define
+  ///     - define
+  ///
+  Authenticator({required this.child, signInForm, signUpForm}) {
     this.signInForm = signInForm ?? DefaultForms.signInForm();
     this.signUpForm = signUpForm ?? DefaultForms.signUpForm();
-    this.confirmSignUpForm =
-        confirmSignUpForm ?? DefaultForms.confirmSignUpForm();
   }
 
-  ///Custom Form
+  /// This form will support the following form field types:
+  ///    * username
+  ///    * password
+  ///    * email
+  ///    * phone_number
+  ///
+  /// ### Example
+  /// ```dart
+  ///     SignInForm( formFields:
+  ///                   FormFields(children: [
+  ///                     SignInFormField(
+  ///                       type: "username" ,
+  ///                       title: "Custom Username Form Field",
+  ///                       hintText: "Custom Hint Text",
+  ///              ),
+  ///           ])
+  ///
+  /// ```
+
   SignInForm? signInForm;
 
-  ///Custom Form
+  /// This form will support the following form field types:
+  /// * username
+  /// * password
+  /// * birthdate
+  /// * email
+  /// * family_name
+  /// * gender
+  /// * given_name
+  /// * locate
+  /// * middle_name
+  /// * name
+  /// * nickname
+  /// * phone_number
+  /// * picture
+  /// * preferred_username
+  /// * profile
+  /// * zoneinfo
+  /// * updated_at
+  /// * website
+  /// * custom
+
+  ///
+  /// ### Example
+  /// ```dart
+  ///     SignInForm( formFields:
+  ///                   FormFields(children: [
+  ///                     SignUpFormField(
+  ///                       type: "username" ,
+  ///                       title: "Custom username form field",
+  ///                       hintText: "Custom hint text",
+  ///                       ),
+  ///                     SignUpFormField(
+  ///                       type: "password" ,
+  ///                       title: "Custom password form field",
+  ///                       hintText: "Custom hint text",
+  ///                       ),
+  ///                     SignUpFormField(
+  ///                       type: "email" ,
+  ///                       title: "Custom email form field",
+  ///                       hintText: "Custom hint text",
+  ///                       ),
+  ///                     SignUpFormField(
+  ///                       type: "website" ,
+  ///                       title: "Custom website form field",
+  ///                       hintText: "Custom hint text",
+  ///                       ),
+  ///                     ])
+  ///
+  /// ```
   SignUpForm? signUpForm;
 
-  ///Custom Form
-  ConfirmSignUpForm? confirmSignUpForm;
+  ConfirmSignUpForm? confirmSignUpForm = DefaultForms.confirmSignUpForm();
 
-  /// Customer's App
+  /// This widget will be displayed after a user has signed in with some verified credentials.
   Widget child;
 
   @override

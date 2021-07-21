@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/widgets/buttons.dart';
 import 'package:amplify_authenticator/src/widgets/containers.dart';
 
-///Form Fields
 class FormFields extends StatelessWidget {
-  ///Form Fields Constructor
+  ///Requires a list of any of these form fields:
+  ///   1. SignInFormField
+  ///   2. SignUpFormField
+  ///   3. ConfirmSignUpFormField
   FormFields({required this.children});
 
   /// A list of form fields
@@ -19,9 +21,8 @@ class FormFields extends StatelessWidget {
   }
 }
 
-///Sign In Form
 class SignInForm extends StatelessWidget {
-  ///Sign In Form Constructor
+  /// Requires a list of sign in form fields.
   SignInForm({required this.formFields});
 
   /// A list of form fields
@@ -41,9 +42,8 @@ class SignInForm extends StatelessWidget {
   }
 }
 
-///Sign Up Form
 class SignUpForm extends StatelessWidget {
-  ///Sign Up Form Constructor
+  /// Requires a list of confirm sign up  form fields.
   SignUpForm({required this.formFields});
 
   /// A list of form fields
@@ -62,12 +62,22 @@ class SignUpForm extends StatelessWidget {
   }
 }
 
-///Confirm Sign Up Form
+/// It's good to mention that this form might not be exposed
+/// to the consumer due to the fact that the authenticator may only
+/// support three custom forms only, sign in, sign up and confirm sign in.
+/// This is currently used as a default form.
 class ConfirmSignUpForm extends StatelessWidget {
-  ///Confirm Sign Up Form Constructor
+  /// Requires a list of confirm sign up  form fields.
   ConfirmSignUpForm({required this.formFields});
 
   /// A list of form fields
+  ///
+  /// The following form fields can be passed:
+  ///   1. SignInFormField()
+  ///   2. SignUpFormField()
+  ///   3. ConfirmSignUpFormField()
+  ///
+
   final FormFields formFields;
 
   @override

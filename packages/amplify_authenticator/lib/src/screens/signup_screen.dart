@@ -2,7 +2,6 @@ import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/widgets/containers.dart';
 
-///Sign Up Screen
 class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

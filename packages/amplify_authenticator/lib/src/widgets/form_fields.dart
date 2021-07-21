@@ -3,9 +3,10 @@ import 'package:amplify_authenticator/src/widgets/containers.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/utils/validators.dart';
 
-///Sign In Form Field
+/// Sign In Form Field
 class SignInFormField extends StatelessWidget {
-  ///Sign In Form Field Constructor
+  /// Requires a custom title, hint text, a type (username, password, etc)
+  /// and an optional callback for input validation.
   const SignInFormField(
       {Key? key,
       required this.title,
@@ -14,16 +15,20 @@ class SignInFormField extends StatelessWidget {
       this.validator})
       : super(key: key);
 
-  ///Custom title for form field
+  /// Custom title for this form field
   final String? title;
 
-  ///Custom hint text for form field
+  /// Custom hint text for this form field
   final String? hintText;
 
-  ///Form field type
+  /// This form field currently supports the following form field types:
+  /// * Username
+  /// * Email
+  /// * Phone number
+  /// * Password
   final String? type;
 
-  ///Custom validator for form field
+  /// callback meant to validate inputs of this form field.
   final String? Function(String?)? validator;
 
   @override
@@ -78,23 +83,43 @@ class SignInFormField extends StatelessWidget {
 
 ///Sign Up Form Field
 class SignUpFormField extends StatelessWidget {
-  ///Sign Up Form Field Constructor
+  /// Requires a custom title, hint text, a type (username, password, etc)
+  /// and an optional callback for input validation.
   SignUpFormField(
       {required this.title,
       required this.hintText,
       required this.type,
       this.validator});
 
-  ///Custom title for form field
+  ///Custom title for this form field
   final String? title;
 
-  ///Custom hint text for form field
+  ///Custom hint text for this form field
   final String? hintText;
 
-  ///Form field type
+  /// This form will support the following form field types:
+  /// * username
+  /// * password
+  /// * birthdate
+  /// * email
+  /// * family_name
+  /// * gender
+  /// * given_name
+  /// * locate
+  /// * middle_name
+  /// * name
+  /// * nickname
+  /// * phone_number
+  /// * picture
+  /// * preferred_username
+  /// * profile
+  /// * zoneinfo
+  /// * updated_at
+  /// * website
+  /// * custom
   final String? type;
 
-  ///Custom validator for form field
+  /// callback meant to validate inputs of this form field.
   final String? Function(String?)? validator;
 
   @override
@@ -242,7 +267,12 @@ class SignUpFormField extends StatelessWidget {
 
 ///Confirm Sign Up Form Field
 class ConfirmSignUpFormField extends StatelessWidget {
-  ///Confirm Sign Up Form Field Constructor
+  /// Requires a custom title, hint text, a type (username, password, etc)
+  /// and an optional callback for input validation.
+  ///
+  /// It's good to mention that this form field might not be exposed
+  /// to the consumer due to the fact that the authenticator may only
+  /// support three custom forms only, sign in, sign up and confirm sign in.
   const ConfirmSignUpFormField(
       {Key? key,
       required this.title,
@@ -251,16 +281,20 @@ class ConfirmSignUpFormField extends StatelessWidget {
       this.validator})
       : super(key: key);
 
-  ///Custom title for form field
+  ///Custom title for this form field
   final String? title;
 
-  ///Custom hint text for form field
+  ///Custom hint text for this form field
   final String? hintText;
 
-  ///Form field type
+  /// This form field currently supports the following form field types:
+  /// * Username
+  /// * Email
+  /// * Phone number
+  /// * Code
   final String? type;
 
-  ///Custom validator for form field
+  /// callback meant to validate inputs of this form field.
   final String? Function(String?)? validator;
 
   @override
