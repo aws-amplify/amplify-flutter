@@ -24,7 +24,7 @@ class ModelQueries extends ModelQueriesInterface {
       ModelType modelType, String id) {
     ModelSchema schema = GraphQLRequestFactory.getSchema(modelType);
 
-    String modelName = schema.pluralName ?? '';
+    String modelName = schema.name;
     Map<String, ModelField?>? fieldsMap = schema.fields;
 
     List<String> fieldsList = [];
@@ -35,7 +35,7 @@ class ModelQueries extends ModelQueriesInterface {
     }
 
     Map<String, ModelFieldTypeEnum>? variableInput = {
-      // "id": ModelFieldTypeEnum.model
+      "id": ModelFieldTypeEnum.model
     };
 
     return GraphQLRequestFactory.buildQuery(
@@ -44,7 +44,7 @@ class ModelQueries extends ModelQueriesInterface {
         variableInput: variableInput,
         id: id,
         requestType: GraphQLRequestType.query,
-        requestOperation: GraphQLRequestOperation.list);
+        requestOperation: GraphQLRequestOperation.get);
   }
 }
 
@@ -77,8 +77,8 @@ class GraphQLRequestFactory extends GraphQLRequestFactoryInterface {
   }
 
   @override
-  static GraphQLRequest<T> buildQuery<T extends Model>({
-      required String name,
+  static GraphQLRequest<T> buildQuery<T extends Model>(
+      {required String name,
       required List<String> fields,
       required Map<String, ModelFieldTypeEnum>? variableInput,
       required String id,
