@@ -62,7 +62,7 @@ void main() {
         expect(e, TypeMatcher<NotAuthorizedException>());
         return;
       }
-      throw Exception('Expected NotAuthorizedException');
+      fail('Expected NotAuthorizedException');
     });
 
     testWidgets('should throw a UserNotFoundException with a non-existent user',
@@ -75,7 +75,7 @@ void main() {
         expect(e, TypeMatcher<UserNotFoundException>());
         return;
       }
-      throw Exception('Expected UserNotFoundException');
+      fail('Expected UserNotFoundException');
     });
 
     testWidgets(
@@ -88,7 +88,7 @@ void main() {
         expect(e, TypeMatcher<InvalidStateException>());
         return;
       }
-      throw Exception('Expected InvalidStateException');
+      fail('Expected InvalidStateException');
     });
   });
 

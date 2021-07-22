@@ -24,18 +24,18 @@ bool isValidIdentityId(String? value) {
 
 // validates that the keys/tokens exist and are non empty strings
 bool isValidAWSCredentials(AWSCredentials? credentials) {
-  try {
-    return credentials!.awsAccessKey!.isNotEmpty &&
-        credentials.awsSecretKey!.isNotEmpty &&
-        credentials.sessionToken!.isNotEmpty;
-  } catch (e) {
-    return false;
-  }
+  return credentials is AWSCredentials &&
+      credentials.awsAccessKey != null &&
+      credentials.awsSecretKey != null &&
+      credentials.sessionToken != null &&
+      credentials.awsAccessKey!.isNotEmpty &&
+      credentials.awsSecretKey!.isNotEmpty &&
+      credentials.sessionToken!.isNotEmpty;
 }
 
 // validates that the tokens exist and are non empty strings
 bool isValidAWSCognitoUserPoolTokens(AWSCognitoUserPoolTokens? tokens) {
-  return tokens != null &&
+  return tokens is AWSCognitoUserPoolTokens &&
       tokens.accessToken.isNotEmpty &&
       tokens.idToken.isNotEmpty &&
       tokens.refreshToken.isNotEmpty;

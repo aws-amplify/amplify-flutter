@@ -52,7 +52,7 @@ void main() {
       );
     });
 
-    testWidgets('should update a users password', (WidgetTester tester) async {
+    testWidgets('should update a user\'s password', (WidgetTester tester) async {
       // change password
       final newPassword = generatePassword();
       await Amplify.Auth.updatePassword(
@@ -84,7 +84,7 @@ void main() {
         expect(e, TypeMatcher<NotAuthorizedException>());
         return;
       }
-      throw Exception('Expected NotAuthorizedException');
+      fail('Expected NotAuthorizedException');
     });
 
     testWidgets(
@@ -101,7 +101,7 @@ void main() {
         expect(e, TypeMatcher<InvalidPasswordException>());
         return;
       }
-      throw Exception('Expected InvalidPasswordException');
+      fail('Expected InvalidPasswordException');
     });
   });
 }

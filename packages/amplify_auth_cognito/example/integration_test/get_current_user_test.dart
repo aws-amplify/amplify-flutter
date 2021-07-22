@@ -68,7 +68,7 @@ void main() {
         expect(e, TypeMatcher<SignedOutException>());
         return;
       }
-      throw Exception('Expected SignedOutException');
+      fail('Expected SignedOutException');
     });
   });
 }

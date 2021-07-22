@@ -58,7 +58,7 @@ void main() {
         expect(e, TypeMatcher<InvalidParameterException>());
         return;
       }
-      throw Exception('Expected InvalidParameterException');
+      fail('Expected InvalidParameterException');
     });
 
     testWidgets(
@@ -77,7 +77,7 @@ void main() {
         expect(e, TypeMatcher<InvalidPasswordException>());
         return;
       }
-      throw Exception('Expected InvalidPasswordException');
+      fail('Expected InvalidPasswordException');
     });
 
     testWidgets(
@@ -114,7 +114,7 @@ void main() {
         expect(e, TypeMatcher<UsernameExistsException>());
         return;
       }
-      throw Exception('Expected UsernameExistsException');
+      fail('Expected UsernameExistsException');
     });
   });
 }
