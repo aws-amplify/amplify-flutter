@@ -28,7 +28,9 @@ class AmplifyAPI extends APIPluginInterface {
   static final Object _token = Object();
 
   AmplifyAPI({ModelProviderInterface? modelProvider})
-      : super(token: _token, modelProvider: modelProvider);
+      : super(token: _token, modelProvider: modelProvider) {
+    _instance.modelProvider = modelProvider;
+  }
 
   /// Internal use constructor
   @protected
@@ -38,6 +40,10 @@ class AmplifyAPI extends APIPluginInterface {
 
   /// The default instance of [AmplifyAPIPlugin] to use.
   static AmplifyAPI get instance => _instance;
+
+  ModelProviderInterface? getModelProvider() {
+    return modelProvider;
+  }
 
   static set instance(AmplifyAPI instance) {
     PlatformInterface.verifyToken(instance, _token);
