@@ -70,10 +70,10 @@ class AuthCategory {
   }
 
   /// Resends the code that is used to confirm the user's account after sign up
-  /// 
+  ///
   /// Resends the code to the user with the given [username], where [username]
   /// is a login identifier or an email/phone number, depending on the configuration
-  /// 
+  ///
   /// Accepts advanced [options] such as a map of auth information for custom auth
   Future<ResendSignUpCodeResult> resendSignUpCode(
       {required String username, ResendSignUpCodeOptions? options}) {
