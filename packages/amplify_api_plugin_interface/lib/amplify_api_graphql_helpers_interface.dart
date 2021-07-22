@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -24,13 +24,13 @@ import 'src/types/pagination/paginated_result.dart';
 abstract class ModelQueriesInterface {
   // Get
   static GraphQLRequest<T> get<T extends Model>(
-      ModelType modelType, String id) {
+      ModelType<T> modelType, String id) {
     throw UnimplementedError("get() has not been implemented.");
   }
 
   // List
   static GraphQLRequest<PaginatedResult<T>> list<T extends Model>(
-      ModelType modelType,
+      ModelType<T> modelType,
       {QueryPredicate? where,
       ModelPagination? modelPagination}) {
     throw UnimplementedError("list() has not been implemented.");
