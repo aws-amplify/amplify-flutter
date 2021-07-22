@@ -28,7 +28,6 @@ class Blog extends Model {
 
   @override
   getInstanceType() => classType;
-
   @override
   String getId() {
     return id;
@@ -132,7 +131,6 @@ class Blog extends Model {
 
 class _BlogModelType extends ModelType<Blog> {
   const _BlogModelType();
-
   @override
   Blog fromJson(Map<String, dynamic> jsonData) {
     return Blog.fromJson(jsonData);
