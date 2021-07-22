@@ -28,16 +28,20 @@ class ModelProvider implements ModelProviderInterface {
   static final ModelProvider _instance = ModelProvider();
 
   static ModelProvider get instance => _instance;
-  
+
   ModelType getModelTypeByModelName(String modelName) {
-    switch(modelName) {
-    case "Blog": {
-    return Blog.classType;
-    }
-    break;
-    default: {
-    throw Exception("Failed to find model in model provider for model name: " + modelName);
-    }
+    switch (modelName) {
+      case "Blog":
+        {
+          return Blog.classType;
+        }
+        break;
+      default:
+        {
+          throw Exception(
+              "Failed to find model in model provider for model name: " +
+                  modelName);
+        }
     }
   }
 }

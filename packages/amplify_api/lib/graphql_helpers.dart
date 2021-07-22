@@ -107,7 +107,8 @@ class GraphQLRequestFactory extends GraphQLRequestFactoryInterface {
       }
     }
 
-    String doc = '''$reqTypeStr $reqOperationStr$name${varInputUpperStr} { $reqOperationStr$name$varInputLowerStr { ${fields.join(' ')} } }''';
+    String doc =
+        '''$reqTypeStr $reqOperationStr$name${varInputUpperStr} { $reqOperationStr$name$varInputLowerStr { ${fields.join(' ')} } }''';
 
     // TODO: create input map for variables & connect with current variableInput
     var variables = {"id": id};

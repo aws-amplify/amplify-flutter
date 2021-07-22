@@ -79,8 +79,9 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
       }
     }''';
 
-    var operation = await Amplify.API
-        .query<String>(request: ModelQueries.get(Blog.classType, "f70d1142-12da-4564-a699-966a75f96db6"));
+    var operation = await Amplify.API.query<String>(
+        request: ModelQueries.get(
+            Blog.classType, "f70d1142-12da-4564-a699-966a75f96db6"));
     _lastOperation = operation;
 
     var response = await operation.response;
