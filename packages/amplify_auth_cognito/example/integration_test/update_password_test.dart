@@ -52,7 +52,8 @@ void main() {
       );
     });
 
-    testWidgets('should update a user\'s password', (WidgetTester tester) async {
+    testWidgets('should update a user\'s password',
+        (WidgetTester tester) async {
       // change password
       final newPassword = generatePassword();
       await Amplify.Auth.updatePassword(
