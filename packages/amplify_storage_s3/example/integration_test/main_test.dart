@@ -94,7 +94,6 @@ void main() async {
       expect(result.items.length, greaterThan(0));
       final uploadedStorageItem =
           result.items.firstWhere((element) => element.key == lastUploadedKey);
-      expect(uploadedStorageItem.key, lastUploadedKey);
       expect(uploadedStorageItem.lastModified?.day,
           new DateTime.now().day); // was uploaded today
       expect(uploadedStorageItem.eTag?.isNotEmpty, true);
@@ -107,7 +106,9 @@ void main() async {
         fail('No uploaded file to verify.');
       }
       final result = await Amplify.Storage.getUrl(key: lastUploadedKey!);
-      expect(result.url.isNotEmpty, true);
+      // assert valid and expected s3 URL
+      expect(Uri.parse(result.url).isAbsolute, true);
+      expect(result.url.contains('s3'), true);
     });
 
     testWidgets('should delete uploaded files', (WidgetTester tester) async {
