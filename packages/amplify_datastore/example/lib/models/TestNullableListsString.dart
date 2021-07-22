@@ -24,9 +24,9 @@ import 'package:flutter/foundation.dart';
 class TestNullableListsString extends Model {
   static const classType = const _TestNullableListsStringModelType();
   final String id;
-  final List<String>? _list;
-  final List<String>? _requiredList;
-  final List<String>? _requiredListOfRequired;
+  final List<String?>? _list;
+  final List<String?> _requiredList;
+  final List<String> _requiredListOfRequired;
   final List<String>? _listOfRequired;
 
   @override
@@ -37,11 +37,11 @@ class TestNullableListsString extends Model {
     return id;
   }
 
-  List<String>? get list {
+  List<String?>? get list {
     return _list;
   }
 
-  List<String> get requiredList {
+  List<String?> get requiredList {
     try {
       return _requiredList!;
     } catch (e) {
@@ -84,22 +84,20 @@ class TestNullableListsString extends Model {
 
   factory TestNullableListsString(
       {String? id,
-      List<String>? list,
-      required List<String> requiredList,
+      List<String?>? list,
+      required List<String?> requiredList,
       required List<String> requiredListOfRequired,
       List<String>? listOfRequired}) {
     return TestNullableListsString._internal(
         id: id == null ? UUID.getUUID() : id,
-        list: list != null ? List<String>.unmodifiable(list) : list,
+        list: list,
         requiredList: requiredList != null
-            ? List<String>.unmodifiable(requiredList)
+            ? List<String?>.unmodifiable(requiredList)
             : requiredList,
         requiredListOfRequired: requiredListOfRequired != null
             ? List<String>.unmodifiable(requiredListOfRequired)
             : requiredListOfRequired,
-        listOfRequired: listOfRequired != null
-            ? List<String>.unmodifiable(listOfRequired)
-            : listOfRequired);
+        listOfRequired: listOfRequired);
   }
 
   bool equals(Object other) {
@@ -145,8 +143,8 @@ class TestNullableListsString extends Model {
 
   TestNullableListsString copyWith(
       {String? id,
-      List<String>? list,
-      List<String>? requiredList,
+      List<String?>? list,
+      List<String?>? requiredList,
       List<String>? requiredListOfRequired,
       List<String>? listOfRequired}) {
     return TestNullableListsString(
@@ -160,8 +158,8 @@ class TestNullableListsString extends Model {
 
   TestNullableListsString.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _list = json['list']?.cast<String>(),
-        _requiredList = json['requiredList']?.cast<String>(),
+        _list = json['list']?.cast<String?>(),
+        _requiredList = json['requiredList']?.cast<String?>(),
         _requiredListOfRequired =
             json['requiredListOfRequired']?.cast<String>(),
         _listOfRequired = json['listOfRequired']?.cast<String>();
