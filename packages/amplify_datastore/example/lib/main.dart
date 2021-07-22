@@ -148,6 +148,128 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void test() {
+    testSaveNullableListString();
+    // testQueryNullableListString();
+
+    //testSaveNullableListEnum();
+    //testQueryNullableListEnum();
+
+    //testSaveNullableListModel();
+    //testQueryNullableListModel();
+  }
+
+  void testSaveNullableListString() async {
+    try {
+      // Test empty case
+      var listTest =
+          TestNullableListsString(requiredList: [], requiredListOfRequired: []);
+      await Amplify.DataStore.save(listTest);
+
+      // Test partial empty case
+      listTest = TestNullableListsString(
+          list: [],
+          requiredList: [],
+          requiredListOfRequired: [],
+          listOfRequired: []);
+      await Amplify.DataStore.save(listTest);
+
+      // Test storing data
+      listTest = TestNullableListsString(
+          list: [null, "listTestString"],
+          requiredList: [null, "requiredListTestString"],
+          requiredListOfRequired: ["requiredListOfRequiredString"],
+          listOfRequired: ["listOfRequiredString"]);
+      await Amplify.DataStore.save(listTest);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void testSaveNullableListEnum() async {
+    try {
+      // Test empty case
+      var listTest =
+          TestNullableListsEnum(requiredList: [], requiredListOfRequired: []);
+      await Amplify.DataStore.save(listTest);
+
+      // Test partial empty case
+      listTest = TestNullableListsEnum(
+          list: [],
+          requiredList: [],
+          requiredListOfRequired: [],
+          listOfRequired: []);
+      await Amplify.DataStore.save(listTest);
+
+      // Test storing data
+      listTest = TestNullableListsEnum(
+          list: [null, TestEnum.maybe],
+          requiredList: [null, TestEnum.maybe],
+          requiredListOfRequired: [TestEnum.maybe],
+          listOfRequired: [TestEnum.maybe]);
+      await Amplify.DataStore.save(listTest);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void testSaveNullableListModel() async {
+    try {
+      // Test empty case
+      var listTest =
+          TestNullableListsModel(requiredList: [], requiredListOfRequired: []);
+      await Amplify.DataStore.save(listTest);
+
+      // Test partial empty case
+      listTest = TestNullableListsModel(
+          list: [],
+          requiredList: [],
+          requiredListOfRequired: [],
+          listOfRequired: []);
+      await Amplify.DataStore.save(listTest);
+
+      // Test storing data
+      Post post = Post(
+          title: "test post", rating: 999, created: TemporalDateTime.now());
+
+      listTest = TestNullableListsModel(
+          list: [null, post],
+          requiredList: [null, post],
+          requiredListOfRequired: [post],
+          listOfRequired: [post]);
+      await Amplify.DataStore.save(listTest);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void testQueryNullableListString() async {
+    // get all comments
+    print("\n\ntestQueryNullableListString\n");
+    (await Amplify.DataStore.query(TestNullableListsString.classType))
+        .forEach((element) {
+      print(element.toString());
+    });
+  }
+
+  void testQueryNullableListEnum() async {
+    // get all comments
+    print("\n\ntestQueryNullableListEnum\n");
+    (await Amplify.DataStore.query(TestNullableListsEnum.classType))
+        .forEach((element) {
+      print(element.toString());
+    });
+  }
+
+  void testQueryNullableListModel() async {
+    // get all comments
+    print("\n\ntestQueryNullableListModel\n");
+    (await Amplify.DataStore.query(TestNullableListsModel.classType))
+        .forEach((element) {
+      print(element.toString());
+    });
+  }
+
   void listenToHub() {
     setState(() {
       hubSubscription = Amplify.Hub.listen([HubChannel.DataStore], (msg) {
@@ -356,6 +478,8 @@ class _MyAppState extends State<MyApp> {
         body: Column(
           children: <Widget>[
             Padding(padding: EdgeInsets.all(10.0)),
+
+            ElevatedButton(onPressed: test, child: Text("click")),
 
             // Row for saving blog
             addBlogWidget(_nameController, _isAmplifyConfigured, saveBlog),

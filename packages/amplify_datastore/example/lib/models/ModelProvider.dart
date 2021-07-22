@@ -26,6 +26,9 @@ import 'HasManyModel.dart';
 import 'HasOneModel.dart';
 import 'Post.dart';
 import 'PostAuthComplex.dart';
+import 'TestNullableListsEnum.dart';
+import 'TestNullableListsModel.dart';
+import 'TestNullableListsString.dart';
 
 export 'AllTypeModel.dart';
 export 'AllTypeOptionalModel.dart';
@@ -38,6 +41,9 @@ export 'HasOneModel.dart';
 export 'Post.dart';
 export 'PostAuthComplex.dart';
 export 'TestEnum.dart';
+export 'TestNullableListsEnum.dart';
+export 'TestNullableListsModel.dart';
+export 'TestNullableListsString.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
@@ -53,7 +59,10 @@ class ModelProvider implements ModelProviderInterface {
     HasManyModel.schema,
     HasOneModel.schema,
     Post.schema,
-    PostAuthComplex.schema
+    PostAuthComplex.schema,
+    TestNullableListsEnum.schema,
+    TestNullableListsModel.schema,
+    TestNullableListsString.schema
   ];
   static final ModelProvider _instance = ModelProvider();
 
@@ -109,6 +118,21 @@ class ModelProvider implements ModelProviderInterface {
       case "PostAuthComplex":
         {
           return PostAuthComplex.classType;
+        }
+        break;
+      case "TestNullableListsEnum":
+        {
+          return TestNullableListsEnum.classType;
+        }
+        break;
+      case "TestNullableListsModel":
+        {
+          return TestNullableListsModel.classType;
+        }
+        break;
+      case "TestNullableListsString":
+        {
+          return TestNullableListsString.classType;
         }
         break;
       default:
