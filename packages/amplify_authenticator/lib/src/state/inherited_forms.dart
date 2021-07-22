@@ -1,3 +1,4 @@
+import 'package:amplify_authenticator/src/strings/auth_strings.dart';
 import 'package:amplify_authenticator/src/widgets/forms.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,7 @@ class InheritedForms extends InheritedWidget {
   final SignUpForm signUpForm;
 
   final ConfirmSignUpForm confirmSignUpForm;
+  final AuthStrings? authStrings;
 
   final ConfirmSignInForm confirmSignInForm;
 

@@ -1,3 +1,4 @@
+import 'package:amplify_authenticator/src/strings/auth_strings.dart';
 import 'package:amplify_authenticator/src/widgets/forms.dart';
 import 'package:amplify_authenticator/src/widgets/form_fields.dart';
 

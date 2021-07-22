@@ -1,5 +1,9 @@
-import 'package:amplify_authenticator/src/internationalization/AuthenticatorLocalizations.dart';
+import 'package:amplify_authenticator/src/internationalization/authenticator_localizations.dart';
+import 'package:amplify_authenticator/src/models/auth_viewmodel.dart';
+import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
+import 'package:amplify_authenticator/src/strings/auth_strings.dart';
+import 'package:amplify_authenticator/src/strings/signin_screen_strings.dart';
 import 'package:amplify_authenticator/src/widgets/containers.dart';
 import 'package:flutter/material.dart';
 

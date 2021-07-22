@@ -17,7 +17,6 @@ library amplify_authenticator;
 
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/screens/confirm_signin_screen.dart';
-import 'package:amplify_authenticator/src/internationalization/AuthenticatorLocalizations.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -54,10 +53,9 @@ import 'package:amplify_authenticator/src/widgets/default_forms.dart';
 export 'package:amplify_authenticator/src/widgets/forms.dart';
 export 'package:amplify_authenticator/src/widgets/form_fields.dart';
 export 'package:amplify_authenticator/src/widgets/buttons.dart' show SignOutButton;
-export 'package:amplify_authenticator/src/internationalization/AuthenticatorLocales.dart';
-export 'package:amplify_authenticator/src/internationalization/AuthenticatorLocalizationsDelegate.dart';
-export 'package:amplify_authenticator/src/internationalization/AuthenticatorLocalizedValues.dart';
-export 'package:amplify_authenticator/src/internationalization/AuthenticatorLocale.dart';
+export 'package:amplify_authenticator/src/internationalization/authenticator_localizations_delegate.dart';
+export 'package:amplify_authenticator/src/internationalization/authenticator_localized_values.dart';
+export 'package:amplify_authenticator/src/internationalization/authenticator_locale.dart';
 
 
 ///
@@ -233,16 +231,22 @@ class _AuthenticatorState extends State<Authenticator> {
 
   late final StateMachineBloc _stateMachineBloc;
 
+  AuthenticatorLocalizations? _localizations;
+  AuthStrings? _authStrings;
+
   @override
   void initState() {
     super.initState();
     _stateMachineBloc = StateMachineBloc(_authService)
       ..authEvent.add(GetCurrentUser());
-
   }
 
   @override
   Widget build(BuildContext context) {
+
+    _localizations = Localizations.of<AuthenticatorLocalizations>(context, AuthenticatorLocalizations);
+    _authStrings = AuthStrings(localizations: _localizations);
+    
     return InheritedAuthBloc(
         key: const Key(keyInheritedAuthBloc),
         authBloc: _stateMachineBloc,

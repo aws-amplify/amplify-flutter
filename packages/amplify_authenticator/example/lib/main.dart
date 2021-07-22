@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +10,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'amplifyconfiguration.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MyHomePage());
 }
 
 class MyApp extends StatelessWidget {
@@ -28,7 +30,10 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
 
-  final String title;
+  // static void setLocale(BuildContext context, Locale newLocale) async {
+  //   _MyHomePageState? state = context.findAncestorStateOfType<_MyHomePageState>();
+  //     state!.changeLanguage(spanish);
+  // }
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -57,6 +62,15 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
 
     _amplifyConfig();
+    // try {
+    //   _locale = localeList.firstWhere((Locale locale) {
+    //     return locale.toLanguageTag() == Platform.localeName.replaceAll('_', '-');
+    //   });
+    // } on Exception {
+    //   _locale = english;
+    // }
+
+    var d;
   }
 
 // Amplify Configuration
