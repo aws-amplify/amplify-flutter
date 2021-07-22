@@ -3,11 +3,11 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
 
 abstract class AuthService {
-  Future signIn(String username, String password);
+  Future<SignInResult> signIn(String username, String password);
 
   Future<void> signOut();
 
-  Future<void> signUp(
+  Future<SignUpResult> signUp(
       String username, String password, Map<String, String> authAttributes);
 
   Future<void> confirmSignUp(String username, String code);
@@ -19,30 +19,24 @@ abstract class AuthService {
   Future<void> confirmSignIn(String username, String code);
 }
 
-///Amplify Auth Service public class
 class AmplifyAuthService implements AuthService {
   @override
-  Future signIn(String username, String password) async {
-    final AuthUser? user = await currentUser;
-    if (user != null) {
-      return user;
-    }
-
+  Future<SignInResult> signIn(String username, String password) async {
     final SignInResult result = await Amplify.Auth.signIn(
       username: username,
       password: password,
     );
 
-    if (!result.isSignedIn) {
-      throw AuthException('Could not sign in');
+    if (!result.isSignedIn && result.nextStep!.signInStep == 'DONE') {
+      throw const AuthenticatorException('Could not login');
     }
-    return (await currentUser);
+    return result;
   }
 
   @override
-  Future<void> signUp(
+  Future<SignUpResult> signUp(
       String username, String password, Map<String, String> attributes) async {
-    await Amplify.Auth.signUp(
+    return await Amplify.Auth.signUp(
       username: username,
       password: password,
       options: CognitoSignUpOptions(
@@ -58,7 +52,7 @@ class AmplifyAuthService implements AuthService {
       confirmationCode: code,
     );
     if (!result.isSignUpComplete) {
-      throw AuthException('Could not confirm');
+      throw const AuthenticatorException('Could not login');
     }
   }
 
@@ -97,14 +91,11 @@ class AmplifyAuthService implements AuthService {
   }
 }
 
-/// Auth Exception
 class AuthenticatorException implements Exception {
-  /// exception message
   final String message;
 
-  ///Auth Exception constructor
   const AuthenticatorException([this.message = 'An unknown error occurred.']);
 
   @override
-  String toString() => 'AuthenticatorException{ message: "$message" }';
+  String toString() => 'AuthException{ message: "$message" }';
 }

@@ -1,6 +1,7 @@
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
 import 'package:amplify_authenticator/src/utils/base_viewmodel.dart';
+
 import 'package:flutter/material.dart';
 
 class SignInViewModel extends BaseViewModel {

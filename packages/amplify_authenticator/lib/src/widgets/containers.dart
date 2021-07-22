@@ -59,6 +59,42 @@ class FormFieldContainer extends StatelessWidget {
   }
 }
 
+class ButtonContainer extends StatelessWidget {
+  const ButtonContainer(
+      {Key? key, required this.authViewModel, required this.authKey})
+      : super(key: key);
+  final dynamic authViewModel;
+  final String authKey;
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+        animation: authViewModel,
+        builder: (context, child) {
+          Widget? _child;
+          dynamic _callback;
+          if (authViewModel.isBusy) {
+            _child = const CircularProgressIndicator(color: Colors.white);
+            _callback = () {};
+          } else {
+            _child = const Text("Sign In");
+            _callback = authViewModel.signIn;
+          }
+
+          return ElevatedButton(
+            key: Key(authKey),
+            onPressed: _callback,
+            child: _child,
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.all(10),
+              primary: Theme.of(context).primaryColor != Colors.blue
+                  ? Theme.of(context).primaryColor
+                  : AuthenticatorColors.primary,
+            ),
+          );
+        });
+  }
+}
+
 class ButtonsContainer extends StatelessWidget {
   const ButtonsContainer({required this.children});
 

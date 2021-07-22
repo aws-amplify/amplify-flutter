@@ -1,3 +1,4 @@
+import 'package:amplify_authenticator/src/widgets/containers.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 
@@ -16,63 +17,23 @@ class SignUpButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final SignUpViewModel _authViewModel =
         InheritedAuthViewModel.of(context)!.signUpViewModel;
-    return AnimatedBuilder(
-        animation: _authViewModel,
-        builder: (context, child) {
-          Widget? _child;
-          dynamic _callback;
-          if (_authViewModel.isBusy) {
-            _child = const CircularProgressIndicator(color: Colors.white);
-            _callback = () {};
-          } else {
-            _child = const Text("Sign Up");
-            _callback = _authViewModel.signUp;
-          }
 
-          return ElevatedButton(
-              key: const Key(keySignUpButton),
-              onPressed: _callback,
-              child: _child,
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.all(10),
-                primary: Theme.of(context).primaryColor != Colors.blue
-                    ? Theme.of(context).primaryColor
-                    : AuthenticatorColors.primary,
-              ));
-        });
+    return ButtonContainer(
+      authViewModel: _authViewModel,
+      authKey: keySignUpButton,
+    );
   }
 }
 
 class SignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final SignInViewModel _authViewModel =
-        InheritedAuthViewModel.of(context)!.signInViewModel;
+    final _authViewModel = InheritedAuthViewModel.of(context)!.signInViewModel;
 
-    return AnimatedBuilder(
-        animation: _authViewModel,
-        builder: (context, child) {
-          Widget? _child;
-          dynamic _callback;
-          if (_authViewModel.isBusy) {
-            _child = const CircularProgressIndicator(color: Colors.white);
-            _callback = () {};
-          } else {
-            _child = const Text("Sign In");
-            _callback = _authViewModel.signIn;
-          }
-
-          return ElevatedButton(
-              key: const Key(keySignInButton),
-              onPressed: _callback,
-              child: _child,
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.all(10),
-                primary: Theme.of(context).primaryColor != Colors.blue
-                    ? Theme.of(context).primaryColor
-                    : AuthenticatorColors.primary,
-              ));
-        });
+    return ButtonContainer(
+      authViewModel: _authViewModel,
+      authKey: keySignInButton,
+    );
   }
 }
 
@@ -81,30 +42,10 @@ class ConfirmButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final ConfirmSignUpViewModel _authViewModel =
         InheritedAuthViewModel.of(context)!.confirmSignUpViewModel;
-    return AnimatedBuilder(
-        animation: _authViewModel,
-        builder: (context, child) {
-          Widget? _child;
-          dynamic _callback;
-          if (_authViewModel.isBusy) {
-            _child = const CircularProgressIndicator(color: Colors.white);
-            _callback = () {};
-          } else {
-            _child = const Text("CONFIRM");
-            _callback = _authViewModel.confirm;
-          }
-
-          return ElevatedButton(
-              key: const Key(keyConfirmSignUpButton),
-              onPressed: _callback,
-              child: _child,
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.all(10),
-                primary: Theme.of(context).primaryColor != Colors.blue
-                    ? Theme.of(context).primaryColor
-                    : AuthenticatorColors.primary,
-              ));
-        });
+    return ButtonContainer(
+      authViewModel: _authViewModel,
+      authKey: keyConfirmSignUpButton,
+    );
   }
 }
 
@@ -113,30 +54,10 @@ class SignOutButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final SignInViewModel _authViewModel =
         InheritedAuthViewModel.of(context)!.signInViewModel;
-    return AnimatedBuilder(
-        animation: _authViewModel,
-        builder: (context, child) {
-          Widget? _child;
-          dynamic _callback;
-          if (_authViewModel.isBusy) {
-            _child = const CircularProgressIndicator(color: Colors.white);
-            _callback = () {};
-          } else {
-            _child = const Text("Sign Out");
-            _callback = _authViewModel.signOut;
-          }
-
-          return ElevatedButton(
-              key: const Key(keySignOutButton),
-              onPressed: _callback,
-              child: _child,
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.all(10),
-                primary: Theme.of(context).primaryColor != Colors.blue
-                    ? Theme.of(context).primaryColor
-                    : AuthenticatorColors.primary,
-              ));
-        });
+    return ButtonContainer(
+      authViewModel: _authViewModel,
+      authKey: keySignOutButton,
+    );
   }
 }
 

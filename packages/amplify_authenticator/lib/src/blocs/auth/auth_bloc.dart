@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
-
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 
 part 'auth_event.dart';
@@ -85,9 +84,36 @@ class StateMachineBloc {
 
   Stream<AuthState> _signIn(AuthSignInData data) async* {
     try {
-      await _authService.signIn(data.username, data.password);
+      SignInResult result =
+          await _authService.signIn(data.username, data.password);
 
-      yield const Authenticated();
+      switch (result.nextStep!.signInStep) {
+        case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
+          //Show confirm sing in screen
+          //Note: this screen is yet to be implemented.
+          break;
+        case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
+          //Show confirm sing in screen
+          //Note: this screen is yet to be implemented.
+          break;
+        case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
+          //Show confirm sing in screen
+          //Note: this screen is yet to be implemented.
+          break;
+
+        case 'RESET_PASSWORD':
+          //Show reset password screen.
+          //Note: this screen is yet to be implemented.
+          break;
+        case 'CONFIRM_SIGN_UP':
+          //Show resend sign up code screen
+          //This screen is yet to be implemented
+          break;
+        case 'DONE':
+          break;
+        default:
+          break;
+      }
     } catch (e) {
       print(e);
       _exceptionController.add(AuthenticatorException(e.toString()));
@@ -96,9 +122,17 @@ class StateMachineBloc {
 
   Stream<AuthState> _signUp(AuthSignUpData data) async* {
     try {
-      await _authService.signUp(data.username, data.password, data.attributes);
+      SignUpResult result = await _authService.signUp(
+          data.username, data.password, data.attributes);
 
-      yield AuthFlow(screen: AuthScreen.confirmSignUp);
+      switch (result.nextStep.signUpStep) {
+        case 'CONFIRM_SIGN_UP_STEP':
+          yield AuthFlow(screen: AuthScreen.confirmSignUp);
+          break;
+        case 'DONE':
+          yield AuthFlow(screen: AuthScreen.signin);
+          break;
+      }
     } catch (e) {
       print(e);
       _exceptionController.add(AuthenticatorException(e.toString()));
