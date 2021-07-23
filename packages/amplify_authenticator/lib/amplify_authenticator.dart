@@ -15,6 +15,7 @@
 
 library amplify_authenticator;
 
+import 'package:amplify_authenticator/src/keys.dart';
 import 'package:flutter/material.dart';
 
 //State
@@ -181,8 +182,10 @@ class _AuthenticatorState extends State<Authenticator> {
   @override
   Widget build(BuildContext context) {
     return InheritedAuthBloc(
+        key: const Key(keyInheritedAuthBloc),
         authBloc: _stateMachineBloc,
         child: InheritedAuthViewModel(
+            key: const Key(keyInheritedAuthViewModel),
             signInViewModel: SignInViewModel(_stateMachineBloc),
             signUpViewModel: SignUpViewModel(_stateMachineBloc),
             confirmSignUpViewModel: ConfirmSignUpViewModel(_stateMachineBloc),

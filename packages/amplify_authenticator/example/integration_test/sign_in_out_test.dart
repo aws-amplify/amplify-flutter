@@ -13,17 +13,18 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_authenticator/src/views/signin_viewmodel.dart';
-import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
+import 'package:amplify_authenticator/src/models/authenticator_exceptions.dart';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'finders/signIn_finder.dart';
+import 'finders/widgets_finder.dart';
+
+import 'package:amplify_authenticator_example/main.dart' as app;
 
 import 'utils/mock_data.dart';
-import 'package:amplify_authenticator_example/main.dart' as app;
 
 void main() {
   group('Sign In and Sign Out', () {
@@ -35,22 +36,38 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await tester.enterText(usernameSignInFormField, 'isralejo25@hotmail.es');
-      await Future.delayed(const Duration(seconds: 2));
-      await tester.enterText(passwordSignInFormField, 'Welcome1234!');
-      await Future.delayed(const Duration(seconds: 2));
+      late InheritedAuthBloc authBloc;
+      try {
+        authBloc = await tester.widget(inheritedAuthBlocFinder);
+      } catch (e) {
+        fail('Error finding auth bloc: $e');
+      }
+      final subscription = await authBloc.authBloc.stream;
+
+      await tester.enterText(
+          usernameSignInFormFieldFinder, 'isralejo25@hotmail.es');
+      await Future<void>.delayed(const Duration(seconds: 2));
+      await tester.enterText(passwordSignInFormFieldFinder, 'Welcome1234!');
+      await Future<void>.delayed(const Duration(seconds: 2));
       await tester.pumpAndSettle();
 
-      await tester.tap(signInButton);
-      final res = await Amplify.Auth.fetchAuthSession();
-      await tester.pumpAndSettle();
-      expect(res.isSignedIn, true);
+      //Signing In
 
-      await Future.delayed(const Duration(seconds: 2));
-      await tester.tap(signOutButton);
+      await tester.tap(signInButtonFinder);
+
+      final stateAuthenticated = await subscription.first;
+
+      expect(stateAuthenticated, isA<Authenticated>());
+
       await tester.pumpAndSettle();
-      final res1 = await Amplify.Auth.fetchAuthSession();
-      expect(res1.isSignedIn, false);
+
+      //Signing Out
+
+      await tester.tap(signOutButtonFinder);
+      final stateAuthFlow = await subscription.first;
+
+      expect(stateAuthFlow, isA<AuthFlow>());
+      await tester.pumpAndSettle();
     });
 
     testWidgets("Signing in an unregistered  user",
@@ -60,20 +77,25 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await tester.enterText(usernameSignInFormField, username);
-      await Future.delayed(const Duration(seconds: 2));
-      await tester.enterText(passwordSignInFormField, password);
-      await Future.delayed(const Duration(seconds: 2));
-      await tester.pumpAndSettle();
-
+      late InheritedAuthBloc authBloc;
       try {
-        await Amplify.Auth.signIn(username: username, password: password);
+        authBloc = await tester.widget(inheritedAuthBlocFinder);
       } catch (e) {
-        expect(e, TypeMatcher<UserNotFoundException>());
-        return;
+        fail('Error finding auth bloc: $e');
       }
 
-      await tester.tap(signInButton);
+      await tester.enterText(usernameSignInFormFieldFinder, username);
+      await Future<void>.delayed(const Duration(seconds: 2));
+      await tester.enterText(passwordSignInFormFieldFinder, password);
+      await Future<void>.delayed(const Duration(seconds: 2));
+      await tester.pumpAndSettle();
+
+      await tester.tap(signInButtonFinder);
+
+      final subscription = await authBloc.authBloc.exceptions;
+      final stateAuthenticated = await subscription.first;
+
+      expect(stateAuthenticated, isA<AuthenticatorException>());
     });
   });
 }

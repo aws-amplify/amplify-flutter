@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_authenticator/src/models/authenticator_exceptions.dart';
 
 abstract class AuthService {
   Future<SignInResult> signIn(String username, String password);
@@ -22,6 +23,10 @@ abstract class AuthService {
 class AmplifyAuthService implements AuthService {
   @override
   Future<SignInResult> signIn(String username, String password) async {
+    if (await isLoggedIn) {
+      await Amplify.Auth.signOut();
+    }
+
     final SignInResult result = await Amplify.Auth.signIn(
       username: username,
       password: password,
@@ -52,7 +57,7 @@ class AmplifyAuthService implements AuthService {
       confirmationCode: code,
     );
     if (!result.isSignUpComplete) {
-      throw const AuthenticatorException('Could not login');
+      throw const AuthenticatorException('Could not confirm');
     }
   }
 
@@ -91,11 +96,11 @@ class AmplifyAuthService implements AuthService {
   }
 }
 
-class AuthenticatorException implements Exception {
-  final String message;
+// class AuthenticatorException implements Exception {
+//   final String message;
 
-  const AuthenticatorException([this.message = 'An unknown error occurred.']);
+//   const AuthenticatorException([this.message = 'An unknown error occurred.']);
 
-  @override
-  String toString() => 'AuthException{ message: "$message" }';
-}
+//   @override
+//   String toString() => 'AuthException{ message: "$message" }';
+// }

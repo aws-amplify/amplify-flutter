@@ -4,6 +4,9 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 
+//Models
+import 'package:amplify_authenticator/src/models/authenticator_exceptions.dart';
+
 part 'auth_event.dart';
 part 'auth_state.dart';
 
@@ -107,9 +110,10 @@ class StateMachineBloc {
           break;
         case 'CONFIRM_SIGN_UP':
           //Show resend sign up code screen
-          //This screen is yet to be implemented
+          //Note: This screen is yet to be implemented
           break;
         case 'DONE':
+          yield const Authenticated();
           break;
         default:
           break;

@@ -6,11 +6,12 @@ import 'package:amplify_authenticator/src/views/signup_viewmodel.dart';
 class InheritedAuthViewModel extends InheritedWidget {
   // ignore: public_member_api_docs
   const InheritedAuthViewModel(
-      {required this.signInViewModel,
+      {Key? key,
+      required this.signInViewModel,
       required this.signUpViewModel,
       required this.confirmSignUpViewModel,
       required Widget child})
-      : super(child: child);
+      : super(key: key, child: child);
 
   final SignInViewModel signInViewModel;
 

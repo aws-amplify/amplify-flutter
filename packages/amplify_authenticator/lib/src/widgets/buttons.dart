@@ -19,9 +19,10 @@ class SignUpButton extends StatelessWidget {
         InheritedAuthViewModel.of(context)!.signUpViewModel;
 
     return ButtonContainer(
-      authViewModel: _authViewModel,
-      authKey: keySignUpButton,
-    );
+        callback: _authViewModel.signUp,
+        authViewModel: _authViewModel,
+        authKey: keySignUpButton,
+        text: "Sign Up");
   }
 }
 
@@ -31,9 +32,10 @@ class SignInButton extends StatelessWidget {
     final _authViewModel = InheritedAuthViewModel.of(context)!.signInViewModel;
 
     return ButtonContainer(
-      authViewModel: _authViewModel,
-      authKey: keySignInButton,
-    );
+        callback: _authViewModel.signIn,
+        authViewModel: _authViewModel,
+        authKey: keySignInButton,
+        text: "Sign In");
   }
 }
 
@@ -43,9 +45,10 @@ class ConfirmButton extends StatelessWidget {
     final ConfirmSignUpViewModel _authViewModel =
         InheritedAuthViewModel.of(context)!.confirmSignUpViewModel;
     return ButtonContainer(
-      authViewModel: _authViewModel,
-      authKey: keyConfirmSignUpButton,
-    );
+        callback: _authViewModel.confirm,
+        authViewModel: _authViewModel,
+        authKey: keyConfirmSignUpButton,
+        text: "CONFIRM");
   }
 }
 
@@ -55,9 +58,10 @@ class SignOutButton extends StatelessWidget {
     final SignInViewModel _authViewModel =
         InheritedAuthViewModel.of(context)!.signInViewModel;
     return ButtonContainer(
-      authViewModel: _authViewModel,
-      authKey: keySignOutButton,
-    );
+        callback: _authViewModel.signOut,
+        authViewModel: _authViewModel,
+        authKey: keySignOutButton,
+        text: "Sign Out");
   }
 }
 

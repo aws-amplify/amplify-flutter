@@ -12,15 +12,22 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-import 'package:amplify_authenticator/src/screens/confirm_signup_screen.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
+import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
+import 'package:amplify_authenticator/src/models/authenticator_exceptions.dart';
+
+import 'finders/signUp_finder.dart';
+import 'finders/widgets_finder.dart';
+import 'finders/confirm_signup_finder.dart';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'finders/signUp_finder.dart';
+
 import 'utils/mock_data.dart';
 import 'package:amplify_authenticator_example/main.dart' as app;
 
+//This tests asumes a default amplify configuration where
+//username is neither a email or phone number but username.
 void main() {
   group('Sign In and Sign Out', () {
     IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -30,56 +37,56 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
+      late InheritedAuthBloc authBloc;
+      try {
+        authBloc = await tester.widget(inheritedAuthBlocFinder);
+      } catch (e) {
+        fail('Error finding auth bloc: $e');
+      }
+      final subscription = await authBloc.authBloc.stream;
+
       //Going to sign up screen
       await tester.tap(gotToSignUpButton);
-      await Future.delayed(const Duration(seconds: 2));
+      final stateAuthFlowSignUp = await subscription.first;
+
+      expect(stateAuthFlowSignUp, isA<AuthFlow>());
+      await Future<void>.delayed(const Duration(seconds: 2));
       await tester.pumpAndSettle();
 
       //Creating account
-      await tester.enterText(usernameSignUpFormField, generateUsername());
-      await Future.delayed(const Duration(seconds: 2));
-      await tester.enterText(passwordSignUpFormField, generatePassword());
-      await Future.delayed(const Duration(seconds: 2));
-      await tester.enterText(emailSignUpFormField, generatePassword());
-      await Future.delayed(const Duration(seconds: 2));
-      await tester.enterText(phoneNumberSignUpFormField, generatePassword());
-      await Future.delayed(const Duration(seconds: 2));
-      await tester.tap(signUpButton);
-      await tester.pumpAndSettle();
+      final email = generateEmail();
 
-      expect(ConfirmSignUpScreen, true);
+      await tester.enterText(usernameSignUpFormField, email);
+      await Future<void>.delayed(const Duration(seconds: 2));
+      await tester.enterText(passwordSignUpFormField, generatePassword());
+      await Future<void>.delayed(const Duration(seconds: 2));
+      await tester.enterText(emailSignUpFormField, email);
+      await Future<void>.delayed(const Duration(seconds: 2));
+      await tester.enterText(phoneNumberSignUpFormField, mockPhoneNumber);
+      await Future<void>.delayed(const Duration(seconds: 2));
+
+      await tester.tap(signUpButton);
+
+      final stateAuthFlowConfirm = await subscription.first;
+
+      expect(stateAuthFlowConfirm, isA<AuthFlow>());
+      await tester.pumpAndSettle();
 
       //Confirm sign up
 
       await tester.enterText(
           usernameConfirmSignUpFormField, generateUsername());
-      await Future.delayed(const Duration(seconds: 2));
+      await Future<void>.delayed(const Duration(seconds: 2));
+      await tester.enterText(codeConfirmSignUpFormField, mockCode);
+      await Future<void>.delayed(const Duration(seconds: 2));
+
+      //For now, this screen uses a mocked code
+
+      await tester.tap(gotToSignInButton);
+      final stateAuthFlowSignIn = await subscription.first;
+      expect(stateAuthFlowSignIn, isA<AuthFlow>());
+
       await tester.pumpAndSettle();
-      final res1 = await Amplify.Auth.fetchAuthSession();
-      expect(res1.isSignedIn, false);
-    });
-
-    testWidgets("Signing in an unregistered  user",
-        (WidgetTester tester) async {
-      final username = generateUsername();
-      final password = generatePassword();
-      app.main();
-      await tester.pumpAndSettle();
-
-      await tester.enterText(usernameSignInFormField, username);
-      await Future.delayed(const Duration(seconds: 2));
-      await tester.enterText(passwordSignInFormField, password);
-      await Future.delayed(const Duration(seconds: 2));
-      await tester.pumpAndSettle();
-
-      try {
-        await Amplify.Auth.signIn(username: username, password: password);
-      } catch (e) {
-        expect(e, TypeMatcher<UserNotFoundException>());
-        return;
-      }
-
-      await tester.tap(signInButton);
     });
   });
 }

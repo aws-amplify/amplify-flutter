@@ -61,23 +61,31 @@ class FormFieldContainer extends StatelessWidget {
 
 class ButtonContainer extends StatelessWidget {
   const ButtonContainer(
-      {Key? key, required this.authViewModel, required this.authKey})
+      {Key? key,
+      required this.text,
+      required this.authViewModel,
+      required this.authKey,
+      required this.callback})
       : super(key: key);
   final dynamic authViewModel;
   final String authKey;
+  final dynamic Function() callback;
+  final String text;
   @override
   Widget build(BuildContext context) {
+    late dynamic Function() _callback;
+
     return AnimatedBuilder(
         animation: authViewModel,
         builder: (context, child) {
           Widget? _child;
-          dynamic _callback;
+
           if (authViewModel.isBusy) {
             _child = const CircularProgressIndicator(color: Colors.white);
             _callback = () {};
           } else {
-            _child = const Text("Sign In");
-            _callback = authViewModel.signIn;
+            _child = Text(text);
+            _callback = callback;
           }
 
           return ElevatedButton(

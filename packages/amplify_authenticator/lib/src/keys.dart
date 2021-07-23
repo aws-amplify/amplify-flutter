@@ -1,11 +1,11 @@
-// Keys for sign in form fields
+//  Sign in form fields keys
 
 const String keyUsernameSignInFormfield = 'usernameSignInFormField';
 const String keyEmailSignInFormfield = 'emailSignInFormField';
 const String keyPhoneNumberSignInFormfield = 'phoneNumberSignInFormField';
 const String keyPasswordSignInFormfield = 'passwordSignInFormField';
 
-// Keys for sign up form fields
+// Sign up form fields keys
 
 const String keyUsernameSignUpFormfield = 'usernameSignUpFormField';
 const String keyPasswordSignUpFormfield = 'passwordSignUpFormField';
@@ -29,16 +29,16 @@ const String keyUpdatedAtSignUpFormField = 'updatedAtSignUpFormField';
 const String keyWebsiteSignUpFormField = 'websiteSignUpFormField';
 const String keyCustomSignUpFormField = 'customSignUpFormField';
 
-// Keys for confirm sign up form fields
+// Confirm sign up form fields keys
 
 const String keyUsernameConfirmSignUpFormfield =
     'usernameConfirmSignUpFormField';
 const String keyEmailConfirmSignUpFormfield = 'emailConfirmSignUpFormField';
 const String keyPhoneNumberConfirmSignUpFormfield =
     'phoneNumberConfirmSignUpFormField';
-const String keyPasswordConfirmSignUpFormfield = 'passwordSignInFormField';
+const String keyCodeConfirmSignUpFormfield = 'codeConfirmSignUpFormField';
 
-//Keys for buttons
+// Buttons keys
 
 const String keySignUpButton = "signUpButton";
 const String keySignInButton = "signInButton";
@@ -47,3 +47,8 @@ const String keySignOutButton = "signOutButton";
 const String keyBackToSignInButton = "backToSignInButton";
 const String keyGoToSignUpButton = "goToSignUpButton";
 const String keyGoToSignInButton = "goToSignInButton";
+
+// Inherited keys
+
+const String keyInheritedAuthViewModel = "inheritedAuthViewModel";
+const String keyInheritedAuthBloc = "inheritedAuthBloc";

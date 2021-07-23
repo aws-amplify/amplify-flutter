@@ -331,7 +331,7 @@ class ConfirmSignUpFormField extends StatelessWidget {
         _callBack = _authModelView.setCode;
         _keyboardType = TextInputType.visiblePassword;
         _validator = validator;
-        _key = const Key(keyPasswordConfirmSignUpFormfield);
+        _key = const Key(keyCodeConfirmSignUpFormfield);
         break;
       default:
         //throw exception

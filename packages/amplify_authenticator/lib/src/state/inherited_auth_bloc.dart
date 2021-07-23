@@ -3,8 +3,9 @@ import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 
 class InheritedAuthBloc extends InheritedWidget {
   // ignore: public_member_api_docs
-  const InheritedAuthBloc({required this.authBloc, required Widget child})
-      : super(child: child);
+  const InheritedAuthBloc(
+      {Key? key, required this.authBloc, required Widget child})
+      : super(key: key, child: child);
 
   final StateMachineBloc authBloc;
 
