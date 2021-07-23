@@ -16,22 +16,10 @@
 // TODO: Datastore dependencies temporarily added in API. Eventually they should be moved to core or otherwise reconciled to avoid duplication.
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
-class PaginatedResult<T extends Model> {
-  @override
-  String getId() {
-    // TODO: implement getId
-    throw UnimplementedError("getId() has not been implemented.");
-  }
+abstract class PaginatedResult<T extends Model> {
+  String get id;
 
-  @override
-  ModelType<Model> getInstanceType() {
-    // TODO: implement getInstanceType
-    throw UnimplementedError("getInstanceType() has not been implemented.");
-  }
+  ModelType<T> get instanceType;
 
-  @override
-  Map<String, dynamic> toJson() {
-    // TODO: implement toJson
-    throw UnimplementedError("toJson() has not been implemented.");
-  }
+  Map<String, dynamic> toJson();
 }

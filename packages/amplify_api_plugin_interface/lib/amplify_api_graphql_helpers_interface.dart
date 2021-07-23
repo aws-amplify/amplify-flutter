@@ -39,18 +39,18 @@ abstract class ModelQueriesInterface {
 
 abstract class ModelMutationsInterface {
   // Create
-  static GraphQLRequest<T> create<T extends Model>(Model model) {
+  static GraphQLRequest<T> create<T extends Model>(T model) {
     return throw UnimplementedError("create() has not been implemented.");
   }
 
   // Update
-  static GraphQLRequest<T> update<T extends Model>(Model model,
+  static GraphQLRequest<T> update<T extends Model>(T model,
       {QueryPredicate? where}) {
     return throw UnimplementedError("update() has not been implemented.");
   }
 
   // Delete
-  static GraphQLRequest<T> delete<T extends Model>(Model model,
+  static GraphQLRequest<T> delete<T extends Model>(T model,
       {QueryPredicate? where}) {
     return throw UnimplementedError("delete() has not been implemented.");
   }

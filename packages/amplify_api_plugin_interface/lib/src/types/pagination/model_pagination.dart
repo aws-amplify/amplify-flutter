@@ -15,5 +15,7 @@
 
 class ModelPagination {
   // limit is used for the pagination page limit
-  late int limit;
+  final int limit;
+
+  ModelPagination(this.limit);
 }
