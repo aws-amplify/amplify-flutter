@@ -23,13 +23,12 @@ import 'src/types/pagination/paginated_result.dart';
 
 abstract class ModelQueriesInterface {
   // Get
-  static GraphQLRequest<T> get<T extends Model>(
-      ModelType<T> modelType, String id) {
+  GraphQLRequest<T> get<T extends Model>(ModelType<T> modelType, String id) {
     throw UnimplementedError("get() has not been implemented.");
   }
 
   // List
-  static GraphQLRequest<PaginatedResult<T>> list<T extends Model>(
+  GraphQLRequest<PaginatedResult<T>> list<T extends Model>(
       ModelType<T> modelType,
       {QueryPredicate? where,
       ModelPagination? modelPagination}) {
@@ -39,24 +38,22 @@ abstract class ModelQueriesInterface {
 
 abstract class ModelMutationsInterface {
   // Create
-  static GraphQLRequest<T> create<T extends Model>(Model model) {
+  GraphQLRequest<T> create<T extends Model>(T model) {
     return throw UnimplementedError("create() has not been implemented.");
   }
 
   // Update
-  static GraphQLRequest<T> update<T extends Model>(Model model,
-      {QueryPredicate? where}) {
+  GraphQLRequest<T> update<T extends Model>(T model, {QueryPredicate? where}) {
     return throw UnimplementedError("update() has not been implemented.");
   }
 
   // Delete
-  static GraphQLRequest<T> delete<T extends Model>(Model model,
-      {QueryPredicate? where}) {
+  GraphQLRequest<T> delete<T extends Model>(T model, {QueryPredicate? where}) {
     return throw UnimplementedError("delete() has not been implemented.");
   }
 
   // DeleteById
-  static GraphQLRequest<T> deleteById<T extends Model>(String Id) {
+  GraphQLRequest<T> deleteById<T extends Model>(String Id) {
     return throw UnimplementedError("delete() has not been implemented.");
   }
 }

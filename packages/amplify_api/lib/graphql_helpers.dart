@@ -18,13 +18,13 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'package:flutter/foundation.dart';
 import './amplify_api.dart';
 
-class ModelQueries extends ModelQueriesInterface {
+class ModelQueriesFactory extends ModelQueriesInterface {
   @override
-  static GraphQLRequest<T> get<T extends Model>(
+  GraphQLRequest<T> get<T extends Model>(
       ModelType<T> modelType, String id) {
     Map<String, String> variableInput = {"id": "ID"};
 
-    return GraphQLRequestFactory.buildQuery<T>(
+    return GraphQLRequestFactory().buildQuery<T>(
         modelType: modelType,
         variableInput: variableInput,
         id: id,
@@ -34,7 +34,7 @@ class ModelQueries extends ModelQueriesInterface {
 }
 
 class GraphQLRequestFactory extends GraphQLRequestFactoryInterface {
-  static String _getModelType(ModelFieldTypeEnum? val) {
+  String _getModelType(ModelFieldTypeEnum? val) {
     switch (val) {
       case ModelFieldTypeEnum.string:
         return "String";
@@ -47,7 +47,7 @@ class GraphQLRequestFactory extends GraphQLRequestFactoryInterface {
     }
   }
 
-  static List<String> buildFields(Map<String, ModelField?>? fieldsMap) {
+  List<String> buildFields(Map<String, ModelField?>? fieldsMap) {
     List<String> fieldsList = [];
     if (fieldsMap != null) {
       fieldsMap.forEach((key, value) {
@@ -58,7 +58,7 @@ class GraphQLRequestFactory extends GraphQLRequestFactoryInterface {
   }
 
   @override
-  static ModelSchema getSchema(ModelType modelType) {
+  ModelSchema getSchema(ModelType modelType) {
     ModelProviderInterface? provider = AmplifyAPI.instance.getModelProvider();
 
     if (provider == null) {
@@ -80,7 +80,7 @@ class GraphQLRequestFactory extends GraphQLRequestFactoryInterface {
   }
 
   @override
-  static GraphQLRequest<T> buildQuery<T extends Model>(
+  GraphQLRequest<T> buildQuery<T extends Model>(
       {required ModelType modelType,
       required Map<String, String>? variableInput,
       required String? id,
