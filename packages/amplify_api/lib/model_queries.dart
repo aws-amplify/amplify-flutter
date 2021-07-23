@@ -13,12 +13,14 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
+import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_api/graphql_helpers.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
-class ModelQueriesFactory extends ModelQueriesInterface {
-  @override
-  GraphQLRequest<T> get<T extends Model>(ModelType<T> modelType, String id) {
-    throw UnimplementedError("get() has not been implemented.");
+// This class provides static method calls to enable a simpler DX
+class ModelQueries {
+  static GraphQLRequest<T> get<T extends Model>(
+      ModelType<T> modelType, String id) {
+    return ModelQueriesFactory().get<T>(modelType, id);
   }
 }
