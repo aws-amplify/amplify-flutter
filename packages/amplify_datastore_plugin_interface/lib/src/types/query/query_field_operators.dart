@@ -51,11 +51,16 @@ abstract class QueryFieldOperator {
     };
   }
 
-  // This will not work as a value of type DateTime can be Date/Time/DateTime
+  /// check the type of [value] and invoke corresponding serialize method
   dynamic serializeDynamicValue(dynamic value) {
     if (value is DateTime) {
       return value.toDateTimeIso8601String();
     }
+
+    if (isEnum(value)) {
+      return enumToString(value);
+    }
+
     // TODO sanitize other types appropriately
     return value;
   }

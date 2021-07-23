@@ -23,14 +23,15 @@ void main() {
       MethodChannel('com.amazonaws.amplify/auth_cognito');
 
   AmplifyAuthCognito auth = AmplifyAuthCognito();
-  AmplifyAuthCognitoMethodChannel testChannel = AmplifyAuthCognitoMethodChannel();
+  AmplifyAuthCognitoMethodChannel testChannel =
+      AmplifyAuthCognitoMethodChannel();
 
   TestWidgetsFlutterBinding.ensureInitialized();
   List<Map<dynamic, dynamic>> sampleResponse = [
     {"key": "username", "value": "person"},
     {"key": "custom_num", "value": "2"},
     {"key": "float_shouldnt_parse_shouldnt_break", "value": "1.234"}
-    ];
+  ];
 
   setUp(() {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
@@ -46,41 +47,26 @@ void main() {
     authChannel.setMockMethodCallHandler(null);
   });
 
-  test('fetchUserAttributes request returns a list of AuthUserAttributes', () async {
-    var res = await auth.fetchUserAttributes(request: AuthUserAttributeRequest(options: AuthUserAttributeOptions()));
-    expect(
-      res,
-      isInstanceOf<List<AuthUserAttribute>>());
-    expect(
-      res[0].userAttributeKey,
-      equals('username'));
-    expect(
-      res[0].value,
-      equals('person'));
+  test('fetchUserAttributes request returns a list of AuthUserAttributes',
+      () async {
+    var res = await auth.fetchUserAttributes(
+        request: AuthUserAttributeRequest(options: AuthUserAttributeOptions()));
+    expect(res, isInstanceOf<List<AuthUserAttribute>>());
+    expect(res[0].userAttributeKey, equals('username'));
+    expect(res[0].value, equals('person'));
   });
 
-  test('formatFetchAttributesResponse accepts a list of maps and returns a list of AuthUserAttributes', () async {
+  test(
+      'formatFetchAttributesResponse accepts a list of maps and returns a list of AuthUserAttributes',
+      () async {
     var res = await testChannel.formatFetchAttributesResponse(sampleResponse);
+    expect(res, isInstanceOf<List<AuthUserAttribute>>());
+    expect(res[0].userAttributeKey, equals('username'));
+    expect(res[0].value, equals('person'));
+    expect(res[1].userAttributeKey, equals('custom_num'));
+    expect(res[1].value, equals(2));
     expect(
-      res,
-      isInstanceOf<List<AuthUserAttribute>>());
-    expect(
-      res[0].userAttributeKey,
-      equals('username'));
-    expect(
-      res[0].value,
-      equals('person'));
-    expect(
-      res[1].userAttributeKey,
-      equals('custom_num'));
-    expect(
-      res[1].value,
-      equals(2));
-    expect(
-      res[2].userAttributeKey,
-      equals('float_shouldnt_parse_shouldnt_break'));
-    expect(
-      res[2].value,
-      equals("1.234"));
+        res[2].userAttributeKey, equals('float_shouldnt_parse_shouldnt_break'));
+    expect(res[2].value, equals("1.234"));
   });
 }

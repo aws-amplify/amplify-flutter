@@ -88,7 +88,7 @@ public class AuthErrorHandler {
                 exception = "UnknownException"
             }
             if case .invalidState = authError as! AuthError {
-                exception = "AuthException"
+                exception = "InvalidStateException"
             }
             if case .notAuthorized = authError as! AuthError  {
                 exception = "NotAuthorizedException"

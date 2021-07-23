@@ -64,7 +64,13 @@ class _MyAppState extends State<MyApp> {
     try {
       print('In upload');
       // Uploading the file with options
-      File local = await FilePicker.getFile(type: FileType.image);
+      FilePickerResult? pickResult =
+          await FilePicker.platform.pickFiles(type: FileType.image);
+      if (pickResult == null) {
+        print('User canceled upload.');
+        return;
+      }
+      File local = File(pickResult.files.single.path!);
       final key = new DateTime.now().toString();
       Map<String, String> metadata = <String, String>{};
       metadata['name'] = 'filename';

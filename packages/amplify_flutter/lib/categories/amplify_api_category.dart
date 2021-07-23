@@ -29,8 +29,7 @@ class APICategory {
       } on AmplifyAlreadyConfiguredException catch (e) {
         plugins.add(plugin);
       } on PlatformException catch (e) {
-        throw AmplifyException.fromMap(
-            Map<String, String>.from(e.details));
+        throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       }
     } else {
       throw AmplifyException("API plugin has already been added, " +
