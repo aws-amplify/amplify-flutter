@@ -25,8 +25,8 @@ import 'package:flutter/foundation.dart';
 class TestNullableListsEnum extends Model {
   static const classType = const _TestNullableListsEnumModelType();
   final String id;
-  final List<TestEnum>? _list;
-  final List<TestEnum>? _requiredList;
+  final List<TestEnum?>? _list;
+  final List<TestEnum?>? _requiredList;
   final List<TestEnum>? _requiredListOfRequired;
   final List<TestEnum>? _listOfRequired;
 
@@ -38,11 +38,11 @@ class TestNullableListsEnum extends Model {
     return id;
   }
 
-  List<TestEnum>? get list {
+  List<TestEnum?>? get list {
     return _list;
   }
 
-  List<TestEnum> get requiredList {
+  List<TestEnum?> get requiredList {
     try {
       return _requiredList!;
     } catch (e) {
@@ -85,22 +85,16 @@ class TestNullableListsEnum extends Model {
 
   factory TestNullableListsEnum(
       {String? id,
-      List<TestEnum>? list,
-      required List<TestEnum> requiredList,
+      List<TestEnum?>? list,
+      required List<TestEnum?> requiredList,
       required List<TestEnum> requiredListOfRequired,
       List<TestEnum>? listOfRequired}) {
     return TestNullableListsEnum._internal(
         id: id == null ? UUID.getUUID() : id,
-        list: list != null ? List<TestEnum>.unmodifiable(list) : list,
-        requiredList: requiredList != null
-            ? List<TestEnum>.unmodifiable(requiredList)
-            : requiredList,
-        requiredListOfRequired: requiredListOfRequired != null
-            ? List<TestEnum>.unmodifiable(requiredListOfRequired)
-            : requiredListOfRequired,
-        listOfRequired: listOfRequired != null
-            ? List<TestEnum>.unmodifiable(listOfRequired)
-            : listOfRequired);
+        list: list,
+        requiredList: requiredList,
+        requiredListOfRequired: requiredListOfRequired,
+        listOfRequired: listOfRequired);
   }
 
   bool equals(Object other) {
@@ -154,8 +148,8 @@ class TestNullableListsEnum extends Model {
 
   TestNullableListsEnum copyWith(
       {String? id,
-      List<TestEnum>? list,
-      List<TestEnum>? requiredList,
+      List<TestEnum?>? list,
+      List<TestEnum?>? requiredList,
       List<TestEnum>? requiredListOfRequired,
       List<TestEnum>? listOfRequired}) {
     return TestNullableListsEnum(
@@ -171,12 +165,12 @@ class TestNullableListsEnum extends Model {
       : id = json['id'],
         _list = json['list'] is List
             ? (json['list'] as List)
-                .map((e) => enumFromString<TestEnum>(e, TestEnum.values)!)
+                .map((e) => enumFromString<TestEnum>(e, TestEnum.values))
                 .toList()
             : null,
         _requiredList = json['requiredList'] is List
             ? (json['requiredList'] as List)
-                .map((e) => enumFromString<TestEnum>(e, TestEnum.values)!)
+                .map((e) => enumFromString<TestEnum>(e, TestEnum.values))
                 .toList()
             : null,
         _requiredListOfRequired = json['requiredListOfRequired'] is List
@@ -192,11 +186,11 @@ class TestNullableListsEnum extends Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'list': _list?.map((e) => enumToString(e))?.toList(),
-        'requiredList': _requiredList?.map((e) => enumToString(e))?.toList(),
+        'list': _list?.map((e) => enumToString(e)).toList(),
+        'requiredList': _requiredList?.map((e) => enumToString(e)).toList(),
         'requiredListOfRequired':
-            _requiredListOfRequired?.map((e) => enumToString(e))?.toList(),
-        'listOfRequired': _listOfRequired?.map((e) => enumToString(e))?.toList()
+            _requiredListOfRequired?.map((e) => enumToString(e)).toList(),
+        'listOfRequired': _listOfRequired?.map((e) => enumToString(e)).toList()
       };
 
   static final QueryField ID =

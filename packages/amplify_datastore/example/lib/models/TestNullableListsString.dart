@@ -25,8 +25,8 @@ class TestNullableListsString extends Model {
   static const classType = const _TestNullableListsStringModelType();
   final String id;
   final List<String?>? _list;
-  final List<String?> _requiredList;
-  final List<String> _requiredListOfRequired;
+  final List<String?>? _requiredList;
+  final List<String>? _requiredListOfRequired;
   final List<String>? _listOfRequired;
 
   @override
@@ -91,12 +91,8 @@ class TestNullableListsString extends Model {
     return TestNullableListsString._internal(
         id: id == null ? UUID.getUUID() : id,
         list: list,
-        requiredList: requiredList != null
-            ? List<String?>.unmodifiable(requiredList)
-            : requiredList,
-        requiredListOfRequired: requiredListOfRequired != null
-            ? List<String>.unmodifiable(requiredListOfRequired)
-            : requiredListOfRequired,
+        requiredList: requiredList,
+        requiredListOfRequired: requiredListOfRequired,
         listOfRequired: listOfRequired);
   }
 
@@ -127,11 +123,11 @@ class TestNullableListsString extends Model {
     buffer.write("id=" + "$id" + ", ");
     buffer.write("list=" + (_list != null ? _list!.toString() : "null") + ", ");
     buffer.write("requiredList=" +
-        (_requiredList != null ? _requiredList!.toString() : "null") +
+        (_requiredList != null ? _requiredList.toString() : "null") +
         ", ");
     buffer.write("requiredListOfRequired=" +
         (_requiredListOfRequired != null
-            ? _requiredListOfRequired!.toString()
+            ? _requiredListOfRequired.toString()
             : "null") +
         ", ");
     buffer.write("listOfRequired=" +

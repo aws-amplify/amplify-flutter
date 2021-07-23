@@ -25,8 +25,8 @@ import 'package:flutter/foundation.dart';
 class TestNullableListsModel extends Model {
   static const classType = const _TestNullableListsModelModelType();
   final String id;
-  final List<Post>? _list;
-  final List<Post>? _requiredList;
+  final List<Post?>? _list;
+  final List<Post?>? _requiredList;
   final List<Post>? _requiredListOfRequired;
   final List<Post>? _listOfRequired;
 
@@ -38,11 +38,11 @@ class TestNullableListsModel extends Model {
     return id;
   }
 
-  List<Post>? get list {
+  List<Post?>? get list {
     return _list;
   }
 
-  List<Post> get requiredList {
+  List<Post?> get requiredList {
     try {
       return _requiredList!;
     } catch (e) {
@@ -85,22 +85,16 @@ class TestNullableListsModel extends Model {
 
   factory TestNullableListsModel(
       {String? id,
-      List<Post>? list,
-      required List<Post> requiredList,
+      List<Post?>? list,
+      required List<Post?> requiredList,
       required List<Post> requiredListOfRequired,
       List<Post>? listOfRequired}) {
     return TestNullableListsModel._internal(
         id: id == null ? UUID.getUUID() : id,
-        list: list != null ? List<Post>.unmodifiable(list) : list,
-        requiredList: requiredList != null
-            ? List<Post>.unmodifiable(requiredList)
-            : requiredList,
-        requiredListOfRequired: requiredListOfRequired != null
-            ? List<Post>.unmodifiable(requiredListOfRequired)
-            : requiredListOfRequired,
-        listOfRequired: listOfRequired != null
-            ? List<Post>.unmodifiable(listOfRequired)
-            : listOfRequired);
+        list: list,
+        requiredList: requiredList,
+        requiredListOfRequired: requiredListOfRequired,
+        listOfRequired: listOfRequired);
   }
 
   bool equals(Object other) {
@@ -128,6 +122,27 @@ class TestNullableListsModel extends Model {
 
     buffer.write("TestNullableListsModel {");
     buffer.write("id=" + "$id");
+    buffer.write("list=" +
+        (_list != null
+            ? _list!.map((e) => e != null ? e.toString() : "null").toString()
+            : "null") +
+        ", ");
+    buffer.write("requiredList=" +
+        (_requiredList != null
+            ? _requiredList!
+                .map((e) => e != null ? e.toString() : "null")
+                .toString()
+            : "null") +
+        ", ");
+    buffer.write("requiredListOfRequired=" +
+        (_requiredListOfRequired != null
+            ? _requiredListOfRequired!.map((e) => e.toString()).toString()
+            : "null") +
+        ", ");
+    buffer.write("listOfRequired=" +
+        (_listOfRequired != null
+            ? _listOfRequired!.map((e) => e.toString()).toString()
+            : "null"));
     buffer.write("}");
 
     return buffer.toString();
@@ -135,8 +150,8 @@ class TestNullableListsModel extends Model {
 
   TestNullableListsModel copyWith(
       {String? id,
-      List<Post>? list,
-      List<Post>? requiredList,
+      List<Post?>? list,
+      List<Post?>? requiredList,
       List<Post>? requiredListOfRequired,
       List<Post>? listOfRequired}) {
     return TestNullableListsModel(
@@ -181,11 +196,11 @@ class TestNullableListsModel extends Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'list': _list?.map((e) => e?.toJson())?.toList(),
-        'requiredList': _requiredList?.map((e) => e?.toJson())?.toList(),
+        'list': _list?.map((e) => e?.toJson()).toList(),
+        'requiredList': _requiredList?.map((e) => e?.toJson()).toList(),
         'requiredListOfRequired':
-            _requiredListOfRequired?.map((e) => e?.toJson())?.toList(),
-        'listOfRequired': _listOfRequired?.map((e) => e?.toJson())?.toList()
+            _requiredListOfRequired?.map((e) => e.toJson()).toList(),
+        'listOfRequired': _listOfRequired?.map((e) => e.toJson()).toList()
       };
 
   static final QueryField ID =
