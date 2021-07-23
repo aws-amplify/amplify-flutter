@@ -107,7 +107,7 @@ class AuthCategory {
   ///
   /// There must be a user signed in to perform this action.
   ///
-  /// Optionally accepts plugin-specific advanced [options] for the request.
+  /// Optionally accepts plugin-specific, advanced [options] for the request.
   Future<UpdatePasswordResult> updatePassword(
       {required String oldPassword,
       required String newPassword,
@@ -124,7 +124,7 @@ class AuthCategory {
   /// The [username] is a login identifier or an email/phone number, depending on
   /// the configuration.
   ///
-  /// Optionally accepts plugin-specific advanced [options] for the request.
+  /// Optionally accepts plugin-specific, advanced [options] for the request.
   Future<ResetPasswordResult> resetPassword(
       {required String username, ResetPasswordOptions? options}) {
     var request = ResetPasswordRequest(username: username, options: options);
@@ -139,7 +139,7 @@ class AuthCategory {
   /// The [username] is a login identifier or an email/phone number, depending on
   /// the configuration.
   ///
-  /// Optionally accepts plugin-specific advanced [options] for the request.
+  /// Optionally accepts plugin-specific, advanced [options] for the request.
   @Deprecated(
       'Use confirmResetPassword() instead. This method will be removed in the future')
   Future<UpdatePasswordResult> confirmPassword(
@@ -161,7 +161,7 @@ class AuthCategory {
   /// The [username] is a login identifier or an email/phone number, depending on
   /// the configuration.
   ///
-  /// Optionally accepts plugin-specific advanced [options] for the request.
+  /// Optionally accepts plugin-specific, advanced [options] for the request.
   Future<UpdatePasswordResult> confirmResetPassword(
       {required String username,
       required String newPassword,
