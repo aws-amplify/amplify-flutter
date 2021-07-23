@@ -16,12 +16,11 @@
 import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
-import './amplify_api.dart';
+import '../amplify_api.dart';
 
 class ModelQueriesFactory extends ModelQueriesInterface {
   @override
-  GraphQLRequest<T> get<T extends Model>(
-      ModelType<T> modelType, String id) {
+  GraphQLRequest<T> get<T extends Model>(ModelType<T> modelType, String id) {
     Map<String, String> variableInput = {"id": "ID"};
 
     return GraphQLRequestFactory().buildQuery<T>(
@@ -47,7 +46,7 @@ class GraphQLRequestFactory extends GraphQLRequestFactoryInterface {
     }
   }
 
-  List<String> buildFields(Map<String, ModelField?>? fieldsMap) {
+  List<String> _buildFields(Map<String, ModelField?>? fieldsMap) {
     List<String> fieldsList = [];
     if (fieldsMap != null) {
       fieldsMap.forEach((key, value) {
@@ -57,8 +56,7 @@ class GraphQLRequestFactory extends GraphQLRequestFactoryInterface {
     return fieldsList;
   }
 
-  @override
-  ModelSchema getSchema(ModelType modelType) {
+  ModelSchema _getSchema(ModelType modelType) {
     ModelProviderInterface? provider = AmplifyAPI.instance.getModelProvider();
 
     if (provider == null) {
@@ -86,13 +84,13 @@ class GraphQLRequestFactory extends GraphQLRequestFactoryInterface {
       required String? id,
       required GraphQLRequestType requestType,
       required GraphQLRequestOperation requestOperation}) {
-    ModelSchema schema = GraphQLRequestFactory.getSchema(modelType);
+    ModelSchema schema = _getSchema(modelType);
 
     String? modelName = requestOperation == GraphQLRequestOperation.list
         ? schema.pluralName
         : schema.name;
     String name = modelName ?? 'No model name found';
-    String fields = buildFields(schema.fields).join(' ');
+    String fields = _buildFields(schema.fields).join(' ');
 
     String reqTypeStr = describeEnum(requestType.toString());
     String reqOperationStr = describeEnum(requestOperation.toString());

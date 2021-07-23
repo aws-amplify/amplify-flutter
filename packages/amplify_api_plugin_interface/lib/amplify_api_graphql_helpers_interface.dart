@@ -59,17 +59,11 @@ abstract class ModelMutationsInterface {
 }
 
 abstract class GraphQLRequestFactoryInterface {
-  // get schema from modelType
-  static ModelSchema getSchema(ModelType modelType) {
-    return throw UnimplementedError("getSchema() has not been implemented.");
-  }
-
   // createRequest generic
-  static GraphQLRequest<T> buildQuery<T extends Model>(
-      {required String name,
-      required List<String> fields,
-      required Map<String, ModelFieldTypeEnum>? variableInput,
-      required String id,
+  GraphQLRequest<T> buildQuery<T extends Model>(
+      {required ModelType modelType,
+      required Map<String, String>? variableInput,
+      required String? id,
       required GraphQLRequestType requestType,
       required GraphQLRequestOperation requestOperation}) {
     return throw UnimplementedError("getSchema() has not been implemented.");
