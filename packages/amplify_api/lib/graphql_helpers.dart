@@ -29,7 +29,7 @@ class ModelQueries extends ModelQueriesInterface {
         variableInput: variableInput,
         id: id,
         requestType: GraphQLRequestType.query,
-        requestOperation: GraphQLRequestOperation.list);
+        requestOperation: GraphQLRequestOperation.get);
   }
 }
 
