@@ -448,7 +448,7 @@ class AmplifyAuthCognitoPluginTest {
     }
 
     @Test
-    fun confirmPassword_returnsSuccess() {
+    fun confirmResetPassword_returnsSuccess() {
         // Arrange
         doAnswer { invocation: InvocationOnMock ->
             plugin.prepareUpdatePasswordResult(mockResult)
@@ -461,7 +461,7 @@ class AmplifyAuthCognitoPluginTest {
             "confirmationCode" to "confirmationCode"
         )
         val arguments: HashMap<String, Any> = hashMapOf("data" to data)
-        val call = MethodCall("confirmPassword", arguments)
+        val call = MethodCall("confirmResetPassword", arguments)
 
         // Act
         plugin.onMethodCall(call, mockResult)

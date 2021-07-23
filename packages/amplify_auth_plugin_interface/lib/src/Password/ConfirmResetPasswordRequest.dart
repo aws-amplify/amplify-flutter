@@ -13,19 +13,30 @@
  * permissions and limitations under the License.
  */
 
-import './PasswordOptions.dart';
+import 'ConfirmResetPasswordOptions.dart';
 
-class ConfirmPasswordRequest {
+/// Encapsulates parameters for a confirm reset password request
+class ConfirmResetPasswordRequest {
+  /// A login identifier or an email/phone number, depending on configuration
   String username;
-  String newPassword;
-  String confirmationCode;
-  PasswordOptions? options;
 
-  ConfirmPasswordRequest(
+  /// The user's desired new password
+  String newPassword;
+
+  /// The confirmation code the user received after starting the reset password process
+  String confirmationCode;
+
+  /// Advanced options for the request
+  ConfirmResetPasswordOptions? options;
+
+  /// Default Constructor
+  ConfirmResetPasswordRequest(
       {required this.username,
       required this.newPassword,
       required this.confirmationCode,
       this.options});
+
+  /// Serialize the object to a map
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = {
       'username': username,

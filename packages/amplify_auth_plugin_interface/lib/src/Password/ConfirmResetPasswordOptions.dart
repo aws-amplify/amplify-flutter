@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,10 +13,8 @@
  * permissions and limitations under the License.
  */
 
-abstract class PasswordOptions {
-  const PasswordOptions();
-  Map<String, dynamic> serializeAsMap() {
-    throw UnimplementedError(
-        'serializeAsMap() has not been implemented on SignOutOptions.');
-  }
+/// The shared confirm reset password options among all Auth plugins
+abstract class ConfirmResetPasswordOptions {
+  /// Serialize the object to a map
+  Map<String, dynamic> serializeAsMap();
 }

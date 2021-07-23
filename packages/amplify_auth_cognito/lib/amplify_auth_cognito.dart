@@ -92,9 +92,9 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     return res;
   }
 
-  Future<UpdatePasswordResult> confirmPassword(
-      {ConfirmPasswordRequest? request}) async {
-    final res = await _instance.confirmPassword(request: request);
+  Future<UpdatePasswordResult> confirmResetPassword(
+      {ConfirmResetPasswordRequest? request}) async {
+    final res = await _instance.confirmResetPassword(request: request);
     return res;
   }
 

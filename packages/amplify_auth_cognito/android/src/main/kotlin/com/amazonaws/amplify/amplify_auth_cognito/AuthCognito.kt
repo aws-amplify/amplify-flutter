@@ -33,7 +33,7 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmSignUpRequ
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignInRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmSignInRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmPasswordRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmResetPasswordRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResetPasswordRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdatePasswordRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthUser
@@ -171,7 +171,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       "signOut" ->  onSignOut(result)
       "updatePassword" -> onUpdatePassword(result, data)
       "resetPassword" -> onResetPassword(result, data)
-      "confirmPassword" -> onConfirmPassword(result, data)
+      "confirmResetPassword" -> onConfirmResetPassword(result, data)
       "fetchAuthSession" -> onFetchAuthSession(result, data)
       "resendSignUpCode" -> onResendSignUpCode(result, data)
       "getCurrentUser" -> onGetCurrentUser(result)
@@ -317,10 +317,10 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       }
   }
 
-  private fun onConfirmPassword (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
+  private fun onConfirmResetPassword (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
       try {
-        FlutterConfirmPasswordRequest.validate(request)
-        var req = FlutterConfirmPasswordRequest(request)
+        FlutterConfirmResetPasswordRequest.validate(request)
+        var req = FlutterConfirmResetPasswordRequest(request)
         Amplify.Auth.confirmResetPassword(
                 req.newPassword,
                 req.confirmationCode,

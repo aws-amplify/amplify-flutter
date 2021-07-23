@@ -202,12 +202,12 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
   }
 
   @override
-  Future<UpdatePasswordResult> confirmPassword(
-      {ConfirmPasswordRequest? request}) async {
+  Future<UpdatePasswordResult> confirmResetPassword(
+      {ConfirmResetPasswordRequest? request}) async {
     try {
       final Map<String, dynamic>? data =
           (await (_channel.invokeMapMethod<String, dynamic>(
-        'confirmPassword',
+        'confirmResetPassword',
         <String, dynamic>{
           'data': request != null ? request.serializeAsMap() : null,
         },

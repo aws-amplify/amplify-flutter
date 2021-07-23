@@ -71,9 +71,10 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('resetPassword() has not been implemented.');
   }
 
-  Future<UpdatePasswordResult> confirmPassword(
-      {ConfirmPasswordRequest? request}) {
-    throw UnimplementedError('confirmPassword() has not been implemented.');
+  Future<UpdatePasswordResult> confirmResetPassword(
+      {ConfirmResetPasswordRequest? request}) {
+    throw UnimplementedError(
+        'confirmResetPassword() has not been implemented.');
   }
 
   Future<AuthUser> getCurrentUser({AuthUserRequest? request}) {

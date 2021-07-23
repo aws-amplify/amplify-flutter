@@ -16,7 +16,7 @@
 import Foundation
 import amplify_core
 
-struct FlutterConfirmPasswordRequest {
+struct FlutterConfirmResetPasswordRequest {
   var username: String
   var newPassword: String
   var confirmationCode: String
@@ -29,7 +29,7 @@ struct FlutterConfirmPasswordRequest {
     self.options = dict["options"] as! Dictionary<String, Any>?
   }
   static func validate(dict: NSMutableDictionary) throws {
-    let validationErrorMessage = "ConfirmPassword Request malformed."
+    let validationErrorMessage = "ConfirmResetPassword Request malformed."
     if (dict["username"] == nil) {
         throw InvalidRequestError.auth(comment: validationErrorMessage,
                                           suggestion: String(format: ErrorMessages.missingAttribute, "username"))

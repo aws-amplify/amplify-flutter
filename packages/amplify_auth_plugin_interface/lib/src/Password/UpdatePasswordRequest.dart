@@ -13,15 +13,24 @@
  * permissions and limitations under the License.
  */
 
-import './PasswordOptions.dart';
+import 'UpdatePasswordOptions.dart';
 
+/// Encapsulates parameters for an update password request
 class UpdatePasswordRequest {
+  /// The user's desired new password
   String newPassword;
-  String oldPassword;
-  PasswordOptions? options;
 
+  /// The user's current password
+  String oldPassword;
+
+  /// Advanced options for the request
+  UpdatePasswordOptions? options;
+
+  /// Default constructor
   UpdatePasswordRequest(
       {required this.newPassword, required this.oldPassword, this.options});
+
+  /// Serialize the object to a map
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = {
       'newPassword': newPassword,

@@ -13,14 +13,20 @@
  * permissions and limitations under the License.
  */
 
-import './PasswordOptions.dart';
+import 'ResetPasswordOptions.dart';
 
+/// Encapsulates parameters for a reset password request
 class ResetPasswordRequest {
+  /// A login identifier or an email/phone number, depending on configuration
   String? username;
-  PasswordOptions? options;
 
+  /// Advanced options for the request
+  ResetPasswordOptions? options;
+
+  /// Default Constructor
   ResetPasswordRequest({this.username, this.options});
 
+  /// Serialize the object to a map
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = {
       'username': username,

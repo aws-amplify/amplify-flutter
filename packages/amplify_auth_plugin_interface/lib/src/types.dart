@@ -38,13 +38,15 @@ export 'SignOut/SignOutResult.dart';
 export 'SignOut/SignOutOptions.dart';
 
 // Password Classes
-export 'Password/PasswordOptions.dart';
-export 'Password/UpdatePasswordRequest.dart';
-export 'Password/UpdatePasswordResult.dart';
-export 'Password/ResetPasswordStep.dart';
+export 'Password/ConfirmResetPasswordOptions.dart';
+export 'Password/ConfirmResetPasswordRequest.dart';
+export 'Password/ResetPasswordOptions.dart';
 export 'Password/ResetPasswordRequest.dart';
 export 'Password/ResetPasswordResult.dart';
-export 'Password/ConfirmPasswordRequest.dart';
+export 'Password/ResetPasswordStep.dart';
+export 'Password/UpdatePasswordOptions.dart';
+export 'Password/UpdatePasswordRequest.dart';
+export 'Password/UpdatePasswordResult.dart';
 
 // Session Classes
 export 'Session/AuthSession.dart';
