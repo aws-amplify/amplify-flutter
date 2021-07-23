@@ -14,6 +14,9 @@ dependencies:
   amplify_api_plugin_interface: 0.2.0
   plugin_platform_interface: ^2.0.0
 
+  # TODO: Datastore dependencies temporarily added in API. Eventually they should be moved to core or otherwise reconciled to avoid duplication.
+  amplify_datastore_plugin_interface: 0.2.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -13,8 +13,9 @@
  * permissions and limitations under the License.
  */
 
-export 'GraphQL/GraphQLRequest.dart';
+export '../amplify_api_graphql_helpers_interface.dart';
 export 'GraphQL/GraphQLOperation.dart';
+export 'GraphQL/GraphQLRequest.dart';
 export 'GraphQL/GraphQLResponse.dart';
 export 'GraphQL/GraphQLResponseError.dart';
 export 'GraphQL/GraphQLSubscriptionOperation.dart';
@@ -23,6 +24,9 @@ export 'RestAPI/RestOperation.dart';
 export 'RestAPI/RestOptions.dart';
 export 'RestAPI/RestResponse.dart';
 export 'RestAPI/RestException.dart';
+
+export 'types/pagination/model_pagination.dart';
+export 'types/pagination/paginated_result.dart';
 
 export 'UUID.dart';
 
