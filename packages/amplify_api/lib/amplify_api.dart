@@ -16,9 +16,12 @@
 library amplify_api_plugin;
 
 import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+import 'package:meta/meta.dart';
 import './method_channel_api.dart';
 
+export 'model_queries.dart';
 export 'package:amplify_api_plugin_interface/src/types.dart';
 
 class AmplifyAPI extends APIPluginInterface {
@@ -29,6 +32,10 @@ class AmplifyAPI extends APIPluginInterface {
   }) : super(token: _token) {
     authProviders.forEach(registerAuthProvider);
   }
+
+  /// Internal use constructor
+  @protected
+  AmplifyAPI.tokenOnly() : super.tokenOnly(token: _token);
 
   static AmplifyAPI _instance = AmplifyAPIMethodChannel();
 

@@ -40,6 +40,8 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   /// The registered [APIAuthProvider] instances.
   final Map<APIAuthorizationType, APIAuthProvider> _authProviders = {};
 
+  AmplifyAPIMethodChannel() : super.tokenOnly();
+
   @override
   Future<APIAuthProviderRefresher> addPlugin() async {
     try {

@@ -17,13 +17,25 @@ library amplify_api_plugin_interface;
 
 import 'dart:async';
 
+// TODO: Datastore dependencies temporarily added in API. Eventually they should be moved to core or otherwise reconciled to avoid duplication.
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+
+import 'package:meta/meta.dart';
 import 'package:amplify_core/types/index.dart';
 
 import 'src/types.dart';
 export 'src/types.dart';
 
 abstract class APIPluginInterface extends AmplifyPluginInterface {
-  APIPluginInterface({required Object token}) : super(token: token);
+  /// modelProvider
+  ModelProviderInterface? modelProvider;
+
+  APIPluginInterface({required Object token, this.modelProvider})
+      : super(token: token);
+
+  /// Internal use constructor
+  @protected
+  APIPluginInterface.tokenOnly({required Object token}) : super(token: token);
 
   Future<APIAuthProviderRefresher> addPlugin() async {
     throw UnimplementedError('addPlugin() has not been implemented.');
