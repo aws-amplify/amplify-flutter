@@ -25,11 +25,11 @@ void main() {
   test("ModelQueries.get() should craft a valid request", () {
     AmplifyAPI api = AmplifyAPI(modelProvider: ModelProvider.instance);
 
-    String id = "f70d1142-12da-4564-a699-966a75f96db6";
+    String id = UUID.getUUID();
     String expected =
         "query getBlog(\$id: ID!) { getBlog(id: \$id) { id name createdAt } }";
 
-    GraphQLRequest<String> req = ModelQueries.get(Blog.classType, id);
+    GraphQLRequest req = ModelQueries.get<Blog>(Blog.classType, id);
 
     expect(req.document, expected);
     expect(req.variables.containsValue(id), true);
@@ -39,7 +39,7 @@ void main() {
     AmplifyAPI api = AmplifyAPI();
 
     try {
-      GraphQLRequest<String> req = ModelQueries.get(Blog.classType, "");
+      GraphQLRequest<Blog> req = ModelQueries.get<Blog>(Blog.classType, "");
     } on ApiException catch (e) {
       expect(e.message, "No modelProvider found");
       expect(e.recoverySuggestion,

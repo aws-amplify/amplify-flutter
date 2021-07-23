@@ -21,30 +21,15 @@ import './amplify_api.dart';
 class ModelQueries extends ModelQueriesInterface {
   @override
   static GraphQLRequest<T> get<T extends Model>(
-      ModelType modelType, String id) {
-    ModelSchema schema = GraphQLRequestFactory.getSchema(modelType);
+      ModelType<T> modelType, String id) {
+    Map<String, String> variableInput = {"id": "ID"};
 
-    String modelName = schema.name;
-    Map<String, ModelField?>? fieldsMap = schema.fields;
-
-    List<String> fieldsList = [];
-    if (fieldsMap != null) {
-      fieldsMap.forEach((key, value) {
-        if (value?.association == null) fieldsList.add(key);
-      });
-    }
-
-    Map<String, ModelFieldTypeEnum>? variableInput = {
-      "id": ModelFieldTypeEnum.model
-    };
-
-    return GraphQLRequestFactory.buildQuery(
-        name: modelName,
-        fields: fieldsList,
+    return GraphQLRequestFactory.buildQuery<T>(
+        modelType: modelType,
         variableInput: variableInput,
         id: id,
         requestType: GraphQLRequestType.query,
-        requestOperation: GraphQLRequestOperation.get);
+        requestOperation: GraphQLRequestOperation.list);
   }
 }
 
@@ -62,6 +47,16 @@ class GraphQLRequestFactory extends GraphQLRequestFactoryInterface {
     }
   }
 
+  static List<String> buildFields(Map<String, ModelField?>? fieldsMap) {
+    List<String> fieldsList = [];
+    if (fieldsMap != null) {
+      fieldsMap.forEach((key, value) {
+        if (value?.association == null) fieldsList.add(key);
+      });
+    }
+    return fieldsList;
+  }
+
   @override
   static ModelSchema getSchema(ModelType modelType) {
     ModelProviderInterface? provider = AmplifyAPI.instance.getModelProvider();
@@ -72,18 +67,33 @@ class GraphQLRequestFactory extends GraphQLRequestFactoryInterface {
               'Pass in a modelProvider instance while instantiating APIPlugin');
     }
 
-    return provider.modelSchemas.firstWhere(
+    ModelSchema schema = provider.modelSchemas.firstWhere(
         (elem) => provider.getModelTypeByModelName(elem.name) == modelType);
+
+    if (schema == null) {
+      throw ApiException('No schema found for the ModelType provided',
+          recoverySuggestion:
+              'Pass in a valid modelProvider instance while instantiating APIPlugin or provide a vaild ModelType');
+    }
+
+    return schema;
   }
 
   @override
   static GraphQLRequest<T> buildQuery<T extends Model>(
-      {required String name,
-      required List<String> fields,
-      required Map<String, ModelFieldTypeEnum>? variableInput,
-      required String id,
+      {required ModelType modelType,
+      required Map<String, String>? variableInput,
+      required String? id,
       required GraphQLRequestType requestType,
       required GraphQLRequestOperation requestOperation}) {
+    ModelSchema schema = GraphQLRequestFactory.getSchema(modelType);
+
+    String? modelName = requestOperation == GraphQLRequestOperation.list
+        ? schema.pluralName
+        : schema.name;
+    String name = modelName ?? 'No model name found';
+    String fields = buildFields(schema.fields).join(' ');
+
     String reqTypeStr = describeEnum(requestType.toString());
     String reqOperationStr = describeEnum(requestOperation.toString());
 
@@ -95,7 +105,8 @@ class GraphQLRequestFactory extends GraphQLRequestFactoryInterface {
       List<String> variableInputLower = [];
 
       for (var key in variableInput.keys) {
-        variableInputUpper.add("\$$key: ${_getModelType(variableInput[key])}!");
+        String? modelInputType = variableInput[key];
+        variableInputUpper.add("\$$key: $modelInputType!");
         variableInputLower.add("$key: \$$key");
       }
 
@@ -103,17 +114,20 @@ class GraphQLRequestFactory extends GraphQLRequestFactoryInterface {
       if (requestOperation == GraphQLRequestOperation.get) {
         varInputLowerStr = "(${variableInputLower.join(", ")})";
       } else {
-        varInputLowerStr = "(input: {${variableInputLower.join(", ")}})";
+        varInputLowerStr = "(input: { ${variableInputLower.join(", ")} })";
       }
     }
 
+    if (requestOperation == GraphQLRequestOperation.list) {
+      fields = 'items { $fields } nextToken';
+    }
+
     String doc =
-        '''$reqTypeStr $reqOperationStr$name${varInputUpperStr} { $reqOperationStr$name$varInputLowerStr { ${fields.join(' ')} } }''';
+        '''$reqTypeStr $reqOperationStr$name${varInputUpperStr} { $reqOperationStr$name$varInputLowerStr { $fields } }''';
 
     // TODO: create input map for variables & connect with current variableInput
-    var variables = {"id": id};
+    Map<String, dynamic> variables = id != null ? {"id": id} : const {};
 
-    print(doc);
     return GraphQLRequest<T>(document: doc, variables: variables);
   }
 }
