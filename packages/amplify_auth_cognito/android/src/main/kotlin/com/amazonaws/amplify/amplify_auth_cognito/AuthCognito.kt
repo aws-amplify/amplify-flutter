@@ -309,6 +309,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
         var req = FlutterResetPasswordRequest(request)
         Amplify.Auth.resetPassword(
                 req.username,
+                req.options,
                 { result -> prepareResetPasswordResult(flutterResult, result)},
                 { error -> errorHandler.handleAuthError(flutterResult, error) }
         );
@@ -324,6 +325,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
         Amplify.Auth.confirmResetPassword(
                 req.newPassword,
                 req.confirmationCode,
+                req.options,
                 {  -> prepareUpdatePasswordResult(flutterResult)},
                 { error -> errorHandler.handleAuthError(flutterResult, error)}
         );

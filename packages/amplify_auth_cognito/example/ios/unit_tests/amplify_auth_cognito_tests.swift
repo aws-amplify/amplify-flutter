@@ -1008,6 +1008,15 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
+    func test_resetPasswordFormatOptions() {
+        let metadata: Dictionary<String, Any> = ["attribute": "value"]
+        let rawOptions: Dictionary<String, Any> = ["clientMetadata": metadata]
+        let rawData: NSMutableDictionary = ["username": _username, "options": rawOptions]
+        let request = FlutterResetPasswordRequest(dict: rawData);
+        let options = request.options?.pluginOptions as! AWSAuthResetPasswordOptions
+        XCTAssertEqual("value", options.metadata!["attribute"])
+    }
+    
     func test_resetPasswordValidation() {
         var rawData: NSMutableDictionary = [:]
         
@@ -1072,6 +1081,20 @@ class amplify_auth_cognito_tests: XCTestCase {
                 XCTFail()
             }
         })
+    }
+    
+    func test_confirmResetPasswordFormatOptions() {
+        let metadata: Dictionary<String, Any> = ["attribute": "value"]
+        let rawOptions: Dictionary<String, Any> = ["clientMetadata": metadata]
+        let rawData: NSMutableDictionary = [
+            "username": _username,
+            "newPassword": _newPassword,
+            "confirmationCode": _confirmationCode,
+            "options": rawOptions
+        ]
+        let request = FlutterConfirmResetPasswordRequest(dict: rawData);
+        let options = request.options?.pluginOptions as! AWSAuthConfirmResetPasswordOptions
+        XCTAssertEqual("value", options.metadata!["attribute"])
     }
     
     func test_confirmResetPasswordValidation() {

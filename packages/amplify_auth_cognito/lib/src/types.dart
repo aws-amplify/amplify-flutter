@@ -26,6 +26,8 @@ export 'CognitoSignIn/CognitoConfirmSignInOptions.dart';
 export 'CognitoSignIn/CognitoSignInOptions.dart';
 
 // Password
+export 'CognitoPasswords/CognitoConfirmResetPasswordOptions.dart';
+export 'CognitoPasswords/CognitoResetPasswordOptions.dart';
 export 'CognitoPasswords/CognitoResetPasswordResult.dart';
 export 'CognitoPasswords/CognitoUpdatePasswordOptions.dart';
 
