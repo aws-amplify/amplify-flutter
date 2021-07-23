@@ -158,8 +158,11 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
     private static func getModelSchema(flutterModelRegistration: FlutterModels, modelName: String) throws -> ModelSchema {
         do {
             return try FlutterDataStoreRequestUtils.getModelSchema(modelSchemas: flutterModelRegistration.modelSchemas, modelName: modelName)
-        } catch let error {
-            print("model \(modelName) is not registered.")
+        } catch let error as DataStoreError {
+            print("Model \(modelName) is not registered.")
+            throw error
+        } catch {
+            print("An unexpected error occured when deserializing data model: \(modelName)")
             throw error
         }
     }
