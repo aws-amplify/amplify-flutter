@@ -71,4 +71,82 @@ void main() {
       }
     };
   });
+
+  // Test toJson and fromJson of nullable lists
+
+  test(
+      'TestNullableListsString.classType with min parameters generates proper json from serializedMap modelschema',
+      () async {
+    Map<String, dynamic> inputMap = {
+      "id": "3",
+      "modelName": "TestNullableListsString",
+      "serializedData": {
+        "id": "3",
+        "requiredList": [],
+        "requiredListOfRequired": [],
+      }
+    };
+
+    expect(
+        TestNullableListsString.classType.fromSerializedMap(inputMap).toJson(),
+        {
+          "id": "3",
+          "list": null,
+          "requiredList": [],
+          "requiredListOfRequired": [],
+          "listOfRequired": null
+        });
+  });
+
+  test(
+      'TestNullableListsString.classType with empty lists generates proper json from serializedMap modelschema',
+      () async {
+    Map<String, dynamic> inputMap = {
+      "id": "4",
+      "modelName": "TestNullableListsString",
+      "serializedData": {
+        "id": "4",
+        "list": [],
+        "requiredList": [],
+        "requiredListOfRequired": [],
+        "listOfRequired": []
+      }
+    };
+
+    expect(
+        TestNullableListsString.classType.fromSerializedMap(inputMap).toJson(),
+        {
+          "id": "4",
+          "list": [],
+          "requiredList": [],
+          "requiredListOfRequired": [],
+          "listOfRequired": []
+        });
+  });
+
+  test(
+      'TestNullableListsString.classType with nullable values generates proper json from serializedMap modelschema',
+      () async {
+    Map<String, dynamic> inputMap = {
+      "id": "5",
+      "modelName": "TestNullableListsString",
+      "serializedData": {
+        "id": "5",
+        "list": [null, "listTestString"],
+        "requiredList": [null, "requiredListTestString"],
+        "requiredListOfRequired": ["requiredListOfRequiredString"],
+        "listOfRequired": ["listOfRequiredString"]
+      }
+    };
+
+    expect(
+        TestNullableListsString.classType.fromSerializedMap(inputMap).toJson(),
+        {
+          "id": "5",
+          "list": [null, "listTestString"],
+          "requiredList": [null, "requiredListTestString"],
+          "requiredListOfRequired": ["requiredListOfRequiredString"],
+          "listOfRequired": ["listOfRequiredString"]
+        });
+  });
 }

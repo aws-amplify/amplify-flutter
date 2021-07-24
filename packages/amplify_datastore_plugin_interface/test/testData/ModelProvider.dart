@@ -20,11 +20,13 @@ import 'Blog.dart';
 import 'Comment.dart';
 import 'Post.dart';
 import 'PostAuthComplex.dart';
+import 'TestNullableListsString.dart';
 
 export 'Blog.dart';
 export 'Comment.dart';
 export 'Post.dart';
 export 'PostAuthComplex.dart';
+export 'TestNullableListsString.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
@@ -34,7 +36,8 @@ class ModelProvider implements ModelProviderInterface {
     Blog.schema,
     Comment.schema,
     Post.schema,
-    PostAuthComplex.schema
+    PostAuthComplex.schema,
+    TestNullableListsString.schema
   ];
   static final ModelProvider _instance = ModelProvider();
 
@@ -60,6 +63,11 @@ class ModelProvider implements ModelProviderInterface {
       case "PostAuthComplex":
         {
           return PostAuthComplex.classType;
+        }
+        break;
+      case "TestNullableListsString":
+        {
+          return TestNullableListsString.classType;
         }
         break;
       default:

@@ -186,4 +186,48 @@ void main() {
       }
     });
   });
+
+  test(
+      'TestNullableListsString codegen model generates modelschema with proper fields',
+      () async {
+    ModelSchema testNullableListsString = TestNullableListsString.schema;
+    Map<String, dynamic> map = testNullableListsString.toMap();
+
+    expect(map, {
+      'name': 'TestNullableListsString',
+      'pluralName': 'TestNullableListsStrings',
+      'fields': {
+        'id': {
+          'name': 'id',
+          'type': {'fieldType': 'string'},
+          'isRequired': true,
+          'isArray': false
+        },
+        'list': {
+          'name': 'list',
+          'type': {'fieldType': 'collection', 'ofModelName': 'string'},
+          'isRequired': false,
+          'isArray': true
+        },
+        'requiredList': {
+          'name': 'requiredList',
+          'type': {'fieldType': 'collection', 'ofModelName': 'string'},
+          'isRequired': true,
+          'isArray': true
+        },
+        'requiredListOfRequired': {
+          'name': 'requiredListOfRequired',
+          'type': {'fieldType': 'collection', 'ofModelName': 'string'},
+          'isRequired': true,
+          'isArray': true
+        },
+        'listOfRequired': {
+          'name': 'listOfRequired',
+          'type': {'fieldType': 'collection', 'ofModelName': 'string'},
+          'isRequired': false,
+          'isArray': true
+        }
+      }
+    });
+  });
 }
