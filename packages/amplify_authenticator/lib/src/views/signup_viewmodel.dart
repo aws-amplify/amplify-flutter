@@ -36,7 +36,6 @@ class SignUpViewModel extends BaseViewModel {
   Map<String, String> authAttributes = {};
 
   void setUsername(String value) {
-    print(value);
     _username = value;
   }
 

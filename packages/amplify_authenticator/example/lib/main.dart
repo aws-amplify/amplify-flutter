@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Authenticator(
-      child: CustomersApp(),
+      child: const CustomersApp(),
     );
   }
 }
@@ -65,7 +65,7 @@ class CustomersApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Customer's App"),
+        title: const Text("Customer's App"),
       ),
       body: SignOutButton(),
     );

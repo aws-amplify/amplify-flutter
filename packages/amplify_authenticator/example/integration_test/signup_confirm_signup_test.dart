@@ -80,7 +80,7 @@ void main() {
       await Future<void>.delayed(const Duration(seconds: 2));
 
       //For now, this screen uses a mocked code and doesn't call the
-      // confirmSignUp method
+      // confirmSignUp method.
 
       await tester.tap(backToSignInButtonFinder);
 
