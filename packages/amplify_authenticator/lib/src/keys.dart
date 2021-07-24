@@ -7,9 +7,9 @@ const String keyPasswordSignInFormfield = 'passwordSignInFormField';
 
 // Sign up form fields keys
 
-const String keyUsernameSignUpFormfield = 'usernameSignUpFormField';
-const String keyPasswordSignUpFormfield = 'passwordSignUpFormField';
-const String keyAddressFormfield = 'addresslSignUpFormField';
+const String keyUsernameSignUpFormField = 'usernameSignUpFormField';
+const String keyPasswordSignUpFormField = 'passwordSignUpFormField';
+const String keyAddressFormField = 'addresslSignUpFormField';
 const String keyBirthdateSignUpFormField = 'birthdateSignUpFormField';
 const String keyEmailSignUpFormField = 'emailSignUpFormField';
 const String keyFamilyNameSignUpFormField = 'familyNameSignUpFormField';

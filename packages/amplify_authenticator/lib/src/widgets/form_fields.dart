@@ -137,19 +137,19 @@ class SignUpFormField extends StatelessWidget {
         _callBack = (String value) => _authModelView.setUsername(value);
         _keyboardType = TextInputType.text;
         _validator = validator ?? validateUsername;
-        _key = const Key(keyUsernameSignUpFormfield);
+        _key = const Key(keyUsernameSignUpFormField);
         break;
       case 'password':
         _callBack = (String value) => _authModelView.setPassword(value);
         _keyboardType = TextInputType.visiblePassword;
         _obscureText = true;
         _validator = validator ?? validatePassword;
-        _key = const Key(keyPasswordSignUpFormfield);
+        _key = const Key(keyPasswordSignUpFormField);
         break;
       case 'address':
         _callBack = (String value) => _authModelView.setAddress(value, type);
         _keyboardType = TextInputType.streetAddress;
-        _key = const Key(keyAddressFormfield);
+        _key = const Key(keyAddressFormField);
         break;
       case 'birthdate':
         _callBack = (String value) => _authModelView.setBirthdate(value, type);

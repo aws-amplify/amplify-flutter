@@ -42,10 +42,8 @@ void main() {
       } catch (e) {
         fail('Error finding auth bloc: $e');
       }
-      final subscription = await authBloc.authBloc.stream;
 
-      await tester.enterText(
-          usernameSignInFormFieldFinder, 'isralejo25@hotmail.es');
+      await tester.enterText(usernameSignInFormFieldFinder, 'amplify-user-01');
       await Future<void>.delayed(const Duration(seconds: 2));
       await tester.enterText(passwordSignInFormFieldFinder, 'Welcome1234!');
       await Future<void>.delayed(const Duration(seconds: 2));
@@ -54,7 +52,7 @@ void main() {
       //Signing In
 
       await tester.tap(signInButtonFinder);
-
+      final subscription = await authBloc.authBloc.stream;
       final stateAuthenticated = await subscription.first;
 
       expect(stateAuthenticated, isA<Authenticated>());
@@ -93,9 +91,10 @@ void main() {
       await tester.tap(signInButtonFinder);
 
       final subscription = await authBloc.authBloc.exceptions;
-      final stateAuthenticated = await subscription.first;
+      final authenticatorException = await subscription.first;
 
-      expect(stateAuthenticated, isA<AuthenticatorException>());
+      expect(authenticatorException, isA<AuthenticatorException>());
+      await tester.pumpAndSettle();
     });
   });
 }
