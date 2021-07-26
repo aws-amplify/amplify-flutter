@@ -78,6 +78,7 @@ export 'Exceptions/InvalidAccountTypeException.dart';
 export 'Exceptions/InvalidParameterException.dart';
 export 'Exceptions/InvalidPasswordException.dart';
 export 'Exceptions/InvalidStateException.dart';
+export 'Exceptions/invalid_user_pool_configuration_exception.dart';
 export 'Exceptions/LambdaException.dart';
 export 'Exceptions/LimitExceededException.dart';
 export 'Exceptions/MFAMethodNotFoundException.dart';

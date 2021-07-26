@@ -41,6 +41,8 @@ Exception castAndReturnPlatformException(PlatformException e) {
         return CodeMismatchException.fromMap(
             Map<String, String>.from(e.details));
       }
+    case 'ConfigurationException':
+      return InvalidUserPoolConfigurationException.fromMap(e.details as Map);
     case 'DeviceNotTrackedException':
       return DeviceNotTrackedException.fromMap(e.details as Map);
     case "FailedAttemptsLimitExceededException":
@@ -173,4 +175,17 @@ Exception castAndReturnPlatformException(PlatformException e) {
         return e;
       }
   }
+}
+
+/// Transforms exceptions related to the Devices API.
+Exception transformDeviceException(PlatformException e) {
+  final parsedException = castAndReturnPlatformException(e);
+  // Translate Android error to common exception.
+  if (parsedException is ResourceNotFoundException) {
+    return DeviceNotTrackedException(
+      recoverySuggestion: parsedException.recoverySuggestion,
+      underlyingException: parsedException.underlyingException,
+    );
+  }
+  return parsedException;
 }

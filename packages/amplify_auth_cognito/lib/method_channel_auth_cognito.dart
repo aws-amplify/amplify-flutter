@@ -510,7 +510,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     try {
       await _channel.invokeMethod<void>('rememberDevice');
     } on PlatformException catch (e) {
-      throw castAndReturnPlatformException(e);
+      throw transformDeviceException(e);
     }
   }
 
@@ -519,7 +519,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     try {
       await _channel.invokeMethod<void>('forgetDevice', device?.toJson());
     } on PlatformException catch (e) {
-      throw castAndReturnPlatformException(e);
+      throw transformDeviceException(e);
     }
   }
 
@@ -529,13 +529,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
       final devicesJson = await _channel.invokeListMethod<Map>('fetchDevices');
       return devicesJson?.map((e) => CognitoDevice.fromJson(e)).toList() ?? [];
     } on PlatformException catch (e) {
-      final parsedException = castAndReturnPlatformException(e);
-      // Translate Android error to common exception.
-      if (parsedException is ResourceNotFoundException) {
-        throw DeviceNotTrackedException(
-            underlyingException: parsedException.underlyingException);
-      }
-      throw parsedException;
+      throw transformDeviceException(e);
     }
   }
 }

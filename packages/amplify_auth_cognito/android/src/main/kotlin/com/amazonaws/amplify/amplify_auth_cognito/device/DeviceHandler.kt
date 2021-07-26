@@ -59,8 +59,8 @@ class DeviceHandler(private val errorHandler: AuthErrorHandler) :
                 val deviceJson = (call.arguments as? Map<*, *> ?: emptyMap<String, Any?>()) as Map<String, Any?>
                 var device: AuthDevice? = null
                 if (deviceJson.isNotEmpty()) {
-                    val deviceId by deviceJson
-                    device = AuthDevice.fromId(deviceId as String)
+                    val id by deviceJson
+                    device = AuthDevice.fromId(id as String)
                 }
                 forgetDevice(result, device)
             }
