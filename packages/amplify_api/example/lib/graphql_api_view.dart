@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_api/graphql_helpers.dart';
+import 'package:amplify_api/graphql/model_queries.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_api/amplify_api.dart';
