@@ -13,13 +13,14 @@
  * permissions and limitations under the License.
  */
 
-// TODO: Datastore dependencies temporarily added in API. Eventually they should be moved to core or otherwise reconciled to avoid duplication.
+import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_api/graphql_helpers.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
-abstract class PaginatedResult<T extends Model> {
-  String get id;
-
-  ModelType<T> get instanceType;
-
-  Map<String, dynamic> toJson();
+// This class provides static method calls to enable a simpler DX
+class ModelQueries {
+  static GraphQLRequest<T> get<T extends Model>(
+      ModelType<T> modelType, String id) {
+    return ModelQueriesFactory().get<T>(modelType, id);
+  }
 }
