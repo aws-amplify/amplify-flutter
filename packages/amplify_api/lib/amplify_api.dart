@@ -31,7 +31,7 @@ class AmplifyAPI extends APIPluginInterface {
       : super(token: _token, modelProvider: modelProvider) {
     _instance.modelProvider = modelProvider;
   }
-
+  
   /// Internal use constructor
   @protected
   AmplifyAPI.tokenOnly() : super.tokenOnly(token: _token);
