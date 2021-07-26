@@ -21,6 +21,6 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 class ModelQueries {
   static GraphQLRequest<T> get<T extends Model>(
       ModelType<T> modelType, String id) {
-    return ModelQueriesFactory().get<T>(modelType, id);
+    return ModelQueriesFactory.instance.get<T>(modelType, id);
   }
 }

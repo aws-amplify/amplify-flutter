@@ -19,6 +19,14 @@ import 'package:flutter/foundation.dart';
 import '../amplify_api.dart';
 
 class ModelQueriesFactory extends ModelQueriesInterface {
+  // Singleton methods/properties
+  // usage: ModelQueriesFactory.instance;
+  ModelQueriesFactory._();
+
+  static final ModelQueriesFactory _instance = ModelQueriesFactory._();
+
+  static ModelQueriesFactory get instance => _instance;
+
   @override
   GraphQLRequest<T> get<T extends Model>(ModelType<T> modelType, String id) {
     Map<String, String> variableInput = {"id": "ID"};
