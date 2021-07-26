@@ -5,7 +5,7 @@ import 'package:amplify_authenticator/src/widgets/form_fields.dart';
 
 class DefaultForms {
   static SignInForm signInForm() {
-    return SignInForm(
+    return const SignInForm(
       formFields: FormFields(
         children: [
           SignInFormField(
@@ -22,7 +22,7 @@ class DefaultForms {
   }
 
   static SignUpForm signUpForm() {
-    return SignUpForm(
+    return const SignUpForm(
       formFields: FormFields(
         children: [
           SignUpFormField(
@@ -45,7 +45,7 @@ class DefaultForms {
   }
 
   static ConfirmSignUpForm confirmSignUpForm() {
-    return ConfirmSignUpForm(
+    return const ConfirmSignUpForm(
       formFields: FormFields(
         children: [
           ConfirmSignUpFormField(
@@ -55,6 +55,19 @@ class DefaultForms {
           ConfirmSignUpFormField(
               title: 'Verification Code*',
               hintText: "Enter you verification code",
+              type: 'code'),
+        ],
+      ),
+    );
+  }
+
+  static ConfirmSignInForm confirmSignInForm() {
+    return const ConfirmSignInForm(
+      formFields: FormFields(
+        children: [
+          ConfirmSignInFormField(
+              title: 'Code*',
+              hintText: "Enter you confirmation code",
               type: 'code'),
         ],
       ),

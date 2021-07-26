@@ -1,5 +1,5 @@
 // ignore: public_member_api_docs
-enum AuthScreen { signup, signin, confirmSignUp }
+enum AuthScreen { signup, signin, confirmSignUp, confirmSignIn }
 
 class AuthSignInData {
   AuthSignInData({required this.username, required this.password});
@@ -30,4 +30,13 @@ class AuthConfirmSignUpData {
   final String username;
 
   AuthConfirmSignUpData({required this.username, required this.code});
+}
+
+class AuthConfirmSignInData {
+  final String code;
+
+  ///attributes
+  final Map<String, String> attributes;
+
+  AuthConfirmSignInData({required this.code, required this.attributes});
 }

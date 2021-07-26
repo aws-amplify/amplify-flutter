@@ -38,6 +38,41 @@ const String keyPhoneNumberConfirmSignUpFormfield =
     'phoneNumberConfirmSignUpFormField';
 const String keyCodeConfirmSignUpFormfield = 'codeConfirmSignUpFormField';
 
+//Confirm Sign In form field keys
+
+const String keyCodeConfirmSignInFormfield = 'codeConfirmSignUpFormField';
+
+const String keyPasswordConfirmSignInFormField =
+    'passwordConfirmSignInFormField';
+const String keyAddressConfirmSignInFormField =
+    'addresslConfirmSignInFormField';
+const String keyBirthdateConfirmSignInFormField =
+    'birthdateConfirmSignInFormField';
+const String keyEmailConfirmSignInFormField = 'emailConfirmSignInFormField';
+const String keyFamilyNameConfirmSignInFormField =
+    'familyNameConfirmSignInFormField';
+const String keyGenderConfirmSignInFormField = 'genderConfirmSignInFormField';
+const String keyGivenNameConfirmSignInFormField =
+    'givenNameConfirmSignInFormField';
+const String keyLocaleConfirmSignInFormField = 'localeConfirmSignInFormField';
+const String keyMiddleNameConfirmSignInFormField =
+    'middleNameConfirmSignInFormField';
+const String keyNameConfirmSignInFormField = 'nameConfirmSignInFormField';
+const String keyNicknameConfirmSignInFormField =
+    'nicknameConfirmSignInFormField';
+const String keyPhoneNumberConfirmSignInFormField =
+    'phoneNumberConfirmSignInFormField';
+const String keyPictureConfirmSignInFormField = 'pictureConfirmSignInFormField';
+const String keyPreferredUsernameConfirmSignInFormField =
+    'preferredUsernameConfirmSignInFormField';
+const String keyProfileConfirmSignInFormField = 'profileConfirmSignInFormField';
+const String keyZoneinfoConfirmSignInFormField =
+    'zoneinfoConfirmSignInFormField';
+const String keyUpdatedAtConfirmSignInFormField =
+    'updatedAtConfirmSignInFormField';
+const String keyWebsiteConfirmSignInFormField = 'websiteConfirmSignInFormField';
+const String keyCustomConfirmSignInFormField = 'customConfirmSignInFormField';
+
 // Buttons keys
 
 const String keySignUpButton = "signUpButton";
@@ -47,6 +82,7 @@ const String keySignOutButton = "signOutButton";
 const String keyBackToSignInButton = "backToSignInButton";
 const String keyGoToSignUpButton = "goToSignUpButton";
 const String keyGoToSignInButton = "goToSignInButton";
+const String keyConfirmSignInButton = "goToSignInButton";
 
 // Inherited keys
 

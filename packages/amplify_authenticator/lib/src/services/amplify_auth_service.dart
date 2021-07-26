@@ -17,7 +17,7 @@ abstract class AuthService {
 
   Future<bool> get isLoggedIn;
 
-  Future<void> confirmSignIn(String username, String code);
+  Future<void> confirmSignIn(String code, Map<String, String> attributes);
 }
 
 class AmplifyAuthService implements AuthService {
@@ -61,10 +61,11 @@ class AmplifyAuthService implements AuthService {
     }
   }
 
-  Future<void> confirmSignIn(String username, String code) async {
+  Future<void> confirmSignIn(
+      String code, Map<String, String> attributes) async {
     await Amplify.Auth.confirmSignIn(
         confirmationValue: code,
-        options: CognitoConfirmSignInOptions(userAttributes: {}));
+        options: CognitoConfirmSignInOptions(userAttributes: attributes));
   }
 
   @override

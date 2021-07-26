@@ -1,3 +1,4 @@
+import 'package:amplify_authenticator/src/views/confirm_signin_viewmodel.dart';
 import 'package:amplify_authenticator/src/widgets/containers.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/keys.dart';
@@ -48,6 +49,19 @@ class ConfirmButton extends StatelessWidget {
         callback: _authViewModel.confirm,
         authViewModel: _authViewModel,
         authKey: keyConfirmSignUpButton,
+        text: "CONFIRM");
+  }
+}
+
+class ConfirmSignInButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final ConfirmSignInViewModel _authViewModel =
+        InheritedAuthViewModel.of(context)!.confirmSignInViewModel;
+    return ButtonContainer(
+        callback: _authViewModel.confirm,
+        authViewModel: _authViewModel,
+        authKey: keyConfirmSignInButton,
         text: "CONFIRM");
   }
 }

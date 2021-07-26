@@ -16,6 +16,7 @@
 library amplify_authenticator;
 
 import 'package:amplify_authenticator/src/keys.dart';
+import 'package:amplify_authenticator/src/screens/confirm_signin_screen.dart';
 import 'package:flutter/material.dart';
 
 //State
@@ -37,6 +38,7 @@ import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/views/signin_viewmodel.dart';
 import 'package:amplify_authenticator/src/views/signup_viewmodel.dart';
 import 'package:amplify_authenticator/src/views/confirm_signup_viewmodel.dart';
+import 'package:amplify_authenticator/src/views/confirm_signin_viewmodel.dart';
 
 //Services
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
@@ -81,9 +83,14 @@ class Authenticator extends StatefulWidget {
   ///     - define
   ///
   Authenticator(
-      {required this.child, SignInForm? signInForm, SignUpForm? signUpForm}) {
+      {required this.child,
+      SignInForm? signInForm,
+      SignUpForm? signUpForm,
+      ConfirmSignInForm? confirmSignInForm}) {
     this.signInForm = signInForm ?? DefaultForms.signInForm();
     this.signUpForm = signUpForm ?? DefaultForms.signUpForm();
+    this.confirmSignInForm =
+        confirmSignInForm ?? DefaultForms.confirmSignInForm();
   }
 
   /// This form will support the following form field types:
@@ -160,6 +167,49 @@ class Authenticator extends StatefulWidget {
 
   final ConfirmSignUpForm confirmSignUpForm = DefaultForms.confirmSignUpForm();
 
+  /// This form will support the following form field types:
+  /// * code
+  /// * password
+  /// * birthdate
+  /// * email
+  /// * family_name
+  /// * gender
+  /// * given_name
+  /// * locate
+  /// * middle_name
+  /// * name
+  /// * nickname
+  /// * phone_number
+  /// * picture
+  /// * preferred_username
+  /// * profile
+  /// * zoneinfo
+  /// * updated_at
+  /// * website
+  /// * custom
+
+  ///
+  /// ### Example
+  /// ```dart
+  ///     ConfirmSignInForm( formFields:
+  ///                   FormFields(children: [
+  ///                     ConfirmSignInFormField(
+  ///                       type: "code" ,
+  ///                       title: "Custom code form field",
+  ///                       hintText: "Custom hint text",
+  ///                       ),
+  ///                     ConfirmSignInFormField(
+  ///                       type: "password" ,
+  ///                       title: "Custom password form field",
+  ///                       hintText: "Custom hint text",
+  ///                       ),
+  ///
+  ///                     ])
+  ///
+  /// ```
+
+  late final ConfirmSignInForm confirmSignInForm;
+
   /// This widget will be displayed after a user has signed in with some verified credentials.
   Widget child;
 
@@ -189,10 +239,12 @@ class _AuthenticatorState extends State<Authenticator> {
             signInViewModel: SignInViewModel(_stateMachineBloc),
             signUpViewModel: SignUpViewModel(_stateMachineBloc),
             confirmSignUpViewModel: ConfirmSignUpViewModel(_stateMachineBloc),
+            confirmSignInViewModel: ConfirmSignInViewModel(_stateMachineBloc),
             child: InheritedForms(
                 signInForm: widget.signInForm,
                 signUpForm: widget.signUpForm,
                 confirmSignUpForm: widget.confirmSignUpForm,
+                confirmSignInForm: widget.confirmSignInForm,
                 child: Scaffold(
                   body: StreamBuilder(
                     stream: _stateMachineBloc.stream,
@@ -212,6 +264,9 @@ class _AuthenticatorState extends State<Authenticator> {
                       } else if (state is AuthFlow &&
                           state.screen == AuthScreen.confirmSignUp) {
                         screen = ConfirmSignUpScreen();
+                      } else if (state is AuthFlow &&
+                          state.screen == AuthScreen.confirmSignIn) {
+                        screen = ConfirmSignInScreen();
                       }
 
                       return Center(
