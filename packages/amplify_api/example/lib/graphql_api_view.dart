@@ -79,7 +79,7 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
       }
     }''';
 
-    // TODO: Decode response to Blog
+    // TODO: Decode response to Blog & convert back to list before Production
     var operation = await Amplify.API.query<dynamic>(
         request: ModelQueries.get<Blog>(
             Blog.classType, "f70d1142-12da-4564-a699-966a75f96db6"));

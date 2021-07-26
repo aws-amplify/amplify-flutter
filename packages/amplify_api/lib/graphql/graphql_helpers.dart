@@ -46,7 +46,7 @@ class GraphQLRequestFactory extends GraphQLRequestFactoryInterface {
     }
   }
 
-  List<String> _buildFields(Map<String, ModelField?>? fieldsMap) {
+  List<String> _getFieldsFromModelType(Map<String, ModelField?>? fieldsMap) {
     List<String> fieldsList = [];
     if (fieldsMap != null) {
       fieldsMap.forEach((key, value) {
@@ -90,7 +90,7 @@ class GraphQLRequestFactory extends GraphQLRequestFactoryInterface {
         ? schema.pluralName
         : schema.name;
     String name = modelName ?? 'No model name found';
-    String fields = _buildFields(schema.fields).join(' ');
+    String fields = _getFieldsFromModelType(schema.fields).join(' ');
 
     String reqTypeStr = describeEnum(requestType.toString());
     String reqOperationStr = describeEnum(requestOperation.toString());
