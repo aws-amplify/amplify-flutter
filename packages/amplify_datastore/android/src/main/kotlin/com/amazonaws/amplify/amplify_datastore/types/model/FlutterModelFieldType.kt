@@ -59,7 +59,7 @@ data class FlutterModelFieldType(val map: Map<String, Any>) {
         return when (fieldType) {
             "string" -> String::class.java
             "int" -> Integer::class.java
-            "double" -> Double::class.java
+            "double" -> Double::class.javaObjectType
             "date" -> Temporal.Date::class.java
             "dateTime" -> Temporal.DateTime::class.java
             "time" -> Temporal.Time::class.java

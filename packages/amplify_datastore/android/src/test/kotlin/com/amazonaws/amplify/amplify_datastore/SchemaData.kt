@@ -266,7 +266,7 @@ val allTypeModelSchema = ModelSchema.builder()
                 "floatType" to
                         ModelField.builder()
                                 .name("floatType")
-                                .javaClassForValue(Double::class.java)
+                                .javaClassForValue(Double::class.javaObjectType)
                                 .targetType("Double")
                                 .isRequired(true)
                                 .isArray(false)
