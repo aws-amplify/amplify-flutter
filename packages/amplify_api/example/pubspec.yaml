@@ -30,9 +30,6 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
 
-  # TODO: Datastore dependencies temporarily added in API. Eventually they should be moved to core or otherwise reconciled to avoid duplication.
-  amplify_datastore_plugin_interface: 0.2.0
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

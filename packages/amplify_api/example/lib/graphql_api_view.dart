@@ -13,12 +13,9 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_api/graphql/model_queries.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_api/amplify_api.dart';
-
-import 'models/Blog.dart';
 
 class GraphQLApiView extends StatefulWidget {
   bool isAmplifyConfigured;
@@ -79,10 +76,8 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
       }
     }''';
 
-    // TODO: Decode response to Blog & convert back to list before Production
-    var operation = await Amplify.API.query<dynamic>(
-        request: ModelQueries.get<Blog>(
-            Blog.classType, "f70d1142-12da-4564-a699-966a75f96db6"));
+    var operation = await Amplify.API
+        .query<String>(request: GraphQLRequest(document: graphQLDocument));
     _lastOperation = operation;
 
     var response = await operation.response;
