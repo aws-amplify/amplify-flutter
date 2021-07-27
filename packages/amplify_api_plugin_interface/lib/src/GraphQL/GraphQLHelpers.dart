@@ -42,13 +42,3 @@ abstract class ModelMutationsInterface {
   // DeleteById
   GraphQLRequest<T> deleteById<T extends Model>(String Id);
 }
-
-abstract class GraphQLRequestFactoryInterface {
-  // createRequest generic
-  GraphQLRequest<T> buildQuery<T extends Model>(
-      {required ModelType modelType,
-      required Map<String, String>? variableInput,
-      required String? id,
-      required GraphQLRequestType requestType,
-      required GraphQLRequestOperation requestOperation});
-}

@@ -17,7 +17,7 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
 
-class GraphQLRequestFactory extends GraphQLRequestFactoryInterface {
+class GraphQLRequestFactory {
   String _getModelType(ModelFieldTypeEnum? val) {
     switch (val) {
       case ModelFieldTypeEnum.string:
@@ -79,7 +79,6 @@ class GraphQLRequestFactory extends GraphQLRequestFactoryInterface {
    *  Example: 
    *    query getBlog($id: ID!) { getBlog(id: $id) { id name createdAt } }
   */
-  @override
   GraphQLRequest<T> buildQuery<T extends Model>(
       {required ModelType modelType,
       required Map<String, String>? variableInput,
