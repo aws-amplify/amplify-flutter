@@ -1,3 +1,9 @@
+## 0.2.1 (2021-07-27)
+
+### Chores
+
+- chore: enable formatting in CI w/ code changes (#570)
+
 ## 0.2.0 (2021-06-30)
 
 ### Features
