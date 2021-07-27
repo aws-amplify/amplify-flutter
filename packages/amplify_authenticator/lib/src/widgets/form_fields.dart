@@ -289,10 +289,10 @@ class ConfirmSignUpFormField extends StatelessWidget {
       : super(key: key);
 
   ///Custom title for this form field
-  final String? title;
+  final String title;
 
   ///Custom hint text for this form field
-  final String? hintText;
+  final String hintText;
 
   /// This form field currently supports the following form field types:
   /// * Username
