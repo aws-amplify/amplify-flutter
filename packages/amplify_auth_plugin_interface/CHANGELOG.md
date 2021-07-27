@@ -1,3 +1,15 @@
+## 0.2.1 (2021-07-27)
+
+### Bug Fixes
+
+- fix: handle missing or empty signUpOptions (#627)
+- fix: handle InvalidStateException (#625)
+
+### Chores
+
+- chore: user attributes/sign up docs (#697)
+- chore: enable formatting in CI w/ code changes (#570)
+
 ## 0.2.0 (2021-06-30)
 
 ### Features
