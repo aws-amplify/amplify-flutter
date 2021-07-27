@@ -2,7 +2,7 @@ final _emailRegex = RegExp(r'^\S+@\S+$');
 final _codeRegex = RegExp(r'\d{6}');
 
 String? validateUsername(String? username) {
-  print(username);
+
   if (username == null || username.isEmpty) {
     return 'Username cannot be empty';
   }
