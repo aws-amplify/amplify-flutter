@@ -274,7 +274,7 @@ val allTypeModelSchema = ModelSchema.builder()
                 "boolType" to
                         ModelField.builder()
                                 .name("boolType")
-                                .javaClassForValue(Boolean::class.java)
+                                .javaClassForValue(Boolean::class.javaObjectType)
                                 .targetType("Boolean")
                                 .isRequired(true)
                                 .isArray(false)
