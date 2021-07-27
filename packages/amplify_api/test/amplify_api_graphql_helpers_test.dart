@@ -29,7 +29,7 @@ void main() {
     String expected =
         "query getBlog(\$id: ID!) { getBlog(id: \$id) { id name createdAt } }";
 
-    GraphQLRequest req = ModelQueries.get<Blog>(Blog.classType, id);
+    GraphQLRequest<Blog> req = ModelQueries.get<Blog>(Blog.classType, id);
 
     expect(req.document, expected);
     expect(req.variables.containsValue(id), true);

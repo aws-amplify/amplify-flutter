@@ -54,14 +54,13 @@ class GraphQLRequestFactory extends GraphQLRequestFactoryInterface {
     }
   }
 
-  List<String> _getFieldsFromModelType(Map<String, ModelField?>? fieldsMap) {
-    List<String> fieldsList = [];
-    if (fieldsMap != null) {
-      fieldsMap.forEach((key, value) {
-        if (value?.association == null) fieldsList.add(key);
-      });
-    }
-    return fieldsList;
+  String _getFieldsFromModelType(ModelSchema schema) {
+    Map<String, ModelField?>? fieldsMap = schema.fields;
+    return fieldsMap?.entries
+            .map((entry) => entry.value?.association == null ? entry.key : '')
+            .toList()
+            .join(' ') ??
+        '';
   }
 
   ModelSchema _getSchema(ModelType modelType) {
@@ -85,6 +84,13 @@ class GraphQLRequestFactory extends GraphQLRequestFactoryInterface {
     return schema;
   }
 
+  /*
+   *  buildQuery()
+   *
+   *  
+   *  Example: 
+   *    query getBlog($id: ID!) { getBlog(id: $id) { id name createdAt } }
+  */
   @override
   GraphQLRequest<T> buildQuery<T extends Model>(
       {required ModelType modelType,
@@ -94,27 +100,37 @@ class GraphQLRequestFactory extends GraphQLRequestFactoryInterface {
       required GraphQLRequestOperation requestOperation}) {
     ModelSchema schema = _getSchema(modelType);
 
-    String? modelName = requestOperation == GraphQLRequestOperation.list
+    String? name = requestOperation == GraphQLRequestOperation.list
         ? schema.pluralName
         : schema.name;
-    String name = modelName ?? 'No model name found';
-    String fields = _getFieldsFromModelType(schema.fields).join(' ');
 
-    String reqTypeStr = describeEnum(requestType.toString());
-    String reqOperationStr = describeEnum(requestOperation.toString());
+    if (name == null) {
+      throw ApiException('No schema name found',
+          recoverySuggestion:
+              'Pass in a valid modelProvider instance while instantiating APIPlugin or provide a vaild ModelType');
+    }
 
+    // fields to retrieve, e.g. "id name createdAt"
+    String fields = _getFieldsFromModelType(schema);
+
+    // e.g. "query"
+    String requestTypeVal = describeEnum(requestType.toString());
+    // e.g. "get"
+    String requestOperationVal = describeEnum(requestOperation.toString());
+
+    // Upper document input: ($id: ID!)
     var varInputUpperStr = '';
+    // Lower document input: (id: $id)
     var varInputLowerStr = '';
 
-    if (variableInput!.isNotEmpty) {
+    if (variableInput != null && variableInput.isNotEmpty) {
       List<String> variableInputUpper = [];
       List<String> variableInputLower = [];
 
-      for (var key in variableInput.keys) {
-        String? modelInputType = variableInput[key];
-        variableInputUpper.add("\$$key: $modelInputType!");
+      variableInput.forEach((key, value) {
+        variableInputUpper.add("\$$key: $value!");
         variableInputLower.add("$key: \$$key");
-      }
+      });
 
       varInputUpperStr = "(${variableInputUpper.join(", ")})";
       if (requestOperation == GraphQLRequestOperation.get) {
@@ -129,10 +145,10 @@ class GraphQLRequestFactory extends GraphQLRequestFactoryInterface {
     }
 
     String doc =
-        '''$reqTypeStr $reqOperationStr$name${varInputUpperStr} { $reqOperationStr$name$varInputLowerStr { $fields } }''';
+        '''$requestTypeVal $requestOperationVal$name${varInputUpperStr} { $requestOperationVal$name$varInputLowerStr { $fields } }''';
 
     // TODO: create input map for variables & connect with current variableInput
-    Map<String, dynamic> variables = id != null ? {"id": id} : const {};
+    Map<String, dynamic>? variables = id != null ? {"id": id} : {};
 
     return GraphQLRequest<T>(document: doc, variables: variables);
   }
