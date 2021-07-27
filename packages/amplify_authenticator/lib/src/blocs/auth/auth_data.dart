@@ -1,4 +1,5 @@
 // ignore: public_member_api_docs
+
 enum AuthScreen { signup, signin, confirmSignUp, confirmSignIn }
 
 class AuthSignInData {
@@ -32,6 +33,7 @@ class AuthConfirmSignUpData {
   AuthConfirmSignUpData({required this.username, required this.code});
 }
 
+
 class AuthConfirmSignInData {
   final String code;
 
@@ -40,3 +42,4 @@ class AuthConfirmSignInData {
 
   AuthConfirmSignInData({required this.code, required this.attributes});
 }
+

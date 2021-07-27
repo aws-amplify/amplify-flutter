@@ -60,8 +60,10 @@ class StateMachineBloc {
       yield* _signUp(event.data);
     } else if (event is AuthConfirmSignUp) {
       yield* _confirmSignUp(event.data);
+
     } else if (event is AuthConfirmSignIn) {
       yield* _confirmSignIn(event.data);
+      
     } else if (event is AuthChangeScreen) {
       yield* _changeScreen(event.screen);
     } else if (event is AuthSignOut) {
@@ -93,7 +95,9 @@ class StateMachineBloc {
           await _authService.signIn(data.username, data.password);
 
       switch (result.nextStep!.signInStep) {
+          
         case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
+
           yield AuthFlow(screen: AuthScreen.confirmSignIn);
 
           break;
@@ -104,6 +108,9 @@ class StateMachineBloc {
         case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
           //Show confirm sing in screen
           yield AuthFlow(screen: AuthScreen.confirmSignIn);
+
+          //Show confirm sing in screen
+          //Note: this screen is yet to be implemented.
           break;
 
         case 'RESET_PASSWORD':
@@ -149,6 +156,7 @@ class StateMachineBloc {
     try {
       await _authService.confirmSignUp(data.username, data.code);
 
+
       yield* _getCurrentUser();
     } catch (e) {
       print(e);
@@ -160,6 +168,7 @@ class StateMachineBloc {
     try {
       await _authService.confirmSignIn(data.code, data.attributes);
       yield const Authenticated();
+
     } catch (e) {
       print(e);
       _exceptionController.add(AuthenticatorException(e.toString()));
@@ -169,7 +178,9 @@ class StateMachineBloc {
   Stream<AuthState> _signOut() async* {
     try {
       await _authService.signOut();
+
       yield* _getCurrentUser();
+
     } catch (e) {
       print(e);
       _exceptionController.add(AuthenticatorException(e.toString()));

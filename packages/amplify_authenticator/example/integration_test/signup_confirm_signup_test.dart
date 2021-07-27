@@ -81,7 +81,8 @@ void main() {
       await tester.enterText(codeConfirmSignUpFormFieldFinder, mockCode);
       await Future<void>.delayed(const Duration(seconds: 2));
 
-      //For now, this test uses a mocked code and doesn't call the
+
+      //For now, this screen uses a mocked code and doesn't call the
       // confirmSignUp method.
 
       await tester.tap(backToSignInButtonFinder);

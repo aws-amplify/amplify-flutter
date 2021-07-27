@@ -9,7 +9,9 @@ const String keyPasswordSignInFormfield = 'passwordSignInFormField';
 
 const String keyUsernameSignUpFormField = 'usernameSignUpFormField';
 const String keyPasswordSignUpFormField = 'passwordSignUpFormField';
+
 const String keyAddressSignUpFormField = 'addresslSignUpFormField';
+
 const String keyBirthdateSignUpFormField = 'birthdateSignUpFormField';
 const String keyEmailSignUpFormField = 'emailSignUpFormField';
 const String keyFamilyNameSignUpFormField = 'familyNameSignUpFormField';
@@ -37,6 +39,7 @@ const String keyEmailConfirmSignUpFormfield = 'emailConfirmSignUpFormField';
 const String keyPhoneNumberConfirmSignUpFormfield =
     'phoneNumberConfirmSignUpFormField';
 const String keyCodeConfirmSignUpFormfield = 'codeConfirmSignUpFormField';
+
 
 //Confirm Sign In form field keys
 
@@ -73,6 +76,7 @@ const String keyUpdatedAtConfirmSignInFormField =
 const String keyWebsiteConfirmSignInFormField = 'websiteConfirmSignInFormField';
 const String keyCustomConfirmSignInFormField = 'customConfirmSignInFormField';
 
+
 // Buttons keys
 
 const String keySignUpButton = "signUpButton";
@@ -82,6 +86,7 @@ const String keySignOutButton = "signOutButton";
 const String keyBackToSignInButton = "backToSignInButton";
 const String keyGoToSignUpButton = "goToSignUpButton";
 const String keyGoToSignInButton = "goToSignInButton";
+
 const String keyConfirmSignInButton = "confirmSignInButton";
 
 // Inherited keys

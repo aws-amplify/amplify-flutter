@@ -1,4 +1,6 @@
+
 import 'package:amplify_authenticator/src/enums/confirm_signin_types.dart';
+
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/widgets/containers.dart';
@@ -7,6 +9,7 @@ import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/enums/signin_types.dart';
 import 'package:amplify_authenticator/src/enums/signup_types.dart';
 import 'package:amplify_authenticator/src/enums/confirm_signup_types.dart';
+
 
 class SignInFormField extends StatelessWidget {
   /// Requires a custom title, hint text, a type (username, password, etc)
@@ -86,6 +89,7 @@ class SignInFormField extends StatelessWidget {
   }
 }
 
+
 class SignUpFormField extends StatelessWidget {
   /// Requires a custom title, hint text, a type (username, password, etc)
   /// and an optional callback for input validation.
@@ -154,6 +158,7 @@ class SignUpFormField extends StatelessWidget {
         _callBack = (String value) => _authModelView.setAddress(value, type);
         _keyboardType = TextInputType.streetAddress;
         _key = const Key(keyAddressSignUpFormField);
+
         break;
       case SignUpType.birthdate:
         _callBack = (String value) => _authModelView.setBirthdate(value, type);
@@ -271,6 +276,7 @@ class SignUpFormField extends StatelessWidget {
   }
 }
 
+
 class ConfirmSignUpFormField extends StatelessWidget {
   /// Requires a custom title, hint text, a type (username, password, etc)
   /// and an optional callback for input validation.
@@ -352,6 +358,7 @@ class ConfirmSignUpFormField extends StatelessWidget {
         obscureText: _obscureText);
   }
 }
+
 
 class ConfirmSignInFormField extends StatelessWidget {
   /// Requires a custom title, hint text, a type (code, password, etc)
@@ -538,3 +545,4 @@ class ConfirmSignInFormField extends StatelessWidget {
         obscureText: _obscureText);
   }
 }
+
