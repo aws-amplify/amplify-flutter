@@ -31,9 +31,7 @@ void main() {
     });
 
     testWidgets('should save data locally', (WidgetTester tester) async {
-      Blog testBlog = Blog(
-        name: 'test blog',
-      );
+      Blog testBlog = Blog(name: 'test blog');
       await Amplify.DataStore.save(testBlog);
       var blogs = await Amplify.DataStore.query(Blog.classType);
       expect(blogs.length, 1);
