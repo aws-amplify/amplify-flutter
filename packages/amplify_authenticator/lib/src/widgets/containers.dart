@@ -69,7 +69,7 @@ class ButtonContainer extends StatelessWidget {
       : super(key: key);
   final dynamic authViewModel;
   final String authKey;
-  final dynamic Function() callback;
+  final void Function() callback;
   final String text;
   @override
   Widget build(BuildContext context) {
