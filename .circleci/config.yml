@@ -140,7 +140,7 @@ jobs:
           command: |
             melos run build:examples:android
           no_output_timeout: 20m
-      - run: 
+      - run:
           name: Run lint checks
           command: melos run lint:android --no-select
       - run:
@@ -170,10 +170,7 @@ workflows:
   test_deploy:
     jobs:
       - format_flutter
-<<<<<<< HEAD
       - analyze_flutter
-=======
->>>>>>> chore(CI): enable formatting in CI w/ code changes (#570)
       - unit_test_flutter
       - unit_test_android
       - unit_test_ios
