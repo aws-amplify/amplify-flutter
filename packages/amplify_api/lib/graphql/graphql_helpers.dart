@@ -74,11 +74,10 @@ class GraphQLRequestFactory extends GraphQLRequestFactoryInterface {
 
     ModelSchema schema = provider.modelSchemas.firstWhere(
         (elem) => provider.getModelTypeByModelName(elem.name) == modelType,
-        orElse: () => 
-          throw ApiException('No schema found for the ModelType provided',
+        orElse: () => throw ApiException(
+            'No schema found for the ModelType provided',
             recoverySuggestion:
-              'Pass in a valid modelProvider instance while instantiating APIPlugin or provide a valid ModelType')
-        );
+                'Pass in a valid modelProvider instance while instantiating APIPlugin or provide a valid ModelType'));
 
     return schema;
   }
