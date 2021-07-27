@@ -14,7 +14,7 @@
  */
 
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_api/src/graphql/factories/model_queries_factory.dart';
+import 'package:amplify_api/src/graphql/model_queries_factory.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
 // This class provides static method calls to enable a simpler DX,
