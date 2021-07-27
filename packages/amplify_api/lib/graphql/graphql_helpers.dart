@@ -55,12 +55,11 @@ class GraphQLRequestFactory extends GraphQLRequestFactoryInterface {
   }
 
   String _getFieldsFromModelType(ModelSchema schema) {
-    Map<String, ModelField?>? fieldsMap = schema.fields;
-    return fieldsMap?.entries
-            .map((entry) => entry.value?.association == null ? entry.key : '')
-            .toList()
-            .join(' ') ??
-        '';
+    Map<String, ModelField> fieldsMap = schema.fields!;
+    return fieldsMap.entries
+        .map((entry) => entry.value.association == null ? entry.key : '')
+        .toList()
+        .join(' ');
   }
 
   ModelSchema _getAndValidateSchema(
@@ -79,6 +78,12 @@ class GraphQLRequestFactory extends GraphQLRequestFactoryInterface {
             'No schema found for the ModelType provided',
             recoverySuggestion:
                 'Pass in a valid modelProvider instance while instantiating APIPlugin or provide a valid ModelType'));
+
+    if (schema.fields == null) {
+      throw ApiException('Schema found does not have a fields property',
+          recoverySuggestion:
+              'Pass in a valid modelProvider instance while instantiating APIPlugin');
+    }
 
     if (operation == GraphQLRequestOperation.list &&
         schema.pluralName == null) {
