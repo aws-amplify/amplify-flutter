@@ -26,7 +26,7 @@ void main() {
 
   group('query', () {
     setUp(() async {
-      await configureAuth();
+      await configureDataStore();
       // clear data before each test
       await Amplify.DataStore.clear();
     });

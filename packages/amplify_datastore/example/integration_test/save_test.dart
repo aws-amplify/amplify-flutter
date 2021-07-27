@@ -25,7 +25,7 @@ void main() {
 
   group('save', () {
     setUp(() async {
-      await configureAuth();
+      await configureDataStore();
       // clear data before each test
       await Amplify.DataStore.clear();
     });

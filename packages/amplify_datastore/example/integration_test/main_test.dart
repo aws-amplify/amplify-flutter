@@ -25,7 +25,7 @@ void main() async {
 
   group('amplify_datastore', () {
     setUpAll(() async {
-      await configureAuth();
+      await configureDataStore();
     });
 
     save_tests.main();
