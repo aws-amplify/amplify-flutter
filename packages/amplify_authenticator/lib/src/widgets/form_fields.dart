@@ -312,7 +312,6 @@ class ConfirmSignUpFormField extends StatelessWidget {
     TextInputType _keyboardType = TextInputType.text;
     late Key _key;
     final ConfirmSignUpType? _type = fromStringToConfirmSignUpType(type);
-
     switch (_type) {
       case ConfirmSignUpType.username:
         _callBack = _authModelView.setUsername;

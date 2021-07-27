@@ -211,7 +211,7 @@ class Authenticator extends StatefulWidget {
   late final ConfirmSignInForm confirmSignInForm;
 
   /// This widget will be displayed after a user has signed in with some verified credentials.
-  Widget child;
+final Widget child;
 
   @override
   _AuthenticatorState createState() => _AuthenticatorState();
@@ -281,7 +281,7 @@ class _AuthenticatorState extends State<Authenticator> {
 
   @override
   void dispose() {
-    super.dispose();
     _stateMachineBloc.dispose();
+      super.dispose();
   }
 }

@@ -11,7 +11,7 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class StateMachineBloc {
-  late final AuthService _authService;
+  final AuthService _authService;
 
   /// State controller.
   final StreamController<AuthState> _authStateController =

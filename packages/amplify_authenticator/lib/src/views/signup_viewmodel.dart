@@ -130,7 +130,7 @@ class SignUpViewModel extends BaseViewModel {
   }
 
   void setCustom(String value, String type) {
-    _website = value;
+    _custom = value;
     authAttributes[type] = _custom!.trim();
   }
 
