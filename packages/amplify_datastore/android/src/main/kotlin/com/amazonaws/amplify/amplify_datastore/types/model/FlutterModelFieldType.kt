@@ -64,7 +64,7 @@ data class FlutterModelFieldType(val map: Map<String, Any>) {
             "dateTime" -> Temporal.DateTime::class.java
             "time" -> Temporal.Time::class.java
             "timestamp" -> Temporal.Timestamp::class.java
-            "bool" -> Boolean::class.java
+            "bool" -> Boolean::class.javaObjectType
             "enumeration" -> String::class.java
             "model" -> Model::class.java
             "collection" -> List::class.java
