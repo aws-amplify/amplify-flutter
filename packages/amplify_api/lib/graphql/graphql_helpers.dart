@@ -63,7 +63,8 @@ class GraphQLRequestFactory extends GraphQLRequestFactoryInterface {
         '';
   }
 
-  ModelSchema _getSchema(ModelType modelType) {
+  ModelSchema _getAndValidateSchema(
+      ModelType modelType, GraphQLRequestOperation operation) {
     ModelProviderInterface? provider = AmplifyAPI.instance.getModelProvider();
 
     if (provider == null) {
@@ -78,6 +79,13 @@ class GraphQLRequestFactory extends GraphQLRequestFactoryInterface {
             'No schema found for the ModelType provided',
             recoverySuggestion:
                 'Pass in a valid modelProvider instance while instantiating APIPlugin or provide a valid ModelType'));
+
+    if (operation == GraphQLRequestOperation.list &&
+        schema.pluralName == null) {
+      throw ApiException('No schema name found',
+          recoverySuggestion:
+              'Pass in a valid modelProvider instance while instantiating APIPlugin or provide a valid ModelType');
+    }
 
     return schema;
   }
@@ -96,17 +104,9 @@ class GraphQLRequestFactory extends GraphQLRequestFactoryInterface {
       required String? id,
       required GraphQLRequestType requestType,
       required GraphQLRequestOperation requestOperation}) {
-    ModelSchema schema = _getSchema(modelType);
+    ModelSchema schema = _getAndValidateSchema(modelType, requestOperation);
 
-    String? name = requestOperation == GraphQLRequestOperation.list
-        ? schema.pluralName
-        : schema.name;
-
-    if (name == null) {
-      throw ApiException('No schema name found',
-          recoverySuggestion:
-              'Pass in a valid modelProvider instance while instantiating APIPlugin or provide a valid ModelType');
-    }
+    String name = schema.name;
 
     // fields to retrieve, e.g. "id name createdAt"
     String fields = _getFieldsFromModelType(schema);
@@ -139,6 +139,7 @@ class GraphQLRequestFactory extends GraphQLRequestFactoryInterface {
     }
 
     if (requestOperation == GraphQLRequestOperation.list) {
+      name = schema.pluralName!;
       fields = 'items { $fields } nextToken';
     }
 
