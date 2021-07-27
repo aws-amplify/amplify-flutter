@@ -1,3 +1,5 @@
+import 'package:collection/collection.dart';
+
 enum SignInType {
   username,
   password,
@@ -5,7 +7,7 @@ enum SignInType {
   phone_number,
 }
 
-SignInType fromStringToSignInType(String str) {
+SignInType? fromStringToSignInType(String str) {
   return SignInType.values
-      .firstWhere((value) => value.toString().split('.')[1] == str);
+      .firstWhereOrNull((value) => value.toString().split('.')[1] == str);
 }
