@@ -147,7 +147,8 @@ class StateMachineBloc {
     try {
       await _authService.confirmSignUp(data.username, data.code);
 
-      _authEventController.add(GetCurrentUser());
+       yield* _getCurrentUser();
+      
     } catch (e) {
       print(e);
       _exceptionController.add(AuthenticatorException(e.toString()));
