@@ -211,7 +211,7 @@ class Authenticator extends StatefulWidget {
   late final ConfirmSignInForm confirmSignInForm;
 
   /// This widget will be displayed after a user has signed in with some verified credentials.
-final Widget child;
+  final Widget child;
 
   @override
   _AuthenticatorState createState() => _AuthenticatorState();
@@ -250,6 +250,7 @@ class _AuthenticatorState extends State<Authenticator> {
                     stream: _stateMachineBloc.stream,
                     builder: (context, snapshot) {
                       final state = snapshot.data ?? const AuthLoading();
+
                       Widget? screen;
                       if (state is AuthLoading) {
                         screen = LoadingScreen();
@@ -282,6 +283,6 @@ class _AuthenticatorState extends State<Authenticator> {
   @override
   void dispose() {
     _stateMachineBloc.dispose();
-      super.dispose();
+    super.dispose();
   }
 }

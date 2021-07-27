@@ -9,7 +9,7 @@ const String keyPasswordSignInFormfield = 'passwordSignInFormField';
 
 const String keyUsernameSignUpFormField = 'usernameSignUpFormField';
 const String keyPasswordSignUpFormField = 'passwordSignUpFormField';
-const String keyAddressFormField = 'addresslSignUpFormField';
+const String keyAddressSignUpFormField = 'addresslSignUpFormField';
 const String keyBirthdateSignUpFormField = 'birthdateSignUpFormField';
 const String keyEmailSignUpFormField = 'emailSignUpFormField';
 const String keyFamilyNameSignUpFormField = 'familyNameSignUpFormField';
@@ -82,7 +82,7 @@ const String keySignOutButton = "signOutButton";
 const String keyBackToSignInButton = "backToSignInButton";
 const String keyGoToSignUpButton = "goToSignUpButton";
 const String keyGoToSignInButton = "goToSignInButton";
-const String keyConfirmSignInButton = "goToSignInButton";
+const String keyConfirmSignInButton = "confirmSignInButton";
 
 // Inherited keys
 

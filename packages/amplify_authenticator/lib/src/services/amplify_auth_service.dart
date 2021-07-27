@@ -23,6 +23,8 @@ abstract class AuthService {
 class AmplifyAuthService implements AuthService {
   @override
   Future<SignInResult> signIn(String username, String password) async {
+    //making sure no user is logged in before logging in a new user
+
     if (await isLoggedIn) {
       await Amplify.Auth.signOut();
     }
@@ -35,6 +37,7 @@ class AmplifyAuthService implements AuthService {
     if (!result.isSignedIn && result.nextStep!.signInStep == 'DONE') {
       throw const AuthenticatorException('Could not login');
     }
+
     return result;
   }
 

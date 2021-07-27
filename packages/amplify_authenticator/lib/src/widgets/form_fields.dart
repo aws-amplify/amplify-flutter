@@ -153,7 +153,7 @@ class SignUpFormField extends StatelessWidget {
       case SignUpType.address:
         _callBack = (String value) => _authModelView.setAddress(value, type);
         _keyboardType = TextInputType.streetAddress;
-        _key = const Key(keyAddressFormField);
+        _key = const Key(keyAddressSignUpFormField);
         break;
       case SignUpType.birthdate:
         _callBack = (String value) => _authModelView.setBirthdate(value, type);
@@ -409,122 +409,122 @@ class ConfirmSignInFormField extends StatelessWidget {
         _callBack = (String value) => _authModelView.setCode(value);
         _keyboardType = TextInputType.text;
         _validator = validator;
-        _key = const Key(keyUsernameSignUpFormField);
+        _key = const Key(keyCodeConfirmSignInFormfield);
         break;
       case ConfirmSignInType.password:
         _callBack = (String value) => _authModelView.setPassword(value, type);
         _keyboardType = TextInputType.visiblePassword;
         _obscureText = true;
         _validator = validator ?? validatePassword;
-        _key = const Key(keyPasswordSignUpFormField);
+        _key = const Key(keyPasswordConfirmSignInFormField);
         break;
       case ConfirmSignInType.address:
         _callBack = (String value) => _authModelView.setAddress(value, type);
         _keyboardType = TextInputType.streetAddress;
-        _key = const Key(keyAddressFormField);
+        _key = const Key(keyAddressConfirmSignInFormField);
         break;
       case ConfirmSignInType.birthdate:
         _callBack = (String value) => _authModelView.setBirthdate(value, type);
         _keyboardType = TextInputType.text;
-        _key = const Key(keyBirthdateSignUpFormField);
+        _key = const Key(keyBirthdateConfirmSignInFormField);
         break;
       case ConfirmSignInType.email:
         _callBack = (String value) => _authModelView.setEmail(value, type);
         _keyboardType = TextInputType.emailAddress;
         _validator = validator ?? validateEmail;
-        _key = const Key(keyEmailSignUpFormField);
+        _key = const Key(keyEmailConfirmSignInFormField);
         break;
       case ConfirmSignInType.family_name:
         _callBack = (String value) => _authModelView.setFamilyName(value, type);
         _keyboardType = TextInputType.text;
         _validator = validator;
-        _key = const Key(keyFamilyNameSignUpFormField);
+        _key = const Key(keyFamilyNameConfirmSignInFormField);
         break;
       case ConfirmSignInType.gender:
         _callBack = (String value) => _authModelView.setGender(value, type);
         _keyboardType = TextInputType.text;
         _validator = validator;
-        _key = const Key(keyGenderSignUpFormField);
+        _key = const Key(keyGenderConfirmSignInFormField);
         break;
       case ConfirmSignInType.given_name:
         _callBack = (String value) => _authModelView.setGivenName(value, type);
         _keyboardType = TextInputType.text;
         _validator = validator;
-        _key = const Key(keyGivenNameSignUpFormField);
+        _key = const Key(keyGivenNameConfirmSignInFormField);
         break;
       case ConfirmSignInType.locale:
         _callBack = (String value) => _authModelView.setLocale(value, type);
         _keyboardType = TextInputType.text;
         _validator = validator;
-        _key = const Key(keyLocaleSignUpFormField);
+        _key = const Key(keyLocaleConfirmSignInFormField);
         break;
       case ConfirmSignInType.middle_name:
         _callBack = (String value) => _authModelView.setMiddleName(value, type);
         _keyboardType = TextInputType.text;
         _validator = validator;
-        _key = const Key(keyMiddleNameSignUpFormField);
+        _key = const Key(keyMiddleNameConfirmSignInFormField);
         break;
       case ConfirmSignInType.name:
         _callBack = (String value) => _authModelView.setName(value, type);
         _keyboardType = TextInputType.name;
         _validator = validator;
-        _key = const Key(keyNameSignUpFormField);
+        _key = const Key(keyNameConfirmSignInFormField);
         break;
       case ConfirmSignInType.nickname:
         _callBack = (String value) => _authModelView.setNickname(value, type);
         _keyboardType = TextInputType.name;
         _validator = validator;
-        _key = const Key(keyNicknameSignUpFormField);
+        _key = const Key(keyNicknameConfirmSignInFormField);
         break;
       case ConfirmSignInType.phone_number:
         _callBack =
             (String value) => _authModelView.setPhoneNumber(value, type);
         _keyboardType = TextInputType.phone;
         _validator = validator;
-        _key = const Key(keyPhoneNumberSignUpFormField);
+        _key = const Key(keyPhoneNumberConfirmSignInFormField);
         break;
       case ConfirmSignInType.picture:
         _callBack = (String value) => _authModelView.setPicture(value, type);
         _keyboardType = TextInputType.text;
         _validator = validator;
-        _key = const Key(keyPictureSignUpFormField);
+        _key = const Key(keyPictureConfirmSignInFormField);
         break;
       case ConfirmSignInType.preferredUsername:
         _callBack =
             (String value) => _authModelView.setPreferredUsername(value, type);
         _keyboardType = TextInputType.text;
         _validator = validator;
-        _key = const Key(keyPreferredUsernameSignUpFormField);
+        _key = const Key(keyPreferredUsernameConfirmSignInFormField);
         break;
       case ConfirmSignInType.profile:
         _callBack = (String value) => _authModelView.setProfile(value, type);
         _keyboardType = TextInputType.text;
         _validator = validator;
-        _key = const Key(keyProfileSignUpFormField);
+        _key = const Key(keyProfileConfirmSignInFormField);
         break;
       case ConfirmSignInType.zoneinfo:
         _callBack = (String value) => _authModelView.setZoneInfo(value, type);
         _keyboardType = TextInputType.text;
         _validator = validator;
-        _key = const Key(keyZoneinfoSignUpFormField);
+        _key = const Key(keyZoneinfoConfirmSignInFormField);
         break;
       case ConfirmSignInType.updated_at:
         _callBack = (String value) => _authModelView.setUpdatedAt(value, type);
         _keyboardType = TextInputType.text;
         _validator = validator;
-        _key = const Key(keyUpdatedAtSignUpFormField);
+        _key = const Key(keyUpdatedAtConfirmSignInFormField);
         break;
       case ConfirmSignInType.website:
         _callBack = (String value) => _authModelView.setWebsite(value, type);
         _keyboardType = TextInputType.text;
         _validator = validator;
-        _key = const Key(keyWebsiteSignUpFormField);
+        _key = const Key(keyWebsiteConfirmSignInFormField);
         break;
       default:
         _callBack = (String value) => _authModelView.setCustom(value, type);
         _keyboardType = TextInputType.text;
         _validator = validator;
-        _key = const Key(keyCustomSignUpFormField);
+        _key = const Key(keyCustomConfirmSignInFormField);
 
         break;
     }
