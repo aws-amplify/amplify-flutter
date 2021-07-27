@@ -29,11 +29,12 @@ import 'package:amplify_authenticator_example/main.dart' as app;
 import 'utils/mock_data.dart';
 
 void main() {
+  //For now, this test uses a mocked code.
   group('Sign in and confirm sign in', () {
     IntegrationTestWidgetsFlutterBinding.ensureInitialized();
     setUpAll(() async {});
 
-    testWidgets("sign and confirm sign in", (WidgetTester tester) async {
+    testWidgets("sign and in and back to sign in", (WidgetTester tester) async {
       app.main();
       await tester.pumpAndSettle();
 
@@ -64,9 +65,6 @@ void main() {
 
       await tester.enterText(codeConfirmSignInFormFieldFinder, mockCode);
       await Future<void>.delayed(const Duration(seconds: 2));
-
-      //For now, this test uses a mocked code and doesn't call the
-      //confirmSignIn method.
 
       await tester.tap(backToSignInButtonFinder);
 

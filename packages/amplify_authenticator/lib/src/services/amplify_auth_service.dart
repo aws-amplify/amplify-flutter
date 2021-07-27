@@ -34,10 +34,6 @@ class AmplifyAuthService implements AuthService {
       password: password,
     );
 
-    if (!result.isSignedIn && result.nextStep!.signInStep == 'DONE') {
-      throw const AuthenticatorException('Could not login');
-    }
-
     return result;
   }
 
