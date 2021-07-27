@@ -31,14 +31,13 @@ void main() {
     });
 
     testWidgets('should save data locally', (WidgetTester tester) async {
-      final blogName = 'test name';
-      Blog blog = Blog(
-        name: blogName,
+      Blog testBlog = Blog(
+        name: 'test blog',
       );
-      await Amplify.DataStore.save(blog);
+      await Amplify.DataStore.save(testBlog);
       var blogs = await Amplify.DataStore.query(Blog.classType);
       expect(blogs.length, 1);
-      expect(blogs[0].name, blogName);
+      expect(blogs.contains(testBlog), isTrue);
     });
   });
 }
