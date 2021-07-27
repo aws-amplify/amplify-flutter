@@ -16,46 +16,31 @@
 // TODO: Datastore dependencies temporarily added in API. Eventually they should be moved to core or otherwise reconciled to avoid duplication.
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
-import 'src/types.dart';
-import 'src/GraphQL/GraphQLRequest.dart';
-import 'src/types/pagination/model_pagination.dart';
-import 'src/types/pagination/paginated_result.dart';
+import '../types.dart';
 
 abstract class ModelQueriesInterface {
   // Get
-  GraphQLRequest<T> get<T extends Model>(ModelType<T> modelType, String id) {
-    throw UnimplementedError("get() has not been implemented.");
-  }
+  GraphQLRequest<T> get<T extends Model>(ModelType<T> modelType, String id);
 
   // List
   GraphQLRequest<PaginatedResult<T>> list<T extends Model>(
       ModelType<T> modelType,
       {QueryPredicate? where,
-      ModelPagination? modelPagination}) {
-    throw UnimplementedError("list() has not been implemented.");
-  }
+      ModelPagination? modelPagination});
 }
 
 abstract class ModelMutationsInterface {
   // Create
-  GraphQLRequest<T> create<T extends Model>(T model) {
-    return throw UnimplementedError("create() has not been implemented.");
-  }
+  GraphQLRequest<T> create<T extends Model>(T model);
 
   // Update
-  GraphQLRequest<T> update<T extends Model>(T model, {QueryPredicate? where}) {
-    return throw UnimplementedError("update() has not been implemented.");
-  }
+  GraphQLRequest<T> update<T extends Model>(T model, {QueryPredicate? where});
 
   // Delete
-  GraphQLRequest<T> delete<T extends Model>(T model, {QueryPredicate? where}) {
-    return throw UnimplementedError("delete() has not been implemented.");
-  }
+  GraphQLRequest<T> delete<T extends Model>(T model, {QueryPredicate? where});
 
   // DeleteById
-  GraphQLRequest<T> deleteById<T extends Model>(String Id) {
-    return throw UnimplementedError("delete() has not been implemented.");
-  }
+  GraphQLRequest<T> deleteById<T extends Model>(String Id);
 }
 
 abstract class GraphQLRequestFactoryInterface {
@@ -65,7 +50,5 @@ abstract class GraphQLRequestFactoryInterface {
       required Map<String, String>? variableInput,
       required String? id,
       required GraphQLRequestType requestType,
-      required GraphQLRequestOperation requestOperation}) {
-    return throw UnimplementedError("getSchema() has not been implemented.");
-  }
+      required GraphQLRequestOperation requestOperation});
 }

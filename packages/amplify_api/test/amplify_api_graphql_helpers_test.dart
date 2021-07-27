@@ -14,8 +14,6 @@
  */
 
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_api/graphql/model_queries.dart';
-import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'resources/Blog.dart';
@@ -37,7 +35,6 @@ void main() {
 
   test("should handle no ModelProvider instance", () {
     AmplifyAPI api = AmplifyAPI();
-
     try {
       GraphQLRequest<Blog> req = ModelQueries.get<Blog>(Blog.classType, "");
     } on ApiException catch (e) {
