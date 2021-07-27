@@ -38,6 +38,9 @@ void main() {
       await Amplify.DataStore.save(testBlog3);
       var blogs = await Amplify.DataStore.query(Blog.classType);
       expect(blogs.length, 3);
+      expect(blogs.contains(testBlog1), isTrue);
+      expect(blogs.contains(testBlog2), isTrue);
+      expect(blogs.contains(testBlog3), isTrue);
     });
 
     testWidgets('should return the correct record when queried by id',

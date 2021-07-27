@@ -28,9 +28,9 @@ void main() async {
 
   group('amplify_datastore', () {
     setUpAll(() async {
-      final authPlugin =
+      final dataStorePlugin =
           AmplifyDataStore(modelProvider: ModelProvider.instance);
-      await Amplify.addPlugins([authPlugin]);
+      await Amplify.addPlugins([dataStorePlugin]);
       await Amplify.configure(amplifyconfig);
     });
 
