@@ -17,9 +17,9 @@ class FormFieldContainer extends StatelessWidget {
       required this.obscureText})
       : super(key: key);
 
-  final String? title;
+  final String title;
 
-  final String? hintText;
+  final String hintText;
 
   final String? Function(String?)? validator;
 
@@ -36,7 +36,7 @@ class FormFieldContainer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title!),
+          Text(title),
           const Padding(padding: FormFieldConstants.gap),
           TextFormField(
             key: key,
@@ -48,7 +48,7 @@ class FormFieldContainer extends StatelessWidget {
                         color: Theme.of(context).primaryColor != Colors.blue
                             ? Theme.of(context).primaryColor
                             : AuthenticatorColors.primary)),
-                hintText: hintText!,
+                hintText: hintText,
                 border: const OutlineInputBorder()),
             keyboardType: keyboardType,
             obscureText: obscureText,
@@ -69,7 +69,7 @@ class ButtonContainer extends StatelessWidget {
       : super(key: key);
   final dynamic authViewModel;
   final String authKey;
-  final dynamic Function() callback;
+  final void Function() callback;
   final String text;
   @override
   Widget build(BuildContext context) {

@@ -13,7 +13,7 @@ abstract class AuthService {
 
   Future<void> confirmSignUp(String username, String code);
 
-  Future get currentUser;
+  Future<AuthUser?> get currentUser;
 
   Future<bool> get isLoggedIn;
 
@@ -74,7 +74,7 @@ class AmplifyAuthService implements AuthService {
   }
 
   @override
-  Future get currentUser async {
+  Future<AuthUser?> get currentUser async {
     if (!Amplify.isConfigured) return null;
 
     if (!await isLoggedIn) {

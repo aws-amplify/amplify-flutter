@@ -149,7 +149,7 @@ class StateMachineBloc {
     try {
       await _authService.confirmSignUp(data.username, data.code);
 
-      _authEventController.add(GetCurrentUser());
+      yield* _getCurrentUser();
     } catch (e) {
       print(e);
       _exceptionController.add(AuthenticatorException(e.toString()));
@@ -169,7 +169,7 @@ class StateMachineBloc {
   Stream<AuthState> _signOut() async* {
     try {
       await _authService.signOut();
-      _authEventController.add(GetCurrentUser());
+      yield* _getCurrentUser();
     } catch (e) {
       print(e);
       _exceptionController.add(AuthenticatorException(e.toString()));

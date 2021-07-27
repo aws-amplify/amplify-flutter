@@ -43,7 +43,7 @@ class SignInFormField extends StatelessWidget {
     late Key _key;
     String? Function(String?)? _validator;
     TextInputType _keyboardType = TextInputType.text;
-    final SignInType _type = fromStringToSignInType(type);
+    final SignInType? _type = fromStringToSignInType(type);
 
     switch (_type) {
       case SignInType.username:
@@ -134,7 +134,7 @@ class SignUpFormField extends StatelessWidget {
     Key _key;
     String? Function(String?)? _validator;
     TextInputType _keyboardType = TextInputType.text;
-    final SignUpType _type = fromStringToSignUpType(type);
+    final SignUpType? _type = fromStringToSignUpType(type);
 
     switch (_type) {
       case SignUpType.username:
@@ -287,10 +287,10 @@ class ConfirmSignUpFormField extends StatelessWidget {
       : super(key: key);
 
   ///Custom title for this form field
-  final String? title;
+  final String title;
 
   ///Custom hint text for this form field
-  final String? hintText;
+  final String hintText;
 
   /// This form field currently supports the following form field types:
   /// * Username
@@ -311,7 +311,8 @@ class ConfirmSignUpFormField extends StatelessWidget {
     String? Function(String?)? _validator;
     TextInputType _keyboardType = TextInputType.text;
     late Key _key;
-    final ConfirmSignUpType _type = fromStringToConfirmSignUpType(type);
+    final ConfirmSignUpType? _type = fromStringToConfirmSignUpType(type);
+
     switch (_type) {
       case ConfirmSignUpType.username:
         _callBack = _authModelView.setUsername;
@@ -402,7 +403,7 @@ class ConfirmSignInFormField extends StatelessWidget {
     Key _key;
     String? Function(String?)? _validator;
     TextInputType _keyboardType = TextInputType.text;
-    final ConfirmSignInType _type = fromStringToConfirmSignInType(type);
+    final ConfirmSignInType? _type = fromStringToConfirmSignInType(type);
 
     switch (_type) {
       case ConfirmSignInType.code:

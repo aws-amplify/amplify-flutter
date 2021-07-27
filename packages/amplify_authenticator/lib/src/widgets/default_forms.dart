@@ -10,11 +10,11 @@ class DefaultForms {
         children: [
           SignInFormField(
               title: 'Username*',
-              hintText: "Enter you username",
+              hintText: "Enter your username",
               type: 'username'),
           SignInFormField(
               title: 'Password*',
-              hintText: "Enter you password",
+              hintText: "Enter your password",
               type: 'password')
         ],
       ),
@@ -27,17 +27,17 @@ class DefaultForms {
         children: [
           SignUpFormField(
               title: 'Username*',
-              hintText: "Enter you username",
+              hintText: "Enter your username",
               type: 'username'),
           SignUpFormField(
               title: 'Password*',
-              hintText: "Enter you password",
+              hintText: "Enter your password",
               type: 'password'),
           SignUpFormField(
-              title: 'Email*', hintText: "Enter you email", type: 'email'),
+              title: 'Email*', hintText: "Enter your email", type: 'email'),
           SignUpFormField(
               title: 'Phone Number*',
-              hintText: "Enter you phone number",
+              hintText: "Enter your phone number",
               type: 'phone_number')
         ],
       ),
@@ -50,11 +50,11 @@ class DefaultForms {
         children: [
           ConfirmSignUpFormField(
               title: 'Username*',
-              hintText: "Enter you username",
+              hintText: "Enter your username",
               type: 'username'),
           ConfirmSignUpFormField(
               title: 'Verification Code*',
-              hintText: "Enter you verification code",
+              hintText: "Enter your verification code",
               type: 'code'),
         ],
       ),
@@ -67,7 +67,7 @@ class DefaultForms {
         children: [
           ConfirmSignInFormField(
               title: 'Code*',
-              hintText: "Enter you confirmation code",
+              hintText: "Enter your confirmation code",
               type: 'code'),
         ],
       ),

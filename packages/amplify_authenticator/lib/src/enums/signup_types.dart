@@ -1,3 +1,5 @@
+import 'package:collection/collection.dart';
+
 enum SignUpType {
   username,
   password,
@@ -20,7 +22,7 @@ enum SignUpType {
   website
 }
 
-SignUpType fromStringToSignUpType(String str) {
+SignUpType? fromStringToSignUpType(String str) {
   return SignUpType.values
-      .firstWhere((value) => value.toString().split('.')[1] == str);
+      .firstWhereOrNull((value) => value.toString().split('.')[1] == str);
 }
