@@ -1,3 +1,10 @@
+## 0.2.1 (2021-07-27)
+
+### Chores
+
+- chore: override `toString` on `GraphQLResponseError` (#643)
+- chore: Add API response headers/status (#721)
+
 ## 0.2.0 (2021-06-30)
 
 ### Features
@@ -25,6 +32,7 @@
 ## 0.1.1 (2021-03-29)
 
 ### Chores
+
 - chore: remove upper constraints for flutter 2.0 (#479)
 
 ### Bug Fixes
