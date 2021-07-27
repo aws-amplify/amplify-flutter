@@ -18,11 +18,14 @@ import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_flutter/amplify.dart';
 
+import 'utils/setup_utils.dart';
+
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('save', () {
     setUp(() async {
+      await configureAuth();
       // clear data before each test
       await Amplify.DataStore.clear();
     });

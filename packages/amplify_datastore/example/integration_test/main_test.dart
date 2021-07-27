@@ -13,25 +13,19 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_datastore/amplify_datastore.dart';
-import 'package:amplify_datastore_example/models/ModelProvider.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:amplify_flutter/amplify.dart';
-import 'package:amplify_datastore_example/amplifyconfiguration.dart';
 
 import 'save_test.dart' as save_tests;
 import 'query_test.dart' as query_tests;
+import 'utils/setup_utils.dart';
 
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('amplify_datastore', () {
     setUpAll(() async {
-      final dataStorePlugin =
-          AmplifyDataStore(modelProvider: ModelProvider.instance);
-      await Amplify.addPlugins([dataStorePlugin]);
-      await Amplify.configure(amplifyconfig);
+      await configureAuth();
     });
 
     save_tests.main();
