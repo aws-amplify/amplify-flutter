@@ -1,4 +1,5 @@
 import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
+import 'package:amplify_authenticator/src/strings/auth_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/widgets/buttons.dart';
 import 'package:amplify_authenticator/src/widgets/containers.dart';
@@ -30,6 +31,7 @@ class SignInForm extends StatelessWidget {
   /// A list of sign in form fields
 
   final FormFields formFields;
+  final AuthStrings? authStrings;
 
   @override
   Widget build(BuildContext context) {

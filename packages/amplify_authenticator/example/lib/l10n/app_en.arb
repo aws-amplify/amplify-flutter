@@ -1,5 +1,12 @@
 {
-    "helloWorld": "Hello World!",
+    "signInScreen_title": "Sign in to your account",
+    "signInScreen_button": "Sign In",
+    "signInScreen_create": "Create Account",
+    "signInScreen_noAccount": "No Account?",
+    "username_title": "Username*",
+    "username_hint": "Enter your username",
+    "password_title": "Password*",
+    "password_hint": "Enter your password",
     "@helloWorld": {
       "description": "The conventional newborn programmer greeting"
     }

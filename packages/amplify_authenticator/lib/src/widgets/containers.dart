@@ -1,5 +1,3 @@
-import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator/src/internationalization/authenticator_localizations.dart';
 import 'package:flutter/material.dart';
 
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';

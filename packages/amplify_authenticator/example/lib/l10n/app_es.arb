@@ -1,3 +1,10 @@
 {
-    "helloWorld": "Hola Mundo!"
+   "signInScreen_title": "Título de inicio de sesión", 
+   "signInScreen_button": "Registrarse",
+   "signInScreen_create": "Crear una cuenta",
+   "signInScreen_noAccount": "No tiene cuenta?",
+   "username_hint": "Sugerencia de nombre de usuario", 
+   "username_title": "Título del nombre de usuario",
+   "password_title": "Contraseña*",
+   "password_hint": "Ingresa tu contraseña"
 }

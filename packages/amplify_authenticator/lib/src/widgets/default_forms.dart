@@ -1,21 +1,22 @@
 import 'package:amplify_authenticator/src/strings/auth_strings.dart';
 import 'package:amplify_authenticator/src/widgets/forms.dart';
 import 'package:amplify_authenticator/src/widgets/form_fields.dart';
+import 'package:flutter/material.dart';
 
 ///These default forms will be used as long as the customer doesn't pass any custom forms.
 
 class DefaultForms {
-  static SignInForm signInForm() {
-    return const SignInForm(
+  static SignInForm signInForm(AuthStrings authStrings) {
+    return SignInForm(
       formFields: FormFields(
         children: [
-          SignInFormField(
-              title: 'Username*',
-              hintText: "Enter your username",
+          AuthFormField(
+              title: authStrings.inputs.username_title,
+              hintText: authStrings.inputs.username_hint,
               type: 'username'),
-          SignInFormField(
-              title: 'Password*',
-              hintText: "Enter your password",
+          AuthFormField(
+              title: authStrings.inputs.password_title,
+              hintText: authStrings.inputs.password_hint,
               type: 'password')
         ],
       ),

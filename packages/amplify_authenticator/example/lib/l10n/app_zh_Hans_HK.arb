@@ -1,3 +1,10 @@
 {
-    "helloWorld": "chinese-hk-hans!"
+    "signInScreen_title": "我的英文登錄標題 (hk - hans)",
+    "signInScreen_create": "創建帳號",
+    "signInScreen_noAccount": "没有账号？",
+    "signInScreen_button": "登入",
+    "username_title": "用戶名提示",
+    "username_hint": "用戶名標題",
+    "password_title": "密码*",
+    "password_hint": "输入您的密码"
 }

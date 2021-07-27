@@ -1,3 +1,4 @@
+import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/views/confirm_signup_viewmodel.dart';
 import 'package:amplify_authenticator/src/views/signin_viewmodel.dart';
@@ -104,14 +105,15 @@ class GoToSignUpButton extends StatelessWidget {
         InheritedAuthViewModel.of(context)!.signInViewModel;
     return Row(
       children: [
-        const Text("No account? ",
+        Text(InheritedForms.of(context)!.authStrings!.inputs.signIn_noAccount,
             style: TextStyle(
               fontSize: AuthenticatorButtonConstants.fontSize,
             )),
         TextButton(
           key: const Key(keyGoToSignUpButton),
           onPressed: _authModelView.goToSignUp,
-          child: Text("Create account",
+          child: Text(
+              InheritedForms.of(context)!.authStrings!.inputs.signIn_create,
               style: TextStyle(
                   fontSize: AuthenticatorButtonConstants.fontSize,
                   color: Theme.of(context).primaryColor != Colors.blue

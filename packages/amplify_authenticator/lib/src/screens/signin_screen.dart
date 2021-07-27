@@ -1,4 +1,3 @@
-import 'package:amplify_authenticator/src/internationalization/authenticator_localizations.dart';
 import 'package:amplify_authenticator/src/models/auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
@@ -14,7 +13,7 @@ class SignInScreen extends StatelessWidget {
         context, AuthenticatorLocalizations);
 
     final _signInForm = InheritedForms.of(context)!.signInForm;
-    return AuthenticatorContainer(
-        title: "Sign in to your account", form: _signInForm);
+    final strings = InheritedForms.of(context)!.authStrings;
+    return FormContainer(title: strings!.signIn.title, form: _signInForm);
   }
 }
