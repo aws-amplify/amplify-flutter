@@ -9,10 +9,6 @@ class FormFields extends StatelessWidget {
   ///   2. SignUpFormField
   ///   3. ConfirmSignUpFormField
   ///   4. ConfirmSignInFormField
-<<<<<<< HEAD
-=======
-
->>>>>>> 96879076b3d28697bb9b906e4b2e598e02eb28d5
   const FormFields({required this.children});
 
   /// A list of form fields
@@ -30,13 +26,8 @@ class SignInForm extends StatelessWidget {
   /// Requires a list of sign in form fields.
   const SignInForm({required this.formFields});
 
-<<<<<<< HEAD
-  /// A list of sign in form fields
-=======
-
   /// A list of sign in form fields
 
->>>>>>> 96879076b3d28697bb9b906e4b2e598e02eb28d5
   final FormFields formFields;
 
   @override
@@ -54,10 +45,6 @@ class SignInForm extends StatelessWidget {
 }
 
 class SignUpForm extends StatelessWidget {
-<<<<<<< HEAD
-=======
-
->>>>>>> 96879076b3d28697bb9b906e4b2e598e02eb28d5
   /// Requires a list of sign up  form fields.
   const SignUpForm({required this.formFields});
 
@@ -84,7 +71,6 @@ class SignUpForm extends StatelessWidget {
 class ConfirmSignUpForm extends StatelessWidget {
   /// Requires a list of confirm sign up  form fields.
   const ConfirmSignUpForm({required this.formFields});
-
 
   /// A list of confirm sign up form fields
 
