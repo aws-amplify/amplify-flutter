@@ -28,7 +28,7 @@ class QueryOptionsBuilder {
 
     companion object {
         @JvmStatic
-        fun fromSerializedMap(request: Map<String, Any>?, modelSchema: ModelSchema? = null): QueryOptions {
+        fun fromSerializedMap(request: Map<String, Any>?, modelSchema: ModelSchema): QueryOptions {
             var queryOptions: QueryOptions = Where.matchesAll()
             if (request == null) {
                 return queryOptions
