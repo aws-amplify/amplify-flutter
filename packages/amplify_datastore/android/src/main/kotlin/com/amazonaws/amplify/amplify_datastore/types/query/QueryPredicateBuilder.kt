@@ -17,6 +17,7 @@ package com.amazonaws.amplify.amplify_datastore.types.query
 
 import com.amazonaws.amplify.amplify_datastore.util.safeCastToList
 import com.amazonaws.amplify.amplify_datastore.util.safeCastToMap
+import com.amplifyframework.core.model.ModelSchema
 import com.amplifyframework.core.model.query.predicate.QueryField
 import com.amplifyframework.core.model.query.predicate.QueryPredicate
 import com.amplifyframework.core.model.query.predicate.QueryPredicateGroup
@@ -26,7 +27,7 @@ import com.amplifyframework.core.model.query.predicate.QueryPredicateOperation.n
 class QueryPredicateBuilder {
     companion object {
         @JvmStatic
-        fun fromSerializedMap(serializedMap: Map<String, Any>?): QueryPredicate? {
+        fun fromSerializedMap(serializedMap: Map<String, Any>?, modelSchema: ModelSchema? = null): QueryPredicate? {
             if (serializedMap == null) {
                 return null
             }
@@ -34,7 +35,12 @@ class QueryPredicateBuilder {
             if (serializedMap.containsKey("queryPredicateOperation")) {
                 val queryPredicateOperationMap: Map<String, Any> =
                     serializedMap["queryPredicateOperation"].safeCastToMap()!!
-                val field = queryPredicateOperationMap["field"] as String
+                var field = queryPredicateOperationMap["field"] as String
+
+                if (modelSchema?.associations?.containsKey(field) == true) {
+                    field = modelSchema.associations.getValue(field).targetName
+                }
+
                 val queryField: QueryField = QueryField.field(field)
                 val queryFieldOperatorMap: Map<String, Any> =
                     queryPredicateOperationMap["fieldOperator"].safeCastToMap()!!

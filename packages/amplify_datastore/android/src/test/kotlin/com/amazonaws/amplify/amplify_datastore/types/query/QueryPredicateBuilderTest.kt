@@ -15,6 +15,7 @@
 
 package com.amazonaws.amplify.amplify_datastore.types.query
 
+import com.amazonaws.amplify.amplify_datastore.postSchema
 import com.amazonaws.amplify.amplify_datastore.readMapFromFile
 import com.amplifyframework.core.model.query.predicate.QueryField
 import com.amplifyframework.core.model.query.predicate.QueryPredicateGroup
@@ -27,6 +28,7 @@ class QueryPredicateBuilderTest {
     private val title: QueryField = QueryField.field("title")
     private val rating: QueryField = QueryField.field("rating")
     private val created: QueryField = QueryField.field("created")
+    private val blogID: QueryField = QueryField.field("blogID")
 
     @Test
     fun test_when_id_not_equals() {
@@ -126,6 +128,21 @@ class QueryPredicateBuilderTest {
                     "negate_complex_predicate.json",
                     HashMap::class.java
                 ) as HashMap<String, Any>
+            )
+        )
+    }
+
+    @Test
+    fun test_lookup_query_field_from_relation() {
+        Assert.assertEquals(
+            blogID.eq("123"),
+            QueryPredicateBuilder.fromSerializedMap(
+                readMapFromFile(
+                    "query_predicate",
+                    "relation_field_lookup.json",
+                    HashMap::class.java
+                ) as HashMap<String, Any>,
+                postSchema
             )
         )
     }
