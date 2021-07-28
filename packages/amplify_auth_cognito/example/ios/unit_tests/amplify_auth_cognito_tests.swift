@@ -282,7 +282,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         XCTAssertNoThrow(try FlutterSignUpRequest.validate(dict: rawData))
     }
     
-    func test_signUpFormatAttributesWithUserAttributes() {
+    func test_signUpWithUserAttributes() {
         let rawAttributes: Dictionary<String, Any> = ["email": _email, "customAttribute": "female"]
         let rawOptions: Dictionary<String, Any> = ["userAttributes": rawAttributes]
         let rawData: NSMutableDictionary = ["options":rawOptions, "username": _username, "password": _password]
@@ -290,7 +290,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         XCTAssertEqual(2, request.options?.userAttributes?.count)
     }
     
-    func test_signUpFormatAttributesWithClientMetadata() {
+    func test_signUpWithClientMetadata() {
         let metadata: Dictionary<String, Any> = ["attribute": "value"]
         let rawOptions: Dictionary<String, Any> = ["clientMetadata": metadata]
         let rawData: NSMutableDictionary = ["options":rawOptions, "username": _username, "password": _password]
@@ -300,7 +300,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         XCTAssertNil(options.validationData)
     }
     
-    func test_signUpFormatAttributesWithValidationdata() {
+    func test_signUpWithValidationdata() {
         let validationData: Dictionary<String, Any> = ["attribute": "value"]
         let rawOptions: Dictionary<String, Any> = ["validationData": validationData]
         let rawData: NSMutableDictionary = ["options":rawOptions, "username": _username, "password": _password]
