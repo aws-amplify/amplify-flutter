@@ -50,6 +50,7 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendUserAttribu
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendUserAttributeConfirmationCodeResult
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
 import com.amazonaws.amplify.amplify_auth_cognito.utils.isRedirectActivityDeclared
+import com.amazonaws.mobile.client.AWSMobileClient
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthProvider
 import com.amplifyframework.auth.AuthSession
@@ -372,19 +373,45 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
 
   private fun onGetCurrentUser(@NonNull flutterResult: Result) {
     try {
-      var user: AuthUser? = Amplify.Auth.currentUser;
-      if (user is AuthUser) {
-        prepareUserResult(flutterResult, user);
-      } else {
-        // TODO: Mechanism to check guest access status
-        throw AuthException.SignedOutException(AuthException.GuestAccess.GUEST_ACCESS_DISABLED)
-      }
+      Amplify.Auth.fetchAuthSession(
+        { result ->
+          val cognitoAuthSession = result as AWSCognitoAuthSession
+          when (cognitoAuthSession.userSub.type) {
+            AuthSessionResult.Type.SUCCESS -> {
+              var awsMobileClient = AWSMobileClient.getInstance()
+              var username = awsMobileClient.username
+              prepareUserResult(flutterResult, AuthUser(cognitoAuthSession.userSub.toString(), username));
+            }
+            AuthSessionResult.Type.FAILURE -> {
+              if (result.isSignedIn) {
+                var awsMobileClient = AWSMobileClient.getInstance()
+                var username = awsMobileClient.username
+                var userid = awsMobileClient.userSub
+                prepareUserResult(flutterResult, AuthUser(userid, username));
+              } else {
+                errorHandler.handleAuthError(flutterResult, AuthException.SignedOutException())
+              }
+            }
+          }
+        },
+        { error -> errorHandler.handleAuthError(flutterResult, error) }
+      )
     } catch (e: AuthException) {
       errorHandler.handleAuthError(flutterResult, e)
     } catch (e: Exception) {
       errorHandler.prepareGenericException(flutterResult, e)
     }
   }
+
+    //          if (result.isSignedIn) {
+//            var awsMobileClient =  AWSMobileClient.getInstance()
+//            var username = awsMobileClient.username
+//            var userid = awsMobileClient.userSub
+//            prepareUserResult(flutterResult, AuthUser(userid, username));
+//          } else {
+//            throw AuthException.SignedOutException()
+//          }
+//        },
 
   private fun onFetchUserAttributes(@NonNull flutterResult: Result) {
     try {
