@@ -250,7 +250,6 @@ class _AuthenticatorState extends State<Authenticator> {
                     stream: _stateMachineBloc.stream,
                     builder: (context, snapshot) {
                       final state = snapshot.data ?? const AuthLoading();
-
                       Widget? screen;
                       if (state is AuthLoading) {
                         screen = LoadingScreen();
