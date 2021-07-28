@@ -18,20 +18,27 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'package:flutter/foundation.dart';
 
 class GraphQLRequestFactory {
-  String _getModelType(ModelFieldTypeEnum? val) {
+  GraphQLRequestFactory._();
+
+  static final GraphQLRequestFactory _instance = GraphQLRequestFactory._();
+
+  static GraphQLRequestFactory get instance => _instance;
+
+  String _getModelType(ModelFieldTypeEnum val) {
     switch (val) {
       case ModelFieldTypeEnum.string:
         return "String";
       case ModelFieldTypeEnum.int:
-        return "int";
+        return "Int";
       case ModelFieldTypeEnum.model:
         return "ID";
       default:
-        return "Error: UnknownType!";
+        return "Error: unsupported type!";
     }
   }
 
   String _getFieldsFromModelType(ModelSchema schema) {
+    // schema has been validated & schema.fields is non-nullable
     Map<String, ModelField> fieldsMap = schema.fields!;
     return fieldsMap.entries
         .map((entry) => entry.value.association == null ? entry.key : '')
@@ -50,7 +57,7 @@ class GraphQLRequestFactory {
     }
 
     ModelSchema schema = provider.modelSchemas.firstWhere(
-        (elem) => provider.getModelTypeByModelName(elem.name) == modelType,
+        (elem) => elem.name == modelType.modelName(),
         orElse: () => throw ApiException(
             'No schema found for the ModelType provided',
             recoverySuggestion:
@@ -72,17 +79,14 @@ class GraphQLRequestFactory {
     return schema;
   }
 
-  /*
-   *  buildQuery()
-   *
-   *  
+/**
    *  Example: 
-   *    query getBlog($id: ID!) { getBlog(id: $id) { id name createdAt } }
+   *    query getBlog($id: ID!, $content: String) { getBlog(id: $id, content: $content) { id name createdAt } }
   */
   GraphQLRequest<T> buildQuery<T extends Model>(
       {required ModelType modelType,
-      required Map<String, String>? variableInput,
-      required String? id,
+      Map<String, String>? variableInput,
+      String? id,
       required GraphQLRequestType requestType,
       required GraphQLRequestOperation requestOperation}) {
     ModelSchema schema = _getAndValidateSchema(modelType, requestOperation);
@@ -93,9 +97,9 @@ class GraphQLRequestFactory {
     String fields = _getFieldsFromModelType(schema);
 
     // e.g. "query"
-    String requestTypeVal = describeEnum(requestType.toString());
+    String requestTypeVal = describeEnum(requestType);
     // e.g. "get"
-    String requestOperationVal = describeEnum(requestOperation.toString());
+    String requestOperationVal = describeEnum(requestOperation);
 
     // Upper document input: ($id: ID!)
     var varInputUpperStr = '';
@@ -107,7 +111,7 @@ class GraphQLRequestFactory {
       List<String> variableInputLower = [];
 
       variableInput.forEach((key, value) {
-        variableInputUpper.add("\$$key: $value!");
+        variableInputUpper.add("\$$key: $value");
         variableInputLower.add("$key: \$$key");
       });
 
@@ -128,7 +132,7 @@ class GraphQLRequestFactory {
         '''$requestTypeVal $requestOperationVal$name${varInputUpperStr} { $requestOperationVal$name$varInputLowerStr { $fields } }''';
 
     // TODO: create input map for variables & connect with current variableInput
-    Map<String, dynamic>? variables = id != null ? {"id": id} : {};
+    Map<String, dynamic> variables = id != null ? {"id": id} : {};
 
     return GraphQLRequest<T>(document: doc, variables: variables);
   }

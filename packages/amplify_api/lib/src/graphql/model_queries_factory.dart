@@ -28,9 +28,9 @@ class ModelQueriesFactory extends ModelQueriesInterface {
 
   @override
   GraphQLRequest<T> get<T extends Model>(ModelType<T> modelType, String id) {
-    Map<String, String> variableInput = {"id": "ID"};
+    Map<String, String> variableInput = {"id": "ID!"};
 
-    return GraphQLRequestFactory().buildQuery<T>(
+    return GraphQLRequestFactory.instance.buildQuery<T>(
         modelType: modelType,
         variableInput: variableInput,
         id: id,
