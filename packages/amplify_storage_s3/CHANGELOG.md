@@ -1,3 +1,11 @@
+## 0.2.1 (2021-07-27)
+
+### Chores
+
+- chore: upgrade amplify-android to 1.20.1 (#710)
+- chore: enable formatting in CI w/ code changes (#570)
+- chore: add storage integration tests and update example app (#734)
+
 ## 0.2.0 (2021-06-30)
 
 ### Features
