@@ -26,8 +26,11 @@ import com.amplifyframework.core.model.query.predicate.QueryPredicateOperation.n
 
 class QueryPredicateBuilder {
     companion object {
+        /**
+         * Use only within [QueryOptionsBuilder]
+         */
         @JvmStatic
-        fun fromSerializedMap(serializedMap: Map<String, Any>?, modelSchema: ModelSchema? = null): QueryPredicate? {
+        fun fromSerializedMap(serializedMap: Map<String, Any>?, modelSchema: ModelSchema?): QueryPredicate? {
             if (serializedMap == null) {
                 return null
             }
@@ -67,7 +70,7 @@ class QueryPredicateBuilder {
                 var predicates: List<QueryPredicate> =
                     queryPredicateGroupMap["predicates"].safeCastToList<Map<String, Any>>()
                         ?.map { queryPredicate ->
-                            fromSerializedMap(queryPredicate)!!
+                            fromSerializedMap(queryPredicate, modelSchema)!!
                         }!!
                 var resultQueryPredicate: QueryPredicateGroup? = null
                 // The first predicate in the list is either predicateOperation or predicateGroup. We need
@@ -122,6 +125,11 @@ class QueryPredicateBuilder {
             }
 
             return null
+        }
+
+        @JvmStatic
+        fun fromSerializedMap(serializedMap: Map<String, Any>?): QueryPredicate? {
+            return fromSerializedMap(serializedMap, null)
         }
     }
 }
