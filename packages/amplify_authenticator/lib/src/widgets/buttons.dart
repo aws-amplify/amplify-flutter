@@ -1,4 +1,6 @@
+
 import 'package:amplify_authenticator/src/views/confirm_signin_viewmodel.dart';
+
 import 'package:amplify_authenticator/src/widgets/containers.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/keys.dart';
@@ -53,6 +55,10 @@ class ConfirmButton extends StatelessWidget {
   }
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 96879076b3d28697bb9b906e4b2e598e02eb28d5
 class ConfirmSignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
