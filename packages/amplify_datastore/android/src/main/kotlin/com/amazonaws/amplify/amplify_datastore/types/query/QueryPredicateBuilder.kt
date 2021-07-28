@@ -32,10 +32,12 @@ class QueryPredicateBuilder {
             }
 
             if (serializedMap.containsKey("queryPredicateOperation")) {
-                val queryPredicateOperationMap: Map<String, Any> = serializedMap["queryPredicateOperation"].safeCastToMap()!!
+                val queryPredicateOperationMap: Map<String, Any> =
+                    serializedMap["queryPredicateOperation"].safeCastToMap()!!
                 val field = queryPredicateOperationMap["field"] as String
                 val queryField: QueryField = QueryField.field(field)
-                val queryFieldOperatorMap: Map<String, Any> = queryPredicateOperationMap["fieldOperator"].safeCastToMap()!!
+                val queryFieldOperatorMap: Map<String, Any> =
+                    queryPredicateOperationMap["fieldOperator"].safeCastToMap()!!
                 val operand: Any? = queryFieldOperatorMap["value"]
                 when (queryFieldOperatorMap["operatorName"]) {
                     "equal" -> return queryField.eq(operand)
@@ -46,20 +48,21 @@ class QueryPredicateBuilder {
                     "greater_than" -> return queryField.gt(operand as Comparable<Any?>?)
                     "contains" -> return queryField.contains(operand as String)
                     "between" -> return queryField.between(
-                            queryFieldOperatorMap["start"] as Comparable<Any?>?,
-                            queryFieldOperatorMap["end"] as Comparable<Any?>?)
+                        queryFieldOperatorMap["start"] as Comparable<Any?>?,
+                        queryFieldOperatorMap["end"] as Comparable<Any?>?
+                    )
                     "begins_with" -> return queryField.beginsWith(operand as String)
                 }
             }
 
             if (serializedMap.containsKey("queryPredicateGroup")) {
-                val queryPredicateGroupMap : Map<String, Any> =
-                        serializedMap["queryPredicateGroup"].safeCastToMap()!!
+                val queryPredicateGroupMap: Map<String, Any> =
+                    serializedMap["queryPredicateGroup"].safeCastToMap()!!
                 var predicates: List<QueryPredicate> =
-                        queryPredicateGroupMap["predicates"].safeCastToList<Map<String, Any>>()
-                                ?.map { queryPredicate ->
-                                    fromSerializedMap(queryPredicate)!!
-                                }!!
+                    queryPredicateGroupMap["predicates"].safeCastToList<Map<String, Any>>()
+                        ?.map { queryPredicate ->
+                            fromSerializedMap(queryPredicate)!!
+                        }!!
                 var resultQueryPredicate: QueryPredicateGroup? = null
                 // The first predicate in the list is either predicateOperation or predicateGroup. We need
                 // to know which one so that we can cast it appropriately and call the `and` or `not` method
@@ -67,12 +70,12 @@ class QueryPredicateBuilder {
                     when (queryPredicateGroupMap["type"]) {
                         "and" -> {
                             resultQueryPredicate =
-                                    (predicates[0] as QueryPredicateOperation<*>).and(predicates[1])
+                                (predicates[0] as QueryPredicateOperation<*>).and(predicates[1])
                             predicates = predicates.drop(2)
                         }
                         "or" -> {
                             resultQueryPredicate =
-                                    (predicates[0] as QueryPredicateOperation<*>).or(predicates[1])
+                                (predicates[0] as QueryPredicateOperation<*>).or(predicates[1])
                             predicates = predicates.drop(2)
                         }
                         "not" -> {
@@ -100,11 +103,12 @@ class QueryPredicateBuilder {
                         // Not operator cannot contain a list of predicates, but just one.
                         if (predicates.isNotEmpty()) {
                             throw IllegalArgumentException(
-                                    "More than one predicates added in the `not` queryPredicate operation." +
-                                            " Predicates Size: " + predicates.size)
+                                "More than one predicates added in the `not` queryPredicate operation." +
+                                        " Predicates Size: " + predicates.size
+                            )
                         }
                         resultQueryPredicate =
-                                QueryPredicateGroup.not(resultQueryPredicate as QueryPredicateGroup)
+                            QueryPredicateGroup.not(resultQueryPredicate as QueryPredicateGroup)
                     }
                 }
 

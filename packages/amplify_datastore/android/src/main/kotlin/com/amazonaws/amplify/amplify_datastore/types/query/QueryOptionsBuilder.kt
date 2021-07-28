@@ -33,11 +33,14 @@ class QueryOptionsBuilder {
                 return queryOptions
             }
             var queryPredicate: QueryPredicate? = QueryPredicateBuilder.fromSerializedMap(
-                    request["queryPredicate"].safeCastToMap())
+                request["queryPredicate"].safeCastToMap()
+            )
             var querySortInput: List<QuerySortBy>? = QuerySortBuilder.fromSerializedList(
-                    request["querySort"].safeCastToList())
+                request["querySort"].safeCastToList()
+            )
             var queryPagination: QueryPaginationInput? = QueryPaginationBuilder.fromSerializedMap(
-                    request["queryPagination"].safeCastToMap())
+                request["queryPagination"].safeCastToMap()
+            )
 
             if (queryPredicate != null) {
                 queryOptions = queryOptions.matches(queryPredicate)
