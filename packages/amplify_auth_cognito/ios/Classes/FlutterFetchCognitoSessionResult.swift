@@ -45,8 +45,10 @@ struct FlutterFetchCognitoSessionResult {
   func toJSON() -> Dictionary<String, Any> {
     var result: Dictionary<String, Any> = [:]
     result["isSignedIn"] = self.isSignedIn
-    result["credentials"] = self.credentials
     result["identityId"] = self.identityId
+    if (!self.credentials.isEmpty) {
+        result["credentials"] = self.credentials
+    }
     if (!self.userPoolTokens.isEmpty) {
         result["tokens"] = self.userPoolTokens
     }
@@ -131,9 +133,7 @@ func getCredentials(session: AuthSession) throws -> [String: String] {
             tokenMap["accessToken"] = tokens.accessToken
             tokenMap["idToken"] = tokens.idToken
             tokenMap["refreshToken"] = tokens.refreshToken
-        } catch {
-            tokenMap["error"] = "You are currently signed out."
-        }
+        } catch {}
     }
     return tokenMap;
   }

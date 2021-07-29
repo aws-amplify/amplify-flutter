@@ -22,7 +22,7 @@ import './AmplifyException.dart';
 class AmplifyAlreadyConfiguredException extends AmplifyException {
   /// Named constructor
   const AmplifyAlreadyConfiguredException(String message,
-      {String recoverySuggestion, String underlyingException})
+      {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);

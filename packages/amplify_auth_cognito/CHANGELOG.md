@@ -1,3 +1,64 @@
+## 0.2.1 (2021-07-27)
+
+### Bug Fixes
+
+- fix: handle new hosted ui android activity (#706)
+- fix: handle missing or empty signUpOptions (#627)
+- fix: handle InvalidStateException (#625)
+
+### Chores
+
+- chore: upgrade amplify-android to 1.20.1 (#710)
+- chore: user attributes/sign up docs (#697)
+- chore: enable formatting in CI w/ code changes (#570)
+- chore: integration tests for user attributes (#640)
+- chore: add integration test coverage for auth (#724)
+
+## 0.2.0 (2021-06-30)
+
+### Breaking Changes
+
+- AuthCodeDeliveryDetails are now nullable within the nextStep member of the CognitoSignInResult, CognitoSignUpResult, and CognitoResetPasswordResult classes.
+- AWSCredentials and AWSCognitoUserPoolTokens are now nullable within the CognitoAuthSession class.
+
+### Features
+
+- feat: Null Safety Auth (#536)
+- feat: Null safety core (#492)
+
+### Bug Fixes
+
+- fix: uses nextStep helper for signInResult on Android (#689)
+- fix(amplify_auth_cognito): update user attribute serialization (#684)
+- fix(amplify_auth_cognito): Remove use of TypeToken (#683)
+- fix(auth_auth_cognito): Type mismatch: inferred type (#653)
+- fix: Null safety master fixes pr (#614)
+- fix(amplify_auth_cognito): fixes auth null safety issues #613
+
+### Chores
+
+- chore: Null safety master rebase (#676)
+
+## 0.1.6 (2021-06-23)
+
+### Features
+
+- feat: add updateUserAttributes (batch) (#601)
+
+### Bug Fixes
+
+- fix: amplify-ios version bump (#648)
+- fix: adds userAttributes to confirmSignIn (#607)
+- fix(amplify_auth_cognito): iOS/Android user attribute inconsistencies (#620)
+- fix: Add clientMetadata to confirmSignUp API options (#619)
+- fix: address issue #577 by changing iOS error to UserNotConfirmedException (#583)
+
+### Chores
+
+- chore: upgrade amplify-android to 1.19.0 (#650)
+- chore: foundation for integration tests and basic auth suite with signIn and signOut (#568)
+- chore: pin Amplify iOS to '~> 1.9.2' (#589)
+
 ## 0.1.5 (2021-05-17)
 
 ### Features

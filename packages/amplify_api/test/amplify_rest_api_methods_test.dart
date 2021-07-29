@@ -13,12 +13,18 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:collection';
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_api/amplify_api.dart';
+
+const statusOK = 200;
+const statusBadRequest = 400;
+
+// Matchers
+final throwsRestException = throwsA(isA<RestException>());
 
 void main() {
   const MethodChannel apiChannel = MethodChannel('com.amazonaws.amplify/api');
@@ -47,7 +53,7 @@ void main() {
         expect(restOptions["queryParameters"], queryParameters);
         expect(restOptions["headers"], headers);
 
-        return {"data": responseData};
+        return {"data": responseData, 'statusCode': statusOK};
       }
     });
 
@@ -84,7 +90,7 @@ void main() {
         expect(restOptions["queryParameters"], queryParameters);
         expect(restOptions["headers"], headers);
 
-        return {"data": responseData};
+        return {"data": responseData, 'statusCode': statusOK};
       }
     });
 
@@ -110,7 +116,7 @@ void main() {
         Map<dynamic, dynamic> restOptions = methodCall.arguments["restOptions"];
         expect(restOptions["path"], "/items");
 
-        return {"data": responseData};
+        return {"data": responseData, 'statusCode': statusOK};
       }
     });
 
@@ -133,7 +139,7 @@ void main() {
         Map<dynamic, dynamic> restOptions = methodCall.arguments["restOptions"];
         expect(restOptions["path"], "/items");
 
-        return {"data": responseData};
+        return {"data": responseData, 'statusCode': statusOK};
       }
     });
 
@@ -171,6 +177,78 @@ void main() {
     }
   });
 
+  test('GET exception adds the httpStatusCode to exception if available',
+      () async {
+    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      if (methodCall.method == "get") {
+        throw PlatformException(code: 'ApiException', details: {
+          'message': 'AMPLIFY_API_MUTATE_FAILED',
+          'recoverySuggestion': 'some insightful suggestion',
+          'underlyingException': 'Act of God',
+          'httpStatusCode': '500'
+        });
+      }
+    });
+
+    try {
+      RestOperation restOperation = api.get(
+          restOptions: RestOptions(
+        path: "/items",
+      ));
+      await restOperation.response;
+    } on ApiException catch (e) {
+      expect(e.httpStatusCode, 500);
+    }
+  });
+
+  test('GET exception does not add httpStatusCode if not a valid status code',
+      () async {
+    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      if (methodCall.method == "get") {
+        throw PlatformException(code: 'ApiException', details: {
+          'message': 'AMPLIFY_API_MUTATE_FAILED',
+          'recoverySuggestion': 'some insightful suggestion',
+          'underlyingException': 'Act of God',
+          'httpStatusCode': '999'
+        });
+      }
+    });
+
+    try {
+      RestOperation restOperation = api.get(
+          restOptions: RestOptions(
+        path: "/items",
+      ));
+      await restOperation.response;
+    } on ApiException catch (e) {
+      expect(e.httpStatusCode, null);
+    }
+  });
+
+  test(
+      'GET exception does not add httpStatusCode if not available in serialized error',
+      () async {
+    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      if (methodCall.method == "get") {
+        throw PlatformException(code: 'ApiException', details: {
+          'message': 'AMPLIFY_API_MUTATE_FAILED',
+          'recoverySuggestion': 'some insightful suggestion',
+          'underlyingException': 'Act of God',
+        });
+      }
+    });
+
+    try {
+      RestOperation restOperation = api.get(
+          restOptions: RestOptions(
+        path: "/items",
+      ));
+      await restOperation.response;
+    } on ApiException catch (e) {
+      expect(e.httpStatusCode, null);
+    }
+  });
+
   test('CANCEL success does not throw error', () async {
     // Need to reply with PLACEHOLDER to avoid null issues in _formatRestResponse
     // In actual production code, the methodChannel doesn't respond to the future response
@@ -181,7 +259,7 @@ void main() {
       if (methodCall.method == "get") {
         Map<dynamic, dynamic> restOptions = methodCall.arguments["restOptions"];
         expect(restOptions["path"], "/items");
-        return {"data": responseData};
+        return {"data": responseData, 'statusCode': statusOK};
       }
     });
 
@@ -192,5 +270,43 @@ void main() {
 
     //RestResponse response = await restOperation.response;
     restOperation.cancel();
+  });
+
+  group('non-2xx status code', () {
+    const testBody = 'test';
+    const testResponseHeaders = {'key': 'value'};
+
+    setUpAll(() {
+      apiChannel.setMockMethodCallHandler((call) async {
+        return {
+          'data': utf8.encode(testBody),
+          'statusCode': statusBadRequest,
+          'headers': testResponseHeaders,
+        };
+      });
+    });
+
+    test('throws RestException', () async {
+      final restOp = api.get(restOptions: RestOptions(path: '/'));
+      await expectLater(restOp.response, throwsRestException);
+    });
+
+    test('has valid RestResponse', () async {
+      final restOp = api.get(restOptions: RestOptions(path: '/'));
+
+      RestException restException;
+      try {
+        await restOp.response;
+        fail('RestOperation should throw');
+      } catch (e) {
+        expect(e, isA<RestException>());
+        restException = e as RestException;
+      }
+
+      final response = restException.response;
+      expect(response.statusCode, statusBadRequest);
+      expect(response.headers, testResponseHeaders);
+      expect(response.body, testBody);
+    });
   });
 }

@@ -21,7 +21,6 @@ We need to verify that each conversion step (->) is done correctly and each stat
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:amplify_datastore_plugin_interface/src/types/models/model_association.dart';
-
 import 'package:flutter_test/flutter_test.dart';
 
 import 'testData/ModelProvider.dart';
@@ -43,7 +42,7 @@ void main() {
     expect(blogSchema.authRules, null);
 
     expect(
-        blogSchema.fields["id"],
+        blogSchema.fields!["id"],
         ModelField(
             name: "id",
             type: const ModelFieldType(ModelFieldTypeEnum.string),
@@ -51,7 +50,7 @@ void main() {
             isArray: false));
 
     expect(
-        blogSchema.fields["name"],
+        blogSchema.fields!["name"],
         ModelField(
             name: "name",
             type: const ModelFieldType(ModelFieldTypeEnum.string),
@@ -59,7 +58,7 @@ void main() {
             isArray: false));
 
     expect(
-        blogSchema.fields["posts"],
+        blogSchema.fields!["posts"],
         ModelField(
             name: "posts",
             type: const ModelFieldType(ModelFieldTypeEnum.collection,
@@ -69,7 +68,7 @@ void main() {
             association: ModelAssociation(
                 associationType: ModelAssociationEnum.HasMany,
                 associatedName: Post.BLOG.fieldName,
-                associatedType: Post.BLOG.fieldType.ofModelName)));
+                associatedType: Post.BLOG.fieldType!.ofModelName)));
   });
 
   test('Comment codegen model generates modelschema with proper fields',
@@ -90,7 +89,7 @@ void main() {
     expect(commentSchema.authRules, null);
 
     expect(
-        commentSchema.fields["id"],
+        commentSchema.fields!["id"],
         ModelField(
             name: "id",
             type: const ModelFieldType(ModelFieldTypeEnum.string),
@@ -98,7 +97,7 @@ void main() {
             isArray: false));
 
     expect(
-        commentSchema.fields["post"],
+        commentSchema.fields!["post"],
         ModelField(
             name: "post",
             type: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: "Post"),
@@ -109,7 +108,7 @@ void main() {
                 targetName: "postID")));
 
     expect(
-        commentSchema.fields["content"],
+        commentSchema.fields!["content"],
         ModelField(
             name: "content",
             type: ModelFieldType(ModelFieldTypeEnum.string),
@@ -135,7 +134,7 @@ void main() {
     expect(postSchema.authRules, null);
 
     expect(
-        postSchema.fields["id"],
+        postSchema.fields!["id"],
         ModelField(
             name: "id",
             type: const ModelFieldType(ModelFieldTypeEnum.string),
@@ -143,7 +142,7 @@ void main() {
             isArray: false));
 
     expect(
-        postSchema.fields["title"],
+        postSchema.fields!["title"],
         ModelField(
             name: "title",
             type: ModelFieldType(ModelFieldTypeEnum.string),
@@ -151,7 +150,7 @@ void main() {
             isArray: false));
 
     expect(
-        postSchema.fields["blog"],
+        postSchema.fields!["blog"],
         ModelField(
             name: "blog",
             type: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: "Blog"),

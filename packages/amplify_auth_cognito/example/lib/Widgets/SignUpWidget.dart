@@ -8,7 +8,7 @@ class SignUpWidget extends StatefulWidget {
   final Function showResult;
   final Function changeDisplay;
   final Function setError;
-  final Function backToSignIn;
+  final VoidCallback backToSignIn;
 
   SignUpWidget(
       this.showResult, this.changeDisplay, this.setError, this.backToSignIn);

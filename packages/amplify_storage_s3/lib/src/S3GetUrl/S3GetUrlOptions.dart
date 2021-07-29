@@ -17,26 +17,21 @@ import 'package:flutter/foundation.dart';
 import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 
 class S3GetUrlOptions extends GetUrlOptions {
-  String targetIdentityId;
+  String? targetIdentityId;
   S3GetUrlOptions(
       {StorageAccessLevel accessLevel = StorageAccessLevel.guest,
-      int expires,
+      int? expires,
       this.targetIdentityId})
       : super(accessLevel: accessLevel, expires: expires);
 
   @override
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> optionsMap = <String, dynamic>{};
-
-    optionsMap["accessLevel"] = describeEnum(accessLevel);
-
-    if (expires != null) {
-      optionsMap["expires"] = expires;
-    }
-
-    if (targetIdentityId != null) {
-      optionsMap["targetIdentityId"] = targetIdentityId;
-    }
+    final Map<String, dynamic> optionsMap = {
+      'accessLevel': describeEnum(accessLevel),
+      'expires': expires,
+      'targetIdentityId': targetIdentityId
+    };
+    optionsMap.removeWhere((_, v) => v == null);
     return optionsMap;
   }
 }

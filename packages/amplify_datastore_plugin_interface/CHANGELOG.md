@@ -1,3 +1,36 @@
+## 0.2.1 (2021-07-27)
+
+### Features
+
+- feat: Selective Sync (#703)
+
+### Bug Fixes
+
+- fix: not serializing enum type in a predicate (#726)
+
+### Chores
+
+- chore: enable formatting in CI w/ code changes (#570)
+- chore: make SubscriptionEvent directly available via datastore plugin by adding to publicTypes in interface (#728)
+
+## 0.2.0 (2021-06-30)
+
+### Features
+
+- feat: Null safety datastore (#649)
+- feat: Null safety core (#492)
+
+### Bug Fixes
+
+- fix(amplify_datastore_plugin_interface): Fix enum string function (#687)
+- fix: Null safety master fixes pr (#614)
+
+### Chores
+
+- chore: Null safety master rebase (#676)
+
+## 0.1.6 (2021-06-23)
+
 ## 0.1.5 (2021-05-17)
 
 ## 0.1.4 (2021-04-27)

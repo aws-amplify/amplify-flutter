@@ -15,7 +15,7 @@
 
 package com.amazonaws.amplify.amplify_datastore
 
-import com.amplifyframework.datastore.appsync.SerializedModel
+import com.amplifyframework.core.model.SerializedModel
 
 val blogSerializedModel = SerializedModel.builder()
         .serializedData(

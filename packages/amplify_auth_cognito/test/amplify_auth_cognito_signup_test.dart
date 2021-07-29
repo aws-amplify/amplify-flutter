@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_auth_cognito/src/CognitoSignUp/cognito_user_attributes.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -36,15 +37,16 @@ void main() {
               "isSignUpComplete": false,
               "nextStep": {
                 "signUpStep": "DONE",
-                "codeDeliveryDetails": {"attributeName": "email"}
+                "codeDeliveryDetails": {
+                  "attributeName": "email",
+                  "destination": "test@test.test"
+                }
               }
             });
           case 2:
-          return throw PlatformException(
-            code: "UnknownException",
-            details: Map.from({
-              "message": "I am an exception"
-            }));
+            return throw PlatformException(
+                code: "UnknownException",
+                details: Map.from({"message": "I am an exception"}));
         }
         ;
       }
@@ -63,7 +65,7 @@ void main() {
             username: 'testUser',
             password: '123',
             options: CognitoSignUpOptions(userAttributes: {
-              "email": "test@test.com",
+              CognitoUserAttributes.email: "test@test.com",
             })));
     expect(res, isInstanceOf<SignUpResult>());
   });
@@ -76,7 +78,7 @@ void main() {
             username: 'testUser',
             password: '123',
             options: CognitoSignUpOptions(userAttributes: {
-              "email": "test@test.com",
+              CognitoUserAttributes.email: "test@test.com",
             })));
     expect(res.nextStep, isInstanceOf<AuthNextSignUpStep>());
     expect(res.nextStep, isInstanceOf<AuthNextStep>());
@@ -84,18 +86,19 @@ void main() {
 
   test('signUp thrown PlatFormException results in AuthError', () async {
     testCode = 2;
-    AuthException err;
+    late AuthException err;
     try {
       await auth.signUp(
           request: SignUpRequest(
               username: 'testUser',
               password: '123',
               options: CognitoSignUpOptions(userAttributes: {
-                "email": "test@test.com",
+                CognitoUserAttributes.email: "test@test.com",
               })));
     } on AuthException catch (e) {
-      err = e;
+      expect(e.message, "I am an exception");
+      return;
     }
-    expect(err.message, "I am an exception");
+    fail("No AmplifyException Thrown");
   });
 }

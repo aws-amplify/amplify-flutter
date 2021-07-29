@@ -16,7 +16,7 @@
 package com.amazonaws.amplify.amplify_datastore.types.model
 
 import com.amplifyframework.core.model.ModelSchema
-import com.amplifyframework.datastore.appsync.SerializedModel
+import com.amplifyframework.core.model.SerializedModel
 
 data class FlutterModelSchema(val map: Map<String, Any>) {
     val name: String = map["name"] as String

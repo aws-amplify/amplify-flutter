@@ -15,12 +15,12 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when Amplify could not perform the action because the configuration of the 
+/// Thrown when Amplify could not perform the action because the configuration of the
 /// signed in account does not support it.
 class InvalidAccountTypeException extends AuthException {
   /// Named constructor
   InvalidAccountTypeException(String message,
-      {String recoverySuggestion, String underlyingException})
+      {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);

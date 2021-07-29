@@ -22,12 +22,14 @@ import Combine
 import amplify_core
 
 public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
-
+    
     private let bridge: DataStoreBridge
     private let flutterModelRegistration: FlutterModels
-    var observeSubscription: AnyCancellable?
     private let dataStoreObserveEventStreamHandler: DataStoreObserveEventStreamHandler?
     private let dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler?
+    private var channel: FlutterMethodChannel?
+    var observeSubscription: AnyCancellable?
+    
     init(bridge: DataStoreBridge = DataStoreBridge(),
          flutterModelRegistration: FlutterModels = FlutterModels(),
          dataStoreObserveEventStreamHandler: DataStoreObserveEventStreamHandler = DataStoreObserveEventStreamHandler(),
@@ -37,17 +39,17 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         self.dataStoreObserveEventStreamHandler = dataStoreObserveEventStreamHandler
         self.dataStoreHubEventStreamHandler = dataStoreHubEventStreamHandler
     }
-
+    
     public static func register(with registrar: FlutterPluginRegistrar) {
         let instance = SwiftAmplifyDataStorePlugin()
-        let channel = FlutterMethodChannel(name: "com.amazonaws.amplify/datastore", binaryMessenger: registrar.messenger())
         let observeChannel = FlutterEventChannel(name: "com.amazonaws.amplify/datastore_observe_events", binaryMessenger: registrar.messenger())
         let hubChannel = FlutterEventChannel(name: "com.amazonaws.amplify/datastore_hub_events", binaryMessenger: registrar.messenger())
+        instance.channel = FlutterMethodChannel(name: "com.amazonaws.amplify/datastore", binaryMessenger: registrar.messenger())
         observeChannel.setStreamHandler(instance.dataStoreObserveEventStreamHandler)
         hubChannel.setStreamHandler(instance.dataStoreHubEventStreamHandler)
-        registrar.addMethodCallDelegate(instance, channel: channel)
+        registrar.addMethodCallDelegate(instance, channel: instance.channel!)
     }
-
+    
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         var arguments: [String: Any] = [:]
         do {
@@ -59,46 +61,63 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                                                               flutterResult: result)
             return
         }
-
+        
         switch call.method {
-        case "configureModelProvider":
-            onConfigureModelProvider(args: arguments, result: result)
+        case "configureDataStore":
+            onConfigureDataStore(args: arguments, result: result)
         case "query":
             onQuery(args: arguments, flutterResult: result)
         case "save":
             onSave(args: arguments, flutterResult: result)
         case "delete":
             onDelete(args: arguments, flutterResult: result)
-        case "setupObserve":
-            onSetupObserve(flutterResult: result)
+        case "setUpObserve":
+            onSetUpObserve(flutterResult: result)
         case "clear":
             onClear(flutterResult: result)
         default:
             result(FlutterMethodNotImplemented)
         }
     }
-
-    private func onConfigureModelProvider(args: [String: Any], result: @escaping FlutterResult) {
-
+    
+    private func onConfigureDataStore(args: [String: Any], result: @escaping FlutterResult) {
+        
         guard let modelSchemaList = args["modelSchemas"] as? [[String: Any]] else {
             result(false)
             return //TODO
         }
-
+        
+        guard channel != nil else {
+            return
+        }
+        
+        let syncExpressionList = args["syncExpressions"] as? [[String: Any]] ?? []
+        let syncInterval = args["syncInterval"] as? Double ?? DataStoreConfiguration.defaultSyncInterval
+        let syncMaxRecords = args["syncMaxRecords"] as? UInt ?? DataStoreConfiguration.defaultSyncMaxRecords
+        let syncPageSize = args["syncPageSize"] as? UInt ?? DataStoreConfiguration.defaultSyncPageSize
+        
         do {
-
+            
             let modelSchemas: [ModelSchema] = try modelSchemaList.map {
                 try FlutterModelSchema.init(serializedData: $0).convertToNativeModelSchema()
             }
-
+            
             modelSchemas.forEach { (modelSchema) in
                 flutterModelRegistration.addModelSchema(modelName: modelSchema.name, modelSchema: modelSchema)
             }
-
+            
+            let syncExpressions: [DataStoreSyncExpression] = try createSyncExpressions(syncExpressionList: syncExpressionList)
+            
             self.dataStoreHubEventStreamHandler?.registerModelsForHub(flutterModels: flutterModelRegistration)
-
-            let dataStorePlugin = AWSDataStorePlugin(modelRegistration: flutterModelRegistration)
+            
+            let dataStorePlugin = AWSDataStorePlugin(modelRegistration: flutterModelRegistration,
+                                                     configuration: .custom(
+                                                        syncInterval: syncInterval,
+                                                        syncMaxRecords: syncMaxRecords,
+                                                        syncPageSize: syncPageSize,
+                                                        syncExpressions: syncExpressions))
             try Amplify.add(plugin: dataStorePlugin)
+            
             Amplify.Logging.logLevel = .info
             print("Amplify configured with DataStore plugin")
             result(true)
@@ -135,11 +154,11 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             }
             return
         }
-
+        
     }
-
+    
     func onQuery(args: [String: Any], flutterResult: @escaping FlutterResult) {
-
+        
         do {
             let modelName = try FlutterDataStoreRequestUtils.getModelName(methodChannelArguments: args)
             let modelSchema = try FlutterDataStoreRequestUtils.getModelSchema(modelSchemas: flutterModelRegistration.modelSchemas, modelName: modelName)
@@ -177,17 +196,17 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                                                               flutterResult: flutterResult)
         }
     }
-
+    
     func onSave(args: [String: Any], flutterResult: @escaping FlutterResult) {
-
+        
         do {
             let modelName = try FlutterDataStoreRequestUtils.getModelName(methodChannelArguments: args)
             let modelSchema = try FlutterDataStoreRequestUtils.getModelSchema(modelSchemas: flutterModelRegistration.modelSchemas, modelName: modelName)
             let serializedModelData = try FlutterDataStoreRequestUtils.getSerializedModelData(methodChannelArguments: args)
             let modelID = try FlutterDataStoreRequestUtils.getModelID(serializedModelData: serializedModelData)
-
+            
             let serializedModel = FlutterSerializedModel(id: modelID, map: try FlutterDataStoreRequestUtils.getJSONValue(serializedModelData))
-
+            
             try bridge.onSave(
                 serializedModel: serializedModel,
                 modelSchema: modelSchema
@@ -216,16 +235,16 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                                                               flutterResult: flutterResult)
         }
     }
-
+    
     func onDelete(args: [String: Any], flutterResult: @escaping FlutterResult) {
         do {
             let modelName = try FlutterDataStoreRequestUtils.getModelName(methodChannelArguments: args)
             let modelSchema = try FlutterDataStoreRequestUtils.getModelSchema(modelSchemas: flutterModelRegistration.modelSchemas, modelName: modelName)
             let serializedModelData = try FlutterDataStoreRequestUtils.getSerializedModelData(methodChannelArguments: args)
             let modelID = try FlutterDataStoreRequestUtils.getModelID(serializedModelData: serializedModelData)
-
+            
             let serializedModel = FlutterSerializedModel(id: modelID, map: try FlutterDataStoreRequestUtils.getJSONValue(serializedModelData))
-
+            
             try bridge.onDelete(
                 serializedModel: serializedModel,
                 modelSchema: modelSchema) { (result) in
@@ -238,7 +257,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     flutterResult(nil)
                 }
             }
-
+            
         }
         catch let error as DataStoreError {
             print("Failed to parse delete arguments with \(error)")
@@ -253,8 +272,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             return
         }
     }
-
-    public func onSetupObserve(flutterResult: @escaping FlutterResult) {
+    
+    public func onSetUpObserve(flutterResult: @escaping FlutterResult) {
         do {
             observeSubscription = try observeSubscription ?? bridge.onObserve().sink { completion in
                 switch completion {
@@ -266,7 +285,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                 case .finished:
                     print("finished")
                 }
-
+                
             } receiveValue: { (mutationEvent) in
                 do {
                     let serializedEvent = try mutationEvent.decodeModel(as: FlutterSerializedModel.self)
@@ -291,8 +310,9 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             print("Failed to get the datastore plugin \(error)")
             flutterResult(false)
         }
+        flutterResult(nil)
     }
-
+    
     func onClear(flutterResult: @escaping FlutterResult) {
         do {
             try bridge.onClear() {(result) in
@@ -307,7 +327,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     // iOS tears down the publisher after clear. Let's setup again.
                     // See https://github.com/aws-amplify/amplify-flutter/issues/395
                     self.observeSubscription = nil
-                    self.onSetupObserve(flutterResult: flutterResult)
+                    self.onSetUpObserve(flutterResult: flutterResult)
                     flutterResult(nil)
                 }
             }
@@ -318,7 +338,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                                                               flutterResult: flutterResult)
         }
     }
-
+    
     private func checkArguments(args: Any) throws -> [String: Any] {
         guard let res = args as? [String: Any] else {
             throw DataStoreError.decodingError("Flutter method call arguments are not a map.",
@@ -326,7 +346,30 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         }
         return res;
     }
-
+    
+    private func createSyncExpressions(syncExpressionList: [[String: Any]]) throws -> [DataStoreSyncExpression] {
+        return try syncExpressionList.map { syncExpression in
+            let id = syncExpression["id"] as! String
+            let modelName = syncExpression["modelName"] as! String
+            let queryPredicate = try QueryPredicateBuilder.fromSerializedMap(syncExpression["queryPredicate"] as? [String: Any])
+            let modelSchema = flutterModelRegistration.modelSchemas[modelName]
+            return DataStoreSyncExpression.syncExpression(modelSchema!) {
+                var resolvedQueryPredicate = queryPredicate
+                let semaphore = DispatchSemaphore(value: 0)
+                self.channel!.invokeMethod("resolveQueryPredicate", arguments: id) { result in
+                    do {
+                        resolvedQueryPredicate = try QueryPredicateBuilder.fromSerializedMap(result as? [String: Any])
+                    } catch {
+                        print("Failed to resolve query predicate. Reverting to original query predicate.")
+                    }
+                    semaphore.signal()
+                }
+                semaphore.wait()
+                return resolvedQueryPredicate
+            }
+        }
+    }
+    
     // TODO: Remove once all configure is moved to the bridge
     func getPlugin() throws -> AWSDataStorePlugin {
         return try Amplify.DataStore.getPlugin(for: "awsDataStorePlugin") as! AWSDataStorePlugin

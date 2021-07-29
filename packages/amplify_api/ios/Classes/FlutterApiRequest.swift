@@ -18,6 +18,7 @@ import Amplify
 import AmplifyPlugins
 
 class FlutterApiRequest {
+    public static let cancelTokenHeader = "x-amplify-cancel-token"
 
     // ====== SHARED ======
     static func getMap(args: Any) throws -> [String: Any] {
@@ -76,7 +77,7 @@ class FlutterApiRequest {
 
 
     // ====== REST API =======
-    static func getRestRequest(methodChannelRequest: [String: Any]) throws -> RESTRequest {
+    static func getRestRequest(methodChannelRequest: [String: Any], cancelToken: String) throws -> RESTRequest {
         guard let restOptionsMap = methodChannelRequest["restOptions"] as? [String: Any] else {
             throw APIError.invalidConfiguration("The restOptions request argument was not passed as a dictionary",
                                                 "The request should include the restOptions argument as a [String: Any] dictionary")
@@ -85,7 +86,7 @@ class FlutterApiRequest {
         var path: String?
         var body: Data?
         var queryParameters: [String: String]?
-        var headers: [String: String]?
+        var headers: [String: String] = [:]
         var apiName: String?
 
         for(key, value) in restOptionsMap {
@@ -99,11 +100,14 @@ class FlutterApiRequest {
                 case "queryParameters" :
                     queryParameters = value as? [String: String]
                 case "headers" :
-                    headers = value as? [String: String]
+                    headers = value as? [String: String] ?? [:]
                 default:
                     print("Invalid RestOption key: " + key)
             }
         }
+        
+        // Add cancel token for later identification.
+        headers[cancelTokenHeader] = cancelToken
 
         return RESTRequest(apiName: apiName, path: path, headers: headers, queryParameters: queryParameters, body: body)
     }

@@ -13,6 +13,6 @@
  * permissions and limitations under the License.
  */
 
-class SignOutResult { 
+class SignOutResult {
   SignOutResult() {}
 }

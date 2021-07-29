@@ -1,3 +1,31 @@
+## 0.2.1 (2021-07-27)
+
+### Chores
+
+- chore: upgrade amplify-android to 1.20.1 (#710)
+- chore: enable formatting in CI w/ code changes (#570)
+
+## 0.2.0 (2021-06-30)
+
+### Features
+
+- feat: Null Safety Auth (#536)
+- feat: Null safety core (#492)
+
+### Chores
+
+- chore: Null safety master rebase (#676)
+
+## 0.1.6 (2021-06-23)
+
+### Features
+
+- feat: Add support of DataStore custom configuration (#610)
+
+### Chores
+
+- chore: add httpStatusCode property to ApiException when available from REST response (#590)
+
 ## 0.1.5 (2021-05-17)
 
 ## 0.1.4 (2021-04-27)

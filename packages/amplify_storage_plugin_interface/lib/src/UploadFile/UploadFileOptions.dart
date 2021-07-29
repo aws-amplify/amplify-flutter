@@ -19,8 +19,8 @@ import '../Storage/StorageOptions.dart';
 
 class UploadFileOptions extends StorageOptions {
   StorageAccessLevel accessLevel;
-  String contentType;
-  Map<String, String> metadata;
+  String? contentType;
+  Map<String, String>? metadata;
 
   UploadFileOptions(
       {this.accessLevel = StorageAccessLevel.guest,
@@ -30,18 +30,12 @@ class UploadFileOptions extends StorageOptions {
 
   @override
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> optionsMap = <String, dynamic>{};
-
-    optionsMap["accessLevel"] = describeEnum(accessLevel);
-
-    if (contentType != null) {
-      optionsMap["contentType"] = contentType;
-    }
-
-    if (metadata != null) {
-      optionsMap["metadata"] = metadata;
-    }
-
+    final Map<String, dynamic> optionsMap = {
+      'accessLevel': describeEnum(accessLevel),
+      'contentType': contentType,
+      'metadata': metadata
+    };
+    optionsMap.removeWhere((_, v) => v == null);
     return optionsMap;
   }
 }

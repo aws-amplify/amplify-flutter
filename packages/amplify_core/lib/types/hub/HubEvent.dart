@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -18,7 +17,7 @@ import 'HubEventPayload.dart';
 
 class HubEvent {
   String eventName;
-  HubEventPayload payload;
+  HubEventPayload? payload;
 
-  HubEvent(String this.eventName, { HubEventPayload this.payload }){}
+  HubEvent(String this.eventName, {HubEventPayload? this.payload});
 }

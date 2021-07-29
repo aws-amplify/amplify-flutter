@@ -18,11 +18,15 @@ package com.amazonaws.amplify.amplify_api.rest_api
 import com.amplifyframework.api.rest.RestResponse
 
 data class FlutterSerializedRestResponse(private var raw: RestResponse) {
-    val data: ByteArray = raw.data.rawBytes
+    private val statusCode: Int = raw.code.hashCode()
+    private val headers: Map<String, String>? = raw.headers
+    private val data: ByteArray? = raw.data.rawBytes
 
-    fun toValueMap(): Map<String, Any> {
+    fun toValueMap(): Map<String, Any?> {
         return mapOf(
-                "data" to data
+            "statusCode" to statusCode,
+            "headers" to headers,
+            "data" to data
         )
     }
 }

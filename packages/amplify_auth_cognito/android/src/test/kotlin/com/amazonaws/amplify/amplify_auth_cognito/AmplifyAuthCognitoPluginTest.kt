@@ -16,9 +16,7 @@
 package com.amazonaws.amplify.amplify_auth_cognito
 
 import android.app.Activity
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmUserAttributeRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendUserAttributeConfirmationCodeRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdateUserAttributeRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.*
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.BasicAWSCredentials
@@ -30,8 +28,10 @@ import com.amplifyframework.auth.result.AuthSignUpResult
 import com.amplifyframework.auth.cognito.AWSCognitoAuthSession
 import com.amplifyframework.auth.cognito.AWSCognitoUserPoolTokens
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthConfirmSignInOptions
+import com.amplifyframework.auth.cognito.options.AWSCognitoAuthConfirmSignUpOptions
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthSignInOptions
 import com.amplifyframework.auth.options.AuthConfirmSignInOptions
+import com.amplifyframework.auth.options.AuthConfirmSignUpOptions
 import com.amplifyframework.auth.options.AuthSignInOptions
 import com.amplifyframework.auth.result.AuthSessionResult
 import com.amplifyframework.auth.result.step.*
@@ -43,8 +43,7 @@ import com.amplifyframework.logging.Logger
 import com.google.gson.internal.LinkedTreeMap
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
-import org.junit.Assert.assertThrows
-import org.junit.Assert.fail
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -66,6 +65,7 @@ class AmplifyAuthCognitoPluginTest {
     private val signInStep = AuthNextSignInStep(AuthSignInStep.CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE, emptyMap(), codeDeliveryDetails)
     private val resetStep = AuthNextResetPasswordStep(AuthResetPasswordStep.CONFIRM_RESET_PASSWORD_WITH_CODE, emptyMap(), codeDeliveryDetails)
     private val updateAttributeStep = AuthNextUpdateAttributeStep(AuthUpdateAttributeStep.CONFIRM_ATTRIBUTE_WITH_CODE, emptyMap(), codeDeliveryDetails)
+    private val updateAttributeStepWithoutConfirmation = AuthNextUpdateAttributeStep(AuthUpdateAttributeStep.DONE, emptyMap(), null)
     private val mockSignUpResult = AuthSignUpResult(false, signUpStep, null)
     private val mockSignInResult = AuthSignInResult(false, signInStep)
     private val mockResetPasswordResult = AuthResetPasswordResult(false, resetStep)
@@ -104,7 +104,6 @@ class AmplifyAuthCognitoPluginTest {
             "isSignUpComplete" to false,
             "nextStep" to mapOf(
                 "signUpStep" to "CONFIRM_SIGN_UP_STEP",
-                "additionalInfo" to "{}",
                 "codeDeliveryDetails" to mapOf(
                     "destination" to "test@test.com",
                     "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
@@ -121,12 +120,95 @@ class AmplifyAuthCognitoPluginTest {
     }
 
     @Test
-    fun confirmSignUp_returnsSuccess() {
+    fun signUpRequestMetadata_returnsSuccess() {
+        // Arrange
+        val clientMetadata = hashMapOf("attribute" to "value")
+        val options = hashMapOf(
+            "clientMetadata" to clientMetadata
+        )
+        val data: HashMap<String, *> = hashMapOf(
+            "username" to "testUser",
+            "password" to "testPassword",
+            "options" to options
+        )
+
+        // Act
+        val request  = FlutterSignUpRequest(data)
+
+        // Assert
+        assertEquals(clientMetadata, request.options.clientMetadata)
+        assertEquals(0, request.options.validationData.size)
+        assertEquals(0, request.options.userAttributes.size)
+    }
+
+    @Test
+    fun signUpRequestValidationdata_returnsSuccess() {
+        // Arrange
+        val validationData = hashMapOf("attribute" to "value")
+        val options = hashMapOf(
+            "validationData" to validationData
+        )
+        val data: HashMap<String, *> = hashMapOf(
+            "username" to "testUser",
+            "password" to "testPassword",
+            "options" to options
+        )
+
+        // Act
+        val request  = FlutterSignUpRequest(data)
+
+        // Assert
+        assertEquals(validationData, request.options.validationData)
+        assertEquals(0, request.options.clientMetadata.size)
+        assertEquals(0, request.options.userAttributes.size)
+    }
+
+    @Test
+    fun signUpNoOptions_returnsSuccess() {
         // Arrange
         doAnswer { invocation: InvocationOnMock ->
             plugin.prepareSignUpResult(mockResult, mockSignUpResult)
             null as Void?
-        }.`when`(mockAuth).confirmSignUp(anyString(), anyString(), ArgumentMatchers.any<Consumer<AuthSignUpResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).signUp(anyString(), anyString(), any(AuthSignUpOptions::class.java), ArgumentMatchers.any<Consumer<AuthSignUpResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+
+        val data: HashMap<*, *> = hashMapOf(
+                "username" to "test@test.com",
+                "password" to "testPassword"
+        )
+        val arguments = hashMapOf("data" to data)
+        val call = MethodCall("signUp", arguments)
+        val res = mapOf(
+                "isSignUpComplete" to false,
+                "nextStep" to mapOf(
+                        "signUpStep" to "CONFIRM_SIGN_UP_STEP",
+                        "codeDeliveryDetails" to mapOf(
+                                "destination" to "test@test.com",
+                                "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
+                                "attributeName" to "email"
+                        )
+                )
+        )
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).success(res);
+    }
+
+    @Test
+    fun confirmSignUpWithoutOptions_returnsSuccess() {
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareSignUpResult(mockResult, mockSignUpResult)
+            null as Void?
+        }.`when`(mockAuth).confirmSignUp(
+            anyString(),
+            anyString(),
+            ArgumentMatchers.any<AuthConfirmSignUpOptions>(),
+            ArgumentMatchers.any<Consumer<AuthSignUpResult>>(),
+            ArgumentMatchers.any<Consumer<AuthException>>()
+        )
 
         val data = hashMapOf(
             "username" to "testUser",
@@ -138,7 +220,6 @@ class AmplifyAuthCognitoPluginTest {
             "isSignUpComplete" to false,
             "nextStep" to mapOf(
                 "signUpStep" to "CONFIRM_SIGN_UP_STEP",
-                "additionalInfo" to "{}",
                 "codeDeliveryDetails" to mapOf(
                     "destination" to "test@test.com",
                     "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
@@ -152,6 +233,66 @@ class AmplifyAuthCognitoPluginTest {
 
         // Assert
         verify(mockResult, times(1)).success(res);
+    }
+
+    @Test
+    fun confirmSignUpWithOptions_returnsSuccess() {
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareSignUpResult(mockResult, mockSignUpResult)
+            null as Void?
+        }.`when`(mockAuth).confirmSignUp(
+            anyString(),
+            anyString(),
+            ArgumentMatchers.any<AuthConfirmSignUpOptions>(),
+            ArgumentMatchers.any<Consumer<AuthSignUpResult>>(),
+            ArgumentMatchers.any<Consumer<AuthException>>()
+        )
+
+        val mockClientMetadata = hashMapOf(
+            "key" to "value"
+        )
+        val mockUsername = "testUser"
+        val mockConfirmationCode = "123456"
+        val data = hashMapOf(
+            "username" to mockUsername,
+            "confirmationCode" to mockConfirmationCode,
+            "options" to hashMapOf(
+               "clientMetadata" to mockClientMetadata
+            )
+        )
+        val arguments = hashMapOf("data" to data)
+        val call = MethodCall("confirmSignUp", arguments)
+        val res = mapOf(
+            "isSignUpComplete" to false,
+            "nextStep" to mapOf(
+                "signUpStep" to "CONFIRM_SIGN_UP_STEP",
+                "codeDeliveryDetails" to mapOf(
+                    "destination" to "test@test.com",
+                    "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
+                    "attributeName" to "email"
+                )
+            )
+        )
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).success(res)
+
+        var expectedOptions = AWSCognitoAuthConfirmSignUpOptions
+            .builder()
+            .clientMetadata(mockClientMetadata)
+            .build()
+
+        verify(mockAuth).confirmSignUp(
+            ArgumentMatchers.eq(mockUsername),
+            ArgumentMatchers.eq(mockConfirmationCode),
+            ArgumentMatchers.eq(expectedOptions),
+            ArgumentMatchers.any<Consumer<AuthSignUpResult>>(),
+            ArgumentMatchers.any<Consumer<AuthException>>()
+        )
     }
 
     @Test
@@ -259,12 +400,16 @@ class AmplifyAuthCognitoPluginTest {
         }.`when`(mockAuth).confirmSignIn(anyString(), ArgumentMatchers.any<AuthConfirmSignInOptions>(), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
 
         val metadata = hashMapOf(
-                "key" to "value"
+            "key" to "value"
+        )
+        val userAttributes = hashMapOf(
+           "email" to "test@test.test"
         )
         val data: HashMap<*, *> = hashMapOf(
             "confirmationCode" to "confirmationCode",
             "options" to hashMapOf(
-                "clientMetadata" to metadata
+                "clientMetadata" to metadata,
+                "userAttributes" to userAttributes
             )
         )
         val arguments: HashMap<String, Any> = hashMapOf("data" to data)
@@ -274,7 +419,8 @@ class AmplifyAuthCognitoPluginTest {
         plugin.onMethodCall(call, mockResult)
 
         // Assert
-        var expectedOptions = AWSCognitoAuthConfirmSignInOptions.builder().metadata(metadata).build()
+        var attributeList = mutableListOf<AuthUserAttribute>(AuthUserAttribute(AuthUserAttributeKey.custom("email"), "test@test.test"))
+        var expectedOptions = AWSCognitoAuthConfirmSignInOptions.builder().metadata(metadata).userAttributes(attributeList).build()
         verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
         verify(mockAuth).confirmSignIn(ArgumentMatchers.eq("confirmationCode"), ArgumentMatchers.eq(expectedOptions), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
     }
@@ -519,12 +665,12 @@ class AmplifyAuthCognitoPluginTest {
                 "isUpdated" to true,
                 "nextStep" to mapOf(
                         "updateAttributeStep" to "CONFIRM_ATTRIBUTE_WITH_CODE",
-                        "additionalInfo" to "{}",
                         "codeDeliveryDetails" to mapOf(
                                 "destination" to "test@test.com",
                                 "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
                                 "attributeName" to "email"
-                        )
+                        ),
+                        "additionalInfo" to "{}"
                 )
         )
 
@@ -555,12 +701,12 @@ class AmplifyAuthCognitoPluginTest {
                 "isUpdated" to true,
                 "nextStep" to mapOf(
                         "updateAttributeStep" to "CONFIRM_ATTRIBUTE_WITH_CODE",
-                        "additionalInfo" to "{}",
                         "codeDeliveryDetails" to mapOf(
                                 "destination" to "test@test.com",
                                 "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
                                 "attributeName" to "email"
-                        )
+                        ),
+                        "additionalInfo" to "{}"
                 )
         )
 
@@ -616,6 +762,129 @@ class AmplifyAuthCognitoPluginTest {
         )
         try {
             FlutterUpdateUserAttributeRequest.validate(data)
+        } catch (e: Exception) {
+            fail("Expected no exception to be thrown with valid data")
+        }
+    }
+
+    @Test
+    fun updateUserAttributes_returnsSuccess() {
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareUpdateUserAttributesResult(mockResult, mapOf(
+                    AuthUserAttributeKey.email() to AuthUpdateAttributeResult(true, updateAttributeStep),
+                    AuthUserAttributeKey.name() to AuthUpdateAttributeResult(true, updateAttributeStepWithoutConfirmation)
+            ))
+            null as Void?
+        }.`when`(mockAuth).updateUserAttributes(any(), ArgumentMatchers.any<Consumer<Map<AuthUserAttributeKey, AuthUpdateAttributeResult>>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        val emailAttribute = hashMapOf(
+                "userAttributeKey" to "email",
+                "value" to "test@test.com"
+        )
+        val usernameAttribute = hashMapOf(
+                "userAttributeKey" to "name",
+                "value" to "testname"
+        )
+        val data: HashMap<*, *> = hashMapOf(
+                "attributes" to listOf(
+                        emailAttribute,
+                        usernameAttribute
+                )
+        )
+        val arguments = hashMapOf("data" to data)
+        val call = MethodCall("updateUserAttributes", arguments)
+        val res = mapOf(
+                "email" to mapOf(
+                        "isUpdated" to true,
+                        "nextStep" to mapOf(
+                                "updateAttributeStep" to "CONFIRM_ATTRIBUTE_WITH_CODE",
+                                "additionalInfo" to "{}",
+                                "codeDeliveryDetails" to mapOf(
+                                        "destination" to "test@test.com",
+                                        "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
+                                        "attributeName" to "email"
+                                )
+                        )
+                ),
+                "name" to mapOf(
+                        "isUpdated" to true,
+                        "nextStep" to mapOf(
+                                "updateAttributeStep" to "DONE",
+                                "additionalInfo" to "{}",
+                                "codeDeliveryDetails" to null
+                        )
+                )
+        )
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).success(res);
+    }
+
+    @Test()
+    fun updateUserAttributes_validation() {
+        var attributeOne: HashMap<String, String>
+        var attributeTwo: HashMap<String, String>
+        var attributes: List<Any>
+        var data: HashMap<String, Any>
+
+        // Throws an exception with no attributes
+        data = hashMapOf(
+                "foo" to "bar"
+        )
+        assertThrows(InvalidRequestException::class.java) {
+            FlutterUpdateUserAttributesRequest.validate(data)
+        }
+
+        // Throws an exception with no userAttributeKey
+        attributeOne = hashMapOf(
+                "value" to "custom attribute value"
+        )
+        attributeTwo = hashMapOf(
+                "userAttributeKey" to "my_custom_attribute_2",
+                "value" to "custom attribute value"
+        )
+        attributes = listOf(attributeOne, attributeTwo)
+        data = hashMapOf(
+                "attributes" to attributes
+        )
+        assertThrows(InvalidRequestException::class.java) {
+            FlutterUpdateUserAttributesRequest.validate(data)
+        }
+
+        // Throws an exception with no value
+        attributeOne = hashMapOf(
+                "userAttributeKey" to "my_custom_attribute"
+        )
+        attributeTwo = hashMapOf(
+                "userAttributeKey" to "my_custom_attribute_2",
+                "value" to "custom attribute value"
+        )
+        attributes = listOf(attributeOne, attributeTwo)
+        data = hashMapOf(
+                "attributes" to attributes
+        )
+        assertThrows(InvalidRequestException::class.java) {
+            FlutterUpdateUserAttributesRequest.validate(data)
+        }
+
+        // Does not throw an exception with valid params
+        attributeOne = hashMapOf(
+                "userAttributeKey" to "my_custom_attribute",
+                "value" to "custom attribute value"
+        )
+        attributeTwo = hashMapOf(
+                "userAttributeKey" to "my_custom_attribute_2",
+                "value" to "custom attribute value"
+        )
+        attributes = listOf(attributeOne, attributeTwo)
+        data = hashMapOf(
+                "attributes" to attributes
+        )
+        try {
+            FlutterUpdateUserAttributesRequest.validate(data)
         } catch (e: Exception) {
             fail("Expected no exception to be thrown with valid data")
         }

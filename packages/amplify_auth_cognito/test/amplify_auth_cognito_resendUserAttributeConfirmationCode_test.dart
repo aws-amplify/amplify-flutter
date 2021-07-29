@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_auth_cognito/src/CognitoSignUp/cognito_user_attributes.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -55,7 +56,7 @@ void main() {
     testCode = 1;
     var res = await auth.resendUserAttributeConfirmationCode(
       request: ResendUserAttributeConfirmationCodeRequest(
-        userAttributeKey: 'email',
+        userAttributeKey: CognitoUserAttributes.email,
       ),
     );
     expect(res, isInstanceOf<ResendUserAttributeConfirmationCodeResult>());
@@ -65,16 +66,14 @@ void main() {
       'resendUserAttributeConfirmationCode thrown PlatFormException results in AuthError',
       () async {
     testCode = 2;
-    AuthException err;
     try {
       await auth.resendUserAttributeConfirmationCode(
         request: ResendUserAttributeConfirmationCodeRequest(
-          userAttributeKey: 'email',
+          userAttributeKey: CognitoUserAttributes.email,
         ),
       );
     } on AuthException catch (e) {
-      err = e;
+      expect(e.message, "I am an exception");
     }
-    expect(err.message, "I am an exception");
   });
 }

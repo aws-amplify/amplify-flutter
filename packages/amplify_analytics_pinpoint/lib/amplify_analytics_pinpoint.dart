@@ -16,7 +16,6 @@
 library amplify_analytics_pinpoint;
 
 import 'package:amplify_analytics_plugin_interface/amplify_analytics_plugin_interface.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import './method_channel_amplify.dart';
@@ -31,11 +30,11 @@ class AmplifyAnalyticsPinpoint extends AnalyticsPluginInterface {
   static AmplifyAnalyticsPinpoint _instance =
       AmplifyAnalyticsPinpointMethodChannel();
 
-  static AnalyticsPluginInterface get instance => _instance;
+  static AmplifyAnalyticsPinpoint get instance => _instance;
 
   /// Platform-specific plugins should set this with their own platform-specific
   /// class that extends [AnalyticsPluginInterface] when they register themselves.
-  static set instance(AnalyticsPluginInterface instance) {
+  static set instance(AmplifyAnalyticsPinpoint instance) {
     PlatformInterface.verifyToken(instance, _token);
     _instance = instance;
   }
@@ -46,7 +45,7 @@ class AmplifyAnalyticsPinpoint extends AnalyticsPluginInterface {
     return _instance.addPlugin();
   }
 
-  Future<void> recordEvent({@required AnalyticsEvent event}) async {
+  Future<void> recordEvent({required AnalyticsEvent event}) async {
     return _instance.recordEvent(event: event);
   }
 
@@ -55,13 +54,13 @@ class AmplifyAnalyticsPinpoint extends AnalyticsPluginInterface {
   }
 
   Future<void> registerGlobalProperties(
-      {@required AnalyticsProperties globalProperties}) async {
+      {required AnalyticsProperties globalProperties}) async {
     return _instance.registerGlobalProperties(
         globalProperties: globalProperties);
   }
 
   Future<void> unregisterGlobalProperties(
-      {@required List<String> propertyNames}) async {
+      {required List<String> propertyNames}) async {
     return _instance.unregisterGlobalProperties(propertyNames: propertyNames);
   }
 
@@ -74,8 +73,8 @@ class AmplifyAnalyticsPinpoint extends AnalyticsPluginInterface {
   }
 
   Future<void> identifyUser(
-      {@required String userId,
-      @required AnalyticsUserProfile userProfile}) async {
+      {required String userId,
+      required AnalyticsUserProfile userProfile}) async {
     return _instance.identifyUser(userId: userId, userProfile: userProfile);
   }
 }

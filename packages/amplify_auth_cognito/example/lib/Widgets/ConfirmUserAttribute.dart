@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 // ignore_for_file: public_member_api_docs
 class ConfirmUserAttribute extends StatefulWidget {
   final String userAttributeKey;
-  ConfirmUserAttribute({@required this.userAttributeKey});
+  ConfirmUserAttribute({required this.userAttributeKey});
 
   @override
   _ConfirmUserAttributeState createState() => _ConfirmUserAttributeState();

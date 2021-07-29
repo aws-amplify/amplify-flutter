@@ -32,7 +32,10 @@ void main() {
           "isSignUpComplete": false,
           "nextStep": {
             "signUpStep": "DONE",
-            "codeDeliveryDetails": {"atttibuteName": "email"}
+            "codeDeliveryDetails": {
+              "attributeName": "email",
+              "destination": "test@test.test"
+            }
           }
         };
       } else {
@@ -43,6 +46,19 @@ void main() {
 
   tearDown(() {
     authChannel.setMockMethodCallHandler(null);
+  });
+
+  test('confirmSignUp request accepts and serializes options', () async {
+    final mockClientMetadata = {"key": "value"};
+    final mockOptions =
+        CognitoConfirmSignUpOptions(clientMetadata: mockClientMetadata);
+    final request = ConfirmSignUpRequest(
+            username: 'user', confirmationCode: '123456', options: mockOptions)
+        .serializeAsMap();
+
+    expect(request['options'], isInstanceOf<Map>());
+    expect(request['options']['clientMetadata'], isInstanceOf<Map>());
+    expect(request['options']['clientMetadata'], mockClientMetadata);
   });
 
   test('confirmnSignUp request returns a SignUpResult', () async {

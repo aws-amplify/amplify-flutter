@@ -35,15 +35,13 @@ void main() {
             "isSignedIn": false,
             "nextStep": {
               "signInStep": "DONE",
-              "codeDeliveryDetails": {"atttibuteName": "email"}
+              "codeDeliveryDetails": {"destination": "test@test.test"}
             }
           };
         case 2:
           return throw PlatformException(
-            code: "UnknownException",
-            details: Map.from({
-              "message": "I am an exception"
-            }));
+              code: "UnknownException",
+              details: Map.from({"message": "I am an exception"}));
       }
     });
   });
@@ -69,24 +67,26 @@ void main() {
     expect(res.nextStep, isInstanceOf<AuthNextStep>());
   });
 
-  test('signIn request accepts and serializes options',
-          () async {
-        var options = CognitoSignInOptions(clientMetadata: {'key': 'val'});
-        var req = SignInRequest(username: 'testUser', password: '123', options: options).serializeAsMap();
-        expect(req['options'], isInstanceOf<Map>());
-        expect(req['options']['clientMetadata'], isInstanceOf<Map>());
-        expect(req['options']['clientMetadata']['key'], equals('val'));
+  test('signIn request accepts and serializes options', () async {
+    var options = CognitoSignInOptions(clientMetadata: {'key': 'val'});
+    var req =
+        SignInRequest(username: 'testUser', password: '123', options: options)
+            .serializeAsMap();
+    expect(req['options'], isInstanceOf<Map>());
+    expect(req['options']['clientMetadata'], isInstanceOf<Map>());
+    expect(req['options']['clientMetadata']['key'], equals('val'));
   });
 
   test('signIn thrown PlatFormException results in AuthError', () async {
     testCode = 2;
-    AuthException err;
+    late AuthException err;
     try {
       await auth.signIn(
           request: SignInRequest(username: 'testUser', password: '123'));
     } on AuthException catch (e) {
-      err = e;
+      expect(e.message, "I am an exception");
+      return;
     }
-    expect(err.message, "I am an exception");
+    fail("No AmplifyException Thrown");
   });
 }

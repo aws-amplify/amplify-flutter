@@ -22,10 +22,9 @@ class ResendUserAttributeConfirmationCodeResult {
   AuthCodeDeliveryDetails codeDeliveryDetails;
 
   // ignore: public_member_api_docs
-  ResendUserAttributeConfirmationCodeResult({@required codeDeliveryDetails}) {
-    this.codeDeliveryDetails = AuthCodeDeliveryDetails(
-        attributeName: codeDeliveryDetails["attributeName"] ?? "",
-        deliveryMedium: codeDeliveryDetails["deliveryMedium"] ?? "",
-        destination: codeDeliveryDetails["destination"] ?? "");
-  }
+  ResendUserAttributeConfirmationCodeResult({required codeDeliveryDetails})
+      : this.codeDeliveryDetails = AuthCodeDeliveryDetails(
+            attributeName: codeDeliveryDetails["attributeName"] ?? "",
+            deliveryMedium: codeDeliveryDetails["deliveryMedium"] ?? "",
+            destination: codeDeliveryDetails["destination"] ?? "");
 }

@@ -13,12 +13,12 @@
  * permissions and limitations under the License.
  */
 class AuthSessionOptions {
-
   // TODO: Implement force refresh when/if amplify-libraries support it
 
   const AuthSessionOptions();
 
   Map<String, dynamic> serializeAsMap() {
-    throw UnimplementedError('serializeAsMap() has not been implemented on AuthSessionOptions.');
+    throw UnimplementedError(
+        'serializeAsMap() has not been implemented on AuthSessionOptions.');
   }
 }

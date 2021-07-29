@@ -40,12 +40,16 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthUser
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendSignUpCodeResult
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignInWithWebUIRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchUserAttributesResult
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterInvalidStateException
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdateUserAttributeRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdateUserAttributeResult
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdateUserAttributesRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdateUserAttributesResult
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmUserAttributeRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendUserAttributeConfirmationCodeRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendUserAttributeConfirmationCodeResult
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
+import com.amazonaws.amplify.amplify_auth_cognito.utils.isRedirectActivityDeclared
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthProvider
 import com.amplifyframework.auth.AuthSession
@@ -58,6 +62,7 @@ import com.amplifyframework.auth.result.AuthSignInResult
 import com.amplifyframework.auth.result.AuthSignUpResult
 import com.amplifyframework.auth.result.AuthUpdateAttributeResult
 import com.amplifyframework.auth.AuthUserAttribute
+import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.auth.AuthCodeDeliveryDetails
 import com.amplifyframework.core.Amplify
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -116,12 +121,12 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
   override fun onDetachedFromActivity() {}
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
-      if (requestCode == AWSCognitoAuthPlugin.WEB_UI_SIGN_IN_ACTIVITY_CODE) {
-        Amplify.Auth.handleWebUISignInResponse(data)
-        return true
-      }  else {
-        return false
-      }
+    var isHostedUIActivity = isRedirectActivityDeclared(context)
+    if (!isHostedUIActivity && requestCode == AWSCognitoAuthPlugin.WEB_UI_SIGN_IN_ACTIVITY_CODE) {
+      Amplify.Auth.handleWebUISignInResponse(data)
+      return true
+    }
+    return false
   }
 
   private fun checkData(@NonNull args: HashMap<String, Any>): HashMap<String, Any> {
@@ -173,6 +178,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       "fetchUserAttributes" -> onFetchUserAttributes(result)
       "signInWithWebUI" -> onSignInWithWebUI(result, data)
       "updateUserAttribute" -> onUpdateUserAttribute(result, data)
+      "updateUserAttributes" -> onUpdateUserAttributes(result, data)
       "confirmUserAttribute" -> onConfirmUserAttribute(result, data)
       "resendUserAttributeConfirmationCode" -> onResendUserAttributeConfirmationCode(result, data)
       else -> result.notImplemented()
@@ -214,6 +220,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       Amplify.Auth.confirmSignUp(
               req.username,
               req.confirmationCode,
+              req.options,
               { result -> prepareSignUpResult(flutterResult, result)},
               { error -> errorHandler.handleAuthError(flutterResult, error)}
       )
@@ -248,6 +255,8 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
               { result -> prepareSignInResult(flutterResult, result) },
               { error -> errorHandler.handleAuthError(flutterResult, error)}
       );
+    } catch (e: FlutterInvalidStateException) {
+      errorHandler.handleAuthError(flutterResult, e)
     } catch (e: Exception) {
       errorHandler.prepareGenericException(flutterResult, e)
     }
@@ -449,6 +458,20 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
     }
   }
 
+  private fun onUpdateUserAttributes (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
+    try {
+      FlutterUpdateUserAttributesRequest.validate(request)
+      var req = FlutterUpdateUserAttributesRequest(request)
+      Amplify.Auth.updateUserAttributes(
+              req.attributes,
+              { result -> prepareUpdateUserAttributesResult(flutterResult, result) },
+              { error -> errorHandler.handleAuthError(flutterResult, error) }
+      );
+    } catch (e: Exception) {
+      errorHandler.prepareGenericException(flutterResult, e)
+    }
+  }
+
   private fun onConfirmUserAttribute (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
     try {
       FlutterConfirmUserAttributeRequest.validate(request)
@@ -551,6 +574,13 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
     var updateUserAttributeResult = FlutterUpdateUserAttributeResult(result);
     Handler (Looper.getMainLooper()).post {
       flutterResult.success(updateUserAttributeResult.toValueMap());
+    }
+  }
+
+  fun prepareUpdateUserAttributesResult(@NonNull flutterResult: Result, @NonNull result: Map<AuthUserAttributeKey, AuthUpdateAttributeResult>) {
+    var updateUserAttributesResult = FlutterUpdateUserAttributesResult(result);
+    Handler (Looper.getMainLooper()).post {
+      flutterResult.success(updateUserAttributesResult.toValueMap());
     }
   }
 

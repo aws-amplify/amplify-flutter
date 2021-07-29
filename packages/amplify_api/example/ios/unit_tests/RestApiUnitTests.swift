@@ -27,18 +27,21 @@ class RestApiUnitTests: XCTestCase {
     
     func test_get_returns_success() throws {
         class MockApiBridge: ApiBridge {
-            override func get(request: RESTRequest, listener: ((AmplifyOperation<RESTOperationRequest, Data, APIError>.OperationResult) -> Void)?) -> RESTOperation?{
+            static let body = "{\"success\":\"get call succeed!\",\"url\":\"/items\"}"
+            
+            override func get(request: RESTRequest, listener: RESTOperation.ResultListener?) -> RESTOperation {
                 
                 XCTAssertEqual(request.path, "/items")
                 
-                let data : Data = "{\"success\":\"get call succeed!\",\"url\":\"/items\"}".data(using: .utf8)!
-                listener?(.success(data))
-                
-                return nil
+                return MockRESTOperation(
+                    request: request,
+                    operationType: .get,
+                    result: MockAPIResponse(statusCode: 200, body: MockApiBridge.body))
             }
         }
         
-        let data : Data = "{\"success\":\"get call succeed!\",\"url\":\"/items\"}".data(using: .utf8)!
+        let data: Data = MockApiBridge.body.data(using: .utf8)!
+        
         pluginUnderTest = SwiftAmplifyApiPlugin(bridge: MockApiBridge())
         
         pluginUnderTest.innerHandle(
@@ -57,9 +60,8 @@ class RestApiUnitTests: XCTestCase {
 
     func test_post_all_inputs_returns_success() throws {
         
-        let data : Data = "{\"success\": \"post call succeed!\",\"url\":\"/items?queryParameterA=queryValueA&queryParameterB=queryValueB\",\"body\": {\"name\": \"Mow the lawn\"}}".data(using: .utf8)!
-        
         class MockApiBridge: ApiBridge {
+            static let body = "{\"success\": \"post call succeed!\",\"url\":\"/items?queryParameterA=queryValueA&queryParameterB=queryValueB\",\"body\": {\"name\": \"Mow the lawn\"}}"
             
             static let flutterData : FlutterStandardTypedData = FlutterStandardTypedData.init(bytes : "{\"name\":\"Mow the lawn\"}".data(using: .utf8)!)
 
@@ -72,21 +74,22 @@ class RestApiUnitTests: XCTestCase {
                 "queryParameterB" : "queryValueB"
             ]
             
-            override func put(request: RESTRequest, listener: ((AmplifyOperation<RESTOperationRequest, Data, APIError>.OperationResult) -> Void)?) -> RESTOperation?{
+            override func put(request: RESTRequest, listener: RESTOperation.ResultListener?) -> RESTOperation {
                 
                 XCTAssertEqual(request.path, "/items")
                 XCTAssertEqual(request.body, MockApiBridge.flutterData.data)
                 XCTAssertEqual(request.apiName, "restapi")
-                XCTAssertEqual(request.headers, MockApiBridge.headers)
+                XCTAssertTrue(MockApiBridge.headers.allSatisfy { request.headers?[$0.key] == $0.value })
                 XCTAssertEqual(request.queryParameters, MockApiBridge.queryParameters)
-
                 
-                let data : Data = "{\"success\": \"post call succeed!\",\"url\":\"/items?queryParameterA=queryValueA&queryParameterB=queryValueB\",\"body\": {\"name\": \"Mow the lawn\"}}".data(using: .utf8)!
-                listener?(.success(data))
-                
-                return nil
+                return MockRESTOperation(
+                    request: request,
+                    operationType: .put,
+                    result: MockAPIResponse(statusCode: 200, body: MockApiBridge.body))
             }
         }
+        
+        let data: Data = MockApiBridge.body.data(using: .utf8)!
 
         pluginUnderTest = SwiftAmplifyApiPlugin(bridge: MockApiBridge())
         
@@ -110,18 +113,20 @@ class RestApiUnitTests: XCTestCase {
     
     func test_delete_returns_success() throws {
         class MockApiBridge: ApiBridge {
-            override func delete(request: RESTRequest, listener: ((AmplifyOperation<RESTOperationRequest, Data, APIError>.OperationResult) -> Void)?) -> RESTOperation?{
+            static let body = "{\"success\": \"delete call succeed!\",\"url\": \"items\"}"
+            
+            override func delete(request: RESTRequest, listener: RESTOperation.ResultListener?) -> RESTOperation {
                 
                 XCTAssertEqual(request.path, "/items")
-
-                let data : Data = "{\"success\": \"delete call succeed!\",\"url\": \"items\"}".data(using: .utf8)!
-                listener?(.success(data))
                 
-                return nil
+                return MockRESTOperation(
+                    request: request,
+                    operationType: .delete,
+                    result: MockAPIResponse(statusCode: 200, body: MockApiBridge.body))
             }
         }
         
-        let data : Data = "{\"success\": \"delete call succeed!\",\"url\": \"items\"}".data(using: .utf8)!
+        let data : Data = MockApiBridge.body.data(using: .utf8)!
         pluginUnderTest = SwiftAmplifyApiPlugin(bridge: MockApiBridge())
         
         pluginUnderTest.innerHandle(
@@ -140,15 +145,17 @@ class RestApiUnitTests: XCTestCase {
 
     func test_get_status_code_error() throws {
         
-        
         class MockApiBridge: ApiBridge {
-            override func get(request: RESTRequest, listener: ((AmplifyOperation<RESTOperationRequest, Data, APIError>.OperationResult) -> Void)?) -> RESTOperation?{
+            override func get(request: RESTRequest, listener: RESTOperation.ResultListener?) -> RESTOperation {
                 
                 XCTAssertEqual(request.path, "/items")
 
-                listener?(.failure(APIError.httpStatusError(400, HTTPURLResponse())))
+                let headers = [ "key": "value" ]
                 
-                return nil
+                return MockRESTOperation(
+                    request: request,
+                    operationType: .get,
+                    result: MockAPIResponse(statusCode: 400, body: "", headers: headers))
             }
         }
         
@@ -164,27 +171,24 @@ class RestApiUnitTests: XCTestCase {
             ],
             result: { (results) in
                 
-                let apiException = results as! FlutterError
+                let apiException = results as! [String: Any]
                 
-                XCTAssertEqual(apiException.code, "ApiException")
-                XCTAssertEqual(apiException.message, ErrorMessages.defaultFallbackErrorMessage)
-                
-                let errorMap: [String: String] = apiException.details as! [String : String]
-                let referenceError = APIError.httpStatusError(400, HTTPURLResponse())
-
-                XCTAssertEqual(referenceError.errorDescription, errorMap["message"])
-                XCTAssertEqual(referenceError.recoverySuggestion, errorMap["recoverySuggestion"])
+                XCTAssertEqual(apiException["statusCode"]! as! Int, 400)
+                XCTAssertEqual(apiException["headers"]! as! [String: String], [ "key": "value" ])
             }
         )
     }
     
     func test_get_invalid_input_map_error() throws {
         class MockApiBridge: ApiBridge {
-            override func get(request: RESTRequest, listener: ((AmplifyOperation<RESTOperationRequest, Data, APIError>.OperationResult) -> Void)?) -> RESTOperation?{
+            override func get(request: RESTRequest, listener: RESTOperation.ResultListener?) -> RESTOperation {
                 // This should not be called
                 XCTAssertTrue(false, "This code should not run")
                 
-                return nil
+                return MockRESTOperation(
+                    request: request,
+                    operationType: .get,
+                    result: .empty)
             }
         }
         
@@ -209,18 +213,14 @@ class RestApiUnitTests: XCTestCase {
     
     func test_cancel_get_returns_success() throws {
         class MockApiBridge: ApiBridge {
-            override func get(request: RESTRequest, listener: ((AmplifyOperation<RESTOperationRequest, Data, APIError>.OperationResult) -> Void)?) -> RESTOperation?{
+            override func get(request: RESTRequest, listener: RESTOperation.ResultListener?) -> RESTOperation {
                 
                 XCTAssertEqual(request.path, "/items")
                 
-                let request = RESTOperationRequest(apiName: request.apiName,
-                                                           operationType: .get,
-                                                           path: request.path,
-                                                           queryParameters: request.queryParameters,
-                                                           body: request.body,
-                                                           options: RESTOperationRequest.Options())
-                let operation = MockAPIOperation(request: request)
-                return operation
+                return MockRESTOperation(
+                    request: request,
+                    operationType: .get,
+                    result: .empty)
             }
         }
         
@@ -269,18 +269,14 @@ class RestApiUnitTests: XCTestCase {
     
     func test_multiple_cancel_success() throws {
         class MockApiBridge: ApiBridge {
-            override func get(request: RESTRequest, listener: ((AmplifyOperation<RESTOperationRequest, Data, APIError>.OperationResult) -> Void)?) -> RESTOperation?{
+            override func get(request: RESTRequest, listener: RESTOperation.ResultListener?) -> RESTOperation {
                 
                 XCTAssertEqual(request.path, "/items")
                 
-                let request = RESTOperationRequest(apiName: request.apiName,
-                                                           operationType: .get,
-                                                           path: request.path,
-                                                           queryParameters: request.queryParameters,
-                                                           body: request.body,
-                                                           options: RESTOperationRequest.Options())
-                let operation = MockAPIOperation(request: request)
-                return operation
+                return MockRESTOperation(
+                    request: request,
+                    operationType: .get,
+                    result: .empty)
             }
         }
         
@@ -322,16 +318,67 @@ class RestApiUnitTests: XCTestCase {
     }
 }
 
-class MockAPIOperation: AmplifyOperation<RESTOperationRequest, Data, APIError>, RESTOperation {
-    override func pause() {
+struct MockAPIResponse {
+    static let empty = MockAPIResponse(statusCode: 200, body: "")
+    
+    let statusCode: Int
+    let headers: [String: String]?
+    let data: Data
+    
+    init(statusCode: Int, body: String, headers: [String: String]? = nil) {
+        self.statusCode = statusCode
+        self.headers = headers
+        self.data = body.data(using: .utf8)!
+    }
+    
+    var asOperationResult: Result<Data, APIError> {
+        if statusCode < 200 || statusCode > 299 {
+            return .failure(.httpStatusError(statusCode, HTTPURLResponse(
+                                                            url: URL(string: "dummyURL")!,
+                                                            statusCode: statusCode,
+                                                            httpVersion: nil,
+                                                            headerFields: headers)!))
+        }
+        return .success(data)
+    }
+}
+
+class MockRESTOperation: AmplifyOperation<RESTOperationRequest, Data, APIError>, RESTOperation {
+    let result: MockAPIResponse
+    
+    override func main() {
+        if isCancelled {
+            finish()
+            return
+        }
+        
+        dispatch(result: result.asOperationResult)
+        finish()
     }
 
-    override func resume() {
-    }
-
-    init(request: Request) {
+    private init(request: RESTOperationRequest, result: MockAPIResponse) {
+        self.result = result
         super.init(categoryType: .api,
                    eventName: request.operationType.hubEventName,
                    request: request)
+    }
+    
+    convenience init(request: RESTRequest, operationType: RESTOperationType, result: MockAPIResponse) {
+        let restOperationRequest = RESTOperationRequest(
+            request: request,
+            operationType: operationType)
+        self.init(request: restOperationRequest, result: result)
+    }
+}
+
+extension RESTOperationRequest {
+    init(request: RESTRequest, operationType: RESTOperationType) {
+        self = RESTOperationRequest(apiName: request.apiName,
+                                    operationType: operationType,
+                                    path: request.path,
+                                    headers: request.headers,
+                                    queryParameters: request.queryParameters,
+                                    body: request.body,
+                                    options: RESTOperationRequest.Options())
     }
 }

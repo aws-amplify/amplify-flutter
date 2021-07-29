@@ -24,15 +24,15 @@ enum ModelOperation { CREATE, UPDATE, DELETE, READ }
 
 class AuthRule {
   final AuthStrategy authStrategy;
-  final String ownerField; //opt
-  final String identityClaim; //opt
-  final String groupClaim; //opt
-  final List<String> groups; //opt
-  final String groupsField; //opt
-  final List<ModelOperation> operations; //opt
+  final String? ownerField; //opt
+  final String? identityClaim; //opt
+  final String? groupClaim; //opt
+  final List<String>? groups; //opt
+  final String? groupsField; //opt
+  final List<ModelOperation>? operations; //opt
 
   const AuthRule(
-      {this.authStrategy,
+      {required this.authStrategy,
       this.ownerField,
       this.identityClaim,
       this.groupClaim,
@@ -41,13 +41,13 @@ class AuthRule {
       this.operations});
 
   AuthRule copyWith({
-    AuthStrategy authStrategy,
-    String ownerField,
-    String identityClaim,
-    String groupClaim,
-    List<String> groups,
-    String groupsField,
-    List<ModelOperation> operations,
+    AuthStrategy? authStrategy,
+    String? ownerField,
+    String? identityClaim,
+    String? groupClaim,
+    List<String>? groups,
+    String? groupsField,
+    List<ModelOperation>? operations,
   }) {
     return AuthRule(
       authStrategy: authStrategy ?? this.authStrategy,
@@ -74,8 +74,6 @@ class AuthRule {
   }
 
   factory AuthRule.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-
     return AuthRule(
         authStrategy: AuthStrategy.values[map['authStrategy']],
         ownerField: map['ownerField'],
