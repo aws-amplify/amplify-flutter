@@ -16,9 +16,7 @@
 library amplify_authenticator;
 
 import 'package:amplify_authenticator/src/keys.dart';
-
 import 'package:amplify_authenticator/src/screens/confirm_signin_screen.dart';
-
 import 'package:flutter/material.dart';
 
 //State
@@ -298,8 +296,6 @@ class _AuthenticatorState extends State<Authenticator> {
   @override
   void dispose() {
     _stateMachineBloc.dispose();
-
      super.dispose();
-
   }
 }
