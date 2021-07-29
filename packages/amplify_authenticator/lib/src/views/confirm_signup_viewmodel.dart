@@ -35,7 +35,7 @@ class ConfirmSignUpViewModel extends BaseViewModel {
     _authBloc.authEvent.add(AuthConfirmSignUp(confirmation));
 
     await Future.any([
-      _authBloc.exceptions.first,
+      _authBloc.exceptions!.first,
       _authBloc.stream.first,
     ]);
     setBusy(false);
@@ -45,6 +45,7 @@ class ConfirmSignUpViewModel extends BaseViewModel {
 
   void goToSignIn() {
     clean();
+    _authBloc.exceptionsSink!.add(null);
     _authBloc.authEvent.add(const AuthChangeScreen(AuthScreen.signin));
   }
 

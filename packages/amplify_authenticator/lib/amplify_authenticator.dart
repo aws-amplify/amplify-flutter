@@ -46,6 +46,7 @@ import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 //Widgets
 import 'package:amplify_authenticator/src/widgets/forms.dart';
 import 'package:amplify_authenticator/src/widgets/default_forms.dart';
+import 'package:amplify_authenticator/src/widgets/auth_exceptions.dart';
 
 //Exports
 export 'package:amplify_authenticator/src/widgets/forms.dart';
@@ -250,7 +251,7 @@ class _AuthenticatorState extends State<Authenticator> {
                     stream: _stateMachineBloc.stream,
                     builder: (context, snapshot) {
                       final state = snapshot.data ?? const AuthLoading();
-                      Widget? screen;
+                      late Widget screen;
                       if (state is AuthLoading) {
                         screen = LoadingScreen();
                       } else if (state is Authenticated) {
@@ -269,9 +270,17 @@ class _AuthenticatorState extends State<Authenticator> {
                         screen = ConfirmSignInScreen();
                       }
 
-                      return Center(
-                        child: SingleChildScrollView(
-                          child: screen,
+                      return Container(
+                        padding: const EdgeInsets.only(top: 40, bottom: 40),
+                        child: Center(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                const AuthExceptionsWidget(),
+                                screen,
+                              ],
+                            ),
+                          ),
                         ),
                       );
                     },

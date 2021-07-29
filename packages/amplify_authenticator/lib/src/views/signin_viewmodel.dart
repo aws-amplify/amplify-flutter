@@ -36,7 +36,7 @@ class SignInViewModel extends BaseViewModel {
     );
     _authBloc.authEvent.add(AuthSignIn(singIn));
     await Future.any([
-      _authBloc.exceptions.first,
+      _authBloc.exceptions!.first,
       _authBloc.stream.first,
     ]);
     setBusy(false);
@@ -50,6 +50,7 @@ class SignInViewModel extends BaseViewModel {
 
   void goToSignUp() {
     clean();
+    _authBloc.exceptionsSink!.add(null);
     _authBloc.authEvent.add(const AuthChangeScreen(AuthScreen.signup));
   }
 

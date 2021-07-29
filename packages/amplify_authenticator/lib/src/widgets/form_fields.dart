@@ -339,7 +339,6 @@ class ConfirmSignUpFormField extends StatelessWidget {
         _key = const Key(keyCodeConfirmSignUpFormfield);
         break;
       default:
-        //throw exception
         break;
     }
 

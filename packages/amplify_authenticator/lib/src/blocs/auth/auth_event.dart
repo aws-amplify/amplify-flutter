@@ -50,3 +50,7 @@ class AuthConfirmSignIn extends AuthEvent {
 class AuthSignOut extends AuthEvent {
   const AuthSignOut();
 }
+
+class AuthExceptionEvent extends AuthEvent {
+  const AuthExceptionEvent();
+}

@@ -56,7 +56,7 @@ class AmplifyAuthService implements AuthService {
       confirmationCode: code,
     );
     if (!result.isSignUpComplete) {
-      throw const AuthenticatorException('Could not confirm');
+      throw AuthenticatorException('Could not confirm');
     }
   }
 
