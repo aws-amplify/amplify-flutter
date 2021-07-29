@@ -32,6 +32,13 @@ class GraphQLRequestFactory {
 
   static GraphQLRequestFactory get instance => _instance;
 
+  String _getName(ModelSchema schema, GraphQLRequestOperation operation) {
+    // schema has been validated & schema.pluralName is non-nullable
+    return operation == GraphQLRequestOperation.list
+        ? schema.pluralName!
+        : schema.name;
+  }
+
   String _getModelType(ModelFieldTypeEnum val) {
     switch (val) {
       case ModelFieldTypeEnum.string:
@@ -45,13 +52,19 @@ class GraphQLRequestFactory {
     }
   }
 
-  String _getFieldsFromModelType(ModelSchema schema) {
+  String _getFieldsFromModelType(
+      ModelSchema schema, GraphQLRequestOperation operation) {
     // schema has been validated & schema.fields is non-nullable
-    Map<String, ModelField> fieldsMap = schema.fields!;
-    return fieldsMap.entries
+    String fields = schema.fields!.entries
         .map((entry) => entry.value.association == null ? entry.key : '')
         .toList()
         .join(' ');
+
+    if (operation == GraphQLRequestOperation.list) {
+      fields = 'items { $fields } nextToken';
+    }
+
+    return fields;
   }
 
   ModelSchema _getAndValidateSchema(
@@ -130,31 +143,34 @@ class GraphQLRequestFactory {
       String? id,
       required GraphQLRequestType requestType,
       required GraphQLRequestOperation requestOperation}) {
+    // retrieve schema from ModelType and validate required properties
     ModelSchema schema = _getAndValidateSchema(modelType, requestOperation);
 
-    // e.g. "Blog"
-    String name = schema.name;
-    // fields to retrieve, e.g. "id name createdAt"
-    String fields = _getFieldsFromModelType(schema);
+    // e.g. "Blog" or "Blogs"
+    String name = _getName(schema, requestOperation);
     // e.g. "query"
     String requestTypeVal = describeEnum(requestType);
     // e.g. "get"
     String requestOperationVal = describeEnum(requestOperation);
-    // {upper: "($id: ID!)", lower: "(id: $id)"}
-    DocumentInputs docInputs = _buildDocumentInputs(schema, requestOperation);
-
-    if (requestOperation == GraphQLRequestOperation.list) {
-      name = schema.pluralName!;
-      fields = 'items { $fields } nextToken';
-    }
-
-    String doc =
-        '''$requestTypeVal $requestOperationVal$name${docInputs.upper} { $requestOperationVal$name${docInputs.lower} { $fields } }''';
+    // e.g. {upper: "($id: ID!)", lower: "(id: $id)"}
+    DocumentInputs documentInputs =
+        _buildDocumentInputs(schema, requestOperation);
+    // e.g. "id name createdAt" - fields to retrieve
+    String fields = _getFieldsFromModelType(schema, requestOperation);
+    // e.g. "getBlog"
+    String requestName = "$requestOperationVal$name";
+    // e.g. query getBlog($id: ID!, $content: String) { getBlog(id: $id, content: $content) { id name createdAt } }
+    String document =
+        '''$requestTypeVal $requestOperationVal$name${documentInputs.upper} { $requestOperationVal$name${documentInputs.lower} { $fields } }''';
 
     // TODO: convert model to variable input for non-get operations
     Map<String, dynamic> variables =
         requestOperation == GraphQLRequestOperation.get ? {"id": id} : {};
 
-    return GraphQLRequest<T>(document: doc, variables: variables);
+    return GraphQLRequest<T>(
+        document: document,
+        variables: variables,
+        modelType: modelType,
+        decodePath: "$requestName");
   }
 }
