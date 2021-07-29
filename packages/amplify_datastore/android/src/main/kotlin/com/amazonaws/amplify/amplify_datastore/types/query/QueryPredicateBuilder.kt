@@ -18,6 +18,7 @@ package com.amazonaws.amplify.amplify_datastore.types.query
 import com.amazonaws.amplify.amplify_datastore.util.safeCastToList
 import com.amazonaws.amplify.amplify_datastore.util.safeCastToMap
 import com.amplifyframework.core.model.ModelSchema
+import com.amplifyframework.core.model.annotations.BelongsTo
 import com.amplifyframework.core.model.query.predicate.QueryField
 import com.amplifyframework.core.model.query.predicate.QueryPredicate
 import com.amplifyframework.core.model.query.predicate.QueryPredicateGroup
@@ -41,7 +42,11 @@ class QueryPredicateBuilder {
                 var field = queryPredicateOperationMap["field"] as String
 
                 if (modelSchema?.associations?.containsKey(field) == true) {
-                    field = modelSchema.associations.getValue(field).targetName
+                    val association = modelSchema.associations.getValue(field);
+
+                    if (BelongsTo::class.java.simpleName.equals(association.name)) {
+                        field = modelSchema.associations.getValue(field).targetName
+                    }
                 }
 
                 val queryField: QueryField = QueryField.field(field)
