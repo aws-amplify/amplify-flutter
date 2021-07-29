@@ -13,12 +13,34 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
+import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_api/src/graphql/graphql_request_factory.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
 class ModelQueriesFactory extends ModelQueriesInterface {
+  // Singleton methods/properties
+  // usage: ModelQueriesFactory.instance;
+  ModelQueriesFactory._();
+
+  static final ModelQueriesFactory _instance = ModelQueriesFactory._();
+
+  static ModelQueriesFactory get instance => _instance;
+
   @override
   GraphQLRequest<T> get<T extends Model>(ModelType<T> modelType, String id) {
-    throw UnimplementedError("get() has not been implemented.");
+    return GraphQLRequestFactory.instance.buildQuery<T>(
+        modelType: modelType,
+        id: id,
+        requestType: GraphQLRequestType.query,
+        requestOperation: GraphQLRequestOperation.get);
+  }
+
+  @override
+  GraphQLRequest<PaginatedResult<T>> list<T extends Model>(
+      ModelType<T> modelType,
+      {QueryPredicate? where,
+      ModelPagination? modelPagination}) {
+    // TODO: implement list
+    throw UnimplementedError();
   }
 }

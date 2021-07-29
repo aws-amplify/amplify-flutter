@@ -13,9 +13,10 @@
  * permissions and limitations under the License.
  */
 
-export '../amplify_api_graphql_helpers_interface.dart';
+export 'GraphQL/GraphQLHelpers.dart';
 export 'GraphQL/GraphQLOperation.dart';
 export 'GraphQL/GraphQLRequest.dart';
+export 'GraphQL/GraphQLRequestType.dart';
 export 'GraphQL/GraphQLResponse.dart';
 export 'GraphQL/GraphQLResponseError.dart';
 export 'GraphQL/GraphQLSubscriptionOperation.dart';
