@@ -54,7 +54,6 @@ export 'package:amplify_authenticator/src/widgets/form_fields.dart';
 export 'package:amplify_authenticator/src/widgets/buttons.dart'
     show SignOutButton;
 
-///
 // ignore: must_be_immutable
 class Authenticator extends StatefulWidget {
   ///# Amplify Authenticator

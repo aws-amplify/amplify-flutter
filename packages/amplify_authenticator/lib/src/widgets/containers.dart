@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
 import 'package:amplify_authenticator/src/constants/theme_constants.dart';
 import 'package:amplify_authenticator/src/widgets/forms.dart';

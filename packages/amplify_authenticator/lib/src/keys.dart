@@ -9,9 +9,7 @@ const String keyPasswordSignInFormfield = 'passwordSignInFormField';
 
 const String keyUsernameSignUpFormField = 'usernameSignUpFormField';
 const String keyPasswordSignUpFormField = 'passwordSignUpFormField';
-
 const String keyAddressSignUpFormField = 'addresslSignUpFormField';
-
 const String keyBirthdateSignUpFormField = 'birthdateSignUpFormField';
 const String keyEmailSignUpFormField = 'emailSignUpFormField';
 const String keyFamilyNameSignUpFormField = 'familyNameSignUpFormField';
@@ -43,7 +41,6 @@ const String keyCodeConfirmSignUpFormfield = 'codeConfirmSignUpFormField';
 //Confirm Sign In form field keys
 
 const String keyCodeConfirmSignInFormfield = 'codeConfirmSignUpFormField';
-
 const String keyPasswordConfirmSignInFormField =
     'passwordConfirmSignInFormField';
 const String keyAddressConfirmSignInFormField =

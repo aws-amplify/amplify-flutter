@@ -1,5 +1,4 @@
 import 'package:amplify_authenticator/src/enums/confirm_signin_types.dart';
-
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/widgets/containers.dart';
