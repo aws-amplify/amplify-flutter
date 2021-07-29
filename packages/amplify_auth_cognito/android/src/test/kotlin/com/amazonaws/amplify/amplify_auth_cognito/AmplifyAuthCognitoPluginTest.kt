@@ -16,10 +16,7 @@
 package com.amazonaws.amplify.amplify_auth_cognito
 
 import android.app.Activity
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmUserAttributeRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendUserAttributeConfirmationCodeRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdateUserAttributeRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdateUserAttributesRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.*
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.BasicAWSCredentials
@@ -46,8 +43,7 @@ import com.amplifyframework.logging.Logger
 import com.google.gson.internal.LinkedTreeMap
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
-import org.junit.Assert.assertThrows
-import org.junit.Assert.fail
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -121,6 +117,50 @@ class AmplifyAuthCognitoPluginTest {
 
         // Assert
         verify(mockResult, times(1)).success(res);
+    }
+
+    @Test
+    fun signUpRequestMetadata_returnsSuccess() {
+        // Arrange
+        val clientMetadata = hashMapOf("attribute" to "value")
+        val options = hashMapOf(
+            "clientMetadata" to clientMetadata
+        )
+        val data: HashMap<String, *> = hashMapOf(
+            "username" to "testUser",
+            "password" to "testPassword",
+            "options" to options
+        )
+
+        // Act
+        val request  = FlutterSignUpRequest(data)
+
+        // Assert
+        assertEquals(clientMetadata, request.options.clientMetadata)
+        assertEquals(0, request.options.validationData.size)
+        assertEquals(0, request.options.userAttributes.size)
+    }
+
+    @Test
+    fun signUpRequestValidationdata_returnsSuccess() {
+        // Arrange
+        val validationData = hashMapOf("attribute" to "value")
+        val options = hashMapOf(
+            "validationData" to validationData
+        )
+        val data: HashMap<String, *> = hashMapOf(
+            "username" to "testUser",
+            "password" to "testPassword",
+            "options" to options
+        )
+
+        // Act
+        val request  = FlutterSignUpRequest(data)
+
+        // Assert
+        assertEquals(validationData, request.options.validationData)
+        assertEquals(0, request.options.clientMetadata.size)
+        assertEquals(0, request.options.userAttributes.size)
     }
 
     @Test
