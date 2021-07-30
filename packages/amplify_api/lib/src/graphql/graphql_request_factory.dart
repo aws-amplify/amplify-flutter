@@ -161,7 +161,7 @@ class GraphQLRequestFactory {
     String requestName = "$requestOperationVal$name";
     // e.g. query getBlog($id: ID!, $content: String) { getBlog(id: $id, content: $content) { id name createdAt } }
     String document =
-        '''$requestTypeVal $requestOperationVal$name${documentInputs.upper} { $requestOperationVal$name${documentInputs.lower} { $fields } }''';
+        '''$requestTypeVal $requestName${documentInputs.upper} { $requestName${documentInputs.lower} { $fields } }''';
 
     // TODO: convert model to variable input for non-get operations
     Map<String, dynamic> variables =
@@ -171,6 +171,6 @@ class GraphQLRequestFactory {
         document: document,
         variables: variables,
         modelType: modelType,
-        decodePath: "$requestName");
+        decodePath: requestName);
   }
 }

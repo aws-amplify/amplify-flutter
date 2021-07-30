@@ -17,7 +17,14 @@ class GraphQLResponseDecoder {
       required List<GraphQLResponseError> errors}) {
     // if no ModelType fallback to default
     if (request.modelType == null) {
-      return GraphQLResponse<T>(data: data as T, errors: errors);
+      if (T == String) {
+        return GraphQLResponse(
+            data: data as T, errors: errors); // <T> is implied
+      } else {
+        throw ApiException(
+            'Decoding of the response type provided is currently unsupported',
+            recoverySuggestion: "Please provide a Model Type or type 'String'");
+      }
     }
 
     if (request.decodePath == null) {
@@ -25,12 +32,23 @@ class GraphQLResponseDecoder {
           recoverySuggestion: 'Include decodePath when creating a request');
     }
 
-    Map<String, dynamic> dataJson = json.decode(data);
+    Map<String, dynamic>? dataJson = json.decode(data);
+    if (dataJson == null) {
+      throw ApiException(
+          'Unable to decode json response, data received was null');
+    }
+
     request.decodePath!.split(".").forEach((element) {
-      dataJson = dataJson[element];
+      if (dataJson![element] == null) {
+        throw ApiException(
+            'decodePath did not match the structure of the JSON response',
+            recoverySuggestion:
+                'Include decodePath when creating a request that includes a modelType.');
+      }
+      dataJson = dataJson![element];
     });
 
-    T decodedData = request.modelType!.fromJson(dataJson) as T;
+    T decodedData = request.modelType!.fromJson(dataJson!) as T;
 
     return GraphQLResponse<T>(data: decodedData, errors: errors);
   }
