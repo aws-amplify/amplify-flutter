@@ -42,7 +42,7 @@ public class SwiftAmplifyAnalyticsPinpointPlugin: NSObject, FlutterPlugin {
         switch method{
             case "addPlugin":
                 FlutterAnalytics.addPlugin(result: result)
-            case "sessionStart":
+            case "startSession":
                 // No-op
                 result(nil)
             case "recordEvent":
@@ -60,7 +60,7 @@ public class SwiftAmplifyAnalyticsPinpointPlugin: NSObject, FlutterPlugin {
             case "identifyUser":
                 FlutterAnalytics.identifyUser(arguments: callArgs, result: result, bridge: bridge)
             default :
-                print("unknown event")
+                result(FlutterMethodNotImplemented)
         }
     }
 
