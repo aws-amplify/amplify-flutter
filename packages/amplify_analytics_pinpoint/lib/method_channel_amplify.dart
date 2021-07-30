@@ -46,9 +46,7 @@ class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpoint {
   @override
   Future<void> onConfigure() async {
     try {
-      if (Platform.isAndroid) {
-        await _channel.invokeMethod('startSession');
-      }
+      await _channel.invokeMethod('startSession');
     } on Exception {
       // TODO: log, but should not happen
     }
