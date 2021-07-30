@@ -35,6 +35,9 @@ export 'CognitoSession/AWSCredentials.dart';
 export 'CognitoSession/CognitoAuthSession.dart';
 export 'CognitoSession/CognitoSessionOptions.dart';
 
+// Device
+export 'CognitoDevice/cognito_device.dart';
+
 // Exceptions
 export 'package:amplify_auth_plugin_interface/src/Exceptions/AuthException.dart';
 export 'package:amplify_auth_plugin_interface/src/Exceptions/AliasExistsException.dart';
