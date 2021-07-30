@@ -15,9 +15,9 @@
 
 library amplify_authenticator;
 
+import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/screens/confirm_signin_screen.dart';
-import 'package:flutter/material.dart';
 
 //State
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
@@ -40,6 +40,9 @@ import 'package:amplify_authenticator/src/views/signup_viewmodel.dart';
 import 'package:amplify_authenticator/src/views/confirm_signup_viewmodel.dart';
 import 'package:amplify_authenticator/src/views/confirm_signin_viewmodel.dart';
 
+//Enums
+import 'package:amplify_authenticator/src/enums/alias.dart';
+
 //Services
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 
@@ -49,6 +52,8 @@ import 'package:amplify_authenticator/src/widgets/default_forms.dart';
 import 'package:amplify_authenticator/src/widgets/auth_exceptions.dart';
 
 //Exports
+
+export 'package:amplify_authenticator/src/enums/alias.dart';
 export 'package:amplify_authenticator/src/widgets/forms.dart';
 export 'package:amplify_authenticator/src/widgets/form_fields.dart';
 export 'package:amplify_authenticator/src/widgets/buttons.dart'
@@ -60,17 +65,17 @@ class Authenticator extends StatefulWidget {
   ///
   /// A widget that allows customers to authenticate their apps.
   ///
-  ///This wrapper requires a child widget to be passed as an argument.
-  ///To work with custom forms there is the need to pass up to 3 additional
-  ///arguments, signInForm, signUpForm and confirmSignInForm with their
-  ///respective form fields.
+  ///The Authenticator widget requires two arguments, a child widget and an username alias
+  ///to define the initial authentication flow.
+  ///
+  ///This authenticator accepts the following custom forms, sign in, sign up and confirm sign in.
   ///
   ///Note that working with custom forms is optional. Thus, if no additional arguments
   ///are passed, the authenticator will defined the following default forms with their
   ///respective form fields:
   ///
   /// 1. Sign in:
-  ///     - Username
+  ///     - Alias (username, email or phone number)
   ///     - Password
   /// 2. Sign Up:
   ///     - Username
@@ -83,15 +88,31 @@ class Authenticator extends StatefulWidget {
   ///     - define
   ///
   Authenticator(
-      {required this.child,
+      {required this.usernameAlias,
+      required this.child,
       SignInForm? signInForm,
       SignUpForm? signUpForm,
       ConfirmSignInForm? confirmSignInForm}) {
-    this.signInForm = signInForm ?? DefaultForms.signInForm();
-    this.signUpForm = signUpForm ?? DefaultForms.signUpForm();
+    this.signInForm = signInForm ?? DefaultForms.signInForm(usernameAlias);
+    this.signUpForm = signUpForm ?? DefaultForms.signUpForm(usernameAlias);
     this.confirmSignInForm =
         confirmSignInForm ?? DefaultForms.confirmSignInForm();
+
+    confirmSignUpForm = DefaultForms.confirmSignUpForm(usernameAlias);
   }
+
+  ///Requires an username alias to setup the preferred sign in method,
+  ///which can be signing in users with username, email or phone number.
+  ///
+  /// ```dart
+  ///     Alias.username
+  ///     Alias.email
+  ///     Alias.phone_number
+  ///     Alias.email_phone_number
+  /// ```
+  final Alias usernameAlias;
+
+  late ConfirmSignUpForm confirmSignUpForm;
 
   /// This form will support the following form field types:
   ///    * username
@@ -164,8 +185,6 @@ class Authenticator extends StatefulWidget {
   ///
   /// ```
   late final SignUpForm signUpForm;
-
-  final ConfirmSignUpForm confirmSignUpForm = DefaultForms.confirmSignUpForm();
 
   /// This form will support the following form field types:
   /// * code

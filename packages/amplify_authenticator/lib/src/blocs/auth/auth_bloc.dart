@@ -99,23 +99,28 @@ class StateMachineBloc {
 
       switch (result.nextStep!.signInStep) {
         case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
+          exceptionsSink!.add(null);
           yield AuthFlow(screen: AuthScreen.confirmSignIn);
 
           break;
         case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
-          //Show confirm sing in screen
+          //Show confirm sign in screen
+          exceptionsSink!.add(null);
           yield AuthFlow(screen: AuthScreen.confirmSignIn);
           break;
         case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
-          //Show confirm sing in screen
+          //Show confirm sign in screen
+          exceptionsSink!.add(null);
           yield AuthFlow(screen: AuthScreen.confirmSignIn);
           break;
 
         case 'RESET_PASSWORD':
+          exceptionsSink!.add(null);
           //Show reset password screen.
           //Note: this screen is yet to be implemented.
           break;
         case 'CONFIRM_SIGN_UP':
+          exceptionsSink!.add(null);
           //Show resend sign up code screen
           //Note: This screen is yet to be implemented
           break;
@@ -137,9 +142,11 @@ class StateMachineBloc {
 
       switch (result.nextStep.signUpStep) {
         case 'CONFIRM_SIGN_UP_STEP':
+          exceptionsSink!.add(null);
           yield AuthFlow(screen: AuthScreen.confirmSignUp);
           break;
         case 'DONE':
+          exceptionsSink!.add(null);
           yield AuthFlow(screen: AuthScreen.signin);
           break;
       }

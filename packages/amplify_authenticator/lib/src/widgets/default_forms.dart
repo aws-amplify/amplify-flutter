@@ -1,18 +1,39 @@
+import 'package:amplify_authenticator/src/enums/alias.dart';
 import 'package:amplify_authenticator/src/widgets/forms.dart';
 import 'package:amplify_authenticator/src/widgets/form_fields.dart';
 
-///These default forms will be used as long as the customer doesn't pass any custom forms.
+/// These default forms will be used as long as there are no
+/// arguments being passed from the main Authenticator wrapper.
 
+// The initial auth flow will be setup based on an username alias
+// that comes from the main Authenticator widget.
 class DefaultForms {
-  static SignInForm signInForm() {
-    return const SignInForm(
+  static SignInForm signInForm(Alias alias) {
+    late String _title;
+    late String _hintText;
+    switch (alias) {
+      case Alias.username:
+        _title = 'Username*';
+        _hintText = 'Enter your username';
+        break;
+      case Alias.phone_number:
+        _title = 'Phone Number*';
+        _hintText = 'Enter your phone number';
+        break;
+      case Alias.email:
+        _title = 'Email*';
+        _hintText = 'Enter your email';
+        break;
+      case Alias.email_phone_number:
+        _title = 'Email or Phone Number*';
+        _hintText = 'Enter your email or phone number';
+        break;
+    }
+    return SignInForm(
       formFields: FormFields(
         children: [
-          SignInFormField(
-              title: 'Username*',
-              hintText: "Enter your username",
-              type: 'username'),
-          SignInFormField(
+          SignInFormField(title: _title, hintText: _hintText, type: 'username'),
+          const SignInFormField(
               title: 'Password*',
               hintText: "Enter your password",
               type: 'password')
@@ -21,38 +42,91 @@ class DefaultForms {
     );
   }
 
-  static SignUpForm signUpForm() {
-    return const SignUpForm(
-      formFields: FormFields(
-        children: [
-          SignUpFormField(
+  static SignUpForm signUpForm(Alias alias) {
+    late List<SignUpFormField> _signUpFormFields;
+    switch (alias) {
+      case Alias.username:
+        _signUpFormFields = [
+          const SignUpFormField(
               title: 'Username*',
               hintText: "Enter your username",
               type: 'username'),
-          SignUpFormField(
+          const SignUpFormField(
               title: 'Password*',
               hintText: "Enter your password",
               type: 'password'),
-          SignUpFormField(
+          const SignUpFormField(
               title: 'Email*', hintText: "Enter your email", type: 'email'),
-          SignUpFormField(
+          const SignUpFormField(
               title: 'Phone Number*',
               hintText: "Enter your phone number",
               type: 'phone_number')
-        ],
+        ];
+        break;
+      case Alias.email:
+        _signUpFormFields = [
+          const SignUpFormField(
+              title: 'Email*', hintText: "Enter your email", type: 'username'),
+          const SignUpFormField(
+              title: 'Password*',
+              hintText: "Enter your password",
+              type: 'password'),
+          const SignUpFormField(
+              title: 'Phone Number*',
+              hintText: "Enter your phone number",
+              type: 'phone_number')
+        ];
+        break;
+      default:
+        _signUpFormFields = [
+          const SignUpFormField(
+              title: 'Phone Number*',
+              hintText: "Enter your phone number",
+              type: 'username'),
+          const SignUpFormField(
+              title: 'Password*',
+              hintText: "Enter your password",
+              type: 'password'),
+          const SignUpFormField(
+              title: 'Email*', hintText: "Enter your email", type: 'email')
+        ];
+        break;
+    }
+    return SignUpForm(
+      formFields: FormFields(
+        children: _signUpFormFields,
       ),
     );
   }
 
-  static ConfirmSignUpForm confirmSignUpForm() {
-    return const ConfirmSignUpForm(
+  static ConfirmSignUpForm confirmSignUpForm(Alias alias) {
+    late String _title;
+    late String _hintText;
+    switch (alias) {
+      case Alias.username:
+        _title = 'Username*';
+        _hintText = 'Enter your username';
+        break;
+      case Alias.phone_number:
+        _title = 'Phone Number*';
+        _hintText = 'Enter your phone number';
+        break;
+      case Alias.email:
+        _title = 'Email*';
+        _hintText = 'Enter your email';
+        break;
+      case Alias.email_phone_number:
+        _title = 'Email or Phone Number*';
+        _hintText = 'Enter your email or phone number';
+        break;
+    }
+
+    return ConfirmSignUpForm(
       formFields: FormFields(
         children: [
           ConfirmSignUpFormField(
-              title: 'Username*',
-              hintText: "Enter your username",
-              type: 'username'),
-          ConfirmSignUpFormField(
+              title: _title, hintText: _hintText, type: 'username'),
+          const ConfirmSignUpFormField(
               title: 'Verification Code*',
               hintText: "Enter your verification code",
               type: 'code'),

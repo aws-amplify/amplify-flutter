@@ -2,7 +2,6 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-
 import 'amplifyconfiguration.dart';
 
 void main() {
@@ -53,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Authenticator(
+      usernameAlias: Alias.username,
       child: const CustomersApp(),
     );
   }

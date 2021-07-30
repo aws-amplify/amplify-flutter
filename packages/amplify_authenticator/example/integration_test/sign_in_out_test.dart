@@ -91,7 +91,7 @@ void main() {
       await tester.tap(signInButtonFinder);
 
       final subscription = await authBloc.authBloc.exceptions;
-      final authenticatorException = await subscription.first;
+      final authenticatorException = await subscription!.first;
 
       expect(authenticatorException, isA<AuthenticatorException>());
       await tester.pumpAndSettle();
