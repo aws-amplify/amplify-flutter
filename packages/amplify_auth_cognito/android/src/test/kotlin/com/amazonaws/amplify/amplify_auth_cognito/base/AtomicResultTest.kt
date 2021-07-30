@@ -15,77 +15,59 @@
 package com.amazonaws.amplify.amplify_auth_cognito.base
 
 import io.flutter.plugin.common.MethodChannel
-import kotlinx.coroutines.*
-import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runBlockingTest
-import kotlinx.coroutines.test.setMain
-import org.junit.AfterClass
-import org.junit.BeforeClass
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
 
-@ObsoleteCoroutinesApi
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class AtomicResultTest {
-    companion object {
-        /**
-         * Used to replace unavailable [Dispatchers.Main] context.
-         */
-        private val mainThreadSurrogate = newSingleThreadContext("UI Thread")
-
-        @JvmStatic
-        @BeforeClass
-        fun setUp() {
-            Dispatchers.setMain(mainThreadSurrogate)
-        }
-
-        @JvmStatic
-        @AfterClass
-        fun tearDown() {
-            Dispatchers.resetMain()
-            mainThreadSurrogate.close()
-        }
-    }
+    @get:Rule
+    var coroutinesTestRule = CoroutineTestRule()
 
     @Mock
     private lateinit var mockResult: MethodChannel.Result
 
     @Test
-    fun successIsForwarded() = runBlockingTest {
-        val atomicResult = AtomicResult(mockResult)
+    fun successIsForwarded() = coroutinesTestRule.testDispatcher.runBlockingTest {
+        val atomicResult = AtomicResult(mockResult, "successIsForwarded")
         atomicResult.success(null)
         verify(mockResult).success(null)
     }
 
     @Test
-    fun errorIsForwarded() = runBlockingTest {
-        val atomicResult = AtomicResult(mockResult)
+    fun errorIsForwarded() = coroutinesTestRule.testDispatcher.runBlockingTest {
+        val atomicResult = AtomicResult(mockResult, "errorIsForwarded")
         atomicResult.error(null, null, null)
         verify(mockResult).error(null, null, null)
     }
 
     @Test
-    fun notImplementedIsForwarded() = runBlockingTest {
-        val atomicResult = AtomicResult(mockResult)
+    fun notImplementedIsForwarded() = coroutinesTestRule.testDispatcher.runBlockingTest {
+        val atomicResult = AtomicResult(mockResult, "notImplementedIsForwarded")
         atomicResult.notImplemented()
         verify(mockResult).notImplemented()
     }
 
     @Test
-    fun multipleSynchronousRepliesAreNotSent() = runBlockingTest {
-        val atomicResult = AtomicResult(mockResult)
+    fun multipleSynchronousRepliesAreNotSent() = coroutinesTestRule.testDispatcher.runBlockingTest {
+        val atomicResult = AtomicResult(mockResult, "multipleSynchronousRepliesAreNotSent")
         atomicResult.success(null)
         atomicResult.success(null)
         verify(mockResult, times(1)).success(any())
     }
 
     @Test
-    fun multipleConcurrentRepliesAreNotSent() = runBlockingTest {
-        val atomicResult = AtomicResult(mockResult)
+    fun multipleConcurrentRepliesAreNotSent() = coroutinesTestRule.testDispatcher.runBlockingTest {
+        val atomicResult = AtomicResult(mockResult, "multipleConcurrentRepliesAreNotSent")
         val jobs = mutableListOf<Job>()
         for (i in 0..1000) {
             val job = launch(Dispatchers.IO) {

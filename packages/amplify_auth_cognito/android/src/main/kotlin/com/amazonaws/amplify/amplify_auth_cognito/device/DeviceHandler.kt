@@ -20,7 +20,6 @@ import com.amazonaws.mobile.client.AWSMobileClient
 import com.amazonaws.mobile.client.Callback
 import com.amazonaws.mobile.client.results.ListDevicesResult
 import com.amplifyframework.auth.AuthDevice
-import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.cognito.util.CognitoAuthExceptionConverter
 import com.amplifyframework.core.Amplify
 import io.flutter.plugin.common.MethodCall
@@ -51,12 +50,13 @@ class DeviceHandler(private val errorHandler: AuthErrorHandler) :
 
     @Suppress("UNCHECKED_CAST")
     override fun onMethodCall(call: MethodCall, _result: MethodChannel.Result) {
-        val result = AtomicResult(_result)
+        val result = AtomicResult(_result, call.method)
         when (call.method) {
             "fetchDevices" -> fetchDevices(result)
             "rememberDevice" -> rememberDevice(result)
             "forgetDevice" -> {
-                val deviceJson = (call.arguments as? Map<*, *> ?: emptyMap<String, Any?>()) as Map<String, Any?>
+                val deviceJson =
+                    (call.arguments as? Map<*, *> ?: emptyMap<String, Any?>()) as Map<String, Any?>
                 var device: AuthDevice? = null
                 if (deviceJson.isNotEmpty()) {
                     val id by deviceJson
@@ -78,8 +78,11 @@ class DeviceHandler(private val errorHandler: AuthErrorHandler) :
                     }
 
                     override fun onError(exception: java.lang.Exception) {
-                        errorHandler.handleAuthError(result, CognitoAuthExceptionConverter.lookup(
-                            exception, "Fetching devices failed."))
+                        errorHandler.handleAuthError(
+                            result, CognitoAuthExceptionConverter.lookup(
+                                exception, "Fetching devices failed."
+                            )
+                        )
                     }
                 })
             }

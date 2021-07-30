@@ -14,14 +14,17 @@
  */
 package com.amazonaws.amplify.amplify_auth_cognito.base
 
+import io.flutter.Log
 import io.flutter.plugin.common.MethodChannel
 import kotlinx.coroutines.*
+import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * Thread-safe [MethodChannel.Result] wrapper which prevents multiple replies and automatically posts
  * results to the main thread.
  */
-class AtomicResult(private val result: MethodChannel.Result) : MethodChannel.Result {
+class AtomicResult(private val result: MethodChannel.Result, private val operation: String) :
+    MethodChannel.Result {
     private companion object {
         /**
          * Scope for performing result handling.
@@ -33,29 +36,47 @@ class AtomicResult(private val result: MethodChannel.Result) : MethodChannel.Res
     /**
      * Whether a response has been sent.
      */
-    private var isSent = false
+    private val isSent = AtomicBoolean(false)
 
     override fun success(value: Any?) {
         scope.launch {
-            if (isSent) return@launch
+            if (isSent.getAndSet(true)) {
+                Log.w(
+                    "AtomicResult(${operation})",
+                    "Attempted to send success value after initial reply"
+                )
+                return@launch
+            }
             result.success(value)
-            isSent = true
         }
     }
 
     override fun error(errorCode: String?, errorMessage: String?, errorDetails: Any?) {
         scope.launch {
-            if (isSent) return@launch
+            if (isSent.getAndSet(true)) {
+                Log.w(
+                    "AtomicResult(${operation})",
+                    """
+                    Attempted to send error value after initial reply:
+                    | PlatformException{code=${errorCode}, message=${errorMessage}, details=${errorDetails}}
+                    """.trimMargin()
+                )
+                return@launch
+            }
             result.error(errorCode, errorMessage, errorDetails)
-            isSent = true
         }
     }
 
     override fun notImplemented() {
         scope.launch {
-            if (isSent) return@launch
+            if (isSent.getAndSet(true)) {
+                Log.w(
+                    "AtomicResult(${operation})",
+                    "Attempted to send notImplemented value after initial reply"
+                )
+                return@launch
+            }
             result.notImplemented()
-            isSent = true
         }
     }
 }
