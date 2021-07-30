@@ -35,9 +35,9 @@ class AtomicResultTests: XCTestCase {
     
     func test_error_is_forwarded() {
         let expected = FlutterError(code: "code", message: "message", details: nil)
-        let expect = expectation(description: #function)
+        let exp = expectation(description: #function)
         let result: FlutterResult = { (value: Any?) in
-            defer { expect.fulfill() }
+            defer { exp.fulfill() }
             guard let value = value as? FlutterError else {
                 XCTFail("Invalid value: \(value ?? "nil")")
                 return
@@ -50,8 +50,8 @@ class AtomicResultTests: XCTestCase {
     }
 
     func test_multiple_synchronous_replies_are_not_sent() {
-        let result = { [self] (value: Any?) -> () in
-            OSAtomicIncrement32(&counter)
+        let result: FlutterResult = { _ in
+            OSAtomicIncrement32(&self.counter)
         }
         let atomicResult = AtomicResult(result)
         atomicResult(nil)
@@ -65,8 +65,8 @@ class AtomicResultTests: XCTestCase {
     }
     
     func test_multiple_concurrent_replies_are_not_sent() {
-        let result = { [self] (value: Any?) -> () in
-            OSAtomicIncrement32(&counter)
+        let result: FlutterResult = { _ in
+            OSAtomicIncrement32(&self.counter)
         }
         let atomicResult = AtomicResult(result)
         
