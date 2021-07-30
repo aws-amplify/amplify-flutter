@@ -56,7 +56,9 @@ class AmplifyAnalyticsPinpointPlugin : FlutterPlugin, ActivityAware, MethodCallH
             "addPlugin" ->
                 AmplifyAnalyticsBridge.addPlugin(result, context)
             "startSession" -> {
-                // Hack: The AutoSessionTracker in the Pinpoint plugin listens for lifecycle changes and
+                // TODO: Update AutoSessionTracker logic to support Flutter.
+                //
+                // The AutoSessionTracker in the Pinpoint plugin listens for lifecycle changes and
                 // starts and stops session tracking accordingly. It is registered during the call
                 // to Amplify.configure. In native Android apps, this call is made before launching
                 // the main activity and thus receives the initial onResume event, kicking off session
