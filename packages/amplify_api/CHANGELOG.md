@@ -1,3 +1,15 @@
+## 0.2.1 (2021-07-27)
+
+### Bug Fixes
+
+- fix: Prevent type error when using sound null safety (#693)
+
+### Chores
+
+- chore: upgrade amplify-android to 1.20.1 (#710)
+- chore: add GraphQL integration tests (#694)
+- chore: Add API response headers/status (#721)
+
 ## 0.2.0 (2021-06-30)
 
 ### Features

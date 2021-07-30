@@ -1,0 +1,6 @@
+{
+  "queryPredicateOperation": {
+    "field": "blog",
+    "fieldOperator": { "operatorName": "equal", "value": "123" }
+  }
+}

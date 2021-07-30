@@ -214,7 +214,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         var queryOptions: QueryOptions
         try {
             modelName = request["modelName"] as String
-            queryOptions = QueryOptionsBuilder.fromSerializedMap(request)
+            val modelSchema = modelProvider.modelSchemas().getValue(modelName)
+            queryOptions = QueryOptionsBuilder.fromSerializedMap(request, modelSchema)
         } catch (e: Exception) {
             handler.post {
                 postExceptionToFlutterChannel(
