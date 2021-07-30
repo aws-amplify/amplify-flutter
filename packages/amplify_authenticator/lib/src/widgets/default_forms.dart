@@ -5,16 +5,19 @@ import 'package:amplify_authenticator/src/widgets/form_fields.dart';
 
 class DefaultForms {
   static SignInForm signInForm() {
-    return SignInForm(
+
+    return const SignInForm(
+
       formFields: FormFields(
         children: [
           SignInFormField(
               title: 'Username*',
-              hintText: "Enter you username",
+              hintText: "Enter your username",
               type: 'username'),
           SignInFormField(
               title: 'Password*',
-              hintText: "Enter you password",
+              hintText: "Enter your password",
+
               type: 'password')
         ],
       ),
@@ -22,22 +25,26 @@ class DefaultForms {
   }
 
   static SignUpForm signUpForm() {
-    return SignUpForm(
+
+    return const SignUpForm(
+
       formFields: FormFields(
         children: [
           SignUpFormField(
               title: 'Username*',
-              hintText: "Enter you username",
+
+              hintText: "Enter your username",
               type: 'username'),
           SignUpFormField(
               title: 'Password*',
-              hintText: "Enter you password",
+              hintText: "Enter your password",
               type: 'password'),
           SignUpFormField(
-              title: 'Email*', hintText: "Enter you email", type: 'email'),
+              title: 'Email*', hintText: "Enter your email", type: 'email'),
           SignUpFormField(
               title: 'Phone Number*',
-              hintText: "Enter you phone number",
+              hintText: "Enter your phone number",
+
               type: 'phone_number')
         ],
       ),
@@ -45,16 +52,33 @@ class DefaultForms {
   }
 
   static ConfirmSignUpForm confirmSignUpForm() {
-    return ConfirmSignUpForm(
+
+    return const ConfirmSignUpForm(
+
       formFields: FormFields(
         children: [
           ConfirmSignUpFormField(
               title: 'Username*',
-              hintText: "Enter you username",
+
+              hintText: "Enter your username",
               type: 'username'),
           ConfirmSignUpFormField(
               title: 'Verification Code*',
-              hintText: "Enter you verification code",
+              hintText: "Enter your verification code",
+              type: 'code'),
+        ],
+      ),
+    );
+  }
+
+  static ConfirmSignInForm confirmSignInForm() {
+    return const ConfirmSignInForm(
+      formFields: FormFields(
+        children: [
+          ConfirmSignInFormField(
+              title: 'Code*',
+              hintText: "Enter your confirmation code",
+
               type: 'code'),
         ],
       ),

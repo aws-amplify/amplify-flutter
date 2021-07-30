@@ -8,6 +8,8 @@ class FormFields extends StatelessWidget {
   ///   1. SignInFormField
   ///   2. SignUpFormField
   ///   3. ConfirmSignUpFormField
+  ///   4. ConfirmSignInFormField
+
   const FormFields({required this.children});
 
   /// A list of form fields
@@ -25,7 +27,9 @@ class SignInForm extends StatelessWidget {
   /// Requires a list of sign in form fields.
   const SignInForm({required this.formFields});
 
-  /// A list of form fields
+
+  /// A list of sign in form fields
+
   final FormFields formFields;
 
   @override
@@ -43,10 +47,11 @@ class SignInForm extends StatelessWidget {
 }
 
 class SignUpForm extends StatelessWidget {
-  /// Requires a list of confirm sign up  form fields.
+
+  /// Requires a list of sign up  form fields.
   const SignUpForm({required this.formFields});
 
-  /// A list of form fields
+  /// A list of  sign up form fields
   final FormFields formFields;
 
   @override
@@ -62,21 +67,17 @@ class SignUpForm extends StatelessWidget {
   }
 }
 
-/// It's good to mention that this form might not be exposed
-/// to the consumer due to the fact that the authenticator may only
-/// support three custom forms only, sign in, sign up and confirm sign in.
-/// This is currently used as a default form.
+// It's good to mention that this form might not be exposed
+// to the consumer due to the fact that the authenticator may only
+// support three custom forms only, sign in, sign up and confirm sign in.
+// This is currently used as a default form.
+
 class ConfirmSignUpForm extends StatelessWidget {
   /// Requires a list of confirm sign up  form fields.
   const ConfirmSignUpForm({required this.formFields});
 
-  /// A list of form fields
-  ///
-  /// The following form fields can be passed:
-  ///   1. SignInFormField()
-  ///   2. SignUpFormField()
-  ///   3. ConfirmSignUpFormField()
-  ///
+
+  /// A list of confirm sign up form fields
 
   final FormFields formFields;
 
@@ -90,6 +91,29 @@ class ConfirmSignUpForm extends StatelessWidget {
         buttonsContainer: ButtonsContainer(children: <Widget>[
           BackToSignInButton(),
           ConfirmButton(),
+        ]));
+  }
+}
+
+
+class ConfirmSignInForm extends StatelessWidget {
+  /// Requires a list of confirm sign in form fields.
+  const ConfirmSignInForm({required this.formFields});
+
+  /// A list of confirm sign in form fields
+
+  final FormFields formFields;
+
+  @override
+  Widget build(BuildContext context) {
+    final _authModelView =
+        InheritedAuthViewModel.of(context)!.confirmSignInViewModel;
+    return FormContainer(
+        formKey: _authModelView.formKey,
+        formFields: formFields,
+        buttonsContainer: ButtonsContainer(children: <Widget>[
+          BackToSignInButton(),
+          ConfirmSignInButton(),
         ]));
   }
 }

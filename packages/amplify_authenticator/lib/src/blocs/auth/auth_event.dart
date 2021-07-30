@@ -40,6 +40,15 @@ class AuthConfirmSignUp extends AuthEvent {
   const AuthConfirmSignUp(this.data);
 }
 
+
+class AuthConfirmSignIn extends AuthEvent {
+  ///Event data
+  final AuthConfirmSignInData data;
+
+  const AuthConfirmSignIn(this.data);
+}
+
+
 class AuthSignOut extends AuthEvent {
   const AuthSignOut();
 }
