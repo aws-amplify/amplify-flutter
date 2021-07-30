@@ -13,7 +13,9 @@ class FormFieldContainer extends StatelessWidget {
       required this.hintText,
       required this.title,
       required this.validator,
-      required this.obscureText})
+      required this.obscureText,
+      this.enable,
+      this.resendCodeButton})
       : super(key: key);
 
   final String title;
@@ -28,16 +30,23 @@ class FormFieldContainer extends StatelessWidget {
 
   final bool obscureText;
 
+  ///This button will be used for resend a verification code.
+  final Widget? resendCodeButton;
+
+  final bool? enable;
+
   @override
   Widget build(BuildContext context) {
+    bool _enable = enable ?? true;
     return Container(
       margin: FormFieldConstants.marginBottom,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        children: <Widget>[
           Text(title),
           const Padding(padding: FormFieldConstants.gap),
           TextFormField(
+            enabled: _enable,
             key: key,
             validator: validator,
             onChanged: callback,
@@ -52,6 +61,9 @@ class FormFieldContainer extends StatelessWidget {
             keyboardType: keyboardType,
             obscureText: obscureText,
           ),
+          Container(
+            child: resendCodeButton,
+          )
         ],
       ),
     );

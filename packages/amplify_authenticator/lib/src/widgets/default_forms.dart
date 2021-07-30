@@ -1,6 +1,8 @@
 import 'package:amplify_authenticator/src/enums/alias.dart';
+import 'package:amplify_authenticator/src/widgets/buttons.dart';
 import 'package:amplify_authenticator/src/widgets/forms.dart';
 import 'package:amplify_authenticator/src/widgets/form_fields.dart';
+import 'package:flutter/material.dart';
 
 /// These default forms will be used as long as there are no
 /// arguments being passed from the main Authenticator wrapper.
@@ -101,19 +103,19 @@ class DefaultForms {
 
   static ConfirmSignUpForm confirmSignUpForm(Alias alias) {
     late String _title;
-    late String _hintText;
+    String? _hintText;
     switch (alias) {
       case Alias.username:
         _title = 'Username*';
-        _hintText = 'Enter your username';
+
         break;
       case Alias.phone_number:
         _title = 'Phone Number*';
-        _hintText = 'Enter your phone number';
+
         break;
       case Alias.email:
         _title = 'Email*';
-        _hintText = 'Enter your email';
+
         break;
       case Alias.email_phone_number:
         _title = 'Email or Phone Number*';

@@ -70,11 +70,13 @@ class SignUpForm extends StatelessWidget {
 // This is currently used as a default form.
 class ConfirmSignUpForm extends StatelessWidget {
   /// Requires a list of confirm sign up  form fields.
-  const ConfirmSignUpForm({required this.formFields});
+  const ConfirmSignUpForm({required this.formFields, this.resendCodeButton});
 
   /// A list of confirm sign up form fields
-
   final FormFields formFields;
+
+  ///This button will be used for resend a verification code.
+  final Widget? resendCodeButton;
 
   @override
   Widget build(BuildContext context) {

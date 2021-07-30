@@ -1,6 +1,8 @@
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
+import 'package:amplify_authenticator/src/models/authenticator_exceptions.dart';
 import 'package:amplify_authenticator/src/utils/base_viewmodel.dart';
+import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 
 class ConfirmSignUpViewModel extends BaseViewModel {
@@ -12,12 +14,12 @@ class ConfirmSignUpViewModel extends BaseViewModel {
 
   GlobalKey<FormState> get formKey => _formKey;
 
-  String? _username;
+  late String username;
 
   String? _code;
 
   void setUsername(String value) {
-    _username = value;
+    username = value;
   }
 
   void setCode(String value) {
@@ -25,12 +27,9 @@ class ConfirmSignUpViewModel extends BaseViewModel {
   }
 
   Future<void> confirm() async {
-    if (!_formKey.currentState!.validate()) {
-      return;
-    }
     setBusy(true);
     final confirmation =
-        AuthConfirmSignUpData(code: _code!.trim(), username: _username!.trim());
+        AuthConfirmSignUpData(code: _code!.trim(), username: username.trim());
 
     _authBloc.authEvent.add(AuthConfirmSignUp(confirmation));
 
@@ -39,6 +38,17 @@ class ConfirmSignUpViewModel extends BaseViewModel {
       _authBloc.stream.first,
     ]);
     setBusy(false);
+  }
+
+//This method is called directly from this view due to the fact that
+//its result doesn't form part of the authenticator state machine.
+  Future<void> resendSignUpCode() async {
+    try {
+      await Amplify.Auth.resendSignUpCode(username: username);
+    } on AmplifyException catch (e) {
+      print(e);
+      _authBloc.exceptionsSink!.add(AuthenticatorException(e.message));
+    }
   }
 
   // Screens
@@ -50,7 +60,6 @@ class ConfirmSignUpViewModel extends BaseViewModel {
   }
 
   void clean() {
-    _username = null;
     _code = null;
   }
 }

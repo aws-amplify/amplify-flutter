@@ -150,3 +150,34 @@ class GoToSignInButton extends StatelessWidget {
     );
   }
 }
+
+class LostCodeButton extends StatelessWidget {
+  const LostCodeButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final ConfirmSignUpViewModel _authViewModel =
+        InheritedAuthViewModel.of(context)!.confirmSignUpViewModel;
+    return Row(
+      children: [
+        const Text("Lost your code?",
+            style: TextStyle(
+              color: Color.fromRGBO(130, 130, 130, 1),
+              fontSize: 13,
+            )),
+        TextButton(
+          key: const Key(keyGoToSignInButton),
+          child: Text(
+            "Resend Code",
+            style: TextStyle(
+                fontSize: 13,
+                color: Theme.of(context).primaryColor != Colors.blue
+                    ? Theme.of(context).primaryColor
+                    : AuthenticatorColors.primary),
+          ),
+          onPressed: _authViewModel.resendSignUpCode,
+        ),
+      ],
+    );
+  }
+}

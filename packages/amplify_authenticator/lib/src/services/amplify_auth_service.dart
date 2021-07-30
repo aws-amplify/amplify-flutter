@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
-import 'package:amplify_authenticator/src/models/authenticator_exceptions.dart';
 
 abstract class AuthService {
   Future<SignInResult> signIn(String username, String password);
@@ -11,7 +10,7 @@ abstract class AuthService {
   Future<SignUpResult> signUp(
       String username, String password, Map<String, String> authAttributes);
 
-  Future<void> confirmSignUp(String username, String code);
+  Future<SignUpResult> confirmSignUp(String username, String code);
 
   Future<AuthUser?> get currentUser;
 
@@ -50,14 +49,11 @@ class AmplifyAuthService implements AuthService {
   }
 
   @override
-  Future<void> confirmSignUp(String username, String code) async {
-    final result = await Amplify.Auth.confirmSignUp(
+  Future<SignUpResult> confirmSignUp(String username, String code) async {
+    return await Amplify.Auth.confirmSignUp(
       username: username,
       confirmationCode: code,
     );
-    if (!result.isSignUpComplete) {
-      throw AuthenticatorException('Could not confirm');
-    }
   }
 
   Future<void> confirmSignIn(

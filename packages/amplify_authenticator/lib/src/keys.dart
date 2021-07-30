@@ -82,6 +82,7 @@ const String keyBackToSignInButton = "backToSignInButton";
 const String keyGoToSignUpButton = "goToSignUpButton";
 const String keyGoToSignInButton = "goToSignInButton";
 const String keyConfirmSignInButton = "confirmSignInButton";
+const String keyLostCodeButton = "lostCodeButton";
 
 // Inherited keys
 
