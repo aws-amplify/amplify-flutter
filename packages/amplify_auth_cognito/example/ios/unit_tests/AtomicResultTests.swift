@@ -22,11 +22,11 @@ class AtomicResultTests: XCTestCase {
         let exp = expectation(description: #function)
         let result: FlutterResult = { (value: Any?) in
             defer { exp.fulfill() }
-            guard let value = value as? String else {
+            guard let strValue = value as? String else {
                 XCTFail("Invalid value: \(value ?? "nil")")
                 return
             }
-            XCTAssertEqual(value, expected)
+            XCTAssertEqual(strValue, expected)
         }
         let atomicResult = AtomicResult(result)
         atomicResult(expected)
@@ -38,11 +38,11 @@ class AtomicResultTests: XCTestCase {
         let exp = expectation(description: #function)
         let result: FlutterResult = { (value: Any?) in
             defer { exp.fulfill() }
-            guard let value = value as? FlutterError else {
+            guard let errValue = value as? FlutterError else {
                 XCTFail("Invalid value: \(value ?? "nil")")
                 return
             }
-            XCTAssertEqual(value, expected)
+            XCTAssertEqual(errValue, expected)
         }
         let atomicResult = AtomicResult(result)
         atomicResult(expected)
