@@ -21,7 +21,8 @@ class GraphQLRequest<T> {
   Map<String, dynamic> variables;
   String cancelToken = UUID.getUUID();
 
-  GraphQLRequest({this.apiName, required this.document, this.variables = const {}});
+  GraphQLRequest(
+      {this.apiName, required this.document, this.variables = const {}});
 
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> result = <String, dynamic>{};
