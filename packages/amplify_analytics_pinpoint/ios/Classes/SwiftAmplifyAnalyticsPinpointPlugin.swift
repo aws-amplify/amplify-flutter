@@ -42,6 +42,9 @@ public class SwiftAmplifyAnalyticsPinpointPlugin: NSObject, FlutterPlugin {
         switch method{
             case "addPlugin":
                 FlutterAnalytics.addPlugin(result: result)
+            case "sessionStart":
+                // No-op
+                result(nil)
             case "recordEvent":
                 FlutterAnalytics.record(arguments: callArgs, result: result, bridge: bridge)
             case "flushEvents":
