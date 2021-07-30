@@ -17,12 +17,17 @@ abstract class AuthService {
 
   Future<bool> get isLoggedIn;
 
-  Future<void> confirmSignIn(String username, String code);
+
+  Future<void> confirmSignIn(String code, Map<String, String> attributes);
+
 }
 
 class AmplifyAuthService implements AuthService {
   @override
   Future<SignInResult> signIn(String username, String password) async {
+
+    //making sure no user is logged in before logging in a new user
+
     if (await isLoggedIn) {
       await Amplify.Auth.signOut();
     }
@@ -32,9 +37,6 @@ class AmplifyAuthService implements AuthService {
       password: password,
     );
 
-    if (!result.isSignedIn && result.nextStep!.signInStep == 'DONE') {
-      throw const AuthenticatorException('Could not login');
-    }
     return result;
   }
 
@@ -61,10 +63,13 @@ class AmplifyAuthService implements AuthService {
     }
   }
 
-  Future<void> confirmSignIn(String username, String code) async {
+
+  Future<void> confirmSignIn(
+      String code, Map<String, String> attributes) async {
     await Amplify.Auth.confirmSignIn(
         confirmationValue: code,
-        options: CognitoConfirmSignInOptions(userAttributes: {}));
+        options: CognitoConfirmSignInOptions(userAttributes: attributes));
+
   }
 
   @override
