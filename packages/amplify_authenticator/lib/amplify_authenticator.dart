@@ -17,8 +17,6 @@ library amplify_authenticator;
 
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/screens/confirm_signin_screen.dart';
-import 'package:amplify_authenticator/src/strings/auth_strings.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 //State
@@ -50,16 +48,11 @@ import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 import 'package:amplify_authenticator/src/widgets/forms.dart';
 import 'package:amplify_authenticator/src/widgets/default_forms.dart';
 
-//Internationalization
-import 'package:amplify_authenticator/src/internationalization/auth_strings_resolver_interface.dart';
-
-
 //Exports
 export 'package:amplify_authenticator/src/widgets/forms.dart';
 export 'package:amplify_authenticator/src/widgets/form_fields.dart';
-export 'package:amplify_authenticator/src/widgets/buttons.dart' show SignOutButton;
-export 'package:amplify_authenticator/src/internationalization/auth_strings_resolver_interface.dart';
-
+export 'package:amplify_authenticator/src/widgets/buttons.dart'
+    show SignOutButton;
 
 ///
 // ignore: must_be_immutable
@@ -91,6 +84,7 @@ class Authenticator extends StatefulWidget {
   ///     - define
   ///
   Authenticator(
+
       {required this.child,
       SignInForm? signInForm,
       SignUpForm? signUpForm,
@@ -234,9 +228,6 @@ class _AuthenticatorState extends State<Authenticator> {
 
   late final StateMachineBloc _stateMachineBloc;
 
-  // AuthenticatorLocalizations? _localizations;
-  AuthStrings? _authStrings;
-
   @override
   void initState() {
     super.initState();
@@ -244,12 +235,8 @@ class _AuthenticatorState extends State<Authenticator> {
       ..authEvent.add(GetCurrentUser());
   }
 
-
-  
-
   @override
   Widget build(BuildContext context) {
-
     return InheritedAuthBloc(
         key: const Key(keyInheritedAuthBloc),
         authBloc: _stateMachineBloc,

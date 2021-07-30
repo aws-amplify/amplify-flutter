@@ -86,7 +86,7 @@ class BackToSignInButton extends StatelessWidget {
     return TextButton(
       key: const Key(keyBackToSignInButton),
       child: Text(
-        "Back to Sign In",
+        _strings.buttons.navigate_signin,
         style: TextStyle(
             fontSize: AuthenticatorButtonConstants.fontSize,
             color: Theme.of(context).primaryColor != Colors.blue
@@ -105,7 +105,7 @@ class GoToSignUpButton extends StatelessWidget {
         InheritedAuthViewModel.of(context)!.signInViewModel;
     return Row(
       children: [
-        Text(InheritedForms.of(context)!.authStrings!.inputs.signIn_noAccount,
+        Text(_strings.buttons.no_account_question,
             style: TextStyle(
               fontSize: AuthenticatorButtonConstants.fontSize,
             )),
@@ -139,7 +139,7 @@ class GoToSignInButton extends StatelessWidget {
         TextButton(
           key: const Key(keyGoToSignInButton),
           child: Text(
-            "Sign In",
+            _strings.buttons.navigate_signin,
             style: TextStyle(
                 fontSize: AuthenticatorButtonConstants.fontSize,
                 color: Theme.of(context).primaryColor != Colors.blue

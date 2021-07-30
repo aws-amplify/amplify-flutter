@@ -1,16 +1,18 @@
 # amplify_authenticator_example
 
-A new Flutter project.
+This is the example application for the Amplify Flutter Authenticator
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+- Create an Amplify [project](https://docs.amplify.aws/lib/project-setup/create-application/q/platform/flutter#n1-create-a-new-project) with a [Cognito resource](https://docs.amplify.aws/lib/auth/getting-started/q/platform/flutter).
 
-A few resources to get you started if this is your first Flutter project:
+- If you are running this application directly from a clone of the [Amplify Flutter GithHub repository](https://github.com/aws-amplify/amplify-flutter) and are interested in local development using the other Amplify packages, you can run:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+  - `flutter pub global activate melos`
+  - from the root of the amplify-flutter directory, `melos bootstrap`
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- If you are **not** running this application directly from the Amplify Flutter repository or do want to modify other Amplify packages, you can run:
+
+  - `Run flutter pub get` from the Amplify Authenticator example app root directory.
+
+- Finally, run `flutter start`.

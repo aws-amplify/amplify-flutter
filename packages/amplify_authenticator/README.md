@@ -20,12 +20,27 @@ TODO:
 4. SignIn, ConfirmSignIn and Password screens implementation.
 5. Integrate testing.
 
-## Getting Started
+## Text Customization and Localization
 
-TODO:
+The Amplify Authenticator offers the ability to customize the text it displays. This can be used for static customization and can also be used to leverage Flutter's out-of-the-box localization capabilities.
 
-1. Refactor previous PoC into a library.
-2. Migrate authenticator to NULL SAFETY.
-3. SignUp & ConfirmSignUp screens implementation.
-4. SignIn, ConfirmSignIn and Password screens implementation.
-5. Integrate testing.
+To customize text, instantiate an instance of the `AuthStringsResolver`:
+
+```dart
+var resolver = AuthStringsResolver(
+    buttons: ButtonResolver(
+        submit_signin: () => AppLocalizations.of(context)!.submit_signin,
+        /// additional customizations...
+    ),
+    inputs: InputResolver(
+        username_title: () => AppLocalizations.of(context)!.username_title,
+        /// additional customizations...
+    ),
+    titles: TitleResolver(
+        signin: () => AppLocalizations.of(context)!.title_signin,
+        /// additional customizations...
+    )
+);
+```
+
+Each value with in the `AuthStringsResolver` should be a function which returns a String.
