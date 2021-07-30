@@ -78,8 +78,6 @@ class AmplifyAnalyticsPinpoint extends AnalyticsPluginInterface {
     return _instance.identifyUser(userId: userId, userProfile: userProfile);
   }
 
-  // Internal
-
   @override
   Future<void> onConfigure() {
     return _instance.onConfigure();

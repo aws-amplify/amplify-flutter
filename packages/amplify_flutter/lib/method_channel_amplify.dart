@@ -33,6 +33,7 @@ class MethodChannelAmplify extends AmplifyClass {
     );
     if (configured ?? false) {
       await Future.wait(
+          //ignore:invalid_use_of_protected_member
           AnalyticsCategory.plugins.map((plugin) => plugin.onConfigure()));
     }
     return configured;
