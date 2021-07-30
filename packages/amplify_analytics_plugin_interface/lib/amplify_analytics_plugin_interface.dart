@@ -63,4 +63,8 @@ abstract class AnalyticsPluginInterface extends AmplifyPluginInterface {
       required AnalyticsUserProfile userProfile}) async {
     throw UnimplementedError('identifyUser() has not been implemented.');
   }
+
+  // Internal
+
+  Future<void> onConfigure() async {}
 }

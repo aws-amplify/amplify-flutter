@@ -22,13 +22,19 @@ class MethodChannelAmplify extends AmplifyClass {
   MethodChannelAmplify() : super.protected();
 
   @override
-  Future<bool?> _configurePlatforms(String version, String configuration) {
-    return _channel.invokeMethod<bool>(
+  Future<bool?> _configurePlatforms(
+      String version, String configuration) async {
+    final configured = await _channel.invokeMethod<bool>(
       'configure',
       <String, Object>{
         'version': version,
         'configuration': configuration,
       },
     );
+    if (configured ?? false) {
+      await Future.wait(
+          AnalyticsCategory.plugins.map((plugin) => plugin.onConfigure()));
+    }
+    return configured;
   }
 }
