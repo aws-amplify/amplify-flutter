@@ -15,6 +15,7 @@
 
 library amplify_authenticator;
 
+import 'package:amplify_authenticator/src/screens/reset_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/screens/confirm_signin_screen.dart';
@@ -101,6 +102,7 @@ class Authenticator extends StatefulWidget {
 
     confirmSignUpForm = DefaultForms.confirmSignUpForm(usernameAlias);
     sendCodeForm = DefaultForms.sendCodeForm(usernameAlias);
+    resetPasswordForm = DefaultForms.resetPasswordForm();
   }
 
   ///Requires an username alias to setup the preferred sign in method,
@@ -116,6 +118,7 @@ class Authenticator extends StatefulWidget {
 
   late SendCodeForm sendCodeForm;
   late ConfirmSignUpForm confirmSignUpForm;
+  late ResetPasswordForm resetPasswordForm;
 
   /// This form will support the following form field types:
   ///    * username
@@ -263,6 +266,7 @@ class _AuthenticatorState extends State<Authenticator> {
             confirmSignUpViewModel: ConfirmSignUpViewModel(_stateMachineBloc),
             confirmSignInViewModel: ConfirmSignInViewModel(_stateMachineBloc),
             child: InheritedForms(
+                resetPasswordForm: widget.resetPasswordForm,
                 sendCodeForm: widget.sendCodeForm,
                 signInForm: widget.signInForm,
                 signUpForm: widget.signUpForm,
@@ -295,7 +299,7 @@ class _AuthenticatorState extends State<Authenticator> {
                         screen = const SendCodeScreen();
                       } else if (state is AuthFlow &&
                           state.screen == AuthScreen.resetPassword) {
-                        screen = const Text("Reset Password Screen");
+                        screen = const ResetPasswordScreen();
                       }
 
                       return Container(

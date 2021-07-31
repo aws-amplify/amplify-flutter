@@ -18,6 +18,9 @@ abstract class AuthService {
 
   Future<ResetPasswordResult> resetPassword(String username);
 
+  Future<UpdatePasswordResult> confirmPassword(
+      String username, String code, String newPassword);
+
   Future<void> confirmSignIn(String code, Map<String, String> attributes);
 }
 
@@ -96,5 +99,12 @@ class AmplifyAuthService implements AuthService {
   @override
   Future<ResetPasswordResult> resetPassword(String username) async {
     return await Amplify.Auth.resetPassword(username: username);
+  }
+
+  @override
+  Future<UpdatePasswordResult> confirmPassword(
+      String username, String code, String newPassword) async {
+    return await Amplify.Auth.confirmPassword(
+        username: username, confirmationCode: code, newPassword: newPassword);
   }
 }

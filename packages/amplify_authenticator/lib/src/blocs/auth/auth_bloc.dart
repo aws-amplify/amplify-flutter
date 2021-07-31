@@ -72,6 +72,19 @@ class StateMachineBloc {
       yield* _signOut();
     } else if (event is AuthSendCode) {
       yield* _sendCode(event.data);
+    } else if (event is AuthConfirmPassword) {
+      yield* _confirmPassword(event.data);
+    }
+  }
+
+  Stream<AuthState> _confirmPassword(AuthConfirmPasswordData data) async* {
+    try {
+      await _authService.confirmPassword(
+          data.username, data.confirmationCode, data.newPassword);
+      yield AuthFlow(screen: AuthScreen.signin);
+    } on AmplifyException catch (e) {
+      print(e);
+      _exceptionController!.add(AuthenticatorException(e.message));
     }
   }
 
@@ -108,7 +121,7 @@ class StateMachineBloc {
     try {
       SignInResult result =
           await _authService.signIn(data.username, data.password);
-
+      print(result.nextStep!.signInStep);
       switch (result.nextStep!.signInStep) {
         case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
           exceptionsSink!.add(null);

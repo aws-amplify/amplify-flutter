@@ -179,4 +179,21 @@ class DefaultForms {
       ),
     );
   }
+
+  static ResetPasswordForm resetPasswordForm() {
+    return const ResetPasswordForm(
+      formFields: FormFields(
+        children: [
+          SignInFormField(
+              title: 'Verification code*',
+              hintText: 'Enter code',
+              type: 'verification_code'),
+          SignInFormField(
+              title: 'New password*',
+              hintText: 'Enter your new password',
+              type: 'new_password'),
+        ],
+      ),
+    );
+  }
 }

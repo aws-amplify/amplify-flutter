@@ -122,14 +122,33 @@ class SendCodeForm extends StatelessWidget {
   final FormFields formFields;
   @override
   Widget build(BuildContext context) {
-    final _authModelView =
-        InheritedAuthViewModel.of(context)!.confirmSignInViewModel;
+    final _authModelView = InheritedAuthViewModel.of(context)!.signInViewModel;
     return FormContainer(
         formKey: _authModelView.formKey,
         formFields: formFields,
         buttonsContainer: ButtonsContainer(children: <Widget>[
           BackToSignInButton(),
           SendCodeButton(),
+        ]));
+  }
+}
+
+class ResetPasswordForm extends StatelessWidget {
+  const ResetPasswordForm({Key? key, required this.formFields})
+      : super(key: key);
+
+  /// A list of sign in form fields
+  final FormFields formFields;
+
+  @override
+  Widget build(BuildContext context) {
+    final _authModelView = InheritedAuthViewModel.of(context)!.signInViewModel;
+    return FormContainer(
+        formKey: _authModelView.formKey,
+        formFields: formFields,
+        buttonsContainer: ButtonsContainer(children: <Widget>[
+          BackToSignInButton(),
+          SubmitButton(),
         ]));
   }
 }

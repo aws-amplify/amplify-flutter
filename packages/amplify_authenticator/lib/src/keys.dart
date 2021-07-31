@@ -4,6 +4,9 @@ const String keyUsernameSignInFormfield = 'usernameSignInFormField';
 const String keyEmailSignInFormfield = 'emailSignInFormField';
 const String keyPhoneNumberSignInFormfield = 'phoneNumberSignInFormField';
 const String keyPasswordSignInFormfield = 'passwordSignInFormField';
+const String keyVerificationCodeSignInFormfield =
+    'verificationCodeSignInFormField';
+const String keyNewPasswordSignInFormfield = 'newPasswordSignInFormField';
 
 // Sign up form fields keys
 

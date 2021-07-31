@@ -226,3 +226,17 @@ class SendCodeButton extends StatelessWidget {
         text: "SEND CODE");
   }
 }
+
+class SubmitButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final SignInViewModel _authViewModel =
+        InheritedAuthViewModel.of(context)!.signInViewModel;
+
+    return ButtonContainer(
+        callback: _authViewModel.confirmPassword,
+        authViewModel: _authViewModel,
+        authKey: keySendCodeButton,
+        text: "SUBMIT");
+  }
+}

@@ -9,6 +9,7 @@ class InheritedForms extends InheritedWidget {
       required this.confirmSignUpForm,
       required this.confirmSignInForm,
       required this.sendCodeForm,
+      required this.resetPasswordForm,
       required Widget child})
       : super(child: child);
 
@@ -21,6 +22,8 @@ class InheritedForms extends InheritedWidget {
   final ConfirmSignInForm confirmSignInForm;
 
   final SendCodeForm sendCodeForm;
+
+  final ResetPasswordForm resetPasswordForm;
 
   //final ResetPasswordForm resetPasswordForm;
 

@@ -31,6 +31,8 @@ class SignInFormField extends StatelessWidget {
   /// * Email
   /// * Phone number
   /// * Password
+  /// * New PassworD
+  /// * Verification Code
   final String type;
 
   /// callback meant to validate inputs of this form field.
@@ -72,6 +74,18 @@ class SignInFormField extends StatelessWidget {
         _validator = validator ?? validatePassword;
         _key = const Key(keyPasswordSignInFormfield);
         _resetPasswordButton = const ResetPasswordButton();
+        break;
+      case SignInType.verification_code:
+        _callBack = _authModelView.setConfirmationCode;
+        _keyboardType = TextInputType.number;
+        _key = const Key(keyVerificationCodeSignInFormfield);
+        break;
+      case SignInType.new_password:
+        _callBack = _authModelView.setNewPassword;
+        _keyboardType = TextInputType.visiblePassword;
+        _obscureText = true;
+        _validator = validator ?? validatePassword;
+        _key = const Key(keyNewPasswordSignInFormfield);
 
         break;
       default:

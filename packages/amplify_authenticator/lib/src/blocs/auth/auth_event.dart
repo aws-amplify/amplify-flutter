@@ -61,3 +61,10 @@ class AuthSendCode extends AuthEvent {
   ///Event data
   final AuthSendCodeData data;
 }
+
+class AuthConfirmPassword extends AuthEvent {
+  const AuthConfirmPassword(this.data);
+
+  ///Event data
+  final AuthConfirmPasswordData data;
+}

@@ -5,7 +5,8 @@ enum AuthScreen {
   confirmSignUp,
   confirmSignIn,
   sendCode,
-  resetPassword
+  resetPassword,
+  updatePassword
 }
 
 class AuthSignInData {
@@ -51,4 +52,24 @@ class AuthConfirmSignInData {
 class AuthSendCodeData {
   AuthSendCodeData({required this.username});
   final String username;
+}
+
+class AuthConfirmPasswordData {
+  AuthConfirmPasswordData(
+      {required this.username,
+      required this.newPassword,
+      required this.confirmationCode});
+  final String username;
+  final String newPassword;
+  final String confirmationCode;
+}
+
+class AuthUpdatePasswordData {
+  AuthUpdatePasswordData(
+      {required this.username,
+      required this.password,
+      required this.newPassword});
+  final String username;
+  final String newPassword;
+  final String password;
 }

@@ -13,6 +13,8 @@ class SignInViewModel extends BaseViewModel {
   GlobalKey<FormState> get formKey => _formKey;
   String? _username;
   String? _password;
+  String? _confirmationCode;
+  String? _newPassword;
 
   void setUsername(String value) {
     _username = value;
@@ -22,6 +24,13 @@ class SignInViewModel extends BaseViewModel {
     _password = value;
   }
 
+  void setConfirmationCode(String value) {
+    _confirmationCode = value;
+  }
+
+  void setNewPassword(String value) {
+    _newPassword = value;
+  }
   // Auth calls
 
   Future<void> signIn() async {
@@ -29,7 +38,7 @@ class SignInViewModel extends BaseViewModel {
       return;
     }
     setBusy(true);
-    final singIn = AuthSignInData(
+    AuthSignInData singIn = AuthSignInData(
       username: _username!.trim(),
       password: _password!.trim(),
     );
@@ -47,7 +56,7 @@ class SignInViewModel extends BaseViewModel {
 
   Future<void> sendCode() async {
     setBusy(true);
-    final sendCode = AuthSendCodeData(username: _username!.trim());
+    AuthSendCodeData sendCode = AuthSendCodeData(username: _username!.trim());
     _authBloc.authEvent.add(AuthSendCode(sendCode));
     await Future.any([
       _authBloc.exceptions!.first,
@@ -56,6 +65,19 @@ class SignInViewModel extends BaseViewModel {
     setBusy(false);
   }
 
+  Future<void> confirmPassword() async {
+    setBusy(true);
+    AuthConfirmPasswordData confirmPassword = AuthConfirmPasswordData(
+        username: _username!.trim(),
+        confirmationCode: _confirmationCode!.trim(),
+        newPassword: _newPassword!.trim());
+    _authBloc.authEvent.add(AuthConfirmPassword(confirmPassword));
+    await Future.any([
+      _authBloc.exceptions!.first,
+      _authBloc.stream.first,
+    ]);
+    setBusy(false);
+  }
 //Screens
 
   void goToSignUp() {
@@ -65,6 +87,7 @@ class SignInViewModel extends BaseViewModel {
   }
 
   void goToReset() {
+    clean();
     _authBloc.exceptionsSink!.add(null);
     _authBloc.authEvent.add(const AuthChangeScreen(AuthScreen.sendCode));
   }
