@@ -49,6 +49,9 @@ import 'package:amplify_authenticator/src/enums/alias.dart';
 //Services
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 
+//Text Customization
+import 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
+
 //Widgets
 import 'package:amplify_authenticator/src/widgets/forms.dart';
 import 'package:amplify_authenticator/src/widgets/default_forms.dart';
@@ -60,6 +63,7 @@ export 'package:amplify_authenticator/src/widgets/forms.dart';
 export 'package:amplify_authenticator/src/widgets/form_fields.dart';
 export 'package:amplify_authenticator/src/widgets/buttons.dart'
     show SignOutButton;
+export 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
 
 // ignore: must_be_immutable
 class Authenticator extends StatefulWidget {
@@ -142,7 +146,6 @@ class Authenticator extends StatefulWidget {
   ///           ])
   ///
   /// ```
-
   late final SignInForm signInForm;
 
   /// This form will support the following form field types:
@@ -165,7 +168,6 @@ class Authenticator extends StatefulWidget {
   /// * updated_at
   /// * website
   /// * custom
-
   ///
   /// ### Example
   /// ```dart
@@ -216,7 +218,6 @@ class Authenticator extends StatefulWidget {
   /// * updated_at
   /// * website
   /// * custom
-
   ///
   /// ### Example
   /// ```dart
