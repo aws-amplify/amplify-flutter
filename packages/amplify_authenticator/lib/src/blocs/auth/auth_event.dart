@@ -54,3 +54,10 @@ class AuthSignOut extends AuthEvent {
 class AuthExceptionEvent extends AuthEvent {
   const AuthExceptionEvent();
 }
+
+class AuthSendCode extends AuthEvent {
+  const AuthSendCode(this.data);
+
+  ///Event data
+  final AuthSendCodeData data;
+}

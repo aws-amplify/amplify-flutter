@@ -181,3 +181,48 @@ class LostCodeButton extends StatelessWidget {
     );
   }
 }
+
+class ResetPasswordButton extends StatelessWidget {
+  const ResetPasswordButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final SignInViewModel _authViewModel =
+        InheritedAuthViewModel.of(context)!.signInViewModel;
+    return Row(
+      children: [
+        const Text("Forgot your Password?",
+            style: TextStyle(
+              color: Color.fromRGBO(130, 130, 130, 1),
+              fontSize: 12,
+            )),
+        TextButton(
+          key: const Key(keyGoToSignInButton),
+          child: Text(
+            "Reset password",
+            style: TextStyle(
+                fontSize: 12,
+                color: Theme.of(context).primaryColor != Colors.blue
+                    ? Theme.of(context).primaryColor
+                    : AuthenticatorColors.primary),
+          ),
+          onPressed: _authViewModel.goToReset,
+        ),
+      ],
+    );
+  }
+}
+
+class SendCodeButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final SignInViewModel _authViewModel =
+        InheritedAuthViewModel.of(context)!.signInViewModel;
+
+    return ButtonContainer(
+        callback: _authViewModel.sendCode,
+        authViewModel: _authViewModel,
+        authKey: keySendCodeButton,
+        text: "SEND CODE");
+  }
+}

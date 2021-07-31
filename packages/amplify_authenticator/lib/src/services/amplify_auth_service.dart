@@ -16,6 +16,8 @@ abstract class AuthService {
 
   Future<bool> get isLoggedIn;
 
+  Future<ResetPasswordResult> resetPassword(String username);
+
   Future<void> confirmSignIn(String code, Map<String, String> attributes);
 }
 
@@ -89,5 +91,10 @@ class AmplifyAuthService implements AuthService {
     } on SignedOutException {
       return false;
     }
+  }
+
+  @override
+  Future<ResetPasswordResult> resetPassword(String username) async {
+    return await Amplify.Auth.resetPassword(username: username);
   }
 }

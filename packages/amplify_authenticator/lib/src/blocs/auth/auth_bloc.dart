@@ -70,6 +70,18 @@ class StateMachineBloc {
       yield* _changeScreen(event.screen);
     } else if (event is AuthSignOut) {
       yield* _signOut();
+    } else if (event is AuthSendCode) {
+      yield* _sendCode(event.data);
+    }
+  }
+
+  Stream<AuthState> _sendCode(AuthSendCodeData data) async* {
+    try {
+      await _authService.resetPassword(data.username);
+      yield AuthFlow(screen: AuthScreen.resetPassword);
+    } on AmplifyException catch (e) {
+      print(e);
+      _exceptionController!.add(AuthenticatorException(e.message));
     }
   }
 

@@ -29,6 +29,7 @@ import 'package:amplify_authenticator/src/screens/loading_screen.dart';
 import 'package:amplify_authenticator/src/screens/signin_screen.dart';
 import 'package:amplify_authenticator/src/screens/signup_screen.dart';
 import 'package:amplify_authenticator/src/screens/confirm_signup_screen.dart';
+import 'package:amplify_authenticator/src/screens/send_code_screen.dart';
 
 //Bloc
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
@@ -99,6 +100,7 @@ class Authenticator extends StatefulWidget {
         confirmSignInForm ?? DefaultForms.confirmSignInForm();
 
     confirmSignUpForm = DefaultForms.confirmSignUpForm(usernameAlias);
+    sendCodeForm = DefaultForms.sendCodeForm(usernameAlias);
   }
 
   ///Requires an username alias to setup the preferred sign in method,
@@ -112,6 +114,7 @@ class Authenticator extends StatefulWidget {
   /// ```
   final Alias usernameAlias;
 
+  late SendCodeForm sendCodeForm;
   late ConfirmSignUpForm confirmSignUpForm;
 
   /// This form will support the following form field types:
@@ -260,6 +263,7 @@ class _AuthenticatorState extends State<Authenticator> {
             confirmSignUpViewModel: ConfirmSignUpViewModel(_stateMachineBloc),
             confirmSignInViewModel: ConfirmSignInViewModel(_stateMachineBloc),
             child: InheritedForms(
+                sendCodeForm: widget.sendCodeForm,
                 signInForm: widget.signInForm,
                 signUpForm: widget.signUpForm,
                 confirmSignUpForm: widget.confirmSignUpForm,
@@ -286,6 +290,12 @@ class _AuthenticatorState extends State<Authenticator> {
                       } else if (state is AuthFlow &&
                           state.screen == AuthScreen.confirmSignIn) {
                         screen = ConfirmSignInScreen();
+                      } else if (state is AuthFlow &&
+                          state.screen == AuthScreen.sendCode) {
+                        screen = const SendCodeScreen();
+                      } else if (state is AuthFlow &&
+                          state.screen == AuthScreen.resetPassword) {
+                        screen = const Text("Reset Password Screen");
                       }
 
                       return Container(

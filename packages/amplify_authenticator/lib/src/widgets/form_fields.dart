@@ -45,7 +45,7 @@ class SignInFormField extends StatelessWidget {
     String? Function(String?)? _validator;
     TextInputType _keyboardType = TextInputType.text;
     final SignInType? _type = fromStringToSignInType(type);
-
+    Widget? _resetPasswordButton;
     switch (_type) {
       case SignInType.username:
         _callBack = _authModelView.setUsername;
@@ -71,12 +71,15 @@ class SignInFormField extends StatelessWidget {
         _obscureText = true;
         _validator = validator ?? validatePassword;
         _key = const Key(keyPasswordSignInFormfield);
+        _resetPasswordButton = const ResetPasswordButton();
+
         break;
       default:
         break;
     }
 
     return FormFieldContainer(
+        resendCodeButton: _resetPasswordButton,
         key: _key,
         keyboardType: _keyboardType,
         callback: _callBack,

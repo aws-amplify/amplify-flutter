@@ -149,4 +149,34 @@ class DefaultForms {
       ),
     );
   }
+
+  static SendCodeForm sendCodeForm(Alias alias) {
+    late String _title;
+    late String _hintText;
+    switch (alias) {
+      case Alias.username:
+        _title = 'Username*';
+        _hintText = 'Enter your username';
+        break;
+      case Alias.phone_number:
+        _title = 'Phone Number*';
+        _hintText = 'Enter your phone number';
+        break;
+      case Alias.email:
+        _title = 'Email*';
+        _hintText = 'Enter your email';
+        break;
+      case Alias.email_phone_number:
+        _title = 'Email or Phone Number*';
+        _hintText = 'Enter your email or phone number';
+        break;
+    }
+    return SendCodeForm(
+      formFields: FormFields(
+        children: [
+          SignInFormField(title: _title, hintText: _hintText, type: 'username'),
+        ],
+      ),
+    );
+  }
 }

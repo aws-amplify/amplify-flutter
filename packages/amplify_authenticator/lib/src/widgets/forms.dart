@@ -113,3 +113,23 @@ class ConfirmSignInForm extends StatelessWidget {
         ]));
   }
 }
+
+class SendCodeForm extends StatelessWidget {
+  const SendCodeForm({Key? key, required this.formFields}) : super(key: key);
+
+  /// A list of sign in form fields
+
+  final FormFields formFields;
+  @override
+  Widget build(BuildContext context) {
+    final _authModelView =
+        InheritedAuthViewModel.of(context)!.confirmSignInViewModel;
+    return FormContainer(
+        formKey: _authModelView.formKey,
+        formFields: formFields,
+        buttonsContainer: ButtonsContainer(children: <Widget>[
+          BackToSignInButton(),
+          SendCodeButton(),
+        ]));
+  }
+}

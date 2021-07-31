@@ -45,12 +45,28 @@ class SignInViewModel extends BaseViewModel {
     _authBloc.authEvent.add(const AuthSignOut());
   }
 
+  Future<void> sendCode() async {
+    setBusy(true);
+    final sendCode = AuthSendCodeData(username: _username!.trim());
+    _authBloc.authEvent.add(AuthSendCode(sendCode));
+    await Future.any([
+      _authBloc.exceptions!.first,
+      _authBloc.stream.first,
+    ]);
+    setBusy(false);
+  }
+
 //Screens
 
   void goToSignUp() {
     clean();
     _authBloc.exceptionsSink!.add(null);
     _authBloc.authEvent.add(const AuthChangeScreen(AuthScreen.signup));
+  }
+
+  void goToReset() {
+    _authBloc.exceptionsSink!.add(null);
+    _authBloc.authEvent.add(const AuthChangeScreen(AuthScreen.sendCode));
   }
 
   void clean() {
