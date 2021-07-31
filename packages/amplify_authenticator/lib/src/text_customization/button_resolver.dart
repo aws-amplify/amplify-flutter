@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -15,10 +16,14 @@
 
 import 'package:amplify_authenticator/src/text_customization/resolver_typedef.dart';
 import 'package:flutter/widgets.dart';
+=======
+import 'package:amplify_authenticator/src/text_customization/resolver_typedef.dart';
+>>>>>>> feat(amplify_authenticator): text customization
 
 /// The resolver class for shared button Widgets
 class ButtonResolver {
   /// Label of signin form button
+<<<<<<< HEAD
   late StringResolver signin;
 
   /// Label of signin form button
@@ -57,4 +62,15 @@ class ButtonResolver {
     this.sendCode = sendCode ?? (_) => "Send Code";
     this.lostCodeQuestion = lostCodeQuestion ?? (_) => "Lost your code?";
   }
+=======
+  StringResolver? signin;
+
+  /// Label of signin form button
+  StringResolver? signup;
+
+  /// Label of confirm forms' button
+  StringResolver? confirm;
+  // ignore: public_member_api_docs
+  ButtonResolver({this.signin, this.signup, this.confirm});
+>>>>>>> feat(amplify_authenticator): text customization
 }

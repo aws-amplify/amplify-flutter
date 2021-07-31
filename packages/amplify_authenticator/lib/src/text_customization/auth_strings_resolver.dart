@@ -20,8 +20,6 @@ import 'package:amplify_authenticator/src/text_customization/title_resolver.dart
 
 export 'package:amplify_authenticator/src/text_customization/title_resolver.dart';
 export 'package:amplify_authenticator/src/text_customization/input_resolver.dart';
-export 'package:amplify_authenticator/src/text_customization/button_resolver.dart';
-export 'package:amplify_authenticator/src/text_customization/navigation_resolver.dart';
 
 /// The class that is accepted by the Authenticator to override strings
 ///

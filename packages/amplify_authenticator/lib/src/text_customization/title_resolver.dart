@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -16,6 +17,9 @@
 import 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/text_customization/resolver_typedef.dart';
 import 'package:flutter/widgets.dart';
+=======
+import 'package:amplify_authenticator/src/text_customization/resolver_typedef.dart';
+>>>>>>> feat(amplify_authenticator): text customization
 
 /// The resolver class for screen titles
 class TitleResolver {
@@ -28,6 +32,7 @@ class TitleResolver {
   /// The title for the confirm sign up Widget.
   StringResolver? confirm_signup;
 
+<<<<<<< HEAD
   /// The title for the confirm sign in (MFA) Widget.
   late StringResolver confirmSigninMfa;
 
@@ -60,4 +65,12 @@ class TitleResolver {
     this.resetPassword = resetPassword ?? (_) => "Reset your password";
     this.sendCode = sendCode ?? (_) => "Send Code";
   }
+=======
+  /// The title for the confirm sign in Widget.
+  StringResolver? confirm_signin;
+
+  // ignore: public_member_api_docs
+  TitleResolver(
+      {this.signin, this.signup, this.confirm_signup, this.confirm_signin});
+>>>>>>> feat(amplify_authenticator): text customization
 }

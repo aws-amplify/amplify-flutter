@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -15,6 +16,9 @@
 
 import 'package:amplify_authenticator/src/text_customization/resolver_typedef.dart';
 import 'package:flutter/widgets.dart';
+=======
+import 'package:amplify_authenticator/src/text_customization/resolver_typedef.dart';
+>>>>>>> feat(amplify_authenticator): text customization
 
 /// The resolver class for shared input Widgets
 class InputResolver {
@@ -48,6 +52,7 @@ class InputResolver {
   /// Hint of verification code field
   StringResolver? verification_code_hint;
 
+<<<<<<< HEAD
   /// Title of field accepting email or phone_number
   late StringResolver email_phone_number_title;
 
@@ -87,4 +92,18 @@ class InputResolver {
     this.email_phone_number_hint =
         email_phone_number_hint ?? (_) => "Enter your email or phone number";
   }
+=======
+  // ignore: public_member_api_docs
+  InputResolver(
+      {this.username_title,
+      this.username_hint,
+      this.password_title,
+      this.password_hint,
+      this.email_title,
+      this.email_hint,
+      this.phone_number_title,
+      this.phone_number_hint,
+      this.verification_code_title,
+      this.verification_code_hint});
+>>>>>>> feat(amplify_authenticator): text customization
 }
