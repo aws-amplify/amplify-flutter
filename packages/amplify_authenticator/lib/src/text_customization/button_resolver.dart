@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*
  * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -15,34 +14,29 @@
  */
 
 import 'package:amplify_authenticator/src/text_customization/resolver_typedef.dart';
-import 'package:flutter/widgets.dart';
-=======
-import 'package:amplify_authenticator/src/text_customization/resolver_typedef.dart';
->>>>>>> feat(amplify_authenticator): text customization
 
 /// The resolver class for shared button Widgets
 class ButtonResolver {
   /// Label of signin form button
-<<<<<<< HEAD
-  late StringResolver signin;
+  StringResolver signin = (_) => "Sign In";
 
   /// Label of signin form button
-  late StringResolver signup;
+  StringResolver signup = (_) => "Create Account";
 
   /// Label of confirm forms' button
-  late StringResolver confirm;
+  StringResolver confirm = (_) => "Confirm";
 
   /// Label of submit button
-  late StringResolver submit;
+  StringResolver submit = (_) => "Submit";
 
   /// Label of change password button on ConfirmSignInNewPassword Form
-  late StringResolver changePassword;
+  StringResolver changePassword = (_) => "Change Password";
 
   /// Label of button for sending a confirmation code
-  late StringResolver sendCode;
+  StringResolver sendCode = (_) => "Send Code";
 
   /// Question for button to resend code
-  late StringResolver lostCodeQuestion;
+  StringResolver lostCodeQuestion = (_) => "Lost your code?";
 
   // ignore: public_member_api_docs
   ButtonResolver(
@@ -54,23 +48,12 @@ class ButtonResolver {
       StringResolver? sendCode,
       StringResolver? lostCodeQuestion}) {
     // We are assigning in this way due to limitations in assigning closures as defaults
-    this.signin = signin ?? (_) => "Sign In";
-    this.signup = signup ?? (_) => "Create Account";
-    this.confirm = confirm ?? (_) => "Confirm";
-    this.submit = submit ?? (_) => "Submit";
-    this.changePassword = changePassword ?? (_) => "Change Password";
-    this.sendCode = sendCode ?? (_) => "Send Code";
-    this.lostCodeQuestion = lostCodeQuestion ?? (_) => "Lost your code?";
+    this.signin = signin ?? this.signin;
+    this.signup = signup ?? this.signup;
+    this.confirm = confirm ?? this.confirm;
+    this.submit = submit ?? this.submit;
+    this.changePassword = changePassword ?? this.changePassword;
+    this.sendCode = sendCode ?? this.sendCode;
+    this.lostCodeQuestion = lostCodeQuestion ?? this.lostCodeQuestion;
   }
-=======
-  StringResolver? signin;
-
-  /// Label of signin form button
-  StringResolver? signup;
-
-  /// Label of confirm forms' button
-  StringResolver? confirm;
-  // ignore: public_member_api_docs
-  ButtonResolver({this.signin, this.signup, this.confirm});
->>>>>>> feat(amplify_authenticator): text customization
 }

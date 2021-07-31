@@ -1,48 +1,42 @@
-<<<<<<< HEAD
 /*
  * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License").
+ * Licensed under the Apache License, Version 2.0 (the 'License').
  * You may not use this file except in compliance with the License.
  * A copy of the License is located at
  *
  *  http://aws.amazon.com/apache2.0
  *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * or in the 'license' file accompanying this file. This file is distributed
+ * on an 'AS IS' BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
 
 import 'package:amplify_authenticator/src/text_customization/resolver_typedef.dart';
-import 'package:flutter/widgets.dart';
-=======
-import 'package:amplify_authenticator/src/text_customization/resolver_typedef.dart';
->>>>>>> feat(amplify_authenticator): text customization
 
 /// The resolver class for shared button Widgets
 class NavigationResolver {
   /// Text for navigating to the signup Widget
-<<<<<<< HEAD
-  late StringResolver navigateSignup;
+  StringResolver navigateSignup = (_) => 'I am the default';
 
   /// Text for navigating to the signin Widget
-  late StringResolver navigateSignin;
+  StringResolver navigateSignin = (_) => 'Sign In';
 
   /// Text asking if user does not have an account
-  late StringResolver noAccountQuestion;
+  StringResolver noAccountQuestion = (_) => 'No account?';
 
   /// Text asking if user has have an account
-  late StringResolver haveAccountQuestion;
+  StringResolver haveAccountQuestion = (_) => 'Have an account?';
 
   /// Text asking if user has forgotten password
-  late StringResolver forgotPasswordQuestion;
+  StringResolver forgotPasswordQuestion = (_) => 'Forgot password?';
 
   /// Text for navigating to reset password Widget
-  late StringResolver navigateResetPassword;
+  StringResolver navigateResetPassword = (_) => 'Reset Password';
 
   /// Text asking if user has have an account
-  late StringResolver backToSignin;
+  StringResolver backToSignin = (_) => 'Back to Sign In';
 
   // ignore: public_member_api_docs
   NavigationResolver(
@@ -54,37 +48,14 @@ class NavigationResolver {
       StringResolver? forgotPasswordQuestion,
       StringResolver? backToSignin}) {
     // We are assigning in this way due to limitations in assigning closures as defaults
-    this.navigateSignin = navigateSignin ?? (_) => "Sign In";
-    this.navigateSignup = navigateSignup ?? (_) => "Sign Up";
+    this.navigateSignin = navigateSignin ?? this.navigateSignin;
+    this.navigateSignup = navigateSignup ?? this.navigateSignup;
     this.navigateResetPassword =
-        navigateResetPassword ?? (_) => "Reset Password";
-    this.noAccountQuestion = noAccountQuestion ?? (_) => "No account?";
-    this.haveAccountQuestion = haveAccountQuestion ?? (_) => "Have an account?";
+        navigateResetPassword ?? this.navigateResetPassword;
+    this.noAccountQuestion = noAccountQuestion ?? this.noAccountQuestion;
+    this.haveAccountQuestion = haveAccountQuestion ?? this.haveAccountQuestion;
     this.forgotPasswordQuestion =
-        forgotPasswordQuestion ?? (_) => "Forgot password?";
-    this.backToSignin = backToSignin ?? (_) => "Back to Sign In";
+        forgotPasswordQuestion ?? this.forgotPasswordQuestion;
+    this.backToSignin = backToSignin ?? this.backToSignin;
   }
-=======
-  StringResolver? navigate_signup;
-
-  /// Text for navigating to the signin Widget
-  StringResolver? navigate_signin;
-
-  /// Text asking if user does not have an account
-  StringResolver? no_account_question;
-
-  /// Text asking if user has have an account
-  StringResolver? have_account_question;
-
-  /// Text asking if user has have an account
-  StringResolver? back_to_signin;
-
-  // ignore: public_member_api_docs
-  NavigationResolver(
-      {this.navigate_signin,
-      this.navigate_signup,
-      this.no_account_question,
-      this.have_account_question,
-      this.back_to_signin});
->>>>>>> feat(amplify_authenticator): text customization
 }

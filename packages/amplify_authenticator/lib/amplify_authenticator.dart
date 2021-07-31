@@ -119,7 +119,7 @@ class Authenticator extends StatefulWidget {
   /// ```
   late Alias usernameAlias;
 
-  late final ConfirmSignInMFAForm? confirmSignInMFAForm;
+  ConfirmSignInMFAForm? confirmSignInMFAForm;
 
   /// This form will support the following form field types:
   ///    * username
@@ -139,11 +139,7 @@ class Authenticator extends StatefulWidget {
   ///           ])
   ///
   /// ```
-<<<<<<< HEAD
-  late final SignInForm? signInForm;
-=======
-  late final SignInForm signInForm;
->>>>>>> feat(amplify_authenticator): text customization
+  SignInForm? signInForm;
 
   /// This form will support the following form field types:
   /// * username
@@ -193,53 +189,7 @@ class Authenticator extends StatefulWidget {
   ///                     ])
   ///
   /// ```
-<<<<<<< HEAD
-  late final SignUpForm? signUpForm;
-=======
-  late final SignUpForm signUpForm;
-
-  /// This form will support the following form field types:
-  /// * code
-  /// * password
-  /// * birthdate
-  /// * email
-  /// * family_name
-  /// * gender
-  /// * given_name
-  /// * locate
-  /// * middle_name
-  /// * name
-  /// * nickname
-  /// * phone_number
-  /// * picture
-  /// * preferred_username
-  /// * profile
-  /// * zoneinfo
-  /// * updated_at
-  /// * website
-  /// * custom
-  ///
-  /// ### Example
-  /// ```dart
-  ///     ConfirmSignInNewPasswordForm( formFields:
-  ///                   FormFields(children: [
-  ///                     ConfirmSignInFormField(
-  ///                       type: "email" ,
-  ///                       title: "Custom email form field",
-  ///                       hintText: "Custom hint text",
-  ///                       ),
-  ///                     ConfirmSignInFormField(
-  ///                       type: "password" ,
-  ///                       title: "Custom password form field",
-  ///                       hintText: "Custom hint text",
-  ///                       ),
-  ///
-  ///                     ])
-  ///
-  /// ```
-
-  late ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm;
->>>>>>> feat(amplify_authenticator): text customization
+  SignUpForm? signUpForm;
 
   /// This widget will be displayed after a user has signed in with some verified credentials.
   final Widget child;

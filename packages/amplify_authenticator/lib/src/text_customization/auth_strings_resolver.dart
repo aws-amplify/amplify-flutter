@@ -20,23 +20,34 @@ import 'package:amplify_authenticator/src/text_customization/title_resolver.dart
 
 export 'package:amplify_authenticator/src/text_customization/title_resolver.dart';
 export 'package:amplify_authenticator/src/text_customization/input_resolver.dart';
+export 'package:amplify_authenticator/src/text_customization/button_resolver.dart';
+export 'package:amplify_authenticator/src/text_customization/navigation_resolver.dart';
 
 /// The class that is accepted by the Authenticator to override strings
 ///
 /// Consists of a set of resolvers, which are functions for returning strings.
 /// This enables users to override default strings, including with localizations.
 class AuthStringResolver {
-  TitleResolver? titles;
+  /// The resolver class for shared button Widgets
+  ButtonResolver buttons;
 
   /// The resolver class for shared input Widgets
-  InputResolver? inputs;
-
-  /// The resolver class for shared button Widgets
-  ButtonResolver? buttons;
+  InputResolver inputs;
 
   /// The resolver class for navigation-related Widgets
-  NavigationResolver? navigation;
+  NavigationResolver navigation;
+
+  /// The resolver class for titles
+  TitleResolver titles;
 
   // ignore: public_member_api_docs
-  AuthStringResolver({this.titles, this.inputs, this.buttons, this.navigation});
+  AuthStringResolver({
+    ButtonResolver? buttons,
+    InputResolver? inputs,
+    NavigationResolver? navigation,
+    TitleResolver? titles,
+  })  : this.titles = titles ?? TitleResolver(),
+        this.buttons = buttons ?? ButtonResolver(),
+        this.inputs = inputs ?? InputResolver(),
+        this.navigation = navigation ?? NavigationResolver();
 }

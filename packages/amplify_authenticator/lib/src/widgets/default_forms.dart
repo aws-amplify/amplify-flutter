@@ -2,10 +2,10 @@ import 'package:amplify_authenticator/src/enums/alias.dart';
 import 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/widgets/forms.dart';
 import 'package:amplify_authenticator/src/widgets/form_fields.dart';
+import 'package:flutter/widgets.dart';
 
 /// These default forms will be used as long as there are no
 /// arguments being passed from the main Authenticator wrapper.
-
 // The initial auth flow will be setup based on an username alias
 // that comes from the main Authenticator widget.
 class DefaultForms {

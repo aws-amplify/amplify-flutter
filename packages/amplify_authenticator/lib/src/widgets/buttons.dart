@@ -1,4 +1,6 @@
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/state/inherited_strings.dart';
+import 'package:amplify_authenticator/src/text_customization/navigation_resolver.dart';
 import 'package:amplify_authenticator/src/views/confirm_signin_viewmodel.dart';
 import 'package:amplify_authenticator/src/widgets/containers.dart';
 import 'package:flutter/material.dart';
@@ -112,6 +114,8 @@ class GoToSignUpButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final SignInViewModel _authModelView =
         InheritedAuthViewModel.of(context)!.signInViewModel;
+    final NavigationResolver _navText =
+        InheritedStrings.of(context)!.resolver.navigation;
     return Padding(
       padding: const EdgeInsets.only(top: 4),
       child: Row(
@@ -145,6 +149,8 @@ class GoToSignInButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final SignUpViewModel _authModelView =
         InheritedAuthViewModel.of(context)!.signUpViewModel;
+    final NavigationResolver _navText =
+        InheritedStrings.of(context)!.resolver.navigation;
     return Padding(
       padding: const EdgeInsets.only(top: 4.0),
       child: Row(
