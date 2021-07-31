@@ -1,3 +1,4 @@
+import 'package:amplify_authenticator/src/strings/auth_strings.dart';
 import 'package:amplify_authenticator/src/widgets/forms.dart';
 import 'package:flutter/material.dart';
 
@@ -7,9 +8,8 @@ class InheritedForms extends InheritedWidget {
       {required this.signInForm,
       required this.signUpForm,
       required this.confirmSignUpForm,
-
       required this.confirmSignInForm,
-
+      required this.authStrings,
       required Widget child})
       : super(child: child);
 
@@ -21,6 +21,7 @@ class InheritedForms extends InheritedWidget {
 
   final ConfirmSignInForm confirmSignInForm;
 
+  final AuthStrings? authStrings;
 
   // ignore: public_member_api_docs
   static InheritedForms? of(BuildContext context) =>
