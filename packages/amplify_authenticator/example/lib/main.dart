@@ -119,12 +119,16 @@ class _MyHomePageState extends State<MyHomePage> {
     //             AppLocalizations.of(context)!.title_reset_password));
     return Authenticator(
 <<<<<<< HEAD
+<<<<<<< HEAD
       // Uncomment this code to use localizations
       // resolver: resolver,
       child: const CustomersApp(),
 =======
       child: CustomersApp(),
 >>>>>>> feat(amplify_authenticator): text customization
+=======
+      child: const CustomersApp(),
+>>>>>>> remove const
     );
   }
 }
