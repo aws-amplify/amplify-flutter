@@ -1,4 +1,4 @@
-import 'package:amplify_authenticator/src/internationalization/resolver_typedef.dart';
+import 'package:amplify_authenticator/src/text_customization/resolver_typedef.dart';
 
 /// The resolver class for screen titles
 class TitleResolver {

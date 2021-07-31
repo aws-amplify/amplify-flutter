@@ -1,20 +1,18 @@
 import 'package:amplify_authenticator/src/strings/auth_strings.dart';
 import 'package:amplify_authenticator/src/widgets/forms.dart';
 import 'package:amplify_authenticator/src/widgets/form_fields.dart';
-import 'package:flutter/material.dart';
 
 ///These default forms will be used as long as the customer doesn't pass any custom forms.
-
 class DefaultForms {
   static SignInForm signInForm(AuthStrings authStrings) {
     return SignInForm(
       formFields: FormFields(
         children: [
-          AuthFormField(
+          SignInFormField(
               title: authStrings.inputs.username_title,
               hintText: authStrings.inputs.username_hint,
               type: 'username'),
-          AuthFormField(
+          SignInFormField(
               title: authStrings.inputs.password_title,
               hintText: authStrings.inputs.password_hint,
               type: 'password')
@@ -23,53 +21,55 @@ class DefaultForms {
     );
   }
 
-  static SignUpForm signUpForm() {
-    return const SignUpForm(
+  static SignUpForm signUpForm(AuthStrings authStrings) {
+    return SignUpForm(
       formFields: FormFields(
         children: [
           SignUpFormField(
-              title: 'Username*',
-              hintText: "Enter your username",
+              title: authStrings.inputs.username_title,
+              hintText: authStrings.inputs.username_hint,
               type: 'username'),
           SignUpFormField(
-              title: 'Password*',
-              hintText: "Enter your password",
+              title: authStrings.inputs.password_title,
+              hintText: authStrings.inputs.password_hint,
               type: 'password'),
           SignUpFormField(
-              title: 'Email*', hintText: "Enter your email", type: 'email'),
+              title: authStrings.inputs.email_title,
+              hintText: authStrings.inputs.email_hint,
+              type: 'email'),
           SignUpFormField(
-              title: 'Phone Number*',
-              hintText: "Enter your phone number",
+              title: authStrings.inputs.phone_number_title,
+              hintText: authStrings.inputs.phone_number_hint,
               type: 'phone_number')
         ],
       ),
     );
   }
 
-  static ConfirmSignUpForm confirmSignUpForm() {
-    return const ConfirmSignUpForm(
+  static ConfirmSignUpForm confirmSignUpForm(AuthStrings authStrings) {
+    return ConfirmSignUpForm(
       formFields: FormFields(
         children: [
           ConfirmSignUpFormField(
-              title: 'Username*',
-              hintText: "Enter your username",
+              title: authStrings.inputs.username_title,
+              hintText: authStrings.inputs.username_hint,
               type: 'username'),
           ConfirmSignUpFormField(
-              title: 'Verification Code*',
-              hintText: "Enter your verification code",
+              title: authStrings.inputs.verification_code_title,
+              hintText: authStrings.inputs.verification_code_hint,
               type: 'code'),
         ],
       ),
     );
   }
 
-  static ConfirmSignInForm confirmSignInForm() {
-    return const ConfirmSignInForm(
+  static ConfirmSignInForm confirmSignInForm(AuthStrings authStrings) {
+    return ConfirmSignInForm(
       formFields: FormFields(
         children: [
           ConfirmSignInFormField(
-              title: 'Code*',
-              hintText: "Enter your confirmation code",
+              title: authStrings.inputs.verification_code_title,
+              hintText: authStrings.inputs.verification_code_hint,
               type: 'code'),
         ],
       ),

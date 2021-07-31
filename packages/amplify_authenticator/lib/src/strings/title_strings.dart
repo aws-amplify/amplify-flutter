@@ -1,6 +1,6 @@
-import 'package:amplify_authenticator/src/internationalization/auth_strings_resolver.dart';
-import 'package:amplify_authenticator/src/internationalization/button_resolver.dart';
-import 'package:amplify_authenticator/src/internationalization/title_resolver.dart';
+import 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
+import 'package:amplify_authenticator/src/text_customization/button_resolver.dart';
+import 'package:amplify_authenticator/src/text_customization/title_resolver.dart';
 import 'package:amplify_authenticator/src/strings/auth_strings.dart';
 
 /// The class for displaying Authenticator Widget titles

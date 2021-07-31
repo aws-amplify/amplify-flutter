@@ -9,6 +9,7 @@ class InheritedForms extends InheritedWidget {
       required this.signUpForm,
       required this.confirmSignUpForm,
       required this.confirmSignInForm,
+      required this.authStrings,
       required Widget child})
       : super(child: child);
 
@@ -17,9 +18,10 @@ class InheritedForms extends InheritedWidget {
   final SignUpForm signUpForm;
 
   final ConfirmSignUpForm confirmSignUpForm;
-  final AuthStrings? authStrings;
 
   final ConfirmSignInForm confirmSignInForm;
+
+  final AuthStrings? authStrings;
 
   // ignore: public_member_api_docs
   static InheritedForms? of(BuildContext context) =>

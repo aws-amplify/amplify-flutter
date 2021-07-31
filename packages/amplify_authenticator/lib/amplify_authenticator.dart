@@ -17,6 +17,7 @@ library amplify_authenticator;
 
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/screens/confirm_signin_screen.dart';
+import 'package:amplify_authenticator/src/strings/auth_strings.dart';
 import 'package:flutter/material.dart';
 
 //State
@@ -40,9 +41,11 @@ import 'package:amplify_authenticator/src/views/signup_viewmodel.dart';
 import 'package:amplify_authenticator/src/views/confirm_signup_viewmodel.dart';
 import 'package:amplify_authenticator/src/views/confirm_signin_viewmodel.dart';
 
-
 //Services
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
+
+//Text Customization
+import 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
 
 //Widgets
 import 'package:amplify_authenticator/src/widgets/forms.dart';
@@ -53,6 +56,7 @@ export 'package:amplify_authenticator/src/widgets/forms.dart';
 export 'package:amplify_authenticator/src/widgets/form_fields.dart';
 export 'package:amplify_authenticator/src/widgets/buttons.dart'
     show SignOutButton;
+export 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
 
 ///
 // ignore: must_be_immutable
@@ -84,20 +88,18 @@ class Authenticator extends StatefulWidget {
   ///     - define
   ///
   Authenticator(
-
       {required this.child,
       SignInForm? signInForm,
       SignUpForm? signUpForm,
-      ConfirmSignInForm? confirmSignInForm}) {
-    this.signInForm = signInForm ?? DefaultForms.signInForm();
-    this.signUpForm = signUpForm ?? DefaultForms.signUpForm();
+      ConfirmSignInForm? confirmSignInForm,
+      AuthStringResolver? resolver}) {
+    this.resolver = resolver;
+    this.authStrings = AuthStrings(resolver: this.resolver);
+    this.signInForm = signInForm ?? DefaultForms.signInForm(this.authStrings);
+    this.signUpForm = signUpForm ?? DefaultForms.signUpForm(this.authStrings);
     this.confirmSignInForm =
-        confirmSignInForm ?? DefaultForms.confirmSignInForm();
-
-      {required this.child, SignInForm? signInForm, SignUpForm? signUpForm}) {
-    this.signInForm = signInForm ?? DefaultForms.signInForm();
-    this.signUpForm = signUpForm ?? DefaultForms.signUpForm();
-
+        confirmSignInForm ?? DefaultForms.confirmSignInForm(this.authStrings);
+    this.confirmSignUpForm = DefaultForms.confirmSignUpForm(this.authStrings);
   }
 
   /// This form will support the following form field types:
@@ -170,8 +172,7 @@ class Authenticator extends StatefulWidget {
   /// ```
   late final SignUpForm signUpForm;
 
-  final ConfirmSignUpForm confirmSignUpForm = DefaultForms.confirmSignUpForm();
-
+  late final ConfirmSignUpForm confirmSignUpForm;
 
   /// This form will support the following form field types:
   /// * code
@@ -214,10 +215,12 @@ class Authenticator extends StatefulWidget {
   /// ```
   late final ConfirmSignInForm confirmSignInForm;
 
- 
   /// This widget will be displayed after a user has signed in with some verified credentials.
-final Widget child;
+  final Widget child;
 
+  late AuthStringResolver? resolver;
+
+  late final AuthStrings authStrings;
 
   @override
   _AuthenticatorState createState() => _AuthenticatorState();
@@ -246,13 +249,12 @@ class _AuthenticatorState extends State<Authenticator> {
             signUpViewModel: SignUpViewModel(_stateMachineBloc),
             confirmSignUpViewModel: ConfirmSignUpViewModel(_stateMachineBloc),
             confirmSignInViewModel: ConfirmSignInViewModel(_stateMachineBloc),
-
             child: InheritedForms(
+                authStrings: widget.authStrings,
                 signInForm: widget.signInForm,
                 signUpForm: widget.signUpForm,
                 confirmSignUpForm: widget.confirmSignUpForm,
                 confirmSignInForm: widget.confirmSignInForm,
-
                 child: Scaffold(
                   body: StreamBuilder(
                     stream: _stateMachineBloc.stream,
@@ -276,7 +278,6 @@ class _AuthenticatorState extends State<Authenticator> {
                       } else if (state is AuthFlow &&
                           state.screen == AuthScreen.confirmSignIn) {
                         screen = ConfirmSignInScreen();
-
                       }
 
                       return Center(
@@ -292,6 +293,6 @@ class _AuthenticatorState extends State<Authenticator> {
   @override
   void dispose() {
     _stateMachineBloc.dispose();
-     super.dispose();
+    super.dispose();
   }
 }

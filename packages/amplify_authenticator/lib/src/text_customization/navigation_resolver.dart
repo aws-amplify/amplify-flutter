@@ -1,16 +1,7 @@
-import 'package:amplify_authenticator/src/internationalization/resolver_typedef.dart';
+import 'package:amplify_authenticator/src/text_customization/resolver_typedef.dart';
 
 /// The resolver class for shared button Widgets
-class ButtonResolver {
-  /// Label of signin form button
-  StringResolver? submit_signin;
-
-  /// Label of signin form button
-  StringResolver? submit_signup;
-
-  /// Label of confirm forms' button
-  StringResolver? submit_confirm;
-
+class NavigationResolver {
   /// Text for navigating to the signup Widget
   StringResolver? navigate_signup;
 
@@ -23,13 +14,14 @@ class ButtonResolver {
   /// Text asking if user has have an account
   StringResolver? have_account_question;
 
+  /// Text asking if user has have an account
+  StringResolver? back_to_signin;
+
   // ignore: public_member_api_docs
-  ButtonResolver(
-      {this.submit_signin,
-      this.submit_signup,
-      this.submit_confirm,
-      this.navigate_signin,
+  NavigationResolver(
+      {this.navigate_signin,
       this.navigate_signup,
       this.no_account_question,
-      this.have_account_question});
+      this.have_account_question,
+      this.back_to_signin});
 }

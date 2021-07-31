@@ -1,5 +1,6 @@
-import 'package:amplify_authenticator/src/internationalization/auth_strings_resolver.dart';
+import 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/strings/auth_strings.dart';
+import 'package:amplify_authenticator/src/text_customization/input_resolver.dart';
 
 /// The class for displaying input field strings
 class InputStrings {

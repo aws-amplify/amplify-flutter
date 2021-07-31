@@ -1,5 +1,4 @@
 import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
-import 'package:amplify_authenticator/src/strings/auth_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/widgets/buttons.dart';
 import 'package:amplify_authenticator/src/widgets/containers.dart';
@@ -10,7 +9,6 @@ class FormFields extends StatelessWidget {
   ///   2. SignUpFormField
   ///   3. ConfirmSignUpFormField
   ///   4. ConfirmSignInFormField
-
   const FormFields({required this.children});
 
   /// A list of form fields
@@ -29,9 +27,7 @@ class SignInForm extends StatelessWidget {
   const SignInForm({required this.formFields});
 
   /// A list of sign in form fields
-
   final FormFields formFields;
-  final AuthStrings? authStrings;
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +73,6 @@ class ConfirmSignUpForm extends StatelessWidget {
   const ConfirmSignUpForm({required this.formFields});
 
   /// A list of confirm sign up form fields
-
   final FormFields formFields;
 
   @override
@@ -99,7 +94,6 @@ class ConfirmSignInForm extends StatelessWidget {
   const ConfirmSignInForm({required this.formFields});
 
   /// A list of confirm sign in form fields
-
   final FormFields formFields;
 
   @override
