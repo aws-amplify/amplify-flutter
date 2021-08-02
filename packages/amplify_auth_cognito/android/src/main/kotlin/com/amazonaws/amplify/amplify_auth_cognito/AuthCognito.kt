@@ -373,21 +373,29 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
 
   private fun onGetCurrentUser(@NonNull flutterResult: Result) {
     try {
+      /* 
+        Because Android does not preserve the user after session expiration but iOS does so,
+        we need to use the mobileclient to get the old username to enforce platform parity.
+      */
       Amplify.Auth.fetchAuthSession(
         { result ->
           val cognitoAuthSession = result as AWSCognitoAuthSession
           when (cognitoAuthSession.userSub.type) {
+            // If the user sub accessor successful the user is present and the session should be valid
             AuthSessionResult.Type.SUCCESS -> {
               var awsMobileClient = AWSMobileClient.getInstance()
               var username = awsMobileClient.username
               prepareUserResult(flutterResult, AuthUser(cognitoAuthSession.userSub.toString(), username));
             }
+            // If the user sub accessor failed, check the signIn state
             AuthSessionResult.Type.FAILURE -> {
+              // if signedIn flag still true, we know session is expired so get the old user
               if (result.isSignedIn) {
                 var awsMobileClient = AWSMobileClient.getInstance()
                 var username = awsMobileClient.username
                 var userid = awsMobileClient.userSub
                 prepareUserResult(flutterResult, AuthUser(userid, username));
+              // if signIn flag is false, we assume user is signed out so throw exception
               } else {
                 errorHandler.handleAuthError(flutterResult, AuthException.SignedOutException())
               }
@@ -402,16 +410,6 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       errorHandler.prepareGenericException(flutterResult, e)
     }
   }
-
-    //          if (result.isSignedIn) {
-//            var awsMobileClient =  AWSMobileClient.getInstance()
-//            var username = awsMobileClient.username
-//            var userid = awsMobileClient.userSub
-//            prepareUserResult(flutterResult, AuthUser(userid, username));
-//          } else {
-//            throw AuthException.SignedOutException()
-//          }
-//        },
 
   private fun onFetchUserAttributes(@NonNull flutterResult: Result) {
     try {
