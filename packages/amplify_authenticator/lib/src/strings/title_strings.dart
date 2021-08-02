@@ -13,14 +13,15 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_authenticator/src/strings/auth_string_type.dart';
 import 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/text_customization/title_resolver.dart';
+import 'package:flutter/material.dart';
 
 /// The class for displaying Authenticator Widget titles
-class TitleStrings {
+class TitleStrings extends AuthStringType {
   /// The optional class that customers can pass to create custom values
   TitleResolver? resolver;
-
   static const _signin = "Sign in to your account";
   static const _signup = "Create your account";
   static const _confirm_signin = "Confirm your login";
@@ -33,25 +34,25 @@ class TitleStrings {
 
   /// Evaluates signin to a resolver or default value
   String get signin {
-    return resolver?.signin != null ? resolver!.signin!() : _signin;
+    return resolver?.signin != null ? resolver!.signin!(this.context) : _signin;
   }
 
   /// Evaluates signup to a resolver or default value
   String get signup {
-    return resolver?.signup != null ? resolver!.signup!() : _signup;
+    return resolver?.signup != null ? resolver!.signup!(this.context) : _signup;
   }
 
   /// Evaluates confirm_signin to a resolver or default value
   String get confirm_signin {
     return resolver?.confirm_signin != null
-        ? resolver!.confirm_signin!()
+        ? resolver!.confirm_signin!(this.context)
         : _confirm_signin;
   }
 
   /// Evaluates confirm_signup to a resolver or default value
   String get confirm_signup {
     return resolver?.confirm_signup != null
-        ? resolver!.confirm_signup!()
+        ? resolver!.confirm_signup!(this.context)
         : _confirm_signup;
   }
 }
