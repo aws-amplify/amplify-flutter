@@ -114,7 +114,11 @@ public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
             case HubPayload.EventName.Amplify.configured:
                 print("DataStorePlugin successfully initialized")
             default:
+<<<<<<< HEAD
                 print("Unhandled DataStoreHubEvent: \(payload.eventName) \(payload.data ?? "")" )
+=======
+                print("Unrecognized DataStoreHubEvent: \(payload.eventName)" )
+>>>>>>> feat(datastore): Populate belongs-to nested models (#658)
             }
         }
     }
