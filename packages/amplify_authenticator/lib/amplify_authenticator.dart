@@ -240,6 +240,7 @@ class _AuthenticatorState extends State<Authenticator> {
 
   @override
   Widget build(BuildContext context) {
+    widget.authStrings.setContext(context);
     return InheritedAuthBloc(
         key: const Key(keyInheritedAuthBloc),
         authBloc: _stateMachineBloc,

@@ -13,12 +13,13 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_authenticator/src/strings/auth_string_type.dart';
 import 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/text_customization/button_resolver.dart';
-import 'package:amplify_authenticator/src/strings/auth_strings.dart';
+import 'package:flutter/widgets.dart';
 
 /// The class for displaying button labels
-class ButtonStrings {
+class ButtonStrings extends AuthStringType {
   /// The optional class that customers can pass to create custom values
   ButtonResolver? resolver;
 
@@ -33,16 +34,18 @@ class ButtonStrings {
 
   /// Evaluates signin button to a resolver or default value
   String get signin {
-    return resolver?.signin != null ? resolver!.signin!() : _signin;
+    return resolver?.signin != null ? resolver!.signin!(this.context) : _signin;
   }
 
   /// Evaluates signup button to a resolver or default value
   String get signup {
-    return resolver?.signup != null ? resolver!.signup!() : _signup;
+    return resolver?.signup != null ? resolver!.signup!(this.context) : _signup;
   }
 
   /// Evaluates confirm button to a resolver or default value
   String get confirm {
-    return resolver?.confirm != null ? resolver!.confirm!() : _confirm;
+    return resolver?.confirm != null
+        ? resolver!.confirm!(this.context)
+        : _confirm;
   }
 }

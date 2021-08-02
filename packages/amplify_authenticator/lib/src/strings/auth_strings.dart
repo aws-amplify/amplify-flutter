@@ -18,6 +18,7 @@ import 'package:amplify_authenticator/src/text_customization/auth_strings_resolv
 import 'package:amplify_authenticator/src/strings/button_strings.dart';
 import 'package:amplify_authenticator/src/strings/input_strings.dart';
 import 'package:amplify_authenticator/src/strings/title_strings.dart';
+import 'package:flutter/material.dart';
 
 /// Top-level class for displaying String values in the Authenticator
 class AuthStrings {
@@ -43,5 +44,12 @@ class AuthStrings {
     this.inputs = InputStrings(resolver: resolver?.inputs);
     this.buttons = ButtonStrings(resolver: resolver?.buttons);
     this.navigation = NavigationStrings(resolver: resolver?.navigation);
+  }
+
+  void setContext(BuildContext context) {
+    this.titles.context = context;
+    this.inputs.context = context;
+    this.buttons.context = context;
+    this.navigation.context = context;
   }
 }

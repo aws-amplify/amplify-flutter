@@ -6,7 +6,8 @@ class ConfirmSignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _confirmSignUpForm = InheritedForms.of(context)!.confirmSignUpForm;
-    return AuthenticatorContainer(
-        title: "Confirm Sign Up", form: _confirmSignUpForm);
+    final _title =
+        InheritedForms.of(context)!.authStrings!.titles.confirm_signup;
+    return AuthenticatorContainer(title: _title, form: _confirmSignUpForm);
   }
 }
