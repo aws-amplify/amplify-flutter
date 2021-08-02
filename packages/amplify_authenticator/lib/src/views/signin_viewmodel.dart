@@ -78,6 +78,7 @@ class SignInViewModel extends BaseViewModel {
     ]);
     setBusy(false);
   }
+
 //Screens
 
   void goToSignUp() {

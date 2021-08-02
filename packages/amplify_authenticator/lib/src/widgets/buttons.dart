@@ -240,3 +240,17 @@ class SubmitButton extends StatelessWidget {
         text: "SUBMIT");
   }
 }
+
+class ChangeButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final ConfirmSignInViewModel _authViewModel =
+        InheritedAuthViewModel.of(context)!.confirmSignInViewModel;
+
+    return ButtonContainer(
+        callback: _authViewModel.confirm,
+        authViewModel: _authViewModel,
+        authKey: keySendCodeButton,
+        text: "CHANGE");
+  }
+}

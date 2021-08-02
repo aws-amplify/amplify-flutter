@@ -1,3 +1,4 @@
+import 'package:amplify_authenticator/src/enums/signin_step.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/widgets/buttons.dart';
@@ -94,11 +95,13 @@ class ConfirmSignUpForm extends StatelessWidget {
 
 class ConfirmSignInForm extends StatelessWidget {
   /// Requires a list of confirm sign in form fields.
-  const ConfirmSignInForm({required this.formFields});
+  const ConfirmSignInForm({required this.formFields, required this.signInStep});
 
   /// A list of confirm sign in form fields
 
   final FormFields formFields;
+
+  final SignInStep signInStep;
 
   @override
   Widget build(BuildContext context) {
@@ -149,6 +152,27 @@ class ResetPasswordForm extends StatelessWidget {
         buttonsContainer: ButtonsContainer(children: <Widget>[
           BackToSignInButton(),
           SubmitButton(),
+        ]));
+  }
+}
+
+class ChangePasswordForm extends StatelessWidget {
+  const ChangePasswordForm({Key? key, required this.formFields})
+      : super(key: key);
+
+  /// A list of sign in form fields
+  final FormFields formFields;
+
+  @override
+  Widget build(BuildContext context) {
+    final _authModelView =
+        InheritedAuthViewModel.of(context)!.confirmSignInViewModel;
+    return FormContainer(
+        formKey: _authModelView.formKey,
+        formFields: formFields,
+        buttonsContainer: ButtonsContainer(children: <Widget>[
+          BackToSignInButton(),
+          ChangeButton(),
         ]));
   }
 }

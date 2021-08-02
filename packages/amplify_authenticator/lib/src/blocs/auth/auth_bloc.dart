@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
+import 'package:amplify_authenticator/src/enums/signin_step.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 
 //Models
@@ -74,6 +75,25 @@ class StateMachineBloc {
       yield* _sendCode(event.data);
     } else if (event is AuthConfirmPassword) {
       yield* _confirmPassword(event.data);
+    } else if (event is AuthUpdatePassword) {
+      yield* _updatePassword(event.data);
+    }
+  }
+
+  Stream<AuthState> _updatePassword(AuthUpdatePasswordData data) async* {
+    try {
+      //await _authService.updatePassword(data.password, data.newPassword);
+
+      await _authService.confirmSignIn(code: data.newPassword);
+      //The current JS authenticator follows this pattern, where it calls
+      //sign in after updating the password.
+      //Other approach after this call is to show users the sign in screen.
+      AuthSignInData authSignInData =
+          AuthSignInData(username: data.username, password: data.newPassword);
+      yield* _signIn(authSignInData);
+    } on AmplifyException catch (e) {
+      print(e);
+      _exceptionController!.add(AuthenticatorException(e.message));
     }
   }
 
@@ -121,31 +141,32 @@ class StateMachineBloc {
     try {
       SignInResult result =
           await _authService.signIn(data.username, data.password);
-      print(result.nextStep!.signInStep);
+
       switch (result.nextStep!.signInStep) {
         case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
           exceptionsSink!.add(null);
-          yield AuthFlow(screen: AuthScreen.confirmSignIn);
+          yield AuthFlow(
+              screen: AuthScreen.confirmSignIn,
+              signInStep: SignInStep.CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE);
 
           break;
         case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
           //Show confirm sign in screen
           exceptionsSink!.add(null);
-          yield AuthFlow(screen: AuthScreen.confirmSignIn);
+
           break;
         case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
-          //Show confirm sign in screen
           exceptionsSink!.add(null);
-          yield AuthFlow(screen: AuthScreen.confirmSignIn);
+          yield AuthFlow(screen: AuthScreen.changePassword);
+
           break;
 
         case 'RESET_PASSWORD':
-          exceptionsSink!.add(null);
-          //Show reset password screen.
-          //Note: this screen is yet to be implemented.
+          //Check when this event gets trigger.
+
           break;
         case 'CONFIRM_SIGN_UP':
-          exceptionsSink!.add(null);
+
           //Show resend sign up code screen
           //Note: This screen is yet to be implemented
           break;
@@ -194,7 +215,8 @@ class StateMachineBloc {
 
   Stream<AuthState> _confirmSignIn(AuthConfirmSignInData data) async* {
     try {
-      await _authService.confirmSignIn(data.code, data.attributes);
+      await _authService.confirmSignIn(
+          code: data.code, attributes: data.attributes);
       yield const Authenticated();
     } on AmplifyException catch (e) {
       print(e);

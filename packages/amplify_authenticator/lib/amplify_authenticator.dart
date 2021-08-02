@@ -15,10 +15,8 @@
 
 library amplify_authenticator;
 
-import 'package:amplify_authenticator/src/screens/reset_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/keys.dart';
-import 'package:amplify_authenticator/src/screens/confirm_signin_screen.dart';
 
 //State
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
@@ -31,6 +29,9 @@ import 'package:amplify_authenticator/src/screens/signin_screen.dart';
 import 'package:amplify_authenticator/src/screens/signup_screen.dart';
 import 'package:amplify_authenticator/src/screens/confirm_signup_screen.dart';
 import 'package:amplify_authenticator/src/screens/send_code_screen.dart';
+import 'package:amplify_authenticator/src/screens/change_password_screen.dart';
+import 'package:amplify_authenticator/src/screens/reset_password_screen.dart';
+import 'package:amplify_authenticator/src/screens/confirm_signin_screen.dart';
 
 //Bloc
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
@@ -54,7 +55,6 @@ import 'package:amplify_authenticator/src/widgets/default_forms.dart';
 import 'package:amplify_authenticator/src/widgets/auth_exceptions.dart';
 
 //Exports
-
 export 'package:amplify_authenticator/src/enums/alias.dart';
 export 'package:amplify_authenticator/src/widgets/forms.dart';
 export 'package:amplify_authenticator/src/widgets/form_fields.dart';
@@ -94,15 +94,16 @@ class Authenticator extends StatefulWidget {
       required this.child,
       SignInForm? signInForm,
       SignUpForm? signUpForm,
-      ConfirmSignInForm? confirmSignInForm}) {
+      List<ConfirmSignInForm>? confirmSignInForms}) {
     this.signInForm = signInForm ?? DefaultForms.signInForm(usernameAlias);
     this.signUpForm = signUpForm ?? DefaultForms.signUpForm(usernameAlias);
-    this.confirmSignInForm =
-        confirmSignInForm ?? DefaultForms.confirmSignInForm();
+    this.confirmSignInForms =
+        confirmSignInForms ?? [DefaultForms.confirmSignInForm()];
 
     confirmSignUpForm = DefaultForms.confirmSignUpForm(usernameAlias);
     sendCodeForm = DefaultForms.sendCodeForm(usernameAlias);
     resetPasswordForm = DefaultForms.resetPasswordForm();
+    changePasswordForm = DefaultForms.changePasswordForm(usernameAlias);
   }
 
   ///Requires an username alias to setup the preferred sign in method,
@@ -119,6 +120,7 @@ class Authenticator extends StatefulWidget {
   late SendCodeForm sendCodeForm;
   late ConfirmSignUpForm confirmSignUpForm;
   late ResetPasswordForm resetPasswordForm;
+  late ChangePasswordForm changePasswordForm;
 
   /// This form will support the following form field types:
   ///    * username
@@ -233,7 +235,7 @@ class Authenticator extends StatefulWidget {
   ///
   /// ```
 
-  late final ConfirmSignInForm confirmSignInForm;
+  late final List<ConfirmSignInForm>? confirmSignInForms;
 
   /// This widget will be displayed after a user has signed in with some verified credentials.
   final Widget child;
@@ -266,12 +268,13 @@ class _AuthenticatorState extends State<Authenticator> {
             confirmSignUpViewModel: ConfirmSignUpViewModel(_stateMachineBloc),
             confirmSignInViewModel: ConfirmSignInViewModel(_stateMachineBloc),
             child: InheritedForms(
+                changePasswordForm: widget.changePasswordForm,
                 resetPasswordForm: widget.resetPasswordForm,
                 sendCodeForm: widget.sendCodeForm,
                 signInForm: widget.signInForm,
                 signUpForm: widget.signUpForm,
                 confirmSignUpForm: widget.confirmSignUpForm,
-                confirmSignInForm: widget.confirmSignInForm,
+                confirmSignInForms: widget.confirmSignInForms,
                 child: Scaffold(
                   body: StreamBuilder(
                     stream: _stateMachineBloc.stream,
@@ -293,13 +296,17 @@ class _AuthenticatorState extends State<Authenticator> {
                         screen = ConfirmSignUpScreen();
                       } else if (state is AuthFlow &&
                           state.screen == AuthScreen.confirmSignIn) {
-                        screen = ConfirmSignInScreen();
+                        screen =
+                            ConfirmSignInScreen(signInStep: state.signInStep);
                       } else if (state is AuthFlow &&
                           state.screen == AuthScreen.sendCode) {
                         screen = const SendCodeScreen();
                       } else if (state is AuthFlow &&
                           state.screen == AuthScreen.resetPassword) {
                         screen = const ResetPasswordScreen();
+                      } else if (state is AuthFlow &&
+                          state.screen == AuthScreen.changePassword) {
+                        screen = ChangePasswordScreen();
                       }
 
                       return Container(

@@ -6,7 +6,7 @@ enum AuthScreen {
   confirmSignIn,
   sendCode,
   resetPassword,
-  updatePassword
+  changePassword
 }
 
 class AuthSignInData {

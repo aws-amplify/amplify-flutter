@@ -453,7 +453,7 @@ class ConfirmSignInFormField extends StatelessWidget {
         _key = const Key(keyCodeConfirmSignInFormfield);
         break;
       case ConfirmSignInType.password:
-        _callBack = (String value) => _authModelView.setPassword(value, type);
+        _callBack = (String value) => _authModelView.setCode(value);
         _keyboardType = TextInputType.visiblePassword;
         _obscureText = true;
         _validator = validator ?? validatePassword;

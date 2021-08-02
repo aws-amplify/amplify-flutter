@@ -21,7 +21,8 @@ abstract class AuthService {
   Future<UpdatePasswordResult> confirmPassword(
       String username, String code, String newPassword);
 
-  Future<void> confirmSignIn(String code, Map<String, String> attributes);
+  Future<void> confirmSignIn(
+      {required String code, Map<String, String>? attributes});
 }
 
 class AmplifyAuthService implements AuthService {
@@ -29,9 +30,9 @@ class AmplifyAuthService implements AuthService {
   Future<SignInResult> signIn(String username, String password) async {
     //making sure no user is logged in before logging in a new user
 
-    if (await isLoggedIn) {
-      await Amplify.Auth.signOut();
-    }
+    // if (await isLoggedIn) {
+    //   await Amplify.Auth.signOut();
+    // }
 
     final SignInResult result = await Amplify.Auth.signIn(
       username: username,
@@ -62,7 +63,7 @@ class AmplifyAuthService implements AuthService {
   }
 
   Future<void> confirmSignIn(
-      String code, Map<String, String> attributes) async {
+      {required String code, Map<String, String>? attributes}) async {
     await Amplify.Auth.confirmSignIn(
         confirmationValue: code,
         options: CognitoConfirmSignInOptions(userAttributes: attributes));

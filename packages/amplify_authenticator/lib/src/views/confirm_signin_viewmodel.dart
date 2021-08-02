@@ -13,7 +13,7 @@ class ConfirmSignInViewModel extends BaseViewModel {
   GlobalKey<FormState> get formKey => _formKey;
 
   String? _code;
-  String? _password;
+
   String? _address;
   String? _birthdate;
   String? _email;
@@ -37,15 +37,6 @@ class ConfirmSignInViewModel extends BaseViewModel {
 
   void setCode(String value) {
     _code = value;
-  }
-
-  void setPassword(String value, String type) {
-    _password = value;
-
-//uncoment after verifing that the confirm sign in method
-//takes a password attribute.
-
-    // authAttributes[type] = _password!.trim();
   }
 
   void setAddress(String value, String type) {

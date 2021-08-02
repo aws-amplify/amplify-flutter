@@ -68,3 +68,10 @@ class AuthConfirmPassword extends AuthEvent {
   ///Event data
   final AuthConfirmPasswordData data;
 }
+
+class AuthUpdatePassword extends AuthEvent {
+  const AuthUpdatePassword(this.data);
+
+  ///Event data
+  final AuthUpdatePasswordData data;
+}

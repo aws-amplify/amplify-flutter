@@ -1,5 +1,5 @@
 import 'package:amplify_authenticator/src/enums/alias.dart';
-import 'package:amplify_authenticator/src/widgets/buttons.dart';
+import 'package:amplify_authenticator/src/enums/signin_step.dart';
 import 'package:amplify_authenticator/src/widgets/forms.dart';
 import 'package:amplify_authenticator/src/widgets/form_fields.dart';
 import 'package:flutter/material.dart';
@@ -139,6 +139,7 @@ class DefaultForms {
 
   static ConfirmSignInForm confirmSignInForm() {
     return const ConfirmSignInForm(
+      signInStep: SignInStep.CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE,
       formFields: FormFields(
         children: [
           ConfirmSignInFormField(
@@ -192,6 +193,21 @@ class DefaultForms {
               title: 'New password*',
               hintText: 'Enter your new password',
               type: 'new_password'),
+        ],
+      ),
+    );
+  }
+
+//This form will be displayed when result.nextStep!.signInStep ==
+////'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD'
+  static ChangePasswordForm changePasswordForm(Alias alias) {
+    return const ChangePasswordForm(
+      formFields: FormFields(
+        children: [
+          ConfirmSignInFormField(
+              title: 'New password*',
+              hintText: 'Enter your new password',
+              type: 'password'),
         ],
       ),
     );
