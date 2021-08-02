@@ -18,6 +18,7 @@ library amplify_analytics_plugin_interface;
 import 'dart:async';
 
 import 'package:amplify_core/types/index.dart';
+import 'package:meta/meta.dart';
 
 import 'src/types.dart';
 export 'src/types.dart';
@@ -63,4 +64,7 @@ abstract class AnalyticsPluginInterface extends AmplifyPluginInterface {
       required AnalyticsUserProfile userProfile}) async {
     throw UnimplementedError('identifyUser() has not been implemented.');
   }
+
+  @protected
+  Future<void> onConfigure() async {}
 }
