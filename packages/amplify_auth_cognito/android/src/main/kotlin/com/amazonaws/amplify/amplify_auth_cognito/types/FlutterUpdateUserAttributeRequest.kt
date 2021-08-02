@@ -21,16 +21,26 @@ import com.amazonaws.amplify.amplify_auth_cognito.utils.validateUserAttribute
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 import com.amplifyframework.auth.AuthUserAttribute
+import com.amplifyframework.auth.cognito.options.AWSCognitoAuthUpdateUserAttributeOptions
 
 data class FlutterUpdateUserAttributeRequest(val map: HashMap<String, *>) {
 
-    val attribute: AuthUserAttribute = formatUpdateUserAttribute(map["attribute"] as HashMap<String, *>);
+    val attribute: AuthUserAttribute = createAttribute(map["attribute"] as HashMap<String, *>);
+    val options: AWSCognitoAuthUpdateUserAttributeOptions = createOptions(map["options"] as HashMap<String, Any>?)
 
-    private fun formatUpdateUserAttribute(@NonNull rawAttribute: HashMap<String, *>): AuthUserAttribute {
+    private fun createAttribute(@NonNull rawAttribute: HashMap<String, *>): AuthUserAttribute {
         val value = rawAttribute["value"].toString();
         val key: String = rawAttribute["userAttributeKey"] as String;
         val attribute: AuthUserAttribute = createAuthUserAttribute(key, value);
         return attribute;
+    }
+
+    private fun createOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthUpdateUserAttributeOptions {
+        val optionsBuilder =  AWSCognitoAuthUpdateUserAttributeOptions.builder();
+        if (rawOptions?.get("clientMetadata") != null) {
+            optionsBuilder.metadata(rawOptions["clientMetadata"] as HashMap<String, String>);
+        }
+        return optionsBuilder.build();
     }
 
     companion object {

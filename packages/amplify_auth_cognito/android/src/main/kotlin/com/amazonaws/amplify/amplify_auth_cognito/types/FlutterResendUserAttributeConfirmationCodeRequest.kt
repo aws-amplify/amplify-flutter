@@ -16,12 +16,22 @@
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
 import com.amazonaws.amplify.amplify_auth_cognito.utils.createAuthUserAttributeKey
-import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
+import com.amplifyframework.auth.AuthUserAttributeKey
+import com.amplifyframework.auth.cognito.options.AWSCognitoAuthResendUserAttributeConfirmationCodeOptions
 
 data class FlutterResendUserAttributeConfirmationCodeRequest(val map: HashMap<String, *>) {
     val userAttributeKey: AuthUserAttributeKey = createAuthUserAttributeKey(map["userAttributeKey"] as String);
+    val options: AWSCognitoAuthResendUserAttributeConfirmationCodeOptions = formatOptions(map["options"] as HashMap<String, Any>?)
+
+    private fun formatOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthResendUserAttributeConfirmationCodeOptions {
+        val optionsBuilder =  AWSCognitoAuthResendUserAttributeConfirmationCodeOptions.builder();
+        if (rawOptions?.get("clientMetadata") != null) {
+            optionsBuilder.metadata(rawOptions["clientMetadata"] as HashMap<String, String>);
+        }
+        return optionsBuilder.build();
+    }
 
     companion object {
         private const val validationErrorMessage: String = "ResendUserAttributeConfirmationCode Request malformed."

@@ -14,22 +14,29 @@
  */
 
 import 'AuthUserAttribute.dart';
+import 'UpdateUserAttributesOptions.dart';
 
 /// Encapsulates parameters for a update user attributes operation
 class UpdateUserAttributesRequest {
   /// The list of user attribute to update
   final List<AuthUserAttribute> attributes;
 
+  /// Advanced options such as information about the client
+  final UpdateUserAttributesOptions? options;
+
   /// Default constructor
   UpdateUserAttributesRequest({
     required this.attributes,
+    this.options,
   });
 
   /// Serialize the object to a map for use over the method channel
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    pendingRequest['attributes'] =
-        attributes.map((attribute) => attribute.serializeAsMap()).toList();
+    final Map<String, dynamic> pendingRequest = {
+      'attributes':
+          attributes.map((attribute) => attribute.serializeAsMap()).toList(),
+      if (options != null) 'options': options?.serializeAsMap(),
+    };
     return pendingRequest;
   }
 }

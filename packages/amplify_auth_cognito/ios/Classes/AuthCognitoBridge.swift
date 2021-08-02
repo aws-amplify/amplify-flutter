@@ -216,7 +216,7 @@ class AuthCognitoBridge {
     }
 
     func onUpdateUserAttribute(flutterResult: @escaping FlutterResult, request: FlutterUpdateUserAttributeRequest) {
-        Amplify.Auth.update(userAttribute: request.attribute) { response in
+        Amplify.Auth.update(userAttribute: request.attribute, options: request.options) { response in
             switch response {
             case .success:
                 let updateAttributeData = FlutterUpdateUserAttributeResult(res: response)
@@ -228,7 +228,7 @@ class AuthCognitoBridge {
     }
     
     func onUpdateUserAttributes(flutterResult: @escaping FlutterResult, request: FlutterUpdateUserAttributesRequest) {
-        Amplify.Auth.update(userAttributes: request.attributes) { response in
+        Amplify.Auth.update(userAttributes: request.attributes, options: request.options) { response in
             switch response {
             case .success:
                 let updateAttributesData = FlutterUpdateUserAttributesResult(res: response)
@@ -252,7 +252,7 @@ class AuthCognitoBridge {
     }
     
     func onResendUserAttributeConfirmationCode(flutterResult: @escaping FlutterResult, request: FlutterResendUserAttributeConfirmationCodeRequest) {
-        Amplify.Auth.resendConfirmationCode(for: request.userAttributeKey) { response in
+        Amplify.Auth.resendConfirmationCode(for: request.userAttributeKey, options: request.options) { response in
             switch response {
             case .success:
                 let resentUserAttributeConfirmationCodeData = FlutterResendUserAttributeConfirmationCodeResult(res: response)

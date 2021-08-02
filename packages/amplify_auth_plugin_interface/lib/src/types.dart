@@ -58,12 +58,15 @@ export 'Session/AuthUserRequest.dart';
 export 'Attribute/AuthUserAttribute.dart';
 export 'Attribute/FetchUserAttributesOptions.dart';
 export 'Attribute/FetchUserAttributesRequest.dart';
+export 'Attribute/UpdateUserAttributeOptions.dart';
 export 'Attribute/UpdateUserAttributeResult.dart';
 export 'Attribute/UpdateUserAttributeRequest.dart';
+export 'Attribute/UpdateUserAttributesOptions.dart';
 export 'Attribute/UpdateUserAttributesRequest.dart';
 export 'Attribute/AuthNextUpdateAttributeStep.dart';
 export 'Attribute/ConfirmUserAttributeRequest.dart';
 export 'Attribute/ConfirmUserAttributeResult.dart';
+export 'Attribute/ResendUserAttributeConfirmationCodeOptions.dart';
 export 'Attribute/ResendUserAttributeConfirmationCodeRequest.dart';
 export 'Attribute/ResendUserAttributeConfirmationCodeResult.dart';
 

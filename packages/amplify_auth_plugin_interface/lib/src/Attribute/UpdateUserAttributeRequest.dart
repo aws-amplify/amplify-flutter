@@ -13,26 +13,33 @@
  * permissions and limitations under the License.
  */
 
-// ignore_for_file: public_member_api_docs
-
 import 'AuthUserAttribute.dart';
+import 'UpdateUserAttributeOptions.dart';
 
 /// Encapsulates parameters for a update user attribute operation
 class UpdateUserAttributeRequest {
   /// The user attribute to update
   final AuthUserAttribute attribute;
 
+  /// Advanced options such as information about the client
+  final UpdateUserAttributeOptions? options;
+
+  /// Default constructor
   UpdateUserAttributeRequest({
     required String userAttributeKey,
     required String value,
+    this.options,
   }) : attribute = AuthUserAttribute(
           userAttributeKey: userAttributeKey,
           value: value,
         );
 
+  /// Serialize the object to a map for use over the method channel
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    pendingRequest['attribute'] = attribute.serializeAsMap();
+    final Map<String, dynamic> pendingRequest = {
+      'attribute': attribute.serializeAsMap(),
+      if (options != null) 'options': options?.serializeAsMap(),
+    };
     return pendingRequest;
   }
 }

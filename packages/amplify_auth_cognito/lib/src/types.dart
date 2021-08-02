@@ -35,6 +35,11 @@ export 'CognitoSession/AWSCredentials.dart';
 export 'CognitoSession/CognitoAuthSession.dart';
 export 'CognitoSession/CognitoSessionOptions.dart';
 
+// Attribute
+export 'CognitoAttribute/CognitoResendUserAttributeConfirmationCodeOptions.dart';
+export 'CognitoAttribute/CognitoUpdateUserAttributeOptions.dart';
+export 'CognitoAttribute/CognitoUpdateUserAttributesOptions.dart';
+
 // Exceptions
 export 'package:amplify_auth_plugin_interface/src/Exceptions/AuthException.dart';
 export 'package:amplify_auth_plugin_interface/src/Exceptions/AliasExistsException.dart';

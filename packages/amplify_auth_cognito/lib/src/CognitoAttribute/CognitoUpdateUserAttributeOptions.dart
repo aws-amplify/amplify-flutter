@@ -13,27 +13,19 @@
  * permissions and limitations under the License.
  */
 
-import 'ResendUserAttributeConfirmationCodeOptions.dart';
+import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Encapsulates parameters for a request to resend a user attribute confirmation code
-class ResendUserAttributeConfirmationCodeRequest {
-  /// The key of the user attribute to resend the confirmation code for
-  String userAttributeKey;
-
-  /// Advanced options such as information about the client
-  final ResendUserAttributeConfirmationCodeOptions? options;
+/// Cognito extension of [UpdateUserAttributeOptions] to add the platform specific fields
+class CognitoUpdateUserAttributeOptions extends UpdateUserAttributeOptions {
+  /// Additional custom attributes to be sent to the service such as information about the client
+  Map<String, String>? clientMetadata;
 
   /// Default constructor
-  ResendUserAttributeConfirmationCodeRequest({
-    required this.userAttributeKey,
-    this.options,
-  });
+  CognitoUpdateUserAttributeOptions({this.clientMetadata}) : super();
 
-  /// Serialize the object to a map for use over the method channel
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = {
-      'userAttributeKey': userAttributeKey,
-      if (options != null) 'options': options?.serializeAsMap(),
+      if (clientMetadata != null) 'clientMetadata': clientMetadata
     };
     return pendingRequest;
   }
