@@ -79,7 +79,7 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
   }
 
   Future<List<AuthUserAttribute>> fetchUserAttributes(
-      {AuthUserAttributeRequest? request}) {
+      {FetchUserAttributesRequest? request}) {
     throw UnimplementedError('fetchUserAttributes() has not been implemented.');
   }
 

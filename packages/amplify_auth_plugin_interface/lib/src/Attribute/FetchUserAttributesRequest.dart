@@ -12,10 +12,17 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-class AuthUserAttributeOptions {
-  const AuthUserAttributeOptions();
+
+import 'FetchUserAttributesOptions.dart';
+
+class FetchUserAttributesRequest {
+  FetchUserAttributesOptions? options;
+  FetchUserAttributesRequest({this.options});
   Map<String, dynamic> serializeAsMap() {
-    throw UnimplementedError(
-        'serializeAsMap() has not been implemented on AuthUserAttributeOptions.');
+    final Map<String, dynamic> pendingRequest = {
+      'options': options?.serializeAsMap()
+    };
+    pendingRequest.removeWhere((_, v) => v == null);
+    return pendingRequest;
   }
 }
