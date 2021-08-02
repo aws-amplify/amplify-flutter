@@ -13,16 +13,25 @@
  * permissions and limitations under the License.
  */
 
-import './AuthUserAttributeOptions.dart';
+// ignore_for_file: public_member_api_docs
 
-class AuthUserAttributeRequest {
-  AuthUserAttributeOptions? options;
-  AuthUserAttributeRequest({this.options});
+/// Encapsulates parameters for a request to confirm a user attribute update
+class ConfirmUserAttributeRequest {
+  /// The key of the user attribute to update
+  String userAttributeKey;
+
+  /// The confirmation code the user received after starting the user attribute operation
+  String confirmationCode;
+
+  ConfirmUserAttributeRequest({
+    required this.userAttributeKey,
+    required this.confirmationCode,
+  });
+
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = {
-      'options': options?.serializeAsMap()
-    };
-    pendingRequest.removeWhere((_, v) => v == null);
+    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
+    pendingRequest['userAttributeKey'] = userAttributeKey;
+    pendingRequest['confirmationCode'] = confirmationCode;
     return pendingRequest;
   }
 }

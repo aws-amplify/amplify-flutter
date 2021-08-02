@@ -16,9 +16,7 @@
 library amplify_auth_plugin_interface;
 
 import 'dart:async';
-import 'package:amplify_auth_plugin_interface/src/Session/AuthUserAttributeRequest.dart';
 import 'package:amplify_core/types/index.dart';
-import 'src/Session/AuthUserAttribute.dart';
 import 'src/types.dart';
 export 'src/types.dart';
 

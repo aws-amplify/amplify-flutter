@@ -15,25 +15,18 @@
 
 // ignore_for_file: public_member_api_docs
 
-import 'package:flutter/foundation.dart';
-
-/// Encapsulates parameters for a request to confirm a user attribute update
-class ConfirmUserAttributeRequest {
-  /// The key of the user attribute to update
+/// Encapsulates parameters for a request to resend a user attribute confirmation code
+class ResendUserAttributeConfirmationCodeRequest {
+  /// The key of the user attribute to resend the confirmation code for
   String userAttributeKey;
 
-  /// The confirmation code the user received after starting the user attribute operation
-  String confirmationCode;
-
-  ConfirmUserAttributeRequest({
+  ResendUserAttributeConfirmationCodeRequest({
     required this.userAttributeKey,
-    required this.confirmationCode,
   });
 
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     pendingRequest['userAttributeKey'] = userAttributeKey;
-    pendingRequest['confirmationCode'] = confirmationCode;
     return pendingRequest;
   }
 }

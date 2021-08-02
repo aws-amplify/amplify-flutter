@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
 import 'AuthUserAttribute.dart';
 
 /// Encapsulates parameters for a update user attributes operation

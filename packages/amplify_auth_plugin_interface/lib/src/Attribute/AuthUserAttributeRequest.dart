@@ -13,22 +13,16 @@
  * permissions and limitations under the License.
  */
 
-// ignore_for_file: public_member_api_docs
+import 'AuthUserAttributeOptions.dart';
 
-import 'package:flutter/foundation.dart';
-
-/// Encapsulates parameters for a request to resend a user attribute confirmation code
-class ResendUserAttributeConfirmationCodeRequest {
-  /// The key of the user attribute to resend the confirmation code for
-  String userAttributeKey;
-
-  ResendUserAttributeConfirmationCodeRequest({
-    required this.userAttributeKey,
-  });
-
+class AuthUserAttributeRequest {
+  AuthUserAttributeOptions? options;
+  AuthUserAttributeRequest({this.options});
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    pendingRequest['userAttributeKey'] = userAttributeKey;
+    final Map<String, dynamic> pendingRequest = {
+      'options': options?.serializeAsMap()
+    };
+    pendingRequest.removeWhere((_, v) => v == null);
     return pendingRequest;
   }
 }
