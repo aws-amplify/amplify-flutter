@@ -13,14 +13,24 @@
  * permissions and limitations under the License.
  */
 
-import '../UUID.dart';
+// TODO: Datastore dependencies temporarily added in API. Eventually they should be moved to core or otherwise reconciled to avoid duplication.
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+
+// TODO: Remove alias when Datastore dependency is removed
+import '../UUID.dart' as API_UUID;
 
 class GraphQLRequest<T> {
   String document;
   Map<String, dynamic> variables;
-  String cancelToken = UUID.getUUID();
+  String cancelToken = API_UUID.UUID.getUUID();
+  String? decodePath;
+  ModelType? modelType;
 
-  GraphQLRequest({required this.document, this.variables = const {}});
+  GraphQLRequest(
+      {required this.document,
+      this.variables = const {},
+      this.decodePath,
+      this.modelType}) {}
 
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> result = <String, dynamic>{};
