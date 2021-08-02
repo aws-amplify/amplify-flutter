@@ -16,101 +16,31 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'AllTypeModel.dart';
-import 'AllTypeOptionalModel.dart';
-import 'BelongsToModel.dart';
 import 'Blog.dart';
 import 'Comment.dart';
-import 'HasManyBelongsToModel.dart';
-import 'HasManyModel.dart';
-import 'HasOneModel.dart';
 import 'Post.dart';
-import 'PostAuthComplex.dart';
 
-export 'AllTypeModel.dart';
-export 'AllTypeOptionalModel.dart';
-export 'BelongsToModel.dart';
 export 'Blog.dart';
 export 'Comment.dart';
-export 'HasManyBelongsToModel.dart';
-export 'HasManyModel.dart';
-export 'HasOneModel.dart';
 export 'Post.dart';
-export 'PostAuthComplex.dart';
-export 'TestEnum.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "0e8e5514647b80c1bbfff044f1df24f0";
+  String version = "5d57d0339e98a5193251cdde962c0b6e";
   @override
-  List<ModelSchema> modelSchemas = [
-    AllTypeModel.schema,
-    AllTypeOptionalModel.schema,
-    BelongsToModel.schema,
-    Blog.schema,
-    Comment.schema,
-    HasManyBelongsToModel.schema,
-    HasManyModel.schema,
-    HasOneModel.schema,
-    Post.schema,
-    PostAuthComplex.schema
-  ];
+  List<ModelSchema> modelSchemas = [Blog.schema, Comment.schema, Post.schema];
   static final ModelProvider _instance = ModelProvider();
 
   static ModelProvider get instance => _instance;
 
   ModelType getModelTypeByModelName(String modelName) {
     switch (modelName) {
-      case "AllTypeModel":
-        {
-          return AllTypeModel.classType;
-        }
-        break;
-      case "AllTypeOptionalModel":
-        {
-          return AllTypeOptionalModel.classType;
-        }
-        break;
-      case "BelongsToModel":
-        {
-          return BelongsToModel.classType;
-        }
-        break;
       case "Blog":
-        {
-          return Blog.classType;
-        }
-        break;
+        return Blog.classType;
       case "Comment":
-        {
-          return Comment.classType;
-        }
-        break;
-      case "HasManyBelongsToModel":
-        {
-          return HasManyBelongsToModel.classType;
-        }
-        break;
-      case "HasManyModel":
-        {
-          return HasManyModel.classType;
-        }
-        break;
-      case "HasOneModel":
-        {
-          return HasOneModel.classType;
-        }
-        break;
+        return Comment.classType;
       case "Post":
-        {
-          return Post.classType;
-        }
-        break;
-      case "PostAuthComplex":
-        {
-          return PostAuthComplex.classType;
-        }
-        break;
+        return Post.classType;
       default:
         {
           throw Exception(
