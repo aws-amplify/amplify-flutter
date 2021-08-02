@@ -18,10 +18,13 @@ import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'resources/Blog.dart';
+import 'resources/ModelProvider.dart';
+
 void main() {
   const MethodChannel apiChannel = MethodChannel('com.amazonaws.amplify/api');
 
-  AmplifyAPI api = AmplifyAPI();
+  AmplifyAPI api = AmplifyAPI(modelProvider: ModelProvider.instance);
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -83,6 +86,30 @@ void main() {
 
     var response = await operation.response;
     expect(response.data, queryResult.toString());
+  });
+
+  test('Query Model Helpers executes correctly in the happy case', () async {
+    final String id = UUID.getUUID();
+    var queryResult = '''{
+      "getBlog": {
+        "createdAt": "2021-07-21T22:23:33.707Z",
+        "id": "$id",
+        "name": "Test App Blog"
+      }
+    }''';
+
+    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      return {'data': queryResult.toString(), 'errors': []};
+    });
+
+    GraphQLRequest<Blog> req = ModelQueries.get<Blog>(Blog.classType, id);
+
+    var operation = await api.query<Blog>(request: req);
+
+    var response = await operation.response;
+
+    expect(response.data, isA<Blog>());
+    expect(response.data.id, id);
   });
 
   test(

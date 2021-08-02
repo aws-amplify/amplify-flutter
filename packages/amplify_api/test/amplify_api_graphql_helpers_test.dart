@@ -15,35 +15,89 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_api/src/graphql/graphql_response_decoder.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'resources/Blog.dart';
 import 'resources/ModelProvider.dart';
 
 void main() {
-  test("ModelQueries.get() should craft a valid request", () {
-    AmplifyAPI api = AmplifyAPI(modelProvider: ModelProvider.instance);
+  group('with ModelProvider', () {
+    final AmplifyAPI api = AmplifyAPI(modelProvider: ModelProvider.instance);
 
-    String id = UUID.getUUID();
-    String expected =
-        r"query getBlog($id: ID!) { getBlog(id: $id) { id name createdAt } }";
+    test("ModelQueries.get() should build a valid request", () {
+      String id = UUID.getUUID();
+      String expected =
+          r"query getBlog($id: ID!) { getBlog(id: $id) { id name createdAt } }";
 
-    GraphQLRequest<Blog> req = ModelQueries.get<Blog>(Blog.classType, id);
+      GraphQLRequest<Blog> req = ModelQueries.get<Blog>(Blog.classType, id);
 
-    expect(req.document, expected);
-    expect(mapEquals(req.variables, {'id': id}), isTrue);
+      expect(req.document, expected);
+      expect(mapEquals(req.variables, {'id': id}), isTrue);
+      expect(req.modelType, Blog.classType);
+      expect(req.decodePath, "getBlog");
+    });
+
+    test('Query returns a GraphQLRequest<Blog> when provided a modelType',
+        () async {
+      String id = UUID.getUUID();
+      GraphQLRequest<Blog> req = ModelQueries.get<Blog>(Blog.classType, id);
+      List<GraphQLResponseError> errors = [];
+      String data = '''{
+        "getBlog": {
+            "createdAt": "2021-01-01T01:00:00.000000000Z",
+            "id": "$id",
+            "name": "TestAppBlog"
+        }
+    }''';
+
+      GraphQLResponse<Blog> response = GraphQLResponseDecoder.instance
+          .decode<Blog>(request: req, data: data, errors: errors);
+
+      expect(response.data, isA<Blog>());
+      expect(response.data.id, id);
+    });
+
+    test('Query returns a GraphQLRequest<String> when not provided a modelType',
+        () async {
+      String id = UUID.getUUID();
+      String doc = '''query MyQuery {
+      getBlog {
+        id
+        name
+        createdAt
+      }
+    }''';
+      GraphQLRequest<String> req =
+          GraphQLRequest(document: doc, variables: {id: id});
+      List<GraphQLResponseError> errors = [];
+      String data = '''{
+        "getBlog": {
+            "createdAt": "2021-01-01T01:00:00.000000000Z",
+            "id": "$id",
+            "name": "TestAppBlog"
+        }
+    }''';
+
+      GraphQLResponse<String> response = GraphQLResponseDecoder.instance
+          .decode<String>(request: req, data: data, errors: errors);
+
+      expect(response.data, isA<String>());
+    });
   });
 
-  test("should handle no ModelProvider instance", () {
-    AmplifyAPI api = AmplifyAPI();
-    try {
-      GraphQLRequest<Blog> req = ModelQueries.get<Blog>(Blog.classType, "");
-    } on ApiException catch (e) {
-      expect(e.message, "No modelProvider found");
-      expect(e.recoverySuggestion,
-          "Pass in a modelProvider instance while instantiating APIPlugin");
-      return;
-    }
-    fail("Expected an ApiException");
+  group('without ModelProvider', () {
+    test("should handle no ModelProvider instance", () {
+      AmplifyAPI api = AmplifyAPI();
+      try {
+        GraphQLRequest<Blog> req = ModelQueries.get<Blog>(Blog.classType, "");
+      } on ApiException catch (e) {
+        expect(e.message, "No modelProvider found");
+        expect(e.recoverySuggestion,
+            "Pass in a modelProvider instance while instantiating APIPlugin");
+        return;
+      }
+      fail("Expected an ApiException");
+    });
   });
 }
