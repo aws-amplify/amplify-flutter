@@ -15,6 +15,7 @@
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/graphql/graphql_request_factory.dart';
+import 'package:amplify_api/src/graphql/paginated_modelType_impl.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
 class ModelQueriesFactory extends ModelQueriesInterface {
@@ -37,10 +38,19 @@ class ModelQueriesFactory extends ModelQueriesInterface {
 
   @override
   GraphQLRequest<PaginatedResult<T>> list<T extends Model>(
-      ModelType<T> modelType,
-      {QueryPredicate? where,
-      ModelPagination? modelPagination}) {
-    // TODO: implement list
-    throw UnimplementedError();
+    ModelType<T> modelType, {
+    ModelPagination? modelPagination = const ModelPagination(),
+    QueryPredicate? where,
+  }) {
+    Map<String, dynamic> documentArgs = {};
+    if (modelPagination != null) {
+      documentArgs = {"limit": modelPagination.limit};
+    }
+
+    return GraphQLRequestFactory.instance.buildQuery<PaginatedResult<T>>(
+        modelType: PaginatedModelTypeImpl(modelType),
+        documentArgs: documentArgs,
+        requestType: GraphQLRequestType.query,
+        requestOperation: GraphQLRequestOperation.list);
   }
 }

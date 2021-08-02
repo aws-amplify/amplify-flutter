@@ -38,7 +38,8 @@ void main() {
       expect(req.decodePath, "getBlog");
     });
 
-    test('Query returns a GraphQLRequest<Blog> when provided a modelType',
+    test(
+        'ModelQueries.get() returns a GraphQLRequest<Blog> when provided a modelType',
         () async {
       String id = UUID.getUUID();
       GraphQLRequest<Blog> req = ModelQueries.get<Blog>(Blog.classType, id);
@@ -57,8 +58,34 @@ void main() {
       expect(response.data, isA<Blog>());
       expect(response.data.id, id);
     });
+    test('ModelQueries.list() should build a valid request', () async {
+      String expected =
+          r"query listBlogs { listBlogs { items { id name createdAt } nextToken } }";
 
-    test('Query returns a GraphQLRequest<String> when not provided a modelType',
+      GraphQLRequest<PaginatedResult<Blog>> req =
+          ModelQueries.list<Blog>(Blog.classType);
+
+      expect(req.document, expected);
+      expect(req.modelType, isA<PaginatedModelType<Blog>>());
+      expect(req.decodePath, "listBlogs");
+    });
+
+    test('ModelQueries.list() should build a valid request with pagination',
+        () async {
+      String expected =
+          r"query listBlogs { listBlogs(limit: 1) { items { id name createdAt } nextToken } }";
+
+      GraphQLRequest<PaginatedResult<Blog>> req = ModelQueries.list<Blog>(
+          Blog.classType,
+          modelPagination: ModelPagination(limit: 1));
+
+      expect(req.document, expected);
+      expect(req.modelType, isA<PaginatedModelType<Blog>>());
+      expect(req.decodePath, "listBlogs");
+    });
+
+    test(
+        'ModelQueries.get() returns a GraphQLRequest<String> when not provided a modelType',
         () async {
       String id = UUID.getUUID();
       String doc = '''query MyQuery {
@@ -83,6 +110,41 @@ void main() {
           .decode<String>(request: req, data: data, errors: errors);
 
       expect(response.data, isA<String>());
+    });
+
+    test(
+        'ModelQueries.list() returns a GraphQLRequest<PaginatedResult<Blog>> when provided a modelType',
+        () async {
+      GraphQLRequest<PaginatedResult<Blog>> req = ModelQueries.list<Blog>(
+          Blog.classType,
+          modelPagination: ModelPagination(limit: 2));
+
+      List<GraphQLResponseError> errors = [];
+      String data = '''{
+          "listBlogs": {
+              "items": [
+                {
+                  "id": "test-id-1",
+                  "name": "Test Blog 1",
+                  "createdAt": "2021-07-29T23:09:58.441Z"
+                },
+                {
+                  "id": "test-id-2",
+                  "name": "Test Blog 2",
+                  "createdAt": "2021-08-03T16:39:18.651Z"
+                }
+              ],
+              "nextToken": "super-secret-next-token"
+            }
+        }''';
+
+      GraphQLResponse<PaginatedResult<Blog>> response =
+          GraphQLResponseDecoder.instance.decode<PaginatedResult<Blog>>(
+              request: req, data: data, errors: errors);
+
+      expect(response.data, isA<PaginatedResult<Blog>>());
+      expect(response.data.items, isA<List<Blog>>());
+      expect(response.data.items.length, 2);
     });
   });
 

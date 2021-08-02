@@ -101,11 +101,18 @@ class GraphQLRequestFactory {
   }
 
   DocumentInputs _buildDocumentInputs(
-      ModelSchema schema, GraphQLRequestOperation operation) {
+      ModelSchema schema, GraphQLRequestOperation operation,
+      [Map<String, dynamic>? documentArgs]) {
     String upperOutput = '';
     String lowerOutput = '';
     List<String> upperList = [];
     List<String> lowerList = [];
+
+    if (documentArgs != null) {
+      documentArgs.forEach((key, value) {
+        lowerList.add("$key: $value");
+      });
+    }
 
     // build inputs based on request operation
     switch (operation) {
@@ -115,6 +122,9 @@ class GraphQLRequestFactory {
         lowerOutput = "(${lowerList.join(", ")})";
         break;
       case GraphQLRequestOperation.list:
+        if (lowerList.length != 0) {
+          lowerOutput = "(${lowerList.join(", ")})";
+        }
         break;
       default:
         schema.fields!.forEach((field, val) {
@@ -124,11 +134,9 @@ class GraphQLRequestFactory {
         lowerOutput = "(input: { ${lowerList.join(", ")} })";
     }
 
-    if (upperList.length == 0 || lowerList.length == 0) {
-      return DocumentInputs("", "");
+    if (upperList.length != 0) {
+      upperOutput = "(${upperList.join(", ")})";
     }
-
-    upperOutput = "(${upperList.join(", ")})";
 
     return DocumentInputs(upperOutput, lowerOutput);
   }
@@ -142,7 +150,8 @@ class GraphQLRequestFactory {
       Model? model,
       String? id,
       required GraphQLRequestType requestType,
-      required GraphQLRequestOperation requestOperation}) {
+      required GraphQLRequestOperation requestOperation,
+      Map<String, dynamic>? documentArgs}) {
     // retrieve schema from ModelType and validate required properties
     ModelSchema schema = _getAndValidateSchema(modelType, requestOperation);
 
@@ -154,7 +163,7 @@ class GraphQLRequestFactory {
     String requestOperationVal = describeEnum(requestOperation);
     // e.g. {upper: "($id: ID!)", lower: "(id: $id)"}
     DocumentInputs documentInputs =
-        _buildDocumentInputs(schema, requestOperation);
+        _buildDocumentInputs(schema, requestOperation, documentArgs);
     // e.g. "id name createdAt" - fields to retrieve
     String fields = _getFieldsFromModelType(schema, requestOperation);
     // e.g. "getBlog"
@@ -162,6 +171,8 @@ class GraphQLRequestFactory {
     // e.g. query getBlog($id: ID!, $content: String) { getBlog(id: $id, content: $content) { id name createdAt } }
     String document =
         '''$requestTypeVal $requestName${documentInputs.upper} { $requestName${documentInputs.lower} { $fields } }''';
+    // e.g "listBlogs"
+    String decodePath = requestName;
 
     // TODO: convert model to variable input for non-get operations
     Map<String, dynamic> variables =
@@ -171,6 +182,6 @@ class GraphQLRequestFactory {
         document: document,
         variables: variables,
         modelType: modelType,
-        decodePath: requestName);
+        decodePath: decodePath);
   }
 }

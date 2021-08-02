@@ -14,23 +14,27 @@
  */
 
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_api/src/graphql/model_queries_factory.dart';
+import 'package:amplify_api/src/graphql/paginated_modelType_impl.dart';
+// TODO: Datastore dependencies temporarily added in API. Eventually they should be moved to core or otherwise reconciled to avoid duplication.
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
-// This class provides static method calls to enable a simpler DX,
-// while preserving internal interfaces
-class ModelQueries {
-  static GraphQLRequest<T> get<T extends Model>(
-      ModelType<T> modelType, String id) {
-    return ModelQueriesFactory.instance.get<T>(modelType, id);
+class PaginatedResultImpl<T extends Model> extends PaginatedResult<T> {
+  PaginatedResultImpl(items, nextToken) : super(items, nextToken);
+
+  @override
+  String getId() {
+    return '';
   }
 
-  static GraphQLRequest<PaginatedResult<T>> list<T extends Model>(
-    ModelType<T> modelType, {
-    ModelPagination? modelPagination,
-    QueryPredicate? where,
-  }) {
-    return ModelQueriesFactory.instance
-        .list<T>(modelType, modelPagination: modelPagination, where: where);
+  @override
+  ModelType<Model> getInstanceType() {
+    ModelType<Model>? modelType = AmplifyAPI.instance.modelProvider
+        ?.getModelTypeByModelName(T.toString());
+    return PaginatedModelTypeImpl(modelType!);
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {};
   }
 }
