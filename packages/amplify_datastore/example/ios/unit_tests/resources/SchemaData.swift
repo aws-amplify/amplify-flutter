@@ -94,7 +94,7 @@ struct SchemaData {
 
     static var AuthorModelSchema: ModelSchema = ModelSchema(
         name: "Author",
-        pluralName: "Authours",
+        pluralName: "Authors",
         fields: [
             "id": ModelField(name: "id", type: .string, isRequired: true, isArray: false),
             "name": ModelField(name: "name", type: .string, isRequired: true, isArray: false),
