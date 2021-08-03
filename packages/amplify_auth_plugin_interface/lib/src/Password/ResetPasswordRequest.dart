@@ -20,7 +20,7 @@ class ResetPasswordRequest {
   /// A login identifier or an email/phone number, depending on configuration
   String? username;
 
-  /// Plugin-specific, advanced [options] such as information about the client
+  /// Plugin-specific, advanced options such as information about the client
   ResetPasswordOptions? options;
 
   /// Default Constructor

@@ -23,7 +23,7 @@ class UpdatePasswordRequest {
   /// The user's current password
   String oldPassword;
 
-  /// Plugin-specific, advanced [options] such as information about the client
+  /// Plugin-specific, advanced options such as information about the client
   UpdatePasswordOptions? options;
 
   /// Default constructor
