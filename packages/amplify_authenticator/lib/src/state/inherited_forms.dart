@@ -7,10 +7,10 @@ class InheritedForms extends InheritedWidget {
       {required this.signInForm,
       required this.signUpForm,
       required this.confirmSignUpForm,
-      required this.confirmSignInForms,
+      required this.confirmSignInMFAForm,
       required this.sendCodeForm,
       required this.resetPasswordForm,
-      required this.changePasswordForm,
+      required this.confirmSignInNewPasswordForm,
       required Widget child})
       : super(child: child);
 
@@ -20,13 +20,13 @@ class InheritedForms extends InheritedWidget {
 
   final ConfirmSignUpForm confirmSignUpForm;
 
-  final List<ConfirmSignInForm>? confirmSignInForms;
+  final ConfirmSignInMFAForm confirmSignInMFAForm;
 
   final SendCodeForm sendCodeForm;
 
   final ResetPasswordForm resetPasswordForm;
 
-  final ChangePasswordForm changePasswordForm;
+  final ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm;
 
   //final ResetPasswordForm resetPasswordForm;
 

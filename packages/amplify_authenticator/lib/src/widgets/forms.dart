@@ -93,15 +93,13 @@ class ConfirmSignUpForm extends StatelessWidget {
   }
 }
 
-class ConfirmSignInForm extends StatelessWidget {
+class ConfirmSignInMFAForm extends StatelessWidget {
   /// Requires a list of confirm sign in form fields.
-  const ConfirmSignInForm({required this.formFields, required this.signInStep});
+  const ConfirmSignInMFAForm({required this.formFields});
 
   /// A list of confirm sign in form fields
 
   final FormFields formFields;
-
-  final SignInStep signInStep;
 
   @override
   Widget build(BuildContext context) {
@@ -156,8 +154,8 @@ class ResetPasswordForm extends StatelessWidget {
   }
 }
 
-class ChangePasswordForm extends StatelessWidget {
-  const ChangePasswordForm({Key? key, required this.formFields})
+class ConfirmSignInNewPasswordForm extends StatelessWidget {
+  const ConfirmSignInNewPasswordForm({Key? key, required this.formFields})
       : super(key: key);
 
   /// A list of sign in form fields

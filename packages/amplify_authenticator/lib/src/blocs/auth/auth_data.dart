@@ -6,7 +6,6 @@ enum AuthScreen {
   confirmSignIn,
   sendCode,
   resetPassword,
-  changePassword
 }
 
 class AuthSignInData {
@@ -66,10 +65,9 @@ class AuthConfirmPasswordData {
 
 class AuthUpdatePasswordData {
   AuthUpdatePasswordData(
-      {required this.username,
-      required this.password,
-      required this.newPassword});
+      {required this.username, required this.newPassword, this.attributes});
+
+  Map<String, String>? attributes;
   final String username;
   final String newPassword;
-  final String password;
 }

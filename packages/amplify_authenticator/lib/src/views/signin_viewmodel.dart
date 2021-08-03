@@ -91,6 +91,19 @@ class SignInViewModel extends BaseViewModel {
     setBusy(false);
   }
 
+  Future<void> updatePassword() async {
+    setBusy(true);
+    AuthUpdatePasswordData updatePasswordData = AuthUpdatePasswordData(
+        username: _username!.trim(), newPassword: _newPassword!.trim());
+
+    _authBloc.authEvent.add(AuthUpdatePassword(updatePasswordData));
+    await Future.any([
+      _authBloc.exceptions!.first,
+      _authBloc.stream.first,
+    ]);
+    setBusy(false);
+  }
+
 //Screens
 
   void goToSignUp() {

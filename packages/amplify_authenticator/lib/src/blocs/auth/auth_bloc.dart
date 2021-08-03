@@ -82,12 +82,13 @@ class StateMachineBloc {
 
   Stream<AuthState> _updatePassword(AuthUpdatePasswordData data) async* {
     try {
-      //await _authService.updatePassword(data.password, data.newPassword);
+      AuthConfirmSignInData _confirmSignInData =
+          AuthConfirmSignInData(code: data.newPassword);
+      yield* _confirmSignIn(_confirmSignInData);
 
-      await _authService.confirmSignIn(code: data.newPassword);
-      //The current JS authenticator follows this pattern, where it calls
-      //sign in after updating the password.
-      //Other approach after this call is to show users the sign in screen.
+      // //The current JS authenticator follows this pattern, where it calls
+      // //sign in after updating the password.
+      // //Other approach after this call is to show users the sign in screen.
       AuthSignInData authSignInData =
           AuthSignInData(username: data.username, password: data.newPassword);
       yield* _signIn(authSignInData);
@@ -142,11 +143,8 @@ class StateMachineBloc {
       SignInResult result =
           await _authService.signIn(data.username, data.password);
 
-      print(result.nextStep!.signInStep);
-
       switch (result.nextStep!.signInStep) {
         case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
-          exceptionsSink!.add(null);
           yield AuthFlow(
               screen: AuthScreen.confirmSignIn,
               signInStep: SignInStep.CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE);
@@ -157,7 +155,9 @@ class StateMachineBloc {
 
           break;
         case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
-          yield AuthFlow(screen: AuthScreen.changePassword);
+          yield AuthFlow(
+              screen: AuthScreen.confirmSignIn,
+              signInStep: SignInStep.CONFIRM_SIGN_IN_WITH_NEW_PASSWORD);
 
           break;
 

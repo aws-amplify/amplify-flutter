@@ -244,11 +244,11 @@ class SubmitButton extends StatelessWidget {
 class ChangeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final ConfirmSignInViewModel _authViewModel =
-        InheritedAuthViewModel.of(context)!.confirmSignInViewModel;
+    final SignInViewModel _authViewModel =
+        InheritedAuthViewModel.of(context)!.signInViewModel;
 
     return ButtonContainer(
-        callback: _authViewModel.confirm,
+        callback: _authViewModel.updatePassword,
         authViewModel: _authViewModel,
         authKey: keySendCodeButton,
         text: "CHANGE");
