@@ -44,6 +44,7 @@ void main() {
         fail('Error finding auth bloc: $e');
       }
       final subscription = await authBloc.authBloc.stream;
+
       //Going to sign up screen
       await Future<void>.delayed(const Duration(seconds: 2));
       await tester.tap(gotToSignUpButtonFinder);
@@ -52,6 +53,7 @@ void main() {
 
       expect(stateAuthFlowSignUp, isA<AuthFlow>());
       await tester.pumpAndSettle();
+
       //Creating account
 
       await tester.enterText(usernameSignUpFormFieldFinder, generateUsername());
@@ -78,6 +80,7 @@ void main() {
       await Future<void>.delayed(const Duration(seconds: 2));
       await tester.enterText(codeConfirmSignUpFormFieldFinder, mockCode);
       await Future<void>.delayed(const Duration(seconds: 2));
+
 
       //For now, this screen uses a mocked code and doesn't call the
       // confirmSignUp method.

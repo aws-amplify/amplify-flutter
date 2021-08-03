@@ -15,7 +15,12 @@
 
 library amplify_authenticator;
 
+<<<<<<< HEAD
 import 'package:amplify_authenticator/src/enums/signin_step.dart';
+=======
+import 'package:amplify_authenticator/src/keys.dart';
+import 'package:amplify_authenticator/src/screens/confirm_signin_screen.dart';
+>>>>>>> 0fc5fa370e81641ce12e500b175101c4834f5709
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 
@@ -44,8 +49,11 @@ import 'package:amplify_authenticator/src/views/signup_viewmodel.dart';
 import 'package:amplify_authenticator/src/views/confirm_signup_viewmodel.dart';
 import 'package:amplify_authenticator/src/views/confirm_signin_viewmodel.dart';
 
+<<<<<<< HEAD
 //Enums
 import 'package:amplify_authenticator/src/enums/alias.dart';
+=======
+>>>>>>> 0fc5fa370e81641ce12e500b175101c4834f5709
 
 //Services
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
@@ -90,6 +98,7 @@ class Authenticator extends StatefulWidget {
   ///     - define
   ///     - define
   ///
+<<<<<<< HEAD
   Authenticator({
     required this.usernameAlias,
     required this.child,
@@ -106,6 +115,23 @@ class Authenticator extends StatefulWidget {
     sendCodeForm = DefaultForms.sendCodeForm(usernameAlias);
     resetPasswordForm = DefaultForms.resetPasswordForm();
     confirmSignInNewPasswordForm = DefaultForms.confirmSignInNewPasswordForm();
+=======
+  Authenticator(
+
+      {required this.child,
+      SignInForm? signInForm,
+      SignUpForm? signUpForm,
+      ConfirmSignInForm? confirmSignInForm}) {
+    this.signInForm = signInForm ?? DefaultForms.signInForm();
+    this.signUpForm = signUpForm ?? DefaultForms.signUpForm();
+    this.confirmSignInForm =
+        confirmSignInForm ?? DefaultForms.confirmSignInForm();
+
+      {required this.child, SignInForm? signInForm, SignUpForm? signUpForm}) {
+    this.signInForm = signInForm ?? DefaultForms.signInForm();
+    this.signUpForm = signUpForm ?? DefaultForms.signUpForm();
+
+>>>>>>> 0fc5fa370e81641ce12e500b175101c4834f5709
   }
 
   ///Requires an username alias to setup the preferred sign in method,
@@ -239,8 +265,54 @@ class Authenticator extends StatefulWidget {
 
   late final ConfirmSignInMFAForm confirmSignInMFAForm;
 
+
+  /// This form will support the following form field types:
+  /// * code
+  /// * password
+  /// * birthdate
+  /// * email
+  /// * family_name
+  /// * gender
+  /// * given_name
+  /// * locate
+  /// * middle_name
+  /// * name
+  /// * nickname
+  /// * phone_number
+  /// * picture
+  /// * preferred_username
+  /// * profile
+  /// * zoneinfo
+  /// * updated_at
+  /// * website
+  /// * custom
+
+  ///
+  /// ### Example
+  /// ```dart
+  ///     ConfirmSignInForm( formFields:
+  ///                   FormFields(children: [
+  ///                     ConfirmSignInFormField(
+  ///                       type: "code" ,
+  ///                       title: "Custom code form field",
+  ///                       hintText: "Custom hint text",
+  ///                       ),
+  ///                     ConfirmSignInFormField(
+  ///                       type: "password" ,
+  ///                       title: "Custom password form field",
+  ///                       hintText: "Custom hint text",
+  ///                       ),
+  ///
+  ///                     ])
+  ///
+  /// ```
+
+  late final ConfirmSignInForm confirmSignInForm;
+
+ 
   /// This widget will be displayed after a user has signed in with some verified credentials.
   final Widget child;
+
 
   @override
   _AuthenticatorState createState() => _AuthenticatorState();
@@ -269,6 +341,10 @@ class _AuthenticatorState extends State<Authenticator> {
             signUpViewModel: SignUpViewModel(_stateMachineBloc),
             confirmSignUpViewModel: ConfirmSignUpViewModel(_stateMachineBloc),
             confirmSignInViewModel: ConfirmSignInViewModel(_stateMachineBloc),
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0fc5fa370e81641ce12e500b175101c4834f5709
             child: InheritedForms(
                 confirmSignInNewPasswordForm:
                     widget.confirmSignInNewPasswordForm,
@@ -277,13 +353,23 @@ class _AuthenticatorState extends State<Authenticator> {
                 signInForm: widget.signInForm,
                 signUpForm: widget.signUpForm,
                 confirmSignUpForm: widget.confirmSignUpForm,
+<<<<<<< HEAD
                 confirmSignInMFAForm: widget.confirmSignInMFAForm,
+=======
+                confirmSignInForm: widget.confirmSignInForm,
+
+>>>>>>> 0fc5fa370e81641ce12e500b175101c4834f5709
                 child: Scaffold(
                   body: StreamBuilder(
                     stream: _stateMachineBloc.stream,
                     builder: (context, snapshot) {
                       final state = snapshot.data ?? const AuthLoading();
+<<<<<<< HEAD
                       late Widget screen;
+=======
+
+                      Widget? screen;
+>>>>>>> 0fc5fa370e81641ce12e500b175101c4834f5709
                       if (state is AuthLoading) {
                         screen = LoadingScreen();
                       } else if (state is Authenticated) {
@@ -298,6 +384,7 @@ class _AuthenticatorState extends State<Authenticator> {
                           state.screen == AuthScreen.confirmSignUp) {
                         screen = ConfirmSignUpScreen();
                       } else if (state is AuthFlow &&
+<<<<<<< HEAD
                           state.screen == AuthScreen.confirmSignIn &&
                           state.signInStep ==
                               SignInStep.CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE) {
@@ -313,6 +400,11 @@ class _AuthenticatorState extends State<Authenticator> {
                       } else if (state is AuthFlow &&
                           state.screen == AuthScreen.resetPassword) {
                         screen = const ResetPasswordScreen();
+=======
+                          state.screen == AuthScreen.confirmSignIn) {
+                        screen = ConfirmSignInScreen();
+
+>>>>>>> 0fc5fa370e81641ce12e500b175101c4834f5709
                       }
 
                       return Container(
@@ -336,6 +428,10 @@ class _AuthenticatorState extends State<Authenticator> {
   @override
   void dispose() {
     _stateMachineBloc.dispose();
+<<<<<<< HEAD
     super.dispose();
+=======
+     super.dispose();
+>>>>>>> 0fc5fa370e81641ce12e500b175101c4834f5709
   }
 }

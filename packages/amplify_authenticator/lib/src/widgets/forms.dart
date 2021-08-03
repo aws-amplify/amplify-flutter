@@ -1,4 +1,3 @@
-import 'package:amplify_authenticator/src/enums/signin_step.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/widgets/buttons.dart';

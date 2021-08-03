@@ -43,6 +43,7 @@ class AuthConfirmSignInData {
   final String code;
 
   ///attributes
+
   Map<String, String>? attributes;
 
   AuthConfirmSignInData({required this.code, this.attributes});

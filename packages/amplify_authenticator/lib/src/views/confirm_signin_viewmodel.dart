@@ -13,7 +13,6 @@ class ConfirmSignInViewModel extends BaseViewModel {
   GlobalKey<FormState> get formKey => _formKey;
 
   String? _code;
-
   String? _address;
   String? _birthdate;
   String? _email;
