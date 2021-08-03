@@ -40,7 +40,16 @@ class Comment extends Model {
   }
 
   String get content {
-    return _content!;
+    try {
+      return _content!;
+    } catch (e) {
+      throw new DataStoreException(
+          DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
   }
 
   const Comment._internal({required this.id, post, required content})
@@ -90,9 +99,9 @@ class Comment extends Model {
 
   Comment.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _post = json['post'] != null
+        _post = json['post']?['serializedData'] != null
             ? Post.fromJson(
-                new Map<String, dynamic>.from(json['post']?['serializedData']))
+                new Map<String, dynamic>.from(json['post']['serializedData']))
             : null,
         _content = json['content'];
 

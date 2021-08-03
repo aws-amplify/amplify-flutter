@@ -22,6 +22,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
 import androidx.annotation.VisibleForTesting
+import com.amazonaws.amplify.amplify_auth_cognito.device.DeviceHandler
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpResult
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignInResult
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchCognitoAuthSessionResult
@@ -90,6 +91,11 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
   var eventMessenger: BinaryMessenger? = null
   private lateinit var activityBinding: ActivityPluginBinding
 
+  /**
+   * Handles the Devices API.
+   */
+  private val deviceHandler: DeviceHandler = DeviceHandler(errorHandler)
+
   constructor() {
       authCognitoHubEventStreamHandler = AuthCognitoHubEventStreamHandler()
   }
@@ -102,7 +108,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "com.amazonaws.amplify/auth_cognito")
-    channel.setMethodCallHandler(this);
+    channel.setMethodCallHandler(this)
     context = flutterPluginBinding.applicationContext;
     eventMessenger = flutterPluginBinding.getBinaryMessenger();
     hubEventChannel = EventChannel(flutterPluginBinding.binaryMessenger,
@@ -153,6 +159,11 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       } catch (e: Exception) {
         handleAddPluginException("Auth", e, result)
       }
+      return
+    }
+
+    if (DeviceHandler.canHandle(call.method)) {
+      deviceHandler.onMethodCall(call, result)
       return
     }
 

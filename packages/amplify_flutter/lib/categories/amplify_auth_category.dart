@@ -216,4 +216,25 @@ class AuthCategory {
         ? plugins[0].resendUserAttributeConfirmationCode(request: request)
         : throw _pluginNotAddedException("Auth");
   }
+
+  /// Remembers the current device.
+  Future<void> rememberDevice() {
+    return plugins.length == 1
+        ? plugins[0].rememberDevice()
+        : throw _pluginNotAddedException("Auth");
+  }
+
+  /// Forgets [device], or the current device, if no parameters are given.
+  Future<void> forgetDevice([AuthDevice? device]) {
+    return plugins.length == 1
+        ? plugins[0].forgetDevice(device)
+        : throw _pluginNotAddedException("Auth");
+  }
+
+  /// Retrieves all tracked devices for the current user.
+  Future<List<AuthDevice>> fetchDevices() {
+    return plugins.length == 1
+        ? plugins[0].fetchDevices()
+        : throw _pluginNotAddedException("Auth");
+  }
 }
