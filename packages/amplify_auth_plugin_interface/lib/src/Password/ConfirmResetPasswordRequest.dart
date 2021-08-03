@@ -26,7 +26,7 @@ class ConfirmResetPasswordRequest {
   /// The confirmation code the user received after starting the reset password process
   String confirmationCode;
 
-  /// Advanced options for the request
+  /// Plugin-specific, advanced [options] such as information about the client
   ConfirmResetPasswordOptions? options;
 
   /// Default Constructor
