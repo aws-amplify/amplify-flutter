@@ -1,13 +1,13 @@
 //  Sign in form fields keys
 
-const String keyUsernameSignInFormfield = 'usernameSignInFormField';
-const String keyEmailSignInFormfield = 'emailSignInFormField';
-const String keyPhoneNumberSignInFormfield = 'phoneNumberSignInFormField';
-const String keyPasswordSignInFormfield = 'passwordSignInFormField';
-const String keyVerificationCodeSignInFormfield =
+const String keyUsernameSignInFormField = 'usernameSignInFormField';
+const String keyEmailSignInFormField = 'emailSignInFormField';
+const String keyPhoneNumberSignInFormField = 'phoneNumberSignInFormField';
+const String keyPasswordSignInFormField = 'passwordSignInFormField';
+const String keyVerificationCodeSignInFormField =
     'verificationCodeSignInFormField';
-const String keyNewPasswordSignInFormfield = 'newPasswordSignInFormField';
-
+const String keyNewPasswordSignInFormField = 'newPasswordSignInFormField';
+const String keyNewUsernameSignInFormField = 'newUsernameSignInFormField';
 // Sign up form fields keys
 
 const String keyUsernameSignUpFormField = 'usernameSignUpFormField';

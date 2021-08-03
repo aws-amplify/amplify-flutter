@@ -40,7 +40,10 @@ class SignInFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _authModelView = InheritedAuthViewModel.of(context)!.signInViewModel;
+    final _signInViewModel =
+        InheritedAuthViewModel.of(context)!.signInViewModel;
+    final _confirmSignUpViewModel =
+        InheritedAuthViewModel.of(context)!.confirmSignUpViewModel;
     bool _obscureText = false;
     late void Function(String) _callBack;
     late Key _key;
@@ -50,43 +53,58 @@ class SignInFormField extends StatelessWidget {
     Widget? _resetPasswordButton;
     switch (_type) {
       case SignInType.username:
-        _callBack = _authModelView.setUsername;
+        _callBack = (value) {
+          _signInViewModel.setUsername(value);
+          _confirmSignUpViewModel.setUsername(value);
+        };
         _keyboardType = TextInputType.text;
         _validator = validator ?? validateUsername;
-        _key = const Key(keyUsernameSignInFormfield);
+        _key = const Key(keyUsernameSignInFormField);
         break;
       case SignInType.email:
-        _callBack = _authModelView.setUsername;
+        _callBack = (value) {
+          _signInViewModel.setUsername(value);
+          _confirmSignUpViewModel.setUsername(value);
+        };
         _keyboardType = TextInputType.emailAddress;
         _validator = validator ?? validateUsername;
-        _key = const Key(keyEmailSignInFormfield);
+        _key = const Key(keyEmailSignInFormField);
         break;
       case SignInType.phone_number:
-        _callBack = _authModelView.setUsername;
+        _callBack = (value) {
+          _signInViewModel.setUsername(value);
+          _confirmSignUpViewModel.setUsername(value);
+        };
         _keyboardType = TextInputType.phone;
         _validator = validator ?? validateUsername;
-        _key = const Key(keyPhoneNumberSignInFormfield);
+        _key = const Key(keyPhoneNumberSignInFormField);
         break;
       case SignInType.password:
-        _callBack = _authModelView.setPassword;
+        _callBack = _signInViewModel.setPassword;
         _keyboardType = TextInputType.visiblePassword;
         _obscureText = true;
         _validator = validator ?? validatePassword;
-        _key = const Key(keyPasswordSignInFormfield);
+        _key = const Key(keyPasswordSignInFormField);
         _resetPasswordButton = const ResetPasswordButton();
         break;
       case SignInType.verification_code:
-        _callBack = _authModelView.setConfirmationCode;
+        _callBack = _signInViewModel.setConfirmationCode;
         _keyboardType = TextInputType.number;
-        _key = const Key(keyVerificationCodeSignInFormfield);
+        _key = const Key(keyVerificationCodeSignInFormField);
         break;
       case SignInType.new_password:
-        _callBack = _authModelView.setNewPassword;
+        _callBack = _signInViewModel.setNewPassword;
         _keyboardType = TextInputType.visiblePassword;
         _obscureText = true;
         _validator = validator ?? validatePassword;
-        _key = const Key(keyNewPasswordSignInFormfield);
+        _key = const Key(keyNewPasswordSignInFormField);
+        break;
+      case SignInType.new_username:
+        _callBack = _signInViewModel.setNewUsername;
+        _keyboardType = TextInputType.text;
 
+        _validator = validator ?? validateUsername;
+        _key = const Key(keyNewUsernameSignInFormField);
         break;
       default:
         break;

@@ -15,6 +15,14 @@ class SignInViewModel extends BaseViewModel {
   String? _password;
   String? _confirmationCode;
   String? _newPassword;
+  String? _newUsername;
+
+// This new username is being used to send a code to reset
+// a user's password in the SendCodeScreen. Using _username was
+// refering to the same instance of SignInFormField in the SignInScreen.
+  void setNewUsername(String value) {
+    _newUsername = value;
+  }
 
   void setUsername(String value) {
     _username = value;
@@ -55,8 +63,12 @@ class SignInViewModel extends BaseViewModel {
   }
 
   Future<void> sendCode() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
     setBusy(true);
-    AuthSendCodeData sendCode = AuthSendCodeData(username: _username!.trim());
+    AuthSendCodeData sendCode =
+        AuthSendCodeData(username: _newUsername!.trim());
     _authBloc.authEvent.add(AuthSendCode(sendCode));
     await Future.any([
       _authBloc.exceptions!.first,

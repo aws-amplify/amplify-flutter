@@ -102,7 +102,7 @@ class DefaultForms {
   }
 
   static ConfirmSignUpForm confirmSignUpForm(Alias alias) {
-    late String _title;
+    String? _title;
     String? _hintText;
     switch (alias) {
       case Alias.username:
@@ -175,7 +175,8 @@ class DefaultForms {
     return SendCodeForm(
       formFields: FormFields(
         children: [
-          SignInFormField(title: _title, hintText: _hintText, type: 'username'),
+          SignInFormField(
+              title: _title, hintText: _hintText, type: 'new_username'),
         ],
       ),
     );
@@ -199,7 +200,7 @@ class DefaultForms {
   }
 
 //This form will be displayed when result.nextStep!.signInStep ==
-////'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD'
+//'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD'
   static ChangePasswordForm changePasswordForm(Alias alias) {
     return const ChangePasswordForm(
       formFields: FormFields(
