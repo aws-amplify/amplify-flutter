@@ -549,34 +549,16 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func test_resendSignUpCodeSuccessWithOptions() {
-        
-        class ResendSignUpCodeMock: AuthCognitoBridge {
-            override func onResendSignUpCode(flutterResult: @escaping FlutterResult, request: FlutterResendSignUpCodeRequest) {
-                  let resendCodeRes = Result<AuthCodeDeliveryDetails, AuthError>.success(AuthCodeDeliveryDetails(destination: DeliveryDestination.email(_email)))
-                  let resendData = FlutterResendSignUpCodeResult(res: resendCodeRes)
-                  flutterResult(resendData)
-            }
-        }
-        
-        plugin = SwiftAuthCognito.init(cognito: ResendSignUpCodeMock())
-        
-        _data = ["username": _username]
-        _options = ["clientMetadata": ["key": "value"]]
-        _args = [
-            "data": _data,
-            "options": _options
+    func test_resendSignUpCodeRequestWithClientMetadata() {
+        let metadata: Dictionary<String, Any> = ["attribute": "value"]
+        let rawOptions: Dictionary<String, Any> = ["clientMetadata": metadata]
+        let rawData: NSMutableDictionary = [
+            "username": _username,
+            "options": rawOptions
         ]
-        let call = FlutterMethodCall(methodName: "resendSignUpCode", arguments: _args)
-        plugin.handle(call, result: {(result)->Void in
-            if let res = result as? FlutterResendSignUpCodeResult {
-                XCTAssertEqual( _email,  res.codeDeliveryDetails["destination"] )
-                XCTAssertEqual( "email",  res.codeDeliveryDetails["attributeName"] )
-                XCTAssertEqual( _email, (res.toJSON()["codeDeliveryDetails"] as! [String: String])["destination"])
-            } else {
-                XCTFail()
-            }
-        })
+        let request = FlutterResendSignUpCodeRequest(dict: rawData);
+        let options = request.options?.pluginOptions as! AWSAuthResendSignUpCodeOptions
+        XCTAssertEqual("value", options.metadata!["attribute"])
     }
     
     func test_resendSignUpCodeError() {
