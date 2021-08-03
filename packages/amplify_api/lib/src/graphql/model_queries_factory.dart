@@ -29,9 +29,10 @@ class ModelQueriesFactory extends ModelQueriesInterface {
 
   @override
   GraphQLRequest<T> get<T extends Model>(ModelType<T> modelType, String id) {
+    Map<String, dynamic> variables = {"id": id};
     return GraphQLRequestFactory.instance.buildQuery<T>(
         modelType: modelType,
-        id: id,
+        variables: variables,
         requestType: GraphQLRequestType.query,
         requestOperation: GraphQLRequestOperation.get);
   }
@@ -42,15 +43,15 @@ class ModelQueriesFactory extends ModelQueriesInterface {
     ModelPagination? modelPagination = const ModelPagination(),
     QueryPredicate? where,
   }) {
-    Map<String, dynamic> documentArgs = {};
-    if (modelPagination != null) {
-      // TODO: need to handle nextToken input
-      documentArgs = {"limit": modelPagination.limit};
-    }
+    Map<String, dynamic> variables = {
+      "filter": null, // TODO: handle query predicates
+      "limit": modelPagination?.limit,
+      "nextToken": null // TODO: need to handle nextToken input
+    };
 
     return GraphQLRequestFactory.instance.buildQuery<PaginatedResult<T>>(
         modelType: PaginatedModelTypeImpl(modelType),
-        documentArgs: documentArgs,
+        variables: variables,
         requestType: GraphQLRequestType.query,
         requestOperation: GraphQLRequestOperation.list);
   }

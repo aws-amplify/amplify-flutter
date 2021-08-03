@@ -60,7 +60,7 @@ void main() {
     });
     test('ModelQueries.list() should build a valid request', () async {
       String expected =
-          r"query listBlogs { listBlogs { items { id name createdAt } nextToken } }";
+          r"query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }";
 
       GraphQLRequest<PaginatedResult<Blog>> req =
           ModelQueries.list<Blog>(Blog.classType);
@@ -73,7 +73,7 @@ void main() {
     test('ModelQueries.list() should build a valid request with pagination',
         () async {
       String expected =
-          r"query listBlogs { listBlogs(limit: 1) { items { id name createdAt } nextToken } }";
+          r"query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }";
 
       GraphQLRequest<PaginatedResult<Blog>> req = ModelQueries.list<Blog>(
           Blog.classType,
@@ -81,6 +81,7 @@ void main() {
 
       expect(req.document, expected);
       expect(req.modelType, isA<PaginatedModelType<Blog>>());
+      expect(req.variables["limit"], 1);
       expect(req.decodePath, "listBlogs");
     });
 

@@ -112,7 +112,7 @@ void main() {
   test('ModelQueries.list Model Helper executes correctly in the happy case',
       () async {
     String expectedDoc =
-        r"query listBlogs { listBlogs(limit: 4) { items { id name createdAt } nextToken } }";
+        r"query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }";
     const queryResult = '''{
       "listBlogs": {
         "items": [
