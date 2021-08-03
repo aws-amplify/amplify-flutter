@@ -38,6 +38,7 @@ export 'SignOut/SignOutResult.dart';
 export 'SignOut/SignOutOptions.dart';
 
 // Password Classes
+export 'Password/ConfirmPasswordRequest.dart';
 export 'Password/ConfirmResetPasswordOptions.dart';
 export 'Password/ConfirmResetPasswordRequest.dart';
 export 'Password/PasswordOptions.dart';
