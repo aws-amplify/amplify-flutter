@@ -15,9 +15,18 @@
 
 import 'FetchUserAttributesOptions.dart';
 
+@Deprecated("Please use 'FetchUserAttributesRequest' instead")
+class AuthUserAttributeRequest extends FetchUserAttributesRequest {}
+
+/// Encapsulates parameters for a fetch user attributes operation
 class FetchUserAttributesRequest {
+  /// Advanced options such as information about the client
   FetchUserAttributesOptions? options;
+
+  /// Default constructor
   FetchUserAttributesRequest({this.options});
+
+  /// Serialize the object to a map for use over the method channel
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = {
       'options': options?.serializeAsMap()
