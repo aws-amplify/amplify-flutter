@@ -28,7 +28,7 @@ export 'RestAPI/RestException.dart';
 
 export 'types/pagination/model_pagination.dart';
 export 'types/pagination/paginated_result.dart';
-export 'types/pagination/paginated_modelType.dart';
+export 'types/pagination/paginated_model_type.dart';
 
 export 'UUID.dart';
 

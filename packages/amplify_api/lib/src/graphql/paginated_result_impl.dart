@@ -14,12 +14,13 @@
  */
 
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_api/src/graphql/paginated_modelType_impl.dart';
+import 'package:amplify_api/src/graphql/paginated_model_type_impl.dart';
 // TODO: Datastore dependencies temporarily added in API. Eventually they should be moved to core or otherwise reconciled to avoid duplication.
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
 class PaginatedResultImpl<T extends Model> extends PaginatedResult<T> {
-  PaginatedResultImpl(items, nextToken) : super(items, nextToken);
+  const PaginatedResultImpl(List<T> items, String? nextToken)
+      : super(items, nextToken);
 
   @override
   String getId() {
@@ -27,14 +28,22 @@ class PaginatedResultImpl<T extends Model> extends PaginatedResult<T> {
   }
 
   @override
-  ModelType<Model> getInstanceType() {
-    ModelType<Model>? modelType = AmplifyAPI.instance.modelProvider
-        ?.getModelTypeByModelName(T.toString());
-    return PaginatedModelTypeImpl(modelType!);
+  PaginatedModelType<T> getInstanceType() {
+    ModelProviderInterface? provider = AmplifyAPI.instance.modelProvider;
+    if (provider == null) {
+      throw ApiException('No modelProvider found',
+          recoverySuggestion:
+              'Pass in a modelProvider instance while instantiating APIPlugin');
+    }
+
+    ModelType<T> modelType =
+        provider.getModelTypeByModelName(T.toString()) as ModelType<T>;
+
+    return PaginatedModelTypeImpl(modelType);
   }
 
   @override
   Map<String, dynamic> toJson() {
-    return {};
+    return {'items': items, 'nextToken': nextToken};
   }
 }

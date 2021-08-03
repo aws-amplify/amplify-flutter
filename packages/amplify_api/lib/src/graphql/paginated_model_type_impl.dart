@@ -3,17 +3,24 @@ import 'package:amplify_api/src/graphql/paginated_result_impl.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
 class PaginatedModelTypeImpl<T extends Model> extends PaginatedModelType<T> {
-  final ModelType<T> modelType;
-
-  PaginatedModelTypeImpl(this.modelType) : super(modelType);
+  const PaginatedModelTypeImpl(ModelType<T> modelType) : super(modelType);
 
   @override
   PaginatedResultImpl<T> fromJson(Map<String, dynamic> jsonData) {
-    List<dynamic>? dataList = List<dynamic>.from(jsonData['items']);
+    final itemsJson = jsonData['items'] as List?;
 
-    List<T> decodedData = dataList.map((e) => modelType.fromJson(e)).toList();
+    if (itemsJson == null || itemsJson.isEmpty) {
+      return PaginatedResultImpl<T>([], null);
+    }
 
-    return PaginatedResultImpl<T>(decodedData, jsonData['nextToken']);
+    final items = itemsJson
+        .cast<Map>()
+        .map(
+          (e) => modelType.fromJson(e.cast()),
+        )
+        .toList();
+
+    return PaginatedResultImpl<T>(items, jsonData['nextToken'] as String?);
   }
 
   @override

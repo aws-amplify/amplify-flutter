@@ -15,7 +15,7 @@
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/graphql/graphql_request_factory.dart';
-import 'package:amplify_api/src/graphql/paginated_modelType_impl.dart';
+import 'package:amplify_api/src/graphql/paginated_model_type_impl.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
 class ModelQueriesFactory extends ModelQueriesInterface {
@@ -44,6 +44,7 @@ class ModelQueriesFactory extends ModelQueriesInterface {
   }) {
     Map<String, dynamic> documentArgs = {};
     if (modelPagination != null) {
+      // TODO: need to handle nextToken input
       documentArgs = {"limit": modelPagination.limit};
     }
 

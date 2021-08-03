@@ -22,5 +22,5 @@ abstract class PaginatedResult<T extends Model> extends Model {
   final List<T> items;
   final String? nextToken;
 
-  PaginatedResult(this.items, this.nextToken);
+  const PaginatedResult(this.items, this.nextToken);
 }

@@ -16,10 +16,11 @@
 import 'package:amplify_api_plugin_interface/src/types.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
-abstract class PaginatedModelType<T extends Model> extends ModelType {
+abstract class PaginatedModelType<T extends Model>
+    extends ModelType<PaginatedResult<T>> {
   final ModelType<T> modelType;
 
-  PaginatedModelType(this.modelType);
+  const PaginatedModelType(this.modelType);
 
   @override
   PaginatedResult<T> fromJson(Map<String, dynamic> jsonData);

@@ -109,6 +109,7 @@ class GraphQLRequestFactory {
     List<String> lowerList = [];
 
     if (documentArgs != null) {
+      // e.g. "limit: 10"
       documentArgs.forEach((key, value) {
         lowerList.add("$key: $value");
       });
