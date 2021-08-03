@@ -140,19 +140,20 @@ class AuthCategory {
   /// the configuration.
   ///
   /// Optionally accepts plugin-specific, advanced [options] for the request.
-  @Deprecated(
-      'Use confirmResetPassword() instead. This method will be removed in the future')
+  @Deprecated('Use confirmResetPassword() instead')
   Future<UpdatePasswordResult> confirmPassword(
       {required String username,
       required String newPassword,
       required String confirmationCode,
       ConfirmResetPasswordOptions? options}) {
-    return confirmResetPassword(
-      username: username,
-      newPassword: newPassword,
-      confirmationCode: confirmationCode,
-      options: options,
-    );
+    var request = ConfirmPasswordRequest(
+        username: username,
+        newPassword: newPassword,
+        confirmationCode: confirmationCode,
+        options: options);
+    return plugins.length == 1
+        ? plugins[0].confirmResetPassword(request: request)
+        : throw _pluginNotAddedException("Auth");
   }
 
   /// Completes the password reset process given a username, new password,

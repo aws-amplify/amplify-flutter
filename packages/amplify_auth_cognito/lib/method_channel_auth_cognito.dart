@@ -201,6 +201,13 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     }
   }
 
+  @Deprecated('Use confirmResetPassword() instead')
+  @override
+  Future<UpdatePasswordResult> confirmPassword(
+      {ConfirmResetPasswordRequest? request}) async {
+    return confirmResetPassword(request: request);
+  }
+
   @override
   Future<UpdatePasswordResult> confirmResetPassword(
       {ConfirmResetPasswordRequest? request}) async {
