@@ -30,11 +30,12 @@ class ConfirmResetPasswordRequest {
   ConfirmResetPasswordOptions? options;
 
   /// Default Constructor
-  ConfirmResetPasswordRequest(
-      {required this.username,
-      required this.newPassword,
-      required this.confirmationCode,
-      this.options});
+  ConfirmResetPasswordRequest({
+    required this.username,
+    required this.newPassword,
+    required this.confirmationCode,
+    this.options,
+  });
 
   /// Serialize the object to a map
   Map<String, dynamic> serializeAsMap() {
@@ -47,4 +48,26 @@ class ConfirmResetPasswordRequest {
     pendingRequest.removeWhere((_, v) => v == null);
     return pendingRequest;
   }
+}
+
+/// Encapsulates parameters for a confirm reset password request
+@Deprecated("Please use 'ConfirmResetPasswordRequest' instead")
+class ConfirmPasswordRequest extends ConfirmResetPasswordRequest {
+  String username;
+  String newPassword;
+  String confirmationCode;
+  ConfirmResetPasswordOptions? options;
+
+  /// Default constructor
+  ConfirmPasswordRequest({
+    required this.username,
+    required this.newPassword,
+    required this.confirmationCode,
+    this.options,
+  }) : super(
+          username: username,
+          newPassword: newPassword,
+          confirmationCode: confirmationCode,
+          options: options,
+        );
 }
