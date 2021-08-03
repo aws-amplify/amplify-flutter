@@ -142,6 +142,8 @@ class StateMachineBloc {
       SignInResult result =
           await _authService.signIn(data.username, data.password);
 
+      print(result.nextStep!.signInStep);
+
       switch (result.nextStep!.signInStep) {
         case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
           exceptionsSink!.add(null);
@@ -152,23 +154,18 @@ class StateMachineBloc {
           break;
         case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
           //Show confirm sign in screen
-          exceptionsSink!.add(null);
 
           break;
         case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
-          exceptionsSink!.add(null);
           yield AuthFlow(screen: AuthScreen.changePassword);
 
           break;
 
         case 'RESET_PASSWORD':
-          //Check when this event gets trigger.
-
+          yield AuthFlow(screen: AuthScreen.sendCode);
           break;
         case 'CONFIRM_SIGN_UP':
-
-          //Show resend sign up code screen
-          //Note: This screen is yet to be implemented
+          yield AuthFlow(screen: AuthScreen.confirmSignUp);
           break;
         case 'DONE':
           yield const Authenticated();
@@ -176,8 +173,11 @@ class StateMachineBloc {
         default:
           break;
       }
-    } on AmplifyException catch (e) {
-      _exceptionController!.add(AuthenticatorException(e.message));
+    } catch (e) {
+      if (e is UserNotConfirmedException) {
+        _exceptionController!.add(AuthenticatorException(e.message));
+        yield AuthFlow(screen: AuthScreen.confirmSignUp);
+      }
     }
   }
 
