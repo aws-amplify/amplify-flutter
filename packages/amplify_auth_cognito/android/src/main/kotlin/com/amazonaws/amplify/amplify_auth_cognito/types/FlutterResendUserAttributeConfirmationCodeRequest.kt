@@ -23,9 +23,9 @@ import com.amplifyframework.auth.cognito.options.AWSCognitoAuthResendUserAttribu
 
 data class FlutterResendUserAttributeConfirmationCodeRequest(val map: HashMap<String, *>) {
     val userAttributeKey: AuthUserAttributeKey = createAuthUserAttributeKey(map["userAttributeKey"] as String);
-    val options: AWSCognitoAuthResendUserAttributeConfirmationCodeOptions = formatOptions(map["options"] as HashMap<String, Any>?)
+    val options: AWSCognitoAuthResendUserAttributeConfirmationCodeOptions = createOptions(map["options"] as HashMap<String, Any>?)
 
-    private fun formatOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthResendUserAttributeConfirmationCodeOptions {
+    private fun createOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthResendUserAttributeConfirmationCodeOptions {
         val optionsBuilder =  AWSCognitoAuthResendUserAttributeConfirmationCodeOptions.builder();
         if (rawOptions?.get("clientMetadata") != null) {
             optionsBuilder.metadata(rawOptions["clientMetadata"] as HashMap<String, String>);

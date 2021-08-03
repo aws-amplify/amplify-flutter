@@ -1601,7 +1601,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func test_updateUserAttributeFormatOptions() {
+    func test_updateUserAttributeRequestWithClientMetadata() {
         let metadata: Dictionary<String, Any> = ["attribute": "value"]
         let rawOptions: Dictionary<String, Any> = ["clientMetadata": metadata]
         let attribute: Dictionary<String, Any> = [
@@ -1738,7 +1738,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func test_updateUserAttributesFormatOptions() {
+    func test_updateUserAttributesRequestWithClientMetadata() {
         let metadata: Dictionary<String, Any> = ["attribute": "value"]
         let rawOptions: Dictionary<String, Any> = ["clientMetadata": metadata]
         let attributes = [
@@ -1961,7 +1961,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func test_resendUserAttributeConfirmationCodeFormatOptions() {
+    func test_resendUserAttributeConfirmationCodeRequestWithClientMetadata() {
         let metadata: Dictionary<String, Any> = ["attribute": "value"]
         let rawOptions: Dictionary<String, Any> = ["clientMetadata": metadata]
         let rawData: NSMutableDictionary = [
