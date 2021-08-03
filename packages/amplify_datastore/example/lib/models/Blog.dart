@@ -37,7 +37,16 @@ class Blog extends Model {
   }
 
   String get name {
-    return _name!;
+    try {
+      return _name!;
+    } catch (e) {
+      throw new DataStoreException(
+          DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
   }
 
   List<Post>? get posts {
@@ -52,7 +61,7 @@ class Blog extends Model {
     return Blog._internal(
         id: id == null ? UUID.getUUID() : id,
         name: name,
-        posts: posts != null ? List.unmodifiable(posts) : posts);
+        posts: posts != null ? List<Post>.unmodifiable(posts) : posts);
   }
 
   bool equals(Object other) {
@@ -93,8 +102,9 @@ class Blog extends Model {
         _name = json['name'],
         _posts = json['posts'] is List
             ? (json['posts'] as List)
+                .where((e) => e?['serializedData'] != null)
                 .map((e) => Post.fromJson(
-                    new Map<String, dynamic>.from(e?['serializedData'])))
+                    new Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
             : null;
 

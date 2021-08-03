@@ -40,6 +40,9 @@ export 'CognitoAttribute/CognitoResendUserAttributeConfirmationCodeOptions.dart'
 export 'CognitoAttribute/CognitoUpdateUserAttributeOptions.dart';
 export 'CognitoAttribute/CognitoUpdateUserAttributesOptions.dart';
 
+// Device
+export 'CognitoDevice/cognito_device.dart';
+
 // Exceptions
 export 'package:amplify_auth_plugin_interface/src/Exceptions/AuthException.dart';
 export 'package:amplify_auth_plugin_interface/src/Exceptions/AliasExistsException.dart';

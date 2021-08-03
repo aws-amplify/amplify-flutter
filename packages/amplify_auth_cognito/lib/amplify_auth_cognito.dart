@@ -15,6 +15,7 @@
 
 import 'dart:async';
 import 'dart:core';
+import 'package:amplify_auth_cognito/src/CognitoDevice/cognito_device.dart';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -145,5 +146,20 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     final res =
         await _instance.resendUserAttributeConfirmationCode(request: request);
     return res;
+  }
+
+  @override
+  Future<void> rememberDevice() {
+    return _instance.rememberDevice();
+  }
+
+  @override
+  Future<void> forgetDevice([AuthDevice? device]) {
+    return _instance.forgetDevice(device);
+  }
+
+  @override
+  Future<List<CognitoDevice>> fetchDevices() {
+    return _instance.fetchDevices();
   }
 }
