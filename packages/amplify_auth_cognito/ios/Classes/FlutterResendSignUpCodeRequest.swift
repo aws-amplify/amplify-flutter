@@ -23,10 +23,10 @@ struct FlutterResendSignUpCodeRequest {
   var options: AuthResendSignUpCodeRequest.Options?
   init(dict: NSMutableDictionary){
     self.username = dict["username"] as! String
-    self.options = formatOptions(options: dict["options"] as! Dictionary<String, Any>?)
+    self.options = createOptions(options: dict["options"] as! Dictionary<String, Any>?)
   }
 
-  func formatOptions(options: Dictionary<String, Any>?) -> AuthResendSignUpCodeOperation.Request.Options {
+  func createOptions(options: Dictionary<String, Any>?) -> AuthResendSignUpCodeOperation.Request.Options {
     let pluginOptions =  AWSAuthResendSignUpCodeOptions(
         metadata: options?["clientMetadata"] as? [String : String]
     )

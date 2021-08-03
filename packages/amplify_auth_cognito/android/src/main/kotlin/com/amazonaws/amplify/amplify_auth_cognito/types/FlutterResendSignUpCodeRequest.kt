@@ -21,9 +21,9 @@ import com.amplifyframework.auth.cognito.options.AWSCognitoAuthResendSignUpCodeO
 
 data class FlutterResendSignUpCodeRequest(val map: HashMap<String, *>) {
   val username: String = map["username"] as String;
-  val options: AWSCognitoAuthResendSignUpCodeOptions = formatOptions(map["options"] as HashMap<String, Any>?)
+  val options: AWSCognitoAuthResendSignUpCodeOptions = createOptions(map["options"] as HashMap<String, Any>?)
 
-  private fun formatOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthResendSignUpCodeOptions {
+  private fun createOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthResendSignUpCodeOptions {
     val optionsBuilder =  AWSCognitoAuthResendSignUpCodeOptions.builder();
     if (rawOptions?.get("clientMetadata") != null) {
       optionsBuilder.metadata(rawOptions["clientMetadata"] as HashMap<String, String>);
