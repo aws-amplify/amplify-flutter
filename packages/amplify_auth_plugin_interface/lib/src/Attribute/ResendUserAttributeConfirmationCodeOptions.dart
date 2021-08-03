@@ -14,13 +14,10 @@
  */
 
 /// The shared resend user attribute confirmation code options among all Auth plugins
-class ResendUserAttributeConfirmationCodeOptions {
+abstract class ResendUserAttributeConfirmationCodeOptions {
   /// Default constructor
   const ResendUserAttributeConfirmationCodeOptions();
 
   /// Serialize the object to a map
-  Map<String, dynamic> serializeAsMap() {
-    throw UnimplementedError(
-        'serializeAsMap() has not been implemented on ResendUserAttributeConfirmationCodeOptions.');
-  }
+  Map<String, dynamic> serializeAsMap();
 }

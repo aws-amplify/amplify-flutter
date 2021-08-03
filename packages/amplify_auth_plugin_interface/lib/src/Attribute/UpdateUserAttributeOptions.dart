@@ -14,13 +14,10 @@
  */
 
 /// The shared update user attribute options among all Auth plugins
-class UpdateUserAttributeOptions {
+abstract class UpdateUserAttributeOptions {
   /// Default constructor
   const UpdateUserAttributeOptions();
 
   /// Serialize the object to a map
-  Map<String, dynamic> serializeAsMap() {
-    throw UnimplementedError(
-        'serializeAsMap() has not been implemented on UpdateUserAttributeOptions.');
-  }
+  Map<String, dynamic> serializeAsMap();
 }

@@ -13,11 +13,7 @@
  * permissions and limitations under the License.
  */
 
-/// The shared update user attributes options among all Auth plugins
-abstract class UpdateUserAttributesOptions {
-  /// Default constructor
-  const UpdateUserAttributesOptions();
+import 'FetchUserAttributesRequest.dart';
 
-  /// Serialize the object to a map
-  Map<String, dynamic> serializeAsMap();
-}
+@Deprecated("Please use 'FetchUserAttributesRequest' instead")
+class AuthUserAttributeRequest extends FetchUserAttributesRequest {}

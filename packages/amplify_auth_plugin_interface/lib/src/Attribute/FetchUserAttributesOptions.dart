@@ -13,9 +13,6 @@
  * permissions and limitations under the License.
  */
 
-@Deprecated("Please use 'FetchUserAttributesOptions' instead")
-class AuthUserAttributeOptions extends FetchUserAttributesOptions {}
-
 /// The shared fetch user attributes options among all Auth plugins
 class FetchUserAttributesOptions {
   /// Default constructor

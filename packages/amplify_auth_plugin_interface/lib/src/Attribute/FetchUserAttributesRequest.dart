@@ -15,9 +15,6 @@
 
 import 'FetchUserAttributesOptions.dart';
 
-@Deprecated("Please use 'FetchUserAttributesRequest' instead")
-class AuthUserAttributeRequest extends FetchUserAttributesRequest {}
-
 /// Encapsulates parameters for a fetch user attributes operation
 class FetchUserAttributesRequest {
   /// Plugin-specific, advanced options such as information about the client
@@ -29,9 +26,8 @@ class FetchUserAttributesRequest {
   /// Serialize the object to a map for use over the method channel
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = {
-      'options': options?.serializeAsMap()
+      if (options != null) 'options': options?.serializeAsMap()
     };
-    pendingRequest.removeWhere((_, v) => v == null);
     return pendingRequest;
   }
 }

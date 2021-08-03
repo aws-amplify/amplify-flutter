@@ -56,6 +56,8 @@ export 'Session/AuthUserRequest.dart';
 
 // Attribute Classes
 export 'Attribute/AuthUserAttribute.dart';
+export 'Attribute/AuthUserAttributeOptions.dart';
+export 'Attribute/AuthUserAttributeRequest.dart';
 export 'Attribute/FetchUserAttributesOptions.dart';
 export 'Attribute/FetchUserAttributesRequest.dart';
 export 'Attribute/UpdateUserAttributeOptions.dart';
