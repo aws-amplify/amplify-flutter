@@ -20,7 +20,7 @@ class ResendSignUpCodeRequest {
   /// A login identifier or an email/phone number, depending on configuration
   String username;
 
-  /// Accepts advanced [options] such as information about the client
+  /// Plugin-specific, advanced [options] such as information about the client
   ResendSignUpCodeOptions? options;
 
   /// Default constructor
