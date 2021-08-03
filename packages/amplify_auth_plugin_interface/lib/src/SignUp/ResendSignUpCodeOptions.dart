@@ -14,13 +14,7 @@
  */
 
 /// The shared resend sign up code options among all Auth plugins
-class ResendSignUpCodeOptions {
-  /// Default constructor
-  const ResendSignUpCodeOptions();
-
+abstract class ResendSignUpCodeOptions {
   /// Serialize the object to a map
-  Map<String, dynamic> serializeAsMap() {
-    throw UnimplementedError(
-        'serializeAsMap() has not been implemented on ResendSignUpCodeOptions.');
-  }
+  Map<String, dynamic> serializeAsMap();
 }
