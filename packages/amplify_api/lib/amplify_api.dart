@@ -110,8 +110,4 @@ class AmplifyAPI extends APIPluginInterface {
   RestOperation patch({required RestOptions restOptions}) {
     return _instance.patch(restOptions: restOptions);
   }
-
-  Future<void> updateToken(APIAuthorizationType type, String? token) {
-    return _instance.updateToken(type, token);
-  }
 }

@@ -353,12 +353,4 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     }
     return [];
   }
-
-  @override
-  Future<void> updateToken(APIAuthorizationType type, String? token) {
-    return _channel.invokeMethod<void>('updateToken', {
-      'type': type.rawValue,
-      'token': token,
-    });
-  }
 }
