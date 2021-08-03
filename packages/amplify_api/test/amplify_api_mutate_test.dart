@@ -15,14 +15,19 @@
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart'
+    as DataStore;
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_core/types/index.dart';
 
+import 'resources/Blog.dart';
+import 'resources/ModelProvider.dart';
+
 void main() {
   const MethodChannel apiChannel = MethodChannel('com.amazonaws.amplify/api');
 
-  AmplifyAPI api = AmplifyAPI();
+  AmplifyAPI api = AmplifyAPI(modelProvider: ModelProvider.instance);
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -59,6 +64,35 @@ void main() {
 
     var response = await operation.response;
     expect(response.data, mutationResult.toString());
+  });
+
+  test('ModelMutations.create() executes correctly in the happy case',
+      () async {
+    final id = UUID.getUUID();
+    const name = 'Test App Blog';
+    const time = '2020-12-14T19:54:18.733Z';
+    final dateTime = DataStore.TemporalDateTime.fromString(time);
+    final mutationResult = '''{
+      "createBlog": {
+        "id": "$id",
+        "name": "$name",
+        "createdAt": "$time"
+      }
+    }''';
+
+    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      if (methodCall.method == 'mutate') {
+        return {'data': mutationResult.toString(), 'errors': []};
+      }
+    });
+
+    Blog blog = Blog(id: id, name: name, createdAt: dateTime);
+
+    var operation =
+        await api.mutate(request: ModelMutations.create<Blog>(blog));
+
+    var response = await operation.response;
+    expect(response.data.equals(blog), isTrue);
   });
 
   test(
