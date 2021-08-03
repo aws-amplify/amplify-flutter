@@ -504,4 +504,32 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     return ResendUserAttributeConfirmationCodeResult(
         codeDeliveryDetails: res["codeDeliveryDetails"]);
   }
+
+  @override
+  Future<void> rememberDevice() async {
+    try {
+      await _channel.invokeMethod<void>('rememberDevice');
+    } on PlatformException catch (e) {
+      throw transformDeviceException(e);
+    }
+  }
+
+  @override
+  Future<void> forgetDevice([AuthDevice? device]) async {
+    try {
+      await _channel.invokeMethod<void>('forgetDevice', device?.toJson());
+    } on PlatformException catch (e) {
+      throw transformDeviceException(e);
+    }
+  }
+
+  @override
+  Future<List<CognitoDevice>> fetchDevices() async {
+    try {
+      final devicesJson = await _channel.invokeListMethod<Map>('fetchDevices');
+      return devicesJson?.map((e) => CognitoDevice.fromJson(e)).toList() ?? [];
+    } on PlatformException catch (e) {
+      throw transformDeviceException(e);
+    }
+  }
 }
