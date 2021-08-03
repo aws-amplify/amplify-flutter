@@ -30,12 +30,20 @@ struct FlutterSignUpRequest {
     }
     
     private func createOptions(options: Dictionary<String, Any>?) -> AuthSignUpRequest.Options? {
+        var userAttributes: [AuthUserAttribute]? = nil
+        var pluginOptions: AWSAuthSignUpOptions? = nil
         if (options?["userAttributes"] is Dictionary<String, String>) {
             let rawAttributes = options!["userAttributes"] as! Dictionary<String, String>
-            let userAttributes = createAuthUserAttributes(rawAttributes: rawAttributes)
-            return AuthSignUpRequest.Options(userAttributes: userAttributes)
+            userAttributes = createAuthUserAttributes(rawAttributes: rawAttributes)
         }
-        return nil
+        
+        if (options?["clientMetadata"] is Dictionary<String, String> || options?["validationData"] is Dictionary<String, String>) {
+            pluginOptions = AWSAuthSignUpOptions(
+                validationData: options?["validationData"] as? [String: String],
+                metadata: options?["clientMetadata"] as? [String : String]
+            )
+        }
+        return AuthSignUpRequest.Options(userAttributes: userAttributes, pluginOptions: pluginOptions)
     }
     
     private func createAuthUserAttributes(rawAttributes: Dictionary<String, String>) -> [AuthUserAttribute] {

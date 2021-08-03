@@ -1,3 +1,18 @@
+## 0.2.1 (2021-07-27)
+
+### Features
+
+- feat: Selective Sync (#703)
+
+### Bug Fixes
+
+- fix: not serializing enum type in a predicate (#726)
+
+### Chores
+
+- chore: enable formatting in CI w/ code changes (#570)
+- chore: make SubscriptionEvent directly available via datastore plugin by adding to publicTypes in interface (#728)
+
 ## 0.2.0 (2021-06-30)
 
 ### Features

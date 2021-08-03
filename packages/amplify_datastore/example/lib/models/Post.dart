@@ -40,15 +40,33 @@ class Post extends Model {
   }
 
   String get title {
-    return _title!;
+    try {
+      return _title!;
+    } catch (e) {
+      throw new DataStoreException(
+          DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
   }
 
   int get rating {
-    return _rating!;
+    try {
+      return _rating!;
+    } catch (e) {
+      throw new DataStoreException(
+          DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
   }
 
-  TemporalDateTime get created {
-    return _created!;
+  TemporalDateTime? get created {
+    return _created;
   }
 
   Blog? get blog {
@@ -63,7 +81,7 @@ class Post extends Model {
       {required this.id,
       required title,
       required rating,
-      required created,
+      created,
       blog,
       comments})
       : _title = title,
@@ -76,7 +94,7 @@ class Post extends Model {
       {String? id,
       required String title,
       required int rating,
-      required TemporalDateTime created,
+      TemporalDateTime? created,
       Blog? blog,
       List<Comment>? comments}) {
     return Post._internal(
@@ -85,7 +103,8 @@ class Post extends Model {
         rating: rating,
         created: created,
         blog: blog,
-        comments: comments != null ? List.unmodifiable(comments) : comments);
+        comments:
+            comments != null ? List<Comment>.unmodifiable(comments) : comments);
   }
 
   bool equals(Object other) {
@@ -147,14 +166,15 @@ class Post extends Model {
         _created = json['created'] != null
             ? TemporalDateTime.fromString(json['created'])
             : null,
-        _blog = json['blog'] != null
+        _blog = json['blog']?['serializedData'] != null
             ? Blog.fromJson(
-                new Map<String, dynamic>.from(json['blog']?['serializedData']))
+                new Map<String, dynamic>.from(json['blog']['serializedData']))
             : null,
         _comments = json['comments'] is List
             ? (json['comments'] as List)
+                .where((e) => e?['serializedData'] != null)
                 .map((e) => Comment.fromJson(
-                    new Map<String, dynamic>.from(e?['serializedData'])))
+                    new Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
             : null;
 
@@ -198,7 +218,7 @@ class Post extends Model {
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: Post.CREATED,
-        isRequired: true,
+        isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(

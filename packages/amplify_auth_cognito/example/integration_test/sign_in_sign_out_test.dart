@@ -24,12 +24,15 @@ import 'utils/setup_utils.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  final username = generateUsername();
-  final password = generatePassword();
-
-  group('signIn and signOut', () {
-    setUpAll(() async {
+  group('signIn', () {
+    late String username;
+    late String password;
+    setUp(() async {
       await configureAuth();
+
+      // create new user for each test
+      username = generateUsername();
+      password = generatePassword();
 
       await Amplify.Auth.signUp(
           username: username,
@@ -48,18 +51,84 @@ void main() {
       expect(res.isSignedIn, true);
     });
 
-    testWidgets('should signOut', (WidgetTester tester) async {
-      // Ensure signed in before testing signOut.
-      final initalAuthRes = await Amplify.Auth.fetchAuthSession();
-      if (!initalAuthRes.isSignedIn) {
-        await Amplify.Auth.signIn(username: username, password: password);
-        final secondAuthRes = await Amplify.Auth.fetchAuthSession();
-        expect(secondAuthRes.isSignedIn, true);
+    testWidgets(
+        'should throw a NotAuthorizedException with an incorrect password',
+        (WidgetTester tester) async {
+      final incorrectPassword = generatePassword();
+      try {
+        await Amplify.Auth.signIn(
+            username: username, password: incorrectPassword);
+      } catch (e) {
+        expect(e, TypeMatcher<NotAuthorizedException>());
+        return;
       }
+      fail('Expected NotAuthorizedException');
+    });
 
+    testWidgets('should throw a UserNotFoundException with a non-existent user',
+        (WidgetTester tester) async {
+      final incorrectUsername = generateUsername();
+      try {
+        await Amplify.Auth.signIn(
+            username: incorrectUsername, password: password);
+      } catch (e) {
+        expect(e, TypeMatcher<UserNotFoundException>());
+        return;
+      }
+      fail('Expected UserNotFoundException');
+    });
+
+    testWidgets(
+        'should throw an InvalidStateException if a user is already signed in',
+        (WidgetTester tester) async {
+      await Amplify.Auth.signIn(username: username, password: password);
+      try {
+        await Amplify.Auth.signIn(username: username, password: password);
+      } catch (e) {
+        expect(e, TypeMatcher<InvalidStateException>());
+        return;
+      }
+      fail('Expected InvalidStateException');
+    });
+  });
+
+  group('signOut', () {
+    setUp(() async {
+      await configureAuth();
+      await signOutUser();
+    });
+
+    testWidgets('should sign a user out', (WidgetTester tester) async {
+      // sign up user
+      final username = generateUsername();
+      final password = generatePassword();
+      await Amplify.Auth.signUp(
+          username: username,
+          password: password,
+          options: CognitoSignUpOptions(userAttributes: {
+            'email': generateEmail(),
+            'phone_number': mockPhoneNumber
+          }));
+
+      // Ensure signed in before testing signOut.
+      await Amplify.Auth.signIn(username: username, password: password);
+      final authSession = await Amplify.Auth.fetchAuthSession();
+      expect(authSession.isSignedIn, isTrue);
+
+      // assert user is signed out after calling signOut
       await Amplify.Auth.signOut();
-      final finalAuthRes = await Amplify.Auth.fetchAuthSession();
-      expect(finalAuthRes.isSignedIn, false);
+      final finalAuthSession = await Amplify.Auth.fetchAuthSession();
+      expect(finalAuthSession.isSignedIn, isFalse);
+    });
+
+    testWidgets('should not throw even if there is no user to sign out',
+        (WidgetTester tester) async {
+      // ensure that no user is currently logged in
+      final authSession = await Amplify.Auth.fetchAuthSession();
+      expect(authSession.isSignedIn, isFalse);
+
+      // call signOut without an expectation for an exception
+      await Amplify.Auth.signOut();
     });
   });
 }
