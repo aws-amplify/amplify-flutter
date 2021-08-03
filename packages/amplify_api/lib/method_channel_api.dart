@@ -27,6 +27,12 @@ import 'amplify_api.dart';
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/api');
 
 class AmplifyAPIMethodChannel extends AmplifyAPI {
+  /// Key to use for authorization tokens in serialized platform requests.
+  static const _authTokensMapKey = 'tokens';
+
+  /// The registered [APIAuthProvider] instances.
+  final Map<APIAuthorizationType, APIAuthProvider> _authProviders = {};
+
   dynamic _allSubscriptionsStream = null;
 
   @override
@@ -46,6 +52,30 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   }
 
   // ====== GraphQL ======
+
+  @override
+  void registerAuthProvider(APIAuthProvider authProvider) {
+    _authProviders[authProvider.type] = authProvider;
+  }
+
+  /// Retrieves the latest auth token for [authProvider].
+  ///
+  /// Any [Exception] is caught and treated as a `null` token.
+  Future<Map<String, dynamic>> _getLatestAuthToken(
+    APIAuthProvider authProvider,
+  ) async {
+    String? token;
+    try {
+      token = await authProvider.getLatestAuthToken();
+    } on Exception {}
+    return AuthToken(authProvider.type, token).toMap();
+  }
+
+  /// Retrieves the latest tokens for all registered [_authProviders].
+  Future<List<Map<String, dynamic>>> _getLatestAuthTokens() {
+    return Future.wait(_authProviders.values.map(_getLatestAuthToken));
+  }
+
   @override
   GraphQLOperation<T> query<T>({required GraphQLRequest<T> request}) {
     Future<GraphQLResponse<T>> response =
@@ -150,7 +180,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
       final Map<String, dynamic>? result =
           (await (_channel.invokeMapMethod<String, dynamic>(
         methodName,
-        request.serializeAsMap(),
+        await _serializeGraphQLRequest(request),
       )));
       if (result == null)
         throw AmplifyException(
@@ -174,7 +204,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     try {
       await _channel.invokeMethod<String>(
         'subscribe',
-        request.serializeAsMap(),
+        await _serializeGraphQLRequest(request),
       );
 
       if (onEstablished != null) {
@@ -183,6 +213,22 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     } on PlatformException catch (e) {
       throw _deserializeException(e);
     }
+  }
+
+  /// Serializes a GraphQL request by including authorization tokens, if needed.
+  /// If no auth providers are registered, the returned future completes synchronously,
+  /// avoiding unnecessary delays in the event loop.
+  Future<Map<String, dynamic>> _serializeGraphQLRequest(
+    GraphQLRequest request,
+  ) {
+    final requestMap = request.serializeAsMap();
+    if (_authProviders.isEmpty) {
+      return SynchronousFuture(requestMap);
+    }
+    return _getLatestAuthTokens().then((tokens) {
+      requestMap[_authTokensMapKey] = tokens;
+      return requestMap;
+    });
   }
 
   // ====== RestAPI ======
@@ -306,5 +352,13 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
       }
     }
     return [];
+  }
+
+  @override
+  Future<void> updateToken(APIAuthorizationType type, String? token) {
+    return _channel.invokeMethod<void>('updateToken', {
+      'type': type.rawValue,
+      'token': token,
+    });
   }
 }
