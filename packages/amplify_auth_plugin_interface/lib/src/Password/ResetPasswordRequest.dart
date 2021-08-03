@@ -30,9 +30,8 @@ class ResetPasswordRequest {
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = {
       'username': username,
-      'options': options?.serializeAsMap()
+      if (options != null) 'options': options?.serializeAsMap()
     };
-    pendingRequest.removeWhere((_, v) => v == null);
     return pendingRequest;
   }
 }

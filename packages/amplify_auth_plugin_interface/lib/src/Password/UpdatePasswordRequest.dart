@@ -35,9 +35,8 @@ class UpdatePasswordRequest {
     final Map<String, dynamic> pendingRequest = {
       'newPassword': newPassword,
       'oldPassword': oldPassword,
-      'options': options?.serializeAsMap()
+      if (options != null) 'options': options?.serializeAsMap()
     };
-    pendingRequest.removeWhere((_, v) => v == null);
     return pendingRequest;
   }
 }
