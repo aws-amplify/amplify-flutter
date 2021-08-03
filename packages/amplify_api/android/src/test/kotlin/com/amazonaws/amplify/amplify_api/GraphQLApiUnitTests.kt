@@ -50,6 +50,12 @@ const val underlyingInvalidApiException =
             "to class java.lang.String (java.lang.Integer and java.lang.String are in module java.base of loader 'bootstrap'), " +
             "recoverySuggestion=The request should include the apiName as a String}"
 
+const val underlyingInvalidApiException =
+        "AmplifyException{message=The apiName request argument " +
+        "was not passed as a String, cause=java.lang.ClassCastException: class java.lang.Integer cannot be cast " +
+        "to class java.lang.String (java.lang.Integer and java.lang.String are in module java.base of loader 'bootstrap'), " +
+        "recoverySuggestion=The request should include the apiName as a String}"
+
 @RunWith(RobolectricTestRunner::class)
 @Suppress("UNCHECKED_CAST")
 class GraphQLApiUnitTests {
@@ -241,6 +247,57 @@ class GraphQLApiUnitTests {
                 "errors" to listOf<String>()
             )
         )
+
+    }
+
+    @Test
+    fun test_query_with_valid_api_name() {
+        val testRequest = HashMap<String, Any>();
+        testRequest["apiName"] = "publicApi"
+        testRequest["document"] = """query MyQuery {
+            listBlogs {
+                items {
+                id
+                name
+                createdAt
+                }
+            }
+        }"""
+        testRequest["variables"] = HashMap<String, Any>();
+        testRequest["cancelToken"] = "someCode"
+
+        val graphQLResponse: GraphQLResponse<String> = GraphQLResponse("result", null)
+
+        doAnswer { invocation ->
+            Assert.assertEquals(testRequest["apiName"] as String, invocation.arguments[0])
+            Assert.assertEquals(
+                    SimpleGraphQLRequest<String>(
+                            testRequest["document"] as String,
+                            testRequest["variables"] as Map<String, Any>,
+                            String::class.java,
+                            GsonVariablesSerializer()
+                    ),
+                    invocation.arguments[1]
+            )
+            (invocation.arguments[2] as Consumer<GraphQLResponse<String>>).accept(
+                    graphQLResponse
+            )
+            mockGraphQLOperation
+        }.`when`(mockApi).query(
+                any<String>(),
+                any<GraphQLRequest<String>>(),
+                any(),
+                any())
+
+        flutterPlugin.onMethodCall(
+                MethodCall("query", testRequest),
+                mockResult
+        )
+
+        verify(mockResult).success(mapOf(
+                "data" to "result",
+                "errors" to listOf<String>()
+        ))
 
     }
 
@@ -747,6 +804,89 @@ class GraphQLApiUnitTests {
                 "recoverySuggestion" to ExceptionMessages.missingRecoverySuggestion,
                 "underlyingException" to underlyingInvalidApiException
             )
+        )
+    }
+
+    @Test
+    fun test_subscription_with_valid_api_name() {
+        val testRequest = HashMap<String, Any>()
+        val id = "someCode"
+        testRequest["apiName"] = "publicApi"
+        testRequest["document"] = ("subscription MySubscription {"
+                + "onCreateBlog {"
+                + "id"
+                + "name"
+                + "createdAt"
+                + "}"
+                + "}")
+
+        testRequest["variables"] = mapOf(
+                "name" to "Test App Blog"
+        )
+        testRequest["cancelToken"] = id
+
+        doAnswer { invocation ->
+            Assert.assertEquals(testRequest["apiName"] as String, invocation.arguments[0])
+            Assert.assertEquals(
+                    SimpleGraphQLRequest<String>(
+                            testRequest["document"] as String,
+                            testRequest["variables"] as Map<String, Any>,
+                            String::class.java,
+                            GsonVariablesSerializer()
+                    ),
+                    invocation.arguments[1]
+            )
+            (invocation.arguments[2] as Consumer<String>).accept(
+                id
+            )
+            mockGraphQLOperation
+        }.`when`(mockApi).subscribe(
+                any<String>(),
+                any<GraphQLRequest<String>>(),
+                any<Consumer<String>>(),
+                any<Consumer<GraphQLResponse<String>>>(),
+                any<Consumer<ApiException>>(),
+                any<Action>()
+        )
+
+
+        flutterPlugin.onMethodCall(
+                MethodCall("subscribe", testRequest),
+                mockResult
+        )
+
+        verify(mockResult).success(null)
+    }
+
+    @Test
+    fun test_operation_with_invalid_api_name() {
+        val testRequest = HashMap<String, Any>();
+        testRequest["apiName"] = 5
+        testRequest["document"] = """query MyQuery {
+            listBlogs {
+                items {
+                id
+                name
+                createdAt
+                }
+            }
+        }"""
+        testRequest["variables"] = HashMap<String, Any>();
+        testRequest["cancelToken"] = "someCode"
+
+        flutterPlugin.onMethodCall(
+                MethodCall("query", testRequest),
+                mockResult
+        )
+
+        verify(mockResult).error(
+                "ApiException",
+                ExceptionMessages.defaultFallbackExceptionMessage,
+                mapOf(
+                        "message" to ExceptionMessages.missingExceptionMessage,
+                        "recoverySuggestion" to ExceptionMessages.missingRecoverySuggestion,
+                        "underlyingException" to underlyingInvalidApiException
+                )
         )
     }
 
