@@ -24,10 +24,10 @@ struct FlutterResetPasswordRequest {
 
   init(dict: NSMutableDictionary){
     self.username = dict["username"] as! String
-    self.options = formatOptions(options: dict["options"] as! Dictionary<String, Any>?)
+    self.options = createOptions(options: dict["options"] as! Dictionary<String, Any>?)
   }
     
-  func formatOptions(options: Dictionary<String, Any>?) -> AuthResetPasswordOperation.Request.Options {
+  func createOptions(options: Dictionary<String, Any>?) -> AuthResetPasswordOperation.Request.Options {
     let pluginOptions =  AWSAuthResetPasswordOptions(
       metadata: options?["clientMetadata"] as? [String : String]
     )

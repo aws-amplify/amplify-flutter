@@ -24,9 +24,9 @@ data class FlutterConfirmResetPasswordRequest(val map: HashMap<String, *>) {
   val username: String = map["username"] as String;
   val newPassword: String = map["newPassword"] as String;
   val confirmationCode: String = map["confirmationCode"] as String;
-  val options: AWSCognitoAuthConfirmResetPasswordOptions = formatOptions(map["options"] as HashMap<String, Any>?)
+  val options: AWSCognitoAuthConfirmResetPasswordOptions = createOptions(map["options"] as HashMap<String, Any>?)
 
-  private fun formatOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthConfirmResetPasswordOptions {
+  private fun createOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthConfirmResetPasswordOptions {
     val optionsBuilder =  AWSCognitoAuthConfirmResetPasswordOptions.builder();
     if (rawOptions?.get("clientMetadata") != null) {
       optionsBuilder.metadata(rawOptions["clientMetadata"] as HashMap<String, String>);

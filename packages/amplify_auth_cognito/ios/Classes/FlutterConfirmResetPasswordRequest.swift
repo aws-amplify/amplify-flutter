@@ -28,10 +28,10 @@ struct FlutterConfirmResetPasswordRequest {
     self.username = dict["username"] as! String
     self.newPassword = dict["newPassword"] as! String
     self.confirmationCode = dict["confirmationCode"] as! String
-    self.options = formatOptions(options: dict["options"] as! Dictionary<String, Any>?)
+    self.options = createOptions(options: dict["options"] as! Dictionary<String, Any>?)
   }
     
-  func formatOptions(options: Dictionary<String, Any>?) -> AuthConfirmResetPasswordOperation.Request.Options {
+  func createOptions(options: Dictionary<String, Any>?) -> AuthConfirmResetPasswordOperation.Request.Options {
     let pluginOptions =  AWSAuthConfirmResetPasswordOptions(
       metadata: options?["clientMetadata"] as? [String : String]
     )

@@ -21,9 +21,9 @@ import com.amplifyframework.auth.cognito.options.AWSCognitoAuthResetPasswordOpti
 
 data class FlutterResetPasswordRequest(val map: HashMap<String, *>) {
   val username: String = map["username"] as String;
-  val options: AWSCognitoAuthResetPasswordOptions = formatOptions(map["options"] as HashMap<String, Any>?)
+  val options: AWSCognitoAuthResetPasswordOptions = createOptions(map["options"] as HashMap<String, Any>?)
 
-  private fun formatOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthResetPasswordOptions {
+  private fun createOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthResetPasswordOptions {
     val optionsBuilder =  AWSCognitoAuthResetPasswordOptions.builder();
     if (rawOptions?.get("clientMetadata") != null) {
       optionsBuilder.metadata(rawOptions["clientMetadata"] as HashMap<String, String>);
