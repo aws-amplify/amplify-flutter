@@ -13,9 +13,15 @@
  * permissions and limitations under the License.
  */
 
-class ModelPagination {
-  // limit is used for the pagination page limit
-  final int limit;
+import 'package:amplify_api_plugin_interface/src/types.dart';
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
-  const ModelPagination({this.limit = 1000});
+abstract class PaginatedModelType<T extends Model>
+    extends ModelType<PaginatedResult<T>> {
+  final ModelType<T> modelType;
+
+  const PaginatedModelType(this.modelType);
+
+  @override
+  PaginatedResult<T> fromJson(Map<String, dynamic> jsonData);
 }

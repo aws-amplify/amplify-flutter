@@ -16,10 +16,11 @@
 // TODO: Datastore dependencies temporarily added in API. Eventually they should be moved to core or otherwise reconciled to avoid duplication.
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
-abstract class PaginatedResult<T extends Model> {
-  String get id;
+import '../../types.dart';
 
-  ModelType<T> get instanceType;
+abstract class PaginatedResult<T extends Model> extends Model {
+  final List<T> items;
+  final String? nextToken;
 
-  Map<String, dynamic> toJson();
+  const PaginatedResult(this.items, this.nextToken);
 }
