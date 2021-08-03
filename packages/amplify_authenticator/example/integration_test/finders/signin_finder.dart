@@ -3,12 +3,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 
 final usernameSignInFormFieldFinder =
-    find.byKey(const Key(keyUsernameSignInFormfield));
+    find.byKey(const Key(keyUsernameSignInFormField));
 final emailSignInFormFieldFinder =
-    find.byKey(const Key(keyEmailSignInFormfield));
+    find.byKey(const Key(keyEmailSignInFormField));
 final phoneNumberSignInFormFieldFinder =
-    find.byKey(const Key(keyPhoneNumberSignInFormfield));
+    find.byKey(const Key(keyPhoneNumberSignInFormField));
 final passwordSignInFormFieldFinder =
-    find.byKey(const Key(keyPasswordSignInFormfield));
+    find.byKey(const Key(keyPasswordSignInFormField));
 final signInButtonFinder = find.byKey(const Key(keySignInButton));
 final signOutButtonFinder = find.byKey(const Key(keySignOutButton));
