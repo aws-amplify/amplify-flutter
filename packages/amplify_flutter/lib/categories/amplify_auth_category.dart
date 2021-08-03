@@ -74,7 +74,7 @@ class AuthCategory {
   /// Resends the code to the user with the given [username], where [username]
   /// is a login identifier or an email/phone number, depending on the configuration
   ///
-  /// Accepts advanced [options] such as a map of auth information for custom auth
+  /// Accepts advanced [options] such as information about the client
   Future<ResendSignUpCodeResult> resendSignUpCode(
       {required String username, ResendSignUpCodeOptions? options}) {
     var request = ResendSignUpCodeRequest(username: username, options: options);

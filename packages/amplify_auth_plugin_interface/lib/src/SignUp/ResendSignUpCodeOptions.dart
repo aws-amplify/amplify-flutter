@@ -18,7 +18,7 @@ class ResendSignUpCodeOptions {
   /// Default constructor
   const ResendSignUpCodeOptions();
 
-  /// Serialize the object to a map for use over the method channel
+  /// Serialize the object to a map
   Map<String, dynamic> serializeAsMap() {
     throw UnimplementedError(
         'serializeAsMap() has not been implemented on ResendSignUpCodeOptions.');
