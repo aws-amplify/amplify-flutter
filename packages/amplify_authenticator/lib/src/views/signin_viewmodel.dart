@@ -80,7 +80,7 @@ class SignInViewModel extends BaseViewModel {
   Future<void> confirmPassword() async {
     setBusy(true);
     AuthConfirmPasswordData confirmPassword = AuthConfirmPasswordData(
-        username: _username!.trim(),
+        username: _newUsername!.trim(),
         confirmationCode: _confirmationCode!.trim(),
         newPassword: _newPassword!.trim());
     _authBloc.authEvent.add(AuthConfirmPassword(confirmPassword));
