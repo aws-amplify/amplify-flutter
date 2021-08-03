@@ -21,7 +21,7 @@ class UpdateUserAttributeRequest {
   /// The user attribute to update
   final AuthUserAttribute attribute;
 
-  /// Advanced options such as information about the client
+  /// Plugin-specific, advanced options such as information about the client
   final UpdateUserAttributeOptions? options;
 
   /// Default constructor

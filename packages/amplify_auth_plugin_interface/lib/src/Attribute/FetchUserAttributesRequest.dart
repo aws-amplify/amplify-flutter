@@ -20,7 +20,7 @@ class AuthUserAttributeRequest extends FetchUserAttributesRequest {}
 
 /// Encapsulates parameters for a fetch user attributes operation
 class FetchUserAttributesRequest {
-  /// Advanced options such as information about the client
+  /// Plugin-specific, advanced options such as information about the client
   FetchUserAttributesOptions? options;
 
   /// Default constructor

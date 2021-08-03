@@ -21,7 +21,7 @@ class UpdateUserAttributesRequest {
   /// The list of user attribute to update
   final List<AuthUserAttribute> attributes;
 
-  /// Advanced options such as information about the client
+  /// Plugin-specific, advanced options such as information about the client
   final UpdateUserAttributesOptions? options;
 
   /// Default constructor

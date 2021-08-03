@@ -20,7 +20,7 @@ class ResendUserAttributeConfirmationCodeRequest {
   /// The key of the user attribute to resend the confirmation code for
   String userAttributeKey;
 
-  /// Advanced options such as information about the client
+  /// Plugin-specific, advanced options such as information about the client
   final ResendUserAttributeConfirmationCodeOptions? options;
 
   /// Default constructor
