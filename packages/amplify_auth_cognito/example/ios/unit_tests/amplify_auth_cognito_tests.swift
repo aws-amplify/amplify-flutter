@@ -1029,7 +1029,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func test_resetPasswordCreateOptions() {
+    func test_resetPasswordRequestWithClientMetadata() {
         let metadata: Dictionary<String, Any> = ["attribute": "value"]
         let rawOptions: Dictionary<String, Any> = ["clientMetadata": metadata]
         let rawData: NSMutableDictionary = ["username": _username, "options": rawOptions]
@@ -1104,7 +1104,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func test_confirmResetPasswordCreateOptions() {
+    func test_confirmResetPasswordRequestWithClientMetadata() {
         let metadata: Dictionary<String, Any> = ["attribute": "value"]
         let rawOptions: Dictionary<String, Any> = ["clientMetadata": metadata]
         let rawData: NSMutableDictionary = [
