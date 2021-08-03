@@ -24,4 +24,13 @@ class ModelQueries {
       ModelType<T> modelType, String id) {
     return ModelQueriesFactory.instance.get<T>(modelType, id);
   }
+
+  static GraphQLRequest<PaginatedResult<T>> list<T extends Model>(
+    ModelType<T> modelType, {
+    ModelPagination? modelPagination,
+    QueryPredicate? where,
+  }) {
+    return ModelQueriesFactory.instance
+        .list<T>(modelType, modelPagination: modelPagination, where: where);
+  }
 }

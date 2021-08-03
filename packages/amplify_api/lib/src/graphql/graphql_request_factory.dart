@@ -107,6 +107,8 @@ class GraphQLRequestFactory {
     List<String> upperList = [];
     List<String> lowerList = [];
 
+    String modelName = schema.name;
+
     // build inputs based on request operation
     switch (operation) {
       case GraphQLRequestOperation.get:
@@ -115,6 +117,10 @@ class GraphQLRequestFactory {
         lowerOutput = "(${lowerList.join(", ")})";
         break;
       case GraphQLRequestOperation.list:
+        upperOutput =
+            "(\$filter: Model${modelName}FilterInput, \$limit: Int, \$nextToken: String)";
+        lowerOutput =
+            r"(filter: $filter, limit: $limit, nextToken: $nextToken)";
         break;
       default:
         schema.fields!.forEach((field, val) {
@@ -124,11 +130,9 @@ class GraphQLRequestFactory {
         lowerOutput = "(input: { ${lowerList.join(", ")} })";
     }
 
-    if (upperList.length == 0 || lowerList.length == 0) {
-      return DocumentInputs("", "");
+    if (upperList.length != 0) {
+      upperOutput = "(${upperList.join(", ")})";
     }
-
-    upperOutput = "(${upperList.join(", ")})";
 
     return DocumentInputs(upperOutput, lowerOutput);
   }
@@ -140,9 +144,9 @@ class GraphQLRequestFactory {
   GraphQLRequest<T> buildQuery<T extends Model>(
       {required ModelType modelType,
       Model? model,
-      String? id,
       required GraphQLRequestType requestType,
-      required GraphQLRequestOperation requestOperation}) {
+      required GraphQLRequestOperation requestOperation,
+      required Map<String, dynamic> variables}) {
     // retrieve schema from ModelType and validate required properties
     ModelSchema schema = _getAndValidateSchema(modelType, requestOperation);
 
@@ -162,15 +166,13 @@ class GraphQLRequestFactory {
     // e.g. query getBlog($id: ID!, $content: String) { getBlog(id: $id, content: $content) { id name createdAt } }
     String document =
         '''$requestTypeVal $requestName${documentInputs.upper} { $requestName${documentInputs.lower} { $fields } }''';
-
-    // TODO: convert model to variable input for non-get operations
-    Map<String, dynamic> variables =
-        requestOperation == GraphQLRequestOperation.get ? {"id": id} : {};
+    // e.g "listBlogs"
+    String decodePath = requestName;
 
     return GraphQLRequest<T>(
         document: document,
         variables: variables,
         modelType: modelType,
-        decodePath: requestName);
+        decodePath: decodePath);
   }
 }

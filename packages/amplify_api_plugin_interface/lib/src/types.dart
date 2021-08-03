@@ -27,6 +27,7 @@ export 'graphql/graphql_subscription_operation.dart';
 
 export 'types/pagination/model_pagination.dart';
 export 'types/pagination/paginated_result.dart';
+export 'types/pagination/paginated_model_type.dart';
 
 export 'rest/rest_exception.dart';
 export 'rest/rest_operation.dart';
