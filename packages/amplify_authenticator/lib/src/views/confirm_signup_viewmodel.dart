@@ -55,7 +55,7 @@ class ConfirmSignUpViewModel extends BaseViewModel {
 
   void goToSignIn() {
     clean();
-    _authBloc.exceptionsSink!.add(null);
+    _authBloc.clearException();
     _authBloc.authEvent.add(const AuthChangeScreen(AuthScreen.signin));
   }
 

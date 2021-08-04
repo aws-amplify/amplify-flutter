@@ -108,13 +108,13 @@ class SignInViewModel extends BaseViewModel {
 
   void goToSignUp() {
     clean();
-    _authBloc.exceptionsSink!.add(null);
+    _authBloc.clearException();
     _authBloc.authEvent.add(const AuthChangeScreen(AuthScreen.signup));
   }
 
   void goToReset() {
     clean();
-    _authBloc.exceptionsSink!.add(null);
+    _authBloc.clearException();
     _authBloc.authEvent.add(const AuthChangeScreen(AuthScreen.sendCode));
   }
 
