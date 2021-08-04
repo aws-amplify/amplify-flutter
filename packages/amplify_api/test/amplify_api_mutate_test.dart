@@ -117,8 +117,8 @@ void main() {
 
     Blog blog = Blog(id: id, name: name, createdAt: dateTime);
 
-    var operation = await api.mutate(
-        request: ModelMutations.delete<Blog>(Blog.classType, blog.id));
+    var operation =
+        await api.mutate(request: ModelMutations.delete<Blog>(blog));
 
     var response = await operation.response;
     expect(response.data, equals(blog));
