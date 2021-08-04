@@ -95,6 +95,35 @@ void main() {
     expect(response.data.equals(blog), isTrue);
   });
 
+  test('ModelMutations.delete() executes correctly in the happy case',
+      () async {
+    final id = UUID.getUUID();
+    const name = 'Test App Blog';
+    const time = '2020-12-14T19:54:18.733Z';
+    final dateTime = DataStore.TemporalDateTime.fromString(time);
+    final mutationResult = '''{
+      "deleteBlog": {
+        "id": "$id",
+        "name": "$name",
+        "createdAt": "$time"
+      }
+    }''';
+
+    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      if (methodCall.method == 'mutate') {
+        return {'data': mutationResult.toString(), 'errors': []};
+      }
+    });
+
+    Blog blog = Blog(id: id, name: name, createdAt: dateTime);
+
+    var operation =
+        await api.mutate(request: ModelMutations.delete<Blog>(blog));
+
+    var response = await operation.response;
+    expect(response.data.equals(blog), isTrue);
+  });
+
   test(
       'A PlatformException for a failed API call results in the corresponding ApiException',
       () async {
