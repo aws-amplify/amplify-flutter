@@ -14,7 +14,6 @@
  */
 
 import 'package:amplify_authenticator/src/text_customization/resolver_typedef.dart';
-import 'package:flutter/widgets.dart';
 
 class InputResolver {
   /// Title of username field

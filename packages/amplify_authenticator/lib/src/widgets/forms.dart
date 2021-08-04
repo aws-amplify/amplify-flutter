@@ -27,7 +27,6 @@ class SignInForm extends StatelessWidget {
   const SignInForm({required this.formFields});
 
   /// A list of sign in form fields
-
   final FormFields formFields;
 
   @override

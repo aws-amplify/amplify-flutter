@@ -1,0 +1,22 @@
+{
+    "back_to_signin": "Volver a Iniciar sesión",
+    "navigate_signin": "Registrarse",
+    "navigate_signup": "Inscribirse",
+    "no_account_question": "No tienes una cuenta?",
+    "have_account_question": "¿Tener una cuenta?",
+    "submit_signin": "Registrarse",
+    "submit_signup": "Inscribirse",
+    "submit_confirm": "Confirmar",
+    "username_title": "Nombre de usuario*",
+    "username_hint": "Ingrese su nombre de usuario",
+    "password_title": "Clave*",
+    "password_hint": "Ingresa tu contraseña",
+    "email_title": "Correo electrónico*",
+    "email_hint": "Introduce tu correo electrónico",
+    "phone_number_title": "Número de teléfono*",
+    "phone_number_hint": "Ingrese su número telefónico",
+    "title_signin": "Iniciar sesión en su cuenta",
+    "title_signup": "Crea una cuenta",
+    "title_confirm_signup": "Confirme su cuenta",
+    "title_confirm_signin": "Confirmar Iniciar sesión"
+}
