@@ -38,7 +38,13 @@ class ModelMutationsFactory extends ModelMutationsInterface {
 
   @override
   GraphQLRequest<T> update<T extends Model>(T model, {QueryPredicate? where}) {
-    // TODO: implement update
-    throw UnimplementedError();
+    Map<String, dynamic> variables = model.toJson();
+
+    return GraphQLRequestFactory.instance.buildQuery(
+        model: model,
+        variables: variables,
+        modelType: model.getInstanceType(),
+        requestType: GraphQLRequestType.mutation,
+        requestOperation: GraphQLRequestOperation.update);
   }
 }
