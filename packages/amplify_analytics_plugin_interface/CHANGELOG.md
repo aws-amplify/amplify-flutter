@@ -2,7 +2,7 @@
 
 ### Fixes
 
-- fix: Session start not triggered on Android devices (#763)
+- fix: Session start not triggered on Android devices (#764)
 
 ## 0.2.1 (2021-07-27)
 
