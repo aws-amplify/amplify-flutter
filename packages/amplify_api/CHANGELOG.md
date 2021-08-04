@@ -1,3 +1,13 @@
+## 0.2.2 (2021-08-04)
+
+### Fixes
+
+- fix: prevent some fatal REST errors in Android (#661)
+
+### Chores
+
+- chore: add support for apiName to GraphQL requests (#553)
+
 ## 0.2.1 (2021-07-27)
 
 ### Bug Fixes

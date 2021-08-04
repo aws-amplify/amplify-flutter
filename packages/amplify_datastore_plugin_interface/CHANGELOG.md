@@ -1,3 +1,13 @@
+## 0.2.2 (2021-08-04)
+
+### Features
+
+- feat: Populate belongs-to nested models (#658)
+
+### Fixes
+
+- fix: Query nested model causes column not found sql error (#761)
+
 ## 0.2.1 (2021-07-27)
 
 ### Features
