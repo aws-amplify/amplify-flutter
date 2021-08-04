@@ -54,6 +54,10 @@ class StateMachineBloc {
   Sink<AuthenticatorException?>? get exceptionsSink =>
       _exceptionController!.sink;
 
+  void clearException() {
+    _exceptionController!.add(null);
+  }
+
   Stream<AuthState> _eventTransformer(AuthEvent event) async* {
     if (event is AuthLoad) {
       yield* _authLoad();
