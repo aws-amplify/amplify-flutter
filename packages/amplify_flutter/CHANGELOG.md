@@ -1,8 +1,20 @@
-## 0.2.1+1 (2021-08-04)
+## 0.2.2 (2021-08-04)
+
+### Features
+
+- feat(auth): enables clientMetadata for signUp (#713)
+- feat(auth): Auth Devices API (#735)
+- feat(datastore): Populate belongs-to nested models (#658)
 
 ### Fixes
 
 - fix(analytics): Session start not triggered on Android devices (#764)
+- fix(api): prevent some fatal REST errors in Android (#661)
+- fix(datastore): Query nested model causes column not found sql error (#761)
+
+### Chores
+
+- chore(api): add support for apiName to GraphQL requests (#553)
 
 ## 0.2.1 (2021-07-27)
 
