@@ -24,9 +24,9 @@ class ModelMutations {
     return ModelMutationsFactory.instance.create<T>(model);
   }
 
-  static GraphQLRequest<T> deleteById<T extends Model>(
+  static GraphQLRequest<T> delete<T extends Model>(
       ModelType<T> modelType, String id) {
-    return ModelMutationsFactory.instance.deleteById<T>(modelType, id);
+    return ModelMutationsFactory.instance.delete<T>(modelType, id);
   }
 
   static GraphQLRequest<T> update<T extends Model>(T model) {

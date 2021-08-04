@@ -37,6 +37,5 @@ abstract class ModelMutationsInterface {
   GraphQLRequest<T> update<T extends Model>(T model, {QueryPredicate? where});
 
   // DeleteById
-  GraphQLRequest<T> deleteById<T extends Model>(
-      ModelType<T> modelType, String id);
+  GraphQLRequest<T> delete<T extends Model>(ModelType<T> modelType, String id);
 }

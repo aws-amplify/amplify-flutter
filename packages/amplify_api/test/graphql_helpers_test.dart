@@ -173,7 +173,7 @@ void main() {
         expect(req.decodePath, "createBlog");
       });
 
-      test("ModelMutations.deleteById() should build a valid request", () {
+      test("ModelMutations.delete() should build a valid request", () {
         final id = UUID.getUUID();
 
         final expectedVars = {'id': id};
@@ -181,7 +181,7 @@ void main() {
             r"mutation deleteBlog($input: DeleteBlogInput!, $condition:  ModelBlogConditionInput) { deleteBlog(input: $input, condition: $condition) { id name createdAt } }";
 
         GraphQLRequest<Blog> req =
-            ModelMutations.deleteById<Blog>(Blog.classType, id);
+            ModelMutations.delete<Blog>(Blog.classType, id);
 
         expect(req.document, expectedDoc);
         expect(mapEquals(req.variables, expectedVars), isTrue);
