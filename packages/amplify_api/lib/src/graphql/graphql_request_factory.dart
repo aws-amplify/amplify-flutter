@@ -147,7 +147,7 @@ class GraphQLRequestFactory {
    *  Example: 
    *    query getBlog($id: ID!, $content: String) { getBlog(id: $id, content: $content) { id name createdAt } }
   */
-  GraphQLRequest<T> buildQuery<T extends Model>(
+  GraphQLRequest<T> buildRequest<T extends Model>(
       {required ModelType modelType,
       Model? model,
       required GraphQLRequestType requestType,

@@ -16,7 +16,7 @@ class ModelMutationsFactory extends ModelMutationsInterface {
   GraphQLRequest<T> create<T extends Model>(T model) {
     Map<String, dynamic> variables = model.toJson();
 
-    return GraphQLRequestFactory.instance.buildQuery(
+    return GraphQLRequestFactory.instance.buildRequest(
         model: model,
         variables: variables,
         modelType: model.getInstanceType(),
@@ -26,22 +26,26 @@ class ModelMutationsFactory extends ModelMutationsInterface {
 
   @override
   GraphQLRequest<T> delete<T extends Model>(T model, {QueryPredicate? where}) {
-    // TODO: implement delete
-    throw UnimplementedError();
+    return deleteById(model.getInstanceType() as ModelType<T>, model.getId());
   }
 
   @override
   GraphQLRequest<T> deleteById<T extends Model>(
       ModelType<T> modelType, String id) {
-    // TODO: implement deleteById
-    throw UnimplementedError();
+    Map<String, dynamic> variables = {"id": id};
+
+    return GraphQLRequestFactory.instance.buildRequest(
+        variables: variables,
+        modelType: modelType,
+        requestType: GraphQLRequestType.mutation,
+        requestOperation: GraphQLRequestOperation.delete);
   }
 
   @override
   GraphQLRequest<T> update<T extends Model>(T model, {QueryPredicate? where}) {
     Map<String, dynamic> variables = model.toJson();
 
-    return GraphQLRequestFactory.instance.buildQuery(
+    return GraphQLRequestFactory.instance.buildRequest(
         model: model,
         variables: variables,
         modelType: model.getInstanceType(),
