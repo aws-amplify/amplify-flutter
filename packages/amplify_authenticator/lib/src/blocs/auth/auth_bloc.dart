@@ -172,7 +172,8 @@ class StateMachineBloc {
 
           break;
         case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
-          //Show confirm sign in screen
+          _exceptionController.add(
+              AuthenticatorException('This is screen is not implemented yet'));
 
           break;
         case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
