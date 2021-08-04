@@ -1,3 +1,9 @@
+## 0.2.1+1 (2021-08-04)
+
+### Fixes
+
+- fix(analytics): Session start not triggered on Android devices (#763)
+
 ## 0.2.1 (2021-07-27)
 
 ### Chores
