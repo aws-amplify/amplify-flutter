@@ -172,6 +172,26 @@ void main() {
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, "createBlog");
       });
+
+      test("ModelMutations.update() should build a valid request", () {
+        final id = UUID.getUUID();
+        final name = "Test Blog";
+        final time = "2021-08-03T16:39:18.000000651Z";
+        final createdAt = DataStore.TemporalDateTime.fromString(time);
+
+        Blog blog = Blog(id: id, name: name, createdAt: createdAt);
+
+        final expectedVars = {'id': id, 'name': name, "createdAt": time};
+        final expectedDoc =
+            r"mutation updateBlog($input: UpdateBlogInput!, $condition:  ModelBlogConditionInput) { updateBlog(input: $input, condition: $condition) { id name createdAt } }";
+
+        GraphQLRequest<Blog> req = ModelMutations.update<Blog>(blog);
+
+        expect(req.document, expectedDoc);
+        expect(mapEquals(req.variables, expectedVars), isTrue);
+        expect(req.modelType, Blog.classType);
+        expect(req.decodePath, "updateBlog");
+      });
     });
   });
 

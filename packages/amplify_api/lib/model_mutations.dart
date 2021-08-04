@@ -23,4 +23,8 @@ class ModelMutations {
   static GraphQLRequest<T> create<T extends Model>(T model) {
     return ModelMutationsFactory.instance.create<T>(model);
   }
+
+  static GraphQLRequest<T> update<T extends Model>(T model) {
+    return ModelMutationsFactory.instance.update<T>(model);
+  }
 }
