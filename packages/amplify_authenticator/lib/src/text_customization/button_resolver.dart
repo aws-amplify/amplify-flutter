@@ -19,13 +19,21 @@ import 'package:flutter/widgets.dart';
 /// The resolver class for shared button Widgets
 class ButtonResolver {
   /// Label of signin form button
-  StringResolver? signin;
+  late StringResolver signin;
 
   /// Label of signin form button
-  StringResolver? signup;
+  late StringResolver signup;
 
   /// Label of confirm forms' button
-  StringResolver? confirm;
+  late StringResolver confirm;
   // ignore: public_member_api_docs
-  ButtonResolver({this.signin, this.signup, this.confirm});
+  ButtonResolver(
+      {StringResolver? signin,
+      StringResolver? signup,
+      StringResolver? confirm}) {
+    // We are assigning in this way due to limitations in assigning closures as defaults
+    this.signin = signin ?? (_) => "Sign In";
+    this.signup = signup ?? (_) => "Create Account";
+    this.confirm = confirm ?? (_) => "Confirm";
+  }
 }

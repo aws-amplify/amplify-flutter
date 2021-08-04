@@ -19,6 +19,7 @@ import 'package:flutter/widgets.dart';
 /// The resolver class for shared input Widgets
 class InputResolver {
   /// Title of username field
+<<<<<<< HEAD
   StringResolver? username_title;
 
   /// Hint of username field
@@ -47,17 +48,62 @@ class InputResolver {
 
   /// Hint of verification code field
   StringResolver? verification_code_hint;
+=======
+  late StringResolver username_title;
+
+  /// Hint of username field
+  late StringResolver username_hint;
+
+  /// Title of password field
+  late StringResolver password_title;
+
+  /// Hint of password field
+  late StringResolver password_hint;
+
+  /// Title of email field
+  late StringResolver email_title;
+
+  /// Hint of email field
+  late StringResolver email_hint;
+
+  /// Title of phone number field
+  late StringResolver phone_number_title;
+
+  /// Hint of phone number field
+  late StringResolver phone_number_hint;
+
+  /// Title of verification code field
+  late StringResolver verification_code_title;
+
+  /// Hint of verification code field
+  late StringResolver verification_code_hint;
+>>>>>>> Added inherited widget
 
   // ignore: public_member_api_docs
   InputResolver(
-      {this.username_title,
-      this.username_hint,
-      this.password_title,
-      this.password_hint,
-      this.email_title,
-      this.email_hint,
-      this.phone_number_title,
-      this.phone_number_hint,
-      this.verification_code_title,
-      this.verification_code_hint});
+      {StringResolver? username_title,
+      StringResolver? username_hint,
+      StringResolver? password_title,
+      StringResolver? password_hint,
+      StringResolver? email_title,
+      StringResolver? email_hint,
+      StringResolver? phone_number_title,
+      StringResolver? phone_number_hint,
+      StringResolver? verification_code_title,
+      StringResolver? verification_code_hint}) {
+    // We are assigning in this way due to limitations in assigning closures as defaults
+    this.username_title = username_title ?? (_) => "Username*";
+    this.username_hint = username_hint ?? (_) => "Enter your usernme";
+    this.password_title = password_title ?? (_) => "Password*";
+    this.password_hint = password_hint ?? (_) => "Enter your password";
+    this.email_title = email_title ?? (_) => "Email*";
+    this.email_hint = email_hint ?? (_) => "Enter your email";
+    this.phone_number_title = phone_number_title ?? (_) => "Phone Number*";
+    this.phone_number_hint =
+        phone_number_hint ?? (_) => "Enter your phone number";
+    this.verification_code_title =
+        verification_code_title ?? (_) => "Verification code*";
+    this.verification_code_hint =
+        verification_code_hint ?? (_) => "Enter your verification code";
+  }
 }

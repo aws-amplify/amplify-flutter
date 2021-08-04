@@ -146,7 +146,7 @@ class Authenticator extends StatefulWidget {
   ///           ])
   ///
   /// ```
-  late final SignInForm signInForm;
+  late final SignInForm? signInForm;
 
   /// This form will support the following form field types:
   /// * username
@@ -196,7 +196,7 @@ class Authenticator extends StatefulWidget {
   ///                     ])
   ///
   /// ```
-  late final SignUpForm signUpForm;
+  late final SignUpForm? signUpForm;
 
   /// This form will support the following form field types:
   /// * code
@@ -261,7 +261,16 @@ class _AuthenticatorState extends State<Authenticator> {
 
   @override
   Widget build(BuildContext context) {
-    widget.authStrings.setContext(context);
+    widget.defaultForms.context = context;
+    var signInForm =
+        widget.signInForm ?? widget.defaultForms.signInForm(widget.resolver);
+    var signUpForm =
+        widget.signUpForm ?? widget.defaultForms.signUpForm(widget.resolver);
+    var confirmSignInForm = widget.confirmSignInForm ??
+        widget.defaultForms.confirmSignInForm(widget.resolver);
+    var confirmSignUpForm =
+        widget.defaultForms.confirmSignUpForm(widget.resolver);
+
     return InheritedAuthBloc(
         key: const Key(keyInheritedAuthBloc),
         authBloc: _stateMachineBloc,

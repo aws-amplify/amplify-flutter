@@ -16,12 +16,14 @@ class SignUpButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final SignUpViewModel _authViewModel =
         InheritedAuthViewModel.of(context)!.signUpViewModel;
+    final String _text =
+        InheritedStrings.of(context)!.resolver.buttons.signup(context);
 
     return ButtonContainer(
         callback: _authViewModel.signUp,
         authViewModel: _authViewModel,
         authKey: keySignUpButton,
-        text: "Sign Up");
+        text: _text);
   }
 }
 
@@ -29,12 +31,13 @@ class SignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _authViewModel = InheritedAuthViewModel.of(context)!.signInViewModel;
-
+    final String _text =
+        InheritedStrings.of(context)!.resolver.buttons.signin(context);
     return ButtonContainer(
         callback: _authViewModel.signIn,
         authViewModel: _authViewModel,
         authKey: keySignInButton,
-        text: "Sign In");
+        text: _text);
   }
 }
 
@@ -43,11 +46,13 @@ class ConfirmButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final ConfirmSignUpViewModel _authViewModel =
         InheritedAuthViewModel.of(context)!.confirmSignUpViewModel;
+    final String _text =
+        InheritedStrings.of(context)!.resolver.buttons.confirm(context);
     return ButtonContainer(
         callback: _authViewModel.confirm,
         authViewModel: _authViewModel,
         authKey: keyConfirmSignUpButton,
-        text: "CONFIRM");
+        text: _text);
   }
 }
 
@@ -56,11 +61,13 @@ class ConfirmSignInMFAButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final ConfirmSignInViewModel _authViewModel =
         InheritedAuthViewModel.of(context)!.confirmSignInViewModel;
+    final String _text =
+        InheritedStrings.of(context)!.resolver.buttons.confirm(context);
     return ButtonContainer(
         callback: _authViewModel.confirmMfa,
         authViewModel: _authViewModel,
         authKey: keyConfirmSignInButton,
-        text: "CONFIRM");
+        text: _text);
   }
 }
 
@@ -82,10 +89,14 @@ class BackToSignInButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final ConfirmSignUpViewModel _authModelView =
         InheritedAuthViewModel.of(context)!.confirmSignUpViewModel;
+    final String _text = InheritedStrings.of(context)!
+        .resolver
+        .navigation
+        .back_to_signin(context);
     return TextButton(
       key: const Key(keyBackToSignInButton),
       child: Text(
-        "Back to Sign In",
+        _text,
         style: TextStyle(
             fontSize: AuthenticatorButtonConstants.fontSize,
             color: Theme.of(context).primaryColor != Colors.blue

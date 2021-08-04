@@ -6,7 +6,12 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _signInForm = InheritedForms.of(context).signInForm;
+<<<<<<< HEAD
     return AuthenticatorContainer(
         title: "Sign in to your account", form: _signInForm);
+=======
+    final _title = InheritedStrings.of(context)!.resolver.titles.signin;
+    return AuthenticatorContainer(title: _title(context), form: _signInForm);
+>>>>>>> Added inherited widget
   }
 }

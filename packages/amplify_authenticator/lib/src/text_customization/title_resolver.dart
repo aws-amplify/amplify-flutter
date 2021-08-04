@@ -13,12 +13,14 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/text_customization/resolver_typedef.dart';
 import 'package:flutter/widgets.dart';
 
 /// The resolver class for screen titles
 class TitleResolver {
   /// The title for the sign in Widget.
+<<<<<<< HEAD
   StringResolver? signin;
 
   /// The title for the sign up Widget.
@@ -29,8 +31,29 @@ class TitleResolver {
 
   /// The title for the confirm sign in Widget.
   StringResolver? confirm_signin;
+=======
+  late StringResolver signin;
+
+  /// The title for the sign up Widget.
+  late StringResolver signup;
+
+  /// The title for the confirm sign up Widget.
+  late StringResolver confirm_signup;
+
+  /// The title for the confirm sign in Widget.
+  late StringResolver confirm_signin;
+>>>>>>> Added inherited widget
 
   // ignore: public_member_api_docs
   TitleResolver(
-      {this.signin, this.signup, this.confirm_signup, this.confirm_signin});
+      {StringResolver? signin,
+      StringResolver? signup,
+      StringResolver? confirm_signup,
+      StringResolver? confirm_signin}) {
+    // We are assigning in this way due to limitations in assigning closures as defaults
+    this.signin = signin ?? (_) => "Sign in to your account";
+    this.signup = signup ?? (_) => "Create your account";
+    this.confirm_signin = confirm_signin ?? (_) => "Confirm your sign in";
+    this.confirm_signup = confirm_signup ?? (_) => "Confirm your account";
+  }
 }

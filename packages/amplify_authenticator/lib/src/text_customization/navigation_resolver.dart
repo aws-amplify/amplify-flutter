@@ -19,25 +19,33 @@ import 'package:flutter/widgets.dart';
 /// The resolver class for shared button Widgets
 class NavigationResolver {
   /// Text for navigating to the signup Widget
-  StringResolver? navigate_signup;
+  late StringResolver navigate_signup;
 
   /// Text for navigating to the signin Widget
-  StringResolver? navigate_signin;
+  late StringResolver navigate_signin;
 
   /// Text asking if user does not have an account
-  StringResolver? no_account_question;
+  late StringResolver no_account_question;
 
   /// Text asking if user has have an account
-  StringResolver? have_account_question;
+  late StringResolver have_account_question;
 
   /// Text asking if user has have an account
-  StringResolver? back_to_signin;
+  late StringResolver back_to_signin;
 
   // ignore: public_member_api_docs
   NavigationResolver(
-      {this.navigate_signin,
-      this.navigate_signup,
-      this.no_account_question,
-      this.have_account_question,
-      this.back_to_signin});
+      {StringResolver? navigate_signin,
+      StringResolver? navigate_signup,
+      StringResolver? no_account_question,
+      StringResolver? have_account_question,
+      StringResolver? back_to_signin}) {
+    // We are assigning in this way due to limitations in assigning closures as defaults
+    this.navigate_signin = navigate_signin ?? (_) => "Sign In";
+    this.navigate_signup = navigate_signup ?? (_) => "Sign Up";
+    this.no_account_question = no_account_question ?? (_) => "No account?";
+    this.have_account_question =
+        have_account_question ?? (_) => "Have an account?";
+    this.back_to_signin = back_to_signin ?? (_) => "Back to Sign In";
+  }
 }
