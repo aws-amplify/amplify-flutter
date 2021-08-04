@@ -289,7 +289,6 @@ class _MyAppState extends State<MyApp> {
   }
 
   showHubEvent() {
-    var options = CognitoSignInOptions();
     return Row(
       children: [Text('Recent Hub Event: '), Text('$lastHubEvent')],
     );
