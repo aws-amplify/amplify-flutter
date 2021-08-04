@@ -40,6 +40,7 @@ class GraphQLRequestFactory {
   }
 
   String _getModelType(ModelFieldTypeEnum val) {
+    // TODO: Expand type support, if type is not list requests will fail
     switch (val) {
       case ModelFieldTypeEnum.string:
         return "String";
@@ -47,6 +48,8 @@ class GraphQLRequestFactory {
         return "Int";
       case ModelFieldTypeEnum.model:
         return "ID";
+      case ModelFieldTypeEnum.dateTime:
+        return "AWSDateTime";
       default:
         return "Error: unsupported type!";
     }
@@ -100,6 +103,8 @@ class GraphQLRequestFactory {
     return schema;
   }
 
+  String _capitalize(String s) => s[0].toUpperCase() + s.substring(1);
+
   DocumentInputs _buildDocumentInputs(
       ModelSchema schema, GraphQLRequestOperation operation) {
     String upperOutput = '';
@@ -112,9 +117,8 @@ class GraphQLRequestFactory {
     // build inputs based on request operation
     switch (operation) {
       case GraphQLRequestOperation.get:
-        upperList.add(r"$id: ID!");
-        lowerList.add(r"id: $id");
-        lowerOutput = "(${lowerList.join(", ")})";
+        upperOutput = r"($id: ID!)";
+        lowerOutput = r"(id: $id)";
         break;
       case GraphQLRequestOperation.list:
         upperOutput =
@@ -122,16 +126,18 @@ class GraphQLRequestFactory {
         lowerOutput =
             r"(filter: $filter, limit: $limit, nextToken: $nextToken)";
         break;
-      default:
-        schema.fields!.forEach((field, val) {
-          upperList.add("\$$field: ${_getModelType(val.type.fieldType)}");
-          lowerList.add("$field: \$$field");
-        });
-        lowerOutput = "(input: { ${lowerList.join(", ")} })";
-    }
+      case GraphQLRequestOperation.create:
+      case GraphQLRequestOperation.update:
+      case GraphQLRequestOperation.delete:
+        String operationValue = _capitalize(describeEnum(operation));
 
-    if (upperList.length != 0) {
-      upperOutput = "(${upperList.join(", ")})";
+        upperOutput =
+            "(\$input: ${operationValue}${modelName}Input!, \$condition:  Model${modelName}ConditionInput)";
+        lowerOutput = r"(input: $input, condition: $condition)";
+        break;
+      default:
+        throw ApiException('GraphQL Request Operation is currently unsupported',
+            recoverySuggestion: 'please use a supported GraphQL operation');
     }
 
     return DocumentInputs(upperOutput, lowerOutput);
@@ -152,11 +158,11 @@ class GraphQLRequestFactory {
 
     // e.g. "Blog" or "Blogs"
     String name = _getName(schema, requestOperation);
-    // e.g. "query"
+    // e.g. "query" or "mutation"
     String requestTypeVal = describeEnum(requestType);
-    // e.g. "get"
+    // e.g. "get" or "list"
     String requestOperationVal = describeEnum(requestOperation);
-    // e.g. {upper: "($id: ID!)", lower: "(id: $id)"}
+    // e.g. "{upper: "($id: ID!)", lower: "(id: $id)"}"
     DocumentInputs documentInputs =
         _buildDocumentInputs(schema, requestOperation);
     // e.g. "id name createdAt" - fields to retrieve
