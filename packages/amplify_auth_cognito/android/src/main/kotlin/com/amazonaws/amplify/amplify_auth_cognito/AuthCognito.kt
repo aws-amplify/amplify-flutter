@@ -48,6 +48,7 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdateUserAttribu
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmUserAttributeRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendUserAttributeConfirmationCodeRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendUserAttributeConfirmationCodeResult
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignOutRequest
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
 import com.amazonaws.amplify.amplify_auth_cognito.utils.isRedirectActivityDeclared
 import com.amplifyframework.auth.AuthException
@@ -64,6 +65,7 @@ import com.amplifyframework.auth.result.AuthUpdateAttributeResult
 import com.amplifyframework.auth.AuthUserAttribute
 import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.auth.AuthCodeDeliveryDetails
+import com.amplifyframework.auth.options.AuthSignOutOptions
 import com.amplifyframework.core.Amplify
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -168,7 +170,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       "confirmSignUp" -> onConfirmSignUp(result, data)
       "signIn" -> onSignIn(result, data)
       "confirmSignIn" -> onConfirmSignIn(result, data)
-      "signOut" ->  onSignOut(result)
+      "signOut" ->  onSignOut(result, data)
       "updatePassword" -> onUpdatePassword(result, data)
       "resetPassword" -> onResetPassword(result, data)
       "confirmPassword" -> onConfirmPassword(result, data)
@@ -277,9 +279,12 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       }
   }
 
-  private fun onSignOut (@NonNull flutterResult: Result) {
+  private fun onSignOut (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
     try {
+      FlutterSignOutRequest.validate(request)
+      val req = FlutterSignOutRequest(request)
       Amplify.Auth.signOut(
+              req.options,
               {  -> prepareSignOutResult(flutterResult)},
               { error -> errorHandler.handleAuthError(flutterResult, error)}
       );

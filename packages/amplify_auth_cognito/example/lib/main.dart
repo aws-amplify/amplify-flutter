@@ -151,6 +151,19 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  void _globalSignOut() async {
+    try {
+      await Amplify.Auth.signOut(options: SignOutOptions(globalSignOut: true));
+      showResult('Signed Out');
+      changeDisplay('SHOW_SIGN_IN');
+    } on AmplifyException catch (e) {
+      setState(() {
+        _error = e;
+      });
+      print(e);
+    }
+  }
+
   void _fetchSession() async {
     try {
       CognitoAuthSession res = await Amplify.Auth.fetchAuthSession(
@@ -238,6 +251,11 @@ class _MyAppState extends State<MyApp> {
               ),
               const Padding(padding: EdgeInsets.all(10.0)),
               ElevatedButton(
+                onPressed: _globalSignOut,
+                child: const Text('Global Sign Out'),
+              ),
+              const Padding(padding: EdgeInsets.all(10.0)),
+              ElevatedButton(
                 onPressed: _showUpdatePassword,
                 child: const Text('Change Password'),
               ),
@@ -271,6 +289,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   showHubEvent() {
+    var options = CognitoSignInOptions();
     return Row(
       children: [Text('Recent Hub Event: '), Text('$lastHubEvent')],
     );

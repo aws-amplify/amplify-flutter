@@ -152,7 +152,9 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
                 self.errorHandler.prepareGenericException(flutterResult: result, error: error)
             }
         case "signOut":
-            cognito.onSignOut(flutterResult: result)
+            // signOut has no validation as there are no required params
+            let request = FlutterSignOutRequest(dict: data)
+            cognito.onSignOut(flutterResult: result, request: request)
         case "updatePassword":
             do {
                 try FlutterUpdatePasswordRequest.validate(dict: data)

@@ -15,9 +15,17 @@
 
 import './SignOutOptions.dart';
 
+/// Encapsulates parameters for a sign out request
 class SignOutRequest {
+  /// Advanced options for the request
+  ///
+  /// Can be used to specify global sign out
   SignOutOptions? options;
+
+  /// Default constructor
   SignOutRequest({this.options});
+
+  /// Serialize the object to a map
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = {
       'options': options?.serializeAsMap()
