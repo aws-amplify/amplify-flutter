@@ -219,7 +219,10 @@ class StateMachineBloc {
           break;
         case 'DONE':
           clearException();
-          yield AuthFlow(screen: AuthScreen.signin);
+          final AuthSignInData authSignInData =
+              AuthSignInData(username: data.username, password: data.password);
+
+          yield* _signIn(authSignInData);
           break;
       }
     } on Exception catch (e) {
@@ -235,8 +238,10 @@ class StateMachineBloc {
   Stream<AuthState> _confirmSignUp(AuthConfirmSignUpData data) async* {
     try {
       await _authService.confirmSignUp(data.username, data.code);
+      final AuthSignInData authSignInData =
+          AuthSignInData(username: data.username, password: data.password);
 
-      yield* _getCurrentUser();
+      yield* _signIn(authSignInData);
     } on Exception catch (e) {
       if (e is AmplifyException) {
         print(e);

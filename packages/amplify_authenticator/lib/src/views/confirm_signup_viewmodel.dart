@@ -13,9 +13,13 @@ class ConfirmSignUpViewModel extends BaseViewModel {
 
   GlobalKey<FormState> get formKey => _formKey;
 
+  //This variable is public because is used to set a default hint text
+  //in the confirm sign up username form field.
   late String username;
 
   String? _code;
+
+  String? _password;
 
   void setUsername(String value) {
     username = value;
@@ -25,10 +29,16 @@ class ConfirmSignUpViewModel extends BaseViewModel {
     _code = value;
   }
 
+  void setPassword(String value) {
+    _password = value;
+  }
+
   Future<void> confirm() async {
     setBusy(true);
-    final confirmation =
-        AuthConfirmSignUpData(code: _code!.trim(), username: username.trim());
+    final confirmation = AuthConfirmSignUpData(
+        code: _code!.trim(),
+        username: username.trim(),
+        password: _password!.trim());
 
     _authBloc.authEvent.add(AuthConfirmSignUp(confirmation));
 
@@ -43,7 +53,7 @@ class ConfirmSignUpViewModel extends BaseViewModel {
 //its result doesn't form part of the authenticator state machine.
   Future<void> resendSignUpCode() async {
     try {
-      await Amplify.Auth.resendSignUpCode(username: username);
+      await Amplify.Auth.resendSignUpCode(username: username.trim());
     } on AmplifyException catch (e) {
       print(e);
       // _authBloc.exceptionsSink!.add(AuthenticatorException(e.message));

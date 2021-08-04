@@ -36,7 +36,10 @@ class AuthConfirmSignUpData {
 
   final String username;
 
-  AuthConfirmSignUpData({required this.username, required this.code});
+  final String password;
+
+  AuthConfirmSignUpData(
+      {required this.username, required this.code, required this.password});
 }
 
 class AuthConfirmSignInData {

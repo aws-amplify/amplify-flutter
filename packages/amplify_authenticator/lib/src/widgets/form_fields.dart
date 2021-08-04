@@ -186,7 +186,10 @@ class SignUpFormField extends StatelessWidget {
         _key = const Key(keyUsernameSignUpFormField);
         break;
       case SignUpType.password:
-        _callBack = (String value) => _signUpViewModel.setPassword(value);
+        _callBack = (String value) {
+          _signUpViewModel.setPassword(value);
+          _confirmSignUpViewModel.setPassword(value);
+        };
         _keyboardType = TextInputType.visiblePassword;
         _obscureText = true;
         _validator = validator ?? validatePassword;
@@ -371,12 +374,14 @@ class ConfirmSignUpFormField extends StatelessWidget {
         _validator = validator ?? validateUsername;
         _key = const Key(keyUsernameConfirmSignUpFormfield);
         _enable = false;
+
         break;
       case ConfirmSignUpType.email:
         _callBack = _confirmSignUpViewModel.setUsername;
         _keyboardType = TextInputType.emailAddress;
         _validator = validator ?? validateEmail;
         _key = const Key(keyEmailConfirmSignUpFormfield);
+
         _enable = false;
         break;
       case ConfirmSignUpType.phone_number:
@@ -384,6 +389,7 @@ class ConfirmSignUpFormField extends StatelessWidget {
         _keyboardType = TextInputType.phone;
         _validator = validator;
         _key = const Key(keyPhoneNumberConfirmSignUpFormfield);
+
         _enable = false;
         break;
       case ConfirmSignUpType.code:
