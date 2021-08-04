@@ -52,7 +52,7 @@ class SignInViewModel extends BaseViewModel {
     );
     _authBloc.authEvent.add(AuthSignIn(singIn));
     await Future.any([
-      _authBloc.exceptions!.first,
+      _authBloc.exceptions.first,
       _authBloc.stream.first,
     ]);
     setBusy(false);
@@ -71,7 +71,7 @@ class SignInViewModel extends BaseViewModel {
         AuthSendCodeData(username: _newUsername!.trim());
     _authBloc.authEvent.add(AuthSendCode(sendCode));
     await Future.any([
-      _authBloc.exceptions!.first,
+      _authBloc.exceptions.first,
       _authBloc.stream.first,
     ]);
     setBusy(false);
@@ -85,7 +85,7 @@ class SignInViewModel extends BaseViewModel {
         newPassword: _newPassword!.trim());
     _authBloc.authEvent.add(AuthConfirmPassword(confirmPassword));
     await Future.any([
-      _authBloc.exceptions!.first,
+      _authBloc.exceptions.first,
       _authBloc.stream.first,
     ]);
     setBusy(false);
@@ -98,7 +98,7 @@ class SignInViewModel extends BaseViewModel {
 
     _authBloc.authEvent.add(AuthUpdatePassword(updatePasswordData));
     await Future.any([
-      _authBloc.exceptions!.first,
+      _authBloc.exceptions.first,
       _authBloc.stream.first,
     ]);
     setBusy(false);

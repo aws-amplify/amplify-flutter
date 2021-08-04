@@ -41,9 +41,7 @@ class AuthExceptionsWidget extends StatelessWidget {
                     )
                   ]),
                   IconButton(
-                      onPressed: () {
-                        _authenticatorExceptions.exceptionsSink!.add(null);
-                      },
+                      onPressed: _authenticatorExceptions.clearException,
                       hoverColor: Colors.red,
                       icon: const Icon(
                         Icons.close,

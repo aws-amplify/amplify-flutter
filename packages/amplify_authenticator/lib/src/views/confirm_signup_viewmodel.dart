@@ -1,6 +1,5 @@
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
-import 'package:amplify_authenticator/src/models/authenticator_exceptions.dart';
 import 'package:amplify_authenticator/src/utils/base_viewmodel.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +33,7 @@ class ConfirmSignUpViewModel extends BaseViewModel {
     _authBloc.authEvent.add(AuthConfirmSignUp(confirmation));
 
     await Future.any([
-      _authBloc.exceptions!.first,
+      _authBloc.exceptions.first,
       _authBloc.stream.first,
     ]);
     setBusy(false);
@@ -47,7 +46,7 @@ class ConfirmSignUpViewModel extends BaseViewModel {
       await Amplify.Auth.resendSignUpCode(username: username);
     } on AmplifyException catch (e) {
       print(e);
-      _authBloc.exceptionsSink!.add(AuthenticatorException(e.message));
+      // _authBloc.exceptionsSink!.add(AuthenticatorException(e.message));
     }
   }
 

@@ -46,16 +46,13 @@ class StateMachineBloc {
   }
 
   //Exception Controller
-  final StreamController<AuthenticatorException?>? _exceptionController =
-      StreamController<AuthenticatorException?>.broadcast();
+  final StreamController<AuthenticatorException?> _exceptionController =
+      StreamController<AuthenticatorException>.broadcast();
 
-  Stream<AuthenticatorException?>? get exceptions =>
-      _exceptionController!.stream;
-  Sink<AuthenticatorException?>? get exceptionsSink =>
-      _exceptionController!.sink;
+  Stream<AuthenticatorException?> get exceptions => _exceptionController.stream;
 
   void clearException() {
-    _exceptionController!.add(null);
+    _exceptionController.add(null);
   }
 
   Stream<AuthState> _eventTransformer(AuthEvent event) async* {
@@ -90,19 +87,19 @@ class StateMachineBloc {
           AuthConfirmSignInData(code: data.newPassword);
       yield* _confirmSignIn(_confirmSignInData);
 
-      // //The current JS authenticator follows this pattern, where it calls
-      // //sign in after updating the password.
-      // //Other approach after this call is to show users the sign in screen.
+      //The current JS authenticator follows this pattern, where it calls
+      //sign in after updating the password.
+      //Other approach after this call is to show users the sign in screen.
       AuthSignInData authSignInData =
           AuthSignInData(username: data.username, password: data.newPassword);
       yield* _signIn(authSignInData);
     } catch (e) {
       if (e is AmplifyException) {
         print(e.message);
-        _exceptionController!.add(AuthenticatorException(e.message));
+        _exceptionController.add(AuthenticatorException(e.message));
       } else {
         print(e);
-        _exceptionController!.add(AuthenticatorException(e.toString()));
+        _exceptionController.add(AuthenticatorException(e.toString()));
       }
     }
   }
@@ -115,10 +112,10 @@ class StateMachineBloc {
     } catch (e) {
       if (e is AmplifyException) {
         print(e);
-        _exceptionController!.add(AuthenticatorException(e.message));
+        _exceptionController.add(AuthenticatorException(e.message));
       } else {
         print(e);
-        _exceptionController!.add(AuthenticatorException(e.toString()));
+        _exceptionController.add(AuthenticatorException(e.toString()));
       }
     }
   }
@@ -130,10 +127,10 @@ class StateMachineBloc {
     } catch (e) {
       if (e is AmplifyException) {
         print(e);
-        _exceptionController!.add(AuthenticatorException(e.message));
+        _exceptionController.add(AuthenticatorException(e.message));
       } else {
         print(e);
-        _exceptionController!.add(AuthenticatorException(e.toString()));
+        _exceptionController.add(AuthenticatorException(e.toString()));
       }
     }
   }
@@ -154,10 +151,10 @@ class StateMachineBloc {
     } catch (e) {
       if (e is AmplifyException) {
         print(e);
-        _exceptionController!.add(AuthenticatorException(e.message));
+        _exceptionController.add(AuthenticatorException(e.message));
       } else {
         print(e);
-        _exceptionController!.add(AuthenticatorException(e.toString()));
+        _exceptionController.add(AuthenticatorException(e.toString()));
       }
     }
   }
@@ -199,12 +196,12 @@ class StateMachineBloc {
       }
     } catch (e) {
       if (e is UserNotConfirmedException) {
-        _exceptionController!.add(AuthenticatorException(e.message));
+        _exceptionController.add(AuthenticatorException(e.message));
         yield AuthFlow(screen: AuthScreen.confirmSignUp);
       } else if (e is AmplifyException) {
-        _exceptionController!.add(AuthenticatorException(e.message));
+        _exceptionController.add(AuthenticatorException(e.message));
       } else {
-        _exceptionController!.add(AuthenticatorException(e.toString()));
+        _exceptionController.add(AuthenticatorException(e.toString()));
       }
     }
   }
@@ -216,20 +213,20 @@ class StateMachineBloc {
 
       switch (result.nextStep.signUpStep) {
         case 'CONFIRM_SIGN_UP_STEP':
-          exceptionsSink!.add(null);
+          clearException();
           yield AuthFlow(screen: AuthScreen.confirmSignUp);
           break;
         case 'DONE':
-          exceptionsSink!.add(null);
+          clearException();
           yield AuthFlow(screen: AuthScreen.signin);
           break;
       }
     } catch (e) {
       if (e is AmplifyException) {
         print(e);
-        _exceptionController!.add(AuthenticatorException(e.message));
+        _exceptionController.add(AuthenticatorException(e.message));
       } else {
-        _exceptionController!.add(AuthenticatorException(e.toString()));
+        _exceptionController.add(AuthenticatorException(e.toString()));
       }
     }
   }
@@ -242,9 +239,9 @@ class StateMachineBloc {
     } catch (e) {
       if (e is AmplifyException) {
         print(e);
-        _exceptionController!.add(AuthenticatorException(e.message));
+        _exceptionController.add(AuthenticatorException(e.message));
       } else {
-        _exceptionController!.add(AuthenticatorException(e.toString()));
+        _exceptionController.add(AuthenticatorException(e.toString()));
       }
     }
   }
@@ -257,9 +254,9 @@ class StateMachineBloc {
     } catch (e) {
       if (e is AmplifyException) {
         print(e);
-        _exceptionController!.add(AuthenticatorException(e.message));
+        _exceptionController.add(AuthenticatorException(e.message));
       } else {
-        _exceptionController!.add(AuthenticatorException(e.toString()));
+        _exceptionController.add(AuthenticatorException(e.toString()));
       }
     }
   }
@@ -271,9 +268,9 @@ class StateMachineBloc {
     } catch (e) {
       if (e is AmplifyException) {
         print(e.message);
-        _exceptionController!.add(AuthenticatorException(e.message));
+        _exceptionController.add(AuthenticatorException(e.message));
       } else {
-        _exceptionController!.add(AuthenticatorException(e.toString()));
+        _exceptionController.add(AuthenticatorException(e.toString()));
       }
     }
   }
@@ -285,6 +282,6 @@ class StateMachineBloc {
   void dispose() {
     _authStateController.close();
     _authEventController.close();
-    _exceptionController!.close();
+    _exceptionController.close();
   }
 }
