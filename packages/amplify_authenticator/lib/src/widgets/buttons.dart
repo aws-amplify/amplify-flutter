@@ -1,3 +1,4 @@
+import 'package:amplify_authenticator/src/state/inherited_strings.dart';
 import 'package:amplify_authenticator/src/views/confirm_signin_viewmodel.dart';
 import 'package:amplify_authenticator/src/widgets/containers.dart';
 import 'package:flutter/material.dart';
