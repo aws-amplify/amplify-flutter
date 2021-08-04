@@ -20,7 +20,6 @@ import 'package:flutter/widgets.dart';
 /// The resolver class for screen titles
 class TitleResolver {
   /// The title for the sign in Widget.
-<<<<<<< HEAD
   StringResolver? signin;
 
   /// The title for the sign up Widget.
@@ -31,18 +30,6 @@ class TitleResolver {
 
   /// The title for the confirm sign in Widget.
   StringResolver? confirm_signin;
-=======
-  late StringResolver signin;
-
-  /// The title for the sign up Widget.
-  late StringResolver signup;
-
-  /// The title for the confirm sign up Widget.
-  late StringResolver confirm_signup;
-
-  /// The title for the confirm sign in Widget.
-  late StringResolver confirm_signin;
->>>>>>> Added inherited widget
 
   // ignore: public_member_api_docs
   TitleResolver(

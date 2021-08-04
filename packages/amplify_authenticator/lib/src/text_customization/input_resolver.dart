@@ -19,7 +19,6 @@ import 'package:flutter/widgets.dart';
 /// The resolver class for shared input Widgets
 class InputResolver {
   /// Title of username field
-<<<<<<< HEAD
   StringResolver? username_title;
 
   /// Hint of username field
@@ -48,36 +47,6 @@ class InputResolver {
 
   /// Hint of verification code field
   StringResolver? verification_code_hint;
-=======
-  late StringResolver username_title;
-
-  /// Hint of username field
-  late StringResolver username_hint;
-
-  /// Title of password field
-  late StringResolver password_title;
-
-  /// Hint of password field
-  late StringResolver password_hint;
-
-  /// Title of email field
-  late StringResolver email_title;
-
-  /// Hint of email field
-  late StringResolver email_hint;
-
-  /// Title of phone number field
-  late StringResolver phone_number_title;
-
-  /// Hint of phone number field
-  late StringResolver phone_number_hint;
-
-  /// Title of verification code field
-  late StringResolver verification_code_title;
-
-  /// Hint of verification code field
-  late StringResolver verification_code_hint;
->>>>>>> Added inherited widget
 
   // ignore: public_member_api_docs
   InputResolver(

@@ -6,12 +6,7 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _signUpForm = InheritedForms.of(context).signUpForm;
-<<<<<<< HEAD
     return AuthenticatorContainer(
         title: "Create a new account", form: _signUpForm);
-=======
-    final _title = InheritedStrings.of(context)!.resolver.titles.signup;
-    return AuthenticatorContainer(title: _title(context), form: _signUpForm);
->>>>>>> Added inherited widget
   }
 }
