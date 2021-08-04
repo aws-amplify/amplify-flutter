@@ -40,7 +40,6 @@ const String keyPhoneNumberConfirmSignUpFormfield =
     'phoneNumberConfirmSignUpFormField';
 const String keyCodeConfirmSignUpFormfield = 'codeConfirmSignUpFormField';
 
-
 //Confirm Sign In form field keys
 
 const String keyCodeConfirmSignInFormfield = 'codeConfirmSignUpFormField';
@@ -75,7 +74,6 @@ const String keyUpdatedAtConfirmSignInFormField =
     'updatedAtConfirmSignInFormField';
 const String keyWebsiteConfirmSignInFormField = 'websiteConfirmSignInFormField';
 const String keyCustomConfirmSignInFormField = 'customConfirmSignInFormField';
-
 
 // Buttons keys
 

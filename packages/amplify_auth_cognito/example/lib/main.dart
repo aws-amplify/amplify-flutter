@@ -310,10 +310,9 @@ class _MyAppState extends State<MyApp> {
                       if (displayState == 'SHOW_UPDATE_PASSWORD')
                         UpdatePasswordWidget(showResult, changeDisplay,
                             setError, _backToSignIn, _backToApp),
-                      if (displayState == 'SHOW_UPDATE_PASSWORD')
-                        if (displayState == 'SHOW_CONFIRM_RESET')
-                          ConfirmResetWidget(showResult, changeDisplay,
-                              setError, _backToSignIn),
+                      if (displayState == 'SHOW_CONFIRM_RESET')
+                        ConfirmResetWidget(
+                            showResult, changeDisplay, setError, _backToSignIn),
                       if (this.displayState == "SIGNED_IN") showApp(),
                       ElevatedButton(
                         key: Key('configure-button'),

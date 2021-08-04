@@ -14,21 +14,22 @@
  */
 
 import 'package:amplify_authenticator/src/text_customization/resolver_typedef.dart';
+import 'package:amplify_authenticator/src/text_customization/resolver_typedef.dart';
 import 'package:flutter/widgets.dart';
 
 /// The resolver class for screen titles
 class TitleResolver {
   /// The title for the sign in Widget.
-  StringResolver? signin;
+  StringResolver? signin = (_) => "Sign in to your account";
 
   /// The title for the sign up Widget.
-  StringResolver? signup;
+  StringResolver? signup = (_) => "Create your account";
 
   /// The title for the confirm sign up Widget.
-  StringResolver? confirm_signup;
+  StringResolver? confirm_signup = (_) => "Confirm your account";
 
   /// The title for the confirm sign in Widget.
-  StringResolver? confirm_signin;
+  StringResolver? confirm_signin = (_) => "Create your sign in";
 
   // ignore: public_member_api_docs
   TitleResolver(

@@ -1,75 +1,80 @@
-import 'package:amplify_authenticator/src/strings/auth_strings.dart';
+import 'package:amplify_authenticator/src/state/inherited_resolver.dart';
 import 'package:amplify_authenticator/src/widgets/forms.dart';
 import 'package:amplify_authenticator/src/widgets/form_fields.dart';
+import 'package:flutter/widgets.dart';
 
 ///These default forms will be used as long as the customer doesn't pass any custom forms.
 class DefaultForms {
-  static SignInForm signInForm(AuthStrings authStrings) {
+  static SignInForm signInForm() {
+    var resolver = InheritedStrings.of(context)!.resolver;
     return SignInForm(
       formFields: FormFields(
         children: [
           SignInFormField(
-              title: authStrings.inputs.username_title,
-              hintText: authStrings.inputs.username_hint,
+              title: resolver.inputs.username_title!(context),
+              hintText: resolver.inputs.username_hint!(context),
               type: 'username'),
           SignInFormField(
-              title: authStrings.inputs.password_title,
-              hintText: authStrings.inputs.password_hint,
+              title: resolver.inputs.password_title!(context),
+              hintText: resolver.inputs.password_hint!(context),
               type: 'password')
         ],
       ),
     );
   }
 
-  static SignUpForm signUpForm(AuthStrings authStrings) {
+  SignUpForm signUpForm() {
+    var resolver = InheritedStrings.of(context)!.resolver;
     return SignUpForm(
       formFields: FormFields(
         children: [
           SignUpFormField(
-              title: authStrings.inputs.username_title,
-              hintText: authStrings.inputs.username_hint,
+              title: resolver.inputs.username_title!(context),
+              hintText: resolver.inputs.username_hint!(context),
               type: 'username'),
           SignUpFormField(
-              title: authStrings.inputs.password_title,
-              hintText: authStrings.inputs.password_hint,
+              title: resolver.inputs.password_title!(context),
+              hintText: resolver.inputs.password_hint!(context),
               type: 'password'),
           SignUpFormField(
-              title: authStrings.inputs.email_title,
-              hintText: authStrings.inputs.email_hint,
+              title: resolver.inputs.email_title!(context),
+              hintText: resolver.inputs.email_hint!(context),
               type: 'email'),
           SignUpFormField(
-              title: authStrings.inputs.phone_number_title,
-              hintText: authStrings.inputs.phone_number_hint,
+              title: resolver.inputs.phone_number_title!(context),
+              hintText: resolver.inputs.phone_number_hint!(context),
               type: 'phone_number')
         ],
       ),
     );
   }
 
-  static ConfirmSignUpForm confirmSignUpForm(AuthStrings authStrings) {
+  ConfirmSignUpForm confirmSignUpForm() {
+    var resolver = InheritedStrings.of(context)!.resolver;
     return ConfirmSignUpForm(
       formFields: FormFields(
         children: [
           ConfirmSignUpFormField(
-              title: authStrings.inputs.username_title,
-              hintText: authStrings.inputs.username_hint,
+              title: resolver.inputs.username_title!(context),
+              hintText: resolver.inputs.username_hint!(context),
               type: 'username'),
           ConfirmSignUpFormField(
-              title: authStrings.inputs.verification_code_title,
-              hintText: authStrings.inputs.verification_code_hint,
+              title: resolver.inputs.verification_code_title!(context),
+              hintText: resolver.inputs.verification_code_hint!(context),
               type: 'code'),
         ],
       ),
     );
   }
 
-  static ConfirmSignInForm confirmSignInForm(AuthStrings authStrings) {
+  ConfirmSignInForm confirmSignInForm() {
+    var resolver = InheritedStrings.of(context)!.resolver;
     return ConfirmSignInForm(
       formFields: FormFields(
         children: [
           ConfirmSignInFormField(
-              title: authStrings.inputs.verification_code_title,
-              hintText: authStrings.inputs.verification_code_hint,
+              title: resolver.inputs.verification_code_title!(context),
+              hintText: resolver.inputs.verification_code_hint!(context),
               type: 'code'),
         ],
       ),

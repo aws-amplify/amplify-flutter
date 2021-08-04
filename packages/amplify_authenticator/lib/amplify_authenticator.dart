@@ -18,6 +18,8 @@ library amplify_authenticator;
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/screens/confirm_signin_screen.dart';
 import 'package:amplify_authenticator/src/strings/auth_strings.dart';
+import 'package:amplify_authenticator/src/text_customization/default_merge.dart';
+import 'package:amplify_authenticator/src/text_customization/default_resolver.dart';
 import 'package:flutter/material.dart';
 
 //State
@@ -50,6 +52,8 @@ import 'package:amplify_authenticator/src/text_customization/auth_strings_resolv
 //Widgets
 import 'package:amplify_authenticator/src/widgets/forms.dart';
 import 'package:amplify_authenticator/src/widgets/default_forms.dart';
+
+import 'src/state/inherited_resolver.dart';
 
 //Exports
 export 'package:amplify_authenticator/src/widgets/forms.dart';
@@ -93,13 +97,13 @@ class Authenticator extends StatefulWidget {
       SignUpForm? signUpForm,
       ConfirmSignInForm? confirmSignInForm,
       AuthStringResolver? resolver}) {
-    this.resolver = resolver;
+    this.resolver = resolver == null ? AuthStringResolver() : resolver;
     this.authStrings = AuthStrings(resolver: this.resolver);
-    this.signInForm = signInForm ?? DefaultForms.signInForm(this.authStrings);
-    this.signUpForm = signUpForm ?? DefaultForms.signUpForm(this.authStrings);
+    this.signInForm = signInForm ?? DefaultForms.signInForm();
+    this.signUpForm = signUpForm ?? DefaultForms.signUpForm();
     this.confirmSignInForm =
-        confirmSignInForm ?? DefaultForms.confirmSignInForm(this.authStrings);
-    this.confirmSignUpForm = DefaultForms.confirmSignUpForm(this.authStrings);
+        confirmSignInForm ?? DefaultForms.confirmSignInForm();
+    this.confirmSignUpForm = DefaultForms.confirmSignUpForm();
   }
 
   /// This form will support the following form field types:
@@ -250,45 +254,46 @@ class _AuthenticatorState extends State<Authenticator> {
             signUpViewModel: SignUpViewModel(_stateMachineBloc),
             confirmSignUpViewModel: ConfirmSignUpViewModel(_stateMachineBloc),
             confirmSignInViewModel: ConfirmSignInViewModel(_stateMachineBloc),
-            child: InheritedForms(
-                authStrings: widget.authStrings,
-                signInForm: widget.signInForm,
-                signUpForm: widget.signUpForm,
-                confirmSignUpForm: widget.confirmSignUpForm,
-                confirmSignInForm: widget.confirmSignInForm,
-                child: Scaffold(
-                  body: StreamBuilder(
-                    stream: _stateMachineBloc.stream,
-                    builder: (context, snapshot) {
-                      final state = snapshot.data ?? const AuthLoading();
+            child: InheritedStrings(
+                resolver: widget.resolver!,
+                child: InheritedForms(
+                    signInForm: widget.signInForm,
+                    signUpForm: widget.signUpForm,
+                    confirmSignUpForm: widget.confirmSignUpForm,
+                    confirmSignInForm: widget.confirmSignInForm,
+                    child: Scaffold(
+                      body: StreamBuilder(
+                        stream: _stateMachineBloc.stream,
+                        builder: (context, snapshot) {
+                          final state = snapshot.data ?? const AuthLoading();
 
-                      Widget? screen;
-                      if (state is AuthLoading) {
-                        screen = LoadingScreen();
-                      } else if (state is Authenticated) {
-                        return widget.child;
-                      } else if (state is AuthFlow &&
-                          state.screen == AuthScreen.signin) {
-                        screen = SignInScreen();
-                      } else if (state is AuthFlow &&
-                          state.screen == AuthScreen.signup) {
-                        screen = SignUpScreen();
-                      } else if (state is AuthFlow &&
-                          state.screen == AuthScreen.confirmSignUp) {
-                        screen = ConfirmSignUpScreen();
-                      } else if (state is AuthFlow &&
-                          state.screen == AuthScreen.confirmSignIn) {
-                        screen = ConfirmSignInScreen();
-                      }
+                          Widget? screen;
+                          if (state is AuthLoading) {
+                            screen = LoadingScreen();
+                          } else if (state is Authenticated) {
+                            return widget.child;
+                          } else if (state is AuthFlow &&
+                              state.screen == AuthScreen.signin) {
+                            screen = SignInScreen();
+                          } else if (state is AuthFlow &&
+                              state.screen == AuthScreen.signup) {
+                            screen = SignUpScreen();
+                          } else if (state is AuthFlow &&
+                              state.screen == AuthScreen.confirmSignUp) {
+                            screen = ConfirmSignUpScreen();
+                          } else if (state is AuthFlow &&
+                              state.screen == AuthScreen.confirmSignIn) {
+                            screen = ConfirmSignInScreen();
+                          }
 
-                      return Center(
-                        child: SingleChildScrollView(
-                          child: screen,
-                        ),
-                      );
-                    },
-                  ),
-                ))));
+                          return Center(
+                            child: SingleChildScrollView(
+                              child: screen,
+                            ),
+                          );
+                        },
+                      ),
+                    )))));
   }
 
   @override

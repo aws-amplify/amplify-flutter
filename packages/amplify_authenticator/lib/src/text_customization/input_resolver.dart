@@ -14,39 +14,38 @@
  */
 
 import 'package:amplify_authenticator/src/text_customization/resolver_typedef.dart';
-import 'package:flutter/widgets.dart';
 
-/// The resolver class for shared input Widgets
 class InputResolver {
   /// Title of username field
-  StringResolver? username_title;
+  StringResolver? username_title = (_) => "Username*";
 
   /// Hint of username field
-  StringResolver? username_hint;
+  StringResolver? username_hint = (_) => "Enter your usernme";
 
   /// Title of password field
-  StringResolver? password_title;
+  StringResolver? password_title = (_) => "Password*";
 
   /// Hint of password field
-  StringResolver? password_hint;
+  StringResolver? password_hint = (_) => "Enter your password";
 
   /// Title of email field
-  StringResolver? email_title;
+  StringResolver? email_title = (_) => "Email*";
 
   /// Hint of email field
-  StringResolver? email_hint;
+  StringResolver? email_hint = (_) => "Enter your email";
 
   /// Title of phone number field
-  StringResolver? phone_number_title;
+  StringResolver? phone_number_title = (_) => "Phone Number*";
 
   /// Hint of phone number field
-  StringResolver? phone_number_hint;
+  StringResolver? phone_number_hint = (_) => "Enter your phone number";
 
   /// Title of verification code field
-  StringResolver? verification_code_title;
+  StringResolver? verification_code_title = (_) => "Verification code*";
 
   /// Hint of verification code field
-  StringResolver? verification_code_hint;
+  StringResolver? verification_code_hint =
+      (_) => "Enter your verification code";
 
   // ignore: public_member_api_docs
   InputResolver(

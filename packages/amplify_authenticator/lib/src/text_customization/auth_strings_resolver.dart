@@ -28,17 +28,28 @@ export 'package:amplify_authenticator/src/text_customization/navigation_resolver
 /// Consists of a set of resolvers, which are functions for returning strings.
 /// This enables users to override default strings, including with localizations.
 class AuthStringResolver {
-  TitleResolver? titles;
+  /// The resolver class for shared button Widgets
+  late ButtonResolver buttons;
 
   /// The resolver class for shared input Widgets
-  InputResolver? inputs;
-
-  /// The resolver class for shared button Widgets
-  ButtonResolver? buttons;
+  late InputResolver inputs;
 
   /// The resolver class for navigation-related Widgets
-  NavigationResolver? navigation;
+  late NavigationResolver navigation;
+
+  /// The resolver class for titleS
+  late TitleResolver titles;
 
   // ignore: public_member_api_docs
-  AuthStringResolver({this.titles, this.inputs, this.buttons, this.navigation});
+  AuthStringResolver({
+    ButtonResolver? buttons,
+    InputResolver? inputs,
+    NavigationResolver? navigation,
+    TitleResolver? titles,
+  }) {
+    this.titles = titles != null ? titles : TitleResolver();
+    this.buttons = buttons != null ? buttons : ButtonResolver();
+    this.inputs = inputs != null ? inputs : InputResolver();
+    this.navigation = navigation != null ? navigation : NavigationResolver();
+  }
 }
