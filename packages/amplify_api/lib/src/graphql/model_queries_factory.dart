@@ -30,7 +30,7 @@ class ModelQueriesFactory extends ModelQueriesInterface {
   @override
   GraphQLRequest<T> get<T extends Model>(ModelType<T> modelType, String id) {
     Map<String, dynamic> variables = {"id": id};
-    return GraphQLRequestFactory.instance.buildQuery<T>(
+    return GraphQLRequestFactory.instance.buildRequest<T>(
         modelType: modelType,
         variables: variables,
         requestType: GraphQLRequestType.query,
@@ -49,7 +49,7 @@ class ModelQueriesFactory extends ModelQueriesInterface {
       "nextToken": null // TODO: need to handle nextToken input
     };
 
-    return GraphQLRequestFactory.instance.buildQuery<PaginatedResult<T>>(
+    return GraphQLRequestFactory.instance.buildRequest<PaginatedResult<T>>(
         modelType: PaginatedModelTypeImpl(modelType),
         variables: variables,
         requestType: GraphQLRequestType.query,
