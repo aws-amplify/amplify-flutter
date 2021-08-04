@@ -92,9 +92,14 @@ class StateMachineBloc {
       AuthSignInData authSignInData =
           AuthSignInData(username: data.username, password: data.newPassword);
       yield* _signIn(authSignInData);
-    } on AmplifyException catch (e) {
-      print(e);
-      _exceptionController!.add(AuthenticatorException(e.message));
+    } catch (e) {
+      if (e is AmplifyException) {
+        print(e.message);
+        _exceptionController!.add(AuthenticatorException(e.message));
+      } else {
+        print(e);
+        _exceptionController!.add(AuthenticatorException(e.toString()));
+      }
     }
   }
 
@@ -103,9 +108,14 @@ class StateMachineBloc {
       await _authService.confirmPassword(
           data.username, data.confirmationCode, data.newPassword);
       yield AuthFlow(screen: AuthScreen.signin);
-    } on AmplifyException catch (e) {
-      print(e);
-      _exceptionController!.add(AuthenticatorException(e.message));
+    } catch (e) {
+      if (e is AmplifyException) {
+        print(e);
+        _exceptionController!.add(AuthenticatorException(e.message));
+      } else {
+        print(e);
+        _exceptionController!.add(AuthenticatorException(e.toString()));
+      }
     }
   }
 
@@ -113,9 +123,14 @@ class StateMachineBloc {
     try {
       await _authService.resetPassword(data.username);
       yield AuthFlow(screen: AuthScreen.resetPassword);
-    } on AmplifyException catch (e) {
-      print(e);
-      _exceptionController!.add(AuthenticatorException(e.message));
+    } catch (e) {
+      if (e is AmplifyException) {
+        print(e);
+        _exceptionController!.add(AuthenticatorException(e.message));
+      } else {
+        print(e);
+        _exceptionController!.add(AuthenticatorException(e.toString()));
+      }
     }
   }
 
@@ -132,9 +147,14 @@ class StateMachineBloc {
       } else {
         yield AuthFlow(screen: AuthScreen.signin);
       }
-    } on AmplifyException catch (e) {
-      print(e);
-      _exceptionController!.add(AuthenticatorException(e.message));
+    } catch (e) {
+      if (e is AmplifyException) {
+        print(e);
+        _exceptionController!.add(AuthenticatorException(e.message));
+      } else {
+        print(e);
+        _exceptionController!.add(AuthenticatorException(e.toString()));
+      }
     }
   }
 
@@ -177,6 +197,10 @@ class StateMachineBloc {
       if (e is UserNotConfirmedException) {
         _exceptionController!.add(AuthenticatorException(e.message));
         yield AuthFlow(screen: AuthScreen.confirmSignUp);
+      } else if (e is AmplifyException) {
+        _exceptionController!.add(AuthenticatorException(e.message));
+      } else {
+        _exceptionController!.add(AuthenticatorException(e.toString()));
       }
     }
   }
@@ -196,9 +220,13 @@ class StateMachineBloc {
           yield AuthFlow(screen: AuthScreen.signin);
           break;
       }
-    } on AmplifyException catch (e) {
-      print(e);
-      _exceptionController!.add(AuthenticatorException(e.message));
+    } catch (e) {
+      if (e is AmplifyException) {
+        print(e);
+        _exceptionController!.add(AuthenticatorException(e.message));
+      } else {
+        _exceptionController!.add(AuthenticatorException(e.toString()));
+      }
     }
   }
 
@@ -207,9 +235,13 @@ class StateMachineBloc {
       await _authService.confirmSignUp(data.username, data.code);
 
       yield* _getCurrentUser();
-    } on AmplifyException catch (e) {
-      print(e);
-      _exceptionController!.add(AuthenticatorException(e.message));
+    } catch (e) {
+      if (e is AmplifyException) {
+        print(e);
+        _exceptionController!.add(AuthenticatorException(e.message));
+      } else {
+        _exceptionController!.add(AuthenticatorException(e.toString()));
+      }
     }
   }
 
@@ -218,10 +250,13 @@ class StateMachineBloc {
       await _authService.confirmSignIn(
           code: data.code, attributes: data.attributes);
       yield const Authenticated();
-    } on AmplifyException catch (e) {
-      print(e);
-
-      _exceptionController!.add(AuthenticatorException(e.message));
+    } catch (e) {
+      if (e is AmplifyException) {
+        print(e);
+        _exceptionController!.add(AuthenticatorException(e.message));
+      } else {
+        _exceptionController!.add(AuthenticatorException(e.toString()));
+      }
     }
   }
 
@@ -229,9 +264,13 @@ class StateMachineBloc {
     try {
       await _authService.signOut();
       yield* _getCurrentUser();
-    } on AmplifyException catch (e) {
-      print(e);
-      _exceptionController!.add(AuthenticatorException(e.message));
+    } catch (e) {
+      if (e is AmplifyException) {
+        print(e.message);
+        _exceptionController!.add(AuthenticatorException(e.message));
+      } else {
+        _exceptionController!.add(AuthenticatorException(e.toString()));
+      }
     }
   }
 
