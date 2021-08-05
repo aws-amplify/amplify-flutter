@@ -108,7 +108,7 @@ class Authenticator extends StatefulWidget {
     confirmSignInNewPasswordForm = DefaultForms.confirmSignInNewPasswordForm();
   }
 
-  ///Requires an username alias to setup the preferred sign in method,
+  ///Optional username alias to setup the preferred sign in method,
   ///which can be signing in users with username, email or phone number.
   ///
   /// ```dart
