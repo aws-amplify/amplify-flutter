@@ -81,7 +81,6 @@ void main() {
       await tester.enterText(codeConfirmSignUpFormFieldFinder, mockCode);
       await Future<void>.delayed(const Duration(seconds: 2));
 
-
       //For now, this screen uses a mocked code and doesn't call the
       // confirmSignUp method.
 
@@ -130,7 +129,7 @@ void main() {
       await tester.tap(signUpButtonFinder);
 
       final subscriptionException = await authBloc.authBloc.exceptions;
-      final authenticatorException = await subscriptionException!.first;
+      final authenticatorException = await subscriptionException.first;
       expect(authenticatorException, isA<AuthenticatorException>());
 
       await tester.pumpAndSettle();
