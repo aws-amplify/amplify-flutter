@@ -72,7 +72,7 @@ class SignInViewModel extends BaseViewModel {
     _authBloc.authEvent.add(AuthSendCode(sendCode));
     await Future.any([
       _authBloc.exceptions.first,
-      _authBloc.stream.first,
+      _authBloc.stream.firstWhere((state) => state is AuthFlow),
     ]);
     setBusy(false);
   }
@@ -86,7 +86,7 @@ class SignInViewModel extends BaseViewModel {
     _authBloc.authEvent.add(AuthConfirmPassword(confirmPassword));
     await Future.any([
       _authBloc.exceptions.first,
-      _authBloc.stream.first,
+      _authBloc.stream.firstWhere((state) => state is AuthFlow),
     ]);
     setBusy(false);
   }

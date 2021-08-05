@@ -137,7 +137,7 @@ class StateMachineBloc {
       yield AuthFlow(screen: AuthScreen.resetPassword);
     } on Exception catch (e) {
       if (e is AmplifyException) {
-        print(e);
+        print(e.message);
         _exceptionController.add(AuthenticatorException(e.message));
       } else {
         print(e);
