@@ -31,8 +31,21 @@ class InheritedForms extends InheritedWidget {
   //final ResetPasswordForm resetPasswordForm;
 
   // ignore: public_member_api_docs
-  static InheritedForms? of(BuildContext context) =>
-      context.dependOnInheritedWidgetOfExactType<InheritedForms>();
+  static InheritedForms? of(BuildContext context) {
+    final forms = context.dependOnInheritedWidgetOfExactType<InheritedForms>();
+
+    assert(() {
+      if (forms == null) {
+        throw FlutterError.fromParts([
+          ErrorSummary('No InheritedForms widget found.'),
+          ErrorDescription(
+              'Make sure your app is wrapped with an Authenticator widget.')
+        ]);
+      }
+      return true;
+    }());
+    return forms!;
+  }
 
   @override
   bool updateShouldNotify(covariant InheritedWidget oldWidget) => true;
