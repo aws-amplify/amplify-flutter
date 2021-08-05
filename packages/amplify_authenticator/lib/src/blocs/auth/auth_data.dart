@@ -3,7 +3,8 @@ enum AuthScreen {
   signup,
   signin,
   confirmSignUp,
-  confirmSignIn,
+  confirmSignInMfa,
+  confirmSignInNewPassword,
   sendCode,
   resetPassword,
 }

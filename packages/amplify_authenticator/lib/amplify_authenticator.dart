@@ -15,7 +15,6 @@
 
 library amplify_authenticator;
 
-import 'package:amplify_authenticator/src/enums/signin_step.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 
@@ -298,14 +297,10 @@ class _AuthenticatorState extends State<Authenticator> {
                           state.screen == AuthScreen.confirmSignUp) {
                         screen = ConfirmSignUpScreen();
                       } else if (state is AuthFlow &&
-                          state.screen == AuthScreen.confirmSignIn &&
-                          state.signInStep ==
-                              SignInStep.CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE) {
+                          state.screen == AuthScreen.confirmSignInMfa) {
                         screen = const ConfirmSignInMFAScreen();
                       } else if (state is AuthFlow &&
-                          state.screen == AuthScreen.confirmSignIn &&
-                          state.signInStep ==
-                              SignInStep.CONFIRM_SIGN_IN_WITH_NEW_PASSWORD) {
+                          state.screen == AuthScreen.confirmSignInNewPassword) {
                         screen = ConfirmSignInNewPasswordScreen();
                       } else if (state is AuthFlow &&
                           state.screen == AuthScreen.sendCode) {

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
-import 'package:amplify_authenticator/src/enums/signin_step.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 
 //Models
@@ -185,8 +184,8 @@ class StateMachineBloc {
       switch (result.nextStep!.signInStep) {
         case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
           yield AuthFlow(
-              screen: AuthScreen.confirmSignIn,
-              signInStep: SignInStep.CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE);
+            screen: AuthScreen.confirmSignInMfa,
+          );
 
           break;
         case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
@@ -196,8 +195,8 @@ class StateMachineBloc {
           break;
         case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
           yield AuthFlow(
-              screen: AuthScreen.confirmSignIn,
-              signInStep: SignInStep.CONFIRM_SIGN_IN_WITH_NEW_PASSWORD);
+            screen: AuthScreen.confirmSignInNewPassword,
+          );
 
           break;
         case 'RESET_PASSWORD':
