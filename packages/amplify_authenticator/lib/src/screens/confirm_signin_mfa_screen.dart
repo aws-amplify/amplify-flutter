@@ -1,4 +1,5 @@
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
+import 'package:amplify_authenticator/src/state/inherited_strings.dart';
 import 'package:amplify_authenticator/src/widgets/containers.dart';
 import 'package:flutter/material.dart';
 
@@ -9,8 +10,9 @@ class ConfirmSignInMFAScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final _confirmSignInMFAForm =
         InheritedForms.of(context).confirmSignInMFAForm;
-
+    final _title =
+        InheritedStrings.of(context)!.resolver.titles.confirm_signin_mfa;
     return AuthenticatorContainer(
-        title: "Confirm Sign In", form: _confirmSignInMFAForm);
+        title: _title(context), form: _confirmSignInMFAForm);
   }
 }

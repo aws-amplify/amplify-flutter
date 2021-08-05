@@ -30,6 +30,12 @@ class NavigationResolver {
   /// Text asking if user has have an account
   late StringResolver have_account_question;
 
+  /// Text asking if user has forgotten password
+  late StringResolver forgot_password_question;
+
+  /// Text for navigating to reset password Widget
+  late StringResolver navigate_reset_password;
+
   /// Text asking if user has have an account
   late StringResolver back_to_signin;
 
@@ -37,15 +43,21 @@ class NavigationResolver {
   NavigationResolver(
       {StringResolver? navigate_signin,
       StringResolver? navigate_signup,
+      StringResolver? navigate_reset_password,
       StringResolver? no_account_question,
       StringResolver? have_account_question,
+      StringResolver? forgot_password_question,
       StringResolver? back_to_signin}) {
     // We are assigning in this way due to limitations in assigning closures as defaults
     this.navigate_signin = navigate_signin ?? (_) => "Sign In";
     this.navigate_signup = navigate_signup ?? (_) => "Sign Up";
+    this.navigate_reset_password =
+        navigate_reset_password ?? (_) => "Reset Password";
     this.no_account_question = no_account_question ?? (_) => "No account?";
     this.have_account_question =
         have_account_question ?? (_) => "Have an account?";
+    this.forgot_password_question =
+        forgot_password_question ?? (_) => "Forgot password?";
     this.back_to_signin = back_to_signin ?? (_) => "Back to Sign In";
   }
 }

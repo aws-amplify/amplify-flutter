@@ -28,19 +28,31 @@ class TitleResolver {
   /// The title for the confirm sign up Widget.
   StringResolver? confirm_signup;
 
-  /// The title for the confirm sign in Widget.
-  StringResolver? confirm_signin;
+  /// The title for the confirm sign in (MFA) Widget.
+  late StringResolver confirm_signin_mfa;
+
+  /// The title for the confirm sign in (new passwrod) Widget.
+  late StringResolver confirm_signin_new_password;
+
+  /// The title for the reset password Widget.
+  late StringResolver reset_password;
 
   // ignore: public_member_api_docs
   TitleResolver(
       {StringResolver? signin,
       StringResolver? signup,
       StringResolver? confirm_signup,
-      StringResolver? confirm_signin}) {
+      StringResolver? confirm_signin_mfa,
+      StringResolver? confirm_signin_new_password,
+      StringResolver? reset_password}) {
     // We are assigning in this way due to limitations in assigning closures as defaults
     this.signin = signin ?? (_) => "Sign in to your account";
     this.signup = signup ?? (_) => "Create your account";
-    this.confirm_signin = confirm_signin ?? (_) => "Confirm your sign in";
+    this.confirm_signin_mfa =
+        confirm_signin_mfa ?? (_) => "Enter your confirmation code";
+    this.confirm_signin_new_password =
+        confirm_signin_new_password ?? (_) => "Change your password to sign in";
     this.confirm_signup = confirm_signup ?? (_) => "Confirm your account";
+    this.reset_password = reset_password ?? (_) => "Reset your password";
   }
 }

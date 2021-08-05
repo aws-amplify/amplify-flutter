@@ -1,4 +1,5 @@
 import 'package:amplify_authenticator/src/enums/alias.dart';
+import 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/widgets/forms.dart';
 import 'package:amplify_authenticator/src/widgets/form_fields.dart';
 
@@ -8,87 +9,98 @@ import 'package:amplify_authenticator/src/widgets/form_fields.dart';
 // The initial auth flow will be setup based on an username alias
 // that comes from the main Authenticator widget.
 class DefaultForms {
-  static SignInForm signInForm(Alias alias) {
+  late BuildContext _context;
+  void set context(BuildContext context) {
+    _context = context;
+  }
+
+  SignInForm signInForm(Alias alias, AuthStringResolver resolver) {
     late String _title;
     late String _hintText;
     switch (alias) {
       case Alias.username:
-        _title = 'Username*';
-        _hintText = 'Enter your username';
+        _title = resolver.inputs.username_title(_context);
+        _hintText = resolver.inputs.username_hint(_context);
         break;
       case Alias.phone_number:
-        _title = 'Phone Number*';
-        _hintText = 'Enter your phone number';
+        _title = resolver.inputs.phone_number_title(_context);
+        _hintText = resolver.inputs.phone_number_hint(_context);
         break;
       case Alias.email:
-        _title = 'Email*';
-        _hintText = 'Enter your email';
+        _title = resolver.inputs.email_title(_context);
+        _hintText = resolver.inputs.email_hint(_context);
         break;
       case Alias.email_phone_number:
-        _title = 'Email or Phone Number*';
-        _hintText = 'Enter your email or phone number';
+        _title = resolver.inputs.email_phone_number_title(_context);
+        _hintText = resolver.inputs.email_phone_number_hint(_context);
         break;
     }
     return SignInForm(
       formFields: FormFields(
         children: [
           SignInFormField(title: _title, hintText: _hintText, type: 'username'),
-          const SignInFormField(
-              title: 'Password*',
-              hintText: "Enter your password",
+          SignInFormField(
+              title: resolver.inputs.password_title(_context),
+              hintText: resolver.inputs.password_hint(_context),
               type: 'password')
         ],
       ),
     );
   }
 
-  static SignUpForm signUpForm(Alias alias) {
+  SignUpForm signUpForm(Alias alias, AuthStringResolver resolver) {
     late List<SignUpFormField> _signUpFormFields;
     switch (alias) {
       case Alias.username:
         _signUpFormFields = [
-          const SignUpFormField(
-              title: 'Username*',
-              hintText: "Enter your username",
+          SignUpFormField(
+              title: resolver.inputs.username_title(_context),
+              hintText: resolver.inputs.username_hint(_context),
               type: 'username'),
-          const SignUpFormField(
-              title: 'Password*',
-              hintText: "Enter your password",
+          SignUpFormField(
+              title: resolver.inputs.password_title(_context),
+              hintText: resolver.inputs.password_hint(_context),
               type: 'password'),
-          const SignUpFormField(
-              title: 'Email*', hintText: "Enter your email", type: 'email'),
-          const SignUpFormField(
-              title: 'Phone Number*',
-              hintText: "Enter your phone number",
+          SignUpFormField(
+              title: resolver.inputs.email_title(_context),
+              hintText: resolver.inputs.email_hint(_context),
+              type: 'email'),
+          SignUpFormField(
+              title: resolver.inputs.phone_number_title(_context),
+              hintText: resolver.inputs.phone_number_hint(_context),
               type: 'phone_number')
         ];
         break;
       case Alias.email:
         _signUpFormFields = [
-          const SignUpFormField(
-              title: 'Email*', hintText: "Enter your email", type: 'username'),
-          const SignUpFormField(
-              title: 'Password*',
-              hintText: "Enter your password",
+          SignUpFormField(
+              title: resolver.inputs.email_title(_context),
+              hintText: resolver.inputs.email_hint(_context),
+              type: 'username'),
+          SignUpFormField(
+              title: resolver.inputs.password_title(_context),
+              hintText: resolver.inputs.password_hint(_context),
               type: 'password'),
-          const SignUpFormField(
-              title: 'Phone Number*',
-              hintText: "Enter your phone number",
+          SignUpFormField(
+              title: resolver.inputs.phone_number_title(_context),
+              hintText: resolver.inputs.phone_number_hint(_context),
               type: 'phone_number')
         ];
         break;
       default:
         _signUpFormFields = [
-          const SignUpFormField(
-              title: 'Phone Number*',
-              hintText: "Enter your phone number",
+          SignUpFormField(
+              title: resolver.inputs.phone_number_title(_context),
+              hintText: resolver.inputs.phone_number_hint(_context),
               type: 'username'),
-          const SignUpFormField(
-              title: 'Password*',
-              hintText: "Enter your password",
+          SignUpFormField(
+              title: resolver.inputs.password_title(_context),
+              hintText: resolver.inputs.password_hint(_context),
               type: 'password'),
-          const SignUpFormField(
-              title: 'Email*', hintText: "Enter your email", type: 'email')
+          SignUpFormField(
+              title: resolver.inputs.email_title(_context),
+              hintText: resolver.inputs.email_hint(_context),
+              type: 'email')
         ];
         break;
     }
@@ -99,25 +111,26 @@ class DefaultForms {
     );
   }
 
-  static ConfirmSignUpForm confirmSignUpForm(Alias alias) {
+  ConfirmSignUpForm confirmSignUpForm(
+      Alias alias, AuthStringResolver resolver) {
     String? _title;
     String? _hintText;
     switch (alias) {
       case Alias.username:
-        _title = 'Username*';
+        _title = resolver.inputs.username_title(_context);
 
         break;
       case Alias.phone_number:
-        _title = 'Phone Number*';
+        _title = resolver.inputs.phone_number_title(_context);
 
         break;
       case Alias.email:
-        _title = 'Email*';
+        _title = resolver.inputs.email_title(_context);
 
         break;
       case Alias.email_phone_number:
-        _title = 'Email or Phone Number*';
-        _hintText = 'Enter your email or phone number';
+        _title = resolver.inputs.email_phone_number_title(_context);
+        _hintText = resolver.inputs.email_phone_number_hint(_context);
         break;
     }
 
@@ -126,47 +139,47 @@ class DefaultForms {
         children: [
           ConfirmSignUpFormField(
               title: _title, hintText: _hintText, type: 'username'),
-          const ConfirmSignUpFormField(
-              title: 'Verification Code*',
-              hintText: "Enter your verification code",
+          ConfirmSignUpFormField(
+              title: resolver.inputs.verification_code_title(_context),
+              hintText: resolver.inputs.verification_code_hint(_context),
               type: 'code'),
         ],
       ),
     );
   }
 
-  static ConfirmSignInMFAForm confirmSignInForm() {
-    return const ConfirmSignInMFAForm(
+  ConfirmSignInMFAForm confirmSignInForm(AuthStringResolver resolver) {
+    return ConfirmSignInMFAForm(
       formFields: FormFields(
         children: [
           ConfirmSignInFormField(
-              title: 'Code*',
-              hintText: "Enter your confirmation code",
+              title: resolver.inputs.verification_code_title(_context),
+              hintText: resolver.inputs.verification_code_hint(_context),
               type: 'code'),
         ],
       ),
     );
   }
 
-  static SendCodeForm sendCodeForm(Alias alias) {
+  SendCodeForm sendCodeForm(Alias alias, AuthStringResolver resolver) {
     late String _title;
     late String _hintText;
     switch (alias) {
       case Alias.username:
-        _title = 'Username*';
-        _hintText = 'Enter your username';
+        _title = resolver.inputs.username_title(_context);
+        _hintText = resolver.inputs.username_hint(_context);
         break;
       case Alias.phone_number:
-        _title = 'Phone Number*';
-        _hintText = 'Enter your phone number';
+        _title = resolver.inputs.phone_number_title(_context);
+        _hintText = resolver.inputs.phone_number_hint(_context);
         break;
       case Alias.email:
-        _title = 'Email*';
-        _hintText = 'Enter your email';
+        _title = resolver.inputs.email_title(_context);
+        _hintText = resolver.inputs.email_hint(_context);
         break;
       case Alias.email_phone_number:
-        _title = 'Email or Phone Number*';
-        _hintText = 'Enter your email or phone number';
+        _title = resolver.inputs.email_phone_number_title(_context);
+        _hintText = resolver.inputs.email_phone_number_hint(_context);
         break;
     }
     return SendCodeForm(
@@ -179,17 +192,17 @@ class DefaultForms {
     );
   }
 
-  static ResetPasswordForm resetPasswordForm() {
-    return const ResetPasswordForm(
+  ResetPasswordForm resetPasswordForm(AuthStringResolver resolver) {
+    return ResetPasswordForm(
       formFields: FormFields(
         children: [
           SignInFormField(
-              title: 'Verification code*',
-              hintText: 'Enter code',
+              title: resolver.inputs.verification_code_title(_context),
+              hintText: resolver.inputs.verification_code_hint(_context),
               type: 'verification_code'),
           SignInFormField(
-              title: 'New password*',
-              hintText: 'Enter your new password',
+              title: resolver.inputs.password_title(_context),
+              hintText: resolver.inputs.password_hint(_context),
               type: 'new_password'),
         ],
       ),
@@ -198,13 +211,14 @@ class DefaultForms {
 
 //This form will be displayed when result.nextStep!.signInStep ==
 //'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD'
-  static ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm() {
-    return const ConfirmSignInNewPasswordForm(
+  ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm(
+      AuthStringResolver resolver) {
+    return ConfirmSignInNewPasswordForm(
       formFields: FormFields(
         children: [
           ConfirmSignInFormField(
-              title: 'New password*',
-              hintText: 'Enter your new password',
+              title: resolver.inputs.password_title(_context),
+              hintText: resolver.inputs.password_title(_context),
               type: 'password'),
         ],
       ),

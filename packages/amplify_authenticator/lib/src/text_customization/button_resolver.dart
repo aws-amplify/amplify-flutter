@@ -26,14 +26,35 @@ class ButtonResolver {
 
   /// Label of confirm forms' button
   late StringResolver confirm;
+
+  /// Label of submit button
+  late StringResolver submit;
+
+  /// Label of change password button on ConfirmSignInNewPassword Form
+  late StringResolver changePassword;
+
+  /// Label of button for sending a confirmation code
+  late StringResolver sendCode;
+
+  /// Question for button to resend code
+  late StringResolver lostCodeQuestion;
+
   // ignore: public_member_api_docs
   ButtonResolver(
       {StringResolver? signin,
       StringResolver? signup,
-      StringResolver? confirm}) {
+      StringResolver? confirm,
+      StringResolver? submit,
+      StringResolver? changePassword,
+      StringResolver? sendCode,
+      StringResolver? lostCodeQuestion}) {
     // We are assigning in this way due to limitations in assigning closures as defaults
     this.signin = signin ?? (_) => "Sign In";
     this.signup = signup ?? (_) => "Create Account";
     this.confirm = confirm ?? (_) => "Confirm";
+    this.submit = submit ?? (_) => "Submit";
+    this.changePassword = changePassword ?? (_) => "Change Password";
+    this.sendCode = sendCode ?? (_) => "Send Code";
+    this.lostCodeQuestion = lostCodeQuestion ?? (_) => "Lost your code?";
   }
 }

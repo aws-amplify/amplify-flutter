@@ -48,6 +48,12 @@ class InputResolver {
   /// Hint of verification code field
   StringResolver? verification_code_hint;
 
+  /// Title of field accepting email or phone_number
+  late StringResolver email_phone_number_title;
+
+  /// Hint of field accepting email or phone_number
+  late StringResolver email_phone_number_hint;
+
   // ignore: public_member_api_docs
   InputResolver(
       {StringResolver? username_title,
@@ -59,7 +65,9 @@ class InputResolver {
       StringResolver? phone_number_title,
       StringResolver? phone_number_hint,
       StringResolver? verification_code_title,
-      StringResolver? verification_code_hint}) {
+      StringResolver? verification_code_hint,
+      StringResolver? email_phone_number_title,
+      StringResolver? email_phone_number_hint}) {
     // We are assigning in this way due to limitations in assigning closures as defaults
     this.username_title = username_title ?? (_) => "Username*";
     this.username_hint = username_hint ?? (_) => "Enter your usernme";
@@ -74,5 +82,9 @@ class InputResolver {
         verification_code_title ?? (_) => "Verification code*";
     this.verification_code_hint =
         verification_code_hint ?? (_) => "Enter your verification code";
+    this.email_phone_number_title =
+        email_phone_number_title ?? (_) => "Email or Phone Number*";
+    this.email_phone_number_hint =
+        email_phone_number_hint ?? (_) => "Enter your email or phone number";
   }
 }
