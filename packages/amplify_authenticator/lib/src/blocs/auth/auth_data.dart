@@ -1,6 +1,13 @@
 // ignore: public_member_api_docs
-
-enum AuthScreen { signup, signin, confirmSignUp, confirmSignIn }
+enum AuthScreen {
+  signup,
+  signin,
+  confirmSignUp,
+  confirmSignInMfa,
+  confirmSignInNewPassword,
+  sendCode,
+  resetPassword,
+}
 
 class AuthSignInData {
   AuthSignInData({required this.username, required this.password});
@@ -30,16 +37,58 @@ class AuthConfirmSignUpData {
 
   final String username;
 
-  AuthConfirmSignUpData({required this.username, required this.code});
+  final String password;
+
+  AuthConfirmSignUpData(
+      {required this.username, required this.code, required this.password});
 }
 
-
-class AuthConfirmSignInData {
+class AuthConfirmSignInMFAData {
   final String code;
 
-  ///attributes
-  final Map<String, String> attributes;
+  Map<String, String>? attributes;
 
-  AuthConfirmSignInData({required this.code, required this.attributes});
+  AuthConfirmSignInMFAData({
+    required this.code,
+    this.attributes,
+  });
 }
 
+class AuthConfirmSignInNewPasswordData {
+  final String code;
+
+  final String username;
+  final String password;
+
+  Map<String, String>? attributes;
+
+  AuthConfirmSignInNewPasswordData(
+      {required this.code,
+      this.attributes,
+      required this.username,
+      required this.password});
+}
+
+class AuthSendCodeData {
+  AuthSendCodeData({required this.username});
+  final String username;
+}
+
+class AuthConfirmPasswordData {
+  AuthConfirmPasswordData(
+      {required this.username,
+      required this.newPassword,
+      required this.confirmationCode});
+  final String username;
+  final String newPassword;
+  final String confirmationCode;
+}
+
+class AuthUpdatePasswordData {
+  AuthUpdatePasswordData(
+      {required this.username, required this.newPassword, this.attributes});
+
+  Map<String, String>? attributes;
+  final String username;
+  final String newPassword;
+}

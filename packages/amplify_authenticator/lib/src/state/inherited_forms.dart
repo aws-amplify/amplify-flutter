@@ -7,9 +7,10 @@ class InheritedForms extends InheritedWidget {
       {required this.signInForm,
       required this.signUpForm,
       required this.confirmSignUpForm,
-
-      required this.confirmSignInForm,
-
+      required this.confirmSignInMFAForm,
+      required this.sendCodeForm,
+      required this.resetPasswordForm,
+      required this.confirmSignInNewPasswordForm,
       required Widget child})
       : super(child: child);
 
@@ -19,12 +20,32 @@ class InheritedForms extends InheritedWidget {
 
   final ConfirmSignUpForm confirmSignUpForm;
 
-  final ConfirmSignInForm confirmSignInForm;
+  final ConfirmSignInMFAForm confirmSignInMFAForm;
 
+  final SendCodeForm sendCodeForm;
+
+  final ResetPasswordForm resetPasswordForm;
+
+  final ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm;
+
+  //final ResetPasswordForm resetPasswordForm;
 
   // ignore: public_member_api_docs
-  static InheritedForms? of(BuildContext context) =>
-      context.dependOnInheritedWidgetOfExactType<InheritedForms>();
+  static InheritedForms? of(BuildContext context) {
+    final forms = context.dependOnInheritedWidgetOfExactType<InheritedForms>();
+
+    assert(() {
+      if (forms == null) {
+        throw FlutterError.fromParts([
+          ErrorSummary('No InheritedForms widget found.'),
+          ErrorDescription(
+              'Make sure your app is wrapped with an Authenticator widget.')
+        ]);
+      }
+      return true;
+    }());
+    return forms!;
+  }
 
   @override
   bool updateShouldNotify(covariant InheritedWidget oldWidget) => true;

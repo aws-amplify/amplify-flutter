@@ -15,9 +15,8 @@
 
 library amplify_authenticator;
 
-import 'package:amplify_authenticator/src/keys.dart';
-import 'package:amplify_authenticator/src/screens/confirm_signin_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:amplify_authenticator/src/keys.dart';
 
 //State
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
@@ -29,6 +28,10 @@ import 'package:amplify_authenticator/src/screens/loading_screen.dart';
 import 'package:amplify_authenticator/src/screens/signin_screen.dart';
 import 'package:amplify_authenticator/src/screens/signup_screen.dart';
 import 'package:amplify_authenticator/src/screens/confirm_signup_screen.dart';
+import 'package:amplify_authenticator/src/screens/send_code_screen.dart';
+import 'package:amplify_authenticator/src/screens/confirm_signin_new_password.dart';
+import 'package:amplify_authenticator/src/screens/reset_password_screen.dart';
+import 'package:amplify_authenticator/src/screens/confirm_signin_mfa_screen.dart';
 
 //Bloc
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
@@ -40,6 +43,8 @@ import 'package:amplify_authenticator/src/views/signup_viewmodel.dart';
 import 'package:amplify_authenticator/src/views/confirm_signup_viewmodel.dart';
 import 'package:amplify_authenticator/src/views/confirm_signin_viewmodel.dart';
 
+//Enums
+import 'package:amplify_authenticator/src/enums/alias.dart';
 
 //Services
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
@@ -47,31 +52,32 @@ import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 //Widgets
 import 'package:amplify_authenticator/src/widgets/forms.dart';
 import 'package:amplify_authenticator/src/widgets/default_forms.dart';
+import 'package:amplify_authenticator/src/widgets/auth_exceptions.dart';
 
 //Exports
+export 'package:amplify_authenticator/src/enums/alias.dart';
 export 'package:amplify_authenticator/src/widgets/forms.dart';
 export 'package:amplify_authenticator/src/widgets/form_fields.dart';
 export 'package:amplify_authenticator/src/widgets/buttons.dart'
     show SignOutButton;
 
-///
 // ignore: must_be_immutable
 class Authenticator extends StatefulWidget {
   ///# Amplify Authenticator
   ///
   /// A widget that allows customers to authenticate their apps.
   ///
-  ///This wrapper requires a child widget to be passed as an argument.
-  ///To work with custom forms there is the need to pass up to 3 additional
-  ///arguments, signInForm, signUpForm and confirmSignInForm with their
-  ///respective form fields.
+  ///The Authenticator widget requires two arguments, a child widget and an username alias
+  ///to define the initial authentication flow.
+  ///
+  ///This authenticator accepts the following custom forms, sign in, sign up and confirm sign in.
   ///
   ///Note that working with custom forms is optional. Thus, if no additional arguments
   ///are passed, the authenticator will defined the following default forms with their
   ///respective form fields:
   ///
   /// 1. Sign in:
-  ///     - Username
+  ///     - Alias (username, email or phone number)
   ///     - Password
   /// 2. Sign Up:
   ///     - Username
@@ -83,22 +89,40 @@ class Authenticator extends StatefulWidget {
   ///     - define
   ///     - define
   ///
-  Authenticator(
+  Authenticator({
+    Alias? usernameAlias,
+    required this.child,
+    SignInForm? signInForm,
+    SignUpForm? signUpForm,
+    ConfirmSignInMFAForm? confirmSignInFormMFA,
+  }) {
+    this.usernameAlias = usernameAlias ?? Alias.username;
+    this.signInForm = signInForm ?? DefaultForms.signInForm(this.usernameAlias);
+    this.signUpForm = signUpForm ?? DefaultForms.signUpForm(this.usernameAlias);
+    this.confirmSignInMFAForm =
+        confirmSignInFormMFA ?? DefaultForms.confirmSignInForm();
 
-      {required this.child,
-      SignInForm? signInForm,
-      SignUpForm? signUpForm,
-      ConfirmSignInForm? confirmSignInForm}) {
-    this.signInForm = signInForm ?? DefaultForms.signInForm();
-    this.signUpForm = signUpForm ?? DefaultForms.signUpForm();
-    this.confirmSignInForm =
-        confirmSignInForm ?? DefaultForms.confirmSignInForm();
-
-      {required this.child, SignInForm? signInForm, SignUpForm? signUpForm}) {
-    this.signInForm = signInForm ?? DefaultForms.signInForm();
-    this.signUpForm = signUpForm ?? DefaultForms.signUpForm();
-
+    confirmSignUpForm = DefaultForms.confirmSignUpForm(this.usernameAlias);
+    sendCodeForm = DefaultForms.sendCodeForm(this.usernameAlias);
+    resetPasswordForm = DefaultForms.resetPasswordForm();
+    confirmSignInNewPasswordForm = DefaultForms.confirmSignInNewPasswordForm();
   }
+
+  ///Optional username alias to setup the preferred sign in method,
+  ///which can be signing in users with username, email or phone number.
+  ///
+  /// ```dart
+  ///     Alias.username
+  ///     Alias.email
+  ///     Alias.phone_number
+  ///     Alias.email_phone_number
+  /// ```
+  late Alias usernameAlias;
+
+  late SendCodeForm sendCodeForm;
+  late ConfirmSignUpForm confirmSignUpForm;
+  late ResetPasswordForm resetPasswordForm;
+  late final ConfirmSignInMFAForm confirmSignInMFAForm;
 
   /// This form will support the following form field types:
   ///    * username
@@ -172,9 +196,6 @@ class Authenticator extends StatefulWidget {
   /// ```
   late final SignUpForm signUpForm;
 
-  final ConfirmSignUpForm confirmSignUpForm = DefaultForms.confirmSignUpForm();
-
-
   /// This form will support the following form field types:
   /// * code
   /// * password
@@ -199,11 +220,11 @@ class Authenticator extends StatefulWidget {
   ///
   /// ### Example
   /// ```dart
-  ///     ConfirmSignInForm( formFields:
+  ///     ConfirmSignInNewPasswordForm( formFields:
   ///                   FormFields(children: [
   ///                     ConfirmSignInFormField(
-  ///                       type: "code" ,
-  ///                       title: "Custom code form field",
+  ///                       type: "email" ,
+  ///                       title: "Custom email form field",
   ///                       hintText: "Custom hint text",
   ///                       ),
   ///                     ConfirmSignInFormField(
@@ -216,12 +237,10 @@ class Authenticator extends StatefulWidget {
   ///
   /// ```
 
-  late final ConfirmSignInForm confirmSignInForm;
+  late ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm;
 
- 
   /// This widget will be displayed after a user has signed in with some verified credentials.
-final Widget child;
-
+  final Widget child;
 
   @override
   _AuthenticatorState createState() => _AuthenticatorState();
@@ -250,20 +269,21 @@ class _AuthenticatorState extends State<Authenticator> {
             signUpViewModel: SignUpViewModel(_stateMachineBloc),
             confirmSignUpViewModel: ConfirmSignUpViewModel(_stateMachineBloc),
             confirmSignInViewModel: ConfirmSignInViewModel(_stateMachineBloc),
-
             child: InheritedForms(
+                confirmSignInNewPasswordForm:
+                    widget.confirmSignInNewPasswordForm,
+                resetPasswordForm: widget.resetPasswordForm,
+                sendCodeForm: widget.sendCodeForm,
                 signInForm: widget.signInForm,
                 signUpForm: widget.signUpForm,
                 confirmSignUpForm: widget.confirmSignUpForm,
-                confirmSignInForm: widget.confirmSignInForm,
-
+                confirmSignInMFAForm: widget.confirmSignInMFAForm,
                 child: Scaffold(
                   body: StreamBuilder(
                     stream: _stateMachineBloc.stream,
                     builder: (context, snapshot) {
                       final state = snapshot.data ?? const AuthLoading();
-
-                      Widget? screen;
+                      late Widget screen;
                       if (state is AuthLoading) {
                         screen = LoadingScreen();
                       } else if (state is Authenticated) {
@@ -278,14 +298,32 @@ class _AuthenticatorState extends State<Authenticator> {
                           state.screen == AuthScreen.confirmSignUp) {
                         screen = ConfirmSignUpScreen();
                       } else if (state is AuthFlow &&
-                          state.screen == AuthScreen.confirmSignIn) {
-                        screen = ConfirmSignInScreen();
-
+                          state.screen == AuthScreen.confirmSignInMfa) {
+                        screen = const ConfirmSignInMFAScreen();
+                      } else if (state is AuthFlow &&
+                          state.screen == AuthScreen.confirmSignInNewPassword) {
+                        screen = ConfirmSignInNewPasswordScreen();
+                      } else if (state is AuthFlow &&
+                          state.screen == AuthScreen.sendCode) {
+                        screen = const SendCodeScreen();
+                      } else if (state is AuthFlow &&
+                          state.screen == AuthScreen.resetPassword) {
+                        screen = const ResetPasswordScreen();
+                      } else {
+                        screen = SignInScreen();
                       }
 
-                      return Center(
-                        child: SingleChildScrollView(
-                          child: screen,
+                      return Container(
+                        padding: const EdgeInsets.symmetric(vertical: 40),
+                        child: Center(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                const AuthExceptionsWidget(),
+                                screen,
+                              ],
+                            ),
+                          ),
                         ),
                       );
                     },
@@ -296,6 +334,6 @@ class _AuthenticatorState extends State<Authenticator> {
   @override
   void dispose() {
     _stateMachineBloc.dispose();
-     super.dispose();
+    super.dispose();
   }
 }

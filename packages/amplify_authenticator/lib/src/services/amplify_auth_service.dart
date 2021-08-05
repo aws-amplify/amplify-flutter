@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
-import 'package:amplify_authenticator/src/models/authenticator_exceptions.dart';
 
 abstract class AuthService {
   Future<SignInResult> signIn(String username, String password);
@@ -11,33 +10,37 @@ abstract class AuthService {
   Future<SignUpResult> signUp(
       String username, String password, Map<String, String> authAttributes);
 
-  Future<void> confirmSignUp(String username, String code);
+  Future<SignUpResult> confirmSignUp(String username, String code);
 
   Future<AuthUser?> get currentUser;
 
   Future<bool> get isLoggedIn;
 
+  Future<ResetPasswordResult> resetPassword(String username);
 
-  Future<void> confirmSignIn(String code, Map<String, String> attributes);
+  Future<UpdatePasswordResult> confirmPassword(
+      String username, String code, String newPassword);
 
+  Future<void> confirmSignIn(
+      {required String code, Map<String, String>? attributes});
+
+  Future<ResendSignUpCodeResult> resendSignUpCode(String username);
 }
 
 class AmplifyAuthService implements AuthService {
   @override
   Future<SignInResult> signIn(String username, String password) async {
-
-    //making sure no user is logged in before logging in a new user
-
-    if (await isLoggedIn) {
-      await Amplify.Auth.signOut();
-    }
-
     final SignInResult result = await Amplify.Auth.signIn(
       username: username,
       password: password,
     );
 
     return result;
+  }
+
+  @override
+  Future<ResendSignUpCodeResult> resendSignUpCode(String username) async {
+    return await Amplify.Auth.resendSignUpCode(username: username);
   }
 
   @override
@@ -53,23 +56,18 @@ class AmplifyAuthService implements AuthService {
   }
 
   @override
-  Future<void> confirmSignUp(String username, String code) async {
-    final result = await Amplify.Auth.confirmSignUp(
+  Future<SignUpResult> confirmSignUp(String username, String code) async {
+    return await Amplify.Auth.confirmSignUp(
       username: username,
       confirmationCode: code,
     );
-    if (!result.isSignUpComplete) {
-      throw const AuthenticatorException('Could not confirm');
-    }
   }
 
-
   Future<void> confirmSignIn(
-      String code, Map<String, String> attributes) async {
+      {required String code, Map<String, String>? attributes}) async {
     await Amplify.Auth.confirmSignIn(
         confirmationValue: code,
         options: CognitoConfirmSignInOptions(userAttributes: attributes));
-
   }
 
   @override
@@ -98,5 +96,17 @@ class AmplifyAuthService implements AuthService {
     } on SignedOutException {
       return false;
     }
+  }
+
+  @override
+  Future<ResetPasswordResult> resetPassword(String username) async {
+    return await Amplify.Auth.resetPassword(username: username);
+  }
+
+  @override
+  Future<UpdatePasswordResult> confirmPassword(
+      String username, String code, String newPassword) async {
+    return await Amplify.Auth.confirmPassword(
+        username: username, confirmationCode: code, newPassword: newPassword);
   }
 }

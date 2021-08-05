@@ -11,9 +11,9 @@ class ConfirmSignInViewModel extends BaseViewModel {
   final _formKey = GlobalKey<FormState>();
 
   GlobalKey<FormState> get formKey => _formKey;
-
-  String? _code;
+  String? _username;
   String? _password;
+  String? _code;
   String? _address;
   String? _birthdate;
   String? _email;
@@ -35,17 +35,16 @@ class ConfirmSignInViewModel extends BaseViewModel {
 
   Map<String, String> authAttributes = {};
 
-  void setCode(String value) {
-    _code = value;
+  void setUsername(String value) {
+    _username = value;
   }
 
-  void setPassword(String value, String type) {
+  void setPassword(String value) {
     _password = value;
+  }
 
-//uncoment after verifing that the confirm sign in method
-//takes a password attribute.
-
-    // authAttributes[type] = _password!.trim();
+  void setCode(String value) {
+    _code = value;
   }
 
   void setAddress(String value, String type) {
@@ -141,18 +140,37 @@ class ConfirmSignInViewModel extends BaseViewModel {
 
   // Auth calls
 
-  Future<void> confirm() async {
+  Future<void> confirmNewPassword() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
     setBusy(true);
-    AuthConfirmSignInData confirm =
-        AuthConfirmSignInData(code: _code!.trim(), attributes: authAttributes);
+    AuthConfirmSignInNewPasswordData confirm = AuthConfirmSignInNewPasswordData(
+        code: _code!.trim(),
+        attributes: authAttributes,
+        username: _username!.trim(),
+        password: _password!.trim());
 
-    _authBloc.authEvent.add(AuthConfirmSignIn(confirm));
+    _authBloc.authEvent.add(AuthConfirmSignInNewPassword(confirm));
     await Future.any([
       _authBloc.exceptions.first,
       _authBloc.stream.first,
+    ]);
+    setBusy(false);
+  }
+
+  Future<void> confirmMfa() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+    setBusy(true);
+    AuthConfirmSignInMFAData confirm = AuthConfirmSignInMFAData(
+        code: _code!.trim(), attributes: authAttributes);
+
+    _authBloc.authEvent.add(AuthConfirmSignInMFA(confirm));
+    await Future.any([
+      _authBloc.exceptions.first,
+      _authBloc.stream.firstWhere((state) => state is Authenticated),
     ]);
     setBusy(false);
   }
@@ -161,6 +179,7 @@ class ConfirmSignInViewModel extends BaseViewModel {
 
   void goToSignIn() {
     clean();
+    _authBloc.clearException();
     _authBloc.authEvent.add(const AuthChangeScreen(AuthScreen.signin));
   }
 
