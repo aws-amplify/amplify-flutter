@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
+import 'package:flutter/rendering.dart';
 
 class AuthExceptionsWidget extends StatelessWidget {
   const AuthExceptionsWidget({Key? key}) : super(key: key);
@@ -28,25 +29,29 @@ class AuthExceptionsWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Row(children: <Widget>[
-                    const Icon(
-                      Icons.error,
-                      size: 24,
-                      color: Colors.white,
-                    ),
-                    const Padding(padding: EdgeInsets.only(left: 5)),
-                    Text(
-                      exception.toString(),
-                      style: const TextStyle(color: Colors.white),
-                    )
-                  ]),
+                  Flexible(
+                    child: Row(children: <Widget>[
+                      const Icon(
+                        Icons.error,
+                        size: 24,
+                        color: Colors.white,
+                      ),
+                      const Padding(padding: EdgeInsets.only(left: 5)),
+                      Expanded(
+                        child: Text(
+                          exception.toString(),
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ]),
+                  ),
                   IconButton(
                       onPressed: _authenticatorExceptions.clearException,
                       hoverColor: Colors.red,
                       icon: const Icon(
                         Icons.close,
                         color: Colors.white,
-                      ))
+                      )),
                 ],
               ),
             );
