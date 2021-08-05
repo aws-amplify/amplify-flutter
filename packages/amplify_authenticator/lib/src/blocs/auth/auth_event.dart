@@ -13,38 +13,39 @@ class GetCurrentUser extends AuthEvent {
 }
 
 class AuthChangeScreen extends AuthEvent {
-  ///Event data
   final AuthScreen screen;
 
   const AuthChangeScreen(this.screen);
 }
 
 class AuthSignIn extends AuthEvent {
-  ///Event data
   final AuthSignInData data;
 
   const AuthSignIn(this.data);
 }
 
 class AuthSignUp extends AuthEvent {
-  ///Event data
   final AuthSignUpData data;
 
   const AuthSignUp(this.data);
 }
 
 class AuthConfirmSignUp extends AuthEvent {
-  ///Event data
   final AuthConfirmSignUpData data;
 
   const AuthConfirmSignUp(this.data);
 }
 
-class AuthConfirmSignIn extends AuthEvent {
-  ///Event data
-  final AuthConfirmSignInData data;
+class AuthConfirmSignInMFA extends AuthEvent {
+  final AuthConfirmSignInMFAData data;
 
-  const AuthConfirmSignIn(this.data);
+  const AuthConfirmSignInMFA(this.data);
+}
+
+class AuthConfirmSignInNewPassword extends AuthEvent {
+  final AuthConfirmSignInNewPasswordData data;
+
+  const AuthConfirmSignInNewPassword(this.data);
 }
 
 class AuthSignOut extends AuthEvent {
@@ -58,20 +59,17 @@ class AuthExceptionEvent extends AuthEvent {
 class AuthSendCode extends AuthEvent {
   const AuthSendCode(this.data);
 
-  ///Event data
   final AuthSendCodeData data;
 }
 
 class AuthConfirmPassword extends AuthEvent {
   const AuthConfirmPassword(this.data);
 
-  ///Event data
   final AuthConfirmPasswordData data;
 }
 
 class AuthUpdatePassword extends AuthEvent {
   const AuthUpdatePassword(this.data);
 
-  ///Event data
   final AuthUpdatePasswordData data;
 }

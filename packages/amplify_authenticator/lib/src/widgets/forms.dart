@@ -109,7 +109,7 @@ class ConfirmSignInMFAForm extends StatelessWidget {
         formFields: formFields,
         buttonsContainer: ButtonsContainer(children: <Widget>[
           BackToSignInButton(),
-          ConfirmSignInButton(),
+          ConfirmSignInMFAButton(),
         ]));
   }
 }
@@ -169,7 +169,7 @@ class ConfirmSignInNewPasswordForm extends StatelessWidget {
         formFields: formFields,
         buttonsContainer: ButtonsContainer(children: <Widget>[
           BackToSignInButton(),
-          ChangeButton(),
+          ConfirmSignInNewPasswordButton(),
         ]));
   }
 }

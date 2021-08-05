@@ -42,14 +42,30 @@ class AuthConfirmSignUpData {
       {required this.username, required this.code, required this.password});
 }
 
-class AuthConfirmSignInData {
+class AuthConfirmSignInMFAData {
   final String code;
-
-  ///attributes
 
   Map<String, String>? attributes;
 
-  AuthConfirmSignInData({required this.code, this.attributes});
+  AuthConfirmSignInMFAData({
+    required this.code,
+    this.attributes,
+  });
+}
+
+class AuthConfirmSignInNewPasswordData {
+  final String code;
+
+  final String username;
+  final String password;
+
+  Map<String, String>? attributes;
+
+  AuthConfirmSignInNewPasswordData(
+      {required this.code,
+      this.attributes,
+      required this.username,
+      required this.password});
 }
 
 class AuthSendCodeData {

@@ -51,13 +51,13 @@ class ConfirmButton extends StatelessWidget {
   }
 }
 
-class ConfirmSignInButton extends StatelessWidget {
+class ConfirmSignInMFAButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ConfirmSignInViewModel _authViewModel =
         InheritedAuthViewModel.of(context)!.confirmSignInViewModel;
     return ButtonContainer(
-        callback: _authViewModel.confirm,
+        callback: _authViewModel.confirmMfa,
         authViewModel: _authViewModel,
         authKey: keyConfirmSignInButton,
         text: "CONFIRM");
@@ -241,14 +241,14 @@ class SubmitButton extends StatelessWidget {
   }
 }
 
-class ChangeButton extends StatelessWidget {
+class ConfirmSignInNewPasswordButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final SignInViewModel _authViewModel =
-        InheritedAuthViewModel.of(context)!.signInViewModel;
+    final ConfirmSignInViewModel _authViewModel =
+        InheritedAuthViewModel.of(context)!.confirmSignInViewModel;
 
     return ButtonContainer(
-        callback: _authViewModel.updatePassword,
+        callback: _authViewModel.confirmNewPassword,
         authViewModel: _authViewModel,
         authKey: keySendCodeButton,
         text: "CHANGE");

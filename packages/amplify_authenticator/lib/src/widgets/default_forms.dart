@@ -202,10 +202,10 @@ class DefaultForms {
     return const ConfirmSignInNewPasswordForm(
       formFields: FormFields(
         children: [
-          SignInFormField(
+          ConfirmSignInFormField(
               title: 'New password*',
               hintText: 'Enter your new password',
-              type: 'new_password'),
+              type: 'password'),
         ],
       ),
     );

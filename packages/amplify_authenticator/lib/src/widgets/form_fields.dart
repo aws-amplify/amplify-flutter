@@ -44,6 +44,8 @@ class SignInFormField extends StatelessWidget {
         InheritedAuthViewModel.of(context)!.signInViewModel;
     final _confirmSignUpViewModel =
         InheritedAuthViewModel.of(context)!.confirmSignUpViewModel;
+    final _confirmSignInViewModel =
+        InheritedAuthViewModel.of(context)!.confirmSignInViewModel;
     bool _obscureText = false;
     late void Function(String) _callBack;
     late Key _key;
@@ -56,6 +58,7 @@ class SignInFormField extends StatelessWidget {
         _callBack = (value) {
           _signInViewModel.setUsername(value);
           _confirmSignUpViewModel.setUsername(value);
+          _confirmSignInViewModel.setUsername(value);
         };
         _keyboardType = TextInputType.text;
         _validator = validator ?? validateUsername;
@@ -65,6 +68,7 @@ class SignInFormField extends StatelessWidget {
         _callBack = (value) {
           _signInViewModel.setUsername(value);
           _confirmSignUpViewModel.setUsername(value);
+          _confirmSignInViewModel.setUsername(value);
         };
         _keyboardType = TextInputType.emailAddress;
         _validator = validator ?? validateUsername;
@@ -74,13 +78,17 @@ class SignInFormField extends StatelessWidget {
         _callBack = (value) {
           _signInViewModel.setUsername(value);
           _confirmSignUpViewModel.setUsername(value);
+          _confirmSignInViewModel.setUsername(value);
         };
         _keyboardType = TextInputType.phone;
         _validator = validator ?? validateUsername;
         _key = const Key(keyPhoneNumberSignInFormField);
         break;
       case SignInType.password:
-        _callBack = _signInViewModel.setPassword;
+        _callBack = (value) {
+          _signInViewModel.setPassword(value);
+          _confirmSignInViewModel.setPassword(value);
+        };
         _keyboardType = TextInputType.visiblePassword;
         _obscureText = true;
         _validator = validator ?? validatePassword;
@@ -477,7 +485,10 @@ class ConfirmSignInFormField extends StatelessWidget {
         _key = const Key(keyCodeConfirmSignInFormfield);
         break;
       case ConfirmSignInType.password:
-        _callBack = (String value) => _authModelView.setCode(value);
+        _callBack = (String value) {
+          _authModelView.setCode(value);
+          _authModelView.setPassword(value);
+        };
         _keyboardType = TextInputType.visiblePassword;
         _obscureText = true;
         _validator = validator ?? validatePassword;

@@ -47,7 +47,7 @@ class StateMachineBloc {
 
   //Exception Controller
   final StreamController<AuthenticatorException?> _exceptionController =
-      StreamController<AuthenticatorException>.broadcast();
+      StreamController<AuthenticatorException?>.broadcast();
 
   Stream<AuthenticatorException?> get exceptions => _exceptionController.stream;
 
@@ -66,8 +66,10 @@ class StateMachineBloc {
       yield* _signUp(event.data);
     } else if (event is AuthConfirmSignUp) {
       yield* _confirmSignUp(event.data);
-    } else if (event is AuthConfirmSignIn) {
-      yield* _confirmSignIn(event.data);
+    } else if (event is AuthConfirmSignInMFA) {
+      yield* _confirmSignInMfa(event.data);
+    } else if (event is AuthConfirmSignInNewPassword) {
+      yield* _confirmSignInNewPassword(event.data);
     } else if (event is AuthChangeScreen) {
       yield* _changeScreen(event.screen);
     } else if (event is AuthSignOut) {
@@ -76,29 +78,39 @@ class StateMachineBloc {
       yield* _sendCode(event.data);
     } else if (event is AuthConfirmPassword) {
       yield* _confirmPassword(event.data);
-    } else if (event is AuthUpdatePassword) {
-      yield* _updatePassword(event.data);
     }
   }
 
-  Stream<AuthState> _updatePassword(AuthUpdatePasswordData data) async* {
+  Stream<AuthState> _confirmSignInNewPassword(
+      AuthConfirmSignInNewPasswordData data) async* {
     try {
-      AuthConfirmSignInData _confirmSignInData =
-          AuthConfirmSignInData(code: data.newPassword);
-      yield* _confirmSignIn(_confirmSignInData);
+      await _authService.confirmSignIn(
+          code: data.code, attributes: data.attributes);
 
-      //The current JS authenticator follows this pattern, where it calls
-      //sign in after updating the password.
-      //Other approach after this call is to show users the sign in screen.
       AuthSignInData authSignInData =
-          AuthSignInData(username: data.username, password: data.newPassword);
+          AuthSignInData(username: data.username, password: data.password);
       yield* _signIn(authSignInData);
     } on Exception catch (e) {
       if (e is AmplifyException) {
-        print(e.message);
+        print(e);
         _exceptionController.add(AuthenticatorException(e.message));
       } else {
+        _exceptionController.add(AuthenticatorException(e.toString()));
+      }
+    }
+  }
+
+  Stream<AuthState> _confirmSignInMfa(AuthConfirmSignInMFAData data) async* {
+    try {
+      await _authService.confirmSignIn(
+          code: data.code, attributes: data.attributes);
+
+      yield const Authenticated();
+    } on Exception catch (e) {
+      if (e is AmplifyException) {
         print(e);
+        _exceptionController.add(AuthenticatorException(e.message));
+      } else {
         _exceptionController.add(AuthenticatorException(e.toString()));
       }
     }
@@ -160,6 +172,12 @@ class StateMachineBloc {
   }
 
   Stream<AuthState> _signIn(AuthSignInData data) async* {
+    //Making sure no user is signed in before calling the sign in method
+    if (await _authService.isLoggedIn) {
+      yield* _signOut();
+      return;
+    }
+
     try {
       SignInResult result =
           await _authService.signIn(data.username, data.password);
@@ -182,7 +200,6 @@ class StateMachineBloc {
               signInStep: SignInStep.CONFIRM_SIGN_IN_WITH_NEW_PASSWORD);
 
           break;
-
         case 'RESET_PASSWORD':
           yield AuthFlow(screen: AuthScreen.sendCode);
           break;
@@ -242,21 +259,6 @@ class StateMachineBloc {
           AuthSignInData(username: data.username, password: data.password);
 
       yield* _signIn(authSignInData);
-    } on Exception catch (e) {
-      if (e is AmplifyException) {
-        print(e);
-        _exceptionController.add(AuthenticatorException(e.message));
-      } else {
-        _exceptionController.add(AuthenticatorException(e.toString()));
-      }
-    }
-  }
-
-  Stream<AuthState> _confirmSignIn(AuthConfirmSignInData data) async* {
-    try {
-      await _authService.confirmSignIn(
-          code: data.code, attributes: data.attributes);
-      yield const Authenticated();
     } on Exception catch (e) {
       if (e is AmplifyException) {
         print(e);

@@ -11,7 +11,8 @@ class ConfirmSignInViewModel extends BaseViewModel {
   final _formKey = GlobalKey<FormState>();
 
   GlobalKey<FormState> get formKey => _formKey;
-
+  String? _username;
+  String? _password;
   String? _code;
   String? _address;
   String? _birthdate;
@@ -33,6 +34,14 @@ class ConfirmSignInViewModel extends BaseViewModel {
   String? _custom;
 
   Map<String, String> authAttributes = {};
+
+  void setUsername(String value) {
+    _username = value;
+  }
+
+  void setPassword(String value) {
+    _password = value;
+  }
 
   void setCode(String value) {
     _code = value;
@@ -131,15 +140,34 @@ class ConfirmSignInViewModel extends BaseViewModel {
 
   // Auth calls
 
-  Future<void> confirm() async {
+  Future<void> confirmNewPassword() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
     setBusy(true);
-    AuthConfirmSignInData confirm =
-        AuthConfirmSignInData(code: _code!.trim(), attributes: authAttributes);
+    AuthConfirmSignInNewPasswordData confirm = AuthConfirmSignInNewPasswordData(
+        code: _code!.trim(),
+        attributes: authAttributes,
+        username: _username!.trim(),
+        password: _password!.trim());
 
-    _authBloc.authEvent.add(AuthConfirmSignIn(confirm));
+    _authBloc.authEvent.add(AuthConfirmSignInNewPassword(confirm));
+    await Future.any([
+      _authBloc.exceptions.first,
+      _authBloc.stream.first,
+    ]);
+    setBusy(false);
+  }
+
+  Future<void> confirmMfa() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+    setBusy(true);
+    AuthConfirmSignInMFAData confirm = AuthConfirmSignInMFAData(
+        code: _code!.trim(), attributes: authAttributes);
+
+    _authBloc.authEvent.add(AuthConfirmSignInMFA(confirm));
     await Future.any([
       _authBloc.exceptions.first,
       _authBloc.stream.first,
