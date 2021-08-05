@@ -90,19 +90,20 @@ class Authenticator extends StatefulWidget {
   ///     - define
   ///
   Authenticator({
-    required this.usernameAlias,
+    Alias? usernameAlias,
     required this.child,
     SignInForm? signInForm,
     SignUpForm? signUpForm,
     ConfirmSignInMFAForm? confirmSignInFormMFA,
   }) {
-    this.signInForm = signInForm ?? DefaultForms.signInForm(usernameAlias);
-    this.signUpForm = signUpForm ?? DefaultForms.signUpForm(usernameAlias);
+    this.usernameAlias = usernameAlias ?? Alias.username;
+    this.signInForm = signInForm ?? DefaultForms.signInForm(this.usernameAlias);
+    this.signUpForm = signUpForm ?? DefaultForms.signUpForm(this.usernameAlias);
     this.confirmSignInMFAForm =
         confirmSignInFormMFA ?? DefaultForms.confirmSignInForm();
 
-    confirmSignUpForm = DefaultForms.confirmSignUpForm(usernameAlias);
-    sendCodeForm = DefaultForms.sendCodeForm(usernameAlias);
+    confirmSignUpForm = DefaultForms.confirmSignUpForm(this.usernameAlias);
+    sendCodeForm = DefaultForms.sendCodeForm(this.usernameAlias);
     resetPasswordForm = DefaultForms.resetPasswordForm();
     confirmSignInNewPasswordForm = DefaultForms.confirmSignInNewPasswordForm();
   }
@@ -116,7 +117,7 @@ class Authenticator extends StatefulWidget {
   ///     Alias.phone_number
   ///     Alias.email_phone_number
   /// ```
-  final Alias usernameAlias;
+  late Alias usernameAlias;
 
   late SendCodeForm sendCodeForm;
   late ConfirmSignUpForm confirmSignUpForm;
