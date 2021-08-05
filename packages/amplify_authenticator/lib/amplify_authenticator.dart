@@ -311,7 +311,7 @@ class _AuthenticatorState extends State<Authenticator> {
                       }
 
                       return Container(
-                        padding: const EdgeInsets.only(top: 40, bottom: 40),
+                        padding: const EdgeInsets.symmetric(vertical: 40),
                         child: Center(
                           child: SingleChildScrollView(
                             child: Column(
