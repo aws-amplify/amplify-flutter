@@ -308,6 +308,8 @@ class _AuthenticatorState extends State<Authenticator> {
                       } else if (state is AuthFlow &&
                           state.screen == AuthScreen.resetPassword) {
                         screen = const ResetPasswordScreen();
+                      } else {
+                        screen = SignInScreen();
                       }
 
                       return Container(
