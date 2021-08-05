@@ -28,12 +28,6 @@ abstract class AuthService {
 class AmplifyAuthService implements AuthService {
   @override
   Future<SignInResult> signIn(String username, String password) async {
-    //making sure no user is logged in before logging in a new user
-
-    // if (await isLoggedIn) {
-    //   await Amplify.Auth.signOut();
-    // }
-
     final SignInResult result = await Amplify.Auth.signIn(
       username: username,
       password: password,
