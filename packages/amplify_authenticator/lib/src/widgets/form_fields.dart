@@ -88,6 +88,7 @@ class SignInFormField extends StatelessWidget {
         _callBack = (value) {
           _signInViewModel.setPassword(value);
           _confirmSignInViewModel.setPassword(value);
+          _confirmSignUpViewModel.setPassword(value);
         };
         _keyboardType = TextInputType.visiblePassword;
         _obscureText = true;

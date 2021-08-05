@@ -37,7 +37,6 @@ class ConfirmSignUpViewModel extends BaseViewModel {
     //evaluates to true.
 
     // if (!_formKey.currentState!.validate()) {
-    //   print(_formKey.currentState);
     //   return;
     // }
 

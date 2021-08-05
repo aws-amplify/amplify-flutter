@@ -38,6 +38,13 @@ class FormFieldContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool _enable = enable ?? true;
+    Widget? _child;
+
+    if (resendCodeButton != null) {
+      _child = resendCodeButton;
+    } else {
+      _child = null;
+    }
     return Container(
       margin: FormFieldConstants.marginBottom,
       child: Column(
@@ -62,7 +69,7 @@ class FormFieldContainer extends StatelessWidget {
             obscureText: obscureText,
           ),
           Container(
-            child: resendCodeButton,
+            child: _child,
           )
         ],
       ),
