@@ -1,8 +1,8 @@
 class AuthenticatorException implements Exception {
-  String? message;
+  final String message;
 
   AuthenticatorException(this.message);
 
   @override
-  String toString() => message!.toString();
+  String toString() => message.toString();
 }
