@@ -171,7 +171,7 @@ class AuthenticatorContainer extends StatelessWidget {
     return Container(
       width: containerWidth,
       padding: AuthenticatorContainerConstants.padding,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: AuthenticatorColors.container,
           borderRadius: AuthenticatorContainerConstants.borderRadius,
           boxShadow: [AuthenticatorContainerConstants.boxShadow]),

@@ -64,10 +64,6 @@ class SignUpForm extends StatelessWidget {
   }
 }
 
-// It's good to mention that this form might not be exposed
-// to the consumer due to the fact that the authenticator may only
-// support three custom forms only, sign in, sign up and confirm sign in.
-// This is currently used as a default form.
 class ConfirmSignUpForm extends StatelessWidget {
   /// Requires a list of confirm sign up  form fields.
   const ConfirmSignUpForm({required this.formFields, this.resendCodeButton});

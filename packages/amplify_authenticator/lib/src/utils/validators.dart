@@ -8,6 +8,13 @@ String? validateUsername(String? username) {
   return null;
 }
 
+String? validatePhoneNumber(String? phoneNumber) {
+  if (phoneNumber == null || phoneNumber.isEmpty) {
+    return 'Phone number cannot be empty';
+  }
+  return null;
+}
+
 String? validatePassword(String? password) {
   if (password == null || password.isEmpty) {
     return 'Password cannot be empty';
@@ -29,8 +36,6 @@ String? validateCode(String? code) {
   if (code == null || code.isEmpty) {
     return 'Please enter the verification code';
   }
-  if (!_codeRegex.hasMatch(code)) {
-    return 'Invalid code format. Must be 6 digits.';
-  }
+
   return null;
 }

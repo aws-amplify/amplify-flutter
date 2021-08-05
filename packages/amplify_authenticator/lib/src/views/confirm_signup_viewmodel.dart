@@ -1,7 +1,6 @@
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
 import 'package:amplify_authenticator/src/utils/base_viewmodel.dart';
-import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 
 class ConfirmSignUpViewModel extends BaseViewModel {
@@ -34,6 +33,14 @@ class ConfirmSignUpViewModel extends BaseViewModel {
   }
 
   Future<void> confirm() async {
+    //Uncomment this code when finding the error: for any reason this condition always
+    //evaluates to true.
+
+    // if (!_formKey.currentState!.validate()) {
+    //   print(_formKey.currentState);
+    //   return;
+    // }
+
     setBusy(true);
     final confirmation = AuthConfirmSignUpData(
         code: _code!.trim(),

@@ -78,6 +78,9 @@ class SignInViewModel extends BaseViewModel {
   }
 
   Future<void> confirmPassword() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
     setBusy(true);
     AuthConfirmPasswordData confirmPassword = AuthConfirmPasswordData(
         username: _newUsername!.trim(),
