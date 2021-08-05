@@ -12,25 +12,39 @@ class ConfirmSignUpViewModel extends BaseViewModel {
 
   GlobalKey<FormState> get formKey => _formKey;
 
-  String? _username;
+  //This variable is public because is used to set a default hint text
+  //in the confirm sign up username form field.
+  late String username;
 
   String? _code;
 
+  String? _password;
+
   void setUsername(String value) {
-    _username = value;
+    username = value;
   }
 
   void setCode(String value) {
     _code = value;
   }
 
+  void setPassword(String value) {
+    _password = value;
+  }
+
   Future<void> confirm() async {
-    if (!_formKey.currentState!.validate()) {
-      return;
-    }
+    //Uncomment this code when finding the error: for any reason this condition always
+    //evaluates to true.
+
+    // if (!_formKey.currentState!.validate()) {
+    //   return;
+    // }
+
     setBusy(true);
-    final confirmation =
-        AuthConfirmSignUpData(code: _code!.trim(), username: _username!.trim());
+    final confirmation = AuthConfirmSignUpData(
+        code: _code!.trim(),
+        username: username.trim(),
+        password: _password!.trim());
 
     _authBloc.authEvent.add(AuthConfirmSignUp(confirmation));
 
@@ -41,15 +55,19 @@ class ConfirmSignUpViewModel extends BaseViewModel {
     setBusy(false);
   }
 
+  void resendSignUpCode() {
+    _authBloc.resendSignUpCode(username);
+  }
+
   // Screens
 
   void goToSignIn() {
     clean();
+    _authBloc.clearException();
     _authBloc.authEvent.add(const AuthChangeScreen(AuthScreen.signin));
   }
 
   void clean() {
-    _username = null;
     _code = null;
   }
 }

@@ -2,11 +2,13 @@ import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:amplify_authenticator/src/widgets/containers.dart';
 import 'package:flutter/material.dart';
 
-class ConfirmSignInScreen extends StatelessWidget {
+class ResetPasswordScreen extends StatelessWidget {
+  const ResetPasswordScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    final _confirmSignInForm = InheritedForms.of(context)!.confirmSignInForm;
+    final _resetPasswordForm = InheritedForms.of(context)!.resetPasswordForm;
     return AuthenticatorContainer(
-        title: "Confirm Sign In", form: _confirmSignInForm);
+        title: "Reset your password", form: _resetPasswordForm);
   }
 }

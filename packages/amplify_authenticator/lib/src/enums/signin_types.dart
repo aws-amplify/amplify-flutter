@@ -5,6 +5,9 @@ enum SignInType {
   password,
   email,
   phone_number,
+  verification_code,
+  new_password,
+  new_username
 }
 
 SignInType? fromStringToSignInType(String str) {

@@ -1,8 +1,8 @@
 class AuthenticatorException implements Exception {
   final String message;
 
-  const AuthenticatorException([this.message = 'An unknown error occurred.']);
+  AuthenticatorException(this.message);
 
   @override
-  String toString() => 'AuthException{ message: "$message" }';
+  String toString() => message.toString();
 }
