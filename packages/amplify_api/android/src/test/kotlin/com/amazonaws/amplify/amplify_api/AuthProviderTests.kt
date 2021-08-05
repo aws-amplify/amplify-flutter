@@ -18,7 +18,6 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.amazonaws.amplify.amplify_api.auth.FlutterAuthProvider
-import com.amazonaws.amplify.amplify_api.auth.FlutterAuthProviders
 import com.amplifyframework.api.ApiCategory
 import com.amplifyframework.api.aws.*
 import com.amplifyframework.api.aws.sigv4.FunctionAuthProvider
@@ -27,20 +26,15 @@ import com.amplifyframework.api.graphql.OperationType
 import com.amplifyframework.core.AmplifyConfiguration
 import com.amplifyframework.core.category.CategoryType
 import com.amplifyframework.core.model.Model
-import kotlinx.coroutines.*
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.test.runBlockingTest
 import org.json.JSONObject
 import org.junit.After
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.*
-import java.util.concurrent.atomic.AtomicBoolean
-import java.util.concurrent.atomic.AtomicInteger
-import java.util.concurrent.atomic.AtomicIntegerArray
 
 /**
  * Mock model object for building dummy GraphQL requests.
@@ -148,6 +142,12 @@ class AuthProviderTests {
         job.join()
     }
 
+    /**
+     * Currently supported auth types.
+     */
+    private val supportedAuthTypes =
+        listOf(AuthorizationType.OPENID_CONNECT, AuthorizationType.AWS_LAMBDA)
+
     @Before
     fun setUp() {
         // Fixes KeyStore exception in tests
@@ -171,43 +171,28 @@ class AuthProviderTests {
         clearInvocations(mockOidcAuthProvider)
     }
 
-    @Test
-    fun testOIDCAuthProvidersInvokedByPlugin() = runBlockingTest {
-        runQuery(AuthorizationType.OPENID_CONNECT)
-        verify(mockOidcAuthProvider, times(1)).latestAuthToken
-        verify(mockFunctionAuthProvider, times(0)).latestAuthToken
+    /**
+     * Retrieves the mock provider for [authType].
+     */
+    private fun providerFor(authType: AuthorizationType) = when (authType) {
+        AuthorizationType.OPENID_CONNECT -> mockOidcAuthProvider
+        AuthorizationType.AWS_LAMBDA -> mockFunctionAuthProvider
+        else -> throw Exception("Unsupported type")
     }
 
     @Test
-    fun testFunctionAuthProvidersInvokedByPlugin() = runBlockingTest {
-        runQuery(AuthorizationType.AWS_LAMBDA)
-        verify(mockOidcAuthProvider, times(0)).latestAuthToken
-        verify(mockFunctionAuthProvider, times(1)).latestAuthToken
-    }
+    fun testAuthProvidersInvokedCorrectlyByPlugin() = runBlockingTest {
+        for (enabled in supportedAuthTypes) {
+            runQuery(enabled)
+            val provider = providerFor(enabled)
+            verify(provider, times(1)).latestAuthToken
 
-    @Test
-    @ObsoleteCoroutinesApi
-    fun testConcurrentAuthProviderRequestsCompleteInOrder() = runBlockingTest {
-        val jobs = mutableListOf<Job>()
-        val authProviders = FlutterAuthProviders(coroutineContext)
-        val hasToken = AtomicBoolean(false)
-        val expectedToken = "oidc"
-        for (i in 0..1000) {
-            val job = launch(Dispatchers.IO) {
-                if (i % 2 == 0) {
-                    authProviders.setToken(AuthorizationType.OPENID_CONNECT, expectedToken)
-                    hasToken.set(true)
-                } else {
-                    authProviders.setToken(AuthorizationType.OPENID_CONNECT, null)
-                    hasToken.set(false)
-                }
+            val disabledTypes = supportedAuthTypes.filter { it != enabled }
+            for (disabled in disabledTypes) {
+                verify(providerFor(disabled), times(0)).latestAuthToken
             }
-            jobs.add(job)
+
+            clearInvocations(provider)
         }
-        jobs.forEach {
-            it.join()
-        }
-        val token = authProviders.getToken(AuthorizationType.OPENID_CONNECT)
-        Assert.assertEquals(if (hasToken.get()) expectedToken else null, token)
     }
 }
