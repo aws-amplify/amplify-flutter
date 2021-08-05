@@ -28,6 +28,8 @@ import com.amplifyframework.core.AmplifyConfiguration
 import com.amplifyframework.core.category.CategoryType
 import com.amplifyframework.core.model.Model
 import kotlinx.coroutines.*
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.test.runBlockingTest
 import org.json.JSONObject
 import org.junit.After
@@ -37,6 +39,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.*
 import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.atomic.AtomicIntegerArray
 
 /**
  * Mock model object for building dummy GraphQL requests.
@@ -185,15 +189,16 @@ class AuthProviderTests {
     @ObsoleteCoroutinesApi
     fun testConcurrentAuthProviderRequestsCompleteInOrder() = runBlockingTest {
         val jobs = mutableListOf<Job>()
+        val authProviders = FlutterAuthProviders(coroutineContext)
         val hasToken = AtomicBoolean(false)
         val expectedToken = "oidc"
         for (i in 0..1000) {
             val job = launch(Dispatchers.IO) {
                 if (i % 2 == 0) {
-                    FlutterAuthProviders.setToken(AuthorizationType.OPENID_CONNECT, expectedToken)
+                    authProviders.setToken(AuthorizationType.OPENID_CONNECT, expectedToken)
                     hasToken.set(true)
                 } else {
-                    FlutterAuthProviders.setToken(AuthorizationType.OPENID_CONNECT, null)
+                    authProviders.setToken(AuthorizationType.OPENID_CONNECT, null)
                     hasToken.set(false)
                 }
             }
@@ -202,7 +207,7 @@ class AuthProviderTests {
         jobs.forEach {
             it.join()
         }
-        val token = FlutterAuthProviders.getToken(AuthorizationType.OPENID_CONNECT)
+        val token = authProviders.getToken(AuthorizationType.OPENID_CONNECT)
         Assert.assertEquals(if (hasToken.get()) expectedToken else null, token)
     }
 }
