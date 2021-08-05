@@ -54,6 +54,19 @@ class StateMachineBloc {
     _exceptionController.add(null);
   }
 
+  Future<void> resendSignUpCode(String username) async {
+    try {
+      await _authService.resendSignUpCode(username);
+    } on Exception catch (e) {
+      if (e is AmplifyException) {
+        print(e);
+        _exceptionController.add(AuthenticatorException(e.message));
+      } else {
+        _exceptionController.add(AuthenticatorException(e.toString()));
+      }
+    }
+  }
+
   Stream<AuthState> _eventTransformer(AuthEvent event) async* {
     if (event is AuthLoad) {
       yield* _authLoad();

@@ -49,15 +49,8 @@ class ConfirmSignUpViewModel extends BaseViewModel {
     setBusy(false);
   }
 
-//This method is called directly from this view due to the fact that
-//its result doesn't form part of the authenticator state machine.
-  Future<void> resendSignUpCode() async {
-    try {
-      await Amplify.Auth.resendSignUpCode(username: username.trim());
-    } on AmplifyException catch (e) {
-      print(e);
-      // _authBloc.exceptionsSink!.add(AuthenticatorException(e.message));
-    }
+  void resendSignUpCode() {
+    _authBloc.resendSignUpCode(username);
   }
 
   // Screens

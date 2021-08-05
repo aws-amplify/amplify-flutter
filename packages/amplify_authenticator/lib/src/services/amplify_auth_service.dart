@@ -23,6 +23,8 @@ abstract class AuthService {
 
   Future<void> confirmSignIn(
       {required String code, Map<String, String>? attributes});
+
+  Future<ResendSignUpCodeResult> resendSignUpCode(String username);
 }
 
 class AmplifyAuthService implements AuthService {
@@ -34,6 +36,11 @@ class AmplifyAuthService implements AuthService {
     );
 
     return result;
+  }
+
+  @override
+  Future<ResendSignUpCodeResult> resendSignUpCode(String username) async {
+    return await Amplify.Auth.resendSignUpCode(username: username);
   }
 
   @override
