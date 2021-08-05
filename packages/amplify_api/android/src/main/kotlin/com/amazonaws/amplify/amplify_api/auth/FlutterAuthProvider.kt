@@ -19,47 +19,72 @@ import com.amplifyframework.api.aws.ApiAuthProviders
 import com.amplifyframework.api.aws.AuthorizationType
 import com.amplifyframework.api.aws.sigv4.FunctionAuthProvider
 import com.amplifyframework.api.aws.sigv4.OidcAuthProvider
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
+import kotlin.coroutines.CoroutineContext
+
+/**
+ * Interface for managing auth token storage and retrieval.
+ */
+private interface AuthTokenManager {
+    /**
+     * Retrieves the token for [authType] or `null`, if unavailable.
+     */
+    fun getToken(authType: AuthorizationType): String?
+
+    /**
+     * Sets the token for [authType] to [value].
+     */
+    fun setToken(authType: AuthorizationType, value: String?)
+}
 
 /**
  * Manages the shared state of all [FlutterAuthProvider] instances.
  */
 @ObsoleteCoroutinesApi
-object FlutterAuthProviders {
-    /**
-     * A factory of [FlutterAuthProvider] instances.
-     */
-    val factory: ApiAuthProviders by lazy {
-        ApiAuthProviders
-            .Builder()
-            .functionAuthProvider(FlutterAuthProvider(AuthorizationType.AWS_LAMBDA))
-            .oidcAuthProvider(FlutterAuthProvider(AuthorizationType.OPENID_CONNECT))
-            .build()
+class FlutterAuthProviders(context: CoroutineContext? = null) : AuthTokenManager {
+    companion object : AuthTokenManager {
+        /**
+         * A factory of [FlutterAuthProvider] instances.
+         */
+        val factory: ApiAuthProviders by lazy {
+            ApiAuthProviders
+                .Builder()
+                .functionAuthProvider(FlutterAuthProvider(AuthorizationType.AWS_LAMBDA))
+                .oidcAuthProvider(FlutterAuthProvider(AuthorizationType.OPENID_CONNECT))
+                .build()
+        }
+
+        /**
+         * Shared instance.
+         */
+        private val instance = FlutterAuthProviders()
+
+        override fun getToken(authType: AuthorizationType): String? = instance.getToken(authType)
+
+        override fun setToken(authType: AuthorizationType, value: String?) =
+            instance.setToken(authType, value)
     }
 
     /**
      * Used for synchronizing access to [tokens].
      */
-    private val context = newSingleThreadContext("FlutterAuthProviders")
+    private val context: CoroutineContext =
+        context ?: newSingleThreadContext("FlutterAuthProviders")
+
 
     /**
      * Token cache for all [FlutterAuthProvider] instances.
      */
     private var tokens: MutableMap<AuthorizationType, String?> = mutableMapOf()
 
-    /**
-     * Retrieves the token for [authType] or `null`, if unavailable.
-     */
-    fun getToken(authType: AuthorizationType): String? = runBlocking(context) {
+    override fun getToken(authType: AuthorizationType): String? = runBlocking(context) {
         tokens[authType]
     }
 
-    /**
-     * Sets the token for [authType] to [value].
-     */
-    fun setToken(authType: AuthorizationType, value: String?) = runBlocking(context) {
+    override fun setToken(authType: AuthorizationType, value: String?) = runBlocking(context) {
         tokens[authType] = value
     }
 }
