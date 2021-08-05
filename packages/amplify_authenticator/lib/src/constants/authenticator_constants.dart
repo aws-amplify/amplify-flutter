@@ -20,7 +20,7 @@ class AuthenticatorContainerConstants extends AuthenticatorConstants {
   static const BorderRadius borderRadius =
       BorderRadius.all(Radius.circular(10));
 
-  static BoxShadow boxShadow = const BoxShadow(
+  static const BoxShadow boxShadow = const BoxShadow(
     color: Color.fromRGBO(0, 0, 0, 0.15),
     spreadRadius: 1,
     offset: Offset(
