@@ -272,7 +272,7 @@ class StateMachineBloc {
   Stream<AuthState> _signOut() async* {
     try {
       await _authService.signOut();
-      yield* _getCurrentUser();
+      yield AuthFlow(screen: AuthScreen.signin);
     } on Exception catch (e) {
       if (e is AmplifyException) {
         print(e.message);
