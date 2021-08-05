@@ -12,11 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-
-import 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/text_customization/resolver_typedef.dart';
-import 'package:amplify_authenticator/src/text_customization/resolver_typedef.dart';
-import 'package:flutter/widgets.dart';
 
 /// The resolver class for screen titles
 class TitleResolver {
