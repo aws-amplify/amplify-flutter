@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
 import 'package:amplify_authenticator/src/constants/theme_constants.dart';
 import 'package:amplify_authenticator/src/widgets/forms.dart';
@@ -14,7 +13,9 @@ class FormFieldContainer extends StatelessWidget {
       required this.hintText,
       required this.title,
       required this.validator,
-      required this.obscureText})
+      required this.obscureText,
+      this.enable,
+      this.resendCodeButton})
       : super(key: key);
 
   final String title;
@@ -29,16 +30,30 @@ class FormFieldContainer extends StatelessWidget {
 
   final bool obscureText;
 
+  ///This button will be used for resend a verification code.
+  final Widget? resendCodeButton;
+
+  final bool? enable;
+
   @override
   Widget build(BuildContext context) {
+    bool _enable = enable ?? true;
+    Widget? _child;
+
+    if (resendCodeButton != null) {
+      _child = resendCodeButton;
+    } else {
+      _child = null;
+    }
     return Container(
       margin: FormFieldConstants.marginBottom,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        children: <Widget>[
           Text(title),
           const Padding(padding: FormFieldConstants.gap),
           TextFormField(
+            enabled: _enable,
             key: key,
             validator: validator,
             onChanged: callback,
@@ -53,6 +68,9 @@ class FormFieldContainer extends StatelessWidget {
             keyboardType: keyboardType,
             obscureText: obscureText,
           ),
+          Container(
+            child: _child,
+          )
         ],
       ),
     );
@@ -160,7 +178,7 @@ class AuthenticatorContainer extends StatelessWidget {
     return Container(
       width: containerWidth,
       padding: AuthenticatorContainerConstants.padding,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: AuthenticatorColors.container,
           borderRadius: AuthenticatorContainerConstants.borderRadius,
           boxShadow: [AuthenticatorContainerConstants.boxShadow]),

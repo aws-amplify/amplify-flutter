@@ -9,7 +9,6 @@ class FormFields extends StatelessWidget {
   ///   2. SignUpFormField
   ///   3. ConfirmSignUpFormField
   ///   4. ConfirmSignInFormField
-
   const FormFields({required this.children});
 
   /// A list of form fields
@@ -26,7 +25,6 @@ class FormFields extends StatelessWidget {
 class SignInForm extends StatelessWidget {
   /// Requires a list of sign in form fields.
   const SignInForm({required this.formFields});
-
 
   /// A list of sign in form fields
 
@@ -47,7 +45,6 @@ class SignInForm extends StatelessWidget {
 }
 
 class SignUpForm extends StatelessWidget {
-
   /// Requires a list of sign up  form fields.
   const SignUpForm({required this.formFields});
 
@@ -67,19 +64,15 @@ class SignUpForm extends StatelessWidget {
   }
 }
 
-// It's good to mention that this form might not be exposed
-// to the consumer due to the fact that the authenticator may only
-// support three custom forms only, sign in, sign up and confirm sign in.
-// This is currently used as a default form.
-
 class ConfirmSignUpForm extends StatelessWidget {
   /// Requires a list of confirm sign up  form fields.
-  const ConfirmSignUpForm({required this.formFields});
-
+  const ConfirmSignUpForm({required this.formFields, this.resendCodeButton});
 
   /// A list of confirm sign up form fields
-
   final FormFields formFields;
+
+  ///This button will be used for resend a verification code.
+  final Widget? resendCodeButton;
 
   @override
   Widget build(BuildContext context) {
@@ -95,10 +88,9 @@ class ConfirmSignUpForm extends StatelessWidget {
   }
 }
 
-
-class ConfirmSignInForm extends StatelessWidget {
+class ConfirmSignInMFAForm extends StatelessWidget {
   /// Requires a list of confirm sign in form fields.
-  const ConfirmSignInForm({required this.formFields});
+  const ConfirmSignInMFAForm({required this.formFields});
 
   /// A list of confirm sign in form fields
 
@@ -113,7 +105,67 @@ class ConfirmSignInForm extends StatelessWidget {
         formFields: formFields,
         buttonsContainer: ButtonsContainer(children: <Widget>[
           BackToSignInButton(),
-          ConfirmSignInButton(),
+          ConfirmSignInMFAButton(),
+        ]));
+  }
+}
+
+class SendCodeForm extends StatelessWidget {
+  const SendCodeForm({Key? key, required this.formFields}) : super(key: key);
+
+  /// A list of sign in form fields
+
+  final FormFields formFields;
+  @override
+  Widget build(BuildContext context) {
+    final _authModelView = InheritedAuthViewModel.of(context)!.signInViewModel;
+    return FormContainer(
+        formKey: _authModelView.formKey,
+        formFields: formFields,
+        buttonsContainer: ButtonsContainer(children: <Widget>[
+          BackToSignInButton(),
+          SendCodeButton(),
+        ]));
+  }
+}
+
+class ResetPasswordForm extends StatelessWidget {
+  const ResetPasswordForm({Key? key, required this.formFields})
+      : super(key: key);
+
+  /// A list of sign in form fields
+  final FormFields formFields;
+
+  @override
+  Widget build(BuildContext context) {
+    final _authModelView = InheritedAuthViewModel.of(context)!.signInViewModel;
+    return FormContainer(
+        formKey: _authModelView.formKey,
+        formFields: formFields,
+        buttonsContainer: ButtonsContainer(children: <Widget>[
+          BackToSignInButton(),
+          SubmitButton(),
+        ]));
+  }
+}
+
+class ConfirmSignInNewPasswordForm extends StatelessWidget {
+  const ConfirmSignInNewPasswordForm({Key? key, required this.formFields})
+      : super(key: key);
+
+  /// A list of sign in form fields
+  final FormFields formFields;
+
+  @override
+  Widget build(BuildContext context) {
+    final _authModelView =
+        InheritedAuthViewModel.of(context)!.confirmSignInViewModel;
+    return FormContainer(
+        formKey: _authModelView.formKey,
+        formFields: formFields,
+        buttonsContainer: ButtonsContainer(children: <Widget>[
+          BackToSignInButton(),
+          ConfirmSignInNewPasswordButton(),
         ]));
   }
 }

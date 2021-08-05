@@ -12,7 +12,7 @@ class SignUpViewModel extends BaseViewModel {
 
   GlobalKey<FormState> get formKey => _formKey;
 
-  String? _username;
+  String? username;
   String? _password;
   String? _address;
   String? _birthdate;
@@ -36,7 +36,7 @@ class SignUpViewModel extends BaseViewModel {
   Map<String, String> authAttributes = {};
 
   void setUsername(String value) {
-    _username = value;
+    username = value;
   }
 
   void setPassword(String value) {
@@ -142,7 +142,7 @@ class SignUpViewModel extends BaseViewModel {
     }
     setBusy(true);
     final signUp = AuthSignUpData(
-        username: _username!.trim(),
+        username: username!.trim(),
         password: _password!.trim(),
         attributes: authAttributes);
 
@@ -158,11 +158,11 @@ class SignUpViewModel extends BaseViewModel {
 
   void goToSignIn() {
     clean();
+    _authBloc.clearException();
     _authBloc.authEvent.add(const AuthChangeScreen(AuthScreen.signin));
   }
 
   void clean() {
-    _username = null;
     _password = null;
     _address = null;
     _birthdate = null;

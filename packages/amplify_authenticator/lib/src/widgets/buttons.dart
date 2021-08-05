@@ -1,10 +1,10 @@
+import 'package:amplify_authenticator/src/views/confirm_signin_viewmodel.dart';
+import 'package:amplify_authenticator/src/widgets/containers.dart';
 import 'package:flutter/material.dart';
+import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/views/confirm_signup_viewmodel.dart';
 import 'package:amplify_authenticator/src/views/signin_viewmodel.dart';
 import 'package:amplify_authenticator/src/views/signup_viewmodel.dart';
-import 'package:amplify_authenticator/src/views/confirm_signin_viewmodel.dart';
-import 'package:amplify_authenticator/src/widgets/containers.dart';
-import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
 import 'package:amplify_authenticator/src/constants/theme_constants.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
@@ -51,20 +51,18 @@ class ConfirmButton extends StatelessWidget {
   }
 }
 
-
-class ConfirmSignInButton extends StatelessWidget {
+class ConfirmSignInMFAButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ConfirmSignInViewModel _authViewModel =
         InheritedAuthViewModel.of(context)!.confirmSignInViewModel;
     return ButtonContainer(
-        callback: _authViewModel.confirm,
+        callback: _authViewModel.confirmMfa,
         authViewModel: _authViewModel,
         authKey: keyConfirmSignInButton,
         text: "CONFIRM");
   }
 }
-
 
 class SignOutButton extends StatelessWidget {
   @override
@@ -150,5 +148,109 @@ class GoToSignInButton extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class LostCodeButton extends StatelessWidget {
+  const LostCodeButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final ConfirmSignUpViewModel _authViewModel =
+        InheritedAuthViewModel.of(context)!.confirmSignUpViewModel;
+    return Row(
+      children: [
+        const Text("Lost your code?",
+            style: TextStyle(
+              color: Color.fromRGBO(130, 130, 130, 1),
+              fontSize: 13,
+            )),
+        TextButton(
+          key: const Key(keyGoToSignInButton),
+          child: Text(
+            "Resend Code",
+            style: TextStyle(
+                fontSize: 13,
+                color: Theme.of(context).primaryColor != Colors.blue
+                    ? Theme.of(context).primaryColor
+                    : AuthenticatorColors.primary),
+          ),
+          onPressed: _authViewModel.resendSignUpCode,
+        ),
+      ],
+    );
+  }
+}
+
+class ResetPasswordButton extends StatelessWidget {
+  const ResetPasswordButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final SignInViewModel _authViewModel =
+        InheritedAuthViewModel.of(context)!.signInViewModel;
+    return Row(
+      children: [
+        const Text("Forgot your Password?",
+            style: TextStyle(
+              color: Color.fromRGBO(130, 130, 130, 1),
+              fontSize: 12,
+            )),
+        TextButton(
+          key: const Key(keyGoToSignInButton),
+          child: Text(
+            "Reset password",
+            style: TextStyle(
+                fontSize: 12,
+                color: Theme.of(context).primaryColor != Colors.blue
+                    ? Theme.of(context).primaryColor
+                    : AuthenticatorColors.primary),
+          ),
+          onPressed: _authViewModel.goToReset,
+        ),
+      ],
+    );
+  }
+}
+
+class SendCodeButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final SignInViewModel _authViewModel =
+        InheritedAuthViewModel.of(context)!.signInViewModel;
+
+    return ButtonContainer(
+        callback: _authViewModel.sendCode,
+        authViewModel: _authViewModel,
+        authKey: keySendCodeButton,
+        text: "SEND CODE");
+  }
+}
+
+class SubmitButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final SignInViewModel _authViewModel =
+        InheritedAuthViewModel.of(context)!.signInViewModel;
+
+    return ButtonContainer(
+        callback: _authViewModel.confirmPassword,
+        authViewModel: _authViewModel,
+        authKey: keySendCodeButton,
+        text: "SUBMIT");
+  }
+}
+
+class ConfirmSignInNewPasswordButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final ConfirmSignInViewModel _authViewModel =
+        InheritedAuthViewModel.of(context)!.confirmSignInViewModel;
+
+    return ButtonContainer(
+        callback: _authViewModel.confirmNewPassword,
+        authViewModel: _authViewModel,
+        authKey: keySendCodeButton,
+        text: "CHANGE");
   }
 }

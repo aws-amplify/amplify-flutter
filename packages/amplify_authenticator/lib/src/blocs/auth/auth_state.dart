@@ -17,7 +17,7 @@ class Authenticated extends AuthState {
 }
 
 class AuthFlow extends AuthState {
-  final AuthScreen? screen;
+  final AuthScreen screen;
 
-  AuthFlow({this.screen});
+  AuthFlow({required this.screen});
 }
