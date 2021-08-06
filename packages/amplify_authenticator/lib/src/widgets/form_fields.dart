@@ -414,7 +414,6 @@ class ConfirmSignUpFormField extends StatelessWidget {
         _resendCodeButton = const LostCodeButton(
           key: Key(keyLostCodeButton),
         );
-
         break;
       default:
         break;

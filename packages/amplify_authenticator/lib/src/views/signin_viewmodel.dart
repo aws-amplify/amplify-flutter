@@ -100,6 +100,38 @@ class SignInViewModel extends BaseViewModel {
     setBusy(false);
   }
 
+  Future<void> sendCode() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+    setBusy(true);
+    AuthSendCodeData sendCode =
+        AuthSendCodeData(username: _newUsername!.trim());
+    _authBloc.authEvent.add(AuthSendCode(sendCode));
+    await Future.any([
+      _authBloc.exceptions.first,
+      _authBloc.stream.firstWhere((state) => state is AuthFlow),
+    ]);
+    setBusy(false);
+  }
+
+  Future<void> confirmPassword() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+    setBusy(true);
+    AuthConfirmPasswordData confirmPassword = AuthConfirmPasswordData(
+        username: _newUsername!.trim(),
+        confirmationCode: _confirmationCode!.trim(),
+        newPassword: _newPassword!.trim());
+    _authBloc.authEvent.add(AuthConfirmPassword(confirmPassword));
+    await Future.any([
+      _authBloc.exceptions.first,
+      _authBloc.stream.firstWhere((state) => state is AuthFlow),
+    ]);
+    setBusy(false);
+  }
+
 //Screens
 
   void goToSignUp() {
