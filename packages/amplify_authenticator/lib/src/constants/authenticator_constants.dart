@@ -39,4 +39,6 @@ class FormFieldConstants extends AuthenticatorConstants {
 
 class AuthenticatorButtonConstants extends AuthenticatorConstants {
   static const double fontSize = 16;
+  static const double textFontSize = 13;
+  static const Color textColor = Color.fromRGBO(130, 130, 130, 1);
 }
