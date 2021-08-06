@@ -29,7 +29,7 @@ class AuthExceptionsWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Flexible(
+                  Expanded(
                     child: Row(children: <Widget>[
                       const Icon(
                         Icons.error,
