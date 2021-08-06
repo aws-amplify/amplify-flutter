@@ -1,5 +1,6 @@
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
+import 'package:amplify_authenticator/src/models/authenticator_exceptions.dart';
 import 'package:amplify_authenticator/src/utils/base_viewmodel.dart';
 import 'package:flutter/material.dart';
 
@@ -141,6 +142,16 @@ class SignUpViewModel extends BaseViewModel {
       return;
     }
     setBusy(true);
+    if (username == null) {
+      _authBloc.exceptionsSink
+          .add(AuthenticatorException("No username form field found."));
+      return;
+    } else if (_password == null) {
+      _authBloc.exceptionsSink
+          .add(AuthenticatorException("No password form field found."));
+      return;
+    }
+    ;
     final signUp = AuthSignUpData(
         username: username!.trim(),
         password: _password!.trim(),

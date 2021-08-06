@@ -49,6 +49,7 @@ class StateMachineBloc {
       StreamController<AuthenticatorException?>.broadcast();
 
   Stream<AuthenticatorException?> get exceptions => _exceptionController.stream;
+  Sink<AuthenticatorException?> get exceptionsSink => _exceptionController.sink;
 
   Stream<AuthState> _eventTransformer(AuthEvent event) async* {
     if (event is AuthLoad) {
