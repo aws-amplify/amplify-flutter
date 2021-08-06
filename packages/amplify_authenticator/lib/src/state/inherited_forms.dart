@@ -31,7 +31,7 @@ class InheritedForms extends InheritedWidget {
   //final ResetPasswordForm resetPasswordForm;
 
   // ignore: public_member_api_docs
-  static InheritedForms? of(BuildContext context) {
+  static InheritedForms of(BuildContext context) {
     final forms = context.dependOnInheritedWidgetOfExactType<InheritedForms>();
 
     assert(() {

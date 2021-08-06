@@ -14,13 +14,17 @@ class FormFieldContainer extends StatelessWidget {
       required this.title,
       required this.validator,
       required this.obscureText,
+      this.color,
+      this.initialValue,
       this.enable,
       this.resendCodeButton})
       : super(key: key);
 
+  final String? initialValue;
+
   final String title;
 
-  final String hintText;
+  final String? hintText;
 
   final String? Function(String?)? validator;
 
@@ -34,6 +38,7 @@ class FormFieldContainer extends StatelessWidget {
   final Widget? resendCodeButton;
 
   final bool? enable;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +58,8 @@ class FormFieldContainer extends StatelessWidget {
           Text(title),
           const Padding(padding: FormFieldConstants.gap),
           TextFormField(
+            style: TextStyle(color: color),
+            initialValue: initialValue,
             enabled: _enable,
             key: key,
             validator: validator,
@@ -197,12 +204,12 @@ class AuthenticatorContainer extends StatelessWidget {
 }
 
 class FormContainer extends StatelessWidget {
-  const FormContainer(
-      {Key? key,
-      required this.formKey,
-      required this.formFields,
-      required this.buttonsContainer})
-      : super(key: key);
+  const FormContainer({
+    Key? key,
+    required this.formKey,
+    required this.formFields,
+    required this.buttonsContainer,
+  }) : super(key: key);
 
   final FormFields formFields;
 
