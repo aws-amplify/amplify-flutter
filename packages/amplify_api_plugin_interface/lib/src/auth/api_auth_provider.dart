@@ -12,28 +12,8 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+
 import 'package:amplify_api_plugin_interface/src/auth/api_authorization_type.dart';
-
-/// {@template auth_token}
-/// An authorization token for use with an [APIAuthProvider]. If [expiration]
-/// is not provided, the token is assumed to not expire.
-/// {@endtemplate}
-class AuthToken {
-  /// The authorization type this token is valid for.
-  final APIAuthorizationType type;
-
-  /// The authorization token, or `null` if unavailable.
-  final String? token;
-
-  /// {@macro auth_token}
-  const AuthToken(this.type, this.token);
-
-  /// Returns `this` as a serialized [Map].
-  Map<String, dynamic> toMap() => {
-        'type': type.rawValue,
-        'token': token,
-      };
-}
 
 /// Handles the retrieval of authentication tokens for third-party providers.
 ///
