@@ -50,23 +50,6 @@ class StateMachineBloc {
 
   Stream<AuthenticatorException?> get exceptions => _exceptionController.stream;
 
-  void clearException() {
-    _exceptionController.add(null);
-  }
-
-  Future<void> resendSignUpCode(String username) async {
-    try {
-      await _authService.resendSignUpCode(username);
-    } on Exception catch (e) {
-      if (e is AmplifyException) {
-        print(e);
-        _exceptionController.add(AuthenticatorException(e.message));
-      } else {
-        _exceptionController.add(AuthenticatorException(e.toString()));
-      }
-    }
-  }
-
   Stream<AuthState> _eventTransformer(AuthEvent event) async* {
     if (event is AuthLoad) {
       yield* _authLoad();
@@ -297,6 +280,25 @@ class StateMachineBloc {
 
   Stream<AuthState> _changeScreen(AuthScreen screen) async* {
     yield AuthFlow(screen: screen);
+  }
+
+  //Public Methods
+
+  void clearException() {
+    _exceptionController.add(null);
+  }
+
+  Future<void> resendSignUpCode(String username) async {
+    try {
+      await _authService.resendSignUpCode(username);
+    } on Exception catch (e) {
+      if (e is AmplifyException) {
+        print(e);
+        _exceptionController.add(AuthenticatorException(e.message));
+      } else {
+        _exceptionController.add(AuthenticatorException(e.toString()));
+      }
+    }
   }
 
   void dispose() {
