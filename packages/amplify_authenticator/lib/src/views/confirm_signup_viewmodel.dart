@@ -14,7 +14,7 @@ class ConfirmSignUpViewModel extends BaseViewModel {
 
   //This variable is public because is used to set a default hint text
   //in the confirm sign up username form field.
-  late String username;
+  String? username;
 
   String? _code;
 
@@ -33,30 +33,28 @@ class ConfirmSignUpViewModel extends BaseViewModel {
   }
 
   Future<void> confirm() async {
-    //Uncomment this code when finding the error: for any reason this condition always
-    //evaluates to true.
-
-    // if (!_formKey.currentState!.validate()) {
-    //   return;
-    // }
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
 
     setBusy(true);
     final confirmation = AuthConfirmSignUpData(
         code: _code!.trim(),
-        username: username.trim(),
+        username: username!.trim(),
         password: _password!.trim());
 
     _authBloc.authEvent.add(AuthConfirmSignUp(confirmation));
 
     await Future.any([
       _authBloc.exceptions.first,
-      _authBloc.stream.first,
+      _authBloc.stream
+          .firstWhere((state) => state is AuthFlow || state is Authenticated),
     ]);
     setBusy(false);
   }
 
   void resendSignUpCode() {
-    _authBloc.resendSignUpCode(username);
+    _authBloc.resendSignUpCode(username!);
   }
 
   // Screens

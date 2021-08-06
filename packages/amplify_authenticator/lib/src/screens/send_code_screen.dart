@@ -7,7 +7,7 @@ class SendCodeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _sendCodeForm = InheritedForms.of(context)!.sendCodeForm;
+    final _sendCodeForm = InheritedForms.of(context).sendCodeForm;
     return AuthenticatorContainer(
         title: "Reset your password", form: _sendCodeForm);
   }
