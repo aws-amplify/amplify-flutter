@@ -59,7 +59,13 @@ class SignInViewModel extends BaseViewModel {
   }
 
   Future<void> signOut() async {
+    setBusy(true);
     _authBloc.authEvent.add(const AuthSignOut());
+    await Future.any([
+      _authBloc.exceptions.first,
+      _authBloc.stream.first,
+    ]);
+    setBusy(false);
   }
 
   Future<void> sendCode() async {
