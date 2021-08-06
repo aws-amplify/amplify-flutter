@@ -33,11 +33,7 @@ class ConfirmSignUpViewModel extends BaseViewModel {
   }
 
   Future<void> confirm() async {
-    //Uncomment this code when finding the error: for any reason this condition always
-    //evaluates to true.
-
     if (!_formKey.currentState!.validate()) {
-      print('not confirming');
       return;
     }
 

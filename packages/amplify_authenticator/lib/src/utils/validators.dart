@@ -36,6 +36,8 @@ String? validateCode(String? code) {
   if (code == null || code.isEmpty) {
     return 'Please enter the verification code';
   }
-
+  if (!_codeRegex.hasMatch(code)) {
+    return 'Invalid code format. Must be 6 digits.';
+  }
   return null;
 }
