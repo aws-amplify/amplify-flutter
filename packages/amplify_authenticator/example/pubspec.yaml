@@ -47,5 +47,10 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
   uses-material-design: true
+<<<<<<< HEAD
   # Flip to true to use localizations
   generate: false
+=======
+  # Uncomment this line to use localizations
+  # generate: true
+>>>>>>> Resolved conflicts

@@ -9,7 +9,8 @@ class SendCodeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _sendCodeForm = InheritedForms.of(context).sendCodeForm;
-    final _title = InheritedStrings.of(context)!.resolver.titles.sendCode;
-    return AuthenticatorContainer(title: _title(context), form: _sendCodeForm);
+    final _title =
+        InheritedStrings.of(context)!.resolver.titles.sendCode(context);
+    return AuthenticatorContainer(title: _title, form: _sendCodeForm);
   }
 }

@@ -35,12 +35,6 @@ class NavigationResolver {
   /// Text for navigating to reset password Widget
   StringResolver navigateResetPassword = (_) => 'Reset Password';
 
-  /// Text asking if user has forgotten password
-  late StringResolver forgot_password_question;
-
-  /// Text for navigating to reset password Widget
-  late StringResolver navigate_reset_password;
-
   /// Text asking if user has have an account
   StringResolver backToSignin = (_) => 'Back to Sign In';
 
