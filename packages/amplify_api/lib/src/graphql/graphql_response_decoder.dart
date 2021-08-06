@@ -17,7 +17,7 @@ class GraphQLResponseDecoder {
       required List<GraphQLResponseError> errors}) {
     // if no ModelType fallback to default
     if (request.modelType == null) {
-      if (T == String) {
+      if (T == String || T == dynamic) {
         return GraphQLResponse(
             data: data as T, errors: errors); // <T> is implied
       } else {
