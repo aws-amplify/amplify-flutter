@@ -12,6 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+
 import 'package:collection/collection.dart';
 
 /// The types of authorization one can use while talking to an Amazon AppSync

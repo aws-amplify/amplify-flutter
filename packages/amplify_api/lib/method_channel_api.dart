@@ -24,6 +24,8 @@ import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 
 import 'amplify_api.dart';
 
+part 'src/auth_token.dart';
+
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/api');
 
 class AmplifyAPIMethodChannel extends AmplifyAPI {
@@ -58,22 +60,11 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     _authProviders[authProvider.type] = authProvider;
   }
 
-  /// Retrieves the latest auth token for [authProvider].
-  ///
-  /// Any [Exception] is caught and treated as a `null` token.
-  Future<Map<String, dynamic>> _getLatestAuthToken(
-    APIAuthProvider authProvider,
-  ) async {
-    String? token;
-    try {
-      token = await authProvider.getLatestAuthToken();
-    } on Exception {}
-    return AuthToken(authProvider.type, token).toMap();
-  }
-
   /// Retrieves the latest tokens for all registered [_authProviders].
   Future<List<Map<String, dynamic>>> _getLatestAuthTokens() {
-    return Future.wait(_authProviders.values.map(_getLatestAuthToken));
+    return Future.wait(_authProviders.values.map(
+      (authProvider) => authProvider.authToken,
+    ));
   }
 
   @override
