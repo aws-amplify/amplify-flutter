@@ -47,7 +47,8 @@ class ConfirmSignUpViewModel extends BaseViewModel {
 
     await Future.any([
       _authBloc.exceptions.first,
-      _authBloc.stream.first,
+      _authBloc.stream
+          .firstWhere((state) => state is AuthFlow || state is Authenticated),
     ]);
     setBusy(false);
   }

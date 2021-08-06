@@ -53,7 +53,8 @@ class SignInViewModel extends BaseViewModel {
     _authBloc.authEvent.add(AuthSignIn(singIn));
     await Future.any([
       _authBloc.exceptions.first,
-      _authBloc.stream.first,
+      _authBloc.stream
+          .firstWhere((state) => state is AuthFlow || state is Authenticated),
     ]);
     setBusy(false);
   }
@@ -63,7 +64,7 @@ class SignInViewModel extends BaseViewModel {
     _authBloc.authEvent.add(const AuthSignOut());
     await Future.any([
       _authBloc.exceptions.first,
-      _authBloc.stream.first,
+      _authBloc.stream.firstWhere((state) => state is AuthFlow),
     ]);
     setBusy(false);
   }

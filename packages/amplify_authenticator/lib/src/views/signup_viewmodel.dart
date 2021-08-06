@@ -160,7 +160,7 @@ class SignUpViewModel extends BaseViewModel {
     _authBloc.authEvent.add(AuthSignUp(signUp));
     await Future.any([
       _authBloc.exceptions.first,
-      _authBloc.stream.first,
+      _authBloc.stream.firstWhere((state) => state is AuthFlow),
     ]);
     setBusy(false);
   }
