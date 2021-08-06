@@ -341,7 +341,7 @@ class ConfirmSignUpFormField extends StatelessWidget {
   const ConfirmSignUpFormField(
       {Key? key,
       required this.title,
-      required this.hintText,
+      this.hintText,
       required this.type,
       this.validator})
       : super(key: key);
@@ -375,7 +375,8 @@ class ConfirmSignUpFormField extends StatelessWidget {
     final ConfirmSignUpType? _type = fromStringToConfirmSignUpType(type);
     Widget? _resendCodeButton;
     bool _enable = true;
-    String _hintText = hintText ?? _confirmSignUpViewModel.username;
+    String? _initialValue;
+    Color? _color;
 
     switch (_type) {
       case ConfirmSignUpType.username:
@@ -384,24 +385,26 @@ class ConfirmSignUpFormField extends StatelessWidget {
         _validator = validator ?? validateUsername;
         _key = const Key(keyUsernameConfirmSignUpFormfield);
         _enable = false;
-
+        _initialValue = _confirmSignUpViewModel.username;
+        _color = const Color.fromRGBO(130, 130, 130, 1);
         break;
       case ConfirmSignUpType.email:
         _callBack = _confirmSignUpViewModel.setUsername;
         _keyboardType = TextInputType.emailAddress;
         _validator = validator ?? validateEmail;
         _key = const Key(keyEmailConfirmSignUpFormfield);
-
         _enable = false;
+        _initialValue = _confirmSignUpViewModel.username;
+        _color = const Color.fromRGBO(130, 130, 130, 1);
         break;
       case ConfirmSignUpType.phone_number:
         _callBack = _confirmSignUpViewModel.setUsername;
         _keyboardType = TextInputType.phone;
         _validator = validator ?? validatePhoneNumber;
-        ;
         _key = const Key(keyPhoneNumberConfirmSignUpFormfield);
-
         _enable = false;
+        _initialValue = _confirmSignUpViewModel.username;
+        _color = const Color.fromRGBO(130, 130, 130, 1);
         break;
       case ConfirmSignUpType.code:
         _callBack = _confirmSignUpViewModel.setCode;
@@ -411,18 +414,21 @@ class ConfirmSignUpFormField extends StatelessWidget {
         _resendCodeButton = const LostCodeButton(
           key: Key(keyLostCodeButton),
         );
+
         break;
       default:
         break;
     }
 
     return FormFieldContainer(
+        color: _color,
+        initialValue: _initialValue,
         enable: _enable,
         resendCodeButton: _resendCodeButton,
         key: _key,
         keyboardType: _keyboardType,
         callback: _callBack,
-        hintText: _hintText,
+        hintText: hintText,
         title: title,
         validator: _validator,
         obscureText: _obscureText);

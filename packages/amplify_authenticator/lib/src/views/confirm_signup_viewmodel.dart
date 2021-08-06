@@ -14,7 +14,7 @@ class ConfirmSignUpViewModel extends BaseViewModel {
 
   //This variable is public because is used to set a default hint text
   //in the confirm sign up username form field.
-  late String username;
+  String? username;
 
   String? _code;
 
@@ -36,14 +36,15 @@ class ConfirmSignUpViewModel extends BaseViewModel {
     //Uncomment this code when finding the error: for any reason this condition always
     //evaluates to true.
 
-    // if (!_formKey.currentState!.validate()) {
-    //   return;
-    // }
+    if (!_formKey.currentState!.validate()) {
+      print('not confirming');
+      return;
+    }
 
     setBusy(true);
     final confirmation = AuthConfirmSignUpData(
         code: _code!.trim(),
-        username: username.trim(),
+        username: username!.trim(),
         password: _password!.trim());
 
     _authBloc.authEvent.add(AuthConfirmSignUp(confirmation));
@@ -56,7 +57,7 @@ class ConfirmSignUpViewModel extends BaseViewModel {
   }
 
   void resendSignUpCode() {
-    _authBloc.resendSignUpCode(username);
+    _authBloc.resendSignUpCode(username!);
   }
 
   // Screens
