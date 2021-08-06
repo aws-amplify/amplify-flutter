@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class ConfirmSignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _confirmSignUpForm = InheritedForms.of(context)!.confirmSignUpForm;
+    final _confirmSignUpForm = InheritedForms.of(context).confirmSignUpForm;
     return AuthenticatorContainer(
         title: "Confirm Sign Up", form: _confirmSignUpForm);
   }

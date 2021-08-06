@@ -102,23 +102,30 @@ class GoToSignUpButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final SignInViewModel _authModelView =
         InheritedAuthViewModel.of(context)!.signInViewModel;
-    return Row(
-      children: [
-        const Text("No account? ",
-            style: TextStyle(
-              fontSize: AuthenticatorButtonConstants.fontSize,
-            )),
-        TextButton(
-          key: const Key(keyGoToSignUpButton),
-          onPressed: _authModelView.goToSignUp,
-          child: Text("Create account",
-              style: TextStyle(
+    return Padding(
+      padding: const EdgeInsets.only(top: 4),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Expanded(
+            child: const Text("No account?",
+                style: TextStyle(
+                  color: AuthenticatorButtonConstants.textColor,
                   fontSize: AuthenticatorButtonConstants.fontSize,
-                  color: Theme.of(context).primaryColor != Colors.blue
-                      ? Theme.of(context).primaryColor
-                      : AuthenticatorColors.primary)),
-        )
-      ],
+                )),
+          ),
+          TextButton(
+            key: const Key(keyGoToSignUpButton),
+            onPressed: _authModelView.goToSignUp,
+            child: Text("Create account",
+                style: TextStyle(
+                    fontSize: AuthenticatorButtonConstants.fontSize,
+                    color: Theme.of(context).primaryColor != Colors.blue
+                        ? Theme.of(context).primaryColor
+                        : AuthenticatorColors.primary)),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -128,25 +135,32 @@ class GoToSignInButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final SignUpViewModel _authModelView =
         InheritedAuthViewModel.of(context)!.signUpViewModel;
-    return Row(
-      children: [
-        const Text("Have an account? ",
-            style: TextStyle(
-              fontSize: AuthenticatorButtonConstants.fontSize,
-            )),
-        TextButton(
-          key: const Key(keyGoToSignInButton),
-          child: Text(
-            "Sign In",
-            style: TextStyle(
-                fontSize: AuthenticatorButtonConstants.fontSize,
-                color: Theme.of(context).primaryColor != Colors.blue
-                    ? Theme.of(context).primaryColor
-                    : AuthenticatorColors.primary),
+    return Padding(
+      padding: const EdgeInsets.only(top: 4.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Expanded(
+            child: Text("Have an account?",
+                style: TextStyle(
+                  color: AuthenticatorButtonConstants.textColor,
+                  fontSize: AuthenticatorButtonConstants.fontSize,
+                )),
           ),
-          onPressed: _authModelView.goToSignIn,
-        ),
-      ],
+          TextButton(
+            key: const Key(keyGoToSignInButton),
+            child: Text(
+              "Sign In",
+              style: TextStyle(
+                  fontSize: AuthenticatorButtonConstants.fontSize,
+                  color: Theme.of(context).primaryColor != Colors.blue
+                      ? Theme.of(context).primaryColor
+                      : AuthenticatorColors.primary),
+            ),
+            onPressed: _authModelView.goToSignIn,
+          ),
+        ],
+      ),
     );
   }
 }
@@ -158,26 +172,31 @@ class LostCodeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final ConfirmSignUpViewModel _authViewModel =
         InheritedAuthViewModel.of(context)!.confirmSignUpViewModel;
-    return Row(
-      children: [
-        const Text("Lost your code?",
-            style: TextStyle(
-              color: Color.fromRGBO(130, 130, 130, 1),
-              fontSize: 13,
-            )),
-        TextButton(
-          key: const Key(keyGoToSignInButton),
-          child: Text(
-            "Resend Code",
-            style: TextStyle(
-                fontSize: 13,
-                color: Theme.of(context).primaryColor != Colors.blue
-                    ? Theme.of(context).primaryColor
-                    : AuthenticatorColors.primary),
+    return Padding(
+      padding: const EdgeInsets.only(top: 4.0),
+      child: Row(
+        children: [
+          const Expanded(
+            child: Text("Lost your code?",
+                style: TextStyle(
+                  color: AuthenticatorButtonConstants.textColor,
+                  fontSize: 13,
+                )),
           ),
-          onPressed: _authViewModel.resendSignUpCode,
-        ),
-      ],
+          TextButton(
+            key: const Key(keyGoToSignInButton),
+            child: Text(
+              "Resend Code",
+              style: TextStyle(
+                  fontSize: AuthenticatorButtonConstants.textFontSize,
+                  color: Theme.of(context).primaryColor != Colors.blue
+                      ? Theme.of(context).primaryColor
+                      : AuthenticatorColors.primary),
+            ),
+            onPressed: _authViewModel.resendSignUpCode,
+          ),
+        ],
+      ),
     );
   }
 }
@@ -189,26 +208,31 @@ class ResetPasswordButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final SignInViewModel _authViewModel =
         InheritedAuthViewModel.of(context)!.signInViewModel;
-    return Row(
-      children: [
-        const Text("Forgot your Password?",
-            style: TextStyle(
-              color: Color.fromRGBO(130, 130, 130, 1),
-              fontSize: 12,
-            )),
-        TextButton(
-          key: const Key(keyGoToSignInButton),
-          child: Text(
-            "Reset password",
-            style: TextStyle(
-                fontSize: 12,
-                color: Theme.of(context).primaryColor != Colors.blue
-                    ? Theme.of(context).primaryColor
-                    : AuthenticatorColors.primary),
+    return Padding(
+      padding: const EdgeInsets.only(top: 4.0),
+      child: Row(
+        children: [
+          const Expanded(
+            child: Text("Forgot your Password?",
+                style: TextStyle(
+                  color: Color.fromRGBO(130, 130, 130, 1),
+                  fontSize: 12,
+                )),
           ),
-          onPressed: _authViewModel.goToReset,
-        ),
-      ],
+          TextButton(
+            key: const Key(keyGoToSignInButton),
+            child: Text(
+              "Reset password",
+              style: TextStyle(
+                  fontSize: 12,
+                  color: Theme.of(context).primaryColor != Colors.blue
+                      ? Theme.of(context).primaryColor
+                      : AuthenticatorColors.primary),
+            ),
+            onPressed: _authViewModel.goToReset,
+          ),
+        ],
+      ),
     );
   }
 }
