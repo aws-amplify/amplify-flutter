@@ -6,7 +6,7 @@ class ConfirmSignInNewPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _confirmSignInNewPasswordForm =
-        InheritedForms.of(context)!.confirmSignInNewPasswordForm;
+        InheritedForms.of(context).confirmSignInNewPasswordForm;
     return AuthenticatorContainer(
         title: "Change Password", form: _confirmSignInNewPasswordForm);
   }
