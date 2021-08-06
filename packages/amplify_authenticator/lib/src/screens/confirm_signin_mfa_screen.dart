@@ -11,7 +11,8 @@ class ConfirmSignInMFAScreen extends StatelessWidget {
     final _confirmSignInMFAForm =
         InheritedForms.of(context).confirmSignInMFAForm;
     final _title =
-        InheritedStrings.of(context)!.resolver.titles.confirm_signin_mfa;
+        InheritedStrings.of(context)!.resolver.titles.confirmSigninMfa;
+
     return AuthenticatorContainer(
         title: _title(context), form: _confirmSignInMFAForm);
   }

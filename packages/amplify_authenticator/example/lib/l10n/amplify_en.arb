@@ -1,0 +1,40 @@
+{
+    "title_signin": "title_signin",
+    "title_signup": "title_signup",
+    "title_confirm_signup": "title_confirm_signup",
+    "title_confirm_signin_mfa": "title_confirm_signin_mfa",
+    "title_confirm_signin_new_password": "title_confirm_signin_new_password",
+    "title_reset_password": "title_reset_password",
+    "title_send_code": "title_send_code",
+
+    "button_signin": "button_signin In",
+    "button_signup": "button_signup",
+    "button_submit": "button_submit",
+    "button_confirm": "button_confirm",
+    "button_new_password": "button_new_password Password",
+    "button_sendCode": "button_sendCode",
+
+
+    "input_username_title": "input_username_title",
+    "input_username_hint": "input_username_hint",
+    "input_password_title": "input_password_title",
+    "input_password_hint": "input_password_hint",
+    "input_email_title": "input_email_title",
+    "input_email_hint": "input_email_hint",
+    "input_phone_title": "input_phone_title",
+    "input_phone_hint": "input_phone_hint",
+    "input_verification_code_title": "input_verification_code_title",
+    "input_verification_code_hint": "input_verification_code_hint",
+
+    "nav_signin": "nav_sign",
+    "nav_signup" : "nav_signup",
+    "nav_no_account": "nav_no_account",
+    "nav_have_account": "nav_have_account",
+    "nav_back_signin": "nav_back_signin",
+    "nav_forgot_password": "nav_forgot_password",
+    "nav_reset_password": "nav_reset_password",
+
+    "@helloWorld": {
+      "description": "The conventional newborn programmer greeting"
+    }
+}

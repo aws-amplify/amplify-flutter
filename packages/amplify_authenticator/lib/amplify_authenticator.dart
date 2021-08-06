@@ -99,7 +99,7 @@ class Authenticator extends StatefulWidget {
       required this.child,
       SignInForm? signInForm,
       SignUpForm? signUpForm,
-      ConfirmSignInMFAForm? confirmSignInFormMFA,
+      ConfirmSignInMFAForm? confirmSignInMFAForm,
       AuthStringResolver? resolver}) {
     this.resolver = resolver == null ? AuthStringResolver() : resolver;
     this.signInForm = signInForm;

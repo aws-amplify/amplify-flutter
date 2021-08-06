@@ -29,30 +29,35 @@ class TitleResolver {
   StringResolver? confirm_signup;
 
   /// The title for the confirm sign in (MFA) Widget.
-  late StringResolver confirm_signin_mfa;
+  late StringResolver confirmSigninMfa;
 
   /// The title for the confirm sign in (new passwrod) Widget.
-  late StringResolver confirm_signin_new_password;
+  late StringResolver confirmSigninNewPassword;
 
   /// The title for the reset password Widget.
-  late StringResolver reset_password;
+  late StringResolver resetPassword;
+
+  /// The title for the send code Widget.
+  late StringResolver sendCode;
 
   // ignore: public_member_api_docs
   TitleResolver(
       {StringResolver? signin,
       StringResolver? signup,
-      StringResolver? confirm_signup,
-      StringResolver? confirm_signin_mfa,
-      StringResolver? confirm_signin_new_password,
-      StringResolver? reset_password}) {
+      StringResolver? confirmSignup,
+      StringResolver? confirmSigninMfa,
+      StringResolver? confirmSigninNewPassword,
+      StringResolver? resetPassword,
+      StringResolver? sendCode}) {
     // We are assigning in this way due to limitations in assigning closures as defaults
     this.signin = signin ?? (_) => "Sign in to your account";
     this.signup = signup ?? (_) => "Create your account";
-    this.confirm_signin_mfa =
-        confirm_signin_mfa ?? (_) => "Enter your confirmation code";
-    this.confirm_signin_new_password =
-        confirm_signin_new_password ?? (_) => "Change your password to sign in";
-    this.confirm_signup = confirm_signup ?? (_) => "Confirm your account";
-    this.reset_password = reset_password ?? (_) => "Reset your password";
+    this.confirmSignup = confirmSignup ?? (_) => "Enter your confirmation code";
+    this.confirmSigninMfa =
+        confirmSigninMfa ?? (_) => "Enter your sign in code";
+    this.confirmSigninNewPassword =
+        confirmSigninNewPassword ?? (_) => "Change your password to sign in";
+    this.resetPassword = resetPassword ?? (_) => "Reset your password";
+    this.sendCode = sendCode ?? (_) => "Send Code";
   }
 }

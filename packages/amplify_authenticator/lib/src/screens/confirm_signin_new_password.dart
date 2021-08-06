@@ -8,10 +8,8 @@ class ConfirmSignInNewPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final _confirmSignInNewPasswordForm =
         InheritedForms.of(context).confirmSignInNewPasswordForm;
-    final _title = InheritedStrings.of(context)!
-        .resolver
-        .titles
-        .confirm_signin_new_password;
+    final _title =
+        InheritedStrings.of(context)!.resolver.titles.confirmSigninNewPassword;
     return AuthenticatorContainer(
         title: _title(context), form: _confirmSignInNewPasswordForm);
   }

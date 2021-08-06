@@ -90,10 +90,8 @@ class BackToSignInButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final ConfirmSignUpViewModel _authModelView =
         InheritedAuthViewModel.of(context)!.confirmSignUpViewModel;
-    final String _text = InheritedStrings.of(context)!
-        .resolver
-        .navigation
-        .back_to_signin(context);
+    final String _text =
+        InheritedStrings.of(context)!.resolver.navigation.backToSignin(context);
     return TextButton(
       key: const Key(keyBackToSignInButton),
       child: Text(
@@ -120,7 +118,7 @@ class GoToSignUpButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
-            child: Text(_navText.no_account_question(context),
+            child: Text(_navText.noAccountQuestion(context),
                 style: const TextStyle(
                   color: AuthenticatorButtonConstants.textColor,
                   fontSize: AuthenticatorButtonConstants.fontSize,
@@ -129,7 +127,7 @@ class GoToSignUpButton extends StatelessWidget {
           TextButton(
             key: const Key(keyGoToSignUpButton),
             onPressed: _authModelView.goToSignUp,
-            child: Text(_navText.navigate_signup(context),
+            child: Text(_navText.navigateSignup(context),
                 style: TextStyle(
                     fontSize: AuthenticatorButtonConstants.fontSize,
                     color: Theme.of(context).primaryColor != Colors.blue
@@ -153,7 +151,7 @@ class GoToSignInButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
-            child: Text(_navText.have_account_question(context),
+            child: Text(_navText.haveAccountQuestion(context),
                 style: const TextStyle(
                   color: AuthenticatorButtonConstants.textColor,
                   fontSize: AuthenticatorButtonConstants.fontSize,
@@ -162,7 +160,7 @@ class GoToSignInButton extends StatelessWidget {
           TextButton(
             key: const Key(keyGoToSignInButton),
             child: Text(
-              _navText.navigate_signup(context),
+              _navText.navigateSignup(context),
               style: TextStyle(
                   fontSize: AuthenticatorButtonConstants.fontSize,
                   color: Theme.of(context).primaryColor != Colors.blue
@@ -229,7 +227,7 @@ class ResetPasswordButton extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: Text(_navText.forgot_password_question(context),
+            child: Text(_navText.forgotPasswordQuestion(context),
                 style: const TextStyle(
                   color: Color.fromRGBO(130, 130, 130, 1),
                   fontSize: 12,
@@ -238,7 +236,7 @@ class ResetPasswordButton extends StatelessWidget {
           TextButton(
             key: const Key(keyGoToSignInButton),
             child: Text(
-              _navText.navigate_reset_password(context),
+              _navText.navigateResetPassword(context),
               style: TextStyle(
                   fontSize: 12,
                   color: Theme.of(context).primaryColor != Colors.blue

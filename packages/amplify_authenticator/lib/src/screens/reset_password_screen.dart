@@ -9,7 +9,7 @@ class ResetPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _resetPasswordForm = InheritedForms.of(context).resetPasswordForm;
-    final _title = InheritedStrings.of(context)!.resolver.titles.reset_password;
+    final _title = InheritedStrings.of(context)!.resolver.titles.resetPassword;
     return AuthenticatorContainer(
         title: _title(context), form: _resetPasswordForm);
   }
