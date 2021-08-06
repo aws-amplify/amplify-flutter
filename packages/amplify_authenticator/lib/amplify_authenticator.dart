@@ -106,16 +106,6 @@ class Authenticator extends StatefulWidget {
     this.signUpForm = signUpForm;
     this.confirmSignInMFAForm = confirmSignInMFAForm;
     this.usernameAlias = usernameAlias ?? Alias.username;
-    // this.usernameAlias = usernameAlias ?? Alias.username;
-    // this.signInForm = signInForm ?? DefaultForms.signInForm(this.usernameAlias);
-    // this.signUpForm = signUpForm ?? DefaultForms.signUpForm(this.usernameAlias);
-    // this.confirmSignInMFAForm =
-    //     confirmSignInFormMFA ?? DefaultForms.confirmSignInForm();
-
-    // confirmSignUpForm = DefaultForms.confirmSignUpForm(this.usernameAlias);
-    // sendCodeForm = DefaultForms.sendCodeForm(this.usernameAlias);
-    // resetPasswordForm = DefaultForms.resetPasswordForm();
-    // confirmSignInNewPasswordForm = DefaultForms.confirmSignInNewPasswordForm();
   }
 
   ///Optional username alias to setup the preferred sign in method,
