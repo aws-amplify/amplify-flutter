@@ -1,16 +1,15 @@
 # amplify_authenticator_example
 
-A new Flutter project.
+An example app for the Authenticator.
 
-## Getting Started
+## Using Localization
 
-This project is a starting point for a Flutter application.
+To enable localization for this application, you can add a file called `l10n.yaml` at the root of this app:
 
-A few resources to get you started if this is your first Flutter project:
+```yaml
+arb-dir: lib/l10n
+template-arb-file: amplify_en.arb
+output-localization-file: amplify_localizations.dart
+```
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+See the comments in `main.dart` and `pubspec.yaml` - you will need to modify/uncomment several lines.
