@@ -168,12 +168,6 @@ class StateMachineBloc {
   }
 
   Stream<AuthState> _signIn(AuthSignInData data) async* {
-    //Making sure no user is signed in before calling the sign in method
-    if (await _authService.isLoggedIn) {
-      yield* _signOut();
-      return;
-    }
-
     try {
       SignInResult result =
           await _authService.signIn(data.username, data.password);
