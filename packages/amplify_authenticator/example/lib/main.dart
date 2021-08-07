@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     // Uncomment to use localizations
-    // var resolver = AuthStringResolver(
+    // AuthStringResolver resolver = AuthStringResolver(
     //     buttons: ButtonResolver(
     //         signin: (_) => AppLocalizations.of(context)!.button_signin,
     //         signup: (_) => AppLocalizations.of(context)!.button_signup,

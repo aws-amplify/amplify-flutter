@@ -7,11 +7,11 @@
     "title_reset_password": "title_reset_password",
     "title_send_code": "title_send_code",
 
-    "button_signin": "button_signin In",
+    "button_signin": "button_signin",
     "button_signup": "button_signup",
     "button_submit": "button_submit",
     "button_confirm": "button_confirm",
-    "button_new_password": "button_new_password Password",
+    "button_new_password": "button_new_password",
     "button_sendCode": "button_sendCode",
 
 
@@ -32,9 +32,5 @@
     "nav_have_account": "nav_have_account",
     "nav_back_signin": "nav_back_signin",
     "nav_forgot_password": "nav_forgot_password",
-    "nav_reset_password": "nav_reset_password",
-
-    "@helloWorld": {
-      "description": "The conventional newborn programmer greeting"
-    }
+    "nav_reset_password": "nav_reset_password"
 }

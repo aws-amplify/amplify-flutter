@@ -7,11 +7,11 @@
     "title_reset_password": "title_reset_password (ES)",
     "title_send_code": "title_send_code (ES)",
 
-    "button_signin": "button_signin In (ES)",
+    "button_signin": "button_signin (ES)",
     "button_signup": "button_signup (ES)",
     "button_submit": "button_submit (ES)",
     "button_confirm": "button_confirm (ES)",
-    "button_new_password": "button_new_password Password (ES)",
+    "button_new_password": "button_new_password (ES)",
     "button_sendCode": "button_sendCode (ES)",
 
 
