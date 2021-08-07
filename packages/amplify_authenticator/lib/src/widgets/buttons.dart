@@ -1,3 +1,6 @@
+import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator/src/state/inherited_strings.dart';
+import 'package:amplify_authenticator/src/text_customization/navigation_resolver.dart';
 import 'package:amplify_authenticator/src/views/confirm_signin_viewmodel.dart';
 import 'package:amplify_authenticator/src/widgets/containers.dart';
 import 'package:flutter/material.dart';
@@ -16,12 +19,14 @@ class SignUpButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final SignUpViewModel _authViewModel =
         InheritedAuthViewModel.of(context)!.signUpViewModel;
+    final String _text =
+        InheritedStrings.of(context)!.resolver.buttons.signup(context);
 
     return ButtonContainer(
         callback: _authViewModel.signUp,
         authViewModel: _authViewModel,
         authKey: keySignUpButton,
-        text: "Sign Up");
+        text: _text);
   }
 }
 
@@ -29,12 +34,13 @@ class SignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _authViewModel = InheritedAuthViewModel.of(context)!.signInViewModel;
-
+    final String _text =
+        InheritedStrings.of(context)!.resolver.buttons.signin(context);
     return ButtonContainer(
         callback: _authViewModel.signIn,
         authViewModel: _authViewModel,
         authKey: keySignInButton,
-        text: "Sign In");
+        text: _text);
   }
 }
 
@@ -43,11 +49,13 @@ class ConfirmButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final ConfirmSignUpViewModel _authViewModel =
         InheritedAuthViewModel.of(context)!.confirmSignUpViewModel;
+    final String _text =
+        InheritedStrings.of(context)!.resolver.buttons.confirm(context);
     return ButtonContainer(
         callback: _authViewModel.confirm,
         authViewModel: _authViewModel,
         authKey: keyConfirmSignUpButton,
-        text: "CONFIRM");
+        text: _text);
   }
 }
 
@@ -56,11 +64,13 @@ class ConfirmSignInMFAButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final ConfirmSignInViewModel _authViewModel =
         InheritedAuthViewModel.of(context)!.confirmSignInViewModel;
+    final String _text =
+        InheritedStrings.of(context)!.resolver.buttons.confirm(context);
     return ButtonContainer(
         callback: _authViewModel.confirmMfa,
         authViewModel: _authViewModel,
         authKey: keyConfirmSignInButton,
-        text: "CONFIRM");
+        text: _text);
   }
 }
 
@@ -82,10 +92,12 @@ class BackToSignInButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final ConfirmSignUpViewModel _authModelView =
         InheritedAuthViewModel.of(context)!.confirmSignUpViewModel;
+    final String _text =
+        InheritedStrings.of(context)!.resolver.navigation.backToSignin(context);
     return TextButton(
       key: const Key(keyBackToSignInButton),
       child: Text(
-        "Back to Sign In",
+        _text,
         style: TextStyle(
             fontSize: AuthenticatorButtonConstants.fontSize,
             color: Theme.of(context).primaryColor != Colors.blue
@@ -102,14 +114,16 @@ class GoToSignUpButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final SignInViewModel _authModelView =
         InheritedAuthViewModel.of(context)!.signInViewModel;
+    final NavigationResolver _navText =
+        InheritedStrings.of(context)!.resolver.navigation;
     return Padding(
       padding: const EdgeInsets.only(top: 4),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Expanded(
-            child: const Text("No account?",
-                style: TextStyle(
+          Expanded(
+            child: Text(_navText.noAccountQuestion(context),
+                style: const TextStyle(
                   color: AuthenticatorButtonConstants.textColor,
                   fontSize: AuthenticatorButtonConstants.fontSize,
                 )),
@@ -117,7 +131,7 @@ class GoToSignUpButton extends StatelessWidget {
           TextButton(
             key: const Key(keyGoToSignUpButton),
             onPressed: _authModelView.goToSignUp,
-            child: Text("Create account",
+            child: Text(_navText.navigateSignup(context),
                 style: TextStyle(
                     fontSize: AuthenticatorButtonConstants.fontSize,
                     color: Theme.of(context).primaryColor != Colors.blue
@@ -135,14 +149,16 @@ class GoToSignInButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final SignUpViewModel _authModelView =
         InheritedAuthViewModel.of(context)!.signUpViewModel;
+    final NavigationResolver _navText =
+        InheritedStrings.of(context)!.resolver.navigation;
     return Padding(
       padding: const EdgeInsets.only(top: 4.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Expanded(
-            child: Text("Have an account?",
-                style: TextStyle(
+          Expanded(
+            child: Text(_navText.haveAccountQuestion(context),
+                style: const TextStyle(
                   color: AuthenticatorButtonConstants.textColor,
                   fontSize: AuthenticatorButtonConstants.fontSize,
                 )),
@@ -150,7 +166,7 @@ class GoToSignInButton extends StatelessWidget {
           TextButton(
             key: const Key(keyGoToSignInButton),
             child: Text(
-              "Sign In",
+              _navText.navigateSignup(context),
               style: TextStyle(
                   fontSize: AuthenticatorButtonConstants.fontSize,
                   color: Theme.of(context).primaryColor != Colors.blue
@@ -172,13 +188,15 @@ class LostCodeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final ConfirmSignUpViewModel _authViewModel =
         InheritedAuthViewModel.of(context)!.confirmSignUpViewModel;
+    final ButtonResolver _buttonText =
+        InheritedStrings.of(context)!.resolver.buttons;
     return Padding(
       padding: const EdgeInsets.only(top: 4.0),
       child: Row(
         children: [
-          const Expanded(
-            child: Text("Lost your code?",
-                style: TextStyle(
+          Expanded(
+            child: Text(_buttonText.lostCodeQuestion(context),
+                style: const TextStyle(
                   color: AuthenticatorButtonConstants.textColor,
                   fontSize: 13,
                 )),
@@ -186,7 +204,7 @@ class LostCodeButton extends StatelessWidget {
           TextButton(
             key: const Key(keyGoToSignInButton),
             child: Text(
-              "Resend Code",
+              _buttonText.sendCode(context),
               style: TextStyle(
                   fontSize: AuthenticatorButtonConstants.textFontSize,
                   color: Theme.of(context).primaryColor != Colors.blue
@@ -208,13 +226,15 @@ class ResetPasswordButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final SignInViewModel _authViewModel =
         InheritedAuthViewModel.of(context)!.signInViewModel;
+    final NavigationResolver _navText =
+        InheritedStrings.of(context)!.resolver.navigation;
     return Padding(
       padding: const EdgeInsets.only(top: 4.0),
       child: Row(
         children: [
-          const Expanded(
-            child: Text("Forgot your Password?",
-                style: TextStyle(
+          Expanded(
+            child: Text(_navText.forgotPasswordQuestion(context),
+                style: const TextStyle(
                   color: Color.fromRGBO(130, 130, 130, 1),
                   fontSize: 12,
                 )),
@@ -222,7 +242,7 @@ class ResetPasswordButton extends StatelessWidget {
           TextButton(
             key: const Key(keyGoToSignInButton),
             child: Text(
-              "Reset password",
+              _navText.navigateResetPassword(context),
               style: TextStyle(
                   fontSize: 12,
                   color: Theme.of(context).primaryColor != Colors.blue
@@ -242,12 +262,14 @@ class SendCodeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final SignInViewModel _authViewModel =
         InheritedAuthViewModel.of(context)!.signInViewModel;
+    final String _text =
+        InheritedStrings.of(context)!.resolver.buttons.submit(context);
 
     return ButtonContainer(
         callback: _authViewModel.sendCode,
         authViewModel: _authViewModel,
         authKey: keySendCodeButton,
-        text: "SEND CODE");
+        text: _text);
   }
 }
 
@@ -256,12 +278,14 @@ class SubmitButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final SignInViewModel _authViewModel =
         InheritedAuthViewModel.of(context)!.signInViewModel;
+    final String _text =
+        InheritedStrings.of(context)!.resolver.buttons.submit(context);
 
     return ButtonContainer(
         callback: _authViewModel.confirmPassword,
         authViewModel: _authViewModel,
         authKey: keySendCodeButton,
-        text: "SUBMIT");
+        text: _text);
   }
 }
 
@@ -270,11 +294,13 @@ class ConfirmSignInNewPasswordButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final ConfirmSignInViewModel _authViewModel =
         InheritedAuthViewModel.of(context)!.confirmSignInViewModel;
+    final String _text =
+        InheritedStrings.of(context)!.resolver.buttons.changePassword(context);
 
     return ButtonContainer(
         callback: _authViewModel.confirmNewPassword,
         authViewModel: _authViewModel,
         authKey: keySendCodeButton,
-        text: "CHANGE");
+        text: _text);
   }
 }

@@ -22,6 +22,7 @@ import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
+import 'package:amplify_authenticator/src/state/inherited_strings.dart';
 
 //Screens
 import 'package:amplify_authenticator/src/screens/loading_screen.dart';
@@ -49,6 +50,9 @@ import 'package:amplify_authenticator/src/enums/alias.dart';
 //Services
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 
+//Text Customization
+import 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
+
 //Widgets
 import 'package:amplify_authenticator/src/widgets/forms.dart';
 import 'package:amplify_authenticator/src/widgets/default_forms.dart';
@@ -60,6 +64,7 @@ export 'package:amplify_authenticator/src/widgets/forms.dart';
 export 'package:amplify_authenticator/src/widgets/form_fields.dart';
 export 'package:amplify_authenticator/src/widgets/buttons.dart'
     show SignOutButton;
+export 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
 
 // ignore: must_be_immutable
 class Authenticator extends StatefulWidget {
@@ -89,23 +94,18 @@ class Authenticator extends StatefulWidget {
   ///     - define
   ///     - define
   ///
-  Authenticator({
-    Alias? usernameAlias,
-    required this.child,
-    SignInForm? signInForm,
-    SignUpForm? signUpForm,
-    ConfirmSignInMFAForm? confirmSignInFormMFA,
-  }) {
+  Authenticator(
+      {Alias? usernameAlias,
+      required this.child,
+      SignInForm? signInForm,
+      SignUpForm? signUpForm,
+      ConfirmSignInMFAForm? confirmSignInMFAForm,
+      AuthStringResolver? resolver}) {
+    this.resolver = resolver;
+    this.signInForm = signInForm;
+    this.signUpForm = signUpForm;
+    this.confirmSignInMFAForm = confirmSignInMFAForm;
     this.usernameAlias = usernameAlias ?? Alias.username;
-    this.signInForm = signInForm ?? DefaultForms.signInForm(this.usernameAlias);
-    this.signUpForm = signUpForm ?? DefaultForms.signUpForm(this.usernameAlias);
-    this.confirmSignInMFAForm =
-        confirmSignInFormMFA ?? DefaultForms.confirmSignInForm();
-
-    confirmSignUpForm = DefaultForms.confirmSignUpForm(this.usernameAlias);
-    sendCodeForm = DefaultForms.sendCodeForm(this.usernameAlias);
-    resetPasswordForm = DefaultForms.resetPasswordForm();
-    confirmSignInNewPasswordForm = DefaultForms.confirmSignInNewPasswordForm();
   }
 
   ///Optional username alias to setup the preferred sign in method,
@@ -119,10 +119,7 @@ class Authenticator extends StatefulWidget {
   /// ```
   late Alias usernameAlias;
 
-  late SendCodeForm sendCodeForm;
-  late ConfirmSignUpForm confirmSignUpForm;
-  late ResetPasswordForm resetPasswordForm;
-  late final ConfirmSignInMFAForm confirmSignInMFAForm;
+  ConfirmSignInMFAForm? confirmSignInMFAForm;
 
   /// This form will support the following form field types:
   ///    * username
@@ -142,8 +139,7 @@ class Authenticator extends StatefulWidget {
   ///           ])
   ///
   /// ```
-
-  late final SignInForm signInForm;
+  SignInForm? signInForm;
 
   /// This form will support the following form field types:
   /// * username
@@ -165,7 +161,6 @@ class Authenticator extends StatefulWidget {
   /// * updated_at
   /// * website
   /// * custom
-
   ///
   /// ### Example
   /// ```dart
@@ -194,53 +189,12 @@ class Authenticator extends StatefulWidget {
   ///                     ])
   ///
   /// ```
-  late final SignUpForm signUpForm;
-
-  /// This form will support the following form field types:
-  /// * code
-  /// * password
-  /// * birthdate
-  /// * email
-  /// * family_name
-  /// * gender
-  /// * given_name
-  /// * locate
-  /// * middle_name
-  /// * name
-  /// * nickname
-  /// * phone_number
-  /// * picture
-  /// * preferred_username
-  /// * profile
-  /// * zoneinfo
-  /// * updated_at
-  /// * website
-  /// * custom
-
-  ///
-  /// ### Example
-  /// ```dart
-  ///     ConfirmSignInNewPasswordForm( formFields:
-  ///                   FormFields(children: [
-  ///                     ConfirmSignInFormField(
-  ///                       type: "email" ,
-  ///                       title: "Custom email form field",
-  ///                       hintText: "Custom hint text",
-  ///                       ),
-  ///                     ConfirmSignInFormField(
-  ///                       type: "password" ,
-  ///                       title: "Custom password form field",
-  ///                       hintText: "Custom hint text",
-  ///                       ),
-  ///
-  ///                     ])
-  ///
-  /// ```
-
-  late ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm;
+  SignUpForm? signUpForm;
 
   /// This widget will be displayed after a user has signed in with some verified credentials.
   final Widget child;
+
+  AuthStringResolver? resolver;
 
   @override
   _AuthenticatorState createState() => _AuthenticatorState();
@@ -260,6 +214,28 @@ class _AuthenticatorState extends State<Authenticator> {
 
   @override
   Widget build(BuildContext context) {
+    var defaultForms = DefaultForms();
+    AuthStringResolver resolver = widget.resolver ?? AuthStringResolver();
+
+    defaultForms.context = context;
+
+    /// Check for customizable forms passed into the Authenticator
+    var signInForm = widget.signInForm ??
+        defaultForms.signInForm(widget.usernameAlias, resolver);
+    var signUpForm = widget.signUpForm ??
+        defaultForms.signUpForm(widget.usernameAlias, resolver);
+    var confirmSignInMFAForm =
+        widget.confirmSignInMFAForm ?? defaultForms.confirmSignInForm(resolver);
+
+    /// Instantiate static forms
+    var confirmSignUpForm =
+        defaultForms.confirmSignUpForm(widget.usernameAlias, resolver);
+    var confirmSignInNewPasswordForm =
+        defaultForms.confirmSignInNewPasswordForm(resolver);
+    var resetPasswordForm = defaultForms.resetPasswordForm(resolver);
+    var sendCodeForm =
+        defaultForms.sendCodeForm(widget.usernameAlias, resolver);
+
     return InheritedAuthBloc(
         key: const Key(keyInheritedAuthBloc),
         authBloc: _stateMachineBloc,
@@ -269,17 +245,18 @@ class _AuthenticatorState extends State<Authenticator> {
             signUpViewModel: SignUpViewModel(_stateMachineBloc),
             confirmSignUpViewModel: ConfirmSignUpViewModel(_stateMachineBloc),
             confirmSignInViewModel: ConfirmSignInViewModel(_stateMachineBloc),
-            child: InheritedForms(
-                confirmSignInNewPasswordForm:
-                    widget.confirmSignInNewPasswordForm,
-                resetPasswordForm: widget.resetPasswordForm,
-                sendCodeForm: widget.sendCodeForm,
-                signInForm: widget.signInForm,
-                signUpForm: widget.signUpForm,
-                confirmSignUpForm: widget.confirmSignUpForm,
-                confirmSignInMFAForm: widget.confirmSignInMFAForm,
-                child: Scaffold(
-                  body: StreamBuilder(
+            child: InheritedStrings(
+                resolver: resolver,
+                child: InheritedForms(
+                  confirmSignInNewPasswordForm: confirmSignInNewPasswordForm,
+                  resetPasswordForm: resetPasswordForm,
+                  sendCodeForm: sendCodeForm,
+                  signInForm: signInForm,
+                  signUpForm: signUpForm,
+                  confirmSignUpForm: confirmSignUpForm,
+                  confirmSignInMFAForm: confirmSignInMFAForm,
+                  child: Scaffold(
+                      body: StreamBuilder(
                     stream: _stateMachineBloc.stream,
                     builder: (context, snapshot) {
                       final state = snapshot.data ?? const AuthLoading();
@@ -327,7 +304,7 @@ class _AuthenticatorState extends State<Authenticator> {
                         ),
                       );
                     },
-                  ),
+                  )),
                 ))));
   }
 
