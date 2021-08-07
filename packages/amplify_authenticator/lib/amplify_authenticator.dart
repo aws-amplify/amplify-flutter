@@ -101,7 +101,7 @@ class Authenticator extends StatefulWidget {
       SignUpForm? signUpForm,
       ConfirmSignInMFAForm? confirmSignInMFAForm,
       AuthStringResolver? resolver}) {
-    this.resolver = resolver == null ? AuthStringResolver() : resolver;
+    this.resolver = resolver;
     this.signInForm = signInForm;
     this.signUpForm = signUpForm;
     this.confirmSignInMFAForm = confirmSignInMFAForm;
@@ -194,7 +194,7 @@ class Authenticator extends StatefulWidget {
   /// This widget will be displayed after a user has signed in with some verified credentials.
   final Widget child;
 
-  late AuthStringResolver resolver;
+  AuthStringResolver? resolver;
 
   @override
   _AuthenticatorState createState() => _AuthenticatorState();
@@ -215,25 +215,26 @@ class _AuthenticatorState extends State<Authenticator> {
   @override
   Widget build(BuildContext context) {
     var defaultForms = DefaultForms();
+    AuthStringResolver resolver = widget.resolver ?? AuthStringResolver();
 
     defaultForms.context = context;
 
     /// Check for customizable forms passed into the Authenticator
     var signInForm = widget.signInForm ??
-        defaultForms.signInForm(widget.usernameAlias, widget.resolver);
+        defaultForms.signInForm(widget.usernameAlias, resolver);
     var signUpForm = widget.signUpForm ??
-        defaultForms.signUpForm(widget.usernameAlias, widget.resolver);
-    var confirmSignInMFAForm = widget.confirmSignInMFAForm ??
-        defaultForms.confirmSignInForm(widget.resolver);
+        defaultForms.signUpForm(widget.usernameAlias, resolver);
+    var confirmSignInMFAForm =
+        widget.confirmSignInMFAForm ?? defaultForms.confirmSignInForm(resolver);
 
     /// Instantiate static forms
     var confirmSignUpForm =
-        defaultForms.confirmSignUpForm(widget.usernameAlias, widget.resolver);
+        defaultForms.confirmSignUpForm(widget.usernameAlias, resolver);
     var confirmSignInNewPasswordForm =
-        defaultForms.confirmSignInNewPasswordForm(widget.resolver);
-    var resetPasswordForm = defaultForms.resetPasswordForm(widget.resolver);
+        defaultForms.confirmSignInNewPasswordForm(resolver);
+    var resetPasswordForm = defaultForms.resetPasswordForm(resolver);
     var sendCodeForm =
-        defaultForms.sendCodeForm(widget.usernameAlias, widget.resolver);
+        defaultForms.sendCodeForm(widget.usernameAlias, resolver);
 
     return InheritedAuthBloc(
         key: const Key(keyInheritedAuthBloc),
@@ -245,7 +246,7 @@ class _AuthenticatorState extends State<Authenticator> {
             confirmSignUpViewModel: ConfirmSignUpViewModel(_stateMachineBloc),
             confirmSignInViewModel: ConfirmSignInViewModel(_stateMachineBloc),
             child: InheritedStrings(
-                resolver: widget.resolver,
+                resolver: resolver,
                 child: InheritedForms(
                   confirmSignInNewPasswordForm: confirmSignInNewPasswordForm,
                   resetPasswordForm: resetPasswordForm,

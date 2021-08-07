@@ -47,7 +47,6 @@ class ButtonResolver {
       StringResolver? changePassword,
       StringResolver? sendCode,
       StringResolver? lostCodeQuestion}) {
-    // We are assigning in this way due to limitations in assigning closures as defaults
     this.signin = signin ?? this.signin;
     this.signup = signup ?? this.signup;
     this.confirm = confirm ?? this.confirm;

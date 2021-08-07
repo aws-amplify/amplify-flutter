@@ -47,7 +47,6 @@ class NavigationResolver {
       StringResolver? haveAccountQuestion,
       StringResolver? forgotPasswordQuestion,
       StringResolver? backToSignin}) {
-    // We are assigning in this way due to limitations in assigning closures as defaults
     this.navigateSignin = navigateSignin ?? this.navigateSignin;
     this.navigateSignup = navigateSignup ?? this.navigateSignup;
     this.navigateResetPassword =

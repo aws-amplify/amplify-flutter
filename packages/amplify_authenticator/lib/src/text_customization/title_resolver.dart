@@ -47,7 +47,6 @@ class TitleResolver {
       StringResolver? confirmSigninNewPassword,
       StringResolver? resetPassword,
       StringResolver? sendCode}) {
-    // We are assigning in this way due to limitations in assigning closures as defaults
     this.signin = signin ?? this.signin;
     this.signup = signup ?? this.signup;
     this.confirmSignup = confirmSignup ?? this.confirmSignup;

@@ -67,7 +67,6 @@ class InputResolver {
       StringResolver? verification_code_hint,
       StringResolver? email_phone_number_title,
       StringResolver? email_phone_number_hint}) {
-    // We are assigning in this way due to limitations in assigning closures as defaults
     this.username_title = username_title ?? this.username_title;
     this.username_hint = username_hint ?? this.username_hint;
     this.password_title = password_title ?? this.password_title;
