@@ -170,45 +170,4 @@ class AuthProviderTests: XCTestCase {
             }
         }
     }
-    
-    func test_auth_providers_concurrent_access() {
-        let oidcToken = AWSAuthorizationType.openIDConnect.rawValue
-        var hasToken: UInt32 = 0
-        
-        let exp = XCTestExpectation()
-        DispatchQueue.global().sync {
-            DispatchQueue.concurrentPerform(iterations: 1000) { it in
-                if it % 2 == 0 {
-                    FlutterAuthProviders.setToken(type: .openIDConnect, token: oidcToken)
-                    OSAtomicTestAndSet(0, &hasToken)
-                } else {
-                    FlutterAuthProviders.setToken(type: .openIDConnect, token: nil)
-                    OSAtomicTestAndClear(0, &hasToken)
-                }
-            }
-            exp.fulfill()
-        }
-        
-        wait(for: [exp], timeout: 3)
-        
-        let functionExp = XCTestExpectation()
-        apiProviders.setCallback { type, token, error in
-            XCTAssertEqual(type, .openIDConnect)
-            if hasToken > 0 {
-                XCTAssertEqual(token, oidcToken)
-                XCTAssertNil(error)
-            } else {
-                XCTAssertEqual(token, nil)
-                XCTAssertNotNil(error)
-            }
-            functionExp.fulfill()
-        }
-        
-        Amplify.API.query(request: request(for: .openIDConnect))
-            .resultPublisher
-            .sink { _ in } receiveValue: { _ in }
-            .store(in: &cancellables)
-        
-        wait(for: [functionExp], timeout: 1)
-    }
 }

@@ -20,21 +20,14 @@ import Flutter
 
 /// A factory of [FlutterAuthProvider] instances. Manages shared state for all providers.
 class FlutterAuthProviders: APIAuthProviderFactory {
-    /// Protects [tokens] from mutual access.
-    static private let lock = NSRecursiveLock()
-    
     /// Token cache for all [FlutterAuthProvider] instances.
     static private var tokens: [AWSAuthorizationType: String?] = [:]
     
     static func setToken(type: AWSAuthorizationType, token: String?) {
-        lock.lock()
-        defer { lock.unlock() }
         tokens[type] = token
     }
     
     static func getToken(for type: AWSAuthorizationType) -> String? {
-        lock.lock()
-        defer { lock.unlock() }
         return tokens[type] ?? nil
     }
     
