@@ -1,3 +1,10 @@
+## 0.2.2 (2021-08-04)
+
+### Features
+
+- feat: enables clientMetadata for signUp (#713)
+- feat: Auth Devices API (#735)
+
 ## 0.2.1 (2021-07-27)
 
 ### Bug Fixes

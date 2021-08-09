@@ -15,7 +15,9 @@
 
 package com.amazonaws.amplify.amplify_api
 
+import com.amazonaws.amplify.amplify_api.rest_api.FlutterRestApi
 import com.amplifyframework.AmplifyException
+import com.amplifyframework.api.ApiException
 import com.amplifyframework.api.rest.RestOptions
 import io.flutter.plugin.common.MethodChannel
 
@@ -33,7 +35,7 @@ class FlutterApiRequest {
         private val HEADERS_KEY = "headers"
 
         // ====== Rest API ======
-        fun getCancelToken(request: Map<String, Any>) : String {
+        fun getCancelToken(request: Map<String, Any>): String {
             try {
                 return request[CANCEL_TOKEN_KEY] as String
             } catch (cause: Exception) {
@@ -45,7 +47,7 @@ class FlutterApiRequest {
             return request[CANCEL_TOKEN_KEY] as String
         }
 
-        fun getApiPath(request: Map<String, Any>) : String? {
+        fun getApiPath(request: Map<String, Any>): String? {
             try {
                 val restOptionsMap = request[REST_OPTIONS_KEY] as Map<String, Any>
                 return restOptionsMap[API_NAME_KEY] as String?
@@ -58,7 +60,7 @@ class FlutterApiRequest {
             return request[CANCEL_TOKEN_KEY] as String
         }
 
-        fun getRestOptions(request: Map<String, Any>) : RestOptions {
+        fun getRestOptions(request: Map<String, Any>): RestOptions {
 
             try {
                 val builder: RestOptions.Builder = RestOptions.builder()
@@ -90,16 +92,23 @@ class FlutterApiRequest {
             }
         }
 
+        @JvmStatic
+        fun checkForEmptyBodyIfRequired(options: RestOptions, methodName: String) {
+            if ((methodName == FlutterRestApi.PUT || methodName == FlutterRestApi.POST || methodName == FlutterRestApi.PATCH) && !options.hasData()) {
+                throw ApiException("$methodName request must have a body", "Add a body to the request.")
+            }
+        }
+
         // ====== GraphQL ======
         @JvmStatic
         fun getGraphQLDocument(request: Map<String, Any>): String {
             try {
                 return request["document"] as String
             } catch (cause: Exception) {
-                   throw AmplifyException(
-                            "The graphQL document request argument was not passed as a String",
-                            cause,
-                            "The request should include the graphQL document as a String")
+                throw AmplifyException(
+                        "The graphQL document request argument was not passed as a String",
+                        cause,
+                        "The request should include the graphQL document as a String")
             }
         }
 
@@ -114,6 +123,24 @@ class FlutterApiRequest {
                         "The request should include the variables argument as a [String: Any] dictionary")
             }
         }
+
+        @JvmStatic
+        fun getApiName(request: Map<String, Any>) : String? {
+            if (request[API_NAME_KEY] != null) {
+                try {
+                    return request[API_NAME_KEY] as String
+                } catch (cause: Exception) {
+                    throw AmplifyException(
+                        "The apiName request argument was not passed as a String",
+                        cause,
+                        "The request should include the apiName as a String")
+                }
+            }
+
+            return null;
+
+        }
+
 
     }
 }
