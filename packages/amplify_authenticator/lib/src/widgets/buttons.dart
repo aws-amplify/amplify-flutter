@@ -166,7 +166,7 @@ class GoToSignInButton extends StatelessWidget {
           TextButton(
             key: const Key(keyGoToSignInButton),
             child: Text(
-              _navText.navigateSignup(context),
+              _navText.navigateSignin(context),
               style: TextStyle(
                   fontSize: AuthenticatorButtonConstants.fontSize,
                   color: Theme.of(context).primaryColor != Colors.blue
