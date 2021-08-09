@@ -15,10 +15,10 @@
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart'
     as DataStore;
-import 'package:flutter/foundation.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/graphql/graphql_response_decoder.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:collection/collection.dart';
 
 import 'resources/Blog.dart';
 import 'resources/ModelProvider.dart';
@@ -36,7 +36,8 @@ void main() {
         GraphQLRequest<Blog> req = ModelQueries.get<Blog>(Blog.classType, id);
 
         expect(req.document, expected);
-        expect(mapEquals(req.variables, {'id': id}), isTrue);
+        expect(
+            DeepCollectionEquality().equals(req.variables, {'id': id}), isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, "getBlog");
       });
@@ -160,15 +161,17 @@ void main() {
         final createdAt = DataStore.TemporalDateTime.fromString(time);
 
         Blog blog = Blog(id: id, name: name, createdAt: createdAt);
-
-        final expectedVars = {'id': id, 'name': name, "createdAt": time};
+        final expectedVars = {
+          "input": {'id': id, 'name': name, "createdAt": time}
+        };
         final expectedDoc =
             r"mutation createBlog($input: CreateBlogInput!, $condition:  ModelBlogConditionInput) { createBlog(input: $input, condition: $condition) { id name createdAt } }";
 
         GraphQLRequest<Blog> req = ModelMutations.create<Blog>(blog);
 
         expect(req.document, expectedDoc);
-        expect(mapEquals(req.variables, expectedVars), isTrue);
+        expect(DeepCollectionEquality().equals(req.variables, expectedVars),
+            isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, "createBlog");
       });
@@ -181,14 +184,17 @@ void main() {
 
         Blog blog = Blog(id: id, name: name, createdAt: createdAt);
 
-        final expectedVars = {'id': id};
+        final expectedVars = {
+          "input": {'id': id}
+        };
         final expectedDoc =
             r"mutation deleteBlog($input: DeleteBlogInput!, $condition:  ModelBlogConditionInput) { deleteBlog(input: $input, condition: $condition) { id name createdAt } }";
 
         GraphQLRequest<Blog> req = ModelMutations.delete<Blog>(blog);
 
         expect(req.document, expectedDoc);
-        expect(mapEquals(req.variables, expectedVars), isTrue);
+        expect(DeepCollectionEquality().equals(req.variables, expectedVars),
+            isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, "deleteBlog");
       });
@@ -196,7 +202,9 @@ void main() {
       test("ModelMutations.deleteById() should build a valid request", () {
         final id = UUID.getUUID();
 
-        final expectedVars = {'id': id};
+        final expectedVars = {
+          "input": {'id': id}
+        };
         final expectedDoc =
             r"mutation deleteBlog($input: DeleteBlogInput!, $condition:  ModelBlogConditionInput) { deleteBlog(input: $input, condition: $condition) { id name createdAt } }";
 
@@ -204,7 +212,8 @@ void main() {
             ModelMutations.deleteById<Blog>(Blog.classType, id);
 
         expect(req.document, expectedDoc);
-        expect(mapEquals(req.variables, expectedVars), isTrue);
+        expect(DeepCollectionEquality().equals(req.variables, expectedVars),
+            isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, "deleteBlog");
       });
@@ -217,14 +226,17 @@ void main() {
 
         Blog blog = Blog(id: id, name: name, createdAt: createdAt);
 
-        final expectedVars = {'id': id, 'name': name, "createdAt": time};
+        final expectedVars = {
+          "input": {'id': id, 'name': name, "createdAt": time}
+        };
         final expectedDoc =
             r"mutation updateBlog($input: UpdateBlogInput!, $condition:  ModelBlogConditionInput) { updateBlog(input: $input, condition: $condition) { id name createdAt } }";
 
         GraphQLRequest<Blog> req = ModelMutations.update<Blog>(blog);
 
         expect(req.document, expectedDoc);
-        expect(mapEquals(req.variables, expectedVars), isTrue);
+        expect(DeepCollectionEquality().equals(req.variables, expectedVars),
+            isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, "updateBlog");
       });
@@ -237,14 +249,17 @@ void main() {
 
         Blog blog = Blog(id: id, name: name, createdAt: createdAt);
 
-        final expectedVars = {'id': id, 'name': name, "createdAt": time};
+        final expectedVars = {
+          "input": {'id': id, 'name': name, "createdAt": time}
+        };
         final expectedDoc =
             r"mutation updateBlog($input: UpdateBlogInput!, $condition:  ModelBlogConditionInput) { updateBlog(input: $input, condition: $condition) { id name createdAt } }";
 
         GraphQLRequest<Blog> req = ModelMutations.update<Blog>(blog);
 
         expect(req.document, expectedDoc);
-        expect(mapEquals(req.variables, expectedVars), isTrue);
+        expect(DeepCollectionEquality().equals(req.variables, expectedVars),
+            isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, "updateBlog");
       });

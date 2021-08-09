@@ -12,6 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_flutter/amplify.dart';
@@ -24,7 +25,7 @@ import 'resources/ModelProvider.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  List<Blog> blogIds = [];
+  List<Blog> blogCache = [];
 
   // utility to query blogs and return length
   group('GraphQL', () {
@@ -49,9 +50,8 @@ void main() {
     }
 
     Future<bool> deleteAllBlogs() async {
-      blogIds.forEach((e) async {
-        await deleteBlog(e.id);
-      });
+      await Future.wait(blogCache.map((blog) => deleteBlog(blog.id)));
+
       return true;
     }
 
@@ -72,7 +72,7 @@ void main() {
       var response = await _r.response;
       Map data = jsonDecode(response.data);
       Blog blog = Blog.fromJson(data["createBlog"]);
-      blogIds.add(blog);
+      blogCache.add(blog);
       return blog;
     }
 
@@ -81,9 +81,6 @@ void main() {
         await Amplify.addPlugins(
             [AmplifyAPI(modelProvider: ModelProvider.instance)]);
         await Amplify.configure(amplifyconfig);
-      }
-      if (blogIds.length == 0) {
-        await deleteAllBlogs();
       }
     });
 
@@ -122,7 +119,7 @@ void main() {
       var res = await _r.response;
       Blog data = res.data;
 
-      expect(data.name, name);
+      expect(data, equals(blog));
     });
 
     testWidgets('should LIST blogs with Model helper',
@@ -140,16 +137,17 @@ void main() {
       var res = await _r.response;
       var data = res.data;
 
-      expect(data.items.length, greaterThanOrEqualTo(3));
+      final blogs = [blog_1, blog_2, blog_3];
+
+      expect(data.items, containsAll(blogs));
     });
 
     // Mutations
     testWidgets('should CREATE a blog with Model helper',
         (WidgetTester tester) async {
       String name = "Integration Test Blog - create";
-      Blog blog = Blog(name: name);
+      Blog blog = Blog(name: name, createdAt: TemporalDateTime.now());
 
-      blog = blog.copyWith(name: name);
       var req = ModelMutations.create(blog);
 
       var _r = await Amplify.API.mutate(request: req);
@@ -157,9 +155,9 @@ void main() {
       var res = await _r.response;
       Blog data = res.data;
 
-      blogIds.add(data);
+      blogCache.add(data);
 
-      expect(data.name, name);
+      expect(data, equals(blog));
     });
 
     testWidgets('should UPDATE a blog with Model helper',
@@ -176,7 +174,7 @@ void main() {
       var res = await _r.response;
       Blog data = res.data;
 
-      expect(data.name, newName);
+      expect(data, equals(blog));
     });
 
     testWidgets('should DELETE a blog with Model helper',
@@ -190,7 +188,17 @@ void main() {
       var res = await _r.response;
       Blog data = res.data;
 
-      expect(data.name, name);
+      expect(data, equals(blog));
+
+      try {
+        var checkReq = ModelQueries.get(Blog.classType, blog.id);
+        var _check = await Amplify.API.query(request: checkReq);
+        var checkRes = await _check.response;
+      } on ApiException catch (e) {
+        expect(e.message, 'response from app sync was "null"');
+        expect(e.recoverySuggestion,
+            "Current GraphQLResponse is non-nullable, please insure item exists before fetching");
+      }
     });
   });
 }

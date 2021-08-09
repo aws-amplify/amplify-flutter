@@ -15,7 +15,8 @@ dependencies:
 
   amplify_auth_cognito:
     path: ../../amplify_auth_cognito
-  amplify_datastore_plugin_interface: 0.2.0
+  amplify_datastore_plugin_interface:
+    path: ../../amplify_datastore_plugin_interface
 
   amplify_api:
     # When depending on this package from a real application you should use:
