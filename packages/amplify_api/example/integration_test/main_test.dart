@@ -20,13 +20,15 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api_example/amplifyconfiguration.dart';
 
 import 'graph_ql_tests.dart' as graph_ql_tests;
+import 'resources/ModelProvider.dart';
 
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('amplify_api', () {
     setUpAll(() async {
-      await Amplify.addPlugins([AmplifyAPI()]);
+      await Amplify.addPlugins(
+          [AmplifyAPI(modelProvider: ModelProvider.instance)]);
       await Amplify.configure(amplifyconfig);
     });
 

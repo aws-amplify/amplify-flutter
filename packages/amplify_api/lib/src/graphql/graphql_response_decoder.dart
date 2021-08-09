@@ -17,7 +17,7 @@ class GraphQLResponseDecoder {
       required List<GraphQLResponseError> errors}) {
     // if no ModelType fallback to default
     if (request.modelType == null) {
-      if (T == String) {
+      if (T == String || T == dynamic) {
         return GraphQLResponse(
             data: data as T, errors: errors); // <T> is implied
       } else {
@@ -39,7 +39,7 @@ class GraphQLResponseDecoder {
     }
 
     request.decodePath!.split(".").forEach((element) {
-      if (dataJson![element] == null) {
+      if (!dataJson!.containsKey(element)) {
         throw ApiException(
             'decodePath did not match the structure of the JSON response',
             recoverySuggestion:
@@ -47,6 +47,13 @@ class GraphQLResponseDecoder {
       }
       dataJson = dataJson![element];
     });
+
+    if (dataJson == null) {
+      // TODO: T data is non-nullable, need to handle valid null response
+      throw ApiException('response from app sync was "null"',
+          recoverySuggestion:
+              "Current GraphQLResponse is non-nullable, please insure item exists before fetching");
+    }
 
     T decodedData = request.modelType!.fromJson(dataJson!) as T;
 
