@@ -312,42 +312,6 @@ class StateMachineBloc {
     }
   }
 
-  //Private methods
-
-  Stream<AuthState> _signInResult(SignInResult result) async* {
-    print(result.nextStep!.signInStep);
-    switch (result.nextStep!.signInStep) {
-      case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
-        yield AuthFlow(
-          screen: AuthScreen.confirmSignInMfa,
-        );
-
-        break;
-      case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
-        _exceptionController.add(
-            AuthenticatorException('This is screen is not implemented yet'));
-
-        break;
-      case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
-        yield AuthFlow(
-          screen: AuthScreen.confirmSignInNewPassword,
-        );
-
-        break;
-      case 'RESET_PASSWORD':
-        yield AuthFlow(screen: AuthScreen.sendCode);
-        break;
-      case 'CONFIRM_SIGN_UP':
-        yield AuthFlow(screen: AuthScreen.confirmSignUp);
-        break;
-      case 'DONE':
-        yield const Authenticated();
-        break;
-      default:
-        break;
-    }
-  }
-
   void dispose() {
     _authStateController.close();
     _authEventController.close();
