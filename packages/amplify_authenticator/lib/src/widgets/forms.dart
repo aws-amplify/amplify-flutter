@@ -83,7 +83,7 @@ class ConfirmSignUpForm extends StatelessWidget {
         formFields: formFields,
         buttonsContainer: ButtonsContainer(children: <Widget>[
           BackToSignInButton(),
-          ConfirmButton(),
+          ConfirmSignUpButton(),
         ]));
   }
 }

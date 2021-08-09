@@ -31,7 +31,7 @@ class SignInFormField extends StatelessWidget {
   /// * Email
   /// * Phone number
   /// * Password
-  /// * New PassworD
+  /// * New Password
   /// * Verification Code
   final String type;
 
@@ -44,8 +44,7 @@ class SignInFormField extends StatelessWidget {
         InheritedAuthViewModel.of(context)!.signInViewModel;
     final _confirmSignUpViewModel =
         InheritedAuthViewModel.of(context)!.confirmSignUpViewModel;
-    final _confirmSignInViewModel =
-        InheritedAuthViewModel.of(context)!.confirmSignInViewModel;
+
     bool _obscureText = false;
     late void Function(String) _callBack;
     late Key _key;
@@ -58,7 +57,6 @@ class SignInFormField extends StatelessWidget {
         _callBack = (value) {
           _signInViewModel.setUsername(value);
           _confirmSignUpViewModel.setUsername(value);
-          _confirmSignInViewModel.setUsername(value);
         };
         _keyboardType = TextInputType.text;
         _validator = validator ?? validateUsername;
@@ -68,7 +66,6 @@ class SignInFormField extends StatelessWidget {
         _callBack = (value) {
           _signInViewModel.setUsername(value);
           _confirmSignUpViewModel.setUsername(value);
-          _confirmSignInViewModel.setUsername(value);
         };
         _keyboardType = TextInputType.emailAddress;
         _validator = validator ?? validateEmail;
@@ -78,7 +75,6 @@ class SignInFormField extends StatelessWidget {
         _callBack = (value) {
           _signInViewModel.setUsername(value);
           _confirmSignUpViewModel.setUsername(value);
-          _confirmSignInViewModel.setUsername(value);
         };
         _keyboardType = TextInputType.phone;
         _validator = validator ?? validatePhoneNumber;
@@ -87,7 +83,6 @@ class SignInFormField extends StatelessWidget {
       case SignInType.password:
         _callBack = (value) {
           _signInViewModel.setPassword(value);
-          _confirmSignInViewModel.setPassword(value);
           _confirmSignUpViewModel.setPassword(value);
         };
         _keyboardType = TextInputType.visiblePassword;
@@ -495,7 +490,6 @@ class ConfirmSignInFormField extends StatelessWidget {
       case ConfirmSignInType.password:
         _callBack = (String value) {
           _authModelView.setCode(value);
-          _authModelView.setPassword(value);
         };
         _keyboardType = TextInputType.visiblePassword;
         _obscureText = true;

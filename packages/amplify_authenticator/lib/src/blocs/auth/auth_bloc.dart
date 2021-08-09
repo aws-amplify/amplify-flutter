@@ -82,8 +82,6 @@ class StateMachineBloc {
       SignInResult result = await _authService.confirmSignIn(
           code: data.code, attributes: data.attributes);
 
-      print(result.nextStep!.signInStep);
-
       switch (result.nextStep!.signInStep) {
         case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
           yield AuthFlow(

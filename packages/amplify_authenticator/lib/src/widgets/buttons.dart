@@ -38,7 +38,7 @@ class SignInButton extends StatelessWidget {
   }
 }
 
-class ConfirmButton extends StatelessWidget {
+class ConfirmSignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ConfirmSignUpViewModel _authViewModel =

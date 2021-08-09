@@ -11,8 +11,7 @@ class ConfirmSignInViewModel extends BaseViewModel {
   final _formKey = GlobalKey<FormState>();
 
   GlobalKey<FormState> get formKey => _formKey;
-  String? _username;
-  String? _password;
+
   String? _code;
   String? _address;
   String? _birthdate;
@@ -34,14 +33,6 @@ class ConfirmSignInViewModel extends BaseViewModel {
   String? _custom;
 
   Map<String, String> authAttributes = {};
-
-  void setUsername(String value) {
-    _username = value;
-  }
-
-  void setPassword(String value) {
-    _password = value;
-  }
 
   void setCode(String value) {
     _code = value;
