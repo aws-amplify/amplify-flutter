@@ -43,32 +43,6 @@ class AuthConfirmSignUpData {
       {required this.username, required this.code, required this.password});
 }
 
-class AuthConfirmSignInMFAData {
-  final String code;
-
-  Map<String, String>? attributes;
-
-  AuthConfirmSignInMFAData({
-    required this.code,
-    this.attributes,
-  });
-}
-
-class AuthConfirmSignInNewPasswordData {
-  final String code;
-
-  final String username;
-  final String password;
-
-  Map<String, String>? attributes;
-
-  AuthConfirmSignInNewPasswordData(
-      {required this.code,
-      this.attributes,
-      required this.username,
-      required this.password});
-}
-
 class AuthSendCodeData {
   AuthSendCodeData({required this.username});
   final String username;
@@ -91,4 +65,15 @@ class AuthUpdatePasswordData {
   Map<String, String>? attributes;
   final String username;
   final String newPassword;
+}
+
+class AuthConfirmSignInData {
+  final String code;
+
+  Map<String, String>? attributes;
+
+  AuthConfirmSignInData({
+    required this.code,
+    this.attributes,
+  });
 }

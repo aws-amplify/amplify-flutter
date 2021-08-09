@@ -153,7 +153,7 @@ class ConfirmSignInNewPasswordForm extends StatelessWidget {
   const ConfirmSignInNewPasswordForm({Key? key, required this.formFields})
       : super(key: key);
 
-  /// A list of sign in form fields
+  /// A list of confirm sign in form fields
   final FormFields formFields;
 
   @override

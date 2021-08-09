@@ -57,7 +57,7 @@ class ConfirmSignInMFAButton extends StatelessWidget {
     final ConfirmSignInViewModel _authViewModel =
         InheritedAuthViewModel.of(context)!.confirmSignInViewModel;
     return ButtonContainer(
-        callback: _authViewModel.confirmMfa,
+        callback: _authViewModel.confirmSignIn,
         authViewModel: _authViewModel,
         authKey: keyConfirmSignInButton,
         text: "CONFIRM");
@@ -272,7 +272,7 @@ class ConfirmSignInNewPasswordButton extends StatelessWidget {
         InheritedAuthViewModel.of(context)!.confirmSignInViewModel;
 
     return ButtonContainer(
-        callback: _authViewModel.confirmNewPassword,
+        callback: _authViewModel.confirmSignIn,
         authViewModel: _authViewModel,
         authKey: keySendCodeButton,
         text: "CHANGE");

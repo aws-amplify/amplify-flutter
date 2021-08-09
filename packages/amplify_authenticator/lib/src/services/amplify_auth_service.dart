@@ -21,7 +21,7 @@ abstract class AuthService {
   Future<UpdatePasswordResult> confirmPassword(
       String username, String code, String newPassword);
 
-  Future<void> confirmSignIn(
+  Future<SignInResult> confirmSignIn(
       {required String code, Map<String, String>? attributes});
 
   Future<ResendSignUpCodeResult> resendSignUpCode(String username);
@@ -63,9 +63,9 @@ class AmplifyAuthService implements AuthService {
     );
   }
 
-  Future<void> confirmSignIn(
+  Future<SignInResult> confirmSignIn(
       {required String code, Map<String, String>? attributes}) async {
-    await Amplify.Auth.confirmSignIn(
+    return await Amplify.Auth.confirmSignIn(
         confirmationValue: code,
         options: CognitoConfirmSignInOptions(userAttributes: attributes));
   }

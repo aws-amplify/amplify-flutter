@@ -140,38 +140,19 @@ class ConfirmSignInViewModel extends BaseViewModel {
 
   // Auth calls
 
-  Future<void> confirmNewPassword() async {
+  Future<void> confirmSignIn() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
     setBusy(true);
-    AuthConfirmSignInNewPasswordData confirm = AuthConfirmSignInNewPasswordData(
-        code: _code!.trim(),
-        attributes: authAttributes,
-        username: _username!.trim(),
-        password: _password!.trim());
+    AuthConfirmSignInData confirm =
+        AuthConfirmSignInData(code: _code!.trim(), attributes: authAttributes);
 
-    _authBloc.authEvent.add(AuthConfirmSignInNewPassword(confirm));
+    _authBloc.authEvent.add(AuthConfirmSignIn(confirm));
     await Future.any([
       _authBloc.exceptions.first,
       _authBloc.stream
-          .firstWhere((state) => state is AuthFlow || state is Authenticated),
-    ]);
-    setBusy(false);
-  }
-
-  Future<void> confirmMfa() async {
-    if (!_formKey.currentState!.validate()) {
-      return;
-    }
-    setBusy(true);
-    AuthConfirmSignInMFAData confirm = AuthConfirmSignInMFAData(
-        code: _code!.trim(), attributes: authAttributes);
-
-    _authBloc.authEvent.add(AuthConfirmSignInMFA(confirm));
-    await Future.any([
-      _authBloc.exceptions.first,
-      _authBloc.stream.firstWhere((state) => state is Authenticated),
+          .firstWhere((state) => state is Authenticated || state is AuthFlow),
     ]);
     setBusy(false);
   }
