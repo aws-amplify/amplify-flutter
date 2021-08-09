@@ -18,7 +18,7 @@ import 'package:amplify_authenticator/src/text_customization/resolver_typedef.da
 /// The resolver class for shared button Widgets
 class NavigationResolver {
   /// Text for navigating to the signup Widget
-  StringResolver navigateSignup = (_) => 'I am the default';
+  StringResolver navigateSignup = (_) => 'Sign Up';
 
   /// Text for navigating to the signin Widget
   StringResolver navigateSignin = (_) => 'Sign In';
