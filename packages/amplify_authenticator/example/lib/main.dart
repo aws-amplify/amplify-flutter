@@ -67,6 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     // Uncomment to use localizations
+
     // AuthStringResolver resolver = AuthStringResolver(
     //     buttons: ButtonResolver(
     //         signin: (_) => AppLocalizations.of(context)!.button_signin,
@@ -117,9 +118,11 @@ class _MyHomePageState extends State<MyHomePage> {
     //             AppLocalizations.of(context)!.title_confirm_signup,
     //         resetPassword: (_) =>
     //             AppLocalizations.of(context)!.title_reset_password));
+
     return Authenticator(
       // Uncomment this code to use localizations
       // resolver: resolver,
+
       child: const CustomersApp(),
     );
   }

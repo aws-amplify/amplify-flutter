@@ -81,8 +81,8 @@ class ConfirmSignUpForm extends StatelessWidget {
         formKey: _authModelView.formKey,
         formFields: formFields,
         buttonsContainer: ButtonsContainer(children: <Widget>[
-          BackToSignInButton(),
           ConfirmSignUpButton(),
+          BackToSignInButton(),
         ]));
   }
 }
@@ -103,8 +103,8 @@ class ConfirmSignInMFAForm extends StatelessWidget {
         formKey: _authModelView.formKey,
         formFields: formFields,
         buttonsContainer: ButtonsContainer(children: <Widget>[
-          BackToSignInButton(),
           ConfirmSignInMFAButton(),
+          BackToSignInButton(),
         ]));
   }
 }
@@ -122,8 +122,8 @@ class SendCodeForm extends StatelessWidget {
         formKey: _authModelView.formKey,
         formFields: formFields,
         buttonsContainer: ButtonsContainer(children: <Widget>[
-          BackToSignInButton(),
           SendCodeButton(),
+          BackToSignInButton(),
         ]));
   }
 }
@@ -142,8 +142,8 @@ class ResetPasswordForm extends StatelessWidget {
         formKey: _authModelView.formKey,
         formFields: formFields,
         buttonsContainer: ButtonsContainer(children: <Widget>[
-          BackToSignInButton(),
           SubmitButton(),
+          BackToSignInButton(),
         ]));
   }
 }
@@ -163,8 +163,8 @@ class ConfirmSignInNewPasswordForm extends StatelessWidget {
         formKey: _authModelView.formKey,
         formFields: formFields,
         buttonsContainer: ButtonsContainer(children: <Widget>[
-          BackToSignInButton(),
           ConfirmSignInNewPasswordButton(),
+          BackToSignInButton(),
         ]));
   }
 }
