@@ -45,8 +45,6 @@ class StateMachineBloc {
   }
 
   //Exception Controller
-
-  //Exception Controller
   final StreamController<AuthenticatorException?> _exceptionController =
       StreamController<AuthenticatorException?>.broadcast();
 
