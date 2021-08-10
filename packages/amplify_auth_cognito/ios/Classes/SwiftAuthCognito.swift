@@ -28,10 +28,14 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
     private let authCognitoHubEventStreamHandler: AuthCognitoHubEventStreamHandler?
     var errorHandler = AuthErrorHandler()
     
+    /// Handles calls to the Devices API.
+    private let deviceHandler: DeviceHandler
+    
     init(cognito: AuthCognitoBridge = AuthCognitoBridge(),
          authCognitoHubEventStreamHandler: AuthCognitoHubEventStreamHandler = AuthCognitoHubEventStreamHandler()) {
         self.cognito = cognito
         self.authCognitoHubEventStreamHandler = authCognitoHubEventStreamHandler
+        self.deviceHandler = DeviceHandler(errorHandler: errorHandler)
     }
     
     public static func register(with registrar: FlutterPluginRegistrar) {
@@ -99,6 +103,11 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
                     result(false)
                 }
             }
+            return
+        }
+        
+        if (DeviceHandler.canHandle(call.method)) {
+            deviceHandler.handle(call, result: result)
             return
         }
 

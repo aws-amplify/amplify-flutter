@@ -17,6 +17,8 @@ package com.amazonaws.amplify.amplify_api
 
 
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
+import com.amazonaws.amplify.amplify_api.AmplifyApiPlugin
+import com.amazonaws.amplify.amplify_api.rest_api.FlutterRestApi
 import com.amplifyframework.api.ApiCategory
 import com.amplifyframework.api.ApiException
 import com.amplifyframework.api.rest.RestOperation
@@ -350,6 +352,40 @@ class AmplifyApiRestTest {
                         "underlyingException" to "AmplifyException{message=The cancelToken request argument was not passed as a String, cause=kotlin.TypeCastException: null cannot be cast to non-null type kotlin.String, recoverySuggestion=The request should include the cancelToken as a String}"
                 )
         )
+    }
+
+    // PUT PATCH and POST with no body throws error
+    @Test
+    fun required_body_methods_error() {
+        Mockito.doAnswer { _ ->
+            mockRestOperation
+        }.`when`(mockApi).get(
+                any(RestOptions::class.java),
+                any(),
+                any())
+
+        var arguments: Map<String, Any> = mapOf(
+                "restOptions" to mapOf(
+                        "path" to "/items"
+                ),
+                "cancelToken" to "someCode"
+        )
+        var methods = arrayOf<String>(FlutterRestApi.PUT, FlutterRestApi.POST, FlutterRestApi.PATCH)
+        for (method in methods) {
+            flutterPlugin.onMethodCall(
+                    MethodCall(method, arguments),
+                    mockResult
+            )
+
+            verify(mockResult, times(1)).error(
+                    "ApiException",
+                    ExceptionMessages.defaultFallbackExceptionMessage,
+                    mapOf(
+                            "recoverySuggestion" to "Add a body to the request.",
+                            "message" to "$method request must have a body"
+                    )
+            )
+        }
     }
 
     // Cancellation of ongoing rest operation succeeds
