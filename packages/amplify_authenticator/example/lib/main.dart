@@ -1,8 +1,9 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
-import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'amplifyconfiguration.dart';
+
+import 'package:flutter/material.dart';
 
 // Uncomment to use localizations
 // import 'package:flutter_gen/gen_l10n/amplify_localizations.dart';
@@ -54,7 +55,6 @@ class _MyHomePageState extends State<MyHomePage> {
     _amplifyConfig();
   }
 
-// Amplify Configuration
   void _amplifyConfig() async {
     try {
       await Amplify.addPlugin(AmplifyAuthCognito());
@@ -62,6 +62,20 @@ class _MyHomePageState extends State<MyHomePage> {
     } catch (e) {
       print(e);
     }
+  }
+
+//Validatior
+
+  String? _validateUsername(String? username) {
+    if (username == null || username.isEmpty) {
+      return 'Username cannot be empty';
+    }
+
+    bool contains = username.contains("amplify");
+    if (!contains) {
+      return 'Username needs to include amplify';
+    }
+    return null;
   }
 
   @override
@@ -124,6 +138,25 @@ class _MyHomePageState extends State<MyHomePage> {
       // resolver: resolver,
 
       child: const CustomersApp(),
+      signUpForm: SignUpForm(
+        formFields: FormFields(children: [
+          SignUpFormField(
+              title: "Custom username*",
+              hintText: "Username",
+              validator: _validateUsername,
+              type: "username"),
+          const SignUpFormField(
+              title: "Custom password*",
+              hintText: "password",
+              type: "password"),
+          const SignUpFormField(
+              title: "Custom email*", hintText: "email", type: "email"),
+          const SignUpFormField(
+              title: "Custom phone number*",
+              hintText: "phone number",
+              type: "phone_number")
+        ]),
+      ),
     );
   }
 }

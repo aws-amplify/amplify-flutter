@@ -116,12 +116,24 @@ class GoToSignUpButton extends StatelessWidget {
         InheritedAuthViewModel.of(context)!.signInViewModel;
     final NavigationResolver _navText =
         InheritedStrings.of(context)!.resolver.navigation;
+    Size screenSize = MediaQuery.of(context).size;
+    bool isDesktop =
+        screenSize.width > AuthenticatorContainerConstants.landScapeView;
+
+    //This code prevents this button from hiding when the viewport changes
+    //to a Desktop view.
+    int _flex = 1;
+    if (isDesktop) {
+      _flex = 0;
+    }
+
     return Padding(
       padding: const EdgeInsets.only(top: 4),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
+            flex: _flex,
             child: Text(_navText.noAccountQuestion(context),
                 style: const TextStyle(
                   color: AuthenticatorButtonConstants.textColor,
@@ -151,12 +163,25 @@ class GoToSignInButton extends StatelessWidget {
         InheritedAuthViewModel.of(context)!.signUpViewModel;
     final NavigationResolver _navText =
         InheritedStrings.of(context)!.resolver.navigation;
+
+    Size screenSize = MediaQuery.of(context).size;
+    bool isDesktop =
+        screenSize.width > AuthenticatorContainerConstants.landScapeView;
+
+    //This code prevents this button from hiding when the viewport changes
+    //to a Desktop view.
+    int _flex = 1;
+    if (isDesktop) {
+      _flex = 0;
+    }
+
     return Padding(
       padding: const EdgeInsets.only(top: 4.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
+            flex: _flex,
             child: Text(_navText.haveAccountQuestion(context),
                 style: const TextStyle(
                   color: AuthenticatorButtonConstants.textColor,
@@ -190,6 +215,7 @@ class LostCodeButton extends StatelessWidget {
         InheritedAuthViewModel.of(context)!.confirmSignUpViewModel;
     final ButtonResolver _buttonText =
         InheritedStrings.of(context)!.resolver.buttons;
+
     return Padding(
       padding: const EdgeInsets.only(top: 4.0),
       child: Row(
