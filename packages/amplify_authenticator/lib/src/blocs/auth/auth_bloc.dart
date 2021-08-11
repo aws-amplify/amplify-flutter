@@ -197,7 +197,7 @@ class StateMachineBloc {
 
           break;
         case 'RESET_PASSWORD':
-          yield AuthFlow(screen: AuthScreen.sendCode);
+          yield AuthFlow(screen: AuthScreen.resetPassword);
           break;
         case 'CONFIRM_SIGN_UP':
           yield AuthFlow(screen: AuthScreen.confirmSignUp);

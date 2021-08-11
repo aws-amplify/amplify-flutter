@@ -26,6 +26,7 @@ class SignInViewModel extends BaseViewModel {
 
   void setUsername(String value) {
     _username = value;
+    _newUsername = value;
   }
 
   void setPassword(String value) {

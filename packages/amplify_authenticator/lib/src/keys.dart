@@ -12,6 +12,8 @@ const String keyNewUsernameSignInFormField = 'newUsernameSignInFormField';
 
 const String keyUsernameSignUpFormField = 'usernameSignUpFormField';
 const String keyPasswordSignUpFormField = 'passwordSignUpFormField';
+const String keyPasswordConfirmationSignUpFormField =
+    'keyPasswordConfirmationSignUpFormField';
 const String keyAddressSignUpFormField = 'addresslSignUpFormField';
 const String keyBirthdateSignUpFormField = 'birthdateSignUpFormField';
 const String keyEmailSignUpFormField = 'emailSignUpFormField';

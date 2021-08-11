@@ -185,6 +185,17 @@ class SignUpFormField extends StatelessWidget {
     TextInputType _keyboardType = TextInputType.text;
     final SignUpType? _type = fromStringToSignUpType(type);
 
+    /// Special validator using the existing password, executed if a passwordConfirmation field is present
+    /// TODO: Implement a mechanism for customers to access subsets of the viewmodels.
+    String? validatePasswordConfirmation(String? passwordConfirmation) {
+      if (passwordConfirmation == null || passwordConfirmation.isEmpty) {
+        return 'Re-enter your password to confirm';
+      } else if (_signUpViewModel.password != passwordConfirmation) {
+        return 'Passwords do not match';
+      }
+      return null;
+    }
+
     switch (_type) {
       case SignUpType.username:
         _callBack = (String value) {
@@ -204,6 +215,16 @@ class SignUpFormField extends StatelessWidget {
         _obscureText = true;
         _validator = validator ?? validatePassword;
         _key = const Key(keyPasswordSignUpFormField);
+        break;
+      case SignUpType.passwordConfirmation:
+        _callBack = (String value) {
+          _signUpViewModel.setPasswordConfirmation(value);
+          _confirmSignUpViewModel.setPassword(value);
+        };
+        _keyboardType = TextInputType.visiblePassword;
+        _obscureText = true;
+        _validator = validator ?? validatePasswordConfirmation;
+        _key = const Key(keyPasswordConfirmationSignUpFormField);
         break;
       case SignUpType.address:
         _callBack = (String value) => _signUpViewModel.setAddress(value, type);
@@ -320,6 +341,7 @@ class SignUpFormField extends StatelessWidget {
 
         break;
     }
+
     return FormFieldContainer(
         key: _key,
         keyboardType: _keyboardType,
