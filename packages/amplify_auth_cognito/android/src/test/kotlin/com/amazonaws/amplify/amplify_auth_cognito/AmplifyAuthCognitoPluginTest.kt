@@ -33,6 +33,7 @@ import com.amplifyframework.auth.cognito.options.AWSCognitoAuthSignInOptions
 import com.amplifyframework.auth.options.AuthConfirmSignInOptions
 import com.amplifyframework.auth.options.AuthConfirmSignUpOptions
 import com.amplifyframework.auth.options.AuthSignInOptions
+import com.amplifyframework.auth.options.AuthSignOutOptions
 import com.amplifyframework.auth.result.AuthSessionResult
 import com.amplifyframework.auth.result.step.*
 import com.amplifyframework.auth.result.AuthUpdateAttributeResult
@@ -431,7 +432,11 @@ class AmplifyAuthCognitoPluginTest {
         doAnswer { invocation: InvocationOnMock ->
             plugin.prepareSignOutResult(mockResult)
             null as Void?
-        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).signOut(
+            ArgumentMatchers.any<AuthSignOutOptions>(),
+            ArgumentMatchers.any<Action>(),
+            ArgumentMatchers.any<Consumer<AuthException>>()
+        )
 
         val data: HashMap<String, String> = HashMap<String, String>()
         val arguments: HashMap<String, Any> = hashMapOf("data" to data)
