@@ -1167,6 +1167,39 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
+    func test_signOutGlobalSuccess() {
+        
+        class SignOutMock: AuthCognitoBridge {
+            var globalSignOutExpectation = false
+            override func onSignOut(flutterResult: @escaping FlutterResult, request: FlutterSignOutRequest) {
+                globalSignOutExpectation = request.options!.globalSignOut
+                let emptyMap: Dictionary<String, Any> = [:]
+                flutterResult(emptyMap)
+            }
+        }
+        
+        let signOutMock = SignOutMock()
+        plugin = SwiftAuthCognito.init(cognito: signOutMock)
+        
+        _data = [
+            "options": [
+                "globalSignOut": true
+            ]
+        ]
+        _args = ["data": _data]
+        let call = FlutterMethodCall(methodName: "signOut", arguments: _args)
+        plugin.handle(call, result: {(result)->Void in
+            if let res = result as? Dictionary<String, Any> {
+                XCTAssertEqual( 0, res.count )
+            } else {
+                XCTFail()
+            }
+        })
+        
+        XCTAssertTrue(signOutMock.globalSignOutExpectation)
+
+    }
+    
     func test_signOutError() {
         
         class SignOutMock: AuthCognitoBridge {
