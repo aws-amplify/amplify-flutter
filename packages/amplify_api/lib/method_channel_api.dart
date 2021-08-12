@@ -160,6 +160,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
             AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       final errors = _deserializeGraphQLResponseErrors(result);
 
+      // Catch data while its non-nullable and provide context with error messages
       if (result['data'] == null) {
         throw ApiException(
           "App sync returned null for data, see errors: " + errors.toString(),
