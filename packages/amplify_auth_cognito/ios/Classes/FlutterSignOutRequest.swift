@@ -24,7 +24,7 @@ struct FlutterSignOutRequest {
     self.options = createOptions(options: dict["options"] as! Dictionary<String, Any>?)
   }
     
-   func createOptions(options: Dictionary<String, Any>?) -> AuthSignOutOperation.Request.Options {
+  func createOptions(options: Dictionary<String, Any>?) -> AuthSignOutOperation.Request.Options {
     let globalSignOut = options?["globalSignOut"] as? Bool ?? false
     return AuthSignOutOperation.Request.Options(globalSignOut: globalSignOut)
   }
