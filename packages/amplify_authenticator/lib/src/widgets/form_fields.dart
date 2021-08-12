@@ -9,7 +9,7 @@ import 'package:amplify_authenticator/src/enums/signin_types.dart';
 import 'package:amplify_authenticator/src/enums/signup_types.dart';
 import 'package:amplify_authenticator/src/enums/confirm_signup_types.dart';
 
-class SignInFormField extends StatelessWidget {
+class SignInFormField extends StatefulWidget {
   /// Requires a custom title, hint text, a type (username, password, etc)
   /// and an optional callback for input validation.
   const SignInFormField(
@@ -39,6 +39,19 @@ class SignInFormField extends StatelessWidget {
   final String? Function(String?)? validator;
 
   @override
+  _SignInFormFieldState createState() => _SignInFormFieldState();
+}
+
+class _SignInFormFieldState extends State<SignInFormField> {
+  bool _toggle = true;
+
+  void _setToggle() {
+    setState(() {
+      _toggle = !_toggle;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final _signInViewModel =
         InheritedAuthViewModel.of(context)!.signInViewModel;
@@ -50,8 +63,10 @@ class SignInFormField extends StatelessWidget {
     late Key _key;
     String? Function(String?)? _validator;
     TextInputType _keyboardType = TextInputType.text;
-    final SignInType? _type = fromStringToSignInType(type);
+    final SignInType? _type = fromStringToSignInType(widget.type);
     Widget? _resetPasswordButton;
+    Widget? _visible;
+
     switch (_type) {
       case SignInType.username:
         _callBack = (value) {
@@ -59,7 +74,7 @@ class SignInFormField extends StatelessWidget {
           _confirmSignUpViewModel.setUsername(value);
         };
         _keyboardType = TextInputType.text;
-        _validator = validator ?? validateUsername;
+        _validator = widget.validator ?? validateUsername;
         _key = const Key(keyUsernameSignInFormField);
         break;
       case SignInType.email:
@@ -68,7 +83,7 @@ class SignInFormField extends StatelessWidget {
           _confirmSignUpViewModel.setUsername(value);
         };
         _keyboardType = TextInputType.emailAddress;
-        _validator = validator ?? validateEmail;
+        _validator = widget.validator ?? validateEmail;
         _key = const Key(keyEmailSignInFormField);
         break;
       case SignInType.phone_number:
@@ -77,7 +92,7 @@ class SignInFormField extends StatelessWidget {
           _confirmSignUpViewModel.setUsername(value);
         };
         _keyboardType = TextInputType.phone;
-        _validator = validator ?? validatePhoneNumber;
+        _validator = widget.validator ?? validatePhoneNumber;
         _key = const Key(keyPhoneNumberSignInFormField);
         break;
       case SignInType.password:
@@ -85,9 +100,16 @@ class SignInFormField extends StatelessWidget {
           _signInViewModel.setPassword(value);
           _confirmSignUpViewModel.setPassword(value);
         };
+        _visible = InkWell(
+          onTap: _setToggle,
+          child: const Icon(
+            Icons.visibility,
+            size: 20,
+          ),
+        );
         _keyboardType = TextInputType.visiblePassword;
-        _obscureText = true;
-        _validator = validator ?? validatePassword;
+        _obscureText = _toggle;
+        _validator = widget.validator ?? validatePassword;
         _key = const Key(keyPasswordSignInFormField);
         _resetPasswordButton = const ResetPasswordButton();
         break;
@@ -95,20 +117,27 @@ class SignInFormField extends StatelessWidget {
         _callBack = _signInViewModel.setConfirmationCode;
         _keyboardType = TextInputType.number;
         _key = const Key(keyVerificationCodeSignInFormField);
-        _validator = validator ?? validateCode;
+        _validator = widget.validator ?? validateCode;
         break;
       case SignInType.new_password:
         _callBack = _signInViewModel.setNewPassword;
+        _visible = InkWell(
+          onTap: _setToggle,
+          child: const Icon(
+            Icons.visibility,
+            size: 20,
+          ),
+        );
         _keyboardType = TextInputType.visiblePassword;
-        _obscureText = true;
-        _validator = validator ?? validatePassword;
+        _obscureText = _toggle;
+        _validator = widget.validator ?? validatePassword;
         _key = const Key(keyNewPasswordSignInFormField);
         break;
       case SignInType.new_username:
         _callBack = _signInViewModel.setNewUsername;
         _keyboardType = TextInputType.text;
 
-        _validator = validator ?? validateUsername;
+        _validator = widget.validator ?? validateUsername;
         _key = const Key(keyNewUsernameSignInFormField);
         break;
       default:
@@ -116,18 +145,19 @@ class SignInFormField extends StatelessWidget {
     }
 
     return FormFieldContainer(
+        visible: _visible,
         resendCodeButton: _resetPasswordButton,
         key: _key,
         keyboardType: _keyboardType,
         callback: _callBack,
-        hintText: hintText,
-        title: title,
+        hintText: widget.hintText,
+        title: widget.title,
         validator: _validator,
         obscureText: _obscureText);
   }
 }
 
-class SignUpFormField extends StatelessWidget {
+class SignUpFormField extends StatefulWidget {
   /// Requires a custom title, hint text, a type (username, password, etc)
   /// and an optional callback for input validation.
   const SignUpFormField(
@@ -168,6 +198,19 @@ class SignUpFormField extends StatelessWidget {
   final String? Function(String?)? validator;
 
   @override
+  _SignUpFormFieldState createState() => _SignUpFormFieldState();
+}
+
+class _SignUpFormFieldState extends State<SignUpFormField> {
+  bool _toggle = true;
+
+  void _setToggle() {
+    setState(() {
+      _toggle = !_toggle;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final _signUpViewModel =
         InheritedAuthViewModel.of(context)!.signUpViewModel;
@@ -178,8 +221,8 @@ class SignUpFormField extends StatelessWidget {
     Key _key;
     String? Function(String?)? _validator;
     TextInputType _keyboardType = TextInputType.text;
-    final SignUpType? _type = fromStringToSignUpType(type);
-
+    final SignUpType? _type = fromStringToSignUpType(widget.type);
+    Widget? _visible;
     switch (_type) {
       case SignUpType.username:
         _callBack = (String value) {
@@ -187,7 +230,7 @@ class SignUpFormField extends StatelessWidget {
           _confirmSignUpViewModel.setUsername(value);
         };
         _keyboardType = TextInputType.text;
-        _validator = validator ?? validateUsername;
+        _validator = widget.validator ?? validateUsername;
         _key = const Key(keyUsernameSignUpFormField);
         break;
       case SignUpType.password:
@@ -195,132 +238,151 @@ class SignUpFormField extends StatelessWidget {
           _signUpViewModel.setPassword(value);
           _confirmSignUpViewModel.setPassword(value);
         };
+        _visible = InkWell(
+          onTap: _setToggle,
+          child: const Icon(
+            Icons.visibility,
+            size: 20,
+          ),
+        );
         _keyboardType = TextInputType.visiblePassword;
-        _obscureText = true;
-        _validator = validator ?? validatePassword;
+        _obscureText = _toggle;
+        _validator = widget.validator ?? validatePassword;
         _key = const Key(keyPasswordSignUpFormField);
         break;
       case SignUpType.address:
-        _callBack = (String value) => _signUpViewModel.setAddress(value, type);
+        _callBack =
+            (String value) => _signUpViewModel.setAddress(value, widget.type);
         _keyboardType = TextInputType.streetAddress;
         _key = const Key(keyAddressSignUpFormField);
         break;
       case SignUpType.birthdate:
         _callBack =
-            (String value) => _signUpViewModel.setBirthdate(value, type);
+            (String value) => _signUpViewModel.setBirthdate(value, widget.type);
         _keyboardType = TextInputType.text;
         _key = const Key(keyBirthdateSignUpFormField);
         break;
       case SignUpType.email:
-        _callBack = (String value) => _signUpViewModel.setEmail(value, type);
+        _callBack =
+            (String value) => _signUpViewModel.setEmail(value, widget.type);
         _keyboardType = TextInputType.emailAddress;
-        _validator = validator ?? validateEmail;
+        _validator = widget.validator ?? validateEmail;
         _key = const Key(keyEmailSignUpFormField);
         break;
       case SignUpType.family_name:
-        _callBack =
-            (String value) => _signUpViewModel.setFamilyName(value, type);
+        _callBack = (String value) =>
+            _signUpViewModel.setFamilyName(value, widget.type);
         _keyboardType = TextInputType.text;
-        _validator = validator;
+        _validator = widget.validator;
         _key = const Key(keyFamilyNameSignUpFormField);
         break;
       case SignUpType.gender:
-        _callBack = (String value) => _signUpViewModel.setGender(value, type);
+        _callBack =
+            (String value) => _signUpViewModel.setGender(value, widget.type);
         _keyboardType = TextInputType.text;
-        _validator = validator;
+        _validator = widget.validator;
         _key = const Key(keyGenderSignUpFormField);
         break;
       case SignUpType.given_name:
         _callBack =
-            (String value) => _signUpViewModel.setGivenName(value, type);
+            (String value) => _signUpViewModel.setGivenName(value, widget.type);
         _keyboardType = TextInputType.text;
-        _validator = validator;
+        _validator = widget.validator;
         _key = const Key(keyGivenNameSignUpFormField);
         break;
       case SignUpType.locale:
-        _callBack = (String value) => _signUpViewModel.setLocale(value, type);
+        _callBack =
+            (String value) => _signUpViewModel.setLocale(value, widget.type);
         _keyboardType = TextInputType.text;
-        _validator = validator;
+        _validator = widget.validator;
         _key = const Key(keyLocaleSignUpFormField);
         break;
       case SignUpType.middle_name:
-        _callBack =
-            (String value) => _signUpViewModel.setMiddleName(value, type);
+        _callBack = (String value) =>
+            _signUpViewModel.setMiddleName(value, widget.type);
         _keyboardType = TextInputType.text;
-        _validator = validator;
+        _validator = widget.validator;
         _key = const Key(keyMiddleNameSignUpFormField);
         break;
       case SignUpType.name:
-        _callBack = (String value) => _signUpViewModel.setName(value, type);
+        _callBack =
+            (String value) => _signUpViewModel.setName(value, widget.type);
         _keyboardType = TextInputType.name;
-        _validator = validator;
+        _validator = widget.validator;
         _key = const Key(keyNameSignUpFormField);
         break;
       case SignUpType.nickname:
-        _callBack = (String value) => _signUpViewModel.setNickname(value, type);
+        _callBack =
+            (String value) => _signUpViewModel.setNickname(value, widget.type);
         _keyboardType = TextInputType.name;
-        _validator = validator;
+        _validator = widget.validator;
         _key = const Key(keyNicknameSignUpFormField);
         break;
       case SignUpType.phone_number:
-        _callBack =
-            (String value) => _signUpViewModel.setPhoneNumber(value, type);
+        _callBack = (String value) =>
+            _signUpViewModel.setPhoneNumber(value, widget.type);
         _keyboardType = TextInputType.phone;
-        _validator = validator ?? validatePhoneNumber;
+        _validator = widget.validator ?? validatePhoneNumber;
         _key = const Key(keyPhoneNumberSignUpFormField);
         break;
       case SignUpType.picture:
-        _callBack = (String value) => _signUpViewModel.setPicture(value, type);
+        _callBack =
+            (String value) => _signUpViewModel.setPicture(value, widget.type);
         _keyboardType = TextInputType.text;
-        _validator = validator;
+        _validator = widget.validator;
         _key = const Key(keyPictureSignUpFormField);
         break;
       case SignUpType.preferredUsername:
         _callBack = (String value) =>
-            _signUpViewModel.setPreferredUsername(value, type);
+            _signUpViewModel.setPreferredUsername(value, widget.type);
         _keyboardType = TextInputType.text;
-        _validator = validator;
+        _validator = widget.validator;
         _key = const Key(keyPreferredUsernameSignUpFormField);
         break;
       case SignUpType.profile:
-        _callBack = (String value) => _signUpViewModel.setProfile(value, type);
+        _callBack =
+            (String value) => _signUpViewModel.setProfile(value, widget.type);
         _keyboardType = TextInputType.text;
-        _validator = validator;
+        _validator = widget.validator;
         _key = const Key(keyProfileSignUpFormField);
         break;
       case SignUpType.zoneinfo:
-        _callBack = (String value) => _signUpViewModel.setZoneInfo(value, type);
+        _callBack =
+            (String value) => _signUpViewModel.setZoneInfo(value, widget.type);
         _keyboardType = TextInputType.text;
-        _validator = validator;
+        _validator = widget.validator;
         _key = const Key(keyZoneinfoSignUpFormField);
         break;
       case SignUpType.updated_at:
         _callBack =
-            (String value) => _signUpViewModel.setUpdatedAt(value, type);
+            (String value) => _signUpViewModel.setUpdatedAt(value, widget.type);
         _keyboardType = TextInputType.text;
-        _validator = validator;
+        _validator = widget.validator;
         _key = const Key(keyUpdatedAtSignUpFormField);
         break;
       case SignUpType.website:
-        _callBack = (String value) => _signUpViewModel.setWebsite(value, type);
+        _callBack =
+            (String value) => _signUpViewModel.setWebsite(value, widget.type);
         _keyboardType = TextInputType.text;
-        _validator = validator;
+        _validator = widget.validator;
         _key = const Key(keyWebsiteSignUpFormField);
         break;
       default:
-        _callBack = (String value) => _signUpViewModel.setCustom(value, type);
+        _callBack =
+            (String value) => _signUpViewModel.setCustom(value, widget.type);
         _keyboardType = TextInputType.text;
-        _validator = validator;
+        _validator = widget.validator;
         _key = const Key(keyCustomSignUpFormField);
 
         break;
     }
     return FormFieldContainer(
+        visible: _visible,
         key: _key,
         keyboardType: _keyboardType,
         callback: _callBack,
-        hintText: hintText,
-        title: title,
+        hintText: widget.hintText,
+        title: widget.title,
         validator: _validator,
         obscureText: _obscureText);
   }
@@ -429,7 +491,7 @@ class ConfirmSignUpFormField extends StatelessWidget {
   }
 }
 
-class ConfirmSignInFormField extends StatelessWidget {
+class ConfirmSignInFormField extends StatefulWidget {
   /// Requires a custom title, hint text, a type (code, password, etc)
   /// and an optional callback for input validation.
   const ConfirmSignInFormField(
@@ -470,6 +532,19 @@ class ConfirmSignInFormField extends StatelessWidget {
   final String? Function(String?)? validator;
 
   @override
+  _ConfirmSignInFormFieldState createState() => _ConfirmSignInFormFieldState();
+}
+
+class _ConfirmSignInFormFieldState extends State<ConfirmSignInFormField> {
+  bool _toggle = true;
+
+  void _setToggle() {
+    setState(() {
+      _toggle = !_toggle;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final _authModelView =
         InheritedAuthViewModel.of(context)!.confirmSignInViewModel;
@@ -478,140 +553,164 @@ class ConfirmSignInFormField extends StatelessWidget {
     Key _key;
     String? Function(String?)? _validator;
     TextInputType _keyboardType = TextInputType.text;
-    final ConfirmSignInType? _type = fromStringToConfirmSignInType(type);
-
+    final ConfirmSignInType? _type = fromStringToConfirmSignInType(widget.type);
+    Widget? _visible;
     switch (_type) {
       case ConfirmSignInType.code:
         _callBack = (String value) => _authModelView.setCode(value);
         _keyboardType = TextInputType.text;
-        _validator = validator ?? validateCode;
+        _validator = widget.validator ?? validateCode;
         _key = const Key(keyCodeConfirmSignInFormfield);
         break;
       case ConfirmSignInType.password:
         _callBack = (String value) {
           _authModelView.setCode(value);
         };
+        _visible = InkWell(
+          onTap: _setToggle,
+          child: const Icon(
+            Icons.visibility,
+            size: 20,
+          ),
+        );
         _keyboardType = TextInputType.visiblePassword;
-        _obscureText = true;
-        _validator = validator ?? validatePassword;
+        _obscureText = _toggle;
+        _validator = widget.validator ?? validatePassword;
         _key = const Key(keyPasswordConfirmSignInFormField);
         break;
       case ConfirmSignInType.address:
-        _callBack = (String value) => _authModelView.setAddress(value, type);
+        _callBack =
+            (String value) => _authModelView.setAddress(value, widget.type);
         _keyboardType = TextInputType.streetAddress;
         _key = const Key(keyAddressConfirmSignInFormField);
         break;
       case ConfirmSignInType.birthdate:
-        _callBack = (String value) => _authModelView.setBirthdate(value, type);
+        _callBack =
+            (String value) => _authModelView.setBirthdate(value, widget.type);
         _keyboardType = TextInputType.text;
         _key = const Key(keyBirthdateConfirmSignInFormField);
         break;
       case ConfirmSignInType.email:
-        _callBack = (String value) => _authModelView.setEmail(value, type);
+        _callBack =
+            (String value) => _authModelView.setEmail(value, widget.type);
         _keyboardType = TextInputType.emailAddress;
-        _validator = validator ?? validateEmail;
+        _validator = widget.validator ?? validateEmail;
         _key = const Key(keyEmailConfirmSignInFormField);
         break;
       case ConfirmSignInType.family_name:
-        _callBack = (String value) => _authModelView.setFamilyName(value, type);
+        _callBack =
+            (String value) => _authModelView.setFamilyName(value, widget.type);
         _keyboardType = TextInputType.text;
-        _validator = validator;
+        _validator = widget.validator;
         _key = const Key(keyFamilyNameConfirmSignInFormField);
         break;
       case ConfirmSignInType.gender:
-        _callBack = (String value) => _authModelView.setGender(value, type);
+        _callBack =
+            (String value) => _authModelView.setGender(value, widget.type);
         _keyboardType = TextInputType.text;
-        _validator = validator;
+        _validator = widget.validator;
         _key = const Key(keyGenderConfirmSignInFormField);
         break;
       case ConfirmSignInType.given_name:
-        _callBack = (String value) => _authModelView.setGivenName(value, type);
+        _callBack =
+            (String value) => _authModelView.setGivenName(value, widget.type);
         _keyboardType = TextInputType.text;
-        _validator = validator;
+        _validator = widget.validator;
         _key = const Key(keyGivenNameConfirmSignInFormField);
         break;
       case ConfirmSignInType.locale:
-        _callBack = (String value) => _authModelView.setLocale(value, type);
+        _callBack =
+            (String value) => _authModelView.setLocale(value, widget.type);
         _keyboardType = TextInputType.text;
-        _validator = validator;
+        _validator = widget.validator;
         _key = const Key(keyLocaleConfirmSignInFormField);
         break;
       case ConfirmSignInType.middle_name:
-        _callBack = (String value) => _authModelView.setMiddleName(value, type);
+        _callBack =
+            (String value) => _authModelView.setMiddleName(value, widget.type);
         _keyboardType = TextInputType.text;
-        _validator = validator;
+        _validator = widget.validator;
         _key = const Key(keyMiddleNameConfirmSignInFormField);
         break;
       case ConfirmSignInType.name:
-        _callBack = (String value) => _authModelView.setName(value, type);
+        _callBack =
+            (String value) => _authModelView.setName(value, widget.type);
         _keyboardType = TextInputType.name;
-        _validator = validator;
+        _validator = widget.validator;
         _key = const Key(keyNameConfirmSignInFormField);
         break;
       case ConfirmSignInType.nickname:
-        _callBack = (String value) => _authModelView.setNickname(value, type);
+        _callBack =
+            (String value) => _authModelView.setNickname(value, widget.type);
         _keyboardType = TextInputType.name;
-        _validator = validator;
+        _validator = widget.validator;
         _key = const Key(keyNicknameConfirmSignInFormField);
         break;
       case ConfirmSignInType.phone_number:
         _callBack =
-            (String value) => _authModelView.setPhoneNumber(value, type);
+            (String value) => _authModelView.setPhoneNumber(value, widget.type);
         _keyboardType = TextInputType.phone;
-        _validator = validator ?? validatePhoneNumber;
+        _validator = widget.validator ?? validatePhoneNumber;
         _key = const Key(keyPhoneNumberConfirmSignInFormField);
         break;
       case ConfirmSignInType.picture:
-        _callBack = (String value) => _authModelView.setPicture(value, type);
+        _callBack =
+            (String value) => _authModelView.setPicture(value, widget.type);
         _keyboardType = TextInputType.text;
-        _validator = validator;
+        _validator = widget.validator;
         _key = const Key(keyPictureConfirmSignInFormField);
         break;
       case ConfirmSignInType.preferredUsername:
-        _callBack =
-            (String value) => _authModelView.setPreferredUsername(value, type);
+        _callBack = (String value) =>
+            _authModelView.setPreferredUsername(value, widget.type);
         _keyboardType = TextInputType.text;
-        _validator = validator;
+        _validator = widget.validator;
         _key = const Key(keyPreferredUsernameConfirmSignInFormField);
         break;
       case ConfirmSignInType.profile:
-        _callBack = (String value) => _authModelView.setProfile(value, type);
+        _callBack =
+            (String value) => _authModelView.setProfile(value, widget.type);
         _keyboardType = TextInputType.text;
-        _validator = validator;
+        _validator = widget.validator;
         _key = const Key(keyProfileConfirmSignInFormField);
         break;
       case ConfirmSignInType.zoneinfo:
-        _callBack = (String value) => _authModelView.setZoneInfo(value, type);
+        _callBack =
+            (String value) => _authModelView.setZoneInfo(value, widget.type);
         _keyboardType = TextInputType.text;
-        _validator = validator;
+        _validator = widget.validator;
         _key = const Key(keyZoneinfoConfirmSignInFormField);
         break;
       case ConfirmSignInType.updated_at:
-        _callBack = (String value) => _authModelView.setUpdatedAt(value, type);
+        _callBack =
+            (String value) => _authModelView.setUpdatedAt(value, widget.type);
         _keyboardType = TextInputType.text;
-        _validator = validator;
+        _validator = widget.validator;
         _key = const Key(keyUpdatedAtConfirmSignInFormField);
         break;
       case ConfirmSignInType.website:
-        _callBack = (String value) => _authModelView.setWebsite(value, type);
+        _callBack =
+            (String value) => _authModelView.setWebsite(value, widget.type);
         _keyboardType = TextInputType.text;
-        _validator = validator;
+        _validator = widget.validator;
         _key = const Key(keyWebsiteConfirmSignInFormField);
         break;
       default:
-        _callBack = (String value) => _authModelView.setCustom(value, type);
+        _callBack =
+            (String value) => _authModelView.setCustom(value, widget.type);
         _keyboardType = TextInputType.text;
-        _validator = validator;
+        _validator = widget.validator;
         _key = const Key(keyCustomConfirmSignInFormField);
 
         break;
     }
     return FormFieldContainer(
+        visible: _visible,
         key: _key,
         keyboardType: _keyboardType,
         callback: _callBack,
-        hintText: hintText,
-        title: title,
+        hintText: widget.hintText,
+        title: widget.title,
         validator: _validator,
         obscureText: _obscureText);
   }
