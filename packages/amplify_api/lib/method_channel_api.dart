@@ -162,9 +162,8 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
 
       // Catch data while its non-nullable and provide context with error messages
       if (result['data'] == null) {
-        throw ApiException(
-          "App sync returned null for data, see errors: " + errors.toString(),
-        );
+        throw ApiException("App sync returned null for data, see errors: ",
+            underlyingException: errors.toString());
       }
 
       GraphQLResponse<T> response = GraphQLResponseDecoder.instance
