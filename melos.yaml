@@ -42,6 +42,9 @@ scripts:
   test:integration:ios:
     run: melos exec -c 1 --scope="*example*" --file-exists="integration_test/main_test.dart" "flutter drive --no-pub --driver=test_driver/integration_test.dart --target=integration_test/main_test.dart -d iPhone"
 
+  test:integration:multi_device:
+    run: melos exec -c 1 --scope="*example*" --file-exists="tool/run_multi_device_tests.sh" "./tool/run_multi_device_tests.sh"
+
   provision_integration_test_resources:
     run: melos exec "./tool/provision_integration_test_resources.sh"
     description:
