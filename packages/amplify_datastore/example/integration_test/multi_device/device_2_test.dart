@@ -24,7 +24,7 @@ import 'multi_device_utils.dart';
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   group('save', () {
-    setUp(() async {
+    setUpAll(() async {
       setTestId();
       await configureDataStore(cloudSync: true);
       // clear local DB from previous test runs
@@ -33,14 +33,19 @@ void main() async {
       await signalDeviceTwoReady();
     });
 
-    testWidgets('should save data', (WidgetTester tester) async {
-      var eventFuture = Amplify.DataStore.observe(Blog.classType).firstWhere(
-          (element) => element.item.name == 'test blog created from device 1');
-      await signalTestStart(testName: 'should save data');
-      // test waits for the Blog from device 1 to be created
-      // as long as the test does not timeout, the test will pass
-      await eventFuture;
-      await signalTestEnd(testName: 'should save data');
-    });
+    testWidgets(
+      'should save data',
+      (WidgetTester tester) async {
+        var eventFuture = Amplify.DataStore.observe(Blog.classType).firstWhere(
+            (element) =>
+                element.item.name == 'test blog created from device 1');
+        await signalTestStart(testName: 'should save data');
+        // test waits for the Blog from device 1 to be created
+        // as long as the test does not timeout, the test will pass
+        await eventFuture;
+        await signalTestEnd(testName: 'should save data');
+      },
+      timeout: Timeout(Duration(seconds: 10)),
+    );
   });
 }
