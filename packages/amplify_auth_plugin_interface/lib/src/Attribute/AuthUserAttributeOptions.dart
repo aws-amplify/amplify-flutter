@@ -15,5 +15,5 @@
 
 import 'FetchUserAttributesOptions.dart';
 
-@Deprecated("Please use 'FetchUserAttributesOptions' instead")
+@Deprecated('Please use FetchUserAttributesOptions instead')
 class AuthUserAttributeOptions extends FetchUserAttributesOptions {}
