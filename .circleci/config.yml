@@ -54,20 +54,15 @@ jobs:
       - install_flutter
       - checkout
       - install_melos
-      - install_tuneup
       - run: melos run format
-      - run:
-          name: Validate formatting
-          command: ./.circleci/validate_formatting.sh
 
-  # analyze_flutter is temp disabled until issues are addressed
   analyze_flutter:
     executor: docker-executor
     steps:
       - install_flutter
       - checkout
       - install_melos
-      - run: melos run analyze
+      - run: melos run analyze --no-select
 
   unit_test_flutter:
     executor: docker-executor
@@ -167,6 +162,7 @@ workflows:
   test_deploy:
     jobs:
       - format_flutter
+      - analyze_flutter
       - unit_test_flutter
       - unit_test_android
       - unit_test_ios
