@@ -96,6 +96,7 @@ jobs:
       - install_flutter
       - checkout
       - install_melos
+      - run: melos run lint:ios --no-select
       - run:
           name: Pre-start iOS simulator
           # xcrun instruments returns non zero, but successfully starts the simulator
@@ -130,6 +131,7 @@ jobs:
       - install_flutter
       - checkout
       - install_melos
+      - run: melos run lint:android --no-select
       - run:
           name: Build example APKs
           command: |
