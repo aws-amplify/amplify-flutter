@@ -33,19 +33,19 @@ setTestId() {
 
 /// signal that device one is ready for test execution
 Future<void> signalDeviceOneReady() async {
-  await _createBlogWithName('device 1 ready');
+  await _createTestEventWithName('device 1 ready');
 }
 
 /// signal that device two is ready for test execution
 Future<void> signalDeviceTwoReady() async {
-  await _createBlogWithName('device 2 ready');
+  await _createTestEventWithName('device 2 ready');
 }
 
 /// wait for device one to be ready for device execution
 Future<void> waitForDeviceOneReady() async {
   // failOnTimeout is set to false since this is called from setUp()
   // timeout is increased to account for the difference in time between iOS and Android builds
-  return _waitForBlogWithName(
+  return _waitForTestEventWithName(
     'device 1 ready',
     failOnTimeout: false,
     timeout: Duration(seconds: 120),
@@ -56,7 +56,7 @@ Future<void> waitForDeviceOneReady() async {
 Future<void> waitForDeviceTwoReady() async {
   // failOnTimeout is set to false since this is called from setUp()
   // timeout is increased to account for the difference in time between iOS and Android builds
-  return _waitForBlogWithName(
+  return _waitForTestEventWithName(
     'device 2 ready',
     failOnTimeout: false,
     timeout: Duration(seconds: 120),
@@ -65,35 +65,35 @@ Future<void> waitForDeviceTwoReady() async {
 
 /// signal that a test with a given name has started
 Future<void> signalTestStart({required String testName}) async {
-  return _createBlogWithName('test start: $testName');
+  return _createTestEventWithName('test start: $testName');
 }
 
 /// wait for a test with a given name to start
 Future<void> waitForTestStart({required String testName}) async {
-  return _waitForBlogWithName('test start: $testName');
+  return _waitForTestEventWithName('test start: $testName');
 }
 
 /// signal that a test with a given name has ended and can be cleaned up
 Future<void> signalTestEnd({required String testName}) async {
-  return _createBlogWithName('test end: $testName');
+  return _createTestEventWithName('test end: $testName');
 }
 
 /// wait for a test with a given name to end
 Future<void> waitForTestEnd({required String testName}) async {
-  return _waitForBlogWithName('test end: $testName');
+  return _waitForTestEventWithName('test end: $testName');
 }
 
-/// create a blog with a given name, and prepends the test ID to the
+/// create a testEvent with a given name, and prepends the test ID to the
 /// name. Used to sync test execution between devices.
-Future<void> _createBlogWithName(String name) async {
+Future<void> _createTestEventWithName(String name) async {
   print('Created: ' + name);
-  Blog blog = Blog(name: '$_testId - $name');
-  await Amplify.DataStore.save(blog);
+  TestEvent testEvent = TestEvent(testRunId: _testId, eventName: name);
+  await Amplify.DataStore.save(testEvent);
 }
 
-/// wait for a blog to be created with a given name. Used to sync
+/// wait for a testEvent to be created with a given name. Used to sync
 /// test execution between devices.
-Future<void> _waitForBlogWithName(
+Future<void> _waitForTestEventWithName(
   String name, {
   Duration timeout = const Duration(seconds: 30),
   bool failOnTimeout = true,
@@ -103,16 +103,17 @@ Future<void> _waitForBlogWithName(
   Future.delayed(timeout).then((value) {
     if (!completer.isCompleted) {
       if (failOnTimeout) {
-        fail('timeout exceeded while waiting for blog: $name.');
+        fail('timeout exceeded while waiting for testEvent: $name.');
       }
       print(
-          'timeout exceeded while waiting for blog: $name. Fail set to false. Proceeding with tests ...');
+          'timeout exceeded while waiting for testEvent: $name. Fail set to false. Proceeding with tests ...');
       completer.complete();
     }
   });
 
-  Amplify.DataStore.observe(Blog.classType)
-      .firstWhere((element) => element.item.name == '$_testId - $name')
+  Amplify.DataStore.observe(TestEvent.classType)
+      .firstWhere((element) =>
+          element.item.testRunId == _testId && element.item.eventName == name)
       .then((value) {
     if (!completer.isCompleted) {
       print('Recieved: ' + name);
@@ -120,10 +121,11 @@ Future<void> _waitForBlogWithName(
     }
   });
 
-  Amplify.DataStore.query(Blog.classType,
-          where: Blog.NAME.eq('$_testId - $name'))
-      .then((blogs) {
-    if (blogs.length > 0) {
+  Amplify.DataStore.query(TestEvent.classType,
+          where:
+              TestEvent.TESTRUNID.eq(_testId).and(TestEvent.EVENTNAME.eq(name)))
+      .then((testEvents) {
+    if (testEvents.length > 0) {
       if (!completer.isCompleted) {
         print('Recieved: ' + name);
         completer.complete();
