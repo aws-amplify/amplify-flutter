@@ -31,6 +31,7 @@ import com.amazonaws.amplify.amplify_datastore.types.query.QueryOptionsBuilder
 import com.amazonaws.amplify.amplify_datastore.types.query.QueryPredicateBuilder
 import com.amazonaws.amplify.amplify_datastore.util.safeCastToList
 import com.amazonaws.amplify.amplify_datastore.util.safeCastToMap
+import com.amplifyframework.api.aws.AuthModeStrategyType
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.Consumer
 import com.amplifyframework.core.async.Cancelable
@@ -162,6 +163,9 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             )
         }
 
+        val authModeStrategy = request["authModeStrategy"] as String
+        val authModeStrategyType = AuthModeStrategyType.valueOf(authModeStrategy)
+
         val dataStoreConfigurationBuilder = DataStoreConfiguration.builder()
 
         modelProvider.setVersion(request["modelProviderVersion"] as String)
@@ -190,6 +194,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         val dataStorePlugin = AWSDataStorePlugin
             .builder()
             .modelProvider(modelProvider)
+            .authModeStrategy(authModeStrategyType)
             .dataStoreConfiguration(
                 dataStoreConfigurationBuilder
                     .syncInterval(syncInterval, TimeUnit.MINUTES)

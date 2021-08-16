@@ -21,11 +21,13 @@ import 'package:amplify_datastore_plugin_interface/src/types/models/model_provid
 import 'package:amplify_core/types/index.dart';
 import 'package:meta/meta.dart';
 
+import 'src/types/models/auth_mode_strategy.dart';
 import 'src/types/models/model.dart';
 import 'src/types/models/subscription_event.dart';
 import 'src/types/sync/DataStoreSyncExpression.dart';
 import 'src/types/query/query_field.dart';
 
+export 'src/types/models/auth_mode_strategy.dart';
 export 'src/types/models/auth_rule.dart';
 export 'src/types/models/model.dart';
 export 'src/types/models/model_field.dart';
@@ -57,6 +59,9 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   /// Datastore page size to sync
   int? syncPageSize;
 
+  /// The strategy for authorizing an API call.
+  final AuthModeStrategy authModeStrategy;
+
   /// Constructs an AmplifyPlatform.
   DataStorePluginInterface({
     required Object token,
@@ -65,12 +70,14 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
     this.syncInterval,
     this.syncMaxRecords,
     this.syncPageSize,
-  }) : super(token: token);
+    AuthModeStrategy? authModeStrategy,
+  })  : authModeStrategy = authModeStrategy ?? AuthModeStrategy.primary,
+        super(token: token);
 
   /// Internal use constructor
   @protected
   DataStorePluginInterface.tokenOnly({required Object token})
-      : super(token: token);
+      : this(token: token, modelProvider: null);
 
   StreamController get streamController {
     throw UnimplementedError(
@@ -85,11 +92,13 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   /// [syncMaxRecords]: max number of records to sync
   ///
   /// [syncPageSize]: page size to sync
-  Future<void> configureDataStore(
-      {required ModelProviderInterface modelProvider,
-      int? syncInterval,
-      int? syncMaxRecords,
-      int? syncPageSize}) {
+  Future<void> configureDataStore({
+    required ModelProviderInterface modelProvider,
+    int? syncInterval,
+    int? syncMaxRecords,
+    int? syncPageSize,
+    AuthModeStrategy? authModeStrategy,
+  }) {
     throw UnimplementedError('configureDataStore() has not been implemented.');
   }
 

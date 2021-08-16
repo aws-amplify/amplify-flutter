@@ -43,6 +43,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
     int? syncInterval,
     int? syncMaxRecords,
     int? syncPageSize,
+    AuthModeStrategy? authModeStrategy,
   }) : super(
           token: _token,
           modelProvider: modelProvider,
@@ -50,6 +51,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
           syncInterval: syncInterval,
           syncMaxRecords: syncMaxRecords,
           syncPageSize: syncPageSize,
+          authModeStrategy: authModeStrategy,
         );
 
   /// Internal use constructor
@@ -75,6 +77,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
     int? syncInterval,
     int? syncMaxRecords,
     int? syncPageSize,
+    AuthModeStrategy? authModeStrategy,
   }) async {
     ModelProviderInterface provider = modelProvider ?? this.modelProvider!;
     if (provider.modelSchemas.isEmpty) {
@@ -89,6 +92,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
       syncInterval: this.syncInterval,
       syncMaxRecords: this.syncMaxRecords,
       syncPageSize: this.syncPageSize,
+      authModeStrategy: this.authModeStrategy,
     );
   }
 
