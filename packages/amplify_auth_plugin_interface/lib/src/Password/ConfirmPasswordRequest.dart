@@ -17,7 +17,7 @@ import 'ConfirmResetPasswordOptions.dart';
 import 'ConfirmResetPasswordRequest.dart';
 
 /// Encapsulates parameters for a confirm reset password request
-@Deprecated("Please use 'ConfirmResetPasswordRequest' instead")
+@Deprecated('Please use ConfirmResetPasswordRequest instead')
 class ConfirmPasswordRequest extends ConfirmResetPasswordRequest {
   String username;
   String newPassword;
