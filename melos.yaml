@@ -64,15 +64,16 @@ scripts:
 
   format: >
     melos exec -c 1 -- \
-      flutter format .
+      flutter format --dry-run --set-exit-if-changed .
 
   analyze:
-    run: melos exec -c 1 --no-private -- flutter pub global run tuneup check
+    run: melos exec -c 1 --fail-fast -- \
+      flutter analyze --no-fatal-infos
     description: >
-      Run tuneup check over all packages. Requires tuneup. You can use `melos run setup_tuneup`.
+      Analyzes all packages and fails if there are any errors.
     select-package:
-      ignore:
-        - "*example*"
+      scope:
+        - amplify_analytics_*
 
   lint:pub: >
     melos exec -c 5 --fail-fast --no-private --ignore="*example*" -- \
