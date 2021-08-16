@@ -79,14 +79,13 @@ scripts:
     run: |
       export AMPLIFY_FLUTTER_ROOT="$PWD" && \
       melos exec -c 1 --fail-fast -- \
-      swiftlint --config "$AMPLIFY_FLUTTER_ROOT/.swiftlint.yml" --path ios
+        bash "$AMPLIFY_FLUTTER_ROOT/build-support/lint_ios.sh"
     description: >
       Lints iOS (Swift) files against global rules and fails if there are any errors.
     select-package:
-      no-private: true
       dir-exists: ios
-      ignore:
-        - "*example"
+      scope:
+        - amplify_analytics_pinpoint_example
 
   lint:android:
     run: melos exec -c 1 --fail-fast -- \
@@ -95,7 +94,7 @@ scripts:
       Lints Android (Kotlin) files against global rules and fails if there are any errors.
     select-package:
       scope:
-        - "*example"
+        - amplify_analytics_pinpoint_example
 
   lint:pub: >
     melos exec -c 5 --fail-fast --no-private --ignore="*example*" -- \
