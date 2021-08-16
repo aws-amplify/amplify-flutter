@@ -88,8 +88,10 @@ scripts:
         - amplify_analytics_pinpoint_example
 
   lint:android:
-    run: melos exec -c 1 --fail-fast -- \
-      cd android && ./gradlew lint
+    run: |
+      export AMPLIFY_FLUTTER_ROOT="$PWD" && \
+      melos exec -c 1 --fail-fast -- \
+        bash "$AMPLIFY_FLUTTER_ROOT/build-support/lint_android.sh"
     description: >
       Lints Android (Kotlin) files against global rules and fails if there are any errors.
     select-package:

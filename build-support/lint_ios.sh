@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if [ -z "$AMPLIFY_FLUTTER_ROOT" ]; then
     echo "Must set AMPLIFY_FLUTTER_ROOT" >&2
     exit 1
