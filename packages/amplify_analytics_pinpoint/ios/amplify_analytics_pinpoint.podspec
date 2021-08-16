@@ -23,4 +23,20 @@ This code is the iOS part of the Amplify Flutter Pinpoint Analytics Plugin.  The
   # Flutter.framework does not contain a i386 slice. Only x86_64 simulators are supported.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
   s.swift_version = '5.0'
+
+  s.script_phases = [
+    # Format build phase
+    {
+      :name => 'SwiftFormat',
+      :script => '"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat" --config "${SRCROOT}/../../../../../.swiftformat" --swiftversion "$SWIFT_VERSION" --lint "${SRCROOT}/../.symlinks/plugins/${PRODUCT_NAME}/ios"',
+      :execution_position => :before_compile
+    },
+
+    # Lint build phase
+    {
+      :name => 'SwiftLint',
+      :script => '"${PODS_ROOT}/SwiftLint/swiftlint" --config "${SRCROOT}/../../../../../.swiftlint.yml" --path "${SRCROOT}/../.symlinks/plugins/${PRODUCT_NAME}/ios"',
+      :execution_position => :before_compile
+    },
+  ]
 end

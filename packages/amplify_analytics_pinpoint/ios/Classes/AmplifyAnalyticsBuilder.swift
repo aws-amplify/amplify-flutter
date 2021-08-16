@@ -16,16 +16,16 @@
 import Amplify
 import AmplifyPlugins
 
-public class AmplifyAnalyticsBuilder {
+public enum AmplifyAnalyticsBuilder {
 
-    public static func createAnalyticsProperties(map : [String: Any]) -> AnalyticsProperties{
+    public static func createAnalyticsProperties(map: [String: Any]) -> AnalyticsProperties {
         let propertiesMap = map["propertiesMap"] as! [String: Any]
         let propertiesTypesMap = map["propertiesTypesMap"] as! [String: String]
-        
+
         var analyticsProperties = AnalyticsProperties()
-        
-        for (key,value) in propertiesTypesMap {
-            switch value{
+
+        for (key, value) in propertiesTypesMap {
+            switch value {
                 case "STRING":
                     analyticsProperties[key] = propertiesMap[key] as? String
                 case "INT":
@@ -41,20 +41,20 @@ public class AmplifyAnalyticsBuilder {
         return analyticsProperties
     }
 
-    public static func createUserProfile(userProfileMap : Dictionary<String, Any>) -> AnalyticsUserProfile{
-        
+    public static func createUserProfile(userProfileMap: [String: Any]) -> AnalyticsUserProfile {
+
         var userProfile = AnalyticsUserProfile( location: nil )
-        
-        for(key, value) in userProfileMap{
-            switch key{
+
+        for (key, value) in userProfileMap {
+            switch key {
             case "name":
-                userProfile.name = (value as! String);
+                userProfile.name = (value as! String)
             case "email":
-                userProfile.email = (value as! String);
+                userProfile.email = (value as! String)
             case "plan":
-                userProfile.plan = (value as! String);
+                userProfile.plan = (value as! String)
             case "location":
-                let locationMap = value as! Dictionary<String, Any>
+                let locationMap = value as! [String: Any]
                 userProfile.location = createUserLocation(userLocationMap: locationMap)
             case "propertiesMap":
                 userProfile.properties = createAnalyticsProperties(map: userProfileMap)
@@ -64,19 +64,19 @@ public class AmplifyAnalyticsBuilder {
             // This case should not be possible as UserProfile is typed on Dart side
             default:
                 print("Unknown key for UserProfile")
-                
+
             }
         }
-        
+
         return userProfile
     }
 
-    public static func createUserLocation(userLocationMap : Dictionary<String, Any>) -> AnalyticsUserProfile.Location{
-        
-        var userLocation : AnalyticsUserProfile.Location = AnalyticsUserProfile.Location()
-        
-        for(key, value) in userLocationMap{
-            switch key{
+    public static func createUserLocation(userLocationMap: [String: Any]) -> AnalyticsUserProfile.Location {
+
+        var userLocation = AnalyticsUserProfile.Location()
+
+        for (key, value) in userLocationMap {
+            switch key {
             case "latitude":
                 userLocation.latitude = (value as! Double)
             case "longitude":
@@ -94,7 +94,7 @@ public class AmplifyAnalyticsBuilder {
                 print("Unknown key for UserLocation")
             }
         }
-        
+
         return userLocation
     }
 

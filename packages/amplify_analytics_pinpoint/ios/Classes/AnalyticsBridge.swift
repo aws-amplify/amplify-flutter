@@ -18,30 +18,30 @@ import AmplifyPlugins
 
 public class AnalyticsBridge {
 
-    func record(event: AnalyticsEvent){
+    func record(event: AnalyticsEvent) {
         Amplify.Analytics.record(event: event)
     }
 
-    func flushEvents(){
+    func flushEvents() {
         Amplify.Analytics.flushEvents()
     }
-    
-    func registerGlobalProperties(analyticsProperties: AnalyticsProperties){
+
+    func registerGlobalProperties(analyticsProperties: AnalyticsProperties) {
         Amplify.Analytics.registerGlobalProperties(analyticsProperties)
     }
-    
-    func unregisterGlobalProperties(propertyNames: Set<String>? = nil){
+
+    func unregisterGlobalProperties(propertyNames: Set<String>? = nil) {
         Amplify.Analytics.unregisterGlobalProperties(propertyNames)
     }
-    
-    func enable(){
+
+    func enable() {
         Amplify.Analytics.enable()
     }
-    
-    func disable(){
+
+    func disable() {
         Amplify.Analytics.disable()
     }
-    
+
     func identifyUser(_ identityId: String, withProfile userProfile: AnalyticsUserProfile? = nil) {
         Amplify.Analytics.identifyUser(identityId, withProfile: userProfile)
     }
