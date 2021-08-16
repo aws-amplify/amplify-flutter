@@ -246,6 +246,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
         var req = FlutterResendSignUpCodeRequest(request as HashMap<String, *>);
         Amplify.Auth.resendSignUpCode(
                 req.username,
+                req.options,
                 { result -> prepareResendSignUpCodeResult(flutterResult, result) },
                 { error -> errorHandler.handleAuthError(flutterResult, error)}
         )

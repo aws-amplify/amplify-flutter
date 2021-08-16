@@ -69,8 +69,15 @@ class AuthCategory {
         : throw _pluginNotAddedException("Auth");
   }
 
-  Future<ResendSignUpCodeResult> resendSignUpCode({required String username}) {
-    var request = ResendSignUpCodeRequest(username: username);
+  /// Resends the code that is used to confirm the user's account after sign up
+  ///
+  /// Resends the code to the user with the given [username], where [username]
+  /// is a login identifier or an email/phone number, depending on the configuration
+  ///
+  /// Accepts plugin-specific, advanced [options] for the request
+  Future<ResendSignUpCodeResult> resendSignUpCode(
+      {required String username, ResendSignUpCodeOptions? options}) {
+    var request = ResendSignUpCodeRequest(username: username, options: options);
     return plugins.length == 1
         ? plugins[0].resendSignUpCode(request: request)
         : throw _pluginNotAddedException("Auth");

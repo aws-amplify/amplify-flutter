@@ -19,6 +19,7 @@ export 'SignUp/ConfirmSignUpRequest.dart';
 export 'SignUp/ConfirmSignUpOptions.dart';
 export 'SignUp/SignUpOptions.dart';
 export 'SignUp/AuthNextSignUpStep.dart';
+export 'SignUp/ResendSignUpCodeOptions.dart';
 export 'SignUp/ResendSignUpCodeRequest.dart';
 export 'SignUp/ResendSignUpCodeResult.dart';
 

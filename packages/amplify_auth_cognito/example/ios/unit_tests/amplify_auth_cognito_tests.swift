@@ -549,6 +549,18 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
+    func test_resendSignUpCodeRequestWithClientMetadata() {
+        let metadata: Dictionary<String, Any> = ["attribute": "value"]
+        let rawOptions: Dictionary<String, Any> = ["clientMetadata": metadata]
+        let rawData: NSMutableDictionary = [
+            "username": _username,
+            "options": rawOptions
+        ]
+        let request = FlutterResendSignUpCodeRequest(dict: rawData);
+        let options = request.options?.pluginOptions as! AWSAuthResendSignUpCodeOptions
+        XCTAssertEqual("value", options.metadata!["attribute"])
+    }
+    
     func test_resendSignUpCodeError() {
         
         class ResendSignUpCodeMock: AuthCognitoBridge {

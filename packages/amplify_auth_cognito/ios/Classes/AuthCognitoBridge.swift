@@ -51,7 +51,7 @@ class AuthCognitoBridge {
     }
     
     func onResendSignUpCode(flutterResult: @escaping FlutterResult, request: FlutterResendSignUpCodeRequest) {
-        _ = Amplify.Auth.resendSignUpCode(for: request.username) { response in
+        _ = Amplify.Auth.resendSignUpCode(for: request.username, options: request.options) { response in
             switch response {
             case .success:
                 let resendData = FlutterResendSignUpCodeResult(res: response)
