@@ -28,7 +28,7 @@ This code is the iOS part of the Amplify Flutter Pinpoint Analytics Plugin.  The
     # Format build phase
     {
       :name => 'SwiftFormat',
-      :script => '"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat" --config "${SRCROOT}/../../../../../.swiftformat" --swiftversion "$SWIFT_VERSION" --lint "${SRCROOT}/../.symlinks/plugins/${PRODUCT_NAME}/ios"',
+      :script => '"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat" --config "${SRCROOT}/../../../../../.swiftformat" --swiftversion "$SWIFT_VERSION" "${SRCROOT}/../.symlinks/plugins/${PRODUCT_NAME}/ios"',
       :execution_position => :before_compile
     },
 

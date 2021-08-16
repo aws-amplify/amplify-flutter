@@ -39,6 +39,7 @@ android {
     }
     lintOptions {
         disable 'InvalidPackage'
+        disable 'GradleDependency'
     }
     testOptions {
         unitTests {
