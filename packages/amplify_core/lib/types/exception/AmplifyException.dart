@@ -34,13 +34,15 @@ class AmplifyException implements Exception {
   static AmplifyException fromMap(Map<String, String> serializedException) {
     if (serializedException["message"] == null) {
       throw new FormatException(
-          "Cannot create AmplifyException from map.  Message field is missing");
+        "Cannot create AmplifyException from map.  Message field is missing",
+      );
     }
 
-    return AmplifyException(serializedException["message"]!,
-        recoverySuggestion: serializedException["recoverySuggestion"] ?? null,
-        underlyingException:
-            serializedException["underlyingException"] ?? null);
+    return AmplifyException(
+      serializedException["message"]!,
+      recoverySuggestion: serializedException["recoverySuggestion"] ?? null,
+      underlyingException: serializedException["underlyingException"] ?? null,
+    );
   }
 
   @override

@@ -7,10 +7,12 @@ import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 import 'amplifyconfiguration.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -18,9 +20,9 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   bool _amplifyConfigured = false;
 
-  String _uniqueId = "default";
-  String _globalProp = "default";
-  String _userId = "default";
+  String _uniqueId = 'default';
+  String _globalProp = 'default';
+  String _userId = 'default';
 
   @override
   void initState() {
@@ -54,10 +56,10 @@ class _MyAppState extends State<MyApp> {
   void _recordEvent() async {
     AnalyticsEvent event = AnalyticsEvent(_uniqueId);
 
-    event.properties.addBoolProperty("boolKey", true);
-    event.properties.addDoubleProperty("doubleKey", 10.0);
-    event.properties.addIntProperty("intKey", 10);
-    event.properties.addStringProperty("stringKey", "stringValue");
+    event.properties.addBoolProperty('boolKey', true);
+    event.properties.addDoubleProperty('doubleKey', 10.0);
+    event.properties.addIntProperty('intKey', 10);
+    event.properties.addStringProperty('stringKey', 'stringValue');
 
     Amplify.Analytics.recordEvent(event: event);
   }
@@ -67,20 +69,20 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _registerGlobalProperties() async {
-    print("register global properties: " + _globalProp);
+    print('register global properties: ' + _globalProp);
 
-    AnalyticsProperties properties = new AnalyticsProperties();
-    properties.addIntProperty(_globalProp + "_1numKey", 1);
-    properties.addBoolProperty(_globalProp + "_boolKey", true);
-    properties.addDoubleProperty(_globalProp + "_doubleKey", 10.0);
-    properties.addIntProperty(_globalProp + "_intKey", 10);
-    properties.addStringProperty(_globalProp + "_stringKey", "stringValue");
+    AnalyticsProperties properties = AnalyticsProperties();
+    properties.addIntProperty(_globalProp + '_1numKey', 1);
+    properties.addBoolProperty(_globalProp + '_boolKey', true);
+    properties.addDoubleProperty(_globalProp + '_doubleKey', 10.0);
+    properties.addIntProperty(_globalProp + '_intKey', 10);
+    properties.addStringProperty(_globalProp + '_stringKey', 'stringValue');
 
     Amplify.Analytics.registerGlobalProperties(globalProperties: properties);
   }
 
   void _unregisterGlobalProperties() async {
-    print("unregister global properties: " + _globalProp);
+    print('unregister global properties: ' + _globalProp);
 
     Amplify.Analytics.unregisterGlobalProperties(propertyNames: [_globalProp]);
   }
@@ -98,27 +100,27 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _identifyUser() async {
-    AnalyticsUserProfile analyticsUserProfile = new AnalyticsUserProfile();
-    analyticsUserProfile.name = _userId + "_name";
-    analyticsUserProfile.email = _userId + "_email";
-    analyticsUserProfile.plan = _userId + "_plan";
+    AnalyticsUserProfile analyticsUserProfile = AnalyticsUserProfile();
+    analyticsUserProfile.name = _userId + '_name';
+    analyticsUserProfile.email = _userId + '_email';
+    analyticsUserProfile.plan = _userId + '_plan';
 
     AnalyticsUserProfileLocation analyticsUserLocation =
-        new AnalyticsUserProfileLocation();
+        AnalyticsUserProfileLocation();
     analyticsUserLocation.latitude = 5;
     analyticsUserLocation.longitude = 5;
-    analyticsUserLocation.postalCode = "94070";
-    analyticsUserLocation.city = "SanFrancisco";
-    analyticsUserLocation.region = "California";
-    analyticsUserLocation.country = "USA";
+    analyticsUserLocation.postalCode = '94070';
+    analyticsUserLocation.city = 'SanFrancisco';
+    analyticsUserLocation.region = 'California';
+    analyticsUserLocation.country = 'USA';
 
     analyticsUserProfile.location = analyticsUserLocation;
 
-    AnalyticsProperties properties = new AnalyticsProperties();
-    properties.addStringProperty(_userId + "_stringKey", "stringValue");
-    properties.addIntProperty(_userId + "_intKey", 10);
-    properties.addDoubleProperty(_userId + "_doubleKey", 10.0);
-    properties.addBoolProperty(_userId + "_boolKey", false);
+    AnalyticsProperties properties = AnalyticsProperties();
+    properties.addStringProperty(_userId + '_stringKey', 'stringValue');
+    properties.addIntProperty(_userId + '_intKey', 10);
+    properties.addDoubleProperty(_userId + '_doubleKey', 10.0);
+    properties.addBoolProperty(_userId + '_boolKey', false);
 
     analyticsUserProfile.properties = properties;
 
@@ -130,25 +132,29 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-            title: const Text('Amplify Analytics example app'),
-          ),
-          body: ListView(padding: EdgeInsets.all(10.0), children: <Widget>[
+        appBar: AppBar(
+          title: const Text('Amplify Analytics example app'),
+        ),
+        body: ListView(
+          padding: const EdgeInsets.all(10.0),
+          children: <Widget>[
             Container(
-                padding: EdgeInsets.all(10.0),
-                decoration: const BoxDecoration(
-                  border: Border(
-                    top: BorderSide(width: 1.0, color: Color(0xFFFFDFDFDF)),
-                    left: BorderSide(width: 1.0, color: Color(0xFFFFDFDFDF)),
-                    right: BorderSide(width: 1.0, color: Color(0xFFFF7F7F7F)),
-                    bottom: BorderSide(width: 1.0, color: Color(0xFFFF7F7F7F)),
-                  ),
-                  color: Color(0xFFBFBFBF),
+              padding: const EdgeInsets.all(10.0),
+              decoration: const BoxDecoration(
+                border: Border(
+                  top: BorderSide(width: 1.0, color: Color(0xFFDFDFDF)),
+                  left: BorderSide(width: 1.0, color: Color(0xFFDFDFDF)),
+                  right: BorderSide(width: 1.0, color: Color(0xFF7F7F7F)),
+                  bottom: BorderSide(width: 1.0, color: Color(0xFF7F7F7F)),
                 ),
-                child: Column(children: <Widget>[
-                  Text('Amplify.Core',
-                      style:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+                color: Color(0xFFBFBFBF),
+              ),
+              child: Column(
+                children: <Widget>[
+                  const Text(
+                    'Amplify.Core',
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
                   ElevatedButton(
                     onPressed: _amplifyConfigured ? null : _configureAmplify,
                     child: const Text('configure Amplify'),
@@ -157,35 +163,45 @@ class _MyAppState extends State<MyApp> {
                     child:
                         Text('Is Amplify Configured?: $_amplifyConfigured\n'),
                   )
-                ])),
+                ],
+              ),
+            ),
             Container(
-                padding: EdgeInsets.all(10.0),
-                decoration: const BoxDecoration(
-                  border: Border(
-                    top: BorderSide(width: 1.0, color: Color(0xFFFFDFDFDF)),
-                    left: BorderSide(width: 1.0, color: Color(0xFFFFDFDFDF)),
-                    right: BorderSide(width: 1.0, color: Color(0xFFFF7F7F7F)),
-                    bottom: BorderSide(width: 1.0, color: Color(0xFFFF7F7F7F)),
-                  ),
-                  color: Color(0xFFBFBFBF),
+              padding: const EdgeInsets.all(10.0),
+              decoration: const BoxDecoration(
+                border: Border(
+                  top: BorderSide(width: 1.0, color: Color(0xFFDFDFDF)),
+                  left: BorderSide(width: 1.0, color: Color(0xFFDFDFDF)),
+                  right: BorderSide(width: 1.0, color: Color(0xFF7F7F7F)),
+                  bottom: BorderSide(width: 1.0, color: Color(0xFF7F7F7F)),
                 ),
-                child: Column(children: <Widget>[
-                  Text('Amplify.Analytics',
-                      style:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+                color: Color(0xFFBFBFBF),
+              ),
+              child: Column(
+                children: <Widget>[
+                  const Text(
+                    'Amplify.Analytics',
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
                   TextField(
-                      decoration: InputDecoration(hintText: 'Enter event id'),
-                      onChanged: (text) {
-                        _uniqueId = text;
-                      }),
+                    decoration:
+                        const InputDecoration(hintText: 'Enter event id'),
+                    onChanged: (text) {
+                      _uniqueId = text;
+                    },
+                  ),
                   Center(
-                      child: ElevatedButton(
-                          onPressed: _amplifyConfigured ? _recordEvent : null,
-                          child: const Text('Record Event'))),
+                    child: ElevatedButton(
+                      onPressed: _amplifyConfigured ? _recordEvent : null,
+                      child: const Text('Record Event'),
+                    ),
+                  ),
                   Center(
-                      child: ElevatedButton(
-                          onPressed: _amplifyConfigured ? _flushEvents : null,
-                          child: const Text('Flush Events'))),
+                    child: ElevatedButton(
+                      onPressed: _amplifyConfigured ? _flushEvents : null,
+                      child: const Text('Flush Events'),
+                    ),
+                  ),
                   const Divider(
                     color: Colors.black,
                     height: 3,
@@ -194,25 +210,28 @@ class _MyAppState extends State<MyApp> {
                     endIndent: 0,
                   ),
                   TextField(
-                      decoration:
-                          InputDecoration(hintText: 'Enter global prop id'),
-                      onChanged: (text) {
-                        _globalProp = text;
-                      }),
+                    decoration:
+                        const InputDecoration(hintText: 'Enter global prop id'),
+                    onChanged: (text) {
+                      _globalProp = text;
+                    },
+                  ),
                   ElevatedButton(
-                      onPressed:
-                          _amplifyConfigured ? _registerGlobalProperties : null,
-                      child: const Text('Register Global Prop')),
+                    onPressed:
+                        _amplifyConfigured ? _registerGlobalProperties : null,
+                    child: const Text('Register Global Prop'),
+                  ),
                   ElevatedButton(
-                      onPressed: _amplifyConfigured
-                          ? _unregisterGlobalProperties
-                          : null,
-                      child: const Text('Unregister Global Prop')),
+                    onPressed:
+                        _amplifyConfigured ? _unregisterGlobalProperties : null,
+                    child: const Text('Unregister Global Prop'),
+                  ),
                   ElevatedButton(
-                      onPressed: _amplifyConfigured
-                          ? _unregisterAllGlobalProperties
-                          : null,
-                      child: const Text('Unregister All Global Prop')),
+                    onPressed: _amplifyConfigured
+                        ? _unregisterAllGlobalProperties
+                        : null,
+                    child: const Text('Unregister All Global Prop'),
+                  ),
                   const Divider(
                     color: Colors.black,
                     height: 3,
@@ -221,13 +240,16 @@ class _MyAppState extends State<MyApp> {
                     endIndent: 0,
                   ),
                   TextField(
-                      decoration: InputDecoration(hintText: 'Enter user id'),
-                      onChanged: (text) {
-                        _userId = text;
-                      }),
+                    decoration:
+                        const InputDecoration(hintText: 'Enter user id'),
+                    onChanged: (text) {
+                      _userId = text;
+                    },
+                  ),
                   ElevatedButton(
-                      onPressed: _amplifyConfigured ? _identifyUser : null,
-                      child: const Text('Register User')),
+                    onPressed: _amplifyConfigured ? _identifyUser : null,
+                    child: const Text('Register User'),
+                  ),
                   const Divider(
                     color: Colors.black,
                     height: 3,
@@ -236,13 +258,19 @@ class _MyAppState extends State<MyApp> {
                     endIndent: 0,
                   ),
                   ElevatedButton(
-                      onPressed: _amplifyConfigured ? _enable : null,
-                      child: const Text('Enable')),
+                    onPressed: _amplifyConfigured ? _enable : null,
+                    child: const Text('Enable'),
+                  ),
                   ElevatedButton(
-                      onPressed: _amplifyConfigured ? _disable : null,
-                      child: const Text('Disable')),
-                ]))
-          ])),
+                    onPressed: _amplifyConfigured ? _disable : null,
+                    child: const Text('Disable'),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

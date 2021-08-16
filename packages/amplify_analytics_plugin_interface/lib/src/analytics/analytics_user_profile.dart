@@ -22,20 +22,21 @@ class AnalyticsUserProfile {
   AnalyticsUserProfileLocation? location;
   AnalyticsProperties? properties;
 
-  AnalyticsUserProfile(
-      {this.name, this.email, this.plan, this.location, analyticsProperties})
-      : this.properties = analyticsProperties;
+  AnalyticsUserProfile({
+    this.name,
+    this.email,
+    this.plan,
+    this.location,
+    AnalyticsProperties? analyticsProperties,
+  }) : properties = analyticsProperties;
 
-  Map<String, Object?> getAllProperties() {
-    Map<String, Object?> allProperties = {
-      'name': name,
-      'email': email,
-      'plan': plan,
-      'location': location?.getAllProperties(),
-      'propertiesMap': properties?.getAllProperties(),
-      'propertiesTypesMap': properties?.getAllPropertiesTypes()
-    };
-    allProperties.removeWhere((_, v) => v == null);
-    return allProperties;
-  }
+  Map<String, Object?> getAllProperties() => {
+        if (name != null) 'name': name,
+        if (email != null) 'email': email,
+        if (plan != null) 'plan': plan,
+        if (location != null) 'location': location!.getAllProperties(),
+        if (properties != null) 'propertiesMap': properties!.getAllProperties(),
+        if (properties != null)
+          'propertiesTypesMap': properties!.getAllPropertiesTypes(),
+      };
 }

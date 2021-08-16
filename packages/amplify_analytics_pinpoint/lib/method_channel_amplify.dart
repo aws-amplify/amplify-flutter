@@ -13,11 +13,8 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:io';
-
 import 'package:amplify_analytics_plugin_interface/amplify_analytics_plugin_interface.dart';
 import 'package:amplify_core/types/exception/AmplifyException.dart';
-import 'package:amplify_core/types/exception/AmplifyExceptionMessages.dart';
 import 'package:amplify_core/types/exception/AmplifyAlreadyConfiguredException.dart';
 import 'package:flutter/services.dart';
 
@@ -33,12 +30,9 @@ class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpoint {
       return await _channel.invokeMethod('addPlugin');
     } on PlatformException catch (e) {
       if (e.code == 'AmplifyAlreadyConfiguredException') {
-        throw AmplifyAlreadyConfiguredException(
-            AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
-            recoverySuggestion:
-                AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
+        throw const AmplifyAlreadyConfiguredException();
       } else {
-        throw AmplifyException.fromMap(Map<String, String>.from(e.details));
+        throw AmplifyException.fromMap((e.details as Map).cast());
       }
     }
   }
@@ -46,7 +40,7 @@ class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpoint {
   @override
   Future<void> onConfigure() async {
     try {
-      await _channel.invokeMethod('startSession');
+      await _channel.invokeMethod<void>('startSession');
     } on Exception {
       // TODO: log, but should not happen
     }
@@ -73,8 +67,9 @@ class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpoint {
   }
 
   @override
-  Future<void> registerGlobalProperties(
-      {required AnalyticsProperties globalProperties}) async {
+  Future<void> registerGlobalProperties({
+    required AnalyticsProperties globalProperties,
+  }) async {
     await _channel.invokeMethod<bool>(
       'registerGlobalProperties',
       <String, Object>{
@@ -85,10 +80,13 @@ class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpoint {
   }
 
   @override
-  Future<void> unregisterGlobalProperties(
-      {List<String>? propertyNames = const []}) async {
+  Future<void> unregisterGlobalProperties({
+    List<String>? propertyNames = const [],
+  }) async {
     await _channel.invokeMethod<bool>(
-        'unregisterGlobalProperties', propertyNames);
+      'unregisterGlobalProperties',
+      propertyNames,
+    );
   }
 
   @override
@@ -106,9 +104,10 @@ class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpoint {
   }
 
   @override
-  Future<void> identifyUser(
-      {required String userId,
-      required AnalyticsUserProfile userProfile}) async {
+  Future<void> identifyUser({
+    required String userId,
+    required AnalyticsUserProfile userProfile,
+  }) async {
     await _channel.invokeMethod<bool>(
       'identifyUser',
       <String, Object>{

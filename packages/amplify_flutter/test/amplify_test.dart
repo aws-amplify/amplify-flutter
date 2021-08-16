@@ -35,16 +35,10 @@ void main() {
   String invalidConfiguration = 'How dare you call me invalid';
   String validJsonConfiguration = '{ \"happy\": \"validConfiguration\"}';
 
-  const amplifyAlreadyConfiguredException = AmplifyAlreadyConfiguredException(
-      'Amplify has already been configured and re-configuration is not supported.',
-      recoverySuggestion:
-          'Check if Amplify is already configured using Amplify.isConfigured.');
+  const amplifyAlreadyConfiguredException = AmplifyAlreadyConfiguredException();
 
   const amplifyAlreadyConfiguredForAddPluginException =
-      AmplifyAlreadyConfiguredException(
-          'Amplify has already been configured and adding plugins after configure is not supported.',
-          recoverySuggestion:
-              'Check if Amplify is already configured using Amplify.isConfigured.');
+      AmplifyAlreadyConfiguredException.reconfigured();
 
   AmplifyException multiplePluginsForAuthException = AmplifyException(
       'Amplify plugin AmplifyAuthCognito was not added successfully.',

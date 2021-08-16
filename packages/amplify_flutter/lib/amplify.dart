@@ -107,10 +107,7 @@ class AmplifyClass extends PlatformInterface {
             underlyingException: e.toString());
       }
     } else {
-      throw AmplifyAlreadyConfiguredException(
-          'Amplify has already been configured and adding plugins after configure is not supported.',
-          recoverySuggestion:
-              'Check if Amplify is already configured using Amplify.isConfigured.');
+      throw const AmplifyAlreadyConfiguredException();
     }
     return;
   }
@@ -141,10 +138,7 @@ class AmplifyClass extends PlatformInterface {
   Future<void> configure(String configuration) async {
     // Validation #1
     if (isConfigured) {
-      throw AmplifyAlreadyConfiguredException(
-          'Amplify has already been configured and re-configuration is not supported.',
-          recoverySuggestion:
-              'Check if Amplify is already configured using Amplify.isConfigured.');
+      throw const AmplifyAlreadyConfiguredException();
     }
 
     // Validation #2. Try decoding the json string
