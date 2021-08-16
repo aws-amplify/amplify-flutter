@@ -62,7 +62,9 @@ jobs:
       - install_flutter
       - checkout
       - install_melos
-      - run: melos run analyze --no-select
+      - run:
+          name: Analyze Dart/Flutter Code
+          command: melos run analyze --no-select
 
   unit_test_flutter:
     executor: docker-executor
@@ -96,7 +98,9 @@ jobs:
       - install_flutter
       - checkout
       - install_melos
-      - run: melos run lint:ios --no-select
+      - run:
+          name: Run lint checks
+          command: melos run lint:ios --no-select
       - run:
           name: Pre-start iOS simulator
           # xcrun instruments returns non zero, but successfully starts the simulator
@@ -131,12 +135,14 @@ jobs:
       - install_flutter
       - checkout
       - install_melos
-      - run: melos run lint:android --no-select
       - run:
           name: Build example APKs
           command: |
             melos run build:examples:android
           no_output_timeout: 20m
+      - run: 
+          name: Run lint checks
+          command: melos run lint:android --no-select
       - run:
           name: Run Android Unit Tests
           command: melos run test:unit:android
