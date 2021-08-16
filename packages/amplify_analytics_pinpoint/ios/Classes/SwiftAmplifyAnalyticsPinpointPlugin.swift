@@ -19,12 +19,12 @@ import Amplify
 import AmplifyPlugins
 
 public class SwiftAmplifyAnalyticsPinpointPlugin: NSObject, FlutterPlugin {
-    
+
     private let bridge: AnalyticsBridge
-    
+
     init(
         bridge: AnalyticsBridge = AnalyticsBridge()
-    ){
+    ) {
         self.bridge = bridge
     }
 
@@ -37,9 +37,9 @@ public class SwiftAmplifyAnalyticsPinpointPlugin: NSObject, FlutterPlugin {
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         innerHandle(method: call.method, callArgs: call.arguments as Any?, result: result)
     }
-    
-    public func innerHandle(method: String, callArgs: Any?, result: @escaping FlutterResult){
-        switch method{
+
+    public func innerHandle(method: String, callArgs: Any?, result: @escaping FlutterResult) {
+        switch method {
             case "addPlugin":
                 FlutterAnalytics.addPlugin(result: result)
             case "startSession":
@@ -59,10 +59,9 @@ public class SwiftAmplifyAnalyticsPinpointPlugin: NSObject, FlutterPlugin {
                 FlutterAnalytics.disable(result: result, bridge: bridge)
             case "identifyUser":
                 FlutterAnalytics.identifyUser(arguments: callArgs, result: result, bridge: bridge)
-            default :
+            default:
                 result(FlutterMethodNotImplemented)
         }
     }
 
-  
 }

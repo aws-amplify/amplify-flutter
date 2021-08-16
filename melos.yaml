@@ -75,6 +75,28 @@ scripts:
       scope:
         - amplify_analytics_*
 
+  lint:ios:
+    run: |
+      export AMPLIFY_FLUTTER_ROOT="$PWD" && \
+      melos exec -c 1 --fail-fast -- \
+      swiftlint --config "$AMPLIFY_FLUTTER_ROOT/.swiftlint.yml" --path ios
+    description: >
+      Lints iOS (Swift) files against global rules and fails if there are any errors.
+    select-package:
+      no-private: true
+      dir-exists: ios
+      ignore:
+        - "*example"
+
+  lint:android:
+    run: melos exec -c 1 --fail-fast -- \
+      cd android && ./gradlew lint
+    description: >
+      Lints Android (Kotlin) files against global rules and fails if there are any errors.
+    select-package:
+      scope:
+        - "*example"
+
   lint:pub: >
     melos exec -c 5 --fail-fast --no-private --ignore="*example*" -- \
       flutter pub publish --dry-run
