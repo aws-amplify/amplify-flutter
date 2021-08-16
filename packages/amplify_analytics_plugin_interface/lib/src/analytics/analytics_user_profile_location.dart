@@ -21,24 +21,21 @@ class AnalyticsUserProfileLocation {
   String? region;
   String? country;
 
-  AnalyticsUserProfileLocation(
-      {this.latitude,
-      this.longitude,
-      this.postalCode,
-      this.city,
-      this.region,
-      this.country});
+  AnalyticsUserProfileLocation({
+    this.latitude,
+    this.longitude,
+    this.postalCode,
+    this.city,
+    this.region,
+    this.country,
+  });
 
-  Map<String, Object?> getAllProperties() {
-    Map<String, Object?> allProperties = {
-      'latitude': latitude,
-      'longitude': longitude,
-      'postalCode': postalCode,
-      'city': city,
-      'region': region,
-      'country': country
-    };
-    allProperties.removeWhere((_, v) => v == null);
-    return allProperties;
-  }
+  Map<String, Object?> getAllProperties() => {
+        if (latitude != null) 'latitude': latitude,
+        if (longitude != null) 'longitude': longitude,
+        if (postalCode != null) 'postalCode': postalCode,
+        if (city != null) 'city': city,
+        if (region != null) 'region': region,
+        if (country != null) 'country': country,
+      };
 }

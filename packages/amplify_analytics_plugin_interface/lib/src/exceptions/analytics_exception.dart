@@ -17,22 +17,29 @@ import 'package:amplify_core/types/exception/AmplifyException.dart';
 
 /// Base Class for Analytics Exceptions
 class AnalyticsException extends AmplifyException {
-  AnalyticsException(String message,
-      {String? recoverySuggestion, String? underlyingException})
-      : super(message,
-            recoverySuggestion: recoverySuggestion,
-            underlyingException: underlyingException);
+  const AnalyticsException(
+    String message, {
+    String? recoverySuggestion,
+    String? underlyingException,
+  }) : super(
+          message,
+          recoverySuggestion: recoverySuggestion,
+          underlyingException: underlyingException,
+        );
 
   /// Constructor for down casting an AmplifyException to this exception
   AnalyticsException._private(AmplifyException exception)
-      : super(exception.message,
-            recoverySuggestion: exception.recoverySuggestion,
-            underlyingException: exception.underlyingException);
+      : super(
+          exception.message,
+          recoverySuggestion: exception.recoverySuggestion,
+          underlyingException: exception.underlyingException,
+        );
 
   /// Instantiates and return a new `AnalyticsException` from the
   /// serialized exception data
   static AnalyticsException fromMap(Map<String, String> serializedException) {
     return AnalyticsException._private(
-        AmplifyException.fromMap(serializedException));
+      AmplifyException.fromMap(serializedException),
+    );
   }
 }

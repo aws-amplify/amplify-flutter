@@ -16,12 +16,9 @@
 import '../../amplify_analytics_plugin_interface.dart';
 
 class AnalyticsEvent {
-  String name;
+  final String name;
 
-  AnalyticsProperties _properties = new AnalyticsProperties();
-  AnalyticsProperties get properties {
-    return _properties;
-  }
+  final AnalyticsProperties properties = AnalyticsProperties();
 
   AnalyticsEvent(this.name);
 }
