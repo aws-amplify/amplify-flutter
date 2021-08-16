@@ -16,7 +16,6 @@
 /// The shared fetch user attributes options among all Auth plugins
 class FetchUserAttributesOptions {
   /// Default constructor
-
   const FetchUserAttributesOptions();
 
   /// Serialize the object to a map
