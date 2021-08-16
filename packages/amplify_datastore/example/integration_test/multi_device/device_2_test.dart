@@ -41,7 +41,7 @@ void main() async {
                 element.item.name == 'test blog created from device 1');
         await signalTestStart(testName: 'should save data');
         // test waits for the Blog from device 1 to be created
-        // as long as the test does not timeout, the test will pass
+        // the test will pass as long as the event is received before timing out
         await eventFuture;
         await signalTestEnd(testName: 'should save data');
       },

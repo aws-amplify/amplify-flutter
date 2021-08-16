@@ -13,12 +13,16 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:async';
+
 import 'package:amplify_datastore_example/models/ModelProvider.dart';
 import 'package:amplify_flutter/amplify.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 String _testId = '';
 
 /// sets an ID that is available accross all tests instances from
+/// a single test run. Used to sync test execution across devices from
 /// a single test run
 setTestId() {
   // const is needed for use with String.fromEnvironment
@@ -39,12 +43,24 @@ Future<void> signalDeviceTwoReady() async {
 
 /// wait for device one to be ready for device execution
 Future<void> waitForDeviceOneReady() async {
-  return _waitForBlogWithName('device 1 ready');
+  // failOnTimeout is set to false since this is called from setUp()
+  // timeout is increased to account for the difference in time between iOS and Android builds
+  return _waitForBlogWithName(
+    'device 1 ready',
+    failOnTimeout: false,
+    timeout: Duration(seconds: 120),
+  );
 }
 
 /// wait for device two to be ready for device execution
 Future<void> waitForDeviceTwoReady() async {
-  return _waitForBlogWithName('device 2 ready');
+  // failOnTimeout is set to false since this is called from setUp()
+  // timeout is increased to account for the difference in time between iOS and Android builds
+  return _waitForBlogWithName(
+    'device 2 ready',
+    failOnTimeout: false,
+    timeout: Duration(seconds: 120),
+  );
 }
 
 /// signal that a test with a given name has started
@@ -67,24 +83,53 @@ Future<void> waitForTestEnd({required String testName}) async {
   return _waitForBlogWithName('test end: $testName');
 }
 
-/// create a blog with a given name, and prepend the test ID to the name
+/// create a blog with a given name, and prepends the test ID to the
+/// name. Used to sync test execution between devices.
 Future<void> _createBlogWithName(String name) async {
-  print('Event created: ' + name);
+  print('Created: ' + name);
   Blog blog = Blog(name: '$_testId - $name');
   await Amplify.DataStore.save(blog);
 }
 
-/// waits for a blog to be created with a given name
-Future<void> _waitForBlogWithName(String name) async {
-  var blogs = await Amplify.DataStore.query(Blog.classType,
-      where: Blog.NAME.eq('$_testId - $name'));
-  if (blogs.length > 0) {
-    print('Event recieved: ' + name);
-    return;
-  } else {
-    await Amplify.DataStore.observe(Blog.classType)
-        .firstWhere((element) => element.item.name == '$_testId - $name');
-    print('Event recieved: ' + name);
-    return;
-  }
+/// wait for a blog to be created with a given name. Used to sync
+/// test execution between devices.
+Future<void> _waitForBlogWithName(
+  String name, {
+  Duration timeout = const Duration(seconds: 30),
+  bool failOnTimeout = true,
+}) async {
+  Completer completer = new Completer();
+
+  Future.delayed(timeout).then((value) {
+    if (!completer.isCompleted) {
+      if (failOnTimeout) {
+        fail('timeout exceeded while waiting for blog: $name.');
+      }
+      print(
+          'timeout exceeded while waiting for blog: $name. Fail set to false. Proceeding with tests ...');
+      completer.complete();
+    }
+  });
+
+  Amplify.DataStore.observe(Blog.classType)
+      .firstWhere((element) => element.item.name == '$_testId - $name')
+      .then((value) {
+    if (!completer.isCompleted) {
+      print('Recieved: ' + name);
+      completer.complete();
+    }
+  });
+
+  Amplify.DataStore.query(Blog.classType,
+          where: Blog.NAME.eq('$_testId - $name'))
+      .then((blogs) {
+    if (blogs.length > 0) {
+      if (!completer.isCompleted) {
+        print('Recieved: ' + name);
+        completer.complete();
+      }
+    }
+  });
+
+  await completer.future;
 }

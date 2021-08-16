@@ -33,16 +33,12 @@ void main() async {
       await waitForDeviceTwoReady();
     });
 
-    testWidgets(
-      'should save data',
-      (WidgetTester tester) async {
-        Blog testComment = Blog(name: 'test blog created from device 1');
-        await waitForTestStart(testName: 'should save data');
-        await Amplify.DataStore.save(testComment);
-        await waitForTestEnd(testName: 'should save data');
-        await Amplify.DataStore.delete(testComment);
-      },
-      timeout: Timeout(Duration(seconds: 10)),
-    );
+    testWidgets('should save data', (WidgetTester tester) async {
+      Blog testComment = Blog(name: 'test blog created from device 1');
+      await waitForTestStart(testName: 'should save data');
+      await Amplify.DataStore.save(testComment);
+      await waitForTestEnd(testName: 'should save data');
+      await Amplify.DataStore.delete(testComment);
+    });
   });
 }
