@@ -25,47 +25,50 @@ import amplify_core
 public enum FlutterAnalytics {
     public static func addPlugin(result: @escaping FlutterResult) {
         do {
-            try Amplify.add(plugin: AWSPinpointAnalyticsPlugin() )
+            try Amplify.add(plugin: AWSPinpointAnalyticsPlugin())
             result(true)
-        } catch {
-            if error is AnalyticsError {
-                let analyticsError = error as! AnalyticsError
-
-                ErrorUtil.postErrorToFlutterChannel(
-                    result: result,
-                    errorCode: "AnalyticsException",
-                    details: [
-                        "message": analyticsError.errorDescription,
-                        "recoverySuggestion": analyticsError.recoverySuggestion,
-                        "underlyingError": analyticsError.underlyingError != nil ? analyticsError.underlyingError!.localizedDescription : ""
-                    ])
-            } else if error is ConfigurationError {
-                let configError = error as! ConfigurationError
-
-                var errorCode = "AnalyticsException"
-                if case .amplifyAlreadyConfigured = configError {
-                   errorCode = "AmplifyAlreadyConfiguredException"
-                }
-                ErrorUtil.postErrorToFlutterChannel(
-                    result: result,
-                    errorCode: errorCode,
-                    details: [
-                        "message": configError.errorDescription,
-                        "recoverySuggestion": configError.recoverySuggestion,
-                        "underlyingError": configError.underlyingError != nil ? configError.underlyingError!.localizedDescription : ""
-                    ]
-                )
-            } else {
-                print("Failed to add Amplify Analytics Plugin \(error)")
-                result(false)
+        } catch let analyticsError as AnalyticsError {
+            ErrorUtil.postErrorToFlutterChannel(
+                result: result,
+                errorCode: "AnalyticsException",
+                details: [
+                    "message": analyticsError.errorDescription,
+                    "recoverySuggestion": analyticsError.recoverySuggestion,
+                    "underlyingError": analyticsError.underlyingError?.localizedDescription ?? ""
+                ])
+        } catch let configError as ConfigurationError {
+            var errorCode = "AnalyticsException"
+            if case .amplifyAlreadyConfigured = configError {
+               errorCode = "AmplifyAlreadyConfiguredException"
             }
-            return
+            ErrorUtil.postErrorToFlutterChannel(
+                result: result,
+                errorCode: errorCode,
+                details: [
+                    "message": configError.errorDescription,
+                    "recoverySuggestion": configError.recoverySuggestion,
+                    "underlyingError": configError.underlyingError?.localizedDescription ?? ""
+                ])
+        } catch {
+            ErrorUtil.postErrorToFlutterChannel(
+                result: result,
+                errorCode: "UNKNOWN",
+                details: ["message": error.localizedDescription])
         }
     }
 
-    public static func record(arguments: Any?, result: @escaping FlutterResult, bridge: AnalyticsBridge) {
-        let argumentsMap = arguments as! [String: Any]
-        let name = argumentsMap["name"] as! String
+    public static func record(
+        arguments: Any?,
+        result: @escaping FlutterResult,
+        bridge: AnalyticsBridge
+    ) {
+        guard let argumentsMap = arguments as? [String: Any],
+              let name = argumentsMap["name"] as? String
+        else {
+            result(invalidArgumentsError)
+            return
+        }
+
         let event: BasicAnalyticsEvent
 
         if argumentsMap["propertiesMap"] != nil {
@@ -84,16 +87,31 @@ public enum FlutterAnalytics {
         result(true)
     }
 
-    public static func registerGlobalProperties(arguments: Any?, result: @escaping FlutterResult, bridge: AnalyticsBridge) {
-        let argumentsMap = arguments as! [String: Any]
+    public static func registerGlobalProperties(
+        arguments: Any?,
+        result: @escaping FlutterResult,
+        bridge: AnalyticsBridge
+    ) {
+        guard let argumentsMap = arguments as? [String: Any] else {
+            result(invalidArgumentsError)
+            return
+        }
         let analyticsProperties = AmplifyAnalyticsBuilder.createAnalyticsProperties(map: argumentsMap)
         bridge.registerGlobalProperties(analyticsProperties: analyticsProperties)
         result(true)
     }
 
-    public static func unregisterGlobalProperties(arguments: Any?, result: @escaping FlutterResult, bridge: AnalyticsBridge) {
-        let propertyNames = Set<String>(arguments as! [String])
+    public static func unregisterGlobalProperties(
+        arguments: Any?,
+        result: @escaping FlutterResult,
+        bridge: AnalyticsBridge
+    ) {
+        guard let arguments = arguments as? [String] else {
+            result(invalidArgumentsError)
+            return
+        }
 
+        let propertyNames = Set(arguments)
         if propertyNames.isEmpty {
             bridge.unregisterGlobalProperties()
         } else {
@@ -113,12 +131,17 @@ public enum FlutterAnalytics {
     }
 
     public static func identifyUser(arguments: Any?, result: @escaping FlutterResult, bridge: AnalyticsBridge) {
-        let arguments = arguments as! [String: Any]
+        guard let arguments = arguments as? [String: Any],
+              let userId = arguments["userId"] as? String,
+              let userProfileMap = arguments["userProfileMap"] as? [String: Any]
+        else {
+            result(invalidArgumentsError)
+            return
+        }
 
-        let userId = arguments["userId"] as! String
-        let userProfileMap = arguments["userProfileMap"] as! [String: Any]
-
-        bridge.identifyUser(userId, withProfile: AmplifyAnalyticsBuilder.createUserProfile(userProfileMap: userProfileMap))
+        bridge.identifyUser(
+            userId,
+            withProfile: AmplifyAnalyticsBuilder.createUserProfile(userProfileMap: userProfileMap))
         result(true)
     }
 }
