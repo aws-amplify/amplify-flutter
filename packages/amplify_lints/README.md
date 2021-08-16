@@ -14,6 +14,7 @@ In addition to the rules recommended in the `lints` package:
 - [avoid_catches_without_on_clauses](https://dart-lang.github.io/linter/lints/avoid_catches_without_on_clauses.html)
 - [avoid_equals_and_hash_code_on_mutable_classes](https://dart-lang.github.io/linter/lints/avoid_equals_and_hash_code_on_mutable_classes.html)
 - [avoid_positional_boolean_parameters](https://dart-lang.github.io/linter/lints/avoid_positional_boolean_parameters.html)
+- [avoid_print](https://dart-lang.github.io/linter/lints/avoid_print.html)
 - [avoid_type_to_string](https://dart-lang.github.io/linter/lints/avoid_type_to_string.html)
 - [avoid_unused_constructor_parameters](https://dart-lang.github.io/linter/lints/avoid_unused_constructor_parameters.html)
 - [avoid_void_async](https://dart-lang.github.io/linter/lints/avoid_void_async.html)

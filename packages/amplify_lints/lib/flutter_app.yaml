@@ -12,8 +12,8 @@ linter:
     - close_sinks                                      # To avoid memory leaks.
     - directives_ordering                              # To maintain visual separation of a file’s imports.
     - only_throw_errors                                # To ensure downstream exception handling always works.
+    - prefer_if_elements_to_conditional_expressions    # To make large lists easier to read and navigate.
     - prefer_single_quotes                             # To encourage consistent styling.
     - sort_pub_dependencies                            # To simplify searching a large list.
     - unnecessary_await_in_return                      # To make code more concise and to encourage mindfulness about where Futures are awaited.
     - unnecessary_lambdas                              # To make code more concise.
-    - prefer_if_elements_to_conditional_expressions    # To make large lists easier to read and navigate.
