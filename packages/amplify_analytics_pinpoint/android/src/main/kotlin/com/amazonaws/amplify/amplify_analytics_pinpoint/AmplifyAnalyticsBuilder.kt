@@ -15,6 +15,7 @@
 
 package com.amazonaws.amplify.amplify_analytics_pinpoint
 
+import com.amazonaws.amplify.amplify_core.asMap
 import com.amplifyframework.analytics.AnalyticsEvent
 import com.amplifyframework.analytics.AnalyticsProperties
 import com.amplifyframework.analytics.UserProfile
@@ -52,10 +53,13 @@ class AmplifyAnalyticsBuilder {
             return propertiesBuilder.build()
         }
 
-        fun createAnalyticsEvent(name: String, propertiesMap: HashMap<String, Any>): AnalyticsEvent {
+        fun createAnalyticsEvent(
+            name: String,
+            propertiesMap: HashMap<String, Any>
+        ): AnalyticsEvent {
 
             val eventBuilder: AnalyticsEvent.Builder = AnalyticsEvent.builder()
-                    .name(name)
+                .name(name)
 
             for ((key, value) in propertiesMap) {
 
@@ -95,11 +99,11 @@ class AmplifyAnalyticsBuilder {
                     "plan" ->
                         userProfileBuilder.plan(item.value as String)
                     "location" -> {
-                        val locationMap = item.value as HashMap<String, String>
+                        val locationMap = item.value.asMap<String, String>()
                         userProfileBuilder.location(createUserLocation(locationMap))
                     }
                     "propertiesMap" -> {
-                        val propertiesMap = item.value as HashMap<String, Any>
+                        val propertiesMap = item.value.asMap<String, Any>()
                         userProfileBuilder.customProperties(createAnalyticsProperties(propertiesMap))
                     }
                     "propertiesTypesMap" -> {
@@ -115,7 +119,7 @@ class AmplifyAnalyticsBuilder {
             return userProfileBuilder.build()
         }
 
-        fun createUserLocation(userLocationMap: HashMap<String, *>): UserProfile.Location {
+        private fun createUserLocation(userLocationMap: HashMap<String, *>): UserProfile.Location {
 
             val locationBuilder = UserProfile.Location.builder()
 

@@ -38,14 +38,15 @@ class AmplifyAnalyticsPinpointPlugin : FlutterPlugin, ActivityAware, MethodCallH
         @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding
     ) {
 
-        channel = MethodChannel(flutterPluginBinding.binaryMessenger,
-            "com.amazonaws.amplify/analytics_pinpoint")
+        channel = MethodChannel(
+            flutterPluginBinding.binaryMessenger,
+            "com.amazonaws.amplify/analytics_pinpoint"
+        )
         channel.setMethodCallHandler(this)
         context = flutterPluginBinding.applicationContext
     }
 
     companion object {
-        const val TAG = "AmplifyAnalyticsPinpointPlugin"
         val LOG = Amplify.Logging.forNamespace("amplify:flutter:analytics_pinpoint")
     }
 
