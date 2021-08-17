@@ -19,7 +19,10 @@ import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+/// {@template rest_response}
 /// An HTTP response from a REST API call.
+/// {@endtemplate}
+@immutable
 class RestResponse {
   /// The response status code.
   final int statusCode;
@@ -37,6 +40,7 @@ class RestResponse {
   /// For custom processing, use [data] to get the raw body bytes.
   late final String body;
 
+  /// {@macro rest_response}
   RestResponse({
     required Uint8List? data,
     required this.headers,
@@ -58,6 +62,6 @@ class RestResponse {
 
   @override
   String toString() {
-    return 'RestResponse{ statusCode=$statusCode, headers=$headers, body=$body }';
+    return 'RestResponse{statusCode=$statusCode, headers=$headers, body=$body}';
   }
 }

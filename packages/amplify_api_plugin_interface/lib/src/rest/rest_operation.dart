@@ -13,17 +13,11 @@
  * permissions and limitations under the License.
  */
 
-export 'exceptions/api_exception.dart';
+import 'rest_response.dart';
 
-export 'graphql/graphql_operation.dart';
-export 'graphql/graphql_request.dart';
-export 'graphql/graphql_response.dart';
-export 'graphql/graphql_response_error.dart';
-export 'graphql/graphql_subscription_operation.dart';
+class RestOperation {
+  final Function cancel;
+  final Future<RestResponse> response;
 
-export 'rest/rest_exception.dart';
-export 'rest/rest_operation.dart';
-export 'rest/rest_options.dart';
-export 'rest/rest_response.dart';
-
-export 'uuid.dart';
+  const RestOperation({required this.response, required this.cancel});
+}

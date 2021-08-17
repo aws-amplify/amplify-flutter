@@ -15,17 +15,20 @@
 
 import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 
+/// {@template rest_exception}
 /// An HTTP error encountered during a REST API call, i.e. for calls returning
 /// non-2xx status codes.
+/// {@endtemplate}
 class RestException extends ApiException {
   /// The HTTP response from the server.
   final RestResponse response;
 
+  /// {@macro rest_exception}
   RestException(this.response)
       : super(response.body, httpStatusCode: response.statusCode);
 
   @override
   String toString() {
-    return 'RestException{ response=$response }';
+    return 'RestException{response=$response}';
   }
 }

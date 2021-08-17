@@ -67,9 +67,9 @@ class APICategory {
   }
 
   // ====== RestAPI ======
-  void cancelRequest(String code) {
+  void cancelRequest(String cancelToken) {
     return plugins.length == 1
-        ? plugins[0].cancelRequest(code)
+        ? plugins[0].cancelRequest(cancelToken)
         : throw _pluginNotAddedException("Api");
   }
 

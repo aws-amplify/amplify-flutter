@@ -29,41 +29,43 @@ final throwsRestException = throwsA(isA<RestException>());
 void main() {
   const MethodChannel apiChannel = MethodChannel('com.amazonaws.amplify/api');
 
-  AmplifyAPI api = new AmplifyAPI();
+  AmplifyAPI api = AmplifyAPI();
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
   test('PUT returns proper response.data', () async {
     var responseData = Uint8List.fromList(
-        "{\"success\": \"put call succeed!\",\"url\":\"/items?queryParameterA=queryValueA&queryParameterB=queryValueB\",\"body\": {\"name\": \"Mow the lawn\"}}"
+        '{"success": "put call succeed!","url":/items?queryParameterA=queryValueA&queryParameterB=queryValueB","body": {"name": "Mow the lawn"}}'
             .codeUnits);
-    var body = Uint8List.fromList("{\"name\":\"Mow the lawn\"}".codeUnits);
+    var body = Uint8List.fromList('{"name":"Mow the lawn"}'.codeUnits);
     var queryParameters = {
-      "queryParameterA": "queryValueA",
-      "queryParameterB": "queryValueB"
+      'queryParameterA': 'queryValueA',
+      'queryParameterB': 'queryValueB'
     };
-    var headers = {"headerA": "headerValueA", "headerB": "headerValueB"};
+    var headers = {'headerA': 'headerValueA', 'headerB': 'headerValueB'};
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "put") {
-        Map<dynamic, dynamic> restOptions = methodCall.arguments["restOptions"];
-        expect(restOptions["apiName"], "restapi");
-        expect(restOptions["path"], "/items");
-        expect(restOptions["body"], body);
-        expect(restOptions["queryParameters"], queryParameters);
-        expect(restOptions["headers"], headers);
+      if (methodCall.method == 'put') {
+        Map<dynamic, dynamic> restOptions = methodCall.arguments['restOptions'];
+        expect(restOptions['apiName'], 'restapi');
+        expect(restOptions['path'], '/items');
+        expect(restOptions['body'], body);
+        expect(restOptions['queryParameters'], queryParameters);
+        expect(restOptions['headers'], headers);
 
-        return {"data": responseData, 'statusCode': statusOK};
+        return {'data': responseData, 'statusCode': statusOK};
       }
     });
 
     RestOperation restOperation = api.put(
-        restOptions: RestOptions(
-            path: "/items",
-            body: body,
-            apiName: "restapi",
-            queryParameters: queryParameters,
-            headers: headers));
+      restOptions: RestOptions(
+        path: '/items',
+        body: body,
+        apiName: 'restapi',
+        queryParameters: queryParameters,
+        headers: headers,
+      ),
+    );
 
     RestResponse response = await restOperation.response;
 
@@ -72,35 +74,37 @@ void main() {
 
   test('POST returns proper response.data', () async {
     var responseData = Uint8List.fromList(
-        "{\"success\": \"post call succeed!\",\"url\":\"/items?queryParameterA=queryValueA&queryParameterB=queryValueB\",\"body\": {\"name\": \"Mow the lawn\"}}"
+        '{"success": "post call succeed!","url":"/items?queryParameterA=queryValueA&queryParameterB=queryValueB","body": {"name": "Mow the lawn"}}'
             .codeUnits);
-    var body = Uint8List.fromList("{\"name\":\"Mow the lawn\"}".codeUnits);
+    var body = Uint8List.fromList('{"name":"Mow the lawn"}'.codeUnits);
     var queryParameters = {
-      "queryParameterA": "queryValueA",
-      "queryParameterB": "queryValueB"
+      'queryParameterA': 'queryValueA',
+      'queryParameterB': 'queryValueB'
     };
-    var headers = {"headerA": "headerValueA", "headerB": "headerValueB"};
+    var headers = {'headerA': 'headerValueA', 'headerB': 'headerValueB'};
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "post") {
-        Map<dynamic, dynamic> restOptions = methodCall.arguments["restOptions"];
-        expect(restOptions["apiName"], "restapi");
-        expect(restOptions["path"], "/items");
-        expect(restOptions["body"], body);
-        expect(restOptions["queryParameters"], queryParameters);
-        expect(restOptions["headers"], headers);
+      if (methodCall.method == 'post') {
+        Map<dynamic, dynamic> restOptions = methodCall.arguments['restOptions'];
+        expect(restOptions['apiName'], 'restapi');
+        expect(restOptions['path'], '/items');
+        expect(restOptions['body'], body);
+        expect(restOptions['queryParameters'], queryParameters);
+        expect(restOptions['headers'], headers);
 
-        return {"data": responseData, 'statusCode': statusOK};
+        return {'data': responseData, 'statusCode': statusOK};
       }
     });
 
     RestOperation restOperation = api.post(
-        restOptions: RestOptions(
-            path: "/items",
-            body: body,
-            apiName: "restapi",
-            headers: headers,
-            queryParameters: queryParameters));
+      restOptions: RestOptions(
+        path: '/items',
+        body: body,
+        apiName: 'restapi',
+        headers: headers,
+        queryParameters: queryParameters,
+      ),
+    );
 
     RestResponse response = await restOperation.response;
 
@@ -109,20 +113,20 @@ void main() {
 
   test('GET returns proper response.data', () async {
     var responseData = Uint8List.fromList(
-        "{\"success\":\"get call succeed!\",\"url\":\"/items\"}".codeUnits);
+        '{"success":"get call succeed!","url":"/items"}'.codeUnits);
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "get") {
-        Map<dynamic, dynamic> restOptions = methodCall.arguments["restOptions"];
-        expect(restOptions["path"], "/items");
+      if (methodCall.method == 'get') {
+        Map<dynamic, dynamic> restOptions = methodCall.arguments['restOptions'];
+        expect(restOptions['path'], '/items');
 
-        return {"data": responseData, 'statusCode': statusOK};
+        return {'data': responseData, 'statusCode': statusOK};
       }
     });
 
     RestOperation restOperation = api.get(
-        restOptions: RestOptions(
-      path: "/items",
+        restOptions: const RestOptions(
+      path: '/items',
     ));
 
     RestResponse response = await restOperation.response;
@@ -132,20 +136,20 @@ void main() {
 
   test('DELETE returns proper response.data', () async {
     var responseData = Uint8List.fromList(
-        "{\"success\":\"delete call succeed!\",\"url\":\"/items\"}".codeUnits);
+        '{"success":"delete call succeed!","url":"/items"}'.codeUnits);
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "delete") {
-        Map<dynamic, dynamic> restOptions = methodCall.arguments["restOptions"];
-        expect(restOptions["path"], "/items");
+      if (methodCall.method == 'delete') {
+        Map<dynamic, dynamic> restOptions = methodCall.arguments['restOptions'];
+        expect(restOptions['path'], '/items');
 
-        return {"data": responseData, 'statusCode': statusOK};
+        return {'data': responseData, 'statusCode': statusOK};
       }
     });
 
     RestOperation restOperation = api.delete(
-        restOptions: RestOptions(
-      path: "/items",
+        restOptions: const RestOptions(
+      path: '/items',
     ));
 
     RestResponse response = await restOperation.response;
@@ -155,7 +159,7 @@ void main() {
 
   test('GET Status Code Error throws proper error', () async {
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "get") {
+      if (methodCall.method == 'get') {
         throw PlatformException(code: 'ApiException', details: {
           'message': 'AMPLIFY_API_MUTATE_FAILED',
           'recoverySuggestion': 'some insightful suggestion',
@@ -166,8 +170,8 @@ void main() {
 
     try {
       RestOperation restOperation = api.get(
-          restOptions: RestOptions(
-        path: "/items",
+          restOptions: const RestOptions(
+        path: '/items',
       ));
       await restOperation.response;
     } on ApiException catch (e) {
@@ -180,7 +184,7 @@ void main() {
   test('GET exception adds the httpStatusCode to exception if available',
       () async {
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "get") {
+      if (methodCall.method == 'get') {
         throw PlatformException(code: 'ApiException', details: {
           'message': 'AMPLIFY_API_MUTATE_FAILED',
           'recoverySuggestion': 'some insightful suggestion',
@@ -192,19 +196,19 @@ void main() {
 
     try {
       RestOperation restOperation = api.get(
-          restOptions: RestOptions(
-        path: "/items",
+          restOptions: const RestOptions(
+        path: '/items',
       ));
       await restOperation.response;
-    } on ApiException catch (e) {
-      expect(e.httpStatusCode, 500);
+    } on RestException catch (e) {
+      expect(e.response.statusCode, 500);
     }
   });
 
   test('GET exception does not add httpStatusCode if not a valid status code',
       () async {
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "get") {
+      if (methodCall.method == 'get') {
         throw PlatformException(code: 'ApiException', details: {
           'message': 'AMPLIFY_API_MUTATE_FAILED',
           'recoverySuggestion': 'some insightful suggestion',
@@ -216,12 +220,12 @@ void main() {
 
     try {
       RestOperation restOperation = api.get(
-          restOptions: RestOptions(
-        path: "/items",
+          restOptions: const RestOptions(
+        path: '/items',
       ));
       await restOperation.response;
-    } on ApiException catch (e) {
-      expect(e.httpStatusCode, null);
+    } on RestException catch (e) {
+      expect(e.response.statusCode, null);
     }
   });
 
@@ -229,7 +233,7 @@ void main() {
       'GET exception does not add httpStatusCode if not available in serialized error',
       () async {
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "get") {
+      if (methodCall.method == 'get') {
         throw PlatformException(code: 'ApiException', details: {
           'message': 'AMPLIFY_API_MUTATE_FAILED',
           'recoverySuggestion': 'some insightful suggestion',
@@ -240,12 +244,12 @@ void main() {
 
     try {
       RestOperation restOperation = api.get(
-          restOptions: RestOptions(
-        path: "/items",
+          restOptions: const RestOptions(
+        path: '/items',
       ));
       await restOperation.response;
-    } on ApiException catch (e) {
-      expect(e.httpStatusCode, null);
+    } on RestException catch (e) {
+      expect(e.response.statusCode, null);
     }
   });
 
@@ -253,19 +257,19 @@ void main() {
     // Need to reply with PLACEHOLDER to avoid null issues in _formatRestResponse
     // In actual production code, the methodChannel doesn't respond to the future response
     var responseData = Uint8List.fromList(
-        "{\"success\":\"get call succeed!\",\"url\":\"/items\"}".codeUnits);
+        '{"success":"get call succeed!","url":"/items"}'.codeUnits);
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "get") {
-        Map<dynamic, dynamic> restOptions = methodCall.arguments["restOptions"];
-        expect(restOptions["path"], "/items");
-        return {"data": responseData, 'statusCode': statusOK};
+      if (methodCall.method == 'get') {
+        Map<dynamic, dynamic> restOptions = methodCall.arguments['restOptions'];
+        expect(restOptions['path'], '/items');
+        return {'data': responseData, 'statusCode': statusOK};
       }
     });
 
     RestOperation restOperation = api.get(
-        restOptions: RestOptions(
-      path: "/items",
+        restOptions: const RestOptions(
+      path: '/items',
     ));
 
     //RestResponse response = await restOperation.response;
@@ -287,18 +291,18 @@ void main() {
     });
 
     test('throws RestException', () async {
-      final restOp = api.get(restOptions: RestOptions(path: '/'));
+      final restOp = api.get(restOptions: const RestOptions(path: '/'));
       await expectLater(restOp.response, throwsRestException);
     });
 
     test('has valid RestResponse', () async {
-      final restOp = api.get(restOptions: RestOptions(path: '/'));
+      final restOp = api.get(restOptions: const RestOptions(path: '/'));
 
       RestException restException;
       try {
         await restOp.response;
         fail('RestOperation should throw');
-      } catch (e) {
+      } on Exception catch (e) {
         expect(e, isA<RestException>());
         restException = e as RestException;
       }

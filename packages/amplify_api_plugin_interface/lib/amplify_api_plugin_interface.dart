@@ -48,7 +48,7 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
   }
 
   // ====== RestAPI ======
-  void cancelRequest(String code) {
+  void cancelRequest(String cancelToken) {
     throw UnimplementedError('cancelRequest has not been implemented.');
   }
 
