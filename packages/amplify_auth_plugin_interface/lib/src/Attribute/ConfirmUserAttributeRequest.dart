@@ -15,8 +15,6 @@
 
 // ignore_for_file: public_member_api_docs
 
-import 'package:flutter/foundation.dart';
-
 /// Encapsulates parameters for a request to confirm a user attribute update
 class ConfirmUserAttributeRequest {
   /// The key of the user attribute to update

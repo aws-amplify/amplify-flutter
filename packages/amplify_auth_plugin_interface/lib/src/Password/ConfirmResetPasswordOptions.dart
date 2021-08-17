@@ -13,16 +13,8 @@
  * permissions and limitations under the License.
  */
 
-import './AuthUserAttributeOptions.dart';
-
-class AuthUserAttributeRequest {
-  AuthUserAttributeOptions? options;
-  AuthUserAttributeRequest({this.options});
-  Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = {
-      'options': options?.serializeAsMap()
-    };
-    pendingRequest.removeWhere((_, v) => v == null);
-    return pendingRequest;
-  }
+/// The shared confirm reset password options among all Auth plugins
+abstract class ConfirmResetPasswordOptions {
+  /// Serialize the object to a map
+  Map<String, dynamic> serializeAsMap();
 }

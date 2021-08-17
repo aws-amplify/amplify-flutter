@@ -93,9 +93,16 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     return res;
   }
 
+  @Deprecated('Use confirmResetPassword() instead')
   Future<UpdatePasswordResult> confirmPassword(
       {ConfirmPasswordRequest? request}) async {
-    final res = await _instance.confirmPassword(request: request);
+    final res = await _instance.confirmResetPassword(request: request);
+    return res;
+  }
+
+  Future<UpdatePasswordResult> confirmResetPassword(
+      {ConfirmResetPasswordRequest? request}) async {
+    final res = await _instance.confirmResetPassword(request: request);
     return res;
   }
 
@@ -105,7 +112,7 @@ class AmplifyAuthCognito extends AuthPluginInterface {
   }
 
   Future<List<AuthUserAttribute>> fetchUserAttributes(
-      {AuthUserAttributeRequest? request}) async {
+      {FetchUserAttributesRequest? request}) async {
     final res = await _instance.fetchUserAttributes();
     return res;
   }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -15,18 +15,20 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Cognito extension of update password options to add the platform specific fields
-class CognitoUpdatePasswordOptions extends UpdatePasswordOptions {
+/// Cognito extension of [ResendUserAttributeConfirmationCodeOptions] to add the platform specific fields
+class CognitoResendUserAttributeConfirmationCodeOptions
+    extends ResendUserAttributeConfirmationCodeOptions {
   /// Additional custom attributes to be sent to the service such as information about the client
   Map<String, String>? clientMetadata;
 
   /// Default constructor
-  CognitoUpdatePasswordOptions({this.clientMetadata}) : super();
+  CognitoResendUserAttributeConfirmationCodeOptions({this.clientMetadata})
+      : super();
+
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = {
-      'clientMetadata': clientMetadata
+      if (clientMetadata != null) 'clientMetadata': clientMetadata
     };
-    pendingRequest.removeWhere((_, v) => v == null);
     return pendingRequest;
   }
 }
