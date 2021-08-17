@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -19,14 +19,14 @@ import AmplifyPlugins
 import amplify_core
 
 class FlutterApiErrorHandler {
-    
+
     static func handleApiError(error: APIError, flutterResult: FlutterResult) {
         ErrorUtil.postErrorToFlutterChannel(result: flutterResult,
                                             errorCode: "ApiException",
                                             details: createSerializedError(error: error))
     }
-    
-    static func createSerializedError(error: APIError) -> Dictionary<String, String> {
+
+    static func createSerializedError(error: APIError) -> [String: String] {
         let httpStatusCode: String?
         switch error {
         case .httpStatusError(let statusCode, _):
@@ -34,10 +34,11 @@ class FlutterApiErrorHandler {
         default:
             httpStatusCode = nil
         }
-        return ErrorUtil.createSerializedError(message: error.errorDescription,
-                                     recoverySuggestion: error.recoverySuggestion,
-                                     underlyingError: error.underlyingError?.localizedDescription,
-                                     httpStatusCode: httpStatusCode)
+        return ErrorUtil.createSerializedError(
+            message: error.errorDescription,
+            recoverySuggestion: error.recoverySuggestion,
+            underlyingError: error.underlyingError?.localizedDescription,
+            httpStatusCode: httpStatusCode)
     }
-    
+
 }
