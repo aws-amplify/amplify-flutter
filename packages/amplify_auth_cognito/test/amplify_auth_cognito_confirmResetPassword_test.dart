@@ -27,7 +27,7 @@ void main() {
 
   setUp(() {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "confirmPassword") {
+      if (methodCall.method == "confirmResetPassword") {
         return {};
       } else {
         return true;
@@ -39,10 +39,10 @@ void main() {
     authChannel.setMockMethodCallHandler(null);
   });
 
-  test('confirmPassword request returns a UpdatePasswordResult', () async {
+  test('confirmResetPassword request returns a UpdatePasswordResult', () async {
     expect(
-        await auth.confirmPassword(
-            request: ConfirmPasswordRequest(
+        await auth.confirmResetPassword(
+            request: ConfirmResetPasswordRequest(
                 username: "mel", newPassword: "1", confirmationCode: "2")),
         isInstanceOf<UpdatePasswordResult>());
   });

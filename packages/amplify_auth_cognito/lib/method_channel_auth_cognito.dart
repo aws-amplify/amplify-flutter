@@ -201,13 +201,20 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     }
   }
 
+  @Deprecated('Use confirmResetPassword() instead')
   @override
   Future<UpdatePasswordResult> confirmPassword(
-      {ConfirmPasswordRequest? request}) async {
+      {ConfirmResetPasswordRequest? request}) async {
+    return confirmResetPassword(request: request);
+  }
+
+  @override
+  Future<UpdatePasswordResult> confirmResetPassword(
+      {ConfirmResetPasswordRequest? request}) async {
     try {
       final Map<String, dynamic>? data =
           (await (_channel.invokeMapMethod<String, dynamic>(
-        'confirmPassword',
+        'confirmResetPassword',
         <String, dynamic>{
           'data': request != null ? request.serializeAsMap() : null,
         },

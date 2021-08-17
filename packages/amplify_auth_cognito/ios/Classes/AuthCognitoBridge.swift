@@ -119,7 +119,7 @@ class AuthCognitoBridge {
     }
     
     func onResetPassword(flutterResult: @escaping FlutterResult, request: FlutterResetPasswordRequest) {
-        _ = Amplify.Auth.resetPassword(for: request.username) { response in
+        _ = Amplify.Auth.resetPassword(for: request.username, options: request.options) { response in
             switch response {
             case .success:
                 let resetData = FlutterResetPasswordResult(res: response)
@@ -131,8 +131,8 @@ class AuthCognitoBridge {
         }
     }
     
-    func onConfirmPassword(flutterResult: @escaping FlutterResult, request: FlutterConfirmPasswordRequest) {
-        _ = Amplify.Auth.confirmResetPassword(for: request.username, with: request.newPassword, confirmationCode: request.confirmationCode) { response in
+    func onConfirmResetPassword(flutterResult: @escaping FlutterResult, request: FlutterConfirmResetPasswordRequest) {
+        _ = Amplify.Auth.confirmResetPassword(for: request.username, with: request.newPassword, confirmationCode: request.confirmationCode, options: request.options) { response in
             switch response {
             case .success:
                 let emptyMap: Dictionary<String, Any> = [:]

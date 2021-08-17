@@ -14,22 +14,32 @@
  */
 
 import Foundation
+import Amplify
+import AmplifyPlugins
 import amplify_core
 
-struct FlutterConfirmPasswordRequest {
+struct FlutterConfirmResetPasswordRequest {
   var username: String
   var newPassword: String
   var confirmationCode: String
-  var options: Dictionary<String, Any>? = [:]
+  var options: AuthConfirmResetPasswordRequest.Options?
 
   init(dict: NSMutableDictionary){
     self.username = dict["username"] as! String
     self.newPassword = dict["newPassword"] as! String
     self.confirmationCode = dict["confirmationCode"] as! String
-    self.options = dict["options"] as! Dictionary<String, Any>?
+    self.options = createOptions(options: dict["options"] as! Dictionary<String, Any>?)
   }
+    
+  func createOptions(options: Dictionary<String, Any>?) -> AuthConfirmResetPasswordOperation.Request.Options {
+    let pluginOptions =  AWSAuthConfirmResetPasswordOptions(
+      metadata: options?["clientMetadata"] as? [String : String]
+    )
+    return AuthConfirmResetPasswordOperation.Request.Options(pluginOptions: pluginOptions)
+  }
+    
   static func validate(dict: NSMutableDictionary) throws {
-    let validationErrorMessage = "ConfirmPassword Request malformed."
+    let validationErrorMessage = "ConfirmResetPassword Request malformed."
     if (dict["username"] == nil) {
         throw InvalidRequestError.auth(comment: validationErrorMessage,
                                           suggestion: String(format: ErrorMessages.missingAttribute, "username"))
