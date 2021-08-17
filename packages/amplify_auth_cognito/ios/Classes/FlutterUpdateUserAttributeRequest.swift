@@ -16,19 +16,29 @@
 
 import Foundation
 import Amplify
+import AmplifyPlugins
 import amplify_core
 
 struct FlutterUpdateUserAttributeRequest {
     var attribute: AuthUserAttribute!
+    var options: AuthUpdateUserAttributeRequest.Options?
     
     init(dict: NSMutableDictionary) {
-        self.attribute = self.formatUpdateUserAttribute(rawAttribute: dict["attribute"] as! Dictionary<String, Any>)
+        self.attribute = self.createAttribute(rawAttribute: dict["attribute"] as! Dictionary<String, Any>)
+        self.options = createOptions(options: dict["options"] as! Dictionary<String, Any>?)
     }
     
-    func formatUpdateUserAttribute(rawAttribute: Dictionary<String, Any>) -> AuthUserAttribute {
+    func createAttribute(rawAttribute: Dictionary<String, Any>) -> AuthUserAttribute {
         let key = rawAttribute["userAttributeKey"] as! String
         let value = rawAttribute["value"] as! String
         return createAuthUserAttribute(key: key, value: value)
+    }
+    
+    func createOptions(options: Dictionary<String, Any>?) -> AuthUpdateUserAttributeOperation.Request.Options {
+      let pluginOptions = AWSUpdateUserAttributeOptions(
+          metadata: options?["clientMetadata"] as? [String : String]
+      )
+      return AuthUpdateUserAttributeOperation.Request.Options(pluginOptions: pluginOptions)
     }
     
     static func validate(dict: NSMutableDictionary) throws {

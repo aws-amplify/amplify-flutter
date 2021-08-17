@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,29 +13,27 @@
  * permissions and limitations under the License.
  */
 
-import 'UpdatePasswordOptions.dart';
+import 'ResendUserAttributeConfirmationCodeOptions.dart';
 
-/// Encapsulates parameters for an update password request
-class UpdatePasswordRequest {
-  /// The user's desired new password
-  String newPassword;
-
-  /// The user's current password
-  String oldPassword;
+/// Encapsulates parameters for a request to resend a user attribute confirmation code
+class ResendUserAttributeConfirmationCodeRequest {
+  /// The key of the user attribute to resend the confirmation code for
+  String userAttributeKey;
 
   /// Plugin-specific, advanced options such as information about the client
-  UpdatePasswordOptions? options;
+  final ResendUserAttributeConfirmationCodeOptions? options;
 
   /// Default constructor
-  UpdatePasswordRequest(
-      {required this.newPassword, required this.oldPassword, this.options});
+  ResendUserAttributeConfirmationCodeRequest({
+    required this.userAttributeKey,
+    this.options,
+  });
 
-  /// Serialize the object to a map
+  /// Serialize the object to a map for use over the method channel
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = {
-      'newPassword': newPassword,
-      'oldPassword': oldPassword,
-      if (options != null) 'options': options?.serializeAsMap()
+      'userAttributeKey': userAttributeKey,
+      if (options != null) 'options': options?.serializeAsMap(),
     };
     return pendingRequest;
   }

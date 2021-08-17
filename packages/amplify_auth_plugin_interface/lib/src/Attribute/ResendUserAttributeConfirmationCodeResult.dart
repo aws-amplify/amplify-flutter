@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
 import '../types/AuthCodeDeliveryDetails.dart';
 
 /// Wraps the result of a resend user confirmation code operation.

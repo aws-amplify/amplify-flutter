@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,28 +13,36 @@
  * permissions and limitations under the License.
  */
 
-import 'UpdatePasswordOptions.dart';
+import 'ConfirmResetPasswordOptions.dart';
 
-/// Encapsulates parameters for an update password request
-class UpdatePasswordRequest {
+/// Encapsulates parameters for a confirm reset password request
+class ConfirmResetPasswordRequest {
+  /// A login identifier or an email/phone number, depending on configuration
+  String username;
+
   /// The user's desired new password
   String newPassword;
 
-  /// The user's current password
-  String oldPassword;
+  /// The confirmation code the user received after starting the reset password process
+  String confirmationCode;
 
   /// Plugin-specific, advanced options such as information about the client
-  UpdatePasswordOptions? options;
+  ConfirmResetPasswordOptions? options;
 
-  /// Default constructor
-  UpdatePasswordRequest(
-      {required this.newPassword, required this.oldPassword, this.options});
+  /// Default Constructor
+  ConfirmResetPasswordRequest({
+    required this.username,
+    required this.newPassword,
+    required this.confirmationCode,
+    this.options,
+  });
 
   /// Serialize the object to a map
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = {
+      'username': username,
       'newPassword': newPassword,
-      'oldPassword': oldPassword,
+      'confirmationCode': confirmationCode,
       if (options != null) 'options': options?.serializeAsMap()
     };
     return pendingRequest;

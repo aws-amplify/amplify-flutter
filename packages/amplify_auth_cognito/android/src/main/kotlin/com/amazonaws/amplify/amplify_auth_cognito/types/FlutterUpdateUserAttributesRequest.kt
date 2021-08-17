@@ -20,11 +20,22 @@ import com.amazonaws.amplify.amplify_auth_cognito.utils.validateUserAttribute
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 import com.amplifyframework.auth.AuthUserAttribute
+import com.amplifyframework.auth.cognito.options.AWSCognitoAuthUpdateUserAttributesOptions
 
 data class FlutterUpdateUserAttributesRequest(val map: HashMap<String, *>) {
 
     val attributes: List<AuthUserAttribute> = (map["attributes"] as List<HashMap<*, *>>)
             .map { createAuthUserAttribute(it["userAttributeKey"] as String, it["value"] as String) }
+
+    val options: AWSCognitoAuthUpdateUserAttributesOptions = createOptions(map["options"] as HashMap<String, Any>?)
+
+    private fun createOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthUpdateUserAttributesOptions {
+        val optionsBuilder =  AWSCognitoAuthUpdateUserAttributesOptions.builder();
+        if (rawOptions?.get("clientMetadata") != null) {
+            optionsBuilder.metadata(rawOptions["clientMetadata"] as HashMap<String, String>);
+        }
+        return optionsBuilder.build();
+    }
 
     companion object {
         private const val validationErrorMessage: String = "UpdateUserAttributesRequest Request malformed."

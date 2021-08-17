@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -15,22 +15,19 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Encapsulates parameters for a resend sign up code request
-class ResendSignUpCodeRequest {
-  /// A login identifier or an email/phone number, depending on configuration
-  String username;
-
-  /// Plugin-specific, advanced options such as information about the client
-  ResendSignUpCodeOptions? options;
+/// Cognito extension of [ResendUserAttributeConfirmationCodeOptions] to add the platform specific fields
+class CognitoResendUserAttributeConfirmationCodeOptions
+    extends ResendUserAttributeConfirmationCodeOptions {
+  /// Additional custom attributes to be sent to the service such as information about the client
+  Map<String, String>? clientMetadata;
 
   /// Default constructor
-  ResendSignUpCodeRequest({required this.username, this.options});
+  CognitoResendUserAttributeConfirmationCodeOptions({this.clientMetadata})
+      : super();
 
-  /// Serialize the object to a map for use over the method channel
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = {
-      'username': username,
-      if (options != null) 'options': options?.serializeAsMap(),
+      if (clientMetadata != null) 'clientMetadata': clientMetadata
     };
     return pendingRequest;
   }
