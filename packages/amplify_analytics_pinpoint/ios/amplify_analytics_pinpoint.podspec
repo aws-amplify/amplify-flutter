@@ -18,6 +18,8 @@ This code is the iOS part of the Amplify Flutter Pinpoint Analytics Plugin.  The
   s.dependency 'Amplify', '~> 1.11.0'
   s.dependency 'AmplifyPlugins/AWSPinpointAnalyticsPlugin', '~> 1.11.0'
   s.dependency 'amplify_core'
+  s.dependency 'SwiftLint'
+  s.dependency 'SwiftFormat/CLI'
   s.platform = :ios, '11.0'
 
   # Flutter.framework does not contain a i386 slice. Only x86_64 simulators are supported.
@@ -28,14 +30,14 @@ This code is the iOS part of the Amplify Flutter Pinpoint Analytics Plugin.  The
     # Format build phase
     {
       :name => 'SwiftFormat',
-      :script => '"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat" --config "${SRCROOT}/../../../../../.swiftformat" --swiftversion "$SWIFT_VERSION" "${SRCROOT}/../.symlinks/plugins/${PRODUCT_NAME}/ios"',
+      :script => '"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat" --config "${SRCROOT}/../.symlinks/plugins/${PRODUCT_NAME}/ios/.swiftformat" --swiftversion "$SWIFT_VERSION" "${SRCROOT}/../.symlinks/plugins/${PRODUCT_NAME}/ios"',
       :execution_position => :before_compile
     },
 
     # Lint build phase
     {
       :name => 'SwiftLint',
-      :script => '"${PODS_ROOT}/SwiftLint/swiftlint" --config "${SRCROOT}/../../../../../.swiftlint.yml" --path "${SRCROOT}/../.symlinks/plugins/${PRODUCT_NAME}/ios"',
+      :script => '"${PODS_ROOT}/SwiftLint/swiftlint" --config "${SRCROOT}/../.symlinks/plugins/${PRODUCT_NAME}/ios/.swiftlint.yml" --path "${SRCROOT}/../.symlinks/plugins/${PRODUCT_NAME}/ios"',
       :execution_position => :before_compile
     },
   ]

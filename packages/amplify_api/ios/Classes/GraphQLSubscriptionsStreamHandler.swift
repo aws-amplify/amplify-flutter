@@ -20,16 +20,16 @@ public class GraphQLSubscriptionsStreamHandler: NSObject, FlutterStreamHandler {
     private var eventSink: FlutterEventSink?
 
     public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
-        self.eventSink = events
+        eventSink = events
         return nil
     }
 
-    func sendEvent(payload: [String : Any?]?, id: String, type: GraphQLSubscriptionEventTypes) {
+    func sendEvent(payload: [String: Any?]?, id: String, type: GraphQLSubscriptionEventTypes) {
         var result: [String: Any?] = [
             "id": id,
             "type": type.rawValue
         ]
-        if(type == GraphQLSubscriptionEventTypes.DATA) {
+        if type == GraphQLSubscriptionEventTypes.DATA {
             result["payload"] = payload
         }
         eventSink?(result)

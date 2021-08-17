@@ -28,239 +28,287 @@ typealias FunctionWithApiName = KFunction4<
         @ParameterName(name = "exceptionConsumer") Consumer<ApiException>,
         RestOperation?>
 
-class FlutterRestApi {
+enum class RestOperationType(val value: String) {
+    GET("get"),
+    POST("post"),
+    PUT("put"),
+    DELETE("delete"),
+    HEAD("head"),
+    PATCH("patch");
 
-    companion object {
-        private val LOG = Amplify.Logging.forNamespace("amplify:flutter:api")
-        private val handler = Handler(Looper.getMainLooper())
-        const val GET = "get"
-        const val POST = "post"
-        const val PUT = "put"
-        const val DELETE = "delete"
-        const val HEAD = "head"
-        const val PATCH = "patch"
+    fun requiresBody(): Boolean = when (this) {
+        POST, PUT, PATCH -> true
+        else -> false
+    }
+}
 
-        private fun restFunctionHelper(
-                methodName: String,
-                flutterResult: Result,
-                request: Map<String, Any>,
-                functionWithoutApiName: FunctionWithoutApiName,
-                functionWithApiName: FunctionWithApiName
-        ) {
-            var cancelToken: String
-            var apiName: String?
-            var options: RestOptions
+object FlutterRestApi {
+    private val handler = Handler(Looper.getMainLooper())
 
-            try {
-                cancelToken = FlutterApiRequest.getCancelToken(request)
-                apiName = FlutterApiRequest.getApiPath(request)
-                options = FlutterApiRequest.getRestOptions(request)
+    private fun restFunctionHelper(
+        operationType: RestOperationType,
+        flutterResult: Result,
+        request: Map<String, Any>,
+        functionWithoutApiName: FunctionWithoutApiName,
+        functionWithApiName: FunctionWithApiName
+    ) {
+        val cancelToken: String
+        val apiName: String?
+        val options: RestOptions
 
-                // Needed to prevent Android library from throwing a fatal error when body not present in some methods. https://github.com/aws-amplify/amplify-android/issues/1355
-                FlutterApiRequest.checkForEmptyBodyIfRequired(options, methodName)
-            } catch (e: ApiException) {
-                handler.post {
-                    ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
-                            ExceptionUtil.createSerializedError(e))
-                }
-                return
-            } catch (e: Exception) {
-                handler.post {
-                    ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
-                            ExceptionUtil.createSerializedUnrecognizedError(e))
-                }
-                return
+        try {
+            cancelToken = FlutterApiRequest.getCancelToken(request)
+            apiName = FlutterApiRequest.getApiPath(request)
+            options = FlutterApiRequest.getRestOptions(request)
+
+            // Needed to prevent Android library from throwing a fatal error when body not present in some methods. https://github.com/aws-amplify/amplify-android/issues/1355
+            FlutterApiRequest.checkForEmptyBodyIfRequired(options, operationType)
+        } catch (e: ApiException) {
+            handler.post {
+                ExceptionUtil.postExceptionToFlutterChannel(
+                    flutterResult, "ApiException",
+                    ExceptionUtil.createSerializedError(e)
+                )
+            }
+            return
+        } catch (e: Exception) {
+            handler.post {
+                ExceptionUtil.postExceptionToFlutterChannel(
+                    flutterResult, "ApiException",
+                    ExceptionUtil.createSerializedUnrecognizedError(e)
+                )
+            }
+            return
+        }
+
+        try {
+            val operation: RestOperation?
+            if (apiName == null) {
+                operation = functionWithoutApiName(options,
+                    Consumer { result ->
+                        if (cancelToken.isNotEmpty()) OperationsManager.removeOperation(
+                            cancelToken
+                        )
+                        //LOG.debug("$methodName operation succeeded with response: $result")
+                        prepareRestResponseResult(flutterResult, result)
+                    },
+                    Consumer { exception ->
+                        if (cancelToken.isNotEmpty()) OperationsManager.removeOperation(
+                            cancelToken
+                        )
+                        //LOG.error("$methodName operation failed", exception)
+                        handler.post {
+                            ExceptionUtil.postExceptionToFlutterChannel(
+                                flutterResult, "ApiException",
+                                ExceptionUtil.createSerializedError(exception)
+                            )
+                        }
+                    }
+                )
+            } else {
+                operation = functionWithApiName(
+                    apiName,
+                    options,
+                    Consumer { result ->
+                        if (cancelToken.isNotEmpty()) OperationsManager.removeOperation(
+                            cancelToken
+                        )
+                        //LOG.debug("$methodName operation succeeded with response: $result")
+                        prepareRestResponseResult(flutterResult, result)
+                    },
+                    Consumer { exception ->
+                        if (!cancelToken.isEmpty()) OperationsManager.removeOperation(
+                            cancelToken
+                        )
+                        //LOG.error("$methodName operation failed", exception)
+                        handler.post {
+                            ExceptionUtil.postExceptionToFlutterChannel(
+                                flutterResult, "ApiException",
+                                ExceptionUtil.createSerializedError(exception)
+                            )
+                        }
+                    }
+                )
+            }
+            if (operation != null) {
+                OperationsManager.addOperation(cancelToken, operation)
             }
 
-            try {
-                var operation: RestOperation?
-                if (apiName == null) {
-                    operation = functionWithoutApiName(options,
-                            Consumer { result ->
-                                if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
-                                //LOG.debug("$methodName operation succeeded with response: $result")
-                                prepareRestResponseResult(flutterResult, result) },
-                            Consumer { exception ->
-                                if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
-                                //LOG.error("$methodName operation failed", exception)
-                                handler.post {
-                                    ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
-                                            ExceptionUtil.createSerializedError(exception))
-                                }
-                            }
-                    )
-                } else {
-                    operation = functionWithApiName(
-                            apiName,
-                            options,
-                            Consumer { result ->
-                                if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
-                                //LOG.debug("$methodName operation succeeded with response: $result")
-                                prepareRestResponseResult(flutterResult, result) },
-                            Consumer { exception ->
-                                if (!cancelToken.isNullOrEmpty()) OperationsManager.removeOperation(cancelToken)
-                                //LOG.error("$methodName operation failed", exception)
-                                handler.post {
-                                    ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
-                                            ExceptionUtil.createSerializedError(exception))
-                                }
-                            }
-                    )
-                }
-                if (operation != null) {
-                    OperationsManager.addOperation(cancelToken, operation)
-                }
-
-            } catch (e: Exception) {
-                handler.post {
-                    ExceptionUtil.postExceptionToFlutterChannel(flutterResult, "ApiException",
-                            ExceptionUtil.createSerializedUnrecognizedError(e))
-                }
+        } catch (e: Exception) {
+            handler.post {
+                ExceptionUtil.postExceptionToFlutterChannel(
+                    flutterResult, "ApiException",
+                    ExceptionUtil.createSerializedUnrecognizedError(e)
+                )
             }
         }
+    }
 
-        private fun prepareRestResponseResult(
-            flutterResult: Result,
-            result: RestResponse
-        ) {
-            val restResponse = FlutterSerializedRestResponse(result)
+    private fun prepareRestResponseResult(
+        flutterResult: Result,
+        result: RestResponse
+    ) {
+        val restResponse = FlutterSerializedRestResponse(result)
 
-            Handler(Looper.getMainLooper()).post {
-                flutterResult.success(restResponse.toValueMap())
-            }
+        Handler(Looper.getMainLooper()).post {
+            flutterResult.success(restResponse.toValueMap())
         }
+    }
 
-        fun get(flutterResult: Result, arguments: Map<String, Any>) {
-            restFunctionHelper(GET, flutterResult, arguments, this::get, this::get)
-        }
+    fun get(flutterResult: Result, arguments: Map<String, Any>) {
+        restFunctionHelper(RestOperationType.GET, flutterResult, arguments, this::get, this::get)
+    }
 
-        fun post(flutterResult: Result, arguments: Map<String, Any>) {
-            restFunctionHelper(POST, flutterResult, arguments, this::post, this::post)
-        }
+    fun post(flutterResult: Result, arguments: Map<String, Any>) {
+        restFunctionHelper(RestOperationType.POST, flutterResult, arguments, this::post, this::post)
+    }
 
-        fun put(flutterResult: Result, arguments: Map<String, Any>) {
-            restFunctionHelper(PUT, flutterResult, arguments, this::put, this::put)
-        }
+    fun put(flutterResult: Result, arguments: Map<String, Any>) {
+        restFunctionHelper(RestOperationType.PUT, flutterResult, arguments, this::put, this::put)
+    }
 
-        fun delete(flutterResult: Result, arguments: Map<String, Any>) {
-            restFunctionHelper(DELETE, flutterResult, arguments, this::delete, this::delete)
-        }
+    fun delete(flutterResult: Result, arguments: Map<String, Any>) {
+        restFunctionHelper(
+            RestOperationType.DELETE,
+            flutterResult,
+            arguments,
+            this::delete,
+            this::delete
+        )
+    }
 
-        fun head(flutterResult: Result, arguments: Map<String, Any>) {
-            restFunctionHelper(HEAD, flutterResult, arguments, this::head, this::head)
-        }
+    fun head(flutterResult: Result, arguments: Map<String, Any>) {
+        restFunctionHelper(RestOperationType.HEAD, flutterResult, arguments, this::head, this::head)
+    }
 
-        fun patch(flutterResult: Result, arguments: Map<String, Any>) {
-            restFunctionHelper(PATCH, flutterResult, arguments, this::patch, this::patch)
-        }
+    fun patch(flutterResult: Result, arguments: Map<String, Any>) {
+        restFunctionHelper(
+            RestOperationType.PATCH,
+            flutterResult,
+            arguments,
+            this::patch,
+            this::patch
+        )
+    }
 
 
-        /*
-        GET
-        */
-        private fun get(
-                restOptions: RestOptions,
-                restConsumer: Consumer<RestResponse>,
-                exceptionConsumer: Consumer<ApiException>): RestOperation? {
-            return Amplify.API.get(restOptions, restConsumer, exceptionConsumer)
-        }
+    /*
+    GET
+    */
+    private fun get(
+        restOptions: RestOptions,
+        restConsumer: Consumer<RestResponse>,
+        exceptionConsumer: Consumer<ApiException>
+    ): RestOperation? {
+        return Amplify.API.get(restOptions, restConsumer, exceptionConsumer)
+    }
 
-        private fun get(
-                apiName: String,
-                restOptions: RestOptions,
-                restConsumer: Consumer<RestResponse>,
-                exceptionConsumer: Consumer<ApiException>): RestOperation? {
-            return Amplify.API.get(apiName, restOptions, restConsumer, exceptionConsumer)
-        }
+    private fun get(
+        apiName: String,
+        restOptions: RestOptions,
+        restConsumer: Consumer<RestResponse>,
+        exceptionConsumer: Consumer<ApiException>
+    ): RestOperation? {
+        return Amplify.API.get(apiName, restOptions, restConsumer, exceptionConsumer)
+    }
 
-        /*
-        POST
-         */
-        private fun post(
-                restOptions: RestOptions,
-                restConsumer: Consumer<RestResponse>,
-                exceptionConsumer: Consumer<ApiException>): RestOperation? {
-            return Amplify.API.post(restOptions, restConsumer, exceptionConsumer)
-        }
+    /*
+    POST
+     */
+    private fun post(
+        restOptions: RestOptions,
+        restConsumer: Consumer<RestResponse>,
+        exceptionConsumer: Consumer<ApiException>
+    ): RestOperation? {
+        return Amplify.API.post(restOptions, restConsumer, exceptionConsumer)
+    }
 
-        private fun post(
-                apiName: String,
-                restOptions: RestOptions,
-                restConsumer: Consumer<RestResponse>,
-                exceptionConsumer: Consumer<ApiException>): RestOperation? {
-            return Amplify.API.post(apiName, restOptions, restConsumer, exceptionConsumer)
-        }
+    private fun post(
+        apiName: String,
+        restOptions: RestOptions,
+        restConsumer: Consumer<RestResponse>,
+        exceptionConsumer: Consumer<ApiException>
+    ): RestOperation? {
+        return Amplify.API.post(apiName, restOptions, restConsumer, exceptionConsumer)
+    }
 
-        /*
-        PUT
-         */
-        private fun put(
-                restOptions: RestOptions,
-                restConsumer: Consumer<RestResponse>,
-                exceptionConsumer: Consumer<ApiException>): RestOperation? {
-            return Amplify.API.put(restOptions, restConsumer, exceptionConsumer)
-        }
+    /*
+    PUT
+     */
+    private fun put(
+        restOptions: RestOptions,
+        restConsumer: Consumer<RestResponse>,
+        exceptionConsumer: Consumer<ApiException>
+    ): RestOperation? {
+        return Amplify.API.put(restOptions, restConsumer, exceptionConsumer)
+    }
 
-        private fun put(
-                apiName: String,
-                restOptions: RestOptions,
-                restConsumer: Consumer<RestResponse>,
-                exceptionConsumer: Consumer<ApiException>): RestOperation? {
-            return Amplify.API.put(apiName, restOptions, restConsumer, exceptionConsumer)
-        }
+    private fun put(
+        apiName: String,
+        restOptions: RestOptions,
+        restConsumer: Consumer<RestResponse>,
+        exceptionConsumer: Consumer<ApiException>
+    ): RestOperation? {
+        return Amplify.API.put(apiName, restOptions, restConsumer, exceptionConsumer)
+    }
 
-        /*
-        DELETE
-         */
-        private fun delete(
-                restOptions: RestOptions,
-                restConsumer: Consumer<RestResponse>,
-                exceptionConsumer: Consumer<ApiException>): RestOperation? {
-            return Amplify.API.delete(restOptions, restConsumer, exceptionConsumer)
-        }
+    /*
+    DELETE
+     */
+    private fun delete(
+        restOptions: RestOptions,
+        restConsumer: Consumer<RestResponse>,
+        exceptionConsumer: Consumer<ApiException>
+    ): RestOperation? {
+        return Amplify.API.delete(restOptions, restConsumer, exceptionConsumer)
+    }
 
-        private fun delete(
-                apiName: String,
-                restOptions: RestOptions,
-                restConsumer: Consumer<RestResponse>,
-                exceptionConsumer: Consumer<ApiException>): RestOperation? {
-            return Amplify.API.delete(apiName, restOptions, restConsumer, exceptionConsumer)
-        }
+    private fun delete(
+        apiName: String,
+        restOptions: RestOptions,
+        restConsumer: Consumer<RestResponse>,
+        exceptionConsumer: Consumer<ApiException>
+    ): RestOperation? {
+        return Amplify.API.delete(apiName, restOptions, restConsumer, exceptionConsumer)
+    }
 
-        /*
-        HEAD
-        */
-        private fun head(
-                restOptions: RestOptions,
-                restConsumer: Consumer<RestResponse>,
-                exceptionConsumer: Consumer<ApiException>): RestOperation? {
-            return Amplify.API.head(restOptions, restConsumer, exceptionConsumer)
-        }
+    /*
+    HEAD
+    */
+    private fun head(
+        restOptions: RestOptions,
+        restConsumer: Consumer<RestResponse>,
+        exceptionConsumer: Consumer<ApiException>
+    ): RestOperation? {
+        return Amplify.API.head(restOptions, restConsumer, exceptionConsumer)
+    }
 
-        private fun head(
-                apiName: String,
-                restOptions: RestOptions,
-                restConsumer: Consumer<RestResponse>,
-                exceptionConsumer: Consumer<ApiException>): RestOperation? {
-            return Amplify.API.head(apiName, restOptions, restConsumer, exceptionConsumer)
-        }
+    private fun head(
+        apiName: String,
+        restOptions: RestOptions,
+        restConsumer: Consumer<RestResponse>,
+        exceptionConsumer: Consumer<ApiException>
+    ): RestOperation? {
+        return Amplify.API.head(apiName, restOptions, restConsumer, exceptionConsumer)
+    }
 
-        /*
-        PATCH
-        */
-        private fun patch(
-                restOptions: RestOptions,
-                restConsumer: Consumer<RestResponse>,
-                exceptionConsumer: Consumer<ApiException>): RestOperation? {
-            return Amplify.API.patch(restOptions, restConsumer, exceptionConsumer)
-        }
+    /*
+    PATCH
+    */
+    private fun patch(
+        restOptions: RestOptions,
+        restConsumer: Consumer<RestResponse>,
+        exceptionConsumer: Consumer<ApiException>
+    ): RestOperation? {
+        return Amplify.API.patch(restOptions, restConsumer, exceptionConsumer)
+    }
 
-        private fun patch(
-                apiName: String,
-                restOptions: RestOptions,
-                restConsumer: Consumer<RestResponse>,
-                exceptionConsumer: Consumer<ApiException>): RestOperation? {
-            return Amplify.API.patch(apiName, restOptions, restConsumer, exceptionConsumer)
-        }
+    private fun patch(
+        apiName: String,
+        restOptions: RestOptions,
+        restConsumer: Consumer<RestResponse>,
+        exceptionConsumer: Consumer<ApiException>
+    ): RestOperation? {
+        return Amplify.API.patch(apiName, restOptions, restConsumer, exceptionConsumer)
     }
 }

@@ -15,132 +15,131 @@
 
 package com.amazonaws.amplify.amplify_api
 
-import com.amazonaws.amplify.amplify_api.rest_api.FlutterRestApi
+import com.amazonaws.amplify.amplify_api.rest_api.RestOperationType
+import com.amazonaws.amplify.amplify_core.asMap
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.api.ApiException
 import com.amplifyframework.api.rest.RestOptions
-import io.flutter.plugin.common.MethodChannel
 
+object FlutterApiRequest {
+    private const val REST_OPTIONS_KEY = "restOptions"
+    private const val CANCEL_TOKEN_KEY = "cancelToken"
 
-class FlutterApiRequest {
-    companion object {
+    private const val API_NAME_KEY = "apiName"
+    private const val PATH_KEY = "path"
+    private const val BODY_KEY = "body"
+    private const val QUERY_PARAM_KEY = "queryParameters"
+    private const val HEADERS_KEY = "headers"
 
-        private val REST_OPTIONS_KEY = "restOptions"
-        private val CANCEL_TOKEN_KEY = "cancelToken"
-
-        private val API_NAME_KEY = "apiName"
-        private val PATH_KEY = "path"
-        private val BODY_KEY = "body"
-        private val QUERY_PARAM_KEY = "queryParameters"
-        private val HEADERS_KEY = "headers"
-
-        // ====== Rest API ======
-        fun getCancelToken(request: Map<String, Any>): String {
-            try {
-                return request[CANCEL_TOKEN_KEY] as String
-            } catch (cause: Exception) {
-                throw AmplifyException(
-                        "The cancelToken request argument was not passed as a String",
-                        cause,
-                        "The request should include the cancelToken as a String")
-            }
+    // ====== Rest API ======
+    fun getCancelToken(request: Map<String, Any>): String {
+        try {
             return request[CANCEL_TOKEN_KEY] as String
+        } catch (cause: Exception) {
+            throw AmplifyException(
+                "The cancelToken request argument was not passed as a String",
+                cause,
+                "The request should include the cancelToken as a String"
+            )
         }
+    }
 
-        fun getApiPath(request: Map<String, Any>): String? {
-            try {
-                val restOptionsMap = request[REST_OPTIONS_KEY] as Map<String, Any>
-                return restOptionsMap[API_NAME_KEY] as String?
-            } catch (cause: Exception) {
-                throw AmplifyException(
-                        "The apiPath request argument was not passed as a String",
-                        cause,
-                        "The request should include the apiPath as a String")
-            }
-            return request[CANCEL_TOKEN_KEY] as String
+    fun getApiPath(request: Map<String, Any>): String? {
+        try {
+            val restOptionsMap = request[REST_OPTIONS_KEY]?.asMap<String, Any?>()
+            return restOptionsMap?.get(API_NAME_KEY) as String?
+        } catch (cause: Exception) {
+            throw AmplifyException(
+                "The apiPath request argument was not passed as a String",
+                cause,
+                "The request should include the apiPath as a String"
+            )
         }
+    }
 
-        fun getRestOptions(request: Map<String, Any>): RestOptions {
+    fun getRestOptions(request: Map<String, Any>): RestOptions {
+        try {
+            val builder: RestOptions.Builder = RestOptions.builder()
 
-            try {
-                val builder: RestOptions.Builder = RestOptions.builder()
+            val restOptionsMap: Map<String, Any> =
+                request[REST_OPTIONS_KEY]?.asMap() ?: emptyMap()
 
-                val restOptionsMap = request[REST_OPTIONS_KEY] as Map<String, Any>
-
-                for ((key, value) in restOptionsMap) {
-                    when (key) {
-                        PATH_KEY -> {
-                            builder.addPath(value as String)
-                        }
-                        BODY_KEY -> {
-                            builder.addBody(value as ByteArray)
-                        }
-                        QUERY_PARAM_KEY -> {
-                            builder.addQueryParameters(value as Map<String, String>)
-                        }
-                        HEADERS_KEY -> {
-                            builder.addHeaders(value as Map<String, String>)
-                        }
+            for ((key, value) in restOptionsMap) {
+                when (key) {
+                    PATH_KEY -> {
+                        builder.addPath(value as String)
+                    }
+                    BODY_KEY -> {
+                        builder.addBody(value as ByteArray)
+                    }
+                    QUERY_PARAM_KEY -> {
+                        builder.addQueryParameters(value.asMap())
+                    }
+                    HEADERS_KEY -> {
+                        builder.addHeaders(value.asMap())
                     }
                 }
-                return builder.build()
-            } catch (cause: Exception) {
-                throw AmplifyException(
-                        "The restOptions request argument was not passed as a dictionary",
-                        cause,
-                        "The request should include the restOptions argument as a [String: Any] dictionary")
             }
+            return builder.build()
+        } catch (cause: Exception) {
+            throw AmplifyException(
+                "The restOptions request argument was not passed as a dictionary",
+                cause,
+                "The request should include the restOptions argument as a [String: Any] dictionary"
+            )
         }
+    }
 
-        @JvmStatic
-        fun checkForEmptyBodyIfRequired(options: RestOptions, methodName: String) {
-            if ((methodName == FlutterRestApi.PUT || methodName == FlutterRestApi.POST || methodName == FlutterRestApi.PATCH) && !options.hasData()) {
-                throw ApiException("$methodName request must have a body", "Add a body to the request.")
-            }
+    @JvmStatic
+    fun checkForEmptyBodyIfRequired(options: RestOptions, operationType: RestOperationType) {
+        if (operationType.requiresBody() && !options.hasData()) {
+            throw ApiException(
+                "$operationType request must have a body",
+                "Add a body to the request."
+            )
         }
+    }
 
-        // ====== GraphQL ======
-        @JvmStatic
-        fun getGraphQLDocument(request: Map<String, Any>): String {
+    // ====== GraphQL ======
+    @JvmStatic
+    fun getGraphQLDocument(request: Map<String, Any>): String {
+        try {
+            return request["document"] as String
+        } catch (cause: Exception) {
+            throw AmplifyException(
+                "The graphQL document request argument was not passed as a String",
+                cause,
+                "The request should include the graphQL document as a String"
+            )
+        }
+    }
+
+    @JvmStatic
+    fun getVariables(request: Map<String, Any>): Map<String, Any> {
+        try {
+            return request["variables"]?.asMap() ?: emptyMap()
+        } catch (cause: Exception) {
+            throw AmplifyException(
+                "The variables request argument was not passed as a dictionary",
+                cause,
+                "The request should include the variables argument as a [String: Any] dictionary"
+            )
+        }
+    }
+
+    @JvmStatic
+    fun getApiName(request: Map<String, Any>): String? {
+        if (request[API_NAME_KEY] != null) {
             try {
-                return request["document"] as String
+                return request[API_NAME_KEY] as String
             } catch (cause: Exception) {
                 throw AmplifyException(
-                        "The graphQL document request argument was not passed as a String",
-                        cause,
-                        "The request should include the graphQL document as a String")
+                    "The apiName request argument was not passed as a String",
+                    cause,
+                    "The request should include the apiName as a String"
+                )
             }
         }
-
-        @JvmStatic
-        fun getVariables(request: Map<String, Any>): Map<String, Any> {
-            try {
-                return request["variables"] as Map<String, Any>
-            } catch (cause: Exception) {
-                throw AmplifyException(
-                        "The variables request argument was not passed as a dictionary",
-                        cause,
-                        "The request should include the variables argument as a [String: Any] dictionary")
-            }
-        }
-
-        @JvmStatic
-        fun getApiName(request: Map<String, Any>) : String? {
-            if (request[API_NAME_KEY] != null) {
-                try {
-                    return request[API_NAME_KEY] as String
-                } catch (cause: Exception) {
-                    throw AmplifyException(
-                        "The apiName request argument was not passed as a String",
-                        cause,
-                        "The request should include the apiName as a String")
-                }
-            }
-
-            return null;
-
-        }
-
-
+        return null
     }
 }
