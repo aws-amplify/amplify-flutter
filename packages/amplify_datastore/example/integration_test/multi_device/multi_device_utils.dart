@@ -19,26 +19,31 @@ import 'package:amplify_datastore_example/models/ModelProvider.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-String _testId = '';
+import 'mutli_device_contants.dart';
 
-/// sets an ID that is available accross all tests instances from
-/// a single test run. Used to sync test execution across devices from
-/// a single test run
-setTestId() {
-  // const is needed for use with String.fromEnvironment
-  const testId = String.fromEnvironment('test_id');
-  _testId = testId;
-  print('test Id set to: $_testId');
+/// Holds shared data across separate test executions
+class _TestInstance {
+  /// Used to sync test execution across devices from
+  /// a single test run
+  late String id;
+  _TestInstance() {
+    // const is needed for use with String.fromEnvironment
+    const testId = String.fromEnvironment('test_id');
+    print('test Id set to: $testId');
+    this.id = testId;
+  }
 }
+
+final testInstance = _TestInstance();
 
 /// signal that device one is ready for test execution
 Future<void> signalDeviceOneReady() async {
-  await _createTestEventWithName('device 1 ready');
+  await _createTestEventWithName(deviceOneReady);
 }
 
 /// signal that device two is ready for test execution
 Future<void> signalDeviceTwoReady() async {
-  await _createTestEventWithName('device 2 ready');
+  await _createTestEventWithName(deviceTwoReady);
 }
 
 /// wait for device one to be ready for device execution
@@ -46,7 +51,7 @@ Future<void> waitForDeviceOneReady() async {
   // failOnTimeout is set to false since this is called from setUp()
   // timeout is increased to account for the difference in time between iOS and Android builds
   return _waitForTestEventWithName(
-    'device 1 ready',
+    deviceOneReady,
     failOnTimeout: false,
     timeout: Duration(seconds: 120),
   );
@@ -57,7 +62,7 @@ Future<void> waitForDeviceTwoReady() async {
   // failOnTimeout is set to false since this is called from setUp()
   // timeout is increased to account for the difference in time between iOS and Android builds
   return _waitForTestEventWithName(
-    'device 2 ready',
+    deviceTwoReady,
     failOnTimeout: false,
     timeout: Duration(seconds: 120),
   );
@@ -87,7 +92,7 @@ Future<void> waitForTestEnd({required String testName}) async {
 /// name. Used to sync test execution between devices.
 Future<void> _createTestEventWithName(String name) async {
   print('Created: ' + name);
-  TestEvent testEvent = TestEvent(testRunId: _testId, eventName: name);
+  TestEvent testEvent = TestEvent(testRunId: testInstance.id, eventName: name);
   await Amplify.DataStore.save(testEvent);
 }
 
@@ -113,7 +118,8 @@ Future<void> _waitForTestEventWithName(
 
   Amplify.DataStore.observe(TestEvent.classType)
       .firstWhere((element) =>
-          element.item.testRunId == _testId && element.item.eventName == name)
+          element.item.testRunId == testInstance.id &&
+          element.item.eventName == name)
       .then((value) {
     if (!completer.isCompleted) {
       print('Recieved: ' + name);
@@ -122,8 +128,9 @@ Future<void> _waitForTestEventWithName(
   });
 
   Amplify.DataStore.query(TestEvent.classType,
-          where:
-              TestEvent.TESTRUNID.eq(_testId).and(TestEvent.EVENTNAME.eq(name)))
+          where: TestEvent.TESTRUNID
+              .eq(testInstance.id)
+              .and(TestEvent.EVENTNAME.eq(name)))
       .then((testEvents) {
     if (testEvents.length > 0) {
       if (!completer.isCompleted) {

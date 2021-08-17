@@ -20,12 +20,12 @@ import 'package:flutter_test/flutter_test.dart';
 
 import '../utils/setup_utils.dart';
 import 'multi_device_utils.dart';
+import 'mutli_device_contants.dart';
 
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  group('save', () {
+  group('DataStore', () {
     setUpAll(() async {
-      setTestId();
       await configureDataStore(cloudSync: true);
       // clear local DB from previous test runs
       await Amplify.DataStore.clear();
@@ -34,17 +34,22 @@ void main() async {
     });
 
     testWidgets(
-      'should save data',
+      'should save data on device one, and observe data on device two',
       (WidgetTester tester) async {
-        var eventFuture = Amplify.DataStore.observe(Blog.classType).firstWhere(
-            (element) =>
-                element.item.name == 'test blog created from device 1');
-        await signalTestStart(testName: 'should save data');
-        // test waits for the Blog from device 1 to be created
-        // the test will pass as long as the event is received before timing out
-        await eventFuture;
-        await signalTestEnd(testName: 'should save data');
+        // listen for a blog to be created from device one
+        var newBlog = Amplify.DataStore.observe(Blog.classType)
+            .firstWhere((element) => element.item.name == testOneBlogName);
+
+        // signal to device one that test can start
+        await signalTestStart(testName: testOneName);
+
+        // wait for the blog to be created from device one
+        await newBlog;
+
+        // signal that the test has completed
+        await signalTestEnd(testName: testOneName);
       },
+      // test will fail if the new blog is not observed within 10 seconds
       timeout: Timeout(Duration(seconds: 10)),
     );
   });

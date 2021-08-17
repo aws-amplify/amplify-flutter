@@ -20,12 +20,12 @@ import 'package:flutter_test/flutter_test.dart';
 
 import '../utils/setup_utils.dart';
 import 'multi_device_utils.dart';
+import 'mutli_device_contants.dart';
 
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  group('save', () {
+  group('DataStore', () {
     setUpAll(() async {
-      setTestId();
       await configureDataStore(cloudSync: true);
       // clear local DB from previous test runs
       await Amplify.DataStore.clear();
@@ -33,12 +33,21 @@ void main() async {
       await waitForDeviceTwoReady();
     });
 
-    testWidgets('should save data', (WidgetTester tester) async {
-      Blog testComment = Blog(name: 'test blog created from device 1');
-      await waitForTestStart(testName: 'should save data');
-      await Amplify.DataStore.save(testComment);
-      await waitForTestEnd(testName: 'should save data');
-      await Amplify.DataStore.delete(testComment);
+    testWidgets(
+        'should save data on device one, and observe data on device two',
+        (WidgetTester tester) async {
+      // wait for device two perform setup (listen to datastore events)
+      await waitForTestStart(testName: testOneName);
+
+      // create blog
+      Blog testBlog = Blog(name: testOneBlogName);
+      await Amplify.DataStore.save(testBlog);
+
+      // wait for device two to complete test
+      await waitForTestEnd(testName: testOneName);
+
+      // cleanup
+      await Amplify.DataStore.delete(testBlog);
     });
   });
 }
