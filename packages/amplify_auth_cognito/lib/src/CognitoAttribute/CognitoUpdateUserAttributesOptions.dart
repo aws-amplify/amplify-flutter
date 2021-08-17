@@ -13,26 +13,20 @@
  * permissions and limitations under the License.
  */
 
-// ignore_for_file: public_member_api_docs
+import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-import 'AuthUserAttribute.dart';
+/// Cognito extension of [UpdateUserAttributesOptions] to add the platform specific fields
+class CognitoUpdateUserAttributesOptions extends UpdateUserAttributesOptions {
+  /// Additional custom attributes to be sent to the service such as information about the client
+  Map<String, String>? clientMetadata;
 
-/// Encapsulates parameters for a update user attribute operation
-class UpdateUserAttributeRequest {
-  /// The user attribute to update
-  final AuthUserAttribute attribute;
-
-  UpdateUserAttributeRequest({
-    required String userAttributeKey,
-    required String value,
-  }) : attribute = AuthUserAttribute(
-          userAttributeKey: userAttributeKey,
-          value: value,
-        );
+  /// Default constructor
+  CognitoUpdateUserAttributesOptions({this.clientMetadata}) : super();
 
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    pendingRequest['attribute'] = attribute.serializeAsMap();
+    final Map<String, dynamic> pendingRequest = {
+      if (clientMetadata != null) 'clientMetadata': clientMetadata
+    };
     return pendingRequest;
   }
 }

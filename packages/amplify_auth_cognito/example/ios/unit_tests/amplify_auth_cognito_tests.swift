@@ -1636,6 +1636,22 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
+    func test_updateUserAttributeRequestWithClientMetadata() {
+        let metadata: Dictionary<String, Any> = ["attribute": "value"]
+        let rawOptions: Dictionary<String, Any> = ["clientMetadata": metadata]
+        let attribute: Dictionary<String, Any> = [
+            "userAttributeKey" : "email",
+            "value": _email
+        ]
+        let rawData: NSMutableDictionary = [
+            "attribute": attribute,
+            "options": rawOptions
+        ]
+        let request = FlutterUpdateUserAttributeRequest(dict: rawData);
+        let options = request.options?.pluginOptions as! AWSUpdateUserAttributeOptions
+        XCTAssertEqual("value", options.metadata!["attribute"])
+    }
+    
     func test_updateUserAttributeValidation() {
         var rawAttribute: Dictionary<String, Any>
         var rawData: NSMutableDictionary
@@ -1755,6 +1771,28 @@ class amplify_auth_cognito_tests: XCTestCase {
                 XCTFail()
             }
         })
+    }
+    
+    func test_updateUserAttributesRequestWithClientMetadata() {
+        let metadata: Dictionary<String, Any> = ["attribute": "value"]
+        let rawOptions: Dictionary<String, Any> = ["clientMetadata": metadata]
+        let attributes = [
+            [
+                "userAttributeKey" : "email",
+                "value": _email
+            ],
+            [
+                "userAttributeKey" : "name",
+                "value": "testname"
+            ]
+        ]
+        let rawData: NSMutableDictionary = [
+            "attributes": attributes,
+            "options": rawOptions
+        ]
+        let request = FlutterUpdateUserAttributesRequest(dict: rawData);
+        let options = request.options?.pluginOptions as! AWSUpdateUserAttributesOptions
+        XCTAssertEqual("value", options.metadata!["attribute"])
     }
     
     func test_updateUserAttributesValidation() {
@@ -1956,6 +1994,18 @@ class amplify_auth_cognito_tests: XCTestCase {
                 XCTFail()
             }
         })
+    }
+    
+    func test_resendUserAttributeConfirmationCodeRequestWithClientMetadata() {
+        let metadata: Dictionary<String, Any> = ["attribute": "value"]
+        let rawOptions: Dictionary<String, Any> = ["clientMetadata": metadata]
+        let rawData: NSMutableDictionary = [
+            "userAttributeKey": "email",
+            "options": rawOptions
+        ]
+        let request = FlutterResendUserAttributeConfirmationCodeRequest(dict: rawData);
+        let options = request.options?.pluginOptions as! AWSAttributeResendConfirmationCodeOptions
+        XCTAssertEqual("value", options.metadata!["attribute"])
     }
     
     func test_resendUserAttributeConfirmationCodeValidation() {

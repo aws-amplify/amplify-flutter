@@ -12,10 +12,12 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-class AuthUserAttributeOptions {
-  const AuthUserAttributeOptions();
-  Map<String, dynamic> serializeAsMap() {
-    throw UnimplementedError(
-        'serializeAsMap() has not been implemented on AuthUserAttributeOptions.');
-  }
+
+/// The shared update user attributes options among all Auth plugins
+abstract class UpdateUserAttributesOptions {
+  /// Default constructor
+  const UpdateUserAttributesOptions();
+
+  /// Serialize the object to a map
+  Map<String, dynamic> serializeAsMap();
 }

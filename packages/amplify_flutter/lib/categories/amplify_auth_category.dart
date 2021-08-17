@@ -193,8 +193,8 @@ class AuthCategory {
   }
 
   Future<List<AuthUserAttribute>> fetchUserAttributes(
-      {AuthUserAttributeOptions? options}) {
-    var request = AuthUserAttributeRequest(options: options);
+      {FetchUserAttributesOptions? options}) {
+    var request = FetchUserAttributesRequest(options: options);
     return plugins.length == 1
         ? plugins[0].fetchUserAttributes(request: request)
         : throw _pluginNotAddedException("Auth");
@@ -215,22 +215,34 @@ class AuthCategory {
   }
 
   /// Updates a single user attribute and returns a [UpdateUserAttributeResult]
+  ///
+  /// Accepts plugin-specific, advanced [options] for the request
   Future<UpdateUserAttributeResult> updateUserAttribute({
     required String userAttributeKey,
     required String value,
+    UpdateUserAttributeOptions? options,
   }) {
     var request = UpdateUserAttributeRequest(
-        userAttributeKey: userAttributeKey, value: value);
+      userAttributeKey: userAttributeKey,
+      value: value,
+      options: options,
+    );
     return plugins.length == 1
         ? plugins[0].updateUserAttribute(request: request)
         : throw _pluginNotAddedException("Auth");
   }
 
   /// Updates multiple user attributes and returns a map of [UpdateUserAttributeResult]
+  ///
+  /// Accepts plugin-specific, advanced [options] for the request
   Future<Map<String, UpdateUserAttributeResult>> updateUserAttributes({
     required List<AuthUserAttribute> attributes,
+    UpdateUserAttributesOptions? options,
   }) {
-    var request = UpdateUserAttributesRequest(attributes: attributes);
+    var request = UpdateUserAttributesRequest(
+      attributes: attributes,
+      options: options,
+    );
     return plugins.length == 1
         ? plugins[0].updateUserAttributes(request: request)
         : throw _pluginNotAddedException("Auth");
@@ -249,10 +261,17 @@ class AuthCategory {
   }
 
   /// Resends a confirmation code for the given attribute and returns a [ResendUserAttributeConfirmationCodeResult]
+  ///
+  /// Accepts plugin-specific, advanced [options] for the request
   Future<ResendUserAttributeConfirmationCodeResult>
-      resendUserAttributeConfirmationCode({required String userAttributeKey}) {
+      resendUserAttributeConfirmationCode({
+    required String userAttributeKey,
+    ResendUserAttributeConfirmationCodeOptions? options,
+  }) {
     var request = ResendUserAttributeConfirmationCodeRequest(
-        userAttributeKey: userAttributeKey);
+      userAttributeKey: userAttributeKey,
+      options: options,
+    );
     return plugins.length == 1
         ? plugins[0].resendUserAttributeConfirmationCode(request: request)
         : throw _pluginNotAddedException("Auth");

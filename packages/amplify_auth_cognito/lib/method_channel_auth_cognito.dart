@@ -268,7 +268,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   @override
   Future<List<AuthUserAttribute>> fetchUserAttributes(
-      {AuthUserAttributeRequest? request}) async {
+      {FetchUserAttributesRequest? request}) async {
     try {
       final List<Map<dynamic, dynamic>>? data =
           (await (_channel.invokeListMethod(

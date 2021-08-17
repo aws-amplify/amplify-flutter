@@ -50,7 +50,8 @@ void main() {
   test('fetchUserAttributes request returns a list of AuthUserAttributes',
       () async {
     var res = await auth.fetchUserAttributes(
-        request: AuthUserAttributeRequest(options: AuthUserAttributeOptions()));
+        request:
+            FetchUserAttributesRequest(options: FetchUserAttributesOptions()));
     expect(res, isInstanceOf<List<AuthUserAttribute>>());
     expect(res[0].userAttributeKey, equals('username'));
     expect(res[0].value, equals('person'));

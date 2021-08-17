@@ -58,17 +58,24 @@ export 'Session/AuthSessionRequest.dart';
 export 'Session/AuthUser.dart';
 export 'Session/AuthUserOptions.dart';
 export 'Session/AuthUserRequest.dart';
-export 'Session/AuthUserAttribute.dart';
-export 'Session/AuthUserAttributeOptions.dart';
-export 'Session/AuthUserAttributeRequest.dart';
-export 'Session/UpdateUserAttributeResult.dart';
-export 'Session/UpdateUserAttributeRequest.dart';
-export 'Session/UpdateUserAttributesRequest.dart';
-export 'Session/AuthNextUpdateAttributeStep.dart';
-export 'Session/ConfirmUserAttributeRequest.dart';
-export 'Session/ConfirmUserAttributeResult.dart';
-export 'Session/ResendUserAttributeConfirmationCodeRequest.dart';
-export 'Session/ResendUserAttributeConfirmationCodeResult.dart';
+
+// Attribute Classes
+export 'Attribute/AuthUserAttribute.dart';
+export 'Attribute/AuthUserAttributeOptions.dart';
+export 'Attribute/AuthUserAttributeRequest.dart';
+export 'Attribute/FetchUserAttributesOptions.dart';
+export 'Attribute/FetchUserAttributesRequest.dart';
+export 'Attribute/UpdateUserAttributeOptions.dart';
+export 'Attribute/UpdateUserAttributeResult.dart';
+export 'Attribute/UpdateUserAttributeRequest.dart';
+export 'Attribute/UpdateUserAttributesOptions.dart';
+export 'Attribute/UpdateUserAttributesRequest.dart';
+export 'Attribute/AuthNextUpdateAttributeStep.dart';
+export 'Attribute/ConfirmUserAttributeRequest.dart';
+export 'Attribute/ConfirmUserAttributeResult.dart';
+export 'Attribute/ResendUserAttributeConfirmationCodeOptions.dart';
+export 'Attribute/ResendUserAttributeConfirmationCodeRequest.dart';
+export 'Attribute/ResendUserAttributeConfirmationCodeResult.dart';
 
 // Exception Classes
 export 'Exceptions/AuthException.dart';

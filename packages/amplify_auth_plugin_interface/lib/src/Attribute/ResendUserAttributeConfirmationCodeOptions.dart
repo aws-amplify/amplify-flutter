@@ -13,16 +13,11 @@
  * permissions and limitations under the License.
  */
 
-import './AuthUserAttributeOptions.dart';
+/// The shared resend user attribute confirmation code options among all Auth plugins
+abstract class ResendUserAttributeConfirmationCodeOptions {
+  /// Default constructor
+  const ResendUserAttributeConfirmationCodeOptions();
 
-class AuthUserAttributeRequest {
-  AuthUserAttributeOptions? options;
-  AuthUserAttributeRequest({this.options});
-  Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = {
-      'options': options?.serializeAsMap()
-    };
-    pendingRequest.removeWhere((_, v) => v == null);
-    return pendingRequest;
-  }
+  /// Serialize the object to a map
+  Map<String, dynamic> serializeAsMap();
 }

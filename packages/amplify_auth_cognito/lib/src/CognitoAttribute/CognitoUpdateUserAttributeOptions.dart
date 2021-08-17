@@ -14,22 +14,19 @@
  */
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
-import 'package:flutter/foundation.dart';
 
-/// Wraps the result of an update user attribute operation.
-class UpdateUserAttributeResult {
-  /// True if the user attribute has now been updated. False if it has not yet been updated.
-  bool isUpdated;
+/// Cognito extension of [UpdateUserAttributeOptions] to add the platform specific fields
+class CognitoUpdateUserAttributeOptions extends UpdateUserAttributeOptions {
+  /// Additional custom attributes to be sent to the service such as information about the client
+  Map<String, String>? clientMetadata;
 
-  /// Contains details about the next step in the user attribute update process (or whether the flow is now done).
-  AuthNextUpdateAttributeStep nextStep;
+  /// Default constructor
+  CognitoUpdateUserAttributeOptions({this.clientMetadata}) : super();
 
-  // ignore: public_member_api_docs
-  UpdateUserAttributeResult({
-    required this.isUpdated,
-    required this.nextStep,
-  }) {
-    this.isUpdated = isUpdated;
-    this.nextStep = nextStep;
+  Map<String, dynamic> serializeAsMap() {
+    final Map<String, dynamic> pendingRequest = {
+      if (clientMetadata != null) 'clientMetadata': clientMetadata
+    };
+    return pendingRequest;
   }
 }

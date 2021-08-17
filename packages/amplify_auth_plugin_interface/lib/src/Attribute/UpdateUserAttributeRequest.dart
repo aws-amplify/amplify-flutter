@@ -13,24 +13,33 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
 import 'AuthUserAttribute.dart';
+import 'UpdateUserAttributeOptions.dart';
 
-/// Encapsulates parameters for a update user attributes operation
-class UpdateUserAttributesRequest {
-  /// The list of user attribute to update
-  final List<AuthUserAttribute> attributes;
+/// Encapsulates parameters for a update user attribute operation
+class UpdateUserAttributeRequest {
+  /// The user attribute to update
+  final AuthUserAttribute attribute;
+
+  /// Plugin-specific, advanced options such as information about the client
+  final UpdateUserAttributeOptions? options;
 
   /// Default constructor
-  UpdateUserAttributesRequest({
-    required this.attributes,
-  });
+  UpdateUserAttributeRequest({
+    required String userAttributeKey,
+    required String value,
+    this.options,
+  }) : attribute = AuthUserAttribute(
+          userAttributeKey: userAttributeKey,
+          value: value,
+        );
 
   /// Serialize the object to a map for use over the method channel
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    pendingRequest['attributes'] =
-        attributes.map((attribute) => attribute.serializeAsMap()).toList();
+    final Map<String, dynamic> pendingRequest = {
+      'attribute': attribute.serializeAsMap(),
+      if (options != null) 'options': options?.serializeAsMap(),
+    };
     return pendingRequest;
   }
 }
