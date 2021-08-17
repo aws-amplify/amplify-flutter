@@ -71,7 +71,10 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
       });
     } on PlatformException catch (e) {
       if (e.code == "AmplifyAlreadyConfiguredException") {
-        throw const AmplifyAlreadyConfiguredException();
+        throw AmplifyAlreadyConfiguredException(
+            AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+            recoverySuggestion:
+                AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
       } else {
         throw _deserializeException(e);
       }
