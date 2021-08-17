@@ -39,10 +39,13 @@ android {
     }
     lintOptions {
         disable 'InvalidPackage'
-        disable 'GradleDependency'
+        informational 'GradleDependency'
 
         abortOnError true
         warningsAsErrors true
+        checkTestSources true
+        xmlReport false
+        htmlReport false
     }
     testOptions {
         unitTests {

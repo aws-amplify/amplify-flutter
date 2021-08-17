@@ -15,14 +15,12 @@
 
 import '../types.dart';
 
-class GraphQLOperation<T> {
-  late Function _cancel;
-  Future<GraphQLResponse<T>> response;
+class GraphQLResponse<T> {
+  final T data;
+  final List<GraphQLResponseError> errors;
 
-  GraphQLOperation({required this.response, required Function cancel})
-      : _cancel = cancel;
-
-  void cancel() {
-    _cancel();
-  }
+  const GraphQLResponse({
+    required this.data,
+    required this.errors,
+  });
 }

@@ -14,13 +14,7 @@
  */
 
 class GraphQLSubscriptionOperation<T> {
-  late Function _cancel;
+  final Function cancel;
 
-  GraphQLSubscriptionOperation({required Function cancel}) {
-    _cancel = cancel;
-  }
-
-  void cancel() {
-    _cancel();
-  }
+  const GraphQLSubscriptionOperation({required this.cancel});
 }
