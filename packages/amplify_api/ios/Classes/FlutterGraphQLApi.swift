@@ -147,10 +147,6 @@ class FlutterGraphQLApi {
             let variables = try FlutterApiRequest.getVariables(methodChannelRequest: request)
             let id = try FlutterApiRequest.getCancelToken(methodChannelRequest: request)
             let apiName = try FlutterApiRequest.getApiName(methodChannelRequest: request)
-<<<<<<< HEAD
-=======
-            var established = false
->>>>>>> chore(amplify_api): add support for apiName to GraphQL requests (#553)
 
             let request = GraphQLRequest<String>(apiName: apiName,
                                                  document: document,

@@ -118,18 +118,11 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             modelSchemas.forEach { (modelSchema) in
                 flutterModelRegistration.addModelSchema(modelName: modelSchema.name, modelSchema: modelSchema)
             }
-<<<<<<< HEAD
 
             flutterModelRegistration.version = modelProviderVersion
             let syncExpressions: [DataStoreSyncExpression] = try createSyncExpressions(syncExpressionList: syncExpressionList)
 
             self.dataStoreHubEventStreamHandler?.registerModelsForHub(flutterModelRegistration: flutterModelRegistration)
-=======
-            let syncExpressions: [DataStoreSyncExpression] = try createSyncExpressions(syncExpressionList: syncExpressionList)
-            
-            self.dataStoreHubEventStreamHandler?.registerModelsForHub(flutterModelRegistration: self.flutterModelRegistration)
-
->>>>>>> feat(datastore): Populate belongs-to nested models (#658)
             let dataStorePlugin = AWSDataStorePlugin(modelRegistration: flutterModelRegistration,
                                                      configuration: .custom(
                                                         syncInterval: syncInterval,

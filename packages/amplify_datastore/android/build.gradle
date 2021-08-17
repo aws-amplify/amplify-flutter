@@ -57,15 +57,9 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-<<<<<<< HEAD
     implementation "com.amplifyframework:aws-datastore:1.26.0"
     implementation "com.amplifyframework:aws-api-appsync:1.26.0"
     testImplementation 'junit:junit:4.13.2'
-=======
-    implementation "com.amplifyframework:aws-datastore:1.24.0"
-    implementation "com.amplifyframework:aws-api-appsync:1.24.0"
-    testImplementation 'junit:junit:4.13'
->>>>>>> feat(auth): add options to resendSignUpCode (#738)
     testImplementation 'org.mockito:mockito-core:3.10.0'
     testImplementation 'org.mockito:mockito-inline:3.10.0'
     testImplementation 'androidx.test:core:1.4.0'
