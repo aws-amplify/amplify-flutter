@@ -14,16 +14,26 @@
  */
 
 import Foundation
+import Amplify
+import AmplifyPlugins
 import amplify_core
 
 struct FlutterResetPasswordRequest {
   var username: String
-  var options: Dictionary<String, Any>? = [:]
+  var options: AuthResetPasswordRequest.Options?
 
   init(dict: NSMutableDictionary){
     self.username = dict["username"] as! String
-    self.options = dict["options"] as! Dictionary<String, Any>?
+    self.options = createOptions(options: dict["options"] as! Dictionary<String, Any>?)
   }
+    
+  func createOptions(options: Dictionary<String, Any>?) -> AuthResetPasswordOperation.Request.Options {
+    let pluginOptions =  AWSAuthResetPasswordOptions(
+      metadata: options?["clientMetadata"] as? [String : String]
+    )
+    return AuthResetPasswordOperation.Request.Options(pluginOptions: pluginOptions)
+  }
+    
   static func validate(dict: NSMutableDictionary) throws {
     let validationErrorMessage = "ResetPassword Request malformed."
     if (dict["username"] == nil && dict["options"] == nil) {

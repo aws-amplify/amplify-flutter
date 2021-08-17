@@ -19,6 +19,7 @@ export 'SignUp/ConfirmSignUpRequest.dart';
 export 'SignUp/ConfirmSignUpOptions.dart';
 export 'SignUp/SignUpOptions.dart';
 export 'SignUp/AuthNextSignUpStep.dart';
+export 'SignUp/ResendSignUpCodeOptions.dart';
 export 'SignUp/ResendSignUpCodeRequest.dart';
 export 'SignUp/ResendSignUpCodeResult.dart';
 
@@ -38,13 +39,17 @@ export 'SignOut/SignOutResult.dart';
 export 'SignOut/SignOutOptions.dart';
 
 // Password Classes
+export 'Password/ConfirmPasswordRequest.dart';
+export 'Password/ConfirmResetPasswordOptions.dart';
+export 'Password/ConfirmResetPasswordRequest.dart';
 export 'Password/PasswordOptions.dart';
-export 'Password/UpdatePasswordRequest.dart';
-export 'Password/UpdatePasswordResult.dart';
-export 'Password/ResetPasswordStep.dart';
+export 'Password/ResetPasswordOptions.dart';
 export 'Password/ResetPasswordRequest.dart';
 export 'Password/ResetPasswordResult.dart';
-export 'Password/ConfirmPasswordRequest.dart';
+export 'Password/ResetPasswordStep.dart';
+export 'Password/UpdatePasswordOptions.dart';
+export 'Password/UpdatePasswordRequest.dart';
+export 'Password/UpdatePasswordResult.dart';
 
 // Session Classes
 export 'Session/AuthSession.dart';
