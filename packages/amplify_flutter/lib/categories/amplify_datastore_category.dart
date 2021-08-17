@@ -90,4 +90,17 @@ class DataStoreCategory {
         ? plugins[0].clear()
         : throw _pluginNotAddedException("DataStore");
   }
+
+
+  Future<void> start() {
+    return plugins.length == 1
+        ? plugins[0].start()
+        : throw _pluginNotAddedException("DataStore");
+  }
+
+  Future<void> stop() {
+    return plugins.length == 1
+        ? plugins[0].stop()
+        : throw _pluginNotAddedException("DataStore");
+  }
 }
