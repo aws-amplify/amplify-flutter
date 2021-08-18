@@ -52,18 +52,11 @@ class AmplifyAPI extends APIPluginInterface {
   }
 
   @override
-  GraphQLSubscriptionOperation<T> subscribe<T>(
-      {required GraphQLRequest<T> request,
-      required Function(GraphQLResponse<T>) onData,
-      Function()? onEstablished,
-      Function(dynamic)? onError,
-      Function()? onDone}) {
-    return _instance.subscribe(
-        request: request,
-        onEstablished: onEstablished,
-        onData: onData,
-        onError: onError,
-        onDone: onDone);
+  Stream<GraphQLResponse<T>> subscribe<T>(
+    GraphQLRequest<T> request, {
+    void Function()? onEstablished,
+  }) {
+    return _instance.subscribe(request, onEstablished: onEstablished);
   }
 
   // ====== RestAPI ======

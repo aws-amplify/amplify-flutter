@@ -196,7 +196,8 @@ class FlutterGraphQLApi {
                         ]
                         graphQLSubscriptionsStreamHandler.sendEvent(
                             payload: payload,
-                            id: id, type: GraphQLSubscriptionEventTypes.DATA)
+                            id: id,
+                            type: GraphQLSubscriptionEventTypes.DATA)
                     case .failure(let errorResponse):
                         FlutterApiResponse.handleGraphQLErrorResponseEvent(
                             graphQLSubscriptionsStreamHandler: graphQLSubscriptionsStreamHandler,
@@ -222,7 +223,10 @@ class FlutterGraphQLApi {
                     }
                     if established {
                         let details = FlutterApiErrorHandler.createSerializedError(error: apiError)
-                        graphQLSubscriptionsStreamHandler.sendError(errorCode: "ApiException", details: details)
+                        graphQLSubscriptionsStreamHandler.sendError(
+                            errorCode: "ApiException",
+                            id: id,
+                            details: details)
                     } else {
                         FlutterApiErrorHandler.handleApiError(error: apiError, flutterResult: flutterResult)
                     }

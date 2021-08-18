@@ -16,10 +16,10 @@
 import '../uuid.dart';
 
 class GraphQLRequest<T> {
+  final String id = UUID.getUUID();
   final String? apiName;
   final String document;
   final Map<String, dynamic> variables;
-  final String cancelToken = UUID.getUUID();
 
   GraphQLRequest({
     this.apiName,
@@ -30,7 +30,7 @@ class GraphQLRequest<T> {
   Map<String, dynamic> serializeAsMap() => <String, dynamic>{
         'document': document,
         'variables': variables,
-        'cancelToken': cancelToken,
+        'cancelToken': id,
         if (apiName != null) 'apiName': apiName,
       };
 }

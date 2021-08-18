@@ -46,11 +46,11 @@ class GraphQLSubscriptionStreamHandler : EventChannel.StreamHandler {
         }
     }
 
-    fun sendError(errorCode: String, details: Map<String, Any?>) {
+    fun sendError(errorCode: String, id: String, details: Map<String, Any?>) {
         handler.post {
             eventSink?.error(
                 errorCode,
-                ExceptionMessages.defaultFallbackExceptionMessage,
+                id,
                 details
             )
         }

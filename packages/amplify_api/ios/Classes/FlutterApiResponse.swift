@@ -85,14 +85,20 @@ class FlutterApiResponse {
         case .transformationError(_, let error):
             print("Received a partially successful GraphQL subscription event with a transformation error: \(error)")
             let details = FlutterApiErrorHandler.createSerializedError(error: error)
-            graphQLSubscriptionsStreamHandler.sendError(errorCode: "ApiException", details: details)
+            graphQLSubscriptionsStreamHandler.sendError(
+                errorCode: "ApiException",
+                id: id,
+                details: details)
         case .unknown(let errorDescription, let recoverySuggestion, let error):
             print("An unknown error occured: \(errorDescription)")
             let details = FlutterApiErrorHandler.createSerializedError(
                 error: APIError.unknown(errorDescription,
                                         recoverySuggestion,
                                         error))
-            graphQLSubscriptionsStreamHandler.sendError(errorCode: "ApiException", details: details)
+            graphQLSubscriptionsStreamHandler.sendError(
+                errorCode: "ApiException",
+                id: id,
+                details: details)
         }
     }
 }
