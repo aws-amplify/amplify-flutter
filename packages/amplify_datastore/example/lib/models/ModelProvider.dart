@@ -20,6 +20,7 @@ import 'BelongsToModel.dart';
 import 'Blog.dart';
 import 'BoolListTypeModel.dart';
 import 'BoolTypeModel.dart';
+import 'ChildModel.dart';
 import 'Comment.dart';
 import 'DateListTypeModel.dart';
 import 'DateTimeListTypeModel.dart';
@@ -29,7 +30,7 @@ import 'DoubleListTypeModel.dart';
 import 'DoubleTypeModel.dart';
 import 'EnumListTypeModel.dart';
 import 'EnumTypeModel.dart';
-import 'HasManyBelongsToModel.dart';
+import 'HasManyChildModel.dart';
 import 'HasManyModel.dart';
 import 'HasOneModel.dart';
 import 'IntListTypeModel.dart';
@@ -49,6 +50,7 @@ export 'BelongsToModel.dart';
 export 'Blog.dart';
 export 'BoolListTypeModel.dart';
 export 'BoolTypeModel.dart';
+export 'ChildModel.dart';
 export 'Comment.dart';
 export 'DateListTypeModel.dart';
 export 'DateTimeListTypeModel.dart';
@@ -59,7 +61,7 @@ export 'DoubleTypeModel.dart';
 export 'EnumListTypeModel.dart';
 export 'EnumModel.dart';
 export 'EnumTypeModel.dart';
-export 'HasManyBelongsToModel.dart';
+export 'HasManyChildModel.dart';
 export 'HasManyModel.dart';
 export 'HasOneModel.dart';
 export 'IntListTypeModel.dart';
@@ -77,13 +79,14 @@ export 'TimestampTypeModel.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "3ee4c4fbc5394140bdafd8aa9f837059";
+  String version = "4244ecb7603fdd5c610dd89b15018cb1";
   @override
   List<ModelSchema> modelSchemas = [
     BelongsToModel.schema,
     Blog.schema,
     BoolListTypeModel.schema,
     BoolTypeModel.schema,
+    ChildModel.schema,
     Comment.schema,
     DateListTypeModel.schema,
     DateTimeListTypeModel.schema,
@@ -93,7 +96,7 @@ class ModelProvider implements ModelProviderInterface {
     DoubleTypeModel.schema,
     EnumListTypeModel.schema,
     EnumTypeModel.schema,
-    HasManyBelongsToModel.schema,
+    HasManyChildModel.schema,
     HasManyModel.schema,
     HasOneModel.schema,
     IntListTypeModel.schema,
@@ -133,6 +136,11 @@ class ModelProvider implements ModelProviderInterface {
       case "BoolTypeModel":
         {
           return BoolTypeModel.classType;
+        }
+        break;
+      case "ChildModel":
+        {
+          return ChildModel.classType;
         }
         break;
       case "Comment":
@@ -180,9 +188,9 @@ class ModelProvider implements ModelProviderInterface {
           return EnumTypeModel.classType;
         }
         break;
-      case "HasManyBelongsToModel":
+      case "HasManyChildModel":
         {
-          return HasManyBelongsToModel.classType;
+          return HasManyChildModel.classType;
         }
         break;
       case "HasManyModel":

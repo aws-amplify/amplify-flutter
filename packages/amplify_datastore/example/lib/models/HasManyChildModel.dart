@@ -19,10 +19,10 @@ import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the HasManyBelongsToModel type in your schema. */
+/** This is an auto generated class representing the HasManyChildModel type in your schema. */
 @immutable
-class HasManyBelongsToModel extends Model {
-  static const classType = const _HasManyBelongsToModelModelType();
+class HasManyChildModel extends Model {
+  static const classType = const _HasManyChildModelModelType();
   final String id;
   final String? _title;
   final HasManyModel? _parent;
@@ -52,14 +52,13 @@ class HasManyBelongsToModel extends Model {
     return _parent;
   }
 
-  const HasManyBelongsToModel._internal(
-      {required this.id, required title, parent})
+  const HasManyChildModel._internal({required this.id, required title, parent})
       : _title = title,
         _parent = parent;
 
-  factory HasManyBelongsToModel(
+  factory HasManyChildModel(
       {String? id, required String title, HasManyModel? parent}) {
-    return HasManyBelongsToModel._internal(
+    return HasManyChildModel._internal(
         id: id == null ? UUID.getUUID() : id, title: title, parent: parent);
   }
 
@@ -70,7 +69,7 @@ class HasManyBelongsToModel extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is HasManyBelongsToModel &&
+    return other is HasManyChildModel &&
         id == other.id &&
         _title == other._title &&
         _parent == other._parent;
@@ -83,7 +82,7 @@ class HasManyBelongsToModel extends Model {
   String toString() {
     var buffer = new StringBuffer();
 
-    buffer.write("HasManyBelongsToModel {");
+    buffer.write("HasManyChildModel {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("title=" + "$_title" + ", ");
     buffer.write("parent=" + (_parent != null ? _parent!.toString() : "null"));
@@ -92,15 +91,15 @@ class HasManyBelongsToModel extends Model {
     return buffer.toString();
   }
 
-  HasManyBelongsToModel copyWith(
+  HasManyChildModel copyWith(
       {String? id, String? title, HasManyModel? parent}) {
-    return HasManyBelongsToModel(
+    return HasManyChildModel(
         id: id ?? this.id,
         title: title ?? this.title,
         parent: parent ?? this.parent);
   }
 
-  HasManyBelongsToModel.fromJson(Map<String, dynamic> json)
+  HasManyChildModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _title = json['title'],
         _parent = json['parent']?['serializedData'] != null
@@ -111,8 +110,7 @@ class HasManyBelongsToModel extends Model {
   Map<String, dynamic> toJson() =>
       {'id': id, 'title': _title, 'parent': _parent?.toJson()};
 
-  static final QueryField ID =
-      QueryField(fieldName: "hasManyBelongsToModel.id");
+  static final QueryField ID = QueryField(fieldName: "hasManyChildModel.id");
   static final QueryField TITLE = QueryField(fieldName: "title");
   static final QueryField PARENT = QueryField(
       fieldName: "parent",
@@ -120,29 +118,29 @@ class HasManyBelongsToModel extends Model {
           ofModelName: (HasManyModel).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "HasManyBelongsToModel";
-    modelSchemaDefinition.pluralName = "HasManyBelongsToModels";
+    modelSchemaDefinition.name = "HasManyChildModel";
+    modelSchemaDefinition.pluralName = "HasManyChildModels";
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: HasManyBelongsToModel.TITLE,
+        key: HasManyChildModel.TITLE,
         isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
-        key: HasManyBelongsToModel.PARENT,
+        key: HasManyChildModel.PARENT,
         isRequired: false,
         targetName: "hasManyID",
         ofModelName: (HasManyModel).toString()));
   });
 }
 
-class _HasManyBelongsToModelModelType extends ModelType<HasManyBelongsToModel> {
-  const _HasManyBelongsToModelModelType();
+class _HasManyChildModelModelType extends ModelType<HasManyChildModel> {
+  const _HasManyChildModelModelType();
 
   @override
-  HasManyBelongsToModel fromJson(Map<String, dynamic> jsonData) {
-    return HasManyBelongsToModel.fromJson(jsonData);
+  HasManyChildModel fromJson(Map<String, dynamic> jsonData) {
+    return HasManyChildModel.fromJson(jsonData);
   }
 }

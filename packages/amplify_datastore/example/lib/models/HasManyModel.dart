@@ -26,7 +26,7 @@ class HasManyModel extends Model {
   static const classType = const _HasManyModelModelType();
   final String id;
   final String? _title;
-  final List<HasManyBelongsToModel>? _children;
+  final List<HasManyChildModel>? _children;
 
   @override
   getInstanceType() => classType;
@@ -49,7 +49,7 @@ class HasManyModel extends Model {
     }
   }
 
-  List<HasManyBelongsToModel> get children {
+  List<HasManyChildModel> get children {
     try {
       return _children!;
     } catch (e) {
@@ -70,12 +70,12 @@ class HasManyModel extends Model {
   factory HasManyModel(
       {String? id,
       required String title,
-      required List<HasManyBelongsToModel> children}) {
+      required List<HasManyChildModel> children}) {
     return HasManyModel._internal(
         id: id == null ? UUID.getUUID() : id,
         title: title,
         children: children != null
-            ? List<HasManyBelongsToModel>.unmodifiable(children)
+            ? List<HasManyChildModel>.unmodifiable(children)
             : children);
   }
 
@@ -108,7 +108,7 @@ class HasManyModel extends Model {
   }
 
   HasManyModel copyWith(
-      {String? id, String? title, List<HasManyBelongsToModel>? children}) {
+      {String? id, String? title, List<HasManyChildModel>? children}) {
     return HasManyModel(
         id: id ?? this.id,
         title: title ?? this.title,
@@ -121,7 +121,7 @@ class HasManyModel extends Model {
         _children = json['children'] is List
             ? (json['children'] as List)
                 .where((e) => e?['serializedData'] != null)
-                .map((e) => HasManyBelongsToModel.fromJson(
+                .map((e) => HasManyChildModel.fromJson(
                     new Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
             : null;
@@ -137,7 +137,7 @@ class HasManyModel extends Model {
   static final QueryField CHILDREN = QueryField(
       fieldName: "children",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (HasManyBelongsToModel).toString()));
+          ofModelName: (HasManyChildModel).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "HasManyModel";
@@ -153,8 +153,8 @@ class HasManyModel extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
         key: HasManyModel.CHILDREN,
         isRequired: false,
-        ofModelName: (HasManyBelongsToModel).toString(),
-        associatedKey: HasManyBelongsToModel.PARENT));
+        ofModelName: (HasManyChildModel).toString(),
+        associatedKey: HasManyChildModel.PARENT));
   });
 }
 
