@@ -16,31 +16,245 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'BelongsToModel.dart';
 import 'Blog.dart';
+import 'BoolListTypeModel.dart';
+import 'BoolTypeModel.dart';
 import 'Comment.dart';
+import 'DateListTypeModel.dart';
+import 'DateTimeListTypeModel.dart';
+import 'DateTimeTypeModel.dart';
+import 'DateTypeModel.dart';
+import 'DoubleListTypeModel.dart';
+import 'DoubleTypeModel.dart';
+import 'EnumListTypeModel.dart';
+import 'EnumTypeModel.dart';
+import 'HasManyBelongsToModel.dart';
+import 'HasManyModel.dart';
+import 'HasOneModel.dart';
+import 'IntListTypeModel.dart';
+import 'IntTypeModel.dart';
+import 'JSONListTypeModel.dart';
+import 'JSONTypeModel.dart';
 import 'Post.dart';
+import 'StringListTypeModel.dart';
+import 'StringTypeModel.dart';
+import 'TestEvent.dart';
+import 'TimeListTypeModel.dart';
+import 'TimeTypeModel.dart';
+import 'TimestampListTypeModel.dart';
+import 'TimestampTypeModel.dart';
 
+export 'BelongsToModel.dart';
 export 'Blog.dart';
+export 'BoolListTypeModel.dart';
+export 'BoolTypeModel.dart';
 export 'Comment.dart';
+export 'DateListTypeModel.dart';
+export 'DateTimeListTypeModel.dart';
+export 'DateTimeTypeModel.dart';
+export 'DateTypeModel.dart';
+export 'DoubleListTypeModel.dart';
+export 'DoubleTypeModel.dart';
+export 'EnumListTypeModel.dart';
+export 'EnumModel.dart';
+export 'EnumTypeModel.dart';
+export 'HasManyBelongsToModel.dart';
+export 'HasManyModel.dart';
+export 'HasOneModel.dart';
+export 'IntListTypeModel.dart';
+export 'IntTypeModel.dart';
+export 'JSONListTypeModel.dart';
+export 'JSONTypeModel.dart';
 export 'Post.dart';
+export 'StringListTypeModel.dart';
+export 'StringTypeModel.dart';
+export 'TestEvent.dart';
+export 'TimeListTypeModel.dart';
+export 'TimeTypeModel.dart';
+export 'TimestampListTypeModel.dart';
+export 'TimestampTypeModel.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "5d57d0339e98a5193251cdde962c0b6e";
+  String version = "3ee4c4fbc5394140bdafd8aa9f837059";
   @override
-  List<ModelSchema> modelSchemas = [Blog.schema, Comment.schema, Post.schema];
+  List<ModelSchema> modelSchemas = [
+    BelongsToModel.schema,
+    Blog.schema,
+    BoolListTypeModel.schema,
+    BoolTypeModel.schema,
+    Comment.schema,
+    DateListTypeModel.schema,
+    DateTimeListTypeModel.schema,
+    DateTimeTypeModel.schema,
+    DateTypeModel.schema,
+    DoubleListTypeModel.schema,
+    DoubleTypeModel.schema,
+    EnumListTypeModel.schema,
+    EnumTypeModel.schema,
+    HasManyBelongsToModel.schema,
+    HasManyModel.schema,
+    HasOneModel.schema,
+    IntListTypeModel.schema,
+    IntTypeModel.schema,
+    JSONListTypeModel.schema,
+    JSONTypeModel.schema,
+    Post.schema,
+    StringListTypeModel.schema,
+    StringTypeModel.schema,
+    TestEvent.schema,
+    TimeListTypeModel.schema,
+    TimeTypeModel.schema,
+    TimestampListTypeModel.schema,
+    TimestampTypeModel.schema
+  ];
   static final ModelProvider _instance = ModelProvider();
 
   static ModelProvider get instance => _instance;
 
   ModelType getModelTypeByModelName(String modelName) {
     switch (modelName) {
+      case "BelongsToModel":
+        {
+          return BelongsToModel.classType;
+        }
+        break;
       case "Blog":
-        return Blog.classType;
+        {
+          return Blog.classType;
+        }
+        break;
+      case "BoolListTypeModel":
+        {
+          return BoolListTypeModel.classType;
+        }
+        break;
+      case "BoolTypeModel":
+        {
+          return BoolTypeModel.classType;
+        }
+        break;
       case "Comment":
-        return Comment.classType;
+        {
+          return Comment.classType;
+        }
+        break;
+      case "DateListTypeModel":
+        {
+          return DateListTypeModel.classType;
+        }
+        break;
+      case "DateTimeListTypeModel":
+        {
+          return DateTimeListTypeModel.classType;
+        }
+        break;
+      case "DateTimeTypeModel":
+        {
+          return DateTimeTypeModel.classType;
+        }
+        break;
+      case "DateTypeModel":
+        {
+          return DateTypeModel.classType;
+        }
+        break;
+      case "DoubleListTypeModel":
+        {
+          return DoubleListTypeModel.classType;
+        }
+        break;
+      case "DoubleTypeModel":
+        {
+          return DoubleTypeModel.classType;
+        }
+        break;
+      case "EnumListTypeModel":
+        {
+          return EnumListTypeModel.classType;
+        }
+        break;
+      case "EnumTypeModel":
+        {
+          return EnumTypeModel.classType;
+        }
+        break;
+      case "HasManyBelongsToModel":
+        {
+          return HasManyBelongsToModel.classType;
+        }
+        break;
+      case "HasManyModel":
+        {
+          return HasManyModel.classType;
+        }
+        break;
+      case "HasOneModel":
+        {
+          return HasOneModel.classType;
+        }
+        break;
+      case "IntListTypeModel":
+        {
+          return IntListTypeModel.classType;
+        }
+        break;
+      case "IntTypeModel":
+        {
+          return IntTypeModel.classType;
+        }
+        break;
+      case "JSONListTypeModel":
+        {
+          return JSONListTypeModel.classType;
+        }
+        break;
+      case "JSONTypeModel":
+        {
+          return JSONTypeModel.classType;
+        }
+        break;
       case "Post":
-        return Post.classType;
+        {
+          return Post.classType;
+        }
+        break;
+      case "StringListTypeModel":
+        {
+          return StringListTypeModel.classType;
+        }
+        break;
+      case "StringTypeModel":
+        {
+          return StringTypeModel.classType;
+        }
+        break;
+      case "TestEvent":
+        {
+          return TestEvent.classType;
+        }
+        break;
+      case "TimeListTypeModel":
+        {
+          return TimeListTypeModel.classType;
+        }
+        break;
+      case "TimeTypeModel":
+        {
+          return TimeTypeModel.classType;
+        }
+        break;
+      case "TimestampListTypeModel":
+        {
+          return TimestampListTypeModel.classType;
+        }
+        break;
+      case "TimestampTypeModel":
+        {
+          return TimestampTypeModel.classType;
+        }
+        break;
       default:
         {
           throw Exception(
