@@ -18,6 +18,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'save_test.dart' as save_tests;
 import 'query_test.dart' as query_tests;
+import 'model_type_test.dart' as model_type_tests;
+
 import 'utils/setup_utils.dart';
 
 void main() async {
@@ -30,5 +32,6 @@ void main() async {
 
     save_tests.main();
     query_tests.main();
+    model_type_tests.main();
   });
 }
