@@ -79,7 +79,7 @@ export 'TimestampTypeModel.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "4244ecb7603fdd5c610dd89b15018cb1";
+  String version = "9ab441d63dc1d8c135e297c90dcbd157";
   @override
   List<ModelSchema> modelSchemas = [
     BelongsToModel.schema,

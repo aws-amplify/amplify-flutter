@@ -24,7 +24,7 @@ import 'package:flutter/foundation.dart';
 class HasManyChildModel extends Model {
   static const classType = const _HasManyChildModelModelType();
   final String id;
-  final String? _title;
+  final String? _name;
   final HasManyModel? _parent;
 
   @override
@@ -35,9 +35,9 @@ class HasManyChildModel extends Model {
     return id;
   }
 
-  String get title {
+  String get name {
     try {
-      return _title!;
+      return _name!;
     } catch (e) {
       throw new DataStoreException(
           DataStoreExceptionMessages
@@ -52,14 +52,14 @@ class HasManyChildModel extends Model {
     return _parent;
   }
 
-  const HasManyChildModel._internal({required this.id, required title, parent})
-      : _title = title,
+  const HasManyChildModel._internal({required this.id, required name, parent})
+      : _name = name,
         _parent = parent;
 
   factory HasManyChildModel(
-      {String? id, required String title, HasManyModel? parent}) {
+      {String? id, required String name, HasManyModel? parent}) {
     return HasManyChildModel._internal(
-        id: id == null ? UUID.getUUID() : id, title: title, parent: parent);
+        id: id == null ? UUID.getUUID() : id, name: name, parent: parent);
   }
 
   bool equals(Object other) {
@@ -71,7 +71,7 @@ class HasManyChildModel extends Model {
     if (identical(other, this)) return true;
     return other is HasManyChildModel &&
         id == other.id &&
-        _title == other._title &&
+        _name == other._name &&
         _parent == other._parent;
   }
 
@@ -84,34 +84,33 @@ class HasManyChildModel extends Model {
 
     buffer.write("HasManyChildModel {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("title=" + "$_title" + ", ");
+    buffer.write("name=" + "$_name" + ", ");
     buffer.write("parent=" + (_parent != null ? _parent!.toString() : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  HasManyChildModel copyWith(
-      {String? id, String? title, HasManyModel? parent}) {
+  HasManyChildModel copyWith({String? id, String? name, HasManyModel? parent}) {
     return HasManyChildModel(
         id: id ?? this.id,
-        title: title ?? this.title,
+        name: name ?? this.name,
         parent: parent ?? this.parent);
   }
 
   HasManyChildModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _title = json['title'],
+        _name = json['name'],
         _parent = json['parent']?['serializedData'] != null
             ? HasManyModel.fromJson(
                 new Map<String, dynamic>.from(json['parent']['serializedData']))
             : null;
 
   Map<String, dynamic> toJson() =>
-      {'id': id, 'title': _title, 'parent': _parent?.toJson()};
+      {'id': id, 'name': _name, 'parent': _parent?.toJson()};
 
   static final QueryField ID = QueryField(fieldName: "hasManyChildModel.id");
-  static final QueryField TITLE = QueryField(fieldName: "title");
+  static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField PARENT = QueryField(
       fieldName: "parent",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
@@ -124,14 +123,14 @@ class HasManyChildModel extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: HasManyChildModel.TITLE,
+        key: HasManyChildModel.NAME,
         isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
         key: HasManyChildModel.PARENT,
         isRequired: false,
-        targetName: "hasManyID",
+        targetName: "parentID",
         ofModelName: (HasManyModel).toString()));
   });
 }
