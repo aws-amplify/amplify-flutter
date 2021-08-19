@@ -14,11 +14,14 @@ class FormFieldContainer extends StatelessWidget {
       required this.title,
       required this.validator,
       required this.obscureText,
+      this.visible,
       this.color,
       this.initialValue,
       this.enable,
       this.resendCodeButton})
       : super(key: key);
+
+  final Widget? visible;
 
   final String? initialValue;
 
@@ -65,6 +68,7 @@ class FormFieldContainer extends StatelessWidget {
             validator: validator,
             onChanged: callback,
             decoration: InputDecoration(
+                suffix: visible,
                 focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                         color: Theme.of(context).primaryColor != Colors.blue
