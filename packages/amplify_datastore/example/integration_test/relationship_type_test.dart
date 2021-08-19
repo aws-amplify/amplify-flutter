@@ -182,5 +182,202 @@ void main() {
         expect(children, isEmpty);
       });
     });
+
+    group('hasMany', () {
+      var parent = HasManyModel(name: 'HasMany');
+      var children = List.generate(
+          5, (i) => HasManyChildModel(name: 'child $i', parent: parent));
+      late Future<SubscriptionEvent<HasManyChildModel>> childEvent;
+      late Future<SubscriptionEvent<HasManyModel>> hasManyEvent;
+
+      setUpAll(() async {
+        await configureDataStore();
+        await Amplify.DataStore.clear();
+
+        childEvent =
+            Amplify.DataStore.observe(HasManyChildModel.classType).first;
+        hasManyEvent = Amplify.DataStore.observe(HasManyModel.classType).first;
+      });
+
+      testWidgets('precondition', (WidgetTester tester) async {
+        var queriedChildren =
+            await Amplify.DataStore.query(HasManyChildModel.classType);
+        expect(queriedChildren, isEmpty);
+        var queriedParents =
+            await Amplify.DataStore.query(HasManyModel.classType);
+        expect(queriedParents, isEmpty);
+      });
+
+      testWidgets('save parent', (WidgetTester tester) async {
+        await Amplify.DataStore.save(parent);
+        var parents = await Amplify.DataStore.query(HasManyModel.classType);
+        expect(parents, isNotEmpty);
+      });
+
+      testWidgets('save children', (WidgetTester tester) async {
+        for (var child in children) {
+          await Amplify.DataStore.save(child);
+        }
+        var queriedChildren =
+            await Amplify.DataStore.query(HasManyChildModel.classType);
+        expect(queriedChildren, isNotEmpty);
+      });
+
+      testWidgets('query parent', (WidgetTester tester) async {
+        var parents = await Amplify.DataStore.query(HasManyModel.classType);
+        var queriedParent = parents.first;
+        expect(queriedParent.id, parent.id);
+        expect(queriedParent.name, parent.name);
+      });
+
+      testWidgets('query children', (WidgetTester tester) async {
+        var queriedChildren =
+            await Amplify.DataStore.query(HasManyChildModel.classType);
+        for (var i = 0; i < 5; i++) {
+          var queriedChild = queriedChildren[i];
+          var actualChild = children[i];
+          // an equality check such as `expect(queriedChild, actualChild);`
+          // cannot be performed because iOS will return an empty list for
+          // queriedChild.parent.children instead of null
+          // see issue: TODO
+          expect(queriedChild.id, actualChild.id);
+          expect(queriedChild.name, actualChild.name);
+          expect(queriedChild.parent!.id, actualChild.parent!.id);
+          expect(
+            queriedChild.parent!.name,
+            actualChild.parent!.name,
+          );
+        }
+      });
+
+      testWidgets('observe parent', (WidgetTester tester) async {
+        var event = await hasManyEvent;
+        var observedParent = event.item;
+        expect(observedParent.id, parent.id);
+        expect(observedParent.name, parent.name);
+      });
+
+      testWidgets('observe children', (WidgetTester tester) async {
+        var event = await childEvent;
+        var observedChild = event.item;
+        var firstChild = children.first;
+        // an equality check such as `expect(observedChild, firstChild);`
+        // cannot be performed because iOS will return an empty list for
+        // observedChild.parent.children instead of null
+        // see issue: TODO
+        expect(observedChild.id, firstChild.id);
+        expect(observedChild.name, firstChild.name);
+        expect(observedChild.parent!.id, firstChild.parent!.id);
+        expect(
+          observedChild.parent!.name,
+          observedChild.parent!.name,
+        );
+      });
+
+      testWidgets('delete parent', (WidgetTester tester) async {
+        await Amplify.DataStore.delete(parent);
+        var parents = await Amplify.DataStore.query(HasManyModel.classType);
+        expect(parents, isEmpty);
+      });
+
+      testWidgets('delete children', (WidgetTester tester) async {
+        for (var child in children) {
+          await Amplify.DataStore.delete(child);
+        }
+        var queriedChildren =
+            await Amplify.DataStore.query(HasManyChildModel.classType);
+        expect(queriedChildren, isEmpty);
+      });
+    });
+    group('hasMany (cascade save)', () {
+      var children =
+          List.generate(5, (i) => HasManyChildModel(name: 'child $i'));
+      var parent = HasManyModel(name: 'HasMany', children: children);
+      late Future<SubscriptionEvent<HasManyChildModel>> childEvent;
+      late Future<SubscriptionEvent<HasManyModel>> hasManyEvent;
+
+      setUpAll(() async {
+        await configureDataStore();
+        await Amplify.DataStore.clear();
+
+        childEvent =
+            Amplify.DataStore.observe(HasManyChildModel.classType).first;
+        hasManyEvent = Amplify.DataStore.observe(HasManyModel.classType).first;
+      });
+
+      testWidgets('precondition', (WidgetTester tester) async {
+        var queriedChildren =
+            await Amplify.DataStore.query(HasManyChildModel.classType);
+        expect(queriedChildren, isEmpty);
+        var queriedParents =
+            await Amplify.DataStore.query(HasManyModel.classType);
+        expect(queriedParents, isEmpty);
+      });
+
+      testWidgets('save children', (WidgetTester tester) async {
+        for (var child in children) {
+          await Amplify.DataStore.save(child);
+        }
+        var queriedChildren =
+            await Amplify.DataStore.query(HasManyChildModel.classType);
+        expect(queriedChildren, isNotEmpty);
+      });
+
+      testWidgets('save parent', (WidgetTester tester) async {
+        await Amplify.DataStore.save(parent);
+        var parents = await Amplify.DataStore.query(HasManyModel.classType);
+        expect(parents, isNotEmpty);
+      });
+
+      testWidgets('query parent', (WidgetTester tester) async {
+        var parents = await Amplify.DataStore.query(HasManyModel.classType);
+        var queriedParent = parents.first;
+        expect(queriedParent.id, parent.id);
+        expect(queriedParent.name, parent.name);
+      });
+
+      testWidgets('query children', (WidgetTester tester) async {
+        var queriedChildren =
+            await Amplify.DataStore.query(HasManyChildModel.classType);
+        for (var i = 0; i < 5; i++) {
+          var queriedChild = queriedChildren[i];
+          var actualChild = children[i];
+          // an equality check such as `expect(queriedChild, actualChild);`
+          // cannot be performed without cascade save
+          // see: https://github.com/aws-amplify/amplify-flutter/issues/820
+          expect(queriedChild.id, actualChild.id);
+          expect(queriedChild.name, actualChild.name);
+        }
+      });
+
+      testWidgets('observe parent', (WidgetTester tester) async {
+        var event = await hasManyEvent;
+        var observedParent = event.item;
+        expect(observedParent.id, parent.id);
+        expect(observedParent.name, parent.name);
+      });
+
+      testWidgets('observe children', (WidgetTester tester) async {
+        var event = await childEvent;
+        var observedChild = event.item;
+        var firstChild = children.first;
+        expect(observedChild, firstChild);
+      });
+
+      testWidgets('delete parent', (WidgetTester tester) async {
+        await Amplify.DataStore.delete(parent);
+        var parents = await Amplify.DataStore.query(HasManyModel.classType);
+        expect(parents, isEmpty);
+      });
+
+      testWidgets('delete children', (WidgetTester tester) async {
+        for (var child in children) {
+          await Amplify.DataStore.delete(child);
+        }
+        var queriedChildren =
+            await Amplify.DataStore.query(HasManyChildModel.classType);
+        expect(queriedChildren, isEmpty);
+      });
+    });
   });
 }
