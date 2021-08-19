@@ -20,7 +20,7 @@ part of amplify_interface;
 /// be registered and configured and then subsequent API calls will be forwarded
 /// to those plugins.
 class DataStoreCategory {
-  /// Initiate DataStore category.
+  /// Default constant constructor
   const DataStoreCategory();
 
   /// Added DataStore plugins.
