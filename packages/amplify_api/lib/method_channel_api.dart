@@ -160,6 +160,13 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
             AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       final errors = _deserializeGraphQLResponseErrors(result);
 
+      // Catch data while its non-nullable and provide error messages
+      if (result['data'] == null) {
+        throw ApiException(
+            "Appsync responded with null data, please refer to the underlying exception",
+            underlyingException: errors.toString());
+      }
+
       GraphQLResponse<T> response = GraphQLResponseDecoder.instance
           .decode<T>(request: request, data: result['data'], errors: errors);
 
