@@ -36,18 +36,6 @@ class AuthConfirmSignUp extends AuthEvent {
   const AuthConfirmSignUp(this.data);
 }
 
-class AuthConfirmSignInMFA extends AuthEvent {
-  final AuthConfirmSignInMFAData data;
-
-  const AuthConfirmSignInMFA(this.data);
-}
-
-class AuthConfirmSignInNewPassword extends AuthEvent {
-  final AuthConfirmSignInNewPasswordData data;
-
-  const AuthConfirmSignInNewPassword(this.data);
-}
-
 class AuthSignOut extends AuthEvent {
   const AuthSignOut();
 }
@@ -72,4 +60,10 @@ class AuthUpdatePassword extends AuthEvent {
   const AuthUpdatePassword(this.data);
 
   final AuthUpdatePasswordData data;
+}
+
+class AuthConfirmSignIn extends AuthEvent {
+  final AuthConfirmSignInData data;
+
+  const AuthConfirmSignIn(this.data);
 }
