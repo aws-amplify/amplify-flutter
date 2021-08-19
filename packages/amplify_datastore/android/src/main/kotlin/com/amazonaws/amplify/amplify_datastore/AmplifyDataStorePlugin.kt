@@ -413,12 +413,13 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
         plugin.start(
             {
+                LOG.info("Successfully started datastore remote synchronization")
                 uiThreadHandler.post {
                     flutterResult.success(null)
                 }
             },
             {
-                LOG.error("Received an error when start datastore", it)
+                LOG.error("Failed to start datastore with error: ", it)
                 uiThreadHandler.post {
                     postExceptionToFlutterChannel(
                         flutterResult, "DataStoreException",
@@ -435,12 +436,13 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
         plugin.stop(
             {
+                LOG.info("Successfully stopped datastore remote synchronization")
                 uiThreadHandler.post {
                     flutterResult.success(null)
                 }
             },
             {
-                LOG.error("Received an error when start datastore", it)
+                LOG.error("Failed to stop datastore with error: ", it)
                 uiThreadHandler.post {
                     postExceptionToFlutterChannel(
                         flutterResult, "DataStoreException",

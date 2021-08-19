@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ class DataStoreCategory {
   /// Initiate DataStore category.
   const DataStoreCategory();
 
-  /// Added DataStore plugin.
+  /// Added DataStore plugins.
   static List<DataStorePluginInterface> plugins = [];
 
   /// Add DataStore plugin
@@ -42,8 +42,8 @@ class DataStoreCategory {
         throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       }
     } else {
-      throw AmplifyException("DataStore plugin has already been added, " +
-          "multiple plugins for DataStore category are currently not supported.");
+      throw AmplifyException(
+          "DataStore plugin has already been added, multiple plugins for DataStore category are currently not supported.");
     }
   }
 
@@ -61,8 +61,8 @@ class DataStoreCategory {
     }
   }
 
-  /// Query the DataStore to find all items of the specified [modelType], that satisfy the specificed query
-  /// preticate [where]. Returned items are paginated by [pagination] and are sorted by [sortBy].
+  /// Query the DataStore to find all items of the specified [modelType] that satisfy the specified
+  /// query predicate [where]. Returned items are paginated by [pagination] and sorted by [sortBy].
   Future<List<T>> query<T extends Model>(ModelType<T> modelType,
       {QueryPredicate? where,
       QueryPagination? pagination,
@@ -96,8 +96,8 @@ class DataStoreCategory {
   }
 
   /// Stops the underlying DataStore, resetting the plugin to the initialized state, and deletes all data
-  /// from the local device. Remotely synced data can be resynced back when start DataStore using [start],
-  /// local only data will lose permanently.
+  /// from the local device. Remotely synced data can be re-synced back when starting DataStore using
+  /// [start]. local-only data will be lost permanently.
   Future<void> clear() {
     return plugins.length == 1
         ? plugins[0].clear()
