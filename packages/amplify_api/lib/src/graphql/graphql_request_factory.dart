@@ -40,16 +40,22 @@ class GraphQLRequestFactory {
   }
 
   String _getModelType(ModelFieldTypeEnum val) {
-    // TODO: Expand type support, if type is not list requests will fail
     switch (val) {
       case ModelFieldTypeEnum.string:
         return "String";
-      case ModelFieldTypeEnum.int:
-        return "Int";
       case ModelFieldTypeEnum.model:
         return "ID";
+      case ModelFieldTypeEnum.int:
+        return "Int";
+      case ModelFieldTypeEnum.double:
+        return "Float";
       case ModelFieldTypeEnum.dateTime:
         return "AWSDateTime";
+      case ModelFieldTypeEnum.time:
+        return "AWSTime";
+      case ModelFieldTypeEnum.timestamp:
+        return "AWSTimestamp";
+      // TODO: Expand type support: enumeration, collection
       default:
         return "Error: unsupported type!";
     }

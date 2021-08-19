@@ -197,7 +197,7 @@ void main() {
       } on ApiException catch (e) {
         expect(e.message, 'response from app sync was "null"');
         expect(e.recoverySuggestion,
-            "Current GraphQLResponse is non-nullable, please insure item exists before fetching");
+            "Current GraphQLResponse is non-nullable, please ensure item exists before fetching");
       }
     });
   });
