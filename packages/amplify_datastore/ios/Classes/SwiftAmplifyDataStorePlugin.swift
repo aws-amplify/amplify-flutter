@@ -75,6 +75,10 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             onSetUpObserve(flutterResult: result)
         case "clear":
             onClear(flutterResult: result)
+        case "start":
+            onStart(flutterResult: result)
+        case "stop":
+            onStop(flutterResult: result)
         default:
             result(FlutterMethodNotImplemented)
         }
@@ -341,6 +345,50 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     // See https://github.com/aws-amplify/amplify-flutter/issues/395
                     self.observeSubscription = nil
                     self.onSetUpObserve(flutterResult: flutterResult)
+                    flutterResult(nil)
+                }
+            }
+        }
+        catch {
+            print("An unexpected error occured: \(error)")
+            FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
+                                                              flutterResult: flutterResult)
+        }
+    }
+
+    func onStart(flutterResult: @escaping FlutterResult) {
+        do {
+            try bridge.onStart() { (result) in
+                switch result {
+                case .failure(let error):
+                    print("Start API failed. Error: \(error)")
+                    FlutterDataStoreErrorHandler.handleDataStoreError(
+                        error: error,
+                        flutterResult: flutterResult)
+                case .success():
+                    print("Successfully started datastore cloud syncing")
+                    flutterResult(nil)
+                }
+            }
+        }
+        catch {
+            print("An unexpected error occured: \(error)")
+            FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
+                                                              flutterResult: flutterResult)
+        }
+    }
+
+    func onStop(flutterResult: @escaping FlutterResult) {
+        do {
+            try bridge.onStop() { (result) in
+                switch result {
+                case .failure(let error):
+                    print("Stop API failed. Error: \(error)")
+                    FlutterDataStoreErrorHandler.handleDataStoreError(
+                        error: error,
+                        flutterResult: flutterResult)
+                case .success():
+                    print("Successfully stopped datastore cloud syncing")
                     flutterResult(nil)
                 }
             }

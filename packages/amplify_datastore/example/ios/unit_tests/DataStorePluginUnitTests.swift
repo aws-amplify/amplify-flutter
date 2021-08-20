@@ -378,6 +378,86 @@ class DataStorePluginUnitTests: XCTestCase {
             })
     }
 
+    func test_start_success() throws {
+        class MockDataStoreBridge: DataStoreBridge {
+            override func onStart(
+                completion: @escaping DataStoreCallback<Void>) throws {
+                completion(.successfulVoid)
+            }
+        }
+        let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, flutterModelRegistration: flutterModelSchemaRegistration)
+
+        pluginUnderTest.onStart(
+            flutterResult: {(result) in
+                XCTAssertNil(result)
+            })
+    }
+
+    func test_start_error() throws {
+        class MockDataStoreBridge: DataStoreBridge {
+            override func onStart(
+                completion: @escaping DataStoreCallback<Void>) throws {
+                completion(.failure(causedBy: DataStoreError.unknown("test error", "test recovery suggestion", nil)))
+            }
+        }
+        let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, flutterModelRegistration: flutterModelSchemaRegistration)
+
+        pluginUnderTest.onStart(
+            flutterResult: { (result) -> Void in
+                if let exception = result as? FlutterError {
+                    XCTAssertEqual("DataStoreException", exception.code)
+                    XCTAssertEqual(ErrorMessages.defaultFallbackErrorMessage, exception.message)
+                    let errorMap: [String: Any] = exception.details as! [String : Any]
+                    XCTAssertEqual("test error", errorMap["message"] as? String)
+                    XCTAssertEqual("test recovery suggestion", errorMap["recoverySuggestion"] as? String)
+                } else {
+                    XCTFail()
+                }
+            })
+    }
+
+    func test_stop_success() throws {
+        class MockDataStoreBridge: DataStoreBridge {
+            override func onStop(
+                completion: @escaping DataStoreCallback<Void>) throws {
+                completion(.successfulVoid)
+            }
+        }
+        let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, flutterModelRegistration: flutterModelSchemaRegistration)
+
+        pluginUnderTest.onStop(
+            flutterResult: {(result) in
+                XCTAssertNil(result)
+            })
+    }
+
+    func test_stop_error() throws {
+        class MockDataStoreBridge: DataStoreBridge {
+            override func onStop(
+                completion: @escaping DataStoreCallback<Void>) throws {
+                completion(.failure(causedBy: DataStoreError.unknown("test error", "test recovery suggestion", nil)))
+            }
+        }
+        let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, flutterModelRegistration: flutterModelSchemaRegistration)
+
+        pluginUnderTest.onStop(
+            flutterResult: { (result) -> Void in
+                if let exception = result as? FlutterError {
+                    XCTAssertEqual("DataStoreException", exception.code)
+                    XCTAssertEqual(ErrorMessages.defaultFallbackErrorMessage, exception.message)
+                    let errorMap: [String: Any] = exception.details as! [String : Any]
+                    XCTAssertEqual("test error", errorMap["message"] as? String)
+                    XCTAssertEqual("test recovery suggestion", errorMap["recoverySuggestion"] as? String)
+                } else {
+                    XCTFail()
+                }
+            })
+    }
+
     func test_save_success_without_predicate() throws {
         let testArgs = try readJsonMap(filePath: "instance_without_predicate") as [String: Any]
 
