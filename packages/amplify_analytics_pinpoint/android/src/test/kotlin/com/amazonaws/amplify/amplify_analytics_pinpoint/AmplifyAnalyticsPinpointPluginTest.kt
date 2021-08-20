@@ -69,7 +69,7 @@ class AmplifyAnalyticsPinpointPluginTest {
             "AnalyticsDoubleProperty" to 3.14,
             "AnalyticsIntegerProperty" to 42
         )
-        val propertiesTypesMap = hashMapOf<String, String>(
+        val propertiesTypesMap = hashMapOf(
             "AnalyticsStringProperty" to "STRING",
             "AnalyticsBooleanProperty" to "BOOL",
             "AnalyticsDoubleProperty" to "DOUBLE",
