@@ -13,35 +13,37 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:collection';
+
 class AnalyticsProperties {
-  Map<String, Object> _properties = new Map<String, Object>();
-  Map<String, String> _propertiesTypes = new Map<String, String>();
+  AnalyticsProperties();
+
+  final Map<String, Object> _properties = {};
+  final Map<String, String> _propertiesTypes = {};
 
   void addStringProperty(String key, String value) {
     _properties[key] = value;
-    _propertiesTypes[key] = "STRING";
+    _propertiesTypes[key] = 'STRING';
   }
 
   void addDoubleProperty(String key, double value) {
     _properties[key] = value;
-    _propertiesTypes[key] = "DOUBLE";
+    _propertiesTypes[key] = 'DOUBLE';
   }
 
+  // ignore: avoid_positional_boolean_parameters
   void addBoolProperty(String key, bool value) {
     _properties[key] = value;
-    _propertiesTypes[key] = "BOOL";
+    _propertiesTypes[key] = 'BOOL';
   }
 
   void addIntProperty(String key, int value) {
     _properties[key] = value;
-    _propertiesTypes[key] = "INT";
+    _propertiesTypes[key] = 'INT';
   }
 
-  Map<String, Object> getAllProperties() {
-    return new Map<String, Object>.from(_properties);
-  }
+  Map<String, Object> getAllProperties() => UnmodifiableMapView(_properties);
 
-  Map<String, String> getAllPropertiesTypes() {
-    return new Map<String, String>.from(_propertiesTypes);
-  }
+  Map<String, String> getAllPropertiesTypes() =>
+      UnmodifiableMapView(_propertiesTypes);
 }

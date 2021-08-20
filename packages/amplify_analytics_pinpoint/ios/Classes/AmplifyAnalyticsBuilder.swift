@@ -16,86 +16,54 @@
 import Amplify
 import AmplifyPlugins
 
-public class AmplifyAnalyticsBuilder {
-
-    public static func createAnalyticsProperties(map : [String: Any]) -> AnalyticsProperties{
-        let propertiesMap = map["propertiesMap"] as! [String: Any]
-        let propertiesTypesMap = map["propertiesTypesMap"] as! [String: String]
-        
+public enum AmplifyAnalyticsBuilder {
+    public static func createAnalyticsProperties(map: [String: Any]) -> AnalyticsProperties {
         var analyticsProperties = AnalyticsProperties()
-        
-        for (key,value) in propertiesTypesMap {
-            switch value{
-                case "STRING":
-                    analyticsProperties[key] = propertiesMap[key] as? String
-                case "INT":
-                    analyticsProperties[key] = propertiesMap[key] as? Int
-                case "DOUBLE":
-                    analyticsProperties[key] = propertiesMap[key] as? Double
-                case "BOOL":
-                    analyticsProperties[key] = propertiesMap[key] as? Bool
-                default:
-                    print("Unknown type for AnalyticsProperties")
+
+        guard let propertiesMap = map["propertiesMap"] as? [String: Any],
+              let propertiesTypesMap = map["propertiesTypesMap"] as? [String: String]
+        else {
+            return analyticsProperties
+        }
+
+        for (key, value) in propertiesTypesMap {
+            switch value {
+            case "STRING":
+                analyticsProperties[key] = propertiesMap[key] as? String
+            case "INT":
+                analyticsProperties[key] = propertiesMap[key] as? Int
+            case "DOUBLE":
+                analyticsProperties[key] = propertiesMap[key] as? Double
+            case "BOOL":
+                analyticsProperties[key] = propertiesMap[key] as? Bool
+            default:
+                print("Unknown type for AnalyticsProperties")
             }
         }
         return analyticsProperties
     }
 
-    public static func createUserProfile(userProfileMap : Dictionary<String, Any>) -> AnalyticsUserProfile{
-        
-        var userProfile = AnalyticsUserProfile( location: nil )
-        
-        for(key, value) in userProfileMap{
-            switch key{
-            case "name":
-                userProfile.name = (value as! String);
-            case "email":
-                userProfile.email = (value as! String);
-            case "plan":
-                userProfile.plan = (value as! String);
-            case "location":
-                let locationMap = value as! Dictionary<String, Any>
-                userProfile.location = createUserLocation(userLocationMap: locationMap)
-            case "propertiesMap":
-                userProfile.properties = createAnalyticsProperties(map: userProfileMap)
-            case "propertiesTypesMap":
-                // Can ignore this case as it is handled in propertiesMap above
-                continue
-            // This case should not be possible as UserProfile is typed on Dart side
-            default:
-                print("Unknown key for UserProfile")
-                
-            }
+    public static func createUserProfile(userProfileMap: [String: Any]) -> AnalyticsUserProfile {
+        var location: AnalyticsUserProfile.Location?
+        if let locationMap = userProfileMap["location"] as? [String: Any] {
+            location = createUserLocation(userLocationMap: locationMap)
         }
-        
-        return userProfile
+
+        return AnalyticsUserProfile(
+            name: userProfileMap["name"] as? String,
+            email: userProfileMap["email"] as? String,
+            plan: userProfileMap["plan"] as? String,
+            location: location,
+            properties: createAnalyticsProperties(map: userProfileMap))
     }
 
-    public static func createUserLocation(userLocationMap : Dictionary<String, Any>) -> AnalyticsUserProfile.Location{
-        
-        var userLocation : AnalyticsUserProfile.Location = AnalyticsUserProfile.Location()
-        
-        for(key, value) in userLocationMap{
-            switch key{
-            case "latitude":
-                userLocation.latitude = (value as! Double)
-            case "longitude":
-                userLocation.longitude = (value as! Double)
-            case "postalCode":
-                userLocation.postalCode = (value as! String)
-            case "city":
-                userLocation.city = (value as! String)
-            case "region":
-                userLocation.region = (value as! String)
-            case "country":
-                userLocation.country = (value as! String)
-            // This case should not be possible as UserLocation is typed on Dart side
-            default:
-                print("Unknown key for UserLocation")
-            }
-        }
-        
-        return userLocation
+    public static func createUserLocation(userLocationMap: [String: Any]) -> AnalyticsUserProfile.Location {
+        return AnalyticsUserProfile.Location(
+            latitude: userLocationMap["latitude"] as? Double,
+            longitude: userLocationMap["longitude"] as? Double,
+            postalCode: userLocationMap["postalCode"] as? String,
+            city: userLocationMap["city"] as? String,
+            region: userLocationMap["region"] as? String,
+            country: userLocationMap["country"] as? String)
     }
-
 }

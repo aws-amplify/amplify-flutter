@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,13 +13,12 @@
  * permissions and limitations under the License.
  */
 
-import Foundation
-enum FlutterAnalyticsErrorMessage: String {
-    case RECORD_EVENT = "RECORD_EVENT_FAILED"
-    case FLUSH_EVENTS = "FLUSH_EVENTS_FAILED"
-    case REGISTER_GLOBAL_PROPERTIES = "REGISTER_GLOBAL_PROPERTIES_FAILED"
-    case UNREGISTER_GLOBAL_PROPERTIES = "UNREGISTER_GLOBAL_PROPERTIES_FAILED"
-    case ENABLE = "ENABLE_FAILED"
-    case DISABLE = "DISABLE_FAILED"
-    case IDENTIFY_USER = "IDENTIFY_USER_FAILED"
+import '../../amplify_analytics_plugin_interface.dart';
+
+class AnalyticsEvent {
+  final String name;
+
+  final AnalyticsProperties properties = AnalyticsProperties();
+
+  AnalyticsEvent(this.name);
 }

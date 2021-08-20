@@ -30,12 +30,4 @@ void main() {
             recoverySuggestion: "test Recovery",
             underlyingException: "test exception"));
   });
-
-  test('configuration exception parsing from serialized map', () async {
-    expect(
-        AmplifyAlreadyConfiguredException.fromMap(serializedException),
-        AmplifyAlreadyConfiguredException("test Message",
-            recoverySuggestion: "test Recovery",
-            underlyingException: "test exception"));
-  });
 }
