@@ -85,10 +85,19 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     }
     
     private func onConfigureDataStore(args: [String: Any], result: @escaping FlutterResult) {
-        
-        guard let modelSchemaList = args["modelSchemas"] as? [[String: Any]] else {
-            result(false)
-            return //TODO
+
+        guard let modelSchemaList = args["modelSchemas"] as? [[String: Any]],
+              let modelProviderVersion = args["modelProviderVersion"] as? String else {
+
+            FlutterDataStoreErrorHandler.handleDataStoreError(
+                error:
+                    DataStoreError.decodingError(
+                        "Received invalid request from Dart, modelSchemas and/or modelProviderVersion are not available. Request: " + args.description,
+                        "Check the values that are being passed from Dart."
+                    ),
+                flutterResult: result
+            )
+            return
         }
         
         guard channel != nil else {
@@ -109,10 +118,11 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             modelSchemas.forEach { (modelSchema) in
                 flutterModelRegistration.addModelSchema(modelName: modelSchema.name, modelSchema: modelSchema)
             }
-            let syncExpressions: [DataStoreSyncExpression] = try createSyncExpressions(syncExpressionList: syncExpressionList)
-            
-            self.dataStoreHubEventStreamHandler?.registerModelsForHub(flutterModelRegistration: self.flutterModelRegistration)
 
+            flutterModelRegistration.version = modelProviderVersion
+            let syncExpressions: [DataStoreSyncExpression] = try createSyncExpressions(syncExpressionList: syncExpressionList)
+
+            self.dataStoreHubEventStreamHandler?.registerModelsForHub(flutterModelRegistration: flutterModelRegistration)
             let dataStorePlugin = AWSDataStorePlugin(modelRegistration: flutterModelRegistration,
                                                      configuration: .custom(
                                                         syncInterval: syncInterval,
