@@ -38,26 +38,31 @@ void main() {
       expect(blogs.contains(testBlog), isTrue);
     });
 
-    testWidgets('should update an existing model', (WidgetTester tester) async {
-      // create blog
-      var testBlog = Blog(name: 'test blog');
-      await Amplify.DataStore.save(testBlog);
-      var blogs = await Amplify.DataStore.query(Blog.classType);
+    testWidgets(
+      'should update an existing model',
+      (WidgetTester tester) async {
+        // create blog
+        var testBlog = Blog(name: 'test blog');
+        await Amplify.DataStore.save(testBlog);
+        var blogs = await Amplify.DataStore.query(Blog.classType);
 
-      // verify blog was created
-      expect(blogs.length, 1);
-      expect(blogs.contains(testBlog), isTrue);
+        // verify blog was created
+        expect(blogs.length, 1);
+        expect(blogs.contains(testBlog), isTrue);
 
-      // update blog
-      const updatedBlogName = 'updated name';
-      var updatedBlog = testBlog.copyWith(name: updatedBlogName);
-      await Amplify.DataStore.save(updatedBlog);
-      var updatedBlogs = await Amplify.DataStore.query(Blog.classType);
+        // update blog
+        const updatedBlogName = 'updated name';
+        var updatedBlog = testBlog.copyWith(name: updatedBlogName);
+        await Amplify.DataStore.save(updatedBlog);
+        var updatedBlogs = await Amplify.DataStore.query(Blog.classType);
 
-      // verify blog was updated
-      expect(updatedBlogs.length, 1);
-      expect(updatedBlogs.contains(updatedBlog), isTrue);
-      expect(updatedBlogs[0].name, updatedBlogName);
-    });
+        // verify blog was updated
+        expect(updatedBlogs.length, 1);
+        expect(updatedBlogs.contains(updatedBlog), isTrue);
+        expect(updatedBlogs[0].name, updatedBlogName);
+      },
+      // TODO: This test is flaky on Android
+      skip: true,
+    );
   });
 }
