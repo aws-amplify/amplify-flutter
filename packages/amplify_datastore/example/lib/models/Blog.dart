@@ -70,18 +70,11 @@ class Blog extends Model {
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory Blog(
-      {String? id,
-      required String name,
-      List<Post>? posts,
-      TemporalDateTime? createdAt,
-      TemporalDateTime? updatedAt}) {
+  factory Blog({String? id, required String name, List<Post>? posts}) {
     return Blog._internal(
         id: id == null ? UUID.getUUID() : id,
         name: name,
-        posts: posts != null ? List<Post>.unmodifiable(posts) : posts,
-        createdAt: createdAt,
-        updatedAt: updatedAt);
+        posts: posts != null ? List<Post>.unmodifiable(posts) : posts);
   }
 
   bool equals(Object other) {
@@ -125,7 +118,7 @@ class Blog extends Model {
       List<Post>? posts,
       TemporalDateTime? createdAt,
       TemporalDateTime? updatedAt}) {
-    return Blog(
+    return Blog._internal(
         id: id ?? this.id,
         name: name ?? this.name,
         posts: posts ?? this.posts,
@@ -164,8 +157,6 @@ class Blog extends Model {
       fieldName: "posts",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: (Post).toString()));
-  static final QueryField CREATEDAT = QueryField(fieldName: "createdAt");
-  static final QueryField UPDATEDAT = QueryField(fieldName: "updatedAt");
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Blog";
@@ -184,14 +175,14 @@ class Blog extends Model {
         ofModelName: (Post).toString(),
         associatedKey: Post.BLOG));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Blog.CREATEDAT,
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: "createdAt",
         isRequired: false,
         isReadOnly: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Blog.UPDATEDAT,
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: "updatedAt",
         isRequired: false,
         isReadOnly: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
