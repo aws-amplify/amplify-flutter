@@ -16,24 +16,20 @@
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'save_test.dart' as save_tests;
-import 'query_test/query_test.dart' as query_test;
-import 'model_type_test.dart' as model_type_tests;
-import 'relationship_type_test.dart' as relationship_type_tests;
-
-import 'utils/setup_utils.dart';
+import '../utils/setup_utils.dart';
+import 'standard_query_operations_test.dart' as standard_query_operations_tests;
+import './query_predicate_test/query_predicate_test.dart'
+    as query_predicate_tests;
 
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('amplify_datastore', () {
+  group('query()', () {
     setUpAll(() async {
       await configureDataStore();
     });
 
-    save_tests.main();
-    query_test.main();
-    model_type_tests.main();
-    relationship_type_tests.main();
+    standard_query_operations_tests.main();
+    query_predicate_tests.main();
   });
 }

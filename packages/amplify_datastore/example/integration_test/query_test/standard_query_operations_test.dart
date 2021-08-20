@@ -14,23 +14,23 @@
  */
 
 import 'package:amplify_datastore/amplify_datastore.dart';
+
 import 'package:amplify_datastore_example/models/ModelProvider.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_flutter/amplify.dart';
 
-import 'utils/setup_utils.dart';
+import '../utils/setup_utils.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('query', () {
+  group('standard query operations', () {
     setUp(() async {
       await configureDataStore();
       // clear data before each test
       await Amplify.DataStore.clear();
     });
-
     testWidgets('should return all data by default',
         (WidgetTester tester) async {
       Blog testBlog1 = Blog(name: 'blog one');
@@ -44,6 +44,12 @@ void main() {
       expect(blogs.contains(testBlog1), isTrue);
       expect(blogs.contains(testBlog2), isTrue);
       expect(blogs.contains(testBlog3), isTrue);
+    });
+
+    testWidgets('should return no data when the query has no results',
+        (WidgetTester tester) async {
+      var blogs = await Amplify.DataStore.query(Blog.classType);
+      expect(blogs, isEmpty);
     });
 
     testWidgets('should return the correct record when queried by id',
