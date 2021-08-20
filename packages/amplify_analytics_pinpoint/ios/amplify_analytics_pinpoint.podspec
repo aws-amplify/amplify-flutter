@@ -24,18 +24,30 @@ This code is the iOS part of the Amplify Flutter Pinpoint Analytics Plugin.  The
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
   s.swift_version = '5.0'
 
+  lintScript = <<-EOF
+    CONFIG_FILE="${SRCROOT}/../../../../../.swiftformat"
+    if [[ -e "${CONFIG_FILE}" ]]; then
+      "${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat" --config "${CONFIG_FILE}" --swiftversion "#{s.swift_version}" "${SRCROOT}/../.symlinks/plugins/${PRODUCT_NAME}/ios"
+    fi 
+  EOF
+  formatScript = <<-EOF
+    CONFIG_FILE="${SRCROOT}/../../../../../.swiftlint.yml"
+    if [[ -e "${CONFIG_FILE}" ]]; then 
+      "${PODS_ROOT}/SwiftLint/swiftlint" --config "${CONFIG_FILE}" --path "${SRCROOT}/../.symlinks/plugins/${PRODUCT_NAME}/ios"
+    fi
+  EOF
   s.script_phases = [
     # Format build phase
     {
       :name => 'SwiftFormat',
-      :script => '"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat" --config "${SRCROOT}/../../../../../.swiftformat" --swiftversion "$SWIFT_VERSION" "${SRCROOT}/../.symlinks/plugins/${PRODUCT_NAME}/ios"',
+      :script => lintScript,
       :execution_position => :before_compile
     },
 
     # Lint build phase
     {
       :name => 'SwiftLint',
-      :script => '"${PODS_ROOT}/SwiftLint/swiftlint" --config "${SRCROOT}/../../../../../.swiftlint.yml" --path "${SRCROOT}/../.symlinks/plugins/${PRODUCT_NAME}/ios"',
+      :script => formatScript,
       :execution_position => :before_compile
     },
   ]

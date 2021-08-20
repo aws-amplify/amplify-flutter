@@ -77,7 +77,7 @@
 --enable blankLinesAtEndOfScope
 --enable blankLinesAtStartOfScope
 --enable blankLinesBetweenScopes
---enable consecutiveBlankLinesç
+--enable consecutiveBlankLines
 --enable consecutiveSpaces
 --disable duplicateImports
 --disable emptyBraces

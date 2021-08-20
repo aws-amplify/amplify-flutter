@@ -47,7 +47,6 @@ class AmplifyAnalyticsBuilder {
                         throw IllegalArgumentException("Warning unrecognized object type sent for AnalyticsProperties")
                     }
                 }
-
             }
 
             return propertiesBuilder.build()
@@ -147,5 +146,4 @@ class AmplifyAnalyticsBuilder {
             return locationBuilder.build()
         }
     }
-
 }

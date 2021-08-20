@@ -17,7 +17,6 @@ import Amplify
 import AmplifyPlugins
 
 public class AnalyticsBridge {
-
     func record(event: AnalyticsEvent) {
         Amplify.Analytics.record(event: event)
     }
