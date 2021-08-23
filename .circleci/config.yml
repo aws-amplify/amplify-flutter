@@ -102,9 +102,6 @@ jobs:
           name: Run lint checks
           command: melos run lint:ios --no-select
       - run:
-          name: Run lint checks
-          command: melos run lint:ios --no-select
-      - run:
           name: Pre-start iOS simulator
           # xcrun instruments returns non zero, but successfully starts the simulator
           command: xcrun instruments -w "iPhone 11 (14.2) [" || true
