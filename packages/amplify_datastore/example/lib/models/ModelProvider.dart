@@ -40,7 +40,6 @@ import 'JSONTypeModel.dart';
 import 'Post.dart';
 import 'StringListTypeModel.dart';
 import 'StringTypeModel.dart';
-import 'TestEvent.dart';
 import 'TimeListTypeModel.dart';
 import 'TimeTypeModel.dart';
 import 'TimestampListTypeModel.dart';
@@ -71,7 +70,6 @@ export 'JSONTypeModel.dart';
 export 'Post.dart';
 export 'StringListTypeModel.dart';
 export 'StringTypeModel.dart';
-export 'TestEvent.dart';
 export 'TimeListTypeModel.dart';
 export 'TimeTypeModel.dart';
 export 'TimestampListTypeModel.dart';
@@ -79,7 +77,7 @@ export 'TimestampTypeModel.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "9ab441d63dc1d8c135e297c90dcbd157";
+  String version = "58acf4c34cf165253669c00f8ed7b72f";
   @override
   List<ModelSchema> modelSchemas = [
     BelongsToModel.schema,
@@ -106,7 +104,6 @@ class ModelProvider implements ModelProviderInterface {
     Post.schema,
     StringListTypeModel.schema,
     StringTypeModel.schema,
-    TestEvent.schema,
     TimeListTypeModel.schema,
     TimeTypeModel.schema,
     TimestampListTypeModel.schema,
@@ -236,11 +233,6 @@ class ModelProvider implements ModelProviderInterface {
       case "StringTypeModel":
         {
           return StringTypeModel.classType;
-        }
-        break;
-      case "TestEvent":
-        {
-          return TestEvent.classType;
         }
         break;
       case "TimeListTypeModel":
