@@ -17,7 +17,6 @@ import Foundation
 import Amplify
 
 public struct FlutterSerializedRestResponse {
-
     private var statusCode: Int
     private var headers: [String: String]
     private var data: Data?
@@ -38,5 +37,4 @@ public struct FlutterSerializedRestResponse {
             "data": data
         ]
     }
-
 }

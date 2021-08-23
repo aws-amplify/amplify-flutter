@@ -105,7 +105,6 @@ extension FlutterURLSessionBehaviorDelegate: URLSessionTaskDelegate {
         urlSessionBehavior(session,
                            dataTaskBehavior: task,
                            didCompleteWithError: error)
-
     }
 }
 

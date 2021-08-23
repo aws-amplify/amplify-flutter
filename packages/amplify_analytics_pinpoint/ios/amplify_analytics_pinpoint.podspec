@@ -1,3 +1,5 @@
+load '../../../build-support/dependencies.rb'
+
 #
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html.
 # Run `pod lib lint amplify_analytics_pinpoint.podspec' to validate before publishing.
@@ -24,33 +26,6 @@ This code is the iOS part of the Amplify Flutter Pinpoint Analytics Plugin.  The
 
   # Flutter.framework does not contain a i386 slice. Only x86_64 simulators are supported.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
-  s.swift_version = '5.0'
-
-  lintScript = <<-EOF
-    CONFIG_FILE="${SRCROOT}/../../../../../.swiftformat"
-    if [[ -e "${CONFIG_FILE}" ]]; then
-      "${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat" --config "${CONFIG_FILE}" --swiftversion "#{s.swift_version}" "${SRCROOT}/../.symlinks/plugins/${PRODUCT_NAME}/ios"
-    fi 
-  EOF
-  formatScript = <<-EOF
-    CONFIG_FILE="${SRCROOT}/../../../../../.swiftlint.yml"
-    if [[ -e "${CONFIG_FILE}" ]]; then 
-      "${PODS_ROOT}/SwiftLint/swiftlint" --config "${CONFIG_FILE}" --path "${SRCROOT}/../.symlinks/plugins/${PRODUCT_NAME}/ios"
-    fi
-  EOF
-  s.script_phases = [
-    # Format build phase
-    {
-      :name => 'SwiftFormat',
-      :script => lintScript,
-      :execution_position => :before_compile
-    },
-
-    # Lint build phase
-    {
-      :name => 'SwiftLint',
-      :script => formatScript,
-      :execution_position => :before_compile
-    },
-  ]
+  s.swift_version = $swift_version
+  s.script_phases = $default_script_phases
 end

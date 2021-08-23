@@ -91,7 +91,7 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
                         .apiAuthProviders(FlutterAuthProviders.factory)
                         .build()
                 )
-                LOG.info("Added API plugin")
+                logger.info("Added API plugin")
                 result.success(null)
             } catch (e: Exception) {
                 handleAddPluginException("API", e, result)

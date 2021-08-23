@@ -1,3 +1,5 @@
+load '../../../build-support/dependencies.rb'
+
 #
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html.
 # Run `pod lib lint amplify_api.podspec' to validate before publishing.
@@ -24,21 +26,6 @@ The API module for Amplify Flutter.
 
   # Flutter.framework does not contain a i386 slice. Only x86_64 simulators are supported.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
-  s.swift_version = '5.0'
-
-  s.script_phases = [
-    # Format build phase
-    {
-      :name => 'SwiftFormat',
-      :script => '"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat" --config "${SRCROOT}/../.symlinks/plugins/${PRODUCT_NAME}/ios/.swiftformat" --swiftversion "$SWIFT_VERSION" "${SRCROOT}/../.symlinks/plugins/${PRODUCT_NAME}/ios"',
-      :execution_position => :before_compile
-    },
-
-    # Lint build phase
-    {
-      :name => 'SwiftLint',
-      :script => '"${PODS_ROOT}/SwiftLint/swiftlint" --config "${SRCROOT}/../.symlinks/plugins/${PRODUCT_NAME}/ios/.swiftlint.yml" --path "${SRCROOT}/../.symlinks/plugins/${PRODUCT_NAME}/ios"',
-      :execution_position => :before_compile
-    },
-  ]
+  s.swift_version = $swift_version
+  s.script_phases = $default_script_phases
 end

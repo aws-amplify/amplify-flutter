@@ -16,7 +16,6 @@
 import amplify_core
 
 public class GraphQLSubscriptionsStreamHandler: NSObject, FlutterStreamHandler {
-
     private var eventSink: FlutterEventSink?
 
     public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
