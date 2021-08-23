@@ -13,6 +13,10 @@
  * permissions and limitations under the License.
  */
 
+// API Authorization
+export 'auth/api_auth_provider.dart';
+export 'auth/api_authorization_type.dart';
+
 export 'exceptions/api_exception.dart';
 
 export 'graphql/graphql_operation.dart';

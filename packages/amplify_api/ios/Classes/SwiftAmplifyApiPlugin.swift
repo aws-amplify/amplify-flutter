@@ -18,6 +18,7 @@ import UIKit
 import Amplify
 import AmplifyPlugins
 import amplify_core
+import AWSPluginsCore
 
 public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
 
@@ -57,7 +58,10 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
                 return
             } else if method == "addPlugin"{
                 do {
-                    try Amplify.add(plugin: AWSAPIPlugin(sessionFactory: FlutterURLSessionBehaviorFactory()) )
+                    try Amplify.add(
+                        plugin: AWSAPIPlugin(
+                            sessionFactory: FlutterURLSessionBehaviorFactory(),
+                            apiAuthProviderFactory: FlutterAuthProviders()))
                     result(true)
                 } catch let apiError as APIError {
                     ErrorUtil.postErrorToFlutterChannel(
@@ -91,10 +95,45 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
                 }
                 return
             }
-
+            
             let arguments = try FlutterApiRequest.getMap(args: callArgs)
-            try innerHandle(method: method, arguments: arguments, result: result)
-        } catch {
+            
+            // Update tokens if included in request.
+            if let tokens = arguments["tokens"] as? [[String: Any?]] {
+                for tokenMap in tokens {
+                    guard let type = tokenMap["type"] as? String,
+                          let awsAuthType = AWSAuthorizationType(rawValue: type),
+                          let token = tokenMap["token"] as? String? else {
+                        throw APIError.unknown(
+                            "Invalid arguments",
+                            "A valid AWSAuthorizationType and token entry are required",
+                            nil)
+                    }
+                    FlutterAuthProviders.setToken(type: awsAuthType, token: token)
+                }
+            }
+            
+            switch method {
+            case "get": FlutterRestApi.get(flutterResult: result, arguments: arguments, bridge: bridge)
+            case "post": FlutterRestApi.post(flutterResult: result, arguments: arguments, bridge: bridge)
+            case "put": FlutterRestApi.put(flutterResult: result, arguments: arguments, bridge: bridge)
+            case "delete": FlutterRestApi.delete(flutterResult: result, arguments: arguments, bridge: bridge)
+            case "head": FlutterRestApi.head(flutterResult: result, arguments: arguments, bridge: bridge)
+            case "patch": FlutterRestApi.patch(flutterResult: result, arguments: arguments, bridge: bridge)
+            case "query":
+                FlutterGraphQLApi.query(flutterResult: result, request: arguments, bridge: bridge)
+            case "mutate":
+                FlutterGraphQLApi.mutate(flutterResult: result, request: arguments, bridge: bridge)
+            case "subscribe":
+                FlutterGraphQLApi.subscribe(
+                    flutterResult: result,
+                    request: arguments, bridge: bridge,
+                    graphQLSubscriptionsStreamHandler: graphQLSubscriptionsStreamHandler
+                )
+            default:
+                result(FlutterMethodNotImplemented)
+            }
+        } catch let error {
             print("Failed to parse query arguments with \(error)")
             FlutterApiErrorHandler.handleApiError(error: APIError(error: error), flutterResult: result)
         }

@@ -589,11 +589,11 @@ class GraphQLApiUnitTests: XCTestCase {
 }
 
 func getMockGraphQLOperation<R>(request: GraphQLRequest<R>) -> GraphQLOperation<R> {
-    let operationRequest = GraphQLOperationRequest.init(apiName: request.apiName, operationType: GraphQLOperationType.mutation, document: request.document, responseType: R.self, options: GraphQLOperationRequest.Options())
+    let operationRequest = GraphQLOperationRequest.init(apiName: request.apiName, operationType: GraphQLOperationType.mutation, document: request.document, responseType: R.self, options: GraphQLOperationRequest.Options(pluginOptions: nil))
     return GraphQLOperation<R>(categoryType: .api, eventName: operationRequest.operationType.hubEventName, request: operationRequest)
 }
 
 func getMockGraphQLSubscriptionOperation<R>(request: GraphQLRequest<R>) -> GraphQLSubscriptionOperation<R> {
-    let operationRequest = GraphQLOperationRequest.init(apiName: request.apiName, operationType: GraphQLOperationType.mutation, document: request.document, responseType: R.self, options: GraphQLOperationRequest.Options())
+    let operationRequest = GraphQLOperationRequest.init(apiName: request.apiName, operationType: GraphQLOperationType.mutation, document: request.document, responseType: R.self, options: GraphQLOperationRequest.Options(pluginOptions: nil))
     return GraphQLSubscriptionOperation<R>(categoryType: .api, eventName: operationRequest.operationType.hubEventName, request: operationRequest)
 }
