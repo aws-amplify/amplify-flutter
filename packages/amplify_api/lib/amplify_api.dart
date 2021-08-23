@@ -18,12 +18,17 @@ library amplify_api_plugin;
 import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import './method_channel_api.dart';
+
 export 'package:amplify_api_plugin_interface/src/types.dart';
 
 class AmplifyAPI extends APIPluginInterface {
   static final Object _token = Object();
 
-  AmplifyAPI() : super(token: _token);
+  AmplifyAPI({
+    List<APIAuthProvider> authProviders = const [],
+  }) : super(token: _token) {
+    authProviders.forEach(registerAuthProvider);
+  }
 
   static AmplifyAPI _instance = AmplifyAPIMethodChannel();
 
@@ -38,6 +43,11 @@ class AmplifyAPI extends APIPluginInterface {
   @override
   Future<void> addPlugin() async {
     return _instance.addPlugin();
+  }
+
+  @override
+  void registerAuthProvider(APIAuthProvider authProvider) {
+    _instance.registerAuthProvider(authProvider);
   }
 
   // ====== GraphQL =======
@@ -99,5 +109,9 @@ class AmplifyAPI extends APIPluginInterface {
   @override
   RestOperation patch({required RestOptions restOptions}) {
     return _instance.patch(restOptions: restOptions);
+  }
+
+  Future<void> updateToken(APIAuthorizationType type, String? token) {
+    return _instance.updateToken(type, token);
   }
 }
