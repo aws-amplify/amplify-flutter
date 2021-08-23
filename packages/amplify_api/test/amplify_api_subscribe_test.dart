@@ -68,6 +68,7 @@ void main() {
         });
 
     //Test initial state
+    await Future<void>.delayed(Duration.zero);
     expect(isOnEstablishCalled, true);
     expect(eventData, null);
     expect(isOnDoneCalled, false);

@@ -183,73 +183,29 @@ void main() {
 
   test('GET exception adds the httpStatusCode to exception if available',
       () async {
+    const statusCode = 500;
+    const data = 'Internal server error';
+
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == 'get') {
-        throw PlatformException(code: 'ApiException', details: {
-          'message': 'AMPLIFY_API_MUTATE_FAILED',
-          'recoverySuggestion': 'some insightful suggestion',
-          'underlyingException': 'Act of God',
-          'httpStatusCode': '500'
-        });
+        return {
+          'statusCode': statusCode,
+          'headers': <String, String>{},
+          'data': Uint8List.fromList(data.codeUnits),
+        };
       }
     });
 
     try {
       RestOperation restOperation = api.get(
-          restOptions: const RestOptions(
-        path: '/items',
-      ));
+        restOptions: const RestOptions(
+          path: '/items',
+        ),
+      );
       await restOperation.response;
     } on RestException catch (e) {
       expect(e.response.statusCode, 500);
-    }
-  });
-
-  test('GET exception does not add httpStatusCode if not a valid status code',
-      () async {
-    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == 'get') {
-        throw PlatformException(code: 'ApiException', details: {
-          'message': 'AMPLIFY_API_MUTATE_FAILED',
-          'recoverySuggestion': 'some insightful suggestion',
-          'underlyingException': 'Act of God',
-          'httpStatusCode': '999'
-        });
-      }
-    });
-
-    try {
-      RestOperation restOperation = api.get(
-          restOptions: const RestOptions(
-        path: '/items',
-      ));
-      await restOperation.response;
-    } on RestException catch (e) {
-      expect(e.response.statusCode, null);
-    }
-  });
-
-  test(
-      'GET exception does not add httpStatusCode if not available in serialized error',
-      () async {
-    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == 'get') {
-        throw PlatformException(code: 'ApiException', details: {
-          'message': 'AMPLIFY_API_MUTATE_FAILED',
-          'recoverySuggestion': 'some insightful suggestion',
-          'underlyingException': 'Act of God',
-        });
-      }
-    });
-
-    try {
-      RestOperation restOperation = api.get(
-          restOptions: const RestOptions(
-        path: '/items',
-      ));
-      await restOperation.response;
-    } on RestException catch (e) {
-      expect(e.response.statusCode, null);
+      expect(e.response.body, data);
     }
   });
 
