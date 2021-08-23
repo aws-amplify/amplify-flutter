@@ -74,11 +74,12 @@ scripts:
     select-package:
       scope:
         - amplify_analytics_*
+        - amplify_api_*
 
   lint:ios:
     run: |
       export AMPLIFY_FLUTTER_ROOT="$PWD" && \
-      melos exec -c 1 --fail-fast -- \
+      melos exec --fail-fast -- \
         bash "$AMPLIFY_FLUTTER_ROOT/build-support/lint_ios.sh"
     description: >
       Lints iOS (Swift) files against global rules and fails if there are any errors.
@@ -86,16 +87,18 @@ scripts:
       dir-exists: ios
       scope:
         - amplify_analytics_pinpoint_example
+        - amplify_api_example
 
   lint:android:
     run: |
-      melos exec -c 1 --fail-fast -- \
+      melos exec --fail-fast -- \
         bash "$PWD/build-support/lint_android.sh"
     description: >
       Lints Android (Kotlin) files against global rules and fails if there are any errors.
     select-package:
       scope:
         - amplify_analytics_pinpoint_example
+        - amplify_api_example
 
   lint:pub: >
     melos exec -c 5 --fail-fast --no-private --ignore="*example*" -- \
