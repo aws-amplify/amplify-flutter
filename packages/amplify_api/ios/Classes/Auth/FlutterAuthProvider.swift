@@ -12,7 +12,6 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-
 import Foundation
 import Amplify
 import AmplifyPlugins
@@ -44,7 +43,6 @@ class FlutterAuthProviders: APIAuthProviderFactory {
 /// A provider which manages token retrieval for its [AWSAuthorizationType].
 struct FlutterAuthProvider: AmplifyOIDCAuthProvider, AmplifyFunctionAuthProvider {
     let type: AWSAuthorizationType
-
     func getLatestAuthToken() -> Result<String, Error> {
         guard let token = FlutterAuthProviders.getToken(for: type) else {
             let tokenUnavailable = AuthError.notAuthorized(
