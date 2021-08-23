@@ -58,7 +58,7 @@ object FlutterRestApi {
 
         try {
             cancelToken = FlutterApiRequest.getCancelToken(request)
-            apiName = FlutterApiRequest.getApiPath(request)
+            apiName = FlutterApiRequest.getApiName(request)
             options = FlutterApiRequest.getRestOptions(request)
 
             // Needed to prevent Android library from throwing a fatal error when body not present in some methods. https://github.com/aws-amplify/amplify-android/issues/1355
@@ -86,16 +86,12 @@ object FlutterRestApi {
             if (apiName == null) {
                 operation = functionWithoutApiName(options,
                     Consumer { result ->
-                        if (cancelToken.isNotEmpty()) OperationsManager.removeOperation(
-                            cancelToken
-                        )
+                        OperationsManager.removeOperation(cancelToken)
                         //LOG.debug("$methodName operation succeeded with response: $result")
                         prepareRestResponseResult(flutterResult, result)
                     },
                     Consumer { exception ->
-                        if (cancelToken.isNotEmpty()) OperationsManager.removeOperation(
-                            cancelToken
-                        )
+                        OperationsManager.removeOperation(cancelToken)
                         //LOG.error("$methodName operation failed", exception)
                         handler.post {
                             ExceptionUtil.postExceptionToFlutterChannel(
@@ -110,16 +106,12 @@ object FlutterRestApi {
                     apiName,
                     options,
                     Consumer { result ->
-                        if (cancelToken.isNotEmpty()) OperationsManager.removeOperation(
-                            cancelToken
-                        )
+                        OperationsManager.removeOperation(cancelToken)
                         //LOG.debug("$methodName operation succeeded with response: $result")
                         prepareRestResponseResult(flutterResult, result)
                     },
                     Consumer { exception ->
-                        if (!cancelToken.isEmpty()) OperationsManager.removeOperation(
-                            cancelToken
-                        )
+                        OperationsManager.removeOperation(cancelToken)
                         //LOG.error("$methodName operation failed", exception)
                         handler.post {
                             ExceptionUtil.postExceptionToFlutterChannel(

@@ -44,7 +44,7 @@ object FlutterApiRequest {
         }
     }
 
-    fun getApiPath(request: Map<String, Any>): String? {
+    fun getApiName(request: Map<String, Any>): String? {
         try {
             val restOptionsMap = request[REST_OPTIONS_KEY]?.asMap<String, Any?>()
             return restOptionsMap?.get(API_NAME_KEY) as String?
@@ -125,21 +125,5 @@ object FlutterApiRequest {
                 "The request should include the variables argument as a [String: Any] dictionary"
             )
         }
-    }
-
-    @JvmStatic
-    fun getApiName(request: Map<String, Any>): String? {
-        if (request[API_NAME_KEY] != null) {
-            try {
-                return request[API_NAME_KEY] as String
-            } catch (cause: Exception) {
-                throw AmplifyException(
-                    "The apiName request argument was not passed as a String",
-                    cause,
-                    "The request should include the apiName as a String"
-                )
-            }
-        }
-        return null
     }
 }
