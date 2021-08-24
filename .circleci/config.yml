@@ -129,7 +129,7 @@ jobs:
   unit_test_android:
     executor: docker-executor
     environment:
-      GRADLE_OPTS: -Xmx4096m -Dorg.gradle.jvmargs='-Xmx4096m' -Dkotlin.compiler.execution.strategy=in-process -Dorg.gradle.daemon=true
+      GRADLE_OPTS: -Xmx1536m -Dorg.gradle.jvmargs='-Xmx4096m -XX:MaxPermSize=1536m' -Dorg.gradle.daemon=true
     steps:
       - install_flutter
       - checkout
