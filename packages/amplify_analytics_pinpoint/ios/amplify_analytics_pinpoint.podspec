@@ -15,12 +15,40 @@ This code is the iOS part of the Amplify Flutter Pinpoint Analytics Plugin.  The
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'Amplify', '~> 1.11.0'
-  s.dependency 'AmplifyPlugins/AWSPinpointAnalyticsPlugin', '~> 1.11.0'
+  s.dependency 'Amplify', '~> 1.13.0'
+  s.dependency 'AmplifyPlugins/AWSPinpointAnalyticsPlugin', '~> 1.13.0'
   s.dependency 'amplify_core'
   s.platform = :ios, '11.0'
 
   # Flutter.framework does not contain a i386 slice. Only x86_64 simulators are supported.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
   s.swift_version = '5.0'
+
+  lintScript = <<-EOF
+    CONFIG_FILE="${SRCROOT}/../../../../../.swiftformat"
+    if [[ -e "${CONFIG_FILE}" ]]; then
+      "${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat" --config "${CONFIG_FILE}" --swiftversion "#{s.swift_version}" "${SRCROOT}/../.symlinks/plugins/${PRODUCT_NAME}/ios"
+    fi 
+  EOF
+  formatScript = <<-EOF
+    CONFIG_FILE="${SRCROOT}/../../../../../.swiftlint.yml"
+    if [[ -e "${CONFIG_FILE}" ]]; then 
+      "${PODS_ROOT}/SwiftLint/swiftlint" --config "${CONFIG_FILE}" --path "${SRCROOT}/../.symlinks/plugins/${PRODUCT_NAME}/ios"
+    fi
+  EOF
+  s.script_phases = [
+    # Format build phase
+    {
+      :name => 'SwiftFormat',
+      :script => lintScript,
+      :execution_position => :before_compile
+    },
+
+    # Lint build phase
+    {
+      :name => 'SwiftLint',
+      :script => formatScript,
+      :execution_position => :before_compile
+    },
+  ]
 end
