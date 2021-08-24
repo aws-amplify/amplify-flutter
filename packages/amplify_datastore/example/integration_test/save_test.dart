@@ -61,8 +61,6 @@ void main() {
         expect(updatedBlogs.contains(updatedBlog), isTrue);
         expect(updatedBlogs[0].name, updatedBlogName);
       },
-      // TODO: This test is flaky on Android
-      skip: true,
     );
   });
 }
