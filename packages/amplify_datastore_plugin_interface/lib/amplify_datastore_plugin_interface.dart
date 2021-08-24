@@ -71,7 +71,7 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
     this.syncMaxRecords,
     this.syncPageSize,
     AuthModeStrategy? authModeStrategy,
-  })  : authModeStrategy = authModeStrategy ?? AuthModeStrategy.primary,
+  })  : authModeStrategy = authModeStrategy ?? AuthModeStrategy.$default,
         super(token: token);
 
   /// Internal use constructor
