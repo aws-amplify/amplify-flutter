@@ -76,6 +76,10 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             onSetUpObserve(flutterResult: result)
         case "clear":
             onClear(flutterResult: result)
+        case "start":
+            onStart(flutterResult: result)
+        case "stop":
+            onStop(flutterResult: result)
         default:
             result(FlutterMethodNotImplemented)
         }
@@ -96,10 +100,19 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     }
     
     private func onConfigureDataStore(args: [String: Any], result: @escaping FlutterResult) {
-        
-        guard let modelSchemaList = args["modelSchemas"] as? [[String: Any]] else {
-            result(false)
-            return //TODO
+
+        guard let modelSchemaList = args["modelSchemas"] as? [[String: Any]],
+              let modelProviderVersion = args["modelProviderVersion"] as? String else {
+
+            FlutterDataStoreErrorHandler.handleDataStoreError(
+                error:
+                    DataStoreError.decodingError(
+                        "Received invalid request from Dart, modelSchemas and/or modelProviderVersion are not available. Request: " + args.description,
+                        "Check the values that are being passed from Dart."
+                    ),
+                flutterResult: result
+            )
+            return
         }
         
         guard channel != nil else {
@@ -122,10 +135,11 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             modelSchemas.forEach { (modelSchema) in
                 flutterModelRegistration.addModelSchema(modelName: modelSchema.name, modelSchema: modelSchema)
             }
-            let syncExpressions: [DataStoreSyncExpression] = try createSyncExpressions(syncExpressionList: syncExpressionList)
-            
-            self.dataStoreHubEventStreamHandler?.registerModelsForHub(flutterModelRegistration: self.flutterModelRegistration)
 
+            flutterModelRegistration.version = modelProviderVersion
+            let syncExpressions: [DataStoreSyncExpression] = try createSyncExpressions(syncExpressionList: syncExpressionList)
+
+            self.dataStoreHubEventStreamHandler?.registerModelsForHub(flutterModelRegistration: flutterModelRegistration)
             let dataStorePlugin = AWSDataStorePlugin(modelRegistration: flutterModelRegistration,
                                                      configuration: .custom(
                                                         syncInterval: syncInterval,
@@ -349,6 +363,50 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     // See https://github.com/aws-amplify/amplify-flutter/issues/395
                     self.observeSubscription = nil
                     self.onSetUpObserve(flutterResult: flutterResult)
+                    flutterResult(nil)
+                }
+            }
+        }
+        catch {
+            print("An unexpected error occured: \(error)")
+            FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
+                                                              flutterResult: flutterResult)
+        }
+    }
+
+    func onStart(flutterResult: @escaping FlutterResult) {
+        do {
+            try bridge.onStart() { (result) in
+                switch result {
+                case .failure(let error):
+                    print("Start API failed. Error: \(error)")
+                    FlutterDataStoreErrorHandler.handleDataStoreError(
+                        error: error,
+                        flutterResult: flutterResult)
+                case .success():
+                    print("Successfully started datastore cloud syncing")
+                    flutterResult(nil)
+                }
+            }
+        }
+        catch {
+            print("An unexpected error occured: \(error)")
+            FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
+                                                              flutterResult: flutterResult)
+        }
+    }
+
+    func onStop(flutterResult: @escaping FlutterResult) {
+        do {
+            try bridge.onStop() { (result) in
+                switch result {
+                case .failure(let error):
+                    print("Stop API failed. Error: \(error)")
+                    FlutterDataStoreErrorHandler.handleDataStoreError(
+                        error: error,
+                        flutterResult: flutterResult)
+                case .success():
+                    print("Successfully stopped datastore cloud syncing")
                     flutterResult(nil)
                 }
             }

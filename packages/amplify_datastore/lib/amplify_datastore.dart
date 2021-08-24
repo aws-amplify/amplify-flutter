@@ -130,4 +130,14 @@ class AmplifyDataStore extends DataStorePluginInterface {
   Future<void> clear() async {
     return _instance.clear();
   }
+
+  @override
+  Future<void> start() async {
+    return _instance.start();
+  }
+
+  @override
+  Future<void> stop() async {
+    return _instance.stop();
+  }
 }

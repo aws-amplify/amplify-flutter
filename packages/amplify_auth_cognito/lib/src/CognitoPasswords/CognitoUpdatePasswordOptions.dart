@@ -15,8 +15,12 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-class CognitoUpdatePasswordOptions extends PasswordOptions {
+/// Cognito extension of update password options to add the platform specific fields
+class CognitoUpdatePasswordOptions extends UpdatePasswordOptions {
+  /// Additional custom attributes to be sent to the service such as information about the client
   Map<String, String>? clientMetadata;
+
+  /// Default constructor
   CognitoUpdatePasswordOptions({this.clientMetadata}) : super();
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = {

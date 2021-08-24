@@ -24,7 +24,7 @@ class _ConfirmWidgetState extends State<ConfirmResetWidget> {
 
   void _confirmReset() async {
     try {
-      await Amplify.Auth.confirmPassword(
+      await Amplify.Auth.confirmResetPassword(
           username: usernameController.text.trim(),
           newPassword: newPasswordController.text.trim(),
           confirmationCode: confirmationCodeController.text.trim());

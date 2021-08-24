@@ -23,7 +23,6 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonPrimitive
 import com.google.gson.JsonSerializationContext
 import com.google.gson.JsonSerializer
-import com.google.gson.reflect.TypeToken
 import io.flutter.plugin.common.MethodChannel.Result
 import java.lang.reflect.Type
 
