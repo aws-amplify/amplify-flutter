@@ -20,7 +20,6 @@ import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_datastore_example/models/ModelProvider.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:amplify_flutter/amplify.dart';
 
 import 'utils/model_test_operation_utils.dart';
 
@@ -32,8 +31,7 @@ void main() {
       var models = List.generate(5, (i) => StringTypeModel(value: '$i'));
       testModelOperations<StringTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(StringTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(StringTypeModel.classType),
+        classType: StringTypeModel.classType,
       );
     });
 
@@ -41,8 +39,7 @@ void main() {
       var models = List.generate(5, (i) => StringTypeModel());
       testModelOperations<StringTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(StringTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(StringTypeModel.classType),
+        classType: StringTypeModel.classType,
       );
     });
 
@@ -51,8 +48,7 @@ void main() {
       var models = List.generate(5, (_) => StringListTypeModel(value: list));
       testModelOperations<StringListTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(StringListTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(StringListTypeModel.classType),
+        classType: StringListTypeModel.classType,
       );
     });
 
@@ -60,8 +56,7 @@ void main() {
       var models = List.generate(5, (_) => StringListTypeModel());
       testModelOperations<StringListTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(StringListTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(StringListTypeModel.classType),
+        classType: StringListTypeModel.classType,
       );
     });
 
@@ -69,8 +64,7 @@ void main() {
       var models = List.generate(5, (i) => IntTypeModel(value: i));
       testModelOperations<IntTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(IntTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(IntTypeModel.classType),
+        classType: IntTypeModel.classType,
       );
     });
 
@@ -78,8 +72,7 @@ void main() {
       var models = List.generate(5, (i) => IntTypeModel());
       testModelOperations<IntTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(IntTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(IntTypeModel.classType),
+        classType: IntTypeModel.classType,
       );
     });
 
@@ -88,8 +81,7 @@ void main() {
       var models = List.generate(5, (_) => IntListTypeModel(value: list));
       testModelOperations<IntListTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(IntListTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(IntListTypeModel.classType),
+        classType: IntListTypeModel.classType,
       );
     });
 
@@ -99,8 +91,7 @@ void main() {
         var models = List.generate(5, (_) => IntListTypeModel());
         testModelOperations<IntListTypeModel>(
           models: models,
-          query: () => Amplify.DataStore.query(IntListTypeModel.classType),
-          observe: () => Amplify.DataStore.observe(IntListTypeModel.classType),
+          classType: IntListTypeModel.classType,
         );
       },
       // unskip when https://github.com/aws-amplify/amplify-flutter/issues/813 is resolved
@@ -112,8 +103,7 @@ void main() {
           List.generate(5, (i) => DoubleTypeModel(value: i.toDouble()));
       testModelOperations<DoubleTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(DoubleTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(DoubleTypeModel.classType),
+        classType: DoubleTypeModel.classType,
       );
     });
 
@@ -121,8 +111,7 @@ void main() {
       var models = List.generate(5, (i) => DoubleTypeModel());
       testModelOperations<DoubleTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(DoubleTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(DoubleTypeModel.classType),
+        classType: DoubleTypeModel.classType,
       );
     });
 
@@ -131,8 +120,7 @@ void main() {
       var models = List.generate(5, (_) => DoubleListTypeModel(value: list));
       testModelOperations<DoubleListTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(DoubleListTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(DoubleListTypeModel.classType),
+        classType: DoubleListTypeModel.classType,
       );
     });
 
@@ -140,8 +128,7 @@ void main() {
       var models = List.generate(5, (_) => DoubleListTypeModel());
       testModelOperations<DoubleListTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(DoubleListTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(DoubleListTypeModel.classType),
+        classType: DoubleListTypeModel.classType,
       );
     });
 
@@ -150,8 +137,7 @@ void main() {
           List.generate(5, (i) => BoolTypeModel(value: i == 0 ? false : true));
       testModelOperations<BoolTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(BoolTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(BoolTypeModel.classType),
+        classType: BoolTypeModel.classType,
       );
     });
 
@@ -159,8 +145,7 @@ void main() {
       var models = List.generate(5, (i) => BoolTypeModel());
       testModelOperations<BoolTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(BoolTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(BoolTypeModel.classType),
+        classType: BoolTypeModel.classType,
       );
     });
 
@@ -169,8 +154,7 @@ void main() {
       var models = List.generate(5, (_) => BoolListTypeModel(value: list));
       testModelOperations<BoolListTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(BoolListTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(BoolListTypeModel.classType),
+        classType: BoolListTypeModel.classType,
       );
     });
 
@@ -178,8 +162,7 @@ void main() {
       var models = List.generate(5, (_) => BoolListTypeModel());
       testModelOperations<BoolListTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(BoolListTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(BoolListTypeModel.classType),
+        classType: BoolListTypeModel.classType,
       );
     });
 
@@ -189,8 +172,7 @@ void main() {
           List.generate(5, (i) => DateTypeModel(value: TemporalDate(now)));
       testModelOperations<DateTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(DateTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(DateTypeModel.classType),
+        classType: DateTypeModel.classType,
       );
     });
 
@@ -198,8 +180,7 @@ void main() {
       var models = List.generate(5, (i) => DateTypeModel());
       testModelOperations<DateTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(DateTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(DateTypeModel.classType),
+        classType: DateTypeModel.classType,
       );
     });
 
@@ -210,8 +191,7 @@ void main() {
       var models = List.generate(5, (_) => DateListTypeModel(value: list));
       testModelOperations<DateListTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(DateListTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(DateListTypeModel.classType),
+        classType: DateListTypeModel.classType,
       );
     });
 
@@ -221,8 +201,7 @@ void main() {
         var models = List.generate(5, (_) => DateListTypeModel());
         testModelOperations<DateListTypeModel>(
           models: models,
-          query: () => Amplify.DataStore.query(DateListTypeModel.classType),
-          observe: () => Amplify.DataStore.observe(DateListTypeModel.classType),
+          classType: DateListTypeModel.classType,
         );
       },
       // unskip when https://github.com/aws-amplify/amplify-flutter/issues/813 is resolved
@@ -235,8 +214,7 @@ void main() {
           5, (i) => DateTimeTypeModel(value: TemporalDateTime(now)));
       testModelOperations<DateTimeTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(DateTimeTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(DateTimeTypeModel.classType),
+        classType: DateTimeTypeModel.classType,
         // should be unskipped after https://github.com/aws-amplify/amplify-flutter/issues/817 is resolved
         skips: {DataStoreOperation.query: true},
       );
@@ -246,8 +224,7 @@ void main() {
       var models = List.generate(5, (i) => DateTimeTypeModel());
       testModelOperations<DateTimeTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(DateTimeTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(DateTimeTypeModel.classType),
+        classType: DateTimeTypeModel.classType,
       );
     });
 
@@ -258,9 +235,7 @@ void main() {
       var models = List.generate(5, (_) => DateTimeListTypeModel(value: list));
       testModelOperations<DateTimeListTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(DateTimeListTypeModel.classType),
-        observe: () =>
-            Amplify.DataStore.observe(DateTimeListTypeModel.classType),
+        classType: DateTimeListTypeModel.classType,
       );
     });
 
@@ -270,9 +245,7 @@ void main() {
         var models = List.generate(5, (_) => DateTimeListTypeModel());
         testModelOperations<DateTimeListTypeModel>(
           models: models,
-          query: () => Amplify.DataStore.query(DateTimeListTypeModel.classType),
-          observe: () =>
-              Amplify.DataStore.observe(DateTimeListTypeModel.classType),
+          classType: DateTimeListTypeModel.classType,
         );
       },
       // unskip when https://github.com/aws-amplify/amplify-flutter/issues/813 is resolved
@@ -285,8 +258,7 @@ void main() {
           List.generate(5, (i) => TimeTypeModel(value: TemporalTime(now)));
       testModelOperations<TimeTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(TimeTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(TimeTypeModel.classType),
+        classType: TimeTypeModel.classType,
         // should be unskipped after https://github.com/aws-amplify/amplify-flutter/issues/817 is resolved
         skips: {DataStoreOperation.query: true},
       );
@@ -296,8 +268,7 @@ void main() {
       var models = List.generate(5, (i) => TimeTypeModel());
       testModelOperations<TimeTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(TimeTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(TimeTypeModel.classType),
+        classType: TimeTypeModel.classType,
       );
     });
 
@@ -308,8 +279,7 @@ void main() {
       var models = List.generate(5, (_) => TimeListTypeModel(value: list));
       testModelOperations<TimeListTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(TimeListTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(TimeListTypeModel.classType),
+        classType: TimeListTypeModel.classType,
       );
     });
 
@@ -319,8 +289,7 @@ void main() {
         var models = List.generate(5, (_) => TimeListTypeModel());
         testModelOperations<TimeListTypeModel>(
           models: models,
-          query: () => Amplify.DataStore.query(TimeListTypeModel.classType),
-          observe: () => Amplify.DataStore.observe(TimeListTypeModel.classType),
+          classType: TimeListTypeModel.classType,
         );
       },
       // unskip when https://github.com/aws-amplify/amplify-flutter/issues/813 is resolved
@@ -333,8 +302,7 @@ void main() {
           5, (i) => TimestampTypeModel(value: TemporalTimestamp(now)));
       testModelOperations<TimestampTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(TimestampTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(TimestampTypeModel.classType),
+        classType: TimestampTypeModel.classType,
       );
     });
 
@@ -342,8 +310,7 @@ void main() {
       var models = List.generate(5, (i) => TimestampTypeModel());
       testModelOperations<TimestampTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(TimestampTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(TimestampTypeModel.classType),
+        classType: TimestampTypeModel.classType,
       );
     });
 
@@ -357,10 +324,7 @@ void main() {
             List.generate(5, (_) => TimestampListTypeModel(value: list));
         testModelOperations<TimestampListTypeModel>(
           models: models,
-          query: () =>
-              Amplify.DataStore.query(TimestampListTypeModel.classType),
-          observe: () =>
-              Amplify.DataStore.observe(TimestampListTypeModel.classType),
+          classType: TimestampListTypeModel.classType,
         );
       },
       // should be unskipped after https://github.com/aws-amplify/amplify-flutter/issues/814 is resolved
@@ -373,10 +337,7 @@ void main() {
         var models = List.generate(5, (_) => TimestampListTypeModel());
         testModelOperations<TimestampListTypeModel>(
           models: models,
-          query: () =>
-              Amplify.DataStore.query(TimestampListTypeModel.classType),
-          observe: () =>
-              Amplify.DataStore.observe(TimestampListTypeModel.classType),
+          classType: TimestampListTypeModel.classType,
         );
       },
       // unskip when https://github.com/aws-amplify/amplify-flutter/issues/813 is resolved
@@ -393,8 +354,7 @@ void main() {
       var models = List.generate(5, (i) => JSONTypeModel(value: json));
       testModelOperations<JSONTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(JSONTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(JSONTypeModel.classType),
+        classType: JSONTypeModel.classType,
       );
     });
 
@@ -402,8 +362,7 @@ void main() {
       var models = List.generate(5, (i) => JSONTypeModel());
       testModelOperations<JSONTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(JSONTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(JSONTypeModel.classType),
+        classType: JSONTypeModel.classType,
       );
     });
 
@@ -418,8 +377,7 @@ void main() {
       var models = List.generate(5, (_) => JSONListTypeModel(value: list));
       testModelOperations<JSONListTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(JSONListTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(JSONListTypeModel.classType),
+        classType: JSONListTypeModel.classType,
       );
     });
 
@@ -427,8 +385,7 @@ void main() {
       var models = List.generate(5, (_) => JSONListTypeModel());
       testModelOperations<JSONListTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(JSONListTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(JSONListTypeModel.classType),
+        classType: JSONListTypeModel.classType,
       );
     });
 
@@ -437,8 +394,7 @@ void main() {
           (i) => EnumTypeModel(value: i == 0 ? EnumModel.no : EnumModel.yes));
       testModelOperations<EnumTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(EnumTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(EnumTypeModel.classType),
+        classType: EnumTypeModel.classType,
       );
     });
 
@@ -446,8 +402,7 @@ void main() {
       var models = List.generate(5, (i) => EnumTypeModel());
       testModelOperations<EnumTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(EnumTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(EnumTypeModel.classType),
+        classType: EnumTypeModel.classType,
       );
     });
 
@@ -456,8 +411,7 @@ void main() {
       var models = List.generate(5, (_) => EnumListTypeModel(value: list));
       testModelOperations<EnumListTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(EnumListTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(EnumListTypeModel.classType),
+        classType: EnumListTypeModel.classType,
       );
     });
 
@@ -465,8 +419,7 @@ void main() {
       var models = List.generate(5, (_) => EnumListTypeModel());
       testModelOperations<EnumListTypeModel>(
         models: models,
-        query: () => Amplify.DataStore.query(EnumListTypeModel.classType),
-        observe: () => Amplify.DataStore.observe(EnumListTypeModel.classType),
+        classType: EnumListTypeModel.classType,
       );
     });
   });

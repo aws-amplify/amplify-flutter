@@ -17,8 +17,7 @@ enum DataStoreOperation {
 /// [skips] can be used to skip operations that are currently not working as intended
 testModelOperations<T extends Model>({
   required List<T> models,
-  required Future<List<T>> query(),
-  required Stream<SubscriptionEvent<T>> observe(),
+  required ModelType<T> classType,
   Map<DataStoreOperation, bool> skips = const {},
 }) {
   late Future<List<SubscriptionEvent<T>>> eventsFuture;
@@ -26,11 +25,11 @@ testModelOperations<T extends Model>({
   setUpAll(() async {
     await configureDataStore();
     await Amplify.DataStore.clear();
-    eventsFuture = observe().take(5).toList();
+    eventsFuture = Amplify.DataStore.observe(classType).take(5).toList();
   });
 
   testWidgets('precondition', (WidgetTester tester) async {
-    var queriedModels = await query();
+    var queriedModels = await Amplify.DataStore.query(classType);
     expect(queriedModels, isEmpty);
   });
 
@@ -40,7 +39,7 @@ testModelOperations<T extends Model>({
       for (var model in models) {
         await Amplify.DataStore.save(model);
       }
-      var queriedModels = await query();
+      var queriedModels = await Amplify.DataStore.query(classType);
       expect(queriedModels, isNotEmpty);
     },
     skip: skips[DataStoreOperation.save],
@@ -49,7 +48,7 @@ testModelOperations<T extends Model>({
   testWidgets(
     'query',
     (WidgetTester tester) async {
-      var queriedModels = await query();
+      var queriedModels = await Amplify.DataStore.query(classType);
       expect(queriedModels, isNotEmpty);
       for (var model in models) {
         expect(queriedModels.contains(model), isTrue);
@@ -78,7 +77,7 @@ testModelOperations<T extends Model>({
       for (var model in models) {
         await Amplify.DataStore.delete(model);
       }
-      var queriedModels = await query();
+      var queriedModels = await Amplify.DataStore.query(classType);
       expect(queriedModels, isEmpty);
     },
     skip: skips[DataStoreOperation.delete],
