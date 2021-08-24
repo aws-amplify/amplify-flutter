@@ -20,7 +20,10 @@ part of amplify_interface;
 /// be registered and configured and then subsequent API calls will be forwarded
 /// to those plugins.
 class DataStoreCategory {
+  /// Default constant constructor
   const DataStoreCategory();
+
+  /// Added DataStore plugins.
   static List<DataStorePluginInterface> plugins = [];
 
   /// Add DataStore plugin
@@ -41,9 +44,7 @@ class DataStoreCategory {
       }
     } else {
       throw AmplifyException(
-        'DataStore plugin has already been added, multiple plugins for '
-        'DataStore category are currently not supported.',
-      );
+          "DataStore plugin has already been added, multiple plugins for DataStore category are currently not supported.");
     }
   }
 
