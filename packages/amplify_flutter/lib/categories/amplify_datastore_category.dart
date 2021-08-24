@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ class DataStoreCategory {
   const DataStoreCategory();
   static List<DataStorePluginInterface> plugins = [];
 
-  /// `Add plugin` method
+  /// Add DataStore plugin
   Future<void> addPlugin(DataStorePluginInterface plugin) async {
     // TODO: Discuss and support multiple plugins
     if (plugins.length == 0) {
@@ -34,17 +34,20 @@ class DataStoreCategory {
         // in the `onAttachedToEngine` but rather in the `configure()
         await plugin.configureDataStore(modelProvider: plugin.modelProvider!);
         plugins.add(plugin);
-      } on AmplifyAlreadyConfiguredException catch (e) {
+      } on AmplifyAlreadyConfiguredException {
         plugins.add(plugin);
       } on PlatformException catch (e) {
         throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       }
     } else {
-      throw AmplifyException("DataStore plugin has already been added, " +
-          "multiple plugins for DataStore category are currently not supported.");
+      throw AmplifyException(
+        'DataStore plugin has already been added, multiple plugins for '
+        'DataStore category are currently not supported.',
+      );
     }
   }
 
+  /// Get [streamController]
   StreamController get streamController {
     _refreshAuthProviders();
     return plugins.length == 1
@@ -52,6 +55,7 @@ class DataStoreCategory {
         : throw _pluginNotAddedException("DataStore");
   }
 
+  /// Configure DataStore
   Future<void> configure(String configuration) async {
     _refreshAuthProviders();
     if (plugins.length == 1) {
@@ -59,6 +63,8 @@ class DataStoreCategory {
     }
   }
 
+  /// Query the DataStore to find all items of the specified [modelType] that satisfy the specified
+  /// query predicate [where]. Returned items are paginated by [pagination] and sorted by [sortBy].
   Future<List<T>> query<T extends Model>(ModelType<T> modelType,
       {QueryPredicate? where,
       QueryPagination? pagination,
@@ -70,6 +76,7 @@ class DataStoreCategory {
         : throw _pluginNotAddedException("DataStore");
   }
 
+  /// Delete [model] from the DataStore.
   Future<void> delete<T extends Model>(T model) {
     _refreshAuthProviders();
     return plugins.length == 1
@@ -77,6 +84,7 @@ class DataStoreCategory {
         : throw _pluginNotAddedException("DataStore");
   }
 
+  /// Save [model] into the DataStore.
   Future<void> save<T extends Model>(T model) {
     _refreshAuthProviders();
     return plugins.length == 1
@@ -84,6 +92,7 @@ class DataStoreCategory {
         : throw _pluginNotAddedException("DataStore");
   }
 
+  /// Observe changes on the specified [modelType].
   Stream<SubscriptionEvent<T>> observe<T extends Model>(
       ModelType<T> modelType) {
     _refreshAuthProviders();
@@ -92,10 +101,33 @@ class DataStoreCategory {
         : throw _pluginNotAddedException("DataStore");
   }
 
+  /// Stops the underlying DataStore, resetting the plugin to the initialized state, and deletes all data
+  /// from the local device. Remotely synced data can be re-synced back when starting DataStore using
+  /// [start]. local-only data will be lost permanently.
   Future<void> clear() {
     _refreshAuthProviders();
     return plugins.length == 1
         ? plugins[0].clear()
+        : throw _pluginNotAddedException("DataStore");
+  }
+
+  /// Starts the DataStore's synchronization with a remote system, if DataStore is configured to support
+  /// remote synchronization. This only needs to be called if you wish to start the synchronization eagerly.
+  /// If you don't call start(), the synchronization will start automatically, prior to executing any other
+  /// operations (query, save, delete, update).
+  Future<void> start() {
+    _refreshAuthProviders();
+    return plugins.length == 1
+        ? plugins[0].start()
+        : throw _pluginNotAddedException("DataStore");
+  }
+
+  /// Stops the underlying DataStore's synchronization with a remote system, if DataStore is configured to
+  /// support remote synchronization.
+  Future<void> stop() {
+    _refreshAuthProviders();
+    return plugins.length == 1
+        ? plugins[0].stop()
         : throw _pluginNotAddedException("DataStore");
   }
 
