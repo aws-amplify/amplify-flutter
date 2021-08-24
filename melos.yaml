@@ -79,7 +79,7 @@ scripts:
   lint:ios:
     run: |
       export AMPLIFY_FLUTTER_ROOT="$PWD" && \
-      melos exec --fail-fast -- \
+      melos exec -c 1 --fail-fast -- \
         bash "$AMPLIFY_FLUTTER_ROOT/build-support/lint_ios.sh"
     description: >
       Lints iOS (Swift) files against global rules and fails if there are any errors.
@@ -91,7 +91,7 @@ scripts:
 
   lint:android:
     run: |
-      melos exec --fail-fast -- \
+      melos exec -c 1 --fail-fast -- \
         bash "$PWD/build-support/lint_android.sh"
     description: >
       Lints Android (Kotlin) files against global rules and fails if there are any errors.
