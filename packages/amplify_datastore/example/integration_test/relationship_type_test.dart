@@ -226,6 +226,7 @@ void main() {
       testWidgets('query parent', (WidgetTester tester) async {
         var parents = await Amplify.DataStore.query(HasManyModel.classType);
         var queriedParent = parents.first;
+        expect(queriedParent, parent);
         expect(queriedParent.id, parent.id);
         expect(queriedParent.name, parent.name);
       });
@@ -239,7 +240,7 @@ void main() {
           // an equality check such as `expect(queriedChild, actualChild);`
           // cannot be performed because iOS will return an empty list for
           // queriedChild.parent.children instead of null
-          // see issue: TODO
+          // see issue: https://github.com/aws-amplify/amplify-flutter/issues/834
           expect(queriedChild.id, actualChild.id);
           expect(queriedChild.name, actualChild.name);
           expect(queriedChild.parent!.id, actualChild.parent!.id);
@@ -264,7 +265,7 @@ void main() {
         // an equality check such as `expect(observedChild, firstChild);`
         // cannot be performed because iOS will return an empty list for
         // observedChild.parent.children instead of null
-        // see issue: TODO
+        // see issue: https://github.com/aws-amplify/amplify-flutter/issues/834
         expect(observedChild.id, firstChild.id);
         expect(observedChild.name, firstChild.name);
         expect(observedChild.parent!.id, firstChild.parent!.id);
