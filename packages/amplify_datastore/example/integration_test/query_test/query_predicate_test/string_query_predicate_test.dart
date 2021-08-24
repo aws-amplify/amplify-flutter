@@ -25,44 +25,38 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('type String', () {
-    late List<StringTypeModel> models;
-    late List<String?> values;
-    late List<String> nonNullValues;
+    // models used for all tests
+    var models = [
+      StringTypeModel(value: 'foo'),
+      StringTypeModel(value: 'bar'),
+      StringTypeModel(value: 'foo'),
+      StringTypeModel(value: 'bar'),
+      StringTypeModel(value: 'abcd'),
+      StringTypeModel(value: 'abce'),
+      StringTypeModel(value: 'abcf'),
+      StringTypeModel(value: ''),
+      StringTypeModel(),
+    ];
+
+    // non-null models used for all tests
+    var nonNullModels = models.where((e) => e.value != null).toList();
+
+    // distinct list of values in the test models
+    var values = models.map((e) => e.value).toSet().toList();
+
+    // distinct list of non-null values in the test models
+    var nonNullValues = values.whereType<String>().toList();
 
     setUpAll(() async {
       await configureDataStore();
       await Amplify.DataStore.clear();
-
-      models = [
-        StringTypeModel(value: 'foo'),
-        StringTypeModel(value: 'bar'),
-        StringTypeModel(value: 'foo'),
-        StringTypeModel(value: 'bar'),
-        StringTypeModel(value: 'abcd'),
-        StringTypeModel(value: 'abce'),
-        StringTypeModel(value: 'abcf'),
-        StringTypeModel(value: ''),
-        // a model with a null is excluded since queries will
-        // not return models with null when a query predicate is used
-        // see: https://github.com/aws-amplify/amplify-flutter/issues/823
-        //
-        // StringTypeModel(),
-      ];
-
-      values = models.map((e) => e.value).toSet().toList();
-
-      nonNullValues = values.whereType<String>().toList();
-
       for (var model in models) {
         await Amplify.DataStore.save(model);
       }
     });
     testWidgets('eq()', (WidgetTester tester) async {
       // test against all values
-      //
-      // currently, querying with null is not supported
-      // see: https://github.com/aws-amplify/amplify-flutter/issues/511
-      for (var value in nonNullValues) {
+      for (var value in values) {
         var expectedModels =
             models.where((model) => model.value == value).toList();
         await testStringQueryPredicate(
@@ -80,12 +74,11 @@ void main() {
 
     testWidgets('ne()', (WidgetTester tester) async {
       // test against all values
-      //
-      // currently, querying with null is not supported
-      // see: https://github.com/aws-amplify/amplify-flutter/issues/511
-      for (var value in nonNullValues) {
+      for (var value in values) {
+        // update `nonNullModels` to `models` when #823 is fixed
+        // see: https://github.com/aws-amplify/amplify-flutter/issues/823
         var expectedModels =
-            models.where((model) => model.value != value).toList();
+            nonNullModels.where((model) => model.value != value).toList();
         await testStringQueryPredicate(
           queryPredicate: StringTypeModel.VALUE.ne(value),
           expectedModels: expectedModels,
@@ -95,15 +88,16 @@ void main() {
       // test with match all models
       await testStringQueryPredicate(
         queryPredicate: StringTypeModel.VALUE.ne('no match'),
-        expectedModels: models,
+        // update `nonNullModels` to `models` when #823 is fixed
+        // see: https://github.com/aws-amplify/amplify-flutter/issues/823
+        expectedModels: nonNullModels,
       );
     });
 
     testWidgets('lt()', (WidgetTester tester) async {
       // test against all (non-null) values
       for (var value in nonNullValues) {
-        var expectedModels = models
-            .where((element) => element.value != null)
+        var expectedModels = nonNullModels
             .where((model) => model.value!.compareTo(value) < 0)
             .toList();
         await testStringQueryPredicate(
@@ -121,15 +115,14 @@ void main() {
       // test with match all models
       await testStringQueryPredicate(
         queryPredicate: StringTypeModel.VALUE.lt('zzz'),
-        expectedModels: models,
+        expectedModels: nonNullModels,
       );
     });
 
     testWidgets('le()', (WidgetTester tester) async {
       // test against all (non-null) values
       for (var value in nonNullValues) {
-        var expectedModels = models
-            .where((element) => element.value != null)
+        var expectedModels = nonNullModels
             .where((model) => model.value!.compareTo(value) <= 0)
             .toList();
         await testStringQueryPredicate(
@@ -141,15 +134,14 @@ void main() {
       // test with match all models
       await testStringQueryPredicate(
         queryPredicate: StringTypeModel.VALUE.le('zzz'),
-        expectedModels: models,
+        expectedModels: nonNullModels,
       );
     });
 
     testWidgets('gt()', (WidgetTester tester) async {
       // test against all (non-null) values
       for (var value in nonNullValues) {
-        var expectedModels = models
-            .where((element) => element.value != null)
+        var expectedModels = nonNullModels
             .where((model) => model.value!.compareTo(value) > 0)
             .toList();
         await testStringQueryPredicate(
@@ -168,8 +160,7 @@ void main() {
     testWidgets('ge()', (WidgetTester tester) async {
       // test against all (non-null) values
       for (var value in nonNullValues) {
-        var expectedModels = models
-            .where((element) => element.value != null)
+        var expectedModels = nonNullModels
             .where((model) => model.value!.compareTo(value) >= 0)
             .toList();
         await testStringQueryPredicate(
@@ -187,15 +178,14 @@ void main() {
       // test with match all models
       await testStringQueryPredicate(
         queryPredicate: StringTypeModel.VALUE.ge(''),
-        expectedModels: models,
+        expectedModels: nonNullModels,
       );
     });
 
     testWidgets('beginsWith()', (WidgetTester tester) async {
       // test with exact match
       var exactMatchPattern = 'foo';
-      var exactMatchModels = models
-          .where((element) => element.value != null)
+      var exactMatchModels = nonNullModels
           .where((model) => model.value!.startsWith(exactMatchPattern))
           .toList();
       await testStringQueryPredicate(
@@ -205,8 +195,7 @@ void main() {
 
       // test with partial match
       var partialMatchPattern = 'a';
-      var partialMatchModels = models
-          .where((element) => element.value != null)
+      var partialMatchModels = nonNullModels
           .where((model) => model.value!.startsWith(partialMatchPattern))
           .toList();
       await testStringQueryPredicate(
@@ -225,8 +214,7 @@ void main() {
     testWidgets('contains()', (WidgetTester tester) async {
       // test with exact match
       var exactMatchPattern = 'foo';
-      var exactMatchModels = models
-          .where((element) => element.value != null)
+      var exactMatchModels = nonNullModels
           .where((model) => model.value!.contains(exactMatchPattern))
           .toList();
       await testStringQueryPredicate(
@@ -236,8 +224,7 @@ void main() {
 
       // test with partial match
       var partialMatchPattern = 'bc';
-      var partialMatchModels = models
-          .where((element) => element.value != null)
+      var partialMatchModels = nonNullModels
           .where((model) => model.value!.contains(partialMatchPattern))
           .toList();
       await testStringQueryPredicate(
@@ -267,8 +254,7 @@ void main() {
       // test with partial match
       var partialMatchStart = 'abcd';
       var partialMatchEnd = 'abcf';
-      var rangeMatchModels = models
-          .where((element) => element.value != null)
+      var rangeMatchModels = nonNullModels
           .where((model) => model.value!.compareTo(partialMatchStart) >= 0)
           .where((model) => model.value!.compareTo(partialMatchEnd) <= 0)
           .toList();
