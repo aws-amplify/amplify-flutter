@@ -1,11 +1,17 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
+
+# Script is run from example/ folder. 
+# Pop up a dir to get the package we're testing.
+pushd ..
+project=$(basename $PWD)
+popd
 
 cd android
 
 # Run in background to prevent Melos from hanging
-./gradlew lint --no-rebuild --quiet --console plain &
+./gradlew :$project:lint --no-rebuild --stacktrace &
 gradle_pid=$!
 
 if ! wait $gradle_pid; then

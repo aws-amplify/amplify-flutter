@@ -129,8 +129,8 @@ jobs:
   unit_test_android:
     executor: docker-executor
     environment:
-      _JAVA_OPTIONS: -XX:MaxRAMPercentage=80.0
-      GRADLE_OPTS: -Xmx1536m -Xms768m -Dkotlin.compiler.execution.strategy=in-process -Dorg.gradle.daemon=false
+      _JAVA_OPTIONS: -Xmx1536m -Xms768m -XX:MaxRAMPercentage=80.0
+      GRADLE_OPTS: -Dkotlin.compiler.execution.strategy=in-process
     steps:
       - install_flutter
       - checkout
