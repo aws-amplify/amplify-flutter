@@ -167,6 +167,8 @@ class AmplifyClass extends PlatformInterface {
           underlyingException: e.toString());
     }
     try {
+      _config = _createConfigObject(configuration);
+
       bool? res = await AmplifyClass.instance
           ._configurePlatforms(_getVersion(), configuration);
       _isConfigured = res ?? false;
@@ -196,6 +198,37 @@ class AmplifyClass extends PlatformInterface {
       }
     }
     await DataStore.configure(configuration);
+  }
+
+  /// Returns an AmplifyConfig object populated only with plugin data
+  /// where plugins have been successfully added.
+  AmplifyConfig _createConfigObject(String configuration) {
+    /// Create full object based on JSON string
+    var uncheckedConfig = AmplifyConfig.fromJson(jsonDecode(configuration));
+
+    /// Creates empty object
+    var validatedConfig = AmplifyConfig();
+    validatedConfig.userAgent = uncheckedConfig.userAgent;
+    validatedConfig.version = uncheckedConfig.version;
+
+    /// Selectively populate object based on successful plugin registration
+    if (AnalyticsCategory.plugins.isNotEmpty) {
+      validatedConfig.analytics = uncheckedConfig.analytics;
+    }
+
+    if (APICategory.plugins.isNotEmpty) {
+      validatedConfig.api = uncheckedConfig.api;
+    }
+
+    if (AuthCategory.plugins.isNotEmpty) {
+      validatedConfig.auth = uncheckedConfig.auth;
+    }
+
+    if (StorageCategory.plugins.isNotEmpty) {
+      validatedConfig.storage = uncheckedConfig.storage;
+    }
+
+    return validatedConfig;
   }
 
   /// Adds the configuration and return true if it was successful.
