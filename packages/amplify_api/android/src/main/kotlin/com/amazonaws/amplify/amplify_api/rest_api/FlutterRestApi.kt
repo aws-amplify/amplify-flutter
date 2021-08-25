@@ -58,7 +58,7 @@ object FlutterRestApi {
 
         try {
             cancelToken = FlutterApiRequest.getCancelToken(request)
-            apiName = FlutterApiRequest.getApiName(request)
+            apiName = FlutterApiRequest.getRestApiName(request)
             options = FlutterApiRequest.getRestOptions(request)
 
             // Needed to prevent Android library from throwing a fatal error when body not present in some methods. https://github.com/aws-amplify/amplify-android/issues/1355

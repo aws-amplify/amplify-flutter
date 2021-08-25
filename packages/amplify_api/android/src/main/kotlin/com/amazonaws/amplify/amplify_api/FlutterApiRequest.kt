@@ -44,17 +44,25 @@ object FlutterApiRequest {
         }
     }
 
-    fun getApiName(request: Map<String, Any>): String? {
+    private fun getApiName(requestMap: Map<String, Any>?): String? {
         try {
-            val restOptionsMap = request[REST_OPTIONS_KEY]?.asMap<String, Any?>()
-            return restOptionsMap?.get(API_NAME_KEY) as String?
+            return requestMap?.get(API_NAME_KEY) as String?
         } catch (cause: Exception) {
             throw AmplifyException(
-                "The apiPath request argument was not passed as a String",
+                "The apiName request argument was not passed as a String",
                 cause,
-                "The request should include the apiPath as a String"
+                "The request should include the apiName as a String"
             )
         }
+    }
+
+    fun getRestApiName(request: Map<String, Any>): String? {
+        val restOptionsMap = request[REST_OPTIONS_KEY]?.asMap<String, Any>()
+        return getApiName(restOptionsMap)
+    }
+
+    fun getGraphQlApiName(request: Map<String, Any>): String? {
+        return getApiName(request)
     }
 
     fun getRestOptions(request: Map<String, Any>): RestOptions {

@@ -41,7 +41,7 @@ class FlutterGraphQLApi {
             val cancelToken: String
 
             try {
-                apiName = FlutterApiRequest.getApiName(request)
+                apiName = FlutterApiRequest.getGraphQlApiName(request)
                 document = FlutterApiRequest.getGraphQLDocument(request)
                 variables = FlutterApiRequest.getVariables(request)
                 cancelToken = FlutterApiRequest.getCancelToken(request)
@@ -118,7 +118,7 @@ class FlutterGraphQLApi {
             val cancelToken: String
 
             try {
-                apiName = FlutterApiRequest.getApiName(request)
+                apiName = FlutterApiRequest.getGraphQlApiName(request)
                 document = FlutterApiRequest.getGraphQLDocument(request)
                 variables = FlutterApiRequest.getVariables(request)
                 cancelToken = FlutterApiRequest.getCancelToken(request)
@@ -199,7 +199,7 @@ class FlutterGraphQLApi {
             var established = false
 
             try {
-                apiName = FlutterApiRequest.getApiName(request)
+                apiName = FlutterApiRequest.getGraphQlApiName(request)
                 document = FlutterApiRequest.getGraphQLDocument(request)
                 variables = FlutterApiRequest.getVariables(request)
                 id = FlutterApiRequest.getCancelToken(request)
