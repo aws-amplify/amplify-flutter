@@ -47,7 +47,7 @@ void main() {
 
     setUpAll(() async {
       await configureDataStore();
-      await Amplify.DataStore.clear();
+      await clearDataStore();
       for (var model in models) {
         await Amplify.DataStore.save(model);
       }

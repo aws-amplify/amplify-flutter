@@ -24,7 +24,7 @@ testModelOperations<T extends Model>({
 
   setUpAll(() async {
     await configureDataStore();
-    await Amplify.DataStore.clear();
+    await clearDataStore();
     eventsFuture = Amplify.DataStore.observe(classType).take(5).toList();
   });
 

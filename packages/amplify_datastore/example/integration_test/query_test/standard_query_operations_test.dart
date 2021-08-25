@@ -29,7 +29,7 @@ void main() {
     setUp(() async {
       await configureDataStore();
       // clear data before each test
-      await Amplify.DataStore.clear();
+      await clearDataStore();
     });
     testWidgets('should return all data by default',
         (WidgetTester tester) async {

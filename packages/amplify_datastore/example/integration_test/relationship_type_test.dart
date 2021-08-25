@@ -34,7 +34,7 @@ void main() {
 
       setUpAll(() async {
         await configureDataStore();
-        await Amplify.DataStore.clear();
+        await clearDataStore();
 
         belongsToEvent = Amplify.DataStore.observe(ChildModel.classType).first;
         hasOneEvent = Amplify.DataStore.observe(HasOneModel.classType).first;
@@ -117,7 +117,7 @@ void main() {
 
       setUpAll(() async {
         await configureDataStore();
-        await Amplify.DataStore.clear();
+        await clearDataStore();
 
         belongsToEvent = Amplify.DataStore.observe(ChildModel.classType).first;
         hasOneEvent = Amplify.DataStore.observe(BelongsToModel.classType).first;
@@ -192,7 +192,7 @@ void main() {
 
       setUpAll(() async {
         await configureDataStore();
-        await Amplify.DataStore.clear();
+        await clearDataStore();
 
         childEvent =
             Amplify.DataStore.observe(HasManyChildModel.classType).first;
@@ -299,7 +299,7 @@ void main() {
 
       setUpAll(() async {
         await configureDataStore();
-        await Amplify.DataStore.clear();
+        await clearDataStore();
 
         childEvent =
             Amplify.DataStore.observe(HasManyChildModel.classType).first;
