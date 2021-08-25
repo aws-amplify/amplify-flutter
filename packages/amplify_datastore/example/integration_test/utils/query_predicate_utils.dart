@@ -46,3 +46,13 @@ testDoubleQueryPredicate({
       queryPredicate: queryPredicate,
       expectedModels: expectedModels,
     );
+
+testBoolQueryPredicate({
+  required QueryPredicate queryPredicate,
+  required List<BoolTypeModel> expectedModels,
+}) =>
+    testQueryPredicate<BoolTypeModel>(
+      classType: BoolTypeModel.classType,
+      queryPredicate: queryPredicate,
+      expectedModels: expectedModels,
+    );
