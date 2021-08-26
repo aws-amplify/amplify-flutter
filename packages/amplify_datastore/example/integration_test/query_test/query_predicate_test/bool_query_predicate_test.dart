@@ -128,7 +128,7 @@ void main() {
         );
       });
     },
-    // see: https://github.com/aws-amplify/amplify-flutter/issues/839
+    // see: https://github.com/aws-amplify/amplify-flutter/issues/752
     skip: true,
   );
 }
