@@ -56,3 +56,13 @@ testBoolQueryPredicate({
       queryPredicate: queryPredicate,
       expectedModels: expectedModels,
     );
+
+testEnumQueryPredicate({
+  required QueryPredicate queryPredicate,
+  required List<EnumTypeModel> expectedModels,
+}) =>
+    testQueryPredicate<EnumTypeModel>(
+      classType: EnumTypeModel.classType,
+      queryPredicate: queryPredicate,
+      expectedModels: expectedModels,
+    );
