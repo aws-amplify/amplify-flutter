@@ -18,6 +18,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 import '../utils/setup_utils.dart';
 import 'standard_query_operations_test.dart' as standard_query_operations_tests;
+import 'sort_order_test.dart' as sort_order_tests;
+
 import './query_predicate_test/query_predicate_test.dart'
     as query_predicate_tests;
 
@@ -31,5 +33,6 @@ void main() async {
 
     standard_query_operations_tests.main();
     query_predicate_tests.main();
+    sort_order_tests.main();
   });
 }
