@@ -21,6 +21,7 @@ import 'int_query_predicate_test.dart' as int_query_predicate_tests;
 import 'double_query_predicate_test.dart' as double_query_predicate_tests;
 import 'bool_query_predicate_test.dart' as bool_query_predicate_tests;
 import 'enum_query_predicate_test.dart' as enum_query_predicate_tests;
+import 'compound_query_predicate_test.dart' as compound_query_predicate_tests;
 
 import '../../utils/setup_utils.dart';
 
@@ -37,5 +38,6 @@ void main() async {
     double_query_predicate_tests.main();
     bool_query_predicate_tests.main();
     enum_query_predicate_tests.main();
+    compound_query_predicate_tests.main();
   });
 }
