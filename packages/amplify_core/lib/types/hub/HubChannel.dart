@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -14,7 +13,4 @@
  * permissions and limitations under the License.
  */
 
-enum HubChannel {
-  Auth,
-  DataStore
-}
+enum HubChannel { Amplify, Auth, DataStore }

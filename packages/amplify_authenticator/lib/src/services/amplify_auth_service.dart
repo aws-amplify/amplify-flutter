@@ -37,7 +37,6 @@ class AmplifyAuthService implements AuthService {
       username: username,
       password: password,
     );
-
     return result;
   }
 
