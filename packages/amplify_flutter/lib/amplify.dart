@@ -45,7 +45,7 @@ final AmplifyClass Amplify = new AmplifyClass.protected();
 /// instantiate an object of this class. Please use top level
 /// `Amplify` singleton object for making calls to methods of this class.
 class AmplifyClass extends PlatformInterface {
-  late AmplifyConfig _config;
+  AmplifyConfig _config = AmplifyConfig();
   // ignore: public_member_api_docs
   AuthCategory Auth = const AuthCategory();
   // ignore: public_member_api_docs
@@ -61,6 +61,12 @@ class AmplifyClass extends PlatformInterface {
 
   // ignore: public_member_api_docs
   AmplifyHub Hub = AmplifyHub();
+
+  final configCompleter = Completer<AmplifyConfig>();
+
+  Future<AmplifyConfig> configNotification() {
+    return configCompleter.future;
+  }
 
   /// Adds one plugin at a time. Note: this method can only
   /// be called before Amplify has been configured. Customers are expected
@@ -169,12 +175,15 @@ class AmplifyClass extends PlatformInterface {
       bool? res = await AmplifyClass.instance
           ._configurePlatforms(_getVersion(), configuration);
       _isConfigured = res ?? false;
+
+      configCompleter.complete(_config);
       if (!_isConfigured) {
         throw AmplifyException('Amplify failed to configure.',
             recoverySuggestion:
                 AmplifyExceptionMessages.missingRecoverySuggestion);
       }
     } on PlatformException catch (e) {
+      configCompleter.completeError(e);
       if (e.code == 'AnalyticsException') {
         throw AnalyticsException.fromMap(Map<String, String>.from(e.details));
       } else if (e.code == 'AmplifyException') {
