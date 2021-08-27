@@ -237,17 +237,8 @@ void main() {
         for (var i = 0; i < 5; i++) {
           var queriedChild = queriedChildren[i];
           var actualChild = children[i];
-          // an equality check such as `expect(queriedChild, actualChild);`
-          // cannot be performed because iOS will return an empty list for
-          // queriedChild.parent.children instead of null
-          // see issue: https://github.com/aws-amplify/amplify-flutter/issues/834
-          expect(queriedChild.id, actualChild.id);
-          expect(queriedChild.name, actualChild.name);
-          expect(queriedChild.parent!.id, actualChild.parent!.id);
-          expect(
-            queriedChild.parent!.name,
-            actualChild.parent!.name,
-          );
+          expect(queriedChild, actualChild);
+          expect(queriedChild.parent, actualChild.parent);
         }
       });
 
@@ -262,17 +253,8 @@ void main() {
         var event = await childEvent;
         var observedChild = event.item;
         var firstChild = children.first;
-        // an equality check such as `expect(observedChild, firstChild);`
-        // cannot be performed because iOS will return an empty list for
-        // observedChild.parent.children instead of null
-        // see issue: https://github.com/aws-amplify/amplify-flutter/issues/834
-        expect(observedChild.id, firstChild.id);
-        expect(observedChild.name, firstChild.name);
-        expect(observedChild.parent!.id, firstChild.parent!.id);
-        expect(
-          observedChild.parent!.name,
-          observedChild.parent!.name,
-        );
+        expect(observedChild, firstChild);
+        expect(observedChild.parent, firstChild.parent);
       });
 
       testWidgets('delete parent', (WidgetTester tester) async {
