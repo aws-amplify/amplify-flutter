@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
+import 'package:amplify_flutter/config/amplify_config.dart';
 
 //Models
 import 'package:amplify_authenticator/src/models/authenticator_exceptions.dart';
@@ -35,6 +36,16 @@ class StateMachineBloc {
   late final Stream<AuthEvent> _authEventStream = _authEventController.stream;
   // ignore: unused_field
   late final StreamSubscription<AuthState> _subscription;
+
+  /// Config controller.
+  final StreamController<AmplifyConfig?> _configController =
+      StreamController<AmplifyConfig?>.broadcast();
+
+  /// Assigns config to the _configController.
+  StreamSink<AmplifyConfig?> get configSink => _configController.sink;
+
+  /// Outputs config, which allows authenticator to read from it once config is complete
+  Stream<AmplifyConfig?> get configStream => _configController.stream;
 
   // ignore: public_member_api_docs
   StateMachineBloc(this._authService) {

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/config/amplify_config.dart';
 
 abstract class AuthService {
   Future<SignInResult> signIn(String username, String password);
@@ -25,6 +26,8 @@ abstract class AuthService {
       {required String code, Map<String, String>? attributes});
 
   Future<ResendSignUpCodeResult> resendSignUpCode(String username);
+
+  Future<AmplifyConfig> waitForConfiguration();
 }
 
 class AmplifyAuthService implements AuthService {
@@ -108,5 +111,9 @@ class AmplifyAuthService implements AuthService {
       String username, String code, String newPassword) async {
     return await Amplify.Auth.confirmPassword(
         username: username, confirmationCode: code, newPassword: newPassword);
+  }
+
+  Future<AmplifyConfig> waitForConfiguration() async {
+    return await Amplify.configNotification();
   }
 }

@@ -15,6 +15,7 @@
 
 library amplify_authenticator;
 
+import 'package:amplify_flutter/config/amplify_config.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 
@@ -204,26 +205,42 @@ class _AuthenticatorState extends State<Authenticator> {
   final AuthService _authService = AmplifyAuthService();
 
   late final StateMachineBloc _stateMachineBloc;
+  AmplifyConfig? _config;
 
   @override
   void initState() {
     super.initState();
     _stateMachineBloc = StateMachineBloc(_authService)
       ..authEvent.add(GetCurrentUser());
+    waitForConfiguration().then((value) {
+      _stateMachineBloc.configSink.add(value);
+    });
+  }
+
+  Future<AmplifyConfig> waitForConfiguration() async {
+    return await _authService.waitForConfiguration();
   }
 
   @override
   Widget build(BuildContext context) {
+    _stateMachineBloc.configStream.listen((event) {
+      setState(() {
+        _config = event;
+      });
+    });
+
+    if (_config == null) {
+      return LoadingScreen();
+    }
     var defaultForms = DefaultForms();
     AuthStringResolver resolver = widget.resolver ?? AuthStringResolver();
-
     defaultForms.context = context;
 
     /// Check for customizable forms passed into the Authenticator
     var signInForm = widget.signInForm ??
         defaultForms.signInForm(widget.usernameAlias, resolver);
     var signUpForm = widget.signUpForm ??
-        defaultForms.signUpForm(widget.usernameAlias, resolver);
+        defaultForms.signUpForm(widget.usernameAlias, resolver, _config);
     var confirmSignInMFAForm =
         widget.confirmSignInMFAForm ?? defaultForms.confirmSignInForm(resolver);
 

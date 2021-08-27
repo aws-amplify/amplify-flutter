@@ -1,7 +1,9 @@
+import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/enums/alias.dart';
 import 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/widgets/forms.dart';
 import 'package:amplify_authenticator/src/widgets/form_fields.dart';
+import 'package:amplify_flutter/config/amplify_config.dart';
 import 'package:flutter/widgets.dart';
 
 /// These default forms will be used as long as there are no
@@ -48,7 +50,8 @@ class DefaultForms {
     );
   }
 
-  SignUpForm signUpForm(Alias alias, AuthStringResolver resolver) {
+  SignUpForm signUpForm(
+      Alias alias, AuthStringResolver resolver, AmplifyConfig? config) {
     late List<SignUpFormField> _signUpFormFields;
     switch (alias) {
       case Alias.username:
