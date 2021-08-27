@@ -37,6 +37,16 @@ class StateMachineBloc {
   // ignore: unused_field
   late final StreamSubscription<AuthState> _subscription;
 
+  /// Config controller.
+  final StreamController<AmplifyConfig?> _configController =
+      StreamController<AmplifyConfig?>.broadcast();
+
+  /// Assigns config to the _configController.
+  StreamSink<AmplifyConfig?> get configSink => _configController.sink;
+
+  /// Outputs config, which allows authenticator to read from it once config is complete
+  Stream<AmplifyConfig?> get configStream => _configController.stream;
+
   // ignore: public_member_api_docs
   StateMachineBloc(this._authService) {
     _subscription =
