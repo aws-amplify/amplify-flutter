@@ -20,6 +20,7 @@ import 'save_test.dart' as save_tests;
 import 'query_test/query_test.dart' as query_test;
 import 'model_type_test.dart' as model_type_tests;
 import 'relationship_type_test.dart' as relationship_type_tests;
+import 'observe_test.dart' as observe_tests;
 
 import 'utils/setup_utils.dart';
 
@@ -35,5 +36,6 @@ void main() async {
     query_test.main();
     model_type_tests.main();
     relationship_type_tests.main();
+    observe_tests.main();
   });
 }
