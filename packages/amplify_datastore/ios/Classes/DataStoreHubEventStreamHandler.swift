@@ -114,7 +114,7 @@ public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
             case HubPayload.EventName.Amplify.configured:
                 print("DataStorePlugin successfully initialized")
             default:
-                print("Unrecognized DataStoreHubEvent: \(payload.eventName)" )
+                print("Unrecognized DataStoreHubEvent: \(payload.eventName) \(payload.data ?? "")" )
             }
         }
     }
