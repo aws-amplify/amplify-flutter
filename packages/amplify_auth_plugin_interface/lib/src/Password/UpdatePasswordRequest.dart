@@ -13,22 +13,30 @@
  * permissions and limitations under the License.
  */
 
-import './PasswordOptions.dart';
-import 'package:flutter/foundation.dart';
+import 'UpdatePasswordOptions.dart';
 
+/// Encapsulates parameters for an update password request
 class UpdatePasswordRequest {
+  /// The user's desired new password
   String newPassword;
-  String oldPassword;
-  PasswordOptions options;
 
-  UpdatePasswordRequest({@required this.newPassword, @required this.oldPassword, this.options});
+  /// The user's current password
+  String oldPassword;
+
+  /// Plugin-specific, advanced options such as information about the client
+  UpdatePasswordOptions? options;
+
+  /// Default constructor
+  UpdatePasswordRequest(
+      {required this.newPassword, required this.oldPassword, this.options});
+
+  /// Serialize the object to a map
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    pendingRequest['newPassword'] = newPassword;
-    pendingRequest['oldPassword'] = oldPassword;
-    if (options != null) {
-      pendingRequest['options'] = options.serializeAsMap();
-    }
+    final Map<String, dynamic> pendingRequest = {
+      'newPassword': newPassword,
+      'oldPassword': oldPassword,
+      if (options != null) 'options': options?.serializeAsMap()
+    };
     return pendingRequest;
   }
 }

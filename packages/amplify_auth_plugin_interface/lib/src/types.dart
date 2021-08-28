@@ -19,6 +19,7 @@ export 'SignUp/ConfirmSignUpRequest.dart';
 export 'SignUp/ConfirmSignUpOptions.dart';
 export 'SignUp/SignUpOptions.dart';
 export 'SignUp/AuthNextSignUpStep.dart';
+export 'SignUp/ResendSignUpCodeOptions.dart';
 export 'SignUp/ResendSignUpCodeRequest.dart';
 export 'SignUp/ResendSignUpCodeResult.dart';
 
@@ -38,13 +39,17 @@ export 'SignOut/SignOutResult.dart';
 export 'SignOut/SignOutOptions.dart';
 
 // Password Classes
+export 'Password/ConfirmPasswordRequest.dart';
+export 'Password/ConfirmResetPasswordOptions.dart';
+export 'Password/ConfirmResetPasswordRequest.dart';
 export 'Password/PasswordOptions.dart';
-export 'Password/UpdatePasswordRequest.dart';
-export 'Password/UpdatePasswordResult.dart';
-export 'Password/ResetPasswordStep.dart';
+export 'Password/ResetPasswordOptions.dart';
 export 'Password/ResetPasswordRequest.dart';
 export 'Password/ResetPasswordResult.dart';
-export 'Password/ConfirmPasswordRequest.dart';
+export 'Password/ResetPasswordStep.dart';
+export 'Password/UpdatePasswordOptions.dart';
+export 'Password/UpdatePasswordRequest.dart';
+export 'Password/UpdatePasswordResult.dart';
 
 // Session Classes
 export 'Session/AuthSession.dart';
@@ -53,17 +58,24 @@ export 'Session/AuthSessionRequest.dart';
 export 'Session/AuthUser.dart';
 export 'Session/AuthUserOptions.dart';
 export 'Session/AuthUserRequest.dart';
-export 'Session/AuthUserAttribute.dart';
-export 'Session/AuthUserAttributeOptions.dart';
-export 'Session/AuthUserAttributeRequest.dart';
-export 'Session/UpdateUserAttributeResult.dart';
-export 'Session/UpdateUserAttributeRequest.dart';
-export 'Session/UpdateUserAttributesRequest.dart';
-export 'Session/AuthNextUpdateAttributeStep.dart';
-export 'Session/ConfirmUserAttributeRequest.dart';
-export 'Session/ConfirmUserAttributeResult.dart';
-export 'Session/ResendUserAttributeConfirmationCodeRequest.dart';
-export 'Session/ResendUserAttributeConfirmationCodeResult.dart';
+
+// Attribute Classes
+export 'Attribute/AuthUserAttribute.dart';
+export 'Attribute/AuthUserAttributeOptions.dart';
+export 'Attribute/AuthUserAttributeRequest.dart';
+export 'Attribute/FetchUserAttributesOptions.dart';
+export 'Attribute/FetchUserAttributesRequest.dart';
+export 'Attribute/UpdateUserAttributeOptions.dart';
+export 'Attribute/UpdateUserAttributeResult.dart';
+export 'Attribute/UpdateUserAttributeRequest.dart';
+export 'Attribute/UpdateUserAttributesOptions.dart';
+export 'Attribute/UpdateUserAttributesRequest.dart';
+export 'Attribute/AuthNextUpdateAttributeStep.dart';
+export 'Attribute/ConfirmUserAttributeRequest.dart';
+export 'Attribute/ConfirmUserAttributeResult.dart';
+export 'Attribute/ResendUserAttributeConfirmationCodeOptions.dart';
+export 'Attribute/ResendUserAttributeConfirmationCodeRequest.dart';
+export 'Attribute/ResendUserAttributeConfirmationCodeResult.dart';
 
 // Exception Classes
 export 'Exceptions/AuthException.dart';
@@ -71,11 +83,14 @@ export 'Exceptions/AliasExistsException.dart';
 export 'Exceptions/CodeDeliveryFailureException.dart';
 export 'Exceptions/CodeExpiredException.dart';
 export 'Exceptions/CodeMismatchException.dart';
+export 'Exceptions/device_not_tracked_exception.dart';
 export 'Exceptions/FailedAttemptsLimitExceededException.dart';
 export 'Exceptions/InternalErrorException.dart';
 export 'Exceptions/InvalidAccountTypeException.dart';
 export 'Exceptions/InvalidParameterException.dart';
 export 'Exceptions/InvalidPasswordException.dart';
+export 'Exceptions/InvalidStateException.dart';
+export 'Exceptions/invalid_user_pool_configuration_exception.dart';
 export 'Exceptions/LambdaException.dart';
 export 'Exceptions/LimitExceededException.dart';
 export 'Exceptions/MFAMethodNotFoundException.dart';
@@ -98,3 +113,4 @@ export 'Exceptions/UserNotFoundException.dart';
 // Utility Classes
 export 'types/AuthCodeDeliveryDetails.dart';
 export 'types/AuthNextStep.dart';
+export 'types/auth_device.dart';

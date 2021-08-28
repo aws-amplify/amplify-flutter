@@ -1,3 +1,32 @@
+## 0.2.2 (2021-08-04)
+
+### Fixes
+
+- fix: prevent some fatal REST errors in Android (#661)
+
+### Chores
+
+- chore: add support for apiName to GraphQL requests (#553)
+
+## 0.2.1 (2021-07-27)
+
+### Chores
+
+- chore: override `toString` on `GraphQLResponseError` (#643)
+- chore: Add API response headers/status (#721)
+
+## 0.2.0 (2021-06-30)
+
+### Features
+
+- feat: Null safety core (#492)
+
+### Chores
+
+- chore: Null safety master rebase (#676)
+
+## 0.1.6 (2021-06-23)
+
 ## 0.1.5 (2021-05-17)
 
 ## 0.1.4 (2021-04-27)
@@ -13,6 +42,7 @@
 ## 0.1.1 (2021-03-29)
 
 ### Chores
+
 - chore: remove upper constraints for flutter 2.0 (#479)
 
 ### Bug Fixes

@@ -13,9 +13,23 @@
  * permissions and limitations under the License.
  */
 
-abstract class PasswordOptions {
+import 'ConfirmResetPasswordOptions.dart';
+import 'ResetPasswordOptions.dart';
+import 'UpdatePasswordOptions.dart';
+
+/// Previously used as the shared password options for [updatePassword],
+/// [resetPassword], and [confirmResetPassword]
+@Deprecated(
+    "Please use 'UpdatePasswordOptions', 'ResetPasswordOptions', or 'ConfirmResetPasswordOptions' instead")
+abstract class PasswordOptions
+    with
+        UpdatePasswordOptions,
+        ResetPasswordOptions,
+        ConfirmResetPasswordOptions {
   const PasswordOptions();
+  @override
   Map<String, dynamic> serializeAsMap() {
-    throw UnimplementedError('serializeAsMap() has not been implemented on SignOutOptions.');
+    throw UnimplementedError(
+        'serializeAsMap() has not been implemented on PasswordOptions.');
   }
-} 
+}

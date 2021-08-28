@@ -13,17 +13,25 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/foundation.dart';
+import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-import './SignUpOptions.dart';
-
+/// Encapsulates parameters for a resend sign up code request
 class ResendSignUpCodeRequest {
+  /// A login identifier or an email/phone number, depending on configuration
   String username;
 
-  ResendSignUpCodeRequest({@required this.username,});
+  /// Plugin-specific, advanced options such as information about the client
+  ResendSignUpCodeOptions? options;
+
+  /// Default constructor
+  ResendSignUpCodeRequest({required this.username, this.options});
+
+  /// Serialize the object to a map for use over the method channel
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    pendingRequest['username'] = username;
+    final Map<String, dynamic> pendingRequest = {
+      'username': username,
+      if (options != null) 'options': options?.serializeAsMap(),
+    };
     return pendingRequest;
   }
 }

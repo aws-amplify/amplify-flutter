@@ -6,8 +6,8 @@ class ImageLineItem extends StatelessWidget {
   final String storageKey;
 
   const ImageLineItem({
-    Key key,
-    this.storageKey,
+    Key? key,
+    required this.storageKey,
   }) : super(key: key);
 
   @override

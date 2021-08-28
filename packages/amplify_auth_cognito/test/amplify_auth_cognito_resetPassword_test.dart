@@ -31,8 +31,11 @@ void main() {
         return {
           "isPasswordReset": false,
           "nextStep": {
-            "updateStep": "DONE",
-            "codeDeliveryDetails": {"atttibuteName": "email"}
+            "resetPasswordStep": "DONE",
+            "codeDeliveryDetails": {
+              "attributeName": "email",
+              "destination": "test@test.test"
+            }
           }
         };
       } else {
@@ -46,9 +49,9 @@ void main() {
   });
 
   test('resetPassword request returns a ResetPasswordResult', () async {
-    expect(
-        await auth.resetPassword(
-            request: ResetPasswordRequest(username: 'testUser')),
-        isInstanceOf<ResetPasswordResult>());
+    var res = await auth.resetPassword(
+        request: ResetPasswordRequest(username: 'testUser'));
+    expect(res, isInstanceOf<ResetPasswordResult>());
+    expect(res.nextStep.updateStep, "DONE");
   });
 }

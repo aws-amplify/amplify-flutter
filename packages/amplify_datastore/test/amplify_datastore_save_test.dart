@@ -48,7 +48,7 @@ void main() {
         id: '9fc5fab4-37ff-4566-97e5-19c5d58a4c22',
         title: 'New Post being saved',
         rating: 10,
-        created: DateTime.parse('2020-11-12T03:15:48-08:00'));
+        created: TemporalDateTime.fromString('2020-11-12T03:15:48+03:18'));
     await dataStore.save(post);
   });
 
@@ -64,9 +64,9 @@ void main() {
     });
     expect(
         () => dataStore.save(Post(
-              title: 'Test Post',
-              rating: 10,
-            )),
+            title: 'Test Post',
+            rating: 10,
+            created: TemporalDateTime.fromString("2020-02-20T20:20:20-08:00"))),
         throwsA(isA<DataStoreException>()
             .having((exception) => exception.message, 'message',
                 'Save failed for whatever known reason')

@@ -15,14 +15,18 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-class CognitoUpdatePasswordOptions extends PasswordOptions {
-  Map<String, String> clientMetadata;
+/// Cognito extension of update password options to add the platform specific fields
+class CognitoUpdatePasswordOptions extends UpdatePasswordOptions {
+  /// Additional custom attributes to be sent to the service such as information about the client
+  Map<String, String>? clientMetadata;
+
+  /// Default constructor
   CognitoUpdatePasswordOptions({this.clientMetadata}) : super();
   Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    if (this.clientMetadata != null) {
-      pendingRequest["clientMetadata"] = clientMetadata;
-    }
+    final Map<String, dynamic> pendingRequest = {
+      'clientMetadata': clientMetadata
+    };
+    pendingRequest.removeWhere((_, v) => v == null);
     return pendingRequest;
   }
-} 
+}

@@ -1,3 +1,39 @@
+## 0.2.2 (2021-08-04)
+
+### Features
+
+- feat: enables clientMetadata for signUp (#713)
+- feat: Auth Devices API (#735)
+
+## 0.2.1 (2021-07-27)
+
+### Bug Fixes
+
+- fix: handle missing or empty signUpOptions (#627)
+- fix: handle InvalidStateException (#625)
+
+### Chores
+
+- chore: user attributes/sign up docs (#697)
+- chore: enable formatting in CI w/ code changes (#570)
+
+## 0.2.0 (2021-06-30)
+
+### Features
+
+- feat: Null Safety Auth (#536)
+- feat: Null safety core (#492)
+
+### Bug Fixes
+
+- fix: uses nextStep helper for signInResult on Android (#689)
+
+### Chores
+
+- chore: Null safety master rebase (#676)
+
+## 0.1.6 (2021-06-23)
+
 ## 0.1.5 (2021-05-17)
 
 ## 0.1.4 (2021-04-27)

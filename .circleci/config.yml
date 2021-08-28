@@ -48,18 +48,23 @@ commands:
             flutter pub global activate tuneup
 
 jobs:
-  format_analyze:
+  format_flutter:
     executor: docker-executor
     steps:
       - install_flutter
       - checkout
       - install_melos
-      - install_tuneup
       - run: melos run format
+
+  analyze_flutter:
+    executor: docker-executor
+    steps:
+      - install_flutter
+      - checkout
+      - install_melos
       - run:
-          name: Validate formatting
-          command: ./.circleci/validate_formatting.sh
-      - run: melos run analyze
+          name: Analyze Dart/Flutter Code
+          command: melos run analyze --no-select
 
   unit_test_flutter:
     executor: docker-executor
@@ -93,6 +98,9 @@ jobs:
       - install_flutter
       - checkout
       - install_melos
+      - run:
+          name: Run lint checks
+          command: melos run lint:ios --no-select
       - run:
           name: Pre-start iOS simulator
           # xcrun instruments returns non zero, but successfully starts the simulator
@@ -132,6 +140,9 @@ jobs:
           command: |
             melos run build:examples:android
           no_output_timeout: 20m
+      - run: 
+          name: Run lint checks
+          command: melos run lint:android --no-select
       - run:
           name: Run Android Unit Tests
           command: melos run test:unit:android
@@ -153,11 +164,13 @@ releasable_branches: &releasable_branches
   branches:
     only:
       - release
-      - master
+      - main
 
 workflows:
   test_deploy:
     jobs:
+      - format_flutter
+      - analyze_flutter
       - unit_test_flutter
       - unit_test_android
       - unit_test_ios

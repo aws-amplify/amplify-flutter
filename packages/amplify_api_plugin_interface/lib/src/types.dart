@@ -22,6 +22,11 @@ export 'GraphQL/GraphQLSubscriptionOperation.dart';
 export 'RestAPI/RestOperation.dart';
 export 'RestAPI/RestOptions.dart';
 export 'RestAPI/RestResponse.dart';
+export 'RestAPI/RestException.dart';
+
+// API Authorization
+export 'auth/api_auth_provider.dart';
+export 'auth/api_authorization_type.dart';
 
 export 'UUID.dart';
 

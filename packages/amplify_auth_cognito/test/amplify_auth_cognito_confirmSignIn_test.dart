@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_auth_cognito/src/CognitoSignUp/cognito_user_attributes.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -21,15 +22,15 @@ extension IsEqual on SignInResult {
   // This method only checks the length of the additionalInfo field, and the values of all other fields
   bool isMostlyEqual(SignInResult comparator) {
     return comparator.isSignedIn == isSignedIn &&
-        comparator.nextStep.signInStep == nextStep.signInStep &&
-        comparator.nextStep.additionalInfo.length ==
-            nextStep.additionalInfo.length &&
-        comparator.nextStep.codeDeliveryDetails.destination ==
-            nextStep.codeDeliveryDetails.destination &&
-        comparator.nextStep.codeDeliveryDetails.attributeName ==
-            nextStep.codeDeliveryDetails.attributeName &&
-        comparator.nextStep.codeDeliveryDetails.deliveryMedium ==
-            nextStep.codeDeliveryDetails.deliveryMedium;
+        comparator.nextStep!.signInStep == nextStep!.signInStep &&
+        comparator.nextStep!.additionalInfo?.length ==
+            nextStep!.additionalInfo?.length &&
+        comparator.nextStep!.codeDeliveryDetails!.destination ==
+            nextStep!.codeDeliveryDetails!.destination &&
+        comparator.nextStep!.codeDeliveryDetails!.attributeName ==
+            nextStep!.codeDeliveryDetails!.attributeName &&
+        comparator.nextStep!.codeDeliveryDetails!.deliveryMedium ==
+            nextStep!.codeDeliveryDetails!.deliveryMedium;
   }
 }
 
@@ -39,6 +40,10 @@ void main() {
 
   AmplifyAuthCognito auth = AmplifyAuthCognito();
   TestWidgetsFlutterBinding.ensureInitialized();
+  const testAttributeKey = CognitoUserAttributes.email;
+  const testEmailValue = 'test@test.test';
+  const testMetadataKey = 'key';
+  const testMetaDataAttribute = 'val';
 
   tearDown(() {
     authChannel.setMockMethodCallHandler(null);
@@ -56,8 +61,8 @@ void main() {
             "signInStep": "DONE",
             "codeDeliveryDetails": {
               "deliveryMedium": "EMAIL",
-              "attributeName": "email",
-              "destination": "test@test.test"
+              "attributeName": testAttributeKey,
+              "destination": testEmailValue
             }
           }
         };
@@ -69,12 +74,10 @@ void main() {
     var expectation = CognitoSignInResult(
         isSignedIn: false,
         nextStep: AuthNextSignInStep(
-          additionalInfo: {},
-          codeDeliveryDetails: {
-            "deliveryMedium": "EMAIL",
-            "attributeName": "email",
-            "destination": "test@test.test"
-          },
+          codeDeliveryDetails: AuthCodeDeliveryDetails(
+              deliveryMedium: "EMAIL",
+              attributeName: testAttributeKey,
+              destination: testEmailValue),
           signInStep: "DONE",
         ));
     var res = await auth.confirmSignIn(
@@ -82,37 +85,42 @@ void main() {
     expect(true, res.isMostlyEqual(expectation));
   });
 
-  test('confirmSignIn request accepts and serializes options',
-          () async {
-        var options = CognitoConfirmSignInOptions(clientMetadata: {'key': 'val'});
-        var req = ConfirmSignInRequest(confirmationValue: '1233', options: options).serializeAsMap();
-        expect(req['options'], isInstanceOf<Map>());
-        expect(req['options']['clientMetadata'], isInstanceOf<Map>());
-        expect(req['options']['clientMetadata']['key'], equals('val'));
+  test('confirmSignIn request accepts and serializes options', () async {
+    var options = CognitoConfirmSignInOptions(
+        clientMetadata: {testMetadataKey: testMetaDataAttribute},
+        userAttributes: {testAttributeKey: testEmailValue});
+    var req = ConfirmSignInRequest(confirmationValue: '1233', options: options)
+        .serializeAsMap();
+    expect(req['options'], isInstanceOf<Map>());
+    expect(req['options']['clientMetadata'], isInstanceOf<Map>());
+    expect(req['options']['clientMetadata'][testMetadataKey],
+        equals(testMetaDataAttribute));
+    expect(req['options']['userAttributes'], isInstanceOf<Map>());
+    expect(req['options']['userAttributes'][testAttributeKey],
+        equals(testEmailValue));
   });
 
-  test('confirmSignIn thrown PlatFormException results in AuthException', () async {
+  test('confirmSignIn thrown PlatFormException results in AuthException',
+      () async {
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == "confirmSignIn") {
         assert(methodCall.arguments["data"] is Map);
         assert(methodCall.arguments["data"]["confirmationCode"] is String);
         return throw PlatformException(
             code: "UnknownException",
-            details: Map.from({
-              "message": "I am an exception"
-            }));
+            details: Map.from({"message": "I am an exception"}));
       } else {
         return true;
       }
     });
-    AuthException err;
     try {
       await auth.confirmSignIn(
           request: ConfirmSignInRequest(confirmationValue: "iAmNotLegit"));
-    } catch (e) {
-      err = e;
+    } on AuthException catch (e) {
+      expect(e.message, "I am an exception");
+      expect(e, isInstanceOf<AuthException>());
+      return;
     }
-    expect(err.message, "I am an exception");
-    expect(err, isInstanceOf<AuthException>());
+    fail("No AuthException Thrown");
   });
 }

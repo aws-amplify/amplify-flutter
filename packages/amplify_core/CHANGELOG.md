@@ -1,3 +1,49 @@
+## 0.2.2 (2021-08-04)
+
+### Features
+
+- feat(auth): enables clientMetadata for signUp (#713)
+- feat(auth): Auth Devices API (#735)
+- feat(datastore): Populate belongs-to nested models (#658)
+
+### Fixes
+
+- fix(analytics): Session start not triggered on Android devices (#764)
+- fix(api): prevent some fatal REST errors in Android (#661)
+- fix(datastore): Query nested model causes column not found sql error (#761)
+
+### Chores
+
+- chore(api): add support for apiName to GraphQL requests (#553)
+
+## 0.2.1 (2021-07-27)
+
+### Chores
+
+- chore: upgrade amplify-android to 1.20.1 (#710)
+- chore: enable formatting in CI w/ code changes (#570)
+
+## 0.2.0 (2021-06-30)
+
+### Features
+
+- feat: Null Safety Auth (#536)
+- feat: Null safety core (#492)
+
+### Chores
+
+- chore: Null safety master rebase (#676)
+
+## 0.1.6 (2021-06-23)
+
+### Features
+
+- feat: Add support of DataStore custom configuration (#610)
+
+### Chores
+
+- chore: add httpStatusCode property to ApiException when available from REST response (#590)
+
 ## 0.1.5 (2021-05-17)
 
 ## 0.1.4 (2021-04-27)

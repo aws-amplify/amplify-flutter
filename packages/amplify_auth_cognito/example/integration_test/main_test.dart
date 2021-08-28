@@ -20,6 +20,12 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
 
 import 'sign_in_sign_out_test.dart' as sign_in_sign_out_tests;
+import 'sign_up_test.dart' as sign_up_tests;
+import 'user_attributes_test.dart' as user_attributes_tests;
+import 'hub_events_test.dart' as hub_events_tests;
+import 'update_password_test.dart' as update_password_tests;
+import 'fetch_session_test.dart' as fetch_session_tests;
+import 'get_current_user_test.dart' as get_current_user_tests;
 
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -32,5 +38,11 @@ void main() async {
     });
 
     sign_in_sign_out_tests.main();
+    sign_up_tests.main();
+    user_attributes_tests.main();
+    hub_events_tests.main();
+    update_password_tests.main();
+    fetch_session_tests.main();
+    get_current_user_tests.main();
   });
 }

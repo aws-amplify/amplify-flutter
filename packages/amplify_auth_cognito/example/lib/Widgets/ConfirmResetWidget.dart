@@ -8,7 +8,7 @@ class ConfirmResetWidget extends StatefulWidget {
   final Function showResult;
   final Function changeDisplay;
   final Function setError;
-  final Function backToSignIn;
+  final VoidCallback backToSignIn;
 
   ConfirmResetWidget(
       this.showResult, this.changeDisplay, this.setError, this.backToSignIn);
@@ -24,7 +24,7 @@ class _ConfirmWidgetState extends State<ConfirmResetWidget> {
 
   void _confirmReset() async {
     try {
-      await Amplify.Auth.confirmPassword(
+      await Amplify.Auth.confirmResetPassword(
           username: usernameController.text.trim(),
           newPassword: newPasswordController.text.trim(),
           confirmationCode: confirmationCodeController.text.trim());

@@ -19,14 +19,23 @@ const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/amplify');
 
 /// An implementation of [Core] that uses method channels.
 class MethodChannelAmplify extends AmplifyClass {
+  MethodChannelAmplify() : super.protected();
+
   @override
-  Future<bool> _configurePlatforms(String version, String configuration) {
-    return _channel.invokeMethod<bool>(
+  Future<bool?> _configurePlatforms(
+      String version, String configuration) async {
+    final configured = await _channel.invokeMethod<bool>(
       'configure',
       <String, Object>{
         'version': version,
         'configuration': configuration,
       },
     );
+    if (configured ?? false) {
+      await Future.wait(
+          //ignore:invalid_use_of_protected_member
+          AnalyticsCategory.plugins.map((plugin) => plugin.onConfigure()));
+    }
+    return configured;
   }
 }

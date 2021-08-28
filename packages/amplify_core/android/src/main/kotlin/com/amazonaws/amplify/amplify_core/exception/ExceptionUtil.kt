@@ -23,7 +23,6 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonPrimitive
 import com.google.gson.JsonSerializationContext
 import com.google.gson.JsonSerializer
-import com.google.gson.reflect.TypeToken
 import io.flutter.plugin.common.MethodChannel.Result
 import java.lang.reflect.Type
 
@@ -47,9 +46,9 @@ class ExceptionUtil {
             val gsonBuilder = GsonBuilder()
             gsonBuilder.registerTypeAdapter(Throwable::class.java, ThrowableSerializer())
             val gson = gsonBuilder.create()
-            val mapType = object : TypeToken<Map<String, Any>>() {}.type
             val serializedJsonException = gson.toJson(e)
-            var serializedMap: Map<String, Any> = gson.fromJson(serializedJsonException, mapType)
+            @Suppress("UNCHECKED_CAST")
+            var serializedMap: Map<String, Any> = gson.fromJson(serializedJsonException, Map::class.java) as Map<String, Any>
 
             // Remove unnecessary fields
             serializedMap =

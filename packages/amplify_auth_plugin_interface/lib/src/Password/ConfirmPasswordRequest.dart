@@ -13,25 +13,27 @@
  * permissions and limitations under the License.
  */
 
-import './PasswordOptions.dart';
-import 'package:flutter/foundation.dart';
+import 'ConfirmResetPasswordOptions.dart';
+import 'ConfirmResetPasswordRequest.dart';
 
-class ConfirmPasswordRequest {
+/// Encapsulates parameters for a confirm reset password request
+@Deprecated('Please use ConfirmResetPasswordRequest instead')
+class ConfirmPasswordRequest extends ConfirmResetPasswordRequest {
   String username;
   String newPassword;
   String confirmationCode;
-  PasswordOptions options;
+  ConfirmResetPasswordOptions? options;
 
-  ConfirmPasswordRequest({@required this.username, @required this.newPassword, @required this.confirmationCode, this.options});
-  Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = <String, dynamic>{};
-    pendingRequest['username'] = username;
-    pendingRequest['newPassword'] = newPassword;
-    pendingRequest['confirmationCode'] = confirmationCode;
-
-    if (options != null) {
-      pendingRequest['options'] = options.serializeAsMap();
-    }
-    return pendingRequest;
-  }
+  /// Default constructor
+  ConfirmPasswordRequest({
+    required this.username,
+    required this.newPassword,
+    required this.confirmationCode,
+    this.options,
+  }) : super(
+          username: username,
+          newPassword: newPassword,
+          confirmationCode: confirmationCode,
+          options: options,
+        );
 }

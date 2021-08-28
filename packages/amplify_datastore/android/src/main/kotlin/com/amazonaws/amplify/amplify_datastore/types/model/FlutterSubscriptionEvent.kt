@@ -15,7 +15,7 @@
 
 package com.amazonaws.amplify.amplify_datastore.types.model
 
-import com.amplifyframework.datastore.appsync.SerializedModel
+import com.amplifyframework.core.model.SerializedModel
 
 data class FlutterSubscriptionEvent(val serializedModel: SerializedModel, val eventType: String) {
     private val serializedItem: Map<String, Any> =

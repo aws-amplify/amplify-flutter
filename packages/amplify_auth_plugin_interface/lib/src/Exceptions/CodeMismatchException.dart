@@ -15,12 +15,12 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when Amplify could not perform the action because user 
+/// Thrown when Amplify could not perform the action because user
 /// entered incorrect confirmation code.
 class CodeMismatchException extends AuthException {
   /// Named constructor
   CodeMismatchException(String message,
-      {String recoverySuggestion, String underlyingException})
+      {String? recoverySuggestion, String? underlyingException})
       : super(message,
             recoverySuggestion: recoverySuggestion,
             underlyingException: underlyingException);

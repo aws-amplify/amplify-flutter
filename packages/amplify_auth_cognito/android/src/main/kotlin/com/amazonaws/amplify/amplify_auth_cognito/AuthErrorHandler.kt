@@ -19,22 +19,11 @@ import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
 import com.amazonaws.AmazonClientException
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterInvalidStateException
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.exceptions.CognitoCodeExpiredException
-import com.amazonaws.services.cognitoidentityprovider.model.InvalidLambdaResponseException
-import com.amazonaws.services.cognitoidentityprovider.model.MFAMethodNotFoundException
-import com.amazonaws.services.cognitoidentityprovider.model.NotAuthorizedException
-import com.amazonaws.services.cognitoidentityprovider.model.SoftwareTokenMFANotFoundException
-import com.amazonaws.services.cognitoidentityprovider.model.TooManyFailedAttemptsException
-import com.amazonaws.services.cognitoidentityprovider.model.TooManyRequestsException
-import com.amazonaws.services.cognitoidentityprovider.model.UnexpectedLambdaException
-import com.amazonaws.services.cognitoidentityprovider.model.UserLambdaValidationException
-import com.amazonaws.services.cognitoidentityprovider.model.LimitExceededException
-import com.amazonaws.services.cognitoidentityprovider.model.InvalidParameterException
-import com.amazonaws.services.cognitoidentityprovider.model.ExpiredCodeException
-import com.amazonaws.services.cognitoidentityprovider.model.CodeMismatchException
-import com.amazonaws.services.cognitoidentityprovider.model.CodeDeliveryFailureException
+import com.amazonaws.services.cognitoidentityprovider.model.*
 
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.auth.AuthException
@@ -72,6 +61,7 @@ class AuthErrorHandler {
                 is AuthException.UsernameExistsException -> errorCode = "UsernameExistsException"
                 is AuthException.UserNotConfirmedException -> errorCode = "UserNotConfirmedException"
                 is AuthException.UserNotFoundException -> errorCode = "UserNotFoundException"
+                is FlutterInvalidStateException -> errorCode = "InvalidStateException"
                 else -> when (error.cause) {
                     is CognitoCodeExpiredException -> errorCode = "CodeExpiredException"
                     is InvalidLambdaResponseException -> errorCode = "LambdaException"
@@ -87,6 +77,7 @@ class AuthErrorHandler {
                     is ExpiredCodeException -> errorCode = "CodeExpiredException"
                     is CodeMismatchException -> errorCode = "CodeMismatchException"
                     is CodeDeliveryFailureException -> errorCode = "CodeDeliveryFailureException"
+                    is InvalidUserPoolConfigurationException -> errorCode = "ConfigurationException"
                 }
             }
         }

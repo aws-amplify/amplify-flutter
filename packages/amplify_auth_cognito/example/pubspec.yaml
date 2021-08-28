@@ -6,7 +6,8 @@ description: Demonstrates how to use the amplify_auth_cognito plugin.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=2.2.0"
 
 dependencies:
   flutter:
@@ -34,10 +35,6 @@ dev_dependencies:
     sdk: flutter
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
-# Needed to avoid conflict for integration tests until flutter driver has null safe version of crypto https://github.com/flutter/flutter/issues/77282
-dependency_overrides:
-  crypto: ^3.0.0
 
 # The following section is specific to Flutter.
 flutter:

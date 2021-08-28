@@ -6,11 +6,15 @@ description: Demonstrates how to use the amplify_api plugin.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=2.2.0"
 
 dependencies:
   flutter:
     sdk: flutter
+
+  amplify_auth_cognito:
+    path: ../../amplify_auth_cognito
 
   amplify_api:
     # When depending on this package from a real application you should use:
@@ -28,6 +32,10 @@ dependencies:
 
 dev_dependencies:
   flutter_test:
+    sdk: flutter
+  flutter_driver:
+    sdk: flutter
+  integration_test:
     sdk: flutter
 
 # For information on the generic Dart part of this file, see the

@@ -6,10 +6,8 @@ Thank you for your interest in contributing to our project! <3 Whether it's a bu
 - [Our Design](#our-design)
 - [Development Process](#development-process)
   - [Setting up for local development](#setting-up-for-local-development)
-  - [Architecture of the codebase](#architecture-of-the-codebase)
   - [Steps towards contributions](#steps-towards-contributions)
 - [Pull Requests](#pull-requests)
-- [Debugging](#debugging)
 - [Integration Tests](#integration-tests)
 - [Release](#release)
   - [Finding contributions to work on](#finding-contributions-to-work-on)
@@ -71,11 +69,11 @@ $ melos bootstrap
 
 #### Packages inside Amplify Flutter
 
-- [amplify_flutter](https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify_flutter)
-- [amplify_auth_plugin_interface](https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify_auth_plugin_interface)
-- [amplify_auth_cognito](https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify_auth_cognito)
-- [amplify_analytics_plugin_interface](https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify_analytics_plugin_interface)
-- [amplify_analytics_pinpoint](https://github.com/aws-amplify/amplify-flutter/tree/master/packages/amplify_analytics_pinpoint)
+- [amplify_flutter](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_flutter)
+- [amplify_auth_plugin_interface](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_auth_plugin_interface)
+- [amplify_auth_cognito](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_auth_cognito)
+- [amplify_analytics_plugin_interface](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_analytics_plugin_interface)
+- [amplify_analytics_pinpoint](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_analytics_pinpoint)
 
 ## Steps towards contributions
 
@@ -270,6 +268,9 @@ Finally, run a push to update the resources with the new function resource (lamb
 ```bash
 $ amplify push
 ```
+
+Additionally, the storage category requires some manual configuration as the [headless CLI does not yet support storage](https://github.com/aws-amplify/amplify-cli/issues/7378). Those instructions 
+are notes in the [storage example app](packages/amplify_storage_s3/example/README.md).
 
 ## Code of Conduct
 
