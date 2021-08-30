@@ -10,15 +10,15 @@ scripts:
     flutter pub global activate tuneup
 
   copy_dummy_config: >
-    melos exec --scope="*example*" --fail-fast -- \
+    melos exec --scope="*example*,sample_app" -- \
       cp -n "\$MELOS_ROOT_PATH"/.circleci/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart | true
 
   build:examples:ios: >
-    melos exec -c 1 --scope="*example*" --fail-fast -- \
+    melos exec -c 1 --scope="*example*,sample_app" --fail-fast -- \
       flutter build ios --no-codesign
 
   build:examples:android: >
-    melos exec -c 1 --scope="*example*" --fail-fast -- \
+    melos exec -c 1 --scope="*example*,sample_app" --fail-fast -- \
       flutter build apk --debug --verbose
 
   test:unit:flutter: >
