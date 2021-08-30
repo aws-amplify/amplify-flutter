@@ -104,8 +104,13 @@ scripts:
     melos exec -c 5 --fail-fast --no-private --ignore="*example*" -- \
       flutter pub publish --dry-run
 
-  postbootstrap: >
-    melos run copy_dummy_config
+  packages:fix: |
+    melos exec -- \
+      flutter analyze --no-fatal-infos --no-fatal-warnings >/dev/null 2>&1
+
+  postbootstrap: |
+    melos run copy_dummy_config && \
+    melos run packages:fix
 
   postclean: >
     melos exec -- \
