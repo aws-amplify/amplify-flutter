@@ -109,7 +109,7 @@ scripts:
 
   postclean: >
     melos exec -- \
-      rm -rf ./build ./android/.gradle ./ios/.symlinks ./ios/Pods ./android/.idea ./.idea
+      rm -rf ./build ./android/.gradle ./ios/.symlinks ./ios/Pods ./ios/Podfile.lock
 
 dev_dependencies:
   pedantic: ^1.9.0
