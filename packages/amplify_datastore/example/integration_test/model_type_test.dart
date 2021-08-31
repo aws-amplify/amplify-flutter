@@ -36,7 +36,7 @@ void main() {
     });
 
     group('String (with null value)', () {
-      var models = List.generate(5, (i) => StringTypeModel());
+      var models = List.generate(5, (_) => StringTypeModel());
       testModelOperations<StringTypeModel>(
         models: models,
         classType: StringTypeModel.classType,
