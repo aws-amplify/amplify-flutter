@@ -14,11 +14,9 @@
  */
 
 import 'package:amplify_flutter/config/auth/password_policy_characters.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'password_protection_settings.g.dart';
 
-@JsonSerializable()
 class PasswordProtectionSettings {
   final int? passwordPolicyMinLength;
 

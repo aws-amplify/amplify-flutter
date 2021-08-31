@@ -15,6 +15,8 @@
 
 library amplify_authenticator;
 
+import 'package:amplify_authenticator/src/models/authenticator_exceptions.dart';
+import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_flutter/config/amplify_config.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/keys.dart';
@@ -212,8 +214,13 @@ class _AuthenticatorState extends State<Authenticator> {
     super.initState();
     _stateMachineBloc = StateMachineBloc(_authService)
       ..authEvent.add(GetCurrentUser());
-    waitForConfiguration().then((value) {
-      _stateMachineBloc.configSink.add(value);
+    Amplify.configCompleter.future.then((config) {
+      if (mounted) {
+        setState(() => _config = config);
+      }
+    }).catchError((dynamic e) {
+      _stateMachineBloc.exceptionsSink.add(AuthenticatorException(
+          'There was anissue accessing the configuration for this application.'));
     });
   }
 
@@ -223,15 +230,6 @@ class _AuthenticatorState extends State<Authenticator> {
 
   @override
   Widget build(BuildContext context) {
-    _stateMachineBloc.configStream.listen((event) {
-      setState(() {
-        _config = event;
-      });
-    });
-
-    if (_config == null) {
-      return LoadingScreen();
-    }
     var defaultForms = DefaultForms();
     AuthStringResolver resolver = widget.resolver ?? AuthStringResolver();
     defaultForms.context = context;
@@ -276,7 +274,10 @@ class _AuthenticatorState extends State<Authenticator> {
                       body: StreamBuilder(
                     stream: _stateMachineBloc.stream,
                     builder: (context, snapshot) {
-                      final state = snapshot.data ?? const AuthLoading();
+                      final state =
+                          (snapshot.data != null && _config?.auth != null)
+                              ? snapshot.data
+                              : const AuthLoading();
                       late Widget screen;
                       if (state is AuthLoading) {
                         screen = LoadingScreen();

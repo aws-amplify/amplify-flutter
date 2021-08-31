@@ -15,15 +15,12 @@
 
 import 'package:amplify_flutter/config/auth/login_mechanisms.dart';
 import 'package:amplify_flutter/config/auth/password_protection_settings.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'mfa_configurations.dart';
 import 'oauth_config.dart';
 
 part 'auth_block_config.g.dart';
 
-@JsonSerializable()
 class AuthBlockConfig {
-  @JsonKey(name: 'OAuth')
   final OAuthConfig? oAuth;
 
   final List<LoginMechanisms>? loginMechanisms;

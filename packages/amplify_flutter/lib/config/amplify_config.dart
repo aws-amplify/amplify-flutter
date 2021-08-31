@@ -17,16 +17,12 @@ import 'package:amplify_flutter/config/analytics/analytics_config.dart';
 import 'package:amplify_flutter/config/api/api_config.dart';
 import 'package:amplify_flutter/config/auth/auth_config.dart';
 import 'package:amplify_flutter/config/storage/storage_config.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'amplify_config.g.dart';
 
-@JsonSerializable()
 class AmplifyConfig {
-  @JsonKey(name: 'UserAgent')
   String? userAgent;
 
-  @JsonKey(name: 'Version')
   String? version;
 
   AnalyticsConfig? analytics;
