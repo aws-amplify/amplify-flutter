@@ -344,7 +344,7 @@ void main() {
       skip: true,
     );
 
-    group('json', () {
+    group('AWSJSON', () {
       String json = jsonEncode(Map.from({
         'string': 'foo',
         'bool': true,
