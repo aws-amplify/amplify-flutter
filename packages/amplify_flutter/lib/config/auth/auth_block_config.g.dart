@@ -66,13 +66,13 @@ K _$enumDecode<K, V>(
 }
 
 const _$LoginMechanismsEnumMap = {
-  LoginMechanisms.EMAIL: 'EMAIL',
-  LoginMechanisms.PHONE_NUMBER: 'PHONE_NUMBER',
-  LoginMechanisms.PREFERRED_USERNAME: 'PREFERRED_USERNAME',
-  LoginMechanisms.FACEBOOK: 'FACEBOOK',
-  LoginMechanisms.GOOGLE: 'GOOGLE',
-  LoginMechanisms.AMAZON: 'AMAZON',
-  LoginMechanisms.APPLE: 'APPLE',
+  LoginMechanisms.Email: 'EMAIL',
+  LoginMechanisms.PhoneNumber: 'PHONE_NUMBER',
+  LoginMechanisms.PreferredUsername: 'PREFERRED_USERNAME',
+  LoginMechanisms.Facebook: 'FACEBOOK',
+  LoginMechanisms.Google: 'GOOGLE',
+  LoginMechanisms.Amazon: 'AMAZON',
+  LoginMechanisms.Apple: 'APPLE',
 };
 
 K? _$enumDecodeNullable<K, V>(
@@ -87,7 +87,7 @@ K? _$enumDecodeNullable<K, V>(
 }
 
 const _$MfaConfigurationEnumMap = {
-  MfaConfiguration.OPTIONAL: 'OPTIONAL',
-  MfaConfiguration.ON: 'ON',
-  MfaConfiguration.OFF: 'OFF',
+  MfaConfiguration.Optional: 'OPTIONAL',
+  MfaConfiguration.On: 'ON',
+  MfaConfiguration.Off: 'OFF',
 };

@@ -20,31 +20,22 @@ import 'package:amplify_flutter/config/auth/credential_provider_config.dart';
 import 'package:amplify_flutter/config/auth/pinpoint_analytics_auth_config.dart';
 import 'package:amplify_flutter/config/auth/pinpoint_targeting_auth_config.dart';
 import 'package:amplify_flutter/config/auth/s3_transfer_utility_auth_config.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'cognito_auth_plugin_config.g.dart';
 
-@JsonSerializable()
 class CognitoAuthPluginConfig {
-  @JsonKey(name: 'CognitoUserPool')
   final Map<String, CognitoUserPoolConfig>? userPool;
 
-  @JsonKey(name: 'CredentialsProvider')
   final Map<String, Map<String, CredentialProviderConfig>>? credentialProvider;
 
-  @JsonKey(name: 'Auth')
   final Map<String, AuthBlockConfig>? auth;
 
-  @JsonKey(name: 'AppSync')
   final Map<String, AppSyncAuthConfig>? appSync;
 
-  @JsonKey(name: 'PinpointAnalytics')
   final Map<String, PinpointAnalyticsAuthConfig>? pinpointAnalytics;
 
-  @JsonKey(name: 'PinpointTargeting')
   final Map<String, PinpointTargetingAuthConfig>? pinpointTargeting;
 
-  @JsonKey(name: 'S3TransferUtility')
   final Map<String, S3TransferUtilityAuthConfig>? s3TransferUtility;
 
   const CognitoAuthPluginConfig(

@@ -15,16 +15,13 @@
 
 import 'package:amplify_flutter/config/analytics/pinpoint_analytics_config.dart';
 import 'package:amplify_flutter/config/analytics/pinpoint_targeting_config.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'analytics_plugin.g.dart';
 
-@JsonSerializable()
+/// A Dart representation of a single Analytics plugin
 class AnalyticsPlugin {
-  @JsonKey(name: 'pinpointAnalytics')
   final PinpointAnalyticsConfig pinpointAnalytics;
 
-  @JsonKey(name: 'pinpointTargeting')
   final PinpointTargetingConfig pinpointTargeting;
 
   const AnalyticsPlugin(

@@ -13,25 +13,17 @@
  * permissions and limitations under the License.
  */
 
-import 'package:json_annotation/json_annotation.dart';
-
 part 'appsync_auth_config.g.dart';
 
-@JsonSerializable()
 class AppSyncAuthConfig {
-  @JsonKey(name: 'ApiUrl')
   final String apiUrl;
 
-  @JsonKey(name: 'Region')
   final String region;
 
-  @JsonKey(name: 'AuthMode')
   final String authMode;
 
-  @JsonKey(name: 'ApiKey')
   final String? apiKey;
 
-  @JsonKey(name: 'ClientDatabasePrefix')
   final String clientDatabasePrefix;
 
   const AppSyncAuthConfig(

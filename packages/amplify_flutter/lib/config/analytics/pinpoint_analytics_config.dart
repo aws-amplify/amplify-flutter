@@ -13,16 +13,11 @@
  * permissions and limitations under the License.
  */
 
-import 'package:json_annotation/json_annotation.dart';
-
 part 'pinpoint_analytics_config.g.dart';
 
-@JsonSerializable()
 class PinpointAnalyticsConfig {
-  @JsonKey(name: 'appId')
   final String appId;
 
-  @JsonKey(name: 'region')
   final String region;
 
   const PinpointAnalyticsConfig({required this.appId, required this.region});

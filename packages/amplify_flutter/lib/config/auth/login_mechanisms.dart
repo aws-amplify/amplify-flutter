@@ -14,11 +14,11 @@
  */
 
 enum LoginMechanisms {
-  EMAIL,
-  PHONE_NUMBER,
-  PREFERRED_USERNAME,
-  FACEBOOK,
-  GOOGLE,
-  AMAZON,
-  APPLE
+  Email,
+  PhoneNumber,
+  PreferredUsername,
+  Facebook,
+  Google,
+  Amazon,
+  Apple
 }

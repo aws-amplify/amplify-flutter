@@ -13,19 +13,13 @@
  * permissions and limitations under the License.
  */
 
-import 'package:json_annotation/json_annotation.dart';
-
 part 'storage_plugin.g.dart';
 
-@JsonSerializable()
 class StoragePlugin {
-  @JsonKey(name: 'bucket')
   final String bucket;
 
-  @JsonKey(name: 'region')
   final String region;
 
-  @JsonKey(name: 'defaultAccessLevel')
   final String defaultAccessLevel;
 
   const StoragePlugin(

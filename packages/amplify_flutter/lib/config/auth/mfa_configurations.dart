@@ -13,4 +13,4 @@
  * permissions and limitations under the License.
  */
 
-enum MfaConfiguration { OPTIONAL, ON, OFF }
+enum MfaConfiguration { Optional, On, Off }

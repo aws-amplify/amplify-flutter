@@ -13,13 +13,9 @@
  * permissions and limitations under the License.
  */
 
-import 'package:json_annotation/json_annotation.dart';
-
 part 'pinpoint_targeting_config.g.dart';
 
-@JsonSerializable()
 class PinpointTargetingConfig {
-  @JsonKey(name: 'region')
   final String region;
 
   const PinpointTargetingConfig({required this.region});
