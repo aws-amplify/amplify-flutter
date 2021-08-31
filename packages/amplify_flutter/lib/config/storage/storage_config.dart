@@ -14,11 +14,9 @@
  */
 
 import 'package:amplify_flutter/config/storage/storage_plugin.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'storage_config.g.dart';
 
-@JsonSerializable()
 class StorageConfig {
   final Map<String, StoragePlugin> plugins;
 

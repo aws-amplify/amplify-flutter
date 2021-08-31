@@ -14,22 +14,26 @@
  */
 
 import 'package:amplify_flutter/config/analytics/analytics_plugin.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'analytics_config.g.dart';
 
-@JsonSerializable()
+/// A Dart representation of an Amplify Analytics configuration
 class AnalyticsConfig {
+  /// Key value pairs for Analytics plugins
   final Map<String, AnalyticsPlugin> plugins;
 
+  // ignore: public_member_api_docs
   const AnalyticsConfig(this.plugins);
 
+  /// A helper to get the default key name for generated Analytics plugins
   AnalyticsPlugin? get awsPinpointAnalyticsPlugin {
     return plugins['awsPinpointAnalyticsPlugin'];
   }
 
+  // ignore: public_member_api_docs
   factory AnalyticsConfig.fromJson(Map<String, dynamic> json) =>
       _$AnalyticsConfigFromJson(json);
 
+  // ignore: public_member_api_docs
   Map<String, dynamic> toJson() => _$AnalyticsConfigToJson(this);
 }

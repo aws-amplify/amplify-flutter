@@ -13,25 +13,17 @@
  * permissions and limitations under the License.
  */
 
-import 'package:json_annotation/json_annotation.dart';
-
 part 'oauth_config.g.dart';
 
-@JsonSerializable()
 class OAuthConfig {
-  @JsonKey(name: 'WebDomain')
   final String webDomain;
 
-  @JsonKey(name: 'AppClientId')
   final String appClientId;
 
-  @JsonKey(name: 'SignInRedirectURI')
   final String signInRedirectURI;
 
-  @JsonKey(name: 'SignOutRedirectURI')
   final String signOutRedirectURI;
 
-  @JsonKey(name: 'Scopes')
   final List<String> scopes;
 
   const OAuthConfig(

@@ -14,14 +14,9 @@
  */
 
 import 'package:amplify_flutter/config/auth/cognito_auth_plugin_config.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'auth_config.g.dart';
 
-// not using this typedef to avoid bumping sdk constraint
-// typedef AWSCognitoUserPoolConfigs = Map<String, AWSCognitoUserPoolConfig>;
-
-@JsonSerializable()
 class AuthConfig {
   final Map<String, CognitoAuthPluginConfig> plugins;
 

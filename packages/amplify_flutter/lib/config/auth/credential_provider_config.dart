@@ -13,16 +13,11 @@
  * permissions and limitations under the License.
  */
 
-import 'package:json_annotation/json_annotation.dart';
-
 part 'credential_provider_config.g.dart';
 
-@JsonSerializable()
 class CredentialProviderConfig {
-  @JsonKey(name: 'PoolId')
   final String poolId;
 
-  @JsonKey(name: 'Region')
   final String region;
 
   const CredentialProviderConfig({

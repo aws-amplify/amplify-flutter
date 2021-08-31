@@ -13,11 +13,8 @@
  * permissions and limitations under the License.
  */
 
-import 'package:json_annotation/json_annotation.dart';
-
 part 'api_config.g.dart';
 
-@JsonSerializable()
 class ApiConfig {
   final Map<String, Map<String, APIPlugin>> plugins;
 
@@ -33,21 +30,15 @@ class ApiConfig {
   Map<String, dynamic> toJson() => _$ApiConfigToJson(this);
 }
 
-@JsonSerializable()
 class APIPlugin {
-  @JsonKey(name: 'endpointType')
   final String endpointType;
 
-  @JsonKey(name: 'endpoint')
   final String endpoint;
 
-  @JsonKey(name: 'region')
   final String region;
 
-  @JsonKey(name: 'authorizationType')
   final String authorizationType;
 
-  @JsonKey(name: 'apiKey')
   final String? apiKey;
 
   const APIPlugin(

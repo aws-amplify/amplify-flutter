@@ -13,19 +13,13 @@
  * permissions and limitations under the License.
  */
 
-import 'package:json_annotation/json_annotation.dart';
-
 part 'cognito_userpool_config.g.dart';
 
-@JsonSerializable()
 class CognitoUserPoolConfig {
-  @JsonKey(name: 'PoolId')
   final String poolId;
 
-  @JsonKey(name: 'AppClientId')
   final String appClientId;
 
-  @JsonKey(name: 'Region')
   final String region;
 
   const CognitoUserPoolConfig({
