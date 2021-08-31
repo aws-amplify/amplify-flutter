@@ -15,7 +15,6 @@
 
 library amplify_authenticator;
 
-<<<<<<< HEAD
 import 'package:amplify_authenticator/src/widgets/default_forms/default_confirm_signin_mfa.dart';
 import 'package:amplify_authenticator/src/widgets/default_forms/default_confirm_signin_new_password.dart';
 import 'package:amplify_authenticator/src/widgets/default_forms/default_confirm_signup.dart';
@@ -23,10 +22,6 @@ import 'package:amplify_authenticator/src/widgets/default_forms/default_reset_pa
 import 'package:amplify_authenticator/src/widgets/default_forms/default_send_code.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_flutter/src/config/amplify_config.dart';
-=======
-import 'package:amplify_flutter/amplify.dart';
-import 'package:amplify_flutter/config/amplify_config.dart';
->>>>>>> dynamic signup form
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 
@@ -263,15 +258,8 @@ class _AuthenticatorState extends State<Authenticator> {
     }
 
     /// Check for customizable forms passed into the Authenticator
-<<<<<<< HEAD
     var signInForm = widget.signInForm ?? DefaultSignInForm();
     var signUpForm = widget.signUpForm ?? DefaultSignUpForm();
-=======
-    var signInForm = widget.signInForm ??
-        defaultForms.signInForm(widget.usernameAlias, resolver);
-    // var signUpForm = widget.signUpForm ??
-    //     defaultForms.signUpForm(widget.usernameAlias, resolver, _config);
->>>>>>> dynamic signup form
     var confirmSignInMFAForm =
         widget.confirmSignInMFAForm ?? DefaultConfirmSignInMFAForm();
     var confirmSignInNewPasswordForm = DefaultConfirmSignInNewPasswordForm();
@@ -298,9 +286,7 @@ class _AuthenticatorState extends State<Authenticator> {
                   resetPasswordForm: resetPasswordForm,
                   sendCodeForm: sendCodeForm,
                   signInForm: signInForm,
-                  signUpForm: widget.signUpForm ??
-                      defaultForms.signUpForm(
-                          widget.usernameAlias, resolver, _config),
+                  signUpForm: signUpForm,
                   confirmSignUpForm: confirmSignUpForm,
                   confirmSignInMFAForm: confirmSignInMFAForm,
                   child: Scaffold(
