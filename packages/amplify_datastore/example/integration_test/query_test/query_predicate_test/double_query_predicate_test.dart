@@ -308,7 +308,7 @@ void main() {
           expectedModels: [],
         );
       },
-      // // see: https://github.com/aws-amplify/amplify-flutter/issues/830
+      // see: https://github.com/aws-amplify/amplify-flutter/issues/830
       skip: true,
     );
   });

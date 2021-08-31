@@ -25,7 +25,7 @@ import 'utils/setup_utils.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('realtionship type', () {
+  group('relationship type', () {
     group('HasOne', () {
       var child = ChildModel(name: 'child');
       var parent = HasOneModel(name: 'HasOne', child: child, childID: child.id);
@@ -183,7 +183,7 @@ void main() {
       });
     });
 
-    group('hasMany', () {
+    group('HasMany', () {
       var parent = HasManyModel(name: 'HasMany');
       var children = List.generate(
           5, (i) => HasManyChildModel(name: 'child $i', parent: parent));
@@ -272,7 +272,8 @@ void main() {
         expect(queriedChildren, isEmpty);
       });
     });
-    group('hasMany (cascade save)', () {
+
+    group('HasMany (cascade save)', () {
       var children =
           List.generate(5, (i) => HasManyChildModel(name: 'child $i'));
       var parent = HasManyModel(name: 'HasMany', children: children);

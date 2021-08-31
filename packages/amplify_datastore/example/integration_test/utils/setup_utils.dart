@@ -12,7 +12,7 @@ Future<void> configureDataStore() async {
   }
 }
 
-/// Clears DataStore after a delay to resolve an issue in amlify-android
+/// Clears DataStore after a delay to resolve an issue in amplify-android
 ///
 /// DataStore can lock up on Android if .clear() is called immediately after
 /// other DataStore operations
