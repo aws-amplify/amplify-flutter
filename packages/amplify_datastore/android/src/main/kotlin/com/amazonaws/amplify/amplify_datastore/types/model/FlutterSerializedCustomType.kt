@@ -15,66 +15,52 @@
 
 package com.amazonaws.amplify.amplify_datastore.types.model
 
-import com.amplifyframework.core.model.Model
-import com.amplifyframework.core.model.ModelSchema
+import com.amplifyframework.core.model.CustomTypeSchema
 import com.amplifyframework.core.model.SerializedCustomType
 import com.amplifyframework.core.model.temporal.Temporal
-import com.amplifyframework.core.model.SerializedModel
 import java.lang.Exception
 
-
-data class FlutterSerializedModel(val serializedModel: SerializedModel) {
+data class FlutterSerializedCustomType(val serializedCustomType: SerializedCustomType) {
     private val serializedData: Map<String, Any> = parseSerializedDataMap(
-        serializedModel.serializedData,
-        serializedModel.modelSchema!!
+        serializedCustomType.serializedData,
+        serializedCustomType.customTypeSchema!!
     )
-
-    // ignored fields
-    private val id: String = serializedModel.id
-    private val modelName: String = parseModelName(serializedModel.modelName) // ModelSchema -> SerializedModel should always have a name
+    private val customTypeName: String = parseCustomTypeName(serializedCustomType.customTypeName)
 
     fun toMap(): Map<String, Any> {
         return mapOf(
-                "id" to id,
-                "serializedData" to serializedData,
-                "modelName" to modelName)
+            "serializedData" to serializedData,
+            "customTypeName" to customTypeName)
     }
 
-    private fun parseModelName(modelName: String?) : String{
-        return if(modelName.isNullOrEmpty()) ""
-        else modelName
+    private fun parseCustomTypeName(customTypeName: String?) : String{
+        return if(customTypeName.isNullOrEmpty()) ""
+        else customTypeName
     }
 
-    private fun parseSerializedDataMap(serializedData: Map<String, Any>, modelSchema: ModelSchema): Map<String, Any> {
-        if(serializedData.isEmpty()) throw Exception("FlutterSerializedModel - no serializedData")
+    private fun parseSerializedDataMap(
+        serializedData: Map<String, Any>, customTypeSchema: CustomTypeSchema): Map<String, Any> {
+        if(serializedData.isEmpty()) throw Exception("FlutterSerializedCustomType - no serializedData")
 
         return serializedData.mapValues {
             when (val value: Any = it.value) {
                 is Temporal.DateTime -> value.format()
                 is Temporal.Date -> value.format()
                 is Temporal.Time -> value.format()
-                is Model -> FlutterSerializedModel(value as SerializedModel).toMap()
                 is Temporal.Timestamp -> value.secondsSinceEpoch
                 is SerializedCustomType -> {
                     FlutterSerializedCustomType(value).toMap()
                 }
                 is List<*> -> {
-                    val field = modelSchema.fields[it.key]!!
+                    val field = customTypeSchema.fields[it.key]!!
                     if (field.isCustomType) {
-                        // for a list like field if its type is CustomType
-                        // Then the item type must be CustomType
                         (value as List<SerializedCustomType>).map { item ->
                             FlutterSerializedCustomType(item).toMap()
                         }
                     } else {
-                        // If collection is not a collection of CustomType
-                        // return the collection directly as
-                        // 1. currently hasMany field won't be populated
-                        // 2. collection of primitive types could be returned as is e.g. ["1", "2"]
                         value
                     }
                 }
-                // TODO add for other complex objects that can be returned or be part of the codegen model
                 else -> value
             }
         }

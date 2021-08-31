@@ -17,6 +17,8 @@ package com.amazonaws.amplify.amplify_datastore
 
 import com.amplifyframework.core.model.AuthRule
 import com.amplifyframework.core.model.AuthStrategy
+import com.amplifyframework.core.model.CustomTypeField
+import com.amplifyframework.core.model.CustomTypeSchema
 import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.ModelAssociation
 import com.amplifyframework.core.model.ModelField
@@ -322,3 +324,120 @@ val allTypeModelSchema = ModelSchema.builder()
         ))
         .modelClass(SerializedModel::class.java)
         .build()
+
+val phoneSchema = CustomTypeSchema.builder()
+    .name("Phone")
+    .pluralName("Phones")
+    .fields(mapOf(
+        "country" to CustomTypeField.builder()
+            .name("country")
+            .isRequired(true)
+            .targetType("String")
+            .build(),
+        "area" to CustomTypeField.builder()
+            .name("area")
+            .isRequired(true)
+            .targetType("String")
+            .build(),
+        "number" to CustomTypeField.builder()
+            .name("number")
+            .isRequired(true)
+            .targetType("String")
+            .build()
+    ))
+    .build()
+
+val addressSchema = CustomTypeSchema.builder()
+    .name("Address")
+    .pluralName("Addresses")
+    .fields(mapOf(
+        "line1" to CustomTypeField.builder()
+            .name("line1")
+            .isRequired(true)
+            .targetType("String")
+            .build(),
+        "line2" to CustomTypeField.builder()
+            .name("line2")
+            .isRequired(false)
+            .targetType("String")
+            .build(),
+        "city" to CustomTypeField.builder()
+            .name("city")
+            .isRequired(true)
+            .targetType("String")
+            .build(),
+        "state" to CustomTypeField.builder()
+            .name("state")
+            .isRequired(true)
+            .targetType("String")
+            .build(),
+        "postalCode" to CustomTypeField.builder()
+            .name("postalCode")
+            .isRequired(true)
+            .targetType("String")
+            .build()
+    ))
+    .build()
+
+val contactSchema = CustomTypeSchema.builder()
+    .name("Contact")
+    .pluralName("Contacts")
+    .fields(mapOf(
+        "email" to CustomTypeField.builder()
+            .name("email")
+            .isRequired(true)
+            .targetType("String")
+            .javaClassForValue(String::class.java)
+            .build(),
+        "phone" to CustomTypeField.builder()
+            .name("Phone")
+            .isRequired(true)
+            .isCustomType(true)
+            .targetType("Phone")
+            .javaClassForValue(Map::class.java)
+            .build(),
+        "mailingAddresses" to CustomTypeField.builder()
+            .name("mailingAddresses")
+            .isCustomType(true)
+            .isRequired(true)
+            .isArray(true)
+            .targetType("Address")
+            .javaClassForValue(List::class.java)
+            .build()
+    ))
+    .build()
+
+val personSchema = ModelSchema.builder()
+    .name("Person")
+    .pluralName("People")
+    .modelClass(SerializedModel::class.java)
+    .fields(mapOf(
+        "id" to ModelField.builder()
+            .name("id")
+            .isRequired(true)
+            .targetType("String")
+            .javaClassForValue(String::class.java)
+            .build(),
+        "name" to ModelField.builder()
+            .name("name")
+            .isRequired(true)
+            .targetType("String")
+            .javaClassForValue(String::class.java)
+            .build(),
+        "contact" to ModelField.builder()
+            .name("contact")
+            .isRequired(true)
+            .isCustomType(true)
+            .targetType("Contact")
+            .javaClassForValue(Map::class.java)
+            .build(),
+        "propertiesAddresses" to ModelField.builder()
+            .name("propertiesAddresses")
+            .isRequired(false)
+            .isCustomType(true)
+            .isArray(true)
+            .targetType("Address")
+            .javaClassForValue(List::class.java)
+            .build()
+    ))
+    .build()

@@ -15,6 +15,7 @@
 
 package com.amazonaws.amplify.amplify_datastore
 
+import com.amplifyframework.core.model.SerializedCustomType
 import com.amplifyframework.core.model.SerializedModel
 
 val blogSerializedModel = SerializedModel.builder()
@@ -71,3 +72,59 @@ var allTypeModelSerializedModel = SerializedModel.builder()
         ).modelSchema(
                 allTypeModelSchema
         ).build()
+
+val personSerializedModel = SerializedModel.builder()
+        .serializedData(mapOf(
+                "id" to "123",
+                "name" to "Tester Testing",
+                "contact" to SerializedCustomType.builder()
+                        .serializedData(mapOf(
+                                "email" to "test@testing.com",
+                                "phone" to SerializedCustomType.builder()
+                                        .serializedData(mapOf(
+                                                "country" to "+1",
+                                                "area" to "415",
+                                                "number" to "6666666"
+                                        ))
+                                        .customTypeSchema(phoneSchema)
+                                        .build(),
+                                "mailingAddresses" to listOf(
+                                        SerializedCustomType.builder()
+                                                .serializedData(mapOf(
+                                                        "line1" to "000 Somewhere far",
+                                                        "line2" to "apt 4",
+                                                        "city" to "San Francisco",
+                                                        "state" to "CA",
+                                                        "postalCode" to "94115"
+                                                ))
+                                                .customTypeSchema(addressSchema)
+                                                .build(),
+                                        SerializedCustomType.builder()
+                                                .serializedData(mapOf(
+                                                        "line1" to "111 Somewhere close",
+                                                        "line2" to null,
+                                                        "city" to "Seattle",
+                                                        "state" to "WA",
+                                                        "postalCode" to "98101"
+                                                ))
+                                                .customTypeSchema(addressSchema)
+                                                .build()
+                                )
+                        ))
+                        .customTypeSchema(contactSchema)
+                        .build(),
+                "propertiesAddresses" to listOf(
+                        SerializedCustomType.builder()
+                                .serializedData(mapOf(
+                                        "line1" to "222 Somewhere in the middle",
+                                        "line2" to null,
+                                        "city" to "Portland",
+                                        "state" to "OR",
+                                        "postalCode" to "97035"
+                                ))
+                                .customTypeSchema(addressSchema)
+                                .build()
+                )
+        ))
+        .modelSchema(personSchema)
+        .build()

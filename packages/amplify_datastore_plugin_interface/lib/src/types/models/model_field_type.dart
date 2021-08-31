@@ -20,12 +20,16 @@ class ModelFieldType {
 
   final String? ofModelName; //opt
 
-  const ModelFieldType(this.fieldType, {this.ofModelName});
+  final String? ofCustomTypeName;
+
+  const ModelFieldType(this.fieldType,
+      {this.ofModelName, this.ofCustomTypeName});
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {
       'fieldType': describeEnum(fieldType),
       'ofModelName': ofModelName,
+      'ofCustomTypeName': ofCustomTypeName,
     };
     return Map.from(map)..removeWhere((k, v) => v == null);
   }
@@ -39,7 +43,8 @@ class ModelFieldType {
     if (identical(other, this)) return true;
     return other is ModelFieldType &&
         fieldType == other.fieldType &&
-        ofModelName == other.ofModelName;
+        ofModelName == other.ofModelName &&
+        ofCustomTypeName == other.ofCustomTypeName;
   }
 
   @override
@@ -47,7 +52,7 @@ class ModelFieldType {
 
   @override
   String toString() {
-    return 'ModelFieldType(fieldType: $fieldType, ofModelName: $ofModelName)';
+    return 'ModelFieldType(fieldType: $fieldType, ofModelName: $ofModelName, ofCustomTypeName: $ofCustomTypeName)';
   }
 }
 
@@ -60,13 +65,13 @@ enum ModelFieldTypeEnum {
   time,
   timestamp,
   bool,
-
-  // below uses modelName
+  // below types use ofModelName
   enumeration,
-  //embedded, - ignore non model types for now
-  //embeddedCollection,
   model,
-  collection
+  collection,
+  // below types use ofCustomTypeName
+  embedded,
+  embeddedCollection,
 }
 
 extension ModelFieldTypeMethods on ModelFieldTypeEnum {

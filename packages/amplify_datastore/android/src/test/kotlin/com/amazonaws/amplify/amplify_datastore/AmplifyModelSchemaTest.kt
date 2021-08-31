@@ -86,4 +86,18 @@ class AmplifyModelSchemaTest {
                 allTypeModelSchema
         )
     }
+
+    @Test
+    fun test_model_schema_nests_custom_type_schema() {
+        val inputMap = schemasMap["PersonModelSchema"] as Map<String, Any>
+        val modelSchema = FlutterModelSchema(inputMap);
+
+        val convertedModelSchema = modelSchema.convertToNativeModelSchema()
+
+        // Verify result
+        assertEquals(
+            convertedModelSchema,
+            personSchema
+        )
+    }
 }
