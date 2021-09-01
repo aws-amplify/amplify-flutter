@@ -29,70 +29,46 @@ void main() {
   group('a model with field of type', () {
     group('String', () {
       var models = List.generate(5, (i) => StringTypeModel(value: '$i'));
-      testModelOperations<StringTypeModel>(
-        models: models,
-        classType: StringTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group('String (with null value)', () {
       var models = List.generate(5, (_) => StringTypeModel());
-      testModelOperations<StringTypeModel>(
-        models: models,
-        classType: StringTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group('List<String>', () {
       var list = List.generate(3, (i) => '$i');
       var models = List.generate(5, (_) => StringListTypeModel(value: list));
-      testModelOperations<StringListTypeModel>(
-        models: models,
-        classType: StringListTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group('List<String> (with null value)', () {
       var models = List.generate(5, (_) => StringListTypeModel());
-      testModelOperations<StringListTypeModel>(
-        models: models,
-        classType: StringListTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group('int', () {
       var models = List.generate(5, (i) => IntTypeModel(value: i));
-      testModelOperations<IntTypeModel>(
-        models: models,
-        classType: IntTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group('int (with null value)', () {
       var models = List.generate(5, (i) => IntTypeModel());
-      testModelOperations<IntTypeModel>(
-        models: models,
-        classType: IntTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group('List<int>', () {
       var list = List.generate(3, (i) => i);
       var models = List.generate(5, (_) => IntListTypeModel(value: list));
-      testModelOperations<IntListTypeModel>(
-        models: models,
-        classType: IntListTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group(
       'List<int> (with null value)',
       () {
         var models = List.generate(5, (_) => IntListTypeModel());
-        testModelOperations<IntListTypeModel>(
-          models: models,
-          classType: IntListTypeModel.classType,
-        );
+        testModelOperations(models: models);
       },
       // unskip when https://github.com/aws-amplify/amplify-flutter/issues/813 is resolved
       skip: true,
@@ -101,87 +77,57 @@ void main() {
     group('double', () {
       var models =
           List.generate(5, (i) => DoubleTypeModel(value: i.toDouble()));
-      testModelOperations<DoubleTypeModel>(
-        models: models,
-        classType: DoubleTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group('double (with null value)', () {
       var models = List.generate(5, (i) => DoubleTypeModel());
-      testModelOperations<DoubleTypeModel>(
-        models: models,
-        classType: DoubleTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group('List<double>', () {
       var list = List.generate(3, (i) => i.toDouble());
       var models = List.generate(5, (_) => DoubleListTypeModel(value: list));
-      testModelOperations<DoubleListTypeModel>(
-        models: models,
-        classType: DoubleListTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group('List<double> (with null value)', () {
       var models = List.generate(5, (_) => DoubleListTypeModel());
-      testModelOperations<DoubleListTypeModel>(
-        models: models,
-        classType: DoubleListTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group('bool', () {
       var models = List.generate(
           5, (i) => BoolTypeModel(value: i % 2 == 0 ? false : true));
-      testModelOperations<BoolTypeModel>(
-        models: models,
-        classType: BoolTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group('bool (with null value)', () {
       var models = List.generate(5, (i) => BoolTypeModel());
-      testModelOperations<BoolTypeModel>(
-        models: models,
-        classType: BoolTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group('List<bool>', () {
       var list = List.generate(3, (i) => i == 0 ? false : true);
       var models = List.generate(5, (_) => BoolListTypeModel(value: list));
-      testModelOperations<BoolListTypeModel>(
-        models: models,
-        classType: BoolListTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group('List<bool> (with null value)', () {
       var models = List.generate(5, (_) => BoolListTypeModel());
-      testModelOperations<BoolListTypeModel>(
-        models: models,
-        classType: BoolListTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group('TemporalDate', () {
       var now = DateTime.now();
       var models =
           List.generate(5, (i) => DateTypeModel(value: TemporalDate(now)));
-      testModelOperations<DateTypeModel>(
-        models: models,
-        classType: DateTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group('TemporalDate (with null value)', () {
       var models = List.generate(5, (i) => DateTypeModel());
-      testModelOperations<DateTypeModel>(
-        models: models,
-        classType: DateTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group('List<TemporalDate>', () {
@@ -189,20 +135,14 @@ void main() {
       var list =
           List.generate(3, (i) => TemporalDate(now.add(Duration(days: i))));
       var models = List.generate(5, (_) => DateListTypeModel(value: list));
-      testModelOperations<DateListTypeModel>(
-        models: models,
-        classType: DateListTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group(
       'List<TemporalDate> (with null value)',
       () {
         var models = List.generate(5, (_) => DateListTypeModel());
-        testModelOperations<DateListTypeModel>(
-          models: models,
-          classType: DateListTypeModel.classType,
-        );
+        testModelOperations(models: models);
       },
       // unskip when https://github.com/aws-amplify/amplify-flutter/issues/813 is resolved
       skip: true,
@@ -212,20 +152,15 @@ void main() {
       var now = DateTime.now();
       var models = List.generate(
           5, (i) => DateTimeTypeModel(value: TemporalDateTime(now)));
-      testModelOperations<DateTimeTypeModel>(
+      testModelOperations(
         models: models,
-        classType: DateTimeTypeModel.classType,
-        // should be unskipped after https://github.com/aws-amplify/amplify-flutter/issues/817 is resolved
         skips: {DataStoreOperation.query: true},
       );
     });
 
     group('TemporalDateTime (with null value)', () {
       var models = List.generate(5, (i) => DateTimeTypeModel());
-      testModelOperations<DateTimeTypeModel>(
-        models: models,
-        classType: DateTimeTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group('List<TemporalDateTime>', () {
@@ -233,20 +168,14 @@ void main() {
       var list =
           List.generate(3, (i) => TemporalDateTime(now.add(Duration(days: i))));
       var models = List.generate(5, (_) => DateTimeListTypeModel(value: list));
-      testModelOperations<DateTimeListTypeModel>(
-        models: models,
-        classType: DateTimeListTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group(
       'List<TemporalDateTime> (with null value)',
       () {
         var models = List.generate(5, (_) => DateTimeListTypeModel());
-        testModelOperations<DateTimeListTypeModel>(
-          models: models,
-          classType: DateTimeListTypeModel.classType,
-        );
+        testModelOperations(models: models);
       },
       // unskip when https://github.com/aws-amplify/amplify-flutter/issues/813 is resolved
       skip: true,
@@ -256,20 +185,15 @@ void main() {
       var now = DateTime.now();
       var models =
           List.generate(5, (i) => TimeTypeModel(value: TemporalTime(now)));
-      testModelOperations<TimeTypeModel>(
+      testModelOperations(
         models: models,
-        classType: TimeTypeModel.classType,
-        // should be unskipped after https://github.com/aws-amplify/amplify-flutter/issues/817 is resolved
         skips: {DataStoreOperation.query: true},
       );
     });
 
     group('TemporalTime (with null value)', () {
       var models = List.generate(5, (i) => TimeTypeModel());
-      testModelOperations<TimeTypeModel>(
-        models: models,
-        classType: TimeTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group('List<TemporalTime>', () {
@@ -277,20 +201,14 @@ void main() {
       var list =
           List.generate(3, (i) => TemporalTime(now.add(Duration(days: i))));
       var models = List.generate(5, (_) => TimeListTypeModel(value: list));
-      testModelOperations<TimeListTypeModel>(
-        models: models,
-        classType: TimeListTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group(
       'List<TemporalTime> (with null value)',
       () {
         var models = List.generate(5, (_) => TimeListTypeModel());
-        testModelOperations<TimeListTypeModel>(
-          models: models,
-          classType: TimeListTypeModel.classType,
-        );
+        testModelOperations(models: models);
       },
       // unskip when https://github.com/aws-amplify/amplify-flutter/issues/813 is resolved
       skip: true,
@@ -300,18 +218,12 @@ void main() {
       var now = DateTime.now();
       var models = List.generate(
           5, (i) => TimestampTypeModel(value: TemporalTimestamp(now)));
-      testModelOperations<TimestampTypeModel>(
-        models: models,
-        classType: TimestampTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group('TemporalTimestamp (with null value)', () {
       var models = List.generate(5, (i) => TimestampTypeModel());
-      testModelOperations<TimestampTypeModel>(
-        models: models,
-        classType: TimestampTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group(
@@ -322,10 +234,7 @@ void main() {
             3, (i) => TemporalTimestamp(now.add(Duration(days: i))));
         var models =
             List.generate(5, (_) => TimestampListTypeModel(value: list));
-        testModelOperations<TimestampListTypeModel>(
-          models: models,
-          classType: TimestampListTypeModel.classType,
-        );
+        testModelOperations(models: models);
       },
       // should be unskipped after https://github.com/aws-amplify/amplify-flutter/issues/814 is resolved
       skip: true,
@@ -335,10 +244,7 @@ void main() {
       'List<TemporalTimestamp> (with null value)',
       () {
         var models = List.generate(5, (_) => TimestampListTypeModel());
-        testModelOperations<TimestampListTypeModel>(
-          models: models,
-          classType: TimestampListTypeModel.classType,
-        );
+        testModelOperations(models: models);
       },
       // unskip when https://github.com/aws-amplify/amplify-flutter/issues/813 is resolved
       skip: true,
@@ -352,18 +258,12 @@ void main() {
         'double': 1.0,
       }));
       var models = List.generate(5, (i) => JSONTypeModel(value: json));
-      testModelOperations<JSONTypeModel>(
-        models: models,
-        classType: JSONTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group('json (with null value)', () {
       var models = List.generate(5, (i) => JSONTypeModel());
-      testModelOperations<JSONTypeModel>(
-        models: models,
-        classType: JSONTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group('List<json>', () {
@@ -375,52 +275,34 @@ void main() {
           }));
       var list = List.generate(3, (i) => generateJson(i));
       var models = List.generate(5, (_) => JSONListTypeModel(value: list));
-      testModelOperations<JSONListTypeModel>(
-        models: models,
-        classType: JSONListTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group('List<json> (with null value)', () {
       var models = List.generate(5, (_) => JSONListTypeModel());
-      testModelOperations<JSONListTypeModel>(
-        models: models,
-        classType: JSONListTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group('enum', () {
       var models = List.generate(5,
           (i) => EnumTypeModel(value: i == 0 ? EnumModel.no : EnumModel.yes));
-      testModelOperations<EnumTypeModel>(
-        models: models,
-        classType: EnumTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group('enum (with null value)', () {
       var models = List.generate(5, (i) => EnumTypeModel());
-      testModelOperations<EnumTypeModel>(
-        models: models,
-        classType: EnumTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group('List<enum>', () {
       var list = List.generate(3, (i) => i == 0 ? EnumModel.no : EnumModel.yes);
       var models = List.generate(5, (_) => EnumListTypeModel(value: list));
-      testModelOperations<EnumListTypeModel>(
-        models: models,
-        classType: EnumListTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
 
     group('List<enum> (with null value)', () {
       var models = List.generate(5, (_) => EnumListTypeModel());
-      testModelOperations<EnumListTypeModel>(
-        models: models,
-        classType: EnumListTypeModel.classType,
-      );
+      testModelOperations(models: models);
     });
   });
 }

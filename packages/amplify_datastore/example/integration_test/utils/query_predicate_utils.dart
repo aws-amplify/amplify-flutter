@@ -1,14 +1,10 @@
 import 'package:amplify_datastore/amplify_datastore.dart';
-import 'package:amplify_datastore_example/models/ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-ModelType<T> getModelType<T extends Model>() {
-  return ModelProvider.instance.getModelTypeByModelName(T.toString())
-      as ModelType<T>;
-}
+import 'model_utils.dart';
 
 Future<void> testQueryPredicate<T extends Model>({
   required QueryPredicate queryPredicate,
