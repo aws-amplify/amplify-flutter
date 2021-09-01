@@ -39,6 +39,11 @@ class AmplifyConfig {
       this.auth,
       this.storage});
 
+  /// Checks if AmplifyConfig has any configured categories
+  bool isEmpty() {
+    return analytics == null && api == null && auth == null && storage == null;
+  }
+
   /// AmplifyConfig factory constructor for reading json data
   factory AmplifyConfig.fromJson(Map<String, dynamic> json) =>
       _$AmplifyConfigFromJson(json);
