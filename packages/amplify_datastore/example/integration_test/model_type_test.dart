@@ -289,12 +289,12 @@ void main() {
     );
 
     group('AWSJSON', () {
-      String json = jsonEncode(Map.from({
+      String json = jsonEncode({
         'string': 'foo',
         'bool': true,
         'int': 1,
         'double': 1.0,
-      }));
+      });
       var models = List.generate(5, (i) => JSONTypeModel(value: json));
       testModelOperations(models: models);
     });
