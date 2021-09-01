@@ -133,8 +133,8 @@ void main() {
     });
 
     group('bool', () {
-      var models =
-          List.generate(5, (i) => BoolTypeModel(value: i == 0 ? false : true));
+      var models = List.generate(
+          5, (i) => BoolTypeModel(value: i % 2 == 0 ? false : true));
       testModelOperations<BoolTypeModel>(
         models: models,
         classType: BoolTypeModel.classType,
