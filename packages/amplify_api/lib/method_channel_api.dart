@@ -41,9 +41,10 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   final Map<APIAuthorizationType, APIAuthProvider> _authProviders = {};
 
   @override
-  Future<void> addPlugin() async {
+  Future<AuthProviderRefresher> addPlugin() async {
     try {
-      return await _channel.invokeMethod('addPlugin');
+      await _channel.invokeMethod('addPlugin');
+      return _authProviderRefresher;
     } on PlatformException catch (e) {
       if (e.code == 'AmplifyAlreadyConfiguredException') {
         throw const AmplifyAlreadyConfiguredException(
@@ -63,11 +64,43 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     _authProviders[authProvider.type] = authProvider;
   }
 
+  /// A token refresher which can be used outside of this plugin (i.e. in DataStore)
+  /// without exposing the auth providers themselves or their tokens.
+  Future<void> _authProviderRefresher([
+    APIAuthorizationType? authType = null,
+  ]) {
+    if (_authProviders.isEmpty) {
+      return SynchronousFuture(null);
+    }
+    Future<List<Map<String, dynamic>>> _tokensFuture;
+    if (authType != null) {
+      final provider = _authProviders[authType];
+      if (provider == null) {
+        throw ApiException(
+          'No provider registered for type: $authType',
+          recoverySuggestion:
+              'Make sure to call addPlugin with a list of auth providers.',
+        );
+      }
+      _tokensFuture = provider.authToken.then((token) => [token]);
+    } else {
+      _tokensFuture = _getLatestAuthTokens();
+    }
+    return _tokensFuture.then(_updateAuthTokens);
+  }
+
   /// Retrieves the latest tokens for all registered [_authProviders].
   Future<List<Map<String, dynamic>>> _getLatestAuthTokens() {
     return Future.wait(_authProviders.values.map(
       (authProvider) => authProvider.authToken,
     ));
+  }
+
+  /// Updates authorization tokens on the platform side.
+  Future<void> _updateAuthTokens(List<Map<String, dynamic>> tokens) {
+    return _channel.invokeMethod('updateTokens', {
+      _authTokensMapKey: tokens,
+    });
   }
 
   @override

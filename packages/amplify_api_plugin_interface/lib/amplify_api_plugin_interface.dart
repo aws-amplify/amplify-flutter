@@ -25,7 +25,7 @@ export 'src/types.dart';
 abstract class APIPluginInterface extends AmplifyPluginInterface {
   APIPluginInterface({required Object token}) : super(token: token);
 
-  Future<void> addPlugin() async {
+  Future<AuthProviderRefresher> addPlugin() async {
     throw UnimplementedError('addPlugin() has not been implemented.');
   }
 

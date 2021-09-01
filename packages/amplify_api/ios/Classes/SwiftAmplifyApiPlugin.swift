@@ -64,17 +64,7 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
 
             // Update tokens if included in request.
             if let tokens = arguments["tokens"] as? [[String: Any?]] {
-                for tokenMap in tokens {
-                    guard let type = tokenMap["type"] as? String,
-                          let awsAuthType = AWSAuthorizationType(rawValue: type),
-                          let token = tokenMap["token"] as? String? else {
-                        throw APIError.unknown(
-                            "Invalid arguments",
-                            "A valid AWSAuthorizationType and token entry are required",
-                            nil)
-                    }
-                    FlutterAuthProviders.setToken(type: awsAuthType, token: token)
-                }
+                try updateTokens(tokens)
             }
 
             try innerHandle(method: method, arguments: arguments, result: result)
