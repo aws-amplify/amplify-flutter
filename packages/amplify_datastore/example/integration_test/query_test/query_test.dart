@@ -16,7 +16,6 @@
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../utils/setup_utils.dart';
 import 'standard_query_operations_test.dart' as standard_query_operations_tests;
 import './query_predicate_test/query_predicate_test.dart'
     as query_predicate_tests;
@@ -25,10 +24,6 @@ void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('query()', () {
-    setUpAll(() async {
-      await configureDataStore();
-    });
-
     standard_query_operations_tests.main();
     query_predicate_tests.main();
   });
