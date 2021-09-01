@@ -18,6 +18,7 @@ import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_flutter/amplify.dart';
 
+import '../../utils/constants.dart';
 import '../../utils/query_predicate_utils.dart';
 import '../../utils/setup_utils.dart';
 
@@ -33,8 +34,16 @@ void main() {
       IntTypeModel(value: 1),
       IntTypeModel(value: 2),
       IntTypeModel(value: 1000),
+      IntTypeModel(value: dataStoreMaxInt),
+      IntTypeModel(value: dataStoreMinInt),
       IntTypeModel(),
     ];
+
+    // a value that will return 1 or 0 when compared to each test value
+    var maxIntValue = dataStoreMaxInt;
+
+    // a that will return 0 or -1 when compared to each test value
+    var minIntleValue = dataStoreMinInt;
 
     // non-null models used for all tests
     var nonNullModels = models.where((e) => e.value != null).toList();
@@ -106,14 +115,8 @@ void main() {
 
       // test with no matches
       await testQueryPredicate<IntTypeModel>(
-        queryPredicate: IntTypeModel.VALUE.lt(-1000000),
+        queryPredicate: IntTypeModel.VALUE.lt(minIntleValue),
         expectedModels: [],
-      );
-
-      // test with match all models
-      await testQueryPredicate<IntTypeModel>(
-        queryPredicate: IntTypeModel.VALUE.lt(1000000),
-        expectedModels: nonNullModels,
       );
     });
 
@@ -129,15 +132,9 @@ void main() {
         );
       }
 
-      // test with no matches
-      await testQueryPredicate<IntTypeModel>(
-        queryPredicate: IntTypeModel.VALUE.le(-1000000),
-        expectedModels: [],
-      );
-
       // test with match all models
       await testQueryPredicate<IntTypeModel>(
-        queryPredicate: IntTypeModel.VALUE.le(1000000),
+        queryPredicate: IntTypeModel.VALUE.le(maxIntValue),
         expectedModels: nonNullModels,
       );
     });
@@ -154,16 +151,9 @@ void main() {
         );
       }
 
-      // test with no matches
       await testQueryPredicate<IntTypeModel>(
-        queryPredicate: IntTypeModel.VALUE.gt(1000000),
+        queryPredicate: IntTypeModel.VALUE.gt(maxIntValue),
         expectedModels: [],
-      );
-
-      // test with match all models
-      await testQueryPredicate<IntTypeModel>(
-        queryPredicate: IntTypeModel.VALUE.gt(-1000000),
-        expectedModels: nonNullModels,
       );
     });
 
@@ -179,14 +169,9 @@ void main() {
         );
       }
 
-      await testQueryPredicate<IntTypeModel>(
-        queryPredicate: IntTypeModel.VALUE.ge(1000000),
-        expectedModels: [],
-      );
-
       // test with match all models
       await testQueryPredicate<IntTypeModel>(
-        queryPredicate: IntTypeModel.VALUE.ge(-1000000),
+        queryPredicate: IntTypeModel.VALUE.ge(minIntleValue),
         expectedModels: nonNullModels,
       );
     });
@@ -277,8 +262,8 @@ void main() {
       );
 
       // test with no match
-      var noMatchStart = 1000000;
-      var noMatchEnd = 2000000;
+      var noMatchStart = 100000;
+      var noMatchEnd = 100001;
       await testQueryPredicate<IntTypeModel>(
         queryPredicate: IntTypeModel.VALUE.between(noMatchStart, noMatchEnd),
         expectedModels: [],

@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:math';
+
 import 'package:amplify_datastore_example/models/ModelProvider.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -33,8 +35,17 @@ void main() {
       DoubleTypeModel(value: 0.1),
       DoubleTypeModel(value: 2.1),
       DoubleTypeModel(value: 1000.0),
+      DoubleTypeModel(value: double.maxFinite),
+      DoubleTypeModel(value: double.minPositive),
+      DoubleTypeModel(value: pi),
       DoubleTypeModel(),
     ];
+
+    // a value that will return 1 or 0 when compared to each test value
+    var maxDoubleValue = double.maxFinite;
+
+    // a that will return 0 or -1 when compared to each test value
+    var minDoubleValue = double.minPositive;
 
     // non-null models used for all tests
     var nonNullModels = models.where((e) => e.value != null).toList();
@@ -109,14 +120,8 @@ void main() {
 
         // test with no matches
         await testQueryPredicate<DoubleTypeModel>(
-          queryPredicate: DoubleTypeModel.VALUE.lt(-1000000.1),
+          queryPredicate: DoubleTypeModel.VALUE.lt(minDoubleValue),
           expectedModels: [],
-        );
-
-        // test with match all models
-        await testQueryPredicate<DoubleTypeModel>(
-          queryPredicate: DoubleTypeModel.VALUE.lt(1000000.1),
-          expectedModels: nonNullModels,
         );
       },
       // see: https://github.com/aws-amplify/amplify-flutter/issues/830
@@ -137,15 +142,9 @@ void main() {
           );
         }
 
-        // test with no matches
-        await testQueryPredicate<DoubleTypeModel>(
-          queryPredicate: DoubleTypeModel.VALUE.le(-1000000.1),
-          expectedModels: [],
-        );
-
         // test with match all models
         await testQueryPredicate<DoubleTypeModel>(
-          queryPredicate: DoubleTypeModel.VALUE.le(1000000.1),
+          queryPredicate: DoubleTypeModel.VALUE.le(maxDoubleValue),
           expectedModels: nonNullModels,
         );
       },
@@ -167,16 +166,10 @@ void main() {
           );
         }
 
-        // test with no matches
-        await testQueryPredicate<DoubleTypeModel>(
-          queryPredicate: DoubleTypeModel.VALUE.gt(1000000.1),
-          expectedModels: [],
-        );
-
         // test with match all models
         await testQueryPredicate<DoubleTypeModel>(
-          queryPredicate: DoubleTypeModel.VALUE.gt(-1000000.1),
-          expectedModels: nonNullModels,
+          queryPredicate: DoubleTypeModel.VALUE.gt(maxDoubleValue),
+          expectedModels: [],
         );
       },
       // see: https://github.com/aws-amplify/amplify-flutter/issues/830
@@ -197,14 +190,9 @@ void main() {
           );
         }
 
-        await testQueryPredicate<DoubleTypeModel>(
-          queryPredicate: DoubleTypeModel.VALUE.ge(1000000.1),
-          expectedModels: [],
-        );
-
         // test with match all models
         await testQueryPredicate<DoubleTypeModel>(
-          queryPredicate: DoubleTypeModel.VALUE.ge(-1000000.1),
+          queryPredicate: DoubleTypeModel.VALUE.ge(minDoubleValue),
           expectedModels: nonNullModels,
         );
       },
@@ -255,7 +243,7 @@ void main() {
       );
 
       // test with partial match
-      var partialMatchPattern = '0';
+      var partialMatchPattern = '10';
       var partialMatchModels = nonNullModels
           .where(
               (model) => model.value!.toString().contains(partialMatchPattern))
@@ -301,7 +289,7 @@ void main() {
 
         // test with no match
         var noMatchStart = 1000000.0;
-        var noMatchEnd = 2000000.0;
+        var noMatchEnd = 1000000.1;
         await testQueryPredicate<DoubleTypeModel>(
           queryPredicate:
               DoubleTypeModel.VALUE.between(noMatchStart, noMatchEnd),
