@@ -14,6 +14,7 @@
  */
 
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:amplify_datastore/amplify_datastore.dart';
 
@@ -21,6 +22,7 @@ import 'package:amplify_datastore_example/models/ModelProvider.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'utils/constants.dart';
 import 'utils/model_test_operation_utils.dart';
 
 void main() {
@@ -28,7 +30,9 @@ void main() {
 
   group('a model with field of type', () {
     group('String', () {
-      var models = List.generate(5, (i) => StringTypeModel(value: '$i'));
+      var values = ['', 'foo', 'bar', '!@#"', '\u{1F601}'];
+      var models =
+          values.map((value) => StringTypeModel(value: value)).toList();
       testModelOperations(models: models);
     });
 
@@ -49,7 +53,8 @@ void main() {
     });
 
     group('int', () {
-      var models = List.generate(5, (i) => IntTypeModel(value: i));
+      var values = [dataStoreMinInt, dataStoreMaxInt, 0, -1, 1];
+      var models = values.map((value) => IntTypeModel(value: value)).toList();
       testModelOperations(models: models);
     });
 
@@ -75,8 +80,9 @@ void main() {
     );
 
     group('double', () {
+      var values = [double.maxFinite, double.minPositive, pi, 0.0, 0.1];
       var models =
-          List.generate(5, (i) => DoubleTypeModel(value: i.toDouble()));
+          values.map((value) => DoubleTypeModel(value: value)).toList();
       testModelOperations(models: models);
     });
 
@@ -118,19 +124,26 @@ void main() {
       testModelOperations(models: models);
     });
 
-    group('TemporalDate', () {
-      var now = DateTime.now();
-      var models =
-          List.generate(5, (i) => DateTypeModel(value: TemporalDate(now)));
+    group('AWSDate', () {
+      var values = [
+        DateTime(0000, 01, 01, 00, 00, 00),
+        DateTime(1970, 01, 01, 00, 00, 00),
+        DateTime(2020, 01, 01, 00, 00, 00),
+        DateTime(2020, 01, 01, 23, 59, 59),
+        DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
+      ];
+      var models = values
+          .map((value) => DateTypeModel(value: TemporalDate(value)))
+          .toList();
       testModelOperations(models: models);
     });
 
-    group('TemporalDate (with null value)', () {
+    group('AWSDate (with null value)', () {
       var models = List.generate(5, (i) => DateTypeModel());
       testModelOperations(models: models);
     });
 
-    group('List<TemporalDate>', () {
+    group('List<AWSDate>', () {
       var now = DateTime.now();
       var list =
           List.generate(3, (i) => TemporalDate(now.add(Duration(days: i))));
@@ -139,7 +152,7 @@ void main() {
     });
 
     group(
-      'List<TemporalDate> (with null value)',
+      'List<AWSDate> (with null value)',
       () {
         var models = List.generate(5, (_) => DateListTypeModel());
         testModelOperations(models: models);
@@ -148,22 +161,33 @@ void main() {
       skip: true,
     );
 
-    group('TemporalDateTime', () {
-      var now = DateTime.now();
-      var models = List.generate(
-          5, (i) => DateTimeTypeModel(value: TemporalDateTime(now)));
+    group('AWSDateTime', () {
+      var values = [
+        DateTime(0000, 01, 01, 00, 00, 00),
+        DateTime(1970, 01, 01, 00, 00, 00),
+        DateTime(2020, 01, 01, 00, 00, 00),
+        DateTime(2020, 01, 01, 23, 59, 59),
+        DateTime(2999, 12, 31, 23, 59, 59),
+        // TemporalDateTime values with milliseconds & microseconds are not parsed correctly on Android
+        // see: https://github.com/aws-amplify/amplify-flutter/issues/817
+        // DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
+      ];
+      var models = values
+          .map((value) => DateTimeTypeModel(value: TemporalDateTime(value)))
+          .toList();
+      testModelOperations(models: models);
       testModelOperations(
         models: models,
         skips: {DataStoreOperation.query: true},
       );
     });
 
-    group('TemporalDateTime (with null value)', () {
+    group('AWSDateTime (with null value)', () {
       var models = List.generate(5, (i) => DateTimeTypeModel());
       testModelOperations(models: models);
     });
 
-    group('List<TemporalDateTime>', () {
+    group('List<AWSDateTime>', () {
       var now = DateTime.now();
       var list =
           List.generate(3, (i) => TemporalDateTime(now.add(Duration(days: i))));
@@ -172,7 +196,7 @@ void main() {
     });
 
     group(
-      'List<TemporalDateTime> (with null value)',
+      'List<AWSDateTime> (with null value)',
       () {
         var models = List.generate(5, (_) => DateTimeListTypeModel());
         testModelOperations(models: models);
@@ -181,22 +205,29 @@ void main() {
       skip: true,
     );
 
-    group('TemporalTime', () {
-      var now = DateTime.now();
-      var models =
-          List.generate(5, (i) => TimeTypeModel(value: TemporalTime(now)));
-      testModelOperations(
-        models: models,
-        skips: {DataStoreOperation.query: true},
-      );
+    group('AWSTime', () {
+      var values = [
+        DateTime(0000, 01, 01, 00, 00, 00),
+        DateTime(1970, 01, 01, 00, 00, 00),
+        DateTime(2020, 01, 01, 00, 00, 00),
+        DateTime(2020, 01, 01, 23, 59, 59),
+        DateTime(2999, 12, 31, 23, 59, 59),
+        // TemporalTime values with milliseconds & microseconds are not parsed correctly on Android
+        // see: https://github.com/aws-amplify/amplify-flutter/issues/817
+        // DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
+      ];
+      var models = values
+          .map((value) => TimeTypeModel(value: TemporalTime(value)))
+          .toList();
+      testModelOperations(models: models);
     });
 
-    group('TemporalTime (with null value)', () {
+    group('AWSTime (with null value)', () {
       var models = List.generate(5, (i) => TimeTypeModel());
       testModelOperations(models: models);
     });
 
-    group('List<TemporalTime>', () {
+    group('List<AWSTime>', () {
       var now = DateTime.now();
       var list =
           List.generate(3, (i) => TemporalTime(now.add(Duration(days: i))));
@@ -205,7 +236,7 @@ void main() {
     });
 
     group(
-      'List<TemporalTime> (with null value)',
+      'List<AWSTime> (with null value)',
       () {
         var models = List.generate(5, (_) => TimeListTypeModel());
         testModelOperations(models: models);
@@ -214,20 +245,27 @@ void main() {
       skip: true,
     );
 
-    group('TemporalTimestamp', () {
-      var now = DateTime.now();
-      var models = List.generate(
-          5, (i) => TimestampTypeModel(value: TemporalTimestamp(now)));
+    group('AWSTimestamp', () {
+      var values = [
+        DateTime(0000, 01, 01, 00, 00, 00),
+        DateTime(1970, 01, 01, 00, 00, 00),
+        DateTime(2020, 01, 01, 00, 00, 00),
+        DateTime(2020, 01, 01, 23, 59, 59),
+        DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
+      ];
+      var models = values
+          .map((value) => TimestampTypeModel(value: TemporalTimestamp(value)))
+          .toList();
       testModelOperations(models: models);
     });
 
-    group('TemporalTimestamp (with null value)', () {
+    group('AWSTimestamp (with null value)', () {
       var models = List.generate(5, (i) => TimestampTypeModel());
       testModelOperations(models: models);
     });
 
     group(
-      'List<TemporalTimestamp>',
+      'List<AWSTimestamp>',
       () {
         var now = DateTime.now();
         var list = List.generate(
@@ -241,7 +279,7 @@ void main() {
     );
 
     group(
-      'List<TemporalTimestamp> (with null value)',
+      'List<AWSTimestamp> (with null value)',
       () {
         var models = List.generate(5, (_) => TimestampListTypeModel());
         testModelOperations(models: models);
@@ -261,12 +299,12 @@ void main() {
       testModelOperations(models: models);
     });
 
-    group('json (with null value)', () {
+    group('AWSJSON (with null value)', () {
       var models = List.generate(5, (i) => JSONTypeModel());
       testModelOperations(models: models);
     });
 
-    group('List<json>', () {
+    group('List<AWSJSON>', () {
       String generateJson(int value) => jsonEncode(Map.from({
             'string': 'foo',
             'bool': true,
@@ -278,7 +316,7 @@ void main() {
       testModelOperations(models: models);
     });
 
-    group('List<json> (with null value)', () {
+    group('List<AWSJSON> (with null value)', () {
       var models = List.generate(5, (_) => JSONListTypeModel());
       testModelOperations(models: models);
     });
