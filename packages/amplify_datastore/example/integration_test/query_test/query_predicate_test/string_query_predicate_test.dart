@@ -266,6 +266,8 @@ void main() {
           .where((model) => model.value!.compareTo(partialMatchStart) >= 0)
           .where((model) => model.value!.compareTo(partialMatchEnd) <= 0)
           .toList();
+      // verify that the test is testing a partial match
+      expect(rangeMatchModels.length, greaterThanOrEqualTo(1));
       await testQueryPredicate<StringTypeModel>(
         queryPredicate:
             StringTypeModel.VALUE.between(partialMatchStart, partialMatchEnd),
