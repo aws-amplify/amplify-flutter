@@ -59,14 +59,14 @@ void main() {
       for (var value in values) {
         var expectedModels =
             models.where((model) => model.value == value).toList();
-        await testStringQueryPredicate(
+        await testQueryPredicate<StringTypeModel>(
           queryPredicate: StringTypeModel.VALUE.eq(value),
           expectedModels: expectedModels,
         );
       }
 
       // test with no match
-      await testStringQueryPredicate(
+      await testQueryPredicate<StringTypeModel>(
         queryPredicate: StringTypeModel.VALUE.eq('no match'),
         expectedModels: [],
       );
@@ -79,14 +79,14 @@ void main() {
         // see: https://github.com/aws-amplify/amplify-flutter/issues/823
         var expectedModels =
             nonNullModels.where((model) => model.value != value).toList();
-        await testStringQueryPredicate(
+        await testQueryPredicate<StringTypeModel>(
           queryPredicate: StringTypeModel.VALUE.ne(value),
           expectedModels: expectedModels,
         );
       }
 
       // test with match all models
-      await testStringQueryPredicate(
+      await testQueryPredicate<StringTypeModel>(
         queryPredicate: StringTypeModel.VALUE.ne('no match'),
         // update `nonNullModels` to `models` when #823 is fixed
         // see: https://github.com/aws-amplify/amplify-flutter/issues/823
@@ -100,20 +100,20 @@ void main() {
         var expectedModels = nonNullModels
             .where((model) => model.value!.compareTo(value) < 0)
             .toList();
-        await testStringQueryPredicate(
+        await testQueryPredicate<StringTypeModel>(
           queryPredicate: StringTypeModel.VALUE.lt(value),
           expectedModels: expectedModels,
         );
       }
 
       // test with no matches
-      await testStringQueryPredicate(
+      await testQueryPredicate<StringTypeModel>(
         queryPredicate: StringTypeModel.VALUE.lt(''),
         expectedModels: [],
       );
 
       // test with match all models
-      await testStringQueryPredicate(
+      await testQueryPredicate<StringTypeModel>(
         queryPredicate: StringTypeModel.VALUE.lt('zzz'),
         expectedModels: nonNullModels,
       );
@@ -125,14 +125,14 @@ void main() {
         var expectedModels = nonNullModels
             .where((model) => model.value!.compareTo(value) <= 0)
             .toList();
-        await testStringQueryPredicate(
+        await testQueryPredicate<StringTypeModel>(
           queryPredicate: StringTypeModel.VALUE.le(value),
           expectedModels: expectedModels,
         );
       }
 
       // test with match all models
-      await testStringQueryPredicate(
+      await testQueryPredicate<StringTypeModel>(
         queryPredicate: StringTypeModel.VALUE.le('zzz'),
         expectedModels: nonNullModels,
       );
@@ -144,14 +144,14 @@ void main() {
         var expectedModels = nonNullModels
             .where((model) => model.value!.compareTo(value) > 0)
             .toList();
-        await testStringQueryPredicate(
+        await testQueryPredicate<StringTypeModel>(
           queryPredicate: StringTypeModel.VALUE.gt(value),
           expectedModels: expectedModels,
         );
       }
 
       // test with match all models
-      await testStringQueryPredicate(
+      await testQueryPredicate<StringTypeModel>(
         queryPredicate: StringTypeModel.VALUE.gt('zzz'),
         expectedModels: [],
       );
@@ -163,20 +163,20 @@ void main() {
         var expectedModels = nonNullModels
             .where((model) => model.value!.compareTo(value) >= 0)
             .toList();
-        await testStringQueryPredicate(
+        await testQueryPredicate<StringTypeModel>(
           queryPredicate: StringTypeModel.VALUE.ge(value),
           expectedModels: expectedModels,
         );
       }
 
       // test with no matches
-      await testStringQueryPredicate(
+      await testQueryPredicate<StringTypeModel>(
         queryPredicate: StringTypeModel.VALUE.ge('zzz'),
         expectedModels: [],
       );
 
       // test with match all models
-      await testStringQueryPredicate(
+      await testQueryPredicate<StringTypeModel>(
         queryPredicate: StringTypeModel.VALUE.ge(''),
         expectedModels: nonNullModels,
       );
@@ -188,7 +188,7 @@ void main() {
       var exactMatchModels = nonNullModels
           .where((model) => model.value!.startsWith(exactMatchPattern))
           .toList();
-      await testStringQueryPredicate(
+      await testQueryPredicate<StringTypeModel>(
         queryPredicate: StringTypeModel.VALUE.beginsWith(exactMatchPattern),
         expectedModels: exactMatchModels,
       );
@@ -198,14 +198,14 @@ void main() {
       var partialMatchModels = nonNullModels
           .where((model) => model.value!.startsWith(partialMatchPattern))
           .toList();
-      await testStringQueryPredicate(
+      await testQueryPredicate<StringTypeModel>(
         queryPredicate: StringTypeModel.VALUE.beginsWith(partialMatchPattern),
         expectedModels: partialMatchModels,
       );
 
       // test with no match
       var noMatchPattern = 'foobar';
-      await testStringQueryPredicate(
+      await testQueryPredicate<StringTypeModel>(
         queryPredicate: StringTypeModel.VALUE.beginsWith(noMatchPattern),
         expectedModels: [],
       );
@@ -217,7 +217,7 @@ void main() {
       var exactMatchModels = nonNullModels
           .where((model) => model.value!.contains(exactMatchPattern))
           .toList();
-      await testStringQueryPredicate(
+      await testQueryPredicate<StringTypeModel>(
         queryPredicate: StringTypeModel.VALUE.contains(exactMatchPattern),
         expectedModels: exactMatchModels,
       );
@@ -227,14 +227,14 @@ void main() {
       var partialMatchModels = nonNullModels
           .where((model) => model.value!.contains(partialMatchPattern))
           .toList();
-      await testStringQueryPredicate(
+      await testQueryPredicate<StringTypeModel>(
         queryPredicate: StringTypeModel.VALUE.contains(partialMatchPattern),
         expectedModels: partialMatchModels,
       );
 
       // test with no match
       var noMatchPattern = 'foobar';
-      await testStringQueryPredicate(
+      await testQueryPredicate<StringTypeModel>(
         queryPredicate: StringTypeModel.VALUE.contains(noMatchPattern),
         expectedModels: [],
       );
@@ -245,7 +245,7 @@ void main() {
       var exactMatchPattern = 'foo';
       var exactMatchModels =
           models.where((model) => model.value == exactMatchPattern).toList();
-      await testStringQueryPredicate(
+      await testQueryPredicate<StringTypeModel>(
         queryPredicate:
             StringTypeModel.VALUE.between(exactMatchPattern, exactMatchPattern),
         expectedModels: exactMatchModels,
@@ -258,7 +258,7 @@ void main() {
           .where((model) => model.value!.compareTo(partialMatchStart) >= 0)
           .where((model) => model.value!.compareTo(partialMatchEnd) <= 0)
           .toList();
-      await testStringQueryPredicate(
+      await testQueryPredicate<StringTypeModel>(
         queryPredicate:
             StringTypeModel.VALUE.between(partialMatchStart, partialMatchEnd),
         expectedModels: rangeMatchModels,
@@ -267,7 +267,7 @@ void main() {
       // test with no match
       var noMatchStart = 'foobar';
       var noMatchEnd = 'foobuzz';
-      await testStringQueryPredicate(
+      await testQueryPredicate<StringTypeModel>(
         queryPredicate: StringTypeModel.VALUE.between(noMatchStart, noMatchEnd),
         expectedModels: [],
       );

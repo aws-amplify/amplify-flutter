@@ -44,13 +44,13 @@ void main() {
         }
 
         // test with all matches
-        await testBoolQueryPredicate(
+        await testQueryPredicate<BoolTypeModel>(
           queryPredicate: BoolTypeModel.VALUE.eq(true),
           expectedModels: models,
         );
 
         // test with no matches
-        await testBoolQueryPredicate(
+        await testQueryPredicate<BoolTypeModel>(
           queryPredicate: BoolTypeModel.VALUE.eq(false),
           expectedModels: [],
         );
@@ -68,13 +68,13 @@ void main() {
         }
 
         // test with partial matches for true
-        await testBoolQueryPredicate(
+        await testQueryPredicate<BoolTypeModel>(
           queryPredicate: BoolTypeModel.VALUE.eq(true),
           expectedModels: models.where((element) => element.value!).toList(),
         );
 
         // test with no matches for false
-        await testBoolQueryPredicate(
+        await testQueryPredicate<BoolTypeModel>(
           queryPredicate: BoolTypeModel.VALUE.eq(false),
           expectedModels: models.where((element) => !element.value!).toList(),
         );
@@ -92,13 +92,13 @@ void main() {
         }
 
         // test with all matches
-        await testBoolQueryPredicate(
+        await testQueryPredicate<BoolTypeModel>(
           queryPredicate: BoolTypeModel.VALUE.ne(false),
           expectedModels: models,
         );
 
         // test with no matches
-        await testBoolQueryPredicate(
+        await testQueryPredicate<BoolTypeModel>(
           queryPredicate: BoolTypeModel.VALUE.ne(true),
           expectedModels: [],
         );
@@ -116,13 +116,13 @@ void main() {
         }
 
         // test with partial matches for true
-        await testBoolQueryPredicate(
+        await testQueryPredicate<BoolTypeModel>(
           queryPredicate: BoolTypeModel.VALUE.ne(true),
           expectedModels: models.where((element) => !element.value!).toList(),
         );
 
         // test with no matches for false
-        await testBoolQueryPredicate(
+        await testQueryPredicate<BoolTypeModel>(
           queryPredicate: BoolTypeModel.VALUE.ne(false),
           expectedModels: models.where((element) => element.value!).toList(),
         );

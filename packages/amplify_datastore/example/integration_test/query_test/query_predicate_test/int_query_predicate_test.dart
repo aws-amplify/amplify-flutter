@@ -57,14 +57,14 @@ void main() {
       for (var value in values) {
         var expectedModels =
             models.where((model) => model.value == value).toList();
-        await testIntQueryPredicate(
+        await testQueryPredicate<IntTypeModel>(
           queryPredicate: IntTypeModel.VALUE.eq(value),
           expectedModels: expectedModels,
         );
       }
 
       // test with no match
-      await testIntQueryPredicate(
+      await testQueryPredicate<IntTypeModel>(
         queryPredicate: IntTypeModel.VALUE.eq(123),
         expectedModels: [],
       );
@@ -77,14 +77,14 @@ void main() {
         // see: https://github.com/aws-amplify/amplify-flutter/issues/823
         var expectedModels =
             nonNullModels.where((model) => model.value != value).toList();
-        await testIntQueryPredicate(
+        await testQueryPredicate<IntTypeModel>(
           queryPredicate: IntTypeModel.VALUE.ne(value),
           expectedModels: expectedModels,
         );
       }
 
       // test with match all models
-      await testIntQueryPredicate(
+      await testQueryPredicate<IntTypeModel>(
         queryPredicate: IntTypeModel.VALUE.ne(123),
         // update `nonNullModels` to `models` when #823 is fixed
         // see: https://github.com/aws-amplify/amplify-flutter/issues/823
@@ -98,20 +98,20 @@ void main() {
         var expectedModels = nonNullModels
             .where((model) => model.value!.compareTo(value) < 0)
             .toList();
-        await testIntQueryPredicate(
+        await testQueryPredicate<IntTypeModel>(
           queryPredicate: IntTypeModel.VALUE.lt(value),
           expectedModels: expectedModels,
         );
       }
 
       // test with no matches
-      await testIntQueryPredicate(
+      await testQueryPredicate<IntTypeModel>(
         queryPredicate: IntTypeModel.VALUE.lt(-1000000),
         expectedModels: [],
       );
 
       // test with match all models
-      await testIntQueryPredicate(
+      await testQueryPredicate<IntTypeModel>(
         queryPredicate: IntTypeModel.VALUE.lt(1000000),
         expectedModels: nonNullModels,
       );
@@ -123,20 +123,20 @@ void main() {
         var expectedModels = nonNullModels
             .where((model) => model.value!.compareTo(value) <= 0)
             .toList();
-        await testIntQueryPredicate(
+        await testQueryPredicate<IntTypeModel>(
           queryPredicate: IntTypeModel.VALUE.le(value),
           expectedModels: expectedModels,
         );
       }
 
       // test with no matches
-      await testIntQueryPredicate(
+      await testQueryPredicate<IntTypeModel>(
         queryPredicate: IntTypeModel.VALUE.le(-1000000),
         expectedModels: [],
       );
 
       // test with match all models
-      await testIntQueryPredicate(
+      await testQueryPredicate<IntTypeModel>(
         queryPredicate: IntTypeModel.VALUE.le(1000000),
         expectedModels: nonNullModels,
       );
@@ -148,20 +148,20 @@ void main() {
         var expectedModels = nonNullModels
             .where((model) => model.value!.compareTo(value) > 0)
             .toList();
-        await testIntQueryPredicate(
+        await testQueryPredicate<IntTypeModel>(
           queryPredicate: IntTypeModel.VALUE.gt(value),
           expectedModels: expectedModels,
         );
       }
 
       // test with no matches
-      await testIntQueryPredicate(
+      await testQueryPredicate<IntTypeModel>(
         queryPredicate: IntTypeModel.VALUE.gt(1000000),
         expectedModels: [],
       );
 
       // test with match all models
-      await testIntQueryPredicate(
+      await testQueryPredicate<IntTypeModel>(
         queryPredicate: IntTypeModel.VALUE.gt(-1000000),
         expectedModels: nonNullModels,
       );
@@ -173,19 +173,19 @@ void main() {
         var expectedModels = nonNullModels
             .where((model) => model.value!.compareTo(value) >= 0)
             .toList();
-        await testIntQueryPredicate(
+        await testQueryPredicate<IntTypeModel>(
           queryPredicate: IntTypeModel.VALUE.ge(value),
           expectedModels: expectedModels,
         );
       }
 
-      await testIntQueryPredicate(
+      await testQueryPredicate<IntTypeModel>(
         queryPredicate: IntTypeModel.VALUE.ge(1000000),
         expectedModels: [],
       );
 
       // test with match all models
-      await testIntQueryPredicate(
+      await testQueryPredicate<IntTypeModel>(
         queryPredicate: IntTypeModel.VALUE.ge(-1000000),
         expectedModels: nonNullModels,
       );
@@ -198,7 +198,7 @@ void main() {
           .where(
               (model) => model.value!.toString().startsWith(exactMatchPattern))
           .toList();
-      await testIntQueryPredicate(
+      await testQueryPredicate<IntTypeModel>(
         queryPredicate: IntTypeModel.VALUE.beginsWith(exactMatchPattern),
         expectedModels: exactMatchModels,
       );
@@ -209,14 +209,14 @@ void main() {
           .where((model) =>
               model.value!.toString().startsWith(partialMatchPattern))
           .toList();
-      await testIntQueryPredicate(
+      await testQueryPredicate<IntTypeModel>(
         queryPredicate: IntTypeModel.VALUE.beginsWith(partialMatchPattern),
         expectedModels: partialMatchModels,
       );
 
       // test with no match
       var noMatchPattern = '123';
-      await testIntQueryPredicate(
+      await testQueryPredicate<IntTypeModel>(
         queryPredicate: IntTypeModel.VALUE.beginsWith(noMatchPattern),
         expectedModels: [],
       );
@@ -228,7 +228,7 @@ void main() {
       var exactMatchModels = nonNullModels
           .where((model) => model.value!.toString().contains(exactMatchPattern))
           .toList();
-      await testIntQueryPredicate(
+      await testQueryPredicate<IntTypeModel>(
         queryPredicate: IntTypeModel.VALUE.contains(exactMatchPattern),
         expectedModels: exactMatchModels,
       );
@@ -239,14 +239,14 @@ void main() {
           .where(
               (model) => model.value!.toString().contains(partialMatchPattern))
           .toList();
-      await testIntQueryPredicate(
+      await testQueryPredicate<IntTypeModel>(
         queryPredicate: IntTypeModel.VALUE.contains(partialMatchPattern),
         expectedModels: partialMatchModels,
       );
 
       // test with no match
       var noMatchPattern = '123';
-      await testIntQueryPredicate(
+      await testQueryPredicate<IntTypeModel>(
         queryPredicate: IntTypeModel.VALUE.contains(noMatchPattern),
         expectedModels: [],
       );
@@ -257,7 +257,7 @@ void main() {
       var exactMatchPattern = 1000;
       var exactMatchModels =
           models.where((model) => model.value == exactMatchPattern).toList();
-      await testIntQueryPredicate(
+      await testQueryPredicate<IntTypeModel>(
         queryPredicate:
             IntTypeModel.VALUE.between(exactMatchPattern, exactMatchPattern),
         expectedModels: exactMatchModels,
@@ -270,7 +270,7 @@ void main() {
           .where((model) => model.value!.compareTo(partialMatchStart) >= 0)
           .where((model) => model.value!.compareTo(partialMatchEnd) <= 0)
           .toList();
-      await testIntQueryPredicate(
+      await testQueryPredicate<IntTypeModel>(
         queryPredicate:
             IntTypeModel.VALUE.between(partialMatchStart, partialMatchEnd),
         expectedModels: rangeMatchModels,
@@ -279,7 +279,7 @@ void main() {
       // test with no match
       var noMatchStart = 1000000;
       var noMatchEnd = 2000000;
-      await testIntQueryPredicate(
+      await testQueryPredicate<IntTypeModel>(
         queryPredicate: IntTypeModel.VALUE.between(noMatchStart, noMatchEnd),
         expectedModels: [],
       );

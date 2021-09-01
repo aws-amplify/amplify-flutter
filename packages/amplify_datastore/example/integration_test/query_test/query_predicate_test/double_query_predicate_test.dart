@@ -58,14 +58,14 @@ void main() {
       for (var value in nonNullValues) {
         var expectedModels =
             models.where((model) => model.value == value).toList();
-        await testDoubleQueryPredicate(
+        await testQueryPredicate<DoubleTypeModel>(
           queryPredicate: DoubleTypeModel.VALUE.eq(value),
           expectedModels: expectedModels,
         );
       }
 
       // test with no match
-      await testDoubleQueryPredicate(
+      await testQueryPredicate<DoubleTypeModel>(
         queryPredicate: DoubleTypeModel.VALUE.eq(123.123),
         expectedModels: [],
       );
@@ -78,14 +78,14 @@ void main() {
         // see: https://github.com/aws-amplify/amplify-flutter/issues/823
         var expectedModels =
             nonNullModels.where((model) => model.value != value).toList();
-        await testDoubleQueryPredicate(
+        await testQueryPredicate<DoubleTypeModel>(
           queryPredicate: DoubleTypeModel.VALUE.ne(value),
           expectedModels: expectedModels,
         );
       }
 
       // test with match all models
-      await testDoubleQueryPredicate(
+      await testQueryPredicate<DoubleTypeModel>(
         queryPredicate: DoubleTypeModel.VALUE.ne(123.123),
         // update `nonNullModels` to `models` when #823 is fixed
         // see: https://github.com/aws-amplify/amplify-flutter/issues/823
@@ -101,20 +101,20 @@ void main() {
           var expectedModels = nonNullModels
               .where((model) => model.value!.compareTo(value) < 0)
               .toList();
-          await testDoubleQueryPredicate(
+          await testQueryPredicate<DoubleTypeModel>(
             queryPredicate: DoubleTypeModel.VALUE.lt(value),
             expectedModels: expectedModels,
           );
         }
 
         // test with no matches
-        await testDoubleQueryPredicate(
+        await testQueryPredicate<DoubleTypeModel>(
           queryPredicate: DoubleTypeModel.VALUE.lt(-1000000.1),
           expectedModels: [],
         );
 
         // test with match all models
-        await testDoubleQueryPredicate(
+        await testQueryPredicate<DoubleTypeModel>(
           queryPredicate: DoubleTypeModel.VALUE.lt(1000000.1),
           expectedModels: nonNullModels,
         );
@@ -131,20 +131,20 @@ void main() {
           var expectedModels = nonNullModels
               .where((model) => model.value!.compareTo(value) <= 0)
               .toList();
-          await testDoubleQueryPredicate(
+          await testQueryPredicate<DoubleTypeModel>(
             queryPredicate: DoubleTypeModel.VALUE.le(value),
             expectedModels: expectedModels,
           );
         }
 
         // test with no matches
-        await testDoubleQueryPredicate(
+        await testQueryPredicate<DoubleTypeModel>(
           queryPredicate: DoubleTypeModel.VALUE.le(-1000000.1),
           expectedModels: [],
         );
 
         // test with match all models
-        await testDoubleQueryPredicate(
+        await testQueryPredicate<DoubleTypeModel>(
           queryPredicate: DoubleTypeModel.VALUE.le(1000000.1),
           expectedModels: nonNullModels,
         );
@@ -161,20 +161,20 @@ void main() {
           var expectedModels = nonNullModels
               .where((model) => model.value!.compareTo(value) > 0)
               .toList();
-          await testDoubleQueryPredicate(
+          await testQueryPredicate<DoubleTypeModel>(
             queryPredicate: DoubleTypeModel.VALUE.gt(value),
             expectedModels: expectedModels,
           );
         }
 
         // test with no matches
-        await testDoubleQueryPredicate(
+        await testQueryPredicate<DoubleTypeModel>(
           queryPredicate: DoubleTypeModel.VALUE.gt(1000000.1),
           expectedModels: [],
         );
 
         // test with match all models
-        await testDoubleQueryPredicate(
+        await testQueryPredicate<DoubleTypeModel>(
           queryPredicate: DoubleTypeModel.VALUE.gt(-1000000.1),
           expectedModels: nonNullModels,
         );
@@ -191,19 +191,19 @@ void main() {
           var expectedModels = nonNullModels
               .where((model) => model.value!.compareTo(value) >= 0)
               .toList();
-          await testDoubleQueryPredicate(
+          await testQueryPredicate<DoubleTypeModel>(
             queryPredicate: DoubleTypeModel.VALUE.ge(value),
             expectedModels: expectedModels,
           );
         }
 
-        await testDoubleQueryPredicate(
+        await testQueryPredicate<DoubleTypeModel>(
           queryPredicate: DoubleTypeModel.VALUE.ge(1000000.1),
           expectedModels: [],
         );
 
         // test with match all models
-        await testDoubleQueryPredicate(
+        await testQueryPredicate<DoubleTypeModel>(
           queryPredicate: DoubleTypeModel.VALUE.ge(-1000000.1),
           expectedModels: nonNullModels,
         );
@@ -219,7 +219,7 @@ void main() {
           .where(
               (model) => model.value!.toString().startsWith(exactMatchPattern))
           .toList();
-      await testDoubleQueryPredicate(
+      await testQueryPredicate<DoubleTypeModel>(
         queryPredicate: DoubleTypeModel.VALUE.beginsWith(exactMatchPattern),
         expectedModels: exactMatchModels,
       );
@@ -230,14 +230,14 @@ void main() {
           .where((model) =>
               model.value!.toString().startsWith(partialMatchPattern))
           .toList();
-      await testDoubleQueryPredicate(
+      await testQueryPredicate<DoubleTypeModel>(
         queryPredicate: DoubleTypeModel.VALUE.beginsWith(partialMatchPattern),
         expectedModels: partialMatchModels,
       );
 
       // test with no match
       var noMatchPattern = '123.123';
-      await testDoubleQueryPredicate(
+      await testQueryPredicate<DoubleTypeModel>(
         queryPredicate: DoubleTypeModel.VALUE.beginsWith(noMatchPattern),
         expectedModels: [],
       );
@@ -249,7 +249,7 @@ void main() {
       var exactMatchModels = nonNullModels
           .where((model) => model.value!.toString().contains(exactMatchPattern))
           .toList();
-      await testDoubleQueryPredicate(
+      await testQueryPredicate<DoubleTypeModel>(
         queryPredicate: DoubleTypeModel.VALUE.contains(exactMatchPattern),
         expectedModels: exactMatchModels,
       );
@@ -260,14 +260,14 @@ void main() {
           .where(
               (model) => model.value!.toString().contains(partialMatchPattern))
           .toList();
-      await testDoubleQueryPredicate(
+      await testQueryPredicate<DoubleTypeModel>(
         queryPredicate: DoubleTypeModel.VALUE.contains(partialMatchPattern),
         expectedModels: partialMatchModels,
       );
 
       // test with no match
       var noMatchPattern = '123.123';
-      await testDoubleQueryPredicate(
+      await testQueryPredicate<DoubleTypeModel>(
         queryPredicate: DoubleTypeModel.VALUE.contains(noMatchPattern),
         expectedModels: [],
       );
@@ -280,7 +280,7 @@ void main() {
         var exactMatchPattern = 1000.0;
         var exactMatchModels =
             models.where((model) => model.value == exactMatchPattern).toList();
-        await testDoubleQueryPredicate(
+        await testQueryPredicate<DoubleTypeModel>(
           queryPredicate: DoubleTypeModel.VALUE
               .between(exactMatchPattern, exactMatchPattern),
           expectedModels: exactMatchModels,
@@ -293,7 +293,7 @@ void main() {
             .where((model) => model.value!.compareTo(partialMatchStart) >= 0)
             .where((model) => model.value!.compareTo(partialMatchEnd) <= 0)
             .toList();
-        await testDoubleQueryPredicate(
+        await testQueryPredicate<DoubleTypeModel>(
           queryPredicate:
               DoubleTypeModel.VALUE.between(partialMatchStart, partialMatchEnd),
           expectedModels: rangeMatchModels,
@@ -302,7 +302,7 @@ void main() {
         // test with no match
         var noMatchStart = 1000000.0;
         var noMatchEnd = 2000000.0;
-        await testDoubleQueryPredicate(
+        await testQueryPredicate<DoubleTypeModel>(
           queryPredicate:
               DoubleTypeModel.VALUE.between(noMatchStart, noMatchEnd),
           expectedModels: [],
