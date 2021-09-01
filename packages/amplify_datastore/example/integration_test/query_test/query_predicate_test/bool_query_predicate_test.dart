@@ -121,7 +121,7 @@ void main() {
           expectedModels: models.where((element) => !element.value!).toList(),
         );
 
-        // test with no matches for false
+        // test with partial matches for false
         await testQueryPredicate<BoolTypeModel>(
           queryPredicate: BoolTypeModel.VALUE.ne(false),
           expectedModels: models.where((element) => element.value!).toList(),
