@@ -132,12 +132,13 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
                 graphQLSubscriptionsStreamHandler: graphQLSubscriptionsStreamHandler
             )
         case "updateTokens":
-            guard let tokens = arguments["tokens"] as? [[String: Any?]] else {
+            guard let _ = arguments["tokens"] as? [[String: Any?]] else {
                 throw APIError.unknown("Invalid token map provided",
                                         "Provide tokens in the \"tokens\" field",
                                         nil)
             }
-            try updateTokens(tokens)
+            
+            // Tokens already updated
             result(nil)
         default:
             result(FlutterMethodNotImplemented)
