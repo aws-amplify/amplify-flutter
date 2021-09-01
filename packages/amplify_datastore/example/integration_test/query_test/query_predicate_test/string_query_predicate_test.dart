@@ -34,9 +34,17 @@ void main() {
       StringTypeModel(value: 'abcd'),
       StringTypeModel(value: 'abce'),
       StringTypeModel(value: 'abcf'),
+      StringTypeModel(value: '!@#^&*()'),
+      StringTypeModel(value: '\u{1F601}'),
       StringTypeModel(value: ''),
       StringTypeModel(),
     ];
+
+    // a string value that will return 1 when compared to each test value
+    var maxStringValue = '\u{FFFFF}';
+
+    // a string that will return 0 or -1 when compared to each test value
+    var minStringValue = '';
 
     // non-null models used for all tests
     var nonNullModels = models.where((e) => e.value != null).toList();
@@ -108,13 +116,13 @@ void main() {
 
       // test with no matches
       await testQueryPredicate<StringTypeModel>(
-        queryPredicate: StringTypeModel.VALUE.lt(''),
+        queryPredicate: StringTypeModel.VALUE.lt(minStringValue),
         expectedModels: [],
       );
 
       // test with match all models
       await testQueryPredicate<StringTypeModel>(
-        queryPredicate: StringTypeModel.VALUE.lt('zzz'),
+        queryPredicate: StringTypeModel.VALUE.lt(maxStringValue),
         expectedModels: nonNullModels,
       );
     });
@@ -133,7 +141,7 @@ void main() {
 
       // test with match all models
       await testQueryPredicate<StringTypeModel>(
-        queryPredicate: StringTypeModel.VALUE.le('zzz'),
+        queryPredicate: StringTypeModel.VALUE.le(maxStringValue),
         expectedModels: nonNullModels,
       );
     });
@@ -152,7 +160,7 @@ void main() {
 
       // test with match all models
       await testQueryPredicate<StringTypeModel>(
-        queryPredicate: StringTypeModel.VALUE.gt('zzz'),
+        queryPredicate: StringTypeModel.VALUE.gt(maxStringValue),
         expectedModels: [],
       );
     });
@@ -171,13 +179,13 @@ void main() {
 
       // test with no matches
       await testQueryPredicate<StringTypeModel>(
-        queryPredicate: StringTypeModel.VALUE.ge('zzz'),
+        queryPredicate: StringTypeModel.VALUE.ge(maxStringValue),
         expectedModels: [],
       );
 
       // test with match all models
       await testQueryPredicate<StringTypeModel>(
-        queryPredicate: StringTypeModel.VALUE.ge(''),
+        queryPredicate: StringTypeModel.VALUE.ge(minStringValue),
         expectedModels: nonNullModels,
       );
     });
