@@ -104,9 +104,8 @@ void main() {
     testWidgets('lt()', (WidgetTester tester) async {
       // test against all (non-null) values
       for (var value in nonNullValues) {
-        var expectedModels = nonNullModels
-            .where((model) => model.value!.compareTo(value) < 0)
-            .toList();
+        var expectedModels =
+            nonNullModels.where((model) => model.value! < value).toList();
         await testQueryPredicate<IntTypeModel>(
           queryPredicate: IntTypeModel.VALUE.lt(value),
           expectedModels: expectedModels,
@@ -123,9 +122,8 @@ void main() {
     testWidgets('le()', (WidgetTester tester) async {
       // test against all (non-null) values
       for (var value in nonNullValues) {
-        var expectedModels = nonNullModels
-            .where((model) => model.value!.compareTo(value) <= 0)
-            .toList();
+        var expectedModels =
+            nonNullModels.where((model) => model.value! <= value).toList();
         await testQueryPredicate<IntTypeModel>(
           queryPredicate: IntTypeModel.VALUE.le(value),
           expectedModels: expectedModels,
@@ -142,9 +140,8 @@ void main() {
     testWidgets('gt()', (WidgetTester tester) async {
       // test against all (non-null) values
       for (var value in nonNullValues) {
-        var expectedModels = nonNullModels
-            .where((model) => model.value!.compareTo(value) > 0)
-            .toList();
+        var expectedModels =
+            nonNullModels.where((model) => model.value! > value).toList();
         await testQueryPredicate<IntTypeModel>(
           queryPredicate: IntTypeModel.VALUE.gt(value),
           expectedModels: expectedModels,
@@ -160,9 +157,8 @@ void main() {
     testWidgets('ge()', (WidgetTester tester) async {
       // test against all (non-null) values
       for (var value in nonNullValues) {
-        var expectedModels = nonNullModels
-            .where((model) => model.value!.compareTo(value) >= 0)
-            .toList();
+        var expectedModels =
+            nonNullModels.where((model) => model.value! >= value).toList();
         await testQueryPredicate<IntTypeModel>(
           queryPredicate: IntTypeModel.VALUE.ge(value),
           expectedModels: expectedModels,
@@ -252,8 +248,8 @@ void main() {
       var partialMatchStart = -1;
       var partialMatchEnd = 1;
       var rangeMatchModels = nonNullModels
-          .where((model) => model.value!.compareTo(partialMatchStart) >= 0)
-          .where((model) => model.value!.compareTo(partialMatchEnd) <= 0)
+          .where((model) => model.value! >= partialMatchStart)
+          .where((model) => model.value! <= partialMatchEnd)
           .toList();
       await testQueryPredicate<IntTypeModel>(
         queryPredicate:

@@ -109,9 +109,8 @@ void main() {
       (WidgetTester tester) async {
         // test against all (non-null) values
         for (var value in nonNullValues) {
-          var expectedModels = nonNullModels
-              .where((model) => model.value!.compareTo(value) < 0)
-              .toList();
+          var expectedModels =
+              nonNullModels.where((model) => model.value! < value).toList();
           await testQueryPredicate<DoubleTypeModel>(
             queryPredicate: DoubleTypeModel.VALUE.lt(value),
             expectedModels: expectedModels,
@@ -133,9 +132,8 @@ void main() {
       (WidgetTester tester) async {
         // test against all (non-null) values
         for (var value in nonNullValues) {
-          var expectedModels = nonNullModels
-              .where((model) => model.value!.compareTo(value) <= 0)
-              .toList();
+          var expectedModels =
+              nonNullModels.where((model) => model.value! <= value).toList();
           await testQueryPredicate<DoubleTypeModel>(
             queryPredicate: DoubleTypeModel.VALUE.le(value),
             expectedModels: expectedModels,
@@ -157,9 +155,8 @@ void main() {
       (WidgetTester tester) async {
         // test against all (non-null) values
         for (var value in nonNullValues) {
-          var expectedModels = nonNullModels
-              .where((model) => model.value!.compareTo(value) > 0)
-              .toList();
+          var expectedModels =
+              nonNullModels.where((model) => model.value! > value).toList();
           await testQueryPredicate<DoubleTypeModel>(
             queryPredicate: DoubleTypeModel.VALUE.gt(value),
             expectedModels: expectedModels,
@@ -181,9 +178,8 @@ void main() {
       (WidgetTester tester) async {
         // test against all (non-null) values
         for (var value in nonNullValues) {
-          var expectedModels = nonNullModels
-              .where((model) => model.value!.compareTo(value) >= 0)
-              .toList();
+          var expectedModels =
+              nonNullModels.where((model) => model.value! >= value).toList();
           await testQueryPredicate<DoubleTypeModel>(
             queryPredicate: DoubleTypeModel.VALUE.ge(value),
             expectedModels: expectedModels,
@@ -278,8 +274,8 @@ void main() {
         var partialMatchStart = -1.0;
         var partialMatchEnd = 1.0;
         var rangeMatchModels = nonNullModels
-            .where((model) => model.value!.compareTo(partialMatchStart) >= 0)
-            .where((model) => model.value!.compareTo(partialMatchEnd) <= 0)
+            .where((model) => model.value! >= partialMatchStart)
+            .where((model) => model.value! <= partialMatchEnd)
             .toList();
         await testQueryPredicate<DoubleTypeModel>(
           queryPredicate:
