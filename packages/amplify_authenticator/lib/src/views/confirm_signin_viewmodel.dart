@@ -11,8 +11,7 @@ class ConfirmSignInViewModel extends BaseViewModel {
   final _formKey = GlobalKey<FormState>();
 
   GlobalKey<FormState> get formKey => _formKey;
-  String? _username;
-  String? _password;
+
   String? _code;
   String? _address;
   String? _birthdate;
@@ -34,14 +33,6 @@ class ConfirmSignInViewModel extends BaseViewModel {
   String? _custom;
 
   Map<String, String> authAttributes = {};
-
-  void setUsername(String value) {
-    _username = value;
-  }
-
-  void setPassword(String value) {
-    _password = value;
-  }
 
   void setCode(String value) {
     _code = value;
@@ -140,38 +131,19 @@ class ConfirmSignInViewModel extends BaseViewModel {
 
   // Auth calls
 
-  Future<void> confirmNewPassword() async {
+  Future<void> confirmSignIn() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
     setBusy(true);
-    AuthConfirmSignInNewPasswordData confirm = AuthConfirmSignInNewPasswordData(
-        code: _code!.trim(),
-        attributes: authAttributes,
-        username: _username!.trim(),
-        password: _password!.trim());
+    AuthConfirmSignInData confirm =
+        AuthConfirmSignInData(code: _code!.trim(), attributes: authAttributes);
 
-    _authBloc.authEvent.add(AuthConfirmSignInNewPassword(confirm));
+    _authBloc.authEvent.add(AuthConfirmSignIn(confirm));
     await Future.any([
       _authBloc.exceptions.first,
       _authBloc.stream
-          .firstWhere((state) => state is AuthFlow || state is Authenticated),
-    ]);
-    setBusy(false);
-  }
-
-  Future<void> confirmMfa() async {
-    if (!_formKey.currentState!.validate()) {
-      return;
-    }
-    setBusy(true);
-    AuthConfirmSignInMFAData confirm = AuthConfirmSignInMFAData(
-        code: _code!.trim(), attributes: authAttributes);
-
-    _authBloc.authEvent.add(AuthConfirmSignInMFA(confirm));
-    await Future.any([
-      _authBloc.exceptions.first,
-      _authBloc.stream.firstWhere((state) => state is Authenticated),
+          .firstWhere((state) => state is Authenticated || state is AuthFlow),
     ]);
     setBusy(false);
   }

@@ -62,10 +62,6 @@ class StateMachineBloc {
       yield* _signUp(event.data);
     } else if (event is AuthConfirmSignUp) {
       yield* _confirmSignUp(event.data);
-    } else if (event is AuthConfirmSignInMFA) {
-      yield* _confirmSignInMfa(event.data);
-    } else if (event is AuthConfirmSignInNewPassword) {
-      yield* _confirmSignInNewPassword(event.data);
     } else if (event is AuthChangeScreen) {
       yield* _changeScreen(event.screen);
     } else if (event is AuthSignOut) {
@@ -74,34 +70,46 @@ class StateMachineBloc {
       yield* _sendCode(event.data);
     } else if (event is AuthConfirmPassword) {
       yield* _confirmPassword(event.data);
+    } else if (event is AuthConfirmSignIn) {
+      yield* _confirmSignIn(event.data);
     }
   }
 
-  Stream<AuthState> _confirmSignInNewPassword(
-      AuthConfirmSignInNewPasswordData data) async* {
+  Stream<AuthState> _confirmSignIn(AuthConfirmSignInData data) async* {
     try {
-      await _authService.confirmSignIn(
+      SignInResult result = await _authService.confirmSignIn(
           code: data.code, attributes: data.attributes);
 
-      AuthSignInData authSignInData =
-          AuthSignInData(username: data.username, password: data.password);
-      yield* _signIn(authSignInData);
-    } on Exception catch (e) {
-      if (e is AmplifyException) {
-        print(e);
-        _exceptionController.add(AuthenticatorException(e.message));
-      } else {
-        _exceptionController.add(AuthenticatorException(e.toString()));
+      switch (result.nextStep!.signInStep) {
+        case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
+          yield AuthFlow(
+            screen: AuthScreen.confirmSignInMfa,
+          );
+
+          break;
+        case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
+          _exceptionController.add(
+              AuthenticatorException('This is screen is not implemented yet'));
+
+          break;
+        case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
+          yield AuthFlow(
+            screen: AuthScreen.confirmSignInNewPassword,
+          );
+
+          break;
+        case 'RESET_PASSWORD':
+          yield AuthFlow(screen: AuthScreen.sendCode);
+          break;
+        case 'CONFIRM_SIGN_UP':
+          yield AuthFlow(screen: AuthScreen.confirmSignUp);
+          break;
+        case 'DONE':
+          yield const Authenticated();
+          break;
+        default:
+          break;
       }
-    }
-  }
-
-  Stream<AuthState> _confirmSignInMfa(AuthConfirmSignInMFAData data) async* {
-    try {
-      await _authService.confirmSignIn(
-          code: data.code, attributes: data.attributes);
-
-      yield const Authenticated();
     } on Exception catch (e) {
       if (e is AmplifyException) {
         print(e);

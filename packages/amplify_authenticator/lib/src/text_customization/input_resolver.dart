@@ -20,7 +20,7 @@ class InputResolver {
   StringResolver username_title = (_) => "Username*";
 
   /// Hint of username field
-  StringResolver username_hint = (_) => "Enter your usernme";
+  StringResolver username_hint = (_) => "Enter your username";
 
   /// Title of password field
   StringResolver password_title = (_) => "Password*";
