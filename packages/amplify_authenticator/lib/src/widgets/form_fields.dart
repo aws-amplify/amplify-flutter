@@ -13,9 +13,15 @@
  * permissions and limitations under the License.
 */
 
+import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/enums/confirm_signin_types.dart';
 import 'package:amplify_authenticator/src/keys.dart';
+import 'package:amplify_authenticator/src/models/authenticator_exceptions.dart';
+import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 import 'package:amplify_authenticator/src/widgets/buttons.dart';
+import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/config/amplify_config.dart';
+import 'package:amplify_flutter/config/auth/password_protection_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/widgets/containers.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
@@ -225,6 +231,28 @@ class _SignUpFormFieldState extends State<SignUpFormField> {
     });
   }
 
+  AuthService _authService = AmplifyAuthService();
+  late StateMachineBloc _stateMachineBloc;
+  PasswordProtectionSettings? _passwordProtectionSettings;
+
+  @override
+  void initState() {
+    _stateMachineBloc = StateMachineBloc(_authService)
+      ..authEvent.add(GetCurrentUser());
+    Amplify.asyncConfig.then((config) {
+      if (mounted) {
+        setState(() => _passwordProtectionSettings = config
+            .auth!
+            .awsCognitoAuthPlugin!
+            .auth!["Default"]!
+            .passwordProtectionSettings as PasswordProtectionSettings?);
+      }
+    }).catchError((dynamic e) {
+      _stateMachineBloc.exceptionsSink.add(AuthenticatorException(
+          'There was anissue accessing the configuration for this application.'));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final _signUpViewModel =
@@ -238,6 +266,18 @@ class _SignUpFormFieldState extends State<SignUpFormField> {
     TextInputType _keyboardType = TextInputType.text;
     final SignUpType? _type = fromStringToSignUpType(widget.type);
     Widget? _visible;
+
+    String? validateSignUpPassword(String? password) {
+      List<String> passwordHints = [];
+      int? minLength = _passwordProtectionSettings?.passwordPolicyMinLength;
+      if (password == null || password.isEmpty) {
+        passwordHints.add('Password cannot be empty');
+      }
+      if (minLength! < password!.length) {
+        passwordHints.add('Password is not long enough');
+      }
+      return null;
+    }
 
     /// Special validator using the existing password, executed if a passwordConfirmation field is present
     /// TODO: Implement a mechanism for customers to access subsets of the viewmodels.
@@ -274,7 +314,7 @@ class _SignUpFormFieldState extends State<SignUpFormField> {
         );
         _keyboardType = TextInputType.visiblePassword;
         _obscureText = _toggle;
-        _validator = widget.validator ?? validatePassword;
+        _validator = widget.validator ?? validateSignUpPassword;
         _key = const Key(keyPasswordSignUpFormField);
         break;
       case SignUpType.passwordConfirmation:
