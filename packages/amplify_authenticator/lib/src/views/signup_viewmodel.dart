@@ -15,6 +15,7 @@ class SignUpViewModel extends BaseViewModel {
 
   String? username;
   String? _password;
+  String? _passwordConfirmation;
   String? _address;
   String? _birthdate;
   String? _email;
@@ -42,6 +43,14 @@ class SignUpViewModel extends BaseViewModel {
 
   void setPassword(String value) {
     _password = value;
+  }
+
+  String? get password {
+    return _password;
+  }
+
+  void setPasswordConfirmation(String value) {
+    _passwordConfirmation = value;
   }
 
   void setAddress(String value, String type) {
@@ -136,7 +145,6 @@ class SignUpViewModel extends BaseViewModel {
   }
 
   // Auth calls
-
   Future<void> signUp() async {
     if (!_formKey.currentState!.validate()) {
       return;
@@ -175,6 +183,7 @@ class SignUpViewModel extends BaseViewModel {
 
   void clean() {
     _password = null;
+    _passwordConfirmation = null;
     _address = null;
     _birthdate = null;
     _email = null;

@@ -3,6 +3,7 @@ import 'package:collection/collection.dart';
 enum SignUpType {
   username,
   password,
+  passwordConfirmation,
   address,
   birthdate,
   email,

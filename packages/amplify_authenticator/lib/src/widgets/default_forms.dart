@@ -62,6 +62,10 @@ class DefaultForms {
               hintText: resolver.inputs.password_hint(_context),
               type: 'password'),
           SignUpFormField(
+              title: resolver.inputs.password_confirmation_title(_context),
+              hintText: resolver.inputs.password_confirmation_hint(_context),
+              type: 'passwordConfirmation'),
+          SignUpFormField(
               title: resolver.inputs.email_title(_context),
               hintText: resolver.inputs.email_hint(_context),
               type: 'email'),
