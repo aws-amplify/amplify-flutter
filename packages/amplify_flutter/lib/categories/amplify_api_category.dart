@@ -20,9 +20,9 @@ class APICategory {
 
   static List<APIPluginInterface> plugins = [];
 
-  /// Token refreshers for the API category plugin. Used to provide DataStore
+  /// Token refreshers for the API category plugins. Used to provide DataStore
   /// refresh functionality without exposing the providers themselves.
-  static final Map<APIPluginInterface, AuthProviderRefresher>
+  static final Map<APIPluginInterface, APIAuthProviderRefresher>
       _authProviderRefreshers = {};
 
   Future<void> addPlugin(APIPluginInterface plugin) async {

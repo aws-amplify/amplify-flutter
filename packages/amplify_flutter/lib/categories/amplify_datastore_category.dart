@@ -132,7 +132,9 @@ class DataStoreCategory {
         : throw _pluginNotAddedException("DataStore");
   }
 
+  /// Refreshes API auth providers in a microtask, so that they are available
+  /// for the next DataStore call.
   void _refreshAuthProviders() {
-    APICategory._authProviderRefreshers.values.forEach((refresh) => refresh());
+    APICategory._authProviderRefreshers.values.forEach(scheduleMicrotask);
   }
 }

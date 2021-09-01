@@ -41,9 +41,9 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   final Map<APIAuthorizationType, APIAuthProvider> _authProviders = {};
 
   @override
-  Future<AuthProviderRefresher> addPlugin() async {
+  Future<APIAuthProviderRefresher> addPlugin() async {
     try {
-      await _channel.invokeMethod('addPlugin');
+      await _channel.invokeMethod<void>('addPlugin');
       return _authProviderRefresher;
     } on PlatformException catch (e) {
       if (e.code == 'AmplifyAlreadyConfiguredException') {
@@ -67,7 +67,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   /// A token refresher which can be used outside of this plugin (i.e. in DataStore)
   /// without exposing the auth providers themselves or their tokens.
   Future<void> _authProviderRefresher([
-    APIAuthorizationType? authType = null,
+    APIAuthorizationType? authType,
   ]) {
     if (_authProviders.isEmpty) {
       return SynchronousFuture(null);

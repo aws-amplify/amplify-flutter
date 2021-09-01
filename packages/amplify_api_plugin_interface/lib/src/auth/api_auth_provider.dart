@@ -51,3 +51,7 @@ abstract class FunctionAuthProvider extends APIAuthProvider {
   /// {@macro function_auth_provider}
   const FunctionAuthProvider() : super._(APIAuthorizationType.function);
 }
+
+/// Refreshes the token for a given type or all registered types if none is passed.
+typedef APIAuthProviderRefresher = Future<void> Function(
+    [APIAuthorizationType?]);
