@@ -13,16 +13,12 @@
  * permissions and limitations under the License.
  */
 
-import '../types.dart';
+import 'package:uuid/uuid.dart';
 
-class GraphQLOperation<T> {
-  late Function _cancel;
-  Future<GraphQLResponse<T>> response;
+class UUID {
+  static const _internal = Uuid();
 
-  GraphQLOperation({required this.response, required Function cancel})
-      : _cancel = cancel;
-
-  void cancel() {
-    _cancel();
+  static String getUUID() {
+    return _internal.v4();
   }
 }

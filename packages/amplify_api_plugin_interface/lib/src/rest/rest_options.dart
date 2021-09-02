@@ -16,13 +16,13 @@
 import 'dart:typed_data';
 
 class RestOptions {
-  String? apiName;
-  String path;
-  Uint8List? body;
-  Map<String, String>? queryParameters;
-  Map<String, String>? headers;
+  final String? apiName;
+  final String path;
+  final Uint8List? body;
+  final Map<String, String>? queryParameters;
+  final Map<String, String>? headers;
 
-  RestOptions({
+  const RestOptions({
     required this.path,
     this.apiName,
     this.body,
@@ -30,15 +30,11 @@ class RestOptions {
     this.headers,
   });
 
-  Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> restOptionsMap = {
-      "apiName": apiName,
-      "path": path,
-      "body": body,
-      "queryParameters": queryParameters,
-      "headers": headers
-    };
-    restOptionsMap.removeWhere((_, v) => v == null);
-    return restOptionsMap;
-  }
+  Map<String, dynamic> serializeAsMap() => <String, dynamic>{
+        if (apiName != null) 'apiName': apiName,
+        'path': path,
+        if (body != null) 'body': body,
+        if (queryParameters != null) 'queryParameters': queryParameters,
+        if (headers != null) 'headers': headers
+      };
 }

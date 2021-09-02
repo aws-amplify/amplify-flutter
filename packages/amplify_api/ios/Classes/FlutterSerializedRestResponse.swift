@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -16,13 +16,11 @@
 import Foundation
 import Amplify
 
-
 public struct FlutterSerializedRestResponse {
-    
     private var statusCode: Int
     private var headers: [String: String]
     private var data: Data?
-    
+
     init(statusCode: Int, headers: [AnyHashable: Any], data: Data?) {
         let stringHeaders = headers
             .filter { $0.key is String }
@@ -31,14 +29,12 @@ public struct FlutterSerializedRestResponse {
         self.headers = stringHeaders ?? [:]
         self.data = data
     }
-    
+
     func toValueMap() -> [String: Any?] {
         return [
             "statusCode": statusCode,
             "headers": headers,
-            "data" : data
+            "data": data
         ]
     }
-
-    
 }

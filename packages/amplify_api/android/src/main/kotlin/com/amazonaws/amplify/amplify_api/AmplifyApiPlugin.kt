@@ -52,7 +52,7 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
     private lateinit var eventchannel: EventChannel
     private lateinit var context: Context
     private val graphqlSubscriptionStreamHandler: GraphQLSubscriptionStreamHandler
-    private val LOG = Amplify.Logging.forNamespace("amplify:flutter:api")
+    private val logger = Amplify.Logging.forNamespace("amplify:flutter:api")
 
     constructor() {
         graphqlSubscriptionStreamHandler = GraphQLSubscriptionStreamHandler()
@@ -91,7 +91,7 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
                         .apiAuthProviders(FlutterAuthProviders.factory)
                         .build()
                 )
-                LOG.info("Added API plugin")
+                logger.info("Added API plugin")
                 result.success(null)
             } catch (e: Exception) {
                 handleAddPluginException("API", e, result)

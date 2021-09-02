@@ -32,7 +32,7 @@ class OperationsManager {
         }
 
         fun removeOperation(cancelToken: String) {
-            if(containsOperation(cancelToken)){
+            if (containsOperation(cancelToken)) {
                 operationsMap.remove(cancelToken)
             }
         }
