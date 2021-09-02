@@ -56,12 +56,14 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     ) {
       if (error is! PlatformException) {
         eventSink.addError(error, stackTrace);
+        _subscriptions.clear();
         return;
       }
       final subscriptionId = error.message;
       if (subscriptionId == null ||
           !_subscriptions.containsKey(subscriptionId)) {
         eventSink.addError(error, stackTrace);
+        _subscriptions.clear();
         return;
       }
       final errorEvent = GraphQLSubscriptionEvent(

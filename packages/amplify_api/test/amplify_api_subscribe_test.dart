@@ -45,11 +45,6 @@ void main() {
   var subscribeCalls = 0;
   var cancelCalls = 0;
 
-  // Monitor calls to onEstablished
-
-  var onEstablishedCalls = 0;
-  void onEstablished() => onEstablishedCalls++;
-
   /// Registers a set of values to be emitted by the event handler for each
   /// of the subscription IDs in the test. Events are emitted in order once
   /// a subscribe call is made for that subscription ID.
@@ -63,11 +58,7 @@ void main() {
     subscribeCalls = 0;
     cancelCalls = 0;
 
-    Future<void> sendEvents(String subscriptionId) async {
-      // Force an event loop cycle so that "subscribe" completes below
-      // before we start sending events.
-      await Future<void>.delayed(Duration.zero);
-
+    void sendEvents(String subscriptionId) {
       for (var value in valuesBySubscriptionId[subscriptionId]!) {
         if (value is PlatformException) {
           emitValues(standardCodec.encodeErrorEnvelope(
@@ -108,11 +99,11 @@ void main() {
         case 'subscribe':
           final arguments = methodCall.arguments as Map;
           final subscriptionId = arguments['cancelToken'] as String;
-          if (eventSendTrigger != null) {
-            eventSendTrigger.then((_) => sendEvents(subscriptionId));
-          } else {
-            sendEvents(subscriptionId);
-          }
+
+          // Schedule for the next event loop cycle so that "subscribe" completes
+          // before we start sending events.
+          scheduleMicrotask(() => sendEvents(subscriptionId));
+
           subscribeCalls++;
           return;
         case 'cancel':
@@ -124,23 +115,21 @@ void main() {
     });
   }
 
-  // Ensures that subscribe and cancel are only called once on the
-  // method channel for each subscription.
-  Future<void> expectPlatformCalls(dynamic matcher) async {
-    await Future<void>.delayed(Duration.zero);
-
-    expect(subscribeCalls, matcher);
-    expect(cancelCalls, matcher);
-  }
-
   // Test data
-
   const testData = 'test data';
   const exceptionDetails = {
     'message': 'Test error message',
     'recoverySuggestion': 'Test recovery suggestion',
     'underlyingException': 'Test underlying exception',
   };
+
+  /// Matches a data event.
+  final emitsData = allOf([
+    isA<GraphQLResponse<String>>(),
+    predicate<GraphQLResponse<String>>((response) {
+      return response.data == testData;
+    })
+  ]);
 
   /// Creates a platform data event.
   Map buildDataEvent(GraphQLRequest<String> request) => <String, dynamic>{
@@ -161,35 +150,22 @@ void main() {
   /// ApiException used to verify conversion from emitted PlatformExceptions.
   final apiException = ApiException.fromMap(exceptionDetails);
 
+  /// Matches a platform exception event.
+  final emitsApiException = emitsError(equals(apiException));
+
   /// Creates a platform exception to emit from the mock platform side.
   /// Mimics the current behavior on the platform.
-  PlatformException buildPlatformException(GraphQLRequest<String> request) =>
+  PlatformException buildErrorEvent(GraphQLRequest<String> request) =>
       PlatformException(
         code: 'ApiException',
         message: request.id,
         details: exceptionDetails,
       );
 
-  // Simulates a data + a done event.
-
-  final dataEventBuilders = [buildDataEvent, buildDoneEvent];
-  final dataMatchers = <Matcher>[
-    allOf([
-      isA<GraphQLResponse<String>>(),
-      predicate<GraphQLResponse<String>>((response) {
-        return response.data == testData;
-      })
-    ]),
-    emitsDone,
-  ];
-
-  // Simulates an error + a done event.
-
-  final errorEventBuilders = [buildPlatformException, buildDoneEvent];
-  final errorMatchers = <Matcher>[
-    emitsError(equals(apiException)),
-    emitsDone,
-  ];
+  /// Creates a platform exception which cannot be deserialized or tied to
+  /// an individual subscription.
+  PlatformException buildUnknownErrorEvent(GraphQLRequest<String> _) =>
+      PlatformException(code: 'UNKNOWN');
 
   /// Runs a test called [name] for the given number of subscriptions and subscribers.
   /// Each subscription will emit the events created by [eventBuilders] from the
@@ -203,9 +179,6 @@ void main() {
   }) {
     test('$numSubscriptions subscriptions $numSubscribers subscribers $name',
         () async {
-      // Reset calls to onEstablished
-      onEstablishedCalls = 0;
-
       final requests = <GraphQLRequest<String>>[];
       final values = <String, Iterable>{};
       for (var i = 0; i < numSubscriptions; i++) {
@@ -216,11 +189,11 @@ void main() {
             eventBuilders.map<Object?>((build) => build(request));
       }
 
-      final trigger = Completer<void>();
-      setupEventChannel(
-        values,
-        eventSendTrigger: trigger.future,
-      );
+      // Monitor calls to onEstablished
+      var onEstablishedCalls = 0;
+      void onEstablished() => onEstablishedCalls++;
+
+      setupEventChannel(values);
       final streams = List.generate(
         numSubscriptions * numSubscribers,
         (i) => StreamQueue(
@@ -230,16 +203,24 @@ void main() {
           ),
         ),
       );
-      trigger.complete();
 
       for (var stream in streams) {
-        expect(stream, emitsInOrder(matchers));
+        await expectLater(stream, emitsInOrder(matchers));
+
+        // Expect all events to have been consumed.
+        expectLater(stream.hasNext, completion(isFalse));
       }
 
+      // Cancel the StreamQueue explicitly so they close their underlying
+      // subscriptions.
       await Future.wait<void>(streams.map(
-        (s) => s.cancel() ?? Future.value(),
+        (s) => s.cancel(immediate: true) ?? Future.value(),
       ));
-      await expectPlatformCalls(equals(numSubscriptions));
+
+      // Expects that subscribe and cancel are only called once on the
+      // method channel for each subscription.
+      expect(subscribeCalls, equals(numSubscriptions));
+      expect(cancelCalls, equals(numSubscriptions));
 
       // Expect that onEstablished is called once for every call to `request`.
       expect(onEstablishedCalls, equals(numSubscribers * numSubscriptions));
@@ -253,19 +234,52 @@ void main() {
     for (var numSubscriptions in subscriptions) {
       for (var numSubscribers in subscribers) {
         runTest(
-          name: 'data done',
+          name: 'data, done',
           numSubscriptions: numSubscriptions,
           numSubscribers: numSubscribers,
-          eventBuilders: dataEventBuilders,
-          matchers: dataMatchers,
+          eventBuilders: [buildDataEvent, buildDoneEvent],
+          matchers: <Matcher>[
+            emitsData,
+            emitsDone,
+          ],
         );
 
         runTest(
-          name: 'error done',
+          name: 'platform error, explicit done',
           numSubscriptions: numSubscriptions,
           numSubscribers: numSubscribers,
-          eventBuilders: errorEventBuilders,
-          matchers: errorMatchers,
+          eventBuilders: [buildErrorEvent, buildDoneEvent],
+          matchers: <Matcher>[
+            emitsApiException,
+            emitsDone,
+          ],
+        );
+
+        runTest(
+          name: 'unknown error, implicit done',
+          numSubscriptions: numSubscriptions,
+          numSubscribers: numSubscribers,
+          eventBuilders: [buildUnknownErrorEvent],
+          matchers: <Matcher>[
+            emitsError(anything),
+            emitsDone,
+          ],
+        );
+
+        runTest(
+          name: 'data, platform error, data',
+          numSubscriptions: numSubscriptions,
+          numSubscribers: numSubscribers,
+          eventBuilders: [
+            buildDataEvent,
+            buildErrorEvent,
+            buildDataEvent,
+          ],
+          matchers: <Matcher>[
+            emitsData,
+            emitsApiException,
+            emitsData,
+          ],
         );
       }
     }

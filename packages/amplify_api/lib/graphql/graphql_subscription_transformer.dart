@@ -30,25 +30,43 @@ class GraphQLSubscriptionTransformer<T> extends StreamTransformerBase<
   @override
   Stream<GraphQLResponse<T>> bind(
     Stream<GraphQLSubscriptionEvent> stream,
-  ) async* {
-    await for (var event in stream) {
-      switch (event.type) {
-        case GraphQLSubscriptionEventType.data:
-          final response = event.rawResponse;
-          if (response == null) {
-            throw Exception('Null response');
-          }
-          yield GraphQLResponse<T>(
-            data: response.data as T,
-            errors: response.errors,
-          );
-          break;
-        case GraphQLSubscriptionEventType.done:
-          return;
-        case GraphQLSubscriptionEventType.error:
-          throw event.error!;
-      }
-    }
+  ) {
+    final controller = StreamController<GraphQLResponse<T>>(sync: true);
+    stream.listen(
+      (event) {
+        switch (event.type) {
+          case GraphQLSubscriptionEventType.data:
+            final response = event.rawResponse;
+            if (response == null) {
+              controller.addError(Exception('Null response'));
+              break;
+            }
+            controller.add(GraphQLResponse<T>(
+              data: response.data as T,
+              errors: response.errors,
+            ));
+            break;
+          case GraphQLSubscriptionEventType.done:
+            controller.close();
+            return;
+          case GraphQLSubscriptionEventType.error:
+            controller.addError(event.error!);
+            break;
+        }
+      },
+      onError: (Object e, StackTrace st) {
+        if (!controller.isClosed) {
+          controller.addError(e, st);
+          controller.close();
+        }
+      },
+      onDone: () {
+        if (!controller.isClosed) {
+          controller.close();
+        }
+      },
+    );
+    return controller.stream;
   }
 }
 
@@ -59,7 +77,7 @@ extension GraphQLStreamX<T> on Stream<T> {
   /// respectively, via the [onFirstListen] and [onLastCancel] parameters.
   ///
   /// This allows a backing stream to be reused multiple times, even if the
-  /// subscriber count drops to zero.
+  /// subscriber count drops to zero at times.
   Stream<T> asMultiStream({
     Future<void> Function()? onFirstListen,
     Future<void> Function()? onLastCancel,
