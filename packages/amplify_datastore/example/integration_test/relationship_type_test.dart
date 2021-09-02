@@ -187,15 +187,17 @@ void main() {
       var parent = HasManyModel(name: 'HasMany');
       var children = List.generate(
           5, (i) => HasManyChildModel(name: 'child $i', parent: parent));
-      late Future<SubscriptionEvent<HasManyChildModel>> childEvent;
+      late Future<List<SubscriptionEvent<HasManyChildModel>>> childEvents;
       late Future<SubscriptionEvent<HasManyModel>> hasManyEvent;
 
       setUpAll(() async {
         await configureDataStore();
         await clearDataStore();
 
-        childEvent =
-            Amplify.DataStore.observe(HasManyChildModel.classType).first;
+        childEvents = Amplify.DataStore.observe(HasManyChildModel.classType)
+            .take(children.length)
+            .toList();
+
         hasManyEvent = Amplify.DataStore.observe(HasManyModel.classType).first;
       });
 
@@ -234,7 +236,7 @@ void main() {
       testWidgets('query children', (WidgetTester tester) async {
         var queriedChildren =
             await Amplify.DataStore.query(HasManyChildModel.classType);
-        for (var i = 0; i < 5; i++) {
+        for (var i = 0; i < children.length; i++) {
           var queriedChild = queriedChildren[i];
           var actualChild = children[i];
           expect(queriedChild, actualChild);
@@ -250,11 +252,16 @@ void main() {
       });
 
       testWidgets('observe children', (WidgetTester tester) async {
-        var event = await childEvent;
-        var observedChild = event.item;
-        var firstChild = children.first;
-        expect(observedChild, firstChild);
-        expect(observedChild.parent, firstChild.parent);
+        var events = await childEvents;
+        for (var i = 0; i < children.length; i++) {
+          var event = events[i];
+          var eventType = event.eventType;
+          var observedChild = event.item;
+          var actualChild = children[i];
+          expect(eventType, EventType.create);
+          expect(observedChild, actualChild);
+          expect(observedChild.parent, actualChild.parent);
+        }
       });
 
       testWidgets('delete parent', (WidgetTester tester) async {
@@ -277,15 +284,16 @@ void main() {
       var children =
           List.generate(5, (i) => HasManyChildModel(name: 'child $i'));
       var parent = HasManyModel(name: 'HasMany', children: children);
-      late Future<SubscriptionEvent<HasManyChildModel>> childEvent;
+      late Future<List<SubscriptionEvent<HasManyChildModel>>> childEvents;
       late Future<SubscriptionEvent<HasManyModel>> hasManyEvent;
 
       setUpAll(() async {
         await configureDataStore();
         await clearDataStore();
 
-        childEvent =
-            Amplify.DataStore.observe(HasManyChildModel.classType).first;
+        childEvents = Amplify.DataStore.observe(HasManyChildModel.classType)
+            .take(children.length)
+            .toList();
         hasManyEvent = Amplify.DataStore.observe(HasManyModel.classType).first;
       });
 
@@ -342,10 +350,16 @@ void main() {
       });
 
       testWidgets('observe children', (WidgetTester tester) async {
-        var event = await childEvent;
-        var observedChild = event.item;
-        var firstChild = children.first;
-        expect(observedChild, firstChild);
+        var events = await childEvents;
+        for (var i = 0; i < children.length; i++) {
+          var event = events[i];
+          var eventType = event.eventType;
+          var observedChild = event.item;
+          var actualChild = children[i];
+          expect(eventType, EventType.create);
+          expect(observedChild, actualChild);
+          expect(observedChild.parent, actualChild.parent);
+        }
       });
 
       testWidgets('delete parent', (WidgetTester tester) async {
