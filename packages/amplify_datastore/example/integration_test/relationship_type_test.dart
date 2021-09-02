@@ -63,7 +63,7 @@ void main() {
 
       testWidgets('query parent', (WidgetTester tester) async {
         var parents = await Amplify.DataStore.query(HasOneModel.classType);
-        var queriedParent = parents.first;
+        var queriedParent = parents.single;
         // hasOne relationships do not return the child, so an exact match cannot be performed
         // to be updated if/when https://github.com/aws-amplify/amplify-flutter/issues/642 is fully resolved
         expect(queriedParent.id, parent.id);
@@ -72,7 +72,7 @@ void main() {
 
       testWidgets('query child', (WidgetTester tester) async {
         var children = await Amplify.DataStore.query(ChildModel.classType);
-        var queriedChild = children.first;
+        var queriedChild = children.single;
         expect(queriedChild, child);
       });
 
@@ -146,14 +146,14 @@ void main() {
 
       testWidgets('query parent', (WidgetTester tester) async {
         var parents = await Amplify.DataStore.query(BelongsToModel.classType);
-        var queriedParent = parents.first;
+        var queriedParent = parents.single;
         expect(queriedParent, parent);
         expect(queriedParent.child, child);
       });
 
       testWidgets('query child', (WidgetTester tester) async {
         var children = await Amplify.DataStore.query(ChildModel.classType);
-        var queriedChild = children.first;
+        var queriedChild = children.single;
         expect(queriedChild, child);
       });
 
@@ -225,7 +225,7 @@ void main() {
 
       testWidgets('query parent', (WidgetTester tester) async {
         var parents = await Amplify.DataStore.query(HasManyModel.classType);
-        var queriedParent = parents.first;
+        var queriedParent = parents.single;
         expect(queriedParent, parent);
         expect(queriedParent.id, parent.id);
         expect(queriedParent.name, parent.name);
@@ -315,7 +315,7 @@ void main() {
 
       testWidgets('query parent', (WidgetTester tester) async {
         var parents = await Amplify.DataStore.query(HasManyModel.classType);
-        var queriedParent = parents.first;
+        var queriedParent = parents.single;
         expect(queriedParent.id, parent.id);
         expect(queriedParent.name, parent.name);
       });
