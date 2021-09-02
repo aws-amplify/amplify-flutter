@@ -128,409 +128,133 @@ void main() {
     expect(cancelCalls, matcher);
   }
 
-  group('GraphQL Subscription', () {
-    const testData = 'test data';
-    const exceptionDetails = {
-      'message': 'Test error message',
-      'recoverySuggestion': 'Test recovery suggestion',
-      'underlyingException': 'Test underlying exception',
-    };
+  // Test data
 
-    /// ApiException used to verify conversion from emitted PlatformExceptions.
-    final apiException = ApiException.fromMap(exceptionDetails);
+  const testData = 'test data';
+  const exceptionDetails = {
+    'message': 'Test error message',
+    'recoverySuggestion': 'Test recovery suggestion',
+    'underlyingException': 'Test underlying exception',
+  };
 
-    /// Creates a platform exception to emit from the mock platform side.
-    /// Mimics the current behavior on the platform.
-    PlatformException createPlatformException(String subscriptionId) =>
-        PlatformException(
-          code: 'ApiException',
-          message: subscriptionId,
-          details: exceptionDetails,
+  /// Creates a platform data event.
+  Map buildDataEvent(GraphQLRequest<String> request) => <String, dynamic>{
+        'id': request.id,
+        'payload': {
+          'errors': <Map>[],
+          'data': testData,
+        },
+        'type': 'DATA'
+      };
+
+  /// Creates a platform done event.
+  Map buildDoneEvent(GraphQLRequest<String> request) => <String, dynamic>{
+        'id': request.id,
+        'type': 'DONE',
+      };
+
+  /// ApiException used to verify conversion from emitted PlatformExceptions.
+  final apiException = ApiException.fromMap(exceptionDetails);
+
+  /// Creates a platform exception to emit from the mock platform side.
+  /// Mimics the current behavior on the platform.
+  PlatformException buildPlatformException(GraphQLRequest<String> request) =>
+      PlatformException(
+        code: 'ApiException',
+        message: request.id,
+        details: exceptionDetails,
+      );
+
+  // Simulates a data + a done event.
+
+  final dataEventBuilders = [buildDataEvent, buildDoneEvent];
+  final dataMatchers = <Matcher>[
+    allOf([
+      isA<GraphQLResponse<String>>(),
+      predicate<GraphQLResponse<String>>((response) {
+        return response.data == testData;
+      })
+    ]),
+    emitsDone,
+  ];
+
+  // Simulates an error + a done event.
+
+  final errorEventBuilders = [buildPlatformException, buildDoneEvent];
+  final errorMatchers = <Matcher>[
+    emitsError(equals(apiException)),
+    emitsDone,
+  ];
+
+  /// Runs a test called [name] for the given number of subscriptions and subscribers.
+  /// Each subscription will emit the events created by [eventBuilders] from the
+  /// mock platform side and the resultant values will be matched against [matchers].
+  void runTest({
+    required String name,
+    required int numSubscriptions,
+    required int numSubscribers,
+    required Iterable<Object? Function(GraphQLRequest<String>)> eventBuilders,
+    required Iterable<Matcher> matchers,
+  }) {
+    test('$numSubscriptions subscriptions $numSubscribers subscribers $name',
+        () async {
+      final requests = <GraphQLRequest<String>>[];
+      final values = <String, Iterable>{};
+      for (var i = 0; i < numSubscriptions; i++) {
+        final request = GraphQLRequest<String>(document: '');
+        requests.add(request);
+
+        values[request.id] =
+            eventBuilders.map<Object?>((build) => build(request));
+      }
+
+      final trigger = Completer<void>();
+      setupEventChannel(
+        values,
+        eventSendTrigger: trigger.future,
+      );
+      final streams = List.generate(
+        numSubscriptions * numSubscribers,
+        (i) => StreamQueue(
+          api.subscribe(requests[i % numSubscriptions]),
+        ),
+      );
+      trigger.complete();
+
+      for (var stream in streams) {
+        expect(stream, emitsInOrder(matchers));
+      }
+
+      await Future.wait<void>(streams.map(
+        (s) => s.cancel() ?? Future.value(),
+      ));
+      await expectPlatformCalls(equals(numSubscriptions));
+    }, timeout: timeout);
+  }
+
+  void runAll() {
+    const subscriptions = [1, 5];
+
+    for (var numSubscriptions in subscriptions) {
+      for (var numSubscribers in subscriptions) {
+        runTest(
+          name: 'data done',
+          numSubscriptions: numSubscriptions,
+          numSubscribers: numSubscribers,
+          eventBuilders: dataEventBuilders,
+          matchers: dataMatchers,
         );
 
-    group('single request', () {
-      group('single listener', () {
-        test('emits data and done event', () async {
-          final request = GraphQLRequest<String>(document: '');
+        runTest(
+          name: 'error done',
+          numSubscriptions: numSubscriptions,
+          numSubscribers: numSubscribers,
+          eventBuilders: errorEventBuilders,
+          matchers: errorMatchers,
+        );
+      }
+    }
+  }
 
-          final dataEvent = {
-            'id': request.id,
-            'payload': {
-              'errors': <Map>[],
-              'data': testData,
-            },
-            'type': 'DATA'
-          };
-          final doneEvent = {'id': request.id, 'type': 'DONE'};
-
-          setupEventChannel({
-            request.id: <Map>[
-              dataEvent,
-              doneEvent,
-            ],
-          });
-          final responseStream = api.subscribe(request);
-
-          expect(
-            responseStream,
-            emitsInOrder(<Matcher>[
-              allOf([
-                isA<GraphQLResponse<String>>(),
-                predicate<GraphQLResponse<String>>((response) {
-                  return response.data == testData;
-                })
-              ]),
-              emitsDone,
-            ]),
-          );
-
-          await expectPlatformCalls(equals(1));
-        }, timeout: timeout);
-
-        test('emits error', () async {
-          final request = GraphQLRequest<String>(document: '');
-
-          final platformException = createPlatformException(request.id);
-          final doneEvent = {'id': request.id, 'type': 'DONE'};
-
-          setupEventChannel({
-            request.id: <dynamic>[
-              platformException,
-              doneEvent,
-            ],
-          });
-          final responseStream = api.subscribe(request);
-
-          expect(
-            responseStream,
-            emitsInOrder(<Matcher>[
-              emitsError(equals(apiException)),
-              emitsDone,
-            ]),
-          );
-
-          await expectPlatformCalls(equals(1));
-        }, timeout: timeout);
-      });
-
-      group('multiple listeners', () {
-        const numSubscribers = 5;
-
-        test('emits data and done event', () async {
-          final request = GraphQLRequest<String>(document: '');
-
-          final dataEvent = {
-            'id': request.id,
-            'payload': {
-              'errors': <Map>[],
-              'data': testData,
-            },
-            'type': 'DATA'
-          };
-          final doneEvent = {'id': request.id, 'type': 'DONE'};
-
-          final trigger = Completer<void>();
-          setupEventChannel(
-            {
-              request.id: <Map>[
-                dataEvent,
-                doneEvent,
-              ],
-            },
-            eventSendTrigger: trigger.future,
-          );
-          final streams = List.generate(
-            numSubscribers,
-            (_) => StreamQueue(api.subscribe(request)),
-          );
-          trigger.complete();
-
-          for (var stream in streams) {
-            expect(
-              stream,
-              emitsInOrder(<Matcher>[
-                allOf([
-                  isA<GraphQLResponse<String>>(),
-                  predicate<GraphQLResponse<String>>((response) {
-                    return response.data == testData;
-                  })
-                ]),
-                emitsDone,
-              ]),
-            );
-          }
-
-          await Future.wait<void>(streams.map(
-            (s) => s.cancel() ?? Future.value(),
-          ));
-          await expectPlatformCalls(equals(1));
-        }, timeout: timeout);
-
-        test('emits error', () async {
-          final request = GraphQLRequest<String>(document: '');
-
-          final platformException = createPlatformException(request.id);
-          final doneEvent = {'id': request.id, 'type': 'DONE'};
-
-          final trigger = Completer<void>();
-          setupEventChannel(
-            {
-              request.id: <dynamic>[
-                platformException,
-                doneEvent,
-              ],
-            },
-            eventSendTrigger: trigger.future,
-          );
-          final streams = List.generate(
-            numSubscribers,
-            (_) => StreamQueue(api.subscribe(request)),
-          );
-          trigger.complete();
-
-          for (var stream in streams) {
-            expect(
-              stream,
-              emitsInOrder(<Matcher>[
-                emitsError(equals(apiException)),
-                emitsDone,
-              ]),
-            );
-          }
-
-          await Future.wait<void>(streams.map(
-            (s) => s.cancel() ?? Future.value(),
-          ));
-          await expectPlatformCalls(equals(1));
-        }, timeout: timeout);
-      });
-    });
-
-    group('multiple requests', () {
-      group('single listener', () {
-        test('emits data and done event', () async {
-          final request1 = GraphQLRequest<String>(document: '');
-          final request2 = GraphQLRequest<String>(document: '');
-
-          final dataEvent1 = {
-            'id': request1.id,
-            'payload': {
-              'errors': <Map>[],
-              'data': testData,
-            },
-            'type': 'DATA'
-          };
-          final doneEvent1 = {'id': request1.id, 'type': 'DONE'};
-          final dataEvent2 = {
-            'id': request2.id,
-            'payload': {
-              'errors': <Map>[],
-              'data': testData,
-            },
-            'type': 'DATA'
-          };
-          final doneEvent2 = {'id': request2.id, 'type': 'DONE'};
-
-          setupEventChannel({
-            request1.id: <Map>[
-              dataEvent1,
-              doneEvent1,
-            ],
-            request2.id: <Map>[
-              dataEvent2,
-              doneEvent2,
-            ],
-          });
-          final responseStream1 = api.subscribe(request1);
-          final responseStream2 = api.subscribe(request2);
-
-          expect(
-            responseStream1,
-            emitsInOrder(<Matcher>[
-              allOf([
-                isA<GraphQLResponse<String>>(),
-                predicate<GraphQLResponse<String>>((response) {
-                  return response.data == testData;
-                })
-              ]),
-              emitsDone,
-            ]),
-          );
-
-          expect(
-            responseStream2,
-            emitsInOrder(<Matcher>[
-              allOf([
-                isA<GraphQLResponse<String>>(),
-                predicate<GraphQLResponse<String>>((response) {
-                  return response.data == testData;
-                })
-              ]),
-              emitsDone,
-            ]),
-          );
-
-          await expectPlatformCalls(equals(2));
-        }, timeout: timeout);
-
-        test('emits error', () async {
-          final request1 = GraphQLRequest<String>(document: '');
-          final request2 = GraphQLRequest<String>(document: '');
-
-          final platformException1 = createPlatformException(request1.id);
-          final platformException2 = createPlatformException(request2.id);
-          final doneEvent1 = {'id': request1.id, 'type': 'DONE'};
-          final doneEvent2 = {'id': request2.id, 'type': 'DONE'};
-
-          setupEventChannel({
-            request1.id: <dynamic>[
-              platformException1,
-              doneEvent1,
-            ],
-            request2.id: <dynamic>[
-              platformException2,
-              doneEvent2,
-            ],
-          });
-          final responseStream1 = api.subscribe(request1);
-          final responseStream2 = api.subscribe(request2);
-
-          expect(
-            responseStream1,
-            emitsInOrder(<Matcher>[
-              emitsError(equals(apiException)),
-              emitsDone,
-            ]),
-          );
-
-          expect(
-            responseStream2,
-            emitsInOrder(<Matcher>[
-              emitsError(equals(apiException)),
-              emitsDone,
-            ]),
-          );
-
-          await expectPlatformCalls(equals(2));
-        }, timeout: timeout);
-      });
-
-      group('multiple listeners', () {
-        const numSubscribers = 5;
-
-        test('emits data and done event', () async {
-          final request1 = GraphQLRequest<String>(document: '');
-          final request2 = GraphQLRequest<String>(document: '');
-
-          final dataEvent1 = {
-            'id': request1.id,
-            'payload': {
-              'errors': <Map>[],
-              'data': testData,
-            },
-            'type': 'DATA'
-          };
-          final doneEvent1 = {'id': request1.id, 'type': 'DONE'};
-          final dataEvent2 = {
-            'id': request2.id,
-            'payload': {
-              'errors': <Map>[],
-              'data': testData,
-            },
-            'type': 'DATA'
-          };
-          final doneEvent2 = {'id': request2.id, 'type': 'DONE'};
-
-          final trigger = Completer<void>();
-          setupEventChannel(
-            {
-              request1.id: <Map>[
-                dataEvent1,
-                doneEvent1,
-              ],
-              request2.id: <Map>[
-                dataEvent2,
-                doneEvent2,
-              ],
-            },
-            eventSendTrigger: trigger.future,
-          );
-          final streams = List.generate(
-            numSubscribers,
-            (i) => StreamQueue(api.subscribe(i % 2 == 0 ? request1 : request2)),
-          );
-          trigger.complete();
-
-          for (var stream in streams) {
-            expect(
-              stream,
-              emitsInOrder(<Matcher>[
-                allOf([
-                  isA<GraphQLResponse<String>>(),
-                  predicate<GraphQLResponse<String>>((response) {
-                    return response.data == testData;
-                  })
-                ]),
-                emitsDone,
-              ]),
-            );
-          }
-
-          // Ensure that subscribe and cancel are only called once for each
-          // subscription on the method channel.
-          await Future.wait<void>(streams.map(
-            (s) => s.cancel() ?? Future.value(),
-          ));
-          await expectPlatformCalls(equals(2));
-        }, timeout: timeout);
-
-        test('emits error', () async {
-          final request1 = GraphQLRequest<String>(document: '');
-          final request2 = GraphQLRequest<String>(document: '');
-
-          final platformException1 = createPlatformException(request1.id);
-          final platformException2 = createPlatformException(request2.id);
-          final doneEvent1 = {'id': request1.id, 'type': 'DONE'};
-          final doneEvent2 = {'id': request2.id, 'type': 'DONE'};
-
-          final trigger = Completer<void>();
-          setupEventChannel(
-            {
-              request1.id: <dynamic>[
-                platformException1,
-                doneEvent1,
-              ],
-              request2.id: <dynamic>[
-                platformException2,
-                doneEvent2,
-              ],
-            },
-            eventSendTrigger: trigger.future,
-          );
-          final streams = List.generate(
-            numSubscribers,
-            (i) => StreamQueue(api.subscribe(i % 2 == 0 ? request1 : request2)),
-          );
-          trigger.complete();
-
-          for (var stream in streams) {
-            expect(
-              stream,
-              emitsInOrder(<Matcher>[
-                emitsError(equals(apiException)),
-                emitsDone,
-              ]),
-            );
-          }
-
-          // Ensure that subscribe and cancel are only called once for each
-          // subscription on the method channel.
-          await Future.wait<void>(streams.map(
-            (s) => s.cancel() ?? Future.value(),
-          ));
-          await expectPlatformCalls(equals(2));
-        }, timeout: timeout);
-      });
-    });
-  });
+  group('GraphQL Subscription', runAll);
 }
