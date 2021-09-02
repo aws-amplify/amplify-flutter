@@ -148,16 +148,12 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     return (_subscriptions[subscriptionId] ??= _allSubscriptionsStream
         .where((event) => event.subscriptionId == subscriptionId)
         .transform(GraphQLSubscriptionTransformer<T>())
-        .asBroadcastStream(
-          onListen: (_) => _setupSubscription(
+        .lazyBroadcast(
+          onFirstListen: () => _setupSubscription(
             id: subscriptionId,
             request: request,
-            onEstablished: onEstablished,
           ),
-          onCancel: (_) async {
-            await cancelRequest(subscriptionId);
-            _subscriptions.remove(subscriptionId);
-          },
+          onLastCancel: () => cancelRequest(subscriptionId),
         )) as Stream<GraphQLResponse<T>>;
   }
 
