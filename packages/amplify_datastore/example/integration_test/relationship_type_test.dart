@@ -337,7 +337,7 @@ void main() {
       testWidgets('query children', (WidgetTester tester) async {
         var queriedChildren =
             await Amplify.DataStore.query(HasManyChildModel.classType);
-        for (var i = 0; i < 5; i++) {
+        for (var i = 0; i < children.length; i++) {
           var queriedChild = queriedChildren[i];
           var actualChild = children[i];
           // an equality check such as `expect(queriedChild, actualChild);`
