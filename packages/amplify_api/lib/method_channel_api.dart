@@ -42,7 +42,10 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   /// and relays errors to the correct subscription stream.
   late final _graphQLSubscriptionEventTransformer =
       StreamTransformer<dynamic, GraphQLSubscriptionEvent>.fromHandlers(
-    handleData: (dynamic data, EventSink<GraphQLSubscriptionEvent> eventSink) {
+    handleData: (
+      dynamic data,
+      EventSink<GraphQLSubscriptionEvent> eventSink,
+    ) {
       final eventJson = (data as Map).cast<String, dynamic>();
       eventSink.add(GraphQLSubscriptionEvent.fromJson(eventJson));
     },

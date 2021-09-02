@@ -67,7 +67,6 @@ class APICategory {
 
   // ====== RestAPI ======
 
-  /// Handles subscription cancelation.
   void cancelRequest(String cancelToken) {
     return plugins.length == 1
         ? plugins[0].cancelRequest(cancelToken)

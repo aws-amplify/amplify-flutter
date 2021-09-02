@@ -39,6 +39,8 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
   }
 
   /// Subscribes to the given [request] and returns the stream of response events.
+  /// An optional [onEstablished] callback can be used to be alerted when the
+  /// subscription has been successfully established with the server.
   ///
   /// Any exceptions encountered during the subscription are added as errors
   /// to this stream.
