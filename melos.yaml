@@ -95,7 +95,7 @@ scripts:
 
   analyze:
     run: melos exec -c 1 --fail-fast -- \
-      flutter analyze --no-fatal-infos
+      flutter analyze
     description: >
       Analyzes all packages and fails if there are any errors.
     select-package:
