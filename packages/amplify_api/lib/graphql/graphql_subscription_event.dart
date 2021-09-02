@@ -25,6 +25,8 @@ enum GraphQLSubscriptionEventType {
   done,
 
   /// Triggered when a platform error occurs for a subscription.
+  ///
+  /// Currently only valid in Dart.
   error,
 }
 

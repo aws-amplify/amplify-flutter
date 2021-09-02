@@ -55,11 +55,15 @@ class GraphQLSubscriptionTransformer<T> extends StreamTransformerBase<
 /// Stream helpers for GraphQL subscriptions.
 extension GraphQLStreamX<T> on Stream<T> {
   /// Creates a broadcast stream which keeps track of its listeners and only
-  /// performs setup and teardown work once using the [onFirstListen] and
-  /// [onLastCancel] parameters.
+  /// performs setup and teardown work when its subscriber count reaches 1 or 0,
+  /// respectively, via the [onFirstListen] and [onLastCancel] parameters.
   ///
-  /// This allows a single stream to be created for the life of a request.
-  Stream<T> lazyBroadcast({
+  /// This allows a backing stream to be reused multiple times, even if the
+  /// subscriber count drops to zero.
+  ///
+  /// [onSubscriptionReady] is called once for each subscriber after set up
+  /// actions are completed and [onFirstListen] is called, if necessary.
+  Stream<T> asMultiStream({
     Future<void> Function()? onFirstListen,
     Future<void> Function()? onLastCancel,
   }) {

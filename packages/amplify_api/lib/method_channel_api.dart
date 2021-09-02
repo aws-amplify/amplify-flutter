@@ -145,16 +145,21 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     void Function()? onEstablished,
   }) {
     final subscriptionId = request.id;
-    return (_subscriptions[subscriptionId] ??= _allSubscriptionsStream
+    if (_subscriptions.containsKey(subscriptionId)) {
+      onEstablished?.call();
+      return _subscriptions[subscriptionId]! as Stream<GraphQLResponse<T>>;
+    }
+    return _subscriptions[subscriptionId] = _allSubscriptionsStream
         .where((event) => event.subscriptionId == subscriptionId)
         .transform(GraphQLSubscriptionTransformer<T>())
-        .lazyBroadcast(
+        .asMultiStream(
           onFirstListen: () => _setupSubscription(
             id: subscriptionId,
             request: request,
+            onEstablished: onEstablished,
           ),
           onLastCancel: () => cancelRequest(subscriptionId),
-        )) as Stream<GraphQLResponse<T>>;
+        );
   }
 
   Future<GraphQLResponse<T>> _getMethodChannelResponse<T>({

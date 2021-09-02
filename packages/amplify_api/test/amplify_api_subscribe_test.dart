@@ -45,6 +45,11 @@ void main() {
   var subscribeCalls = 0;
   var cancelCalls = 0;
 
+  // Monitor calls to onEstablished
+
+  var onEstablishedCalls = 0;
+  void onEstablished() => onEstablishedCalls++;
+
   /// Registers a set of values to be emitted by the event handler for each
   /// of the subscription IDs in the test. Events are emitted in order once
   /// a subscribe call is made for that subscription ID.
@@ -198,6 +203,9 @@ void main() {
   }) {
     test('$numSubscriptions subscriptions $numSubscribers subscribers $name',
         () async {
+      // Reset calls to onEstablished
+      onEstablishedCalls = 0;
+
       final requests = <GraphQLRequest<String>>[];
       final values = <String, Iterable>{};
       for (var i = 0; i < numSubscriptions; i++) {
@@ -216,7 +224,10 @@ void main() {
       final streams = List.generate(
         numSubscriptions * numSubscribers,
         (i) => StreamQueue(
-          api.subscribe(requests[i % numSubscriptions]),
+          api.subscribe(
+            requests[i % numSubscriptions],
+            onEstablished: onEstablished,
+          ),
         ),
       );
       trigger.complete();
@@ -229,14 +240,18 @@ void main() {
         (s) => s.cancel() ?? Future.value(),
       ));
       await expectPlatformCalls(equals(numSubscriptions));
+
+      // Expect that onEstablished is called once for every call to `request`.
+      expect(onEstablishedCalls, equals(numSubscribers * numSubscriptions));
     }, timeout: timeout);
   }
 
   void runAll() {
     const subscriptions = [1, 5];
+    const subscribers = [1, 5];
 
     for (var numSubscriptions in subscriptions) {
-      for (var numSubscribers in subscriptions) {
+      for (var numSubscribers in subscribers) {
         runTest(
           name: 'data done',
           numSubscriptions: numSubscriptions,
