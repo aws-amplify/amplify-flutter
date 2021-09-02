@@ -15,9 +15,9 @@
 
 import '../types.dart';
 
-class GraphQLResponse<T> {
-  T data;
-  List<GraphQLResponseError> errors;
+class GraphQLOperation<T> {
+  final Function cancel;
+  final Future<GraphQLResponse<T>> response;
 
-  GraphQLResponse({required this.data, required this.errors});
+  const GraphQLOperation({required this.response, required this.cancel});
 }

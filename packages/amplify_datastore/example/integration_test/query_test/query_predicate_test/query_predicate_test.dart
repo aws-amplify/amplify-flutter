@@ -23,16 +23,10 @@ import 'bool_query_predicate_test.dart' as bool_query_predicate_tests;
 import 'enum_query_predicate_test.dart' as enum_query_predicate_tests;
 import 'compound_query_predicate_test.dart' as compound_query_predicate_tests;
 
-import '../../utils/setup_utils.dart';
-
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('QueryPredicate', () {
-    setUpAll(() async {
-      await configureDataStore();
-    });
-
     string_query_predicate_tests.main();
     int_query_predicate_tests.main();
     double_query_predicate_tests.main();

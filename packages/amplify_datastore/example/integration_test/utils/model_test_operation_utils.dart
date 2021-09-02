@@ -3,6 +3,7 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'model_utils.dart';
 import 'setup_utils.dart';
 
 enum DataStoreOperation {
@@ -15,17 +16,18 @@ enum DataStoreOperation {
 /// test standard datastore model operations (save, query, observe, delete)
 ///
 /// [skips] can be used to skip operations that are currently not working as intended
-testModelOperations<T extends Model>({
+void testModelOperations<T extends Model>({
   required List<T> models,
-  required ModelType<T> classType,
   Map<DataStoreOperation, bool> skips = const {},
 }) {
+  var classType = getModelType<T>();
   late Future<List<SubscriptionEvent<T>>> eventsFuture;
 
   setUpAll(() async {
     await configureDataStore();
     await clearDataStore();
-    eventsFuture = Amplify.DataStore.observe(classType).take(5).toList();
+    eventsFuture =
+        Amplify.DataStore.observe(classType).take(models.length).toList();
   });
 
   testWidgets('precondition', (WidgetTester tester) async {

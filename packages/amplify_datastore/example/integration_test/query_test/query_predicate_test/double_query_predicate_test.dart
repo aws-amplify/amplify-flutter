@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:math';
+
 import 'package:amplify_datastore_example/models/ModelProvider.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -33,8 +35,17 @@ void main() {
       DoubleTypeModel(value: 0.1),
       DoubleTypeModel(value: 2.1),
       DoubleTypeModel(value: 1000.0),
+      DoubleTypeModel(value: double.maxFinite),
+      DoubleTypeModel(value: double.minPositive),
+      DoubleTypeModel(value: pi),
       DoubleTypeModel(),
     ];
+
+    // a value that will return 1 or 0 when compared to each test value
+    var maxDoubleValue = double.maxFinite;
+
+    // a that will return 0 or -1 when compared to each test value
+    var minDoubleValue = double.minPositive;
 
     // non-null models used for all tests
     var nonNullModels = models.where((e) => e.value != null).toList();
@@ -58,14 +69,14 @@ void main() {
       for (var value in nonNullValues) {
         var expectedModels =
             models.where((model) => model.value == value).toList();
-        await testDoubleQueryPredicate(
+        await testQueryPredicate<DoubleTypeModel>(
           queryPredicate: DoubleTypeModel.VALUE.eq(value),
           expectedModels: expectedModels,
         );
       }
 
       // test with no match
-      await testDoubleQueryPredicate(
+      await testQueryPredicate<DoubleTypeModel>(
         queryPredicate: DoubleTypeModel.VALUE.eq(123.123),
         expectedModels: [],
       );
@@ -78,14 +89,14 @@ void main() {
         // see: https://github.com/aws-amplify/amplify-flutter/issues/823
         var expectedModels =
             nonNullModels.where((model) => model.value != value).toList();
-        await testDoubleQueryPredicate(
+        await testQueryPredicate<DoubleTypeModel>(
           queryPredicate: DoubleTypeModel.VALUE.ne(value),
           expectedModels: expectedModels,
         );
       }
 
       // test with match all models
-      await testDoubleQueryPredicate(
+      await testQueryPredicate<DoubleTypeModel>(
         queryPredicate: DoubleTypeModel.VALUE.ne(123.123),
         // update `nonNullModels` to `models` when #823 is fixed
         // see: https://github.com/aws-amplify/amplify-flutter/issues/823
@@ -98,25 +109,18 @@ void main() {
       (WidgetTester tester) async {
         // test against all (non-null) values
         for (var value in nonNullValues) {
-          var expectedModels = nonNullModels
-              .where((model) => model.value!.compareTo(value) < 0)
-              .toList();
-          await testDoubleQueryPredicate(
+          var expectedModels =
+              nonNullModels.where((model) => model.value! < value).toList();
+          await testQueryPredicate<DoubleTypeModel>(
             queryPredicate: DoubleTypeModel.VALUE.lt(value),
             expectedModels: expectedModels,
           );
         }
 
         // test with no matches
-        await testDoubleQueryPredicate(
-          queryPredicate: DoubleTypeModel.VALUE.lt(-1000000.1),
+        await testQueryPredicate<DoubleTypeModel>(
+          queryPredicate: DoubleTypeModel.VALUE.lt(minDoubleValue),
           expectedModels: [],
-        );
-
-        // test with match all models
-        await testDoubleQueryPredicate(
-          queryPredicate: DoubleTypeModel.VALUE.lt(1000000.1),
-          expectedModels: nonNullModels,
         );
       },
       // see: https://github.com/aws-amplify/amplify-flutter/issues/830
@@ -128,24 +132,17 @@ void main() {
       (WidgetTester tester) async {
         // test against all (non-null) values
         for (var value in nonNullValues) {
-          var expectedModels = nonNullModels
-              .where((model) => model.value!.compareTo(value) <= 0)
-              .toList();
-          await testDoubleQueryPredicate(
+          var expectedModels =
+              nonNullModels.where((model) => model.value! <= value).toList();
+          await testQueryPredicate<DoubleTypeModel>(
             queryPredicate: DoubleTypeModel.VALUE.le(value),
             expectedModels: expectedModels,
           );
         }
 
-        // test with no matches
-        await testDoubleQueryPredicate(
-          queryPredicate: DoubleTypeModel.VALUE.le(-1000000.1),
-          expectedModels: [],
-        );
-
         // test with match all models
-        await testDoubleQueryPredicate(
-          queryPredicate: DoubleTypeModel.VALUE.le(1000000.1),
+        await testQueryPredicate<DoubleTypeModel>(
+          queryPredicate: DoubleTypeModel.VALUE.le(maxDoubleValue),
           expectedModels: nonNullModels,
         );
       },
@@ -158,25 +155,18 @@ void main() {
       (WidgetTester tester) async {
         // test against all (non-null) values
         for (var value in nonNullValues) {
-          var expectedModels = nonNullModels
-              .where((model) => model.value!.compareTo(value) > 0)
-              .toList();
-          await testDoubleQueryPredicate(
+          var expectedModels =
+              nonNullModels.where((model) => model.value! > value).toList();
+          await testQueryPredicate<DoubleTypeModel>(
             queryPredicate: DoubleTypeModel.VALUE.gt(value),
             expectedModels: expectedModels,
           );
         }
 
-        // test with no matches
-        await testDoubleQueryPredicate(
-          queryPredicate: DoubleTypeModel.VALUE.gt(1000000.1),
-          expectedModels: [],
-        );
-
         // test with match all models
-        await testDoubleQueryPredicate(
-          queryPredicate: DoubleTypeModel.VALUE.gt(-1000000.1),
-          expectedModels: nonNullModels,
+        await testQueryPredicate<DoubleTypeModel>(
+          queryPredicate: DoubleTypeModel.VALUE.gt(maxDoubleValue),
+          expectedModels: [],
         );
       },
       // see: https://github.com/aws-amplify/amplify-flutter/issues/830
@@ -188,23 +178,17 @@ void main() {
       (WidgetTester tester) async {
         // test against all (non-null) values
         for (var value in nonNullValues) {
-          var expectedModels = nonNullModels
-              .where((model) => model.value!.compareTo(value) >= 0)
-              .toList();
-          await testDoubleQueryPredicate(
+          var expectedModels =
+              nonNullModels.where((model) => model.value! >= value).toList();
+          await testQueryPredicate<DoubleTypeModel>(
             queryPredicate: DoubleTypeModel.VALUE.ge(value),
             expectedModels: expectedModels,
           );
         }
 
-        await testDoubleQueryPredicate(
-          queryPredicate: DoubleTypeModel.VALUE.ge(1000000.1),
-          expectedModels: [],
-        );
-
         // test with match all models
-        await testDoubleQueryPredicate(
-          queryPredicate: DoubleTypeModel.VALUE.ge(-1000000.1),
+        await testQueryPredicate<DoubleTypeModel>(
+          queryPredicate: DoubleTypeModel.VALUE.ge(minDoubleValue),
           expectedModels: nonNullModels,
         );
       },
@@ -219,7 +203,7 @@ void main() {
           .where(
               (model) => model.value!.toString().startsWith(exactMatchPattern))
           .toList();
-      await testDoubleQueryPredicate(
+      await testQueryPredicate<DoubleTypeModel>(
         queryPredicate: DoubleTypeModel.VALUE.beginsWith(exactMatchPattern),
         expectedModels: exactMatchModels,
       );
@@ -230,14 +214,14 @@ void main() {
           .where((model) =>
               model.value!.toString().startsWith(partialMatchPattern))
           .toList();
-      await testDoubleQueryPredicate(
+      await testQueryPredicate<DoubleTypeModel>(
         queryPredicate: DoubleTypeModel.VALUE.beginsWith(partialMatchPattern),
         expectedModels: partialMatchModels,
       );
 
       // test with no match
       var noMatchPattern = '123.123';
-      await testDoubleQueryPredicate(
+      await testQueryPredicate<DoubleTypeModel>(
         queryPredicate: DoubleTypeModel.VALUE.beginsWith(noMatchPattern),
         expectedModels: [],
       );
@@ -249,25 +233,25 @@ void main() {
       var exactMatchModels = nonNullModels
           .where((model) => model.value!.toString().contains(exactMatchPattern))
           .toList();
-      await testDoubleQueryPredicate(
+      await testQueryPredicate<DoubleTypeModel>(
         queryPredicate: DoubleTypeModel.VALUE.contains(exactMatchPattern),
         expectedModels: exactMatchModels,
       );
 
       // test with partial match
-      var partialMatchPattern = '0';
+      var partialMatchPattern = '10';
       var partialMatchModels = nonNullModels
           .where(
               (model) => model.value!.toString().contains(partialMatchPattern))
           .toList();
-      await testDoubleQueryPredicate(
+      await testQueryPredicate<DoubleTypeModel>(
         queryPredicate: DoubleTypeModel.VALUE.contains(partialMatchPattern),
         expectedModels: partialMatchModels,
       );
 
       // test with no match
       var noMatchPattern = '123.123';
-      await testDoubleQueryPredicate(
+      await testQueryPredicate<DoubleTypeModel>(
         queryPredicate: DoubleTypeModel.VALUE.contains(noMatchPattern),
         expectedModels: [],
       );
@@ -280,7 +264,7 @@ void main() {
         var exactMatchPattern = 1000.0;
         var exactMatchModels =
             models.where((model) => model.value == exactMatchPattern).toList();
-        await testDoubleQueryPredicate(
+        await testQueryPredicate<DoubleTypeModel>(
           queryPredicate: DoubleTypeModel.VALUE
               .between(exactMatchPattern, exactMatchPattern),
           expectedModels: exactMatchModels,
@@ -290,10 +274,10 @@ void main() {
         var partialMatchStart = -1.0;
         var partialMatchEnd = 1.0;
         var rangeMatchModels = nonNullModels
-            .where((model) => model.value!.compareTo(partialMatchStart) >= 0)
-            .where((model) => model.value!.compareTo(partialMatchEnd) <= 0)
+            .where((model) => model.value! >= partialMatchStart)
+            .where((model) => model.value! <= partialMatchEnd)
             .toList();
-        await testDoubleQueryPredicate(
+        await testQueryPredicate<DoubleTypeModel>(
           queryPredicate:
               DoubleTypeModel.VALUE.between(partialMatchStart, partialMatchEnd),
           expectedModels: rangeMatchModels,
@@ -301,14 +285,14 @@ void main() {
 
         // test with no match
         var noMatchStart = 1000000.0;
-        var noMatchEnd = 2000000.0;
-        await testDoubleQueryPredicate(
+        var noMatchEnd = 1000000.1;
+        await testQueryPredicate<DoubleTypeModel>(
           queryPredicate:
               DoubleTypeModel.VALUE.between(noMatchStart, noMatchEnd),
           expectedModels: [],
         );
       },
-      // // see: https://github.com/aws-amplify/amplify-flutter/issues/830
+      // see: https://github.com/aws-amplify/amplify-flutter/issues/830
       skip: true,
     );
   });

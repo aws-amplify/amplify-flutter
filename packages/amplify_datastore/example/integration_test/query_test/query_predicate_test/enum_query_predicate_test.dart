@@ -44,13 +44,13 @@ void main() {
         }
 
         // test with all matches
-        await testEnumQueryPredicate(
+        await testQueryPredicate<EnumTypeModel>(
           queryPredicate: EnumTypeModel.VALUE.eq(EnumModel.yes),
           expectedModels: models,
         );
 
         // test with no matches
-        await testEnumQueryPredicate(
+        await testQueryPredicate<EnumTypeModel>(
           queryPredicate: EnumTypeModel.VALUE.eq(EnumModel.no),
           expectedModels: [],
         );
@@ -68,7 +68,7 @@ void main() {
         }
 
         // test with partial matches for EnumModel.yes
-        await testEnumQueryPredicate(
+        await testQueryPredicate<EnumTypeModel>(
           queryPredicate: EnumTypeModel.VALUE.eq(EnumModel.yes),
           expectedModels: models
               .where((element) => element.value == EnumModel.yes)
@@ -76,7 +76,7 @@ void main() {
         );
 
         // test with no matches for EnumModel.no
-        await testEnumQueryPredicate(
+        await testQueryPredicate<EnumTypeModel>(
           queryPredicate: EnumTypeModel.VALUE.eq(EnumModel.no),
           expectedModels:
               models.where((element) => element.value == EnumModel.no).toList(),
@@ -95,13 +95,13 @@ void main() {
         }
 
         // test with all matches
-        await testEnumQueryPredicate(
+        await testQueryPredicate<EnumTypeModel>(
           queryPredicate: EnumTypeModel.VALUE.ne(EnumModel.no),
           expectedModels: models,
         );
 
         // test with no matches
-        await testEnumQueryPredicate(
+        await testQueryPredicate<EnumTypeModel>(
           queryPredicate: EnumTypeModel.VALUE.ne(EnumModel.yes),
           expectedModels: [],
         );
@@ -119,14 +119,14 @@ void main() {
         }
 
         // test with partial matches for EnumModel.yes
-        await testEnumQueryPredicate(
+        await testQueryPredicate<EnumTypeModel>(
           queryPredicate: EnumTypeModel.VALUE.ne(EnumModel.yes),
           expectedModels:
               models.where((element) => element.value == EnumModel.no).toList(),
         );
 
         // test with no matches for EnumModel.no
-        await testEnumQueryPredicate(
+        await testQueryPredicate<EnumTypeModel>(
           queryPredicate: EnumTypeModel.VALUE.ne(EnumModel.no),
           expectedModels: models
               .where((element) => element.value == EnumModel.yes)

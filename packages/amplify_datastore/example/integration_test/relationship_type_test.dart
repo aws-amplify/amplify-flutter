@@ -25,7 +25,7 @@ import 'utils/setup_utils.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('realtionship type', () {
+  group('relationship type', () {
     group('HasOne', () {
       var child = ChildModel(name: 'child');
       var parent = HasOneModel(name: 'HasOne', child: child, childID: child.id);
@@ -63,7 +63,7 @@ void main() {
 
       testWidgets('query parent', (WidgetTester tester) async {
         var parents = await Amplify.DataStore.query(HasOneModel.classType);
-        var queriedParent = parents.first;
+        var queriedParent = parents.single;
         // hasOne relationships do not return the child, so an exact match cannot be performed
         // to be updated if/when https://github.com/aws-amplify/amplify-flutter/issues/642 is fully resolved
         expect(queriedParent.id, parent.id);
@@ -72,7 +72,7 @@ void main() {
 
       testWidgets('query child', (WidgetTester tester) async {
         var children = await Amplify.DataStore.query(ChildModel.classType);
-        var queriedChild = children.first;
+        var queriedChild = children.single;
         expect(queriedChild, child);
       });
 
@@ -146,14 +146,14 @@ void main() {
 
       testWidgets('query parent', (WidgetTester tester) async {
         var parents = await Amplify.DataStore.query(BelongsToModel.classType);
-        var queriedParent = parents.first;
+        var queriedParent = parents.single;
         expect(queriedParent, parent);
         expect(queriedParent.child, child);
       });
 
       testWidgets('query child', (WidgetTester tester) async {
         var children = await Amplify.DataStore.query(ChildModel.classType);
-        var queriedChild = children.first;
+        var queriedChild = children.single;
         expect(queriedChild, child);
       });
 
@@ -183,19 +183,21 @@ void main() {
       });
     });
 
-    group('hasMany', () {
+    group('HasMany', () {
       var parent = HasManyModel(name: 'HasMany');
       var children = List.generate(
           5, (i) => HasManyChildModel(name: 'child $i', parent: parent));
-      late Future<SubscriptionEvent<HasManyChildModel>> childEvent;
+      late Future<List<SubscriptionEvent<HasManyChildModel>>> childEvents;
       late Future<SubscriptionEvent<HasManyModel>> hasManyEvent;
 
       setUpAll(() async {
         await configureDataStore();
         await clearDataStore();
 
-        childEvent =
-            Amplify.DataStore.observe(HasManyChildModel.classType).first;
+        childEvents = Amplify.DataStore.observe(HasManyChildModel.classType)
+            .take(children.length)
+            .toList();
+
         hasManyEvent = Amplify.DataStore.observe(HasManyModel.classType).first;
       });
 
@@ -225,7 +227,7 @@ void main() {
 
       testWidgets('query parent', (WidgetTester tester) async {
         var parents = await Amplify.DataStore.query(HasManyModel.classType);
-        var queriedParent = parents.first;
+        var queriedParent = parents.single;
         expect(queriedParent, parent);
         expect(queriedParent.id, parent.id);
         expect(queriedParent.name, parent.name);
@@ -234,45 +236,34 @@ void main() {
       testWidgets('query children', (WidgetTester tester) async {
         var queriedChildren =
             await Amplify.DataStore.query(HasManyChildModel.classType);
-        for (var i = 0; i < 5; i++) {
+        for (var i = 0; i < children.length; i++) {
           var queriedChild = queriedChildren[i];
           var actualChild = children[i];
-          // an equality check such as `expect(queriedChild, actualChild);`
-          // cannot be performed because iOS will return an empty list for
-          // queriedChild.parent.children instead of null
-          // see issue: https://github.com/aws-amplify/amplify-flutter/issues/834
-          expect(queriedChild.id, actualChild.id);
-          expect(queriedChild.name, actualChild.name);
-          expect(queriedChild.parent!.id, actualChild.parent!.id);
-          expect(
-            queriedChild.parent!.name,
-            actualChild.parent!.name,
-          );
+          expect(queriedChild, actualChild);
+          expect(queriedChild.parent, actualChild.parent);
         }
       });
 
       testWidgets('observe parent', (WidgetTester tester) async {
         var event = await hasManyEvent;
         var observedParent = event.item;
-        expect(observedParent.id, parent.id);
-        expect(observedParent.name, parent.name);
+        // full equality check can be performed since the parent has null children
+        // and queries return null for nested hasMany data
+        // this may need to be updated if/when https://github.com/aws-amplify/amplify-flutter/issues/642 is fully resolved
+        expect(observedParent, parent);
       });
 
       testWidgets('observe children', (WidgetTester tester) async {
-        var event = await childEvent;
-        var observedChild = event.item;
-        var firstChild = children.first;
-        // an equality check such as `expect(observedChild, firstChild);`
-        // cannot be performed because iOS will return an empty list for
-        // observedChild.parent.children instead of null
-        // see issue: https://github.com/aws-amplify/amplify-flutter/issues/834
-        expect(observedChild.id, firstChild.id);
-        expect(observedChild.name, firstChild.name);
-        expect(observedChild.parent!.id, firstChild.parent!.id);
-        expect(
-          observedChild.parent!.name,
-          observedChild.parent!.name,
-        );
+        var events = await childEvents;
+        for (var i = 0; i < children.length; i++) {
+          var event = events[i];
+          var eventType = event.eventType;
+          var observedChild = event.item;
+          var actualChild = children[i];
+          expect(eventType, EventType.create);
+          expect(observedChild, actualChild);
+          expect(observedChild.parent, actualChild.parent);
+        }
       });
 
       testWidgets('delete parent', (WidgetTester tester) async {
@@ -290,19 +281,21 @@ void main() {
         expect(queriedChildren, isEmpty);
       });
     });
-    group('hasMany (cascade save)', () {
+
+    group('HasMany (cascade save)', () {
       var children =
           List.generate(5, (i) => HasManyChildModel(name: 'child $i'));
       var parent = HasManyModel(name: 'HasMany', children: children);
-      late Future<SubscriptionEvent<HasManyChildModel>> childEvent;
+      late Future<List<SubscriptionEvent<HasManyChildModel>>> childEvents;
       late Future<SubscriptionEvent<HasManyModel>> hasManyEvent;
 
       setUpAll(() async {
         await configureDataStore();
         await clearDataStore();
 
-        childEvent =
-            Amplify.DataStore.observe(HasManyChildModel.classType).first;
+        childEvents = Amplify.DataStore.observe(HasManyChildModel.classType)
+            .take(children.length)
+            .toList();
         hasManyEvent = Amplify.DataStore.observe(HasManyModel.classType).first;
       });
 
@@ -332,7 +325,11 @@ void main() {
 
       testWidgets('query parent', (WidgetTester tester) async {
         var parents = await Amplify.DataStore.query(HasManyModel.classType);
-        var queriedParent = parents.first;
+        var queriedParent = parents.single;
+        // an equality check such as `expect(queriedParent, parent);`
+        // cannot be performed since parent has non-null children
+        // but queries do not return hasMany nested models
+        // to be updated if/when https://github.com/aws-amplify/amplify-flutter/issues/642 is fully resolved
         expect(queriedParent.id, parent.id);
         expect(queriedParent.name, parent.name);
       });
@@ -340,7 +337,7 @@ void main() {
       testWidgets('query children', (WidgetTester tester) async {
         var queriedChildren =
             await Amplify.DataStore.query(HasManyChildModel.classType);
-        for (var i = 0; i < 5; i++) {
+        for (var i = 0; i < children.length; i++) {
           var queriedChild = queriedChildren[i];
           var actualChild = children[i];
           // an equality check such as `expect(queriedChild, actualChild);`
@@ -359,10 +356,16 @@ void main() {
       });
 
       testWidgets('observe children', (WidgetTester tester) async {
-        var event = await childEvent;
-        var observedChild = event.item;
-        var firstChild = children.first;
-        expect(observedChild, firstChild);
+        var events = await childEvents;
+        for (var i = 0; i < children.length; i++) {
+          var event = events[i];
+          var eventType = event.eventType;
+          var observedChild = event.item;
+          var actualChild = children[i];
+          expect(eventType, EventType.create);
+          expect(observedChild, actualChild);
+          expect(observedChild.parent, actualChild.parent);
+        }
       });
 
       testWidgets('delete parent', (WidgetTester tester) async {

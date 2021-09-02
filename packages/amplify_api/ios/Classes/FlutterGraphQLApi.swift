@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -18,9 +18,8 @@ import Amplify
 import AmplifyPlugins
 
 class FlutterGraphQLApi {
-
     static func query(flutterResult: @escaping FlutterResult, request: [String: Any], bridge: ApiBridge) {
-        do  {
+        do {
             let document = try FlutterApiRequest.getGraphQLDocument(methodChannelRequest: request)
             let variables = try FlutterApiRequest.getVariables(methodChannelRequest: request)
             let cancelToken = try FlutterApiRequest.getCancelToken(methodChannelRequest: request)
@@ -37,7 +36,7 @@ class FlutterGraphQLApi {
                     switch response {
                     case .success(let data):
 
-                        if(!cancelToken.isEmpty){
+                        if !cancelToken.isEmpty {
                             OperationsManager.removeOperation(cancelToken: cancelToken)
                         }
 
@@ -49,35 +48,37 @@ class FlutterGraphQLApi {
                         flutterResult(result)
                     case .failure(let errorResponse):
 
-                        if(!cancelToken.isEmpty){
+                        if !cancelToken.isEmpty {
                             OperationsManager.removeOperation(cancelToken: cancelToken)
                         }
 
-                        FlutterApiResponse.handleGraphQLErrorResponse(flutterResult: flutterResult, errorResponse: errorResponse)
+                        FlutterApiResponse.handleGraphQLErrorResponse(
+                            flutterResult: flutterResult,
+                            errorResponse: errorResponse)
                     }
                 case .failure(let apiError):
 
-                    if(!cancelToken.isEmpty){
+                    if !cancelToken.isEmpty {
                         OperationsManager.removeOperation(cancelToken: cancelToken)
                     }
 
                     print("GraphQL query operation failed: \(apiError)")
                     FlutterApiErrorHandler.handleApiError(error: apiError, flutterResult: flutterResult)
-                }}
+                }
+            }
             OperationsManager.addOperation(cancelToken: cancelToken, operation: operation)
 
         } catch let error as APIError {
             print("Failed to parse query arguments with \(error)")
             FlutterApiErrorHandler.handleApiError(error: error, flutterResult: flutterResult)
-        }
-        catch {
+        } catch {
             print("An unexpected error occured when parsing query arguments: \(error)")
             FlutterApiErrorHandler.handleApiError(error: APIError(error: error), flutterResult: flutterResult)
         }
     }
 
     static func mutate(flutterResult: @escaping FlutterResult, request: [String: Any], bridge: ApiBridge) {
-        do  {
+        do {
             let document = try FlutterApiRequest.getGraphQLDocument(methodChannelRequest: request)
             let variables = try FlutterApiRequest.getVariables(methodChannelRequest: request)
             let cancelToken = try FlutterApiRequest.getCancelToken(methodChannelRequest: request)
@@ -94,7 +95,7 @@ class FlutterGraphQLApi {
                     switch response {
                     case .success(let data):
 
-                        if(!cancelToken.isEmpty){
+                        if !cancelToken.isEmpty {
                             OperationsManager.removeOperation(cancelToken: cancelToken)
                         }
 
@@ -106,15 +107,17 @@ class FlutterGraphQLApi {
                         flutterResult(result)
                     case .failure(let errorResponse):
 
-                        if(!cancelToken.isEmpty){
+                        if !cancelToken.isEmpty {
                             OperationsManager.removeOperation(cancelToken: cancelToken)
                         }
-                        
-                        FlutterApiResponse.handleGraphQLErrorResponse(flutterResult: flutterResult, errorResponse: errorResponse)
+
+                        FlutterApiResponse.handleGraphQLErrorResponse(
+                            flutterResult: flutterResult,
+                            errorResponse: errorResponse)
                     }
                 case .failure(let apiError):
-                    
-                    if(!cancelToken.isEmpty){
+
+                    if !cancelToken.isEmpty {
                         OperationsManager.removeOperation(cancelToken: cancelToken)
                     }
 
@@ -127,81 +130,101 @@ class FlutterGraphQLApi {
         } catch let error as APIError {
             print("Failed to parse mutate arguments with \(error)")
             FlutterApiErrorHandler.handleApiError(error: error, flutterResult: flutterResult)
-        }
-        catch {
+        } catch {
             print("An unexpected error occured when parsing mutate arguments: \(error)")
             FlutterApiErrorHandler.handleApiError(error: APIError(error: error), flutterResult: flutterResult)
-
         }
     }
-    
-    static func subscribe(flutterResult: @escaping FlutterResult, request: [String: Any], bridge: ApiBridge, graphQLSubscriptionsStreamHandler: GraphQLSubscriptionsStreamHandler) {
-        do  {
+
+    static func subscribe(
+        flutterResult: @escaping FlutterResult,
+        request: [String: Any],
+        bridge: ApiBridge,
+        graphQLSubscriptionsStreamHandler: GraphQLSubscriptionsStreamHandler
+    ) {
+        do {
             let document = try FlutterApiRequest.getGraphQLDocument(methodChannelRequest: request)
             let variables = try FlutterApiRequest.getVariables(methodChannelRequest: request)
             let id = try FlutterApiRequest.getCancelToken(methodChannelRequest: request)
             let apiName = try FlutterApiRequest.getApiName(methodChannelRequest: request)
-            var established = false
 
             let request = GraphQLRequest<String>(apiName: apiName,
                                                  document: document,
                                                  variables: variables,
                                                  responseType: String.self)
 
-            let operation = bridge.subscribe(request: request, valueListener: { (subscriptionEvent) in
-                                switch subscriptionEvent {
-                                case .connection(let subscriptionConnectionState):
-                                    if(subscriptionConnectionState == SubscriptionConnectionState.connected) {
-                                        established = true
-                                        print("Subscription established: \(id)")
-                                        flutterResult(nil)
-                                    }
-                                case .data(let result):
-                                    switch result {
-                                    case .success(let data):
-                                        print("GraphQL subscription event received without errors: \(data)")
-                                        let payload: [String: Any] = [
-                                            "data": data,
-                                            "errors": []
-                                        ]
-                                        graphQLSubscriptionsStreamHandler.sendEvent(payload: payload, id: id, type: GraphQLSubscriptionEventTypes.DATA)
-                                    case .failure(let errorResponse):
-                                        FlutterApiResponse.handleGraphQLErrorResponseEvent(
+            let operation = createOperation(bridge: bridge,
+                                            flutterResult: flutterResult,
                                             graphQLSubscriptionsStreamHandler: graphQLSubscriptionsStreamHandler,
                                             id: id,
-                                            errorResponse: errorResponse
-                                        )
-                                    }
-                                }
-                            }) { result in
-                                switch result {
-                                case .success:
-                                    if(!id.isEmpty){
-                                        OperationsManager.removeOperation(cancelToken: id)
-                                    }
-                                    print("Subscription has been closed successfully")
-                                    graphQLSubscriptionsStreamHandler.sendEvent(payload: nil, id: id, type: GraphQLSubscriptionEventTypes.DONE)
-                                case .failure(let apiError):
-                                    print("Subscription has terminated with \(apiError)")
-                                    if(!id.isEmpty){
-                                        OperationsManager.removeOperation(cancelToken: id)
-                                    }
-                                    if(established) {
-                                        let details = FlutterApiErrorHandler.createSerializedError(error: apiError)
-                                        graphQLSubscriptionsStreamHandler.sendError(errorCode: "ApiException", details: details)
-                                    } else {
-                                        FlutterApiErrorHandler.handleApiError(error: apiError, flutterResult: flutterResult)
-                                    }
-                                }
-                            }
+                                            request: request)
             OperationsManager.addOperation(cancelToken: id, operation: operation)
         } catch let error as APIError {
             print("Failed to parse subscribe arguments with \(error)")
             FlutterApiErrorHandler.handleApiError(error: error, flutterResult: flutterResult)
-        }
-        catch {
+        } catch {
             print("An unexpected error occured when parsing mutate arguments: \(error)")
             FlutterApiErrorHandler.handleApiError(error: APIError(error: error), flutterResult: flutterResult)
         }
+    }
+
+    private static func createOperation(
+        bridge: ApiBridge,
+        flutterResult: @escaping FlutterResult,
+        graphQLSubscriptionsStreamHandler: GraphQLSubscriptionsStreamHandler,
+        id: String,
+        request: GraphQLRequest<String>
+    ) -> GraphQLSubscriptionOperation<String> {
+        var established = false
+        return bridge.subscribe(request: request) { subscriptionEvent in
+                switch subscriptionEvent {
+                case .connection(let subscriptionConnectionState):
+                    if subscriptionConnectionState == SubscriptionConnectionState.connected {
+                        established = true
+                        print("Subscription established: \(id)")
+                        flutterResult(nil)
+                    }
+                case .data(let result):
+                    switch result {
+                    case .success(let data):
+                        print("GraphQL subscription event received without errors: \(data)")
+                        let payload: [String: Any] = [
+                            "data": data,
+                            "errors": []
+                        ]
+                        graphQLSubscriptionsStreamHandler.sendEvent(
+                            payload: payload,
+                            id: id, type: GraphQLSubscriptionEventTypes.DATA)
+                    case .failure(let errorResponse):
+                        FlutterApiResponse.handleGraphQLErrorResponseEvent(
+                            graphQLSubscriptionsStreamHandler: graphQLSubscriptionsStreamHandler,
+                            id: id,
+                            errorResponse: errorResponse)
+                    }
+                }
+            } completionListener: { result in
+                switch result {
+                case .success:
+                    if !id.isEmpty {
+                        OperationsManager.removeOperation(cancelToken: id)
+                    }
+                    print("Subscription has been closed successfully")
+                    graphQLSubscriptionsStreamHandler.sendEvent(
+                        payload: nil,
+                        id: id,
+                        type: GraphQLSubscriptionEventTypes.DONE)
+                case .failure(let apiError):
+                    print("Subscription has terminated with \(apiError)")
+                    if !id.isEmpty {
+                        OperationsManager.removeOperation(cancelToken: id)
+                    }
+                    if established {
+                        let details = FlutterApiErrorHandler.createSerializedError(error: apiError)
+                        graphQLSubscriptionsStreamHandler.sendError(errorCode: "ApiException", details: details)
+                    } else {
+                        FlutterApiErrorHandler.handleApiError(error: apiError, flutterResult: flutterResult)
+                    }
+                }
+            }
     }
 }

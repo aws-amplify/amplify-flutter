@@ -12,6 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+
 import Foundation
 import Amplify
 import AmplifyPlugins
@@ -22,19 +23,19 @@ import Flutter
 class FlutterAuthProviders: APIAuthProviderFactory {
     /// Token cache for all [FlutterAuthProvider] instances.
     static private var tokens: [AWSAuthorizationType: String?] = [:]
-    
+
     static func setToken(type: AWSAuthorizationType, token: String?) {
         tokens[type] = token
     }
-    
+
     static func getToken(for type: AWSAuthorizationType) -> String? {
         return tokens[type] ?? nil
     }
-    
+
     override func oidcAuthProvider() -> AmplifyOIDCAuthProvider? {
         return FlutterAuthProvider(type: .openIDConnect)
     }
-    
+
     override func functionAuthProvider() -> AmplifyFunctionAuthProvider? {
         return FlutterAuthProvider(type: .function)
     }
@@ -43,7 +44,7 @@ class FlutterAuthProviders: APIAuthProviderFactory {
 /// A provider which manages token retrieval for its [AWSAuthorizationType].
 struct FlutterAuthProvider: AmplifyOIDCAuthProvider, AmplifyFunctionAuthProvider {
     let type: AWSAuthorizationType
-    
+
     func getLatestAuthToken() -> Result<String, Error> {
         guard let token = FlutterAuthProviders.getToken(for: type) else {
             let tokenUnavailable = AuthError.notAuthorized(

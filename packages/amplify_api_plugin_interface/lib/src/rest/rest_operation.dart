@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,8 +13,11 @@
  * permissions and limitations under the License.
  */
 
-import Foundation
-enum GraphQLSubscriptionEventTypes: String {
-    case DATA
-    case DONE
+import 'rest_response.dart';
+
+class RestOperation {
+  final Function cancel;
+  final Future<RestResponse> response;
+
+  const RestOperation({required this.response, required this.cancel});
 }

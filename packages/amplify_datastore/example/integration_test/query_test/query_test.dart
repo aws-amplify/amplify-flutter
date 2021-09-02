@@ -16,7 +16,6 @@
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../utils/setup_utils.dart';
 import 'standard_query_operations_test.dart' as standard_query_operations_tests;
 import 'sort_order_test.dart' as sort_order_tests;
 import 'pagination_test.dart' as pagination_tests;
@@ -27,10 +26,6 @@ void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('query()', () {
-    setUpAll(() async {
-      await configureDataStore();
-    });
-
     standard_query_operations_tests.main();
     sort_order_tests.main();
     pagination_tests.main();

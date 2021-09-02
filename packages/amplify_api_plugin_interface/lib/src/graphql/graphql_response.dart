@@ -13,12 +13,14 @@
  * permissions and limitations under the License.
  */
 
-import 'package:uuid/uuid.dart';
+import '../types.dart';
 
-class UUID {
-  static final _internal = Uuid();
+class GraphQLResponse<T> {
+  final T data;
+  final List<GraphQLResponseError> errors;
 
-  static String getUUID() {
-    return _internal.v4();
-  }
+  const GraphQLResponse({
+    required this.data,
+    required this.errors,
+  });
 }

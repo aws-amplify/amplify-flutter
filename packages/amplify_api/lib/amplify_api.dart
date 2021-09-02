@@ -61,6 +61,7 @@ class AmplifyAPI extends APIPluginInterface {
     return _instance.mutate(request: request);
   }
 
+  @override
   GraphQLSubscriptionOperation<T> subscribe<T>(
       {required GraphQLRequest<T> request,
       required Function(GraphQLResponse<T>) onData,
