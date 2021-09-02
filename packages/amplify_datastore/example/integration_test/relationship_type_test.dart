@@ -247,8 +247,10 @@ void main() {
       testWidgets('observe parent', (WidgetTester tester) async {
         var event = await hasManyEvent;
         var observedParent = event.item;
-        expect(observedParent.id, parent.id);
-        expect(observedParent.name, parent.name);
+        // full equality check can be performed since the parent has null children
+        // and queries return null for nested hasMany data
+        // this may need to be updated if/when https://github.com/aws-amplify/amplify-flutter/issues/642 is fully resolved
+        expect(observedParent, parent);
       });
 
       testWidgets('observe children', (WidgetTester tester) async {
@@ -324,6 +326,10 @@ void main() {
       testWidgets('query parent', (WidgetTester tester) async {
         var parents = await Amplify.DataStore.query(HasManyModel.classType);
         var queriedParent = parents.single;
+        // an equality check such as `expect(queriedParent, parent);`
+        // cannot be performed since parent has non-null children
+        // but queries do not return hasMany nested models
+        // to be updated if/when https://github.com/aws-amplify/amplify-flutter/issues/642 is fully resolved
         expect(queriedParent.id, parent.id);
         expect(queriedParent.name, parent.name);
       });
