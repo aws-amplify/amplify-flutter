@@ -60,9 +60,6 @@ extension GraphQLStreamX<T> on Stream<T> {
   ///
   /// This allows a backing stream to be reused multiple times, even if the
   /// subscriber count drops to zero.
-  ///
-  /// [onSubscriptionReady] is called once for each subscriber after set up
-  /// actions are completed and [onFirstListen] is called, if necessary.
   Stream<T> asMultiStream({
     Future<void> Function()? onFirstListen,
     Future<void> Function()? onLastCancel,
