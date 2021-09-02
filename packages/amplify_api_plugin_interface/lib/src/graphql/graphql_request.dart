@@ -13,17 +13,24 @@
  * permissions and limitations under the License.
  */
 
-import './RestResponse.dart';
+import '../uuid.dart';
 
-class RestOperation {
-  late Function _cancel;
-  Future<RestResponse> response;
+class GraphQLRequest<T> {
+  final String? apiName;
+  final String document;
+  final Map<String, dynamic> variables;
+  final String cancelToken = UUID.getUUID();
 
-  RestOperation({required this.response, required Function cancel}) {
-    _cancel = cancel;
-  }
+  GraphQLRequest({
+    this.apiName,
+    required this.document,
+    this.variables = const <String, dynamic>{},
+  });
 
-  void cancel() {
-    _cancel();
-  }
+  Map<String, dynamic> serializeAsMap() => <String, dynamic>{
+        'document': document,
+        'variables': variables,
+        'cancelToken': cancelToken,
+        if (apiName != null) 'apiName': apiName,
+      };
 }

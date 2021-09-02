@@ -31,7 +31,7 @@ class _AuthToken {
   const _AuthToken(this.type, this.token);
 
   /// Returns `this` as a serialized [Map].
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toMap() => <String, dynamic>{
         'type': type.rawValue,
         'token': token,
       };
@@ -45,6 +45,7 @@ extension on APIAuthProvider {
     String? token;
     try {
       token = await getLatestAuthToken();
+      //ignore:empty_catches
     } on Exception {}
     return _AuthToken(type, token).toMap();
   }

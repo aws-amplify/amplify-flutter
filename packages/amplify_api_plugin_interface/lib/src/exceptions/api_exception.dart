@@ -15,7 +15,9 @@
 
 import 'package:amplify_core/types/exception/AmplifyException.dart';
 
-/// Exception thrown from Api Category
+/// {@template api_exception}
+/// Exception thrown from the API Category.
+/// {@endtemplate}
 class ApiException extends AmplifyException {
   /// HTTP status of response, only available if error
   @Deprecated(
@@ -23,32 +25,39 @@ class ApiException extends AmplifyException {
       'ApiException for handling REST errors can be safely replaced with RestException')
   final int? httpStatusCode;
 
-  const ApiException(String message,
-      {String? recoverySuggestion,
-      String? underlyingException,
-      this.httpStatusCode})
-      : super(message,
-            recoverySuggestion: recoverySuggestion,
-            underlyingException: underlyingException);
+  /// {@macro api_exception}
+  const ApiException(
+    String message, {
+    String? recoverySuggestion,
+    String? underlyingException,
+    this.httpStatusCode,
+  }) : super(
+          message,
+          recoverySuggestion: recoverySuggestion,
+          underlyingException: underlyingException,
+        );
 
   /// Constructor for down casting an AmplifyException to this exception
   ApiException._private(
-      AmplifyException exception, int? httpStatusCodeFromException)
-      : httpStatusCode = httpStatusCodeFromException,
-        super(exception.message,
-            recoverySuggestion: exception.recoverySuggestion,
-            underlyingException: exception.underlyingException);
+    AmplifyException exception,
+    this.httpStatusCode,
+  ) : super(
+          exception.message,
+          recoverySuggestion: exception.recoverySuggestion,
+          underlyingException: exception.underlyingException,
+        );
 
   /// Instantiates and return a new `ApiException` from the
   /// serialized exception data
   static ApiException fromMap(Map<String, String> serializedException) {
-    var statusCode =
-        int.tryParse(serializedException["httpStatusCode"] ?? "") ?? null;
+    var statusCode = int.tryParse(serializedException['httpStatusCode'] ?? '');
     // Ensure a valid HTTP status code for an error.
     if (statusCode != null && (statusCode < 300 || statusCode > 511)) {
       statusCode = null;
     }
     return ApiException._private(
-        AmplifyException.fromMap(serializedException), statusCode);
+      AmplifyException.fromMap(serializedException),
+      statusCode,
+    );
   }
 }

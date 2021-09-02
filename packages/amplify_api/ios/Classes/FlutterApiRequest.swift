@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -23,33 +23,37 @@ class FlutterApiRequest {
     // ====== SHARED ======
     static func getMap(args: Any) throws -> [String: Any] {
         guard let res = args as? [String: Any] else {
-            throw APIError.invalidConfiguration("The FlutterMethodCall argument was not passed as a dictionary",
-                                                "The request should include the FlutterMethodCall argument as a [String: Any] dictionary")
+            throw APIError.invalidConfiguration(
+                "The FlutterMethodCall argument was not passed as a dictionary",
+                "The request should include the FlutterMethodCall argument as a [String: Any] dictionary")
         }
         return res
     }
 
     static func getCancelToken(args: Any) throws -> String {
         guard let cancelToken = args as? String else {
-            throw APIError.invalidConfiguration("The cancelToken request argument was not passed as a String",
-                                                "The request should include the cancelToken document as a String")
+            throw APIError.invalidConfiguration(
+                "The cancelToken request argument was not passed as a String",
+                "The request should include the cancelToken document as a String")
         }
         return cancelToken
     }
 
     static func getCancelToken(methodChannelRequest: [String: Any]) throws -> String {
         guard let cancelToken = methodChannelRequest["cancelToken"] as? String else {
-            throw APIError.invalidConfiguration("The cancelToken request argument was not passed as a String",
-                                                "The request should include the cancelToken document as a String")
+            throw APIError.invalidConfiguration(
+                "The cancelToken request argument was not passed as a String",
+                "The request should include the cancelToken document as a String")
         }
         return cancelToken
     }
 
     static func getApiName(methodChannelRequest: [String: Any]) throws -> String? {
-        if let apiNameValue = methodChannelRequest["apiName"]{
+        if let apiNameValue = methodChannelRequest["apiName"] {
             guard let apiName = apiNameValue as? String else {
-                  throw APIError.invalidConfiguration("The apiName request argument was not passed as a String",
-                                                "The request should include the apiName document as a String")
+                  throw APIError.invalidConfiguration(
+                    "The apiName request argument was not passed as a String",
+                    "The request should include the apiName document as a String")
             }
             return apiName
         }
@@ -57,30 +61,31 @@ class FlutterApiRequest {
         return nil
     }
 
-
     // ====== GRAPH QL ======
     static func getGraphQLDocument(methodChannelRequest: [String: Any]) throws -> String {
         guard let document = methodChannelRequest["document"] as? String else {
-            throw APIError.invalidConfiguration("The graphQL document request argument was not passed as a String",
-                                                "The request should include the graphQL document as a String")
+            throw APIError.invalidConfiguration(
+                "The graphQL document request argument was not passed as a String",
+                "The request should include the graphQL document as a String")
         }
         return document
     }
-    
-    static func getVariables(methodChannelRequest: [String: Any]) throws ->  [String:Any] {
+
+    static func getVariables(methodChannelRequest: [String: Any]) throws -> [String: Any] {
         guard let variables = methodChannelRequest["variables"] as? [String: Any] else {
-            throw APIError.invalidConfiguration("The variables request argument was not passed as a dictionary",
-                                                "The request should include the variables argument as a [String: Any] dictionary")
+            throw APIError.invalidConfiguration(
+                "The variables request argument was not passed as a dictionary",
+                "The request should include the variables argument as a [String: Any] dictionary")
         }
         return variables
     }
 
-
     // ====== REST API =======
     static func getRestRequest(methodChannelRequest: [String: Any], cancelToken: String) throws -> RESTRequest {
         guard let restOptionsMap = methodChannelRequest["restOptions"] as? [String: Any] else {
-            throw APIError.invalidConfiguration("The restOptions request argument was not passed as a dictionary",
-                                                "The request should include the restOptions argument as a [String: Any] dictionary")
+            throw APIError.invalidConfiguration(
+                "The restOptions request argument was not passed as a dictionary",
+                "The request should include the restOptions argument as a [String: Any] dictionary")
         }
 
         var path: String?
@@ -89,23 +94,23 @@ class FlutterApiRequest {
         var headers: [String: String] = [:]
         var apiName: String?
 
-        for(key, value) in restOptionsMap {
+        for (key, value) in restOptionsMap {
             switch key {
-                case "apiName" :
-                    apiName = value as? String
-                case "path" :
-                    path = value as? String
-                case "body" :
-                    body = (value as? FlutterStandardTypedData)?.data
-                case "queryParameters" :
-                    queryParameters = value as? [String: String]
-                case "headers" :
-                    headers = value as? [String: String] ?? [:]
-                default:
-                    print("Invalid RestOption key: " + key)
+            case "apiName":
+                apiName = value as? String
+            case "path":
+                path = value as? String
+            case "body":
+                body = (value as? FlutterStandardTypedData)?.data
+            case "queryParameters":
+                queryParameters = value as? [String: String]
+            case "headers":
+                headers = value as? [String: String] ?? [:]
+            default:
+                print("Invalid RestOption key: " + key)
             }
         }
-        
+
         // Add cancel token for later identification.
         headers[cancelTokenHeader] = cancelToken
 
