@@ -176,7 +176,7 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
             if case .object(let deserializedValue) = value {
                 // If a field that has many models
                 if (deserializedValue["associatedField"] != nil && deserializedValue["associatedId"] != nil) {
-                    result[key] = Array<Any>();
+                    result[key] = nil
                 }
                 // If a field that has one or belongs to a model
                 else if case .string(let modelId) = deserializedValue["id"],

@@ -120,4 +120,12 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   Future<void> clear() {
     throw UnimplementedError('clear() has not been implemented.');
   }
+
+  Future<void> start() {
+    throw UnimplementedError('start() has not been implemented.');
+  }
+
+  Future<void> stop() {
+    throw UnimplementedError('stop() has not been implemented.');
+  }
 }

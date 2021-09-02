@@ -66,4 +66,12 @@ public class DataStoreBridge {
     func onClear(completion: @escaping DataStoreCallback<Void>) throws {
         try getPlugin().clear(completion: completion)
     }
+
+    func onStart(completion: @escaping DataStoreCallback<Void>) throws {
+        try getPlugin().start(completion: completion)
+    }
+
+    func onStop(completion: @escaping DataStoreCallback<Void>) throws {
+        try getPlugin().stop(completion: completion)
+    }
 }

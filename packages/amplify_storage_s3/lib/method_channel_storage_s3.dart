@@ -34,7 +34,10 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
       return await _channel.invokeMethod('addPlugin');
     } on PlatformException catch (e) {
       if (e.code == "AmplifyAlreadyConfiguredException") {
-        throw const AmplifyAlreadyConfiguredException();
+        throw AmplifyAlreadyConfiguredException(
+            AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+            recoverySuggestion:
+                AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
       } else {
         throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       }

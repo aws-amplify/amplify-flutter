@@ -69,7 +69,7 @@ class AmplifyAnalyticsPinpointPluginTest {
             "AnalyticsDoubleProperty" to 3.14,
             "AnalyticsIntegerProperty" to 42
         )
-        val propertiesTypesMap = hashMapOf<String, Any>(
+        val propertiesTypesMap = hashMapOf(
             "AnalyticsStringProperty" to "STRING",
             "AnalyticsBooleanProperty" to "BOOL",
             "AnalyticsDoubleProperty" to "DOUBLE",
@@ -190,5 +190,4 @@ class AmplifyAnalyticsPinpointPluginTest {
         modifiersField.setInt(field, field.modifiers and Modifier.FINAL.inv())
         field.set(null, newValue)
     }
-
 }

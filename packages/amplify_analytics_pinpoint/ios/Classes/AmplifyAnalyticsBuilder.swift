@@ -17,9 +17,7 @@ import Amplify
 import AmplifyPlugins
 
 public enum AmplifyAnalyticsBuilder {
-
     public static func createAnalyticsProperties(map: [String: Any]) -> AnalyticsProperties {
-
         var analyticsProperties = AnalyticsProperties()
 
         guard let propertiesMap = map["propertiesMap"] as? [String: Any],
@@ -46,7 +44,6 @@ public enum AmplifyAnalyticsBuilder {
     }
 
     public static func createUserProfile(userProfileMap: [String: Any]) -> AnalyticsUserProfile {
-
         var location: AnalyticsUserProfile.Location?
         if let locationMap = userProfileMap["location"] as? [String: Any] {
             location = createUserLocation(userLocationMap: locationMap)
@@ -61,7 +58,6 @@ public enum AmplifyAnalyticsBuilder {
     }
 
     public static func createUserLocation(userLocationMap: [String: Any]) -> AnalyticsUserProfile.Location {
-
         return AnalyticsUserProfile.Location(
             latitude: userLocationMap["latitude"] as? Double,
             longitude: userLocationMap["longitude"] as? Double,
@@ -70,5 +66,4 @@ public enum AmplifyAnalyticsBuilder {
             region: userLocationMap["region"] as? String,
             country: userLocationMap["country"] as? String)
     }
-
 }

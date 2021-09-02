@@ -19,7 +19,6 @@ import Amplify
 import AmplifyPlugins
 
 public class SwiftAmplifyAnalyticsPinpointPlugin: NSObject, FlutterPlugin {
-
     private let bridge: AnalyticsBridge
 
     init(
@@ -65,5 +64,4 @@ public class SwiftAmplifyAnalyticsPinpointPlugin: NSObject, FlutterPlugin {
             result(FlutterMethodNotImplemented)
         }
     }
-
 }

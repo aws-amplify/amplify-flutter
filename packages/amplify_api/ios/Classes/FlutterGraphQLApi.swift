@@ -18,7 +18,6 @@ import Amplify
 import AmplifyPlugins
 
 class FlutterGraphQLApi {
-
     static func query(flutterResult: @escaping FlutterResult, request: [String: Any], bridge: ApiBridge) {
         do {
             let document = try FlutterApiRequest.getGraphQLDocument(methodChannelRequest: request)
@@ -134,7 +133,6 @@ class FlutterGraphQLApi {
         } catch {
             print("An unexpected error occured when parsing mutate arguments: \(error)")
             FlutterApiErrorHandler.handleApiError(error: APIError(error: error), flutterResult: flutterResult)
-
         }
     }
 

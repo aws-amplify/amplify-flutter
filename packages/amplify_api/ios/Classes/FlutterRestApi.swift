@@ -22,7 +22,6 @@ import AmplifyPlugins
 import AWSCore
 
 public class FlutterRestApi {
-
     private static func restFunctionHelper(
         methodName: String,
         flutterResult: @escaping FlutterResult,
@@ -133,5 +132,4 @@ public class FlutterRestApi {
                            request: arguments,
                            function: bridge.patch)
     }
-
 }

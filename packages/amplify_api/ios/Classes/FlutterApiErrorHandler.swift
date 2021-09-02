@@ -19,7 +19,6 @@ import AmplifyPlugins
 import amplify_core
 
 class FlutterApiErrorHandler {
-
     static func handleApiError(error: APIError, flutterResult: FlutterResult) {
         ErrorUtil.postErrorToFlutterChannel(result: flutterResult,
                                             errorCode: "ApiException",
@@ -40,5 +39,4 @@ class FlutterApiErrorHandler {
             underlyingError: error.underlyingError?.localizedDescription,
             httpStatusCode: httpStatusCode)
     }
-
 }

@@ -114,6 +114,4 @@ class AmplifyAnalyticsPinpointPlugin : FlutterPlugin, ActivityAware, MethodCallH
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
     }
-
-
 }

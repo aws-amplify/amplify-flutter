@@ -71,7 +71,10 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
       });
     } on PlatformException catch (e) {
       if (e.code == "AmplifyAlreadyConfiguredException") {
-        throw const AmplifyAlreadyConfiguredException();
+        throw AmplifyAlreadyConfiguredException(
+            AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+            recoverySuggestion:
+                AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
       } else {
         throw _deserializeException(e);
       }
@@ -174,6 +177,24 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   Future<void> clear() async {
     try {
       await _channel.invokeMethod('clear');
+    } on PlatformException catch (e) {
+      throw _deserializeException(e);
+    }
+  }
+
+  @override
+  Future<void> start() async {
+    try {
+      await _channel.invokeMethod('start');
+    } on PlatformException catch (e) {
+      throw _deserializeException(e);
+    }
+  }
+
+  @override
+  Future<void> stop() async {
+    try {
+      await _channel.invokeMethod('stop');
     } on PlatformException catch (e) {
       throw _deserializeException(e);
     }

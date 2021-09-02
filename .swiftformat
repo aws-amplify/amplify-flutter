@@ -73,12 +73,12 @@
 # standalone rules
 --disable andOperator
 --disable anyObjectProtocol
---disable blankLinesAroundMark
---disable blankLinesAtEndOfScope
---disable blankLinesAtStartOfScope
---disable blankLinesBetweenScopes
---disable consecutiveBlankLines
---disable consecutiveSpaces
+--enable blankLinesAroundMark
+--enable blankLinesAtEndOfScope
+--enable blankLinesAtStartOfScope
+--enable blankLinesBetweenScopes
+--enable consecutiveBlankLines
+--enable consecutiveSpaces
 --disable duplicateImports
 --disable emptyBraces
 --enable isEmpty

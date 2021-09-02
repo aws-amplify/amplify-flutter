@@ -20,12 +20,14 @@ import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
 import androidx.annotation.VisibleForTesting
+import com.amazonaws.amplify.amplify_api.auth.FlutterAuthProviders
 import com.amazonaws.amplify.amplify_api.rest_api.FlutterRestApi
-import com.amazonaws.amplify.amplify_core.asMap
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedUnrecognizedError
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
+import com.amplifyframework.api.ApiException
 import com.amplifyframework.api.aws.AWSApiPlugin
+import com.amplifyframework.api.aws.AuthorizationType
 import com.amplifyframework.core.Amplify
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.EventChannel
@@ -36,6 +38,15 @@ import io.flutter.plugin.common.MethodChannel.Result
 
 /** AmplifyApiPlugin */
 class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
+    companion object {
+        /**
+         * Thrown when [tokenType] is used but is not a valid [AuthorizationType].
+         */
+        private fun invalidTokenType(tokenType: String? = null) = ApiException.ApiAuthException(
+            "Invalid arguments",
+            "Invalid token type: $tokenType"
+        )
+    }
 
     private lateinit var channel: MethodChannel
     private lateinit var eventchannel: EventChannel
@@ -65,6 +76,7 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
         context = flutterPluginBinding.applicationContext
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun onMethodCall(call: MethodCall, result: Result) {
         val methodName = call.method
 
@@ -73,7 +85,12 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
             return
         } else if (methodName == "addPlugin") {
             try {
-                Amplify.addPlugin(AWSApiPlugin())
+                Amplify.addPlugin(
+                    AWSApiPlugin
+                        .builder()
+                        .apiAuthProviders(FlutterAuthProviders.factory)
+                        .build()
+                )
                 logger.info("Added API plugin")
                 result.success(null)
             } catch (e: Exception) {
@@ -83,7 +100,22 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
         }
 
         try {
-            val arguments = call.arguments.asMap<String, Any>()
+            val arguments: Map<String, Any> = call.arguments as Map<String, Any>
+
+            // Update tokens if included with request
+            val tokens = arguments["tokens"] as? List<*>
+            if (tokens != null && tokens.isNotEmpty()) {
+                for (authToken in tokens as List<Map<*, *>>) {
+                    val token = authToken["token"] as? String?
+                    val tokenType = authToken["type"] as? String ?: throw invalidTokenType()
+                    val authType: AuthorizationType = try {
+                        AuthorizationType.from(tokenType)
+                    } catch (e: Exception) {
+                        throw invalidTokenType(tokenType)
+                    }
+                    FlutterAuthProviders.setToken(authType, token)
+                }
+            }
 
             when (call.method) {
                 "get" -> FlutterRestApi.get(result, arguments)
@@ -111,7 +143,7 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
         }
     }
 
-    private fun onCancel(
+    fun onCancel(
         flutterResult: Result,
         cancelToken: String
     ) {

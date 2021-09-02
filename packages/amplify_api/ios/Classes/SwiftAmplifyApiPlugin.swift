@@ -18,9 +18,9 @@ import UIKit
 import Amplify
 import AmplifyPlugins
 import amplify_core
+import AWSPluginsCore
 
 public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
-
     private let bridge: ApiBridge
     private let graphQLSubscriptionsStreamHandler: GraphQLSubscriptionsStreamHandler
 
@@ -56,47 +56,70 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
                 onCancel(flutterResult: result, cancelToken: cancelToken)
                 return
             } else if method == "addPlugin"{
-                do {
-                    try Amplify.add(plugin: AWSAPIPlugin(sessionFactory: FlutterURLSessionBehaviorFactory()) )
-                    result(true)
-                } catch let apiError as APIError {
-                    ErrorUtil.postErrorToFlutterChannel(
-                        result: result,
-                        errorCode: "APIException",
-                        details: [
-                            "message": apiError.errorDescription,
-                            "recoverySuggestion": apiError.recoverySuggestion,
-                            "underlyingError": apiError.underlyingError?.localizedDescription ?? ""
-                        ]
-                    )
-                } catch let configError as ConfigurationError {
-                    var errorCode = "APIException"
-                    if case .amplifyAlreadyConfigured = configError {
-                        errorCode = "AmplifyAlreadyConfiguredException"
-                    }
-                    ErrorUtil.postErrorToFlutterChannel(
-                        result: result,
-                        errorCode: errorCode,
-                        details: [
-                            "message": configError.errorDescription,
-                            "recoverySuggestion": configError.recoverySuggestion,
-                            "underlyingError": configError.underlyingError?.localizedDescription ?? ""
-                        ]
-                    )
-                } catch {
-                    ErrorUtil.postErrorToFlutterChannel(
-                        result: result,
-                        errorCode: "UNKNOWN",
-                        details: ["message": error.localizedDescription])
-                }
+                addPlugin(result: result)
                 return
             }
 
             let arguments = try FlutterApiRequest.getMap(args: callArgs)
+
+            // Update tokens if included in request.
+            if let tokens = arguments["tokens"] as? [[String: Any?]] {
+                for tokenMap in tokens {
+                    guard let type = tokenMap["type"] as? String,
+                          let awsAuthType = AWSAuthorizationType(rawValue: type),
+                          let token = tokenMap["token"] as? String? else {
+                        throw APIError.unknown(
+                            "Invalid arguments",
+                            "A valid AWSAuthorizationType and token entry are required",
+                            nil)
+                    }
+                    FlutterAuthProviders.setToken(type: awsAuthType, token: token)
+                }
+            }
+
             try innerHandle(method: method, arguments: arguments, result: result)
         } catch {
             print("Failed to parse query arguments with \(error)")
             FlutterApiErrorHandler.handleApiError(error: APIError(error: error), flutterResult: result)
+        }
+    }
+
+    private func addPlugin(result: FlutterResult) {
+        do {
+            try Amplify.add(
+                plugin: AWSAPIPlugin(
+                    sessionFactory: FlutterURLSessionBehaviorFactory(),
+                    apiAuthProviderFactory: FlutterAuthProviders()))
+            result(true)
+        } catch let apiError as APIError {
+            ErrorUtil.postErrorToFlutterChannel(
+                result: result,
+                errorCode: "APIException",
+                details: [
+                    "message": apiError.errorDescription,
+                    "recoverySuggestion": apiError.recoverySuggestion,
+                    "underlyingError": apiError.underlyingError?.localizedDescription ?? ""
+                ]
+            )
+        } catch let configError as ConfigurationError {
+            var errorCode = "APIException"
+            if case .amplifyAlreadyConfigured = configError {
+                errorCode = "AmplifyAlreadyConfiguredException"
+            }
+            ErrorUtil.postErrorToFlutterChannel(
+                result: result,
+                errorCode: errorCode,
+                details: [
+                    "message": configError.errorDescription,
+                    "recoverySuggestion": configError.recoverySuggestion,
+                    "underlyingError": configError.underlyingError?.localizedDescription ?? ""
+                ]
+            )
+        } catch {
+            ErrorUtil.postErrorToFlutterChannel(
+                result: result,
+                errorCode: "UNKNOWN",
+                details: ["message": error.localizedDescription])
         }
     }
 
@@ -131,11 +154,10 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
             flutterResult(FlutterError(
                             code: "AmplifyAPI-CancelError",
                             message: """
-                            The Operation may have already been completed or expired and cannot
+                            The Operation may have already been completed or expired and cannot \
                             be canceled anymore
                             """,
                             details: "Operation does not exist"))
         }
     }
-
 }

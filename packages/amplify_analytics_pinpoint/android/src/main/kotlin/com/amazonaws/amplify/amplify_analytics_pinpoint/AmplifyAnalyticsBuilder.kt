@@ -23,7 +23,7 @@ import com.amplifyframework.analytics.UserProfile
 class AmplifyAnalyticsBuilder {
     companion object Builder {
 
-        fun createAnalyticsProperties(propertiesMap: HashMap<String, Any>): AnalyticsProperties {
+        fun createAnalyticsProperties(propertiesMap: Map<String, Any>): AnalyticsProperties {
 
             val propertiesBuilder: AnalyticsProperties.Builder = AnalyticsProperties.builder()
 
@@ -47,7 +47,6 @@ class AmplifyAnalyticsBuilder {
                         throw IllegalArgumentException("Warning unrecognized object type sent for AnalyticsProperties")
                     }
                 }
-
             }
 
             return propertiesBuilder.build()
@@ -55,7 +54,7 @@ class AmplifyAnalyticsBuilder {
 
         fun createAnalyticsEvent(
             name: String,
-            propertiesMap: HashMap<String, Any>
+            propertiesMap: Map<String, Any>
         ): AnalyticsEvent {
 
             val eventBuilder: AnalyticsEvent.Builder = AnalyticsEvent.builder()
@@ -86,7 +85,7 @@ class AmplifyAnalyticsBuilder {
             return eventBuilder.build()
         }
 
-        fun createUserProfile(userProfileMap: HashMap<String, *>): UserProfile {
+        fun createUserProfile(userProfileMap: Map<String, Any>): UserProfile {
 
             val userProfileBuilder = UserProfile.builder()
 
@@ -119,7 +118,7 @@ class AmplifyAnalyticsBuilder {
             return userProfileBuilder.build()
         }
 
-        private fun createUserLocation(userLocationMap: HashMap<String, *>): UserProfile.Location {
+        private fun createUserLocation(userLocationMap: Map<String, Any?>): UserProfile.Location {
 
             val locationBuilder = UserProfile.Location.builder()
 
@@ -147,5 +146,4 @@ class AmplifyAnalyticsBuilder {
             return locationBuilder.build()
         }
     }
-
 }
