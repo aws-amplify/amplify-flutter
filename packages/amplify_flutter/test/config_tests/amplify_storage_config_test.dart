@@ -52,9 +52,9 @@ void main() {
 
   test('Storage is instantiated', () async {
     await amplify.configure(amplifyConfig);
-    var storage = amplify.config.storage!.awsS3StoragePlugin;
-    expect(storage!.bucket, BUCKET);
-    expect(storage.defaultAccessLevel, ACCESS);
-    expect(storage.region, REGION);
+    var config = await amplify.asyncConfig;
+    expect(config.storage!.awsS3StoragePlugin!.bucket, BUCKET);
+    expect(config.storage!.awsS3StoragePlugin!.defaultAccessLevel, ACCESS);
+    expect(config.storage!.awsS3StoragePlugin!.region, REGION);
   });
 }

@@ -8,11 +8,11 @@ part of 'appsync_auth_config.dart';
 
 AppSyncAuthConfig _$AppSyncAuthConfigFromJson(Map<String, dynamic> json) {
   return AppSyncAuthConfig(
-    apiUrl: json['ApiUrl'] as String,
-    region: json['Region'] as String,
-    authMode: json['AuthMode'] as String,
+    apiUrl: json['ApiUrl'] as String?,
+    region: json['Region'] as String?,
+    authMode: json['AuthMode'] as String?,
     apiKey: json['ApiKey'] as String?,
-    clientDatabasePrefix: json['ClientDatabasePrefix'] as String,
+    clientDatabasePrefix: json['ClientDatabasePrefix'] as String?,
   );
 }
 

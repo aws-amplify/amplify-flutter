@@ -9,9 +9,9 @@ part of 'cognito_userpool_config.dart';
 CognitoUserPoolConfig _$CognitoUserPoolConfigFromJson(
     Map<String, dynamic> json) {
   return CognitoUserPoolConfig(
-    poolId: json['PoolId'] as String,
-    appClientId: json['AppClientId'] as String,
-    region: json['Region'] as String,
+    poolId: json['PoolId'] as String?,
+    appClientId: json['AppClientId'] as String?,
+    region: json['Region'] as String?,
   );
 }
 

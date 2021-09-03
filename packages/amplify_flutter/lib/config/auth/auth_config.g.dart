@@ -9,8 +9,7 @@ part of 'auth_config.dart';
 AuthConfig _$AuthConfigFromJson(Map<String, dynamic> json) {
   return AuthConfig(
     (json['plugins'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(
-          k, CognitoAuthPluginConfig.fromJson(e as Map<String, dynamic>)),
+      (k, e) => MapEntry(k, AuthPlugin.fromJson(e as Map<String, dynamic>)),
     ),
   );
 }

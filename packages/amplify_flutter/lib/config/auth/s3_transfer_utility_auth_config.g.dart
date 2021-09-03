@@ -9,8 +9,8 @@ part of 's3_transfer_utility_auth_config.dart';
 S3TransferUtilityAuthConfig _$S3TransferUtilityAuthConfigFromJson(
     Map<String, dynamic> json) {
   return S3TransferUtilityAuthConfig(
-    bucket: json['Bucket'] as String,
-    region: json['Region'] as String,
+    bucket: json['Bucket'] as String?,
+    region: json['Region'] as String?,
   );
 }
 

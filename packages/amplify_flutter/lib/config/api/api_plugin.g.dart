@@ -8,10 +8,10 @@ part of 'api_plugin.dart';
 
 APIPlugin _$APIPluginFromJson(Map<String, dynamic> json) {
   return APIPlugin(
-    endpointType: json['endpointType'] as String,
-    endpoint: json['endpoint'] as String,
-    region: json['region'] as String,
-    authorizationType: json['authorizationType'] as String,
+    endpointType: json['endpointType'] as String?,
+    endpoint: json['endpoint'] as String?,
+    region: json['region'] as String?,
+    authorizationType: json['authorizationType'] as String?,
     apiKey: json['apiKey'] as String?,
   );
 }

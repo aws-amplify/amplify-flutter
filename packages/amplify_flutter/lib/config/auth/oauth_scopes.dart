@@ -13,28 +13,17 @@
  * permissions and limitations under the License.
  */
 
-part 'appsync_auth_config.g.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-class AppSyncAuthConfig {
-  final String? apiUrl;
+enum OAuthScopes {
+  phone,
 
-  final String? region;
+  email,
 
-  final String? authMode;
+  openid,
 
-  final String? apiKey;
+  profile,
 
-  final String? clientDatabasePrefix;
-
-  const AppSyncAuthConfig(
-      {required this.apiUrl,
-      required this.region,
-      required this.authMode,
-      this.apiKey,
-      required this.clientDatabasePrefix});
-
-  factory AppSyncAuthConfig.fromJson(Map<String, dynamic> json) =>
-      _$AppSyncAuthConfigFromJson(json);
-
-  Map<String, dynamic> toJson() => _$AppSyncAuthConfigToJson(this);
+  @JsonValue('aws.cognito.signin.user.admin')
+  awsCognitoSigninUserAdmin,
 }

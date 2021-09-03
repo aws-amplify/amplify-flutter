@@ -9,8 +9,8 @@ part of 'pinpoint_analytics_config.dart';
 PinpointAnalyticsConfig _$PinpointAnalyticsConfigFromJson(
     Map<String, dynamic> json) {
   return PinpointAnalyticsConfig(
-    appId: json['appId'] as String,
-    region: json['region'] as String,
+    appId: json['appId'] as String?,
+    region: json['region'] as String?,
   );
 }
 

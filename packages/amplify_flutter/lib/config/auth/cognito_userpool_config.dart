@@ -16,11 +16,11 @@
 part 'cognito_userpool_config.g.dart';
 
 class CognitoUserPoolConfig {
-  final String poolId;
+  final String? poolId;
 
-  final String appClientId;
+  final String? appClientId;
 
-  final String region;
+  final String? region;
 
   const CognitoUserPoolConfig({
     required this.poolId,

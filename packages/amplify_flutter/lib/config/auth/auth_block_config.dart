@@ -14,6 +14,7 @@
  */
 
 import 'package:amplify_flutter/config/auth/login_mechanisms.dart';
+import 'package:amplify_flutter/config/auth/mfa_types.dart';
 import 'package:amplify_flutter/config/auth/password_protection_settings.dart';
 import 'mfa_configurations.dart';
 import 'oauth_config.dart';
@@ -29,9 +30,11 @@ class AuthBlockConfig {
 
   final PasswordProtectionSettings? passwordProtectionSettings;
 
+  final MfaTypes? mfaTypes;
+
   final MfaConfiguration? mfaConfiguration;
 
-  final String authenticationFlowType;
+  final String? authenticationFlowType;
 
   const AuthBlockConfig({
     this.oAuth,
@@ -39,6 +42,7 @@ class AuthBlockConfig {
     this.mfaConfiguration,
     this.passwordProtectionSettings,
     this.signupAttributes,
+    this.mfaTypes,
     required this.authenticationFlowType,
   });
 

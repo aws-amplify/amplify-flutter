@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_flutter/config/api/api_plugin.dart';
+
 part 'api_config.g.dart';
 
 class ApiConfig {
@@ -28,28 +30,4 @@ class ApiConfig {
       _$ApiConfigFromJson(json);
 
   Map<String, dynamic> toJson() => _$ApiConfigToJson(this);
-}
-
-class APIPlugin {
-  final String endpointType;
-
-  final String endpoint;
-
-  final String region;
-
-  final String authorizationType;
-
-  final String? apiKey;
-
-  const APIPlugin(
-      {required this.endpointType,
-      required this.endpoint,
-      required this.region,
-      required this.authorizationType,
-      this.apiKey});
-
-  factory APIPlugin.fromJson(Map<String, dynamic> json) =>
-      _$APIPluginFromJson(json);
-
-  Map<String, dynamic> toJson() => _$APIPluginToJson(this);
 }

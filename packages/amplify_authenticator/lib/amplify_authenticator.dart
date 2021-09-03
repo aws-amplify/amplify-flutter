@@ -18,6 +18,8 @@ library amplify_authenticator;
 import 'package:amplify_authenticator/src/models/authenticator_exceptions.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_flutter/config/amplify_config.dart';
+import 'package:amplify_flutter/config/auth/auth_config.dart';
+import 'package:amplify_flutter/config/auth/auth_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 
@@ -214,18 +216,18 @@ class _AuthenticatorState extends State<Authenticator> {
     super.initState();
     _stateMachineBloc = StateMachineBloc(_authService)
       ..authEvent.add(GetCurrentUser());
-    Amplify.configCompleter.future.then((config) {
-      if (mounted) {
-        setState(() => _config = config);
-      }
-    }).catchError((dynamic e) {
-      _stateMachineBloc.exceptionsSink.add(AuthenticatorException(
-          'There was anissue accessing the configuration for this application.'));
-    });
+    waitForConfiguration();
   }
 
-  Future<AmplifyConfig> waitForConfiguration() async {
-    return await _authService.waitForConfiguration();
+  Future<void> waitForConfiguration() async {
+    // AmplifyConfig resolvedConfig = await Amplify.asyncConfig;
+    await Amplify.asyncConfig.then((config) => setState(() {
+          _config = config;
+        }));
+
+    // setState(() {
+    //   _config = resolvedConfig;
+    // });
   }
 
   @override

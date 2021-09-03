@@ -50,45 +50,45 @@ void main() {
   });
   test('config user agent should be set', () async {
     await amplify.configure(allResources);
-    var config = amplify.config;
+    var config = await amplify.asyncConfig;
     expect(config.userAgent, 'aws-amplify-cli/2.0');
   });
 
   test('config version should be set', () async {
     await amplify.configure(allResources);
-    var config = amplify.config;
+    var config = await amplify.asyncConfig;
     expect(config.version, '1.0');
   });
 
   test('missing user agent and version in config should result in null value',
       () async {
     await amplify.configure('{}');
-    var config = amplify.config;
+    var config = await amplify.asyncConfig;
     expect(config.userAgent, null);
     expect(config.version, null);
   });
 
   test('Analytics is null when config is empty', () async {
     await amplify.configure('{}');
-    var analytics = amplify.config.analytics;
-    expect(analytics, null);
+    var config = await amplify.asyncConfig;
+    expect(config.analytics, null);
   });
 
   test('API is null when config is empty', () async {
     await amplify.configure('{}');
-    var api = amplify.config.api;
-    expect(api, null);
+    var config = await amplify.asyncConfig;
+    expect(config.api, null);
   });
 
   test('Auth is null when config is empty', () async {
     await amplify.configure('{}');
-    var auth = amplify.config.auth;
-    expect(auth, null);
+    var config = await amplify.asyncConfig;
+    expect(config.auth, null);
   });
 
   test('Storage is null when config is empty', () async {
     await amplify.configure('{}');
-    var storage = amplify.config.storage;
-    expect(storage, null);
+    var config = await amplify.asyncConfig;
+    expect(config.storage, null);
   });
 }

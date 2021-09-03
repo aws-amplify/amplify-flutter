@@ -15,6 +15,7 @@
 
 import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 import 'package:amplify_flutter/categories/amplify_categories.dart';
+import 'package:amplify_flutter/config/amplify_config.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_flutter/amplify.dart';
@@ -53,14 +54,20 @@ void main() {
 
   test('PinpointAnalytics is instantiated', () async {
     await amplify.configure(amplifyConfig);
-    var analytics = amplify.config.analytics!.awsPinpointAnalyticsPlugin;
-    expect(analytics!.pinpointAnalytics.appId, ANALYTICS_APP_ID);
-    expect(analytics.pinpointAnalytics.region, REGION);
+    var config = await amplify.asyncConfig;
+    expect(
+        config.analytics?.awsPinpointAnalyticsPlugin?.pinpointAnalytics!.appId,
+        ANALYTICS_APP_ID);
+    expect(
+        config.analytics?.awsPinpointAnalyticsPlugin?.pinpointAnalytics!.region,
+        REGION);
   });
 
   test('PinpointTargeting is instantiated', () async {
     await amplify.configure(amplifyConfig);
-    var analytics = amplify.config.analytics!.awsPinpointAnalyticsPlugin;
-    expect(analytics!.pinpointTargeting.region, REGION);
+    var config = await amplify.asyncConfig;
+    expect(
+        config.analytics!.awsPinpointAnalyticsPlugin!.pinpointTargeting!.region,
+        REGION);
   });
 }

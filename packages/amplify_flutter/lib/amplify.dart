@@ -62,11 +62,7 @@ class AmplifyClass extends PlatformInterface {
   // ignore: public_member_api_docs
   AmplifyHub Hub = AmplifyHub();
 
-  final configCompleter = Completer<AmplifyConfig>();
-
-  Future<AmplifyConfig> configNotification() {
-    return configCompleter.future;
-  }
+  final _configCompleter = Completer<AmplifyConfig>();
 
   /// Adds one plugin at a time. Note: this method can only
   /// be called before Amplify has been configured. Customers are expected
@@ -134,8 +130,8 @@ class AmplifyClass extends PlatformInterface {
     return _isConfigured;
   }
 
-  AmplifyConfig get config {
-    return _config;
+  Future<AmplifyConfig> get asyncConfig async {
+    return await _configCompleter.future;
   }
 
   String _getVersion() {
@@ -170,20 +166,18 @@ class AmplifyClass extends PlatformInterface {
           underlyingException: e.toString());
     }
     try {
-      _config = _createConfigObject(configuration);
-
       bool? res = await AmplifyClass.instance
           ._configurePlatforms(_getVersion(), configuration);
       _isConfigured = res ?? false;
 
-      configCompleter.complete(_config);
       if (!_isConfigured) {
         throw AmplifyException('Amplify failed to configure.',
             recoverySuggestion:
                 AmplifyExceptionMessages.missingRecoverySuggestion);
+      } else {
+        await _parseConfigJson(configuration);
       }
     } on PlatformException catch (e) {
-      configCompleter.completeError(e);
       if (e.code == 'AnalyticsException') {
         throw AnalyticsException.fromMap(Map<String, String>.from(e.details));
       } else if (e.code == 'AmplifyException') {
@@ -199,8 +193,12 @@ class AmplifyClass extends PlatformInterface {
             underlyingException: e.toString());
       }
     }
-
     await DataStore.configure(configuration);
+  }
+
+  Future<void> _parseConfigJson(String configuration) async {
+    _config = _createConfigObject(configuration);
+    _configCompleter.complete(_config);
   }
 
   /// Returns an AmplifyConfig object populated only with plugin data
