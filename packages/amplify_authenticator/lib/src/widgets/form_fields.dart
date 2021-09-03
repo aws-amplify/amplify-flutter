@@ -267,17 +267,17 @@ class _SignUpFormFieldState extends State<SignUpFormField> {
     final SignUpType? _type = fromStringToSignUpType(widget.type);
     Widget? _visible;
 
-    String? validateSignUpPassword(String? password) {
-      List<String> passwordHints = [];
-      int? minLength = _passwordProtectionSettings?.passwordPolicyMinLength;
-      if (password == null || password.isEmpty) {
-        passwordHints.add('Password cannot be empty');
-      }
-      if (minLength! < password!.length) {
-        passwordHints.add('Password is not long enough');
-      }
-      return null;
-    }
+    // String? validateSignUpPassword(String? password) {
+    //   List<String> passwordHints = [];
+    //   int? minLength = _passwordProtectionSettings?.passwordPolicyMinLength;
+    //   if (password == null || password.isEmpty) {
+    //     passwordHints.add('Password cannot be empty');
+    //   }
+    //   if (minLength! < password!.length) {
+    //     passwordHints.add('Password is not long enough');
+    //   }
+    //   return null;
+    // }
 
     /// Special validator using the existing password, executed if a passwordConfirmation field is present
     /// TODO: Implement a mechanism for customers to access subsets of the viewmodels.
@@ -314,7 +314,7 @@ class _SignUpFormFieldState extends State<SignUpFormField> {
         );
         _keyboardType = TextInputType.visiblePassword;
         _obscureText = _toggle;
-        _validator = widget.validator ?? validateSignUpPassword;
+        _validator = widget.validator ?? validatePassword;
         _key = const Key(keyPasswordSignUpFormField);
         break;
       case SignUpType.passwordConfirmation:
