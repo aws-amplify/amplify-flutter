@@ -17,6 +17,7 @@ library amplify;
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer' as developer;
 
 import 'package:amplify_flutter/src/config/amplify_config.dart';
 import 'package:amplify_flutter/utils/parse_json_config.dart';
@@ -199,8 +200,15 @@ class AmplifyClass extends PlatformInterface {
   }
 
   Future<void> _parseConfigJson(String configuration) async {
-    _config = _createConfigObject(configuration);
-    _configCompleter.complete(_config);
+    try {
+      _config = _createConfigObject(configuration);
+      _configCompleter.complete(_config);
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint(
+            'There was an unexpected problem parsing the amplifyconfiguration.dart file.');
+      }
+    }
   }
 
   /// Returns an AmplifyConfig object populated only with plugin data

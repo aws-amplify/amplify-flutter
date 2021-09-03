@@ -13,8 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'package:json_annotation/json_annotation.dart';
-
 enum OAuthScopes {
   phone,
 
@@ -24,6 +22,5 @@ enum OAuthScopes {
 
   profile,
 
-  @JsonValue('aws.cognito.signin.user.admin')
   awsCognitoSigninUserAdmin,
 }

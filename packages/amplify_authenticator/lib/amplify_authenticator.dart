@@ -252,6 +252,11 @@ class _AuthenticatorState extends State<Authenticator> {
           You should correct your amplifyconfiguration.dart file and restart your app.''');
     }
 
+    if (_configInitialized && _missingConfigValues.isNotEmpty) {
+      throw StateError(
+          'Encountered problem(s) building the Authenticator because your amplifyconfigurate.dart file is missing required values: ${_missingConfigValues.join('/n')})');
+    }
+
     /// Check for customizable forms passed into the Authenticator
     var signInForm = widget.signInForm ?? DefaultSignInForm();
     var signUpForm = widget.signUpForm ?? DefaultSignUpForm();

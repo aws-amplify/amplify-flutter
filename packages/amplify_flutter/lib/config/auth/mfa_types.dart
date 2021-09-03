@@ -13,12 +13,8 @@
  * permissions and limitations under the License.
  */
 
-import 'package:json_annotation/json_annotation.dart';
-
 enum MfaTypes {
-  @JsonValue('SMS')
   sms,
 
-  @JsonValue('TOTP')
   totp,
 }
