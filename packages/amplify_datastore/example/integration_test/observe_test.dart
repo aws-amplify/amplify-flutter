@@ -32,6 +32,9 @@ void main() {
 
     testWidgets('should broadcast events for create, update, and delete',
         (WidgetTester tester) async {
+      Blog blog = Blog(name: 'blog');
+      Blog updatedBlog = blog.copyWith(name: 'updated blog');
+
       var eventTypeStream = Amplify.DataStore.observe(Blog.classType)
           .map((event) => event.eventType);
       expectLater(
@@ -44,10 +47,33 @@ void main() {
           ],
         ),
       );
-      Blog blog = Blog(name: 'blog');
       await Amplify.DataStore.save(blog);
-      await Amplify.DataStore.save(blog.copyWith(name: 'updated blog'));
-      await Amplify.DataStore.delete(blog);
+      await Amplify.DataStore.save(updatedBlog);
+      await Amplify.DataStore.delete(updatedBlog);
+    });
+
+    testWidgets(
+        'should broadcast events with the model that is created, update, or deleted',
+        (WidgetTester tester) async {
+      Blog blog = Blog(name: 'blog');
+      Blog updatedBlog = blog.copyWith(name: 'updated blog');
+
+      var eventItemStream =
+          Amplify.DataStore.observe(Blog.classType).map((event) => event.item);
+      expectLater(
+        eventItemStream,
+        emitsInOrder(
+          [
+            blog,
+            updatedBlog,
+            updatedBlog,
+          ],
+        ),
+      );
+
+      await Amplify.DataStore.save(blog);
+      await Amplify.DataStore.save(updatedBlog);
+      await Amplify.DataStore.delete(updatedBlog);
     });
   });
 }
