@@ -14,9 +14,9 @@
  */
 
 enum MfaConfiguration {
-  Optional,
+  optional,
 
-  On,
+  on,
 
-  Off
+  off
 }

@@ -14,9 +14,11 @@
  */
 
 enum PasswordPolicyCharacters {
-  RequiresUppercase,
+  requiresLowercase,
 
-  RequiresNumbers,
+  requiresUppercase,
 
-  RequiresSymbols
+  requiresNumbers,
+
+  requiresSymbols
 }

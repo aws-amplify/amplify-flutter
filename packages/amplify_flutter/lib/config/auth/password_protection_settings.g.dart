@@ -53,7 +53,8 @@ K _$enumDecode<K, V>(
 }
 
 const _$PasswordPolicyCharactersEnumMap = {
-  PasswordPolicyCharacters.RequiresUppercase: 'REQUIRES_UPPERCASE',
-  PasswordPolicyCharacters.RequiresNumbers: 'REQUIRES_NUMBERS',
-  PasswordPolicyCharacters.RequiresSymbols: 'REQUIRES_SYMBOLS',
+  PasswordPolicyCharacters.requiresLowercase: 'REQUIRES_LOWERCASE',
+  PasswordPolicyCharacters.requiresUppercase: 'REQUIRES_UPPERCASE',
+  PasswordPolicyCharacters.requiresNumbers: 'REQUIRES_NUMBERS',
+  PasswordPolicyCharacters.requiresSymbols: 'REQUIRES_SYMBOLS',
 };
