@@ -207,9 +207,10 @@ class Authenticator extends StatefulWidget {
 
 class _AuthenticatorState extends State<Authenticator> {
   final AuthService _authService = AmplifyAuthService();
-
   late final StateMachineBloc _stateMachineBloc;
   AmplifyConfig? _config;
+  late List<String> _missingConfigValues;
+  bool _configInitialized = false;
 
   @override
   void initState() {
@@ -220,9 +221,23 @@ class _AuthenticatorState extends State<Authenticator> {
   }
 
   Future<void> waitForConfiguration() async {
-    await Amplify.asyncConfig.then((config) => setState(() {
-          _config = config;
-        }));
+    await Amplify.asyncConfig.then((config) {
+      setState(() {
+        _config = config;
+        _configInitialized = true;
+        _missingConfigValues = missingConfigValues(config);
+      });
+    });
+  }
+
+  List<String> missingConfigValues(AmplifyConfig? config) {
+    List<String> missingValues = [];
+    var cognitoPlugin = config?.auth?.awsCognitoAuthPlugin?.auth?['Default'];
+    cognitoPlugin ?? missingValues.add('auth.plugins.Auth.Default is missing.');
+    cognitoPlugin?.signupAttributes?.length ??
+        missingValues.add(
+            'auth.plugins.Auth.Default.signUpAttributes is missing or empty.');
+    return missingValues;
   }
 
   @override
@@ -230,6 +245,11 @@ class _AuthenticatorState extends State<Authenticator> {
     var defaultForms = DefaultForms();
     AuthStringResolver resolver = widget.resolver ?? AuthStringResolver();
     defaultForms.context = context;
+
+    if (_configInitialized && _missingConfigValues.isNotEmpty) {
+      throw StateError(
+          'Encountered problem(s) building the Authenticator because your amplifyconfigurate.dart file is missing required values: ${_missingConfigValues.join('/n')})');
+    }
 
     /// Check for customizable forms passed into the Authenticator
     var signInForm = widget.signInForm ??
