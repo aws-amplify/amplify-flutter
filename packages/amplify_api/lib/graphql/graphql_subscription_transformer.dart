@@ -54,17 +54,18 @@ class GraphQLSubscriptionTransformer<T> extends StreamTransformerBase<
             break;
         }
       },
+
+      // Handles "global" errors on the EventChannel which cannot be assigned
+      // to an individual subscription.
       onError: (Object e, StackTrace st) {
         if (!controller.isClosed) {
           controller.addError(e, st);
           controller.close();
         }
       },
-      onDone: () {
-        if (!controller.isClosed) {
-          controller.close();
-        }
-      },
+
+      // Not expected to occur, since `stream` is the EventChannel.
+      onDone: null,
     );
     return controller.stream;
   }
@@ -74,10 +75,10 @@ class GraphQLSubscriptionTransformer<T> extends StreamTransformerBase<
 extension GraphQLStreamX<T> on Stream<T> {
   /// Creates a broadcast stream which keeps track of its listeners and only
   /// performs setup and teardown work when its subscriber count reaches 1 or 0,
-  /// respectively, via the [onFirstListen] and [onLastCancel] parameters.
+  /// respectively, by firing the [onFirstListen] and [onLastCancel] handlers.
   ///
-  /// This allows a backing stream to be reused multiple times, even if the
-  /// subscriber count drops to zero at times.
+  /// This allows a backing stream to be reused even if the subscriber count
+  /// drops to zero.
   Stream<T> asMultiStream({
     Future<void> Function()? onFirstListen,
     Future<void> Function()? onLastCancel,

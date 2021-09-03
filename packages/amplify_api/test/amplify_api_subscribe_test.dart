@@ -208,6 +208,7 @@ void main() {
         await expectLater(stream, emitsInOrder(matchers));
 
         // Expect all events to have been consumed.
+        // Do not await, since it will not be true until `cancel` is called.
         expectLater(stream.hasNext, completion(isFalse));
       }
 
@@ -222,7 +223,7 @@ void main() {
       expect(subscribeCalls, equals(numSubscriptions));
       expect(cancelCalls, equals(numSubscriptions));
 
-      // Expect that onEstablished is called once for every call to `request`.
+      // Expect that onEstablished is called once for every call to `subscribe`.
       expect(onEstablishedCalls, equals(numSubscribers * numSubscriptions));
     }, timeout: timeout);
   }
@@ -233,6 +234,7 @@ void main() {
 
     for (var numSubscriptions in subscriptions) {
       for (var numSubscribers in subscribers) {
+        // Tests that data events are correctly decoded by the stream transformer.
         runTest(
           name: 'data, done',
           numSubscriptions: numSubscriptions,
@@ -244,6 +246,7 @@ void main() {
           ],
         );
 
+        // Tests that ApiExceptions are correctly decoded by the stream transformer.
         runTest(
           name: 'platform error, explicit done',
           numSubscriptions: numSubscriptions,
@@ -255,6 +258,8 @@ void main() {
           ],
         );
 
+        // Tests that an unhandled exception on the EventChannel implicitly
+        // closes all subscriptions.
         runTest(
           name: 'unknown error, implicit done',
           numSubscriptions: numSubscriptions,
@@ -266,6 +271,8 @@ void main() {
           ],
         );
 
+        // Tests that a PlatformException which can be parsed and relayed to
+        // a subscription does not cause the underlying Stream to close.
         runTest(
           name: 'data, platform error, data',
           numSubscriptions: numSubscriptions,
