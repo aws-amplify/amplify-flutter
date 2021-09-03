@@ -18,13 +18,13 @@ enum LoginMechanisms {
 
   phoneNumber,
 
-  PreferredUsername,
+  preferredUsername,
 
-  Facebook,
+  facebook,
 
-  Google,
+  google,
 
-  Amazon,
+  amazon,
 
-  Apple
+  apple
 }
