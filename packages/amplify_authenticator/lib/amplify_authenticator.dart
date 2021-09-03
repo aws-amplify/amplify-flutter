@@ -220,14 +220,9 @@ class _AuthenticatorState extends State<Authenticator> {
   }
 
   Future<void> waitForConfiguration() async {
-    // AmplifyConfig resolvedConfig = await Amplify.asyncConfig;
     await Amplify.asyncConfig.then((config) => setState(() {
           _config = config;
         }));
-
-    // setState(() {
-    //   _config = resolvedConfig;
-    // });
   }
 
   @override
