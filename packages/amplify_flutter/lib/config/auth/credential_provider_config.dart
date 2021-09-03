@@ -16,9 +16,9 @@
 part 'credential_provider_config.g.dart';
 
 class CredentialProviderConfig {
-  final String poolId;
+  final String? poolId;
 
-  final String region;
+  final String? region;
 
   const CredentialProviderConfig({
     required this.poolId,

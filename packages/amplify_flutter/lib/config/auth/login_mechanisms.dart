@@ -13,12 +13,27 @@
  * permissions and limitations under the License.
  */
 
+import 'package:json_annotation/json_annotation.dart';
+
 enum LoginMechanisms {
-  Email,
-  PhoneNumber,
+  @JsonValue('EMAIL')
+  email,
+
+  @JsonValue('PHONE_NUMBER')
+  phoneNumber,
+
+  @JsonValue('PREFERRED_USERNAME')
   PreferredUsername,
+
+  @JsonValue('FACEBOOK')
   Facebook,
+
+  @JsonValue('GOOGLE')
   Google,
+
+  @JsonValue('AMAZON')
   Amazon,
+
+  @JsonValue('APPLE')
   Apple
 }

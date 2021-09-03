@@ -16,7 +16,7 @@
 part 'pinpoint_targeting_config.g.dart';
 
 class PinpointTargetingConfig {
-  final String region;
+  final String? region;
 
   const PinpointTargetingConfig({required this.region});
 

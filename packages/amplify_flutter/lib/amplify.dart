@@ -167,8 +167,6 @@ class AmplifyClass extends PlatformInterface {
           underlyingException: e.toString());
     }
     try {
-      _config = _createConfigObject(configuration);
-
       bool? res = await AmplifyClass.instance
           ._configurePlatforms(_getVersion(), configuration);
       _isConfigured = res ?? false;
@@ -198,6 +196,11 @@ class AmplifyClass extends PlatformInterface {
       }
     }
     await DataStore.configure(configuration);
+  }
+
+  Future<void> _parseConfigJson(String configuration) async {
+    _config = _createConfigObject(configuration);
+    _configCompleter.complete(_config);
   }
 
   /// Returns an AmplifyConfig object populated only with plugin data

@@ -21,16 +21,16 @@ import 'package:amplify_flutter/config/auth/pinpoint_analytics_auth_config.dart'
 import 'package:amplify_flutter/config/auth/pinpoint_targeting_auth_config.dart';
 import 'package:amplify_flutter/config/auth/s3_transfer_utility_auth_config.dart';
 
-part 'cognito_auth_plugin_config.g.dart';
+part 'auth_plugin.g.dart';
 
-class CognitoAuthPluginConfig {
-  final Map<String, CognitoUserPoolConfig>? userPool;
+class AuthPlugin {
+  final Map<String, CognitoUserPoolConfig>? cognitoUserPool;
 
   final Map<String, Map<String, CredentialProviderConfig>>? credentialProvider;
 
   final Map<String, AuthBlockConfig>? auth;
 
-  final Map<String, AppSyncAuthConfig>? appSync;
+  final Map<String, AppSyncAuthConfig>? appsync;
 
   final Map<String, PinpointAnalyticsAuthConfig>? pinpointAnalytics;
 
@@ -38,17 +38,17 @@ class CognitoAuthPluginConfig {
 
   final Map<String, S3TransferUtilityAuthConfig>? s3TransferUtility;
 
-  const CognitoAuthPluginConfig(
-      {this.userPool,
+  const AuthPlugin(
+      {this.cognitoUserPool,
       this.credentialProvider,
       this.auth,
-      this.appSync,
+      this.appsync,
       this.pinpointAnalytics,
       this.pinpointTargeting,
       this.s3TransferUtility});
 
-  factory CognitoAuthPluginConfig.fromJson(Map<String, dynamic> json) =>
-      _$CognitoAuthPluginConfigFromJson(json);
+  factory AuthPlugin.fromJson(Map<String, dynamic> json) =>
+      _$AuthPluginFromJson(json);
 
-  Map<String, dynamic> toJson() => _$CognitoAuthPluginConfigToJson(this);
+  Map<String, dynamic> toJson() => _$AuthPluginToJson(this);
 }

@@ -8,9 +8,9 @@ part of 'storage_plugin.dart';
 
 StoragePlugin _$StoragePluginFromJson(Map<String, dynamic> json) {
   return StoragePlugin(
-    bucket: json['bucket'] as String,
-    region: json['region'] as String,
-    defaultAccessLevel: json['defaultAccessLevel'] as String,
+    bucket: json['bucket'] as String?,
+    region: json['region'] as String?,
+    defaultAccessLevel: json['defaultAccessLevel'] as String?,
   );
 }
 

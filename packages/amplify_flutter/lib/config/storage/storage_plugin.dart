@@ -16,11 +16,11 @@
 part 'storage_plugin.g.dart';
 
 class StoragePlugin {
-  final String bucket;
+  final String? bucket;
 
-  final String region;
+  final String? region;
 
-  final String defaultAccessLevel;
+  final String? defaultAccessLevel;
 
   const StoragePlugin(
       {required this.bucket,

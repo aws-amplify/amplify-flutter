@@ -16,9 +16,9 @@
 part 'pinpoint_analytics_config.g.dart';
 
 class PinpointAnalyticsConfig {
-  final String appId;
+  final String? appId;
 
-  final String region;
+  final String? region;
 
   const PinpointAnalyticsConfig({required this.appId, required this.region});
 

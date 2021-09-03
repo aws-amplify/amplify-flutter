@@ -9,7 +9,7 @@ part of 'pinpoint_targeting_auth_config.dart';
 PinpointTargetingAuthConfig _$PinpointTargetingAuthConfigFromJson(
     Map<String, dynamic> json) {
   return PinpointTargetingAuthConfig(
-    region: json['Region'] as String,
+    region: json['Region'] as String?,
   );
 }
 

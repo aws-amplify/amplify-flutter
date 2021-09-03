@@ -8,10 +8,14 @@ part of 'analytics_plugin.dart';
 
 AnalyticsPlugin _$AnalyticsPluginFromJson(Map<String, dynamic> json) {
   return AnalyticsPlugin(
-    pinpointAnalytics: PinpointAnalyticsConfig.fromJson(
-        json['pinpointAnalytics'] as Map<String, dynamic>),
-    pinpointTargeting: PinpointTargetingConfig.fromJson(
-        json['pinpointTargeting'] as Map<String, dynamic>),
+    pinpointAnalytics: json['pinpointAnalytics'] == null
+        ? null
+        : PinpointAnalyticsConfig.fromJson(
+            json['pinpointAnalytics'] as Map<String, dynamic>),
+    pinpointTargeting: json['pinpointTargeting'] == null
+        ? null
+        : PinpointTargetingConfig.fromJson(
+            json['pinpointTargeting'] as Map<String, dynamic>),
   );
 }
 

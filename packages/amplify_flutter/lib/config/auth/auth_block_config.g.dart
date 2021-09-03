@@ -23,7 +23,8 @@ AuthBlockConfig _$AuthBlockConfigFromJson(Map<String, dynamic> json) {
     signupAttributes: (json['signupAttributes'] as List<dynamic>?)
         ?.map((e) => e as String)
         .toList(),
-    authenticationFlowType: json['authenticationFlowType'] as String,
+    mfaTypes: _$enumDecodeNullable(_$MfaTypesEnumMap, json['mfaTypes']),
+    authenticationFlowType: json['authenticationFlowType'] as String?,
   );
 }
 
@@ -35,6 +36,7 @@ Map<String, dynamic> _$AuthBlockConfigToJson(AuthBlockConfig instance) =>
           .toList(),
       'signupAttributes': instance.signupAttributes,
       'passwordProtectionSettings': instance.passwordProtectionSettings,
+      'mfaTypes': _$MfaTypesEnumMap[instance.mfaTypes],
       'mfaConfiguration': _$MfaConfigurationEnumMap[instance.mfaConfiguration],
       'authenticationFlowType': instance.authenticationFlowType,
     };
@@ -66,8 +68,8 @@ K _$enumDecode<K, V>(
 }
 
 const _$LoginMechanismsEnumMap = {
-  LoginMechanisms.Email: 'EMAIL',
-  LoginMechanisms.PhoneNumber: 'PHONE_NUMBER',
+  LoginMechanisms.email: 'EMAIL',
+  LoginMechanisms.phoneNumber: 'PHONE_NUMBER',
   LoginMechanisms.PreferredUsername: 'PREFERRED_USERNAME',
   LoginMechanisms.Facebook: 'FACEBOOK',
   LoginMechanisms.Google: 'GOOGLE',
@@ -90,4 +92,9 @@ const _$MfaConfigurationEnumMap = {
   MfaConfiguration.Optional: 'OPTIONAL',
   MfaConfiguration.On: 'ON',
   MfaConfiguration.Off: 'OFF',
+};
+
+const _$MfaTypesEnumMap = {
+  MfaTypes.sms: 'SMS',
+  MfaTypes.totp: 'TOTP',
 };
