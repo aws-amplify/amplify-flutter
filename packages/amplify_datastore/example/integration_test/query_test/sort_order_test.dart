@@ -13,12 +13,16 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:math';
+
 import 'package:amplify_datastore_example/models/ModelProvider.dart';
 import 'package:collection/collection.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_flutter/amplify.dart';
 
+import '../utils/constants.dart';
+import '../utils/model_utils.dart';
 import '../utils/setup_utils.dart';
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
@@ -28,17 +32,19 @@ void main() {
 
   group('sort order', () {
     group('for type string', () {
+      var models = [
+        StringTypeModel(value: 'nnn'),
+        StringTypeModel(value: 'abc'),
+        StringTypeModel(value: 'aaa'),
+        StringTypeModel(value: 'xyz'),
+        StringTypeModel(value: 'zzz'),
+        StringTypeModel(value: ''),
+        StringTypeModel(value: '!@#^&*()'),
+        StringTypeModel(value: '\u{1F601}'),
+        StringTypeModel(),
+      ];
       testSortOperations<StringTypeModel>(
-        classType: StringTypeModel.classType,
-        models: [
-          StringTypeModel(value: 'nnn'),
-          StringTypeModel(value: 'abc'),
-          StringTypeModel(value: 'aaa'),
-          StringTypeModel(value: 'xyz'),
-          StringTypeModel(value: 'zzz'),
-          StringTypeModel(value: ''),
-          StringTypeModel(),
-        ],
+        models: models,
         queryField: StringTypeModel.VALUE,
         sort: sortStringTypeModel,
       );
@@ -46,8 +52,9 @@ void main() {
 
     group('for type int', () {
       testSortOperations<IntTypeModel>(
-        classType: IntTypeModel.classType,
         models: [
+          IntTypeModel(value: dataStoreMaxInt),
+          IntTypeModel(value: dataStoreMinInt),
           IntTypeModel(value: 0),
           IntTypeModel(value: 1),
           IntTypeModel(value: -1),
@@ -59,26 +66,32 @@ void main() {
       );
     });
 
-    group('for type double', () {
-      testSortOperations<DoubleTypeModel>(
-        classType: DoubleTypeModel.classType,
-        models: [
-          DoubleTypeModel(value: 0.0),
-          DoubleTypeModel(value: 1.0),
-          DoubleTypeModel(value: 1.1),
-          DoubleTypeModel(value: 0.9),
-          DoubleTypeModel(value: -1.1),
-          DoubleTypeModel(value: 10.0),
-          DoubleTypeModel(),
-        ],
-        queryField: DoubleTypeModel.VALUE,
-        sort: sortDoubleTypeModel,
-      );
-    });
+    group(
+      'for type double',
+      () {
+        testSortOperations<DoubleTypeModel>(
+          models: [
+            DoubleTypeModel(value: double.maxFinite),
+            DoubleTypeModel(value: double.minPositive),
+            DoubleTypeModel(value: pi),
+            DoubleTypeModel(value: 0.0),
+            DoubleTypeModel(value: 1.0),
+            DoubleTypeModel(value: 1.1),
+            DoubleTypeModel(value: 0.9),
+            DoubleTypeModel(value: -1.1),
+            DoubleTypeModel(value: 10.0),
+            DoubleTypeModel(),
+          ],
+          queryField: DoubleTypeModel.VALUE,
+          sort: sortDoubleTypeModel,
+        );
+      },
+      // see; https://github.com/aws-amplify/amplify-flutter/issues/856
+      skip: true,
+    );
 
     group('for type bool', () {
       testSortOperations<BoolTypeModel>(
-        classType: BoolTypeModel.classType,
         models: [
           BoolTypeModel(value: false),
           BoolTypeModel(value: true),
@@ -89,71 +102,80 @@ void main() {
       );
     });
 
-    group('for type Date', () {
+    group('for type AWSDate', () {
+      var values = [
+        DateTime(0000, 01, 01, 00, 00, 00),
+        DateTime(1970, 01, 01, 00, 00, 00),
+        DateTime(2020, 01, 01, 00, 00, 00),
+        DateTime(2020, 01, 01, 23, 59, 59),
+        DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
+      ];
+      var models = values
+          .map((value) => DateTypeModel(value: TemporalDate(value)))
+          .toList();
       testSortOperations<DateTypeModel>(
-        classType: DateTypeModel.classType,
-        models: [
-          DateTypeModel(value: TemporalDate(DateTime(2020, 01, 01))),
-          DateTypeModel(value: TemporalDate(DateTime(2020, 02, 01))),
-          DateTypeModel(value: TemporalDate(DateTime(2020, 01, 02))),
-          DateTypeModel(value: TemporalDate(DateTime(2010, 01, 01))),
-          DateTypeModel(),
-        ],
+        models: models,
         queryField: DateTypeModel.VALUE,
         sort: sortDateTypeModel,
       );
     });
 
-    group('for type DateTime', () {
+    group('for type AWSDateTime', () {
+      var values = [
+        DateTime(0000, 01, 01, 00, 00, 00),
+        DateTime(1970, 01, 01, 00, 00, 00),
+        DateTime(2020, 01, 01, 00, 00, 00),
+        DateTime(2020, 01, 01, 23, 59, 59),
+        DateTime(2999, 12, 31, 23, 59, 59),
+        // TemporalDateTime values with milliseconds & microseconds are not parsed correctly on Android
+        // see: https://github.com/aws-amplify/amplify-flutter/issues/817
+        // DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
+      ];
+      var models = values
+          .map((value) => DateTimeTypeModel(value: TemporalDateTime(value)))
+          .toList();
       testSortOperations<DateTimeTypeModel>(
-        classType: DateTimeTypeModel.classType,
-        models: [
-          DateTimeTypeModel(value: TemporalDateTime(DateTime(2020, 1, 1))),
-          DateTimeTypeModel(
-              value: TemporalDateTime(DateTime(2020, 1, 1, 12, 30, 45))),
-          DateTimeTypeModel(
-              value: TemporalDateTime(DateTime(2020, 1, 1, 12, 45, 00))),
-          DateTimeTypeModel(value: TemporalDateTime(DateTime(2020, 2, 1))),
-          DateTimeTypeModel(value: TemporalDateTime(DateTime(2020, 1, 2))),
-          DateTimeTypeModel(value: TemporalDateTime(DateTime(2010, 1, 1))),
-          DateTimeTypeModel(),
-        ],
+        models: models,
         queryField: DateTimeTypeModel.VALUE,
         sort: sortDateTimeTypeModel,
       );
     });
 
-    group('for type Time', () {
+    group('for type AWSTime', () {
+      var values = [
+        DateTime(2020, 01, 01, 00, 00, 00),
+        DateTime(2020, 01, 01, 00, 00, 01),
+        DateTime(2020, 01, 01, 00, 01, 00),
+        DateTime(2020, 01, 01, 01, 00, 00),
+        DateTime(2020, 01, 01, 01, 01, 01),
+        DateTime(2020, 01, 01, 23, 59, 59),
+        // TemporalTime values with milliseconds & microseconds are not parsed correctly on Android
+        // see: https://github.com/aws-amplify/amplify-flutter/issues/817
+        // DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
+      ];
+      var models = values
+          .map((value) => TimeTypeModel(value: TemporalTime(value)))
+          .toList();
       testSortOperations<TimeTypeModel>(
-        classType: TimeTypeModel.classType,
-        models: [
-          TimeTypeModel(value: TemporalTime(DateTime(2020, 1, 1))),
-          TimeTypeModel(value: TemporalTime(DateTime(2020, 1, 1, 12, 30, 45))),
-          TimeTypeModel(value: TemporalTime(DateTime(2020, 1, 1, 12, 45, 00))),
-          TimeTypeModel(value: TemporalTime(DateTime(2020, 1, 1, 10, 00, 00))),
-          TimeTypeModel(value: TemporalTime(DateTime(2020, 1, 1, 23, 59, 59))),
-          TimeTypeModel(),
-        ],
+        models: models,
         queryField: TimeTypeModel.VALUE,
         sort: sortTimeTypeModel,
       );
     });
 
-    group('for type Timestamp', () {
+    group('for type AWSTimestamp', () {
+      var values = [
+        DateTime(0000, 01, 01, 00, 00, 00),
+        DateTime(1970, 01, 01, 00, 00, 00),
+        DateTime(2020, 01, 01, 00, 00, 00),
+        DateTime(2020, 01, 01, 23, 59, 59),
+        DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
+      ];
+      var models = values
+          .map((value) => TimestampTypeModel(value: TemporalTimestamp(value)))
+          .toList();
       testSortOperations<TimestampTypeModel>(
-        classType: TimestampTypeModel.classType,
-        models: [
-          TimestampTypeModel(value: TemporalTimestamp(DateTime(2020, 1, 1))),
-          TimestampTypeModel(
-              value: TemporalTimestamp(DateTime(2020, 1, 1, 12, 30, 45))),
-          TimestampTypeModel(
-              value: TemporalTimestamp(DateTime(2020, 1, 1, 12, 45, 00))),
-          TimestampTypeModel(
-              value: TemporalTimestamp(DateTime(2020, 1, 1, 10, 00, 00))),
-          TimestampTypeModel(
-              value: TemporalTimestamp(DateTime(2020, 1, 1, 23, 59, 59))),
-          TimestampTypeModel(),
-        ],
+        models: models,
         queryField: TimestampTypeModel.VALUE,
         sort: sortTimestampTypeModel,
       );
@@ -235,11 +257,11 @@ void main() {
 }
 
 testSortOperations<T extends Model>({
-  required ModelType<T> classType,
   required List<T> models,
   required QueryField queryField,
   required int sort(T a, T b),
 }) {
+  var classType = getModelType<T>();
   var ascendingSortedModels = models..sort(sort);
   var descendingSortedModels = ascendingSortedModels.reversed.toList();
 
