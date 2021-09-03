@@ -233,10 +233,9 @@ class _AuthenticatorState extends State<Authenticator> {
   List<String> missingConfigValues(AmplifyConfig? config) {
     List<String> missingValues = [];
     var cognitoPlugin = config?.auth?.awsCognitoAuthPlugin?.auth?['Default'];
-    cognitoPlugin ?? missingValues.add('auth.plugins.Auth.Default is missing.');
+    cognitoPlugin ?? missingValues.add('auth.plugins.Auth.Default');
     cognitoPlugin?.signupAttributes?.length ??
-        missingValues.add(
-            'auth.plugins.Auth.Default.signUpAttributes is missing or empty.');
+        missingValues.add('auth.plugins.Auth.Default.signUpAttributes');
     return missingValues;
   }
 
@@ -248,7 +247,7 @@ class _AuthenticatorState extends State<Authenticator> {
 
     if (_configInitialized && _missingConfigValues.isNotEmpty) {
       throw StateError(
-          'Encountered problem(s) building the Authenticator because your amplifyconfigurate.dart file is missing required values: ${_missingConfigValues.join('/n')}). You should correct your amplifyconfiguration.dart file and restart your app.');
+          'Encountered problem(s) building the Authenticator because your amplifyconfiguration.dart file is missing required values: ${_missingConfigValues.join('/n')}). You should correct your amplifyconfiguration.dart file and restart your app.');
     }
 
     /// Check for customizable forms passed into the Authenticator
