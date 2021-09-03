@@ -75,7 +75,7 @@ void main() {
               .toList(),
         );
 
-        // test with no matches for EnumModel.no
+        // test with partial matches for EnumModel.no
         await testQueryPredicate<EnumTypeModel>(
           queryPredicate: EnumTypeModel.VALUE.eq(EnumModel.no),
           expectedModels:
@@ -125,7 +125,7 @@ void main() {
               models.where((element) => element.value == EnumModel.no).toList(),
         );
 
-        // test with no matches for EnumModel.no
+        // test with partial matches for EnumModel.no
         await testQueryPredicate<EnumTypeModel>(
           queryPredicate: EnumTypeModel.VALUE.ne(EnumModel.no),
           expectedModels: models
@@ -134,7 +134,5 @@ void main() {
         );
       });
     },
-    // see: https://github.com/aws-amplify/amplify-flutter/issues/752
-    // skip: EnumModel.yes,
   );
 }
