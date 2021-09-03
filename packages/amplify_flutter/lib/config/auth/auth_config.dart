@@ -13,16 +13,16 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_flutter/config/auth/cognito_auth_plugin_config.dart';
+import 'package:amplify_flutter/config/auth/auth_plugin.dart';
 
 part 'auth_config.g.dart';
 
 class AuthConfig {
-  final Map<String, CognitoAuthPluginConfig> plugins;
+  final Map<String, AuthPlugin> plugins;
 
   const AuthConfig(this.plugins);
 
-  CognitoAuthPluginConfig? get awsCognitoAuthPlugin {
+  AuthPlugin? get awsCognitoAuthPlugin {
     return plugins['awsCognitoAuthPlugin'];
   }
 

@@ -1,15 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cognito_auth_plugin_config.dart';
+part of 'auth_plugin.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-CognitoAuthPluginConfig _$CognitoAuthPluginConfigFromJson(
-    Map<String, dynamic> json) {
-  return CognitoAuthPluginConfig(
-    userPool: (json['CognitoUserPool'] as Map<String, dynamic>?)?.map(
+AuthPlugin _$AuthPluginFromJson(Map<String, dynamic> json) {
+  return AuthPlugin(
+    cognitoUserPool: (json['CognitoUserPool'] as Map<String, dynamic>?)?.map(
       (k, e) => MapEntry(
           k, CognitoUserPoolConfig.fromJson(e as Map<String, dynamic>)),
     ),
@@ -26,7 +25,7 @@ CognitoAuthPluginConfig _$CognitoAuthPluginConfigFromJson(
       (k, e) =>
           MapEntry(k, AuthBlockConfig.fromJson(e as Map<String, dynamic>)),
     ),
-    appSync: (json['AppSync'] as Map<String, dynamic>?)?.map(
+    appsync: (json['AppSync'] as Map<String, dynamic>?)?.map(
       (k, e) =>
           MapEntry(k, AppSyncAuthConfig.fromJson(e as Map<String, dynamic>)),
     ),
@@ -48,13 +47,12 @@ CognitoAuthPluginConfig _$CognitoAuthPluginConfigFromJson(
   );
 }
 
-Map<String, dynamic> _$CognitoAuthPluginConfigToJson(
-        CognitoAuthPluginConfig instance) =>
+Map<String, dynamic> _$AuthPluginToJson(AuthPlugin instance) =>
     <String, dynamic>{
-      'CognitoUserPool': instance.userPool,
+      'CognitoUserPool': instance.cognitoUserPool,
       'CredentialsProvider': instance.credentialProvider,
       'Auth': instance.auth,
-      'AppSync': instance.appSync,
+      'AppSync': instance.appsync,
       'PinpointAnalytics': instance.pinpointAnalytics,
       'PinpointTargeting': instance.pinpointTargeting,
       'S3TransferUtility': instance.s3TransferUtility,

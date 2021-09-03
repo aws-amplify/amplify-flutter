@@ -9,8 +9,8 @@ part of 'credential_provider_config.dart';
 CredentialProviderConfig _$CredentialProviderConfigFromJson(
     Map<String, dynamic> json) {
   return CredentialProviderConfig(
-    poolId: json['PoolId'] as String,
-    region: json['Region'] as String,
+    poolId: json['PoolId'] as String?,
+    region: json['Region'] as String?,
   );
 }
 

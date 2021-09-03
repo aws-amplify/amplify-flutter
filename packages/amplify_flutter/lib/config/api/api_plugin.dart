@@ -16,13 +16,13 @@
 part 'api_plugin.g.dart';
 
 class APIPlugin {
-  final String endpointType;
+  final String? endpointType;
 
-  final String endpoint;
+  final String? endpoint;
 
-  final String region;
+  final String? region;
 
-  final String authorizationType;
+  final String? authorizationType;
 
   final String? apiKey;
 

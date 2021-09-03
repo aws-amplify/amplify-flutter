@@ -9,7 +9,7 @@ part of 'pinpoint_targeting_config.dart';
 PinpointTargetingConfig _$PinpointTargetingConfigFromJson(
     Map<String, dynamic> json) {
   return PinpointTargetingConfig(
-    region: json['region'] as String,
+    region: json['region'] as String?,
   );
 }
 

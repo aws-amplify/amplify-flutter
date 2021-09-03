@@ -52,7 +52,8 @@ void main() {
 
   test('Graphql API is instantiated', () async {
     await amplify.configure(amplifyConfig);
-    var api = amplify.config.api!.awsAPIPlugin!['graphqlapi'];
+    var config = await amplify.asyncConfig;
+    var api = config.api!.awsAPIPlugin!['graphqlapi'];
     expect(api!.endpointType, GRAPHQL_TYPE);
     expect(api.apiKey, API_KEY);
     expect(api.endpoint, GRAPHQL_ENDPOINT);
@@ -62,7 +63,8 @@ void main() {
 
   test('REST API is instantiated', () async {
     await amplify.configure(amplifyConfig);
-    var api = amplify.config.api!.awsAPIPlugin!['restapi'];
+    var config = await amplify.asyncConfig;
+    var api = config.api!.awsAPIPlugin!['restapi'];
     expect(api!.endpointType, REST_TYPE);
     expect(api.apiKey, null);
     expect(api.endpoint, REST_ENDPOINT);

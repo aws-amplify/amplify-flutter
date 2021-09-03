@@ -9,8 +9,8 @@ part of 'pinpoint_analytics_auth_config.dart';
 PinpointAnalyticsAuthConfig _$PinpointAnalyticsAuthConfigFromJson(
     Map<String, dynamic> json) {
   return PinpointAnalyticsAuthConfig(
-    appId: json['AppId'] as String,
-    region: json['Region'] as String,
+    appId: json['AppId'] as String?,
+    region: json['Region'] as String?,
   );
 }
 

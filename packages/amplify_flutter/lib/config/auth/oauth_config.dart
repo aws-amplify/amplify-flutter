@@ -13,18 +13,20 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_flutter/config/auth/oauth_scopes.dart';
+
 part 'oauth_config.g.dart';
 
 class OAuthConfig {
-  final String webDomain;
+  final String? webDomain;
 
-  final String appClientId;
+  final String? appClientId;
 
-  final String signInRedirectURI;
+  final String? signInRedirectURI;
 
-  final String signOutRedirectURI;
+  final String? signOutRedirectURI;
 
-  final List<String> scopes;
+  final List<OAuthScopes>? scopes;
 
   const OAuthConfig(
       {required this.webDomain,

@@ -13,12 +13,17 @@
  * permissions and limitations under the License.
  */
 
+import 'package:json_annotation/json_annotation.dart';
+
 part 's3_transfer_utility_auth_config.g.dart';
 
+@JsonSerializable()
 class S3TransferUtilityAuthConfig {
-  final String bucket;
+  @JsonKey(name: 'Bucket')
+  final String? bucket;
 
-  final String region;
+  @JsonKey(name: 'Region')
+  final String? region;
 
   const S3TransferUtilityAuthConfig(
       {required this.bucket, required this.region});

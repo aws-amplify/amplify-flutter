@@ -20,9 +20,9 @@ part 'analytics_plugin.g.dart';
 
 /// A Dart representation of a single Analytics plugin
 class AnalyticsPlugin {
-  final PinpointAnalyticsConfig pinpointAnalytics;
+  final PinpointAnalyticsConfig? pinpointAnalytics;
 
-  final PinpointTargetingConfig pinpointTargeting;
+  final PinpointTargetingConfig? pinpointTargeting;
 
   const AnalyticsPlugin(
       {required this.pinpointAnalytics, required this.pinpointTargeting});
