@@ -29,7 +29,7 @@ void main() {
       await clearDataStore();
     });
 
-    testWidgets('should clear all the store', (WidgetTester tester) async {
+    testWidgets('should clear the store', (WidgetTester tester) async {
       Blog blog = Blog(name: 'blog');
       await Amplify.DataStore.save(blog);
       var resultOne = await Amplify.DataStore.query(Blog.classType);
