@@ -31,8 +31,16 @@ class GraphQLSubscriptionTransformer<T> extends StreamTransformerBase<
   Stream<GraphQLResponse<T>> bind(
     Stream<GraphQLSubscriptionEvent> stream,
   ) {
+    // Create a controller to manage events from `stream`, i.e. the EventChannel.
+    // This allows us to add errors and close as necessary.
+    //
+    // `sync` because we are just forwarding events, so there is no risk of
+    // violating any asynchronous contracts.
     final controller = StreamController<GraphQLResponse<T>>(sync: true);
-    stream.listen(
+
+    // Subscribe to the transformed EventChannel and process events until
+    // an error occurs which we cannot handle or the user cancels the subscription.
+    final subscription = stream.listen(
       (event) {
         switch (event.type) {
           case GraphQLSubscriptionEventType.data:
@@ -64,59 +72,14 @@ class GraphQLSubscriptionTransformer<T> extends StreamTransformerBase<
         }
       },
 
+      // Ensures future events are not handled by this subscription.
+      cancelOnError: true,
+
       // Not expected to occur, since `stream` is the EventChannel.
       onDone: null,
     );
-    return controller.stream;
-  }
-}
 
-/// Stream helpers for GraphQL subscriptions.
-extension GraphQLStreamX<T> on Stream<T> {
-  /// Creates a broadcast stream which keeps track of its listeners and only
-  /// performs setup and teardown work when its subscriber count reaches 1 or 0,
-  /// respectively, by firing the [onFirstListen] and [onLastCancel] handlers.
-  ///
-  /// This allows a backing stream to be reused even if the subscriber count
-  /// drops to zero.
-  Stream<T> asMultiStream({
-    Future<void> Function()? onFirstListen,
-    Future<void> Function()? onLastCancel,
-  }) {
-    var done = false;
-    var listeners = <MultiStreamController<T>>{};
-    listen((event) {
-      for (var listener in [...listeners]) {
-        listener.addSync(event);
-      }
-    }, onError: (Object error, StackTrace stack) {
-      for (var listener in [...listeners]) {
-        listener.addErrorSync(error, stack);
-      }
-    }, onDone: () {
-      done = true;
-      for (var listener in [...listeners]) {
-        listener.closeSync();
-      }
-    }, cancelOnError: false);
-    return Stream<T>.multi(
-      (MultiStreamController<T> controller) {
-        if (done) {
-          controller.close();
-          return;
-        }
-        listeners.add(controller);
-        if (listeners.length == 1 && onFirstListen != null) {
-          onFirstListen().catchError(controller.addError);
-        }
-        controller.onCancel = () {
-          listeners.remove(controller);
-          if (listeners.isEmpty && onLastCancel != null) {
-            onLastCancel();
-          }
-        };
-      },
-      isBroadcast: true,
-    );
+    controller.onCancel = subscription.cancel;
+    return controller.stream;
   }
 }

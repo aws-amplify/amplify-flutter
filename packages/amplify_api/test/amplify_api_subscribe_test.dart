@@ -53,11 +53,8 @@ void main() {
   void setupEventChannel(
     Map<String, Iterable> valuesBySubscriptionId, {
     Future<void>? eventSendTrigger,
+    bool failOnCancel = false,
   }) {
-    // Reset calls to the method channel.
-    subscribeCalls = 0;
-    cancelCalls = 0;
-
     void sendEvents(String subscriptionId) {
       for (var value in valuesBySubscriptionId[subscriptionId]!) {
         if (value is PlatformException) {
@@ -108,6 +105,9 @@ void main() {
           return;
         case 'cancel':
           cancelCalls++;
+          if (failOnCancel) {
+            throw PlatformException(code: '');
+          }
           return;
         default:
           fail('Unknown method: ${methodCall.method}');
@@ -174,7 +174,7 @@ void main() {
     required String name,
     required int numSubscriptions,
     required int numSubscribers,
-    required Iterable<Object? Function(GraphQLRequest<String>)> eventBuilders,
+    required Iterable<Object Function(GraphQLRequest<String>)> eventBuilders,
     required Iterable<Matcher> matchers,
   }) {
     test('$numSubscriptions subscriptions $numSubscribers subscribers $name',
@@ -186,7 +186,7 @@ void main() {
         requests.add(request);
 
         values[request.id] =
-            eventBuilders.map<Object?>((build) => build(request));
+            eventBuilders.map<Object>((build) => build(request));
       }
 
       // Monitor calls to onEstablished
@@ -231,6 +231,12 @@ void main() {
   void runAll() {
     const subscriptions = [1, 5];
     const subscribers = [1, 5];
+
+    setUp(() {
+      // Reset calls to the method channel.
+      subscribeCalls = 0;
+      cancelCalls = 0;
+    });
 
     for (var numSubscriptions in subscriptions) {
       for (var numSubscribers in subscribers) {
@@ -290,6 +296,119 @@ void main() {
         );
       }
     }
+
+    // Tests that subscribing to the same GraphQLRequest object twice
+    // returns the same subscription if it hasn't been cancelled or a new
+    // one if it has.
+    test('1 request multiple subscriptions', () async {
+      final request = GraphQLRequest<String>(document: '');
+
+      setupEventChannel({
+        request.id: <Object>[
+          buildDataEvent(request),
+          buildDoneEvent(request),
+        ],
+      });
+      final stream1 = StreamQueue(api.subscribe(request));
+
+      await expectLater(
+        stream1,
+        emitsInOrder(<Matcher>[
+          emitsData,
+          emitsDone,
+        ]),
+      );
+      await stream1.cancel();
+
+      expect(subscribeCalls, equals(1));
+      expect(cancelCalls, equals(1));
+
+      setupEventChannel({
+        request.id: <Object>[
+          buildUnknownErrorEvent(request),
+        ],
+      });
+      final stream2 = StreamQueue(api.subscribe(request));
+
+      await expectLater(
+        stream2,
+        emitsInOrder(<Matcher>[
+          emitsError(anything),
+          emitsDone,
+        ]),
+      );
+      await stream2.cancel();
+
+      expect(subscribeCalls, equals(2));
+      expect(cancelCalls, equals(2));
+
+      setupEventChannel({
+        request.id: <Object>[
+          buildDataEvent(request),
+          buildDoneEvent(request),
+        ],
+      });
+      final stream3 = StreamQueue(api.subscribe(request));
+
+      await expectLater(
+        stream3,
+        emitsInOrder(<Matcher>[
+          emitsData,
+          emitsDone,
+        ]),
+      );
+      await stream3.cancel();
+
+      expect(subscribeCalls, equals(3));
+      expect(cancelCalls, equals(3));
+    });
+
+    test('fail on cancel', () async {
+      final request = GraphQLRequest<String>(document: '');
+
+      setupEventChannel(
+        {
+          request.id: <Object>[
+            buildDataEvent(request),
+            buildDoneEvent(request),
+          ],
+        },
+        failOnCancel: true,
+      );
+      final stream1 = StreamQueue(api.subscribe(request));
+
+      await expectLater(
+        stream1,
+        emitsInOrder(<Matcher>[
+          emitsData,
+          emitsDone,
+        ]),
+      );
+      await stream1.cancel();
+
+      expect(subscribeCalls, equals(1));
+      expect(cancelCalls, equals(1));
+
+      setupEventChannel({
+        request.id: <Object>[
+          buildDataEvent(request),
+          buildDoneEvent(request),
+        ],
+      });
+      final stream2 = StreamQueue(api.subscribe(request));
+
+      await expectLater(
+        stream2,
+        emitsInOrder(<Matcher>[
+          emitsData,
+          emitsDone,
+        ]),
+      );
+      await stream2.cancel();
+
+      expect(subscribeCalls, equals(2));
+      expect(cancelCalls, equals(2));
+    });
   }
 
   group('GraphQL Subscription', runAll);
