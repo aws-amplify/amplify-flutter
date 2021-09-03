@@ -13,15 +13,10 @@
  * permissions and limitations under the License.
  */
 
-import 'package:json_annotation/json_annotation.dart';
-
 enum MfaConfiguration {
-  @JsonValue('OPTIONAL')
   Optional,
 
-  @JsonValue('ON')
   On,
 
-  @JsonValue('OFF')
   Off
 }

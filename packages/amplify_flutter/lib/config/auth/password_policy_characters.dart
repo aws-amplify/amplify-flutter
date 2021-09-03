@@ -13,15 +13,10 @@
  * permissions and limitations under the License.
  */
 
-import 'package:json_annotation/json_annotation.dart';
-
 enum PasswordPolicyCharacters {
-  @JsonValue('REQUIRES_UPPERCASE')
   RequiresUppercase,
 
-  @JsonValue('REQUIRES_NUMBERS')
   RequiresNumbers,
 
-  @JsonValue('REQUIRES_SYMBOLS')
   RequiresSymbols
 }
