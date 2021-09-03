@@ -1,0 +1,158 @@
+type Blog @model {
+  id: ID!
+  name: String!
+  posts: [Post] @connection(keyName: "byBlog", fields: ["id"])
+}
+
+type Post @model @key(name: "byBlog", fields: ["blogID"]) {
+  id: ID!
+  title: String!
+  rating: Int!
+  created: AWSDateTime
+  blogID: ID!
+  blog: Blog @connection(fields: ["blogID"])
+  comments: [Comment] @connection(keyName: "byPost", fields: ["id"])
+}
+
+type Comment @model @key(name: "byPost", fields: ["postID", "content"]) {
+  id: ID!
+  postID: ID!
+  post: Post @connection(fields: ["postID"])
+  content: String!
+}
+
+type HasManyModel @model {
+  id: ID!
+  name: String!
+  children: [HasManyChildModel] @connection(keyName: "byParent", fields: ["id"])
+}
+
+type HasManyChildModel @model @key(name: "byParent", fields: ["parentID"]) {
+  id: ID!
+  name: String!
+  parent: HasManyModel @connection(fields: ["parentID"])
+  parentID: ID!
+}
+
+type HasOneModel @model {
+  id: ID!
+  name: String!
+  childID: ID!
+  child: ChildModel @connection(fields: ["childID"])
+}
+
+type BelongsToModel @model {
+  id: ID!
+  name: String!
+  child: ChildModel! @connection
+}
+
+type ChildModel @model {
+  id: ID!
+  name: String!
+}
+
+enum EnumModel {
+  yes
+  no
+}
+
+type StringTypeModel @model {
+  id: ID!
+  value: String
+}
+
+type StringListTypeModel @model {
+  id: ID!
+  value: [String]
+}
+
+type IntTypeModel @model {
+  id: ID!
+  value: Int
+}
+
+type IntListTypeModel @model {
+  id: ID!
+  value: [Int]
+}
+
+type DoubleTypeModel @model {
+  id: ID!
+  value: Float
+}
+
+type DoubleListTypeModel @model {
+  id: ID!
+  value: [Float]
+}
+
+type BoolTypeModel @model {
+  id: ID!
+  value: Boolean
+}
+
+type BoolListTypeModel @model {
+  id: ID!
+  value: [Boolean]
+}
+
+type DateTypeModel @model {
+  id: ID!
+  value: AWSDate
+}
+
+type DateListTypeModel @model {
+  id: ID!
+  value: [AWSDate]
+}
+
+type DateTimeTypeModel @model {
+  id: ID!
+  value: AWSDateTime
+}
+
+type DateTimeListTypeModel @model {
+  id: ID!
+  value: [AWSDateTime]
+}
+
+type TimeTypeModel @model {
+  id: ID!
+  value: AWSTime
+}
+
+type TimeListTypeModel @model {
+  id: ID!
+  value: [AWSTime]
+}
+
+type TimestampTypeModel @model {
+  id: ID!
+  value: AWSTimestamp
+}
+
+type TimestampListTypeModel @model {
+  id: ID!
+  value: [AWSTimestamp]
+}
+
+type JSONTypeModel @model {
+  id: ID!
+  value: AWSJSON
+}
+
+type JSONListTypeModel @model {
+  id: ID!
+  value: [AWSJSON]
+}
+
+type EnumTypeModel @model {
+  id: ID!
+  value: EnumModel
+}
+
+type EnumListTypeModel @model {
+  id: ID!
+  value: [EnumModel]
+}
