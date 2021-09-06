@@ -21,7 +21,7 @@ data class FlutterCustomTypeField(val map: Map<String, Any>) {
     // Name of the field
     private val name: String = map["name"] as String
 
-    // Described the field type (defined by Flutter amplify_datastore ModelFieldTypeEnum)
+    // Describes the field type (defined by Flutter amplify_datastore ModelFieldTypeEnum)
     // to actual native type map
     private val type: FlutterFieldType = FlutterFieldType(map["type"] as Map<String, Any>)
 

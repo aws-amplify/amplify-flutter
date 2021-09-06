@@ -33,14 +33,14 @@ data class FlutterSerializedCustomType(val serializedCustomType: SerializedCusto
             "customTypeName" to customTypeName)
     }
 
-    private fun parseCustomTypeName(customTypeName: String?) : String{
-        return if(customTypeName.isNullOrEmpty()) ""
-        else customTypeName
-    }
+    private fun parseCustomTypeName(customTypeName: String?) : String = customTypeName ?: ""
 
     private fun parseSerializedDataMap(
         serializedData: Map<String, Any>, customTypeSchema: CustomTypeSchema): Map<String, Any> {
-        if(serializedData.isEmpty()) throw Exception("FlutterSerializedCustomType - no serializedData")
+        if(serializedData.isEmpty()) throw Exception(
+            "FlutterSerializedCustomType - no serializedData for " +
+                    customTypeSchema.name
+        )
 
         return serializedData.mapValues {
             when (val value: Any = it.value) {
@@ -48,18 +48,14 @@ data class FlutterSerializedCustomType(val serializedCustomType: SerializedCusto
                 is Temporal.Date -> value.format()
                 is Temporal.Time -> value.format()
                 is Temporal.Timestamp -> value.secondsSinceEpoch
-                is SerializedCustomType -> {
-                    FlutterSerializedCustomType(value).toMap()
-                }
+                is SerializedCustomType -> FlutterSerializedCustomType(value).toMap()
                 is List<*> -> {
                     val field = customTypeSchema.fields[it.key]!!
                     if (field.isCustomType) {
                         (value as List<SerializedCustomType>).map { item ->
                             FlutterSerializedCustomType(item).toMap()
                         }
-                    } else {
-                        value
-                    }
+                    } else value
                 }
                 else -> value
             }

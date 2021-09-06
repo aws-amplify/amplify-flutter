@@ -265,7 +265,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             modelName = request["modelName"] as String
             schema = modelProvider.modelSchemas()[modelName]!!
             serializedModelData =
-                deserializeNestedModels(request["serializedModel"].safeCastToMap()!!, schema)
+                deserializeNestedModel(request["serializedModel"].safeCastToMap()!!, schema)
         } catch (e: Exception) {
             uiThreadHandler.post {
                 postExceptionToFlutterChannel(
@@ -315,7 +315,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             modelName = request["modelName"] as String
             schema = modelProvider.modelSchemas()[modelName]!!
             serializedModelData =
-                deserializeNestedModels(request["serializedModel"].safeCastToMap()!!, schema)
+                deserializeNestedModel(request["serializedModel"].safeCastToMap()!!, schema)
         } catch (e: Exception) {
             uiThreadHandler.post {
                 postExceptionToFlutterChannel(
@@ -510,7 +510,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
 
     @VisibleForTesting
-    fun deserializeNestedModels(serializedModelData: Map<String, Any?>, modelSchema: ModelSchema): Map<String, Any?> {
+    fun deserializeNestedModel(serializedModelData: Map<String, Any?>, modelSchema: ModelSchema): Map<String, Any?> {
         val result = mutableMapOf<String, Any?>()
 
         // iterate over schema fields to deserialize each field value
@@ -521,7 +521,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             }
             val fieldSerializedData = serializedModelData[key]
 
-            // if the filed serialized value is null
+            // if the field serialized value is null
             // assign null to this field in the deserialized map
             if (fieldSerializedData == null) {
                 result[key] = fieldSerializedData
@@ -532,7 +532,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 // ignore field if the field doesn't have valid schema in ModelProvider
                 val fieldModelSchema = modelProvider.modelSchemas()[field.targetType] ?: continue
                 result[key] = SerializedModel.builder()
-                    .serializedData(deserializeNestedModels(fieldSerializedData as Map<String, Any?>, fieldModelSchema))
+                    .serializedData(deserializeNestedModel(fieldSerializedData as Map<String, Any?>, fieldModelSchema))
                     .modelSchema(fieldModelSchema)
                     .build()
             } else if (field.isCustomType) {
@@ -541,7 +541,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
                 // When a field is custom type
                 // the field value can only be a single custom type
-                // or a list of item of the same custom type
+                // or a list of items of the same custom type
                 if (field.isArray) {
                     result[key] = (fieldSerializedData as List<Map<String, Any?>>).map { listItem ->
                         SerializedCustomType.builder()
@@ -582,7 +582,6 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 result[key] = fieldSerializedData
                 continue
             }
-
 
             if (field.isCustomType) {
                 val fieldCustomTypeSchema = modelProvider.customTypeSchemas()[field.targetType] ?: continue

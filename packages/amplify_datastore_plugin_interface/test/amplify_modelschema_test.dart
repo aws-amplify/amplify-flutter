@@ -196,7 +196,7 @@ void main() {
   });
 
   test(
-      'Generated dart class Person should provide correct schema nests CustomType',
+      'Generated dart class Person should provide correct schema with nested CustomType',
       () {
     /*
       type Person @model {

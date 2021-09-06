@@ -26,12 +26,11 @@ class ModelFieldType {
       {this.ofModelName, this.ofCustomTypeName});
 
   Map<String, dynamic> toMap() {
-    Map<String, dynamic> map = {
+    return {
       'fieldType': describeEnum(fieldType),
-      'ofModelName': ofModelName,
-      'ofCustomTypeName': ofCustomTypeName,
+      if (ofModelName != null) 'ofModelName': ofModelName,
+      if (ofCustomTypeName != null) 'ofCustomTypeName': ofCustomTypeName,
     };
-    return Map.from(map)..removeWhere((k, v) => v == null);
   }
 
   bool equals(Object other) {

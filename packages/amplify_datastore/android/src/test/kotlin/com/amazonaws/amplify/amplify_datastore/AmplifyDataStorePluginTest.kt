@@ -720,7 +720,7 @@ class AmplifyDataStorePluginTest {
 
         assertEquals(
             nestedSerializedModelOutput,
-            flutterPlugin.deserializeNestedModels(nestedSerializedModelInput, postModelSchema)
+            flutterPlugin.deserializeNestedModel(nestedSerializedModelInput, postModelSchema)
         )
     }
 
@@ -765,7 +765,7 @@ class AmplifyDataStorePluginTest {
             )
         )
 
-        val deserializedResult = flutterPlugin.deserializeNestedModels(serializedPersonData, personSchema);
+        val deserializedResult = flutterPlugin.deserializeNestedModel(serializedPersonData, personSchema);
         assertEquals(deserializedResult["id"], serializedPersonData["id"])
         assertEquals(deserializedResult["name"], serializedPersonData["name"])
 

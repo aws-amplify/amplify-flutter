@@ -46,7 +46,9 @@ data class FlutterSerializedModel(val serializedModel: SerializedModel) {
     }
 
     private fun parseSerializedDataMap(serializedData: Map<String, Any>, modelSchema: ModelSchema): Map<String, Any> {
-        if(serializedData.isEmpty()) throw Exception("FlutterSerializedModel - no serializedData")
+        if(serializedData.isEmpty()) throw Exception(
+            "FlutterSerializedModel - no serializedData for ${modelSchema.name}"
+        )
 
         return serializedData.mapValues {
             when (val value: Any = it.value) {
@@ -55,9 +57,7 @@ data class FlutterSerializedModel(val serializedModel: SerializedModel) {
                 is Temporal.Time -> value.format()
                 is Model -> FlutterSerializedModel(value as SerializedModel).toMap()
                 is Temporal.Timestamp -> value.secondsSinceEpoch
-                is SerializedCustomType -> {
-                    FlutterSerializedCustomType(value).toMap()
-                }
+                is SerializedCustomType -> FlutterSerializedCustomType(value).toMap()
                 is List<*> -> {
                     val field = modelSchema.fields[it.key]!!
                     if (field.isCustomType) {
@@ -66,13 +66,12 @@ data class FlutterSerializedModel(val serializedModel: SerializedModel) {
                         (value as List<SerializedCustomType>).map { item ->
                             FlutterSerializedCustomType(item).toMap()
                         }
-                    } else {
-                        // If collection is not a collection of CustomType
-                        // return the collection directly as
-                        // 1. currently hasMany field won't be populated
-                        // 2. collection of primitive types could be returned as is e.g. ["1", "2"]
-                        value
                     }
+                    // If collection is not a collection of CustomType
+                    // return the collection directly as
+                    // 1. currently hasMany field won't be populated
+                    // 2. collection of primitive types could be returned as is e.g. ["1", "2"]
+                    else value
                 }
                 // TODO add for other complex objects that can be returned or be part of the codegen model
                 else -> value

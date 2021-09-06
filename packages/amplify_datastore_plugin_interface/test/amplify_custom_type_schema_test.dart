@@ -96,7 +96,7 @@ void main() {
         type: ModelFieldType(ModelFieldTypeEnum.string)),
   };
 
-  test('Genearted Dart class Contact should provide correct schema', () {
+  test('Generated Dart class Contact should provide correct schema', () {
     final contactSchema = Contact.schema;
     expect(contactSchema.name, 'Contact');
     expect(contactSchema.pluralName, 'Contacts');
