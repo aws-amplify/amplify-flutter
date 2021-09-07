@@ -118,7 +118,7 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
         return jsonValue(for: key)
     }
     
-    private func deserializeValue(value: JSONValue?, fieldType: Codable.Type) -> Any?? {
+    private static func deserializeValue(value: JSONValue?, fieldType: Codable.Type?) -> Any? {
         if fieldType is Int.Type,
            case .some(.number(let deserializedValue)) = value {
             return Int(deserializedValue)
@@ -155,24 +155,48 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
         }
     }
 
-    private static func getModelSchema(flutterModelRegistration: FlutterModels, modelName: String) throws -> ModelSchema {
+    private static func getSchema(
+        modelSchemaRegistry: FlutterSchemaRegistry,
+        customTypeSchemaRegistry: FlutterSchemaRegistry,
+        modelName: String
+    ) throws -> ModelSchema {
         do {
-            return try FlutterDataStoreRequestUtils.getModelSchema(modelSchemas: flutterModelRegistration.modelSchemas, modelName: modelName)
-        } catch let error as DataStoreError {
-            print("Model \(modelName) is not registered.")
-            throw error
+            return try FlutterDataStoreRequestUtils.getModelSchema(modelSchemaRegistry: modelSchemaRegistry, modelName: modelName)
+        } catch DataStoreError.decodingError {
+            print("Schema \(modelName) is not registered as ModelSchema in ModelProvider.")
+            do {
+                return try FlutterDataStoreRequestUtils.getCustomTypeSchema(customTypeSchemaRegistry: customTypeSchemaRegistry, modelName: modelName)
+            } catch DataStoreError.decodingError {
+                print("Schema \(modelName) is not registered as CustomTypeSchema in ModelProvider.")
+                throw DataStoreError.decodingError(
+                    "Schema for \(modelName) is not registered as ModelSchema or CustomTypeSchema.",
+                    "Please ensure all schemas are correctly registered."
+                )
+            } catch {
+                print("An unexpected error occured when deserializing data model: \(modelName)")
+                throw error
+            }
         } catch {
             print("An unexpected error occured when deserializing data model: \(modelName)")
             throw error
         }
     }
 
-    private static func generateSerializedJsonData(values: [String: JSONValue], flutterModelRegistration: FlutterModels, modelName: String) throws -> [String: Any] {
-        let modelSchema = try getModelSchema(flutterModelRegistration: flutterModelRegistration, modelName: modelName)
+    private static func generateSerializedJsonData(
+        values: [String: JSONValue],
+        modelSchemaRegistry: FlutterSchemaRegistry,
+        customTypeSchemaRegistry: FlutterSchemaRegistry,
+        modelName: String
+    ) throws -> [String: Any] {
+        let schema = try getSchema(
+            modelSchemaRegistry: modelSchemaRegistry,
+            customTypeSchemaRegistry: customTypeSchemaRegistry,
+            modelName: modelName
+        )
         var result = [String: Any]()
 
         for (key, value) in values {
-            let field = modelSchema.field(withName: key)
+            let field = schema.field(withName: key)
             if case .object(let deserializedValue) = value {
                 // If a field that has many models
                 if (deserializedValue["associatedField"] != nil && deserializedValue["associatedId"] != nil) {
@@ -184,9 +208,51 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
                     result[key] = [
                         "id": modelId,
                         "modelName": nextModelName,
-                        "serializedData": try generateSerializedJsonData(values: deserializedValue, flutterModelRegistration: flutterModelRegistration, modelName: nextModelName)
+                        "serializedData": try generateSerializedJsonData(
+                            values: deserializedValue,
+                            modelSchemaRegistry: modelSchemaRegistry,
+                            customTypeSchemaRegistry: customTypeSchemaRegistry,
+                            modelName: nextModelName
+                        )
                     ]
                 }
+                // if embedded
+                else if case .embedded(_, .some(let customTypeSchema)) = field!.type {
+                    let customTypeName = customTypeSchema.name
+                    result[key] = [
+                        "customTypeName": customTypeName,
+                        "serializedData": try FlutterSerializedModel.generateSerializedJsonData(
+                            values: deserializedValue,
+                            modelSchemaRegistry: modelSchemaRegistry,
+                            customTypeSchemaRegistry: customTypeSchemaRegistry,
+                            modelName: customTypeName
+                        )
+                    ]
+                }
+            } else if case .array(let jsonArray)  = value {
+                var modifiedArray:[Any?] = []
+                for item in jsonArray {
+                    // List of CustomType
+                    if case .object(let deserializedItem) = item,
+                       case .embeddedCollection(_, .some(let customTypeSchema)) = field?.type {
+                        let customTypeName = customTypeSchema.name
+                        let parsedItem = [
+                            "customTypeName": customTypeName,
+                            "serializedData": try FlutterSerializedModel.generateSerializedJsonData(
+                                values: deserializedItem,
+                                modelSchemaRegistry: modelSchemaRegistry,
+                                customTypeSchemaRegistry: customTypeSchemaRegistry,
+                                modelName: customTypeName
+                            )
+                        ] as [String : Any]
+                        modifiedArray.append(parsedItem)
+                    }
+                    // List of primitve types e.g. [String]
+                    else {
+                        modifiedArray.append(FlutterSerializedModel.deserializeValue(value: item, fieldType: nil))
+                    }
+                }
+                result[key] = modifiedArray
             } else if case .string(let deserializedValue) = value {
                 result[key] = deserializedValue
             } else if case .boolean(let deserializedValue) = value {
@@ -201,8 +267,16 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
         return result;
     }
 
-    private func generateSerializedData(flutterModelRegistration: FlutterModels, modelName: String) throws -> [String: Any]{
-        let modelSchema = try FlutterSerializedModel.getModelSchema(flutterModelRegistration: flutterModelRegistration, modelName: modelName)
+    private func generateSerializedData(
+        modelSchemaRegistry: FlutterSchemaRegistry,
+        customTypeSchemaRegistry: FlutterSchemaRegistry,
+        modelName: String
+    ) throws -> [String: Any]{
+        let modelSchema = try FlutterSerializedModel.getSchema(
+            modelSchemaRegistry: modelSchemaRegistry,
+            customTypeSchemaRegistry: customTypeSchemaRegistry,
+            modelName: modelName
+        )
         var result = [String: Any]()
 
         for(key, value) in values {
@@ -211,8 +285,7 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
             if(value == nil){
                 continue
             }
-
-            if case .model = field?.type{
+            if case .model = field?.type {
                 let map = jsonValue(for: key, modelSchema: modelSchema) as! [String: JSONValue]
                 if case .string(let modelId) = map["id"],
                    case .model(let modelName) = field!.type
@@ -220,20 +293,16 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
                     result[key] = [
                         "id": modelId,
                         "modelName": modelName,
-                        "serializedData": try FlutterSerializedModel.generateSerializedJsonData(values: map, flutterModelRegistration: flutterModelRegistration, modelName: modelName)
+                        "serializedData": try FlutterSerializedModel.generateSerializedJsonData(
+                            values: map,
+                            modelSchemaRegistry: modelSchemaRegistry,
+                            customTypeSchemaRegistry: customTypeSchemaRegistry,
+                            modelName: modelName
+                        )
                     ]
                 }
             } else if case .collection = field?.type{
                 continue
-            } else if case .embeddedCollection(let fieldType, _) = field?.type{
-                if case .array(let jsonArray) = value {
-                    var modifiedArray:[Any??] = []
-                    for item in jsonArray {
-                        let parsedItem = deserializeValue(value: item, fieldType: fieldType)
-                        modifiedArray.append(parsedItem)
-                    }
-                    result[key] = modifiedArray
-                }
             } else if case .dateTime = field?.type,
                     case .some(.string(let deserializedValue)) = values[key] {
 
@@ -250,7 +319,46 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
                     case .some(.number(let deserializedValue)) = values[key] {
                 
                 result[key] = NSNumber(value: Int(deserializedValue) )
-            } else {
+            }
+            else if case .embedded(_, .some(let customTypeScheam)) = field?.type,
+                case .some(.object(let deserializedValue)) = values[key] {
+                let customTypeName = customTypeScheam.name
+                result[key] = [
+                    "customTypeName": customTypeName,
+                    "serializedData": try FlutterSerializedModel.generateSerializedJsonData(
+                        values: deserializedValue,
+                        modelSchemaRegistry: modelSchemaRegistry,
+                        customTypeSchemaRegistry: customTypeSchemaRegistry,
+                        modelName: customTypeName
+                    )
+                ]
+            } else if case .embeddedCollection = field?.type {
+                if case .array(let jsonArray) = value {
+                    var modifiedArray:[Any?] = []
+                    for item in jsonArray {
+                        // List of CustomType
+                        if case .object(let deserializedItem) = item,
+                           case .embeddedCollection(_, .some(let customTypeSchema)) = field?.type {
+                            let customTypeName = customTypeSchema.name
+                            let parsedItem = [
+                                "customTypeName": customTypeName,
+                                "serializedData": try FlutterSerializedModel.generateSerializedJsonData(
+                                    values: deserializedItem,
+                                    modelSchemaRegistry: modelSchemaRegistry,
+                                    customTypeSchemaRegistry: customTypeSchemaRegistry,
+                                    modelName: customTypeName
+                                )
+                            ] as [String : Any]
+                            modifiedArray.append(parsedItem)
+                        }
+                        // List of primitve types e.g. [String]
+                        else {
+                            modifiedArray.append(FlutterSerializedModel.deserializeValue(value: item, fieldType: nil))
+                        }
+                    }
+                    result[key] = modifiedArray
+                }
+            } else{
                 result[key] = jsonValue(for: key, modelSchema: modelSchema)!
             }
         }
@@ -258,11 +366,19 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
         return result;
     }
     
-    public func toMap(flutterModelRegistration: FlutterModels, modelName: String) throws -> [String: Any] {
+    public func toMap(
+        modelSchemaRegistry: FlutterSchemaRegistry,
+        customTypeSchemaRegistry: FlutterSchemaRegistry,
+        modelName: String
+    ) throws -> [String: Any] {
         return [
             "id": id,
             "modelName": modelName,
-            "serializedData": try generateSerializedData(flutterModelRegistration: flutterModelRegistration, modelName: modelName)
+            "serializedData": try generateSerializedData(
+                modelSchemaRegistry: modelSchemaRegistry,
+                customTypeSchemaRegistry: customTypeSchemaRegistry,
+                modelName: modelName
+            )
         ]
     }
 }

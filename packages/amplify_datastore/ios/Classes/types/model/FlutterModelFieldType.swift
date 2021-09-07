@@ -21,6 +21,7 @@ import amplify_core
 public struct FlutterModelFieldType {
     public let fieldType : String
     public let ofModelName : String?
+    public let ofCustomTypeName: String?
     
     
     init(serializedData: [String: Any]) throws {
@@ -35,10 +36,10 @@ public struct FlutterModelFieldType {
         self.fieldType = fieldType
         
         self.ofModelName = serializedData["ofModelName"] as? String
-        
+        self.ofCustomTypeName = serializedData["ofCustomTypeName"] as? String
     }
     
-    public func convertToNativeModelField() throws -> ModelFieldType {
+    public func convertToNativeModelField(customTypeSchemasRegistry: FlutterSchemaRegistry) throws -> ModelFieldType {
         
         switch fieldType {
             case "string":
@@ -82,6 +83,20 @@ public struct FlutterModelFieldType {
                 } catch {
                     return ModelFieldType.collection(of: ofModelName)
                 }
+            case "embedded":
+                // For embedded CustomType, link its schema to the FieldType
+                return ModelFieldType.embedded(
+                    type: JSONValue.self,
+                    schema: customTypeSchemasRegistry.getModelSchema(modelSchemaName: ofCustomTypeName!)
+                )
+            case "embeddedCollection":
+                // For embedded CustomType, link its schema to the FieldType
+                // embeddedCollection may also present a list of primitive type e.g. [String]
+                // for primitve type there won't be a schema to be linked to field type
+                return ModelFieldType.embeddedCollection(
+                    of: JSONValue.self,
+                    schema: customTypeSchemasRegistry.getModelSchema(modelSchemaName: ofCustomTypeName!)
+                )
             default:
                 preconditionFailure("Could not create a ModelFieldType from \(fieldType)")
         }

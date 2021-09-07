@@ -21,10 +21,12 @@ public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
 
     private var eventSink: FlutterEventSink?
     private var token: UnsubscribeToken?
-    private var flutterModelRegistration: FlutterModels?
+    private var modelSchemaRegistry: FlutterSchemaRegistry?
+    private var customTypeSchemaRegistry: FlutterSchemaRegistry?
     
-    public func registerModelsForHub(flutterModelRegistration: FlutterModels) {
-        self.flutterModelRegistration = flutterModelRegistration
+    public func registerModelsForHub(modelSchemaRegistry: FlutterSchemaRegistry, customTypeSchemaRegistry: FlutterSchemaRegistry) {
+        self.modelSchemaRegistry = modelSchemaRegistry
+        self.customTypeSchemaRegistry = customTypeSchemaRegistry
     }
 
     public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
@@ -93,7 +95,9 @@ public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
                     let flutterOutboxMutationEnqueued = try FlutterOutboxMutationEnqueuedEvent(
                         outboxMutationEnqueued: outboxMutationEnqueued,
                         eventName: payload.eventName,
-                        flutterModelRegistration: self.flutterModelRegistration!)
+                        modelSchemaRegistry: self.modelSchemaRegistry!,
+                        customTypeSchemaRegistry: self.customTypeSchemaRegistry!
+                    )
                     self.sendEvent(flutterEvent: flutterOutboxMutationEnqueued.toValueMap())
                 } catch {
                     print("Failed to parse and send outboxMutationEnqueued event:  \(error)")
@@ -106,7 +110,9 @@ public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
                     let flutterOutboxMutationProcessed = try FlutterOutboxMutationProcessedEvent(
                         outboxMutationProcessed: outboxMutationProcessed,
                         eventName: payload.eventName,
-                        flutterModelRegistration: self.flutterModelRegistration!)
+                        modelSchemaRegistry: self.modelSchemaRegistry!,
+                        customTypeSchemaRegistry: self.customTypeSchemaRegistry!
+                    )
                     self.sendEvent(flutterEvent: flutterOutboxMutationProcessed.toValueMap())
                 } catch {
                     print("Failed to parse and send outboxMutationProcessed event:  \(error)")

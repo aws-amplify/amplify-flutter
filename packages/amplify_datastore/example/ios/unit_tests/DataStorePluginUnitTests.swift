@@ -37,7 +37,7 @@ var eventSentExp: XCTestExpectation?
 class DataStorePluginUnitTests: XCTestCase {
 
     var pluginUnderTest: SwiftAmplifyDataStorePlugin = SwiftAmplifyDataStorePlugin()
-    var flutterModelSchemaRegistration: FlutterModels = FlutterModels()
+    var flutterModelSchemaRegistration: FlutterSchemas = FlutterSchemas()
 
     override func setUpWithError() throws {
         flutterModelSchemaRegistration.addModelSchema(modelName: "Post", modelSchema: testSchema)

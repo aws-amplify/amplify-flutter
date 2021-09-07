@@ -16,7 +16,7 @@ import Amplify
 import Foundation
 
 // Contains the set of classes that conforms to the `Model` protocol.
-final public class FlutterModels: AmplifyModelRegistration {
+final public class FlutterSchemaRegistry: AmplifyModelRegistration {
     public var version: String = ""
     
     var modelSchemas: [String: ModelSchema] = [:]
@@ -49,5 +49,13 @@ final public class FlutterModels: AmplifyModelRegistration {
                     "Error in decoding \(jsonString)", "Please create an issue to amplify-flutter repo.")
             }
         }
+    }
+
+    public func getModelSchema(modelSchemaName: String) -> ModelSchema? {
+        guard let result = modelSchemas[modelSchemaName] else {
+            print("Error")
+            return nil
+        }
+        return result
     }
 }
