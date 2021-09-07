@@ -32,12 +32,12 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     var observeSubscription: AnyCancellable?
     
     init(bridge: DataStoreBridge = DataStoreBridge(),
-         schemaRegistry: FlutterSchemaRegistry = FlutterSchemaRegistry(),
+         modelSchemaRegistry: FlutterSchemaRegistry = FlutterSchemaRegistry(),
          customTypeSchemasRegistry: FlutterSchemaRegistry = FlutterSchemaRegistry(),
          dataStoreObserveEventStreamHandler: DataStoreObserveEventStreamHandler = DataStoreObserveEventStreamHandler(),
          dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler = DataStoreHubEventStreamHandler()) {
         self.bridge = bridge
-        self.modelSchemaRegistry = schemaRegistry
+        self.modelSchemaRegistry = modelSchemaRegistry
         self.customTypeSchemaRegistry = customTypeSchemasRegistry
         self.dataStoreObserveEventStreamHandler = dataStoreObserveEventStreamHandler
         self.dataStoreHubEventStreamHandler = dataStoreHubEventStreamHandler
