@@ -8,7 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'model_utils.dart';
 import 'setup_utils.dart';
 
-/// test ascending and descending sort operations given a [queryField] 
+/// test ascending and descending sort operations given a [queryField]
 /// to sort on and a [sort] method to test against
 testSortOperations<T extends Model>({
   required List<T> models,
