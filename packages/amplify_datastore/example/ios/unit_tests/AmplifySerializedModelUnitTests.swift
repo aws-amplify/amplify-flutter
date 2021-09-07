@@ -22,10 +22,15 @@ import Amplify
 class AmplifySerializedModelUnitTests: XCTestCase {
     
     let serializedModelMaps: [String: Any] = try! readJsonMap(filePath: "serialized_model_maps")
-    let flutterModelRegistration = SchemaData.flutterModelRegistration
+    let modelSchemaRegistry = SchemaData.flutterModelRegistration
+    let customTypeSchemasRegistry = FlutterSchemaRegistry()
 
     func test_blog_hasMany_serialization() throws {
-        let ourMap = try FlutterSerializedModelData.BlogSerializedModel.toMap(flutterModelRegistration: flutterModelRegistration, modelName: SchemaData.BlogSchema.name)
+        let ourMap = try FlutterSerializedModelData.BlogSerializedModel.toMap(
+            modelSchemaRegistry: modelSchemaRegistry,
+            customTypeSchemaRegistry: customTypeSchemasRegistry,
+            modelName: SchemaData.BlogSchema.name
+        )
         let refMap = serializedModelMaps["BlogSerializedMap"] as! [String : Any]
         
         XCTAssertEqual(ourMap["id"] as! String , refMap["id"] as! String)
@@ -39,7 +44,11 @@ class AmplifySerializedModelUnitTests: XCTestCase {
     }
     
     func test_comment_belongs_serialization() throws {
-        let ourMap = try FlutterSerializedModelData.CommentSerializedModel.toMap(flutterModelRegistration: flutterModelRegistration, modelName: SchemaData.CommentSchema.name)
+        let ourMap = try FlutterSerializedModelData.CommentSerializedModel.toMap(
+            modelSchemaRegistry: modelSchemaRegistry,
+            customTypeSchemaRegistry: customTypeSchemasRegistry,
+            modelName: SchemaData.CommentSchema.name
+        )
         let refMap = serializedModelMaps["CommentSerializedMap"] as! [String : Any]
         
         XCTAssertEqual(ourMap["id"] as! String , refMap["id"] as! String)
@@ -58,7 +67,11 @@ class AmplifySerializedModelUnitTests: XCTestCase {
     }
     
     func test_post_with_datetime_int_hasMany_serialization() throws {
-        let ourMap = try FlutterSerializedModelData.PostSerializedModel.toMap(flutterModelRegistration: flutterModelRegistration, modelName: SchemaData.PostSchema.name)
+        let ourMap = try FlutterSerializedModelData.PostSerializedModel.toMap(
+            modelSchemaRegistry: modelSchemaRegistry,
+            customTypeSchemaRegistry: customTypeSchemasRegistry,
+            modelName: SchemaData.PostSchema.name
+        )
         let refMap = serializedModelMaps["PostSerializedMap"] as! [String : Any]
         
         XCTAssertEqual(ourMap["id"] as! String , refMap["id"] as! String)
@@ -78,7 +91,11 @@ class AmplifySerializedModelUnitTests: XCTestCase {
     }
 
     func test_post_with_nested_models_serialization() throws {
-        let serializedData = try (FlutterSerializedModelData.PostSerializedModel.toMap(flutterModelRegistration: flutterModelRegistration, modelName: SchemaData.PostSchema.name))["serializedData"] as! [String: Any]
+        let serializedData = try (FlutterSerializedModelData.PostSerializedModel.toMap(
+            modelSchemaRegistry: modelSchemaRegistry,
+            customTypeSchemaRegistry: customTypeSchemasRegistry,
+            modelName: SchemaData.PostSchema.name)
+        )["serializedData"] as! [String: Any]
         let expectedData = (serializedModelMaps["PostSerializedMap"] as! [String : Any])["serializedData"] as! [String: Any]
         let serializedBlog = (serializedData["blog"] as! [String: Any])["serializedData"] as! [String: String]
         let expectedBlog = (expectedData["blog"] as! [String: Any])["serializedData"] as! [String: String]
@@ -99,7 +116,11 @@ class AmplifySerializedModelUnitTests: XCTestCase {
     
     
     func test_allTypeModel_serialization() throws {
-        let ourMap = try FlutterSerializedModelData.AllTypeModelSerializedModel.toMap(flutterModelRegistration: flutterModelRegistration, modelName: SchemaData.AllTypeModelSchema.name)
+        let ourMap = try FlutterSerializedModelData.AllTypeModelSerializedModel.toMap(
+            modelSchemaRegistry: modelSchemaRegistry,
+            customTypeSchemaRegistry: customTypeSchemasRegistry,
+            modelName: SchemaData.AllTypeModelSchema.name
+        )
         let refMap = serializedModelMaps["AllTypeModelSerializedMap"] as! [String : Any]
         
         XCTAssertEqual(ourMap["id"] as! String , refMap["id"] as! String)

@@ -124,8 +124,8 @@ struct SchemaData {
         ]
     }
 
-    static var flutterModelRegistration: FlutterModels  {
-        let flutterModelRegistration = FlutterModels()
+    static var flutterModelRegistration: FlutterSchemaRegistry  {
+        let flutterModelRegistration = FlutterSchemaRegistry()
 
         for (key, value) in SchemaData.modelSchemas {
             flutterModelRegistration.addModelSchema(modelName: key, modelSchema: value)
