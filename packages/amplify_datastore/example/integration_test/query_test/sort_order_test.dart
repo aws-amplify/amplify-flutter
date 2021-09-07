@@ -15,6 +15,7 @@
 
 import 'dart:math';
 
+import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_datastore_example/models/ModelProvider.dart';
 import 'package:collection/collection.dart';
 import 'package:integration_test/integration_test.dart';
@@ -22,10 +23,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_flutter/amplify.dart';
 
 import '../utils/constants.dart';
-import '../utils/model_utils.dart';
 import '../utils/setup_utils.dart';
-
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import '../utils/sort_order_utils.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -254,132 +253,4 @@ void main() {
       });
     });
   });
-}
-
-testSortOperations<T extends Model>({
-  required List<T> models,
-  required QueryField queryField,
-  required int sort(T a, T b),
-}) {
-  var classType = getModelType<T>();
-  var ascendingSortedModels = models..sort(sort);
-  var descendingSortedModels = ascendingSortedModels.reversed.toList();
-
-  setUp(() async {
-    await configureDataStore();
-    await clearDataStore();
-    for (var model in models) {
-      await Amplify.DataStore.save(model);
-    }
-  });
-
-  testWidgets('ascending()', (WidgetTester tester) async {
-    var actualModels = await Amplify.DataStore.query(classType,
-        sortBy: [queryField.ascending()]);
-    expect(ListEquality().equals(actualModels, ascendingSortedModels), isTrue);
-  });
-
-  testWidgets('descending()', (WidgetTester tester) async {
-    var actualModels = await Amplify.DataStore.query(classType,
-        sortBy: [queryField.descending()]);
-    expect(ListEquality().equals(actualModels, descendingSortedModels), isTrue);
-  });
-}
-
-int sortStringTypeModel(StringTypeModel a, StringTypeModel b) {
-  if (a.value == null && b.value == null) {
-    return 0;
-  } else if (a.value == null) {
-    return -1;
-  } else if (b.value == null) {
-    return 1;
-  } else {
-    return a.value!.compareTo(b.value!);
-  }
-}
-
-int sortIntTypeModel(IntTypeModel a, IntTypeModel b) {
-  if (a.value == null && b.value == null) {
-    return 0;
-  } else if (a.value == null) {
-    return -1;
-  } else if (b.value == null) {
-    return 1;
-  } else {
-    return a.value!.compareTo(b.value!);
-  }
-}
-
-int sortDoubleTypeModel(DoubleTypeModel a, DoubleTypeModel b) {
-  if (a.value == null && b.value == null) {
-    return 0;
-  } else if (a.value == null) {
-    return -1;
-  } else if (b.value == null) {
-    return 1;
-  } else {
-    return a.value!.compareTo(b.value!);
-  }
-}
-
-int sortBoolTypeModel(BoolTypeModel a, BoolTypeModel b) {
-  if (a.value == b.value) {
-    return 0;
-  } else if (a.value == null) {
-    return -1;
-  } else if (b.value == null) {
-    return 1;
-  } else if (a.value!) {
-    return 1;
-  } else {
-    return 0;
-  }
-}
-
-int sortDateTypeModel(DateTypeModel a, DateTypeModel b) {
-  if (a.value == null && b.value == null) {
-    return 0;
-  } else if (a.value == null) {
-    return -1;
-  } else if (b.value == null) {
-    return 1;
-  } else {
-    return a.value!.getDateTime().compareTo(b.value!.getDateTime());
-  }
-}
-
-int sortDateTimeTypeModel(DateTimeTypeModel a, DateTimeTypeModel b) {
-  if (a.value == null && b.value == null) {
-    return 0;
-  } else if (a.value == null) {
-    return -1;
-  } else if (b.value == null) {
-    return 1;
-  } else {
-    return a.value!.getDateTimeInUtc().compareTo(b.value!.getDateTimeInUtc());
-  }
-}
-
-int sortTimeTypeModel(TimeTypeModel a, TimeTypeModel b) {
-  if (a.value == null && b.value == null) {
-    return 0;
-  } else if (a.value == null) {
-    return -1;
-  } else if (b.value == null) {
-    return 1;
-  } else {
-    return a.value!.getDateTime().compareTo(b.value!.getDateTime());
-  }
-}
-
-int sortTimestampTypeModel(TimestampTypeModel a, TimestampTypeModel b) {
-  if (a.value == null && b.value == null) {
-    return 0;
-  } else if (a.value == null) {
-    return -1;
-  } else if (b.value == null) {
-    return 1;
-  } else {
-    return a.value!.toSeconds().compareTo(b.value!.toSeconds());
-  }
 }
