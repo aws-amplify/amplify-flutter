@@ -30,7 +30,6 @@ void main() {
     var models = List.generate(1000, (i) => Blog(name: 'blog $i'));
     setUpAll(() async {
       await configureDataStore();
-      // clear data before each test
       await clearDataStore();
       for (var model in models) {
         await Amplify.DataStore.save(model);

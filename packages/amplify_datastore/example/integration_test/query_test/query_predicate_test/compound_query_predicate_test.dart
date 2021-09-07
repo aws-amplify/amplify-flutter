@@ -308,10 +308,10 @@ void main() {
                 .and(MultiTypeModel.ALTINTVALUE.eq(intValueTwo)),
           );
           expect(actualModels.length, 1);
-          expect(actualModels[0].stringValue, stringValueOne);
-          expect(actualModels[0].altStringValue, stringValueTwo);
-          expect(actualModels[0].intValue, intValueOne);
-          expect(actualModels[0].altIntValue, intValueTwo);
+          expect(actualModels.first.stringValue, stringValueOne);
+          expect(actualModels.first.altStringValue, stringValueTwo);
+          expect(actualModels.first.intValue, intValueOne);
+          expect(actualModels.first.altIntValue, intValueTwo);
         });
 
         testWidgets('eq() (or)', (WidgetTester tester) async {
@@ -344,10 +344,10 @@ void main() {
                 .and(MultiTypeModel.ALTINTVALUE.ne(intValueTwo)),
           );
           expect(actualModels.length, 1);
-          expect(actualModels[0].stringValue, stringValueTwo);
-          expect(actualModels[0].altStringValue, stringValueOne);
-          expect(actualModels[0].intValue, intValueTwo);
-          expect(actualModels[0].altIntValue, intValueOne);
+          expect(actualModels.first.stringValue, stringValueTwo);
+          expect(actualModels.first.altStringValue, stringValueOne);
+          expect(actualModels.first.intValue, intValueTwo);
+          expect(actualModels.first.altIntValue, intValueOne);
         });
 
         testWidgets('ne() (or)', (WidgetTester tester) async {
