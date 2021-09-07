@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:io';
+
 import 'package:amplify_analytics_plugin_interface/amplify_analytics_plugin_interface.dart';
 import 'package:amplify_core/types/exception/AmplifyException.dart';
 import 'package:amplify_core/types/exception/AmplifyExceptionMessages.dart';
@@ -38,6 +40,15 @@ class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpoint {
       } else {
         throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       }
+    }
+  }
+
+  @override
+  Future<void> onConfigure() async {
+    try {
+      await _channel.invokeMethod('startSession');
+    } on Exception {
+      // TODO: log, but should not happen
     }
   }
 

@@ -23,6 +23,11 @@ class CognitoSignUpOptions extends SignUpOptions {
   /// Currently supported on `Android` only.
   final Map<String, String>? validationData;
 
+  /// Additional custom attributes to be sent to the service such as information
+  /// about the client.
+  ///
+  final Map<String, String>? clientMetadata;
+
   /// Creates a sign up configuration with the given user attributes and validation data.
   ///
   /// [userAttributes] is a map of key-value pairs, where the key is one of the standard
@@ -54,16 +59,18 @@ class CognitoSignUpOptions extends SignUpOptions {
   ///     - Phone number verification is enabled
   ///     - Phone number was marked as a required attribute
   ///   - **and** users sign up with a chosen username or email
-  const CognitoSignUpOptions({
-    Map<String, String> userAttributes = const {},
-    this.validationData,
-  }) : super(userAttributes: userAttributes);
+  const CognitoSignUpOptions(
+      {Map<String, String> userAttributes = const {},
+      this.validationData,
+      this.clientMetadata})
+      : super(userAttributes: userAttributes);
 
   @override
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = {
       'validationData': validationData,
-      'userAttributes': userAttributes
+      'userAttributes': userAttributes,
+      'clientMetadata': clientMetadata
     };
     pendingRequest.removeWhere((_, v) => v == null);
     return pendingRequest;

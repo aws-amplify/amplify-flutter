@@ -22,6 +22,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
 import androidx.annotation.VisibleForTesting
+import com.amazonaws.amplify.amplify_auth_cognito.device.DeviceHandler
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpResult
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignInResult
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchCognitoAuthSessionResult
@@ -91,6 +92,11 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
   var eventMessenger: BinaryMessenger? = null
   private lateinit var activityBinding: ActivityPluginBinding
 
+  /**
+   * Handles the Devices API.
+   */
+  private val deviceHandler: DeviceHandler = DeviceHandler(errorHandler)
+
   constructor() {
       authCognitoHubEventStreamHandler = AuthCognitoHubEventStreamHandler()
   }
@@ -103,7 +109,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "com.amazonaws.amplify/auth_cognito")
-    channel.setMethodCallHandler(this);
+    channel.setMethodCallHandler(this)
     context = flutterPluginBinding.applicationContext;
     eventMessenger = flutterPluginBinding.getBinaryMessenger();
     hubEventChannel = EventChannel(flutterPluginBinding.binaryMessenger,
@@ -154,6 +160,11 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       } catch (e: Exception) {
         handleAddPluginException("Auth", e, result)
       }
+      return
+    }
+
+    if (DeviceHandler.canHandle(call.method)) {
+      deviceHandler.onMethodCall(call, result)
       return
     }
 
@@ -585,7 +596,15 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
   }
 
   fun prepareCognitoSessionFailure(@NonNull flutterResult: Result, @NonNull result: AWSCognitoAuthSession) {
-    errorHandler.handleAuthError(flutterResult, AuthException.SessionExpiredException())
+    // If a User Pool token's error is a SignedOutException, we send SignedOutException as
+    // method call response because this indicates that the problem is not expired tokens,
+    // but total lack of authentication (i.e. the user is signed out)
+    var sessionException: AuthException = if (result.userPoolTokens.error is AuthException.SignedOutException) {
+      AuthException.SignedOutException()
+    } else {
+      AuthException.SessionExpiredException()
+    }
+    errorHandler.handleAuthError(flutterResult, sessionException)
   }
 
   fun prepareSessionResult(@NonNull flutterResult: Result, @NonNull result: AuthSession) {
