@@ -85,11 +85,11 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   /// [syncMaxRecords]: max number of records to sync
   ///
   /// [syncPageSize]: page size to sync
-  Future<void> configureDataStore({
-    required ModelProviderInterface modelProvider,
-    int? syncInterval,
-    int? syncMaxRecords,
-    int? syncPageSize}) {
+  Future<void> configureDataStore(
+      {required ModelProviderInterface modelProvider,
+      int? syncInterval,
+      int? syncMaxRecords,
+      int? syncPageSize}) {
     throw UnimplementedError('configureDataStore() has not been implemented.');
   }
 
