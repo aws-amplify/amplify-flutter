@@ -725,7 +725,7 @@ class AmplifyDataStorePluginTest {
     }
 
     @Test
-    fun test_model_nests_custom_type_deserialization() {
+    fun test_model_nested_custom_type_deserialization() {
         val personSchema = flutterPlugin.modelProvider.modelSchemas()["Person"]!!
         val serializedPersonData = mapOf<String, Any?>(
             "id" to "af9cfa64-1ea9-46d6-b9e2-8203179d5392",

@@ -79,7 +79,7 @@ data class FlutterFieldType(val map: Map<String, Any>) {
             "model" -> Model::class.java
             "collection" -> List::class.java
             // amplify-android expects a base class to do Gson.toJson when reading CustomType value from SQLite
-            // CustomType values are store in SQLite as json string
+            // CustomType values are stored in SQLite as json string
             // there will be two use cases:
             // 1. json string root is a map (embedded)
             // 2. json string root is an array (embeddedCollection)

@@ -88,7 +88,7 @@ class AmplifyModelSchemaTest {
     }
 
     @Test
-    fun test_model_schema_nests_custom_type_schema() {
+    fun test_model_schema_nested_custom_type_schema() {
         val inputMap = schemasMap["PersonModelSchema"] as Map<String, Any>
         val modelSchema = FlutterModelSchema(inputMap);
 

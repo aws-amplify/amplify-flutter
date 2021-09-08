@@ -538,24 +538,15 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             } else if (field.isCustomType) {
                 // ignore field if the field doesn't have valid schema in ModelProvider
                 val fieldCustomTypeSchema = modelProvider.customTypeSchemas()[field.targetType] ?: continue
+                val deserializedCustomType = getDeserializedCustomTypeField(
+                    fieldCustomTypeSchema = fieldCustomTypeSchema,
+                    isFieldArray = field.isArray,
+                    listOfSerializedData = if (field.isArray) fieldSerializedData as List<Map<String, Any?>> else null,
+                    serializedData = if (!field.isArray) fieldSerializedData as Map<String, Any?> else null
+                )
 
-                // When a field is custom type
-                // the field value can only be a single custom type
-                // or a list of items of the same custom type
-                if (field.isArray) {
-                    result[key] = (fieldSerializedData as List<Map<String, Any?>>).map { listItem ->
-                        SerializedCustomType.builder()
-                            .serializedData(deserializeNestedCustomType(listItem, fieldCustomTypeSchema))
-                            .customTypeSchema(fieldCustomTypeSchema)
-                            .build()
-                    }
-                } else {
-                    result[key] = SerializedCustomType.builder()
-                        .serializedData(
-                            deserializeNestedCustomType(fieldSerializedData as Map<String, Any>, fieldCustomTypeSchema)
-                        )
-                        .customTypeSchema(fieldCustomTypeSchema)
-                        .build()
+                if (deserializedCustomType != null) {
+                    result[key] = deserializedCustomType
                 }
             } else {
                 result[key] = fieldSerializedData
@@ -576,7 +567,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
             val fieldSerializedData = serializedModelData[key]
 
-            // if the filed serialized value is null
+            // if the field serialized value is null
             // assign null to this field in the deserialized map
             if (fieldSerializedData == null) {
                 result[key] = fieldSerializedData
@@ -584,25 +575,17 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             }
 
             if (field.isCustomType) {
+                // ignore field if the field doesn't have valid schema in ModelProvider
                 val fieldCustomTypeSchema = modelProvider.customTypeSchemas()[field.targetType] ?: continue
+                val deserializedCustomType = getDeserializedCustomTypeField(
+                    fieldCustomTypeSchema = fieldCustomTypeSchema,
+                    isFieldArray = field.isArray,
+                    listOfSerializedData = if (field.isArray) fieldSerializedData as List<Map<String, Any?>> else null,
+                    serializedData = if (!field.isArray) fieldSerializedData as Map<String, Any?> else null
+                )
 
-                // When a field is custom type
-                // the field value can only be a single custom type
-                // or a list of item of the same custom type
-                if (field.isArray) {
-                    result[key] = (fieldSerializedData as List<Map<String, Any?>>).map { listItem ->
-                        SerializedCustomType.builder()
-                            .serializedData(deserializeNestedCustomType(listItem, fieldCustomTypeSchema))
-                            .customTypeSchema(fieldCustomTypeSchema)
-                            .build()
-                    }
-                } else {
-                    result[key] = SerializedCustomType.builder()
-                        .serializedData(
-                            deserializeNestedCustomType(fieldSerializedData as Map<String, Any>, fieldCustomTypeSchema)
-                        )
-                        .customTypeSchema(fieldCustomTypeSchema)
-                        .build()
+                if (deserializedCustomType != null) {
+                    result[key] = deserializedCustomType
                 }
             } else {
                 result[key] = fieldSerializedData
@@ -610,6 +593,34 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         }
 
         return result.toMap()
+    }
+
+    private fun getDeserializedCustomTypeField(
+        fieldCustomTypeSchema: CustomTypeSchema,
+        isFieldArray: Boolean = false,
+        listOfSerializedData: List<Map<String, Any?>>? = null,
+        serializedData: Map<String, Any?>? = null
+    ): Any? {
+        // When a field is custom type
+        // the field value can only be a single custom type
+        // or a list of item of the same custom type
+        if (isFieldArray && listOfSerializedData != null) {
+            return listOfSerializedData.map {
+                SerializedCustomType.builder()
+                    .serializedData(deserializeNestedCustomType(it, fieldCustomTypeSchema))
+                    .customTypeSchema(fieldCustomTypeSchema)
+                    .build()
+            }
+        }
+
+        if (serializedData != null) {
+            return SerializedCustomType.builder()
+                .serializedData(deserializeNestedCustomType(serializedData, fieldCustomTypeSchema))
+                .customTypeSchema(fieldCustomTypeSchema)
+                .build()
+        }
+
+        return null
     }
 
     private fun registerSchemas(request: Map<String, Any>) {

@@ -77,7 +77,7 @@ class AmplifySerializedModelTest {
     }
 
     @Test
-    fun test_model_schema_nests_custom_type_schema() {
+    fun test_model_schema_nested_custom_type_schema() {
         val flutterSerializedModel = FlutterSerializedModel(personSerializedModel)
         val expectedResult = serializedModelMaps["PersonModelSerializedMap"] as Map<String, Any>
 
