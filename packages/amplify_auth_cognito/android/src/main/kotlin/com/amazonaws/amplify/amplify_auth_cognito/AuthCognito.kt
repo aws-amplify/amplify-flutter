@@ -394,17 +394,17 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
           when (cognitoAuthSession.userSub.type) {
             // If the user sub accessor successful the user is present and the session should be valid
             AuthSessionResult.Type.SUCCESS -> {
-              var awsMobileClient = AWSMobileClient.getInstance()
-              var username = awsMobileClient.username
+              val awsMobileClient = AWSMobileClient.getInstance()
+              val username = awsMobileClient.username
               prepareUserResult(flutterResult, AuthUser(cognitoAuthSession.userSub.toString(), username));
             }
             // If the user sub accessor failed, check the signIn state
             AuthSessionResult.Type.FAILURE -> {
               // if signedIn flag still true, we know session is expired so get the old user
               if (result.isSignedIn) {
-                var awsMobileClient = AWSMobileClient.getInstance()
-                var username = awsMobileClient.username
-                var userid = awsMobileClient.userSub
+                val awsMobileClient = AWSMobileClient.getInstance()
+                val username = awsMobileClient.username
+                val userid = awsMobileClient.userSub
                 prepareUserResult(flutterResult, AuthUser(userid, username));
               // if signIn flag is false, we assume user is signed out so throw exception
               } else {
