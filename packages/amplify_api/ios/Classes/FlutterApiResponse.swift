@@ -19,6 +19,45 @@ import AmplifyPlugins
 
 import amplify_core
 
+extension GraphQLError.Location: Encodable {
+    enum CodingKeys: String, CodingKey {
+        case line
+        case column
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(line, forKey: .line)
+        try container.encode(column, forKey: .column)
+    }
+}
+
+extension GraphQLError: Encodable {
+    enum CodingKeys: String, CodingKey {
+        case message
+        case locations
+        case path
+        case extensions
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(message, forKey: .message)
+        try container.encode(locations, forKey: .locations)
+        try container.encode(path, forKey: .path)
+        try container.encode(extensions, forKey: .extensions)
+    }
+}
+
+extension Encodable {
+  func asDictionary() -> [String: Any]? {
+    guard let data = try? JSONEncoder().encode(self) else {
+        return nil
+    }
+    return try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+  }
+}
+
 class FlutterApiResponse {
     static func handleGraphQLErrorResponse(
         flutterResult: @escaping FlutterResult,
@@ -28,14 +67,14 @@ class FlutterApiResponse {
         case .error(let errorList):
             let result: [String: Any?] = [
                 "data": nil,
-                "errors": errorList.map { $0.message }
+                "errors": errorList.compactMap { $0.asDictionary() }
             ]
             print("Received a GraphQL response with errors: \(errorList)")
             flutterResult(result)
         case .partial(let data, let errorList):
             let result: [String: Any?] = [
                 "data": data,
-                "errors": errorList.map { $0.message }
+                "errors": errorList.compactMap { $0.asDictionary() }
             ]
             print("Received a partially successful GraphQL response: \(result)")
             flutterResult(result)
@@ -65,7 +104,7 @@ class FlutterApiResponse {
         case .error(let errorList):
             let payload: [String: Any?] = [
                 "data": nil,
-                "errors": errorList.map { $0.message }
+                "errors": errorList.compactMap { $0.asDictionary() }
             ]
             print("Received a GraphQL subscription event with errors: \(errorList)")
             graphQLSubscriptionsStreamHandler.sendEvent(
@@ -75,7 +114,7 @@ class FlutterApiResponse {
         case .partial(let data, let errorList):
             let payload: [String: Any?] = [
                 "data": data,
-                "errors": errorList.map { $0.message }
+                "errors": errorList.compactMap { $0.asDictionary() }
             ]
             print("Received a partially successful GraphQL subscription event: \(payload)")
             graphQLSubscriptionsStreamHandler.sendEvent(

@@ -9,6 +9,7 @@ environment:
 
 dependencies:
   amplify_core: 0.2.2
+  collection: ^1.15.0
   flutter:
     sdk: flutter
   meta: ^1.3.0

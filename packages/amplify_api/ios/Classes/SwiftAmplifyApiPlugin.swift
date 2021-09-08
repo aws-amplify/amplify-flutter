@@ -64,17 +64,7 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
 
             // Update tokens if included in request.
             if let tokens = arguments["tokens"] as? [[String: Any?]] {
-                for tokenMap in tokens {
-                    guard let type = tokenMap["type"] as? String,
-                          let awsAuthType = AWSAuthorizationType(rawValue: type),
-                          let token = tokenMap["token"] as? String? else {
-                        throw APIError.unknown(
-                            "Invalid arguments",
-                            "A valid AWSAuthorizationType and token entry are required",
-                            nil)
-                    }
-                    FlutterAuthProviders.setToken(type: awsAuthType, token: token)
-                }
+                try updateTokens(tokens)
             }
 
             try innerHandle(method: method, arguments: arguments, result: result)
@@ -141,6 +131,15 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
                 request: arguments, bridge: bridge,
                 graphQLSubscriptionsStreamHandler: graphQLSubscriptionsStreamHandler
             )
+        case "updateTokens":
+            guard let _ = arguments["tokens"] as? [[String: Any?]] else {
+                throw APIError.unknown("Invalid token map provided",
+                                        "Provide tokens in the \"tokens\" field",
+                                        nil)
+            }
+
+            // Tokens already updated
+            result(nil)
         default:
             result(FlutterMethodNotImplemented)
         }
@@ -158,6 +157,20 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
                             be canceled anymore
                             """,
                             details: "Operation does not exist"))
+        }
+    }
+
+    private func updateTokens(_ tokens: [[String: Any?]]) throws {
+        for tokenMap in tokens {
+            guard let type = tokenMap["type"] as? String,
+                  let awsAuthType = AWSAuthorizationType(rawValue: type),
+                  let token = tokenMap["token"] as? String? else {
+                throw APIError.unknown(
+                    "Invalid arguments",
+                    "A valid AWSAuthorizationType and token entry are required",
+                    nil)
+            }
+            FlutterAuthProviders.setToken(type: awsAuthType, token: token)
         }
     }
 }
