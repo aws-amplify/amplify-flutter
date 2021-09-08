@@ -70,7 +70,7 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   /// Internal use constructor
   @protected
   DataStorePluginInterface.tokenOnly({required Object token})
-      : this(token: token, modelProvider: null);
+      : super(token: token);
 
   StreamController get streamController {
     throw UnimplementedError(

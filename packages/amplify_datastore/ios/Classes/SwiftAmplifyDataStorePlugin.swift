@@ -17,7 +17,6 @@ import Flutter
 import UIKit
 import Amplify
 import AmplifyPlugins
-import AWSPluginsCore
 import AWSCore
 import Combine
 import amplify_core
