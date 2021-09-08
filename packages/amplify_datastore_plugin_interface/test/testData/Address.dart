@@ -18,7 +18,6 @@
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
 
-
 /** This is an auto generated class representing the Address type in your schema. */
 @immutable
 class Address {
@@ -31,131 +30,146 @@ class Address {
   String get line1 {
     try {
       return _line1!;
-    } catch(e) {
+    } catch (e) {
       throw new DataStoreException(
-      DataStoreExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-      recoverySuggestion:
-        DataStoreExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-      underlyingException: e.toString()
-    );
+          DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
     }
   }
-  
+
   String? get line2 {
     return _line2;
   }
-  
+
   String get city {
     try {
       return _city!;
-    } catch(e) {
+    } catch (e) {
       throw new DataStoreException(
-      DataStoreExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-      recoverySuggestion:
-        DataStoreExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-      underlyingException: e.toString()
-    );
+          DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
     }
   }
-  
+
   String get state {
     try {
       return _state!;
-    } catch(e) {
+    } catch (e) {
       throw new DataStoreException(
-      DataStoreExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-      recoverySuggestion:
-        DataStoreExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-      underlyingException: e.toString()
-    );
+          DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
     }
   }
-  
+
   String get postalCode {
     try {
       return _postalCode!;
-    } catch(e) {
+    } catch (e) {
       throw new DataStoreException(
-      DataStoreExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-      recoverySuggestion:
-        DataStoreExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-      underlyingException: e.toString()
-    );
+          DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
     }
   }
-  
-  const Address._internal({required line1, line2, required city, required state, required postalCode}): _line1 = line1, _line2 = line2, _city = city, _state = state, _postalCode = postalCode;
-  
-  factory Address({required String line1, String? line2, required String city, required String state, required String postalCode}) {
+
+  const Address._internal(
+      {required line1,
+      line2,
+      required city,
+      required state,
+      required postalCode})
+      : _line1 = line1,
+        _line2 = line2,
+        _city = city,
+        _state = state,
+        _postalCode = postalCode;
+
+  factory Address(
+      {required String line1,
+      String? line2,
+      required String city,
+      required String state,
+      required String postalCode}) {
     return Address._internal(
-      line1: line1,
-      line2: line2,
-      city: city,
-      state: state,
-      postalCode: postalCode);
+        line1: line1,
+        line2: line2,
+        city: city,
+        state: state,
+        postalCode: postalCode);
   }
-  
+
   bool equals(Object other) {
     return this == other;
   }
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Address &&
-      _line1 == other._line1 &&
-      _line2 == other._line2 &&
-      _city == other._city &&
-      _state == other._state &&
-      _postalCode == other._postalCode;
+        _line1 == other._line1 &&
+        _line2 == other._line2 &&
+        _city == other._city &&
+        _state == other._state &&
+        _postalCode == other._postalCode;
   }
-  
+
   @override
   int get hashCode => toString().hashCode;
-  
-  Address.fromJson(Map<String, dynamic> json)  
-    : _line1 = json['line1'],
-      _line2 = json['line2'],
-      _city = json['city'],
-      _state = json['state'],
-      _postalCode = json['postalCode'];
-  
-  Map<String, dynamic> toJson() => {
-    'line1': _line1, 'line2': _line2, 'city': _city, 'state': _state, 'postalCode': _postalCode
-  };
 
-  static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  Address.fromJson(Map<String, dynamic> json)
+      : _line1 = json['line1'],
+        _line2 = json['line2'],
+        _city = json['city'],
+        _state = json['state'],
+        _postalCode = json['postalCode'];
+
+  Map<String, dynamic> toJson() => {
+        'line1': _line1,
+        'line2': _line2,
+        'city': _city,
+        'state': _state,
+        'postalCode': _postalCode
+      };
+
+  static var schema =
+      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Address";
     modelSchemaDefinition.pluralName = "Addresses";
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-      fieldName: 'line1',
-      isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
+        fieldName: 'line1',
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-      fieldName: 'line2',
-      isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
+        fieldName: 'line2',
+        isRequired: false,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-      fieldName: 'city',
-      isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
+        fieldName: 'city',
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-      fieldName: 'state',
-      isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
+        fieldName: 'state',
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-      fieldName: 'postalCode',
-      isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
+        fieldName: 'postalCode',
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
   });
 }

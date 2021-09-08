@@ -18,7 +18,6 @@
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
 
-
 /** This is an auto generated class representing the Phone type in your schema. */
 @immutable
 class Phone {
@@ -28,74 +27,71 @@ class Phone {
   String get country {
     try {
       return _country!;
-    } catch(e) {
+    } catch (e) {
       throw new DataStoreException(
-      DataStoreExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-      recoverySuggestion:
-        DataStoreExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-      underlyingException: e.toString()
-    );
+          DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
     }
   }
-  
+
   String get number {
     try {
       return _number!;
-    } catch(e) {
+    } catch (e) {
       throw new DataStoreException(
-      DataStoreExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-      recoverySuggestion:
-        DataStoreExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-      underlyingException: e.toString()
-    );
+          DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
     }
   }
-  
-  const Phone._internal({required country, required number}): _country = country, _number = number;
-  
+
+  const Phone._internal({required country, required number})
+      : _country = country,
+        _number = number;
+
   factory Phone({required String country, required String number}) {
-    return Phone._internal(
-      country: country,
-      number: number);
+    return Phone._internal(country: country, number: number);
   }
-  
+
   bool equals(Object other) {
     return this == other;
   }
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Phone &&
-      _country == other._country &&
-      _number == other._number;
+        _country == other._country &&
+        _number == other._number;
   }
-  
+
   @override
   int get hashCode => toString().hashCode;
-  
-  Phone.fromJson(Map<String, dynamic> json)  
-    : _country = json['country'],
-      _number = json['number'];
-  
-  Map<String, dynamic> toJson() => {
-    'country': _country, 'number': _number
-  };
 
-  static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  Phone.fromJson(Map<String, dynamic> json)
+      : _country = json['country'],
+        _number = json['number'];
+
+  Map<String, dynamic> toJson() => {'country': _country, 'number': _number};
+
+  static var schema =
+      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Phone";
     modelSchemaDefinition.pluralName = "Phones";
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-      fieldName: 'country',
-      isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
+        fieldName: 'country',
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-      fieldName: 'number',
-      isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
+        fieldName: 'number',
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
   });
 }

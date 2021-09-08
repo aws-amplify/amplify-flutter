@@ -20,7 +20,6 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-
 /** This is an auto generated class representing the Contact type in your schema. */
 @immutable
 class Contact {
@@ -31,95 +30,109 @@ class Contact {
   String get email {
     try {
       return _email!;
-    } catch(e) {
+    } catch (e) {
       throw new DataStoreException(
-      DataStoreExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-      recoverySuggestion:
-        DataStoreExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-      underlyingException: e.toString()
-    );
+          DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
     }
   }
-  
+
   Phone get phone {
     try {
       return _phone!;
-    } catch(e) {
+    } catch (e) {
       throw new DataStoreException(
-      DataStoreExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-      recoverySuggestion:
-        DataStoreExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-      underlyingException: e.toString()
-    );
+          DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
     }
   }
-  
+
   List<Address>? get mailingAddresses {
     return _mailingAddresses;
   }
-  
-  const Contact._internal({required email, required phone, mailingAddresses}): _email = email, _phone = phone, _mailingAddresses = mailingAddresses;
-  
-  factory Contact({required String email, required Phone phone, List<Address>? mailingAddresses}) {
+
+  const Contact._internal({required email, required phone, mailingAddresses})
+      : _email = email,
+        _phone = phone,
+        _mailingAddresses = mailingAddresses;
+
+  factory Contact(
+      {required String email,
+      required Phone phone,
+      List<Address>? mailingAddresses}) {
     return Contact._internal(
-      email: email,
-      phone: phone,
-      mailingAddresses: mailingAddresses != null ? List<Address>.unmodifiable(mailingAddresses) : mailingAddresses);
+        email: email,
+        phone: phone,
+        mailingAddresses: mailingAddresses != null
+            ? List<Address>.unmodifiable(mailingAddresses)
+            : mailingAddresses);
   }
-  
+
   bool equals(Object other) {
     return this == other;
   }
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Contact &&
-      _email == other._email &&
-      _phone == other._phone &&
-      DeepCollectionEquality().equals(_mailingAddresses, other._mailingAddresses);
+        _email == other._email &&
+        _phone == other._phone &&
+        DeepCollectionEquality()
+            .equals(_mailingAddresses, other._mailingAddresses);
   }
-  
+
   @override
   int get hashCode => toString().hashCode;
-  
-  Contact.fromJson(Map<String, dynamic> json)  
-    : _email = json['email'],
-      _phone = json['phone']?['serializedData'] != null
-        ? Phone.fromJson(new Map<String, dynamic>.from(json['phone']['serializedData']))
-        : null,
-      _mailingAddresses = json['mailingAddresses'] is List
-        ? (json['mailingAddresses'] as List)
-          .where((e) => e != null)
-          .map((e) => Address.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
-          .toList()
-        : null;
-  
-  Map<String, dynamic> toJson() => {
-    'email': _email, 'phone': _phone?.toJson(), 'mailingAddresses': _mailingAddresses?.map((Address? e) => e?.toJson()).toList()
-  };
 
-  static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  Contact.fromJson(Map<String, dynamic> json)
+      : _email = json['email'],
+        _phone = json['phone']?['serializedData'] != null
+            ? Phone.fromJson(
+                new Map<String, dynamic>.from(json['phone']['serializedData']))
+            : null,
+        _mailingAddresses = json['mailingAddresses'] is List
+            ? (json['mailingAddresses'] as List)
+                .where((e) => e != null)
+                .map((e) => Address.fromJson(
+                    new Map<String, dynamic>.from(e['serializedData'])))
+                .toList()
+            : null;
+
+  Map<String, dynamic> toJson() => {
+        'email': _email,
+        'phone': _phone?.toJson(),
+        'mailingAddresses':
+            _mailingAddresses?.map((Address? e) => e?.toJson()).toList()
+      };
+
+  static var schema =
+      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Contact";
     modelSchemaDefinition.pluralName = "Contacts";
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-      fieldName: 'email',
-      isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
+        fieldName: 'email',
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.embedded(
-      fieldName: 'phone',
-      isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.embedded, ofCustomTypeName: 'Phone')
-    ));
-    
+        fieldName: 'phone',
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.embedded,
+            ofCustomTypeName: 'Phone')));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.embedded(
-      fieldName: 'mailingAddresses',
-      isRequired: false,
-      isArray: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.embeddedCollection, ofCustomTypeName: 'Address')
-    ));
+        fieldName: 'mailingAddresses',
+        isRequired: false,
+        isArray: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.embeddedCollection,
+            ofCustomTypeName: 'Address')));
   });
 }
