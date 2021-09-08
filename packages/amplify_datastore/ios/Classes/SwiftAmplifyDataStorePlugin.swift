@@ -114,12 +114,12 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         let syncPageSize = args["syncPageSize"] as? UInt ?? DataStoreConfiguration.defaultSyncPageSize
         
         do {
-            let customTypeSchemaDeserializingOrder = try getCustomTypeSchemasDependentOrder(
+            let customTypeSchemaDependenciesOrder = try getCustomTypeSchemasDependenciesOrder(
                 serializedCustomTypeSchemas: serializedCustomTypeSchemas
             )
             try registerCustomTypeSchemas(
                 serializedCustomTypeSchemas: serializedCustomTypeSchemas,
-                dependenciesOrder: customTypeSchemaDeserializingOrder
+                customTypeSchemaDependentOrder: customTypeSchemaDependenciesOrder
             )
 
             let modelSchemas: [ModelSchema] = try serializedModelSchemas.map {
@@ -468,8 +468,11 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
 
     // Convert the register custom type schemas following the dependencies order
     // and then convert and register custom type schemas that don't any dependencies 
-    private func registerCustomTypeSchemas(serializedCustomTypeSchemas: [[String: Any]], dependenciesOrder: [String]) throws {
-        for schemaName in dependenciesOrder {
+    private func registerCustomTypeSchemas(
+        serializedCustomTypeSchemas: [[String: Any]],
+        customTypeSchemaDependentOrder: [String]
+    ) throws {
+        for schemaName in customTypeSchemaDependentOrder {
             let serializedSchema = serializedCustomTypeSchemas.first(where: { $0["name"] as! String == schemaName } )
             let schema: ModelSchema = try FlutterModelSchema.init(serializedData: serializedSchema!)
                 .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemaRegistry)
@@ -478,7 +481,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
 
         for serializedCustomTypeSchema in serializedCustomTypeSchemas {
             let schemaName = serializedCustomTypeSchema["name"] as! String
-            if (!dependenciesOrder.contains(schemaName)) {
+            if (!customTypeSchemaDependentOrder.contains(schemaName)) {
                 let schema: ModelSchema = try FlutterModelSchema.init(serializedData: serializedCustomTypeSchema)
                     .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemaRegistry)
                 customTypeSchemaRegistry.addModelSchema(modelName: schemaName, modelSchema: schema)
@@ -488,9 +491,9 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
 
     // Resolve custom type dependencies order, the most dependent schema will be registered first
     // Cicular depdencies are not allowed
-    // The resolved order (array of CustomTyppe names) contains only types that on the both ends of a
+    // The resolved order (array of CustomType names) contains only types that on the both ends of a
     // dependent relationship
-    private func getCustomTypeSchemasDependentOrder(serializedCustomTypeSchemas: [[String: Any]]) throws -> [String] {
+    private func getCustomTypeSchemasDependenciesOrder(serializedCustomTypeSchemas: [[String: Any]]) throws -> [String] {
         var schemasDependencies: [String: [String]] = [:]
         for serializedCustomTypeSchema in serializedCustomTypeSchemas {
             let fields = serializedCustomTypeSchema["fields"] as! [String: [String: Any]]
