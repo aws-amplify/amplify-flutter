@@ -19,19 +19,21 @@ import Amplify
 @testable import amplify_datastore
 
 class AmplifyModelSchemaUnitTests: XCTestCase {
-    
+
     let modelSchemaMap: [String: Any] = try! readJsonMap(filePath: "model_schema_maps")
     let customTypeSchemaMap: [String: Any] = try! readJsonMap(filePath: "custom_type_schema_maps")
     let customTypeSchemasRegistry = FlutterSchemaRegistry()
 
     override func setUpWithError() throws {
-        // register CustomType Schemas
-        for (_, serializedCustomType) in customTypeSchemaMap {
+        // register CustomType Schemas following dependencies order
+        // This also tests the desrialization fucntionlity for CustomType schemas
+        ["AddressSchema", "PhoneSchema", "ContactSchema"].forEach { schemaName in
             do {
+                let serializedCustomType = customTypeSchemaMap[schemaName] as! [String : Any]
                 customTypeSchemasRegistry.addModelSchema(
-                    modelName: (serializedCustomType as! [String: Any])["name"] as! String,
+                    modelName: serializedCustomType["name"] as! String,
                     modelSchema: try FlutterModelSchema(
-                        serializedData: serializedCustomType as! [String : Any]
+                        serializedData: serializedCustomType
                     ).convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
                 )
             } catch {
@@ -44,39 +46,39 @@ class AmplifyModelSchemaUnitTests: XCTestCase {
         let flutterBlogSchema = try FlutterModelSchema(
             serializedData: modelSchemaMap["BlogSchema"] as! [String : Any] )
             .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
-        
+
         XCTAssertEqual(SchemaData.BlogSchema, flutterBlogSchema)
     }
-    
+
     func test_schema_comment_with_belongsTo() throws {
         let flutterBlogSchema = try FlutterModelSchema(
             serializedData: modelSchemaMap["CommentSchema"] as! [String : Any] )
             .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
-        
+
         XCTAssertEqual(SchemaData.CommentSchema, flutterBlogSchema)
     }
-    
+
     func test_schema_post_with_datetime_int_hasMany_belongsTo() throws{
         let flutterBlogSchema = try FlutterModelSchema(
             serializedData: modelSchemaMap["PostSchema"] as! [String : Any] )
             .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
-        
+
         XCTAssertEqual(SchemaData.PostSchema, flutterBlogSchema)
     }
-    
+
     func test_schema_postAuthComplex_with_authRules() throws{
         let postAuthComplexSchema = try FlutterModelSchema(
             serializedData: modelSchemaMap["PostAuthComplexSchema"] as! [String : Any] )
             .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
-        
+
         XCTAssertEqual(SchemaData.PostAuthComplexSchema, postAuthComplexSchema)
     }
-    
+
     func test_schema_allTypeModel() throws{
         let allTypeModelSchema = try FlutterModelSchema(
             serializedData: modelSchemaMap["AllTypeModelSchema"] as! [String : Any] )
             .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
-        
+
         XCTAssertEqual(SchemaData.AllTypeModelSchema, allTypeModelSchema)
     }
 
@@ -102,6 +104,10 @@ class AmplifyModelSchemaUnitTests: XCTestCase {
         XCTAssertEqual(
             expectedContactSchemaFields!["phone"]?.embeddedTypeSchema?.sortedFields,
             contactSchemaFields!["phone"]?.embeddedTypeSchema?.sortedFields
+        )
+        XCTAssertEqual(
+            expectedContactSchemaFields!["mailingAddresses"]?.embeddedTypeSchema?.sortedFields,
+            contactSchemaFields!["mailingAddresses"]?.embeddedTypeSchema?.sortedFields
         )
     }
 }

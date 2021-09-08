@@ -18,7 +18,7 @@ import Amplify
 @testable import amplify_datastore
 
 struct SchemaData {
-    
+
     static var PostSchema: ModelSchema = ModelSchema(
         name: "Post",
         pluralName: "Posts",
@@ -32,7 +32,7 @@ struct SchemaData {
             "author": ModelField(name: "author", type: .model(name: "Author"), isRequired: true, isArray: false, association: ModelAssociation.belongsTo(targetName: "authorId"))
         ]
     )
-    
+
     static var CommentSchema: ModelSchema = ModelSchema(
         name: "Comment",
         pluralName: "Comments",
@@ -43,7 +43,7 @@ struct SchemaData {
         ]
     )
 
-    
+
     static var BlogSchema: ModelSchema = ModelSchema(
         name: "Blog",
         pluralName: "Blogs",
@@ -54,7 +54,7 @@ struct SchemaData {
             )
         ]
     )
-    
+
     static var PostAuthComplexSchema: ModelSchema = ModelSchema(
         name: "PostAuthComplex",
         pluralName: "PostAuthComplexes",
@@ -74,7 +74,7 @@ struct SchemaData {
             "owner": ModelField(name: "owner", type: .string, isRequired: false, isArray: false),
         ]
     )
-    
+
     static var AllTypeModelSchema: ModelSchema = ModelSchema(
         name: "AllTypeModel",
         pluralName: "AllTypeModels",
@@ -154,7 +154,7 @@ struct SchemaData {
         fields: [
             "id": ModelField(name: "id", type: .string, isRequired: true, isArray: false),
             "name": ModelField(name: "name", type: .string, isRequired: true, isArray: false),
-            "contact": ModelField(name: "contact", type: .embedded(type: JSONValue.self, schema: ContactSchema)),
+            "contact": ModelField(name: "contact", type: .embedded(type: JSONValue.self, schema: SchemaData.ContactSchema)),
             "propertiesAddresses": ModelField(
                 name: "propertiesAddresses",
                 type: .embeddedCollection(of: JSONValue.self, schema: SchemaData.AddressSchema),
@@ -178,9 +178,9 @@ struct SchemaData {
 
     static var customTypeSchemas: [String: ModelSchema] {
         return [
+            AddressSchema.name: AddressSchema,
             PhoneSchema.name: PhoneSchema,
-            ContactSchema.name: ContactSchema,
-            AddressSchema.name: AddressSchema
+            ContactSchema.name: ContactSchema
         ]
     }
 
