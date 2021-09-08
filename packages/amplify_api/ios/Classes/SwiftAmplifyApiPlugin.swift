@@ -137,7 +137,7 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
                                         "Provide tokens in the \"tokens\" field",
                                         nil)
             }
-            
+
             // Tokens already updated
             result(nil)
         default:

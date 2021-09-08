@@ -24,7 +24,7 @@ extension GraphQLError.Location: Encodable {
         case line
         case column
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(line, forKey: .line)
@@ -39,7 +39,7 @@ extension GraphQLError: Encodable {
         case path
         case extensions
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(message, forKey: .message)
