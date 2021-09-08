@@ -22,8 +22,14 @@ import Amplify
 class AmplifySerializedModelUnitTests: XCTestCase {
     
     let serializedModelMaps: [String: Any] = try! readJsonMap(filePath: "serialized_model_maps")
-    let modelSchemaRegistry = SchemaData.flutterModelRegistration
-    let customTypeSchemasRegistry = FlutterSchemaRegistry()
+    let modelSchemaRegistry = SchemaData.modelSchemaRegistry
+    let customTypeSchemasRegistry = SchemaData.customTypeSchemaRegistry
+
+    override func setUpWithError() throws {
+        customTypeSchemasRegistry.addModelSchema(modelName: "Phone", modelSchema: SchemaData.PhoneSchema)
+        customTypeSchemasRegistry.addModelSchema(modelName: "Contact", modelSchema: SchemaData.ContactSchema)
+        customTypeSchemasRegistry.addModelSchema(modelName: "Address", modelSchema: SchemaData.AddressSchema)
+    }
 
     func test_blog_hasMany_serialization() throws {
         let ourMap = try FlutterSerializedModelData.BlogSerializedModel.toMap(
@@ -138,5 +144,77 @@ class AmplifySerializedModelUnitTests: XCTestCase {
         XCTAssertEqual(ourSd["dateTimeType"] as! String , refSd["dateTimeType"] as! String)
         XCTAssertEqual(ourSd["timeType"] as! String , refSd["timeType"] as! String)
         XCTAssertEqual(ourSd["enumType"] as! String , refSd["enumType"] as! String)
+    }
+
+    func test_model_nests_custom_type_serialization() throws {
+        let actual = try FlutterSerializedModelData.PersonModelSerializedModel.toMap(
+            modelSchemaRegistry: modelSchemaRegistry,
+            customTypeSchemaRegistry: customTypeSchemasRegistry,
+            modelName: SchemaData.PersonSchema.name
+        )
+        let expected = serializedModelMaps["PersonModelSerializedMap"] as! [String: Any]
+
+        XCTAssertEqual(expected["id"] as! String , actual["id"] as! String)
+        XCTAssertEqual(expected["modelName"] as! String , actual["modelName"] as! String)
+
+        let actualSerializedData = actual["serializedData"] as! [String: Any]
+        let expectedSerializedData = actual["serializedData"] as! [String: Any]
+        XCTAssertEqual(expectedSerializedData["id"] as! String , actualSerializedData["id"] as! String)
+        XCTAssertEqual(expectedSerializedData["name"] as! String , actualSerializedData["name"] as! String)
+
+        let actualContact = actualSerializedData["contact"] as! [String: Any]
+        let expectedContact = expectedSerializedData["contact"] as! [String: Any]
+        XCTAssertEqual(expectedContact["customTypeName"] as! String, actualContact["customTypeName"] as! String);
+
+        let actualContactSerializedData = actualContact["serializedData"] as! [String: Any]
+        let expectedContactSerializedData = expectedContact["serializedData"] as! [String: Any]
+        XCTAssertEqual(expectedContactSerializedData["email"] as! String, actualContactSerializedData["email"] as! String)
+
+        let actualPhone = actualContactSerializedData["phone"] as! [String: Any]
+        let expectedPhone = expectedContactSerializedData["phone"] as! [String: Any]
+        XCTAssertEqual(expectedPhone["customTypeName"] as! String, actualPhone["customTypeName"] as! String)
+
+        let actualPhoneSerializedData = actualPhone["serializedData"] as! [String: String]
+        let expectedPhoneSerilizedData = expectedPhone["serializedData"] as! [String: String]
+        XCTAssertEqual(expectedPhoneSerilizedData["country"], actualPhoneSerializedData["country"])
+        XCTAssertEqual(expectedPhoneSerilizedData["area"], actualPhoneSerializedData["area"])
+        XCTAssertEqual(expectedPhoneSerilizedData["number"], actualPhoneSerializedData["number"])
+
+        let actualMailingAddresses = actualContactSerializedData["mailingAddresses"] as! [[String: Any]]
+        let expectedMailingAddresses = expectedContactSerializedData["mailingAddresses"] as! [[String: Any]]
+
+        // Test list of CustomType as a filed of CustomType
+        for (index, acutalElement) in actualMailingAddresses.enumerated() {
+            let expectedElement = expectedMailingAddresses[index]
+            XCTAssertEqual(acutalElement["customTypeName"] as! String, expectedElement["customTypeName"] as! String)
+
+            let actualElementSerializedData = acutalElement["serializedData"] as! [String: String]
+            let expectedElementSerializedData = expectedElement["serializedData"] as! [String: String]
+
+            XCTAssertEqual(expectedElementSerializedData["line1"], actualElementSerializedData["line1"])
+            XCTAssertEqual(expectedElementSerializedData["line2"], actualElementSerializedData["line2"])
+            XCTAssertEqual(expectedElementSerializedData["city"], actualElementSerializedData["city"])
+            XCTAssertEqual(expectedElementSerializedData["state"], actualElementSerializedData["state"])
+            XCTAssertEqual(expectedElementSerializedData["postalCode"], actualElementSerializedData["postalCode"])
+        }
+
+
+        let actualAddresses = actualSerializedData["propertiesAddresses"] as! [[String: Any]]
+        let expectedAddresses = expectedSerializedData["propertiesAddresses"] as! [[String: Any]]
+
+        // Test list of CustomType as a filed of Model
+        for (index, acutalElement) in actualAddresses.enumerated() {
+            let expectedElement = expectedAddresses[index]
+            XCTAssertEqual(acutalElement["customTypeName"] as! String, expectedElement["customTypeName"] as! String)
+
+            let actualElementSerializedData = acutalElement["serializedData"] as! [String: String]
+            let expectedElementSerializedData = expectedElement["serializedData"] as! [String: String]
+
+            XCTAssertEqual(expectedElementSerializedData["line1"], actualElementSerializedData["line1"])
+            XCTAssertEqual(expectedElementSerializedData["line2"], actualElementSerializedData["line2"])
+            XCTAssertEqual(expectedElementSerializedData["city"], actualElementSerializedData["city"])
+            XCTAssertEqual(expectedElementSerializedData["state"], actualElementSerializedData["state"])
+            XCTAssertEqual(expectedElementSerializedData["postalCode"], actualElementSerializedData["postalCode"])
+        }
     }
 }

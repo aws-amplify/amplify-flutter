@@ -1,0 +1,110 @@
+{
+    "AddressSchema": {
+        "name": "Address",
+        "pluralName": "Addresses",
+        "fields": {
+            "line1": {
+                "name": "line1",
+                "isRequired": true,
+                "isArray": false,
+                "type": {
+                    "fieldType": "string"
+                }
+            },
+            "line2": {
+                "name": "line2",
+                "isRequired": false,
+                "isArray": false,
+                "type": {
+                    "fieldType": "string"
+                }
+            },
+            "city": {
+                "name": "city",
+                "isRequired": true,
+                "isArray": false,
+                "type": {
+                    "fieldType": "string"
+                }
+            },
+            "state": {
+                "name": "state",
+                "isRequired": true,
+                "isArray": false,
+                "type": {
+                    "fieldType": "string"
+                }
+            },
+            "postalCode": {
+                "name": "postalCode",
+                "isRequired": true,
+                "isArray": false,
+                "type": {
+                    "fieldType": "string"
+                }
+            }
+        }
+    },
+    "PhoneSchema": {
+        "name": "Phone",
+        "pluralName": "Phones",
+        "fields": {
+            "country": {
+                "name": "country",
+                "isRequired": true,
+                "isArray": false,
+                "type": {
+                    "fieldType": "string"
+                }
+            },
+            "area": {
+                "name": "area",
+                "isRequired": true,
+                "isArray": false,
+                "type": {
+                    "fieldType": "string"
+                }
+            },
+            "number": {
+                "name": "number",
+                "isRequired": true,
+                "isArray": false,
+                "type": {
+                    "fieldType": "string"
+                }
+            }
+        }
+    },
+    "ContactSchema": {
+        "name": "Contact",
+        "pluralName": "Contacts",
+        "fields": {
+            "email": {
+                "name": "email",
+                "isRequired": true,
+                "isArray": false,
+                "type": {
+                    "fieldType": "string"
+                }
+            },
+            "phone": {
+                "name": "phone",
+                "isRequired": true,
+                "isArray": false,
+                "type": {
+                    "fieldType": "embedded",
+                    "ofCustomTypeName": "Phone"
+                }
+            },
+            "mailingAddresses": {
+                "name": "mailingAddresses",
+                "isRequired": false,
+                "isArray": false,
+                "type": {
+                    "fieldType": "embeddedCollection",
+                    "ofCustomTypeName": "Address"
+                }
+            }
+        }
+    }
+}

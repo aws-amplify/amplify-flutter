@@ -112,6 +112,57 @@ struct SchemaData {
         ]
     )
 
+    static var AddressSchema: ModelSchema = ModelSchema(
+        name: "Address",
+        pluralName: "Addresses",
+        fields: [
+            "line1": ModelField(name: "line1", type: .string, isRequired: true, isArray: false),
+            "line2": ModelField(name: "line2", type: .string, isRequired: false, isArray: false),
+            "city": ModelField(name: "city", type: .string, isRequired: true, isArray: false),
+            "state": ModelField(name: "state", type: .string, isRequired: true, isArray: false),
+            "postalCode": ModelField(name: "postalCode", type: .string, isRequired: true, isArray: false),
+        ]
+    )
+
+    static var PhoneSchema: ModelSchema = ModelSchema(
+        name: "Phone",
+        pluralName: "Phones",
+        fields: [
+            "country": ModelField(name: "country", type: .string, isRequired: true, isArray: false),
+            "area": ModelField(name: "area", type: .string, isRequired: true, isArray: false),
+            "number": ModelField(name: "number", type: .string, isRequired: true, isArray: false),
+        ]
+    )
+
+    static var ContactSchema: ModelSchema = ModelSchema(
+        name: "Contact",
+        pluralName: "Contacts",
+        fields: [
+            "email": ModelField(name: "email", type: .string, isRequired: true, isArray: false),
+            "phone": ModelField(name: "phone", type: .embedded(type: JSONValue.self, schema: SchemaData.PhoneSchema), isRequired: true),
+            "mailingAddresses": ModelField(
+                name: "mailingAddresses",
+                type: .embeddedCollection(of: JSONValue.self, schema: SchemaData.AddressSchema),
+                isArray: true
+            )
+        ]
+    )
+
+    static var PersonSchema: ModelSchema = ModelSchema(
+        name: "Person",
+        pluralName: "People",
+        fields: [
+            "id": ModelField(name: "id", type: .string, isRequired: true, isArray: false),
+            "name": ModelField(name: "name", type: .string, isRequired: true, isArray: false),
+            "contact": ModelField(name: "contact", type: .embedded(type: JSONValue.self, schema: ContactSchema)),
+            "propertiesAddresses": ModelField(
+                name: "propertiesAddresses",
+                type: .embeddedCollection(of: JSONValue.self, schema: SchemaData.AddressSchema),
+                isArray: true
+            )
+        ]
+    )
+
     static var modelSchemas: [String: ModelSchema] {
         return [
             PostSchema.name: PostSchema,
@@ -120,17 +171,36 @@ struct SchemaData {
             PostAuthComplexSchema.name: PostAuthComplexSchema,
             AllTypeModelSchema.name: AllTypeModelSchema,
             AuthorModelSchema.name: AuthorModelSchema,
-            DepartmentSchema.name: DepartmentSchema
+            DepartmentSchema.name: DepartmentSchema,
+            PersonSchema.name: PersonSchema
         ]
     }
 
-    static var flutterModelRegistration: FlutterSchemaRegistry  {
-        let flutterModelRegistration = FlutterSchemaRegistry()
+    static var customTypeSchemas: [String: ModelSchema] {
+        return [
+            PhoneSchema.name: PhoneSchema,
+            ContactSchema.name: ContactSchema,
+            AddressSchema.name: AddressSchema
+        ]
+    }
+
+    static var modelSchemaRegistry: FlutterSchemaRegistry {
+        let modelSchemaRegistry = FlutterSchemaRegistry()
 
         for (key, value) in SchemaData.modelSchemas {
-            flutterModelRegistration.addModelSchema(modelName: key, modelSchema: value)
+            modelSchemaRegistry.addModelSchema(modelName: key, modelSchema: value)
         }
 
-        return flutterModelRegistration
+        return modelSchemaRegistry
+    }
+
+    static var customTypeSchemaRegistry: FlutterSchemaRegistry {
+        let customTypeSchemaRegistry = FlutterSchemaRegistry()
+
+        for (key, customTypeSchema) in SchemaData.customTypeSchemas {
+            customTypeSchemaRegistry.addModelSchema(modelName: key, modelSchema: customTypeSchema)
+        }
+
+        return customTypeSchemaRegistry
     }
 }

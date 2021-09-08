@@ -20,12 +20,29 @@ import Amplify
 
 class AmplifyModelSchemaUnitTests: XCTestCase {
     
-    let schemasMap: [String: Any] = try! readJsonMap(filePath: "model_schema_maps")
+    let modelSchemaMap: [String: Any] = try! readJsonMap(filePath: "model_schema_maps")
+    let customTypeSchemaMap: [String: Any] = try! readJsonMap(filePath: "custom_type_schema_maps")
     let customTypeSchemasRegistry = FlutterSchemaRegistry()
+
+    override func setUpWithError() throws {
+        // register CustomType Schemas
+        for (_, serializedCustomType) in customTypeSchemaMap {
+            do {
+                customTypeSchemasRegistry.addModelSchema(
+                    modelName: (serializedCustomType as! [String: Any])["name"] as! String,
+                    modelSchema: try FlutterModelSchema(
+                        serializedData: serializedCustomType as! [String : Any]
+                    ).convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
+                )
+            } catch {
+                print(error)
+            }
+        }
+    }
 
     func test_schema_blog_with_hasMany() throws {
         let flutterBlogSchema = try FlutterModelSchema(
-            serializedData: schemasMap["BlogSchema"] as! [String : Any] )
+            serializedData: modelSchemaMap["BlogSchema"] as! [String : Any] )
             .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
         
         XCTAssertEqual(SchemaData.BlogSchema, flutterBlogSchema)
@@ -33,7 +50,7 @@ class AmplifyModelSchemaUnitTests: XCTestCase {
     
     func test_schema_comment_with_belongsTo() throws {
         let flutterBlogSchema = try FlutterModelSchema(
-            serializedData: schemasMap["CommentSchema"] as! [String : Any] )
+            serializedData: modelSchemaMap["CommentSchema"] as! [String : Any] )
             .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
         
         XCTAssertEqual(SchemaData.CommentSchema, flutterBlogSchema)
@@ -41,7 +58,7 @@ class AmplifyModelSchemaUnitTests: XCTestCase {
     
     func test_schema_post_with_datetime_int_hasMany_belongsTo() throws{
         let flutterBlogSchema = try FlutterModelSchema(
-            serializedData: schemasMap["PostSchema"] as! [String : Any] )
+            serializedData: modelSchemaMap["PostSchema"] as! [String : Any] )
             .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
         
         XCTAssertEqual(SchemaData.PostSchema, flutterBlogSchema)
@@ -49,7 +66,7 @@ class AmplifyModelSchemaUnitTests: XCTestCase {
     
     func test_schema_postAuthComplex_with_authRules() throws{
         let postAuthComplexSchema = try FlutterModelSchema(
-            serializedData: schemasMap["PostAuthComplexSchema"] as! [String : Any] )
+            serializedData: modelSchemaMap["PostAuthComplexSchema"] as! [String : Any] )
             .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
         
         XCTAssertEqual(SchemaData.PostAuthComplexSchema, postAuthComplexSchema)
@@ -57,9 +74,34 @@ class AmplifyModelSchemaUnitTests: XCTestCase {
     
     func test_schema_allTypeModel() throws{
         let allTypeModelSchema = try FlutterModelSchema(
-            serializedData: schemasMap["AllTypeModelSchema"] as! [String : Any] )
+            serializedData: modelSchemaMap["AllTypeModelSchema"] as! [String : Any] )
             .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
         
         XCTAssertEqual(SchemaData.AllTypeModelSchema, allTypeModelSchema)
+    }
+
+    func test_model_nests_custom_type_schema() throws {
+        let personModelSchema = try FlutterModelSchema(
+            serializedData: modelSchemaMap["PersonModelSchema"] as! [String: Any])
+            .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
+        let expectedPersonModelSchema = SchemaData.PersonSchema
+
+        XCTAssertEqual(expectedPersonModelSchema.fields["id"], personModelSchema.fields["id"])
+        XCTAssertEqual(expectedPersonModelSchema.fields["name"], personModelSchema.fields["name"])
+        XCTAssertEqual(
+            expectedPersonModelSchema.fields["propertiesAddresses"]?.embeddedTypeSchema?.sortedFields,
+            personModelSchema.fields["propertiesAddresses"]?.embeddedTypeSchema?.sortedFields
+        )
+
+        let contactSchemaFields = personModelSchema.fields["contact"]?.embeddedTypeSchema?.fields
+        let expectedContactSchemaFields = expectedPersonModelSchema.fields["contact"]?.embeddedTypeSchema?.fields
+        XCTAssertEqual(
+            expectedContactSchemaFields!["email"],
+            contactSchemaFields!["email"]
+        )
+        XCTAssertEqual(
+            expectedContactSchemaFields!["phone"]?.embeddedTypeSchema?.sortedFields,
+            contactSchemaFields!["phone"]?.embeddedTypeSchema?.sortedFields
+        )
     }
 }

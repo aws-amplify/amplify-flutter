@@ -67,4 +67,46 @@ struct FlutterSerializedModelData {
             "timestampType" : JSONValue.number(999),
             "enumType" : JSONValue.string("maybe")
         ]);
+
+    static var PersonModelSerializedModel: FlutterSerializedModel =
+        FlutterSerializedModel(
+            id: "123",
+            map: [
+                "id": JSONValue.string("123"),
+                "name": JSONValue.string("Tester Testing"),
+                "contact": JSONValue.object([
+                    "email": "test@testing.com",
+                    "phone": JSONValue.object([
+                        "country": "+1",
+                        "area": "415",
+                        "number": "6666666"
+                    ]),
+                    "mailingAddresses": JSONValue.array([
+                        JSONValue.object([
+                            "line1": "000 Somewhere far",
+                            "line2": "apt 4",
+                            "city": "San Francisco",
+                            "state": "CA",
+                            "postalCode": "94115"
+                        ]),
+                        JSONValue.object([
+                            "line1": "000 Somewhere close",
+                            "line2": JSONValue.null,
+                            "city": "Seattle",
+                            "state": "WA",
+                            "postalCode": "98101"
+                        ])
+                    ])
+                ]),
+                "propertiesAddresses": JSONValue.array([
+                    JSONValue.object([
+                        "line1": "222 Somewhere in the middle",
+                        "line2": JSONValue.null,
+                        "city": "Portland",
+                        "state": "OR",
+                        "postalCode": "97035"
+                    ])
+                ])
+            ]
+        )
 }
