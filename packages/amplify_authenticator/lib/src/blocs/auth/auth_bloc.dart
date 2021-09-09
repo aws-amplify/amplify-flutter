@@ -218,20 +218,7 @@ class StateMachineBloc {
           yield AuthFlow(screen: AuthScreen.confirmSignUp);
           break;
         case 'DONE':
-          List<String> unverifiedAttributeKeys =
-              await _authService.getUnverifiedAttributeKeys();
-          if (unverifiedAttributeKeys.isNotEmpty) {
-            _authEventController.add(
-              AuthSetUnverifiedAttributeKeys(
-                AuthSetUnverifiedAttributeKeysData(
-                  unverifiedAttributeKeys: unverifiedAttributeKeys,
-                ),
-              ),
-            );
-            yield AuthFlow(screen: AuthScreen.verifyUser);
-          } else {
-            yield const Authenticated();
-          }
+          yield* _checkUserVerification();
           break;
         default:
           break;
@@ -241,6 +228,32 @@ class StateMachineBloc {
         _exceptionController.add(AuthenticatorException(e.message));
         yield AuthFlow(screen: AuthScreen.confirmSignUp);
       } else if (e is AmplifyException) {
+        _exceptionController.add(AuthenticatorException(e.message));
+      } else {
+        _exceptionController.add(AuthenticatorException(e.toString()));
+      }
+    }
+  }
+
+  Stream<AuthState> _checkUserVerification() async* {
+    try {
+      List<String> unverifiedAttributeKeys =
+          await _authService.getUnverifiedAttributeKeys();
+      if (unverifiedAttributeKeys.isNotEmpty) {
+        _authEventController.add(
+          AuthSetUnverifiedAttributeKeys(
+            AuthSetUnverifiedAttributeKeysData(
+              unverifiedAttributeKeys: unverifiedAttributeKeys,
+            ),
+          ),
+        );
+        yield AuthFlow(screen: AuthScreen.verifyUser);
+      } else {
+        yield const Authenticated();
+      }
+    } on Exception catch (e) {
+      // TODO: How should exceptions be handled in this flow
+      if (e is AmplifyException) {
         _exceptionController.add(AuthenticatorException(e.message));
       } else {
         _exceptionController.add(AuthenticatorException(e.toString()));
