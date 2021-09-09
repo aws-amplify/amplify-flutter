@@ -33,6 +33,8 @@ import 'package:amplify_authenticator/src/screens/send_code_screen.dart';
 import 'package:amplify_authenticator/src/screens/confirm_signin_new_password.dart';
 import 'package:amplify_authenticator/src/screens/reset_password_screen.dart';
 import 'package:amplify_authenticator/src/screens/confirm_signin_mfa_screen.dart';
+import 'package:amplify_authenticator/src/screens/confirm_verify_user_screen.dart';
+import 'package:amplify_authenticator/src/screens/verify_user_screen.dart';
 
 //Bloc
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
@@ -43,6 +45,8 @@ import 'package:amplify_authenticator/src/views/signin_viewmodel.dart';
 import 'package:amplify_authenticator/src/views/signup_viewmodel.dart';
 import 'package:amplify_authenticator/src/views/confirm_signup_viewmodel.dart';
 import 'package:amplify_authenticator/src/views/confirm_signin_viewmodel.dart';
+import 'package:amplify_authenticator/src/views/confirm_verify_user_view_model.dart';
+import 'package:amplify_authenticator/src/views/verify_user_view_model.dart';
 
 //Enums
 import 'package:amplify_authenticator/src/enums/alias.dart';
@@ -235,6 +239,8 @@ class _AuthenticatorState extends State<Authenticator> {
     var resetPasswordForm = defaultForms.resetPasswordForm(resolver);
     var sendCodeForm =
         defaultForms.sendCodeForm(widget.usernameAlias, resolver);
+    var verifyUserFormBuilder = defaultForms.verifyUserFormBuilder(resolver);
+    var confirmVerifyUserForm = defaultForms.confirmVerifyUserForm(resolver);
 
     return InheritedAuthBloc(
         key: const Key(keyInheritedAuthBloc),
@@ -245,6 +251,9 @@ class _AuthenticatorState extends State<Authenticator> {
             signUpViewModel: SignUpViewModel(_stateMachineBloc),
             confirmSignUpViewModel: ConfirmSignUpViewModel(_stateMachineBloc),
             confirmSignInViewModel: ConfirmSignInViewModel(_stateMachineBloc),
+            verifyUserViewModel: VerifyUserViewModel(_stateMachineBloc),
+            confirmVerifyUserViewModel:
+                ConfirmVerifyUserViewModel(_stateMachineBloc),
             child: InheritedStrings(
                 resolver: resolver,
                 child: InheritedForms(
@@ -255,6 +264,8 @@ class _AuthenticatorState extends State<Authenticator> {
                   signUpForm: signUpForm,
                   confirmSignUpForm: confirmSignUpForm,
                   confirmSignInMFAForm: confirmSignInMFAForm,
+                  verifyUserFormBuilder: verifyUserFormBuilder,
+                  confirmVerifyUserForm: confirmVerifyUserForm,
                   child: Scaffold(
                       body: StreamBuilder(
                     stream: _stateMachineBloc.stream,
@@ -283,6 +294,11 @@ class _AuthenticatorState extends State<Authenticator> {
                       } else if (state is AuthFlow &&
                           state.screen == AuthScreen.sendCode) {
                         screen = const SendCodeScreen();
+                      } else if (state is VerifyUserState) {
+                        screen = VerifyUserScreen(data: state.data);
+                      } else if (state is AuthFlow &&
+                          state.screen == AuthScreen.confirmVerifyUser) {
+                        screen = const ConfirmVerifyUserScreen();
                       } else if (state is AuthFlow &&
                           state.screen == AuthScreen.resetPassword) {
                         screen = const ResetPasswordScreen();

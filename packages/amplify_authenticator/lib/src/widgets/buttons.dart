@@ -2,6 +2,8 @@ import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/state/inherited_strings.dart';
 import 'package:amplify_authenticator/src/text_customization/navigation_resolver.dart';
 import 'package:amplify_authenticator/src/views/confirm_signin_viewmodel.dart';
+import 'package:amplify_authenticator/src/views/confirm_verify_user_view_model.dart';
+import 'package:amplify_authenticator/src/views/verify_user_view_model.dart';
 import 'package:amplify_authenticator/src/widgets/containers.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/keys.dart';
@@ -328,5 +330,65 @@ class ConfirmSignInNewPasswordButton extends StatelessWidget {
         authViewModel: _authViewModel,
         authKey: keySendCodeButton,
         text: _text);
+  }
+}
+
+class VerifyUserButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final VerifyUserViewModel _authViewModel =
+        InheritedAuthViewModel.of(context)!.verifyUserViewModel;
+    final String _text =
+        InheritedStrings.of(context)!.resolver.buttons.verifyUser(context);
+
+    return ButtonContainer(
+      callback: _authViewModel.verifyUser,
+      authViewModel: _authViewModel,
+      authKey: keySendCodeButton,
+      text: _text,
+    );
+  }
+}
+
+class ConfirmVerifyUserButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final ConfirmVerifyUserViewModel _authViewModel =
+        InheritedAuthViewModel.of(context)!.confirmVerifyUserViewModel;
+    final String _text = InheritedStrings.of(context)!
+        .resolver
+        .buttons
+        .confirmVerifyUser(context);
+
+    return ButtonContainer(
+      callback: _authViewModel.confirmVerifyUser,
+      authViewModel: _authViewModel,
+      authKey: keySendCodeButton,
+      text: _text,
+    );
+  }
+}
+
+class SkipVerifyUserButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final VerifyUserViewModel _authViewModel =
+        InheritedAuthViewModel.of(context)!.verifyUserViewModel;
+    final String _text = InheritedStrings.of(context)!
+        .resolver
+        .navigation
+        .skipVerifyUser(context);
+    return TextButton(
+      key: const Key(keyBackToSignInButton),
+      child: Text(
+        _text,
+        style: TextStyle(
+            fontSize: AuthenticatorButtonConstants.fontSize,
+            color: Theme.of(context).primaryColor != Colors.blue
+                ? Theme.of(context).primaryColor
+                : AuthenticatorColors.primary),
+      ),
+      onPressed: _authViewModel.skip,
+    );
   }
 }

@@ -1,0 +1,1 @@
+enum VerifyUserFormFieldType { email, phone }

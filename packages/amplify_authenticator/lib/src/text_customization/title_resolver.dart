@@ -38,6 +38,10 @@ class TitleResolver {
   /// The title for the send code Widget.
   StringResolver sendCode = (_) => "Send Code";
 
+  /// The title for the send code Widget.
+  StringResolver verifyUser =
+      (_) => "Account recovery requires verified contact information";
+
   // ignore: public_member_api_docs
   TitleResolver(
       {StringResolver? signin,
@@ -46,7 +50,8 @@ class TitleResolver {
       StringResolver? confirmSigninMfa,
       StringResolver? confirmSigninNewPassword,
       StringResolver? resetPassword,
-      StringResolver? sendCode}) {
+      StringResolver? sendCode,
+      StringResolver? verifyUser}) {
     this.signin = signin ?? this.signin;
     this.signup = signup ?? this.signup;
     this.confirmSignup = confirmSignup ?? this.confirmSignup;
@@ -55,5 +60,6 @@ class TitleResolver {
         confirmSigninNewPassword ?? this.confirmSigninNewPassword;
     this.resetPassword = resetPassword ?? this.resetPassword;
     this.sendCode = sendCode ?? this.sendCode;
+    this.verifyUser = verifyUser ?? this.verifyUser;
   }
 }

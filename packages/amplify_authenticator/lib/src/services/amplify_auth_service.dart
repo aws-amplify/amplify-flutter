@@ -25,6 +25,16 @@ abstract class AuthService {
       {required String code, Map<String, String>? attributes});
 
   Future<ResendSignUpCodeResult> resendSignUpCode(String username);
+
+  Future<List<String>> getUnverifiedAttributeKeys();
+
+  Future<ResendUserAttributeConfirmationCodeResult>
+      resendUserAttributeConfirmationCode({required String userAttributeKey});
+
+  Future<ConfirmUserAttributeResult> confirmUserAttribute({
+    required String userAttributeKey,
+    required String confirmationCode,
+  });
 }
 
 class AmplifyAuthService implements AuthService {
@@ -108,5 +118,66 @@ class AmplifyAuthService implements AuthService {
       String username, String code, String newPassword) async {
     return await Amplify.Auth.confirmPassword(
         username: username, confirmationCode: code, newPassword: newPassword);
+  }
+
+  @override
+  Future<ResendUserAttributeConfirmationCodeResult>
+      resendUserAttributeConfirmationCode({required String userAttributeKey}) {
+    return Amplify.Auth.resendUserAttributeConfirmationCode(
+      userAttributeKey: userAttributeKey,
+    );
+  }
+
+  @override
+  Future<ConfirmUserAttributeResult> confirmUserAttribute({
+    required String userAttributeKey,
+    required String confirmationCode,
+  }) {
+    return Amplify.Auth.confirmUserAttribute(
+      userAttributeKey: userAttributeKey,
+      confirmationCode: confirmationCode,
+    );
+  }
+
+  // TODO: Should this at some point be moved to amplify_auth_cognito?
+  // This is equivalent to `verifiedContact()` from amplify-js
+  // https://github.com/aws-amplify/amplify-js/blob/6de9a1d743deef8de5205590bf7cf8134a5fb5f4/packages/auth/src/Auth.ts#L1199-L1224
+  @override
+  Future<List<String>> getUnverifiedAttributeKeys() async {
+    try {
+      List<AuthUserAttribute> userAttributes =
+          await Amplify.Auth.fetchUserAttributes();
+
+      Map<String, AuthUserAttribute> userAttributeMap =
+          <String, AuthUserAttribute>{
+        for (AuthUserAttribute attr in userAttributes)
+          attr.userAttributeKey: attr
+      };
+
+      // TODO: Use constants from #697 after feature branch has been updated with main
+      AuthUserAttribute? emailAttribute = userAttributeMap['email'];
+      AuthUserAttribute? emailVerifiedAttribute =
+          userAttributeMap['email_verified'];
+      AuthUserAttribute? phoneAttribute = userAttributeMap['phone_number'];
+      AuthUserAttribute? phoneVerifiedAttribute =
+          userAttributeMap['phone_number_verified'];
+
+      bool hasEmail = emailAttribute is AuthUserAttribute;
+      bool isEmailVerified = emailVerifiedAttribute is AuthUserAttribute &&
+          emailVerifiedAttribute.value == 'true';
+      bool hasPhone = phoneAttribute is AuthUserAttribute;
+      bool isPhoneVerified = phoneVerifiedAttribute is AuthUserAttribute &&
+          phoneVerifiedAttribute.value == 'true';
+
+      List<String> unverifiedUserAttributes = [
+        if (hasEmail && !isEmailVerified) emailAttribute.userAttributeKey,
+        if (hasPhone && !isPhoneVerified) phoneAttribute.userAttributeKey,
+      ];
+
+      return unverifiedUserAttributes;
+    } on Exception catch (e) {
+      // TODO: How should this failure be handled?
+      return [];
+    }
   }
 }

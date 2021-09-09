@@ -224,4 +224,39 @@ class DefaultForms {
       ),
     );
   }
+
+  VerifyUserForm Function(List<String> unverifiedAttributeKeys)
+      verifyUserFormBuilder(AuthStringResolver resolver) {
+    return (List<String> unverifiedAttributeKeys) {
+      return VerifyUserForm(
+        formFieldGroup: VerifyUserFormFieldGroup(
+          initialValue: unverifiedAttributeKeys.first,
+          formFieldItems: [
+            // TODO: constants for attribute keys
+            if (unverifiedAttributeKeys.contains('email'))
+              const VerifyUserFormFieldItem(
+                label: 'Email', // TODO: use resolvers
+                attributeKey: 'email',
+              ),
+            if (unverifiedAttributeKeys.contains('phone_number'))
+              const VerifyUserFormFieldItem(
+                label: 'Phone Number', // TODO: use resolvers
+                attributeKey: 'phone_number',
+              ),
+          ],
+        ),
+      );
+    };
+  }
+
+  ConfirmVerifyUserForm confirmVerifyUserForm(AuthStringResolver resolver) {
+    return ConfirmVerifyUserForm(
+      formFields: [
+        ConfirmVerifyUserFormField(
+          title: resolver.inputs.verification_code_title(_context),
+          hintText: resolver.inputs.verification_code_hint(_context),
+        ),
+      ],
+    );
+  }
 }

@@ -72,6 +72,12 @@ class StateMachineBloc {
       yield* _confirmPassword(event.data);
     } else if (event is AuthConfirmSignIn) {
       yield* _confirmSignIn(event.data);
+    } else if (event is AuthVerifyUser) {
+      yield* _verifyUser(event.data);
+    } else if (event is AuthConfirmVerifyUser) {
+      yield* _confirmVerifyUser(event.data);
+    } else if (event is AuthSkipVerifyUser) {
+      yield const Authenticated();
     }
   }
 
@@ -211,7 +217,22 @@ class StateMachineBloc {
           yield AuthFlow(screen: AuthScreen.confirmSignUp);
           break;
         case 'DONE':
-          yield const Authenticated();
+          List<String> unverifiedUserAttributeKeys =
+              await _authService.getUnverifiedAttributeKeys();
+          if (unverifiedUserAttributeKeys.isNotEmpty) {
+            yield VerifyUserState(
+              // TODO: consider an alternate way to pass the list of attribute keys
+              // to the verify user form/screen
+              //
+              // There currently isn't a way to set state on the view model
+              // from the auth_bloc
+              data: VerifyUserStateData(
+                unverifiedAttributeKeys: unverifiedUserAttributeKeys,
+              ),
+            );
+          } else {
+            yield const Authenticated();
+          }
           break;
         default:
           break;
@@ -280,6 +301,39 @@ class StateMachineBloc {
     } on Exception catch (e) {
       if (e is AmplifyException) {
         print(e.message);
+        _exceptionController.add(AuthenticatorException(e.message));
+      } else {
+        _exceptionController.add(AuthenticatorException(e.toString()));
+      }
+    }
+  }
+
+  Stream<AuthState> _verifyUser(AuthVerifyUserData data) async* {
+    try {
+      await _authService.resendUserAttributeConfirmationCode(
+        userAttributeKey: data.userAttributeKey,
+      );
+      yield AuthFlow(screen: AuthScreen.confirmVerifyUser);
+    } on Exception catch (e) {
+      if (e is AmplifyException) {
+        print(e);
+        _exceptionController.add(AuthenticatorException(e.message));
+      } else {
+        _exceptionController.add(AuthenticatorException(e.toString()));
+      }
+    }
+  }
+
+  Stream<AuthState> _confirmVerifyUser(AuthConfirmVerifyUserData data) async* {
+    try {
+      await _authService.confirmUserAttribute(
+        userAttributeKey: data.userAttributeKey,
+        confirmationCode: data.code,
+      );
+      yield const Authenticated();
+    } on Exception catch (e) {
+      if (e is AmplifyException) {
+        print(e);
         _exceptionController.add(AuthenticatorException(e.message));
       } else {
         _exceptionController.add(AuthenticatorException(e.toString()));

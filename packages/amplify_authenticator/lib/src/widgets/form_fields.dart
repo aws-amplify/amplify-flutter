@@ -1,5 +1,7 @@
 import 'package:amplify_authenticator/src/enums/confirm_signin_types.dart';
 import 'package:amplify_authenticator/src/keys.dart';
+import 'package:amplify_authenticator/src/views/confirm_verify_user_view_model.dart';
+import 'package:amplify_authenticator/src/views/verify_user_view_model.dart';
 import 'package:amplify_authenticator/src/widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/widgets/containers.dart';
@@ -713,5 +715,154 @@ class _ConfirmSignInFormFieldState extends State<ConfirmSignInFormField> {
         title: widget.title,
         validator: _validator,
         obscureText: _obscureText);
+  }
+}
+
+class VerifyUserFormFieldItem {
+  const VerifyUserFormFieldItem({
+    required this.label,
+    required this.attributeKey,
+  });
+  final String label;
+  final String attributeKey;
+}
+
+class VerifyUserFormFieldGroup extends StatefulWidget {
+  const VerifyUserFormFieldGroup({
+    required this.formFieldItems,
+    this.initialValue,
+    Key? key,
+  }) : super(key: key);
+
+  final List<VerifyUserFormFieldItem> formFieldItems;
+  final String? initialValue;
+
+  @override
+  _VerifyUserFormFieldGroupState createState() =>
+      _VerifyUserFormFieldGroupState();
+}
+
+class _VerifyUserFormFieldGroupState extends State<VerifyUserFormFieldGroup> {
+  String? _value;
+  late VerifyUserViewModel _verifyUserViewModel;
+  late ConfirmVerifyUserViewModel _confirmVerifyUserViewModel;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _value = widget.initialValue;
+    final _verifyUserViewModel =
+        InheritedAuthViewModel.of(context)!.verifyUserViewModel;
+    final _confirmVerifyUserViewModel =
+        InheritedAuthViewModel.of(context)!.confirmVerifyUserViewModel;
+    _verifyUserViewModel.setUserAttributeKey(_value);
+
+    // TODO: consider an alternate way to share data between views
+    //
+    // This pattern of setting data in another view model
+    // is currently how username is shared between sign up and confirm
+    // sign up
+    _confirmVerifyUserViewModel.setUserAttributeKey(_value);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: widget.formFieldItems.map(
+        (item) {
+          return VerifyUserFormField(
+            label: item.label,
+            attributeKey: item.attributeKey,
+            onChanged: (String? value) {
+              setState(() {
+                _value = value;
+                _verifyUserViewModel.setUserAttributeKey(value);
+                _confirmVerifyUserViewModel.setUserAttributeKey(_value);
+              });
+            },
+            groupValue: _value,
+          );
+        },
+      ).toList(),
+    );
+  }
+}
+
+class VerifyUserFormField extends StatelessWidget {
+  const VerifyUserFormField({
+    required this.label,
+    required this.attributeKey,
+    required this.onChanged,
+    this.groupValue,
+    Key? key,
+  }) : super(key: key);
+
+  final String label;
+  final String attributeKey;
+  final void Function(String?)? onChanged;
+  final String? groupValue;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(this.label),
+      leading: Radio<String>(
+        value: attributeKey,
+        groupValue: this.groupValue,
+        onChanged: onChanged,
+      ),
+    );
+  }
+}
+
+class ConfirmVerifyUserFormField extends StatefulWidget {
+  /// Requires a custom title, hint text and an optional
+  /// callback for input validation.
+  const ConfirmVerifyUserFormField({
+    required this.title,
+    required this.hintText,
+    this.validator,
+  });
+
+  /// Custom title for this form field
+  final String title;
+
+  /// Custom hint text for this form field
+  final String hintText;
+
+  /// callback meant to validate inputs of this form field.
+  final String? Function(String?)? validator;
+
+  @override
+  _ConfirmVerifyUserFormFieldState createState() =>
+      _ConfirmVerifyUserFormFieldState();
+}
+
+class _ConfirmVerifyUserFormFieldState
+    extends State<ConfirmVerifyUserFormField> {
+  @override
+  Widget build(BuildContext context) {
+    final _authViewModel =
+        InheritedAuthViewModel.of(context)!.confirmVerifyUserViewModel;
+    bool _obscureText = false;
+    late dynamic _callBack;
+    Key _key;
+    String? Function(String?)? _validator;
+    TextInputType _keyboardType = TextInputType.text;
+    Widget? _visible;
+    _callBack = (String value) => _authViewModel.setCode(value);
+    _keyboardType = TextInputType.text;
+    _validator = widget.validator ?? validateCode;
+    _key = const Key(keyCodeConfirmSignInFormfield);
+    return FormFieldContainer(
+      visible: _visible,
+      key: _key,
+      keyboardType: _keyboardType,
+      callback: _callBack,
+      hintText: widget.hintText,
+      title: widget.title,
+      validator: _validator,
+      obscureText: _obscureText,
+    );
   }
 }

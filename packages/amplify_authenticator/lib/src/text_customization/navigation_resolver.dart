@@ -38,6 +38,9 @@ class NavigationResolver {
   /// Text asking if user has have an account
   StringResolver backToSignin = (_) => 'Back to Sign In';
 
+  /// Text asking if user has have an account
+  StringResolver skipVerifyUser = (_) => 'Skip';
+
   // ignore: public_member_api_docs
   NavigationResolver(
       {StringResolver? navigateSignin,

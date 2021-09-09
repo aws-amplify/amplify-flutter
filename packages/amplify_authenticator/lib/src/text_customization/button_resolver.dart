@@ -35,6 +35,12 @@ class ButtonResolver {
   /// Label of button for sending a confirmation code
   StringResolver sendCode = (_) => "Send Code";
 
+  /// Label of button to verify a user after sign in
+  StringResolver verifyUser = (_) => "Verify";
+
+  /// Label of button to confirm verification a user after sign in
+  StringResolver confirmVerifyUser = (_) => "Submit";
+
   /// Question for button to resend code
   StringResolver lostCodeQuestion = (_) => "Lost your code?";
 
@@ -46,6 +52,7 @@ class ButtonResolver {
       StringResolver? submit,
       StringResolver? changePassword,
       StringResolver? sendCode,
+      StringResolver? verifyUser,
       StringResolver? lostCodeQuestion}) {
     this.signin = signin ?? this.signin;
     this.signup = signup ?? this.signup;
@@ -53,6 +60,7 @@ class ButtonResolver {
     this.submit = submit ?? this.submit;
     this.changePassword = changePassword ?? this.changePassword;
     this.sendCode = sendCode ?? this.sendCode;
+    this.verifyUser = verifyUser ?? this.verifyUser;
     this.lostCodeQuestion = lostCodeQuestion ?? this.lostCodeQuestion;
   }
 }

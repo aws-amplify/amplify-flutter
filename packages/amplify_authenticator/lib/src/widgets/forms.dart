@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/widgets/buttons.dart';
 import 'package:amplify_authenticator/src/widgets/containers.dart';
 
+import 'form_fields.dart';
+
 class FormFields extends StatelessWidget {
   ///Requires a list of any of these form fields:
   ///   1. SignInFormField
@@ -166,5 +168,53 @@ class ConfirmSignInNewPasswordForm extends StatelessWidget {
           ConfirmSignInNewPasswordButton(),
           BackToSignInButton(),
         ]));
+  }
+}
+
+class VerifyUserForm extends StatelessWidget {
+  const VerifyUserForm({Key? key, required this.formFieldGroup})
+      : super(key: key);
+
+  final VerifyUserFormFieldGroup formFieldGroup;
+
+  @override
+  Widget build(BuildContext context) {
+    final _authModelView =
+        InheritedAuthViewModel.of(context)!.verifyUserViewModel;
+    return FormContainer(
+      formKey: _authModelView.formKey,
+      formFields: FormFields(
+        children: [formFieldGroup],
+      ),
+      buttonsContainer: ButtonsContainer(
+        children: <Widget>[
+          VerifyUserButton(),
+          SkipVerifyUserButton(),
+        ],
+      ),
+    );
+  }
+}
+
+class ConfirmVerifyUserForm extends StatelessWidget {
+  const ConfirmVerifyUserForm({Key? key, required this.formFields})
+      : super(key: key);
+
+  final List<ConfirmVerifyUserFormField> formFields;
+
+  @override
+  Widget build(BuildContext context) {
+    final _authModelView =
+        InheritedAuthViewModel.of(context)!.confirmVerifyUserViewModel;
+    return FormContainer(
+      formKey: _authModelView.formKey,
+      formFields: FormFields(children: this.formFields),
+      buttonsContainer: ButtonsContainer(
+        children: <Widget>[
+          ConfirmVerifyUserButton(),
+          SkipVerifyUserButton(),
+        ],
+      ),
+    );
   }
 }
