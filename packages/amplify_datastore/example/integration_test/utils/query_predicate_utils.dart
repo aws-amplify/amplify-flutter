@@ -1,7 +1,6 @@
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:amplify_flutter/amplify.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'model_utils.dart';
@@ -15,5 +14,5 @@ Future<void> testQueryPredicate<T extends Model>({
     classType,
     where: queryPredicate,
   );
-  expect(ListEquality().equals(actualModels, expectedModels), isTrue);
+  expect(actualModels, unorderedEquals(expectedModels));
 }

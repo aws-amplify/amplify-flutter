@@ -2,7 +2,6 @@ import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:amplify_datastore_example/models/ModelProvider.dart';
 import 'package:amplify_flutter/amplify.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'model_utils.dart';
@@ -30,13 +29,13 @@ testSortOperations<T extends Model>({
   testWidgets('ascending()', (WidgetTester tester) async {
     var actualModels = await Amplify.DataStore.query(classType,
         sortBy: [queryField.ascending()]);
-    expect(ListEquality().equals(actualModels, ascendingSortedModels), isTrue);
+    expect(actualModels, orderedEquals(ascendingSortedModels));
   });
 
   testWidgets('descending()', (WidgetTester tester) async {
     var actualModels = await Amplify.DataStore.query(classType,
         sortBy: [queryField.descending()]);
-    expect(ListEquality().equals(actualModels, descendingSortedModels), isTrue);
+    expect(actualModels, orderedEquals(descendingSortedModels));
   });
 }
 

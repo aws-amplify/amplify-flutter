@@ -17,7 +17,6 @@ import 'package:amplify_datastore_example/models/ModelProvider.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_flutter/amplify.dart';
-import 'package:collection/collection.dart';
 
 import '../../utils/setup_utils.dart';
 
@@ -90,7 +89,7 @@ void main() {
                 .eq(valueTwo)
                 .and(MultiTypeModel.ALTSTRINGVALUE.eq(valueThree)),
           );
-          expect(ListEquality().equals(actualModels, expectedModels), isTrue);
+          expect(actualModels, unorderedEquals(expectedModels));
         });
 
         testWidgets('ne() & ne()', (WidgetTester tester) async {
@@ -104,7 +103,7 @@ void main() {
                 .ne(valueTwo)
                 .and(MultiTypeModel.ALTSTRINGVALUE.ne(valueThree)),
           );
-          expect(ListEquality().equals(actualModels, expectedModels), isTrue);
+          expect(actualModels, unorderedEquals(expectedModels));
         });
 
         testWidgets('ne() & ne() on the same field',
@@ -119,7 +118,7 @@ void main() {
                 .ne(valueTwo)
                 .and(MultiTypeModel.STRINGVALUE.ne(valueThree)),
           );
-          expect(ListEquality().equals(actualModels, expectedModels), isTrue);
+          expect(actualModels, unorderedEquals(expectedModels));
         });
 
         testWidgets('lt() & lt()', (WidgetTester tester) async {
@@ -133,7 +132,7 @@ void main() {
                 .lt(valueTwo)
                 .and(MultiTypeModel.ALTSTRINGVALUE.lt(valueThree)),
           );
-          expect(ListEquality().equals(actualModels, expectedModels), isTrue);
+          expect(actualModels, unorderedEquals(expectedModels));
         });
 
         testWidgets('gt() & gt()', (WidgetTester tester) async {
@@ -147,7 +146,7 @@ void main() {
                 .gt(valueOne)
                 .and(MultiTypeModel.ALTSTRINGVALUE.gt(valueTwo)),
           );
-          expect(ListEquality().equals(actualModels, expectedModels), isTrue);
+          expect(actualModels, unorderedEquals(expectedModels));
         });
       });
 
@@ -212,7 +211,7 @@ void main() {
                 .eq(valueTwo)
                 .and(MultiTypeModel.ALTINTVALUE.eq(valueThree)),
           );
-          expect(ListEquality().equals(actualModels, expectedModels), isTrue);
+          expect(actualModels, unorderedEquals(expectedModels));
         });
 
         testWidgets('ne() & ne()', (WidgetTester tester) async {
@@ -226,7 +225,7 @@ void main() {
                 .ne(valueTwo)
                 .and(MultiTypeModel.ALTINTVALUE.ne(valueThree)),
           );
-          expect(ListEquality().equals(actualModels, expectedModels), isTrue);
+          expect(actualModels, unorderedEquals(expectedModels));
         });
 
         testWidgets('ne() & ne() on the same field',
@@ -241,7 +240,7 @@ void main() {
                 .ne(valueTwo)
                 .and(MultiTypeModel.INTVALUE.ne(valueThree)),
           );
-          expect(ListEquality().equals(actualModels, expectedModels), isTrue);
+          expect(actualModels, unorderedEquals(expectedModels));
         });
 
         testWidgets('lt() & lt()', (WidgetTester tester) async {
@@ -255,7 +254,7 @@ void main() {
                 .lt(valueTwo)
                 .and(MultiTypeModel.ALTINTVALUE.lt(valueThree)),
           );
-          expect(ListEquality().equals(actualModels, expectedModels), isTrue);
+          expect(actualModels, unorderedEquals(expectedModels));
         });
 
         testWidgets('gt() & gt()', (WidgetTester tester) async {
@@ -269,7 +268,7 @@ void main() {
                 .gt(valueOne)
                 .and(MultiTypeModel.ALTINTVALUE.gt(valueTwo)),
           );
-          expect(ListEquality().equals(actualModels, expectedModels), isTrue);
+          expect(actualModels, unorderedEquals(expectedModels));
         });
       });
 
@@ -331,7 +330,7 @@ void main() {
                 .or(MultiTypeModel.ALTINTVALUE.eq(intValueTwo)),
           );
           expect(actualModels.length, 15);
-          expect(ListEquality().equals(actualModels, expectedModels), isTrue);
+          expect(actualModels, unorderedEquals(expectedModels));
         });
 
         testWidgets('ne() (and)', (WidgetTester tester) async {
@@ -367,7 +366,7 @@ void main() {
                 .or(MultiTypeModel.ALTINTVALUE.ne(intValueTwo)),
           );
           expect(actualModels.length, 15);
-          expect(ListEquality().equals(actualModels, expectedModels), isTrue);
+          expect(actualModels, unorderedEquals(expectedModels));
         });
       });
     },

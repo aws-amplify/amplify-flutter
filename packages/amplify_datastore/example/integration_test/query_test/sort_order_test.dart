@@ -215,7 +215,7 @@ void main() {
             MultiTypeModel.STRINGVALUE.ascending(),
           ],
         );
-        expect(ListEquality().equals(actualModels, expectedModels), isTrue);
+        expect(actualModels, orderedEquals(expectedModels));
       });
 
       testWidgets('ascending() & descending()', (WidgetTester tester) async {
@@ -232,7 +232,7 @@ void main() {
             MultiTypeModel.STRINGVALUE.descending(),
           ],
         );
-        expect(ListEquality().equals(actualModels, expectedModels), isTrue);
+        expect(actualModels, orderedEquals(expectedModels));
       });
 
       testWidgets('descending() & descending()', (WidgetTester tester) async {
@@ -249,7 +249,7 @@ void main() {
             MultiTypeModel.STRINGVALUE.descending(),
           ],
         );
-        expect(ListEquality().equals(actualModels, expectedModels), isTrue);
+        expect(actualModels, orderedEquals(expectedModels));
       });
     });
   });
