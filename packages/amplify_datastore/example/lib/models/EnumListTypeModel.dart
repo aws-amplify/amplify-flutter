@@ -13,13 +13,13 @@
 * permissions and limitations under the License.
 */
 
-// ignore_for_file: public_member_api_docs
-
-import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
+// ignore_for_file: public_member_api_docs
+
+import 'ModelProvider.dart';
 
 /** This is an auto generated class representing the EnumListTypeModel type in your schema. */
 @immutable
@@ -32,117 +32,133 @@ class EnumListTypeModel extends Model {
 
   @override
   getInstanceType() => classType;
-  
+
   @override
   String getId() {
     return id;
   }
-  
+
   List<EnumModel>? get value {
     return _value;
   }
-  
+
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
-  
+
   TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
-  
-  const EnumListTypeModel._internal({required this.id, value, createdAt, updatedAt}): _value = value, _createdAt = createdAt, _updatedAt = updatedAt;
-  
+
+  const EnumListTypeModel._internal(
+      {required this.id, value, createdAt, updatedAt})
+      : _value = value,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
+
   factory EnumListTypeModel({String? id, List<EnumModel>? value}) {
     return EnumListTypeModel._internal(
-      id: id == null ? UUID.getUUID() : id,
-      value: value != null ? List<EnumModel>.unmodifiable(value) : value);
+        id: id == null ? UUID.getUUID() : id,
+        value: value != null ? List<EnumModel>.unmodifiable(value) : value);
   }
-  
+
   bool equals(Object other) {
     return this == other;
   }
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is EnumListTypeModel &&
-      id == other.id &&
-      DeepCollectionEquality().equals(_value, other._value) &&
-      _createdAt == other._createdAt &&
-      _updatedAt == other._updatedAt;
+        id == other.id &&
+        DeepCollectionEquality().equals(_value, other._value) &&
+        _createdAt == other._createdAt &&
+        _updatedAt == other._updatedAt;
   }
-  
+
   @override
   int get hashCode => toString().hashCode;
-  
+
   @override
   String toString() {
     var buffer = new StringBuffer();
-    
+
     buffer.write("EnumListTypeModel {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("value=" + (_value != null ? _value!.map((e) => enumToString(e)).toString() : "null") + ", ");
-    buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
-    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("value=" +
+        (_value != null
+            ? _value!.map((e) => enumToString(e)).toString()
+            : "null") +
+        ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
-    
+
     return buffer.toString();
   }
-  
+
   EnumListTypeModel copyWith({String? id, List<EnumModel>? value}) {
     return EnumListTypeModel._internal(
-      id: id ?? this.id,
-      value: value ?? this.value);
+        id: id ?? this.id, value: value ?? this.value);
   }
-  
-  EnumListTypeModel.fromJson(Map<String, dynamic> json)  
-    : id = json['id'],
-      _value = json['value'] is List
-        ? (json['value'] as List)
-          .map((e) => enumFromString<EnumModel>(e, EnumModel.values)!)
-          .toList()
-        : null,
-      _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
-      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
-  
+
+  EnumListTypeModel.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        _value = json['value'] is List
+            ? (json['value'] as List)
+                .map((e) => enumFromString<EnumModel>(e, EnumModel.values)!)
+                .toList()
+            : null,
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
+            : null;
+
   Map<String, dynamic> toJson() => {
-    'id': id, 'value': _value?.map((e) => enumToString(e))?.toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
-  };
+        'id': id,
+        'value': _value?.map((e) => enumToString(e))?.toList(),
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
+      };
 
   static final QueryField ID = QueryField(fieldName: "enumListTypeModel.id");
   static final QueryField VALUE = QueryField(fieldName: "value");
-  static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema =
+      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "EnumListTypeModel";
     modelSchemaDefinition.pluralName = "EnumListTypeModels";
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: EnumListTypeModel.VALUE,
-      isRequired: false,
-      isArray: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.collection, ofModelName: describeEnum(ModelFieldTypeEnum.enumeration))
-    ));
-    
+        key: EnumListTypeModel.VALUE,
+        isRequired: false,
+        isArray: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
+            ofModelName: describeEnum(ModelFieldTypeEnum.enumeration))));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-      fieldName: "createdAt",
-      isRequired: false,
-      isReadOnly: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
-    
+        fieldName: "createdAt",
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-      fieldName: "updatedAt",
-      isRequired: false,
-      isReadOnly: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
+        fieldName: "updatedAt",
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 
 class _EnumListTypeModelModelType extends ModelType<EnumListTypeModel> {
   const _EnumListTypeModelModelType();
-  
+
   @override
   EnumListTypeModel fromJson(Map<String, dynamic> jsonData) {
     return EnumListTypeModel.fromJson(jsonData);

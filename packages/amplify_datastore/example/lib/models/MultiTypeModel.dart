@@ -27,6 +27,8 @@ class MultiTypeModel extends Model {
   final String? _altStringValue;
   final int? _intValue;
   final int? _altIntValue;
+  final TemporalDateTime? _createdAt;
+  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -52,12 +54,28 @@ class MultiTypeModel extends Model {
     return _altIntValue;
   }
 
+  TemporalDateTime? get createdAt {
+    return _createdAt;
+  }
+
+  TemporalDateTime? get updatedAt {
+    return _updatedAt;
+  }
+
   const MultiTypeModel._internal(
-      {required this.id, stringValue, altStringValue, intValue, altIntValue})
+      {required this.id,
+      stringValue,
+      altStringValue,
+      intValue,
+      altIntValue,
+      createdAt,
+      updatedAt})
       : _stringValue = stringValue,
         _altStringValue = altStringValue,
         _intValue = intValue,
-        _altIntValue = altIntValue;
+        _altIntValue = altIntValue,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
 
   factory MultiTypeModel(
       {String? id,
@@ -85,7 +103,9 @@ class MultiTypeModel extends Model {
         _stringValue == other._stringValue &&
         _altStringValue == other._altStringValue &&
         _intValue == other._intValue &&
-        _altIntValue == other._altIntValue;
+        _altIntValue == other._altIntValue &&
+        _createdAt == other._createdAt &&
+        _updatedAt == other._updatedAt;
   }
 
   @override
@@ -103,7 +123,13 @@ class MultiTypeModel extends Model {
         (_intValue != null ? _intValue!.toString() : "null") +
         ", ");
     buffer.write("altIntValue=" +
-        (_altIntValue != null ? _altIntValue!.toString() : "null"));
+        (_altIntValue != null ? _altIntValue!.toString() : "null") +
+        ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
@@ -115,7 +141,7 @@ class MultiTypeModel extends Model {
       String? altStringValue,
       int? intValue,
       int? altIntValue}) {
-    return MultiTypeModel(
+    return MultiTypeModel._internal(
         id: id ?? this.id,
         stringValue: stringValue ?? this.stringValue,
         altStringValue: altStringValue ?? this.altStringValue,
@@ -128,14 +154,22 @@ class MultiTypeModel extends Model {
         _stringValue = json['stringValue'],
         _altStringValue = json['altStringValue'],
         _intValue = json['intValue'],
-        _altIntValue = json['altIntValue'];
+        _altIntValue = json['altIntValue'],
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
+            : null;
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'stringValue': _stringValue,
         'altStringValue': _altStringValue,
         'intValue': _intValue,
-        'altIntValue': _altIntValue
+        'altIntValue': _altIntValue,
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
       };
 
   static final QueryField ID = QueryField(fieldName: "multiTypeModel.id");
@@ -170,6 +204,18 @@ class MultiTypeModel extends Model {
         key: MultiTypeModel.ALTINTVALUE,
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.int)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: "createdAt",
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: "updatedAt",
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 

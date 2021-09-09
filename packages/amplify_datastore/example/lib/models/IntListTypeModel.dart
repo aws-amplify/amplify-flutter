@@ -19,7 +19,6 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-
 /** This is an auto generated class representing the IntListTypeModel type in your schema. */
 @immutable
 class IntListTypeModel extends Model {
@@ -31,113 +30,128 @@ class IntListTypeModel extends Model {
 
   @override
   getInstanceType() => classType;
-  
+
   @override
   String getId() {
     return id;
   }
-  
+
   List<int>? get value {
     return _value;
   }
-  
+
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
-  
+
   TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
-  
-  const IntListTypeModel._internal({required this.id, value, createdAt, updatedAt}): _value = value, _createdAt = createdAt, _updatedAt = updatedAt;
-  
+
+  const IntListTypeModel._internal(
+      {required this.id, value, createdAt, updatedAt})
+      : _value = value,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
+
   factory IntListTypeModel({String? id, List<int>? value}) {
     return IntListTypeModel._internal(
-      id: id == null ? UUID.getUUID() : id,
-      value: value != null ? List<int>.unmodifiable(value) : value);
+        id: id == null ? UUID.getUUID() : id,
+        value: value != null ? List<int>.unmodifiable(value) : value);
   }
-  
+
   bool equals(Object other) {
     return this == other;
   }
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is IntListTypeModel &&
-      id == other.id &&
-      DeepCollectionEquality().equals(_value, other._value) &&
-      _createdAt == other._createdAt &&
-      _updatedAt == other._updatedAt;
+        id == other.id &&
+        DeepCollectionEquality().equals(_value, other._value) &&
+        _createdAt == other._createdAt &&
+        _updatedAt == other._updatedAt;
   }
-  
+
   @override
   int get hashCode => toString().hashCode;
-  
+
   @override
   String toString() {
     var buffer = new StringBuffer();
-    
+
     buffer.write("IntListTypeModel {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("value=" + (_value != null ? _value!.toString() : "null") + ", ");
-    buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
-    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write(
+        "value=" + (_value != null ? _value!.toString() : "null") + ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
-    
+
     return buffer.toString();
   }
-  
+
   IntListTypeModel copyWith({String? id, List<int>? value}) {
     return IntListTypeModel._internal(
-      id: id ?? this.id,
-      value: value ?? this.value);
+        id: id ?? this.id, value: value ?? this.value);
   }
-  
-  IntListTypeModel.fromJson(Map<String, dynamic> json)  
-    : id = json['id'],
-      _value = (json['value'] as List<dynamic>)?.map((dynamic e) => e is double ? e.toInt() : e as int)?.toList(),
-      _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
-      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
-  
+
+  IntListTypeModel.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        _value = (json['value'] as List<dynamic>)
+            ?.map((dynamic e) => e is double ? e.toInt() : e as int)
+            ?.toList(),
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
+            : null;
+
   Map<String, dynamic> toJson() => {
-    'id': id, 'value': _value, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
-  };
+        'id': id,
+        'value': _value,
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
+      };
 
   static final QueryField ID = QueryField(fieldName: "intListTypeModel.id");
   static final QueryField VALUE = QueryField(fieldName: "value");
-  static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema =
+      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "IntListTypeModel";
     modelSchemaDefinition.pluralName = "IntListTypeModels";
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: IntListTypeModel.VALUE,
-      isRequired: false,
-      isArray: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.collection, ofModelName: describeEnum(ModelFieldTypeEnum.int))
-    ));
-    
+        key: IntListTypeModel.VALUE,
+        isRequired: false,
+        isArray: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
+            ofModelName: describeEnum(ModelFieldTypeEnum.int))));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-      fieldName: "createdAt",
-      isRequired: false,
-      isReadOnly: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
-    
+        fieldName: "createdAt",
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-      fieldName: "updatedAt",
-      isRequired: false,
-      isReadOnly: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
+        fieldName: "updatedAt",
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 
 class _IntListTypeModelModelType extends ModelType<IntListTypeModel> {
   const _IntListTypeModelModelType();
-  
+
   @override
   IntListTypeModel fromJson(Map<String, dynamic> jsonData) {
     return IntListTypeModel.fromJson(jsonData);

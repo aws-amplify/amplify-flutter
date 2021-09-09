@@ -19,7 +19,6 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-
 /** This is an auto generated class representing the StringListTypeModel type in your schema. */
 @immutable
 class StringListTypeModel extends Model {
@@ -31,113 +30,126 @@ class StringListTypeModel extends Model {
 
   @override
   getInstanceType() => classType;
-  
+
   @override
   String getId() {
     return id;
   }
-  
+
   List<String>? get value {
     return _value;
   }
-  
+
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
-  
+
   TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
-  
-  const StringListTypeModel._internal({required this.id, value, createdAt, updatedAt}): _value = value, _createdAt = createdAt, _updatedAt = updatedAt;
-  
+
+  const StringListTypeModel._internal(
+      {required this.id, value, createdAt, updatedAt})
+      : _value = value,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
+
   factory StringListTypeModel({String? id, List<String>? value}) {
     return StringListTypeModel._internal(
-      id: id == null ? UUID.getUUID() : id,
-      value: value != null ? List<String>.unmodifiable(value) : value);
+        id: id == null ? UUID.getUUID() : id,
+        value: value != null ? List<String>.unmodifiable(value) : value);
   }
-  
+
   bool equals(Object other) {
     return this == other;
   }
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is StringListTypeModel &&
-      id == other.id &&
-      DeepCollectionEquality().equals(_value, other._value) &&
-      _createdAt == other._createdAt &&
-      _updatedAt == other._updatedAt;
+        id == other.id &&
+        DeepCollectionEquality().equals(_value, other._value) &&
+        _createdAt == other._createdAt &&
+        _updatedAt == other._updatedAt;
   }
-  
+
   @override
   int get hashCode => toString().hashCode;
-  
+
   @override
   String toString() {
     var buffer = new StringBuffer();
-    
+
     buffer.write("StringListTypeModel {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("value=" + (_value != null ? _value!.toString() : "null") + ", ");
-    buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
-    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write(
+        "value=" + (_value != null ? _value!.toString() : "null") + ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
-    
+
     return buffer.toString();
   }
-  
+
   StringListTypeModel copyWith({String? id, List<String>? value}) {
     return StringListTypeModel._internal(
-      id: id ?? this.id,
-      value: value ?? this.value);
+        id: id ?? this.id, value: value ?? this.value);
   }
-  
-  StringListTypeModel.fromJson(Map<String, dynamic> json)  
-    : id = json['id'],
-      _value = json['value']?.cast<String>(),
-      _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
-      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
-  
+
+  StringListTypeModel.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        _value = json['value']?.cast<String>(),
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
+            : null;
+
   Map<String, dynamic> toJson() => {
-    'id': id, 'value': _value, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
-  };
+        'id': id,
+        'value': _value,
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
+      };
 
   static final QueryField ID = QueryField(fieldName: "stringListTypeModel.id");
   static final QueryField VALUE = QueryField(fieldName: "value");
-  static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema =
+      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "StringListTypeModel";
     modelSchemaDefinition.pluralName = "StringListTypeModels";
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: StringListTypeModel.VALUE,
-      isRequired: false,
-      isArray: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.collection, ofModelName: describeEnum(ModelFieldTypeEnum.string))
-    ));
-    
+        key: StringListTypeModel.VALUE,
+        isRequired: false,
+        isArray: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
+            ofModelName: describeEnum(ModelFieldTypeEnum.string))));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-      fieldName: "createdAt",
-      isRequired: false,
-      isReadOnly: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
-    
+        fieldName: "createdAt",
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-      fieldName: "updatedAt",
-      isRequired: false,
-      isReadOnly: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
+        fieldName: "updatedAt",
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 
 class _StringListTypeModelModelType extends ModelType<StringListTypeModel> {
   const _StringListTypeModelModelType();
-  
+
   @override
   StringListTypeModel fromJson(Map<String, dynamic> jsonData) {
     return StringListTypeModel.fromJson(jsonData);
