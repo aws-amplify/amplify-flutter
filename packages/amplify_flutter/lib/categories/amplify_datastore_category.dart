@@ -31,8 +31,9 @@ class DataStoreCategory {
     // TODO: Discuss and support multiple plugins
     if (plugins.length == 0) {
       try {
-        // Extra step to configure DataStore specifically.
-        // Note: The native DataStore plugins are not added
+        _refreshAuthProviders();
+        // Extra step to configure datastore specifically.
+        // Note: The native datastore plugins are not added
         // in the `onAttachedToEngine` but rather in the `configure()
         await plugin.configureDataStore(modelProvider: plugin.modelProvider!);
         plugins.add(plugin);
@@ -49,6 +50,7 @@ class DataStoreCategory {
 
   /// Get [streamController]
   StreamController get streamController {
+    _refreshAuthProviders();
     return plugins.length == 1
         ? plugins[0].streamController
         : throw _pluginNotAddedException("DataStore");
@@ -56,6 +58,7 @@ class DataStoreCategory {
 
   /// Configure DataStore
   Future<void> configure(String configuration) async {
+    _refreshAuthProviders();
     if (plugins.length == 1) {
       return plugins[0].configure(configuration: configuration);
     }
@@ -67,6 +70,7 @@ class DataStoreCategory {
       {QueryPredicate? where,
       QueryPagination? pagination,
       List<QuerySortBy>? sortBy}) {
+    _refreshAuthProviders();
     return plugins.length == 1
         ? plugins[0].query(modelType,
             where: where, pagination: pagination, sortBy: sortBy)
@@ -75,6 +79,7 @@ class DataStoreCategory {
 
   /// Delete [model] from the DataStore.
   Future<void> delete<T extends Model>(T model) {
+    _refreshAuthProviders();
     return plugins.length == 1
         ? plugins[0].delete(model)
         : throw _pluginNotAddedException("DataStore");
@@ -82,6 +87,7 @@ class DataStoreCategory {
 
   /// Save [model] into the DataStore.
   Future<void> save<T extends Model>(T model) {
+    _refreshAuthProviders();
     return plugins.length == 1
         ? plugins[0].save(model)
         : throw _pluginNotAddedException("DataStore");
@@ -90,6 +96,7 @@ class DataStoreCategory {
   /// Observe changes on the specified [modelType].
   Stream<SubscriptionEvent<T>> observe<T extends Model>(
       ModelType<T> modelType) {
+    _refreshAuthProviders();
     return plugins.length == 1
         ? plugins[0].observe(modelType)
         : throw _pluginNotAddedException("DataStore");
@@ -99,6 +106,7 @@ class DataStoreCategory {
   /// from the local device. Remotely synced data can be re-synced back when starting DataStore using
   /// [start]. local-only data will be lost permanently.
   Future<void> clear() {
+    _refreshAuthProviders();
     return plugins.length == 1
         ? plugins[0].clear()
         : throw _pluginNotAddedException("DataStore");
@@ -109,6 +117,7 @@ class DataStoreCategory {
   /// If you don't call start(), the synchronization will start automatically, prior to executing any other
   /// operations (query, save, delete, update).
   Future<void> start() {
+    _refreshAuthProviders();
     return plugins.length == 1
         ? plugins[0].start()
         : throw _pluginNotAddedException("DataStore");
@@ -117,8 +126,15 @@ class DataStoreCategory {
   /// Stops the underlying DataStore's synchronization with a remote system, if DataStore is configured to
   /// support remote synchronization.
   Future<void> stop() {
+    _refreshAuthProviders();
     return plugins.length == 1
         ? plugins[0].stop()
         : throw _pluginNotAddedException("DataStore");
+  }
+
+  /// Refreshes API auth providers in a microtask, so that they are available
+  /// for the next DataStore call.
+  void _refreshAuthProviders() {
+    APICategory._authProviderRefreshers.values.forEach(scheduleMicrotask);
   }
 }

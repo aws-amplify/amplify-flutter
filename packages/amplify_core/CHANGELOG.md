@@ -1,3 +1,15 @@
+## 0.2.3 (2021-09-09)
+
+### Features
+
+- feat(auth): add options to resendSignUpCode (#738)
+
+### Chores
+
+- chore: upgrade amplify-android 1.24.1 (#829)
+- chore(analytics): Apply lints (#810)
+- chore(api): Apply lints (#812)
+
 ## 0.2.2 (2021-08-04)
 
 ### Features
@@ -59,6 +71,7 @@
 ## 0.1.1 (2021-03-29)
 
 ### Chores
+
 - chore: remove upper constraints for flutter 2.0 (#479)
 
 ### Bug Fixes

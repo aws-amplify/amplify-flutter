@@ -1,3 +1,19 @@
+## 0.2.3 (2021-09-09)
+
+### Features
+
+- feat(auth): add options to updateAttribute, updateAttributes, resendUserAttributeConfirmationCode (#775)
+- feat(auth): add support for options to resetPassword, confirmResetPassword (#743)
+- feat(auth): add options to resendSignUpCode (#738)
+
+### Chores
+
+- chore: upgrade amplify-android 1.24.1 (#829)
+
+### Fixes
+
+- fix(api): OIDC/Lambda Fixes (#862)
+
 ## 0.2.2 (2021-08-04)
 
 ### Features

@@ -1,3 +1,14 @@
+## 0.2.3 (2021-09-09)
+
+### Features
+
+- feat(auth): OIDC/Lambda Support (#777)
+- feat(auth): add options to resendSignUpCode (#738)
+
+### Chores
+
+- chore: upgrade amplify-android 1.24.1 (#829)
+
 ## 0.2.2 (2021-08-04)
 
 ## 0.2.1 (2021-07-27)
