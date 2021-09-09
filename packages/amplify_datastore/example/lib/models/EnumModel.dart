@@ -15,4 +15,7 @@
 
 // ignore_for_file: public_member_api_docs
 
-enum EnumModel { yes, no }
+enum EnumModel {
+  yes,
+  no
+}

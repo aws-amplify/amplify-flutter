@@ -100,13 +100,11 @@ class Blog extends Model {
     return buffer.toString();
   }
   
-  Blog copyWith({String? id, String? name, List<Post>? posts, TemporalDateTime? createdAt, TemporalDateTime? updatedAt}) {
+  Blog copyWith({String? id, String? name, List<Post>? posts}) {
     return Blog._internal(
       id: id ?? this.id,
       name: name ?? this.name,
-      posts: posts ?? this.posts,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt);
+      posts: posts ?? this.posts);
   }
   
   Blog.fromJson(Map<String, dynamic> json)  

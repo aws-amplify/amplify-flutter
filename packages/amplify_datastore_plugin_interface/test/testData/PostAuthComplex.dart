@@ -99,13 +99,11 @@ class PostAuthComplex extends Model {
     return buffer.toString();
   }
   
-  PostAuthComplex copyWith({String? id, String? title, String? owner, TemporalDateTime? createdAt, TemporalDateTime? updatedAt}) {
+  PostAuthComplex copyWith({String? id, String? title, String? owner}) {
     return PostAuthComplex._internal(
       id: id ?? this.id,
       title: title ?? this.title,
-      owner: owner ?? this.owner,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt);
+      owner: owner ?? this.owner);
   }
   
   PostAuthComplex.fromJson(Map<String, dynamic> json)  

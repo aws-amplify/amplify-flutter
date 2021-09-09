@@ -128,16 +128,14 @@ class Post extends Model {
     return buffer.toString();
   }
   
-  Post copyWith({String? id, String? title, int? rating, TemporalDateTime? created, Blog? blog, List<Comment>? comments, TemporalDateTime? createdAt, TemporalDateTime? updatedAt}) {
+  Post copyWith({String? id, String? title, int? rating, TemporalDateTime? created, Blog? blog, List<Comment>? comments}) {
     return Post._internal(
       id: id ?? this.id,
       title: title ?? this.title,
       rating: rating ?? this.rating,
       created: created ?? this.created,
       blog: blog ?? this.blog,
-      comments: comments ?? this.comments,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt);
+      comments: comments ?? this.comments);
   }
   
   Post.fromJson(Map<String, dynamic> json)  

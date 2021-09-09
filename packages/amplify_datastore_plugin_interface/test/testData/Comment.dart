@@ -100,13 +100,11 @@ class Comment extends Model {
     return buffer.toString();
   }
   
-  Comment copyWith({String? id, Post? post, String? content, TemporalDateTime? createdAt, TemporalDateTime? updatedAt}) {
+  Comment copyWith({String? id, Post? post, String? content}) {
     return Comment._internal(
       id: id ?? this.id,
       post: post ?? this.post,
-      content: content ?? this.content,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt);
+      content: content ?? this.content);
   }
   
   Comment.fromJson(Map<String, dynamic> json)  
