@@ -32,14 +32,15 @@ class StateMachineBloc {
   StreamSink<AuthEvent> get authEvent => _authEventController.sink;
 
   /// Outputs events into the event transformer.
-  late final Stream<AuthEvent> _authEventStream = _authEventController.stream;
+  Stream<AuthEvent> get authEventStream => _authEventController.stream;
+
   // ignore: unused_field
   late final StreamSubscription<AuthState> _subscription;
 
   // ignore: public_member_api_docs
   StateMachineBloc(this._authService) {
     _subscription =
-        _authEventStream.asyncExpand(_eventTransformer).listen((state) {
+        authEventStream.asyncExpand(_eventTransformer).listen((state) {
       _controllerSink.add(state);
     });
   }
@@ -217,19 +218,17 @@ class StateMachineBloc {
           yield AuthFlow(screen: AuthScreen.confirmSignUp);
           break;
         case 'DONE':
-          List<String> unverifiedUserAttributeKeys =
+          List<String> unverifiedAttributeKeys =
               await _authService.getUnverifiedAttributeKeys();
-          if (unverifiedUserAttributeKeys.isNotEmpty) {
-            yield VerifyUserState(
-              // TODO: consider an alternate way to pass the list of attribute keys
-              // to the verify user form/screen
-              //
-              // There currently isn't a way to set state on the view model
-              // from the auth_bloc
-              data: VerifyUserStateData(
-                unverifiedAttributeKeys: unverifiedUserAttributeKeys,
+          if (unverifiedAttributeKeys.isNotEmpty) {
+            _authEventController.add(
+              AuthSetUnverifiedAttributeKeys(
+                AuthSetUnverifiedAttributeKeysData(
+                  unverifiedAttributeKeys: unverifiedAttributeKeys,
+                ),
               ),
             );
+            yield AuthFlow(screen: AuthScreen.verifyUser);
           } else {
             yield const Authenticated();
           }

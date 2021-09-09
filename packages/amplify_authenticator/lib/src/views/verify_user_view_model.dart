@@ -4,7 +4,16 @@ import 'package:amplify_authenticator/src/utils/base_viewmodel.dart';
 import 'package:flutter/material.dart';
 
 class VerifyUserViewModel extends BaseViewModel {
-  VerifyUserViewModel(this._authBloc);
+  VerifyUserViewModel(this._authBloc) {
+    this
+        ._authBloc
+        .authEventStream
+        .where((event) => event is AuthSetUnverifiedAttributeKeys)
+        .listen((event) {
+      event as AuthSetUnverifiedAttributeKeys;
+      _unverifiedAttributeKeys = event.data.unverifiedAttributeKeys;
+    });
+  }
 
   final StateMachineBloc _authBloc;
 
@@ -17,6 +26,10 @@ class VerifyUserViewModel extends BaseViewModel {
   void setUserAttributeKey(String? value) {
     _userAttributeKey = value;
   }
+
+  List<String> _unverifiedAttributeKeys = [];
+
+  List<String> get unverifiedAttributeKeys => _unverifiedAttributeKeys;
 
   Future<void> verifyUser() async {
     if (!_formKey.currentState!.validate()) {

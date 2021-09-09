@@ -80,6 +80,14 @@ class AuthConfirmSignInData {
   });
 }
 
+class AuthSetUnverifiedAttributeKeysData {
+  final List<String> unverifiedAttributeKeys;
+
+  AuthSetUnverifiedAttributeKeysData({
+    required this.unverifiedAttributeKeys,
+  });
+}
+
 class AuthVerifyUserData {
   final String userAttributeKey;
 

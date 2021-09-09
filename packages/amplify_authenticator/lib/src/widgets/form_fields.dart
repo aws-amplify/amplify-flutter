@@ -718,24 +718,10 @@ class _ConfirmSignInFormFieldState extends State<ConfirmSignInFormField> {
   }
 }
 
-class VerifyUserFormFieldItem {
-  const VerifyUserFormFieldItem({
-    required this.label,
-    required this.attributeKey,
-  });
-  final String label;
-  final String attributeKey;
-}
-
 class VerifyUserFormFieldGroup extends StatefulWidget {
   const VerifyUserFormFieldGroup({
-    required this.formFieldItems,
-    this.initialValue,
     Key? key,
   }) : super(key: key);
-
-  final List<VerifyUserFormFieldItem> formFieldItems;
-  final String? initialValue;
 
   @override
   _VerifyUserFormFieldGroupState createState() =>
@@ -746,15 +732,22 @@ class _VerifyUserFormFieldGroupState extends State<VerifyUserFormFieldGroup> {
   String? _value;
   late VerifyUserViewModel _verifyUserViewModel;
   late ConfirmVerifyUserViewModel _confirmVerifyUserViewModel;
+  late List<String> unverifiedAttributeKeys;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _value = widget.initialValue;
     final _verifyUserViewModel =
         InheritedAuthViewModel.of(context)!.verifyUserViewModel;
     final _confirmVerifyUserViewModel =
         InheritedAuthViewModel.of(context)!.confirmVerifyUserViewModel;
+
+    unverifiedAttributeKeys = _verifyUserViewModel.unverifiedAttributeKeys;
+
+    // preselect first option by default
+    // TODO: determine if this is the desired functionality
+    _value = unverifiedAttributeKeys.first;
+
     _verifyUserViewModel.setUserAttributeKey(_value);
 
     // TODO: consider an alternate way to share data between views
@@ -768,11 +761,12 @@ class _VerifyUserFormFieldGroupState extends State<VerifyUserFormFieldGroup> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: widget.formFieldItems.map(
-        (item) {
-          return VerifyUserFormField(
-            label: item.label,
-            attributeKey: item.attributeKey,
+      children: [
+        // TODO: constants for attribute keys
+        if (unverifiedAttributeKeys.contains('email'))
+          VerifyUserFormField(
+            label: 'Email', // TODO: use resolvers
+            attributeKey: 'email',
             onChanged: (String? value) {
               setState(() {
                 _value = value;
@@ -781,9 +775,21 @@ class _VerifyUserFormFieldGroupState extends State<VerifyUserFormFieldGroup> {
               });
             },
             groupValue: _value,
-          );
-        },
-      ).toList(),
+          ),
+        if (unverifiedAttributeKeys.contains('phone_number'))
+          VerifyUserFormField(
+            label: 'Phone Number', // TODO: use resolvers
+            attributeKey: 'phone_number',
+            onChanged: (String? value) {
+              setState(() {
+                _value = value;
+                _verifyUserViewModel.setUserAttributeKey(value);
+                _confirmVerifyUserViewModel.setUserAttributeKey(_value);
+              });
+            },
+            groupValue: _value,
+          ),
+      ],
     );
   }
 }

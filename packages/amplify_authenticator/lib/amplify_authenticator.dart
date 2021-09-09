@@ -239,7 +239,7 @@ class _AuthenticatorState extends State<Authenticator> {
     var resetPasswordForm = defaultForms.resetPasswordForm(resolver);
     var sendCodeForm =
         defaultForms.sendCodeForm(widget.usernameAlias, resolver);
-    var verifyUserFormBuilder = defaultForms.verifyUserFormBuilder(resolver);
+    var verifyUserForm = defaultForms.verifyUserForm(resolver);
     var confirmVerifyUserForm = defaultForms.confirmVerifyUserForm(resolver);
 
     return InheritedAuthBloc(
@@ -264,7 +264,7 @@ class _AuthenticatorState extends State<Authenticator> {
                   signUpForm: signUpForm,
                   confirmSignUpForm: confirmSignUpForm,
                   confirmSignInMFAForm: confirmSignInMFAForm,
-                  verifyUserFormBuilder: verifyUserFormBuilder,
+                  verifyUserForm: verifyUserForm,
                   confirmVerifyUserForm: confirmVerifyUserForm,
                   child: Scaffold(
                       body: StreamBuilder(
@@ -294,8 +294,9 @@ class _AuthenticatorState extends State<Authenticator> {
                       } else if (state is AuthFlow &&
                           state.screen == AuthScreen.sendCode) {
                         screen = const SendCodeScreen();
-                      } else if (state is VerifyUserState) {
-                        screen = VerifyUserScreen(data: state.data);
+                      } else if (state is AuthFlow &&
+                          state.screen == AuthScreen.verifyUser) {
+                        screen = const VerifyUserScreen();
                       } else if (state is AuthFlow &&
                           state.screen == AuthScreen.confirmVerifyUser) {
                         screen = const ConfirmVerifyUserScreen();
