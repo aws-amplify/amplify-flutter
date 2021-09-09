@@ -13,22 +13,30 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_datastore_example/models/ModelProvider.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:amplify_flutter/amplify.dart';
 
-import 'standard_query_operations_test.dart' as standard_query_operations_tests;
-import 'sort_order_test.dart' as sort_order_tests;
-import 'pagination_test.dart' as pagination_tests;
-import './query_predicate_test/query_predicate_test.dart'
-    as query_predicate_tests;
+import 'utils/setup_utils.dart';
 
-void main() async {
+void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('query()', () {
-    standard_query_operations_tests.main();
-    sort_order_tests.main();
-    pagination_tests.main();
-    query_predicate_tests.main();
+  group('clear', () {
+    setUp(() async {
+      await configureDataStore();
+      await clearDataStore();
+    });
+
+    testWidgets('should clear the store', (WidgetTester tester) async {
+      Blog blog = Blog(name: 'blog');
+      await Amplify.DataStore.save(blog);
+      var resultOne = await Amplify.DataStore.query(Blog.classType);
+      expect(resultOne, isNotEmpty);
+      await Amplify.DataStore.clear();
+      var resultTwo = await Amplify.DataStore.query(Blog.classType);
+      expect(resultTwo, isEmpty);
+    });
   });
 }

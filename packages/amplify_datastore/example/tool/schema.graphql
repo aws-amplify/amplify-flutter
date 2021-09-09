@@ -156,3 +156,11 @@ type EnumListTypeModel @model {
   id: ID!
   value: [EnumModel]
 }
+
+type MultiTypeModel @model {
+  id: ID!
+  stringValue: String
+  altStringValue: String
+  intValue: Int
+  altIntValue: Int
+}
