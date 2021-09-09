@@ -25,6 +25,8 @@ class DateListTypeModel extends Model {
   static const classType = const _DateListTypeModelModelType();
   final String id;
   final List<TemporalDate>? _value;
+  final TemporalDateTime? _createdAt;
+  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -38,7 +40,19 @@ class DateListTypeModel extends Model {
     return _value;
   }
 
-  const DateListTypeModel._internal({required this.id, value}) : _value = value;
+  TemporalDateTime? get createdAt {
+    return _createdAt;
+  }
+
+  TemporalDateTime? get updatedAt {
+    return _updatedAt;
+  }
+
+  const DateListTypeModel._internal(
+      {required this.id, value, createdAt, updatedAt})
+      : _value = value,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
 
   factory DateListTypeModel({String? id, List<TemporalDate>? value}) {
     return DateListTypeModel._internal(
@@ -55,7 +69,9 @@ class DateListTypeModel extends Model {
     if (identical(other, this)) return true;
     return other is DateListTypeModel &&
         id == other.id &&
-        DeepCollectionEquality().equals(_value, other._value);
+        DeepCollectionEquality().equals(_value, other._value) &&
+        _createdAt == other._createdAt &&
+        _updatedAt == other._updatedAt;
   }
 
   @override
@@ -67,24 +83,48 @@ class DateListTypeModel extends Model {
 
     buffer.write("DateListTypeModel {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("value=" + (_value != null ? _value!.toString() : "null"));
+    buffer.write(
+        "value=" + (_value != null ? _value!.toString() : "null") + ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  DateListTypeModel copyWith({String? id, List<TemporalDate>? value}) {
-    return DateListTypeModel(id: id ?? this.id, value: value ?? this.value);
+  DateListTypeModel copyWith(
+      {String? id,
+      List<TemporalDate>? value,
+      TemporalDateTime? createdAt,
+      TemporalDateTime? updatedAt}) {
+    return DateListTypeModel._internal(
+        id: id ?? this.id,
+        value: value ?? this.value,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
   }
 
   DateListTypeModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _value = (json['value'] as List)
             ?.map((e) => TemporalDate.fromString(e))
-            ?.toList();
+            ?.toList(),
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
+            : null;
 
-  Map<String, dynamic> toJson() =>
-      {'id': id, 'value': _value?.map((e) => e.format()).toList()};
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'value': _value?.map((e) => e.format()).toList(),
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
+      };
 
   static final QueryField ID = QueryField(fieldName: "dateListTypeModel.id");
   static final QueryField VALUE = QueryField(fieldName: "value");
@@ -101,6 +141,18 @@ class DateListTypeModel extends Model {
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
             ofModelName: describeEnum(ModelFieldTypeEnum.date))));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: "createdAt",
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: "updatedAt",
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 

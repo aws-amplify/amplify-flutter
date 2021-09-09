@@ -24,6 +24,8 @@ class StringTypeModel extends Model {
   static const classType = const _StringTypeModelModelType();
   final String id;
   final String? _value;
+  final TemporalDateTime? _createdAt;
+  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -37,7 +39,19 @@ class StringTypeModel extends Model {
     return _value;
   }
 
-  const StringTypeModel._internal({required this.id, value}) : _value = value;
+  TemporalDateTime? get createdAt {
+    return _createdAt;
+  }
+
+  TemporalDateTime? get updatedAt {
+    return _updatedAt;
+  }
+
+  const StringTypeModel._internal(
+      {required this.id, value, createdAt, updatedAt})
+      : _value = value,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
 
   factory StringTypeModel({String? id, String? value}) {
     return StringTypeModel._internal(
@@ -51,7 +65,11 @@ class StringTypeModel extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is StringTypeModel && id == other.id && _value == other._value;
+    return other is StringTypeModel &&
+        id == other.id &&
+        _value == other._value &&
+        _createdAt == other._createdAt &&
+        _updatedAt == other._updatedAt;
   }
 
   @override
@@ -63,21 +81,45 @@ class StringTypeModel extends Model {
 
     buffer.write("StringTypeModel {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("value=" + "$_value");
+    buffer.write("value=" + "$_value" + ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  StringTypeModel copyWith({String? id, String? value}) {
-    return StringTypeModel(id: id ?? this.id, value: value ?? this.value);
+  StringTypeModel copyWith(
+      {String? id,
+      String? value,
+      TemporalDateTime? createdAt,
+      TemporalDateTime? updatedAt}) {
+    return StringTypeModel._internal(
+        id: id ?? this.id,
+        value: value ?? this.value,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
   }
 
   StringTypeModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _value = json['value'];
+        _value = json['value'],
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
+            : null;
 
-  Map<String, dynamic> toJson() => {'id': id, 'value': _value};
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'value': _value,
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
+      };
 
   static final QueryField ID = QueryField(fieldName: "stringTypeModel.id");
   static final QueryField VALUE = QueryField(fieldName: "value");
@@ -92,6 +134,18 @@ class StringTypeModel extends Model {
         key: StringTypeModel.VALUE,
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: "createdAt",
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: "updatedAt",
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 

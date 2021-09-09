@@ -24,6 +24,8 @@ class ChildModel extends Model {
   static const classType = const _ChildModelModelType();
   final String id;
   final String? _name;
+  final TemporalDateTime? _createdAt;
+  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -46,7 +48,19 @@ class ChildModel extends Model {
     }
   }
 
-  const ChildModel._internal({required this.id, required name}) : _name = name;
+  TemporalDateTime? get createdAt {
+    return _createdAt;
+  }
+
+  TemporalDateTime? get updatedAt {
+    return _updatedAt;
+  }
+
+  const ChildModel._internal(
+      {required this.id, required name, createdAt, updatedAt})
+      : _name = name,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
 
   factory ChildModel({String? id, required String name}) {
     return ChildModel._internal(
@@ -60,7 +74,11 @@ class ChildModel extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is ChildModel && id == other.id && _name == other._name;
+    return other is ChildModel &&
+        id == other.id &&
+        _name == other._name &&
+        _createdAt == other._createdAt &&
+        _updatedAt == other._updatedAt;
   }
 
   @override
@@ -72,21 +90,45 @@ class ChildModel extends Model {
 
     buffer.write("ChildModel {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("name=" + "$_name");
+    buffer.write("name=" + "$_name" + ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  ChildModel copyWith({String? id, String? name}) {
-    return ChildModel(id: id ?? this.id, name: name ?? this.name);
+  ChildModel copyWith(
+      {String? id,
+      String? name,
+      TemporalDateTime? createdAt,
+      TemporalDateTime? updatedAt}) {
+    return ChildModel._internal(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
   }
 
   ChildModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _name = json['name'];
+        _name = json['name'],
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
+            : null;
 
-  Map<String, dynamic> toJson() => {'id': id, 'name': _name};
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': _name,
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
+      };
 
   static final QueryField ID = QueryField(fieldName: "childModel.id");
   static final QueryField NAME = QueryField(fieldName: "name");
@@ -101,6 +143,18 @@ class ChildModel extends Model {
         key: ChildModel.NAME,
         isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: "createdAt",
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: "updatedAt",
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 

@@ -40,12 +40,12 @@ class ModelFieldDefinition {
 
   static ModelFieldDefinition nonQueryField(
       {required String fieldName,
-        bool isRequired = true,
-        bool isArray = false,
-        bool isReadOnly = false,
-        ModelFieldType ofType = const ModelFieldType(ModelFieldTypeEnum.string),
-        ModelAssociation? association,
-        List<AuthRule>? authRules}) {
+      bool isRequired = true,
+      bool isArray = false,
+      bool isReadOnly = false,
+      ModelFieldType ofType = const ModelFieldType(ModelFieldTypeEnum.string),
+      ModelAssociation? association,
+      List<AuthRule>? authRules}) {
     return ModelFieldDefinition(
         name: fieldName,
         type: ofType,

@@ -26,6 +26,8 @@ class BelongsToModel extends Model {
   final String id;
   final String? _name;
   final ChildModel? _child;
+  final TemporalDateTime? _createdAt;
+  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -61,10 +63,20 @@ class BelongsToModel extends Model {
     }
   }
 
+  TemporalDateTime? get createdAt {
+    return _createdAt;
+  }
+
+  TemporalDateTime? get updatedAt {
+    return _updatedAt;
+  }
+
   const BelongsToModel._internal(
-      {required this.id, required name, required child})
+      {required this.id, required name, required child, createdAt, updatedAt})
       : _name = name,
-        _child = child;
+        _child = child,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
 
   factory BelongsToModel(
       {String? id, required String name, required ChildModel child}) {
@@ -82,7 +94,9 @@ class BelongsToModel extends Model {
     return other is BelongsToModel &&
         id == other.id &&
         _name == other._name &&
-        _child == other._child;
+        _child == other._child &&
+        _createdAt == other._createdAt &&
+        _updatedAt == other._updatedAt;
   }
 
   @override
@@ -95,15 +109,30 @@ class BelongsToModel extends Model {
     buffer.write("BelongsToModel {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
-    buffer.write("child=" + (_child != null ? _child!.toString() : "null"));
+    buffer.write(
+        "child=" + (_child != null ? _child!.toString() : "null") + ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  BelongsToModel copyWith({String? id, String? name, ChildModel? child}) {
-    return BelongsToModel(
-        id: id ?? this.id, name: name ?? this.name, child: child ?? this.child);
+  BelongsToModel copyWith(
+      {String? id,
+      String? name,
+      ChildModel? child,
+      TemporalDateTime? createdAt,
+      TemporalDateTime? updatedAt}) {
+    return BelongsToModel._internal(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        child: child ?? this.child,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
   }
 
   BelongsToModel.fromJson(Map<String, dynamic> json)
@@ -112,10 +141,21 @@ class BelongsToModel extends Model {
         _child = json['child']?['serializedData'] != null
             ? ChildModel.fromJson(
                 new Map<String, dynamic>.from(json['child']['serializedData']))
+            : null,
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
             : null;
 
-  Map<String, dynamic> toJson() =>
-      {'id': id, 'name': _name, 'child': _child?.toJson()};
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': _name,
+        'child': _child?.toJson(),
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
+      };
 
   static final QueryField ID = QueryField(fieldName: "belongsToModel.id");
   static final QueryField NAME = QueryField(fieldName: "name");
@@ -140,6 +180,18 @@ class BelongsToModel extends Model {
         isRequired: true,
         targetName: "belongsToModelChildId",
         ofModelName: (ChildModel).toString()));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: "createdAt",
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: "updatedAt",
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 

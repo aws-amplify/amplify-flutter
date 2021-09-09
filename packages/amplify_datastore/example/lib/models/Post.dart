@@ -13,12 +13,13 @@
 * permissions and limitations under the License.
 */
 
-// ignore_for_file: public_member_api_docs
-
-import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
+
+// ignore_for_file: public_member_api_docs
+
+import 'ModelProvider.dart';
 
 /** This is an auto generated class representing the Post type in your schema. */
 @immutable
@@ -110,9 +111,7 @@ class Post extends Model {
       required int rating,
       TemporalDateTime? created,
       Blog? blog,
-      List<Comment>? comments,
-      TemporalDateTime? createdAt,
-      TemporalDateTime? updatedAt}) {
+      List<Comment>? comments}) {
     return Post._internal(
         id: id == null ? UUID.getUUID() : id,
         title: title,
@@ -120,9 +119,7 @@ class Post extends Model {
         created: created,
         blog: blog,
         comments:
-            comments != null ? List<Comment>.unmodifiable(comments) : comments,
-        createdAt: createdAt,
-        updatedAt: updatedAt);
+            comments != null ? List<Comment>.unmodifiable(comments) : comments);
   }
 
   bool equals(Object other) {
@@ -177,7 +174,7 @@ class Post extends Model {
       List<Comment>? comments,
       TemporalDateTime? createdAt,
       TemporalDateTime? updatedAt}) {
-    return Post(
+    return Post._internal(
         id: id ?? this.id,
         title: title ?? this.title,
         rating: rating ?? this.rating,
@@ -236,8 +233,6 @@ class Post extends Model {
       fieldName: "comments",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: (Comment).toString()));
-  static final QueryField CREATEDAT = QueryField(fieldName: "createdAt");
-  static final QueryField UPDATEDAT = QueryField(fieldName: "updatedAt");
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Post";
@@ -272,14 +267,14 @@ class Post extends Model {
         ofModelName: (Comment).toString(),
         associatedKey: Comment.POST));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Post.CREATEDAT,
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: "createdAt",
         isRequired: false,
         isReadOnly: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Post.UPDATEDAT,
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: "updatedAt",
         isRequired: false,
         isReadOnly: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));

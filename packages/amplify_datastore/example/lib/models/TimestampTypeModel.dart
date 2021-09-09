@@ -24,6 +24,8 @@ class TimestampTypeModel extends Model {
   static const classType = const _TimestampTypeModelModelType();
   final String id;
   final TemporalTimestamp? _value;
+  final TemporalDateTime? _createdAt;
+  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -37,8 +39,19 @@ class TimestampTypeModel extends Model {
     return _value;
   }
 
-  const TimestampTypeModel._internal({required this.id, value})
-      : _value = value;
+  TemporalDateTime? get createdAt {
+    return _createdAt;
+  }
+
+  TemporalDateTime? get updatedAt {
+    return _updatedAt;
+  }
+
+  const TimestampTypeModel._internal(
+      {required this.id, value, createdAt, updatedAt})
+      : _value = value,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
 
   factory TimestampTypeModel({String? id, TemporalTimestamp? value}) {
     return TimestampTypeModel._internal(
@@ -54,7 +67,9 @@ class TimestampTypeModel extends Model {
     if (identical(other, this)) return true;
     return other is TimestampTypeModel &&
         id == other.id &&
-        _value == other._value;
+        _value == other._value &&
+        _createdAt == other._createdAt &&
+        _updatedAt == other._updatedAt;
   }
 
   @override
@@ -66,23 +81,48 @@ class TimestampTypeModel extends Model {
 
     buffer.write("TimestampTypeModel {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("value=" + (_value != null ? _value!.toString() : "null"));
+    buffer.write(
+        "value=" + (_value != null ? _value!.toString() : "null") + ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  TimestampTypeModel copyWith({String? id, TemporalTimestamp? value}) {
-    return TimestampTypeModel(id: id ?? this.id, value: value ?? this.value);
+  TimestampTypeModel copyWith(
+      {String? id,
+      TemporalTimestamp? value,
+      TemporalDateTime? createdAt,
+      TemporalDateTime? updatedAt}) {
+    return TimestampTypeModel._internal(
+        id: id ?? this.id,
+        value: value ?? this.value,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
   }
 
   TimestampTypeModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _value = json['value'] != null
             ? TemporalTimestamp.fromSeconds(json['value'])
+            : null,
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
             : null;
 
-  Map<String, dynamic> toJson() => {'id': id, 'value': _value?.toSeconds()};
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'value': _value?.toSeconds(),
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
+      };
 
   static final QueryField ID = QueryField(fieldName: "timestampTypeModel.id");
   static final QueryField VALUE = QueryField(fieldName: "value");
@@ -97,6 +137,18 @@ class TimestampTypeModel extends Model {
         key: TimestampTypeModel.VALUE,
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.timestamp)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: "createdAt",
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: "updatedAt",
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 

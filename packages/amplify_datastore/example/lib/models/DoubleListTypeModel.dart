@@ -25,6 +25,8 @@ class DoubleListTypeModel extends Model {
   static const classType = const _DoubleListTypeModelModelType();
   final String id;
   final List<double>? _value;
+  final TemporalDateTime? _createdAt;
+  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -38,8 +40,19 @@ class DoubleListTypeModel extends Model {
     return _value;
   }
 
-  const DoubleListTypeModel._internal({required this.id, value})
-      : _value = value;
+  TemporalDateTime? get createdAt {
+    return _createdAt;
+  }
+
+  TemporalDateTime? get updatedAt {
+    return _updatedAt;
+  }
+
+  const DoubleListTypeModel._internal(
+      {required this.id, value, createdAt, updatedAt})
+      : _value = value,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
 
   factory DoubleListTypeModel({String? id, List<double>? value}) {
     return DoubleListTypeModel._internal(
@@ -56,7 +69,9 @@ class DoubleListTypeModel extends Model {
     if (identical(other, this)) return true;
     return other is DoubleListTypeModel &&
         id == other.id &&
-        DeepCollectionEquality().equals(_value, other._value);
+        DeepCollectionEquality().equals(_value, other._value) &&
+        _createdAt == other._createdAt &&
+        _updatedAt == other._updatedAt;
   }
 
   @override
@@ -68,21 +83,46 @@ class DoubleListTypeModel extends Model {
 
     buffer.write("DoubleListTypeModel {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("value=" + (_value != null ? _value!.toString() : "null"));
+    buffer.write(
+        "value=" + (_value != null ? _value!.toString() : "null") + ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  DoubleListTypeModel copyWith({String? id, List<double>? value}) {
-    return DoubleListTypeModel(id: id ?? this.id, value: value ?? this.value);
+  DoubleListTypeModel copyWith(
+      {String? id,
+      List<double>? value,
+      TemporalDateTime? createdAt,
+      TemporalDateTime? updatedAt}) {
+    return DoubleListTypeModel._internal(
+        id: id ?? this.id,
+        value: value ?? this.value,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
   }
 
   DoubleListTypeModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _value = json['value']?.cast<double>();
+        _value = json['value']?.cast<double>(),
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
+            : null;
 
-  Map<String, dynamic> toJson() => {'id': id, 'value': _value};
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'value': _value,
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
+      };
 
   static final QueryField ID = QueryField(fieldName: "doubleListTypeModel.id");
   static final QueryField VALUE = QueryField(fieldName: "value");
@@ -99,6 +139,18 @@ class DoubleListTypeModel extends Model {
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
             ofModelName: describeEnum(ModelFieldTypeEnum.double))));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: "createdAt",
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: "updatedAt",
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 

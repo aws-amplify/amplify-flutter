@@ -155,6 +155,7 @@
                 },
                 "isRequired": true,
                 "isArray": false,
+                "isReadOnly": false,
                 "association": {
                     "associationType": "BelongsTo",
                     "targetName": "authorId"

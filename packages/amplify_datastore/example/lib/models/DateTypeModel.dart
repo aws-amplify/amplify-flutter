@@ -24,6 +24,8 @@ class DateTypeModel extends Model {
   static const classType = const _DateTypeModelModelType();
   final String id;
   final TemporalDate? _value;
+  final TemporalDateTime? _createdAt;
+  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -37,7 +39,18 @@ class DateTypeModel extends Model {
     return _value;
   }
 
-  const DateTypeModel._internal({required this.id, value}) : _value = value;
+  TemporalDateTime? get createdAt {
+    return _createdAt;
+  }
+
+  TemporalDateTime? get updatedAt {
+    return _updatedAt;
+  }
+
+  const DateTypeModel._internal({required this.id, value, createdAt, updatedAt})
+      : _value = value,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
 
   factory DateTypeModel({String? id, TemporalDate? value}) {
     return DateTypeModel._internal(
@@ -51,7 +64,11 @@ class DateTypeModel extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is DateTypeModel && id == other.id && _value == other._value;
+    return other is DateTypeModel &&
+        id == other.id &&
+        _value == other._value &&
+        _createdAt == other._createdAt &&
+        _updatedAt == other._updatedAt;
   }
 
   @override
@@ -63,23 +80,48 @@ class DateTypeModel extends Model {
 
     buffer.write("DateTypeModel {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("value=" + (_value != null ? _value!.format() : "null"));
+    buffer
+        .write("value=" + (_value != null ? _value!.format() : "null") + ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  DateTypeModel copyWith({String? id, TemporalDate? value}) {
-    return DateTypeModel(id: id ?? this.id, value: value ?? this.value);
+  DateTypeModel copyWith(
+      {String? id,
+      TemporalDate? value,
+      TemporalDateTime? createdAt,
+      TemporalDateTime? updatedAt}) {
+    return DateTypeModel._internal(
+        id: id ?? this.id,
+        value: value ?? this.value,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
   }
 
   DateTypeModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _value = json['value'] != null
             ? TemporalDate.fromString(json['value'])
+            : null,
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
             : null;
 
-  Map<String, dynamic> toJson() => {'id': id, 'value': _value?.format()};
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'value': _value?.format(),
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
+      };
 
   static final QueryField ID = QueryField(fieldName: "dateTypeModel.id");
   static final QueryField VALUE = QueryField(fieldName: "value");
@@ -94,6 +136,18 @@ class DateTypeModel extends Model {
         key: DateTypeModel.VALUE,
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.date)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: "createdAt",
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: "updatedAt",
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 
