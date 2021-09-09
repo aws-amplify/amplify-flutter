@@ -1,3 +1,17 @@
+## 0.2.3 (2021-09-09)
+
+### Features
+
+- feat(auth): OIDC/Lambda Support (#777)
+
+### Fixes
+
+- fix(api): OIDC/Lambda Fixes (#862)
+
+### Chores
+
+- chore(api): Apply lints (#812)
+
 ## 0.2.2 (2021-08-04)
 
 ### Fixes
