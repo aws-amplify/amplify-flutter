@@ -27,6 +27,7 @@ void main() {
 
   group('pagination', () {
     var models = List.generate(1000, (i) => Blog(name: 'blog $i'));
+    var sortedModels = models..sort((a, b) => a.name.compareTo(b.name));
     setUpAll(() async {
       await configureDataStore();
       await clearDataStore();
@@ -37,25 +38,34 @@ void main() {
     testWidgets('should return the models for the given page and limit',
         (WidgetTester tester) async {
       // page 0
-      var pageZeroBlogs = await Amplify.DataStore.query(Blog.classType,
-          pagination: QueryPagination(page: 0, limit: 10));
-      var expectedPageZeroBlogs = models.getRange(0, 10).toList();
+      var pageZeroBlogs = await Amplify.DataStore.query(
+        Blog.classType,
+        pagination: QueryPagination(page: 0, limit: 10),
+        sortBy: [Blog.NAME.ascending()],
+      );
+      var expectedPageZeroBlogs = sortedModels.getRange(0, 10).toList();
       expect(pageZeroBlogs.length, 10);
-      expect(pageZeroBlogs, unorderedEquals(expectedPageZeroBlogs));
+      expect(pageZeroBlogs, orderedEquals(expectedPageZeroBlogs));
 
       // page 1
-      var pageOneBlogs = await Amplify.DataStore.query(Blog.classType,
-          pagination: QueryPagination(page: 1, limit: 10));
-      var expectedPageOneBlogs = models.getRange(10, 20).toList();
+      var pageOneBlogs = await Amplify.DataStore.query(
+        Blog.classType,
+        pagination: QueryPagination(page: 1, limit: 10),
+        sortBy: [Blog.NAME.ascending()],
+      );
+      var expectedPageOneBlogs = sortedModels.getRange(10, 20).toList();
       expect(pageOneBlogs.length, 10);
-      expect(pageOneBlogs, unorderedEquals(expectedPageOneBlogs));
+      expect(pageOneBlogs, orderedEquals(expectedPageOneBlogs));
 
       // final page
-      var finalPageBlogs = await Amplify.DataStore.query(Blog.classType,
-          pagination: QueryPagination(page: 99, limit: 10));
-      var expectedFinalPageBlogs = models.getRange(990, 1000).toList();
+      var finalPageBlogs = await Amplify.DataStore.query(
+        Blog.classType,
+        pagination: QueryPagination(page: 99, limit: 10),
+        sortBy: [Blog.NAME.ascending()],
+      );
+      var expectedFinalPageBlogs = sortedModels.getRange(990, 1000).toList();
       expect(pageOneBlogs.length, 10);
-      expect(finalPageBlogs, unorderedEquals(expectedFinalPageBlogs));
+      expect(finalPageBlogs, orderedEquals(expectedFinalPageBlogs));
     });
 
     testWidgets('should return no models for an out of range page/limit combo',
@@ -67,14 +77,18 @@ void main() {
 
     testWidgets('should default to a page size of 100',
         (WidgetTester tester) async {
-      var blogs = await Amplify.DataStore.query(Blog.classType,
-          pagination: QueryPagination(page: 0));
-      var expectedBlogs = models.getRange(0, 100).toList();
+      var blogs = await Amplify.DataStore.query(
+        Blog.classType,
+        pagination: QueryPagination(page: 0),
+        sortBy: [Blog.NAME.ascending()],
+      );
+      var expectedBlogs = sortedModels.getRange(0, 100).toList();
       expect(blogs.length, 100);
-      expect(blogs, unorderedEquals(expectedBlogs));
+      expect(blogs, orderedEquals(expectedBlogs));
     });
 
-    testWidgets('should work with a sort order', (WidgetTester tester) async {
+    testWidgets('should work with a descending sort order',
+        (WidgetTester tester) async {
       var blogs = await Amplify.DataStore.query(
         Blog.classType,
         pagination: QueryPagination(page: 0, limit: 10),
@@ -87,16 +101,19 @@ void main() {
 
     testWidgets('should work with a query predicate',
         (WidgetTester tester) async {
-      var blogs = await Amplify.DataStore.query(Blog.classType,
-          pagination: QueryPagination(page: 0, limit: 10),
-          where: Blog.NAME.beginsWith('blog 1'));
-      var expectedBlogs = models
+      var blogs = await Amplify.DataStore.query(
+        Blog.classType,
+        pagination: QueryPagination(page: 0, limit: 10),
+        sortBy: [Blog.NAME.ascending()],
+        where: Blog.NAME.beginsWith('blog 1'),
+      );
+      var expectedBlogs = sortedModels
           .where((blog) => blog.name.startsWith('blog 1'))
           .toList()
           .getRange(0, 10)
           .toList();
       expect(blogs.length, 10);
-      expect(blogs, unorderedEquals(expectedBlogs));
+      expect(blogs, orderedEquals(expectedBlogs));
     });
   });
 }
