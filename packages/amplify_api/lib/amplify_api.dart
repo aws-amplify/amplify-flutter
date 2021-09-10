@@ -41,7 +41,7 @@ class AmplifyAPI extends APIPluginInterface {
   }
 
   @override
-  Future<void> addPlugin() async {
+  Future<APIAuthProviderRefresher> addPlugin() async {
     return _instance.addPlugin();
   }
 

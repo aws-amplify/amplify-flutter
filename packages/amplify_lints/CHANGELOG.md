@@ -1,3 +1,5 @@
-## 1.0.0 (2021-08-16)
+## 1.0.0 (2021-09-09)
 
-- Initial version.
+### Chores
+
+- chore(amplify_lints): Add amplify_lints package (#808)

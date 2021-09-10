@@ -21,6 +21,7 @@ import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
 import com.amplifyframework.api.ApiException
 import com.amplifyframework.api.aws.GsonVariablesSerializer
 import com.amplifyframework.api.graphql.GraphQLOperation
+import com.amplifyframework.api.graphql.GraphQLPathSegment
 import com.amplifyframework.api.graphql.GraphQLResponse
 import com.amplifyframework.api.graphql.SimpleGraphQLRequest
 import com.amplifyframework.core.Action
@@ -62,7 +63,7 @@ class FlutterGraphQLApi {
 
                 val result: Map<String, Any> = mapOf(
                     "data" to response.data,
-                    "errors" to response.errors.map { it.message }
+                    "errors" to response.errors.map { it.toMap() }
                 )
                 LOG.debug("GraphQL query operation succeeded with response: $result")
                 handler.post { flutterResult.success(result) }
@@ -138,7 +139,7 @@ class FlutterGraphQLApi {
 
                 val result: Map<String, Any> = mapOf(
                     "data" to response.data,
-                    "errors" to response.errors.map { it.message }
+                    "errors" to response.errors.map { it.toMap() }
                 )
                 LOG.debug("GraphQL mutate operation succeeded with response : $result")
                 handler.post { flutterResult.success(result) }
@@ -223,7 +224,7 @@ class FlutterGraphQLApi {
             val responseCallback = Consumer<GraphQLResponse<String>> { response ->
                 val payload: Map<String, Any> = mapOf(
                     "data" to response.data,
-                    "errors" to response.errors.map { it.message }
+                    "errors" to response.errors.map { it.toMap() }
                 )
                 LOG.debug("GraphQL subscription event received: $payload")
                 graphqlSubscriptionStreamHandler.sendEvent(
@@ -252,7 +253,7 @@ class FlutterGraphQLApi {
             }
 
             val disconnectionCallback = Action {
-               OperationsManager.removeOperation(id)
+                OperationsManager.removeOperation(id)
                 LOG.debug("Subscription has been closed successfully")
                 graphqlSubscriptionStreamHandler.sendEvent(
                     null,
@@ -295,3 +296,16 @@ class FlutterGraphQLApi {
         }
     }
 }
+
+fun GraphQLResponse.Error.toMap(): Map<String, Any?> = mapOf(
+    "message" to message,
+    "locations" to locations?.map { mapOf("line" to it.line, "column" to it.column) },
+    "path" to path?.map<GraphQLPathSegment, Any?> {
+        when {
+            it.isInteger -> it.asInt
+            it.isString -> it.asString
+            else -> null
+        }
+    },
+    "extensions" to extensions
+)

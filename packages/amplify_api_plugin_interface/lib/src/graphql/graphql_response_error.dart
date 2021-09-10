@@ -13,6 +13,9 @@
  * permissions and limitations under the License.
  */
 
+import 'package:collection/collection.dart';
+import 'package:meta/meta.dart';
+
 import '../util.dart';
 
 /// {@template graphql_response_error}
@@ -21,6 +24,7 @@ import '../util.dart';
 ///
 /// [locations] and [path] may be null.
 /// {@endtemplate}
+@immutable
 class GraphQLResponseError {
   /// The description of the error.
   final String message;
@@ -31,11 +35,15 @@ class GraphQLResponseError {
   /// The key path of the error-causing field in the response's `data` object.
   final List<dynamic>? path;
 
+  /// Additional context.
+  final Map<String, dynamic>? extensions;
+
   /// {@macro graphql_response_error}
   const GraphQLResponseError({
     required this.message,
     this.locations,
     this.path,
+    this.extensions,
   });
 
   factory GraphQLResponseError.fromJson(Map<String, dynamic> json) {
@@ -48,14 +56,39 @@ class GraphQLResponseError {
               ))
           .toList(),
       path: json['path'] as List?,
+      extensions: (json['extensions'] as Map?)?.cast<String, dynamic>(),
     );
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'message': message,
-        if (locations != null) 'locations': locations,
+        if (locations != null)
+          'locations': locations?.map((e) => e.toJson()).toList(),
         if (path != null) 'path': path,
+        if (extensions != null) 'extensions': extensions,
       };
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is GraphQLResponseError &&
+          const DeepCollectionEquality().equals(
+            [message, locations, path, extensions],
+            [
+              other.message,
+              other.locations,
+              other.path,
+              other.extensions,
+            ],
+          );
+
+  @override
+  int get hashCode => const DeepCollectionEquality().hash([
+        message,
+        locations,
+        path,
+        extensions,
+      ]);
 
   @override
   String toString() {
@@ -68,6 +101,7 @@ class GraphQLResponseError {
 /// [line] and [column] correspond to the beginning of the syntax element associated
 /// with the error.
 /// {@endtemplate}
+@immutable
 class GraphQLResponseErrorLocation {
   /// The line in the GraphQL request document where the error-causing syntax
   /// element starts.
@@ -91,4 +125,14 @@ class GraphQLResponseErrorLocation {
         'line': line,
         'column': column,
       };
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is GraphQLResponseErrorLocation &&
+          line == other.line &&
+          column == other.column;
+
+  @override
+  int get hashCode => line.hashCode ^ column.hashCode;
 }
