@@ -734,38 +734,39 @@ class _VerifyUserFormFieldGroupState extends State<VerifyUserFormFieldGroup> {
   late ConfirmVerifyUserViewModel _confirmVerifyUserViewModel;
   late List<String> unverifiedAttributeKeys;
 
+  // set value for the verify user & confirm verify user view model
+  void setUserAttributeKey(String? value) {
+    setState(() {
+      _value = value;
+      _verifyUserViewModel.setUserAttributeKey(value);
+      _confirmVerifyUserViewModel.setUserAttributeKey(value);
+    });
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final _verifyUserViewModel =
+    _verifyUserViewModel =
         InheritedAuthViewModel.of(context)!.verifyUserViewModel;
-    final _confirmVerifyUserViewModel =
+    _confirmVerifyUserViewModel =
         InheritedAuthViewModel.of(context)!.confirmVerifyUserViewModel;
-
     unverifiedAttributeKeys = _verifyUserViewModel.unverifiedAttributeKeys;
 
     // preselect first option by default
     // TODO: determine if this is the desired functionality
-    _value = unverifiedAttributeKeys.first;
-
-    _verifyUserViewModel.setUserAttributeKey(_value);
-
-    // TODO: consider an alternate way to share data between views
-    //
-    // This pattern of setting data in another view model
-    // is currently how username is shared between sign up and confirm
-    // sign up
-    _confirmVerifyUserViewModel.setUserAttributeKey(_value);
+    // alternatively it could be left blank
+    String initialValue = unverifiedAttributeKeys.first;
+    setUserAttributeKey(initialValue);
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // TODO: constants for attribute keys
+        // TODO: Use constants for attribute keys from #697 after feature branch has been updated with main
         if (unverifiedAttributeKeys.contains('email'))
           VerifyUserFormField(
-            label: 'Email', // TODO: use resolvers
+            label: 'Email', // TODO: support localization
             attributeKey: 'email',
             onChanged: (String? value) {
               setState(() {
@@ -778,13 +779,12 @@ class _VerifyUserFormFieldGroupState extends State<VerifyUserFormFieldGroup> {
           ),
         if (unverifiedAttributeKeys.contains('phone_number'))
           VerifyUserFormField(
-            label: 'Phone Number', // TODO: use resolvers
+            label: 'Phone Number', // TODO: support localization
             attributeKey: 'phone_number',
             onChanged: (String? value) {
               setState(() {
                 _value = value;
-                _verifyUserViewModel.setUserAttributeKey(value);
-                _confirmVerifyUserViewModel.setUserAttributeKey(_value);
+                setUserAttributeKey(value);
               });
             },
             groupValue: _value,

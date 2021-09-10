@@ -53,6 +53,7 @@ class ButtonResolver {
       StringResolver? changePassword,
       StringResolver? sendCode,
       StringResolver? verifyUser,
+      StringResolver? confirmVerifyUser,
       StringResolver? lostCodeQuestion}) {
     this.signin = signin ?? this.signin;
     this.signup = signup ?? this.signup;
@@ -61,6 +62,7 @@ class ButtonResolver {
     this.changePassword = changePassword ?? this.changePassword;
     this.sendCode = sendCode ?? this.sendCode;
     this.verifyUser = verifyUser ?? this.verifyUser;
+    this.confirmVerifyUser = confirmVerifyUser ?? this.confirmVerifyUser;
     this.lostCodeQuestion = lostCodeQuestion ?? this.lostCodeQuestion;
   }
 }

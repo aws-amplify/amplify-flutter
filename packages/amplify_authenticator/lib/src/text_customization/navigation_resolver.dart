@@ -42,14 +42,16 @@ class NavigationResolver {
   StringResolver skipVerifyUser = (_) => 'Skip';
 
   // ignore: public_member_api_docs
-  NavigationResolver(
-      {StringResolver? navigateSignin,
-      StringResolver? navigateSignup,
-      StringResolver? navigateResetPassword,
-      StringResolver? noAccountQuestion,
-      StringResolver? haveAccountQuestion,
-      StringResolver? forgotPasswordQuestion,
-      StringResolver? backToSignin}) {
+  NavigationResolver({
+    StringResolver? navigateSignin,
+    StringResolver? navigateSignup,
+    StringResolver? navigateResetPassword,
+    StringResolver? noAccountQuestion,
+    StringResolver? haveAccountQuestion,
+    StringResolver? forgotPasswordQuestion,
+    StringResolver? backToSignin,
+    StringResolver? skipVerifyUser,
+  }) {
     this.navigateSignin = navigateSignin ?? this.navigateSignin;
     this.navigateSignup = navigateSignup ?? this.navigateSignup;
     this.navigateResetPassword =

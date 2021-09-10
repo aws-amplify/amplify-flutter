@@ -31,9 +31,8 @@ class ConfirmVerifyUserViewModel extends BaseViewModel {
     setBusy(true);
     AuthConfirmVerifyUserData authConfirmVerifyUserData =
         AuthConfirmVerifyUserData(
-      // TODO: handle null values
       userAttributeKey: _userAttributeKey!,
-      code: code ?? '',
+      code: code!,
     );
     _authBloc.authEvent.add(AuthConfirmVerifyUser(authConfirmVerifyUserData));
     await Future.any([

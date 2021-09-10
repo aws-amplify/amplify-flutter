@@ -139,45 +139,40 @@ class AmplifyAuthService implements AuthService {
     );
   }
 
-  // TODO: Should this at some point be moved to amplify_auth_cognito?
-  // This is equivalent to `verifiedContact()` from amplify-js
-  // https://github.com/aws-amplify/amplify-js/blob/6de9a1d743deef8de5205590bf7cf8134a5fb5f4/packages/auth/src/Auth.ts#L1199-L1224
+  /// Get a list of the unverified attribute keys for the given user
+  ///
+  /// This is based off of `verifiedContact()` from amplify-js
+  /// https://github.com/aws-amplify/amplify-js/blob/6de9a1d743deef8de5205590bf7cf8134a5fb5f4/packages/auth/src/Auth.ts#L1199-L1224
   @override
   Future<List<String>> getUnverifiedAttributeKeys() async {
-    try {
-      List<AuthUserAttribute> userAttributes =
-          await Amplify.Auth.fetchUserAttributes();
+    List<AuthUserAttribute> userAttributes =
+        await Amplify.Auth.fetchUserAttributes();
 
-      Map<String, AuthUserAttribute> userAttributeMap =
-          <String, AuthUserAttribute>{
-        for (AuthUserAttribute attr in userAttributes)
-          attr.userAttributeKey: attr
-      };
+    Map<String, AuthUserAttribute> userAttributeMap =
+        <String, AuthUserAttribute>{
+      for (AuthUserAttribute attr in userAttributes) attr.userAttributeKey: attr
+    };
 
-      // TODO: Use constants from #697 after feature branch has been updated with main
-      AuthUserAttribute? emailAttribute = userAttributeMap['email'];
-      AuthUserAttribute? emailVerifiedAttribute =
-          userAttributeMap['email_verified'];
-      AuthUserAttribute? phoneAttribute = userAttributeMap['phone_number'];
-      AuthUserAttribute? phoneVerifiedAttribute =
-          userAttributeMap['phone_number_verified'];
+    // TODO: Use constants from #697 after feature branch has been updated with main
+    AuthUserAttribute? emailAttribute = userAttributeMap['email'];
+    AuthUserAttribute? emailVerifiedAttribute =
+        userAttributeMap['email_verified'];
+    AuthUserAttribute? phoneAttribute = userAttributeMap['phone_number'];
+    AuthUserAttribute? phoneVerifiedAttribute =
+        userAttributeMap['phone_number_verified'];
 
-      bool hasEmail = emailAttribute is AuthUserAttribute;
-      bool isEmailVerified = emailVerifiedAttribute is AuthUserAttribute &&
-          emailVerifiedAttribute.value == 'true';
-      bool hasPhone = phoneAttribute is AuthUserAttribute;
-      bool isPhoneVerified = phoneVerifiedAttribute is AuthUserAttribute &&
-          phoneVerifiedAttribute.value == 'true';
+    bool hasEmail = emailAttribute is AuthUserAttribute;
+    bool isEmailVerified = emailVerifiedAttribute is AuthUserAttribute &&
+        emailVerifiedAttribute.value == 'true';
+    bool hasPhone = phoneAttribute is AuthUserAttribute;
+    bool isPhoneVerified = phoneVerifiedAttribute is AuthUserAttribute &&
+        phoneVerifiedAttribute.value == 'true';
 
-      List<String> unverifiedUserAttributes = [
-        if (hasEmail && !isEmailVerified) emailAttribute.userAttributeKey,
-        if (hasPhone && !isPhoneVerified) phoneAttribute.userAttributeKey,
-      ];
+    List<String> unverifiedUserAttributes = [
+      if (hasEmail && !isEmailVerified) emailAttribute.userAttributeKey,
+      if (hasPhone && !isPhoneVerified) phoneAttribute.userAttributeKey,
+    ];
 
-      return unverifiedUserAttributes;
-    } on Exception catch (e) {
-      // TODO: How should this failure be handled?
-      return [];
-    }
+    return unverifiedUserAttributes;
   }
 }

@@ -336,14 +336,14 @@ class ConfirmSignInNewPasswordButton extends StatelessWidget {
 class VerifyUserButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final VerifyUserViewModel _authViewModel =
+    final VerifyUserViewModel _viewModel =
         InheritedAuthViewModel.of(context)!.verifyUserViewModel;
     final String _text =
         InheritedStrings.of(context)!.resolver.buttons.verifyUser(context);
 
     return ButtonContainer(
-      callback: _authViewModel.verifyUser,
-      authViewModel: _authViewModel,
+      callback: _viewModel.verifyUser,
+      authViewModel: _viewModel,
       authKey: keySendCodeButton,
       text: _text,
     );
@@ -353,7 +353,7 @@ class VerifyUserButton extends StatelessWidget {
 class ConfirmVerifyUserButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final ConfirmVerifyUserViewModel _authViewModel =
+    final ConfirmVerifyUserViewModel _viewModel =
         InheritedAuthViewModel.of(context)!.confirmVerifyUserViewModel;
     final String _text = InheritedStrings.of(context)!
         .resolver
@@ -361,8 +361,8 @@ class ConfirmVerifyUserButton extends StatelessWidget {
         .confirmVerifyUser(context);
 
     return ButtonContainer(
-      callback: _authViewModel.confirmVerifyUser,
-      authViewModel: _authViewModel,
+      callback: _viewModel.confirmVerifyUser,
+      authViewModel: _viewModel,
       authKey: keySendCodeButton,
       text: _text,
     );
@@ -372,7 +372,7 @@ class ConfirmVerifyUserButton extends StatelessWidget {
 class SkipVerifyUserButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final VerifyUserViewModel _authViewModel =
+    final VerifyUserViewModel _viewModel =
         InheritedAuthViewModel.of(context)!.verifyUserViewModel;
     final String _text = InheritedStrings.of(context)!
         .resolver
@@ -388,7 +388,7 @@ class SkipVerifyUserButton extends StatelessWidget {
                 ? Theme.of(context).primaryColor
                 : AuthenticatorColors.primary),
       ),
-      onPressed: _authViewModel.skip,
+      onPressed: _viewModel.skip,
     );
   }
 }

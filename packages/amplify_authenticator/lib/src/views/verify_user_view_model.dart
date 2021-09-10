@@ -37,7 +37,6 @@ class VerifyUserViewModel extends BaseViewModel {
     }
     setBusy(true);
     AuthVerifyUserData authVerifyUserData = AuthVerifyUserData(
-      // TODO: Handle null
       userAttributeKey: _userAttributeKey!,
     );
     _authBloc.authEvent.add(AuthVerifyUser(authVerifyUserData));

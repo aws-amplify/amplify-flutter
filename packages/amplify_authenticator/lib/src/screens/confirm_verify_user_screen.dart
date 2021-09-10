@@ -9,9 +9,11 @@ class ConfirmVerifyUserScreen extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final _verifyUserForm = InheritedForms.of(context).confirmVerifyUserForm;
-    final _title =
-        InheritedStrings.of(context)!.resolver.titles.verifyUser(context);
-    return AuthenticatorContainer(title: _title, form: _verifyUserForm);
+    final _form = InheritedForms.of(context).confirmVerifyUserForm;
+    final _title = InheritedStrings.of(context)!
+        .resolver
+        .titles
+        .confirmVerifyUser(context);
+    return AuthenticatorContainer(title: _title, form: _form);
   }
 }

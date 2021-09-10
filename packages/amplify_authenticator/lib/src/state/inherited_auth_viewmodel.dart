@@ -1,10 +1,10 @@
-import 'package:amplify_authenticator/src/views/confirm_verify_user_view_model.dart';
-import 'package:flutter/material.dart';
+import 'package:amplify_authenticator/src/views/confirm_signin_viewmodel.dart';
 import 'package:amplify_authenticator/src/views/confirm_signup_viewmodel.dart';
+import 'package:amplify_authenticator/src/views/confirm_verify_user_view_model.dart';
 import 'package:amplify_authenticator/src/views/signin_viewmodel.dart';
 import 'package:amplify_authenticator/src/views/signup_viewmodel.dart';
-import 'package:amplify_authenticator/src/views/confirm_signin_viewmodel.dart';
 import 'package:amplify_authenticator/src/views/verify_user_view_model.dart';
+import 'package:flutter/material.dart';
 
 class InheritedAuthViewModel extends InheritedWidget {
   // ignore: public_member_api_docs
