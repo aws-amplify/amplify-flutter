@@ -23,4 +23,14 @@ class GraphQLResponse<T> {
     required this.data,
     required this.errors,
   });
+
+  static GraphQLResponse<String?> raw({
+    required String? data,
+    List<GraphQLResponseError>? errors,
+  }) {
+    return GraphQLResponse(
+      data: data,
+      errors: errors ?? const [],
+    );
+  }
 }
