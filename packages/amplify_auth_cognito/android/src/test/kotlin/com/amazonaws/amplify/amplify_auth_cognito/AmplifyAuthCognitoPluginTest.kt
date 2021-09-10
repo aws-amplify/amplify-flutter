@@ -632,19 +632,6 @@ class AmplifyAuthCognitoPluginTest {
 
         // Assert
         verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
-
-        val expectedOptions = AWSCognitoAuthConfirmResetPasswordOptions
-                .builder()
-                .metadata(clientMetadata)
-                .build()
-
-        verify(mockAuth).confirmResetPassword(
-                ArgumentMatchers.eq(newPassword),
-                ArgumentMatchers.eq(confirmationCode),
-                ArgumentMatchers.eq(expectedOptions),
-                ArgumentMatchers.any<Action>(),
-                ArgumentMatchers.any<Consumer<AuthException>>()
-        )
     }
 
     @Test
