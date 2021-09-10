@@ -20,6 +20,7 @@ import 'dart:convert';
 import 'dart:developer' as developer;
 
 import 'package:amplify_flutter/config/amplify_config.dart';
+import 'package:amplify_flutter/utils/parse_json_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
@@ -46,7 +47,7 @@ final AmplifyClass Amplify = new AmplifyClass.protected();
 /// instantiate an object of this class. Please use top level
 /// `Amplify` singleton object for making calls to methods of this class.
 class AmplifyClass extends PlatformInterface {
-  AmplifyConfig _config = AmplifyConfig();
+  AmplifyConfig? _config = AmplifyConfig();
   // ignore: public_member_api_docs
   AuthCategory Auth = const AuthCategory();
   // ignore: public_member_api_docs
@@ -176,7 +177,8 @@ class AmplifyClass extends PlatformInterface {
             recoverySuggestion:
                 AmplifyExceptionMessages.missingRecoverySuggestion);
       } else {
-        await _parseConfigJson(configuration);
+        _config = await parseConfigJson(configuration);
+        _configCompleter.complete(_config);
       }
     } on PlatformException catch (e) {
       if (e.code == 'AnalyticsException') {
@@ -195,49 +197,6 @@ class AmplifyClass extends PlatformInterface {
       }
     }
     await DataStore.configure(configuration);
-  }
-
-  Future<void> _parseConfigJson(String configuration) async {
-    try {
-      _config = _createConfigObject(configuration);
-      _configCompleter.complete(_config);
-    } catch (e) {
-      if (kDebugMode) {
-        debugPrint(
-            'There was an unexpected problem parsing the amplifyconfiguration.dart file.');
-      }
-    }
-  }
-
-  /// Returns an AmplifyConfig object populated only with plugin data
-  /// where plugins have been successfully added.
-  AmplifyConfig _createConfigObject(String configuration) {
-    /// Create full object based on JSON string
-    var uncheckedConfig = AmplifyConfig.fromJson(jsonDecode(configuration));
-
-    /// Creates empty object
-    var validatedConfig = AmplifyConfig();
-    validatedConfig.userAgent = uncheckedConfig.userAgent;
-    validatedConfig.version = uncheckedConfig.version;
-
-    /// Selectively populate object based on successful plugin registration
-    if (AnalyticsCategory.plugins.isNotEmpty) {
-      validatedConfig.analytics = uncheckedConfig.analytics;
-    }
-
-    if (APICategory.plugins.isNotEmpty) {
-      validatedConfig.api = uncheckedConfig.api;
-    }
-
-    if (AuthCategory.plugins.isNotEmpty) {
-      validatedConfig.auth = uncheckedConfig.auth;
-    }
-
-    if (StorageCategory.plugins.isNotEmpty) {
-      validatedConfig.storage = uncheckedConfig.storage;
-    }
-
-    return validatedConfig;
   }
 
   /// Adds the configuration and return true if it was successful.
