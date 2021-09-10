@@ -1,3 +1,33 @@
+## 0.2.3 (2021-09-09)
+
+### Features
+
+- feat(auth): add options to resendSignUpCode (#738)
+
+### Chores
+
+- chore: upgrade amplify-android 1.24.1 (#829)
+- chore(analytics): Apply lints (#810)
+- chore(api): Apply lints (#812)
+
+## 0.2.2 (2021-08-04)
+
+### Features
+
+- feat(auth): enables clientMetadata for signUp (#713)
+- feat(auth): Auth Devices API (#735)
+- feat(datastore): Populate belongs-to nested models (#658)
+
+### Fixes
+
+- fix(analytics): Session start not triggered on Android devices (#764)
+- fix(api): prevent some fatal REST errors in Android (#661)
+- fix(datastore): Query nested model causes column not found sql error (#761)
+
+### Chores
+
+- chore(api): add support for apiName to GraphQL requests (#553)
+
 ## 0.2.1 (2021-07-27)
 
 ### Chores
@@ -41,6 +71,7 @@
 ## 0.1.1 (2021-03-29)
 
 ### Chores
+
 - chore: remove upper constraints for flutter 2.0 (#479)
 
 ### Bug Fixes

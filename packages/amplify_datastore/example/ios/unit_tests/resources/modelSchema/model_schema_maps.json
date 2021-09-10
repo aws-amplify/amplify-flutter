@@ -134,6 +134,19 @@
                     "associatedName": "post",
                     "associatedType": "Post"
                 }
+            },
+            "author": {
+                "name": "author",
+                "type": {
+                    "fieldType": "model",
+                    "ofModelName": "Author"
+                },
+                "isRequired": true,
+                "isArray": false,
+                "association": {
+                    "associationType": "BelongsTo",
+                    "targetName": "authorId"
+                }
             }
         }
     },
@@ -141,12 +154,14 @@
     "PostAuthComplexSchema": {
         "name": "PostAuthComplex",
         "pluralName": "PostAuthComplexes",
-        "authRules": [{
-            "authStrategy": "OWNER",
-            "ownerField": "owner",
-            "identityClaim": "cognito:username",
-            "operations": [ "READ", "DELETE", "UPDATE", "CREATE" ]
-        }],
+        "authRules": [
+            {
+                "authStrategy": "OWNER",
+                "ownerField": "owner",
+                "identityClaim": "cognito:username",
+                "operations": ["READ", "DELETE", "UPDATE", "CREATE"]
+            }
+        ],
         "fields": {
             "id": {
                 "name": "id",
@@ -173,8 +188,8 @@
                 "isArray": false
             }
         }
-    },    
-    
+    },
+
     "AllTypeModelSchema": {
         "name": "AllTypeModel",
         "pluralName": "AllTypeModels",

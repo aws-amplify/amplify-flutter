@@ -25,8 +25,8 @@ import 'package:flutter/foundation.dart';
 class HasManyModel extends Model {
   static const classType = const _HasManyModelModelType();
   final String id;
-  final String? _title;
-  final List<HasManyBelongsToModel>? _children;
+  final String? _name;
+  final List<HasManyChildModel>? _children;
 
   @override
   getInstanceType() => classType;
@@ -36,27 +36,35 @@ class HasManyModel extends Model {
     return id;
   }
 
-  String get title {
-    return _title!;
+  String get name {
+    try {
+      return _name!;
+    } catch (e) {
+      throw new DataStoreException(
+          DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
   }
 
-  List<HasManyBelongsToModel> get children {
-    return _children!;
+  List<HasManyChildModel>? get children {
+    return _children;
   }
 
-  const HasManyModel._internal(
-      {required this.id, required title, required children})
-      : _title = title,
+  const HasManyModel._internal({required this.id, required name, children})
+      : _name = name,
         _children = children;
 
   factory HasManyModel(
-      {String? id,
-      required String title,
-      required List<HasManyBelongsToModel> children}) {
+      {String? id, required String name, List<HasManyChildModel>? children}) {
     return HasManyModel._internal(
         id: id == null ? UUID.getUUID() : id,
-        title: title,
-        children: children != null ? List.unmodifiable(children) : children);
+        name: name,
+        children: children != null
+            ? List<HasManyChildModel>.unmodifiable(children)
+            : children);
   }
 
   bool equals(Object other) {
@@ -68,7 +76,7 @@ class HasManyModel extends Model {
     if (identical(other, this)) return true;
     return other is HasManyModel &&
         id == other.id &&
-        _title == other._title &&
+        _name == other._name &&
         DeepCollectionEquality().equals(_children, other._children);
   }
 
@@ -81,42 +89,43 @@ class HasManyModel extends Model {
 
     buffer.write("HasManyModel {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("title=" + "$_title");
+    buffer.write("name=" + "$_name");
     buffer.write("}");
 
     return buffer.toString();
   }
 
   HasManyModel copyWith(
-      {String? id, String? title, List<HasManyBelongsToModel>? children}) {
+      {String? id, String? name, List<HasManyChildModel>? children}) {
     return HasManyModel(
         id: id ?? this.id,
-        title: title ?? this.title,
+        name: name ?? this.name,
         children: children ?? this.children);
   }
 
   HasManyModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _title = json['title'],
+        _name = json['name'],
         _children = json['children'] is List
             ? (json['children'] as List)
-                .map((e) => HasManyBelongsToModel.fromJson(
-                    new Map<String, dynamic>.from(e?['serializedData'])))
+                .where((e) => e?['serializedData'] != null)
+                .map((e) => HasManyChildModel.fromJson(
+                    new Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
             : null;
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'title': _title,
+        'name': _name,
         'children': _children?.map((e) => e?.toJson())?.toList()
       };
 
   static final QueryField ID = QueryField(fieldName: "hasManyModel.id");
-  static final QueryField TITLE = QueryField(fieldName: "title");
+  static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField CHILDREN = QueryField(
       fieldName: "children",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (HasManyBelongsToModel).toString()));
+          ofModelName: (HasManyChildModel).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "HasManyModel";
@@ -125,15 +134,15 @@ class HasManyModel extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: HasManyModel.TITLE,
+        key: HasManyModel.NAME,
         isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
         key: HasManyModel.CHILDREN,
         isRequired: false,
-        ofModelName: (HasManyBelongsToModel).toString(),
-        associatedKey: HasManyBelongsToModel.PARENT));
+        ofModelName: (HasManyChildModel).toString(),
+        associatedKey: HasManyChildModel.PARENT));
   });
 }
 

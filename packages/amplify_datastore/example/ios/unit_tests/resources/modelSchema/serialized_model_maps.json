@@ -1,49 +1,71 @@
 {
-    "BlogSerializedMap" : {
-        "id" : "999",
-        "modelName" : "Blog",
-        "serializedData" : {
-            "id" : "999",
-            "name" : "blog name"
+    "BlogSerializedMap": {
+        "id": "999",
+        "modelName": "Blog",
+        "serializedData": {
+            "id": "999",
+            "name": "blog name"
         }
     },
-    "CommentSerializedMap" : {
-        "id" : "999",
-        "modelName" : "Comment",
-        "serializedData" : {
-            "id" : "999",
-            "post" : {
+    "CommentSerializedMap": {
+        "id": "999",
+        "modelName": "Comment",
+        "serializedData": {
+            "id": "999",
+            "post": {
                 "id": "555"
             },
-            "content" : "content"
+            "content": "content"
         }
     },
-    "PostSerializedMap" : {
-        "id" : "999",
-        "modelName" : "Post",
-        "serializedData" : {
-            "id" : "999",
-            "title" : "post title",
-            "created" : "2020-11-25T01:28:49.000Z",
-            "blog" : {
-                "id" : "555"
+    "PostSerializedMap": {
+        "id": "999",
+        "modelName": "Post",
+        "serializedData": {
+            "id": "999",
+            "title": "post title",
+            "created": "2020-11-25T01:28:49.000Z",
+            "blog": {
+                "id": "555",
+                "modelName": "Blog",
+                "serializedData": {
+                    "id": "555",
+                    "name": "Blog 1"
+                }
+            },
+            "author": {
+                "id": "666",
+                "modelName": "Author",
+                "serializedData": {
+                    "id": "666",
+                    "name": "Someone Testing",
+                    "department": {
+                        "id": "777",
+                        "modelName": "Department",
+                        "serializedData": {
+                            "id": "777",
+                            "name": "Department 1",
+                            "description": "Testing department 1"
+                        }
+                    }
+                }
             }
         }
     },
-    "AllTypeModelSerializedMap" : {
-        "id" : "999",
-        "modelName" : "AllTypeModel",
-        "serializedData" : {
-            "id" : "999",
-            "stringType" : "string value",
-            "intType" : 10,
-            "floatType" : 9.99,
-            "boolType" : true,
-            "dateType" : "2020-09-09Z",
-            "dateTimeType" : "2020-11-25T01:28:49.000Z",
-            "timeType" : "20:20:20:020Z",
-            "timestampType" : 999,
-            "enumType" : "maybe"
+    "AllTypeModelSerializedMap": {
+        "id": "999",
+        "modelName": "AllTypeModel",
+        "serializedData": {
+            "id": "999",
+            "stringType": "string value",
+            "intType": 10,
+            "floatType": 9.99,
+            "boolType": true,
+            "dateType": "2020-09-09Z",
+            "dateTimeType": "2020-11-25T01:28:49.000Z",
+            "timeType": "20:20:20:020Z",
+            "timestampType": 999,
+            "enumType": "maybe"
         }
     }
 }
