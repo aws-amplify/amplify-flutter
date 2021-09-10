@@ -13,13 +13,13 @@
  * permissions and limitations under the License.
  */
 
-import 'package:integration_test/integration_test.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:amplify_flutter/amplify.dart';
-import 'package:amplify_api/amplify_api.dart';
 import 'dart:convert';
 
+import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api_example/amplifyconfiguration.dart';
+import 'package:amplify_flutter/amplify.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -45,7 +45,7 @@ void main() {
         }
       }''';
 
-      var _r = await Amplify.API
+      var _r = Amplify.API
           .query<String>(request: GraphQLRequest(document: graphQLDocument));
       var response = await _r.response;
       Map data = jsonDecode(response.data);

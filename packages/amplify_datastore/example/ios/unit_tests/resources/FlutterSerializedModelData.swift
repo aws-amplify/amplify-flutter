@@ -39,7 +39,17 @@ struct FlutterSerializedModelData {
             "title" : JSONValue.string("post title"),
             "created" : JSONValue.string("2020-11-25T01:28:49.000Z"),
             "blog" : JSONValue.object([
-                "id" : "555"
+                "id" : "555",
+                "name": "Blog 1"
+            ]),
+            "author": JSONValue.object([
+                "id": "666",
+                "name": "Someone Testing",
+                "department": JSONValue.object([
+                    "id": "777",
+                    "name": "Department 1",
+                    "description": "Testing department 1"
+                ])
             ])
         ]);
     
