@@ -21,8 +21,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  amplify_api: 0.2.3
-  amplify_analytics_pinpoint: 0.2.3
+  amplify_api: 0.2.3+1
+  amplify_analytics_pinpoint: 0.2.3+1
   amplify_auth_cognito: 0.2.3
   amplify_datastore: 0.2.3
   amplify_storage_s3: 0.2.3
