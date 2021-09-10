@@ -673,6 +673,56 @@ class AmplifyAuthCognitoPluginTest {
     }
 
     @Test
+    fun confirmResetPasswordWithOptions_returnsSuccess() {
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareUpdatePasswordResult(mockResult)
+            null as Void?
+        }.`when`(mockAuth).confirmResetPassword(
+                anyString(),
+                anyString(),
+                ArgumentMatchers.any<AWSCognitoAuthConfirmResetPasswordOptions>(),
+                ArgumentMatchers.any<Action>(),
+                ArgumentMatchers.any<Consumer<AuthException>>()
+        )
+
+        val clientMetadata = hashMapOf("attribute" to "value")
+        val options = hashMapOf(
+                "clientMetadata" to clientMetadata
+        )
+        val username = "testUser"
+        val newPassword = "newPassword"
+        val confirmationCode = "confirmationCode"
+        val data: HashMap<*, *> = hashMapOf(
+                "username" to username,
+                "newPassword" to newPassword,
+                "confirmationCode" to "confirmationCode",
+                "options" to options
+        )
+        val arguments: HashMap<String, Any> = hashMapOf("data" to data)
+        val call = MethodCall("confirmResetPassword", arguments)
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
+
+        val expectedOptions = AWSCognitoAuthConfirmResetPasswordOptions
+                .builder()
+                .metadata(clientMetadata)
+                .build()
+
+        verify(mockAuth).confirmResetPassword(
+                ArgumentMatchers.eq(newPassword),
+                ArgumentMatchers.eq(confirmationCode),
+                ArgumentMatchers.eq(expectedOptions),
+                ArgumentMatchers.any<Action>(),
+                ArgumentMatchers.any<Consumer<AuthException>>()
+        )
+    }
+
+    @Test
     fun getCurrentUser_returnsSuccess() {
         // Arrange
         doAnswer { invocation: InvocationOnMock ->

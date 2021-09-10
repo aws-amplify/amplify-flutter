@@ -13,8 +13,22 @@
  * permissions and limitations under the License.
  */
 
-/// The shared confirm reset password options among all Auth plugins
-abstract class ConfirmResetPasswordOptions {
-  /// Serialize the object to a map
-  Map<String, dynamic> serializeAsMap();
+import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
+
+/// Cognito extension of [ConfirmResetPasswordOptions] to add the platform specific fields.
+///
+/// Can be used to add [clientMetadata] to the operation.
+class CognitoConfirmResetPasswordOptions extends ConfirmResetPasswordOptions {
+  /// Additional custom attributes to be sent to the service such as information about the client
+  Map<String, String>? clientMetadata;
+
+  /// Default constructor
+  CognitoConfirmResetPasswordOptions({this.clientMetadata}) : super();
+  Map<String, dynamic> serializeAsMap() {
+    final Map<String, dynamic> pendingRequest = {
+      'clientMetadata': clientMetadata
+    };
+    pendingRequest.removeWhere((_, v) => v == null);
+    return pendingRequest;
+  }
 }
