@@ -80,7 +80,19 @@ class AmplifyAuthCognitoPluginTest {
     private val mockSignInResult = AuthSignInResult(false, signInStep)
     private val mockResetPasswordResult = AuthResetPasswordResult(false, resetStep)
     private val mockUpdateUserAttributeResult = AuthUpdateAttributeResult(true, updateAttributeStep)
+    private val id = AuthSessionResult.success("id")
+    private val awsCredentials: AuthSessionResult<AWSCredentials> = AuthSessionResult.success(BasicAWSCredentials("access", "secret"))
+    private val userSub = AuthSessionResult.success("sub")
+    private val tokens = AuthSessionResult.success(AWSCognitoUserPoolTokens("access", "id", "refresh"))
+    private val mockSession = AWSCognitoAuthSession(
+        true,
+        id,
+        awsCredentials,
+        userSub,
+        tokens
+    )
     private var mockAuth = mock(AuthCategory::class.java)
+
 
     @Before
     fun setup() {
@@ -676,13 +688,18 @@ class AmplifyAuthCognitoPluginTest {
     fun getCurrentUser_returnsSuccess() {
         // Arrange
         doAnswer { invocation: InvocationOnMock ->
-            plugin.prepareUpdatePasswordResult(mockResult)
+            plugin.prepareUserResult(mockResult, AuthUser("username", "userSub"))
             null as Void?
-        }.`when`(mockAuth).getCurrentUser()
+        }.`when`(mockAuth).currentUser
+
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareCognitoSessionResult(mockResult, mockSession)
+            null as Void?
+        }.`when`(mockAuth).fetchAuthSession(any(), any())
 
         val data: HashMap<*, *> = hashMapOf(
-                "username" to "username",
-                "userSub" to "userSub"
+            "username" to "username",
+            "userSub" to "userSub"
         )
         val arguments: HashMap<String, Any> = hashMapOf("data" to data)
         val call = MethodCall("getCurrentUser", arguments)
@@ -723,18 +740,6 @@ class AmplifyAuthCognitoPluginTest {
 
     @Test
     fun fetchSession_returnsSuccess() {
-        val id = AuthSessionResult.success("id")
-        val awsCredentials: AuthSessionResult<AWSCredentials> = AuthSessionResult.success(BasicAWSCredentials("access", "secret"))
-        val userSub = AuthSessionResult.success("sub")
-        val tokens = AuthSessionResult.success(AWSCognitoUserPoolTokens("access", "id", "refresh"))
-        val mockSession = AWSCognitoAuthSession(
-        true,
-            id,
-            awsCredentials,
-            userSub,
-            tokens
-        )
-
         // Arrange
         doAnswer { invocation: InvocationOnMock ->
             plugin.prepareCognitoSessionResult(mockResult, mockSession)
