@@ -75,9 +75,6 @@ jobs:
     steps:
       - install_flutter
       - checkout
-      - setup_remote_docker:
-        version: 20.10.7
-      - setup_unpub
       - install_melos
       - run:
           name: Install junitreport for JUnit XML reports
@@ -149,6 +146,9 @@ jobs:
     steps:
       - install_flutter
       - checkout
+      - setup_remote_docker:
+        version: 20.10.7
+      - setup_unpub
       - install_melos
       - run:
           name: Build example APKs
