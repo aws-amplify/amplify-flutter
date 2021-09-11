@@ -147,7 +147,7 @@ jobs:
       - install_flutter
       - checkout
       - setup_remote_docker:
-        version: 20.10.7
+          version: 20.10.7
       - setup_unpub
       - install_melos
       - run:
