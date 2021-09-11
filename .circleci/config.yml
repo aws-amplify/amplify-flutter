@@ -49,6 +49,7 @@ commands:
 
   setup_unpub:
     steps:
+      - run: brew install yq
       - run: ./tool/setup_local_unpub.sh
 
 jobs:
