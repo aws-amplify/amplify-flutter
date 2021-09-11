@@ -49,7 +49,6 @@ commands:
 
   setup_unpub:
     steps:
-      - run: brew install yq
       - run: ./tool/setup_local_unpub.sh
 
 jobs:
@@ -106,6 +105,7 @@ jobs:
     steps:
       - install_flutter
       - checkout
+      - run: brew install yq
       - setup_unpub
       - install_melos
       - run:
