@@ -164,44 +164,27 @@ jobs:
       - store_artifacts:
           path: ~/test-results/junit
 
-  release_verification_ios:
-    executor: macos-executor
-    environment:
-      UNPUB_PORT: 8000
-      UNPUB_GIT_URL: $CIRCLE_REPOSITORY_URL
-      UNPUB_GIT_REF: $CIRCLE_SHA1
-    steps:
-      - install_flutter
-      - checkout
-      - run: brew install yq
-      - setup_remote_docker:
-          version: 20.10.7
-      - setup_unpub
-      - run:
-          name: Install and set up melos
-          command: |
-            flutter pub global activate melos
-            melos exec -c 1 -- flutter pub get
-      - run:
-          name: Build example iOS apps
-          command: |
-            melos run build:examples:ios
-
   release_verification_android:
-    executor: docker-executor
+    docker:
+      - image: circleci/android:api-28
+      - image: mongo
+      - image: dnys1/unpub:latest
+        command: --port=8000 --database=mongodb://localhost:27017/dart_pub --uploader-email=""
+      - image: dnys1/unpub-launcher:latest
+        environment:
+          UNPUB_HOST: localhost
+          UNPUB_PORT: 8000
+          UNPUB_GIT_URL: $CIRCLE_REPOSITORY_URL
+          UNPUB_GIT_REF: $CIRCLE_SHA1
+    working_directory: ~/amplify-flutter
     environment:
       _JAVA_OPTIONS: -XX:MaxRAMPercentage=80.0
       GRADLE_OPTS: -Xmx1536m -Xms768m -Dkotlin.compiler.execution.strategy=in-process -Dorg.gradle.daemon=false
-      UNPUB_PORT: 8000
-      UNPUB_GIT_URL: $CIRCLE_REPOSITORY_URL
-      UNPUB_GIT_REF: $CIRCLE_SHA1
       YQ_VERSION: v4.12.2
       YQ_BINARY: yq_linux_amd64
     steps:
       - install_flutter
       - checkout
-      - setup_remote_docker:
-          version: 20.10.7
       - run:
           name: Setup yq
           command: |
