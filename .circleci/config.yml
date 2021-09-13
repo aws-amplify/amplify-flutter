@@ -168,16 +168,17 @@ jobs:
     docker:
       - image: circleci/android:api-28
       - image: mongo
-        command: [mongod, --smallfiles]
+        command: mongod
       - image: dnys1/unpub:latest
-        command: --port=8000 --database=mongodb://localhost:27017/dart_pub --uploader-email=""
+        command: sh -c "sleep 5 && unpub --port=8000 --database=mongodb://localhost:27017/dart_pub --uploader-email=test@example.com"
+      - image: bitnami/git:latest
       - image: dnys1/unpub-launcher:latest
         environment:
           UNPUB_HOST: localhost
           UNPUB_PORT: 8000
           UNPUB_GIT_URL: $CIRCLE_REPOSITORY_URL
           UNPUB_GIT_REF: $CIRCLE_SHA1
-        entrypoint: sh -c "sleep 5 && launch"
+        entrypoint: sh -c "sleep 10 && launch"
     working_directory: ~/amplify-flutter
     environment:
       _JAVA_OPTIONS: -XX:MaxRAMPercentage=80.0
