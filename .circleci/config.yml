@@ -98,15 +98,9 @@ jobs:
 
   unit_test_ios:
     executor: macos-executor
-    environment:
-      UNPUB_PORT: 8000
-      UNPUB_GIT_URL: $CIRCLE_REPOSITORY_URL
-      UNPUB_GIT_REF: $CIRCLE_SHA1
     steps:
       - install_flutter
       - checkout
-      - run: brew install yq
-      - setup_unpub
       - install_melos
       - run:
           name: Run lint checks
@@ -141,15 +135,9 @@ jobs:
     environment:
       _JAVA_OPTIONS: -XX:MaxRAMPercentage=80.0
       GRADLE_OPTS: -Xmx1536m -Xms768m -Dkotlin.compiler.execution.strategy=in-process -Dorg.gradle.daemon=false
-      UNPUB_PORT: 8000
-      UNPUB_GIT_URL: $CIRCLE_REPOSITORY_URL
-      UNPUB_GIT_REF: $CIRCLE_SHA1
     steps:
       - install_flutter
       - checkout
-      - setup_remote_docker:
-          version: 20.10.7
-      - setup_unpub
       - install_melos
       - run:
           name: Build example APKs
@@ -175,6 +163,52 @@ jobs:
           path: ~/test-results
       - store_artifacts:
           path: ~/test-results/junit
+
+  release_verification_ios:
+    executor: macos-executor
+    environment:
+      UNPUB_PORT: 8000
+      UNPUB_GIT_URL: $CIRCLE_REPOSITORY_URL
+      UNPUB_GIT_REF: $CIRCLE_SHA1
+    steps:
+      - install_flutter
+      - checkout
+      - run: brew install yq
+      - setup_unpub
+      - install_melos
+    - run:
+      name: Build example iOS apps
+      command: |
+        melos run build:examples:ios
+
+  release_verification_android:
+    executor: docker-executor
+    environment:
+      _JAVA_OPTIONS: -XX:MaxRAMPercentage=80.0
+      GRADLE_OPTS: -Xmx1536m -Xms768m -Dkotlin.compiler.execution.strategy=in-process -Dorg.gradle.daemon=false
+      UNPUB_PORT: 8000
+      UNPUB_GIT_URL: $CIRCLE_REPOSITORY_URL
+      UNPUB_GIT_REF: $CIRCLE_SHA1
+      YQ_VERSION: v4.12.2
+      YQ_BINARY: yq_linux_amd64
+    steps:
+      - install_flutter
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.7
+      - run:
+        name: Setup yq
+        command: |
+          curl https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/${YQ_BINARY}.tar.gz -o - |\
+          tar xz && \
+          mv ${YQ_BINARY} /usr/bin/yq
+      - setup_unpub
+      - install_melos
+      - run:
+          name: Build example APKs
+          command: |
+            melos run build:examples:android
+          no_output_timeout: 20m
 
 releasable_branches: &releasable_branches
   branches:

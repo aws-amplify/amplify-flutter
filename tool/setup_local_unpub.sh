@@ -7,7 +7,7 @@ if ! command -v yq &>/dev/null; then
     exit 1
 fi
 
-if ! command -v docker-compose &>/dev/null || ; then
+if ! command -v docker-compose &>/dev/null; then
     echo "Must install Docker Compose before proceeding."
     exit 1
 fi
