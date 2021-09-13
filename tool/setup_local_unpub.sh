@@ -13,7 +13,7 @@ if [[ -n "$CI" ]]; then
     UNPUB_HOST=localhost \
     UNPUB_PORT=8000 \
     UNPUB_GIT_URL=${CIRCLE_REPOSITORY_URL} \
-    UNPUB_GIT_REF=${CIRCLE_SHA1} \
+    UNPUB_GIT_REF=${CIRCLE_BRANCH} \
     ./launcher_linux_amd64
 
     # Install yq
