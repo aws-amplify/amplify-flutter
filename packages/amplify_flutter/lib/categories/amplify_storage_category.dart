@@ -39,10 +39,14 @@ class StorageCategory {
   }
 
   Future<UploadFileResult> uploadFile(
-      {required File local, required String key, UploadFileOptions? options}) {
+      {required File local,
+      required String key,
+      Function(TransferProgress)? onTransferProgress,
+      UploadFileOptions? options}) {
     final UploadFileRequest request =
         UploadFileRequest(local: local, key: key, options: options);
-    return plugins[0].uploadFile(request: request);
+    return plugins[0]
+        .uploadFile(request: request, onTransferProgress: onTransferProgress);
   }
 
   Future<GetUrlResult> getUrl({required String key, GetUrlOptions? options}) {
@@ -63,9 +67,11 @@ class StorageCategory {
   Future<DownloadFileResult> downloadFile(
       {required String key,
       required File local,
+      Function(TransferProgress)? onTransferProgress,
       DownloadFileOptions? options}) {
     final DownloadFileRequest request =
         DownloadFileRequest(key: key, local: local, options: options);
-    return plugins[0].downloadFile(request: request);
+    return plugins[0]
+        .downloadFile(request: request, onTransferProgress: onTransferProgress);
   }
 }

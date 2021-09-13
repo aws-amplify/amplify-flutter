@@ -26,6 +26,9 @@ import 'amplify_storage_s3.dart';
 const MethodChannel _channel =
     MethodChannel('com.amazonaws.amplify/storage_s3');
 
+const _downloadProgressEventChannel = const EventChannel(
+    'com.amazonaws.amplify/storage_transfer_progress_events');
+
 /// An implementation of [AmplifyPlatform] that uses method channels.
 class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
   @override
@@ -46,8 +49,17 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
 
   @override
   Future<UploadFileResult> uploadFile(
-      {required UploadFileRequest request}) async {
+      {required UploadFileRequest request,
+      Function(TransferProgress)? onTransferProgress}) async {
     try {
+      if (onTransferProgress != null) {
+        _downloadProgressEventChannel
+            .receiveBroadcastStream(request.key)
+            .listen((event) {
+          onTransferProgress(TransferProgress(event[0], event[1]));
+        });
+      }
+
       final Map<String, dynamic>? data =
           (await _channel.invokeMapMethod<String, dynamic>(
         'uploadFile',
@@ -119,8 +131,17 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
 
   @override
   Future<DownloadFileResult> downloadFile(
-      {required DownloadFileRequest request}) async {
+      {required DownloadFileRequest request,
+      Function(TransferProgress)? onTransferProgress}) async {
     try {
+      if (onTransferProgress != null) {
+        _downloadProgressEventChannel
+            .receiveBroadcastStream(request.key)
+            .listen((event) {
+          onTransferProgress(TransferProgress(event[0], event[1]));
+        });
+      }
+
       final Map<String, dynamic>? data =
           (await _channel.invokeMapMethod<String, dynamic>(
         'downloadFile',
@@ -207,4 +228,18 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
   StorageException _convertToStorageException(PlatformException e) {
     return StorageException.fromMap(Map<String, String>.from(e.details));
   }
+
+  /*
+  void test1(
+      {required DownloadFileRequest request,
+      Function? onDownloadProgress,
+      Function? onSuccess,
+      Function? onError}) {}
+  void test2(
+      {required DownloadFileRequest request,
+      Function? onDownloadProgress,
+      Function? onResult}) {}
+  Future<DownloadFileResult> test3(
+      {required DownloadFileRequest request, Function? downloadProgress}) {}
+   */
 }
