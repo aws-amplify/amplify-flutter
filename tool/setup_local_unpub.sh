@@ -5,6 +5,8 @@ set -euo pipefail
 YQ_VERSION=v4.12.2
 YQ_BINARY=yq_linux_amd64
 
+env
+
 if [[ -n "$CI" ]]; then
     # Install unpub launcher
     curl -s -L https://github.com/dnys1/unpub-launcher/releases/download/v1.0/launcher_linux_amd64.tar.gz | tar xz
