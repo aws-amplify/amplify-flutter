@@ -175,7 +175,9 @@ jobs:
         environment:
           UNPUB_HOST: localhost
           UNPUB_PORT: 8000
-        entrypoint: sh -c "sleep 10 && export UNPUB_GIT_URL=${CIRCLE_REPOSITORY_URL} && export UNPUB_GIT_REF=${CIRCLE_SHA1} && launch"
+          UNPUB_GIT_URL: ${CIRCLE_REPOSITORY_URL}
+          UNPUB_GIT_REF: ${CIRCLE_SHA1}
+        entrypoint: sh -c "sleep 10 && launch"
     working_directory: ~/amplify-flutter
     environment:
       _JAVA_OPTIONS: -XX:MaxRAMPercentage=80.0
