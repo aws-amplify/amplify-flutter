@@ -203,7 +203,9 @@ jobs:
           command: |
             curl -s -L https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/${YQ_BINARY}.tar.gz |\
             tar xz && \
-            mv ${YQ_BINARY} /usr/local/bin/yq
+            mkdir -p bin && \
+            mv ${YQ_BINARY} bin/yq && \
+            export PATH="$PWD/bin:$PATH"
       - setup_unpub
       - install_melos
       - run:
