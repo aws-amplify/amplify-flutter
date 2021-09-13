@@ -177,9 +177,9 @@ jobs:
       - setup_unpub
       - install_melos
     - run:
-      name: Build example iOS apps
-      command: |
-        melos run build:examples:ios
+        name: Build example iOS apps
+        command: |
+          melos run build:examples:ios
 
   release_verification_android:
     executor: docker-executor
