@@ -2,8 +2,12 @@
 
 set -euo pipefail
 
+if [[ -n "$CI" ]]; then
+    export PATH="$PWD/bin:$PATH"
+fi
+
 if ! command -v yq &>/dev/null; then
-    echo "Must install yq before proceeding: `brew install yq`"
+    echo "Must install yq before proceeding: \"brew install yq\""
     exit 1
 fi
 
