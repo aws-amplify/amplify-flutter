@@ -177,7 +177,11 @@ jobs:
       - setup_remote_docker:
           version: 20.10.7
       - setup_unpub
-      - install_melos
+      - run:
+          name: Install and set up melos
+          command: |
+            flutter pub global activate melos
+            melos exec -c 1 -- flutter pub get
       - run:
           name: Build example iOS apps
           command: |
@@ -206,7 +210,11 @@ jobs:
             mkdir -p bin && \
             mv ${YQ_BINARY} bin/yq
       - setup_unpub
-      - install_melos
+      - run:
+          name: Install and set up melos
+          command: |
+            flutter pub global activate melos
+            melos exec -c 1 -- flutter pub get
       - run:
           name: Build example APKs
           command: |
