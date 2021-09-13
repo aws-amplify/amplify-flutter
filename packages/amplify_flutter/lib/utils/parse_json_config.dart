@@ -17,10 +17,10 @@ import 'package:amplify_flutter/config/amplify_config.dart';
 import 'package:amplify_flutter/utils/create_config_object.dart';
 import 'package:flutter/foundation.dart';
 
-Future<AmplifyConfig?> parseConfigJson(String configuration) async {
+AmplifyConfig? parseConfigJson(String configuration) {
   try {
     return createConfigObject(configuration);
-  } catch (e) {
+  } on Exception {
     if (kDebugMode) {
       debugPrint(
           'There was an unexpected problem parsing the amplifyconfiguration.dart file.');

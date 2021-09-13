@@ -17,7 +17,6 @@ library amplify;
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer' as developer;
 
 import 'package:amplify_flutter/config/amplify_config.dart';
 import 'package:amplify_flutter/utils/parse_json_config.dart';
@@ -177,7 +176,7 @@ class AmplifyClass extends PlatformInterface {
             recoverySuggestion:
                 AmplifyExceptionMessages.missingRecoverySuggestion);
       } else {
-        _config = await parseConfigJson(configuration);
+        _config = parseConfigJson(configuration);
         _configCompleter.complete(_config);
       }
     } on PlatformException catch (e) {
