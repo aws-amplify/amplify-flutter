@@ -205,9 +205,8 @@ jobs:
       - run:
           name: Setup yq
           command: |
-            curl -s -L https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/${YQ_BINARY}.tar.gz |\
-            tar xz && \
-            mkdir -p bin && \
+            curl -s -L https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/${YQ_BINARY}.tar.gz | tar xz
+            mkdir -p bin
             mv ${YQ_BINARY} bin/yq
       - setup_unpub
       - run:
