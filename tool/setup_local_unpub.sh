@@ -7,14 +7,14 @@ YQ_BINARY=yq_linux_amd64
 
 if [[ -n "$CI" ]]; then
     # Install unpub launcher
-    curl -s -L https://github.com/dnys1/unpub-launcher/releases/download/v1.0/launcher_v1.0_linux_amd64.tar.gz | tar xz
+    curl -s -L https://github.com/dnys1/unpub-launcher/releases/download/v1.0/launcher_linux_amd64.tar.gz | tar xz
 
     # Seed packages
     UNPUB_HOST=localhost \
     UNPUB_PORT=8000 \
     UNPUB_GIT_URL=${CIRCLE_REPOSITORY_URL} \
     UNPUB_GIT_REF=${CIRCLE_SHA1} \
-    ./launch
+    ./launcher_linux_amd64
 
     # Install yq
     curl -s -L https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/${YQ_BINARY}.tar.gz | tar xz
