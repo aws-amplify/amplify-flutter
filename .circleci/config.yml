@@ -171,28 +171,13 @@ jobs:
         command: mongod
       - image: dnys1/unpub:latest
         entrypoint: sh -c "sleep 5 && unpub --port=8000 --database=mongodb://localhost:27017/dart_pub --uploader-email=test@example.com"
-      - image: dnys1/unpub-launcher:latest
-        entrypoint: sh
     working_directory: ~/amplify-flutter
     environment:
       _JAVA_OPTIONS: -XX:MaxRAMPercentage=80.0
       GRADLE_OPTS: -Xmx1536m -Xms768m -Dkotlin.compiler.execution.strategy=in-process -Dorg.gradle.daemon=false
-      YQ_VERSION: v4.12.2
-      YQ_BINARY: yq_linux_amd64
-      UNPUB_HOST: localhost
-      UNPUB_PORT: 8000
-      UNPUB_GIT_URL: ${CIRCLE_REPOSITORY_URL}
-      UNPUB_GIT_REF: ${CIRCLE_SHA1}
     steps:
       - install_flutter
       - checkout
-      - run:
-          name: Setup yq
-          command: |
-            curl -s -L https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/${YQ_BINARY}.tar.gz | tar xz
-            mkdir -p bin
-            mv ${YQ_BINARY} bin/yq
-      - run: launch
       - setup_unpub
       - run:
           name: Install and set up melos
