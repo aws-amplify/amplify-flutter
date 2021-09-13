@@ -7,9 +7,19 @@ if ! command -v yq &>/dev/null; then
     exit 1
 fi
 
-if ! command -v docker-compose &>/dev/null; then
+function no_docker {
     echo "Must install Docker Compose before proceeding."
     exit 1
+}
+
+DOCKER_COMMAND=""
+if command -v docker-compose &>/dev/null; then
+    DOCKER_COMMAND="docker-compose" 
+elif command -v docker &>/dev/null; then
+    docker compose >/dev/null || no_docker
+    DOCKER_COMMAND="docker compose"
+else
+    no_docker
 fi
 
 UNPUB_DIR=~/unpub
@@ -17,7 +27,7 @@ UNPUB_DIR=~/unpub
 # Check if UNPUB_DIR is already in use.
 if [[ -d $UNPUB_DIR ]]; then
     echo -n "$UNPUB_DIR already exists." >&2
-    if [[ $CI == "true" ]]; then
+    if [[ -n "$CI" ]]; then
         exit 1
     fi
     echo "Please confirm which directory you want to use." >&2
@@ -36,7 +46,7 @@ mkdir -p $UNPUB_DIR
 pushd $UNPUB_DIR
 curl -L https://raw.githubusercontent.com/dnys1/unpub-launcher/main/docker/latest/docker-compose.yml \
     -o docker-compose.yml
-docker-compose up -d
+$DOCKER_COMMAND up -d
 popd
 
 DEPS='. as $doc | (.dependencies | keys | .[] | select(. == "amplify*") as $k ireduce ({}; $doc.dependencies[$k] = {"hosted": { "url": "http://localhost:8000", "name": $k }, "version": "any" })) | $doc'
