@@ -172,14 +172,13 @@ jobs:
       - image: dnys1/unpub:latest
         entrypoint: sh -c "sleep 5 && /unpub/server --port=8000 --database=mongodb://localhost:27017/dart_pub --uploader-email=test@example.com"
       - image: bitnami/git:latest
-        command: sh -c "export PATH=/opt/bitnami/git/bin:$PATH"
       - image: dnys1/unpub-launcher:latest
         environment:
           UNPUB_HOST: localhost
           UNPUB_PORT: 8000
           UNPUB_GIT_URL: $CIRCLE_REPOSITORY_URL
           UNPUB_GIT_REF: $CIRCLE_SHA1
-        entrypoint: sh -c "sleep 10 && launch"
+        entrypoint: sh -c "sleep 10 && export PATH=/opt/bitnami/git/bin:$PATH && launch"
     working_directory: ~/amplify-flutter
     environment:
       _JAVA_OPTIONS: -XX:MaxRAMPercentage=80.0
