@@ -13,13 +13,13 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_flutter/config/auth/appsync_auth_config.dart';
-import 'package:amplify_flutter/config/auth/auth_block_config.dart';
-import 'package:amplify_flutter/config/auth/cognito_userpool_config.dart';
-import 'package:amplify_flutter/config/auth/credential_provider_config.dart';
-import 'package:amplify_flutter/config/auth/pinpoint_analytics_auth_config.dart';
-import 'package:amplify_flutter/config/auth/pinpoint_targeting_auth_config.dart';
-import 'package:amplify_flutter/config/auth/s3_transfer_utility_auth_config.dart';
+import 'package:amplify_flutter/src/config/auth/appsync_auth_config.dart';
+import 'package:amplify_flutter/src/config/auth/auth_block_config.dart';
+import 'package:amplify_flutter/src/config/auth/cognito_userpool_config.dart';
+import 'package:amplify_flutter/src/config/auth/credential_provider_config.dart';
+import 'package:amplify_flutter/src/config/auth/pinpoint_analytics_auth_config.dart';
+import 'package:amplify_flutter/src/config/auth/pinpoint_targeting_auth_config.dart';
+import 'package:amplify_flutter/src/config/auth/s3_transfer_utility_auth_config.dart';
 
 part 'auth_plugin.g.dart';
 

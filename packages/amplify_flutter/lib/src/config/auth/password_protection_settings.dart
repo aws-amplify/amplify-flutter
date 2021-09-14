@@ -13,21 +13,20 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_flutter/config/auth/auth_plugin.dart';
+import 'package:amplify_flutter/src/config/auth/password_policy_characters.dart';
 
-part 'auth_config.g.dart';
+part 'password_protection_settings.g.dart';
 
-class AuthConfig {
-  final Map<String, AuthPlugin> plugins;
+class PasswordProtectionSettings {
+  final int? passwordPolicyMinLength;
 
-  const AuthConfig(this.plugins);
+  final List<PasswordPolicyCharacters>? passwordPolicyCharacters;
 
-  AuthPlugin? get awsCognitoAuthPlugin {
-    return plugins['awsCognitoAuthPlugin'];
-  }
+  const PasswordProtectionSettings(
+      {this.passwordPolicyMinLength, this.passwordPolicyCharacters});
 
-  factory AuthConfig.fromJson(Map<String, dynamic> json) =>
-      _$AuthConfigFromJson(json);
+  factory PasswordProtectionSettings.fromJson(Map<String, dynamic> json) =>
+      _$PasswordProtectionSettingsFromJson(json);
 
-  Map<String, dynamic> toJson() => _$AuthConfigToJson(this);
+  Map<String, dynamic> toJson() => _$PasswordProtectionSettingsToJson(this);
 }
