@@ -13,7 +13,7 @@ class ImageUploader extends StatelessWidget {
       _paths =
           (await FilePicker.platform.pickFiles(type: FileType.image))?.files;
 
-      File local = File(_paths!.single.path!);
+      File local = File(_paths!.single.path);
       local.existsSync();
       final key = new DateTime.now().toString();
       Map<String, String> metadata = <String, String>{};
