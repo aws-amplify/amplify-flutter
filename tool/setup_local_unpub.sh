@@ -71,8 +71,10 @@ set -euo pipefail
 # $DOCKER_COMMAND up -d
 # popd
 
-DEPS='. as $doc | (.dependencies | keys | .[] | select(. == "amplify*") as $k ireduce ({}; $doc.dependencies[$k] = {"hosted": { "url": "http://localhost:8000", "name": $k }, "version": $doc.dependencies[$k] })) | $doc'
-DEV_DEPS='. as $doc | (.dev_dependencies | keys | .[] | select(. == "amplify*") as $k ireduce ({}; $doc.dev_dependencies[$k] = {"hosted": { "url": "http://localhost:8000", "name": $k }, "version": $doc.dependencies[$k] })) | $doc'
+export VERSION=$(yq e '.version' packages/amplify_flutter/pubspec.yaml)
+
+DEPS='. as $doc | (.dependencies | keys | .[] | select(. == "amplify*") as $k ireduce ({}; $doc.dependencies[$k] = {"hosted": { "url": "http://localhost:8000", "name": $k }, "version": strenv(VERSION) })) | $doc'
+DEV_DEPS='. as $doc | (.dev_dependencies | keys | .[] | select(. == "amplify*") as $k ireduce ({}; $doc.dev_dependencies[$k] = {"hosted": { "url": "http://localhost:8000", "name": $k }, "version": strenv(VERSION) })) | $doc'
 
 # Fix example
 pushd example
@@ -96,11 +98,11 @@ for PACKAGE in packages/*; do
 
     set -e
 
-    # if [[ -d example ]]; then 
-    #     pushd example
-    #     yq e "$DEPS" -i pubspec.yaml
-    #     popd
-    # fi
+    if [[ -d example ]]; then 
+        pushd example
+        yq e "$DEPS" -i pubspec.yaml
+        popd
+    fi
 
     popd
 done
