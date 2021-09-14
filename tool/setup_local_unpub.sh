@@ -1,30 +1,37 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
+set -eo pipefail
 
 YQ_VERSION=v4.12.2
 YQ_BINARY=yq_linux_amd64
+LAUNCHER_BINARY=launcher_linux_amd64
 
 if [[ -n "$CI" ]]; then
-    # Install unpub launcher
-    curl -s -L https://github.com/dnys1/unpub-launcher/releases/download/v1.0/launcher_linux_amd64.tar.gz | tar xz
+    mkdir -p bin
 
-    # Seed packages
-    UNPUB_HOST=localhost \
-    UNPUB_PORT=8000 \
-    UNPUB_GIT_URL=${CIRCLE_REPOSITORY_URL} \
-    UNPUB_GIT_REF=${CIRCLE_BRANCH} \
-    ./launcher_linux_amd64
+    # Install unpub launcher
+    curl -s -L https://github.com/dnys1/unpub-launcher/releases/download/v1.0/${LAUNCHER_BINARY}.tar.gz | tar xz
+    mv ${LAUNCHER_BINARY} bin/launch-unpub
+
+    # Export CI env variables
+    export UNPUB_HOST=localhost
+    export UNPUB_PORT=8000
+    export UNPUB_GIT_URL=${CIRCLE_REPOSITORY_URL}
+    export UNPUB_GIT_REF=${CIRCLE_BRANCH}
 
     # Install yq
     curl -s -L https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/${YQ_BINARY}.tar.gz | tar xz
-    mkdir -p bin
     mv ${YQ_BINARY} bin/yq
 
     export PATH="$PWD/bin:$PATH"
 fi
 
 if ! command -v yq &>/dev/null; then
+    echo "Must install yq before proceeding: \"brew install yq\""
+    exit 1
+fi
+
+if ! command -v launch-unpub &>/dev/null; then
     echo "Must install yq before proceeding: \"brew install yq\""
     exit 1
 fi
@@ -71,9 +78,7 @@ fi
 # $DOCKER_COMMAND up -d
 # popd
 
-export VERSION=$(yq e '.version' packages/amplify_flutter/pubspec.yaml)
-
-DEPS='. as $doc | (.dependencies | keys | .[] | select(. == "amplify*") as $k ireduce ({}; $doc.dependencies[$k] = {"hosted": { "url": "http://localhost:8000", "name": $k }, "version": strenv(VERSION) })) | $doc'
+DEPS='. as $doc | (.dependencies | keys | .[] | select(. == "amplify*") as $k ireduce ({}; $doc.dependencies[$k] = {"hosted": { "url": "http://localhost:8000", "name": $k }, "version": "any" })) | $doc'
 DEV_DEPS='. as $doc | (.dev_dependencies | keys | .[] | select(. == "amplify*") as $k ireduce ({}; $doc.dev_dependencies[$k] = {"hosted": { "url": "http://localhost:8000", "name": $k }, "version": "any" })) | $doc'
 
 # Fix example
@@ -106,3 +111,6 @@ for PACKAGE in packages/*; do
 
     popd
 done
+
+# Seed packages
+launch-unpub
