@@ -16,8 +16,7 @@ if [[ -n "$CI" ]]; then
     # Export CI env variables
     export UNPUB_HOST=localhost
     export UNPUB_PORT=8000
-    export UNPUB_GIT_URL=${CIRCLE_REPOSITORY_URL}
-    export UNPUB_GIT_REF=${CIRCLE_BRANCH}
+    export UNPUB_LOCAL_PATH="."
 
     # Install yq
     curl -s -L https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/${YQ_BINARY}.tar.gz | tar xz
