@@ -80,19 +80,7 @@ class AmplifyAuthCognitoPluginTest {
     private val mockSignInResult = AuthSignInResult(false, signInStep)
     private val mockResetPasswordResult = AuthResetPasswordResult(false, resetStep)
     private val mockUpdateUserAttributeResult = AuthUpdateAttributeResult(true, updateAttributeStep)
-    private val id = AuthSessionResult.success("id")
-    private val awsCredentials: AuthSessionResult<AWSCredentials> = AuthSessionResult.success(BasicAWSCredentials("access", "secret"))
-    private val userSub = AuthSessionResult.success("sub")
-    private val tokens = AuthSessionResult.success(AWSCognitoUserPoolTokens("access", "id", "refresh"))
-    private val mockSession = AWSCognitoAuthSession(
-        true,
-        id,
-        awsCredentials,
-        userSub,
-        tokens
-    )
     private var mockAuth = mock(AuthCategory::class.java)
-
 
     @Before
     fun setup() {
@@ -632,6 +620,69 @@ class AmplifyAuthCognitoPluginTest {
 
         // Assert
         verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
+
+        val expectedOptions = AWSCognitoAuthConfirmResetPasswordOptions
+                .builder()
+                .metadata(clientMetadata)
+                .build()
+
+        verify(mockAuth).confirmResetPassword(
+                ArgumentMatchers.eq(newPassword),
+                ArgumentMatchers.eq(confirmationCode),
+                ArgumentMatchers.eq(expectedOptions),
+                ArgumentMatchers.any<Action>(),
+                ArgumentMatchers.any<Consumer<AuthException>>()
+        )
+    }
+
+    @Test
+    fun confirmResetPasswordWithOptions_returnsSuccess() {
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareUpdatePasswordResult(mockResult)
+            null as Void?
+        }.`when`(mockAuth).confirmResetPassword(
+                anyString(),
+                anyString(),
+                ArgumentMatchers.any<AWSCognitoAuthConfirmResetPasswordOptions>(),
+                ArgumentMatchers.any<Action>(),
+                ArgumentMatchers.any<Consumer<AuthException>>()
+        )
+
+        val clientMetadata = hashMapOf("attribute" to "value")
+        val options = hashMapOf(
+                "clientMetadata" to clientMetadata
+        )
+        val username = "testUser"
+        val newPassword = "newPassword"
+        val confirmationCode = "confirmationCode"
+        val data: HashMap<*, *> = hashMapOf(
+                "username" to username,
+                "newPassword" to newPassword,
+                "confirmationCode" to "confirmationCode",
+                "options" to options
+        )
+        val arguments: HashMap<String, Any> = hashMapOf("data" to data)
+        val call = MethodCall("confirmResetPassword", arguments)
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
+
+        val expectedOptions = AWSCognitoAuthConfirmResetPasswordOptions
+                .builder()
+                .metadata(clientMetadata)
+                .build()
+
+        verify(mockAuth).confirmResetPassword(
+                ArgumentMatchers.eq(newPassword),
+                ArgumentMatchers.eq(confirmationCode),
+                ArgumentMatchers.eq(expectedOptions),
+                ArgumentMatchers.any<Action>(),
+                ArgumentMatchers.any<Consumer<AuthException>>()
+        )
     }
 
     @Test
@@ -688,18 +739,13 @@ class AmplifyAuthCognitoPluginTest {
     fun getCurrentUser_returnsSuccess() {
         // Arrange
         doAnswer { invocation: InvocationOnMock ->
-            plugin.prepareUserResult(mockResult, AuthUser("username", "userSub"))
+            plugin.prepareUpdatePasswordResult(mockResult)
             null as Void?
-        }.`when`(mockAuth).currentUser
-
-        doAnswer { invocation: InvocationOnMock ->
-            plugin.prepareCognitoSessionResult(mockResult, mockSession)
-            null as Void?
-        }.`when`(mockAuth).fetchAuthSession(any(), any())
+        }.`when`(mockAuth).getCurrentUser()
 
         val data: HashMap<*, *> = hashMapOf(
-            "username" to "username",
-            "userSub" to "userSub"
+                "username" to "username",
+                "userSub" to "userSub"
         )
         val arguments: HashMap<String, Any> = hashMapOf("data" to data)
         val call = MethodCall("getCurrentUser", arguments)
@@ -740,6 +786,18 @@ class AmplifyAuthCognitoPluginTest {
 
     @Test
     fun fetchSession_returnsSuccess() {
+        val id = AuthSessionResult.success("id")
+        val awsCredentials: AuthSessionResult<AWSCredentials> = AuthSessionResult.success(BasicAWSCredentials("access", "secret"))
+        val userSub = AuthSessionResult.success("sub")
+        val tokens = AuthSessionResult.success(AWSCognitoUserPoolTokens("access", "id", "refresh"))
+        val mockSession = AWSCognitoAuthSession(
+        true,
+            id,
+            awsCredentials,
+            userSub,
+            tokens
+        )
+
         // Arrange
         doAnswer { invocation: InvocationOnMock ->
             plugin.prepareCognitoSessionResult(mockResult, mockSession)
