@@ -184,6 +184,7 @@ jobs:
           command: |
             flutter pub global activate melos
             melos exec -c 1 -- flutter pub get
+            melos run copy_dummy_config
       - run:
           name: Build example APKs
           command: |

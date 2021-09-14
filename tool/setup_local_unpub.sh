@@ -2,96 +2,59 @@
 
 set -eo pipefail
 
+if [[ -z "$CI" ]]; then
+    echo "This script only works on CircleCI." >&2
+    exit 1
+fi
+
 YQ_VERSION=v4.12.2
 YQ_BINARY=yq_linux_amd64
 LAUNCHER_BINARY=launcher_linux_amd64
 
-if [[ -n "$CI" ]]; then
-    mkdir -p bin
+mkdir -p bin
 
-    # Install unpub launcher
-    curl -s -L https://github.com/dnys1/unpub-launcher/releases/download/v1.0/${LAUNCHER_BINARY}.tar.gz | tar xz
-    mv ${LAUNCHER_BINARY} bin/launch-unpub
+# Install unpub launcher
+curl -s -L https://github.com/dnys1/unpub-launcher/releases/download/v1.0/${LAUNCHER_BINARY}.tar.gz | tar xz
+mv ${LAUNCHER_BINARY} bin/launch-unpub
 
-    # Export CI env variables
-    export UNPUB_HOST=localhost
-    export UNPUB_PORT=8000
-    export UNPUB_LOCAL_PATH="."
+# Export CI env variables
+export UNPUB_HOST=localhost
+export UNPUB_PORT=8000
+export UNPUB_LOCAL_PATH="."
 
-    # Install yq
-    curl -s -L https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/${YQ_BINARY}.tar.gz | tar xz
-    mv ${YQ_BINARY} bin/yq
+# Install yq
+curl -s -L https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/${YQ_BINARY}.tar.gz | tar xz
+mv ${YQ_BINARY} bin/yq
 
-    export PATH="$PWD/bin:$PATH"
+export PATH="$PWD/bin:$PATH"
+
+if ! command -v launch-unpub &>/dev/null; then
+    echo "Could not find launch-unpub in PATH" >&2
+    exit 1
 fi
 
 if ! command -v yq &>/dev/null; then
-    echo "Must install yq before proceeding: \"brew install yq\""
+    echo "Could not find yq in PATH" >&2
     exit 1
 fi
 
-if ! command -v launch-unpub &>/dev/null; then
-    echo "Must install yq before proceeding: \"brew install yq\""
-    exit 1
-fi
-
-# function no_docker {
-#     echo "Must install Docker Compose before proceeding."
-#     exit 1
-# }
-
-# DOCKER_COMMAND=""
-# if command -v docker-compose &>/dev/null; then
-#     DOCKER_COMMAND="docker-compose" 
-# elif command -v docker &>/dev/null; then
-#     docker compose >/dev/null || no_docker
-#     DOCKER_COMMAND="docker compose"
-# else
-#     no_docker
-# fi
-
-# UNPUB_DIR=~/unpub
-
-# # Check if UNPUB_DIR is already in use.
-# if [[ -d $UNPUB_DIR ]]; then
-#     echo -n "$UNPUB_DIR already exists." >&2
-#     if [[ -n "$CI" ]]; then
-#         exit 1
-#     fi
-#     echo "Please confirm which directory you want to use." >&2
-#     echo -n ": "
-#     OVERRIDE_DIR=""
-#     read $OVERRIDE_DIR
-#     if [[ -n $OVERRIDE_DIR ]]; then
-#         UNPUB_DIR=$OVERRIDE_DIR
-#     fi
-# fi
-
-# echo "Launching unpub server at $UNPUB_DIR..."
-
-# Launch unpub server
-# mkdir -p $UNPUB_DIR
-# pushd $UNPUB_DIR
-# curl -L https://raw.githubusercontent.com/dnys1/unpub-launcher/main/docker/latest/docker-compose.yml \
-#     -o docker-compose.yml
-# $DOCKER_COMMAND up -d
-# popd
 
 DEPS='. as $doc | (.dependencies | keys | .[] | select(. == "amplify*") as $k ireduce ({}; $doc.dependencies[$k] = {"hosted": { "url": "http://localhost:8000", "name": $k }, "version": "any" })) | $doc'
 DEV_DEPS='. as $doc | (.dev_dependencies | keys | .[] | select(. == "amplify*") as $k ireduce ({}; $doc.dev_dependencies[$k] = {"hosted": { "url": "http://localhost:8000", "name": $k }, "version": "any" })) | $doc'
 
 # Fix example
-pushd example
+pushd example >/dev/null
 
 # Replace Amplify dependencies with hosted version
 yq e "$DEPS" -i pubspec.yaml
 
-popd
+popd >/dev/null
 
 # Fix individual packages
 for PACKAGE in packages/*; do
-    pushd $PACKAGE
+    pushd $PACKAGE >/dev/null
 
+    # This step can fail for amplify_lints where there are no deps.
     set +e
 
     # Replace Amplify dependencies with hosted version
@@ -103,13 +66,15 @@ for PACKAGE in packages/*; do
     set -e
 
     if [[ -d example ]]; then 
-        pushd example
+        pushd example >/dev/null
+
         yq e "$DEPS" -i pubspec.yaml
-        popd
+
+        popd >/dev/null
     fi
 
-    popd
+    popd >/dev/null
 done
 
-# Seed packages
+# Seed with local packages
 launch-unpub
