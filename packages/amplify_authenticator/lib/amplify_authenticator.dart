@@ -21,7 +21,7 @@ import 'package:amplify_authenticator/src/widgets/default_forms/default_confirm_
 import 'package:amplify_authenticator/src/widgets/default_forms/default_reset_password.dart';
 import 'package:amplify_authenticator/src/widgets/default_forms/default_send_code.dart';
 import 'package:amplify_flutter/amplify.dart';
-import 'package:amplify_flutter/config/amplify_config.dart';
+import 'package:amplify_flutter/src/config/amplify_config.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 

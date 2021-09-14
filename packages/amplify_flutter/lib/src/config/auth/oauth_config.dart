@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_flutter/config/auth/oauth_scopes.dart';
+import 'package:amplify_flutter/src/config/auth/oauth_scopes.dart';
 
 part 'oauth_config.g.dart';
 

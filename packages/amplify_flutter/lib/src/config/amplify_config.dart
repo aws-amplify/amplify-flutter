@@ -13,10 +13,10 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_flutter/config/analytics/analytics_config.dart';
-import 'package:amplify_flutter/config/api/api_config.dart';
-import 'package:amplify_flutter/config/auth/auth_config.dart';
-import 'package:amplify_flutter/config/storage/storage_config.dart';
+import 'package:amplify_flutter/src/config/analytics/analytics_config.dart';
+import 'package:amplify_flutter/src/config/api/api_config.dart';
+import 'package:amplify_flutter/src/config/auth/auth_config.dart';
+import 'package:amplify_flutter/src/config/storage/storage_config.dart';
 
 part 'amplify_config.g.dart';
 

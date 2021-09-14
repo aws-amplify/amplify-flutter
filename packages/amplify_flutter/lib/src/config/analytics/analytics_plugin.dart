@@ -13,8 +13,8 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_flutter/config/analytics/pinpoint_analytics_config.dart';
-import 'package:amplify_flutter/config/analytics/pinpoint_targeting_config.dart';
+import 'package:amplify_flutter/src/config/analytics/pinpoint_analytics_config.dart';
+import 'package:amplify_flutter/src/config/analytics/pinpoint_targeting_config.dart';
 
 part 'analytics_plugin.g.dart';
 

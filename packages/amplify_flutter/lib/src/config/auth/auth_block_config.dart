@@ -13,9 +13,9 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_flutter/config/auth/login_mechanisms.dart';
-import 'package:amplify_flutter/config/auth/mfa_types.dart';
-import 'package:amplify_flutter/config/auth/password_protection_settings.dart';
+import 'package:amplify_flutter/src/config/auth/login_mechanisms.dart';
+import 'package:amplify_flutter/src/config/auth/mfa_types.dart';
+import 'package:amplify_flutter/src/config/auth/password_protection_settings.dart';
 import 'mfa_configurations.dart';
 import 'oauth_config.dart';
 

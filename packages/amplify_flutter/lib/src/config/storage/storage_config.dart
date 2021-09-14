@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_flutter/config/storage/storage_plugin.dart';
+import 'package:amplify_flutter/src/config/storage/storage_plugin.dart';
 
 part 'storage_config.g.dart';
 

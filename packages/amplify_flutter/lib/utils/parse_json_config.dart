@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_flutter/config/amplify_config.dart';
+import 'package:amplify_flutter/src/config/amplify_config.dart';
 import 'package:amplify_flutter/utils/create_config_object.dart';
 import 'package:flutter/foundation.dart';
 

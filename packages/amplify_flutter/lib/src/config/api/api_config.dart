@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_flutter/config/api/api_plugin.dart';
+import 'package:amplify_flutter/src/config/api/api_plugin.dart';
 
 part 'api_config.g.dart';
 

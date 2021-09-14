@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_flutter/config/analytics/analytics_plugin.dart';
+import 'package:amplify_flutter/src/config/analytics/analytics_plugin.dart';
 
 part 'analytics_config.g.dart';
 

@@ -18,7 +18,7 @@ library amplify;
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:amplify_flutter/config/amplify_config.dart';
+import 'package:amplify_flutter/src/config/amplify_config.dart';
 import 'package:amplify_flutter/utils/parse_json_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
