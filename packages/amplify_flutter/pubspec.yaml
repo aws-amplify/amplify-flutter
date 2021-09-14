@@ -26,6 +26,7 @@ dev_dependencies:
   amplify_auth_cognito: 0.2.4
   amplify_datastore: 0.2.4
   amplify_storage_s3: 0.2.4
+  build_runner: ^2.1.1
 
 flutter:
   plugin:
