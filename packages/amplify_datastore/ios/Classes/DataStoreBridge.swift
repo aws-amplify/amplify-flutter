@@ -38,6 +38,20 @@ public class DataStoreBridge {
                               completion: completion)
 
     }
+    
+    func onObserveQuery<M: Model>(
+        _ modelType: M.Type,
+        modelSchema: ModelSchema,
+        where predicate: QueryPredicate? = nil,
+        sort sortInput: [QuerySortDescriptor]? = nil
+    ) throws -> AnyPublisher<DataStoreQuerySnapshot<M>, DataStoreError> {
+        return try getPlugin().observeQuery(
+            for: modelType,
+            modelSchema: modelSchema,
+            where: predicate,
+            sort: sortInput
+        )
+    }
 
     func onSave<M: Model>(serializedModel: M,
                            modelSchema: ModelSchema,

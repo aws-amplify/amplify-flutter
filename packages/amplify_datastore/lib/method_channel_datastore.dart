@@ -174,6 +174,29 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   }
 
   @override
+  Stream<QuerySnapshot> observeQuery<T extends Model>(ModelType<T> modelType,
+      {QueryPredicate? where, List<QuerySortBy>? sortBy}) {
+    String observeQueryId = UUID.getUUID();
+
+    var _eventChannel = EventChannel(
+      'com.amazonaws.amplify/datastore_observe_query_events/${observeQueryId}',
+    );
+    Stream<QuerySnapshot> _eventChannelStream =
+        _eventChannel.receiveBroadcastStream(0).map((data) {
+      return QuerySnapshot.fromMap(data, modelType);
+    });
+
+    _channel.invokeListMethod('observeQuery', <String, dynamic>{
+      'id': observeQueryId,
+      'modelName': modelType.modelName(),
+      'queryPredicate': where?.serializeAsMap(),
+      'querySort': sortBy?.map((element) => element.serializeAsMap()).toList()
+    });
+
+    return _eventChannelStream;
+  }
+
+  @override
   Future<void> clear() async {
     try {
       await _channel.invokeMethod('clear');

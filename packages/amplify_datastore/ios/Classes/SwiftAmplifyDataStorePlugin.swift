@@ -29,6 +29,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     private let dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler?
     private var channel: FlutterMethodChannel?
     var observeSubscription: AnyCancellable?
+    var observeQuerySubscriptions: [String: AnyCancellable] = [:]
     
     init(bridge: DataStoreBridge = DataStoreBridge(),
          flutterModelRegistration: FlutterModels = FlutterModels(),
@@ -79,6 +80,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             onStart(flutterResult: result)
         case "stop":
             onStop(flutterResult: result)
+        case "observeQuery":
+            onObserveQuery(args: arguments, flutterResult: result)
         default:
             result(FlutterMethodNotImplemented)
         }
@@ -216,6 +219,59 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
                                                               flutterResult: flutterResult)
         }
+    }
+    
+    func onObserveQuery(args: [String: Any], flutterResult: @escaping FlutterResult) {
+        let observeQueryId: String = args["id"] as! String
+        let streamHandler = createObserveQueryChannel(id: observeQueryId)
+        do {
+            let modelName = try FlutterDataStoreRequestUtils.getModelName(methodChannelArguments: args)
+            let modelSchema = try FlutterDataStoreRequestUtils.getModelSchema(modelSchemas: flutterModelRegistration.modelSchemas, modelName: modelName)
+            let queryPredicates = try QueryPredicateBuilder.fromSerializedMap(args["queryPredicate"] as? [String : Any])
+            let querySortInput = try QuerySortBuilder.fromSerializedList(args["querySort"] as? [[String: Any]])
+            
+            let observeQuerySubscription = try bridge.onObserveQuery(
+                FlutterSerializedModel.self,
+                modelSchema: modelSchema,
+                where: queryPredicates,
+                sort: querySortInput
+            ).sink {
+                completion in
+                    switch completion {
+                    case .failure(let error):
+                        streamHandler.sendError(error: error)
+                    case .finished:
+                        self.observeQuerySubscriptions[observeQueryId] = nil
+                    }
+                 } receiveValue: { (querySnapshot) in
+                    do {
+                        let flutterObserveQueryEvent = FlutterObserveQueryEvent.init(querySnapshot: querySnapshot)
+                        let flutterEvent = try flutterObserveQueryEvent.toJSON(
+                            flutterModelRegistration: self.flutterModelRegistration,
+                            modelName: modelName
+                        )
+                        streamHandler.sendEvent(flutterEvent: flutterEvent)
+                    } catch let error {
+                        streamHandler.sendError(error: error)
+                    }
+                 }
+            self.observeQuerySubscriptions[observeQueryId] = observeQuerySubscription
+        } catch let error as DataStoreError {
+            print("Failed to parse observeQuery arguments with \(error)")
+            FlutterDataStoreErrorHandler.handleDataStoreError(
+                error: error,
+                flutterResult: flutterResult
+            )
+        }
+        catch {
+            print("An unexpected error occured when parsing observeQuery arguments: \(error)")
+            FlutterDataStoreErrorHandler.handleDataStoreError(
+                error: DataStoreError(error: error),
+                flutterResult: flutterResult
+            )
+        }
+        flutterResult(nil)
+        
     }
     
     func onSave(args: [String: Any], flutterResult: @escaping FlutterResult) {
@@ -429,6 +485,17 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                 return resolvedQueryPredicate
             }
         }
+    }
+    
+    private func createObserveQueryChannel(id: String) -> DataStoreObserveQueryStreamHandler {
+        let controller: FlutterViewController = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController as! FlutterViewController
+        let observeQueryChannel = FlutterEventChannel(
+            name: "com.amazonaws.amplify/datastore_observe_query_events/" + id,
+            binaryMessenger: controller.binaryMessenger
+        )
+        let streamHandler: DataStoreObserveQueryStreamHandler = DataStoreObserveQueryStreamHandler()
+        observeQueryChannel.setStreamHandler(streamHandler)
+        return streamHandler;
     }
     
     // TODO: Remove once all configure is moved to the bridge
