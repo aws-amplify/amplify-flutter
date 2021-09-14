@@ -15,11 +15,13 @@
 
 library amplify_authenticator;
 
-import 'package:amplify_authenticator/src/models/authenticator_exceptions.dart';
+import 'package:amplify_authenticator/src/widgets/default_forms/default_confirm_signin_mfa.dart';
+import 'package:amplify_authenticator/src/widgets/default_forms/default_confirm_signin_new_password.dart';
+import 'package:amplify_authenticator/src/widgets/default_forms/default_confirm_signup.dart';
+import 'package:amplify_authenticator/src/widgets/default_forms/default_reset_password.dart';
+import 'package:amplify_authenticator/src/widgets/default_forms/default_send_code.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_flutter/config/amplify_config.dart';
-import 'package:amplify_flutter/config/auth/auth_config.dart';
-import 'package:amplify_flutter/config/auth/auth_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 
@@ -60,8 +62,9 @@ import 'package:amplify_authenticator/src/text_customization/auth_strings_resolv
 
 //Widgets
 import 'package:amplify_authenticator/src/widgets/forms.dart';
-import 'package:amplify_authenticator/src/widgets/default_forms.dart';
 import 'package:amplify_authenticator/src/widgets/auth_exceptions.dart';
+import 'package:amplify_authenticator/src/widgets/default_forms/default_signup.dart';
+import 'package:amplify_authenticator/src/widgets/default_forms/default_signin.dart';
 
 //Exports
 export 'package:amplify_authenticator/src/enums/alias.dart';
@@ -241,9 +244,7 @@ class _AuthenticatorState extends State<Authenticator> {
 
   @override
   Widget build(BuildContext context) {
-    var defaultForms = DefaultForms();
     AuthStringResolver resolver = widget.resolver ?? AuthStringResolver();
-    defaultForms.context = context;
 
     if (_configInitialized && _missingConfigValues.isNotEmpty) {
       throw StateError(
@@ -251,21 +252,17 @@ class _AuthenticatorState extends State<Authenticator> {
     }
 
     /// Check for customizable forms passed into the Authenticator
-    var signInForm = widget.signInForm ??
-        defaultForms.signInForm(widget.usernameAlias, resolver);
-    var signUpForm = widget.signUpForm ??
-        defaultForms.signUpForm(widget.usernameAlias, resolver, _config);
+    var signInForm = widget.signInForm ?? DefaultSignInForm();
+    var signUpForm = widget.signUpForm ?? DefaultSignUpForm();
     var confirmSignInMFAForm =
-        widget.confirmSignInMFAForm ?? defaultForms.confirmSignInForm(resolver);
+        widget.confirmSignInMFAForm ?? DefaultConfirmSignInMFAForm();
+    var confirmSignInNewPasswordForm = DefaultConfirmSignInNewPasswordForm();
 
     /// Instantiate static forms
-    var confirmSignUpForm =
-        defaultForms.confirmSignUpForm(widget.usernameAlias, resolver);
-    var confirmSignInNewPasswordForm =
-        defaultForms.confirmSignInNewPasswordForm(resolver);
-    var resetPasswordForm = defaultForms.resetPasswordForm(resolver);
-    var sendCodeForm =
-        defaultForms.sendCodeForm(widget.usernameAlias, resolver);
+    var confirmSignUpForm = DefaultConfirmSignUpForm();
+
+    var resetPasswordForm = DefaultResetPasswordForm();
+    var sendCodeForm = DefaultSendCodeForm();
 
     return InheritedAuthBloc(
         key: const Key(keyInheritedAuthBloc),

@@ -28,6 +28,12 @@ class InputResolver {
   /// Hint of password field
   StringResolver password_hint = (_) => "Enter your password";
 
+  /// Title of password confirmation field
+  StringResolver password_confirmation_title = (_) => "Confirm Password*";
+
+  /// Hint of password confirmation field
+  StringResolver password_confirmation_hint = (_) => "Re-enter your password";
+
   /// Title of email field
   StringResolver email_title = (_) => "Email*";
 
