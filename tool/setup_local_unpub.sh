@@ -2,32 +2,32 @@
 
 set -euo pipefail
 
-# YQ_VERSION=v4.12.2
-# YQ_BINARY=yq_linux_amd64
+YQ_VERSION=v4.12.2
+YQ_BINARY=yq_linux_amd64
 
-# if [[ -n "$CI" ]]; then
-#     # Install unpub launcher
-#     curl -s -L https://github.com/dnys1/unpub-launcher/releases/download/v1.0/launcher_linux_amd64.tar.gz | tar xz
+if [[ -n "$CI" ]]; then
+    # Install unpub launcher
+    curl -s -L https://github.com/dnys1/unpub-launcher/releases/download/v1.0/launcher_linux_amd64.tar.gz | tar xz
 
-#     # Seed packages
-#     UNPUB_HOST=localhost \
-#     UNPUB_PORT=8000 \
-#     UNPUB_GIT_URL=${CIRCLE_REPOSITORY_URL} \
-#     UNPUB_GIT_REF=${CIRCLE_BRANCH} \
-#     ./launcher_linux_amd64
+    # Seed packages
+    UNPUB_HOST=localhost \
+    UNPUB_PORT=8000 \
+    UNPUB_GIT_URL=${CIRCLE_REPOSITORY_URL} \
+    UNPUB_GIT_REF=${CIRCLE_BRANCH} \
+    ./launcher_linux_amd64
 
-#     # Install yq
-#     curl -s -L https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/${YQ_BINARY}.tar.gz | tar xz
-#     mkdir -p bin
-#     mv ${YQ_BINARY} bin/yq
+    # Install yq
+    curl -s -L https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/${YQ_BINARY}.tar.gz | tar xz
+    mkdir -p bin
+    mv ${YQ_BINARY} bin/yq
 
-#     export PATH="$PWD/bin:$PATH"
-# fi
+    export PATH="$PWD/bin:$PATH"
+fi
 
-# if ! command -v yq &>/dev/null; then
-#     echo "Must install yq before proceeding: \"brew install yq\""
-#     exit 1
-# fi
+if ! command -v yq &>/dev/null; then
+    echo "Must install yq before proceeding: \"brew install yq\""
+    exit 1
+fi
 
 # function no_docker {
 #     echo "Must install Docker Compose before proceeding."
