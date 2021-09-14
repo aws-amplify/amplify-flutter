@@ -186,10 +186,15 @@ jobs:
             melos exec -c 1 -- flutter pub get
             melos run copy_dummy_config
       - run:
-          name: Build example APKs
+          name: Build debug APKs
           command: |
-            melos run build:examples:android
-          no_output_timeout: 20m
+            build:examples:android
+          no_output_timeout: 10m
+      - run:
+          name: Build release APKs
+          command: |
+            build:examples:release:android
+          no_output_timeout: 10m
 
 releasable_branches: &releasable_branches
   branches:
@@ -200,9 +205,9 @@ releasable_branches: &releasable_branches
 workflows:
   test_deploy:
     jobs:
-      # - format_flutter
-      # - analyze_flutter
-      # - unit_test_flutter
-      # - unit_test_android
-      # - unit_test_ios
+      - format_flutter
+      - analyze_flutter
+      - unit_test_flutter
+      - unit_test_android
+      - unit_test_ios
       - release_verification_android
