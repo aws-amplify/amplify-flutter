@@ -247,8 +247,9 @@ class _AuthenticatorState extends State<Authenticator> {
     AuthStringResolver resolver = widget.resolver ?? AuthStringResolver();
 
     if (_configInitialized && _missingConfigValues.isNotEmpty) {
-      throw StateError(
-          'Encountered problem(s) building the Authenticator because your amplifyconfiguration.dart file is missing required values: ${_missingConfigValues.join('/n')}). You should correct your amplifyconfiguration.dart file and restart your app.');
+      throw StateError('''Encountered problem(s) building the Authenticator.
+          Your amplifyconfiguration.dart file is missing required values: ${_missingConfigValues.join('\n')}). 
+          You should correct your amplifyconfiguration.dart file and restart your app.''');
     }
 
     /// Check for customizable forms passed into the Authenticator
