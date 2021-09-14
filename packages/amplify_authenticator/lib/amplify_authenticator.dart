@@ -15,6 +15,13 @@
 
 library amplify_authenticator;
 
+import 'package:amplify_authenticator/src/widgets/default_forms/default_confirm_signin_mfa.dart';
+import 'package:amplify_authenticator/src/widgets/default_forms/default_confirm_signin_new_password.dart';
+import 'package:amplify_authenticator/src/widgets/default_forms/default_confirm_signup.dart';
+import 'package:amplify_authenticator/src/widgets/default_forms/default_reset_password.dart';
+import 'package:amplify_authenticator/src/widgets/default_forms/default_send_code.dart';
+import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/src/config/amplify_config.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 
@@ -55,8 +62,9 @@ import 'package:amplify_authenticator/src/text_customization/auth_strings_resolv
 
 //Widgets
 import 'package:amplify_authenticator/src/widgets/forms.dart';
-import 'package:amplify_authenticator/src/widgets/default_forms.dart';
 import 'package:amplify_authenticator/src/widgets/auth_exceptions.dart';
+import 'package:amplify_authenticator/src/widgets/default_forms/default_signup.dart';
+import 'package:amplify_authenticator/src/widgets/default_forms/default_signin.dart';
 
 //Exports
 export 'package:amplify_authenticator/src/enums/alias.dart';
@@ -202,39 +210,60 @@ class Authenticator extends StatefulWidget {
 
 class _AuthenticatorState extends State<Authenticator> {
   final AuthService _authService = AmplifyAuthService();
-
   late final StateMachineBloc _stateMachineBloc;
+  AmplifyConfig? _config;
+  late List<String> _missingConfigValues;
+  bool _configInitialized = false;
 
   @override
   void initState() {
     super.initState();
     _stateMachineBloc = StateMachineBloc(_authService)
       ..authEvent.add(GetCurrentUser());
+    waitForConfiguration();
+  }
+
+  Future<void> waitForConfiguration() async {
+    await Amplify.asyncConfig.then((config) {
+      setState(() {
+        _config = config;
+        _configInitialized = true;
+        _missingConfigValues = missingConfigValues(config);
+      });
+    });
+  }
+
+  List<String> missingConfigValues(AmplifyConfig? config) {
+    List<String> missingValues = [];
+    var cognitoPlugin = config?.auth?.awsCognitoAuthPlugin?.auth?['Default'];
+    cognitoPlugin ?? missingValues.add('auth.plugins.Auth.Default');
+    cognitoPlugin?.signupAttributes?.length ??
+        missingValues.add('auth.plugins.Auth.Default.signUpAttributes');
+    return missingValues;
   }
 
   @override
   Widget build(BuildContext context) {
-    var defaultForms = DefaultForms();
     AuthStringResolver resolver = widget.resolver ?? AuthStringResolver();
 
-    defaultForms.context = context;
+    if (_configInitialized && _missingConfigValues.isNotEmpty) {
+      throw StateError('''Encountered problem(s) building the Authenticator.
+          Your amplifyconfiguration.dart file is missing required values: ${_missingConfigValues.join('\n')}). 
+          You should correct your amplifyconfiguration.dart file and restart your app.''');
+    }
 
     /// Check for customizable forms passed into the Authenticator
-    var signInForm = widget.signInForm ??
-        defaultForms.signInForm(widget.usernameAlias, resolver);
-    var signUpForm = widget.signUpForm ??
-        defaultForms.signUpForm(widget.usernameAlias, resolver);
+    var signInForm = widget.signInForm ?? DefaultSignInForm();
+    var signUpForm = widget.signUpForm ?? DefaultSignUpForm();
     var confirmSignInMFAForm =
-        widget.confirmSignInMFAForm ?? defaultForms.confirmSignInForm(resolver);
+        widget.confirmSignInMFAForm ?? DefaultConfirmSignInMFAForm();
+    var confirmSignInNewPasswordForm = DefaultConfirmSignInNewPasswordForm();
 
     /// Instantiate static forms
-    var confirmSignUpForm =
-        defaultForms.confirmSignUpForm(widget.usernameAlias, resolver);
-    var confirmSignInNewPasswordForm =
-        defaultForms.confirmSignInNewPasswordForm(resolver);
-    var resetPasswordForm = defaultForms.resetPasswordForm(resolver);
-    var sendCodeForm =
-        defaultForms.sendCodeForm(widget.usernameAlias, resolver);
+    var confirmSignUpForm = DefaultConfirmSignUpForm();
+
+    var resetPasswordForm = DefaultResetPasswordForm();
+    var sendCodeForm = DefaultSendCodeForm();
 
     return InheritedAuthBloc(
         key: const Key(keyInheritedAuthBloc),
@@ -259,7 +288,10 @@ class _AuthenticatorState extends State<Authenticator> {
                       body: StreamBuilder(
                     stream: _stateMachineBloc.stream,
                     builder: (context, snapshot) {
-                      final state = snapshot.data ?? const AuthLoading();
+                      final state =
+                          (snapshot.data != null && _config?.auth != null)
+                              ? snapshot.data
+                              : const AuthLoading();
                       late Widget screen;
                       if (state is AuthLoading) {
                         screen = LoadingScreen();

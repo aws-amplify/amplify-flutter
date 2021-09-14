@@ -1,3 +1,18 @@
+/*
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+*/
+
 import 'package:amplify_authenticator/src/enums/confirm_signin_types.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/widgets/buttons.dart';
@@ -221,8 +236,9 @@ class _SignUpFormFieldState extends State<SignUpFormField> {
     Key _key;
     String? Function(String?)? _validator;
     TextInputType _keyboardType = TextInputType.text;
-    final SignUpType? _type = fromStringToSignUpType(type);
+    final SignUpType? _type = fromStringToSignUpType(widget.type);
     Widget? _visible;
+
     /// Special validator using the existing password, executed if a passwordConfirmation field is present
     /// TODO: Implement a mechanism for customers to access subsets of the viewmodels.
     String? validatePasswordConfirmation(String? passwordConfirmation) {
@@ -233,6 +249,7 @@ class _SignUpFormFieldState extends State<SignUpFormField> {
       }
       return null;
     }
+
     switch (_type) {
       case SignUpType.username:
         _callBack = (String value) {
@@ -267,7 +284,7 @@ class _SignUpFormFieldState extends State<SignUpFormField> {
         };
         _keyboardType = TextInputType.visiblePassword;
         _obscureText = true;
-        _validator = validator ?? validatePasswordConfirmation;
+        _validator = widget.validator ?? validatePasswordConfirmation;
         _key = const Key(keyPasswordConfirmationSignUpFormField);
         break;
       case SignUpType.address:
