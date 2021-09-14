@@ -34,6 +34,20 @@ public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
         setHubListener()
         return nil
     }
+
+    func ensureSchemaRegistries() throws -> (
+        modelSchemaRegistry: FlutterSchemaRegistry, customTypeSchemaRegistry: FlutterSchemaRegistry
+    ) {
+        guard let modelSchemaRegistry = self.modelSchemaRegistry else {
+            throw FlutterDataStoreError.acquireSchemaForHub
+        }
+
+        guard let customTypeSchemaRegistry = self.customTypeSchemaRegistry else {
+            throw FlutterDataStoreError.acquireSchemaForHub
+        }
+
+        return (modelSchemaRegistry, customTypeSchemaRegistry)
+    }
     
     func setHubListener() {
         self.token = Amplify.Hub.listen(to: .dataStore) { (payload) in
@@ -92,11 +106,12 @@ public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
                     guard let outboxMutationEnqueued = payload.data as? OutboxMutationEvent else {
                         throw FlutterDataStoreError.hubEventCast
                     }
+                    let schemaRegistries = try self.ensureSchemaRegistries()
                     let flutterOutboxMutationEnqueued = try FlutterOutboxMutationEnqueuedEvent(
                         outboxMutationEnqueued: outboxMutationEnqueued,
                         eventName: payload.eventName,
-                        modelSchemaRegistry: self.modelSchemaRegistry!,
-                        customTypeSchemaRegistry: self.customTypeSchemaRegistry!
+                        modelSchemaRegistry: schemaRegistries.modelSchemaRegistry,
+                        customTypeSchemaRegistry: schemaRegistries.customTypeSchemaRegistry
                     )
                     self.sendEvent(flutterEvent: flutterOutboxMutationEnqueued.toValueMap())
                 } catch {
@@ -107,11 +122,12 @@ public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
                     guard let outboxMutationProcessed = payload.data as? OutboxMutationEvent else {
                         throw FlutterDataStoreError.hubEventCast
                     }
+                    let schemaRegistries = try self.ensureSchemaRegistries()
                     let flutterOutboxMutationProcessed = try FlutterOutboxMutationProcessedEvent(
                         outboxMutationProcessed: outboxMutationProcessed,
                         eventName: payload.eventName,
-                        modelSchemaRegistry: self.modelSchemaRegistry!,
-                        customTypeSchemaRegistry: self.customTypeSchemaRegistry!
+                        modelSchemaRegistry: schemaRegistries.modelSchemaRegistry,
+                        customTypeSchemaRegistry: schemaRegistries.customTypeSchemaRegistry
                     )
                     self.sendEvent(flutterEvent: flutterOutboxMutationProcessed.toValueMap())
                 } catch {

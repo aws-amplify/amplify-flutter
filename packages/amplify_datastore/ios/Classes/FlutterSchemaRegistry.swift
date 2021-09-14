@@ -50,12 +50,4 @@ final public class FlutterSchemaRegistry: AmplifyModelRegistration {
             }
         }
     }
-
-    public func getModelSchema(modelSchemaName: String) -> ModelSchema? {
-        guard let result = modelSchemas[modelSchemaName] else {
-            print("Error")
-            return nil
-        }
-        return result
-    }
 }

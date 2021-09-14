@@ -119,7 +119,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             )
             try registerCustomTypeSchemas(
                 serializedCustomTypeSchemas: serializedCustomTypeSchemas,
-                customTypeSchemaDependentOrder: customTypeSchemaDependenciesOrder
+                customTypeSchemaDependenciesOrder: customTypeSchemaDependenciesOrder
             )
 
             let modelSchemas: [ModelSchema] = try serializedModelSchemas.map {
@@ -470,18 +470,29 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     // and then convert and register custom type schemas that don't any dependencies 
     private func registerCustomTypeSchemas(
         serializedCustomTypeSchemas: [[String: Any]],
-        customTypeSchemaDependentOrder: [String]
+        customTypeSchemaDependenciesOrder: [String]
     ) throws {
-        for schemaName in customTypeSchemaDependentOrder {
-            let serializedSchema = serializedCustomTypeSchemas.first(where: { $0["name"] as! String == schemaName } )
-            let schema: ModelSchema = try FlutterModelSchema.init(serializedData: serializedSchema!)
+        for schemaName in customTypeSchemaDependenciesOrder {
+            guard let serializedSchema = serializedCustomTypeSchemas.first(where: { $0["name"] as? String == schemaName } ) else {
+                throw DataStoreError.internalOperation(
+                    "Cannot find serialized custom type schema for the given custom type name.",
+                    "This should not happen, please open an issue at https://github.com/aws-amplify/amplify-flutter/issues"
+                )
+            }
+            let schema: ModelSchema = try FlutterModelSchema.init(serializedData: serializedSchema)
                 .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemaRegistry)
             customTypeSchemaRegistry.addModelSchema(modelName: schemaName, modelSchema: schema)
         }
 
         for serializedCustomTypeSchema in serializedCustomTypeSchemas {
-            let schemaName = serializedCustomTypeSchema["name"] as! String
-            if (!customTypeSchemaDependentOrder.contains(schemaName)) {
+            guard let schemaName = serializedCustomTypeSchema["name"] as? String else {
+                throw DataStoreError.decodingError(
+                    "Cannot get schema name.",
+                    "Please ensure generating correct models using Ampliy CLi. If this still happens after regenerating models,"
+                        + "please open an issue at https://github.com/aws-amplify/amplify-flutter/issues"
+                )
+            }
+            if (!customTypeSchemaDependenciesOrder.contains(schemaName)) {
                 let schema: ModelSchema = try FlutterModelSchema.init(serializedData: serializedCustomTypeSchema)
                     .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemaRegistry)
                 customTypeSchemaRegistry.addModelSchema(modelName: schemaName, modelSchema: schema)
@@ -496,24 +507,60 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     private func getCustomTypeSchemasDependenciesOrder(serializedCustomTypeSchemas: [[String: Any]]) throws -> [String] {
         var schemasDependencies: [String: [String]] = [:]
         for serializedCustomTypeSchema in serializedCustomTypeSchemas {
-            let fields = serializedCustomTypeSchema["fields"] as! [String: [String: Any]]
+            guard let fields = serializedCustomTypeSchema["fields"] as? [String: [String: Any]] else {
+                throw DataStoreError.decodingError(
+                    "Cannot get fields from serialized schema",
+                    "Please ensure generating correct models using Ampliy CLi. If this still happens after regenerating models,"
+                        + "please open an issue at https://github.com/aws-amplify/amplify-flutter/issues")
+            }
+
             for (_, field) in fields {
-                let type = field["type"] as! [String: String]
+                guard let type = field["type"] as? [String: String] else {
+                    throw DataStoreError.decodingError(
+                        "Cannot get field type from a field in serialized schema",
+                        "Please ensure generating correct models using Ampliy CLi. If this still happens after regenerating models,"
+                            + "please open an issue at https://github.com/aws-amplify/amplify-flutter/issues")
+                }
                 // in Flutter sent serialized schema, both embedded and embeddedCollection fields
                 // are described as "embedded"
                 if (type["fieldType"] == "embedded") {
-                    let schemaName = serializedCustomTypeSchema["name"] as! String
+                    guard let schemaName = serializedCustomTypeSchema["name"] as? String else {
+                        throw DataStoreError.decodingError(
+                            "Cannot get schema name.",
+                            "Please ensure generating correct models using Ampliy CLi. If this still happens after regenerating models,"
+                                + "please open an issue at https://github.com/aws-amplify/amplify-flutter/issues"
+                        )
+                    }
                     if (schemasDependencies[schemaName] == nil) {
                         schemasDependencies[schemaName] = []
                     }
-                    schemasDependencies[schemaName]?.append(type["ofCustomTypeName"]!)
+                    guard let customTypeName = type["ofCustomTypeName"] else {
+                        throw DataStoreError.decodingError(
+                            "Cannot get custom type name from a field that has custom type value",
+                            "Please ensure generating correct models using Ampliy CLi. If this still happens after regenerating models,"
+                                + "please open an issue at https://github.com/aws-amplify/amplify-flutter/issues"
+                        )
+                    }
+                    schemasDependencies[schemaName]?.append(customTypeName)
                 }
             }
         }
+
         var result: [String] = [];
+
+        if (schemasDependencies.isEmpty) {
+            return result
+        }
+
         var unresolved: Set<String> = []
+        guard let startNode = schemasDependencies.keys.first else {
+            throw DataStoreError.internalOperation(
+                "Cannot start resolving custom type dependencies order.",
+                "This should not happen, please open an issue at https://github.com/aws-amplify/amplify-flutter/issues"
+            )
+        }
         try resolveCustomTypeScheamOrder(
-            startNode: schemasDependencies.keys.first!,
+            startNode: startNode,
             dependenciesMap: schemasDependencies,
             result: &result,
             unresolved: &unresolved

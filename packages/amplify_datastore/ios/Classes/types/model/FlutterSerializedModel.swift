@@ -217,7 +217,7 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
                     ]
                 }
                 // if embedded
-                else if case .embedded(_, .some(let customTypeSchema)) = field!.type {
+                else if case .embedded(_, .some(let customTypeSchema)) = field?.type {
                     let customTypeName = customTypeSchema.name
                     result[key] = [
                         "customTypeName": customTypeName,
