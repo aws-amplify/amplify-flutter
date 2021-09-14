@@ -187,13 +187,11 @@ jobs:
             melos run copy_dummy_config
       - run:
           name: Build debug APKs
-          command: |
-            build:examples:android
+          command: melos run build:examples:android
           no_output_timeout: 10m
       - run:
           name: Build release APKs
-          command: |
-            build:examples:release:android
+          command: melos run build:examples:release:android
           no_output_timeout: 10m
 
 releasable_branches: &releasable_branches
