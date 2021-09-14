@@ -221,8 +221,9 @@ class _SignUpFormFieldState extends State<SignUpFormField> {
     Key _key;
     String? Function(String?)? _validator;
     TextInputType _keyboardType = TextInputType.text;
-    final SignUpType? _type = fromStringToSignUpType(type);
+    final SignUpType? _type = fromStringToSignUpType(widget.type);
     Widget? _visible;
+
     /// Special validator using the existing password, executed if a passwordConfirmation field is present
     /// TODO: Implement a mechanism for customers to access subsets of the viewmodels.
     String? validatePasswordConfirmation(String? passwordConfirmation) {
@@ -233,6 +234,7 @@ class _SignUpFormFieldState extends State<SignUpFormField> {
       }
       return null;
     }
+
     switch (_type) {
       case SignUpType.username:
         _callBack = (String value) {
@@ -267,7 +269,7 @@ class _SignUpFormFieldState extends State<SignUpFormField> {
         };
         _keyboardType = TextInputType.visiblePassword;
         _obscureText = true;
-        _validator = validator ?? validatePasswordConfirmation;
+        _validator = widget.validator ?? validatePasswordConfirmation;
         _key = const Key(keyPasswordConfirmationSignUpFormField);
         break;
       case SignUpType.address:
