@@ -2,34 +2,32 @@
 
 set -euo pipefail
 
-YQ_VERSION=v4.12.2
-YQ_BINARY=yq_linux_amd64
+# YQ_VERSION=v4.12.2
+# YQ_BINARY=yq_linux_amd64
 
-env
+# if [[ -n "$CI" ]]; then
+#     # Install unpub launcher
+#     curl -s -L https://github.com/dnys1/unpub-launcher/releases/download/v1.0/launcher_linux_amd64.tar.gz | tar xz
 
-if [[ -n "$CI" ]]; then
-    # Install unpub launcher
-    curl -s -L https://github.com/dnys1/unpub-launcher/releases/download/v1.0/launcher_linux_amd64.tar.gz | tar xz
+#     # Seed packages
+#     UNPUB_HOST=localhost \
+#     UNPUB_PORT=8000 \
+#     UNPUB_GIT_URL=${CIRCLE_REPOSITORY_URL} \
+#     UNPUB_GIT_REF=${CIRCLE_BRANCH} \
+#     ./launcher_linux_amd64
 
-    # Seed packages
-    UNPUB_HOST=localhost \
-    UNPUB_PORT=8000 \
-    UNPUB_GIT_URL=${CIRCLE_REPOSITORY_URL} \
-    UNPUB_GIT_REF=${CIRCLE_BRANCH} \
-    ./launcher_linux_amd64
+#     # Install yq
+#     curl -s -L https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/${YQ_BINARY}.tar.gz | tar xz
+#     mkdir -p bin
+#     mv ${YQ_BINARY} bin/yq
 
-    # Install yq
-    curl -s -L https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/${YQ_BINARY}.tar.gz | tar xz
-    mkdir -p bin
-    mv ${YQ_BINARY} bin/yq
+#     export PATH="$PWD/bin:$PATH"
+# fi
 
-    export PATH="$PWD/bin:$PATH"
-fi
-
-if ! command -v yq &>/dev/null; then
-    echo "Must install yq before proceeding: \"brew install yq\""
-    exit 1
-fi
+# if ! command -v yq &>/dev/null; then
+#     echo "Must install yq before proceeding: \"brew install yq\""
+#     exit 1
+# fi
 
 # function no_docker {
 #     echo "Must install Docker Compose before proceeding."
@@ -73,8 +71,8 @@ fi
 # $DOCKER_COMMAND up -d
 # popd
 
-DEPS='. as $doc | (.dependencies | keys | .[] | select(. == "amplify*") as $k ireduce ({}; $doc.dependencies[$k] = {"hosted": { "url": "http://localhost:8000", "name": $k }, "version": "any" })) | $doc'
-DEV_DEPS='. as $doc | (.dev_dependencies | keys | .[] | select(. == "amplify*") as $k ireduce ({}; $doc.dev_dependencies[$k] = {"hosted": { "url": "http://localhost:8000", "name": $k }, "version": "any" })) | $doc'
+DEPS='. as $doc | (.dependencies | keys | .[] | select(. == "amplify*") as $k ireduce ({}; $doc.dependencies[$k] = {"hosted": { "url": "http://localhost:8000", "name": $k }, "version": $doc.dependencies[$k] })) | $doc'
+DEV_DEPS='. as $doc | (.dev_dependencies | keys | .[] | select(. == "amplify*") as $k ireduce ({}; $doc.dev_dependencies[$k] = {"hosted": { "url": "http://localhost:8000", "name": $k }, "version": $doc.dependencies[$k] })) | $doc'
 
 # Fix example
 pushd example
@@ -98,11 +96,11 @@ for PACKAGE in packages/*; do
 
     set -e
 
-    if [[ -d example ]]; then 
-        pushd example
-        yq e "$DEPS" -i pubspec.yaml
-        popd
-    fi
+    # if [[ -d example ]]; then 
+    #     pushd example
+    #     yq e "$DEPS" -i pubspec.yaml
+    #     popd
+    # fi
 
     popd
 done
