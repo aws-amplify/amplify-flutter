@@ -19,7 +19,10 @@ class AuthSessionRequest {
   AuthSessionOptions? options;
   AuthSessionRequest({this.options});
   Map<String, dynamic> serializeAsMap() {
-    throw UnimplementedError(
-        'serializeAsMap() has not been implemented on FetchUserAttributesOptions.');
+    final Map<String, dynamic> pendingRequest = {
+      'options': options?.serializeAsMap()
+    };
+    pendingRequest.removeWhere((_, v) => v == null);
+    return pendingRequest;
   }
 }
