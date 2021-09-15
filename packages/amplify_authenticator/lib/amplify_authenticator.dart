@@ -253,17 +253,17 @@ class _AuthenticatorState extends State<Authenticator> {
     }
 
     /// Check for customizable forms passed into the Authenticator
-    var signInForm = widget.signInForm ?? DefaultSignInForm();
-    var signUpForm = widget.signUpForm ?? DefaultSignUpForm();
+    var signInForm = widget.signInForm ?? const DefaultSignInForm();
+    var signUpForm = widget.signUpForm ?? const DefaultSignUpForm();
     var confirmSignInMFAForm =
-        widget.confirmSignInMFAForm ?? DefaultConfirmSignInMFAForm();
-    var confirmSignInNewPasswordForm = DefaultConfirmSignInNewPasswordForm();
+        widget.confirmSignInMFAForm ?? const DefaultConfirmSignInMFAForm();
 
     /// Instantiate static forms
-    var confirmSignUpForm = DefaultConfirmSignUpForm();
-
-    var resetPasswordForm = DefaultResetPasswordForm();
-    var sendCodeForm = DefaultSendCodeForm();
+    var confirmSignInNewPasswordForm =
+        const DefaultConfirmSignInNewPasswordForm();
+    var confirmSignUpForm = const DefaultConfirmSignUpForm();
+    var resetPasswordForm = const DefaultResetPasswordForm();
+    var sendCodeForm = const DefaultSendCodeForm();
 
     return InheritedAuthBloc(
         key: const Key(keyInheritedAuthBloc),
@@ -288,10 +288,11 @@ class _AuthenticatorState extends State<Authenticator> {
                       body: StreamBuilder(
                     stream: _stateMachineBloc.stream,
                     builder: (context, snapshot) {
-                      final state =
-                          (snapshot.data != null && _config?.auth != null)
-                              ? snapshot.data
-                              : const AuthLoading();
+                      final state = (snapshot.data != null &&
+                              _configInitialized &&
+                              _config?.auth != null)
+                          ? snapshot.data
+                          : const AuthLoading();
                       late Widget screen;
                       if (state is AuthLoading) {
                         screen = LoadingScreen();

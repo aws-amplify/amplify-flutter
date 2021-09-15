@@ -20,8 +20,8 @@ import 'package:flutter/widgets.dart';
 //This form will be displayed when result.nextStep!.signInStep ==
 //'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD'
 class DefaultConfirmSignInNewPasswordForm extends ConfirmSignInNewPasswordForm {
-  DefaultConfirmSignInNewPasswordForm()
-      : super(formFields: FormFields(children: const []));
+  const DefaultConfirmSignInNewPasswordForm()
+      : super(formFields: const FormFields(children: const []));
 
   @override
   ConfirmSignInNewPasswordForm build(BuildContext context) {

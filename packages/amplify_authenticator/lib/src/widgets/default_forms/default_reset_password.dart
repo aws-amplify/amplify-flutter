@@ -18,8 +18,8 @@ import 'package:amplify_authenticator/src/state/inherited_strings.dart';
 import 'package:flutter/widgets.dart';
 
 class DefaultResetPasswordForm extends ResetPasswordForm {
-  DefaultResetPasswordForm()
-      : super(formFields: FormFields(children: const []));
+  const DefaultResetPasswordForm()
+      : super(formFields: const FormFields(children: const []));
 
   @override
   ResetPasswordForm build(BuildContext context) {

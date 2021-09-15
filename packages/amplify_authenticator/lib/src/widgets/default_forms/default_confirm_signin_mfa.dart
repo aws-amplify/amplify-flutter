@@ -18,8 +18,8 @@ import 'package:amplify_authenticator/src/state/inherited_strings.dart';
 import 'package:flutter/widgets.dart';
 
 class DefaultConfirmSignInMFAForm extends ConfirmSignInMFAForm {
-  DefaultConfirmSignInMFAForm()
-      : super(formFields: FormFields(children: const []));
+  const DefaultConfirmSignInMFAForm()
+      : super(formFields: const FormFields(children: const []));
 
   @override
   ConfirmSignInMFAForm build(BuildContext context) {

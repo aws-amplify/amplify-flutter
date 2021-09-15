@@ -18,7 +18,8 @@ import 'package:amplify_authenticator/src/state/inherited_strings.dart';
 import 'package:flutter/widgets.dart';
 
 class DefaultSendCodeForm extends SendCodeForm {
-  DefaultSendCodeForm() : super(formFields: FormFields(children: const []));
+  const DefaultSendCodeForm()
+      : super(formFields: const FormFields(children: const []));
 
   @override
   SendCodeForm build(BuildContext context) {

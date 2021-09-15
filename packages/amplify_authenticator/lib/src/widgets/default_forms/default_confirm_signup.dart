@@ -18,8 +18,8 @@ import 'package:amplify_authenticator/src/state/inherited_strings.dart';
 import 'package:flutter/widgets.dart';
 
 class DefaultConfirmSignUpForm extends ConfirmSignUpForm {
-  DefaultConfirmSignUpForm()
-      : super(formFields: FormFields(children: const []));
+  const DefaultConfirmSignUpForm()
+      : super(formFields: const FormFields(children: const []));
 
   @override
   ConfirmSignUpForm build(BuildContext context) {
