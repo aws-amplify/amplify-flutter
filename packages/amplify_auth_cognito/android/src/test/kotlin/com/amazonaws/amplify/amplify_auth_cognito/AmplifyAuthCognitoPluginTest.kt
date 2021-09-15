@@ -739,18 +739,6 @@ class AmplifyAuthCognitoPluginTest {
 
     @Test
     fun fetchSession_returnsSuccess() {
-        val id = AuthSessionResult.success("id")
-        val awsCredentials: AuthSessionResult<AWSCredentials> = AuthSessionResult.success(BasicAWSCredentials("access", "secret"))
-        val userSub = AuthSessionResult.success("sub")
-        val tokens = AuthSessionResult.success(AWSCognitoUserPoolTokens("access", "id", "refresh"))
-        val mockSession = AWSCognitoAuthSession(
-        true,
-            id,
-            awsCredentials,
-            userSub,
-            tokens
-        )
-
         // Arrange
         doAnswer { invocation: InvocationOnMock ->
             plugin.prepareCognitoSessionResult(mockResult, mockSession)
