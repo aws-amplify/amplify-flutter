@@ -174,14 +174,14 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   }
 
   @override
-  Stream<QuerySnapshot> observeQuery<T extends Model>(ModelType<T> modelType,
+  Stream<QuerySnapshot<T>> observeQuery<T extends Model>(ModelType<T> modelType,
       {QueryPredicate? where, List<QuerySortBy>? sortBy}) {
     String observeQueryId = UUID.getUUID();
 
     var _eventChannel = EventChannel(
       'com.amazonaws.amplify/datastore_observe_query_events/${observeQueryId}',
     );
-    Stream<QuerySnapshot> _eventChannelStream =
+    Stream<QuerySnapshot<T>> _eventChannelStream =
         _eventChannel.receiveBroadcastStream(0).map((data) {
       return QuerySnapshot.fromMap(data, modelType);
     });

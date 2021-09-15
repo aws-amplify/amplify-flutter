@@ -130,7 +130,7 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('stop() has not been implemented.');
   }
 
-  Stream<QuerySnapshot> observeQuery<T extends Model>(
+  Stream<QuerySnapshot<T>> observeQuery<T extends Model>(
     ModelType<T> modelType, {
     QueryPredicate? where,
     List<QuerySortBy>? sortBy,
