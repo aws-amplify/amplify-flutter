@@ -15,11 +15,19 @@ scripts:
 
   build:examples:ios: >
     melos exec -c 1 --scope="*example*,sample_app" --fail-fast -- \
+      flutter build ios --simulator
+
+  build:examples:release:ios: >
+    melos exec -c 1 --scope="*example*,sample_app" --fail-fast -- \
       flutter build ios --no-codesign
 
   build:examples:android: >
     melos exec -c 1 --scope="*example*,sample_app" --fail-fast -- \
       flutter build apk --debug --verbose
+
+  build:examples:release:android: >
+    melos exec -c 1 --scope="*example*,sample_app" --fail-fast -- \
+      flutter build apk --verbose
 
   test:unit:flutter: >
     ./.circleci/test_all_plugins.sh flutter-test && exit 0
