@@ -227,20 +227,22 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
                        )
                    ]
                }
+               // if a field has a single CustomType value presented as JSONValue.object
+               else if case .embedded(_, .some(let customTypeSchema)) = field?.type,
+                         case .some(.object(let deserializedValue)) = values[key] {
+                   let customTypeName = customTypeSchema.name
+                   result[key] = [
+                       "customTypeName": customTypeName,
+                       "serializedData": try FlutterSerializedModel.generateSerializedData(
+                           values: deserializedValue,
+                           modelSchemaRegistry: modelSchemaRegistry,
+                           customTypeSchemaRegistry: customTypeSchemaRegistry,
+                           modelName: customTypeName
+                       )
+                   ]
+               }
             } else if case .collection = field?.type{
                 continue
-            } else if case .embedded(_, .some(let customTypeSchema)) = field?.type,
-                      case .some(.object(let deserializedValue)) = values[key] {
-                let customTypeName = customTypeSchema.name
-                result[key] = [
-                    "customTypeName": customTypeName,
-                    "serializedData": try FlutterSerializedModel.generateSerializedData(
-                        values: deserializedValue,
-                        modelSchemaRegistry: modelSchemaRegistry,
-                        customTypeSchemaRegistry: customTypeSchemaRegistry,
-                        modelName: customTypeName
-                    )
-                ]
             } else if case .embeddedCollection(let fieldType, _) = field?.type,
                       case .array(let jsonArray) = value {
                 var deserializedArray: [Any??] = []
