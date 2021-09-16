@@ -288,10 +288,11 @@ class _AuthenticatorState extends State<Authenticator> {
                       body: StreamBuilder(
                     stream: _stateMachineBloc.stream,
                     builder: (context, snapshot) {
-                      final state =
-                          (snapshot.data != null && _config?.auth != null)
-                              ? snapshot.data
-                              : const AuthLoading();
+                      final state = (snapshot.data != null &&
+                              _configInitialized &&
+                              _config?.auth != null)
+                          ? snapshot.data
+                          : const AuthLoading();
                       late Widget screen;
                       if (state is AuthLoading) {
                         screen = LoadingScreen();
