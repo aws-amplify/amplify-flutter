@@ -38,8 +38,7 @@ data class FlutterSerializedCustomType(val serializedCustomType: SerializedCusto
     private fun parseSerializedDataMap(
         serializedData: Map<String, Any>, customTypeSchema: CustomTypeSchema): Map<String, Any> {
         if(serializedData.isEmpty()) throw Exception(
-            "FlutterSerializedCustomType - no serializedData for " +
-                    customTypeSchema.name
+            "FlutterSerializedCustomType - no serializedData for ${customTypeSchema.name}"
         )
 
         return serializedData.mapValues {

@@ -39,7 +39,7 @@ public struct FlutterModelFieldType {
         self.ofCustomTypeName = serializedData["ofCustomTypeName"] as? String
     }
     
-    public func convertToNativeModelField(customTypeSchemasRegistry: FlutterSchemaRegistry) throws -> ModelFieldType {
+    public func convertToNativeModelField(customTypeSchemaRegistry: FlutterSchemaRegistry) throws -> ModelFieldType {
         
         switch fieldType {
             case "string":
@@ -91,7 +91,7 @@ public struct FlutterModelFieldType {
                 return ModelFieldType.embedded(
                     type: JSONValue.self,
                     schema: try FlutterDataStoreRequestUtils.getCustomTypeSchema(
-                        customTypeSchemaRegistry: customTypeSchemasRegistry,
+                        customTypeSchemaRegistry: customTypeSchemaRegistry,
                         modelName: customTypeName
                     )
                 )
@@ -105,7 +105,7 @@ public struct FlutterModelFieldType {
                 return ModelFieldType.embeddedCollection(
                     of: JSONValue.self,
                     schema: try FlutterDataStoreRequestUtils.getCustomTypeSchema(
-                        customTypeSchemaRegistry: customTypeSchemasRegistry,
+                        customTypeSchemaRegistry: customTypeSchemaRegistry,
                         modelName: customTypeName
                     )
                 )

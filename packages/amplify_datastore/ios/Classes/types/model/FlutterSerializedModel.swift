@@ -163,11 +163,9 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
         do {
             return try FlutterDataStoreRequestUtils.getModelSchema(modelSchemaRegistry: modelSchemaRegistry, modelName: modelName)
         } catch DataStoreError.decodingError {
-            print("Schema \(modelName) is not registered as ModelSchema in ModelProvider.")
             do {
                 return try FlutterDataStoreRequestUtils.getCustomTypeSchema(customTypeSchemaRegistry: customTypeSchemaRegistry, modelName: modelName)
             } catch DataStoreError.decodingError {
-                print("Schema \(modelName) is not registered as CustomTypeSchema in ModelProvider.")
                 throw DataStoreError.decodingError(
                     "Schema for \(modelName) is not registered as ModelSchema or CustomTypeSchema.",
                     "Please ensure all schemas are correctly registered."
@@ -320,9 +318,9 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
                 
                 result[key] = NSNumber(value: Int(deserializedValue) )
             }
-            else if case .embedded(_, .some(let customTypeScheam)) = field?.type,
+            else if case .embedded(_, .some(let customTypeSchema)) = field?.type,
                 case .some(.object(let deserializedValue)) = values[key] {
-                let customTypeName = customTypeScheam.name
+                let customTypeName = customTypeSchema.name
                 result[key] = [
                     "customTypeName": customTypeName,
                     "serializedData": try FlutterSerializedModel.generateSerializedJsonData(
@@ -351,14 +349,14 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
                             ] as [String : Any]
                             modifiedArray.append(parsedItem)
                         }
-                        // List of primitve types e.g. [String]
+                        // List of primitive types e.g. [String]
                         else {
                             modifiedArray.append(FlutterSerializedModel.deserializeValue(value: item, fieldType: nil))
                         }
                     }
                     result[key] = modifiedArray
                 }
-            } else{
+            } else {
                 result[key] = jsonValue(for: key, modelSchema: modelSchema)!
             }
         }

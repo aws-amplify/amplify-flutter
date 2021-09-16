@@ -134,7 +134,7 @@ public struct FlutterModelField {
     public func convertToNativeModelField(customTypeSchemasRegistry: FlutterSchemaRegistry) throws -> ModelField {
         return ModelField.init(
             name: name,
-            type: try type.convertToNativeModelField(customTypeSchemasRegistry: customTypeSchemasRegistry),
+            type: try type.convertToNativeModelField(customTypeSchemaRegistry: customTypeSchemasRegistry),
             isRequired: isRequired,
             isArray: isArray,
             association: association?.convertToNativeModelAssociation(),

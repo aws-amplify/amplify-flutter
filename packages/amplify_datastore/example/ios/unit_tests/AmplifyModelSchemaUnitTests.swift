@@ -26,7 +26,7 @@ class AmplifyModelSchemaUnitTests: XCTestCase {
 
     override func setUpWithError() throws {
         // register CustomType Schemas following dependencies order
-        // This also tests the desrialization fucntionlity for CustomType schemas
+        // This also tests the deserialization fucntionlity for CustomType schemas
         ["AddressSchema", "PhoneSchema", "ContactSchema"].forEach { schemaName in
             do {
                 let serializedCustomType = customTypeSchemaMap[schemaName] as! [String : Any]
@@ -82,7 +82,7 @@ class AmplifyModelSchemaUnitTests: XCTestCase {
         XCTAssertEqual(SchemaData.AllTypeModelSchema, allTypeModelSchema)
     }
 
-    func test_model_nests_custom_type_schema() throws {
+    func test_model_nested_custom_type_schema() throws {
         let personModelSchema = try FlutterModelSchema(
             serializedData: modelSchemaMap["PersonModelSchema"] as! [String: Any])
             .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)

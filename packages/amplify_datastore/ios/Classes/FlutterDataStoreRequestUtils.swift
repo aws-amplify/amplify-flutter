@@ -44,7 +44,7 @@ public class FlutterDataStoreRequestUtils {
         guard let modelSchema = modelSchemaRegistry.modelSchemas[modelName] else {
             throw DataStoreError.decodingError(
                 "Schema for \(modelName) is not registered",
-                "Ensure all the Schemas are correctly registerd")
+                "Ensure all schemas are correctly registered")
         }
         return modelSchema
     }
