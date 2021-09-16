@@ -1,3 +1,21 @@
+## 0.2.4 (2021-09-10)
+
+### Fixes
+
+- fix: CocoaPods relative import
+
+## 0.2.3 (2021-09-09)
+
+- feat(auth): add options to updateAttribute, updateAttributes, resendUserAttributeConfirmationCode (#775)
+- feat(auth): add support for options to resetPassword, confirmResetPassword (#743)
+- feat(auth): add options to resendSignUpCode (#738)
+
+## 0.2.2 (2021-09-09)
+
+### Features
+
+- feat(auth): add options to resendSignUpCode (#738)
+
 ## 0.2.2 (2021-08-04)
 
 ### Features
@@ -80,6 +98,7 @@
 ## 0.0.2-dev.1 (2021-01-25)
 
 ### Features
+
 - feature: Amplify Auth Hosted UI (#309)
 
 ### Chores

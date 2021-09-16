@@ -1,3 +1,15 @@
+## 0.2.4 (2021-09-10)
+
+### Fixes
+
+- fix: CocoaPods relative import
+
+## 0.2.3 (2021-09-09)
+
+### Features
+
+- feat(datastore): Add start and stop APIs (#811)
+
 ## 0.2.2 (2021-08-04)
 
 ### Features
@@ -56,6 +68,7 @@
 ## 0.1.1 (2021-03-29)
 
 ### Chores
+
 - chore: remove upper constraints for flutter 2.0 (#479)
 
 ### Bug Fixes

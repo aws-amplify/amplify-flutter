@@ -47,6 +47,12 @@ commands:
           command: |
             flutter pub global activate tuneup
 
+  setup_unpub:
+    steps:
+      - run:
+          name: Set up local Unpub server
+          command: ./tool/setup_local_unpub.sh
+
 jobs:
   format_flutter:
     executor: docker-executor
@@ -160,6 +166,39 @@ jobs:
       - store_artifacts:
           path: ~/test-results/junit
 
+  release_verification_android:
+    docker:
+      - image: circleci/android:api-28
+      - image: mongo
+        command: mongod
+      - image: dnys1/unpub:latest
+        entrypoint: sh -c "sleep 5 && unpub --port=8000 --database=mongodb://localhost:27017/dart_pub --uploader-email=test@example.com"
+    working_directory: ~/amplify-flutter
+    environment:
+      _JAVA_OPTIONS: -XX:MaxRAMPercentage=80.0
+      GRADLE_OPTS: -Xmx1536m -Xms768m -Dkotlin.compiler.execution.strategy=in-process -Dorg.gradle.daemon=false
+    steps:
+      - install_flutter
+      - checkout
+      - setup_unpub
+      - run:
+          name: Install and set up melos
+          command: |
+            flutter pub global activate melos
+            melos exec -c 1 -- flutter pub get
+            melos run copy_dummy_config
+      - run:
+          name: Build debug APKs
+          command: melos run build:examples:android
+          no_output_timeout: 10m
+      - run:
+          name: Clean artifacts
+          command: melos exec -c 1 -- flutter clean
+      - run:
+          name: Build release APKs
+          command: melos run build:examples:release:android
+          no_output_timeout: 10m
+
 releasable_branches: &releasable_branches
   branches:
     only:
@@ -174,3 +213,4 @@ workflows:
       - unit_test_flutter
       - unit_test_android
       - unit_test_ios
+      - release_verification_android

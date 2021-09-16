@@ -4,13 +4,13 @@ package com.amazonaws.amplify.amplify_core
  * Returns `this` as a Map<String, Any?> or throws an
  * [InvalidArgumentsException] if it is not a [Map].
  */
-fun Any.asPlatformChannelMap(): HashMap<String, Any?> = this.asMap()
+fun Any.asPlatformChannelMap(): Map<String, Any?> = this.asMap()
 
 /**
  * Returns `this` as a Map<K, V> or throws an
  * [InvalidArgumentsException] if it cannot be cast.
  */
-inline fun <reified K, reified V> Any.asMap(): HashMap<K, V> =
+inline fun <reified K, reified V> Any.asMap(): Map<K, V> =
     (this as? Map<*, *>)?.cast() ?: throw InvalidArgumentsException(this)
 
 /**
@@ -18,8 +18,8 @@ inline fun <reified K, reified V> Any.asMap(): HashMap<K, V> =
  * casts and make them explicit.
  */
 @Suppress("UNCHECKED_CAST")
-inline fun <reified K, reified V> Map<*, *>.cast(): HashMap<K, V> =
-    this as HashMap<K, V>
+inline fun <reified K, reified V> Map<*, *>.cast(): Map<K, V> =
+    this as Map<K, V>
 
 /**
  * Returns `this` as an [ArrayList<T>]. Used to centralize
