@@ -26,14 +26,26 @@ class DefaultSignUpForm extends SignUpForm {
     return SignUpForm(
       formFields: FormFields(
         children: [
-          SignInFormField(
+          SignUpFormField(
               title: _authStrings.inputs.username_title(context),
               hintText: _authStrings.inputs.username_hint(context),
               type: 'username'),
-          SignInFormField(
+          SignUpFormField(
               title: _authStrings.inputs.password_title(context),
               hintText: _authStrings.inputs.password_hint(context),
-              type: 'password')
+              type: 'password'),
+          SignUpFormField(
+              title: _authStrings.inputs.password_confirmation_title(context),
+              hintText: _authStrings.inputs.password_confirmation_hint(context),
+              type: 'passwordConfirmation'),
+          SignUpFormField(
+              title: _authStrings.inputs.email_title(context),
+              hintText: _authStrings.inputs.email_hint(context),
+              type: 'email'),
+          SignUpFormField(
+              title: _authStrings.inputs.phone_number_title(context),
+              hintText: _authStrings.inputs.phone_number_hint(context),
+              type: 'phone_number')
         ],
       ),
     );
