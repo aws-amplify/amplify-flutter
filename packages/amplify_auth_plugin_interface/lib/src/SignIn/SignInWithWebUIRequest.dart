@@ -19,11 +19,15 @@ import './AuthProvider.dart';
 
 class SignInWithWebUIRequest {
   AuthProvider? provider;
-  SignInWithWebUIRequest({this.provider});
+  bool? isPreferPrivateSession;
+  SignInWithWebUIRequest({this.provider, this.isPreferPrivateSession});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     if (this.provider != null) {
       pendingRequest["authProvider"] = describeEnum(provider!);
+    }
+    if (this.isPreferPrivateSession != null) {
+      pendingRequest["isPreferPrivateSession"] = isPreferPrivateSession;
     }
     return pendingRequest;
   }

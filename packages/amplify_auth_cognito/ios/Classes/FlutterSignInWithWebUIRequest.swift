@@ -20,9 +20,13 @@ import amplify_core
 
 struct FlutterSignInWithWebUIRequest {
   var provider: AuthProvider?
+  var isPreferPrivateSession: Bool = false
 
   init(dict: NSMutableDictionary){
     self.provider = getAuthProvider(provider: dict["authProvider"] as! String?)
+    if (dict["isPreferPrivateSession"] != nil &&  dict["isPreferPrivateSession"] as! Bool) {
+        self.isPreferPrivateSession = dict["isPreferPrivateSession"] as! Bool
+    }
   }
 
   func getAuthProvider(provider: String?) -> AuthProvider? {
