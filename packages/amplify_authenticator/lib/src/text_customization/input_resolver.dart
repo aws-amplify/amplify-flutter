@@ -139,6 +139,12 @@ abstract class InputResolver extends Resolver<InputResolverKey> {
   /// Password symbol character validation failure
   String passwordRequiresSymbols(BuildContext context);
 
+  /// Password number character validation failure
+  StringResolver password_requires_numbers = (_) => 'numbers(s)';
+
+  /// Password length validation failure
+  StringResolver password_length = (_) => 'have a minimum length of';
+
   /// Title of email field
   String emailTitle(BuildContext context);
 
