@@ -14,7 +14,11 @@
  */
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator/src/enums/signup_types.dart';
+import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/state/inherited_strings.dart';
+import 'package:amplify_authenticator/src/utils/validators.dart';
+import 'package:amplify_flutter/src/config/auth/auth_block_config.dart';
 import 'package:flutter/widgets.dart';
 
 class DefaultSignUpForm extends SignUpForm {

@@ -127,6 +127,12 @@ abstract class InputResolver extends Resolver<InputResolverKey> {
   /// Second part of string describing a password that is too short, preceeded by by minimum length
   String passwordCharacters(BuildContext context);
 
+  /// First part of string describing a password that is too short, to be followed by minimum length
+  StringResolver password_at_least = (_) => 'at least';
+
+  /// Second part of string describing a password that is too short, preceeded by by minimum length
+  StringResolver password_characters = (_) => 'characters';
+
   /// Password uppercase character validation failure
   String passwordRequiresUppercase(BuildContext context);
 
@@ -142,8 +148,8 @@ abstract class InputResolver extends Resolver<InputResolverKey> {
   /// Password number character validation failure
   StringResolver password_requires_numbers = (_) => 'numbers(s)';
 
-  /// Password length validation failure
-  StringResolver password_length = (_) => 'have a minimum length of';
+  /// Password symbol character validation failure
+  StringResolver password_requires_symbols = (_) => 'symbols(s)';
 
   /// Title of email field
   String emailTitle(BuildContext context);
