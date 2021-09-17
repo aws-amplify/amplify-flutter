@@ -239,6 +239,9 @@ class _AuthenticatorState extends State<Authenticator> {
     cognitoPlugin ?? missingValues.add('auth.plugins.Auth.Default');
     cognitoPlugin?.signupAttributes?.length ??
         missingValues.add('auth.plugins.Auth.Default.signUpAttributes');
+    cognitoPlugin?.passwordProtectionSettings ??
+        missingValues
+            .add('auth.plugins.Auth.Default.passwordProtectionSettings');
     return missingValues;
   }
 

@@ -14,6 +14,7 @@ class FormFieldContainer extends StatelessWidget {
       required this.title,
       required this.validator,
       required this.obscureText,
+      this.errorMaxLines = 1,
       this.visible,
       this.color,
       this.initialValue,
@@ -36,6 +37,8 @@ class FormFieldContainer extends StatelessWidget {
   final TextInputType keyboardType;
 
   final bool obscureText;
+
+  final int errorMaxLines;
 
   ///This button will be used for resend a verification code.
   final Widget? resendCodeButton;
@@ -69,6 +72,7 @@ class FormFieldContainer extends StatelessWidget {
             onChanged: callback,
             decoration: InputDecoration(
                 suffix: visible,
+                errorMaxLines: errorMaxLines,
                 focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                         color: Theme.of(context).primaryColor != Colors.blue
