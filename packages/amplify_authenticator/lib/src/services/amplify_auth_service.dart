@@ -115,6 +115,10 @@ class AmplifyAuthService implements AuthService {
     );
   }
 
+  Future<void> rememberDevice() {
+    return Amplify.Auth.rememberDevice();
+  }
+
   @override
   Future<void> signOut() {
     return Amplify.Auth.signOut();

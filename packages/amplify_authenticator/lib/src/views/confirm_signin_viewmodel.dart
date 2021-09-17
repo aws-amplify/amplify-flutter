@@ -47,6 +47,8 @@ class ConfirmSignInViewModel extends BaseViewModel {
   String? _website;
   String? _custom;
 
+  bool _rememberDevice = false;
+
   Map<String, String> authAttributes = {};
 
   void setCode(String value) {
@@ -142,6 +144,14 @@ class ConfirmSignInViewModel extends BaseViewModel {
   void setCustom(String value, String type) {
     _website = value;
     authAttributes[type] = _custom!.trim();
+  }
+
+  void setRememberDevice(bool value) {
+    _rememberDevice = value;
+  }
+
+  bool get rememberDevice {
+    return _rememberDevice;
   }
 
   // Auth calls

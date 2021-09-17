@@ -136,8 +136,8 @@ class ButtonContainer extends StatelessWidget {
   }
 }
 
-class ButtonsContainer extends StatelessWidget {
-  const ButtonsContainer({required this.children});
+class ControlContainer extends StatelessWidget {
+  const ControlContainer({required this.children});
 
   final List<Widget> children;
 
@@ -216,12 +216,12 @@ class FormContainer extends StatelessWidget {
     Key? key,
     required this.formKey,
     required this.formFields,
-    required this.buttonsContainer,
+    required this.controlContainer,
   }) : super(key: key);
 
   final FormFields formFields;
 
-  final ButtonsContainer buttonsContainer;
+  final ControlContainer controlContainer;
 
   final Key formKey;
 
@@ -230,7 +230,7 @@ class FormContainer extends StatelessWidget {
     return Form(
         key: formKey,
         child: Column(
-          children: [formFields, buttonsContainer],
+          children: [formFields, controlContainer],
         ));
   }
 }
