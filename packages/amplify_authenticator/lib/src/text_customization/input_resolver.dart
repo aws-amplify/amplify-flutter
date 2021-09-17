@@ -41,6 +41,12 @@ class InputResolver {
   /// Password requirements not met validation failure
   StringResolver password_requirements_unmet = (_) => 'Passwords must include:';
 
+  /// First part of string describing a password that is too short, to be followed by minimum length
+  StringResolver password_at_least = (_) => 'at least';
+
+  /// Second part of string describing a password that is too short, preceeded by by minimum length
+  StringResolver password_characters = (_) => 'characters';
+
   /// Password uppercase character validation failure
   StringResolver password_requires_uppercase = (_) => 'uppercase character(s)';
 
@@ -53,8 +59,8 @@ class InputResolver {
   /// Password number character validation failure
   StringResolver password_requires_numbers = (_) => 'numbers(s)';
 
-  /// Password length validation failure
-  StringResolver password_length = (_) => 'have a minimum length of';
+  /// Password symbol character validation failure
+  StringResolver password_requires_symbols = (_) => 'symbols(s)';
 
   /// Title of email field
   StringResolver email_title = (_) => 'Email*';
@@ -244,7 +250,7 @@ class InputResolver {
       StringResolver? password_requires_uppercase,
       StringResolver? password_requires_lowercase,
       StringResolver? password_requires_numbers,
-      StringResolver? password_length,
+      StringResolver? password_requires_symbols,
       StringResolver? email_title,
       StringResolver? email_hint,
       StringResolver? email_empty,
@@ -316,7 +322,8 @@ class InputResolver {
         password_requires_uppercase ?? this.password_requires_uppercase;
     this.password_requires_numbers =
         password_requires_numbers ?? this.password_requires_numbers;
-    this.password_length = password_length ?? this.password_length;
+    this.password_requires_symbols =
+        password_requires_symbols ?? this.password_requires_symbols;
     this.email_title = email_title ?? this.email_title;
     this.email_hint = email_hint ?? this.email_hint;
     this.phone_number_title = phone_number_title ?? this.phone_number_title;

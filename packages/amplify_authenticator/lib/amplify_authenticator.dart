@@ -15,6 +15,7 @@
 
 library amplify_authenticator;
 
+import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/widgets/default_forms/default_confirm_signin_mfa.dart';
 import 'package:amplify_authenticator/src/widgets/default_forms/default_confirm_signin_new_password.dart';
 import 'package:amplify_authenticator/src/widgets/default_forms/default_confirm_signup.dart';
@@ -271,77 +272,83 @@ class _AuthenticatorState extends State<Authenticator> {
     return InheritedAuthBloc(
         key: const Key(keyInheritedAuthBloc),
         authBloc: _stateMachineBloc,
-        child: InheritedAuthViewModel(
-            key: const Key(keyInheritedAuthViewModel),
-            signInViewModel: SignInViewModel(_stateMachineBloc),
-            signUpViewModel: SignUpViewModel(_stateMachineBloc),
-            confirmSignUpViewModel: ConfirmSignUpViewModel(_stateMachineBloc),
-            confirmSignInViewModel: ConfirmSignInViewModel(_stateMachineBloc),
-            child: InheritedStrings(
-                resolver: resolver,
-                child: InheritedForms(
-                  confirmSignInNewPasswordForm: confirmSignInNewPasswordForm,
-                  resetPasswordForm: resetPasswordForm,
-                  sendCodeForm: sendCodeForm,
-                  signInForm: signInForm,
-                  signUpForm: signUpForm,
-                  confirmSignUpForm: confirmSignUpForm,
-                  confirmSignInMFAForm: confirmSignInMFAForm,
-                  child: Scaffold(
-                      body: StreamBuilder(
-                    stream: _stateMachineBloc.stream,
-                    builder: (context, snapshot) {
-                      final state = (snapshot.data != null &&
-                              _configInitialized &&
-                              _config?.auth != null)
-                          ? snapshot.data
-                          : const AuthLoading();
-                      late Widget screen;
-                      if (state is AuthLoading) {
-                        screen = LoadingScreen();
-                      } else if (state is Authenticated) {
-                        return widget.child;
-                      } else if (state is AuthFlow &&
-                          state.screen == AuthScreen.signin) {
-                        screen = SignInScreen();
-                      } else if (state is AuthFlow &&
-                          state.screen == AuthScreen.signup) {
-                        screen = SignUpScreen();
-                      } else if (state is AuthFlow &&
-                          state.screen == AuthScreen.confirmSignUp) {
-                        screen = ConfirmSignUpScreen();
-                      } else if (state is AuthFlow &&
-                          state.screen == AuthScreen.confirmSignInMfa) {
-                        screen = const ConfirmSignInMFAScreen();
-                      } else if (state is AuthFlow &&
-                          state.screen == AuthScreen.confirmSignInNewPassword) {
-                        screen = ConfirmSignInNewPasswordScreen();
-                      } else if (state is AuthFlow &&
-                          state.screen == AuthScreen.sendCode) {
-                        screen = const SendCodeScreen();
-                      } else if (state is AuthFlow &&
-                          state.screen == AuthScreen.resetPassword) {
-                        screen = const ResetPasswordScreen();
-                      } else {
-                        screen = SignInScreen();
-                      }
+        child: InheritedConfig(
+            config: _config,
+            child: InheritedAuthViewModel(
+                key: const Key(keyInheritedAuthViewModel),
+                signInViewModel: SignInViewModel(_stateMachineBloc),
+                signUpViewModel: SignUpViewModel(_stateMachineBloc),
+                confirmSignUpViewModel:
+                    ConfirmSignUpViewModel(_stateMachineBloc),
+                confirmSignInViewModel:
+                    ConfirmSignInViewModel(_stateMachineBloc),
+                child: InheritedStrings(
+                    resolver: resolver,
+                    child: InheritedForms(
+                      confirmSignInNewPasswordForm:
+                          confirmSignInNewPasswordForm,
+                      resetPasswordForm: resetPasswordForm,
+                      sendCodeForm: sendCodeForm,
+                      signInForm: signInForm,
+                      signUpForm: signUpForm,
+                      confirmSignUpForm: confirmSignUpForm,
+                      confirmSignInMFAForm: confirmSignInMFAForm,
+                      child: Scaffold(
+                          body: StreamBuilder(
+                        stream: _stateMachineBloc.stream,
+                        builder: (context, snapshot) {
+                          final state = (snapshot.data != null &&
+                                  _configInitialized &&
+                                  _config?.auth != null)
+                              ? snapshot.data
+                              : const AuthLoading();
+                          late Widget screen;
+                          if (state is AuthLoading) {
+                            screen = LoadingScreen();
+                          } else if (state is Authenticated) {
+                            return widget.child;
+                          } else if (state is AuthFlow &&
+                              state.screen == AuthScreen.signin) {
+                            screen = SignInScreen();
+                          } else if (state is AuthFlow &&
+                              state.screen == AuthScreen.signup) {
+                            screen = SignUpScreen();
+                          } else if (state is AuthFlow &&
+                              state.screen == AuthScreen.confirmSignUp) {
+                            screen = ConfirmSignUpScreen();
+                          } else if (state is AuthFlow &&
+                              state.screen == AuthScreen.confirmSignInMfa) {
+                            screen = const ConfirmSignInMFAScreen();
+                          } else if (state is AuthFlow &&
+                              state.screen ==
+                                  AuthScreen.confirmSignInNewPassword) {
+                            screen = ConfirmSignInNewPasswordScreen();
+                          } else if (state is AuthFlow &&
+                              state.screen == AuthScreen.sendCode) {
+                            screen = const SendCodeScreen();
+                          } else if (state is AuthFlow &&
+                              state.screen == AuthScreen.resetPassword) {
+                            screen = const ResetPasswordScreen();
+                          } else {
+                            screen = SignInScreen();
+                          }
 
-                      return Container(
-                        padding: const EdgeInsets.symmetric(vertical: 40),
-                        child: Center(
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                const AuthExceptionsWidget(),
-                                screen,
-                              ],
+                          return Container(
+                            padding: const EdgeInsets.symmetric(vertical: 40),
+                            child: Center(
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    const AuthExceptionsWidget(),
+                                    screen,
+                                  ],
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      );
-                    },
-                  )),
-                ))));
+                          );
+                        },
+                      )),
+                    )))));
   }
 
   @override

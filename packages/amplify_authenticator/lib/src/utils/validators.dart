@@ -13,9 +13,14 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator/src/state/inherited_config.dart';
+import 'package:amplify_authenticator/src/state/inherited_strings.dart';
+import 'package:amplify_authenticator/src/views/signup_viewmodel.dart';
 import 'package:amplify_flutter/src/config/amplify_config.dart';
 import 'package:amplify_flutter/src/config/auth/password_policy_characters.dart';
 import 'package:amplify_flutter/src/config/auth/password_protection_settings.dart';
+import 'package:flutter/material.dart';
 
 final _emailRegex = RegExp(r'^\S+@\S+$');
 final _codeRegex = RegExp(r'\d{6}');
@@ -24,62 +29,78 @@ final _lowercase = RegExp('^(?=.*[a-z])');
 final _numeric = RegExp('^(?=.*\\d)');
 final _symbols = RegExp(r'[~/`!@#$%^&\"*(),._?:;{}|<>\]\[\\]');
 
-Function simpleValidator = (String field) {
+Function simpleValidator = (String message) {
   return (String? input) {
     if (input == null || input.isEmpty) {
-      return '$field cannot be empty';
+      return message;
     }
     return null;
   };
 };
 
-Function validateSignUpPassword = (AmplifyConfig? config) {
-  PasswordProtectionSettings? _passwordProtectionSettings = config?.auth
-      ?.awsCognitoAuthPlugin?.auth?['Default']?.passwordProtectionSettings;
+///TODO: Possibly refactor as widget to avoid passing context
+Function validateSignUpPassword = (BuildContext context) {
+  PasswordProtectionSettings? _passwordProtectionSettings =
+      InheritedConfig.of(context)
+          ?.config
+          ?.auth
+          ?.awsCognitoAuthPlugin
+          ?.auth?['Default']
+          ?.passwordProtectionSettings;
+
+  InputResolver _hintStrings = InheritedStrings.of(context)!.resolver.inputs;
 
   return (String? password) {
-    List<String> passwordHints = ['Passwords must include:'];
+    List<String> passwordHints = [
+      _hintStrings.password_requirements_unmet(context)
+    ];
 
     int? minLength = _passwordProtectionSettings?.passwordPolicyMinLength;
     List<PasswordPolicyCharacters>? passwordCharacters =
         _passwordProtectionSettings?.passwordPolicyCharacters;
-    if (password == null || password.isEmpty || minLength! < password.length) {
-      passwordHints.add('* at least $minLength characters');
-    } else {
-      if (passwordCharacters != null && passwordCharacters.isNotEmpty) {
-        if (passwordCharacters
-                .contains(PasswordPolicyCharacters.requiresLowercase) &&
-            !_lowercase.hasMatch(password)) {
-          passwordHints.add('* lowercase character(s)');
-        }
-        if (passwordCharacters
-                .contains(PasswordPolicyCharacters.requiresUppercase) &&
-            !_uppercase.hasMatch(password)) {
-          passwordHints.add('* uppercase character(s)');
-        }
-        if (passwordCharacters
-                .contains(PasswordPolicyCharacters.requiresNumbers) &&
-            !_numeric.hasMatch(password)) {
-          passwordHints.add('* number(s)');
-        }
-        // TODO: symbols regex does not handle singel quotes, currently handling with separate check.
-        if (passwordCharacters
-                .contains(PasswordPolicyCharacters.requiresSymbols) &&
-            !_symbols.hasMatch(password) &&
-            !password.contains("'")) {
-          passwordHints.add('* symbol(s)');
-        }
+    if (password == null || password.isEmpty || minLength! > password.length) {
+      passwordHints.add(
+          '* ${_hintStrings.password_at_least(context)} $minLength ${_hintStrings.password_characters(context)}');
+    }
+    if (password != null &&
+        passwordCharacters != null &&
+        passwordCharacters.isNotEmpty) {
+      if (passwordCharacters
+              .contains(PasswordPolicyCharacters.requiresLowercase) &&
+          !_lowercase.hasMatch(password)) {
+        passwordHints
+            .add('* ${_hintStrings.password_requires_lowercase(context)}');
+      }
+      if (passwordCharacters
+              .contains(PasswordPolicyCharacters.requiresUppercase) &&
+          !_uppercase.hasMatch(password)) {
+        passwordHints
+            .add('* ${_hintStrings.password_requires_uppercase(context)}');
+      }
+      if (passwordCharacters
+              .contains(PasswordPolicyCharacters.requiresNumbers) &&
+          !_numeric.hasMatch(password)) {
+        passwordHints
+            .add('* ${_hintStrings.password_requires_numbers(context)}');
+      }
+      // TODO: symbols regex does not handle single quotes, currently handling with separate check.
+      if (passwordCharacters
+              .contains(PasswordPolicyCharacters.requiresSymbols) &&
+          !_symbols.hasMatch(password) &&
+          !password.contains("'")) {
+        passwordHints
+            .add('* ${_hintStrings.password_requires_symbols(context)}');
       }
     }
-    return passwordHints.length > 0 ? passwordHints.join('\n') : null;
+    return null;
   };
 };
 
-Function validatePasswordConfirmation = (String? initialPassword) {
+Function validatePasswordConfirmation = (SignUpViewModel viewModel) {
   return (String? passwordConfirmation) {
     if (passwordConfirmation == null || passwordConfirmation.isEmpty) {
       return 'Re-enter your password to confirm';
-    } else if (initialPassword != passwordConfirmation) {
+    } else if (viewModel.password != passwordConfirmation) {
       return 'Passwords do not match';
     }
     return null;
