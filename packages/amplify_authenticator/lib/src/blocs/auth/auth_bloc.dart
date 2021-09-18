@@ -159,7 +159,7 @@ class StateMachineBloc {
         case 'DONE':
           if (rememberDevice) {
             try {
-              throw Exception('ho');
+              await _authService.rememberDevice();
             } on Exception catch (e) {
               /// TODO: How to handle these exceptions, since we have already authenticated
               /// Will need to expose state outside of the Authenticator (or something similar)
