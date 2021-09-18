@@ -164,7 +164,7 @@ class ConfirmSignInViewModel extends BaseViewModel {
     AuthConfirmSignInData confirm =
         AuthConfirmSignInData(code: _code!.trim(), attributes: authAttributes);
 
-    _authBloc.authEvent.add(AuthConfirmSignIn(confirm));
+    _authBloc.authEvent.add(AuthConfirmSignIn(confirm, _rememberDevice));
     await Future.any([
       _authBloc.exceptions.first,
       _authBloc.stream
