@@ -32,6 +32,14 @@ class QuerySortBy {
 
   const QuerySortBy({required this.order, required this.field});
 
+  int compare<T extends Model>(T a, T b) {
+    // TODO: Handle non comparable fields
+    Comparable valueA = a.toJson()[field] as Comparable;
+    Comparable valueB = b.toJson()[field] as Comparable;
+    int orderMultiplier = order == QuerySortOrder.ascending ? 1 : -1;
+    return orderMultiplier * valueA.compareTo(valueB);
+  }
+
   Map<String, dynamic> serializeAsMap() {
     return <String, dynamic>{'field': field, 'order': order.toShortString()};
   }
