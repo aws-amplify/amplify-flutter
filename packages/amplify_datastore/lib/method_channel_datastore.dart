@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_datastore/types/DataStoreHubEvents/SortedList.dart';
+import 'package:amplify_datastore/types/DataStoreHubEvents/sorted_list.dart';
 import 'package:amplify_core/types/index.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:flutter/services.dart';
@@ -177,8 +177,11 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   }
 
   @override
-  Stream<QuerySnapshot<T>> observeQuery<T extends Model>(ModelType<T> modelType,
-      {QueryPredicate? where, List<QuerySortBy>? sortBy}) {
+  Stream<QuerySnapshot<T>> observeQuery<T extends Model>(
+    ModelType<T> modelType, {
+    QueryPredicate? where,
+    List<QuerySortBy>? sortBy,
+  }) {
     final int Function(T, T)? compare = _createCompareFromSortBy(sortBy);
     SortedList<T> sortedList = SortedList(compare: compare);
     List<SubscriptionEvent<T>> subscriptionEvents = [];
