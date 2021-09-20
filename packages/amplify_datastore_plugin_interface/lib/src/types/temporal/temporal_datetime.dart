@@ -20,7 +20,7 @@ import 'temporal.dart';
 /// Represents a valid extended ISO-8601 DateTime string.  The time zone offset is compulsory.
 /// YYYY-MM-DDThh:mm:ss.sssZ  (ISO_OFFSET_DATE_TIME)
 /// https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html#appsync-defined-scalars
-class TemporalDateTime implements Comparable<DateTime> {
+class TemporalDateTime implements Comparable<TemporalDateTime> {
   late DateTime _dateTime;
   int _nanoseconds = 0;
   Duration? _offset;
@@ -169,8 +169,8 @@ class TemporalDateTime implements Comparable<DateTime> {
       _dateTime.hashCode * _offset.hashCode * _nanoseconds.hashCode;
 
   @override
-  int compareTo(DateTime other) {
-    // TODO: implement compareTo
-    throw UnimplementedError();
+  // TODO: should this be TemporalDateTime or DateTime?
+  int compareTo(TemporalDateTime other) {
+    return getDateTimeInUtc().compareTo(other.getDateTimeInUtc());
   }
 }

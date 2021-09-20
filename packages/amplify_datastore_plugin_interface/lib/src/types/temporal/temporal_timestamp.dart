@@ -17,7 +17,7 @@
 /// since 1970-01-01T00:00Z. Timestamps are serialized and deserialized as numbers.
 /// Negative values are also accepted and these represent the number of seconds
 /// til 1970-01-01T00:00Z.
-class TemporalTimestamp implements Comparable<DateTime> {
+class TemporalTimestamp implements Comparable<TemporalTimestamp> {
   late int _secondsSinceEpoch;
 
   /// Constructs a new TemporalTimestamp at the current date.
@@ -50,8 +50,8 @@ class TemporalTimestamp implements Comparable<DateTime> {
   int get hashCode => _secondsSinceEpoch.hashCode;
 
   @override
-  int compareTo(DateTime other) {
-    // TODO: implement compareTo
-    throw UnimplementedError();
+  // TODO: should this be TemporalTimestamp or DateTime?
+  int compareTo(TemporalTimestamp other) {
+    return toSeconds().compareTo(other.toSeconds());
   }
 }
