@@ -220,8 +220,10 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
 
           // TODO: remove - used for perf monitoring
           var end = DateTime.now();
-          var diff = end.difference(start).inMicroseconds;
-          print('Time to generate snapshot: ${diff / 1000} milliseconds');
+          var ms = end.difference(start).inMicroseconds / 1000;
+          var count = updatedQuerySnapshot.items.length;
+          print(
+              '[Perf Monitoring] Time to generate snapshot with $count models: $ms ms');
 
           // otherwise, update the cached QuerySnapshot and return it
           querySnapshot = updatedQuerySnapshot;
