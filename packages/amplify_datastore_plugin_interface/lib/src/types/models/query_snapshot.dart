@@ -80,29 +80,25 @@ class QuerySnapshot<T extends Model> {
   QuerySnapshot<T> withSubscriptionEvent({
     required SubscriptionEvent<T> event,
   }) {
-    SortedList<T> updatedSortedList = this._list.copy();
+    SortedList<T> sortedList = this._list.copy();
     bool itemsHasBeenUpdated = false;
 
     bool eventItemMatchesPredicate =
-        _matchesPredicate(model: event.item, where: where);
-    int currentItemIndex = updatedSortedList.items
+        where == null || where!.evaluate(event.item);
+    int currentItemIndex = sortedList.items
         .indexWhere((item) => item.getId() == event.item.getId());
-    T? currentItem = currentItemIndex == -1
-        ? null
-        : updatedSortedList.items[currentItemIndex];
-    bool currentItemMatchesPredicate = currentItem != null &&
-        _matchesPredicate(
-          model: currentItem,
-          where: where,
-        );
+    T? currentItem =
+        currentItemIndex == -1 ? null : sortedList.items[currentItemIndex];
+    bool currentItemMatchesPredicate =
+        where == null || currentItem != null && where!.evaluate(currentItem);
 
     if (event.eventType == EventType.create &&
         eventItemMatchesPredicate &&
         currentItem == null) {
-      updatedSortedList.add(event.item);
+      sortedList.add(event.item);
       itemsHasBeenUpdated = true;
     } else if (event.eventType == EventType.delete && currentItem != null) {
-      updatedSortedList.removeAt(currentItemIndex);
+      sortedList.removeAt(currentItemIndex);
       itemsHasBeenUpdated = true;
     } else if (event.eventType == EventType.update) {
       if (currentItemMatchesPredicate &&
@@ -111,21 +107,23 @@ class QuerySnapshot<T extends Model> {
           // "update" event where the item does not change?
           // note: this is occurs frequently during sync updates
           currentItem != event.item) {
-        updatedSortedList[currentItemIndex] = event.item;
+        sortedList[currentItemIndex] = event.item;
         itemsHasBeenUpdated = true;
       } else if (currentItemMatchesPredicate && eventItemMatchesPredicate) {
-        updatedSortedList.removeAt(currentItemIndex);
+        sortedList.removeAt(currentItemIndex);
         itemsHasBeenUpdated = true;
       } else if (!currentItemMatchesPredicate && eventItemMatchesPredicate) {
-        updatedSortedList.add(event.item);
+        sortedList.add(event.item);
         itemsHasBeenUpdated = true;
       }
     }
     if (itemsHasBeenUpdated) {
       var snapshot = QuerySnapshot._(
-        list: updatedSortedList,
+        list: sortedList,
         events: [event],
         isSynced: isSynced,
+        where: where,
+        sortBy: sortBy,
       );
       return snapshot;
     }
@@ -148,17 +146,4 @@ int Function(T a, T b)? _createCompareFromSortBy<T extends Model>(
     }
     return sortOrder;
   };
-}
-
-bool _matchesPredicate<T extends Model>({
-  required T model,
-  QueryPredicate? where,
-}) {
-  if (where == null) {
-    return true;
-  }
-  if (where is QueryPredicateOperation) {
-    return where.evaluate(model);
-  }
-  return false;
 }

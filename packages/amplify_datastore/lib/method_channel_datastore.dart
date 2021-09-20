@@ -247,6 +247,8 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         items: value,
         events: [],
         isSynced: false,
+        where: where,
+        sortBy: sortBy,
       );
 
       // apply any cached subscription events
