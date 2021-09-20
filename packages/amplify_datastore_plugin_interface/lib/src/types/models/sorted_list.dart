@@ -12,29 +12,16 @@ class SortedList<T> {
   // comparision function used to maintain list sort
   final int Function(T a, T b)? _compare;
 
-  SortedList({int Function(T a, T b)? compare})
-      : _items = [],
-        _compare = compare;
-
   /// creates a SortedList from a pre-sorted list of items
   ///
-  /// {@template sorted_list_require_order}
   /// This requires that the provided items are sorted according to the
   /// compare function, otherwise the sort order of the list will not be
   /// maintained
-  /// {@endtemplate}
-  SortedList._({
+  SortedList.fromPresortedList({
     required List<T> items,
     int Function(T a, T b)? compare,
   })  : _items = items,
         _compare = compare;
-
-  /// adds a pre-sorted list of items to the list
-  ///
-  /// {@macro sorted_list_require_order}
-  void addSorted(List<T> items) {
-    _items.addAll(items);
-  }
 
   /// adds a new item to the list, maintaining the sort order
   void add(T item) {
@@ -64,7 +51,8 @@ class SortedList<T> {
 
   List<T> get items => List<T>.from(_items);
 
-  SortedList<T> copy() => SortedList._(items: items, compare: _compare);
+  SortedList<T> copy() =>
+      SortedList.fromPresortedList(items: items, compare: _compare);
 
   /// Finds the index to insert the [item] at
   ///

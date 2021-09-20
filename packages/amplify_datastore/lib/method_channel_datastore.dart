@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_datastore/types/DataStoreHubEvents/sorted_list.dart';
 import 'package:amplify_core/types/index.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:flutter/services.dart';
@@ -182,43 +181,51 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
     QueryPredicate? where,
     List<QuerySortBy>? sortBy,
   }) {
-    final int Function(T, T)? compare = _createCompareFromSortBy(sortBy);
-    SortedList<T> sortedList = SortedList(compare: compare);
+    // cached QuerySnapshot
+    late QuerySnapshot<T> querySnapshot;
+
+    // cached subscription events that occur prior to the
+    // initial query completing
     List<SubscriptionEvent<T>> subscriptionEvents = [];
+
+    // used to track when the initial query completes
     bool hasInitialQueryCompleted = false;
 
     Stream<QuerySnapshot<T>> observeStream = this
         .observe(modelType)
+        // TODO: Determine why observe is emitting duplicate events
+        .distinct((a, b) =>
+            a.eventType == b.eventType &&
+            a.modelType == b.modelType &&
+            a.item == b.item)
         .map<QuerySnapshot<T>?>((event) {
-          var start = DateTime.now();
           // cache subscription events until the initial query is returned
           if (!hasInitialQueryCompleted) {
             subscriptionEvents.add(event);
             return null;
           }
 
-          // apply the event to the cached items
-          var updatedSortedList = _applySubscriptionEventToItems(
-            sortedList: sortedList,
+          // TODO: remove - used for perf monitoring
+          var start = DateTime.now();
+
+          // apply the most recent event to the cached QuerySnapshot
+          var updatedQuerySnapshot = querySnapshot.withSubscriptionEvent(
             event: event,
-            where: where,
           );
 
-          // if the items have not changed, return null
-          if (sortedList == updatedSortedList) {
+          // if the snapshot has not changed, return null
+          if (querySnapshot == updatedQuerySnapshot) {
             return null;
           }
 
-          // update the items and return a QuerySnapshot
-          sortedList = updatedSortedList;
+          // TODO: remove - used for perf monitoring
           var end = DateTime.now();
           var diff = end.difference(start).inMicroseconds;
           print('Time to generate snapshot: ${diff / 1000} milliseconds');
-          return QuerySnapshot(
-            items: sortedList.items,
-            events: [event],
-            isSynced: false,
-          );
+
+          // otherwise, update the cached QuerySnapshot and return it
+          querySnapshot = updatedQuerySnapshot;
+          return querySnapshot;
         })
         // filter out null values
         .where((event) => event != null)
@@ -233,27 +240,24 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
       pagination: QueryPagination(limit: 10000),
     )
         .then((value) {
-      // cache the result set
-      sortedList.addSorted(value);
-
-      // apply any cached subscription events
-      // TODO: Is this actually needed?
-      // It seems like native will not apply updates while a query is active
-      for (var event in subscriptionEvents) {
-        sortedList = _applySubscriptionEventToItems(
-          sortedList: sortedList,
-          event: event,
-          where: where,
-        );
-      }
-      hasInitialQueryCompleted = true;
-
-      // return a QuerySnapshot
-      return QuerySnapshot(
-        items: sortedList.items,
+      // cache the intitial QuerySnapshot
+      querySnapshot = QuerySnapshot(
+        items: value,
         events: [],
         isSynced: false,
       );
+
+      // apply any cached subscription events
+      // TODO: Is this needed? It seems like iOS/Android will not apply updates while a query is active
+      for (var event in subscriptionEvents) {
+        querySnapshot = querySnapshot.withSubscriptionEvent(event: event);
+      }
+
+      // mark initial query as complete
+      hasInitialQueryCompleted = true;
+
+      // return the QuerySnapshot
+      return querySnapshot;
     });
 
     final queryStream = Stream.fromFuture(queryFuture);
@@ -309,87 +313,5 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
               AmplifyExceptionMessages.missingRecoverySuggestion,
           underlyingException: e.toString());
     }
-  }
-
-  SortedList<T> _applySubscriptionEventToItems<T extends Model>({
-    required SubscriptionEvent<T> event,
-    required SortedList<T> sortedList,
-    QueryPredicate? where,
-  }) {
-    SortedList<T> updatedSortedList = sortedList.copy();
-    bool itemsHasBeenUpdated = false;
-
-    bool eventItemMatchesPredicate =
-        _matchesPredicate(model: event.item, where: where);
-    int currentItemIndex = updatedSortedList.items
-        .indexWhere((item) => item.getId() == event.item.getId());
-    T? currentItem = currentItemIndex == -1
-        ? null
-        : updatedSortedList.items[currentItemIndex];
-    bool currentItemMatchesPredicate = currentItem != null &&
-        _matchesPredicate(
-          model: currentItem,
-          where: where,
-        );
-
-    if (event.eventType == EventType.create &&
-        eventItemMatchesPredicate &&
-        currentItem == null) {
-      updatedSortedList.add(event.item);
-      itemsHasBeenUpdated = true;
-    } else if (event.eventType == EventType.delete && currentItem != null) {
-      updatedSortedList.removeAt(currentItemIndex);
-      itemsHasBeenUpdated = true;
-    } else if (event.eventType == EventType.update) {
-      if (currentItemMatchesPredicate &&
-          eventItemMatchesPredicate &&
-          // TODO: should a new snapshot be created for an
-          // "update" event where the item does not change?
-          // this is occurs frequency during sync updates
-          currentItem != event.item) {
-        updatedSortedList[currentItemIndex] = event.item;
-        itemsHasBeenUpdated = true;
-      } else if (currentItemMatchesPredicate && eventItemMatchesPredicate) {
-        updatedSortedList.removeAt(currentItemIndex);
-        itemsHasBeenUpdated = true;
-      } else if (!currentItemMatchesPredicate && eventItemMatchesPredicate) {
-        updatedSortedList.add(event.item);
-        itemsHasBeenUpdated = true;
-      }
-    }
-    if (itemsHasBeenUpdated) {
-      return updatedSortedList;
-    }
-    return sortedList;
-  }
-
-  int Function(T a, T b)? _createCompareFromSortBy<T extends Model>(
-    List<QuerySortBy>? sortBy,
-  ) {
-    if (sortBy == null) {
-      return null;
-    }
-    return (T a, T b) {
-      int sortOrder = 0;
-      List<QuerySortBy> _sortBy = List.from(sortBy);
-      while (sortOrder == 0 && _sortBy.isNotEmpty) {
-        QuerySortBy nextSortBy = _sortBy.removeAt(0);
-        sortOrder = nextSortBy.compare<T>(a, b);
-      }
-      return sortOrder;
-    };
-  }
-
-  bool _matchesPredicate<T extends Model>({
-    required T model,
-    QueryPredicate? where,
-  }) {
-    if (where == null) {
-      return true;
-    }
-    if (where is QueryPredicateOperation) {
-      return where.evaluate(model);
-    }
-    return false;
   }
 }
