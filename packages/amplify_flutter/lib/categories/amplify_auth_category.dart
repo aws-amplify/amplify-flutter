@@ -208,9 +208,8 @@ class AuthCategory {
   }
 
   Future<SignInResult> signInWithWebUI(
-      {AuthProvider? provider, bool? isPreferPrivateSession}) {
-    var request = SignInWithWebUIRequest(
-        provider: provider, isPreferPrivateSession: isPreferPrivateSession);
+      {AuthProvider? provider, SignInWithWebUIOptions? options}) {
+    var request = SignInWithWebUIRequest(provider: provider, options: options);
     return plugins.length == 1
         ? plugins[0].signInWithWebUI(request: request)
         : throw _pluginNotAddedException("Auth");

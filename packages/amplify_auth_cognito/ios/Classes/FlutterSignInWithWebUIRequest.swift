@@ -24,8 +24,11 @@ struct FlutterSignInWithWebUIRequest {
 
   init(dict: NSMutableDictionary){
     self.provider = getAuthProvider(provider: dict["authProvider"] as! String?)
-    if (dict["isPreferPrivateSession"] != nil &&  dict["isPreferPrivateSession"] as! Bool) {
-        self.isPreferPrivateSession = dict["isPreferPrivateSession"] as! Bool
+    var options = dict["options"] as! Dictionary<String, Any>?
+    if (options != nil) {
+      if (options!["isPreferPrivateSession"] != nil && options!["isPreferPrivateSession"] as! Bool) {
+        self.isPreferPrivateSession = options!["isPreferPrivateSession"] as! Bool
+      }
     }
   }
 
