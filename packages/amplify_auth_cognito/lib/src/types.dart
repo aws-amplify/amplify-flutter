@@ -18,6 +18,7 @@ export 'CognitoSignUp/CognitoSignUpOptions.dart';
 export 'CognitoSignUp/CognitoSignUpResult.dart';
 export 'CognitoSignUp/CognitoConfirmSignUpOptions.dart';
 export 'CognitoSignUp/CognitoResendSignUpCodeResult.dart';
+export 'CognitoSignUp/CognitoResendSignUpCodeOptions.dart';
 export 'CognitoSignUp/cognito_user_attributes.dart';
 
 // SignIn
@@ -26,6 +27,8 @@ export 'CognitoSignIn/CognitoConfirmSignInOptions.dart';
 export 'CognitoSignIn/CognitoSignInOptions.dart';
 
 // Password
+export 'CognitoPasswords/CognitoConfirmResetPasswordOptions.dart';
+export 'CognitoPasswords/CognitoResetPasswordOptions.dart';
 export 'CognitoPasswords/CognitoResetPasswordResult.dart';
 export 'CognitoPasswords/CognitoUpdatePasswordOptions.dart';
 
@@ -34,6 +37,14 @@ export 'CognitoSession/AWSCognitoUserPoolTokens.dart';
 export 'CognitoSession/AWSCredentials.dart';
 export 'CognitoSession/CognitoAuthSession.dart';
 export 'CognitoSession/CognitoSessionOptions.dart';
+
+// Attribute
+export 'CognitoAttribute/CognitoResendUserAttributeConfirmationCodeOptions.dart';
+export 'CognitoAttribute/CognitoUpdateUserAttributeOptions.dart';
+export 'CognitoAttribute/CognitoUpdateUserAttributesOptions.dart';
+
+// Device
+export 'CognitoDevice/cognito_device.dart';
 
 // Exceptions
 export 'package:amplify_auth_plugin_interface/src/Exceptions/AuthException.dart';

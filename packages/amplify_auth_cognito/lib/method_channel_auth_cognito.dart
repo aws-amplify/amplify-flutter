@@ -201,13 +201,20 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
     }
   }
 
+  @Deprecated('Use confirmResetPassword() instead')
   @override
   Future<UpdatePasswordResult> confirmPassword(
-      {ConfirmPasswordRequest? request}) async {
+      {ConfirmResetPasswordRequest? request}) async {
+    return confirmResetPassword(request: request);
+  }
+
+  @override
+  Future<UpdatePasswordResult> confirmResetPassword(
+      {ConfirmResetPasswordRequest? request}) async {
     try {
       final Map<String, dynamic>? data =
           (await (_channel.invokeMapMethod<String, dynamic>(
-        'confirmPassword',
+        'confirmResetPassword',
         <String, dynamic>{
           'data': request != null ? request.serializeAsMap() : null,
         },
@@ -261,7 +268,7 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
 
   @override
   Future<List<AuthUserAttribute>> fetchUserAttributes(
-      {AuthUserAttributeRequest? request}) async {
+      {FetchUserAttributesRequest? request}) async {
     try {
       final List<Map<dynamic, dynamic>>? data =
           (await (_channel.invokeListMethod(
@@ -503,5 +510,33 @@ class AmplifyAuthCognitoMethodChannel extends AmplifyAuthCognito {
           Map<String, dynamic> res) {
     return ResendUserAttributeConfirmationCodeResult(
         codeDeliveryDetails: res["codeDeliveryDetails"]);
+  }
+
+  @override
+  Future<void> rememberDevice() async {
+    try {
+      await _channel.invokeMethod<void>('rememberDevice');
+    } on PlatformException catch (e) {
+      throw transformDeviceException(e);
+    }
+  }
+
+  @override
+  Future<void> forgetDevice([AuthDevice? device]) async {
+    try {
+      await _channel.invokeMethod<void>('forgetDevice', device?.toJson());
+    } on PlatformException catch (e) {
+      throw transformDeviceException(e);
+    }
+  }
+
+  @override
+  Future<List<CognitoDevice>> fetchDevices() async {
+    try {
+      final devicesJson = await _channel.invokeListMethod<Map>('fetchDevices');
+      return devicesJson?.map((e) => CognitoDevice.fromJson(e)).toList() ?? [];
+    } on PlatformException catch (e) {
+      throw transformDeviceException(e);
+    }
   }
 }

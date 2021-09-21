@@ -1,3 +1,27 @@
+## 0.2.4 (2021-09-10)
+
+### Fixes
+
+- fix: CocoaPods relative import
+
+## 0.2.3 (2021-09-09)
+
+### Features
+
+- feat(auth): OIDC/Lambda Support (#777)
+- feat(auth): add options to resendSignUpCode (#738)
+
+### Chores
+
+- chore: upgrade amplify-android 1.24.1 (#829)
+- chore(analytics): Apply lints (#810)
+
+## 0.2.2 (2021-08-04)
+
+### Fixes
+
+- fix: Session start not triggered on Android devices (#764)
+
 ## 0.2.1 (2021-07-27)
 
 ### Chores

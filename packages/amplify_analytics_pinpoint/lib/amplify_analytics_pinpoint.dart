@@ -41,37 +41,45 @@ class AmplifyAnalyticsPinpoint extends AnalyticsPluginInterface {
 
   // Public facing methods
 
+  @override
   Future<void> addPlugin() async {
     return _instance.addPlugin();
   }
 
+  @override
   Future<void> recordEvent({required AnalyticsEvent event}) async {
     return _instance.recordEvent(event: event);
   }
 
+  @override
   Future<void> flushEvents() async {
     await _instance.flushEvents();
   }
 
+  @override
   Future<void> registerGlobalProperties(
       {required AnalyticsProperties globalProperties}) async {
     return _instance.registerGlobalProperties(
         globalProperties: globalProperties);
   }
 
+  @override
   Future<void> unregisterGlobalProperties(
       {required List<String> propertyNames}) async {
     return _instance.unregisterGlobalProperties(propertyNames: propertyNames);
   }
 
+  @override
   Future<void> enable() async {
     await _instance.enable();
   }
 
+  @override
   Future<void> disable() async {
     return _instance.disable();
   }
 
+  @override
   Future<void> identifyUser(
       {required String userId,
       required AnalyticsUserProfile userProfile}) async {

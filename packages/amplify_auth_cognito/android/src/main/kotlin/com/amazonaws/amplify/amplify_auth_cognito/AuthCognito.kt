@@ -22,6 +22,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
 import androidx.annotation.VisibleForTesting
+import com.amazonaws.amplify.amplify_auth_cognito.device.DeviceHandler
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpResult
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignInResult
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterFetchCognitoAuthSessionResult
@@ -33,7 +34,7 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmSignUpRequ
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignInRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmSignInRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmPasswordRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmResetPasswordRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResetPasswordRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdatePasswordRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthUser
@@ -92,6 +93,11 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
   var eventMessenger: BinaryMessenger? = null
   private lateinit var activityBinding: ActivityPluginBinding
 
+  /**
+   * Handles the Devices API.
+   */
+  private val deviceHandler: DeviceHandler = DeviceHandler(errorHandler)
+
   constructor() {
       authCognitoHubEventStreamHandler = AuthCognitoHubEventStreamHandler()
   }
@@ -104,7 +110,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "com.amazonaws.amplify/auth_cognito")
-    channel.setMethodCallHandler(this);
+    channel.setMethodCallHandler(this)
     context = flutterPluginBinding.applicationContext;
     eventMessenger = flutterPluginBinding.getBinaryMessenger();
     hubEventChannel = EventChannel(flutterPluginBinding.binaryMessenger,
@@ -158,6 +164,11 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       return
     }
 
+    if (DeviceHandler.canHandle(call.method)) {
+      deviceHandler.onMethodCall(call, result)
+      return
+    }
+
     var data : HashMap<String, Any> = HashMap<String, Any> ()
     try {
       data = checkData(checkArguments(call.arguments));
@@ -173,7 +184,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       "signOut" ->  onSignOut(result, data)
       "updatePassword" -> onUpdatePassword(result, data)
       "resetPassword" -> onResetPassword(result, data)
-      "confirmPassword" -> onConfirmPassword(result, data)
+      "confirmResetPassword" -> onConfirmResetPassword(result, data)
       "fetchAuthSession" -> onFetchAuthSession(result, data)
       "resendSignUpCode" -> onResendSignUpCode(result, data)
       "getCurrentUser" -> onGetCurrentUser(result)
@@ -237,6 +248,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
         var req = FlutterResendSignUpCodeRequest(request as HashMap<String, *>);
         Amplify.Auth.resendSignUpCode(
                 req.username,
+                req.options,
                 { result -> prepareResendSignUpCodeResult(flutterResult, result) },
                 { error -> errorHandler.handleAuthError(flutterResult, error)}
         )
@@ -314,6 +326,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
         var req = FlutterResetPasswordRequest(request)
         Amplify.Auth.resetPassword(
                 req.username,
+                req.options,
                 { result -> prepareResetPasswordResult(flutterResult, result)},
                 { error -> errorHandler.handleAuthError(flutterResult, error) }
         );
@@ -322,13 +335,14 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       }
   }
 
-  private fun onConfirmPassword (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
+  private fun onConfirmResetPassword (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
       try {
-        FlutterConfirmPasswordRequest.validate(request)
-        var req = FlutterConfirmPasswordRequest(request)
+        FlutterConfirmResetPasswordRequest.validate(request)
+        var req = FlutterConfirmResetPasswordRequest(request)
         Amplify.Auth.confirmResetPassword(
                 req.newPassword,
                 req.confirmationCode,
+                req.options,
                 {  -> prepareUpdatePasswordResult(flutterResult)},
                 { error -> errorHandler.handleAuthError(flutterResult, error)}
         );
@@ -455,6 +469,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       var req = FlutterUpdateUserAttributeRequest(request)
       Amplify.Auth.updateUserAttribute(
               req.attribute,
+              req.options,
               { result -> prepareUpdateUserAttributeResult(flutterResult, result) },
               { error -> errorHandler.handleAuthError(flutterResult, error) }
       );
@@ -469,6 +484,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       var req = FlutterUpdateUserAttributesRequest(request)
       Amplify.Auth.updateUserAttributes(
               req.attributes,
+              req.options,
               { result -> prepareUpdateUserAttributesResult(flutterResult, result) },
               { error -> errorHandler.handleAuthError(flutterResult, error) }
       );
@@ -498,6 +514,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       var req = FlutterResendUserAttributeConfirmationCodeRequest(request)
       Amplify.Auth.resendUserAttributeConfirmationCode(
               req.userAttributeKey,
+              req.options,
               { result -> prepareResendUserAttributeConfirmationCodeResult(flutterResult, result) },
               { error -> errorHandler.handleAuthError(flutterResult, error) }
       );

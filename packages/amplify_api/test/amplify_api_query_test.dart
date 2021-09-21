@@ -58,7 +58,10 @@ void main() {
     };
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return {'data': queryResult.toString(), 'errors': []};
+      return {
+        'data': queryResult.toString(),
+        'errors': <Map>[],
+      };
     });
 
     String graphQLDocument = '''query MyQuery {
@@ -71,8 +74,12 @@ void main() {
       }
     }''';
 
-    var operation = await api.query<String>(
-        request: GraphQLRequest(document: graphQLDocument, variables: {}));
+    var operation = api.query<String>(
+      request: GraphQLRequest(
+        document: graphQLDocument,
+        variables: <String, dynamic>{},
+      ),
+    );
 
     var response = await operation.response;
     expect(response.data, queryResult.toString());
@@ -96,7 +103,11 @@ void main() {
 
     try {
       var operation = api.query<String>(
-          request: GraphQLRequest(document: graphQLDocument, variables: {}));
+        request: GraphQLRequest(
+          document: graphQLDocument,
+          variables: <String, dynamic>{},
+        ),
+      );
       await operation.response;
     } on ApiException catch (e) {
       expect(e.message, 'AMPLIFY_API_QUERY_FAILED');
@@ -104,7 +115,7 @@ void main() {
       expect(e.underlyingException, 'Act of God');
       return;
     }
-    throw new Exception('Expected an ApiException');
+    throw Exception('Expected an ApiException');
   });
 
   test(
@@ -125,7 +136,11 @@ void main() {
 
     try {
       var operation = api.query<String>(
-          request: GraphQLRequest(document: graphQLDocument, variables: {}));
+        request: GraphQLRequest(
+          document: graphQLDocument,
+          variables: <String, dynamic>{},
+        ),
+      );
       await operation.response;
     } on ApiException catch (e) {
       expect(e.message, 'AMPLIFY_API_QUERY_FAILED');
@@ -133,7 +148,7 @@ void main() {
       expect(e.underlyingException, 'Act of God');
       return;
     }
-    throw new Exception('Expected an ApiException');
+    throw Exception('Expected an ApiException');
   });
 
   test(
@@ -153,7 +168,11 @@ void main() {
     String graphQLDocument = '';
     try {
       var operation = api.query<String>(
-          request: GraphQLRequest(document: graphQLDocument, variables: {}));
+        request: GraphQLRequest(
+          document: graphQLDocument,
+          variables: <String, dynamic>{},
+        ),
+      );
       await operation.response;
     } on ApiException catch (e) {
       expect(e.message, 'AMPLIFY_API_QUERY_FAILED');
@@ -161,6 +180,58 @@ void main() {
       expect(e.underlyingException, 'Act of God');
       return;
     }
-    throw new Exception('Expected an ApiException');
+    throw Exception('Expected an ApiException');
+  });
+
+  test('query should serialize apiName parameter when included in request',
+      () async {
+    var apiName = 'publicApi';
+    String graphQLDocument = '''query MyQuery {
+      listBlogs {
+        items {
+          id
+          name
+          createdAt
+        }
+      }
+    }''';
+
+    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      expect(methodCall.arguments['apiName'], apiName);
+      return {'errors': <Map>[]};
+    });
+    var operation = api.query<String>(
+      request: GraphQLRequest(
+        document: graphQLDocument,
+        variables: <String, dynamic>{},
+        apiName: apiName,
+      ),
+    );
+    await operation.response;
+  });
+
+  test('query should not serialize apiName when not included in request',
+      () async {
+    String graphQLDocument = '''query MyQuery {
+      listBlogs {
+        items {
+          id
+          name
+          createdAt
+        }
+      }
+    }''';
+
+    apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
+      expect(methodCall.arguments['apiName'], null);
+      return {'errors': <Map>[]};
+    });
+    var operation = api.query<String>(
+      request: GraphQLRequest(
+        document: graphQLDocument,
+        variables: <String, dynamic>{},
+      ),
+    );
+    await operation.response;
   });
 }

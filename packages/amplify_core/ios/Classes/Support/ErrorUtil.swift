@@ -15,6 +15,12 @@
 
 import Flutter
 
+/// Thrown when a function receives arguments of a different type than it expects.
+public let invalidArgumentsError = FlutterError(
+    code: "InvalidArgumentsError",
+    message: "Invalid arguments passed to \(#function)",
+    details: nil)
+
 public class ErrorUtil {
     public static func postErrorToFlutterChannel(result: FlutterResult,
                                           errorCode: String,
