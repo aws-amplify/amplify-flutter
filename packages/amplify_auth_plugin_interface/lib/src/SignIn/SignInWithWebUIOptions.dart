@@ -15,8 +15,5 @@
 
 abstract class SignInWithWebUIOptions {
   const SignInWithWebUIOptions();
-  Map<String, dynamic> serializeAsMap() {
-    throw UnimplementedError(
-        'serializeAsMap() has not been implemented on SignInWithWebUIOptions.');
-  }
+  Map<String, dynamic> serializeAsMap();
 }

@@ -16,13 +16,17 @@
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
 class CognitoSignInWithWebUIOptions extends SignInWithWebUIOptions {
-  bool? isPreferPrivateSession;
-  CognitoSignInWithWebUIOptions({this.isPreferPrivateSession}) : super();
-  Map<String, dynamic> serializeAsMap() {
-    final Map<String, dynamic> pendingRequest = {
-      'isPreferPrivateSession': isPreferPrivateSession
-    };
-    pendingRequest.removeWhere((_, v) => v == null);
-    return pendingRequest;
-  }
+  /// iOS-only: Starts the webUI signin in a private browser session, if supported by the current browser.
+  ///
+  /// Note that this value internally sets `prefersEphemeralWebBrowserSession` in ASWebAuthenticationSession.
+  /// As per Apple documentation, Whether the request is honored depends on the user’s default web browser.
+  /// Safari always honors the request.
+  ///
+  /// Defaults to `false`.
+  final bool isPreferPrivateSession;
+  const CognitoSignInWithWebUIOptions({this.isPreferPrivateSession = false});
+  @override
+  Map<String, dynamic> serializeAsMap() => <String, dynamic>{
+        'isPreferPrivateSession': isPreferPrivateSession,
+      };
 }
