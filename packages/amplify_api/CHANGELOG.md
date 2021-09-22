@@ -1,3 +1,9 @@
+## 0.2.4 (2021-09-10)
+
+### Fixes
+
+- fix: CocoaPods relative import
+
 ## 0.2.3 (2021-09-09)
 
 ### Features

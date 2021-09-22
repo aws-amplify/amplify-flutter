@@ -14,12 +14,20 @@ scripts:
       cp -n "\$MELOS_ROOT_PATH"/.circleci/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart | true
 
   build:examples:ios: >
-    melos exec -c 1 --scope="*example*" --fail-fast -- \
+    melos exec -c 1 --scope="*example*,sample_app" --fail-fast -- \
+      flutter build ios --simulator
+
+  build:examples:release:ios: >
+    melos exec -c 1 --scope="*example*,sample_app" --fail-fast -- \
       flutter build ios --no-codesign
 
   build:examples:android: >
-    melos exec -c 1 --scope="*example*" --fail-fast -- \
+    melos exec -c 1 --scope="*example*,sample_app" --fail-fast -- \
       flutter build apk --debug --verbose
+
+  build:examples:release:android: >
+    melos exec -c 1 --scope="*example*,sample_app" --fail-fast -- \
+      flutter build apk --verbose
 
   test:unit:flutter: >
     ./.circleci/test_all_plugins.sh flutter-test && exit 0
@@ -106,7 +114,7 @@ scripts:
 
   packages:fix: |
     melos exec -- \
-      flutter analyze --no-fatal-infos --no-fatal-warnings >/dev/null 2>&1
+      flutter analyze --no-fatal-infos --no-fatal-warnings &>/dev/null || true
 
   postbootstrap: |
     melos run copy_dummy_config && \
