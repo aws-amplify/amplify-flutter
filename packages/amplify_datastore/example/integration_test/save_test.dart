@@ -27,15 +27,40 @@ void main() {
     setUp(() async {
       await configureDataStore();
       // clear data before each test
-      await Amplify.DataStore.clear();
+      await clearDataStore();
     });
 
-    testWidgets('should save data locally', (WidgetTester tester) async {
+    testWidgets('should save a new model', (WidgetTester tester) async {
       Blog testBlog = Blog(name: 'test blog');
       await Amplify.DataStore.save(testBlog);
       var blogs = await Amplify.DataStore.query(Blog.classType);
       expect(blogs.length, 1);
       expect(blogs.contains(testBlog), isTrue);
     });
+
+    testWidgets(
+      'should update an existing model',
+      (WidgetTester tester) async {
+        // create blog
+        var testBlog = Blog(name: 'test blog');
+        await Amplify.DataStore.save(testBlog);
+        var blogs = await Amplify.DataStore.query(Blog.classType);
+
+        // verify blog was created
+        expect(blogs.length, 1);
+        expect(blogs.contains(testBlog), isTrue);
+
+        // update blog
+        const updatedBlogName = 'updated name';
+        var updatedBlog = testBlog.copyWith(name: updatedBlogName);
+        await Amplify.DataStore.save(updatedBlog);
+        var updatedBlogs = await Amplify.DataStore.query(Blog.classType);
+
+        // verify blog was updated
+        expect(updatedBlogs.length, 1);
+        expect(updatedBlogs.contains(updatedBlog), isTrue);
+        expect(updatedBlogs[0].name, updatedBlogName);
+      },
+    );
   });
 }

@@ -15,6 +15,6 @@
 
 import Foundation
 enum GraphQLSubscriptionEventTypes: String {
-    case DATA = "DATA"
-    case DONE = "DONE"
+    case DATA
+    case DONE
 }

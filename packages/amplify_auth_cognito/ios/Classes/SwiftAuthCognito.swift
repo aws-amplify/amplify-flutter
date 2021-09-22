@@ -178,11 +178,11 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
             } catch {
                 self.errorHandler.prepareGenericException(flutterResult: result, error: error)
             }
-        case "confirmPassword":
+        case "confirmResetPassword":
             do {
-                try FlutterConfirmPasswordRequest.validate(dict: data)
-                let request = FlutterConfirmPasswordRequest(dict: data)
-                cognito.onConfirmPassword(flutterResult: result, request: request)
+                try FlutterConfirmResetPasswordRequest.validate(dict: data)
+                let request = FlutterConfirmResetPasswordRequest(dict: data)
+                cognito.onConfirmResetPassword(flutterResult: result, request: request)
             } catch {
                 self.errorHandler.prepareGenericException(flutterResult: result, error: error)
             }

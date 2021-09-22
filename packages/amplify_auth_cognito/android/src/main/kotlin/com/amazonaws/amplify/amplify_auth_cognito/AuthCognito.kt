@@ -34,7 +34,7 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmSignUpRequ
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignUpRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterSignInRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmSignInRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmPasswordRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmResetPasswordRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResetPasswordRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdatePasswordRequest
 import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterAuthUser
@@ -183,7 +183,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       "signOut" ->  onSignOut(result)
       "updatePassword" -> onUpdatePassword(result, data)
       "resetPassword" -> onResetPassword(result, data)
-      "confirmPassword" -> onConfirmPassword(result, data)
+      "confirmResetPassword" -> onConfirmResetPassword(result, data)
       "fetchAuthSession" -> onFetchAuthSession(result, data)
       "resendSignUpCode" -> onResendSignUpCode(result, data)
       "getCurrentUser" -> onGetCurrentUser(result)
@@ -247,6 +247,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
         var req = FlutterResendSignUpCodeRequest(request as HashMap<String, *>);
         Amplify.Auth.resendSignUpCode(
                 req.username,
+                req.options,
                 { result -> prepareResendSignUpCodeResult(flutterResult, result) },
                 { error -> errorHandler.handleAuthError(flutterResult, error)}
         )
@@ -321,6 +322,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
         var req = FlutterResetPasswordRequest(request)
         Amplify.Auth.resetPassword(
                 req.username,
+                req.options,
                 { result -> prepareResetPasswordResult(flutterResult, result)},
                 { error -> errorHandler.handleAuthError(flutterResult, error) }
         );
@@ -329,13 +331,14 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       }
   }
 
-  private fun onConfirmPassword (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
+  private fun onConfirmResetPassword (@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
       try {
-        FlutterConfirmPasswordRequest.validate(request)
-        var req = FlutterConfirmPasswordRequest(request)
+        FlutterConfirmResetPasswordRequest.validate(request)
+        var req = FlutterConfirmResetPasswordRequest(request)
         Amplify.Auth.confirmResetPassword(
                 req.newPassword,
                 req.confirmationCode,
+                req.options,
                 {  -> prepareUpdatePasswordResult(flutterResult)},
                 { error -> errorHandler.handleAuthError(flutterResult, error)}
         );
@@ -486,6 +489,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       var req = FlutterUpdateUserAttributeRequest(request)
       Amplify.Auth.updateUserAttribute(
               req.attribute,
+              req.options,
               { result -> prepareUpdateUserAttributeResult(flutterResult, result) },
               { error -> errorHandler.handleAuthError(flutterResult, error) }
       );
@@ -500,6 +504,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       var req = FlutterUpdateUserAttributesRequest(request)
       Amplify.Auth.updateUserAttributes(
               req.attributes,
+              req.options,
               { result -> prepareUpdateUserAttributesResult(flutterResult, result) },
               { error -> errorHandler.handleAuthError(flutterResult, error) }
       );
@@ -529,6 +534,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
       var req = FlutterResendUserAttributeConfirmationCodeRequest(request)
       Amplify.Auth.resendUserAttributeConfirmationCode(
               req.userAttributeKey,
+              req.options,
               { result -> prepareResendUserAttributeConfirmationCodeResult(flutterResult, result) },
               { error -> errorHandler.handleAuthError(flutterResult, error) }
       );
@@ -596,15 +602,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
   }
 
   fun prepareCognitoSessionFailure(@NonNull flutterResult: Result, @NonNull result: AWSCognitoAuthSession) {
-    // If a User Pool token's error is a SignedOutException, we send SignedOutException as
-    // method call response because this indicates that the problem is not expired tokens,
-    // but total lack of authentication (i.e. the user is signed out)
-    var sessionException: AuthException = if (result.userPoolTokens.error is AuthException.SignedOutException) {
-      AuthException.SignedOutException()
-    } else {
-      AuthException.SessionExpiredException()
-    }
-    errorHandler.handleAuthError(flutterResult, sessionException)
+    errorHandler.handleAuthError(flutterResult, AuthException.SessionExpiredException())
   }
 
   fun prepareSessionResult(@NonNull flutterResult: Result, @NonNull result: AuthSession) {

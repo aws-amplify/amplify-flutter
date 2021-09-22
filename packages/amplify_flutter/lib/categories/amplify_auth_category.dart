@@ -69,8 +69,15 @@ class AuthCategory {
         : throw _pluginNotAddedException("Auth");
   }
 
-  Future<ResendSignUpCodeResult> resendSignUpCode({required String username}) {
-    var request = ResendSignUpCodeRequest(username: username);
+  /// Resends the code that is used to confirm the user's account after sign up
+  ///
+  /// Resends the code to the user with the given [username], where [username]
+  /// is a login identifier or an email/phone number, depending on the configuration
+  ///
+  /// Accepts plugin-specific, advanced [options] for the request
+  Future<ResendSignUpCodeResult> resendSignUpCode(
+      {required String username, ResendSignUpCodeOptions? options}) {
+    var request = ResendSignUpCodeRequest(username: username, options: options);
     return plugins.length == 1
         ? plugins[0].resendSignUpCode(request: request)
         : throw _pluginNotAddedException("Auth");
@@ -103,10 +110,15 @@ class AuthCategory {
         : throw _pluginNotAddedException("Auth");
   }
 
+  /// Updates the password of the current user.
+  ///
+  /// There must be a user signed in to perform this action.
+  ///
+  /// Optionally accepts plugin-specific, advanced [options] for the request.
   Future<UpdatePasswordResult> updatePassword(
       {required String oldPassword,
       required String newPassword,
-      PasswordOptions? options}) {
+      UpdatePasswordOptions? options}) {
     var request = UpdatePasswordRequest(
         oldPassword: oldPassword, newPassword: newPassword, options: options);
     return plugins.length == 1
@@ -114,26 +126,62 @@ class AuthCategory {
         : throw _pluginNotAddedException("Auth");
   }
 
+  /// Initiates a password reset for the user with the given username.
+  ///
+  /// The [username] is a login identifier or an email/phone number, depending on
+  /// the configuration.
+  ///
+  /// Optionally accepts plugin-specific, advanced [options] for the request.
   Future<ResetPasswordResult> resetPassword(
-      {required String username, PasswordOptions? options}) {
+      {required String username, ResetPasswordOptions? options}) {
     var request = ResetPasswordRequest(username: username, options: options);
     return plugins.length == 1
         ? plugins[0].resetPassword(request: request)
         : throw _pluginNotAddedException("Auth");
   }
 
+  /// Completes the password reset process given a username, new password,
+  /// and confirmation code.
+  ///
+  /// The [username] is a login identifier or an email/phone number, depending on
+  /// the configuration.
+  ///
+  /// Optionally accepts plugin-specific, advanced [options] for the request.
+  @Deprecated('Use confirmResetPassword() instead')
   Future<UpdatePasswordResult> confirmPassword(
       {required String username,
       required String newPassword,
       required String confirmationCode,
-      PasswordOptions? options}) {
+      ConfirmResetPasswordOptions? options}) {
     var request = ConfirmPasswordRequest(
         username: username,
         newPassword: newPassword,
         confirmationCode: confirmationCode,
         options: options);
     return plugins.length == 1
-        ? plugins[0].confirmPassword(request: request)
+        ? plugins[0].confirmResetPassword(request: request)
+        : throw _pluginNotAddedException("Auth");
+  }
+
+  /// Completes the password reset process given a username, new password,
+  /// and confirmation code.
+  ///
+  /// The [username] is a login identifier or an email/phone number, depending on
+  /// the configuration.
+  ///
+  /// Optionally accepts plugin-specific, advanced [options] for the request.
+  Future<UpdatePasswordResult> confirmResetPassword(
+      {required String username,
+      required String newPassword,
+      required String confirmationCode,
+      ConfirmResetPasswordOptions? options}) {
+    var request = ConfirmResetPasswordRequest(
+        username: username,
+        newPassword: newPassword,
+        confirmationCode: confirmationCode,
+        options: options);
+    return plugins.length == 1
+        ? plugins[0].confirmResetPassword(request: request)
         : throw _pluginNotAddedException("Auth");
   }
 
@@ -145,8 +193,8 @@ class AuthCategory {
   }
 
   Future<List<AuthUserAttribute>> fetchUserAttributes(
-      {AuthUserAttributeOptions? options}) {
-    var request = AuthUserAttributeRequest(options: options);
+      {FetchUserAttributesOptions? options}) {
+    var request = FetchUserAttributesRequest(options: options);
     return plugins.length == 1
         ? plugins[0].fetchUserAttributes(request: request)
         : throw _pluginNotAddedException("Auth");
@@ -167,22 +215,34 @@ class AuthCategory {
   }
 
   /// Updates a single user attribute and returns a [UpdateUserAttributeResult]
+  ///
+  /// Accepts plugin-specific, advanced [options] for the request
   Future<UpdateUserAttributeResult> updateUserAttribute({
     required String userAttributeKey,
     required String value,
+    UpdateUserAttributeOptions? options,
   }) {
     var request = UpdateUserAttributeRequest(
-        userAttributeKey: userAttributeKey, value: value);
+      userAttributeKey: userAttributeKey,
+      value: value,
+      options: options,
+    );
     return plugins.length == 1
         ? plugins[0].updateUserAttribute(request: request)
         : throw _pluginNotAddedException("Auth");
   }
 
   /// Updates multiple user attributes and returns a map of [UpdateUserAttributeResult]
+  ///
+  /// Accepts plugin-specific, advanced [options] for the request
   Future<Map<String, UpdateUserAttributeResult>> updateUserAttributes({
     required List<AuthUserAttribute> attributes,
+    UpdateUserAttributesOptions? options,
   }) {
-    var request = UpdateUserAttributesRequest(attributes: attributes);
+    var request = UpdateUserAttributesRequest(
+      attributes: attributes,
+      options: options,
+    );
     return plugins.length == 1
         ? plugins[0].updateUserAttributes(request: request)
         : throw _pluginNotAddedException("Auth");
@@ -201,10 +261,17 @@ class AuthCategory {
   }
 
   /// Resends a confirmation code for the given attribute and returns a [ResendUserAttributeConfirmationCodeResult]
+  ///
+  /// Accepts plugin-specific, advanced [options] for the request
   Future<ResendUserAttributeConfirmationCodeResult>
-      resendUserAttributeConfirmationCode({required String userAttributeKey}) {
+      resendUserAttributeConfirmationCode({
+    required String userAttributeKey,
+    ResendUserAttributeConfirmationCodeOptions? options,
+  }) {
     var request = ResendUserAttributeConfirmationCodeRequest(
-        userAttributeKey: userAttributeKey);
+      userAttributeKey: userAttributeKey,
+      options: options,
+    );
     return plugins.length == 1
         ? plugins[0].resendUserAttributeConfirmationCode(request: request)
         : throw _pluginNotAddedException("Auth");

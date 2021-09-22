@@ -74,52 +74,59 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
         try x.encode(values)
     }
     
-    public func jsonValue(for key: String) -> Any?? {
-        if key == "id" {
-            return id
-        }
-        switch values[key] {
-        case .some(.array(let deserializedValue)):
-            return deserializedValue
-        case .some(.boolean(let deserializedValue)):
-            return deserializedValue
-        case .some(.number(let deserializedValue)):
-            return deserializedValue
-        case .some(.object(let deserializedValue)):
-            return deserializedValue
-        case .some(.string(let deserializedValue)):
-            return deserializedValue
-        case .some(.null):
-            return nil
-        case .none:
-            return nil
-        }
+    internal func jsonValue(for key: String) -> Any?? {
+        return FlutterSerializedModel.extractJsonValue(value: values[key])
+    }
+
+    internal func jsonValue(for key: String, modelSchema: ModelSchema) -> Any?? {
+        return FlutterSerializedModel.extractJsonValue(key: key, value: values[key], modelSchema: modelSchema)
     }
     
-    public func jsonValue(for key: String, modelSchema: ModelSchema) -> Any?? {
-        let field = modelSchema.field(withName: key)
-        if case .int = field?.type,
-           case .some(.number(let deserializedValue)) = values[key] {
-            return Int(deserializedValue)
-        } else if case .dateTime = field?.type,
-                  case .some(.string(let deserializedValue)) = values[key] {
-            return FlutterTemporal(iso8601String: deserializedValue)
-        } else if case .date = field?.type,
-                  case .some(.string(let deserializedValue)) = values[key] {
-            return FlutterTemporal(iso8601String: deserializedValue)
-        } else if case .time = field?.type,
-                  case .some(.string(let deserializedValue)) = values[key] {
-            return FlutterTemporal(iso8601String: deserializedValue)
-        }
-        else if case .timestamp = field?.type,
-                  case .some(.number(let deserializedValue)) = values[key] {
-            return NSNumber(value: deserializedValue)
-        }
+    private static func extractJsonValue(value: JSONValue?) -> Any?? {
+        guard let value = value else { return nil }
         
-        return jsonValue(for: key)
+        switch value {
+        case .array(let deserializedValue):
+            return deserializedValue
+        case .boolean(let deserializedValue):
+            return deserializedValue
+        case .number(let deserializedValue):
+            return deserializedValue
+        case .object(let deserializedValue):
+            return deserializedValue
+        case .string(let deserializedValue):
+            return deserializedValue
+        case .null:
+            return nil
+        }
     }
     
-    private func deserializeValue(value: JSONValue?, fieldType: Codable.Type) -> Any?? {
+    private static func extractJsonValue(key: String, value: JSONValue?, modelSchema: ModelSchema, returnTemporalType: Bool = true) -> Any?? {
+        
+        let field = modelSchema.field(withName: key)
+            switch (field?.type, value) {
+                case (.int, .number(let deserializedValue)):
+                    return Int(deserializedValue)
+                case (.dateTime, .string(let deserializedValue)), (.date, .string(let deserializedValue)), (.time, .string(let deserializedValue)):
+                    
+                    // If returning value for Amplify iOS library return FlutterTemporal
+                    if(returnTemporalType) {
+                        return FlutterTemporal(iso8601String: deserializedValue)
+                    }
+                    // Else returning value to be serialized to Flutter layer
+                    else{
+                        return deserializedValue
+                    }
+                    
+                case (.timestamp, .number(let deserializedValue)):
+                    return Int(deserializedValue)
+                default:
+                    return extractJsonValue(value: value);
+            }
+    }
+    
+    private static func deserializeValue(value: JSONValue?, fieldType: Codable.Type) -> Any?? {
+        
         if fieldType is Int.Type,
            case .some(.number(let deserializedValue)) = value {
             return Int(deserializedValue)
@@ -156,79 +163,67 @@ struct FlutterSerializedModel: Model, JSONValueHolder {
         }
     }
 
-    private func generateSerializedData(modelSchema: ModelSchema) -> [String: Any]{
-        
+    private static func getModelSchema(flutterModelRegistration: FlutterModels, modelName: String) throws -> ModelSchema {
+        do {
+            return try FlutterDataStoreRequestUtils.getModelSchema(modelSchemas: flutterModelRegistration.modelSchemas, modelName: modelName)
+        } catch let error as DataStoreError {
+            print("Model \(modelName) is not registered.")
+            throw error
+        } catch {
+            print("An unexpected error occured when deserializing data model: \(modelName)")
+            throw error
+        }
+    }
+    
+    private static func generateSerializedData(values: [String: JSONValue], flutterModelRegistration: FlutterModels, modelName: String) throws -> [String: Any]{
+        let modelSchema = try FlutterSerializedModel.getModelSchema(flutterModelRegistration: flutterModelRegistration, modelName: modelName)
         var result = [String: Any]()
-                
+
         for(key, value) in values {
-            
             let field = modelSchema.field(withName: key)
-            
+
             if(value == nil){
                 continue
             }
-            if case .model = field?.type{
 
-                let map = jsonValue(for: key, modelSchema: modelSchema) as! [String: JSONValue]
-                if case .string(let deserializedValue) = map["id"],
-                    case .model(let name) = field!.type
-                    {
-                    result[key] = [
-                        "id": deserializedValue,
-                        "modelName": name,
-                        "serializedData": [
-                            "id": deserializedValue
-                        ]
-                    ]
-                }
-    
+            if case .object(let deserializedValue) = value {
+               // If a field that has many models
+               if (deserializedValue["associatedField"] != nil && deserializedValue["associatedId"] != nil) {
+                   result[key] = nil;
+               }
+               // If a field that has one or belongs to a model
+               else if case .string(let modelId) = deserializedValue["id"],
+                       case .model(let nextModelName) = field!.type {
+                   result[key] = [
+                       "id": modelId,
+                       "modelName": nextModelName,
+                       "serializedData": try generateSerializedData(values: deserializedValue, flutterModelRegistration: flutterModelRegistration, modelName: nextModelName)
+                   ]
+               }
             }
+            
             else if case .collection = field?.type{
                 continue
-            }
-            else if case .embeddedCollection(let fieldType, _) = field?.type{
+            } else if case .embeddedCollection(let fieldType, _) = field?.type{
                 if case .array(let jsonArray) = value {
-                    var modifiedArray:[Any??] = []
-                    for item in jsonArray {
-                        let parsedItem = deserializeValue(value: item, fieldType: fieldType)
-                        modifiedArray.append(parsedItem)
+                    result[key] = jsonArray.map {
+                        deserializeValue(value: $0, fieldType: fieldType)
                     }
-                    result[key] = modifiedArray
                 }
             }
-            else if case .dateTime = field?.type,
-                case .some(.string(let deserializedValue)) = values[key] {
-
-                result[key] = deserializedValue
-            }
-            else if case .date = field?.type,
-                case .some(.string(let deserializedValue)) = values[key] {
-
-                result[key] = deserializedValue
-            }
-            else if case .time = field?.type,
-                case .some(.string(let deserializedValue)) = values[key] {
-
-                result[key] = deserializedValue
-            }
-            else if case .timestamp = field?.type,
-                case .some(.number(let deserializedValue)) = values[key] {
-                
-                result[key] = NSNumber(value: Int(deserializedValue) )
-            }
-            else{
-                result[key] = jsonValue(for: key, modelSchema: modelSchema)!
+            else {
+                result[key] = extractJsonValue(key: key, value: values[key], modelSchema: modelSchema, returnTemporalType: false)!
             }
         }
-        
+
         return result;
     }
     
-    public func toMap(modelSchema: ModelSchema) -> [String: Any] {
+    public func toMap(flutterModelRegistration: FlutterModels, modelName: String) throws -> [String: Any] {
         return [
             "id": id,
-            "modelName": modelSchema.name,
-            "serializedData": generateSerializedData(modelSchema: modelSchema)
+            "modelName": modelName,
+            "serializedData": try FlutterSerializedModel.generateSerializedData(values: self.values, flutterModelRegistration: flutterModelRegistration, modelName: modelName)
         ]
     }
 }

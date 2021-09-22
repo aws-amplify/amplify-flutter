@@ -59,12 +59,12 @@ data class FlutterModelFieldType(val map: Map<String, Any>) {
         return when (fieldType) {
             "string" -> String::class.java
             "int" -> Integer::class.java
-            "double" -> Double::class.javaObjectType
+            "double" -> Double::class.java
             "date" -> Temporal.Date::class.java
             "dateTime" -> Temporal.DateTime::class.java
             "time" -> Temporal.Time::class.java
             "timestamp" -> Temporal.Timestamp::class.java
-            "bool" -> Boolean::class.javaObjectType
+            "bool" -> Boolean::class.java
             "enumeration" -> String::class.java
             "model" -> Model::class.java
             "collection" -> List::class.java

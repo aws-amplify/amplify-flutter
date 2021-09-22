@@ -17,10 +17,19 @@ package com.amazonaws.amplify.amplify_auth_cognito.types
 
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
+import com.amplifyframework.auth.cognito.options.AWSCognitoAuthResetPasswordOptions
 
 data class FlutterResetPasswordRequest(val map: HashMap<String, *>) {
   val username: String = map["username"] as String;
-  val options: HashMap<String, *>? = map["options"] as HashMap<String, *>?;
+  val options: AWSCognitoAuthResetPasswordOptions = createOptions(map["options"] as HashMap<String, Any>?)
+
+  private fun createOptions(rawOptions: HashMap<String, *>?): AWSCognitoAuthResetPasswordOptions {
+    val optionsBuilder =  AWSCognitoAuthResetPasswordOptions.builder();
+    if (rawOptions?.get("clientMetadata") != null) {
+      optionsBuilder.metadata(rawOptions["clientMetadata"] as HashMap<String, String>);
+    }
+    return optionsBuilder.build();
+  }
 
   companion object {
     private const val validationErrorMessage: String = "ResetPassword Request malformed."

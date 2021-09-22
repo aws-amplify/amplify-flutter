@@ -17,7 +17,12 @@ import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'save_test.dart' as save_tests;
-import 'query_test.dart' as query_tests;
+import 'query_test/query_test.dart' as query_test;
+import 'model_type_test.dart' as model_type_tests;
+import 'relationship_type_test.dart' as relationship_type_tests;
+import 'observe_test.dart' as observe_tests;
+import 'clear_test.dart' as clear_tests;
+
 import 'utils/setup_utils.dart';
 
 void main() async {
@@ -29,6 +34,10 @@ void main() async {
     });
 
     save_tests.main();
-    query_tests.main();
+    query_test.main();
+    model_type_tests.main();
+    relationship_type_tests.main();
+    observe_tests.main();
+    clear_tests.main();
   });
 }
