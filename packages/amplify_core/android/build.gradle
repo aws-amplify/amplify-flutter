@@ -61,7 +61,7 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.amplifyframework:core:1.26.0'
+    implementation 'com.amplifyframework:core:1.27.0'
     implementation 'com.google.code.gson:gson:2.8.6'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:3.10.0'
