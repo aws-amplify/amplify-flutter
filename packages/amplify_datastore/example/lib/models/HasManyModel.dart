@@ -117,7 +117,8 @@ class HasManyModel extends Model {
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': _name,
-        'children': _children?.map((e) => e?.toJson())?.toList()
+        'children':
+            _children?.map((HasManyChildModel? e) => e?.toJson()).toList()
       };
 
   static final QueryField ID = QueryField(fieldName: "hasManyModel.id");

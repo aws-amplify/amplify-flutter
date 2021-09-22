@@ -80,7 +80,9 @@ class DoubleListTypeModel extends Model {
 
   DoubleListTypeModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _value = json['value']?.cast<double>();
+        _value = (json['value'] as List?)
+            ?.map((e) => (e as num).toDouble())
+            .toList();
 
   Map<String, dynamic> toJson() => {'id': id, 'value': _value};
 

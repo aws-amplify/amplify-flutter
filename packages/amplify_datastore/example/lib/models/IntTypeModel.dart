@@ -75,7 +75,7 @@ class IntTypeModel extends Model {
 
   IntTypeModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _value = json['value'];
+        _value = (json['value'] as num?)?.toInt();
 
   Map<String, dynamic> toJson() => {'id': id, 'value': _value};
 
