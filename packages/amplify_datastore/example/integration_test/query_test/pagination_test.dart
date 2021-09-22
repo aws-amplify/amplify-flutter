@@ -75,6 +75,16 @@ void main() {
       expect(blogs, isEmpty);
     });
 
+    testWidgets('should default to no pagination if none is provided',
+        (WidgetTester tester) async {
+      var blogs = await Amplify.DataStore.query(
+        Blog.classType,
+        sortBy: [Blog.NAME.ascending()],
+      );
+      expect(blogs.length, 1000);
+      expect(blogs, orderedEquals(sortedModels));
+    });
+
     testWidgets('should default to a page size of 100',
         (WidgetTester tester) async {
       var blogs = await Amplify.DataStore.query(
