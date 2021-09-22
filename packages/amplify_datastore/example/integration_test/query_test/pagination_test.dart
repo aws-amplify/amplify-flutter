@@ -81,7 +81,7 @@ void main() {
         Blog.classType,
         sortBy: [Blog.NAME.ascending()],
       );
-      expect(blogs.length, 1000);
+      expect(blogs.length, models.length);
       expect(blogs, orderedEquals(sortedModels));
     });
 
