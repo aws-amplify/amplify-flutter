@@ -1,3 +1,13 @@
+## 0.3.0-unstable.1 (2021-09-23)
+
+### Breaking Changes
+
+- This version changes GraphQL subscription interface to use Stream
+
+### Features
+
+- feat(api): GraphQL Subscription Stream (#905)
+
 ## 0.2.4 (2021-09-10)
 
 ### Fixes

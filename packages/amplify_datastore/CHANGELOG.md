@@ -1,3 +1,13 @@
+## 0.3.0-unstable.1 (2021-09-23)
+
+### Breaking Changes
+
+- This version introduces breaking changes as the existing bug writes double and boolean type values as string type in Android. Directly applying this fix may cause type error while read/write local DB, to resolve would need to invoke Amplify.DataStore.clear() to recreate local DB tables.
+
+### Fixes
+
+- break(datastore): cannot saving boolean as integer in SQLite (#895)
+
 ## 0.2.4 (2021-09-10)
 
 ### Fixes
