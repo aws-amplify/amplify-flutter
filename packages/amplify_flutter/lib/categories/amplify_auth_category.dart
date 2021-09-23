@@ -103,6 +103,10 @@ class AuthCategory {
         : throw _pluginNotAddedException("Auth");
   }
 
+  /// Signs the user out of the current device
+  ///
+  /// Accepts advanced [options] for the request, which can be used for
+  /// global sign out as well as other plugin-specific options
   Future<SignOutResult> signOut({SignOutOptions? options}) {
     var request = SignOutRequest(options: options);
     return plugins.length == 1
