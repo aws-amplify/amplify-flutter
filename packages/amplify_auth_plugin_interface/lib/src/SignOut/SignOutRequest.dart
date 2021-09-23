@@ -15,14 +15,16 @@
 
 import './SignOutOptions.dart';
 
+/// {@template sign_out_request}
 /// Encapsulates parameters for a sign out request
+/// {@endtemplate}
 class SignOutRequest {
   /// Advanced options for the request
   ///
   /// Can be used to specify global sign out
   SignOutOptions? options;
 
-  /// Default constructor
+  /// {@macro sign_out_request}
   SignOutRequest({this.options});
 
   /// Serialize the object to a map
