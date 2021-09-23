@@ -2,7 +2,7 @@
 
 ### Breaking Changes
 
-- This version changes GraphQL subscription interface to use Stream
+- This version changes GraphQL subscription interface to use Streams. See the README.md file for additional information.
 
 ### Features
 
