@@ -1552,7 +1552,7 @@ class amplify_auth_cognito_tests: XCTestCase {
     
     func test_signInWithWebUI() {
         class SignInWithWebUIMock: AuthCognitoBridge {
-            override func onSignInWithWebUI(flutterResult: @escaping FlutterResult) {
+            override func onSignInWithWebUI(flutterResult: @escaping FlutterResult, request: FlutterSignInWithWebUIRequest) {
                 let signInRes = Result<AuthSignInResult,AuthError>.success(
                     AuthSignInResult(nextStep: AuthSignInStep.done)
                  )

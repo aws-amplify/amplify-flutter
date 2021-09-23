@@ -25,6 +25,7 @@ export 'CognitoSignUp/cognito_user_attributes.dart';
 export 'CognitoSignIn/CognitoSignInResult.dart';
 export 'CognitoSignIn/CognitoConfirmSignInOptions.dart';
 export 'CognitoSignIn/CognitoSignInOptions.dart';
+export 'CognitoSignIn/CognitoSignInWithWebUIOptions.dart';
 
 // Password
 export 'CognitoPasswords/CognitoConfirmResetPasswordOptions.dart';

@@ -200,7 +200,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
                 try FlutterSignInWithWebUIRequest.validate(dict: data)
                 let request = FlutterSignInWithWebUIRequest(dict: data)
                 if request.provider == nil {
-                    cognito.onSignInWithWebUI(flutterResult: result)
+                    cognito.onSignInWithWebUI(flutterResult: result, request: request)
                 } else {
                     cognito.onSignInWithSocialWebUI(flutterResult: result, request: request)
                 }
