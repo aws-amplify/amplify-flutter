@@ -103,9 +103,7 @@ class MultiTypeModel extends Model {
         _stringValue == other._stringValue &&
         _altStringValue == other._altStringValue &&
         _intValue == other._intValue &&
-        _altIntValue == other._altIntValue &&
-        _createdAt == other._createdAt &&
-        _updatedAt == other._updatedAt;
+        _altIntValue == other._altIntValue;
   }
 
   @override
@@ -153,8 +151,8 @@ class MultiTypeModel extends Model {
       : id = json['id'],
         _stringValue = json['stringValue'],
         _altStringValue = json['altStringValue'],
-        _intValue = json['intValue'],
-        _altIntValue = json['altIntValue'],
+        _intValue = (json['intValue'] as num?)?.toInt(),
+        _altIntValue = (json['altIntValue'] as num?)?.toInt(),
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
             : null,

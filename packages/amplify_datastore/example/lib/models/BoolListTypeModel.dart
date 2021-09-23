@@ -69,9 +69,7 @@ class BoolListTypeModel extends Model {
     if (identical(other, this)) return true;
     return other is BoolListTypeModel &&
         id == other.id &&
-        DeepCollectionEquality().equals(_value, other._value) &&
-        _createdAt == other._createdAt &&
-        _updatedAt == other._updatedAt;
+        DeepCollectionEquality().equals(_value, other._value);
   }
 
   @override

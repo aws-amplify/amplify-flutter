@@ -113,9 +113,7 @@ class HasOneModel extends Model {
         id == other.id &&
         _name == other._name &&
         _childID == other._childID &&
-        _child == other._child &&
-        _createdAt == other._createdAt &&
-        _updatedAt == other._updatedAt;
+        _child == other._child;
   }
 
   @override

@@ -85,9 +85,7 @@ class Comment extends Model {
     return other is Comment &&
         id == other.id &&
         _post == other._post &&
-        _content == other._content &&
-        _createdAt == other._createdAt &&
-        _updatedAt == other._updatedAt;
+        _content == other._content;
   }
 
   @override

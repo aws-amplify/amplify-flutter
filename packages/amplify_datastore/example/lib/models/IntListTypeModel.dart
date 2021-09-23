@@ -69,9 +69,7 @@ class IntListTypeModel extends Model {
     if (identical(other, this)) return true;
     return other is IntListTypeModel &&
         id == other.id &&
-        DeepCollectionEquality().equals(_value, other._value) &&
-        _createdAt == other._createdAt &&
-        _updatedAt == other._updatedAt;
+        DeepCollectionEquality().equals(_value, other._value);
   }
 
   @override
@@ -102,9 +100,8 @@ class IntListTypeModel extends Model {
 
   IntListTypeModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _value = (json['value'] as List<dynamic>)
-            ?.map((dynamic e) => e is double ? e.toInt() : e as int)
-            ?.toList(),
+        _value =
+            (json['value'] as List?)?.map((e) => (e as num).toInt()).toList(),
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
             : null,

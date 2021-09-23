@@ -13,13 +13,12 @@
 * permissions and limitations under the License.
 */
 
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
-
 // ignore_for_file: public_member_api_docs
 
 import 'ModelProvider.dart';
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 
 /** This is an auto generated class representing the Post type in your schema. */
 @immutable
@@ -135,9 +134,7 @@ class Post extends Model {
         _rating == other._rating &&
         _created == other._created &&
         _blog == other._blog &&
-        DeepCollectionEquality().equals(_comments, other._comments) &&
-        _createdAt == other._createdAt &&
-        _updatedAt == other._updatedAt;
+        DeepCollectionEquality().equals(_comments, other._comments);
   }
 
   @override
@@ -184,7 +181,7 @@ class Post extends Model {
   Post.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _title = json['title'],
-        _rating = json['rating'],
+        _rating = (json['rating'] as num?)?.toInt(),
         _created = json['created'] != null
             ? TemporalDateTime.fromString(json['created'])
             : null,
@@ -212,7 +209,7 @@ class Post extends Model {
         'rating': _rating,
         'created': _created?.format(),
         'blog': _blog?.toJson(),
-        'comments': _comments?.map((e) => e?.toJson())?.toList(),
+        'comments': _comments?.map((Comment? e) => e?.toJson()).toList(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };

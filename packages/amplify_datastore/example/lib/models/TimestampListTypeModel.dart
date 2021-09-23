@@ -71,9 +71,7 @@ class TimestampListTypeModel extends Model {
     if (identical(other, this)) return true;
     return other is TimestampListTypeModel &&
         id == other.id &&
-        DeepCollectionEquality().equals(_value, other._value) &&
-        _createdAt == other._createdAt &&
-        _updatedAt == other._updatedAt;
+        DeepCollectionEquality().equals(_value, other._value);
   }
 
   @override
@@ -105,9 +103,9 @@ class TimestampListTypeModel extends Model {
 
   TimestampListTypeModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _value = (json['value'] as List)
+        _value = (json['value'] as List?)
             ?.map((e) => TemporalTimestamp.fromSeconds(e))
-            ?.toList(),
+            .toList(),
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
             : null,

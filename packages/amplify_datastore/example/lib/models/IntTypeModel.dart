@@ -64,11 +64,7 @@ class IntTypeModel extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is IntTypeModel &&
-        id == other.id &&
-        _value == other._value &&
-        _createdAt == other._createdAt &&
-        _updatedAt == other._updatedAt;
+    return other is IntTypeModel && id == other.id && _value == other._value;
   }
 
   @override
@@ -99,7 +95,7 @@ class IntTypeModel extends Model {
 
   IntTypeModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _value = json['value'],
+        _value = (json['value'] as num?)?.toInt(),
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
             : null,

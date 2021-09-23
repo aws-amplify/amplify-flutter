@@ -69,9 +69,7 @@ class DoubleListTypeModel extends Model {
     if (identical(other, this)) return true;
     return other is DoubleListTypeModel &&
         id == other.id &&
-        DeepCollectionEquality().equals(_value, other._value) &&
-        _createdAt == other._createdAt &&
-        _updatedAt == other._updatedAt;
+        DeepCollectionEquality().equals(_value, other._value);
   }
 
   @override
@@ -102,7 +100,9 @@ class DoubleListTypeModel extends Model {
 
   DoubleListTypeModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _value = json['value']?.cast<double>(),
+        _value = (json['value'] as List?)
+            ?.map((e) => (e as num).toDouble())
+            .toList(),
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
             : null,

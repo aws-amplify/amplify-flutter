@@ -91,9 +91,7 @@ class HasManyModel extends Model {
     return other is HasManyModel &&
         id == other.id &&
         _name == other._name &&
-        DeepCollectionEquality().equals(_children, other._children) &&
-        _createdAt == other._createdAt &&
-        _updatedAt == other._updatedAt;
+        DeepCollectionEquality().equals(_children, other._children);
   }
 
   @override
@@ -144,7 +142,8 @@ class HasManyModel extends Model {
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': _name,
-        'children': _children?.map((e) => e?.toJson())?.toList(),
+        'children':
+            _children?.map((HasManyChildModel? e) => e?.toJson()).toList(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };

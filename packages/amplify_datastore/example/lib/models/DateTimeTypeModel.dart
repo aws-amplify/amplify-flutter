@@ -67,9 +67,7 @@ class DateTimeTypeModel extends Model {
     if (identical(other, this)) return true;
     return other is DateTimeTypeModel &&
         id == other.id &&
-        _value == other._value &&
-        _createdAt == other._createdAt &&
-        _updatedAt == other._updatedAt;
+        _value == other._value;
   }
 
   @override

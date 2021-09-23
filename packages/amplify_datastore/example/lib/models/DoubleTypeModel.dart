@@ -65,11 +65,7 @@ class DoubleTypeModel extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is DoubleTypeModel &&
-        id == other.id &&
-        _value == other._value &&
-        _createdAt == other._createdAt &&
-        _updatedAt == other._updatedAt;
+    return other is DoubleTypeModel && id == other.id && _value == other._value;
   }
 
   @override
@@ -100,7 +96,7 @@ class DoubleTypeModel extends Model {
 
   DoubleTypeModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _value = json['value'],
+        _value = (json['value'] as num?)?.toDouble(),
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
             : null,

@@ -86,9 +86,7 @@ class HasManyChildModel extends Model {
     return other is HasManyChildModel &&
         id == other.id &&
         _name == other._name &&
-        _parent == other._parent &&
-        _createdAt == other._createdAt &&
-        _updatedAt == other._updatedAt;
+        _parent == other._parent;
   }
 
   @override

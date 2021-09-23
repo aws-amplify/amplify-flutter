@@ -74,11 +74,7 @@ class ChildModel extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is ChildModel &&
-        id == other.id &&
-        _name == other._name &&
-        _createdAt == other._createdAt &&
-        _updatedAt == other._updatedAt;
+    return other is ChildModel && id == other.id && _name == other._name;
   }
 
   @override

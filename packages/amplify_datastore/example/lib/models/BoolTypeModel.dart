@@ -64,11 +64,7 @@ class BoolTypeModel extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is BoolTypeModel &&
-        id == other.id &&
-        _value == other._value &&
-        _createdAt == other._createdAt &&
-        _updatedAt == other._updatedAt;
+    return other is BoolTypeModel && id == other.id && _value == other._value;
   }
 
   @override

@@ -95,9 +95,7 @@ class BelongsToModel extends Model {
     return other is BelongsToModel &&
         id == other.id &&
         _name == other._name &&
-        _child == other._child &&
-        _createdAt == other._createdAt &&
-        _updatedAt == other._updatedAt;
+        _child == other._child;
   }
 
   @override

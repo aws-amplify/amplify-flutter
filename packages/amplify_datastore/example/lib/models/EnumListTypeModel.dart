@@ -71,9 +71,7 @@ class EnumListTypeModel extends Model {
     if (identical(other, this)) return true;
     return other is EnumListTypeModel &&
         id == other.id &&
-        DeepCollectionEquality().equals(_value, other._value) &&
-        _createdAt == other._createdAt &&
-        _updatedAt == other._updatedAt;
+        DeepCollectionEquality().equals(_value, other._value);
   }
 
   @override
@@ -121,7 +119,7 @@ class EnumListTypeModel extends Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'value': _value?.map((e) => enumToString(e))?.toList(),
+        'value': _value?.map((e) => enumToString(e)).toList(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };

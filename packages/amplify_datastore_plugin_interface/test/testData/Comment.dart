@@ -13,12 +13,11 @@
 * permissions and limitations under the License.
 */
 
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:flutter/foundation.dart';
-
 // ignore_for_file: public_member_api_docs
 
 import 'ModelProvider.dart';
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:flutter/foundation.dart';
 
 /** This is an auto generated class representing the Comment type in your schema. */
 @immutable
@@ -85,9 +84,7 @@ class Comment extends Model {
     return other is Comment &&
         id == other.id &&
         _post == other._post &&
-        _content == other._content &&
-        _createdAt == other._createdAt &&
-        _updatedAt == other._updatedAt;
+        _content == other._content;
   }
 
   @override
