@@ -177,7 +177,7 @@ class AmplifySerializedModelUnitTests: XCTestCase {
         let actualMailingAddresses = actualContactSerializedData["mailingAddresses"] as! [[String: Any]]
         let expectedMailingAddresses = expectedContactSerializedData["mailingAddresses"] as! [[String: Any]]
 
-        // Test list of CustomType as a filed of CustomType
+        // Test list of CustomType as a field of CustomType
         for (index, actualElement) in actualMailingAddresses.enumerated() {
             let expectedElement = expectedMailingAddresses[index]
             XCTAssertEqual(actualElement["customTypeName"] as! String, expectedElement["customTypeName"] as! String)
@@ -196,7 +196,7 @@ class AmplifySerializedModelUnitTests: XCTestCase {
         let actualAddresses = actualSerializedData["propertiesAddresses"] as! [[String: Any]]
         let expectedAddresses = expectedSerializedData["propertiesAddresses"] as! [[String: Any]]
 
-        // Test list of CustomType as a filed of Model
+        // Test list of CustomType as a field of Model
         for (index, actualElement) in actualAddresses.enumerated() {
             let expectedElement = expectedAddresses[index]
             XCTAssertEqual(actualElement["customTypeName"] as! String, expectedElement["customTypeName"] as! String)

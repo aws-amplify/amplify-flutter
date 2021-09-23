@@ -101,7 +101,7 @@ public struct FlutterModelFieldType {
                 }
                 // For embedded CustomType, link its schema to the FieldType
                 // embeddedCollection may also present a list of primitive type e.g. [String]
-                // for primitve type there won't be a schema to be linked to field type
+                // there won't be a schema to be linked for primitive types
                 return ModelFieldType.embeddedCollection(
                     of: JSONValue.self,
                     schema: try FlutterDataStoreRequestUtils.getCustomTypeSchema(
