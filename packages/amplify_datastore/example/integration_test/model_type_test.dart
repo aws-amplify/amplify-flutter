@@ -381,7 +381,7 @@ void main() {
             TemporalTimestamp(DateTime.utc(2021, 9, 22 + i, 0, 0, 0)),
             TemporalTimestamp(DateTime.utc(2021, 9, 22 - i, 0, 0, 0))
           ],
-          jsonValues: ['{"foo":"bar"}', '{"bar":"foo"}'],
+          jsonValues: ['{"foo":"bar"}', '{"baz":"qux"}'],
           enumValues: [
             i % 2 == 0 ? EnumModel.no : EnumModel.yes,
             i % 2 != 0 ? EnumModel.no : EnumModel.yes
