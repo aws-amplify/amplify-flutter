@@ -19,8 +19,8 @@ import Amplify
 public class QueryPaginationBuilder {
    
     static func fromSerializedMap(_ serializedMap: [String: Any]?) -> QueryPaginationInput? {
-        var page: UInt = 0, limit: UInt = QueryPaginationInput.defaultLimit;
         if let data = serializedMap {
+            var page: UInt = 0, limit: UInt = QueryPaginationInput.defaultLimit;
             if let pageInput = (data["page"] as? Int) {
                 page = UInt(pageInput)
             }
