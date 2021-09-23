@@ -114,7 +114,7 @@ class DataStorePluginUnitTests: XCTestCase {
                 XCTAssertEqual(testSchema.name, modelSchema.name)
                 XCTAssertEqual( QueryPredicateConstant.all, predicate as! QueryPredicateConstant)
                 XCTAssertNil(sortInput)
-                XCTAssertEqual(QueryPaginationInput.firstPage, paginationInput)
+                XCTAssertNil(paginationInput)
 
                 // Return errors from the mock
                 completion(.failure(causedBy: DataStoreError.invalidCondition("test error", "test recovery suggestion", nil)))
