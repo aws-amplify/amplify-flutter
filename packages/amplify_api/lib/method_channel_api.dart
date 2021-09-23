@@ -16,6 +16,8 @@
 import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:amplify_api/graphql/graphql_subscription_event.dart';
+import 'package:amplify_api/graphql/graphql_subscription_transformer.dart';
 import 'package:amplify_core/types/index.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -31,8 +33,49 @@ const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/api');
 class AmplifyAPIMethodChannel extends AmplifyAPI {
   static const _eventChannel =
       EventChannel('com.amazonaws.amplify/api_observe_events');
-  late final Stream<dynamic> _allSubscriptionsStream =
-      _eventChannel.receiveBroadcastStream(0);
+  late final Stream<GraphQLSubscriptionEvent> _allSubscriptionsStream =
+      _eventChannel
+          .receiveBroadcastStream(0)
+          .transform(_graphQLSubscriptionEventTransformer);
+
+  /// Transforms incoming platform events into typed [GraphQLSubscriptionEvent] objects
+  /// and relays errors to the correct subscription stream.
+  late final _graphQLSubscriptionEventTransformer =
+      StreamTransformer<dynamic, GraphQLSubscriptionEvent>.fromHandlers(
+    handleData: (
+      dynamic data,
+      EventSink<GraphQLSubscriptionEvent> eventSink,
+    ) {
+      final eventJson = (data as Map).cast<String, dynamic>();
+      eventSink.add(GraphQLSubscriptionEvent.fromJson(eventJson));
+    },
+    handleError: (
+      Object error,
+      StackTrace stackTrace,
+      EventSink<GraphQLSubscriptionEvent> eventSink,
+    ) {
+      if (error is! PlatformException) {
+        eventSink.addError(error, stackTrace);
+        _subscriptions.clear();
+        return;
+      }
+      final subscriptionId = error.message;
+      if (subscriptionId == null ||
+          !_subscriptions.containsKey(subscriptionId)) {
+        eventSink.addError(error, stackTrace);
+        _subscriptions.clear();
+        return;
+      }
+      final errorEvent = GraphQLSubscriptionEvent(
+        subscriptionId: subscriptionId,
+        type: GraphQLSubscriptionEventType.error,
+        error: _deserializeException(error),
+      );
+      eventSink.add(errorEvent);
+    },
+  );
+
+  final Map<String, Stream> _subscriptions = {};
 
   /// Key to use for authorization tokens in serialized platform requests.
   static const _authTokensMapKey = 'tokens';
@@ -110,7 +153,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
 
     //TODO: Cancel implementation will be added along with REST API as it is shared
     GraphQLOperation<T> result = GraphQLOperation<T>(
-      cancel: () => cancelRequest(request.cancelToken),
+      cancel: () => cancelRequest(request.id),
       response: response,
     );
 
@@ -124,7 +167,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
 
     //TODO: Cancel implementation will be added along with REST API as it is shared
     GraphQLOperation<T> result = GraphQLOperation<T>(
-      cancel: () => cancelRequest(request.cancelToken),
+      cancel: () => cancelRequest(request.id),
       response: response,
     );
 
@@ -132,66 +175,29 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   }
 
   @override
-  GraphQLSubscriptionOperation<T> subscribe<T>({
-    required GraphQLRequest<T> request,
-    required Function(GraphQLResponse<T>) onData,
-    Function()? onEstablished,
-    Function(dynamic)? onError,
-    Function()? onDone,
+  Stream<GraphQLResponse<T>> subscribe<T>(
+    GraphQLRequest<T> request, {
+    void Function()? onEstablished,
   }) {
-    //TODO: Either re-name the cancelToken field to id, or remove entirely
-    final subscriptionId = request.cancelToken;
-
-    _setupSubscription(
-      id: subscriptionId,
-      request: request,
-      onEstablished: onEstablished,
-    );
-
-    Stream<Map<String, dynamic>> filteredStream = _allSubscriptionsStream
-        .cast<Map>()
-        .where((event) {
-          return event['id'] == subscriptionId;
-        })
-        .map((event) => <String, dynamic>{
-              'type': event['type'],
-              'payload': event['payload'],
-            })
-        .cast<Map<String, dynamic>>()
-        .asBroadcastStream();
-
-    StreamSubscription _subscription = filteredStream.listen((event) {
-      if (event['type'] == 'DONE') {
-        if (onDone != null) onDone();
-      } else {
-        final payload = (event['payload'] as Map).cast<String, dynamic>();
-        final errors = _deserializeGraphQLResponseErrors(payload);
-
-        GraphQLResponse<T> response =
-            GraphQLResponse<T>(data: payload['data'], errors: errors);
-        onData(response);
-      }
-    });
-
-    _subscription.onError((dynamic subscriptionError) {
-      if (subscriptionError is PlatformException) {
-        subscriptionError = _deserializeException(subscriptionError);
-      }
-
-      print('Subscription failed with error: $subscriptionError');
-
-      if (onError != null) {
-        onError(subscriptionError);
-      }
-      _subscription.cancel();
-    });
-
-    void cancel() {
-      _subscription.cancel();
-      cancelRequest(subscriptionId);
+    final subscriptionId = request.id;
+    if (_subscriptions.containsKey(subscriptionId)) {
+      onEstablished?.call();
+      return _subscriptions[subscriptionId]! as Stream<GraphQLResponse<T>>;
     }
-
-    return GraphQLSubscriptionOperation(cancel: cancel);
+    return _subscriptions[subscriptionId] = _allSubscriptionsStream
+        .where((event) => event.subscriptionId == subscriptionId)
+        .transform(GraphQLSubscriptionTransformer<T>())
+        .asBroadcastStream(
+          onListen: (_) => _setupSubscription(
+            id: subscriptionId,
+            request: request,
+            onEstablished: onEstablished,
+          ),
+          onCancel: (_) {
+            _subscriptions.remove(subscriptionId);
+            cancelRequest(subscriptionId);
+          },
+        );
   }
 
   Future<GraphQLResponse<T>> _getMethodChannelResponse<T>({
@@ -221,6 +227,9 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     }
   }
 
+  /// Handles subscription setup. Subscriptions are only established once
+  /// the returned stream has a listener. This prevents the need for inflight
+  /// cancelation and for buffering events.
   Future<void> _setupSubscription({
     required String id,
     required GraphQLRequest request,
@@ -231,10 +240,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
         'subscribe',
         await _serializeGraphQLRequest(request),
       );
-
-      if (onEstablished != null) {
-        onEstablished();
-      }
+      onEstablished?.call();
     } on PlatformException catch (e) {
       throw _deserializeException(e);
     }

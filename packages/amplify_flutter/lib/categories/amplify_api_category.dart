@@ -55,19 +55,18 @@ class APICategory {
         : throw _pluginNotAddedException("Api");
   }
 
-  GraphQLSubscriptionOperation<T> subscribe<T>(
-      {required GraphQLRequest<T> request,
-      required void Function(GraphQLResponse<T>) onData,
-      required void Function() onEstablished,
-      required void Function(dynamic) onError,
-      required void Function() onDone}) {
+  /// Subscribes to the given [request] and returns the stream of response events.
+  /// An optional [onEstablished] callback can be used to be alerted when the
+  /// subscription has been successfully established with the server.
+  ///
+  /// Any exceptions encountered during the subscription are added as errors
+  /// to this stream.
+  Stream<GraphQLResponse<T>> subscribe<T>(
+    GraphQLRequest<T> request, {
+    void Function()? onEstablished,
+  }) {
     return plugins.length == 1
-        ? plugins[0].subscribe(
-            request: request,
-            onEstablished: onEstablished,
-            onData: onData,
-            onError: onError,
-            onDone: onDone)
+        ? plugins[0].subscribe(request, onEstablished: onEstablished)
         : throw _pluginNotAddedException("Api");
   }
 
