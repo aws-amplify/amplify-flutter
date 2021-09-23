@@ -2,6 +2,10 @@
 
 The Amplify Flutter API category plugin.
 
+## Getting Started
+
+### Visit our [Web Site](https://docs.amplify.aws/) to learn more about AWS Amplify.
+
 ## Changes for version 0.3.0-unstable.1
 
 When creating subscriptions, now, a [`Stream`](https://api.dart.dev/stable/dart-async/Stream-class.html) object will be returned to you. This `Stream` will continue producing events until either the subscription encounters an error, or you cancel the subscription. In the case of [`await for`](https://dart.dev/tutorials/language/streams), this cancellation occurs when breaking out of the loop.
@@ -65,7 +69,3 @@ Future<void> subscribe() async {
   subscription.cancel();
 }
 ```
-
-## Getting Started
-
-### Visit our [Web Site](https://docs.amplify.aws/) to learn more about AWS Amplify.
