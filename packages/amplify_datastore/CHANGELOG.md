@@ -2,7 +2,12 @@
 
 ### Breaking Changes
 
-- This version introduces breaking changes as the existing bug writes double and boolean type values as string type in Android. Directly applying this fix may cause type error while read/write local DB, to resolve would need to invoke Amplify.DataStore.clear() to recreate local DB tables.
+- This version introduces a breaking change to Android Apps as an existing bug writes `Double` and `Boolean` values as `TEXT` in local SQLite database. The fix corrects this behavior. Hence, directly applying this fix may raise SQL error while reading from and writing to local database.
+
+  **How to migrate?**
+  Invoke [`Amplify.DataStore.clear()`](https://docs.amplify.aws/lib/datastore/sync/q/platform/flutter/#clear-local-data) on App start after upgrading to the latest version of amplify-flutter. This API clears and recreates local database table with correct schema.
+
+  NOTE: Data stored in local database and not synced to cloud will be lost, as [local migration is not supported](https://docs.amplify.aws/lib/datastore/schema-updates/q/platform/flutter/#local-migrations).
 
 ### Fixes
 
