@@ -65,10 +65,9 @@ dependencies {
     api amplifyCore
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "com.amplifyframework:aws-api:1.24.1"
-    implementation "com.amplifyframework:aws-api-appsync:1.24.1"
-    implementation 'androidx.test.ext:junit-ktx:1.1.3'
-
+    implementation "com.amplifyframework:aws-api:1.25.1"
+    implementation "com.amplifyframework:aws-api-appsync:1.25.1"
+    testImplementation 'androidx.test.ext:junit-ktx:1.1.3'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:3.10.0'
     testImplementation 'org.mockito:mockito-inline:3.10.0'
