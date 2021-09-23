@@ -399,7 +399,8 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
             AuthSessionResult.Type.SUCCESS -> {
               val awsMobileClient = AWSMobileClient.getInstance()
               val username = awsMobileClient.username
-              prepareUserResult(flutterResult, AuthUser(cognitoAuthSession.userSub.toString(), username));
+              val userid = awsMobileClient.userSub
+              prepareUserResult(flutterResult, AuthUser(userid, username));
             }
             // If the user sub accessor failed, check the signIn state
             AuthSessionResult.Type.FAILURE -> {
