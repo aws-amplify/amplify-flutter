@@ -18,15 +18,17 @@ import Amplify
 import amplify_core
 
 struct FlutterSignOutRequest {
-  var options: AuthSignOutOperation.Request.Options?
+    var options: AuthSignOutOperation.Request.Options?
     
-  init(dict: NSMutableDictionary){
-    self.options = createOptions(options: dict["options"] as! Dictionary<String, Any>?)
-  }
-    
-  func createOptions(options: Dictionary<String, Any>?) -> AuthSignOutOperation.Request.Options {
-    let globalSignOut = options?["globalSignOut"] as? Bool ?? false
-    return AuthSignOutOperation.Request.Options(globalSignOut: globalSignOut)
-  }
+    init(dict: NSMutableDictionary) {
+        if let options = dict["options"] as? [String: Any] {
+            self.options = createOptions(options: options)
+        }
+    }
+        
+    func createOptions(options: [String: Any]) -> AuthSignOutOperation.Request.Options {
+        let globalSignOut = options["globalSignOut"] as? Bool ?? false
+        return AuthSignOutOperation.Request.Options(globalSignOut: globalSignOut)
+    }
 
 }
