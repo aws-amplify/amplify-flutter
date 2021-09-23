@@ -47,8 +47,8 @@ scripts:
   test:integration:android:
     run: melos exec -c 1 "flutter drive --no-pub --driver=test_driver/integration_test.dart --target=integration_test/main_test.dart -d sdk"
     description:
-      Run integration tests for a single package on an Android emulator
-      - Run with `--no-select` to run for all applicable packages
+      Run integration tests for a single package on an Android emulator.
+      - Run with `--no-select` to run for all applicable packages.
       - Requires launching an Android emulator prior to execution.
     select-package:
       file-exists:
@@ -57,8 +57,8 @@ scripts:
 
   test:integration:ios:
     run: melos exec -c 1 "flutter drive --no-pub --driver=test_driver/integration_test.dart --target=integration_test/main_test.dart -d iPhone"
-    description: Run integration tests for a single package on an iOS simulator
-      - Run with `--no-select` to run for all applicable packages
+    description: Run integration tests for a single package on an iOS simulator.
+      - Run with `--no-select` to run for all applicable packages.
       - Requires launching an iOS simulator prior to execution.
     select-package:
       file-exists:
