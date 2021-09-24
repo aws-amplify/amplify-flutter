@@ -24,11 +24,21 @@ struct FlutterOutboxMutationProcessedEvent: FlutterHubEvent {
     var modelName: String
     var element:  FlutterHubElement
     
-    init(outboxMutationProcessed: OutboxMutationEvent, eventName: String, flutterModelRegistration: FlutterModels) throws {
+    init(
+        outboxMutationProcessed: OutboxMutationEvent,
+        eventName: String,
+        modelSchemaRegistry: FlutterSchemaRegistry,
+        customTypeSchemaRegistry: FlutterSchemaRegistry
+    ) throws {
         self.eventName = shortEventName(eventName: eventName)
         self.modelName = outboxMutationProcessed.modelName
         do {
-            self.element = try FlutterHubElement(hubElement: outboxMutationProcessed.element, flutterModelRegistration: flutterModelRegistration, modelName: self.modelName)
+            self.element = try FlutterHubElement(
+                hubElement: outboxMutationProcessed.element,
+                modelSchemaRegistry: modelSchemaRegistry,
+                customTypeSchemaRegistry: customTypeSchemaRegistry,
+                modelName: self.modelName
+            )
         } catch {
             throw FlutterDataStoreError.acquireSchemaForHub
         }

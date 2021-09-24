@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ package com.amazonaws.amplify.amplify_datastore.types.model
 import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.temporal.Temporal
 
-data class FlutterModelFieldType(val map: Map<String, Any>) {
+data class FlutterFieldType(val map: Map<String, Any>) {
 
     // Type of the field is the data type of the instance variables
     // of the Model class.
@@ -28,13 +28,19 @@ data class FlutterModelFieldType(val map: Map<String, Any>) {
     // of the Model class.
     private val ofModelName: String? = map["ofModelName"] as String?
 
+    private val ofCustomTypeName: String? = map["ofCustomTypeName"] as String?
+
     // This should always return false, enums are passed in as strings to Android
     fun isEnum(): Boolean {
-        return false;
+        return false
     }
 
     fun isModel(): Boolean {
         return fieldType == "model"
+    }
+
+    fun isCustomType(): Boolean {
+        return fieldType == "embedded" || fieldType == "embeddedCollection"
     }
 
     fun getTargetType(): String {
@@ -50,8 +56,12 @@ data class FlutterModelFieldType(val map: Map<String, Any>) {
             "enumeration" -> "String"
             "model" -> ofModelName!!
             "collection" -> ofModelName!!
+            // When field type is "embedded" ofCustomTypeName will always be available
+            // Under the contract with Flutter amplify_datastore ModelFieldDefinition
+            "embedded" -> ofCustomTypeName!!
+            "embeddedCollection" -> ofCustomTypeName!!
             else -> throw Exception(
-                    "FlutterModelFieldType.getModelTargetType - invalid fieldType supplied: $fieldType")
+                    "FlutterFieldType.getModelTargetType - invalid fieldType supplied: $fieldType")
         }
     }
 
@@ -68,8 +78,15 @@ data class FlutterModelFieldType(val map: Map<String, Any>) {
             "enumeration" -> String::class.java
             "model" -> Model::class.java
             "collection" -> List::class.java
+            // amplify-android expects a base class to do Gson.toJson when reading CustomType value from SQLite
+            // CustomType values are stored in SQLite as json string
+            // there will be two use cases:
+            // 1. json string root is a map (embedded)
+            // 2. json string root is an array (embeddedCollection)
+            "embedded" -> Map::class.java
+            "embeddedCollection" -> List::class.java
             else -> throw Exception(
-                    "FlutterModelFieldType.getJavaClass - invalid fieldType supplied: $fieldType")
+                    "FlutterFieldType.getJavaClass - invalid fieldType supplied: $fieldType")
         }
     }
 }

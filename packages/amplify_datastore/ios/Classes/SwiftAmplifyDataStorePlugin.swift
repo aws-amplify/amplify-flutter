@@ -24,18 +24,21 @@ import amplify_core
 public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     
     private let bridge: DataStoreBridge
-    private let flutterModelRegistration: FlutterModels
+    private let modelSchemaRegistry: FlutterSchemaRegistry
+    private let customTypeSchemaRegistry: FlutterSchemaRegistry
     private let dataStoreObserveEventStreamHandler: DataStoreObserveEventStreamHandler?
     private let dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler?
     private var channel: FlutterMethodChannel?
     var observeSubscription: AnyCancellable?
     
     init(bridge: DataStoreBridge = DataStoreBridge(),
-         flutterModelRegistration: FlutterModels = FlutterModels(),
+         modelSchemaRegistry: FlutterSchemaRegistry = FlutterSchemaRegistry(),
+         customTypeSchemasRegistry: FlutterSchemaRegistry = FlutterSchemaRegistry(),
          dataStoreObserveEventStreamHandler: DataStoreObserveEventStreamHandler = DataStoreObserveEventStreamHandler(),
          dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler = DataStoreHubEventStreamHandler()) {
         self.bridge = bridge
-        self.flutterModelRegistration = flutterModelRegistration
+        self.modelSchemaRegistry = modelSchemaRegistry
+        self.customTypeSchemaRegistry = customTypeSchemasRegistry
         self.dataStoreObserveEventStreamHandler = dataStoreObserveEventStreamHandler
         self.dataStoreHubEventStreamHandler = dataStoreHubEventStreamHandler
     }
@@ -86,7 +89,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     
     private func onConfigureDataStore(args: [String: Any], result: @escaping FlutterResult) {
 
-        guard let modelSchemaList = args["modelSchemas"] as? [[String: Any]],
+        guard let serializedModelSchemas = args["modelSchemas"] as? [[String: Any]],
+              let serializedCustomTypeSchemas = (args["customTypeSchemas"] ?? []) as? [[String: Any]],
               let modelProviderVersion = args["modelProviderVersion"] as? String else {
 
             FlutterDataStoreErrorHandler.handleDataStoreError(
@@ -110,20 +114,32 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         let syncPageSize = args["syncPageSize"] as? UInt ?? DataStoreConfiguration.defaultSyncPageSize
         
         do {
-            
-            let modelSchemas: [ModelSchema] = try modelSchemaList.map {
-                try FlutterModelSchema.init(serializedData: $0).convertToNativeModelSchema()
+            let customTypeSchemaDependenciesOrder = try getCustomTypeSchemasDependenciesOrder(
+                serializedCustomTypeSchemas: serializedCustomTypeSchemas
+            )
+            try registerCustomTypeSchemas(
+                serializedCustomTypeSchemas: serializedCustomTypeSchemas,
+                customTypeSchemaDependenciesOrder: customTypeSchemaDependenciesOrder
+            )
+
+            let modelSchemas: [ModelSchema] = try serializedModelSchemas.map {
+                try FlutterModelSchema.init(serializedData: $0).convertToNativeModelSchema(customTypeSchemasRegistry: self.customTypeSchemaRegistry)
             }
             
             modelSchemas.forEach { (modelSchema) in
-                flutterModelRegistration.addModelSchema(modelName: modelSchema.name, modelSchema: modelSchema)
+                modelSchemaRegistry.addModelSchema(modelName: modelSchema.name, modelSchema: modelSchema)
             }
 
-            flutterModelRegistration.version = modelProviderVersion
+            modelSchemaRegistry.version = modelProviderVersion
+
             let syncExpressions: [DataStoreSyncExpression] = try createSyncExpressions(syncExpressionList: syncExpressionList)
 
-            self.dataStoreHubEventStreamHandler?.registerModelsForHub(flutterModelRegistration: flutterModelRegistration)
-            let dataStorePlugin = AWSDataStorePlugin(modelRegistration: flutterModelRegistration,
+            self.dataStoreHubEventStreamHandler?.registerModelsForHub(
+                modelSchemaRegistry: modelSchemaRegistry,
+                customTypeSchemaRegistry: customTypeSchemaRegistry
+            )
+
+            let dataStorePlugin = AWSDataStorePlugin(modelRegistration: modelSchemaRegistry,
                                                      configuration: .custom(
                                                         syncInterval: syncInterval,
                                                         syncMaxRecords: syncMaxRecords,
@@ -174,7 +190,10 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         
         do {
             let modelName = try FlutterDataStoreRequestUtils.getModelName(methodChannelArguments: args)
-            let modelSchema = try FlutterDataStoreRequestUtils.getModelSchema(modelSchemas: flutterModelRegistration.modelSchemas, modelName: modelName)
+            let modelSchema = try FlutterDataStoreRequestUtils.getModelSchema(
+                modelSchemaRegistry: modelSchemaRegistry,
+                modelName: modelName
+            )
             let queryPredicates = try QueryPredicateBuilder.fromSerializedMap(args["queryPredicate"] as? [String : Any])
             let querySortInput = try QuerySortBuilder.fromSerializedList(args["querySort"] as? [[String: Any]])
             let queryPagination = QueryPaginationBuilder.fromSerializedMap(args["queryPagination"] as? [String: Any])
@@ -191,7 +210,11 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                 case .success(let res):
                     do {
                         let serializedResults = try res.map { (queryResult) -> [String: Any] in
-                            return try queryResult.toMap(flutterModelRegistration: self.flutterModelRegistration, modelName: modelName)
+                            return try queryResult.toMap(
+                                modelSchemaRegistry: modelSchemaRegistry,
+                                customTypeSchemaRegistry: customTypeSchemaRegistry,
+                                modelName: modelName
+                            )
                         }
                         flutterResult(serializedResults)
                     } catch let error as DataStoreError {
@@ -222,7 +245,10 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         
         do {
             let modelName = try FlutterDataStoreRequestUtils.getModelName(methodChannelArguments: args)
-            let modelSchema = try FlutterDataStoreRequestUtils.getModelSchema(modelSchemas: flutterModelRegistration.modelSchemas, modelName: modelName)
+            let modelSchema = try FlutterDataStoreRequestUtils.getModelSchema(
+                modelSchemaRegistry: modelSchemaRegistry,
+                modelName: modelName
+            )
             let serializedModelData = try FlutterDataStoreRequestUtils.getSerializedModelData(methodChannelArguments: args)
             let modelID = try FlutterDataStoreRequestUtils.getModelID(serializedModelData: serializedModelData)
             
@@ -260,7 +286,10 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     func onDelete(args: [String: Any], flutterResult: @escaping FlutterResult) {
         do {
             let modelName = try FlutterDataStoreRequestUtils.getModelName(methodChannelArguments: args)
-            let modelSchema = try FlutterDataStoreRequestUtils.getModelSchema(modelSchemas: flutterModelRegistration.modelSchemas, modelName: modelName)
+            let modelSchema = try FlutterDataStoreRequestUtils.getModelSchema(
+                modelSchemaRegistry: modelSchemaRegistry,
+                modelName: modelName
+            )
             let serializedModelData = try FlutterDataStoreRequestUtils.getSerializedModelData(methodChannelArguments: args)
             let modelID = try FlutterDataStoreRequestUtils.getModelID(serializedModelData: serializedModelData)
             
@@ -317,7 +346,13 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     let flutterSubscriptionEvent = FlutterSubscriptionEvent.init(
                         item: serializedEvent,
                         eventType: eventType)
-                    self.dataStoreObserveEventStreamHandler?.sendEvent(flutterEvent: try flutterSubscriptionEvent.toJSON(flutterModelRegistration: self.flutterModelRegistration, modelName: mutationEvent.modelName))
+                    self.dataStoreObserveEventStreamHandler?.sendEvent(
+                        flutterEvent: try flutterSubscriptionEvent.toJSON(
+                            modelSchemaRegistry: self.modelSchemaRegistry,
+                            customTypeSchemaRegistry: self.customTypeSchemaRegistry,
+                            modelName: mutationEvent.modelName
+                        )
+                    )
                 } catch {
                     print("Failed to parse the event \(error)")
                     // TODO communicate using datastore error handler?
@@ -413,7 +448,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             let id = syncExpression["id"] as! String
             let modelName = syncExpression["modelName"] as! String
             let queryPredicate = try QueryPredicateBuilder.fromSerializedMap(syncExpression["queryPredicate"] as? [String: Any])
-            let modelSchema = flutterModelRegistration.modelSchemas[modelName]
+            let modelSchema = modelSchemaRegistry.modelSchemas[modelName]
             return DataStoreSyncExpression.syncExpression(modelSchema!) {
                 var resolvedQueryPredicate = queryPredicate
                 let semaphore = DispatchSemaphore(value: 0)
@@ -429,6 +464,132 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                 return resolvedQueryPredicate
             }
         }
+    }
+
+    // Convert and register custom type schemas following the dependencies order.
+    // Then convert and register custom type schemas that don't have any dependencies
+    private func registerCustomTypeSchemas(
+        serializedCustomTypeSchemas: [[String: Any]],
+        customTypeSchemaDependenciesOrder: [String]
+    ) throws {
+        for schemaName in customTypeSchemaDependenciesOrder {
+            guard let serializedSchema = serializedCustomTypeSchemas.first(where: { $0["name"] as? String == schemaName } ) else {
+                throw DataStoreError.internalOperation(
+                    "Cannot find serialized custom type schema for the given custom type name.",
+                    "This should not happen, please open an issue at https://github.com/aws-amplify/amplify-flutter/issues"
+                )
+            }
+            let schema: ModelSchema = try FlutterModelSchema.init(serializedData: serializedSchema)
+                .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemaRegistry)
+            customTypeSchemaRegistry.addModelSchema(modelName: schemaName, modelSchema: schema)
+        }
+
+        for serializedCustomTypeSchema in serializedCustomTypeSchemas {
+            guard let schemaName = serializedCustomTypeSchema["name"] as? String else {
+                throw DataStoreError.decodingError(
+                    "Cannot get schema name.",
+                    FlutterDataStoreErrorRecoverySuggestion.decoding.rawValue
+                )
+            }
+            if (!customTypeSchemaDependenciesOrder.contains(schemaName)) {
+                let schema: ModelSchema = try FlutterModelSchema.init(serializedData: serializedCustomTypeSchema)
+                    .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemaRegistry)
+                customTypeSchemaRegistry.addModelSchema(modelName: schemaName, modelSchema: schema)
+            }
+        }
+    }
+
+    // Resolve custom type dependencies order. The most dependent schema will be registered first.
+    // Circular depdencies are not allowed.
+    // The resolved order (array of CustomType names) contains only types that are on the both ends of a
+    // dependent relationship
+    private func getCustomTypeSchemasDependenciesOrder(serializedCustomTypeSchemas: [[String: Any]]) throws -> [String] {
+        var schemasDependencies: [String: [String]] = [:]
+        for serializedCustomTypeSchema in serializedCustomTypeSchemas {
+            guard let fields = serializedCustomTypeSchema["fields"] as? [String: [String: Any]] else {
+                throw DataStoreError.decodingError(
+                    "Cannot get fields from serialized schema",
+                    FlutterDataStoreErrorRecoverySuggestion.decoding.rawValue
+                )
+            }
+
+            for (_, field) in fields {
+                guard let type = field["type"] as? [String: String] else {
+                    throw DataStoreError.decodingError(
+                        "Cannot get field type from a field in serialized schema",
+                        FlutterDataStoreErrorRecoverySuggestion.decoding.rawValue
+                    )
+                }
+
+                if (type["fieldType"] == "embedded" || type["fieldType"] == "embeddedCollection") {
+                    guard let schemaName = serializedCustomTypeSchema["name"] as? String else {
+                        throw DataStoreError.decodingError(
+                            "Cannot get schema name.",
+                            FlutterDataStoreErrorRecoverySuggestion.decoding.rawValue
+                        )
+                    }
+                    if (schemasDependencies[schemaName] == nil) {
+                        schemasDependencies[schemaName] = []
+                    }
+                    guard let customTypeName = type["ofCustomTypeName"] else {
+                        throw DataStoreError.decodingError(
+                            "Cannot get custom type name from a field that has custom type value",
+                            FlutterDataStoreErrorRecoverySuggestion.decoding.rawValue
+                        )
+                    }
+                    schemasDependencies[schemaName]?.append(customTypeName)
+                }
+            }
+        }
+
+        var result: [String] = [];
+
+        if (schemasDependencies.isEmpty) {
+            return result
+        }
+
+        var unresolved: Set<String> = []
+        guard let startNode = schemasDependencies.keys.first else {
+            throw DataStoreError.internalOperation(
+                "Cannot start resolving custom type dependencies order.",
+                "This should not happen, please open an issue at https://github.com/aws-amplify/amplify-flutter/issues"
+            )
+        }
+        try resolveCustomTypeSchemaOrder(
+            startNode: startNode,
+            dependenciesMap: schemasDependencies,
+            result: &result,
+            unresolved: &unresolved
+        )
+        return result
+    }
+
+    private func resolveCustomTypeSchemaOrder(
+        startNode: String,
+        dependenciesMap: [String: [String]],
+        result: inout [String],
+        unresolved: inout Set<String>
+    ) throws {
+        unresolved.insert(startNode)
+        for node in dependenciesMap[startNode] ?? [] {
+            if (!result.contains(node)) {
+                if (unresolved.contains(node)) {
+                    throw DataStoreError.configuration(
+                        "Cicularly dependent schemas are not supported.",
+                        "Please check schema definition and avoid cicular dependencies."
+                    )
+                }
+                try resolveCustomTypeSchemaOrder(
+                    startNode: node,
+                    dependenciesMap: dependenciesMap,
+                    result: &result,
+                    unresolved: &unresolved
+                )
+            }
+        }
+
+        result.append(startNode)
+        unresolved.remove(startNode)
     }
     
     // TODO: Remove once all configure is moved to the bridge

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.crea
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedUnrecognizedError
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
+import com.amazonaws.amplify.amplify_datastore.types.model.FlutterCustomTypeSchema
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterModelSchema
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSerializedModel
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSubscriptionEvent
@@ -33,7 +34,10 @@ import com.amazonaws.amplify.amplify_datastore.util.safeCastToList
 import com.amazonaws.amplify.amplify_datastore.util.safeCastToMap
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.async.Cancelable
+import com.amplifyframework.core.model.CustomTypeSchema
 import com.amplifyframework.core.model.Model
+import com.amplifyframework.core.model.ModelSchema
+import com.amplifyframework.core.model.SerializedCustomType
 import com.amplifyframework.core.model.SerializedModel
 import com.amplifyframework.core.model.query.QueryOptions
 import com.amplifyframework.core.model.query.predicate.QueryPredicates
@@ -46,8 +50,10 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import java.util.Locale
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
+import kotlin.collections.HashMap
 
 /** AmplifyDataStorePlugin */
 class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
@@ -147,23 +153,11 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             return
         }
 
-        val modelSchemas: List<Map<String, Any>> = request["modelSchemas"].safeCastToList()!!
+        // Register schemas to the native model provider
+        registerSchemas(request)
+
         val syncExpressions: List<Map<String, Any>> =
             request["syncExpressions"].safeCastToList() ?: emptyList()
-
-        val flutterModelSchemaList =
-            modelSchemas.map { modelSchema -> FlutterModelSchema(modelSchema) }
-        flutterModelSchemaList.forEach { flutterModelSchema ->
-            val nativeSchema = flutterModelSchema.convertToNativeModelSchema()
-            modelProvider.addModelSchema(
-                flutterModelSchema.name,
-                nativeSchema
-            )
-        }
-
-        val dataStoreConfigurationBuilder = DataStoreConfiguration.builder()
-
-        modelProvider.setVersion(request["modelProviderVersion"] as String)
         val defaultDataStoreConfiguration = DataStoreConfiguration.defaults()
         val syncInterval: Long =
             (request["syncInterval"] as? Int)?.toLong()
@@ -174,6 +168,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         val syncPageSize: Int =
             (request["syncPageSize"] as? Int)
                 ?: defaultDataStoreConfiguration.syncPageSize
+
+        val dataStoreConfigurationBuilder = DataStoreConfiguration.builder()
 
         try {
             buildSyncExpressions(syncExpressions, dataStoreConfigurationBuilder)
@@ -262,12 +258,14 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     @VisibleForTesting
     fun onDelete(flutterResult: Result, request: Map<String, Any>) {
         val modelName: String
-        val serializedModelData: Map<String, Any>
+        val serializedModelData: Map<String, Any?>
+        val schema: ModelSchema
 
         try {
             modelName = request["modelName"] as String
+            schema = modelProvider.modelSchemas()[modelName]!!
             serializedModelData =
-                deserializeNestedModels(request["serializedModel"].safeCastToMap()!!)
+                deserializeNestedModel(request["serializedModel"].safeCastToMap()!!, schema)
         } catch (e: Exception) {
             uiThreadHandler.post {
                 postExceptionToFlutterChannel(
@@ -279,7 +277,6 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         }
 
         val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
-        val schema = modelProvider.modelSchemas()[modelName]
 
         val instance = SerializedModel.builder()
             .serializedData(serializedModelData)
@@ -311,12 +308,14 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     @VisibleForTesting
     fun onSave(flutterResult: Result, request: Map<String, Any>) {
         val modelName: String
-        val serializedModelData: Map<String, Any>
+        val serializedModelData: Map<String, Any?>
+        val schema: ModelSchema
 
         try {
             modelName = request["modelName"] as String
+            schema = modelProvider.modelSchemas()[modelName]!!
             serializedModelData =
-                deserializeNestedModels(request["serializedModel"].safeCastToMap()!!)
+                deserializeNestedModel(request["serializedModel"].safeCastToMap()!!, schema)
         } catch (e: Exception) {
             uiThreadHandler.post {
                 postExceptionToFlutterChannel(
@@ -328,7 +327,6 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         }
 
         val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
-        val schema = modelProvider.modelSchemas()[modelName]
 
         val serializedModel = SerializedModel.builder()
             .serializedData(serializedModelData)
@@ -390,7 +388,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                     dataStoreObserveEventStreamHandler.sendEvent(
                         FlutterSubscriptionEvent(
                             serializedModel = event.item() as SerializedModel,
-                            eventType = event.type().name.toLowerCase()
+                            eventType = event.type().name.toLowerCase(Locale.getDefault())
                         ).toMap()
                     )
                 }
@@ -512,15 +510,146 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
 
     @VisibleForTesting
-    fun deserializeNestedModels(serializedModelData: Map<String, Any>): Map<String, Any> {
-        return serializedModelData.mapValues {
-            if (it.value is Map<*, *>) {
-                SerializedModel.builder()
-                    .serializedData(deserializeNestedModels(it.value as HashMap<String, Any>))
-                    .modelSchema(null)
+    fun deserializeNestedModel(serializedModelData: Map<String, Any?>, modelSchema: ModelSchema): Map<String, Any?> {
+        val result = mutableMapOf<String, Any?>()
+
+        // iterate over schema fields to deserialize each field value
+        for ((key, field) in modelSchema.fields.entries) {
+            // ignore if serializedModelData doesn't contain value for the current field key
+            if (!serializedModelData.containsKey(key)) {
+                continue
+            }
+            val fieldSerializedData = serializedModelData[key]
+
+            // if the field serialized value is null
+            // assign null to this field in the deserialized map
+            if (fieldSerializedData == null) {
+                result[key] = fieldSerializedData
+                continue
+            }
+
+            if (field.isModel) {
+                // ignore field if the field doesn't have valid schema in ModelProvider
+                val fieldModelSchema = modelProvider.modelSchemas()[field.targetType] ?: continue
+                result[key] = SerializedModel.builder()
+                    .serializedData(deserializeNestedModel(fieldSerializedData as Map<String, Any?>, fieldModelSchema))
+                    .modelSchema(fieldModelSchema)
                     .build()
-            } else
-                it.value
+            } else if (field.isCustomType) {
+                // ignore field if the field doesn't have valid schema in ModelProvider
+                val fieldCustomTypeSchema = modelProvider.customTypeSchemas()[field.targetType] ?: continue
+                val deserializedCustomType = getDeserializedCustomTypeField(
+                    fieldCustomTypeSchema = fieldCustomTypeSchema,
+                    isFieldArray = field.isArray,
+                    listOfSerializedData = if (field.isArray) fieldSerializedData as List<Map<String, Any?>> else null,
+                    serializedData = if (!field.isArray) fieldSerializedData as Map<String, Any?> else null
+                )
+
+                if (deserializedCustomType != null) {
+                    result[key] = deserializedCustomType
+                }
+            } else {
+                result[key] = fieldSerializedData
+            }
+        }
+
+        return result.toMap()
+    }
+
+    private fun deserializeNestedCustomType(
+        serializedModelData: Map<String, Any?>, customTypeSchema: CustomTypeSchema): Map<String, Any?> {
+        val result = mutableMapOf<String, Any?>()
+
+        for ((key, field) in customTypeSchema.fields.entries) {
+            if (!serializedModelData.containsKey(key)) {
+                continue
+            }
+
+            val fieldSerializedData = serializedModelData[key]
+
+            // if the field serialized value is null
+            // assign null to this field in the deserialized map
+            if (fieldSerializedData == null) {
+                result[key] = fieldSerializedData
+                continue
+            }
+
+            if (field.isCustomType) {
+                // ignore field if the field doesn't have valid schema in ModelProvider
+                val fieldCustomTypeSchema = modelProvider.customTypeSchemas()[field.targetType] ?: continue
+                val deserializedCustomType = getDeserializedCustomTypeField(
+                    fieldCustomTypeSchema = fieldCustomTypeSchema,
+                    isFieldArray = field.isArray,
+                    listOfSerializedData = if (field.isArray) fieldSerializedData as List<Map<String, Any?>> else null,
+                    serializedData = if (!field.isArray) fieldSerializedData as Map<String, Any?> else null
+                )
+
+                if (deserializedCustomType != null) {
+                    result[key] = deserializedCustomType
+                }
+            } else {
+                result[key] = fieldSerializedData
+            }
+        }
+
+        return result.toMap()
+    }
+
+    private fun getDeserializedCustomTypeField(
+        fieldCustomTypeSchema: CustomTypeSchema,
+        isFieldArray: Boolean = false,
+        listOfSerializedData: List<Map<String, Any?>>? = null,
+        serializedData: Map<String, Any?>? = null
+    ): Any? {
+        // When a field is custom type
+        // the field value can only be a single custom type
+        // or a list of item of the same custom type
+        if (isFieldArray && listOfSerializedData != null) {
+            return listOfSerializedData.map {
+                SerializedCustomType.builder()
+                    .serializedData(deserializeNestedCustomType(it, fieldCustomTypeSchema))
+                    .customTypeSchema(fieldCustomTypeSchema)
+                    .build()
+            }
+        }
+
+        if (serializedData != null) {
+            return SerializedCustomType.builder()
+                .serializedData(deserializeNestedCustomType(serializedData, fieldCustomTypeSchema))
+                .customTypeSchema(fieldCustomTypeSchema)
+                .build()
+        }
+
+        return null
+    }
+
+    private fun registerSchemas(request: Map<String, Any>) {
+        val modelSchemas: List<Map<String, Any>> = request["modelSchemas"].safeCastToList()!!
+        val customTypeSchemas: List<Map<String, Any>> = request["customTypeSchemas"].safeCastToList() ?: emptyList()
+        modelProvider.setVersion(request["modelProviderVersion"] as String)
+
+        val flutterModelSchemaList =
+            modelSchemas.map { modelSchema -> FlutterModelSchema(modelSchema) }
+
+        flutterModelSchemaList.forEach { flutterModelSchema ->
+            val nativeSchema = flutterModelSchema.convertToNativeModelSchema()
+            modelProvider.addModelSchema(
+                flutterModelSchema.name,
+                nativeSchema
+            )
+        }
+
+        if (customTypeSchemas.isNotEmpty()) {
+            val flutterCustomTypeSchemaList =
+                customTypeSchemas.map { customTypeSchema -> FlutterCustomTypeSchema(customTypeSchema) }
+
+            flutterCustomTypeSchemaList.forEach { flutterCustomTypeSchema ->
+                val nativeSchema = flutterCustomTypeSchema.convertToNativeCustomTypeSchema()
+                modelProvider.addCustomTypeSchema(
+                    flutterCustomTypeSchema.name,
+                    nativeSchema
+                )
+            }
         }
     }
 }

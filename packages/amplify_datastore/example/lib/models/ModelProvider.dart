@@ -37,6 +37,7 @@ import 'IntListTypeModel.dart';
 import 'IntTypeModel.dart';
 import 'JSONListTypeModel.dart';
 import 'JSONTypeModel.dart';
+import 'ModelNestedCustomType.dart';
 import 'MultiTypeModel.dart';
 import 'Post.dart';
 import 'StringListTypeModel.dart';
@@ -45,7 +46,12 @@ import 'TimeListTypeModel.dart';
 import 'TimeTypeModel.dart';
 import 'TimestampListTypeModel.dart';
 import 'TimestampTypeModel.dart';
+import 'AllScalarTypesCustomType.dart';
+import 'AllScalarTypesListCustomType.dart';
+import 'SimpleCustomType.dart';
 
+export 'AllScalarTypesCustomType.dart';
+export 'AllScalarTypesListCustomType.dart';
 export 'BelongsToModel.dart';
 export 'Blog.dart';
 export 'BoolListTypeModel.dart';
@@ -68,8 +74,10 @@ export 'IntListTypeModel.dart';
 export 'IntTypeModel.dart';
 export 'JSONListTypeModel.dart';
 export 'JSONTypeModel.dart';
+export 'ModelNestedCustomType.dart';
 export 'MultiTypeModel.dart';
 export 'Post.dart';
+export 'SimpleCustomType.dart';
 export 'StringListTypeModel.dart';
 export 'StringTypeModel.dart';
 export 'TimeListTypeModel.dart';
@@ -79,7 +87,7 @@ export 'TimestampTypeModel.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "9612dfafab711689ac8c3a5c22c1f51a";
+  String version = "1abf22a6ff86e4a92910a0fcfb17f648";
   @override
   List<ModelSchema> modelSchemas = [
     BelongsToModel.schema,
@@ -103,6 +111,7 @@ class ModelProvider implements ModelProviderInterface {
     IntTypeModel.schema,
     JSONListTypeModel.schema,
     JSONTypeModel.schema,
+    ModelNestedCustomType.schema,
     MultiTypeModel.schema,
     Post.schema,
     StringListTypeModel.schema,
@@ -112,6 +121,12 @@ class ModelProvider implements ModelProviderInterface {
     TimestampListTypeModel.schema,
     TimestampTypeModel.schema
   ];
+  @override
+  List<ModelSchema> customTypeSchemas = [
+    AllScalarTypesCustomType.schema,
+    AllScalarTypesListCustomType.schema,
+    SimpleCustomType.schema
+  ];
   static final ModelProvider _instance = ModelProvider();
 
   static ModelProvider get instance => _instance;
@@ -119,156 +134,69 @@ class ModelProvider implements ModelProviderInterface {
   ModelType getModelTypeByModelName(String modelName) {
     switch (modelName) {
       case "BelongsToModel":
-        {
-          return BelongsToModel.classType;
-        }
-        break;
+        return BelongsToModel.classType;
       case "Blog":
-        {
-          return Blog.classType;
-        }
-        break;
+        return Blog.classType;
       case "BoolListTypeModel":
-        {
-          return BoolListTypeModel.classType;
-        }
-        break;
+        return BoolListTypeModel.classType;
       case "BoolTypeModel":
-        {
-          return BoolTypeModel.classType;
-        }
-        break;
+        return BoolTypeModel.classType;
       case "ChildModel":
-        {
-          return ChildModel.classType;
-        }
-        break;
+        return ChildModel.classType;
       case "Comment":
-        {
-          return Comment.classType;
-        }
-        break;
+        return Comment.classType;
       case "DateListTypeModel":
-        {
-          return DateListTypeModel.classType;
-        }
-        break;
+        return DateListTypeModel.classType;
       case "DateTimeListTypeModel":
-        {
-          return DateTimeListTypeModel.classType;
-        }
-        break;
+        return DateTimeListTypeModel.classType;
       case "DateTimeTypeModel":
-        {
-          return DateTimeTypeModel.classType;
-        }
-        break;
+        return DateTimeTypeModel.classType;
       case "DateTypeModel":
-        {
-          return DateTypeModel.classType;
-        }
-        break;
+        return DateTypeModel.classType;
       case "DoubleListTypeModel":
-        {
-          return DoubleListTypeModel.classType;
-        }
-        break;
+        return DoubleListTypeModel.classType;
       case "DoubleTypeModel":
-        {
-          return DoubleTypeModel.classType;
-        }
-        break;
+        return DoubleTypeModel.classType;
       case "EnumListTypeModel":
-        {
-          return EnumListTypeModel.classType;
-        }
-        break;
+        return EnumListTypeModel.classType;
       case "EnumTypeModel":
-        {
-          return EnumTypeModel.classType;
-        }
-        break;
+        return EnumTypeModel.classType;
       case "HasManyChildModel":
-        {
-          return HasManyChildModel.classType;
-        }
-        break;
+        return HasManyChildModel.classType;
       case "HasManyModel":
-        {
-          return HasManyModel.classType;
-        }
-        break;
+        return HasManyModel.classType;
       case "HasOneModel":
-        {
-          return HasOneModel.classType;
-        }
-        break;
+        return HasOneModel.classType;
       case "IntListTypeModel":
-        {
-          return IntListTypeModel.classType;
-        }
-        break;
+        return IntListTypeModel.classType;
       case "IntTypeModel":
-        {
-          return IntTypeModel.classType;
-        }
-        break;
+        return IntTypeModel.classType;
       case "JSONListTypeModel":
-        {
-          return JSONListTypeModel.classType;
-        }
-        break;
+        return JSONListTypeModel.classType;
       case "JSONTypeModel":
-        {
-          return JSONTypeModel.classType;
-        }
-        break;
+        return JSONTypeModel.classType;
+      case "ModelNestedCustomType":
+        return ModelNestedCustomType.classType;
       case "MultiTypeModel":
-        {
-          return MultiTypeModel.classType;
-        }
-        break;
+        return MultiTypeModel.classType;
       case "Post":
-        {
-          return Post.classType;
-        }
-        break;
+        return Post.classType;
       case "StringListTypeModel":
-        {
-          return StringListTypeModel.classType;
-        }
-        break;
+        return StringListTypeModel.classType;
       case "StringTypeModel":
-        {
-          return StringTypeModel.classType;
-        }
-        break;
+        return StringTypeModel.classType;
       case "TimeListTypeModel":
-        {
-          return TimeListTypeModel.classType;
-        }
-        break;
+        return TimeListTypeModel.classType;
       case "TimeTypeModel":
-        {
-          return TimeTypeModel.classType;
-        }
-        break;
+        return TimeTypeModel.classType;
       case "TimestampListTypeModel":
-        {
-          return TimestampListTypeModel.classType;
-        }
-        break;
+        return TimestampListTypeModel.classType;
       case "TimestampTypeModel":
-        {
-          return TimestampTypeModel.classType;
-        }
-        break;
+        return TimestampTypeModel.classType;
       default:
-        {
-          throw Exception(
-              "Failed to find model in model provider for model name: " +
-                  modelName);
-        }
+        throw Exception(
+            "Failed to find model in model provider for model name: " +
+                modelName);
     }
   }
 }

@@ -75,7 +75,7 @@ class DoubleTypeModel extends Model {
 
   DoubleTypeModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _value = json['value'];
+        _value = (json['value'] as num?)?.toDouble();
 
   Map<String, dynamic> toJson() => {'id': id, 'value': _value};
 

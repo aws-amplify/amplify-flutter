@@ -79,9 +79,8 @@ class IntListTypeModel extends Model {
 
   IntListTypeModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _value = (json['value'] as List<dynamic>)
-            ?.map((dynamic e) => e is double ? e.toInt() : e as int)
-            ?.toList();
+        _value =
+            (json['value'] as List?)?.map((e) => (e as num).toInt()).toList();
 
   Map<String, dynamic> toJson() => {'id': id, 'value': _value};
 

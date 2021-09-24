@@ -67,5 +67,61 @@
             "timestampType": 999,
             "enumType": "maybe"
         }
+    },
+    "PersonModelSerializedMap": {
+        "id": "123",
+        "modelName": "Person",
+        "serializedData": {
+            "id": "123",
+            "name": "Tester Testing",
+            "contact": {
+                "customTypeName": "Contact",
+                "serializedData": {
+                    "email": "test@testing.com",
+                    "phone": {
+                        "customTypeName": "Phone",
+                        "serializedData": {
+                            "country": "+1",
+                            "area": "415",
+                            "number": "6666666"
+                        }
+                    },
+                    "mailingAddresses": [
+                        {
+                            "customTypeName": "Address",
+                            "serializedData": {
+                                "line1": "000 Somewhere far",
+                                "line2": "apt 4",
+                                "city": "San Francisco",
+                                "state": "CA",
+                                "postalCode": "94115"
+                            }
+                        },
+                        {
+                            "customTypeName": "Address",
+                            "serializedData": {
+                                "line1": "111 Somewhere close",
+                                "line2": null,
+                                "city": "Seattle",
+                                "state": "WA",
+                                "postalCode": "98101"
+                            }
+                        }
+                    ]
+                }
+            },
+            "propertiesAddresses": [
+                {
+                    "customTypeName": "Address",
+                    "serializedData": {
+                        "line1": "222 Somewhere in the middle",
+                        "line2": null,
+                        "city": "Portland",
+                        "state": "OR",
+                        "postalCode": "97035"
+                    }
+                }
+            ]
+        }
     }
 }

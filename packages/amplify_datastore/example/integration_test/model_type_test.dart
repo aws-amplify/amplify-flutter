@@ -342,5 +342,64 @@ void main() {
       var models = List.generate(5, (_) => EnumListTypeModel());
       testModelOperations(models: models);
     });
+
+    group('List<CustomType>', () {
+      var customTypeValue = AllScalarTypesCustomType(
+        stringValue: 'string',
+        intValue: 1,
+        floatValue: 1.0,
+        boolValue: true,
+        dateValue: TemporalDate(DateTime.utc(2021, 9, 22)),
+        dateTimeValue: TemporalDateTime(DateTime.utc(2021, 9, 22, 23, 0, 0)),
+        timeValue: TemporalTime(DateTime.utc(2021, 9, 22, 0, 0, 0)),
+        timestampValue: TemporalTimestamp(DateTime.utc(2021, 9, 22, 0, 0, 0)),
+        jsonValue: '{"foo":"bar"}',
+        enumValue: EnumModel.yes,
+        customTypeValue: SimpleCustomType(foo: 'bar'),
+      );
+
+      var listCustomTypeValue = List.generate(
+        2,
+        (i) => AllScalarTypesListCustomType(
+          stringValues: [i.toString(), (i + 1).toString()],
+          intValues: [i, i + 1],
+          floatValues: [i.toDouble(), (i + 1).toDouble()],
+          boolValues: [i % 2 == 0, i % 2 != 0],
+          dateValues: [
+            TemporalDate(DateTime.utc(2021, 9, 22 + i)),
+            TemporalDate(DateTime.utc(2021, 9, 22 - i))
+          ],
+          dateTimeValues: [
+            TemporalDateTime(DateTime.utc(2021, 9, 22 + i, 23, 0, 0)),
+            TemporalDateTime(DateTime.utc(2021, 9, 22 - i, 23, 0, 0)),
+          ],
+          timeValues: [
+            TemporalTime(DateTime.utc(2021, 9, 22 + i, 0, 0, 0)),
+            TemporalTime(DateTime.utc(2021, 9, 22 - i, 0, 0, 0))
+          ],
+          timestampValues: [
+            TemporalTimestamp(DateTime.utc(2021, 9, 22 + i, 0, 0, 0)),
+            TemporalTimestamp(DateTime.utc(2021, 9, 22 - i, 0, 0, 0))
+          ],
+          jsonValues: ['{"foo":"bar"}', '{"baz":"qux"}'],
+          enumValues: [
+            i % 2 == 0 ? EnumModel.no : EnumModel.yes,
+            i % 2 != 0 ? EnumModel.no : EnumModel.yes
+          ],
+          customTypeValues: [
+            SimpleCustomType(foo: 'bar number $i'),
+            SimpleCustomType(foo: 'bar number ${i + 1}')
+          ],
+        ),
+      );
+
+      var models = List.generate(
+          5,
+          (_) => ModelNestedCustomType(
+              customTypeValue: customTypeValue,
+              listCustomTypeValue: listCustomTypeValue));
+
+      testModelOperations(models: models);
+    });
   });
 }

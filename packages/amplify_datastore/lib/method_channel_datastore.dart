@@ -61,6 +61,9 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         'modelSchemas': modelProvider?.modelSchemas
             .map((schema) => schema.toMap())
             .toList(),
+        'customTypeSchemas': modelProvider?.customTypeSchemas
+            .map((schema) => schema.toMap())
+            .toList(),
         'modelProviderVersion': modelProvider?.version,
         'syncExpressions': syncExpressions!
             .map((syncExpression) => syncExpression.toMap())

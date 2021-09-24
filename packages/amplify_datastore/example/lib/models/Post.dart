@@ -162,7 +162,7 @@ class Post extends Model {
   Post.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _title = json['title'],
-        _rating = json['rating'],
+        _rating = (json['rating'] as num?)?.toInt(),
         _created = json['created'] != null
             ? TemporalDateTime.fromString(json['created'])
             : null,
@@ -184,7 +184,7 @@ class Post extends Model {
         'rating': _rating,
         'created': _created?.format(),
         'blog': _blog?.toJson(),
-        'comments': _comments?.map((e) => e?.toJson())?.toList()
+        'comments': _comments?.map((Comment? e) => e?.toJson()).toList()
       };
 
   static final QueryField ID = QueryField(fieldName: "post.id");

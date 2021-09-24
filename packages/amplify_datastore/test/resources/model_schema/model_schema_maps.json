@@ -259,5 +259,41 @@
         "isArray": false
       }
     }
+  },
+  "PersonModelSchema": {
+    "pluralName": "People",
+    "name": "Person",
+    "fields": {
+      "id": {
+        "isRequired": true,
+        "name": "id",
+        "isArray": false,
+        "type": { "fieldType": "string" }
+      },
+      "name": {
+        "isRequired": true,
+        "name": "name",
+        "isArray": false,
+        "type": { "fieldType": "string" }
+      },
+      "contact": {
+        "isRequired": true,
+        "name": "contact",
+        "isArray": false,
+        "type": {
+          "ofCustomTypeName": "Contact",
+          "fieldType": "embedded"
+        }
+      },
+      "propertiesAddresses": {
+        "isRequired": false,
+        "name": "propertiesAddresses",
+        "isArray": true,
+        "type": {
+          "ofCustomTypeName": "Address",
+          "fieldType": "embeddedCollection"
+        }
+      }
+    }
   }
 }

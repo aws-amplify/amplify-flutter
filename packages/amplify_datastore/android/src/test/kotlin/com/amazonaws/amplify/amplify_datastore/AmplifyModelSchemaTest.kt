@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -84,6 +84,20 @@ class AmplifyModelSchemaTest {
         assertEquals(
                 modelSchema.convertToNativeModelSchema(),
                 allTypeModelSchema
+        )
+    }
+
+    @Test
+    fun test_model_schema_nested_custom_type_schema() {
+        val inputMap = schemasMap["PersonModelSchema"] as Map<String, Any>
+        val modelSchema = FlutterModelSchema(inputMap);
+
+        val convertedModelSchema = modelSchema.convertToNativeModelSchema()
+
+        // Verify result
+        assertEquals(
+            convertedModelSchema,
+            personSchema
         )
     }
 }

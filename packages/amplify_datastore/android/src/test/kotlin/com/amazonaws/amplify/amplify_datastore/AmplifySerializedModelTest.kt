@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -73,6 +73,18 @@ class AmplifySerializedModelTest {
         Assert.assertEquals(
                 flutterSerializedModel.toMap(),
                 refMap
+        )
+    }
+
+    @Test
+    fun test_model_schema_nested_custom_type_schema() {
+        val flutterSerializedModel = FlutterSerializedModel(personSerializedModel)
+        val expectedResult = serializedModelMaps["PersonModelSerializedMap"] as Map<String, Any>
+
+        // Verify result
+        Assert.assertEquals(
+            flutterSerializedModel.toMap(),
+            expectedResult
         )
     }
 }

@@ -22,35 +22,28 @@ data class FlutterModelSchema(val map: Map<String, Any>) {
     val name: String = map["name"] as String
     private val pluralName: String? = map["pluralName"] as String?
     private val authRules: List<FlutterAuthRule>? =
-            (map["authRules"] as List<Map<String, Any>>?)?.map { serializedAuthRule ->
-                FlutterAuthRule(serializedAuthRule)
-            }
+        (map["authRules"] as List<Map<String, Any>>?)?.map { FlutterAuthRule(it) }
     private val fields: Map<String, FlutterModelField> =
-            (map["fields"] as Map<String, Any>).mapValues { entry ->
-                FlutterModelField(entry.value as Map<String, Any>)
-            }
-    private val associations: Map<String, FlutterModelAssociation>? =
-            ( fields )?.filterKeys { key -> fields[key]?.getModelAssociation() != null }
-                    ?.mapValues { entry ->
+        (map["fields"] as Map<String, Any>).mapValues { FlutterModelField(it.value as Map<String, Any>) }
+    private val associations: Map<String, FlutterModelAssociation> =
+        fields.filterKeys { key -> fields[key]?.getModelAssociation() != null }
+            .mapValues { entry ->
                 entry.value.getModelAssociation()!!
             }
 
     fun convertToNativeModelSchema(): ModelSchema {
         var builder: ModelSchema.Builder = ModelSchema.builder()
-                .name(name)
-                .pluralName(pluralName)
-                .fields(fields.mapValues { entry ->
-                entry.value.convertToNativeModelField()})
+            .name(name)
+            .pluralName(pluralName)
+            .fields(fields.mapValues { it.value.convertToNativeModelField() })
 
         if (!authRules.isNullOrEmpty()) {
-            builder = builder.authRules(authRules.map { authRule ->
-                authRule.convertToNativeAuthRule()
-            })
+            builder = builder.authRules(authRules.map { it.convertToNativeAuthRule() })
         }
         if (!associations.isNullOrEmpty()) {
-            builder = builder.associations(associations.mapValues { entry ->
-                entry.value.convertToNativeModelAssociation()
-            })
+            builder = builder.associations(
+                associations.mapValues { it.value.convertToNativeModelAssociation() }
+            )
         }
         builder.modelClass(SerializedModel::class.java)
         return builder.build()
