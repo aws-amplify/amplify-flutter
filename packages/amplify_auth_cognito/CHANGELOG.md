@@ -1,3 +1,15 @@
+## 0.3.0-unstable.1 (2021-09-23)
+
+### Breaking Changes
+
+- The amplify_auth_cognito fetchAuthSession API will throw a SignedOutException when the user has not signed in, and a SessionExpiredException when the tokens have expired.
+- The amplify_auth_cognito getCurrentUser API will return an AuthUser if the user is still authenticated but the session has expired.
+
+### Fixes
+
+- break(amplify_auth_cognito): throw SignedOutException (#893)
+- break(amplify_auth_cognito): fixes getCurrentUser disparity (#894)
+
 ## 0.2.4 (2021-09-10)
 
 ### Fixes
