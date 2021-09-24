@@ -13,10 +13,9 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:convert';
-
 import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
-import 'package:amplify_flutter/categories/amplify_categories.dart';
+import 'package:amplify_flutter/src/amplify_impl.dart';
+import 'package:amplify_flutter/src/categories/amplify_categories.dart';
 import 'package:amplify_core/types/index.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';

@@ -17,7 +17,7 @@ import 'dart:async';
 
 import 'package:amplify_core/types/index.dart';
 
-import 'amplify.dart';
+import '../amplify.dart';
 
 typedef void Listener(dynamic event);
 

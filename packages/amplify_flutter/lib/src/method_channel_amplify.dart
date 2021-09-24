@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-part of amplify;
+part of 'amplify_impl.dart';
 
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/amplify');
 
@@ -22,20 +22,17 @@ class MethodChannelAmplify extends AmplifyClass {
   MethodChannelAmplify() : super.protected();
 
   @override
-  Future<bool?> _configurePlatforms(
-      String version, String configuration) async {
-    final configured = await _channel.invokeMethod<bool>(
+  Future<void> _configurePlatforms(String version, String configuration) async {
+    await _channel.invokeMethod<void>(
       'configure',
       <String, Object>{
         'version': version,
         'configuration': configuration,
       },
     );
-    if (configured ?? false) {
-      await Future.wait(
-          //ignore:invalid_use_of_protected_member
-          AnalyticsCategory.plugins.map((plugin) => plugin.onConfigure()));
-    }
-    return configured;
+    await Future.wait(
+      //ignore:invalid_use_of_protected_member
+      AnalyticsCategory.plugins.map((plugin) => plugin.onConfigure()),
+    );
   }
 }
