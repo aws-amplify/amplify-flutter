@@ -1,15 +1,13 @@
-import 'dart:developer' as developer;
-
 import 'package:amplify_datastore/amplify_datastore.dart';
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_flutter/src/amplify_impl.dart';
 import 'package:amplify_flutter/src/categories/amplify_categories.dart';
 import 'package:amplify_api/amplify_api.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
+
+import 'mocks.dart';
 
 const amplifyconfig = ''' {
     "UserAgent": "aws-amplify-cli/2.0",
@@ -33,53 +31,6 @@ const integTestChannel = MethodChannel('integration_tests');
 final throwsAlreadyConfigured =
     throwsA(isA<AmplifyAlreadyConfiguredException>());
 final throwsAmplifyException = throwsA(isA<AmplifyException>());
-
-class MockModelType extends ModelType<Model> {
-  const MockModelType();
-
-  @override
-  MockModel fromJson(Map<String, dynamic> jsonData) {
-    return MockModel(jsonData['id']);
-  }
-}
-
-class MockModel extends Model {
-  final String id;
-
-  const MockModel(this.id);
-
-  @override
-  String getId() => id;
-
-  @override
-  ModelType<Model> getInstanceType() => const MockModelType();
-
-  @override
-  Map<String, dynamic> toJson() => {
-        'id': id,
-      };
-}
-
-class MockModelProvider extends ModelProviderInterface {
-  @override
-  String get version => '12345';
-
-  @override
-  List<ModelSchema> get modelSchemas => [
-        ModelSchema(
-          name: 'MockModel',
-          pluralName: 'MockModels',
-          fields: {
-            'id': ModelFieldDefinition.id().build(),
-          },
-        )
-      ];
-
-  @override
-  ModelType<Model> getModelTypeByModelName(String modelName) {
-    return const MockModelType();
-  }
-}
 
 void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized()
