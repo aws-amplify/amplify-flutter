@@ -38,6 +38,7 @@ class RunnerTests: XCTestCase {
         switch call.method {
         case "reset":
             Amplify.reset()
+            print("Amplify reset")
             result(nil)
         default:
             result(FlutterMethodNotImplemented)
