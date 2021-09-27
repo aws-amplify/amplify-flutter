@@ -13,9 +13,6 @@ scripts:
     melos exec --scope="*example*,sample_app" -- \
       cp -n "\$MELOS_ROOT_PATH"/.circleci/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart | true
 
-  # copy_lint_config: >
-  #   melos exec --scope=""
-
   build:examples:ios: >
     melos exec -c 1 --scope="*example*,sample_app" --fail-fast -- \
       flutter build ios --simulator
@@ -102,6 +99,7 @@ scripts:
         - amplify_analytics_*
         - amplify_api*
         - amplify_flutter*
+        - amplify_core*
 
   lint:ios:
     run: |
@@ -116,6 +114,7 @@ scripts:
         - amplify_analytics_pinpoint_example
         - amplify_api_example
         - amplify_flutter_example
+        - amplify_core_example
 
   lint:android:
     run: |
@@ -128,6 +127,19 @@ scripts:
         - amplify_analytics_pinpoint_example
         - amplify_api_example
         - amplify_flutter_example
+        - amplify_core_example
+  
+  copy_dependencies:
+    run: |
+      melos exec -c 1 -- \
+        cp "\$MELOS_ROOT_PATH"/build-support/dependencies.rb ios
+    description: Updates the iOS build dependencies for each project
+    select-package:
+      scope:
+        - amplify_analytics_pinpoint
+        - amplify_api
+        - amplify_flutter
+        - amplify_core
 
   lint:pub: >
     melos exec -c 5 --fail-fast --no-private --ignore="*example*" -- \

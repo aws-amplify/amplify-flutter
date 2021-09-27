@@ -58,7 +58,7 @@ extension Encodable {
   }
 }
 
-class FlutterApiResponse {
+enum FlutterApiResponse {
     static func handleGraphQLErrorResponse(
         flutterResult: @escaping FlutterResult,
         errorResponse: GraphQLResponseError<String>
