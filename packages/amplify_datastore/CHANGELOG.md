@@ -9,6 +9,17 @@
 
   NOTE: Data stored in local database and not synced to cloud will be lost, as [local migration is not supported](https://docs.amplify.aws/lib/datastore/schema-updates/q/platform/flutter/#local-migrations).
 
+- Adding CustomType functionality introduces a breaking change to the amplify-codegen generated `ModelProvider.dart`, as a new class member `customTypeSchemas` has been added to `ModelProviderInterface.dart`.
+
+  **How to migrate?**
+  - Upgrade amplify-flutter to the latest version
+  - Upgrade amplify-codegen to the latest version, and regenerate models by `amplify codegen models`
+    > May need to uninstall `@aws-amplify/cli` and reinstall it to ensure it pulls the latest version of `amplify-codegen` package
+
+### Features
+
+- feat: Add CustomType functionality (#920)
+
 ### Fixes
 
 - break(datastore): cannot saving boolean as integer in SQLite (#895)
