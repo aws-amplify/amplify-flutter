@@ -17,6 +17,7 @@ YQ_BINARY=yq_${OS}_amd64
 mkdir -p bin
 
 # Install unpub
+echo "Installing unpub..."
 curl -s -L https://github.com/dnys1/unpub-launcher/releases/download/v2.0/${UNPUB_BINARY}.tar.gz | tar xz
 mv ${UNPUB_BINARY} bin/unpub
 chmod +x bin/unpub
@@ -27,6 +28,7 @@ export UNPUB_PORT=4000
 export UNPUB_LOCAL_PATH="."
 
 # Install yq
+echo "Installing yq..."
 curl -s -L https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/${YQ_BINARY}.tar.gz | tar xz
 mv ${YQ_BINARY} bin/yq
 chmod +x bin/yq
@@ -43,6 +45,7 @@ if ! command -v yq &>/dev/null; then
     exit 1
 fi
 
+echo "Fixing package dependencies..."
 
 DEPS='. as $doc | (.dependencies | keys | .[] | select(. == "amplify*") as $k ireduce ({}; $doc.dependencies[$k] = {"hosted": { "url": "http://localhost:4000", "name": $k }, "version": "any" })) | $doc'
 DEV_DEPS='. as $doc | (.dev_dependencies | keys | .[] | select(. == "amplify*") as $k ireduce ({}; $doc.dev_dependencies[$k] = {"hosted": { "url": "http://localhost:4000", "name": $k }, "version": "any" })) | $doc'
@@ -61,7 +64,7 @@ for PACKAGE in packages/*; do
         continue
     fi
 
-    pushd $PACKAGE >/dev/null
+    pushd $PACKAGE
 
     # Replace Amplify dependencies with hosted version
     yq e "$DEPS" -i pubspec.yaml
@@ -81,4 +84,5 @@ for PACKAGE in packages/*; do
 done
 
 # Launch server and seed with local packages
+echo "Launching unpub server..."
 unpub -port $UNPUB_PORT -launch &
