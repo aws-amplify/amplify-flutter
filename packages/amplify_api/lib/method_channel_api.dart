@@ -220,8 +220,8 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
             underlyingException: errors.toString());
       }
 
-      GraphQLResponse<T> response = GraphQLResponseDecoder.instance
-          .decode<T>(request: request, data: result['data'], errors: errors);
+      GraphQLResponse<T> response = GraphQLResponseDecoder.instance.decode<T>(
+          request: request, data: result['data'] ?? '', errors: errors);
 
       return response;
     } on PlatformException catch (e) {
