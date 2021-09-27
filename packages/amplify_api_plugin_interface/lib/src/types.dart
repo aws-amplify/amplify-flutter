@@ -19,8 +19,10 @@ export 'auth/api_authorization_type.dart';
 
 export 'exceptions/api_exception.dart';
 
+export 'graphql/graphql_helpers.dart';
 export 'graphql/graphql_operation.dart';
 export 'graphql/graphql_request.dart';
+export 'graphql/graphql_request_type.dart';
 export 'graphql/graphql_response.dart';
 export 'graphql/graphql_response_error.dart';
 export 'graphql/graphql_subscription_operation.dart';
