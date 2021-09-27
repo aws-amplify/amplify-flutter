@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_flutter/amplify.dart' hide Amplify;
@@ -136,8 +138,10 @@ final throwsAlreadyConfigured =
 final throwsAmplifyException = throwsA(isA<AmplifyException>());
 
 void main() {
-  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized()
-      as IntegrationTestWidgetsFlutterBinding;
+  if (Platform.isAndroid) {
+    throw UnsupportedError('Only iOS for now');
+  }
+
   final modelProvider = MockModelProvider();
   final dataStorePlugin = AmplifyDataStore(modelProvider: modelProvider);
   MethodChannelAmplify Amplify;
