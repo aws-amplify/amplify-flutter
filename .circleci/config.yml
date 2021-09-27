@@ -180,7 +180,6 @@ jobs:
       - run:
           name: Install and set up melos
           command: |
-            sleep 10
             flutter pub global activate melos
             melos exec -c 1 -- flutter pub get
             melos run copy_dummy_config
@@ -206,7 +205,6 @@ jobs:
       - run:
           name: Install and set up melos
           command: |
-            sleep 10
             flutter pub global activate melos
             melos exec -c 1 -- flutter pub get
             melos run copy_dummy_config
