@@ -52,6 +52,7 @@ commands:
       - run:
           name: Set up local Unpub server
           command: ./tool/setup_local_unpub.sh
+          background: true
 
 jobs:
   format_flutter:
