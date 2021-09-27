@@ -33,7 +33,8 @@ class StorageCategory {
         throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       }
     } else {
-      throw AmplifyException('Storage plugin has already been added, ' 'multiple plugins for Storage category are currently not supported.');
+      throw AmplifyException('Storage plugin has already been added, '
+          'multiple plugins for Storage category are currently not supported.');
     }
   }
 

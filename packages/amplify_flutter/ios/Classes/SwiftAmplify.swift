@@ -69,7 +69,7 @@ public class SwiftAmplify: NSObject, FlutterPlugin {
             )
         } catch let error as ConfigurationError {
             switch error {
-            case .amplifyAlreadyConfigured(_, _, _):
+            case .amplifyAlreadyConfigured:
                 ErrorUtil.postErrorToFlutterChannel(
                     result: result,
                     errorCode: "AmplifyAlreadyConfiguredException",

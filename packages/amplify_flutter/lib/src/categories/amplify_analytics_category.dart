@@ -32,7 +32,8 @@ class AnalyticsCategory {
         throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       }
     } else {
-      throw AmplifyException('Analytics plugin has already been added, ' 'multiple plugins for Analytics category are currently not supported.');
+      throw AmplifyException('Analytics plugin has already been added, '
+          'multiple plugins for Analytics category are currently not supported.');
     }
   }
 

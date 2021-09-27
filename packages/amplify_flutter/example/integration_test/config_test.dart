@@ -10,6 +10,7 @@ import 'package:amplify_flutter/src/categories/amplify_categories.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
 
 import 'mocks.dart';
 
@@ -137,6 +138,8 @@ final throwsAlreadyConfigured =
 final throwsAmplifyException = throwsA(isA<AmplifyException>());
 
 void main() {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
   final modelProvider = MockModelProvider();
   final dataStorePlugin = AmplifyDataStore(modelProvider: modelProvider);
   late MethodChannelAmplify Amplify;
@@ -269,5 +272,5 @@ void main() {
         await expectLater(Amplify.configure(amplifyconfig), completes);
       });
     });
-  }, skip: Platform.isAndroid);
+  });
 }
