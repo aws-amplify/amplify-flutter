@@ -38,8 +38,12 @@ class SortedList<T> {
 
   /// Updates an item in the list, maintaining the sort order
   void updateAt(int index, T item) {
-    removeAt(index);
-    add(item);
+    if (this._compare == null) {
+      _items[index] = item;
+    } else {
+      removeAt(index);
+      add(item);
+    }
   }
 
   void operator []=(int index, T item) => updateAt(index, item);

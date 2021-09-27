@@ -90,7 +90,7 @@ class QuerySnapshot<T extends Model> {
     T? currentItem =
         currentItemIndex == -1 ? null : sortedList.items[currentItemIndex];
     bool currentItemMatchesPredicate =
-        where == null || currentItem != null && where!.evaluate(currentItem);
+        currentItem != null && (where == null || where!.evaluate(currentItem));
 
     if (event.eventType == EventType.create &&
         eventItemMatchesPredicate &&
@@ -109,7 +109,7 @@ class QuerySnapshot<T extends Model> {
           currentItem != event.item) {
         sortedList[currentItemIndex] = event.item;
         itemsHasBeenUpdated = true;
-      } else if (currentItemMatchesPredicate && eventItemMatchesPredicate) {
+      } else if (currentItemMatchesPredicate && !eventItemMatchesPredicate) {
         sortedList.removeAt(currentItemIndex);
         itemsHasBeenUpdated = true;
       } else if (!currentItemMatchesPredicate && eventItemMatchesPredicate) {
