@@ -167,16 +167,11 @@ jobs:
           path: ~/test-results/junit
 
   release_verification_android:
-    docker:
-      - image: circleci/android:api-28
-      - image: mongo
-        command: mongod
-      - image: dnys1/unpub:latest
-        entrypoint: sh -c "sleep 5 && unpub --port=8000 --database=mongodb://localhost:27017/dart_pub --uploader-email=test@example.com"
-    working_directory: ~/amplify-flutter
+    executor: docker-executor
     environment:
       _JAVA_OPTIONS: -XX:MaxRAMPercentage=80.0
       GRADLE_OPTS: -Xmx1536m -Xms768m -Dkotlin.compiler.execution.strategy=in-process -Dorg.gradle.daemon=false
+    working_directory: ~/amplify-flutter
     steps:
       - install_flutter
       - checkout
@@ -199,6 +194,31 @@ jobs:
           command: melos run build:examples:release:android
           no_output_timeout: 10m
 
+  release_verification_ios:
+    executor: macos-executor
+    working_directory: ~/amplify-flutter
+    steps:
+      - install_flutter
+      - checkout
+      - setup_unpub
+      - run:
+          name: Install and set up melos
+          command: |
+            flutter pub global activate melos
+            melos exec -c 1 -- flutter pub get
+            melos run copy_dummy_config
+      - run:
+          name: Build debug
+          command: melos run build:examples:ios
+          no_output_timeout: 10m
+      - run:
+          name: Clean artifacts
+          command: melos exec -c 1 -- flutter clean
+      - run:
+          name: Build release
+          command: melos run build:examples:release:ios
+          no_output_timeout: 10m
+
 releasable_branches: &releasable_branches
   branches:
     only:
@@ -214,3 +234,4 @@ workflows:
       - unit_test_android
       - unit_test_ios
       - release_verification_android
+      - release_verification_ios
