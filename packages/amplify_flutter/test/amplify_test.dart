@@ -118,13 +118,12 @@ void main() {
 
   test('Failed configure should result in isConfigure to be false', () async {
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return false; // configuration failed
+      throw Exception(); // configuration failed
     });
-    try {
-      await amplify.configure(validJsonConfiguration);
-    } catch (e) {
-      expect(e, amplifyConfigurationFailed);
-    }
+    await expectLater(
+      amplify.configure(validJsonConfiguration),
+      throwsException,
+    );
     expect(amplify.isConfigured, false);
   });
 
@@ -227,3 +226,5 @@ void main() {
     }
   });
 }
+
+// ignore_for_file: avoid_catches_without_on_clauses

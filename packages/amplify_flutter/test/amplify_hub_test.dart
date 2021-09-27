@@ -64,8 +64,9 @@ void main() {
       () async {
     Amplify.Hub.addChannel(
         HubChannel.Auth, mockPluginController.thisController);
-    StreamController underlying = mockPluginController.underlyingStream;
-    const String reBroadcastEvent = 'hear me!';
+    final StreamController<HubEvent> underlying =
+        mockPluginController.underlyingStream;
+    const HubEvent reBroadcastEvent = MockHubEvent('hear me!');
     Amplify.Hub.listen([HubChannel.Auth], (msg) {});
     underlying.add(reBroadcastEvent);
     expectLater(
@@ -93,3 +94,5 @@ void main() {
   //   expect(underlying.hasListener, true);
   // });
 }
+
+// ignore_for_file: close_sinks

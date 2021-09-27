@@ -17,22 +17,26 @@ import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
 
-final fakeEventChannel = StreamController<HubEvent>.broadcast(
+final fakeEventChannel = StreamController<MockHubEvent>.broadcast(
   onListen: () => safePrint('listening'),
   onCancel: () => safePrint('canceling'),
 );
 
+class MockHubEvent extends HubEvent {
+  const MockHubEvent(String eventName) : super(eventName);
+}
+
 class MockStreamController {
-  StreamController<HubEvent> get thisController {
+  StreamController<MockHubEvent> get thisController {
     return controller;
   }
 
-  StreamController<HubEvent> get underlyingStream {
+  StreamController<MockHubEvent> get underlyingStream {
     return fakeEventChannel;
   }
 }
 
-final StreamController<HubEvent> controller = StreamController.broadcast(
+final StreamController<MockHubEvent> controller = StreamController.broadcast(
   onListen: () {
     fakeEventChannel.stream.listen(controller.add);
   },
