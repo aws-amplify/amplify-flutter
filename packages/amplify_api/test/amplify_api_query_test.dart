@@ -102,7 +102,7 @@ void main() {
     }''';
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return {'data': queryResult.toString(), 'errors': []};
+      return {'data': queryResult.toString(), 'errors': <Map>[]};
     });
 
     GraphQLRequest<Blog> req = ModelQueries.get<Blog>(Blog.classType, id);
@@ -149,7 +149,7 @@ void main() {
     }''';
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return {'data': queryResult, 'errors': []};
+      return {'data': queryResult, 'errors': <Map>[]};
     });
 
     GraphQLRequest<PaginatedResult<Blog>> req = ModelQueries.list<Blog>(

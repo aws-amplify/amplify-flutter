@@ -87,7 +87,7 @@ void main() {
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == 'mutate') {
-        return {'data': mutationResult.toString(), 'errors': []};
+        return {'data': mutationResult.toString(), 'errors': <Map>[]};
       }
     });
 
@@ -116,7 +116,7 @@ void main() {
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == 'mutate') {
-        return {'data': mutationResult.toString(), 'errors': []};
+        return {'data': mutationResult.toString(), 'errors': <Map>[]};
       }
     });
 
@@ -145,7 +145,7 @@ void main() {
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == 'mutate') {
-        return {'data': mutationResult.toString(), 'errors': []};
+        return {'data': mutationResult.toString(), 'errors': <Map>[]};
       }
     });
 

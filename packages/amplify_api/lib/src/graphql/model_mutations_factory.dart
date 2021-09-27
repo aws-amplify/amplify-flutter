@@ -14,6 +14,7 @@ class ModelMutationsFactory extends ModelMutationsInterface {
 
   @override
   GraphQLRequest<T> create<T extends Model>(T model) {
+    // ignore: implicit_dynamic_map_literal
     Map<String, dynamic> variables = {"input": model.toJson()};
 
     return GraphQLRequestFactory.instance.buildRequest(
@@ -32,6 +33,7 @@ class ModelMutationsFactory extends ModelMutationsInterface {
   @override
   GraphQLRequest<T> deleteById<T extends Model>(
       ModelType<T> modelType, String id) {
+    // ignore: implicit_dynamic_map_literal
     Map<String, dynamic> variables = {
       "input": {"id": id}
     };
@@ -45,6 +47,7 @@ class ModelMutationsFactory extends ModelMutationsInterface {
 
   @override
   GraphQLRequest<T> update<T extends Model>(T model, {QueryPredicate? where}) {
+    // ignore: implicit_dynamic_map_literal
     Map<String, dynamic> variables = {"input": model.toJson()};
 
     return GraphQLRequestFactory.instance.buildRequest(

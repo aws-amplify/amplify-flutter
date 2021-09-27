@@ -38,8 +38,9 @@ void main() {
             createdAt
           }
         }''';
-      var req =
-          GraphQLRequest(document: graphQLDocument, variables: {"id": id});
+      var req = GraphQLRequest<String>(document: graphQLDocument,
+          // ignore: implicit_dynamic_map_literal
+          variables: {"id": id});
 
       var operation = await Amplify.API.mutate(request: req);
 
@@ -65,9 +66,10 @@ void main() {
         }
       }''';
 
-      var _r = await Amplify.API.mutate(
-          request: GraphQLRequest(
-              document: graphQLDocument, variables: {"name": name}));
+      var _r = await Amplify.API
+          .mutate<String>(request: GraphQLRequest(document: graphQLDocument,
+              // ignore: implicit_dynamic_map_literal
+              variables: {"name": name}));
 
       var response = await _r.response;
       Map data = jsonDecode(response.data);

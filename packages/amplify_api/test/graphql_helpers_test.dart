@@ -101,6 +101,7 @@ void main() {
       }
     }''';
         GraphQLRequest<String> req =
+            // ignore: implicit_dynamic_map_literal
             GraphQLRequest(document: doc, variables: {id: id});
         List<GraphQLResponseError> errors = [];
         String data = '''{

@@ -51,7 +51,8 @@ class Blog extends Model {
     return _createdAt;
   }
 
-  const Blog._internal({required this.id, required name, createdAt})
+  const Blog._internal(
+      {required this.id, required String name, TemporalDateTime? createdAt})
       : _name = name,
         _createdAt = createdAt;
 
@@ -106,6 +107,7 @@ class Blog extends Model {
             : null;
 
   Map<String, dynamic> toJson() =>
+      // ignore: implicit_dynamic_map_literal
       {'id': id, 'name': _name, 'createdAt': _createdAt?.format()};
 
   static final QueryField ID = QueryField(fieldName: "blog.id");

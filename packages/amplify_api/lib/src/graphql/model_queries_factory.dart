@@ -29,6 +29,7 @@ class ModelQueriesFactory extends ModelQueriesInterface {
 
   @override
   GraphQLRequest<T> get<T extends Model>(ModelType<T> modelType, String id) {
+    // ignore: implicit_dynamic_map_literal
     Map<String, dynamic> variables = {"id": id};
     return GraphQLRequestFactory.instance.buildRequest<T>(
         modelType: modelType,
@@ -43,6 +44,7 @@ class ModelQueriesFactory extends ModelQueriesInterface {
     ModelPagination? modelPagination = const ModelPagination(),
     QueryPredicate? where,
   }) {
+    // ignore: implicit_dynamic_map_literal
     Map<String, dynamic> variables = {
       "filter": null, // TODO: handle query predicates
       "limit": modelPagination?.limit,
