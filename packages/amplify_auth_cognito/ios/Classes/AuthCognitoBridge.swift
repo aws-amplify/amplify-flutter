@@ -92,8 +92,8 @@ class AuthCognitoBridge {
         }
     }
     
-    func onSignOut(flutterResult: @escaping FlutterResult) {
-        _ = Amplify.Auth.signOut() { response in
+    func onSignOut(flutterResult: @escaping FlutterResult, request: FlutterSignOutRequest) {
+        _ = Amplify.Auth.signOut(options: request.options) { response in
             switch response {
             case .success:
                 let emptyMap: Dictionary<String, Any> = [:]

@@ -34,6 +34,7 @@ import com.amplifyframework.auth.cognito.options.AWSCognitoAuthResendSignUpCodeO
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthResendUserAttributeConfirmationCodeOptions
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthResetPasswordOptions
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthSignInOptions
+import com.amplifyframework.auth.cognito.options.AWSCognitoAuthSignOutOptions
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthUpdateUserAttributeOptions
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthUpdateUserAttributesOptions
 import com.amplifyframework.auth.options.AuthConfirmSignInOptions
@@ -41,6 +42,7 @@ import com.amplifyframework.auth.options.AuthConfirmSignUpOptions
 import com.amplifyframework.auth.options.AuthResendSignUpCodeOptions
 import com.amplifyframework.auth.options.AuthResendUserAttributeConfirmationCodeOptions
 import com.amplifyframework.auth.options.AuthSignInOptions
+import com.amplifyframework.auth.options.AuthSignOutOptions
 import com.amplifyframework.auth.options.AuthUpdateUserAttributeOptions
 import com.amplifyframework.auth.options.AuthUpdateUserAttributesOptions
 import com.amplifyframework.auth.result.AuthSessionResult
@@ -489,7 +491,11 @@ class AmplifyAuthCognitoPluginTest {
         doAnswer { invocation: InvocationOnMock ->
             plugin.prepareSignOutResult(mockResult)
             null as Void?
-        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).signOut(
+            ArgumentMatchers.any<AuthSignOutOptions>(),
+            ArgumentMatchers.any<Action>(),
+            ArgumentMatchers.any<Consumer<AuthException>>()
+        )
 
         val data: HashMap<String, String> = HashMap<String, String>()
         val arguments: HashMap<String, Any> = hashMapOf("data" to data)
@@ -500,6 +506,41 @@ class AmplifyAuthCognitoPluginTest {
 
         // Assert
         verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
+    }
+
+    @Test
+    fun signOutGlobal_returnsSuccess() {
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareSignOutResult(mockResult)
+            null as Void?
+        }.`when`(mockAuth).signOut(
+            ArgumentMatchers.any<AuthSignOutOptions>(),
+            ArgumentMatchers.any<Action>(),
+            ArgumentMatchers.any<Consumer<AuthException>>()
+        )
+
+        val data: HashMap<*, *> = hashMapOf(
+            "options" to hashMapOf(
+                "globalSignOut" to true
+            )
+        )
+        val arguments: HashMap<String, Any> = hashMapOf("data" to data)
+        val call = MethodCall("signOut", arguments)
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>())
+
+        val expectedOptions = AWSCognitoAuthSignOutOptions.builder().globalSignOut(true).build()
+        verify(mockAuth).signOut(
+            eq(expectedOptions),
+            ArgumentMatchers.any<Action>(),
+            ArgumentMatchers.any<Consumer<AuthException>>()
+        )
+
     }
 
     @Test
