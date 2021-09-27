@@ -85,4 +85,4 @@ done
 
 # Launch server and seed with local packages
 echo "Launching unpub server..."
-unpub -port $UNPUB_PORT -launch &
+unpub -port $UNPUB_PORT -launch
