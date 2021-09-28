@@ -11,6 +11,7 @@ else
     exit 1
 fi
 
+UNPUB_VERSION=v2.0
 UNPUB_BINARY=unpub_${OS}_amd64
 YQ_VERSION=v4.13.2
 YQ_BINARY=yq_${OS}_amd64
@@ -18,7 +19,7 @@ mkdir -p bin
 
 # Install unpub
 echo "Installing unpub..."
-curl -s -L https://github.com/dnys1/unpub-launcher/releases/download/v2.0/${UNPUB_BINARY}.tar.gz | tar xz
+curl -s -L https://github.com/dnys1/unpub/releases/download/${UNPUB_VERSION}/${UNPUB_BINARY}.tar.gz | tar xz
 mv ${UNPUB_BINARY} bin/unpub
 chmod +x bin/unpub
 
