@@ -21,6 +21,7 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:meta/meta.dart';
 import './method_channel_api.dart';
 
+export 'package:amplify_api_plugin_interface/src/types.dart';
 export './model_mutations.dart';
 export './model_queries.dart';
 
