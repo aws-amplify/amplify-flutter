@@ -47,13 +47,6 @@ commands:
           command: |
             flutter pub global activate tuneup
 
-  setup_unpub:
-    steps:
-      - run:
-          name: Set up local Unpub server
-          command: ./tool/setup_local_unpub.sh
-          background: true
-
 jobs:
   format_flutter:
     executor: docker-executor
