@@ -52,7 +52,7 @@ class GraphQLResponseDecoder {
       // TODO: T data is non-nullable, need to handle valid null response
       throw ApiException('response from app sync was "null"',
           recoverySuggestion:
-              "Current GraphQLResponse is non-nullable, please insure item exists before fetching");
+              "Current GraphQLResponse is non-nullable, please ensure item exists before fetching");
     }
 
     T decodedData = request.modelType!.fromJson(dataJson!) as T;

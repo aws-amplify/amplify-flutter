@@ -40,10 +40,10 @@ void main() {
             createdAt
           }
         }''';
-      var req =
-          GraphQLRequest(document: graphQLDocument, variables: {'id': id});
+      var req = GraphQLRequest<String>(
+          document: graphQLDocument, variables: <String, String>{'id': id});
 
-      var operation = await Amplify.API.mutate(request: req);
+      var operation = Amplify.API.mutate(request: req);
 
       var response = await operation.response;
       Map data = jsonDecode(response.data);
@@ -67,9 +67,10 @@ void main() {
         }
       }''';
 
-      var _r = await Amplify.API.mutate(
-          request: GraphQLRequest(
-              document: graphQLDocument, variables: {'name': name}));
+      var _r = Amplify.API.mutate(
+          request: GraphQLRequest<String>(
+              document: graphQLDocument,
+              variables: <String, String>{'name': name}));
 
       var response = await _r.response;
       Map data = jsonDecode(response.data);
@@ -102,7 +103,7 @@ void main() {
           }
         }
       }''';
-      var _r = await Amplify.API
+      var _r = Amplify.API
           .query<String>(request: GraphQLRequest(document: graphQLDocument));
       var response = await _r.response;
       Map data = jsonDecode(response.data);
@@ -112,11 +113,11 @@ void main() {
     // Queries
     testWidgets('should GET a blog with Model helper',
         (WidgetTester tester) async {
-      String name = "Integration Test Blog to fetch";
+      String name = 'Integration Test Blog to fetch';
       Blog blog = await addBlog(name);
 
       var req = ModelQueries.get(Blog.classType, blog.id);
-      var _r = await Amplify.API.query(request: req);
+      var _r = Amplify.API.query(request: req);
 
       var res = await _r.response;
       Blog data = res.data;
@@ -126,15 +127,15 @@ void main() {
 
     testWidgets('should LIST blogs with Model helper',
         (WidgetTester tester) async {
-      String blog_1_name = "Integration Test Blog 1";
-      String blog_2_name = "Integration Test Blog 2";
-      String blog_3_name = "Integration Test Blog 3";
+      String blog_1_name = 'Integration Test Blog 1';
+      String blog_2_name = 'Integration Test Blog 2';
+      String blog_3_name = 'Integration Test Blog 3';
       Blog blog_1 = await addBlog(blog_1_name);
       Blog blog_2 = await addBlog(blog_2_name);
       Blog blog_3 = await addBlog(blog_3_name);
 
       var req = ModelQueries.list<Blog>(Blog.classType);
-      var _r = await Amplify.API.query(request: req);
+      var _r = Amplify.API.query(request: req);
 
       var res = await _r.response;
       var data = res.data;
@@ -147,12 +148,12 @@ void main() {
     // Mutations
     testWidgets('should CREATE a blog with Model helper',
         (WidgetTester tester) async {
-      String name = "Integration Test Blog - create";
-      Blog blog = Blog(name: name, createdAt: TemporalDateTime.now());
+      String name = 'Integration Test Blog - create';
+      Blog blog = Blog(name: name);
 
       var req = ModelMutations.create(blog);
 
-      var _r = await Amplify.API.mutate(request: req);
+      var _r = Amplify.API.mutate(request: req);
 
       var res = await _r.response;
       Blog data = res.data;
@@ -164,14 +165,14 @@ void main() {
 
     testWidgets('should UPDATE a blog with Model helper',
         (WidgetTester tester) async {
-      String oldName = "Integration Test Blog to update";
-      String newName = "Integration Test Blog - updated";
+      String oldName = 'Integration Test Blog to update';
+      String newName = 'Integration Test Blog - updated';
       Blog blog = await addBlog(oldName);
 
       blog = blog.copyWith(name: newName);
 
       var req = ModelMutations.update(blog);
-      var _r = await Amplify.API.mutate(request: req);
+      var _r = Amplify.API.mutate(request: req);
 
       var res = await _r.response;
       Blog data = res.data;
@@ -181,11 +182,11 @@ void main() {
 
     testWidgets('should DELETE a blog with Model helper',
         (WidgetTester tester) async {
-      String name = "Integration Test Blog - delete";
+      String name = 'Integration Test Blog - delete';
       Blog blog = await addBlog(name);
 
       var req = ModelMutations.delete(blog);
-      var _r = await Amplify.API.mutate(request: req);
+      var _r = Amplify.API.mutate(request: req);
 
       var res = await _r.response;
       Blog data = res.data;
@@ -194,12 +195,12 @@ void main() {
 
       try {
         var checkReq = ModelQueries.get(Blog.classType, blog.id);
-        var _check = await Amplify.API.query(request: checkReq);
+        var _check = Amplify.API.query(request: checkReq);
         var checkRes = await _check.response;
       } on ApiException catch (e) {
         expect(e.message, 'response from app sync was "null"');
         expect(e.recoverySuggestion,
-            "Current GraphQLResponse is non-nullable, please ensure item exists before fetching");
+            'Current GraphQLResponse is non-nullable, please ensure item exists before fetching');
       }
     });
   });

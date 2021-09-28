@@ -19,7 +19,7 @@ import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api_example/amplifyconfiguration.dart';
 
-import 'graph_ql_tests.dart' as graph_ql_tests;
+import 'graphql_tests.dart' as graph_ql_tests;
 import 'resources/ModelProvider.dart';
 
 void main() async {
