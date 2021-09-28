@@ -47,19 +47,30 @@ commands:
           command: |
             flutter pub global activate tuneup
 
+  setup_unpub:
+    steps:
+      - run:
+          name: Set up local Unpub server
+          command: ./tool/setup_local_unpub.sh
+
 jobs:
-  format_analyze:
+  format_flutter:
     executor: docker-executor
     steps:
       - install_flutter
       - checkout
       - install_melos
-      - install_tuneup
       - run: melos run format
+
+  analyze_flutter:
+    executor: docker-executor
+    steps:
+      - install_flutter
+      - checkout
+      - install_melos
       - run:
-          name: Validate formatting
-          command: ./.circleci/validate_formatting.sh
-      - run: melos run analyze
+          name: Analyze Dart/Flutter Code
+          command: melos run analyze --no-select
 
   unit_test_flutter:
     executor: docker-executor
@@ -93,6 +104,9 @@ jobs:
       - install_flutter
       - checkout
       - install_melos
+      - run:
+          name: Run lint checks
+          command: melos run lint:ios --no-select
       - run:
           name: Pre-start iOS simulator
           # xcrun instruments returns non zero, but successfully starts the simulator
@@ -132,6 +146,9 @@ jobs:
           command: |
             melos run build:examples:android
           no_output_timeout: 20m
+      - run: 
+          name: Run lint checks
+          command: melos run lint:android --no-select
       - run:
           name: Run Android Unit Tests
           command: melos run test:unit:android
@@ -149,6 +166,39 @@ jobs:
       - store_artifacts:
           path: ~/test-results/junit
 
+  release_verification_android:
+    docker:
+      - image: circleci/android:api-28
+      - image: mongo
+        command: mongod
+      - image: dnys1/unpub:latest
+        entrypoint: sh -c "sleep 5 && unpub --port=8000 --database=mongodb://localhost:27017/dart_pub --uploader-email=test@example.com"
+    working_directory: ~/amplify-flutter
+    environment:
+      _JAVA_OPTIONS: -XX:MaxRAMPercentage=80.0
+      GRADLE_OPTS: -Xmx1536m -Xms768m -Dkotlin.compiler.execution.strategy=in-process -Dorg.gradle.daemon=false
+    steps:
+      - install_flutter
+      - checkout
+      - setup_unpub
+      - run:
+          name: Install and set up melos
+          command: |
+            flutter pub global activate melos
+            melos exec -c 1 -- flutter pub get
+            melos run copy_dummy_config
+      - run:
+          name: Build debug APKs
+          command: melos run build:examples:android
+          no_output_timeout: 10m
+      - run:
+          name: Clean artifacts
+          command: melos exec -c 1 -- flutter clean
+      - run:
+          name: Build release APKs
+          command: melos run build:examples:release:android
+          no_output_timeout: 10m
+
 releasable_branches: &releasable_branches
   branches:
     only:
@@ -158,6 +208,9 @@ releasable_branches: &releasable_branches
 workflows:
   test_deploy:
     jobs:
+      - format_flutter
+      - analyze_flutter
       - unit_test_flutter
       - unit_test_android
       - unit_test_ios
+      - release_verification_android

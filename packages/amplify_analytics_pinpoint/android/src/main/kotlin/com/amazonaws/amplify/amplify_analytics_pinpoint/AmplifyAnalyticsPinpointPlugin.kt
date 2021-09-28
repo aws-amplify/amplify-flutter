@@ -16,11 +16,9 @@
 package com.amazonaws.amplify.amplify_analytics_pinpoint
 
 import android.app.Activity
-import android.app.Application
 import android.content.Context
-import android.util.Log
+import android.content.Intent
 import androidx.annotation.NonNull
-import com.amplifyframework.analytics.pinpoint.AWSPinpointAnalyticsPlugin
 import com.amplifyframework.core.Amplify
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -29,36 +27,27 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import io.flutter.plugin.common.PluginRegistry.Registrar
 
-public class AmplifyAnalyticsPinpointPlugin : FlutterPlugin, ActivityAware, MethodCallHandler {
+class AmplifyAnalyticsPinpointPlugin : FlutterPlugin, ActivityAware, MethodCallHandler {
 
     private lateinit var channel: MethodChannel
     private var mainActivity: Activity? = null
     private lateinit var context: Context
 
     override fun onAttachedToEngine(
-            @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+        @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding
+    ) {
 
-        channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(),
-                "com.amazonaws.amplify/analytics_pinpoint")
+        channel = MethodChannel(
+            flutterPluginBinding.binaryMessenger,
+            "com.amazonaws.amplify/analytics_pinpoint"
+        )
         channel.setMethodCallHandler(this)
-        context = flutterPluginBinding.applicationContext;
+        context = flutterPluginBinding.applicationContext
     }
 
-    // This static function is optional and equivalent to onAttachedToEngine. It supports the old
-    // pre-Flutter-1.12 Android projects.
     companion object {
-        const val TAG = "AmplifyAnalyticsPinpointPlugin"
         val LOG = Amplify.Logging.forNamespace("amplify:flutter:analytics_pinpoint")
-
-        @JvmStatic
-        fun registerWith(registrar: Registrar) {
-            val channel =
-                    MethodChannel(registrar.messenger(), "com.amazonaws.amplify/analytics_pinpoint")
-            Amplify.addPlugin(AWSPinpointAnalyticsPlugin(registrar.activity().application))
-            LOG.info("Added AnalyticsPinpoint plugin")
-        }
     }
 
     // Handle methods received via MethodChannel
@@ -67,6 +56,26 @@ public class AmplifyAnalyticsPinpointPlugin : FlutterPlugin, ActivityAware, Meth
         when (call.method) {
             "addPlugin" ->
                 AmplifyAnalyticsBridge.addPlugin(result, context)
+            "startSession" -> {
+                // TODO: Update AutoSessionTracker logic to support Flutter.
+                //
+                // The AutoSessionTracker in the Pinpoint plugin listens for lifecycle changes and
+                // starts and stops session tracking accordingly. It is registered during the call
+                // to Amplify.configure. In native Android apps, this call is made before launching
+                // the main activity and thus receives the initial onResume event, kicking off session
+                // tracking. However, in Flutter, the call to Amplify.configure is made sometime later.
+                // The initial onResume call is not received by the AutoSessionTracker, and no session
+                // tracking occurs.
+                //
+                // The startSession/stopSession calls made by the AutoSessionTracker are not available
+                // via the escape hatch, the AWS SDK, or reflection, so this hack must be used to
+                // force an onPause/onResume cycle.
+                //
+                // This method is invoked in the Flutter SDK just after Amplify.configure.
+                val intent = Intent(mainActivity, EmptyActivity::class.java)
+                mainActivity?.startActivity(intent)
+                result.success(null)
+            }
             "recordEvent" ->
                 AmplifyAnalyticsBridge.recordEvent(call.arguments, result)
             "flushEvents" ->
@@ -105,6 +114,4 @@ public class AmplifyAnalyticsPinpointPlugin : FlutterPlugin, ActivityAware, Meth
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
     }
-
-
 }

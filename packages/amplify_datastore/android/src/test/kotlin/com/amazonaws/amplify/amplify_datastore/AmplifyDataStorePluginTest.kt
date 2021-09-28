@@ -501,8 +501,7 @@ class AmplifyDataStorePluginTest {
         }.`when`(mockAmplifyDataStorePlugin).save(
             any<SerializedModel>(),
             any<QueryPredicate>(),
-            any<
-                    Consumer<DataStoreItemChange<SerializedModel>>>(),
+            any<Consumer<DataStoreItemChange<SerializedModel>>>(),
             any<Consumer<DataStoreException>>()
         )
 
@@ -665,7 +664,6 @@ class AmplifyDataStorePluginTest {
 
     @Test
     fun test_clear_error() {
-
         doAnswer { invocation: InvocationOnMock ->
             (invocation.arguments[1] as Consumer<DataStoreException>).accept(
                 dataStoreException
@@ -713,6 +711,76 @@ class AmplifyDataStorePluginTest {
         assertEquals(
             nestedSerializedModelOutput,
             flutterPlugin.deserializeNestedModels(nestedSerializedModelInput)
+        )
+    }
+
+    @Test
+    fun test_onStart_success() {
+        doAnswer { invocation: InvocationOnMock ->
+            (invocation.arguments[0] as Action).call()
+            null as Void?
+        }.`when`(mockAmplifyDataStorePlugin)
+            .start(any<Action>(), any<Consumer<DataStoreException>>())
+
+        flutterPlugin.onStart(mockResult)
+
+        verify(mockResult, times(1)).success(null)
+    }
+
+    @Test
+    fun test_onStart_error() {
+        doAnswer { invocation: InvocationOnMock ->
+            (invocation.arguments[1] as Consumer<DataStoreException>).accept(
+                dataStoreException
+            )
+            null as Void?
+        }.`when`(mockAmplifyDataStorePlugin)
+            .start(any<Action>(), any<Consumer<DataStoreException>>())
+
+        flutterPlugin.onStart(mockResult)
+
+        verify(mockResult, times(1)).error(
+            "DataStoreException",
+            ExceptionMessages.defaultFallbackExceptionMessage,
+            mapOf(
+                "message" to "Some useful exception message",
+                "recoverySuggestion" to "Some useful recovery message"
+            )
+        )
+    }
+
+    @Test
+    fun test_onStop_success() {
+        doAnswer { invocation: InvocationOnMock ->
+            (invocation.arguments[0] as Action).call()
+            null as Void?
+        }.`when`(mockAmplifyDataStorePlugin)
+            .stop(any<Action>(), any<Consumer<DataStoreException>>())
+
+        flutterPlugin.onStop(mockResult)
+
+        verify(mockResult, times(1)).success(null)
+    }
+
+    @Test
+    fun test_onStop_error() {
+        doAnswer { invocation: InvocationOnMock ->
+            (invocation.arguments[1] as Consumer<DataStoreException>).accept(
+                dataStoreException
+            )
+            null as Void?
+        }.`when`(mockAmplifyDataStorePlugin)
+            .stop(any<Action>(), any<Consumer<DataStoreException>>())
+
+        flutterPlugin.onStop(mockResult)
+
+        verify(mockResult, times(1)).error(
+            "DataStoreException",
+            ExceptionMessages.defaultFallbackExceptionMessage,
+            mapOf(
+                "message" to "Some useful exception message",
+                "recoverySuggestion" to "Some useful recovery message"
+            )
         )
     }
 

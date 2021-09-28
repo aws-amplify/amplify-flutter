@@ -58,7 +58,63 @@ void main() {
         expect(e, TypeMatcher<InvalidParameterException>());
         return;
       }
-      throw Exception('Expected InvalidParameterException');
+      fail('Expected InvalidParameterException');
+    });
+
+    testWidgets(
+        'should throw an InvalidPasswordException for a password that does not meet requirements',
+        (WidgetTester tester) async {
+      final username = generateUsername();
+      final invalidPassword = '123';
+      final options = CognitoSignUpOptions(userAttributes: {
+        'email': generateEmail(),
+        'phone_number': mockPhoneNumber
+      });
+      try {
+        await Amplify.Auth.signUp(
+            username: username, password: invalidPassword, options: options);
+      } catch (e) {
+        expect(e, TypeMatcher<InvalidPasswordException>());
+        return;
+      }
+      fail('Expected InvalidPasswordException');
+    });
+
+    testWidgets(
+        'should throw a UsernameExistsException for a username that already exists',
+        (WidgetTester tester) async {
+      // create username for both sign up attempts
+      final username = generateUsername();
+
+      // sign up first user
+      final userOnePassword = generatePassword();
+      final userOneOptions = CognitoSignUpOptions(userAttributes: {
+        'email': generateEmail(),
+        'phone_number': mockPhoneNumber
+      });
+      await Amplify.Auth.signUp(
+        username: username,
+        password: userOnePassword,
+        options: userOneOptions,
+      );
+
+      // attempt to sign up second user with the same username
+      final userTwoPassword = generatePassword();
+      final userTwoOptions = CognitoSignUpOptions(userAttributes: {
+        'email': generateEmail(),
+        'phone_number': mockPhoneNumber
+      });
+      try {
+        await Amplify.Auth.signUp(
+          username: username,
+          password: userTwoPassword,
+          options: userTwoOptions,
+        );
+      } catch (e) {
+        expect(e, TypeMatcher<UsernameExistsException>());
+        return;
+      }
+      fail('Expected UsernameExistsException');
     });
   });
 }

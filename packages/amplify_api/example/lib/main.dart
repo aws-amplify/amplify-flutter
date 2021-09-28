@@ -16,17 +16,19 @@
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api_example/graphql_api_view.dart';
 import 'package:amplify_api_example/rest_api_view.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
-import 'amplifyconfiguration.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 
+import 'amplifyconfiguration.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -35,8 +37,6 @@ class _MyAppState extends State<MyApp> {
   bool _isAmplifyConfigured = false;
   bool _showRestApiView = true;
 
-  AmplifyAPI apiRest;
-
   @override
   void initState() {
     super.initState();
@@ -44,16 +44,13 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _configureAmplify() async {
-    apiRest = AmplifyAPI();
-
-    Amplify.addPlugin(apiRest);
-    Amplify.addPlugin(AmplifyAuthCognito());
+    Amplify.addPlugins([AmplifyAuthCognito(), AmplifyAPI()]);
 
     try {
       await Amplify.configure(amplifyconfig);
     } on AmplifyAlreadyConfiguredException {
       print(
-          "Amplify was already configured. Looks like app restarted on android.");
+          'Amplify was already configured. Looks like app restarted on android.');
     }
     setState(() {
       _isAmplifyConfigured = true;
@@ -76,22 +73,28 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-              title: Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Row(children: [
-                    ElevatedButton(
-                        child: const Text("Rest API"),
-                        onPressed: _onRestApiViewButtonClick),
-                    ElevatedButton(
-                        child: const Text("GraphQL API"),
-                        onPressed: _onGraphQlApiViewButtonClick)
-                  ]))),
-          body: Padding(
-              padding: EdgeInsets.all(10.0),
-              child: _showRestApiView == true
-                  ? RestApiView()
-                  : GraphQLApiView(isAmplifyConfigured: _isAmplifyConfigured))),
+        appBar: AppBar(
+          title: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Row(
+              children: [
+                ElevatedButton(
+                    child: const Text('Rest API'),
+                    onPressed: _onRestApiViewButtonClick),
+                ElevatedButton(
+                    child: const Text('GraphQL API'),
+                    onPressed: _onGraphQlApiViewButtonClick)
+              ],
+            ),
+          ),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: _showRestApiView == true
+              ? const RestApiView()
+              : GraphQLApiView(isAmplifyConfigured: _isAmplifyConfigured),
+        ),
+      ),
     );
   }
 }

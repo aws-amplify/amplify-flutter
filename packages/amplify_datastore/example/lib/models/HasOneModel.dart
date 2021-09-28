@@ -19,116 +19,157 @@ import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
 
-
 /** This is an auto generated class representing the HasOneModel type in your schema. */
 @immutable
 class HasOneModel extends Model {
   static const classType = const _HasOneModelModelType();
   final String id;
-  final String? _title;
-  final BelongsToModel? _child;
+  final String? _name;
+  final String? _childID;
+  final ChildModel? _child;
 
   @override
   getInstanceType() => classType;
-  
+
   @override
   String getId() {
     return id;
   }
-  
-  String get title {
-    return _title!;
+
+  String get name {
+    try {
+      return _name!;
+    } catch (e) {
+      throw new DataStoreException(
+          DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
   }
-  
-  BelongsToModel? get child {
+
+  String get childID {
+    try {
+      return _childID!;
+    } catch (e) {
+      throw new DataStoreException(
+          DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
+  }
+
+  ChildModel? get child {
     return _child;
   }
-  
-  const HasOneModel._internal({required this.id, required title, child}): _title = title, _child = child;
-  
-  factory HasOneModel({String? id, required String title, BelongsToModel? child}) {
+
+  const HasOneModel._internal(
+      {required this.id, required name, required childID, child})
+      : _name = name,
+        _childID = childID,
+        _child = child;
+
+  factory HasOneModel(
+      {String? id,
+      required String name,
+      required String childID,
+      ChildModel? child}) {
     return HasOneModel._internal(
-      id: id == null ? UUID.getUUID() : id,
-      title: title,
-      child: child);
+        id: id == null ? UUID.getUUID() : id,
+        name: name,
+        childID: childID,
+        child: child);
   }
-  
+
   bool equals(Object other) {
     return this == other;
   }
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is HasOneModel &&
-      id == other.id &&
-      _title == other._title &&
-      _child == other._child;
+        id == other.id &&
+        _name == other._name &&
+        _childID == other._childID &&
+        _child == other._child;
   }
-  
+
   @override
   int get hashCode => toString().hashCode;
-  
+
   @override
   String toString() {
     var buffer = new StringBuffer();
-    
+
     buffer.write("HasOneModel {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("title=" + "$_title" + ", ");
-    buffer.write("child=" + (_child != null ? _child!.toString() : "null"));
+    buffer.write("name=" + "$_name" + ", ");
+    buffer.write("childID=" + "$_childID");
     buffer.write("}");
-    
+
     return buffer.toString();
   }
-  
-  HasOneModel copyWith({String? id, String? title, BelongsToModel? child}) {
+
+  HasOneModel copyWith(
+      {String? id, String? name, String? childID, ChildModel? child}) {
     return HasOneModel(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      child: child ?? this.child);
+        id: id ?? this.id,
+        name: name ?? this.name,
+        childID: childID ?? this.childID,
+        child: child ?? this.child);
   }
-  
-  HasOneModel.fromJson(Map<String, dynamic> json)  
-    : id = json['id'],
-      _title = json['title'],
-      _child = json['child'] != null
-        ? BelongsToModel.fromJson(new Map<String, dynamic>.from(json['child']?['serializedData']))
-        : null;
-  
-  Map<String, dynamic> toJson() => {
-    'id': id, 'title': _title, 'child': _child?.toJson()
-  };
+
+  HasOneModel.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        _name = json['name'],
+        _childID = json['childID'],
+        _child = json['child']?['serializedData'] != null
+            ? ChildModel.fromJson(
+                new Map<String, dynamic>.from(json['child']['serializedData']))
+            : null;
+
+  Map<String, dynamic> toJson() =>
+      {'id': id, 'name': _name, 'childID': _childID, 'child': _child?.toJson()};
 
   static final QueryField ID = QueryField(fieldName: "hasOneModel.id");
-  static final QueryField TITLE = QueryField(fieldName: "title");
+  static final QueryField NAME = QueryField(fieldName: "name");
+  static final QueryField CHILDID = QueryField(fieldName: "childID");
   static final QueryField CHILD = QueryField(
-    fieldName: "child",
-    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: (BelongsToModel).toString()));
-  static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+      fieldName: "child",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (ChildModel).toString()));
+  static var schema =
+      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "HasOneModel";
     modelSchemaDefinition.pluralName = "HasOneModels";
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: HasOneModel.TITLE,
-      isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
-      key: HasOneModel.CHILD,
-      isRequired: false,
-      targetName: "hasOneModelChildId",
-      ofModelName: (BelongsToModel).toString()
-    ));
+        key: HasOneModel.NAME,
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+        key: HasOneModel.CHILDID,
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.hasOne(
+        key: HasOneModel.CHILD,
+        isRequired: false,
+        ofModelName: (ChildModel).toString(),
+        associatedKey: ChildModel.ID));
   });
 }
 
 class _HasOneModelModelType extends ModelType<HasOneModel> {
   const _HasOneModelModelType();
-  
+
   @override
   HasOneModel fromJson(Map<String, dynamic> jsonData) {
     return HasOneModel.fromJson(jsonData);

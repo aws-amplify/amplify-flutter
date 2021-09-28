@@ -20,17 +20,21 @@ class APICategory {
 
   static List<APIPluginInterface> plugins = [];
 
+  /// Token refreshers for the API category plugins. Used to provide DataStore
+  /// refresh functionality without exposing the providers themselves.
+  static final Map<APIPluginInterface, APIAuthProviderRefresher>
+      _authProviderRefreshers = {};
+
   Future<void> addPlugin(APIPluginInterface plugin) async {
     //TODO: Allow for multiple plugins to work simultaneously
     if (plugins.length == 0) {
       try {
-        await plugin.addPlugin();
+        _authProviderRefreshers[plugin] = await plugin.addPlugin();
         plugins.add(plugin);
       } on AmplifyAlreadyConfiguredException catch (e) {
         plugins.add(plugin);
       } on PlatformException catch (e) {
-        throw AmplifyException.fromMap(
-            Map<String, String>.from(e.details));
+        throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       }
     } else {
       throw AmplifyException("API plugin has already been added, " +
@@ -68,9 +72,9 @@ class APICategory {
   }
 
   // ====== RestAPI ======
-  void cancelRequest(String code) {
+  void cancelRequest(String cancelToken) {
     return plugins.length == 1
-        ? plugins[0].cancelRequest(code)
+        ? plugins[0].cancelRequest(cancelToken)
         : throw _pluginNotAddedException("Api");
   }
 

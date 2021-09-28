@@ -28,10 +28,14 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
     private let authCognitoHubEventStreamHandler: AuthCognitoHubEventStreamHandler?
     var errorHandler = AuthErrorHandler()
     
+    /// Handles calls to the Devices API.
+    private let deviceHandler: DeviceHandler
+    
     init(cognito: AuthCognitoBridge = AuthCognitoBridge(),
          authCognitoHubEventStreamHandler: AuthCognitoHubEventStreamHandler = AuthCognitoHubEventStreamHandler()) {
         self.cognito = cognito
         self.authCognitoHubEventStreamHandler = authCognitoHubEventStreamHandler
+        self.deviceHandler = DeviceHandler(errorHandler: errorHandler)
     }
     
     public static func register(with registrar: FlutterPluginRegistrar) {
@@ -101,6 +105,11 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
             }
             return
         }
+        
+        if (DeviceHandler.canHandle(call.method)) {
+            deviceHandler.handle(call, result: result)
+            return
+        }
 
         var arguments: Dictionary<String, AnyObject> = [:]
         var data: NSMutableDictionary = [:]
@@ -152,7 +161,9 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
                 self.errorHandler.prepareGenericException(flutterResult: result, error: error)
             }
         case "signOut":
-            cognito.onSignOut(flutterResult: result)
+            // signOut has no validation as there are no required params
+            let request = FlutterSignOutRequest(dict: data)
+            cognito.onSignOut(flutterResult: result, request: request)
         case "updatePassword":
             do {
                 try FlutterUpdatePasswordRequest.validate(dict: data)
@@ -169,11 +180,11 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
             } catch {
                 self.errorHandler.prepareGenericException(flutterResult: result, error: error)
             }
-        case "confirmPassword":
+        case "confirmResetPassword":
             do {
-                try FlutterConfirmPasswordRequest.validate(dict: data)
-                let request = FlutterConfirmPasswordRequest(dict: data)
-                cognito.onConfirmPassword(flutterResult: result, request: request)
+                try FlutterConfirmResetPasswordRequest.validate(dict: data)
+                let request = FlutterConfirmResetPasswordRequest(dict: data)
+                cognito.onConfirmResetPassword(flutterResult: result, request: request)
             } catch {
                 self.errorHandler.prepareGenericException(flutterResult: result, error: error)
             }
@@ -189,7 +200,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
                 try FlutterSignInWithWebUIRequest.validate(dict: data)
                 let request = FlutterSignInWithWebUIRequest(dict: data)
                 if request.provider == nil {
-                    cognito.onSignInWithWebUI(flutterResult: result)
+                    cognito.onSignInWithWebUI(flutterResult: result, request: request)
                 } else {
                     cognito.onSignInWithSocialWebUI(flutterResult: result, request: request)
                 }

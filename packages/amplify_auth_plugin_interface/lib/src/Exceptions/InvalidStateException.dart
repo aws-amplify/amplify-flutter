@@ -15,7 +15,7 @@
 
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 
-/// Thrown when an operation is not valid with the current state of Auth category 
+/// Thrown when an operation is not valid with the current state of Auth category
 class InvalidStateException extends AuthException {
   /// Default constructor
   InvalidStateException(String message,

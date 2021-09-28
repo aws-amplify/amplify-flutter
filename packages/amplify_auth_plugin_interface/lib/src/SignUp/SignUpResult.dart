@@ -13,10 +13,9 @@
  * permissions and limitations under the License.
  */
 
-
 import './AuthNextSignUpStep.dart';
 
-class SignUpResult { 
+class SignUpResult {
   bool isSignUpComplete;
   AuthNextSignUpStep nextStep;
   SignUpResult({required this.isSignUpComplete, required this.nextStep}) {

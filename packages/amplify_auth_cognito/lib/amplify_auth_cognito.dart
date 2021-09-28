@@ -15,6 +15,7 @@
 
 import 'dart:async';
 import 'dart:core';
+import 'package:amplify_auth_cognito/src/CognitoDevice/cognito_device.dart';
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -92,9 +93,16 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     return res;
   }
 
+  @Deprecated('Use confirmResetPassword() instead')
   Future<UpdatePasswordResult> confirmPassword(
       {ConfirmPasswordRequest? request}) async {
-    final res = await _instance.confirmPassword(request: request);
+    final res = await _instance.confirmResetPassword(request: request);
+    return res;
+  }
+
+  Future<UpdatePasswordResult> confirmResetPassword(
+      {ConfirmResetPasswordRequest? request}) async {
+    final res = await _instance.confirmResetPassword(request: request);
     return res;
   }
 
@@ -104,7 +112,7 @@ class AmplifyAuthCognito extends AuthPluginInterface {
   }
 
   Future<List<AuthUserAttribute>> fetchUserAttributes(
-      {AuthUserAttributeRequest? request}) async {
+      {FetchUserAttributesRequest? request}) async {
     final res = await _instance.fetchUserAttributes();
     return res;
   }
@@ -145,5 +153,20 @@ class AmplifyAuthCognito extends AuthPluginInterface {
     final res =
         await _instance.resendUserAttributeConfirmationCode(request: request);
     return res;
+  }
+
+  @override
+  Future<void> rememberDevice() {
+    return _instance.rememberDevice();
+  }
+
+  @override
+  Future<void> forgetDevice([AuthDevice? device]) {
+    return _instance.forgetDevice(device);
+  }
+
+  @override
+  Future<List<CognitoDevice>> fetchDevices() {
+    return _instance.fetchDevices();
   }
 }

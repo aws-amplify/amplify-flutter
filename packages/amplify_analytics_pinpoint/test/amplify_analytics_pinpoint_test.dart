@@ -22,18 +22,19 @@ void main() {
   const MethodChannel analyticsChannel =
       MethodChannel('com.amazonaws.amplify/analytics_pinpoint');
 
-  AmplifyAnalyticsPinpoint analytics = new AmplifyAnalyticsPinpoint();
+  AmplifyAnalyticsPinpoint analytics = AmplifyAnalyticsPinpoint();
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  final eventName = 'test';
-  final userId = 'testUser';
-  final name = 'Darth Vader';
-  final email = 'vader@sith.com';
-  final plan = 'plan';
-  final doubleNum = 10.0;
-  final intNum = 10;
-  final stringValue = 'stringValue';
+  const eventName = 'test';
+  const userId = 'testUser';
+  const name = 'Darth Vader';
+  const email = 'vader@sith.com';
+  const plan = 'plan';
+  const doubleNum = 10.0;
+  const intNum = 10;
+  const stringValue = 'stringValue';
+  const emptyMap = <String, dynamic>{};
   final propertiesMap = {
     'boolKey': true,
     'doubleKey': doubleNum,
@@ -54,8 +55,11 @@ void main() {
   // test sending basic events
   test('recordEvent correctly serializes input to method channel', () async {
     analyticsChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      expect(methodCall.arguments,
-          {'name': eventName, 'propertiesMap': {}, 'propertiesTypesMap': {}});
+      expect(methodCall.arguments, {
+        'name': eventName,
+        'propertiesMap': emptyMap,
+        'propertiesTypesMap': emptyMap,
+      });
     });
 
     var event = AnalyticsEvent(eventName);
@@ -85,9 +89,10 @@ void main() {
       expect(methodCall.arguments, propertiesToUnregister);
     });
     expect(
-        analytics.unregisterGlobalProperties(
-            propertyNames: propertiesToUnregister),
-        completes);
+      analytics.unregisterGlobalProperties(
+          propertyNames: propertiesToUnregister),
+      completes,
+    );
   });
 
   test(
@@ -114,14 +119,17 @@ void main() {
       'registerGlobalProperties correctly serializes basic input to method channel',
       () async {
     analyticsChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      expect(methodCall.arguments,
-          {'propertiesMap': {}, 'propertiesTypesMap': {}});
+      expect(methodCall.arguments, {
+        'propertiesMap': emptyMap,
+        'propertiesTypesMap': emptyMap,
+      });
     });
 
     var globalProperties = AnalyticsProperties();
     expect(
-        analytics.registerGlobalProperties(globalProperties: globalProperties),
-        completes);
+      analytics.registerGlobalProperties(globalProperties: globalProperties),
+      completes,
+    );
   });
 
   test(
@@ -142,19 +150,25 @@ void main() {
     globalProperties.addStringProperty('stringKey', stringValue);
 
     expect(
-        analytics.registerGlobalProperties(globalProperties: globalProperties),
-        completes);
+      analytics.registerGlobalProperties(globalProperties: globalProperties),
+      completes,
+    );
   });
 
   test('identify user correctly serializes minimal input to method channel',
       () async {
     analyticsChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      expect(methodCall.arguments, {'userId': userId, 'userProfileMap': {}});
+      expect(methodCall.arguments, {
+        'userId': userId,
+        'userProfileMap': emptyMap,
+      });
     });
 
     var userProfile = AnalyticsUserProfile();
-    expect(analytics.identifyUser(userId: userId, userProfile: userProfile),
-        completes);
+    expect(
+      analytics.identifyUser(userId: userId, userProfile: userProfile),
+      completes,
+    );
   });
 
   test('identify user correctly serializes basic input to method channel',
@@ -166,9 +180,9 @@ void main() {
           'name': name,
           'email': email,
           'plan': plan,
-          'location': {},
-          'propertiesMap': {},
-          'propertiesTypesMap': {}
+          'location': emptyMap,
+          'propertiesMap': emptyMap,
+          'propertiesTypesMap': emptyMap,
         }
       });
     });
@@ -178,24 +192,26 @@ void main() {
     userProfile.email = email;
     userProfile.plan = plan;
 
-    var analyticsUserLocation = new AnalyticsUserProfileLocation();
+    var analyticsUserLocation = AnalyticsUserProfileLocation();
     userProfile.location = analyticsUserLocation;
 
-    var analyticsProperties = new AnalyticsProperties();
+    var analyticsProperties = AnalyticsProperties();
     userProfile.properties = analyticsProperties;
 
-    expect(analytics.identifyUser(userId: userId, userProfile: userProfile),
-        completes);
+    expect(
+      analytics.identifyUser(userId: userId, userProfile: userProfile),
+      completes,
+    );
   });
 
   test('identify user correctly serializes additional input to method channel',
       () async {
-    final city = 'San Francisco';
-    final region = 'California';
-    final country = 'USA';
-    final latitude = 5.0;
-    final longitude = 5.0;
-    final postalCode = '94070';
+    const city = 'San Francisco';
+    const region = 'California';
+    const country = 'USA';
+    const latitude = 5.0;
+    const longitude = 5.0;
+    const postalCode = '94070';
 
     analyticsChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       expect(methodCall.arguments, {
@@ -223,7 +239,7 @@ void main() {
     userProfile.email = email;
     userProfile.plan = plan;
 
-    var analyticsUserLocation = new AnalyticsUserProfileLocation();
+    var analyticsUserLocation = AnalyticsUserProfileLocation();
     analyticsUserLocation.latitude = latitude;
     analyticsUserLocation.longitude = longitude;
     analyticsUserLocation.postalCode = postalCode;
@@ -232,14 +248,16 @@ void main() {
     analyticsUserLocation.country = country;
     userProfile.location = analyticsUserLocation;
 
-    var analyticsProperties = new AnalyticsProperties();
+    var analyticsProperties = AnalyticsProperties();
     analyticsProperties.addBoolProperty('boolKey', true);
     analyticsProperties.addDoubleProperty('doubleKey', doubleNum);
     analyticsProperties.addIntProperty('intKey', intNum);
     analyticsProperties.addStringProperty('stringKey', stringValue);
     userProfile.properties = analyticsProperties;
 
-    expect(analytics.identifyUser(userId: userId, userProfile: userProfile),
-        completes);
+    expect(
+      analytics.identifyUser(userId: userId, userProfile: userProfile),
+      completes,
+    );
   });
 }

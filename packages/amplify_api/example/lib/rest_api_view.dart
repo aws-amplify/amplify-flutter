@@ -13,45 +13,47 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:typed_data';
+import 'dart:convert';
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 
 class RestApiView extends StatefulWidget {
+  const RestApiView({Key? key}) : super(key: key);
+
   @override
   _RestApiViewState createState() => _RestApiViewState();
 }
 
 class _RestApiViewState extends State<RestApiView> {
-  TextEditingController _apiPathController;
-
-  RestOperation _lastRestOperation;
+  late TextEditingController _apiPathController;
+  late RestOperation _lastRestOperation;
 
   @override
   void initState() {
     super.initState();
 
     _apiPathController = TextEditingController();
-    _apiPathController.text = "/items";
+    _apiPathController.text = '/items';
   }
 
   void onPutPressed() async {
     try {
       RestOperation restOperation = Amplify.API.put(
-          restOptions: RestOptions(
-              path: _apiPathController.text,
-              body:
-                  Uint8List.fromList("{\"name\":\"Mow the lawn\"}".codeUnits)));
+        restOptions: RestOptions(
+          path: _apiPathController.text,
+          body: ascii.encode('{"name":"Mow the lawn"}'),
+        ),
+      );
 
       _lastRestOperation = restOperation;
       RestResponse response = await restOperation.response;
 
-      print("Put SUCCESS");
-      print(new String.fromCharCodes(response.data));
+      print('Put SUCCESS');
+      print(response);
     } on Exception catch (e) {
-      print("Put FAILED");
+      print('Put FAILED');
       print(e);
     }
   }
@@ -59,18 +61,19 @@ class _RestApiViewState extends State<RestApiView> {
   void onPostPressed() async {
     try {
       RestOperation restOperation = Amplify.API.post(
-          restOptions: RestOptions(
-              path: _apiPathController.text,
-              body:
-                  Uint8List.fromList("{\"name\":\"Mow the lawn\"}".codeUnits)));
+        restOptions: RestOptions(
+          path: _apiPathController.text,
+          body: ascii.encode('{"name":"Mow the lawn"}'),
+        ),
+      );
 
       _lastRestOperation = restOperation;
       RestResponse response = await restOperation.response;
 
-      print("Post SUCCESS");
-      print(new String.fromCharCodes(response.data));
+      print('Post SUCCESS');
+      print(response);
     } on Exception catch (e) {
-      print("Post FAILED");
+      print('Post FAILED');
       print(e);
     }
   }
@@ -85,26 +88,27 @@ class _RestApiViewState extends State<RestApiView> {
       _lastRestOperation = restOperation;
       RestResponse response = await restOperation.response;
 
-      print("Get SUCCESS");
-      print(new String.fromCharCodes(response.data));
+      print('Get SUCCESS');
+      print(response);
     } on ApiException catch (e) {
-      print("Get FAILED");
+      print('Get FAILED');
       print(e.toString());
     }
   }
 
   void onDeletePressed() async {
     try {
-      RestOperation restOperation = Amplify.API
-          .delete(restOptions: RestOptions(path: _apiPathController.text));
+      RestOperation restOperation = Amplify.API.delete(
+        restOptions: RestOptions(path: _apiPathController.text),
+      );
 
       _lastRestOperation = restOperation;
       RestResponse response = await restOperation.response;
 
-      print("Delete SUCCESS");
-      print(new String.fromCharCodes(response.data));
+      print('Delete SUCCESS');
+      print(response);
     } on Exception catch (e) {
-      print("Delete FAILED");
+      print('Delete FAILED');
       print(e);
     }
   }
@@ -113,7 +117,7 @@ class _RestApiViewState extends State<RestApiView> {
     try {
       _lastRestOperation.cancel();
     } on Exception catch (e) {
-      print("Cancel FAILED");
+      print('Cancel FAILED');
       print(e.toString());
     }
   }
@@ -121,17 +125,16 @@ class _RestApiViewState extends State<RestApiView> {
   void onHeadPressed() async {
     try {
       RestOperation restOperation = Amplify.API.head(
-          restOptions: RestOptions(
-        path: _apiPathController.text,
-      ));
+        restOptions: RestOptions(path: _apiPathController.text),
+      );
 
       _lastRestOperation = restOperation;
       RestResponse response = await restOperation.response;
 
-      print("Head SUCCESS");
-      print(new String.fromCharCodes(response.data));
+      print('Head SUCCESS');
+      print(response);
     } on ApiException catch (e) {
-      print("Head FAILED");
+      print('Head FAILED');
       print(e.toString());
     }
   }
@@ -139,17 +142,16 @@ class _RestApiViewState extends State<RestApiView> {
   void onPatchPressed() async {
     try {
       RestOperation restOperation = Amplify.API.patch(
-          restOptions: RestOptions(
-        path: _apiPathController.text,
-      ));
+        restOptions: RestOptions(path: _apiPathController.text),
+      );
 
       _lastRestOperation = restOperation;
       RestResponse response = await restOperation.response;
 
-      print("Patch SUCCESS");
-      print(new String.fromCharCodes(response.data));
+      print('Patch SUCCESS');
+      print(response);
     } on ApiException catch (e) {
-      print("Patch FAILED");
+      print('Patch FAILED');
       print(e.toString());
     }
   }
@@ -159,34 +161,36 @@ class _RestApiViewState extends State<RestApiView> {
     return Column(children: [
       TextField(
         controller: _apiPathController,
-        decoration:
-            InputDecoration(border: OutlineInputBorder(), labelText: "apiPath"),
+        decoration: const InputDecoration(
+          border: OutlineInputBorder(),
+          labelText: 'apiPath',
+        ),
       ),
       ElevatedButton(
-        child: const Text("Post"),
+        child: const Text('Post'),
         onPressed: onPostPressed,
       ),
       ElevatedButton(
-        child: const Text("Put"),
+        child: const Text('Put'),
         onPressed: onPutPressed,
       ),
       ElevatedButton(
-        child: const Text("Get"),
+        child: const Text('Get'),
         onPressed: onGetPressed,
       ),
       ElevatedButton(
-        child: const Text("Cancel"),
+        child: const Text('Cancel'),
         onPressed: onCancelPressed,
       ),
       ElevatedButton(
-        child: const Text("Delete"),
+        child: const Text('Delete'),
         onPressed: onDeletePressed,
       ),
       ElevatedButton(
-        child: const Text("Head"),
+        child: const Text('Head'),
         onPressed: onHeadPressed,
       ),
-      ElevatedButton(child: const Text("Patch"), onPressed: onPatchPressed),
+      ElevatedButton(child: const Text('Patch'), onPressed: onPatchPressed),
     ]);
   }
 }
