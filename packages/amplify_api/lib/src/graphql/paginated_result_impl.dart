@@ -44,6 +44,7 @@ class PaginatedResultImpl<T extends Model> extends PaginatedResult<T> {
 
   @override
   Map<String, dynamic> toJson() {
+    // ignore: implicit_dynamic_map_literal
     return {'items': items, 'nextToken': nextToken};
   }
 }

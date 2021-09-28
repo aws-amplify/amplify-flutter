@@ -21,6 +21,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'resources/Blog.dart';
 import 'resources/ModelProvider.dart';
 
+// ignore_for_file: implicit_dynamic_list_literal
+
 void main() {
   const MethodChannel apiChannel = MethodChannel('com.amazonaws.amplify/api');
 

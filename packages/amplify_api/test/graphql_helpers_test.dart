@@ -101,7 +101,7 @@ void main() {
       }
     }''';
         GraphQLRequest<String> req =
-            GraphQLRequest(document: doc, variables: {id: id});
+            GraphQLRequest(document: doc, variables: <String, String>{id: id});
         List<GraphQLResponseError> errors = [];
         String data = '''{
         "getBlog": {
