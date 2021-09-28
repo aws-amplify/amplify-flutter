@@ -23,14 +23,16 @@ import './method_channel_api.dart';
 
 export './model_mutations.dart';
 export './model_queries.dart';
-export 'package:amplify_api_plugin_interface/src/types.dart';
 
 class AmplifyAPI extends APIPluginInterface {
   static final Object _token = Object();
 
-  AmplifyAPI({ModelProviderInterface? modelProvider})
+  AmplifyAPI(
+      {List<APIAuthProvider> authProviders = const [],
+      ModelProviderInterface? modelProvider})
       : super(token: _token, modelProvider: modelProvider) {
     _instance.modelProvider = modelProvider;
+    authProviders.forEach(registerAuthProvider);
   }
 
   /// Internal use constructor
@@ -52,8 +54,13 @@ class AmplifyAPI extends APIPluginInterface {
   }
 
   @override
-  Future<void> addPlugin() async {
+  Future<APIAuthProviderRefresher> addPlugin() async {
     return _instance.addPlugin();
+  }
+
+  @override
+  void registerAuthProvider(APIAuthProvider authProvider) {
+    _instance.registerAuthProvider(authProvider);
   }
 
   // ====== GraphQL =======
@@ -67,6 +74,7 @@ class AmplifyAPI extends APIPluginInterface {
     return _instance.mutate(request: request);
   }
 
+  @override
   GraphQLSubscriptionOperation<T> subscribe<T>(
       {required GraphQLRequest<T> request,
       required Function(GraphQLResponse<T>) onData,

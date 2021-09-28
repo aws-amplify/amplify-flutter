@@ -48,9 +48,8 @@ class QueryPaginationBuilderUnitTests: XCTestCase {
         XCTAssertEqual(expected, actual)
     }
     
-    func test_when_no_input_given_results_in_first_page() throws {
-        let expected : QueryPaginationInput = QueryPaginationInput.firstPage
+    func test_when_no_input_given_results_in_no_pagination() throws {
         let actual = QueryPaginationBuilder.fromSerializedMap(nil)
-        XCTAssertEqual(expected, actual)
+        XCTAssertNil(actual)
     }
 }

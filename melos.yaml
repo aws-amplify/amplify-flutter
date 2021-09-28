@@ -10,16 +10,24 @@ scripts:
     flutter pub global activate tuneup
 
   copy_dummy_config: >
-    melos exec --scope="*example*" --fail-fast -- \
+    melos exec --scope="*example*,sample_app" -- \
       cp -n "\$MELOS_ROOT_PATH"/.circleci/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart | true
 
   build:examples:ios: >
-    melos exec -c 1 --scope="*example*" --fail-fast -- \
+    melos exec -c 1 --scope="*example*,sample_app" --fail-fast -- \
+      flutter build ios --simulator
+
+  build:examples:release:ios: >
+    melos exec -c 1 --scope="*example*,sample_app" --fail-fast -- \
       flutter build ios --no-codesign
 
   build:examples:android: >
-    melos exec -c 1 --scope="*example*" --fail-fast -- \
+    melos exec -c 1 --scope="*example*,sample_app" --fail-fast -- \
       flutter build apk --debug --verbose
+
+  build:examples:release:android: >
+    melos exec -c 1 --scope="*example*,sample_app" --fail-fast -- \
+      flutter build apk --verbose
 
   test:unit:flutter: >
     ./.circleci/test_all_plugins.sh flutter-test && exit 0
@@ -64,26 +72,57 @@ scripts:
 
   format: >
     melos exec -c 1 -- \
-      flutter format .
+      flutter format --dry-run --set-exit-if-changed .
 
   analyze:
-    run: melos exec -c 1 --no-private -- flutter pub global run tuneup check
+    run: melos exec -c 1 --fail-fast -- \
+      flutter analyze --no-fatal-infos
     description: >
-      Run tuneup check over all packages. Requires tuneup. You can use `melos run setup_tuneup`.
+      Analyzes all packages and fails if there are any errors.
     select-package:
-      ignore:
-        - "*example*"
+      scope:
+        - amplify_analytics_*
+        - amplify_api*
+
+  lint:ios:
+    run: |
+      export AMPLIFY_FLUTTER_ROOT="$PWD" && \
+      melos exec -c 1 --fail-fast -- \
+        bash "$AMPLIFY_FLUTTER_ROOT/build-support/lint_ios.sh"
+    description: >
+      Lints iOS (Swift) files against global rules and fails if there are any errors.
+    select-package:
+      dir-exists: ios
+      scope:
+        - amplify_analytics_pinpoint_example
+        - amplify_api_example
+
+  lint:android:
+    run: |
+      melos exec -c 1 --fail-fast -- \
+        bash "$PWD/build-support/lint_android.sh"
+    description: >
+      Lints Android (Kotlin) files against global rules and fails if there are any errors.
+    select-package:
+      scope:
+        - amplify_analytics_pinpoint_example
+        - amplify_api_example
 
   lint:pub: >
     melos exec -c 5 --fail-fast --no-private --ignore="*example*" -- \
       flutter pub publish --dry-run
 
-  postbootstrap: >
-    melos run copy_dummy_config
+  packages:fix: |
+    melos exec -- \
+      flutter analyze --no-fatal-infos --no-fatal-warnings &>/dev/null || true
+
+  postbootstrap: |
+    melos run copy_dummy_config && \
+    melos run packages:fix
 
   postclean: >
     melos exec -- \
-      rm -rf ./build ./android/.gradle ./ios/.symlinks ./ios/Pods ./android/.idea ./.idea
+      rm -rf ./build ./android/.gradle ./ios/.symlinks ./ios/Pods ./ios/Podfile.lock
 
 dev_dependencies:
   pedantic: ^1.9.0

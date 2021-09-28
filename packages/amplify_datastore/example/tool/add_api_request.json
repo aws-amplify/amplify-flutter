@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "serviceName": "AppSync",
+    "apiName": "dataStoreIntegrationTestGraphQL",
+    "transformSchema": "<SCHEMA_PLACEHOLDER>",
+    "defaultAuthType":  {
+      "mode": "API_KEY",
+      "expirationTime": 365
+    }
+  }
+}

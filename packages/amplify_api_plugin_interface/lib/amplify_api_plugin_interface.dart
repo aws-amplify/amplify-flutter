@@ -37,7 +37,7 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
   @protected
   APIPluginInterface.tokenOnly({required Object token}) : super(token: token);
 
-  Future<void> addPlugin() async {
+  Future<APIAuthProviderRefresher> addPlugin() async {
     throw UnimplementedError('addPlugin() has not been implemented.');
   }
 
@@ -59,8 +59,11 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('subscribe() has not been implemented.');
   }
 
+  /// Registers an [APIAuthProvider] with this plugin.
+  void registerAuthProvider(APIAuthProvider authProvider);
+
   // ====== RestAPI ======
-  void cancelRequest(String code) {
+  void cancelRequest(String cancelToken) {
     throw UnimplementedError('cancelRequest has not been implemented.');
   }
 

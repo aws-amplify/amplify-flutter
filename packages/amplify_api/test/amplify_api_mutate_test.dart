@@ -19,7 +19,6 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
     as DataStore;
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:amplify_core/types/index.dart';
 
 import 'resources/Blog.dart';
 import 'resources/ModelProvider.dart';
@@ -46,7 +45,10 @@ void main() {
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == 'mutate') {
-        return {'data': mutationResult.toString(), 'errors': []};
+        return {
+          'data': mutationResult.toString(),
+          'errors': <Map>[],
+        };
       }
     });
 
@@ -58,9 +60,12 @@ void main() {
       }
     }''';
 
-    var operation = await api.mutate(
-        request: GraphQLRequest<String>(
-            document: graphQLDocument, variables: {'name': 'Test App Blog'}));
+    var operation = api.mutate(
+      request: GraphQLRequest<String>(
+        document: graphQLDocument,
+        variables: <String, dynamic>{'name': 'Test App Blog'},
+      ),
+    );
 
     var response = await operation.response;
     expect(response.data, mutationResult.toString());
@@ -156,11 +161,14 @@ void main() {
   test(
       'A PlatformException for a failed API call results in the corresponding ApiException',
       () async {
-    final exception = PlatformException(code: 'ApiException', details: {
-      'message': 'AMPLIFY_API_MUTATE_FAILED',
-      'recoverySuggestion': 'some insightful suggestion',
-      'underlyingException': 'Act of God'
-    });
+    final exception = PlatformException(
+      code: 'ApiException',
+      details: {
+        'message': 'AMPLIFY_API_MUTATE_FAILED',
+        'recoverySuggestion': 'some insightful suggestion',
+        'underlyingException': 'Act of God'
+      },
+    );
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == 'mutate') {
@@ -171,7 +179,11 @@ void main() {
 
     try {
       var operation = api.mutate<String>(
-          request: GraphQLRequest(document: graphQLDocument, variables: {}));
+        request: GraphQLRequest(
+          document: graphQLDocument,
+          variables: <String, dynamic>{},
+        ),
+      );
       await operation.response;
     } on ApiException catch (e) {
       expect(e.message, 'AMPLIFY_API_MUTATE_FAILED');
@@ -179,17 +191,20 @@ void main() {
       expect(e.underlyingException, 'Act of God');
       return;
     }
-    throw new Exception('Expected an ApiException');
+    throw Exception('Expected an ApiException');
   });
 
   test(
       'A PlatformException for a malformed request results in the corresponding ApiException',
       () async {
-    final exception = PlatformException(code: 'ApiException', details: {
-      'message': 'AMPLIFY_API_MUTATE_FAILED',
-      'recoverySuggestion': 'some insightful suggestion',
-      'underlyingException': 'Act of God'
-    });
+    final exception = PlatformException(
+      code: 'ApiException',
+      details: {
+        'message': 'AMPLIFY_API_MUTATE_FAILED',
+        'recoverySuggestion': 'some insightful suggestion',
+        'underlyingException': 'Act of God'
+      },
+    );
 
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == 'mutate') {
@@ -200,7 +215,11 @@ void main() {
 
     try {
       var operation = api.mutate<String>(
-          request: GraphQLRequest(document: graphQLDocument, variables: {}));
+        request: GraphQLRequest(
+          document: graphQLDocument,
+          variables: <String, dynamic>{},
+        ),
+      );
       await operation.response;
     } on ApiException catch (e) {
       expect(e.message, 'AMPLIFY_API_MUTATE_FAILED');
@@ -208,17 +227,20 @@ void main() {
       expect(e.underlyingException, 'Act of God');
       return;
     }
-    throw new Exception('Expected an ApiException');
+    throw Exception('Expected an ApiException');
   });
 
   test(
       'An unrecognized PlatformException results in the corresponding ApiException',
       () async {
-    final exception = PlatformException(code: 'ApiException', details: {
-      'message': 'AMPLIFY_API_MUTATE_FAILED',
-      'recoverySuggestion': 'some insightful suggestion',
-      'underlyingException': 'Act of God'
-    });
+    final exception = PlatformException(
+      code: 'ApiException',
+      details: {
+        'message': 'AMPLIFY_API_MUTATE_FAILED',
+        'recoverySuggestion': 'some insightful suggestion',
+        'underlyingException': 'Act of God'
+      },
+    );
     apiChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == 'mutate') {
         throw exception;
@@ -228,7 +250,11 @@ void main() {
 
     try {
       var operation = api.mutate<String>(
-          request: GraphQLRequest(document: graphQLDocument, variables: {}));
+        request: GraphQLRequest(
+          document: graphQLDocument,
+          variables: <String, dynamic>{},
+        ),
+      );
       await operation.response;
     } on ApiException catch (e) {
       expect(e.message, 'AMPLIFY_API_MUTATE_FAILED');
@@ -236,6 +262,6 @@ void main() {
       expect(e.underlyingException, 'Act of God');
       return;
     }
-    throw new Exception('Expected an ApiException');
+    throw Exception('Expected an ApiException');
   });
 }

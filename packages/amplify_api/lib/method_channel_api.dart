@@ -18,37 +18,94 @@ import 'dart:typed_data';
 
 import 'package:amplify_api/src/graphql/graphql_response_decoder.dart';
 import 'package:amplify_core/types/index.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:amplify_core/types/exception/AmplifyExceptionMessages.dart';
 import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 
 import 'amplify_api.dart';
 
+part 'src/auth_token.dart';
+
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/api');
 
 class AmplifyAPIMethodChannel extends AmplifyAPI {
-  dynamic _allSubscriptionsStream = null;
+  static const _eventChannel =
+      EventChannel('com.amazonaws.amplify/api_observe_events');
+  late final Stream<dynamic> _allSubscriptionsStream =
+      _eventChannel.receiveBroadcastStream(0);
+
+  /// Key to use for authorization tokens in serialized platform requests.
+  static const _authTokensMapKey = 'tokens';
+
+  /// The registered [APIAuthProvider] instances.
+  final Map<APIAuthorizationType, APIAuthProvider> _authProviders = {};
 
   AmplifyAPIMethodChannel() : super.tokenOnly();
 
   @override
-  Future<void> addPlugin() async {
+  Future<APIAuthProviderRefresher> addPlugin() async {
     try {
-      return await _channel.invokeMethod('addPlugin');
+      await _channel.invokeMethod<void>('addPlugin');
+      return _authProviderRefresher;
     } on PlatformException catch (e) {
-      if (e.code == "AmplifyAlreadyConfiguredException") {
-        throw AmplifyAlreadyConfiguredException(
+      if (e.code == 'AmplifyAlreadyConfiguredException') {
+        throw const AmplifyAlreadyConfiguredException(
             AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
             recoverySuggestion:
                 AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
       } else {
-        throw AmplifyException.fromMap(Map<String, String>.from(e.details));
+        throw AmplifyException.fromMap((e.details as Map).cast());
       }
     }
   }
 
   // ====== GraphQL ======
+
+  @override
+  void registerAuthProvider(APIAuthProvider authProvider) {
+    _authProviders[authProvider.type] = authProvider;
+  }
+
+  /// A token refresher which can be used outside of this plugin (i.e. in DataStore)
+  /// without exposing the auth providers themselves or their tokens.
+  Future<void> _authProviderRefresher([
+    APIAuthorizationType? authType,
+  ]) {
+    if (_authProviders.isEmpty) {
+      return SynchronousFuture(null);
+    }
+    Future<List<Map<String, dynamic>>> _tokensFuture;
+    if (authType != null) {
+      final provider = _authProviders[authType];
+      if (provider == null) {
+        throw ApiException(
+          'No provider registered for type: $authType',
+          recoverySuggestion:
+              'Make sure to call addPlugin with a list of auth providers.',
+        );
+      }
+      _tokensFuture = provider.authToken.then((token) => [token]);
+    } else {
+      _tokensFuture = _getLatestAuthTokens();
+    }
+    return _tokensFuture.then(_updateAuthTokens);
+  }
+
+  /// Retrieves the latest tokens for all registered [_authProviders].
+  Future<List<Map<String, dynamic>>> _getLatestAuthTokens() {
+    return Future.wait(_authProviders.values.map(
+      (authProvider) => authProvider.authToken,
+    ));
+  }
+
+  /// Updates authorization tokens on the platform side.
+  Future<void> _updateAuthTokens(List<Map<String, dynamic>> tokens) {
+    return _channel.invokeMethod('updateTokens', {
+      _authTokensMapKey: tokens,
+    });
+  }
+
   @override
   GraphQLOperation<T> query<T>({required GraphQLRequest<T> request}) {
     Future<GraphQLResponse<T>> response =
@@ -56,10 +113,9 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
 
     //TODO: Cancel implementation will be added along with REST API as it is shared
     GraphQLOperation<T> result = GraphQLOperation<T>(
-        cancel: () {
-          cancelRequest(request.cancelToken);
-        },
-        response: response);
+      cancel: () => cancelRequest(request.cancelToken),
+      response: response,
+    );
 
     return result;
   }
@@ -71,26 +127,21 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
 
     //TODO: Cancel implementation will be added along with REST API as it is shared
     GraphQLOperation<T> result = GraphQLOperation<T>(
-        cancel: () {
-          cancelRequest(request.cancelToken);
-        },
-        response: response);
+      cancel: () => cancelRequest(request.cancelToken),
+      response: response,
+    );
 
     return result;
   }
 
   @override
-  GraphQLSubscriptionOperation<T> subscribe<T>(
-      {required GraphQLRequest<T> request,
-      required Function(GraphQLResponse<T>) onData,
-      Function()? onEstablished,
-      Function(dynamic)? onError,
-      Function()? onDone}) {
-    const _eventChannel =
-        EventChannel('com.amazonaws.amplify/api_observe_events');
-    _allSubscriptionsStream =
-        _allSubscriptionsStream ?? _eventChannel.receiveBroadcastStream(0);
-
+  GraphQLSubscriptionOperation<T> subscribe<T>({
+    required GraphQLRequest<T> request,
+    required Function(GraphQLResponse<T>) onData,
+    Function()? onEstablished,
+    Function(dynamic)? onError,
+    Function()? onDone,
+  }) {
     //TODO: Either re-name the cancelToken field to id, or remove entirely
     final subscriptionId = request.cancelToken;
 
@@ -101,19 +152,22 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     );
 
     Stream<Map<String, dynamic>> filteredStream = _allSubscriptionsStream
+        .cast<Map>()
         .where((event) {
-          return event["id"] == subscriptionId;
+          return event['id'] == subscriptionId;
         })
-        .map((event) => {'type': event['type'], 'payload': event['payload']})
-        .asBroadcastStream()
-        .cast<Map<String, dynamic>>();
+        .map((event) => <String, dynamic>{
+              'type': event['type'],
+              'payload': event['payload'],
+            })
+        .cast<Map<String, dynamic>>()
+        .asBroadcastStream();
 
     StreamSubscription _subscription = filteredStream.listen((event) {
       if (event['type'] == 'DONE') {
         if (onDone != null) onDone();
       } else {
-        final payload = new Map<String, dynamic>.from(event['payload']);
-
+        final payload = (event['payload'] as Map).cast<String, dynamic>();
         final errors = _deserializeGraphQLResponseErrors(payload);
 
         GraphQLResponse<T> response =
@@ -122,11 +176,9 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
       }
     });
 
-    _subscription.onError((error) {
-      var subscriptionError = error;
-
-      if (error is PlatformException) {
-        subscriptionError = _deserializeException(error);
+    _subscription.onError((dynamic subscriptionError) {
+      if (subscriptionError is PlatformException) {
+        subscriptionError = _deserializeException(subscriptionError);
       }
 
       print('Subscription failed with error: $subscriptionError');
@@ -137,38 +189,32 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
       _subscription.cancel();
     });
 
-    Function cancel = () {
+    void cancel() {
       _subscription.cancel();
       cancelRequest(subscriptionId);
-    };
+    }
 
     return GraphQLSubscriptionOperation(cancel: cancel);
   }
 
   Future<GraphQLResponse<T>> _getMethodChannelResponse<T>({
-    required methodName,
+    required String methodName,
     required GraphQLRequest<T> request,
   }) async {
     try {
-      final Map<String, dynamic>? result =
-          (await (_channel.invokeMapMethod<String, dynamic>(
+      final result = await _channel.invokeMapMethod<String, dynamic>(
         methodName,
-        request.serializeAsMap(),
-      )));
-      if (result == null)
-        throw AmplifyException(
-            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
+        await _serializeGraphQLRequest(request),
+      );
+      if (result == null) {
+        throw const AmplifyException(
+          AmplifyExceptionMessages.nullReturnedFromMethodChannel,
+        );
+      }
       final errors = _deserializeGraphQLResponseErrors(result);
 
-      // Catch data while its non-nullable and provide error messages
-      if (result['data'] == null) {
-        throw ApiException(
-            "Appsync responded with null data, please refer to the underlying exception",
-            underlyingException: errors.toString());
-      }
-
-      GraphQLResponse<T> response = GraphQLResponseDecoder.instance
-          .decode<T>(request: request, data: result['data'], errors: errors);
+      GraphQLResponse<T> response = GraphQLResponseDecoder.instance.decode<T>(
+          request: request, data: result['data'] ?? '', errors: errors);
 
       return response;
     } on PlatformException catch (e) {
@@ -184,7 +230,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     try {
       await _channel.invokeMethod<String>(
         'subscribe',
-        request.serializeAsMap(),
+        await _serializeGraphQLRequest(request),
       );
 
       if (onEstablished != null) {
@@ -195,8 +241,23 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     }
   }
 
+  /// Serializes a GraphQL request by including authorization tokens, if needed.
+  /// If no auth providers are registered, the returned future completes synchronously,
+  /// avoiding unnecessary delays in the event loop.
+  Future<Map<String, dynamic>> _serializeGraphQLRequest(
+    GraphQLRequest request,
+  ) {
+    final requestMap = request.serializeAsMap();
+    if (_authProviders.isEmpty) {
+      return SynchronousFuture(requestMap);
+    }
+    return _getLatestAuthTokens().then((tokens) {
+      requestMap[_authTokensMapKey] = tokens;
+      return requestMap;
+    });
+  }
+
   // ====== RestAPI ======
-  @visibleForTesting
   RestOperation _restFunctionHelper(
       {required String methodName, required RestOptions restOptions}) {
     // Send Request cancelToken to Native
@@ -205,24 +266,28 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     Future<RestResponse> futureResponse =
         _callNativeRestMethod(methodName, cancelToken, restOptions);
 
-    return new RestOperation(
-        response: futureResponse, cancel: () => {cancelRequest(cancelToken)});
+    return RestOperation(
+      response: futureResponse,
+      cancel: () => cancelRequest(cancelToken),
+    );
   }
 
   Future<RestResponse> _callNativeRestMethod(
       String methodName, String cancelToken, RestOptions restOptions) async {
     // Prepare map input
-    Map<String, dynamic> inputsMap = new Map<String, dynamic>();
-    inputsMap["restOptions"] = restOptions.serializeAsMap();
-    inputsMap["cancelToken"] = cancelToken;
+    Map<String, dynamic> inputsMap = <String, dynamic>{};
+    inputsMap['restOptions'] = restOptions.serializeAsMap();
+    inputsMap['cancelToken'] = cancelToken;
 
     // Attempt switch to proper async
     try {
       final Map<String, dynamic>? data = (await (_channel
           .invokeMapMethod<String, dynamic>(methodName, inputsMap)));
-      if (data == null)
-        throw AmplifyException(
-            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
+      if (data == null) {
+        throw const AmplifyException(
+          AmplifyExceptionMessages.nullReturnedFromMethodChannel,
+        );
+      }
       return _formatRestResponse(data);
     } on PlatformException catch (e) {
       throw _deserializeException(e);
@@ -237,8 +302,8 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     final statusCode = res['statusCode'] as int;
     final headers = res['headers'] as Map?;
     final response = RestResponse(
-      data: res["data"] as Uint8List?,
-      headers: headers == null ? null : Map<String, String>.from(headers),
+      data: res['data'] as Uint8List?,
+      headers: headers?.cast<String, String>(),
       statusCode: statusCode,
     );
     if (_shouldThrow(statusCode)) {
@@ -249,43 +314,44 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
 
   @override
   RestOperation get({required RestOptions restOptions}) {
-    return _restFunctionHelper(methodName: "get", restOptions: restOptions);
+    return _restFunctionHelper(methodName: 'get', restOptions: restOptions);
   }
 
   @override
   RestOperation put({required RestOptions restOptions}) {
-    return _restFunctionHelper(methodName: "put", restOptions: restOptions);
+    return _restFunctionHelper(methodName: 'put', restOptions: restOptions);
   }
 
   @override
   RestOperation post({required RestOptions restOptions}) {
-    return _restFunctionHelper(methodName: "post", restOptions: restOptions);
+    return _restFunctionHelper(methodName: 'post', restOptions: restOptions);
   }
 
   @override
   RestOperation delete({required RestOptions restOptions}) {
-    return _restFunctionHelper(methodName: "delete", restOptions: restOptions);
+    return _restFunctionHelper(methodName: 'delete', restOptions: restOptions);
   }
 
   @override
   RestOperation head({required RestOptions restOptions}) {
-    return _restFunctionHelper(methodName: "head", restOptions: restOptions);
+    return _restFunctionHelper(methodName: 'head', restOptions: restOptions);
   }
 
   @override
   RestOperation patch({required RestOptions restOptions}) {
-    return _restFunctionHelper(methodName: "patch", restOptions: restOptions);
+    return _restFunctionHelper(methodName: 'patch', restOptions: restOptions);
   }
 
   @override
-  void cancelRequest(String cancelToken) async {
-    print("Attempting to cancel Operation " + cancelToken);
+  Future<void> cancelRequest(String cancelToken) async {
+    print('Attempting to cancel Operation ' + cancelToken);
 
-    await _channel.invokeMethod("cancel", cancelToken).then((result) {
-      print("Cancel succeeded for Operation: " + cancelToken);
-    }).catchError((e) {
-      print("Cancel request failed due to: " + e.message + " " + e.code);
-    });
+    try {
+      await _channel.invokeMethod<void>('cancel', cancelToken);
+      print('Cancel succeeded for Operation: ' + cancelToken);
+    } on PlatformException catch (e) {
+      print('Cancel request failed due to: $e');
+    }
   }
 
   // ====== GENERAL METHODS ======
@@ -296,25 +362,26 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     } else {
       // This shouldn't happen. All exceptions coming from platform for
       // amplify_api should have a known code. Throw an unknown error.
-      return ApiException(AmplifyExceptionMessages.missingExceptionMessage,
-          recoverySuggestion:
-              AmplifyExceptionMessages.missingRecoverySuggestion,
-          underlyingException: e.toString());
+      return ApiException(
+        AmplifyExceptionMessages.missingExceptionMessage,
+        recoverySuggestion: AmplifyExceptionMessages.missingRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
-  //TODO: Deserialize all fields of the GraphQLResponseError as per spec
   List<GraphQLResponseError> _deserializeGraphQLResponseErrors(
-      Map<String, dynamic> response) {
-    if (response['errors'] != null) {
-      final errors = response['errors'] as List;
-      if (errors.length > 0) {
-        final graphQLErrors = errors
-            .map((message) => GraphQLResponseError(message: message))
-            .toList();
-        return graphQLErrors;
-      }
+    Map<String, dynamic> response,
+  ) {
+    final errors = response['errors'] as List?;
+    if (errors == null || errors.isEmpty) {
+      return const [];
     }
-    return [];
+    return errors
+        .cast<Map>()
+        .map((message) => GraphQLResponseError.fromJson(
+              message.cast<String, dynamic>(),
+            ))
+        .toList();
   }
 }

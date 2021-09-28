@@ -1,3 +1,40 @@
+## 0.2.4 (2021-09-10)
+
+### Fixes
+
+- fix: CocoaPods relative import
+
+## 0.2.3 (2021-09-09)
+
+### Features
+
+- feat(datastore): Add start and stop APIs (#811)
+
+## 0.2.2 (2021-08-04)
+
+### Features
+
+- feat: Populate belongs-to nested models (#658)
+
+### Fixes
+
+- fix: Query nested model causes column not found sql error (#761)
+
+## 0.2.1 (2021-07-27)
+
+### Features
+
+- feat: Selective Sync (#703)
+
+### Bug Fixes
+
+- fix: not serializing enum type in a predicate (#726)
+
+### Chores
+
+- chore: enable formatting in CI w/ code changes (#570)
+- chore: make SubscriptionEvent directly available via datastore plugin by adding to publicTypes in interface (#728)
+
 ## 0.2.0 (2021-06-30)
 
 ### Features
@@ -31,6 +68,7 @@
 ## 0.1.1 (2021-03-29)
 
 ### Chores
+
 - chore: remove upper constraints for flutter 2.0 (#479)
 
 ### Bug Fixes

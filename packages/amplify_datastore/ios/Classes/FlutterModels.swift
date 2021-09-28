@@ -17,7 +17,7 @@ import Foundation
 
 // Contains the set of classes that conforms to the `Model` protocol.
 final public class FlutterModels: AmplifyModelRegistration {
-    public let version: String = "e9c358927805a236769ad01b2804e6f1"
+    public var version: String = ""
     
     var modelSchemas: [String: ModelSchema] = [:]
     

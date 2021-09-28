@@ -12,13 +12,15 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:integration_test/integration_test.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:amplify_flutter/amplify.dart';
-import 'package:amplify_api/amplify_api.dart';
+
 import 'dart:convert';
+
+import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api_example/amplifyconfiguration.dart';
+import 'package:amplify_flutter/amplify.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
 import 'resources/Blog.dart';
 import 'resources/ModelProvider.dart';
@@ -39,7 +41,7 @@ void main() {
           }
         }''';
       var req =
-          GraphQLRequest(document: graphQLDocument, variables: {"id": id});
+          GraphQLRequest(document: graphQLDocument, variables: {'id': id});
 
       var operation = await Amplify.API.mutate(request: req);
 
@@ -67,11 +69,11 @@ void main() {
 
       var _r = await Amplify.API.mutate(
           request: GraphQLRequest(
-              document: graphQLDocument, variables: {"name": name}));
+              document: graphQLDocument, variables: {'name': name}));
 
       var response = await _r.response;
       Map data = jsonDecode(response.data);
-      Blog blog = Blog.fromJson(data["createBlog"]);
+      Blog blog = Blog.fromJson(data['createBlog']);
       blogCache.add(blog);
       return blog;
     }
