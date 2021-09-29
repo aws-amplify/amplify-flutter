@@ -19,8 +19,10 @@ import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/widgets/default_forms/default_confirm_signin_mfa.dart';
 import 'package:amplify_authenticator/src/widgets/default_forms/default_confirm_signin_new_password.dart';
 import 'package:amplify_authenticator/src/widgets/default_forms/default_confirm_signup.dart';
+import 'package:amplify_authenticator/src/widgets/default_forms/default_confirm_verify_user_form.dart';
 import 'package:amplify_authenticator/src/widgets/default_forms/default_reset_password.dart';
 import 'package:amplify_authenticator/src/widgets/default_forms/default_send_code.dart';
+import 'package:amplify_authenticator/src/widgets/default_forms/default_verify_user_form.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_flutter/src/config/amplify_config.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +43,8 @@ import 'package:amplify_authenticator/src/screens/send_code_screen.dart';
 import 'package:amplify_authenticator/src/screens/confirm_signin_new_password.dart';
 import 'package:amplify_authenticator/src/screens/reset_password_screen.dart';
 import 'package:amplify_authenticator/src/screens/confirm_signin_mfa_screen.dart';
+import 'package:amplify_authenticator/src/screens/confirm_verify_user_screen.dart';
+import 'package:amplify_authenticator/src/screens/verify_user_screen.dart';
 
 //Bloc
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
@@ -51,6 +55,8 @@ import 'package:amplify_authenticator/src/views/signin_viewmodel.dart';
 import 'package:amplify_authenticator/src/views/signup_viewmodel.dart';
 import 'package:amplify_authenticator/src/views/confirm_signup_viewmodel.dart';
 import 'package:amplify_authenticator/src/views/confirm_signin_viewmodel.dart';
+import 'package:amplify_authenticator/src/views/confirm_verify_user_view_model.dart';
+import 'package:amplify_authenticator/src/views/verify_user_view_model.dart';
 
 //Enums
 import 'package:amplify_authenticator/src/enums/alias.dart';
@@ -268,6 +274,13 @@ class _AuthenticatorState extends State<Authenticator> {
 
     var resetPasswordForm = DefaultResetPasswordForm();
     var sendCodeForm = DefaultSendCodeForm();
+    var verifyUserFormBuilder = ({
+      required List<String> unverifiedAttributeKeys,
+    }) =>
+        DefaultVerifyUserForm(
+          unverifiedAttributeKeys: unverifiedAttributeKeys,
+        );
+    var confirmVerifyUserForm = const DefaultConfirmVerifyUserForm();
 
     return InheritedAuthBloc(
         key: const Key(keyInheritedAuthBloc),
@@ -282,6 +295,9 @@ class _AuthenticatorState extends State<Authenticator> {
                     ConfirmSignUpViewModel(_stateMachineBloc),
                 confirmSignInViewModel:
                     ConfirmSignInViewModel(_stateMachineBloc),
+                verifyUserViewModel: VerifyUserViewModel(_stateMachineBloc),
+                confirmVerifyUserViewModel:
+                    ConfirmVerifyUserViewModel(_stateMachineBloc),
                 child: InheritedStrings(
                     resolver: resolver,
                     child: InheritedForms(
@@ -293,6 +309,8 @@ class _AuthenticatorState extends State<Authenticator> {
                       signUpForm: signUpForm,
                       confirmSignUpForm: confirmSignUpForm,
                       confirmSignInMFAForm: confirmSignInMFAForm,
+                      verifyUserFormBuilder: verifyUserFormBuilder,
+                      confirmVerifyUserForm: confirmVerifyUserForm,
                       child: Scaffold(
                           body: StreamBuilder(
                         stream: _stateMachineBloc.stream,
@@ -326,6 +344,13 @@ class _AuthenticatorState extends State<Authenticator> {
                           } else if (state is AuthFlow &&
                               state.screen == AuthScreen.sendCode) {
                             screen = const SendCodeScreen();
+                          } else if (state is VerifyUserFlow) {
+                            screen = VerifyUserScreen(
+                                unverifiedAttributeKeys:
+                                    state.unverifiedAttributeKeys);
+                          } else if (state is AuthFlow &&
+                              state.screen == AuthScreen.confirmVerifyUser) {
+                            screen = const ConfirmVerifyUserScreen();
                           } else if (state is AuthFlow &&
                               state.screen == AuthScreen.resetPassword) {
                             screen = const ResetPasswordScreen();

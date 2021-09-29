@@ -22,6 +22,8 @@ enum AuthScreen {
   confirmSignInNewPassword,
   sendCode,
   resetPassword,
+  verifyUser,
+  confirmVerifyUser,
 }
 
 class AuthSignInData {
@@ -90,5 +92,31 @@ class AuthConfirmSignInData {
   AuthConfirmSignInData({
     required this.code,
     this.attributes,
+  });
+}
+
+class AuthSetUnverifiedAttributeKeysData {
+  final List<String> unverifiedAttributeKeys;
+
+  AuthSetUnverifiedAttributeKeysData({
+    required this.unverifiedAttributeKeys,
+  });
+}
+
+class AuthVerifyUserData {
+  final String userAttributeKey;
+
+  AuthVerifyUserData({
+    required this.userAttributeKey,
+  });
+}
+
+class AuthConfirmVerifyUserData {
+  final String userAttributeKey;
+  final String code;
+
+  AuthConfirmVerifyUserData({
+    required this.userAttributeKey,
+    required this.code,
   });
 }

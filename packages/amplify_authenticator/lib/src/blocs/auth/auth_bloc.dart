@@ -49,6 +49,7 @@ class StateMachineBloc {
 
   /// Outputs events into the event transformer.
   late final Stream<AuthEvent> _authEventStream = _authEventController.stream;
+
   // ignore: unused_field
   late final StreamSubscription<AuthState> _subscription;
 
@@ -88,6 +89,12 @@ class StateMachineBloc {
       yield* _confirmPassword(event.data);
     } else if (event is AuthConfirmSignIn) {
       yield* _confirmSignIn(event.data);
+    } else if (event is AuthVerifyUser) {
+      yield* _verifyUser(event.data);
+    } else if (event is AuthConfirmVerifyUser) {
+      yield* _confirmVerifyUser(event.data);
+    } else if (event is AuthSkipVerifyUser) {
+      yield const Authenticated();
     }
   }
 
@@ -227,7 +234,7 @@ class StateMachineBloc {
           yield AuthFlow(screen: AuthScreen.confirmSignUp);
           break;
         case 'DONE':
-          yield const Authenticated();
+          yield* _checkUserVerification();
           break;
         default:
           break;
@@ -241,6 +248,31 @@ class StateMachineBloc {
       } else {
         _exceptionController.add(AuthenticatorException(e.toString()));
       }
+    }
+  }
+
+  Stream<AuthState> _checkUserVerification() async* {
+    try {
+      List<String> unverifiedAttributeKeys =
+          await _authService.getUnverifiedAttributeKeys();
+      if (unverifiedAttributeKeys.isNotEmpty) {
+        _authEventController.add(
+          AuthSetUnverifiedAttributeKeys(
+            AuthSetUnverifiedAttributeKeysData(
+              unverifiedAttributeKeys: unverifiedAttributeKeys,
+            ),
+          ),
+        );
+        yield VerifyUserFlow(unverifiedAttributeKeys: unverifiedAttributeKeys);
+      } else {
+        yield const Authenticated();
+      }
+    } on Exception catch (e) {
+      // exception is logged but not presented to the user since there is
+      // no obvious recovery if there is an exception fetching the users
+      // unconfirmed attributes
+      print(e);
+      yield const Authenticated();
     }
   }
 
@@ -296,6 +328,39 @@ class StateMachineBloc {
     } on Exception catch (e) {
       if (e is AmplifyException) {
         print(e.message);
+        _exceptionController.add(AuthenticatorException(e.message));
+      } else {
+        _exceptionController.add(AuthenticatorException(e.toString()));
+      }
+    }
+  }
+
+  Stream<AuthState> _verifyUser(AuthVerifyUserData data) async* {
+    try {
+      await _authService.resendUserAttributeConfirmationCode(
+        userAttributeKey: data.userAttributeKey,
+      );
+      yield AuthFlow(screen: AuthScreen.confirmVerifyUser);
+    } on Exception catch (e) {
+      if (e is AmplifyException) {
+        print(e);
+        _exceptionController.add(AuthenticatorException(e.message));
+      } else {
+        _exceptionController.add(AuthenticatorException(e.toString()));
+      }
+    }
+  }
+
+  Stream<AuthState> _confirmVerifyUser(AuthConfirmVerifyUserData data) async* {
+    try {
+      await _authService.confirmUserAttribute(
+        userAttributeKey: data.userAttributeKey,
+        confirmationCode: data.code,
+      );
+      yield const Authenticated();
+    } on Exception catch (e) {
+      if (e is AmplifyException) {
+        print(e);
         _exceptionController.add(AuthenticatorException(e.message));
       } else {
         _exceptionController.add(AuthenticatorException(e.toString()));
