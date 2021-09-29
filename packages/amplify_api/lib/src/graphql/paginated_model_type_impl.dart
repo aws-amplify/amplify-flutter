@@ -10,7 +10,7 @@ class PaginatedModelTypeImpl<T extends Model> extends PaginatedModelType<T> {
     final itemsJson = jsonData['items'] as List?;
 
     if (itemsJson == null || itemsJson.isEmpty) {
-      return PaginatedResultImpl<T>([], null);
+      return PaginatedResultImpl<T>([], null, null);
     }
 
     final items = itemsJson
@@ -21,7 +21,8 @@ class PaginatedModelTypeImpl<T extends Model> extends PaginatedModelType<T> {
         )
         .toList();
 
-    return PaginatedResultImpl<T>(items, jsonData['nextToken'] as String?);
+    return PaginatedResultImpl<T>(
+        items, jsonData['limit'], jsonData['nextToken'] as String?);
   }
 
   @override
