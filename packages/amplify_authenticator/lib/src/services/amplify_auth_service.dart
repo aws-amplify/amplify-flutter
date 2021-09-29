@@ -14,6 +14,7 @@
  */
 
 import 'dart:async';
+import 'package:collection/collection.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_flutter/src/config/amplify_config.dart';
@@ -164,33 +165,26 @@ class AmplifyAuthService implements AuthService {
   Future<List<String>> getUnverifiedAttributeKeys() async {
     List<AuthUserAttribute> userAttributes =
         await Amplify.Auth.fetchUserAttributes();
+    List<String> requiredAttributes = ['email', 'phone_number'];
+    return userAttributes
+        .map((attr) => attr.userAttributeKey)
+        .where(
+          (key) =>
+              (requiredAttributes.contains(key)) &&
+              _attributeIsUnverified(userAttributes: userAttributes, key: key),
+        )
+        .toList();
+  }
 
-    Map<String, AuthUserAttribute> userAttributeMap =
-        <String, AuthUserAttribute>{
-      for (AuthUserAttribute attr in userAttributes) attr.userAttributeKey: attr
-    };
-
-    // TODO: Use constants from #697 after feature branch has been updated with main
-    AuthUserAttribute? emailAttribute = userAttributeMap['email'];
-    AuthUserAttribute? emailVerifiedAttribute =
-        userAttributeMap['email_verified'];
-    AuthUserAttribute? phoneAttribute = userAttributeMap['phone_number'];
-    AuthUserAttribute? phoneVerifiedAttribute =
-        userAttributeMap['phone_number_verified'];
-
-    bool hasEmail = emailAttribute is AuthUserAttribute;
-    bool isEmailVerified = emailVerifiedAttribute is AuthUserAttribute &&
-        emailVerifiedAttribute.value == 'true';
-    bool hasPhone = phoneAttribute is AuthUserAttribute;
-    bool isPhoneVerified = phoneVerifiedAttribute is AuthUserAttribute &&
-        phoneVerifiedAttribute.value == 'true';
-
-    List<String> unverifiedUserAttributes = [
-      if (hasEmail && !isEmailVerified) emailAttribute.userAttributeKey,
-      if (hasPhone && !isPhoneVerified) phoneAttribute.userAttributeKey,
-    ];
-
-    return unverifiedUserAttributes;
+  bool _attributeIsUnverified({
+    required List<AuthUserAttribute> userAttributes,
+    required String key,
+  }) {
+    return userAttributes
+            .firstWhereOrNull(
+                (attr) => attr.userAttributeKey == '${key}_verified')
+            ?.value !=
+        'true';
   }
 
   Future<AmplifyConfig> waitForConfiguration() async {
