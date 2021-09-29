@@ -16,55 +16,43 @@
 library amplify_authenticator;
 
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
-//Bloc
-import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
-//Enums
 import 'package:amplify_authenticator/src/enums/alias.dart';
 import 'package:amplify_authenticator/src/keys.dart';
-import 'package:amplify_authenticator/src/screens/confirm_signin_mfa_screen.dart';
-import 'package:amplify_authenticator/src/screens/confirm_signin_new_password.dart';
-import 'package:amplify_authenticator/src/screens/confirm_signup_screen.dart';
-//Screens
+import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
 import 'package:amplify_authenticator/src/screens/loading_screen.dart';
-import 'package:amplify_authenticator/src/screens/reset_password_screen.dart';
-import 'package:amplify_authenticator/src/screens/send_code_screen.dart';
-import 'package:amplify_authenticator/src/screens/signin_screen.dart';
-import 'package:amplify_authenticator/src/screens/signup_screen.dart';
-//Services
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
-//State
+import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
-//Views
+import 'package:amplify_authenticator/src/state/inherited_strings.dart';
+import 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/widgets/auth_exceptions.dart';
-import 'package:amplify_authenticator/src/widgets/default_forms.dart';
-//Widgets
 import 'package:amplify_authenticator/src/widgets/forms.dart';
+import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/src/config/amplify_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-//Exports
 export 'package:amplify_authenticator/src/enums/alias.dart';
+export 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
 export 'package:amplify_authenticator/src/widgets/buttons.dart'
     show SignOutButton;
-export 'package:amplify_authenticator/src/widgets/form_fields.dart';
-export 'package:amplify_authenticator/src/widgets/forms.dart';
 
 class Authenticator extends StatefulWidget {
-  ///# Amplify Authenticator
+  /// # Amplify Authenticator
   ///
   /// A widget that allows customers to authenticate their apps.
   ///
-  ///The Authenticator widget requires two arguments, a child widget and an username alias
-  ///to define the initial authentication flow.
+  /// The Authenticator widget requires two arguments, a child widget and an username alias
+  /// to define the initial authentication flow.
   ///
-  ///This authenticator accepts the following custom forms, sign in, sign up and confirm sign in.
+  /// This authenticator accepts the following custom forms, sign in, sign up and confirm sign in.
   ///
-  ///Note that working with custom forms is optional. Thus, if no additional arguments
-  ///are passed, the authenticator will defined the following default forms with their
-  ///respective form fields:
+  /// Note that working with custom forms is optional. Thus, if no additional arguments
+  /// are passed, the authenticator will defined the following default forms with their
+  /// respective form fields:
   ///
   /// 1. Sign in:
   ///     - Alias (username, email or phone number)
@@ -79,25 +67,15 @@ class Authenticator extends StatefulWidget {
   ///     - define
   ///     - define
   ///
-  Authenticator({
+  const Authenticator({
     Key? key,
-    Alias? usernameAlias,
+    this.usernameAlias = Alias.username,
+    this.signInForm = const SignInForm(),
+    this.signUpForm = const SignUpForm(),
+    this.confirmSignInMFAForm = const ConfirmSignInMFAForm(),
+    this.stringResolver = const AuthStringResolver(),
     required this.child,
-    SignInForm? signInForm,
-    SignUpForm? signUpForm,
-    ConfirmSignInMFAForm? confirmSignInFormMFA,
-  }) : super(key: key) {
-    this.usernameAlias = usernameAlias ?? Alias.username;
-    this.signInForm = signInForm ?? DefaultForms.signInForm(this.usernameAlias);
-    this.signUpForm = signUpForm ?? DefaultForms.signUpForm(this.usernameAlias);
-    confirmSignInMFAForm =
-        confirmSignInFormMFA ?? DefaultForms.confirmSignInForm;
-
-    confirmSignUpForm = DefaultForms.confirmSignUpForm(this.usernameAlias);
-    sendCodeForm = DefaultForms.sendCodeForm(this.usernameAlias);
-    resetPasswordForm = DefaultForms.resetPasswordForm;
-    confirmSignInNewPasswordForm = DefaultForms.confirmSignInNewPasswordForm;
-  }
+  }) : super(key: key);
 
   ///Optional username alias to setup the preferred sign in method,
   ///which can be signing in users with username, email or phone number.
@@ -108,129 +86,20 @@ class Authenticator extends StatefulWidget {
   ///     Alias.phone_number
   ///     Alias.email_phone_number
   /// ```
-  late final Alias usernameAlias;
+  final Alias usernameAlias;
 
-  late final SendCodeForm sendCodeForm;
-  late final ConfirmSignUpForm confirmSignUpForm;
-  late final ResetPasswordForm resetPasswordForm;
-  late final ConfirmSignInMFAForm confirmSignInMFAForm;
+  /// The form to display when confirming a sign in with MFA.
+  final ConfirmSignInMFAForm confirmSignInMFAForm;
 
-  /// This form will support the following form field types:
-  ///    * username
-  ///    * password
-  ///    * email
-  ///    * phone_number
-  ///
-  /// ### Example
-  /// ```dart
-  ///     SignInForm( formFields:
-  ///                   FormFields(children: [
-  ///                     SignInFormField(
-  ///                       type: "username" ,
-  ///                       title: "Custom Username Form Field",
-  ///                       hintText: "Custom Hint Text",
-  ///              ),
-  ///           ])
-  ///
-  /// ```
+  /// The form to display during sign up.
+  final SignInForm signInForm;
 
-  late final SignInForm signInForm;
+  /// The form to display during sign in.
+  final SignUpForm signUpForm;
 
-  /// This form will support the following form field types:
-  /// * username
-  /// * password
-  /// * birthdate
-  /// * email
-  /// * family_name
-  /// * gender
-  /// * given_name
-  /// * locate
-  /// * middle_name
-  /// * name
-  /// * nickname
-  /// * phone_number
-  /// * picture
-  /// * preferred_username
-  /// * profile
-  /// * zoneinfo
-  /// * updated_at
-  /// * website
-  /// * custom
+  final AuthStringResolver stringResolver;
 
-  ///
-  /// ### Example
-  /// ```dart
-  ///     SignInForm( formFields:
-  ///                   FormFields(children: [
-  ///                     SignUpFormField(
-  ///                       type: "username" ,
-  ///                       title: "Custom username form field",
-  ///                       hintText: "Custom hint text",
-  ///                       ),
-  ///                     SignUpFormField(
-  ///                       type: "password" ,
-  ///                       title: "Custom password form field",
-  ///                       hintText: "Custom hint text",
-  ///                       ),
-  ///                     SignUpFormField(
-  ///                       type: "email" ,
-  ///                       title: "Custom email form field",
-  ///                       hintText: "Custom hint text",
-  ///                       ),
-  ///                     SignUpFormField(
-  ///                       type: "website" ,
-  ///                       title: "Custom website form field",
-  ///                       hintText: "Custom hint text",
-  ///                       ),
-  ///                     ])
-  ///
-  /// ```
-  late final SignUpForm signUpForm;
-
-  /// This form will support the following form field types:
-  /// * code
-  /// * password
-  /// * birthdate
-  /// * email
-  /// * family_name
-  /// * gender
-  /// * given_name
-  /// * locate
-  /// * middle_name
-  /// * name
-  /// * nickname
-  /// * phone_number
-  /// * picture
-  /// * preferred_username
-  /// * profile
-  /// * zoneinfo
-  /// * updated_at
-  /// * website
-  /// * custom
-
-  ///
-  /// ### Example
-  /// ```dart
-  ///     ConfirmSignInNewPasswordForm( formFields:
-  ///                   FormFields(children: [
-  ///                     ConfirmSignInFormField(
-  ///                       type: "email" ,
-  ///                       title: "Custom email form field",
-  ///                       hintText: "Custom hint text",
-  ///                       ),
-  ///                     ConfirmSignInFormField(
-  ///                       type: "password" ,
-  ///                       title: "Custom password form field",
-  ///                       hintText: "Custom hint text",
-  ///                       ),
-  ///
-  ///                     ])
-  ///
-  /// ```
-
-  late final ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm;
-
-  /// This widget will be displayed after a user has signed in with some verified credentials.
+  /// This widget will be displayed after a user has signed in.
   final Widget child;
 
   @override
@@ -239,87 +108,109 @@ class Authenticator extends StatefulWidget {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(EnumProperty<Alias>('usernameAlias', usernameAlias));
+    properties.add(DiagnosticsProperty<AuthStringResolver>(
+        'stringResolver', stringResolver));
   }
 }
 
 class _AuthenticatorState extends State<Authenticator> {
   final AuthService _authService = AmplifyAuthService();
-
   late final StateMachineBloc _stateMachineBloc;
+  AmplifyConfig? _config;
+  late List<String> _missingConfigValues;
+  bool _configInitialized = false;
 
   @override
   void initState() {
     super.initState();
-    _stateMachineBloc = StateMachineBloc(_authService)
-      ..authEvent.add(GetCurrentUser());
+    _stateMachineBloc = StateMachineBloc(_authService)..add(GetCurrentUser());
+    waitForConfiguration();
+  }
+
+  Future<void> waitForConfiguration() async {
+    await Amplify.asyncConfig.then((config) {
+      setState(() {
+        _config = config;
+        _configInitialized = true;
+        _missingConfigValues = missingConfigValues(config);
+      });
+    });
+  }
+
+  List<String> missingConfigValues(AmplifyConfig? config) {
+    List<String> missingValues = [];
+    var cognitoPlugin = config?.auth?.awsCognitoAuthPlugin?.auth?['Default'];
+    cognitoPlugin ?? missingValues.add('auth.plugins.Auth.Default');
+    cognitoPlugin?.signupAttributes?.length ??
+        missingValues.add('auth.plugins.Auth.Default.signUpAttributes');
+    cognitoPlugin?.passwordProtectionSettings ??
+        missingValues
+            .add('auth.plugins.Auth.Default.passwordProtectionSettings');
+    return missingValues;
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_configInitialized && _missingConfigValues.isNotEmpty) {
+      throw StateError('''Encountered problem(s) building the Authenticator.
+          Your amplifyconfiguration.dart file is missing required values: ${_missingConfigValues.join('\n')}). 
+          You should correct your amplifyconfiguration.dart file and restart your app.''');
+    }
+
     return InheritedAuthBloc(
       key: const Key(keyInheritedAuthBloc),
       authBloc: _stateMachineBloc,
-      child: InheritedAuthViewModel(
-        key: const Key(keyInheritedAuthViewModel),
-        viewModel: AuthViewModel(_stateMachineBloc),
-        child: InheritedForms(
-          confirmSignInNewPasswordForm: widget.confirmSignInNewPasswordForm,
-          resetPasswordForm: widget.resetPasswordForm,
-          sendCodeForm: widget.sendCodeForm,
-          signInForm: widget.signInForm,
-          signUpForm: widget.signUpForm,
-          confirmSignUpForm: widget.confirmSignUpForm,
-          confirmSignInMFAForm: widget.confirmSignInMFAForm,
-          child: Scaffold(
-            body: StreamBuilder<AuthState>(
-              stream: _stateMachineBloc.stream,
-              initialData: const AuthLoading(),
-              builder: (context, snapshot) {
-                final state = snapshot.data!;
-                late Widget screen;
-                if (state is Authenticated) {
-                  return widget.child;
-                } else if (state is AuthLoading) {
-                  screen = LoadingScreen();
-                } else if (state is AuthFlow &&
-                    state.screen == AuthScreen.signin) {
-                  screen = SignInScreen();
-                } else if (state is AuthFlow &&
-                    state.screen == AuthScreen.signup) {
-                  screen = SignUpScreen();
-                } else if (state is AuthFlow &&
-                    state.screen == AuthScreen.confirmSignUp) {
-                  screen = ConfirmSignUpScreen();
-                } else if (state is AuthFlow &&
-                    state.screen == AuthScreen.confirmSignInMfa) {
-                  screen = const ConfirmSignInMFAScreen();
-                } else if (state is AuthFlow &&
-                    state.screen == AuthScreen.confirmSignInNewPassword) {
-                  screen = ConfirmSignInNewPasswordScreen();
-                } else if (state is AuthFlow &&
-                    state.screen == AuthScreen.sendCode) {
-                  screen = const SendCodeScreen();
-                } else if (state is AuthFlow &&
-                    state.screen == AuthScreen.resetPassword) {
-                  screen = const ResetPasswordScreen();
-                } else {
-                  screen = SignInScreen();
-                }
+      child: InheritedConfig(
+        config: _config,
+        child: InheritedAuthViewModel(
+          key: const Key(keyInheritedAuthViewModel),
+          viewModel: AuthViewModel(_stateMachineBloc),
+          child: InheritedStrings(
+            resolver: widget.stringResolver,
+            child: InheritedForms(
+              confirmSignInNewPasswordForm:
+                  const ConfirmSignInNewPasswordForm(),
+              resetPasswordForm: const ResetPasswordForm(),
+              sendCodeForm: const SendCodeForm(),
+              signInForm: widget.signInForm,
+              signUpForm: widget.signUpForm,
+              confirmSignUpForm: const ConfirmSignUpForm(),
+              confirmSignInMFAForm: widget.confirmSignInMFAForm,
+              child: Scaffold(
+                  body: StreamBuilder(
+                stream: _stateMachineBloc.stream,
+                builder: (context, snapshot) {
+                  final state = (snapshot.data != null &&
+                          _configInitialized &&
+                          _config?.auth != null)
+                      ? snapshot.data
+                      : const AuthLoading();
+                  final Widget screen;
+                  if (state is AuthLoading) {
+                    screen = const LoadingScreen();
+                  } else if (state is Authenticated) {
+                    return widget.child;
+                  } else if (state is AuthFlow) {
+                    screen = AuthenticatorScreen(screen: state.screen);
+                  } else {
+                    screen = const AuthenticatorScreen.signin();
+                  }
 
-                return Center(
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 40),
-                      child: Column(
-                        children: [
-                          const AuthExceptionsWidget(),
-                          screen,
-                        ],
+                  return Container(
+                    padding: const EdgeInsets.symmetric(vertical: 40),
+                    child: Center(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            const AuthExceptionsWidget(),
+                            screen,
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              )),
             ),
           ),
         ),

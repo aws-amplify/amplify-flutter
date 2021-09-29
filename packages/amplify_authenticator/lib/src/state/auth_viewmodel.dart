@@ -28,6 +28,9 @@ class AuthViewModel extends ChangeNotifier {
   String get username => _username;
 
   String _password = '';
+  String get password => _password;
+
+  String _passwordConfirmation = '';
   String _confirmationCode = '';
   String _newPassword = '';
   String _newUsername = '';
@@ -40,6 +43,10 @@ class AuthViewModel extends ChangeNotifier {
 
   void setPassword(String value) {
     _password = value;
+  }
+
+  void setPasswordConfirmation(String passwordConfirmation) {
+    _passwordConfirmation = passwordConfirmation;
   }
 
   void setConfirmationCode(String value) {
@@ -135,40 +142,20 @@ class AuthViewModel extends ChangeNotifier {
 
   // Auth calls
 
-  Future<void> confirmNewPassword() async {
+  Future<void> confirmSignIn() async {
     if (!formKey.currentState!.validate()) {
       return;
     }
     setBusy(true);
-    AuthConfirmSignInNewPasswordData confirm = AuthConfirmSignInNewPasswordData(
+    var confirm = AuthConfirmSignInData(
       code: _confirmationCode.trim(),
       attributes: _authAttributes,
-      username: _username.trim(),
-      password: _password.trim(),
     );
 
-    authBloc.authEvent.add(AuthConfirmSignInNewPassword(confirm));
+    authBloc.add(AuthConfirmSignIn(confirm));
     await Future.any([
       authBloc.exceptions.first,
       authBloc.stream.first,
-    ]);
-    setBusy(false);
-  }
-
-  Future<void> confirmMfa() async {
-    if (!_formKey.currentState!.validate()) {
-      return;
-    }
-    setBusy(true);
-    AuthConfirmSignInMFAData confirm = AuthConfirmSignInMFAData(
-      code: _confirmationCode.trim(),
-      attributes: _authAttributes,
-    );
-
-    authBloc.authEvent.add(AuthConfirmSignInMFA(confirm));
-    await Future.any([
-      authBloc.exceptions.first,
-      authBloc.stream.firstWhere((state) => state is Authenticated),
     ]);
     setBusy(false);
   }
@@ -185,7 +172,7 @@ class AuthViewModel extends ChangeNotifier {
       password: _password.trim(),
     );
 
-    authBloc.authEvent.add(AuthConfirmSignUp(confirmation));
+    authBloc.add(AuthConfirmSignUp(confirmation));
 
     await Future.any([
       authBloc.exceptions.first,
@@ -203,7 +190,7 @@ class AuthViewModel extends ChangeNotifier {
       username: _username.trim(),
       password: _password.trim(),
     );
-    authBloc.authEvent.add(AuthSignIn(signIn));
+    authBloc.add(AuthSignIn(signIn));
     await Future.any([
       authBloc.exceptions.first,
       authBloc.stream.first,
@@ -213,7 +200,7 @@ class AuthViewModel extends ChangeNotifier {
 
   Future<void> signOut() async {
     setBusy(true);
-    authBloc.authEvent.add(const AuthSignOut());
+    authBloc.add(const AuthSignOut());
     await Future.any([
       authBloc.exceptions.first,
       authBloc.stream.first,
@@ -227,7 +214,7 @@ class AuthViewModel extends ChangeNotifier {
     }
     setBusy(true);
     final sendCode = AuthSendCodeData(username: _newUsername.trim());
-    authBloc.authEvent.add(AuthSendCode(sendCode));
+    authBloc.add(AuthSendCode(sendCode));
     await Future.any([
       authBloc.exceptions.first,
       authBloc.stream.firstWhere((state) => state is AuthFlow),
@@ -245,7 +232,7 @@ class AuthViewModel extends ChangeNotifier {
       confirmationCode: _confirmationCode.trim(),
       newPassword: _newPassword.trim(),
     );
-    authBloc.authEvent.add(AuthConfirmPassword(confirmPassword));
+    authBloc.add(AuthConfirmPassword(confirmPassword));
     await Future.any([
       authBloc.exceptions.first,
       authBloc.stream.firstWhere((state) => state is AuthFlow),
@@ -264,7 +251,7 @@ class AuthViewModel extends ChangeNotifier {
       attributes: _authAttributes,
     );
 
-    authBloc.authEvent.add(AuthSignUp(signUp));
+    authBloc.add(AuthSignUp(signUp));
     await Future.any([
       authBloc.exceptions.first,
       authBloc.stream.first,
@@ -274,7 +261,7 @@ class AuthViewModel extends ChangeNotifier {
 
   void _navigateTo(AuthScreen authScreen) {
     _clean();
-    authBloc.authEvent.add(AuthChangeScreen(authScreen));
+    authBloc.add(AuthChangeScreen(authScreen));
   }
 
   void goToSignUp() => _navigateTo(AuthScreen.signup);

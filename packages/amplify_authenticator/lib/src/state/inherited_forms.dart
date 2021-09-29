@@ -1,3 +1,19 @@
+/*
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
+import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
 import 'package:amplify_authenticator/src/widgets/forms.dart';
 import 'package:flutter/material.dart';
 
@@ -15,24 +31,34 @@ class InheritedForms extends InheritedWidget {
   }) : super(key: key, child: child);
 
   final SignInForm signInForm;
-
   final SignUpForm signUpForm;
-
   final ConfirmSignUpForm confirmSignUpForm;
-
   final ConfirmSignInMFAForm confirmSignInMFAForm;
-
+  final ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm;
   final SendCodeForm sendCodeForm;
-
   final ResetPasswordForm resetPasswordForm;
 
-  final ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm;
-
-  //final ResetPasswordForm resetPasswordForm;
+  AuthenticatorForm operator [](AuthScreen screen) {
+    switch (screen) {
+      case AuthScreen.signup:
+        return signUpForm;
+      case AuthScreen.signin:
+        return signInForm;
+      case AuthScreen.confirmSignup:
+        return confirmSignUpForm;
+      case AuthScreen.confirmSigninMfa:
+        return confirmSignInMFAForm;
+      case AuthScreen.confirmSigninNewPassword:
+        return confirmSignInNewPasswordForm;
+      case AuthScreen.sendCode:
+        return sendCodeForm;
+      case AuthScreen.resetPassword:
+        return resetPasswordForm;
+    }
+  }
 
   static InheritedForms of(BuildContext context) {
     final forms = context.dependOnInheritedWidgetOfExactType<InheritedForms>();
-
     assert(() {
       if (forms == null) {
         throw FlutterError.fromParts([

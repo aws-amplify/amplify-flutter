@@ -1,6 +1,22 @@
+/*
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
 import 'dart:async';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/src/config/amplify_config.dart';
 
 abstract class AuthService {
   Future<SignInResult> signIn(String username, String password);
@@ -27,12 +43,14 @@ abstract class AuthService {
     String newPassword,
   );
 
-  Future<void> confirmSignIn({
+  Future<SignInResult> confirmSignIn({
     required String code,
     Map<String, String>? attributes,
   });
 
   Future<ResendSignUpCodeResult> resendSignUpCode(String username);
+
+  Future<AmplifyConfig> waitForConfiguration();
 }
 
 class AmplifyAuthService implements AuthService {
@@ -75,7 +93,7 @@ class AmplifyAuthService implements AuthService {
   }
 
   @override
-  Future<void> confirmSignIn({
+  Future<SignInResult> confirmSignIn({
     required String code,
     Map<String, String>? attributes,
   }) {
@@ -129,5 +147,9 @@ class AmplifyAuthService implements AuthService {
       confirmationCode: code,
       newPassword: newPassword,
     );
+  }
+
+  Future<AmplifyConfig> waitForConfiguration() async {
+    return await Amplify.asyncConfig;
   }
 }

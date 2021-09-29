@@ -1,3 +1,18 @@
+/*
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
 import 'dart:async';
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -30,9 +45,6 @@ class StateMachineBloc {
   final StreamController<AuthEvent> _authEventController =
       StreamController<AuthEvent>.broadcast();
 
-  /// Assigns events to the event controller, which will be transformed into state.
-  StreamSink<AuthEvent> get authEvent => _authEventController.sink;
-
   /// Outputs events into the event transformer.
   late final Stream<AuthEvent> _authEventStream = _authEventController.stream;
   late final StreamSubscription<AuthState> _subscription;
@@ -43,6 +55,11 @@ class StateMachineBloc {
         _authEventStream.asyncExpand(_eventTransformer).listen((state) {
       _controllerSink.add(state);
     });
+  }
+
+  /// Adds an event to the Bloc.
+  void add(AuthEvent event) {
+    _authEventController.add(event);
   }
 
   /// Manages exception events separate from the bloc's state.
@@ -63,10 +80,6 @@ class StateMachineBloc {
       yield* _signUp(event.data);
     } else if (event is AuthConfirmSignUp) {
       yield* _confirmSignUp(event.data);
-    } else if (event is AuthConfirmSignInMFA) {
-      yield* _confirmSignInMfa(event.data);
-    } else if (event is AuthConfirmSignInNewPassword) {
-      yield* _confirmSignInNewPassword(event.data);
     } else if (event is AuthChangeScreen) {
       yield* _changeScreen(event.screen);
     } else if (event is AuthSignOut) {
@@ -75,35 +88,46 @@ class StateMachineBloc {
       yield* _sendCode(event.data);
     } else if (event is AuthConfirmPassword) {
       yield* _confirmPassword(event.data);
+    } else if (event is AuthConfirmSignIn) {
+      yield* _confirmSignIn(event.data);
     }
   }
 
-  Stream<AuthState> _confirmSignInNewPassword(
-      AuthConfirmSignInNewPasswordData data) async* {
+  Stream<AuthState> _confirmSignIn(AuthConfirmSignInData data) async* {
     try {
-      await _authService.confirmSignIn(
+      var result = await _authService.confirmSignIn(
         code: data.code,
         attributes: data.attributes,
       );
-      var authSignInData = AuthSignInData(
-        username: data.username,
-        password: data.password,
-      );
-      yield* _signIn(authSignInData);
-    } on AmplifyException catch (e) {
-      _exceptionController.add(AuthenticatorException(e.message));
-    } on Exception catch (e) {
-      _exceptionController.add(AuthenticatorException(e.toString()));
-    }
-  }
 
-  Stream<AuthState> _confirmSignInMfa(AuthConfirmSignInMFAData data) async* {
-    try {
-      await _authService.confirmSignIn(
-        code: data.code,
-        attributes: data.attributes,
-      );
-      yield const Authenticated();
+      switch (result.nextStep!.signInStep) {
+        case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
+          yield AuthFlow(
+            screen: AuthScreen.confirmSigninMfa,
+          );
+          break;
+        case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
+          _exceptionController.add(
+            AuthenticatorException('This is screen is not implemented yet'),
+          );
+          break;
+        case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
+          yield AuthFlow(
+            screen: AuthScreen.confirmSigninNewPassword,
+          );
+          break;
+        case 'RESET_PASSWORD':
+          yield AuthFlow(screen: AuthScreen.sendCode);
+          break;
+        case 'CONFIRM_SIGN_UP':
+          yield AuthFlow(screen: AuthScreen.confirmSignup);
+          break;
+        case 'DONE':
+          yield const Authenticated();
+          break;
+        default:
+          break;
+      }
     } on AmplifyException catch (e) {
       _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
@@ -173,7 +197,7 @@ class StateMachineBloc {
       switch (result.nextStep!.signInStep) {
         case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
           yield AuthFlow(
-            screen: AuthScreen.confirmSignInMfa,
+            screen: AuthScreen.confirmSigninMfa,
           );
           break;
         case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
@@ -183,14 +207,14 @@ class StateMachineBloc {
           break;
         case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
           yield AuthFlow(
-            screen: AuthScreen.confirmSignInNewPassword,
+            screen: AuthScreen.confirmSigninNewPassword,
           );
           break;
         case 'RESET_PASSWORD':
-          yield AuthFlow(screen: AuthScreen.sendCode);
+          yield AuthFlow(screen: AuthScreen.resetPassword);
           break;
         case 'CONFIRM_SIGN_UP':
-          yield AuthFlow(screen: AuthScreen.confirmSignUp);
+          yield AuthFlow(screen: AuthScreen.confirmSignup);
           break;
         case 'DONE':
           yield const Authenticated();
@@ -200,7 +224,7 @@ class StateMachineBloc {
       }
     } on UserNotConfirmedException catch (e) {
       _exceptionController.add(AuthenticatorException(e.message));
-      yield AuthFlow(screen: AuthScreen.confirmSignUp);
+      yield AuthFlow(screen: AuthScreen.confirmSignup);
     } on AmplifyException catch (e) {
       _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
@@ -218,7 +242,7 @@ class StateMachineBloc {
 
       switch (result.nextStep.signUpStep) {
         case 'CONFIRM_SIGN_UP_STEP':
-          yield AuthFlow(screen: AuthScreen.confirmSignUp);
+          yield AuthFlow(screen: AuthScreen.confirmSignup);
           break;
         case 'DONE':
           var authSignInData = AuthSignInData(
@@ -279,6 +303,7 @@ class StateMachineBloc {
 
   Future<void> dispose() {
     return Future.wait<void>([
+      _subscription.cancel(),
       _authStateController.close(),
       _authEventController.close(),
       _exceptionController.close(),
