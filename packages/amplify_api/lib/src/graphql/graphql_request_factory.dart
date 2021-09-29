@@ -187,4 +187,13 @@ class GraphQLRequestFactory {
         modelType: modelType,
         decodePath: decodePath);
   }
+
+  Map<String, dynamic> buildVariables(
+      {int? limit, String? nextToken, QueryPredicate? queryPredicate}) {
+    return <String, dynamic>{
+      'filter': null, // TODO: handle query predicates
+      'limit': limit,
+      'nextToken': nextToken
+    };
+  }
 }
