@@ -26,7 +26,7 @@ class InheritedForms extends InheritedWidget {
       required this.sendCodeForm,
       required this.resetPasswordForm,
       required this.confirmSignInNewPasswordForm,
-      required this.verifyUserForm,
+      required this.verifyUserFormBuilder,
       required this.confirmVerifyUserForm,
       required Widget child})
       : super(child: child);
@@ -45,7 +45,8 @@ class InheritedForms extends InheritedWidget {
 
   final ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm;
 
-  final VerifyUserForm verifyUserForm;
+  final VerifyUserForm Function({required List<String> unverifiedAttributeKeys})
+      verifyUserFormBuilder;
 
   final ConfirmVerifyUserForm confirmVerifyUserForm;
 

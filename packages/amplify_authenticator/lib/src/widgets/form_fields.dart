@@ -810,8 +810,11 @@ class _ConfirmSignInFormFieldState extends State<ConfirmSignInFormField> {
 }
 
 class VerifyUserFormFieldGroup extends StatefulWidget {
+  final List<String> unverifiedAttributeKeys;
+
   const VerifyUserFormFieldGroup({
     Key? key,
+    required this.unverifiedAttributeKeys,
   }) : super(key: key);
 
   @override
@@ -823,7 +826,6 @@ class _VerifyUserFormFieldGroupState extends State<VerifyUserFormFieldGroup> {
   String? _value;
   late VerifyUserViewModel _verifyUserViewModel;
   late ConfirmVerifyUserViewModel _confirmVerifyUserViewModel;
-  late List<String> unverifiedAttributeKeys;
 
   // set value for the verify user & confirm verify user view model
   void setUserAttributeKey(String? value) {
@@ -841,12 +843,11 @@ class _VerifyUserFormFieldGroupState extends State<VerifyUserFormFieldGroup> {
         InheritedAuthViewModel.of(context)!.verifyUserViewModel;
     _confirmVerifyUserViewModel =
         InheritedAuthViewModel.of(context)!.confirmVerifyUserViewModel;
-    unverifiedAttributeKeys = _verifyUserViewModel.unverifiedAttributeKeys;
 
     // preselect first option by default
     // TODO: determine if this is the desired functionality
     // alternatively it could be left blank
-    String initialValue = unverifiedAttributeKeys.first;
+    String initialValue = widget.unverifiedAttributeKeys.first;
     setUserAttributeKey(initialValue);
   }
 
@@ -855,7 +856,7 @@ class _VerifyUserFormFieldGroupState extends State<VerifyUserFormFieldGroup> {
     return Column(
       children: [
         // TODO: Use constants for attribute keys from #697 after feature branch has been updated with main
-        if (unverifiedAttributeKeys.contains('email'))
+        if (widget.unverifiedAttributeKeys.contains('email'))
           VerifyUserFormField(
             label: 'Email', // TODO: support localization
             attributeKey: 'email',
@@ -868,7 +869,7 @@ class _VerifyUserFormFieldGroupState extends State<VerifyUserFormFieldGroup> {
             },
             groupValue: _value,
           ),
-        if (unverifiedAttributeKeys.contains('phone_number'))
+        if (widget.unverifiedAttributeKeys.contains('phone_number'))
           VerifyUserFormField(
             label: 'Phone Number', // TODO: support localization
             attributeKey: 'phone_number',

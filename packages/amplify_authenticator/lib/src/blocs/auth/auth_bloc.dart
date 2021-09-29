@@ -48,7 +48,7 @@ class StateMachineBloc {
   StreamSink<AuthEvent> get authEvent => _authEventController.sink;
 
   /// Outputs events into the event transformer.
-  Stream<AuthEvent> get authEventStream => _authEventController.stream;
+  late final Stream<AuthEvent> _authEventStream = _authEventController.stream;
 
   // ignore: unused_field
   late final StreamSubscription<AuthState> _subscription;
@@ -56,7 +56,7 @@ class StateMachineBloc {
   // ignore: public_member_api_docs
   StateMachineBloc(this._authService) {
     _subscription =
-        authEventStream.asyncExpand(_eventTransformer).listen((state) {
+        _authEventStream.asyncExpand(_eventTransformer).listen((state) {
       _controllerSink.add(state);
     });
   }
@@ -263,7 +263,7 @@ class StateMachineBloc {
             ),
           ),
         );
-        yield AuthFlow(screen: AuthScreen.verifyUser);
+        yield VerifyUserFlow(unverifiedAttributeKeys: unverifiedAttributeKeys);
       } else {
         yield const Authenticated();
       }

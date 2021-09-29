@@ -17,13 +17,18 @@ import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:flutter/widgets.dart';
 
 class DefaultVerifyUserForm extends VerifyUserForm {
-  const DefaultVerifyUserForm()
-      : super(formFieldGroup: const VerifyUserFormFieldGroup());
+  final List<String> unverifiedAttributeKeys;
+  DefaultVerifyUserForm({required this.unverifiedAttributeKeys})
+      : super(
+            formFieldGroup: VerifyUserFormFieldGroup(
+                unverifiedAttributeKeys: unverifiedAttributeKeys));
 
   @override
   VerifyUserForm build(BuildContext context) {
-    return const VerifyUserForm(
-      formFieldGroup: const VerifyUserFormFieldGroup(),
+    return VerifyUserForm(
+      formFieldGroup: VerifyUserFormFieldGroup(
+        unverifiedAttributeKeys: unverifiedAttributeKeys,
+      ),
     );
   }
 }
