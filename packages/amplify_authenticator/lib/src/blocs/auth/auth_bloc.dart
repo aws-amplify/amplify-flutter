@@ -268,12 +268,11 @@ class StateMachineBloc {
         yield const Authenticated();
       }
     } on Exception catch (e) {
-      // TODO: How should exceptions be handled in this flow
-      if (e is AmplifyException) {
-        _exceptionController.add(AuthenticatorException(e.message));
-      } else {
-        _exceptionController.add(AuthenticatorException(e.toString()));
-      }
+      // exception is logged but not presented to the user since there is
+      // no obvious recovery if there is an exception fetching the users
+      // unconfirmed attributes
+      print(e);
+      yield const Authenticated();
     }
   }
 
