@@ -82,10 +82,13 @@ class StateMachineBloc {
       AuthConfirmSignInNewPasswordData data) async* {
     try {
       await _authService.confirmSignIn(
-          code: data.code, attributes: data.attributes);
-
-      AuthSignInData authSignInData =
-          AuthSignInData(username: data.username, password: data.password);
+        code: data.code,
+        attributes: data.attributes,
+      );
+      var authSignInData = AuthSignInData(
+        username: data.username,
+        password: data.password,
+      );
       yield* _signIn(authSignInData);
     } on AmplifyException catch (e) {
       _exceptionController.add(AuthenticatorException(e.message));
@@ -97,8 +100,9 @@ class StateMachineBloc {
   Stream<AuthState> _confirmSignInMfa(AuthConfirmSignInMFAData data) async* {
     try {
       await _authService.confirmSignIn(
-          code: data.code, attributes: data.attributes);
-
+        code: data.code,
+        attributes: data.attributes,
+      );
       yield const Authenticated();
     } on AmplifyException catch (e) {
       _exceptionController.add(AuthenticatorException(e.message));
@@ -110,7 +114,10 @@ class StateMachineBloc {
   Stream<AuthState> _confirmPassword(AuthConfirmPasswordData data) async* {
     try {
       await _authService.confirmPassword(
-          data.username, data.confirmationCode, data.newPassword);
+        data.username,
+        data.confirmationCode,
+        data.newPassword,
+      );
       yield AuthFlow(screen: AuthScreen.signin);
     } on AmplifyException catch (e) {
       _exceptionController.add(AuthenticatorException(e.message));
@@ -158,26 +165,26 @@ class StateMachineBloc {
     }
 
     try {
-      SignInResult result =
-          await _authService.signIn(data.username, data.password);
+      var result = await _authService.signIn(
+        data.username,
+        data.password,
+      );
 
       switch (result.nextStep!.signInStep) {
         case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
           yield AuthFlow(
             screen: AuthScreen.confirmSignInMfa,
           );
-
           break;
         case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
           _exceptionController.add(
-              AuthenticatorException('This is screen is not implemented yet'));
-
+            AuthenticatorException('This is screen is not implemented yet'),
+          );
           break;
         case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
           yield AuthFlow(
             screen: AuthScreen.confirmSignInNewPassword,
           );
-
           break;
         case 'RESET_PASSWORD':
           yield AuthFlow(screen: AuthScreen.sendCode);
@@ -203,16 +210,21 @@ class StateMachineBloc {
 
   Stream<AuthState> _signUp(AuthSignUpData data) async* {
     try {
-      SignUpResult result = await _authService.signUp(
-          data.username, data.password, data.attributes);
+      var result = await _authService.signUp(
+        data.username,
+        data.password,
+        data.attributes,
+      );
 
       switch (result.nextStep.signUpStep) {
         case 'CONFIRM_SIGN_UP_STEP':
           yield AuthFlow(screen: AuthScreen.confirmSignUp);
           break;
         case 'DONE':
-          final AuthSignInData authSignInData =
-              AuthSignInData(username: data.username, password: data.password);
+          var authSignInData = AuthSignInData(
+            username: data.username,
+            password: data.password,
+          );
 
           yield* _signIn(authSignInData);
           break;
@@ -227,8 +239,10 @@ class StateMachineBloc {
   Stream<AuthState> _confirmSignUp(AuthConfirmSignUpData data) async* {
     try {
       await _authService.confirmSignUp(data.username, data.code);
-      final AuthSignInData authSignInData =
-          AuthSignInData(username: data.username, password: data.password);
+      var authSignInData = AuthSignInData(
+        username: data.username,
+        password: data.password,
+      );
 
       yield* _signIn(authSignInData);
     } on AmplifyException catch (e) {

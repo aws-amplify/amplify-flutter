@@ -48,7 +48,7 @@ abstract class AuthenticatorFormField extends AuthenticatorComponent {
   final String? hintText;
 
   /// callback meant to validate inputs of this form field.
-  String? Function(String?)? get validator;
+  FormFieldValidator<String>? get validator;
 
   /// Whether to hide input.
   bool get obscureText;
@@ -87,7 +87,7 @@ abstract class AuthenticatorFormField extends AuthenticatorComponent {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(ObjectFlagProperty<String? Function(String?)>.has(
+    properties.add(ObjectFlagProperty<FormFieldValidator<String>>.has(
         'validator', validator));
     properties.add(DiagnosticsProperty<bool>('obscureText', obscureText));
     properties.add(DiagnosticsProperty<bool?>('enable', enable));
@@ -107,7 +107,7 @@ class SignInFormField extends AuthenticatorFormField {
     required String title,
     required String hintText,
     required this.type,
-    String? Function(String?)? validator,
+    FormFieldValidator<String>? validator,
   })  : _validatorOverride = validator,
         super(
           key: key,
@@ -117,10 +117,10 @@ class SignInFormField extends AuthenticatorFormField {
 
   final SignInType type;
 
-  final String? Function(String?)? _validatorOverride;
+  final FormFieldValidator<String>? _validatorOverride;
 
   @override
-  String? Function(String?)? get validator {
+  FormFieldValidator<String>? get validator {
     if (_validatorOverride != null) {
       return _validatorOverride;
     }
@@ -213,7 +213,7 @@ class SignInFormField extends AuthenticatorFormField {
     properties.add(StringProperty('title', title));
     properties.add(StringProperty('hintText', hintText));
     properties.add(EnumProperty('type', type));
-    properties.add(ObjectFlagProperty<String? Function(String?)>.has(
+    properties.add(ObjectFlagProperty<FormFieldValidator<String>>.has(
         'validator', validator));
   }
 }
@@ -226,7 +226,7 @@ class SignUpFormField extends AuthenticatorFormField {
     required String title,
     required String hintText,
     required this.type,
-    String? Function(String?)? validator,
+    FormFieldValidator<String>? validator,
   })  : _validatorOverride = validator,
         super(
           key: key,
@@ -236,10 +236,10 @@ class SignUpFormField extends AuthenticatorFormField {
 
   final SignUpType type;
 
-  final String? Function(String?)? _validatorOverride;
+  final FormFieldValidator<String>? _validatorOverride;
 
   @override
-  String? Function(String?)? get validator {
+  FormFieldValidator<String>? get validator {
     if (_validatorOverride != null) {
       return _validatorOverride;
     }
@@ -382,7 +382,7 @@ class SignUpFormField extends AuthenticatorFormField {
     properties.add(StringProperty('title', title));
     properties.add(StringProperty('hintText', hintText));
     properties.add(EnumProperty('type', type));
-    properties.add(ObjectFlagProperty<String? Function(String?)>.has(
+    properties.add(ObjectFlagProperty<FormFieldValidator<String>>.has(
         'validator', validator));
   }
 }
@@ -399,7 +399,7 @@ class ConfirmSignUpFormField extends AuthenticatorFormField {
     required String title,
     String? hintText,
     required this.type,
-    String? Function(String?)? validator,
+    FormFieldValidator<String>? validator,
   })  : _validatorOverride = validator,
         super(
           key: key,
@@ -409,10 +409,10 @@ class ConfirmSignUpFormField extends AuthenticatorFormField {
 
   final ConfirmSignUpType type;
 
-  final String? Function(String?)? _validatorOverride;
+  final FormFieldValidator<String>? _validatorOverride;
 
   @override
-  String? Function(String?)? get validator {
+  FormFieldValidator<String>? get validator {
     if (_validatorOverride != null) {
       return _validatorOverride;
     }
@@ -531,7 +531,7 @@ class ConfirmSignUpFormField extends AuthenticatorFormField {
     properties.add(StringProperty('title', title));
     properties.add(StringProperty('hintText', hintText));
     properties.add(EnumProperty('type', type));
-    properties.add(ObjectFlagProperty<String? Function(String?)>.has(
+    properties.add(ObjectFlagProperty<FormFieldValidator<String>>.has(
         'validator', validator));
   }
 }
@@ -544,7 +544,7 @@ class ConfirmSignInFormField extends AuthenticatorFormField {
     required String title,
     required String hintText,
     required this.type,
-    String? Function(String?)? validator,
+    FormFieldValidator<String>? validator,
   })  : _validatorOverride = validator,
         super(
           key: key,
@@ -554,10 +554,10 @@ class ConfirmSignInFormField extends AuthenticatorFormField {
 
   final ConfirmSignInType type;
 
-  final String? Function(String?)? _validatorOverride;
+  final FormFieldValidator<String>? _validatorOverride;
 
   @override
-  String? Function(String?)? get validator {
+  FormFieldValidator<String>? get validator {
     if (_validatorOverride != null) {
       return _validatorOverride;
     }

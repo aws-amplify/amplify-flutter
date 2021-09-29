@@ -12,21 +12,28 @@ enum AuthScreen {
 }
 
 class AuthSignInData {
-  AuthSignInData({required this.username, required this.password});
+  const AuthSignInData({
+    required this.username,
+    required this.password,
+  });
 
   final String username;
-
   final String password;
 }
 
 ///Sign Up Data
 class AuthSignUpData {
-  AuthSignUpData(
-      {required this.password,
-      required this.username,
-      required this.attributes});
+  const AuthSignUpData({
+    required this.password,
+    required this.username,
+    Map<CognitoUserAttributes, String> attributes = const {},
+  }) : _attributes = attributes;
 
-  final Map<CognitoUserAttributes, String> attributes;
+  final Map<CognitoUserAttributes, String> _attributes;
+
+  Map<String, String> get attributes {
+    return _attributes.map((key, value) => MapEntry(key.value, value));
+  }
 
   final String password;
 
@@ -40,59 +47,81 @@ class AuthConfirmSignUpData {
 
   final String password;
 
-  AuthConfirmSignUpData(
-      {required this.username, required this.code, required this.password});
-}
-
-class AuthConfirmSignInMFAData {
-  final String code;
-
-  Map<CognitoUserAttributes, String>? attributes;
-
-  AuthConfirmSignInMFAData({
+  const AuthConfirmSignUpData({
+    required this.username,
     required this.code,
-    this.attributes,
+    required this.password,
   });
 }
 
+class AuthConfirmSignInMFAData {
+  const AuthConfirmSignInMFAData({
+    required this.code,
+    Map<CognitoUserAttributes, String> attributes = const {},
+  }) : _attributes = attributes;
+
+  final String code;
+
+  final Map<CognitoUserAttributes, String> _attributes;
+
+  Map<String, String> get attributes {
+    return _attributes.map((key, value) => MapEntry(key.value, value));
+  }
+}
+
 class AuthConfirmSignInNewPasswordData {
+  const AuthConfirmSignInNewPasswordData({
+    required this.code,
+    Map<CognitoUserAttributes, String> attributes = const {},
+    required this.username,
+    required this.password,
+  }) : _attributes = attributes;
+
   final String code;
 
   final String username;
   final String password;
 
-  Map<CognitoUserAttributes, String>? attributes;
+  final Map<CognitoUserAttributes, String> _attributes;
 
-  AuthConfirmSignInNewPasswordData(
-      {required this.code,
-      this.attributes,
-      required this.username,
-      required this.password});
+  Map<String, String> get attributes {
+    return _attributes.map((key, value) => MapEntry(key.value, value));
+  }
 }
 
 class AuthSendCodeData {
-  AuthSendCodeData({required this.username});
+  const AuthSendCodeData({
+    required this.username,
+  });
+
   final String username;
 }
 
 class AuthConfirmPasswordData {
-  AuthConfirmPasswordData(
-      {required this.username,
-      required this.newPassword,
-      required this.confirmationCode});
+  const AuthConfirmPasswordData({
+    required this.username,
+    required this.newPassword,
+    required this.confirmationCode,
+  });
+
   final String username;
   final String newPassword;
   final String confirmationCode;
 }
 
 class AuthUpdatePasswordData {
-  AuthUpdatePasswordData({
+  const AuthUpdatePasswordData({
     required this.username,
     required this.newPassword,
-    this.attributes,
-  });
+    Map<CognitoUserAttributes, String> attributes = const {},
+  }) : _attributes = attributes;
 
-  Map<CognitoUserAttributes, String>? attributes;
   final String username;
   final String newPassword;
+
+  final Map<CognitoUserAttributes, String> _attributes;
+
+  Map<String, String> get attributes {
+    return _attributes.map((key, value) => MapEntry(key.value, value));
+  }
 }
