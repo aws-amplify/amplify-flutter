@@ -15,53 +15,43 @@
 
 library amplify_authenticator;
 
-import 'package:flutter/material.dart';
-import 'package:amplify_authenticator/src/keys.dart';
-
-//State
-import 'package:amplify_authenticator/src/state/inherited_forms.dart';
-import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
-import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
-
-//Screens
-import 'package:amplify_authenticator/src/screens/loading_screen.dart';
-import 'package:amplify_authenticator/src/screens/signin_screen.dart';
-import 'package:amplify_authenticator/src/screens/signup_screen.dart';
-import 'package:amplify_authenticator/src/screens/confirm_signup_screen.dart';
-import 'package:amplify_authenticator/src/screens/send_code_screen.dart';
-import 'package:amplify_authenticator/src/screens/confirm_signin_new_password.dart';
-import 'package:amplify_authenticator/src/screens/reset_password_screen.dart';
-import 'package:amplify_authenticator/src/screens/confirm_signin_mfa_screen.dart';
-
+import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 //Bloc
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
-import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
-
-//Views
-import 'package:amplify_authenticator/src/views/signin_viewmodel.dart';
-import 'package:amplify_authenticator/src/views/signup_viewmodel.dart';
-import 'package:amplify_authenticator/src/views/confirm_signup_viewmodel.dart';
-import 'package:amplify_authenticator/src/views/confirm_signin_viewmodel.dart';
-
 //Enums
 import 'package:amplify_authenticator/src/enums/alias.dart';
-
+import 'package:amplify_authenticator/src/keys.dart';
+import 'package:amplify_authenticator/src/screens/confirm_signin_mfa_screen.dart';
+import 'package:amplify_authenticator/src/screens/confirm_signin_new_password.dart';
+import 'package:amplify_authenticator/src/screens/confirm_signup_screen.dart';
+//Screens
+import 'package:amplify_authenticator/src/screens/loading_screen.dart';
+import 'package:amplify_authenticator/src/screens/reset_password_screen.dart';
+import 'package:amplify_authenticator/src/screens/send_code_screen.dart';
+import 'package:amplify_authenticator/src/screens/signin_screen.dart';
+import 'package:amplify_authenticator/src/screens/signup_screen.dart';
 //Services
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
-
+import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
+import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
+import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
+//State
+import 'package:amplify_authenticator/src/state/inherited_forms.dart';
+//Views
+import 'package:amplify_authenticator/src/widgets/auth_exceptions.dart';
+import 'package:amplify_authenticator/src/widgets/default_forms.dart';
 //Widgets
 import 'package:amplify_authenticator/src/widgets/forms.dart';
-import 'package:amplify_authenticator/src/widgets/default_forms.dart';
-import 'package:amplify_authenticator/src/widgets/auth_exceptions.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 //Exports
 export 'package:amplify_authenticator/src/enums/alias.dart';
-export 'package:amplify_authenticator/src/widgets/forms.dart';
-export 'package:amplify_authenticator/src/widgets/form_fields.dart';
 export 'package:amplify_authenticator/src/widgets/buttons.dart'
     show SignOutButton;
+export 'package:amplify_authenticator/src/widgets/form_fields.dart';
+export 'package:amplify_authenticator/src/widgets/forms.dart';
 
-// ignore: must_be_immutable
 class Authenticator extends StatefulWidget {
   ///# Amplify Authenticator
   ///
@@ -90,22 +80,23 @@ class Authenticator extends StatefulWidget {
   ///     - define
   ///
   Authenticator({
+    Key? key,
     Alias? usernameAlias,
     required this.child,
     SignInForm? signInForm,
     SignUpForm? signUpForm,
     ConfirmSignInMFAForm? confirmSignInFormMFA,
-  }) {
+  }) : super(key: key) {
     this.usernameAlias = usernameAlias ?? Alias.username;
     this.signInForm = signInForm ?? DefaultForms.signInForm(this.usernameAlias);
     this.signUpForm = signUpForm ?? DefaultForms.signUpForm(this.usernameAlias);
-    this.confirmSignInMFAForm =
-        confirmSignInFormMFA ?? DefaultForms.confirmSignInForm();
+    confirmSignInMFAForm =
+        confirmSignInFormMFA ?? DefaultForms.confirmSignInForm;
 
     confirmSignUpForm = DefaultForms.confirmSignUpForm(this.usernameAlias);
     sendCodeForm = DefaultForms.sendCodeForm(this.usernameAlias);
-    resetPasswordForm = DefaultForms.resetPasswordForm();
-    confirmSignInNewPasswordForm = DefaultForms.confirmSignInNewPasswordForm();
+    resetPasswordForm = DefaultForms.resetPasswordForm;
+    confirmSignInNewPasswordForm = DefaultForms.confirmSignInNewPasswordForm;
   }
 
   ///Optional username alias to setup the preferred sign in method,
@@ -117,11 +108,11 @@ class Authenticator extends StatefulWidget {
   ///     Alias.phone_number
   ///     Alias.email_phone_number
   /// ```
-  late Alias usernameAlias;
+  late final Alias usernameAlias;
 
-  late SendCodeForm sendCodeForm;
-  late ConfirmSignUpForm confirmSignUpForm;
-  late ResetPasswordForm resetPasswordForm;
+  late final SendCodeForm sendCodeForm;
+  late final ConfirmSignUpForm confirmSignUpForm;
+  late final ResetPasswordForm resetPasswordForm;
   late final ConfirmSignInMFAForm confirmSignInMFAForm;
 
   /// This form will support the following form field types:
@@ -237,13 +228,18 @@ class Authenticator extends StatefulWidget {
   ///
   /// ```
 
-  late ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm;
+  late final ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm;
 
   /// This widget will be displayed after a user has signed in with some verified credentials.
   final Widget child;
 
   @override
   _AuthenticatorState createState() => _AuthenticatorState();
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(EnumProperty<Alias>('usernameAlias', usernameAlias));
+  }
 }
 
 class _AuthenticatorState extends State<Authenticator> {
@@ -261,74 +257,74 @@ class _AuthenticatorState extends State<Authenticator> {
   @override
   Widget build(BuildContext context) {
     return InheritedAuthBloc(
-        key: const Key(keyInheritedAuthBloc),
-        authBloc: _stateMachineBloc,
-        child: InheritedAuthViewModel(
-            key: const Key(keyInheritedAuthViewModel),
-            signInViewModel: SignInViewModel(_stateMachineBloc),
-            signUpViewModel: SignUpViewModel(_stateMachineBloc),
-            confirmSignUpViewModel: ConfirmSignUpViewModel(_stateMachineBloc),
-            confirmSignInViewModel: ConfirmSignInViewModel(_stateMachineBloc),
-            child: InheritedForms(
-                confirmSignInNewPasswordForm:
-                    widget.confirmSignInNewPasswordForm,
-                resetPasswordForm: widget.resetPasswordForm,
-                sendCodeForm: widget.sendCodeForm,
-                signInForm: widget.signInForm,
-                signUpForm: widget.signUpForm,
-                confirmSignUpForm: widget.confirmSignUpForm,
-                confirmSignInMFAForm: widget.confirmSignInMFAForm,
-                child: Scaffold(
-                  body: StreamBuilder(
-                    stream: _stateMachineBloc.stream,
-                    builder: (context, snapshot) {
-                      final state = snapshot.data ?? const AuthLoading();
-                      late Widget screen;
-                      if (state is AuthLoading) {
-                        screen = LoadingScreen();
-                      } else if (state is Authenticated) {
-                        return widget.child;
-                      } else if (state is AuthFlow &&
-                          state.screen == AuthScreen.signin) {
-                        screen = SignInScreen();
-                      } else if (state is AuthFlow &&
-                          state.screen == AuthScreen.signup) {
-                        screen = SignUpScreen();
-                      } else if (state is AuthFlow &&
-                          state.screen == AuthScreen.confirmSignUp) {
-                        screen = ConfirmSignUpScreen();
-                      } else if (state is AuthFlow &&
-                          state.screen == AuthScreen.confirmSignInMfa) {
-                        screen = const ConfirmSignInMFAScreen();
-                      } else if (state is AuthFlow &&
-                          state.screen == AuthScreen.confirmSignInNewPassword) {
-                        screen = ConfirmSignInNewPasswordScreen();
-                      } else if (state is AuthFlow &&
-                          state.screen == AuthScreen.sendCode) {
-                        screen = const SendCodeScreen();
-                      } else if (state is AuthFlow &&
-                          state.screen == AuthScreen.resetPassword) {
-                        screen = const ResetPasswordScreen();
-                      } else {
-                        screen = SignInScreen();
-                      }
+      key: const Key(keyInheritedAuthBloc),
+      authBloc: _stateMachineBloc,
+      child: InheritedAuthViewModel(
+        key: const Key(keyInheritedAuthViewModel),
+        viewModel: AuthViewModel(_stateMachineBloc),
+        child: InheritedForms(
+          confirmSignInNewPasswordForm: widget.confirmSignInNewPasswordForm,
+          resetPasswordForm: widget.resetPasswordForm,
+          sendCodeForm: widget.sendCodeForm,
+          signInForm: widget.signInForm,
+          signUpForm: widget.signUpForm,
+          confirmSignUpForm: widget.confirmSignUpForm,
+          confirmSignInMFAForm: widget.confirmSignInMFAForm,
+          child: Scaffold(
+            body: StreamBuilder<AuthState>(
+              stream: _stateMachineBloc.stream,
+              initialData: const AuthLoading(),
+              builder: (context, snapshot) {
+                final state = snapshot.data!;
+                late Widget screen;
+                if (state is Authenticated) {
+                  return widget.child;
+                } else if (state is AuthLoading) {
+                  screen = LoadingScreen();
+                } else if (state is AuthFlow &&
+                    state.screen == AuthScreen.signin) {
+                  screen = SignInScreen();
+                } else if (state is AuthFlow &&
+                    state.screen == AuthScreen.signup) {
+                  screen = SignUpScreen();
+                } else if (state is AuthFlow &&
+                    state.screen == AuthScreen.confirmSignUp) {
+                  screen = ConfirmSignUpScreen();
+                } else if (state is AuthFlow &&
+                    state.screen == AuthScreen.confirmSignInMfa) {
+                  screen = const ConfirmSignInMFAScreen();
+                } else if (state is AuthFlow &&
+                    state.screen == AuthScreen.confirmSignInNewPassword) {
+                  screen = ConfirmSignInNewPasswordScreen();
+                } else if (state is AuthFlow &&
+                    state.screen == AuthScreen.sendCode) {
+                  screen = const SendCodeScreen();
+                } else if (state is AuthFlow &&
+                    state.screen == AuthScreen.resetPassword) {
+                  screen = const ResetPasswordScreen();
+                } else {
+                  screen = SignInScreen();
+                }
 
-                      return Container(
-                        padding: const EdgeInsets.symmetric(vertical: 40),
-                        child: Center(
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                const AuthExceptionsWidget(),
-                                screen,
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    },
+                return Center(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 40),
+                      child: Column(
+                        children: [
+                          const AuthExceptionsWidget(),
+                          screen,
+                        ],
+                      ),
+                    ),
                   ),
-                ))));
+                );
+              },
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   @override

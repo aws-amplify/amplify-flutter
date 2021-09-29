@@ -9,6 +9,6 @@ class ResetPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final _resetPasswordForm = InheritedForms.of(context).resetPasswordForm;
     return AuthenticatorContainer(
-        title: "Reset your password", form: _resetPasswordForm);
+        title: 'Reset your password', form: _resetPasswordForm);
   }
 }

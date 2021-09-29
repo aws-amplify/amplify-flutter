@@ -1,6 +1,10 @@
 import 'package:amplify_authenticator/src/enums/alias.dart';
-import 'package:amplify_authenticator/src/widgets/forms.dart';
+import 'package:amplify_authenticator/src/enums/confirm_signin_types.dart';
+import 'package:amplify_authenticator/src/enums/confirm_signup_types.dart';
+import 'package:amplify_authenticator/src/enums/signin_types.dart';
+import 'package:amplify_authenticator/src/enums/signup_types.dart';
 import 'package:amplify_authenticator/src/widgets/form_fields.dart';
+import 'package:amplify_authenticator/src/widgets/forms.dart';
 
 /// These default forms will be used as long as there are no
 /// arguments being passed from the main Authenticator wrapper.
@@ -30,15 +34,18 @@ class DefaultForms {
         break;
     }
     return SignInForm(
-      formFields: FormFields(
-        children: [
-          SignInFormField(title: _title, hintText: _hintText, type: 'username'),
-          const SignInFormField(
-              title: 'Password*',
-              hintText: "Enter your password",
-              type: 'password')
-        ],
-      ),
+      fields: [
+        SignInFormField(
+          title: _title,
+          hintText: _hintText,
+          type: SignInType.username,
+        ),
+        const SignInFormField(
+          title: 'Password*',
+          hintText: 'Enter your password',
+          type: SignInType.password,
+        ),
+      ],
     );
   }
 
@@ -46,56 +53,70 @@ class DefaultForms {
     late List<SignUpFormField> _signUpFormFields;
     switch (alias) {
       case Alias.username:
-        _signUpFormFields = [
-          const SignUpFormField(
-              title: 'Username*',
-              hintText: "Enter your username",
-              type: 'username'),
-          const SignUpFormField(
-              title: 'Password*',
-              hintText: "Enter your password",
-              type: 'password'),
-          const SignUpFormField(
-              title: 'Email*', hintText: "Enter your email", type: 'email'),
-          const SignUpFormField(
-              title: 'Phone Number*',
-              hintText: "Enter your phone number",
-              type: 'phone_number')
+        _signUpFormFields = const [
+          SignUpFormField(
+            type: SignUpType.username,
+            title: 'Username*',
+            hintText: 'Enter your username',
+          ),
+          SignUpFormField(
+            type: SignUpType.password,
+            title: 'Password*',
+            hintText: 'Enter your password',
+          ),
+          SignUpFormField(
+            type: SignUpType.email,
+            title: 'Email*',
+            hintText: 'Enter your email',
+          ),
+          SignUpFormField(
+            type: SignUpType.phone_number,
+            title: 'Phone Number*',
+            hintText: 'Enter your phone number',
+          )
         ];
         break;
       case Alias.email:
-        _signUpFormFields = [
-          const SignUpFormField(
-              title: 'Email*', hintText: "Enter your email", type: 'username'),
-          const SignUpFormField(
-              title: 'Password*',
-              hintText: "Enter your password",
-              type: 'password'),
-          const SignUpFormField(
-              title: 'Phone Number*',
-              hintText: "Enter your phone number",
-              type: 'phone_number')
+        _signUpFormFields = const [
+          SignUpFormField(
+            type: SignUpType.username,
+            title: 'Email*',
+            hintText: 'Enter your email',
+          ),
+          SignUpFormField(
+            type: SignUpType.password,
+            title: 'Password*',
+            hintText: 'Enter your password',
+          ),
+          SignUpFormField(
+            type: SignUpType.phone_number,
+            title: 'Phone Number*',
+            hintText: 'Enter your phone number',
+          )
         ];
         break;
       default:
-        _signUpFormFields = [
-          const SignUpFormField(
-              title: 'Phone Number*',
-              hintText: "Enter your phone number",
-              type: 'username'),
-          const SignUpFormField(
-              title: 'Password*',
-              hintText: "Enter your password",
-              type: 'password'),
-          const SignUpFormField(
-              title: 'Email*', hintText: "Enter your email", type: 'email')
+        _signUpFormFields = const [
+          SignUpFormField(
+            type: SignUpType.username,
+            title: 'Phone Number*',
+            hintText: 'Enter your phone number',
+          ),
+          SignUpFormField(
+            type: SignUpType.password,
+            title: 'Password*',
+            hintText: 'Enter your password',
+          ),
+          SignUpFormField(
+            type: SignUpType.email,
+            title: 'Email*',
+            hintText: 'Enter your email',
+          )
         ];
         break;
     }
     return SignUpForm(
-      formFields: FormFields(
-        children: _signUpFormFields,
-      ),
+      fields: _signUpFormFields,
     );
   }
 
@@ -122,31 +143,30 @@ class DefaultForms {
     }
 
     return ConfirmSignUpForm(
-      formFields: FormFields(
-        children: [
-          ConfirmSignUpFormField(
-              title: _title, hintText: _hintText, type: 'username'),
-          const ConfirmSignUpFormField(
-              title: 'Verification Code*',
-              hintText: "Enter your verification code",
-              type: 'code'),
-        ],
-      ),
+      fields: [
+        ConfirmSignUpFormField(
+          type: ConfirmSignUpType.username,
+          title: _title,
+          hintText: _hintText,
+        ),
+        const ConfirmSignUpFormField(
+          type: ConfirmSignUpType.code,
+          title: 'Verification Code*',
+          hintText: 'Enter your verification code',
+        ),
+      ],
     );
   }
 
-  static ConfirmSignInMFAForm confirmSignInForm() {
-    return const ConfirmSignInMFAForm(
-      formFields: FormFields(
-        children: [
-          ConfirmSignInFormField(
-              title: 'Code*',
-              hintText: "Enter your confirmation code",
-              type: 'code'),
-        ],
+  static const ConfirmSignInMFAForm confirmSignInForm = ConfirmSignInMFAForm(
+    fields: [
+      ConfirmSignInFormField(
+        type: ConfirmSignInType.code,
+        title: 'Code*',
+        hintText: 'Enter your confirmation code',
       ),
-    );
-  }
+    ],
+  );
 
   static SendCodeForm sendCodeForm(Alias alias) {
     late String _title;
@@ -170,44 +190,41 @@ class DefaultForms {
         break;
     }
     return SendCodeForm(
-      formFields: FormFields(
-        children: [
-          SignInFormField(
-              title: _title, hintText: _hintText, type: 'new_username'),
-        ],
-      ),
+      fields: [
+        SignInFormField(
+          type: SignInType.new_username,
+          title: _title,
+          hintText: _hintText,
+        ),
+      ],
     );
   }
 
-  static ResetPasswordForm resetPasswordForm() {
-    return const ResetPasswordForm(
-      formFields: FormFields(
-        children: [
-          SignInFormField(
-              title: 'Verification code*',
-              hintText: 'Enter code',
-              type: 'verification_code'),
-          SignInFormField(
-              title: 'New password*',
-              hintText: 'Enter your new password',
-              type: 'new_password'),
-        ],
+  static const ResetPasswordForm resetPasswordForm = ResetPasswordForm(
+    fields: [
+      SignInFormField(
+        type: SignInType.verification_code,
+        title: 'Verification code*',
+        hintText: 'Enter code',
       ),
-    );
-  }
+      SignInFormField(
+        type: SignInType.new_password,
+        title: 'New password*',
+        hintText: 'Enter your new password',
+      ),
+    ],
+  );
 
 //This form will be displayed when result.nextStep!.signInStep ==
 //'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD'
-  static ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm() {
-    return const ConfirmSignInNewPasswordForm(
-      formFields: FormFields(
-        children: [
-          ConfirmSignInFormField(
-              title: 'New password*',
-              hintText: 'Enter your new password',
-              type: 'password'),
-        ],
+  static const ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm =
+      ConfirmSignInNewPasswordForm(
+    fields: [
+      ConfirmSignInFormField(
+        type: ConfirmSignInType.password,
+        title: 'New password*',
+        hintText: 'Enter your new password',
       ),
-    );
-  }
+    ],
+  );
 }

@@ -1,7 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
 import 'package:amplify_authenticator/src/constants/theme_constants.dart';
+import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/widgets/forms.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 // Reusable containers
 
@@ -82,54 +85,75 @@ class FormFieldContainer extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(ColorProperty('color', color));
+    properties.add(StringProperty('title', title));
+    properties.add(DiagnosticsProperty<bool?>('enable', enable));
+    properties.add(DiagnosticsProperty<bool>('obscureText', obscureText));
+    properties.add(StringProperty('hintText', hintText));
+    properties.add(StringProperty('initialValue', initialValue));
+    properties
+        .add(DiagnosticsProperty<TextInputType>('keyboardType', keyboardType));
+  }
 }
 
 class ButtonContainer extends StatelessWidget {
-  const ButtonContainer(
-      {Key? key,
-      required this.text,
-      required this.authViewModel,
-      required this.authKey,
-      required this.callback})
-      : super(key: key);
-  final dynamic authViewModel;
+  const ButtonContainer({
+    Key? key,
+    required this.text,
+    required this.authViewModel,
+    required this.authKey,
+    required this.callback,
+  }) : super(key: key);
+
+  final AuthViewModel authViewModel;
   final String authKey;
   final void Function() callback;
   final String text;
+
   @override
   Widget build(BuildContext context) {
-    late dynamic Function() _callback;
-
     return AnimatedBuilder(
-        animation: authViewModel,
-        builder: (context, child) {
-          Widget? _child;
+      animation: authViewModel,
+      builder: (context, child) {
+        Widget _child;
+        if (authViewModel.isBusy) {
+          _child = const CircularProgressIndicator(color: Colors.white);
+        } else {
+          _child = Text(text);
+        }
 
-          if (authViewModel.isBusy) {
-            _child = const CircularProgressIndicator(color: Colors.white);
-            _callback = () {};
-          } else {
-            _child = Text(text);
-            _callback = callback;
-          }
+        return ElevatedButton(
+          key: Key(authKey),
+          onPressed: authViewModel.isBusy ? null : callback,
+          child: _child,
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.all(10),
+            primary: Theme.of(context).primaryColor != Colors.blue
+                ? Theme.of(context).primaryColor
+                : AuthenticatorColors.primary,
+          ),
+        );
+      },
+    );
+  }
 
-          return ElevatedButton(
-            key: Key(authKey),
-            onPressed: _callback,
-            child: _child,
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.all(10),
-              primary: Theme.of(context).primaryColor != Colors.blue
-                  ? Theme.of(context).primaryColor
-                  : AuthenticatorColors.primary,
-            ),
-          );
-        });
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('text', text));
+    properties.add(StringProperty('authKey', authKey));
+    properties.add(DiagnosticsProperty('authViewModel', authViewModel));
   }
 }
 
 class ButtonsContainer extends StatelessWidget {
-  const ButtonsContainer({required this.children});
+  const ButtonsContainer({
+    required this.children,
+  });
 
   final List<Widget> children;
 
@@ -163,10 +187,12 @@ class ButtonsContainer extends StatelessWidget {
 }
 
 class AuthenticatorContainer extends StatelessWidget {
-  const AuthenticatorContainer({required this.form, required this.title});
+  const AuthenticatorContainer({
+    required this.form,
+    required this.title,
+  });
 
   final Widget form;
-
   final String title;
 
   @override
@@ -184,34 +210,47 @@ class AuthenticatorContainer extends StatelessWidget {
 
     return Container(
       width: containerWidth,
-      padding: AuthenticatorContainerConstants.padding,
+      padding: const EdgeInsets.all(AuthenticatorContainerConstants.padding),
       decoration: const BoxDecoration(
-          color: AuthenticatorColors.container,
-          borderRadius: AuthenticatorContainerConstants.borderRadius,
-          boxShadow: [AuthenticatorContainerConstants.boxShadow]),
-      child: Column(children: <Widget>[
-        Text(
-          title,
-          style: const TextStyle(
+        color: AuthenticatorColors.container,
+        borderRadius: AuthenticatorContainerConstants.borderRadius,
+        boxShadow: [AuthenticatorContainerConstants.boxShadow],
+      ),
+      child: Column(
+        children: <Widget>[
+          Text(
+            title,
+            style: const TextStyle(
               fontWeight: AuthenticatorContainerConstants.titleFontWeight,
-              fontSize: AuthenticatorContainerConstants.titleFontSize),
-        ),
-        const Padding(padding: AuthenticatorContainerConstants.gap),
-        form
-      ]),
+              fontSize: AuthenticatorContainerConstants.titleFontSize,
+            ),
+          ),
+          const SizedBox(
+            height: AuthenticatorContainerConstants.gap,
+          ),
+          form,
+        ],
+      ),
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('title', title));
   }
 }
 
+/// Wraps [fields] and [buttonsContainer] with a [Form] with key [formKey].
 class FormContainer extends StatelessWidget {
   const FormContainer({
     Key? key,
     required this.formKey,
-    required this.formFields,
+    required this.fields,
     required this.buttonsContainer,
   }) : super(key: key);
 
-  final FormFields formFields;
+  final List<AuthenticatorFormField> fields;
 
   final ButtonsContainer buttonsContainer;
 
@@ -220,9 +259,19 @@ class FormContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
-        key: formKey,
-        child: Column(
-          children: [formFields, buttonsContainer],
-        ));
+      key: formKey,
+      child: Column(
+        children: [
+          ...fields,
+          buttonsContainer,
+        ],
+      ),
+    );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<Key>('formKey', formKey));
   }
 }

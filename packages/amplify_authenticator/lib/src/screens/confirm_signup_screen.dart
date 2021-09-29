@@ -3,10 +3,12 @@ import 'package:amplify_authenticator/src/widgets/containers.dart';
 import 'package:flutter/material.dart';
 
 class ConfirmSignUpScreen extends StatelessWidget {
+  const ConfirmSignUpScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final _confirmSignUpForm = InheritedForms.of(context).confirmSignUpForm;
     return AuthenticatorContainer(
-        title: "Confirm Sign Up", form: _confirmSignUpForm);
+        title: 'Confirm Sign Up', form: _confirmSignUpForm);
   }
 }

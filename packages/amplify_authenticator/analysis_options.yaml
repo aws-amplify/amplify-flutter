@@ -1,14 +1,7 @@
-analyzer:
-  strong-mode:
-    implicit-dynamic: false
+include: package:amplify_lints/flutter_lib.yaml
 
-linter:
-  rules:
-    - avoid_print
-    - exhaustive_cases
-    - prefer_const_constructors
-    - prefer_const_constructors_in_immutables
-    - prefer_const_declarations
-    - prefer_const_literals_to_create_immutables
-    - prefer_final_fields
-    - unawaited_futures
+analyzer:
+  errors:
+    # TODO: Renable when logging library is finished
+    avoid_print: ignore
+    public_member_api_docs: ignore

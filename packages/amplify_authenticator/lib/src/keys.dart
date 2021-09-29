@@ -36,6 +36,8 @@ const String keyCustomSignUpFormField = 'customSignUpFormField';
 
 const String keyUsernameConfirmSignUpFormfield =
     'usernameConfirmSignUpFormField';
+const String keyPasswordConfirmSignUpFormfield =
+    'passwordConfirmSignUpFormField';
 const String keyEmailConfirmSignUpFormfield = 'emailConfirmSignUpFormField';
 const String keyPhoneNumberConfirmSignUpFormfield =
     'phoneNumberConfirmSignUpFormField';
@@ -77,17 +79,17 @@ const String keyCustomConfirmSignInFormField = 'customConfirmSignInFormField';
 
 // Buttons keys
 
-const String keySignUpButton = "signUpButton";
-const String keySignInButton = "signInButton";
-const String keyConfirmSignUpButton = "confirmSignUpButton";
-const String keySignOutButton = "signOutButton";
-const String keyBackToSignInButton = "backToSignInButton";
-const String keyGoToSignUpButton = "goToSignUpButton";
-const String keyGoToSignInButton = "goToSignInButton";
-const String keyConfirmSignInButton = "confirmSignInButton";
-const String keyLostCodeButton = "lostCodeButton";
-const String keySendCodeButton = "sendCodeButton";
+const String keySignUpButton = 'signUpButton';
+const String keySignInButton = 'signInButton';
+const String keyConfirmSignUpButton = 'confirmSignUpButton';
+const String keySignOutButton = 'signOutButton';
+const String keyBackToSignInButton = 'backToSignInButton';
+const String keyGoToSignUpButton = 'goToSignUpButton';
+const String keyGoToSignInButton = 'goToSignInButton';
+const String keyConfirmSignInButton = 'confirmSignInButton';
+const String keyLostCodeButton = 'lostCodeButton';
+const String keySendCodeButton = 'sendCodeButton';
 // Inherited keys
 
-const String keyInheritedAuthViewModel = "inheritedAuthViewModel";
-const String keyInheritedAuthBloc = "inheritedAuthBloc";
+const String keyInheritedAuthViewModel = 'inheritedAuthViewModel';
+const String keyInheritedAuthBloc = 'inheritedAuthBloc';

@@ -2,15 +2,17 @@ import 'dart:async';
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
-import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
-
-//Models
 import 'package:amplify_authenticator/src/models/authenticator_exceptions.dart';
+import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 import 'package:amplify_flutter/amplify.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
+/// {@template state_machine_bloc}
+/// Internal state machine for the authenticator. Listens to authentication events
+/// and maps them to appropriate state transitions.
+/// {@endtemplate}
 class StateMachineBloc {
   final AuthService _authService;
 
@@ -33,10 +35,9 @@ class StateMachineBloc {
 
   /// Outputs events into the event transformer.
   late final Stream<AuthEvent> _authEventStream = _authEventController.stream;
-  // ignore: unused_field
   late final StreamSubscription<AuthState> _subscription;
 
-  // ignore: public_member_api_docs
+  /// {@macro state_machine_bloc}
   StateMachineBloc(this._authService) {
     _subscription =
         _authEventStream.asyncExpand(_eventTransformer).listen((state) {
@@ -44,11 +45,12 @@ class StateMachineBloc {
     });
   }
 
-  //Exception Controller
-  final StreamController<AuthenticatorException?> _exceptionController =
-      StreamController<AuthenticatorException?>.broadcast();
+  /// Manages exception events separate from the bloc's state.
+  final StreamController<AuthenticatorException> _exceptionController =
+      StreamController<AuthenticatorException>.broadcast();
 
-  Stream<AuthenticatorException?> get exceptions => _exceptionController.stream;
+  /// Exception events which occur in the bloc.
+  Stream<AuthenticatorException> get exceptions => _exceptionController.stream;
 
   Stream<AuthState> _eventTransformer(AuthEvent event) async* {
     if (event is AuthLoad) {
@@ -85,13 +87,10 @@ class StateMachineBloc {
       AuthSignInData authSignInData =
           AuthSignInData(username: data.username, password: data.password);
       yield* _signIn(authSignInData);
+    } on AmplifyException catch (e) {
+      _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
-      if (e is AmplifyException) {
-        print(e);
-        _exceptionController.add(AuthenticatorException(e.message));
-      } else {
-        _exceptionController.add(AuthenticatorException(e.toString()));
-      }
+      _exceptionController.add(AuthenticatorException(e.toString()));
     }
   }
 
@@ -101,13 +100,10 @@ class StateMachineBloc {
           code: data.code, attributes: data.attributes);
 
       yield const Authenticated();
+    } on AmplifyException catch (e) {
+      _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
-      if (e is AmplifyException) {
-        print(e);
-        _exceptionController.add(AuthenticatorException(e.message));
-      } else {
-        _exceptionController.add(AuthenticatorException(e.toString()));
-      }
+      _exceptionController.add(AuthenticatorException(e.toString()));
     }
   }
 
@@ -116,14 +112,10 @@ class StateMachineBloc {
       await _authService.confirmPassword(
           data.username, data.confirmationCode, data.newPassword);
       yield AuthFlow(screen: AuthScreen.signin);
+    } on AmplifyException catch (e) {
+      _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
-      if (e is AmplifyException) {
-        print(e);
-        _exceptionController.add(AuthenticatorException(e.message));
-      } else {
-        print(e);
-        _exceptionController.add(AuthenticatorException(e.toString()));
-      }
+      _exceptionController.add(AuthenticatorException(e.toString()));
     }
   }
 
@@ -131,19 +123,15 @@ class StateMachineBloc {
     try {
       await _authService.resetPassword(data.username);
       yield AuthFlow(screen: AuthScreen.resetPassword);
+    } on AmplifyException catch (e) {
+      _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
-      if (e is AmplifyException) {
-        print(e.message);
-        _exceptionController.add(AuthenticatorException(e.message));
-      } else {
-        print(e);
-        _exceptionController.add(AuthenticatorException(e.toString()));
-      }
+      _exceptionController.add(AuthenticatorException(e.toString()));
     }
   }
 
   Stream<AuthState> _authLoad() async* {
-    yield AuthLoading();
+    yield const AuthLoading();
   }
 
   Stream<AuthState> _getCurrentUser() async* {
@@ -155,14 +143,10 @@ class StateMachineBloc {
       } else {
         yield AuthFlow(screen: AuthScreen.signin);
       }
+    } on AmplifyException catch (e) {
+      _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
-      if (e is AmplifyException) {
-        print(e);
-        _exceptionController.add(AuthenticatorException(e.message));
-      } else {
-        print(e);
-        _exceptionController.add(AuthenticatorException(e.toString()));
-      }
+      _exceptionController.add(AuthenticatorException(e.toString()));
     }
   }
 
@@ -207,15 +191,13 @@ class StateMachineBloc {
         default:
           break;
       }
+    } on UserNotConfirmedException catch (e) {
+      _exceptionController.add(AuthenticatorException(e.message));
+      yield AuthFlow(screen: AuthScreen.confirmSignUp);
+    } on AmplifyException catch (e) {
+      _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
-      if (e is UserNotConfirmedException) {
-        _exceptionController.add(AuthenticatorException(e.message));
-        yield AuthFlow(screen: AuthScreen.confirmSignUp);
-      } else if (e is AmplifyException) {
-        _exceptionController.add(AuthenticatorException(e.message));
-      } else {
-        _exceptionController.add(AuthenticatorException(e.toString()));
-      }
+      _exceptionController.add(AuthenticatorException(e.toString()));
     }
   }
 
@@ -226,24 +208,19 @@ class StateMachineBloc {
 
       switch (result.nextStep.signUpStep) {
         case 'CONFIRM_SIGN_UP_STEP':
-          clearException();
           yield AuthFlow(screen: AuthScreen.confirmSignUp);
           break;
         case 'DONE':
-          clearException();
           final AuthSignInData authSignInData =
               AuthSignInData(username: data.username, password: data.password);
 
           yield* _signIn(authSignInData);
           break;
       }
+    } on AmplifyException catch (e) {
+      _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
-      if (e is AmplifyException) {
-        print(e);
-        _exceptionController.add(AuthenticatorException(e.message));
-      } else {
-        _exceptionController.add(AuthenticatorException(e.toString()));
-      }
+      _exceptionController.add(AuthenticatorException(e.toString()));
     }
   }
 
@@ -254,13 +231,10 @@ class StateMachineBloc {
           AuthSignInData(username: data.username, password: data.password);
 
       yield* _signIn(authSignInData);
+    } on AmplifyException catch (e) {
+      _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
-      if (e is AmplifyException) {
-        print(e);
-        _exceptionController.add(AuthenticatorException(e.message));
-      } else {
-        _exceptionController.add(AuthenticatorException(e.toString()));
-      }
+      _exceptionController.add(AuthenticatorException(e.toString()));
     }
   }
 
@@ -268,13 +242,10 @@ class StateMachineBloc {
     try {
       await _authService.signOut();
       yield AuthFlow(screen: AuthScreen.signin);
+    } on AmplifyException catch (e) {
+      _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
-      if (e is AmplifyException) {
-        print(e.message);
-        _exceptionController.add(AuthenticatorException(e.message));
-      } else {
-        _exceptionController.add(AuthenticatorException(e.toString()));
-      }
+      _exceptionController.add(AuthenticatorException(e.toString()));
     }
   }
 
@@ -282,28 +253,21 @@ class StateMachineBloc {
     yield AuthFlow(screen: screen);
   }
 
-  //Public Methods
-
-  void clearException() {
-    _exceptionController.add(null);
-  }
-
-  Future<void> resendSignUpCode(String username) async {
+  Future<void> _resendSignUpCode(String username) async {
     try {
       await _authService.resendSignUpCode(username);
+    } on AmplifyException catch (e) {
+      _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {
-      if (e is AmplifyException) {
-        print(e);
-        _exceptionController.add(AuthenticatorException(e.message));
-      } else {
-        _exceptionController.add(AuthenticatorException(e.toString()));
-      }
+      _exceptionController.add(AuthenticatorException(e.toString()));
     }
   }
 
-  void dispose() {
-    _authStateController.close();
-    _authEventController.close();
-    _exceptionController.close();
+  Future<void> dispose() {
+    return Future.wait<void>([
+      _authStateController.close(),
+      _authEventController.close(),
+      _exceptionController.close(),
+    ]);
   }
 }

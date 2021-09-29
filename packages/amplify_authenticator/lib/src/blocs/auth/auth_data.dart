@@ -1,4 +1,6 @@
 // ignore: public_member_api_docs
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+
 enum AuthScreen {
   signup,
   signin,
@@ -24,8 +26,7 @@ class AuthSignUpData {
       required this.username,
       required this.attributes});
 
-  ///attributes
-  final Map<String, String> attributes;
+  final Map<CognitoUserAttributes, String> attributes;
 
   final String password;
 
@@ -46,7 +47,7 @@ class AuthConfirmSignUpData {
 class AuthConfirmSignInMFAData {
   final String code;
 
-  Map<String, String>? attributes;
+  Map<CognitoUserAttributes, String>? attributes;
 
   AuthConfirmSignInMFAData({
     required this.code,
@@ -60,7 +61,7 @@ class AuthConfirmSignInNewPasswordData {
   final String username;
   final String password;
 
-  Map<String, String>? attributes;
+  Map<CognitoUserAttributes, String>? attributes;
 
   AuthConfirmSignInNewPasswordData(
       {required this.code,
@@ -85,10 +86,13 @@ class AuthConfirmPasswordData {
 }
 
 class AuthUpdatePasswordData {
-  AuthUpdatePasswordData(
-      {required this.username, required this.newPassword, this.attributes});
+  AuthUpdatePasswordData({
+    required this.username,
+    required this.newPassword,
+    this.attributes,
+  });
 
-  Map<String, String>? attributes;
+  Map<CognitoUserAttributes, String>? attributes;
   final String username;
   final String newPassword;
 }

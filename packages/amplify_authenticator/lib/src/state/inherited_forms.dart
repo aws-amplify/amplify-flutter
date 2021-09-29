@@ -2,17 +2,17 @@ import 'package:amplify_authenticator/src/widgets/forms.dart';
 import 'package:flutter/material.dart';
 
 class InheritedForms extends InheritedWidget {
-  // ignore: public_member_api_docs
-  const InheritedForms(
-      {required this.signInForm,
-      required this.signUpForm,
-      required this.confirmSignUpForm,
-      required this.confirmSignInMFAForm,
-      required this.sendCodeForm,
-      required this.resetPasswordForm,
-      required this.confirmSignInNewPasswordForm,
-      required Widget child})
-      : super(child: child);
+  const InheritedForms({
+    Key? key,
+    required this.signInForm,
+    required this.signUpForm,
+    required this.confirmSignUpForm,
+    required this.confirmSignInMFAForm,
+    required this.sendCodeForm,
+    required this.resetPasswordForm,
+    required this.confirmSignInNewPasswordForm,
+    required Widget child,
+  }) : super(key: key, child: child);
 
   final SignInForm signInForm;
 
@@ -30,7 +30,6 @@ class InheritedForms extends InheritedWidget {
 
   //final ResetPasswordForm resetPasswordForm;
 
-  // ignore: public_member_api_docs
   static InheritedForms of(BuildContext context) {
     final forms = context.dependOnInheritedWidgetOfExactType<InheritedForms>();
 
@@ -50,3 +49,5 @@ class InheritedForms extends InheritedWidget {
   @override
   bool updateShouldNotify(covariant InheritedWidget oldWidget) => true;
 }
+
+// ignore_for_file: prefer_asserts_with_message

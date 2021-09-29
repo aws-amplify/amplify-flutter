@@ -13,14 +13,14 @@ class AuthenticatorContainerConstants extends AuthenticatorConstants {
 
   static const FontWeight titleFontWeight = FontWeight.bold;
 
-  static const padding = EdgeInsets.all(40);
+  static const padding = 40.0;
 
-  static const gap = EdgeInsets.only(bottom: 24);
+  static const gap = 24.0;
 
   static const BorderRadius borderRadius =
       BorderRadius.all(Radius.circular(10));
 
-  static const BoxShadow boxShadow = const BoxShadow(
+  static const BoxShadow boxShadow = BoxShadow(
     color: Color.fromRGBO(0, 0, 0, 0.15),
     spreadRadius: 1,
     offset: Offset(

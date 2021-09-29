@@ -3,10 +3,12 @@ import 'package:amplify_authenticator/src/widgets/containers.dart';
 import 'package:flutter/material.dart';
 
 class SignInScreen extends StatelessWidget {
+  const SignInScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final _signInForm = InheritedForms.of(context).signInForm;
     return AuthenticatorContainer(
-        title: "Sign in to your account", form: _signInForm);
+        title: 'Sign in to your account', form: _signInForm);
   }
 }
