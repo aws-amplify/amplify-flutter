@@ -8,8 +8,21 @@ import 'package:amplify_authenticator/src/widgets/form_fields.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class AuthenticatorForm extends StatelessAuthenticatorComponent {
-  const AuthenticatorForm({
+/// {@template authenticator.authenticator_form}
+/// Base class for Authenticator forms.
+///
+/// See also:
+/// - [AuthenticatorForm.signIn]
+/// - [AuthenticatorForm.signUp]
+/// - [AuthenticatorForm.confirmSignUp]
+/// - [AuthenticatorForm.confirmSignInMFA]
+/// - [AuthenticatorForm.sendCode]
+/// - [AuthenticatorForm.resetPassword]
+/// - [AuthenticatorForm.confirmSignInWithNewPassword]
+/// {@endtemplate}
+abstract class AuthenticatorForm extends StatelessAuthenticatorComponent {
+  /// {@macro authenticator.authenticator_form}
+  const AuthenticatorForm._({
     Key? key,
     required this.fields,
     required this.buttons,
@@ -110,7 +123,7 @@ class SignInForm extends AuthenticatorForm {
     Key? key,
     required List<SignInFormField> fields,
     this.includeDefaultAttributes = false,
-  }) : super(
+  }) : super._(
           key: key,
           fields: fields,
           buttons: const [
@@ -209,7 +222,7 @@ class SignUpForm extends AuthenticatorForm {
   const SignUpForm.custom({
     Key? key,
     required List<SignUpFormField> fields,
-  }) : super(
+  }) : super._(
           key: key,
           fields: fields,
           buttons: const [
@@ -235,7 +248,7 @@ class ConfirmSignUpForm extends AuthenticatorForm {
     Key? key,
     required List<ConfirmSignUpFormField> fields,
     this.resendCodeButton,
-  }) : super(
+  }) : super._(
           key: key,
           fields: fields,
           buttons: const [
@@ -260,7 +273,7 @@ class ConfirmSignInMFAForm extends AuthenticatorForm {
   const ConfirmSignInMFAForm.custom({
     Key? key,
     required List<ConfirmSignInFormField> fields,
-  }) : super(
+  }) : super._(
           key: key,
           fields: fields,
           buttons: const [
@@ -283,7 +296,7 @@ class SendCodeForm extends AuthenticatorForm {
   const SendCodeForm.custom({
     Key? key,
     required List<SignInFormField> fields,
-  }) : super(
+  }) : super._(
           key: key,
           fields: fields,
           buttons: const [
@@ -307,7 +320,7 @@ class ResetPasswordForm extends AuthenticatorForm {
   const ResetPasswordForm.custom({
     Key? key,
     required List<SignInFormField> fields,
-  }) : super(
+  }) : super._(
           key: key,
           fields: fields,
           buttons: const [
@@ -330,7 +343,7 @@ class ConfirmSignInNewPasswordForm extends AuthenticatorForm {
   const ConfirmSignInNewPasswordForm.custom({
     Key? key,
     required List<ConfirmSignInFormField> fields,
-  }) : super(
+  }) : super._(
           key: key,
           fields: fields,
           buttons: const [
