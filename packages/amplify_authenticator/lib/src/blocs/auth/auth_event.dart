@@ -82,3 +82,25 @@ class AuthConfirmSignIn extends AuthEvent {
 
   const AuthConfirmSignIn(this.data);
 }
+
+class AuthSetUnverifiedAttributeKeys extends AuthEvent {
+  final AuthSetUnverifiedAttributeKeysData data;
+
+  const AuthSetUnverifiedAttributeKeys(this.data);
+}
+
+class AuthVerifyUser extends AuthEvent {
+  final AuthVerifyUserData data;
+
+  const AuthVerifyUser(this.data);
+}
+
+class AuthSkipVerifyUser extends AuthEvent {
+  const AuthSkipVerifyUser();
+}
+
+class AuthConfirmVerifyUser extends AuthEvent {
+  final AuthConfirmVerifyUserData data;
+
+  const AuthConfirmVerifyUser(this.data);
+}

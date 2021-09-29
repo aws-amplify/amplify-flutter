@@ -36,3 +36,10 @@ class AuthFlow extends AuthState {
 
   AuthFlow({required this.screen});
 }
+
+class VerifyUserFlow extends AuthFlow {
+  List<String> unverifiedAttributeKeys;
+
+  VerifyUserFlow({required this.unverifiedAttributeKeys})
+      : super(screen: AuthScreen.verifyUser);
+}
