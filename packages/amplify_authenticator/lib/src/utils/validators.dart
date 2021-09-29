@@ -50,7 +50,7 @@ FormFieldValidator<String> validateSignUpPassword(BuildContext context) {
 
   return (String? password) {
     List<String> passwordHints = [
-      _hintStrings.password_requirements_unmet(context)
+      _hintStrings.passwordRequirementsUnmet(context)
     ];
 
     int? minLength = _passwordProtectionSettings?.passwordPolicyMinLength;
@@ -58,7 +58,7 @@ FormFieldValidator<String> validateSignUpPassword(BuildContext context) {
         _passwordProtectionSettings?.passwordPolicyCharacters;
     if (password == null || password.isEmpty || minLength! > password.length) {
       passwordHints.add(
-          '* ${_hintStrings.password_at_least(context)} $minLength ${_hintStrings.password_characters(context)}');
+          '* ${_hintStrings.passwordAtLeast(context)} $minLength ${_hintStrings.passwordCharacters(context)}');
     }
     if (password != null &&
         passwordCharacters != null &&
@@ -67,27 +67,25 @@ FormFieldValidator<String> validateSignUpPassword(BuildContext context) {
               .contains(PasswordPolicyCharacters.requiresLowercase) &&
           !_lowercase.hasMatch(password)) {
         passwordHints
-            .add('* ${_hintStrings.password_requires_lowercase(context)}');
+            .add('* ${_hintStrings.passwordRequiresLowercase(context)}');
       }
       if (passwordCharacters
               .contains(PasswordPolicyCharacters.requiresUppercase) &&
           !_uppercase.hasMatch(password)) {
         passwordHints
-            .add('* ${_hintStrings.password_requires_uppercase(context)}');
+            .add('* ${_hintStrings.passwordRequiresUppercase(context)}');
       }
       if (passwordCharacters
               .contains(PasswordPolicyCharacters.requiresNumbers) &&
           !_numeric.hasMatch(password)) {
-        passwordHints
-            .add('* ${_hintStrings.password_requires_numbers(context)}');
+        passwordHints.add('* ${_hintStrings.passwordRequiresNumbers(context)}');
       }
       // TODO: symbols regex does not handle single quotes, currently handling with separate check.
       if (passwordCharacters
               .contains(PasswordPolicyCharacters.requiresSymbols) &&
           !_symbols.hasMatch(password) &&
           !password.contains("'")) {
-        passwordHints
-            .add('* ${_hintStrings.password_requires_symbols(context)}');
+        passwordHints.add('* ${_hintStrings.passwordRequiresSymbols(context)}');
       }
     }
     return null;
@@ -96,12 +94,12 @@ FormFieldValidator<String> validateSignUpPassword(BuildContext context) {
 
 FormFieldValidator<String> validateUsername(BuildContext context) {
   final inputsResolver = InheritedStrings.of(context).inputs;
-  return simpleValidator(inputsResolver.username_empty(context));
+  return simpleValidator(inputsResolver.usernameEmpty(context));
 }
 
 FormFieldValidator<String> validatePassword(BuildContext context) {
   final inputsResolver = InheritedStrings.of(context).inputs;
-  return simpleValidator(inputsResolver.password_empty(context));
+  return simpleValidator(inputsResolver.passwordEmpty(context));
 }
 
 FormFieldValidator<String> validatePasswordConfirmation(

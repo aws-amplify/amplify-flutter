@@ -17,446 +17,446 @@ import 'package:amplify_authenticator/src/text_customization/resolver.dart';
 import 'package:flutter/material.dart';
 
 enum InputResolverKey {
-  username_title,
-  username_hint,
-  username_empty,
-  password_title,
-  password_hint,
-  password_confirmation_title,
-  password_empty,
-  password_requirements_unmet,
-  password_at_least,
-  password_characters,
-  password_requires_uppercase,
-  password_requires_lowercase,
-  password_confirmation_hint,
-  password_requires_numbers,
-  password_requires_symbols,
-  email_title,
-  email_hint,
-  email_empty,
-  phone_number_title,
-  phone_number_hint,
-  phone_number_empty,
-  verification_code_title,
-  verification_code_hint,
-  verification_code_empty,
-  email_phone_number_title,
-  email_phone_number_hint,
-  email_phone_number_empty,
-  address_title,
-  address_hint,
-  address_empty,
-  birthdate_title,
-  birthdate_hint,
-  birthdate_empty,
-  family_name_title,
-  family_name_hint,
-  family_name_empty,
-  middle_name_title,
-  middle_name_hint,
-  middle_name_empty,
-  gender_title,
-  gender_hint,
-  gender_empty,
-  locale_title,
-  locale_hint,
-  locale_empty,
-  given_name_title,
-  given_name_hint,
-  given_name_empty,
-  name_title,
-  name_hint,
-  name_empty,
-  nickname_title,
-  nickname_hint,
-  nickname_empty,
-  preferred_username_title,
-  preferred_username_hint,
-  preferred_username_empty,
-  picture_title,
-  picture_hint,
-  picture_empty,
-  profile_title,
-  profile_hint,
-  profile_empty,
-  updated_at_title,
-  updated_at_hint,
-  updated_at_empty,
-  website_title,
-  website_hint,
-  website_empty,
-  zoneinfo_title,
-  zoneinfo_hint,
-  zoneinfo_empty,
+  usernameTitle,
+  usernameHint,
+  usernameEmpty,
+  passwordTitle,
+  passwordHint,
+  passwordEmpty,
+  passwordConfirmationTitle,
+  passwordConfirmationHint,
+  passwordRequirementsUnmet,
+  passwordAtLeast,
+  passwordCharacters,
+  passwordRequiresUppercase,
+  passwordRequiresLowercase,
+  passwordRequiresNumbers,
+  passwordRequiresSymbols,
+  emailTitle,
+  emailHint,
+  emailEmpty,
+  phoneNumberTitle,
+  phoneNumberHint,
+  phoneNumberEmpty,
+  verificationCodeTitle,
+  verificationCodeHint,
+  verificationCodeEmpty,
+  emailPhoneNumberTitle,
+  emailPhoneNumberHint,
+  emailPhoneNumberEmpty,
+  addressTitle,
+  addressHint,
+  addressEmpty,
+  birthdateTitle,
+  birthdateHint,
+  birthdateEmpty,
+  familyNameTitle,
+  familyNameHint,
+  familyNameEmpty,
+  middleNameTitle,
+  middleNameHint,
+  middleNameEmpty,
+  genderTitle,
+  genderHint,
+  genderEmpty,
+  localeTitle,
+  localeHint,
+  localeEmpty,
+  givenNameTitle,
+  givenNameHint,
+  givenNameEmpty,
+  nameTitle,
+  nameHint,
+  nameEmpty,
+  nicknameTitle,
+  nicknameHint,
+  nicknameEmpty,
+  preferredUsernameTitle,
+  preferredUsernameHint,
+  preferredUsernameEmpty,
+  pictureTitle,
+  pictureHint,
+  pictureEmpty,
+  profileTitle,
+  profileHint,
+  profileEmpty,
+  updatedAtTitle,
+  updatedAtHint,
+  updatedAtEmpty,
+  websiteTitle,
+  websiteHint,
+  websiteEmpty,
+  zoneinfoTitle,
+  zoneinfoHint,
+  zoneinfoEmpty,
 }
 
 abstract class InputResolver extends Resolver<InputResolverKey> {
   const InputResolver();
 
   /// Title of username field
-  String username_title(BuildContext context);
+  String usernameTitle(BuildContext context);
 
   /// Hint of username field
-  String username_hint(BuildContext context);
+  String usernameHint(BuildContext context);
 
   /// Username field is empty validation failure
-  String username_empty(BuildContext context);
+  String usernameEmpty(BuildContext context);
 
   /// Title of password field
-  String password_title(BuildContext context);
+  String passwordTitle(BuildContext context);
 
   /// Hint of password field
-  String password_hint(BuildContext context);
+  String passwordHint(BuildContext context);
 
   /// Title of confirm password field
-  String password_confirmation_title(BuildContext context);
-
-  /// Password field is empty validation failure
-  String password_empty(BuildContext context);
-
-  /// Password requirements not met validation failure
-  String password_requirements_unmet(BuildContext context);
-
-  /// First part of string describing a password that is too short, to be followed by minimum length
-  String password_at_least(BuildContext context);
-
-  /// Second part of string describing a password that is too short, preceeded by by minimum length
-  String password_characters(BuildContext context);
-
-  /// Password uppercase character validation failure
-  String password_requires_uppercase(BuildContext context);
-
-  /// Password lowercase character validation failure
-  String password_requires_lowercase(BuildContext context);
+  String passwordConfirmationTitle(BuildContext context);
 
   /// Hint of password confirmation field
-  String password_confirmation_hint(BuildContext context);
+  String passwordConfirmationHint(BuildContext context);
+
+  /// Password field is empty validation failure
+  String passwordEmpty(BuildContext context);
+
+  /// Password requirements not met validation failure
+  String passwordRequirementsUnmet(BuildContext context);
+
+  /// First part of string describing a password that is too short, to be followed by minimum length
+  String passwordAtLeast(BuildContext context);
+
+  /// Second part of string describing a password that is too short, preceeded by by minimum length
+  String passwordCharacters(BuildContext context);
+
+  /// Password uppercase character validation failure
+  String passwordRequiresUppercase(BuildContext context);
+
+  /// Password lowercase character validation failure
+  String passwordRequiresLowercase(BuildContext context);
 
   /// Password number character validation failure
-  String password_requires_numbers(BuildContext context);
+  String passwordRequiresNumbers(BuildContext context);
 
   /// Password symbol character validation failure
-  String password_requires_symbols(BuildContext context);
+  String passwordRequiresSymbols(BuildContext context);
 
   /// Title of email field
-  String email_title(BuildContext context);
+  String emailTitle(BuildContext context);
 
   /// Hint of email field
-  String email_hint(BuildContext context);
+  String emailHint(BuildContext context);
 
   /// Email field is empty validation failure
-  String email_empty(BuildContext context);
+  String emailEmpty(BuildContext context);
 
   /// Title of phone number field
-  String phone_number_title(BuildContext context);
+  String phoneNumberTitle(BuildContext context);
 
   /// Hint of phone number field
-  String phone_number_hint(BuildContext context);
+  String phoneNumberHint(BuildContext context);
 
   /// Phone number field is empty validation failure
-  String phone_number_empty(BuildContext context);
+  String phoneNumberEmpty(BuildContext context);
 
   /// Title of verification code field
-  String verification_code_title(BuildContext context);
+  String verificationCodeTitle(BuildContext context);
 
   /// Hint of verification code field
-  String verification_code_hint(BuildContext context);
+  String verificationCodeHint(BuildContext context);
 
   /// Verification code field is empty validation failure
-  String verification_code_empty(BuildContext context);
+  String verificationCodeEmpty(BuildContext context);
 
   /// Title of field accepting email or phone_number
-  String email_phone_number_title(BuildContext context);
+  String emailPhoneNumberTitle(BuildContext context);
 
   /// Hint of field accepting email or phone_number
-  String email_phone_number_hint(BuildContext context);
+  String emailPhoneNumberHint(BuildContext context);
 
   /// Email/phone number field is empty validation failure
-  String email_phone_number_empty(BuildContext context);
+  String emailPhoneNumberEmpty(BuildContext context);
 
   /// Title of address field
-  String address_title(BuildContext context);
+  String addressTitle(BuildContext context);
 
   /// Hint of address field
-  String address_hint(BuildContext context);
+  String addressHint(BuildContext context);
 
   /// Address field is empty validation failure
-  String address_empty(BuildContext context);
+  String addressEmpty(BuildContext context);
 
   /// Title of birthdate field
-  String birthdate_title(BuildContext context);
+  String birthdateTitle(BuildContext context);
 
   /// Hint of birthdate field
-  String birthdate_hint(BuildContext context);
+  String birthdateHint(BuildContext context);
 
   /// Address field is empty validation failure
-  String birthdate_empty(BuildContext context);
+  String birthdateEmpty(BuildContext context);
 
   /// Title of family_name field
-  String family_name_title(BuildContext context);
+  String familyNameTitle(BuildContext context);
 
   /// Hint of family_name field
-  String family_name_hint(BuildContext context);
+  String familyNameHint(BuildContext context);
 
   /// Family name field is empty validation failure
-  String family_name_empty(BuildContext context);
+  String familyNameEmpty(BuildContext context);
 
   /// Title of middle_name field
-  String middle_name_title(BuildContext context);
+  String middleNameTitle(BuildContext context);
 
   /// Hint of middle_name field
-  String middle_name_hint(BuildContext context);
+  String middleNameHint(BuildContext context);
 
   /// Middle name field is empty validation failure
-  String middle_name_empty(BuildContext context);
+  String middleNameEmpty(BuildContext context);
 
   /// Title of gender field
-  String gender_title(BuildContext context);
+  String genderTitle(BuildContext context);
 
   /// Hint of gender field
-  String gender_hint(BuildContext context);
+  String genderHint(BuildContext context);
 
   /// Gender field is empty validation failure
-  String gender_empty(BuildContext context);
+  String genderEmpty(BuildContext context);
 
   /// Title of locale field
-  String locale_title(BuildContext context);
+  String localeTitle(BuildContext context);
 
   /// Hint of locale field
-  String locale_hint(BuildContext context);
+  String localeHint(BuildContext context);
 
   /// Locale field is empty validation failure
-  String locale_empty(BuildContext context);
+  String localeEmpty(BuildContext context);
 
   /// Title of given_name field
-  String given_name_title(BuildContext context);
+  String givenNameTitle(BuildContext context);
 
   /// Hint of given_name field
-  String given_name_hint(BuildContext context);
+  String givenNameHint(BuildContext context);
 
   /// Given name field is empty validation failure
-  String given_name_empty(BuildContext context);
+  String givenNameEmpty(BuildContext context);
 
   /// Title of name field
-  String name_title(BuildContext context);
+  String nameTitle(BuildContext context);
 
   /// Hint of name field
-  String name_hint(BuildContext context);
+  String nameHint(BuildContext context);
 
   /// Name field is empty validation failure
-  String name_empty(BuildContext context);
+  String nameEmpty(BuildContext context);
 
   /// Title of nickname field
-  String nickname_title(BuildContext context);
+  String nicknameTitle(BuildContext context);
 
   /// Hint of nickname field
-  String nickname_hint(BuildContext context);
+  String nicknameHint(BuildContext context);
 
   /// Nickname field is empty validation failure
-  String nickname_empty(BuildContext context);
+  String nicknameEmpty(BuildContext context);
 
   /// Title of preferred_username_ field
-  String preferred_username_title(BuildContext context);
+  String preferredUsernameTitle(BuildContext context);
 
   /// Hint of preferred_username_ field
-  String preferred_username_hint(BuildContext context);
+  String preferredUsernameHint(BuildContext context);
 
   /// Preferred username field is empty validation failure
-  String preferred_username_empty(BuildContext context);
+  String preferredUsernameEmpty(BuildContext context);
 
   /// Title of picture field
-  String picture_title(BuildContext context);
+  String pictureTitle(BuildContext context);
 
   /// Hint of picture field
-  String picture_hint(BuildContext context);
+  String pictureHint(BuildContext context);
 
   /// Picture field is empty validation failure
-  String picture_empty(BuildContext context);
+  String pictureEmpty(BuildContext context);
 
   /// Title of profile field
-  String profile_title(BuildContext context);
+  String profileTitle(BuildContext context);
 
   /// Hint of profile field
-  String profile_hint(BuildContext context);
+  String profileHint(BuildContext context);
 
   /// Profile field is empty validation failure
-  String profile_empty(BuildContext context);
+  String profileEmpty(BuildContext context);
 
   /// Title of updated_at field
-  String updated_at_title(BuildContext context);
+  String updatedAtTitle(BuildContext context);
 
   /// Hint of updated_at field
-  String updated_at_hint(BuildContext context);
+  String updatedAtHint(BuildContext context);
 
   /// Updated at field is empty validation failure
-  String updated_at_empty(BuildContext context);
+  String updatedAtEmpty(BuildContext context);
 
   /// Title of website field
-  String website_title(BuildContext context);
+  String websiteTitle(BuildContext context);
 
   /// Hint of website field
-  String website_hint(BuildContext context);
+  String websiteHint(BuildContext context);
 
   /// Website field is empty validation failure
-  String website_empty(BuildContext context);
+  String websiteEmpty(BuildContext context);
 
   /// Title of zoneinfo field
-  String zoneinfo_title(BuildContext context);
+  String zoneinfoTitle(BuildContext context);
 
   /// Hint of website field
-  String zoneinfo_hint(BuildContext context);
+  String zoneinfoHint(BuildContext context);
 
   /// Zoneinfo field is empty validation failure
-  String zoneinfo_empty(BuildContext context);
+  String zoneinfoEmpty(BuildContext context);
 
   @override
   String resolve(BuildContext context, InputResolverKey key) {
     switch (key) {
-      case InputResolverKey.username_title:
-        return username_title(context);
-      case InputResolverKey.username_hint:
-        return username_hint(context);
-      case InputResolverKey.username_empty:
-        return username_empty(context);
-      case InputResolverKey.password_title:
-        return password_title(context);
-      case InputResolverKey.password_hint:
-        return password_hint(context);
-      case InputResolverKey.password_confirmation_title:
-        return password_confirmation_title(context);
-      case InputResolverKey.password_empty:
-        return password_empty(context);
-      case InputResolverKey.password_requirements_unmet:
-        return password_requirements_unmet(context);
-      case InputResolverKey.password_at_least:
-        return password_at_least(context);
-      case InputResolverKey.password_characters:
-        return password_characters(context);
-      case InputResolverKey.password_requires_uppercase:
-        return password_requires_uppercase(context);
-      case InputResolverKey.password_requires_lowercase:
-        return password_requires_lowercase(context);
-      case InputResolverKey.password_confirmation_hint:
-        return password_confirmation_hint(context);
-      case InputResolverKey.password_requires_numbers:
-        return password_requires_numbers(context);
-      case InputResolverKey.password_requires_symbols:
-        return password_requires_symbols(context);
-      case InputResolverKey.email_title:
-        return email_title(context);
-      case InputResolverKey.email_hint:
-        return email_hint(context);
-      case InputResolverKey.email_empty:
-        return email_empty(context);
-      case InputResolverKey.phone_number_title:
-        return phone_number_title(context);
-      case InputResolverKey.phone_number_hint:
-        return phone_number_hint(context);
-      case InputResolverKey.phone_number_empty:
-        return phone_number_empty(context);
-      case InputResolverKey.verification_code_title:
-        return verification_code_title(context);
-      case InputResolverKey.verification_code_hint:
-        return verification_code_hint(context);
-      case InputResolverKey.verification_code_empty:
-        return verification_code_empty(context);
-      case InputResolverKey.email_phone_number_title:
-        return email_phone_number_title(context);
-      case InputResolverKey.email_phone_number_hint:
-        return email_phone_number_hint(context);
-      case InputResolverKey.email_phone_number_empty:
-        return email_phone_number_empty(context);
-      case InputResolverKey.address_title:
-        return address_title(context);
-      case InputResolverKey.address_hint:
-        return address_hint(context);
-      case InputResolverKey.address_empty:
-        return address_empty(context);
-      case InputResolverKey.birthdate_title:
-        return birthdate_title(context);
-      case InputResolverKey.birthdate_hint:
-        return birthdate_hint(context);
-      case InputResolverKey.birthdate_empty:
-        return birthdate_empty(context);
-      case InputResolverKey.family_name_title:
-        return family_name_title(context);
-      case InputResolverKey.family_name_hint:
-        return family_name_hint(context);
-      case InputResolverKey.family_name_empty:
-        return family_name_empty(context);
-      case InputResolverKey.middle_name_title:
-        return middle_name_title(context);
-      case InputResolverKey.middle_name_hint:
-        return middle_name_hint(context);
-      case InputResolverKey.middle_name_empty:
-        return middle_name_empty(context);
-      case InputResolverKey.gender_title:
-        return gender_title(context);
-      case InputResolverKey.gender_hint:
-        return gender_hint(context);
-      case InputResolverKey.gender_empty:
-        return gender_empty(context);
-      case InputResolverKey.locale_title:
-        return locale_title(context);
-      case InputResolverKey.locale_hint:
-        return locale_hint(context);
-      case InputResolverKey.locale_empty:
-        return locale_empty(context);
-      case InputResolverKey.given_name_title:
-        return given_name_title(context);
-      case InputResolverKey.given_name_hint:
-        return given_name_hint(context);
-      case InputResolverKey.given_name_empty:
-        return given_name_empty(context);
-      case InputResolverKey.name_title:
-        return name_title(context);
-      case InputResolverKey.name_hint:
-        return name_hint(context);
-      case InputResolverKey.name_empty:
-        return name_empty(context);
-      case InputResolverKey.nickname_title:
-        return nickname_title(context);
-      case InputResolverKey.nickname_hint:
-        return nickname_hint(context);
-      case InputResolverKey.nickname_empty:
-        return nickname_empty(context);
-      case InputResolverKey.preferred_username_title:
-        return preferred_username_title(context);
-      case InputResolverKey.preferred_username_hint:
-        return preferred_username_hint(context);
-      case InputResolverKey.preferred_username_empty:
-        return preferred_username_empty(context);
-      case InputResolverKey.picture_title:
-        return picture_title(context);
-      case InputResolverKey.picture_hint:
-        return picture_hint(context);
-      case InputResolverKey.picture_empty:
-        return picture_empty(context);
-      case InputResolverKey.profile_title:
-        return profile_title(context);
-      case InputResolverKey.profile_hint:
-        return profile_hint(context);
-      case InputResolverKey.profile_empty:
-        return profile_empty(context);
-      case InputResolverKey.updated_at_title:
-        return updated_at_title(context);
-      case InputResolverKey.updated_at_hint:
-        return updated_at_hint(context);
-      case InputResolverKey.updated_at_empty:
-        return updated_at_empty(context);
-      case InputResolverKey.website_title:
-        return website_title(context);
-      case InputResolverKey.website_hint:
-        return website_hint(context);
-      case InputResolverKey.website_empty:
-        return website_empty(context);
-      case InputResolverKey.zoneinfo_title:
-        return zoneinfo_title(context);
-      case InputResolverKey.zoneinfo_hint:
-        return zoneinfo_hint(context);
-      case InputResolverKey.zoneinfo_empty:
-        return zoneinfo_empty(context);
+      case InputResolverKey.usernameTitle:
+        return usernameTitle(context);
+      case InputResolverKey.usernameHint:
+        return usernameHint(context);
+      case InputResolverKey.usernameEmpty:
+        return usernameEmpty(context);
+      case InputResolverKey.passwordTitle:
+        return passwordTitle(context);
+      case InputResolverKey.passwordHint:
+        return passwordHint(context);
+      case InputResolverKey.passwordEmpty:
+        return passwordEmpty(context);
+      case InputResolverKey.passwordConfirmationTitle:
+        return passwordConfirmationTitle(context);
+      case InputResolverKey.passwordConfirmationHint:
+        return passwordConfirmationHint(context);
+      case InputResolverKey.passwordRequirementsUnmet:
+        return passwordRequirementsUnmet(context);
+      case InputResolverKey.passwordAtLeast:
+        return passwordAtLeast(context);
+      case InputResolverKey.passwordCharacters:
+        return passwordCharacters(context);
+      case InputResolverKey.passwordRequiresUppercase:
+        return passwordRequiresUppercase(context);
+      case InputResolverKey.passwordRequiresLowercase:
+        return passwordRequiresLowercase(context);
+      case InputResolverKey.passwordRequiresNumbers:
+        return passwordRequiresNumbers(context);
+      case InputResolverKey.passwordRequiresSymbols:
+        return passwordRequiresSymbols(context);
+      case InputResolverKey.emailTitle:
+        return emailTitle(context);
+      case InputResolverKey.emailHint:
+        return emailHint(context);
+      case InputResolverKey.emailEmpty:
+        return emailEmpty(context);
+      case InputResolverKey.phoneNumberTitle:
+        return phoneNumberTitle(context);
+      case InputResolverKey.phoneNumberHint:
+        return phoneNumberHint(context);
+      case InputResolverKey.phoneNumberEmpty:
+        return phoneNumberEmpty(context);
+      case InputResolverKey.verificationCodeTitle:
+        return verificationCodeTitle(context);
+      case InputResolverKey.verificationCodeHint:
+        return verificationCodeHint(context);
+      case InputResolverKey.verificationCodeEmpty:
+        return verificationCodeEmpty(context);
+      case InputResolverKey.emailPhoneNumberTitle:
+        return emailPhoneNumberTitle(context);
+      case InputResolverKey.emailPhoneNumberHint:
+        return emailPhoneNumberHint(context);
+      case InputResolverKey.emailPhoneNumberEmpty:
+        return emailPhoneNumberEmpty(context);
+      case InputResolverKey.addressTitle:
+        return addressTitle(context);
+      case InputResolverKey.addressHint:
+        return addressHint(context);
+      case InputResolverKey.addressEmpty:
+        return addressEmpty(context);
+      case InputResolverKey.birthdateTitle:
+        return birthdateTitle(context);
+      case InputResolverKey.birthdateHint:
+        return birthdateHint(context);
+      case InputResolverKey.birthdateEmpty:
+        return birthdateEmpty(context);
+      case InputResolverKey.familyNameTitle:
+        return familyNameTitle(context);
+      case InputResolverKey.familyNameHint:
+        return familyNameHint(context);
+      case InputResolverKey.familyNameEmpty:
+        return familyNameEmpty(context);
+      case InputResolverKey.middleNameTitle:
+        return middleNameTitle(context);
+      case InputResolverKey.middleNameHint:
+        return middleNameHint(context);
+      case InputResolverKey.middleNameEmpty:
+        return middleNameEmpty(context);
+      case InputResolverKey.genderTitle:
+        return genderTitle(context);
+      case InputResolverKey.genderHint:
+        return genderHint(context);
+      case InputResolverKey.genderEmpty:
+        return genderEmpty(context);
+      case InputResolverKey.localeTitle:
+        return localeTitle(context);
+      case InputResolverKey.localeHint:
+        return localeHint(context);
+      case InputResolverKey.localeEmpty:
+        return localeEmpty(context);
+      case InputResolverKey.givenNameTitle:
+        return givenNameTitle(context);
+      case InputResolverKey.givenNameHint:
+        return givenNameHint(context);
+      case InputResolverKey.givenNameEmpty:
+        return givenNameEmpty(context);
+      case InputResolverKey.nameTitle:
+        return nameTitle(context);
+      case InputResolverKey.nameHint:
+        return nameHint(context);
+      case InputResolverKey.nameEmpty:
+        return nameEmpty(context);
+      case InputResolverKey.nicknameTitle:
+        return nicknameTitle(context);
+      case InputResolverKey.nicknameHint:
+        return nicknameHint(context);
+      case InputResolverKey.nicknameEmpty:
+        return nicknameEmpty(context);
+      case InputResolverKey.preferredUsernameTitle:
+        return preferredUsernameTitle(context);
+      case InputResolverKey.preferredUsernameHint:
+        return preferredUsernameHint(context);
+      case InputResolverKey.preferredUsernameEmpty:
+        return preferredUsernameEmpty(context);
+      case InputResolverKey.pictureTitle:
+        return pictureTitle(context);
+      case InputResolverKey.pictureHint:
+        return pictureHint(context);
+      case InputResolverKey.pictureEmpty:
+        return pictureEmpty(context);
+      case InputResolverKey.profileTitle:
+        return profileTitle(context);
+      case InputResolverKey.profileHint:
+        return profileHint(context);
+      case InputResolverKey.profileEmpty:
+        return profileEmpty(context);
+      case InputResolverKey.updatedAtTitle:
+        return updatedAtTitle(context);
+      case InputResolverKey.updatedAtHint:
+        return updatedAtHint(context);
+      case InputResolverKey.updatedAtEmpty:
+        return updatedAtEmpty(context);
+      case InputResolverKey.websiteTitle:
+        return websiteTitle(context);
+      case InputResolverKey.websiteHint:
+        return websiteHint(context);
+      case InputResolverKey.websiteEmpty:
+        return websiteEmpty(context);
+      case InputResolverKey.zoneinfoTitle:
+        return zoneinfoTitle(context);
+      case InputResolverKey.zoneinfoHint:
+        return zoneinfoHint(context);
+      case InputResolverKey.zoneinfoEmpty:
+        return zoneinfoEmpty(context);
     }
   }
 }
@@ -467,237 +467,236 @@ class DefaultInputResolver extends InputResolver {
   const DefaultInputResolver();
 
   @override
-  String username_title(BuildContext context) => 'Username*';
+  String usernameTitle(BuildContext context) => 'Username*';
 
   @override
-  String username_hint(BuildContext context) => 'Enter your username';
+  String usernameHint(BuildContext context) => 'Enter your username';
 
   @override
-  String username_empty(BuildContext context) => 'Username $_validationMessage';
+  String usernameEmpty(BuildContext context) => 'Username $_validationMessage';
 
   @override
-  String password_title(BuildContext context) => 'Password*';
+  String passwordTitle(BuildContext context) => 'Password*';
 
   @override
-  String password_hint(BuildContext context) => 'Enter your password';
-
-  String password_confirmation_title(BuildContext context) =>
-      'Confirm Password*';
+  String passwordHint(BuildContext context) => 'Enter your password';
 
   @override
-  String password_empty(BuildContext context) => 'Password $_validationMessage';
+  String passwordConfirmationTitle(BuildContext context) => 'Confirm Password*';
 
   @override
-  String password_requirements_unmet(BuildContext context) =>
+  String passwordConfirmationHint(BuildContext context) =>
+      'Re-enter your password';
+
+  @override
+  String passwordEmpty(BuildContext context) => 'Password $_validationMessage';
+
+  @override
+  String passwordRequirementsUnmet(BuildContext context) =>
       'Passwords must include:';
 
   @override
-  String password_at_least(BuildContext context) => 'at least';
+  String passwordAtLeast(BuildContext context) => 'at least';
 
   @override
-  String password_characters(BuildContext context) => 'characters';
+  String passwordCharacters(BuildContext context) => 'characters';
 
   @override
-  String password_requires_uppercase(BuildContext context) =>
+  String passwordRequiresUppercase(BuildContext context) =>
       'uppercase character(s)';
 
   @override
-  String password_requires_lowercase(BuildContext context) =>
+  String passwordRequiresLowercase(BuildContext context) =>
       'lowercase character(s)';
 
   @override
-  String password_confirmation_hint(BuildContext context) =>
-      "Re-enter your password";
+  String passwordRequiresNumbers(BuildContext context) => 'numbers(s)';
 
   @override
-  String password_requires_numbers(BuildContext context) => 'numbers(s)';
+  String passwordRequiresSymbols(BuildContext context) => 'symbols(s)';
 
   @override
-  String password_requires_symbols(BuildContext context) => 'symbols(s)';
+  String emailTitle(BuildContext context) => 'Email*';
 
   @override
-  String email_title(BuildContext context) => 'Email*';
+  String emailHint(BuildContext context) => 'Enter your email';
 
   @override
-  String email_hint(BuildContext context) => 'Enter your email';
+  String emailEmpty(BuildContext context) => 'Email $_validationMessage';
 
   @override
-  String email_empty(BuildContext context) => 'Email $_validationMessage';
+  String phoneNumberTitle(BuildContext context) => 'Phone Number*';
 
   @override
-  String phone_number_title(BuildContext context) => 'Phone Number*';
+  String phoneNumberHint(BuildContext context) => 'Enter your phone number';
 
   @override
-  String phone_number_hint(BuildContext context) => 'Enter your phone number';
-
-  @override
-  String phone_number_empty(BuildContext context) =>
+  String phoneNumberEmpty(BuildContext context) =>
       'Phone number $_validationMessage';
 
   @override
-  String verification_code_title(BuildContext context) => 'Verification code*';
+  String verificationCodeTitle(BuildContext context) => 'Verification code*';
 
   @override
-  String verification_code_hint(BuildContext context) =>
+  String verificationCodeHint(BuildContext context) =>
       'Enter your verification code';
 
   @override
-  String verification_code_empty(BuildContext context) =>
+  String verificationCodeEmpty(BuildContext context) =>
       'Verification code $_validationMessage';
 
   @override
-  String email_phone_number_title(BuildContext context) =>
+  String emailPhoneNumberTitle(BuildContext context) =>
       'Email or Phone Number*';
 
   @override
-  String email_phone_number_hint(BuildContext context) =>
+  String emailPhoneNumberHint(BuildContext context) =>
       'Enter your email or phone number';
 
   @override
-  String email_phone_number_empty(BuildContext context) =>
+  String emailPhoneNumberEmpty(BuildContext context) =>
       'Email/phone number $_validationMessage';
 
   @override
-  String address_title(BuildContext context) => 'Address*';
+  String addressTitle(BuildContext context) => 'Address*';
 
   @override
-  String address_hint(BuildContext context) => 'Enter your address';
+  String addressHint(BuildContext context) => 'Enter your address';
 
   @override
-  String address_empty(BuildContext context) => 'Address $_validationMessage';
+  String addressEmpty(BuildContext context) => 'Address $_validationMessage';
 
   @override
-  String birthdate_title(BuildContext context) => 'Birthdate*';
+  String birthdateTitle(BuildContext context) => 'Birthdate*';
 
   @override
-  String birthdate_hint(BuildContext context) => 'Enter your birthdate';
+  String birthdateHint(BuildContext context) => 'Enter your birthdate';
 
   @override
-  String birthdate_empty(BuildContext context) =>
+  String birthdateEmpty(BuildContext context) =>
       'Birthdate $_validationMessage';
 
   @override
-  String family_name_title(BuildContext context) => 'Family Name*';
+  String familyNameTitle(BuildContext context) => 'Family Name*';
 
   @override
-  String family_name_hint(BuildContext context) => 'Enter your family name';
+  String familyNameHint(BuildContext context) => 'Enter your family name';
 
   @override
-  String family_name_empty(BuildContext context) =>
+  String familyNameEmpty(BuildContext context) =>
       'Family name $_validationMessage';
 
   @override
-  String middle_name_title(BuildContext context) => 'Middle Name*';
+  String middleNameTitle(BuildContext context) => 'Middle Name*';
 
   @override
-  String middle_name_hint(BuildContext context) => 'Enter your middle name';
+  String middleNameHint(BuildContext context) => 'Enter your middle name';
 
   @override
-  String middle_name_empty(BuildContext context) =>
+  String middleNameEmpty(BuildContext context) =>
       'Middle name $_validationMessage';
 
   @override
-  String gender_title(BuildContext context) => 'Gender*';
+  String genderTitle(BuildContext context) => 'Gender*';
 
   @override
-  String gender_hint(BuildContext context) => 'Enter your gender';
+  String genderHint(BuildContext context) => 'Enter your gender';
 
   @override
-  String gender_empty(BuildContext context) => 'Gender $_validationMessage';
+  String genderEmpty(BuildContext context) => 'Gender $_validationMessage';
 
   @override
-  String locale_title(BuildContext context) => 'Locale*';
+  String localeTitle(BuildContext context) => 'Locale*';
 
   @override
-  String locale_hint(BuildContext context) => 'Enter your locale';
+  String localeHint(BuildContext context) => 'Enter your locale';
 
   @override
-  String locale_empty(BuildContext context) => 'Locale $_validationMessage';
+  String localeEmpty(BuildContext context) => 'Locale $_validationMessage';
 
   @override
-  String given_name_title(BuildContext context) => 'Given Name*';
+  String givenNameTitle(BuildContext context) => 'Given Name*';
 
   @override
-  String given_name_hint(BuildContext context) => 'Enter your given name';
+  String givenNameHint(BuildContext context) => 'Enter your given name';
 
   @override
-  String given_name_empty(BuildContext context) =>
+  String givenNameEmpty(BuildContext context) =>
       'Given name $_validationMessage';
 
   @override
-  String name_title(BuildContext context) => 'Name*';
+  String nameTitle(BuildContext context) => 'Name*';
 
   @override
-  String name_hint(BuildContext context) => 'Enter your name';
+  String nameHint(BuildContext context) => 'Enter your name';
 
   @override
-  String name_empty(BuildContext context) => 'Name $_validationMessage';
+  String nameEmpty(BuildContext context) => 'Name $_validationMessage';
 
   @override
-  String nickname_title(BuildContext context) => 'Nickname*';
+  String nicknameTitle(BuildContext context) => 'Nickname*';
 
   @override
-  String nickname_hint(BuildContext context) => 'Enter your nickname';
+  String nicknameHint(BuildContext context) => 'Enter your nickname';
 
   @override
-  String nickname_empty(BuildContext context) => 'Nickname $_validationMessage';
+  String nicknameEmpty(BuildContext context) => 'Nickname $_validationMessage';
 
   @override
-  String preferred_username_title(BuildContext context) =>
-      'Preferred Username*';
+  String preferredUsernameTitle(BuildContext context) => 'Preferred Username*';
 
   @override
-  String preferred_username_hint(BuildContext context) =>
+  String preferredUsernameHint(BuildContext context) =>
       'Enter your preferred username';
 
   @override
-  String preferred_username_empty(BuildContext context) =>
+  String preferredUsernameEmpty(BuildContext context) =>
       'Preferred username $_validationMessage';
 
   @override
-  String picture_title(BuildContext context) => 'Picture*';
+  String pictureTitle(BuildContext context) => 'Picture*';
 
   @override
-  String picture_hint(BuildContext context) =>
+  String pictureHint(BuildContext context) =>
       'Enter the location for your picture';
 
   @override
-  String picture_empty(BuildContext context) => 'Picture $_validationMessage';
+  String pictureEmpty(BuildContext context) => 'Picture $_validationMessage';
 
   @override
-  String profile_title(BuildContext context) => 'Profile*';
+  String profileTitle(BuildContext context) => 'Profile*';
 
   @override
-  String profile_hint(BuildContext context) => 'Enter your profile';
+  String profileHint(BuildContext context) => 'Enter your profile';
 
   @override
-  String profile_empty(BuildContext context) => 'Profile $_validationMessage';
+  String profileEmpty(BuildContext context) => 'Profile $_validationMessage';
 
   @override
-  String updated_at_title(BuildContext context) => 'Updated at*';
+  String updatedAtTitle(BuildContext context) => 'Updated at*';
 
   @override
-  String updated_at_hint(BuildContext context) => 'Enter the last change date';
+  String updatedAtHint(BuildContext context) => 'Enter the last change date';
 
   @override
-  String updated_at_empty(BuildContext context) =>
+  String updatedAtEmpty(BuildContext context) =>
       'Updated at $_validationMessage';
 
   @override
-  String website_title(BuildContext context) => 'Website*';
+  String websiteTitle(BuildContext context) => 'Website*';
 
   @override
-  String website_hint(BuildContext context) => 'Enter your website';
+  String websiteHint(BuildContext context) => 'Enter your website';
 
   @override
-  String website_empty(BuildContext context) => 'Website $_validationMessage';
+  String websiteEmpty(BuildContext context) => 'Website $_validationMessage';
 
   @override
-  String zoneinfo_title(BuildContext context) => 'ZoneInfo*';
+  String zoneinfoTitle(BuildContext context) => 'ZoneInfo*';
 
   @override
-  String zoneinfo_hint(BuildContext context) => 'Enter your zoneinfo';
+  String zoneinfoHint(BuildContext context) => 'Enter your zoneinfo';
 
   @override
-  String zoneinfo_empty(BuildContext context) => 'Zoneinfo $_validationMessage';
+  String zoneinfoEmpty(BuildContext context) => 'Zoneinfo $_validationMessage';
 }

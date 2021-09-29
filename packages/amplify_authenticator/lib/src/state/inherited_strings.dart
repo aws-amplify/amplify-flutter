@@ -14,6 +14,7 @@
  */
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class InheritedStrings extends InheritedWidget {
@@ -43,6 +44,13 @@ class InheritedStrings extends InheritedWidget {
 
   @override
   bool updateShouldNotify(covariant InheritedWidget oldWidget) => false;
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+        .add(DiagnosticsProperty<AuthStringResolver>('resolver', resolver));
+  }
 }
 
 // ignore_for_file: prefer_asserts_with_message

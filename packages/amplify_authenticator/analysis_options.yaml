@@ -5,3 +5,4 @@ analyzer:
     # TODO: Renable when logging library is finished
     avoid_print: ignore
     public_member_api_docs: ignore
+    implementation_imports: ignore

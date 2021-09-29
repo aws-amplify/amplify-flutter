@@ -4,7 +4,6 @@ import 'package:amplify_authenticator/src/constants/theme_constants.dart';
 import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/form_fields.dart';
-import 'package:amplify_authenticator/src/widgets/forms.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 

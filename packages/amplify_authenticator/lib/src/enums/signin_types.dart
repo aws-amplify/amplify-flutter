@@ -15,17 +15,17 @@
 
 import 'package:collection/collection.dart';
 
-enum SignInType {
+enum SignInField {
   username,
   password,
   email,
-  phone_number,
-  verification_code,
-  new_password,
-  new_username
+  phoneNumber,
+  verificationCode,
+  newPassword,
+  newUsername
 }
 
-SignInType? fromStringToSignInType(String str) {
-  return SignInType.values
+SignInField? fromStringToSignInType(String str) {
+  return SignInField.values
       .firstWhereOrNull((value) => value.toString().split('.')[1] == str);
 }

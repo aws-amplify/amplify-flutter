@@ -89,24 +89,24 @@ class _MyHomePageState extends State<MyHomePage> {
     //         changePassword: (_) =>
     //             AppLocalizations.of(context)!.button_new_password),
     //     inputs: InputResolver(
-    //         username_title: (_) =>
-    //             AppLocalizations.of(context)!.input_username_title,
-    //         username_hint: (_) =>
-    //             AppLocalizations.of(context)!.input_username_hint,
-    //         password_title: (_) =>
-    //             AppLocalizations.of(context)!.input_password_title,
-    //         password_hint: (_) =>
-    //             AppLocalizations.of(context)!.input_password_hint,
-    //         email_title: (_) => AppLocalizations.of(context)!.input_email_title,
-    //         email_hint: (_) => AppLocalizations.of(context)!.input_email_hint,
-    //         phone_number_title: (_) =>
+    //         usernameTitle: (_) =>
+    //             AppLocalizations.of(context)!.input_usernameTitle,
+    //         usernameHint: (_) =>
+    //             AppLocalizations.of(context)!.input_usernameHint,
+    //         passwordTitle: (_) =>
+    //             AppLocalizations.of(context)!.input_passwordTitle,
+    //         passwordHint: (_) =>
+    //             AppLocalizations.of(context)!.input_passwordHint,
+    //         emailTitle: (_) => AppLocalizations.of(context)!.input_emailTitle,
+    //         emailHint: (_) => AppLocalizations.of(context)!.input_emailHint,
+    //         phoneNumberTitle: (_) =>
     //             AppLocalizations.of(context)!.input_phone_title,
-    //         phone_number_hint: (_) =>
+    //         phoneNumberHint: (_) =>
     //             AppLocalizations.of(context)!.input_phone_hint,
-    //         verification_code_title: (_) =>
-    //             AppLocalizations.of(context)!.input_verification_code_title,
-    //         verification_code_hint: (_) =>
-    //             AppLocalizations.of(context)!.input_verification_code_hint),
+    //         verificationCodeTitle: (_) =>
+    //             AppLocalizations.of(context)!.input_verificationCodeTitle,
+    //         verificationCodeHint: (_) =>
+    //             AppLocalizations.of(context)!.input_verificationCodeHint),
     //     navigation: NavigationResolver(
     //         navigateSignin: (_) => AppLocalizations.of(context)!.nav_signin,
     //         navigateSignup: (_) => AppLocalizations.of(context)!.nav_signup,

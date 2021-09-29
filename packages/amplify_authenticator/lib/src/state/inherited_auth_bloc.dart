@@ -29,7 +29,7 @@ class InheritedAuthBloc extends InheritedWidget {
   @override
   bool updateShouldNotify(covariant InheritedWidget oldWidget) => true;
 
-  static InheritedAuthBloc of(BuildContext context, {bool listen = true}) {
+  static StateMachineBloc of(BuildContext context, {bool listen = true}) {
     InheritedAuthBloc? bloc;
     if (listen) {
       bloc = context.dependOnInheritedWidgetOfExactType<InheritedAuthBloc>();
@@ -46,7 +46,7 @@ class InheritedAuthBloc extends InheritedWidget {
       }
       return true;
     }());
-    return bloc!;
+    return bloc!.authBloc;
   }
 
   @override

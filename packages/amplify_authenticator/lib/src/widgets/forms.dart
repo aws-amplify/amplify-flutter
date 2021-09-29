@@ -1,12 +1,10 @@
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator/src/enums/signup_types.dart';
 import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/widgets/buttons.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/containers.dart';
 import 'package:amplify_authenticator/src/widgets/form_fields.dart';
-import 'package:amplify_flutter/src/config/auth/auth_block_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -66,7 +64,10 @@ class AuthenticatorForm extends StatelessAuthenticatorComponent {
           ? const ConfirmSignInNewPasswordForm()
           : ConfirmSignInNewPasswordForm.custom(fields: fields);
 
+  /// The form's field components.
   final List<AuthenticatorFormField> fields;
+
+  /// Buttons to show below [fields].
   final List<Widget> buttons;
 
   /// Additional fields defined at runtime.
@@ -125,6 +126,7 @@ class SignInForm extends AuthenticatorForm {
     if (!includeDefaultAttributes) {
       return const [];
     }
+
     final signUpAttributes = InheritedConfig.of(context)
         ?.auth
         ?.awsCognitoAuthPlugin
@@ -133,6 +135,7 @@ class SignInForm extends AuthenticatorForm {
     if (signUpAttributes == null) {
       return const [];
     }
+
     return signUpAttributes
         .map((attr) {
           switch (attr) {

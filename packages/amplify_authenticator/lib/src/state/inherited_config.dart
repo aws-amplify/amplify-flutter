@@ -14,6 +14,7 @@
  */
 
 import 'package:amplify_flutter/src/config/amplify_config.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class InheritedConfig extends InheritedWidget {
@@ -43,7 +44,15 @@ class InheritedConfig extends InheritedWidget {
   }
 
   @override
-  bool updateShouldNotify(covariant InheritedWidget oldWidget) => true;
+  bool updateShouldNotify(InheritedConfig oldWidget) {
+    return oldWidget.config != config;
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<AmplifyConfig?>('config', config));
+  }
 }
 
 // ignore_for_file: prefer_asserts_with_message

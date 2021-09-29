@@ -68,8 +68,6 @@ abstract class NavigationResolver extends Resolver<NavigationResolverKey> {
         return navigateResetPassword(context);
       case NavigationResolverKey.backToSignin:
         return backToSignin(context);
-      default:
-        throw StateError('Unknown resolver key: $key');
     }
   }
 }

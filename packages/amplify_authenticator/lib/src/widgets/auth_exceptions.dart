@@ -27,7 +27,7 @@ class _AuthExceptionsWidgetState extends State<AuthExceptionsWidget> {
   void initState() {
     super.initState();
     final StateMachineBloc authBloc =
-        InheritedAuthBloc.of(context, listen: false).authBloc;
+        InheritedAuthBloc.of(context, listen: false);
     _exceptionSub = authBloc.exceptions.listen((exception) {
       if (mounted) {
         setState(() => _currentException = exception);
