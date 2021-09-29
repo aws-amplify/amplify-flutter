@@ -1,8 +1,24 @@
+/*
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
 import 'dart:async';
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
+import 'package:amplify_flutter/src/config/amplify_config.dart';
 
 //Models
 import 'package:amplify_authenticator/src/models/authenticator_exceptions.dart';
@@ -212,7 +228,7 @@ class StateMachineBloc {
 
           break;
         case 'RESET_PASSWORD':
-          yield AuthFlow(screen: AuthScreen.sendCode);
+          yield AuthFlow(screen: AuthScreen.resetPassword);
           break;
         case 'CONFIRM_SIGN_UP':
           yield AuthFlow(screen: AuthScreen.confirmSignUp);

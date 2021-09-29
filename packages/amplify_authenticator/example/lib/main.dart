@@ -132,30 +132,10 @@ class _MyHomePageState extends State<MyHomePage> {
     //             AppLocalizations.of(context)!.title_reset_password));
 
     return Authenticator(
-      // Uncomment this code to use localizations
-      // resolver: resolver,
+        // Uncomment this code to use localizations
+        // resolver: resolver,
 
-      child: const CustomersApp(),
-      signUpForm: SignUpForm(
-        formFields: FormFields(children: [
-          SignUpFormField(
-              title: "Custom username*",
-              hintText: "Username",
-              validator: _validateUsername,
-              type: "username"),
-          const SignUpFormField(
-              title: "Custom password*",
-              hintText: "password",
-              type: "password"),
-          const SignUpFormField(
-              title: "Custom email*", hintText: "email", type: "email"),
-          const SignUpFormField(
-              title: "Custom phone number*",
-              hintText: "phone number",
-              type: "phone_number")
-        ]),
-      ),
-    );
+        child: const CustomersApp());
   }
 }
 

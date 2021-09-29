@@ -18,6 +18,8 @@ library amplify;
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:amplify_flutter/src/config/amplify_config.dart';
+import 'package:amplify_flutter/utils/parse_json_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
@@ -44,6 +46,7 @@ final AmplifyClass Amplify = new AmplifyClass.protected();
 /// instantiate an object of this class. Please use top level
 /// `Amplify` singleton object for making calls to methods of this class.
 class AmplifyClass extends PlatformInterface {
+  AmplifyConfig? _config = AmplifyConfig();
   // ignore: public_member_api_docs
   AuthCategory Auth = const AuthCategory();
   // ignore: public_member_api_docs
@@ -59,6 +62,8 @@ class AmplifyClass extends PlatformInterface {
 
   // ignore: public_member_api_docs
   AmplifyHub Hub = AmplifyHub();
+
+  final _configCompleter = Completer<AmplifyConfig>();
 
   /// Adds one plugin at a time. Note: this method can only
   /// be called before Amplify has been configured. Customers are expected
@@ -126,6 +131,10 @@ class AmplifyClass extends PlatformInterface {
     return _isConfigured;
   }
 
+  Future<AmplifyConfig> get asyncConfig async {
+    return await _configCompleter.future;
+  }
+
   String _getVersion() {
     return '0.2.0';
   }
@@ -161,10 +170,14 @@ class AmplifyClass extends PlatformInterface {
       bool? res = await AmplifyClass.instance
           ._configurePlatforms(_getVersion(), configuration);
       _isConfigured = res ?? false;
+
       if (!_isConfigured) {
         throw AmplifyException('Amplify failed to configure.',
             recoverySuggestion:
                 AmplifyExceptionMessages.missingRecoverySuggestion);
+      } else {
+        _config = parseConfigJson(configuration);
+        _configCompleter.complete(_config);
       }
     } on PlatformException catch (e) {
       if (e.code == 'AnalyticsException') {
@@ -182,7 +195,6 @@ class AmplifyClass extends PlatformInterface {
             underlyingException: e.toString());
       }
     }
-
     await DataStore.configure(configuration);
   }
 
