@@ -159,8 +159,8 @@ class _ConfirmSignInFormFieldState extends _AuthenticatorFormFieldState<
         return viewModel.setWebsite;
       case ConfirmSignInField.custom:
         return (String value) => viewModel.setCustom(
-              value,
               widget._customAttributeKey!,
+              value,
             );
     }
   }

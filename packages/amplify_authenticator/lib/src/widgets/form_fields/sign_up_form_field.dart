@@ -485,8 +485,8 @@ class _SignUpFormFieldState
         return viewModel.setWebsite;
       case SignUpField.custom:
         return (String value) => viewModel.setCustom(
-              value,
               widget._customAttributeKey!,
+              value,
             );
     }
   }

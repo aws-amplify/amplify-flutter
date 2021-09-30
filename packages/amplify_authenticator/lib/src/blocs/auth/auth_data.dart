@@ -13,8 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-
 enum AuthScreen {
   signup,
   signin,
@@ -42,14 +40,10 @@ class AuthSignUpData {
   const AuthSignUpData({
     required this.password,
     required this.username,
-    Map<CognitoUserAttributes, String> attributes = const {},
-  }) : _attributes = attributes;
+    this.attributes = const {},
+  });
 
-  final Map<CognitoUserAttributes, String> _attributes;
-
-  Map<String, String> get attributes {
-    return _attributes.map((key, value) => MapEntry(key.value, value));
-  }
+  final Map<String, String> attributes;
 
   final String password;
 
@@ -94,31 +88,22 @@ class AuthUpdatePasswordData {
   const AuthUpdatePasswordData({
     required this.username,
     required this.newPassword,
-    Map<CognitoUserAttributes, String> attributes = const {},
-  }) : _attributes = attributes;
+    this.attributes = const {},
+  });
 
   final String username;
   final String newPassword;
-
-  final Map<CognitoUserAttributes, String> _attributes;
-
-  Map<String, String> get attributes {
-    return _attributes.map((key, value) => MapEntry(key.value, value));
-  }
+  final Map<String, String> attributes;
 }
 
 class AuthConfirmSignInData {
   AuthConfirmSignInData({
     required this.code,
-    Map<CognitoUserAttributes, String> attributes = const {},
-  }) : _attributes = attributes;
+    this.attributes = const {},
+  });
 
   final String code;
-  final Map<CognitoUserAttributes, String> _attributes;
-
-  Map<String, String> get attributes {
-    return _attributes.map((key, value) => MapEntry(key.value, value));
-  }
+  final Map<String, String> attributes;
 }
 
 class AuthSetUnverifiedAttributeKeysData {

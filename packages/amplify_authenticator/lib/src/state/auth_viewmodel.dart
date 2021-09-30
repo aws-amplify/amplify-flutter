@@ -51,7 +51,7 @@ class AuthViewModel extends ChangeNotifier {
   String _newUsername = '';
   String? _userAttributeKey;
 
-  final Map<CognitoUserAttributes, String> _authAttributes = {};
+  final Map<String, String> _authAttributes = {};
 
   void setUsername(String value) {
     _username = value;
@@ -77,7 +77,7 @@ class AuthViewModel extends ChangeNotifier {
     _newPassword = newPassword;
   }
 
-  void _setAttribute(CognitoUserAttributes attribute, String value) {
+  void _setAttribute(String attribute, String value) {
     _authAttributes[attribute] = value.trim();
   }
 
@@ -152,8 +152,8 @@ class AuthViewModel extends ChangeNotifier {
     _setAttribute(CognitoUserAttributes.website, website);
   }
 
-  void setCustom(String value, String type) {
-    _setAttribute(CognitoUserAttributes.custom(type), value);
+  void setCustom(String key, String value) {
+    _setAttribute('custom:$key', value);
   }
 
   void setUserAttributeKey(String? value) {
