@@ -66,13 +66,28 @@ class AmplifySerializedModelTest {
 
     @Test
     fun test_schema_allType_with_hasMany() {
-        var flutterSerializedModel = FlutterSerializedModel(allTypeModelSerializedModel)
-        var refMap = serializedModelMaps["AllTypeModelSerializedMap"] as Map<String, Any>
+        val flutterSerializedModel = FlutterSerializedModel(allTypeModelSerializedModel)
+        val refMap = serializedModelMaps["AllTypeModelSerializedMap"] as Map<String, Any>
+        // timestamp value is expected as Long, however readMapFromFile util create Integer for this field
+        // Correct the field before assertion
+        val correctedRefMap = refMap.mapValues {
+            if (it.key == "serializedData") {
+                (it.value as Map<String, Any>).mapValues { entry ->
+                    if (entry.key == "timestampType") {
+                        (entry.value as Number).toLong()
+                    } else {
+                        entry.value
+                    }
+                }
+            } else {
+                it.value
+            }
+        }
 
         // Verify result
         Assert.assertEquals(
-                flutterSerializedModel.toMap(),
-                refMap
+            flutterSerializedModel.toMap(),
+            correctedRefMap
         )
     }
 

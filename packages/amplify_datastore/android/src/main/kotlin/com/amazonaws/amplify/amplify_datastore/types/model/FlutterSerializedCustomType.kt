@@ -21,7 +21,7 @@ import com.amplifyframework.core.model.temporal.Temporal
 import java.lang.Exception
 
 data class FlutterSerializedCustomType(val serializedCustomType: SerializedCustomType) {
-    private val serializedData: Map<String, Any> = parseSerializedDataMap(
+    private val serializedData: Map<String, Any?> = parseSerializedDataMap(
         serializedCustomType.serializedData,
         serializedCustomType.customTypeSchema!!
     )
@@ -36,12 +36,13 @@ data class FlutterSerializedCustomType(val serializedCustomType: SerializedCusto
     private fun parseCustomTypeName(customTypeName: String?) : String = customTypeName ?: ""
 
     private fun parseSerializedDataMap(
-        serializedData: Map<String, Any>, customTypeSchema: CustomTypeSchema): Map<String, Any> {
+        serializedData: Map<String, Any>, customTypeSchema: CustomTypeSchema): Map<String, Any?> {
         if(serializedData.isEmpty()) throw Exception(
             "FlutterSerializedCustomType - no serializedData for ${customTypeSchema.name}"
         )
 
         return serializedData.mapValues {
+            val field = customTypeSchema.fields[it.key]!!
             when (val value: Any = it.value) {
                 is Temporal.DateTime -> value.format()
                 is Temporal.Date -> value.format()
@@ -54,9 +55,13 @@ data class FlutterSerializedCustomType(val serializedCustomType: SerializedCusto
                         (value as List<SerializedCustomType>).map { item ->
                             FlutterSerializedCustomType(item).toMap()
                         }
-                    } else value
+                    } else {
+                        value.map { item ->
+                            FlutterFieldUtil.convertValueByFieldType(field.targetType, item)
+                        }
+                    }
                 }
-                else -> value
+                else -> FlutterFieldUtil.convertValueByFieldType(field.targetType, value)
             }
         }
     }

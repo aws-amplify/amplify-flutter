@@ -264,19 +264,13 @@ void main() {
       testModelOperations(models: models);
     });
 
-    group(
-      'List<AWSTimestamp>',
-      () {
-        var now = DateTime.now();
-        var list = List.generate(
-            3, (i) => TemporalTimestamp(now.add(Duration(days: i))));
-        var models =
-            List.generate(5, (_) => TimestampListTypeModel(value: list));
-        testModelOperations(models: models);
-      },
-      // should be unskipped after https://github.com/aws-amplify/amplify-flutter/issues/814 is resolved
-      skip: true,
-    );
+    group('List<AWSTimestamp>', () {
+      var now = DateTime.now();
+      var list = List.generate(
+          3, (i) => TemporalTimestamp(now.add(Duration(days: i))));
+      var models = List.generate(5, (_) => TimestampListTypeModel(value: list));
+      testModelOperations(models: models);
+    });
 
     group(
       'List<AWSTimestamp> (with null value)',

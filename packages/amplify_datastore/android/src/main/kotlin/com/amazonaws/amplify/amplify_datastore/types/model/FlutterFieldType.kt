@@ -30,6 +30,33 @@ data class FlutterFieldType(val map: Map<String, Any>) {
 
     private val ofCustomTypeName: String? = map["ofCustomTypeName"] as String?
 
+    private fun mapTargetType(targetType: String, isCollection: Boolean = false): String {
+        return when(targetType) {
+            "string" -> "String"
+            "int" -> "Integer"
+            "double" -> "Double"
+            "date" -> "AWSDate"
+            "dateTime" -> "AWSDateTime"
+            "time" -> "AWSTime"
+            "timestamp" -> "AWSTimestamp"
+            "bool" -> "Boolean"
+            "enumeration" -> "String"
+            "model" -> ofModelName!!
+            // When field type is "embedded" ofCustomTypeName will always be available
+            // Under the contract with Flutter amplify_datastore ModelFieldDefinition
+            "embedded" -> ofCustomTypeName!!
+            "embeddedCollection" -> ofCustomTypeName!!
+            else -> {
+                if (isCollection) {
+                    ofModelName!!
+                } else {
+                    throw Exception(
+                        "FlutterFieldType.getModelTargetType - invalid fieldType supplied: $targetType")
+                }
+            }
+        }
+    }
+
     // This should always return false, enums are passed in as strings to Android
     fun isEnum(): Boolean {
         return false
@@ -45,23 +72,8 @@ data class FlutterFieldType(val map: Map<String, Any>) {
 
     fun getTargetType(): String {
         return when (fieldType) {
-            "string" -> "String"
-            "int" -> "Integer"
-            "double" -> "Double"
-            "date" -> "AWSDate"
-            "dateTime" -> "AWSDateTime"
-            "time" -> "AWSTime"
-            "timestamp" -> "AWSTimestamp"
-            "bool" -> "Boolean"
-            "enumeration" -> "String"
-            "model" -> ofModelName!!
-            "collection" -> ofModelName!!
-            // When field type is "embedded" ofCustomTypeName will always be available
-            // Under the contract with Flutter amplify_datastore ModelFieldDefinition
-            "embedded" -> ofCustomTypeName!!
-            "embeddedCollection" -> ofCustomTypeName!!
-            else -> throw Exception(
-                    "FlutterFieldType.getModelTargetType - invalid fieldType supplied: $fieldType")
+            "collection" -> mapTargetType(ofModelName!!, isCollection = true)
+            else -> mapTargetType(fieldType)
         }
     }
 
