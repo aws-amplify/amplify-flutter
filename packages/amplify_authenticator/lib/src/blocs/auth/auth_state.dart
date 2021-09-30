@@ -34,17 +34,16 @@ class Authenticated extends AuthState {
 class AuthFlow extends AuthState {
   const AuthFlow({required this.screen});
 
-  static const signup = AuthFlow(screen: AuthScreen.signup);
-  static const signin = AuthFlow(screen: AuthScreen.signin);
-  static const confirmSignup = AuthFlow(screen: AuthScreen.confirmSignup);
-  static const confirmSigninMfa = AuthFlow(screen: AuthScreen.confirmSigninMfa);
-  static const confirmSigninNewPassword =
-      AuthFlow(screen: AuthScreen.confirmSigninNewPassword);
-  static const sendCode = AuthFlow(screen: AuthScreen.sendCode);
-  static const resetPassword = AuthFlow(screen: AuthScreen.resetPassword);
-  static const verifyUser = AuthFlow(screen: AuthScreen.verifyUser);
-  static const confirmVerifyUser =
-      AuthFlow(screen: AuthScreen.confirmVerifyUser);
+  const AuthFlow.signup() : screen = AuthScreen.signup;
+  const AuthFlow.signin() : screen = AuthScreen.signin;
+  const AuthFlow.confirmSignup() : screen = AuthScreen.confirmSignup;
+  const AuthFlow.confirmSigninMfa() : screen = AuthScreen.confirmSigninMfa;
+  const AuthFlow.confirmSigninNewPassword()
+      : screen = AuthScreen.confirmSigninNewPassword;
+  const AuthFlow.sendCode() : screen = AuthScreen.sendCode;
+  const AuthFlow.resetPassword() : screen = AuthScreen.resetPassword;
+  const AuthFlow.verifyUser() : screen = AuthScreen.verifyUser;
+  const AuthFlow.confirmVerifyUser() : screen = AuthScreen.confirmVerifyUser;
 
   final AuthScreen screen;
 }
