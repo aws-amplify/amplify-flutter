@@ -40,33 +40,35 @@ export 'package:amplify_authenticator/src/text_customization/auth_strings_resolv
 export 'package:amplify_authenticator/src/widgets/button.dart'
     show SignOutButton;
 
+/// {@template authenticator.authenticator}
+/// # Amplify Authenticator
+///
+/// A widget that allows customers to authenticate their apps.
+///
+/// The Authenticator widget requires two arguments, a child widget and an username alias
+/// to define the initial authentication flow.
+///
+/// This authenticator accepts the following custom forms, sign in, sign up and confirm sign in.
+///
+/// Note that working with custom forms is optional. Thus, if no additional arguments
+/// are passed, the authenticator will defined the following default forms with their
+/// respective form fields:
+///
+/// 1. Sign in:
+///     - Alias (username, email or phone number)
+///     - Password
+/// 2. Sign Up:
+///     - Username
+///     - Password
+///     - Email
+///     - Phone Number
+/// 3. Confirm Sign in
+///     - define
+///     - define
+///     - define
+/// {@endtemplate}
 class Authenticator extends StatefulWidget {
-  /// # Amplify Authenticator
-  ///
-  /// A widget that allows customers to authenticate their apps.
-  ///
-  /// The Authenticator widget requires two arguments, a child widget and an username alias
-  /// to define the initial authentication flow.
-  ///
-  /// This authenticator accepts the following custom forms, sign in, sign up and confirm sign in.
-  ///
-  /// Note that working with custom forms is optional. Thus, if no additional arguments
-  /// are passed, the authenticator will defined the following default forms with their
-  /// respective form fields:
-  ///
-  /// 1. Sign in:
-  ///     - Alias (username, email or phone number)
-  ///     - Password
-  /// 2. Sign Up:
-  ///     - Username
-  ///     - Password
-  ///     - Email
-  ///     - Phone Number
-  /// 3. Confirm Sign in
-  ///     - define
-  ///     - define
-  ///     - define
-  ///
+  /// {@macro authenticator.authenticator}
   const Authenticator({
     Key? key,
     this.usernameAlias = Alias.username,
@@ -91,10 +93,74 @@ class Authenticator extends StatefulWidget {
   /// The form to display when confirming a sign in with MFA.
   final ConfirmSignInMFAForm confirmSignInMFAForm;
 
-  /// The form to display during sign up.
+  /// This form will support the following form field types:
+  ///    * username
+  ///    * password
+  ///    * email
+  ///    * phone_number
+  ///
+  /// ### Example
+  /// ```dart
+  ///     SignInForm( formFields:
+  ///                   FormFields(children: [
+  ///                     SignInFormField(
+  ///                       type: "username" ,
+  ///                       title: "Custom Username Form Field",
+  ///                       hintText: "Custom Hint Text",
+  ///              ),
+  ///           ])
+  ///
+  /// ```
   final SignInForm signInForm;
 
-  /// The form to display during sign in.
+  /// This form will support the following form field types:
+  /// * username
+  /// * password
+  /// * birthdate
+  /// * email
+  /// * family_name
+  /// * gender
+  /// * given_name
+  /// * locate
+  /// * middle_name
+  /// * name
+  /// * nickname
+  /// * phone_number
+  /// * picture
+  /// * preferred_username
+  /// * profile
+  /// * zoneinfo
+  /// * updated_at
+  /// * website
+  /// * custom
+  ///
+  /// ### Example
+  /// ```dart
+  ///     SignInForm( formFields:
+  ///                   FormFields(children: [
+  ///                     SignUpFormField(
+  ///                       type: "username" ,
+  ///                       title: "Custom username form field",
+  ///                       hintText: "Custom hint text",
+  ///                       ),
+  ///                     SignUpFormField(
+  ///                       type: "password" ,
+  ///                       title: "Custom password form field",
+  ///                       hintText: "Custom hint text",
+  ///                       ),
+  ///                     SignUpFormField(
+  ///                       type: "email" ,
+  ///                       title: "Custom email form field",
+  ///                       hintText: "Custom hint text",
+  ///                       ),
+  ///                     SignUpFormField(
+  ///                       type: "website" ,
+  ///                       title: "Custom website form field",
+  ///                       hintText: "Custom hint text",
+  ///                       ),
+  ///                     ])
+  ///
+  /// ```
   final SignUpForm signUpForm;
 
   final AuthStringResolver stringResolver;
@@ -104,6 +170,7 @@ class Authenticator extends StatefulWidget {
 
   @override
   _AuthenticatorState createState() => _AuthenticatorState();
+
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
