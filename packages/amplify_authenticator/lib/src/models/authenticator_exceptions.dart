@@ -16,7 +16,10 @@
 class AuthenticatorException implements Exception {
   final String message;
 
-  AuthenticatorException(this.message);
+  const AuthenticatorException(this.message);
+
+  const AuthenticatorException.customAuth()
+      : message = 'Custom auth flows are not supported yet in Authenticator';
 
   @override
   String toString() => message.toString();
