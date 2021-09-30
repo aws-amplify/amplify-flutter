@@ -42,6 +42,12 @@ abstract class TitleResolver extends Resolver<AuthScreen> {
   /// The title for the send code Widget.
   String sendCode(BuildContext context);
 
+  /// The title for the verify user Widget.
+  String verifyUser(BuildContext context);
+
+  /// The title for the verify user Widget.
+  String confirmVerifyUser(BuildContext context);
+
   @override
   String resolve(BuildContext context, AuthScreen key) {
     switch (key) {
@@ -59,6 +65,10 @@ abstract class TitleResolver extends Resolver<AuthScreen> {
         return resetPassword(context);
       case AuthScreen.sendCode:
         return sendCode(context);
+      case AuthScreen.verifyUser:
+        return verifyUser(context);
+      case AuthScreen.confirmVerifyUser:
+        return confirmVerifyUser(context);
     }
   }
 }
@@ -87,4 +97,12 @@ class DefaultTitleResolver extends TitleResolver {
 
   @override
   String sendCode(BuildContext context) => 'Send Code';
+
+  @override
+  String verifyUser(BuildContext context) =>
+      'Account recovery requires verified contact information';
+
+  @override
+  String confirmVerifyUser(BuildContext context) =>
+      'Account recovery requires verified contact information';
 }

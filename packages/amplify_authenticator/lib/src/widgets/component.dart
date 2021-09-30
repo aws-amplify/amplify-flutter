@@ -25,11 +25,15 @@ abstract class StatelessAuthenticatorComponent extends StatelessWidget {
   }
 }
 
-abstract class AuthenticatorComponent extends StatefulWidget {
+abstract class AuthenticatorComponent<T extends AuthenticatorComponent<T>>
+    extends StatefulWidget {
   const AuthenticatorComponent({Key? key}) : super(key: key);
+
+  @override
+  AuthenticatorComponentState<T> createState();
 }
 
-abstract class AuthenticatorComponentState<T extends AuthenticatorComponent>
+abstract class AuthenticatorComponentState<T extends AuthenticatorComponent<T>>
     extends State<T> {
   late final AuthViewModel viewModel;
   late final AuthStringResolver stringResolver;

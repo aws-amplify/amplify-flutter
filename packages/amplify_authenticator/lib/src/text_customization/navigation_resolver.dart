@@ -24,6 +24,7 @@ enum NavigationResolverKey {
   forgotPasswordQuestion,
   navigateResetPassword,
   backToSignin,
+  skipVerifyUser,
 }
 
 /// The resolver class for shared button Widgets
@@ -51,6 +52,9 @@ abstract class NavigationResolver extends Resolver<NavigationResolverKey> {
   /// Text asking if user has have an account
   String backToSignin(BuildContext context);
 
+  /// Text asking if user has have an account
+  String skipVerifyUser(BuildContext context);
+
   @override
   String resolve(BuildContext context, NavigationResolverKey key) {
     switch (key) {
@@ -68,6 +72,8 @@ abstract class NavigationResolver extends Resolver<NavigationResolverKey> {
         return navigateResetPassword(context);
       case NavigationResolverKey.backToSignin:
         return backToSignin(context);
+      case NavigationResolverKey.skipVerifyUser:
+        return skipVerifyUser(context);
     }
   }
 }
@@ -95,4 +101,7 @@ class DefaultNavigationResolver extends NavigationResolver {
 
   @override
   String backToSignin(BuildContext context) => 'Back to Sign In';
+
+  @override
+  String skipVerifyUser(BuildContext context) => 'Skip';
 }

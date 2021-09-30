@@ -5,8 +5,56 @@ import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/text_customization/navigation_resolver.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
-import 'package:amplify_authenticator/src/widgets/containers.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+class AuthenticatorButton extends StatelessAuthenticatorComponent {
+  const AuthenticatorButton({
+    Key? key,
+    required this.text,
+    required this.authKey,
+    required this.callback,
+  }) : super(key: key);
+
+  final String authKey;
+  final void Function() callback;
+  final String text;
+
+  @override
+  Widget builder(
+    BuildContext context,
+    AuthViewModel viewModel,
+    AuthStringResolver stringResolver,
+  ) {
+    return AnimatedBuilder(
+      animation: viewModel,
+      builder: (context, child) {
+        return ElevatedButton(
+          key: Key(authKey),
+          onPressed: viewModel.isBusy ? null : callback,
+          child: viewModel.isBusy
+              ? const CircularProgressIndicator(color: Colors.white)
+              : Text(text),
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.all(10),
+            primary: Theme.of(context).primaryColor != Colors.blue
+                ? Theme.of(context).primaryColor
+                : AuthenticatorColors.primary,
+          ),
+        );
+      },
+    );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('text', text));
+    properties.add(StringProperty('authKey', authKey));
+    properties
+        .add(ObjectFlagProperty<void Function()>.has('callback', callback));
+  }
+}
 
 class SignUpButton extends StatelessAuthenticatorComponent {
   const SignUpButton({Key? key}) : super(key: key);
@@ -17,7 +65,7 @@ class SignUpButton extends StatelessAuthenticatorComponent {
     AuthViewModel viewModel,
     AuthStringResolver stringResolver,
   ) {
-    return ButtonContainer(
+    return AuthenticatorButton(
       callback: viewModel.signUp,
       authKey: keySignUpButton,
       text: stringResolver.buttons.signup(context),
@@ -34,7 +82,7 @@ class SignInButton extends StatelessAuthenticatorComponent {
     AuthViewModel viewModel,
     AuthStringResolver stringResolver,
   ) {
-    return ButtonContainer(
+    return AuthenticatorButton(
       callback: viewModel.signIn,
       authKey: keySignInButton,
       text: stringResolver.buttons.signin(context),
@@ -51,7 +99,7 @@ class ConfirmSignUpButton extends StatelessAuthenticatorComponent {
     AuthViewModel viewModel,
     AuthStringResolver stringResolver,
   ) {
-    return ButtonContainer(
+    return AuthenticatorButton(
       callback: viewModel.confirm,
       authKey: keyConfirmSignUpButton,
       text: stringResolver.buttons.confirm(context),
@@ -68,7 +116,7 @@ class ConfirmSignInMFAButton extends StatelessAuthenticatorComponent {
     AuthViewModel viewModel,
     AuthStringResolver stringResolver,
   ) {
-    return ButtonContainer(
+    return AuthenticatorButton(
       callback: viewModel.confirmSignIn,
       authKey: keyConfirmSignInButton,
       text: stringResolver.buttons.confirm(context),
@@ -85,7 +133,7 @@ class SignOutButton extends StatelessAuthenticatorComponent {
     AuthViewModel viewModel,
     AuthStringResolver stringResolver,
   ) {
-    return ButtonContainer(
+    return AuthenticatorButton(
       callback: viewModel.signOut,
       authKey: keySignOutButton,
       text: 'Sign Out', // TODO
@@ -316,7 +364,7 @@ class SendCodeButton extends StatelessAuthenticatorComponent {
     AuthViewModel viewModel,
     AuthStringResolver stringResolver,
   ) {
-    return ButtonContainer(
+    return AuthenticatorButton(
       callback: viewModel.sendCode,
       authKey: keySendCodeButton,
       text: stringResolver.buttons.submit(context),
@@ -333,7 +381,7 @@ class SubmitButton extends StatelessAuthenticatorComponent {
     AuthViewModel viewModel,
     AuthStringResolver stringResolver,
   ) {
-    return ButtonContainer(
+    return AuthenticatorButton(
       callback: viewModel.confirmPassword,
       authKey: keySendCodeButton,
       text: stringResolver.buttons.submit(context),
@@ -350,10 +398,68 @@ class ConfirmSignInNewPasswordButton extends StatelessAuthenticatorComponent {
     AuthViewModel viewModel,
     AuthStringResolver stringResolver,
   ) {
-    return ButtonContainer(
+    return AuthenticatorButton(
       callback: viewModel.confirmSignIn,
       authKey: keySendCodeButton,
       text: stringResolver.buttons.changePassword(context),
+    );
+  }
+}
+
+class VerifyUserButton extends StatelessAuthenticatorComponent {
+  const VerifyUserButton({Key? key}) : super(key: key);
+
+  @override
+  Widget builder(
+    BuildContext context,
+    AuthViewModel viewModel,
+    AuthStringResolver stringResolver,
+  ) {
+    return AuthenticatorButton(
+      callback: viewModel.verifyUser,
+      authKey: keySendCodeButton,
+      text: stringResolver.buttons.verifyUser(context),
+    );
+  }
+}
+
+class ConfirmVerifyUserButton extends StatelessAuthenticatorComponent {
+  const ConfirmVerifyUserButton({Key? key}) : super(key: key);
+
+  @override
+  Widget builder(
+    BuildContext context,
+    AuthViewModel viewModel,
+    AuthStringResolver stringResolver,
+  ) {
+    return AuthenticatorButton(
+      callback: viewModel.confirmVerifyUser,
+      authKey: keySendCodeButton,
+      text: stringResolver.buttons.confirmVerifyUser(context),
+    );
+  }
+}
+
+class SkipVerifyUserButton extends StatelessAuthenticatorComponent {
+  const SkipVerifyUserButton({Key? key}) : super(key: key);
+
+  @override
+  Widget builder(
+    BuildContext context,
+    AuthViewModel viewModel,
+    AuthStringResolver stringResolver,
+  ) {
+    return TextButton(
+      key: const Key(keyBackToSignInButton),
+      child: Text(
+        stringResolver.navigation.skipVerifyUser(context),
+        style: TextStyle(
+            fontSize: AuthenticatorButtonConstants.fontSize,
+            color: Theme.of(context).primaryColor != Colors.blue
+                ? Theme.of(context).primaryColor
+                : AuthenticatorColors.primary),
+      ),
+      onPressed: viewModel.skipVerifyUser,
     );
   }
 }

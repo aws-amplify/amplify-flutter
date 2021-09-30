@@ -1,10 +1,29 @@
+/*
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+*/
+
+library authenticator.form;
+
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
+import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
-import 'package:amplify_authenticator/src/widgets/buttons.dart';
+import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
-import 'package:amplify_authenticator/src/widgets/containers.dart';
-import 'package:amplify_authenticator/src/widgets/form_fields.dart';
+import 'package:amplify_authenticator/src/widgets/form_field.dart';
+import 'package:amplify_authenticator/src/widgets/layout.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -77,6 +96,10 @@ abstract class AuthenticatorForm extends StatelessAuthenticatorComponent {
           ? const ConfirmSignInNewPasswordForm()
           : ConfirmSignInNewPasswordForm.custom(fields: fields);
 
+  const factory AuthenticatorForm.verifyUser() = VerifyUserForm;
+
+  const factory AuthenticatorForm.confirmVerifyUser() = ConfirmVerifyUserForm;
+
   /// The form's field components.
   final List<AuthenticatorFormField> fields;
 
@@ -93,16 +116,45 @@ abstract class AuthenticatorForm extends StatelessAuthenticatorComponent {
     AuthViewModel viewModel,
     AuthStringResolver stringResolver,
   ) {
-    return FormContainer(
-      fields: <AuthenticatorFormField>[
-        ...fields,
-        ...additionalFields(context),
-      ],
-      buttonsContainer: ButtonsContainer(
-        children: buttons,
+    return Form(
+      key: viewModel.formKey,
+      child: Column(
+        children: [
+          ...fields,
+          ...additionalFields(context),
+          AdaptiveFlex(
+            children: buttons,
+          ),
+        ],
       ),
     );
   }
+}
+
+class SignUpForm extends AuthenticatorForm {
+  const SignUpForm({
+    Key? key,
+  }) : this.custom(
+          key: key,
+          fields: const [
+            SignUpFormField.username(),
+            SignUpFormField.password(),
+            SignUpFormField.passwordConfirmation(),
+          ],
+        );
+
+  /// Requires a list of sign up  form fields.
+  const SignUpForm.custom({
+    Key? key,
+    required List<SignUpFormField> fields,
+  }) : super._(
+          key: key,
+          fields: fields,
+          buttons: const [
+            SignUpButton(),
+            GoToSignInButton(),
+          ],
+        );
 }
 
 class SignInForm extends AuthenticatorForm {
@@ -132,6 +184,7 @@ class SignInForm extends AuthenticatorForm {
           ],
         );
 
+  /// Whether to include the attributes specified by your Amplify configuration.
   final bool includeDefaultAttributes;
 
   @override
@@ -206,32 +259,6 @@ class SignInForm extends AuthenticatorForm {
   }
 }
 
-class SignUpForm extends AuthenticatorForm {
-  const SignUpForm({
-    Key? key,
-  }) : this.custom(
-          key: key,
-          fields: const [
-            SignUpFormField.username(),
-            SignUpFormField.password(),
-            SignUpFormField.passwordConfirmation(),
-          ],
-        );
-
-  /// Requires a list of sign up  form fields.
-  const SignUpForm.custom({
-    Key? key,
-    required List<SignUpFormField> fields,
-  }) : super._(
-          key: key,
-          fields: fields,
-          buttons: const [
-            SignUpButton(),
-            GoToSignInButton(),
-          ],
-        );
-}
-
 class ConfirmSignUpForm extends AuthenticatorForm {
   const ConfirmSignUpForm({
     Key? key,
@@ -257,7 +284,9 @@ class ConfirmSignUpForm extends AuthenticatorForm {
           ],
         );
 
-  /// TODO: This button will be used for resend a verification code.
+  /// Widget to show for resending a verification code.
+  ///
+  /// Typically a [TextButton].
   final Widget? resendCodeButton;
 }
 
@@ -278,6 +307,29 @@ class ConfirmSignInMFAForm extends AuthenticatorForm {
           fields: fields,
           buttons: const [
             ConfirmSignInMFAButton(),
+            BackToSignInButton(),
+          ],
+        );
+}
+
+class ConfirmSignInNewPasswordForm extends AuthenticatorForm {
+  const ConfirmSignInNewPasswordForm({
+    Key? key,
+  }) : this.custom(
+          key: key,
+          fields: const [
+            ConfirmSignInFormField.password(),
+          ],
+        );
+
+  const ConfirmSignInNewPasswordForm.custom({
+    Key? key,
+    required List<ConfirmSignInFormField> fields,
+  }) : super._(
+          key: key,
+          fields: fields,
+          buttons: const [
+            ConfirmSignInNewPasswordButton(),
             BackToSignInButton(),
           ],
         );
@@ -330,25 +382,72 @@ class ResetPasswordForm extends AuthenticatorForm {
         );
 }
 
-class ConfirmSignInNewPasswordForm extends AuthenticatorForm {
-  const ConfirmSignInNewPasswordForm({
+class VerifyUserForm extends AuthenticatorForm {
+  const VerifyUserForm({
     Key? key,
-  }) : this.custom(
+  }) : super._(
           key: key,
-          fields: const [
-            ConfirmSignInFormField.password(),
+          fields: const [],
+          buttons: const [
+            VerifyUserButton(),
+            SkipVerifyUserButton(),
           ],
         );
 
-  const ConfirmSignInNewPasswordForm.custom({
+  String _splitAndCapitalize(String key) {
+    return key
+        .split('_')
+        .map((word) => word[0].toUpperCase() + word.substring(1))
+        .join(' ');
+  }
+
+  List<String> _unverifiedAttributeKeys(BuildContext context) {
+    final authState = InheritedAuthBloc.of(context).currentState;
+    if (authState is! VerifyUserFlow) {
+      return const [];
+    }
+    return authState.unverifiedAttributeKeys;
+  }
+
+  @override
+  List<AuthenticatorFormField> additionalFields(BuildContext context) {
+    return _unverifiedAttributeKeys(context).map((attributeKey) {
+      return VerifyUserFormField(
+        attributeKey: attributeKey,
+        label: _splitAndCapitalize(attributeKey), // TODO: support localization
+      );
+    }).toList();
+  }
+
+  @override
+  Widget builder(
+    BuildContext context,
+    AuthViewModel viewModel,
+    AuthStringResolver stringResolver,
+  ) {
+    final unverifiedAttributeKeys = _unverifiedAttributeKeys(context);
+    assert(
+      unverifiedAttributeKeys.isNotEmpty,
+      'Attribute keys cannot be empty',
+    );
+    return VerifyUserFormFieldGroup<String>(
+      groupValue: ValueNotifier(unverifiedAttributeKeys.first),
+      child: super.builder(context, viewModel, stringResolver),
+    );
+  }
+}
+
+class ConfirmVerifyUserForm extends AuthenticatorForm {
+  const ConfirmVerifyUserForm({
     Key? key,
-    required List<ConfirmSignInFormField> fields,
   }) : super._(
           key: key,
-          fields: fields,
+          fields: const [
+            ConfirmVerifyUserFormField(),
+          ],
           buttons: const [
-            ConfirmSignInNewPasswordButton(),
-            BackToSignInButton(),
+            ConfirmVerifyUserButton(),
+            SkipVerifyUserButton(),
           ],
         );
 }

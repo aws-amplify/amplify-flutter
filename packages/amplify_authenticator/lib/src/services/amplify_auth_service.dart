@@ -17,6 +17,7 @@ import 'dart:async';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_flutter/src/config/amplify_config.dart';
+import 'package:collection/src/iterable_extensions.dart';
 
 abstract class AuthService {
   Future<SignInResult> signIn(String username, String password);
@@ -49,6 +50,16 @@ abstract class AuthService {
   });
 
   Future<ResendSignUpCodeResult> resendSignUpCode(String username);
+
+  Future<List<String>> getUnverifiedAttributeKeys();
+
+  Future<ResendUserAttributeConfirmationCodeResult>
+      resendUserAttributeConfirmationCode({required String userAttributeKey});
+
+  Future<ConfirmUserAttributeResult> confirmUserAttribute({
+    required String userAttributeKey,
+    required String confirmationCode,
+  });
 
   Future<AmplifyConfig> waitForConfiguration();
 }
@@ -147,6 +158,55 @@ class AmplifyAuthService implements AuthService {
       confirmationCode: code,
       newPassword: newPassword,
     );
+  }
+
+  @override
+  Future<ResendUserAttributeConfirmationCodeResult>
+      resendUserAttributeConfirmationCode({required String userAttributeKey}) {
+    return Amplify.Auth.resendUserAttributeConfirmationCode(
+      userAttributeKey: userAttributeKey,
+    );
+  }
+
+  @override
+  Future<ConfirmUserAttributeResult> confirmUserAttribute({
+    required String userAttributeKey,
+    required String confirmationCode,
+  }) {
+    return Amplify.Auth.confirmUserAttribute(
+      userAttributeKey: userAttributeKey,
+      confirmationCode: confirmationCode,
+    );
+  }
+
+  /// Get a list of the unverified attribute keys for the given user
+  ///
+  /// This is based off of `verifiedContact()` from amplify-js
+  /// https://github.com/aws-amplify/amplify-js/blob/6de9a1d743deef8de5205590bf7cf8134a5fb5f4/packages/auth/src/Auth.ts#L1199-L1224
+  @override
+  Future<List<String>> getUnverifiedAttributeKeys() async {
+    List<AuthUserAttribute> userAttributes =
+        await Amplify.Auth.fetchUserAttributes();
+    List<String> requiredAttributes = ['email', 'phone_number'];
+    return userAttributes
+        .map((attr) => attr.userAttributeKey)
+        .where(
+          (key) =>
+              (requiredAttributes.contains(key)) &&
+              _attributeIsUnverified(userAttributes: userAttributes, key: key),
+        )
+        .toList();
+  }
+
+  bool _attributeIsUnverified({
+    required List<AuthUserAttribute> userAttributes,
+    required String key,
+  }) {
+    return userAttributes
+            .firstWhereOrNull(
+                (attr) => attr.userAttributeKey == '${key}_verified')
+            ?.value !=
+        'true';
   }
 
   @override

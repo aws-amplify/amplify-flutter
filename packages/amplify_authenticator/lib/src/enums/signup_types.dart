@@ -13,8 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'package:collection/collection.dart';
-
 enum SignUpField {
   username,
   password,
@@ -37,9 +35,4 @@ enum SignUpField {
   updatedAt,
   website,
   custom,
-}
-
-SignUpField? fromStringToSignUpType(String str) {
-  return SignUpField.values
-      .firstWhereOrNull((value) => value.toString().split('.')[1] == str);
 }

@@ -32,10 +32,6 @@ enum ConfirmSignInField {
   profile,
   zoneinfo,
   updatedAt,
-  website
-}
-
-ConfirmSignInField fromStringToConfirmSignInType(String str) {
-  return ConfirmSignInField.values
-      .firstWhere((value) => value.toString().split('.')[1] == str);
+  website,
+  custom,
 }

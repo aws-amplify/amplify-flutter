@@ -14,7 +14,7 @@
  */
 
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
-import 'package:amplify_authenticator/src/widgets/forms.dart';
+import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:flutter/material.dart';
 
 class InheritedForms extends InheritedWidget {
@@ -27,6 +27,8 @@ class InheritedForms extends InheritedWidget {
     required this.sendCodeForm,
     required this.resetPasswordForm,
     required this.confirmSignInNewPasswordForm,
+    required this.verifyUserForm,
+    required this.confirmVerifyUserForm,
     required Widget child,
   }) : super(key: key, child: child);
 
@@ -37,6 +39,8 @@ class InheritedForms extends InheritedWidget {
   final ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm;
   final SendCodeForm sendCodeForm;
   final ResetPasswordForm resetPasswordForm;
+  final VerifyUserForm verifyUserForm;
+  final ConfirmVerifyUserForm confirmVerifyUserForm;
 
   AuthenticatorForm operator [](AuthScreen screen) {
     switch (screen) {
@@ -54,6 +58,10 @@ class InheritedForms extends InheritedWidget {
         return sendCodeForm;
       case AuthScreen.resetPassword:
         return resetPasswordForm;
+      case AuthScreen.verifyUser:
+        return verifyUserForm;
+      case AuthScreen.confirmVerifyUser:
+        return confirmVerifyUserForm;
     }
   }
 

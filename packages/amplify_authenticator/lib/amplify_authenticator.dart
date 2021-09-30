@@ -29,7 +29,7 @@ import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:amplify_authenticator/src/state/inherited_strings.dart';
 import 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/widgets/auth_exceptions.dart';
-import 'package:amplify_authenticator/src/widgets/forms.dart';
+import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_flutter/src/config/amplify_config.dart';
 import 'package:flutter/foundation.dart';
@@ -37,7 +37,7 @@ import 'package:flutter/material.dart';
 
 export 'package:amplify_authenticator/src/enums/alias.dart';
 export 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
-export 'package:amplify_authenticator/src/widgets/buttons.dart'
+export 'package:amplify_authenticator/src/widgets/button.dart'
     show SignOutButton;
 
 class Authenticator extends StatefulWidget {
@@ -176,6 +176,8 @@ class _AuthenticatorState extends State<Authenticator> {
               signUpForm: widget.signUpForm,
               confirmSignUpForm: const ConfirmSignUpForm(),
               confirmSignInMFAForm: widget.confirmSignInMFAForm,
+              verifyUserForm: const VerifyUserForm(),
+              confirmVerifyUserForm: const ConfirmVerifyUserForm(),
               child: Scaffold(
                   body: StreamBuilder(
                 stream: _stateMachineBloc.stream,

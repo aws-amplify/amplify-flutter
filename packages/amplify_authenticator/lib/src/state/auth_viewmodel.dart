@@ -1,3 +1,18 @@
+/*
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
@@ -9,7 +24,7 @@ class AuthViewModel extends ChangeNotifier {
   final StateMachineBloc _authBloc;
   StateMachineBloc get authBloc => _authBloc;
 
-  GlobalKey<FormState> _formKey = GlobalKey();
+  final GlobalKey<FormState> _formKey = GlobalKey();
   GlobalKey<FormState> get formKey => _formKey;
 
   bool _isBusy = false;
@@ -34,6 +49,7 @@ class AuthViewModel extends ChangeNotifier {
   String _confirmationCode = '';
   String _newPassword = '';
   String _newUsername = '';
+  String? _userAttributeKey;
 
   final Map<CognitoUserAttributes, String> _authAttributes = {};
 
@@ -138,6 +154,10 @@ class AuthViewModel extends ChangeNotifier {
 
   void setCustom(String value, String type) {
     _setAttribute(CognitoUserAttributes.custom(type), value);
+  }
+
+  void setUserAttributeKey(String? value) {
+    _userAttributeKey = value;
   }
 
   // Auth calls
@@ -259,6 +279,59 @@ class AuthViewModel extends ChangeNotifier {
     setBusy(false);
   }
 
+  Future<void> resendSignUpCode() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+    setBusy(true);
+    authBloc.add(AuthResendSignUpCode(_username));
+    await Future.any([
+      _authBloc.exceptions.first,
+      _authBloc.stream.firstWhere((state) => state is VerificationCodeSent),
+    ]);
+    setBusy(false);
+  }
+
+  Future<void> confirmVerifyUser() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+    setBusy(true);
+    AuthConfirmVerifyUserData authConfirmVerifyUserData =
+        AuthConfirmVerifyUserData(
+      userAttributeKey: _userAttributeKey!,
+      code: _confirmationCode,
+    );
+    _authBloc.add(AuthConfirmVerifyUser(authConfirmVerifyUserData));
+    await Future.any([
+      _authBloc.exceptions.first,
+      _authBloc.stream
+          .firstWhere((state) => state is AuthFlow || state is Authenticated),
+    ]);
+    setBusy(false);
+  }
+
+  Future<void> verifyUser() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+    setBusy(true);
+    AuthVerifyUserData authVerifyUserData = AuthVerifyUserData(
+      userAttributeKey: _userAttributeKey!,
+    );
+    _authBloc.add(AuthVerifyUser(authVerifyUserData));
+    await Future.any([
+      _authBloc.exceptions.first,
+      _authBloc.stream
+          .firstWhere((state) => state is AuthFlow || state is Authenticated),
+    ]);
+    setBusy(false);
+  }
+
+  void skipVerifyUser() {
+    _authBloc.add(const AuthSkipVerifyUser());
+  }
+
   void _navigateTo(AuthScreen authScreen) {
     _clean();
     authBloc.add(AuthChangeScreen(authScreen));
@@ -268,11 +341,6 @@ class AuthViewModel extends ChangeNotifier {
   void goToSignIn() => _navigateTo(AuthScreen.signin);
   void goToReset() => _navigateTo(AuthScreen.sendCode);
 
-  void resendSignUpCode() {
-    // TODO
-    // authBloc.resendSignUpCode(username!);
-  }
-
   void _clean() {
     _username = '';
     _password = '';
@@ -281,6 +349,5 @@ class AuthViewModel extends ChangeNotifier {
     _newPassword = '';
 
     _authAttributes.clear();
-    _formKey = GlobalKey();
   }
 }

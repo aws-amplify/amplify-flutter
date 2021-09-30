@@ -92,16 +92,6 @@ FormFieldValidator<String> validateSignUpPassword(BuildContext context) {
   };
 }
 
-FormFieldValidator<String> validateUsername(BuildContext context) {
-  final inputsResolver = InheritedStrings.of(context).inputs;
-  return simpleValidator(inputsResolver.usernameEmpty(context));
-}
-
-FormFieldValidator<String> validatePassword(BuildContext context) {
-  final inputsResolver = InheritedStrings.of(context).inputs;
-  return simpleValidator(inputsResolver.passwordEmpty(context));
-}
-
 FormFieldValidator<String> validatePasswordConfirmation(
   AuthViewModel viewModel,
 ) {

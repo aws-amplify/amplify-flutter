@@ -13,8 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'package:collection/collection.dart';
-
 enum SignInField {
   username,
   password,
@@ -23,9 +21,4 @@ enum SignInField {
   verificationCode,
   newPassword,
   newUsername
-}
-
-SignInField? fromStringToSignInType(String str) {
-  return SignInField.values
-      .firstWhereOrNull((value) => value.toString().split('.')[1] == str);
 }

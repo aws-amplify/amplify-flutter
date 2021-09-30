@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-// ignore: public_member_api_docs
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 
 enum AuthScreen {
@@ -24,6 +23,8 @@ enum AuthScreen {
   confirmSigninNewPassword,
   sendCode,
   resetPassword,
+  verifyUser,
+  confirmVerifyUser,
 }
 
 class AuthSignInData {
@@ -118,4 +119,30 @@ class AuthConfirmSignInData {
   Map<String, String> get attributes {
     return _attributes.map((key, value) => MapEntry(key.value, value));
   }
+}
+
+class AuthSetUnverifiedAttributeKeysData {
+  const AuthSetUnverifiedAttributeKeysData({
+    required this.unverifiedAttributeKeys,
+  });
+
+  final List<String> unverifiedAttributeKeys;
+}
+
+class AuthVerifyUserData {
+  const AuthVerifyUserData({
+    required this.userAttributeKey,
+  });
+
+  final String userAttributeKey;
+}
+
+class AuthConfirmVerifyUserData {
+  const AuthConfirmVerifyUserData({
+    required this.userAttributeKey,
+    required this.code,
+  });
+
+  final String userAttributeKey;
+  final String code;
 }

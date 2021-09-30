@@ -15,8 +15,8 @@
 
 import 'package:flutter/material.dart';
 
-abstract class Resolver<Key> {
+abstract class Resolver<ResolverKey> {
   const Resolver();
 
-  String resolve(BuildContext context, Key key);
+  String resolve(BuildContext context, ResolverKey key);
 }
