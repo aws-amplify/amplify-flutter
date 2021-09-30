@@ -13,7 +13,7 @@
 
   **How to migrate?**
   - Upgrade amplify-flutter to the latest version
-  - Upgrade amplify-codegen to the latest version, and regenerate models by `amplify codegen models`
+  - Upgrade amplify-codegen to the latest version, and regenerate models by running `amplify codegen models`
     > May need to uninstall `@aws-amplify/cli` and reinstall it to ensure it pulls the latest version of `amplify-codegen` package
 
 ### Features

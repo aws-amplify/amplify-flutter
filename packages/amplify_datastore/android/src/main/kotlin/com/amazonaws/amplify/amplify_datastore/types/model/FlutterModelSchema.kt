@@ -27,9 +27,7 @@ data class FlutterModelSchema(val map: Map<String, Any>) {
         (map["fields"] as Map<String, Any>).mapValues { FlutterModelField(it.value as Map<String, Any>) }
     private val associations: Map<String, FlutterModelAssociation> =
         fields.filterKeys { key -> fields[key]?.getModelAssociation() != null }
-            .mapValues { entry ->
-                entry.value.getModelAssociation()!!
-            }
+            .mapValues { it.value.getModelAssociation()!! }
 
     fun convertToNativeModelSchema(): ModelSchema {
         var builder: ModelSchema.Builder = ModelSchema.builder()

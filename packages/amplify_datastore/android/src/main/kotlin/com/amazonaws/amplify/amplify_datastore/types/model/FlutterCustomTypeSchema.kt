@@ -21,17 +21,13 @@ data class FlutterCustomTypeSchema(val map: Map<String, Any>) {
     val name: String = map["name"] as String
     private val pluralName: String? = map["pluralName"] as String?
     private val fields: Map<String, FlutterCustomTypeField> = (map["fields"] as Map<String, Any>)
-        .mapValues { entry ->
-            FlutterCustomTypeField(entry.value as Map<String, Any>)
-        }
+        .mapValues { FlutterCustomTypeField(it.value as Map<String, Any>) }
 
     fun convertToNativeCustomTypeSchema(): CustomTypeSchema {
         return CustomTypeSchema.builder()
             .name(name)
             .pluralName(pluralName)
-            .fields(fields.mapValues { entry ->
-                entry.value.convertToNativeModelField()
-            })
+            .fields(fields.mapValues { it.value.convertToNativeModelField() })
             .build()
     }
 }

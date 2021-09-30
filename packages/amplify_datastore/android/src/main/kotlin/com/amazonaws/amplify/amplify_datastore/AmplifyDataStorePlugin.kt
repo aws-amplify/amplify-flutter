@@ -466,12 +466,12 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         @NonNull syncExpressions: List<Map<String, Any>>,
         @NonNull dataStoreConfigurationBuilder: DataStoreConfiguration.Builder
     ) {
-        syncExpressions.forEach { syncExpression ->
+        syncExpressions.forEach {
             try {
-                val id = syncExpression["id"] as String
-                val modelName = syncExpression["modelName"] as String
+                val id = it["id"] as String
+                val modelName = it["modelName"] as String
                 val queryPredicate =
-                    QueryPredicateBuilder.fromSerializedMap(syncExpression["queryPredicate"].safeCastToMap())!!
+                    QueryPredicateBuilder.fromSerializedMap(it["queryPredicate"].safeCastToMap())!!
                 dataStoreConfigurationBuilder.syncExpression(modelName) {
                     var resolvedQueryPredicate = queryPredicate
                     val latch = CountDownLatch(1)
@@ -631,10 +631,10 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         val flutterModelSchemaList =
             modelSchemas.map { modelSchema -> FlutterModelSchema(modelSchema) }
 
-        flutterModelSchemaList.forEach { flutterModelSchema ->
-            val nativeSchema = flutterModelSchema.convertToNativeModelSchema()
+        flutterModelSchemaList.forEach {
+            val nativeSchema = it.convertToNativeModelSchema()
             modelProvider.addModelSchema(
-                flutterModelSchema.name,
+                it.name,
                 nativeSchema
             )
         }
@@ -643,10 +643,10 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             val flutterCustomTypeSchemaList =
                 customTypeSchemas.map { customTypeSchema -> FlutterCustomTypeSchema(customTypeSchema) }
 
-            flutterCustomTypeSchemaList.forEach { flutterCustomTypeSchema ->
-                val nativeSchema = flutterCustomTypeSchema.convertToNativeCustomTypeSchema()
+            flutterCustomTypeSchemaList.forEach {
+                val nativeSchema = it.convertToNativeCustomTypeSchema()
                 modelProvider.addCustomTypeSchema(
-                    flutterCustomTypeSchema.name,
+                    it.name,
                     nativeSchema
                 )
             }
