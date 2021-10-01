@@ -33,6 +33,7 @@ include_build_tools!
 target 'Runner' do
   use_frameworks!
   use_modular_headers!
+  include_build_tools!
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end
@@ -40,6 +41,7 @@ end
 target 'unit_tests' do
   use_frameworks!
   use_modular_headers!
+  include_build_tools!
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end

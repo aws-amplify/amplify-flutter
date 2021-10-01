@@ -430,6 +430,50 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                                                               flutterResult: flutterResult)
         }
     }
+
+    func onStart(flutterResult: @escaping FlutterResult) {
+        do {
+            try bridge.onStart() { (result) in
+                switch result {
+                case .failure(let error):
+                    print("Start API failed. Error: \(error)")
+                    FlutterDataStoreErrorHandler.handleDataStoreError(
+                        error: error,
+                        flutterResult: flutterResult)
+                case .success():
+                    print("Successfully started datastore cloud syncing")
+                    flutterResult(nil)
+                }
+            }
+        }
+        catch {
+            print("An unexpected error occured: \(error)")
+            FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
+                                                              flutterResult: flutterResult)
+        }
+    }
+
+    func onStop(flutterResult: @escaping FlutterResult) {
+        do {
+            try bridge.onStop() { (result) in
+                switch result {
+                case .failure(let error):
+                    print("Stop API failed. Error: \(error)")
+                    FlutterDataStoreErrorHandler.handleDataStoreError(
+                        error: error,
+                        flutterResult: flutterResult)
+                case .success():
+                    print("Successfully stopped datastore cloud syncing")
+                    flutterResult(nil)
+                }
+            }
+        }
+        catch {
+            print("An unexpected error occured: \(error)")
+            FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
+                                                              flutterResult: flutterResult)
+        }
+    }
     
     private func checkArguments(args: Any) throws -> [String: Any] {
         guard let res = args as? [String: Any] else {
