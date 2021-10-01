@@ -44,9 +44,7 @@ data class FlutterModelField(val map: Map<String, Any>) {
 
     // An array of rules for owner based authorization
     private val authRules: List<FlutterAuthRule>? =
-            (map["authRules"] as List<Map<String, Any>>?)?.map { serializedAuthRule ->
-                FlutterAuthRule(serializedAuthRule)
-            }
+            (map["authRules"] as List<Map<String, Any>>?)?.map { FlutterAuthRule(it) }
 
     // Association (if any) of the model
     private val flutterModelAssociation: FlutterModelAssociation? =
@@ -70,9 +68,7 @@ data class FlutterModelField(val map: Map<String, Any>) {
                 .isCustomType(isCustomType)
 
         if (!authRules.isNullOrEmpty()) {
-            builder = builder.authRules(authRules.map { authRule ->
-                authRule.convertToNativeAuthRule()
-            })
+            builder = builder.authRules(authRules.map { it.convertToNativeAuthRule() })
         }
         return builder.build()
     }

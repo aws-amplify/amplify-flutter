@@ -629,7 +629,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         modelProvider.setVersion(request["modelProviderVersion"] as String)
 
         val flutterModelSchemaList =
-            modelSchemas.map { modelSchema -> FlutterModelSchema(modelSchema) }
+            modelSchemas.map { FlutterModelSchema(it) }
 
         flutterModelSchemaList.forEach {
             val nativeSchema = it.convertToNativeModelSchema()
@@ -641,7 +641,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
 
         if (customTypeSchemas.isNotEmpty()) {
             val flutterCustomTypeSchemaList =
-                customTypeSchemas.map { customTypeSchema -> FlutterCustomTypeSchema(customTypeSchema) }
+                customTypeSchemas.map { FlutterCustomTypeSchema(it) }
 
             flutterCustomTypeSchemaList.forEach {
                 val nativeSchema = it.convertToNativeCustomTypeSchema()
