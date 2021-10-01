@@ -8,6 +8,7 @@ part of 'auth_block_config.dart';
 
 AuthBlockConfig _$AuthBlockConfigFromJson(Map<String, dynamic> json) {
   return AuthBlockConfig(
+    authenticationFlowType: json['authenticationFlowType'] as String?,
     oAuth: json['OAuth'] == null
         ? null
         : OAuthConfig.fromJson(json['OAuth'] as Map<String, dynamic>),
@@ -23,8 +24,11 @@ AuthBlockConfig _$AuthBlockConfigFromJson(Map<String, dynamic> json) {
     signupAttributes: (json['signupAttributes'] as List<dynamic>?)
         ?.map((e) => e as String)
         .toList(),
-    mfaTypes: _$enumDecodeNullable(_$MfaTypesEnumMap, json['mfaTypes']),
-    authenticationFlowType: json['authenticationFlowType'] as String?,
+    mfaTypes: (json['mfaTypes'] as List<dynamic>?)
+        ?.map((e) => _$enumDecode(_$MfaTypesEnumMap, e))
+        .toList(),
+    verificationMechanisms:
+        (json['verificationMechanisms'] as List<dynamic>?)?.cast<String>(),
   );
 }
 

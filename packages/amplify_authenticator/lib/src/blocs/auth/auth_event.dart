@@ -24,7 +24,7 @@ class AuthLoad extends AuthEvent {
 }
 
 class GetCurrentUser extends AuthEvent {
-  GetCurrentUser();
+  const GetCurrentUser();
 }
 
 class AuthChangeScreen extends AuthEvent {

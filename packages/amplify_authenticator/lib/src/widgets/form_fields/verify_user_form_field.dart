@@ -1,7 +1,9 @@
 part of authenticator.form_field;
 
 /// {@template authenticator.verify_user_form_field}
-/// A form field component on the Verify User screen.
+/// A [Radio] form field component on the Verify User screen.
+///
+/// Must be a descendant of a [VerifyUserFormFieldGroup] widget.
 /// {@endtemplate}
 class VerifyUserFormField
     extends AuthenticatorFormField<String, VerifyUserFormField> {
@@ -25,27 +27,15 @@ class VerifyUserFormField
 class _VerifyUserFormFieldState
     extends _AuthenticatorFormFieldState<String, VerifyUserFormField> {
   @override
-  void Function(String) get callback => throw UnimplementedError();
-
-  @override
-  TextInputType get keyboardType => throw UnimplementedError();
-
-  @override
-  bool get obscureText => throw UnimplementedError();
-
-  @override
-  FormFieldValidator<String>? get validator => throw UnimplementedError();
-
-  @override
   Widget build(BuildContext context) {
-    final group = VerifyUserFormFieldGroup.of<String>(context);
+    final groupValue = VerifyUserFormFieldGroup.of<String>(context);
     return ListTile(
       title: Text(widget.title!),
       leading: Radio<String>(
         value: widget.field,
-        groupValue: group.groupValue.value,
+        groupValue: groupValue.value,
         onChanged: (String? value) {
-          group.groupValue.value = value;
+          groupValue.value = value;
           viewModel.setUserAttributeKey(value);
         },
       ),
@@ -53,7 +43,12 @@ class _VerifyUserFormFieldState
   }
 }
 
+/// {@template authenticator.verify_user_form_field_group}
+/// Wraps a group of [VerifyUserFormField] widgets ([Radio] buttons) to provide
+/// common group state.
+/// {@endtemplate}
 class VerifyUserFormFieldGroup<T> extends InheritedNotifier {
+  /// {@macro authenticator.verify_user_form_field_group}
   const VerifyUserFormFieldGroup({
     Key? key,
     required Widget child,
@@ -67,7 +62,7 @@ class VerifyUserFormFieldGroup<T> extends InheritedNotifier {
   /// The value of the radio button group.
   final ValueNotifier<T?> groupValue;
 
-  static VerifyUserFormFieldGroup<T> of<T>(BuildContext context) {
+  static ValueNotifier<T?> of<T>(BuildContext context) {
     final group = context
         .dependOnInheritedWidgetOfExactType<VerifyUserFormFieldGroup<T>>();
     assert(() {
@@ -80,7 +75,7 @@ class VerifyUserFormFieldGroup<T> extends InheritedNotifier {
       }
       return true;
     }());
-    return group!;
+    return group!.groupValue;
   }
 
   @override

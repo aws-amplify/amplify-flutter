@@ -1,154 +1,133 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'amplifyconfiguration.dart';
-
+import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
-// Uncomment to use localizations
-// import 'package:flutter_gen/gen_l10n/amplify_localizations.dart';
-// import 'package:flutter_localizations/flutter_localizations.dart';
+import 'amplifyconfiguration.dart';
+import 'localized_button_resolver.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(primaryColor: Colors.blue),
-      // Uncomment this code to use localizations
-      // localizationsDelegates: const [
-      //   AppLocalizations.delegate,
-      //   GlobalMaterialLocalizations.delegate,
-      //   GlobalWidgetsLocalizations.delegate,
-      //   GlobalCupertinoLocalizations.delegate,
-      // ],
-      // supportedLocales: const [
-      //   Locale('en', ''), // English, no country code
-      //   Locale('es', ''), // Spanish, no country code
-      // ],
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyApp> createState() => _MyAppState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-
-    _amplifyConfig();
+    _configureAmplify();
   }
 
-  void _amplifyConfig() async {
+  /// When using the Authenticator, configuration of Amplify is still the
+  /// responsibility of the developer. This allows you the opportunity to
+  /// customize plugin options and add/remove them as needed.
+  void _configureAmplify() async {
     try {
       await Amplify.addPlugin(AmplifyAuthCognito());
       await Amplify.configure(amplifyconfig);
-    } catch (e) {
-      print(e);
+      print('Successfully configured');
+    } on Exception catch (e) {
+      print('Error configuring Amplify: $e');
     }
   }
 
-//Validatior
-
+  /// Our custom username validator, which ensures that all usernames contain
+  /// the word "amplify".
   String? _validateUsername(String? username) {
     if (username == null || username.isEmpty) {
       return 'Username cannot be empty';
     }
 
-    bool contains = username.contains("amplify");
-    if (!contains) {
+    bool containsAmplify = username.contains('amplify');
+    if (!containsAmplify) {
       return 'Username needs to include amplify';
     }
+
     return null;
   }
 
   @override
   Widget build(BuildContext context) {
-    // Uncomment to use localizations
+    // First, we set up the custom localizations for Authenticator buttons by
+    // creating a custom resolver which conforms to the `ButtonResolver` class
+    // from the Authenticator library.
+    //
+    // In addition to ButtonResolver, which handles the labels for buttons, there
+    // are also resolvers for input fields, screen titles, and navigation-related
+    // items, all of which can be customized as well. To keep this demo simple,
+    // we only specify a custom button resolver, which automatically configures
+    // the default for the others.
+    const stringResolver = AuthStringResolver(
+      buttons: LocalizedButtonResolver(),
+    );
 
-    // AuthStringResolver resolver = AuthStringResolver(
-    //     buttons: ButtonResolver(
-    //         signin: (_) => AppLocalizations.of(context)!.button_signin,
-    //         signup: (_) => AppLocalizations.of(context)!.button_signup,
-    //         submit: (_) => AppLocalizations.of(context)!.button_submit,
-    //         sendCode: (_) => AppLocalizations.of(context)!.button_sendCode,
-    //         changePassword: (_) =>
-    //             AppLocalizations.of(context)!.button_new_password),
-    //     inputs: InputResolver(
-    //         usernameTitle: (_) =>
-    //             AppLocalizations.of(context)!.input_usernameTitle,
-    //         usernameHint: (_) =>
-    //             AppLocalizations.of(context)!.input_usernameHint,
-    //         passwordTitle: (_) =>
-    //             AppLocalizations.of(context)!.input_passwordTitle,
-    //         passwordHint: (_) =>
-    //             AppLocalizations.of(context)!.input_passwordHint,
-    //         emailTitle: (_) => AppLocalizations.of(context)!.input_emailTitle,
-    //         emailHint: (_) => AppLocalizations.of(context)!.input_emailHint,
-    //         phoneNumberTitle: (_) =>
-    //             AppLocalizations.of(context)!.input_phone_title,
-    //         phoneNumberHint: (_) =>
-    //             AppLocalizations.of(context)!.input_phone_hint,
-    //         verificationCodeTitle: (_) =>
-    //             AppLocalizations.of(context)!.input_verificationCodeTitle,
-    //         verificationCodeHint: (_) =>
-    //             AppLocalizations.of(context)!.input_verificationCodeHint),
-    //     navigation: NavigationResolver(
-    //         navigateSignin: (_) => AppLocalizations.of(context)!.nav_signin,
-    //         navigateSignup: (_) => AppLocalizations.of(context)!.nav_signup,
-    //         navigateResetPassword: (_) =>
-    //             AppLocalizations.of(context)!.nav_reset_password,
-    //         noAccountQuestion: (_) =>
-    //             AppLocalizations.of(context)!.nav_no_account,
-    //         haveAccountQuestion: (_) =>
-    //             AppLocalizations.of(context)!.nav_have_account,
-    //         forgotPasswordQuestion: (_) =>
-    //             AppLocalizations.of(context)!.nav_forgot_password,
-    //         backToSignin: (_) => AppLocalizations.of(context)!.nav_back_signin),
-    //     titles: TitleResolver(
-    //         signin: (_) => AppLocalizations.of(context)!.title_signin,
-    //         signup: (_) => AppLocalizations.of(context)!.title_signup,
-    //         confirmSigninMfa: (_) =>
-    //             AppLocalizations.of(context)!.title_confirm_signin_mfa,
-    //         confirmSigninNewPassword: (_) =>
-    //             AppLocalizations.of(context)!.title_confirm_signin_new_password,
-    //         confirmSignup: (_) =>
-    //             AppLocalizations.of(context)!.title_confirm_signup,
-    //         resetPassword: (_) =>
-    //             AppLocalizations.of(context)!.title_reset_password));
+    // We wrap our application in an Authenticator component. This component
+    // handles all the screens and logic whenever the user is signed out. Once
+    // the user is signed in, the
+    final authenticator = Authenticator(
+      stringResolver: stringResolver,
 
-    return Authenticator(
-        // Uncomment this code to use localizations
-        // resolver: resolver,
+      // Next, we create a custom Sign Up form which uses our custom username
+      // validator.
+      signUpForm: SignUpForm.custom(
+        fields: [
+          SignUpFormField.username(
+            validator: _validateUsername,
+          ),
+          const SignUpFormField.password(),
+          const SignUpFormField.passwordConfirmation(),
+        ],
+      ),
 
-        child: const CustomersApp());
+      // Finally, we specify the widget to use once the user is signed in.
+      child: const SignedInScreen(),
+    );
+
+    return MaterialApp(
+      title: 'Authenticator Demo',
+      theme: ThemeData(primaryColor: Colors.blue),
+
+      // These lines enable our custom localizations specified in the lib/l10n
+      // directory, which will be used later to customize the values displayed
+      // in the Authenticator component.
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en', ''), // English, no country code
+        Locale('es', ''), // Spanish, no country code
+      ],
+
+      home: authenticator,
+    );
   }
 }
 
-class CustomersApp extends StatelessWidget {
-  const CustomersApp({Key? key}) : super(key: key);
+/// The screen which is shown once the user is logged in. We can use [SignOutButton]
+/// from the Authenticator library anywhere in our app to provide a pre-configured
+/// sign out experience. Alternatively, we can call [Amplify.Auth.signOut] which
+/// will also notify the Authenticator.
+class SignedInScreen extends StatelessWidget {
+  const SignedInScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Customer's App"),
+        title: const Text('Signed In'),
       ),
-      body: SignOutButton(),
+      body: const Center(child: SignOutButton()),
     );
   }
 }

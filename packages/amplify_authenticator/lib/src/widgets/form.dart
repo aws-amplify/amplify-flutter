@@ -17,7 +17,6 @@ library authenticator.form;
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
-import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
@@ -27,78 +26,25 @@ import 'package:amplify_authenticator/src/widgets/layout.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-/// {@template authenticator.authenticator_form}
 /// Base class for Authenticator forms.
 ///
 /// See also:
-/// - [AuthenticatorForm.signIn]
-/// - [AuthenticatorForm.signUp]
-/// - [AuthenticatorForm.confirmSignUp]
-/// - [AuthenticatorForm.confirmSignInMFA]
-/// - [AuthenticatorForm.sendCode]
-/// - [AuthenticatorForm.resetPassword]
-/// - [AuthenticatorForm.confirmSignInWithNewPassword]
-/// {@endtemplate}
-abstract class AuthenticatorForm extends StatelessAuthenticatorComponent {
-  /// {@macro authenticator.authenticator_form}
+/// - [SignUpForm]
+/// - [SignInForm]
+/// - [ConfirmSignUpForm]
+/// - [ConfirmSignInMFAForm]
+/// - [ConfirmSignInNewPasswordForm]
+/// - [SendCodeForm]
+/// - [ResetPasswordForm]
+/// - [VerifyUserForm]
+/// - [ConfirmVerifyUserForm]
+abstract class AuthenticatorForm<T extends AuthenticatorForm<T>>
+    extends AuthenticatorComponent<T> {
   const AuthenticatorForm._({
     Key? key,
     required this.fields,
     required this.buttons,
   }) : super(key: key);
-
-  factory AuthenticatorForm.signIn({
-    List<SignInFormField>? fields,
-  }) =>
-      fields == null || fields.isEmpty
-          ? const SignInForm()
-          : SignInForm.custom(fields: fields);
-
-  factory AuthenticatorForm.signUp({
-    List<SignUpFormField>? fields,
-  }) =>
-      fields == null || fields.isEmpty
-          ? const SignUpForm()
-          : SignUpForm.custom(fields: fields);
-
-  factory AuthenticatorForm.confirmSignUp({
-    List<ConfirmSignUpFormField>? fields,
-  }) =>
-      fields == null || fields.isEmpty
-          ? const ConfirmSignUpForm()
-          : ConfirmSignUpForm.custom(fields: fields);
-
-  factory AuthenticatorForm.confirmSignInMFA({
-    List<ConfirmSignInFormField>? fields,
-  }) =>
-      fields == null || fields.isEmpty
-          ? const ConfirmSignInMFAForm()
-          : ConfirmSignInMFAForm.custom(fields: fields);
-
-  factory AuthenticatorForm.sendCode({
-    List<SignInFormField>? fields,
-  }) =>
-      fields == null || fields.isEmpty
-          ? const SendCodeForm()
-          : SendCodeForm.custom(fields: fields);
-
-  factory AuthenticatorForm.resetPassword({
-    List<SignInFormField>? fields,
-  }) =>
-      fields == null || fields.isEmpty
-          ? const ResetPasswordForm()
-          : ResetPasswordForm.custom(fields: fields);
-
-  factory AuthenticatorForm.confirmSignInWithNewPassword({
-    List<ConfirmSignInFormField>? fields,
-  }) =>
-      fields == null || fields.isEmpty
-          ? const ConfirmSignInNewPasswordForm()
-          : ConfirmSignInNewPasswordForm.custom(fields: fields);
-
-  const factory AuthenticatorForm.verifyUser() = VerifyUserForm;
-
-  const factory AuthenticatorForm.confirmVerifyUser() = ConfirmVerifyUserForm;
 
   /// The form's field components.
   final List<AuthenticatorFormField> fields;
@@ -109,31 +55,64 @@ abstract class AuthenticatorForm extends StatelessAuthenticatorComponent {
   /// Additional fields defined at runtime.
   List<AuthenticatorFormField> additionalFields(BuildContext context) =>
       const [];
+}
+
+class AuthenticatorFormState<T extends AuthenticatorForm<T>>
+    extends AuthenticatorComponentState<T> {
+  AuthenticatorFormState._();
+
+  final ValueNotifier<bool?> obscureTextToggleValue = ValueNotifier(null);
+
+  /// Controls optional visibilty of the field.
+  Widget get obscureTextToggle {
+    return ValueListenableBuilder<bool?>(
+      valueListenable: obscureTextToggleValue,
+      builder: (BuildContext context, bool? toggleObscureText, Widget? _) {
+        var obscureText = toggleObscureText ?? true;
+        return IconButton(
+          onPressed: () {
+            obscureTextToggleValue.value = !obscureText;
+          },
+          icon: Icon(obscureText ? Icons.visibility : Icons.visibility_off),
+        );
+      },
+    );
+  }
 
   @override
-  Widget builder(
-    BuildContext context,
-    AuthViewModel viewModel,
-    AuthStringResolver stringResolver,
-  ) {
+  Widget build(BuildContext context) {
     return Form(
       key: viewModel.formKey,
       child: Column(
         children: [
-          ...fields,
-          ...additionalFields(context),
+          ...widget.fields,
+          ...widget.additionalFields(context),
           AdaptiveFlex(
-            children: buttons,
+            children: widget.buttons,
           ),
         ],
       ),
     );
   }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<ValueNotifier<bool?>>(
+        'obscureTextToggleValue', obscureTextToggleValue));
+  }
 }
 
-class SignUpForm extends AuthenticatorForm {
+/// {@template authenticator.sign_up_form}
+/// The Sign Up screen form.
+///
+/// To customize, use [SignUpForm.custom].
+/// {@endtemplate}
+class SignUpForm extends AuthenticatorForm<SignUpForm> {
+  /// {@macro authenticator.sign_up_form}
   const SignUpForm({
     Key? key,
+    bool includeDefaultAttributes = true,
   }) : this.custom(
           key: key,
           fields: const [
@@ -141,46 +120,20 @@ class SignUpForm extends AuthenticatorForm {
             SignUpFormField.password(),
             SignUpFormField.passwordConfirmation(),
           ],
+          includeDefaultAttributes: includeDefaultAttributes,
         );
 
-  /// Requires a list of sign up  form fields.
+  /// A custom Sign Up form.
   const SignUpForm.custom({
     Key? key,
     required List<SignUpFormField> fields,
+    this.includeDefaultAttributes = true,
   }) : super._(
           key: key,
           fields: fields,
           buttons: const [
             SignUpButton(),
             GoToSignInButton(),
-          ],
-        );
-}
-
-class SignInForm extends AuthenticatorForm {
-  const SignInForm({
-    Key? key,
-    bool includeDefaultAttributes = true,
-  }) : this.custom(
-          key: key,
-          fields: const [
-            SignInFormField.username(),
-            SignInFormField.password(),
-          ],
-          includeDefaultAttributes: includeDefaultAttributes,
-        );
-
-  /// Requires a list of sign in form fields.
-  const SignInForm.custom({
-    Key? key,
-    required List<SignInFormField> fields,
-    this.includeDefaultAttributes = false,
-  }) : super._(
-          key: key,
-          fields: fields,
-          buttons: const [
-            SignInButton(),
-            GoToSignUpButton(),
           ],
         );
 
@@ -194,7 +147,7 @@ class SignInForm extends AuthenticatorForm {
     }
 
     final signUpAttributes = InheritedConfig.of(context)
-        ?.auth
+        .auth
         ?.awsCognitoAuthPlugin
         ?.auth?['Default']
         ?.signupAttributes;
@@ -252,6 +205,10 @@ class SignInForm extends AuthenticatorForm {
   }
 
   @override
+  AuthenticatorFormState<SignUpForm> createState() =>
+      AuthenticatorFormState<SignUpForm>._();
+
+  @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(DiagnosticsProperty<bool>(
@@ -259,7 +216,48 @@ class SignInForm extends AuthenticatorForm {
   }
 }
 
-class ConfirmSignUpForm extends AuthenticatorForm {
+/// {@template authenticator.sign_in_form}
+/// The Sign In screen form.
+///
+/// To customize, use [SignInForm.custom].
+/// {@endtemplate}
+class SignInForm extends AuthenticatorForm<SignInForm> {
+  /// {@macro authenticator.sign_in_form}
+  const SignInForm({
+    Key? key,
+  }) : this.custom(
+          key: key,
+          fields: const [
+            SignInFormField.username(),
+            SignInFormField.password(),
+          ],
+        );
+
+  /// A custom Sign In form.
+  const SignInForm.custom({
+    Key? key,
+    required List<SignInFormField> fields,
+  }) : super._(
+          key: key,
+          fields: fields,
+          buttons: const [
+            SignInButton(),
+            GoToSignUpButton(),
+          ],
+        );
+
+  @override
+  AuthenticatorFormState<SignInForm> createState() =>
+      AuthenticatorFormState<SignInForm>._();
+}
+
+/// {@template authenticator.confirm_sign_up_form}
+/// The Confirm Sign Up screen form.
+///
+/// To customize, use [ConfirmSignUpForm.custom].
+/// {@endtemplate}
+class ConfirmSignUpForm extends AuthenticatorForm<ConfirmSignUpForm> {
+  /// {@macro authenticator.confirm_sign_up_form}
   const ConfirmSignUpForm({
     Key? key,
   }) : this.custom(
@@ -270,7 +268,7 @@ class ConfirmSignUpForm extends AuthenticatorForm {
           ],
         );
 
-  /// Requires a list of confirm sign up  form fields.
+  /// A custom Confirm Sign Up form.
   const ConfirmSignUpForm.custom({
     Key? key,
     required List<ConfirmSignUpFormField> fields,
@@ -288,9 +286,19 @@ class ConfirmSignUpForm extends AuthenticatorForm {
   ///
   /// Typically a [TextButton].
   final Widget? resendCodeButton;
+
+  @override
+  AuthenticatorFormState<ConfirmSignUpForm> createState() =>
+      AuthenticatorFormState<ConfirmSignUpForm>._();
 }
 
-class ConfirmSignInMFAForm extends AuthenticatorForm {
+/// {@template authenticator.confirm_sign_in_mfa_form}
+/// The Confirm Sign In with MFA screen form.
+///
+/// To customize, use [ConfirmSignInMFAForm.custom].
+/// {@endtemplate}
+class ConfirmSignInMFAForm extends AuthenticatorForm<ConfirmSignInMFAForm> {
+  /// {@macro authenticator.confirm_sign_in_mfa_form}
   const ConfirmSignInMFAForm({Key? key})
       : this.custom(
           key: key,
@@ -299,6 +307,7 @@ class ConfirmSignInMFAForm extends AuthenticatorForm {
           ],
         );
 
+  /// A custom Confirm Sign In with MFA form.
   const ConfirmSignInMFAForm.custom({
     Key? key,
     required List<ConfirmSignInFormField> fields,
@@ -310,9 +319,20 @@ class ConfirmSignInMFAForm extends AuthenticatorForm {
             BackToSignInButton(),
           ],
         );
+
+  @override
+  AuthenticatorFormState<ConfirmSignInMFAForm> createState() =>
+      AuthenticatorFormState<ConfirmSignInMFAForm>._();
 }
 
-class ConfirmSignInNewPasswordForm extends AuthenticatorForm {
+/// {@template authenticator.confirm_sign_in_new_password_form}
+/// The Confirm Sign In with New Password screen form.
+///
+/// To customize, use [ConfirmSignInNewPasswordForm.custom].
+/// {@endtemplate}
+class ConfirmSignInNewPasswordForm
+    extends AuthenticatorForm<ConfirmSignInNewPasswordForm> {
+  /// {@macro authenticator.confirm_sign_in_new_password_form}
   const ConfirmSignInNewPasswordForm({
     Key? key,
   }) : this.custom(
@@ -322,6 +342,7 @@ class ConfirmSignInNewPasswordForm extends AuthenticatorForm {
           ],
         );
 
+  /// A custom Confirm Sign In with New Password form.
   const ConfirmSignInNewPasswordForm.custom({
     Key? key,
     required List<ConfirmSignInFormField> fields,
@@ -333,9 +354,19 @@ class ConfirmSignInNewPasswordForm extends AuthenticatorForm {
             BackToSignInButton(),
           ],
         );
+
+  @override
+  AuthenticatorFormState<ConfirmSignInNewPasswordForm> createState() =>
+      AuthenticatorFormState<ConfirmSignInNewPasswordForm>._();
 }
 
-class SendCodeForm extends AuthenticatorForm {
+/// {@template authenticator.send_code_form}
+/// The Send Code screen form.
+///
+/// To customize, use [SendCodeForm.custom].
+/// {@endtemplate}
+class SendCodeForm extends AuthenticatorForm<SendCodeForm> {
+  /// {@macro authenticator.send_code_form}
   const SendCodeForm({
     Key? key,
   }) : this.custom(
@@ -345,6 +376,7 @@ class SendCodeForm extends AuthenticatorForm {
           ],
         );
 
+  /// A custom Send Coded form.
   const SendCodeForm.custom({
     Key? key,
     required List<SignInFormField> fields,
@@ -356,9 +388,19 @@ class SendCodeForm extends AuthenticatorForm {
             SendCodeButton(),
           ],
         );
+
+  @override
+  AuthenticatorFormState<SendCodeForm> createState() =>
+      AuthenticatorFormState<SendCodeForm>._();
 }
 
-class ResetPasswordForm extends AuthenticatorForm {
+/// {@template authenticator.reset_password_form}
+/// The Reset Password screen form.
+///
+/// To customize, use [ResetPasswordForm.custom].
+/// {@endtemplate}
+class ResetPasswordForm extends AuthenticatorForm<ResetPasswordForm> {
+  /// {@macro authenticator.reset_password_form}
   const ResetPasswordForm({
     Key? key,
   }) : this.custom(
@@ -369,6 +411,7 @@ class ResetPasswordForm extends AuthenticatorForm {
           ],
         );
 
+  /// A custom Reset Password form.
   const ResetPasswordForm.custom({
     Key? key,
     required List<SignInFormField> fields,
@@ -380,9 +423,19 @@ class ResetPasswordForm extends AuthenticatorForm {
             BackToSignInButton(),
           ],
         );
+
+  @override
+  AuthenticatorFormState<ResetPasswordForm> createState() =>
+      AuthenticatorFormState<ResetPasswordForm>._();
 }
 
-class VerifyUserForm extends AuthenticatorForm {
+/// {@template authenticator.verify_user_form}
+/// The Verify User screen form.
+///
+/// Cannot be customized.
+/// {@endtemplate}
+class VerifyUserForm extends AuthenticatorForm<VerifyUserForm> {
+  /// {@macro authenticator.verify_user_form}
   const VerifyUserForm({
     Key? key,
   }) : super._(
@@ -420,24 +473,33 @@ class VerifyUserForm extends AuthenticatorForm {
   }
 
   @override
-  Widget builder(
-    BuildContext context,
-    AuthViewModel viewModel,
-    AuthStringResolver stringResolver,
-  ) {
-    final unverifiedAttributeKeys = _unverifiedAttributeKeys(context);
+  _VerifyUserFormState createState() => _VerifyUserFormState();
+}
+
+class _VerifyUserFormState extends AuthenticatorFormState<VerifyUserForm> {
+  _VerifyUserFormState() : super._();
+
+  @override
+  Widget build(BuildContext context) {
+    final unverifiedAttributeKeys = widget._unverifiedAttributeKeys(context);
     assert(
       unverifiedAttributeKeys.isNotEmpty,
       'Attribute keys cannot be empty',
     );
     return VerifyUserFormFieldGroup<String>(
       groupValue: ValueNotifier(unverifiedAttributeKeys.first),
-      child: super.builder(context, viewModel, stringResolver),
+      child: super.build(context),
     );
   }
 }
 
-class ConfirmVerifyUserForm extends AuthenticatorForm {
+/// {@template authenticator.confirm_verify_user_form}
+/// The Confirm Verify User screen form.
+///
+/// Cannot be customized.
+/// {@endtemplate}
+class ConfirmVerifyUserForm extends AuthenticatorForm<ConfirmVerifyUserForm> {
+  /// {@macro authenticator.confirm_verify_user_form}
   const ConfirmVerifyUserForm({
     Key? key,
   }) : super._(
@@ -450,4 +512,8 @@ class ConfirmVerifyUserForm extends AuthenticatorForm {
             SkipVerifyUserButton(),
           ],
         );
+
+  @override
+  AuthenticatorFormState<ConfirmVerifyUserForm> createState() =>
+      AuthenticatorFormState<ConfirmVerifyUserForm>._();
 }

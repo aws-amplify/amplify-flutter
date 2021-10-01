@@ -1,36 +1,42 @@
 {
-    "title_signin": "title_signin",
-    "title_signup": "title_signup",
-    "title_confirm_signup": "title_confirm_signup",
-    "title_confirm_signin_mfa": "title_confirm_signin_mfa",
-    "title_confirm_signin_new_password": "title_confirm_signin_new_password",
-    "title_reset_password": "title_reset_password",
-    "title_send_code": "title_send_code",
-
-    "button_signin": "button_signin",
-    "button_signup": "button_signup",
-    "button_submit": "button_submit",
-    "button_confirm": "button_confirm",
-    "button_new_password": "button_new_password",
-    "button_sendCode": "button_sendCode",
-
-
-    "input_username_title": "input_username_title",
-    "input_username_hint": "input_username_hint",
-    "input_password_title": "input_password_title",
-    "input_password_hint": "input_password_hint",
-    "input_email_title": "input_email_title",
-    "input_email_hint": "input_email_hint",
-    "input_phone_title": "input_phone_title",
-    "input_phone_hint": "input_phone_hint",
-    "input_verification_code_title": "input_verification_code_title",
-    "input_verification_code_hint": "input_verification_code_hint",
-
-    "nav_signin": "nav_sign",
-    "nav_signup" : "nav_signup",
-    "nav_no_account": "nav_no_account",
-    "nav_have_account": "nav_have_account",
-    "nav_back_signin": "nav_back_signin",
-    "nav_forgot_password": "nav_forgot_password",
-    "nav_reset_password": "nav_reset_password"
+    "signin": "Sign In",
+    "@signin": {
+        "description": "Label of button to go to the Sign In screen"
+    },
+    "signup": "Create Account",
+    "@signup": {
+        "description": "Label of button to go to the Sign Up screen"
+    },
+    "confirm": "Confirm",
+    "@confirm": {
+        "description": "Label of button to confirm an action"
+    },
+    "submit": "Submit",
+    "@submit": {
+        "description": "Label of button to submit a form"
+    },
+    "changePassword": "Change Password",
+    "@changePassword": {
+        "description": "Label of button to change a password"
+    },
+    "sendCode": "Send Code",
+    "@sendCode": {
+        "description": "Label of button to send a verification code to the user's device"
+    },
+    "lostCodeQuestion": "Lost your code?",
+    "@lostCodeQuestion": {
+        "description": "Label of button prompting user if they've not received or have misplaced a verification code we sent"
+    },
+    "verifyUser": "Verify",
+    "@verifyUser": {
+        "description": "Label of button to verify a user's contact point such as their email or phone number"
+    },
+    "confirmVerifyUser": "Submit",
+    "@confirmVerifyUser": {
+        "description": "Label of button to submit a verification code sent to a user's contact point"
+    },
+    "signout": "Sign Out",
+    "@signout": {
+        "description": "Label of button to sign out the user"
+    }
 }

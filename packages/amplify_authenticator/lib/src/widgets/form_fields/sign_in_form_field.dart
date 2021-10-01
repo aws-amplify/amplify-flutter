@@ -31,7 +31,7 @@ class SignInFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyUsernameSignInFormField),
+          key: key ?? keyUsernameSignInFormField,
           titleKey: InputResolverKey.usernameTitle,
           hintTextKey: InputResolverKey.usernameHint,
           field: SignInField.username,
@@ -43,7 +43,7 @@ class SignInFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyPasswordSignInFormField),
+          key: key ?? keyPasswordSignInFormField,
           titleKey: InputResolverKey.passwordTitle,
           hintTextKey: InputResolverKey.passwordHint,
           field: SignInField.password,
@@ -55,7 +55,7 @@ class SignInFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyEmailSignInFormField),
+          key: key ?? keyEmailSignInFormField,
           titleKey: InputResolverKey.emailTitle,
           hintTextKey: InputResolverKey.emailHint,
           field: SignInField.email,
@@ -67,7 +67,7 @@ class SignInFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyPhoneNumberSignInFormField),
+          key: key ?? keyPhoneNumberSignInFormField,
           titleKey: InputResolverKey.phoneNumberTitle,
           hintTextKey: InputResolverKey.phoneNumberHint,
           field: SignInField.phoneNumber,
@@ -79,7 +79,7 @@ class SignInFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyVerificationCodeSignInFormField),
+          key: key ?? keyVerificationCodeSignInFormField,
           titleKey: InputResolverKey.usernameTitle,
           hintTextKey: InputResolverKey.usernameHint,
           field: SignInField.verificationCode,
@@ -91,7 +91,7 @@ class SignInFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyNewUsernameSignInFormField),
+          key: key ?? keyNewUsernameSignInFormField,
           titleKey: InputResolverKey.usernameTitle,
           hintTextKey: InputResolverKey.usernameHint,
           field: SignInField.newUsername,
@@ -103,7 +103,7 @@ class SignInFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyNewPasswordSignInFormField),
+          key: key ?? keyNewPasswordSignInFormField,
           titleKey: InputResolverKey.passwordTitle,
           hintTextKey: InputResolverKey.passwordTitle,
           field: SignInField.newPassword,
@@ -115,7 +115,7 @@ class SignInFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyVerificationCodeSignInFormField),
+          key: key ?? keyVerificationCodeSignInFormField,
           titleKey: InputResolverKey.verificationCodeTitle,
           hintTextKey: InputResolverKey.verificationCodeHint,
           field: SignInField.verificationCode,
@@ -161,9 +161,6 @@ class _SignInFormFieldState
 
   @override
   bool get obscureText {
-    if (_obscureText != null) {
-      return _obscureText!;
-    }
     switch (widget.field) {
       case SignInField.password:
       case SignInField.newPassword:
@@ -210,7 +207,7 @@ class _SignInFormFieldState
   }
 
   @override
-  Widget? get suffix {
+  Widget? get suffixIcon {
     switch (widget.field) {
       case SignInField.password:
       case SignInField.newPassword:

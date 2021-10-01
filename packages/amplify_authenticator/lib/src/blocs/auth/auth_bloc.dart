@@ -17,9 +17,10 @@ import 'dart:async';
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
-import 'package:amplify_authenticator/src/models/authenticator_exceptions.dart';
+import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/src/config/amplify_config.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -39,7 +40,10 @@ class StateMachineBloc {
   StreamSink<AuthState> get _controllerSink => _authStateController.sink;
 
   /// Outputs states, which allow to render auth screens.
-  Stream<AuthState> get stream => _authStateController.stream;
+  Stream<AuthState> get stream async* {
+    yield _currentState;
+    yield* _authStateController.stream;
+  }
 
   /// Event controller.
   final StreamController<AuthEvent> _authEventController =
@@ -105,6 +109,29 @@ class StateMachineBloc {
     }
   }
 
+  Stream<AuthState> _authLoad() async* {
+    yield const AuthLoading();
+    final config = await Amplify.asyncConfig;
+    yield AuthLoaded(config);
+    yield* _getCurrentUser();
+  }
+
+  Stream<AuthState> _getCurrentUser() async* {
+    try {
+      final AuthUser? currentUser = await _authService.currentUser;
+
+      if (currentUser != null) {
+        yield const Authenticated();
+      } else {
+        yield AuthFlow.signin;
+      }
+    } on AmplifyException catch (e) {
+      _exceptionController.add(AuthenticatorException(e.message));
+    } on Exception catch (e) {
+      _exceptionController.add(AuthenticatorException(e.toString()));
+    }
+  }
+
   Stream<AuthState> _confirmSignIn(AuthConfirmSignInData data) async* {
     try {
       var result = await _authService.confirmSignIn(
@@ -160,26 +187,6 @@ class StateMachineBloc {
     try {
       await _authService.resetPassword(data.username);
       yield AuthFlow.resetPassword;
-    } on AmplifyException catch (e) {
-      _exceptionController.add(AuthenticatorException(e.message));
-    } on Exception catch (e) {
-      _exceptionController.add(AuthenticatorException(e.toString()));
-    }
-  }
-
-  Stream<AuthState> _authLoad() async* {
-    yield const AuthLoading();
-  }
-
-  Stream<AuthState> _getCurrentUser() async* {
-    try {
-      final AuthUser? currentUser = await _authService.currentUser;
-
-      if (currentUser != null) {
-        yield const Authenticated();
-      } else {
-        yield AuthFlow.signin;
-      }
     } on AmplifyException catch (e) {
       _exceptionController.add(AuthenticatorException(e.message));
     } on Exception catch (e) {

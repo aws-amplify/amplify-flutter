@@ -26,6 +26,7 @@ enum ButtonResolverKey {
   lostCodeQuestion,
   verifyUser,
   confirmVerifyUser,
+  signout,
 }
 
 /// The resolver class for shared button Widgets
@@ -59,6 +60,9 @@ abstract class ButtonResolver extends Resolver<ButtonResolverKey> {
   /// Label of button to confirm verification a user after sign in
   String confirmVerifyUser(BuildContext context);
 
+  /// Label of button to sign out the user
+  String signout(BuildContext context);
+
   @override
   String resolve(BuildContext context, ButtonResolverKey key) {
     switch (key) {
@@ -80,6 +84,8 @@ abstract class ButtonResolver extends Resolver<ButtonResolverKey> {
         return verifyUser(context);
       case ButtonResolverKey.confirmVerifyUser:
         return confirmVerifyUser(context);
+      case ButtonResolverKey.signout:
+        return signout(context);
     }
   }
 }
@@ -109,8 +115,11 @@ class DefaultButtonResolver extends ButtonResolver {
   String lostCodeQuestion(BuildContext context) => 'Lost your code?';
 
   @override
-  String verifyUser(BuildContext context) => 'verifyUser';
+  String verifyUser(BuildContext context) => 'Verify';
 
   @override
   String confirmVerifyUser(BuildContext context) => 'Submit';
+
+  @override
+  String signout(BuildContext context) => 'Sign Out';
 }

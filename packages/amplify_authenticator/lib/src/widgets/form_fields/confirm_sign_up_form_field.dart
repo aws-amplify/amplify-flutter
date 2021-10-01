@@ -43,7 +43,7 @@ class ConfirmSignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyPasswordConfirmSignUpFormfield),
+          key: key ?? keyPasswordConfirmSignUpFormfield,
           titleKey: InputResolverKey.passwordTitle,
           hintTextKey: InputResolverKey.passwordHint,
           field: ConfirmSignUpField.password,
@@ -55,7 +55,7 @@ class ConfirmSignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyEmailConfirmSignUpFormfield),
+          key: key ?? keyEmailConfirmSignUpFormfield,
           titleKey: InputResolverKey.emailTitle,
           hintTextKey: InputResolverKey.emailHint,
           field: ConfirmSignUpField.email,
@@ -67,7 +67,7 @@ class ConfirmSignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyPhoneNumberConfirmSignUpFormfield),
+          key: key ?? keyPhoneNumberConfirmSignUpFormfield,
           titleKey: InputResolverKey.phoneNumberTitle,
           hintTextKey: InputResolverKey.phoneNumberHint,
           field: ConfirmSignUpField.phoneNumber,
@@ -79,7 +79,7 @@ class ConfirmSignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyCodeConfirmSignUpFormfield),
+          key: key ?? keyCodeConfirmSignUpFormfield,
           titleKey: InputResolverKey.verificationCodeTitle,
           hintTextKey: InputResolverKey.verificationCodeHint,
           field: ConfirmSignUpField.code,
@@ -191,8 +191,7 @@ class _ConfirmSignUpFormFieldState extends _AuthenticatorFormFieldState<
       case ConfirmSignUpField.code:
         var resendCodeButton =
             InheritedForms.of(context).confirmSignUpForm.resendCodeButton;
-        return resendCodeButton ??
-            const LostCodeButton(key: Key(keyLostCodeButton));
+        return resendCodeButton ?? const LostCodeButton(key: keyLostCodeButton);
       default:
         return null;
     }

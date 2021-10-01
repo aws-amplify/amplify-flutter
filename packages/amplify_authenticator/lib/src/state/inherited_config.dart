@@ -26,26 +26,41 @@ class InheritedConfig extends InheritedWidget {
 
   final AmplifyConfig? config;
 
-  // ignore: public_member_api_docs
-  static AmplifyConfig? of(BuildContext context) {
+  static AmplifyConfig of(BuildContext context) {
     final config =
         context.dependOnInheritedWidgetOfExactType<InheritedConfig>();
     assert(() {
-      if (config == null) {
+      if (config == null || config.config == null) {
         throw FlutterError.fromParts([
-          ErrorSummary('No InheritedConfig widget found.'),
+          ErrorSummary('InheritedConfig widget was not configured correctly.'),
           ErrorDescription(
-              'Make sure your app is wrapped with an Authenticator widget.')
+            'Make sure your app is wrapped with an Authenticator widget and '
+            'has called `Amplify.configure`.',
+          ),
         ]);
       }
       return true;
     }());
-    return config!.config;
+    return config!.config!;
   }
 
   @override
   bool updateShouldNotify(InheritedConfig oldWidget) {
-    return oldWidget.config != config;
+    var updatedConfig = oldWidget.config != config;
+    if (updatedConfig) {
+      if (oldWidget.config == null) {
+        return true;
+      }
+      throw FlutterError.fromParts([
+        ErrorSummary(
+          'Runtime re-configuration of the Authenticator is not supported.',
+        ),
+        ErrorDescription(
+          'Please restart your app if you have made changes to your configuration.',
+        ),
+      ]);
+    }
+    return false;
   }
 
   @override

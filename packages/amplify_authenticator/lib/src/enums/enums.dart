@@ -13,10 +13,8 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/material.dart';
-
-abstract class AuthenticatorColors {
-  static const Color primary = Color.fromRGBO(255, 153, 0, 1);
-
-  static const Color container = Colors.white;
-}
+export 'alias.dart';
+export 'confirm_signin_types.dart';
+export 'confirm_signup_types.dart';
+export 'signin_types.dart';
+export 'signup_types.dart';

@@ -22,6 +22,8 @@ import 'oauth_config.dart';
 part 'auth_block_config.g.dart';
 
 class AuthBlockConfig {
+  final String? authenticationFlowType;
+
   final OAuthConfig? oAuth;
 
   final List<LoginMechanisms>? loginMechanisms;
@@ -30,20 +32,21 @@ class AuthBlockConfig {
 
   final PasswordProtectionSettings? passwordProtectionSettings;
 
-  final MfaTypes? mfaTypes;
+  final List<MfaTypes>? mfaTypes;
 
   final MfaConfiguration? mfaConfiguration;
 
-  final String? authenticationFlowType;
+  final List<String>? verificationMechanisms;
 
   const AuthBlockConfig({
+    required this.authenticationFlowType,
     this.oAuth,
     this.loginMechanisms,
     this.mfaConfiguration,
     this.passwordProtectionSettings,
     this.signupAttributes,
     this.mfaTypes,
-    required this.authenticationFlowType,
+    this.verificationMechanisms,
   });
 
   factory AuthBlockConfig.fromJson(Map<String, dynamic> json) =>

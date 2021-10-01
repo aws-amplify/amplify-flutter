@@ -5,7 +5,7 @@ class ConfirmVerifyUserFormField
   const ConfirmVerifyUserFormField({
     Key? key,
   }) : super._(
-          key: key ?? const Key(keyCodeConfirmSignInFormfield),
+          key: key ?? keyCodeConfirmSignInFormfield,
           field: null,
           titleKey: InputResolverKey.verificationCodeTitle,
           hintTextKey: InputResolverKey.verificationCodeHint,

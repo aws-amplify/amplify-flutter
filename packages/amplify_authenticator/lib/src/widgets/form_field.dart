@@ -45,6 +45,8 @@ part 'form_fields/confirm_verify_user_form_field.dart';
 /// - [SignUpFormField]
 /// - [ConfirmSignInFormField]
 /// - [ConfirmSignUpFormField]
+/// - [VerifyUserFormField]
+/// - [ConfirmVerifyUserFormField]
 /// {@endtemplate}
 abstract class AuthenticatorFormField<FieldType,
         T extends AuthenticatorFormField<FieldType, T>>
@@ -99,32 +101,22 @@ abstract class _AuthenticatorFormFieldState<FieldType,
     extends AuthenticatorComponentState<T> {
   static const disabledTextColor = Color.fromRGBO(130, 130, 130, 1);
 
-  bool? _obscureText;
-
-  /// Controls optional visibilty of the field.
-  Widget get visibilityToggle {
-    var obscureText = _obscureText ?? true;
-    return IconButton(
-      onPressed: () {
-        setState(() {
-          _obscureText = !obscureText;
-        });
-      },
-      icon: Icon(obscureText ? Icons.visibility : Icons.visibility_off),
-    );
-  }
+  @nonVirtual
+  Widget get visibilityToggle => context
+      .findAncestorStateOfType<AuthenticatorFormState>()!
+      .obscureTextToggle;
 
   /// Callback for when `onChanged` is triggered on the [FormField].
-  void Function(String) get callback;
+  void Function(String) get callback => (_) {};
 
   /// Validates inputs of this form field.
-  FormFieldValidator<String>? get validator;
+  FormFieldValidator<String>? get validator => null;
 
   /// Whether to hide input.
-  bool get obscureText;
+  bool get obscureText => false;
 
   /// The keyboard type to use when this field is focused.
-  TextInputType get keyboardType;
+  TextInputType get keyboardType => TextInputType.text;
 
   /// The initial value to show in the field.
   String? get initialValue => null;
@@ -133,7 +125,7 @@ abstract class _AuthenticatorFormFieldState<FieldType,
   bool get enabled => true;
 
   /// Widget to show at trailing end.
-  Widget? get suffix => null;
+  Widget? get suffixIcon => null;
 
   /// Widget to show directly below this field.
   Widget? get companionWidget => null;
@@ -157,27 +149,35 @@ abstract class _AuthenticatorFormFieldState<FieldType,
         children: <Widget>[
           Text(title),
           const Padding(padding: FormFieldConstants.gap),
-          TextFormField(
-            style: enabled ? null : const TextStyle(color: disabledTextColor),
-            initialValue: initialValue,
-            enabled: enabled,
-            validator: validator,
-            onChanged: callback,
-            decoration: InputDecoration(
-              suffix: suffix,
-              errorMaxLines: errorMaxLines,
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Theme.of(context).primaryColor != Colors.blue
-                      ? Theme.of(context).primaryColor
-                      : AuthenticatorColors.primary,
+          ValueListenableBuilder<bool?>(
+            valueListenable: context
+                .findAncestorStateOfType<AuthenticatorFormState>()!
+                .obscureTextToggleValue,
+            builder:
+                (BuildContext context, bool? toggleObscureText, Widget? _) {
+              var obscureText = this.obscureText && (toggleObscureText ?? true);
+              return TextFormField(
+                style:
+                    enabled ? null : const TextStyle(color: disabledTextColor),
+                initialValue: initialValue,
+                enabled: enabled,
+                validator: validator,
+                onChanged: callback,
+                decoration: InputDecoration(
+                  suffixIcon: suffixIcon,
+                  errorMaxLines: errorMaxLines,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                  hintText: hintText,
+                  border: const OutlineInputBorder(),
                 ),
-              ),
-              hintText: hintText,
-              border: const OutlineInputBorder(),
-            ),
-            keyboardType: keyboardType,
-            obscureText: obscureText,
+                keyboardType: keyboardType,
+                obscureText: obscureText,
+              );
+            },
           ),
           if (companionWidget != null) companionWidget!,
         ],

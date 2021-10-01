@@ -16,6 +16,7 @@
 library amplify_authenticator;
 
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
+import 'package:amplify_authenticator/src/constants/theme_constants.dart';
 import 'package:amplify_authenticator/src/enums/alias.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
@@ -28,17 +29,19 @@ import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:amplify_authenticator/src/state/inherited_strings.dart';
 import 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
-import 'package:amplify_authenticator/src/widgets/auth_exceptions.dart';
+import 'package:amplify_authenticator/src/widgets/exception_banner.dart';
 import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_flutter/src/config/amplify_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-export 'package:amplify_authenticator/src/enums/alias.dart';
-export 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
-export 'package:amplify_authenticator/src/widgets/button.dart'
-    show SignOutButton;
+export 'src/enums/enums.dart';
+export 'src/models/authenticator_exception.dart';
+export 'src/text_customization/auth_strings_resolver.dart';
+export 'src/widgets/button.dart' show SignOutButton;
+export 'src/widgets/form.dart';
+export 'src/widgets/form_field.dart';
 
 /// {@template authenticator.authenticator}
 /// # Amplify Authenticator
@@ -76,8 +79,15 @@ class Authenticator extends StatefulWidget {
     this.signUpForm = const SignUpForm(),
     this.confirmSignInMFAForm = const ConfirmSignInMFAForm(),
     this.stringResolver = const AuthStringResolver(),
+    this.useAmplifyTheme = true,
     required this.child,
   }) : super(key: key);
+
+  /// Whether to use Amplify colors and styles in the Authenticator,
+  /// instead of those defined by your app's [Theme].
+  ///
+  /// Defaults to `true`.
+  final bool useAmplifyTheme;
 
   ///Optional username alias to setup the preferred sign in method,
   ///which can be signing in users with username, email or phone number.
@@ -177,6 +187,8 @@ class Authenticator extends StatefulWidget {
     properties.add(EnumProperty<Alias>('usernameAlias', usernameAlias));
     properties.add(DiagnosticsProperty<AuthStringResolver>(
         'stringResolver', stringResolver));
+    properties
+        .add(DiagnosticsProperty<bool>('useAmplifyTheme', useAmplifyTheme));
   }
 }
 
@@ -190,17 +202,18 @@ class _AuthenticatorState extends State<Authenticator> {
   @override
   void initState() {
     super.initState();
-    _stateMachineBloc = StateMachineBloc(_authService)..add(GetCurrentUser());
-    waitForConfiguration();
+    _stateMachineBloc = StateMachineBloc(_authService)..add(const AuthLoad());
+    _waitForConfiguration();
   }
 
-  Future<void> waitForConfiguration() async {
-    await Amplify.asyncConfig.then((config) {
-      setState(() {
-        _config = config;
-        _configInitialized = true;
-        _missingConfigValues = missingConfigValues(config);
-      });
+  Future<void> _waitForConfiguration() async {
+    final authLoaded = await _stateMachineBloc.stream
+        .firstWhere((el) => el is AuthLoaded) as AuthLoaded;
+    var config = authLoaded.config;
+    setState(() {
+      _config = config;
+      _configInitialized = true;
+      _missingConfigValues = missingConfigValues(config);
     });
   }
 
@@ -225,12 +238,12 @@ class _AuthenticatorState extends State<Authenticator> {
     }
 
     return InheritedAuthBloc(
-      key: const Key(keyInheritedAuthBloc),
+      key: keyInheritedAuthBloc,
       authBloc: _stateMachineBloc,
       child: InheritedConfig(
         config: _config,
         child: InheritedAuthViewModel(
-          key: const Key(keyInheritedAuthViewModel),
+          key: keyInheritedAuthViewModel,
           viewModel: AuthViewModel(_stateMachineBloc),
           child: InheritedStrings(
             resolver: widget.stringResolver,
@@ -245,41 +258,10 @@ class _AuthenticatorState extends State<Authenticator> {
               confirmSignInMFAForm: widget.confirmSignInMFAForm,
               verifyUserForm: const VerifyUserForm(),
               confirmVerifyUserForm: const ConfirmVerifyUserForm(),
-              child: Scaffold(
-                  body: StreamBuilder(
-                stream: _stateMachineBloc.stream,
-                builder: (context, snapshot) {
-                  final state = (snapshot.data != null &&
-                          _configInitialized &&
-                          _config?.auth != null)
-                      ? snapshot.data
-                      : const AuthLoading();
-                  final Widget screen;
-                  if (state is AuthLoading) {
-                    screen = const LoadingScreen();
-                  } else if (state is Authenticated) {
-                    return widget.child;
-                  } else if (state is AuthFlow) {
-                    screen = AuthenticatorScreen(screen: state.screen);
-                  } else {
-                    screen = const AuthenticatorScreen.signin();
-                  }
-
-                  return Container(
-                    padding: const EdgeInsets.symmetric(vertical: 40),
-                    child: Center(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            const AuthExceptionsWidget(),
-                            screen,
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              )),
+              child: _AuthenticatorBody(
+                useAmplifyTheme: widget.useAmplifyTheme,
+                child: widget.child,
+              ),
             ),
           ),
         ),
@@ -291,5 +273,70 @@ class _AuthenticatorState extends State<Authenticator> {
   void dispose() {
     _stateMachineBloc.dispose();
     super.dispose();
+  }
+}
+
+class _AuthenticatorBody extends StatelessWidget {
+  const _AuthenticatorBody({
+    Key? key,
+    required this.useAmplifyTheme,
+    required this.child,
+  }) : super(key: key);
+
+  final bool useAmplifyTheme;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final stateMachineBloc = InheritedAuthBloc.of(context);
+    final userAppTheme = Theme.of(context);
+    return Theme(
+      data: !useAmplifyTheme
+          ? userAppTheme
+          : userAppTheme.copyWith(
+              primaryColor: AuthenticatorColors.primary,
+            ),
+      child: Scaffold(
+        body: SafeArea(
+          child: StreamBuilder(
+            stream: stateMachineBloc.stream,
+            builder: (context, snapshot) {
+              final state = snapshot.data ?? const AuthLoading();
+              final Widget screen;
+              if (state is AuthLoading || state is AuthLoaded) {
+                screen = const LoadingScreen();
+              } else if (state is Authenticated) {
+                return Theme(data: userAppTheme, child: child);
+              } else if (state is AuthFlow) {
+                screen = AuthenticatorScreen(screen: state.screen);
+              } else {
+                screen = const AuthenticatorScreen.signin();
+              }
+
+              return Center(
+                child: SingleChildScrollView(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 40),
+                    child: Column(
+                      children: [
+                        const AuthenticatorExceptionBanner(),
+                        screen,
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+        .add(DiagnosticsProperty<bool>('useAmplifyTheme', useAmplifyTheme));
   }
 }

@@ -34,7 +34,7 @@ class SignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyUsernameSignUpFormField),
+          key: key ?? keyUsernameSignUpFormField,
           titleKey: InputResolverKey.usernameTitle,
           hintTextKey: InputResolverKey.usernameHint,
           field: SignUpField.username,
@@ -46,7 +46,7 @@ class SignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyPasswordSignUpFormField),
+          key: key ?? keyPasswordSignUpFormField,
           titleKey: InputResolverKey.passwordTitle,
           hintTextKey: InputResolverKey.passwordHint,
           field: SignUpField.password,
@@ -58,7 +58,7 @@ class SignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyPasswordConfirmationSignUpFormField),
+          key: key ?? keyPasswordConfirmationSignUpFormField,
           titleKey: InputResolverKey.passwordConfirmationTitle,
           hintTextKey: InputResolverKey.passwordConfirmationHint,
           field: SignUpField.passwordConfirmation,
@@ -70,7 +70,7 @@ class SignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyAddressSignUpFormField),
+          key: key ?? keyAddressSignUpFormField,
           titleKey: InputResolverKey.addressTitle,
           hintTextKey: InputResolverKey.addressHint,
           field: SignUpField.address,
@@ -82,7 +82,7 @@ class SignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyBirthdateSignUpFormField),
+          key: key ?? keyBirthdateSignUpFormField,
           titleKey: InputResolverKey.birthdateTitle,
           hintTextKey: InputResolverKey.birthdateHint,
           field: SignUpField.birthdate,
@@ -94,7 +94,7 @@ class SignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyEmailSignUpFormField),
+          key: key ?? keyEmailSignUpFormField,
           titleKey: InputResolverKey.emailTitle,
           hintTextKey: InputResolverKey.emailHint,
           field: SignUpField.email,
@@ -106,7 +106,7 @@ class SignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyFamilyNameSignUpFormField),
+          key: key ?? keyFamilyNameSignUpFormField,
           titleKey: InputResolverKey.familyNameTitle,
           hintTextKey: InputResolverKey.familyNameHint,
           field: SignUpField.familyName,
@@ -118,7 +118,7 @@ class SignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyGenderSignUpFormField),
+          key: key ?? keyGenderSignUpFormField,
           titleKey: InputResolverKey.genderTitle,
           hintTextKey: InputResolverKey.genderHint,
           field: SignUpField.gender,
@@ -130,7 +130,7 @@ class SignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyGivenNameSignUpFormField),
+          key: key ?? keyGivenNameSignUpFormField,
           titleKey: InputResolverKey.givenNameTitle,
           hintTextKey: InputResolverKey.givenNameHint,
           field: SignUpField.givenName,
@@ -142,7 +142,7 @@ class SignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyLocaleSignUpFormField),
+          key: key ?? keyLocaleSignUpFormField,
           titleKey: InputResolverKey.localeTitle,
           hintTextKey: InputResolverKey.localeHint,
           field: SignUpField.locale,
@@ -154,7 +154,7 @@ class SignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyMiddleNameSignUpFormField),
+          key: key ?? keyMiddleNameSignUpFormField,
           titleKey: InputResolverKey.middleNameTitle,
           hintTextKey: InputResolverKey.middleNameHint,
           field: SignUpField.middleName,
@@ -166,7 +166,7 @@ class SignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyNameSignUpFormField),
+          key: key ?? keyNameSignUpFormField,
           titleKey: InputResolverKey.nameTitle,
           hintTextKey: InputResolverKey.nameHint,
           field: SignUpField.name,
@@ -178,7 +178,7 @@ class SignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyNicknameSignUpFormField),
+          key: key ?? keyNicknameSignUpFormField,
           titleKey: InputResolverKey.nicknameTitle,
           hintTextKey: InputResolverKey.nicknameHint,
           field: SignUpField.nickname,
@@ -190,7 +190,7 @@ class SignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyPhoneNumberSignUpFormField),
+          key: key ?? keyPhoneNumberSignUpFormField,
           titleKey: InputResolverKey.phoneNumberTitle,
           hintTextKey: InputResolverKey.phoneNumberHint,
           field: SignUpField.phoneNumber,
@@ -202,7 +202,7 @@ class SignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyPictureSignUpFormField),
+          key: key ?? keyPictureSignUpFormField,
           titleKey: InputResolverKey.pictureTitle,
           hintTextKey: InputResolverKey.pictureHint,
           field: SignUpField.picture,
@@ -214,7 +214,7 @@ class SignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyPreferredUsernameSignUpFormField),
+          key: key ?? keyPreferredUsernameSignUpFormField,
           titleKey: InputResolverKey.preferredUsernameTitle,
           hintTextKey: InputResolverKey.preferredUsernameHint,
           field: SignUpField.preferredUsername,
@@ -226,7 +226,7 @@ class SignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyProfileSignUpFormField),
+          key: key ?? keyProfileSignUpFormField,
           titleKey: InputResolverKey.profileTitle,
           hintTextKey: InputResolverKey.profileHint,
           field: SignUpField.profile,
@@ -238,7 +238,7 @@ class SignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyUpdatedAtSignUpFormField),
+          key: key ?? keyUpdatedAtSignUpFormField,
           titleKey: InputResolverKey.updatedAtTitle,
           hintTextKey: InputResolverKey.updatedAtHint,
           field: SignUpField.updatedAt,
@@ -250,7 +250,7 @@ class SignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyWebsiteSignUpFormField),
+          key: key ?? keyWebsiteSignUpFormField,
           titleKey: InputResolverKey.websiteTitle,
           hintTextKey: InputResolverKey.websiteHint,
           field: SignUpField.website,
@@ -262,7 +262,7 @@ class SignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyZoneinfoSignUpFormField),
+          key: key ?? keyZoneinfoSignUpFormField,
           titleKey: InputResolverKey.zoneinfoTitle,
           hintTextKey: InputResolverKey.zoneinfoHint,
           field: SignUpField.zoneinfo,
@@ -429,11 +429,9 @@ class _SignUpFormFieldState
 
   @override
   bool get obscureText {
-    if (_obscureText != null) {
-      return _obscureText!;
-    }
     switch (widget.field) {
       case SignUpField.password:
+      case SignUpField.passwordConfirmation:
         return true;
       default:
         return false;
@@ -528,7 +526,7 @@ class _SignUpFormFieldState
   }
 
   @override
-  Widget? get suffix {
+  Widget? get suffixIcon {
     switch (widget.field) {
       case SignUpField.password:
       case SignUpField.passwordConfirmation:

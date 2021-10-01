@@ -24,7 +24,7 @@ class AuthViewModel extends ChangeNotifier {
   final StateMachineBloc _authBloc;
   StateMachineBloc get authBloc => _authBloc;
 
-  final GlobalKey<FormState> _formKey = GlobalKey();
+  GlobalKey<FormState> _formKey = GlobalKey();
   GlobalKey<FormState> get formKey => _formKey;
 
   bool _isBusy = false;
@@ -349,5 +349,6 @@ class AuthViewModel extends ChangeNotifier {
     _newPassword = '';
 
     _authAttributes.clear();
+    _formKey = GlobalKey<FormState>();
   }
 }

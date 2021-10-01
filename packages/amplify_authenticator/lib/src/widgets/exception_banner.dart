@@ -1,23 +1,25 @@
 import 'dart:async';
 
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
-import 'package:amplify_authenticator/src/models/authenticator_exceptions.dart';
+import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-/// {@template auth_exceptions_widget}
+/// {@template authenticator.authenticator_exception_banner}
 /// Displays exceptions from the Authenticator as a Material banner.
 /// {@endtemplate}
-class AuthExceptionsWidget extends StatefulWidget {
-  /// {@macro auth_exceptions_widget}
-  const AuthExceptionsWidget({Key? key}) : super(key: key);
+class AuthenticatorExceptionBanner extends StatefulWidget {
+  /// {@macro authenticator.authenticator_exception_banner}
+  const AuthenticatorExceptionBanner({Key? key}) : super(key: key);
 
   @override
-  State<AuthExceptionsWidget> createState() => _AuthExceptionsWidgetState();
+  State<AuthenticatorExceptionBanner> createState() =>
+      _AuthenticatorExceptionBannerState();
 }
 
-class _AuthExceptionsWidgetState extends State<AuthExceptionsWidget> {
+class _AuthenticatorExceptionBannerState
+    extends State<AuthenticatorExceptionBanner> {
   static const _bannerColor = Color.fromRGBO(49, 70, 95, 1);
 
   late final StreamSubscription<AuthenticatorException> _exceptionSub;
@@ -48,7 +50,7 @@ class _AuthExceptionsWidgetState extends State<AuthExceptionsWidget> {
     }
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
-      width: double.infinity,
+      // width: double.infinity,
       height: 53,
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -59,21 +61,23 @@ class _AuthExceptionsWidgetState extends State<AuthExceptionsWidget> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            children: <Widget>[
-              const Icon(
-                Icons.error,
-                size: 24,
-                color: Colors.white,
-              ),
-              const SizedBox(width: 5),
-              Expanded(
-                child: Text(
-                  _currentException.toString(),
-                  style: const TextStyle(color: Colors.white),
+          Expanded(
+            child: Row(
+              children: <Widget>[
+                const Icon(
+                  Icons.error,
+                  size: 24,
+                  color: Colors.white,
                 ),
-              ),
-            ],
+                const SizedBox(width: 5),
+                Expanded(
+                  child: Text(
+                    _currentException.toString(),
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+              ],
+            ),
           ),
           IconButton(
             onPressed: () => setState(() => _currentException = null),

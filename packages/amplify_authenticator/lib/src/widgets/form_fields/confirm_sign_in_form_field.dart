@@ -33,7 +33,7 @@ class ConfirmSignInFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyPasswordConfirmSignInFormField),
+          key: key ?? keyPasswordConfirmSignInFormField,
           titleKey: InputResolverKey.passwordTitle,
           hintTextKey: InputResolverKey.passwordTitle,
           field: ConfirmSignInField.password,
@@ -45,7 +45,7 @@ class ConfirmSignInFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? const Key(keyCodeConfirmSignInFormfield),
+          key: key ?? keyCodeConfirmSignInFormfield,
           titleKey: InputResolverKey.verificationCodeTitle,
           hintTextKey: InputResolverKey.verificationCodeHint,
           field: ConfirmSignInField.code,
@@ -105,9 +105,6 @@ class _ConfirmSignInFormFieldState extends _AuthenticatorFormFieldState<
 
   @override
   bool get obscureText {
-    if (_obscureText != null) {
-      return _obscureText!;
-    }
     switch (widget.field) {
       case ConfirmSignInField.password:
         return true;
@@ -201,7 +198,7 @@ class _ConfirmSignInFormFieldState extends _AuthenticatorFormFieldState<
   }
 
   @override
-  Widget? get suffix {
+  Widget? get suffixIcon {
     switch (widget.field) {
       case ConfirmSignInField.password:
         return visibilityToggle;

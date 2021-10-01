@@ -13,19 +13,16 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
-
-import 'package:amplify_authenticator/src/models/authenticator_exceptions.dart';
-
+import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
+import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
+import 'package:amplify_authenticator_example/main.dart' as app;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'finders/signIn_finder.dart';
+
 import 'finders/confirm_signin_finder.dart';
+import 'finders/signIn_finder.dart';
 import 'finders/widgets_finder.dart';
-
-import 'package:amplify_authenticator_example/main.dart' as app;
-
 import 'utils/mock_data.dart';
 
 void main() {
@@ -34,16 +31,11 @@ void main() {
     IntegrationTestWidgetsFlutterBinding.ensureInitialized();
     setUpAll(() async {});
 
-    testWidgets("sign and in and back to sign in", (WidgetTester tester) async {
+    testWidgets('sign and in and back to sign in', (WidgetTester tester) async {
       app.main();
       await tester.pumpAndSettle();
 
-      late InheritedAuthBloc authBloc;
-      try {
-        authBloc = await tester.widget(inheritedAuthBlocFinder);
-      } catch (e) {
-        fail('Error finding auth bloc: $e');
-      }
+      final InheritedAuthBloc authBloc = tester.widget(inheritedAuthBlocFinder);
 
       //Signing In
 
@@ -54,7 +46,7 @@ void main() {
       await tester.pumpAndSettle();
 
       await tester.tap(signInButtonFinder);
-      final subscription = await authBloc.authBloc.stream;
+      final subscription = authBloc.authBloc.stream;
       final stateAuthFlowConfirmSignIn = await subscription.first;
 
       expect(stateAuthFlowConfirmSignIn, isA<AuthFlow>());
@@ -74,18 +66,13 @@ void main() {
       await tester.pumpAndSettle();
     });
 
-    testWidgets("sign and confirm sign in with a wrong code",
+    testWidgets('sign and confirm sign in with a wrong code',
         (WidgetTester tester) async {
       app.main();
       await tester.pumpAndSettle();
 
-      late InheritedAuthBloc authBloc;
-      try {
-        authBloc = await tester.widget(inheritedAuthBlocFinder);
-      } catch (e) {
-        fail('Error finding auth bloc: $e');
-      }
-      final subscription = await authBloc.authBloc.stream;
+      final InheritedAuthBloc authBloc = tester.widget(inheritedAuthBlocFinder);
+      final subscription = authBloc.authBloc.stream;
       //Signing In
 
       await tester.enterText(usernameSignInFormFieldFinder, 'amplify-user-00');

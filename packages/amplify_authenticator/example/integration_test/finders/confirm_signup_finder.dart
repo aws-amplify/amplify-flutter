@@ -4,7 +4,7 @@ import 'package:amplify_authenticator/src/keys.dart';
 
 /// Find specific widgets in the widget tree based on their keys
 final usernameConfirmSignUpFormFieldFinder =
-    find.byKey(const Key(keyUsernameConfirmSignUpFormfield));
+    find.byKey(keyUsernameConfirmSignUpFormfield);
 final codeConfirmSignUpFormFieldFinder =
-    find.byKey(const Key(keyCodeConfirmSignUpFormfield));
-final backToSignInButtonFinder = find.byKey(const Key(keyBackToSignInButton));
+    find.byKey(keyCodeConfirmSignUpFormfield);
+final backToSignInButtonFinder = find.byKey(keyBackToSignInButton);

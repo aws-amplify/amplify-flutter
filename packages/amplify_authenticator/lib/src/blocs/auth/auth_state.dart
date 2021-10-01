@@ -27,6 +27,12 @@ class AuthLoading extends AuthState {
   const AuthLoading();
 }
 
+class AuthLoaded extends AuthState {
+  const AuthLoaded(this.config);
+
+  final AmplifyConfig config;
+}
+
 class Authenticated extends AuthState {
   const Authenticated();
 }
