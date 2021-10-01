@@ -38,6 +38,7 @@ class TransferProgressStreamHandler : EventChannel.StreamHandler {
     }
 
     override fun onCancel(arguments: Any?) {
-        onDownloadEnd(arguments as String)
+        if(arguments != null)
+            onDownloadEnd(arguments as String)
     }
 }

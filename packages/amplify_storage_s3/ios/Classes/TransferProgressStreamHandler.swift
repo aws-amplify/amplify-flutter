@@ -33,7 +33,9 @@ class TransferProgressStreamHandler : NSObject, FlutterStreamHandler {
     }
     
     public func onCancel(withArguments arguments: Any?) -> FlutterError? {
-        onDownloadEnd(key: arguments as! String)
+        if(arguments != nil){
+            onDownloadEnd(key: arguments as! String)
+        }
         return nil
     }
 

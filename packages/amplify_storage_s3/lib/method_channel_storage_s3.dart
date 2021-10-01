@@ -19,7 +19,6 @@ import 'package:amplify_core/types/exception/AmplifyException.dart';
 import 'package:amplify_core/types/exception/AmplifyExceptionMessages.dart';
 import 'package:amplify_core/types/exception/AmplifyAlreadyConfiguredException.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/foundation.dart';
 import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 import 'dart:io';
 
@@ -28,7 +27,7 @@ import 'amplify_storage_s3.dart';
 const MethodChannel _channel =
     MethodChannel('com.amazonaws.amplify/storage_s3');
 
-const _downloadProgressEventChannel = const EventChannel(
+const _transferProgressEventChannel = const EventChannel(
     'com.amazonaws.amplify/storage_transfer_progress_events');
 
 /// An implementation of [AmplifyPlatform] that uses method channels.
@@ -49,40 +48,12 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
     }
   }
 
-  Future<UploadFileResult> uploadFile2(
-      {required UploadFileRequest request,
-      StreamSink<TransferProgress>? streamSink}) async {
-    try {
-      if (streamSink != null) {
-        _downloadProgressEventChannel
-            .receiveBroadcastStream(request.key)
-            .listen((event) {
-          streamSink.add(TransferProgress(event[0], event[1]));
-        }, onDone: () => {streamSink.close()});
-      }
-
-      final Map<String, dynamic>? data =
-          (await _channel.invokeMapMethod<String, dynamic>(
-        'uploadFile',
-        request.serializeAsMap(),
-      ));
-      if (data == null)
-        throw AmplifyException(
-            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
-      UploadFileResult result = _formatUploadFileResult(data);
-      return result;
-    } on PlatformException catch (e) {
-      throw _convertToStorageException(e);
-    }
-  }
-
-  @override
   Future<UploadFileResult> uploadFile(
       {required UploadFileRequest request,
       Function(TransferProgress)? onProgress}) async {
     try {
       if (onProgress != null) {
-        _downloadProgressEventChannel
+        _transferProgressEventChannel
             .receiveBroadcastStream(request.key)
             .listen((event) {
           onProgress(TransferProgress(event[0], event[1]));
@@ -164,7 +135,7 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
       Function(TransferProgress)? onProgress}) async {
     try {
       if (onProgress != null) {
-        _downloadProgressEventChannel
+        _transferProgressEventChannel
             .receiveBroadcastStream(request.key)
             .listen((event) {
           onProgress(TransferProgress(event[0], event[1]));
