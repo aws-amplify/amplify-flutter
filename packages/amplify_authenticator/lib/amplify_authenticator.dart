@@ -204,7 +204,6 @@ class _AuthenticatorState extends State<Authenticator> {
   void initState() {
     super.initState();
     _stateMachineBloc = StateMachineBloc(_authService)..add(const AuthLoad());
-    _stateMachineBloc.exceptions.listen(print);
     _viewModel = AuthViewModel(_stateMachineBloc);
     _waitForConfiguration();
   }
