@@ -25,7 +25,7 @@ class AuthenticatorConfig {
     required this.usernameAlias,
   });
 
-  final AmplifyConfig? amplifyConfig;
+  final AmplifyConfig amplifyConfig;
   final Alias usernameAlias;
 
   @override
@@ -42,17 +42,18 @@ class InheritedConfig extends InheritedWidget {
   const InheritedConfig({
     Key? key,
     required this.config,
+    required this.usernameAlias,
     required Widget child,
   }) : super(key: key, child: child);
 
-  final AuthenticatorConfig config;
+  final AmplifyConfig? config;
+  final Alias usernameAlias;
 
   static AuthenticatorConfig of(BuildContext context) {
     final inheritedConfig =
         context.dependOnInheritedWidgetOfExactType<InheritedConfig>();
     assert(() {
-      if (inheritedConfig == null ||
-          inheritedConfig.config.amplifyConfig == null) {
+      if (inheritedConfig == null || inheritedConfig.config == null) {
         throw FlutterError.fromParts([
           ErrorSummary('InheritedConfig widget was not configured correctly.'),
           ErrorDescription(
@@ -63,14 +64,18 @@ class InheritedConfig extends InheritedWidget {
       }
       return true;
     }());
-    return inheritedConfig!.config;
+
+    return AuthenticatorConfig(
+      amplifyConfig: inheritedConfig!.config!,
+      usernameAlias: inheritedConfig.usernameAlias,
+    );
   }
 
   @override
   bool updateShouldNotify(InheritedConfig oldWidget) {
     var updatedConfig = oldWidget.config != config;
     if (updatedConfig) {
-      if (oldWidget.config.amplifyConfig == null) {
+      if (oldWidget.config == null) {
         return true;
       }
       throw FlutterError.fromParts([
@@ -88,7 +93,8 @@ class InheritedConfig extends InheritedWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<AuthenticatorConfig>('config', config));
+    properties.add(DiagnosticsProperty<AmplifyConfig?>('config', config));
+    properties.add(EnumProperty<Alias>('usernameAlias', usernameAlias));
   }
 }
 

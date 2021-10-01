@@ -148,7 +148,7 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
 
     final signUpAttributes = InheritedConfig.of(context)
         .amplifyConfig
-        ?.auth
+        .auth
         ?.awsCognitoAuthPlugin
         ?.auth?['Default']
         ?.signupAttributes;

@@ -14,7 +14,6 @@
  */
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/state/inherited_strings.dart';
 import 'package:amplify_flutter/src/config/auth/password_policy_characters.dart';
@@ -43,7 +42,7 @@ FormFieldValidator<String> validateSignUpPassword(BuildContext context) {
   PasswordProtectionSettings? _passwordProtectionSettings =
       InheritedConfig.of(context)
           .amplifyConfig
-          ?.auth
+          .auth
           ?.awsCognitoAuthPlugin
           ?.auth?['Default']
           ?.passwordProtectionSettings;

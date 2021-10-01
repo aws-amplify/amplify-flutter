@@ -243,10 +243,8 @@ class _AuthenticatorState extends State<Authenticator> {
       key: keyInheritedAuthBloc,
       authBloc: _stateMachineBloc,
       child: InheritedConfig(
-        config: AuthenticatorConfig(
-          amplifyConfig: _config,
-          usernameAlias: widget.usernameAlias,
-        ),
+        config: _config,
+        usernameAlias: widget.usernameAlias,
         child: InheritedAuthViewModel(
           key: keyInheritedAuthViewModel,
           viewModel: _viewModel,
