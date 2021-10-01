@@ -8,13 +8,13 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
   amplify_auth_cognito: ^0.2.0
   amplify_flutter: ^0.2.0
-
+  flutter:
+    sdk: flutter
 
 dev_dependencies:
+  amplify_lints: ^1.0.0
   flutter_test:
     sdk: flutter
 

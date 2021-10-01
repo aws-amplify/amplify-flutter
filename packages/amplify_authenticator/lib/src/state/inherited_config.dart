@@ -14,20 +14,60 @@
  */
 
 import 'package:amplify_flutter/src/config/amplify_config.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class InheritedConfig extends InheritedWidget {
-  // ignore: public_member_api_docs
-  const InheritedConfig({required this.config, required Widget child})
-      : super(child: child);
+  const InheritedConfig({
+    Key? key,
+    required this.config,
+    required Widget child,
+  }) : super(key: key, child: child);
 
   final AmplifyConfig? config;
 
-  // ignore: public_member_api_docs
-  static InheritedConfig? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<InheritedConfig>();
+  static AmplifyConfig of(BuildContext context) {
+    final config =
+        context.dependOnInheritedWidgetOfExactType<InheritedConfig>();
+    assert(() {
+      if (config == null || config.config == null) {
+        throw FlutterError.fromParts([
+          ErrorSummary('InheritedConfig widget was not configured correctly.'),
+          ErrorDescription(
+            'Make sure your app is wrapped with an Authenticator widget and '
+            'has called `Amplify.configure`.',
+          ),
+        ]);
+      }
+      return true;
+    }());
+    return config!.config!;
   }
 
   @override
-  bool updateShouldNotify(covariant InheritedWidget oldWidget) => true;
+  bool updateShouldNotify(InheritedConfig oldWidget) {
+    var updatedConfig = oldWidget.config != config;
+    if (updatedConfig) {
+      if (oldWidget.config == null) {
+        return true;
+      }
+      throw FlutterError.fromParts([
+        ErrorSummary(
+          'Runtime re-configuration of the Authenticator is not supported.',
+        ),
+        ErrorDescription(
+          'Please restart your app if you have made changes to your configuration.',
+        ),
+      ]);
+    }
+    return false;
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<AmplifyConfig?>('config', config));
+  }
 }
+
+// ignore_for_file: prefer_asserts_with_message

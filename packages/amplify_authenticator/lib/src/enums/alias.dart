@@ -13,4 +13,4 @@
  * permissions and limitations under the License.
  */
 
-enum Alias { username, email, phone_number, email_phone_number }
+enum Alias { username, email, phoneNumber, emailPhoneNumber }

@@ -13,49 +13,60 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_authenticator/src/widgets/forms.dart';
+import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
+import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:flutter/material.dart';
 
 class InheritedForms extends InheritedWidget {
-  // ignore: public_member_api_docs
-  const InheritedForms(
-      {required this.signInForm,
-      required this.signUpForm,
-      required this.confirmSignUpForm,
-      required this.confirmSignInMFAForm,
-      required this.sendCodeForm,
-      required this.resetPasswordForm,
-      required this.confirmSignInNewPasswordForm,
-      required this.verifyUserFormBuilder,
-      required this.confirmVerifyUserForm,
-      required Widget child})
-      : super(child: child);
+  const InheritedForms({
+    Key? key,
+    required this.signInForm,
+    required this.signUpForm,
+    required this.confirmSignUpForm,
+    required this.confirmSignInMFAForm,
+    required this.sendCodeForm,
+    required this.resetPasswordForm,
+    required this.confirmSignInNewPasswordForm,
+    required this.verifyUserForm,
+    required this.confirmVerifyUserForm,
+    required Widget child,
+  }) : super(key: key, child: child);
 
   final SignInForm signInForm;
-
   final SignUpForm signUpForm;
-
   final ConfirmSignUpForm confirmSignUpForm;
-
   final ConfirmSignInMFAForm confirmSignInMFAForm;
-
-  final SendCodeForm sendCodeForm;
-
-  final ResetPasswordForm resetPasswordForm;
-
   final ConfirmSignInNewPasswordForm confirmSignInNewPasswordForm;
-
-  final VerifyUserForm Function({required List<String> unverifiedAttributeKeys})
-      verifyUserFormBuilder;
-
+  final SendCodeForm sendCodeForm;
+  final ResetPasswordForm resetPasswordForm;
+  final VerifyUserForm verifyUserForm;
   final ConfirmVerifyUserForm confirmVerifyUserForm;
 
-  //final ResetPasswordForm resetPasswordForm;
+  AuthenticatorForm operator [](AuthScreen screen) {
+    switch (screen) {
+      case AuthScreen.signup:
+        return signUpForm;
+      case AuthScreen.signin:
+        return signInForm;
+      case AuthScreen.confirmSignup:
+        return confirmSignUpForm;
+      case AuthScreen.confirmSigninMfa:
+        return confirmSignInMFAForm;
+      case AuthScreen.confirmSigninNewPassword:
+        return confirmSignInNewPasswordForm;
+      case AuthScreen.sendCode:
+        return sendCodeForm;
+      case AuthScreen.resetPassword:
+        return resetPasswordForm;
+      case AuthScreen.verifyUser:
+        return verifyUserForm;
+      case AuthScreen.confirmVerifyUser:
+        return confirmVerifyUserForm;
+    }
+  }
 
-  // ignore: public_member_api_docs
   static InheritedForms of(BuildContext context) {
     final forms = context.dependOnInheritedWidgetOfExactType<InheritedForms>();
-
     assert(() {
       if (forms == null) {
         throw FlutterError.fromParts([
@@ -72,3 +83,5 @@ class InheritedForms extends InheritedWidget {
   @override
   bool updateShouldNotify(covariant InheritedWidget oldWidget) => true;
 }
+
+// ignore_for_file: prefer_asserts_with_message

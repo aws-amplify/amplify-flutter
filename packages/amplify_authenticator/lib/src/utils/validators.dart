@@ -14,10 +14,9 @@
  */
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/state/inherited_strings.dart';
-import 'package:amplify_authenticator/src/views/signup_viewmodel.dart';
-import 'package:amplify_flutter/src/config/amplify_config.dart';
 import 'package:amplify_flutter/src/config/auth/password_policy_characters.dart';
 import 'package:amplify_flutter/src/config/auth/password_protection_settings.dart';
 import 'package:flutter/material.dart';
@@ -29,30 +28,29 @@ final _lowercase = RegExp('^(?=.*[a-z])');
 final _numeric = RegExp('^(?=.*\\d)');
 final _symbols = RegExp(r'[~/`!@#$%^&\"*(),._?:;{}|<>\]\[\\]');
 
-Function simpleValidator = (String message) {
+FormFieldValidator<String> simpleValidator(String message) {
   return (String? input) {
     if (input == null || input.isEmpty) {
       return message;
     }
     return null;
   };
-};
+}
 
 ///TODO: Possibly refactor as widget to avoid passing context
-Function validateSignUpPassword = (BuildContext context) {
+FormFieldValidator<String> validateSignUpPassword(BuildContext context) {
   PasswordProtectionSettings? _passwordProtectionSettings =
       InheritedConfig.of(context)
-          ?.config
-          ?.auth
+          .auth
           ?.awsCognitoAuthPlugin
           ?.auth?['Default']
           ?.passwordProtectionSettings;
 
-  InputResolver _hintStrings = InheritedStrings.of(context)!.resolver.inputs;
+  InputResolver _hintStrings = InheritedStrings.of(context).inputs;
 
   return (String? password) {
     List<String> passwordHints = [
-      _hintStrings.password_requirements_unmet(context)
+      _hintStrings.passwordRequirementsUnmet(context)
     ];
 
     int? minLength = _passwordProtectionSettings?.passwordPolicyMinLength;
@@ -60,7 +58,7 @@ Function validateSignUpPassword = (BuildContext context) {
         _passwordProtectionSettings?.passwordPolicyCharacters;
     if (password == null || password.isEmpty || minLength! > password.length) {
       passwordHints.add(
-          '* ${_hintStrings.password_at_least(context)} $minLength ${_hintStrings.password_characters(context)}');
+          '* ${_hintStrings.passwordAtLeast(context)} $minLength ${_hintStrings.passwordCharacters(context)}');
     }
     if (password != null &&
         passwordCharacters != null &&
@@ -69,34 +67,34 @@ Function validateSignUpPassword = (BuildContext context) {
               .contains(PasswordPolicyCharacters.requiresLowercase) &&
           !_lowercase.hasMatch(password)) {
         passwordHints
-            .add('* ${_hintStrings.password_requires_lowercase(context)}');
+            .add('* ${_hintStrings.passwordRequiresLowercase(context)}');
       }
       if (passwordCharacters
               .contains(PasswordPolicyCharacters.requiresUppercase) &&
           !_uppercase.hasMatch(password)) {
         passwordHints
-            .add('* ${_hintStrings.password_requires_uppercase(context)}');
+            .add('* ${_hintStrings.passwordRequiresUppercase(context)}');
       }
       if (passwordCharacters
               .contains(PasswordPolicyCharacters.requiresNumbers) &&
           !_numeric.hasMatch(password)) {
-        passwordHints
-            .add('* ${_hintStrings.password_requires_numbers(context)}');
+        passwordHints.add('* ${_hintStrings.passwordRequiresNumbers(context)}');
       }
       // TODO: symbols regex does not handle single quotes, currently handling with separate check.
       if (passwordCharacters
               .contains(PasswordPolicyCharacters.requiresSymbols) &&
           !_symbols.hasMatch(password) &&
           !password.contains("'")) {
-        passwordHints
-            .add('* ${_hintStrings.password_requires_symbols(context)}');
+        passwordHints.add('* ${_hintStrings.passwordRequiresSymbols(context)}');
       }
     }
     return null;
   };
-};
+}
 
-Function validatePasswordConfirmation = (SignUpViewModel viewModel) {
+FormFieldValidator<String> validatePasswordConfirmation(
+  AuthViewModel viewModel,
+) {
   return (String? passwordConfirmation) {
     if (passwordConfirmation == null || passwordConfirmation.isEmpty) {
       return 'Re-enter your password to confirm';
@@ -105,7 +103,7 @@ Function validatePasswordConfirmation = (SignUpViewModel viewModel) {
     }
     return null;
   };
-};
+}
 
 String? validatePhoneNumber(String? phoneNumber) {
   if (phoneNumber == null || phoneNumber.isEmpty) {
@@ -134,3 +132,5 @@ String? validateCode(String? code) {
 
   return null;
 }
+
+// ignore_for_file: implementation_imports

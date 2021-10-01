@@ -13,56 +13,113 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_authenticator/src/text_customization/resolver_typedef.dart';
+import 'package:amplify_authenticator/src/text_customization/resolver.dart';
+import 'package:flutter/material.dart';
+
+enum ButtonResolverKey {
+  signin,
+  signup,
+  confirm,
+  submit,
+  changePassword,
+  sendCode,
+  lostCodeQuestion,
+  verifyUser,
+  confirmVerifyUser,
+  signout,
+}
 
 /// The resolver class for shared button Widgets
-class ButtonResolver {
-  /// Label of signin form button
-  StringResolver signin = (_) => "Sign In";
+abstract class ButtonResolver extends Resolver<ButtonResolverKey> {
+  const ButtonResolver();
 
   /// Label of signin form button
-  StringResolver signup = (_) => "Create Account";
+  String signin(BuildContext context);
+
+  /// Label of signin form button
+  String signup(BuildContext context);
 
   /// Label of confirm forms' button
-  StringResolver confirm = (_) => "Confirm";
+  String confirm(BuildContext context);
 
   /// Label of submit button
-  StringResolver submit = (_) => "Submit";
+  String submit(BuildContext context);
 
   /// Label of change password button on ConfirmSignInNewPassword Form
-  StringResolver changePassword = (_) => "Change Password";
+  String changePassword(BuildContext context);
 
   /// Label of button for sending a confirmation code
-  StringResolver sendCode = (_) => "Send Code";
-
-  /// Label of button to verify a user after sign in
-  StringResolver verifyUser = (_) => "Verify";
-
-  /// Label of button to confirm verification a user after sign in
-  StringResolver confirmVerifyUser = (_) => "Submit";
+  String sendCode(BuildContext context);
 
   /// Question for button to resend code
-  StringResolver lostCodeQuestion = (_) => "Lost your code?";
+  String lostCodeQuestion(BuildContext context);
 
-  // ignore: public_member_api_docs
-  ButtonResolver(
-      {StringResolver? signin,
-      StringResolver? signup,
-      StringResolver? confirm,
-      StringResolver? submit,
-      StringResolver? changePassword,
-      StringResolver? sendCode,
-      StringResolver? verifyUser,
-      StringResolver? confirmVerifyUser,
-      StringResolver? lostCodeQuestion}) {
-    this.signin = signin ?? this.signin;
-    this.signup = signup ?? this.signup;
-    this.confirm = confirm ?? this.confirm;
-    this.submit = submit ?? this.submit;
-    this.changePassword = changePassword ?? this.changePassword;
-    this.sendCode = sendCode ?? this.sendCode;
-    this.verifyUser = verifyUser ?? this.verifyUser;
-    this.confirmVerifyUser = confirmVerifyUser ?? this.confirmVerifyUser;
-    this.lostCodeQuestion = lostCodeQuestion ?? this.lostCodeQuestion;
+  /// Label of button to verify a user after sign in
+  String verifyUser(BuildContext context);
+
+  /// Label of button to confirm verification a user after sign in
+  String confirmVerifyUser(BuildContext context);
+
+  /// Label of button to sign out the user
+  String signout(BuildContext context);
+
+  @override
+  String resolve(BuildContext context, ButtonResolverKey key) {
+    switch (key) {
+      case ButtonResolverKey.signin:
+        return signin(context);
+      case ButtonResolverKey.signup:
+        return signup(context);
+      case ButtonResolverKey.confirm:
+        return confirm(context);
+      case ButtonResolverKey.submit:
+        return submit(context);
+      case ButtonResolverKey.changePassword:
+        return changePassword(context);
+      case ButtonResolverKey.sendCode:
+        return sendCode(context);
+      case ButtonResolverKey.lostCodeQuestion:
+        return lostCodeQuestion(context);
+      case ButtonResolverKey.verifyUser:
+        return verifyUser(context);
+      case ButtonResolverKey.confirmVerifyUser:
+        return confirmVerifyUser(context);
+      case ButtonResolverKey.signout:
+        return signout(context);
+    }
   }
+}
+
+class DefaultButtonResolver extends ButtonResolver {
+  const DefaultButtonResolver();
+
+  @override
+  String signin(BuildContext context) => 'Sign In';
+
+  @override
+  String signup(BuildContext context) => 'Create Account';
+
+  @override
+  String confirm(BuildContext context) => 'Confirm';
+
+  @override
+  String submit(BuildContext context) => 'Submit';
+
+  @override
+  String changePassword(BuildContext context) => 'Change Password';
+
+  @override
+  String sendCode(BuildContext context) => 'Send Code';
+
+  @override
+  String lostCodeQuestion(BuildContext context) => 'Lost your code?';
+
+  @override
+  String verifyUser(BuildContext context) => 'Verify';
+
+  @override
+  String confirmVerifyUser(BuildContext context) => 'Submit';
+
+  @override
+  String signout(BuildContext context) => 'Sign Out';
 }

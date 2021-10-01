@@ -1,9 +1,9 @@
-import 'package:uuid/uuid.dart';
 import 'dart:math';
 
-var random = new Random();
+import 'package:uuid/uuid.dart';
 
-final uuid = Uuid();
+final random = Random();
+const uuid = Uuid();
 
 const String mockPhoneNumber = '+15555551234';
 const String mockCode = '12345';

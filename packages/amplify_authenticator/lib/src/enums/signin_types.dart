@@ -13,19 +13,12 @@
  * permissions and limitations under the License.
  */
 
-import 'package:collection/collection.dart';
-
-enum SignInType {
+enum SignInField {
   username,
   password,
   email,
-  phone_number,
-  verification_code,
-  new_password,
-  new_username
-}
-
-SignInType? fromStringToSignInType(String str) {
-  return SignInType.values
-      .firstWhereOrNull((value) => value.toString().split('.')[1] == str);
+  phoneNumber,
+  verificationCode,
+  newPassword,
+  newUsername
 }

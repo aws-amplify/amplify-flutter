@@ -13,17 +13,14 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_authenticator/src/state/inherited_forms.dart';
-import 'package:amplify_authenticator/src/state/inherited_strings.dart';
-import 'package:flutter/material.dart';
-import 'package:amplify_authenticator/src/widgets/containers.dart';
+class AuthenticatorException implements Exception {
+  final String message;
 
-class SignUpScreen extends StatelessWidget {
+  const AuthenticatorException(this.message);
+
+  const AuthenticatorException.customAuth()
+      : message = 'Custom auth flows are not supported yet in Authenticator';
+
   @override
-  Widget build(BuildContext context) {
-    final _signUpForm = InheritedForms.of(context).signUpForm;
-    final _title =
-        InheritedStrings.of(context)!.resolver.titles.signup(context);
-    return AuthenticatorContainer(title: _title, form: _signUpForm);
-  }
+  String toString() => message.toString();
 }

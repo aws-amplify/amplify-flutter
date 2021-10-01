@@ -13,17 +13,15 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
-import 'package:amplify_authenticator/src/models/authenticator_exceptions.dart';
-
+import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
+import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
+import 'package:amplify_authenticator_example/main.dart' as app;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
+
 import 'finders/signIn_finder.dart';
 import 'finders/widgets_finder.dart';
-
-import 'package:amplify_authenticator_example/main.dart' as app;
-
 import 'utils/mock_data.dart';
 
 void main() {
@@ -31,17 +29,12 @@ void main() {
     IntegrationTestWidgetsFlutterBinding.ensureInitialized();
     setUpAll(() async {});
 
-    testWidgets("Signing in and out a confirmed user",
+    testWidgets('Signing in and out a confirmed user',
         (WidgetTester tester) async {
       app.main();
       await tester.pumpAndSettle();
 
-      late InheritedAuthBloc authBloc;
-      try {
-        authBloc = await tester.widget(inheritedAuthBlocFinder);
-      } catch (e) {
-        fail('Error finding auth bloc: $e');
-      }
+      final InheritedAuthBloc authBloc = tester.widget(inheritedAuthBlocFinder);
 
       await tester.enterText(usernameSignInFormFieldFinder, 'amplify-user-01');
       await Future<void>.delayed(const Duration(seconds: 2));
@@ -52,7 +45,7 @@ void main() {
       //Signing In
 
       await tester.tap(signInButtonFinder);
-      final subscription = await authBloc.authBloc.stream;
+      final subscription = authBloc.authBloc.stream;
       final stateAuthenticated = await subscription.first;
 
       expect(stateAuthenticated, isA<Authenticated>());
@@ -68,19 +61,14 @@ void main() {
       await tester.pumpAndSettle();
     });
 
-    testWidgets("Signing in an unregistered  user",
+    testWidgets('Signing in an unregistered  user',
         (WidgetTester tester) async {
       final username = generateUsername();
       final password = generatePassword();
       app.main();
       await tester.pumpAndSettle();
 
-      late InheritedAuthBloc authBloc;
-      try {
-        authBloc = await tester.widget(inheritedAuthBlocFinder);
-      } catch (e) {
-        fail('Error finding auth bloc: $e');
-      }
+      final InheritedAuthBloc authBloc = tester.widget(inheritedAuthBlocFinder);
 
       await tester.enterText(usernameSignInFormFieldFinder, username);
       await Future<void>.delayed(const Duration(seconds: 2));
@@ -90,7 +78,7 @@ void main() {
 
       await tester.tap(signInButtonFinder);
 
-      final subscription = await authBloc.authBloc.exceptions;
+      final subscription = authBloc.authBloc.exceptions;
       final authenticatorException = await subscription.first;
 
       expect(authenticatorException, isA<AuthenticatorException>());
