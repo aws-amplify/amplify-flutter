@@ -7,7 +7,7 @@ class FlutterFieldUtil {
     companion object {
         fun convertValueByFieldType(fieldTargetType: String, value: Any?): Any? {
             if (value == null) {
-                return value;
+                return null;
             }
             return when(fieldTargetType) {
                 "AWSTimestamp" -> (value as Number).toLong()

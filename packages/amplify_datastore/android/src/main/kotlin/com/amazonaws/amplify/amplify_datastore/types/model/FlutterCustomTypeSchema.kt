@@ -20,8 +20,8 @@ import com.amplifyframework.core.model.CustomTypeSchema
 data class FlutterCustomTypeSchema(val map: Map<String, Any>) {
     val name: String = map["name"] as String
     private val pluralName: String? = map["pluralName"] as String?
-    private val fields: Map<String, FlutterCustomTypeField> = (map["fields"] as Map<String, Any>)
-        .mapValues { FlutterCustomTypeField(it.value as Map<String, Any>) }
+    private val fields: Map<String, FlutterCustomTypeField> = (map["fields"] as Map<String, Map<String, Any>>)
+        .mapValues { FlutterCustomTypeField(it.value) }
 
     fun convertToNativeCustomTypeSchema(): CustomTypeSchema {
         return CustomTypeSchema.builder()
