@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:async';
+
 import 'package:amplify_core/types/exception/AmplifyException.dart';
 import 'package:amplify_core/types/exception/AmplifyExceptionMessages.dart';
 import 'package:amplify_core/types/exception/AmplifyAlreadyConfiguredException.dart';
@@ -47,16 +49,43 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
     }
   }
 
-  @override
-  Future<UploadFileResult> uploadFile(
+  Future<UploadFileResult> uploadFile2(
       {required UploadFileRequest request,
-      Function(TransferProgress)? onTransferProgress}) async {
+      StreamSink<TransferProgress>? streamSink}) async {
     try {
-      if (onTransferProgress != null) {
+      if (streamSink != null) {
         _downloadProgressEventChannel
             .receiveBroadcastStream(request.key)
             .listen((event) {
-          onTransferProgress(TransferProgress(event[0], event[1]));
+          streamSink.add(TransferProgress(event[0], event[1]));
+        }, onDone: () => {streamSink.close()});
+      }
+
+      final Map<String, dynamic>? data =
+          (await _channel.invokeMapMethod<String, dynamic>(
+        'uploadFile',
+        request.serializeAsMap(),
+      ));
+      if (data == null)
+        throw AmplifyException(
+            AmplifyExceptionMessages.nullReturnedFromMethodChannel);
+      UploadFileResult result = _formatUploadFileResult(data);
+      return result;
+    } on PlatformException catch (e) {
+      throw _convertToStorageException(e);
+    }
+  }
+
+  @override
+  Future<UploadFileResult> uploadFile(
+      {required UploadFileRequest request,
+      Function(TransferProgress)? onProgress}) async {
+    try {
+      if (onProgress != null) {
+        _downloadProgressEventChannel
+            .receiveBroadcastStream(request.key)
+            .listen((event) {
+          onProgress(TransferProgress(event[0], event[1]));
         });
       }
 
@@ -132,13 +161,13 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
   @override
   Future<DownloadFileResult> downloadFile(
       {required DownloadFileRequest request,
-      Function(TransferProgress)? onTransferProgress}) async {
+      Function(TransferProgress)? onProgress}) async {
     try {
-      if (onTransferProgress != null) {
+      if (onProgress != null) {
         _downloadProgressEventChannel
             .receiveBroadcastStream(request.key)
             .listen((event) {
-          onTransferProgress(TransferProgress(event[0], event[1]));
+          onProgress(TransferProgress(event[0], event[1]));
         });
       }
 
@@ -228,18 +257,4 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
   StorageException _convertToStorageException(PlatformException e) {
     return StorageException.fromMap(Map<String, String>.from(e.details));
   }
-
-  /*
-  void test1(
-      {required DownloadFileRequest request,
-      Function? onDownloadProgress,
-      Function? onSuccess,
-      Function? onError}) {}
-  void test2(
-      {required DownloadFileRequest request,
-      Function? onDownloadProgress,
-      Function? onResult}) {}
-  Future<DownloadFileResult> test3(
-      {required DownloadFileRequest request, Function? downloadProgress}) {}
-   */
 }
