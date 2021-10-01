@@ -27,7 +27,7 @@ class AmplifyModelSchemaUnitTests: XCTestCase {
     override func setUpWithError() throws {
         // register CustomType Schemas following dependencies order
         // This also tests the deserialization functionality for CustomType schemas
-        ["AddressSchema", "PhoneSchema", "ContactSchema"].forEach { schemaName in
+        ["AddressSchema", "PhoneSchema", "ContactSchema", "CustomBSchema", "CustomASchema"].forEach { schemaName in
             do {
                 let serializedCustomType = customTypeSchemaMap[schemaName] as! [String : Any]
                 customTypeSchemasRegistry.addModelSchema(
@@ -93,6 +93,17 @@ class AmplifyModelSchemaUnitTests: XCTestCase {
         XCTAssertEqual(
             expectedPersonModelSchema.fields["propertiesAddresses"]?.embeddedTypeSchema?.sortedFields,
             personModelSchema.fields["propertiesAddresses"]?.embeddedTypeSchema?.sortedFields
+        )
+
+        let customASchemasFields = personModelSchema.fields["anotherCustomTypeTree"]?.embeddedTypeSchema?.fields
+        let expectedCustomASchemaFields = expectedPersonModelSchema.fields["anotherCustomTypeTree"]?.embeddedTypeSchema?.fields
+        XCTAssertEqual(
+            expectedCustomASchemaFields!["field1"],
+            customASchemasFields!["field1"]
+        )
+        XCTAssertEqual(
+            expectedCustomASchemaFields!["field2"]?.embeddedTypeSchema?.sortedFields,
+            customASchemasFields!["field2"]?.embeddedTypeSchema?.sortedFields
         )
 
         let contactSchemaFields = personModelSchema.fields["contact"]?.embeddedTypeSchema?.fields

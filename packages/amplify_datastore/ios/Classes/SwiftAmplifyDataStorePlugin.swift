@@ -543,24 +543,20 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
         }
 
         var result: [String] = [];
-
-        if (schemasDependencies.isEmpty) {
-            return result
-        }
-
         var unresolved: Set<String> = []
-        guard let startNode = schemasDependencies.keys.first else {
-            throw DataStoreError.internalOperation(
-                "Cannot start resolving custom type dependencies order.",
-                "This should not happen, please open an issue at https://github.com/aws-amplify/amplify-flutter/issues"
+
+        for node in schemasDependencies.keys {
+            if (result.contains(node)) {
+                continue
+            }
+            try resolveCustomTypeSchemaOrder(
+                startNode: node,
+                dependenciesMap: schemasDependencies,
+                result: &result,
+                unresolved: &unresolved
             )
         }
-        try resolveCustomTypeSchemaOrder(
-            startNode: startNode,
-            dependenciesMap: schemasDependencies,
-            result: &result,
-            unresolved: &unresolved
-        )
+
         return result
     }
 

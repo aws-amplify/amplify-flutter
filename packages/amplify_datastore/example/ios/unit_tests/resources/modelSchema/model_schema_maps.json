@@ -309,6 +309,15 @@
               "ofCustomTypeName": "Address",
               "fieldType": "embeddedCollection"
             }
+          },
+          "anotherCustomTypeTree": {
+            "isRequired": false,
+            "name": "anotherCustomTypeTree",
+            "isArray": false,
+            "type": {
+              "ofCustomTypeName": "CustomA",
+              "fieldType": "embedded"
+            }
           }
         }
       }

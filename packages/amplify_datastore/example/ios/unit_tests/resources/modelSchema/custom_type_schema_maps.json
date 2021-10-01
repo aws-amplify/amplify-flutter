@@ -106,5 +106,42 @@
                 }
             }
         }
+    },
+    "CustomASchema": {
+        "name": "CustomA",
+        "pluralName": "CustomAs",
+        "fields": {
+            "field1": {
+                "name": "field1",
+                "isRequired": true,
+                "isArray": false,
+                "type": {
+                    "fieldType": "string"
+                }
+            },
+            "field2": {
+                "name": "field2",
+                "isRequired": true,
+                "isArray": false,
+                "type": {
+                    "fieldType": "embedded",
+                    "ofCustomTypeName": "CustomB"
+                }
+            }
+        }
+    },
+    "CustomBSchema": {
+        "name": "CustomB",
+        "pluralName": "CustomBs",
+        "fields": {
+            "field": {
+                "name": "field",
+                "isRequired": true,
+                "isArray": false,
+                "type": {
+                    "fieldType": "string"
+                }
+            },
+        }
     }
 }

@@ -121,6 +121,20 @@
                         "postalCode": "97035"
                     }
                 }
+            ],
+            "anotherCustomTypeTree": [
+                {
+                    "customTypeName": "CustomA",
+                    "serializedData": {
+                        "field1": "yes another dependencies tree",
+                        "field2": {
+                            "customTypeName": "CustomB",
+                            "serialziedData": {
+                                "field": "just a string"
+                            }
+                        }
+                    }
+                }
             ]
         }
     }

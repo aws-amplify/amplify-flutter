@@ -148,6 +148,23 @@ struct SchemaData {
         ]
     )
 
+    static var CustomBSchema: ModelSchema = ModelSchema(
+        name: "CustomB",
+        pluralName: "CustomBs",
+        fields: [
+            "field": ModelField(name: "field", type: .string, isRequired: true, isArray: false)
+        ]
+    )
+
+    static var CustomASchema: ModelSchema = ModelSchema(
+        name: "CustomA",
+        pluralName: "CustomAs",
+        fields: [
+            "field1": ModelField(name: "field1", type: .string, isRequired: true, isArray: false),
+            "field2": ModelField(name: "field2", type: .embedded(type: JSONValue.self, schema: SchemaData.CustomBSchema), isRequired: true)
+        ]
+    )
+
     static var PersonSchema: ModelSchema = ModelSchema(
         name: "Person",
         pluralName: "People",
@@ -159,7 +176,8 @@ struct SchemaData {
                 name: "propertiesAddresses",
                 type: .embeddedCollection(of: JSONValue.self, schema: SchemaData.AddressSchema),
                 isArray: true
-            )
+            ),
+            "anotherCustomTypeTree": ModelField(name: "anotherCustomTypeTree", type: .embedded(type: JSONValue.self, schema: SchemaData.CustomASchema))
         ]
     )
 
@@ -180,7 +198,9 @@ struct SchemaData {
         return [
             AddressSchema.name: AddressSchema,
             PhoneSchema.name: PhoneSchema,
-            ContactSchema.name: ContactSchema
+            ContactSchema.name: ContactSchema,
+            CustomBSchema.name: CustomBSchema,
+            CustomASchema.name: CustomASchema
         ]
     }
 
