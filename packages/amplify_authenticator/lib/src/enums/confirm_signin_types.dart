@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+import 'package:flutter/foundation.dart';
+
 enum ConfirmSignInField {
   code,
   password,
@@ -34,4 +36,19 @@ enum ConfirmSignInField {
   updatedAt,
   website,
   custom,
+}
+
+extension ConfirmSignInFieldX on ConfirmSignInField {
+  String toCognitoAttribute() {
+    switch (this) {
+      case ConfirmSignInField.code:
+      case ConfirmSignInField.password:
+      case ConfirmSignInField.custom:
+        throw StateError('Can only be called on attribute types');
+      default:
+        return describeEnum(this).replaceAllMapped(RegExp(r'[A-Z]'), (match) {
+          return '_${match.group(0)!.toLowerCase()}';
+        });
+    }
+  }
 }

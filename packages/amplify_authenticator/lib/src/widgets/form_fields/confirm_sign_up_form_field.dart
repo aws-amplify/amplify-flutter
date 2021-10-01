@@ -93,10 +93,23 @@ class ConfirmSignUpFormField
 class _ConfirmSignUpFormFieldState extends _AuthenticatorFormFieldState<
     ConfirmSignUpField, ConfirmSignUpFormField> {
   @override
-  FormFieldValidator<String>? get validator {
-    if (widget._validatorOverride != null) {
-      return widget._validatorOverride;
+  String? get initialValue {
+    switch (widget.field) {
+      case ConfirmSignUpField.username:
+        return viewModel.username;
+      case ConfirmSignUpField.phoneNumber:
+        return viewModel.getAttribute(CognitoUserAttributes.phoneNumber);
+      case ConfirmSignUpField.email:
+        return viewModel.getAttribute(CognitoUserAttributes.email);
+      case ConfirmSignUpField.password:
+        return viewModel.password;
+      case ConfirmSignUpField.code:
+        return viewModel.confirmationCode;
     }
+  }
+
+  @override
+  FormFieldValidator<String>? get validator {
     switch (widget.field) {
       case ConfirmSignUpField.username:
         return simpleValidator(
@@ -132,10 +145,10 @@ class _ConfirmSignUpFormFieldState extends _AuthenticatorFormFieldState<
   }
 
   @override
-  void Function(String) get callback {
+  void Function(String) get onChanged {
     switch (widget.field) {
       case ConfirmSignUpField.username:
-        return viewModel.setUsername;
+        return usernameOnChangedForAlias;
       case ConfirmSignUpField.password:
         return viewModel.setPassword;
       case ConfirmSignUpField.email:
@@ -151,7 +164,7 @@ class _ConfirmSignUpFormFieldState extends _AuthenticatorFormFieldState<
   TextInputType get keyboardType {
     switch (widget.field) {
       case ConfirmSignUpField.username:
-        return TextInputType.text;
+        return usernameKeyboardTypeForAlias;
       case ConfirmSignUpField.password:
         return TextInputType.visiblePassword;
       case ConfirmSignUpField.email:
@@ -170,18 +183,6 @@ class _ConfirmSignUpFormFieldState extends _AuthenticatorFormFieldState<
         return true;
       default:
         return false;
-    }
-  }
-
-  @override
-  String? get initialValue {
-    switch (widget.field) {
-      case ConfirmSignUpField.username:
-      case ConfirmSignUpField.email:
-      case ConfirmSignUpField.phoneNumber:
-        return viewModel.username;
-      default:
-        return null;
     }
   }
 

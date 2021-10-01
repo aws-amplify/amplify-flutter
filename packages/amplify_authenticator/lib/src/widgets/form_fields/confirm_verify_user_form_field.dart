@@ -19,7 +19,10 @@ class ConfirmVerifyUserFormField
 class _ConfirmVerifyUserFormFieldState
     extends _AuthenticatorFormFieldState<void, ConfirmVerifyUserFormField> {
   @override
-  void Function(String) get callback => viewModel.setConfirmationCode;
+  String? get initialValue => viewModel.confirmationCode;
+
+  @override
+  void Function(String) get onChanged => viewModel.setConfirmationCode;
 
   @override
   TextInputType get keyboardType => TextInputType.text;
@@ -28,6 +31,5 @@ class _ConfirmVerifyUserFormFieldState
   bool get obscureText => false;
 
   @override
-  FormFieldValidator<String>? get validator =>
-      widget._validatorOverride ?? validateCode;
+  FormFieldValidator<String>? get validator => validateCode;
 }

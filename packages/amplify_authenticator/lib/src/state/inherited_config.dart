@@ -13,9 +13,30 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_authenticator/src/enums/alias.dart';
 import 'package:amplify_flutter/src/config/amplify_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+@immutable
+class AuthenticatorConfig {
+  const AuthenticatorConfig({
+    required this.amplifyConfig,
+    required this.usernameAlias,
+  });
+
+  final AmplifyConfig? amplifyConfig;
+  final Alias usernameAlias;
+
+  @override
+  bool operator ==(Object other) =>
+      other is AuthenticatorConfig &&
+      amplifyConfig == other.amplifyConfig &&
+      usernameAlias == other.usernameAlias;
+
+  @override
+  int get hashCode => hashValues(amplifyConfig, usernameAlias);
+}
 
 class InheritedConfig extends InheritedWidget {
   const InheritedConfig({
@@ -24,13 +45,14 @@ class InheritedConfig extends InheritedWidget {
     required Widget child,
   }) : super(key: key, child: child);
 
-  final AmplifyConfig? config;
+  final AuthenticatorConfig config;
 
-  static AmplifyConfig of(BuildContext context) {
-    final config =
+  static AuthenticatorConfig of(BuildContext context) {
+    final inheritedConfig =
         context.dependOnInheritedWidgetOfExactType<InheritedConfig>();
     assert(() {
-      if (config == null || config.config == null) {
+      if (inheritedConfig == null ||
+          inheritedConfig.config.amplifyConfig == null) {
         throw FlutterError.fromParts([
           ErrorSummary('InheritedConfig widget was not configured correctly.'),
           ErrorDescription(
@@ -41,14 +63,14 @@ class InheritedConfig extends InheritedWidget {
       }
       return true;
     }());
-    return config!.config!;
+    return inheritedConfig!.config;
   }
 
   @override
   bool updateShouldNotify(InheritedConfig oldWidget) {
     var updatedConfig = oldWidget.config != config;
     if (updatedConfig) {
-      if (oldWidget.config == null) {
+      if (oldWidget.config.amplifyConfig == null) {
         return true;
       }
       throw FlutterError.fromParts([
@@ -66,7 +88,7 @@ class InheritedConfig extends InheritedWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<AmplifyConfig?>('config', config));
+    properties.add(DiagnosticsProperty<AuthenticatorConfig>('config', config));
   }
 }
 

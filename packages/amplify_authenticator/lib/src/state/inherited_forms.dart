@@ -81,7 +81,18 @@ class InheritedForms extends InheritedWidget {
   }
 
   @override
-  bool updateShouldNotify(covariant InheritedWidget oldWidget) => true;
+  bool updateShouldNotify(InheritedForms oldWidget) {
+    return oldWidget.signInForm != signInForm ||
+        oldWidget.signUpForm != signUpForm ||
+        oldWidget.confirmSignUpForm != confirmSignUpForm ||
+        oldWidget.confirmSignInMFAForm != confirmSignInMFAForm ||
+        oldWidget.sendCodeForm != sendCodeForm ||
+        oldWidget.resetPasswordForm != resetPasswordForm ||
+        oldWidget.confirmSignInNewPasswordForm !=
+            confirmSignInNewPasswordForm ||
+        oldWidget.verifyUserForm != verifyUserForm ||
+        oldWidget.confirmVerifyUserForm != confirmVerifyUserForm;
+  }
 }
 
 // ignore_for_file: prefer_asserts_with_message

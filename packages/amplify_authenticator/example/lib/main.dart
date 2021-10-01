@@ -71,7 +71,8 @@ class _MyAppState extends State<MyApp> {
 
     // We wrap our application in an Authenticator component. This component
     // handles all the screens and logic whenever the user is signed out. Once
-    // the user is signed in, the
+    // the user is signed in, the Authenticator will show whichever Widget we
+    // provide as `child`.
     final authenticator = Authenticator(
       stringResolver: stringResolver,
 
@@ -94,6 +95,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Authenticator Demo',
       theme: ThemeData(primaryColor: Colors.blue),
+      debugShowCheckedModeBanner: false,
 
       // These lines enable our custom localizations specified in the lib/l10n
       // directory, which will be used later to customize the values displayed
@@ -105,10 +107,11 @@ class _MyAppState extends State<MyApp> {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [
-        Locale('en', ''), // English, no country code
-        Locale('es', ''), // Spanish, no country code
+        Locale('en'), // English
+        Locale('es'), // Spanish
       ],
 
+      // The Authenticator component should be a descendant of your MaterialApp.
       home: authenticator,
     );
   }

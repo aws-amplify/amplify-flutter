@@ -32,7 +32,7 @@ class InheritedStrings extends InheritedWidget {
     assert(() {
       if (strings == null) {
         throw FlutterError.fromParts([
-          ErrorSummary('No InheritedForms widget found.'),
+          ErrorSummary('No InheritedStrings widget found.'),
           ErrorDescription(
               'Make sure your app is wrapped with an Authenticator widget.')
         ]);
@@ -43,7 +43,9 @@ class InheritedStrings extends InheritedWidget {
   }
 
   @override
-  bool updateShouldNotify(covariant InheritedWidget oldWidget) => false;
+  bool updateShouldNotify(InheritedStrings oldWidget) {
+    return oldWidget.resolver != resolver;
+  }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {

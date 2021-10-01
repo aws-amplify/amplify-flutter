@@ -46,12 +46,23 @@ class AuthViewModel extends ChangeNotifier {
   String get password => _password;
 
   String _passwordConfirmation = '';
+  String get passwordConfirmation => _passwordConfirmation;
+
   String _confirmationCode = '';
+  String get confirmationCode => _confirmationCode;
+
   String _newPassword = '';
+  String get newPassword => _newPassword;
+
   String _newUsername = '';
+  String get newUsername => _newUsername;
+
   String? _userAttributeKey;
+  String? get userAttributeKey => _userAttributeKey;
 
   final Map<String, String> _authAttributes = {};
+
+  String? getAttribute(String key) => _authAttributes[key];
 
   void setUsername(String value) {
     _username = value;
@@ -344,6 +355,7 @@ class AuthViewModel extends ChangeNotifier {
   void _clean() {
     _username = '';
     _password = '';
+    _passwordConfirmation = '';
     _confirmationCode = '';
     _newUsername = '';
     _newPassword = '';

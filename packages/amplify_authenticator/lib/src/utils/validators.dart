@@ -21,7 +21,8 @@ import 'package:amplify_flutter/src/config/auth/password_policy_characters.dart'
 import 'package:amplify_flutter/src/config/auth/password_protection_settings.dart';
 import 'package:flutter/material.dart';
 
-final _emailRegex = RegExp(r'^\S+@\S+$');
+final emailRegex = RegExp(r'^\S+@\S+$');
+final phoneNumberRegex = RegExp(r'\d+');
 final _codeRegex = RegExp(r'\d{6}');
 final _uppercase = RegExp('^(?=.*[A-Z])');
 final _lowercase = RegExp('^(?=.*[a-z])');
@@ -41,7 +42,8 @@ FormFieldValidator<String> simpleValidator(String message) {
 FormFieldValidator<String> validateSignUpPassword(BuildContext context) {
   PasswordProtectionSettings? _passwordProtectionSettings =
       InheritedConfig.of(context)
-          .auth
+          .amplifyConfig
+          ?.auth
           ?.awsCognitoAuthPlugin
           ?.auth?['Default']
           ?.passwordProtectionSettings;
@@ -93,12 +95,12 @@ FormFieldValidator<String> validateSignUpPassword(BuildContext context) {
 }
 
 FormFieldValidator<String> validatePasswordConfirmation(
-  AuthViewModel viewModel,
+  String Function() getPassword,
 ) {
   return (String? passwordConfirmation) {
     if (passwordConfirmation == null || passwordConfirmation.isEmpty) {
       return 'Re-enter your password to confirm';
-    } else if (viewModel.password != passwordConfirmation) {
+    } else if (getPassword() != passwordConfirmation) {
       return 'Passwords do not match';
     }
     return null;
@@ -116,7 +118,7 @@ String? validateEmail(String? email) {
   if (email == null || email.isEmpty) {
     return 'Email cannot be empty';
   }
-  if (!_emailRegex.hasMatch(email)) {
+  if (!emailRegex.hasMatch(email)) {
     return 'Invalid email format';
   }
   return null;

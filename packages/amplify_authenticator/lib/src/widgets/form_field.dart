@@ -15,6 +15,7 @@
 
 library authenticator.form_field;
 
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
 import 'package:amplify_authenticator/src/constants/theme_constants.dart';
@@ -99,15 +100,56 @@ abstract class AuthenticatorFormField<FieldType,
 abstract class _AuthenticatorFormFieldState<FieldType,
         T extends AuthenticatorFormField<FieldType, T>>
     extends AuthenticatorComponentState<T> {
-  static const disabledTextColor = Color.fromRGBO(130, 130, 130, 1);
-
   @nonVirtual
   Widget get visibilityToggle => context
       .findAncestorStateOfType<AuthenticatorFormState>()!
       .obscureTextToggle;
 
+  @nonVirtual
+  TextInputType get usernameKeyboardTypeForAlias {
+    switch (config.usernameAlias) {
+      case Alias.username:
+        return TextInputType.text;
+      case Alias.email:
+        return TextInputType.emailAddress;
+      case Alias.phoneNumber:
+        return TextInputType.phone;
+      case Alias.emailPhoneNumber:
+        // TODO: can we improve on just a text field
+        // maybe include an icon/toggle to alert user.
+        return TextInputType.text;
+    }
+  }
+
+  @nonVirtual
+  void Function(String) get usernameOnChangedForAlias {
+    switch (config.usernameAlias) {
+      case Alias.username:
+        return viewModel.setUsername;
+      case Alias.email:
+        return (String value) {
+          viewModel.setUsername(value);
+          viewModel.setEmail(value);
+        };
+      case Alias.phoneNumber:
+        return (String value) {
+          viewModel.setUsername(value);
+          viewModel.setPhoneNumber(value);
+        };
+      case Alias.emailPhoneNumber:
+        return (String value) {
+          viewModel.setUsername(value);
+          if (emailRegex.hasMatch(value)) {
+            viewModel.setEmail(value);
+          } else if (phoneNumberRegex.hasMatch(value)) {
+            viewModel.setPhoneNumber(value);
+          }
+        };
+    }
+  }
+
   /// Callback for when `onChanged` is triggered on the [FormField].
-  void Function(String) get callback => (_) {};
+  void Function(String) get onChanged => (_) {};
 
   /// Validates inputs of this form field.
   FormFieldValidator<String>? get validator => null;
@@ -157,12 +199,15 @@ abstract class _AuthenticatorFormFieldState<FieldType,
                 (BuildContext context, bool? toggleObscureText, Widget? _) {
               var obscureText = this.obscureText && (toggleObscureText ?? true);
               return TextFormField(
-                style:
-                    enabled ? null : const TextStyle(color: disabledTextColor),
+                style: enabled
+                    ? null
+                    : const TextStyle(
+                        color: AuthenticatorColors.disabledTextColor,
+                      ),
                 initialValue: initialValue,
                 enabled: enabled,
-                validator: validator,
-                onChanged: callback,
+                validator: widget._validatorOverride ?? validator,
+                onChanged: onChanged,
                 decoration: InputDecoration(
                   suffixIcon: suffixIcon,
                   errorMaxLines: errorMaxLines,
@@ -189,7 +234,7 @@ abstract class _AuthenticatorFormFieldState<FieldType,
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(
-        ObjectFlagProperty<void Function(String)>.has('callback', callback));
+        ObjectFlagProperty<void Function(String)>.has('callback', onChanged));
     properties.add(ObjectFlagProperty<FormFieldValidator<String>?>.has(
         'validator', validator));
     properties.add(StringProperty('initialValue', initialValue));
@@ -198,5 +243,7 @@ abstract class _AuthenticatorFormFieldState<FieldType,
     properties
         .add(DiagnosticsProperty<TextInputType>('keyboardType', keyboardType));
     properties.add(IntProperty('errorMaxLines', errorMaxLines));
+    properties.add(DiagnosticsProperty<TextInputType>(
+        'keyboardTypeForAlias', usernameKeyboardTypeForAlias));
   }
 }

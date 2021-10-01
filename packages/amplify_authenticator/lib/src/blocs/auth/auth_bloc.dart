@@ -25,7 +25,7 @@ import 'package:amplify_flutter/src/config/amplify_config.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
-/// {@template state_machine_bloc}
+/// {@template authenticator.state_machine_bloc}
 /// Internal state machine for the authenticator. Listens to authentication events
 /// and maps them to appropriate state transitions.
 /// {@endtemplate}
@@ -56,7 +56,7 @@ class StateMachineBloc {
   AuthState _currentState = const AuthLoading();
   AuthState get currentState => _currentState;
 
-  /// {@macro state_machine_bloc}
+  /// {@macro authenticator.state_machine_bloc}
   StateMachineBloc(this._authService) {
     _subscription =
         _authEventStream.asyncExpand(_eventTransformer).listen((state) {

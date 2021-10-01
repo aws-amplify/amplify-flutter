@@ -195,6 +195,7 @@ class Authenticator extends StatefulWidget {
 class _AuthenticatorState extends State<Authenticator> {
   final AuthService _authService = AmplifyAuthService();
   late final StateMachineBloc _stateMachineBloc;
+  late final AuthViewModel _viewModel;
   AmplifyConfig? _config;
   late List<String> _missingConfigValues;
   bool _configInitialized = false;
@@ -203,6 +204,8 @@ class _AuthenticatorState extends State<Authenticator> {
   void initState() {
     super.initState();
     _stateMachineBloc = StateMachineBloc(_authService)..add(const AuthLoad());
+    _stateMachineBloc.exceptions.listen(print);
+    _viewModel = AuthViewModel(_stateMachineBloc);
     _waitForConfiguration();
   }
 
@@ -241,10 +244,13 @@ class _AuthenticatorState extends State<Authenticator> {
       key: keyInheritedAuthBloc,
       authBloc: _stateMachineBloc,
       child: InheritedConfig(
-        config: _config,
+        config: AuthenticatorConfig(
+          amplifyConfig: _config,
+          usernameAlias: widget.usernameAlias,
+        ),
         child: InheritedAuthViewModel(
           key: keyInheritedAuthViewModel,
-          viewModel: AuthViewModel(_stateMachineBloc),
+          viewModel: _viewModel,
           child: InheritedStrings(
             resolver: widget.stringResolver,
             child: InheritedForms(
@@ -297,37 +303,35 @@ class _AuthenticatorBody extends StatelessWidget {
               primaryColor: AuthenticatorColors.primary,
             ),
       child: Scaffold(
-        body: SafeArea(
-          child: StreamBuilder(
-            stream: stateMachineBloc.stream,
-            builder: (context, snapshot) {
-              final state = snapshot.data ?? const AuthLoading();
-              final Widget screen;
-              if (state is AuthLoading || state is AuthLoaded) {
-                screen = const LoadingScreen();
-              } else if (state is Authenticated) {
-                return Theme(data: userAppTheme, child: child);
-              } else if (state is AuthFlow) {
-                screen = AuthenticatorScreen(screen: state.screen);
-              } else {
-                screen = const AuthenticatorScreen.signin();
-              }
+        body: StreamBuilder(
+          stream: stateMachineBloc.stream,
+          builder: (context, snapshot) {
+            final state = snapshot.data ?? const AuthLoading();
+            final Widget screen;
+            if (state is AuthLoading || state is AuthLoaded) {
+              screen = const LoadingScreen();
+            } else if (state is Authenticated) {
+              return Theme(data: userAppTheme, child: child);
+            } else if (state is AuthFlow) {
+              screen = AuthenticatorScreen(screen: state.screen);
+            } else {
+              screen = const AuthenticatorScreen.signin();
+            }
 
-              return Center(
-                child: SingleChildScrollView(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 40),
-                    child: Column(
-                      children: [
-                        const AuthenticatorExceptionBanner(),
-                        screen,
-                      ],
-                    ),
+            return Center(
+              child: SingleChildScrollView(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 40),
+                  child: Column(
+                    children: [
+                      const AuthenticatorExceptionBanner(),
+                      screen,
+                    ],
                   ),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
       ),
     );

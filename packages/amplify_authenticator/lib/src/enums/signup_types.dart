@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+import 'package:flutter/foundation.dart';
+
 enum SignUpField {
   username,
   password,
@@ -35,4 +37,20 @@ enum SignUpField {
   updatedAt,
   website,
   custom,
+}
+
+extension SignUpFieldX on SignUpField {
+  String toCognitoAttribute() {
+    switch (this) {
+      case SignUpField.username:
+      case SignUpField.password:
+      case SignUpField.passwordConfirmation:
+      case SignUpField.custom:
+        throw StateError('Can only be called on attribute types');
+      default:
+        return describeEnum(this).replaceAllMapped(RegExp(r'[A-Z]'), (match) {
+          return '_${match.group(0)!.toLowerCase()}';
+        });
+    }
+  }
 }

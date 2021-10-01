@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
+import 'package:amplify_authenticator/src/constants/theme_constants.dart';
 import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +21,6 @@ class AuthenticatorExceptionBanner extends StatefulWidget {
 
 class _AuthenticatorExceptionBannerState
     extends State<AuthenticatorExceptionBanner> {
-  static const _bannerColor = Color.fromRGBO(49, 70, 95, 1);
-
   late final StreamSubscription<AuthenticatorException> _exceptionSub;
   AuthenticatorException? _currentException;
 
@@ -49,12 +48,11 @@ class _AuthenticatorExceptionBannerState
       return const SizedBox.shrink();
     }
     return Container(
-      margin: const EdgeInsets.only(bottom: 20),
-      // width: double.infinity,
       height: 53,
+      margin: const EdgeInsets.only(bottom: 20),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: _bannerColor,
+        color: AuthenticatorColors.bannerColor,
         borderRadius: BorderRadius.circular(5),
       ),
       child: Row(
@@ -80,6 +78,7 @@ class _AuthenticatorExceptionBannerState
             ),
           ),
           IconButton(
+            padding: EdgeInsets.zero,
             onPressed: () => setState(() => _currentException = null),
             hoverColor: Colors.red,
             icon: const Icon(

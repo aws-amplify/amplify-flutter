@@ -129,10 +129,27 @@ class SignInFormField
 class _SignInFormFieldState
     extends _AuthenticatorFormFieldState<SignInField, SignInFormField> {
   @override
-  FormFieldValidator<String>? get validator {
-    if (widget._validatorOverride != null) {
-      return widget._validatorOverride;
+  String? get initialValue {
+    switch (widget.field) {
+      case SignInField.username:
+        return viewModel.username;
+      case SignInField.email:
+        return viewModel.getAttribute(CognitoUserAttributes.email);
+      case SignInField.phoneNumber:
+        return viewModel.getAttribute(CognitoUserAttributes.phoneNumber);
+      case SignInField.password:
+        return viewModel.password;
+      case SignInField.verificationCode:
+        return viewModel.confirmationCode;
+      case SignInField.newPassword:
+        return viewModel.newPassword;
+      case SignInField.newUsername:
+        return viewModel.newUsername;
     }
+  }
+
+  @override
+  FormFieldValidator<String>? get validator {
     switch (widget.field) {
       case SignInField.username:
       case SignInField.newUsername:
@@ -171,12 +188,14 @@ class _SignInFormFieldState
   }
 
   @override
-  void Function(String) get callback {
+  void Function(String) get onChanged {
     switch (widget.field) {
       case SignInField.username:
+        return usernameOnChangedForAlias;
       case SignInField.email:
+        return viewModel.setEmail;
       case SignInField.phoneNumber:
-        return viewModel.setUsername;
+        return viewModel.setPhoneNumber;
       case SignInField.password:
         return viewModel.setPassword;
       case SignInField.verificationCode:
@@ -193,7 +212,7 @@ class _SignInFormFieldState
     switch (widget.field) {
       case SignInField.username:
       case SignInField.newUsername:
-        return TextInputType.text;
+        return usernameKeyboardTypeForAlias;
       case SignInField.password:
       case SignInField.newPassword:
         return TextInputType.visiblePassword;

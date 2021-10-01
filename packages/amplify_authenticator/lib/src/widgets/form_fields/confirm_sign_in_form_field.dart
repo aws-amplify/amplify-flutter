@@ -80,10 +80,37 @@ class ConfirmSignInFormField
 class _ConfirmSignInFormFieldState extends _AuthenticatorFormFieldState<
     ConfirmSignInField, ConfirmSignInFormField> {
   @override
-  FormFieldValidator<String>? get validator {
-    if (widget._validatorOverride != null) {
-      return widget._validatorOverride;
+  String? get initialValue {
+    switch (widget.field) {
+      case ConfirmSignInField.code:
+        return viewModel.confirmationCode;
+      case ConfirmSignInField.password:
+        return viewModel.password;
+      case ConfirmSignInField.address:
+      case ConfirmSignInField.birthdate:
+      case ConfirmSignInField.email:
+      case ConfirmSignInField.familyName:
+      case ConfirmSignInField.gender:
+      case ConfirmSignInField.givenName:
+      case ConfirmSignInField.locale:
+      case ConfirmSignInField.middleName:
+      case ConfirmSignInField.name:
+      case ConfirmSignInField.nickname:
+      case ConfirmSignInField.phoneNumber:
+      case ConfirmSignInField.picture:
+      case ConfirmSignInField.preferredUsername:
+      case ConfirmSignInField.profile:
+      case ConfirmSignInField.zoneinfo:
+      case ConfirmSignInField.updatedAt:
+      case ConfirmSignInField.website:
+        return viewModel.getAttribute(widget.field.toCognitoAttribute());
+      case ConfirmSignInField.custom:
+        return viewModel.getAttribute(widget._customAttributeKey!);
     }
+  }
+
+  @override
+  FormFieldValidator<String>? get validator {
     switch (widget.field) {
       case ConfirmSignInField.code:
         return validateCode;
@@ -114,7 +141,7 @@ class _ConfirmSignInFormFieldState extends _AuthenticatorFormFieldState<
   }
 
   @override
-  void Function(String) get callback {
+  void Function(String) get onChanged {
     switch (widget.field) {
       case ConfirmSignInField.code:
         return viewModel.setConfirmationCode;
@@ -167,14 +194,14 @@ class _ConfirmSignInFormFieldState extends _AuthenticatorFormFieldState<
     switch (widget.field) {
       case ConfirmSignInField.code:
         return TextInputType.number;
+      case ConfirmSignInField.password:
+        return TextInputType.visiblePassword;
       case ConfirmSignInField.address:
         return TextInputType.streetAddress;
       case ConfirmSignInField.email:
         return TextInputType.emailAddress;
       case ConfirmSignInField.name:
         return TextInputType.name;
-      case ConfirmSignInField.password:
-        return TextInputType.visiblePassword;
       case ConfirmSignInField.phoneNumber:
         return TextInputType.phone;
       case ConfirmSignInField.website:

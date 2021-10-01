@@ -1,6 +1,7 @@
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
+import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/state/inherited_strings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -50,10 +51,21 @@ abstract class AuthenticatorComponent<T extends AuthenticatorComponent<T>>
 abstract class AuthenticatorComponentState<T extends AuthenticatorComponent<T>>
     extends State<T> {
   /// The root Autheticator view model.
-  late final AuthViewModel viewModel = InheritedAuthViewModel.of(context);
+  late AuthViewModel viewModel;
 
   /// The root Authenticator string resolver.
-  late final AuthStringResolver stringResolver = InheritedStrings.of(context);
+  late AuthStringResolver stringResolver;
+
+  /// The root Authenticator config.
+  late AuthenticatorConfig config;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    viewModel = InheritedAuthViewModel.of(context);
+    stringResolver = InheritedStrings.of(context);
+    config = InheritedConfig.of(context);
+  }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
@@ -61,5 +73,6 @@ abstract class AuthenticatorComponentState<T extends AuthenticatorComponent<T>>
     properties.add(DiagnosticsProperty<AuthViewModel>('viewModel', viewModel));
     properties.add(DiagnosticsProperty<AuthStringResolver>(
         'stringResolver', stringResolver));
+    properties.add(DiagnosticsProperty<AuthenticatorConfig>('config', config));
   }
 }

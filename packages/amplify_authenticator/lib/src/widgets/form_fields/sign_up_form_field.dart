@@ -297,10 +297,39 @@ class SignUpFormField
 class _SignUpFormFieldState
     extends _AuthenticatorFormFieldState<SignUpField, SignUpFormField> {
   @override
-  FormFieldValidator<String>? get validator {
-    if (widget._validatorOverride != null) {
-      return widget._validatorOverride;
+  String? get initialValue {
+    switch (widget.field) {
+      case SignUpField.username:
+        return viewModel.username;
+      case SignUpField.password:
+        return viewModel.password;
+      case SignUpField.passwordConfirmation:
+        return viewModel.passwordConfirmation;
+      case SignUpField.address:
+      case SignUpField.birthdate:
+      case SignUpField.email:
+      case SignUpField.familyName:
+      case SignUpField.gender:
+      case SignUpField.givenName:
+      case SignUpField.locale:
+      case SignUpField.middleName:
+      case SignUpField.name:
+      case SignUpField.nickname:
+      case SignUpField.phoneNumber:
+      case SignUpField.picture:
+      case SignUpField.preferredUsername:
+      case SignUpField.profile:
+      case SignUpField.zoneinfo:
+      case SignUpField.updatedAt:
+      case SignUpField.website:
+        return viewModel.getAttribute(widget.field.toCognitoAttribute());
+      case SignUpField.custom:
+        return viewModel.getAttribute(widget._customAttributeKey!);
     }
+  }
+
+  @override
+  FormFieldValidator<String>? get validator {
     switch (widget.field) {
       case SignUpField.username:
         return simpleValidator(
@@ -312,7 +341,7 @@ class _SignUpFormFieldState
       case SignUpField.password:
         return validateSignUpPassword(context);
       case SignUpField.passwordConfirmation:
-        return validatePasswordConfirmation(viewModel);
+        return validatePasswordConfirmation(() => viewModel.password);
       case SignUpField.email:
         return validateEmail;
       case SignUpField.phoneNumber:
@@ -439,10 +468,10 @@ class _SignUpFormFieldState
   }
 
   @override
-  void Function(String) get callback {
+  void Function(String) get onChanged {
     switch (widget.field) {
       case SignUpField.username:
-        return viewModel.setUsername;
+        return usernameOnChangedForAlias;
       case SignUpField.password:
         return viewModel.setPassword;
       case SignUpField.passwordConfirmation:
@@ -493,7 +522,7 @@ class _SignUpFormFieldState
   TextInputType get keyboardType {
     switch (widget.field) {
       case SignUpField.username:
-        return TextInputType.text;
+        return usernameKeyboardTypeForAlias;
       case SignUpField.password:
       case SignUpField.passwordConfirmation:
         return TextInputType.visiblePassword;
