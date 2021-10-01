@@ -1,0 +1,6 @@
+include: package:amplify_lints/flutter_lib.yaml
+
+analyzer:
+  errors:
+    # TODO: Renable when logging library is finished
+    avoid_print: ignore

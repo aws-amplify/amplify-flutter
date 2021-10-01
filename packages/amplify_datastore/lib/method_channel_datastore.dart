@@ -182,6 +182,24 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
     }
   }
 
+  @override
+  Future<void> start() async {
+    try {
+      await _channel.invokeMethod('start');
+    } on PlatformException catch (e) {
+      throw _deserializeException(e);
+    }
+  }
+
+  @override
+  Future<void> stop() async {
+    try {
+      await _channel.invokeMethod('stop');
+    } on PlatformException catch (e) {
+      throw _deserializeException(e);
+    }
+  }
+
   String _getModelNameFromEvent(Map<dynamic, dynamic> serializedEvent) {
     Map<String, dynamic> serializedItem =
         Map<String, dynamic>.from(serializedEvent["item"]);

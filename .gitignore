@@ -23,7 +23,7 @@ Podfile.lock
 
 
 # amplify resources from example apps
-amplify/
+**/example/amplify/
 
 dist/
 node_modules/

@@ -13,8 +13,8 @@
  * permissions and limitations under the License.
  */
 
-export 'Analytics/AnalyticsEvent.dart';
-export 'Analytics/AnalyticsProperties.dart';
-export 'Analytics/AnalyticsUserProfile.dart';
-export 'Analytics/AnalyticsUserProfileLocation.dart';
-export 'Exceptions/AnalyticsException.dart';
+export 'analytics/analytics_event.dart';
+export 'analytics/analytics_properties.dart';
+export 'analytics/analytics_user_profile.dart';
+export 'analytics/analytics_user_profile_location.dart';
+export 'exceptions/analytics_exception.dart';

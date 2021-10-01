@@ -16,10 +16,7 @@
 package com.amazonaws.amplify.amplify_auth_cognito
 
 import android.app.Activity
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterConfirmUserAttributeRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterResendUserAttributeConfirmationCodeRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdateUserAttributeRequest
-import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterUpdateUserAttributesRequest
+import com.amazonaws.amplify.amplify_auth_cognito.types.*
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
 import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.BasicAWSCredentials
@@ -30,12 +27,24 @@ import com.amplifyframework.auth.result.AuthSignInResult
 import com.amplifyframework.auth.result.AuthSignUpResult
 import com.amplifyframework.auth.cognito.AWSCognitoAuthSession
 import com.amplifyframework.auth.cognito.AWSCognitoUserPoolTokens
+import com.amplifyframework.auth.cognito.options.AWSCognitoAuthConfirmResetPasswordOptions
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthConfirmSignInOptions
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthConfirmSignUpOptions
+import com.amplifyframework.auth.cognito.options.AWSCognitoAuthResendSignUpCodeOptions
+import com.amplifyframework.auth.cognito.options.AWSCognitoAuthResendUserAttributeConfirmationCodeOptions
+import com.amplifyframework.auth.cognito.options.AWSCognitoAuthResetPasswordOptions
 import com.amplifyframework.auth.cognito.options.AWSCognitoAuthSignInOptions
+import com.amplifyframework.auth.cognito.options.AWSCognitoAuthSignOutOptions
+import com.amplifyframework.auth.cognito.options.AWSCognitoAuthUpdateUserAttributeOptions
+import com.amplifyframework.auth.cognito.options.AWSCognitoAuthUpdateUserAttributesOptions
 import com.amplifyframework.auth.options.AuthConfirmSignInOptions
 import com.amplifyframework.auth.options.AuthConfirmSignUpOptions
+import com.amplifyframework.auth.options.AuthResendSignUpCodeOptions
+import com.amplifyframework.auth.options.AuthResendUserAttributeConfirmationCodeOptions
 import com.amplifyframework.auth.options.AuthSignInOptions
+import com.amplifyframework.auth.options.AuthSignOutOptions
+import com.amplifyframework.auth.options.AuthUpdateUserAttributeOptions
+import com.amplifyframework.auth.options.AuthUpdateUserAttributesOptions
 import com.amplifyframework.auth.result.AuthSessionResult
 import com.amplifyframework.auth.result.step.*
 import com.amplifyframework.auth.result.AuthUpdateAttributeResult
@@ -46,8 +55,7 @@ import com.amplifyframework.logging.Logger
 import com.google.gson.internal.LinkedTreeMap
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
-import org.junit.Assert.assertThrows
-import org.junit.Assert.fail
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -121,6 +129,50 @@ class AmplifyAuthCognitoPluginTest {
 
         // Assert
         verify(mockResult, times(1)).success(res);
+    }
+
+    @Test
+    fun signUpRequestMetadata_returnsSuccess() {
+        // Arrange
+        val clientMetadata = hashMapOf("attribute" to "value")
+        val options = hashMapOf(
+            "clientMetadata" to clientMetadata
+        )
+        val data: HashMap<String, *> = hashMapOf(
+            "username" to "testUser",
+            "password" to "testPassword",
+            "options" to options
+        )
+
+        // Act
+        val request  = FlutterSignUpRequest(data)
+
+        // Assert
+        assertEquals(clientMetadata, request.options.clientMetadata)
+        assertEquals(0, request.options.validationData.size)
+        assertEquals(0, request.options.userAttributes.size)
+    }
+
+    @Test
+    fun signUpRequestValidationdata_returnsSuccess() {
+        // Arrange
+        val validationData = hashMapOf("attribute" to "value")
+        val options = hashMapOf(
+            "validationData" to validationData
+        )
+        val data: HashMap<String, *> = hashMapOf(
+            "username" to "testUser",
+            "password" to "testPassword",
+            "options" to options
+        )
+
+        // Act
+        val request  = FlutterSignUpRequest(data)
+
+        // Assert
+        assertEquals(validationData, request.options.validationData)
+        assertEquals(0, request.options.clientMetadata.size)
+        assertEquals(0, request.options.userAttributes.size)
     }
 
     @Test
@@ -261,7 +313,12 @@ class AmplifyAuthCognitoPluginTest {
         doAnswer { invocation: InvocationOnMock ->
             plugin.prepareSignUpResult(mockResult, mockSignUpResult)
             null as Void?
-        }.`when`(mockAuth).resendSignUpCode(anyString(), ArgumentMatchers.any<Consumer<AuthSignUpResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).resendSignUpCode(
+                anyString(),
+                any(),
+                ArgumentMatchers.any<Consumer<AuthSignUpResult>>(),
+                ArgumentMatchers.any<Consumer<AuthException>>()
+        )
 
         val data: HashMap<*, *> = hashMapOf(
             "username" to "testUser"
@@ -274,6 +331,49 @@ class AmplifyAuthCognitoPluginTest {
 
         // Assert
         verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
+    }
+
+    @Test
+    fun resendSignUpCodeWithOptions_returnsSuccess() {
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareSignUpResult(mockResult, mockSignUpResult)
+            null as Void?
+        }.`when`(mockAuth).resendSignUpCode(
+                anyString(),
+                ArgumentMatchers.any<AuthResendSignUpCodeOptions>(),
+                ArgumentMatchers.any<Consumer<AuthSignUpResult>>(),
+                ArgumentMatchers.any<Consumer<AuthException>>()
+        )
+        val clientMetadata = hashMapOf("attribute" to "value")
+        val options = hashMapOf(
+                "clientMetadata" to clientMetadata
+        )
+        val username = "testUser"
+        val data: HashMap<*, *> = hashMapOf(
+                "username" to username,
+                "options" to options
+        )
+        val arguments: HashMap<String, Any> = hashMapOf("data" to data)
+        val call = MethodCall("resendSignUpCode", arguments)
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
+
+        val expectedOptions = AWSCognitoAuthResendSignUpCodeOptions
+                .builder()
+                .metadata(clientMetadata)
+                .build()
+
+        verify(mockAuth).resendSignUpCode(
+                ArgumentMatchers.eq(username),
+                ArgumentMatchers.eq(expectedOptions),
+                ArgumentMatchers.any<Consumer<AuthSignUpResult>>(),
+                ArgumentMatchers.any<Consumer<AuthException>>()
+        )
     }
 
     @Test
@@ -391,7 +491,11 @@ class AmplifyAuthCognitoPluginTest {
         doAnswer { invocation: InvocationOnMock ->
             plugin.prepareSignOutResult(mockResult)
             null as Void?
-        }.`when`(mockAuth).signOut(ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).signOut(
+            ArgumentMatchers.any<AuthSignOutOptions>(),
+            ArgumentMatchers.any<Action>(),
+            ArgumentMatchers.any<Consumer<AuthException>>()
+        )
 
         val data: HashMap<String, String> = HashMap<String, String>()
         val arguments: HashMap<String, Any> = hashMapOf("data" to data)
@@ -402,6 +506,41 @@ class AmplifyAuthCognitoPluginTest {
 
         // Assert
         verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
+    }
+
+    @Test
+    fun signOutGlobal_returnsSuccess() {
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareSignOutResult(mockResult)
+            null as Void?
+        }.`when`(mockAuth).signOut(
+            ArgumentMatchers.any<AuthSignOutOptions>(),
+            ArgumentMatchers.any<Action>(),
+            ArgumentMatchers.any<Consumer<AuthException>>()
+        )
+
+        val data: HashMap<*, *> = hashMapOf(
+            "options" to hashMapOf(
+                "globalSignOut" to true
+            )
+        )
+        val arguments: HashMap<String, Any> = hashMapOf("data" to data)
+        val call = MethodCall("signOut", arguments)
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>())
+
+        val expectedOptions = AWSCognitoAuthSignOutOptions.builder().globalSignOut(true).build()
+        verify(mockAuth).signOut(
+            eq(expectedOptions),
+            ArgumentMatchers.any<Action>(),
+            ArgumentMatchers.any<Consumer<AuthException>>()
+        )
+
     }
 
     @Test
@@ -432,7 +571,12 @@ class AmplifyAuthCognitoPluginTest {
         doAnswer { invocation: InvocationOnMock ->
             plugin.prepareResetPasswordResult(mockResult, mockResetPasswordResult)
             null as Void?
-        }.`when`(mockAuth).resetPassword(anyString(), ArgumentMatchers.any<Consumer<AuthResetPasswordResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).resetPassword(
+                anyString(),
+                any(),
+                ArgumentMatchers.any<Consumer<AuthResetPasswordResult>>(),
+                ArgumentMatchers.any<Consumer<AuthException>>()
+        )
 
         val data: HashMap<*, *> = hashMapOf(
             "username" to "username"
@@ -448,12 +592,61 @@ class AmplifyAuthCognitoPluginTest {
     }
 
     @Test
-    fun confirmPassword_returnsSuccess() {
+    fun resetPasswordWithOptions_returnsSuccess() {
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareResetPasswordResult(mockResult, mockResetPasswordResult)
+            null as Void?
+        }.`when`(mockAuth).resetPassword(
+                anyString(),
+                ArgumentMatchers.any<AWSCognitoAuthResetPasswordOptions>(),
+                ArgumentMatchers.any<Consumer<AuthResetPasswordResult>>(),
+                ArgumentMatchers.any<Consumer<AuthException>>()
+        )
+        val clientMetadata = hashMapOf("attribute" to "value")
+        val options = hashMapOf(
+                "clientMetadata" to clientMetadata
+        )
+        val username = "testUser"
+        val data: HashMap<*, *> = hashMapOf(
+                "username" to username,
+                "options" to options
+        )
+        val arguments: HashMap<String, Any> = hashMapOf("data" to data)
+        val call = MethodCall("resetPassword", arguments)
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
+
+        val expectedOptions = AWSCognitoAuthResetPasswordOptions
+                .builder()
+                .metadata(clientMetadata)
+                .build()
+
+        verify(mockAuth).resetPassword(
+                ArgumentMatchers.eq(username),
+                ArgumentMatchers.eq(expectedOptions),
+                ArgumentMatchers.any<Consumer<AuthResetPasswordResult>>(),
+                ArgumentMatchers.any<Consumer<AuthException>>()
+        )
+    }
+
+    @Test
+    fun confirmResetPassword_returnsSuccess() {
         // Arrange
         doAnswer { invocation: InvocationOnMock ->
             plugin.prepareUpdatePasswordResult(mockResult)
             null as Void?
-        }.`when`(mockAuth).confirmResetPassword(anyString(), anyString(), ArgumentMatchers.any<Action>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).confirmResetPassword(
+                anyString(),
+                anyString(),
+                any(),
+                ArgumentMatchers.any<Action>(),
+                ArgumentMatchers.any<Consumer<AuthException>>()
+        )
 
         val data: HashMap<*, *> = hashMapOf(
             "username" to "username",
@@ -461,13 +654,63 @@ class AmplifyAuthCognitoPluginTest {
             "confirmationCode" to "confirmationCode"
         )
         val arguments: HashMap<String, Any> = hashMapOf("data" to data)
-        val call = MethodCall("confirmPassword", arguments)
+        val call = MethodCall("confirmResetPassword", arguments)
 
         // Act
         plugin.onMethodCall(call, mockResult)
 
         // Assert
         verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
+    }
+
+    @Test
+    fun confirmResetPasswordWithOptions_returnsSuccess() {
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareUpdatePasswordResult(mockResult)
+            null as Void?
+        }.`when`(mockAuth).confirmResetPassword(
+                anyString(),
+                anyString(),
+                ArgumentMatchers.any<AWSCognitoAuthConfirmResetPasswordOptions>(),
+                ArgumentMatchers.any<Action>(),
+                ArgumentMatchers.any<Consumer<AuthException>>()
+        )
+
+        val clientMetadata = hashMapOf("attribute" to "value")
+        val options = hashMapOf(
+                "clientMetadata" to clientMetadata
+        )
+        val username = "testUser"
+        val newPassword = "newPassword"
+        val confirmationCode = "confirmationCode"
+        val data: HashMap<*, *> = hashMapOf(
+                "username" to username,
+                "newPassword" to newPassword,
+                "confirmationCode" to "confirmationCode",
+                "options" to options
+        )
+        val arguments: HashMap<String, Any> = hashMapOf("data" to data)
+        val call = MethodCall("confirmResetPassword", arguments)
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>());
+
+        val expectedOptions = AWSCognitoAuthConfirmResetPasswordOptions
+                .builder()
+                .metadata(clientMetadata)
+                .build()
+
+        verify(mockAuth).confirmResetPassword(
+                ArgumentMatchers.eq(newPassword),
+                ArgumentMatchers.eq(confirmationCode),
+                ArgumentMatchers.eq(expectedOptions),
+                ArgumentMatchers.any<Action>(),
+                ArgumentMatchers.any<Consumer<AuthException>>()
+        )
     }
 
     @Test
@@ -611,7 +854,12 @@ class AmplifyAuthCognitoPluginTest {
         doAnswer { invocation: InvocationOnMock ->
             plugin.prepareUpdateUserAttributeResult(mockResult, mockUpdateUserAttributeResult)
             null as Void?
-        }.`when`(mockAuth).updateUserAttribute(any(AuthUserAttribute::class.java), ArgumentMatchers.any<Consumer<AuthUpdateAttributeResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).updateUserAttribute(
+            any(AuthUserAttribute::class.java),
+            any(),
+            ArgumentMatchers.any<Consumer<AuthUpdateAttributeResult>>(),
+            ArgumentMatchers.any<Consumer<AuthException>>()
+        )
         val attribute = hashMapOf(
             "userAttributeKey" to "email",
             "value" to "test@test.com"
@@ -647,7 +895,12 @@ class AmplifyAuthCognitoPluginTest {
         doAnswer { invocation: InvocationOnMock ->
             plugin.prepareUpdateUserAttributeResult(mockResult, mockUpdateUserAttributeResult)
             null as Void?
-        }.`when`(mockAuth).updateUserAttribute(any(AuthUserAttribute::class.java), ArgumentMatchers.any<Consumer<AuthUpdateAttributeResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).updateUserAttribute(
+            any(AuthUserAttribute::class.java),
+            any(),
+            ArgumentMatchers.any<Consumer<AuthUpdateAttributeResult>>(),
+            ArgumentMatchers.any<Consumer<AuthException>>()
+        )
         val attribute = hashMapOf(
                 "userAttributeKey" to "my_custom_attribute",
                 "value" to "custom attribute value"
@@ -675,6 +928,64 @@ class AmplifyAuthCognitoPluginTest {
 
         // Assert
         verify(mockResult, times(1)).success(res);
+    }
+
+    @Test
+    fun updateUserAttributeWithOptions_returnsSuccess() {
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareUpdateUserAttributeResult(mockResult, mockUpdateUserAttributeResult)
+            null as Void?
+        }.`when`(mockAuth).updateUserAttribute(
+            any(AuthUserAttribute::class.java),
+            ArgumentMatchers.any<AuthUpdateUserAttributeOptions>(),
+            ArgumentMatchers.any<Consumer<AuthUpdateAttributeResult>>(),
+            ArgumentMatchers.any<Consumer<AuthException>>()
+        )
+        val attribute = hashMapOf(
+            "userAttributeKey" to "email",
+            "value" to "test@test.com"
+        )
+        val clientMetadata = hashMapOf("attribute" to "value")
+        val options = hashMapOf(
+            "clientMetadata" to clientMetadata
+        )
+        val data: HashMap<*, *> = hashMapOf(
+            "attribute" to attribute,
+            "options" to options
+        )
+        val arguments = hashMapOf("data" to data)
+        val call = MethodCall("updateUserAttribute", arguments)
+        val res = mapOf(
+            "isUpdated" to true,
+            "nextStep" to mapOf(
+                "updateAttributeStep" to "CONFIRM_ATTRIBUTE_WITH_CODE",
+                "codeDeliveryDetails" to mapOf(
+                    "destination" to "test@test.com",
+                    "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
+                    "attributeName" to "email"
+                ),
+                "additionalInfo" to "{}"
+            )
+        )
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).success(res)
+
+        val expectedOptions = AWSCognitoAuthUpdateUserAttributeOptions
+            .builder()
+            .metadata(clientMetadata)
+            .build()
+
+        verify(mockAuth).updateUserAttribute(
+            any(AuthUserAttribute::class.java),
+            ArgumentMatchers.eq(expectedOptions),
+            ArgumentMatchers.any<Consumer<AuthUpdateAttributeResult>>(),
+            ArgumentMatchers.any<Consumer<AuthException>>()
+        )
     }
 
     @Test()
@@ -736,7 +1047,12 @@ class AmplifyAuthCognitoPluginTest {
                     AuthUserAttributeKey.name() to AuthUpdateAttributeResult(true, updateAttributeStepWithoutConfirmation)
             ))
             null as Void?
-        }.`when`(mockAuth).updateUserAttributes(any(), ArgumentMatchers.any<Consumer<Map<AuthUserAttributeKey, AuthUpdateAttributeResult>>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).updateUserAttributes(
+            any(),
+            any(),
+            ArgumentMatchers.any<Consumer<Map<AuthUserAttributeKey, AuthUpdateAttributeResult>>>(),
+            ArgumentMatchers.any<Consumer<AuthException>>()
+        )
         val emailAttribute = hashMapOf(
                 "userAttributeKey" to "email",
                 "value" to "test@test.com"
@@ -745,11 +1061,12 @@ class AmplifyAuthCognitoPluginTest {
                 "userAttributeKey" to "name",
                 "value" to "testname"
         )
+        val attributes = listOf(
+            emailAttribute,
+            usernameAttribute
+        )
         val data: HashMap<*, *> = hashMapOf(
-                "attributes" to listOf(
-                        emailAttribute,
-                        usernameAttribute
-                )
+            "attributes" to attributes
         )
         val arguments = hashMapOf("data" to data)
         val call = MethodCall("updateUserAttributes", arguments)
@@ -781,6 +1098,85 @@ class AmplifyAuthCognitoPluginTest {
 
         // Assert
         verify(mockResult, times(1)).success(res);
+    }
+
+    @Test
+    fun updateUserAttributesWithOptions_returnsSuccess() {
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareUpdateUserAttributesResult(mockResult, mapOf(
+                AuthUserAttributeKey.email() to AuthUpdateAttributeResult(true, updateAttributeStep),
+                AuthUserAttributeKey.name() to AuthUpdateAttributeResult(true, updateAttributeStepWithoutConfirmation)
+            ))
+            null as Void?
+        }.`when`(mockAuth).updateUserAttributes(
+            any(),
+            ArgumentMatchers.any<AuthUpdateUserAttributesOptions>(),
+            ArgumentMatchers.any<Consumer<Map<AuthUserAttributeKey, AuthUpdateAttributeResult>>>(),
+            ArgumentMatchers.any<Consumer<AuthException>>()
+        )
+        val emailAttribute = hashMapOf(
+            "userAttributeKey" to "email",
+            "value" to "test@test.com"
+        )
+        val usernameAttribute = hashMapOf(
+            "userAttributeKey" to "name",
+            "value" to "testname"
+        )
+        val attributes = listOf(
+            emailAttribute,
+            usernameAttribute
+        )
+        val clientMetadata = hashMapOf("attribute" to "value")
+        val options = hashMapOf(
+            "clientMetadata" to clientMetadata
+        )
+        val data: HashMap<*, *> = hashMapOf(
+            "attributes" to attributes,
+            "options" to options
+        )
+        val arguments = hashMapOf("data" to data)
+        val call = MethodCall("updateUserAttributes", arguments)
+        val res = mapOf(
+            "email" to mapOf(
+                "isUpdated" to true,
+                "nextStep" to mapOf(
+                    "updateAttributeStep" to "CONFIRM_ATTRIBUTE_WITH_CODE",
+                    "additionalInfo" to "{}",
+                    "codeDeliveryDetails" to mapOf(
+                        "destination" to "test@test.com",
+                        "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
+                        "attributeName" to "email"
+                    )
+                )
+            ),
+            "name" to mapOf(
+                "isUpdated" to true,
+                "nextStep" to mapOf(
+                    "updateAttributeStep" to "DONE",
+                    "additionalInfo" to "{}",
+                    "codeDeliveryDetails" to null
+                )
+            )
+        )
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).success(res)
+
+        val expectedOptions = AWSCognitoAuthUpdateUserAttributesOptions
+            .builder()
+            .metadata(clientMetadata)
+            .build()
+
+        verify(mockAuth).updateUserAttributes(
+            ArgumentMatchers.any<List<AuthUserAttribute>>(),
+            ArgumentMatchers.eq(expectedOptions),
+            ArgumentMatchers.any<Consumer<Map<AuthUserAttributeKey, AuthUpdateAttributeResult>>>(),
+            ArgumentMatchers.any<Consumer<AuthException>>()
+        )
     }
 
     @Test()
@@ -909,7 +1305,12 @@ class AmplifyAuthCognitoPluginTest {
         doAnswer { invocation: InvocationOnMock ->
             plugin.prepareResendUserAttributeConfirmationCodeResult(mockResult, codeDeliveryDetails)
             null as Void?
-        }.`when`(mockAuth).resendUserAttributeConfirmationCode(any(AuthUserAttributeKey::class.java), ArgumentMatchers.any<Consumer<AuthCodeDeliveryDetails>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        }.`when`(mockAuth).resendUserAttributeConfirmationCode(
+            any(AuthUserAttributeKey::class.java),
+            any(),
+            ArgumentMatchers.any<Consumer<AuthCodeDeliveryDetails>>(),
+            ArgumentMatchers.any<Consumer<AuthException>>()
+        )
         val data: HashMap<*, *> = hashMapOf(
                 "userAttributeKey" to "email"
         )
@@ -928,6 +1329,55 @@ class AmplifyAuthCognitoPluginTest {
 
         // Assert
         verify(mockResult, times(1)).success(res);
+    }
+
+    @Test
+    fun resendUserAttributeConfirmationCodeWithOptions_returnsSuccess() {
+        // Arrange
+        doAnswer { invocation: InvocationOnMock ->
+            plugin.prepareResendUserAttributeConfirmationCodeResult(mockResult, codeDeliveryDetails)
+            null as Void?
+        }.`when`(mockAuth).resendUserAttributeConfirmationCode(
+            any(AuthUserAttributeKey::class.java),
+            ArgumentMatchers.any<AuthResendUserAttributeConfirmationCodeOptions>(),
+            ArgumentMatchers.any<Consumer<AuthCodeDeliveryDetails>>(),
+            ArgumentMatchers.any<Consumer<AuthException>>()
+        )
+        val clientMetadata = hashMapOf("attribute" to "value")
+        val options = hashMapOf(
+            "clientMetadata" to clientMetadata
+        )
+        val data: HashMap<*, *> = hashMapOf(
+            "userAttributeKey" to "email",
+            "options" to options
+        )
+        val arguments = hashMapOf("data" to data)
+        val call = MethodCall("resendUserAttributeConfirmationCode", arguments)
+        val res = mapOf(
+            "codeDeliveryDetails" to mapOf(
+                "destination" to "test@test.com",
+                "deliveryMedium" to AuthCodeDeliveryDetails.DeliveryMedium.EMAIL.name,
+                "attributeName" to "email"
+            )
+        )
+
+        // Act
+        plugin.onMethodCall(call, mockResult)
+
+        // Assert
+        verify(mockResult, times(1)).success(res)
+
+        val expectedOptions = AWSCognitoAuthResendUserAttributeConfirmationCodeOptions
+            .builder()
+            .metadata(clientMetadata)
+            .build()
+
+        verify(mockAuth).resendUserAttributeConfirmationCode(
+            ArgumentMatchers.any(AuthUserAttributeKey::class.java),
+            ArgumentMatchers.eq(expectedOptions),
+            ArgumentMatchers.any<Consumer<AuthCodeDeliveryDetails>>(),
+            ArgumentMatchers.any<Consumer<AuthException>>()
+        )
     }
 
     @Test()

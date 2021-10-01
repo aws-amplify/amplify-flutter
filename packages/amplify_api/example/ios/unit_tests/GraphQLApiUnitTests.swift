@@ -126,6 +126,38 @@ class GraphQLApiUnitTests: XCTestCase {
         )
         
     }
+
+    func test_query_sucess_with_valid_api_name() throws {
+        let testRequest: [String: Any] = [
+            "apiName": "publicApi",
+            "document": "test document",
+            "variables": ["test key": "test value"],
+            "cancelToken" : "someCode"
+        ]
+        
+        class MockApiBridge: ApiBridge {
+            override func query<ResultType>(request: GraphQLRequest<ResultType>, listener: GraphQLOperation<ResultType>.ResultListener?) -> GraphQLOperation<ResultType>  {
+                XCTAssertEqual("publicApi", request.apiName)
+                XCTAssertEqual("test document", request.document)
+                XCTAssertEqual(["test key":"test value"], request.variables as! [String:String])
+
+                let data: ResultType = "result data" as! ResultType
+                let response = GraphQLResponse<ResultType>.success(data)
+                listener?(.success(response))
+                
+                let graphQLOperation = getMockGraphQLOperation(request: request)
+                return graphQLOperation
+            }
+        }
+        
+        let pluginUnderTest = SwiftAmplifyApiPlugin(bridge: MockApiBridge())
+
+        pluginUnderTest.handle(
+            FlutterMethodCall(methodName: "query", arguments: testRequest),
+            result: { (result) in
+                XCTAssertEqual((result as! [String:Any])["data"] as! String, "result data")
+            })
+    }
     
     func test_mutate_success() throws {
         let testRequest: [String: Any] = [
@@ -228,8 +260,80 @@ class GraphQLApiUnitTests: XCTestCase {
         
     }
 
+    func test_mutate_success_with_valid_api_name() throws {
+        let testRequest: [String: Any] = [
+            "apiName": "publicApi",
+            "document": "test document",
+            "variables": ["test key":"test value"],
+            "cancelToken" : "someCode"
+        ]
+        
+        class MockApiBridge: ApiBridge {
+            override func mutate<ResultType>(request: GraphQLRequest<ResultType>, listener: GraphQLOperation<ResultType>.ResultListener?) -> GraphQLOperation<ResultType>  {
+                XCTAssertEqual("publicApi", request.apiName)
+                XCTAssertEqual("test document", request.document)
+                XCTAssertEqual(["test key":"test value"], request.variables as! [String:String])
+                
+                let data: ResultType = "result data" as! ResultType
+                let response = GraphQLResponse<ResultType>.success(data)
+                listener?(.success(response))
+                
+                let graphQLOperation = getMockGraphQLOperation(request: request)
+                return graphQLOperation
+            }
+        }
+        
+        FlutterGraphQLApi.mutate(flutterResult: { (result) in
+            XCTAssertEqual((result as! [String:Any])["data"] as! String, "result data")
+        },
+        request: testRequest,
+        bridge: MockApiBridge()
+        )
+        
+    }
+
     func test_subscription_establishes_successfully() throws {
         let testRequest: [String: Any] = [
+            "document": "test document",
+            "variables": ["test key":"test value"],
+            "cancelToken" : "someCode"
+        ]
+
+        class MockApiBridge: ApiBridge {
+            override func subscribe<ResultType>(request: GraphQLRequest<ResultType>,
+                                       valueListener: GraphQLSubscriptionOperation<ResultType>.InProcessListener?,
+                                       completionListener: GraphQLSubscriptionOperation<ResultType>.ResultListener?)
+                  -> GraphQLSubscriptionOperation<ResultType> {
+                valueListener?(.connection(SubscriptionConnectionState.connected))
+                let graphQLSubscriptionOperation = getMockGraphQLSubscriptionOperation(request: request)
+                return graphQLSubscriptionOperation
+            }
+        }
+
+        class MockStreamHandler: GraphQLSubscriptionsStreamHandler {
+            override func sendEvent(payload: [String : Any?]?, id: String, type: GraphQLSubscriptionEventTypes) {
+                XCTFail()
+            }
+
+            override func sendError(errorCode: String, details: [String: Any]) {
+                XCTFail()
+            }
+        }
+
+
+        FlutterGraphQLApi.subscribe(
+            flutterResult: { (result)  in
+                XCTAssertNil(result)
+            },
+            request: testRequest,
+            bridge: MockApiBridge(),
+            graphQLSubscriptionsStreamHandler: MockStreamHandler()
+        )
+    }
+
+    func test_subscription_establishes_successfully_with_valid_api_name() throws {
+        let testRequest: [String: Any] = [
+            "apiName": "publicApi",
             "document": "test document",
             "variables": ["test key":"test value"],
             "cancelToken" : "someCode"
@@ -444,15 +548,52 @@ class GraphQLApiUnitTests: XCTestCase {
             graphQLSubscriptionsStreamHandler: MockStreamHandler()
         )
     }
+
+    func test_operation_with_invalid_api_name() throws {
+         let testRequest: [String: Any] = [
+            "apiName": 8,
+            "document": "test document",
+            "variables": ["test key": "test value"],
+            "cancelToken" : "someCode"
+        ]
+        
+        class MockApiBridge: ApiBridge {
+            override func query<ResultType>(request: GraphQLRequest<ResultType>, listener: GraphQLOperation<ResultType>.ResultListener?) -> GraphQLOperation<ResultType>  {
+                
+                XCTFail("The ApiBridge should not be called if the request is malformed")
+                
+                let graphQLOperation = getMockGraphQLOperation(request: request)
+                return graphQLOperation
+            }
+        }
+        
+        
+        FlutterGraphQLApi.query(
+            flutterResult: { (result) -> Void in
+                if let exception = result as? FlutterError {
+                    XCTAssertEqual("ApiException", exception.code)
+                    XCTAssertEqual(ErrorMessages.defaultFallbackErrorMessage, exception.message)
+
+                    let errorMap: [String: String] = exception.details as! [String : String]
+                    XCTAssertEqual("The apiName request argument was not passed as a String", errorMap["message"])
+                    XCTAssertEqual("The request should include the apiName document as a String", errorMap["recoverySuggestion"])
+                } else {
+                    XCTFail()
+                }
+            },
+            request: testRequest,
+            bridge: MockApiBridge()
+        )
+    }
     
 }
 
 func getMockGraphQLOperation<R>(request: GraphQLRequest<R>) -> GraphQLOperation<R> {
-    let operationRequest = GraphQLOperationRequest.init(apiName: request.apiName, operationType: GraphQLOperationType.mutation, document: request.document, responseType: R.self, options: GraphQLOperationRequest.Options())
+    let operationRequest = GraphQLOperationRequest.init(apiName: request.apiName, operationType: GraphQLOperationType.mutation, document: request.document, responseType: R.self, options: GraphQLOperationRequest.Options(pluginOptions: nil))
     return GraphQLOperation<R>(categoryType: .api, eventName: operationRequest.operationType.hubEventName, request: operationRequest)
 }
 
 func getMockGraphQLSubscriptionOperation<R>(request: GraphQLRequest<R>) -> GraphQLSubscriptionOperation<R> {
-    let operationRequest = GraphQLOperationRequest.init(apiName: request.apiName, operationType: GraphQLOperationType.mutation, document: request.document, responseType: R.self, options: GraphQLOperationRequest.Options())
+    let operationRequest = GraphQLOperationRequest.init(apiName: request.apiName, operationType: GraphQLOperationType.mutation, document: request.document, responseType: R.self, options: GraphQLOperationRequest.Options(pluginOptions: nil))
     return GraphQLSubscriptionOperation<R>(categoryType: .api, eventName: operationRequest.operationType.hubEventName, request: operationRequest)
 }

@@ -20,117 +20,135 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-
 /** This is an auto generated class representing the HasManyModel type in your schema. */
 @immutable
 class HasManyModel extends Model {
   static const classType = const _HasManyModelModelType();
   final String id;
-  final String? _title;
-  final List<HasManyBelongsToModel>? _children;
+  final String? _name;
+  final List<HasManyChildModel>? _children;
 
   @override
   getInstanceType() => classType;
-  
+
   @override
   String getId() {
     return id;
   }
-  
-  String get title {
-    return _title!;
+
+  String get name {
+    try {
+      return _name!;
+    } catch (e) {
+      throw new DataStoreException(
+          DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
   }
-  
-  List<HasManyBelongsToModel> get children {
-    return _children!;
+
+  List<HasManyChildModel>? get children {
+    return _children;
   }
-  
-  const HasManyModel._internal({required this.id, required title, required children}): _title = title, _children = children;
-  
-  factory HasManyModel({String? id, required String title, required List<HasManyBelongsToModel> children}) {
+
+  const HasManyModel._internal({required this.id, required name, children})
+      : _name = name,
+        _children = children;
+
+  factory HasManyModel(
+      {String? id, required String name, List<HasManyChildModel>? children}) {
     return HasManyModel._internal(
-      id: id == null ? UUID.getUUID() : id,
-      title: title,
-      children: children != null ? List.unmodifiable(children) : children);
+        id: id == null ? UUID.getUUID() : id,
+        name: name,
+        children: children != null
+            ? List<HasManyChildModel>.unmodifiable(children)
+            : children);
   }
-  
+
   bool equals(Object other) {
     return this == other;
   }
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is HasManyModel &&
-      id == other.id &&
-      _title == other._title &&
-      DeepCollectionEquality().equals(_children, other._children);
+        id == other.id &&
+        _name == other._name &&
+        DeepCollectionEquality().equals(_children, other._children);
   }
-  
+
   @override
   int get hashCode => toString().hashCode;
-  
+
   @override
   String toString() {
     var buffer = new StringBuffer();
-    
+
     buffer.write("HasManyModel {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("title=" + "$_title");
+    buffer.write("name=" + "$_name");
     buffer.write("}");
-    
+
     return buffer.toString();
   }
-  
-  HasManyModel copyWith({String? id, String? title, List<HasManyBelongsToModel>? children}) {
+
+  HasManyModel copyWith(
+      {String? id, String? name, List<HasManyChildModel>? children}) {
     return HasManyModel(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      children: children ?? this.children);
+        id: id ?? this.id,
+        name: name ?? this.name,
+        children: children ?? this.children);
   }
-  
-  HasManyModel.fromJson(Map<String, dynamic> json)  
-    : id = json['id'],
-      _title = json['title'],
-      _children = json['children'] is List
-        ? (json['children'] as List)
-          .map((e) => HasManyBelongsToModel.fromJson(new Map<String, dynamic>.from(e?['serializedData'])))
-          .toList()
-        : null;
-  
+
+  HasManyModel.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        _name = json['name'],
+        _children = json['children'] is List
+            ? (json['children'] as List)
+                .where((e) => e?['serializedData'] != null)
+                .map((e) => HasManyChildModel.fromJson(
+                    new Map<String, dynamic>.from(e['serializedData'])))
+                .toList()
+            : null;
+
   Map<String, dynamic> toJson() => {
-    'id': id, 'title': _title, 'children': _children?.map((e) => e?.toJson())?.toList()
-  };
+        'id': id,
+        'name': _name,
+        'children': _children?.map((e) => e?.toJson())?.toList()
+      };
 
   static final QueryField ID = QueryField(fieldName: "hasManyModel.id");
-  static final QueryField TITLE = QueryField(fieldName: "title");
+  static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField CHILDREN = QueryField(
-    fieldName: "children",
-    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: (HasManyBelongsToModel).toString()));
-  static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+      fieldName: "children",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (HasManyChildModel).toString()));
+  static var schema =
+      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "HasManyModel";
     modelSchemaDefinition.pluralName = "HasManyModels";
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: HasManyModel.TITLE,
-      isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
+        key: HasManyModel.NAME,
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
-      key: HasManyModel.CHILDREN,
-      isRequired: false,
-      ofModelName: (HasManyBelongsToModel).toString(),
-      associatedKey: HasManyBelongsToModel.PARENT
-    ));
+        key: HasManyModel.CHILDREN,
+        isRequired: false,
+        ofModelName: (HasManyChildModel).toString(),
+        associatedKey: HasManyChildModel.PARENT));
   });
 }
 
 class _HasManyModelModelType extends ModelType<HasManyModel> {
   const _HasManyModelModelType();
-  
+
   @override
   HasManyModel fromJson(Map<String, dynamic> jsonData) {
     return HasManyModel.fromJson(jsonData);
