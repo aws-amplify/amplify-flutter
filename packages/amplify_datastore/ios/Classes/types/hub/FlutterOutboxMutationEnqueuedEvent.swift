@@ -22,11 +22,21 @@ struct FlutterOutboxMutationEnqueuedEvent: FlutterHubEvent {
     var modelName: String
     var element:  FlutterHubElement
     
-    init(outboxMutationEnqueued: OutboxMutationEvent, eventName: String, flutterModelRegistration: FlutterModels) throws {
+    init(
+        outboxMutationEnqueued: OutboxMutationEvent,
+        eventName: String,
+        modelSchemaRegistry: FlutterSchemaRegistry,
+        customTypeSchemaRegistry: FlutterSchemaRegistry
+    ) throws {
         self.eventName = shortEventName(eventName: eventName)
         self.modelName = outboxMutationEnqueued.modelName
         do {
-            self.element = try FlutterHubElement(hubElement: outboxMutationEnqueued.element, flutterModelRegistration: flutterModelRegistration, modelName: self.modelName)
+            self.element = try FlutterHubElement(
+                hubElement: outboxMutationEnqueued.element,
+                modelSchemaRegistry: modelSchemaRegistry,
+                customTypeSchemaRegistry: customTypeSchemaRegistry,
+                modelName: self.modelName
+            )
         } catch {
             throw FlutterDataStoreError.acquireSchemaForHub
         }

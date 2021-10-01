@@ -127,8 +127,8 @@ class MultiTypeModel extends Model {
       : id = json['id'],
         _stringValue = json['stringValue'],
         _altStringValue = json['altStringValue'],
-        _intValue = json['intValue'],
-        _altIntValue = json['altIntValue'];
+        _intValue = (json['intValue'] as num?)?.toInt(),
+        _altIntValue = (json['altIntValue'] as num?)?.toInt();
 
   Map<String, dynamic> toJson() => {
         'id': id,

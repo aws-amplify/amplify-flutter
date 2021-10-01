@@ -52,6 +52,34 @@ class ModelFieldDefinition {
         authRules: authRules);
   }
 
+  static ModelFieldDefinition embedded({
+    required String fieldName,
+    bool isRequired = true,
+    bool isArray = false,
+    ModelFieldType ofType = const ModelFieldType(ModelFieldTypeEnum.string),
+  }) {
+    return ModelFieldDefinition(
+      name: fieldName,
+      type: ofType,
+      isRequired: isRequired,
+      isArray: isArray,
+    );
+  }
+
+  static ModelFieldDefinition customTypeField({
+    required String fieldName,
+    bool isRequired = true,
+    bool isArray = false,
+    ModelFieldType ofType = const ModelFieldType(ModelFieldTypeEnum.string),
+  }) {
+    return ModelFieldDefinition(
+      name: fieldName,
+      type: ofType,
+      isRequired: isRequired,
+      isArray: isArray,
+    );
+  }
+
   static ModelFieldDefinition idKey(QueryField key) {
     return id(name: key.fieldName);
   }

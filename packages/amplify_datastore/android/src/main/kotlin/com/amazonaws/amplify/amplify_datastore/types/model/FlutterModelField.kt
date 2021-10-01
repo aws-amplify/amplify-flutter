@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ data class FlutterModelField(val map: Map<String, Any>) {
 
     // Type of the field is the data type of the instance variables
     // of the Model class.
-    private val type: FlutterModelFieldType = FlutterModelFieldType( map["type"] as Map<String, Any>)
+    private val type: FlutterFieldType = FlutterFieldType( map["type"] as Map<String, Any>)
 
     // If the field is a required or an optional field
     private val isRequired: Boolean = map["isRequired"] as Boolean
@@ -34,16 +34,17 @@ data class FlutterModelField(val map: Map<String, Any>) {
     private val isArray: Boolean = map["isArray"] as Boolean
 
     // True if the field is an enumeration type.
-    private val isEnum: Boolean = type.isEnum();
+    private val isEnum: Boolean = type.isEnum()
 
     // True if the field is an instance of model.
-    private val isModel: Boolean = type.isModel();
+    private val isModel: Boolean = type.isModel()
+
+    // True if the field is an instance of CustomType (Embedded)
+    private val isCustomType: Boolean = type.isCustomType()
 
     // An array of rules for owner based authorization
     private val authRules: List<FlutterAuthRule>? =
-            (map["authRules"] as List<Map<String, Any>>?)?.map { serializedAuthRule ->
-                FlutterAuthRule(serializedAuthRule)
-            }
+            (map["authRules"] as List<Map<String, Any>>?)?.map { FlutterAuthRule(it) }
 
     // Association (if any) of the model
     private val flutterModelAssociation: FlutterModelAssociation? =
@@ -52,7 +53,7 @@ data class FlutterModelField(val map: Map<String, Any>) {
 
 
     fun getModelAssociation(): FlutterModelAssociation? {
-        return flutterModelAssociation;
+        return flutterModelAssociation
     }
 
     fun convertToNativeModelField(): ModelField {
@@ -64,11 +65,10 @@ data class FlutterModelField(val map: Map<String, Any>) {
                 .isArray(isArray)
                 .isEnum(isEnum)
                 .isModel(isModel)
+                .isCustomType(isCustomType)
 
         if (!authRules.isNullOrEmpty()) {
-            builder = builder.authRules(authRules.map { authRule ->
-                authRule.convertToNativeAuthRule()
-            })
+            builder = builder.authRules(authRules.map { it.convertToNativeAuthRule() })
         }
         return builder.build()
     }

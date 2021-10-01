@@ -30,9 +30,7 @@ data class FlutterAuthRule(val map: Map<String, Any>) {
     private val groups: List<String>? = map["groups"] as List<String>?
     private val groupsField: String? = map["groupsField"] as String?
     private val operations: List<ModelOperation>? =
-            (map["operations"] as List<String>?)?.map { string ->
-                stringToModelOperation(string)
-            }
+            (map["operations"] as List<String>?)?.map { stringToModelOperation(it) }
 
     fun stringToAuthStrategy(string: String): AuthStrategy {
         return when(string){
