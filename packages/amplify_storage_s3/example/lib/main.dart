@@ -82,9 +82,9 @@ class _MyAppState extends State<MyApp> {
           key: key,
           local: local,
           options: options,
-          onTransferProgress: (progress) => {
-                print("PROGRESS: " + progress.getFractionCompleted().toString())
-              });
+          onProgress: (progress) {
+            print("PROGRESS: " + progress.getFractionCompleted().toString());
+          });
 
       setState(() {
         _uploadFileResult = result.key;
