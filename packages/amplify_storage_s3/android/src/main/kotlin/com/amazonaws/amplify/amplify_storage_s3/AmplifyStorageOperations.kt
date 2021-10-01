@@ -18,7 +18,7 @@ package com.amazonaws.amplify.amplify_storage_s3
 import androidx.annotation.NonNull
 import android.os.Handler
 import android.os.Looper
-import android.src.main.kotlin.com.amazonaws.amplify.amplify_storage_s3.TransferProgressStreamHandler
+import android.src.main.kotlin.com.amazonaws.amplify.amplify_storage_s3.types.TransferProgressStreamHandler
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
 import com.amplifyframework.core.Amplify

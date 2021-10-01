@@ -14,7 +14,7 @@
  * permissions and limitations under the License.
  */
 
-package android.src.main.kotlin.com.amazonaws.amplify.amplify_storage_s3
+package android.src.main.kotlin.com.amazonaws.amplify.amplify_storage_s3.types
 
 import com.amplifyframework.storage.result.StorageTransferProgress
 import io.flutter.plugin.common.EventChannel
