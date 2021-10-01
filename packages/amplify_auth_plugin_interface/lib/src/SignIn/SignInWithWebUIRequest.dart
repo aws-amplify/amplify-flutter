@@ -13,17 +13,22 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
 
 import './AuthProvider.dart';
 
 class SignInWithWebUIRequest {
   AuthProvider? provider;
-  SignInWithWebUIRequest({this.provider});
+  SignInWithWebUIOptions? options;
+  SignInWithWebUIRequest({this.provider, this.options});
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> pendingRequest = <String, dynamic>{};
     if (this.provider != null) {
       pendingRequest["authProvider"] = describeEnum(provider!);
+    }
+    if (options != null) {
+      pendingRequest['options'] = options?.serializeAsMap();
     }
     return pendingRequest;
   }

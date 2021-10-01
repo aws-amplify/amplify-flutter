@@ -23,19 +23,7 @@ import com.amazonaws.amplify.amplify_auth_cognito.types.FlutterInvalidStateExcep
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.exceptions.CognitoCodeExpiredException
-import com.amazonaws.services.cognitoidentityprovider.model.InvalidLambdaResponseException
-import com.amazonaws.services.cognitoidentityprovider.model.MFAMethodNotFoundException
-import com.amazonaws.services.cognitoidentityprovider.model.NotAuthorizedException
-import com.amazonaws.services.cognitoidentityprovider.model.SoftwareTokenMFANotFoundException
-import com.amazonaws.services.cognitoidentityprovider.model.TooManyFailedAttemptsException
-import com.amazonaws.services.cognitoidentityprovider.model.TooManyRequestsException
-import com.amazonaws.services.cognitoidentityprovider.model.UnexpectedLambdaException
-import com.amazonaws.services.cognitoidentityprovider.model.UserLambdaValidationException
-import com.amazonaws.services.cognitoidentityprovider.model.LimitExceededException
-import com.amazonaws.services.cognitoidentityprovider.model.InvalidParameterException
-import com.amazonaws.services.cognitoidentityprovider.model.ExpiredCodeException
-import com.amazonaws.services.cognitoidentityprovider.model.CodeMismatchException
-import com.amazonaws.services.cognitoidentityprovider.model.CodeDeliveryFailureException
+import com.amazonaws.services.cognitoidentityprovider.model.*
 
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.auth.AuthException
@@ -89,6 +77,7 @@ class AuthErrorHandler {
                     is ExpiredCodeException -> errorCode = "CodeExpiredException"
                     is CodeMismatchException -> errorCode = "CodeMismatchException"
                     is CodeDeliveryFailureException -> errorCode = "CodeDeliveryFailureException"
+                    is InvalidUserPoolConfigurationException -> errorCode = "ConfigurationException"
                 }
             }
         }

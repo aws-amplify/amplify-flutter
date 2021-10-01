@@ -29,15 +29,15 @@ void main() {
   final request = GraphQLRequest<String>(document: 'test document');
   var isOnEstablishCalled = false;
   var isOnDoneCalled = false;
-  dynamic eventData = null;
-  dynamic errorEvent = null;
+  dynamic eventData;
+  dynamic errorEvent;
 
   tearDown(() {
     ServicesBinding.instance!.defaultBinaryMessenger
         .setMockMessageHandler(channelName, null);
   });
 
-  handler(event) {
+  void handler(dynamic event) {
     ServicesBinding.instance!.defaultBinaryMessenger.handlePlatformMessage(
       channelName,
       event,
@@ -52,7 +52,7 @@ void main() {
     });
 
     //Invoke the subscribe API with callbacks
-    await api.subscribe(
+    api.subscribe(
         request: request,
         onData: (data) {
           eventData = data;
@@ -60,7 +60,7 @@ void main() {
         onEstablished: () {
           isOnEstablishCalled = true;
         },
-        onError: (error) {
+        onError: (dynamic error) {
           errorEvent = error;
         },
         onDone: () {
@@ -68,6 +68,7 @@ void main() {
         });
 
     //Test initial state
+    await Future<void>.delayed(Duration.zero);
     expect(isOnEstablishCalled, true);
     expect(eventData, null);
     expect(isOnDoneCalled, false);
@@ -77,12 +78,12 @@ void main() {
     var json = {
       'id': request.cancelToken,
       'payload': {
-        'errors': [],
+        'errors': <Map>[],
         'data': 'test data',
       },
       'type': 'DATA'
     };
-    handler(StandardMethodCodec().encodeSuccessEnvelope(json));
+    handler(const StandardMethodCodec().encodeSuccessEnvelope(json));
     await Future<void>.delayed(Duration.zero);
 
     //Test that onData() is called with the expected payload
@@ -94,7 +95,7 @@ void main() {
 
     //Simulate a DONE event
     json = {'id': request.cancelToken, 'type': 'DONE'};
-    handler(StandardMethodCodec().encodeSuccessEnvelope(json));
+    handler(const StandardMethodCodec().encodeSuccessEnvelope(json));
     await Future<void>.delayed(Duration.zero);
 
     //Test that onDone() is called as expected
@@ -107,7 +108,7 @@ void main() {
       'recoverySuggestion': 'Test recovery suggestion',
       'underlyingException': 'Test underlying exception'
     };
-    handler(StandardMethodCodec().encodeErrorEnvelope(
+    handler(const StandardMethodCodec().encodeErrorEnvelope(
         message: 'Test', code: 'ApiException', details: details));
     await Future<void>.delayed(Duration.zero);
 

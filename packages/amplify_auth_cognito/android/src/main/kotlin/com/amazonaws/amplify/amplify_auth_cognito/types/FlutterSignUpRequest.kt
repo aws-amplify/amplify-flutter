@@ -32,6 +32,7 @@ data class FlutterSignUpRequest(val map: HashMap<String, *>) {
         val optionsBuilder =  AWSCognitoAuthSignUpOptions.builder()
         if (rawOptions != null) {
             val attributeData = rawOptions["userAttributes"] as? MutableMap<String, String>
+            val clientMetadata = rawOptions["clientMetadata"] as? MutableMap<String, String>
             val validationData = rawOptions["validationData"] as? MutableMap<String, String>
 
             if (attributeData is MutableMap<String, String>) {
@@ -43,6 +44,10 @@ data class FlutterSignUpRequest(val map: HashMap<String, *>) {
 
             if (validationData is MutableMap<String, String>) {
                 optionsBuilder.validationData(validationData)
+            }
+
+            if (clientMetadata is MutableMap<String, String>) {
+                optionsBuilder.clientMetadata(clientMetadata)
             }
 
         }

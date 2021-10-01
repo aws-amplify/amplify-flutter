@@ -52,7 +52,8 @@ void main() {
       'message': 'Could not upload file.',
       'recoverySuggestion': 'Check permissions.',
     });
-    PlatformException exception = PlatformException(code: 'StorageException', details: details);
+    PlatformException exception =
+        PlatformException(code: 'StorageException', details: details);
     storageChannel.setMockMethodCallHandler((MethodCall methodCall) async {
       return throw exception;
     });

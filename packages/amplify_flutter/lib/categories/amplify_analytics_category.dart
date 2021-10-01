@@ -29,8 +29,7 @@ class AnalyticsCategory {
       } on AmplifyAlreadyConfiguredException catch (e) {
         plugins.add(plugin);
       } on PlatformException catch (e) {
-        throw AmplifyException.fromMap(
-            Map<String, String>.from(e.details));
+        throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       }
     } else {
       throw AmplifyException("Analytics plugin has already been added, " +

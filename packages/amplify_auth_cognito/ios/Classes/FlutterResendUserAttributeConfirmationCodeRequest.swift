@@ -16,13 +16,23 @@
 
 import Foundation
 import Amplify
+import AmplifyPlugins
 import amplify_core
 
 struct FlutterResendUserAttributeConfirmationCodeRequest {
     var userAttributeKey: AuthUserAttributeKey
+    var options: AuthAttributeResendConfirmationCodeRequest.Options?
     
     init(dict: NSMutableDictionary) {
         self.userAttributeKey = createAuthUserAttributeKey(keyName: dict["userAttributeKey"] as! String)
+        self.options = createOptions(options: dict["options"] as! Dictionary<String, Any>?)
+    }
+    
+    func createOptions(options: Dictionary<String, Any>?) -> AuthAttributeResendConfirmationCodeOperation.Request.Options {
+      let pluginOptions = AWSAttributeResendConfirmationCodeOptions(
+          metadata: options?["clientMetadata"] as? [String : String]
+      )
+      return AuthAttributeResendConfirmationCodeOperation.Request.Options(pluginOptions: pluginOptions)
     }
     
     static func validate(dict: NSMutableDictionary) throws {

@@ -75,16 +75,29 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             onSetUpObserve(flutterResult: result)
         case "clear":
             onClear(flutterResult: result)
+        case "start":
+            onStart(flutterResult: result)
+        case "stop":
+            onStop(flutterResult: result)
         default:
             result(FlutterMethodNotImplemented)
         }
     }
     
     private func onConfigureDataStore(args: [String: Any], result: @escaping FlutterResult) {
-        
-        guard let modelSchemaList = args["modelSchemas"] as? [[String: Any]] else {
-            result(false)
-            return //TODO
+
+        guard let modelSchemaList = args["modelSchemas"] as? [[String: Any]],
+              let modelProviderVersion = args["modelProviderVersion"] as? String else {
+
+            FlutterDataStoreErrorHandler.handleDataStoreError(
+                error:
+                    DataStoreError.decodingError(
+                        "Received invalid request from Dart, modelSchemas and/or modelProviderVersion are not available. Request: " + args.description,
+                        "Check the values that are being passed from Dart."
+                    ),
+                flutterResult: result
+            )
+            return
         }
         
         guard channel != nil else {
@@ -105,11 +118,11 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             modelSchemas.forEach { (modelSchema) in
                 flutterModelRegistration.addModelSchema(modelName: modelSchema.name, modelSchema: modelSchema)
             }
-            
+
+            flutterModelRegistration.version = modelProviderVersion
             let syncExpressions: [DataStoreSyncExpression] = try createSyncExpressions(syncExpressionList: syncExpressionList)
-            
-            self.dataStoreHubEventStreamHandler?.registerModelsForHub(flutterModels: flutterModelRegistration)
-            
+
+            self.dataStoreHubEventStreamHandler?.registerModelsForHub(flutterModelRegistration: flutterModelRegistration)
             let dataStorePlugin = AWSDataStorePlugin(modelRegistration: flutterModelRegistration,
                                                      configuration: .custom(
                                                         syncInterval: syncInterval,
@@ -176,21 +189,29 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     FlutterDataStoreErrorHandler.handleDataStoreError(error: error,
                                                                       flutterResult: flutterResult)
                 case .success(let res):
-                    let serializedResults = res.map { (queryResult) -> [String: Any] in
-                        return queryResult.toMap(modelSchema: modelSchema)
+                    do {
+                        let serializedResults = try res.map { (queryResult) -> [String: Any] in
+                            return try queryResult.toMap(flutterModelRegistration: self.flutterModelRegistration, modelName: modelName)
+                        }
+                        flutterResult(serializedResults)
+                    } catch let error as DataStoreError {
+                        print("Failed to parse query result with \(error)")
+                        FlutterDataStoreErrorHandler.handleDataStoreError(
+                            error: error,
+                            flutterResult: flutterResult)
+                    } catch {
+                        print("An unexpected error occured when parsing query result with \(error)")
+                        FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
+                                                                          flutterResult: flutterResult)
                     }
-                    flutterResult(serializedResults)
-                    return
                 }
             }
-        }
-        catch let error as DataStoreError {
+        } catch let error as DataStoreError {
             print("Failed to parse query arguments with \(error)")
             FlutterDataStoreErrorHandler.handleDataStoreError(
                 error: error,
                 flutterResult: flutterResult)
-        }
-        catch {
+        } catch {
             print("An unexpected error occured when parsing query arguments: \(error)")
             FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
                                                               flutterResult: flutterResult)
@@ -289,10 +310,6 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             } receiveValue: { (mutationEvent) in
                 do {
                     let serializedEvent = try mutationEvent.decodeModel(as: FlutterSerializedModel.self)
-                    guard let modelSchema = self.flutterModelRegistration.modelSchemas[mutationEvent.modelName] else {
-                        print("Received mutation event for a model \(mutationEvent.modelName) that is not registered.")
-                        return
-                    }
                     guard let eventType = EventType(rawValue: mutationEvent.mutationType) else {
                         print("Received mutation event for an unknown mutation type \(mutationEvent.mutationType).")
                         return
@@ -300,7 +317,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     let flutterSubscriptionEvent = FlutterSubscriptionEvent.init(
                         item: serializedEvent,
                         eventType: eventType)
-                    self.dataStoreObserveEventStreamHandler?.sendEvent(flutterEvent: flutterSubscriptionEvent.toJSON(modelSchema: modelSchema))
+                    self.dataStoreObserveEventStreamHandler?.sendEvent(flutterEvent: try flutterSubscriptionEvent.toJSON(flutterModelRegistration: self.flutterModelRegistration, modelName: mutationEvent.modelName))
                 } catch {
                     print("Failed to parse the event \(error)")
                     // TODO communicate using datastore error handler?
@@ -328,6 +345,50 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                     // See https://github.com/aws-amplify/amplify-flutter/issues/395
                     self.observeSubscription = nil
                     self.onSetUpObserve(flutterResult: flutterResult)
+                    flutterResult(nil)
+                }
+            }
+        }
+        catch {
+            print("An unexpected error occured: \(error)")
+            FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
+                                                              flutterResult: flutterResult)
+        }
+    }
+
+    func onStart(flutterResult: @escaping FlutterResult) {
+        do {
+            try bridge.onStart() { (result) in
+                switch result {
+                case .failure(let error):
+                    print("Start API failed. Error: \(error)")
+                    FlutterDataStoreErrorHandler.handleDataStoreError(
+                        error: error,
+                        flutterResult: flutterResult)
+                case .success():
+                    print("Successfully started datastore cloud syncing")
+                    flutterResult(nil)
+                }
+            }
+        }
+        catch {
+            print("An unexpected error occured: \(error)")
+            FlutterDataStoreErrorHandler.handleDataStoreError(error: DataStoreError(error: error),
+                                                              flutterResult: flutterResult)
+        }
+    }
+
+    func onStop(flutterResult: @escaping FlutterResult) {
+        do {
+            try bridge.onStop() { (result) in
+                switch result {
+                case .failure(let error):
+                    print("Stop API failed. Error: \(error)")
+                    FlutterDataStoreErrorHandler.handleDataStoreError(
+                        error: error,
+                        flutterResult: flutterResult)
+                case .success():
+                    print("Successfully stopped datastore cloud syncing")
                     flutterResult(nil)
                 }
             }

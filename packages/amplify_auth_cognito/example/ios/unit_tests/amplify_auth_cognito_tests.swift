@@ -96,6 +96,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
+    
     func test_signUpSuccessPhone() {
         
         class SignUpMock: AuthCognitoBridge {
@@ -281,12 +282,32 @@ class amplify_auth_cognito_tests: XCTestCase {
         XCTAssertNoThrow(try FlutterSignUpRequest.validate(dict: rawData))
     }
     
-    func test_signUpFormatAttributes() {
+    func test_signUpWithUserAttributes() {
         let rawAttributes: Dictionary<String, Any> = ["email": _email, "customAttribute": "female"]
         let rawOptions: Dictionary<String, Any> = ["userAttributes": rawAttributes]
         let rawData: NSMutableDictionary = ["options":rawOptions, "username": _username, "password": _password]
         let request = FlutterSignUpRequest(dict: rawData);
         XCTAssertEqual(2, request.options?.userAttributes?.count)
+    }
+    
+    func test_signUpWithClientMetadata() {
+        let metadata: Dictionary<String, Any> = ["attribute": "value"]
+        let rawOptions: Dictionary<String, Any> = ["clientMetadata": metadata]
+        let rawData: NSMutableDictionary = ["options":rawOptions, "username": _username, "password": _password]
+        let request = FlutterSignUpRequest(dict: rawData);
+        let options = request.options?.pluginOptions as! AWSAuthSignUpOptions
+        XCTAssertEqual("value", options.metadata!["attribute"])
+        XCTAssertNil(options.validationData)
+    }
+    
+    func test_signUpWithValidationdata() {
+        let validationData: Dictionary<String, Any> = ["attribute": "value"]
+        let rawOptions: Dictionary<String, Any> = ["validationData": validationData]
+        let rawData: NSMutableDictionary = ["options":rawOptions, "username": _username, "password": _password]
+        let request = FlutterSignUpRequest(dict: rawData);
+        let options = request.options?.pluginOptions as! AWSAuthSignUpOptions
+        XCTAssertEqual("value", options.validationData!["attribute"])
+        XCTAssertNil(options.metadata)
     }
     
     func test_signUpError() {
@@ -526,6 +547,18 @@ class amplify_auth_cognito_tests: XCTestCase {
                 XCTFail()
             }
         })
+    }
+    
+    func test_resendSignUpCodeRequestWithClientMetadata() {
+        let metadata: Dictionary<String, Any> = ["attribute": "value"]
+        let rawOptions: Dictionary<String, Any> = ["clientMetadata": metadata]
+        let rawData: NSMutableDictionary = [
+            "username": _username,
+            "options": rawOptions
+        ]
+        let request = FlutterResendSignUpCodeRequest(dict: rawData);
+        let options = request.options?.pluginOptions as! AWSAuthResendSignUpCodeOptions
+        XCTAssertEqual("value", options.metadata!["attribute"])
     }
     
     func test_resendSignUpCodeError() {
@@ -1008,6 +1041,15 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
+    func test_resetPasswordRequestWithClientMetadata() {
+        let metadata: Dictionary<String, Any> = ["attribute": "value"]
+        let rawOptions: Dictionary<String, Any> = ["clientMetadata": metadata]
+        let rawData: NSMutableDictionary = ["username": _username, "options": rawOptions]
+        let request = FlutterResetPasswordRequest(dict: rawData);
+        let options = request.options?.pluginOptions as! AWSAuthResetPasswordOptions
+        XCTAssertEqual("value", options.metadata!["attribute"])
+    }
+    
     func test_resetPasswordValidation() {
         var rawData: NSMutableDictionary = [:]
         
@@ -1047,16 +1089,16 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func test_confirmPasswordSuccess() {
+    func test_confirmResetPasswordSuccess() {
         
-        class ConfirmPasswordMock: AuthCognitoBridge {
-            override func onConfirmPassword(flutterResult: @escaping FlutterResult, request: FlutterConfirmPasswordRequest) {
+        class ConfirmResetPasswordMock: AuthCognitoBridge {
+            override func onConfirmResetPassword(flutterResult: @escaping FlutterResult, request: FlutterConfirmResetPasswordRequest) {
                 let emptyMap: Dictionary<String, Any> = [:]
                 flutterResult(emptyMap)
             }
         }
         
-        plugin = SwiftAuthCognito.init(cognito: ConfirmPasswordMock())
+        plugin = SwiftAuthCognito.init(cognito: ConfirmResetPasswordMock())
         
         _data = [
             "username": _username,
@@ -1064,7 +1106,7 @@ class amplify_auth_cognito_tests: XCTestCase {
             "confirmationCode": _confirmationCode
         ]
         _args = ["data": _data]
-        let call = FlutterMethodCall(methodName: "confirmPassword", arguments: _args)
+        let call = FlutterMethodCall(methodName: "confirmResetPassword", arguments: _args)
         plugin.handle(call, result: {(result)->Void in
             if let res = result as? Dictionary<String, Any> {
                 XCTAssertEqual( 0, res.count )
@@ -1074,35 +1116,49 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
-    func test_confirmPasswordValidation() {
+    func test_confirmResetPasswordRequestWithClientMetadata() {
+        let metadata: Dictionary<String, Any> = ["attribute": "value"]
+        let rawOptions: Dictionary<String, Any> = ["clientMetadata": metadata]
+        let rawData: NSMutableDictionary = [
+            "username": _username,
+            "newPassword": _newPassword,
+            "confirmationCode": _confirmationCode,
+            "options": rawOptions
+        ]
+        let request = FlutterConfirmResetPasswordRequest(dict: rawData);
+        let options = request.options?.pluginOptions as! AWSAuthConfirmResetPasswordOptions
+        XCTAssertEqual("value", options.metadata!["attribute"])
+    }
+    
+    func test_confirmResetPasswordValidation() {
         var rawData: NSMutableDictionary = ["username": _username, "confirmationCode" : _confirmationCode]
         
         // Throws with no password
-        XCTAssertThrowsError(try FlutterConfirmPasswordRequest.validate(dict: rawData))
+        XCTAssertThrowsError(try FlutterConfirmResetPasswordRequest.validate(dict: rawData))
 
         // Throws with no username
         rawData = ["newPassword": _newPassword, "confirmationCode" : _confirmationCode]
-        XCTAssertThrowsError(try FlutterConfirmPasswordRequest.validate(dict: rawData))
+        XCTAssertThrowsError(try FlutterConfirmResetPasswordRequest.validate(dict: rawData))
 
         // Throws without code
         rawData = ["newPassword": _newPassword, "username" : _username]
-        XCTAssertThrowsError(try FlutterConfirmPasswordRequest.validate(dict: rawData))
+        XCTAssertThrowsError(try FlutterConfirmResetPasswordRequest.validate(dict: rawData))
 
         // Succeeds with required params
         rawData = ["newPassword": _newPassword, "username" : _username, "confirmationCode" : _confirmationCode]
-        XCTAssertNoThrow(try FlutterConfirmPasswordRequest.validate(dict: rawData))
+        XCTAssertNoThrow(try FlutterConfirmResetPasswordRequest.validate(dict: rawData))
     }
     
-    func test_confirmPasswordError() {
+    func test_confirmResetPasswordError() {
         
-        class ConfirmPasswordMock: AuthCognitoBridge {
-            override func onConfirmPassword(flutterResult: @escaping FlutterResult, request: FlutterConfirmPasswordRequest) {
+        class ConfirmResetPasswordMock: AuthCognitoBridge {
+            override func onConfirmResetPassword(flutterResult: @escaping FlutterResult, request: FlutterConfirmResetPasswordRequest) {
                 let authError = AuthError.service("Invalid parameter", MockErrorConstants.invalidParameterError, AWSCognitoAuthError.invalidParameter)
                 errorHandler.handleAuthError(authError: authError, flutterResult: flutterResult)
             }
         }
         
-        plugin = SwiftAuthCognito.init(cognito: ConfirmPasswordMock())
+        plugin = SwiftAuthCognito.init(cognito: ConfirmResetPasswordMock())
         
         _data = [
             "username": _username,
@@ -1110,7 +1166,7 @@ class amplify_auth_cognito_tests: XCTestCase {
             "confirmationCode": _confirmationCode
         ]
         _args = ["data": _data]
-        let call = FlutterMethodCall(methodName: "confirmPassword", arguments: _args)
+        let call = FlutterMethodCall(methodName: "confirmResetPassword", arguments: _args)
         plugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterError {
                 let details = res.details as? Dictionary<String, String>
@@ -1127,7 +1183,7 @@ class amplify_auth_cognito_tests: XCTestCase {
     func test_signOutSuccess() {
         
         class SignOutMock: AuthCognitoBridge {
-            override func onSignOut(flutterResult: @escaping FlutterResult) {
+            override func onSignOut(flutterResult: @escaping FlutterResult, request: FlutterSignOutRequest) {
                 let emptyMap: Dictionary<String, Any> = [:]
                 flutterResult(emptyMap)
             }
@@ -1146,10 +1202,43 @@ class amplify_auth_cognito_tests: XCTestCase {
         })
     }
     
+    func test_signOutGlobalSuccess() {
+        
+        class SignOutMock: AuthCognitoBridge {
+            var globalSignOutExpectation = false
+            override func onSignOut(flutterResult: @escaping FlutterResult, request: FlutterSignOutRequest) {
+                globalSignOutExpectation = request.options!.globalSignOut
+                let emptyMap: Dictionary<String, Any> = [:]
+                flutterResult(emptyMap)
+            }
+        }
+        
+        let signOutMock = SignOutMock()
+        plugin = SwiftAuthCognito.init(cognito: signOutMock)
+        
+        _data = [
+            "options": [
+                "globalSignOut": true
+            ]
+        ]
+        _args = ["data": _data]
+        let call = FlutterMethodCall(methodName: "signOut", arguments: _args)
+        plugin.handle(call, result: {(result)->Void in
+            if let res = result as? Dictionary<String, Any> {
+                XCTAssertEqual( 0, res.count )
+            } else {
+                XCTFail()
+            }
+        })
+        
+        XCTAssertTrue(signOutMock.globalSignOutExpectation)
+
+    }
+    
     func test_signOutError() {
         
         class SignOutMock: AuthCognitoBridge {
-            override func onSignOut(flutterResult: @escaping FlutterResult) {
+            override func onSignOut(flutterResult: @escaping FlutterResult, request: FlutterSignOutRequest) {
                 let authError = AuthError.invalidState("Invalid state", MockErrorConstants.invalidStateError, nil)
                 errorHandler.handleAuthError(authError: authError, flutterResult: flutterResult)
             }
@@ -1463,7 +1552,7 @@ class amplify_auth_cognito_tests: XCTestCase {
     
     func test_signInWithWebUI() {
         class SignInWithWebUIMock: AuthCognitoBridge {
-            override func onSignInWithWebUI(flutterResult: @escaping FlutterResult) {
+            override func onSignInWithWebUI(flutterResult: @escaping FlutterResult, request: FlutterSignInWithWebUIRequest) {
                 let signInRes = Result<AuthSignInResult,AuthError>.success(
                     AuthSignInResult(nextStep: AuthSignInStep.done)
                  )
@@ -1578,6 +1667,22 @@ class amplify_auth_cognito_tests: XCTestCase {
                 XCTFail()
             }
         })
+    }
+    
+    func test_updateUserAttributeRequestWithClientMetadata() {
+        let metadata: Dictionary<String, Any> = ["attribute": "value"]
+        let rawOptions: Dictionary<String, Any> = ["clientMetadata": metadata]
+        let attribute: Dictionary<String, Any> = [
+            "userAttributeKey" : "email",
+            "value": _email
+        ]
+        let rawData: NSMutableDictionary = [
+            "attribute": attribute,
+            "options": rawOptions
+        ]
+        let request = FlutterUpdateUserAttributeRequest(dict: rawData);
+        let options = request.options?.pluginOptions as! AWSUpdateUserAttributeOptions
+        XCTAssertEqual("value", options.metadata!["attribute"])
     }
     
     func test_updateUserAttributeValidation() {
@@ -1699,6 +1804,28 @@ class amplify_auth_cognito_tests: XCTestCase {
                 XCTFail()
             }
         })
+    }
+    
+    func test_updateUserAttributesRequestWithClientMetadata() {
+        let metadata: Dictionary<String, Any> = ["attribute": "value"]
+        let rawOptions: Dictionary<String, Any> = ["clientMetadata": metadata]
+        let attributes = [
+            [
+                "userAttributeKey" : "email",
+                "value": _email
+            ],
+            [
+                "userAttributeKey" : "name",
+                "value": "testname"
+            ]
+        ]
+        let rawData: NSMutableDictionary = [
+            "attributes": attributes,
+            "options": rawOptions
+        ]
+        let request = FlutterUpdateUserAttributesRequest(dict: rawData);
+        let options = request.options?.pluginOptions as! AWSUpdateUserAttributesOptions
+        XCTAssertEqual("value", options.metadata!["attribute"])
     }
     
     func test_updateUserAttributesValidation() {
@@ -1900,6 +2027,18 @@ class amplify_auth_cognito_tests: XCTestCase {
                 XCTFail()
             }
         })
+    }
+    
+    func test_resendUserAttributeConfirmationCodeRequestWithClientMetadata() {
+        let metadata: Dictionary<String, Any> = ["attribute": "value"]
+        let rawOptions: Dictionary<String, Any> = ["clientMetadata": metadata]
+        let rawData: NSMutableDictionary = [
+            "userAttributeKey": "email",
+            "options": rawOptions
+        ]
+        let request = FlutterResendUserAttributeConfirmationCodeRequest(dict: rawData);
+        let options = request.options?.pluginOptions as! AWSAttributeResendConfirmationCodeOptions
+        XCTAssertEqual("value", options.metadata!["attribute"])
     }
     
     func test_resendUserAttributeConfirmationCodeValidation() {

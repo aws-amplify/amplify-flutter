@@ -19,42 +19,43 @@ import Amplify
 
 struct SchemaData {
     
-    static var PostSchema : ModelSchema = ModelSchema(
+    static var PostSchema: ModelSchema = ModelSchema(
         name: "Post",
         pluralName: "Posts",
         fields: [
-        "id" : ModelField(name: "id", type: .string, isRequired: true, isArray: false),
-        "title" : ModelField(name: "title", type: .string, isRequired: true, isArray: false),
-        "created" : ModelField(name: "created", type: .dateTime, isRequired: false, isArray: false),
-        "rating" : ModelField(name: "rating", type: .int, isRequired: false, isArray: false),
-        "blog" : ModelField(name: "blog", type: .model(name: "Blog"), isRequired: false, isArray: false, association: ModelAssociation.belongsTo(targetName: "blogID")),
-        "comments" : ModelField(name: "comments", type: .collection(of: "Comment"), isRequired: false, isArray: true, association: ModelAssociation.hasMany(associatedFieldName: "post") )
+            "id": ModelField(name: "id", type: .string, isRequired: true, isArray: false),
+            "title": ModelField(name: "title", type: .string, isRequired: true, isArray: false),
+            "created": ModelField(name: "created", type: .dateTime, isRequired: false, isArray: false),
+            "rating": ModelField(name: "rating", type: .int, isRequired: false, isArray: false),
+            "blog": ModelField(name: "blog", type: .model(name: "Blog"), isRequired: false, isArray: false, association: ModelAssociation.belongsTo(targetName: "blogID")),
+            "comments": ModelField(name: "comments", type: .collection(of: "Comment"), isRequired: false, isArray: true, association: ModelAssociation.hasMany(associatedFieldName: "post")),
+            "author": ModelField(name: "author", type: .model(name: "Author"), isRequired: true, isArray: false, association: ModelAssociation.belongsTo(targetName: "authorId"))
         ]
     )
     
-    static var CommentSchema : ModelSchema = ModelSchema(
+    static var CommentSchema: ModelSchema = ModelSchema(
         name: "Comment",
         pluralName: "Comments",
         fields: [
-            "id" : ModelField(name: "id", type: .string, isRequired: true, isArray: false),
-            "post" : ModelField(name: "post", type: .model(name: "Post"), isRequired: false, isArray: true, association: ModelAssociation.belongsTo(targetName: "postID")),
-            "content" : ModelField(name: "content", type: .string, isRequired: true, isArray: false)
+            "id": ModelField(name: "id", type: .string, isRequired: true, isArray: false),
+            "post": ModelField(name: "post", type: .model(name: "Post"), isRequired: false, isArray: true, association: ModelAssociation.belongsTo(targetName: "postID")),
+            "content": ModelField(name: "content", type: .string, isRequired: true, isArray: false)
         ]
     )
 
     
-    static var BlogSchema : ModelSchema = ModelSchema(
-            name: "Blog",
-            pluralName: "Blogs",
-            fields: [
-                "id" : ModelField(name: "id", type: .string, isRequired: true, isArray: false),
-                "name" : ModelField(name: "name", type: .string, isRequired: true, isArray: false),
-                "posts" : ModelField(name: "posts", type: .collection(of: "Post"), isRequired: false, isArray: true, association: ModelAssociation.hasMany(associatedFieldName: "blog")
-                )
-            ]
-        )
+    static var BlogSchema: ModelSchema = ModelSchema(
+        name: "Blog",
+        pluralName: "Blogs",
+        fields: [
+            "id": ModelField(name: "id", type: .string, isRequired: true, isArray: false),
+            "name": ModelField(name: "name", type: .string, isRequired: true, isArray: false),
+            "posts": ModelField(name: "posts", type: .collection(of: "Post"), isRequired: false, isArray: true, association: ModelAssociation.hasMany(associatedFieldName: "blog")
+            )
+        ]
+    )
     
-    static var PostAuthComplexSchema : ModelSchema = ModelSchema(
+    static var PostAuthComplexSchema: ModelSchema = ModelSchema(
         name: "PostAuthComplex",
         pluralName: "PostAuthComplexes",
         authRules: [
@@ -68,27 +69,68 @@ struct SchemaData {
             )
         ],
         fields: [
-            "id" : ModelField(name: "id", type: .string, isRequired: true, isArray: false),
-            "title" : ModelField(name: "title", type: .string, isRequired: true, isArray: false),
-            "owner" : ModelField(name: "owner", type: .string, isRequired: false, isArray: false),
+            "id": ModelField(name: "id", type: .string, isRequired: true, isArray: false),
+            "title": ModelField(name: "title", type: .string, isRequired: true, isArray: false),
+            "owner": ModelField(name: "owner", type: .string, isRequired: false, isArray: false),
         ]
     )
     
-    static var AllTypeModelSchema : ModelSchema = ModelSchema(
+    static var AllTypeModelSchema: ModelSchema = ModelSchema(
         name: "AllTypeModel",
         pluralName: "AllTypeModels",
         fields: [
-            "id" : ModelField(name: "id", type: .string, isRequired: true, isArray: false),
-            "stringType" : ModelField(name: "stringType", type: .string, isRequired: true, isArray: false),
-            "intType" : ModelField(name: "intType", type: .int, isRequired: true, isArray: false),
-            "floatType" : ModelField(name: "floatType", type: .double, isRequired: true, isArray: false),
-            "boolType" : ModelField(name: "boolType", type: .bool, isRequired: true, isArray: false),
-            "dateType" : ModelField(name: "dateType", type: .date, isRequired: true, isArray: false),
-            "dateTimeType" : ModelField(name: "dateTimeType", type: .dateTime, isRequired: true, isArray: false),
-            "timeType" : ModelField(name: "timeType", type: .time, isRequired: true, isArray: false),
-            "timestampType" : ModelField(name: "timestampType", type: .timestamp, isRequired: true, isArray: false),
-            "enumType" : ModelField(name: "enumType", type: .string, isRequired: true, isArray: false),
+            "id": ModelField(name: "id", type: .string, isRequired: true, isArray: false),
+            "stringType": ModelField(name: "stringType", type: .string, isRequired: true, isArray: false),
+            "intType": ModelField(name: "intType", type: .int, isRequired: true, isArray: false),
+            "floatType": ModelField(name: "floatType", type: .double, isRequired: true, isArray: false),
+            "boolType": ModelField(name: "boolType", type: .bool, isRequired: true, isArray: false),
+            "dateType": ModelField(name: "dateType", type: .date, isRequired: true, isArray: false),
+            "dateTimeType": ModelField(name: "dateTimeType", type: .dateTime, isRequired: true, isArray: false),
+            "timeType": ModelField(name: "timeType", type: .time, isRequired: true, isArray: false),
+            "timestampType": ModelField(name: "timestampType", type: .timestamp, isRequired: true, isArray: false),
+            "enumType": ModelField(name: "enumType", type: .string, isRequired: true, isArray: false),
         ]
     )
 
+    static var AuthorModelSchema: ModelSchema = ModelSchema(
+        name: "Author",
+        pluralName: "Authors",
+        fields: [
+            "id": ModelField(name: "id", type: .string, isRequired: true, isArray: false),
+            "name": ModelField(name: "name", type: .string, isRequired: true, isArray: false),
+            "department": ModelField(name: "department", type: .model(name: "Department"), isRequired: true, isArray: false, association: ModelAssociation.belongsTo(targetName: "departmentId")),
+        ]
+    )
+
+    static var DepartmentSchema: ModelSchema = ModelSchema(
+        name: "Department",
+        pluralName: "Departments",
+        fields: [
+            "id": ModelField(name: "id", type: .string, isRequired: true, isArray: false),
+            "name": ModelField(name: "name", type: .string, isRequired: true, isArray: false),
+            "description": ModelField(name: "description", type: .string, isRequired: true, isArray: false),
+        ]
+    )
+
+    static var modelSchemas: [String: ModelSchema] {
+        return [
+            PostSchema.name: PostSchema,
+            CommentSchema.name: CommentSchema,
+            BlogSchema.name: BlogSchema,
+            PostAuthComplexSchema.name: PostAuthComplexSchema,
+            AllTypeModelSchema.name: AllTypeModelSchema,
+            AuthorModelSchema.name: AuthorModelSchema,
+            DepartmentSchema.name: DepartmentSchema
+        ]
+    }
+
+    static var flutterModelRegistration: FlutterModels  {
+        let flutterModelRegistration = FlutterModels()
+
+        for (key, value) in SchemaData.modelSchemas {
+            flutterModelRegistration.addModelSchema(modelName: key, modelSchema: value)
+        }
+
+        return flutterModelRegistration
+    }
 }
