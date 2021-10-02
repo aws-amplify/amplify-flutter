@@ -19,6 +19,8 @@ import 'package:flutter/services.dart';
 import 'package:amplify_core/types/exception/AmplifyExceptionMessages.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
+import 'types/DataStoreHubEvents/DataStoreHubEvent.dart';
+import 'types/DataStoreHubEvents/ModelSyncedEvent.dart';
 import 'types/DataStoreHubEvents/stream_group.dart';
 
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/datastore');
@@ -26,6 +28,16 @@ const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/datastore');
 /// An implementation of [AmplifyDataStore] that uses method channels.
 class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   dynamic _allModelsStreamFromMethodChannel = null;
+
+  Stream<ModelSyncedEvent> _modelSyncedEventStream = AmplifyDataStore
+      .streamWrapper.datastoreStreamController.stream
+      .where((event) => event is DataStoreHubEvent)
+      .cast<DataStoreHubEvent>()
+      .map((event) => event.payload)
+      .where((event) => event is ModelSyncedEvent)
+      .cast<ModelSyncedEvent>();
+
+  Map<String, bool> _modelSyncCache = {};
 
   /// Internal use constructor
   AmplifyDataStoreMethodChannel() : super.tokenOnly();
@@ -57,6 +69,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
           throw UnimplementedError('${call.method} has not been implemented.');
       }
     });
+    _initModelSyncCache();
     try {
       return await _channel
           .invokeMethod('configureDataStore', <String, dynamic>{
@@ -191,6 +204,17 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
     // used to track when the initial query completes
     bool hasInitialQueryCompleted = false;
 
+    Stream<QuerySnapshot<T>> syncStatusStream = _isModelSynced(modelType)
+        .map<QuerySnapshot<T>?>((value) {
+          if (value == querySnapshot.isSynced) {
+            return null;
+          }
+          querySnapshot = querySnapshot.withSyncStatus(value);
+          return querySnapshot;
+        })
+        .where((event) => event != null)
+        .cast<QuerySnapshot<T>>();
+
     Stream<QuerySnapshot<T>> observeStream = this
         .observe(modelType)
         // TODO: Determine why observe is emitting duplicate events
@@ -233,20 +257,14 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         .where((event) => event != null)
         .cast<QuerySnapshot<T>>();
 
-    final queryFuture = this
-        .query(
-      modelType,
-      where: where,
-      sortBy: sortBy,
-      // TODO: remove after fixing https://github.com/aws-amplify/amplify-flutter/issues/891
-      pagination: QueryPagination(limit: 10000),
-    )
-        .then((value) {
+    final queryFuture =
+        this.query(modelType, where: where, sortBy: sortBy).then((value) {
+      bool isSynced = _modelSyncCache[modelType.modelName()] ?? false;
       // cache the intitial QuerySnapshot
       querySnapshot = QuerySnapshot(
         items: value,
         events: [],
-        isSynced: false,
+        isSynced: isSynced,
         where: where,
         sortBy: sortBy,
       );
@@ -266,7 +284,11 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
 
     final queryStream = Stream.fromFuture(queryFuture);
 
-    return StreamGroup.merge([queryStream, observeStream]);
+    return StreamGroup.merge([
+      queryStream,
+      observeStream,
+      syncStatusStream,
+    ]);
   }
 
   @override
@@ -301,6 +323,21 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         Map<String, dynamic>.from(serializedEvent["item"]);
     return serializedItem["modelName"] as String;
   }
+
+  Stream<bool> _isModelSynced(ModelType type) {
+    return _modelSyncedEventStream
+        .where((event) => event.modelName == type.modelName())
+        .map((event) => _isSyncEvent(event));
+  }
+
+  void _initModelSyncCache() {
+    _modelSyncedEventStream.listen((event) {
+      _modelSyncCache[event.modelName] = _isSyncEvent(event);
+    });
+  }
+
+  bool _isSyncEvent(ModelSyncedEvent event) =>
+      event.isFullSync || event.isDeltaSync;
 
   AmplifyException _deserializeException(PlatformException e) {
     if (e.code == 'DataStoreException') {

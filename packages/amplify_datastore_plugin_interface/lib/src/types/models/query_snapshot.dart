@@ -70,6 +70,16 @@ class QuerySnapshot<T extends Model> {
     );
   }
 
+  QuerySnapshot<T> withSyncStatus(bool value) {
+    return QuerySnapshot._(
+      list: _list,
+      events: events,
+      isSynced: value,
+      where: where,
+      sortBy: sortBy,
+    );
+  }
+
   /// Returns a new QuerySnapshot with the [event] applied
   ///
   /// Takes the existing snapshots QueryPredicate and QuerySortBy
