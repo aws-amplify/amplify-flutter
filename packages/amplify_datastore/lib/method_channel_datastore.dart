@@ -22,6 +22,7 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'types/DataStoreHubEvents/DataStoreHubEvent.dart';
 import 'types/DataStoreHubEvents/ModelSyncedEvent.dart';
 import 'stream_utils/stream_group.dart';
+import 'stream_utils/throttle.dart';
 
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/datastore');
 
@@ -255,7 +256,8 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         })
         // filter out null values
         .where((event) => event != null)
-        .cast<QuerySnapshot<T>>();
+        .cast<QuerySnapshot<T>>()
+        .throttleCount(1000, until: (event) => event.isSynced);
 
     final queryFuture =
         this.query(modelType, where: where, sortBy: sortBy).then((value) {
