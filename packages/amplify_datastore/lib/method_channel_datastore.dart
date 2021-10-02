@@ -21,7 +21,7 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 
 import 'types/DataStoreHubEvents/DataStoreHubEvent.dart';
 import 'types/DataStoreHubEvents/ModelSyncedEvent.dart';
-import 'types/DataStoreHubEvents/stream_group.dart';
+import 'stream_utils/stream_group.dart';
 
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/datastore');
 
