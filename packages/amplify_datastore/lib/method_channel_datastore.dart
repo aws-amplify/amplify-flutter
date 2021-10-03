@@ -194,6 +194,8 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
     ModelType<T> modelType, {
     QueryPredicate? where,
     List<QuerySortBy>? sortBy,
+    ObserveQueryThrottleOptions? throttleOptions =
+        const ObserveQueryThrottleOptions(),
   }) {
     // cached QuerySnapshot
     late QuerySnapshot<T> querySnapshot;
@@ -256,8 +258,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         })
         // filter out null values
         .where((event) => event != null)
-        .cast<QuerySnapshot<T>>()
-        .throttleCount(1000, until: (event) => event.isSynced);
+        .cast<QuerySnapshot<T>>();
 
     final queryFuture =
         this.query(modelType, where: where, sortBy: sortBy).then((value) {
@@ -272,7 +273,6 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
       );
 
       // apply any cached subscription events
-      // TODO: Is this needed? It seems like iOS/Android will not apply updates while a query is active
       for (var event in subscriptionEvents) {
         querySnapshot = querySnapshot.withSubscriptionEvent(event: event);
       }
@@ -290,7 +290,12 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
       queryStream,
       observeStream,
       syncStatusStream,
-    ]);
+    ]).throttleByCountAndTime(
+      // TODO: handle null count/duration
+      count: throttleOptions!.maxCount!,
+      duration: throttleOptions.maxDuration!,
+      until: (event) => event.isSynced,
+    );
   }
 
   @override

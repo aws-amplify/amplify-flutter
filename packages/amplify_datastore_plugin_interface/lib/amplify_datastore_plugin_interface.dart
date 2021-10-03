@@ -19,6 +19,7 @@ import 'dart:async';
 
 import 'package:amplify_datastore_plugin_interface/src/types/models/model_provider.dart';
 import 'package:amplify_core/types/index.dart';
+import 'package:amplify_datastore_plugin_interface/src/types/models/observe_query_throttle_options.dart';
 import 'package:meta/meta.dart';
 
 import 'src/types/models/model.dart';
@@ -134,6 +135,7 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
     ModelType<T> modelType, {
     QueryPredicate? where,
     List<QuerySortBy>? sortBy,
+    ObserveQueryThrottleOptions? throttleOptions,
   }) {
     throw UnimplementedError('observeQuery() has not been implemented.');
   }

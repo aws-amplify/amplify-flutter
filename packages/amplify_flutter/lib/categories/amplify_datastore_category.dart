@@ -130,9 +130,15 @@ class DataStoreCategory {
     ModelType<T> modelType, {
     QueryPredicate? where,
     List<QuerySortBy>? sortBy,
+    ObserveQueryThrottleOptions? throttleOptions,
   }) {
     return plugins.length == 1
-        ? plugins[0].observeQuery(modelType, where: where, sortBy: sortBy)
+        ? plugins[0].observeQuery(
+            modelType,
+            where: where,
+            sortBy: sortBy,
+            throttleOptions: throttleOptions,
+          )
         : throw _pluginNotAddedException("DataStore");
   }
 }
