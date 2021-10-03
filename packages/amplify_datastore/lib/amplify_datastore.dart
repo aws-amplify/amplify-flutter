@@ -142,7 +142,8 @@ class AmplifyDataStore extends DataStorePluginInterface {
     ModelType<T> modelType, {
     QueryPredicate? where,
     List<QuerySortBy>? sortBy,
-    ObserveQueryThrottleOptions? throttleOptions,
+    ObserveQueryThrottleOptions? throttleOptions =
+        const ObserveQueryThrottleOptions(),
   }) {
     return _instance.observeQuery(
       modelType,

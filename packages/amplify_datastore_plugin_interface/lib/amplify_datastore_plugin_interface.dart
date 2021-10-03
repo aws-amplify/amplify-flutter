@@ -135,7 +135,8 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
     ModelType<T> modelType, {
     QueryPredicate? where,
     List<QuerySortBy>? sortBy,
-    ObserveQueryThrottleOptions? throttleOptions,
+    ObserveQueryThrottleOptions? throttleOptions =
+        const ObserveQueryThrottleOptions(),
   }) {
     throw UnimplementedError('observeQuery() has not been implemented.');
   }

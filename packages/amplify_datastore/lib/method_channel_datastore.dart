@@ -19,10 +19,7 @@ import 'package:flutter/services.dart';
 import 'package:amplify_core/types/exception/AmplifyExceptionMessages.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
-import 'types/DataStoreHubEvents/DataStoreHubEvent.dart';
-import 'types/DataStoreHubEvents/ModelSyncedEvent.dart';
-import 'stream_utils/stream_group.dart';
-import 'stream_utils/throttle.dart';
+import 'types/observe_query_executor.dart';
 
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/datastore');
 
@@ -30,15 +27,10 @@ const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/datastore');
 class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   dynamic _allModelsStreamFromMethodChannel = null;
 
-  Stream<ModelSyncedEvent> _modelSyncedEventStream = AmplifyDataStore
-      .streamWrapper.datastoreStreamController.stream
-      .where((event) => event is DataStoreHubEvent)
-      .cast<DataStoreHubEvent>()
-      .map((event) => event.payload)
-      .where((event) => event is ModelSyncedEvent)
-      .cast<ModelSyncedEvent>();
-
-  Map<String, bool> _modelSyncCache = {};
+  late ObserveQueryExecutor _observeQueryExecutor = ObserveQueryExecutor(
+    dataStoreEventStream:
+        AmplifyDataStore.streamWrapper.datastoreStreamController.stream,
+  );
 
   /// Internal use constructor
   AmplifyDataStoreMethodChannel() : super.tokenOnly();
@@ -70,7 +62,6 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
           throw UnimplementedError('${call.method} has not been implemented.');
       }
     });
-    _initModelSyncCache();
     try {
       return await _channel
           .invokeMethod('configureDataStore', <String, dynamic>{
@@ -197,104 +188,13 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
     ObserveQueryThrottleOptions? throttleOptions =
         const ObserveQueryThrottleOptions(),
   }) {
-    // cached QuerySnapshot
-    late QuerySnapshot<T> querySnapshot;
-
-    // cached subscription events that occur prior to the
-    // initial query completing
-    List<SubscriptionEvent<T>> subscriptionEvents = [];
-
-    // used to track when the initial query completes
-    bool hasInitialQueryCompleted = false;
-
-    Stream<QuerySnapshot<T>> syncStatusStream = _isModelSynced(modelType)
-        .map<QuerySnapshot<T>?>((value) {
-          if (value == querySnapshot.isSynced) {
-            return null;
-          }
-          querySnapshot = querySnapshot.withSyncStatus(value);
-          return querySnapshot;
-        })
-        .where((event) => event != null)
-        .cast<QuerySnapshot<T>>();
-
-    Stream<QuerySnapshot<T>> observeStream = this
-        .observe(modelType)
-        // TODO: Determine why observe is emitting duplicate events
-        .distinct((a, b) =>
-            a.eventType == b.eventType &&
-            a.modelType == b.modelType &&
-            a.item == b.item)
-        .map<QuerySnapshot<T>?>((event) {
-          // cache subscription events until the initial query is returned
-          if (!hasInitialQueryCompleted) {
-            subscriptionEvents.add(event);
-            return null;
-          }
-
-          // TODO: remove - used for perf monitoring
-          var start = DateTime.now();
-
-          // apply the most recent event to the cached QuerySnapshot
-          var updatedQuerySnapshot = querySnapshot.withSubscriptionEvent(
-            event: event,
-          );
-
-          // if the snapshot has not changed, return null
-          if (querySnapshot == updatedQuerySnapshot) {
-            return null;
-          }
-
-          // TODO: remove - used for perf monitoring
-          var end = DateTime.now();
-          var ms = end.difference(start).inMicroseconds / 1000;
-          var count = updatedQuerySnapshot.items.length;
-          print(
-              '[Perf Monitoring] Time to generate snapshot with $count models: $ms ms');
-
-          // otherwise, update the cached QuerySnapshot and return it
-          querySnapshot = updatedQuerySnapshot;
-          return querySnapshot;
-        })
-        // filter out null values
-        .where((event) => event != null)
-        .cast<QuerySnapshot<T>>();
-
-    final queryFuture =
-        this.query(modelType, where: where, sortBy: sortBy).then((value) {
-      bool isSynced = _modelSyncCache[modelType.modelName()] ?? false;
-      // cache the intitial QuerySnapshot
-      querySnapshot = QuerySnapshot(
-        items: value,
-        events: [],
-        isSynced: isSynced,
-        where: where,
-        sortBy: sortBy,
-      );
-
-      // apply any cached subscription events
-      for (var event in subscriptionEvents) {
-        querySnapshot = querySnapshot.withSubscriptionEvent(event: event);
-      }
-
-      // mark initial query as complete
-      hasInitialQueryCompleted = true;
-
-      // return the QuerySnapshot
-      return querySnapshot;
-    });
-
-    final queryStream = Stream.fromFuture(queryFuture);
-
-    return StreamGroup.merge([
-      queryStream,
-      observeStream,
-      syncStatusStream,
-    ]).throttleByCountAndTime(
-      // TODO: handle null count/duration
-      count: throttleOptions!.maxCount!,
-      duration: throttleOptions.maxDuration!,
-      until: (event) => event.isSynced,
+    return _observeQueryExecutor.observeQuery<T>(
+      query: query,
+      observe: observe,
+      modelType: modelType,
+      where: where,
+      sortBy: sortBy,
+      throttleOptions: throttleOptions,
     );
   }
 
@@ -330,21 +230,6 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         Map<String, dynamic>.from(serializedEvent["item"]);
     return serializedItem["modelName"] as String;
   }
-
-  Stream<bool> _isModelSynced(ModelType type) {
-    return _modelSyncedEventStream
-        .where((event) => event.modelName == type.modelName())
-        .map((event) => _isSyncEvent(event));
-  }
-
-  void _initModelSyncCache() {
-    _modelSyncedEventStream.listen((event) {
-      _modelSyncCache[event.modelName] = _isSyncEvent(event);
-    });
-  }
-
-  bool _isSyncEvent(ModelSyncedEvent event) =>
-      event.isFullSync || event.isDeltaSync;
 
   AmplifyException _deserializeException(PlatformException e) {
     if (e.code == 'DataStoreException') {
