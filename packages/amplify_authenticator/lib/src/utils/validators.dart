@@ -89,7 +89,7 @@ FormFieldValidator<String> validateSignUpPassword(BuildContext context) {
         passwordHints.add('* ${_hintStrings.passwordRequiresSymbols(context)}');
       }
     }
-    return null;
+    return passwordHints.isNotEmpty ? passwordHints.join('\n') : null;
   };
 }
 
