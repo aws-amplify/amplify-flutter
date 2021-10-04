@@ -21,12 +21,11 @@ import '../uuid.dart' as API_UUID;
 
 class GraphQLRequest<T> {
   final String? apiName;
-
-  String document;
-  Map<String, dynamic> variables;
-  String cancelToken = API_UUID.UUID.getUUID();
-  String? decodePath;
-  ModelType? modelType;
+  final String document;
+  final Map<String, dynamic> variables;
+  final String cancelToken = API_UUID.UUID.getUUID();
+  final String? decodePath;
+  final ModelType? modelType;
 
   GraphQLRequest(
       {this.apiName,
