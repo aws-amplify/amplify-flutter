@@ -26,6 +26,8 @@ extension QuerySortOrderExtension on QuerySortOrder {
   }
 }
 
+/// Represents a model field and an order to sort by (ascending or descending),
+/// used to specify the order of results from a query operation
 class QuerySortBy {
   final QuerySortOrder order;
   final String field;

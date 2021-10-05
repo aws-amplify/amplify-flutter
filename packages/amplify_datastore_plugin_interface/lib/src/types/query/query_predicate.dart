@@ -20,6 +20,8 @@ QueryPredicateGroup not(QueryPredicate predicate) {
   return new QueryPredicateGroup(QueryPredicateGroupType.not, [predicate]);
 }
 
+/// Represents individual conditions or groups of conditions
+/// that are used to query data
 abstract class QueryPredicate {
   const QueryPredicate();
 

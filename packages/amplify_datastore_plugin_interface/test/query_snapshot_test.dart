@@ -27,7 +27,6 @@ void main() {
         blogs = List.generate(5, (index) => Blog(name: 'blog $index'));
         snapshot = QuerySnapshot(
           items: blogs,
-          events: [],
           isSynced: false,
         );
       });
@@ -138,10 +137,10 @@ void main() {
       setUp(() {
         blogs = List.generate(5, (index) => Blog(name: 'blog $index'));
         snapshot = QuerySnapshot(
-            items: blogs,
-            events: [],
-            isSynced: false,
-            where: Blog.NAME.contains('blog'));
+          items: blogs,
+          isSynced: false,
+          where: Blog.NAME.contains('blog'),
+        );
       });
 
       group('create event', () {
@@ -317,7 +316,6 @@ void main() {
         );
         snapshot = QuerySnapshot(
           items: posts,
-          events: [],
           isSynced: false,
           sortBy: [Post.RATING.ascending()],
         );

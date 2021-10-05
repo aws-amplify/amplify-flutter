@@ -23,8 +23,9 @@ import 'model.dart';
 import 'subscription_event.dart';
 
 /// {@template query_snapshot}
-/// A snapshot of the [items] from DataStore, the [events] since the last snapshot,
-/// and whether this model has finished syncing and subscriptions are active.
+/// A snapshot consisting of the [items] in the local store when the
+/// snapshot was generated and a boolean value to indicate if
+/// this model has finished syncing data over the network.
 /// {@endtemplate}
 class QuerySnapshot<T extends Model> {
   /// All model instances from the local store at the time that the snapshot was recieved
@@ -32,18 +33,17 @@ class QuerySnapshot<T extends Model> {
 
   List<T> get items => _list.items;
 
-  /// The latest changes since last snapshot
-  final List<SubscriptionEvent> events;
-
-  /// Indicates whether all sync queries for this model are complete, and subscriptions are active
+  /// Indicates whether all sync queries for this model are complete
   final bool isSynced;
 
+  /// A condition, or group of conditions, used to query data
   final QueryPredicate? where;
+
+  /// A list of sortBy conditions, used to specify the order of results
   final List<QuerySortBy>? sortBy;
 
   const QuerySnapshot._({
     required SortedList<T> list,
-    required this.events,
     required this.isSynced,
     this.where,
     this.sortBy,
@@ -52,7 +52,6 @@ class QuerySnapshot<T extends Model> {
   /// {@macro query_snapshot}
   factory QuerySnapshot({
     required List<T> items,
-    required List<SubscriptionEvent> events,
     required bool isSynced,
     QueryPredicate? where,
     List<QuerySortBy>? sortBy,
@@ -63,18 +62,17 @@ class QuerySnapshot<T extends Model> {
     );
     return QuerySnapshot._(
       list: list,
-      events: events,
       isSynced: isSynced,
       where: where,
       sortBy: sortBy,
     );
   }
 
-  QuerySnapshot<T> withSyncStatus(bool value) {
+  /// Returns a new QuerySnapshot with the [status] applied
+  QuerySnapshot<T> withSyncStatus(bool status) {
     return QuerySnapshot._(
       list: _list,
-      events: events,
-      isSynced: value,
+      isSynced: status,
       where: where,
       sortBy: sortBy,
     );
@@ -130,7 +128,6 @@ class QuerySnapshot<T extends Model> {
     if (itemsHasBeenUpdated) {
       var snapshot = QuerySnapshot._(
         list: sortedList,
-        events: [event],
         isSynced: isSynced,
         where: where,
         sortBy: sortBy,
