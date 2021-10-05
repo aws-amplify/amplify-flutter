@@ -25,11 +25,7 @@ abstract class PaginatedResult<T extends Model> extends Model {
 
   const PaginatedResult(this.items, this.limit, this.nextToken);
 
-  bool hasNextResult() {
-    throw UnimplementedError('hasNextResult not been implemented.');
-  }
+  bool hasNextResult();
 
-  GraphQLRequest<PaginatedResult<T>> getRequestForNextResult() {
-    throw UnimplementedError('getRequestForNextResult not been implemented.');
-  }
+  GraphQLRequest<PaginatedResult<T>> getRequestForNextResult();
 }
