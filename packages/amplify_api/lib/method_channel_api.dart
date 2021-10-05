@@ -16,6 +16,7 @@
 import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:amplify_api/src/graphql/graphql_response_decoder.dart';
 import 'package:amplify_core/types/index.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -39,6 +40,8 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
 
   /// The registered [APIAuthProvider] instances.
   final Map<APIAuthorizationType, APIAuthProvider> _authProviders = {};
+
+  AmplifyAPIMethodChannel() : super.tokenOnly();
 
   @override
   Future<APIAuthProviderRefresher> addPlugin() async {
@@ -210,10 +213,8 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
       }
       final errors = _deserializeGraphQLResponseErrors(result);
 
-      final response = GraphQLResponse<T>(
-        data: result['data'] ?? '',
-        errors: errors,
-      );
+      GraphQLResponse<T> response = GraphQLResponseDecoder.instance.decode<T>(
+          request: request, data: result['data'] ?? '', errors: errors);
 
       return response;
     } on PlatformException catch (e) {
