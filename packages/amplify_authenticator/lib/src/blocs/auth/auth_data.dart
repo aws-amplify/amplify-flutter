@@ -13,13 +13,12 @@
  * permissions and limitations under the License.
  */
 
-// ignore: public_member_api_docs
 enum AuthScreen {
   signup,
   signin,
-  confirmSignUp,
-  confirmSignInMfa,
-  confirmSignInNewPassword,
+  confirmSignup,
+  confirmSigninMfa,
+  confirmSigninNewPassword,
   sendCode,
   resetPassword,
   verifyUser,
@@ -27,21 +26,23 @@ enum AuthScreen {
 }
 
 class AuthSignInData {
-  AuthSignInData({required this.username, required this.password});
+  const AuthSignInData({
+    required this.username,
+    required this.password,
+  });
 
   final String username;
-
   final String password;
 }
 
 ///Sign Up Data
 class AuthSignUpData {
-  AuthSignUpData(
-      {required this.password,
-      required this.username,
-      required this.attributes});
+  const AuthSignUpData({
+    required this.password,
+    required this.username,
+    this.attributes = const {},
+  });
 
-  ///attributes
   final Map<String, String> attributes;
 
   final String password;
@@ -56,67 +57,77 @@ class AuthConfirmSignUpData {
 
   final String password;
 
-  AuthConfirmSignUpData(
-      {required this.username, required this.code, required this.password});
+  const AuthConfirmSignUpData({
+    required this.username,
+    required this.code,
+    required this.password,
+  });
 }
 
 class AuthSendCodeData {
-  AuthSendCodeData({required this.username});
+  const AuthSendCodeData({
+    required this.username,
+  });
+
   final String username;
 }
 
 class AuthConfirmPasswordData {
-  AuthConfirmPasswordData(
-      {required this.username,
-      required this.newPassword,
-      required this.confirmationCode});
+  const AuthConfirmPasswordData({
+    required this.username,
+    required this.newPassword,
+    required this.confirmationCode,
+  });
+
   final String username;
   final String newPassword;
   final String confirmationCode;
 }
 
 class AuthUpdatePasswordData {
-  AuthUpdatePasswordData(
-      {required this.username, required this.newPassword, this.attributes});
+  const AuthUpdatePasswordData({
+    required this.username,
+    required this.newPassword,
+    this.attributes = const {},
+  });
 
-  Map<String, String>? attributes;
   final String username;
   final String newPassword;
+  final Map<String, String> attributes;
 }
 
 class AuthConfirmSignInData {
-  final String code;
-
-  Map<String, String>? attributes;
-
   AuthConfirmSignInData({
     required this.code,
-    this.attributes,
+    this.attributes = const {},
   });
+
+  final String code;
+  final Map<String, String> attributes;
 }
 
 class AuthSetUnverifiedAttributeKeysData {
-  final List<String> unverifiedAttributeKeys;
-
-  AuthSetUnverifiedAttributeKeysData({
+  const AuthSetUnverifiedAttributeKeysData({
     required this.unverifiedAttributeKeys,
   });
+
+  final List<String> unverifiedAttributeKeys;
 }
 
 class AuthVerifyUserData {
-  final String userAttributeKey;
-
-  AuthVerifyUserData({
+  const AuthVerifyUserData({
     required this.userAttributeKey,
   });
+
+  final String userAttributeKey;
 }
 
 class AuthConfirmVerifyUserData {
-  final String userAttributeKey;
-  final String code;
-
-  AuthConfirmVerifyUserData({
+  const AuthConfirmVerifyUserData({
     required this.userAttributeKey,
     required this.code,
   });
+
+  final String userAttributeKey;
+  final String code;
 }

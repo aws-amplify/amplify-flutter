@@ -27,19 +27,41 @@ class AuthLoading extends AuthState {
   const AuthLoading();
 }
 
+class AuthLoaded extends AuthState {
+  const AuthLoaded(this.config);
+
+  final AmplifyConfig config;
+}
+
 class Authenticated extends AuthState {
   const Authenticated();
 }
 
 class AuthFlow extends AuthState {
-  final AuthScreen screen;
+  const AuthFlow({required this.screen});
 
-  AuthFlow({required this.screen});
+  static const signup = AuthFlow(screen: AuthScreen.signup);
+  static const signin = AuthFlow(screen: AuthScreen.signin);
+  static const confirmSignup = AuthFlow(screen: AuthScreen.confirmSignup);
+  static const confirmSigninMfa = AuthFlow(screen: AuthScreen.confirmSigninMfa);
+  static const confirmSigninNewPassword =
+      AuthFlow(screen: AuthScreen.confirmSigninNewPassword);
+  static const sendCode = AuthFlow(screen: AuthScreen.sendCode);
+  static const resetPassword = AuthFlow(screen: AuthScreen.resetPassword);
+  static const verifyUser = AuthFlow(screen: AuthScreen.verifyUser);
+  static const confirmVerifyUser =
+      AuthFlow(screen: AuthScreen.confirmVerifyUser);
+
+  final AuthScreen screen;
+}
+
+class VerificationCodeSent extends AuthFlow {
+  const VerificationCodeSent(AuthScreen screen) : super(screen: screen);
 }
 
 class VerifyUserFlow extends AuthFlow {
-  List<String> unverifiedAttributeKeys;
+  final List<String> unverifiedAttributeKeys;
 
-  VerifyUserFlow({required this.unverifiedAttributeKeys})
+  const VerifyUserFlow({required this.unverifiedAttributeKeys})
       : super(screen: AuthScreen.verifyUser);
 }

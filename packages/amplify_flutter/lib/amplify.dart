@@ -167,18 +167,9 @@ class AmplifyClass extends PlatformInterface {
           underlyingException: e.toString());
     }
     try {
-      bool? res = await AmplifyClass.instance
+      await AmplifyClass.instance
           ._configurePlatforms(_getVersion(), configuration);
-      _isConfigured = res ?? false;
-
-      if (!_isConfigured) {
-        throw AmplifyException('Amplify failed to configure.',
-            recoverySuggestion:
-                AmplifyExceptionMessages.missingRecoverySuggestion);
-      } else {
-        _config = parseConfigJson(configuration);
-        _configCompleter.complete(_config);
-      }
+      _isConfigured = true;
     } on PlatformException catch (e) {
       if (e.code == 'AnalyticsException') {
         throw AnalyticsException.fromMap(Map<String, String>.from(e.details));
@@ -196,6 +187,11 @@ class AmplifyClass extends PlatformInterface {
       }
     }
     await DataStore.configure(configuration);
+
+    if (_isConfigured && !_configCompleter.isCompleted) {
+      _config = parseConfigJson(configuration);
+      _configCompleter.complete(_config);
+    }
   }
 
   /// Adds the configuration and return true if it was successful.

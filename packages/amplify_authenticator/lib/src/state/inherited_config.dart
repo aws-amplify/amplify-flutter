@@ -13,21 +13,89 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_authenticator/src/enums/alias.dart';
 import 'package:amplify_flutter/src/config/amplify_config.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+@immutable
+class AuthenticatorConfig {
+  const AuthenticatorConfig({
+    required this.amplifyConfig,
+    required this.usernameAlias,
+  });
+
+  final AmplifyConfig amplifyConfig;
+  final Alias usernameAlias;
+
+  @override
+  bool operator ==(Object other) =>
+      other is AuthenticatorConfig &&
+      amplifyConfig == other.amplifyConfig &&
+      usernameAlias == other.usernameAlias;
+
+  @override
+  int get hashCode => hashValues(amplifyConfig, usernameAlias);
+}
+
 class InheritedConfig extends InheritedWidget {
-  // ignore: public_member_api_docs
-  const InheritedConfig({required this.config, required Widget child})
-      : super(child: child);
+  const InheritedConfig({
+    Key? key,
+    required this.config,
+    required this.usernameAlias,
+    required Widget child,
+  }) : super(key: key, child: child);
 
   final AmplifyConfig? config;
+  final Alias usernameAlias;
 
-  // ignore: public_member_api_docs
-  static InheritedConfig? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<InheritedConfig>();
+  static AuthenticatorConfig of(BuildContext context) {
+    final inheritedConfig =
+        context.dependOnInheritedWidgetOfExactType<InheritedConfig>();
+    assert(() {
+      if (inheritedConfig == null || inheritedConfig.config == null) {
+        throw FlutterError.fromParts([
+          ErrorSummary('InheritedConfig widget was not configured correctly.'),
+          ErrorDescription(
+            'Make sure your app is wrapped with an Authenticator widget and '
+            'has called `Amplify.configure`.',
+          ),
+        ]);
+      }
+      return true;
+    }());
+
+    return AuthenticatorConfig(
+      amplifyConfig: inheritedConfig!.config!,
+      usernameAlias: inheritedConfig.usernameAlias,
+    );
   }
 
   @override
-  bool updateShouldNotify(covariant InheritedWidget oldWidget) => true;
+  bool updateShouldNotify(InheritedConfig oldWidget) {
+    var updatedConfig = oldWidget.config != config;
+    if (updatedConfig) {
+      if (oldWidget.config == null) {
+        return true;
+      }
+      throw FlutterError.fromParts([
+        ErrorSummary(
+          'Runtime re-configuration of the Authenticator is not supported.',
+        ),
+        ErrorDescription(
+          'Please restart your app if you have made changes to your configuration.',
+        ),
+      ]);
+    }
+    return false;
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<AmplifyConfig?>('config', config));
+    properties.add(EnumProperty<Alias>('usernameAlias', usernameAlias));
+  }
 }
+
+// ignore_for_file: prefer_asserts_with_message

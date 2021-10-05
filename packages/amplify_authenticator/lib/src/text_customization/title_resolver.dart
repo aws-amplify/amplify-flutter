@@ -12,61 +12,97 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-import 'package:amplify_authenticator/src/text_customization/resolver_typedef.dart';
+
+import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
+import 'package:amplify_authenticator/src/text_customization/resolver.dart';
+import 'package:flutter/material.dart';
 
 /// The resolver class for screen titles
-class TitleResolver {
+abstract class TitleResolver extends Resolver<AuthScreen> {
+  const TitleResolver();
+
   /// The title for the sign in Widget.
-  StringResolver signin = (_) => "Sign in to your account";
+  String signin(BuildContext context);
 
   /// The title for the sign up Widget.
-  StringResolver signup = (_) => "Create your account";
+  String signup(BuildContext context);
 
   /// The title for the confirm sign up Widget.
-  StringResolver confirmSignup = (_) => "Enter your confirmation code";
+  String confirmSignup(BuildContext context);
 
   /// The title for the confirm sign in (MFA) Widget.
-  StringResolver confirmSigninMfa = (_) => "Enter your sign in code";
+  String confirmSigninMfa(BuildContext context);
 
   /// The title for the confirm sign in (new passwrod) Widget.
-  StringResolver confirmSigninNewPassword =
-      (_) => "Change your password to sign in";
+  String confirmSigninNewPassword(BuildContext context);
 
   /// The title for the reset password Widget.
-  StringResolver resetPassword = (_) => "Reset your password";
+  String resetPassword(BuildContext context);
 
   /// The title for the send code Widget.
-  StringResolver sendCode = (_) => "Send Code";
+  String sendCode(BuildContext context);
 
   /// The title for the verify user Widget.
-  StringResolver verifyUser =
-      (_) => "Account recovery requires verified contact information";
+  String verifyUser(BuildContext context);
 
   /// The title for the verify user Widget.
-  StringResolver confirmVerifyUser =
-      (_) => "Account recovery requires verified contact information";
+  String confirmVerifyUser(BuildContext context);
 
-  // ignore: public_member_api_docs
-  TitleResolver({
-    StringResolver? signin,
-    StringResolver? signup,
-    StringResolver? confirmSignup,
-    StringResolver? confirmSigninMfa,
-    StringResolver? confirmSigninNewPassword,
-    StringResolver? resetPassword,
-    StringResolver? sendCode,
-    StringResolver? verifyUser,
-    StringResolver? confirmVerifyUser,
-  }) {
-    this.signin = signin ?? this.signin;
-    this.signup = signup ?? this.signup;
-    this.confirmSignup = confirmSignup ?? this.confirmSignup;
-    this.confirmSigninMfa = confirmSigninMfa ?? this.confirmSigninMfa;
-    this.confirmSigninNewPassword =
-        confirmSigninNewPassword ?? this.confirmSigninNewPassword;
-    this.resetPassword = resetPassword ?? this.resetPassword;
-    this.sendCode = sendCode ?? this.sendCode;
-    this.verifyUser = verifyUser ?? this.verifyUser;
-    this.confirmVerifyUser = confirmVerifyUser ?? this.confirmVerifyUser;
+  @override
+  String resolve(BuildContext context, AuthScreen key) {
+    switch (key) {
+      case AuthScreen.signin:
+        return signin(context);
+      case AuthScreen.signup:
+        return signup(context);
+      case AuthScreen.confirmSignup:
+        return confirmSignup(context);
+      case AuthScreen.confirmSigninMfa:
+        return confirmSigninMfa(context);
+      case AuthScreen.confirmSigninNewPassword:
+        return confirmSigninNewPassword(context);
+      case AuthScreen.resetPassword:
+        return resetPassword(context);
+      case AuthScreen.sendCode:
+        return sendCode(context);
+      case AuthScreen.verifyUser:
+        return verifyUser(context);
+      case AuthScreen.confirmVerifyUser:
+        return confirmVerifyUser(context);
+    }
   }
+}
+
+class DefaultTitleResolver extends TitleResolver {
+  const DefaultTitleResolver();
+
+  @override
+  String signin(BuildContext context) => 'Sign in to your account';
+
+  @override
+  String signup(BuildContext context) => 'Create your account';
+
+  @override
+  String confirmSignup(BuildContext context) => 'Enter your confirmation code';
+
+  @override
+  String confirmSigninMfa(BuildContext context) => 'Enter your sign in code';
+
+  @override
+  String confirmSigninNewPassword(BuildContext context) =>
+      'Change your password to sign in';
+
+  @override
+  String resetPassword(BuildContext context) => 'Reset your password';
+
+  @override
+  String sendCode(BuildContext context) => 'Send Code';
+
+  @override
+  String verifyUser(BuildContext context) =>
+      'Account recovery requires verified contact information';
+
+  @override
+  String confirmVerifyUser(BuildContext context) =>
+      'Account recovery requires verified contact information';
 }

@@ -17,37 +17,52 @@ import 'package:amplify_authenticator/src/text_customization/button_resolver.dar
 import 'package:amplify_authenticator/src/text_customization/input_resolver.dart';
 import 'package:amplify_authenticator/src/text_customization/navigation_resolver.dart';
 import 'package:amplify_authenticator/src/text_customization/title_resolver.dart';
+import 'package:flutter/material.dart';
 
-export 'package:amplify_authenticator/src/text_customization/title_resolver.dart';
-export 'package:amplify_authenticator/src/text_customization/input_resolver.dart';
 export 'package:amplify_authenticator/src/text_customization/button_resolver.dart';
+export 'package:amplify_authenticator/src/text_customization/input_resolver.dart';
 export 'package:amplify_authenticator/src/text_customization/navigation_resolver.dart';
+export 'package:amplify_authenticator/src/text_customization/title_resolver.dart';
 
+/// {@template authenticator.auth_string_resolver}
 /// The class that is accepted by the Authenticator to override strings
 ///
 /// Consists of a set of resolvers, which are functions for returning strings.
 /// This enables users to override default strings, including with localizations.
+/// {@endtemplate}
+@immutable
 class AuthStringResolver {
   /// The resolver class for shared button Widgets
-  ButtonResolver buttons;
+  final ButtonResolver buttons;
 
   /// The resolver class for shared input Widgets
-  InputResolver inputs;
+  final InputResolver inputs;
 
   /// The resolver class for navigation-related Widgets
-  NavigationResolver navigation;
+  final NavigationResolver navigation;
 
   /// The resolver class for titles
-  TitleResolver titles;
+  final TitleResolver titles;
 
-  // ignore: public_member_api_docs
-  AuthStringResolver({
+  /// {@macro authenticator.auth_string_resolver}
+  const AuthStringResolver({
     ButtonResolver? buttons,
     InputResolver? inputs,
     NavigationResolver? navigation,
     TitleResolver? titles,
-  })  : this.titles = titles ?? TitleResolver(),
-        this.buttons = buttons ?? ButtonResolver(),
-        this.inputs = inputs ?? InputResolver(),
-        this.navigation = navigation ?? NavigationResolver();
+  })  : titles = titles ?? const DefaultTitleResolver(),
+        buttons = buttons ?? const DefaultButtonResolver(),
+        inputs = inputs ?? const DefaultInputResolver(),
+        navigation = navigation ?? const DefaultNavigationResolver();
+
+  @override
+  bool operator ==(Object other) =>
+      other is AuthStringResolver &&
+      buttons == other.buttons &&
+      inputs == other.inputs &&
+      navigation == other.navigation &&
+      titles == other.titles;
+
+  @override
+  int get hashCode => hashValues(buttons, inputs, navigation, titles);
 }

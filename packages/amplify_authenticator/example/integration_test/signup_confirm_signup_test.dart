@@ -12,19 +12,18 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
+
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
-import 'package:amplify_authenticator/src/models/authenticator_exceptions.dart';
-
-import 'finders/signup_finder.dart';
-import 'finders/widgets_finder.dart';
-import 'finders/confirm_signup_finder.dart';
-
+import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
+import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
+import 'package:amplify_authenticator_example/main.dart' as app;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
+import 'finders/confirm_signup_finder.dart';
+import 'finders/signup_finder.dart';
+import 'finders/widgets_finder.dart';
 import 'utils/mock_data.dart';
-import 'package:amplify_authenticator_example/main.dart' as app;
 
 //This tests asumes a default amplify configuration where
 //username is neither a email or phone number but username.
@@ -33,17 +32,12 @@ void main() {
     IntegrationTestWidgetsFlutterBinding.ensureInitialized();
     setUpAll(() async {});
 
-    testWidgets("Creates an account", (WidgetTester tester) async {
+    testWidgets('Creates an account', (WidgetTester tester) async {
       app.main();
       await tester.pumpAndSettle();
 
-      late InheritedAuthBloc authBloc;
-      try {
-        authBloc = await tester.widget(inheritedAuthBlocFinder);
-      } catch (e) {
-        fail('Error finding auth bloc: $e');
-      }
-      final subscription = await authBloc.authBloc.stream;
+      final InheritedAuthBloc authBloc = tester.widget(inheritedAuthBlocFinder);
+      final subscription = authBloc.authBloc.stream;
 
       //Going to sign up screen
       await Future<void>.delayed(const Duration(seconds: 2));
@@ -92,18 +86,13 @@ void main() {
       await tester.pumpAndSettle();
     });
 
-    testWidgets("Creates an account with an existent username",
+    testWidgets('Creates an account with an existent username',
         (WidgetTester tester) async {
       app.main();
       await tester.pumpAndSettle();
 
-      late InheritedAuthBloc authBloc;
-      try {
-        authBloc = await tester.widget(inheritedAuthBlocFinder);
-      } catch (e) {
-        fail('Error finding auth bloc: $e');
-      }
-      final subscriptionStream = await authBloc.authBloc.stream;
+      final InheritedAuthBloc authBloc = tester.widget(inheritedAuthBlocFinder);
+      final subscriptionStream = authBloc.authBloc.stream;
 
       //Going to sign up screen
       await Future<void>.delayed(const Duration(seconds: 2));
@@ -128,7 +117,7 @@ void main() {
 
       await tester.tap(signUpButtonFinder);
 
-      final subscriptionException = await authBloc.authBloc.exceptions;
+      final subscriptionException = authBloc.authBloc.exceptions;
       final authenticatorException = await subscriptionException.first;
       expect(authenticatorException, isA<AuthenticatorException>());
 

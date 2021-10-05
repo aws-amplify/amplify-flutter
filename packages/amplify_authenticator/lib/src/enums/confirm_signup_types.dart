@@ -13,11 +13,4 @@
  * permissions and limitations under the License.
  */
 
-import 'package:collection/collection.dart';
-
-enum ConfirmSignUpType { username, password, email, phone_number, code }
-
-ConfirmSignUpType? fromStringToConfirmSignUpType(String str) {
-  return ConfirmSignUpType.values
-      .firstWhereOrNull((value) => value.toString().split('.')[1] == str);
-}
+enum ConfirmSignUpField { username, password, email, phoneNumber, code }

@@ -13,29 +13,42 @@
  * permissions and limitations under the License.
  */
 
-enum ConfirmSignInType {
+import 'package:flutter/foundation.dart';
+
+enum ConfirmSignInField {
   code,
   password,
   address,
   birthdate,
   email,
-  family_name,
+  familyName,
   gender,
-  given_name,
+  givenName,
   locale,
-  middle_name,
+  middleName,
   name,
   nickname,
-  phone_number,
+  phoneNumber,
   picture,
   preferredUsername,
   profile,
   zoneinfo,
-  updated_at,
-  website
+  updatedAt,
+  website,
+  custom,
 }
 
-ConfirmSignInType fromStringToConfirmSignInType(String str) {
-  return ConfirmSignInType.values
-      .firstWhere((value) => value.toString().split('.')[1] == str);
+extension ConfirmSignInFieldX on ConfirmSignInField {
+  String toCognitoAttribute() {
+    switch (this) {
+      case ConfirmSignInField.code:
+      case ConfirmSignInField.password:
+      case ConfirmSignInField.custom:
+        throw StateError('Can only be called on attribute types');
+      default:
+        return describeEnum(this).replaceAllMapped(RegExp(r'[A-Z]'), (match) {
+          return '_${match.group(0)!.toLowerCase()}';
+        });
+    }
+  }
 }

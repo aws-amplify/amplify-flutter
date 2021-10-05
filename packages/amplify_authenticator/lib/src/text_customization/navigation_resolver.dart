@@ -13,53 +13,95 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_authenticator/src/text_customization/resolver_typedef.dart';
+import 'package:amplify_authenticator/src/text_customization/resolver.dart';
+import 'package:flutter/material.dart';
+
+enum NavigationResolverKey {
+  navigateSignup,
+  navigateSignin,
+  noAccountQuestion,
+  haveAccountQuestion,
+  forgotPasswordQuestion,
+  navigateResetPassword,
+  backToSignin,
+  skipVerifyUser,
+}
 
 /// The resolver class for shared button Widgets
-class NavigationResolver {
+abstract class NavigationResolver extends Resolver<NavigationResolverKey> {
+  const NavigationResolver();
+
   /// Text for navigating to the signup Widget
-  StringResolver navigateSignup = (_) => 'Sign Up';
+  String navigateSignup(BuildContext context);
 
   /// Text for navigating to the signin Widget
-  StringResolver navigateSignin = (_) => 'Sign In';
+  String navigateSignin(BuildContext context);
 
   /// Text asking if user does not have an account
-  StringResolver noAccountQuestion = (_) => 'No account?';
+  String noAccountQuestion(BuildContext context);
 
   /// Text asking if user has have an account
-  StringResolver haveAccountQuestion = (_) => 'Have an account?';
+  String haveAccountQuestion(BuildContext context);
 
   /// Text asking if user has forgotten password
-  StringResolver forgotPasswordQuestion = (_) => 'Forgot password?';
+  String forgotPasswordQuestion(BuildContext context);
 
   /// Text for navigating to reset password Widget
-  StringResolver navigateResetPassword = (_) => 'Reset Password';
+  String navigateResetPassword(BuildContext context);
 
   /// Text asking if user has have an account
-  StringResolver backToSignin = (_) => 'Back to Sign In';
+  String backToSignin(BuildContext context);
 
   /// Text asking if user has have an account
-  StringResolver skipVerifyUser = (_) => 'Skip';
+  String skipVerifyUser(BuildContext context);
 
-  // ignore: public_member_api_docs
-  NavigationResolver({
-    StringResolver? navigateSignin,
-    StringResolver? navigateSignup,
-    StringResolver? navigateResetPassword,
-    StringResolver? noAccountQuestion,
-    StringResolver? haveAccountQuestion,
-    StringResolver? forgotPasswordQuestion,
-    StringResolver? backToSignin,
-    StringResolver? skipVerifyUser,
-  }) {
-    this.navigateSignin = navigateSignin ?? this.navigateSignin;
-    this.navigateSignup = navigateSignup ?? this.navigateSignup;
-    this.navigateResetPassword =
-        navigateResetPassword ?? this.navigateResetPassword;
-    this.noAccountQuestion = noAccountQuestion ?? this.noAccountQuestion;
-    this.haveAccountQuestion = haveAccountQuestion ?? this.haveAccountQuestion;
-    this.forgotPasswordQuestion =
-        forgotPasswordQuestion ?? this.forgotPasswordQuestion;
-    this.backToSignin = backToSignin ?? this.backToSignin;
+  @override
+  String resolve(BuildContext context, NavigationResolverKey key) {
+    switch (key) {
+      case NavigationResolverKey.navigateSignup:
+        return navigateSignup(context);
+      case NavigationResolverKey.navigateSignin:
+        return navigateSignin(context);
+      case NavigationResolverKey.noAccountQuestion:
+        return noAccountQuestion(context);
+      case NavigationResolverKey.haveAccountQuestion:
+        return haveAccountQuestion(context);
+      case NavigationResolverKey.forgotPasswordQuestion:
+        return forgotPasswordQuestion(context);
+      case NavigationResolverKey.navigateResetPassword:
+        return navigateResetPassword(context);
+      case NavigationResolverKey.backToSignin:
+        return backToSignin(context);
+      case NavigationResolverKey.skipVerifyUser:
+        return skipVerifyUser(context);
+    }
   }
+}
+
+class DefaultNavigationResolver extends NavigationResolver {
+  const DefaultNavigationResolver();
+
+  @override
+  String navigateSignup(BuildContext context) => 'Sign Up';
+
+  @override
+  String navigateSignin(BuildContext context) => 'Sign In';
+
+  @override
+  String noAccountQuestion(BuildContext context) => 'No account?';
+
+  @override
+  String haveAccountQuestion(BuildContext context) => 'Have an account?';
+
+  @override
+  String forgotPasswordQuestion(BuildContext context) => 'Forgot password?';
+
+  @override
+  String navigateResetPassword(BuildContext context) => 'Reset Password';
+
+  @override
+  String backToSignin(BuildContext context) => 'Back to Sign In';
+
+  @override
+  String skipVerifyUser(BuildContext context) => 'Skip';
 }

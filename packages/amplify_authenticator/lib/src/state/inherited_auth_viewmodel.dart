@@ -13,44 +13,44 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:amplify_authenticator/src/views/confirm_signup_viewmodel.dart';
-import 'package:amplify_authenticator/src/views/confirm_signin_viewmodel.dart';
-import 'package:amplify_authenticator/src/views/confirm_verify_user_view_model.dart';
-import 'package:amplify_authenticator/src/views/signin_viewmodel.dart';
-import 'package:amplify_authenticator/src/views/signup_viewmodel.dart';
-import 'package:amplify_authenticator/src/views/verify_user_view_model.dart';
 
-class InheritedAuthViewModel extends InheritedWidget {
-  // ignore: public_member_api_docs
-  const InheritedAuthViewModel(
-      {Key? key,
-      required this.signInViewModel,
-      required this.signUpViewModel,
-      required this.confirmSignUpViewModel,
-      required this.confirmSignInViewModel,
-      required this.verifyUserViewModel,
-      required this.confirmVerifyUserViewModel,
-      required Widget child})
-      : super(key: key, child: child);
+class InheritedAuthViewModel extends InheritedNotifier {
+  const InheritedAuthViewModel({
+    Key? key,
+    required Widget child,
+    required this.viewModel,
+  }) : super(
+          key: key,
+          child: child,
+          notifier: viewModel,
+        );
 
-  final SignInViewModel signInViewModel;
+  final AuthViewModel viewModel;
 
-  final SignUpViewModel signUpViewModel;
-
-  final ConfirmSignUpViewModel confirmSignUpViewModel;
-
-  final ConfirmSignInViewModel confirmSignInViewModel;
-
-  final VerifyUserViewModel verifyUserViewModel;
-
-  final ConfirmVerifyUserViewModel confirmVerifyUserViewModel;
-
-  // ignore: public_member_api_docs
-  static InheritedAuthViewModel? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<InheritedAuthViewModel>();
+  static AuthViewModel of(BuildContext context) {
+    final inheritedViewModel =
+        context.dependOnInheritedWidgetOfExactType<InheritedAuthViewModel>();
+    assert(() {
+      if (inheritedViewModel == null) {
+        throw FlutterError.fromParts([
+          ErrorSummary('No InheritedAuthViewModel widget found.'),
+          ErrorDescription(
+              'Make sure your app is wrapped with an Authenticator widget.')
+        ]);
+      }
+      return true;
+    }());
+    return inheritedViewModel!.viewModel;
   }
 
   @override
-  bool updateShouldNotify(covariant InheritedWidget oldWidget) => true;
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<AuthViewModel>('viewModel', viewModel));
+  }
 }
+
+// ignore_for_file: prefer_asserts_with_message

@@ -24,7 +24,7 @@ class AuthLoad extends AuthEvent {
 }
 
 class GetCurrentUser extends AuthEvent {
-  GetCurrentUser();
+  const GetCurrentUser();
 }
 
 class AuthChangeScreen extends AuthEvent {
@@ -103,4 +103,10 @@ class AuthConfirmVerifyUser extends AuthEvent {
   final AuthConfirmVerifyUserData data;
 
   const AuthConfirmVerifyUser(this.data);
+}
+
+class AuthResendSignUpCode extends AuthEvent {
+  const AuthResendSignUpCode(this.username);
+
+  final String username;
 }

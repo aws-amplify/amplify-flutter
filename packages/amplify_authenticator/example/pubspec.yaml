@@ -21,31 +21,35 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
+  amplify_auth_cognito: ^0.2.0
+  amplify_authenticator:
+    path: ../
+  amplify_flutter: ^0.2.0
+
   flutter:
     sdk: flutter
 
-  # Uncomment this block to use localizations
-  # flutter_localizations:
-  #   sdk: flutter
-  amplify_auth_cognito: ^0.2.0
-  amplify_flutter: ^0.2.0
-  amplify_authenticator:
-    path: ../
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
+  # This line enables using custom localizations.
+  #
+  # See https://flutter.dev/docs/development/accessibility-and-localization/internationalization
+  # for more information.
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
+  amplify_lints: ^1.0.0
+  flutter_driver:
+    sdk: flutter
   flutter_test:
     sdk: flutter
   integration_test:
     sdk: flutter
-  flutter_driver:
-    sdk: flutter
 
-# The following section is specific to Flutter.
 flutter:
   uses-material-design: true
-  # Uncomment this line to use localizations
-  # generate: true
+
+  # This line enables localizations generation.
+  #
+  # See https://flutter.dev/docs/development/accessibility-and-localization/internationalization
+  # for more information.
+  generate: true
