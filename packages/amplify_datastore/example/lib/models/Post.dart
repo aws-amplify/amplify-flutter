@@ -182,10 +182,7 @@ class Post extends Model {
   Post.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _title = json['title'],
-        // TODO: remove - this is a temp workaround for an issue with int stored as double
-        _rating = json['rating'] is int
-            ? json['rating']
-            : (json['rating'] as double).toInt(),
+        _rating = json['rating'],
         _created = json['created'] != null
             ? TemporalDateTime.fromString(json['created'])
             : null,
