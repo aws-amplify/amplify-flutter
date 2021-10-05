@@ -31,6 +31,6 @@ class ObserveQueryThrottleOptions {
   /// QuerySnapshot be emitted for every single item that
   /// is synced to the device that matches the query predicate
   const ObserveQueryThrottleOptions.none()
-      : this.maxCount = null,
+      : this.maxCount = 1,
         this.maxDuration = null;
 }

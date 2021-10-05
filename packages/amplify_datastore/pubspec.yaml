@@ -19,6 +19,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  fake_async: ^1.2.0
 
 # The following section is specific to Flutter.
 flutter:

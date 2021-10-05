@@ -1,0 +1,135 @@
+/*
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
+import 'package:flutter_test/flutter_test.dart';
+import 'package:fake_async/fake_async.dart';
+
+import '../../lib/stream_utils/throttle.dart';
+
+void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  group('throttleByCountAndTime', () {
+    test('should throttle by count if only count is provided', () {
+      var stream = Stream.fromIterable(
+        List.generate(10, (index) => index),
+      );
+
+      var throttledStream = stream.throttleByCountAndTime(
+        throttleCount: 2,
+      );
+
+      expect(throttledStream, emitsInOrder([0, 2, 4, 6, 8]));
+    });
+
+    test('should not throttle if count is 1', () {
+      var stream = Stream.fromIterable(
+        List.generate(5, (index) => index),
+      );
+
+      var throttledStream = stream.throttleByCountAndTime(
+        throttleCount: 1,
+      );
+
+      expect(throttledStream, emitsInOrder([0, 1, 2, 3, 4]));
+    });
+
+    test('should throttle by duration if only a duration is provided', () {
+      fakeAsync((async) {
+        var stream = Stream.periodic(
+          Duration(milliseconds: 10),
+          (int value) => value,
+        ).take(10);
+
+        var throttledStream = stream.throttleByCountAndTime(
+          duration: Duration(milliseconds: 20),
+        );
+
+        expect(throttledStream, emitsInOrder([0, 2, 4, 6, 8]));
+        async.elapse(Duration(milliseconds: 100));
+      });
+    });
+
+    test(
+        'should emit each event from source if time between events exceeds duration',
+        () {
+      fakeAsync((async) {
+        var stream = Stream.periodic(
+          Duration(milliseconds: 10),
+          (int value) => value,
+        ).take(5);
+
+        var throttledStream = stream.throttleByCountAndTime(
+          duration: Duration(milliseconds: 5),
+        );
+
+        expect(throttledStream, emitsInOrder([0, 1, 2, 3, 4]));
+        async.elapse(Duration(milliseconds: 50));
+      });
+    });
+
+    test('should throttle by duration if duration is reached before count', () {
+      fakeAsync((async) {
+        var stream = Stream.periodic(
+          Duration(milliseconds: 10),
+          (int value) => value,
+        ).take(10);
+
+        var throttledStream = stream.throttleByCountAndTime(
+          throttleCount: 1000,
+          duration: Duration(milliseconds: 20),
+        );
+
+        expect(throttledStream, emitsInOrder([0, 2, 4, 6, 8]));
+        async.elapse(Duration(milliseconds: 100));
+      });
+    });
+
+    test('should throttle by count if count is reached before duration', () {
+      fakeAsync((async) {
+        var stream = Stream.periodic(
+          Duration(milliseconds: 1),
+          (int value) => value,
+        ).take(1000);
+
+        var throttledStream = stream.throttleByCountAndTime(
+          throttleCount: 10,
+          duration: Duration(seconds: 10),
+        );
+
+        expect(throttledStream, emitsInOrder([0, 10, 20, 30, 40, 50]));
+        async.elapse(Duration(seconds: 10));
+      });
+    });
+
+    test('should stop throttling once the condition is met', () {
+      fakeAsync((async) {
+        var stream = Stream.periodic(
+          Duration(milliseconds: 1),
+          (int value) => value,
+        ).take(1000);
+
+        var throttledStream = stream.throttleByCountAndTime(
+          throttleCount: 10,
+          duration: Duration(seconds: 10),
+          until: (int value) => value >= 30,
+        );
+
+        expect(throttledStream, emitsInOrder([0, 10, 20, 30, 31, 32, 33, 34]));
+        async.elapse(Duration(seconds: 10));
+      });
+    });
+  });
+}

@@ -23,16 +23,24 @@ extension Throttle<T> on Stream<T> {
   ///
   /// If [until] is supplied, the throttling stops once the condition is met
   Stream<T> throttleByCountAndTime({
-    required int throttleCount,
+    int? throttleCount,
     Duration? duration,
     bool Function(T value)? until,
   }) {
-    assert(throttleCount >= 1, 'throttleCount cannot be less than 1');
+    assert(
+      throttleCount != null || duration != null,
+      'throttleCount and duration cannot both be null',
+    );
+    if (throttleCount != null) {
+      assert(
+        throttleCount >= 1,
+        'throttleCount cannot be less than 1',
+      );
+    }
 
     // number of items that have emitted from the source stream since
     // the last event was emitted
-    // starts at throttleCount - 1 to allow the first event to emit immediately
-    int _count = throttleCount - 1;
+    int _count = 0;
 
     // indicates if the condition to stop throttling has been reached
     bool _untilConditionHasBeenMet = false;
@@ -46,10 +54,12 @@ extension Throttle<T> on Stream<T> {
     // timer for throttling by time
     Timer? _timer;
 
+    bool _hasEmitted = false;
+
     bool timerHasExpired() => _timer != null && !_timer!.isActive;
 
     bool throttleCountReached() =>
-        throttleCount == 1 || _count == throttleCount - 1;
+        throttleCount != null && _count == throttleCount - 1;
 
     void resetTimer(void Function() callback) {
       if (duration == null) return;
@@ -60,6 +70,8 @@ extension Throttle<T> on Stream<T> {
     }
 
     void emitData(T data, Sink sink) {
+      _hasEmitted = true;
+
       // clear cached data & sink
       _data = null;
       _sink = null;
@@ -89,7 +101,8 @@ extension Throttle<T> on Stream<T> {
       if (until != null && !_untilConditionHasBeenMet) {
         _untilConditionHasBeenMet = until(data);
       }
-      return _untilConditionHasBeenMet ||
+      return !_hasEmitted ||
+          _untilConditionHasBeenMet ||
           timerHasExpired() ||
           throttleCountReached();
     }

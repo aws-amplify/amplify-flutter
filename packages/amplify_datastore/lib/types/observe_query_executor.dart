@@ -152,7 +152,7 @@ class ObserveQueryExecutor {
       observeStream,
       syncStatusStream,
     ]).throttleByCountAndTime(
-      throttleCount: throttleOptions.maxCount ?? 1,
+      throttleCount: throttleOptions.maxCount,
       duration: throttleOptions.maxDuration,
       until: (event) => event.isSynced,
     );
