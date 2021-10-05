@@ -35,11 +35,28 @@ class QuerySortBy {
   const QuerySortBy({required this.order, required this.field});
 
   int compare<T extends Model>(T a, T b) {
-    // TODO: Handle non comparable fields
-    Comparable valueA = a.toJson()[field] as Comparable;
-    Comparable valueB = b.toJson()[field] as Comparable;
+    var valueA = a.toJson()[field];
+    var valueB = b.toJson()[field];
     int orderMultiplier = order == QuerySortOrder.ascending ? 1 : -1;
-    return orderMultiplier * valueA.compareTo(valueB);
+    if (valueA == null || valueB == null) {
+      return orderMultiplier * _compareNull(valueA, valueB);
+    } else if (valueA is bool && valueB is bool) {
+      return orderMultiplier * _compareBool(valueA, valueB);
+    } else if (valueA is Comparable && valueB is Comparable) {
+      return orderMultiplier * valueA.compareTo(valueB);
+    }
+    throw DataStoreException(
+        'A non-comparable field was used as a QuerySortBy');
+  }
+
+  int _compareBool(bool a, bool b) {
+    if (a == b) return 0;
+    return a ? 1 : -1;
+  }
+
+  int _compareNull(Object? a, Object? b) {
+    if (a == b) return 0;
+    return a != null ? 1 : -1;
   }
 
   Map<String, dynamic> serializeAsMap() {
