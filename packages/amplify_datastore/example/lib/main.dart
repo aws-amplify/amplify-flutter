@@ -21,7 +21,7 @@ import 'dart:async';
 import 'package:amplify_datastore/amplify_datastore.dart';
 
 // Uncomment the below line to enable online sync
-import 'package:amplify_api/amplify_api.dart';
+// import 'package:amplify_api/amplify_api.dart';
 
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/rendering.dart';
@@ -98,11 +98,11 @@ class _MyAppState extends State<MyApp> {
       // Configure
 
       // Uncomment the below lines to enable online sync.
-      await Amplify.addPlugin(AmplifyAPI());
-      await Amplify.configure(amplifyconfig);
+      // await Amplify.addPlugin(AmplifyAPI());
+      // await Amplify.configure(amplifyconfig);
 
       // Remove this line when using the lines above for online sync
-      // await Amplify.configure("{}");
+      await Amplify.configure("{}");
     } on AmplifyAlreadyConfiguredException {
       print(
           'Amplify was already configured. Looks like app restarted on android.');
@@ -119,20 +119,6 @@ class _MyAppState extends State<MyApp> {
       var now = DateTime.now().toIso8601String();
       print(
           '[Observe Query] Blog snapshot received with $count models at $now');
-    });
-
-    Amplify.DataStore.observeQuery(
-      Post.classType,
-      where: Post.TITLE.beginsWith('post') & (Post.RATING > 1),
-      sortBy: [
-        Post.TITLE.ascending(),
-        Post.RATING.descending(),
-      ],
-    ).listen((snapshot) {
-      var count = snapshot.items.length;
-      var now = DateTime.now().toIso8601String();
-      print(
-          '[Observe Query] Post snapshot received with $count models at $now');
     });
 
     // setup streams
