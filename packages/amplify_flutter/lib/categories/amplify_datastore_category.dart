@@ -130,8 +130,8 @@ class DataStoreCategory {
     ModelType<T> modelType, {
     QueryPredicate? where,
     List<QuerySortBy>? sortBy,
-    ObserveQueryThrottleOptions? throttleOptions =
-        const ObserveQueryThrottleOptions(),
+    ObserveQueryThrottleOptions throttleOptions =
+        const ObserveQueryThrottleOptions.defaults(),
   }) {
     return plugins.length == 1
         ? plugins[0].observeQuery(

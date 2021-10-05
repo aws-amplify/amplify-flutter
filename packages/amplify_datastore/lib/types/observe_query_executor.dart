@@ -56,8 +56,8 @@ class ObserveQueryExecutor {
     required ModelType<T> modelType,
     QueryPredicate? where,
     List<QuerySortBy>? sortBy,
-    ObserveQueryThrottleOptions? throttleOptions =
-        const ObserveQueryThrottleOptions(),
+    ObserveQueryThrottleOptions throttleOptions =
+        const ObserveQueryThrottleOptions.defaults(),
   }) {
     // cached QuerySnapshot
     late QuerySnapshot<T> querySnapshot;
@@ -152,9 +152,8 @@ class ObserveQueryExecutor {
       observeStream,
       syncStatusStream,
     ]).throttleByCountAndTime(
-      // TODO: handle null count/duration
-      count: throttleOptions!.maxCount!,
-      duration: throttleOptions.maxDuration!,
+      throttleCount: throttleOptions.maxCount ?? 1,
+      duration: throttleOptions.maxDuration,
       until: (event) => event.isSynced,
     );
   }

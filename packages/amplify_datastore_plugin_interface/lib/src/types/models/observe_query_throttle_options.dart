@@ -18,8 +18,19 @@ class ObserveQueryThrottleOptions {
   final Duration? maxDuration;
 
   /// {@macro observe_query_throttle_options}
-  const ObserveQueryThrottleOptions({
-    this.maxCount = 1000,
-    this.maxDuration = const Duration(seconds: 2),
-  });
+  const ObserveQueryThrottleOptions({this.maxCount, this.maxDuration});
+
+  /// default throttle options
+  const ObserveQueryThrottleOptions.defaults()
+      : this.maxCount = 1000,
+        this.maxDuration = const Duration(seconds: 2);
+
+  /// removes all throttling options
+  ///
+  /// Note: during cloud sync, this will result in a new
+  /// QuerySnapshot be emitted for every single item that
+  /// is synced to the device that matches the query predicate
+  const ObserveQueryThrottleOptions.none()
+      : this.maxCount = null,
+        this.maxDuration = null;
 }

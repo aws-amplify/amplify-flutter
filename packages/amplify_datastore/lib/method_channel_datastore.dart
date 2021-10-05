@@ -32,6 +32,8 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         AmplifyDataStore.streamWrapper.datastoreStreamController.stream,
   );
 
+  List<Map<dynamic, dynamic>>? serializedResults;
+
   /// Internal use constructor
   AmplifyDataStoreMethodChannel() : super.tokenOnly();
 
@@ -103,21 +105,46 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
       QueryPagination? pagination,
       List<QuerySortBy>? sortBy}) async {
     try {
-      final List<Map<dynamic, dynamic>>? serializedResults =
-          await (_channel.invokeListMethod('query', <String, dynamic>{
-        'modelName': modelType.modelName(),
-        'queryPredicate': where?.serializeAsMap(),
-        'queryPagination': pagination?.serializeAsMap(),
-        'querySort': sortBy?.map((element) => element.serializeAsMap()).toList()
-      }));
+      if (serializedResults == null) {
+        serializedResults =
+            await (_channel.invokeListMethod('query', <String, dynamic>{
+          'modelName': modelType.modelName(),
+          'queryPredicate': where?.serializeAsMap(),
+          'queryPagination': pagination?.serializeAsMap(),
+          'querySort':
+              sortBy?.map((element) => element.serializeAsMap()).toList()
+        }));
+      }
       if (serializedResults == null)
         throw AmplifyException(
             AmplifyExceptionMessages.nullReturnedFromMethodChannel);
-      return serializedResults
+      return serializedResults!
           .map((serializedResult) => modelType.fromJson(
               new Map<String, dynamic>.from(
                   serializedResult["serializedData"])))
           .toList();
+      // var start = DateTime.now();
+      // var result = serializedResults!
+      //     .map((serializedResult) => modelType.fromJson(
+      //         new Map<String, dynamic>.from(
+      //             serializedResult["serializedData"])))
+      //     .toList();
+      // result = serializedResults!
+      //     .map((serializedResult) => modelType.fromJson(
+      //         new Map<String, dynamic>.from(
+      //             serializedResult["serializedData"])))
+      //     .toList();
+      // result = serializedResults!
+      //     .map((serializedResult) => modelType.fromJson(
+      //         new Map<String, dynamic>.from(
+      //             serializedResult["serializedData"])))
+      //     .toList();
+      // result.forEach((element) {});
+      // var end = DateTime.now();
+      // var ms = end.difference(start).inMicroseconds / 1000;
+      // var count = result.length;
+      // print('[Perf Monitoring] Time to deserialize $count models: $ms ms');
+      // return result;
     } on PlatformException catch (e) {
       throw _deserializeException(e);
     } on TypeError catch (e) {
@@ -185,8 +212,8 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
     ModelType<T> modelType, {
     QueryPredicate? where,
     List<QuerySortBy>? sortBy,
-    ObserveQueryThrottleOptions? throttleOptions =
-        const ObserveQueryThrottleOptions(),
+    ObserveQueryThrottleOptions throttleOptions =
+        const ObserveQueryThrottleOptions.defaults(),
   }) {
     return _observeQueryExecutor.observeQuery<T>(
       query: query,

@@ -18,19 +18,21 @@ import 'dart:async';
 /// Throttle related stream extensions
 extension Throttle<T> on Stream<T> {
   /// Emits the first event from the source, and then
-  /// emits one event every time the [count] is reached
+  /// emits one event every time the [throttleCount] is reached
   /// or the [duration] since the last event has been reached
   ///
   /// If [until] is supplied, the throttling stops once the condition is met
   Stream<T> throttleByCountAndTime({
-    required int count,
-    required Duration duration,
+    required int throttleCount,
+    Duration? duration,
     bool Function(T value)? until,
   }) {
+    assert(throttleCount >= 1, 'throttleCount cannot be less than 1');
+
     // number of items that have emitted from the source stream since
     // the last event was emitted
-    // starts at count to allow the first event to emit immediately
-    int _count = count - 1;
+    // starts at throttleCount - 1 to allow the first event to emit immediately
+    int _count = throttleCount - 1;
 
     // indicates if the condition to stop throttling has been reached
     bool _untilConditionHasBeenMet = false;
@@ -46,7 +48,11 @@ extension Throttle<T> on Stream<T> {
 
     bool timerHasExpired() => _timer != null && !_timer!.isActive;
 
+    bool throttleCountReached() =>
+        throttleCount == 1 || _count == throttleCount - 1;
+
     void resetTimer(void Function() callback) {
+      if (duration == null) return;
       _timer?.cancel();
       _timer = Timer(duration, () {
         callback();
@@ -80,12 +86,12 @@ extension Throttle<T> on Stream<T> {
     }
 
     bool shouldEmitData(T data) {
-      if (!_untilConditionHasBeenMet && until != null) {
+      if (until != null && !_untilConditionHasBeenMet) {
         _untilConditionHasBeenMet = until(data);
       }
       return _untilConditionHasBeenMet ||
           timerHasExpired() ||
-          _count == count - 1;
+          throttleCountReached();
     }
 
     return this.transform(
