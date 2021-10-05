@@ -127,7 +127,6 @@ class ObserveQueryExecutor {
       // cache the intitial QuerySnapshot
       querySnapshot = QuerySnapshot(
         items: value,
-        events: [],
         isSynced: isSynced,
         where: where,
         sortBy: sortBy,
