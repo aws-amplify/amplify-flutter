@@ -13,98 +13,97 @@
  * permissions and limitations under the License.
  */
 
+import 'package:flutter/foundation.dart';
+
 //  Sign in form fields keys
 
-const String keyUsernameSignInFormField = 'usernameSignInFormField';
-const String keyEmailSignInFormField = 'emailSignInFormField';
-const String keyPhoneNumberSignInFormField = 'phoneNumberSignInFormField';
-const String keyPasswordSignInFormField = 'passwordSignInFormField';
-const String keyVerificationCodeSignInFormField =
-    'verificationCodeSignInFormField';
-const String keyNewPasswordSignInFormField = 'newPasswordSignInFormField';
-const String keyNewUsernameSignInFormField = 'newUsernameSignInFormField';
+const keyUsernameSignInFormField = Key('usernameSignInFormField');
+const keyEmailSignInFormField = Key('emailSignInFormField');
+const keyPhoneNumberSignInFormField = Key('phoneNumberSignInFormField');
+const keyPasswordSignInFormField = Key('passwordSignInFormField');
+const keyVerificationCodeSignInFormField =
+    Key('verificationCodeSignInFormField');
+const keyNewPasswordSignInFormField = Key('newPasswordSignInFormField');
+const keyNewUsernameSignInFormField = Key('newUsernameSignInFormField');
+
 // Sign up form fields keys
 
-const String keyUsernameSignUpFormField = 'usernameSignUpFormField';
-const String keyPasswordSignUpFormField = 'passwordSignUpFormField';
-const String keyPasswordConfirmationSignUpFormField =
-    'keyPasswordConfirmationSignUpFormField';
-const String keyAddressSignUpFormField = 'addresslSignUpFormField';
-const String keyBirthdateSignUpFormField = 'birthdateSignUpFormField';
-const String keyEmailSignUpFormField = 'emailSignUpFormField';
-const String keyFamilyNameSignUpFormField = 'familyNameSignUpFormField';
-const String keyGenderSignUpFormField = 'genderSignUpFormField';
-const String keyGivenNameSignUpFormField = 'givenNameSignUpFormField';
-const String keyLocaleSignUpFormField = 'localeSignUpFormField';
-const String keyMiddleNameSignUpFormField = 'middleNameSignUpFormField';
-const String keyNameSignUpFormField = 'nameSignUpFormField';
-const String keyNicknameSignUpFormField = 'nicknameSignUpFormField';
-const String keyPhoneNumberSignUpFormField = 'phoneNumberSignUpFormField';
-const String keyPictureSignUpFormField = 'pictureSignUpFormField';
-const String keyPreferredUsernameSignUpFormField =
-    'preferredUsernameSignUpFormField';
-const String keyProfileSignUpFormField = 'profileSignUpFormField';
-const String keyZoneinfoSignUpFormField = 'zoneinfoSignUpFormField';
-const String keyUpdatedAtSignUpFormField = 'updatedAtSignUpFormField';
-const String keyWebsiteSignUpFormField = 'websiteSignUpFormField';
-const String keyCustomSignUpFormField = 'customSignUpFormField';
+const keyUsernameSignUpFormField = Key('usernameSignUpFormField');
+const keyPasswordSignUpFormField = Key('passwordSignUpFormField');
+const keyPasswordConfirmationSignUpFormField =
+    Key('keyPasswordConfirmationSignUpFormField');
+const keyAddressSignUpFormField = Key('addresslSignUpFormField');
+const keyBirthdateSignUpFormField = Key('birthdateSignUpFormField');
+const keyEmailSignUpFormField = Key('emailSignUpFormField');
+const keyFamilyNameSignUpFormField = Key('familyNameSignUpFormField');
+const keyGenderSignUpFormField = Key('genderSignUpFormField');
+const keyGivenNameSignUpFormField = Key('givenNameSignUpFormField');
+const keyLocaleSignUpFormField = Key('localeSignUpFormField');
+const keyMiddleNameSignUpFormField = Key('middleNameSignUpFormField');
+const keyNameSignUpFormField = Key('nameSignUpFormField');
+const keyNicknameSignUpFormField = Key('nicknameSignUpFormField');
+const keyPhoneNumberSignUpFormField = Key('phoneNumberSignUpFormField');
+const keyPictureSignUpFormField = Key('pictureSignUpFormField');
+const keyPreferredUsernameSignUpFormField =
+    Key('preferredUsernameSignUpFormField');
+const keyProfileSignUpFormField = Key('profileSignUpFormField');
+const keyZoneinfoSignUpFormField = Key('zoneinfoSignUpFormField');
+const keyUpdatedAtSignUpFormField = Key('updatedAtSignUpFormField');
+const keyWebsiteSignUpFormField = Key('websiteSignUpFormField');
+const keyCustomSignUpFormField = Key('customSignUpFormField');
 
 // Confirm sign up form fields keys
 
-const String keyUsernameConfirmSignUpFormfield =
-    'usernameConfirmSignUpFormField';
-const String keyEmailConfirmSignUpFormfield = 'emailConfirmSignUpFormField';
-const String keyPhoneNumberConfirmSignUpFormfield =
-    'phoneNumberConfirmSignUpFormField';
-const String keyCodeConfirmSignUpFormfield = 'codeConfirmSignUpFormField';
+const keyUsernameConfirmSignUpFormfield = Key('usernameConfirmSignUpFormField');
+const keyPasswordConfirmSignUpFormfield = Key('passwordConfirmSignUpFormField');
+const keyEmailConfirmSignUpFormfield = Key('emailConfirmSignUpFormField');
+const keyPhoneNumberConfirmSignUpFormfield =
+    Key('phoneNumberConfirmSignUpFormField');
+const keyCodeConfirmSignUpFormfield = Key('codeConfirmSignUpFormField');
 
 //Confirm Sign In form field keys
 
-const String keyCodeConfirmSignInFormfield = 'codeConfirmSignUpFormField';
-const String keyPasswordConfirmSignInFormField =
-    'passwordConfirmSignInFormField';
-const String keyAddressConfirmSignInFormField =
-    'addresslConfirmSignInFormField';
-const String keyBirthdateConfirmSignInFormField =
-    'birthdateConfirmSignInFormField';
-const String keyEmailConfirmSignInFormField = 'emailConfirmSignInFormField';
-const String keyFamilyNameConfirmSignInFormField =
-    'familyNameConfirmSignInFormField';
-const String keyGenderConfirmSignInFormField = 'genderConfirmSignInFormField';
-const String keyGivenNameConfirmSignInFormField =
-    'givenNameConfirmSignInFormField';
-const String keyLocaleConfirmSignInFormField = 'localeConfirmSignInFormField';
-const String keyMiddleNameConfirmSignInFormField =
-    'middleNameConfirmSignInFormField';
-const String keyNameConfirmSignInFormField = 'nameConfirmSignInFormField';
-const String keyNicknameConfirmSignInFormField =
-    'nicknameConfirmSignInFormField';
-const String keyPhoneNumberConfirmSignInFormField =
-    'phoneNumberConfirmSignInFormField';
-const String keyPictureConfirmSignInFormField = 'pictureConfirmSignInFormField';
-const String keyPreferredUsernameConfirmSignInFormField =
-    'preferredUsernameConfirmSignInFormField';
-const String keyProfileConfirmSignInFormField = 'profileConfirmSignInFormField';
-const String keyZoneinfoConfirmSignInFormField =
-    'zoneinfoConfirmSignInFormField';
-const String keyUpdatedAtConfirmSignInFormField =
-    'updatedAtConfirmSignInFormField';
-const String keyWebsiteConfirmSignInFormField = 'websiteConfirmSignInFormField';
-const String keyCustomConfirmSignInFormField = 'customConfirmSignInFormField';
+const keyCodeConfirmSignInFormfield = Key('codeConfirmSignUpFormField');
+const keyPasswordConfirmSignInFormField = Key('passwordConfirmSignInFormField');
+const keyAddressConfirmSignInFormField = Key('addresslConfirmSignInFormField');
+const keyBirthdateConfirmSignInFormField =
+    Key('birthdateConfirmSignInFormField');
+const keyEmailConfirmSignInFormField = Key('emailConfirmSignInFormField');
+const keyFamilyNameConfirmSignInFormField =
+    Key('familyNameConfirmSignInFormField');
+const keyGenderConfirmSignInFormField = Key('genderConfirmSignInFormField');
+const keyGivenNameConfirmSignInFormField =
+    Key('givenNameConfirmSignInFormField');
+const keyLocaleConfirmSignInFormField = Key('localeConfirmSignInFormField');
+const keyMiddleNameConfirmSignInFormField =
+    Key('middleNameConfirmSignInFormField');
+const keyNameConfirmSignInFormField = Key('nameConfirmSignInFormField');
+const keyNicknameConfirmSignInFormField = Key('nicknameConfirmSignInFormField');
+const keyPhoneNumberConfirmSignInFormField =
+    Key('phoneNumberConfirmSignInFormField');
+const keyPictureConfirmSignInFormField = Key('pictureConfirmSignInFormField');
+const keyPreferredUsernameConfirmSignInFormField =
+    Key('preferredUsernameConfirmSignInFormField');
+const keyProfileConfirmSignInFormField = Key('profileConfirmSignInFormField');
+const keyZoneinfoConfirmSignInFormField = Key('zoneinfoConfirmSignInFormField');
+const keyUpdatedAtConfirmSignInFormField =
+    Key('updatedAtConfirmSignInFormField');
+const keyWebsiteConfirmSignInFormField = Key('websiteConfirmSignInFormField');
+const keyCustomConfirmSignInFormField = Key('customConfirmSignInFormField');
 
 // Buttons keys
 
-const String keySignUpButton = "signUpButton";
-const String keySignInButton = "signInButton";
-const String keyConfirmSignUpButton = "confirmSignUpButton";
-const String keySignOutButton = "signOutButton";
-const String keyBackToSignInButton = "backToSignInButton";
-const String keyGoToSignUpButton = "goToSignUpButton";
-const String keyGoToSignInButton = "goToSignInButton";
-const String keyConfirmSignInButton = "confirmSignInButton";
-const String keyLostCodeButton = "lostCodeButton";
-const String keySendCodeButton = "sendCodeButton";
+const keySignUpButton = Key('signUpButton');
+const keySignInButton = Key('signInButton');
+const keyConfirmSignUpButton = Key('confirmSignUpButton');
+const keySignOutButton = Key('signOutButton');
+const keyBackToSignInButton = Key('backToSignInButton');
+const keyGoToSignUpButton = Key('goToSignUpButton');
+const keyGoToSignInButton = Key('goToSignInButton');
+const keyConfirmSignInButton = Key('confirmSignInButton');
+const keyLostCodeButton = Key('lostCodeButton');
+const keySendCodeButton = Key('sendCodeButton');
 // Inherited keys
 
-const String keyInheritedAuthViewModel = "inheritedAuthViewModel";
-const String keyInheritedAuthBloc = "inheritedAuthBloc";
+const keyInheritedAuthViewModel = Key('inheritedAuthViewModel');
+const keyInheritedAuthBloc = Key('inheritedAuthBloc');

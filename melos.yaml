@@ -5,6 +5,10 @@ packages:
   - example/*
   - packages/**/example/*
 
+# Generated output of flutter_localizations
+ignore:
+  - synthetic_package
+
 scripts:
   setup_tuneup: >
     flutter pub global activate tuneup

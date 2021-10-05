@@ -6,6 +6,7 @@
 /// [here](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html).
 abstract class CognitoUserAttributes {
   static const address = 'address';
+  static const birthdate = 'birthdate';
   static const email = 'email';
   static const familyName = 'family_name';
   static const gender = 'gender';

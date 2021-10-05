@@ -13,32 +13,44 @@
  * permissions and limitations under the License.
  */
 
-import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 
-enum SignUpType {
+enum SignUpField {
   username,
   password,
   passwordConfirmation,
   address,
   birthdate,
   email,
-  family_name,
+  familyName,
   gender,
-  given_name,
+  givenName,
   locale,
-  middle_name,
+  middleName,
   name,
   nickname,
-  phone_number,
+  phoneNumber,
   picture,
   preferredUsername,
   profile,
   zoneinfo,
-  updated_at,
-  website
+  updatedAt,
+  website,
+  custom,
 }
 
-SignUpType? fromStringToSignUpType(String str) {
-  return SignUpType.values
-      .firstWhereOrNull((value) => value.toString().split('.')[1] == str);
+extension SignUpFieldX on SignUpField {
+  String toCognitoAttribute() {
+    switch (this) {
+      case SignUpField.username:
+      case SignUpField.password:
+      case SignUpField.passwordConfirmation:
+      case SignUpField.custom:
+        throw StateError('Can only be called on attribute types');
+      default:
+        return describeEnum(this).replaceAllMapped(RegExp(r'[A-Z]'), (match) {
+          return '_${match.group(0)!.toLowerCase()}';
+        });
+    }
+  }
 }

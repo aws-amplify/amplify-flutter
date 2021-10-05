@@ -14,10 +14,12 @@
  */
 
 import 'dart:async';
-import 'package:collection/collection.dart';
+
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_flutter/src/config/amplify_config.dart';
+import 'package:collection/collection.dart';
+import 'package:collection/src/iterable_extensions.dart';
 
 abstract class AuthService {
   Future<SignInResult> signIn(String username, String password);
@@ -25,7 +27,10 @@ abstract class AuthService {
   Future<void> signOut();
 
   Future<SignUpResult> signUp(
-      String username, String password, Map<String, String> authAttributes);
+    String username,
+    String password,
+    Map<String, String> authAttributes,
+  );
 
   Future<SignUpResult> confirmSignUp(String username, String code);
 
@@ -36,10 +41,15 @@ abstract class AuthService {
   Future<ResetPasswordResult> resetPassword(String username);
 
   Future<UpdatePasswordResult> confirmPassword(
-      String username, String code, String newPassword);
+    String username,
+    String code,
+    String newPassword,
+  );
 
-  Future<SignInResult> confirmSignIn(
-      {required String code, Map<String, String>? attributes});
+  Future<SignInResult> confirmSignIn({
+    required String code,
+    Map<String, String>? attributes,
+  });
 
   Future<ResendSignUpCodeResult> resendSignUpCode(String username);
 
@@ -67,14 +77,17 @@ class AmplifyAuthService implements AuthService {
   }
 
   @override
-  Future<ResendSignUpCodeResult> resendSignUpCode(String username) async {
-    return await Amplify.Auth.resendSignUpCode(username: username);
+  Future<ResendSignUpCodeResult> resendSignUpCode(String username) {
+    return Amplify.Auth.resendSignUpCode(username: username);
   }
 
   @override
   Future<SignUpResult> signUp(
-      String username, String password, Map<String, String> attributes) async {
-    return await Amplify.Auth.signUp(
+    String username,
+    String password,
+    Map<String, String> attributes,
+  ) {
+    return Amplify.Auth.signUp(
       username: username,
       password: password,
       options: CognitoSignUpOptions(
@@ -84,18 +97,22 @@ class AmplifyAuthService implements AuthService {
   }
 
   @override
-  Future<SignUpResult> confirmSignUp(String username, String code) async {
-    return await Amplify.Auth.confirmSignUp(
+  Future<SignUpResult> confirmSignUp(String username, String code) {
+    return Amplify.Auth.confirmSignUp(
       username: username,
       confirmationCode: code,
     );
   }
 
-  Future<SignInResult> confirmSignIn(
-      {required String code, Map<String, String>? attributes}) async {
-    return await Amplify.Auth.confirmSignIn(
-        confirmationValue: code,
-        options: CognitoConfirmSignInOptions(userAttributes: attributes));
+  @override
+  Future<SignInResult> confirmSignIn({
+    required String code,
+    Map<String, String>? attributes,
+  }) {
+    return Amplify.Auth.confirmSignIn(
+      confirmationValue: code,
+      options: CognitoConfirmSignInOptions(userAttributes: attributes),
+    );
   }
 
   @override
@@ -127,15 +144,21 @@ class AmplifyAuthService implements AuthService {
   }
 
   @override
-  Future<ResetPasswordResult> resetPassword(String username) async {
-    return await Amplify.Auth.resetPassword(username: username);
+  Future<ResetPasswordResult> resetPassword(String username) {
+    return Amplify.Auth.resetPassword(username: username);
   }
 
   @override
   Future<UpdatePasswordResult> confirmPassword(
-      String username, String code, String newPassword) async {
-    return await Amplify.Auth.confirmPassword(
-        username: username, confirmationCode: code, newPassword: newPassword);
+    String username,
+    String code,
+    String newPassword,
+  ) {
+    return Amplify.Auth.confirmPassword(
+      username: username,
+      confirmationCode: code,
+      newPassword: newPassword,
+    );
   }
 
   @override
@@ -187,7 +210,8 @@ class AmplifyAuthService implements AuthService {
         'true';
   }
 
-  Future<AmplifyConfig> waitForConfiguration() async {
-    return await Amplify.asyncConfig;
+  @override
+  Future<AmplifyConfig> waitForConfiguration() {
+    return Amplify.asyncConfig;
   }
 }
