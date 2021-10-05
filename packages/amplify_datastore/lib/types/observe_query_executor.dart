@@ -81,11 +81,6 @@ class ObserveQueryExecutor {
         .cast<QuerySnapshot<T>>();
 
     Stream<QuerySnapshot<T>> observeStream = observe(modelType)
-        // TODO: Determine why observe is emitting duplicate events
-        .distinct((a, b) =>
-            a.eventType == b.eventType &&
-            a.modelType == b.modelType &&
-            a.item == b.item)
         .map<QuerySnapshot<T>?>((event) {
           // cache subscription events until the initial query is returned
           if (!hasInitialQueryCompleted) {

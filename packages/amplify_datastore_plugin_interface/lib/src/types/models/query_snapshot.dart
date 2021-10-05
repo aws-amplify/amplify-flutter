@@ -111,9 +111,6 @@ class QuerySnapshot<T extends Model> {
     } else if (event.eventType == EventType.update) {
       if (currentItemMatchesPredicate &&
           eventItemMatchesPredicate &&
-          // TODO: should a new snapshot be created for an
-          // "update" event where the item does not change?
-          // note: this is occurs frequently during sync updates
           currentItem != event.item) {
         sortedList[currentItemIndex] = event.item;
         itemsHasBeenUpdated = true;
