@@ -22,7 +22,7 @@
 /// if no compare function is provided, the list behaves like an unsorted list
 class SortedList<T> {
   // items in the list
-  List<T> _items;
+  final List<T> _items;
 
   // comparision function used to maintain list sort
   final int Function(T a, T b)? _compare;
@@ -32,7 +32,7 @@ class SortedList<T> {
   /// This requires that the provided items are sorted according to the
   /// compare function, otherwise the sort order of the list will not be
   /// maintained
-  SortedList.fromPresortedList({
+  const SortedList.fromPresortedList({
     required List<T> items,
     int Function(T a, T b)? compare,
   })  : _items = items,
@@ -67,6 +67,14 @@ class SortedList<T> {
   void removeAt(int index) {
     _items.removeAt(index);
   }
+
+  int indexWhere(bool test(T element)) {
+    return _items.indexWhere(test);
+  }
+
+  T elementAt(int index) => _items.elementAt(index);
+
+  T operator [](int index) => elementAt(index);
 
   List<T> get items => List<T>.from(_items);
 

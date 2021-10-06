@@ -89,40 +89,40 @@ class QuerySnapshot<T extends Model> {
     required SubscriptionEvent<T> event,
   }) {
     SortedList<T> sortedList = this._list.copy();
-    bool itemsHasBeenUpdated = false;
+    bool listHasBeenUpdated = false;
 
-    bool eventItemMatchesPredicate =
-        where == null || where!.evaluate(event.item);
-    int currentItemIndex = sortedList.items
-        .indexWhere((item) => item.getId() == event.item.getId());
+    T newItem = event.item;
+    bool newItemMatchesPredicate = where == null || where!.evaluate(newItem);
+    int currentItemIndex =
+        sortedList.indexWhere((item) => item.getId() == newItem.getId());
     T? currentItem =
-        currentItemIndex == -1 ? null : sortedList.items[currentItemIndex];
+        currentItemIndex == -1 ? null : sortedList[currentItemIndex];
     bool currentItemMatchesPredicate =
         currentItem != null && (where == null || where!.evaluate(currentItem));
 
     if (event.eventType == EventType.create &&
-        eventItemMatchesPredicate &&
+        newItemMatchesPredicate &&
         currentItem == null) {
-      sortedList.add(event.item);
-      itemsHasBeenUpdated = true;
+      sortedList.add(newItem);
+      listHasBeenUpdated = true;
     } else if (event.eventType == EventType.delete && currentItem != null) {
       sortedList.removeAt(currentItemIndex);
-      itemsHasBeenUpdated = true;
+      listHasBeenUpdated = true;
     } else if (event.eventType == EventType.update) {
       if (currentItemMatchesPredicate &&
-          eventItemMatchesPredicate &&
-          currentItem != event.item) {
-        sortedList[currentItemIndex] = event.item;
-        itemsHasBeenUpdated = true;
-      } else if (currentItemMatchesPredicate && !eventItemMatchesPredicate) {
+          newItemMatchesPredicate &&
+          currentItem != newItem) {
+        sortedList[currentItemIndex] = newItem;
+        listHasBeenUpdated = true;
+      } else if (currentItemMatchesPredicate && !newItemMatchesPredicate) {
         sortedList.removeAt(currentItemIndex);
-        itemsHasBeenUpdated = true;
-      } else if (!currentItemMatchesPredicate && eventItemMatchesPredicate) {
-        sortedList.add(event.item);
-        itemsHasBeenUpdated = true;
+        listHasBeenUpdated = true;
+      } else if (!currentItemMatchesPredicate && newItemMatchesPredicate) {
+        sortedList.add(newItem);
+        listHasBeenUpdated = true;
       }
     }
-    if (itemsHasBeenUpdated) {
+    if (listHasBeenUpdated) {
       var snapshot = QuerySnapshot._(
         list: sortedList,
         isSynced: isSynced,
