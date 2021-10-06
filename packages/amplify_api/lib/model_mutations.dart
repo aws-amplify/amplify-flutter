@@ -30,8 +30,10 @@ class ModelMutations {
   }
 
   static GraphQLRequest<T> deleteById<T extends Model>(
-      ModelType<T> modelType, String id) {
-    return ModelMutationsFactory.instance.deleteById<T>(modelType, id);
+      ModelType<T> modelType, String id,
+      {QueryPredicate? where}) {
+    return ModelMutationsFactory.instance
+        .deleteById<T>(modelType, id, where: where);
   }
 
   static GraphQLRequest<T> update<T extends Model>(T model,

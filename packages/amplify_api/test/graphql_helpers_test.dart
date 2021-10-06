@@ -319,7 +319,8 @@ void main() {
         Blog blog = Blog(id: id, name: name, createdAt: createdAt);
 
         final expectedVars = {
-          'input': {'id': id}
+          'input': {'id': id},
+          'condition': null
         };
         final expectedDoc =
             r'mutation deleteBlog($input: DeleteBlogInput!, $condition:  ModelBlogConditionInput) { deleteBlog(input: $input, condition: $condition) { id name createdAt } }';
@@ -337,7 +338,8 @@ void main() {
         final id = UUID.getUUID();
 
         final expectedVars = {
-          'input': {'id': id}
+          'input': {'id': id},
+          'condition': null
         };
         final expectedDoc =
             r'mutation deleteBlog($input: DeleteBlogInput!, $condition:  ModelBlogConditionInput) { deleteBlog(input: $input, condition: $condition) { id name createdAt } }';
@@ -423,6 +425,33 @@ void main() {
         expect(req.document, expectedDoc);
         expect(DeepCollectionEquality().equals(req.variables, expectedVars),
             isTrue);
+      });
+
+      test(
+          'ModelMutations.delete() should build a valid request with query predicate condition',
+          () {
+        final id = UUID.getUUID();
+        const name = 'Test Blog';
+        const time = '2021-08-03T16:39:18.000000651Z';
+        final createdAt = DataStore.TemporalDateTime.fromString(time);
+        Blog blog = Blog(id: id, name: name, createdAt: createdAt);
+        final expectedVars = {
+          'input': {'id': id},
+          'condition': {
+            'createdAt': {'lt': time}
+          }
+        };
+        const expectedDoc =
+            r'mutation deleteBlog($input: DeleteBlogInput!, $condition:  ModelBlogConditionInput) { deleteBlog(input: $input, condition: $condition) { id name createdAt } }';
+
+        GraphQLRequest<Blog> req = ModelMutations.delete<Blog>(blog,
+            where: Blog.CREATEDAT.lt(createdAt));
+
+        expect(req.document, expectedDoc);
+        expect(DeepCollectionEquality().equals(req.variables, expectedVars),
+            isTrue);
+        expect(req.modelType, Blog.classType);
+        expect(req.decodePath, 'deleteBlog');
       });
     });
   });
