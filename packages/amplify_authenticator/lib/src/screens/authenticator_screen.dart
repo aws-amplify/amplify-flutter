@@ -15,10 +15,10 @@
 
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
-import 'package:amplify_authenticator/src/constants/theme_constants.dart';
 import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
+import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -80,11 +80,7 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
     return Container(
       width: containerWidth,
       padding: const EdgeInsets.all(AuthenticatorContainerConstants.padding),
-      decoration: const BoxDecoration(
-        color: AuthenticatorColors.container,
-        borderRadius: AuthenticatorContainerConstants.borderRadius,
-        boxShadow: [AuthenticatorContainerConstants.boxShadow],
-      ),
+      color: AmplifyColors.backgroundPrimary,
       child: Column(
         children: <Widget>[
           Text(

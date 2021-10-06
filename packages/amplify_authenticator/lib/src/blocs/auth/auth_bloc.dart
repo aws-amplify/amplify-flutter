@@ -195,17 +195,24 @@ class StateMachineBloc {
   }
 
   Stream<AuthState> _signIn(AuthSignInData data) async* {
-    // Make sure no user is signed in before calling the sign in method
-    if (await _authService.isLoggedIn) {
-      yield* _signOut();
-      return;
-    }
-
     try {
-      var result = await _authService.signIn(
-        data.username,
-        data.password,
-      );
+      // Make sure no user is signed in before calling the sign in method
+      if (await _authService.isLoggedIn) {
+        await _authService.signOut();
+      }
+
+      final SignInResult result;
+
+      if (data is AuthUsernamePasswordSignInData) {
+        result = await _authService.signIn(
+          data.username,
+          data.password,
+        );
+      } else if (data is AuthSocialSignInData) {
+        result = await _authService.signInWithProvider(data.provider);
+      } else {
+        throw StateError('Bad sign in data: $data');
+      }
 
       switch (result.nextStep!.signInStep) {
         case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
@@ -271,7 +278,7 @@ class StateMachineBloc {
           yield AuthFlow.confirmSignup;
           break;
         case 'DONE':
-          var authSignInData = AuthSignInData(
+          var authSignInData = AuthUsernamePasswordSignInData(
             username: data.username,
             password: data.password,
           );
@@ -289,7 +296,7 @@ class StateMachineBloc {
   Stream<AuthState> _confirmSignUp(AuthConfirmSignUpData data) async* {
     try {
       await _authService.confirmSignUp(data.username, data.code);
-      var authSignInData = AuthSignInData(
+      var authSignInData = AuthUsernamePasswordSignInData(
         username: data.username,
         password: data.password,
       );
@@ -318,7 +325,7 @@ class StateMachineBloc {
       await _authService.resendUserAttributeConfirmationCode(
         userAttributeKey: data.userAttributeKey,
       );
-      yield AuthFlow.confirmVerifyUser;
+      yield AttributeVerificationSent(data.userAttributeKey);
     } on Exception catch (e) {
       if (e is AmplifyException) {
         print(e);

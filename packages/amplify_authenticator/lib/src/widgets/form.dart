@@ -15,14 +15,17 @@
 
 library authenticator.form;
 
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
+import 'package:amplify_authenticator/src/utils/list.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:amplify_authenticator/src/widgets/layout.dart';
+import 'package:amplify_authenticator/src/widgets/oauth/social_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -88,7 +91,7 @@ class AuthenticatorFormState<T extends AuthenticatorForm<T>>
           ...widget.fields,
           ...widget.additionalFields(context),
           AdaptiveFlex(
-            children: widget.buttons,
+            children: widget.buttons.spacedBy(const SizedBox(height: 5)),
           ),
         ],
       ),
@@ -148,7 +151,7 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
 
     final signUpAttributes = InheritedConfig.of(context)
         .amplifyConfig
-        .auth
+        ?.auth
         ?.awsCognitoAuthPlugin
         ?.auth?['Default']
         ?.signupAttributes;
@@ -243,6 +246,9 @@ class SignInForm extends AuthenticatorForm<SignInForm> {
           fields: fields,
           buttons: const [
             SignInButton(),
+            Divider(),
+            SocialSignInButton(provider: AuthProvider.amazon),
+            SocialSignInButton(provider: AuthProvider.google),
             GoToSignUpButton(),
           ],
         );
@@ -280,6 +286,7 @@ class ConfirmSignUpForm extends AuthenticatorForm<ConfirmSignUpForm> {
           buttons: const [
             ConfirmSignUpButton(),
             BackToSignInButton(),
+            SocialSignInButton(provider: AuthProvider.amazon),
           ],
         );
 

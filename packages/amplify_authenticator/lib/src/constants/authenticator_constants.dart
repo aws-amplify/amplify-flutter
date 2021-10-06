@@ -15,9 +15,9 @@
 
 import 'package:flutter/material.dart';
 
-abstract class AuthenticatorConstants {}
+class AuthenticatorContainerConstants {
+  const AuthenticatorContainerConstants._();
 
-class AuthenticatorContainerConstants extends AuthenticatorConstants {
   static const double smallWidth = 320;
 
   static const double mediumWidth = 460;
@@ -45,14 +45,18 @@ class AuthenticatorContainerConstants extends AuthenticatorConstants {
   );
 }
 
-class FormFieldConstants extends AuthenticatorConstants {
+class FormFieldConstants {
+  const FormFieldConstants._();
+
   static const marginBottom =
       EdgeInsets.only(left: 0, top: 0, right: 0, bottom: 20);
 
   static const gap = EdgeInsets.only(bottom: 8);
 }
 
-class AuthenticatorButtonConstants extends AuthenticatorConstants {
+class AuthenticatorButtonConstants {
+  const AuthenticatorButtonConstants._();
+
   static const double fontSize = 16;
   static const double textFontSize = 13;
   static const Color textColor = Color.fromRGBO(130, 130, 130, 1);

@@ -13,4 +13,9 @@
  * permissions and limitations under the License.
  */
 
-enum Alias { username, email, phoneNumber, emailPhoneNumber }
+enum StatusType {
+  info,
+  success,
+  warning,
+  error,
+}

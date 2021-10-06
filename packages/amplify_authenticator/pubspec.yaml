@@ -23,6 +23,57 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  fonts:
+    - family: SocialIcons
+      fonts:
+        - asset: assets/SocialIcons.ttf
+    - family: WorkSans
+      fonts:
+        - asset: assets/WorkSans-Black.ttf
+          weight: 900
+        - asset: assets/WorkSans-BlackItalic.ttf
+          weight: 900
+          style: italic
+        - asset: assets/WorkSans-ExtraBold.ttf
+          weight: 800
+        - asset: assets/WorkSans-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
+        - asset: assets/WorkSans-Bold.ttf
+          weight: 700
+        - asset: assets/WorkSans-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/WorkSans-SemiBold.ttf
+          weight: 600
+        - asset: assets/WorkSans-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+        - asset: assets/WorkSans-Medium.ttf
+          weight: 500
+        - asset: assets/WorkSans-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/WorkSans-Regular.ttf
+          weight: 400
+        - asset: assets/WorkSans-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/WorkSans-Light.ttf
+          weight: 300
+        - asset: assets/WorkSans-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/WorkSans-ExtraLight.ttf
+          weight: 200
+        - asset: assets/WorkSans-ExtraLightItalic.ttf
+          weight: 200
+          style: italic
+        - asset: assets/WorkSans-Thin.ttf
+          weight: 100
+        - asset: assets/WorkSans-ThinItalic.ttf
+          weight: 100
+          style: italic
 
   # To add assets to your package, add an assets section, like this:
   # assets:

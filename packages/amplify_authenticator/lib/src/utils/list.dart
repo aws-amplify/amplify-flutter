@@ -11,16 +11,15 @@
  * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
- */
+*/
 
-import 'package:flutter/material.dart';
-
-abstract class AuthenticatorColors {
-  static const Color primary = Color.fromRGBO(255, 153, 0, 1);
-
-  static const Color container = Colors.white;
-
-  static const disabledTextColor = Color.fromRGBO(130, 130, 130, 1);
-
-  static const bannerColor = Color.fromRGBO(49, 70, 95, 1);
+extension ListX<T> on List<T> {
+  List<T> spacedBy(T spacer) {
+    return [
+      for (var item in this) ...[
+        item,
+        spacer,
+      ]
+    ]..removeLast();
+  }
 }

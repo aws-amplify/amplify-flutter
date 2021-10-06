@@ -18,16 +18,17 @@ library authenticator.form_field;
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
-import 'package:amplify_authenticator/src/constants/theme_constants.dart';
 import 'package:amplify_authenticator/src/enums/confirm_signin_types.dart';
 import 'package:amplify_authenticator/src/enums/confirm_signup_types.dart';
 import 'package:amplify_authenticator/src/enums/signin_types.dart';
 import 'package:amplify_authenticator/src/enums/signup_types.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
+import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
+import 'package:amplify_flutter/src/config/auth/login_mechanisms.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -105,47 +106,48 @@ abstract class _AuthenticatorFormFieldState<FieldType,
       .findAncestorStateOfType<AuthenticatorFormState>()!
       .obscureTextToggle;
 
+  late final List<LoginMechanisms> _loginMechanisms = () {
+    return config.amplifyConfig?.auth?.awsCognitoAuthPlugin?.auth?['Default']
+            ?.loginMechanisms ??
+        const <LoginMechanisms>[];
+  }();
+
   @nonVirtual
   TextInputType get usernameKeyboardTypeForAlias {
-    switch (config.usernameAlias) {
-      case Alias.username:
-        return TextInputType.text;
-      case Alias.email:
-        return TextInputType.emailAddress;
-      case Alias.phoneNumber:
-        return TextInputType.phone;
-      case Alias.emailPhoneNumber:
+    if (_loginMechanisms.contains(LoginMechanisms.preferredUsername)) {
+      return TextInputType.text;
+    } else if (_loginMechanisms.contains(LoginMechanisms.email)) {
+      if (_loginMechanisms.contains(LoginMechanisms.phoneNumber)) {
         // TODO: can we improve on just a text field
         // maybe include an icon/toggle to alert user.
         return TextInputType.text;
+      }
+      return TextInputType.emailAddress;
+    } else if (_loginMechanisms.contains(LoginMechanisms.phoneNumber)) {
+      return TextInputType.phone;
+    } else {
+      // No assumptions made
+      return TextInputType.text;
     }
   }
 
   @nonVirtual
   void Function(String) get usernameOnChangedForAlias {
-    switch (config.usernameAlias) {
-      case Alias.username:
-        return viewModel.setUsername;
-      case Alias.email:
-        return (String value) {
-          viewModel.setUsername(value);
-          viewModel.setEmail(value);
-        };
-      case Alias.phoneNumber:
-        return (String value) {
-          viewModel.setUsername(value);
-          viewModel.setPhoneNumber(value);
-        };
-      case Alias.emailPhoneNumber:
-        return (String value) {
-          viewModel.setUsername(value);
-          if (emailRegex.hasMatch(value)) {
-            viewModel.setEmail(value);
-          } else if (phoneNumberRegex.hasMatch(value)) {
-            viewModel.setPhoneNumber(value);
-          }
-        };
+    final List<void Function(String)> ops = [];
+
+    if (_loginMechanisms.contains(LoginMechanisms.preferredUsername)) {
+      ops.add(viewModel.setUsername);
     }
+    if (_loginMechanisms.contains(LoginMechanisms.email)) {
+      ops.add(viewModel.setEmail);
+    } else if (_loginMechanisms.contains(LoginMechanisms.phoneNumber)) {
+      ops.add(viewModel.setPhoneNumber);
+    }
+    return (String value) {
+      for (var op in ops) {
+        op(value);
+      }
+    };
   }
 
   /// Callback for when `onChanged` is triggered on the [FormField].
@@ -202,7 +204,7 @@ abstract class _AuthenticatorFormFieldState<FieldType,
                 style: enabled
                     ? null
                     : const TextStyle(
-                        color: AuthenticatorColors.disabledTextColor,
+                        color: AmplifyColors.black20,
                       ),
                 initialValue: initialValue,
                 enabled: enabled,
@@ -245,5 +247,7 @@ abstract class _AuthenticatorFormFieldState<FieldType,
     properties.add(IntProperty('errorMaxLines', errorMaxLines));
     properties.add(DiagnosticsProperty<TextInputType>(
         'keyboardTypeForAlias', usernameKeyboardTypeForAlias));
+    properties.add(ObjectFlagProperty<void Function(String p1)>.has(
+        'usernameOnChangedForAlias', usernameOnChangedForAlias));
   }
 }

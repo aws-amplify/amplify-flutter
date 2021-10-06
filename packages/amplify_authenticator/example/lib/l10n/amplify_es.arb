@@ -1,5 +1,5 @@
 {
-    "signin": "Iniciar sesión",
+    "signin": "Iniciar Sesión",
     "signup": "Crear una Cuenta",
     "confirm": "Confirmar",
     "submit": "Enviar",
@@ -8,5 +8,6 @@
     "lostCodeQuestion": "¿Perdiste su código?",
     "verifyUser": "Verificar",
     "confirmVerifyUser": "Enviar",
-    "signout": "Salir"
+    "signout": "Salir",
+    "signInWith": "Iniciar Sesión con {provider}"
 }

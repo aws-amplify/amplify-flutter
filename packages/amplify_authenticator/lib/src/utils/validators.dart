@@ -42,7 +42,7 @@ FormFieldValidator<String> validateSignUpPassword(BuildContext context) {
   PasswordProtectionSettings? _passwordProtectionSettings =
       InheritedConfig.of(context)
           .amplifyConfig
-          .auth
+          ?.auth
           ?.awsCognitoAuthPlugin
           ?.auth?['Default']
           ?.passwordProtectionSettings;
