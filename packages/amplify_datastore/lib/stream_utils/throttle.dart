@@ -22,6 +22,9 @@ extension Throttle<T> on Stream<T> {
   /// or the [duration] since the last event has been reached
   ///
   /// If [until] is supplied, the throttling stops once the condition is met
+  ///
+  /// Note: This is intended for use in observeQuery and is not intended
+  /// to be exposed as part of the public API
   Stream<T> throttleByCountAndTime({
     int? throttleCount,
     Duration? duration,

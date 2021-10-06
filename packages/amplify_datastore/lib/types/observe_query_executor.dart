@@ -13,8 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:async';
-
 import 'package:amplify_datastore/stream_utils/merge_streams.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
@@ -90,9 +88,6 @@ class ObserveQueryExecutor {
             return null;
           }
 
-          // TODO: remove - used for perf monitoring
-          var start = DateTime.now();
-
           // apply the most recent event to the cached QuerySnapshot
           var updatedQuerySnapshot = querySnapshot.withSubscriptionEvent(
             event: event,
@@ -102,13 +97,6 @@ class ObserveQueryExecutor {
           if (querySnapshot == updatedQuerySnapshot) {
             return null;
           }
-
-          // TODO: remove - used for perf monitoring
-          var end = DateTime.now();
-          var ms = end.difference(start).inMicroseconds / 1000;
-          var count = updatedQuerySnapshot.items.length;
-          print(
-              '[Perf Monitoring] Time to generate snapshot with $count models: $ms ms');
 
           // otherwise, update the cached QuerySnapshot and return it
           querySnapshot = updatedQuerySnapshot;
