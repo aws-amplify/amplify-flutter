@@ -16,7 +16,6 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
-import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/oauth/social_icons.dart';
 import 'package:flutter/cupertino.dart';
@@ -38,11 +37,14 @@ extension on AuthProvider {
   }
 }
 
-class SocialSignInButton extends AuthenticatorButton<SocialSignInButton> {
+class SocialSignInButton extends AuthenticatorElevatedButton {
   const SocialSignInButton({
     Key? key,
     required this.provider,
-  }) : super(key: key);
+  }) : super(
+          key: key,
+          primary: false,
+        );
 
   final AuthProvider provider;
 
@@ -50,69 +52,19 @@ class SocialSignInButton extends AuthenticatorButton<SocialSignInButton> {
   ButtonResolverKey get labelKey => ButtonResolverKey.signInWith(provider);
 
   @override
+  Widget? get leading => Icon(provider.icon);
+
+  @override
+  Widget? get loadingIndicator => null;
+
+  @override
   void onPressed(BuildContext context, AuthViewModel viewModel) {
     viewModel.signInWithProvider(provider);
   }
 
   @override
-  _SocialSignInButtonState createState() => _SocialSignInButtonState();
-
-  @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(EnumProperty<AuthProvider>('provider', provider));
-  }
-}
-
-class _SocialSignInButtonState
-    extends AuthenticatorButtonState<SocialSignInButton> {
-  @override
-  Widget build(BuildContext context) {
-    final buttonResolver = stringResolver.buttons;
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        boxShadow: isFocused
-            ? const [
-                BoxShadow(
-                  color: AmplifyColors.blue,
-                  blurRadius: 4.0,
-                )
-              ]
-            : null,
-      ),
-      child: ElevatedButtonTheme(
-        data: AmplifyTheme.elevatedButtonThemeData(
-          primary: false,
-          isLoading: viewModel.isBusy,
-        ),
-        child: ElevatedButton(
-          focusNode: focusNode,
-          child: Row(
-            children: [
-              Icon(widget.provider.icon),
-              Expanded(
-                child: Text(
-                  buttonResolver.resolve(
-                    context,
-                    widget.labelKey,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              )
-            ],
-          ),
-          onPressed: viewModel.isBusy
-              ? null
-              : () => widget.onPressed(context, viewModel),
-        ),
-      ),
-    );
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(ObjectFlagProperty<ValueChanged<bool>>.has(
-        'focusChanged', focusChanged));
   }
 }

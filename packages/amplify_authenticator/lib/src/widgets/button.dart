@@ -16,15 +16,30 @@
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
+import 'package:amplify_authenticator/src/enums/button_size.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator/src/text_customization/navigation_resolver.dart';
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
+import 'package:amplify_authenticator/src/utils/list.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/progress.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+extension on AuthenticatorButtonSize {
+  double get height {
+    switch (this) {
+      case AuthenticatorButtonSize.small:
+        return 32;
+      case AuthenticatorButtonSize.medium:
+        return 40;
+      case AuthenticatorButtonSize.large:
+        return 48;
+    }
+  }
+}
 
 /// {@template authenticator.authenticator_button}
 /// Base class for Authenticator button components.
@@ -32,13 +47,22 @@ import 'package:flutter/material.dart';
 abstract class AuthenticatorButton<T extends AuthenticatorButton<T>>
     extends AuthenticatorComponent<T> {
   /// {@macro authenticator.authenticator_button}
-  const AuthenticatorButton({Key? key}) : super(key: key);
+  const AuthenticatorButton({
+    Key? key,
+    this.size = AuthenticatorButtonSize.large,
+  }) : super(key: key);
+
+  /// The size of the button.
+  final AuthenticatorButtonSize size;
 
   /// The button's `onPressed` callback.
   void onPressed(BuildContext context, AuthViewModel viewModel);
 
   /// The button's label key.
   ButtonResolverKey get labelKey;
+
+  /// The widget to show while the button is loading.
+  Widget? get loadingIndicator => null;
 
   /// The leading widget for the button, typically an [Icon].
   Widget? get leading => null;
@@ -54,6 +78,7 @@ abstract class AuthenticatorButton<T extends AuthenticatorButton<T>>
     super.debugFillProperties(properties);
     properties
         .add(DiagnosticsProperty<ButtonResolverKey>('labelKey', labelKey));
+    properties.add(EnumProperty<AuthenticatorButtonSize>('size', size));
   }
 }
 
@@ -89,11 +114,16 @@ abstract class AuthenticatorElevatedButton
   /// {@macro authenticator.amplify_elevated_button}
   const AuthenticatorElevatedButton({
     Key? key,
-    required this.labelKey,
+    this.primary = true,
   }) : super(key: key);
 
+  /// Whether this button uses the primary button theme.
+  ///
+  /// Defaults to `true`.
+  final bool primary;
+
   @override
-  final ButtonResolverKey labelKey;
+  Widget? get loadingIndicator => AmplifyProgressIndicator(primary: primary);
 
   @override
   _AmplifyElevatedButtonState createState() => _AmplifyElevatedButtonState();
@@ -102,6 +132,7 @@ abstract class AuthenticatorElevatedButton
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(EnumProperty('labelKey', labelKey));
+    properties.add(DiagnosticsProperty<bool>('primary', primary));
   }
 }
 
@@ -110,35 +141,7 @@ class _AmplifyElevatedButtonState
   @override
   Widget build(BuildContext context) {
     final buttonResolver = stringResolver.buttons;
-    final ElevatedButton button;
-    if (viewModel.isBusy) {
-      button = ElevatedButton(
-        focusNode: focusNode,
-        onPressed: null,
-        child: const AmplifyProgressIndicator(),
-      );
-    } else {
-      button = ElevatedButton(
-        focusNode: focusNode,
-        onPressed: () => widget.onPressed(context, viewModel),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (widget.leading != null) widget.leading!,
-            Flexible(
-              child: Text(
-                buttonResolver.resolve(
-                  context,
-                  widget.labelKey,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            if (widget.trailing != null) widget.trailing!,
-          ],
-        ),
-      );
-    }
+    final loadingIndicator = widget.loadingIndicator;
     return DecoratedBox(
       decoration: BoxDecoration(
         boxShadow: isFocused
@@ -152,10 +155,36 @@ class _AmplifyElevatedButtonState
       ),
       child: ElevatedButtonTheme(
         data: AmplifyTheme.elevatedButtonThemeData(
-          primary: true,
+          primary: widget.primary,
           isLoading: viewModel.isBusy,
         ),
-        child: button,
+        child: SizedBox(
+          height: widget.size.height,
+          child: ElevatedButton(
+            focusNode: focusNode,
+            onPressed: viewModel.isBusy
+                ? null
+                : () => widget.onPressed(context, viewModel),
+            child: viewModel.isBusy && loadingIndicator != null
+                ? loadingIndicator
+                : Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (widget.leading != null) widget.leading!,
+                      Flexible(
+                        child: Text(
+                          buttonResolver.resolve(
+                            context,
+                            widget.labelKey,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      if (widget.trailing != null) widget.trailing!,
+                    ].spacedBy(const SizedBox(width: 10)),
+                  ),
+          ),
+        ),
       ),
     );
   }
@@ -165,8 +194,10 @@ class SignUpButton extends AuthenticatorElevatedButton {
   const SignUpButton({Key? key})
       : super(
           key: key ?? keySignUpButton,
-          labelKey: ButtonResolverKey.signup,
         );
+
+  @override
+  ButtonResolverKey get labelKey => ButtonResolverKey.signup;
 
   @override
   void onPressed(BuildContext context, AuthViewModel viewModel) =>
@@ -177,8 +208,10 @@ class SignInButton extends AuthenticatorElevatedButton {
   const SignInButton({Key? key})
       : super(
           key: key ?? keySignInButton,
-          labelKey: ButtonResolverKey.signin,
         );
+
+  @override
+  ButtonResolverKey get labelKey => ButtonResolverKey.signin;
 
   @override
   void onPressed(BuildContext context, AuthViewModel viewModel) =>
@@ -189,8 +222,10 @@ class ConfirmSignUpButton extends AuthenticatorElevatedButton {
   const ConfirmSignUpButton({Key? key})
       : super(
           key: key ?? keyConfirmSignUpButton,
-          labelKey: ButtonResolverKey.confirm,
         );
+
+  @override
+  ButtonResolverKey get labelKey => ButtonResolverKey.confirm;
 
   @override
   void onPressed(BuildContext context, AuthViewModel viewModel) =>
@@ -201,8 +236,10 @@ class ConfirmSignInMFAButton extends AuthenticatorElevatedButton {
   const ConfirmSignInMFAButton({Key? key})
       : super(
           key: key ?? keyConfirmSignInButton,
-          labelKey: ButtonResolverKey.confirm,
         );
+
+  @override
+  ButtonResolverKey get labelKey => ButtonResolverKey.confirm;
 
   @override
   void onPressed(BuildContext context, AuthViewModel viewModel) =>
@@ -443,8 +480,10 @@ class SendCodeButton extends AuthenticatorElevatedButton {
   const SendCodeButton({Key? key})
       : super(
           key: key ?? keySendCodeButton,
-          labelKey: ButtonResolverKey.submit,
         );
+
+  @override
+  ButtonResolverKey get labelKey => ButtonResolverKey.submit;
 
   @override
   void onPressed(BuildContext context, AuthViewModel viewModel) =>
@@ -455,8 +494,10 @@ class SubmitButton extends AuthenticatorElevatedButton {
   const SubmitButton({Key? key})
       : super(
           key: key ?? keySendCodeButton,
-          labelKey: ButtonResolverKey.submit,
         );
+
+  @override
+  ButtonResolverKey get labelKey => ButtonResolverKey.submit;
 
   @override
   void onPressed(BuildContext context, AuthViewModel viewModel) =>
@@ -467,8 +508,10 @@ class ConfirmSignInNewPasswordButton extends AuthenticatorElevatedButton {
   const ConfirmSignInNewPasswordButton({Key? key})
       : super(
           key: key ?? keyConfirmSignInButton,
-          labelKey: ButtonResolverKey.changePassword,
         );
+
+  @override
+  ButtonResolverKey get labelKey => ButtonResolverKey.changePassword;
 
   @override
   void onPressed(BuildContext context, AuthViewModel viewModel) =>
@@ -479,8 +522,10 @@ class VerifyUserButton extends AuthenticatorElevatedButton {
   const VerifyUserButton({Key? key})
       : super(
           key: key ?? keySendCodeButton,
-          labelKey: ButtonResolverKey.verifyUser,
         );
+
+  @override
+  ButtonResolverKey get labelKey => ButtonResolverKey.verifyUser;
 
   @override
   void onPressed(BuildContext context, AuthViewModel viewModel) {
@@ -493,8 +538,10 @@ class ConfirmVerifyUserButton extends AuthenticatorElevatedButton {
   const ConfirmVerifyUserButton({Key? key})
       : super(
           key: key ?? keySendCodeButton,
-          labelKey: ButtonResolverKey.confirmVerifyUser,
         );
+
+  @override
+  ButtonResolverKey get labelKey => ButtonResolverKey.confirmVerifyUser;
 
   @override
   void onPressed(BuildContext context, AuthViewModel viewModel) {
