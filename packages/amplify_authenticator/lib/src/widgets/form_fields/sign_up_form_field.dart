@@ -354,7 +354,10 @@ class _SignUpFormFieldState
           ),
         );
       case SignUpField.password:
-        return validateSignUpPassword(context);
+        return validateSignUpPassword(
+          amplifyConfig: config.amplifyConfig,
+          inputResolver: stringResolver.inputs,
+        )(context);
       case SignUpField.passwordConfirmation:
         return validatePasswordConfirmation(() => viewModel.password);
       case SignUpField.email:

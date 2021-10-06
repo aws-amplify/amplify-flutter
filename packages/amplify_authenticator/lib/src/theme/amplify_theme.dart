@@ -392,6 +392,11 @@ class AmplifyTheme {
     }),
   );
 
+  static const appBarTheme = AppBarTheme(
+    elevation: 0,
+    color: AmplifyColors.scaffoldBackgroundColor,
+  );
+
   static late final ThemeData theme = () {
     return ThemeData.from(
       colorScheme: ColorScheme.fromSwatch(
@@ -409,6 +414,7 @@ class AmplifyTheme {
       textButtonTheme: textButtonTheme,
       inputDecorationTheme: inputDecorationTheme,
       radioTheme: radioTheme,
+      appBarTheme: appBarTheme,
     );
   }();
 }

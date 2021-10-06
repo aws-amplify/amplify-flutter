@@ -336,7 +336,6 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   void _navigateTo(AuthScreen authScreen) {
-    _clean();
     authBloc.add(AuthChangeScreen(authScreen));
   }
 
@@ -344,7 +343,7 @@ class AuthViewModel extends ChangeNotifier {
   void goToSignIn() => _navigateTo(AuthScreen.signin);
   void goToReset() => _navigateTo(AuthScreen.sendCode);
 
-  void _clean() {
+  void clean() {
     _username = '';
     _password = '';
     _passwordConfirmation = '';

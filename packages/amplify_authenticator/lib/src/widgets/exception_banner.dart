@@ -23,11 +23,17 @@ MaterialBanner createMaterialBanner({
   required StatusType type,
   required Widget content,
   required List<Widget> actions,
+  double margin = 0,
 }) {
   return MaterialBanner(
     backgroundColor: type.backgroundColor,
     contentTextStyle: TextStyle(color: type.textColor),
     leading: Icon(type.icon),
+    padding: EdgeInsetsDirectional.only(
+      start: 16.0,
+      top: 2.0 + margin,
+      bottom: 4.0,
+    ),
     content: content,
     actions: actions,
   );
@@ -37,13 +43,13 @@ extension on StatusType {
   Color get backgroundColor {
     switch (this) {
       case StatusType.info:
-        return AmplifyColors.statusInfo;
+        return AmplifyColors.statusInfo60;
       case StatusType.success:
-        return AmplifyColors.statusSuccess;
+        return AmplifyColors.statusSuccess60;
       case StatusType.warning:
-        return AmplifyColors.statusWarning;
+        return AmplifyColors.statusWarning60;
       case StatusType.error:
-        return AmplifyColors.statusError;
+        return AmplifyColors.statusError60;
     }
   }
 

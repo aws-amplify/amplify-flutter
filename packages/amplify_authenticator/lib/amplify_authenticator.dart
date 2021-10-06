@@ -201,6 +201,7 @@ class _AuthenticatorState extends State<Authenticator> {
           createMaterialBanner(
             type: StatusType.error,
             content: Text(exception.message),
+            margin: MediaQuery.of(context).viewPadding.top,
             actions: [
               IconButton(
                 onPressed: () =>
