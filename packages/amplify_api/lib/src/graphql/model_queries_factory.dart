@@ -43,12 +43,12 @@ class ModelQueriesFactory extends ModelQueriesInterface {
     ModelPagination? modelPagination = const ModelPagination(),
     QueryPredicate? where,
   }) {
-    // ignore: implicit_dynamic_map_literal
-    Map<String, dynamic> variables = {
-      "filter": null, // TODO: handle query predicates
-      "limit": modelPagination?.limit,
-      "nextToken": null // TODO: need to handle nextToken input
-    };
+    final filter = where != null
+        ? GraphQLRequestFactory.instance
+            .queryPredicateToGraphQLFilter(where, modelType)
+        : null;
+    final variables = GraphQLRequestFactory.instance
+        .buildVariables(limit: modelPagination?.limit, filter: filter);
 
     return GraphQLRequestFactory.instance.buildRequest<PaginatedResult<T>>(
         modelType: PaginatedModelTypeImpl(modelType),

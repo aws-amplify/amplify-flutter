@@ -20,7 +20,17 @@ import '../../types.dart';
 
 abstract class PaginatedResult<T extends Model> extends Model {
   final List<T> items;
+  final int? limit;
   final String? nextToken;
+  final Map<String, dynamic>? filter;
 
-  const PaginatedResult(this.items, this.nextToken);
+  const PaginatedResult(this.items, this.limit, this.nextToken, this.filter);
+
+  bool hasNextResult() {
+    throw UnimplementedError('hasNextResult not been implemented.');
+  }
+
+  GraphQLRequest<PaginatedResult<T>> getRequestForNextResult() {
+    throw UnimplementedError('getRequestForNextResult not been implemented.');
+  }
 }

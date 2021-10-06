@@ -20,7 +20,8 @@ import 'package:amplify_api_example/amplifyconfiguration.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart'
+    hide UUID;
 
 import 'resources/Blog.dart';
 import 'resources/ModelProvider.dart';
@@ -142,6 +143,39 @@ void main() {
 
       final blogs = [blog_1, blog_2, blog_3];
 
+      expect(data.items, containsAll(blogs));
+    });
+
+    testWidgets(
+        'getRequestForNextResult should produce next page of results from first response',
+        (WidgetTester tester) async {
+      const limit = 1;
+      var firstReq = ModelQueries.list<Blog>(Blog.classType,
+          modelPagination: ModelPagination(limit: limit));
+      var firstRes = await Amplify.API.query(request: firstReq).response;
+      var firstData = firstRes.data;
+      expect(firstData.items.length, limit);
+      expect(firstData.hasNextResult(), true);
+      var secondReq = firstData.getRequestForNextResult();
+      var secondRes = await Amplify.API.query(request: secondReq).response;
+      var secondData = secondRes.data;
+      expect(secondData.items.length, limit);
+      expect(secondData.items[0].id, isNot(firstData.items[0].id));
+    });
+
+    testWidgets('should LIST blogs with Model helper with query predicate',
+        (WidgetTester tester) async {
+      String uuid = UUID.getUUID();
+      String blogName = 'Integration Test Blog $uuid';
+      Blog blog = await addBlog(blogName);
+
+      final req = ModelQueries.list<Blog>(Blog.classType,
+          where: Blog.NAME.eq(blogName) & Blog.ID.eq(blog.id));
+      final res = await Amplify.API.query(request: req).response;
+      final data = res.data;
+      final blogs = [blog];
+
+      expect(data.items.length, 1);
       expect(data.items, containsAll(blogs));
     });
 
