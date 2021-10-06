@@ -44,7 +44,8 @@ class PaginatedResultImpl<T extends Model> extends PaginatedResult<T> {
 
     final modelType = _getModelType();
     final variables = GraphQLRequestFactory.instance
-        .buildVariables(limit: limit, nextToken: nextToken, filter: filter);
+        .buildVariablesForListRequest(
+            limit: limit, nextToken: nextToken, filter: filter);
 
     return GraphQLRequestFactory.instance.buildRequest<PaginatedResult<T>>(
         modelType: PaginatedModelTypeImpl(modelType),

@@ -361,7 +361,8 @@ void main() {
         Blog blog = Blog(id: id, name: name, createdAt: createdAt);
 
         final expectedVars = {
-          'input': {'id': id, 'name': name, 'createdAt': time}
+          'input': {'id': id, 'name': name, 'createdAt': time},
+          'condition': null
         };
         final expectedDoc =
             r'mutation updateBlog($input: UpdateBlogInput!, $condition:  ModelBlogConditionInput) { updateBlog(input: $input, condition: $condition) { id name createdAt } }';
@@ -384,7 +385,8 @@ void main() {
         Blog blog = Blog(id: id, name: name, createdAt: createdAt);
 
         final expectedVars = {
-          'input': {'id': id, 'name': name, 'createdAt': time}
+          'input': {'id': id, 'name': name, 'createdAt': time},
+          'condition': null
         };
         final expectedDoc =
             r'mutation updateBlog($input: UpdateBlogInput!, $condition:  ModelBlogConditionInput) { updateBlog(input: $input, condition: $condition) { id name createdAt } }';
@@ -396,6 +398,31 @@ void main() {
             isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, 'updateBlog');
+      });
+
+      test(
+          'ModelMutations.update() should build a valid request with query predicate condition',
+          () {
+        final id = UUID.getUUID();
+        const name = 'Test Blog';
+        const time = '2021-08-03T16:39:18.000000651Z';
+        final createdAt = DataStore.TemporalDateTime.fromString(time);
+        Blog blog = Blog(id: id, name: name, createdAt: createdAt);
+        final expectedVars = {
+          'input': {'id': id, 'name': name, 'createdAt': time},
+          'condition': {
+            'createdAt': {'lt': time}
+          }
+        };
+        const expectedDoc =
+            r'mutation updateBlog($input: UpdateBlogInput!, $condition:  ModelBlogConditionInput) { updateBlog(input: $input, condition: $condition) { id name createdAt } }';
+
+        GraphQLRequest<Blog> req =
+            ModelMutations.update(blog, where: Blog.CREATEDAT.lt(createdAt));
+
+        expect(req.document, expectedDoc);
+        expect(DeepCollectionEquality().equals(req.variables, expectedVars),
+            isTrue);
       });
     });
   });

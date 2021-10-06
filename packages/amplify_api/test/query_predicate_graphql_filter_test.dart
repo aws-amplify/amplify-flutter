@@ -152,52 +152,48 @@ void main() {
       _testQueryPredicateTranslation(queryPredicate, expectedFilter);
     });
 
-    // TEMP
-    return;
-
-    test('belongs to query converts to expected filter', () {
+    test('TemporalDateTime query converts to expected filter', () {
+      const dateString = '2019-11-23T02:06:50.689000000Z';
+      final exampleValue = TemporalDateTime(DateTime.parse(dateString));
       const expectedFilter = {
-        'and': [
-          {
-            'id': {'eq': 'id'}
-          },
-          {
-            'postID': {'eq': 'postId'}
-          }
-        ]
+        'createdAt': {'le': dateString}
       };
-      // TODO
-      fail('NOT DONE YET');
+      final queryPredicate = Blog.CREATEDAT.le(exampleValue);
+
+      _testQueryPredicateTranslation(queryPredicate, expectedFilter);
     });
 
-    test('has one query converts to expected filter', () {
+    test('TemporalDate query converts to expected filter', () {
+      const dateString = '2019-11-23';
+      final exampleValue = TemporalDate(DateTime.parse(dateString));
       const expectedFilter = {
-        'and': [
-          {
-            'id': {'eq': 'id'}
-          },
-          {
-            'teamID': {'eq': 'teamId'}
-          }
-        ]
+        'createdAt': {'le': dateString}
       };
-      // TODO
-      fail('NOT DONE YET');
+      final queryPredicate = Blog.CREATEDAT.le(exampleValue);
+
+      _testQueryPredicateTranslation(queryPredicate, expectedFilter);
     });
 
-    test('DateTime query converts to expected filter', () {
-      // TODO
-      fail('NOT DONE YET');
+    test('TemporalTime query converts to expected filter', () {
+      const dateString = '02:06:50.689000000';
+      final exampleValue = TemporalTime.fromString(dateString);
+      const expectedFilter = {
+        'createdAt': {'le': dateString}
+      };
+      final queryPredicate = Blog.CREATEDAT.le(exampleValue);
+
+      _testQueryPredicateTranslation(queryPredicate, expectedFilter);
     });
 
-    test('Date query converts to expected filter', () {
-      // TODO
-      fail('NOT DONE YET');
-    });
+    test('DateTime converted to TemporalDateTime query', () {
+      const dateString = '2019-11-23T02:06:50.689000000Z';
+      final exampleValue = DateTime.parse(dateString);
+      const expectedFilter = {
+        'createdAt': {'le': dateString}
+      };
+      final queryPredicate = Blog.CREATEDAT.le(exampleValue);
 
-    test('Time query converts to expected filter', () {
-      // TODO
-      fail('NOT DONE YET');
+      _testQueryPredicateTranslation(queryPredicate, expectedFilter);
     });
   });
 }

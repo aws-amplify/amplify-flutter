@@ -48,7 +48,8 @@ class ModelQueriesFactory extends ModelQueriesInterface {
             .queryPredicateToGraphQLFilter(where, modelType)
         : null;
     final variables = GraphQLRequestFactory.instance
-        .buildVariables(limit: modelPagination?.limit, filter: filter);
+        .buildVariablesForListRequest(
+            limit: modelPagination?.limit, filter: filter);
 
     return GraphQLRequestFactory.instance.buildRequest<PaginatedResult<T>>(
         modelType: PaginatedModelTypeImpl(modelType),
