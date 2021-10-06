@@ -27,6 +27,13 @@ class GraphQLResponseDecoder {
       }
     }
 
+    if (data == '') {
+      // TODO: T data is non-nullable, need to handle valid null response
+      throw ApiException('response from app sync was "null"',
+          recoverySuggestion:
+              "Current GraphQLResponse is non-nullable, please ensure item exists before fetching");
+    }
+
     if (request.decodePath == null) {
       throw ApiException('No decodePath found',
           recoverySuggestion: 'Include decodePath when creating a request');

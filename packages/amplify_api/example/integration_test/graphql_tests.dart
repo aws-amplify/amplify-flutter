@@ -214,6 +214,31 @@ void main() {
       expect(data, equals(blog));
     });
 
+    testWidgets(
+        'should not UPDATE a blog with Model helper when where condition not met',
+        (WidgetTester tester) async {
+      String oldName = 'Integration Test Blog to update';
+      String newName = 'Integration Test Blog - updated';
+      Blog blog = await addBlog(oldName);
+      blog = blog.copyWith(name: newName);
+      final req =
+          ModelMutations.update(blog, where: Blog.NAME.eq('THATS_NOT_MY_NAME'));
+
+      // attempt update, assert error
+      try {
+        await Amplify.API.mutate(request: req).response;
+      } on ApiException catch (e) {
+        expect(e.message, 'response from app sync was "null"');
+        expect(e.recoverySuggestion,
+            'Current GraphQLResponse is non-nullable, please ensure item exists before fetching');
+      }
+      // query again to ensure it still unchanged
+      final getReq = ModelQueries.get(Blog.classType, blog.id);
+      final res = await Amplify.API.query(request: getReq).response;
+      Blog data = res.data;
+      expect(data.name, oldName);
+    });
+
     testWidgets('should DELETE a blog with Model helper',
         (WidgetTester tester) async {
       String name = 'Integration Test Blog - delete';
@@ -236,6 +261,29 @@ void main() {
         expect(e.recoverySuggestion,
             'Current GraphQLResponse is non-nullable, please ensure item exists before fetching');
       }
+    });
+
+    testWidgets(
+        'should not DELETE a blog with Model helper when where condition not met',
+        (WidgetTester tester) async {
+      String name = 'Integration Test Blog - failed delete';
+      Blog blog = await addBlog(name);
+      final req =
+          ModelMutations.delete(blog, where: Blog.NAME.eq('THATS_NOT_MY_NAME'));
+
+      // attempt delete, assert error
+      try {
+        await Amplify.API.mutate(request: req).response;
+      } on ApiException catch (e) {
+        expect(e.message, 'response from app sync was "null"');
+        expect(e.recoverySuggestion,
+            'Current GraphQLResponse is non-nullable, please ensure item exists before fetching');
+      }
+      // query again to ensure it still exists
+      final getReq = ModelQueries.get(Blog.classType, blog.id);
+      final res = await Amplify.API.query(request: getReq).response;
+      Blog data = res.data;
+      expect(data.name, name);
     });
   });
 }
