@@ -169,7 +169,6 @@ class TemporalDateTime implements Comparable<TemporalDateTime> {
       _dateTime.hashCode * _offset.hashCode * _nanoseconds.hashCode;
 
   @override
-  // TODO: should this be TemporalDateTime or DateTime?
   int compareTo(TemporalDateTime other) {
     return getDateTimeInUtc().compareTo(other.getDateTimeInUtc());
   }

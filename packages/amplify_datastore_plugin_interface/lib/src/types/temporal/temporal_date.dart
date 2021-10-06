@@ -137,7 +137,6 @@ class TemporalDate implements Comparable<TemporalDate> {
   int get hashCode => _dateTime.hashCode * _offset.hashCode;
 
   @override
-  // TODO: should this be TemporalDate or DateTime?
   int compareTo(TemporalDate other) {
     return getDateTime().compareTo(other.getDateTime());
   }

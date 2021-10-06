@@ -50,7 +50,6 @@ class TemporalTimestamp implements Comparable<TemporalTimestamp> {
   int get hashCode => _secondsSinceEpoch.hashCode;
 
   @override
-  // TODO: should this be TemporalTimestamp or DateTime?
   int compareTo(TemporalTimestamp other) {
     return toSeconds().compareTo(other.toSeconds());
   }
