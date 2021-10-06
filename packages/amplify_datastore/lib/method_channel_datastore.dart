@@ -27,7 +27,7 @@ const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/datastore');
 class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   dynamic _allModelsStreamFromMethodChannel = null;
 
-  late ObserveQueryExecutor _observeQueryExecutor = ObserveQueryExecutor(
+  ObserveQueryExecutor _observeQueryExecutor = ObserveQueryExecutor(
     dataStoreEventStream:
         AmplifyDataStore.streamWrapper.datastoreStreamController.stream,
   );
