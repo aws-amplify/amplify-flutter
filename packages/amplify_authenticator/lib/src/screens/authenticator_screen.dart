@@ -78,17 +78,16 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
 
     final form = InheritedForms.of(context)[screen];
     return Container(
-      width: containerWidth,
+      constraints: BoxConstraints(maxWidth: containerWidth),
       padding: const EdgeInsets.all(AuthenticatorContainerConstants.padding),
+      margin: const EdgeInsets.all(AuthenticatorContainerConstants.padding) +
+          EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
       color: AmplifyColors.backgroundPrimary,
       child: Column(
         children: <Widget>[
           Text(
             titleResolver.resolve(context, screen),
-            style: const TextStyle(
-              fontWeight: AuthenticatorContainerConstants.titleFontWeight,
-              fontSize: AuthenticatorContainerConstants.titleFontSize,
-            ),
+            style: Theme.of(context).textTheme.headline6,
           ),
           const SizedBox(
             height: AuthenticatorContainerConstants.gap,

@@ -96,8 +96,8 @@ class AuthenticatorFormState<T extends AuthenticatorForm<T>>
         children: [
           ...widget.fields,
           ...widget.additionalFields(context),
-          AdaptiveFlex(
-            children: widget.buttons.spacedBy(const SizedBox(height: 5)),
+          Column(
+            children: widget.buttons.spacedBy(const SizedBox(height: 10)),
           ),
         ],
       ),

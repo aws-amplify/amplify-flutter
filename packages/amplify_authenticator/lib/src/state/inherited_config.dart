@@ -21,12 +21,10 @@ class InheritedConfig extends InheritedWidget {
   const InheritedConfig({
     Key? key,
     required this.amplifyConfig,
-    required this.useAmplifyTheme,
     required Widget child,
   }) : super(key: key, child: child);
 
   final AmplifyConfig? amplifyConfig;
-  final bool useAmplifyTheme;
 
   static InheritedConfig of(BuildContext context) {
     final inheritedConfig =
@@ -71,8 +69,6 @@ class InheritedConfig extends InheritedWidget {
     super.debugFillProperties(properties);
     properties
         .add(DiagnosticsProperty<AmplifyConfig?>('config', amplifyConfig));
-    properties
-        .add(DiagnosticsProperty<bool>('useAmplifyTheme', useAmplifyTheme));
   }
 }
 

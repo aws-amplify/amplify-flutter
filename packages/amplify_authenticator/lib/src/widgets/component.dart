@@ -91,7 +91,5 @@ abstract class AuthenticatorComponentState<T extends AuthenticatorComponent<T>>
         'stringResolver', stringResolver));
     properties.add(
         DiagnosticsProperty<AmplifyConfig>('config', config.amplifyConfig));
-    properties.add(DiagnosticsProperty<bool>(
-        'useAuthenticatorTheme', config.useAmplifyTheme));
   }
 }

@@ -240,7 +240,10 @@ class StateMachineBloc {
       _exceptionController.add(AuthenticatorException(e.message));
       yield AuthFlow.confirmSignup;
     } on AmplifyException catch (e) {
-      _exceptionController.add(AuthenticatorException(e.message));
+      _exceptionController.add(AuthenticatorException(
+        e.message,
+        showBanner: !e.message.contains('cancelled'),
+      ));
     } on Exception catch (e) {
       _exceptionController.add(AuthenticatorException(e.toString()));
     }

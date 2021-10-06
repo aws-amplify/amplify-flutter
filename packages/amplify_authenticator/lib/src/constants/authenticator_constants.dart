@@ -24,10 +24,6 @@ class AuthenticatorContainerConstants {
 
   static const double landScapeView = 672;
 
-  static const double titleFontSize = 18.4;
-
-  static const FontWeight titleFontWeight = FontWeight.bold;
-
   static const padding = 40.0;
 
   static const gap = 24.0;

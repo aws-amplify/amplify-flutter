@@ -196,7 +196,7 @@ class _AuthenticatorState extends State<Authenticator> {
     _stateMachineBloc = StateMachineBloc(_authService)..add(const AuthLoad());
     _viewModel = AuthViewModel(_stateMachineBloc);
     _exceptionSub = _stateMachineBloc.exceptions.listen((exception) {
-      if (mounted) {
+      if (exception.showBanner && mounted) {
         ScaffoldMessenger.of(context).showMaterialBanner(
           createMaterialBanner(
             type: StatusType.error,
@@ -259,7 +259,6 @@ class _AuthenticatorState extends State<Authenticator> {
       authBloc: _stateMachineBloc,
       child: InheritedConfig(
         amplifyConfig: _config,
-        useAmplifyTheme: widget.useAmplifyTheme,
         child: InheritedAuthViewModel(
           key: keyInheritedAuthViewModel,
           viewModel: _viewModel,
@@ -323,10 +322,7 @@ class _AuthenticatorBody extends StatelessWidget {
 
             return Center(
               child: SingleChildScrollView(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 40),
-                  child: screen,
-                ),
+                child: screen,
               ),
             );
           },

@@ -14,13 +14,18 @@
  */
 
 class AuthenticatorException implements Exception {
-  final String message;
+  const AuthenticatorException(
+    this.message, {
+    this.showBanner = true,
+  });
 
-  const AuthenticatorException(this.message);
+  final String message;
+  final bool showBanner;
 
   const AuthenticatorException.customAuth()
-      : message = 'Custom auth flows are not supported yet in Authenticator';
+      : message = 'Custom auth flows are not supported yet in Authenticator',
+        showBanner = true;
 
   @override
-  String toString() => message.toString();
+  String toString() => message;
 }
