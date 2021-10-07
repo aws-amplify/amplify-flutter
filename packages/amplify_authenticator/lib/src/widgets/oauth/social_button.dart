@@ -22,22 +22,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-extension on AuthProvider {
-  IconData get icon {
-    switch (this) {
-      case AuthProvider.google:
-        return SocialIcons.google;
-      case AuthProvider.facebook:
-        return SocialIcons.facebook;
-      case AuthProvider.amazon:
-        return SocialIcons.amazon;
-      case AuthProvider.apple:
-        return SocialIcons.apple;
-    }
-  }
-}
-
+/// {@template authenticator.social_sign_in_button}
+/// A button for launching a social sign in UI.
+/// {@endtemplate}
 class SocialSignInButton extends AuthenticatorElevatedButton {
+  /// {@macro authenticator.social_sign_in_button}
   const SocialSignInButton({
     Key? key,
     required this.provider,
@@ -46,6 +35,7 @@ class SocialSignInButton extends AuthenticatorElevatedButton {
           primary: false,
         );
 
+  /// The Cognito social sign-in provider.
   final AuthProvider provider;
 
   @override
@@ -66,5 +56,20 @@ class SocialSignInButton extends AuthenticatorElevatedButton {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(EnumProperty<AuthProvider>('provider', provider));
+  }
+}
+
+extension on AuthProvider {
+  IconData get icon {
+    switch (this) {
+      case AuthProvider.google:
+        return SocialIcons.google;
+      case AuthProvider.facebook:
+        return SocialIcons.facebook;
+      case AuthProvider.amazon:
+        return SocialIcons.amazon;
+      case AuthProvider.apple:
+        return SocialIcons.apple;
+    }
   }
 }

@@ -37,7 +37,7 @@ class _ConfirmVerifyUserFormFieldState
   String? get initialValue => viewModel.confirmationCode;
 
   @override
-  void Function(String) get onChanged => viewModel.setConfirmationCode;
+  ValueChanged<String> get onChanged => viewModel.setConfirmationCode;
 
   @override
   TextInputType get keyboardType => TextInputType.text;

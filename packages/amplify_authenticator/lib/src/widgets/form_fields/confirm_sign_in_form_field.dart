@@ -156,7 +156,7 @@ class _ConfirmSignInFormFieldState extends _AuthenticatorFormFieldState<
   }
 
   @override
-  void Function(String) get onChanged {
+  ValueChanged<String> get onChanged {
     switch (widget.field) {
       case ConfirmSignInField.code:
         return viewModel.setConfirmationCode;

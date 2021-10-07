@@ -130,8 +130,8 @@ abstract class _AuthenticatorFormFieldState<FieldType,
   }
 
   @nonVirtual
-  void Function(String) get usernameOnChangedForAlias {
-    final List<void Function(String)> ops = [];
+  ValueChanged<String> get usernameOnChangedForAlias {
+    final List<ValueChanged<String>> ops = [];
 
     if (_loginMechanisms.contains(LoginMechanisms.preferredUsername)) {
       ops.add(viewModel.setUsername);
@@ -149,7 +149,7 @@ abstract class _AuthenticatorFormFieldState<FieldType,
   }
 
   /// Callback for when `onChanged` is triggered on the [FormField].
-  void Function(String) get onChanged => (_) {};
+  ValueChanged<String> get onChanged => (_) {};
 
   /// Validates inputs of this form field.
   FormFieldValidator<String>? get validator => null;
@@ -233,7 +233,7 @@ abstract class _AuthenticatorFormFieldState<FieldType,
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(
-        ObjectFlagProperty<void Function(String)>.has('callback', onChanged));
+        ObjectFlagProperty<ValueChanged<String>>.has('callback', onChanged));
     properties.add(ObjectFlagProperty<FormFieldValidator<String>?>.has(
         'validator', validator));
     properties.add(StringProperty('initialValue', initialValue));
@@ -244,7 +244,7 @@ abstract class _AuthenticatorFormFieldState<FieldType,
     properties.add(IntProperty('errorMaxLines', errorMaxLines));
     properties.add(DiagnosticsProperty<TextInputType>(
         'keyboardTypeForAlias', usernameKeyboardTypeForAlias));
-    properties.add(ObjectFlagProperty<void Function(String p1)>.has(
+    properties.add(ObjectFlagProperty<ValueChanged<String>>.has(
         'usernameOnChangedForAlias', usernameOnChangedForAlias));
   }
 }

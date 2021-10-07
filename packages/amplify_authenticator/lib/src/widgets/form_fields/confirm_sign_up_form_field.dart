@@ -160,7 +160,7 @@ class _ConfirmSignUpFormFieldState extends _AuthenticatorFormFieldState<
   }
 
   @override
-  void Function(String) get onChanged {
+  ValueChanged<String> get onChanged {
     switch (widget.field) {
       case ConfirmSignUpField.username:
         return usernameOnChangedForAlias;

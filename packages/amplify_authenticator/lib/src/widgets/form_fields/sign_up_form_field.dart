@@ -486,7 +486,7 @@ class _SignUpFormFieldState
   }
 
   @override
-  void Function(String) get onChanged {
+  ValueChanged<String> get onChanged {
     switch (widget.field) {
       case SignUpField.username:
         return usernameOnChangedForAlias;

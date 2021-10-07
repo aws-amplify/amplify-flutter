@@ -199,20 +199,18 @@ class _AuthenticatorState extends State<Authenticator> {
       if (mounted && exception.showBanner) {
         ScaffoldMessenger.of(context)
           ..clearMaterialBanners()
-          ..showMaterialBanner(
-            createMaterialBanner(
-              type: StatusType.error,
-              content: Text(exception.message),
-              margin: MediaQuery.of(context).viewPadding.top,
-              actions: [
-                IconButton(
-                  onPressed: () =>
-                      ScaffoldMessenger.of(context).clearMaterialBanners(),
-                  icon: const Icon(Icons.close),
-                ),
-              ],
-            ),
-          );
+          ..showMaterialBanner(createMaterialBanner(
+            type: StatusType.error,
+            content: Text(exception.message),
+            margin: MediaQuery.of(context).viewPadding.top,
+            actions: [
+              IconButton(
+                onPressed: () =>
+                    ScaffoldMessenger.of(context).clearMaterialBanners(),
+                icon: const Icon(Icons.close),
+              ),
+            ],
+          ));
       }
     });
     _waitForConfiguration();
