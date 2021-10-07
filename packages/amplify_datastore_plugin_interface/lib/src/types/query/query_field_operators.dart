@@ -109,7 +109,7 @@ class LessOrEqualQueryOperator<T extends Comparable>
       : super(QueryFieldOperatorType.less_or_equal);
 
   bool evaluate(T other) {
-    return other.compareTo(value) < 0;
+    return other.compareTo(value) <= 0;
   }
 
   @override
@@ -127,7 +127,7 @@ class LessThanQueryOperator<T extends Comparable>
       : super(QueryFieldOperatorType.less_than);
 
   bool evaluate(T other) {
-    return other.compareTo(value) <= 0;
+    return other.compareTo(value) < 0;
   }
 
   @override
@@ -198,7 +198,7 @@ class BetweenQueryOperator<T extends Comparable> extends QueryFieldOperator<T> {
       : super(QueryFieldOperatorType.between);
 
   bool evaluate(T other) {
-    return other.compareTo(start) > 0 && other.compareTo(end) < 0;
+    return other.compareTo(start) >= 0 && other.compareTo(end) <= 0;
   }
 
   @override
