@@ -54,11 +54,17 @@ class GraphQLResponseDecoder {
           recoverySuggestion:
               "Current GraphQLResponse is non-nullable, please ensure item exists before fetching");
     }
-    if (request.variables['limit'] != null) {
-      dataJson?['limit'] = request.variables['limit'];
-    }
 
-    T decodedData = request.modelType!.fromJson(dataJson!) as T;
+    T decodedData;
+    final modelType = request.modelType;
+    if (modelType is PaginatedModelType) {
+      decodedData = modelType.fromJson(
+        dataJson!,
+        limit: request.variables['limit'],
+      ) as T;
+    } else {
+      decodedData = modelType!.fromJson(dataJson!) as T;
+    }
     return GraphQLResponse<T>(data: decodedData, errors: errors);
   }
 }

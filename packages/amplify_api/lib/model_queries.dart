@@ -27,10 +27,10 @@ class ModelQueries {
 
   static GraphQLRequest<PaginatedResult<T>> list<T extends Model>(
     ModelType<T> modelType, {
-    ModelPagination? modelPagination,
+    int? limit,
     QueryPredicate? where,
   }) {
     return ModelQueriesFactory.instance
-        .list<T>(modelType, modelPagination: modelPagination, where: where);
+        .list<T>(modelType, limit: limit, where: where);
   }
 }

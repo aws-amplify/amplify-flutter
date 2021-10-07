@@ -79,9 +79,8 @@ void main() {
         String expected =
             r"query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }";
 
-        GraphQLRequest<PaginatedResult<Blog>> req = ModelQueries.list<Blog>(
-            Blog.classType,
-            modelPagination: ModelPagination(limit: 1));
+        GraphQLRequest<PaginatedResult<Blog>> req =
+            ModelQueries.list<Blog>(Blog.classType, limit: 1);
 
         expect(req.document, expected);
         expect(req.modelType, isA<PaginatedModelType<Blog>>());
@@ -120,9 +119,8 @@ void main() {
       test(
           'ModelQueries.list() returns a GraphQLRequest<PaginatedResult<Blog>> when provided a modelType',
           () async {
-        GraphQLRequest<PaginatedResult<Blog>> req = ModelQueries.list<Blog>(
-            Blog.classType,
-            modelPagination: ModelPagination(limit: 2));
+        GraphQLRequest<PaginatedResult<Blog>> req =
+            ModelQueries.list<Blog>(Blog.classType, limit: 2);
 
         List<GraphQLResponseError> errors = [];
         String data = '''{
@@ -156,9 +154,8 @@ void main() {
           'GraphQLResponse<PaginatedResult<Blog>> can get the request for next page of data',
           () async {
         const limit = 2;
-        GraphQLRequest<PaginatedResult<Blog>> req = ModelQueries.list<Blog>(
-            Blog.classType,
-            modelPagination: ModelPagination(limit: limit));
+        GraphQLRequest<PaginatedResult<Blog>> req =
+            ModelQueries.list<Blog>(Blog.classType, limit: limit);
 
         List<GraphQLResponseError> errors = [];
         String data = '''{
@@ -195,9 +192,8 @@ void main() {
           'GraphQLResponse<PaginatedResult<Blog>> will not have data for next page when result has no nextToken',
           () async {
         const limit = 2;
-        GraphQLRequest<PaginatedResult<Blog>> req = ModelQueries.list<Blog>(
-            Blog.classType,
-            modelPagination: ModelPagination(limit: limit));
+        GraphQLRequest<PaginatedResult<Blog>> req =
+            ModelQueries.list<Blog>(Blog.classType, limit: limit);
 
         List<GraphQLResponseError> errors = [];
         String data = '''{

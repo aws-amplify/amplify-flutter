@@ -149,8 +149,7 @@ void main() {
         'getRequestForNextResult should produce next page of results from first response',
         (WidgetTester tester) async {
       const limit = 1;
-      var firstReq = ModelQueries.list<Blog>(Blog.classType,
-          modelPagination: ModelPagination(limit: limit));
+      var firstReq = ModelQueries.list<Blog>(Blog.classType, limit: limit);
       var firstRes = await Amplify.API.query(request: firstReq).response;
       var firstData = firstRes.data;
       expect(firstData.items.length, limit);
