@@ -23,8 +23,6 @@ import '../lib/types/observe_query_executor.dart';
 import './test_models/Blog.dart';
 
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
-
   Blog initialBlog = Blog(name: 'initial blog');
   List<Blog> syncedBlogs =
       List.generate(10, (index) => Blog(name: 'synced blog $index'));

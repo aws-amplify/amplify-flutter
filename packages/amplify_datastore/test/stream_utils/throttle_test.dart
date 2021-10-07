@@ -19,8 +19,6 @@ import 'package:fake_async/fake_async.dart';
 import '../../lib/stream_utils/throttle.dart';
 
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
-
   group('throttleByCountAndTime', () {
     test('should throttle by count if only count is provided', () {
       var stream = Stream.fromIterable(

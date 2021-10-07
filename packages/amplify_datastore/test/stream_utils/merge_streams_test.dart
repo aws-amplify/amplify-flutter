@@ -19,8 +19,6 @@ import 'package:fake_async/fake_async.dart';
 import '../../lib/stream_utils/merge_streams.dart';
 
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
-
   group('mergeStreams', () {
     test('should merge events from multiple streams', () {
       fakeAsync((async) {
