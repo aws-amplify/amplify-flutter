@@ -30,11 +30,31 @@ const MethodChannel _channel =
 const _transferProgressEventChannel = const EventChannel(
     'com.amazonaws.amplify/storage_transfer_progress_events');
 
+var _transferProgressionCallbackMap =
+    Map<String, Function(TransferProgress)?>();
+
 /// An implementation of [AmplifyPlatform] that uses method channels.
 class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
   @override
   Future<void> addPlugin() async {
     try {
+      _transferProgressEventChannel.receiveBroadcastStream(0).listen((event) {
+        var eventData = (event as Map).cast<String, dynamic>();
+        String key = eventData["id"];
+        int currentProgress = eventData["currentProgress"];
+        int totalProgress = eventData["totalProgress"];
+
+        Function(TransferProgress)? callback =
+            _transferProgressionCallbackMap[key];
+
+        if (callback != null) {
+          callback(TransferProgress(currentProgress, totalProgress));
+          if (currentProgress >= totalProgress) {
+            _transferProgressionCallbackMap.remove(key);
+          }
+        }
+      });
+
       return await _channel.invokeMethod('addPlugin');
     } on PlatformException catch (e) {
       if (e.code == "AmplifyAlreadyConfiguredException") {
@@ -53,11 +73,7 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
       Function(TransferProgress)? onProgress}) async {
     try {
       if (onProgress != null) {
-        _transferProgressEventChannel
-            .receiveBroadcastStream(request.key)
-            .listen((event) {
-          onProgress(TransferProgress(event[0], event[1]));
-        });
+        _transferProgressionCallbackMap[request.key] = onProgress;
       }
 
       final Map<String, dynamic>? data =
@@ -135,11 +151,7 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
       Function(TransferProgress)? onProgress}) async {
     try {
       if (onProgress != null) {
-        _transferProgressEventChannel
-            .receiveBroadcastStream(request.key)
-            .listen((event) {
-          onProgress(TransferProgress(event[0], event[1]));
-        });
+        _transferProgressionCallbackMap[request.key] = onProgress;
       }
 
       final Map<String, dynamic>? data =

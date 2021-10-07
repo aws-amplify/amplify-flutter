@@ -30,7 +30,7 @@ public class AmplifyStorageOperations {
                 local: req.file,
                 options: req.options,
                 progressListener: { progress in
-                    transferProgressStreamHandler.onDownloadProgressEvent(key: req.key, progress: progress)
+                    transferProgressStreamHandler.onTransferProgressEvent(key: req.key, progress: progress)
                 },
                 resultListener: { event in
                     switch event {
@@ -38,10 +38,8 @@ public class AmplifyStorageOperations {
                         var result = [String: String]()
                         result["key"] = key
                         flutterResult(result)
-                        transferProgressStreamHandler.onDownloadEnd(key: req.key)
                     case .failure(let storageError):
                         prepareError(flutterResult: flutterResult, error: storageError)
-                        transferProgressStreamHandler.onDownloadEnd(key: req.key)
                     }
             })
         } catch {
@@ -124,7 +122,7 @@ public class AmplifyStorageOperations {
                  local: req.file,
                  options: req.options,
                  progressListener: { progress in
-                    transferProgressStreamHandler.onDownloadProgressEvent(key: req.key, progress: progress)
+                    transferProgressStreamHandler.onTransferProgressEvent(key: req.key, progress: progress)
                  },
                  resultListener: { event in
                     switch event {
@@ -133,10 +131,8 @@ public class AmplifyStorageOperations {
                         // Amplify Android sends this back
                         result["path"] = req.file.absoluteURL.path
                         flutterResult(result)
-                        transferProgressStreamHandler.onDownloadEnd(key: req.key)
                     case .failure(let storageError):
                         prepareError(flutterResult: flutterResult, error: storageError)
-                        transferProgressStreamHandler.onDownloadEnd(key: req.key)
                     }
             })
         } catch {

@@ -16,29 +16,33 @@
 
 package android.src.main.kotlin.com.amazonaws.amplify.amplify_storage_s3.types
 
+import android.os.Handler
+import android.os.Looper
 import com.amplifyframework.storage.result.StorageTransferProgress
 import io.flutter.plugin.common.EventChannel
 
 class TransferProgressStreamHandler : EventChannel.StreamHandler {
 
-    private var eventSinkMap = mutableMapOf<String, EventChannel.EventSink>()
+    private var eventSink : EventChannel.EventSink? = null
+    private val handler = Handler(Looper.getMainLooper())
 
-    public fun onDownloadProgressEvent(key : String, progress : StorageTransferProgress){
-        eventSinkMap[key]?.success( listOf(progress.currentBytes, progress.totalBytes) )
-    }
-
-    public fun onDownloadEnd(key : String){
-        eventSinkMap[key]?.endOfStream()
-        eventSinkMap.remove(key)
+    fun onTransferProgressEvent(key : String, progress : StorageTransferProgress){
+        handler.post {
+            val result: MutableMap<String, Any?> = mutableMapOf(
+                "id" to key,
+                "currentProgress" to progress.currentBytes,
+                "totalProgress" to progress.totalBytes
+            )
+            eventSink?.success(result)
+        }
     }
 
     // Called automatically
     override fun onListen(arguments: Any?, sink: EventChannel.EventSink) {
-        eventSinkMap[arguments as String] = sink
+        eventSink = sink
     }
 
     override fun onCancel(arguments: Any?) {
-        if(arguments != null)
-            onDownloadEnd(arguments as String)
+        eventSink = null
     }
 }

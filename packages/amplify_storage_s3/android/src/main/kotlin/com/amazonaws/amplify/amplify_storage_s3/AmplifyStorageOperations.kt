@@ -44,15 +44,13 @@ class AmplifyStorageOperations {
                         req.file,
                         req.options,
                         { progress ->
-                            transferProgressStreamHandler.onDownloadProgressEvent(req.key, progress)
+                            transferProgressStreamHandler.onTransferProgressEvent(req.key, progress)
                         },
                         { result ->
                             prepareUploadFileResponse(flutterResult, result)
-                            transferProgressStreamHandler.onDownloadEnd(req.key)
                         },
                         { error ->
                             prepareError(flutterResult, error)
-                            transferProgressStreamHandler.onDownloadEnd(req.key)
                         })
             } catch(e: Exception) {
                 prepareError(flutterResult, e)
@@ -121,15 +119,13 @@ class AmplifyStorageOperations {
                         req.file,
                         req.options,
                         { progress ->
-                            transferProgressStreamHandler.onDownloadProgressEvent(req.key, progress)
+                            transferProgressStreamHandler.onTransferProgressEvent(req.key, progress)
                         },
                         { result ->
                             prepareDownloadFileResponse(flutterResult, result)
-                            transferProgressStreamHandler.onDownloadEnd(req.key)
                         },
                         { error ->
                             prepareError(flutterResult, error)
-                            transferProgressStreamHandler.onDownloadEnd(req.key)
                         }
                 )
             } catch(e: Exception) {

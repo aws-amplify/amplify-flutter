@@ -16,27 +16,27 @@
 import Foundation
 
 class TransferProgressStreamHandler : NSObject, FlutterStreamHandler {
-
-    var eventSinkMap: [String: FlutterEventSink] = [:]
     
-    public func onDownloadProgressEvent(key : String, progress : Progress){
-        eventSinkMap[key]?( [progress.completedUnitCount, progress.totalUnitCount] )
-    }
-    
-    public func onDownloadEnd(key : String){
-        eventSinkMap[key] = nil
-    }
+    private var eventSink: FlutterEventSink?
     
     public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
-        eventSinkMap[arguments as! String] = events
+        eventSink = events
         return nil
     }
     
-    public func onCancel(withArguments arguments: Any?) -> FlutterError? {
-        if(arguments != nil){
-            onDownloadEnd(key: arguments as! String)
-        }
-        return nil
+    public func onTransferProgressEvent(key : String, progress : Progress){
+        let result: [String: Any?] = [
+            "id": key,
+            "currentProgress": progress.completedUnitCount,
+            "totalProgress": progress.totalUnitCount
+        ]
+        print("test onDownloadProgressEvent: " )
+        print(progress.fractionCompleted)
+        eventSink?(result)
     }
 
+    public func onCancel(withArguments arguments: Any?) -> FlutterError? {
+        eventSink = nil
+        return nil
+    }
 }
