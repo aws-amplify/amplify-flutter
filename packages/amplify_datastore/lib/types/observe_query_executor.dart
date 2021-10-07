@@ -16,10 +16,9 @@
 import 'package:amplify_datastore/stream_utils/merge_streams.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
-import '../amplify_datastore.dart';
 import '../stream_utils/throttle.dart';
-import 'DataStoreHubEvents/DataStoreHubEvent.dart';
-import 'DataStoreHubEvents/ModelSyncedEvent.dart';
+import './DataStoreHubEvents/DataStoreHubEvent.dart';
+import './DataStoreHubEvents/ModelSyncedEvent.dart';
 
 typedef Query<T extends Model> = Future<List<T>> Function(
   ModelType<T> modelType, {
@@ -31,7 +30,7 @@ typedef Query<T extends Model> = Future<List<T>> Function(
 typedef Observe<T extends Model> = Stream<SubscriptionEvent<T>> Function(
     ModelType<T> modelType);
 
-/// executes an observeQuery operation
+/// A class for handling observeQuery operations
 class ObserveQueryExecutor {
   final Stream<dynamic> dataStoreEventStream;
 
@@ -42,14 +41,18 @@ class ObserveQueryExecutor {
             .cast<DataStoreHubEvent>()
             .map((event) => event.payload)
             .where((event) => event is ModelSyncedEvent)
-            .cast<ModelSyncedEvent>() {
+            .cast<ModelSyncedEvent>()
+            .asBroadcastStream() {
     _initModelSyncCache();
   }
 
-  Stream<ModelSyncedEvent> _modelSyncedEventStream;
+  /// A stream of ModelSyncEvents
+  final Stream<ModelSyncedEvent> _modelSyncedEventStream;
 
-  Map<String, bool> _modelSyncCache = {};
+  /// a cache of modelSyncEvents in the format {'<Model_Name>': true}
+  final Map<String, bool> _modelSyncCache = {};
 
+  /// executes an observeQuery operation
   Stream<QuerySnapshot<T>> observeQuery<T extends Model>({
     required Query<T> query,
     required Observe<T> observe,
@@ -132,8 +135,8 @@ class ObserveQueryExecutor {
     final queryStream = Stream.fromFuture(queryFuture);
 
     return mergeStreams([
-      queryStream,
       observeStream,
+      queryStream,
       syncStatusStream,
     ]).throttleByCountAndTime(
       throttleCount: throttleOptions.maxCount,

@@ -62,6 +62,23 @@ void main() {
       });
     });
 
+    test('should emit the very first event immediately', () {
+      fakeAsync((async) {
+        var stream = Stream.periodic(
+          Duration(milliseconds: 10),
+          (int value) => value,
+        ).take(1);
+
+        var throttledStream = stream.throttleByCountAndTime(
+          duration: Duration(milliseconds: 20),
+          throttleCount: 10,
+        );
+
+        expect(throttledStream, emitsInOrder([0]));
+        async.elapse(Duration(milliseconds: 15));
+      });
+    });
+
     test(
         'should emit each event from source if time between events exceeds duration',
         () {

@@ -15,11 +15,11 @@
 
 import 'dart:async';
 
-/// utility for merging multiple streams, intended for use
-/// in observeQuery
+/// A utility for merging multiple streams into a single
+/// broadcast stream, intended for use in observeQuery
 ///
 /// Note: this may not meet use cases outside of observeQuery
-/// and is not intended to be exposed on the public API
+/// and is not intended to be exposed as part of the public API
 Stream<T> mergeStreams<T>(List<Stream<T>> streams) {
   late StreamController<T> _controller;
   List<StreamSubscription<T>> subscriptions = [];
@@ -35,28 +35,14 @@ Stream<T> mergeStreams<T>(List<Stream<T>> streams) {
     }
   }
 
-  void _onPause() {
-    for (var sub in subscriptions) {
-      sub.pause();
-    }
-  }
-
-  void _onResume() {
-    for (var sub in subscriptions) {
-      sub.resume();
-    }
-  }
-
   void _onCancel() {
     for (var sub in subscriptions) {
       sub.cancel();
     }
   }
 
-  _controller = StreamController(
+  _controller = StreamController.broadcast(
     onListen: _onListen,
-    onPause: _onPause,
-    onResume: _onResume,
     onCancel: _onCancel,
   );
 
