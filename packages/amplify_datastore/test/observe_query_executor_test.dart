@@ -177,5 +177,32 @@ void main() {
         async.elapse(Duration(seconds: 10));
       });
     });
+
+    test('should cache sync status', () {
+      fakeAsync((async) {
+        ObserveQueryExecutor executor = ObserveQueryExecutor(
+          dataStoreEventStream: eventStream,
+        );
+
+        async.elapse(Duration(seconds: 10));
+
+        Stream<QuerySnapshot<Blog>> observeQuery = executor.observeQuery(
+          query: query,
+          observe: observe,
+          modelType: Blog.classType,
+          throttleOptions: ObserveQueryThrottleOptions.none(),
+        );
+
+        Stream<bool> observeQueryStatus =
+            observeQuery.map((event) => event.isSynced);
+
+        expect(
+          observeQueryStatus,
+          emitsInOrder([true]),
+        );
+
+        async.elapse(Duration(seconds: 10));
+      });
+    });
   });
 }
