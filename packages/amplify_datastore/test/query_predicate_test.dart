@@ -181,5 +181,26 @@ void main() {
       expect(testPredicate.evaluate(post1), isTrue);
       expect(testPredicate.evaluate(post2), isFalse);
     });
+
+    test('and', () async {
+      QueryPredicate testPredicate =
+          Post.TITLE.contains("post") & Post.RATING.lt(10);
+      expect(testPredicate.evaluate(post1), isTrue);
+      expect(testPredicate.evaluate(post2), isFalse);
+    });
+
+    test('or', () async {
+      QueryPredicate testPredicate =
+          Post.TITLE.contains("two") | Post.RATING.lt(10);
+      expect(testPredicate.evaluate(post1), isTrue);
+      expect(testPredicate.evaluate(post2), isTrue);
+      expect(testPredicate.evaluate(post3), isFalse);
+    });
+
+    test('not', () async {
+      QueryPredicate testPredicate = not(Post.RATING.lt(5));
+      expect(testPredicate.evaluate(post1), isFalse);
+      expect(testPredicate.evaluate(post2), isTrue);
+    });
   });
 }
