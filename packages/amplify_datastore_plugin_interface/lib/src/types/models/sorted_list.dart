@@ -20,6 +20,9 @@
 /// O(n) time complexity at worst
 ///
 /// if no compare function is provided, the list behaves like an unsorted list
+///
+/// Note: this is intended for use in observeQuery and is not intended to be
+/// part of the public API
 class SortedList<T> {
   // items in the list
   final List<T> _items;

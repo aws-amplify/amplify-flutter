@@ -28,9 +28,10 @@ import 'subscription_event.dart';
 /// this model has finished syncing data over the network.
 /// {@endtemplate}
 class QuerySnapshot<T extends Model> {
-  /// All model instances from the local store at the time that the snapshot was recieved
+  // A list of models sorted according to the value provided for sortBy
   final SortedList<T> _list;
 
+  /// A list of models from the local store at the time that the snapshot was generated
   List<T> get items => _list.items;
 
   /// Indicates whether all sync queries for this model are complete
@@ -39,7 +40,7 @@ class QuerySnapshot<T extends Model> {
   /// A condition, or group of conditions, used to query data
   final QueryPredicate? where;
 
-  /// A list of sortBy conditions, used to specify the order of results
+  /// A list of [QuerySortBy] conditions, used to specify the order of results
   final List<QuerySortBy>? sortBy;
 
   const QuerySnapshot._({
@@ -80,10 +81,10 @@ class QuerySnapshot<T extends Model> {
 
   /// Returns a new QuerySnapshot with the [event] applied
   ///
-  /// Takes the existing snapshots QueryPredicate and QuerySortBy
-  /// into consideration when applying the event
+  /// Takes the existing snapshots [QueryPredicate] and [QuerySortBy]
+  /// conditions into consideration when applying the event
   ///
-  /// If the [event] does not result in a change the the QuerySnapshot,
+  /// If the [event] does not result in a change to the QuerySnapshot,
   /// the current snapshot is returned
   QuerySnapshot<T> withSubscriptionEvent({
     required SubscriptionEvent<T> event,
