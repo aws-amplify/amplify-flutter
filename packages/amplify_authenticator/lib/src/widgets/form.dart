@@ -70,19 +70,20 @@ class AuthenticatorFormState<T extends AuthenticatorForm<T>>
     super.dispose();
   }
 
-  final ValueNotifier<bool?> obscureTextToggleValue = ValueNotifier(null);
+  final ValueNotifier<bool> obscureTextToggleValue = ValueNotifier(true);
 
   /// Controls optional visibilty of the field.
   Widget get obscureTextToggle {
-    return ValueListenableBuilder<bool?>(
+    return ValueListenableBuilder<bool>(
       valueListenable: obscureTextToggleValue,
-      builder: (BuildContext context, bool? toggleObscureText, Widget? _) {
-        var obscureText = toggleObscureText ?? true;
+      builder: (BuildContext context, bool toggleObscureText, Widget? _) {
         return IconButton(
           onPressed: () {
-            obscureTextToggleValue.value = !obscureText;
+            obscureTextToggleValue.value = !toggleObscureText;
           },
-          icon: Icon(obscureText ? Icons.visibility : Icons.visibility_off),
+          icon: Icon(
+            toggleObscureText ? Icons.visibility : Icons.visibility_off,
+          ),
         );
       },
     );

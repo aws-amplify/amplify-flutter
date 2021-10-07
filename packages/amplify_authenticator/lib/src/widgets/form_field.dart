@@ -106,11 +106,9 @@ abstract class _AuthenticatorFormFieldState<FieldType,
       .findAncestorStateOfType<AuthenticatorFormState>()!
       .obscureTextToggle;
 
-  late final List<LoginMechanisms> _loginMechanisms = () {
-    return config.amplifyConfig?.auth?.awsCognitoAuthPlugin?.auth?['Default']
-            ?.loginMechanisms ??
-        const <LoginMechanisms>[];
-  }();
+  late final List<LoginMechanisms> _loginMechanisms = config.amplifyConfig?.auth
+          ?.awsCognitoAuthPlugin?.auth?['Default']?.loginMechanisms ??
+      const <LoginMechanisms>[];
 
   @nonVirtual
   TextInputType get usernameKeyboardTypeForAlias {
@@ -193,13 +191,12 @@ abstract class _AuthenticatorFormFieldState<FieldType,
         children: <Widget>[
           Text(title),
           const Padding(padding: FormFieldConstants.gap),
-          ValueListenableBuilder<bool?>(
+          ValueListenableBuilder<bool>(
             valueListenable: context
                 .findAncestorStateOfType<AuthenticatorFormState>()!
                 .obscureTextToggleValue,
-            builder:
-                (BuildContext context, bool? toggleObscureText, Widget? _) {
-              var obscureText = this.obscureText && (toggleObscureText ?? true);
+            builder: (BuildContext context, bool toggleObscureText, Widget? _) {
+              var obscureText = this.obscureText && toggleObscureText;
               return TextFormField(
                 style: enabled
                     ? null

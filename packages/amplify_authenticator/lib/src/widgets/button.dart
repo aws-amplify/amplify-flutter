@@ -172,12 +172,15 @@ class _AmplifyElevatedButtonState
                     children: [
                       if (widget.leading != null) widget.leading!,
                       Flexible(
-                        child: Text(
-                          buttonResolver.resolve(
-                            context,
-                            widget.labelKey,
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            buttonResolver.resolve(
+                              context,
+                              widget.labelKey,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          textAlign: TextAlign.center,
                         ),
                       ),
                       if (widget.trailing != null) widget.trailing!,
