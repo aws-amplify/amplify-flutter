@@ -25,7 +25,13 @@ abstract class PaginatedResult<T extends Model> extends Model {
 
   const PaginatedResult(this.items, this.limit, this.nextToken);
 
-  bool hasNextResult();
+  /// Returns `true` if there if there is more data to fetch beyond the data
+  /// contained in this response. If `true`, the request for the next page of
+  /// data can be obtained with `.requestForNextResult`.
+  bool get hasNextResult;
 
-  GraphQLRequest<PaginatedResult<T>> getRequestForNextResult();
+  /// If there is more data than is contained in this response, returns the
+  /// request for the next chunk of data, where `limit` will be the same as the
+  /// original request. Returns `null` if no more data.
+  GraphQLRequest<PaginatedResult<T>>? get requestForNextResult;
 }

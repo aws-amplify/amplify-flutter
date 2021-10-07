@@ -29,16 +29,14 @@ class PaginatedResultImpl<T extends Model> extends PaginatedResult<T> {
   }
 
   @override
-  bool hasNextResult() {
+  bool get hasNextResult {
     return limit != null && nextToken != null;
   }
 
   @override
-  GraphQLRequest<PaginatedResult<T>> getRequestForNextResult() {
-    if (!hasNextResult()) {
-      throw ApiException('Unable to get request for next page results.',
-          recoverySuggestion:
-              'Make sure you provide a limit to your request and that you expect additional data.');
+  GraphQLRequest<PaginatedResult<T>>? get requestForNextResult {
+    if (!hasNextResult) {
+      return null;
     }
 
     final modelType = _getModelType();

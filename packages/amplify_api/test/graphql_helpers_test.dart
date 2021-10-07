@@ -179,10 +179,10 @@ void main() {
         GraphQLResponse<PaginatedResult<Blog>> response =
             GraphQLResponseDecoder.instance.decode<PaginatedResult<Blog>>(
                 request: req, data: data, errors: errors);
-        expect(response.data.hasNextResult(), true);
+        expect(response.data.hasNextResult, true);
         String expectedDocument =
             r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }';
-        final resultRequest = response.data.getRequestForNextResult();
+        final resultRequest = response.data.requestForNextResult!;
         expect(resultRequest.document, expectedDocument);
         expect(resultRequest.variables['nextToken'], response.data.nextToken);
         expect(resultRequest.variables['limit'], limit);
@@ -216,7 +216,7 @@ void main() {
         GraphQLResponse<PaginatedResult<Blog>> response =
             GraphQLResponseDecoder.instance.decode<PaginatedResult<Blog>>(
                 request: req, data: data, errors: errors);
-        expect(response.data.hasNextResult(), false);
+        expect(response.data.hasNextResult, false);
       });
     });
 

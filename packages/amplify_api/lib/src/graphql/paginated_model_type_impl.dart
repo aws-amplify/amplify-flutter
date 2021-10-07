@@ -10,7 +10,7 @@ class PaginatedModelTypeImpl<T extends Model> extends PaginatedModelType<T> {
     final itemsJson = jsonData['items'] as List?;
 
     if (itemsJson == null || itemsJson.isEmpty) {
-      return PaginatedResultImpl<T>([], null, null);
+      return PaginatedResultImpl<T>([], limit, null);
     }
 
     final items = itemsJson

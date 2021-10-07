@@ -146,16 +146,16 @@ void main() {
     });
 
     testWidgets(
-        'getRequestForNextResult should produce next page of results from first response',
+        'get requestForNextResult should produce next page of results from first response',
         (WidgetTester tester) async {
       const limit = 1;
       var firstReq = ModelQueries.list<Blog>(Blog.classType, limit: limit);
       var firstRes = await Amplify.API.query(request: firstReq).response;
       var firstData = firstRes.data;
       expect(firstData.items.length, limit);
-      expect(firstData.hasNextResult(), true);
-      var secondReq = firstData.getRequestForNextResult();
-      var secondRes = await Amplify.API.query(request: secondReq).response;
+      expect(firstData.hasNextResult, true);
+      var secondReq = firstData.requestForNextResult;
+      var secondRes = await Amplify.API.query(request: secondReq!).response;
       var secondData = secondRes.data;
       expect(secondData.items.length, limit);
       expect(secondData.items[0].id, isNot(firstData.items[0].id));
