@@ -75,7 +75,7 @@ class AuthRule {
       'groups': groups,
       'groupsField': groupsField,
       'provider': describeEnum(provider),
-      'operations': operations?.map((x) => describeEnum(x)).toList(),
+      'operations': operations?.map((x) => describeEnum(x))?.toList(),
     };
     return Map.from(map)..removeWhere((k, v) => v == null);
   }
