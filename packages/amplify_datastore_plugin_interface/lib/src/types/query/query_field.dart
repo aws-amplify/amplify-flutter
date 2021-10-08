@@ -47,7 +47,7 @@ class QueryField<T> {
   // Less than or equal to operation with operator overloading
   QueryPredicateOperation le(Comparable<T> value) =>
       new QueryPredicateOperation(
-          this.fieldName, new LessOrEqualQueryOperator(value));
+          this.fieldName, new LessOrEqualQueryOperator<Comparable<T>>(value));
   QueryPredicateOperation operator <=(Comparable<T> value) => le(value);
 
   // Less than operation with operator overloading

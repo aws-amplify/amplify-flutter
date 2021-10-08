@@ -22,12 +22,12 @@ QueryPredicateGroup not(QueryPredicate predicate) {
 
 /// Represents individual conditions or groups of conditions
 /// that are used to query data
-abstract class QueryPredicate {
+abstract class QueryPredicate<T extends Model> {
   const QueryPredicate();
 
   Map<String, dynamic> serializeAsMap();
 
-  bool evaluate(Model model);
+  bool evaluate(T model);
 }
 
 // Represents rating > 4

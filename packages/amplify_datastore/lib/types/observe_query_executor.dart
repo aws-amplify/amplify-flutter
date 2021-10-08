@@ -40,7 +40,7 @@ class ObserveQueryExecutor {
             .where((event) => event is DataStoreHubEvent)
             .cast<DataStoreHubEvent>()
             .map((event) => event.payload)
-            .where((event) => event is ModelSyncedEvent)
+            .where((payload) => payload is ModelSyncedEvent)
             .cast<ModelSyncedEvent>()
             .asBroadcastStream() {
     _initModelSyncCache();
@@ -73,15 +73,11 @@ class ObserveQueryExecutor {
     bool hasInitialQueryCompleted = false;
 
     Stream<QuerySnapshot<T>> syncStatusStream = _isModelSyncedStream(modelType)
-        .map<QuerySnapshot<T>?>((value) {
-          if (value == querySnapshot.isSynced) {
-            return null;
-          }
-          querySnapshot = querySnapshot.withSyncStatus(value);
-          return querySnapshot;
-        })
-        .where((event) => event != null)
-        .cast<QuerySnapshot<T>>();
+        .where((event) => event != querySnapshot.isSynced)
+        .map<QuerySnapshot<T>>((value) {
+      querySnapshot = querySnapshot.withSyncStatus(value);
+      return querySnapshot;
+    });
 
     Stream<QuerySnapshot<T>> observeStream = observe(modelType)
         .map<QuerySnapshot<T>?>((event) {
@@ -148,7 +144,7 @@ class ObserveQueryExecutor {
   Stream<bool> _isModelSyncedStream(ModelType type) {
     return _modelSyncedEventStream
         .where((event) => event.modelName == type.modelName())
-        .map((event) => _isSyncEvent(event));
+        .map((event) => true);
   }
 
   bool _isModelSynced(ModelType type) {
@@ -157,10 +153,7 @@ class ObserveQueryExecutor {
 
   void _initModelSyncCache() {
     _modelSyncedEventStream.listen((event) {
-      _modelSyncCache[event.modelName] = _isSyncEvent(event);
+      _modelSyncCache[event.modelName] = true;
     });
   }
-
-  bool _isSyncEvent(ModelSyncedEvent event) =>
-      event.isFullSync || event.isDeltaSync;
 }
