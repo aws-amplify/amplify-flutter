@@ -44,6 +44,7 @@ Stream<T> mergeStreams<T>(List<Stream<T>> streams) {
   _controller = StreamController.broadcast(
     onListen: _onListen,
     onCancel: _onCancel,
+    sync: true,
   );
 
   return _controller.stream;
