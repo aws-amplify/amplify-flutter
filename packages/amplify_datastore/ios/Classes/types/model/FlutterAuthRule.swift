@@ -24,6 +24,7 @@ public struct FlutterAuthRule {
     private let groupClaim : String?
     private let groups : [String]?
     private let groupsField : String?
+    private let provider: String
     private var operations : [String]?
     
     init(serializedData: [String: Any]) throws {
@@ -33,6 +34,14 @@ public struct FlutterAuthRule {
             throw ModelSchemaError.parse(
                 className: "FlutterAuthRule",
                 fieldName: "authStrategy",
+                desiredType: "String")
+        }
+
+        guard let provider = serializedData["provider"] as? String
+        else {
+            throw ModelSchemaError.parse(
+                className: "FlutterAuthRule",
+                fieldName: "provider",
                 desiredType: "String")
         }
         self.authStrategy = authStrategy
@@ -46,6 +55,8 @@ public struct FlutterAuthRule {
         self.groups = serializedData["groups"] as? [String]
         
         self.groupsField = serializedData["groupsField"] as? String
+
+        self.provider = provider
 
         self.operations = serializedData["operations"] as? [String]
     }
@@ -62,6 +73,23 @@ public struct FlutterAuthRule {
                 return AuthStrategy.public
             default:
                 preconditionFailure("Could not create a AuthStrategy from \(authStrategyString)")
+        }
+    }
+
+    private func stringToAuthProvider(providerString: String) -> AuthRuleProvider {
+        switch providerString {
+        case "APIKEY":
+            return AuthRuleProvider.apiKey
+        case "OIDC":
+            return AuthRuleProvider.oidc
+        case "IAM":
+            return AuthRuleProvider.iam
+        case "USERPOOL":
+            return AuthRuleProvider.userPools
+        case "FUNCTION":
+            return AuthRuleProvider.function
+        default:
+            preconditionFailure("Could not create a AuthRuleProvider from \(providerString)")
         }
     }
     
@@ -89,6 +117,7 @@ public struct FlutterAuthRule {
             groupClaim: groupClaim,
             groups: groups ?? [String](),
             groupsField: groupsField,
+            provider: stringToAuthProvider(providerString: provider),
             operations: (operations)?.map {
                 stringToModelOperation(modelOperationString: $0)
             } ?? [ModelOperation]()
