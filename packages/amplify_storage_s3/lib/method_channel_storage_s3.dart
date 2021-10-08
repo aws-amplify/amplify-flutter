@@ -81,12 +81,15 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
         'uploadFile',
         request.serializeAsMap(),
       ));
-      if (data == null)
+      if (data == null) {
+        _transferProgressionCallbackMap.remove(request.key);
         throw AmplifyException(
             AmplifyExceptionMessages.nullReturnedFromMethodChannel);
+      }
       UploadFileResult result = _formatUploadFileResult(data);
       return result;
     } on PlatformException catch (e) {
+      _transferProgressionCallbackMap.remove(request.key);
       throw _convertToStorageException(e);
     }
   }
@@ -159,12 +162,15 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
         'downloadFile',
         request.serializeAsMap(),
       ));
-      if (data == null)
+      if (data == null) {
+        _transferProgressionCallbackMap.remove(request.key);
         throw AmplifyException(
             AmplifyExceptionMessages.nullReturnedFromMethodChannel);
+      }
       DownloadFileResult result = _formatDownloadFileResult(data);
       return result;
     } on PlatformException catch (e) {
+      _transferProgressionCallbackMap.remove(request.key);
       throw _convertToStorageException(e);
     }
   }
