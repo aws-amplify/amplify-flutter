@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:collection';
+
 /// An Object that holds a list that maintains a specifc sort order
 ///
 /// methods that modify the list of items will respect the sort order
@@ -23,12 +25,31 @@
 ///
 /// Note: this is intended for use in observeQuery and is not intended to be
 /// part of the public API
-class SortedList<T> {
+class SortedList<E> with ListMixin<E> {
+  // Required for ListMixin
+  void set length(int newLength) {
+    _items.length = newLength;
+  }
+
+  // Required for ListMixin
+  int get length => _items.length;
+
+  // Required for ListMixin
+  E operator [](int index) => _items[index];
+
+  // Required for ListMixin
+  void operator []=(int index, E value) {
+    _items[index] = value;
+  }
+
+  // ListMixin add() only works for lists that accept null
+  void add(E value) => _items.add(value);
+
   // items in the list
-  final List<T> _items;
+  final List<E> _items;
 
   // comparision function used to maintain list sort
-  final int Function(T a, T b)? _compare;
+  final int Function(E a, E b)? _compare;
 
   /// creates a SortedList from a pre-sorted list of items
   ///
@@ -36,58 +57,39 @@ class SortedList<T> {
   /// compare function, otherwise the sort order of the list will not be
   /// maintained
   const SortedList.fromPresortedList({
-    required List<T> items,
-    int Function(T a, T b)? compare,
+    required List<E> items,
+    int Function(E a, E b)? compare,
   })  : _items = items,
         _compare = compare;
 
+  SortedList.from(SortedList<E> list)
+      : _items = List.from(list._items),
+        _compare = list._compare;
+
   /// adds a new item to the list, maintaining the sort order
-  void add(T item) {
+  void addSorted(E item) {
     if (this._compare == null || _items.length == 0) {
-      _items.add(item);
+      add(item);
       return;
     }
     int insertIndex = _findInsertionIndex(item);
-    if (insertIndex < 0 || insertIndex > _items.length) {
-      print('out of range');
-    }
-    _items.insert(insertIndex, item);
+    insert(insertIndex, item);
   }
 
   /// Updates an item in the list, maintaining the sort order
-  void updateAt(int index, T item) {
+  void updateAtSorted(int index, E item) {
     if (this._compare == null) {
-      _items[index] = item;
+      this[index] = item;
     } else {
       removeAt(index);
-      add(item);
+      addSorted(item);
     }
   }
-
-  void operator []=(int index, T item) => updateAt(index, item);
-
-  /// Removes the object at position [index] from this list.
-  void removeAt(int index) {
-    _items.removeAt(index);
-  }
-
-  int indexWhere(bool test(T element)) {
-    return _items.indexWhere(test);
-  }
-
-  T elementAt(int index) => _items.elementAt(index);
-
-  T operator [](int index) => elementAt(index);
-
-  List<T> get items => List<T>.from(_items);
-
-  SortedList<T> copy() =>
-      SortedList.fromPresortedList(items: items, compare: _compare);
 
   /// Finds the index to insert the [item] at
   ///
   /// O(log(n)) time complexity
-  int _findInsertionIndex(T item) {
+  int _findInsertionIndex(E item) {
     int low = 0;
     int high = _items.length;
 

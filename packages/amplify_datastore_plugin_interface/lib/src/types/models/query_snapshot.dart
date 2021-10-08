@@ -29,10 +29,10 @@ import 'subscription_event.dart';
 /// {@endtemplate}
 class QuerySnapshot<T extends Model> {
   // A list of models sorted according to the value provided for sortBy
-  final SortedList<T> _list;
+  final SortedList<T> _sortedList;
 
   /// A list of models from the local store at the time that the snapshot was generated
-  List<T> get items => _list.items;
+  List<T> get items => _sortedList.toList();
 
   /// Indicates whether all sync queries for this model are complete
   final bool isSynced;
@@ -44,11 +44,11 @@ class QuerySnapshot<T extends Model> {
   final List<QuerySortBy>? sortBy;
 
   const QuerySnapshot._({
-    required SortedList<T> list,
+    required SortedList<T> sortedList,
     required this.isSynced,
     this.where,
     this.sortBy,
-  }) : _list = list;
+  }) : _sortedList = sortedList;
 
   /// {@macro query_snapshot}
   factory QuerySnapshot({
@@ -57,12 +57,12 @@ class QuerySnapshot<T extends Model> {
     QueryPredicate? where,
     List<QuerySortBy>? sortBy,
   }) {
-    var list = SortedList.fromPresortedList(
+    var sortedList = SortedList.fromPresortedList(
       items: items,
       compare: _createCompareFromSortBy(sortBy),
     );
     return QuerySnapshot._(
-      list: list,
+      sortedList: sortedList,
       isSynced: isSynced,
       where: where,
       sortBy: sortBy,
@@ -72,7 +72,7 @@ class QuerySnapshot<T extends Model> {
   /// Returns a new QuerySnapshot with the [status] applied
   QuerySnapshot<T> withSyncStatus(bool status) {
     return QuerySnapshot._(
-      list: _list,
+      sortedList: _sortedList,
       isSynced: status,
       where: where,
       sortBy: sortBy,
@@ -89,7 +89,7 @@ class QuerySnapshot<T extends Model> {
   QuerySnapshot<T> withSubscriptionEvent({
     required SubscriptionEvent<T> event,
   }) {
-    SortedList<T> sortedList = this._list.copy();
+    SortedList<T> sortedList = SortedList.from(this._sortedList);
     bool listHasBeenUpdated = false;
 
     T newItem = event.item;
@@ -104,7 +104,7 @@ class QuerySnapshot<T extends Model> {
     if (event.eventType == EventType.create &&
         newItemMatchesPredicate &&
         currentItem == null) {
-      sortedList.add(newItem);
+      sortedList.addSorted(newItem);
       listHasBeenUpdated = true;
     } else if (event.eventType == EventType.delete && currentItem != null) {
       sortedList.removeAt(currentItemIndex);
@@ -113,19 +113,19 @@ class QuerySnapshot<T extends Model> {
       if (currentItemMatchesPredicate &&
           newItemMatchesPredicate &&
           currentItem != newItem) {
-        sortedList[currentItemIndex] = newItem;
+        sortedList.updateAtSorted(currentItemIndex, newItem);
         listHasBeenUpdated = true;
       } else if (currentItemMatchesPredicate && !newItemMatchesPredicate) {
         sortedList.removeAt(currentItemIndex);
         listHasBeenUpdated = true;
       } else if (!currentItemMatchesPredicate && newItemMatchesPredicate) {
-        sortedList.add(newItem);
+        sortedList.addSorted(newItem);
         listHasBeenUpdated = true;
       }
     }
     if (listHasBeenUpdated) {
       var snapshot = QuerySnapshot._(
-        list: sortedList,
+        sortedList: sortedList,
         isSynced: isSynced,
         where: where,
         sortBy: sortBy,
