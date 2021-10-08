@@ -55,12 +55,23 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
                 let cancelToken = try FlutterApiRequest.getCancelToken(args: callArgs)
                 onCancel(flutterResult: result, cancelToken: cancelToken)
                 return
-            } else if method == "addPlugin"{
+            }
+            
+            let arguments = try FlutterApiRequest.getMap(args: callArgs)
+            
+            if method == "addPlugin" {
+                guard let authProviders = arguments["authProviders"] as? [String] else {
+                    throw APIError.invalidConfiguration(
+                        "Missing auth providers list",
+                        "Include the auth providers with the addPlugin call")
+                }
+                let awsAuthTypes = authProviders.compactMap { AWSAuthorizationType(rawValue: $0) }
+                for authType in awsAuthTypes {
+                    FlutterAuthProviders.enable(authType: authType)
+                }
                 addPlugin(result: result)
                 return
             }
-
-            let arguments = try FlutterApiRequest.getMap(args: callArgs)
 
             // Update tokens if included in request.
             if let tokens = arguments["tokens"] as? [[String: Any?]] {

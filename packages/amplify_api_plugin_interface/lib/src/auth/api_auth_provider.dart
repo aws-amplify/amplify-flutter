@@ -44,14 +44,6 @@ abstract class OIDCAuthProvider extends APIAuthProvider {
   const OIDCAuthProvider() : super._(APIAuthorizationType.oidc);
 }
 
-/// {@template function_auth_provider}
-/// Handles the retrieval of tokens for Custom Function-protected API calls.
-/// {@endtemplate}
-abstract class FunctionAuthProvider extends APIAuthProvider {
-  /// {@macro function_auth_provider}
-  const FunctionAuthProvider() : super._(APIAuthorizationType.function);
-}
-
 /// Refreshes the token for a given type or all registered types if none is passed.
 typedef APIAuthProviderRefresher = Future<void> Function(
     [APIAuthorizationType?]);

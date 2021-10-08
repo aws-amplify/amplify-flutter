@@ -49,12 +49,6 @@ enum APIAuthorizationType {
   /// See also:
   /// - [Amazon Cognito User Pools](https://docs.aws.amazon.com/appsync/latest/devguide/security-authz.html#amazon-cognito-user-pools-authorization)
   userPools,
-
-  /// Control access by calling a lambda function.
-  ///
-  /// See also:
-  /// - [Introducing Lambda authorization for AWS AppSync GraphQL APIs](https://aws.amazon.com/blogs/mobile/appsync-lambda-auth/)
-  function
 }
 
 /// Helper methods for [APIAuthorizationType].
@@ -77,8 +71,6 @@ extension APIAuthorizationTypeX on APIAuthorizationType {
         return 'OPENID_CONNECT';
       case APIAuthorizationType.userPools:
         return 'AMAZON_COGNITO_USER_POOLS';
-      case APIAuthorizationType.function:
-        return 'AWS_LAMBDA';
     }
   }
 }

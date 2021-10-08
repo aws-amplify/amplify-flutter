@@ -23,6 +23,8 @@ import Flutter
 class FlutterAuthProviders: APIAuthProviderFactory {
     /// Token cache for all [FlutterAuthProvider] instances.
     static private var tokens: [AWSAuthorizationType: String?] = [:]
+    
+    static private var enabled: Set<AWSAuthorizationType> = []
 
     static func setToken(type: AWSAuthorizationType, token: String?) {
         tokens[type] = token
@@ -31,18 +33,21 @@ class FlutterAuthProviders: APIAuthProviderFactory {
     static func getToken(for type: AWSAuthorizationType) -> String? {
         return tokens[type] ?? nil
     }
-
-    override func oidcAuthProvider() -> AmplifyOIDCAuthProvider? {
-        return FlutterAuthProvider(type: .openIDConnect)
+    
+    static func enable(authType: AWSAuthorizationType) {
+        enabled.insert(authType)
     }
 
-    override func functionAuthProvider() -> AmplifyFunctionAuthProvider? {
-        return FlutterAuthProvider(type: .function)
+    override func oidcAuthProvider() -> AmplifyOIDCAuthProvider? {
+        guard FlutterAuthProviders.enabled.contains(.openIDConnect) else {
+            return nil
+        }
+        return FlutterAuthProvider(type: .openIDConnect)
     }
 }
 
 /// A provider which manages token retrieval for its [AWSAuthorizationType].
-struct FlutterAuthProvider: AmplifyOIDCAuthProvider, AmplifyFunctionAuthProvider {
+struct FlutterAuthProvider: AmplifyOIDCAuthProvider {
     let type: AWSAuthorizationType
 
     func getLatestAuthToken() -> Result<String, Error> {

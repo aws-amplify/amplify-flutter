@@ -43,7 +43,10 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   @override
   Future<APIAuthProviderRefresher> addPlugin() async {
     try {
-      await _channel.invokeMethod<void>('addPlugin');
+      await _channel.invokeMethod<void>('addPlugin', {
+        'authProviders':
+            _authProviders.keys.map((provider) => provider.rawValue).toList(),
+      });
       return _authProviderRefresher;
     } on PlatformException catch (e) {
       if (e.code == 'AmplifyAlreadyConfiguredException') {
