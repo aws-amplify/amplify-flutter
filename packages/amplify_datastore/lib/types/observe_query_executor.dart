@@ -63,32 +63,30 @@ class ObserveQueryExecutor {
         const ObserveQueryThrottleOptions.defaults(),
   }) {
     // cached QuerySnapshot
-    late QuerySnapshot<T> querySnapshot;
+    QuerySnapshot<T>? querySnapshot;
 
     // cached subscription events that occur prior to the
     // initial query completing
     List<SubscriptionEvent<T>> subscriptionEvents = [];
 
-    // used to track when the initial query completes
-    bool hasInitialQueryCompleted = false;
-
     Stream<QuerySnapshot<T>> syncStatusStream = _isModelSyncedStream(modelType)
-        .where((event) => event != querySnapshot.isSynced)
+        .skipWhile((element) => querySnapshot == null)
+        .where((event) => event != querySnapshot!.isSynced)
         .map<QuerySnapshot<T>>((value) {
-      querySnapshot = querySnapshot.withSyncStatus(value);
-      return querySnapshot;
+      querySnapshot = querySnapshot!.withSyncStatus(value);
+      return querySnapshot!;
     });
 
     Stream<QuerySnapshot<T>> observeStream = observe(modelType)
         .map<QuerySnapshot<T>?>((event) {
           // cache subscription events until the initial query is returned
-          if (!hasInitialQueryCompleted) {
+          if (querySnapshot == null) {
             subscriptionEvents.add(event);
             return null;
           }
 
           // apply the most recent event to the cached QuerySnapshot
-          var updatedQuerySnapshot = querySnapshot.withSubscriptionEvent(
+          var updatedQuerySnapshot = querySnapshot!.withSubscriptionEvent(
             event: event,
           );
 
@@ -105,27 +103,26 @@ class ObserveQueryExecutor {
         .where((event) => event != null)
         .cast<QuerySnapshot<T>>();
 
-    final queryFuture =
-        query(modelType, where: where, sortBy: sortBy).then((value) {
-      bool isSynced = _isModelSynced(modelType);
-      // cache the intitial QuerySnapshot
+    Future<QuerySnapshot<T>> queryFuture = query(
+      modelType,
+      where: where,
+      sortBy: sortBy,
+    ).then((value) {
+      // create & cache the intitial QuerySnapshot
       querySnapshot = QuerySnapshot(
         items: value,
-        isSynced: isSynced,
+        isSynced: _isModelSynced(modelType),
         where: where,
         sortBy: sortBy,
       );
 
       // apply any cached subscription events
       for (var event in subscriptionEvents) {
-        querySnapshot = querySnapshot.withSubscriptionEvent(event: event);
+        querySnapshot = querySnapshot!.withSubscriptionEvent(event: event);
       }
 
-      // mark initial query as complete
-      hasInitialQueryCompleted = true;
-
       // return the QuerySnapshot
-      return querySnapshot;
+      return querySnapshot!;
     });
 
     final queryStream = Stream.fromFuture(queryFuture);
