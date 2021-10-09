@@ -109,16 +109,31 @@ class _MyAppState extends State<MyApp> {
     }
     listenToHub();
 
-    // TODO: examples to be removed/updated
     Amplify.DataStore.observeQuery(
       Blog.classType,
-      where: Blog.NAME.contains('blog'),
-      sortBy: [Blog.NAME.ascending()],
-    ).listen((snapshot) {
-      var count = snapshot.items.length;
-      var now = DateTime.now().toIso8601String();
-      print(
-          '[Observe Query] Blog snapshot received with $count models at $now');
+      throttleOptions: ObserveQueryThrottleOptions.none(),
+    ).listen((QuerySnapshot<Blog> snapshot) {
+      setState(() {
+        _blogs = snapshot.items;
+      });
+    });
+
+    Amplify.DataStore.observeQuery(
+      Post.classType,
+      throttleOptions: ObserveQueryThrottleOptions.none(),
+    ).listen((QuerySnapshot<Post> snapshot) {
+      setState(() {
+        _posts = snapshot.items;
+      });
+    });
+
+    Amplify.DataStore.observeQuery(
+      Comment.classType,
+      throttleOptions: ObserveQueryThrottleOptions.none(),
+    ).listen((QuerySnapshot<Comment> snapshot) {
+      setState(() {
+        _comments = snapshot.items;
+      });
     });
 
     // setup streams
@@ -180,9 +195,6 @@ class _MyAppState extends State<MyApp> {
   }
 
   void runQueries() async {
-    List<Post> allPosts = <Post>[];
-    List<Comment> allComments = <Comment>[];
-    List<Blog> allBlogs = <Blog>[];
     List<Post> posts4Rating = <Post>[];
     List<Post> posts1To4Rating = <Post>[];
     List<Post> posts2Or5Rating = <Post>[];
@@ -190,27 +202,6 @@ class _MyAppState extends State<MyApp> {
     List<Post> postWithIdNotEquals = <Post>[];
     List<Post> firstPostFromResult = <Post>[];
     List<Post> allPostsWithoutRating2Or5 = <Post>[];
-
-    // get all comments
-    (await Amplify.DataStore.query(Comment.classType)).forEach((element) {
-      if (element != null) {
-        allComments.add(element);
-      }
-    });
-
-    // get all posts
-    (await Amplify.DataStore.query(Post.classType)).forEach((element) {
-      if (element != null) {
-        allPosts.add(element);
-      }
-    });
-
-    // get all blogs
-    (await Amplify.DataStore.query(Blog.classType)).forEach((element) {
-      if (element != null) {
-        allBlogs.add(element);
-      }
-    });
 
     (await Amplify.DataStore.query(Post.classType, where: Post.RATING.ge(4)))
         .forEach((element) {
@@ -259,9 +250,6 @@ class _MyAppState extends State<MyApp> {
     // setState to update our non-existent appearance.
     if (!mounted) return;
     setState(() {
-      _posts = allPosts;
-      _comments = allComments;
-      _blogs = allBlogs;
       _posts1To4Rating = posts1To4Rating;
       _posts4rating = posts4Rating;
       _postWithCreatedDate = postWithCreatedDate;
