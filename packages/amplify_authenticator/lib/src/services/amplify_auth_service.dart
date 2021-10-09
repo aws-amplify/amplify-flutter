@@ -221,8 +221,4 @@ class AmplifyAuthService implements AuthService {
   Future<AmplifyConfig> waitForConfiguration() {
     return Amplify.asyncConfig;
   }
-
-  Future<AmplifyConfig> waitForConfiguration() async {
-    return await Amplify.asyncConfig;
-  }
 }

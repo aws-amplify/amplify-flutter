@@ -14,6 +14,7 @@
  */
 
 import 'package:amplify_authenticator/src/text_customization/button_resolver.dart';
+import 'package:amplify_authenticator/src/text_customization/checkbox_resolver.dart';
 import 'package:amplify_authenticator/src/text_customization/input_resolver.dart';
 import 'package:amplify_authenticator/src/text_customization/navigation_resolver.dart';
 import 'package:amplify_authenticator/src/text_customization/title_resolver.dart';
@@ -35,6 +36,9 @@ class AuthStringResolver {
   /// The resolver class for shared button Widgets
   final ButtonResolver buttons;
 
+  /// The resolver class for shared button Widgets
+  final CheckboxResolver checkboxes;
+
   /// The resolver class for shared input Widgets
   final InputResolver inputs;
 
@@ -47,10 +51,12 @@ class AuthStringResolver {
   /// {@macro authenticator.auth_string_resolver}
   const AuthStringResolver({
     ButtonResolver? buttons,
+    CheckboxResolver? checkboxes,
     InputResolver? inputs,
     NavigationResolver? navigation,
     TitleResolver? titles,
   })  : titles = titles ?? const DefaultTitleResolver(),
+        checkboxes = checkboxes ?? const DefaultCheckboxResolver(),
         buttons = buttons ?? const DefaultButtonResolver(),
         inputs = inputs ?? const DefaultInputResolver(),
         navigation = navigation ?? const DefaultNavigationResolver();
@@ -58,6 +64,7 @@ class AuthStringResolver {
   @override
   bool operator ==(Object other) =>
       other is AuthStringResolver &&
+      checkboxes == other.checkboxes &&
       buttons == other.buttons &&
       inputs == other.inputs &&
       navigation == other.navigation &&

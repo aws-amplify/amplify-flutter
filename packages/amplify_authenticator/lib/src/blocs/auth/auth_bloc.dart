@@ -97,7 +97,7 @@ class StateMachineBloc {
     } else if (event is AuthConfirmPassword) {
       yield* _confirmPassword(event.data);
     } else if (event is AuthConfirmSignIn) {
-      yield* _confirmSignIn(event.data);
+      yield* _confirmSignIn(event.data, event.rememberDevice);
     } else if (event is AuthVerifyUser) {
       yield* _verifyUser(event.data);
     } else if (event is AuthConfirmVerifyUser) {

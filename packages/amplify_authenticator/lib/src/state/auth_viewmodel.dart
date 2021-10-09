@@ -60,6 +60,9 @@ class AuthViewModel extends ChangeNotifier {
   String? _userAttributeKey;
   String? get userAttributeKey => _userAttributeKey;
 
+  bool _rememberDevice = false;
+  bool get rememberDevice => _rememberDevice;
+
   final Map<String, String> _authAttributes = {};
 
   String? getAttribute(String key) => _authAttributes[key];
@@ -171,6 +174,10 @@ class AuthViewModel extends ChangeNotifier {
     _userAttributeKey = value;
   }
 
+  void setRememberDevice(bool value) {
+    _rememberDevice = value;
+  }
+
   // Auth calls
 
   Future<void> confirmSignIn() async {
@@ -183,7 +190,7 @@ class AuthViewModel extends ChangeNotifier {
       attributes: _authAttributes,
     );
 
-    authBloc.add(AuthConfirmSignIn(confirm));
+    authBloc.add(AuthConfirmSignIn(confirm, rememberDevice));
     await Future.any([
       authBloc.exceptions.first,
       authBloc.stream.first,
