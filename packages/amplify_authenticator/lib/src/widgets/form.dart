@@ -23,6 +23,7 @@ import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:amplify_authenticator/src/widgets/layout.dart';
+import 'package:amplify_authenticator/src/widgets/checkbox.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -316,6 +317,7 @@ class ConfirmSignInMFAForm extends AuthenticatorForm<ConfirmSignInMFAForm> {
           key: key,
           fields: fields,
           buttons: const [
+            RememberDeviceCheckbox(),
             ConfirmSignInMFAButton(),
             BackToSignInButton(),
           ],

@@ -63,6 +63,8 @@ abstract class AuthService {
     required String confirmationCode,
   });
   Future<AmplifyConfig> waitForConfiguration();
+
+  Future<void> rememberDevice();
 }
 
 class AmplifyAuthService implements AuthService {
@@ -113,6 +115,11 @@ class AmplifyAuthService implements AuthService {
       confirmationValue: code,
       options: CognitoConfirmSignInOptions(userAttributes: attributes),
     );
+  }
+
+  @override
+  Future<void> rememberDevice() {
+    return Amplify.Auth.rememberDevice();
   }
 
   @override

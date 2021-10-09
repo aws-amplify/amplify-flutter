@@ -97,7 +97,7 @@ class StateMachineBloc {
     } else if (event is AuthConfirmPassword) {
       yield* _confirmPassword(event.data);
     } else if (event is AuthConfirmSignIn) {
-      yield* _confirmSignIn(event.data);
+      yield* _confirmSignIn(event.data, event.rememberDevice);
     } else if (event is AuthVerifyUser) {
       yield* _verifyUser(event.data);
     } else if (event is AuthConfirmVerifyUser) {
@@ -132,7 +132,8 @@ class StateMachineBloc {
     }
   }
 
-  Stream<AuthState> _confirmSignIn(AuthConfirmSignInData data) async* {
+  Stream<AuthState> _confirmSignIn(
+      AuthConfirmSignInData data, bool rememberDevice) async* {
     try {
       var result = await _authService.confirmSignIn(
         code: data.code,
@@ -156,6 +157,15 @@ class StateMachineBloc {
           yield AuthFlow.confirmSignup;
           break;
         case 'DONE':
+          if (rememberDevice) {
+            try {
+              await _authService.rememberDevice();
+            } on Exception catch (e) {
+              /// TODO: How to handle these exceptions, since we have already authenticated
+              /// Will need to expose state outside of the Authenticator (or something similar)
+              print(e);
+            }
+          }
           yield const Authenticated();
           break;
         default:
