@@ -18,10 +18,12 @@ import 'package:flutter/material.dart';
 import 'button_resolver.dart';
 import 'input_resolver.dart';
 import 'title_resolver.dart';
+import 'checkbox_resolver.dart';
 
 export 'button_resolver.dart';
 export 'input_resolver.dart';
 export 'title_resolver.dart';
+export 'checkbox_resolver.dart';
 
 /// {@template authenticator.auth_string_resolver}
 /// The class that is accepted by the Authenticator to override strings
@@ -40,13 +42,18 @@ class AuthStringResolver {
   /// The resolver class for titles
   final TitleResolver titles;
 
+  /// The resolver class for shared button Widgets
+  final CheckboxResolver checkboxes;
+
   /// {@macro authenticator.auth_string_resolver}
-  const AuthStringResolver({
-    ButtonResolver? buttons,
-    InputResolver? inputs,
-    TitleResolver? titles,
-  })  : titles = titles ?? const TitleResolver(),
+  const AuthStringResolver(
+      {ButtonResolver? buttons,
+      InputResolver? inputs,
+      TitleResolver? titles,
+      CheckboxResolver? checkboxes})
+      : titles = titles ?? const TitleResolver(),
         buttons = buttons ?? const ButtonResolver(),
+        checkboxes = checkboxes ?? const CheckboxResolver(),
         inputs = inputs ?? const InputResolver();
 
   @override

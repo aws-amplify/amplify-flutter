@@ -43,4 +43,10 @@ abstract class AuthenticatorLocalizations {
   static AuthenticatorTitleLocalizations titlesOf(BuildContext context) {
     return AuthenticatorTitleLocalizations.of(context) ?? _titlesFallback;
   }
+
+  /// Retrieves the [AuthenticatorCheckboxLocalizations] instance, falling back
+  /// to English if unavailable for this locale.
+  static AuthenticatorCheckboxLocalizations checkboxesOf(BuildContext context) {
+    return AuthenticatorCheckboxLocalizations.of(context) ?? _titlesFallback;
+  }
 }
