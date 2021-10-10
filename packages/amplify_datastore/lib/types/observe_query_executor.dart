@@ -19,6 +19,7 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import '../stream_utils/throttle.dart';
 import './DataStoreHubEvents/DataStoreHubEvent.dart';
 import './DataStoreHubEvents/ModelSyncedEvent.dart';
+import './DataStoreHubEvents/SyncQueriesStartedEvent.dart';
 
 typedef Query<T extends Model> = Future<List<T>> Function(
   ModelType<T> modelType, {
@@ -36,21 +37,18 @@ class ObserveQueryExecutor {
 
   ObserveQueryExecutor({
     required this.dataStoreEventStream,
-  }) : _modelSyncedEventStream = dataStoreEventStream
+  }) : _dataStoreHubEventStream = dataStoreEventStream
             .where((event) => event is DataStoreHubEvent)
             .cast<DataStoreHubEvent>()
-            .map((event) => event.payload)
-            .where((payload) => payload is ModelSyncedEvent)
-            .cast<ModelSyncedEvent>()
             .asBroadcastStream() {
     _initModelSyncCache();
   }
 
   /// A stream of ModelSyncEvents
-  final Stream<ModelSyncedEvent> _modelSyncedEventStream;
+  final Stream<DataStoreHubEvent> _dataStoreHubEventStream;
 
   /// a cache of modelSyncEvents in the format {'<Model_Name>': true}
-  final Map<String, bool> _modelSyncCache = {};
+  final Map<String, _ModelSyncStatus> _modelSyncCache = {};
 
   /// executes an observeQuery operation
   Stream<QuerySnapshot<T>> observeQuery<T extends Model>({
@@ -111,7 +109,7 @@ class ObserveQueryExecutor {
       // create & cache the intitial QuerySnapshot
       querySnapshot = QuerySnapshot(
         items: value,
-        isSynced: _isModelSynced(modelType),
+        isSynced: _isModelSyncComplete(modelType),
         where: where,
         sortBy: sortBy,
       );
@@ -134,23 +132,46 @@ class ObserveQueryExecutor {
     ]).throttleByCountAndTime(
       throttleCount: throttleOptions.maxCount,
       duration: throttleOptions.maxDuration,
-      until: (event) => event.isSynced,
+      throttleIf: (event) => _isModelSyncStarted(modelType),
     );
   }
 
   Stream<bool> _isModelSyncedStream(ModelType type) {
-    return _modelSyncedEventStream
+    return _dataStoreHubEventStream
+        .map((event) => event.payload)
+        .where((payload) => payload is ModelSyncedEvent)
+        .cast<ModelSyncedEvent>()
         .where((event) => event.modelName == type.modelName())
         .map((event) => true);
   }
 
-  bool _isModelSynced(ModelType type) {
-    return _modelSyncCache[type.modelName()] ?? false;
+  _ModelSyncStatus _getModelSyncStatus(ModelType type) {
+    _ModelSyncStatus? status = _modelSyncCache[type.modelName()];
+    return status ?? _ModelSyncStatus.none;
+  }
+
+  bool _isModelSyncComplete(ModelType type) {
+    return _getModelSyncStatus(type) == _ModelSyncStatus.complete;
+  }
+
+  bool _isModelSyncStarted(ModelType type) {
+    return _getModelSyncStatus(type) == _ModelSyncStatus.started;
   }
 
   void _initModelSyncCache() {
-    _modelSyncedEventStream.listen((event) {
-      _modelSyncCache[event.modelName] = true;
+    this
+        ._dataStoreHubEventStream
+        .map((event) => event.payload)
+        .listen((payload) {
+      if (payload is ModelSyncedEvent) {
+        _modelSyncCache[payload.modelName] = _ModelSyncStatus.complete;
+      } else if (payload is SyncQueriesStartedEvent) {
+        payload.models.forEach((model) {
+          _modelSyncCache[model] = _ModelSyncStatus.started;
+        });
+      }
     });
   }
 }
+
+enum _ModelSyncStatus { none, started, complete }

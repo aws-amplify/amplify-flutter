@@ -19,8 +19,28 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:fake_async/fake_async.dart';
 import '../lib/types/DataStoreHubEvents/ModelSyncedEvent.dart';
 import '../lib/types/DataStoreHubEvents/DataStoreHubEvent.dart';
+import '../lib/types/DataStoreHubEvents/SyncQueriesStartedEvent.dart';
 import '../lib/types/observe_query_executor.dart';
 import './test_models/Blog.dart';
+
+var syncQueriesStartedEvent = DataStoreHubEvent(
+  'syncQueriesStarted',
+  payload: SyncQueriesStartedEvent({
+    "models": "[\"Blog\"]",
+  }),
+);
+
+var modelSyncEvent = DataStoreHubEvent(
+  'modelSynced',
+  payload: ModelSyncedEvent({
+    "model": "Blog",
+    "isFullSync": true,
+    "isDeltaSync": false,
+    "added": 3,
+    "updated": 0,
+    "deleted": 0,
+  }),
+);
 
 void main() {
   Blog initialBlog = Blog(name: 'initial blog');
@@ -53,20 +73,17 @@ void main() {
     late Stream<DataStoreHubEvent> eventStream;
 
     setUp(() {
-      eventStream = Stream.periodic(
-        Duration(milliseconds: 5000),
-        (value) => DataStoreHubEvent(
-          'modelSynced',
-          payload: ModelSyncedEvent({
-            "model": "Blog",
-            "isFullSync": true,
-            "isDeltaSync": false,
-            "added": 3,
-            "updated": 0,
-            "deleted": 0,
-          }),
-        ),
-      ).take(1);
+      eventStream = Stream<DataStoreHubEvent?>.periodic(
+        Duration(milliseconds: 1),
+        (value) {
+          if (value == 10) {
+            return syncQueriesStartedEvent;
+          } else if (value == 4500) {
+            return modelSyncEvent;
+          }
+          return null;
+        },
+      ).where((event) => event is DataStoreHubEvent).cast<DataStoreHubEvent>();
     });
 
     test('should combine the data from observe, query, and modelSync', () {
@@ -108,7 +125,7 @@ void main() {
       });
     });
 
-    test('should throttle until sync, and then stop throttling', () {
+    test('should throttle during sync, and then stop throttling', () {
       fakeAsync((async) {
         ObserveQueryExecutor executor = ObserveQueryExecutor(
           dataStoreEventStream: eventStream,
@@ -126,7 +143,7 @@ void main() {
         expect(
           observeQueryItems,
           emitsInOrder([
-            // initial query
+            // initial query at 100 ms
             orderedEquals([
               initialBlog,
             ]),
@@ -144,7 +161,7 @@ void main() {
               syncedBlogs[2],
               syncedBlogs[3],
             ]),
-            // sync status change
+            // sync status change at 4500 ms
             orderedEquals([
               initialBlog,
               syncedBlogs[0],
@@ -190,7 +207,6 @@ void main() {
           query: query,
           observe: observe,
           modelType: Blog.classType,
-          throttleOptions: ObserveQueryThrottleOptions.none(),
         );
 
         Stream<bool> observeQueryStatus =

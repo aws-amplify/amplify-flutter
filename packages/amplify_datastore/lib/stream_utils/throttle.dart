@@ -28,7 +28,7 @@ extension Throttle<T> on Stream<T> {
   Stream<T> throttleByCountAndTime({
     int? throttleCount,
     Duration? duration,
-    bool Function(T value)? until,
+    bool Function(T value)? throttleIf,
   }) {
     assert(
       throttleCount != null || duration != null,
@@ -45,9 +45,6 @@ extension Throttle<T> on Stream<T> {
     // the last event was emitted
     int _count = 0;
 
-    // indicates if the condition to stop throttling has been reached
-    bool _untilConditionHasBeenMet = false;
-
     // cached data & sink during throttling
     // if the timer expires, the cached sink will be
     // used to emit the cached data
@@ -57,7 +54,7 @@ extension Throttle<T> on Stream<T> {
     // timer for throttling by time
     Timer? _timer;
 
-    bool _hasEmitted = false;
+    bool _hasEmittedFirstEvent = false;
 
     bool timerHasExpired() => _timer != null && !_timer!.isActive;
 
@@ -73,7 +70,7 @@ extension Throttle<T> on Stream<T> {
     }
 
     void emitData(T data, Sink sink) {
-      _hasEmitted = true;
+      _hasEmittedFirstEvent = true;
 
       // clear cached data & sink
       _data = null;
@@ -101,13 +98,11 @@ extension Throttle<T> on Stream<T> {
     }
 
     bool shouldEmitData(T data) {
-      if (until != null && !_untilConditionHasBeenMet) {
-        _untilConditionHasBeenMet = until(data);
+      bool throttle = throttleIf == null || throttleIf(data);
+      if (_hasEmittedFirstEvent && throttle) {
+        return timerHasExpired() || throttleCountReached();
       }
-      return !_hasEmitted ||
-          _untilConditionHasBeenMet ||
-          timerHasExpired() ||
-          throttleCountReached();
+      return true;
     }
 
     return this.transform(

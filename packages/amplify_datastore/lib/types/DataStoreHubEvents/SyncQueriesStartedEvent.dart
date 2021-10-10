@@ -14,12 +14,10 @@
  */
 
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
 import 'package:amplify_core/types/hub/HubEventPayload.dart';
 
 class SyncQueriesStartedEvent extends HubEventPayload {
-  late List<dynamic> models;
-  SyncQueriesStartedEvent(Map<dynamic, dynamic> serializedData) {
-    models = List<String>.from(jsonDecode(serializedData["models"]));
-  }
+  final List<String> models;
+  SyncQueriesStartedEvent(Map<dynamic, dynamic> serializedData)
+      : models = List<String>.from(jsonDecode(serializedData["models"]));
 }

@@ -129,7 +129,7 @@ void main() {
       });
     });
 
-    test('should stop throttling once the condition is met', () {
+    test('should not throttle if the throttleIf condition is false', () {
       fakeAsync((async) {
         var stream = Stream.periodic(
           Duration(milliseconds: 1),
@@ -137,12 +137,13 @@ void main() {
         ).take(1000);
 
         var throttledStream = stream.throttleByCountAndTime(
-          throttleCount: 10,
+          throttleCount: 5,
           duration: Duration(seconds: 10),
-          until: (int value) => value >= 30,
+          throttleIf: (int value) => value > 5 && value <= 20,
         );
 
-        expect(throttledStream, emitsInOrder([0, 10, 20, 30, 31, 32, 33, 34]));
+        expect(throttledStream,
+            emitsInOrder([0, 1, 2, 3, 4, 5, 10, 15, 20, 21, 22, 23]));
         async.elapse(Duration(seconds: 10));
       });
     });
