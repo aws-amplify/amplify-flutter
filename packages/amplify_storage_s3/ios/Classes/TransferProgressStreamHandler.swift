@@ -24,14 +24,12 @@ class TransferProgressStreamHandler : NSObject, FlutterStreamHandler {
         return nil
     }
     
-    public func onTransferProgressEvent(key : String, progress : Progress){
+    public func onTransferProgressEvent(uuid : String, progress : Progress){
         let result: [String: Any?] = [
-            "id": key,
-            "currentProgress": progress.completedUnitCount,
-            "totalProgress": progress.totalUnitCount
+            "uuid": uuid,
+            "currentBytes": progress.completedUnitCount,
+            "totalBytes": progress.totalUnitCount
         ]
-        print("test onDownloadProgressEvent: " )
-        print(progress.fractionCompleted)
         eventSink?(result)
     }
 

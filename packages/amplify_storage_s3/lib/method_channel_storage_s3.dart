@@ -40,17 +40,17 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
     try {
       _transferProgressEventChannel.receiveBroadcastStream(0).listen((event) {
         var eventData = (event as Map).cast<String, dynamic>();
-        String key = eventData["id"];
-        int currentProgress = eventData["currentProgress"];
-        int totalProgress = eventData["totalProgress"];
+        String uuid = eventData["uuid"];
+        int currentBytes = eventData["currentBytes"];
+        int totalBytes = eventData["totalBytes"];
 
         Function(TransferProgress)? callback =
-            _transferProgressionCallbackMap[key];
+            _transferProgressionCallbackMap[uuid];
 
         if (callback != null) {
-          callback(TransferProgress(currentProgress, totalProgress));
-          if (currentProgress >= totalProgress) {
-            _transferProgressionCallbackMap.remove(key);
+          callback(TransferProgress(currentBytes, totalBytes));
+          if (currentBytes >= totalBytes) {
+            _transferProgressionCallbackMap.remove(uuid);
           }
         }
       });
@@ -70,10 +70,10 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
 
   Future<UploadFileResult> uploadFile(
       {required UploadFileRequest request,
-      Function(TransferProgress)? onProgress}) async {
+      void Function(TransferProgress)? onProgress}) async {
     try {
       if (onProgress != null) {
-        _transferProgressionCallbackMap[request.key] = onProgress;
+        _transferProgressionCallbackMap[request.uuid] = onProgress;
       }
 
       final Map<String, dynamic>? data =
@@ -82,15 +82,15 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
         request.serializeAsMap(),
       ));
       if (data == null) {
+        _transferProgressionCallbackMap.remove(request.uuid);
         throw AmplifyException(
             AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       }
       UploadFileResult result = _formatUploadFileResult(data);
       return result;
     } on PlatformException catch (e) {
+      _transferProgressionCallbackMap.remove(request.uuid);
       throw _convertToStorageException(e);
-    } finally {
-      _transferProgressionCallbackMap.remove(request.key);
     }
   }
 
@@ -151,10 +151,10 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
   @override
   Future<DownloadFileResult> downloadFile(
       {required DownloadFileRequest request,
-      Function(TransferProgress)? onProgress}) async {
+      void Function(TransferProgress)? onProgress}) async {
     try {
       if (onProgress != null) {
-        _transferProgressionCallbackMap[request.key] = onProgress;
+        _transferProgressionCallbackMap[request.uuid] = onProgress;
       }
 
       final Map<String, dynamic>? data =
@@ -163,15 +163,15 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
         request.serializeAsMap(),
       ));
       if (data == null) {
+        _transferProgressionCallbackMap.remove(request.uuid);
         throw AmplifyException(
             AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       }
       DownloadFileResult result = _formatDownloadFileResult(data);
       return result;
     } on PlatformException catch (e) {
+      _transferProgressionCallbackMap.remove(request.uuid);
       throw _convertToStorageException(e);
-    } finally {
-      _transferProgressionCallbackMap.remove(request.key);
     }
   }
 

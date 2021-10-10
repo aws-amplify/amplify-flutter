@@ -30,7 +30,7 @@ public class AmplifyStorageOperations {
                 local: req.file,
                 options: req.options,
                 progressListener: { progress in
-                    transferProgressStreamHandler.onTransferProgressEvent(key: req.key, progress: progress)
+                    transferProgressStreamHandler.onTransferProgressEvent(uuid: req.uuid, progress: progress)
                 },
                 resultListener: { event in
                     switch event {
@@ -122,7 +122,7 @@ public class AmplifyStorageOperations {
                  local: req.file,
                  options: req.options,
                  progressListener: { progress in
-                    transferProgressStreamHandler.onTransferProgressEvent(key: req.key, progress: progress)
+                    transferProgressStreamHandler.onTransferProgressEvent(uuid: req.uuid, progress: progress)
                  },
                  resultListener: { event in
                     switch event {

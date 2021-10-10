@@ -26,12 +26,12 @@ class TransferProgressStreamHandler : EventChannel.StreamHandler {
     private var eventSink : EventChannel.EventSink? = null
     private val handler = Handler(Looper.getMainLooper())
 
-    fun onTransferProgressEvent(key : String, progress : StorageTransferProgress){
+    fun onTransferProgressEvent(uuid : String, progress : StorageTransferProgress){
         handler.post {
             val result: MutableMap<String, Any?> = mutableMapOf(
-                "id" to key,
-                "currentProgress" to progress.currentBytes,
-                "totalProgress" to progress.totalBytes
+                "uuid" to uuid,
+                "currentBytes" to progress.currentBytes,
+                "totalBytes" to progress.totalBytes
             )
             eventSink?.success(result)
         }

@@ -39,18 +39,17 @@ void main() {
     storageMethodChannel.setMockMethodCallHandler(null);
   });
 
-  Map buildProgressionEventMap(
-          String id, int currentProgress, int totalProgress) =>
+  Map buildProgressionEventMap(String uuid, int currentBytes, int totalBytes) =>
       <String, dynamic>{
-        'id': id,
-        'currentProgress': currentProgress,
-        'totalProgress': totalProgress
+        'uuid': uuid,
+        'currentBytes': currentBytes,
+        'totalBytes': totalBytes
       };
 
   ByteData buildProgressionSuccessEvent(
-          String id, int currentProgress, int totalProgress) =>
+          String uuid, int currentBytes, int totalBytes) =>
       standardCodec.encodeSuccessEnvelope(
-          buildProgressionEventMap(id, currentProgress, totalProgress));
+          buildProgressionEventMap(uuid, currentBytes, totalBytes));
 
   void emitMockNativeValues(ByteData? event) {
     ServicesBinding.instance!.defaultBinaryMessenger.handlePlatformMessage(
@@ -61,10 +60,10 @@ void main() {
   }
 
   void setupTransferEventChannel() {
-    void sendTransferProgressEvents(String key) {
+    void sendTransferProgressEvents(String uuid) {
       for (int i = 0; i < numProgressEvents; i++) {
         emitMockNativeValues(buildProgressionSuccessEvent(
-            key, i * unitTransferProgress, totalTransferProgress));
+            uuid, i * unitTransferProgress, totalTransferProgress));
       }
     }
 
@@ -89,14 +88,14 @@ void main() {
         .setMockMethodCallHandler((MethodCall methodCall) async {
       switch (methodCall.method) {
         case 'downloadFile':
-          String key = methodCall.arguments['key']; //arguments['key'];
-          scheduleMicrotask(() => sendTransferProgressEvents(key));
+          String uuid = methodCall.arguments['uuid'];
+          scheduleMicrotask(() => sendTransferProgressEvents(uuid));
           return {
             'path': 'downloadFilePath',
           };
         case 'uploadFile':
-          String key = methodCall.arguments['key']; //arguments['key'];
-          scheduleMicrotask(() => sendTransferProgressEvents(key));
+          String uuid = methodCall.arguments['uuid'];
+          scheduleMicrotask(() => sendTransferProgressEvents(uuid));
           return {
             'key': 'keyForFile',
           };
@@ -130,7 +129,7 @@ void main() {
         (index) => allOf([
               isA<TransferProgress>(),
               predicate<TransferProgress>((item) {
-                return item.currentProgress == (index * unitTransferProgress);
+                return item.currentBytes == (index * unitTransferProgress);
               })
             ]));
 
@@ -184,7 +183,7 @@ void main() {
         (index) => allOf([
               isA<TransferProgress>(),
               predicate<TransferProgress>((item) {
-                return item.currentProgress == (index * unitTransferProgress);
+                return item.currentBytes == (index * unitTransferProgress);
               })
             ]));
 
@@ -215,4 +214,6 @@ void main() {
     await task2;
     await task3;
   });
+
+  // For Upload and Download sad case check downloadfile and uploadfile unit test files
 }

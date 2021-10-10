@@ -44,7 +44,7 @@ class AmplifyStorageOperations {
                         req.file,
                         req.options,
                         { progress ->
-                            transferProgressStreamHandler.onTransferProgressEvent(req.key, progress)
+                            transferProgressStreamHandler.onTransferProgressEvent(req.uuid, progress)
                         },
                         { result ->
                             prepareUploadFileResponse(flutterResult, result)
@@ -119,7 +119,7 @@ class AmplifyStorageOperations {
                         req.file,
                         req.options,
                         { progress ->
-                            transferProgressStreamHandler.onTransferProgressEvent(req.key, progress)
+                            transferProgressStreamHandler.onTransferProgressEvent(req.uuid, progress)
                         },
                         { result ->
                             prepareDownloadFileResponse(flutterResult, result)

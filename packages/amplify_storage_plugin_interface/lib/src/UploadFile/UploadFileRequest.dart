@@ -13,18 +13,23 @@
  * permissions and limitations under the License.
  */
 
+import '../uuid.dart';
 import './UploadFileOptions.dart';
 import 'dart:io';
 
 class UploadFileRequest {
+  late String uuid;
   File local;
   String key;
   UploadFileOptions? options;
 
-  UploadFileRequest({required this.local, required this.key, this.options});
+  UploadFileRequest({required this.local, required this.key, this.options}) {
+    this.uuid = UUID.getUUID();
+  }
 
   Map<String, dynamic> serializeAsMap() {
     final Map<String, dynamic> result = {
+      'uuid': uuid,
       'path': local.absolute.path,
       'key': key,
       'options': options?.serializeAsMap()
