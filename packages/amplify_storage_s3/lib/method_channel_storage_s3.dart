@@ -82,15 +82,15 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
         request.serializeAsMap(),
       ));
       if (data == null) {
-        _transferProgressionCallbackMap.remove(request.key);
         throw AmplifyException(
             AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       }
       UploadFileResult result = _formatUploadFileResult(data);
       return result;
     } on PlatformException catch (e) {
-      _transferProgressionCallbackMap.remove(request.key);
       throw _convertToStorageException(e);
+    } finally {
+      _transferProgressionCallbackMap.remove(request.key);
     }
   }
 
