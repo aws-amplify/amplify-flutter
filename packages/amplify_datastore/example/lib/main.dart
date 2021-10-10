@@ -51,13 +51,6 @@ class _MyAppState extends State<MyApp> {
   List<Post> _posts = <Post>[];
   List<Comment> _comments = <Comment>[];
   List<Blog> _blogs = <Blog>[];
-  List<Post> _posts4rating = <Post>[];
-  List<Post> _posts1To4Rating = <Post>[];
-  List<Post> _postWithCreatedDate = <Post>[];
-  List<Post> _posts2Or5Rating = <Post>[];
-  List<Post> _postWithIdNotEquals = <Post>[];
-  List<Post> _firstPostFromResult = <Post>[];
-  List<Post> _allPostsWithoutRating2Or5 = <Post>[];
   List<String> _postStreamingData = <String>[];
   List<String> _blogStreamingData = <String>[];
   List<String> _commentStreamingData = <String>[];
@@ -111,8 +104,12 @@ class _MyAppState extends State<MyApp> {
 
     Amplify.DataStore.observeQuery(
       Blog.classType,
-      throttleOptions: ObserveQueryThrottleOptions.none(),
     ).listen((QuerySnapshot<Blog> snapshot) {
+      var count = snapshot.items.length;
+      var now = DateTime.now().toIso8601String();
+      bool status = snapshot.isSynced;
+      print(
+          '[Observe Query] Blog snapshot received with $count models, status: $status at $now');
       setState(() {
         _blogs = snapshot.items;
       });
@@ -120,7 +117,6 @@ class _MyAppState extends State<MyApp> {
 
     Amplify.DataStore.observeQuery(
       Post.classType,
-      throttleOptions: ObserveQueryThrottleOptions.none(),
     ).listen((QuerySnapshot<Post> snapshot) {
       setState(() {
         _posts = snapshot.items;
@@ -129,7 +125,6 @@ class _MyAppState extends State<MyApp> {
 
     Amplify.DataStore.observeQuery(
       Comment.classType,
-      throttleOptions: ObserveQueryThrottleOptions.none(),
     ).listen((QuerySnapshot<Comment> snapshot) {
       setState(() {
         _comments = snapshot.items;
@@ -145,7 +140,6 @@ class _MyAppState extends State<MyApp> {
               : event.item.title) +
           ', of type: ' +
           event.eventType.toString());
-      runQueries();
     }).onError((error) => print(error));
 
     blogStream = Amplify.DataStore.observe(Blog.classType);
@@ -156,7 +150,6 @@ class _MyAppState extends State<MyApp> {
               : event.item.name) +
           ', of type: ' +
           event.eventType.toString());
-      runQueries();
     }).onError((error) => print(error));
 
     commentStream = Amplify.DataStore.observe(Comment.classType);
@@ -167,7 +160,6 @@ class _MyAppState extends State<MyApp> {
               : event.item.content) +
           ', of type: ' +
           event.eventType.toString());
-      runQueries();
     }).onError((error) => print(error));
 
     setState(() {
@@ -178,9 +170,6 @@ class _MyAppState extends State<MyApp> {
   void listenToHub() {
     setState(() {
       hubSubscription = Amplify.Hub.listen([HubChannel.DataStore], (msg) {
-        if (msg.eventName == "ready") {
-          runQueries();
-        }
         print(msg);
       });
       _listeningToHub = true;
@@ -194,72 +183,6 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  void runQueries() async {
-    List<Post> posts4Rating = <Post>[];
-    List<Post> posts1To4Rating = <Post>[];
-    List<Post> posts2Or5Rating = <Post>[];
-    List<Post> postWithCreatedDate = <Post>[];
-    List<Post> postWithIdNotEquals = <Post>[];
-    List<Post> firstPostFromResult = <Post>[];
-    List<Post> allPostsWithoutRating2Or5 = <Post>[];
-
-    (await Amplify.DataStore.query(Post.classType, where: Post.RATING.ge(4)))
-        .forEach((element) {
-      posts4Rating.add(element);
-    });
-
-    (await Amplify.DataStore.query(Post.classType,
-            where: Post.RATING.between(1, 4)))
-        .forEach((element) {
-      posts1To4Rating.add(element);
-    });
-
-    (await Amplify.DataStore.query(Post.classType,
-            where: Post.CREATED.eq("2020-02-02T20:20:20-08:00")))
-        .forEach((element) {
-      postWithCreatedDate.add(element);
-    });
-
-    (await Amplify.DataStore.query(Post.classType,
-            where: QueryField(fieldName: "post.id")
-                .ne("e25859fc-e254-4e8b-8cae-62ccacce4097")))
-        .forEach((element) {
-      postWithIdNotEquals.add(element);
-    });
-
-    (await Amplify.DataStore.query(Post.classType,
-            where: Post.RATING.eq(2).or(Post.RATING.eq(5))))
-        .forEach((element) {
-      posts2Or5Rating.add(element);
-    });
-
-    (await Amplify.DataStore.query(Post.classType,
-            pagination: QueryPagination.firstResult()))
-        .forEach((element) {
-      firstPostFromResult.add(element);
-    });
-
-    (await Amplify.DataStore.query(Post.classType,
-            where: not(Post.RATING.eq(5).or(Post.RATING.eq(2)))))
-        .forEach((element) {
-      allPostsWithoutRating2Or5.add(element);
-    });
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-    setState(() {
-      _posts1To4Rating = posts1To4Rating;
-      _posts4rating = posts4Rating;
-      _postWithCreatedDate = postWithCreatedDate;
-      _posts2Or5Rating = posts2Or5Rating;
-      _postWithIdNotEquals = postWithIdNotEquals;
-      _firstPostFromResult = firstPostFromResult;
-      _allPostsWithoutRating2Or5 = allPostsWithoutRating2Or5;
-    });
-  }
-
   savePost(String title, int rating, Blog associatedBlog) async {
     try {
       Post post = Post(
@@ -268,7 +191,6 @@ class _MyAppState extends State<MyApp> {
           created: TemporalDateTime.now(),
           blog: associatedBlog);
       await Amplify.DataStore.save(post);
-      runQueries();
     } catch (e) {
       print(e);
     }
@@ -280,7 +202,6 @@ class _MyAppState extends State<MyApp> {
         name: name,
       );
       await Amplify.DataStore.save(blog);
-      runQueries();
     } catch (e) {
       print(e);
     }
@@ -290,7 +211,6 @@ class _MyAppState extends State<MyApp> {
     try {
       Comment comment = Comment(content: content, post: associatedPost);
       await Amplify.DataStore.save(comment);
-      runQueries();
     } catch (e) {
       print(e);
     }
@@ -301,7 +221,6 @@ class _MyAppState extends State<MyApp> {
       _selectedPostForNewComment = null;
       await Amplify.DataStore.delete(
           Post(id: id, title: "", rating: 0, created: TemporalDateTime.now()));
-      runQueries();
     } catch (e) {
       print(e);
     }
@@ -311,7 +230,6 @@ class _MyAppState extends State<MyApp> {
     try {
       _selectedBlogForNewPost = null;
       await Amplify.DataStore.delete(Blog(id: id, name: ""));
-      runQueries();
     } catch (e) {
       print(e);
     }
@@ -320,7 +238,6 @@ class _MyAppState extends State<MyApp> {
   deleteComment(String id) async {
     try {
       await Amplify.DataStore.delete(Comment(id: id, content: ""));
-      runQueries();
     } catch (e) {
       print(e);
     }
@@ -343,7 +260,6 @@ class _MyAppState extends State<MyApp> {
                 child: GestureDetector(
                   onTap: () async {
                     await Amplify.DataStore.clear();
-                    runQueries();
                   },
                   child: Icon(
                     Icons.clear,
@@ -377,7 +293,7 @@ class _MyAppState extends State<MyApp> {
             Padding(padding: EdgeInsets.all(10.0)),
 
             // Row for query buttons
-            displayQueryButtons(_isAmplifyConfigured, this, runQueries),
+            displayQueryButtons(_isAmplifyConfigured, this),
 
             Padding(padding: EdgeInsets.all(5.0)),
             Text("Listen to DataStore Hub"),
