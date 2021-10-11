@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:async';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fake_async/fake_async.dart';
 
@@ -145,6 +147,64 @@ void main() {
         expect(throttledStream,
             emitsInOrder([0, 1, 2, 3, 4, 5, 10, 15, 20, 21, 22, 23]));
         async.elapse(Duration(seconds: 10));
+      });
+    });
+
+    group('source stream types', () {
+      late StreamController controller;
+      late StreamController broadcastController;
+      late List<StreamController> controllers;
+
+      setUp(() {
+        controller = StreamController(sync: true);
+        broadcastController = StreamController.broadcast(sync: true);
+        controllers = [controller, broadcastController];
+      });
+
+      test('the source stream can be cancelled', () async {
+        for (var controller in controllers) {
+          var streamWasCanceled = false;
+          controller.onCancel = () {
+            streamWasCanceled = true;
+          };
+          var stream = controller.stream.throttleByCountAndTime(
+            throttleCount: 10,
+            duration: Duration(milliseconds: 10),
+          );
+          var subscription = stream.listen((event) {});
+          await subscription.cancel();
+          expect(streamWasCanceled, true);
+        }
+      });
+
+      test('closes output and invokes onDone', () async {
+        for (var controller in controllers) {
+          var isDone = false;
+          var stream = controller.stream.throttleByCountAndTime(
+            throttleCount: 10,
+          );
+          stream.listen((_) => {}, onDone: () {
+            isDone = true;
+          });
+          controller.sink.add(1);
+          controller.sink.add(2);
+          await controller.close();
+          expect(isDone, true);
+        }
+      });
+
+      test('multiple listeners all get values if the source is a broadcast',
+          () {
+        var values = [];
+        var values2 = [];
+        var stream = broadcastController.stream.throttleByCountAndTime(
+          throttleCount: 1,
+        );
+        stream.listen(values.add);
+        stream.listen(values2.add);
+        broadcastController..add(1)..add(2);
+        expect(values, [1, 2]);
+        expect(values2, [1, 2]);
       });
     });
   });
