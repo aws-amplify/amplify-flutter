@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_authenticator/src/text_customization/checkbox_resolver.dart';
+import 'package:amplify_authenticator/src/text_customization/input_resolver.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +28,7 @@ class AuthenticatorCheckbox<T extends AuthenticatorCheckbox<T>>
       : super(key: key);
 
   /// The checkbox's label key.
-  final CheckboxResolverKey labelKey;
+  final InputResolverKey labelKey;
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
@@ -37,30 +37,32 @@ class AuthenticatorCheckbox<T extends AuthenticatorCheckbox<T>>
   }
 
   @override
-  AuthenticatorCheckBoxState<T> createState() =>
-      AuthenticatorCheckBoxState<T>();
+  _AuthenticatorCheckBoxState<T> createState() =>
+      _AuthenticatorCheckBoxState<T>();
 }
 
-class AuthenticatorCheckBoxState<T extends AuthenticatorCheckbox<T>>
+class _AuthenticatorCheckBoxState<T extends AuthenticatorCheckbox<T>>
     extends AuthenticatorComponentState<T> {
-  AuthenticatorCheckBoxState();
+  _AuthenticatorCheckBoxState();
 
   var _isChecked = false;
 
   /// Callback for when `onChanged` is triggered on the [AuthenticatorCheckbox].
-  void Function(bool) get onChanged => (_) {};
+  ValueChanged<bool> get onChanged => (_) {};
 
   @override
   Widget build(BuildContext context) {
-    final checkboxResolver = stringResolver.checkboxes;
+    final checkboxResolver = stringResolver.inputs;
     return CheckboxListTile(
       title: Text(checkboxResolver.resolve(context, widget.labelKey)),
       value: _isChecked,
       onChanged: (value) {
+        // Checkbox value can only be true/false since tristate is false.
+        var _value = value!;
         setState(() {
-          _isChecked = value!;
+          _isChecked = _value;
         });
-        onChanged(value!);
+        onChanged(_value);
       },
       controlAffinity: ListTileControlAffinity.leading,
     );
@@ -76,22 +78,22 @@ class AuthenticatorCheckBoxState<T extends AuthenticatorCheckbox<T>>
 class RememberDeviceCheckbox
     extends AuthenticatorCheckbox<RememberDeviceCheckbox> {
   const RememberDeviceCheckbox({Key? key})
-      : super(key: key, labelKey: CheckboxResolverKey.rememberDevice);
+      : super(key: key, labelKey: InputResolverKey.rememberDevice);
 
   @override
-  RememberDeviceCheckboxState<RememberDeviceCheckbox> createState() =>
-      RememberDeviceCheckboxState<RememberDeviceCheckbox>();
+  _RememberDeviceCheckboxState<RememberDeviceCheckbox> createState() =>
+      _RememberDeviceCheckboxState<RememberDeviceCheckbox>();
 }
 
-class RememberDeviceCheckboxState<T extends AuthenticatorCheckbox<T>>
-    extends AuthenticatorCheckBoxState<T> {
+class _RememberDeviceCheckboxState<T extends AuthenticatorCheckbox<T>>
+    extends _AuthenticatorCheckBoxState<T> {
   @override
   void Function(bool) get onChanged {
     return viewModel.setRememberDevice;
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return super.build(context);
-  }
+  // @override
+  // Widget build(BuildContext context) {
+  //   return super.build(context);
+  // }
 }

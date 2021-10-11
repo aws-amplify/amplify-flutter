@@ -21,6 +21,7 @@ import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_flutter/src/config/amplify_config.dart';
+import 'package:flutter/foundation.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -160,10 +161,11 @@ class StateMachineBloc {
           if (rememberDevice) {
             try {
               await _authService.rememberDevice();
-            } on Exception catch (e) {
+            } on Exception catch (e, s) {
               /// TODO: How to handle these exceptions, since we have already authenticated
               /// Will need to expose state outside of the Authenticator (or something similar)
-              print(e);
+              debugPrint('$e');
+              debugPrint('$s');
             }
           }
           yield const Authenticated();
