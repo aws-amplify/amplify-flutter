@@ -38,12 +38,13 @@ class StorageCategory {
     }
   }
 
-  Future<UploadFileResult> uploadFile({required File local,
-    required String key,
-    void Function(TransferProgress)? onProgress,
-    UploadFileOptions? options}) {
+  Future<UploadFileResult> uploadFile(
+      {required File local,
+      required String key,
+      void Function(TransferProgress)? onProgress,
+      UploadFileOptions? options}) {
     final UploadFileRequest request =
-    UploadFileRequest(local: local, key: key, options: options);
+        UploadFileRequest(local: local, key: key, options: options);
     return plugins[0].uploadFile(request: request, onProgress: onProgress);
   }
 
@@ -62,12 +63,13 @@ class StorageCategory {
     return plugins[0].list(request: request);
   }
 
-  Future<DownloadFileResult> downloadFile({required String key,
-    required File local,
-    void Function(TransferProgress)? onProgress,
-    DownloadFileOptions? options}) {
-    final DownloadFileRequest request = DownloadFileRequest(
-        key: key, local: local, options: options);
+  Future<DownloadFileResult> downloadFile(
+      {required String key,
+      required File local,
+      void Function(TransferProgress)? onProgress,
+      DownloadFileOptions? options}) {
+    final DownloadFileRequest request =
+        DownloadFileRequest(key: key, local: local, options: options);
     return plugins[0].downloadFile(request: request, onProgress: onProgress);
   }
 }
