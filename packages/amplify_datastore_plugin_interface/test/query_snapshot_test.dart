@@ -425,6 +425,107 @@ void main() {
           });
         });
       });
+
+      group('with multiple sort orders', () {
+        late List<Post> posts;
+        late QuerySnapshot<Post> snapshot;
+        setUp(() {
+          posts = List.generate(
+            2,
+            (index) => Post(
+              title: 'post $index',
+              rating: index * 10,
+              created: TemporalDateTime.now(),
+            ),
+          );
+          snapshot = QuerySnapshot(
+            items: posts,
+            isSynced: false,
+            sortBy: [Post.RATING.ascending(), Post.TITLE.ascending()],
+          );
+        });
+
+        group('create event', () {
+          test('returns a QuerySnapshot with new items in the correct order',
+              () async {
+            Post newPost1 = Post(
+              title: 'new post a',
+              rating: 25,
+              created: TemporalDateTime.now(),
+            );
+
+            Post newPost2 = Post(
+              title: 'new post a',
+              rating: 40,
+              created: TemporalDateTime.now(),
+            );
+
+            Post newPost3 = Post(
+              title: 'new post b',
+              rating: 25,
+              created: TemporalDateTime.now(),
+            );
+
+            Post newPost4 = Post(
+              title: 'new post b',
+              rating: 40,
+              created: TemporalDateTime.now(),
+            );
+
+            SubscriptionEvent<Post> subscriptionEvent1 = SubscriptionEvent(
+              item: newPost1,
+              modelType: Post.classType,
+              eventType: EventType.create,
+            );
+
+            SubscriptionEvent<Post> subscriptionEvent2 = SubscriptionEvent(
+              item: newPost2,
+              modelType: Post.classType,
+              eventType: EventType.create,
+            );
+
+            SubscriptionEvent<Post> subscriptionEvent3 = SubscriptionEvent(
+              item: newPost3,
+              modelType: Post.classType,
+              eventType: EventType.create,
+            );
+
+            SubscriptionEvent<Post> subscriptionEvent4 = SubscriptionEvent(
+              item: newPost4,
+              modelType: Post.classType,
+              eventType: EventType.create,
+            );
+
+            QuerySnapshot<Post> updatedSnapshot =
+                snapshot.withSubscriptionEvent(
+              event: subscriptionEvent1,
+            );
+
+            updatedSnapshot = updatedSnapshot.withSubscriptionEvent(
+              event: subscriptionEvent2,
+            );
+
+            updatedSnapshot = updatedSnapshot.withSubscriptionEvent(
+              event: subscriptionEvent3,
+            );
+
+            updatedSnapshot = updatedSnapshot.withSubscriptionEvent(
+              event: subscriptionEvent4,
+            );
+
+            var expectedItems = [
+              ...snapshot.items,
+              newPost1,
+              newPost3,
+              newPost2,
+              newPost4,
+            ];
+
+            expect(updatedSnapshot.items.length, snapshot.items.length + 4);
+            expect(updatedSnapshot.items, orderedEquals(expectedItems));
+          });
+        });
+      });
     });
 
     group('withSyncStatus()', () {

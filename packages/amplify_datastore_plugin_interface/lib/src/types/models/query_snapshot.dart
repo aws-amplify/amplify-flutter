@@ -136,6 +136,16 @@ class QuerySnapshot<T extends Model> {
   }
 }
 
+// Sort orders are compared one at a time starting with the
+// sort order at index 0, which has the highest priority
+// and ending with the last sort order in the list, which has the
+// lowest priority.
+//
+// As soon as a sort order is reached that results in a non 0 value,
+// that value is returned and the remaining sort orders are not considered.
+//
+// if sortBy is null, than null is returned to indicate that there is
+// no specified sort order
 int Function(T a, T b)? _createCompareFromSortBy<T extends Model>(
   List<QuerySortBy>? sortBy,
 ) {
@@ -144,10 +154,9 @@ int Function(T a, T b)? _createCompareFromSortBy<T extends Model>(
   }
   return (T a, T b) {
     int sortOrder = 0;
-    List<QuerySortBy> _sortBy = List.from(sortBy);
-    while (sortOrder == 0 && _sortBy.isNotEmpty) {
-      QuerySortBy nextSortBy = _sortBy.removeAt(0);
+    for (var nextSortBy in sortBy) {
       sortOrder = nextSortBy.compare<T>(a, b);
+      if (sortOrder != 0) return sortOrder;
     }
     return sortOrder;
   };
