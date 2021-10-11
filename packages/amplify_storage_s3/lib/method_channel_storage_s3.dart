@@ -31,7 +31,7 @@ const _transferProgressEventChannel = const EventChannel(
     'com.amazonaws.amplify/storage_transfer_progress_events');
 
 var _transferProgressionCallbackMap =
-    Map<String, Function(TransferProgress)?>();
+    Map<String, void Function(TransferProgress)?>();
 
 /// An implementation of [AmplifyPlatform] that uses method channels.
 class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
@@ -44,14 +44,11 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
         int currentBytes = eventData["currentBytes"];
         int totalBytes = eventData["totalBytes"];
 
-        Function(TransferProgress)? callback =
+        void Function(TransferProgress)? callback =
             _transferProgressionCallbackMap[uuid];
 
         if (callback != null) {
           callback(TransferProgress(currentBytes, totalBytes));
-          if (currentBytes >= totalBytes) {
-            _transferProgressionCallbackMap.remove(uuid);
-          }
         }
       });
 
@@ -82,15 +79,15 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
         request.serializeAsMap(),
       ));
       if (data == null) {
-        _transferProgressionCallbackMap.remove(request.uuid);
         throw AmplifyException(
             AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       }
       UploadFileResult result = _formatUploadFileResult(data);
       return result;
     } on PlatformException catch (e) {
-      _transferProgressionCallbackMap.remove(request.uuid);
       throw _convertToStorageException(e);
+    } finally {
+      _transferProgressionCallbackMap.remove(request.uuid);
     }
   }
 
@@ -163,15 +160,15 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
         request.serializeAsMap(),
       ));
       if (data == null) {
-        _transferProgressionCallbackMap.remove(request.uuid);
         throw AmplifyException(
             AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       }
       DownloadFileResult result = _formatDownloadFileResult(data);
       return result;
     } on PlatformException catch (e) {
-      _transferProgressionCallbackMap.remove(request.uuid);
       throw _convertToStorageException(e);
+    } finally {
+      _transferProgressionCallbackMap.remove(request.uuid);
     }
   }
 
