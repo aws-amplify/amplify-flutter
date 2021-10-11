@@ -91,9 +91,4 @@ class _RememberDeviceCheckboxState<T extends AuthenticatorCheckbox<T>>
   void Function(bool) get onChanged {
     return viewModel.setRememberDevice;
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return super.build(context);
-  // }
 }
