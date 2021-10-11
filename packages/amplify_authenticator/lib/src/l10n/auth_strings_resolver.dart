@@ -13,6 +13,10 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_authenticator/src/text_customization/button_resolver.dart';
+import 'package:amplify_authenticator/src/text_customization/input_resolver.dart';
+import 'package:amplify_authenticator/src/text_customization/navigation_resolver.dart';
+import 'package:amplify_authenticator/src/text_customization/title_resolver.dart';
 import 'package:flutter/material.dart';
 
 import 'button_resolver.dart';
@@ -39,6 +43,9 @@ class AuthStringResolver {
   /// The resolver class for shared input Widgets
   final InputResolver inputs;
 
+  /// The resolver class for navigation-related Widgets
+  final NavigationResolver navigation;
+
   /// The resolver class for titles
   final TitleResolver titles;
 
@@ -46,21 +53,22 @@ class AuthStringResolver {
   final CheckboxResolver checkboxes;
 
   /// {@macro authenticator.auth_string_resolver}
-  const AuthStringResolver(
-      {ButtonResolver? buttons,
-      InputResolver? inputs,
-      TitleResolver? titles,
-      CheckboxResolver? checkboxes})
-      : titles = titles ?? const TitleResolver(),
-        buttons = buttons ?? const ButtonResolver(),
-        checkboxes = checkboxes ?? const CheckboxResolver(),
-        inputs = inputs ?? const InputResolver();
+  const AuthStringResolver({
+    ButtonResolver? buttons,
+    InputResolver? inputs,
+    NavigationResolver? navigation,
+    TitleResolver? titles,
+  })  : titles = titles ?? const DefaultTitleResolver(),
+        buttons = buttons ?? const DefaultButtonResolver(),
+        inputs = inputs ?? const DefaultInputResolver(),
+        navigation = navigation ?? const DefaultNavigationResolver();
 
   @override
   bool operator ==(Object other) =>
       other is AuthStringResolver &&
       buttons == other.buttons &&
       inputs == other.inputs &&
+      navigation == other.navigation &&
       titles == other.titles;
 
   @override
