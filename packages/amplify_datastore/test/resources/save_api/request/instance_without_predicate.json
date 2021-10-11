@@ -6,6 +6,8 @@
         "rating": 10,
         "created": "2020-11-12T03:15:48+03:18",
         "blog": null,
-        "comments": null
+        "comments": null,
+        "createdAt": null,
+        "updatedAt": null
     }
 }
