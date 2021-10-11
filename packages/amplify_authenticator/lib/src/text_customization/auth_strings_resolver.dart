@@ -17,7 +17,6 @@ import 'package:amplify_authenticator/src/text_customization/button_resolver.dar
 import 'package:amplify_authenticator/src/text_customization/input_resolver.dart';
 import 'package:amplify_authenticator/src/text_customization/navigation_resolver.dart';
 import 'package:amplify_authenticator/src/text_customization/title_resolver.dart';
-import 'package:amplify_authenticator/src/text_customization/checkbox_resolver.dart';
 import 'package:flutter/material.dart';
 
 export 'package:amplify_authenticator/src/text_customization/button_resolver.dart';
@@ -39,9 +38,6 @@ class AuthStringResolver {
   /// The resolver class for shared input Widgets
   final InputResolver inputs;
 
-  /// The resolver class for shared button Widgets
-  final CheckboxResolver checkboxes;
-
   /// The resolver class for navigation-related Widgets
   final NavigationResolver navigation;
 
@@ -52,13 +48,11 @@ class AuthStringResolver {
   const AuthStringResolver({
     ButtonResolver? buttons,
     InputResolver? inputs,
-    CheckboxResolver? checkboxes,
     NavigationResolver? navigation,
     TitleResolver? titles,
   })  : titles = titles ?? const DefaultTitleResolver(),
         buttons = buttons ?? const DefaultButtonResolver(),
         inputs = inputs ?? const DefaultInputResolver(),
-        checkboxes = checkboxes ?? const DefaultCheckboxResolver(),
         navigation = navigation ?? const DefaultNavigationResolver();
 
   @override
@@ -66,7 +60,6 @@ class AuthStringResolver {
       other is AuthStringResolver &&
       buttons == other.buttons &&
       inputs == other.inputs &&
-      checkboxes == other.checkboxes &&
       navigation == other.navigation &&
       titles == other.titles;
 
