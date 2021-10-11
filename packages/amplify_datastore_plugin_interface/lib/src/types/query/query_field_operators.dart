@@ -66,10 +66,15 @@ abstract class QueryFieldOperator {
   }
 }
 
-class EqualQueryOperator<T> extends QueryFieldOperator {
+abstract class QueryFieldOperatorSimpleValue<T> extends QueryFieldOperator {
   final T value;
 
-  const EqualQueryOperator(this.value) : super(QueryFieldOperatorType.equal);
+  const QueryFieldOperatorSimpleValue(this.value, QueryFieldOperatorType type)
+      : super(type);
+}
+
+class EqualQueryOperator<T> extends QueryFieldOperatorSimpleValue<T> {
+  const EqualQueryOperator(value) : super(value, QueryFieldOperatorType.equal);
 
   @override
   Map<String, dynamic> serializeAsMap() {
@@ -78,11 +83,9 @@ class EqualQueryOperator<T> extends QueryFieldOperator {
   }
 }
 
-class NotEqualQueryOperator<T> extends QueryFieldOperator {
-  final T value;
-
-  const NotEqualQueryOperator(this.value)
-      : super(QueryFieldOperatorType.not_equal);
+class NotEqualQueryOperator<T> extends QueryFieldOperatorSimpleValue<T> {
+  const NotEqualQueryOperator(value)
+      : super(value, QueryFieldOperatorType.not_equal);
 
   @override
   Map<String, dynamic> serializeAsMap() {
@@ -91,11 +94,9 @@ class NotEqualQueryOperator<T> extends QueryFieldOperator {
   }
 }
 
-class LessOrEqualQueryOperator<T> extends QueryFieldOperator {
-  final T value;
-
-  const LessOrEqualQueryOperator(this.value)
-      : super(QueryFieldOperatorType.less_or_equal);
+class LessOrEqualQueryOperator<T> extends QueryFieldOperatorSimpleValue<T> {
+  const LessOrEqualQueryOperator(value)
+      : super(value, QueryFieldOperatorType.less_or_equal);
 
   @override
   Map<String, dynamic> serializeAsMap() {
@@ -104,11 +105,9 @@ class LessOrEqualQueryOperator<T> extends QueryFieldOperator {
   }
 }
 
-class LessThanQueryOperator<T> extends QueryFieldOperator {
-  final T value;
-
-  const LessThanQueryOperator(this.value)
-      : super(QueryFieldOperatorType.less_than);
+class LessThanQueryOperator<T> extends QueryFieldOperatorSimpleValue<T> {
+  const LessThanQueryOperator(value)
+      : super(value, QueryFieldOperatorType.less_than);
 
   @override
   Map<String, dynamic> serializeAsMap() {
@@ -117,11 +116,9 @@ class LessThanQueryOperator<T> extends QueryFieldOperator {
   }
 }
 
-class GreaterOrEqualQueryOperator<T> extends QueryFieldOperator {
-  final T value;
-
-  const GreaterOrEqualQueryOperator(this.value)
-      : super(QueryFieldOperatorType.greater_or_equal);
+class GreaterOrEqualQueryOperator<T> extends QueryFieldOperatorSimpleValue<T> {
+  const GreaterOrEqualQueryOperator(value)
+      : super(value, QueryFieldOperatorType.greater_or_equal);
 
   @override
   Map<String, dynamic> serializeAsMap() {
@@ -130,11 +127,9 @@ class GreaterOrEqualQueryOperator<T> extends QueryFieldOperator {
   }
 }
 
-class GreaterThanQueryOperator<T> extends QueryFieldOperator {
-  final T value;
-
-  const GreaterThanQueryOperator(this.value)
-      : super(QueryFieldOperatorType.greater_than);
+class GreaterThanQueryOperator<T> extends QueryFieldOperatorSimpleValue<T> {
+  const GreaterThanQueryOperator(value)
+      : super(value, QueryFieldOperatorType.greater_than);
 
   @override
   Map<String, dynamic> serializeAsMap() {
@@ -143,11 +138,9 @@ class GreaterThanQueryOperator<T> extends QueryFieldOperator {
   }
 }
 
-class ContainsQueryOperator<T> extends QueryFieldOperator {
-  final T value;
-
-  const ContainsQueryOperator(this.value)
-      : super(QueryFieldOperatorType.contains);
+class ContainsQueryOperator<T> extends QueryFieldOperatorSimpleValue<T> {
+  const ContainsQueryOperator(value)
+      : super(value, QueryFieldOperatorType.contains);
 
   @override
   Map<String, dynamic> serializeAsMap() {
@@ -173,11 +166,9 @@ class BetweenQueryOperator<T> extends QueryFieldOperator {
   }
 }
 
-class BeginsWithQueryOperator extends QueryFieldOperator {
-  final String value;
-
-  const BeginsWithQueryOperator(this.value)
-      : super(QueryFieldOperatorType.begins_with);
+class BeginsWithQueryOperator extends QueryFieldOperatorSimpleValue<String> {
+  const BeginsWithQueryOperator(String value)
+      : super(value, QueryFieldOperatorType.begins_with);
 
   @override
   Map<String, dynamic> serializeAsMap() {
