@@ -89,48 +89,43 @@ class QuerySnapshot<T extends Model> {
   QuerySnapshot<T> withSubscriptionEvent({
     required SubscriptionEvent<T> event,
   }) {
-    SortedList<T> sortedList = SortedList.from(this._sortedList);
-    bool listHasBeenUpdated = false;
+    SortedList<T> sortedListCopy = SortedList.from(this._sortedList);
+    SortedList<T>? updatedSortedList;
 
     T newItem = event.item;
     bool newItemMatchesPredicate = where == null || where!.evaluate(newItem);
     int currentItemIndex =
-        sortedList.indexWhere((item) => item.getId() == newItem.getId());
+        sortedListCopy.indexWhere((item) => item.getId() == newItem.getId());
     T? currentItem =
-        currentItemIndex == -1 ? null : sortedList[currentItemIndex];
+        currentItemIndex == -1 ? null : sortedListCopy[currentItemIndex];
     bool currentItemMatchesPredicate =
         currentItem != null && (where == null || where!.evaluate(currentItem));
 
     if (event.eventType == EventType.create &&
         newItemMatchesPredicate &&
         currentItem == null) {
-      sortedList.addSorted(newItem);
-      listHasBeenUpdated = true;
+      updatedSortedList = sortedListCopy..addSorted(newItem);
     } else if (event.eventType == EventType.delete && currentItem != null) {
-      sortedList.removeAt(currentItemIndex);
-      listHasBeenUpdated = true;
+      updatedSortedList = sortedListCopy..removeAt(currentItemIndex);
     } else if (event.eventType == EventType.update) {
       if (currentItemMatchesPredicate &&
           newItemMatchesPredicate &&
           currentItem != newItem) {
-        sortedList.updateAtSorted(currentItemIndex, newItem);
-        listHasBeenUpdated = true;
+        updatedSortedList = sortedListCopy
+          ..updateAtSorted(currentItemIndex, newItem);
       } else if (currentItemMatchesPredicate && !newItemMatchesPredicate) {
-        sortedList.removeAt(currentItemIndex);
-        listHasBeenUpdated = true;
-      } else if (!currentItemMatchesPredicate && newItemMatchesPredicate) {
-        sortedList.addSorted(newItem);
-        listHasBeenUpdated = true;
+        updatedSortedList = sortedListCopy..removeAt(currentItemIndex);
+      } else if (currentItem == null && newItemMatchesPredicate) {
+        updatedSortedList = sortedListCopy..addSorted(newItem);
       }
     }
-    if (listHasBeenUpdated) {
-      var snapshot = QuerySnapshot._(
-        sortedList: sortedList,
+    if (updatedSortedList != null) {
+      return QuerySnapshot._(
+        sortedList: updatedSortedList,
         isSynced: isSynced,
         where: where,
         sortBy: sortBy,
       );
-      return snapshot;
     }
     return this;
   }
