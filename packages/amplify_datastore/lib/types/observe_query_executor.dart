@@ -13,8 +13,8 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_datastore/stream_utils/merge_streams.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:async/async.dart';
 
 import '../stream_utils/throttle.dart';
 import './DataStoreHubEvents/DataStoreHubEvent.dart';
@@ -125,7 +125,7 @@ class ObserveQueryExecutor {
 
     final queryStream = Stream.fromFuture(queryFuture);
 
-    return mergeStreams([
+    return StreamGroup.mergeBroadcast([
       observeStream,
       queryStream,
       syncStatusStream,
