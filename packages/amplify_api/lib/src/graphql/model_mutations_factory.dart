@@ -14,8 +14,10 @@ class ModelMutationsFactory extends ModelMutationsInterface {
 
   @override
   GraphQLRequest<T> create<T extends Model>(T model) {
-    // ignore: implicit_dynamic_map_literal
-    Map<String, dynamic> variables = {'input': model.toJson()};
+    final input =
+        GraphQLRequestFactory.instance.buildInputVariableForMutations(model);
+    // Does not use buildVariablesForMutationRequest because creations don't have conditions.
+    final variables = {'input': input};
 
     return GraphQLRequestFactory.instance.buildRequest(
         model: model,
@@ -56,9 +58,10 @@ class ModelMutationsFactory extends ModelMutationsInterface {
         ? GraphQLRequestFactory.instance
             .queryPredicateToGraphQLFilter(where, model.getInstanceType())
         : null;
+    final input =
+        GraphQLRequestFactory.instance.buildInputVariableForMutations(model);
     final variables = GraphQLRequestFactory.instance
-        .buildVariablesForMutationRequest(
-            input: model.toJson(), condition: condition);
+        .buildVariablesForMutationRequest(input: input, condition: condition);
 
     return GraphQLRequestFactory.instance.buildRequest(
         model: model,

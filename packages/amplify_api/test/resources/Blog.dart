@@ -13,9 +13,15 @@
 * permissions and limitations under the License.
 */
 
-// ignore_for_file: public_member_api_docs
+// NOTE: This file is generated and may not follow lint rules defined in your app
+// Generated files can be excluded from analysis in analysis_options.yaml
+// For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
+// ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code, implicit_dynamic_parameter
+
+import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
 /** This is an auto generated class representing the Blog type in your schema. */
@@ -25,6 +31,7 @@ class Blog extends Model {
   final String id;
   final String? _name;
   final TemporalDateTime? _createdAt;
+  final List<Post>? _posts;
 
   @override
   getInstanceType() => classType;
@@ -51,15 +58,25 @@ class Blog extends Model {
     return _createdAt;
   }
 
-  const Blog._internal(
-      {required this.id, required String name, TemporalDateTime? createdAt})
+  List<Post>? get posts {
+    return _posts;
+  }
+
+  const Blog._internal({required this.id, required name, createdAt, posts})
       : _name = name,
-        _createdAt = createdAt;
+        _createdAt = createdAt,
+        _posts = posts;
 
   factory Blog(
-      {String? id, required String name, TemporalDateTime? createdAt}) {
+      {String? id,
+      required String name,
+      TemporalDateTime? createdAt,
+      List<Post>? posts}) {
     return Blog._internal(
-        id: id == null ? UUID.getUUID() : id, name: name, createdAt: createdAt);
+        id: id == null ? UUID.getUUID() : id,
+        name: name,
+        createdAt: createdAt,
+        posts: posts != null ? List<Post>.unmodifiable(posts) : posts);
   }
 
   bool equals(Object other) {
@@ -72,7 +89,8 @@ class Blog extends Model {
     return other is Blog &&
         id == other.id &&
         _name == other._name &&
-        _createdAt == other._createdAt;
+        _createdAt == other._createdAt &&
+        DeepCollectionEquality().equals(_posts, other._posts);
   }
 
   @override
@@ -92,11 +110,16 @@ class Blog extends Model {
     return buffer.toString();
   }
 
-  Blog copyWith({String? id, String? name, TemporalDateTime? createdAt}) {
+  Blog copyWith(
+      {String? id,
+      String? name,
+      TemporalDateTime? createdAt,
+      List<Post>? posts}) {
     return Blog(
         id: id ?? this.id,
         name: name ?? this.name,
-        createdAt: createdAt ?? this.createdAt);
+        createdAt: createdAt ?? this.createdAt,
+        posts: posts ?? this.posts);
   }
 
   Blog.fromJson(Map<String, dynamic> json)
@@ -104,15 +127,30 @@ class Blog extends Model {
         _name = json['name'],
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _posts = json['posts'] is List
+            ? (json['posts'] as List)
+                .where((e) => e?['serializedData'] != null)
+                .map((e) => Post.fromJson(
+                    new Map<String, dynamic>.from(e['serializedData'])))
+                .toList()
             : null;
 
-  Map<String, dynamic> toJson() =>
-      // ignore: implicit_dynamic_map_literal
-      {'id': id, 'name': _name, 'createdAt': _createdAt?.format()};
+  // ignore: implicit_dynamic_map_literal
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': _name,
+        'createdAt': _createdAt?.format(),
+        'posts': _posts?.map((Post? e) => e?.toJson()).toList()
+      };
 
   static final QueryField ID = QueryField(fieldName: "blog.id");
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField CREATEDAT = QueryField(fieldName: "createdAt");
+  static final QueryField POSTS = QueryField(
+      fieldName: "posts",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (Post).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Blog";
@@ -128,7 +166,13 @@ class Blog extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: Blog.CREATEDAT,
         isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+        ofType: ModelFieldType(ModelFieldTypeEnum.date)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
+        key: Blog.POSTS,
+        isRequired: false,
+        ofModelName: (Post).toString(),
+        associatedKey: Post.BLOG));
   });
 }
 

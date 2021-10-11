@@ -65,7 +65,8 @@ class GraphQLRequestFactory {
       ModelSchema schema, GraphQLRequestOperation operation) {
     // schema has been validated & schema.fields is non-nullable
     String fields = schema.fields!.entries
-        .map((entry) => entry.value.association == null ? entry.key : '')
+        .where((entry) => entry.value.association == null)
+        .map((entry) => entry.key)
         .toList()
         .join(' ');
 
@@ -257,6 +258,23 @@ class GraphQLRequestFactory {
 
     throw ApiException(
         'Unable to translate the QueryPredicate $queryPredicate to a GraphQL filter.');
+  }
+
+  /// Calls `toJson` on the model and removes key/value pairs that refer to
+  /// children/parents when that field is null. The structure of provisioned AppSync `input` type,
+  /// such as `CreateBlogInput` does not include nested types, so they will get
+  /// an error from AppSync if they are included in mutations.
+  Map<String, dynamic> buildInputVariableForMutations(Model model) {
+    ModelSchema schema = _getAndValidateSchema(model.getInstanceType(), null);
+
+    Set<String> associationFields = schema.fields!.entries
+        .where((entry) => entry.value.association != null)
+        .map((entry) => entry.key)
+        .toSet();
+
+    return model.toJson()
+      ..removeWhere((key, dynamic value) =>
+          associationFields.contains(key) && value == null);
   }
 }
 
