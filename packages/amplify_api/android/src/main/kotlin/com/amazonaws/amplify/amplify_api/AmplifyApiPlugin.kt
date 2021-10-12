@@ -36,20 +36,16 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import kotlinx.coroutines.ObsoleteCoroutinesApi
 
 /** AmplifyApiPlugin */
+@ObsoleteCoroutinesApi
 class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
+
     companion object {
-        /**
-         * Thrown when [tokenType] is used but is not a valid [AuthorizationType].
-         */
-        private fun invalidTokenType(tokenType: String? = null) = ApiException.ApiAuthException(
-            "Invalid arguments",
-            "Invalid token type: $tokenType"
-        )
+        lateinit var channel: MethodChannel
     }
 
-    private lateinit var channel: MethodChannel
     private lateinit var eventchannel: EventChannel
     private lateinit var context: Context
     private val graphqlSubscriptionStreamHandler: GraphQLSubscriptionStreamHandler
@@ -103,12 +99,6 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
         try {
             val arguments: Map<String, Any> = call.arguments as Map<String, Any>
 
-            // Update tokens if included with request
-            val tokens = arguments["tokens"] as? List<*>
-            if (tokens != null && tokens.isNotEmpty()) {
-                updateTokens(tokens)
-            }
-
             when (call.method) {
                 "get" -> FlutterRestApi.get(result, arguments)
                 "post" -> FlutterRestApi.post(result, arguments)
@@ -123,17 +113,6 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
                     arguments,
                     graphqlSubscriptionStreamHandler
                 )
-                "updateTokens" -> {
-                    if (tokens == null || tokens.isEmpty()) {
-                        throw ApiException(
-                            "Invalid token map provided",
-                            "Provide tokens in the \"tokens\" field"
-                        )
-                    }
-
-                    // Tokens already updated
-                    result.success(null)
-                }
                 else -> result.notImplemented()
             }
         } catch (e: Exception) {
@@ -159,19 +138,6 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
                 "The Operation may have already been completed or expired and cannot be canceled anymore",
                 "Operation does not exist"
             )
-        }
-    }
-
-    private fun updateTokens(tokens: List<*>) {
-        for (authToken in tokens.cast<Map<String, Any?>>()) {
-            val token = authToken["token"] as? String?
-            val tokenType = authToken["type"] as? String ?: throw invalidTokenType()
-            val authType: AuthorizationType = try {
-                AuthorizationType.from(tokenType)
-            } catch (e: Exception) {
-                throw invalidTokenType(tokenType)
-            }
-            FlutterAuthProviders.setToken(authType, token)
         }
     }
 

@@ -23,6 +23,7 @@ import AWSPluginsCore
 public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
     private let bridge: ApiBridge
     private let graphQLSubscriptionsStreamHandler: GraphQLSubscriptionsStreamHandler
+    static var methodchannel: FlutterMethodChannel!
 
     init(
         bridge: ApiBridge = ApiBridge(),
@@ -33,7 +34,7 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
     }
 
     public static func register(with registrar: FlutterPluginRegistrar) {
-        let methodchannel = FlutterMethodChannel(
+        methodchannel = FlutterMethodChannel(
             name: "com.amazonaws.amplify/api",
             binaryMessenger: registrar.messenger())
         let eventchannel = FlutterEventChannel(
@@ -61,11 +62,6 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
             }
 
             let arguments = try FlutterApiRequest.getMap(args: callArgs)
-
-            // Update tokens if included in request.
-            if let tokens = arguments["tokens"] as? [[String: Any?]] {
-                try updateTokens(tokens)
-            }
 
             try innerHandle(method: method, arguments: arguments, result: result)
         } catch {
@@ -131,15 +127,6 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
                 request: arguments, bridge: bridge,
                 graphQLSubscriptionsStreamHandler: graphQLSubscriptionsStreamHandler
             )
-        case "updateTokens":
-            guard let _ = arguments["tokens"] as? [[String: Any?]] else {
-                throw APIError.unknown("Invalid token map provided",
-                                        "Provide tokens in the \"tokens\" field",
-                                        nil)
-            }
-
-            // Tokens already updated
-            result(nil)
         default:
             result(FlutterMethodNotImplemented)
         }
@@ -157,20 +144,6 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
                             be canceled anymore
                             """,
                             details: "Operation does not exist"))
-        }
-    }
-
-    private func updateTokens(_ tokens: [[String: Any?]]) throws {
-        for tokenMap in tokens {
-            guard let type = tokenMap["type"] as? String,
-                  let awsAuthType = AWSAuthorizationType(rawValue: type),
-                  let token = tokenMap["token"] as? String? else {
-                throw APIError.unknown(
-                    "Invalid arguments",
-                    "A valid AWSAuthorizationType and token entry are required",
-                    nil)
-            }
-            FlutterAuthProviders.setToken(type: awsAuthType, token: token)
         }
     }
 }
