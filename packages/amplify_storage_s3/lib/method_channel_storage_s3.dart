@@ -13,11 +13,12 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:async';
+
 import 'package:amplify_core/types/exception/AmplifyException.dart';
 import 'package:amplify_core/types/exception/AmplifyExceptionMessages.dart';
 import 'package:amplify_core/types/exception/AmplifyAlreadyConfiguredException.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/foundation.dart';
 import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 import 'dart:io';
 
@@ -26,11 +27,31 @@ import 'amplify_storage_s3.dart';
 const MethodChannel _channel =
     MethodChannel('com.amazonaws.amplify/storage_s3');
 
+const _transferProgressEventChannel = const EventChannel(
+    'com.amazonaws.amplify/storage_transfer_progress_events');
+
+var _transferProgressionCallbackMap =
+    Map<String, void Function(TransferProgress)?>();
+
 /// An implementation of [AmplifyPlatform] that uses method channels.
 class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
   @override
   Future<void> addPlugin() async {
     try {
+      _transferProgressEventChannel.receiveBroadcastStream(0).listen((event) {
+        var eventData = (event as Map).cast<String, dynamic>();
+        String uuid = eventData["uuid"];
+        int currentBytes = eventData["currentBytes"];
+        int totalBytes = eventData["totalBytes"];
+
+        void Function(TransferProgress)? callback =
+            _transferProgressionCallbackMap[uuid];
+
+        if (callback != null) {
+          callback(TransferProgress(currentBytes, totalBytes));
+        }
+      });
+
       return await _channel.invokeMethod('addPlugin');
     } on PlatformException catch (e) {
       if (e.code == "AmplifyAlreadyConfiguredException") {
@@ -44,22 +65,29 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
     }
   }
 
-  @override
   Future<UploadFileResult> uploadFile(
-      {required UploadFileRequest request}) async {
+      {required UploadFileRequest request,
+      void Function(TransferProgress)? onProgress}) async {
     try {
+      if (onProgress != null) {
+        _transferProgressionCallbackMap[request.uuid] = onProgress;
+      }
+
       final Map<String, dynamic>? data =
           (await _channel.invokeMapMethod<String, dynamic>(
         'uploadFile',
         request.serializeAsMap(),
       ));
-      if (data == null)
+      if (data == null) {
         throw AmplifyException(
             AmplifyExceptionMessages.nullReturnedFromMethodChannel);
+      }
       UploadFileResult result = _formatUploadFileResult(data);
       return result;
     } on PlatformException catch (e) {
       throw _convertToStorageException(e);
+    } finally {
+      _transferProgressionCallbackMap.remove(request.uuid);
     }
   }
 
@@ -119,20 +147,28 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
 
   @override
   Future<DownloadFileResult> downloadFile(
-      {required DownloadFileRequest request}) async {
+      {required DownloadFileRequest request,
+      void Function(TransferProgress)? onProgress}) async {
     try {
+      if (onProgress != null) {
+        _transferProgressionCallbackMap[request.uuid] = onProgress;
+      }
+
       final Map<String, dynamic>? data =
           (await _channel.invokeMapMethod<String, dynamic>(
         'downloadFile',
         request.serializeAsMap(),
       ));
-      if (data == null)
+      if (data == null) {
         throw AmplifyException(
             AmplifyExceptionMessages.nullReturnedFromMethodChannel);
+      }
       DownloadFileResult result = _formatDownloadFileResult(data);
       return result;
     } on PlatformException catch (e) {
       throw _convertToStorageException(e);
+    } finally {
+      _transferProgressionCallbackMap.remove(request.uuid);
     }
   }
 

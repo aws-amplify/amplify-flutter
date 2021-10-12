@@ -22,6 +22,7 @@ import com.amplifyframework.storage.options.StorageUploadFileOptions
 import java.io.File
 
 data class FlutterUploadFileRequest(val request: Map<String, *>) {
+    val uuid: String = request["uuid"] as String
     val key: String = request["key"] as String
     val file: File = File(request["path"] as String)
     val options: StorageUploadFileOptions = setOptions(request)
@@ -57,6 +58,9 @@ data class FlutterUploadFileRequest(val request: Map<String, *>) {
     companion object {
         private const val validationErrorMessage: String = "UploadFile request malformed."
         fun validate(request: Map<String, *>)  {
+            if(request["uuid"] !is String) {
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("uuid" ))
+            }
             if(request["path"] !is String? || request["path"] == null) {
                 throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("path" ))
             }
