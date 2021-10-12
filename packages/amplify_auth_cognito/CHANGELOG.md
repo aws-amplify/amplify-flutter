@@ -1,10 +1,8 @@
 ## 0.2.5 (2021-10-12)
 
 ### Fixes
-- fix(datastore): Sync issues with owner-based auth
-- fix(datastore): Ensure attaching nested model schema
-- fix(datastore): Timeout period not increasing
-- fix(api): Fix API auth for REST
+- fix(auth): Add global sign out
+- fix(auth): Support `preferPrivateSession` flag
 
 ## 0.2.4 (2021-09-10)
 
