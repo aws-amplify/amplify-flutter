@@ -40,10 +40,10 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
     private val LOG = Amplify.Logging.forNamespace("amplify:flutter:datastore")
     private var forwardHubResponse : (event: Map<String, Any>) -> Unit
 
-    /// DataStore hub event history. Used to track events which may be lost on hot restart, such as sync and ready events.
-    private var eventHistory: List<HubEvent<*>> = listOf();
+    // DataStore hub event history. Used to track events which may be lost on hot restart, such as sync and ready events.
+    private var eventHistory: MutableList<HubEvent<*>> = mutableListOf();
 
-    /// Event types which should be replayed on hot restart.
+    // Event types which should be replayed on hot restart.
     private val replayEvents: Set<String> = setOf(
         DataStoreChannelEventName.NETWORK_STATUS.toString(),
         DataStoreChannelEventName.SUBSCRIPTIONS_ESTABLISHED.toString(),
@@ -75,7 +75,7 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
              }
          }
          return Amplify.Hub.subscribe(HubChannel.DATASTORE) { hubEvent: HubEvent<*> ->
-             eventHistory = eventHistory.plus(hubEvent)
+             eventHistory.add(hubEvent)
              sendPayload(hubEvent)
          }
      }
