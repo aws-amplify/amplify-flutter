@@ -350,8 +350,8 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         func buildEventSink(expectCount: Int) -> (FlutterEventSink, XCTestExpectation) {
             let expect = expectation(description: "Emits \(expectCount) events")
             let eventSink = { (event: Any?) in
-                guard let event = event as? [String: Any],
-                      let eventName = event["eventName"] as? String else {
+                guard let eventMap = event as? [String: Any],
+                      let eventName = eventMap["eventName"] as? String else {
                     XCTFail("Bad event: \(event ?? "nil")")
                     return
                 }
