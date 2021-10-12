@@ -202,7 +202,9 @@ void main() {
         );
         stream.listen(values.add);
         stream.listen(values2.add);
-        broadcastController..add(1)..add(2);
+        broadcastController
+          ..add(1)
+          ..add(2);
         expect(values, [1, 2]);
         expect(values2, [1, 2]);
       });
