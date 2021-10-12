@@ -51,8 +51,9 @@ void main() {
       standardCodec.encodeSuccessEnvelope(
           buildProgressionEventMap(uuid, currentBytes, totalBytes));
 
-  void emitMockNativeValues(ByteData? event) {
-    ServicesBinding.instance!.defaultBinaryMessenger.handlePlatformMessage(
+  Future<void> emitMockNativeValues(ByteData? event) {
+    return ServicesBinding.instance!.defaultBinaryMessenger
+        .handlePlatformMessage(
       transferEventChannel,
       event,
       (ByteData? reply) {},
@@ -60,11 +61,13 @@ void main() {
   }
 
   void setupTransferEventChannel() {
-    void sendTransferProgressEvents(String uuid) {
+    Future sendTransferProgressEvents(String uuid) async {
+      var futures = <Future>[];
       for (int i = 0; i < numProgressEvents; i++) {
-        emitMockNativeValues(buildProgressionSuccessEvent(
-            uuid, i * unitTransferProgress, totalTransferProgress));
+        futures.add(emitMockNativeValues(buildProgressionSuccessEvent(
+            uuid, i * unitTransferProgress, totalTransferProgress)));
       }
+      return Future.wait(futures);
     }
 
     ServicesBinding.instance!.defaultBinaryMessenger.setMockMessageHandler(
@@ -89,13 +92,19 @@ void main() {
       switch (methodCall.method) {
         case 'downloadFile':
           String uuid = methodCall.arguments['uuid'];
-          scheduleMicrotask(() => sendTransferProgressEvents(uuid));
+          await sendTransferProgressEvents(uuid);
+
+          await Future.delayed(const Duration(seconds: 1));
+
           return {
             'path': 'downloadFilePath',
           };
         case 'uploadFile':
           String uuid = methodCall.arguments['uuid'];
-          scheduleMicrotask(() => sendTransferProgressEvents(uuid));
+          await sendTransferProgressEvents(uuid);
+
+          await Future.delayed(const Duration(seconds: 1));
+
           return {
             'key': 'keyForFile',
           };
