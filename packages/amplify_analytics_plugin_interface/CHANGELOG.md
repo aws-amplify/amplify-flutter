@@ -2,6 +2,9 @@
 
 ### Fixes
 - fix(datastore): Sync issues with owner-based auth
+- fix(datastore): Ensure attaching nested model schema
+- fix(datastore): Timeout period not increasing
+- fix(api): Fix API auth for REST
 
 ## 0.2.4 (2021-09-10)
 
