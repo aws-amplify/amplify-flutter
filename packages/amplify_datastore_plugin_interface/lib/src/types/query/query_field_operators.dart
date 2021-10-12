@@ -66,10 +66,10 @@ abstract class QueryFieldOperator {
   }
 }
 
-abstract class QueryFieldOperatorSimpleValue<T> extends QueryFieldOperator {
+abstract class QueryFieldOperatorSingleValue<T> extends QueryFieldOperator {
   final T value;
 
-  const QueryFieldOperatorSimpleValue(this.value, QueryFieldOperatorType type)
+  const QueryFieldOperatorSingleValue(this.value, QueryFieldOperatorType type)
       : super(type);
 
   @override
@@ -78,36 +78,36 @@ abstract class QueryFieldOperatorSimpleValue<T> extends QueryFieldOperator {
   }
 }
 
-class EqualQueryOperator<T> extends QueryFieldOperatorSimpleValue<T> {
+class EqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
   const EqualQueryOperator(value) : super(value, QueryFieldOperatorType.equal);
 }
 
-class NotEqualQueryOperator<T> extends QueryFieldOperatorSimpleValue<T> {
+class NotEqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
   const NotEqualQueryOperator(value)
       : super(value, QueryFieldOperatorType.not_equal);
 }
 
-class LessOrEqualQueryOperator<T> extends QueryFieldOperatorSimpleValue<T> {
+class LessOrEqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
   const LessOrEqualQueryOperator(value)
       : super(value, QueryFieldOperatorType.less_or_equal);
 }
 
-class LessThanQueryOperator<T> extends QueryFieldOperatorSimpleValue<T> {
+class LessThanQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
   const LessThanQueryOperator(value)
       : super(value, QueryFieldOperatorType.less_than);
 }
 
-class GreaterOrEqualQueryOperator<T> extends QueryFieldOperatorSimpleValue<T> {
+class GreaterOrEqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
   const GreaterOrEqualQueryOperator(value)
       : super(value, QueryFieldOperatorType.greater_or_equal);
 }
 
-class GreaterThanQueryOperator<T> extends QueryFieldOperatorSimpleValue<T> {
+class GreaterThanQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
   const GreaterThanQueryOperator(value)
       : super(value, QueryFieldOperatorType.greater_than);
 }
 
-class ContainsQueryOperator<T> extends QueryFieldOperatorSimpleValue<T> {
+class ContainsQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
   const ContainsQueryOperator(value)
       : super(value, QueryFieldOperatorType.contains);
 }
@@ -129,7 +129,7 @@ class BetweenQueryOperator<T> extends QueryFieldOperator {
   }
 }
 
-class BeginsWithQueryOperator extends QueryFieldOperatorSimpleValue<String> {
+class BeginsWithQueryOperator extends QueryFieldOperatorSingleValue<String> {
   const BeginsWithQueryOperator(String value)
       : super(value, QueryFieldOperatorType.begins_with);
 }
