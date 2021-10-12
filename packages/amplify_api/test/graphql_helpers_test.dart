@@ -13,13 +13,12 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart'
-    as DataStore;
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/graphql/graphql_response_decoder.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart'
+    as DataStore;
 import 'package:collection/collection.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import 'resources/Blog.dart';
 import 'resources/ModelProvider.dart';
@@ -32,7 +31,7 @@ void main() {
       test('ModelQueries.get() should build a valid request', () {
         String id = UUID.getUUID();
         String expected =
-            r'query getBlog($id: ID!) { getBlog(id: $id) { id name createdAt } }';
+            r'query getBlog($id: ID!) { getBlog(id: $id) { id name createdAt posts { items { id title rating created } nextToken } } }';
 
         GraphQLRequest<Blog> req = ModelQueries.get<Blog>(Blog.classType, id);
 
@@ -44,7 +43,7 @@ void main() {
       });
 
       test(
-          'ModelQueries.get() returns a GraphQLRequest<Blog> when provided a modelType',
+          'ModelQueries.get() returns a GraphQLResponse<Blog> when provided a modelType',
           () async {
         String id = UUID.getUUID();
         GraphQLRequest<Blog> req = ModelQueries.get<Blog>(Blog.classType, id);
@@ -310,6 +309,40 @@ void main() {
         expect(req.decodePath, 'createBlog');
       });
 
+      test(
+          'ModelMutations.create() should build a valid request for a model with a parent',
+          () {
+        final blogId = UUID.getUUID();
+        const name = 'Test Blog';
+        const time = '2021-08-03T16:39:18.000000651Z';
+        final createdAt = DataStore.TemporalDateTime.fromString(time);
+        Blog blog = Blog(id: blogId, name: name, createdAt: createdAt);
+
+        final postId = UUID.getUUID();
+        const title = 'Lorem Ipsum';
+        const rating = 1;
+        Post post = Post(id: postId, title: title, rating: rating, blog: blog);
+
+        final expectedVars = {
+          'input': <String, dynamic>{
+            'id': postId,
+            'title': title,
+            'rating': rating,
+            'created': null,
+            'blogID': blogId
+          }
+        };
+        const expectedDoc =
+            r'mutation createPost($input: CreatePostInput!, $condition:  ModelPostConditionInput) { createPost(input: $input, condition: $condition) { id title rating created blogID } }';
+        GraphQLRequest<Post> req = ModelMutations.create<Post>(post);
+
+        expect(req.document, expectedDoc);
+        expect(DeepCollectionEquality().equals(req.variables, expectedVars),
+            isTrue);
+        expect(req.modelType, Post.classType);
+        expect(req.decodePath, 'createPost');
+      });
+
       test('ModelMutations.delete() should build a valid request', () {
         final id = UUID.getUUID();
         final name = 'Test Blog';
@@ -376,6 +409,41 @@ void main() {
             isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, 'updateBlog');
+      });
+
+      test(
+          'ModelMutations.update() should build a valid request for a model with a parent',
+          () {
+        final blogId = UUID.getUUID();
+        const name = 'Test Blog';
+        const time = '2021-08-03T16:39:18.000000651Z';
+        final createdAt = DataStore.TemporalDateTime.fromString(time);
+        Blog blog = Blog(id: blogId, name: name, createdAt: createdAt);
+
+        final postId = UUID.getUUID();
+        const title = 'Lorem Ipsum';
+        const rating = 1;
+        Post post = Post(id: postId, title: title, rating: rating, blog: blog);
+
+        final expectedVars = {
+          'input': <String, dynamic>{
+            'id': postId,
+            'title': title,
+            'rating': rating,
+            'created': null,
+            'blogID': blogId
+          },
+          'condition': null
+        };
+        const expectedDoc =
+            r'mutation updatePost($input: UpdatePostInput!, $condition:  ModelPostConditionInput) { updatePost(input: $input, condition: $condition) { id title rating created blogID } }';
+        GraphQLRequest<Post> req = ModelMutations.update<Post>(post);
+
+        expect(req.document, expectedDoc);
+        expect(DeepCollectionEquality().equals(req.variables, expectedVars),
+            isTrue);
+        expect(req.modelType, Post.classType);
+        expect(req.decodePath, 'updatePost');
       });
 
       test('ModelMutations.update() should build a valid request', () {

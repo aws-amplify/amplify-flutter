@@ -28,6 +28,7 @@ import 'src/types/query/query_field.dart';
 
 export 'src/types/models/auth_rule.dart';
 export 'src/types/models/model.dart';
+export 'src/types/models/model_association.dart';
 export 'src/types/models/model_field.dart';
 export 'src/types/models/model_field_definition.dart';
 export 'src/types/models/model_field_type.dart';

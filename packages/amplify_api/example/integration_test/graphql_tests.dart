@@ -20,15 +20,16 @@ import 'package:amplify_api_example/amplifyconfiguration.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart'
-    hide UUID;
 
 import 'resources/Blog.dart';
 import 'resources/ModelProvider.dart';
+import 'resources/Post.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  // Keep track of what is created here so it can be deleted.
   List<Blog> blogCache = [];
+  List<Post> postCache = [];
 
   // utility to query blogs and return length
   group('GraphQL', () {
@@ -41,19 +42,22 @@ void main() {
             createdAt
           }
         }''';
-      var req = GraphQLRequest<String>(
+      final req = GraphQLRequest<String>(
           document: graphQLDocument, variables: <String, String>{'id': id});
-
-      var operation = Amplify.API.mutate(request: req);
-
-      var response = await operation.response;
+      final response = await Amplify.API.mutate(request: req).response;
       Map data = jsonDecode(response.data);
-
       return true;
     }
 
-    Future<bool> deleteAllBlogs() async {
+    Future<bool> deletePost(String id) async {
+      final req = ModelMutations.deleteById<Post>(Post.classType, id);
+      await Amplify.API.mutate(request: req).response;
+      return true;
+    }
+
+    Future<bool> deleteAllBlogsAndPosts() async {
       await Future.wait(blogCache.map((blog) => deleteBlog(blog.id)));
+      await Future.wait(postCache.map((post) => deletePost(post.id)));
 
       return true;
     }
@@ -89,7 +93,7 @@ void main() {
     });
 
     tearDownAll(() async {
-      await deleteAllBlogs();
+      await deleteAllBlogsAndPosts();
     });
 
     testWidgets('should fetch', (WidgetTester tester) async {
@@ -117,16 +121,33 @@ void main() {
       String name = 'Integration Test Blog to fetch';
       Blog blog = await addBlog(name);
 
-      var req = ModelQueries.get(Blog.classType, blog.id);
-      var _r = Amplify.API.query(request: req);
-
-      var res = await _r.response;
+      final req = ModelQueries.get(Blog.classType, blog.id);
+      final res = await Amplify.API.query(request: req).response;
       Blog data = res.data;
 
-      expect(data, equals(blog));
+      expect(data.id, equals(blog.id));
+      expect(data.name, equals(blog.name));
     });
 
-    testWidgets('should LIST blogs with Model helper',
+    testWidgets('should GET a blog with Model helper and include children',
+        (WidgetTester tester) async {
+      String name = 'Integration Test Blog to fetch';
+      Blog blog = await addBlog(name);
+
+      Post post = Post(title: 'Lorem Ipsum', blog: blog, rating: 1);
+      final createPostReq = ModelMutations.create(post);
+      final addedPostResponse =
+          await Amplify.API.mutate(request: createPostReq).response;
+      postCache.add(addedPostResponse.data);
+
+      final queryRequest = ModelQueries.get(Blog.classType, blog.id);
+      var res = await Amplify.API.query(request: queryRequest).response;
+      Blog data = res.data;
+
+      expect(data.posts, contains(post));
+    });
+
+    return testWidgets('should LIST blogs with Model helper',
         (WidgetTester tester) async {
       String blog_1_name = 'Integration Test Blog 1';
       String blog_2_name = 'Integration Test Blog 2';

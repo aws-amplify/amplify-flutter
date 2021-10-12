@@ -93,7 +93,7 @@ void main() {
   test('ModelQueries.get Model Helper executes correctly in the happy case',
       () async {
     String expectedDoc =
-        r"query getBlog($id: ID!) { getBlog(id: $id) { id name createdAt } }";
+        r"query getBlog($id: ID!) { getBlog(id: $id) { id name createdAt posts { items { id title rating created } nextToken } } }";
     final String id = UUID.getUUID();
     var queryResult = '''{
       "getBlog": {
