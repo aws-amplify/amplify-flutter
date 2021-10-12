@@ -173,4 +173,10 @@ public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
         token = nil
         return nil
     }
+    
+    deinit {
+        if let token = token {
+            Amplify.Hub.removeListener(token)
+        }
+    }
 }
