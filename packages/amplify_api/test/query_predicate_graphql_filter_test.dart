@@ -13,11 +13,15 @@ void main() {
 
     // helper method for all the tests
     void _testQueryPredicateTranslation(
-        QueryPredicate queryPredicate, Map<String, dynamic> expectedFilter) {
+        QueryPredicate? queryPredicate, Map<String, dynamic>? expectedFilter) {
       final resultFilter = GraphQLRequestFactory.instance
           .queryPredicateToGraphQLFilter(queryPredicate, Blog.classType);
       expect(resultFilter, expectedFilter);
     }
+
+    test('should be null safe', () {
+      _testQueryPredicateTranslation(null, null);
+    });
 
     test('simple query predicate converts to expected filter', () {
       const expectedTitle = 'Blog name ABC';

@@ -6,7 +6,8 @@ class PaginatedModelTypeImpl<T extends Model> extends PaginatedModelType<T> {
   const PaginatedModelTypeImpl(ModelType<T> modelType) : super(modelType);
 
   @override
-  PaginatedResultImpl<T> fromJson(Map<String, dynamic> jsonData) {
+  PaginatedResult<T> fromJson(Map<String, dynamic> jsonData,
+      {Map<String, dynamic>? filter}) {
     final itemsJson = jsonData['items'] as List?;
 
     if (itemsJson == null || itemsJson.isEmpty) {
@@ -21,8 +22,8 @@ class PaginatedModelTypeImpl<T extends Model> extends PaginatedModelType<T> {
         )
         .toList();
 
-    return PaginatedResultImpl<T>(items, jsonData['limit'],
-        jsonData['nextToken'] as String?, jsonData['filter']);
+    return PaginatedResultImpl<T>(
+        items, jsonData['limit'], jsonData['nextToken'] as String?, filter);
   }
 
   @override

@@ -43,10 +43,8 @@ class ModelQueriesFactory extends ModelQueriesInterface {
     ModelPagination? modelPagination = const ModelPagination(),
     QueryPredicate? where,
   }) {
-    final filter = where != null
-        ? GraphQLRequestFactory.instance
-            .queryPredicateToGraphQLFilter(where, modelType)
-        : null;
+    final filter = GraphQLRequestFactory.instance
+        .queryPredicateToGraphQLFilter(where, modelType);
     final variables = GraphQLRequestFactory.instance
         .buildVariablesForListRequest(
             limit: modelPagination?.limit, filter: filter);

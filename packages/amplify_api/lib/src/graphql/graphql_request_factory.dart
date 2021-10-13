@@ -210,8 +210,11 @@ class GraphQLRequestFactory {
   /// `queryPredicateToGraphQLFilter(Blog.NAME.eq('foo'));` // =>
   /// `{'name': {'eq': 'foo'}}`. In the case of a mutation, it will apply to
   /// the "condition" field rather than "filter."
-  Map<String, dynamic> queryPredicateToGraphQLFilter(
-      QueryPredicate queryPredicate, ModelType modelType) {
+  Map<String, dynamic>? queryPredicateToGraphQLFilter(
+      QueryPredicate? queryPredicate, ModelType modelType) {
+    if (queryPredicate == null) {
+      return null;
+    }
     ModelSchema schema = _getAndValidateSchema(modelType, null);
 
     // e.g. { 'name': { 'eq': 'foo }}
@@ -250,7 +253,7 @@ class GraphQLRequestFactory {
       return <String, List<Map<String, dynamic>>>{
         typeExpression: queryPredicate.predicates
             .map((predicate) =>
-                queryPredicateToGraphQLFilter(predicate, modelType))
+                queryPredicateToGraphQLFilter(predicate, modelType)!)
             .toList()
       };
     }
