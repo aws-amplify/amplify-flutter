@@ -25,7 +25,7 @@ extension FlutterError: Error {}
 class FlutterAuthProviders: APIAuthProviderFactory {
     /// Thread to perform wait activities on.
     static private let queue = DispatchQueue(label: "FlutterAuthProviders")
-    
+
     /// Retrieves the latest token for `type` by calling into Flutter via the plugin's method channel.
     static func getToken(for type: AWSAuthorizationType) -> Result<String, Error> {
         var token: Result<String, Error> = .failure(APIError.unknown("Token could not be retrieved",
@@ -33,7 +33,7 @@ class FlutterAuthProviders: APIAuthProviderFactory {
                                                                      nil))
         queue.sync {
             let completer = DispatchSemaphore(value: 0)
-            
+
             DispatchQueue.main.async {
                 SwiftAmplifyApiPlugin.methodchannel.invokeMethod(
                     "getLatestAuthToken",
@@ -54,7 +54,7 @@ class FlutterAuthProviders: APIAuthProviderFactory {
                     }
                 }
             }
-            
+
             let waitResult = completer.wait(timeout: .now() + 2)
             if waitResult == .timedOut {
                 token = .failure(APIError.operationError(
@@ -64,7 +64,7 @@ class FlutterAuthProviders: APIAuthProviderFactory {
                     """))
             }
         }
-        
+
         return token
     }
 
