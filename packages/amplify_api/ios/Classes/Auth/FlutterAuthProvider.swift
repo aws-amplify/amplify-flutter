@@ -35,7 +35,7 @@ class FlutterAuthProviders: APIAuthProviderFactory {
             let completer = DispatchSemaphore(value: 0)
 
             DispatchQueue.main.async {
-                SwiftAmplifyApiPlugin.methodchannel.invokeMethod(
+                SwiftAmplifyApiPlugin.methodChannel.invokeMethod(
                     "getLatestAuthToken",
                     arguments: type.rawValue
                 ) { result in
@@ -55,10 +55,11 @@ class FlutterAuthProviders: APIAuthProviderFactory {
                 }
             }
 
-            let waitResult = completer.wait(timeout: .now() + 2)
+            let timeout: DispatchTimeInterval = .seconds(2)
+            let waitResult = completer.wait(timeout: .now() + timeout)
             if waitResult == .timedOut {
                 token = .failure(APIError.operationError(
-                    "Token retrieval timed out after 2 seconds",
+                    "Token retrieval timed out after \(timeout)",
                     """
                     Please retry the call and make sure your getLatestAuthToken function completes.
                     """))

@@ -23,7 +23,7 @@ import AWSPluginsCore
 public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
     private let bridge: ApiBridge
     private let graphQLSubscriptionsStreamHandler: GraphQLSubscriptionsStreamHandler
-    static var methodchannel: FlutterMethodChannel!
+    static var methodChannel: FlutterMethodChannel!
 
     init(
         bridge: ApiBridge = ApiBridge(),
@@ -34,7 +34,7 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
     }
 
     public static func register(with registrar: FlutterPluginRegistrar) {
-        methodchannel = FlutterMethodChannel(
+        methodChannel = FlutterMethodChannel(
             name: "com.amazonaws.amplify/api",
             binaryMessenger: registrar.messenger())
         let eventchannel = FlutterEventChannel(
@@ -42,7 +42,7 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
             binaryMessenger: registrar.messenger())
         let instance = SwiftAmplifyApiPlugin()
         eventchannel.setStreamHandler(instance.graphQLSubscriptionsStreamHandler)
-        registrar.addMethodCallDelegate(instance, channel: methodchannel)
+        registrar.addMethodCallDelegate(instance, channel: methodChannel)
     }
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {

@@ -36,6 +36,16 @@ object FlutterAuthProviders {
     private val coroutineContext = newSingleThreadContext("FlutterAuthProviders")
 
     /**
+     * Timeout on a single [getToken] call.
+     */
+    private const val getTokenTimeoutMillis = 2000L
+
+    /**
+     * Logger tag.
+     */
+    private const val tag = "FlutterAuthProviders"
+
+    /**
      * A factory of [FlutterAuthProvider] instances.
      */
     val factory: ApiAuthProviders by lazy {
@@ -72,7 +82,11 @@ object FlutterAuthProviders {
                         }
                     }
 
-                    override fun error(errorCode: String?, errorMessage: String?, errorDetails: Any?) {
+                    override fun error(
+                        errorCode: String?,
+                        errorMessage: String?,
+                        errorDetails: Any?
+                    ) {
                         launch(Dispatchers.Main) {
                             completer.complete()
                         }
@@ -92,11 +106,14 @@ object FlutterAuthProviders {
                     )
                 }
 
-                completer.join()
+                withTimeout(getTokenTimeoutMillis) {
+                    completer.join()
+                }
+
                 return@runBlocking result.token
             }
         } catch (e: Exception) {
-            // runBlocking can throw if the thread is interrupted, for example.
+            Log.e(tag, "Exception in getToken", e)
             return null
         }
     }
