@@ -64,7 +64,7 @@ void main() {
       });
       test('ModelQueries.list() should build a valid request', () async {
         String expected =
-            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }';
+            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt posts { items { id title rating created } nextToken } } nextToken } }';
 
         GraphQLRequest<PaginatedResult<Blog>> req =
             ModelQueries.list<Blog>(Blog.classType);
@@ -76,15 +76,10 @@ void main() {
 
       test('ModelQueries.list() should build a valid request with pagination',
           () async {
-        String expected =
-            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }';
-
         GraphQLRequest<PaginatedResult<Blog>> req = ModelQueries.list<Blog>(
             Blog.classType,
             modelPagination: ModelPagination(limit: 1));
 
-        expect(req.document, expected);
-        expect(req.modelType, isA<PaginatedModelType<Blog>>());
         expect(req.variables['limit'], 1);
         expect(req.decodePath, 'listBlogs');
       });
@@ -167,12 +162,20 @@ void main() {
                 {
                   "id": "test-id-1",
                   "name": "Test Blog 1",
-                  "createdAt": "2021-07-29T23:09:58.441Z"
+                  "createdAt": "2021-07-29T23:09:58.441Z",
+                  "posts": {
+                    "items": [],
+                    "nextToken": null
+                  }
                 },
                 {
                   "id": "test-id-2",
                   "name": "Test Blog 2",
-                  "createdAt": "2021-08-03T16:39:18.651Z"
+                  "createdAt": "2021-08-03T16:39:18.651Z",
+                  "posts": {
+                    "items": [],
+                    "nextToken": null
+                  }
                 }
               ],
               "nextToken": "super-secret-next-token"
@@ -184,7 +187,7 @@ void main() {
                 request: req, data: data, errors: errors);
         expect(response.data.hasNextResult(), true);
         String expectedDocument =
-            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }';
+            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt posts { items { id title rating created } nextToken } } nextToken } }';
         final resultRequest = response.data.getRequestForNextResult();
         expect(resultRequest.document, expectedDocument);
         expect(resultRequest.variables['nextToken'], response.data.nextToken);
@@ -227,8 +230,6 @@ void main() {
           'ModelQueries.list() should correctly populate a request with a simple QueryPredicate',
           () async {
         const expectedTitle = 'Test Blog 1';
-        const expectedDocument =
-            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }';
         const expectedFilter = {
           'name': {'eq': expectedTitle}
         };
@@ -237,9 +238,6 @@ void main() {
         GraphQLRequest<PaginatedResult<Blog>> req =
             ModelQueries.list<Blog>(Blog.classType, where: queryPredicate);
 
-        expect(req.document, expectedDocument);
-        expect(req.modelType, isA<PaginatedModelType<Blog>>());
-        expect(req.decodePath, 'listBlogs');
         expect(req.variables['filter'], expectedFilter);
       });
 
