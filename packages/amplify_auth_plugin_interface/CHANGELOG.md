@@ -1,8 +1,7 @@
 ## 0.2.5 (2021-10-12)
 
 ### Fixes
-- fix(auth): Add global sign out
-- fix(auth): Support `preferPrivateSession` flag
+- fix(datastore): Sync issues with owner-based auth
 
 ## 0.2.4 (2021-09-10)
 
