@@ -40,7 +40,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   @override
   Future<void> addPlugin() async {
     try {
-      _setupAuthProviders();
+      setupAuthProviders();
       await _channel.invokeMethod<void>('addPlugin');
     } on PlatformException catch (e) {
       if (e.code == 'AmplifyAlreadyConfiguredException') {
@@ -61,7 +61,9 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     _authProviders[authProvider.type] = authProvider;
   }
 
-  void _setupAuthProviders() {
+  /// Sets up the platform binding for requesting tokens from the native side.
+  @visibleForTesting
+  void setupAuthProviders() {
     _channel.setMethodCallHandler((call) async {
       if (call.method == 'getLatestAuthToken') {
         final providerStr = call.arguments as String?;
