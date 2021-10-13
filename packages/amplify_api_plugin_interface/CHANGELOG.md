@@ -1,3 +1,8 @@
+## 0.2.5 (2021-10-12)
+
+### Fixes
+- fix(api): Fix API auth for REST
+
 ## 0.2.4 (2021-09-10)
 
 ### Fixes

@@ -1,3 +1,11 @@
+## 0.2.5 (2021-10-12)
+
+### Fixes
+- fix(datastore): Sync issues with owner-based auth
+- fix(datastore): Ensure attaching nested model schema
+- fix(datastore): Timeout period not increasing
+- fix(datastore): Remove default pagination behavior on iOS
+
 ## 0.2.4 (2021-09-10)
 
 ### Fixes
