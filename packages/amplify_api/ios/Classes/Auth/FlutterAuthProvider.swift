@@ -23,33 +23,48 @@ extension FlutterError: Error {}
 
 /// A factory of [FlutterAuthProvider] instances. Manages shared state for all providers.
 class FlutterAuthProviders: APIAuthProviderFactory {
+    /// Thread to perform wait activities on.
+    static private let queue = DispatchQueue(label: "FlutterAuthProviders")
+    
+    /// Retrieves the latest token for `type` by calling into Flutter via the plugin's method channel.
     static func getToken(for type: AWSAuthorizationType) -> Result<String, Error> {
-        let completer = DispatchSemaphore(value: 0)
-        var token: Result<String, Error>!
-        DispatchQueue.main.async {
-            SwiftAmplifyApiPlugin.methodchannel.invokeMethod(
-                "getLatestAuthToken",
-                arguments: type.rawValue
-            ) { result in
-                defer { completer.signal() }
-                if let result = result as? String {
-                    token = .success(result)
-                } else {
-                    let error = result as? FlutterError
-                    token = .failure(AuthError.notAuthorized(
-                        "Unable to retrieve token for \(type)",
-                        """
-                        Make sure you register your auth providers in the addPlugin call and \
-                        that getLatestAuthToken returns a value.
-                        """,
-                        error))
+        var token: Result<String, Error> = .failure(APIError.unknown("Token could not be retrieved",
+                                                                     "An unknown error occurred.",
+                                                                     nil))
+        queue.sync {
+            let completer = DispatchSemaphore(value: 0)
+            
+            DispatchQueue.main.async {
+                SwiftAmplifyApiPlugin.methodchannel.invokeMethod(
+                    "getLatestAuthToken",
+                    arguments: type.rawValue
+                ) { result in
+                    defer { completer.signal() }
+                    if let result = result as? String {
+                        token = .success(result)
+                    } else {
+                        let error = result as? FlutterError
+                        token = .failure(APIError.operationError(
+                            "Unable to retrieve token for \(type)",
+                            """
+                            Make sure you register your auth providers in the addPlugin call and \
+                            that getLatestAuthToken returns a value.
+                            """,
+                            error))
+                    }
                 }
             }
+            
+            let waitResult = completer.wait(timeout: .now() + 2)
+            if waitResult == .timedOut {
+                token = .failure(APIError.operationError(
+                    "Token retrieval timed out after 2 seconds",
+                    """
+                    Please retry the call and make sure your getLatestAuthToken function completes.
+                    """))
+            }
         }
-        let waitResult = completer.wait(timeout: .now() + 2)
-        guard waitResult == .success else {
-            return .failure(AuthError.unknown("Token retrieval timed out after 2 seconds", nil))
-        }
+        
         return token
     }
 

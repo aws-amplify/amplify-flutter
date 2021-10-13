@@ -60,26 +60,27 @@ object FlutterAuthProviders {
     fun getToken(authType: AuthorizationType): String? {
         try {
             return runBlocking(coroutineContext) {
-                val job = Job()
-                val completer = object : MethodChannel.Result {
+                val completer = Job()
+
+                val result = object : MethodChannel.Result {
                     var token: String? = null
 
                     override fun success(result: Any?) {
                         token = result as? String
                         launch(Dispatchers.Main) {
-                             job.complete()
+                            completer.complete()
                         }
                     }
 
                     override fun error(errorCode: String?, errorMessage: String?, errorDetails: Any?) {
                         launch(Dispatchers.Main) {
-                            job.complete()
+                            completer.complete()
                         }
                     }
 
                     override fun notImplemented() {
                         launch(Dispatchers.Main) {
-                            job.complete()
+                            completer.complete()
                         }
                     }
                 }
@@ -87,14 +88,15 @@ object FlutterAuthProviders {
                     AmplifyApiPlugin.channel.invokeMethod(
                         "getLatestAuthToken",
                         authType.name,
-                        completer
+                        result
                     )
                 }
 
-                job.join()
-                return@runBlocking completer.token
+                completer.join()
+                return@runBlocking result.token
             }
         } catch (e: Exception) {
+            // runBlocking can throw if the thread is interrupted, for example.
             return null
         }
     }
