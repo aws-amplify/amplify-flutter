@@ -23,7 +23,7 @@ rootProject.allprojects {
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-//apply from: './coverage.gradle'
+apply from: './coverage.gradle'
 
 def amplifyCore = findProject(':amplify_core')
 

@@ -32,13 +32,13 @@ class FlutterAuthProviders: APIAuthProviderFactory {
             APIError.unknown("Token could not be retrieved",
                              "An unknown error occurred.",
                              nil))
-        
+
         // Preventative measure so as to not block the main thread. There is no expectation this
         // will be true but it was seen on Android during REST configuration.
         if Thread.isMainThread {
             return unknownError
         }
-        
+
         var token: Result<String, Error>?
         queue.sync {
             let completer = DispatchSemaphore(value: 0)

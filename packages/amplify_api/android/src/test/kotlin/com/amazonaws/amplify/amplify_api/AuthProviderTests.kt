@@ -18,7 +18,6 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.amazonaws.amplify.amplify_api.auth.FlutterAuthProvider
-import com.amazonaws.amplify.amplify_api.auth.FlutterAuthProviders
 import com.amplifyframework.api.ApiCategory
 import com.amplifyframework.api.aws.*
 import com.amplifyframework.api.aws.sigv4.FunctionAuthProvider
@@ -27,21 +26,18 @@ import com.amplifyframework.api.graphql.OperationType
 import com.amplifyframework.core.AmplifyConfiguration
 import com.amplifyframework.core.category.CategoryType
 import com.amplifyframework.core.model.Model
-import io.flutter.plugin.common.BinaryMessenger
-import io.flutter.plugin.common.MethodChannel
-import io.flutter.plugin.common.StandardMessageCodec
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runBlockingTest
 import org.json.JSONObject
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.kotlin.*
-import java.nio.ByteBuffer
+import org.mockito.kotlin.clearInvocations
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.times
+import org.mockito.kotlin.verify
 
 /**
  * Mock model object for building dummy GraphQL requests.
@@ -56,6 +52,7 @@ class MockModel : Model {
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 class AuthProviderTests {
+
     /**
      * Using categories allows us to create a new one per-test and configure as appropriate.
      */
@@ -200,38 +197,5 @@ class AuthProviderTests {
 
             clearInvocations(provider)
         }
-    }
-
-    @Test
-    fun testAuthProviderDoesNotBlockMainThread() = runBlockingTest {
-        val codec = StandardMessageCodec()
-        val token = "some_token"
-        val binaryMessenger = object: BinaryMessenger {
-            override fun send(channel: String, message: ByteBuffer?) { }
-
-            override fun send(
-                channel: String,
-                message: ByteBuffer?,
-                callback: BinaryMessenger.BinaryReply?
-            ) {
-                callback!!.reply(codec.encodeMessage(token))
-            }
-
-            override fun setMessageHandler(
-                channel: String,
-                handler: BinaryMessenger.BinaryMessageHandler?
-            ) {}
-        }
-        val methodChannel = MethodChannel(binaryMessenger, "com.amazonaws.amplify/api")
-        val authProviders = FlutterAuthProviders(methodChannel)
-        var result: String? = null
-        launch(Dispatchers.Main) {
-            result = authProviders.getToken(AuthorizationType.OPENID_CONNECT)
-        }
-        assert(result == null)
-        launch(Dispatchers.IO) {
-            result = authProviders.getToken(AuthorizationType.OPENID_CONNECT)
-        }
-        assert(result != null)
     }
 }
