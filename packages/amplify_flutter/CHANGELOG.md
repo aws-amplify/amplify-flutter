@@ -5,7 +5,7 @@
 - fix(datastore): Ensure attaching nested model schema
 - fix(datastore): Timeout period not increasing
 - fix(datastore): Remove default pagination behavior on iOS
-- fix(api): Fix API auth for REST
+- fix(api): OIDC/Lambda changes for DataStore
 - fix(auth): Add global sign out
 - fix(auth): Support `preferPrivateSession` flag
 
