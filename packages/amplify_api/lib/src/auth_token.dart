@@ -38,15 +38,15 @@ class _AuthToken {
 }
 
 extension on APIAuthProvider {
-  /// Retrieves and serializes the latest auth token for [authProvider].
+  /// Retrieves the latest auth token for [type].
   ///
   /// Any [Exception] is caught and treated as a `null` token.
-  Future<Map<String, dynamic>> get authToken async {
+  Future<String?> get authToken async {
     String? token;
     try {
       token = await getLatestAuthToken();
       //ignore:empty_catches
     } on Exception {}
-    return _AuthToken(type, token).toMap();
+    return token;
   }
 }
