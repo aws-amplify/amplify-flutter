@@ -1,3 +1,8 @@
+## 0.2.5 (2021-10-14)
+
+### Fixes
+- fix(api): OIDC/Lambda changes for DataStore
+
 ## 0.2.4 (2021-09-10)
 
 ### Fixes

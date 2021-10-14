@@ -28,7 +28,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
     private let dataStoreObserveEventStreamHandler: DataStoreObserveEventStreamHandler?
     private let dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler?
     private var channel: FlutterMethodChannel?
-    var observeSubscription: AnyCancellable?
+    private var observeSubscription: AnyCancellable?
     
     init(bridge: DataStoreBridge = DataStoreBridge(),
          flutterModelRegistration: FlutterModels = FlutterModels(),
@@ -341,10 +341,6 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
                         flutterResult: flutterResult)
                 case .success():
                     print("Successfully cleared the store")
-                    // iOS tears down the publisher after clear. Let's setup again.
-                    // See https://github.com/aws-amplify/amplify-flutter/issues/395
-                    self.observeSubscription = nil
-                    self.onSetUpObserve(flutterResult: flutterResult)
                     flutterResult(nil)
                 }
             }

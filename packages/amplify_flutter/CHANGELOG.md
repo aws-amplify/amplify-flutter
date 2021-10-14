@@ -1,3 +1,14 @@
+## 0.2.5 (2021-10-14)
+
+### Fixes
+- fix(datastore): Sync issues with owner-based auth
+- fix(datastore): Ensure attaching nested model schema
+- fix(datastore): Timeout period not increasing
+- fix(datastore): Remove default pagination behavior on iOS
+- fix(api): OIDC/Lambda changes for DataStore
+- fix(auth): Add global sign out
+- fix(auth): Support `preferPrivateSession` flag
+
 ## 0.2.4 (2021-09-10)
 
 ### Fixes
