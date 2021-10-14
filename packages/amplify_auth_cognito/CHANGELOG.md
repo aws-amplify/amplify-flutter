@@ -1,4 +1,4 @@
-## 0.2.5 (2021-10-12)
+## 0.2.5 (2021-10-14)
 
 ### Fixes
 - fix(auth): Add global sign out
