@@ -29,5 +29,3 @@ export 'rest/rest_exception.dart';
 export 'rest/rest_operation.dart';
 export 'rest/rest_options.dart';
 export 'rest/rest_response.dart';
-
-export 'uuid.dart';

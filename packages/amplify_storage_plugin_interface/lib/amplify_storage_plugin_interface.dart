@@ -28,7 +28,9 @@ abstract class StoragePluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('addPlugin() has not been implemented.');
   }
 
-  Future<UploadFileResult> uploadFile({required UploadFileRequest request}) {
+  Future<UploadFileResult> uploadFile(
+      {required UploadFileRequest request,
+      void Function(TransferProgress)? onProgress}) {
     throw UnimplementedError('uploadFile() has not been implemented.');
   }
 
@@ -45,7 +47,8 @@ abstract class StoragePluginInterface extends AmplifyPluginInterface {
   }
 
   Future<DownloadFileResult> downloadFile(
-      {required DownloadFileRequest request}) {
+      {required DownloadFileRequest request,
+      void Function(TransferProgress)? onProgress}) {
     throw UnimplementedError('downloadFile() has not been implemented.');
   }
 }

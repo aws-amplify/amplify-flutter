@@ -21,7 +21,7 @@ import AWSMobileClient
 import amplify_core
 
 public class AmplifyStorageOperations {
-    public static func uploadFile(flutterResult: @escaping FlutterResult, request: Dictionary<String, AnyObject>) {
+    internal static func uploadFile(flutterResult: @escaping FlutterResult, request: Dictionary<String, AnyObject>, transferProgressStreamHandler: TransferProgressStreamHandler) {
         do {
             try FlutterUploadFileRequest.validate(request: request)
             let req = FlutterUploadFileRequest(request: request)
@@ -29,6 +29,9 @@ public class AmplifyStorageOperations {
                 key: req.key,
                 local: req.file,
                 options: req.options,
+                progressListener: { progress in
+                    transferProgressStreamHandler.onTransferProgressEvent(uuid: req.uuid, progress: progress)
+                },
                 resultListener: { event in
                     switch event {
                     case .success(let key):
@@ -111,13 +114,16 @@ public class AmplifyStorageOperations {
         }
     }
     
-    public static func downloadFile(flutterResult: @escaping FlutterResult, request: Dictionary<String, AnyObject>){
+    internal static func downloadFile(flutterResult: @escaping FlutterResult, request: Dictionary<String, AnyObject>, transferProgressStreamHandler : TransferProgressStreamHandler){
         do {
             try FlutterDownloadFileRequest.validate(request: request)
             let req = FlutterDownloadFileRequest(request: request)
             _ = Amplify.Storage.downloadFile(key: req.key,
                  local: req.file,
                  options: req.options,
+                 progressListener: { progress in
+                    transferProgressStreamHandler.onTransferProgressEvent(uuid: req.uuid, progress: progress)
+                 },
                  resultListener: { event in
                     switch event {
                     case .success:

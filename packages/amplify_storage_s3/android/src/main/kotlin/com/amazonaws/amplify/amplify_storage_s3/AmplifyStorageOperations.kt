@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package com.amazonaws.amplify.amplify_storage_s3
 import androidx.annotation.NonNull
 import android.os.Handler
 import android.os.Looper
+import android.src.main.kotlin.com.amazonaws.amplify.amplify_storage_s3.types.TransferProgressStreamHandler
 import com.amazonaws.amplify.amplify_core.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil
 import com.amplifyframework.core.Amplify
@@ -34,7 +35,7 @@ class AmplifyStorageOperations {
 
         private val LOG = Amplify.Logging.forNamespace("amplify:flutter:storage_s3")
 
-        fun uploadFile(@NonNull flutterResult: MethodChannel.Result, @NonNull request: Map<String, *>) {
+        fun uploadFile(@NonNull flutterResult: MethodChannel.Result, @NonNull request: Map<String, *>, transferProgressStreamHandler: TransferProgressStreamHandler) {
             try {
                 FlutterUploadFileRequest.validate(request)
                 val req = FlutterUploadFileRequest(request)
@@ -42,6 +43,9 @@ class AmplifyStorageOperations {
                         req.key,
                         req.file,
                         req.options,
+                        { progress ->
+                            transferProgressStreamHandler.onTransferProgressEvent(req.uuid, progress)
+                        },
                         { result ->
                             prepareUploadFileResponse(flutterResult, result)
                         },
@@ -107,13 +111,16 @@ class AmplifyStorageOperations {
             }
         }
 
-        fun downloadFile(@NonNull flutterResult: MethodChannel.Result, @NonNull request: Map<String, *>) {
+        fun downloadFile(@NonNull flutterResult: MethodChannel.Result, @NonNull request: Map<String, *>, transferProgressStreamHandler: TransferProgressStreamHandler) {
             try {
                 FlutterDownloadFileRequest.validate(request)
                 val req = FlutterDownloadFileRequest(request)
                 Amplify.Storage.downloadFile(req.key,
                         req.file,
                         req.options,
+                        { progress ->
+                            transferProgressStreamHandler.onTransferProgressEvent(req.uuid, progress)
+                        },
                         { result ->
                             prepareDownloadFileResponse(flutterResult, result)
                         },
