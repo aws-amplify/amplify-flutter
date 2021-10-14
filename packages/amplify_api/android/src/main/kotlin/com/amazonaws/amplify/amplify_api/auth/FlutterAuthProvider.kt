@@ -39,6 +39,11 @@ class FlutterAuthProviders(private val methodChannel: MethodChannel) {
          * Logger tag.
          */
         const val tag = "FlutterAuthProviders"
+
+        /**
+         * Name for suspending block in [getToken]. Used for debugging
+         */
+        val coroutineName = CoroutineName(tag)
     }
 
     /**
@@ -69,7 +74,7 @@ class FlutterAuthProviders(private val methodChannel: MethodChannel) {
             return null
         }
         try {
-            return runBlocking {
+            return runBlocking(coroutineName) {
                 val completer = Job()
 
                 val result = object : MethodChannel.Result {

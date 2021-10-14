@@ -22,13 +22,10 @@ import androidx.annotation.NonNull
 import androidx.annotation.VisibleForTesting
 import com.amazonaws.amplify.amplify_api.auth.FlutterAuthProviders
 import com.amazonaws.amplify.amplify_api.rest_api.FlutterRestApi
-import com.amazonaws.amplify.amplify_core.cast
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.createSerializedUnrecognizedError
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
-import com.amplifyframework.api.ApiException
 import com.amplifyframework.api.aws.AWSApiPlugin
-import com.amplifyframework.api.aws.AuthorizationType
 import com.amplifyframework.core.Amplify
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.EventChannel
@@ -36,7 +33,6 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import kotlinx.coroutines.ObsoleteCoroutinesApi
 
 /** AmplifyApiPlugin */
 class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
