@@ -28,9 +28,18 @@ class FlutterAuthProviders: APIAuthProviderFactory {
 
     /// Retrieves the latest token for `type` by calling into Flutter via the plugin's method channel.
     static func getToken(for type: AWSAuthorizationType) -> Result<String, Error> {
-        var token: Result<String, Error> = .failure(APIError.unknown("Token could not be retrieved",
-                                                                     "An unknown error occurred.",
-                                                                     nil))
+        let unknownError: Result<String, Error> = .failure(
+            APIError.unknown("Token could not be retrieved",
+                             "An unknown error occurred.",
+                             nil))
+        
+        // Preventative measure so as to not block the main thread. There is no expectation this
+        // will be true but it was seen on Android during REST configuration.
+        if Thread.isMainThread {
+            return unknownError
+        }
+        
+        var token: Result<String, Error>?
         queue.sync {
             let completer = DispatchSemaphore(value: 0)
 
@@ -66,7 +75,7 @@ class FlutterAuthProviders: APIAuthProviderFactory {
             }
         }
 
-        return token
+        return token ?? unknownError
     }
 
     override func oidcAuthProvider() -> AmplifyOIDCAuthProvider? {

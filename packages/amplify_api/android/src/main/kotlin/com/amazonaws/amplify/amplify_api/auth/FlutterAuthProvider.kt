@@ -14,7 +14,7 @@
  */
 package com.amazonaws.amplify.amplify_api.auth
 
-import com.amazonaws.amplify.amplify_api.AmplifyApiPlugin
+import android.os.Looper
 import com.amplifyframework.api.ApiException
 import com.amplifyframework.api.aws.ApiAuthProviders
 import com.amplifyframework.api.aws.AuthorizationType
@@ -27,23 +27,19 @@ import kotlinx.coroutines.*
 /**
  * Manages the shared state of all [FlutterAuthProvider] instances.
  */
-@ObsoleteCoroutinesApi
-object FlutterAuthProviders {
+class FlutterAuthProviders(private val methodChannel: MethodChannel) {
 
-    /**
-     * Thread to run token retrieval operations so to not block calling thread or main thread.
-     */
-    private val coroutineContext = newSingleThreadContext("FlutterAuthProviders")
+    private companion object {
+        /**
+         * Timeout on a single [getToken] call.
+         */
+        const val getTokenTimeoutMillis = 2000L
 
-    /**
-     * Timeout on a single [getToken] call.
-     */
-    private const val getTokenTimeoutMillis = 2000L
-
-    /**
-     * Logger tag.
-     */
-    private const val tag = "FlutterAuthProviders"
+        /**
+         * Logger tag.
+         */
+        const val tag = "FlutterAuthProviders"
+    }
 
     /**
      * A factory of [FlutterAuthProvider] instances.
@@ -51,25 +47,29 @@ object FlutterAuthProviders {
     val factory: ApiAuthProviders by lazy {
         ApiAuthProviders
             .Builder()
-            .functionAuthProvider(FlutterAuthProvider(AuthorizationType.AWS_LAMBDA))
-            .oidcAuthProvider(FlutterAuthProvider(AuthorizationType.OPENID_CONNECT))
+            .functionAuthProvider(FlutterAuthProvider(this, AuthorizationType.AWS_LAMBDA))
+            .oidcAuthProvider(FlutterAuthProvider(this, AuthorizationType.OPENID_CONNECT))
             .build()
     }
 
     /**
      * Retrieves the token for [authType] or `null`, if unavailable.
      *
-     * This requires a dance of threads to be able to not block the main thread. This function
-     * is called from within the Amplify library and from a thread besides the main one. In order
-     * to not block the calling thread or the main one, we create a private thread ([coroutineContext])
-     * which we can safely block on and wait for method channel calls to complete.
+     * This function is typically called from within the Amplify library and from a thread besides
+     * the main one, where it is safe to block. In API REST, the calling thread is main and we must
+     * return `null`.
      *
-     * This also allows the Flutter app to make method channel calls of its own, in response to our
-     * method channel invocation, without deadlock.
+     * Not blocking the main thread is required for making platform channel calls without deadlock.
      */
     fun getToken(authType: AuthorizationType): String? {
+        if (Thread.currentThread() == Looper.getMainLooper().thread) {
+            // API REST will call this function from the main thread on configuration. This is bad.
+            // Since we have to block the calling thread to retrieve the token, just return null.
+            Log.e(tag, "REST OIDC/Lambda is not supported yet.")
+            return null
+        }
         try {
-            return runBlocking(coroutineContext) {
+            return runBlocking {
                 val completer = Job()
 
                 val result = object : MethodChannel.Result {
@@ -99,7 +99,7 @@ object FlutterAuthProviders {
                     }
                 }
                 launch(Dispatchers.Main) {
-                    AmplifyApiPlugin.channel.invokeMethod(
+                    methodChannel.invokeMethod(
                         "getLatestAuthToken",
                         authType.name,
                         result
@@ -122,8 +122,10 @@ object FlutterAuthProviders {
 /**
  * A provider which manages token retrieval for its [AuthorizationType].
  */
-@ObsoleteCoroutinesApi
-class FlutterAuthProvider(private val type: AuthorizationType) : FunctionAuthProvider,
+class FlutterAuthProvider(
+    private val provider: FlutterAuthProviders,
+    private val type: AuthorizationType
+) : FunctionAuthProvider,
     OidcAuthProvider {
     private companion object {
         /**
@@ -139,5 +141,5 @@ class FlutterAuthProvider(private val type: AuthorizationType) : FunctionAuthPro
     }
 
     override fun getLatestAuthToken(): String =
-        FlutterAuthProviders.getToken(type) ?: throw noTokenAvailable(type)
+        provider.getToken(type) ?: throw noTokenAvailable(type)
 }

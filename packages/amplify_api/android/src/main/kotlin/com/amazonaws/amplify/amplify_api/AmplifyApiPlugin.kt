@@ -39,13 +39,9 @@ import io.flutter.plugin.common.MethodChannel.Result
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 
 /** AmplifyApiPlugin */
-@ObsoleteCoroutinesApi
 class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
 
-    companion object {
-        lateinit var channel: MethodChannel
-    }
-
+    private lateinit var channel: MethodChannel
     private lateinit var eventchannel: EventChannel
     private lateinit var context: Context
     private val graphqlSubscriptionStreamHandler: GraphQLSubscriptionStreamHandler
@@ -85,7 +81,7 @@ class AmplifyApiPlugin : FlutterPlugin, MethodCallHandler {
                 Amplify.addPlugin(
                     AWSApiPlugin
                         .builder()
-                        .apiAuthProviders(FlutterAuthProviders.factory)
+                        .apiAuthProviders(FlutterAuthProviders(channel).factory)
                         .build()
                 )
                 logger.info("Added API plugin")
