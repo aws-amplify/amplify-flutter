@@ -267,7 +267,7 @@ class GraphQLRequestFactory {
 Map<String, dynamic> _queryFieldOperatorToPartialGraphQLFilter(
     QueryFieldOperator queryFieldOperator) {
   final filterExpression = _getGraphQLFilterExpression(queryFieldOperator.type);
-  if (queryFieldOperator is QueryFieldOperatorSimpleValue) {
+  if (queryFieldOperator is QueryFieldOperatorSingleValue) {
     return <String, dynamic>{
       filterExpression: _getSerializedValue(queryFieldOperator.value)
     };

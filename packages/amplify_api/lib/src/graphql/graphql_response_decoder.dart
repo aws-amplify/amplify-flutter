@@ -69,7 +69,9 @@ class GraphQLResponseDecoder {
     final modelType = request.modelType;
     if (modelType is PaginatedModelType) {
       Map<String, dynamic>? filter = request.variables['filter'];
-      decodedData = modelType.fromJson(dataJson!, filter: filter) as T;
+      int? limit = request.variables['limit'];
+      decodedData =
+          modelType.fromJson(dataJson!, limit: limit, filter: filter) as T;
     } else {
       decodedData = modelType!.fromJson(dataJson!) as T;
     }

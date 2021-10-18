@@ -7,11 +7,11 @@ class PaginatedModelTypeImpl<T extends Model> extends PaginatedModelType<T> {
 
   @override
   PaginatedResult<T> fromJson(Map<String, dynamic> jsonData,
-      {Map<String, dynamic>? filter}) {
+      {Map<String, dynamic>? filter, int? limit}) {
     final itemsJson = jsonData['items'] as List?;
 
     if (itemsJson == null || itemsJson.isEmpty) {
-      return PaginatedResultImpl<T>([], null, null, null);
+      return PaginatedResultImpl<T>([], limit, null, filter);
     }
 
     final items = itemsJson
@@ -23,7 +23,7 @@ class PaginatedModelTypeImpl<T extends Model> extends PaginatedModelType<T> {
         .toList();
 
     return PaginatedResultImpl<T>(
-        items, jsonData['limit'], jsonData['nextToken'] as String?, filter);
+        items, limit, jsonData['nextToken'] as String?, filter);
   }
 
   @override

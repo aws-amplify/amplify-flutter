@@ -24,5 +24,5 @@ abstract class PaginatedModelType<T extends Model>
 
   @override
   PaginatedResult<T> fromJson(Map<String, dynamic> jsonData,
-      {Map<String, dynamic>? filter});
+      {Map<String, dynamic>? filter, int? limit});
 }
