@@ -16,6 +16,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'test_models/ModelProvider.dart';
@@ -48,5 +49,92 @@ void main() {
       Post.ID.ascending().serializeAsMap(),
       Post.RATING.descending().serializeAsMap()
     ], await getJsonFromFile('multiple_sorting.json'));
+  });
+
+  group('compare', () {
+    Post post1 = Post(
+      title: 'post1',
+      rating: 1,
+      created: TemporalDateTime(DateTime(2020, 01, 01, 10, 30)),
+    );
+
+    Post post2 = Post(
+      title: 'post2',
+      rating: 2,
+      created: TemporalDateTime(DateTime(2020, 01, 01, 12, 30)),
+    );
+
+    Post post2Copy = post2.copyWith();
+
+    Post post3 = post1.copyWith(isPublic: false);
+
+    Post post4 = post1.copyWith(isPublic: true);
+
+    Post post4Copy = post4.copyWith();
+
+    test('should compare int fields', () {
+      QuerySortBy sortByAsc = Post.RATING.ascending();
+      QuerySortBy sortByDesc = Post.RATING.descending();
+
+      expect(sortByAsc.compare(post1, post2), -1);
+      expect(sortByAsc.compare(post2, post1), 1);
+      expect(sortByAsc.compare(post2, post2Copy), 0);
+
+      expect(sortByDesc.compare(post1, post2), 1);
+      expect(sortByDesc.compare(post2, post1), -1);
+      expect(sortByDesc.compare(post2, post2Copy), 0);
+    });
+
+    test('should compare bool fields', () {
+      QuerySortBy sortByAsc = Post.ISPUBLIC.ascending();
+      QuerySortBy sortByDesc = Post.ISPUBLIC.descending();
+
+      expect(sortByAsc.compare(post3, post4), -1);
+      expect(sortByAsc.compare(post4, post3), 1);
+      expect(sortByAsc.compare(post4, post4Copy), 0);
+
+      expect(sortByDesc.compare(post3, post4), 1);
+      expect(sortByDesc.compare(post4, post3), -1);
+      expect(sortByDesc.compare(post4, post4Copy), 0);
+    });
+
+    test('should compare string fields', () {
+      QuerySortBy sortByAsc = Post.TITLE.ascending();
+      QuerySortBy sortByDesc = Post.TITLE.descending();
+
+      expect(sortByAsc.compare(post1, post2), -1);
+      expect(sortByAsc.compare(post2, post1), 1);
+      expect(sortByAsc.compare(post2, post2Copy), 0);
+
+      expect(sortByDesc.compare(post1, post2), 1);
+      expect(sortByDesc.compare(post2, post1), -1);
+      expect(sortByDesc.compare(post2, post2Copy), 0);
+    });
+
+    test('should compare date/time fields', () {
+      QuerySortBy sortByAsc = Post.CREATED.ascending();
+      QuerySortBy sortByDesc = Post.CREATED.descending();
+
+      expect(sortByAsc.compare(post1, post2), -1);
+      expect(sortByAsc.compare(post2, post1), 1);
+      expect(sortByAsc.compare(post2, post2Copy), 0);
+
+      expect(sortByDesc.compare(post1, post2), 1);
+      expect(sortByDesc.compare(post2, post1), -1);
+      expect(sortByDesc.compare(post2, post2Copy), 0);
+    });
+
+    test('should handle null values', () {
+      QuerySortBy sortByAsc = Post.ISPUBLIC.ascending();
+      QuerySortBy sortByDesc = Post.ISPUBLIC.descending();
+
+      expect(sortByAsc.compare(post1, post3), -1);
+      expect(sortByAsc.compare(post1, post4), -1);
+      expect(sortByAsc.compare(post1, post2), 0);
+
+      expect(sortByDesc.compare(post1, post3), 1);
+      expect(sortByDesc.compare(post1, post4), 1);
+      expect(sortByDesc.compare(post1, post2), 0);
+    });
   });
 }
