@@ -136,4 +136,13 @@ class AmplifyDataStore extends DataStorePluginInterface {
   Future<void> stop() async {
     return _instance.stop();
   }
+
+  @override
+  Stream<QuerySnapshot<T>> observeQuery<T extends Model>(
+    ModelType<T> modelType, {
+    QueryPredicate? where,
+    List<QuerySortBy>? sortBy,
+  }) {
+    return _instance.observeQuery(modelType, where: where, sortBy: sortBy);
+  }
 }

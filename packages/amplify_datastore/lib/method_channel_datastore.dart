@@ -19,6 +19,8 @@ import 'package:flutter/services.dart';
 import 'package:amplify_core/types/exception/AmplifyExceptionMessages.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
+import 'types/DataStoreHubEvents/stream_group.dart';
+
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/datastore');
 
 /// An implementation of [AmplifyDataStore] that uses method channels.
@@ -174,6 +176,82 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   }
 
   @override
+  Stream<QuerySnapshot<T>> observeQuery<T extends Model>(ModelType<T> modelType,
+      {QueryPredicate? where, List<QuerySortBy>? sortBy}) {
+    List<T> _items = [];
+    List<SubscriptionEvent<T>> _subscriptionEvents = [];
+    bool _hasInitialQueryCompleted = false;
+
+    Stream<QuerySnapshot<T>> observeStream = this
+        .observe(modelType)
+        .map<QuerySnapshot<T>?>((event) {
+          // cache subscription events until the initial query is returned
+          if (!_hasInitialQueryCompleted) {
+            _subscriptionEvents.add(event);
+            return null;
+          }
+
+          // apply the event to the cached items
+          var updatedItems = _applySubscriptionEventToItems(
+            currentItems: _items,
+            event: event,
+            where: where,
+          );
+
+          // if the items have not changed, return null
+          if (_items == updatedItems) {
+            return null;
+          }
+
+          // update the items and return a QuerySnapshot
+          _items = updatedItems;
+          return QuerySnapshot(
+            items: _items,
+            events: [event],
+            isSynced: false,
+          );
+        })
+        // filter out null values
+        .where((event) => event != null)
+        .cast<QuerySnapshot<T>>();
+
+    final queryFuture = this
+        .query(
+      modelType,
+      where: where,
+      // TODO: remove after fixing https://github.com/aws-amplify/amplify-flutter/issues/891
+      pagination: QueryPagination(limit: 10000),
+    )
+        .then((value) {
+      // cache the result set
+      _items = value;
+
+      // apply any cached subscription events
+      // TODO: Is this actually needed?
+      // It seems like native will not apply updates while a query is active
+      for (var event in _subscriptionEvents) {
+        _items = _applySubscriptionEventToItems(
+          currentItems: _items,
+          event: event,
+          where: where,
+        );
+      }
+      _hasInitialQueryCompleted = true;
+
+      // return a QuerySnapshot
+      return QuerySnapshot(
+        items: _items,
+        events: [],
+        isSynced: false,
+      );
+    });
+
+    final queryStream = Stream.fromFuture(queryFuture);
+
+    return StreamGroup.merge([queryStream, observeStream]);
+  }
+
+  @override
   Future<void> clear() async {
     try {
       await _channel.invokeMethod('clear');
@@ -221,5 +299,62 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
               AmplifyExceptionMessages.missingRecoverySuggestion,
           underlyingException: e.toString());
     }
+  }
+
+  List<T> _applySubscriptionEventToItems<T extends Model>({
+    required SubscriptionEvent<T> event,
+    required List<T> currentItems,
+    QueryPredicate? where,
+  }) {
+    List<T> updateItems = List<T>.from(currentItems);
+    bool itemsHasBeenUpdated = false;
+
+    bool eventItemMatchesPredicate =
+        _matchesPredicate(model: event.item, where: where);
+    int currentItemIndex =
+        updateItems.indexWhere((item) => item.getId() == event.item.getId());
+    T? currentItem =
+        currentItemIndex == -1 ? null : updateItems[currentItemIndex];
+    bool currentItemMatchesPredicate = currentItem != null &&
+        _matchesPredicate(
+          model: currentItem,
+          where: where,
+        );
+
+    if (event.eventType == EventType.create &&
+        eventItemMatchesPredicate &&
+        currentItem == null) {
+      updateItems.add(event.item);
+      itemsHasBeenUpdated = true;
+    } else if (event.eventType == EventType.delete && currentItem != null) {
+      updateItems.removeAt(currentItemIndex);
+      itemsHasBeenUpdated = true;
+    } else if (event.eventType == EventType.update) {
+      if (currentItemMatchesPredicate && eventItemMatchesPredicate) {
+        updateItems[currentItemIndex] = event.item;
+        itemsHasBeenUpdated = true;
+      } else if (currentItemMatchesPredicate && eventItemMatchesPredicate) {
+        updateItems.removeAt(currentItemIndex);
+        itemsHasBeenUpdated = true;
+      } else if (!currentItemMatchesPredicate && eventItemMatchesPredicate) {
+        updateItems.add(event.item);
+        itemsHasBeenUpdated = true;
+      }
+    }
+    if (itemsHasBeenUpdated) {
+      return updateItems;
+    }
+    return currentItems;
+  }
+
+  bool _matchesPredicate<T extends Model>(
+      {required T model, QueryPredicate? where}) {
+    if (where == null) {
+      return true;
+    }
+    if (where is QueryPredicateOperation) {
+      return where.evaluate(model);
+    }
+    return false;
   }
 }

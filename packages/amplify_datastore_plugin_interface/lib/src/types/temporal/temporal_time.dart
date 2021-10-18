@@ -21,7 +21,7 @@ import 'temporal.dart';
 /// hh:mm:ss.sss±hh:mm:ss
 /// hh:mm:ss.sss
 /// https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html#appsync-defined-scalars
-class TemporalTime {
+class TemporalTime implements Comparable<DateTime> {
   late DateTime _dateTime;
   int _nanoseconds = 0; // DateTime only stores millisecond and microsecond
   Duration? _offset;
@@ -149,4 +149,10 @@ class TemporalTime {
       _nanoseconds == o._nanoseconds;
   int get hashCode =>
       _dateTime.hashCode * _offset.hashCode * _nanoseconds.hashCode;
+
+  @override
+  int compareTo(DateTime other) {
+    // TODO: implement compareTo
+    throw UnimplementedError();
+  }
 }

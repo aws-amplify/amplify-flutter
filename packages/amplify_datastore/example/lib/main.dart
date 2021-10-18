@@ -109,6 +109,45 @@ class _MyAppState extends State<MyApp> {
     }
     listenToHub();
 
+    // TODO: examples to be removed/updated
+    var blogSubscription1 = Amplify.DataStore.observeQuery(
+      Blog.classType,
+      where: Blog.NAME.contains('blog'),
+    ).listen((snapshot) {
+      print('blog observeQuery 1');
+      print(snapshot.isSynced);
+      print(snapshot.items.length);
+    });
+
+    var blogSubscription2 = Amplify.DataStore.observeQuery(
+      Blog.classType,
+      where: Blog.NAME.contains('5'),
+    ).listen((snapshot) {
+      print('blog observeQuery 2');
+      print(snapshot.isSynced);
+      print(snapshot.items.length);
+    });
+
+    await Amplify.DataStore.save(Blog(name: 'new blog 5'));
+
+    var postSubscription1 = Amplify.DataStore.observeQuery(
+      Post.classType,
+      where: Post.RATING > 10,
+    ).listen((snapshot) {
+      print('post observeQuery 1');
+      print(snapshot.isSynced);
+      print(snapshot.items.length);
+    });
+
+    var postSubscription2 = Amplify.DataStore.observeQuery(
+      Post.classType,
+      where: Post.RATING.between(5, 15),
+    ).listen((snapshot) {
+      print('post observeQuery 2');
+      print(snapshot.isSynced);
+      print(snapshot.items.length);
+    });
+
     // setup streams
     postStream = Amplify.DataStore.observe(Post.classType);
     postStream.listen((event) {

@@ -15,6 +15,7 @@
 
 library query_field;
 
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:amplify_datastore_plugin_interface/src/types/models/model_field_type.dart';
 import '../temporal/datetime_parse.dart';
 import '../utils/parsers.dart';
@@ -24,53 +25,57 @@ part 'query_pagination.dart';
 part 'query_predicate.dart';
 part 'query_sort.dart';
 
-class QueryField {
+class QueryField<T> {
   final String fieldName;
   final ModelFieldType? fieldType;
 
   const QueryField({required this.fieldName, this.fieldType});
 
   // Equal operation with operator overloading
-  QueryPredicateOperation eq(dynamic value) => new QueryPredicateOperation(
-      this.fieldName, new EqualQueryOperator(value));
+  QueryPredicateOperation eq(T value) => new QueryPredicateOperation(
+      this.fieldName, new EqualQueryOperator<T>(value));
   // TODO: == operator is not supported in dart to return anything but bool.
   // Figure out if there are any better alternative.
-  // QueryPredicateOperation operator ==(dynamic value) => eq(value);
+  // QueryPredicateOperation operator ==(Comparable<T> value) => eq(value);
 
   // Not equal to operation with operator overloading
-  QueryPredicateOperation ne(dynamic value) => new QueryPredicateOperation(
-      this.fieldName, new NotEqualQueryOperator(value));
+  QueryPredicateOperation ne(T value) => new QueryPredicateOperation(
+      this.fieldName, new NotEqualQueryOperator<T>(value));
   // TODO: != is not a user overridable operator. Anything better we can do?
-  // QueryPredicateOperation operator !=(dynamic value) => ne(value);
+  // QueryPredicateOperation operator !=(Comparable<T> value) => ne(value);
 
   // Less than or equal to operation with operator overloading
-  QueryPredicateOperation le(dynamic value) => new QueryPredicateOperation(
-      this.fieldName, new LessOrEqualQueryOperator(value));
-  QueryPredicateOperation operator <=(dynamic value) => le(value);
+  QueryPredicateOperation le(Comparable<T> value) =>
+      new QueryPredicateOperation(
+          this.fieldName, new LessOrEqualQueryOperator(value));
+  QueryPredicateOperation operator <=(Comparable<T> value) => le(value);
 
   // Less than operation with operator overloading
-  QueryPredicateOperation lt(dynamic value) => new QueryPredicateOperation(
-      this.fieldName, new LessThanQueryOperator(value));
-  QueryPredicateOperation operator <(dynamic value) => lt(value);
+  QueryPredicateOperation lt(Comparable<T> value) =>
+      new QueryPredicateOperation(
+          this.fieldName, new LessThanQueryOperator<Comparable<T>>(value));
+  QueryPredicateOperation operator <(Comparable<T> value) => lt(value);
 
   // Greater than equal to operation with operator overloading
-  QueryPredicateOperation ge(dynamic value) => new QueryPredicateOperation(
-      this.fieldName, new GreaterOrEqualQueryOperator(value));
-  QueryPredicateOperation operator >=(dynamic value) => ge(value);
+  QueryPredicateOperation ge(Comparable<T> value) =>
+      new QueryPredicateOperation(this.fieldName,
+          new GreaterOrEqualQueryOperator<Comparable<T>>(value));
+  QueryPredicateOperation operator >=(Comparable<T> value) => ge(value);
 
   // Greater than operation with operator overloading
-  QueryPredicateOperation gt(dynamic value) => new QueryPredicateOperation(
-      this.fieldName, new GreaterThanQueryOperator(value));
-  QueryPredicateOperation operator >(dynamic value) => gt(value);
+  QueryPredicateOperation gt(Comparable<T> value) =>
+      new QueryPredicateOperation(
+          this.fieldName, new GreaterThanQueryOperator<Comparable<T>>(value));
+  QueryPredicateOperation operator >(Comparable<T> value) => gt(value);
 
   // Contains operation. No operator overloading for this one
   QueryPredicateOperation contains(String value) => new QueryPredicateOperation(
       this.fieldName, new ContainsQueryOperator(value));
 
   // Between operation. No operator overloading for this one
-  QueryPredicateOperation between(dynamic start, dynamic end) =>
+  QueryPredicateOperation between(Comparable<T> start, Comparable<T> end) =>
       new QueryPredicateOperation(
-          this.fieldName, new BetweenQueryOperator(start, end));
+          this.fieldName, new BetweenQueryOperator<Comparable<T>>(start, end));
 
   // Begins with operation. No operator overloading for this one
   QueryPredicateOperation beginsWith(String value) =>

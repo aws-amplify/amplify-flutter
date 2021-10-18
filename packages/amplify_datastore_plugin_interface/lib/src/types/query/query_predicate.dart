@@ -49,6 +49,11 @@ class QueryPredicateOperation extends QueryPredicate {
 
   QueryPredicateGroup operator |(QueryPredicate predicate) => or(predicate);
 
+  bool evaluate(Model model) {
+    var value = model.toJson()[field];
+    return queryFieldOperator.evaluate(value);
+  }
+
   @override
   Map<String, dynamic> serializeAsMap() {
     return <String, dynamic>{
