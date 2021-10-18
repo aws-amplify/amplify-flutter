@@ -26,7 +26,7 @@ abstract class ModelQueriesInterface {
   GraphQLRequest<PaginatedResult<T>> list<T extends Model>(
       ModelType<T> modelType,
       {QueryPredicate? where,
-      ModelPagination? modelPagination});
+      int? limit});
 }
 
 abstract class ModelMutationsInterface {

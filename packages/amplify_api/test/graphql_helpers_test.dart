@@ -79,9 +79,8 @@ void main() {
         String expected =
             r"query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }";
 
-        GraphQLRequest<PaginatedResult<Blog>> req = ModelQueries.list<Blog>(
-            Blog.classType,
-            modelPagination: ModelPagination(limit: 1));
+        GraphQLRequest<PaginatedResult<Blog>> req =
+            ModelQueries.list<Blog>(Blog.classType, limit: 1);
 
         expect(req.document, expected);
         expect(req.modelType, isA<PaginatedModelType<Blog>>());
@@ -120,9 +119,8 @@ void main() {
       test(
           'ModelQueries.list() returns a GraphQLRequest<PaginatedResult<Blog>> when provided a modelType',
           () async {
-        GraphQLRequest<PaginatedResult<Blog>> req = ModelQueries.list<Blog>(
-            Blog.classType,
-            modelPagination: ModelPagination(limit: 2));
+        GraphQLRequest<PaginatedResult<Blog>> req =
+            ModelQueries.list<Blog>(Blog.classType, limit: 2);
 
         List<GraphQLResponseError> errors = [];
         String data = '''{
@@ -150,6 +148,75 @@ void main() {
         expect(response.data, isA<PaginatedResult<Blog>>());
         expect(response.data.items, isA<List<Blog>>());
         expect(response.data.items.length, 2);
+      });
+
+      test(
+          'GraphQLResponse<PaginatedResult<Blog>> can get the request for next page of data',
+          () async {
+        const limit = 2;
+        GraphQLRequest<PaginatedResult<Blog>> req =
+            ModelQueries.list<Blog>(Blog.classType, limit: limit);
+
+        List<GraphQLResponseError> errors = [];
+        String data = '''{
+          "listBlogs": {
+              "items": [
+                {
+                  "id": "test-id-1",
+                  "name": "Test Blog 1",
+                  "createdAt": "2021-07-29T23:09:58.441Z"
+                },
+                {
+                  "id": "test-id-2",
+                  "name": "Test Blog 2",
+                  "createdAt": "2021-08-03T16:39:18.651Z"
+                }
+              ],
+              "nextToken": "super-secret-next-token"
+            }
+        }''';
+
+        GraphQLResponse<PaginatedResult<Blog>> response =
+            GraphQLResponseDecoder.instance.decode<PaginatedResult<Blog>>(
+                request: req, data: data, errors: errors);
+        expect(response.data.hasNextResult, true);
+        String expectedDocument =
+            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }';
+        final resultRequest = response.data.requestForNextResult!;
+        expect(resultRequest.document, expectedDocument);
+        expect(resultRequest.variables['nextToken'], response.data.nextToken);
+        expect(resultRequest.variables['limit'], limit);
+      });
+
+      test(
+          'GraphQLResponse<PaginatedResult<Blog>> will not have data for next page when result has no nextToken',
+          () async {
+        const limit = 2;
+        GraphQLRequest<PaginatedResult<Blog>> req =
+            ModelQueries.list<Blog>(Blog.classType, limit: limit);
+
+        List<GraphQLResponseError> errors = [];
+        String data = '''{
+          "listBlogs": {
+              "items": [
+                {
+                  "id": "test-id-1",
+                  "name": "Test Blog 1",
+                  "createdAt": "2021-07-29T23:09:58.441Z"
+                },
+                {
+                  "id": "test-id-2",
+                  "name": "Test Blog 2",
+                  "createdAt": "2021-08-03T16:39:18.651Z"
+                }
+              ]
+            }
+        }''';
+
+        GraphQLResponse<PaginatedResult<Blog>> response =
+            GraphQLResponseDecoder.instance.decode<PaginatedResult<Blog>>(
+                request: req, data: data, errors: errors);
+        expect(response.data.hasNextResult, false);
       });
     });
 

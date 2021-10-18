@@ -14,13 +14,14 @@
  */
 
 import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_api/src/graphql/graphql_request_factory.dart';
 import 'package:amplify_api/src/graphql/paginated_model_type_impl.dart';
 // TODO: Datastore dependencies temporarily added in API. Eventually they should be moved to core or otherwise reconciled to avoid duplication.
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
 class PaginatedResultImpl<T extends Model> extends PaginatedResult<T> {
-  const PaginatedResultImpl(List<T> items, String? nextToken)
-      : super(items, nextToken);
+  const PaginatedResultImpl(List<T> items, int? limit, String? nextToken)
+      : super(items, limit, nextToken);
 
   @override
   String getId() {
@@ -28,7 +29,28 @@ class PaginatedResultImpl<T extends Model> extends PaginatedResult<T> {
   }
 
   @override
-  PaginatedModelType<T> getInstanceType() {
+  bool get hasNextResult {
+    return limit != null && nextToken != null;
+  }
+
+  @override
+  GraphQLRequest<PaginatedResult<T>>? get requestForNextResult {
+    if (!hasNextResult) {
+      return null;
+    }
+
+    final modelType = _getModelType();
+    final variables = GraphQLRequestFactory.instance
+        .buildVariables(limit: limit, nextToken: nextToken);
+
+    return GraphQLRequestFactory.instance.buildRequest<PaginatedResult<T>>(
+        modelType: PaginatedModelTypeImpl(modelType),
+        variables: variables,
+        requestType: GraphQLRequestType.query,
+        requestOperation: GraphQLRequestOperation.list);
+  }
+
+  ModelType<T> _getModelType() {
     ModelProviderInterface? provider = AmplifyAPI.instance.modelProvider;
     if (provider == null) {
       throw ApiException('No modelProvider found',
@@ -36,10 +58,12 @@ class PaginatedResultImpl<T extends Model> extends PaginatedResult<T> {
               'Pass in a modelProvider instance while instantiating APIPlugin');
     }
 
-    ModelType<T> modelType =
-        provider.getModelTypeByModelName(T.toString()) as ModelType<T>;
+    return provider.getModelTypeByModelName(T.toString()) as ModelType<T>;
+  }
 
-    return PaginatedModelTypeImpl(modelType);
+  @override
+  PaginatedModelType<T> getInstanceType() {
+    return PaginatedModelTypeImpl(_getModelType());
   }
 
   @override
