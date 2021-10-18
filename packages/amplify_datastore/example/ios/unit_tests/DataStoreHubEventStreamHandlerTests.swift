@@ -331,7 +331,11 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
     
     func test_hot_restart_replays_sync_and_ready_events() {
         let payloads = [
-            HubPayload(eventName: HubPayload.EventName.DataStore.ready, context: nil, data: nil),
+            HubPayload(
+                eventName: HubPayload.EventName.DataStore.ready, 
+                context: nil, 
+                data: nil
+            ),
             HubPayload(
                 eventName: HubPayload.EventName.DataStore.modelSynced,
                 context: nil,

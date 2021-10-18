@@ -374,7 +374,7 @@ class AmplifyDataStoreHubTest {
             "readyEvent.json",
             HashMap::class.java) as HashMap<String, Any>)
 
-        var event: HubEvent<*> = HubEvent.create(DataStoreChannelEventName.READY);
+        var event: HubEvent<*> = HubEvent.create(DataStoreChannelEventName.READY)
 
         val latch = CountDownLatch(1)
 
