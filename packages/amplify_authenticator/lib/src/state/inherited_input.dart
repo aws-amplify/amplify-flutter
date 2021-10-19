@@ -13,9 +13,24 @@
  * permissions and limitations under the License.
  */
 
-export 'alias.dart';
-export 'confirm_signin_types.dart';
-export 'confirm_signup_types.dart';
-export 'input_type.dart';
-export 'signin_types.dart';
-export 'signup_types.dart';
+import 'package:amplify_authenticator/src/widgets/form_field.dart';
+import 'package:flutter/material.dart';
+
+class InheritedInput extends InheritedWidget {
+  const InheritedInput({
+    Key? key,
+    required this.field,
+    required Widget child,
+  }) : super(key: key, child: child);
+
+  final AuthenticatorFormField field;
+
+  @override
+  static InheritedInput? of(BuildContext context) =>
+      context.findAncestorWidgetOfExactType<InheritedInput>();
+
+  @override
+  bool updateShouldNotify(covariant InheritedInput oldWidget) {
+    return oldWidget.field != field;
+  }
+}

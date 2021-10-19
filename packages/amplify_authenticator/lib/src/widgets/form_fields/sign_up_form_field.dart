@@ -1,3 +1,18 @@
+/*
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
 part of authenticator.form_field;
 
 /// {@template authenticator.sign_up_form_field}
@@ -9,25 +24,26 @@ class SignUpFormField
   /// {@macro authenticator.sign_up_form_field}
   ///
   /// Either [titleKey] or [title] is required.
-  const SignUpFormField._({
-    Key? key,
-    required SignUpField field,
-    InputResolverKey? titleKey,
-    InputResolverKey? hintTextKey,
-    String? title,
-    String? hintText,
-    FormFieldValidator<String>? validator,
-    String? customAttributeKey,
-  })  : _customAttributeKey = customAttributeKey,
+  const SignUpFormField._(
+      {Key? key,
+      required SignUpField field,
+      InputResolverKey? titleKey,
+      InputResolverKey? hintTextKey,
+      String? title,
+      String? hintText,
+      FormFieldValidator<String>? validator,
+      String? customAttributeKey,
+      InputType inputType = InputType.text})
+      : _customAttributeKey = customAttributeKey,
         super._(
-          key: key,
-          field: field,
-          titleKey: titleKey,
-          hintTextKey: hintTextKey,
-          title: title,
-          hintText: hintText,
-          validator: validator,
-        );
+            key: key,
+            field: field,
+            titleKey: titleKey,
+            hintTextKey: hintTextKey,
+            title: title,
+            hintText: hintText,
+            validator: validator,
+            inputType: inputType);
 
   /// Creates a username component.
   const SignUpFormField.username({
@@ -82,12 +98,12 @@ class SignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? keyBirthdateSignUpFormField,
-          titleKey: InputResolverKey.birthdateTitle,
-          hintTextKey: InputResolverKey.birthdateHint,
-          field: SignUpField.birthdate,
-          validator: validator,
-        );
+            key: key ?? keyBirthdateSignUpFormField,
+            titleKey: InputResolverKey.birthdateTitle,
+            hintTextKey: InputResolverKey.birthdateHint,
+            field: SignUpField.birthdate,
+            validator: validator,
+            inputType: InputType.datePicker);
 
   /// Creates a nemail component.
   const SignUpFormField.email({
@@ -190,12 +206,12 @@ class SignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? keyPhoneNumberSignUpFormField,
-          titleKey: InputResolverKey.phoneNumberTitle,
-          hintTextKey: InputResolverKey.phoneNumberHint,
-          field: SignUpField.phoneNumber,
-          validator: validator,
-        );
+            key: key ?? keyPhoneNumberSignUpFormField,
+            titleKey: InputResolverKey.phoneNumberTitle,
+            hintTextKey: InputResolverKey.phoneNumberHint,
+            field: SignUpField.phoneNumber,
+            validator: validator,
+            inputType: InputType.phone);
 
   /// Creates a picture component.
   const SignUpFormField.picture({

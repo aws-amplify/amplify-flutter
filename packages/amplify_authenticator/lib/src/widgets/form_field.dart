@@ -28,6 +28,9 @@ import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
+import 'package:amplify_authenticator/src/widgets/input_types/authenticator_date_input.dart';
+import 'package:amplify_authenticator/src/widgets/input_types/authenticator_phone_input.dart';
+import 'package:amplify_authenticator/src/widgets/input_types/authenticator_text_input.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -60,6 +63,7 @@ abstract class AuthenticatorFormField<FieldType,
     this.hintTextKey,
     this.title,
     this.hintText,
+    this.inputType = InputType.text,
     FormFieldValidator<String>? validator,
   })  : assert(
           titleKey != null || title != null,
@@ -83,6 +87,9 @@ abstract class AuthenticatorFormField<FieldType,
   /// The field this form field controls.
   final FieldType field;
 
+  /// The type of input field, defaults to [InputType.text]
+  final InputType inputType;
+
   /// Override of default validator.
   final FormFieldValidator<String>? _validatorOverride;
 
@@ -94,6 +101,7 @@ abstract class AuthenticatorFormField<FieldType,
     properties.add(EnumProperty('hintTextKey', hintTextKey));
     properties.add(StringProperty('title', title));
     properties.add(StringProperty('hintText', hintText));
+    properties.add(EnumProperty<InputType?>('inputType', inputType));
   }
 }
 
@@ -192,38 +200,55 @@ abstract class _AuthenticatorFormFieldState<FieldType,
           Text(title),
           const Padding(padding: FormFieldConstants.gap),
           ValueListenableBuilder<bool?>(
-            valueListenable: context
-                .findAncestorStateOfType<AuthenticatorFormState>()!
-                .obscureTextToggleValue,
-            builder:
-                (BuildContext context, bool? toggleObscureText, Widget? _) {
-              var obscureText = this.obscureText && (toggleObscureText ?? true);
-              return TextFormField(
-                style: enabled
-                    ? null
-                    : const TextStyle(
-                        color: AuthenticatorColors.disabledTextColor,
-                      ),
-                initialValue: initialValue,
-                enabled: enabled,
-                validator: widget._validatorOverride ?? validator,
-                onChanged: onChanged,
-                decoration: InputDecoration(
-                  suffixIcon: suffixIcon,
-                  errorMaxLines: errorMaxLines,
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Theme.of(context).primaryColor,
-                    ),
-                  ),
-                  hintText: hintText,
-                  border: const OutlineInputBorder(),
-                ),
-                keyboardType: keyboardType,
-                obscureText: obscureText,
-              );
-            },
-          ),
+              valueListenable: context
+                  .findAncestorStateOfType<AuthenticatorFormState>()!
+                  .obscureTextToggleValue,
+              builder:
+                  (BuildContext context, bool? toggleObscureText, Widget? _) {
+                var obscureText =
+                    this.obscureText && (toggleObscureText ?? true);
+                switch (widget.inputType) {
+                  case InputType.text:
+                    return AuthenticatorTextInput(
+                        key: widget.key!,
+                        onChanged: onChanged,
+                        enabled: enabled,
+                        keyboardType: keyboardType,
+                        initialValue: initialValue,
+                        suffixIcon: suffixIcon,
+                        hintText: hintText,
+                        companionWidget: companionWidget,
+                        errorMaxLines: errorMaxLines,
+                        obscureText: obscureText,
+                        validator: widget._validatorOverride ?? validator);
+                  case InputType.phone:
+                    return AuthenticatorPhoneInput(
+                        key: widget.key!,
+                        enabled: enabled,
+                        onChanged: onChanged,
+                        keyboardType: keyboardType,
+                        initialValue: initialValue,
+                        suffixIcon: suffixIcon,
+                        companionWidget: companionWidget,
+                        errorMaxLines: errorMaxLines,
+                        obscureText: obscureText,
+                        hintText: hintText,
+                        validator: widget._validatorOverride ?? validator);
+                  case InputType.datePicker:
+                    return AuthenticatorDateInput(
+                        key: widget.key!,
+                        enabled: enabled,
+                        onChanged: onChanged,
+                        keyboardType: keyboardType,
+                        initialValue: initialValue,
+                        suffixIcon: suffixIcon,
+                        companionWidget: companionWidget,
+                        errorMaxLines: errorMaxLines,
+                        obscureText: obscureText,
+                        hintText: hintText,
+                        validator: widget._validatorOverride ?? validator);
+                }
+              }),
           if (companionWidget != null) companionWidget!,
         ],
       ),

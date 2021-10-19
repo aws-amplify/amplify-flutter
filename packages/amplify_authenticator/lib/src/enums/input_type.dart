@@ -13,9 +13,4 @@
  * permissions and limitations under the License.
  */
 
-export 'alias.dart';
-export 'confirm_signin_types.dart';
-export 'confirm_signup_types.dart';
-export 'input_type.dart';
-export 'signin_types.dart';
-export 'signup_types.dart';
+enum InputType { text, phone, datePicker }
