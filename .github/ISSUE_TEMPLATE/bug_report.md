@@ -36,6 +36,14 @@ Amplify Flutter current supports iOS and Android.  This issue is reproducible in
 
 </details>
 
+<details>
+
+  <summary>Dependencies (<code>pubspec.lock</code>)</summary>
+  
+  ```Paste the contents of your "pubspec.lock" file here```
+
+</details>
+
 **Smartphone (please complete the following information):**
  - Device: [e.g. iPhone6]
  - OS: [e.g. iOS8.1]
