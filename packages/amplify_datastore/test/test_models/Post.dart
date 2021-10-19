@@ -29,7 +29,6 @@ class Post extends Model {
   final String? _title;
   final int? _rating;
   final TemporalDateTime? _created;
-  final bool? _isPublic;
   final Blog? _blog;
   final List<Comment>? _comments;
   final TemporalDateTime? _createdAt;
@@ -101,7 +100,6 @@ class Post extends Model {
       : _title = title,
         _rating = rating,
         _created = created,
-        _isPublic = isPublic,
         _blog = blog,
         _comments = comments,
         _createdAt = createdAt,
@@ -119,7 +117,6 @@ class Post extends Model {
         title: title,
         rating: rating,
         created: created,
-        isPublic: isPublic,
         blog: blog,
         comments:
             comments != null ? List<Comment>.unmodifiable(comments) : comments);
@@ -137,7 +134,6 @@ class Post extends Model {
         _title == other._title &&
         _rating == other._rating &&
         _created == other._created &&
-        _isPublic == other._isPublic &&
         _blog == other._blog &&
         DeepCollectionEquality().equals(_comments, other._comments);
   }
@@ -172,7 +168,6 @@ class Post extends Model {
       String? title,
       int? rating,
       TemporalDateTime? created,
-      bool? isPublic,
       Blog? blog,
       List<Comment>? comments}) {
     return Post._internal(
@@ -180,7 +175,6 @@ class Post extends Model {
         title: title ?? this.title,
         rating: rating ?? this.rating,
         created: created ?? this.created,
-        isPublic: isPublic ?? this.isPublic,
         blog: blog ?? this.blog,
         comments: comments ?? this.comments);
   }
@@ -215,7 +209,6 @@ class Post extends Model {
         'title': _title,
         'rating': _rating,
         'created': _created?.format(),
-        'isPublic': _isPublic,
         'blog': _blog?.toJson(),
         'comments': _comments?.map((Comment? e) => e?.toJson()).toList(),
         'createdAt': _createdAt?.format(),
@@ -226,7 +219,6 @@ class Post extends Model {
   static final QueryField TITLE = QueryField(fieldName: "title");
   static final QueryField RATING = QueryField(fieldName: "rating");
   static final QueryField CREATED = QueryField(fieldName: "created");
-  static final QueryField ISPUBLIC = QueryField(fieldName: "isPublic");
   static final QueryField BLOG = QueryField(
       fieldName: "blog",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
@@ -256,11 +248,6 @@ class Post extends Model {
         key: Post.CREATED,
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Post.ISPUBLIC,
-        isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.bool)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
         key: Post.BLOG,
