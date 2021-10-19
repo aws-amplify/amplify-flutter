@@ -18,8 +18,8 @@ import 'package:amplify_authenticator/src/widgets/input_types/authenticator_inpu
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class AuthenticatorDateInput extends AuthenticatorInput {
-  const AuthenticatorDateInput(
+class AuthenticatorPhoneInput extends AuthenticatorInput {
+  const AuthenticatorPhoneInput(
       {required Key key,
       required bool enabled,
       required void Function(String) onChanged,
@@ -45,41 +45,29 @@ class AuthenticatorDateInput extends AuthenticatorInput {
             hintText: hintText);
 
   @override
-  _AuthenticatorDateInputState createState() => _AuthenticatorDateInputState();
+  _AuthenticatorPhoneInputState createState() =>
+      _AuthenticatorPhoneInputState();
 }
 
-class _AuthenticatorDateInputState extends State<AuthenticatorDateInput> {
-  String? _dateString;
-
-  late TextEditingController _controller;
-
-  String _convertToDateString(DateTime dt) {
-    return "${dt.year.toString()}-${dt.month.toString().padLeft(2, '0')}-${dt.day.toString().padLeft(2, '0')}";
-  }
-
-  void _pickTime() async {
-    DateTime? d = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(DateTime.now().year - 110),
-        lastDate: DateTime.now());
-    if (d != null) {
-      setState(() {
-        _dateString = _convertToDateString(d);
-      });
-      widget.onChanged(_dateString!);
-    }
-  }
+class _AuthenticatorPhoneInputState extends State<AuthenticatorPhoneInput> {
+  String _selectedValue = '1';
 
   @override
   Widget build(BuildContext context) {
-    _controller =
-        TextEditingController(text: _dateString ?? widget.initialValue);
     return Row(children: [
-      IconButton(
-        icon: const Icon(Icons.calendar_today),
-        tooltip: 'Select birthdate',
-        onPressed: _pickTime,
+      DropdownButton<String>(
+        value: _selectedValue,
+        items: <String>['1', '2', '3', '4'].map((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text('+$value'),
+          );
+        }).toList(),
+        onChanged: (newValue) {
+          setState(() {
+            _selectedValue = newValue!;
+          });
+        },
       ),
       Expanded(
           child: TextFormField(
@@ -88,15 +76,11 @@ class _AuthenticatorDateInputState extends State<AuthenticatorDateInput> {
             : const TextStyle(
                 color: AuthenticatorColors.disabledTextColor,
               ),
+        initialValue: widget.initialValue,
         enabled: widget.enabled,
         validator: widget.validator,
-        onChanged: (newValue) {
-          if ([4, 7].contains(newValue.length)) {
-            _controller.value = TextEditingValue(text: _controller.text + '-');
-            _controller.selection = TextSelection.fromPosition(
-                TextPosition(offset: _controller.text.length));
-          }
-          widget.onChanged(newValue);
+        onChanged: (phoneValue) {
+          widget.onChanged('+$_selectedValue$phoneValue');
         },
         decoration: InputDecoration(
           suffixIcon: widget.suffixIcon,
@@ -111,7 +95,6 @@ class _AuthenticatorDateInputState extends State<AuthenticatorDateInput> {
         ),
         keyboardType: widget.keyboardType,
         obscureText: widget.obscureText,
-        controller: _controller,
       ))
     ]);
   }

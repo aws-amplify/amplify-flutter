@@ -82,12 +82,11 @@ class SignInFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? keyPhoneNumberSignInFormField,
-          titleKey: InputResolverKey.phoneNumberTitle,
-          hintTextKey: InputResolverKey.phoneNumberHint,
-          field: SignInField.phoneNumber,
-          validator: validator,
-        );
+            key: key ?? keyPhoneNumberSignInFormField,
+            titleKey: InputResolverKey.phoneNumberTitle,
+            hintTextKey: InputResolverKey.phoneNumberHint,
+            field: SignInField.phoneNumber,
+            validator: validator);
 
   /// Creates a verifyUsername component.
   const SignInFormField.verifyUsername({

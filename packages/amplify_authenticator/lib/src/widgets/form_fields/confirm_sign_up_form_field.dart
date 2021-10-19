@@ -46,7 +46,7 @@ class ConfirmSignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key,
+          key: key ?? keyUsernameConfirmSignUpFormfield,
           titleKey: InputResolverKey.usernameTitle,
           hintTextKey: InputResolverKey.usernameHint,
           field: ConfirmSignUpField.username,

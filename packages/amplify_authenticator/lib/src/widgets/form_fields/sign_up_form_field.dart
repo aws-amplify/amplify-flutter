@@ -24,25 +24,26 @@ class SignUpFormField
   /// {@macro authenticator.sign_up_form_field}
   ///
   /// Either [titleKey] or [title] is required.
-  const SignUpFormField._({
-    Key? key,
-    required SignUpField field,
-    InputResolverKey? titleKey,
-    InputResolverKey? hintTextKey,
-    String? title,
-    String? hintText,
-    FormFieldValidator<String>? validator,
-    String? customAttributeKey,
-  })  : _customAttributeKey = customAttributeKey,
+  const SignUpFormField._(
+      {Key? key,
+      required SignUpField field,
+      InputResolverKey? titleKey,
+      InputResolverKey? hintTextKey,
+      String? title,
+      String? hintText,
+      FormFieldValidator<String>? validator,
+      String? customAttributeKey,
+      InputType inputType = InputType.text})
+      : _customAttributeKey = customAttributeKey,
         super._(
-          key: key,
-          field: field,
-          titleKey: titleKey,
-          hintTextKey: hintTextKey,
-          title: title,
-          hintText: hintText,
-          validator: validator,
-        );
+            key: key,
+            field: field,
+            titleKey: titleKey,
+            hintTextKey: hintTextKey,
+            title: title,
+            hintText: hintText,
+            validator: validator,
+            inputType: inputType);
 
   /// Creates a username component.
   const SignUpFormField.username({
@@ -97,12 +98,12 @@ class SignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? keyBirthdateSignUpFormField,
-          titleKey: InputResolverKey.birthdateTitle,
-          hintTextKey: InputResolverKey.birthdateHint,
-          field: SignUpField.birthdate,
-          validator: validator,
-        );
+            key: key ?? keyBirthdateSignUpFormField,
+            titleKey: InputResolverKey.birthdateTitle,
+            hintTextKey: InputResolverKey.birthdateHint,
+            field: SignUpField.birthdate,
+            validator: validator,
+            inputType: InputType.datePicker);
 
   /// Creates a nemail component.
   const SignUpFormField.email({
@@ -205,12 +206,12 @@ class SignUpFormField
     Key? key,
     FormFieldValidator<String>? validator,
   }) : this._(
-          key: key ?? keyPhoneNumberSignUpFormField,
-          titleKey: InputResolverKey.phoneNumberTitle,
-          hintTextKey: InputResolverKey.phoneNumberHint,
-          field: SignUpField.phoneNumber,
-          validator: validator,
-        );
+            key: key ?? keyPhoneNumberSignUpFormField,
+            titleKey: InputResolverKey.phoneNumberTitle,
+            hintTextKey: InputResolverKey.phoneNumberHint,
+            field: SignUpField.phoneNumber,
+            validator: validator,
+            inputType: InputType.phone);
 
   // /// Creates a picture component.
   // const SignUpFormField.picture({

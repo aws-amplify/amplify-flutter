@@ -61,6 +61,7 @@ abstract class AuthenticatorFormField<FieldType,
     this.hintTextKey,
     this.title,
     this.hintText,
+    this.inputType = InputType.text,
     FormFieldValidator<String>? validator,
   })  : assert(
           titleKey != null || title != null,
@@ -84,6 +85,9 @@ abstract class AuthenticatorFormField<FieldType,
   /// The field this form field controls.
   final FieldType field;
 
+  /// The type of input field, defaults to [InputType.text]
+  final InputType inputType;
+
   /// Override of default validator.
   final FormFieldValidator<String>? _validatorOverride;
 
@@ -95,6 +99,7 @@ abstract class AuthenticatorFormField<FieldType,
     properties.add(EnumProperty('hintTextKey', hintTextKey));
     properties.add(StringProperty('title', title));
     properties.add(StringProperty('hintText', hintText));
+    properties.add(EnumProperty<InputType?>('inputType', inputType));
   }
 }
 
@@ -177,13 +182,6 @@ abstract class _AuthenticatorFormFieldState<FieldType,
 
   @override
   Widget build(BuildContext context) {
-    final inputResolver = stringResolver.inputs;
-    final hintText = widget.hintText == null
-        ? inputResolver.resolve(context, widget.hintTextKey!)
-        : widget.hintText!;
-    final title = widget.title == null
-        ? inputResolver.resolve(context, widget.titleKey!)
-        : widget.title!;
     return Container(
       margin: FormFieldConstants.marginBottom,
       child: Column(
