@@ -40,7 +40,9 @@ Amplify Flutter current supports iOS and Android.  This issue is reproducible in
 
   <summary>Dependencies (<code>pubspec.lock</code>)</summary>
   
-  ```Paste the contents of your "pubspec.lock" file here```
+  ```
+  Paste the contents of your "pubspec.lock" file here
+  ```
 
 </details>
 
