@@ -15,7 +15,7 @@
 
 import 'package:flutter/foundation.dart';
 
-/// Logs [Object] to console only if application is running in debug mode
+/// Logs [o] to console only if application is running in debug mode
 void safePrint(Object? o) {
   if (kDebugMode) {
     print(o);
