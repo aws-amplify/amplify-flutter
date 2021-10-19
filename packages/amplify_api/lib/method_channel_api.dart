@@ -170,8 +170,9 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
         final payload = (event['payload'] as Map).cast<String, dynamic>();
         final errors = _deserializeGraphQLResponseErrors(payload);
 
-        GraphQLResponse<T> response =
-            GraphQLResponse<T>(data: payload['data'], errors: errors);
+        GraphQLResponse<T> response = GraphQLResponseDecoder.instance.decode<T>(
+            request: request, data: payload['data'] ?? '', errors: errors);
+
         onData(response);
       }
     });

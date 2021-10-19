@@ -12,7 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_api/amplify_api.dart';
@@ -25,6 +25,8 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 
 import 'resources/Blog.dart';
 import 'resources/ModelProvider.dart';
+
+const _subscriptionWaitInterval = 3;
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -283,6 +285,35 @@ void main() {
       final res = await Amplify.API.query(request: getReq).response;
       Blog data = res.data;
       expect(data.name, name);
+    });
+
+    testWidgets(
+        'should emit event when onCreate subscription made with model helper',
+        (WidgetTester tester) async {
+      String name = 'Integration Test Blog - subscription create';
+      final subReq = ModelSubscriptions.onCreate(Blog.classType);
+      Blog? blogFromSubscriptionEvent;
+      bool callbackTriggered = false;
+      final operation = Amplify.API.subscribe<Blog>(
+          request: subReq,
+          onData: (response) {
+            callbackTriggered = true;
+            blogFromSubscriptionEvent = response.data;
+          },
+          onEstablished: () {},
+          onError: (dynamic e) {},
+          onDone: () {});
+
+      // Wait a little for setup, add blog, wait for event triggered.
+      await Future<dynamic>.delayed(
+          const Duration(seconds: _subscriptionWaitInterval));
+      await addBlog(name);
+      await Future<dynamic>.delayed(
+          const Duration(seconds: _subscriptionWaitInterval));
+
+      expect(callbackTriggered, isTrue);
+      expect(blogFromSubscriptionEvent!.name, equals(name));
+      await operation.cancel();
     });
   });
 }

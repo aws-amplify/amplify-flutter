@@ -141,6 +141,12 @@ class GraphQLRequestFactory {
             "(\$input: ${operationValue}${modelName}Input!, \$condition:  Model${modelName}ConditionInput)";
         lowerOutput = r"(input: $input, condition: $condition)";
         break;
+      case GraphQLRequestOperation.onCreate:
+      case GraphQLRequestOperation.onUpdate:
+      case GraphQLRequestOperation.onDelete:
+        upperOutput = '';
+        lowerOutput = '';
+        break;
       default:
         throw ApiException('GraphQL Request Operation is currently unsupported',
             recoverySuggestion: 'please use a supported GraphQL operation');
