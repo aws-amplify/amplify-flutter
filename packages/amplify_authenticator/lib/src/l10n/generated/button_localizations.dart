@@ -172,17 +172,11 @@ abstract class AuthenticatorButtonLocalizations {
   /// **'Reset Password'**
   String get resetPassword;
 
-  /// Label of button to verify a user's contact point such as their email or phone number
+  /// Label of button to verify a user's attribute, such as their email or phone number
   ///
   /// In en, this message translates to:
   /// **'Verify'**
-  String get verifyUser;
-
-  /// Label of button to submit a verification code sent to a user's contact point
-  ///
-  /// In en, this message translates to:
-  /// **'Submit'**
-  String get confirmVerifyUser;
+  String get verify;
 
   /// Label of button to skip the current screen or action.
   ///

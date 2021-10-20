@@ -530,7 +530,7 @@ class VerifyUserButton extends AuthenticatorElevatedButton {
         );
 
   @override
-  ButtonResolverKey get labelKey => ButtonResolverKey.verifyUser;
+  ButtonResolverKey get labelKey => ButtonResolverKey.verify;
 
   @override
   void onPressed(BuildContext context, AuthViewModel viewModel) {
@@ -546,7 +546,7 @@ class ConfirmVerifyUserButton extends AuthenticatorElevatedButton {
         );
 
   @override
-  ButtonResolverKey get labelKey => ButtonResolverKey.confirmVerifyUser;
+  ButtonResolverKey get labelKey => ButtonResolverKey.submit;
 
   @override
   void onPressed(BuildContext context, AuthViewModel viewModel) {

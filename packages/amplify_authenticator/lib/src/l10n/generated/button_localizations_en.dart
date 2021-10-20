@@ -56,10 +56,7 @@ class AuthenticatorButtonLocalizationsEn extends AuthenticatorButtonLocalization
   String get resetPassword => 'Reset Password';
 
   @override
-  String get verifyUser => 'Verify';
-
-  @override
-  String get confirmVerifyUser => 'Submit';
+  String get verify => 'Verify';
 
   @override
   String get skip => 'Skip';

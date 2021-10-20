@@ -28,8 +28,7 @@ enum ButtonResolverKeyType {
   changePassword,
   sendCode,
   lostCode,
-  verifyUser,
-  confirmVerifyUser,
+  verify,
   signout,
   signInWith,
   noAccount,
@@ -60,10 +59,7 @@ class ButtonResolverKey {
   static const sendCode = ButtonResolverKey._(ButtonResolverKeyType.sendCode);
   static const lostCodeQuestion =
       ButtonResolverKey._(ButtonResolverKeyType.lostCode);
-  static const verifyUser =
-      ButtonResolverKey._(ButtonResolverKeyType.verifyUser);
-  static const confirmVerifyUser =
-      ButtonResolverKey._(ButtonResolverKeyType.confirmVerifyUser);
+  static const verify = ButtonResolverKey._(ButtonResolverKeyType.verify);
   static const signout = ButtonResolverKey._(ButtonResolverKeyType.signout);
   const ButtonResolverKey.signInWith(AuthProvider provider)
       : this._(ButtonResolverKeyType.signInWith, provider: provider);
@@ -119,13 +115,8 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
   }
 
   /// Label of button to verify a user after sign in
-  String verifyUser(BuildContext context) {
-    return AuthenticatorButtonLocalizations.of(context).verifyUser;
-  }
-
-  /// Label of button to confirm verification a user after sign in
-  String confirmVerifyUser(BuildContext context) {
-    return AuthenticatorButtonLocalizations.of(context).confirmVerifyUser;
+  String verify(BuildContext context) {
+    return AuthenticatorButtonLocalizations.of(context).verify;
   }
 
   /// Label of button to sign out the user
@@ -185,10 +176,8 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
         return sendCode(context);
       case ButtonResolverKeyType.lostCode:
         return lostCode(context);
-      case ButtonResolverKeyType.verifyUser:
-        return verifyUser(context);
-      case ButtonResolverKeyType.confirmVerifyUser:
-        return confirmVerifyUser(context);
+      case ButtonResolverKeyType.verify:
+        return verify(context);
       case ButtonResolverKeyType.signout:
         return signout(context);
       case ButtonResolverKeyType.signInWith:

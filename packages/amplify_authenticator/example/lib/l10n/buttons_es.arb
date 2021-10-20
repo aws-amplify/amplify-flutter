@@ -1,0 +1,18 @@
+{
+    "signin": "Iniciar Sesión",
+    "signup": "Crear una Cuenta",
+    "confirm": "Confirmar",
+    "submit": "Enviar",
+    "changePassword": "Cambiar contraseña",
+    "sendCode": "Enviar Código",
+    "lostCode": "¿Perdiste su código?",
+    "noAccount": "¿Sin cuenta?",
+    "haveAccount": "¿Tiene una cuenta?",
+    "forgotPassword": "¿Olvidase su contraseña?",
+    "resetPassword": "¿Restablecer su contraseña?",
+    "verify": "Verificar",
+    "skip": "Omitir",
+    "signout": "Salir",
+    "backTo": "Regresar al {previousScreen, select, signup{registro}, signin{inicio de sesión}, confirmSignup{Confirmar registro}, confirmSigninMfa{Confirmar inicio de sesión} confirmSigninNewPassword{Confirmar inicio de sesión} sendCode{Enviar código} resetPassword{Restablecer contraseña} verifyUser{Verificar usuario} confirmVerifyUser{Confirmar verificación de usuario}}",
+    "signInWith": "Iniciar Sesión con {provider, select, google{Google} facebook{Facebook} amazon{Amazon} apple{Apple}}"
+}
