@@ -19,6 +19,7 @@ import 'package:amplify_core/types/exception/AmplifyException.dart';
 import 'package:amplify_core/types/exception/AmplifyExceptionMessages.dart';
 import 'package:flutter/services.dart';
 export './types/index.dart';
+export './utils/index.dart';
 
 class AmplifyCore {
   static const MethodChannel _channel = const MethodChannel('amplify_core');

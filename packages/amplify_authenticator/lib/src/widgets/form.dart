@@ -23,6 +23,7 @@ import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:amplify_authenticator/src/widgets/layout.dart';
+import 'package:amplify_authenticator/src/widgets/checkbox.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -43,14 +44,14 @@ abstract class AuthenticatorForm<T extends AuthenticatorForm<T>>
   const AuthenticatorForm._({
     Key? key,
     required this.fields,
-    required this.buttons,
+    required this.actions,
   }) : super(key: key);
 
   /// The form's field components.
   final List<AuthenticatorFormField> fields;
 
-  /// Buttons to show below [fields].
-  final List<Widget> buttons;
+  /// Buttons and checkboxes to show below [fields].
+  final List<Widget> actions;
 
   /// Additional fields defined at runtime.
   List<AuthenticatorFormField> additionalFields(BuildContext context) =>
@@ -88,7 +89,7 @@ class AuthenticatorFormState<T extends AuthenticatorForm<T>>
           ...widget.fields,
           ...widget.additionalFields(context),
           AdaptiveFlex(
-            children: widget.buttons,
+            children: widget.actions,
           ),
         ],
       ),
@@ -131,7 +132,7 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
   }) : super._(
           key: key,
           fields: fields,
-          buttons: const [
+          actions: const [
             SignUpButton(),
             GoToSignInButton(),
           ],
@@ -241,7 +242,7 @@ class SignInForm extends AuthenticatorForm<SignInForm> {
   }) : super._(
           key: key,
           fields: fields,
-          buttons: const [
+          actions: const [
             SignInButton(),
             GoToSignUpButton(),
           ],
@@ -277,7 +278,7 @@ class ConfirmSignUpForm extends AuthenticatorForm<ConfirmSignUpForm> {
   }) : super._(
           key: key,
           fields: fields,
-          buttons: const [
+          actions: const [
             ConfirmSignUpButton(),
             BackToSignInButton(),
           ],
@@ -315,7 +316,8 @@ class ConfirmSignInMFAForm extends AuthenticatorForm<ConfirmSignInMFAForm> {
   }) : super._(
           key: key,
           fields: fields,
-          buttons: const [
+          actions: const [
+            RememberDeviceCheckbox(),
             ConfirmSignInMFAButton(),
             BackToSignInButton(),
           ],
@@ -350,7 +352,7 @@ class ConfirmSignInNewPasswordForm
   }) : super._(
           key: key,
           fields: fields,
-          buttons: const [
+          actions: const [
             ConfirmSignInNewPasswordButton(),
             BackToSignInButton(),
           ],
@@ -384,7 +386,7 @@ class SendCodeForm extends AuthenticatorForm<SendCodeForm> {
   }) : super._(
           key: key,
           fields: fields,
-          buttons: const [
+          actions: const [
             BackToSignInButton(),
             SendCodeButton(),
           ],
@@ -419,7 +421,7 @@ class ResetPasswordForm extends AuthenticatorForm<ResetPasswordForm> {
   }) : super._(
           key: key,
           fields: fields,
-          buttons: const [
+          actions: const [
             SubmitButton(),
             BackToSignInButton(),
           ],
@@ -442,7 +444,7 @@ class VerifyUserForm extends AuthenticatorForm<VerifyUserForm> {
   }) : super._(
           key: key,
           fields: const [],
-          buttons: const [
+          actions: const [
             VerifyUserButton(),
             SkipVerifyUserButton(),
           ],
@@ -508,7 +510,7 @@ class ConfirmVerifyUserForm extends AuthenticatorForm<ConfirmVerifyUserForm> {
           fields: const [
             ConfirmVerifyUserFormField(),
           ],
-          buttons: const [
+          actions: const [
             ConfirmVerifyUserButton(),
             SkipVerifyUserButton(),
           ],

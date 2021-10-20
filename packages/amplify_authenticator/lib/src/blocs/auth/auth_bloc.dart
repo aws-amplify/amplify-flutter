@@ -19,6 +19,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
 import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_flutter/src/config/amplify_config.dart';
 
@@ -97,7 +98,7 @@ class StateMachineBloc {
     } else if (event is AuthConfirmPassword) {
       yield* _confirmPassword(event.data);
     } else if (event is AuthConfirmSignIn) {
-      yield* _confirmSignIn(event.data);
+      yield* _confirmSignIn(event.data, event.rememberDevice);
     } else if (event is AuthVerifyUser) {
       yield* _verifyUser(event.data);
     } else if (event is AuthConfirmVerifyUser) {
@@ -132,7 +133,8 @@ class StateMachineBloc {
     }
   }
 
-  Stream<AuthState> _confirmSignIn(AuthConfirmSignInData data) async* {
+  Stream<AuthState> _confirmSignIn(
+      AuthConfirmSignInData data, bool rememberDevice) async* {
     try {
       var result = await _authService.confirmSignIn(
         code: data.code,
@@ -156,6 +158,16 @@ class StateMachineBloc {
           yield AuthFlow.confirmSignup;
           break;
         case 'DONE':
+          if (rememberDevice) {
+            try {
+              await _authService.rememberDevice();
+            } on Exception catch (e, s) {
+              /// TODO: How to handle these exceptions, since we have already authenticated
+              /// Will need to expose state outside of the Authenticator (or something similar)
+              safePrint('$e');
+              safePrint('$s');
+            }
+          }
           yield const Authenticated();
           break;
         default:
@@ -253,7 +265,7 @@ class StateMachineBloc {
       // exception is logged but not presented to the user since there is
       // no obvious recovery if there is an exception fetching the users
       // unconfirmed attributes
-      print(e);
+      safePrint(e);
       yield const Authenticated();
     }
   }

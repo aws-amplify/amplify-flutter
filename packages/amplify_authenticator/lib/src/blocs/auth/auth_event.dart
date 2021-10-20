@@ -79,8 +79,9 @@ class AuthUpdatePassword extends AuthEvent {
 
 class AuthConfirmSignIn extends AuthEvent {
   final AuthConfirmSignInData data;
+  final bool rememberDevice;
 
-  const AuthConfirmSignIn(this.data);
+  const AuthConfirmSignIn(this.data, {required this.rememberDevice});
 }
 
 class AuthSetUnverifiedAttributeKeys extends AuthEvent {
