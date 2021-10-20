@@ -80,9 +80,9 @@ class Authenticator extends StatefulWidget {
     this.signUpForm = const SignUpForm(),
     this.confirmSignInMFAForm = const ConfirmSignInMFAForm(),
     this.stringResolver = const AuthStringResolver(),
-    this.useAmplifyTheme = true,
     required this.child,
-  }) : super(key: key);
+  })  : useAmplifyTheme = false,
+        super(key: key);
 
   /// Whether to use Amplify colors and styles in the Authenticator,
   /// instead of those defined by your app's [Theme].
@@ -195,6 +195,11 @@ class _AuthenticatorState extends State<Authenticator> {
     super.initState();
     _stateMachineBloc = StateMachineBloc(_authService)..add(const AuthLoad());
     _viewModel = AuthViewModel(_stateMachineBloc);
+    _subscribeToExceptions();
+    _waitForConfiguration();
+  }
+
+  void _subscribeToExceptions() {
     _exceptionSub = _stateMachineBloc.exceptions.listen((exception) {
       if (mounted && exception.showBanner) {
         ScaffoldMessenger.of(context)
@@ -213,7 +218,6 @@ class _AuthenticatorState extends State<Authenticator> {
           ));
       }
     });
-    _waitForConfiguration();
   }
 
   @override

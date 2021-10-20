@@ -37,31 +37,19 @@ class SocialSignInButton extends AuthenticatorElevatedButton {
 
   /// A social sign-in button for Facebook.
   const SocialSignInButton.facebook({Key? key})
-      : this(
-          key: key,
-          provider: AuthProvider.facebook,
-        );
+      : this(key: key, provider: AuthProvider.facebook);
 
   /// A social sign-in button for Google.
   const SocialSignInButton.google({Key? key})
-      : this(
-          key: key,
-          provider: AuthProvider.google,
-        );
+      : this(key: key, provider: AuthProvider.google);
 
   /// A social sign-in button for Amazon.
   const SocialSignInButton.amazon({Key? key})
-      : this(
-          key: key,
-          provider: AuthProvider.amazon,
-        );
+      : this(key: key, provider: AuthProvider.amazon);
 
   /// A social sign-in button for Apple.
   const SocialSignInButton.apple({Key? key})
-      : this(
-          key: key,
-          provider: AuthProvider.apple,
-        );
+      : this(key: key, provider: AuthProvider.apple);
 
   /// The Cognito social sign-in provider.
   final AuthProvider provider;
