@@ -105,7 +105,7 @@ abstract class AuthenticatorFormField<FieldType,
   }
 }
 
-abstract class AuthenticatorFormFieldState<FieldType,
+abstract class _AuthenticatorFormFieldState<FieldType,
         T extends AuthenticatorFormField<FieldType, T>>
     extends AuthenticatorComponentState<T> {
   @nonVirtual

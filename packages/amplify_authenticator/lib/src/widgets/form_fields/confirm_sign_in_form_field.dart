@@ -92,7 +92,7 @@ class ConfirmSignInFormField
   _ConfirmSignInFormFieldState createState() => _ConfirmSignInFormFieldState();
 }
 
-class _ConfirmSignInFormFieldState extends AuthenticatorFormFieldState<
+class _ConfirmSignInFormFieldState extends _AuthenticatorFormFieldState<
     ConfirmSignInField, ConfirmSignInFormField> {
   @override
   String? get initialValue {
