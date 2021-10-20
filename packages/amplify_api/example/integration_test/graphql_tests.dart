@@ -26,7 +26,7 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'resources/Blog.dart';
 import 'resources/ModelProvider.dart';
 
-const _subscriptionWaitInterval = 3;
+const _subscriptionTimeoutInterval = 10;
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -287,33 +287,121 @@ void main() {
       expect(data.name, name);
     });
 
-    testWidgets(
-        'should emit event when onCreate subscription made with model helper',
-        (WidgetTester tester) async {
-      String name = 'Integration Test Blog - subscription create';
-      final subReq = ModelSubscriptions.onCreate(Blog.classType);
-      Blog? blogFromSubscriptionEvent;
-      bool callbackTriggered = false;
-      final operation = Amplify.API.subscribe<Blog>(
-          request: subReq,
-          onData: (response) {
-            callbackTriggered = true;
-            blogFromSubscriptionEvent = response.data;
-          },
-          onEstablished: () {},
-          onError: (dynamic e) {},
-          onDone: () {});
+    group('subscriptions', () {
+      // Some local helper methods to help with establishing subscriptions and such.
 
-      // Wait a little for setup, add blog, wait for event triggered.
-      await Future<dynamic>.delayed(
-          const Duration(seconds: _subscriptionWaitInterval));
-      await addBlog(name);
-      await Future<dynamic>.delayed(
-          const Duration(seconds: _subscriptionWaitInterval));
+      // Wait for subscription established for given request.
+      Future<GraphQLSubscriptionOperation<T>>
+          _getEstablishedSubscriptionOperation<T>(
+              GraphQLRequest<T> subscriptionRequest,
+              {required void Function(GraphQLResponse<T>) onData}) async {
+        Completer<void> establishedCompleter = Completer();
+        final operation = Amplify.API.subscribe<T>(
+            request: subscriptionRequest,
+            onData: (data) {
+              onData(data);
+            },
+            onEstablished: () {
+              establishedCompleter.complete();
+            },
+            onError: (dynamic e) {
+              establishedCompleter.completeError(e);
+            },
+            onDone: () {});
 
-      expect(callbackTriggered, isTrue);
-      expect(blogFromSubscriptionEvent!.name, equals(name));
-      await operation.cancel();
+        await establishedCompleter.future
+            .timeout(const Duration(seconds: _subscriptionTimeoutInterval));
+        return operation;
+      }
+
+      // Establish subscription for request, do the mutationFunction, then wait
+      // for the onData event, cancel the operation, return response from event.
+      Future<GraphQLResponse<T>> _establishSubscriptionAndMutate<T>(
+          GraphQLRequest<T> subscriptionRequest,
+          Future<void> Function() mutationFunction) async {
+        Completer<GraphQLResponse<T>> dataCompleter = Completer();
+        final operation = await _getEstablishedSubscriptionOperation<T>(
+            subscriptionRequest, onData: (data) {
+          dataCompleter.complete(data);
+        });
+        await mutationFunction();
+        final response = await dataCompleter.future
+            .timeout((const Duration(seconds: _subscriptionTimeoutInterval)));
+
+        await operation.cancel();
+
+        return response;
+      }
+
+      testWidgets(
+          'should emit event when onCreate subscription made with model helper',
+          (WidgetTester tester) async {
+        String name = 'Integration Test Blog - subscription create';
+        final subscriptionRequest = ModelSubscriptions.onCreate(Blog.classType);
+
+        final eventResponse = await _establishSubscriptionAndMutate(
+            subscriptionRequest, () => addBlog(name));
+        Blog blogFromEvent = eventResponse.data;
+
+        expect(blogFromEvent.name, equals(name));
+      });
+
+      testWidgets(
+          'should emit event when onUpdate subscription made with model helper',
+          (WidgetTester tester) async {
+        const originalName = 'Integration Test Blog - subscription update';
+        final updatedName =
+            'Integration Test Blog - subscription update, name now ${UUID.getUUID()}';
+        Blog blogToUpdate = await addBlog(originalName);
+
+        final subscriptionRequest = ModelSubscriptions.onUpdate(Blog.classType);
+        final eventResponse =
+            await _establishSubscriptionAndMutate(subscriptionRequest, () {
+          blogToUpdate = blogToUpdate.copyWith(name: updatedName);
+          final updateReq = ModelMutations.update(blogToUpdate);
+          return Amplify.API.mutate(request: updateReq).response;
+        });
+        Blog blogFromEvent = eventResponse.data;
+
+        expect(blogFromEvent.name, equals(updatedName));
+      });
+
+      testWidgets(
+          'should emit event when onDelete subscription made with model helper',
+          (WidgetTester tester) async {
+        const name = 'Integration Test Blog - subscription delete';
+        Blog blogToDelete = await addBlog(name);
+
+        final subscriptionRequest = ModelSubscriptions.onDelete(Blog.classType);
+        final eventResponse =
+            await _establishSubscriptionAndMutate(subscriptionRequest, () {
+          final deleteReq =
+              ModelMutations.deleteById(Blog.classType, blogToDelete.id);
+          return Amplify.API.mutate(request: deleteReq).response;
+        });
+        Blog blogFromEvent = eventResponse.data;
+
+        expect(blogFromEvent.name, equals(name));
+      });
+
+      testWidgets('should cancel subscription', (WidgetTester tester) async {
+        const name = 'Integration Test Blog - subscription to cancel';
+        Blog blogToDelete = await addBlog(name);
+
+        final subReq = ModelSubscriptions.onDelete(Blog.classType);
+        final operation = await _getEstablishedSubscriptionOperation<Blog>(
+            subReq, onData: (_) {
+          fail('Subscription event triggered. Should be canceled.');
+        });
+        await operation.cancel();
+
+        // delete the blog, wait for update
+        final deleteReq =
+            ModelMutations.deleteById(Blog.classType, blogToDelete.id);
+        await Amplify.API.mutate(request: deleteReq).response;
+        await Future<dynamic>.delayed(
+            const Duration(seconds: _subscriptionTimeoutInterval));
+      });
     });
   });
 }
