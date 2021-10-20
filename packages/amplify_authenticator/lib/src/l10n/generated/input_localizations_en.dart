@@ -129,4 +129,7 @@ class AuthenticatorInputLocalizationsEn extends AuthenticatorInputLocalizations 
 
     return 'at least ${pluralString}';
   }
+
+  @override
+  String get rememberDevice => 'Remember Device?';
 }

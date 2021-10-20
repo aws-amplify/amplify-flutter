@@ -20,6 +20,7 @@ import 'package:amplify_authenticator/src/enums/enums.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
+import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/utils/list.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
@@ -153,10 +154,12 @@ class _AmplifyElevatedButtonState
             : null,
       ),
       child: ElevatedButtonTheme(
-        data: AmplifyTheme.elevatedButtonThemeData(
-          primary: widget.primary,
-          isLoading: viewModel.isBusy,
-        ),
+        data: InheritedConfig.of(context).useAmplifyTheme
+            ? AmplifyTheme.elevatedButtonThemeData(
+                primary: widget.primary,
+                isLoading: viewModel.isBusy,
+              )
+            : ElevatedButtonTheme.of(context),
         child: SizedBox(
           height: widget.size.height,
           child: ElevatedButton(

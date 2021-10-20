@@ -41,6 +41,7 @@ enum InputField {
   // zoneinfo,
   // updatedAt,
   // website,
+  rememberDevice,
 }
 
 enum InputResolverKeyType {
@@ -316,6 +317,10 @@ class InputResolverKey {
   //   _InputResolverKey.empty,
   //   attribute: InputField.zoneinfo,
   // );
+  static const rememberDevice = InputResolverKey._(
+    InputResolverKeyType.title,
+    field: InputField.rememberDevice,
+  );
 }
 
 class InputResolver extends Resolver<InputResolverKey> {
@@ -370,6 +375,8 @@ class InputResolver extends Resolver<InputResolverKey> {
       // case InputField.website:
       //   // TODO: Handle this case.
       //   break;
+      case InputField.rememberDevice:
+        return AuthenticatorInputLocalizations.of(context).rememberDevice;
     }
   }
 

@@ -243,6 +243,12 @@ abstract class AuthenticatorInputLocalizations {
   /// In en, this message translates to:
   /// **'at least {numCharacters, plural, =1{1 {characterType} character} other{{numCharacters} {characterType} characters}}'**
   String passwordRequirementsAtLeast(int numCharacters, String characterType);
+
+  /// Label for the checkbox to remember the user's device in Cognito.
+  ///
+  /// In en, this message translates to:
+  /// **'Remember Device?'**
+  String get rememberDevice;
 }
 
 class _AuthenticatorInputLocalizationsDelegate extends LocalizationsDelegate<AuthenticatorInputLocalizations> {

@@ -152,5 +152,9 @@
                 "description": "The character class or type."
             }
         }
+    },
+    "rememberDevice": "Remember Device?",
+    "@rememberDevice": {
+        "description": "Label for the checkbox to remember the user's device in Cognito."
     }
 }

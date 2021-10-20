@@ -103,6 +103,11 @@ const keyGoToSignInButton = Key('goToSignInButton');
 const keyConfirmSignInButton = Key('confirmSignInButton');
 const keyLostCodeButton = Key('lostCodeButton');
 const keySendCodeButton = Key('sendCodeButton');
+
+// Checkboxes keys
+
+const keyRememberDeviceCheckbox = Key('rememberDeviceCheckbox');
+
 // Inherited keys
 
 const keyInheritedAuthViewModel = Key('inheritedAuthViewModel');
