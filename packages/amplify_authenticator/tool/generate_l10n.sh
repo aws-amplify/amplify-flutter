@@ -44,8 +44,9 @@ for i in "${!TEMPLATES[@]}"; do
         --use-deferred-loading \
         --no-synthetic-package \
         --required-resource-attributes \
-        --no-nullable-getter
+        --nullable-getter
 done
 
 # Clean up generated files
+flutter format $OUTPUT_DIR
 dart fix --apply

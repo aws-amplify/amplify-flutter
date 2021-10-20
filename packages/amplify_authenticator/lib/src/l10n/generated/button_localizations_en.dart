@@ -19,7 +19,8 @@ import 'package:intl/intl.dart' as intl;
 import 'button_localizations.dart';
 
 /// The translations for English (`en`).
-class AuthenticatorButtonLocalizationsEn extends AuthenticatorButtonLocalizations {
+class AuthenticatorButtonLocalizationsEn
+    extends AuthenticatorButtonLocalizations {
   AuthenticatorButtonLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
@@ -67,20 +68,19 @@ class AuthenticatorButtonLocalizationsEn extends AuthenticatorButtonLocalization
   @override
   String backTo(AuthScreen previousScreen) {
     final String selectString = intl.Intl.select(
-      previousScreen,
-      {
-        'signup': 'Sign Up',
-        'signin': 'Sign In',
-        'confirmSignup': 'Confirm Sign-up',
-        'confirmSigninMfa': 'Confirm Sign-in',
-        'confirmSigninNewPassword': 'Confirm Sign-in',
-        'sendCode': 'Send Code',
-        'resetPassword': 'Reset Password',
-        'verifyUser': 'Verify User',
-        'confirmVerifyUser': 'Confirm Verify User'
-      },
-      desc: 'Label of button to return to the previous screen'
-    );
+        previousScreen,
+        {
+          'signup': 'Sign Up',
+          'signin': 'Sign In',
+          'confirmSignup': 'Confirm Sign-up',
+          'confirmSigninMfa': 'Confirm Sign-in',
+          'confirmSigninNewPassword': 'Confirm Sign-in',
+          'sendCode': 'Send Code',
+          'resetPassword': 'Reset Password',
+          'verifyUser': 'Verify User',
+          'confirmVerifyUser': 'Confirm Verify User'
+        },
+        desc: 'Label of button to return to the previous screen');
 
     return 'Back to $selectString';
   }
@@ -88,15 +88,14 @@ class AuthenticatorButtonLocalizationsEn extends AuthenticatorButtonLocalization
   @override
   String signInWith(AuthProvider provider) {
     final String selectString = intl.Intl.select(
-      provider,
-      {
-        'google': 'Google',
-        'facebook': 'Facebook',
-        'amazon': 'Amazon',
-        'apple': 'Apple'
-      },
-      desc: 'Label of button to sign in with a social provider'
-    );
+        provider,
+        {
+          'google': 'Google',
+          'facebook': 'Facebook',
+          'amazon': 'Amazon',
+          'apple': 'Apple'
+        },
+        desc: 'Label of button to sign in with a social provider');
 
     return 'Sign In with $selectString';
   }

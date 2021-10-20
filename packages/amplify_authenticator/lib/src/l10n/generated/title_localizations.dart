@@ -73,15 +73,18 @@ import 'title_localizations_en.dart' deferred as title_localizations_en;
 /// be consistent with the languages listed in the AuthenticatorTitleLocalizations.supportedLocales
 /// property.
 abstract class AuthenticatorTitleLocalizations {
-  AuthenticatorTitleLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AuthenticatorTitleLocalizations(String locale)
+      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
-  static AuthenticatorTitleLocalizations of(BuildContext context) {
-    return Localizations.of<AuthenticatorTitleLocalizations>(context, AuthenticatorTitleLocalizations)!;
+  static AuthenticatorTitleLocalizations? of(BuildContext context) {
+    return Localizations.of<AuthenticatorTitleLocalizations>(
+        context, AuthenticatorTitleLocalizations);
   }
 
-  static const LocalizationsDelegate<AuthenticatorTitleLocalizations> delegate = _AuthenticatorTitleLocalizationsDelegate();
+  static const LocalizationsDelegate<AuthenticatorTitleLocalizations> delegate =
+      _AuthenticatorTitleLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -93,7 +96,8 @@ abstract class AuthenticatorTitleLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -101,9 +105,7 @@ abstract class AuthenticatorTitleLocalizations {
   ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[
-    Locale('en')
-  ];
+  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
 
   /// Title of the Signin screen and form
   ///
@@ -154,7 +156,8 @@ abstract class AuthenticatorTitleLocalizations {
   String get verifyUser;
 }
 
-class _AuthenticatorTitleLocalizationsDelegate extends LocalizationsDelegate<AuthenticatorTitleLocalizations> {
+class _AuthenticatorTitleLocalizationsDelegate
+    extends LocalizationsDelegate<AuthenticatorTitleLocalizations> {
   const _AuthenticatorTitleLocalizationsDelegate();
 
   @override
@@ -163,24 +166,25 @@ class _AuthenticatorTitleLocalizationsDelegate extends LocalizationsDelegate<Aut
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AuthenticatorTitleLocalizationsDelegate old) => false;
 }
 
-Future<AuthenticatorTitleLocalizations> lookupAuthenticatorTitleLocalizations(Locale locale) {
-
-
+Future<AuthenticatorTitleLocalizations> lookupAuthenticatorTitleLocalizations(
+    Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en': return title_localizations_en.loadLibrary().then((dynamic _) => title_localizations_en.AuthenticatorTitleLocalizationsEn());
+    case 'en':
+      return title_localizations_en.loadLibrary().then((dynamic _) =>
+          title_localizations_en.AuthenticatorTitleLocalizationsEn());
   }
 
   throw FlutterError(
-    'AuthenticatorTitleLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
-  );
+      'AuthenticatorTitleLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }

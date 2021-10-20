@@ -13,10 +13,10 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_authenticator/src/l10n/generated/input_localizations.dart';
 import 'package:amplify_flutter/src/config/auth/password_protection_settings.dart';
 import 'package:flutter/material.dart';
 
+import 'authenticator_localizations.dart';
 import 'resolver.dart';
 
 enum InputField {
@@ -329,40 +329,41 @@ class InputResolver extends Resolver<InputResolverKey> {
   String title(BuildContext context, InputField field) {
     switch (field) {
       case InputField.username:
-        return AuthenticatorInputLocalizations.of(context).username;
+        return AuthenticatorLocalizations.inputsOf(context).username;
       case InputField.password:
-        return AuthenticatorInputLocalizations.of(context).password;
+        return AuthenticatorLocalizations.inputsOf(context).password;
       case InputField.passwordConfirmation:
-        return AuthenticatorInputLocalizations.of(context).passwordConfirmation;
+        return AuthenticatorLocalizations.inputsOf(context)
+            .passwordConfirmation;
       case InputField.verificationCode:
-        return AuthenticatorInputLocalizations.of(context).verificationCode;
+        return AuthenticatorLocalizations.inputsOf(context).verificationCode;
       case InputField.address:
-        return AuthenticatorInputLocalizations.of(context).address;
+        return AuthenticatorLocalizations.inputsOf(context).address;
       case InputField.birthdate:
-        return AuthenticatorInputLocalizations.of(context).birthdate;
+        return AuthenticatorLocalizations.inputsOf(context).birthdate;
       case InputField.email:
-        return AuthenticatorInputLocalizations.of(context).email;
+        return AuthenticatorLocalizations.inputsOf(context).email;
       case InputField.familyName:
-        return AuthenticatorInputLocalizations.of(context).familyName;
+        return AuthenticatorLocalizations.inputsOf(context).familyName;
       case InputField.gender:
-        return AuthenticatorInputLocalizations.of(context).gender;
+        return AuthenticatorLocalizations.inputsOf(context).gender;
       case InputField.givenName:
-        return AuthenticatorInputLocalizations.of(context).givenName;
+        return AuthenticatorLocalizations.inputsOf(context).givenName;
       // case InputField.locale:
-      //   return AuthenticatorInputLocalizations.of(context).locale;
+      //   return AuthenticatorLocalizations.inputsOf(context).locale;
       case InputField.middleName:
-        return AuthenticatorInputLocalizations.of(context).middleName;
+        return AuthenticatorLocalizations.inputsOf(context).middleName;
       case InputField.name:
-        return AuthenticatorInputLocalizations.of(context).name;
+        return AuthenticatorLocalizations.inputsOf(context).name;
       case InputField.nickname:
-        return AuthenticatorInputLocalizations.of(context).nickname;
+        return AuthenticatorLocalizations.inputsOf(context).nickname;
       case InputField.phoneNumber:
-        return AuthenticatorInputLocalizations.of(context).phoneNumber;
+        return AuthenticatorLocalizations.inputsOf(context).phoneNumber;
       // case InputField.picture:
       //   // TODO: Handle this case.
       //   break;
       case InputField.preferredUsername:
-        return AuthenticatorInputLocalizations.of(context).preferredUsername;
+        return AuthenticatorLocalizations.inputsOf(context).preferredUsername;
       // case InputField.profile:
       //   // TODO: Handle this case.
       //   break;
@@ -376,7 +377,7 @@ class InputResolver extends Resolver<InputResolverKey> {
       //   // TODO: Handle this case.
       //   break;
       case InputField.rememberDevice:
-        return AuthenticatorInputLocalizations.of(context).rememberDevice;
+        return AuthenticatorLocalizations.inputsOf(context).rememberDevice;
     }
   }
 
@@ -387,15 +388,15 @@ class InputResolver extends Resolver<InputResolverKey> {
       return match.group(0)!.toLowerCase();
     });
     if (field == InputField.passwordConfirmation) {
-      return AuthenticatorInputLocalizations.of(context)
+      return AuthenticatorLocalizations.inputsOf(context)
           .promptRefill(lowercasedFieldName);
     }
-    return AuthenticatorInputLocalizations.of(context)
+    return AuthenticatorLocalizations.inputsOf(context)
         .promptFill(lowercasedFieldName);
   }
 
   String empty(BuildContext context, InputField field) {
-    return AuthenticatorInputLocalizations.of(context)
+    return AuthenticatorLocalizations.inputsOf(context)
         .warnEmpty(title(context, field));
   }
 
@@ -410,18 +411,18 @@ class InputResolver extends Resolver<InputResolverKey> {
     }
     var sb = StringBuffer();
     sb.writeln(
-      AuthenticatorInputLocalizations.of(context).passwordRequirementsPreamble,
+      AuthenticatorLocalizations.inputsOf(context).passwordRequirementsPreamble,
     );
     if (minLength != null) {
-      var atLeast = AuthenticatorInputLocalizations.of(context)
+      var atLeast = AuthenticatorLocalizations.inputsOf(context)
           .passwordRequirementsAtLeast(minLength, '');
       sb.writeln('* $atLeast');
     }
     if (characterReqs != null) {
       for (var characterReq in characterReqs) {
-        var characterType = AuthenticatorInputLocalizations.of(context)
+        var characterType = AuthenticatorLocalizations.inputsOf(context)
             .passwordRequirementsCharacterType(characterReq);
-        var atLeast = AuthenticatorInputLocalizations.of(context)
+        var atLeast = AuthenticatorLocalizations.inputsOf(context)
             .passwordRequirementsAtLeast(1, characterType);
         sb.writeln('* $atLeast');
       }

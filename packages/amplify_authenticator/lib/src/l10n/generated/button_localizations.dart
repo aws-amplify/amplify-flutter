@@ -74,15 +74,18 @@ import 'button_localizations_en.dart' deferred as button_localizations_en;
 /// be consistent with the languages listed in the AuthenticatorButtonLocalizations.supportedLocales
 /// property.
 abstract class AuthenticatorButtonLocalizations {
-  AuthenticatorButtonLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AuthenticatorButtonLocalizations(String locale)
+      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
-  static AuthenticatorButtonLocalizations of(BuildContext context) {
-    return Localizations.of<AuthenticatorButtonLocalizations>(context, AuthenticatorButtonLocalizations)!;
+  static AuthenticatorButtonLocalizations? of(BuildContext context) {
+    return Localizations.of<AuthenticatorButtonLocalizations>(
+        context, AuthenticatorButtonLocalizations);
   }
 
-  static const LocalizationsDelegate<AuthenticatorButtonLocalizations> delegate = _AuthenticatorButtonLocalizationsDelegate();
+  static const LocalizationsDelegate<AuthenticatorButtonLocalizations>
+      delegate = _AuthenticatorButtonLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -94,7 +97,8 @@ abstract class AuthenticatorButtonLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -102,9 +106,7 @@ abstract class AuthenticatorButtonLocalizations {
   ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[
-    Locale('en')
-  ];
+  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
 
   /// Label of the button to sign in the user.
   ///
@@ -203,7 +205,8 @@ abstract class AuthenticatorButtonLocalizations {
   String signInWith(AuthProvider provider);
 }
 
-class _AuthenticatorButtonLocalizationsDelegate extends LocalizationsDelegate<AuthenticatorButtonLocalizations> {
+class _AuthenticatorButtonLocalizationsDelegate
+    extends LocalizationsDelegate<AuthenticatorButtonLocalizations> {
   const _AuthenticatorButtonLocalizationsDelegate();
 
   @override
@@ -212,24 +215,25 @@ class _AuthenticatorButtonLocalizationsDelegate extends LocalizationsDelegate<Au
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AuthenticatorButtonLocalizationsDelegate old) => false;
 }
 
-Future<AuthenticatorButtonLocalizations> lookupAuthenticatorButtonLocalizations(Locale locale) {
-
-
+Future<AuthenticatorButtonLocalizations> lookupAuthenticatorButtonLocalizations(
+    Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en': return button_localizations_en.loadLibrary().then((dynamic _) => button_localizations_en.AuthenticatorButtonLocalizationsEn());
+    case 'en':
+      return button_localizations_en.loadLibrary().then((dynamic _) =>
+          button_localizations_en.AuthenticatorButtonLocalizationsEn());
   }
 
   throw FlutterError(
-    'AuthenticatorButtonLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
-  );
+      'AuthenticatorButtonLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }

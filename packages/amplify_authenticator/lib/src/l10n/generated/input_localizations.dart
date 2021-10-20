@@ -74,15 +74,18 @@ import 'input_localizations_en.dart' deferred as input_localizations_en;
 /// be consistent with the languages listed in the AuthenticatorInputLocalizations.supportedLocales
 /// property.
 abstract class AuthenticatorInputLocalizations {
-  AuthenticatorInputLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AuthenticatorInputLocalizations(String locale)
+      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
-  static AuthenticatorInputLocalizations of(BuildContext context) {
-    return Localizations.of<AuthenticatorInputLocalizations>(context, AuthenticatorInputLocalizations)!;
+  static AuthenticatorInputLocalizations? of(BuildContext context) {
+    return Localizations.of<AuthenticatorInputLocalizations>(
+        context, AuthenticatorInputLocalizations);
   }
 
-  static const LocalizationsDelegate<AuthenticatorInputLocalizations> delegate = _AuthenticatorInputLocalizationsDelegate();
+  static const LocalizationsDelegate<AuthenticatorInputLocalizations> delegate =
+      _AuthenticatorInputLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -94,7 +97,8 @@ abstract class AuthenticatorInputLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -102,9 +106,7 @@ abstract class AuthenticatorInputLocalizations {
   ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[
-    Locale('en')
-  ];
+  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
 
   /// User's chosen username.
   ///
@@ -236,7 +238,8 @@ abstract class AuthenticatorInputLocalizations {
   ///
   /// In en, this message translates to:
   /// **'{characterType, select, uppercase{uppercase} lowercase{lowercase} number{number} symbol{symbol} other{}}'**
-  String passwordRequirementsCharacterType(PasswordPolicyCharacters characterType);
+  String passwordRequirementsCharacterType(
+      PasswordPolicyCharacters characterType);
 
   /// Password uppercase character requirement, displayed as a bullet point in list of unmet requirements.
   ///
@@ -251,7 +254,8 @@ abstract class AuthenticatorInputLocalizations {
   String get rememberDevice;
 }
 
-class _AuthenticatorInputLocalizationsDelegate extends LocalizationsDelegate<AuthenticatorInputLocalizations> {
+class _AuthenticatorInputLocalizationsDelegate
+    extends LocalizationsDelegate<AuthenticatorInputLocalizations> {
   const _AuthenticatorInputLocalizationsDelegate();
 
   @override
@@ -260,24 +264,25 @@ class _AuthenticatorInputLocalizationsDelegate extends LocalizationsDelegate<Aut
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AuthenticatorInputLocalizationsDelegate old) => false;
 }
 
-Future<AuthenticatorInputLocalizations> lookupAuthenticatorInputLocalizations(Locale locale) {
-
-
+Future<AuthenticatorInputLocalizations> lookupAuthenticatorInputLocalizations(
+    Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en': return input_localizations_en.loadLibrary().then((dynamic _) => input_localizations_en.AuthenticatorInputLocalizationsEn());
+    case 'en':
+      return input_localizations_en.loadLibrary().then((dynamic _) =>
+          input_localizations_en.AuthenticatorInputLocalizationsEn());
   }
 
   throw FlutterError(
-    'AuthenticatorInputLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
-  );
+      'AuthenticatorInputLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }

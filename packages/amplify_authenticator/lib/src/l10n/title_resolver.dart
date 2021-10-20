@@ -14,9 +14,9 @@
  */
 
 import 'package:amplify_authenticator/src/enums/auth_screen.dart';
-import 'package:amplify_authenticator/src/l10n/generated/title_localizations.dart';
 import 'package:flutter/material.dart';
 
+import 'authenticator_localizations.dart';
 import 'resolver.dart';
 
 /// The resolver class for screen titles
@@ -25,42 +25,43 @@ class TitleResolver extends Resolver<AuthScreen> {
 
   /// The title for the sign in Widget.
   String signin(BuildContext context) {
-    return AuthenticatorTitleLocalizations.of(context).signin;
+    return AuthenticatorLocalizations.titlesOf(context).signin;
   }
 
   /// The title for the sign up Widget.
   String signup(BuildContext context) {
-    return AuthenticatorTitleLocalizations.of(context).signup;
+    return AuthenticatorLocalizations.titlesOf(context).signup;
   }
 
   /// The title for the confirm sign up Widget.
   String confirmSignup(BuildContext context) {
-    return AuthenticatorTitleLocalizations.of(context).confirmSignup;
+    return AuthenticatorLocalizations.titlesOf(context).confirmSignup;
   }
 
   /// The title for the confirm sign in (MFA) Widget.
   String confirmSigninMfa(BuildContext context) {
-    return AuthenticatorTitleLocalizations.of(context).confirmSigninMfa;
+    return AuthenticatorLocalizations.titlesOf(context).confirmSigninMfa;
   }
 
   /// The title for the confirm sign in (new passwrod) Widget.
   String confirmSigninNewPassword(BuildContext context) {
-    return AuthenticatorTitleLocalizations.of(context).confirmSigninNewPassword;
+    return AuthenticatorLocalizations.titlesOf(context)
+        .confirmSigninNewPassword;
   }
 
   /// The title for the reset password Widget.
   String resetPassword(BuildContext context) {
-    return AuthenticatorTitleLocalizations.of(context).resetPassword;
+    return AuthenticatorLocalizations.titlesOf(context).resetPassword;
   }
 
   /// The title for the send code Widget.
   String sendCode(BuildContext context) {
-    return AuthenticatorTitleLocalizations.of(context).sendCode;
+    return AuthenticatorLocalizations.titlesOf(context).sendCode;
   }
 
   /// The title for the verify user Widget.
   String verifyUser(BuildContext context) {
-    return AuthenticatorTitleLocalizations.of(context).verifyUser;
+    return AuthenticatorLocalizations.titlesOf(context).verifyUser;
   }
 
   @override

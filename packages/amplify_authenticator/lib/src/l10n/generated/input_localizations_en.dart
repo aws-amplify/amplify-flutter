@@ -19,7 +19,8 @@ import 'package:intl/intl.dart' as intl;
 import 'input_localizations.dart';
 
 /// The translations for English (`en`).
-class AuthenticatorInputLocalizationsEn extends AuthenticatorInputLocalizations {
+class AuthenticatorInputLocalizationsEn
+    extends AuthenticatorInputLocalizations {
   AuthenticatorInputLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
@@ -58,14 +59,8 @@ class AuthenticatorInputLocalizationsEn extends AuthenticatorInputLocalizations 
   @override
   String genders(Gender gender) {
     return intl.Intl.select(
-      gender,
-      {
-        'male': 'male',
-        'female': 'female',
-        'other': 'other'
-      },
-      desc: 'No description provided in @genders'
-    );
+        gender, {'male': 'male', 'female': 'female', 'other': 'other'},
+        desc: 'No description provided in @genders');
   }
 
   @override
@@ -104,18 +99,18 @@ class AuthenticatorInputLocalizationsEn extends AuthenticatorInputLocalizations 
   String get passwordRequirementsPreamble => 'Password must include:';
 
   @override
-  String passwordRequirementsCharacterType(PasswordPolicyCharacters characterType) {
+  String passwordRequirementsCharacterType(
+      PasswordPolicyCharacters characterType) {
     return intl.Intl.select(
-      characterType,
-      {
-        'uppercase': 'uppercase',
-        'lowercase': 'lowercase',
-        'number': 'number',
-        'symbol': 'symbol',
-        'other': ''
-      },
-      desc: 'Character(s) in a password.'
-    );
+        characterType,
+        {
+          'uppercase': 'uppercase',
+          'lowercase': 'lowercase',
+          'number': 'number',
+          'symbol': 'symbol',
+          'other': ''
+        },
+        desc: 'Character(s) in a password.');
   }
 
   @override

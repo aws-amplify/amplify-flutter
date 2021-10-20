@@ -21,6 +21,10 @@ import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/enums/enums.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
+import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart';
+import 'package:amplify_authenticator/src/l10n/generated/button_localizations.dart';
+import 'package:amplify_authenticator/src/l10n/generated/input_localizations.dart';
+import 'package:amplify_authenticator/src/l10n/generated/title_localizations.dart';
 import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
 import 'package:amplify_authenticator/src/screens/loading_screen.dart';
@@ -38,6 +42,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_flutter/src/config/amplify_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 export 'package:amplify_auth_cognito/amplify_auth_cognito.dart'
     show AuthProvider;
@@ -86,6 +91,7 @@ class Authenticator extends StatefulWidget {
     this.signUpForm = const SignUpForm(),
     this.confirmSignInMFAForm = const ConfirmSignInMFAForm(),
     this.stringResolver = const AuthStringResolver(),
+    this.localizationsDelegates,
     required this.child,
   })  : useAmplifyTheme = false,
         super(key: key);
@@ -95,6 +101,10 @@ class Authenticator extends StatefulWidget {
   ///
   /// Defaults to `true`.
   final bool useAmplifyTheme;
+
+  /// Custom localizations delegates, used in addition to the global Material
+  /// delegates and Authenticator delegates.
+  final Iterable<LocalizationsDelegate<dynamic>>? localizationsDelegates;
 
   /// The form to display when confirming a sign in with MFA.
   final ConfirmSignInMFAForm confirmSignInMFAForm;
@@ -184,6 +194,8 @@ class Authenticator extends StatefulWidget {
         'stringResolver', stringResolver));
     properties
         .add(DiagnosticsProperty<bool>('useAmplifyTheme', useAmplifyTheme));
+    properties.add(IterableProperty<LocalizationsDelegate>(
+        'localizationsDelegates', localizationsDelegates));
   }
 }
 
@@ -268,29 +280,33 @@ class _AuthenticatorState extends State<Authenticator> {
           You should correct your amplifyconfiguration.dart file and restart your app.''');
     }
 
-    return InheritedAuthBloc(
-      key: keyInheritedAuthBloc,
-      authBloc: _stateMachineBloc,
-      child: InheritedConfig(
-        amplifyConfig: _config,
-        useAmplifyTheme: widget.useAmplifyTheme,
-        child: InheritedAuthViewModel(
-          key: keyInheritedAuthViewModel,
-          viewModel: _viewModel,
-          child: InheritedStrings(
-            resolver: widget.stringResolver,
-            child: InheritedForms(
-              confirmSignInNewPasswordForm:
-                  const ConfirmSignInNewPasswordForm(),
-              resetPasswordForm: const ResetPasswordForm(),
-              sendCodeForm: const SendCodeForm(),
-              signInForm: widget.signInForm,
-              signUpForm: widget.signUpForm,
-              confirmSignUpForm: const ConfirmSignUpForm(),
-              confirmSignInMFAForm: widget.confirmSignInMFAForm,
-              verifyUserForm: const VerifyUserForm(),
-              confirmVerifyUserForm: const ConfirmVerifyUserForm(),
-              child: _AuthenticatorBody(child: widget.child),
+    return Localizations.override(
+      context: context,
+      delegates: AuthenticatorLocalizations.localizationsDelegates,
+      child: InheritedAuthBloc(
+        key: keyInheritedAuthBloc,
+        authBloc: _stateMachineBloc,
+        child: InheritedConfig(
+          amplifyConfig: _config,
+          useAmplifyTheme: widget.useAmplifyTheme,
+          child: InheritedAuthViewModel(
+            key: keyInheritedAuthViewModel,
+            viewModel: _viewModel,
+            child: InheritedStrings(
+              resolver: widget.stringResolver,
+              child: InheritedForms(
+                confirmSignInNewPasswordForm:
+                    const ConfirmSignInNewPasswordForm(),
+                resetPasswordForm: const ResetPasswordForm(),
+                sendCodeForm: const SendCodeForm(),
+                signInForm: widget.signInForm,
+                signUpForm: widget.signUpForm,
+                confirmSignUpForm: const ConfirmSignUpForm(),
+                confirmSignInMFAForm: widget.confirmSignInMFAForm,
+                verifyUserForm: const VerifyUserForm(),
+                confirmVerifyUserForm: const ConfirmVerifyUserForm(),
+                child: _AuthenticatorBody(child: widget.child),
+              ),
             ),
           ),
         ),

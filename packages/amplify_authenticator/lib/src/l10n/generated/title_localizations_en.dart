@@ -15,11 +15,11 @@
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 
-
 import 'title_localizations.dart';
 
 /// The translations for English (`en`).
-class AuthenticatorTitleLocalizationsEn extends AuthenticatorTitleLocalizations {
+class AuthenticatorTitleLocalizationsEn
+    extends AuthenticatorTitleLocalizations {
   AuthenticatorTitleLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
@@ -44,5 +44,6 @@ class AuthenticatorTitleLocalizationsEn extends AuthenticatorTitleLocalizations 
   String get sendCode => 'Send Code';
 
   @override
-  String get verifyUser => 'Account recovery requires verified contact information';
+  String get verifyUser =>
+      'Account recovery requires verified contact information';
 }

@@ -15,9 +15,9 @@
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/enums/enums.dart';
-import 'package:amplify_authenticator/src/l10n/generated/button_localizations.dart';
 import 'package:flutter/material.dart';
 
+import 'authenticator_localizations.dart';
 import 'resolver.dart';
 
 enum ButtonResolverKeyType {
@@ -81,82 +81,82 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
 
   /// Label of signin form button
   String signin(BuildContext context) {
-    return AuthenticatorButtonLocalizations.of(context).signin;
+    return AuthenticatorLocalizations.buttonsOf(context).signin;
   }
 
   /// Label of signin form button
   String signup(BuildContext context) {
-    return AuthenticatorButtonLocalizations.of(context).signup;
+    return AuthenticatorLocalizations.buttonsOf(context).signup;
   }
 
   /// Label of confirm forms' button
   String confirm(BuildContext context) {
-    return AuthenticatorButtonLocalizations.of(context).confirm;
+    return AuthenticatorLocalizations.buttonsOf(context).confirm;
   }
 
   /// Label of submit button
   String submit(BuildContext context) {
-    return AuthenticatorButtonLocalizations.of(context).submit;
+    return AuthenticatorLocalizations.buttonsOf(context).submit;
   }
 
   /// Label of change password button on ConfirmSignInNewPassword Form
   String changePassword(BuildContext context) {
-    return AuthenticatorButtonLocalizations.of(context).changePassword;
+    return AuthenticatorLocalizations.buttonsOf(context).changePassword;
   }
 
   /// Label of button for sending a confirmation code
   String sendCode(BuildContext context) {
-    return AuthenticatorButtonLocalizations.of(context).sendCode;
+    return AuthenticatorLocalizations.buttonsOf(context).sendCode;
   }
 
   /// Question for button to resend code
   String lostCode(BuildContext context) {
-    return AuthenticatorButtonLocalizations.of(context).lostCode;
+    return AuthenticatorLocalizations.buttonsOf(context).lostCode;
   }
 
   /// Label of button to verify a user after sign in
   String verify(BuildContext context) {
-    return AuthenticatorButtonLocalizations.of(context).verify;
+    return AuthenticatorLocalizations.buttonsOf(context).verify;
   }
 
   /// Label of button to sign out the user
   String signout(BuildContext context) {
-    return AuthenticatorButtonLocalizations.of(context).signout;
+    return AuthenticatorLocalizations.buttonsOf(context).signout;
   }
 
   /// Label of button to sign in with a social provider
   String signInWith(BuildContext context, AuthProvider provider) {
-    return AuthenticatorButtonLocalizations.of(context).signInWith(provider);
+    return AuthenticatorLocalizations.buttonsOf(context).signInWith(provider);
   }
 
   /// Hint text for the 'Go to Sign Up' button
   String noAccount(BuildContext context) {
-    return AuthenticatorButtonLocalizations.of(context).noAccount;
+    return AuthenticatorLocalizations.buttonsOf(context).noAccount;
   }
 
   /// Hint text for the 'Go to Sign In' button
   String haveAccount(BuildContext context) {
-    return AuthenticatorButtonLocalizations.of(context).haveAccount;
+    return AuthenticatorLocalizations.buttonsOf(context).haveAccount;
   }
 
   /// Hint text for the 'Go to Reset Password' button
   String forgotPassword(BuildContext context) {
-    return AuthenticatorButtonLocalizations.of(context).forgotPassword;
+    return AuthenticatorLocalizations.buttonsOf(context).forgotPassword;
   }
 
   /// Label of button to reset a user's password
   String resetPassword(BuildContext context) {
-    return AuthenticatorButtonLocalizations.of(context).resetPassword;
+    return AuthenticatorLocalizations.buttonsOf(context).resetPassword;
   }
 
   /// Label of button to return to the Sign In screen.
   String backTo(BuildContext context, AuthScreen previousScreen) {
-    return AuthenticatorButtonLocalizations.of(context).backTo(previousScreen);
+    return AuthenticatorLocalizations.buttonsOf(context).backTo(previousScreen);
   }
 
   /// Label of button to skip the current screen or action.
   String skip(BuildContext context) {
-    return AuthenticatorButtonLocalizations.of(context).skip;
+    return AuthenticatorLocalizations.buttonsOf(context).skip;
   }
 
   @override
