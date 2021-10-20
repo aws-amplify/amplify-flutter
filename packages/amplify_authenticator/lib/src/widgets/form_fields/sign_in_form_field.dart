@@ -141,7 +141,7 @@ class SignInFormField
 }
 
 class _SignInFormFieldState
-    extends AuthenticatorFormFieldState<SignInField, SignInFormField> {
+    extends _AuthenticatorFormFieldState<SignInField, SignInFormField> {
   @override
   String? get initialValue {
     switch (widget.field) {

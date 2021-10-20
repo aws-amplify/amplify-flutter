@@ -32,7 +32,7 @@ class ConfirmVerifyUserFormField
 }
 
 class _ConfirmVerifyUserFormFieldState
-    extends AuthenticatorFormFieldState<void, ConfirmVerifyUserFormField> {
+    extends _AuthenticatorFormFieldState<void, ConfirmVerifyUserFormField> {
   @override
   String? get initialValue => viewModel.confirmationCode;
 
