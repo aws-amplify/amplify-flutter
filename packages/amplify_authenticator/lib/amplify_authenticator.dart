@@ -34,6 +34,7 @@ import 'package:amplify_authenticator/src/text_customization/auth_strings_resolv
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/widgets/exception_banner.dart';
 import 'package:amplify_authenticator/src/widgets/form.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_flutter/src/config/amplify_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -201,7 +202,11 @@ class _AuthenticatorState extends State<Authenticator> {
 
   void _subscribeToExceptions() {
     _exceptionSub = _stateMachineBloc.exceptions.listen((exception) {
-      if (mounted && exception.showBanner) {
+      if (!exception.showBanner) {
+        safePrint('[ERROR]: $exception');
+        return;
+      }
+      if (mounted) {
         ScaffoldMessenger.of(context)
           ..clearMaterialBanners()
           ..showMaterialBanner(createMaterialBanner(

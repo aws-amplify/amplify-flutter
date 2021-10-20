@@ -88,6 +88,9 @@ class AuthViewModel extends ChangeNotifier {
     _newPassword = newPassword;
   }
 
+  bool _rememberDevice = false;
+  bool get rememberDevice => _rememberDevice;
+
   void _setAttribute(String attribute, String value) {
     _authAttributes[attribute] = value.trim();
   }
@@ -167,6 +170,11 @@ class AuthViewModel extends ChangeNotifier {
     _setAttribute('custom:$key', value);
   }
 
+  // ignore: avoid_positional_boolean_parameters
+  void setRememberDevice(bool value) {
+    _rememberDevice = value;
+  }
+
   // Auth calls
 
   Future<void> confirmSignIn() async {
@@ -179,7 +187,7 @@ class AuthViewModel extends ChangeNotifier {
       attributes: _authAttributes,
     );
 
-    authBloc.add(AuthConfirmSignIn(confirm));
+    authBloc.add(AuthConfirmSignIn(confirm, rememberDevice: rememberDevice));
     await _nextBlocEvent();
     setBusy(false);
   }

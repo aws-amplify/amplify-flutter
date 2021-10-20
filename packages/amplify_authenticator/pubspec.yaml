@@ -9,6 +9,7 @@ environment:
 
 dependencies:
   amplify_auth_cognito: ^0.2.0
+  amplify_core: ^0.2.0
   amplify_flutter: ^0.2.0
   flutter:
     sdk: flutter
