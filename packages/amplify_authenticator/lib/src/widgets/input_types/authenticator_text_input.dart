@@ -14,65 +14,51 @@
  */
 
 import 'package:amplify_authenticator/src/constants/theme_constants.dart';
+import 'package:amplify_authenticator/src/state/inherited_input.dart';
 import 'package:amplify_authenticator/src/widgets/input_types/authenticator_input.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class AuthenticatorTextInput extends AuthenticatorInput {
-  const AuthenticatorTextInput(
-      {required Key key,
-      required bool enabled,
-      required void Function(String) onChanged,
-      required FormFieldValidator<String>? validator,
-      required TextInputType keyboardType,
-      required String? initialValue,
-      required Widget? suffixIcon,
-      required Widget? companionWidget,
-      required int errorMaxLines,
-      required bool obscureText,
-      required String hintText})
-      : super(
-            key: key,
-            enabled: enabled,
-            onChanged: onChanged,
-            validator: validator,
-            keyboardType: keyboardType,
-            initialValue: initialValue,
-            suffixIcon: suffixIcon,
-            companionWidget: companionWidget,
-            errorMaxLines: errorMaxLines,
-            obscureText: obscureText,
-            hintText: hintText);
+  const AuthenticatorTextInput({required Key key, required bool obscureText})
+      : super(key: key, obscureText: obscureText);
 
   @override
   _AuthenticatorTextInputState createState() => _AuthenticatorTextInputState();
 }
 
-class _AuthenticatorTextInputState extends State<AuthenticatorTextInput> {
+class _AuthenticatorTextInputState extends AuthenticatorInputState {
   @override
   Widget build(BuildContext context) {
+    final inputResolver = stringResolver.inputs;
+    inheritedInput = InheritedInput.of(context)!;
+
+    hintText = inheritedInput?.field.hintText == null
+        ? inputResolver.resolve(context, inheritedInput!.field.hintTextKey!)
+        : inheritedInput!.field.hintText!;
+
     return TextFormField(
-      style: widget.enabled
+      style: inheritedInput!.enabled
           ? null
           : const TextStyle(
               color: AuthenticatorColors.disabledTextColor,
             ),
-      initialValue: widget.initialValue,
-      enabled: widget.enabled,
-      validator: widget.validator,
-      onChanged: widget.onChanged,
+      initialValue: inheritedInput!.initialValue,
+      enabled: inheritedInput!.enabled,
+      validator: inheritedInput!.validator,
+      onChanged: inheritedInput!.onChanged,
       decoration: InputDecoration(
-        suffixIcon: widget.suffixIcon,
-        errorMaxLines: widget.errorMaxLines,
+        suffixIcon: inheritedInput!.suffixIcon,
+        errorMaxLines: inheritedInput!.errorMaxLines,
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: Theme.of(context).primaryColor,
           ),
         ),
-        hintText: widget.hintText,
+        hintText: hintText,
         border: const OutlineInputBorder(),
       ),
-      keyboardType: widget.keyboardType,
+      keyboardType: inheritedInput!.keyboardType,
       obscureText: widget.obscureText,
     );
   }

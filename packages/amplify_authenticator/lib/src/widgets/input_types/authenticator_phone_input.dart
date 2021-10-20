@@ -13,53 +13,48 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:io';
+
 import 'package:amplify_authenticator/src/constants/theme_constants.dart';
+import 'package:amplify_authenticator/src/state/inherited_input.dart';
+import 'package:amplify_authenticator/src/utils/country_code.dart';
 import 'package:amplify_authenticator/src/widgets/input_types/authenticator_input.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class AuthenticatorPhoneInput extends AuthenticatorInput {
-  const AuthenticatorPhoneInput(
-      {required Key key,
-      required bool enabled,
-      required void Function(String) onChanged,
-      required FormFieldValidator<String>? validator,
-      required TextInputType keyboardType,
-      required String? initialValue,
-      required Widget? suffixIcon,
-      required Widget? companionWidget,
-      required int errorMaxLines,
-      required bool obscureText,
-      required String hintText})
-      : super(
-            key: key,
-            enabled: enabled,
-            onChanged: onChanged,
-            validator: validator,
-            keyboardType: keyboardType,
-            initialValue: initialValue,
-            suffixIcon: suffixIcon,
-            companionWidget: companionWidget,
-            errorMaxLines: errorMaxLines,
-            obscureText: obscureText,
-            hintText: hintText);
+  const AuthenticatorPhoneInput({required Key key, required bool obscureText})
+      : super(key: key, obscureText: obscureText);
 
   @override
   _AuthenticatorPhoneInputState createState() =>
       _AuthenticatorPhoneInputState();
 }
 
-class _AuthenticatorPhoneInputState extends State<AuthenticatorPhoneInput> {
-  String _selectedValue = '1';
-
+class _AuthenticatorPhoneInputState extends AuthenticatorInputState {
   @override
   Widget build(BuildContext context) {
+    String _selectedValue = countryCodes[0].value;
+    List<int> countryCodeStrings = countryCodes
+        .map((Country country) {
+          return int.parse(country.value);
+        })
+        .toSet()
+        .toList();
+    countryCodeStrings.sort();
+    final inputResolver = stringResolver.inputs;
+    inheritedInput = InheritedInput.of(context)!;
+
+    hintText = inheritedInput?.field.hintText == null
+        ? inputResolver.resolve(context, inheritedInput!.field.hintTextKey!)
+        : inheritedInput!.field.hintText!;
+
     return Row(children: [
       DropdownButton<String>(
         value: _selectedValue,
-        items: <String>['1', '2', '3', '4'].map((String value) {
+        items: countryCodeStrings.map((int value) {
           return DropdownMenuItem<String>(
-            value: value,
+            value: value.toString(),
             child: Text('+$value'),
           );
         }).toList(),
@@ -71,29 +66,29 @@ class _AuthenticatorPhoneInputState extends State<AuthenticatorPhoneInput> {
       ),
       Expanded(
           child: TextFormField(
-        style: widget.enabled
+        style: inheritedInput!.enabled
             ? null
             : const TextStyle(
                 color: AuthenticatorColors.disabledTextColor,
               ),
-        initialValue: widget.initialValue,
-        enabled: widget.enabled,
-        validator: widget.validator,
+        initialValue: inheritedInput!.initialValue,
+        enabled: inheritedInput!.enabled,
+        validator: inheritedInput!.validator,
         onChanged: (phoneValue) {
-          widget.onChanged('+$_selectedValue$phoneValue');
+          inheritedInput!.onChanged('+$_selectedValue$phoneValue');
         },
         decoration: InputDecoration(
-          suffixIcon: widget.suffixIcon,
-          errorMaxLines: widget.errorMaxLines,
+          suffixIcon: inheritedInput!.suffixIcon,
+          errorMaxLines: inheritedInput!.errorMaxLines,
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: Theme.of(context).primaryColor,
             ),
           ),
-          hintText: widget.hintText,
+          hintText: hintText,
           border: const OutlineInputBorder(),
         ),
-        keyboardType: widget.keyboardType,
+        keyboardType: TextInputType.phone,
         obscureText: widget.obscureText,
       ))
     ]);

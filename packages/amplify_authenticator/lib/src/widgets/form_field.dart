@@ -103,7 +103,7 @@ abstract class AuthenticatorFormField<FieldType,
   }
 }
 
-abstract class _AuthenticatorFormFieldState<FieldType,
+abstract class AuthenticatorFormFieldState<FieldType,
         T extends AuthenticatorFormField<FieldType, T>>
     extends AuthenticatorComponentState<T> {
   @nonVirtual
@@ -234,11 +234,10 @@ abstract class _AuthenticatorFormFieldState<FieldType,
         ObjectFlagProperty<ValueChanged<String>>.has('callback', onChanged));
     properties.add(ObjectFlagProperty<FormFieldValidator<String>?>.has(
         'validator', validator));
-    properties.add(StringProperty('initialValue', initialValue));
-    properties.add(DiagnosticsProperty<bool>('obscureText', obscureText));
-    properties.add(DiagnosticsProperty<bool?>('enabled', enabled));
     properties
         .add(DiagnosticsProperty<TextInputType>('keyboardType', keyboardType));
+    properties.add(StringProperty('initialValue', initialValue));
+    properties.add(DiagnosticsProperty<bool>('enabled', enabled));
     properties.add(IntProperty('errorMaxLines', errorMaxLines));
     properties.add(DiagnosticsProperty<TextInputType>(
         'keyboardTypeForAlias', usernameKeyboardTypeForAlias));

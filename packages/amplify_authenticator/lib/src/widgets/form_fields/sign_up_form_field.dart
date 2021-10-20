@@ -311,7 +311,7 @@ class SignUpFormField
 }
 
 class _SignUpFormFieldState
-    extends _AuthenticatorFormFieldState<SignUpField, SignUpFormField> {
+    extends AuthenticatorFormFieldState<SignUpField, SignUpFormField> {
   @override
   String? get initialValue {
     switch (widget.field) {
