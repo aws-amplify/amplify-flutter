@@ -44,6 +44,7 @@ enum InputResolverKey {
   emailPhoneNumberTitle,
   emailPhoneNumberHint,
   emailPhoneNumberEmpty,
+  rememberDevice,
   addressTitle,
   addressHint,
   addressEmpty,
@@ -174,6 +175,9 @@ abstract class InputResolver extends Resolver<InputResolverKey> {
 
   /// Email/phone number field is empty validation failure
   String emailPhoneNumberEmpty(BuildContext context);
+
+  /// Text for rememberDevice checkbox
+  String rememberDevice(BuildContext context);
 
   /// Title of address field
   String addressTitle(BuildContext context);
@@ -367,6 +371,8 @@ abstract class InputResolver extends Resolver<InputResolverKey> {
         return emailPhoneNumberHint(context);
       case InputResolverKey.emailPhoneNumberEmpty:
         return emailPhoneNumberEmpty(context);
+      case InputResolverKey.rememberDevice:
+        return rememberDevice(context);
       case InputResolverKey.addressTitle:
         return addressTitle(context);
       case InputResolverKey.addressHint:
@@ -556,6 +562,9 @@ class DefaultInputResolver extends InputResolver {
   @override
   String emailPhoneNumberEmpty(BuildContext context) =>
       'Email/phone number $_validationMessage';
+
+  @override
+  String rememberDevice(BuildContext context) => 'Remember Device?';
 
   @override
   String addressTitle(BuildContext context) => 'Address*';
