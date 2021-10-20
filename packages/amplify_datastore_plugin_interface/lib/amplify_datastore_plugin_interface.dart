@@ -34,10 +34,11 @@ export 'src/types/models/model_field_type.dart';
 export 'src/types/models/model_provider.dart';
 export 'src/types/models/model_schema.dart';
 export 'src/types/models/model_schema_definition.dart';
-export 'src/types/models/uuid.dart';
 export 'src/types/query/query_field.dart';
 export 'src/types/temporal/datetime_parse.dart';
 export 'src/types/utils/parsers.dart';
+
+export 'package:amplify_core/types/uuid.dart';
 
 export 'src/publicTypes.dart';
 
