@@ -451,7 +451,7 @@ void main() {
       });
     });
 
-    group('ModelSubScriptions', () {
+    group('ModelSubscriptions', () {
       test('ModelSubscriptions.onCreate() should build a valid request', () {
         String expected =
             r'subscription onCreateBlog { onCreateBlog { id name createdAt } }';
