@@ -298,9 +298,7 @@ void main() {
         Completer<void> establishedCompleter = Completer();
         final operation = Amplify.API.subscribe<T>(
             request: subscriptionRequest,
-            onData: (data) {
-              onData(data);
-            },
+            onData: onData,
             onEstablished: () {
               establishedCompleter.complete();
             },
