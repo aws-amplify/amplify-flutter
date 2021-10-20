@@ -85,7 +85,7 @@ class AuthenticatorButtonLocalizationsEn extends AuthenticatorButtonLocalization
       desc: 'Label of button to return to the previous screen'
     );
 
-    return 'Back to ${selectString}';
+    return 'Back to $selectString';
   }
 
   @override
@@ -101,6 +101,6 @@ class AuthenticatorButtonLocalizationsEn extends AuthenticatorButtonLocalization
       desc: 'Label of button to sign in with a social provider'
     );
 
-    return 'Sign In with ${selectString}';
+    return 'Sign In with $selectString';
   }
 }

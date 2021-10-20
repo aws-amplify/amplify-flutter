@@ -127,7 +127,7 @@ class AuthenticatorInputLocalizationsEn extends AuthenticatorInputLocalizations 
       other: '$numCharacters $characterType characters',
     );
 
-    return 'at least ${pluralString}';
+    return 'at least $pluralString';
   }
 
   @override

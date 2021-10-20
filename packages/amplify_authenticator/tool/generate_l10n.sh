@@ -32,6 +32,8 @@ for i in "${!TEMPLATES[@]}"; do
     OUTPUT_CLASS=${OUTPUT_CLASSES[i]}
     OUTPUT_FILE=${OUTPUT_FILES[i]}
 
+    echo "Generating localizations for \"${ARB_DIR}/${TEMPLATE}\""
+
     flutter gen-l10n \
         --arb-dir $ARB_DIR \
         --output-dir $OUTPUT_DIR \
@@ -44,3 +46,6 @@ for i in "${!TEMPLATES[@]}"; do
         --required-resource-attributes \
         --no-nullable-getter
 done
+
+# Clean up generated files
+dart fix --apply
