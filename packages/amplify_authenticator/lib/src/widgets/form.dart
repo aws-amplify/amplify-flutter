@@ -24,8 +24,8 @@ import 'package:amplify_authenticator/src/utils/list.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
-import 'package:amplify_authenticator/src/widgets/layout.dart';
 import 'package:amplify_authenticator/src/widgets/oauth/social_button.dart';
+import 'package:amplify_flutter/src/config/auth/login_mechanisms.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -58,6 +58,9 @@ abstract class AuthenticatorForm<T extends AuthenticatorForm<T>>
   /// Additional fields defined at runtime.
   List<AuthenticatorFormField> additionalFields(BuildContext context) =>
       const [];
+
+  /// Additional buttons defined at runtime.
+  List<AuthenticatorButton> additionalButtons(BuildContext context) => const [];
 }
 
 class AuthenticatorFormState<T extends AuthenticatorForm<T>>
@@ -91,6 +94,7 @@ class AuthenticatorFormState<T extends AuthenticatorForm<T>>
 
   @override
   Widget build(BuildContext context) {
+    final additionalButtons = widget.additionalButtons(context);
     return Form(
       key: viewModel.formKey,
       child: Column(
@@ -98,7 +102,13 @@ class AuthenticatorFormState<T extends AuthenticatorForm<T>>
           ...widget.fields,
           ...widget.additionalFields(context),
           Column(
-            children: widget.buttons.spacedBy(const SizedBox(height: 10)),
+            children: [
+              ...widget.buttons,
+              if (additionalButtons.isNotEmpty) ...[
+                const Divider(),
+                ...additionalButtons,
+              ]
+            ].spacedBy(const SizedBox(height: 10)),
           ),
         ],
       ),
@@ -236,33 +246,80 @@ class SignInForm extends AuthenticatorForm<SignInForm> {
   /// {@macro authenticator.sign_in_form}
   const SignInForm({
     Key? key,
+    bool includeDefaultSocialProviders = true,
   }) : this.custom(
           key: key,
           fields: const [
             SignInFormField.username(),
             SignInFormField.password(),
           ],
+          includeDefaultSocialProviders: includeDefaultSocialProviders,
         );
 
   /// A custom Sign In form.
   const SignInForm.custom({
     Key? key,
     required List<SignInFormField> fields,
+    this.includeDefaultSocialProviders = true,
   }) : super._(
           key: key,
           fields: fields,
           buttons: const [
             SignInButton(),
-            Divider(),
-            SocialSignInButton(provider: AuthProvider.amazon),
-            SocialSignInButton(provider: AuthProvider.google),
             GoToSignUpButton(),
           ],
         );
 
+  /// Whether to include buttons for the configured social providers.
+  final bool includeDefaultSocialProviders;
+
+  @override
+  List<AuthenticatorButton> additionalButtons(BuildContext context) {
+    if (!includeDefaultSocialProviders) {
+      return const [];
+    }
+
+    final loginMechanisms = InheritedConfig.of(context)
+        .amplifyConfig
+        ?.auth
+        ?.awsCognitoAuthPlugin
+        ?.auth?['Default']
+        ?.loginMechanisms;
+    if (loginMechanisms == null || loginMechanisms.isEmpty) {
+      return const [];
+    }
+
+    return loginMechanisms
+        .map((loginMechanism) {
+          switch (loginMechanism) {
+            case LoginMechanisms.email:
+            case LoginMechanisms.phoneNumber:
+            case LoginMechanisms.preferredUsername:
+              return null;
+            case LoginMechanisms.facebook:
+              return const SocialSignInButton.facebook();
+            case LoginMechanisms.google:
+              return const SocialSignInButton.google();
+            case LoginMechanisms.amazon:
+              return const SocialSignInButton.amazon();
+            case LoginMechanisms.apple:
+              return const SocialSignInButton.apple();
+          }
+        })
+        .whereType<AuthenticatorButton>()
+        .toList();
+  }
+
   @override
   AuthenticatorFormState<SignInForm> createState() =>
       AuthenticatorFormState<SignInForm>._();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<bool>(
+        'includeDefaultSocialProviders', includeDefaultSocialProviders));
+  }
 }
 
 /// {@template authenticator.confirm_sign_up_form}
