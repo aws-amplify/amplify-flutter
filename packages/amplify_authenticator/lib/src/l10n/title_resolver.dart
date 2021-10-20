@@ -13,10 +13,11 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
-import 'package:amplify_authenticator/src/l10n/generated/authenticator_localizations.dart';
-import 'package:amplify_authenticator/src/text_customization/resolver.dart';
+import 'package:amplify_authenticator/src/enums/auth_screen.dart';
+import 'package:amplify_authenticator/src/l10n/generated/title_localizations.dart';
 import 'package:flutter/material.dart';
+
+import 'resolver.dart';
 
 /// The resolver class for screen titles
 class TitleResolver extends Resolver<AuthScreen> {
@@ -24,43 +25,42 @@ class TitleResolver extends Resolver<AuthScreen> {
 
   /// The title for the sign in Widget.
   String signin(BuildContext context) {
-    return AuthenticatorLocalizations.of(context).screenSignin;
+    return AuthenticatorTitleLocalizations.of(context).signin;
   }
 
   /// The title for the sign up Widget.
   String signup(BuildContext context) {
-    return AuthenticatorLocalizations.of(context).screenSignup;
+    return AuthenticatorTitleLocalizations.of(context).signup;
   }
 
   /// The title for the confirm sign up Widget.
   String confirmSignup(BuildContext context) {
-    return AuthenticatorLocalizations.of(context).screenConfirmSignup;
+    return AuthenticatorTitleLocalizations.of(context).confirmSignup;
   }
 
   /// The title for the confirm sign in (MFA) Widget.
   String confirmSigninMfa(BuildContext context) {
-    return AuthenticatorLocalizations.of(context).screenConfirmSigninMfa;
+    return AuthenticatorTitleLocalizations.of(context).confirmSigninMfa;
   }
 
   /// The title for the confirm sign in (new passwrod) Widget.
   String confirmSigninNewPassword(BuildContext context) {
-    return AuthenticatorLocalizations.of(context)
-        .screenConfirmSigninNewPassword;
+    return AuthenticatorTitleLocalizations.of(context).confirmSigninNewPassword;
   }
 
   /// The title for the reset password Widget.
   String resetPassword(BuildContext context) {
-    return AuthenticatorLocalizations.of(context).screenResetPassword;
+    return AuthenticatorTitleLocalizations.of(context).resetPassword;
   }
 
   /// The title for the send code Widget.
   String sendCode(BuildContext context) {
-    return AuthenticatorLocalizations.of(context).screenSendCode;
+    return AuthenticatorTitleLocalizations.of(context).sendCode;
   }
 
   /// The title for the verify user Widget.
   String verifyUser(BuildContext context) {
-    return AuthenticatorLocalizations.of(context).screenVerifyUser;
+    return AuthenticatorTitleLocalizations.of(context).verifyUser;
   }
 
   @override

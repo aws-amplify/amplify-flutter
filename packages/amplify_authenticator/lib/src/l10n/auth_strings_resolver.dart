@@ -13,14 +13,15 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_authenticator/src/text_customization/button_resolver.dart';
-import 'package:amplify_authenticator/src/text_customization/input_resolver.dart';
-import 'package:amplify_authenticator/src/text_customization/title_resolver.dart';
 import 'package:flutter/material.dart';
 
-export 'package:amplify_authenticator/src/text_customization/button_resolver.dart';
-export 'package:amplify_authenticator/src/text_customization/input_resolver.dart';
-export 'package:amplify_authenticator/src/text_customization/title_resolver.dart';
+import 'button_resolver.dart';
+import 'input_resolver.dart';
+import 'title_resolver.dart';
+
+export 'button_resolver.dart';
+export 'input_resolver.dart';
+export 'title_resolver.dart';
 
 /// {@template authenticator.auth_string_resolver}
 /// The class that is accepted by the Authenticator to override strings

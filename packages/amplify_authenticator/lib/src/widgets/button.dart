@@ -16,7 +16,7 @@
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
-import 'package:amplify_authenticator/src/enums/button_size.dart';
+import 'package:amplify_authenticator/src/enums/enums.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
@@ -286,7 +286,7 @@ class BackToSignInButton extends StatelessAuthenticatorComponent {
     return TextButton(
       key: keyBackToSignInButton,
       child: Text(
-        stringResolver.buttons.backToSignin(context),
+        stringResolver.buttons.backTo(context, AuthScreen.signin),
         style: TextStyle(
           fontSize: AuthenticatorButtonConstants.fontSize,
           color: Theme.of(context).primaryColor,

@@ -13,70 +13,14 @@
  * permissions and limitations under the License.
  */
 
- import 'package:amplify_authenticator/amplify_authenticator.dart';
-
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 
 import 'package:intl/intl.dart' as intl;
-import 'authenticator_localizations.dart';
+import 'input_localizations.dart';
 
 /// The translations for English (`en`).
-class AuthenticatorLocalizationsEn extends AuthenticatorLocalizations {
-  AuthenticatorLocalizationsEn([String locale = 'en']) : super(locale);
-
-  @override
-  String get signin => 'Sign In';
-
-  @override
-  String get signup => 'Create Account';
-
-  @override
-  String get confirm => 'Confirm';
-
-  @override
-  String get submit => 'Submit';
-
-  @override
-  String get changePassword => 'Change Password';
-
-  @override
-  String get sendCode => 'Send Code';
-
-  @override
-  String get lostCode => 'Lost your code?';
-
-  @override
-  String get noAccount => 'No account?';
-
-  @override
-  String get haveAccount => 'Have an account?';
-
-  @override
-  String get forgotPassword => 'Forgot password?';
-
-  @override
-  String get resetPassword => 'Reset Password';
-
-  @override
-  String get verifyUser => 'Verify';
-
-  @override
-  String get confirmVerifyUser => 'Submit';
-
-  @override
-  String get skip => 'Skip';
-
-  @override
-  String get signout => 'Sign Out';
-
-  @override
-  String backTo(String previousScreen) {
-    return 'Back to $previousScreen';
-  }
-
-  @override
-  String signInWith(String provider) {
-    return 'Sign In with $provider';
-  }
+class AuthenticatorInputLocalizationsEn extends AuthenticatorInputLocalizations {
+  AuthenticatorInputLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
   String get username => 'Username';
@@ -160,16 +104,6 @@ class AuthenticatorLocalizationsEn extends AuthenticatorLocalizations {
   String get passwordRequirementsPreamble => 'Password must include:';
 
   @override
-  String passwordRequirementsCharacter(int numCharacters) {
-    return intl.Intl.pluralLogic(
-      numCharacters,
-      locale: localeName,
-      one: 'character',
-      other: 'characters',
-    );
-  }
-
-  @override
   String passwordRequirementsCharacterType(PasswordPolicyCharacters characterType) {
     return intl.Intl.select(
       characterType,
@@ -185,31 +119,14 @@ class AuthenticatorLocalizationsEn extends AuthenticatorLocalizations {
   }
 
   @override
-  String passwordRequirementsAtLeast(int numCharacters, String characterType, String characters) {
-    return 'at least $numCharacters $characterType $characters';
+  String passwordRequirementsAtLeast(int numCharacters, String characterType) {
+    final String pluralString = intl.Intl.pluralLogic(
+      numCharacters,
+      locale: localeName,
+      one: '1 $characterType character',
+      other: '$numCharacters $characterType characters',
+    );
+
+    return 'at least ${pluralString}';
   }
-
-  @override
-  String get screenSignin => 'Sign in to your account';
-
-  @override
-  String get screenSignup => 'Create your account';
-
-  @override
-  String get screenConfirmSignup => 'Enter your confirmation code';
-
-  @override
-  String get screenConfirmSigninMfa => 'Enter your sign in code';
-
-  @override
-  String get screenConfirmSigninNewPassword => 'Change your password to sign in';
-
-  @override
-  String get screenResetPassword => 'Reset your password';
-
-  @override
-  String get screenSendCode => 'Send Code';
-
-  @override
-  String get screenVerifyUser => 'Account recovery requires verified contact information';
 }

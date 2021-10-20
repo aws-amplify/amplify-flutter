@@ -13,29 +13,28 @@
  * permissions and limitations under the License.
  */
 
- import 'package:amplify_authenticator/amplify_authenticator.dart';
-
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
-import 'authenticator_localizations_en.dart' deferred as authenticator_localizations_en;
+import 'input_localizations_en.dart' deferred as input_localizations_en;
 
-/// Callers can lookup localized strings with an instance of AuthenticatorLocalizations returned
-/// by `AuthenticatorLocalizations.of(context)`.
+/// Callers can lookup localized strings with an instance of AuthenticatorInputLocalizations returned
+/// by `AuthenticatorInputLocalizations.of(context)`.
 ///
-/// Applications need to include `AuthenticatorLocalizations.delegate()` in their app's
+/// Applications need to include `AuthenticatorInputLocalizations.delegate()` in their app's
 /// localizationDelegates list, and the locales they support in the app's
 /// supportedLocales list. For example:
 ///
 /// ```
-/// import 'generated/authenticator_localizations.dart';
+/// import 'generated/input_localizations.dart';
 ///
 /// return MaterialApp(
-///   localizationsDelegates: AuthenticatorLocalizations.localizationsDelegates,
-///   supportedLocales: AuthenticatorLocalizations.supportedLocales,
+///   localizationsDelegates: AuthenticatorInputLocalizations.localizationsDelegates,
+///   supportedLocales: AuthenticatorInputLocalizations.supportedLocales,
 ///   home: MyApplicationHome(),
 /// );
 /// ```
@@ -72,18 +71,18 @@ import 'authenticator_localizations_en.dart' deferred as authenticator_localizat
 /// Select and expand the newly-created Localizations item then, for each
 /// locale your application supports, add a new item and select the locale
 /// you wish to add from the pop-up menu in the Value field. This list should
-/// be consistent with the languages listed in the AuthenticatorLocalizations.supportedLocales
+/// be consistent with the languages listed in the AuthenticatorInputLocalizations.supportedLocales
 /// property.
-abstract class AuthenticatorLocalizations {
-  AuthenticatorLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+abstract class AuthenticatorInputLocalizations {
+  AuthenticatorInputLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
-  static AuthenticatorLocalizations of(BuildContext context) {
-    return Localizations.of<AuthenticatorLocalizations>(context, AuthenticatorLocalizations)!;
+  static AuthenticatorInputLocalizations of(BuildContext context) {
+    return Localizations.of<AuthenticatorInputLocalizations>(context, AuthenticatorInputLocalizations)!;
   }
 
-  static const LocalizationsDelegate<AuthenticatorLocalizations> delegate = _AuthenticatorLocalizationsDelegate();
+  static const LocalizationsDelegate<AuthenticatorInputLocalizations> delegate = _AuthenticatorInputLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -106,108 +105,6 @@ abstract class AuthenticatorLocalizations {
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en')
   ];
-
-  /// Label of the button to sign in the user.
-  ///
-  /// In en, this message translates to:
-  /// **'Sign In'**
-  String get signin;
-
-  /// Label of the button to sign up the user.
-  ///
-  /// In en, this message translates to:
-  /// **'Create Account'**
-  String get signup;
-
-  /// Label of button to confirm an action
-  ///
-  /// In en, this message translates to:
-  /// **'Confirm'**
-  String get confirm;
-
-  /// Label of button to submit a form
-  ///
-  /// In en, this message translates to:
-  /// **'Submit'**
-  String get submit;
-
-  /// Label of button to change a password
-  ///
-  /// In en, this message translates to:
-  /// **'Change Password'**
-  String get changePassword;
-
-  /// Label of button to send a verification code to the user's device
-  ///
-  /// In en, this message translates to:
-  /// **'Send Code'**
-  String get sendCode;
-
-  /// Label of button prompting user if they've not received or have misplaced a verification code we sent
-  ///
-  /// In en, this message translates to:
-  /// **'Lost your code?'**
-  String get lostCode;
-
-  /// Hint text for the 'Go to Sign Up' button
-  ///
-  /// In en, this message translates to:
-  /// **'No account?'**
-  String get noAccount;
-
-  /// Hint text for the 'Go to Sign In' button
-  ///
-  /// In en, this message translates to:
-  /// **'Have an account?'**
-  String get haveAccount;
-
-  /// Hint text for the 'Reset Password' button
-  ///
-  /// In en, this message translates to:
-  /// **'Forgot password?'**
-  String get forgotPassword;
-
-  /// Label of button to reset a user's password
-  ///
-  /// In en, this message translates to:
-  /// **'Reset Password'**
-  String get resetPassword;
-
-  /// Label of button to verify a user's contact point such as their email or phone number
-  ///
-  /// In en, this message translates to:
-  /// **'Verify'**
-  String get verifyUser;
-
-  /// Label of button to submit a verification code sent to a user's contact point
-  ///
-  /// In en, this message translates to:
-  /// **'Submit'**
-  String get confirmVerifyUser;
-
-  /// Label of button to skip the current screen or action.
-  ///
-  /// In en, this message translates to:
-  /// **'Skip'**
-  String get skip;
-
-  /// Label of button to sign out the user
-  ///
-  /// In en, this message translates to:
-  /// **'Sign Out'**
-  String get signout;
-
-  /// Label of button to return to the previous screen
-  ///
-  /// In en, this message translates to:
-  /// **'Back to {previousScreen}'**
-  String backTo(String previousScreen);
-
-  /// Label of button to sign in with a social provider
-  ///
-  /// In en, this message translates to:
-  /// **'Sign In with {provider}'**
-  String signInWith(String provider);
 
   /// User's chosen username.
   ///
@@ -338,95 +235,41 @@ abstract class AuthenticatorLocalizations {
   /// Character(s) in a password.
   ///
   /// In en, this message translates to:
-  /// **'{numCharacters, plural, =1{character} other{characters}}'**
-  String passwordRequirementsCharacter(int numCharacters);
-
-  /// Character(s) in a password.
-  ///
-  /// In en, this message translates to:
   /// **'{characterType, select, uppercase{uppercase} lowercase{lowercase} number{number} symbol{symbol} other{}}'**
   String passwordRequirementsCharacterType(PasswordPolicyCharacters characterType);
 
   /// Password uppercase character requirement, displayed as a bullet point in list of unmet requirements.
   ///
   /// In en, this message translates to:
-  /// **'at least {numCharacters} {characterType} {characters}'**
-  String passwordRequirementsAtLeast(int numCharacters, String characterType, String characters);
-
-  /// Title of the Signin screen and form
-  ///
-  /// In en, this message translates to:
-  /// **'Sign in to your account'**
-  String get screenSignin;
-
-  /// Title of the Signup screen and form
-  ///
-  /// In en, this message translates to:
-  /// **'Create your account'**
-  String get screenSignup;
-
-  /// Title of the Confirm Signup screen and form
-  ///
-  /// In en, this message translates to:
-  /// **'Enter your confirmation code'**
-  String get screenConfirmSignup;
-
-  /// Title of the Confirm Signin with MFA screen and form
-  ///
-  /// In en, this message translates to:
-  /// **'Enter your sign in code'**
-  String get screenConfirmSigninMfa;
-
-  /// Title of the Confirm Signin with New Password screen and form
-  ///
-  /// In en, this message translates to:
-  /// **'Change your password to sign in'**
-  String get screenConfirmSigninNewPassword;
-
-  /// Title of the Reset Password screen and form
-  ///
-  /// In en, this message translates to:
-  /// **'Reset your password'**
-  String get screenResetPassword;
-
-  /// Title of the Send Code screen and form
-  ///
-  /// In en, this message translates to:
-  /// **'Send Code'**
-  String get screenSendCode;
-
-  /// Title of the Verify and Confirm Verify User screens and forms
-  ///
-  /// In en, this message translates to:
-  /// **'Account recovery requires verified contact information'**
-  String get screenVerifyUser;
+  /// **'at least {numCharacters, plural, =1{1 {characterType} character} other{{numCharacters} {characterType} characters}}'**
+  String passwordRequirementsAtLeast(int numCharacters, String characterType);
 }
 
-class _AuthenticatorLocalizationsDelegate extends LocalizationsDelegate<AuthenticatorLocalizations> {
-  const _AuthenticatorLocalizationsDelegate();
+class _AuthenticatorInputLocalizationsDelegate extends LocalizationsDelegate<AuthenticatorInputLocalizations> {
+  const _AuthenticatorInputLocalizationsDelegate();
 
   @override
-  Future<AuthenticatorLocalizations> load(Locale locale) {
-    return lookupAuthenticatorLocalizations(locale);
+  Future<AuthenticatorInputLocalizations> load(Locale locale) {
+    return lookupAuthenticatorInputLocalizations(locale);
   }
 
   @override
   bool isSupported(Locale locale) => <String>['en'].contains(locale.languageCode);
 
   @override
-  bool shouldReload(_AuthenticatorLocalizationsDelegate old) => false;
+  bool shouldReload(_AuthenticatorInputLocalizationsDelegate old) => false;
 }
 
-Future<AuthenticatorLocalizations> lookupAuthenticatorLocalizations(Locale locale) {
+Future<AuthenticatorInputLocalizations> lookupAuthenticatorInputLocalizations(Locale locale) {
 
 
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en': return authenticator_localizations_en.loadLibrary().then((dynamic _) => authenticator_localizations_en.AuthenticatorLocalizationsEn());
+    case 'en': return input_localizations_en.loadLibrary().then((dynamic _) => input_localizations_en.AuthenticatorInputLocalizationsEn());
   }
 
   throw FlutterError(
-    'AuthenticatorLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'AuthenticatorInputLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
     'an issue with the localizations generation tool. Please file an issue '
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
     'that was used.'
