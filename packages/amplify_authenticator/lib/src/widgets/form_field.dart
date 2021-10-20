@@ -18,13 +18,13 @@ library authenticator.form_field;
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
-import 'package:amplify_authenticator/src/constants/theme_constants.dart';
 import 'package:amplify_authenticator/src/enums/confirm_signin_types.dart';
 import 'package:amplify_authenticator/src/enums/confirm_signup_types.dart';
 import 'package:amplify_authenticator/src/enums/signin_types.dart';
 import 'package:amplify_authenticator/src/enums/signup_types.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
+import 'package:amplify_authenticator/src/state/inherited_input.dart';
 import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
@@ -105,7 +105,7 @@ abstract class AuthenticatorFormField<FieldType,
   }
 }
 
-abstract class _AuthenticatorFormFieldState<FieldType,
+abstract class AuthenticatorFormFieldState<FieldType,
         T extends AuthenticatorFormField<FieldType, T>>
     extends AuthenticatorComponentState<T> {
   @nonVirtual
@@ -186,9 +186,6 @@ abstract class _AuthenticatorFormFieldState<FieldType,
   @override
   Widget build(BuildContext context) {
     final inputResolver = stringResolver.inputs;
-    final hintText = widget.hintText == null
-        ? inputResolver.resolve(context, widget.hintTextKey!)
-        : widget.hintText!;
     final title = widget.title == null
         ? inputResolver.resolve(context, widget.titleKey!)
         : widget.title!;
@@ -207,49 +204,33 @@ abstract class _AuthenticatorFormFieldState<FieldType,
                   (BuildContext context, bool? toggleObscureText, Widget? _) {
                 var obscureText =
                     this.obscureText && (toggleObscureText ?? true);
+                Widget child;
                 switch (widget.inputType) {
                   case InputType.text:
-                    return AuthenticatorTextInput(
-                        key: widget.key!,
-                        onChanged: onChanged,
-                        enabled: enabled,
-                        keyboardType: keyboardType,
-                        initialValue: initialValue,
-                        suffixIcon: suffixIcon,
-                        hintText: hintText,
-                        companionWidget: companionWidget,
-                        errorMaxLines: errorMaxLines,
-                        obscureText: obscureText,
-                        validator: widget._validatorOverride ?? validator);
+                    child = AuthenticatorTextInput(
+                        key: widget.key!, obscureText: obscureText);
+                    break;
                   case InputType.phone:
-                    return AuthenticatorPhoneInput(
-                        key: widget.key!,
-                        enabled: enabled,
-                        onChanged: onChanged,
-                        keyboardType: keyboardType,
-                        initialValue: initialValue,
-                        suffixIcon: suffixIcon,
-                        companionWidget: companionWidget,
-                        errorMaxLines: errorMaxLines,
-                        obscureText: obscureText,
-                        hintText: hintText,
-                        validator: widget._validatorOverride ?? validator);
+                    child = AuthenticatorPhoneInput(
+                        key: widget.key!, obscureText: obscureText);
+                    break;
                   case InputType.datePicker:
-                    return AuthenticatorDateInput(
-                        key: widget.key!,
-                        enabled: enabled,
-                        onChanged: onChanged,
-                        keyboardType: keyboardType,
-                        initialValue: initialValue,
-                        suffixIcon: suffixIcon,
-                        companionWidget: companionWidget,
-                        errorMaxLines: errorMaxLines,
-                        obscureText: obscureText,
-                        hintText: hintText,
-                        validator: widget._validatorOverride ?? validator);
+                    child = AuthenticatorDateInput(
+                        key: widget.key!, obscureText: obscureText);
+                    break;
                 }
+                return InheritedInput(
+                    initialValue: initialValue,
+                    enabled: enabled,
+                    validator: widget._validatorOverride ?? validator,
+                    onChanged: onChanged,
+                    suffixIcon: suffixIcon,
+                    errorMaxLines: errorMaxLines,
+                    keyboardType: keyboardType,
+                    obscureText: obscureText,
+                    field: widget,
+                    child: child);
               }),
-          if (companionWidget != null) companionWidget!,
         ],
       ),
     );
@@ -258,17 +239,17 @@ abstract class _AuthenticatorFormFieldState<FieldType,
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(
-        ObjectFlagProperty<void Function(String)>.has('callback', onChanged));
-    properties.add(ObjectFlagProperty<FormFieldValidator<String>?>.has(
-        'validator', validator));
-    properties.add(StringProperty('initialValue', initialValue));
     properties.add(DiagnosticsProperty<bool>('obscureText', obscureText));
-    properties.add(DiagnosticsProperty<bool?>('enabled', enabled));
-    properties
-        .add(DiagnosticsProperty<TextInputType>('keyboardType', keyboardType));
-    properties.add(IntProperty('errorMaxLines', errorMaxLines));
     properties.add(DiagnosticsProperty<TextInputType>(
         'keyboardTypeForAlias', usernameKeyboardTypeForAlias));
+    properties.add(ObjectFlagProperty<void Function(String p1)>.has(
+        'onChanged', onChanged));
+    properties.add(ObjectFlagProperty<FormFieldValidator<String>?>.has(
+        'validator', validator));
+    properties
+        .add(DiagnosticsProperty<TextInputType>('keyboardType', keyboardType));
+    properties.add(StringProperty('initialValue', initialValue));
+    properties.add(DiagnosticsProperty<bool>('enabled', enabled));
+    properties.add(IntProperty('errorMaxLines', errorMaxLines));
   }
 }

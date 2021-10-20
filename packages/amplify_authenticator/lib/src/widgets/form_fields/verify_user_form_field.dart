@@ -40,7 +40,7 @@ class VerifyUserFormField
 }
 
 class _VerifyUserFormFieldState
-    extends _AuthenticatorFormFieldState<String, VerifyUserFormField> {
+    extends AuthenticatorFormFieldState<String, VerifyUserFormField> {
   @override
   Widget build(BuildContext context) {
     final groupValue = VerifyUserFormFieldGroup.of<String>(context);
