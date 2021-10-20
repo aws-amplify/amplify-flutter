@@ -17,6 +17,7 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
     as DataStore;
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/graphql/graphql_response_decoder.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:collection/collection.dart';
 
@@ -28,10 +29,10 @@ void main() {
     group('ModelQueries', () {
       final AmplifyAPI api = AmplifyAPI(modelProvider: ModelProvider.instance);
 
-      test("ModelQueries.get() should build a valid request", () {
+      test('ModelQueries.get() should build a valid request', () {
         String id = UUID.getUUID();
         String expected =
-            r"query getBlog($id: ID!) { getBlog(id: $id) { id name createdAt } }";
+            r'query getBlog($id: ID!) { getBlog(id: $id) { id name createdAt } }';
 
         GraphQLRequest<Blog> req = ModelQueries.get<Blog>(Blog.classType, id);
 
@@ -39,7 +40,7 @@ void main() {
         expect(
             DeepCollectionEquality().equals(req.variables, {'id': id}), isTrue);
         expect(req.modelType, Blog.classType);
-        expect(req.decodePath, "getBlog");
+        expect(req.decodePath, 'getBlog');
       });
 
       test(
@@ -64,28 +65,28 @@ void main() {
       });
       test('ModelQueries.list() should build a valid request', () async {
         String expected =
-            r"query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }";
+            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }';
 
         GraphQLRequest<PaginatedResult<Blog>> req =
             ModelQueries.list<Blog>(Blog.classType);
 
         expect(req.document, expected);
         expect(req.modelType, isA<PaginatedModelType<Blog>>());
-        expect(req.decodePath, "listBlogs");
+        expect(req.decodePath, 'listBlogs');
       });
 
       test('ModelQueries.list() should build a valid request with pagination',
           () async {
         String expected =
-            r"query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }";
+            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }';
 
         GraphQLRequest<PaginatedResult<Blog>> req =
             ModelQueries.list<Blog>(Blog.classType, limit: 1);
 
         expect(req.document, expected);
         expect(req.modelType, isA<PaginatedModelType<Blog>>());
-        expect(req.variables["limit"], 1);
-        expect(req.decodePath, "listBlogs");
+        expect(req.variables['limit'], 1);
+        expect(req.decodePath, 'listBlogs');
       });
 
       test(
@@ -218,21 +219,83 @@ void main() {
                 request: req, data: data, errors: errors);
         expect(response.data.hasNextResult, false);
       });
+
+      test(
+          'ModelQueries.list() should correctly populate a request with a simple QueryPredicate',
+          () async {
+        const expectedTitle = 'Test Blog 1';
+        const expectedDocument =
+            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }';
+        const expectedFilter = {
+          'name': {'eq': expectedTitle}
+        };
+
+        final queryPredicate = Blog.NAME.eq(expectedTitle);
+        GraphQLRequest<PaginatedResult<Blog>> req =
+            ModelQueries.list<Blog>(Blog.classType, where: queryPredicate);
+
+        expect(req.document, expectedDocument);
+        expect(req.modelType, isA<PaginatedModelType<Blog>>());
+        expect(req.decodePath, 'listBlogs');
+        expect(req.variables['filter'], expectedFilter);
+      });
+
+      test(
+          'getRequestForNextResult() should have same filter as original request',
+          () async {
+        const limit = 2;
+        const expectedTitle = 'Test Blog 1';
+        const expectedFilter = {
+          'name': {'eq': expectedTitle}
+        };
+
+        final queryPredicate = Blog.NAME.eq(expectedTitle);
+        GraphQLRequest<PaginatedResult<Blog>> req = ModelQueries.list<Blog>(
+            Blog.classType,
+            limit: limit,
+            where: queryPredicate);
+        List<GraphQLResponseError> errors = [];
+        String data = '''{
+          "listBlogs": {
+              "items": [
+                {
+                  "id": "test-id-1",
+                  "name": "Test Blog 1",
+                  "createdAt": "2021-07-29T23:09:58.441Z"
+                },
+                {
+                  "id": "test-id-2",
+                  "name": "Test Blog 2",
+                  "createdAt": "2021-08-03T16:39:18.651Z"
+                }
+              ],
+              "nextToken": "super-secret-next-token"
+            }
+        }''';
+        GraphQLResponse<PaginatedResult<Blog>> response =
+            GraphQLResponseDecoder.instance.decode<PaginatedResult<Blog>>(
+                request: req, data: data, errors: errors);
+        Map<String, dynamic> firstRequestFilter = req.variables['filter'];
+        final resultRequest = response.data.requestForNextResult!;
+
+        expect(resultRequest.variables['filter'], firstRequestFilter);
+        expect(resultRequest.variables['filter'], expectedFilter);
+      });
     });
 
     group('ModelMutations', () {
-      test("ModelMutations.create() should build a valid request", () {
+      test('ModelMutations.create() should build a valid request', () {
         final id = UUID.getUUID();
-        final name = "Test Blog";
-        final time = "2021-08-03T16:39:18.000000651Z";
+        final name = 'Test Blog';
+        final time = '2021-08-03T16:39:18.000000651Z';
         final createdAt = DataStore.TemporalDateTime.fromString(time);
 
         Blog blog = Blog(id: id, name: name, createdAt: createdAt);
         final expectedVars = {
-          "input": {'id': id, 'name': name, "createdAt": time}
+          'input': {'id': id, 'name': name, 'createdAt': time}
         };
         final expectedDoc =
-            r"mutation createBlog($input: CreateBlogInput!, $condition:  ModelBlogConditionInput) { createBlog(input: $input, condition: $condition) { id name createdAt } }";
+            r'mutation createBlog($input: CreateBlogInput!, $condition:  ModelBlogConditionInput) { createBlog(input: $input, condition: $condition) { id name createdAt } }';
 
         GraphQLRequest<Blog> req = ModelMutations.create<Blog>(blog);
 
@@ -240,22 +303,23 @@ void main() {
         expect(DeepCollectionEquality().equals(req.variables, expectedVars),
             isTrue);
         expect(req.modelType, Blog.classType);
-        expect(req.decodePath, "createBlog");
+        expect(req.decodePath, 'createBlog');
       });
 
-      test("ModelMutations.delete() should build a valid request", () {
+      test('ModelMutations.delete() should build a valid request', () {
         final id = UUID.getUUID();
-        final name = "Test Blog";
-        final time = "2021-08-03T16:39:18.000000651Z";
+        final name = 'Test Blog';
+        final time = '2021-08-03T16:39:18.000000651Z';
         final createdAt = DataStore.TemporalDateTime.fromString(time);
 
         Blog blog = Blog(id: id, name: name, createdAt: createdAt);
 
         final expectedVars = {
-          "input": {'id': id}
+          'input': {'id': id},
+          'condition': null
         };
         final expectedDoc =
-            r"mutation deleteBlog($input: DeleteBlogInput!, $condition:  ModelBlogConditionInput) { deleteBlog(input: $input, condition: $condition) { id name createdAt } }";
+            r'mutation deleteBlog($input: DeleteBlogInput!, $condition:  ModelBlogConditionInput) { deleteBlog(input: $input, condition: $condition) { id name createdAt } }';
 
         GraphQLRequest<Blog> req = ModelMutations.delete<Blog>(blog);
 
@@ -263,17 +327,18 @@ void main() {
         expect(DeepCollectionEquality().equals(req.variables, expectedVars),
             isTrue);
         expect(req.modelType, Blog.classType);
-        expect(req.decodePath, "deleteBlog");
+        expect(req.decodePath, 'deleteBlog');
       });
 
-      test("ModelMutations.deleteById() should build a valid request", () {
+      test('ModelMutations.deleteById() should build a valid request', () {
         final id = UUID.getUUID();
 
         final expectedVars = {
-          "input": {'id': id}
+          'input': {'id': id},
+          'condition': null
         };
         final expectedDoc =
-            r"mutation deleteBlog($input: DeleteBlogInput!, $condition:  ModelBlogConditionInput) { deleteBlog(input: $input, condition: $condition) { id name createdAt } }";
+            r'mutation deleteBlog($input: DeleteBlogInput!, $condition:  ModelBlogConditionInput) { deleteBlog(input: $input, condition: $condition) { id name createdAt } }';
 
         GraphQLRequest<Blog> req =
             ModelMutations.deleteById<Blog>(Blog.classType, id);
@@ -282,22 +347,23 @@ void main() {
         expect(DeepCollectionEquality().equals(req.variables, expectedVars),
             isTrue);
         expect(req.modelType, Blog.classType);
-        expect(req.decodePath, "deleteBlog");
+        expect(req.decodePath, 'deleteBlog');
       });
 
-      test("ModelMutations.update() should build a valid request", () {
+      test('ModelMutations.update() should build a valid request', () {
         final id = UUID.getUUID();
-        final name = "Test Blog";
-        final time = "2021-08-03T16:39:18.000000651Z";
+        final name = 'Test Blog';
+        final time = '2021-08-03T16:39:18.000000651Z';
         final createdAt = DataStore.TemporalDateTime.fromString(time);
 
         Blog blog = Blog(id: id, name: name, createdAt: createdAt);
 
         final expectedVars = {
-          "input": {'id': id, 'name': name, "createdAt": time}
+          'input': {'id': id, 'name': name, 'createdAt': time},
+          'condition': null
         };
         final expectedDoc =
-            r"mutation updateBlog($input: UpdateBlogInput!, $condition:  ModelBlogConditionInput) { updateBlog(input: $input, condition: $condition) { id name createdAt } }";
+            r'mutation updateBlog($input: UpdateBlogInput!, $condition:  ModelBlogConditionInput) { updateBlog(input: $input, condition: $condition) { id name createdAt } }';
 
         GraphQLRequest<Blog> req = ModelMutations.update<Blog>(blog);
 
@@ -305,22 +371,23 @@ void main() {
         expect(DeepCollectionEquality().equals(req.variables, expectedVars),
             isTrue);
         expect(req.modelType, Blog.classType);
-        expect(req.decodePath, "updateBlog");
+        expect(req.decodePath, 'updateBlog');
       });
 
-      test("ModelMutations.update() should build a valid request", () {
+      test('ModelMutations.update() should build a valid request', () {
         final id = UUID.getUUID();
-        final name = "Test Blog";
-        final time = "2021-08-03T16:39:18.000000651Z";
+        final name = 'Test Blog';
+        final time = '2021-08-03T16:39:18.000000651Z';
         final createdAt = DataStore.TemporalDateTime.fromString(time);
 
         Blog blog = Blog(id: id, name: name, createdAt: createdAt);
 
         final expectedVars = {
-          "input": {'id': id, 'name': name, "createdAt": time}
+          'input': {'id': id, 'name': name, 'createdAt': time},
+          'condition': null
         };
         final expectedDoc =
-            r"mutation updateBlog($input: UpdateBlogInput!, $condition:  ModelBlogConditionInput) { updateBlog(input: $input, condition: $condition) { id name createdAt } }";
+            r'mutation updateBlog($input: UpdateBlogInput!, $condition:  ModelBlogConditionInput) { updateBlog(input: $input, condition: $condition) { id name createdAt } }';
 
         GraphQLRequest<Blog> req = ModelMutations.update<Blog>(blog);
 
@@ -328,23 +395,75 @@ void main() {
         expect(DeepCollectionEquality().equals(req.variables, expectedVars),
             isTrue);
         expect(req.modelType, Blog.classType);
-        expect(req.decodePath, "updateBlog");
+        expect(req.decodePath, 'updateBlog');
+      });
+
+      test(
+          'ModelMutations.update() should build a valid request with query predicate condition',
+          () {
+        final id = UUID.getUUID();
+        const name = 'Test Blog';
+        const time = '2021-08-03T16:39:18.000000651Z';
+        final createdAt = DataStore.TemporalDateTime.fromString(time);
+        Blog blog = Blog(id: id, name: name, createdAt: createdAt);
+        final expectedVars = {
+          'input': {'id': id, 'name': name, 'createdAt': time},
+          'condition': {
+            'createdAt': {'lt': time}
+          }
+        };
+        const expectedDoc =
+            r'mutation updateBlog($input: UpdateBlogInput!, $condition:  ModelBlogConditionInput) { updateBlog(input: $input, condition: $condition) { id name createdAt } }';
+
+        GraphQLRequest<Blog> req =
+            ModelMutations.update(blog, where: Blog.CREATEDAT.lt(createdAt));
+
+        expect(req.document, expectedDoc);
+        expect(DeepCollectionEquality().equals(req.variables, expectedVars),
+            isTrue);
+      });
+
+      test(
+          'ModelMutations.delete() should build a valid request with query predicate condition',
+          () {
+        final id = UUID.getUUID();
+        const name = 'Test Blog';
+        const time = '2021-08-03T16:39:18.000000651Z';
+        final createdAt = DataStore.TemporalDateTime.fromString(time);
+        Blog blog = Blog(id: id, name: name, createdAt: createdAt);
+        final expectedVars = {
+          'input': {'id': id},
+          'condition': {
+            'createdAt': {'lt': time}
+          }
+        };
+        const expectedDoc =
+            r'mutation deleteBlog($input: DeleteBlogInput!, $condition:  ModelBlogConditionInput) { deleteBlog(input: $input, condition: $condition) { id name createdAt } }';
+
+        GraphQLRequest<Blog> req = ModelMutations.delete<Blog>(blog,
+            where: Blog.CREATEDAT.lt(createdAt));
+
+        expect(req.document, expectedDoc);
+        expect(DeepCollectionEquality().equals(req.variables, expectedVars),
+            isTrue);
+        expect(req.modelType, Blog.classType);
+        expect(req.decodePath, 'deleteBlog');
       });
     });
   });
 
   group('without ModelProvider', () {
-    test("should handle no ModelProvider instance", () {
+    test('should handle no ModelProvider instance', () {
       AmplifyAPI api = AmplifyAPI();
       try {
-        GraphQLRequest<Blog> req = ModelQueries.get<Blog>(Blog.classType, "");
+        GraphQLRequest<Blog> req = ModelQueries.get<Blog>(Blog.classType, '');
       } on ApiException catch (e) {
-        expect(e.message, "No modelProvider found");
+        expect(e.message, 'No modelProvider found');
         expect(e.recoverySuggestion,
-            "Pass in a modelProvider instance while instantiating APIPlugin");
+            'Pass in a modelProvider instance while instantiating APIPlugin');
         return;
       }
-      fail("Expected an ApiException");
+      fail('Expected an ApiException');
     });
   });
 }

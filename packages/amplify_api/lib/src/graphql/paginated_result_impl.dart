@@ -20,8 +20,9 @@ import 'package:amplify_api/src/graphql/paginated_model_type_impl.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
 class PaginatedResultImpl<T extends Model> extends PaginatedResult<T> {
-  const PaginatedResultImpl(List<T> items, int? limit, String? nextToken)
-      : super(items, limit, nextToken);
+  const PaginatedResultImpl(List<T> items, int? limit, String? nextToken,
+      Map<String, dynamic>? filter)
+      : super(items, limit, nextToken, filter);
 
   @override
   String getId() {
@@ -41,7 +42,8 @@ class PaginatedResultImpl<T extends Model> extends PaginatedResult<T> {
 
     final modelType = _getModelType();
     final variables = GraphQLRequestFactory.instance
-        .buildVariables(limit: limit, nextToken: nextToken);
+        .buildVariablesForListRequest(
+            limit: limit, nextToken: nextToken, filter: filter);
 
     return GraphQLRequestFactory.instance.buildRequest<PaginatedResult<T>>(
         modelType: PaginatedModelTypeImpl(modelType),

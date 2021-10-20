@@ -77,7 +77,7 @@ class GraphQLRequestFactory {
   }
 
   ModelSchema _getAndValidateSchema(
-      ModelType modelType, GraphQLRequestOperation operation) {
+      ModelType modelType, GraphQLRequestOperation? operation) {
     ModelProviderInterface? provider = AmplifyAPI.instance.getModelProvider();
 
     if (provider == null) {
@@ -188,12 +188,133 @@ class GraphQLRequestFactory {
         decodePath: decodePath);
   }
 
-  Map<String, dynamic> buildVariables(
-      {int? limit, String? nextToken, QueryPredicate? queryPredicate}) {
+  Map<String, dynamic> buildVariablesForListRequest(
+      {int? limit, String? nextToken, Map<String, dynamic>? filter}) {
     return <String, dynamic>{
-      'filter': null, // TODO: handle query predicates
+      'filter': filter,
       'limit': limit,
       'nextToken': nextToken
     };
   }
+
+  Map<String, dynamic> buildVariablesForMutationRequest(
+      {required Map<String, dynamic> input, Map<String, dynamic>? condition}) {
+    return <String, dynamic>{
+      'input': input,
+      'condition': condition,
+    };
+  }
+
+  /// Translates a `QueryPredicate` to a map representing a GraphQL filter
+  /// which AppSync will accept. Example:
+  /// `queryPredicateToGraphQLFilter(Blog.NAME.eq('foo'));` // =>
+  /// `{'name': {'eq': 'foo'}}`. In the case of a mutation, it will apply to
+  /// the "condition" field rather than "filter."
+  Map<String, dynamic>? queryPredicateToGraphQLFilter(
+      QueryPredicate? queryPredicate, ModelType modelType) {
+    if (queryPredicate == null) {
+      return null;
+    }
+    ModelSchema schema = _getAndValidateSchema(modelType, null);
+
+    // e.g. { 'name': { 'eq': 'foo }}
+    if (queryPredicate is QueryPredicateOperation) {
+      // check for the IDs where fieldName set to e.g. "blog.id" and convert to "id"
+      final isId = queryPredicate.field == '${schema.name.toLowerCase()}.id';
+      final fieldName = isId ? 'id' : queryPredicate.field;
+
+      return <String, dynamic>{
+        fieldName: _queryFieldOperatorToPartialGraphQLFilter(
+            queryPredicate.queryFieldOperator)
+      };
+    }
+
+    // and, or, not
+    if (queryPredicate is QueryPredicateGroup) {
+      // .toShortString() is the same as expected graphql filter strings for all these,
+      // so no translation helper required.
+      final typeExpression = queryPredicate.type.toShortString();
+
+      // not
+      if (queryPredicate.type == QueryPredicateGroupType.not) {
+        if (queryPredicate.predicates.length == 1) {
+          return <String, dynamic>{
+            typeExpression: queryPredicateToGraphQLFilter(
+                queryPredicate.predicates[0], modelType)
+          };
+        }
+        // Public not() API only allows 1 condition but QueryPredicateGroup
+        // technically allows multiple conditions so explictly disallow multiple.
+        throw ApiException(
+            'Unable to translate not() with multiple conditions.');
+      }
+
+      // and, or
+      return <String, List<Map<String, dynamic>>>{
+        typeExpression: queryPredicate.predicates
+            .map((predicate) =>
+                queryPredicateToGraphQLFilter(predicate, modelType)!)
+            .toList()
+      };
+    }
+
+    throw ApiException(
+        'Unable to translate the QueryPredicate $queryPredicate to a GraphQL filter.');
+  }
+}
+
+/// e.g. `.eq('foo')` => `{ 'eq': 'foo' }`
+Map<String, dynamic> _queryFieldOperatorToPartialGraphQLFilter(
+    QueryFieldOperator queryFieldOperator) {
+  final filterExpression = _getGraphQLFilterExpression(queryFieldOperator.type);
+  if (queryFieldOperator is QueryFieldOperatorSingleValue) {
+    return <String, dynamic>{
+      filterExpression: _getSerializedValue(queryFieldOperator.value)
+    };
+  }
+  if (queryFieldOperator is BetweenQueryOperator) {
+    return <String, dynamic>{
+      filterExpression: <dynamic>[
+        _getSerializedValue(queryFieldOperator.start),
+        _getSerializedValue(queryFieldOperator.end)
+      ]
+    };
+  }
+
+  throw ApiException(
+      'Unable to translate the QueryFieldOperator ${queryFieldOperator.type} to a GraphQL filter.');
+}
+
+String _getGraphQLFilterExpression(QueryFieldOperatorType operatorType) {
+  final dictionary = {
+    QueryFieldOperatorType.equal: 'eq',
+    QueryFieldOperatorType.not_equal: 'ne',
+    QueryFieldOperatorType.less_or_equal: 'le',
+    QueryFieldOperatorType.less_than: 'lt',
+    QueryFieldOperatorType.greater_than: 'gt',
+    QueryFieldOperatorType.greater_or_equal: 'ge',
+    QueryFieldOperatorType.between: 'between',
+    QueryFieldOperatorType.contains: 'contains',
+    QueryFieldOperatorType.begins_with: 'beginsWith'
+  };
+  final result = dictionary[operatorType];
+  if (result == null) {
+    throw ApiException(
+        '$operatorType does not have a defined GraphQL filter string.');
+  }
+  return result;
+}
+
+/// Convert Temporal* and DateTime values to string if needed; otherwise return unchanged.
+dynamic _getSerializedValue(dynamic value) {
+  if (value is TemporalDateTime ||
+      value is TemporalDate ||
+      value is TemporalTime ||
+      value is TemporalTimestamp) {
+    return value.toString();
+  }
+  if (value is DateTime) {
+    return _getSerializedValue(TemporalDateTime(value));
+  }
+  return value;
 }

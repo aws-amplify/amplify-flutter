@@ -15,7 +15,7 @@ class ModelMutationsFactory extends ModelMutationsInterface {
   @override
   GraphQLRequest<T> create<T extends Model>(T model) {
     // ignore: implicit_dynamic_map_literal
-    Map<String, dynamic> variables = {"input": model.toJson()};
+    Map<String, dynamic> variables = {'input': model.toJson()};
 
     return GraphQLRequestFactory.instance.buildRequest(
         model: model,
@@ -27,15 +27,19 @@ class ModelMutationsFactory extends ModelMutationsInterface {
 
   @override
   GraphQLRequest<T> delete<T extends Model>(T model, {QueryPredicate? where}) {
-    return deleteById(model.getInstanceType() as ModelType<T>, model.getId());
+    return deleteById(model.getInstanceType() as ModelType<T>, model.getId(),
+        where: where);
   }
 
   @override
   GraphQLRequest<T> deleteById<T extends Model>(
-      ModelType<T> modelType, String id) {
-    Map<String, Map<String, String>> variables = {
-      "input": {"id": id}
-    };
+      ModelType<T> modelType, String id,
+      {QueryPredicate? where}) {
+    final condition = GraphQLRequestFactory.instance
+        .queryPredicateToGraphQLFilter(where, modelType);
+    final input = {'id': id};
+    final variables = GraphQLRequestFactory.instance
+        .buildVariablesForMutationRequest(input: input, condition: condition);
 
     return GraphQLRequestFactory.instance.buildRequest(
         variables: variables,
@@ -46,8 +50,11 @@ class ModelMutationsFactory extends ModelMutationsInterface {
 
   @override
   GraphQLRequest<T> update<T extends Model>(T model, {QueryPredicate? where}) {
-    // ignore: implicit_dynamic_map_literal
-    Map<String, dynamic> variables = {"input": model.toJson()};
+    final condition = GraphQLRequestFactory.instance
+        .queryPredicateToGraphQLFilter(where, model.getInstanceType());
+    final variables = GraphQLRequestFactory.instance
+        .buildVariablesForMutationRequest(
+            input: model.toJson(), condition: condition);
 
     return GraphQLRequestFactory.instance.buildRequest(
         model: model,

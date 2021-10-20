@@ -22,8 +22,9 @@ abstract class PaginatedResult<T extends Model> extends Model {
   final List<T> items;
   final int? limit;
   final String? nextToken;
+  final Map<String, dynamic>? filter;
 
-  const PaginatedResult(this.items, this.limit, this.nextToken);
+  const PaginatedResult(this.items, this.limit, this.nextToken, this.filter);
 
   /// Returns `true` if there is more data to fetch beyond the data
   /// contained in this response. If `true`, the request for the next page of

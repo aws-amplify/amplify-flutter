@@ -20,7 +20,8 @@ import 'package:amplify_api_example/amplifyconfiguration.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart'
+    hide UUID;
 
 import 'resources/Blog.dart';
 import 'resources/ModelProvider.dart';
@@ -161,6 +162,22 @@ void main() {
       expect(secondData.items[0].id, isNot(firstData.items[0].id));
     });
 
+    testWidgets('should LIST blogs with Model helper with query predicate',
+        (WidgetTester tester) async {
+      String uuid = UUID.getUUID();
+      String blogName = 'Integration Test Blog $uuid';
+      Blog blog = await addBlog(blogName);
+
+      final req = ModelQueries.list<Blog>(Blog.classType,
+          where: Blog.NAME.eq(blogName) & Blog.ID.eq(blog.id));
+      final res = await Amplify.API.query(request: req).response;
+      final data = res.data;
+      final blogs = [blog];
+
+      expect(data.items.length, 1);
+      expect(data.items, containsAll(blogs));
+    });
+
     // Mutations
     testWidgets('should CREATE a blog with Model helper',
         (WidgetTester tester) async {
@@ -196,6 +213,31 @@ void main() {
       expect(data, equals(blog));
     });
 
+    testWidgets(
+        'should not UPDATE a blog with Model helper when where condition not met',
+        (WidgetTester tester) async {
+      String oldName = 'Integration Test Blog to update';
+      String newName = 'Integration Test Blog - updated';
+      Blog blog = await addBlog(oldName);
+      blog = blog.copyWith(name: newName);
+      final req =
+          ModelMutations.update(blog, where: Blog.NAME.eq('THATS_NOT_MY_NAME'));
+
+      // attempt update, assert error
+      try {
+        await Amplify.API.mutate(request: req).response;
+      } on ApiException catch (e) {
+        expect(e.message, 'response from app sync was "null"');
+        expect(e.recoverySuggestion,
+            'Current GraphQLResponse is non-nullable, please ensure item exists before fetching');
+      }
+      // query again to ensure it still unchanged
+      final getReq = ModelQueries.get(Blog.classType, blog.id);
+      final res = await Amplify.API.query(request: getReq).response;
+      Blog data = res.data;
+      expect(data.name, oldName);
+    });
+
     testWidgets('should DELETE a blog with Model helper',
         (WidgetTester tester) async {
       String name = 'Integration Test Blog - delete';
@@ -218,6 +260,29 @@ void main() {
         expect(e.recoverySuggestion,
             'Current GraphQLResponse is non-nullable, please ensure item exists before fetching');
       }
+    });
+
+    testWidgets(
+        'should not DELETE a blog with Model helper when where condition not met',
+        (WidgetTester tester) async {
+      String name = 'Integration Test Blog - failed delete';
+      Blog blog = await addBlog(name);
+      final req =
+          ModelMutations.delete(blog, where: Blog.NAME.eq('THATS_NOT_MY_NAME'));
+
+      // attempt delete, assert error
+      try {
+        await Amplify.API.mutate(request: req).response;
+      } on ApiException catch (e) {
+        expect(e.message, 'response from app sync was "null"');
+        expect(e.recoverySuggestion,
+            'Current GraphQLResponse is non-nullable, please ensure item exists before fetching');
+      }
+      // query again to ensure it still exists
+      final getReq = ModelQueries.get(Blog.classType, blog.id);
+      final res = await Amplify.API.query(request: getReq).response;
+      Blog data = res.data;
+      expect(data.name, name);
     });
   });
 }

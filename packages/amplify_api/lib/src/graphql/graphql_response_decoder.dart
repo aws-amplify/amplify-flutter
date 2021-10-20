@@ -27,6 +27,13 @@ class GraphQLResponseDecoder {
       }
     }
 
+    if (data == '') {
+      // TODO: T data is non-nullable, need to handle valid null response
+      throw ApiException('response from app sync was "null"',
+          recoverySuggestion:
+              "Current GraphQLResponse is non-nullable, please ensure item exists before fetching");
+    }
+
     if (request.decodePath == null) {
       throw ApiException('No decodePath found',
           recoverySuggestion: 'Include decodePath when creating a request');
@@ -58,10 +65,10 @@ class GraphQLResponseDecoder {
     T decodedData;
     final modelType = request.modelType;
     if (modelType is PaginatedModelType) {
-      decodedData = modelType.fromJson(
-        dataJson!,
-        limit: request.variables['limit'],
-      ) as T;
+      Map<String, dynamic>? filter = request.variables['filter'];
+      int? limit = request.variables['limit'];
+      decodedData =
+          modelType.fromJson(dataJson!, limit: limit, filter: filter) as T;
     } else {
       decodedData = modelType!.fromJson(dataJson!) as T;
     }
