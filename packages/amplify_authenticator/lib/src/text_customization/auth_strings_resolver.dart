@@ -15,13 +15,11 @@
 
 import 'package:amplify_authenticator/src/text_customization/button_resolver.dart';
 import 'package:amplify_authenticator/src/text_customization/input_resolver.dart';
-import 'package:amplify_authenticator/src/text_customization/navigation_resolver.dart';
 import 'package:amplify_authenticator/src/text_customization/title_resolver.dart';
 import 'package:flutter/material.dart';
 
 export 'package:amplify_authenticator/src/text_customization/button_resolver.dart';
 export 'package:amplify_authenticator/src/text_customization/input_resolver.dart';
-export 'package:amplify_authenticator/src/text_customization/navigation_resolver.dart';
 export 'package:amplify_authenticator/src/text_customization/title_resolver.dart';
 
 /// {@template authenticator.auth_string_resolver}
@@ -38,9 +36,6 @@ class AuthStringResolver {
   /// The resolver class for shared input Widgets
   final InputResolver inputs;
 
-  /// The resolver class for navigation-related Widgets
-  final NavigationResolver navigation;
-
   /// The resolver class for titles
   final TitleResolver titles;
 
@@ -48,21 +43,18 @@ class AuthStringResolver {
   const AuthStringResolver({
     ButtonResolver? buttons,
     InputResolver? inputs,
-    NavigationResolver? navigation,
     TitleResolver? titles,
-  })  : titles = titles ?? const DefaultTitleResolver(),
-        buttons = buttons ?? const DefaultButtonResolver(),
-        inputs = inputs ?? const DefaultInputResolver(),
-        navigation = navigation ?? const DefaultNavigationResolver();
+  })  : titles = titles ?? const TitleResolver(),
+        buttons = buttons ?? const ButtonResolver(),
+        inputs = inputs ?? const InputResolver();
 
   @override
   bool operator ==(Object other) =>
       other is AuthStringResolver &&
       buttons == other.buttons &&
       inputs == other.inputs &&
-      navigation == other.navigation &&
       titles == other.titles;
 
   @override
-  int get hashCode => hashValues(buttons, inputs, navigation, titles);
+  int get hashCode => hashValues(buttons, inputs, titles);
 }

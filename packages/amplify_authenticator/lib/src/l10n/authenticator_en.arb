@@ -1,0 +1,284 @@
+{
+    "@@locale": "en",
+    "@@context": "amplify_authenticator",
+    "signin": "Sign In",
+    "@signin": {
+        "description": "Label of the button to sign in the user."
+    },
+    "signup": "Create Account",
+    "@signup": {
+        "description": "Label of the button to sign up the user."
+    },
+    "confirm": "Confirm",
+    "@confirm": {
+        "description": "Label of button to confirm an action"
+    },
+    "submit": "Submit",
+    "@submit": {
+        "description": "Label of button to submit a form"
+    },
+    "changePassword": "Change Password",
+    "@changePassword": {
+        "description": "Label of button to change a password"
+    },
+    "sendCode": "Send Code",
+    "@sendCode": {
+        "description": "Label of button to send a verification code to the user's device"
+    },
+    "lostCode": "Lost your code?",
+    "@lostCode": {
+        "description": "Label of button prompting user if they've not received or have misplaced a verification code we sent"
+    },
+    "noAccount": "No account?",
+    "@noAccount": {
+        "description": "Hint text for the 'Go to Sign Up' button"
+    },
+    "haveAccount": "Have an account?",
+    "@haveAccount": {
+        "description": "Hint text for the 'Go to Sign In' button"
+    },
+    "forgotPassword": "Forgot password?",
+    "@forgotPassword": {
+        "description": "Hint text for the 'Reset Password' button"
+    },
+    "resetPassword": "Reset Password",
+    "@resetPassword": {
+        "description": "Label of button to reset a user's password"
+    },
+    "verifyUser": "Verify",
+    "@verifyUser": {
+        "description": "Label of button to verify a user's contact point such as their email or phone number"
+    },
+    "confirmVerifyUser": "Submit",
+    "@confirmVerifyUser": {
+        "description": "Label of button to submit a verification code sent to a user's contact point"
+    },
+    "skip": "Skip",
+    "@skip": {
+        "description": "Label of button to skip the current screen or action."
+    },
+    "signout": "Sign Out",
+    "@signout": {
+        "description": "Label of button to sign out the user"
+    },
+    "backTo": "Back to {previousScreen}",
+    "@backTo": {
+        "description": "Label of button to return to the previous screen",
+        "placeholders": {
+            "previousScreen": {
+                "type": "String",
+                "example": "Sign In",
+                "description": "The title of the previous screen."
+            }
+        }
+    },
+    "signInWith": "Sign In with {provider}",
+    "@signInWith": {
+        "description": "Label of button to sign in with a social provider",
+        "placeholders": {
+            "provider": {
+                "type": "String",
+                "example": "Google",
+                "description": "The social sign-in provider"
+            }
+        }
+    },
+    "username": "Username",
+    "@username": {
+        "description": "User's chosen username."
+    },
+    "password": "Password",
+    "@password": {
+        "description": "User's chosen password."
+    },
+    "passwordConfirmation": "Confirm Password",
+    "@passwordConfirmation": {
+        "description": "Confirmation of user's chosen password."
+    },
+    "email": "Email",
+    "@email": {
+        "description": "User's preferred e-mail address.",
+        "example": "john.doe@example.com"
+    },
+    "phoneNumber": "Phone Number",
+    "@phoneNumber": {
+        "description": "User's preferred telephone number.",
+        "example": "+1 (888) 555-1234"
+    },
+    "verificationCode": "Verification Code",
+    "@verificationCode": {
+        "description": "The code sent to the user's phone number or email address for verification.",
+        "example": "123456"
+    },
+    "address": "Address",
+    "@address": {
+        "description": "User's preferred postal address."
+    },
+    "birthdate": "Birthdate",
+    "@birthdate": {
+        "description": "User's birthday, represented as an ISO 8601:2004 [ISO8601‑2004] YYYY-MM-DD format.",
+        "example": "1990-01-01"
+    },
+    "familyName": "Family Name",
+    "@familyName": {
+        "description": "Surname(s) or last name(s) of the user."
+    },
+    "middleName": "Middle Name",
+    "@middleName": {
+        "description": "Middle name(s) of the user."
+    },
+    "gender": "Gender",
+    "@gender": {
+        "description": "User's gender.",
+        "example": "male"
+    },
+    "genders": "{gender, select, male{male}, female{female}, other{other}}",
+    "@genders": {
+        "placeholders": {
+            "gender": {
+                "description": "The user's gender.",
+                "type": "Gender",
+                "example": "male"
+            }
+        }
+    },
+    "givenName": "Given Name",
+    "@givenName": {
+        "description": "Given name(s) or first name(s) of the user."
+    },
+    "name": "Name",
+    "@name": {
+        "description": "User's full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the user's locale and preferences."
+    },
+    "nickname": "Nickname",
+    "@nickname": {
+        "description": "Casual name of the user that may or may not be the same as their given name."
+    },
+    "or": "{a} or {b}",
+    "@or": {
+        "description": "One or the other",
+        "placeholders": {
+            "a": {
+                "type": "String",
+                "example": "Email",
+                "description": "The first item."
+            },
+            "b": {
+                "type": "String",
+                "example": "Phone Number",
+                "description": "The second item."
+            }
+        }
+    },
+    "preferredUsername": "Preferred Username",
+    "@preferredUsername": {
+        "description": "Shorthand name by which the user wishes to be referred to."
+    },
+    "warnEmpty": "{attribute} field must not be blank.",
+    "@warnEmpty": {
+        "description": "Warning for a required field was left empty, displayed as an error to the user.",
+        "placeholders": {
+            "attribute": {
+                "type": "String",
+                "example": "Username",
+                "description": "The required field which was left empty."
+            }
+        }
+    },
+    "promptFill": "Enter your {attribute}",
+    "@promptFill": {
+        "description": "Prompt to fill an optional or required input field, used as the placeholder for text fields.",
+        "placeholders": {
+            "attribute": {
+                "type": "String",
+                "example": "username",
+                "description": "The field which can be filled."
+            }
+        }
+    },
+    "promptRefill": "Re-enter your {attribute}",
+    "@promptRefill": {
+        "description": "Prompt to refill an optional or required input field, used as the placeholder for text fields.",
+        "placeholders": {
+            "attribute": {
+                "type": "String",
+                "example": "username",
+                "description": "The field which can be filled."
+            }
+        }
+    },
+    "passwordRequirementsPreamble": "Password must include:",
+    "@passwordRequirementsPreamble": {
+        "description": "Preamble to list of unment password requirements."
+    },
+    "passwordRequirementsCharacter": "{numCharacters, plural, =1{character} other{characters}}",
+    "@passwordRequirementsCharacter": {
+        "description": "Character(s) in a password.",
+        "placeholders": {
+            "numCharacters": {
+                "type": "int",
+                "description": "The number of required characters of the given character type."
+            }
+        }
+    },
+    "passwordRequirementsCharacterType": "{characterType, select, uppercase{uppercase} lowercase{lowercase} number{number} symbol{symbol} other{}}",
+    "@passwordRequirementsCharacterType": {
+        "description": "Character(s) in a password.",
+        "placeholders": {
+            "characterType": {
+                "type": "PasswordPolicyCharacters",
+                "description": "The character class or type."
+            }
+        }
+    },
+    "passwordRequirementsAtLeast": "at least {numCharacters} {characterType} {characters}",
+    "@passwordRequirementsAtLeast": {
+        "description": "Password uppercase character requirement, displayed as a bullet point in list of unmet requirements.",
+        "placeholders": {
+            "numCharacters": {
+                "type": "int",
+                "description": "The number of required characters of the given character type."
+            },
+            "characterType": {
+                "type": "String",
+                "description": "The character class or type."
+            },
+            "characters": {
+                "type": "String",
+                "description": "The character descriptor."
+            }
+        }
+    },
+    "screenSignin": "Sign in to your account",
+    "@screenSignin": {
+        "description": "Title of the Signin screen and form"
+    },
+    "screenSignup": "Create your account",
+    "@screenSignup": {
+        "description": "Title of the Signup screen and form"
+    },
+    "screenConfirmSignup": "Enter your confirmation code",
+    "@screenConfirmSignup": {
+        "description": "Title of the Confirm Signup screen and form"
+    },
+    "screenConfirmSigninMfa": "Enter your sign in code",
+    "@screenConfirmSigninMfa": {
+        "description": "Title of the Confirm Signin with MFA screen and form"
+    },
+    "screenConfirmSigninNewPassword": "Change your password to sign in",
+    "@screenConfirmSigninNewPassword": {
+        "description": "Title of the Confirm Signin with New Password screen and form"
+    },
+    "screenResetPassword": "Reset your password",
+    "@screenResetPassword": {
+        "description": "Title of the Reset Password screen and form"
+    },
+    "screenSendCode": "Send Code",
+    "@screenSendCode": {
+        "description": "Title of the Send Code screen and form"
+    },
+    "screenVerifyUser": "Account recovery requires verified contact information",
+    "@screenVerifyUser": {
+        "description": "Title of the Verify and Confirm Verify User screens and forms"
+    }
+}

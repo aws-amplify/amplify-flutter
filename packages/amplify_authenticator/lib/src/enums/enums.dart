@@ -15,6 +15,7 @@
 
 export 'confirm_signin_types.dart';
 export 'confirm_signup_types.dart';
+export 'gender.dart';
 export 'signin_types.dart';
 export 'signup_types.dart';
 export 'status_type.dart';

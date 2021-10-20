@@ -18,7 +18,7 @@ library amplify_authenticator;
 import 'dart:async';
 
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
-import 'package:amplify_authenticator/src/enums/status_type.dart';
+import 'package:amplify_authenticator/src/enums/enums.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
@@ -38,6 +38,8 @@ import 'package:amplify_flutter/src/config/amplify_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+export 'package:amplify_flutter/src/config/auth/password_policy_characters.dart';
+export 'package:amplify_flutter/src/config/auth/password_protection_settings.dart';
 export 'src/enums/enums.dart';
 export 'src/models/authenticator_exception.dart';
 export 'src/text_customization/auth_strings_resolver.dart';

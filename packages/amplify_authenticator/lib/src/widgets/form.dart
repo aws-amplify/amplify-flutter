@@ -183,8 +183,8 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
               return const SignUpFormField.gender();
 
             /// TODO: Potentially remove locale and add to api call based on phone locale
-            case 'LOCALE':
-              return const SignUpFormField.locale();
+            // case 'LOCALE':
+            //   return const SignUpFormField.locale();
             case 'GIVEN_NAME':
               return const SignUpFormField.givenName();
             case 'NAME':
@@ -195,20 +195,20 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
               return const SignUpFormField.phoneNumber();
             case 'PREFERRED_USERNAME':
               return const SignUpFormField.preferredUsername();
-            case 'PICTURE':
-              return const SignUpFormField.picture();
-            case 'PROFILE':
-              return const SignUpFormField.profile();
+            // case 'PICTURE':
+            //   return const SignUpFormField.picture();
+            // case 'PROFILE':
+            //   return const SignUpFormField.profile();
 
-            /// TODO: Potentially remove updated_at and add to api call based on device datetime
-            case 'UPDATED_AT':
-              return const SignUpFormField.updatedAt();
-            case 'WEBSITE':
-              return const SignUpFormField.website();
+            // /// TODO: Potentially remove updated_at and add to api call based on device datetime
+            // case 'UPDATED_AT':
+            //   return const SignUpFormField.updatedAt();
+            // case 'WEBSITE':
+            //   return const SignUpFormField.website();
 
-            /// TODO: Potentially remove zoneinfo and add to api call based on device timezone
-            case 'ZONEINFO':
-              return const SignUpFormField.zoneinfo();
+            // /// TODO: Potentially remove zoneinfo and add to api call based on device timezone
+            // case 'ZONEINFO':
+            //   return const SignUpFormField.zoneinfo();
           }
         })
         .whereType<SignUpFormField>()
