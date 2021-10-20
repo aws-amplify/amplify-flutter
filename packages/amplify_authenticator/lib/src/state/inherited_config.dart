@@ -21,10 +21,12 @@ class InheritedConfig extends InheritedWidget {
   const InheritedConfig({
     Key? key,
     required this.amplifyConfig,
+    required this.useAmplifyTheme,
     required Widget child,
   }) : super(key: key, child: child);
 
   final AmplifyConfig? amplifyConfig;
+  final bool useAmplifyTheme;
 
   static InheritedConfig of(BuildContext context) {
     final inheritedConfig =
@@ -61,7 +63,7 @@ class InheritedConfig extends InheritedWidget {
         ),
       ]);
     }
-    return false;
+    return oldWidget.useAmplifyTheme != useAmplifyTheme;
   }
 
   @override

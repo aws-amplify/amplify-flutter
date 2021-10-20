@@ -259,6 +259,7 @@ class _AuthenticatorState extends State<Authenticator> {
       authBloc: _stateMachineBloc,
       child: InheritedConfig(
         amplifyConfig: _config,
+        useAmplifyTheme: widget.useAmplifyTheme,
         child: InheritedAuthViewModel(
           key: keyInheritedAuthViewModel,
           viewModel: _viewModel,
@@ -275,10 +276,7 @@ class _AuthenticatorState extends State<Authenticator> {
               confirmSignInMFAForm: widget.confirmSignInMFAForm,
               verifyUserForm: const VerifyUserForm(),
               confirmVerifyUserForm: const ConfirmVerifyUserForm(),
-              child: _AuthenticatorBody(
-                useAmplifyTheme: widget.useAmplifyTheme,
-                child: widget.child,
-              ),
+              child: _AuthenticatorBody(child: widget.child),
             ),
           ),
         ),
@@ -290,16 +288,15 @@ class _AuthenticatorState extends State<Authenticator> {
 class _AuthenticatorBody extends StatelessWidget {
   const _AuthenticatorBody({
     Key? key,
-    required this.useAmplifyTheme,
     required this.child,
   }) : super(key: key);
 
-  final bool useAmplifyTheme;
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
     final stateMachineBloc = InheritedAuthBloc.of(context);
+    final useAmplifyTheme = InheritedConfig.of(context).useAmplifyTheme;
     final userAppTheme = Theme.of(context);
     return Theme(
       data: useAmplifyTheme ? AmplifyTheme.theme : userAppTheme,
@@ -329,12 +326,5 @@ class _AuthenticatorBody extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-        .add(DiagnosticsProperty<bool>('useAmplifyTheme', useAmplifyTheme));
   }
 }
