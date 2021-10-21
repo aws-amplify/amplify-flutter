@@ -13,12 +13,11 @@
 * permissions and limitations under the License.
 */
 
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:flutter/foundation.dart';
-
 // ignore_for_file: public_member_api_docs
 
 import 'ModelProvider.dart';
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:flutter/foundation.dart';
 
 /** This is an auto generated class representing the BelongsToModel type in your schema. */
 @immutable
@@ -27,8 +26,6 @@ class BelongsToModel extends Model {
   final String id;
   final String? _name;
   final ChildModel? _child;
-  final TemporalDateTime? _createdAt;
-  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -64,20 +61,10 @@ class BelongsToModel extends Model {
     }
   }
 
-  TemporalDateTime? get createdAt {
-    return _createdAt;
-  }
-
-  TemporalDateTime? get updatedAt {
-    return _updatedAt;
-  }
-
   const BelongsToModel._internal(
-      {required this.id, required name, required child, createdAt, updatedAt})
+      {required this.id, required name, required child})
       : _name = name,
-        _child = child,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+        _child = child;
 
   factory BelongsToModel(
       {String? id, required String name, required ChildModel child}) {
@@ -108,20 +95,14 @@ class BelongsToModel extends Model {
     buffer.write("BelongsToModel {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
-    buffer.write(
-        "child=" + (_child != null ? _child!.toString() : "null") + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
-    buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("child=" + (_child != null ? _child!.toString() : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
   BelongsToModel copyWith({String? id, String? name, ChildModel? child}) {
-    return BelongsToModel._internal(
+    return BelongsToModel(
         id: id ?? this.id, name: name ?? this.name, child: child ?? this.child);
   }
 
@@ -131,21 +112,10 @@ class BelongsToModel extends Model {
         _child = json['child']?['serializedData'] != null
             ? ChildModel.fromJson(
                 new Map<String, dynamic>.from(json['child']['serializedData']))
-            : null,
-        _createdAt = json['createdAt'] != null
-            ? TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? TemporalDateTime.fromString(json['updatedAt'])
             : null;
 
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': _name,
-        'child': _child?.toJson(),
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
+  Map<String, dynamic> toJson() =>
+      {'id': id, 'name': _name, 'child': _child?.toJson()};
 
   static final QueryField ID = QueryField(fieldName: "belongsToModel.id");
   static final QueryField NAME = QueryField(fieldName: "name");
@@ -170,18 +140,6 @@ class BelongsToModel extends Model {
         isRequired: true,
         targetName: "belongsToModelChildId",
         ofModelName: (ChildModel).toString()));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: "createdAt",
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: "updatedAt",
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 
