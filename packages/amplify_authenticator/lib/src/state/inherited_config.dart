@@ -71,7 +71,8 @@ class InheritedConfig extends InheritedWidget {
     super.debugFillProperties(properties);
     properties
         .add(DiagnosticsProperty<AmplifyConfig?>('config', amplifyConfig));
-        properties.add(DiagnosticsProperty<bool>('useAmplifyTheme', useAmplifyTheme));
+    properties
+        .add(DiagnosticsProperty<bool>('useAmplifyTheme', useAmplifyTheme));
   }
 }
 
