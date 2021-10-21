@@ -13,13 +13,12 @@
 * permissions and limitations under the License.
 */
 
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
-
 // ignore_for_file: public_member_api_docs
 
 import 'ModelProvider.dart';
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 
 /** This is an auto generated class representing the EnumListTypeModel type in your schema. */
 @immutable
@@ -27,8 +26,6 @@ class EnumListTypeModel extends Model {
   static const classType = const _EnumListTypeModelModelType();
   final String id;
   final List<EnumModel>? _value;
-  final TemporalDateTime? _createdAt;
-  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -42,19 +39,7 @@ class EnumListTypeModel extends Model {
     return _value;
   }
 
-  TemporalDateTime? get createdAt {
-    return _createdAt;
-  }
-
-  TemporalDateTime? get updatedAt {
-    return _updatedAt;
-  }
-
-  const EnumListTypeModel._internal(
-      {required this.id, value, createdAt, updatedAt})
-      : _value = value,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+  const EnumListTypeModel._internal({required this.id, value}) : _value = value;
 
   factory EnumListTypeModel({String? id, List<EnumModel>? value}) {
     return EnumListTypeModel._internal(
@@ -86,21 +71,14 @@ class EnumListTypeModel extends Model {
     buffer.write("value=" +
         (_value != null
             ? _value!.map((e) => enumToString(e)).toString()
-            : "null") +
-        ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
-    buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+            : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
   EnumListTypeModel copyWith({String? id, List<EnumModel>? value}) {
-    return EnumListTypeModel._internal(
-        id: id ?? this.id, value: value ?? this.value);
+    return EnumListTypeModel(id: id ?? this.id, value: value ?? this.value);
   }
 
   EnumListTypeModel.fromJson(Map<String, dynamic> json)
@@ -109,20 +87,10 @@ class EnumListTypeModel extends Model {
             ? (json['value'] as List)
                 .map((e) => enumFromString<EnumModel>(e, EnumModel.values)!)
                 .toList()
-            : null,
-        _createdAt = json['createdAt'] != null
-            ? TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? TemporalDateTime.fromString(json['updatedAt'])
             : null;
 
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'value': _value?.map((e) => enumToString(e)).toList(),
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
+  Map<String, dynamic> toJson() =>
+      {'id': id, 'value': _value?.map((e) => enumToString(e))?.toList()};
 
   static final QueryField ID = QueryField(fieldName: "enumListTypeModel.id");
   static final QueryField VALUE = QueryField(fieldName: "value");
@@ -139,18 +107,6 @@ class EnumListTypeModel extends Model {
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
             ofModelName: describeEnum(ModelFieldTypeEnum.enumeration))));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: "createdAt",
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: "updatedAt",
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 

@@ -13,12 +13,11 @@
 * permissions and limitations under the License.
 */
 
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:flutter/foundation.dart';
-
 // ignore_for_file: public_member_api_docs
 
 import 'ModelProvider.dart';
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:flutter/foundation.dart';
 
 /** This is an auto generated class representing the HasOneModel type in your schema. */
 @immutable
@@ -28,8 +27,6 @@ class HasOneModel extends Model {
   final String? _name;
   final String? _childID;
   final ChildModel? _child;
-  final TemporalDateTime? _createdAt;
-  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -69,26 +66,11 @@ class HasOneModel extends Model {
     return _child;
   }
 
-  TemporalDateTime? get createdAt {
-    return _createdAt;
-  }
-
-  TemporalDateTime? get updatedAt {
-    return _updatedAt;
-  }
-
   const HasOneModel._internal(
-      {required this.id,
-      required name,
-      required childID,
-      child,
-      createdAt,
-      updatedAt})
+      {required this.id, required name, required childID, child})
       : _name = name,
         _childID = childID,
-        _child = child,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+        _child = child;
 
   factory HasOneModel(
       {String? id,
@@ -126,12 +108,7 @@ class HasOneModel extends Model {
     buffer.write("HasOneModel {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
-    buffer.write("childID=" + "$_childID" + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
-    buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("childID=" + "$_childID");
     buffer.write("}");
 
     return buffer.toString();
@@ -139,7 +116,7 @@ class HasOneModel extends Model {
 
   HasOneModel copyWith(
       {String? id, String? name, String? childID, ChildModel? child}) {
-    return HasOneModel._internal(
+    return HasOneModel(
         id: id ?? this.id,
         name: name ?? this.name,
         childID: childID ?? this.childID,
@@ -153,22 +130,10 @@ class HasOneModel extends Model {
         _child = json['child']?['serializedData'] != null
             ? ChildModel.fromJson(
                 new Map<String, dynamic>.from(json['child']['serializedData']))
-            : null,
-        _createdAt = json['createdAt'] != null
-            ? TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? TemporalDateTime.fromString(json['updatedAt'])
             : null;
 
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': _name,
-        'childID': _childID,
-        'child': _child?.toJson(),
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
+  Map<String, dynamic> toJson() =>
+      {'id': id, 'name': _name, 'childID': _childID, 'child': _child?.toJson()};
 
   static final QueryField ID = QueryField(fieldName: "hasOneModel.id");
   static final QueryField NAME = QueryField(fieldName: "name");
@@ -199,18 +164,6 @@ class HasOneModel extends Model {
         isRequired: false,
         ofModelName: (ChildModel).toString(),
         associatedKey: ChildModel.ID));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: "createdAt",
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: "updatedAt",
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 

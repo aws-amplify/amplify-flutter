@@ -25,8 +25,6 @@ class PostAuthComplex extends Model {
   final String id;
   final String? _title;
   final String? _owner;
-  final TemporalDateTime? _createdAt;
-  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -37,36 +35,16 @@ class PostAuthComplex extends Model {
   }
 
   String get title {
-    try {
-      return _title!;
-    } catch (e) {
-      throw new DataStoreException(
-          DataStoreExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: DataStoreExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
-    }
+    return _title!;
   }
 
   String? get owner {
     return _owner;
   }
 
-  TemporalDateTime? get createdAt {
-    return _createdAt;
-  }
-
-  TemporalDateTime? get updatedAt {
-    return _updatedAt;
-  }
-
-  const PostAuthComplex._internal(
-      {required this.id, required title, owner, createdAt, updatedAt})
+  const PostAuthComplex._internal({required this.id, required title, owner})
       : _title = title,
-        _owner = owner,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+        _owner = owner;
 
   factory PostAuthComplex({String? id, required String title, String? owner}) {
     return PostAuthComplex._internal(
@@ -83,9 +61,7 @@ class PostAuthComplex extends Model {
     return other is PostAuthComplex &&
         id == other.id &&
         _title == other._title &&
-        _owner == other._owner &&
-        _createdAt == other._createdAt &&
-        _updatedAt == other._updatedAt;
+        _owner == other._owner;
   }
 
   @override
@@ -98,19 +74,14 @@ class PostAuthComplex extends Model {
     buffer.write("PostAuthComplex {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("title=" + "$_title" + ", ");
-    buffer.write("owner=" + "$_owner" + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
-    buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("owner=" + "$_owner");
     buffer.write("}");
 
     return buffer.toString();
   }
 
   PostAuthComplex copyWith({String? id, String? title, String? owner}) {
-    return PostAuthComplex._internal(
+    return PostAuthComplex(
         id: id ?? this.id,
         title: title ?? this.title,
         owner: owner ?? this.owner);
@@ -119,21 +90,9 @@ class PostAuthComplex extends Model {
   PostAuthComplex.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _title = json['title'],
-        _owner = json['owner'],
-        _createdAt = json['createdAt'] != null
-            ? TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? TemporalDateTime.fromString(json['updatedAt'])
-            : null;
+        _owner = json['owner'];
 
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'title': _title,
-        'owner': _owner,
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
+  Map<String, dynamic> toJson() => {'id': id, 'title': _title, 'owner': _owner};
 
   static final QueryField ID = QueryField(fieldName: "postAuthComplex.id");
   static final QueryField TITLE = QueryField(fieldName: "title");
@@ -167,18 +126,6 @@ class PostAuthComplex extends Model {
         key: PostAuthComplex.OWNER,
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: "createdAt",
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: "updatedAt",
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 
