@@ -32,8 +32,6 @@ class Post extends Model {
   final bool? _isPublic;
   final Blog? _blog;
   final List<Comment>? _comments;
-  final TemporalDateTime? _createdAt;
-  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -81,14 +79,6 @@ class Post extends Model {
     return _comments;
   }
 
-  TemporalDateTime? get createdAt {
-    return _createdAt;
-  }
-
-  TemporalDateTime? get updatedAt {
-    return _updatedAt;
-  }
-
   bool? get isPublic {
     return _isPublic;
   }
@@ -100,17 +90,13 @@ class Post extends Model {
       isPublic,
       created,
       blog,
-      comments,
-      createdAt,
-      updatedAt})
+      comments})
       : _title = title,
         _rating = rating,
         _created = created,
         _isPublic = isPublic,
         _blog = blog,
-        _comments = comments,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+        _comments = comments;
 
   factory Post(
       {String? id,
@@ -163,11 +149,6 @@ class Post extends Model {
     buffer.write(
         "created=" + (_created != null ? _created!.format() : "null") + ", ");
     buffer.write("blog=" + (_blog != null ? _blog!.toString() : "null") + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
-    buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
@@ -209,12 +190,6 @@ class Post extends Model {
                     new Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
             : null,
-        _createdAt = json['createdAt'] != null
-            ? TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? TemporalDateTime.fromString(json['updatedAt'])
-            : null,
         _isPublic = json['isPublic'] as bool?;
 
   Map<String, dynamic> toJson() => {
@@ -225,8 +200,6 @@ class Post extends Model {
         'isPublic': _isPublic,
         'blog': _blog?.toJson(),
         'comments': _comments?.map((Comment? e) => e?.toJson()).toList(),
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
       };
 
   static final QueryField ID = QueryField(fieldName: "post.id");
@@ -280,18 +253,6 @@ class Post extends Model {
         isRequired: false,
         ofModelName: (Comment).toString(),
         associatedKey: Comment.POST));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: "createdAt",
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: "updatedAt",
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 

@@ -24,8 +24,6 @@ class JSONTypeModel extends Model {
   static const classType = const _JSONTypeModelModelType();
   final String id;
   final String? _value;
-  final TemporalDateTime? _createdAt;
-  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -39,18 +37,7 @@ class JSONTypeModel extends Model {
     return _value;
   }
 
-  TemporalDateTime? get createdAt {
-    return _createdAt;
-  }
-
-  TemporalDateTime? get updatedAt {
-    return _updatedAt;
-  }
-
-  const JSONTypeModel._internal({required this.id, value, createdAt, updatedAt})
-      : _value = value,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+  const JSONTypeModel._internal({required this.id, value}) : _value = value;
 
   factory JSONTypeModel({String? id, String? value}) {
     return JSONTypeModel._internal(
@@ -76,38 +63,21 @@ class JSONTypeModel extends Model {
 
     buffer.write("JSONTypeModel {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("value=" + "$_value" + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
-    buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("value=" + "$_value");
     buffer.write("}");
 
     return buffer.toString();
   }
 
   JSONTypeModel copyWith({String? id, String? value}) {
-    return JSONTypeModel._internal(
-        id: id ?? this.id, value: value ?? this.value);
+    return JSONTypeModel(id: id ?? this.id, value: value ?? this.value);
   }
 
   JSONTypeModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _value = json['value'],
-        _createdAt = json['createdAt'] != null
-            ? TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? TemporalDateTime.fromString(json['updatedAt'])
-            : null;
+        _value = json['value'];
 
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'value': _value,
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
+  Map<String, dynamic> toJson() => {'id': id, 'value': _value};
 
   static final QueryField ID = QueryField(fieldName: "jSONTypeModel.id");
   static final QueryField VALUE = QueryField(fieldName: "value");
@@ -122,18 +92,6 @@ class JSONTypeModel extends Model {
         key: JSONTypeModel.VALUE,
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: "createdAt",
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: "updatedAt",
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 
