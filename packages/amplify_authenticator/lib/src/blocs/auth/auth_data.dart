@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+
 enum AuthScreen {
   signup,
   signin,
@@ -25,14 +27,26 @@ enum AuthScreen {
   confirmVerifyUser,
 }
 
-class AuthSignInData {
-  const AuthSignInData({
+abstract class AuthSignInData {
+  const AuthSignInData();
+}
+
+class AuthUsernamePasswordSignInData extends AuthSignInData {
+  const AuthUsernamePasswordSignInData({
     required this.username,
     required this.password,
   });
 
   final String username;
   final String password;
+}
+
+class AuthSocialSignInData extends AuthSignInData {
+  const AuthSocialSignInData({
+    required this.provider,
+  });
+
+  final AuthProvider provider;
 }
 
 ///Sign Up Data

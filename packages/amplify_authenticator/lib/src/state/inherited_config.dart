@@ -13,47 +13,26 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_authenticator/src/enums/alias.dart';
 import 'package:amplify_flutter/src/config/amplify_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-@immutable
-class AuthenticatorConfig {
-  const AuthenticatorConfig({
-    required this.amplifyConfig,
-    required this.usernameAlias,
-  });
-
-  final AmplifyConfig amplifyConfig;
-  final Alias usernameAlias;
-
-  @override
-  bool operator ==(Object other) =>
-      other is AuthenticatorConfig &&
-      amplifyConfig == other.amplifyConfig &&
-      usernameAlias == other.usernameAlias;
-
-  @override
-  int get hashCode => hashValues(amplifyConfig, usernameAlias);
-}
-
 class InheritedConfig extends InheritedWidget {
   const InheritedConfig({
     Key? key,
-    required this.config,
-    required this.usernameAlias,
+    required this.amplifyConfig,
+    required this.useAmplifyTheme,
     required Widget child,
   }) : super(key: key, child: child);
 
-  final AmplifyConfig? config;
-  final Alias usernameAlias;
+  final AmplifyConfig? amplifyConfig;
+  final bool useAmplifyTheme;
 
-  static AuthenticatorConfig of(BuildContext context) {
+  static InheritedConfig of(BuildContext context) {
     final inheritedConfig =
         context.dependOnInheritedWidgetOfExactType<InheritedConfig>();
     assert(() {
-      if (inheritedConfig == null || inheritedConfig.config == null) {
+      if (inheritedConfig == null) {
         throw FlutterError.fromParts([
           ErrorSummary('InheritedConfig widget was not configured correctly.'),
           ErrorDescription(
@@ -65,17 +44,14 @@ class InheritedConfig extends InheritedWidget {
       return true;
     }());
 
-    return AuthenticatorConfig(
-      amplifyConfig: inheritedConfig!.config!,
-      usernameAlias: inheritedConfig.usernameAlias,
-    );
+    return inheritedConfig!;
   }
 
   @override
   bool updateShouldNotify(InheritedConfig oldWidget) {
-    var updatedConfig = oldWidget.config != config;
+    var updatedConfig = oldWidget.amplifyConfig != amplifyConfig;
     if (updatedConfig) {
-      if (oldWidget.config == null) {
+      if (oldWidget.amplifyConfig == null) {
         return true;
       }
       throw FlutterError.fromParts([
@@ -87,14 +63,14 @@ class InheritedConfig extends InheritedWidget {
         ),
       ]);
     }
-    return false;
+    return oldWidget.useAmplifyTheme != useAmplifyTheme;
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<AmplifyConfig?>('config', config));
-    properties.add(EnumProperty<Alias>('usernameAlias', usernameAlias));
+    properties
+        .add(DiagnosticsProperty<AmplifyConfig?>('config', amplifyConfig));
   }
 }
 

@@ -14,19 +14,18 @@
  */
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator/src/state/inherited_config.dart';
-import 'package:amplify_authenticator/src/state/inherited_strings.dart';
+import 'package:amplify_flutter/src/config/amplify_config.dart';
 import 'package:amplify_flutter/src/config/auth/password_policy_characters.dart';
 import 'package:amplify_flutter/src/config/auth/password_protection_settings.dart';
 import 'package:flutter/material.dart';
 
 final emailRegex = RegExp(r'^\S+@\S+$');
 final phoneNumberRegex = RegExp(r'\d+');
-final _codeRegex = RegExp(r'\d{6}');
-final _uppercase = RegExp('^(?=.*[A-Z])');
-final _lowercase = RegExp('^(?=.*[a-z])');
-final _numeric = RegExp('^(?=.*\\d)');
-final _symbols = RegExp(r'[~/`!@#$%^&\"*(),._?:;{}|<>\]\[\\]');
+final _codeRegex = RegExp(r'^\d{6}$');
+final _uppercase = RegExp(r'[A-Z]');
+final _lowercase = RegExp(r'[a-z]');
+final _numeric = RegExp(r'\d');
+final _symbols = RegExp(r'''[~/`!@#$%^&\"'*(),._?:;{}|<>\]\[\\]''');
 
 FormFieldValidator<String> simpleValidator(String message) {
   return (String? input) {
@@ -37,60 +36,80 @@ FormFieldValidator<String> simpleValidator(String message) {
   };
 }
 
-///TODO: Possibly refactor as widget to avoid passing context
-FormFieldValidator<String> validateSignUpPassword(BuildContext context) {
-  PasswordProtectionSettings? _passwordProtectionSettings =
-      InheritedConfig.of(context)
-          .amplifyConfig
-          .auth
-          ?.awsCognitoAuthPlugin
-          ?.auth?['Default']
-          ?.passwordProtectionSettings;
-
-  InputResolver _hintStrings = InheritedStrings.of(context).inputs;
-
-  return (String? password) {
-    List<String> passwordHints = [
-      _hintStrings.passwordRequirementsUnmet(context)
-    ];
-
-    int? minLength = _passwordProtectionSettings?.passwordPolicyMinLength;
-    List<PasswordPolicyCharacters>? passwordCharacters =
-        _passwordProtectionSettings?.passwordPolicyCharacters;
-    if (password == null || password.isEmpty || minLength! > password.length) {
-      passwordHints.add(
-          '* ${_hintStrings.passwordAtLeast(context)} $minLength ${_hintStrings.passwordCharacters(context)}');
+extension PasswordPolicyCharactersX on PasswordPolicyCharacters {
+  @visibleForTesting
+  bool meetsRequirement(String value) {
+    switch (this) {
+      case PasswordPolicyCharacters.requiresLowercase:
+        return value.contains(_lowercase);
+      case PasswordPolicyCharacters.requiresUppercase:
+        return value.contains(_uppercase);
+      case PasswordPolicyCharacters.requiresNumbers:
+        return value.contains(_numeric);
+      case PasswordPolicyCharacters.requiresSymbols:
+        return value.contains(_symbols);
     }
-    if (password != null &&
-        passwordCharacters != null &&
-        passwordCharacters.isNotEmpty) {
-      if (passwordCharacters
-              .contains(PasswordPolicyCharacters.requiresLowercase) &&
-          !_lowercase.hasMatch(password)) {
-        passwordHints
-            .add('* ${_hintStrings.passwordRequiresLowercase(context)}');
-      }
-      if (passwordCharacters
-              .contains(PasswordPolicyCharacters.requiresUppercase) &&
-          !_uppercase.hasMatch(password)) {
-        passwordHints
-            .add('* ${_hintStrings.passwordRequiresUppercase(context)}');
-      }
-      if (passwordCharacters
-              .contains(PasswordPolicyCharacters.requiresNumbers) &&
-          !_numeric.hasMatch(password)) {
-        passwordHints.add('* ${_hintStrings.passwordRequiresNumbers(context)}');
-      }
-      // TODO: symbols regex does not handle single quotes, currently handling with separate check.
-      if (passwordCharacters
-              .contains(PasswordPolicyCharacters.requiresSymbols) &&
-          !_symbols.hasMatch(password) &&
-          !password.contains("'")) {
-        passwordHints.add('* ${_hintStrings.passwordRequiresSymbols(context)}');
-      }
+  }
+
+  InputResolverKey get requirementUnmetResolverKey {
+    switch (this) {
+      case PasswordPolicyCharacters.requiresLowercase:
+        return InputResolverKey.passwordRequiresLowercase;
+      case PasswordPolicyCharacters.requiresUppercase:
+        return InputResolverKey.passwordRequiresUppercase;
+      case PasswordPolicyCharacters.requiresNumbers:
+        return InputResolverKey.passwordRequiresNumbers;
+      case PasswordPolicyCharacters.requiresSymbols:
+        return InputResolverKey.passwordRequiresSymbols;
     }
-    return passwordHints.length > 1 ? passwordHints.join('\n') : null;
-  };
+  }
+}
+
+FormFieldValidator<String> Function(BuildContext) validateSignUpPassword({
+  required AmplifyConfig? amplifyConfig,
+  required InputResolver inputResolver,
+}) {
+  final PasswordProtectionSettings? passwordProtectionSettings = amplifyConfig
+      ?.auth
+      ?.awsCognitoAuthPlugin
+      ?.auth?['Default']
+      ?.passwordProtectionSettings;
+  return (BuildContext context) => (String? password) {
+        if (password == null || password.isEmpty) {
+          return inputResolver.passwordEmpty(context);
+        }
+        if (passwordProtectionSettings == null) {
+          return null;
+        }
+
+        final unmetRequirementsHeader =
+            inputResolver.passwordRequirementsUnmet(context);
+        final List<String> passwordHints = [];
+
+        int? minLength = passwordProtectionSettings.passwordPolicyMinLength;
+        bool meetsMinLengthRequirement =
+            minLength == null || password.length >= minLength;
+        if (!meetsMinLengthRequirement) {
+          passwordHints.add(
+              '* ${inputResolver.passwordAtLeast(context)} $minLength ${inputResolver.passwordCharacters(context)}');
+        }
+
+        final passwordPolicies =
+            passwordProtectionSettings.passwordPolicyCharacters ?? const [];
+        for (var policy in passwordPolicies) {
+          if (!policy.meetsRequirement(password)) {
+            final hint = inputResolver.resolve(
+              context,
+              policy.requirementUnmetResolverKey,
+            );
+            passwordHints.add('* $hint');
+          }
+        }
+
+        return passwordHints.isNotEmpty
+            ? unmetRequirementsHeader + '\n' + passwordHints.join('\n')
+            : null;
+      };
 }
 
 FormFieldValidator<String> validatePasswordConfirmation(

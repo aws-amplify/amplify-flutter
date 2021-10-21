@@ -1,131 +1,262 @@
+/*
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+*/
+
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
-import 'package:amplify_authenticator/src/constants/theme_constants.dart';
+import 'package:amplify_authenticator/src/enums/button_size.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
+import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
+import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/text_customization/navigation_resolver.dart';
+import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
+import 'package:amplify_authenticator/src/utils/list.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
+import 'package:amplify_authenticator/src/widgets/progress.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+extension on AuthenticatorButtonSize {
+  double get height {
+    switch (this) {
+      case AuthenticatorButtonSize.small:
+        return 32;
+      case AuthenticatorButtonSize.medium:
+        return 40;
+      case AuthenticatorButtonSize.large:
+        return 48;
+    }
+  }
+}
+
 /// {@template authenticator.authenticator_button}
-/// An Authenticator button component with default layout and styling.
+/// Base class for Authenticator button components.
 /// {@endtemplate}
-class AuthenticatorButton extends StatelessAuthenticatorComponent {
+abstract class AuthenticatorButton<T extends AuthenticatorButton<T>>
+    extends AuthenticatorComponent<T> {
   /// {@macro authenticator.authenticator_button}
   const AuthenticatorButton({
     Key? key,
-    required this.labelKey,
-    required this.callback,
+    this.size = AuthenticatorButtonSize.large,
   }) : super(key: key);
 
+  /// The size of the button.
+  final AuthenticatorButtonSize size;
+
   /// The button's `onPressed` callback.
-  final VoidCallback callback;
+  void onPressed(BuildContext context, AuthViewModel viewModel);
 
   /// The button's label key.
-  final ButtonResolverKey labelKey;
+  ButtonResolverKey get labelKey;
+
+  /// The widget to show while the button is loading.
+  Widget? get loadingIndicator => null;
+
+  /// The leading widget for the button, typically an [Icon].
+  Widget? get leading => null;
+
+  /// The trailing widget for the button, typically an [Icon].
+  Widget? get trailing => null;
 
   @override
-  Widget builder(
-    BuildContext context,
-    AuthViewModel viewModel,
-    AuthStringResolver stringResolver,
-  ) {
-    final buttonResolver = stringResolver.buttons;
-    return AnimatedBuilder(
-      animation: viewModel,
-      builder: (context, child) {
-        return ElevatedButton(
-          onPressed: viewModel.isBusy ? null : callback,
-          child: viewModel.isBusy
-              ? const CircularProgressIndicator(color: Colors.white)
-              : Text(buttonResolver.resolve(context, labelKey)),
-          style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.all(10),
-            primary: Theme.of(context).primaryColor,
-          ),
-        );
-      },
-    );
+  AuthenticatorButtonState<T> createState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+        .add(DiagnosticsProperty<ButtonResolverKey>('labelKey', labelKey));
+    properties.add(EnumProperty<AuthenticatorButtonSize>('size', size));
+  }
+}
+
+abstract class AuthenticatorButtonState<T extends AuthenticatorButton<T>>
+    extends AuthenticatorComponentState<T> with MaterialStateMixin<T> {
+  final focusNode = FocusNode();
+
+  late final ValueChanged<bool> focusChanged =
+      updateMaterialState(MaterialState.focused);
+
+  @override
+  void initState() {
+    super.initState();
+    focusNode.addListener(() {
+      focusChanged(focusNode.hasFocus);
+    });
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<FocusNode>('focusNode', focusNode));
+    properties.add(ObjectFlagProperty<ValueChanged<bool>>.has(
+        'focusChanged', focusChanged));
+  }
+}
+
+/// {@template authenticator.amplify_elevated_button}
+/// An Amplify [ElevatedButton] component with default layout and styling.
+/// {@endtemplate}
+abstract class AuthenticatorElevatedButton
+    extends AuthenticatorButton<AuthenticatorElevatedButton> {
+  /// {@macro authenticator.amplify_elevated_button}
+  const AuthenticatorElevatedButton({
+    Key? key,
+    this.primary = true,
+  }) : super(key: key);
+
+  /// Whether this button uses the primary button theme.
+  ///
+  /// Defaults to `true`.
+  final bool primary;
+
+  @override
+  Widget? get loadingIndicator => AmplifyProgressIndicator(primary: primary);
+
+  @override
+  _AmplifyElevatedButtonState createState() => _AmplifyElevatedButtonState();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
     properties.add(EnumProperty('labelKey', labelKey));
-    properties
-        .add(ObjectFlagProperty<void Function()>.has('callback', callback));
+    properties.add(DiagnosticsProperty<bool>('primary', primary));
   }
 }
 
-class SignUpButton extends StatelessAuthenticatorComponent {
-  const SignUpButton({Key? key}) : super(key: key);
-
+class _AmplifyElevatedButtonState
+    extends AuthenticatorButtonState<AuthenticatorElevatedButton> {
   @override
-  Widget builder(
-    BuildContext context,
-    AuthViewModel viewModel,
-    AuthStringResolver stringResolver,
-  ) {
-    return AuthenticatorButton(
-      key: keySignUpButton,
-      callback: viewModel.signUp,
-      labelKey: ButtonResolverKey.signup,
+  Widget build(BuildContext context) {
+    final buttonResolver = stringResolver.buttons;
+    final loadingIndicator = widget.loadingIndicator;
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        boxShadow: isFocused
+            ? const [
+                BoxShadow(
+                  color: AmplifyColors.blue,
+                  blurRadius: 4.0,
+                )
+              ]
+            : null,
+      ),
+      child: ElevatedButtonTheme(
+        data: InheritedConfig.of(context).useAmplifyTheme
+            ? AmplifyTheme.elevatedButtonThemeData(
+                primary: widget.primary,
+                isLoading: viewModel.isBusy,
+              )
+            : ElevatedButtonTheme.of(context),
+        child: SizedBox(
+          height: widget.size.height,
+          child: ElevatedButton(
+            focusNode: focusNode,
+            onPressed: viewModel.isBusy
+                ? null
+                : () => widget.onPressed(context, viewModel),
+            child: viewModel.isBusy && loadingIndicator != null
+                ? loadingIndicator
+                : Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (widget.leading != null) widget.leading!,
+                      Flexible(
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            buttonResolver.resolve(
+                              context,
+                              widget.labelKey,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                      if (widget.trailing != null) widget.trailing!,
+                    ].spacedBy(const SizedBox(width: 10)),
+                  ),
+          ),
+        ),
+      ),
     );
   }
 }
 
-class SignInButton extends StatelessAuthenticatorComponent {
-  const SignInButton({Key? key}) : super(key: key);
+class SignUpButton extends AuthenticatorElevatedButton {
+  const SignUpButton({Key? key})
+      : super(
+          key: key ?? keySignUpButton,
+        );
 
   @override
-  Widget builder(
-    BuildContext context,
-    AuthViewModel viewModel,
-    AuthStringResolver stringResolver,
-  ) {
-    return AuthenticatorButton(
-      key: keySignInButton,
-      callback: viewModel.signIn,
-      labelKey: ButtonResolverKey.signin,
-    );
-  }
-}
-
-class ConfirmSignUpButton extends StatelessAuthenticatorComponent {
-  const ConfirmSignUpButton({Key? key}) : super(key: key);
+  ButtonResolverKey get labelKey => ButtonResolverKey.signup;
 
   @override
-  Widget builder(
-    BuildContext context,
-    AuthViewModel viewModel,
-    AuthStringResolver stringResolver,
-  ) {
-    return AuthenticatorButton(
-      key: keyConfirmSignUpButton,
-      callback: viewModel.confirm,
-      labelKey: ButtonResolverKey.confirm,
-    );
-  }
+  void onPressed(BuildContext context, AuthViewModel viewModel) =>
+      viewModel.signUp();
 }
 
-class ConfirmSignInMFAButton extends StatelessAuthenticatorComponent {
-  const ConfirmSignInMFAButton({Key? key}) : super(key: key);
+class SignInButton extends AuthenticatorElevatedButton {
+  const SignInButton({Key? key})
+      : super(
+          key: key ?? keySignInButton,
+        );
 
   @override
-  Widget builder(
-    BuildContext context,
-    AuthViewModel viewModel,
-    AuthStringResolver stringResolver,
-  ) {
-    return AuthenticatorButton(
-      key: keyConfirmSignInButton,
-      callback: viewModel.confirmSignIn,
-      labelKey: ButtonResolverKey.confirm,
-    );
-  }
+  ButtonResolverKey get labelKey => ButtonResolverKey.signin;
+
+  @override
+  void onPressed(BuildContext context, AuthViewModel viewModel) =>
+      viewModel.signIn();
 }
 
+class ConfirmSignUpButton extends AuthenticatorElevatedButton {
+  const ConfirmSignUpButton({Key? key})
+      : super(
+          key: key ?? keyConfirmSignUpButton,
+        );
+
+  @override
+  ButtonResolverKey get labelKey => ButtonResolverKey.confirm;
+
+  @override
+  void onPressed(BuildContext context, AuthViewModel viewModel) =>
+      viewModel.confirm();
+}
+
+class ConfirmSignInMFAButton extends AuthenticatorElevatedButton {
+  const ConfirmSignInMFAButton({Key? key})
+      : super(
+          key: key ?? keyConfirmSignInButton,
+        );
+
+  @override
+  ButtonResolverKey get labelKey => ButtonResolverKey.confirm;
+
+  @override
+  void onPressed(BuildContext context, AuthViewModel viewModel) =>
+      viewModel.confirmSignIn();
+}
+
+// SignOutButton should not inherit from AuthenticatorButton, since we override
+// the theme in AuthenticatorButton.
+//
+// Since SignOutButton is used within the user's app, it should use Theme.of(context)
+// to get the user's applied theme.
 class SignOutButton extends StatelessAuthenticatorComponent {
   const SignOutButton({Key? key}) : super(key: key);
 
@@ -135,10 +266,14 @@ class SignOutButton extends StatelessAuthenticatorComponent {
     AuthViewModel viewModel,
     AuthStringResolver stringResolver,
   ) {
-    return AuthenticatorButton(
+    final buttonResolver = stringResolver.buttons;
+    return ElevatedButton(
       key: keySignOutButton,
-      callback: viewModel.signOut,
-      labelKey: ButtonResolverKey.signout,
+      onPressed: viewModel.signOut,
+      child: Text(buttonResolver.resolve(
+        context,
+        ButtonResolverKey.signout,
+      )),
     );
   }
 }
@@ -347,88 +482,78 @@ class ResetPasswordButton extends StatelessAuthenticatorComponent {
   }
 }
 
-class SendCodeButton extends StatelessAuthenticatorComponent {
-  const SendCodeButton({Key? key}) : super(key: key);
+class SendCodeButton extends AuthenticatorElevatedButton {
+  const SendCodeButton({Key? key})
+      : super(
+          key: key ?? keySendCodeButton,
+        );
 
   @override
-  Widget builder(
-    BuildContext context,
-    AuthViewModel viewModel,
-    AuthStringResolver stringResolver,
-  ) {
-    return AuthenticatorButton(
-      key: keySendCodeButton,
-      callback: viewModel.sendCode,
-      labelKey: ButtonResolverKey.submit,
-    );
+  ButtonResolverKey get labelKey => ButtonResolverKey.submit;
+
+  @override
+  void onPressed(BuildContext context, AuthViewModel viewModel) =>
+      viewModel.sendCode();
+}
+
+class SubmitButton extends AuthenticatorElevatedButton {
+  const SubmitButton({Key? key})
+      : super(
+          key: key ?? keySendCodeButton,
+        );
+
+  @override
+  ButtonResolverKey get labelKey => ButtonResolverKey.submit;
+
+  @override
+  void onPressed(BuildContext context, AuthViewModel viewModel) =>
+      viewModel.confirmPassword();
+}
+
+class ConfirmSignInNewPasswordButton extends AuthenticatorElevatedButton {
+  const ConfirmSignInNewPasswordButton({Key? key})
+      : super(
+          key: key ?? keyConfirmSignInButton,
+        );
+
+  @override
+  ButtonResolverKey get labelKey => ButtonResolverKey.changePassword;
+
+  @override
+  void onPressed(BuildContext context, AuthViewModel viewModel) =>
+      viewModel.confirmSignIn();
+}
+
+class VerifyUserButton extends AuthenticatorElevatedButton {
+  const VerifyUserButton({Key? key})
+      : super(
+          key: key ?? keySendCodeButton,
+        );
+
+  @override
+  ButtonResolverKey get labelKey => ButtonResolverKey.verifyUser;
+
+  @override
+  void onPressed(BuildContext context, AuthViewModel viewModel) {
+    final verifyUserGroupState = VerifyUserFormFieldGroup.of<String>(context);
+    viewModel.verifyUser(verifyUserGroupState.value);
   }
 }
 
-class SubmitButton extends StatelessAuthenticatorComponent {
-  const SubmitButton({Key? key}) : super(key: key);
+class ConfirmVerifyUserButton extends AuthenticatorElevatedButton {
+  const ConfirmVerifyUserButton({Key? key})
+      : super(
+          key: key ?? keySendCodeButton,
+        );
 
   @override
-  Widget builder(
-    BuildContext context,
-    AuthViewModel viewModel,
-    AuthStringResolver stringResolver,
-  ) {
-    return AuthenticatorButton(
-      key: keySendCodeButton,
-      callback: viewModel.confirmPassword,
-      labelKey: ButtonResolverKey.submit,
-    );
-  }
-}
-
-class ConfirmSignInNewPasswordButton extends StatelessAuthenticatorComponent {
-  const ConfirmSignInNewPasswordButton({Key? key}) : super(key: key);
+  ButtonResolverKey get labelKey => ButtonResolverKey.confirmVerifyUser;
 
   @override
-  Widget builder(
-    BuildContext context,
-    AuthViewModel viewModel,
-    AuthStringResolver stringResolver,
-  ) {
-    return AuthenticatorButton(
-      key: keySendCodeButton,
-      callback: viewModel.confirmSignIn,
-      labelKey: ButtonResolverKey.changePassword,
-    );
-  }
-}
-
-class VerifyUserButton extends StatelessAuthenticatorComponent {
-  const VerifyUserButton({Key? key}) : super(key: key);
-
-  @override
-  Widget builder(
-    BuildContext context,
-    AuthViewModel viewModel,
-    AuthStringResolver stringResolver,
-  ) {
-    return AuthenticatorButton(
-      key: keySendCodeButton,
-      callback: viewModel.verifyUser,
-      labelKey: ButtonResolverKey.verifyUser,
-    );
-  }
-}
-
-class ConfirmVerifyUserButton extends StatelessAuthenticatorComponent {
-  const ConfirmVerifyUserButton({Key? key}) : super(key: key);
-
-  @override
-  Widget builder(
-    BuildContext context,
-    AuthViewModel viewModel,
-    AuthStringResolver stringResolver,
-  ) {
-    return AuthenticatorButton(
-      key: keySendCodeButton,
-      callback: viewModel.confirmVerifyUser,
-      labelKey: ButtonResolverKey.confirmVerifyUser,
-    );
+  void onPressed(BuildContext context, AuthViewModel viewModel) {
+    final authState =
+        InheritedAuthBloc.of(context).currentState as AttributeVerificationSent;
+    viewModel.confirmVerifyUser(authState.userAttributeKey);
   }
 }
 

@@ -131,7 +131,7 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
     var isHostedUIActivity = isRedirectActivityDeclared(context)
-    if (!isHostedUIActivity && requestCode == AWSCognitoAuthPlugin.WEB_UI_SIGN_IN_ACTIVITY_CODE) {
+    if (isHostedUIActivity && requestCode == AWSCognitoAuthPlugin.WEB_UI_SIGN_IN_ACTIVITY_CODE) {
       Amplify.Auth.handleWebUISignInResponse(data)
       return true
     }
@@ -454,36 +454,32 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
   private fun onSignInWithWebUI(@NonNull flutterResult: Result, @NonNull request: HashMap<String, *>) {
     try {
       FlutterSignInWithWebUIRequest.validate(request)
-      var req = FlutterSignInWithWebUIRequest(request)
-      var resultSubmitted: Boolean = false;
-        if (req.provider == null) {
-          mainActivity.let {
-            Amplify.Auth.signInWithWebUI(
-                    it,
-                    { result ->
-                      if (!resultSubmitted) {
-                        resultSubmitted = true;
-                        prepareSignInResult(flutterResult, result)
-                      }
-                    },
-                    { error -> errorHandler.handleAuthError(flutterResult, error) }
-            )
-          }
-        } else {
-          mainActivity.let {
-            Amplify.Auth.signInWithSocialWebUI(
-                    AuthProvider::class.java.getMethod(req.provider!!).invoke(null) as AuthProvider,
-                    it,
-                    { result ->
-                      if (!resultSubmitted) {
-                        resultSubmitted = true;
-                        prepareSignInResult(flutterResult, result)
-                      }
-                    },
-                    { error -> errorHandler.handleAuthError(flutterResult, error) }
-            )
-          }
+      val req = FlutterSignInWithWebUIRequest(request)
+      var resultSubmitted = false
+      val successListener = { result: AuthSignInResult ->
+        if (!resultSubmitted) {
+            resultSubmitted = true
+            prepareSignInResult(flutterResult, result)
         }
+      }
+      val exceptionListener = { error: AuthException ->
+        errorHandler.handleAuthError(flutterResult, error)
+      }
+      val provider = req.provider
+      if (provider == null) {
+        Amplify.Auth.signInWithWebUI(
+            mainActivity,
+            successListener,
+            exceptionListener
+        )
+      } else {
+        Amplify.Auth.signInWithSocialWebUI(
+            provider,
+            mainActivity,
+            successListener,
+            exceptionListener
+        )
+      }
     } catch (e: Exception) {
       errorHandler.prepareGenericException(flutterResult, e)
     }

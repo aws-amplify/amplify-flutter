@@ -15,10 +15,10 @@
 
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
-import 'package:amplify_authenticator/src/constants/theme_constants.dart';
 import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
+import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -78,21 +78,16 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
 
     final form = InheritedForms.of(context)[screen];
     return Container(
-      width: containerWidth,
+      constraints: BoxConstraints(maxWidth: containerWidth),
       padding: const EdgeInsets.all(AuthenticatorContainerConstants.padding),
-      decoration: const BoxDecoration(
-        color: AuthenticatorColors.container,
-        borderRadius: AuthenticatorContainerConstants.borderRadius,
-        boxShadow: [AuthenticatorContainerConstants.boxShadow],
-      ),
+      margin: const EdgeInsets.all(AuthenticatorContainerConstants.padding) +
+          EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
+      color: AmplifyColors.backgroundPrimary,
       child: Column(
         children: <Widget>[
           Text(
             titleResolver.resolve(context, screen),
-            style: const TextStyle(
-              fontWeight: AuthenticatorContainerConstants.titleFontWeight,
-              fontSize: AuthenticatorContainerConstants.titleFontSize,
-            ),
+            style: Theme.of(context).textTheme.headline6,
           ),
           const SizedBox(
             height: AuthenticatorContainerConstants.gap,

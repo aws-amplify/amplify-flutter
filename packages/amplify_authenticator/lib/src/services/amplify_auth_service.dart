@@ -24,6 +24,8 @@ import 'package:collection/src/iterable_extensions.dart';
 abstract class AuthService {
   Future<SignInResult> signIn(String username, String password);
 
+  Future<SignInResult> signInWithProvider(AuthProvider provider);
+
   Future<void> signOut();
 
   Future<SignUpResult> signUp(
@@ -76,6 +78,19 @@ class AmplifyAuthService implements AuthService {
     );
 
     return result;
+  }
+
+  @override
+  Future<SignInResult> signInWithProvider(
+    AuthProvider provider, {
+    bool preferPrivateSession = false,
+  }) {
+    return Amplify.Auth.signInWithWebUI(
+      provider: provider,
+      options: CognitoSignInWithWebUIOptions(
+        isPreferPrivateSession: preferPrivateSession,
+      ),
+    );
   }
 
   @override
@@ -193,28 +208,30 @@ class AmplifyAuthService implements AuthService {
   /// https://github.com/aws-amplify/amplify-js/blob/6de9a1d743deef8de5205590bf7cf8134a5fb5f4/packages/auth/src/Auth.ts#L1199-L1224
   @override
   Future<List<String>> getUnverifiedAttributeKeys() async {
-    List<AuthUserAttribute> userAttributes =
+    const requiredAttributes = [
+      CognitoUserAttributes.email,
+      CognitoUserAttributes.phoneNumber,
+    ];
+
+    final List<AuthUserAttribute> userAttributes =
         await Amplify.Auth.fetchUserAttributes();
-    List<String> requiredAttributes = ['email', 'phone_number'];
+
+    bool attributeIsUnverified(String key) {
+      return userAttributes
+              .firstWhereOrNull(
+                (attr) => attr.userAttributeKey == '${key}_verified',
+              )
+              ?.value !=
+          'true';
+    }
+
     return userAttributes
         .map((attr) => attr.userAttributeKey)
         .where(
           (key) =>
-              (requiredAttributes.contains(key)) &&
-              _attributeIsUnverified(userAttributes: userAttributes, key: key),
+              requiredAttributes.contains(key) && attributeIsUnverified(key),
         )
         .toList();
-  }
-
-  bool _attributeIsUnverified({
-    required List<AuthUserAttribute> userAttributes,
-    required String key,
-  }) {
-    return userAttributes
-            .firstWhereOrNull(
-                (attr) => attr.userAttributeKey == '${key}_verified')
-            ?.value !=
-        'true';
   }
 
   @override

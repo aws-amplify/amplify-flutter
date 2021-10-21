@@ -468,7 +468,7 @@ abstract class InputResolver extends Resolver<InputResolverKey> {
 }
 
 class DefaultInputResolver extends InputResolver {
-  static const _validationMessage = ' field must not be blank';
+  static const _validationMessage = 'field must not be blank';
 
   const DefaultInputResolver();
 
