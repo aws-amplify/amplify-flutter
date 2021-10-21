@@ -1,93 +1,81 @@
-import 'dart:async';
+/*
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+*/
 
-import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
-import 'package:amplify_authenticator/src/constants/theme_constants.dart';
-import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
-import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
+import 'package:amplify_authenticator/src/enums/status_type.dart';
+import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-/// {@template authenticator.authenticator_exception_banner}
-/// Displays exceptions from the Authenticator as a Material banner.
-/// {@endtemplate}
-class AuthenticatorExceptionBanner extends StatefulWidget {
-  /// {@macro authenticator.authenticator_exception_banner}
-  const AuthenticatorExceptionBanner({Key? key}) : super(key: key);
-
-  @override
-  State<AuthenticatorExceptionBanner> createState() =>
-      _AuthenticatorExceptionBannerState();
+/// Creates an Authenticator-themed Material banner.
+MaterialBanner createMaterialBanner({
+  required StatusType type,
+  required Widget content,
+  required List<Widget> actions,
+  double margin = 0,
+}) {
+  return MaterialBanner(
+    backgroundColor: type.backgroundColor,
+    contentTextStyle: TextStyle(color: type.textColor),
+    leading: Icon(type.icon),
+    padding: EdgeInsetsDirectional.only(
+      start: 16.0,
+      top: 2.0 + margin,
+      bottom: 4.0,
+    ),
+    content: content,
+    actions: actions,
+  );
 }
 
-class _AuthenticatorExceptionBannerState
-    extends State<AuthenticatorExceptionBanner> {
-  late final StreamSubscription<AuthenticatorException> _exceptionSub;
-  AuthenticatorException? _currentException;
-
-  @override
-  void initState() {
-    super.initState();
-    final StateMachineBloc authBloc =
-        InheritedAuthBloc.of(context, listen: false);
-    _exceptionSub = authBloc.exceptions.listen((exception) {
-      if (mounted) {
-        setState(() => _currentException = exception);
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _exceptionSub.cancel();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (_currentException == null) {
-      return const SizedBox.shrink();
+extension on StatusType {
+  Color get backgroundColor {
+    switch (this) {
+      case StatusType.info:
+        return AmplifyColors.statusInfo60;
+      case StatusType.success:
+        return AmplifyColors.statusSuccess60;
+      case StatusType.warning:
+        return AmplifyColors.statusWarning60;
+      case StatusType.error:
+        return AmplifyColors.statusError60;
     }
-    return Container(
-      height: 53,
-      margin: const EdgeInsets.only(bottom: 20),
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: AuthenticatorColors.bannerColor,
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Row(
-              children: <Widget>[
-                const Icon(
-                  Icons.error,
-                  size: 24,
-                  color: Colors.white,
-                ),
-                const SizedBox(width: 5),
-                Expanded(
-                  child: Text(
-                    _currentException.toString(),
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          IconButton(
-            padding: EdgeInsets.zero,
-            onPressed: () => setState(() => _currentException = null),
-            hoverColor: Colors.red,
-            icon: const Icon(
-              Icons.close,
-              color: Colors.white,
-            ),
-          ),
-        ],
-      ),
-    );
+  }
+
+  Color get textColor {
+    switch (this) {
+      case StatusType.info:
+        return AmplifyColors.statusInfoText;
+      case StatusType.success:
+        return AmplifyColors.statusSuccessText;
+      case StatusType.warning:
+        return AmplifyColors.statusWarningText;
+      case StatusType.error:
+        return AmplifyColors.statusErrorText;
+    }
+  }
+
+  IconData get icon {
+    switch (this) {
+      case StatusType.info:
+        return Icons.info;
+      case StatusType.success:
+        return Icons.check_circle;
+      case StatusType.warning:
+        return Icons.warning;
+      case StatusType.error:
+        return Icons.error;
+    }
   }
 }

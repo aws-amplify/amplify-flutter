@@ -13,10 +13,12 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/text_customization/resolver.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-enum ButtonResolverKey {
+enum _ButtonResolverKey {
   signin,
   signup,
   confirm,
@@ -27,6 +29,33 @@ enum ButtonResolverKey {
   verifyUser,
   confirmVerifyUser,
   signout,
+  signInWith,
+}
+
+class ButtonResolverKey {
+  const ButtonResolverKey._(
+    this.key, {
+    this.provider,
+  });
+
+  final _ButtonResolverKey key;
+  final AuthProvider? provider;
+
+  static const signin = ButtonResolverKey._(_ButtonResolverKey.signin);
+  static const signup = ButtonResolverKey._(_ButtonResolverKey.signup);
+  static const confirm = ButtonResolverKey._(_ButtonResolverKey.confirm);
+  static const submit = ButtonResolverKey._(_ButtonResolverKey.submit);
+  static const changePassword =
+      ButtonResolverKey._(_ButtonResolverKey.changePassword);
+  static const sendCode = ButtonResolverKey._(_ButtonResolverKey.sendCode);
+  static const lostCodeQuestion =
+      ButtonResolverKey._(_ButtonResolverKey.lostCodeQuestion);
+  static const verifyUser = ButtonResolverKey._(_ButtonResolverKey.verifyUser);
+  static const confirmVerifyUser =
+      ButtonResolverKey._(_ButtonResolverKey.confirmVerifyUser);
+  static const signout = ButtonResolverKey._(_ButtonResolverKey.signout);
+  const ButtonResolverKey.signInWith(AuthProvider provider)
+      : this._(_ButtonResolverKey.signInWith, provider: provider);
 }
 
 /// The resolver class for shared button Widgets
@@ -63,29 +92,34 @@ abstract class ButtonResolver extends Resolver<ButtonResolverKey> {
   /// Label of button to sign out the user
   String signout(BuildContext context);
 
+  /// Label of button to sign in with a social provider
+  String signInWith(BuildContext context, AuthProvider provider);
+
   @override
   String resolve(BuildContext context, ButtonResolverKey key) {
-    switch (key) {
-      case ButtonResolverKey.signin:
+    switch (key.key) {
+      case _ButtonResolverKey.signin:
         return signin(context);
-      case ButtonResolverKey.signup:
+      case _ButtonResolverKey.signup:
         return signup(context);
-      case ButtonResolverKey.confirm:
+      case _ButtonResolverKey.confirm:
         return confirm(context);
-      case ButtonResolverKey.submit:
+      case _ButtonResolverKey.submit:
         return submit(context);
-      case ButtonResolverKey.changePassword:
+      case _ButtonResolverKey.changePassword:
         return changePassword(context);
-      case ButtonResolverKey.sendCode:
+      case _ButtonResolverKey.sendCode:
         return sendCode(context);
-      case ButtonResolverKey.lostCodeQuestion:
+      case _ButtonResolverKey.lostCodeQuestion:
         return lostCodeQuestion(context);
-      case ButtonResolverKey.verifyUser:
+      case _ButtonResolverKey.verifyUser:
         return verifyUser(context);
-      case ButtonResolverKey.confirmVerifyUser:
+      case _ButtonResolverKey.confirmVerifyUser:
         return confirmVerifyUser(context);
-      case ButtonResolverKey.signout:
+      case _ButtonResolverKey.signout:
         return signout(context);
+      case _ButtonResolverKey.signInWith:
+        return signInWith(context, key.provider!);
     }
   }
 }
@@ -122,4 +156,10 @@ class DefaultButtonResolver extends ButtonResolver {
 
   @override
   String signout(BuildContext context) => 'Sign Out';
+
+  @override
+  String signInWith(BuildContext context, AuthProvider provider) {
+    final providerName = describeEnum(provider);
+    return 'Continue with ${providerName[0].toUpperCase() + providerName.substring(1)}';
+  }
 }

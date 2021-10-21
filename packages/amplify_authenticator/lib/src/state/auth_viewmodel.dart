@@ -28,12 +28,15 @@ class AuthViewModel extends ChangeNotifier {
   GlobalKey<FormState> get formKey => _formKey;
 
   bool _isBusy = false;
-
   bool get isBusy => _isBusy;
 
+  Key? _busyButton;
+  Key? get busyButton => _busyButton;
+
   //ignore:avoid_positional_boolean_parameters
-  void setBusy(bool busy) {
+  void setBusy(bool busy, [Key? busyButton]) {
     _isBusy = busy;
+    _busyButton = busy ? busyButton : null;
     notifyListeners();
   }
 
@@ -56,9 +59,6 @@ class AuthViewModel extends ChangeNotifier {
 
   String _newUsername = '';
   String get newUsername => _newUsername;
-
-  String? _userAttributeKey;
-  String? get userAttributeKey => _userAttributeKey;
 
   final Map<String, String> _authAttributes = {};
 
@@ -170,10 +170,7 @@ class AuthViewModel extends ChangeNotifier {
     _setAttribute('custom:$key', value);
   }
 
-  void setUserAttributeKey(String? value) {
-    _userAttributeKey = value;
-  }
-
+  // ignore: avoid_positional_boolean_parameters
   void setRememberDevice(bool value) {
     _rememberDevice = value;
   }
@@ -191,10 +188,7 @@ class AuthViewModel extends ChangeNotifier {
     );
 
     authBloc.add(AuthConfirmSignIn(confirm, rememberDevice: rememberDevice));
-    await Future.any([
-      authBloc.exceptions.first,
-      authBloc.stream.first,
-    ]);
+    await _nextBlocEvent();
     setBusy(false);
   }
 
@@ -211,11 +205,7 @@ class AuthViewModel extends ChangeNotifier {
     );
 
     authBloc.add(AuthConfirmSignUp(confirmation));
-
-    await Future.any([
-      authBloc.exceptions.first,
-      authBloc.stream.first,
-    ]);
+    await _nextBlocEvent();
     setBusy(false);
   }
 
@@ -224,25 +214,27 @@ class AuthViewModel extends ChangeNotifier {
       return;
     }
     setBusy(true);
-    AuthSignInData signIn = AuthSignInData(
+    AuthSignInData signIn = AuthUsernamePasswordSignInData(
       username: _username.trim(),
       password: _password.trim(),
     );
     authBloc.add(AuthSignIn(signIn));
-    await Future.any([
-      authBloc.exceptions.first,
-      authBloc.stream.first,
-    ]);
+    await _nextBlocEvent();
+    setBusy(false);
+  }
+
+  Future<void> signInWithProvider(AuthProvider provider) async {
+    setBusy(true);
+    final signInData = AuthSocialSignInData(provider: provider);
+    authBloc.add(AuthSignIn(signInData));
+    await _nextBlocEvent();
     setBusy(false);
   }
 
   Future<void> signOut() async {
     setBusy(true);
     authBloc.add(const AuthSignOut());
-    await Future.any([
-      authBloc.exceptions.first,
-      authBloc.stream.first,
-    ]);
+    await _nextBlocEvent();
     setBusy(false);
   }
 
@@ -253,10 +245,9 @@ class AuthViewModel extends ChangeNotifier {
     setBusy(true);
     final sendCode = AuthSendCodeData(username: _newUsername.trim());
     authBloc.add(AuthSendCode(sendCode));
-    await Future.any([
-      authBloc.exceptions.first,
-      authBloc.stream.firstWhere((state) => state is AuthFlow),
-    ]);
+    await _nextBlocEvent(
+      where: (state) => state is AuthFlow,
+    );
     setBusy(false);
   }
 
@@ -271,10 +262,9 @@ class AuthViewModel extends ChangeNotifier {
       newPassword: _newPassword.trim(),
     );
     authBloc.add(AuthConfirmPassword(confirmPassword));
-    await Future.any([
-      authBloc.exceptions.first,
-      authBloc.stream.firstWhere((state) => state is AuthFlow),
-    ]);
+    await _nextBlocEvent(
+      where: (state) => state is AuthFlow,
+    );
     setBusy(false);
   }
 
@@ -290,10 +280,7 @@ class AuthViewModel extends ChangeNotifier {
     );
 
     authBloc.add(AuthSignUp(signUp));
-    await Future.any([
-      authBloc.exceptions.first,
-      authBloc.stream.first,
-    ]);
+    await _nextBlocEvent();
     setBusy(false);
   }
 
@@ -303,46 +290,41 @@ class AuthViewModel extends ChangeNotifier {
     }
     setBusy(true);
     authBloc.add(AuthResendSignUpCode(_username));
-    await Future.any([
-      _authBloc.exceptions.first,
-      _authBloc.stream.firstWhere((state) => state is VerificationCodeSent),
-    ]);
+    await _nextBlocEvent(
+      where: (state) => state is VerificationCodeSent,
+    );
     setBusy(false);
   }
 
-  Future<void> confirmVerifyUser() async {
+  Future<void> confirmVerifyUser(String userAttributeKey) async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
     setBusy(true);
     AuthConfirmVerifyUserData authConfirmVerifyUserData =
         AuthConfirmVerifyUserData(
-      userAttributeKey: _userAttributeKey!,
+      userAttributeKey: userAttributeKey,
       code: _confirmationCode,
     );
     _authBloc.add(AuthConfirmVerifyUser(authConfirmVerifyUserData));
-    await Future.any([
-      _authBloc.exceptions.first,
-      _authBloc.stream
-          .firstWhere((state) => state is AuthFlow || state is Authenticated),
-    ]);
+    await _nextBlocEvent(
+      where: (state) => state is AuthFlow || state is Authenticated,
+    );
     setBusy(false);
   }
 
-  Future<void> verifyUser() async {
+  Future<void> verifyUser(String userAttributeKey) async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
     setBusy(true);
     AuthVerifyUserData authVerifyUserData = AuthVerifyUserData(
-      userAttributeKey: _userAttributeKey!,
+      userAttributeKey: userAttributeKey,
     );
     _authBloc.add(AuthVerifyUser(authVerifyUserData));
-    await Future.any([
-      _authBloc.exceptions.first,
-      _authBloc.stream
-          .firstWhere((state) => state is AuthFlow || state is Authenticated),
-    ]);
+    await _nextBlocEvent(
+      where: (state) => state is AuthFlow || state is Authenticated,
+    );
     setBusy(false);
   }
 
@@ -350,8 +332,18 @@ class AuthViewModel extends ChangeNotifier {
     _authBloc.add(const AuthSkipVerifyUser());
   }
 
+  Future<void> _nextBlocEvent({bool Function(AuthState state)? where}) async {
+    await Future.any([
+      _authBloc.exceptions.first,
+
+      // Bloc emits current state first
+      _authBloc.stream
+          .skip(1)
+          .firstWhere((state) => where?.call(state) ?? true),
+    ]);
+  }
+
   void _navigateTo(AuthScreen authScreen) {
-    _clean();
     authBloc.add(AuthChangeScreen(authScreen));
   }
 
@@ -359,7 +351,7 @@ class AuthViewModel extends ChangeNotifier {
   void goToSignIn() => _navigateTo(AuthScreen.signin);
   void goToReset() => _navigateTo(AuthScreen.sendCode);
 
-  void _clean() {
+  void clean() {
     _username = '';
     _password = '';
     _passwordConfirmation = '';

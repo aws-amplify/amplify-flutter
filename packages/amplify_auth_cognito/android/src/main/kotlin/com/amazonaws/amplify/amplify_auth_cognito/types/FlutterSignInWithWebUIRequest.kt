@@ -16,9 +16,19 @@
 package com.amazonaws.amplify.amplify_auth_cognito.types
 
 import com.amazonaws.amplify.amplify_core.exception.InvalidRequestException
+import com.amplifyframework.auth.AuthProvider
 
 data class FlutterSignInWithWebUIRequest(val map: HashMap<String, *>) {
-    val provider: String? = map["authProvider"] as String?
+    private val stringProvider = map["authProvider"] as String?
+    val provider: AuthProvider? = when (stringProvider) {
+        "amazon" -> AuthProvider.amazon()
+        "facebook" -> AuthProvider.facebook()
+        "google" -> AuthProvider.google()
+        "apple" -> AuthProvider.apple()
+        is String -> AuthProvider.custom(stringProvider)
+        else -> null
+    }
+
     companion object {
         private var allowedProviders: Array<String> = arrayOf("amazon", "google", "facebook", "apple")
         private const val validationErrorMessage: String = "SignInWithWebUI Request malformed."

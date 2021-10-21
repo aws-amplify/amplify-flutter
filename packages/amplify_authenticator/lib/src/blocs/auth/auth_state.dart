@@ -49,14 +49,19 @@ class AuthFlow extends AuthState {
   static const sendCode = AuthFlow(screen: AuthScreen.sendCode);
   static const resetPassword = AuthFlow(screen: AuthScreen.resetPassword);
   static const verifyUser = AuthFlow(screen: AuthScreen.verifyUser);
-  static const confirmVerifyUser =
-      AuthFlow(screen: AuthScreen.confirmVerifyUser);
 
   final AuthScreen screen;
 }
 
 class VerificationCodeSent extends AuthFlow {
   const VerificationCodeSent(AuthScreen screen) : super(screen: screen);
+}
+
+class AttributeVerificationSent extends AuthFlow {
+  const AttributeVerificationSent(this.userAttributeKey)
+      : super(screen: AuthScreen.confirmVerifyUser);
+
+  final String userAttributeKey;
 }
 
 class VerifyUserFlow extends AuthFlow {

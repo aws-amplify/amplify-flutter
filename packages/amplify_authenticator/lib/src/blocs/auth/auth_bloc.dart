@@ -134,7 +134,9 @@ class StateMachineBloc {
   }
 
   Stream<AuthState> _confirmSignIn(
-      AuthConfirmSignInData data, bool rememberDevice) async* {
+    AuthConfirmSignInData data,
+    bool rememberDevice,
+  ) async* {
     try {
       var result = await _authService.confirmSignIn(
         code: data.code,
@@ -161,11 +163,10 @@ class StateMachineBloc {
           if (rememberDevice) {
             try {
               await _authService.rememberDevice();
-            } on Exception catch (e, s) {
-              /// TODO: How to handle these exceptions, since we have already authenticated
-              /// Will need to expose state outside of the Authenticator (or something similar)
-              safePrint('$e');
-              safePrint('$s');
+            } on Exception catch (e) {
+              _exceptionController.add(
+                AuthenticatorException(e.toString(), showBanner: false),
+              );
             }
           }
           yield const Authenticated();
@@ -207,17 +208,24 @@ class StateMachineBloc {
   }
 
   Stream<AuthState> _signIn(AuthSignInData data) async* {
-    // Make sure no user is signed in before calling the sign in method
-    if (await _authService.isLoggedIn) {
-      yield* _signOut();
-      return;
-    }
-
     try {
-      var result = await _authService.signIn(
-        data.username,
-        data.password,
-      );
+      // Make sure no user is signed in before calling the sign in method
+      if (await _authService.isLoggedIn) {
+        await _authService.signOut();
+      }
+
+      final SignInResult result;
+
+      if (data is AuthUsernamePasswordSignInData) {
+        result = await _authService.signIn(
+          data.username,
+          data.password,
+        );
+      } else if (data is AuthSocialSignInData) {
+        result = await _authService.signInWithProvider(data.provider);
+      } else {
+        throw StateError('Bad sign in data: $data');
+      }
 
       switch (result.nextStep!.signInStep) {
         case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
@@ -245,7 +253,10 @@ class StateMachineBloc {
       _exceptionController.add(AuthenticatorException(e.message));
       yield AuthFlow.confirmSignup;
     } on AmplifyException catch (e) {
-      _exceptionController.add(AuthenticatorException(e.message));
+      _exceptionController.add(AuthenticatorException(
+        e.message,
+        showBanner: !e.message.contains('cancelled'),
+      ));
     } on Exception catch (e) {
       _exceptionController.add(AuthenticatorException(e.toString()));
     }
@@ -261,11 +272,9 @@ class StateMachineBloc {
         yield const Authenticated();
       }
     } on Exception catch (e) {
-      // TODO: Enumerate exception cases
-      // exception is logged but not presented to the user since there is
-      // no obvious recovery if there is an exception fetching the users
-      // unconfirmed attributes
-      safePrint(e);
+      _exceptionController.add(
+        AuthenticatorException(e.toString(), showBanner: false),
+      );
       yield const Authenticated();
     }
   }
@@ -283,7 +292,7 @@ class StateMachineBloc {
           yield AuthFlow.confirmSignup;
           break;
         case 'DONE':
-          var authSignInData = AuthSignInData(
+          var authSignInData = AuthUsernamePasswordSignInData(
             username: data.username,
             password: data.password,
           );
@@ -301,7 +310,7 @@ class StateMachineBloc {
   Stream<AuthState> _confirmSignUp(AuthConfirmSignUpData data) async* {
     try {
       await _authService.confirmSignUp(data.username, data.code);
-      var authSignInData = AuthSignInData(
+      var authSignInData = AuthUsernamePasswordSignInData(
         username: data.username,
         password: data.password,
       );
@@ -330,7 +339,7 @@ class StateMachineBloc {
       await _authService.resendUserAttributeConfirmationCode(
         userAttributeKey: data.userAttributeKey,
       );
-      yield AuthFlow.confirmVerifyUser;
+      yield AttributeVerificationSent(data.userAttributeKey);
     } on Exception catch (e) {
       if (e is AmplifyException) {
         print(e);

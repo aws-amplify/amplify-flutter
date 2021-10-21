@@ -1,4 +1,6 @@
+import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -54,5 +56,18 @@ class LocalizedButtonResolver extends ButtonResolver {
   @override
   String verifyUser(BuildContext context) {
     return AppLocalizations.of(context)!.verifyUser;
+  }
+
+  @override
+  String signInWith(BuildContext context, AuthProvider provider) {
+    return AppLocalizations.of(context)!.signInWith(
+      describeEnum(provider).capitalize(),
+    );
+  }
+}
+
+extension on String {
+  String capitalize() {
+    return this[0].toUpperCase() + substring(1).toLowerCase();
   }
 }

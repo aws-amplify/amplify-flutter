@@ -11,21 +11,15 @@
  * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
- */
+*/
 
-class AuthenticatorException implements Exception {
-  const AuthenticatorException(
-    this.message, {
-    this.showBanner = true,
-  });
-
-  final String message;
-  final bool showBanner;
-
-  const AuthenticatorException.customAuth()
-      : message = 'Custom auth flows are not supported yet in Authenticator',
-        showBanner = true;
-
-  @override
-  String toString() => message;
+extension ListX<T> on List<T> {
+  List<T> spacedBy(T spacer) {
+    return [
+      for (var item in this) ...[
+        item,
+        spacer,
+      ]
+    ]..removeLast();
+  }
 }

@@ -13,14 +13,9 @@
  * permissions and limitations under the License.
  */
 
-import 'package:flutter/material.dart';
-
-abstract class AuthenticatorColors {
-  static const Color primary = Color.fromRGBO(255, 153, 0, 1);
-
-  static const Color container = Colors.white;
-
-  static const disabledTextColor = Color.fromRGBO(130, 130, 130, 1);
-
-  static const bannerColor = Color.fromRGBO(49, 70, 95, 1);
+enum StatusType {
+  info,
+  success,
+  warning,
+  error,
 }

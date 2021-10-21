@@ -38,5 +38,16 @@
     "signout": "Sign Out",
     "@signout": {
         "description": "Label of button to sign out the user"
+    },
+    "signInWith": "Continue with {provider}",
+    "@signInWith": {
+        "description": "Label of button to sign in with a social provider",
+        "placeholders": {
+            "provider": {
+                "type": "String",
+                "example": "Google",
+                "description": "The social sign-in provider"
+            }
+        }
     }
 }
