@@ -15,10 +15,12 @@ dependencies:
   plugin_platform_interface: ^2.0.0
   meta: ^1.1.8
   collection: ^1.14.13
+  async: ^2.5.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  fake_async: ^1.2.0
 
 # The following section is specific to Flutter.
 flutter:

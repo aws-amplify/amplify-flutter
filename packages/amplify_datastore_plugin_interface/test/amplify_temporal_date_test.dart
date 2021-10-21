@@ -101,4 +101,17 @@ void main() {
   test('AWSDate from string YYYY-MM-DD+hh fails', () async {
     expect(() => TemporalDate.fromString("1990-05-03+03"), throwsException);
   });
+
+  test('compareTo compares two TemporalDate objects', () {
+    var value1 = TemporalDate(DateTime(2020, 01, 01));
+    var value1Copy = TemporalDate(DateTime(2020, 01, 01));
+    var value2 = TemporalDate(DateTime(2020, 01, 02));
+    var value3 = TemporalDate(DateTime(2021, 01, 01));
+
+    expect(value1.compareTo(value1Copy), 0);
+    expect(value1.compareTo(value2), -1);
+    expect(value2.compareTo(value1), 1);
+    expect(value1.compareTo(value3), -1);
+    expect(value3.compareTo(value1), 1);
+  });
 }
