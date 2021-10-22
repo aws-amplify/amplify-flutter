@@ -8,10 +8,12 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  date_time_format: ^2.0.1
   plugin_platform_interface: ^2.0.0
   meta: ^1.3.0
   flutter:
     sdk: flutter
+  uuid: ^3.0.1
 
 dev_dependencies:
   flutter_test:

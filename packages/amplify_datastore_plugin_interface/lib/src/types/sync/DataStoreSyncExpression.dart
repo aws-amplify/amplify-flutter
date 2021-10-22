@@ -14,8 +14,8 @@
  */
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:amplify_datastore_plugin_interface/src/types/models/model.dart';
-import 'package:amplify_datastore_plugin_interface/src/types/query/query_field.dart';
+import 'package:amplify_core/types/models/model.dart';
+import 'package:amplify_core/types/query/query_field.dart';
 
 /// Sync expression to configure DataStore plugin with. These expressions
 /// include query predicates which specify filters for selectively persisting a

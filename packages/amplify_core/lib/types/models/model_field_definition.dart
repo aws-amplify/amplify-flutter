@@ -13,10 +13,11 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import '../query/query_field.dart';
 
 import 'auth_rule.dart';
 import 'model_association.dart';
+import 'model_field.dart';
 import 'model_field_type.dart';
 
 class ModelFieldDefinition {

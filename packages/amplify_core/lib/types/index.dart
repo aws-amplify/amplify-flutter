@@ -25,3 +25,30 @@ export 'hub/HubChannel.dart';
 export 'exception/AmplifyException.dart';
 export 'exception/AmplifyAlreadyConfiguredException.dart';
 export 'exception/AmplifyExceptionMessages.dart';
+
+/// UUID
+export '../types/uuid.dart';
+
+/// Model-based types used in datastore and API
+export '../types/models/model_provider.dart';
+export '../types/models/model.dart';
+export '../types/models/subscription_event.dart';
+export '../types/query/query_field.dart';
+export '../types/models/auth_rule.dart';
+export '../types/models/model.dart';
+export '../types/models/model_association.dart';
+export '../types/models/model_field.dart';
+export '../types/models/model_field_definition.dart';
+export '../types/models/model_field_type.dart';
+export '../types/models/model_provider.dart';
+export '../types/models/model_schema.dart';
+export '../types/models/model_schema_definition.dart';
+export '../types/query/query_field.dart';
+export '../types/temporal/datetime_parse.dart';
+export '../types/utils/parsers.dart';
+export '../types/models/subscription_event.dart';
+export '../types/temporal/temporal_date.dart';
+export '../types/temporal/temporal_time.dart';
+export '../types/temporal/temporal_datetime.dart';
+export '../types/temporal/temporal_timestamp.dart';
+export '../types/query/query_field.dart';
