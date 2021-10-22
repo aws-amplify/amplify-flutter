@@ -77,8 +77,15 @@ class _MyAppState extends State<MyApp> {
       metadata['desc'] = 'A test file';
       S3UploadFileOptions options = S3UploadFileOptions(
           accessLevel: StorageAccessLevel.guest, metadata: metadata);
+
       UploadFileResult result = await Amplify.Storage.uploadFile(
-          key: key, local: local, options: options);
+          key: key,
+          local: local,
+          options: options,
+          onProgress: (progress) {
+            print("PROGRESS: " + progress.getFractionCompleted().toString());
+          });
+
       setState(() {
         _uploadFileResult = result.key;
       });

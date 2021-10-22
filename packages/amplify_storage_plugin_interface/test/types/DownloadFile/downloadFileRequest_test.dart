@@ -26,6 +26,7 @@ void main() {
         DownloadFileRequest(key: 'keyForFile', local: File('pathToFile'));
     var serializedResult = request.serializeAsMap();
     expect(serializedResult, {
+      'uuid': request.uuid,
       'key': 'keyForFile',
       'path': '${Directory.current.path}/pathToFile',
     });
@@ -39,6 +40,7 @@ void main() {
         key: 'keyForFile', local: File('pathToFile'), options: options);
     var serializedResult = request.serializeAsMap();
     expect(serializedResult, {
+      'uuid': request.uuid,
       'key': 'keyForFile',
       'path': '${Directory.current.path}/pathToFile',
       'options': {'accessLevel': 'protected'},

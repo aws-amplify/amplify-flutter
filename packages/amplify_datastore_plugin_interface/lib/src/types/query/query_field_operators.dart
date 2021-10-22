@@ -36,10 +36,12 @@ extension QueryFieldOperatorTypeExtension on QueryFieldOperatorType {
   }
 }
 
-abstract class QueryFieldOperator {
+abstract class QueryFieldOperator<T> {
   final QueryFieldOperatorType type;
 
   const QueryFieldOperator(this.type);
+
+  bool evaluate(T other);
 
   Map<String, dynamic> serializeAsMap();
 
@@ -66,10 +68,14 @@ abstract class QueryFieldOperator {
   }
 }
 
-class EqualQueryOperator<T> extends QueryFieldOperator {
+class EqualQueryOperator<T> extends QueryFieldOperator<T> {
   final T value;
 
   const EqualQueryOperator(this.value) : super(QueryFieldOperatorType.equal);
+
+  bool evaluate(T other) {
+    return other == value;
+  }
 
   @override
   Map<String, dynamic> serializeAsMap() {
@@ -78,11 +84,15 @@ class EqualQueryOperator<T> extends QueryFieldOperator {
   }
 }
 
-class NotEqualQueryOperator<T> extends QueryFieldOperator {
+class NotEqualQueryOperator<T> extends QueryFieldOperator<T> {
   final T value;
 
   const NotEqualQueryOperator(this.value)
       : super(QueryFieldOperatorType.not_equal);
+
+  bool evaluate(T other) {
+    return other != value;
+  }
 
   @override
   Map<String, dynamic> serializeAsMap() {
@@ -91,11 +101,16 @@ class NotEqualQueryOperator<T> extends QueryFieldOperator {
   }
 }
 
-class LessOrEqualQueryOperator<T> extends QueryFieldOperator {
+class LessOrEqualQueryOperator<T extends Comparable>
+    extends QueryFieldOperator<T> {
   final T value;
 
   const LessOrEqualQueryOperator(this.value)
       : super(QueryFieldOperatorType.less_or_equal);
+
+  bool evaluate(T other) {
+    return other.compareTo(value) <= 0;
+  }
 
   @override
   Map<String, dynamic> serializeAsMap() {
@@ -104,11 +119,16 @@ class LessOrEqualQueryOperator<T> extends QueryFieldOperator {
   }
 }
 
-class LessThanQueryOperator<T> extends QueryFieldOperator {
+class LessThanQueryOperator<T extends Comparable>
+    extends QueryFieldOperator<T> {
   final T value;
 
   const LessThanQueryOperator(this.value)
       : super(QueryFieldOperatorType.less_than);
+
+  bool evaluate(T other) {
+    return other.compareTo(value) < 0;
+  }
 
   @override
   Map<String, dynamic> serializeAsMap() {
@@ -117,11 +137,16 @@ class LessThanQueryOperator<T> extends QueryFieldOperator {
   }
 }
 
-class GreaterOrEqualQueryOperator<T> extends QueryFieldOperator {
+class GreaterOrEqualQueryOperator<T extends Comparable>
+    extends QueryFieldOperator<T> {
   final T value;
 
   const GreaterOrEqualQueryOperator(this.value)
       : super(QueryFieldOperatorType.greater_or_equal);
+
+  bool evaluate(T other) {
+    return other.compareTo(value) >= 0;
+  }
 
   @override
   Map<String, dynamic> serializeAsMap() {
@@ -130,11 +155,16 @@ class GreaterOrEqualQueryOperator<T> extends QueryFieldOperator {
   }
 }
 
-class GreaterThanQueryOperator<T> extends QueryFieldOperator {
+class GreaterThanQueryOperator<T extends Comparable>
+    extends QueryFieldOperator<T> {
   final T value;
 
   const GreaterThanQueryOperator(this.value)
       : super(QueryFieldOperatorType.greater_than);
+
+  bool evaluate(T other) {
+    return other.compareTo(value) > 0;
+  }
 
   @override
   Map<String, dynamic> serializeAsMap() {
@@ -143,11 +173,15 @@ class GreaterThanQueryOperator<T> extends QueryFieldOperator {
   }
 }
 
-class ContainsQueryOperator<T> extends QueryFieldOperator {
-  final T value;
+class ContainsQueryOperator extends QueryFieldOperator<String> {
+  final String value;
 
   const ContainsQueryOperator(this.value)
       : super(QueryFieldOperatorType.contains);
+
+  bool evaluate(String other) {
+    return other.contains(value);
+  }
 
   @override
   Map<String, dynamic> serializeAsMap() {
@@ -156,12 +190,16 @@ class ContainsQueryOperator<T> extends QueryFieldOperator {
   }
 }
 
-class BetweenQueryOperator<T> extends QueryFieldOperator {
+class BetweenQueryOperator<T extends Comparable> extends QueryFieldOperator<T> {
   final T start;
   final T end;
 
   const BetweenQueryOperator(this.start, this.end)
       : super(QueryFieldOperatorType.between);
+
+  bool evaluate(T other) {
+    return other.compareTo(start) >= 0 && other.compareTo(end) <= 0;
+  }
 
   @override
   Map<String, dynamic> serializeAsMap() {
@@ -173,11 +211,15 @@ class BetweenQueryOperator<T> extends QueryFieldOperator {
   }
 }
 
-class BeginsWithQueryOperator extends QueryFieldOperator {
+class BeginsWithQueryOperator extends QueryFieldOperator<String> {
   final String value;
 
   const BeginsWithQueryOperator(this.value)
       : super(QueryFieldOperatorType.begins_with);
+
+  bool evaluate(String other) {
+    return other.startsWith(value);
+  }
 
   @override
   Map<String, dynamic> serializeAsMap() {

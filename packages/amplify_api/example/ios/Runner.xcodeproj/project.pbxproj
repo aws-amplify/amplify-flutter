@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
-		4B6CB97626BAEC7B004E4AA2 /* AuthProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6CB97526BAEC7B004E4AA2 /* AuthProviderTests.swift */; };
 		4BF054AD269DE2FB00D1F2BF /* FlutterURLSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF054AC269DE2FB00D1F2BF /* FlutterURLSessionTests.swift */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		7E94B1FC95440E5C0AD8AB8D /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30DF0857352AA115AF86C33E /* Pods_Runner.framework */; };
@@ -40,7 +39,6 @@
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
 		30DF0857352AA115AF86C33E /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
-		4B6CB97526BAEC7B004E4AA2 /* AuthProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthProviderTests.swift; sourceTree = "<group>"; };
 		4BF054AC269DE2FB00D1F2BF /* FlutterURLSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlutterURLSessionTests.swift; sourceTree = "<group>"; };
 		7457497C86253194DEE2467D /* Pods-unit_tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.release.xcconfig"; path = "Target Support Files/Pods-unit_tests/Pods-unit_tests.release.xcconfig"; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -160,7 +158,6 @@
 				FB7C4075259A81E00021F98A /* Info.plist */,
 				840F5D16259C147800C968A8 /* RestApiUnitTests.swift */,
 				4BF054AC269DE2FB00D1F2BF /* FlutterURLSessionTests.swift */,
-				4B6CB97526BAEC7B004E4AA2 /* AuthProviderTests.swift */,
 			);
 			path = unit_tests;
 			sourceTree = "<group>";
@@ -393,7 +390,6 @@
 			files = (
 				FB7C4074259A81E00021F98A /* GraphQLApiUnitTests.swift in Sources */,
 				840F5D17259C147800C968A8 /* RestApiUnitTests.swift in Sources */,
-				4B6CB97626BAEC7B004E4AA2 /* AuthProviderTests.swift in Sources */,
 				4BF054AD269DE2FB00D1F2BF /* FlutterURLSessionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

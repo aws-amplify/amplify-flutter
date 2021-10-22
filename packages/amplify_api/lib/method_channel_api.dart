@@ -34,17 +34,14 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   late final Stream<dynamic> _allSubscriptionsStream =
       _eventChannel.receiveBroadcastStream(0);
 
-  /// Key to use for authorization tokens in serialized platform requests.
-  static const _authTokensMapKey = 'tokens';
-
   /// The registered [APIAuthProvider] instances.
   final Map<APIAuthorizationType, APIAuthProvider> _authProviders = {};
 
   @override
-  Future<APIAuthProviderRefresher> addPlugin() async {
+  Future<void> addPlugin() async {
     try {
+      setupAuthProviders();
       await _channel.invokeMethod<void>('addPlugin');
-      return _authProviderRefresher;
     } on PlatformException catch (e) {
       if (e.code == 'AmplifyAlreadyConfiguredException') {
         throw const AmplifyAlreadyConfiguredException(
@@ -64,42 +61,29 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     _authProviders[authProvider.type] = authProvider;
   }
 
-  /// A token refresher which can be used outside of this plugin (i.e. in DataStore)
-  /// without exposing the auth providers themselves or their tokens.
-  Future<void> _authProviderRefresher([
-    APIAuthorizationType? authType,
-  ]) {
-    if (_authProviders.isEmpty) {
-      return SynchronousFuture(null);
-    }
-    Future<List<Map<String, dynamic>>> _tokensFuture;
-    if (authType != null) {
-      final provider = _authProviders[authType];
-      if (provider == null) {
-        throw ApiException(
-          'No provider registered for type: $authType',
-          recoverySuggestion:
-              'Make sure to call addPlugin with a list of auth providers.',
-        );
+  /// Sets up the platform binding for requesting tokens from the native side.
+  @visibleForTesting
+  void setupAuthProviders() {
+    _channel.setMethodCallHandler((call) async {
+      if (call.method == 'getLatestAuthToken') {
+        final providerStr = call.arguments as String?;
+        if (providerStr == null) {
+          throw PlatformException(code: 'BAD_ARGUMENTS');
+        }
+        final provider = APIAuthorizationTypeX.from(providerStr);
+        if (provider == null) {
+          throw PlatformException(code: 'BAD_ARGUMENTS');
+        }
+        final authProvider = _authProviders[provider];
+        if (authProvider == null) {
+          throw PlatformException(
+            code: 'NO_PROVIDER',
+            message: 'No provider found for $authProvider',
+          );
+        }
+        return authProvider.authToken;
       }
-      _tokensFuture = provider.authToken.then((token) => [token]);
-    } else {
-      _tokensFuture = _getLatestAuthTokens();
-    }
-    return _tokensFuture.then(_updateAuthTokens);
-  }
-
-  /// Retrieves the latest tokens for all registered [_authProviders].
-  Future<List<Map<String, dynamic>>> _getLatestAuthTokens() {
-    return Future.wait(_authProviders.values.map(
-      (authProvider) => authProvider.authToken,
-    ));
-  }
-
-  /// Updates authorization tokens on the platform side.
-  Future<void> _updateAuthTokens(List<Map<String, dynamic>> tokens) {
-    return _channel.invokeMethod('updateTokens', {
-      _authTokensMapKey: tokens,
+      throw PlatformException(code: 'UNKNOWN');
     });
   }
 
@@ -201,7 +185,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     try {
       final result = await _channel.invokeMapMethod<String, dynamic>(
         methodName,
-        await _serializeGraphQLRequest(request),
+        request.serializeAsMap(),
       );
       if (result == null) {
         throw const AmplifyException(
@@ -229,7 +213,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     try {
       await _channel.invokeMethod<String>(
         'subscribe',
-        await _serializeGraphQLRequest(request),
+        request.serializeAsMap(),
       );
 
       if (onEstablished != null) {
@@ -238,22 +222,6 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     } on PlatformException catch (e) {
       throw _deserializeException(e);
     }
-  }
-
-  /// Serializes a GraphQL request by including authorization tokens, if needed.
-  /// If no auth providers are registered, the returned future completes synchronously,
-  /// avoiding unnecessary delays in the event loop.
-  Future<Map<String, dynamic>> _serializeGraphQLRequest(
-    GraphQLRequest request,
-  ) {
-    final requestMap = request.serializeAsMap();
-    if (_authProviders.isEmpty) {
-      return SynchronousFuture(requestMap);
-    }
-    return _getLatestAuthTokens().then((tokens) {
-      requestMap[_authTokensMapKey] = tokens;
-      return requestMap;
-    });
   }
 
   // ====== RestAPI ======
@@ -277,9 +245,6 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     Map<String, dynamic> inputsMap = <String, dynamic>{};
     inputsMap['restOptions'] = restOptions.serializeAsMap();
     inputsMap['cancelToken'] = cancelToken;
-
-    // Refresh auth tokens
-    await _authProviderRefresher();
 
     // Attempt switch to proper async
     try {

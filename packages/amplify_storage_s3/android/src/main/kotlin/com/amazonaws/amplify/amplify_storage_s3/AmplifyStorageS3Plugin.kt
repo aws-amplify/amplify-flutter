@@ -17,6 +17,7 @@ package com.amazonaws.amplify.amplify_storage_s3
 
 import android.app.Activity
 import android.content.Context
+import android.src.main.kotlin.com.amazonaws.amplify.amplify_storage_s3.types.TransferProgressStreamHandler
 import android.util.Log
 import androidx.annotation.NonNull
 import com.amazonaws.amplify.amplify_core.exception.ExceptionUtil.Companion.handleAddPluginException
@@ -25,11 +26,11 @@ import com.amplifyframework.storage.s3.AWSS3StoragePlugin
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
+import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import io.flutter.plugin.common.PluginRegistry.Registrar
 
 
 class AmplifyStorageS3Plugin : FlutterPlugin, ActivityAware, MethodCallHandler {
@@ -39,10 +40,19 @@ class AmplifyStorageS3Plugin : FlutterPlugin, ActivityAware, MethodCallHandler {
     private var mainActivity: Activity? = null
     private val LOG = Amplify.Logging.forNamespace("amplify:flutter:storage_s3")
 
+    private lateinit var transferProgressEventChannel : EventChannel
+    private val transferProgressStreamHandler: TransferProgressStreamHandler = TransferProgressStreamHandler()
+
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "com.amazonaws.amplify/storage_s3")
         channel.setMethodCallHandler(this)
         context = flutterPluginBinding.applicationContext
+
+        transferProgressEventChannel = EventChannel(
+                flutterPluginBinding.binaryMessenger,
+                "com.amazonaws.amplify/storage_transfer_progress_events"
+        )
+        transferProgressEventChannel.setStreamHandler(transferProgressStreamHandler);
     }
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
@@ -59,7 +69,7 @@ class AmplifyStorageS3Plugin : FlutterPlugin, ActivityAware, MethodCallHandler {
 
         when (call.method) {
             "uploadFile" ->
-                AmplifyStorageOperations.uploadFile(result, call.arguments as Map<String, *>)
+                AmplifyStorageOperations.uploadFile(result, call.arguments as Map<String, *>, transferProgressStreamHandler)
             "getUrl" ->
                 AmplifyStorageOperations.getUrl(result, call.arguments as Map<String, *>)
             "remove" ->
@@ -67,7 +77,7 @@ class AmplifyStorageS3Plugin : FlutterPlugin, ActivityAware, MethodCallHandler {
             "list" ->
                 AmplifyStorageOperations.list(result, call.arguments as Map<String, *>)
             "downloadFile" ->
-                AmplifyStorageOperations.downloadFile(result, call.arguments as Map<String, *>)
+                AmplifyStorageOperations.downloadFile(result, call.arguments as Map<String, *>, transferProgressStreamHandler)
             else -> result.notImplemented()
         }
     }

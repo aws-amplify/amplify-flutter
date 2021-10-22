@@ -132,4 +132,17 @@ void main() {
     expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30, 25, 999, 999));
     expect(time.format(), "05:30:25.999999999+03:30:45");
   });
+
+  test('compareTo compares two TemporalTime objects', () {
+    var value1 = TemporalTime(DateTime(2020, 01, 01, 10, 30, 00));
+    var value1Copy = TemporalTime(DateTime(2020, 01, 01, 10, 30, 00));
+    var value2 = TemporalTime(DateTime(2020, 01, 01, 10, 30, 05));
+    var value3 = TemporalTime(DateTime(2020, 01, 01, 11, 30, 00));
+
+    expect(value1.compareTo(value1Copy), 0);
+    expect(value1.compareTo(value2), -1);
+    expect(value2.compareTo(value1), 1);
+    expect(value1.compareTo(value3), -1);
+    expect(value3.compareTo(value1), 1);
+  });
 }

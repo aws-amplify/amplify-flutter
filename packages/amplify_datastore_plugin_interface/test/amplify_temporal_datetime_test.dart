@@ -165,4 +165,17 @@ void main() {
     expect(() => TemporalDateTime.fromString("1995-05-03T03.999999999"),
         throwsException);
   });
+
+  test('compareTo compares two TemporalDateTime objects', () {
+    var value1 = TemporalDateTime(DateTime(2020, 01, 01, 10, 30, 00));
+    var value1Copy = TemporalDateTime(DateTime(2020, 01, 01, 10, 30, 00));
+    var value2 = TemporalDateTime(DateTime(2020, 01, 01, 10, 30, 05));
+    var value3 = TemporalDateTime(DateTime(2021, 01, 01, 10, 30, 00));
+
+    expect(value1.compareTo(value1Copy), 0);
+    expect(value1.compareTo(value2), -1);
+    expect(value2.compareTo(value1), 1);
+    expect(value1.compareTo(value3), -1);
+    expect(value3.compareTo(value1), 1);
+  });
 }

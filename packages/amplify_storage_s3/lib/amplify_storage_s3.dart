@@ -44,8 +44,10 @@ class AmplifyStorageS3 extends StoragePluginInterface {
   }
 
   @override
-  Future<UploadFileResult> uploadFile({required UploadFileRequest request}) {
-    return _instance.uploadFile(request: request);
+  Future<UploadFileResult> uploadFile(
+      {required UploadFileRequest request,
+      void Function(TransferProgress)? onProgress}) {
+    return _instance.uploadFile(request: request, onProgress: onProgress);
   }
 
   @override
@@ -65,7 +67,8 @@ class AmplifyStorageS3 extends StoragePluginInterface {
 
   @override
   Future<DownloadFileResult> downloadFile(
-      {required DownloadFileRequest request}) {
-    return _instance.downloadFile(request: request);
+      {required DownloadFileRequest request,
+      void Function(TransferProgress)? onProgress}) {
+    return _instance.downloadFile(request: request, onProgress: onProgress);
   }
 }

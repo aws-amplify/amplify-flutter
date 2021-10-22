@@ -5,6 +5,7 @@
         "title": "New Post being saved",
         "rating": 10,
         "created": "2020-11-12T03:15:48+03:18",
+        "isPublic": null,
         "blog": null,
         "comments": null
     }

@@ -13,12 +13,13 @@
 * permissions and limitations under the License.
 */
 
-// ignore_for_file: public_member_api_docs
-
-import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
+
+// ignore_for_file: public_member_api_docs
+
+import 'ModelProvider.dart';
 
 /** This is an auto generated class representing the Post type in your schema. */
 @immutable
@@ -28,6 +29,7 @@ class Post extends Model {
   final String? _title;
   final int? _rating;
   final TemporalDateTime? _created;
+  final bool? _isPublic;
   final Blog? _blog;
   final List<Comment>? _comments;
 
@@ -40,15 +42,33 @@ class Post extends Model {
   }
 
   String get title {
-    return _title!;
+    try {
+      return _title!;
+    } catch (e) {
+      throw new DataStoreException(
+          DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
   }
 
   int get rating {
-    return _rating!;
+    try {
+      return _rating!;
+    } catch (e) {
+      throw new DataStoreException(
+          DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: DataStoreExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
   }
 
-  TemporalDateTime get created {
-    return _created!;
+  TemporalDateTime? get created {
+    return _created;
   }
 
   Blog? get blog {
@@ -59,16 +79,22 @@ class Post extends Model {
     return _comments;
   }
 
+  bool? get isPublic {
+    return _isPublic;
+  }
+
   const Post._internal(
       {required this.id,
       required title,
       required rating,
-      required created,
+      isPublic,
+      created,
       blog,
       comments})
       : _title = title,
         _rating = rating,
         _created = created,
+        _isPublic = isPublic,
         _blog = blog,
         _comments = comments;
 
@@ -76,7 +102,8 @@ class Post extends Model {
       {String? id,
       required String title,
       required int rating,
-      required TemporalDateTime created,
+      bool? isPublic,
+      TemporalDateTime? created,
       Blog? blog,
       List<Comment>? comments}) {
     return Post._internal(
@@ -84,8 +111,10 @@ class Post extends Model {
         title: title,
         rating: rating,
         created: created,
+        isPublic: isPublic,
         blog: blog,
-        comments: comments != null ? List.unmodifiable(comments) : comments);
+        comments:
+            comments != null ? List<Comment>.unmodifiable(comments) : comments);
   }
 
   bool equals(Object other) {
@@ -100,6 +129,7 @@ class Post extends Model {
         _title == other._title &&
         _rating == other._rating &&
         _created == other._created &&
+        _isPublic == other._isPublic &&
         _blog == other._blog &&
         DeepCollectionEquality().equals(_comments, other._comments);
   }
@@ -118,7 +148,7 @@ class Post extends Model {
         "rating=" + (_rating != null ? _rating!.toString() : "null") + ", ");
     buffer.write(
         "created=" + (_created != null ? _created!.format() : "null") + ", ");
-    buffer.write("blog=" + (_blog != null ? _blog!.toString() : "null"));
+    buffer.write("blog=" + (_blog != null ? _blog!.toString() : "null") + ", ");
     buffer.write("}");
 
     return buffer.toString();
@@ -129,13 +159,15 @@ class Post extends Model {
       String? title,
       int? rating,
       TemporalDateTime? created,
+      bool? isPublic,
       Blog? blog,
       List<Comment>? comments}) {
-    return Post(
+    return Post._internal(
         id: id ?? this.id,
         title: title ?? this.title,
         rating: rating ?? this.rating,
         created: created ?? this.created,
+        isPublic: isPublic ?? this.isPublic,
         blog: blog ?? this.blog,
         comments: comments ?? this.comments);
   }
@@ -143,34 +175,38 @@ class Post extends Model {
   Post.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _title = json['title'],
-        _rating = json['rating'],
+        _rating = (json['rating'] as num?)?.toInt(),
         _created = json['created'] != null
             ? TemporalDateTime.fromString(json['created'])
             : null,
-        _blog = json['blog'] != null
+        _blog = json['blog']?['serializedData'] != null
             ? Blog.fromJson(
-                new Map<String, dynamic>.from(json['blog']?['serializedData']))
+                new Map<String, dynamic>.from(json['blog']['serializedData']))
             : null,
         _comments = json['comments'] is List
             ? (json['comments'] as List)
+                .where((e) => e?['serializedData'] != null)
                 .map((e) => Comment.fromJson(
-                    new Map<String, dynamic>.from(e?['serializedData'])))
+                    new Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
-            : null;
+            : null,
+        _isPublic = json['isPublic'] as bool?;
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'title': _title,
         'rating': _rating,
         'created': _created?.format(),
+        'isPublic': _isPublic,
         'blog': _blog?.toJson(),
-        'comments': _comments?.map((e) => e?.toJson())?.toList()
+        'comments': _comments?.map((Comment? e) => e?.toJson()).toList(),
       };
 
   static final QueryField ID = QueryField(fieldName: "post.id");
   static final QueryField TITLE = QueryField(fieldName: "title");
   static final QueryField RATING = QueryField(fieldName: "rating");
   static final QueryField CREATED = QueryField(fieldName: "created");
+  static final QueryField ISPUBLIC = QueryField(fieldName: "isPublic");
   static final QueryField BLOG = QueryField(
       fieldName: "blog",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
@@ -198,8 +234,13 @@ class Post extends Model {
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: Post.CREATED,
-        isRequired: true,
+        isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+        key: Post.ISPUBLIC,
+        isRequired: false,
+        ofType: ModelFieldType(ModelFieldTypeEnum.bool)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
         key: Post.BLOG,
