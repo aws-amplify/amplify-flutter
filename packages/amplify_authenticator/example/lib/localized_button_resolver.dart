@@ -1,6 +1,5 @@
 import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -10,64 +9,81 @@ class LocalizedButtonResolver extends ButtonResolver {
 
   @override
   String changePassword(BuildContext context) {
-    return AppLocalizations.of(context)!.changePassword;
+    return AppLocalizations.of(context).changePassword;
   }
 
   @override
   String confirm(BuildContext context) {
-    return AppLocalizations.of(context)!.confirm;
+    return AppLocalizations.of(context).confirm;
   }
 
   @override
-  String confirmVerifyUser(BuildContext context) {
-    return AppLocalizations.of(context)!.confirmVerifyUser;
-  }
-
-  @override
-  String lostCodeQuestion(BuildContext context) {
-    return AppLocalizations.of(context)!.lostCodeQuestion;
+  String lostCode(BuildContext context) {
+    return AppLocalizations.of(context).lostCode;
   }
 
   @override
   String sendCode(BuildContext context) {
-    return AppLocalizations.of(context)!.sendCode;
+    return AppLocalizations.of(context).sendCode;
   }
 
   @override
   String signin(BuildContext context) {
-    return AppLocalizations.of(context)!.signin;
+    return AppLocalizations.of(context).signin;
   }
 
   @override
   String signout(BuildContext context) {
-    return AppLocalizations.of(context)!.signout;
+    return AppLocalizations.of(context).signout;
   }
 
   @override
   String signup(BuildContext context) {
-    return AppLocalizations.of(context)!.signup;
+    return AppLocalizations.of(context).signup;
   }
 
   @override
   String submit(BuildContext context) {
-    return AppLocalizations.of(context)!.submit;
+    return AppLocalizations.of(context).submit;
   }
 
   @override
-  String verifyUser(BuildContext context) {
-    return AppLocalizations.of(context)!.verifyUser;
+  String verify(BuildContext context) {
+    return AppLocalizations.of(context).verify;
   }
 
   @override
   String signInWith(BuildContext context, AuthProvider provider) {
-    return AppLocalizations.of(context)!.signInWith(
-      describeEnum(provider).capitalize(),
-    );
+    return AppLocalizations.of(context).signInWith(provider);
   }
-}
 
-extension on String {
-  String capitalize() {
-    return this[0].toUpperCase() + substring(1).toLowerCase();
+  @override
+  String backTo(BuildContext context, AuthScreen previousScreen) {
+    return AppLocalizations.of(context).backTo(previousScreen);
+  }
+
+  @override
+  String forgotPassword(BuildContext context) {
+    return AppLocalizations.of(context).forgotPassword;
+  }
+
+  @override
+  String haveAccount(BuildContext context) {
+    return AppLocalizations.of(context).haveAccount;
+  }
+
+  @override
+  String noAccount(BuildContext context) {
+    return AppLocalizations.of(context).noAccount;
+  }
+
+  @override
+  String resetPassword(BuildContext context) {
+    return AppLocalizations.of(context).resetPassword;
+  }
+
+  @override
+  String skip(BuildContext context) {
+    return AppLocalizations.of(context).skip;
   }
 }

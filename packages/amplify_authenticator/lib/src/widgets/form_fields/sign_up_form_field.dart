@@ -152,17 +152,17 @@ class SignUpFormField
           validator: validator,
         );
 
-  /// Creates a locale component.
-  const SignUpFormField.locale({
-    Key? key,
-    FormFieldValidator<String>? validator,
-  }) : this._(
-          key: key ?? keyLocaleSignUpFormField,
-          titleKey: InputResolverKey.localeTitle,
-          hintTextKey: InputResolverKey.localeHint,
-          field: SignUpField.locale,
-          validator: validator,
-        );
+  // /// Creates a locale component.
+  // const SignUpFormField.locale({
+  //   Key? key,
+  //   FormFieldValidator<String>? validator,
+  // }) : this._(
+  //         key: key ?? keyLocaleSignUpFormField,
+  //         titleKey: InputResolverKey.localeTitle,
+  //         hintTextKey: InputResolverKey.localeHint,
+  //         field: SignUpField.locale,
+  //         validator: validator,
+  //       );
 
   /// Creates a middleName component.
   const SignUpFormField.middleName({
@@ -212,17 +212,17 @@ class SignUpFormField
           validator: validator,
         );
 
-  /// Creates a picture component.
-  const SignUpFormField.picture({
-    Key? key,
-    FormFieldValidator<String>? validator,
-  }) : this._(
-          key: key ?? keyPictureSignUpFormField,
-          titleKey: InputResolverKey.pictureTitle,
-          hintTextKey: InputResolverKey.pictureHint,
-          field: SignUpField.picture,
-          validator: validator,
-        );
+  // /// Creates a picture component.
+  // const SignUpFormField.picture({
+  //   Key? key,
+  //   FormFieldValidator<String>? validator,
+  // }) : this._(
+  //         key: key ?? keyPictureSignUpFormField,
+  //         titleKey: InputResolverKey.pictureTitle,
+  //         hintTextKey: InputResolverKey.pictureHint,
+  //         field: SignUpField.picture,
+  //         validator: validator,
+  //       );
 
   /// Creates a preferredUsername component.
   const SignUpFormField.preferredUsername({
@@ -236,53 +236,53 @@ class SignUpFormField
           validator: validator,
         );
 
-  /// Creates a profile component.
-  const SignUpFormField.profile({
-    Key? key,
-    FormFieldValidator<String>? validator,
-  }) : this._(
-          key: key ?? keyProfileSignUpFormField,
-          titleKey: InputResolverKey.profileTitle,
-          hintTextKey: InputResolverKey.profileHint,
-          field: SignUpField.profile,
-          validator: validator,
-        );
+  // /// Creates a profile component.
+  // const SignUpFormField.profile({
+  //   Key? key,
+  //   FormFieldValidator<String>? validator,
+  // }) : this._(
+  //         key: key ?? keyProfileSignUpFormField,
+  //         titleKey: InputResolverKey.profileTitle,
+  //         hintTextKey: InputResolverKey.profileHint,
+  //         field: SignUpField.profile,
+  //         validator: validator,
+  //       );
 
-  /// Creates an updatedAt component.
-  const SignUpFormField.updatedAt({
-    Key? key,
-    FormFieldValidator<String>? validator,
-  }) : this._(
-          key: key ?? keyUpdatedAtSignUpFormField,
-          titleKey: InputResolverKey.updatedAtTitle,
-          hintTextKey: InputResolverKey.updatedAtHint,
-          field: SignUpField.updatedAt,
-          validator: validator,
-        );
+  // /// Creates an updatedAt component.
+  // const SignUpFormField.updatedAt({
+  //   Key? key,
+  //   FormFieldValidator<String>? validator,
+  // }) : this._(
+  //         key: key ?? keyUpdatedAtSignUpFormField,
+  //         titleKey: InputResolverKey.updatedAtTitle,
+  //         hintTextKey: InputResolverKey.updatedAtHint,
+  //         field: SignUpField.updatedAt,
+  //         validator: validator,
+  //       );
 
-  /// Creates a website component.
-  const SignUpFormField.website({
-    Key? key,
-    FormFieldValidator<String>? validator,
-  }) : this._(
-          key: key ?? keyWebsiteSignUpFormField,
-          titleKey: InputResolverKey.websiteTitle,
-          hintTextKey: InputResolverKey.websiteHint,
-          field: SignUpField.website,
-          validator: validator,
-        );
+  // /// Creates a website component.
+  // const SignUpFormField.website({
+  //   Key? key,
+  //   FormFieldValidator<String>? validator,
+  // }) : this._(
+  //         key: key ?? keyWebsiteSignUpFormField,
+  //         titleKey: InputResolverKey.websiteTitle,
+  //         hintTextKey: InputResolverKey.websiteHint,
+  //         field: SignUpField.website,
+  //         validator: validator,
+  //       );
 
-  /// Creates a zoneinfo component.
-  const SignUpFormField.zoneinfo({
-    Key? key,
-    FormFieldValidator<String>? validator,
-  }) : this._(
-          key: key ?? keyZoneinfoSignUpFormField,
-          titleKey: InputResolverKey.zoneinfoTitle,
-          hintTextKey: InputResolverKey.zoneinfoHint,
-          field: SignUpField.zoneinfo,
-          validator: validator,
-        );
+  // /// Creates a zoneinfo component.
+  // const SignUpFormField.zoneinfo({
+  //   Key? key,
+  //   FormFieldValidator<String>? validator,
+  // }) : this._(
+  //         key: key ?? keyZoneinfoSignUpFormField,
+  //         titleKey: InputResolverKey.zoneinfoTitle,
+  //         hintTextKey: InputResolverKey.zoneinfoHint,
+  //         field: SignUpField.zoneinfo,
+  //         validator: validator,
+  //       );
 
   /// Creates a custom attribute component.
   ///
@@ -326,17 +326,17 @@ class _SignUpFormFieldState
       case SignUpField.familyName:
       case SignUpField.gender:
       case SignUpField.givenName:
-      case SignUpField.locale:
+      // case SignUpField.locale:
       case SignUpField.middleName:
       case SignUpField.name:
       case SignUpField.nickname:
       case SignUpField.phoneNumber:
-      case SignUpField.picture:
+      // case SignUpField.picture:
       case SignUpField.preferredUsername:
-      case SignUpField.profile:
-      case SignUpField.zoneinfo:
-      case SignUpField.updatedAt:
-      case SignUpField.website:
+        // case SignUpField.profile:
+        // case SignUpField.zoneinfo:
+        // case SignUpField.updatedAt:
+        // case SignUpField.website:
         return viewModel.getAttribute(widget.field.toCognitoAttribute());
       case SignUpField.custom:
         return viewModel.getAttribute(widget._customAttributeKey!);
@@ -399,13 +399,13 @@ class _SignUpFormFieldState
             InputResolverKey.givenNameEmpty,
           ),
         );
-      case SignUpField.locale:
-        return simpleValidator(
-          stringResolver.inputs.resolve(
-            context,
-            InputResolverKey.localeEmpty,
-          ),
-        );
+      // case SignUpField.locale:
+      //   return simpleValidator(
+      //     stringResolver.inputs.resolve(
+      //       context,
+      //       InputResolverKey.localeEmpty,
+      //     ),
+      //   );
       case SignUpField.middleName:
         return simpleValidator(
           stringResolver.inputs.resolve(
@@ -427,13 +427,13 @@ class _SignUpFormFieldState
             InputResolverKey.nicknameEmpty,
           ),
         );
-      case SignUpField.picture:
-        return simpleValidator(
-          stringResolver.inputs.resolve(
-            context,
-            InputResolverKey.pictureEmpty,
-          ),
-        );
+      // case SignUpField.picture:
+      //   return simpleValidator(
+      //     stringResolver.inputs.resolve(
+      //       context,
+      //       InputResolverKey.pictureEmpty,
+      //     ),
+      //   );
       case SignUpField.preferredUsername:
         return simpleValidator(
           stringResolver.inputs.resolve(
@@ -441,34 +441,34 @@ class _SignUpFormFieldState
             InputResolverKey.preferredUsernameEmpty,
           ),
         );
-      case SignUpField.profile:
-        return simpleValidator(
-          stringResolver.inputs.resolve(
-            context,
-            InputResolverKey.profileEmpty,
-          ),
-        );
-      case SignUpField.zoneinfo:
-        return simpleValidator(
-          stringResolver.inputs.resolve(
-            context,
-            InputResolverKey.zoneinfoEmpty,
-          ),
-        );
-      case SignUpField.updatedAt:
-        return simpleValidator(
-          stringResolver.inputs.resolve(
-            context,
-            InputResolverKey.updatedAtEmpty,
-          ),
-        );
-      case SignUpField.website:
-        return simpleValidator(
-          stringResolver.inputs.resolve(
-            context,
-            InputResolverKey.websiteEmpty,
-          ),
-        );
+      // case SignUpField.profile:
+      //   return simpleValidator(
+      //     stringResolver.inputs.resolve(
+      //       context,
+      //       InputResolverKey.profileEmpty,
+      //     ),
+      //   );
+      // case SignUpField.zoneinfo:
+      //   return simpleValidator(
+      //     stringResolver.inputs.resolve(
+      //       context,
+      //       InputResolverKey.zoneinfoEmpty,
+      //     ),
+      //   );
+      // case SignUpField.updatedAt:
+      //   return simpleValidator(
+      //     stringResolver.inputs.resolve(
+      //       context,
+      //       InputResolverKey.updatedAtEmpty,
+      //     ),
+      //   );
+      // case SignUpField.website:
+      //   return simpleValidator(
+      //     stringResolver.inputs.resolve(
+      //       context,
+      //       InputResolverKey.websiteEmpty,
+      //     ),
+      //   );
       case SignUpField.custom:
         return null;
     }
@@ -506,8 +506,8 @@ class _SignUpFormFieldState
         return viewModel.setGender;
       case SignUpField.givenName:
         return viewModel.setGivenName;
-      case SignUpField.locale:
-        return viewModel.setLocale;
+      // case SignUpField.locale:
+      //   return viewModel.setLocale;
       case SignUpField.middleName:
         return viewModel.setMiddleName;
       case SignUpField.name:
@@ -516,18 +516,18 @@ class _SignUpFormFieldState
         return viewModel.setNickname;
       case SignUpField.phoneNumber:
         return viewModel.setPhoneNumber;
-      case SignUpField.picture:
-        return viewModel.setPicture;
+      // case SignUpField.picture:
+      //   return viewModel.setPicture;
       case SignUpField.preferredUsername:
         return viewModel.setPreferredUsername;
-      case SignUpField.profile:
-        return viewModel.setProfile;
-      case SignUpField.zoneinfo:
-        return viewModel.setZoneInfo;
-      case SignUpField.updatedAt:
-        return viewModel.setUpdatedAt;
-      case SignUpField.website:
-        return viewModel.setWebsite;
+      // case SignUpField.profile:
+      //   return viewModel.setProfile;
+      // case SignUpField.zoneinfo:
+      //   return viewModel.setZoneInfo;
+      // case SignUpField.updatedAt:
+      //   return viewModel.setUpdatedAt;
+      // case SignUpField.website:
+      //   return viewModel.setWebsite;
       case SignUpField.custom:
         return (String value) => viewModel.setCustom(
               widget._customAttributeKey!,
@@ -553,20 +553,20 @@ class _SignUpFormFieldState
       case SignUpField.phoneNumber:
         return TextInputType.phone;
       case SignUpField.birthdate:
-      case SignUpField.updatedAt:
-        return TextInputType.datetime;
-      case SignUpField.website:
-        return TextInputType.url;
+      // case SignUpField.updatedAt:
+      //   return TextInputType.datetime;
+      // case SignUpField.website:
+      //   return TextInputType.url;
       case SignUpField.familyName:
       case SignUpField.gender:
       case SignUpField.givenName:
-      case SignUpField.locale:
+      // case SignUpField.locale:
       case SignUpField.middleName:
       case SignUpField.nickname:
-      case SignUpField.picture:
+      // case SignUpField.picture:
       case SignUpField.preferredUsername:
-      case SignUpField.profile:
-      case SignUpField.zoneinfo:
+      // case SignUpField.profile:
+      // case SignUpField.zoneinfo:
       case SignUpField.custom:
         return TextInputType.text;
     }

@@ -15,18 +15,6 @@
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 
-enum AuthScreen {
-  signup,
-  signin,
-  confirmSignup,
-  confirmSigninMfa,
-  confirmSigninNewPassword,
-  sendCode,
-  resetPassword,
-  verifyUser,
-  confirmVerifyUser,
-}
-
 abstract class AuthSignInData {
   const AuthSignInData();
 }

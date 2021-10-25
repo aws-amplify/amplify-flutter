@@ -50,19 +50,6 @@ extension PasswordPolicyCharactersX on PasswordPolicyCharacters {
         return value.contains(_symbols);
     }
   }
-
-  InputResolverKey get requirementUnmetResolverKey {
-    switch (this) {
-      case PasswordPolicyCharacters.requiresLowercase:
-        return InputResolverKey.passwordRequiresLowercase;
-      case PasswordPolicyCharacters.requiresUppercase:
-        return InputResolverKey.passwordRequiresUppercase;
-      case PasswordPolicyCharacters.requiresNumbers:
-        return InputResolverKey.passwordRequiresNumbers;
-      case PasswordPolicyCharacters.requiresSymbols:
-        return InputResolverKey.passwordRequiresSymbols;
-    }
-  }
 }
 
 FormFieldValidator<String> Function(BuildContext) validateSignUpPassword({
@@ -76,39 +63,38 @@ FormFieldValidator<String> Function(BuildContext) validateSignUpPassword({
       ?.passwordProtectionSettings;
   return (BuildContext context) => (String? password) {
         if (password == null || password.isEmpty) {
-          return inputResolver.passwordEmpty(context);
+          return inputResolver.resolve(
+            context,
+            InputResolverKey.passwordEmpty,
+          );
         }
         if (passwordProtectionSettings == null) {
           return null;
         }
 
-        final unmetRequirementsHeader =
-            inputResolver.passwordRequirementsUnmet(context);
-        final List<String> passwordHints = [];
+        final List<PasswordPolicyCharacters> unmetReqs = [];
 
         int? minLength = passwordProtectionSettings.passwordPolicyMinLength;
         bool meetsMinLengthRequirement =
             minLength == null || password.length >= minLength;
-        if (!meetsMinLengthRequirement) {
-          passwordHints.add(
-              '* ${inputResolver.passwordAtLeast(context)} $minLength ${inputResolver.passwordCharacters(context)}');
-        }
 
         final passwordPolicies =
             passwordProtectionSettings.passwordPolicyCharacters ?? const [];
         for (var policy in passwordPolicies) {
           if (!policy.meetsRequirement(password)) {
-            final hint = inputResolver.resolve(
-              context,
-              policy.requirementUnmetResolverKey,
-            );
-            passwordHints.add('* $hint');
+            unmetReqs.add(policy);
           }
         }
 
-        return passwordHints.isNotEmpty
-            ? unmetRequirementsHeader + '\n' + passwordHints.join('\n')
-            : null;
+        var error = inputResolver.resolve(
+          context,
+          InputResolverKey.passwordRequirementsUnmet(PasswordProtectionSettings(
+            passwordPolicyMinLength:
+                meetsMinLengthRequirement ? null : minLength,
+            passwordPolicyCharacters: unmetReqs,
+          )),
+        );
+        return error.isEmpty ? null : error;
       };
 }
 
