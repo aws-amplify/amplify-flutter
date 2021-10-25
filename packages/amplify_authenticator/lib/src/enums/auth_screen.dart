@@ -13,11 +13,14 @@
  * permissions and limitations under the License.
  */
 
-export 'auth_screen.dart';
-export 'button_size.dart';
-export 'confirm_signin_types.dart';
-export 'confirm_signup_types.dart';
-export 'gender.dart';
-export 'signin_types.dart';
-export 'signup_types.dart';
-export 'status_type.dart';
+enum AuthScreen {
+  signup,
+  signin,
+  confirmSignup,
+  confirmSigninMfa,
+  confirmSigninNewPassword,
+  sendCode,
+  resetPassword,
+  verifyUser,
+  confirmVerifyUser,
+}

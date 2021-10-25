@@ -13,40 +13,56 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
-import 'package:amplify_authenticator/src/text_customization/resolver.dart';
+import 'package:amplify_authenticator/src/enums/auth_screen.dart';
 import 'package:flutter/material.dart';
 
+import 'authenticator_localizations.dart';
+import 'resolver.dart';
+
 /// The resolver class for screen titles
-abstract class TitleResolver extends Resolver<AuthScreen> {
+class TitleResolver extends Resolver<AuthScreen> {
   const TitleResolver();
 
   /// The title for the sign in Widget.
-  String signin(BuildContext context);
+  String signin(BuildContext context) {
+    return AuthenticatorLocalizations.titlesOf(context).signin;
+  }
 
   /// The title for the sign up Widget.
-  String signup(BuildContext context);
+  String signup(BuildContext context) {
+    return AuthenticatorLocalizations.titlesOf(context).signup;
+  }
 
   /// The title for the confirm sign up Widget.
-  String confirmSignup(BuildContext context);
+  String confirmSignup(BuildContext context) {
+    return AuthenticatorLocalizations.titlesOf(context).confirmSignup;
+  }
 
   /// The title for the confirm sign in (MFA) Widget.
-  String confirmSigninMfa(BuildContext context);
+  String confirmSigninMfa(BuildContext context) {
+    return AuthenticatorLocalizations.titlesOf(context).confirmSigninMfa;
+  }
 
   /// The title for the confirm sign in (new passwrod) Widget.
-  String confirmSigninNewPassword(BuildContext context);
+  String confirmSigninNewPassword(BuildContext context) {
+    return AuthenticatorLocalizations.titlesOf(context)
+        .confirmSigninNewPassword;
+  }
 
   /// The title for the reset password Widget.
-  String resetPassword(BuildContext context);
+  String resetPassword(BuildContext context) {
+    return AuthenticatorLocalizations.titlesOf(context).resetPassword;
+  }
 
   /// The title for the send code Widget.
-  String sendCode(BuildContext context);
+  String sendCode(BuildContext context) {
+    return AuthenticatorLocalizations.titlesOf(context).sendCode;
+  }
 
   /// The title for the verify user Widget.
-  String verifyUser(BuildContext context);
-
-  /// The title for the verify user Widget.
-  String confirmVerifyUser(BuildContext context);
+  String verifyUser(BuildContext context) {
+    return AuthenticatorLocalizations.titlesOf(context).verifyUser;
+  }
 
   @override
   String resolve(BuildContext context, AuthScreen key) {
@@ -66,43 +82,8 @@ abstract class TitleResolver extends Resolver<AuthScreen> {
       case AuthScreen.sendCode:
         return sendCode(context);
       case AuthScreen.verifyUser:
-        return verifyUser(context);
       case AuthScreen.confirmVerifyUser:
-        return confirmVerifyUser(context);
+        return verifyUser(context);
     }
   }
-}
-
-class DefaultTitleResolver extends TitleResolver {
-  const DefaultTitleResolver();
-
-  @override
-  String signin(BuildContext context) => 'Sign in to your account';
-
-  @override
-  String signup(BuildContext context) => 'Create your account';
-
-  @override
-  String confirmSignup(BuildContext context) => 'Enter your confirmation code';
-
-  @override
-  String confirmSigninMfa(BuildContext context) => 'Enter your sign in code';
-
-  @override
-  String confirmSigninNewPassword(BuildContext context) =>
-      'Change your password to sign in';
-
-  @override
-  String resetPassword(BuildContext context) => 'Reset your password';
-
-  @override
-  String sendCode(BuildContext context) => 'Send Code';
-
-  @override
-  String verifyUser(BuildContext context) =>
-      'Account recovery requires verified contact information';
-
-  @override
-  String confirmVerifyUser(BuildContext context) =>
-      'Account recovery requires verified contact information';
 }

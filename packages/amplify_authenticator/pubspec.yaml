@@ -13,6 +13,9 @@ dependencies:
   amplify_flutter: ^0.2.0
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.17.0
 
 dev_dependencies:
   amplify_lints: ^1.0.0

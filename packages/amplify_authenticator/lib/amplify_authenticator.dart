@@ -18,8 +18,10 @@ library amplify_authenticator;
 import 'dart:async';
 
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
-import 'package:amplify_authenticator/src/enums/status_type.dart';
+import 'package:amplify_authenticator/src/enums/enums.dart';
 import 'package:amplify_authenticator/src/keys.dart';
+import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
+import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart';
 import 'package:amplify_authenticator/src/models/authenticator_exception.dart';
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
 import 'package:amplify_authenticator/src/screens/loading_screen.dart';
@@ -30,7 +32,6 @@ import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:amplify_authenticator/src/state/inherited_strings.dart';
-import 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/widgets/exception_banner.dart';
 import 'package:amplify_authenticator/src/widgets/form.dart';
@@ -39,9 +40,14 @@ import 'package:amplify_flutter/src/config/amplify_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+export 'package:amplify_auth_cognito/amplify_auth_cognito.dart'
+    show AuthProvider;
+export 'package:amplify_flutter/src/config/auth/password_policy_characters.dart';
+export 'package:amplify_flutter/src/config/auth/password_protection_settings.dart';
+
 export 'src/enums/enums.dart';
+export 'src/l10n/auth_strings_resolver.dart';
 export 'src/models/authenticator_exception.dart';
-export 'src/text_customization/auth_strings_resolver.dart';
 export 'src/widgets/button.dart' show SignOutButton;
 export 'src/widgets/form.dart';
 export 'src/widgets/form_field.dart';
@@ -263,29 +269,33 @@ class _AuthenticatorState extends State<Authenticator> {
           You should correct your amplifyconfiguration.dart file and restart your app.''');
     }
 
-    return InheritedAuthBloc(
-      key: keyInheritedAuthBloc,
-      authBloc: _stateMachineBloc,
-      child: InheritedConfig(
-        amplifyConfig: _config,
-        useAmplifyTheme: widget.useAmplifyTheme,
-        child: InheritedAuthViewModel(
-          key: keyInheritedAuthViewModel,
-          viewModel: _viewModel,
-          child: InheritedStrings(
-            resolver: widget.stringResolver,
-            child: InheritedForms(
-              confirmSignInNewPasswordForm:
-                  const ConfirmSignInNewPasswordForm(),
-              resetPasswordForm: const ResetPasswordForm(),
-              sendCodeForm: const SendCodeForm(),
-              signInForm: widget.signInForm,
-              signUpForm: widget.signUpForm,
-              confirmSignUpForm: const ConfirmSignUpForm(),
-              confirmSignInMFAForm: widget.confirmSignInMFAForm,
-              verifyUserForm: const VerifyUserForm(),
-              confirmVerifyUserForm: const ConfirmVerifyUserForm(),
-              child: _AuthenticatorBody(child: widget.child),
+    return Localizations.override(
+      context: context,
+      delegates: AuthenticatorLocalizations.localizationsDelegates,
+      child: InheritedAuthBloc(
+        key: keyInheritedAuthBloc,
+        authBloc: _stateMachineBloc,
+        child: InheritedConfig(
+          amplifyConfig: _config,
+          useAmplifyTheme: widget.useAmplifyTheme,
+          child: InheritedAuthViewModel(
+            key: keyInheritedAuthViewModel,
+            viewModel: _viewModel,
+            child: InheritedStrings(
+              resolver: widget.stringResolver,
+              child: InheritedForms(
+                confirmSignInNewPasswordForm:
+                    const ConfirmSignInNewPasswordForm(),
+                resetPasswordForm: const ResetPasswordForm(),
+                sendCodeForm: const SendCodeForm(),
+                signInForm: widget.signInForm,
+                signUpForm: widget.signUpForm,
+                confirmSignUpForm: const ConfirmSignUpForm(),
+                confirmSignInMFAForm: widget.confirmSignInMFAForm,
+                verifyUserForm: const VerifyUserForm(),
+                confirmVerifyUserForm: const ConfirmVerifyUserForm(),
+                child: _AuthenticatorBody(child: widget.child),
+              ),
             ),
           ),
         ),

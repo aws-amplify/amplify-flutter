@@ -16,12 +16,10 @@
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
-import 'package:amplify_authenticator/src/enums/button_size.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
-import 'package:amplify_authenticator/src/text_customization/navigation_resolver.dart';
 import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/utils/list.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
@@ -290,7 +288,7 @@ class BackToSignInButton extends StatelessAuthenticatorComponent {
     return TextButton(
       key: keyBackToSignInButton,
       child: Text(
-        stringResolver.navigation.backToSignin(context),
+        stringResolver.buttons.backTo(context, AuthScreen.signin),
         style: TextStyle(
           fontSize: AuthenticatorButtonConstants.fontSize,
           color: Theme.of(context).primaryColor,
@@ -310,7 +308,7 @@ class GoToSignUpButton extends StatelessAuthenticatorComponent {
     AuthViewModel viewModel,
     AuthStringResolver stringResolver,
   ) {
-    final NavigationResolver navResolver = stringResolver.navigation;
+    final resolver = stringResolver.buttons;
     final Size screenSize = MediaQuery.of(context).size;
     final bool isDesktop =
         screenSize.width > AuthenticatorContainerConstants.landScapeView;
@@ -327,7 +325,7 @@ class GoToSignUpButton extends StatelessAuthenticatorComponent {
           Expanded(
             flex: flex,
             child: Text(
-              navResolver.noAccountQuestion(context),
+              resolver.noAccount(context),
               style: const TextStyle(
                 color: AuthenticatorButtonConstants.textColor,
                 fontSize: AuthenticatorButtonConstants.fontSize,
@@ -338,7 +336,7 @@ class GoToSignUpButton extends StatelessAuthenticatorComponent {
             key: keyGoToSignUpButton,
             onPressed: viewModel.goToSignUp,
             child: Text(
-              navResolver.navigateSignup(context),
+              resolver.signup(context),
               style: TextStyle(
                 fontSize: AuthenticatorButtonConstants.fontSize,
                 color: Theme.of(context).primaryColor,
@@ -360,7 +358,7 @@ class GoToSignInButton extends StatelessAuthenticatorComponent {
     AuthViewModel viewModel,
     AuthStringResolver stringResolver,
   ) {
-    final NavigationResolver navResolver = stringResolver.navigation;
+    final resolver = stringResolver.buttons;
     final Size screenSize = MediaQuery.of(context).size;
     final bool isDesktop =
         screenSize.width > AuthenticatorContainerConstants.landScapeView;
@@ -377,7 +375,7 @@ class GoToSignInButton extends StatelessAuthenticatorComponent {
           Expanded(
             flex: flex,
             child: Text(
-              navResolver.haveAccountQuestion(context),
+              resolver.haveAccount(context),
               style: const TextStyle(
                 color: AuthenticatorButtonConstants.textColor,
                 fontSize: AuthenticatorButtonConstants.fontSize,
@@ -387,7 +385,7 @@ class GoToSignInButton extends StatelessAuthenticatorComponent {
           TextButton(
             key: keyGoToSignInButton,
             child: Text(
-              navResolver.navigateSignin(context),
+              resolver.signin(context),
               style: TextStyle(
                 fontSize: AuthenticatorButtonConstants.fontSize,
                 color: Theme.of(context).primaryColor,
@@ -418,7 +416,7 @@ class LostCodeButton extends StatelessAuthenticatorComponent {
         children: [
           Expanded(
             child: Text(
-              buttonResolver.lostCodeQuestion(context),
+              buttonResolver.lostCode(context),
               style: const TextStyle(
                 color: AuthenticatorButtonConstants.textColor,
                 fontSize: 13,
@@ -451,14 +449,14 @@ class ResetPasswordButton extends StatelessAuthenticatorComponent {
     AuthViewModel viewModel,
     AuthStringResolver stringResolver,
   ) {
-    final NavigationResolver navResolver = stringResolver.navigation;
+    final resolver = stringResolver.buttons;
     return Padding(
       padding: const EdgeInsets.only(top: 4.0),
       child: Row(
         children: [
           Expanded(
             child: Text(
-              navResolver.forgotPasswordQuestion(context),
+              resolver.forgotPassword(context),
               style: const TextStyle(
                 color: Color.fromRGBO(130, 130, 130, 1),
                 fontSize: 12,
@@ -468,7 +466,7 @@ class ResetPasswordButton extends StatelessAuthenticatorComponent {
           TextButton(
             key: keyGoToSignInButton,
             child: Text(
-              navResolver.navigateResetPassword(context),
+              resolver.resetPassword(context),
               style: TextStyle(
                 fontSize: 12,
                 color: Theme.of(context).primaryColor,
@@ -531,7 +529,7 @@ class VerifyUserButton extends AuthenticatorElevatedButton {
         );
 
   @override
-  ButtonResolverKey get labelKey => ButtonResolverKey.verifyUser;
+  ButtonResolverKey get labelKey => ButtonResolverKey.verify;
 
   @override
   void onPressed(BuildContext context, AuthViewModel viewModel) {
@@ -547,7 +545,7 @@ class ConfirmVerifyUserButton extends AuthenticatorElevatedButton {
         );
 
   @override
-  ButtonResolverKey get labelKey => ButtonResolverKey.confirmVerifyUser;
+  ButtonResolverKey get labelKey => ButtonResolverKey.submit;
 
   @override
   void onPressed(BuildContext context, AuthViewModel viewModel) {
@@ -569,7 +567,7 @@ class SkipVerifyUserButton extends StatelessAuthenticatorComponent {
     return TextButton(
       key: keyBackToSignInButton,
       child: Text(
-        stringResolver.navigation.skipVerifyUser(context),
+        stringResolver.buttons.skip(context),
         style: TextStyle(
           fontSize: AuthenticatorButtonConstants.fontSize,
           color: Theme.of(context).primaryColor,
