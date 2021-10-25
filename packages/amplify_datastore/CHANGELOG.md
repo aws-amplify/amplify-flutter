@@ -16,6 +16,19 @@
   - Upgrade amplify-codegen to the latest version, and regenerate models by running `amplify codegen models`
     > May need to uninstall `@aws-amplify/cli` and reinstall it to ensure it pulls the latest version of `amplify-codegen` package
 
+  **0.3.0-rc.2 Preview**
+
+  This release candidate requires to install `@aws-amplify/cli@6.2.0-custom-type-preview.0`
+
+  ```
+  npm uninstall -g @aws-amplify/cli && npm install -g @aws-amplify/cli@6.2.0-custom-type-preview.0
+  ```
+  and to regenerate models to enable CustomType features.
+
+  ```
+  amplify codegen models
+  ```
+
 ### Features
 
 - feat: Add CustomType functionality (#920)
