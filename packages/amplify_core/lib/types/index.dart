@@ -25,6 +25,7 @@ export 'hub/HubChannel.dart';
 export 'exception/AmplifyException.dart';
 export 'exception/AmplifyAlreadyConfiguredException.dart';
 export 'exception/AmplifyExceptionMessages.dart';
+export 'exception/codegen_exception.dart';
 
 /// UUID
 export '../types/uuid.dart';
