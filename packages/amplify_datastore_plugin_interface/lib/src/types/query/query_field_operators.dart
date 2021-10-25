@@ -157,7 +157,7 @@ class GreaterOrEqualQueryOperator<T extends Comparable>
   @override
   bool evaluate(T? other) {
     if (other == null) {
-      return true;
+      return false;
     }
     return other.compareTo(value) >= 0;
   }
@@ -179,7 +179,7 @@ class GreaterThanQueryOperator<T extends Comparable>
   @override
   bool evaluate(T? other) {
     if (other == null) {
-      return true;
+      return false;
     }
     return other.compareTo(value) > 0;
   }
