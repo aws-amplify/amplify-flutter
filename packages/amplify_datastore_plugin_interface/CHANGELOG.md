@@ -1,4 +1,4 @@
-## 0.2.6 (2021-10-21)
+## 0.2.6 (2021-10-25)
 
 ### Fixes
 
@@ -6,7 +6,6 @@
 
 ### Features
 
-- feat(datastore): Add read-only model field support
 - feat(datastore): Add observeQuery API
 
 ## 0.2.5 (2021-10-14)
