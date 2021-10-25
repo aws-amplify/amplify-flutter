@@ -1,3 +1,13 @@
+## 0.2.6 (2021-10-25)
+
+### Fixes
+
+- fix(datastore): Re-emit events on hot restart
+
+### Features
+
+- feat(datastore): Add observeQuery API
+
 ## 0.2.5 (2021-10-14)
 
 ### Fixes

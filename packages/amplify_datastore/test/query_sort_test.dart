@@ -66,9 +66,9 @@ void main() {
 
     Post post2Copy = post2.copyWith();
 
-    Post post3 = post1.copyWith(isPublic: false);
+    Post post3 = post1.copyWith(likeCount: 0);
 
-    Post post4 = post1.copyWith(isPublic: true);
+    Post post4 = post1.copyWith(likeCount: 1);
 
     Post post4Copy = post4.copyWith();
 
@@ -86,8 +86,8 @@ void main() {
     });
 
     test('should compare bool fields', () {
-      QuerySortBy sortByAsc = Post.ISPUBLIC.ascending();
-      QuerySortBy sortByDesc = Post.ISPUBLIC.descending();
+      QuerySortBy sortByAsc = Post.LIKECOUNT.ascending();
+      QuerySortBy sortByDesc = Post.LIKECOUNT.descending();
 
       expect(sortByAsc.compare(post3, post4), -1);
       expect(sortByAsc.compare(post4, post3), 1);
@@ -125,8 +125,8 @@ void main() {
     });
 
     test('should handle null values', () {
-      QuerySortBy sortByAsc = Post.ISPUBLIC.ascending();
-      QuerySortBy sortByDesc = Post.ISPUBLIC.descending();
+      QuerySortBy sortByAsc = Post.LIKECOUNT.ascending();
+      QuerySortBy sortByDesc = Post.LIKECOUNT.descending();
 
       expect(sortByAsc.compare(post1, post3), -1);
       expect(sortByAsc.compare(post1, post4), -1);
