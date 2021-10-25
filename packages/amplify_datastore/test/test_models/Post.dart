@@ -29,7 +29,7 @@ class Post extends Model {
   final String? _title;
   final int? _rating;
   final TemporalDateTime? _created;
-  final bool? _isPublic;
+  final int? _likeCount;
   final Blog? _blog;
   final List<Comment>? _comments;
 
@@ -79,22 +79,22 @@ class Post extends Model {
     return _comments;
   }
 
-  bool? get isPublic {
-    return _isPublic;
+  int? get likeCount {
+    return _likeCount;
   }
 
   const Post._internal(
       {required this.id,
       required title,
       required rating,
-      isPublic,
+      likeCount,
       created,
       blog,
       comments})
       : _title = title,
         _rating = rating,
         _created = created,
-        _isPublic = isPublic,
+        _likeCount = likeCount,
         _blog = blog,
         _comments = comments;
 
@@ -102,7 +102,7 @@ class Post extends Model {
       {String? id,
       required String title,
       required int rating,
-      bool? isPublic,
+      int? likeCount,
       TemporalDateTime? created,
       Blog? blog,
       List<Comment>? comments}) {
@@ -111,7 +111,7 @@ class Post extends Model {
         title: title,
         rating: rating,
         created: created,
-        isPublic: isPublic,
+        likeCount: likeCount,
         blog: blog,
         comments:
             comments != null ? List<Comment>.unmodifiable(comments) : comments);
@@ -129,7 +129,7 @@ class Post extends Model {
         _title == other._title &&
         _rating == other._rating &&
         _created == other._created &&
-        _isPublic == other._isPublic &&
+        _likeCount == other._likeCount &&
         _blog == other._blog &&
         DeepCollectionEquality().equals(_comments, other._comments);
   }
@@ -159,7 +159,7 @@ class Post extends Model {
       String? title,
       int? rating,
       TemporalDateTime? created,
-      bool? isPublic,
+      int? likeCount,
       Blog? blog,
       List<Comment>? comments}) {
     return Post._internal(
@@ -167,7 +167,7 @@ class Post extends Model {
         title: title ?? this.title,
         rating: rating ?? this.rating,
         created: created ?? this.created,
-        isPublic: isPublic ?? this.isPublic,
+        likeCount: likeCount ?? this.likeCount,
         blog: blog ?? this.blog,
         comments: comments ?? this.comments);
   }
@@ -190,14 +190,14 @@ class Post extends Model {
                     new Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
             : null,
-        _isPublic = json['isPublic'] as bool?;
+        _likeCount = (json['likeCount'] as num?)?.toInt();
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'title': _title,
         'rating': _rating,
         'created': _created?.format(),
-        'isPublic': _isPublic,
+        'likeCount': _likeCount,
         'blog': _blog?.toJson(),
         'comments': _comments?.map((Comment? e) => e?.toJson()).toList(),
       };
@@ -206,7 +206,7 @@ class Post extends Model {
   static final QueryField TITLE = QueryField(fieldName: "title");
   static final QueryField RATING = QueryField(fieldName: "rating");
   static final QueryField CREATED = QueryField(fieldName: "created");
-  static final QueryField ISPUBLIC = QueryField(fieldName: "isPublic");
+  static final QueryField LIKECOUNT = QueryField(fieldName: "likeCount");
   static final QueryField BLOG = QueryField(
       fieldName: "blog",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
@@ -238,7 +238,7 @@ class Post extends Model {
         ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Post.ISPUBLIC,
+        key: Post.LIKECOUNT,
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.bool)));
 

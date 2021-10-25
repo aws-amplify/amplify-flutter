@@ -111,63 +111,78 @@ void main() {
     Post post1 = Post(
       title: 'post one',
       rating: 1,
+      likeCount: 1,
       created: TemporalDateTime(DateTime(2020, 01, 01, 10, 30)),
     );
 
     Post post2 = Post(
       title: 'post two',
       rating: 10,
+      likeCount: 10,
       created: TemporalDateTime(DateTime(2020, 01, 01, 12, 00)),
     );
 
     Post post3 = Post(
       title: 'post three',
       rating: 100,
+      likeCount: 100,
       created: TemporalDateTime(DateTime(2021, 01, 01, 12, 00)),
     );
 
+    Post post4 = Post(
+      title: 'post four',
+      rating: 1000,
+    );
+
     test('equals', () async {
-      QueryPredicate testPredicate = Post.TITLE.eq("post one");
+      QueryPredicate testPredicate = Post.LIKECOUNT.eq(1);
       expect(testPredicate.evaluate(post1), isTrue);
       expect(testPredicate.evaluate(post2), isFalse);
+      expect(testPredicate.evaluate(post4), isFalse);
     });
     test('not equals', () async {
-      QueryPredicate testPredicate = Post.TITLE.ne("post one");
+      QueryPredicate testPredicate = Post.LIKECOUNT.ne(1);
       expect(testPredicate.evaluate(post1), isFalse);
       expect(testPredicate.evaluate(post2), isTrue);
+      expect(testPredicate.evaluate(post4), isTrue);
     });
 
     test('less than', () async {
-      QueryPredicate testPredicate = Post.RATING.lt(5);
+      QueryPredicate testPredicate = Post.LIKECOUNT.lt(5);
       expect(testPredicate.evaluate(post1), isTrue);
       expect(testPredicate.evaluate(post2), isFalse);
+      expect(testPredicate.evaluate(post4), isFalse);
     });
 
     test('less than or equal', () async {
-      QueryPredicate testPredicate = Post.RATING.le(10);
+      QueryPredicate testPredicate = Post.LIKECOUNT.le(10);
       expect(testPredicate.evaluate(post1), isTrue);
       expect(testPredicate.evaluate(post2), isTrue);
       expect(testPredicate.evaluate(post3), isFalse);
+      expect(testPredicate.evaluate(post4), isFalse);
     });
 
     test('greater than', () async {
-      QueryPredicate testPredicate = Post.RATING.gt(5);
+      QueryPredicate testPredicate = Post.LIKECOUNT.gt(5);
       expect(testPredicate.evaluate(post1), isFalse);
       expect(testPredicate.evaluate(post2), isTrue);
+      expect(testPredicate.evaluate(post4), isFalse);
     });
 
     test('greater than or equal', () async {
-      QueryPredicate testPredicate = Post.RATING.ge(10);
+      QueryPredicate testPredicate = Post.LIKECOUNT.ge(10);
       expect(testPredicate.evaluate(post1), isFalse);
       expect(testPredicate.evaluate(post2), isTrue);
       expect(testPredicate.evaluate(post3), isTrue);
+      expect(testPredicate.evaluate(post4), isFalse);
     });
 
     test('between', () async {
-      QueryPredicate testPredicate = Post.RATING.between(5, 100);
+      QueryPredicate testPredicate = Post.LIKECOUNT.between(5, 100);
       expect(testPredicate.evaluate(post1), isFalse);
       expect(testPredicate.evaluate(post2), isTrue);
       expect(testPredicate.evaluate(post3), isTrue);
+      expect(testPredicate.evaluate(post4), isFalse);
     });
 
     test('contains', () async {
