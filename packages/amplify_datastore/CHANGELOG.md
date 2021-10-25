@@ -1,3 +1,29 @@
+## 0.3.0-rc.2 (2021-10-25)
+
+This release candidate requires to install `@aws-amplify/cli@6.2.0-custom-type-preview.0`
+
+```
+npm uninstall -g @aws-amplify/cli && npm install -g @aws-amplify/cli@6.2.0-custom-type-preview.0
+```
+and to regenerate models.
+
+```
+amplify codegen models
+```
+
+### Breaking Changes
+
+- `ModelProvider` and `ModelField` Interface Changes
+
+  **How to migrate?**
+  - Install the required version of `@aws-amplify/cli` for this release candidate described at the beginning of this section
+  - Run `amplify codegen models` to regenerate models
+
+### Features
+
+- feat: Add CustomType functionality (#847)
+- feat: Add ModelField ReadOnly support (#599)
+
 ## 0.3.0-rc.1 (2021-09-24)
 
 ### Breaking Changes
@@ -8,26 +34,6 @@
   Invoke [`Amplify.DataStore.clear()`](https://docs.amplify.aws/lib/datastore/sync/q/platform/flutter/#clear-local-data) on App start after upgrading to the latest version of amplify-flutter. This API clears and recreates local database table with correct schema.
 
   NOTE: Data stored in local database and not synced to cloud will be lost, as [local migration is not supported](https://docs.amplify.aws/lib/datastore/schema-updates/q/platform/flutter/#local-migrations).
-
-- Adding CustomType functionality introduces a breaking change to the amplify-codegen generated `ModelProvider.dart`, as a new class member `customTypeSchemas` has been added to `ModelProviderInterface.dart`.
-
-  **How to migrate?**
-  - Upgrade amplify-flutter to the latest version
-  - Upgrade amplify-codegen to the latest version, and regenerate models by running `amplify codegen models`
-    > May need to uninstall `@aws-amplify/cli` and reinstall it to ensure it pulls the latest version of `amplify-codegen` package
-
-  **0.3.0-rc.2 Preview**
-
-  This release candidate requires to install `@aws-amplify/cli@6.2.0-custom-type-preview.0`
-
-  ```
-  npm uninstall -g @aws-amplify/cli && npm install -g @aws-amplify/cli@6.2.0-custom-type-preview.0
-  ```
-  and to regenerate models to enable CustomType features.
-
-  ```
-  amplify codegen models
-  ```
 
 ### Features
 
