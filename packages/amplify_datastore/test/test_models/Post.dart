@@ -13,13 +13,16 @@
 * permissions and limitations under the License.
 */
 
+// NOTE: This file is generated and may not follow lint rules defined in your app
+// Generated files can be excluded from analysis in analysis_options.yaml
+// For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
+
+// ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
+
+import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
-
-// ignore_for_file: public_member_api_docs
-
-import 'ModelProvider.dart';
 
 /** This is an auto generated class representing the Post type in your schema. */
 @immutable
@@ -71,6 +74,10 @@ class Post extends Model {
     return _created;
   }
 
+  int? get likeCount {
+    return _likeCount;
+  }
+
   Blog? get blog {
     return _blog;
   }
@@ -79,16 +86,12 @@ class Post extends Model {
     return _comments;
   }
 
-  int? get likeCount {
-    return _likeCount;
-  }
-
   const Post._internal(
       {required this.id,
       required title,
       required rating,
-      likeCount,
       created,
+      likeCount,
       blog,
       comments})
       : _title = title,
@@ -102,8 +105,8 @@ class Post extends Model {
       {String? id,
       required String title,
       required int rating,
-      int? likeCount,
       TemporalDateTime? created,
+      int? likeCount,
       Blog? blog,
       List<Comment>? comments}) {
     return Post._internal(
@@ -148,7 +151,10 @@ class Post extends Model {
         "rating=" + (_rating != null ? _rating!.toString() : "null") + ", ");
     buffer.write(
         "created=" + (_created != null ? _created!.format() : "null") + ", ");
-    buffer.write("blog=" + (_blog != null ? _blog!.toString() : "null") + ", ");
+    buffer.write("likeCount=" +
+        (_likeCount != null ? _likeCount!.toString() : "null") +
+        ", ");
+    buffer.write("blog=" + (_blog != null ? _blog!.toString() : "null"));
     buffer.write("}");
 
     return buffer.toString();
@@ -162,7 +168,7 @@ class Post extends Model {
       int? likeCount,
       Blog? blog,
       List<Comment>? comments}) {
-    return Post._internal(
+    return Post(
         id: id ?? this.id,
         title: title ?? this.title,
         rating: rating ?? this.rating,
@@ -179,6 +185,7 @@ class Post extends Model {
         _created = json['created'] != null
             ? TemporalDateTime.fromString(json['created'])
             : null,
+        _likeCount = (json['likeCount'] as num?)?.toInt(),
         _blog = json['blog']?['serializedData'] != null
             ? Blog.fromJson(
                 new Map<String, dynamic>.from(json['blog']['serializedData']))
@@ -189,8 +196,7 @@ class Post extends Model {
                 .map((e) => Comment.fromJson(
                     new Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
-            : null,
-        _likeCount = (json['likeCount'] as num?)?.toInt();
+            : null;
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -199,7 +205,7 @@ class Post extends Model {
         'created': _created?.format(),
         'likeCount': _likeCount,
         'blog': _blog?.toJson(),
-        'comments': _comments?.map((Comment? e) => e?.toJson()).toList(),
+        'comments': _comments?.map((Comment? e) => e?.toJson()).toList()
       };
 
   static final QueryField ID = QueryField(fieldName: "post.id");
@@ -240,7 +246,7 @@ class Post extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: Post.LIKECOUNT,
         isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.bool)));
+        ofType: ModelFieldType(ModelFieldTypeEnum.int)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
         key: Post.BLOG,
