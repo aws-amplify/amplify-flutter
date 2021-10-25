@@ -83,8 +83,15 @@ class GraphQLRequestFactory {
         .map((entry) {
       // format nested models
       if (getNestedFields && entry.value.association != null) {
-        final nestedModelName = entry.value.association?.associatedType;
-        final nestedSchema = _getAndValidateSchema(nestedModelName!, operation);
+        final nestedModelName = entry.value.association!.associatedType;
+        ModelProviderInterface? provider =
+            AmplifyAPI.instance.getModelProvider();
+        if (provider == null || nestedModelName == null) {
+          return '';
+        }
+        final nestedModelType =
+            provider.getModelTypeByModelName(nestedModelName);
+        final nestedSchema = _getAndValidateSchema(nestedModelType, operation);
         // Recursive result for the related model, always format them like a list request.
         String nestedFields = _getFieldsFromModelSchema(
             nestedSchema, GraphQLRequestOperation.list,
@@ -127,7 +134,7 @@ class GraphQLRequestFactory {
     }
 
     ModelSchema schema = provider.modelSchemas.firstWhere(
-        (elem) => elem.name == modelName,
+        (elem) => elem.name == modelType.modelName(),
         orElse: () => throw ApiException(
             'No schema found for the ModelType provided',
             recoverySuggestion:
@@ -201,8 +208,7 @@ class GraphQLRequestFactory {
       required Map<String, dynamic> variables,
       int depth = 0}) {
     // retrieve schema from ModelType and validate required properties
-    ModelSchema schema =
-        _getAndValidateSchema(modelType.modelName(), requestOperation);
+    ModelSchema schema = _getAndValidateSchema(modelType, requestOperation);
 
     // e.g. "Blog" or "Blogs"
     String name = _getName(schema, requestOperation);
@@ -253,9 +259,12 @@ class GraphQLRequestFactory {
   /// `queryPredicateToGraphQLFilter(Blog.NAME.eq('foo'));` // =>
   /// `{'name': {'eq': 'foo'}}`. In the case of a mutation, it will apply to
   /// the "condition" field rather than "filter."
-  Map<String, dynamic> queryPredicateToGraphQLFilter(
-      QueryPredicate queryPredicate, ModelType modelType) {
-    ModelSchema schema = _getAndValidateSchema(modelType.modelName(), null);
+  Map<String, dynamic>? queryPredicateToGraphQLFilter(
+      QueryPredicate? queryPredicate, ModelType modelType) {
+    if (queryPredicate == null) {
+      return null;
+    }
+    ModelSchema schema = _getAndValidateSchema(modelType, null);
 
     // e.g. { 'name': { 'eq': 'foo }}
     if (queryPredicate is QueryPredicateOperation) {
@@ -293,7 +302,7 @@ class GraphQLRequestFactory {
       return <String, List<Map<String, dynamic>>>{
         typeExpression: queryPredicate.predicates
             .map((predicate) =>
-                queryPredicateToGraphQLFilter(predicate, modelType))
+                queryPredicateToGraphQLFilter(predicate, modelType)!)
             .toList()
       };
     }
@@ -310,8 +319,7 @@ class GraphQLRequestFactory {
   /// When the model has a parent via a belongsTo, the id from the parent is added
   /// as a field similar to "blogID" where the value is `post.blog.id`.
   Map<String, dynamic> buildInputVariableForMutations(Model model) {
-    ModelSchema schema =
-        _getAndValidateSchema(model.getInstanceType().modelName(), null);
+    ModelSchema schema = _getAndValidateSchema(model.getInstanceType(), null);
     final modelJson = model.toJson();
 
     // If the model has a parent in the schema, get the ID of parent and field name.

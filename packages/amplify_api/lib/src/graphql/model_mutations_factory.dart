@@ -39,7 +39,9 @@ class ModelMutationsFactory extends ModelMutationsInterface {
       {QueryPredicate? where}) {
     final condition = GraphQLRequestFactory.instance
         .queryPredicateToGraphQLFilter(where, modelType);
-    final input = {'id': id};
+    final input = {
+      'id': id
+    }; // Simpler input than other mutations so don't use helper.
     final variables = GraphQLRequestFactory.instance
         .buildVariablesForMutationRequest(input: input, condition: condition);
 
@@ -54,9 +56,11 @@ class ModelMutationsFactory extends ModelMutationsInterface {
   GraphQLRequest<T> update<T extends Model>(T model, {QueryPredicate? where}) {
     final condition = GraphQLRequestFactory.instance
         .queryPredicateToGraphQLFilter(where, model.getInstanceType());
+    final input =
+        GraphQLRequestFactory.instance.buildInputVariableForMutations(model);
+
     final variables = GraphQLRequestFactory.instance
-        .buildVariablesForMutationRequest(
-            input: model.toJson(), condition: condition);
+        .buildVariablesForMutationRequest(input: input, condition: condition);
 
     return GraphQLRequestFactory.instance.buildRequest(
         model: model,

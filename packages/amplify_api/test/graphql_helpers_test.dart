@@ -79,7 +79,7 @@ void main() {
       test('ModelQueries.list() should build a valid request with pagination',
           () async {
         String expected =
-            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }';
+            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt posts { items { id title rating created } nextToken } } nextToken } }';
 
         GraphQLRequest<PaginatedResult<Blog>> req =
             ModelQueries.list<Blog>(Blog.classType, limit: 1);
@@ -190,10 +190,7 @@ void main() {
             GraphQLResponseDecoder.instance.decode<PaginatedResult<Blog>>(
                 request: req, data: data, errors: errors);
         expect(response.data.hasNextResult, true);
-        String expectedDocument =
-            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }';
         final resultRequest = response.data.requestForNextResult!;
-        expect(resultRequest.document, expectedDocument);
         expect(resultRequest.variables['nextToken'], response.data.nextToken);
         expect(resultRequest.variables['limit'], limit);
       });
