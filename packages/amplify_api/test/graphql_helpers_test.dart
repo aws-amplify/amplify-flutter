@@ -17,6 +17,8 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/graphql/graphql_response_decoder.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart'
     as DataStore;
+import 'package:flutter/foundation.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -76,10 +78,14 @@ void main() {
 
       test('ModelQueries.list() should build a valid request with pagination',
           () async {
-        GraphQLRequest<PaginatedResult<Blog>> req = ModelQueries.list<Blog>(
-            Blog.classType,
-            modelPagination: ModelPagination(limit: 1));
+        String expected =
+            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }';
 
+        GraphQLRequest<PaginatedResult<Blog>> req =
+            ModelQueries.list<Blog>(Blog.classType, limit: 1);
+
+        expect(req.document, expected);
+        expect(req.modelType, isA<PaginatedModelType<Blog>>());
         expect(req.variables['limit'], 1);
         expect(req.decodePath, 'listBlogs');
       });
@@ -115,9 +121,8 @@ void main() {
       test(
           'ModelQueries.list() returns a GraphQLRequest<PaginatedResult<Blog>> when provided a modelType',
           () async {
-        GraphQLRequest<PaginatedResult<Blog>> req = ModelQueries.list<Blog>(
-            Blog.classType,
-            modelPagination: ModelPagination(limit: 2));
+        GraphQLRequest<PaginatedResult<Blog>> req =
+            ModelQueries.list<Blog>(Blog.classType, limit: 2);
 
         List<GraphQLResponseError> errors = [];
         String data = '''{
@@ -151,9 +156,8 @@ void main() {
           'GraphQLResponse<PaginatedResult<Blog>> can get the request for next page of data',
           () async {
         const limit = 2;
-        GraphQLRequest<PaginatedResult<Blog>> req = ModelQueries.list<Blog>(
-            Blog.classType,
-            modelPagination: ModelPagination(limit: limit));
+        GraphQLRequest<PaginatedResult<Blog>> req =
+            ModelQueries.list<Blog>(Blog.classType, limit: limit);
 
         List<GraphQLResponseError> errors = [];
         String data = '''{
@@ -185,10 +189,10 @@ void main() {
         GraphQLResponse<PaginatedResult<Blog>> response =
             GraphQLResponseDecoder.instance.decode<PaginatedResult<Blog>>(
                 request: req, data: data, errors: errors);
-        expect(response.data.hasNextResult(), true);
+        expect(response.data.hasNextResult, true);
         String expectedDocument =
-            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt posts { items { id title rating created } nextToken } } nextToken } }';
-        final resultRequest = response.data.getRequestForNextResult();
+            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }';
+        final resultRequest = response.data.requestForNextResult!;
         expect(resultRequest.document, expectedDocument);
         expect(resultRequest.variables['nextToken'], response.data.nextToken);
         expect(resultRequest.variables['limit'], limit);
@@ -198,9 +202,8 @@ void main() {
           'GraphQLResponse<PaginatedResult<Blog>> will not have data for next page when result has no nextToken',
           () async {
         const limit = 2;
-        GraphQLRequest<PaginatedResult<Blog>> req = ModelQueries.list<Blog>(
-            Blog.classType,
-            modelPagination: ModelPagination(limit: limit));
+        GraphQLRequest<PaginatedResult<Blog>> req =
+            ModelQueries.list<Blog>(Blog.classType, limit: limit);
 
         List<GraphQLResponseError> errors = [];
         String data = '''{
@@ -223,7 +226,7 @@ void main() {
         GraphQLResponse<PaginatedResult<Blog>> response =
             GraphQLResponseDecoder.instance.decode<PaginatedResult<Blog>>(
                 request: req, data: data, errors: errors);
-        expect(response.data.hasNextResult(), false);
+        expect(response.data.hasNextResult, false);
       });
 
       test(
@@ -253,7 +256,7 @@ void main() {
         final queryPredicate = Blog.NAME.eq(expectedTitle);
         GraphQLRequest<PaginatedResult<Blog>> req = ModelQueries.list<Blog>(
             Blog.classType,
-            modelPagination: ModelPagination(limit: limit),
+            limit: limit,
             where: queryPredicate);
         List<GraphQLResponseError> errors = [];
         String data = '''{
@@ -277,7 +280,7 @@ void main() {
             GraphQLResponseDecoder.instance.decode<PaginatedResult<Blog>>(
                 request: req, data: data, errors: errors);
         Map<String, dynamic> firstRequestFilter = req.variables['filter'];
-        final resultRequest = response.data.getRequestForNextResult();
+        final resultRequest = response.data.requestForNextResult!;
 
         expect(resultRequest.variables['filter'], firstRequestFilter);
         expect(resultRequest.variables['filter'], expectedFilter);

@@ -65,11 +65,16 @@ class GraphQLResponseDecoder {
       dataJson?['limit'] = request.variables['limit'];
     }
 
-    if (request.variables['filter'] != null) {
-      dataJson?['filter'] = request.variables['filter'];
+    T decodedData;
+    final modelType = request.modelType;
+    if (modelType is PaginatedModelType) {
+      Map<String, dynamic>? filter = request.variables['filter'];
+      int? limit = request.variables['limit'];
+      decodedData =
+          modelType.fromJson(dataJson!, limit: limit, filter: filter) as T;
+    } else {
+      decodedData = modelType!.fromJson(dataJson!) as T;
     }
-
-    T decodedData = request.modelType!.fromJson(dataJson!) as T;
     return GraphQLResponse<T>(data: decodedData, errors: errors);
   }
 }

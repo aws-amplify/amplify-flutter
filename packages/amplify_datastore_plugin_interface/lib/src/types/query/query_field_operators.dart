@@ -66,87 +66,50 @@ abstract class QueryFieldOperator {
   }
 }
 
-abstract class QueryFieldOperatorSimpleValue<T> extends QueryFieldOperator {
+abstract class QueryFieldOperatorSingleValue<T> extends QueryFieldOperator {
   final T value;
 
-  const QueryFieldOperatorSimpleValue(this.value, QueryFieldOperatorType type)
+  const QueryFieldOperatorSingleValue(this.value, QueryFieldOperatorType type)
       : super(type);
-}
-
-class EqualQueryOperator<T> extends QueryFieldOperatorSimpleValue<T> {
-  const EqualQueryOperator(value) : super(value, QueryFieldOperatorType.equal);
 
   @override
   Map<String, dynamic> serializeAsMap() {
-    return serializeAsMapWithOperator(
-        QueryFieldOperatorType.equal.toShortString(), value);
+    return serializeAsMapWithOperator(type.toShortString(), value);
   }
 }
 
-class NotEqualQueryOperator<T> extends QueryFieldOperatorSimpleValue<T> {
+class EqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
+  const EqualQueryOperator(value) : super(value, QueryFieldOperatorType.equal);
+}
+
+class NotEqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
   const NotEqualQueryOperator(value)
       : super(value, QueryFieldOperatorType.not_equal);
-
-  @override
-  Map<String, dynamic> serializeAsMap() {
-    return serializeAsMapWithOperator(
-        QueryFieldOperatorType.not_equal.toShortString(), value);
-  }
 }
 
-class LessOrEqualQueryOperator<T> extends QueryFieldOperatorSimpleValue<T> {
+class LessOrEqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
   const LessOrEqualQueryOperator(value)
       : super(value, QueryFieldOperatorType.less_or_equal);
-
-  @override
-  Map<String, dynamic> serializeAsMap() {
-    return serializeAsMapWithOperator(
-        QueryFieldOperatorType.less_or_equal.toShortString(), value);
-  }
 }
 
-class LessThanQueryOperator<T> extends QueryFieldOperatorSimpleValue<T> {
+class LessThanQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
   const LessThanQueryOperator(value)
       : super(value, QueryFieldOperatorType.less_than);
-
-  @override
-  Map<String, dynamic> serializeAsMap() {
-    return serializeAsMapWithOperator(
-        QueryFieldOperatorType.less_than.toShortString(), value);
-  }
 }
 
-class GreaterOrEqualQueryOperator<T> extends QueryFieldOperatorSimpleValue<T> {
+class GreaterOrEqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
   const GreaterOrEqualQueryOperator(value)
       : super(value, QueryFieldOperatorType.greater_or_equal);
-
-  @override
-  Map<String, dynamic> serializeAsMap() {
-    return serializeAsMapWithOperator(
-        QueryFieldOperatorType.greater_or_equal.toShortString(), value);
-  }
 }
 
-class GreaterThanQueryOperator<T> extends QueryFieldOperatorSimpleValue<T> {
+class GreaterThanQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
   const GreaterThanQueryOperator(value)
       : super(value, QueryFieldOperatorType.greater_than);
-
-  @override
-  Map<String, dynamic> serializeAsMap() {
-    return serializeAsMapWithOperator(
-        QueryFieldOperatorType.greater_than.toShortString(), value);
-  }
 }
 
-class ContainsQueryOperator<T> extends QueryFieldOperatorSimpleValue<T> {
+class ContainsQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
   const ContainsQueryOperator(value)
       : super(value, QueryFieldOperatorType.contains);
-
-  @override
-  Map<String, dynamic> serializeAsMap() {
-    return serializeAsMapWithOperator(
-        QueryFieldOperatorType.contains.toShortString(), value);
-  }
 }
 
 class BetweenQueryOperator<T> extends QueryFieldOperator {
@@ -166,13 +129,7 @@ class BetweenQueryOperator<T> extends QueryFieldOperator {
   }
 }
 
-class BeginsWithQueryOperator extends QueryFieldOperatorSimpleValue<String> {
+class BeginsWithQueryOperator extends QueryFieldOperatorSingleValue<String> {
   const BeginsWithQueryOperator(String value)
       : super(value, QueryFieldOperatorType.begins_with);
-
-  @override
-  Map<String, dynamic> serializeAsMap() {
-    return serializeAsMapWithOperator(
-        QueryFieldOperatorType.begins_with.toShortString(), value);
-  }
 }

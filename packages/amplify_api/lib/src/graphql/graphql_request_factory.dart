@@ -117,7 +117,7 @@ class GraphQLRequestFactory {
   }
 
   ModelSchema _getAndValidateSchema(
-      String modelName, GraphQLRequestOperation? operation) {
+      ModelType modelType, GraphQLRequestOperation? operation) {
     ModelProviderInterface? provider = AmplifyAPI.instance.getModelProvider();
 
     if (provider == null) {
@@ -348,7 +348,7 @@ class GraphQLRequestFactory {
 Map<String, dynamic> _queryFieldOperatorToPartialGraphQLFilter(
     QueryFieldOperator queryFieldOperator) {
   final filterExpression = _getGraphQLFilterExpression(queryFieldOperator.type);
-  if (queryFieldOperator is QueryFieldOperatorSimpleValue) {
+  if (queryFieldOperator is QueryFieldOperatorSingleValue) {
     return <String, dynamic>{
       filterExpression: _getSerializedValue(queryFieldOperator.value)
     };

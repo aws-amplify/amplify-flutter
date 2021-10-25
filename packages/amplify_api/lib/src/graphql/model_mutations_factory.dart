@@ -37,10 +37,8 @@ class ModelMutationsFactory extends ModelMutationsInterface {
   GraphQLRequest<T> deleteById<T extends Model>(
       ModelType<T> modelType, String id,
       {QueryPredicate? where}) {
-    final condition = where != null
-        ? GraphQLRequestFactory.instance
-            .queryPredicateToGraphQLFilter(where, modelType)
-        : null;
+    final condition = GraphQLRequestFactory.instance
+        .queryPredicateToGraphQLFilter(where, modelType);
     final input = {'id': id};
     final variables = GraphQLRequestFactory.instance
         .buildVariablesForMutationRequest(input: input, condition: condition);
@@ -54,14 +52,11 @@ class ModelMutationsFactory extends ModelMutationsInterface {
 
   @override
   GraphQLRequest<T> update<T extends Model>(T model, {QueryPredicate? where}) {
-    final condition = where != null
-        ? GraphQLRequestFactory.instance
-            .queryPredicateToGraphQLFilter(where, model.getInstanceType())
-        : null;
-    final input =
-        GraphQLRequestFactory.instance.buildInputVariableForMutations(model);
+    final condition = GraphQLRequestFactory.instance
+        .queryPredicateToGraphQLFilter(where, model.getInstanceType());
     final variables = GraphQLRequestFactory.instance
-        .buildVariablesForMutationRequest(input: input, condition: condition);
+        .buildVariablesForMutationRequest(
+            input: model.toJson(), condition: condition);
 
     return GraphQLRequestFactory.instance.buildRequest(
         model: model,

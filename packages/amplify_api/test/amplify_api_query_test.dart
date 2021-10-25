@@ -170,9 +170,8 @@ void main() {
       return {'data': queryResult, 'errors': []};
     });
 
-    GraphQLRequest<PaginatedResult<Blog>> req = ModelQueries.list<Blog>(
-        Blog.classType,
-        modelPagination: ModelPagination(limit: 4));
+    GraphQLRequest<PaginatedResult<Blog>> req =
+        ModelQueries.list<Blog>(Blog.classType, limit: 4);
 
     var operation = await api.query<PaginatedResult<Blog>>(request: req);
 
