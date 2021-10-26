@@ -13,21 +13,15 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_authenticator/src/text_customization/button_resolver.dart';
-import 'package:amplify_authenticator/src/text_customization/input_resolver.dart';
-import 'package:amplify_authenticator/src/text_customization/navigation_resolver.dart';
-import 'package:amplify_authenticator/src/text_customization/title_resolver.dart';
 import 'package:flutter/material.dart';
 
 import 'button_resolver.dart';
 import 'input_resolver.dart';
 import 'title_resolver.dart';
-import 'checkbox_resolver.dart';
 
 export 'button_resolver.dart';
 export 'input_resolver.dart';
 export 'title_resolver.dart';
-export 'checkbox_resolver.dart';
 
 /// {@template authenticator.auth_string_resolver}
 /// The class that is accepted by the Authenticator to override strings
@@ -43,32 +37,23 @@ class AuthStringResolver {
   /// The resolver class for shared input Widgets
   final InputResolver inputs;
 
-  /// The resolver class for navigation-related Widgets
-  final NavigationResolver navigation;
-
   /// The resolver class for titles
   final TitleResolver titles;
-
-  /// The resolver class for shared button Widgets
-  final CheckboxResolver checkboxes;
 
   /// {@macro authenticator.auth_string_resolver}
   const AuthStringResolver({
     ButtonResolver? buttons,
     InputResolver? inputs,
-    NavigationResolver? navigation,
     TitleResolver? titles,
-  })  : titles = titles ?? const DefaultTitleResolver(),
-        buttons = buttons ?? const DefaultButtonResolver(),
-        inputs = inputs ?? const DefaultInputResolver(),
-        navigation = navigation ?? const DefaultNavigationResolver();
+  })  : titles = titles ?? const TitleResolver(),
+        buttons = buttons ?? const ButtonResolver(),
+        inputs = inputs ?? const InputResolver();
 
   @override
   bool operator ==(Object other) =>
       other is AuthStringResolver &&
       buttons == other.buttons &&
       inputs == other.inputs &&
-      navigation == other.navigation &&
       titles == other.titles;
 
   @override

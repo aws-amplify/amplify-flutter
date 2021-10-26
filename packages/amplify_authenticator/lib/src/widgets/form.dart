@@ -25,9 +25,11 @@ import 'package:amplify_authenticator/src/widgets/checkbox.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:amplify_authenticator/src/widgets/oauth/social_button.dart';
-import 'package:amplify_flutter/src/config/auth/login_mechanisms.dart';
+import 'package:amplify_flutter/src/config/auth/aws_cognito_social_providers.dart';
+import 'package:amplify_flutter/src/config/auth/aws_cognito_username_attributes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 /// Base class for Authenticator forms.
 ///
@@ -56,8 +58,7 @@ abstract class AuthenticatorForm<T extends AuthenticatorForm<T>>
   final List<Widget> actions;
 
   /// Additional fields defined at runtime.
-  List<AuthenticatorFormField> additionalFields(BuildContext context) =>
-      const [];
+  List<AuthenticatorFormField> runtimeFields(BuildContext context) => const [];
 
   /// Additional actions defined at runtime.
   List<AuthenticatorComponent> additionalActions(BuildContext context) =>
@@ -95,7 +96,7 @@ class AuthenticatorFormState<T extends AuthenticatorForm<T>>
       child: Column(
         children: [
           ...widget.fields,
-          ...widget.additionalFields(context),
+          ...widget.runtimeFields(context),
           Column(
             children: [
               ...widget.actions,
@@ -127,22 +128,18 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
   /// {@macro authenticator.sign_up_form}
   const SignUpForm({
     Key? key,
-    bool includeDefaultAttributes = true,
+    bool attributesFromConfig = true,
   }) : this.custom(
           key: key,
-          fields: const [
-            SignUpFormField.username(),
-            SignUpFormField.password(),
-            SignUpFormField.passwordConfirmation(),
-          ],
-          includeDefaultAttributes: includeDefaultAttributes,
+          fields: const [],
+          attributesFromConfig: attributesFromConfig,
         );
 
   /// A custom Sign Up form.
   const SignUpForm.custom({
     Key? key,
     required List<SignUpFormField> fields,
-    this.includeDefaultAttributes = true,
+    this.attributesFromConfig = true,
   }) : super._(
           key: key,
           fields: fields,
@@ -153,11 +150,11 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
         );
 
   /// Whether to include the attributes specified by your Amplify configuration.
-  final bool includeDefaultAttributes;
+  final bool attributesFromConfig;
 
   @override
-  List<AuthenticatorFormField> additionalFields(BuildContext context) {
-    if (!includeDefaultAttributes) {
+  List<AuthenticatorFormField> runtimeFields(BuildContext context) {
+    if (!attributesFromConfig) {
       return const [];
     }
 
@@ -171,7 +168,38 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
       return const [];
     }
 
-    return signUpAttributes
+    List<AuthenticatorFormField> signUpFields = [];
+
+    final usernameAttributes = InheritedConfig.of(context)
+            .amplifyConfig
+            ?.auth
+            ?.awsCognitoAuthPlugin
+            ?.auth?['Default']
+            ?.awsCognitoUsernameAttributes ??
+        const [];
+
+    if (usernameAttributes.isNotEmpty) {
+      if (usernameAttributes.length == 1) {
+        if (usernameAttributes.contains(AwsCognitoUsernameAttributes.email)) {
+          signUpFields.add(const SignUpFormField.email());
+        } else if (usernameAttributes
+            .contains(AwsCognitoUsernameAttributes.phoneNumber)) {
+          signUpFields.add(const SignUpFormField.phoneNumber());
+        }
+      } else if (usernameAttributes.length == 2) {
+        signUpFields.add(const SignUpFormField.email());
+        signUpFields.add(const SignUpFormField.phoneNumber());
+      }
+    } else {
+      signUpFields.add(const SignUpFormField.username());
+    }
+
+    signUpFields.addAll([
+      const SignUpFormField.password(),
+      const SignUpFormField.passwordConfirmation()
+    ]);
+
+    signUpFields.addAll(signUpAttributes
         .map((attr) {
           switch (attr) {
             case 'ADDRESS':
@@ -179,7 +207,12 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
             case 'BIRTHDATE':
               return const SignUpFormField.birthdate();
             case 'EMAIL':
-              return const SignUpFormField.email();
+              if (!usernameAttributes
+                  .contains(AwsCognitoUsernameAttributes.email)) {
+                return const SignUpFormField.email();
+              } else {
+                return null;
+              }
             case 'FAMILY_NAME':
               return const SignUpFormField.familyName();
             case 'MIDDLE_NAME':
@@ -197,7 +230,12 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
             case 'NICKNAME':
               return const SignUpFormField.nickname();
             case 'PHONE_NUMBER':
-              return const SignUpFormField.phoneNumber();
+              if (!usernameAttributes
+                  .contains(AwsCognitoUsernameAttributes.phoneNumber)) {
+                return const SignUpFormField.phoneNumber();
+              } else {
+                return null;
+              }
             case 'PREFERRED_USERNAME':
               return const SignUpFormField.preferredUsername();
             // case 'PICTURE':
@@ -217,7 +255,9 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
           }
         })
         .whereType<SignUpFormField>()
-        .toList();
+        .toList());
+
+    return signUpFields;
   }
 
   @override
@@ -228,7 +268,7 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(DiagnosticsProperty<bool>(
-        'includeDefaultAttributes', includeDefaultAttributes));
+        'attributesFromConfig', attributesFromConfig));
   }
 }
 
@@ -274,30 +314,26 @@ class SignInForm extends AuthenticatorForm<SignInForm> {
       return const [];
     }
 
-    final loginMechanisms = InheritedConfig.of(context)
+    final socialProviders = InheritedConfig.of(context)
         .amplifyConfig
         ?.auth
         ?.awsCognitoAuthPlugin
         ?.auth?['Default']
-        ?.loginMechanisms;
-    if (loginMechanisms == null || loginMechanisms.isEmpty) {
+        ?.awsCognitoSocialProviders;
+    if (socialProviders == null || socialProviders.isEmpty) {
       return const [];
     }
 
-    return loginMechanisms
-        .map((loginMechanism) {
-          switch (loginMechanism) {
-            case LoginMechanisms.email:
-            case LoginMechanisms.phoneNumber:
-            case LoginMechanisms.preferredUsername:
-              return null;
-            case LoginMechanisms.facebook:
+    return socialProviders
+        .map((usernameAttributes) {
+          switch (usernameAttributes) {
+            case AwsCognitoSocialProviders.facebook:
               return const SocialSignInButton.facebook();
-            case LoginMechanisms.google:
+            case AwsCognitoSocialProviders.google:
               return const SocialSignInButton.google();
-            case LoginMechanisms.amazon:
+            case AwsCognitoSocialProviders.amazon:
               return const SocialSignInButton.amazon();
-            case LoginMechanisms.apple:
+            case AwsCognitoSocialProviders.apple:
               return const SocialSignInButton.apple();
           }
         })
@@ -530,7 +566,7 @@ class VerifyUserForm extends AuthenticatorForm<VerifyUserForm> {
   }
 
   @override
-  List<AuthenticatorFormField> additionalFields(BuildContext context) {
+  List<AuthenticatorFormField> runtimeFields(BuildContext context) {
     return _unverifiedAttributeKeys(context).map((attributeKey) {
       return VerifyUserFormField(
         attributeKey: attributeKey,

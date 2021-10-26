@@ -78,15 +78,15 @@ class _MyAppState extends State<MyApp> {
 
       // Next, we create a custom Sign Up form which uses our custom username
       // validator.
-      signUpForm: SignUpForm.custom(
-        fields: [
-          SignUpFormField.username(
-            validator: _validateUsername,
-          ),
-          const SignUpFormField.password(),
-          const SignUpFormField.passwordConfirmation(),
-        ],
-      ),
+      // signUpForm: SignUpForm.custom(
+      //   fields: [
+      //     SignUpFormField.username(
+      //       validator: _validateUsername,
+      //     ),
+      //     const SignUpFormField.password(),
+      //     const SignUpFormField.passwordConfirmation(),
+      //   ],
+      // ),
 
       // Finally, we specify the widget to use once the user is signed in.
       child: const SignedInScreen(),

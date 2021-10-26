@@ -127,4 +127,7 @@ class AuthenticatorInputLocalizationsEn
 
   @override
   String get rememberDevice => 'Remember Device?';
+
+  @override
+  String get usernameType => 'Select username';
 }

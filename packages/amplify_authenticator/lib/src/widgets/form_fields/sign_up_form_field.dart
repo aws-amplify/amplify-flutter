@@ -490,7 +490,7 @@ class _SignUpFormFieldState
   ValueChanged<String> get onChanged {
     switch (widget.field) {
       case SignUpField.username:
-        return usernameOnChangedForAlias;
+        return viewModel.setUsername;
       case SignUpField.password:
         return viewModel.setPassword;
       case SignUpField.passwordConfirmation:
@@ -500,6 +500,7 @@ class _SignUpFormFieldState
       case SignUpField.birthdate:
         return viewModel.setBirthdate;
       case SignUpField.email:
+        // if (_usernameAttributes.contains(AwsCognitoUsernameAttributes.email))
         return viewModel.setEmail;
       case SignUpField.familyName:
         return viewModel.setFamilyName;
@@ -541,7 +542,7 @@ class _SignUpFormFieldState
   TextInputType get keyboardType {
     switch (widget.field) {
       case SignUpField.username:
-        return usernameKeyboardTypeForAlias;
+        return TextInputType.text;
       case SignUpField.password:
       case SignUpField.passwordConfirmation:
         return TextInputType.visiblePassword;

@@ -28,7 +28,10 @@ import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
-import 'package:amplify_flutter/src/config/auth/login_mechanisms.dart';
+import 'package:amplify_authenticator/src/widgets/input_types/authenticator_date_input.dart';
+import 'package:amplify_authenticator/src/widgets/input_types/authenticator_phone_input.dart';
+import 'package:amplify_authenticator/src/widgets/input_types/authenticator_text_input.dart';
+import 'package:amplify_flutter/src/config/auth/aws_cognito_username_attributes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -111,22 +114,22 @@ abstract class AuthenticatorFormFieldState<FieldType,
       .findAncestorStateOfType<AuthenticatorFormState>()!
       .obscureTextToggle;
 
-  late final List<LoginMechanisms> _loginMechanisms = config.amplifyConfig?.auth
-          ?.awsCognitoAuthPlugin?.auth?['Default']?.loginMechanisms ??
-      const <LoginMechanisms>[];
+  late final List<AwsCognitoUsernameAttributes> _usernameAttributes = config
+          .amplifyConfig
+          ?.auth
+          ?.awsCognitoAuthPlugin
+          ?.auth?['Default']
+          ?.awsCognitoUsernameAttributes ??
+      const <AwsCognitoUsernameAttributes>[];
 
   @nonVirtual
-  TextInputType get usernameKeyboardTypeForAlias {
-    if (_loginMechanisms.contains(LoginMechanisms.preferredUsername)) {
-      return TextInputType.text;
-    } else if (_loginMechanisms.contains(LoginMechanisms.email)) {
-      if (_loginMechanisms.contains(LoginMechanisms.phoneNumber)) {
-        // TODO: can we improve on just a text field
-        // maybe include an icon/toggle to alert user.
-        return TextInputType.text;
-      }
+  TextInputType get usernameKeyboardTypeForUsername {
+    if (_usernameAttributes.contains(AwsCognitoUsernameAttributes.email) &&
+        _usernameAttributes.length == 1) {
       return TextInputType.emailAddress;
-    } else if (_loginMechanisms.contains(LoginMechanisms.phoneNumber)) {
+    } else if (_usernameAttributes
+            .contains(AwsCognitoUsernameAttributes.phoneNumber) &&
+        _usernameAttributes.length == 1) {
       return TextInputType.phone;
     } else {
       // No assumptions made
@@ -134,24 +137,24 @@ abstract class AuthenticatorFormFieldState<FieldType,
     }
   }
 
-  @nonVirtual
-  ValueChanged<String> get usernameOnChangedForAlias {
-    final List<ValueChanged<String>> ops = [];
+  // @nonVirtual
+  // ValueChanged<String> get usernameOnChanged {
+  //   final List<ValueChanged<String>> ops = [];
 
-    if (_loginMechanisms.contains(LoginMechanisms.preferredUsername)) {
-      ops.add(viewModel.setUsername);
-    }
-    if (_loginMechanisms.contains(LoginMechanisms.email)) {
-      ops.add(viewModel.setEmail);
-    } else if (_loginMechanisms.contains(LoginMechanisms.phoneNumber)) {
-      ops.add(viewModel.setPhoneNumber);
-    }
-    return (String value) {
-      for (var op in ops) {
-        op(value);
-      }
-    };
-  }
+  //   if (_usernameAttributes.contains(LoginMechanisms.preferredUsername)) {
+  //     ops.add(viewModel.setUsername);
+  //   }
+  //   if (_usernameAttributes.contains(LoginMechanisms.email)) {
+  //     ops.add(viewModel.setEmail);
+  //   } else if (_usernameAttributes.contains(LoginMechanisms.phoneNumber)) {
+  //     ops.add(viewModel.setPhoneNumber);
+  //   }
+  //   return (String value) {
+  //     for (var op in ops) {
+  //       op(value);
+  //     }
+  //   };
+  // }
 
   /// Callback for when `onChanged` is triggered on the [FormField].
   ValueChanged<String> get onChanged => (_) {};
@@ -182,6 +185,10 @@ abstract class AuthenticatorFormFieldState<FieldType,
 
   @override
   Widget build(BuildContext context) {
+    final inputResolver = stringResolver.inputs;
+    final String title = widget.title == null
+        ? inputResolver.resolve(context, widget.titleKey!)
+        : widget.title!;
     return Container(
       margin: FormFieldConstants.marginBottom,
       child: Column(
@@ -189,41 +196,6 @@ abstract class AuthenticatorFormFieldState<FieldType,
         children: <Widget>[
           Text(title),
           const Padding(padding: FormFieldConstants.gap),
-<<<<<<< HEAD
-          ValueListenableBuilder<bool>(
-            valueListenable: context
-                .findAncestorStateOfType<AuthenticatorFormState>()!
-                .obscureTextToggleValue,
-            builder: (BuildContext context, bool toggleObscureText, Widget? _) {
-              var obscureText = this.obscureText && toggleObscureText;
-              return TextFormField(
-                style: enabled
-                    ? null
-                    : const TextStyle(
-                        color: AmplifyColors.black20,
-                      ),
-                initialValue: initialValue,
-                enabled: enabled,
-                validator: widget._validatorOverride ?? validator,
-                onChanged: onChanged,
-                decoration: InputDecoration(
-                  suffixIcon: suffixIcon,
-                  errorMaxLines: errorMaxLines,
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Theme.of(context).primaryColor,
-                    ),
-                  ),
-                  hintText: hintText,
-                  border: const OutlineInputBorder(),
-                ),
-                keyboardType: keyboardType,
-                obscureText: obscureText,
-              );
-            },
-          ),
-          if (companionWidget != null) companionWidget!,
-=======
           ValueListenableBuilder<bool?>(
               valueListenable: context
                   .findAncestorStateOfType<AuthenticatorFormState>()!
@@ -246,7 +218,6 @@ abstract class AuthenticatorFormFieldState<FieldType,
                 }
                 return child;
               }),
->>>>>>> cleaned up new fields and config
         ],
       ),
     );
@@ -264,9 +235,9 @@ abstract class AuthenticatorFormFieldState<FieldType,
     properties.add(StringProperty('initialValue', initialValue));
     properties.add(DiagnosticsProperty<bool>('enabled', enabled));
     properties.add(IntProperty('errorMaxLines', errorMaxLines));
-    properties.add(DiagnosticsProperty<TextInputType>(
-        'keyboardTypeForAlias', usernameKeyboardTypeForAlias));
-    properties.add(ObjectFlagProperty<ValueChanged<String>>.has(
-        'usernameOnChangedForAlias', usernameOnChangedForAlias));
+    // properties.add(DiagnosticsProperty<TextInputType>(
+    //     'keyboardTypeForAlias', usernameKeyboardTypeForAlias));
+    // properties.add(ObjectFlagProperty<ValueChanged<String>>.has(
+    //     'usernameOnChangedForAlias', usernameOnChangedForAlias));
   }
 }

@@ -205,7 +205,7 @@ class _SignInFormFieldState
   ValueChanged<String> get onChanged {
     switch (widget.field) {
       case SignInField.username:
-        return usernameOnChangedForAlias;
+        return viewModel.setUsername;
       case SignInField.email:
         return viewModel.setEmail;
       case SignInField.phoneNumber:
@@ -226,7 +226,7 @@ class _SignInFormFieldState
     switch (widget.field) {
       case SignInField.username:
       case SignInField.newUsername:
-        return usernameKeyboardTypeForAlias;
+        return TextInputType.text;
       case SignInField.password:
       case SignInField.newPassword:
         return TextInputType.visiblePassword;

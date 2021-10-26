@@ -252,6 +252,12 @@ abstract class AuthenticatorInputLocalizations {
   /// In en, this message translates to:
   /// **'Remember Device?'**
   String get rememberDevice;
+
+  /// Label for the swtich to use email or phone number as username when both are available.
+  ///
+  /// In en, this message translates to:
+  /// **'Select username'**
+  String get usernameType;
 }
 
 class _AuthenticatorInputLocalizationsDelegate

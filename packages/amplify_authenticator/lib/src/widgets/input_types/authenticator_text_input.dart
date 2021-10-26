@@ -13,9 +13,9 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_authenticator/src/constants/theme_constants.dart';
+import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
-import 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
+import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
@@ -42,7 +42,7 @@ class AuthenticatorTextInput extends StatelessAuthenticatorComponent {
             style: parentState.enabled
                 ? null
                 : const TextStyle(
-                    color: AuthenticatorColors.disabledTextColor,
+                    color: AmplifyColors.black20,
                   ),
             initialValue: parentState.initialValue,
             enabled: parentState.enabled,

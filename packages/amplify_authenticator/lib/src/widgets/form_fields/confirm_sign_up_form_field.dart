@@ -163,7 +163,7 @@ class _ConfirmSignUpFormFieldState extends AuthenticatorFormFieldState<
   ValueChanged<String> get onChanged {
     switch (widget.field) {
       case ConfirmSignUpField.username:
-        return usernameOnChangedForAlias;
+        return viewModel.setUsername;
       case ConfirmSignUpField.password:
         return viewModel.setPassword;
       case ConfirmSignUpField.email:
@@ -179,7 +179,7 @@ class _ConfirmSignUpFormFieldState extends AuthenticatorFormFieldState<
   TextInputType get keyboardType {
     switch (widget.field) {
       case ConfirmSignUpField.username:
-        return usernameKeyboardTypeForAlias;
+        return TextInputType.text;
       case ConfirmSignUpField.password:
         return TextInputType.visiblePassword;
       case ConfirmSignUpField.email:

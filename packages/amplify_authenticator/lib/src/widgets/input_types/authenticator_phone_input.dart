@@ -13,17 +13,9 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:io';
-
-import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
-import 'package:amplify_authenticator/src/constants/theme_constants.dart';
-import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
-import 'package:amplify_authenticator/src/state/inherited_input.dart';
 import 'package:amplify_authenticator/src/state/inherited_strings.dart';
-import 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
+import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/utils/country_code.dart';
-import 'package:amplify_authenticator/src/widgets/component.dart';
-import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -76,11 +68,11 @@ class _AuthenticatorPhoneInputState extends State<AuthenticatorPhoneInput> {
         style: parentState.enabled
             ? null
             : const TextStyle(
-                color: AuthenticatorColors.disabledTextColor,
+                color: AmplifyColors.black20,
               ),
-        initialValue: parentState!.initialValue,
-        enabled: parentState!.enabled,
-        validator: parentState!.validator,
+        initialValue: parentState.initialValue,
+        enabled: parentState.enabled,
+        validator: parentState.validator,
         onChanged: (phoneValue) {
           parentState.onChanged('+$_selectedValue$phoneValue');
         },
