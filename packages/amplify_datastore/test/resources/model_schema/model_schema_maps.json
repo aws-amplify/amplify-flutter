@@ -134,6 +134,14 @@
           "associatedName": "post",
           "associatedType": "Post"
         }
+      },
+      "likeCount": {
+        "name": "likeCount",
+        "type": {
+          "fieldType": "int"
+        },
+        "isRequired": false,
+        "isArray": false
       }
     }
   },

@@ -144,8 +144,8 @@ public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
                     throw FlutterDataStoreError.hubEventCast
                 }
                 let schemaRegistries = try self.ensureSchemaRegistries()
-                let flutterOutboxMutationProcessed = try FlutterOutboxMutationProcessedEvent(
-                    outboxMutationProcessed: outboxMutationProcessed,
+                let flutterOutboxMutationEnqueued = try FlutterOutboxMutationEnqueuedEvent(
+                    outboxMutationEnqueued: outboxMutationEnqueued,
                     eventName: payload.eventName,
                     modelSchemaRegistry: schemaRegistries.modelSchemaRegistry,
                     customTypeSchemaRegistry: schemaRegistries.customTypeSchemaRegistry
