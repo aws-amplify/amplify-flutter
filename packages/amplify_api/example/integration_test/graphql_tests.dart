@@ -145,8 +145,9 @@ void main() {
       final queryRequest = ModelQueries.get(Blog.classType, blog.id);
       var res = await Amplify.API.query(request: queryRequest).response;
       Blog data = res.data;
+      final postIdsFromResponse = data.posts!.map((post) => post.id);
 
-      expect(data.posts, contains(post));
+      expect(postIdsFromResponse, contains(post.id));
     });
 
     return testWidgets('should LIST blogs with Model helper',
@@ -164,9 +165,12 @@ void main() {
       var res = await _r.response;
       var data = res.data;
 
-      final blogs = [blog_1, blog_2, blog_3];
-
-      expect(data.items, containsAll(blogs));
+      expect(
+          data.items.every((blog) => blog.getInstanceType() == Blog.classType),
+          isTrue);
+      final expectedBlogIds = [blog_1.id, blog_2.id, blog_3.id];
+      final blogIdsFromResponse = data.items.map((blog) => blog.id);
+      expect(blogIdsFromResponse, containsAll(expectedBlogIds));
     });
 
     testWidgets(
