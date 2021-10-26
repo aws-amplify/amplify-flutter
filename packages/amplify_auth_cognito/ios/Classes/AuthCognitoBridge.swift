@@ -92,8 +92,8 @@ class AuthCognitoBridge {
         }
     }
     
-    func onSignOut(flutterResult: @escaping FlutterResult) {
-        _ = Amplify.Auth.signOut() { response in
+    func onSignOut(flutterResult: @escaping FlutterResult, request: FlutterSignOutRequest) {
+        _ = Amplify.Auth.signOut(options: request.options) { response in
             switch response {
             case .success:
                 let emptyMap: Dictionary<String, Any> = [:]
@@ -189,8 +189,12 @@ class AuthCognitoBridge {
         }
     }
     
-    func onSignInWithWebUI(flutterResult: @escaping FlutterResult) {
-        Amplify.Auth.signInWithWebUI(presentationAnchor: UIApplication.shared.keyWindow!) { result in
+    func onSignInWithWebUI(flutterResult: @escaping FlutterResult, request: FlutterSignInWithWebUIRequest) {
+        var options = AuthWebUISignInRequest.Options()
+        if (request.isPreferPrivateSession) {
+            options = .preferPrivateSession()
+        }
+        Amplify.Auth.signInWithWebUI(presentationAnchor: UIApplication.shared.keyWindow!, options: options) { result in
             switch result {
             case .success:
                 let signInData = FlutterSignInResult(res: result)
@@ -203,7 +207,11 @@ class AuthCognitoBridge {
     }
     
     func onSignInWithSocialWebUI(flutterResult: @escaping FlutterResult, request: FlutterSignInWithWebUIRequest) {
-        Amplify.Auth.signInWithWebUI(for: request.provider!, presentationAnchor: UIApplication.shared.keyWindow!) { result in
+        var options = AuthWebUISignInRequest.Options()
+        if (request.isPreferPrivateSession) {
+            options = .preferPrivateSession()
+        }
+        Amplify.Auth.signInWithWebUI(for: request.provider!, presentationAnchor: UIApplication.shared.keyWindow!, options: options) { result in
             switch result {
             case .success:
                 let signInData = FlutterSignInResult(res: result)

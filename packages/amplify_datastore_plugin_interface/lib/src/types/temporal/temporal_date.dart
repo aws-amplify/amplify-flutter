@@ -22,7 +22,7 @@ import 'temporal.dart';
 /// or
 /// YYYY-MM-DD (ISO_LOCAL_DATE)
 /// https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html#appsync-defined-scalars
-class TemporalDate {
+class TemporalDate implements Comparable<TemporalDate> {
   late DateTime _dateTime;
   Duration? _offset;
 
@@ -135,4 +135,9 @@ class TemporalDate {
       o is TemporalDate && _dateTime == o._dateTime && _offset == o._offset;
 
   int get hashCode => _dateTime.hashCode * _offset.hashCode;
+
+  @override
+  int compareTo(TemporalDate other) {
+    return getDateTime().compareTo(other.getDateTime());
+  }
 }

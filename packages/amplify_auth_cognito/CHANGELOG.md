@@ -10,6 +10,14 @@
 - break(amplify_auth_cognito): throw SignedOutException (#893)
 - break(amplify_auth_cognito): fixes getCurrentUser disparity (#894)
 
+## 0.2.6 (2021-10-25)
+
+## 0.2.5 (2021-10-14)
+
+### Fixes
+- fix(auth): Add global sign out
+- fix(auth): Support `preferPrivateSession` flag
+
 ## 0.2.4 (2021-09-10)
 
 ### Fixes

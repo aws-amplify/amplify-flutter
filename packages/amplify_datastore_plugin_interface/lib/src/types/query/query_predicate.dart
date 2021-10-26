@@ -20,10 +20,14 @@ QueryPredicateGroup not(QueryPredicate predicate) {
   return new QueryPredicateGroup(QueryPredicateGroupType.not, [predicate]);
 }
 
-abstract class QueryPredicate {
+/// Represents individual conditions or groups of conditions
+/// that are used to query data
+abstract class QueryPredicate<T extends Model> {
   const QueryPredicate();
 
   Map<String, dynamic> serializeAsMap();
+
+  bool evaluate(T model);
 }
 
 // Represents rating > 4
@@ -48,6 +52,12 @@ class QueryPredicateOperation extends QueryPredicate {
   }
 
   QueryPredicateGroup operator |(QueryPredicate predicate) => or(predicate);
+
+  @override
+  bool evaluate(Model model) {
+    var value = model.toJson()[field];
+    return queryFieldOperator.evaluate(value);
+  }
 
   @override
   Map<String, dynamic> serializeAsMap() {
@@ -98,6 +108,18 @@ class QueryPredicateGroup extends QueryPredicate {
   }
 
   QueryPredicateGroup operator |(QueryPredicate predicate) => or(predicate);
+
+  @override
+  bool evaluate(Model model) {
+    switch (type) {
+      case QueryPredicateGroupType.and:
+        return predicates.every((predicate) => predicate.evaluate(model));
+      case QueryPredicateGroupType.or:
+        return predicates.any((predicate) => predicate.evaluate(model));
+      case QueryPredicateGroupType.not:
+        return predicates.every((predicate) => !predicate.evaluate(model));
+    }
+  }
 
   @override
   Map<String, dynamic> serializeAsMap() {

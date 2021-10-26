@@ -18,10 +18,12 @@ import Amplify
 import amplify_core
 
 struct FlutterUploadFileRequest {
+    var uuid: String
     var key: String
     var file: URL
     var options: StorageUploadFileRequest.Options?
     init(request: Dictionary<String, AnyObject>) {
+        self.uuid = request["uuid"] as! String
         self.key = request["key"] as! String
         self.file = NSURL(fileURLWithPath: request["path"] as! String) as URL
         self.options = setOptions(request: request)
@@ -29,6 +31,10 @@ struct FlutterUploadFileRequest {
     
     static func validate(request: Dictionary<String, AnyObject>) throws {
         let validationErrorMessage = "UploadFile request malformed."
+        if !(request["uuid"] is String) {
+            throw InvalidRequestError.storage(comment: validationErrorMessage,
+                                              suggestion: String(format: ErrorMessages.missingAttribute, "uuid"))
+        }
         if !(request["key"] is String) {
             throw InvalidRequestError.storage(comment: validationErrorMessage,
                                               suggestion: String(format: ErrorMessages.missingAttribute, "key"))

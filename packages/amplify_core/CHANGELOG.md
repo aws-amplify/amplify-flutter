@@ -1,5 +1,27 @@
 ## 0.3.0-rc.1 (2021-09-24)
 
+## 0.2.6 (2021-10-25)
+
+### Fixes
+
+- fix(datastore): Re-emit events on hot restart
+
+### Features
+
+- feat(datastore): Add observeQuery API
+- feat(storage): Upload/download progress listener
+
+## 0.2.5 (2021-10-14)
+
+### Fixes
+- fix(datastore): Sync issues with owner-based auth
+- fix(datastore): Ensure attaching nested model schema
+- fix(datastore): Timeout period not increasing
+- fix(datastore): Remove default pagination behavior on iOS
+- fix(api): OIDC/Lambda changes for DataStore
+- fix(auth): Add global sign out
+- fix(auth): Support `preferPrivateSession` flag
+
 ## 0.2.4 (2021-09-10)
 
 ### Fixes

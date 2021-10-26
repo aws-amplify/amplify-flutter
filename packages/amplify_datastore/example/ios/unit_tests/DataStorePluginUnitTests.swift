@@ -115,7 +115,7 @@ class DataStorePluginUnitTests: XCTestCase {
                 XCTAssertEqual(testSchema.name, modelSchema.name)
                 XCTAssertEqual( QueryPredicateConstant.all, predicate as! QueryPredicateConstant)
                 XCTAssertNil(sortInput)
-                XCTAssertEqual(QueryPaginationInput.firstPage, paginationInput)
+                XCTAssertNil(paginationInput)
 
                 // Return errors from the mock
                 completion(.failure(causedBy: DataStoreError.invalidCondition("test error", "test recovery suggestion", nil)))
@@ -329,21 +329,14 @@ class DataStorePluginUnitTests: XCTestCase {
                 // Return from the mock
                 completion(.emptyResult)
             }
-
-            let mockPublisher = PassthroughSubject<MutationEvent, DataStoreError>()
-            override func onObserve() throws -> AnyPublisher<MutationEvent, DataStoreError> {
-                mockPublisher.eraseToAnyPublisher()
-            }
         }
         let dataStoreBridge: MockDataStoreBridge = MockDataStoreBridge()
         pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry)
 
-        XCTAssertNil(pluginUnderTest.observeSubscription)
         pluginUnderTest.onClear(
             flutterResult: {(result) in
                 XCTAssertNil(result)
             })
-        XCTAssertNotNil(pluginUnderTest.observeSubscription)
     }
 
     func test_clear_failure_with_unknown_error() throws {

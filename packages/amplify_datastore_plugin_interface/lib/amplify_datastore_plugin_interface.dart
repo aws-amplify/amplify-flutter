@@ -22,6 +22,8 @@ import 'package:amplify_core/types/index.dart';
 import 'package:meta/meta.dart';
 
 import 'src/types/models/model.dart';
+import 'src/types/models/observe_query_throttle_options.dart';
+import 'src/types/models/query_snapshot.dart';
 import 'src/types/models/subscription_event.dart';
 import 'src/types/sync/DataStoreSyncExpression.dart';
 import 'src/types/query/query_field.dart';
@@ -127,5 +129,15 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
 
   Future<void> stop() {
     throw UnimplementedError('stop() has not been implemented.');
+  }
+
+  Stream<QuerySnapshot<T>> observeQuery<T extends Model>(
+    ModelType<T> modelType, {
+    QueryPredicate? where,
+    List<QuerySortBy>? sortBy,
+    ObserveQueryThrottleOptions throttleOptions =
+        const ObserveQueryThrottleOptions.defaults(),
+  }) {
+    throw UnimplementedError('observeQuery() has not been implemented.');
   }
 }

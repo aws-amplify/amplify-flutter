@@ -13,10 +13,21 @@
  * permissions and limitations under the License.
  */
 
-abstract class SignOutOptions {
-  const SignOutOptions();
+/// The shared sign out options among all Auth plugins
+class SignOutOptions {
+  /// Sign the current user out from all devices
+  ///
+  /// If the user is signed into another device, they will not be authorized to perform
+  /// tasks that requires a valid token after a global signout is called.
+  final bool globalSignOut;
+
+  /// Default constructor
+  const SignOutOptions({this.globalSignOut = false});
+
+  /// Serialize the object to a map
   Map<String, dynamic> serializeAsMap() {
-    throw UnimplementedError(
-        'serializeAsMap() has not been implemented on SignOutOptions.');
+    return {
+      'globalSignOut': globalSignOut,
+    };
   }
 }

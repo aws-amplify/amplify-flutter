@@ -20,16 +20,11 @@ class APICategory {
 
   static List<APIPluginInterface> plugins = [];
 
-  /// Token refreshers for the API category plugins. Used to provide DataStore
-  /// refresh functionality without exposing the providers themselves.
-  static final Map<APIPluginInterface, APIAuthProviderRefresher>
-      _authProviderRefreshers = {};
-
   Future<void> addPlugin(APIPluginInterface plugin) async {
     //TODO: Allow for multiple plugins to work simultaneously
     if (plugins.length == 0) {
       try {
-        _authProviderRefreshers[plugin] = await plugin.addPlugin();
+        await plugin.addPlugin();
         plugins.add(plugin);
       } on AmplifyAlreadyConfiguredException catch (e) {
         plugins.add(plugin);

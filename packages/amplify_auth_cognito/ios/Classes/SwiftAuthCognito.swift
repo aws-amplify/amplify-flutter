@@ -161,7 +161,9 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
                 self.errorHandler.prepareGenericException(flutterResult: result, error: error)
             }
         case "signOut":
-            cognito.onSignOut(flutterResult: result)
+            // signOut has no validation as there are no required params
+            let request = FlutterSignOutRequest(dict: data)
+            cognito.onSignOut(flutterResult: result, request: request)
         case "updatePassword":
             do {
                 try FlutterUpdatePasswordRequest.validate(dict: data)
@@ -198,7 +200,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin {
                 try FlutterSignInWithWebUIRequest.validate(dict: data)
                 let request = FlutterSignInWithWebUIRequest(dict: data)
                 if request.provider == nil {
-                    cognito.onSignInWithWebUI(flutterResult: result)
+                    cognito.onSignInWithWebUI(flutterResult: result, request: request)
                 } else {
                     cognito.onSignInWithSocialWebUI(flutterResult: result, request: request)
                 }

@@ -25,8 +25,11 @@ void main() {
     UploadFileRequest request =
         UploadFileRequest(key: 'keyForFile', local: File('pathToFile'));
     var serializedResult = request.serializeAsMap();
-    expect(serializedResult,
-        {'path': '${Directory.current.path}/pathToFile', 'key': 'keyForFile'});
+    expect(serializedResult, {
+      'uuid': request.uuid,
+      'path': '${Directory.current.path}/pathToFile',
+      'key': 'keyForFile'
+    });
   });
 
   test('A UploadFileRequest including options can be serialized as a Map',
@@ -39,6 +42,7 @@ void main() {
         key: 'keyForFile', local: File('pathToFile'), options: options);
     var serializedResult = request.serializeAsMap();
     expect(serializedResult, {
+      'uuid': request.uuid,
       'path': '${Directory.current.path}/pathToFile',
       'key': 'keyForFile',
       'options': {

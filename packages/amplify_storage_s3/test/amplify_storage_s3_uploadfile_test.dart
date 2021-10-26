@@ -59,8 +59,12 @@ void main() {
     });
     try {
       await storage.uploadFile(
-          request: UploadFileRequest(
-              key: 'keyForFile', local: File('path/to/file')));
+          request:
+              UploadFileRequest(key: 'keyForFile', local: File('path/to/file')),
+          onProgress: (event) {
+            throw new Exception(
+                'OnProgress listener should not be called on StorageException');
+          });
     } on StorageException catch (e) {
       expect(e.message, details['message']);
       expect(e.recoverySuggestion, details['recoverySuggestion']);

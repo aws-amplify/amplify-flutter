@@ -1,7 +1,6 @@
 part of sample_app;
 
-Widget displayQueryButtons(
-    bool isAmplifyConfigured, _MyAppState app, Function queryFn) {
+Widget displayQueryButtons(bool isAmplifyConfigured, _MyAppState app) {
   var boldText =
       TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 14);
   return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -15,7 +14,6 @@ Widget displayQueryButtons(
           app.setState(() {
             app._queriesToView = "Blog";
           });
-          queryFn();
         }
         return null;
       },
@@ -36,7 +34,6 @@ Widget displayQueryButtons(
           app.setState(() {
             app._queriesToView = "Post";
           });
-          queryFn();
         }
         return null;
       },
@@ -57,7 +54,6 @@ Widget displayQueryButtons(
           app.setState(() {
             app._queriesToView = "Comment";
           });
-          queryFn();
         }
         return null;
       },
