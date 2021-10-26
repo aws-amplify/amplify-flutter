@@ -14,52 +14,54 @@
  */
 
 import 'package:amplify_authenticator/src/constants/theme_constants.dart';
-import 'package:amplify_authenticator/src/state/inherited_input.dart';
-import 'package:amplify_authenticator/src/widgets/input_types/authenticator_input.dart';
-import 'package:flutter/foundation.dart';
+import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
+import 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
+import 'package:amplify_authenticator/src/widgets/component.dart';
+import 'package:amplify_authenticator/src/widgets/form.dart';
+import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
 
-class AuthenticatorTextInput extends AuthenticatorInput {
-  const AuthenticatorTextInput({required Key key, required bool obscureText})
-      : super(key: key, obscureText: obscureText);
+class AuthenticatorTextInput extends StatelessAuthenticatorComponent {
+  const AuthenticatorTextInput({Key? key}) : super(key: key);
 
   @override
-  _AuthenticatorTextInputState createState() => _AuthenticatorTextInputState();
-}
-
-class _AuthenticatorTextInputState extends AuthenticatorInputState {
-  @override
-  Widget build(BuildContext context) {
+  Widget builder(BuildContext context, AuthViewModel viewModel,
+      AuthStringResolver stringResolver) {
+    final parentState =
+        context.findAncestorStateOfType<AuthenticatorFormFieldState>()!;
     final inputResolver = stringResolver.inputs;
-    inheritedInput = InheritedInput.of(context)!;
-
-    hintText = inheritedInput?.field.hintText == null
-        ? inputResolver.resolve(context, inheritedInput!.field.hintTextKey!)
-        : inheritedInput!.field.hintText!;
-
-    return TextFormField(
-      style: inheritedInput!.enabled
-          ? null
-          : const TextStyle(
-              color: AuthenticatorColors.disabledTextColor,
+    final hintText = parentState.widget.hintText == null
+        ? inputResolver.resolve(context, parentState.widget.hintTextKey!)
+        : parentState.widget.hintText!;
+    return ValueListenableBuilder<bool?>(
+        valueListenable: context
+            .findAncestorStateOfType<AuthenticatorFormState>()!
+            .obscureTextToggleValue,
+        builder: (BuildContext context, bool? toggleObscureText, Widget? _) {
+          return TextFormField(
+            style: parentState.enabled
+                ? null
+                : const TextStyle(
+                    color: AuthenticatorColors.disabledTextColor,
+                  ),
+            initialValue: parentState.initialValue,
+            enabled: parentState.enabled,
+            validator: parentState.validator,
+            onChanged: parentState.onChanged,
+            decoration: InputDecoration(
+              suffixIcon: parentState.suffixIcon,
+              errorMaxLines: parentState.errorMaxLines,
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
+              hintText: hintText,
+              border: const OutlineInputBorder(),
             ),
-      initialValue: inheritedInput!.initialValue,
-      enabled: inheritedInput!.enabled,
-      validator: inheritedInput!.validator,
-      onChanged: inheritedInput!.onChanged,
-      decoration: InputDecoration(
-        suffixIcon: inheritedInput!.suffixIcon,
-        errorMaxLines: inheritedInput!.errorMaxLines,
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Theme.of(context).primaryColor,
-          ),
-        ),
-        hintText: hintText,
-        border: const OutlineInputBorder(),
-      ),
-      keyboardType: inheritedInput!.keyboardType,
-      obscureText: widget.obscureText,
-    );
+            keyboardType: parentState.keyboardType,
+            obscureText: toggleObscureText ?? true,
+          );
+        });
   }
 }

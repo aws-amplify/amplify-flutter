@@ -15,26 +15,35 @@
 
 import 'dart:io';
 
+import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
 import 'package:amplify_authenticator/src/constants/theme_constants.dart';
+import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
 import 'package:amplify_authenticator/src/state/inherited_input.dart';
+import 'package:amplify_authenticator/src/state/inherited_strings.dart';
+import 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/utils/country_code.dart';
-import 'package:amplify_authenticator/src/widgets/input_types/authenticator_input.dart';
+import 'package:amplify_authenticator/src/widgets/component.dart';
+import 'package:amplify_authenticator/src/widgets/form.dart';
+import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class AuthenticatorPhoneInput extends AuthenticatorInput {
-  const AuthenticatorPhoneInput({required Key key, required bool obscureText})
-      : super(key: key, obscureText: obscureText);
+class AuthenticatorPhoneInput extends StatefulWidget {
+  const AuthenticatorPhoneInput({Key? key}) : super(key: key);
 
   @override
   _AuthenticatorPhoneInputState createState() =>
       _AuthenticatorPhoneInputState();
 }
 
-class _AuthenticatorPhoneInputState extends AuthenticatorInputState {
+class _AuthenticatorPhoneInputState extends State<AuthenticatorPhoneInput> {
+  String _selectedValue = countryCodes[0].value;
+
   @override
   Widget build(BuildContext context) {
-    String _selectedValue = countryCodes[0].value;
+    final parentState =
+        context.findAncestorStateOfType<AuthenticatorFormFieldState>()!;
+    final inputResolver = InheritedStrings.of(context).inputs;
     List<int> countryCodeStrings = countryCodes
         .map((Country country) {
           return int.parse(country.value);
@@ -42,12 +51,10 @@ class _AuthenticatorPhoneInputState extends AuthenticatorInputState {
         .toSet()
         .toList();
     countryCodeStrings.sort();
-    final inputResolver = stringResolver.inputs;
-    inheritedInput = InheritedInput.of(context)!;
 
-    hintText = inheritedInput?.field.hintText == null
-        ? inputResolver.resolve(context, inheritedInput!.field.hintTextKey!)
-        : inheritedInput!.field.hintText!;
+    final hintText = parentState.widget.hintText == null
+        ? inputResolver.resolve(context, parentState.widget.hintTextKey!)
+        : parentState.widget.hintText!;
 
     return Row(children: [
       DropdownButton<String>(
@@ -66,20 +73,20 @@ class _AuthenticatorPhoneInputState extends AuthenticatorInputState {
       ),
       Expanded(
           child: TextFormField(
-        style: inheritedInput!.enabled
+        style: parentState.enabled
             ? null
             : const TextStyle(
                 color: AuthenticatorColors.disabledTextColor,
               ),
-        initialValue: inheritedInput!.initialValue,
-        enabled: inheritedInput!.enabled,
-        validator: inheritedInput!.validator,
+        initialValue: parentState!.initialValue,
+        enabled: parentState!.enabled,
+        validator: parentState!.validator,
         onChanged: (phoneValue) {
-          inheritedInput!.onChanged('+$_selectedValue$phoneValue');
+          parentState.onChanged('+$_selectedValue$phoneValue');
         },
         decoration: InputDecoration(
-          suffixIcon: inheritedInput!.suffixIcon,
-          errorMaxLines: inheritedInput!.errorMaxLines,
+          suffixIcon: parentState.suffixIcon,
+          errorMaxLines: parentState.errorMaxLines,
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: Theme.of(context).primaryColor,
@@ -89,7 +96,6 @@ class _AuthenticatorPhoneInputState extends AuthenticatorInputState {
           border: const OutlineInputBorder(),
         ),
         keyboardType: TextInputType.phone,
-        obscureText: widget.obscureText,
       ))
     ]);
   }

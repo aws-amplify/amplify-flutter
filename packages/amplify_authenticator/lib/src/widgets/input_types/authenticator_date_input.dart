@@ -14,73 +14,41 @@
  */
 
 import 'package:amplify_authenticator/src/constants/theme_constants.dart';
-import 'package:amplify_authenticator/src/state/inherited_input.dart';
-import 'package:amplify_authenticator/src/widgets/input_types/authenticator_input.dart';
+import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
+import 'package:amplify_authenticator/src/text_customization/auth_strings_resolver.dart';
+import 'package:amplify_authenticator/src/widgets/component.dart';
+import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class AuthenticatorDateInput extends AuthenticatorInput {
-  const AuthenticatorDateInput({required Key key, required bool obscureText})
-      : super(key: key, obscureText: obscureText);
-
-  @override
-  _AuthenticatorDateInputState createState() => _AuthenticatorDateInputState();
-}
-
-class _AuthenticatorDateInputState extends AuthenticatorInputState {
-  String? _dateString;
-
-  late TextEditingController _controller;
+class AuthenticatorDateInput extends StatelessAuthenticatorComponent {
+  const AuthenticatorDateInput({Key? key}) : super(key: key);
 
   String _convertToDateString(DateTime dt) {
     return "${dt.year.toString()}-${dt.month.toString().padLeft(2, '0')}-${dt.day.toString().padLeft(2, '0')}";
   }
 
-  // ignore: avoid_void_async
-  void _pickTime() async {
-    DateTime? d = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(DateTime.now().year - 110),
-        lastDate: DateTime.now());
-    if (d != null) {
-      setState(() {
-        _dateString = _convertToDateString(d);
-      });
-      inheritedInput!.onChanged(_dateString!);
-    }
-  }
-
-  String _checkHyphenFormat(String text) {
-    final chars = text.split('');
-    if (chars.length > 4) {
-      if (chars[4] != '-') {
-        chars.insert(4, '-');
-      }
-    }
-    if (chars.length > 7) {
-      if (chars[7] != '-') {
-        chars.insert(7, '-');
-      }
-    }
-    return chars.join();
-  }
-
   @override
-  Widget build(BuildContext context) {
-    inheritedInput = InheritedInput.of(context)!;
-    _controller = TextEditingController(
-        text: _dateString ?? inheritedInput!.initialValue);
+  Widget builder(BuildContext context, AuthViewModel viewModel,
+      AuthStringResolver stringResolver) {
+    final parentState =
+        context.findAncestorStateOfType<AuthenticatorFormFieldState>()!;
     final inputResolver = stringResolver.inputs;
-    inheritedInput = InheritedInput.of(context)!;
-
-    hintText = inheritedInput?.field.hintText == null
-        ? inputResolver.resolve(context, inheritedInput!.field.hintTextKey!)
-        : inheritedInput!.field.hintText!;
-
-    bool deletion = false;
-    int previousTextLength = 0;
+    final hintText = parentState.widget.hintText == null
+        ? inputResolver.resolve(context, parentState.widget.hintTextKey!)
+        : parentState.widget.hintText!;
+    final TextEditingController _controller =
+        TextEditingController(text: parentState.initialValue);
+    void _pickTime() {
+      showDatePicker(
+              context: context,
+              initialDate: DateTime.now(),
+              firstDate: DateTime(DateTime.now().year - 110),
+              lastDate: DateTime.now())
+          .then((d) => _controller.value =
+              TextEditingValue(text: _convertToDateString(d!)));
+    }
 
     return Row(children: [
       IconButton(
@@ -91,31 +59,22 @@ class _AuthenticatorDateInputState extends AuthenticatorInputState {
       Expanded(
           child: TextFormField(
         inputFormatters: [LengthLimitingTextInputFormatter(10)],
-        style: inheritedInput!.enabled
+        style: parentState.enabled
             ? null
             : const TextStyle(
                 color: AuthenticatorColors.disabledTextColor,
               ),
-        enabled: inheritedInput!.enabled,
-        validator: inheritedInput!.validator,
-        onChanged: (newValue) {
-          deletion = previousTextLength >= newValue.length;
-          previousTextLength = newValue.length;
-          // add hyphens as user types
-          // TODO: debounce
-          if (!deletion) {
-            _controller.value =
-                TextEditingValue(text: _checkHyphenFormat(_controller.text));
-            _controller.selection = TextSelection.fromPosition(
-                TextPosition(offset: _controller.text.length));
-            // previousTextLength++;
-          }
-
-          inheritedInput!.onChanged(newValue);
-        },
+        enabled: parentState.enabled,
+        readOnly: true,
+        validator: parentState.validator,
+        // onChanged: (newValue) {
+        //   _controller.value =
+        //       TextEditingValue(text: _checkHyphenFormat(newValue));
+        //   parentState.onChanged(_controller.text);
+        // },
         decoration: InputDecoration(
-          suffixIcon: inheritedInput!.suffixIcon,
-          errorMaxLines: inheritedInput!.errorMaxLines,
+          suffixIcon: parentState.suffixIcon,
+          errorMaxLines: parentState.errorMaxLines,
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: Theme.of(context).primaryColor,
@@ -125,9 +84,126 @@ class _AuthenticatorDateInputState extends AuthenticatorInputState {
           border: const OutlineInputBorder(),
         ),
         keyboardType: TextInputType.datetime,
-        obscureText: widget.obscureText,
+        obscureText: parentState.obscureText,
         controller: _controller,
       ))
     ]);
   }
 }
+
+// class AuthenticatorDateInput<T extends AuthenticatorDateInput<T>>
+//     extends AuthenticatorComponent<T> {
+//   const AuthenticatorDateInput({required Key key, required bool obscureText})
+//       : super();
+
+//   @override
+//   _AuthenticatorDateInputState<T> createState() =>
+//       _AuthenticatorDateInputState();
+// }
+
+// class _AuthenticatorDateInputState<T extends AuthenticatorDateInput<T>>
+//     extends AuthenticatorComponentState<T> {
+//   String? _dateString;
+
+//   late TextEditingController _controller;
+
+  
+
+//   String _convertToDateString(DateTime dt) {
+//     return "${dt.year.toString()}-${dt.month.toString().padLeft(2, '0')}-${dt.day.toString().padLeft(2, '0')}";
+//   }
+
+//   // ignore: avoid_void_async
+//   void _pickTime()  {
+//     DateTime? d = await showDatePicker(
+//         context: context,
+//         initialDate: DateTime.now(),
+//         firstDate: DateTime(DateTime.now().year - 110),
+//         lastDate: DateTime.now());
+//     if (d != null) {
+//       setState(() {
+//         _dateString = _convertToDateString(d);
+//       });
+//       parentState.onChanged(_dateString!);
+//     }
+//   }
+
+//   String _checkHyphenFormat(String text) {
+//     final chars = text.split('');
+//     if (chars.length > 4) {
+//       if (chars[4] != '-') {
+//         chars.insert(4, '-');
+//       }
+//     }
+//     if (chars.length > 7) {
+//       if (chars[7] != '-') {
+//         chars.insert(7, '-');
+//       }
+//     }
+//     return chars.join();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     inheritedInput = InheritedInput.of(context)!;
+//     _controller = TextEditingController(
+//         text: _dateString ?? parentState.initialValue);
+//     final inputResolver = stringResolver.inputs;
+//     inheritedInput = InheritedInput.of(context)!;
+
+//     hintText = inheritedInput?.field.hintText == null
+//         ? inputResolver.resolve(context, parentState.field.hintTextKey!)
+//         : parentState.field.hintText!;
+
+//     bool deletion = false;
+//     int previousTextLength = 0;
+
+//     return Row(children: [
+//       IconButton(
+//         icon: const Icon(Icons.calendar_today),
+//         tooltip: 'Select birthdate',
+//         onPressed: _pickTime,
+//       ),
+//       Expanded(
+//           child: TextFormField(
+//         inputFormatters: [LengthLimitingTextInputFormatter(10)],
+//         style: parentState.enabled
+//             ? null
+//             : const TextStyle(
+//                 color: AuthenticatorColors.disabledTextColor,
+//               ),
+//         enabled: parentState.enabled,
+//         validator: parentState.validator,
+//         onChanged: (newValue) {
+//           deletion = previousTextLength >= newValue.length;
+//           previousTextLength = newValue.length;
+//           // add hyphens as user types
+//           // TODO: debounce
+//           if (!deletion) {
+//             _controller.value =
+//                 TextEditingValue(text: _checkHyphenFormat(_controller.text));
+//             _controller.selection = TextSelection.fromPosition(
+//                 TextPosition(offset: _controller.text.length));
+//             // previousTextLength++;
+//           }
+
+//           parentState.onChanged(newValue);
+//         },
+//         decoration: InputDecoration(
+//           suffixIcon: parentState.suffixIcon,
+//           errorMaxLines: parentState.errorMaxLines,
+//           focusedBorder: OutlineInputBorder(
+//             borderSide: BorderSide(
+//               color: Theme.of(context).primaryColor,
+//             ),
+//           ),
+//           hintText: hintText,
+//           border: const OutlineInputBorder(),
+//         ),
+//         keyboardType: TextInputType.datetime,
+//         obscureText: widget.obscureText,
+//         controller: _controller,
+//       ))
+//     ]);
+//   }
+// }

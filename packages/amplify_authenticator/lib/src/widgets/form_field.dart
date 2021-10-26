@@ -103,7 +103,7 @@ abstract class AuthenticatorFormField<FieldType,
   }
 }
 
-abstract class _AuthenticatorFormFieldState<FieldType,
+abstract class AuthenticatorFormFieldState<FieldType,
         T extends AuthenticatorFormField<FieldType, T>>
     extends AuthenticatorComponentState<T> {
   @nonVirtual
@@ -189,6 +189,7 @@ abstract class _AuthenticatorFormFieldState<FieldType,
         children: <Widget>[
           Text(title),
           const Padding(padding: FormFieldConstants.gap),
+<<<<<<< HEAD
           ValueListenableBuilder<bool>(
             valueListenable: context
                 .findAncestorStateOfType<AuthenticatorFormState>()!
@@ -222,6 +223,30 @@ abstract class _AuthenticatorFormFieldState<FieldType,
             },
           ),
           if (companionWidget != null) companionWidget!,
+=======
+          ValueListenableBuilder<bool?>(
+              valueListenable: context
+                  .findAncestorStateOfType<AuthenticatorFormState>()!
+                  .obscureTextToggleValue,
+              builder:
+                  (BuildContext context, bool? toggleObscureText, Widget? _) {
+                var obscureText =
+                    this.obscureText && (toggleObscureText ?? true);
+                Widget child;
+                switch (widget.inputType) {
+                  case InputType.text:
+                    child = const AuthenticatorTextInput();
+                    break;
+                  case InputType.phone:
+                    child = const AuthenticatorPhoneInput();
+                    break;
+                  case InputType.datePicker:
+                    child = const AuthenticatorDateInput();
+                    break;
+                }
+                return child;
+              }),
+>>>>>>> cleaned up new fields and config
         ],
       ),
     );
