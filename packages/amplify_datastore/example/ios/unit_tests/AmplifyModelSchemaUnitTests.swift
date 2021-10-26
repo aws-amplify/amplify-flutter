@@ -74,6 +74,22 @@ class AmplifyModelSchemaUnitTests: XCTestCase {
         XCTAssertEqual(SchemaData.PostAuthComplexSchema, postAuthComplexSchema)
     }
 
+    func test_schema_postAuthComplex_with_authRules_provider_userpools() throws{
+        let postAuthComplexSchema = try FlutterModelSchema(
+            serializedData: modelSchemaMap["PostAuthComplexWithProviderUserPoolsSchema"] as! [String : Any] )
+            .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
+
+        XCTAssertEqual(SchemaData.PostAuthComplexWithProviderUserPoolsSchema, postAuthComplexSchema)
+    }
+
+    func test_schema_postAuthComplex_with_authRules_provider_apikey() throws{
+        let postAuthComplexSchema = try FlutterModelSchema(
+            serializedData: modelSchemaMap["PostAuthComplexWithProviderApiKeySchema"] as! [String : Any] )
+            .convertToNativeModelSchema(customTypeSchemasRegistry: customTypeSchemasRegistry)
+
+        XCTAssertEqual(SchemaData.PostAuthComplexWithProviderApiKeySchema, postAuthComplexSchema)
+    }
+
     func test_schema_allTypeModel() throws{
         let allTypeModelSchema = try FlutterModelSchema(
             serializedData: modelSchemaMap["AllTypeModelSchema"] as! [String : Any] )

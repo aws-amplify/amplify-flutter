@@ -22,17 +22,17 @@ enum AuthStrategy { OWNER, GROUPS, PRIVATE, PUBLIC }
 
 enum ModelOperation { CREATE, UPDATE, DELETE, READ }
 
-enum AuthRuleProvider { APIKEY, OIDC, IAM, USERPOOL, FUNCTION }
+enum AuthRuleProvider { APIKEY, OIDC, IAM, USERPOOLS, FUNCTION }
 
 class AuthRule {
   final AuthStrategy authStrategy;
-  final String? ownerField; //opt
-  final String? identityClaim; //opt
-  final String? groupClaim; //opt
-  final List<String>? groups; //opt
-  final String? groupsField; //opt
-  final AuthRuleProvider provider; //opt
-  final List<ModelOperation>? operations; //opt
+  final String? ownerField;
+  final String? identityClaim;
+  final String? groupClaim;
+  final List<String>? groups;
+  final String? groupsField;
+  final AuthRuleProvider? provider;
+  final List<ModelOperation>? operations;
 
   const AuthRule(
       {required this.authStrategy,
@@ -41,7 +41,7 @@ class AuthRule {
       this.groupClaim,
       this.groups,
       this.groupsField,
-      required this.provider,
+      this.provider,
       this.operations});
 
   AuthRule copyWith({
@@ -74,8 +74,8 @@ class AuthRule {
       'groupClaim': groupClaim,
       'groups': groups,
       'groupsField': groupsField,
-      'provider': describeEnum(provider),
-      'operations': operations?.map((x) => describeEnum(x))?.toList(),
+      'provider': provider != null ? describeEnum(provider!) : null,
+      'operations': operations?.map((x) => describeEnum(x)).toList(),
     };
     return Map.from(map)..removeWhere((k, v) => v == null);
   }

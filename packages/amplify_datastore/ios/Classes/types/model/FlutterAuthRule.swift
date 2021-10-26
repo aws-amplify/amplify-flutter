@@ -24,7 +24,7 @@ public struct FlutterAuthRule {
     private let groupClaim : String?
     private let groups : [String]?
     private let groupsField : String?
-    private let provider: String
+    private let provider: String?
     private var operations : [String]?
     
     init(serializedData: [String: Any]) throws {
@@ -37,13 +37,6 @@ public struct FlutterAuthRule {
                 desiredType: "String")
         }
 
-        guard let provider = serializedData["provider"] as? String
-        else {
-            throw ModelSchemaError.parse(
-                className: "FlutterAuthRule",
-                fieldName: "provider",
-                desiredType: "String")
-        }
         self.authStrategy = authStrategy
         
         self.ownerField = serializedData["ownerField"] as? String
@@ -56,7 +49,7 @@ public struct FlutterAuthRule {
         
         self.groupsField = serializedData["groupsField"] as? String
 
-        self.provider = provider
+        self.provider = serializedData["provider"] as? String
 
         self.operations = serializedData["operations"] as? [String]
     }
@@ -76,7 +69,7 @@ public struct FlutterAuthRule {
         }
     }
 
-    private func stringToAuthProvider(providerString: String) -> AuthRuleProvider {
+    private func stringToAuthProvider(providerString: String?) -> AuthRuleProvider? {
         switch providerString {
         case "APIKEY":
             return AuthRuleProvider.apiKey
@@ -84,12 +77,12 @@ public struct FlutterAuthRule {
             return AuthRuleProvider.oidc
         case "IAM":
             return AuthRuleProvider.iam
-        case "USERPOOL":
+        case "USERPOOLS":
             return AuthRuleProvider.userPools
         case "FUNCTION":
             return AuthRuleProvider.function
         default:
-            preconditionFailure("Could not create a AuthRuleProvider from \(providerString)")
+            return nil
         }
     }
     
@@ -109,7 +102,6 @@ public struct FlutterAuthRule {
     }
     
     public func convertToNativeAuthRule() -> AuthRule{
-        
         return AuthRule(
             allow: stringToAuthStrategy(authStrategyString: authStrategy),
             ownerField: ownerField,
