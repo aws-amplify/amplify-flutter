@@ -13,16 +13,16 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_api/src/graphql/graphql_response_decoder.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart'
     as DataStore;
+import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_api/src/graphql/graphql_response_decoder.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter_test/flutter_test.dart';
 
 import 'resources/Blog.dart';
+import 'resources/Post.dart';
 import 'resources/ModelProvider.dart';
 
 void main() {
@@ -33,7 +33,7 @@ void main() {
       test('ModelQueries.get() should build a valid request', () {
         String id = UUID.getUUID();
         String expected =
-            r'query getBlog($id: ID!) { getBlog(id: $id) { id name createdAt posts { items { id title rating created } nextToken } } }';
+            r'query getBlog($id: ID!) { getBlog(id: $id) { id name createdAt } }';
 
         GraphQLRequest<Blog> req = ModelQueries.get<Blog>(Blog.classType, id);
 
@@ -45,7 +45,7 @@ void main() {
       });
 
       test(
-          'ModelQueries.get() returns a GraphQLResponse<Blog> when provided a modelType',
+          'ModelQueries.get() returns a GraphQLRequest<Blog> when provided a modelType',
           () async {
         String id = UUID.getUUID();
         GraphQLRequest<Blog> req = ModelQueries.get<Blog>(Blog.classType, id);
@@ -66,7 +66,7 @@ void main() {
       });
       test('ModelQueries.list() should build a valid request', () async {
         String expected =
-            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt posts { items { id title rating created } nextToken } } nextToken } }';
+            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }';
 
         GraphQLRequest<PaginatedResult<Blog>> req =
             ModelQueries.list<Blog>(Blog.classType);
@@ -79,7 +79,7 @@ void main() {
       test('ModelQueries.list() should build a valid request with pagination',
           () async {
         String expected =
-            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt posts { items { id title rating created } nextToken } } nextToken } }';
+            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }';
 
         GraphQLRequest<PaginatedResult<Blog>> req =
             ModelQueries.list<Blog>(Blog.classType, limit: 1);
@@ -166,20 +166,12 @@ void main() {
                 {
                   "id": "test-id-1",
                   "name": "Test Blog 1",
-                  "createdAt": "2021-07-29T23:09:58.441Z",
-                  "posts": {
-                    "items": [],
-                    "nextToken": null
-                  }
+                  "createdAt": "2021-07-29T23:09:58.441Z"
                 },
                 {
                   "id": "test-id-2",
                   "name": "Test Blog 2",
-                  "createdAt": "2021-08-03T16:39:18.651Z",
-                  "posts": {
-                    "items": [],
-                    "nextToken": null
-                  }
+                  "createdAt": "2021-08-03T16:39:18.651Z"
                 }
               ],
               "nextToken": "super-secret-next-token"
@@ -190,7 +182,10 @@ void main() {
             GraphQLResponseDecoder.instance.decode<PaginatedResult<Blog>>(
                 request: req, data: data, errors: errors);
         expect(response.data.hasNextResult, true);
+        String expectedDocument =
+            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }';
         final resultRequest = response.data.requestForNextResult!;
+        expect(resultRequest.document, expectedDocument);
         expect(resultRequest.variables['nextToken'], response.data.nextToken);
         expect(resultRequest.variables['limit'], limit);
       });
@@ -230,6 +225,8 @@ void main() {
           'ModelQueries.list() should correctly populate a request with a simple QueryPredicate',
           () async {
         const expectedTitle = 'Test Blog 1';
+        const expectedDocument =
+            r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }';
         const expectedFilter = {
           'name': {'eq': expectedTitle}
         };
@@ -238,6 +235,9 @@ void main() {
         GraphQLRequest<PaginatedResult<Blog>> req =
             ModelQueries.list<Blog>(Blog.classType, where: queryPredicate);
 
+        expect(req.document, expectedDocument);
+        expect(req.modelType, isA<PaginatedModelType<Blog>>());
+        expect(req.decodePath, 'listBlogs');
         expect(req.variables['filter'], expectedFilter);
       });
 
@@ -442,30 +442,6 @@ void main() {
             isTrue);
         expect(req.modelType, Post.classType);
         expect(req.decodePath, 'updatePost');
-      });
-
-      test('ModelMutations.update() should build a valid request', () {
-        final id = UUID.getUUID();
-        final name = 'Test Blog';
-        final time = '2021-08-03T16:39:18.000000651Z';
-        final createdAt = DataStore.TemporalDateTime.fromString(time);
-
-        Blog blog = Blog(id: id, name: name, createdAt: createdAt);
-
-        final expectedVars = {
-          'input': {'id': id, 'name': name, 'createdAt': time},
-          'condition': null
-        };
-        final expectedDoc =
-            r'mutation updateBlog($input: UpdateBlogInput!, $condition:  ModelBlogConditionInput) { updateBlog(input: $input, condition: $condition) { id name createdAt } }';
-
-        GraphQLRequest<Blog> req = ModelMutations.update<Blog>(blog);
-
-        expect(req.document, expectedDoc);
-        expect(DeepCollectionEquality().equals(req.variables, expectedVars),
-            isTrue);
-        expect(req.modelType, Blog.classType);
-        expect(req.decodePath, 'updateBlog');
       });
 
       test(

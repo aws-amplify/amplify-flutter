@@ -65,43 +65,15 @@ class GraphQLRequestFactory {
   }
 
   String _getFieldsFromModelSchema(
-      ModelSchema schema, GraphQLRequestOperation operation,
-      {int depth = 0}) {
-    bool getNestedFields = operation == GraphQLRequestOperation.get ||
-        operation == GraphQLRequestOperation.list && depth > 0;
-
+      ModelSchema schema, GraphQLRequestOperation operation) {
     // Schema has been validated & schema.fields is non-nullable.
     // Get a list of field names to include in the request body.
     List<String> _fields = schema.fields!.entries
         .where((entry) =>
-            // If looking for related models, get everything except BelongsTo.
-            // Otherwise, ignore them.
-            (getNestedFields &&
-                entry.value.association?.associationType !=
-                    ModelAssociationEnum.BelongsTo) ||
+            // Ignore related fields.
             entry.value.association == null)
-        .map((entry) {
-      // format nested models
-      if (getNestedFields && entry.value.association != null) {
-        final nestedModelName = entry.value.association!.associatedType;
-        ModelProviderInterface? provider =
-            AmplifyAPI.instance.getModelProvider();
-        if (provider == null || nestedModelName == null) {
-          return '';
-        }
-        final nestedModelType =
-            provider.getModelTypeByModelName(nestedModelName);
-        final nestedSchema = _getAndValidateSchema(nestedModelType, operation);
-        // Recursive result for the related model, always format them like a list request.
-        String nestedFields = _getFieldsFromModelSchema(
-            nestedSchema, GraphQLRequestOperation.list,
-            depth: depth - 1);
-        var pluralName = nestedSchema.pluralName!.toLowerCase();
-        return '$pluralName { $nestedFields }';
-      }
-      // non-nested
-      return entry.key;
-    }).toList(); // e.g. ["id", "name", "createdAt"]
+        .map((entry) => entry.key)
+        .toList(); // e.g. ["id", "name", "createdAt"]
 
     // For create/update, add the parent ID field name. e.g. "blogID" for a post.
     if (operation == GraphQLRequestOperation.create ||
@@ -220,8 +192,7 @@ class GraphQLRequestFactory {
     DocumentInputs documentInputs =
         _buildDocumentInputs(schema, requestOperation);
     // e.g. "id name createdAt" - fields to retrieve
-    String fields =
-        _getFieldsFromModelSchema(schema, requestOperation, depth: depth);
+    String fields = _getFieldsFromModelSchema(schema, requestOperation);
     // e.g. "getBlog"
     String requestName = "$requestOperationVal$name";
     // e.g. query getBlog($id: ID!, $content: String) { getBlog(id: $id, content: $content) { id name createdAt } }

@@ -15,7 +15,6 @@
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/graphql/graphql_request_factory.dart';
-import 'package:amplify_api/src/graphql/model_queries_factory.dart';
 import 'package:amplify_api/src/graphql/paginated_model_type_impl.dart';
 // TODO: Datastore dependencies temporarily added in API. Eventually they should be moved to core or otherwise reconciled to avoid duplication.
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
@@ -50,8 +49,7 @@ class PaginatedResultImpl<T extends Model> extends PaginatedResult<T> {
         modelType: PaginatedModelTypeImpl(modelType),
         variables: variables,
         requestType: GraphQLRequestType.query,
-        requestOperation: GraphQLRequestOperation.list,
-        depth: defaultQueryDepth);
+        requestOperation: GraphQLRequestOperation.list);
   }
 
   ModelType<T> _getModelType() {

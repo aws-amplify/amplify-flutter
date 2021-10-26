@@ -18,10 +18,6 @@ import 'package:amplify_api/src/graphql/graphql_request_factory.dart';
 import 'package:amplify_api/src/graphql/paginated_model_type_impl.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
-/// Number of levels of children to include with a request. e.g. a blog will have
-/// posts but not comments when set to 1.
-const defaultQueryDepth = 1;
-
 class ModelQueriesFactory extends ModelQueriesInterface {
   // Singleton methods/properties
   // usage: ModelQueriesFactory.instance;
@@ -38,8 +34,7 @@ class ModelQueriesFactory extends ModelQueriesInterface {
         modelType: modelType,
         variables: variables,
         requestType: GraphQLRequestType.query,
-        requestOperation: GraphQLRequestOperation.get,
-        depth: defaultQueryDepth);
+        requestOperation: GraphQLRequestOperation.get);
   }
 
   @override
@@ -57,7 +52,6 @@ class ModelQueriesFactory extends ModelQueriesInterface {
         modelType: PaginatedModelTypeImpl(modelType),
         variables: variables,
         requestType: GraphQLRequestType.query,
-        requestOperation: GraphQLRequestOperation.list,
-        depth: defaultQueryDepth);
+        requestOperation: GraphQLRequestOperation.list);
   }
 }

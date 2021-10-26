@@ -93,7 +93,7 @@ void main() {
   test('ModelQueries.get Model Helper executes correctly in the happy case',
       () async {
     String expectedDoc =
-        r"query getBlog($id: ID!) { getBlog(id: $id) { id name createdAt posts { items { id title rating created } nextToken } } }";
+        r"query getBlog($id: ID!) { getBlog(id: $id) { id name createdAt } }";
     final String id = UUID.getUUID();
     var queryResult = '''{
       "getBlog": {
@@ -121,45 +121,29 @@ void main() {
   test('ModelQueries.list Model Helper executes correctly in the happy case',
       () async {
     String expectedDoc =
-        r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt posts { items { id title rating created } nextToken } } nextToken } }';
+        r"query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }";
     const queryResult = '''{
       "listBlogs": {
         "items": [
           {
             "id": "ec0c71cb-8b88-4c57-86d7-6758bf4cba4a",
             "name": "Test Blog 1",
-            "createdAt": "2020-12-10T21:25:51.252Z",
-            "posts": {
-              "items": [],
-              "nextToken": null
-            }
+            "createdAt": "2020-12-10T21:25:51.252Z"
           },
           {
             "id": "33546237-8e0d-450f-8bf5-4da0dbd2659c",
             "name": "Test Blog 2",
-            "createdAt": "2020-12-03T16:39:18.651Z",
-            "posts": {
-              "items": [],
-              "nextToken": null
-            }
+            "createdAt": "2020-12-03T16:39:18.651Z"
           },
           {
-            "id": "f6b8fbb8-0224-4232-b970-0cc9105d5faf",
-            "name": "Test Blog 3",
             "createdAt": "2020-12-04T16:14:31.418Z",
-            "posts": {
-              "items": [],
-              "nextToken": null
-            }
+            "name": "Test Blog 3",
+            "id": "f6b8fbb8-0224-4232-b970-0cc9105d5faf"
           },
           {
-            "id": "c6a33487-6237-4f53-ba9f-2cb487d2c6ad",
-            "name": "Test Blog 4",
             "createdAt": "2020-12-04T16:24:20.765Z",
-            "posts": {
-              "items": [],
-              "nextToken": null
-            }
+            "name": "Test Blog 4",
+            "id": "c6a33487-6237-4f53-ba9f-2cb487d2c6ad"
           }
         ],
         "nextToken": "super-secret-next-token"
