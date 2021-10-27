@@ -142,4 +142,25 @@ class DataStoreCategory {
           )
         : throw _pluginNotAddedException("DataStore");
   }
+
+  /// Observe the result set of a given Query
+  ///
+  /// Emits an initial [QuerySnapshot] with data from the local store, as well as
+  /// subsequent events with data synced over the network
+  Stream<QuerySnapshot<T>> observeQuery<T extends Model>(
+    ModelType<T> modelType, {
+    QueryPredicate? where,
+    List<QuerySortBy>? sortBy,
+    ObserveQueryThrottleOptions throttleOptions =
+        const ObserveQueryThrottleOptions.defaults(),
+  }) {
+    return plugins.length == 1
+        ? plugins[0].observeQuery(
+            modelType,
+            where: where,
+            sortBy: sortBy,
+            throttleOptions: throttleOptions,
+          )
+        : throw _pluginNotAddedException("DataStore");
+  }
 }

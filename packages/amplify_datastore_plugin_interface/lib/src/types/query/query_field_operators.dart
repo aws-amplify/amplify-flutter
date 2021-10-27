@@ -73,6 +73,10 @@ class EqualQueryOperator<T> extends QueryFieldOperator<T> {
 
   const EqualQueryOperator(this.value) : super(QueryFieldOperatorType.equal);
 
+  bool evaluate(T other) {
+    return other == value;
+  }
+
   @override
   bool evaluate(T? other) {
     return other == value;
@@ -90,6 +94,10 @@ class NotEqualQueryOperator<T> extends QueryFieldOperator<T> {
 
   const NotEqualQueryOperator(this.value)
       : super(QueryFieldOperatorType.not_equal);
+
+  bool evaluate(T other) {
+    return other != value;
+  }
 
   @override
   bool evaluate(T? other) {
@@ -109,6 +117,10 @@ class LessOrEqualQueryOperator<T extends Comparable>
 
   const LessOrEqualQueryOperator(this.value)
       : super(QueryFieldOperatorType.less_or_equal);
+
+  bool evaluate(T other) {
+    return other.compareTo(value) <= 0;
+  }
 
   @override
   bool evaluate(T? other) {
@@ -132,6 +144,10 @@ class LessThanQueryOperator<T extends Comparable>
   const LessThanQueryOperator(this.value)
       : super(QueryFieldOperatorType.less_than);
 
+  bool evaluate(T other) {
+    return other.compareTo(value) < 0;
+  }
+
   @override
   bool evaluate(T? other) {
     if (other == null) {
@@ -153,6 +169,10 @@ class GreaterOrEqualQueryOperator<T extends Comparable>
 
   const GreaterOrEqualQueryOperator(this.value)
       : super(QueryFieldOperatorType.greater_or_equal);
+
+  bool evaluate(T other) {
+    return other.compareTo(value) >= 0;
+  }
 
   @override
   bool evaluate(T? other) {
@@ -176,6 +196,10 @@ class GreaterThanQueryOperator<T extends Comparable>
   const GreaterThanQueryOperator(this.value)
       : super(QueryFieldOperatorType.greater_than);
 
+  bool evaluate(T other) {
+    return other.compareTo(value) > 0;
+  }
+
   @override
   bool evaluate(T? other) {
     if (other == null) {
@@ -196,6 +220,10 @@ class ContainsQueryOperator extends QueryFieldOperator<String> {
 
   const ContainsQueryOperator(this.value)
       : super(QueryFieldOperatorType.contains);
+
+  bool evaluate(String other) {
+    return other.contains(value);
+  }
 
   @override
   bool evaluate(String? other) {
@@ -218,6 +246,10 @@ class BetweenQueryOperator<T extends Comparable> extends QueryFieldOperator<T> {
 
   const BetweenQueryOperator(this.start, this.end)
       : super(QueryFieldOperatorType.between);
+
+  bool evaluate(T other) {
+    return other.compareTo(start) >= 0 && other.compareTo(end) <= 0;
+  }
 
   @override
   bool evaluate(T? other) {
@@ -242,6 +274,10 @@ class BeginsWithQueryOperator extends QueryFieldOperator<String> {
 
   const BeginsWithQueryOperator(this.value)
       : super(QueryFieldOperatorType.begins_with);
+
+  bool evaluate(String other) {
+    return other.startsWith(value);
+  }
 
   @override
   bool evaluate(String? other) {

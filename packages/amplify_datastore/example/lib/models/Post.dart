@@ -182,7 +182,7 @@ class Post extends Model {
   Post.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _title = json['title'],
-        _rating = (json['rating'] as num?)?.toInt(),
+        _rating = json['rating'],
         _created = json['created'] != null
             ? TemporalDateTime.fromString(json['created'])
             : null,

@@ -100,10 +100,15 @@ class Post extends Model {
     return _updatedAt;
   }
 
+  bool? get isPublic {
+    return _isPublic;
+  }
+
   const Post._internal(
       {required this.id,
       required title,
       required rating,
+      isPublic,
       created,
       likeCount,
       blog,
@@ -123,6 +128,7 @@ class Post extends Model {
       {String? id,
       required String title,
       required int rating,
+      bool? isPublic,
       TemporalDateTime? created,
       int? likeCount,
       Blog? blog,
@@ -220,7 +226,8 @@ class Post extends Model {
             : null,
         _updatedAt = json['updatedAt'] != null
             ? TemporalDateTime.fromString(json['updatedAt'])
-            : null;
+            : null,
+        _isPublic = json['isPublic'] as bool?;
 
   Map<String, dynamic> toJson() => {
         'id': id,
