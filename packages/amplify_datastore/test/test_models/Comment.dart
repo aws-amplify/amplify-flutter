@@ -104,9 +104,9 @@ class Comment extends Model {
 
   Comment.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _post = json['post'] != null
+        _post = json['post']?['serializedData'] != null
             ? Post.fromJson(
-                new Map<String, dynamic>.from(json['post']?['serializedData']))
+                new Map<String, dynamic>.from(json['post']['serializedData']))
             : null,
         _content = json['content'];
 

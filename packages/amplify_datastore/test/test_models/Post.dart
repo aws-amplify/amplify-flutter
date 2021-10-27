@@ -24,9 +24,12 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
 
 import 'ModelProvider.dart';
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 
 /** This is an auto generated class representing the Post type in your schema. */
 @immutable
@@ -90,15 +93,10 @@ class Post extends Model {
     return _comments;
   }
 
-  bool? get isPublic {
-    return _isPublic;
-  }
-
   const Post._internal(
       {required this.id,
       required title,
       required rating,
-      isPublic,
       created,
       likeCount,
       blog,
@@ -114,7 +112,6 @@ class Post extends Model {
       {String? id,
       required String title,
       required int rating,
-      bool? isPublic,
       TemporalDateTime? created,
       int? likeCount,
       Blog? blog,
@@ -178,7 +175,7 @@ class Post extends Model {
       int? likeCount,
       Blog? blog,
       List<Comment>? comments}) {
-    return Post._internal(
+    return Post(
         id: id ?? this.id,
         title: title ?? this.title,
         rating: rating ?? this.rating,
@@ -206,8 +203,7 @@ class Post extends Model {
                 .map((e) => Comment.fromJson(
                     new Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
-            : null,
-        _isPublic = json['isPublic'] as bool?;
+            : null;
 
   Map<String, dynamic> toJson() => {
         'id': id,
