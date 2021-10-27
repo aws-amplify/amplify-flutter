@@ -30,7 +30,7 @@ class Blog extends Model {
   static const classType = const _BlogModelType();
   final String id;
   final String? _name;
-  final TemporalDate? _createdAt;
+  final TemporalDateTime? _createdAt;
   final List<Post>? _posts;
 
   @override
@@ -54,7 +54,7 @@ class Blog extends Model {
     }
   }
 
-  TemporalDate? get createdAt {
+  TemporalDateTime? get createdAt {
     return _createdAt;
   }
 
@@ -70,7 +70,7 @@ class Blog extends Model {
   factory Blog(
       {String? id,
       required String name,
-      TemporalDate? createdAt,
+      TemporalDateTime? createdAt,
       List<Post>? posts}) {
     return Blog._internal(
         id: id == null ? UUID.getUUID() : id,
@@ -111,7 +111,10 @@ class Blog extends Model {
   }
 
   Blog copyWith(
-      {String? id, String? name, TemporalDate? createdAt, List<Post>? posts}) {
+      {String? id,
+      String? name,
+      TemporalDateTime? createdAt,
+      List<Post>? posts}) {
     return Blog(
         id: id ?? this.id,
         name: name ?? this.name,
@@ -123,7 +126,7 @@ class Blog extends Model {
       : id = json['id'],
         _name = json['name'],
         _createdAt = json['createdAt'] != null
-            ? TemporalDate.fromString(json['createdAt'])
+            ? TemporalDateTime.fromString(json['createdAt'])
             : null,
         _posts = json['posts'] is List
             ? (json['posts'] as List)

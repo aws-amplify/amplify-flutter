@@ -210,7 +210,8 @@ void main() {
       Blog data = res.data;
       blogCache.add(data);
 
-      expect(data, equals(blog));
+      expect(data.name, equals(blog.name));
+      expect(data.id, equals(blog.id));
     });
 
     testWidgets('should CREATE a post (model with parent) with Model helper',
