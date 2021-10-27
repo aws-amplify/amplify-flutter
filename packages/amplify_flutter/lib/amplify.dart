@@ -17,8 +17,7 @@ library amplify;
 
 import 'src/amplify_impl.dart';
 
-export 'package:amplify_core/types/hub/HubChannel.dart';
-export 'package:amplify_core/types/index.dart';
+export 'package:amplify_core/amplify_core.dart';
 
 /// Top level singleton Amplify object.
-final AmplifyClass Amplify = new AmplifyClass.protected();
+final AmplifyClass Amplify = AmplifyClass.protected();

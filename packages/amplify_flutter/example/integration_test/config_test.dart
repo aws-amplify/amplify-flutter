@@ -1,16 +1,15 @@
 import 'dart:io';
 
+import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
+import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_flutter/amplify.dart' hide Amplify;
 import 'package:amplify_flutter/src/amplify_impl.dart';
 import 'package:amplify_flutter/src/categories/amplify_categories.dart';
-import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:integration_test/integration_test.dart';
 
 import 'mocks.dart';
 
@@ -138,13 +137,9 @@ final throwsAlreadyConfigured =
 final throwsAmplifyException = throwsA(isA<AmplifyException>());
 
 void main() {
-  if (Platform.isAndroid) {
-    throw UnsupportedError('Only iOS for now');
-  }
-
   final modelProvider = MockModelProvider();
   final dataStorePlugin = AmplifyDataStore(modelProvider: modelProvider);
-  MethodChannelAmplify Amplify;
+  late MethodChannelAmplify Amplify;
   final allPlugins = [
     AmplifyAuthCognito(),
     AmplifyAnalyticsPinpoint(),
@@ -164,13 +159,15 @@ void main() {
   /// Simulates a hot restart
   void hotRestart() {
     Amplify = MethodChannelAmplify();
-    [
+    for (var p in [
       AnalyticsCategory.plugins,
       AuthCategory.plugins,
       APICategory.plugins,
       DataStoreCategory.plugins,
       StorageCategory.plugins,
-    ].forEach((p) => p.clear());
+    ]) {
+      p.clear();
+    }
   }
 
   group('Configuration', () {
@@ -272,5 +269,5 @@ void main() {
         await expectLater(Amplify.configure(amplifyconfig), completes);
       });
     });
-  });
+  }, skip: Platform.isAndroid);
 }

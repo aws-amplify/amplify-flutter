@@ -29,7 +29,7 @@ class DataStoreCategory {
   /// Add DataStore plugin
   Future<void> addPlugin(DataStorePluginInterface plugin) async {
     // TODO: Discuss and support multiple plugins
-    if (plugins.length == 0) {
+    if (plugins.isEmpty) {
       try {
         // Extra step to configure datastore specifically.
         // Note: The native datastore plugins are not added
@@ -43,7 +43,7 @@ class DataStoreCategory {
       }
     } else {
       throw AmplifyException(
-          "DataStore plugin has already been added, multiple plugins for DataStore category are currently not supported.");
+          'DataStore plugin has already been added, multiple plugins for DataStore category are currently not supported.');
     }
   }
 
@@ -51,7 +51,7 @@ class DataStoreCategory {
   StreamController get streamController {
     return plugins.length == 1
         ? plugins[0].streamController
-        : throw _pluginNotAddedException("DataStore");
+        : throw _pluginNotAddedException('DataStore');
   }
 
   /// Configure DataStore
@@ -70,21 +70,21 @@ class DataStoreCategory {
     return plugins.length == 1
         ? plugins[0].query(modelType,
             where: where, pagination: pagination, sortBy: sortBy)
-        : throw _pluginNotAddedException("DataStore");
+        : throw _pluginNotAddedException('DataStore');
   }
 
   /// Delete [model] from the DataStore.
   Future<void> delete<T extends Model>(T model) {
     return plugins.length == 1
         ? plugins[0].delete(model)
-        : throw _pluginNotAddedException("DataStore");
+        : throw _pluginNotAddedException('DataStore');
   }
 
   /// Save [model] into the DataStore.
   Future<void> save<T extends Model>(T model) {
     return plugins.length == 1
         ? plugins[0].save(model)
-        : throw _pluginNotAddedException("DataStore");
+        : throw _pluginNotAddedException('DataStore');
   }
 
   /// Observe changes on the specified [modelType].
@@ -92,7 +92,7 @@ class DataStoreCategory {
       ModelType<T> modelType) {
     return plugins.length == 1
         ? plugins[0].observe(modelType)
-        : throw _pluginNotAddedException("DataStore");
+        : throw _pluginNotAddedException('DataStore');
   }
 
   /// Stops the underlying DataStore, resetting the plugin to the initialized state, and deletes all data
@@ -101,7 +101,7 @@ class DataStoreCategory {
   Future<void> clear() {
     return plugins.length == 1
         ? plugins[0].clear()
-        : throw _pluginNotAddedException("DataStore");
+        : throw _pluginNotAddedException('DataStore');
   }
 
   /// Starts the DataStore's synchronization with a remote system, if DataStore is configured to support
@@ -111,7 +111,7 @@ class DataStoreCategory {
   Future<void> start() {
     return plugins.length == 1
         ? plugins[0].start()
-        : throw _pluginNotAddedException("DataStore");
+        : throw _pluginNotAddedException('DataStore');
   }
 
   /// Stops the underlying DataStore's synchronization with a remote system, if DataStore is configured to
@@ -119,7 +119,7 @@ class DataStoreCategory {
   Future<void> stop() {
     return plugins.length == 1
         ? plugins[0].stop()
-        : throw _pluginNotAddedException("DataStore");
+        : throw _pluginNotAddedException('DataStore');
   }
 
   /// Observe the result set of a given Query

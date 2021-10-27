@@ -21,7 +21,7 @@ class MockModel extends Model {
   ModelType<Model> getInstanceType() => const MockModelType();
 
   @override
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'id': id,
       };
 }

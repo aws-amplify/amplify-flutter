@@ -22,7 +22,7 @@ class AnalyticsCategory {
 
   Future<void> addPlugin(AnalyticsPluginInterface plugin) async {
     //TODO: Allow for multiple plugins to work simultaneously
-    if (plugins.length == 0) {
+    if (plugins.isEmpty) {
       try {
         await plugin.addPlugin();
         plugins.add(plugin);
@@ -32,21 +32,20 @@ class AnalyticsCategory {
         throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       }
     } else {
-      throw AmplifyException("Analytics plugin has already been added, " +
-          "multiple plugins for Analytics category are currently not supported.");
+      throw AmplifyException('Analytics plugin has already been added, ' 'multiple plugins for Analytics category are currently not supported.');
     }
   }
 
   Future<void> recordEvent({required AnalyticsEvent event}) async {
     return plugins.length == 1
         ? plugins[0].recordEvent(event: event)
-        : throw _pluginNotAddedException("Analytics");
+        : throw _pluginNotAddedException('Analytics');
   }
 
   Future<void> flushEvents() async {
     return plugins.length == 1
         ? plugins[0].flushEvents()
-        : throw _pluginNotAddedException("Analytics");
+        : throw _pluginNotAddedException('Analytics');
   }
 
   Future<void> registerGlobalProperties(
@@ -54,26 +53,26 @@ class AnalyticsCategory {
     return plugins.length == 1
         ? plugins[0]
             .registerGlobalProperties(globalProperties: globalProperties)
-        : throw _pluginNotAddedException("Analytics");
+        : throw _pluginNotAddedException('Analytics');
   }
 
   Future<void> unregisterGlobalProperties(
       {List<String> propertyNames = const <String>[]}) async {
     return plugins.length == 1
         ? plugins[0].unregisterGlobalProperties(propertyNames: propertyNames)
-        : throw _pluginNotAddedException("Analytics");
+        : throw _pluginNotAddedException('Analytics');
   }
 
   Future<void> enable() async {
     return plugins.length == 1
         ? plugins[0].enable()
-        : throw _pluginNotAddedException("Analytics");
+        : throw _pluginNotAddedException('Analytics');
   }
 
   Future<void> disable() async {
     return plugins.length == 1
         ? plugins[0].disable()
-        : throw _pluginNotAddedException("Analytics");
+        : throw _pluginNotAddedException('Analytics');
   }
 
   Future<void> identifyUser(
@@ -81,6 +80,6 @@ class AnalyticsCategory {
       required AnalyticsUserProfile userProfile}) async {
     return plugins.length == 1
         ? plugins[0].identifyUser(userId: userId, userProfile: userProfile)
-        : throw _pluginNotAddedException("Analytics");
+        : throw _pluginNotAddedException('Analytics');
   }
 }

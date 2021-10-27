@@ -14,7 +14,7 @@
  */
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:amplify_core/types/hub/HubEventPayload.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'HubEventElement.dart';
 
 class OutboxMutationEvent extends HubEventPayload {

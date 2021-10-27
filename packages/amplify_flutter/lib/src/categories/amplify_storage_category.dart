@@ -23,7 +23,7 @@ class StorageCategory {
   /// `Add plugin` method
   Future<void> addPlugin(StoragePluginInterface plugin) async {
     //TODO: Allow for multiple plugins to work simultaneously
-    if (plugins.length == 0) {
+    if (plugins.isEmpty) {
       try {
         await plugin.addPlugin();
         plugins.add(plugin);
@@ -33,8 +33,7 @@ class StorageCategory {
         throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       }
     } else {
-      throw AmplifyException("Storage plugin has already been added, " +
-          "multiple plugins for Storage category are currently not supported.");
+      throw AmplifyException('Storage plugin has already been added, ' 'multiple plugins for Storage category are currently not supported.');
     }
   }
 

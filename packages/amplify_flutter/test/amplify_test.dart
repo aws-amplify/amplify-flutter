@@ -17,12 +17,12 @@ import 'dart:convert';
 
 import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_flutter/src/categories/amplify_categories.dart';
-import 'package:amplify_core/types/index.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_flutter/src/amplify_impl.dart';
+import 'package:amplify_flutter/src/categories/amplify_categories.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('com.amazonaws.amplify/amplify');
@@ -34,7 +34,7 @@ void main() {
 
   // Test data
   String invalidConfiguration = 'How dare you call me invalid';
-  String validJsonConfiguration = '{ \"happy\": \"validConfiguration\"}';
+  String validJsonConfiguration = '{ "happy": "validConfiguration"}';
 
   const amplifyAlreadyConfiguredException = AmplifyAlreadyConfiguredException(
       'Amplify has already been configured and re-configuration is not supported.',
@@ -51,16 +51,16 @@ void main() {
       'Amplify plugin AmplifyAuthCognito was not added successfully.',
       recoverySuggestion:
           "We currently don't have a recovery suggestion for this exception.",
-      underlyingException: AmplifyException(
-              'Auth plugin has already been added, multiple ' +
+      underlyingException:
+          AmplifyException('Auth plugin has already been added, multiple '
                   'plugins for Auth category are currently not supported.')
-          .toString());
+              .toString());
 
   const nullConfigurationException = AmplifyException(
       'Configuration passed in null.',
       recoverySuggestion:
-          'Make sure that your amplifyconfiguration.dart file exists and has ' +
-              'string constant ``amplifyconfig` and that you are calling configure() correctly.');
+          'Make sure that your amplifyconfiguration.dart file exists and has '
+          'string constant ``amplifyconfig` and that you are calling configure() correctly.');
 
   const pluginNotAddedException = AmplifyException(
       'Auth plugin has not been added to Amplify',
@@ -93,7 +93,7 @@ void main() {
     });
     // We want to instantiate a new instance for each test so we start
     // with a fresh state as `Amplify` singleton holds a state.
-    amplify = new AmplifyClass.protected();
+    amplify = AmplifyClass.protected();
 
     // We only use Auth and Analytics category for testing this class.
     // Clear out their plugins before each test for a fresh state.
@@ -131,7 +131,7 @@ void main() {
   test(
       'configure should result in AmplifyException when invalid value is passed',
       () async {
-    FormatException? formatException = null;
+    FormatException? formatException;
     // Setup the expected exception
     try {
       jsonDecode(invalidConfiguration);
@@ -148,7 +148,7 @@ void main() {
         underlyingException: formatException.toString());
     amplify
         .configure(invalidConfiguration)
-        .catchError((e) => expect(e, invalidConfigurationException));
+        .catchError((Object e) => expect(e, invalidConfigurationException));
     expect(amplify.isConfigured, false);
   });
 

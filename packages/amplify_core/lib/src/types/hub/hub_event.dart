@@ -13,4 +13,11 @@
  * permissions and limitations under the License.
  */
 
-export 'get_json_from_file.dart';
+import 'hub_event_payload.dart';
+
+abstract class HubEvent {
+  final String eventName;
+  final HubEventPayload? payload;
+
+  const HubEvent(this.eventName, {this.payload});
+}

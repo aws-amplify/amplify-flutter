@@ -13,6 +13,9 @@ scripts:
     melos exec --scope="*example*,sample_app" -- \
       cp -n "\$MELOS_ROOT_PATH"/.circleci/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart | true
 
+  # copy_lint_config: >
+  #   melos exec --scope=""
+
   build:examples:ios: >
     melos exec -c 1 --scope="*example*,sample_app" --fail-fast -- \
       flutter build ios --simulator
@@ -98,6 +101,7 @@ scripts:
       scope:
         - amplify_analytics_*
         - amplify_api*
+        - amplify_flutter*
 
   lint:ios:
     run: |
@@ -111,6 +115,7 @@ scripts:
       scope:
         - amplify_analytics_pinpoint_example
         - amplify_api_example
+        - amplify_flutter_example
 
   lint:android:
     run: |
@@ -122,6 +127,7 @@ scripts:
       scope:
         - amplify_analytics_pinpoint_example
         - amplify_api_example
+        - amplify_flutter_example
 
   lint:pub: >
     melos exec -c 5 --fail-fast --no-private --ignore="*example*" -- \

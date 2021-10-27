@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import './AmplifyException.dart';
+import 'amplify_exception.dart';
 
 /// Thrown when amplify has already been configured.
 /// Amplify can only be configured once at run time.

@@ -15,6 +15,7 @@
 
 import 'dart:async';
 
+import 'package:amplify_datastore/types/DataStoreHubEvents/DataStoreHubEvent.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:meta/meta.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
@@ -64,7 +65,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
     _instance = instance as AmplifyDataStore;
   }
 
-  StreamController get streamController {
+  StreamController<DataStoreHubEvent> get streamController {
     return streamWrapper.datastoreStreamController;
   }
 

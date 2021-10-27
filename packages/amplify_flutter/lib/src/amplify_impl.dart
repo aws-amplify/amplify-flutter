@@ -1,16 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:amplify_analytics_plugin_interface/amplify_analytics_plugin_interface.dart';
+import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
+import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
+import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-
-import 'package:amplify_core/types/index.dart';
-import 'package:amplify_storage_plugin_interface/amplify_storage_plugin_interface.dart';
-import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
-import 'package:amplify_analytics_plugin_interface/amplify_analytics_plugin_interface.dart';
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 
 import 'amplify_hub.dart';
 import 'categories/amplify_categories.dart';
@@ -45,10 +44,11 @@ class AmplifyClass extends PlatformInterface {
   /// this method is called after configure (e.g. during hot reload).
   Future<void> addPlugin(AmplifyPluginInterface plugin) async {
     if (_isConfigured) {
-      throw AmplifyAlreadyConfiguredException(
-          'Amplify has already been configured and adding plugins after configure is not supported.',
-          recoverySuggestion:
-              'Check if Amplify is already configured using Amplify.isConfigured.');
+      throw const AmplifyAlreadyConfiguredException(
+        'Amplify has already been configured and adding plugins after configure is not supported.',
+        recoverySuggestion:
+            'Check if Amplify is already configured using Amplify.isConfigured.',
+      );
     }
     try {
       if (plugin is AuthPluginInterface) {
@@ -94,7 +94,7 @@ class AmplifyClass extends PlatformInterface {
   /// be called before Amplify has been configured. Customers are expected
   /// to check the configuration state by calling `Amplify.isConfigured`
   Future<void> addPlugins(List<AmplifyPluginInterface> plugins) =>
-      Future.wait(plugins.map((plugin) => addPlugin(plugin)));
+      Future.wait(plugins.map(addPlugin));
 
   /// Returns whether Amplify has been configured or not.
   bool get isConfigured {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,11 +13,16 @@
  * permissions and limitations under the License.
  */
 
-import 'HubEventPayload.dart';
+import 'dart:convert';
+import 'dart:io';
 
-class HubEvent {
-  String eventName;
-  HubEventPayload? payload;
-
-  HubEvent(String this.eventName, {HubEventPayload? this.payload});
+dynamic getJsonFromFile(String path) async {
+  path = 'resources/' + path;
+  String jsonString = '';
+  try {
+    jsonString = await File(path).readAsString();
+  } catch (e) {
+    jsonString = await File('test/' + path).readAsString();
+  }
+  return jsonDecode(jsonString);
 }

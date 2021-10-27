@@ -21,12 +21,13 @@ part of amplify_interface;
 /// to those plugins.
 class AuthCategory {
   const AuthCategory();
+
   static List<AuthPluginInterface> plugins = [];
 
   /// `Add plugin` method
   Future<void> addPlugin(AuthPluginInterface plugin) async {
     //TODO: Allow for multiple plugins to work simultaneously
-    if (plugins.length == 0) {
+    if (plugins.isEmpty) {
       try {
         await plugin.addPlugin();
         plugins.add(plugin);
@@ -36,37 +37,43 @@ class AuthCategory {
         throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       }
     } else {
-      throw AmplifyException("Auth plugin has already been added, " +
-          "multiple plugins for Auth category are currently not supported.");
+      throw const AmplifyException(
+        'Auth plugin has already been added, '
+        'multiple plugins for Auth category are currently not supported.',
+      );
     }
   }
 
   StreamController get streamController {
     return plugins.length == 1
         ? plugins[0].streamController
-        : throw _pluginNotAddedException("Auth");
+        : throw _pluginNotAddedException('Auth');
   }
 
-  Future<SignUpResult> signUp(
-      {required String username, required password, SignUpOptions? options}) {
+  Future<SignUpResult> signUp({
+    required String username,
+    required String password,
+    SignUpOptions? options,
+  }) {
     var request =
         SignUpRequest(username: username, password: password, options: options);
     return plugins.length == 1
         ? plugins[0].signUp(request: request)
-        : throw _pluginNotAddedException("Auth");
+        : throw _pluginNotAddedException('Auth');
   }
 
-  Future<SignUpResult> confirmSignUp(
-      {required String username,
-      required String confirmationCode,
-      ConfirmSignUpOptions? options}) {
+  Future<SignUpResult> confirmSignUp({
+    required String username,
+    required String confirmationCode,
+    ConfirmSignUpOptions? options,
+  }) {
     var request = ConfirmSignUpRequest(
         username: username,
         confirmationCode: confirmationCode,
         options: options);
     return plugins.length == 1
         ? plugins[0].confirmSignUp(request: request)
-        : throw _pluginNotAddedException("Auth");
+        : throw _pluginNotAddedException('Auth');
   }
 
   /// Resends the code that is used to confirm the user's account after sign up
@@ -75,43 +82,50 @@ class AuthCategory {
   /// is a login identifier or an email/phone number, depending on the configuration
   ///
   /// Accepts plugin-specific, advanced [options] for the request
-  Future<ResendSignUpCodeResult> resendSignUpCode(
-      {required String username, ResendSignUpCodeOptions? options}) {
+  Future<ResendSignUpCodeResult> resendSignUpCode({
+    required String username,
+    ResendSignUpCodeOptions? options,
+  }) {
     var request = ResendSignUpCodeRequest(username: username, options: options);
     return plugins.length == 1
         ? plugins[0].resendSignUpCode(request: request)
-        : throw _pluginNotAddedException("Auth");
+        : throw _pluginNotAddedException('Auth');
   }
 
-  Future<SignInResult> signIn(
-      {required String username,
-      required String password,
-      SignInOptions? options}) {
+  Future<SignInResult> signIn({
+    required String username,
+    required String password,
+    SignInOptions? options,
+  }) {
     var request =
         SignInRequest(username: username, password: password, options: options);
     return plugins.length == 1
         ? plugins[0].signIn(request: request)
-        : throw _pluginNotAddedException("Auth");
+        : throw _pluginNotAddedException('Auth');
   }
 
-  Future<SignInResult> confirmSignIn(
-      {required String confirmationValue, ConfirmSignInOptions? options}) {
+  Future<SignInResult> confirmSignIn({
+    required String confirmationValue,
+    ConfirmSignInOptions? options,
+  }) {
     var request = ConfirmSignInRequest(
         confirmationValue: confirmationValue, options: options);
     return plugins.length == 1
         ? plugins[0].confirmSignIn(request: request)
-        : throw _pluginNotAddedException("Auth");
+        : throw _pluginNotAddedException('Auth');
   }
 
   /// Signs the user out of the current device
   ///
   /// Accepts advanced [options] for the request, which can be used for
   /// global sign out as well as other plugin-specific options
-  Future<SignOutResult> signOut({SignOutOptions? options}) {
+  Future<SignOutResult> signOut({
+    SignOutOptions? options,
+  }) {
     var request = SignOutRequest(options: options);
     return plugins.length == 1
         ? plugins[0].signOut(request: request)
-        : throw _pluginNotAddedException("Auth");
+        : throw _pluginNotAddedException('Auth');
   }
 
   /// Updates the password of the current user.
@@ -119,15 +133,16 @@ class AuthCategory {
   /// There must be a user signed in to perform this action.
   ///
   /// Optionally accepts plugin-specific, advanced [options] for the request.
-  Future<UpdatePasswordResult> updatePassword(
-      {required String oldPassword,
-      required String newPassword,
-      UpdatePasswordOptions? options}) {
+  Future<UpdatePasswordResult> updatePassword({
+    required String oldPassword,
+    required String newPassword,
+    UpdatePasswordOptions? options,
+  }) {
     var request = UpdatePasswordRequest(
         oldPassword: oldPassword, newPassword: newPassword, options: options);
     return plugins.length == 1
         ? plugins[0].updatePassword(request: request)
-        : throw _pluginNotAddedException("Auth");
+        : throw _pluginNotAddedException('Auth');
   }
 
   /// Initiates a password reset for the user with the given username.
@@ -136,12 +151,14 @@ class AuthCategory {
   /// the configuration.
   ///
   /// Optionally accepts plugin-specific, advanced [options] for the request.
-  Future<ResetPasswordResult> resetPassword(
-      {required String username, ResetPasswordOptions? options}) {
+  Future<ResetPasswordResult> resetPassword({
+    required String username,
+    ResetPasswordOptions? options,
+  }) {
     var request = ResetPasswordRequest(username: username, options: options);
     return plugins.length == 1
         ? plugins[0].resetPassword(request: request)
-        : throw _pluginNotAddedException("Auth");
+        : throw _pluginNotAddedException('Auth');
   }
 
   /// Completes the password reset process given a username, new password,
@@ -152,11 +169,12 @@ class AuthCategory {
   ///
   /// Optionally accepts plugin-specific, advanced [options] for the request.
   @Deprecated('Use confirmResetPassword() instead')
-  Future<UpdatePasswordResult> confirmPassword(
-      {required String username,
-      required String newPassword,
-      required String confirmationCode,
-      ConfirmResetPasswordOptions? options}) {
+  Future<UpdatePasswordResult> confirmPassword({
+    required String username,
+    required String newPassword,
+    required String confirmationCode,
+    ConfirmResetPasswordOptions? options,
+  }) {
     var request = ConfirmPasswordRequest(
         username: username,
         newPassword: newPassword,
@@ -164,7 +182,7 @@ class AuthCategory {
         options: options);
     return plugins.length == 1
         ? plugins[0].confirmResetPassword(request: request)
-        : throw _pluginNotAddedException("Auth");
+        : throw _pluginNotAddedException('Auth');
   }
 
   /// Completes the password reset process given a username, new password,
@@ -174,11 +192,12 @@ class AuthCategory {
   /// the configuration.
   ///
   /// Optionally accepts plugin-specific, advanced [options] for the request.
-  Future<UpdatePasswordResult> confirmResetPassword(
-      {required String username,
-      required String newPassword,
-      required String confirmationCode,
-      ConfirmResetPasswordOptions? options}) {
+  Future<UpdatePasswordResult> confirmResetPassword({
+    required String username,
+    required String newPassword,
+    required String confirmationCode,
+    ConfirmResetPasswordOptions? options,
+  }) {
     var request = ConfirmResetPasswordRequest(
         username: username,
         newPassword: newPassword,
@@ -186,37 +205,42 @@ class AuthCategory {
         options: options);
     return plugins.length == 1
         ? plugins[0].confirmResetPassword(request: request)
-        : throw _pluginNotAddedException("Auth");
+        : throw _pluginNotAddedException('Auth');
   }
 
   Future<AuthUser> getCurrentUser() {
     var request = AuthUserRequest();
     return plugins.length == 1
         ? plugins[0].getCurrentUser(request: request)
-        : throw _pluginNotAddedException("Auth");
+        : throw _pluginNotAddedException('Auth');
   }
 
-  Future<List<AuthUserAttribute>> fetchUserAttributes(
-      {FetchUserAttributesOptions? options}) {
+  Future<List<AuthUserAttribute>> fetchUserAttributes({
+    FetchUserAttributesOptions? options,
+  }) {
     var request = FetchUserAttributesRequest(options: options);
     return plugins.length == 1
         ? plugins[0].fetchUserAttributes(request: request)
-        : throw _pluginNotAddedException("Auth");
+        : throw _pluginNotAddedException('Auth');
   }
 
-  Future<AuthSession> fetchAuthSession({AuthSessionOptions? options}) {
+  Future<AuthSession> fetchAuthSession({
+    AuthSessionOptions? options,
+  }) {
     var request = AuthSessionRequest(options: options);
     return plugins.length == 1
         ? plugins[0].fetchAuthSession(request: request)
-        : throw _pluginNotAddedException("Auth");
+        : throw _pluginNotAddedException('Auth');
   }
 
-  Future<SignInResult> signInWithWebUI(
-      {AuthProvider? provider, SignInWithWebUIOptions? options}) {
+  Future<SignInResult> signInWithWebUI({
+    AuthProvider? provider,
+    SignInWithWebUIOptions? options,
+  }) {
     var request = SignInWithWebUIRequest(provider: provider, options: options);
     return plugins.length == 1
         ? plugins[0].signInWithWebUI(request: request)
-        : throw _pluginNotAddedException("Auth");
+        : throw _pluginNotAddedException('Auth');
   }
 
   /// Updates a single user attribute and returns a [UpdateUserAttributeResult]
@@ -234,7 +258,7 @@ class AuthCategory {
     );
     return plugins.length == 1
         ? plugins[0].updateUserAttribute(request: request)
-        : throw _pluginNotAddedException("Auth");
+        : throw _pluginNotAddedException('Auth');
   }
 
   /// Updates multiple user attributes and returns a map of [UpdateUserAttributeResult]
@@ -250,7 +274,7 @@ class AuthCategory {
     );
     return plugins.length == 1
         ? plugins[0].updateUserAttributes(request: request)
-        : throw _pluginNotAddedException("Auth");
+        : throw _pluginNotAddedException('Auth');
   }
 
   /// Confirms a user attribute update and returns a [ConfirmUserAttributeResult]
@@ -262,7 +286,7 @@ class AuthCategory {
         userAttributeKey: userAttributeKey, confirmationCode: confirmationCode);
     return plugins.length == 1
         ? plugins[0].confirmUserAttribute(request: request)
-        : throw _pluginNotAddedException("Auth");
+        : throw _pluginNotAddedException('Auth');
   }
 
   /// Resends a confirmation code for the given attribute and returns a [ResendUserAttributeConfirmationCodeResult]
@@ -279,27 +303,27 @@ class AuthCategory {
     );
     return plugins.length == 1
         ? plugins[0].resendUserAttributeConfirmationCode(request: request)
-        : throw _pluginNotAddedException("Auth");
+        : throw _pluginNotAddedException('Auth');
   }
 
   /// Remembers the current device.
   Future<void> rememberDevice() {
     return plugins.length == 1
         ? plugins[0].rememberDevice()
-        : throw _pluginNotAddedException("Auth");
+        : throw _pluginNotAddedException('Auth');
   }
 
   /// Forgets [device], or the current device, if no parameters are given.
   Future<void> forgetDevice([AuthDevice? device]) {
     return plugins.length == 1
         ? plugins[0].forgetDevice(device)
-        : throw _pluginNotAddedException("Auth");
+        : throw _pluginNotAddedException('Auth');
   }
 
   /// Retrieves all tracked devices for the current user.
   Future<List<AuthDevice>> fetchDevices() {
     return plugins.length == 1
         ? plugins[0].fetchDevices()
-        : throw _pluginNotAddedException("Auth");
+        : throw _pluginNotAddedException('Auth');
   }
 }

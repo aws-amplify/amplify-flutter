@@ -32,22 +32,22 @@ class AmplifyException implements Exception {
   /// Instantiates and return a new `AmplifyException` from the
   /// serialized exception data
   static AmplifyException fromMap(Map<String, String> serializedException) {
-    if (serializedException["message"] == null) {
-      throw new FormatException(
-        "Cannot create AmplifyException from map.  Message field is missing",
+    if (serializedException['message'] == null) {
+      throw FormatException(
+        'Cannot create AmplifyException from map.  Message field is missing',
       );
     }
 
     return AmplifyException(
-      serializedException["message"]!,
-      recoverySuggestion: serializedException["recoverySuggestion"] ?? null,
-      underlyingException: serializedException["underlyingException"] ?? null,
+      serializedException['message']!,
+      recoverySuggestion: serializedException['recoverySuggestion'],
+      underlyingException: serializedException['underlyingException'],
     );
   }
 
   @override
   String toString() =>
-      this.runtimeType.toString() +
+      runtimeType.toString() +
       '(message: $message, ' +
       'recoverySuggestion: $recoverySuggestion, ' +
       'underlyingException: $underlyingException)';

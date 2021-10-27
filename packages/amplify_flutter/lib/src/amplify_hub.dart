@@ -15,49 +15,50 @@
 
 import 'dart:async';
 
-import 'package:amplify_core/types/index.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 import '../amplify.dart';
 
-typedef void Listener(dynamic event);
+typedef Listener = void Function(HubEvent event);
 
 class AmplifyHub {
-  final Map<HubChannel, Stream> availableStreams = {};
+  final Map<HubChannel, Stream<HubEvent>> availableStreams = {};
 
   /// Expose listen method which instantiates new StreamController listening to one or more availableStreams
-  StreamSubscription listen(List<HubChannel> channels, Listener listener) {
-    List<StreamSubscription> platformSubscriptions = [];
-    late StreamController controller;
+  StreamSubscription<HubEvent> listen(
+    List<HubChannel> channels,
+    Listener listener,
+  ) {
+    final List<StreamSubscription> platformSubscriptions = [];
 
-    cancelPluginStreams() {
-      platformSubscriptions.forEach((ps) {
+    void cancelPluginStreams() {
+      for (var ps in platformSubscriptions) {
         ps.cancel();
-      });
+      }
     }
 
-    controller = StreamController.broadcast(
-        onListen: () {
-          channels.forEach((c) {
-            if (availableStreams[c] != null) {
-              StreamSubscription subscription =
-                  availableStreams[c]!.listen((msg) {
-                /// Emit events via Hub
-                controller.add(msg);
-              });
-              platformSubscriptions.add(subscription);
-            } else {
-              print(
-                  'You are attempting to listen to a plugin that has not been added.');
-            }
-          });
-        },
-        onCancel: cancelPluginStreams);
+    late final StreamController<HubEvent> controller;
+    controller = StreamController<HubEvent>.broadcast(
+      onListen: () {
+        for (var c in channels) {
+          var stream = availableStreams[c];
+          if (stream != null) {
+            StreamSubscription subscription = stream.listen(controller.add);
+            platformSubscriptions.add(subscription);
+          } else {
+            safePrint(
+                'You are attempting to listen to a plugin that has not been added.');
+          }
+        }
+      },
+      onCancel: cancelPluginStreams,
+    );
 
     return controller.stream.listen(listener);
   }
 
   /// Adds Plugin level streams in preparation for 'listen'
-  void addChannel(HubChannel name, StreamController controller) async {
+  void addChannel(HubChannel name, StreamController<HubEvent> controller) {
     availableStreams[name] = controller.stream;
   }
 }

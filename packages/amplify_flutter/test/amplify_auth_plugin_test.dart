@@ -14,12 +14,12 @@
  */
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_flutter/src/categories/amplify_categories.dart';
-import 'package:amplify_core/types/index.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_flutter/src/amplify_impl.dart';
+import 'package:amplify_flutter/src/categories/amplify_categories.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('com.amazonaws.amplify/amplify');
@@ -38,11 +38,11 @@ void main() {
       return true;
     });
     authChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "addPlugin") {
+      if (methodCall.method == 'addPlugin') {
         if (!platformError) {
           return true;
         } else {
-          throw PlatformException(code: "AmplifyAlreadyConfiguredException");
+          throw PlatformException(code: 'AmplifyAlreadyConfiguredException');
         }
       } else {
         return true;
@@ -50,7 +50,7 @@ void main() {
     });
     // We want to instantiate a new instance for each test so we start
     // with a fresh state as `Amplify` singleton holds a state.
-    amplify = new AmplifyClass.protected();
+    amplify = AmplifyClass.protected();
 
     // Clear out plugins before each test for a fresh state.
     AuthCategory.plugins.clear();
@@ -68,7 +68,7 @@ void main() {
     try {
       await Amplify.addPlugin(AmplifyAuthCognito());
     } catch (e) {
-      fail("exception was thrown");
+      fail('exception was thrown');
     }
   });
 
@@ -84,7 +84,7 @@ void main() {
     try {
       await Amplify.addPlugin(AmplifyAuthCognito());
       await Amplify.addPlugin(AmplifyAuthCognito());
-      fail("exception not thrown");
+      fail('exception not thrown');
     } on AmplifyException catch (e) {
       expect(e.message,
           'Amplify plugin AmplifyAuthCognito was not added successfully.');

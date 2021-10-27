@@ -22,7 +22,7 @@ class APICategory {
 
   Future<void> addPlugin(APIPluginInterface plugin) async {
     //TODO: Allow for multiple plugins to work simultaneously
-    if (plugins.length == 0) {
+    if (plugins.isEmpty) {
       try {
         await plugin.addPlugin();
         plugins.add(plugin);
@@ -32,8 +32,8 @@ class APICategory {
         throw AmplifyException.fromMap(Map<String, String>.from(e.details));
       }
     } else {
-      throw AmplifyException("API plugin has already been added, " +
-          "multiple plugins for API category are currently not supported.");
+      throw AmplifyException('API plugin has already been added, '
+          'multiple plugins for API category are currently not supported.');
     }
   }
 
@@ -41,13 +41,13 @@ class APICategory {
   GraphQLOperation<T> query<T>({required GraphQLRequest<T> request}) {
     return plugins.length == 1
         ? plugins[0].query(request: request)
-        : throw _pluginNotAddedException("Api");
+        : throw _pluginNotAddedException('Api');
   }
 
   GraphQLOperation<T> mutate<T>({required GraphQLRequest<T> request}) {
     return plugins.length == 1
         ? plugins[0].mutate(request: request)
-        : throw _pluginNotAddedException("Api");
+        : throw _pluginNotAddedException('Api');
   }
 
   /// Subscribes to the given [request] and returns the stream of response events.
@@ -69,42 +69,42 @@ class APICategory {
   void cancelRequest(String cancelToken) {
     return plugins.length == 1
         ? plugins[0].cancelRequest(cancelToken)
-        : throw _pluginNotAddedException("Api");
+        : throw _pluginNotAddedException('Api');
   }
 
   RestOperation get({required RestOptions restOptions}) {
     return plugins.length == 1
         ? plugins[0].get(restOptions: restOptions)
-        : throw _pluginNotAddedException("Api");
+        : throw _pluginNotAddedException('Api');
   }
 
   RestOperation put({required RestOptions restOptions}) {
     return plugins.length == 1
         ? plugins[0].put(restOptions: restOptions)
-        : throw _pluginNotAddedException("Api");
+        : throw _pluginNotAddedException('Api');
   }
 
   RestOperation post({required RestOptions restOptions}) {
     return plugins.length == 1
         ? plugins[0].post(restOptions: restOptions)
-        : throw _pluginNotAddedException("Api");
+        : throw _pluginNotAddedException('Api');
   }
 
   RestOperation delete({required RestOptions restOptions}) {
     return plugins.length == 1
         ? plugins[0].delete(restOptions: restOptions)
-        : throw _pluginNotAddedException("Api");
+        : throw _pluginNotAddedException('Api');
   }
 
   RestOperation head({required RestOptions restOptions}) {
     return plugins.length == 1
         ? plugins[0].head(restOptions: restOptions)
-        : throw _pluginNotAddedException("Api");
+        : throw _pluginNotAddedException('Api');
   }
 
   RestOperation patch({required RestOptions restOptions}) {
     return plugins.length == 1
         ? plugins[0].patch(restOptions: restOptions)
-        : throw _pluginNotAddedException("Api");
+        : throw _pluginNotAddedException('Api');
   }
 }

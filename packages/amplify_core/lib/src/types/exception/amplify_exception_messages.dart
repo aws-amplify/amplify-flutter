@@ -18,8 +18,8 @@
 /// Commonly used cross-category error messages.
 class AmplifyExceptionMessages {
   static const _createGithubIssueString = """
-          Please take a look at \
-        https://github.com/aws-amplify/amplify-flutter/issues to see if there are any existing issues that \
+          Please take a look at 
+        https://github.com/aws-amplify/amplify-flutter/issues to see if there are any existing issues that 
         match your scenario, and file an issue with the details of the bug if there isn't.
   """;
 
