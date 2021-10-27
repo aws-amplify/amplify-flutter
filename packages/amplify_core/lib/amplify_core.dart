@@ -30,3 +30,4 @@ export 'src/types/plugin/amplify_plugin_interface.dart';
 
 // Util
 export 'src/util/print.dart';
+export 'src/util/uuid.dart';
