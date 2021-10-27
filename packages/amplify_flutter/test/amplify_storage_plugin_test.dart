@@ -14,7 +14,7 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_flutter/src/amplify_impl.dart';
 import 'package:amplify_flutter/src/categories/amplify_categories.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
