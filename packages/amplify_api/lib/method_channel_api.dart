@@ -249,9 +249,6 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     inputsMap['restOptions'] = restOptions.serializeAsMap();
     inputsMap['cancelToken'] = cancelToken;
 
-    // Refresh auth tokens
-    await _authProviderRefresher();
-
     // Attempt switch to proper async
     try {
       final Map<String, dynamic>? data = (await (_channel
