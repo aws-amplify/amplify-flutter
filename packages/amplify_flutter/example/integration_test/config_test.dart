@@ -8,7 +8,7 @@ import 'package:amplify_flutter/amplify.dart' hide Amplify;
 import 'package:amplify_flutter/src/amplify_impl.dart';
 import 'package:amplify_flutter/src/categories/amplify_categories.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
-import 'package:flutter/services.dart';
+import 'package:amplify_test_flutter/amplify_test_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
@@ -132,7 +132,6 @@ const amplifyconfig = ''' {
     }
 }''';
 
-const integTestChannel = MethodChannel('integration_tests');
 final throwsAlreadyConfigured =
     throwsA(isA<AmplifyAlreadyConfiguredException>());
 final throwsAmplifyException = throwsA(isA<AmplifyException>());
@@ -152,8 +151,8 @@ void main() {
   ];
 
   /// Calls `Amplify.reset` on the native library
-  Future<void> resetAmplify() async {
-    await integTestChannel.invokeMethod<void>('reset');
+  Future<void> resetAmplify() {
+    return AmplifyTestFlutter.reset();
   }
 
   /// Simulates a hot reload
@@ -173,104 +172,111 @@ void main() {
     }
   }
 
-  group('Configuration', () {
-    setUp(() async {
-      await resetAmplify();
-      hotRestart();
-    });
-
-    testWidgets('multiple configure calls throws', (WidgetTester tester) async {
-      await expectLater(Amplify.configure(amplifyconfig), completes);
-      expect(Amplify.isConfigured, isTrue);
-
-      await expectLater(
-        Amplify.configure(amplifyconfig),
-        throwsAlreadyConfigured,
-      );
-    });
-
-    testWidgets('hot reload persists all state', (WidgetTester tester) async {
-      await expectLater(Amplify.configure(amplifyconfig), completes);
-      expect(Amplify.isConfigured, isTrue);
-
-      hotReload();
-
-      expect(Amplify.isConfigured, isTrue);
-      await expectLater(
-        Amplify.configure(amplifyconfig),
-        throwsAlreadyConfigured,
-      );
-    });
-
-    testWidgets('hot restart persists native state',
-        (WidgetTester tester) async {
-      await expectLater(Amplify.configure(amplifyconfig), completes);
-      expect(Amplify.isConfigured, isTrue);
-
-      hotRestart();
-
-      expect(Amplify.isConfigured, isFalse);
-      await expectLater(Amplify.configure(amplifyconfig), completes);
-      expect(Amplify.isConfigured, isTrue);
-    });
-
-    testWidgets('adding plugins throws after configuration',
-        (WidgetTester tester) async {
-      await expectLater(Amplify.addPlugin(AmplifyAPI()), completes);
-      await expectLater(Amplify.configure(amplifyconfig), completes);
-      expect(Amplify.isConfigured, isTrue);
-
-      await expectLater(
-        Amplify.addPlugin(AmplifyAPI()),
-        throwsAlreadyConfigured,
-      );
-    });
-
-    testWidgets('adding plugins does not throw after hot restart',
-        (WidgetTester tester) async {
-      await expectLater(Amplify.addPlugin(AmplifyAPI()), completes);
-      await expectLater(Amplify.configure(amplifyconfig), completes);
-      expect(Amplify.isConfigured, isTrue);
-
-      hotRestart();
-
-      expect(Amplify.isConfigured, isFalse);
-      await expectLater(Amplify.addPlugin(AmplifyAPI()), completes);
-      await expectLater(Amplify.configure(amplifyconfig), completes);
-      expect(Amplify.isConfigured, isTrue);
-    });
-
-    testWidgets('extra DataStore call does not cause Exception',
-        (WidgetTester tester) async {
-      for (var plugin in allPlugins) {
-        await expectLater(Amplify.addPlugin(plugin), completes);
-      }
-      await expectLater(Amplify.configure(amplifyconfig), completes);
-      expect(Amplify.isConfigured, isTrue);
-
-      hotRestart();
-
-      expect(Amplify.isConfigured, isFalse);
-      for (var plugin in allPlugins) {
-        await expectLater(Amplify.addPlugin(plugin), completes);
-      }
-      await expectLater(Amplify.configure(amplifyconfig), completes);
-      expect(Amplify.isConfigured, isTrue);
-    });
-
-    group('plugin addition order does not matter', () {
-      testWidgets('', (WidgetTester tester) async {
-        await expectLater(Amplify.addPlugins(allPlugins), completes);
-        await expectLater(Amplify.configure(amplifyconfig), completes);
+  group(
+    'Configuration',
+    () {
+      setUp(() async {
+        await resetAmplify();
+        hotRestart();
       });
 
-      testWidgets(' (reversed)', (WidgetTester tester) async {
+      testWidgets('multiple configure calls throws',
+          (WidgetTester tester) async {
+        await expectLater(Amplify.configure(amplifyconfig), completes);
+        expect(Amplify.isConfigured, isTrue);
+
         await expectLater(
-          Amplify.addPlugins(allPlugins.reversed.toList()),
-          completes,
+          Amplify.configure(amplifyconfig),
+          throwsAlreadyConfigured,
         );
-        await expectLater(Amplify.configure(amplifyconfig), completes);
       });
-    });
-  });
+
+      testWidgets('hot reload persists all state', (WidgetTester tester) async {
+        await expectLater(Amplify.configure(amplifyconfig), completes);
+        expect(Amplify.isConfigured, isTrue);
+
+        hotReload();
+
+        expect(Amplify.isConfigured, isTrue);
+        await expectLater(
+          Amplify.configure(amplifyconfig),
+          throwsAlreadyConfigured,
+        );
+      });
+
+      testWidgets('hot restart persists native state',
+          (WidgetTester tester) async {
+        await expectLater(Amplify.configure(amplifyconfig), completes);
+        expect(Amplify.isConfigured, isTrue);
+
+        hotRestart();
+
+        expect(Amplify.isConfigured, isFalse);
+        await expectLater(Amplify.configure(amplifyconfig), completes);
+        expect(Amplify.isConfigured, isTrue);
+      });
+
+      testWidgets('adding plugins throws after configuration',
+          (WidgetTester tester) async {
+        await expectLater(Amplify.addPlugin(AmplifyAPI()), completes);
+        await expectLater(Amplify.configure(amplifyconfig), completes);
+        expect(Amplify.isConfigured, isTrue);
+
+        await expectLater(
+          Amplify.addPlugin(AmplifyAPI()),
+          throwsAlreadyConfigured,
+        );
+      });
+
+      testWidgets('adding plugins does not throw after hot restart',
+          (WidgetTester tester) async {
+        await expectLater(Amplify.addPlugin(AmplifyAPI()), completes);
+        await expectLater(Amplify.configure(amplifyconfig), completes);
+        expect(Amplify.isConfigured, isTrue);
+
+        hotRestart();
+
+        expect(Amplify.isConfigured, isFalse);
+        await expectLater(Amplify.addPlugin(AmplifyAPI()), completes);
+        await expectLater(Amplify.configure(amplifyconfig), completes);
+        expect(Amplify.isConfigured, isTrue);
+      });
+
+      testWidgets('extra DataStore call does not cause Exception',
+          (WidgetTester tester) async {
+        for (var plugin in allPlugins) {
+          await expectLater(Amplify.addPlugin(plugin), completes);
+        }
+        await expectLater(Amplify.configure(amplifyconfig), completes);
+        expect(Amplify.isConfigured, isTrue);
+
+        hotRestart();
+
+        expect(Amplify.isConfigured, isFalse);
+        for (var plugin in allPlugins) {
+          await expectLater(Amplify.addPlugin(plugin), completes);
+        }
+        await expectLater(Amplify.configure(amplifyconfig), completes);
+        expect(Amplify.isConfigured, isTrue);
+      });
+
+      group('plugin addition order does not matter', () {
+        testWidgets('', (WidgetTester tester) async {
+          await expectLater(Amplify.addPlugins(allPlugins), completes);
+          await expectLater(Amplify.configure(amplifyconfig), completes);
+        });
+
+        testWidgets(' (reversed)', (WidgetTester tester) async {
+          await expectLater(
+            Amplify.addPlugins(allPlugins.reversed.toList()),
+            completes,
+          );
+          await expectLater(Amplify.configure(amplifyconfig), completes);
+        });
+      });
+    },
+
+    // Amplify.reset is not available on Android
+    skip: Platform.isAndroid,
+  );
 }

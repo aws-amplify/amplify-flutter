@@ -21,13 +21,14 @@ dependencies:
     sdk: flutter
 
 dev_dependencies:
+  amplify_analytics_pinpoint: ^0.2.4
   amplify_api: ^0.2.4
   amplify_auth_cognito: ^0.2.4
   amplify_datastore: ^0.2.4
-  amplify_storage_s3: ^0.2.4
-  amplify_analytics_pinpoint: ^0.2.4
   amplify_lints: ^1.0.0
+  amplify_storage_s3: ^0.2.4
   amplify_test: any
+  amplify_test_flutter: any
   flutter_test:
     sdk: flutter
   integration_test:

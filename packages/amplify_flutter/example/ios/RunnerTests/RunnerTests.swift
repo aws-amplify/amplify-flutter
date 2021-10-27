@@ -13,42 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import Foundation
-@testable import Amplify
-import XCTest
-import Flutter
-import integration_test
+import amplify_test_flutter
 
-extension String: Error {}
-
-class RunnerTests: XCTestCase {
-    override func setUpWithError() throws {
-        let rootViewController: UIViewController = (UIApplication.shared.delegate!.window!!.rootViewController!)
-        guard let flutterViewController = rootViewController as? FlutterViewController else {
-            throw "expected FlutterViewController as rootViewController."
-        }
-        guard let binaryMessenger = flutterViewController.engine?.binaryMessenger else {
-            throw "No engine for Flutter view."
-        }
-        let channel = FlutterMethodChannel(name: "integration_tests", binaryMessenger: binaryMessenger)
-        channel.setMethodCallHandler(self.handleMethodCall)
-    }
-    
-    private func handleMethodCall(call: FlutterMethodCall, result: FlutterResult) {
-        switch call.method {
-        case "reset":
-            Amplify.reset()
-            print("Amplify reset")
-            result(nil)
-        default:
-            result(FlutterMethodNotImplemented)
-        }
-    }
-    
-    func testIntegrationTest() {
-        var testResult: NSString?
-        let integrationTestIosTest = IntegrationTestIosTest()
-        let testPass: Bool = integrationTestIosTest.testIntegrationTest(&testResult)
-        XCTAssertTrue(testPass, "\(String(describing: testResult))")
-    }
-}
+class RunnerTests: IntegrationTestCase {}

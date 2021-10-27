@@ -45,7 +45,7 @@ target 'unit_tests' do
   use_frameworks!
   use_modular_headers!
 
-  flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+  pod 'amplify_flutter', :path => get_plugin_dir('amplify_flutter')
 end
 
 post_install do |installer|
