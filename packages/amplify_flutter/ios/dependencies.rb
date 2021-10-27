@@ -36,3 +36,7 @@ $default_script_phases = [
         :execution_position => :before_compile
     },
 ]
+
+def get_plugin_dir(plugin_name)
+    return File.join('.symlinks', 'plugins', plugin_name, 'ios')
+end
