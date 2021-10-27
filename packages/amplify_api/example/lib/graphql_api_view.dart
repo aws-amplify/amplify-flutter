@@ -82,6 +82,9 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
 
     var response = await operation.response;
     var data = response.data;
+    if (data == null) {
+      return;
+    }
 
     print('Result data: ' + data);
     setState(() {
@@ -108,6 +111,9 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
 
     var response = await operation.response;
     var data = response.data;
+    if (data == null) {
+      return;
+    }
 
     print('Result data: ' + data);
     setState(() {
