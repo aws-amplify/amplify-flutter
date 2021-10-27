@@ -1,4 +1,4 @@
-load '../../../../build-support/dependencies.rb'
+load '../../ios/dependencies.rb'
 
 # Uncomment this line to define a global platform for your project
 platform :ios, '11.0'
