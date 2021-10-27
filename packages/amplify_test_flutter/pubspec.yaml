@@ -1,11 +1,12 @@
 name: amplify_test_flutter
-description: A new flutter plugin project.
+description: Test utilities for Amplify Flutter packages
 version: 0.0.1
-homepage:
+homepage: https://github.com/aws-amplify/amplify-flutter
+publish_to: none
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=1.20.0"
+  flutter: ">=2.0.0"
 
 dependencies:
   amplify_test: any
@@ -13,9 +14,9 @@ dependencies:
     sdk: flutter
 
 dev_dependencies:
+  amplify_lints: ^1.0.0
   flutter_test:
     sdk: flutter
-  flutter_lints: ^1.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
