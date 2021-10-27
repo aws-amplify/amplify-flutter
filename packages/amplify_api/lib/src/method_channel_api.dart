@@ -16,14 +16,16 @@
 import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:amplify_api/graphql/graphql_subscription_event.dart';
+import 'package:amplify_api/graphql/graphql_subscription_transformer.dart';
+import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 
-import 'amplify_api.dart';
+import '../amplify_api.dart';
 
-part 'src/auth_token.dart';
+part 'auth_token.dart';
 
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/api');
 
@@ -72,7 +74,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     },
   );
 
-  final Map<String, Stream> _subscriptions = {};
+  final Map<String, Stream<GraphQLResponse>> _subscriptions = {};
 
   /// The registered [APIAuthProvider] instances.
   final Map<APIAuthorizationType, APIAuthProvider> _authProviders = {};

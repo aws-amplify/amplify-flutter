@@ -17,7 +17,7 @@ library amplify_api_plugin;
 
 import 'package:amplify_api_plugin_interface/amplify_api_plugin_interface.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-import './method_channel_api.dart';
+import 'src/method_channel_api.dart';
 
 export 'package:amplify_api_plugin_interface/src/types.dart';
 

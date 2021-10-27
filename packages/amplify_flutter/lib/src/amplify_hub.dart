@@ -17,7 +17,7 @@ import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
 
-import '../amplify.dart';
+import '../amplify_flutter.dart';
 
 typedef Listener = void Function(HubEvent event);
 

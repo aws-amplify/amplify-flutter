@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-part of '../method_channel_api.dart';
+part of 'method_channel_api.dart';
 
 /// {@template auth_token}
 /// An authorization token for use by an [APIAuthProvider].

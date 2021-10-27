@@ -15,7 +15,7 @@
 
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
