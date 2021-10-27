@@ -62,7 +62,7 @@ class APICategory {
   }) {
     return plugins.length == 1
         ? plugins[0].subscribe(request, onEstablished: onEstablished)
-        : throw _pluginNotAddedException("Api");
+        : throw _pluginNotAddedException('Api');
   }
 
   // ====== RestAPI ======
