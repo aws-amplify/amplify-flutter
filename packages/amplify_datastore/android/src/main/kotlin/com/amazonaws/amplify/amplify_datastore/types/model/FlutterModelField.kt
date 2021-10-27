@@ -42,8 +42,6 @@ data class FlutterModelField(val map: Map<String, Any>) {
     // True if the field is an instance of CustomType (Embedded)
     private val isCustomType: Boolean = type.isCustomType()
 
-    private val isReadOnly: Boolean = map["isReadOnly"] as Boolean
-
     // An array of rules for owner based authorization
     private val authRules: List<FlutterAuthRule>? =
             (map["authRules"] as List<Map<String, Any>>?)?.map { FlutterAuthRule(it) }

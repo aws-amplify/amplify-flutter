@@ -86,7 +86,6 @@ class AmplifyDataStorePluginTest {
                     "targetType" to "Blog",
                     "isRequired" to false,
                     "isArray" to false,
-                    "isReadOnly" to false,
                     "type" to mapOf(
                         "fieldType" to "string"
                     )

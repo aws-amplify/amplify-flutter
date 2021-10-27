@@ -25,8 +25,6 @@ class IntListTypeModel extends Model {
   static const classType = const _IntListTypeModelModelType();
   final String id;
   final List<int>? _value;
-  final TemporalDateTime? _createdAt;
-  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -40,19 +38,7 @@ class IntListTypeModel extends Model {
     return _value;
   }
 
-  TemporalDateTime? get createdAt {
-    return _createdAt;
-  }
-
-  TemporalDateTime? get updatedAt {
-    return _updatedAt;
-  }
-
-  const IntListTypeModel._internal(
-      {required this.id, value, createdAt, updatedAt})
-      : _value = value,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+  const IntListTypeModel._internal({required this.id, value}) : _value = value;
 
   factory IntListTypeModel({String? id, List<int>? value}) {
     return IntListTypeModel._internal(
@@ -81,21 +67,14 @@ class IntListTypeModel extends Model {
 
     buffer.write("IntListTypeModel {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write(
-        "value=" + (_value != null ? _value!.toString() : "null") + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
-    buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("value=" + (_value != null ? _value!.toString() : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
   IntListTypeModel copyWith({String? id, List<int>? value}) {
-    return IntListTypeModel._internal(
-        id: id ?? this.id, value: value ?? this.value);
+    return IntListTypeModel(id: id ?? this.id, value: value ?? this.value);
   }
 
   IntListTypeModel.fromJson(Map<String, dynamic> json)
@@ -120,18 +99,6 @@ class IntListTypeModel extends Model {
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
             ofModelName: describeEnum(ModelFieldTypeEnum.int))));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: "createdAt",
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: "updatedAt",
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 

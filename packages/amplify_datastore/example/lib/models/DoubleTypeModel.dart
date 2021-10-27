@@ -24,8 +24,6 @@ class DoubleTypeModel extends Model {
   static const classType = const _DoubleTypeModelModelType();
   final String id;
   final double? _value;
-  final TemporalDateTime? _createdAt;
-  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -39,19 +37,7 @@ class DoubleTypeModel extends Model {
     return _value;
   }
 
-  TemporalDateTime? get createdAt {
-    return _createdAt;
-  }
-
-  TemporalDateTime? get updatedAt {
-    return _updatedAt;
-  }
-
-  const DoubleTypeModel._internal(
-      {required this.id, value, createdAt, updatedAt})
-      : _value = value,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+  const DoubleTypeModel._internal({required this.id, value}) : _value = value;
 
   factory DoubleTypeModel({String? id, double? value}) {
     return DoubleTypeModel._internal(
@@ -77,21 +63,14 @@ class DoubleTypeModel extends Model {
 
     buffer.write("DoubleTypeModel {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write(
-        "value=" + (_value != null ? _value!.toString() : "null") + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
-    buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("value=" + (_value != null ? _value!.toString() : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
   DoubleTypeModel copyWith({String? id, double? value}) {
-    return DoubleTypeModel._internal(
-        id: id ?? this.id, value: value ?? this.value);
+    return DoubleTypeModel(id: id ?? this.id, value: value ?? this.value);
   }
 
   DoubleTypeModel.fromJson(Map<String, dynamic> json)
@@ -113,18 +92,6 @@ class DoubleTypeModel extends Model {
         key: DoubleTypeModel.VALUE,
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.double)));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: "createdAt",
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: "updatedAt",
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 

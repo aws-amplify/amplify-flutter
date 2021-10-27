@@ -13,13 +13,12 @@
 * permissions and limitations under the License.
 */
 
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
-
 // ignore_for_file: public_member_api_docs
 
 import 'ModelProvider.dart';
+import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 
 /** This is an auto generated class representing the HasManyModel type in your schema. */
 @immutable
@@ -28,8 +27,6 @@ class HasManyModel extends Model {
   final String id;
   final String? _name;
   final List<HasManyChildModel>? _children;
-  final TemporalDateTime? _createdAt;
-  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -56,20 +53,9 @@ class HasManyModel extends Model {
     return _children;
   }
 
-  TemporalDateTime? get createdAt {
-    return _createdAt;
-  }
-
-  TemporalDateTime? get updatedAt {
-    return _updatedAt;
-  }
-
-  const HasManyModel._internal(
-      {required this.id, required name, children, createdAt, updatedAt})
+  const HasManyModel._internal({required this.id, required name, children})
       : _name = name,
-        _children = children,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
+        _children = children;
 
   factory HasManyModel(
       {String? id, required String name, List<HasManyChildModel>? children}) {
@@ -103,12 +89,7 @@ class HasManyModel extends Model {
 
     buffer.write("HasManyModel {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("name=" + "$_name" + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
-    buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("name=" + "$_name");
     buffer.write("}");
 
     return buffer.toString();
@@ -116,7 +97,7 @@ class HasManyModel extends Model {
 
   HasManyModel copyWith(
       {String? id, String? name, List<HasManyChildModel>? children}) {
-    return HasManyModel._internal(
+    return HasManyModel(
         id: id ?? this.id,
         name: name ?? this.name,
         children: children ?? this.children);
@@ -131,12 +112,6 @@ class HasManyModel extends Model {
                 .map((e) => HasManyChildModel.fromJson(
                     new Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
-            : null,
-        _createdAt = json['createdAt'] != null
-            ? TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? TemporalDateTime.fromString(json['updatedAt'])
             : null;
 
   Map<String, dynamic> toJson() => {
@@ -169,18 +144,6 @@ class HasManyModel extends Model {
         isRequired: false,
         ofModelName: (HasManyChildModel).toString(),
         associatedKey: HasManyChildModel.PARENT));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: "createdAt",
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: "updatedAt",
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 

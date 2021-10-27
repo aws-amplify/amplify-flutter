@@ -35,8 +35,6 @@ class ModelField {
 
   final bool isArray;
 
-  final bool isReadOnly;
-
   final ModelAssociation? association; //opt
 
   // An array of rules for owner based authorization
@@ -47,7 +45,6 @@ class ModelField {
       required this.type,
       required this.isRequired,
       this.isArray = false,
-      this.isReadOnly = false,
       this.association,
       this.authRules});
 
@@ -56,7 +53,6 @@ class ModelField {
     ModelFieldType? type,
     bool? isRequired,
     bool? isArray,
-    bool? isReadOnly,
     ModelAssociation? association,
     List<AuthRule>? authRules,
   }) {
@@ -65,7 +61,6 @@ class ModelField {
       type: type ?? this.type,
       isRequired: isRequired ?? this.isRequired,
       isArray: isArray ?? this.isArray,
-      isReadOnly: isReadOnly ?? this.isReadOnly,
       association: association ?? this.association,
       authRules: authRules ?? this.authRules,
     );
@@ -77,7 +72,6 @@ class ModelField {
       'type': type.toMap(),
       'isRequired': isRequired,
       'isArray': isArray,
-      'isReadOnly': isReadOnly,
       'association': association?.toMap(),
       'authRules': authRules?.map((x) => x.toMap()).toList(),
     };
@@ -90,7 +84,6 @@ class ModelField {
       type: map['type'],
       isRequired: map['isRequired'],
       isArray: map['isArray'],
-      isReadOnly: map['isReadOnly'],
       association:
           map['association'] ?? ModelAssociation.fromMap(map['association']),
       authRules: map['authRules'] ??
@@ -106,7 +99,7 @@ class ModelField {
 
   @override
   String toString() {
-    return 'ModelField(name: $name, type: $type, isRequired: $isRequired, isArray: $isArray, isReadOnly: $isReadOnly, association: $association, authRules: $authRules)';
+    return 'ModelField(name: $name, type: $type, isRequired: $isRequired, isArray: $isArray, association: $association, authRules: $authRules)';
   }
 
   @override
@@ -119,7 +112,6 @@ class ModelField {
         o.type == type &&
         o.isRequired == isRequired &&
         o.isArray == isArray &&
-        o.isReadOnly == isReadOnly &&
         listEquals(o.authRules, authRules);
   }
 
@@ -129,7 +121,6 @@ class ModelField {
         type.hashCode ^
         isRequired.hashCode ^
         isArray.hashCode ^
-        isReadOnly.hashCode ^
         authRules.hashCode;
   }
 }
