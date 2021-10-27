@@ -22,6 +22,7 @@ import com.amplifyframework.storage.options.StorageDownloadFileOptions
 import java.io.File
 
 data class FlutterDownloadFileRequest(val request: Map<String, *>) {
+    val uuid: String = request["uuid"] as String
     val key: String = request["key"] as String
     val file: File = File(request["path"] as String)
     val options: StorageDownloadFileOptions = setOptions(request)
@@ -51,6 +52,9 @@ data class FlutterDownloadFileRequest(val request: Map<String, *>) {
     companion object {
         private const val validationErrorMessage: String = "DownloadFile request malformed."
         fun validate(request: Map<String, *>) {
+            if(request["uuid"] !is String) {
+                throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("uuid" ))
+            }
             if(request["path"] !is String) {
                 throw InvalidRequestException(validationErrorMessage, ExceptionMessages.missingAttribute.format("path" ))
             }

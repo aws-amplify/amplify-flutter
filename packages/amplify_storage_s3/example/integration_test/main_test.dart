@@ -76,8 +76,22 @@ void main() async {
       metadata['desc'] = 'A test file';
       S3UploadFileOptions options = S3UploadFileOptions(
           accessLevel: StorageAccessLevel.guest, metadata: metadata);
+
+      int fileLength = file.lengthSync();
+      int lastProgressBytes = 0;
+      int onProgressCalls = 0;
       final result = await Amplify.Storage.uploadFile(
-          key: key, local: file, options: options);
+          key: key,
+          local: file,
+          options: options,
+          onProgress: (progress) {
+            expect(progress.currentBytes, greaterThan(lastProgressBytes));
+            lastProgressBytes = progress.currentBytes;
+
+            expect(progress.totalBytes, fileLength);
+            onProgressCalls++;
+          });
+      expect(onProgressCalls, greaterThan(0));
       lastUploadedKey = result.key;
       expect(lastUploadedKey, key);
 

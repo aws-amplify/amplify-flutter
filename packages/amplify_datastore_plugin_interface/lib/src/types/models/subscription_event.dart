@@ -19,11 +19,20 @@ import 'package:flutter/foundation.dart';
 
 import 'model.dart';
 
+/// {@template subscription_event}
+/// An event containing the details of mutations that have occurred on the backend
+/// {@endtemplate}
 class SubscriptionEvent<T extends Model> {
+  /// The item that was created, updated, or deleted
   final T item;
+
+  /// The model type of the item that was created, updated, or deleted
   final ModelType<T> modelType;
+
+  /// {@macro subscription_event_type}
   final EventType eventType;
 
+  /// {@macro subscription_event}
   const SubscriptionEvent(
       {required this.item, required this.modelType, required this.eventType});
 
@@ -41,7 +50,5 @@ class SubscriptionEvent<T extends Model> {
   }
 }
 
-/**
- * Type of subscription event
-*/
+/// The different type of mutations that may be observed
 enum EventType { create, update, delete }

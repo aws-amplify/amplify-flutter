@@ -17,8 +17,10 @@ dependencies:
 dev_dependencies:
   amplify_lints: ^1.0.0
   async: ^2.6.0
+  build_runner: ^2.0.0
   flutter_test:
     sdk: flutter
+  mockito: ^5.0.0
 
 # The following section is specific to Flutter.
 flutter:

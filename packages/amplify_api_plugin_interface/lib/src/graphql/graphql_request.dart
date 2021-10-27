@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import '../uuid.dart';
+import 'package:amplify_core/types/uuid.dart';
 
 class GraphQLRequest<T> {
   final String id = UUID.getUUID();

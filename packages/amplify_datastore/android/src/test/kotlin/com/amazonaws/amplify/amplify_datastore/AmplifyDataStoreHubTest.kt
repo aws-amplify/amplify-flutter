@@ -367,6 +367,42 @@ class AmplifyDataStoreHubTest {
         verify(hubSpy, times(1)).sendEvent(hubMap.toValueMap())
     }
 
+    @Test
+    fun test_replay_events() {
+        flutterPlugin = AmplifyDataStorePlugin(eventHandler = mockStreamHandler, hubEventHandler = mockHubHandler)
+        var eventData: HashMap<String, Any> = (readMapFromFile("hub",
+            "readyEvent.json",
+            HashMap::class.java) as HashMap<String, Any>)
+
+        var event: HubEvent<*> = HubEvent.create(DataStoreChannelEventName.READY)
+
+        val latch = CountDownLatch(1)
+
+        val realHubHandler = DataStoreHubEventStreamHandler(latch)
+
+        val hubSpy = spy(realHubHandler)
+        val hubMap = FlutterReadyEvent(
+            eventData["eventName"] as String
+        )
+
+        // initial event
+        val token: SubscriptionToken = hubSpy.getHubListener()
+        Amplify.Hub.publish(HubChannel.DATASTORE, event)
+        Latch.await(latch);
+        Amplify.Hub.unsubscribe(token)
+        shadowOf(getMainLooper()).idle()
+        verify(hubSpy, times(1)).sendEvent(hubMap.toValueMap())
+
+        // replay event after getHubListener() is invoked a second time
+        val token2: SubscriptionToken = hubSpy.getHubListener()
+        Latch.await(latch);
+        Amplify.Hub.unsubscribe(token2)
+        shadowOf(getMainLooper()).idle()
+        verify(hubSpy, times(2)).sendEvent(hubMap.toValueMap())
+
+    }
+
+
     private fun setFinalStatic(field: Field, newValue: Any?) {
         field.isAccessible = true
         val modifiersField: Field = Field::class.java.getDeclaredField("modifiers")

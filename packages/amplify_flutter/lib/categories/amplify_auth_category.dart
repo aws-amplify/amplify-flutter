@@ -103,6 +103,10 @@ class AuthCategory {
         : throw _pluginNotAddedException("Auth");
   }
 
+  /// Signs the user out of the current device
+  ///
+  /// Accepts advanced [options] for the request, which can be used for
+  /// global sign out as well as other plugin-specific options
   Future<SignOutResult> signOut({SignOutOptions? options}) {
     var request = SignOutRequest(options: options);
     return plugins.length == 1
@@ -207,8 +211,9 @@ class AuthCategory {
         : throw _pluginNotAddedException("Auth");
   }
 
-  Future<SignInResult> signInWithWebUI({AuthProvider? provider}) {
-    var request = SignInWithWebUIRequest(provider: provider);
+  Future<SignInResult> signInWithWebUI(
+      {AuthProvider? provider, SignInWithWebUIOptions? options}) {
+    var request = SignInWithWebUIRequest(provider: provider, options: options);
     return plugins.length == 1
         ? plugins[0].signInWithWebUI(request: request)
         : throw _pluginNotAddedException("Auth");

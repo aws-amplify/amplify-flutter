@@ -8,6 +8,13 @@
 
 - feat(api): GraphQL Subscription Stream (#905)
 
+## 0.2.6 (2021-10-25)
+
+## 0.2.5 (2021-10-14)
+
+### Fixes
+- fix(api): OIDC/Lambda changes for DataStore
+
 ## 0.2.4 (2021-09-10)
 
 ### Fixes

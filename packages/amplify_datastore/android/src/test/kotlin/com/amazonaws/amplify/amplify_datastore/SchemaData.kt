@@ -83,6 +83,15 @@ val postSchema = ModelSchema.builder()
                         .targetType("Comment")
                         .isRequired(false)
                         .isArray(true)
+                        .build(),
+
+            "likeCount" to
+                    ModelField.builder()
+                        .name("likeCount")
+                        .javaClassForValue(Integer::class.java)
+                        .targetType("Integer")
+                        .isRequired(false)
+                        .isArray(false)
                         .build()
 
         )
