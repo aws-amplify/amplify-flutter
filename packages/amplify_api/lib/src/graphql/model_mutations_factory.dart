@@ -40,7 +40,7 @@ class ModelMutationsFactory extends ModelMutationsInterface {
     final condition = GraphQLRequestFactory.instance
         .queryPredicateToGraphQLFilter(where, modelType);
     final input = {
-      'id': id
+      idFieldName: id
     }; // Simpler input than other mutations so don't use helper.
     final variables = GraphQLRequestFactory.instance
         .buildVariablesForMutationRequest(input: input, condition: condition);

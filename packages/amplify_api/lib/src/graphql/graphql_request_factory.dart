@@ -18,7 +18,9 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-const _idFieldName = 'id';
+/// `"id"`, the name of the id field in every compatible model/schema.
+/// Eventually needs to be dynamic to accomodate custom primary keys.
+const idFieldName = 'id';
 
 class DocumentInputs {
   // Upper document input: ($id: ID!)
@@ -241,7 +243,7 @@ class GraphQLRequestFactory {
     if (queryPredicate is QueryPredicateOperation) {
       // check for the IDs where fieldName set to e.g. "blog.id" and convert to "id"
       final isId = queryPredicate.field == '${schema.name.toLowerCase()}.id';
-      final fieldName = isId ? _idFieldName : queryPredicate.field;
+      final fieldName = isId ? idFieldName : queryPredicate.field;
 
       return <String, dynamic>{
         fieldName: _queryFieldOperatorToPartialGraphQLFilter(
@@ -301,7 +303,7 @@ class GraphQLRequestFactory {
     if (belongsToAssociation != null) {
       belongsToModelName = belongsToAssociation.key;
       belongsToKey = belongsToAssociation.value.association?.targetName;
-      belongsToValue = modelJson[belongsToModelName]?[_idFieldName];
+      belongsToValue = modelJson[belongsToModelName]?[idFieldName];
     }
 
     // Remove any relational fields with null values.

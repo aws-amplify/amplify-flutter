@@ -99,7 +99,7 @@ void main() {
       if (!skipDelete) postCache.add(data);
 
       // TEMP, add the blog to the returned post so it can be further mutated.
-      // This is needed until the response returns here also returns the parent.
+      // This is needed until the response returned here also returns the parent.
       return data.copyWith(blog: createdBlog);
     }
 
