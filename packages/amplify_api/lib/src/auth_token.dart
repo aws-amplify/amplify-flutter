@@ -15,28 +15,6 @@
 
 part of 'method_channel_api.dart';
 
-/// {@template auth_token}
-/// An authorization token for use by an [APIAuthProvider].
-///
-/// Helper type for serializing to a [Map].
-/// {@endtemplate}
-class _AuthToken {
-  /// The authorization type this token is valid for.
-  final APIAuthorizationType type;
-
-  /// The authorization token, or `null` if unavailable.
-  final String? token;
-
-  /// {@macro auth_token}
-  const _AuthToken(this.type, this.token);
-
-  /// Returns `this` as a serialized [Map].
-  Map<String, dynamic> toMap() => <String, dynamic>{
-        'type': type.rawValue,
-        'token': token,
-      };
-}
-
 extension on APIAuthProvider {
   /// Retrieves the latest auth token for [type].
   ///
