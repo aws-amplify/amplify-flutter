@@ -11,7 +11,4 @@ class MainActivityTest {
     @Rule
     @JvmField
     var rule = ActivityTestRule(MainActivity::class.java, true, false)
-
-    @Test
-    fun testOK() {}
 }
