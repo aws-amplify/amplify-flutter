@@ -164,7 +164,7 @@ class Post extends Model {
         'rating': _rating,
         'created': _created?.format(),
         'blog': _blog?.toJson(),
-        'comments': _comments?.map((e) => e?.toJson())?.toList()
+        'comments': _comments?.map((e) => e.toJson()).toList()
       };
 
   static final QueryField ID = QueryField(fieldName: "post.id");

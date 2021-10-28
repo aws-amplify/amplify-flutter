@@ -79,7 +79,7 @@ class TimeListTypeModel extends Model {
 
   TimeListTypeModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _value = (json['value'] as List)
+        _value = (json['value'] as List?)
             ?.map((e) => TemporalTime.fromString(e))
             .toList();
 

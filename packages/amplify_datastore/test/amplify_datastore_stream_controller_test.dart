@@ -224,7 +224,7 @@ void main() {
 
     OutboxMutationEvent payload = events.last.payload as OutboxMutationEvent;
     TemporalDateTime parsedDate = TemporalDateTime.fromString(
-        json["element"]["model"]["serializedData"]["created"])!;
+        json["element"]["model"]["serializedData"]["created"]);
     expect(events.last, isInstanceOf<HubEvent>());
     expect(payload.modelName, "Post");
     expect(payload.element, isInstanceOf<HubEventElement>());
@@ -261,7 +261,7 @@ void main() {
     HubEventElementWithMetadata element =
         payload.element as HubEventElementWithMetadata;
     TemporalDateTime parsedDate = TemporalDateTime.fromString(
-        json["element"]["model"]["serializedData"]["created"])!;
+        json["element"]["model"]["serializedData"]["created"]);
     expect(events.last, isInstanceOf<HubEvent>());
     expect(payload.modelName, "Post");
     expect(element, isInstanceOf<HubEventElement>());

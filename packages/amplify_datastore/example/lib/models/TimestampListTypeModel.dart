@@ -84,7 +84,7 @@ class TimestampListTypeModel extends Model {
 
   TimestampListTypeModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _value = (json['value'] as List)
+        _value = (json['value'] as List?)
             ?.map((e) => TemporalTimestamp.fromSeconds(e))
             .toList();
 

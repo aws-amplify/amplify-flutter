@@ -56,8 +56,7 @@ class Comment extends Model {
     }
   }
 
-  const Comment._internal(
-      {required this.id, post, required content, createdAt, updatedAt})
+  const Comment._internal({required this.id, post, required content})
       : _post = post,
         _content = content;
 

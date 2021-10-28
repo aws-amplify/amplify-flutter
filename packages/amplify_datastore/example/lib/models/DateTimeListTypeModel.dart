@@ -81,7 +81,7 @@ class DateTimeListTypeModel extends Model {
 
   DateTimeListTypeModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _value = (json['value'] as List)
+        _value = (json['value'] as List?)
             ?.map((e) => TemporalDateTime.fromString(e))
             .toList();
 
