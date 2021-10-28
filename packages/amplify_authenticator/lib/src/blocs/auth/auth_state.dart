@@ -37,6 +37,7 @@ class Authenticated extends AuthState {
   const Authenticated();
 }
 
+@immutable
 class AuthFlow extends AuthState {
   const AuthFlow({required this.screen});
 
@@ -51,6 +52,13 @@ class AuthFlow extends AuthState {
   static const verifyUser = AuthFlow(screen: AuthScreen.verifyUser);
 
   final AuthScreen screen;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) || other is AuthFlow && other.screen == screen;
+
+  @override
+  int get hashCode => screen.hashCode;
 }
 
 class VerificationCodeSent extends AuthFlow {
