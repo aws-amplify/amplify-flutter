@@ -109,7 +109,6 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
         }
     }
 
-    // swiftlint:disable cyclomatic_complexity
     private func innerHandle(
         method: String,
         arguments: [String: Any],
