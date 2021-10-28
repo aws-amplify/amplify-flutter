@@ -98,9 +98,7 @@ void main() {
       Post data = createPostRes.data;
       if (!skipDelete) postCache.add(data);
 
-      // TEMP, add the blog to the returned post so it can be further mutated.
-      // This is needed until the response returned here also returns the parent.
-      return data.copyWith(blog: createdBlog);
+      return data;
     }
 
     setUpAll(() async {
