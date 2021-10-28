@@ -78,15 +78,15 @@ class AmplifyClass extends PlatformInterface {
             recoverySuggestion:
                 AmplifyExceptionMessages.missingRecoverySuggestion);
       }
-    } catch (e) {
-      print('Amplify plugin was not added');
+    } on Exception catch (e) {
+      safePrint('Amplify plugin was not added');
       throw AmplifyException(
-          'Amplify plugin ' +
-              plugin.runtimeType.toString() +
-              ' was not added successfully.',
-          recoverySuggestion:
-              AmplifyExceptionMessages.missingRecoverySuggestion,
-          underlyingException: e.toString());
+        'Amplify plugin ' +
+            plugin.runtimeType.toString() +
+            ' was not added successfully.',
+        recoverySuggestion: AmplifyExceptionMessages.missingRecoverySuggestion,
+        underlyingException: e.toString(),
+      );
     }
   }
 
@@ -102,7 +102,7 @@ class AmplifyClass extends PlatformInterface {
   }
 
   String _getVersion() {
-    return '0.2.4';
+    return '0.3.0-rc.1';
   }
 
   /// Configures Amplify with the provided configuration string.
@@ -116,10 +116,11 @@ class AmplifyClass extends PlatformInterface {
   Future<void> configure(String configuration) async {
     // Validation #1
     if (_isConfigured) {
-      throw AmplifyAlreadyConfiguredException(
-          'Amplify has already been configured and re-configuration is not supported.',
-          recoverySuggestion:
-              'Check if Amplify is already configured using Amplify.isConfigured.');
+      throw const AmplifyAlreadyConfiguredException(
+        'Amplify has already been configured and re-configuration is not supported.',
+        recoverySuggestion:
+            'Check if Amplify is already configured using Amplify.isConfigured.',
+      );
     }
 
     // Validation #2. Try decoding the json string
