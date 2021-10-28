@@ -21,8 +21,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  amplify_api: 0.3.0-rc.1
   amplify_analytics_pinpoint: 0.3.0-rc.1
+  amplify_api: 0.3.0-rc.1
   amplify_auth_cognito: 0.3.0-rc.1
   amplify_datastore: 0.3.0-rc.1
   amplify_lints: ^1.0.0
