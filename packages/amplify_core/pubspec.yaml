@@ -15,6 +15,7 @@ dependencies:
   uuid: ^3.0.1
 
 dev_dependencies:
+  amplify_lints: ^1.0.0
   flutter_test:
     sdk: flutter
 

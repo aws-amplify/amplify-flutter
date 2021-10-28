@@ -35,6 +35,4 @@ class MockOIDCAuthProvider extends _i1.Mock implements _i2.OIDCAuthProvider {
   _i4.Future<String?> getLatestAuthToken() =>
       (super.noSuchMethod(Invocation.method(#getLatestAuthToken, []),
           returnValue: Future<String?>.value()) as _i4.Future<String?>);
-  @override
-  String toString() => super.toString();
 }

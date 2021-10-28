@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/types/exception/AmplifyException.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 /// Base Class for Auth Exceptions
 class AuthException extends AmplifyException {

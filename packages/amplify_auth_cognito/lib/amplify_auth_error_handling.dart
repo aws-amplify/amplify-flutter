@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_core/types/index.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/services.dart';
 import 'amplify_auth_cognito.dart';
 

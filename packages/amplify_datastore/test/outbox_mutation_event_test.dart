@@ -1,4 +1,4 @@
-import 'package:amplify_core/test_utils/index.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_datastore/types/DataStoreHubEvents/HubEventElement.dart';
 import 'package:amplify_datastore/types/DataStoreHubEvents/OutboxMutationEvent.dart';

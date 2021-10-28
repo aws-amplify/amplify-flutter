@@ -14,14 +14,16 @@
  */
 
 import 'package:amplify_flutter/amplify.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
-// ignore: public_member_api_docs
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -47,8 +49,8 @@ class _MyAppState extends State<MyApp> {
       setState(() {
         _amplifyConfigured = true;
       });
-    } catch (e) {
-      print(e);
+    } on Exception catch (e) {
+      safePrint(e);
     }
   }
 
@@ -64,5 +66,11 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('amplifyConfig', amplifyConfig));
   }
 }

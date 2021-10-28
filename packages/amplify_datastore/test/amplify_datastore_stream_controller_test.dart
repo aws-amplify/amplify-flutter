@@ -15,8 +15,7 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'package:amplify_core/test_utils/get_json_from_file.dart';
-import 'package:amplify_core/types/index.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore/amplify_datastore_stream_controller.dart';
 import 'package:amplify_datastore/types/DataStoreHubEvents/DataStoreHubEvent.dart';
 import 'package:amplify_datastore/types/DataStoreHubEvents/HubEventElement.dart';
@@ -29,7 +28,6 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
-import 'package:amplify_core/types/hub/HubEvent.dart';
 import 'test_models/ModelProvider.dart';
 
 void main() {
@@ -225,7 +223,7 @@ void main() {
 
     OutboxMutationEvent payload = events.last.payload as OutboxMutationEvent;
     TemporalDateTime parsedDate = TemporalDateTime.fromString(
-        json["element"]["model"]["serializedData"]["created"])!;
+        json["element"]["model"]["serializedData"]["created"]);
     expect(events.last, isInstanceOf<HubEvent>());
     expect(payload.modelName, "Post");
     expect(payload.element, isInstanceOf<HubEventElement>());
@@ -262,7 +260,7 @@ void main() {
     HubEventElementWithMetadata element =
         payload.element as HubEventElementWithMetadata;
     TemporalDateTime parsedDate = TemporalDateTime.fromString(
-        json["element"]["model"]["serializedData"]["created"])!;
+        json["element"]["model"]["serializedData"]["created"]);
     expect(events.last, isInstanceOf<HubEvent>());
     expect(payload.modelName, "Post");
     expect(element, isInstanceOf<HubEventElement>());

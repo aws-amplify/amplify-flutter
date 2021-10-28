@@ -39,6 +39,13 @@ android {
     }
     lintOptions {
         disable 'InvalidPackage'
+        informational 'GradleDependency'
+
+        abortOnError true
+        warningsAsErrors true
+        checkTestSources true
+        xmlReport false
+        htmlReport false
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

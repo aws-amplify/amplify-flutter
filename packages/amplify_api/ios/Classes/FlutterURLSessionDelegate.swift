@@ -84,24 +84,30 @@ class FlutterURLSessionBehaviorDelegate: NSObject, URLSessionBehaviorDelegate {
 }
 
 extension FlutterURLSessionBehaviorDelegate: URLSessionDelegate {
-    @objc public func urlSession(_ session: URLSession,
-                                 didReceive challenge: URLAuthenticationChallenge,
-                                 completionHandler: @escaping AuthChallengeDispositionHandler) {
+    @objc public func urlSession(
+        _ session: URLSession,
+        didReceive challenge: URLAuthenticationChallenge,
+        completionHandler: @escaping AuthChallengeDispositionHandler
+    ) {
         completionHandler(.performDefaultHandling, nil)
     }
 }
 
 extension FlutterURLSessionBehaviorDelegate: URLSessionTaskDelegate {
-    @objc public func urlSession(_ session: URLSession,
-                                 task: URLSessionTask,
-                                 didReceive challenge: URLAuthenticationChallenge,
-                                 completionHandler: @escaping AuthChallengeDispositionHandler) {
+    @objc public func urlSession(
+        _ session: URLSession,
+        task: URLSessionTask,
+        didReceive challenge: URLAuthenticationChallenge,
+        completionHandler: @escaping AuthChallengeDispositionHandler
+    ) {
         completionHandler(.performDefaultHandling, nil)
     }
 
-    @objc public func urlSession(_ session: URLSession,
-                                 task: URLSessionTask,
-                                 didCompleteWithError error: Error?) {
+    @objc public func urlSession(
+        _ session: URLSession,
+        task: URLSessionTask,
+        didCompleteWithError error: Error?
+    ) {
         urlSessionBehavior(session,
                            dataTaskBehavior: task,
                            didCompleteWithError: error)
@@ -109,9 +115,11 @@ extension FlutterURLSessionBehaviorDelegate: URLSessionTaskDelegate {
 }
 
 extension FlutterURLSessionBehaviorDelegate: URLSessionDataDelegate {
-    @objc public func urlSession(_ session: URLSession,
-                                 dataTask: URLSessionDataTask,
-                                 didReceive data: Data) {
+    @objc public func urlSession(
+        _ session: URLSession,
+        dataTask: URLSessionDataTask,
+        didReceive data: Data
+    ) {
         urlSessionBehavior(session,
                            dataTaskBehavior: dataTask,
                            didReceive: data)

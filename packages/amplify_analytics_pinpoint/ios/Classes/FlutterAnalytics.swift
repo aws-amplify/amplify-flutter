@@ -63,7 +63,8 @@ public enum FlutterAnalytics {
         bridge: AnalyticsBridge
     ) {
         guard let argumentsMap = arguments as? [String: Any],
-              let name = argumentsMap["name"] as? String else {
+              let name = argumentsMap["name"] as? String
+        else {
             result(invalidArgumentsError)
             return
         }
@@ -132,7 +133,8 @@ public enum FlutterAnalytics {
     public static func identifyUser(arguments: Any?, result: @escaping FlutterResult, bridge: AnalyticsBridge) {
         guard let arguments = arguments as? [String: Any],
               let userId = arguments["userId"] as? String,
-              let userProfileMap = arguments["userProfileMap"] as? [String: Any] else {
+              let userProfileMap = arguments["userProfileMap"] as? [String: Any]
+        else {
             result(invalidArgumentsError)
             return
         }
