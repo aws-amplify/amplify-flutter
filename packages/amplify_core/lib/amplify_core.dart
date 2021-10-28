@@ -29,5 +29,6 @@ export 'src/types/hub/hub_event_payload.dart';
 export 'src/types/plugin/amplify_plugin_interface.dart';
 
 // Util
+export 'src/util/json.dart';
 export 'src/util/print.dart';
 export 'src/util/uuid.dart';

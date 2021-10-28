@@ -17,6 +17,5 @@ dependencies:
 
 dev_dependencies:
   amplify_lints: ^1.0.0
-  amplify_test: any
   flutter_test:
     sdk: flutter

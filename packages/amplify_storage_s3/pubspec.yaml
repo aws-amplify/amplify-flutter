@@ -15,7 +15,6 @@ dependencies:
   amplify_core: 0.3.0-rc.1
 
 dev_dependencies:
-  amplify_test: any
   flutter_test:
     sdk: flutter
 
