@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -15,15 +15,13 @@
 
 library amplify_core;
 
-/// PLUGIN
-export 'src/types/exception/amplify_already_configured_exception.dart';
-
 /// Exceptions
+export 'src/types/exception/amplify_already_configured_exception.dart';
 export 'src/types/exception/amplify_exception.dart';
 export 'src/types/exception/amplify_exception_messages.dart';
-export 'src/types/hub/hub_channel.dart';
 
-/// HUB
+/// Hub
+export 'src/types/hub/hub_channel.dart';
 export 'src/types/hub/hub_event.dart';
 export 'src/types/hub/hub_event_payload.dart';
 export 'src/types/plugin/amplify_plugin_interface.dart';
