@@ -68,12 +68,6 @@ class AuthenticatorFormState<T extends AuthenticatorForm<T>>
     extends AuthenticatorComponentState<T> {
   AuthenticatorFormState._();
 
-  @override
-  void dispose() {
-    viewModel.clean();
-    super.dispose();
-  }
-
   final ValueNotifier<bool> obscureTextToggleValue = ValueNotifier(true);
 
   /// Controls optional visibilty of the field.
