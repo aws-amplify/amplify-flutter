@@ -121,10 +121,30 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
 
             flutterModelRegistration.version = modelProviderVersion
             let syncExpressions: [DataStoreSyncExpression] = try createSyncExpressions(syncExpressionList: syncExpressionList)
-
+            
             self.dataStoreHubEventStreamHandler?.registerModelsForHub(flutterModelRegistration: flutterModelRegistration)
+            
+
+            var errorHandler: DataStoreErrorHandler
+            if( args["hasCustomErrorHandler"] as! Bool ){
+                errorHandler = { error in
+                    let map : [String:Any] = [
+                        "errorCode" : "DataStoreException",
+                        "errorMesage" : ErrorMessages.defaultFallbackErrorMessage,
+                        "details" : FlutterDataStoreErrorHandler.createSerializedError(error: error)
+                    ]
+                    self.channel!.invokeMethod("errorHandler", arguments: args)
+                }
+            }
+            else{
+                errorHandler = { error in
+                    Amplify.Logging.error(error: error)
+                }
+            }
+            
             let dataStorePlugin = AWSDataStorePlugin(modelRegistration: flutterModelRegistration,
                                                      configuration: .custom(
+                                                        errorHandler: errorHandler,
                                                         syncInterval: syncInterval,
                                                         syncMaxRecords: syncMaxRecords,
                                                         syncPageSize: syncPageSize,
@@ -133,7 +153,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin {
             
             Amplify.Logging.logLevel = .info
             print("Amplify configured with DataStore plugin")
-            result(true)
+            result(true)            
         } catch ModelSchemaError.parse(let className, let fieldName, let desiredType){
             FlutterDataStoreErrorHandler.handleDataStoreError(
                 error: DataStoreError.decodingError(

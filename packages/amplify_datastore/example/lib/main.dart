@@ -85,7 +85,11 @@ class _MyAppState extends State<MyApp> {
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     try {
-      datastorePlugin = AmplifyDataStore(modelProvider: ModelProvider.instance);
+      datastorePlugin = AmplifyDataStore(
+        modelProvider: ModelProvider.instance,
+        errorHandler: ((error) =>
+            {print("Custom ErrorHandler result: " + error.toString())}),
+      );
       await Amplify.addPlugin(datastorePlugin);
 
       // Configure

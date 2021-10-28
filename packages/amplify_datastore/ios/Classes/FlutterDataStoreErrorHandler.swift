@@ -26,7 +26,7 @@ class FlutterDataStoreErrorHandler {
                                             details: FlutterDataStoreErrorHandler.createSerializedError(error: error))
     }
     
-    static func createSerializedError(error: DataStoreError) -> Dictionary<String, String> {
+    static func createSerializedError(error: AmplifyError) -> Dictionary<String, String> {
         return createSerializedError(message: error.errorDescription,
                                      recoverySuggestion: error.recoverySuggestion,
                                      underlyingError: error.underlyingError?.localizedDescription)
