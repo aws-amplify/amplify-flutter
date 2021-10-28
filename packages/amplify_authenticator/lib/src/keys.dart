@@ -47,6 +47,8 @@ const keyPictureSignUpFormField = Key('pictureSignUpFormField');
 const keyPreferredUsernameSignUpFormField =
     Key('preferredUsernameSignUpFormField');
 const keyProfileSignUpFormField = Key('profileSignUpFormField');
+const keySelectedUsernameSignUpFormField =
+    Key('selectedUsernameSignUpFormField');
 const keyZoneinfoSignUpFormField = Key('zoneinfoSignUpFormField');
 const keyUpdatedAtSignUpFormField = Key('updatedAtSignUpFormField');
 const keyWebsiteSignUpFormField = Key('websiteSignUpFormField');

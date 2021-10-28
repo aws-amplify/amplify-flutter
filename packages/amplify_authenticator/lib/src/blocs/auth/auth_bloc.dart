@@ -279,9 +279,15 @@ class StateMachineBloc {
   }
 
   Stream<AuthState> _signUp(AuthSignUpData data) async* {
+    String username = data.username;
+    if (data.selectedUsername == SignUpField.email) {
+      username = data.attributes['email']!;
+    } else if (data.selectedUsername == SignUpField.phoneNumber) {
+      username = data.attributes['phoneNumber']!;
+    }
     try {
       var result = await _authService.signUp(
-        data.username,
+        username,
         data.password,
         data.attributes,
       );
@@ -292,7 +298,7 @@ class StateMachineBloc {
           break;
         case 'DONE':
           var authSignInData = AuthUsernamePasswordSignInData(
-            username: data.username,
+            username: username,
             password: data.password,
           );
 

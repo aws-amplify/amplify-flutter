@@ -28,8 +28,10 @@ import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
+import 'package:amplify_authenticator/src/widgets/field_options.dart';
 import 'package:amplify_authenticator/src/widgets/input_types/authenticator_date_input.dart';
 import 'package:amplify_authenticator/src/widgets/input_types/authenticator_phone_input.dart';
+import 'package:amplify_authenticator/src/widgets/input_types/authenticator_radio_buttons_input.dart';
 import 'package:amplify_authenticator/src/widgets/input_types/authenticator_text_input.dart';
 import 'package:amplify_flutter/src/config/auth/aws_cognito_username_attributes.dart';
 import 'package:flutter/foundation.dart';
@@ -60,11 +62,11 @@ abstract class AuthenticatorFormField<FieldType,
   const AuthenticatorFormField._({
     Key? key,
     required this.field,
+    this.fieldConfig,
     this.titleKey,
     this.hintTextKey,
     this.title,
     this.hintText,
-    this.inputType = InputType.text,
     FormFieldValidator<String>? validator,
   })  : assert(
           titleKey != null || title != null,
@@ -88,8 +90,8 @@ abstract class AuthenticatorFormField<FieldType,
   /// The field this form field controls.
   final FieldType field;
 
-  /// The type of input field, defaults to [InputType.text]
-  final InputType inputType;
+  /// The options for the input field
+  final FieldConfig? fieldConfig;
 
   /// Override of default validator.
   final FormFieldValidator<String>? _validatorOverride;
@@ -102,7 +104,8 @@ abstract class AuthenticatorFormField<FieldType,
     properties.add(EnumProperty('hintTextKey', hintTextKey));
     properties.add(StringProperty('title', title));
     properties.add(StringProperty('hintText', hintText));
-    properties.add(EnumProperty<InputType?>('inputType', inputType));
+    properties
+        .add(DiagnosticsProperty<FieldConfig?>('fieldConfig', fieldConfig));
   }
 }
 
@@ -166,7 +169,7 @@ abstract class AuthenticatorFormFieldState<FieldType,
   bool get obscureText => false;
 
   /// The keyboard type to use when this field is focused.
-  TextInputType get keyboardType => TextInputType.text;
+  TextInputType? get keyboardType => TextInputType.text;
 
   /// The initial value to show in the field.
   String? get initialValue => null;
@@ -202,20 +205,28 @@ abstract class AuthenticatorFormFieldState<FieldType,
                   .obscureTextToggleValue,
               builder:
                   (BuildContext context, bool? toggleObscureText, Widget? _) {
-                var obscureText =
-                    this.obscureText && (toggleObscureText ?? true);
                 Widget child;
-                switch (widget.inputType) {
-                  case InputType.text:
-                    child = const AuthenticatorTextInput();
-                    break;
-                  case InputType.phone:
-                    child = const AuthenticatorPhoneInput();
-                    break;
-                  case InputType.datePicker:
-                    child = const AuthenticatorDateInput();
-                    break;
+                if (widget.fieldConfig != null) {
+                  switch (widget.fieldConfig!.type) {
+                    case InputType.text:
+                      child = const AuthenticatorTextInput();
+                      break;
+                    case InputType.phone:
+                      child = const AuthenticatorPhoneInput();
+                      break;
+                    case InputType.datePicker:
+                      child = const AuthenticatorDateInput();
+                      break;
+                    case InputType.radio:
+                      child = AuthenticatorRadioButtonsInput(
+                          config:
+                              widget.fieldConfig! as RadioButtonFieldConfig);
+                      break;
+                  }
+                } else {
+                  child = const AuthenticatorTextInput();
                 }
+
                 return child;
               }),
         ],
@@ -235,9 +246,6 @@ abstract class AuthenticatorFormFieldState<FieldType,
     properties.add(StringProperty('initialValue', initialValue));
     properties.add(DiagnosticsProperty<bool>('enabled', enabled));
     properties.add(IntProperty('errorMaxLines', errorMaxLines));
-    // properties.add(DiagnosticsProperty<TextInputType>(
-    //     'keyboardTypeForAlias', usernameKeyboardTypeForAlias));
-    // properties.add(ObjectFlagProperty<ValueChanged<String>>.has(
-    //     'usernameOnChangedForAlias', usernameOnChangedForAlias));
+    properties.add(DiagnosticsProperty<bool>('obscureText', obscureText));
   }
 }

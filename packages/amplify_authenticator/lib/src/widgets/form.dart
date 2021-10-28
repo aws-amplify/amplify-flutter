@@ -126,21 +126,18 @@ class AuthenticatorFormState<T extends AuthenticatorForm<T>>
 /// {@endtemplate}
 class SignUpForm extends AuthenticatorForm<SignUpForm> {
   /// {@macro authenticator.sign_up_form}
-  const SignUpForm({
-    Key? key,
-    bool attributesFromConfig = true,
-  }) : this.custom(
-          key: key,
-          fields: const [],
-          attributesFromConfig: attributesFromConfig,
-        );
+  const SignUpForm({Key? key, bool attributesFromConfig = true})
+      : this.custom(
+            key: key,
+            fields: const [],
+            attributesFromConfig: attributesFromConfig);
 
   /// A custom Sign Up form.
-  const SignUpForm.custom({
-    Key? key,
-    required List<SignUpFormField> fields,
-    this.attributesFromConfig = true,
-  }) : super._(
+  const SignUpForm.custom(
+      {Key? key,
+      required List<SignUpFormField> fields,
+      this.attributesFromConfig = true})
+      : super._(
           key: key,
           fields: fields,
           actions: const [
@@ -189,6 +186,7 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
       } else if (usernameAttributes.length == 2) {
         signUpFields.add(const SignUpFormField.email());
         signUpFields.add(const SignUpFormField.phoneNumber());
+        signUpFields.add(const SignUpFormField.selectUserNameType());
       }
     } else {
       signUpFields.add(const SignUpFormField.username());
@@ -236,8 +234,6 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
               } else {
                 return null;
               }
-            case 'PREFERRED_USERNAME':
-              return const SignUpFormField.preferredUsername();
             // case 'PICTURE':
             //   return const SignUpFormField.picture();
             // case 'PROFILE':

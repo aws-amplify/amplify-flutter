@@ -14,6 +14,7 @@
  */
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_authenticator/src/enums/signup_types.dart';
 
 abstract class AuthSignInData {
   const AuthSignInData();
@@ -42,6 +43,7 @@ class AuthSignUpData {
   const AuthSignUpData({
     required this.password,
     required this.username,
+    this.selectedUsername,
     this.attributes = const {},
   });
 
@@ -50,6 +52,8 @@ class AuthSignUpData {
   final String password;
 
   final String username;
+
+  final SignUpField? selectedUsername;
 }
 
 class AuthConfirmSignUpData {

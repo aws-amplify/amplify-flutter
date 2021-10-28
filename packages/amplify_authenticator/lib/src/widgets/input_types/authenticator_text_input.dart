@@ -19,10 +19,14 @@ import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class AuthenticatorTextInput extends StatelessAuthenticatorComponent {
-  const AuthenticatorTextInput({Key? key}) : super(key: key);
+  final bool obscureText;
+
+  const AuthenticatorTextInput({Key? key, this.obscureText = false})
+      : super(key: key);
 
   @override
   Widget builder(BuildContext context, AuthViewModel viewModel,
@@ -33,11 +37,16 @@ class AuthenticatorTextInput extends StatelessAuthenticatorComponent {
     final hintText = parentState.widget.hintText == null
         ? inputResolver.resolve(context, parentState.widget.hintTextKey!)
         : parentState.widget.hintText!;
+
     return ValueListenableBuilder<bool?>(
         valueListenable: context
             .findAncestorStateOfType<AuthenticatorFormState>()!
             .obscureTextToggleValue,
         builder: (BuildContext context, bool? toggleObscureText, Widget? _) {
+          bool _obscureText =
+              parentState.obscureText == true && toggleObscureText == true
+                  ? true
+                  : false;
           return TextFormField(
             style: parentState.enabled
                 ? null
@@ -60,8 +69,14 @@ class AuthenticatorTextInput extends StatelessAuthenticatorComponent {
               border: const OutlineInputBorder(),
             ),
             keyboardType: parentState.keyboardType,
-            obscureText: toggleObscureText ?? true,
+            obscureText: _obscureText,
           );
         });
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<bool>('obscureText', obscureText));
   }
 }

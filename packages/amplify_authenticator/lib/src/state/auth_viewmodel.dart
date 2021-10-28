@@ -102,6 +102,9 @@ class AuthViewModel extends ChangeNotifier {
   bool _rememberDevice = false;
   bool get rememberDevice => _rememberDevice;
 
+  String _selectedUsername = '';
+  String get selectedUsername => _selectedUsername;
+
   void _setAttribute(String attribute, String value) {
     _authAttributes[attribute] = value.trim();
   }
@@ -184,6 +187,10 @@ class AuthViewModel extends ChangeNotifier {
   // ignore: avoid_positional_boolean_parameters
   void setRememberDevice(bool value) {
     _rememberDevice = value;
+  }
+
+  void setSelectedUsername(String value) {
+    _selectedUsername = value;
   }
 
   // Auth calls
@@ -287,6 +294,8 @@ class AuthViewModel extends ChangeNotifier {
     final signUp = AuthSignUpData(
       username: _username.trim(),
       password: _password.trim(),
+      selectedUsername: SignUpField.values
+          .firstWhere((e) => e.toString() == _selectedUsername),
       attributes: _authAttributes,
     );
 
@@ -369,7 +378,7 @@ class AuthViewModel extends ChangeNotifier {
     _confirmationCode = '';
     _newUsername = '';
     _newPassword = '';
-
+    _selectedUsername = '';
     _authAttributes.clear();
     _formKey = GlobalKey<FormState>();
   }

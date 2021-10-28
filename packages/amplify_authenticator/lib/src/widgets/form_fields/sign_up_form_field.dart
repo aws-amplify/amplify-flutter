@@ -33,7 +33,7 @@ class SignUpFormField
       String? hintText,
       FormFieldValidator<String>? validator,
       String? customAttributeKey,
-      InputType inputType = InputType.text})
+      FieldConfig? fieldConfig})
       : _customAttributeKey = customAttributeKey,
         super._(
             key: key,
@@ -43,7 +43,7 @@ class SignUpFormField
             title: title,
             hintText: hintText,
             validator: validator,
-            inputType: inputType);
+            fieldConfig: fieldConfig);
 
   /// Creates a username component.
   const SignUpFormField.username({
@@ -103,7 +103,7 @@ class SignUpFormField
             hintTextKey: InputResolverKey.birthdateHint,
             field: SignUpField.birthdate,
             validator: validator,
-            inputType: InputType.datePicker);
+            fieldConfig: const DateFieldConfig());
 
   /// Creates a nemail component.
   const SignUpFormField.email({
@@ -211,7 +211,7 @@ class SignUpFormField
             hintTextKey: InputResolverKey.phoneNumberHint,
             field: SignUpField.phoneNumber,
             validator: validator,
-            inputType: InputType.phone);
+            fieldConfig: const PhoneFieldConfig());
 
   // /// Creates a picture component.
   // const SignUpFormField.picture({
@@ -236,6 +236,22 @@ class SignUpFormField
           field: SignUpField.preferredUsername,
           validator: validator,
         );
+
+  const SignUpFormField.selectUserNameType(
+      {Key? key, FormFieldValidator<String>? validator})
+      : this._(
+            key: key ?? keyPreferredUsernameSignUpFormField,
+            titleKey: InputResolverKey.usernameType,
+            field: SignUpField.preferredUsername,
+            validator: validator,
+            fieldConfig: const RadioButtonFieldConfig(selections: [
+              InputSelection(
+                  label: InputResolverKey.usernameTypeEmail,
+                  value: SignUpField.email),
+              InputSelection(
+                  label: InputResolverKey.usernameTypePhoneNumber,
+                  value: SignUpField.phoneNumber)
+            ]));
 
   // /// Creates a profile component.
   // const SignUpFormField.profile({
@@ -522,6 +538,8 @@ class _SignUpFormFieldState
       //   return viewModel.setPicture;
       case SignUpField.preferredUsername:
         return viewModel.setPreferredUsername;
+      case SignUpField.selectedUsername:
+        return viewModel.setSelectedUsername;
       // case SignUpField.profile:
       //   return viewModel.setProfile;
       // case SignUpField.zoneinfo:
@@ -539,7 +557,7 @@ class _SignUpFormFieldState
   }
 
   @override
-  TextInputType get keyboardType {
+  TextInputType? get keyboardType {
     switch (widget.field) {
       case SignUpField.username:
         return TextInputType.text;
@@ -571,6 +589,8 @@ class _SignUpFormFieldState
       // case SignUpField.zoneinfo:
       case SignUpField.custom:
         return TextInputType.text;
+      case SignUpField.selectedUsername:
+        return null;
     }
   }
 
