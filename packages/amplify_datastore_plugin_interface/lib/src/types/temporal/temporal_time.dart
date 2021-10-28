@@ -88,7 +88,7 @@ class TemporalTime implements Comparable<TemporalTime> {
     int minutes = int.parse(match.group(2)!);
     int seconds = Temporal.getIntOr0(match.group(4));
 
-    int totalNanoseconds = Temporal.getIntOr0(match.group(6));
+    int totalNanoseconds = Temporal.getIntOr0(match.group(6)?.padRight(9, "0"));
     int milliseconds = totalNanoseconds ~/ 1000000;
     int microseconds = (totalNanoseconds ~/ 1000) % 1000;
     _nanoseconds = totalNanoseconds % 1000;
