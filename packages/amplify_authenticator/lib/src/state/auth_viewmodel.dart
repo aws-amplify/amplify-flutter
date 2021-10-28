@@ -20,7 +20,17 @@ import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
 import 'package:flutter/material.dart';
 
 class AuthViewModel extends ChangeNotifier {
-  AuthViewModel(this._authBloc);
+  AuthViewModel(this._authBloc) {
+    // Listen to screen changes to know when to clear the form. Calling `clean`
+    // from the forms' dispose method is unreliable since it may be called after
+    // the transitioning form's first build is called.
+    _authBloc.stream
+        .where((event) => event is AuthFlow)
+        .distinct()
+        .listen((event) {
+      clean();
+    });
+  }
 
   final StateMachineBloc _authBloc;
   StateMachineBloc get authBloc => _authBloc;
