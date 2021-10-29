@@ -65,9 +65,9 @@ Map<String, dynamic> transformAppSyncJsonToModelJson(
   // transform children recursively
   for (var element in _input.entries.where(
       (element) => element.value is Map && element.value[_items] is List)) {
-    List<Map<String, dynamic>> items = element.value[_items];
+    List<dynamic> items = element.value[_items];
     final transformedItems = items
-        .map((item) =>
+        .map((dynamic item) =>
             {_serializedData: transformAppSyncJsonToModelJson(item, null)})
         .toList();
     _input.update(element.key, (dynamic value) => transformedItems);

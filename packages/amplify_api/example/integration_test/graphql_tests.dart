@@ -24,6 +24,7 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
     hide UUID;
 
 import 'resources/Blog.dart';
+import 'resources/Comment.dart';
 import 'resources/ModelProvider.dart';
 import 'resources/Post.dart';
 
@@ -338,6 +339,56 @@ void main() {
       final res = await Amplify.API.query(request: getReq).response;
       Blog data = res.data;
       expect(data.name, name);
+    });
+
+    testWidgets(
+        'should parse a deeply nested response if modelType and decodePath included in request',
+        (WidgetTester tester) async {
+      final originalTitle = 'Lorem Ipsum Test Post: ${UUID.getUUID()}';
+      const rating = 0;
+      Post post = await addPostAndBlogWithModelHelper(originalTitle, rating);
+      final blogId = post.blog?.id;
+      final inputComment =
+          Comment(content: 'Lorem ipsum test comment', post: post);
+      final createCommentReq = ModelMutations.create(inputComment);
+      final createCommentRes =
+          await Amplify.API.mutate(request: createCommentReq).response;
+      final createdComment = createCommentRes.data;
+
+      const getBlog = 'getBlog';
+      String graphQLDocument = '''query GetBlogPostsComments(\$id: ID!) {
+        $getBlog(id: \$id) {
+            id
+            name
+            posts {
+              items {
+                id
+                title
+                rating
+                comments {
+                  items {
+                    id
+                    content
+                  }
+                }
+              }
+            }
+        }
+      }''';
+      final nestedGetBlogReq = GraphQLRequest<Blog>(
+          document: graphQLDocument,
+          modelType: Blog.classType,
+          variables: <String, String>{'id': blogId!},
+          decodePath: getBlog);
+      final nestedResponse =
+          await Amplify.API.query(request: nestedGetBlogReq).response;
+      final responseBlog = nestedResponse.data;
+      final firstCommentFromResponse = responseBlog.posts?[0].comments?[0];
+      expect(firstCommentFromResponse?.id, createdComment.id);
+      // clean up the comment
+      final deleteCommentReq =
+          ModelMutations.deleteById(Comment.classType, createdComment.id);
+      await Amplify.API.mutate(request: deleteCommentReq).response;
     });
   });
 }
