@@ -257,8 +257,23 @@ void main() {
       expect(mutatedPost?.title, equals(updatedTitle));
     });
 
-    // TODO: test that updating without a parent blog gets error from appsync
-    // depends on nullable data in response.
+    testWidgets(
+        'should get AppSync error when trying to CREATE a post (model with parent) without a parent on the instance',
+        (WidgetTester tester) async {
+      Post post =
+          Post(title: 'Lorem ipsum, fail update', rating: 0, blog: null);
+      final createPostReq = ModelMutations.create(post);
+      final createPostRes =
+          await Amplify.API.mutate(request: createPostReq).response;
+      final createdPost = createPostRes.data;
+      if (createdPost != null) {
+        postCache.add(createdPost);
+        fail('Successfully created a post when request should have failed.');
+      }
+
+      expect(createPostRes.data, isNull);
+      expect(createPostRes.errors, hasLength(1));
+    });
 
     testWidgets(
         'should not UPDATE a blog with Model helper when where condition not met',

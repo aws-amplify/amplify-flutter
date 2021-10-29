@@ -19,7 +19,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
 /// `"id"`, the name of the id field in every compatible model/schema.
-/// Eventually needs to be dynamic to accomodate custom primary keys.
+/// Eventually needs to be dynamic to accommodate custom primary keys.
 const idFieldName = 'id';
 
 class DocumentInputs {
