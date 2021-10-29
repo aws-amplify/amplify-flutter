@@ -99,7 +99,7 @@ void main() {
         await api.mutate(request: ModelMutations.create<Blog>(blog));
 
     var response = await operation.response;
-    expect(response.data.equals(blog), isTrue);
+    expect(response.data?.equals(blog), isTrue);
   });
 
   test('ModelMutations.delete() executes correctly in the happy case',
