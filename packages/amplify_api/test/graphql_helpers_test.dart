@@ -62,7 +62,7 @@ void main() {
             .decode<Blog>(request: req, data: data, errors: errors);
 
         expect(response.data, isA<Blog>());
-        expect(response.data.id, id);
+        expect(response.data?.id, id);
       });
       test('ModelQueries.list() should build a valid request', () async {
         String expected =
@@ -148,8 +148,8 @@ void main() {
                 request: req, data: data, errors: errors);
 
         expect(response.data, isA<PaginatedResult<Blog>>());
-        expect(response.data.items, isA<List<Blog>>());
-        expect(response.data.items.length, 2);
+        expect(response.data?.items, isA<List<Blog>>());
+        expect(response.data?.items.length, 2);
       });
 
       test(
@@ -181,13 +181,13 @@ void main() {
         GraphQLResponse<PaginatedResult<Blog>> response =
             GraphQLResponseDecoder.instance.decode<PaginatedResult<Blog>>(
                 request: req, data: data, errors: errors);
-        expect(response.data.hasNextResult, true);
+        expect(response.data?.hasNextResult, true);
         String expectedDocument =
             r'query listBlogs($filter: ModelBlogFilterInput, $limit: Int, $nextToken: String) { listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) { items { id name createdAt } nextToken } }';
-        final resultRequest = response.data.requestForNextResult!;
-        expect(resultRequest.document, expectedDocument);
-        expect(resultRequest.variables['nextToken'], response.data.nextToken);
-        expect(resultRequest.variables['limit'], limit);
+        final resultRequest = response.data?.requestForNextResult!;
+        expect(resultRequest?.document, expectedDocument);
+        expect(resultRequest?.variables['nextToken'], response.data?.nextToken);
+        expect(resultRequest?.variables['limit'], limit);
       });
 
       test(
@@ -218,7 +218,7 @@ void main() {
         GraphQLResponse<PaginatedResult<Blog>> response =
             GraphQLResponseDecoder.instance.decode<PaginatedResult<Blog>>(
                 request: req, data: data, errors: errors);
-        expect(response.data.hasNextResult, false);
+        expect(response.data?.hasNextResult, false);
       });
 
       test(
@@ -277,10 +277,10 @@ void main() {
             GraphQLResponseDecoder.instance.decode<PaginatedResult<Blog>>(
                 request: req, data: data, errors: errors);
         Map<String, dynamic> firstRequestFilter = req.variables['filter'];
-        final resultRequest = response.data.requestForNextResult!;
+        final resultRequest = response.data?.requestForNextResult!;
 
-        expect(resultRequest.variables['filter'], firstRequestFilter);
-        expect(resultRequest.variables['filter'], expectedFilter);
+        expect(resultRequest?.variables['filter'], firstRequestFilter);
+        expect(resultRequest?.variables['filter'], expectedFilter);
       });
     });
 

@@ -115,7 +115,7 @@ void main() {
 
     expect(req.document, expectedDoc);
     expect(response.data, isA<Blog>());
-    expect(response.data.id, id);
+    expect(response.data?.id, id);
   });
 
   test('ModelQueries.list Model Helper executes correctly in the happy case',
@@ -163,7 +163,7 @@ void main() {
 
     expect(req.document, expectedDoc);
     expect(response.data, isA<PaginatedResult<Blog>>());
-    expect(response.data.items.length, 4);
+    expect(response.data?.items.length, 4);
   });
 
   test(

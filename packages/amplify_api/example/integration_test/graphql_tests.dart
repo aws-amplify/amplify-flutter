@@ -47,7 +47,7 @@ void main() {
       final req = GraphQLRequest<String>(
           document: graphQLDocument, variables: <String, String>{'id': id});
       final response = await Amplify.API.mutate(request: req).response;
-      Map data = jsonDecode(response.data);
+      Map data = jsonDecode(response.data!);
       return true;
     }
 
@@ -80,7 +80,7 @@ void main() {
               variables: <String, String>{'name': name}));
 
       var response = await _r.response;
-      Map data = jsonDecode(response.data);
+      Map data = jsonDecode(response.data!);
       Blog blog = Blog.fromJson(data['createBlog']);
       blogCache.add(blog);
       return blog;
@@ -95,7 +95,11 @@ void main() {
       final createPostReq = ModelMutations.create(post);
       final createPostRes =
           await Amplify.API.mutate(request: createPostReq).response;
-      Post data = createPostRes.data;
+      Post? data = createPostRes.data;
+      if (data == null) {
+        throw Exception(
+            'Null response while creating post. Response errors: ${createPostRes.errors}');
+      }
       if (!skipDelete) postCache.add(data);
 
       // TEMP, add the blog to the returned post so it can be further mutated.
@@ -130,7 +134,7 @@ void main() {
       var _r = Amplify.API
           .query<String>(request: GraphQLRequest(document: graphQLDocument));
       var response = await _r.response;
-      Map data = jsonDecode(response.data);
+      Map data = jsonDecode(response.data!);
       expect(data[listBlogs][items], hasLength(greaterThanOrEqualTo(0)));
     });
 
@@ -142,7 +146,7 @@ void main() {
 
       final req = ModelQueries.get(Blog.classType, blog.id);
       final res = await Amplify.API.query(request: req).response;
-      Blog data = res.data;
+      Blog? data = res.data;
 
       expect(data, equals(blog));
     });
@@ -164,7 +168,7 @@ void main() {
 
       final blogs = [blog_1, blog_2, blog_3];
 
-      expect(data.items, containsAll(blogs));
+      expect(data?.items, containsAll(blogs));
     });
 
     testWidgets(
@@ -174,13 +178,13 @@ void main() {
       var firstReq = ModelQueries.list<Blog>(Blog.classType, limit: limit);
       var firstRes = await Amplify.API.query(request: firstReq).response;
       var firstData = firstRes.data;
-      expect(firstData.items.length, limit);
-      expect(firstData.hasNextResult, true);
-      var secondReq = firstData.requestForNextResult;
+      expect(firstData?.items.length, limit);
+      expect(firstData?.hasNextResult, true);
+      var secondReq = firstData?.requestForNextResult;
       var secondRes = await Amplify.API.query(request: secondReq!).response;
       var secondData = secondRes.data;
-      expect(secondData.items.length, limit);
-      expect(secondData.items[0].id, isNot(firstData.items[0].id));
+      expect(secondData?.items.length, limit);
+      expect(secondData?.items[0].id, isNot(firstData?.items[0].id));
     });
 
     testWidgets('should LIST blogs with Model helper with query predicate',
@@ -195,8 +199,8 @@ void main() {
       final data = res.data;
       final blogs = [blog];
 
-      expect(data.items.length, 1);
-      expect(data.items, containsAll(blogs));
+      expect(data?.items.length, 1);
+      expect(data?.items, containsAll(blogs));
     });
 
     // Mutations
@@ -207,11 +211,11 @@ void main() {
 
       final req = ModelMutations.create(blog);
       final res = await Amplify.API.mutate(request: req).response;
-      Blog data = res.data;
-      blogCache.add(data);
+      Blog? data = res.data;
+      if (data != null) blogCache.add(data);
 
-      expect(data.name, equals(blog.name));
-      expect(data.id, equals(blog.id));
+      expect(data?.name, equals(blog.name));
+      expect(data?.id, equals(blog.id));
     });
 
     testWidgets('should CREATE a post (model with parent) with Model helper',
@@ -233,9 +237,8 @@ void main() {
 
       final req = ModelMutations.update(blog);
       final res = await Amplify.API.mutate(request: req).response;
-      Blog data = res.data;
 
-      expect(data, equals(blog));
+      expect(res.data, equals(blog));
     });
 
     testWidgets('should UPDATE a post (model with parent) with Model helper',
@@ -250,8 +253,8 @@ void main() {
       Post localUpdatedPost = originalPost.copyWith(title: updatedTitle);
       final updateReq = ModelMutations.update(localUpdatedPost);
       final updateRes = await Amplify.API.mutate(request: updateReq).response;
-      Post mutatedPost = updateRes.data;
-      expect(mutatedPost.title, equals(updatedTitle));
+      Post? mutatedPost = updateRes.data;
+      expect(mutatedPost?.title, equals(updatedTitle));
     });
 
     // TODO: test that updating without a parent blog gets error from appsync
@@ -267,19 +270,13 @@ void main() {
       final req =
           ModelMutations.update(blog, where: Blog.NAME.eq('THATS_NOT_MY_NAME'));
 
-      // attempt update, assert error
-      try {
-        await Amplify.API.mutate(request: req).response;
-      } on ApiException catch (e) {
-        expect(e.message, 'response from app sync was "null"');
-        expect(e.recoverySuggestion,
-            'Current GraphQLResponse is non-nullable, please ensure item exists before fetching');
-      }
+      // attempt update
+      final updateRes = await Amplify.API.mutate(request: req).response;
+      expect(updateRes.data, isNull);
       // query again to ensure it still unchanged
       final getReq = ModelQueries.get(Blog.classType, blog.id);
       final res = await Amplify.API.query(request: getReq).response;
-      Blog data = res.data;
-      expect(data.name, oldName);
+      expect(res.data?.name, oldName);
     });
 
     testWidgets('should DELETE a blog with Model helper',
@@ -287,23 +284,14 @@ void main() {
       String name = 'Integration Test Blog - delete';
       Blog blog = await addBlog(name);
 
-      var req = ModelMutations.delete(blog);
-      var _r = Amplify.API.mutate(request: req);
-
-      var res = await _r.response;
-      Blog data = res.data;
-
+      final deleteReq = ModelMutations.delete(blog);
+      final deleteRes = await Amplify.API.mutate(request: deleteReq).response;
+      Blog data = deleteRes.data!;
       expect(data, equals(blog));
 
-      try {
-        var checkReq = ModelQueries.get(Blog.classType, blog.id);
-        var _check = Amplify.API.query(request: checkReq);
-        var checkRes = await _check.response;
-      } on ApiException catch (e) {
-        expect(e.message, 'response from app sync was "null"');
-        expect(e.recoverySuggestion,
-            'Current GraphQLResponse is non-nullable, please ensure item exists before fetching');
-      }
+      final checkReq = ModelQueries.get(Blog.classType, blog.id);
+      final checkRes = await Amplify.API.query(request: checkReq).response;
+      expect(checkRes.data, isNull);
     });
 
     testWidgets('should Delete a post (model with parent) with Model helper',
@@ -315,8 +303,8 @@ void main() {
 
       final req = ModelMutations.deleteById(Post.classType, post.id);
       final res = await Amplify.API.mutate(request: req).response;
-      Post mutatedPost = res.data;
-      expect(mutatedPost.title, equals(title));
+      Post? mutatedPost = res.data;
+      expect(mutatedPost?.title, equals(title));
     });
 
     testWidgets(
@@ -327,19 +315,13 @@ void main() {
       final req =
           ModelMutations.delete(blog, where: Blog.NAME.eq('THATS_NOT_MY_NAME'));
 
-      // attempt delete, assert error
-      try {
-        await Amplify.API.mutate(request: req).response;
-      } on ApiException catch (e) {
-        expect(e.message, 'response from app sync was "null"');
-        expect(e.recoverySuggestion,
-            'Current GraphQLResponse is non-nullable, please ensure item exists before fetching');
-      }
+      // attempt delete
+      final deleteRes = await Amplify.API.mutate(request: req).response;
+      expect(deleteRes.data, isNull);
       // query again to ensure it still exists
       final getReq = ModelQueries.get(Blog.classType, blog.id);
       final res = await Amplify.API.query(request: getReq).response;
-      Blog data = res.data;
-      expect(data.name, name);
+      expect(res.data?.name, name);
     });
   });
 }
