@@ -76,6 +76,30 @@ class AmplifyModelSchemaTest {
     }
 
     @Test
+    fun test_schema_postAuthComplex_with_authRules_with_provider_userpools() {
+        // Generate Flutter ModelSchema from map input
+        var inputMap = schemasMap["PostAuthComplexWithProviderUserPoolsSchema"] as Map<String, Any>
+        var modelSchema = FlutterModelSchema(inputMap)
+        // Verify result
+        assertEquals(
+            modelSchema.convertToNativeModelSchema(),
+            postAuthComplexWithProviderUserPoolsSchema
+        )
+    }
+
+    @Test
+    fun test_schema_postAuthComplex_with_authRules_with_provider_apikey() {
+        // Generate Flutter ModelSchema from map input
+        var inputMap = schemasMap["PostAuthComplexWithProviderApiKeySchema"] as Map<String, Any>
+        var modelSchema = FlutterModelSchema(inputMap)
+        // Verify result
+        assertEquals(
+            modelSchema.convertToNativeModelSchema(),
+            postAuthComplexWithProviderApiKeySchema
+        )
+    }
+
+    @Test
     fun test_schema_allTypeModel() {
         // Generate Flutter ModelSchema from map input
         var inputMap = schemasMap["AllTypeModelSchema"] as Map<String, Any>

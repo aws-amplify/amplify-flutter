@@ -30,6 +30,7 @@ data class FlutterAuthRule(val map: Map<String, Any>) {
     private val groupsField: String? = map["groupsField"] as String?
     private val operations: List<ModelOperation>? =
         (map["operations"] as List<String>?)?.map { stringToModelOperation(it) }
+    private val authProvider: AuthStrategy.Provider? = stringToAuthStrategyProvider(map["provider"] as String?)
 
     private fun stringToAuthStrategy(string: String): AuthStrategy {
         return when (string) {
@@ -51,10 +52,25 @@ data class FlutterAuthRule(val map: Map<String, Any>) {
         }
     }
 
+    private fun stringToAuthStrategyProvider(string: String?): AuthStrategy.Provider? {
+        return when (string) {
+            "APIKEY" -> AuthStrategy.Provider.API_KEY
+            "OIDC" -> AuthStrategy.Provider.OIDC
+            "IAM" -> AuthStrategy.Provider.IAM
+            "USERPOOLS" -> AuthStrategy.Provider.USER_POOLS
+            "FUNCTION" -> AuthStrategy.Provider.FUNCTION
+            else -> null
+        }
+    }
+
     fun convertToNativeAuthRule(): AuthRule {
 
         val builder: AuthRule.Builder = AuthRule.builder()
             .authStrategy(authStrategy)
+
+        if (authProvider != null) {
+            builder.authProvider(authProvider)
+        }
 
         if (groups != null && groups.isNotEmpty()) {
             builder.groups(groups)
