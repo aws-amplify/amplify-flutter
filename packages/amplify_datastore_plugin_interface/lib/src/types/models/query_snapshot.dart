@@ -31,7 +31,8 @@ class QuerySnapshot<T extends Model> {
   // A list of models sorted according to the value provided for sortBy
   final SortedList<T> _sortedList;
 
-  // A Set of modelIds, used to
+  // A map of models in the sorted list, used to effeciently perform
+  // lookups on the list by model id
   final Map<String, T> _models;
 
   /// A list of models from the local store at the time that the snapshot was generated
