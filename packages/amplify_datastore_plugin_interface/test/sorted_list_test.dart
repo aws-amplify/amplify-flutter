@@ -48,15 +48,15 @@ void main() {
       });
     });
 
-    group('updateAt()', () {
+    group('updateSorted()', () {
       test('updates the item and maintains the sort order', () {
         List<int> items = [1, 2, 3, 7, 10];
         SortedList<int> sortedList = SortedList.fromPresortedList(
           items: items,
           compare: (a, b) => a.compareTo(b),
         );
-        sortedList.updateAtSorted(1, 5);
-        sortedList.updateAtSorted(4, 1);
+        sortedList.updateSorted(2, 5);
+        sortedList.updateSorted(10, 1);
 
         var expectedItems = [1, 1, 3, 5, 7];
         expect(sortedList.toList(), orderedEquals(expectedItems));
@@ -66,8 +66,8 @@ void main() {
           () {
         List<int> items = [1, 2, 3, 7, 10];
         SortedList<int> sortedList = SortedList.fromPresortedList(items: items);
-        sortedList.updateAtSorted(1, 5);
-        sortedList.updateAtSorted(4, 1);
+        sortedList.updateSorted(2, 5);
+        sortedList.updateSorted(10, 1);
 
         var expectedItems = [1, 5, 3, 7, 1];
         expect(sortedList.toList(), orderedEquals(expectedItems));

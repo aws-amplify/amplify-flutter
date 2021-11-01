@@ -72,24 +72,28 @@ class SortedList<E> with ListMixin<E> {
       add(item);
       return;
     }
-    int insertIndex = _findInsertionIndex(item);
+    int insertIndex = _findIndex(item);
     insert(insertIndex, item);
   }
 
   /// Updates an item in the list, maintaining the sort order
-  void updateAtSorted(int index, E item) {
+  void updateSorted(E oldItem, E newItem) {
     if (this._compare == null) {
-      this[index] = item;
+      int index = this.indexOf(oldItem);
+      this[index] = newItem;
     } else {
+      int index = this._findIndex(oldItem);
       removeAt(index);
-      addSorted(item);
+      addSorted(newItem);
     }
   }
 
-  /// Finds the index to insert the [item] at
+  /// Finds the index of the given item
+  /// if the item is not in the list, the appropriate
+  /// index to insert the [item] at will be returned
   ///
   /// O(log(n)) time complexity
-  int _findInsertionIndex(E item) {
+  int _findIndex(E item) {
     int low = 0;
     int high = _items.length;
 

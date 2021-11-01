@@ -31,6 +31,9 @@ class QuerySnapshot<T extends Model> {
   // A list of models sorted according to the value provided for sortBy
   final SortedList<T> _sortedList;
 
+  // A Set of modelIds, used to
+  final Map<String, T> _models;
+
   /// A list of models from the local store at the time that the snapshot was generated
   List<T> get items => _sortedList.toList();
 
@@ -45,10 +48,12 @@ class QuerySnapshot<T extends Model> {
 
   const QuerySnapshot._({
     required SortedList<T> sortedList,
+    required Map<String, T> models,
     required this.isSynced,
     this.where,
     this.sortBy,
-  }) : _sortedList = sortedList;
+  })  : _sortedList = sortedList,
+        _models = models;
 
   /// {@macro query_snapshot}
   factory QuerySnapshot({
@@ -57,13 +62,33 @@ class QuerySnapshot<T extends Model> {
     QueryPredicate? where,
     List<QuerySortBy>? sortBy,
   }) {
-    var sortedList = SortedList.fromPresortedList(
+    SortedList<T> sortedList = SortedList<T>.fromPresortedList(
       items: items,
       compare: _createCompareFromSortBy(sortBy),
     );
+    Map<String, T> models = Map<String, T>.fromIterable(
+      items,
+      key: (item) => (item as T).getId(),
+      value: (item) => item,
+    );
     return QuerySnapshot._(
       sortedList: sortedList,
+      models: models,
       isSynced: isSynced,
+      where: where,
+      sortBy: sortBy,
+    );
+  }
+
+  QuerySnapshot<T> copyWith({
+    SortedList<T>? sortedList,
+    Map<String, T>? models,
+    bool? syncStatus,
+  }) {
+    return QuerySnapshot._(
+      sortedList: sortedList ?? _sortedList,
+      models: models ?? _models,
+      isSynced: syncStatus ?? isSynced,
       where: where,
       sortBy: sortBy,
     );
@@ -71,12 +96,7 @@ class QuerySnapshot<T extends Model> {
 
   /// Returns a new QuerySnapshot with the [status] applied
   QuerySnapshot<T> withSyncStatus(bool status) {
-    return QuerySnapshot._(
-      sortedList: _sortedList,
-      isSynced: status,
-      where: where,
-      sortBy: sortBy,
-    );
+    return this.copyWith(syncStatus: status);
   }
 
   /// Returns a new QuerySnapshot with the [event] applied
@@ -89,44 +109,60 @@ class QuerySnapshot<T extends Model> {
   QuerySnapshot<T> withSubscriptionEvent({
     required SubscriptionEvent<T> event,
   }) {
-    SortedList<T> sortedListCopy = SortedList.from(this._sortedList);
-    SortedList<T>? updatedSortedList;
+    T item = event.item;
+    String id = item.getId();
+    bool itemMatchesPredicate = where == null || where!.evaluate(item);
+    bool snapshotContainsItem = _models.containsKey(id);
 
-    T newItem = event.item;
-    bool newItemMatchesPredicate = where == null || where!.evaluate(newItem);
-    int currentItemIndex =
-        sortedListCopy.indexWhere((item) => item.getId() == newItem.getId());
-    T? currentItem =
-        currentItemIndex == -1 ? null : sortedListCopy[currentItemIndex];
-    bool currentItemMatchesPredicate =
-        currentItem != null && (where == null || where!.evaluate(currentItem));
+    switch (event.eventType) {
+      case EventType.create:
+        // if the newly created item matches the predicate and the item is
+        // not already in the list, return a new snapshot with the new item
+        if (itemMatchesPredicate && !snapshotContainsItem) {
+          return this.copyWith(
+            sortedList: SortedList.from(_sortedList)..addSorted(item),
+            models: Map.from(_models)..updateItem(id, item),
+          );
+        }
+        break;
+      case EventType.update:
+        // if the updated item is in the list, update or remove based
+        // on the the query predicate
+        if (snapshotContainsItem) {
+          T currentItem = _models[id]!;
+          if (itemMatchesPredicate && currentItem != item) {
+            return this.copyWith(
+              sortedList: SortedList.from(_sortedList)
+                ..updateSorted(currentItem, item),
+              models: Map.from(_models)..updateItem(id, item),
+            );
+          } else if (!itemMatchesPredicate) {
+            return this.copyWith(
+              sortedList: SortedList.from(_sortedList)..remove(currentItem),
+              models: Map.from(_models)..remove(currentItem.getId()),
+            );
+          }
+        }
+        // otherwise, add the item to the list if it matches the predicate
+        else if (itemMatchesPredicate) {
+          return this.copyWith(
+            sortedList: SortedList.from(_sortedList)..addSorted(item),
+            models: Map.from(_models)..updateItem(id, item),
+          );
+        }
+        break;
+      case EventType.delete:
+        // if the deleted item is in the list, remove it
+        if (snapshotContainsItem) {
+          return this.copyWith(
+            sortedList: SortedList.from(_sortedList)..remove(item),
+            models: Map.from(_models)..remove(id),
+          );
+        }
+        break;
+    }
 
-    if (event.eventType == EventType.create &&
-        newItemMatchesPredicate &&
-        currentItem == null) {
-      updatedSortedList = sortedListCopy..addSorted(newItem);
-    } else if (event.eventType == EventType.delete && currentItem != null) {
-      updatedSortedList = sortedListCopy..removeAt(currentItemIndex);
-    } else if (event.eventType == EventType.update) {
-      if (currentItemMatchesPredicate &&
-          newItemMatchesPredicate &&
-          currentItem != newItem) {
-        updatedSortedList = sortedListCopy
-          ..updateAtSorted(currentItemIndex, newItem);
-      } else if (currentItemMatchesPredicate && !newItemMatchesPredicate) {
-        updatedSortedList = sortedListCopy..removeAt(currentItemIndex);
-      } else if (currentItem == null && newItemMatchesPredicate) {
-        updatedSortedList = sortedListCopy..addSorted(newItem);
-      }
-    }
-    if (updatedSortedList != null) {
-      return QuerySnapshot._(
-        sortedList: updatedSortedList,
-        isSynced: isSynced,
-        where: where,
-        sortBy: sortBy,
-      );
-    }
+    // if none of the above conditions were met, return the existing snapshot
     return this;
   }
 }
@@ -155,4 +191,10 @@ int Function(T a, T b)? _createCompareFromSortBy<T extends Model>(
     }
     return sortOrder;
   };
+}
+
+extension _ModelMapExtension<T extends Model> on Map<String, T> {
+  updateItem(String key, T item) {
+    return this.update(key, (value) => item, ifAbsent: () => item);
+  }
 }
