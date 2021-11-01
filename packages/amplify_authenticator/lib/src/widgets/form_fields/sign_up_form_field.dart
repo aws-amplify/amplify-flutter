@@ -105,8 +105,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
           titleKey: InputResolverKey.birthdateTitle,
           hintTextKey: InputResolverKey.birthdateHint,
           field: SignUpField.birthdate,
-          validator: validator,
-          fieldConfig: const DateFieldConfig());
+          validator: validator);
 
   /// Creates a nemail component.
   static SignUpFormField email({

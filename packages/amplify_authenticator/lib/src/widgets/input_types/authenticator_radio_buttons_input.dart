@@ -16,7 +16,7 @@
 import 'package:amplify_authenticator/src/l10n/input_resolver.dart';
 import 'package:amplify_authenticator/src/state/inherited_strings.dart';
 import 'package:amplify_authenticator/src/utils/country_code.dart';
-import 'package:amplify_authenticator/src/widgets/input_types/field_options.dart';
+import 'package:amplify_authenticator/src/widgets/input_types/field_config.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

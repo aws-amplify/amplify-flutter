@@ -28,7 +28,7 @@ import 'package:amplify_authenticator/src/state/inherited_forms.dart';
 import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
-import 'package:amplify_authenticator/src/widgets/input_types/field_options.dart';
+import 'package:amplify_authenticator/src/widgets/input_types/field_config.dart';
 import 'package:amplify_flutter/src/config/auth/aws_cognito_username_attributes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
