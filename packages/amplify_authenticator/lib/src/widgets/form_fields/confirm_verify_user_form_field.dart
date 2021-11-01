@@ -17,14 +17,14 @@ part of authenticator.form_field;
 
 class ConfirmVerifyUserFormField
     extends AuthenticatorFormField<void, ConfirmVerifyUserFormField> {
-  const ConfirmVerifyUserFormField({
-    Key? key,
-  }) : super._(
-          key: key ?? keyCodeConfirmSignInFormfield,
-          field: null,
-          titleKey: InputResolverKey.verificationCodeTitle,
-          hintTextKey: InputResolverKey.verificationCodeHint,
-        );
+  const ConfirmVerifyUserFormField(
+      {Key? key, FieldDataType fieldDataType = const FieldDataType<String>()})
+      : super._(
+            key: key ?? keyCodeConfirmSignInFormfield,
+            field: null,
+            titleKey: InputResolverKey.verificationCodeTitle,
+            hintTextKey: InputResolverKey.verificationCodeHint,
+            fieldDataType: fieldDataType);
 
   @override
   _ConfirmVerifyUserFormFieldState createState() =>
@@ -36,8 +36,8 @@ class _ConfirmVerifyUserFormFieldState
   @override
   String? get initialValue => viewModel.confirmationCode;
 
-  @override
-  ValueChanged<String> get onChanged => viewModel.setConfirmationCode;
+  // @override
+  // ValueChanged<String> get onChanged => viewModel.setConfirmationCode;
 
   @override
   TextInputType get keyboardType => TextInputType.text;

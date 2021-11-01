@@ -1,82 +1,161 @@
-/*
- * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+// /*
+//  * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//  *
+//  * Licensed under the Apache License, Version 2.0 (the "License").
+//  * You may not use this file except in compliance with the License.
+//  * A copy of the License is located at
+//  *
+//  *  http://aws.amazon.com/apache2.0
+//  *
+//  * or in the "license" file accompanying this file. This file is distributed
+//  * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+//  * express or implied. See the License for the specific language governing
+//  * permissions and limitations under the License.
+//  */
 
-import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
-import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
-import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
-import 'package:amplify_authenticator/src/widgets/component.dart';
-import 'package:amplify_authenticator/src/widgets/form.dart';
-import 'package:amplify_authenticator/src/widgets/form_field.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+// import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
+// import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
+// import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
+// import 'package:amplify_authenticator/src/widgets/component.dart';
+// import 'package:amplify_authenticator/src/widgets/form.dart';
+// import 'package:amplify_authenticator/src/widgets/form_field.dart';
+// import 'package:flutter/foundation.dart';
+// import 'package:flutter/material.dart';
 
-class AuthenticatorTextInput extends StatelessAuthenticatorComponent {
-  final bool obscureText;
+// class AuthenticatorTextField<FieldType,
+//         T extends AuthenticatorTextField<FieldType, T>>
+//     extends AuthenticatorFormField<FieldType, String, T> {
+//   const AuthenticatorTextField({
+//     Key? key,
+//     required FieldType field,
+//     InputResolverKey? titleKey,
+//     InputResolverKey? hintTextKey,
+//     String? title,
+//     String? hintText,
+//     FormFieldValidator<String>? validator,
+//   }) : super(
+//           key: key,
+//           field: field,
+//           titleKey: titleKey,
+//           hintTextKey: hintTextKey,
+//           title: title,
+//           hintText: hintText,
+//           validator: validator,
+//         );
 
-  const AuthenticatorTextInput({Key? key, this.obscureText = false})
-      : super(key: key);
+//   @override
+//   _AuthenticatorTextFieldState<FieldType, T> createState() =>
+//       _AuthenticatorTextFieldState();
+// }
 
-  @override
-  Widget builder(BuildContext context, AuthViewModel viewModel,
-      AuthStringResolver stringResolver) {
-    final parentState =
-        context.findAncestorStateOfType<AuthenticatorFormFieldState>()!;
-    final inputResolver = stringResolver.inputs;
-    final hintText = parentState.widget.hintText == null
-        ? inputResolver.resolve(context, parentState.widget.hintTextKey!)
-        : parentState.widget.hintText!;
+// class _AuthenticatorTextFieldState<FieldType,
+//         T extends AuthenticatorTextField<FieldType, T>>
+//     extends AuthenticatorFormFieldState<FieldType, String, T> {
+//   @override
+//   Widget buildForm(BuildContext context) {
+//     final inputResolver = stringResolver.inputs;
+//     final hintText = widget.hintText == null
+//         ? inputResolver.resolve(context, widget.hintTextKey!)
+//         : widget.hintText!;
+//     return ValueListenableBuilder<bool>(
+//       valueListenable: context
+//           .findAncestorStateOfType<AuthenticatorFormState>()!
+//           .obscureTextToggleValue,
+//       builder: (BuildContext context, bool toggleObscureText, Widget? _) {
+//         var obscureText = this.obscureText && toggleObscureText;
+//         return TextFormField(
+//           style: enabled
+//               ? null
+//               : const TextStyle(
+//                   color: AmplifyColors.black20,
+//                 ),
+//           initialValue: initialValue,
+//           enabled: enabled,
+//           validator: widget._validatorOverride ?? validator,
+//           onChanged: onChanged,
+//           decoration: InputDecoration(
+//             suffixIcon: suffixIcon,
+//             errorMaxLines: errorMaxLines,
+//             focusedBorder: OutlineInputBorder(
+//               borderSide: BorderSide(
+//                 color: Theme.of(context).primaryColor,
+//               ),
+//             ),
+//             hintText: hintText,
+//             border: const OutlineInputBorder(),
+//           ),
+//           keyboardType: keyboardType,
+//           obscureText: obscureText,
+//         );
+//       },
+//     );
+//   }
+// }
 
-    return ValueListenableBuilder<bool?>(
-        valueListenable: context
-            .findAncestorStateOfType<AuthenticatorFormState>()!
-            .obscureTextToggleValue,
-        builder: (BuildContext context, bool? toggleObscureText, Widget? _) {
-          bool _obscureText =
-              parentState.obscureText == true && toggleObscureText == true
-                  ? true
-                  : false;
-          return TextFormField(
-            style: parentState.enabled
-                ? null
-                : const TextStyle(
-                    color: AmplifyColors.black20,
-                  ),
-            initialValue: parentState.initialValue,
-            enabled: parentState.enabled,
-            validator: parentState.validator,
-            onChanged: parentState.onChanged,
-            decoration: InputDecoration(
-              suffixIcon: parentState.suffixIcon,
-              errorMaxLines: parentState.errorMaxLines,
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Theme.of(context).primaryColor,
-                ),
-              ),
-              hintText: hintText,
-              border: const OutlineInputBorder(),
-            ),
-            keyboardType: parentState.keyboardType,
-            obscureText: _obscureText,
-          );
-        });
-  }
+// import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
+// import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
+// import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
+// import 'package:amplify_authenticator/src/widgets/component.dart';
+// import 'package:amplify_authenticator/src/widgets/form.dart';
+// import 'package:amplify_authenticator/src/widgets/form_field.dart';
+// import 'package:flutter/foundation.dart';
+// import 'package:flutter/material.dart';
 
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<bool>('obscureText', obscureText));
-  }
-}
+// class AuthenticatorTextInput extends StatelessAuthenticatorComponent {
+//   final bool obscureText;
+
+//   const AuthenticatorTextInput({Key? key, this.obscureText = false})
+//       : super(key: key);
+
+//   @override
+//   Widget builder(BuildContext context, AuthViewModel viewModel,
+//       AuthStringResolver stringResolver) {
+//     final parentState =
+//         context.findAncestorStateOfType<AuthenticatorFormFieldState>()!;
+//     final inputResolver = stringResolver.inputs;
+//     final hintText = parentState.widget.hintText == null
+//         ? inputResolver.resolve(context, parentState.widget.hintTextKey!)
+//         : parentState.widget.hintText!;
+
+//     return ValueListenableBuilder<bool?>(
+//         valueListenable: context
+//             .findAncestorStateOfType<AuthenticatorFormState>()!
+//             .obscureTextToggleValue,
+//         builder: (BuildContext context, bool? toggleObscureText, Widget? _) {
+//           bool _obscureText =
+//               parentState.obscureText == true && toggleObscureText == true
+//                   ? true
+//                   : false;
+//           return TextFormField(
+//             style: parentState.enabled
+//                 ? null
+//                 : const TextStyle(
+//                     color: AmplifyColors.black20,
+//                   ),
+//             initialValue: parentState.initialValue,
+//             enabled: parentState.enabled,
+//             validator: parentState.validator,
+//             onChanged: parentState.widget.fieldDataType.onChanged,
+//             decoration: InputDecoration(
+//               suffixIcon: parentState.suffixIcon,
+//               errorMaxLines: parentState.errorMaxLines,
+//               focusedBorder: OutlineInputBorder(
+//                 borderSide: BorderSide(
+//                   color: Theme.of(context).primaryColor,
+//                 ),
+//               ),
+//               hintText: hintText,
+//               border: const OutlineInputBorder(),
+//             ),
+//             keyboardType: parentState.keyboardType,
+//             obscureText: _obscureText,
+//           );
+//         });
+//   }
+
+//   @override
+//   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+//     super.debugFillProperties(properties);
+//     properties.add(DiagnosticsProperty<bool>('obscureText', obscureText));
+//   }
+// }

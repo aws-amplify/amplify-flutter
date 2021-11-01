@@ -19,8 +19,8 @@ part of authenticator.form_field;
 /// A form field component on the Sign Up screen.
 /// {@endtemplate}
 ///   /// Creates a extends component.
-class SignUpFormField
-    extends AuthenticatorFormField<SignUpField, SignUpFormField> {
+abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
+    SignUpField, FieldValue, SignUpFormField<FieldValue>> {
   /// {@macro authenticator.sign_up_form_field}
   ///
   /// Either [titleKey] or [title] is required.
@@ -31,9 +31,8 @@ class SignUpFormField
       InputResolverKey? hintTextKey,
       String? title,
       String? hintText,
-      FormFieldValidator<String>? validator,
-      String? customAttributeKey,
-      FieldConfig? fieldConfig})
+      FormFieldValidator<FieldValue>? validator,
+      String? customAttributeKey})
       : _customAttributeKey = customAttributeKey,
         super._(
             key: key,
@@ -42,116 +41,124 @@ class SignUpFormField
             hintTextKey: hintTextKey,
             title: title,
             hintText: hintText,
-            validator: validator,
-            fieldConfig: fieldConfig);
+            validator: validator);
 
   /// Creates a username component.
-  const SignUpFormField.username({
+  static SignUpFormField username({
     Key? key,
     FormFieldValidator<String>? validator,
-  }) : this._(
-          key: key ?? keyUsernameSignUpFormField,
-          titleKey: InputResolverKey.usernameTitle,
-          hintTextKey: InputResolverKey.usernameHint,
-          field: SignUpField.username,
-          validator: validator,
-        );
+  }) =>
+      _SignUpTextField(
+        key: key ?? keyUsernameSignUpFormField,
+        titleKey: InputResolverKey.usernameTitle,
+        hintTextKey: InputResolverKey.usernameHint,
+        field: SignUpField.username,
+        validator: validator,
+      );
 
   /// Creates a password component.
-  const SignUpFormField.password({
+  static SignUpFormField password({
     Key? key,
     FormFieldValidator<String>? validator,
-  }) : this._(
-          key: key ?? keyPasswordSignUpFormField,
-          titleKey: InputResolverKey.passwordTitle,
-          hintTextKey: InputResolverKey.passwordHint,
-          field: SignUpField.password,
-          validator: validator,
-        );
+  }) =>
+      _SignUpTextField(
+        key: key ?? keyPasswordSignUpFormField,
+        titleKey: InputResolverKey.passwordTitle,
+        hintTextKey: InputResolverKey.passwordHint,
+        field: SignUpField.password,
+        validator: validator,
+      );
 
   /// Creates a passwordConfirmation component.
-  const SignUpFormField.passwordConfirmation({
+  static SignUpFormField passwordConfirmation({
     Key? key,
     FormFieldValidator<String>? validator,
-  }) : this._(
-          key: key ?? keyPasswordConfirmationSignUpFormField,
-          titleKey: InputResolverKey.passwordConfirmationTitle,
-          hintTextKey: InputResolverKey.passwordConfirmationHint,
-          field: SignUpField.passwordConfirmation,
-          validator: validator,
-        );
+  }) =>
+      _SignUpTextField(
+        key: key ?? keyPasswordConfirmationSignUpFormField,
+        titleKey: InputResolverKey.passwordConfirmationTitle,
+        hintTextKey: InputResolverKey.passwordConfirmationHint,
+        field: SignUpField.passwordConfirmation,
+        validator: validator,
+      );
 
   /// Creates an address component.
-  const SignUpFormField.address({
+  static SignUpFormField address({
     Key? key,
     FormFieldValidator<String>? validator,
-  }) : this._(
-          key: key ?? keyAddressSignUpFormField,
-          titleKey: InputResolverKey.addressTitle,
-          hintTextKey: InputResolverKey.addressHint,
-          field: SignUpField.address,
-          validator: validator,
-        );
+  }) =>
+      _SignUpTextField(
+        key: key ?? keyAddressSignUpFormField,
+        titleKey: InputResolverKey.addressTitle,
+        hintTextKey: InputResolverKey.addressHint,
+        field: SignUpField.address,
+        validator: validator,
+      );
 
   /// Creates a birthdate component.
-  const SignUpFormField.birthdate({
+  static SignUpFormField birthdate({
     Key? key,
     FormFieldValidator<String>? validator,
-  }) : this._(
-            key: key ?? keyBirthdateSignUpFormField,
-            titleKey: InputResolverKey.birthdateTitle,
-            hintTextKey: InputResolverKey.birthdateHint,
-            field: SignUpField.birthdate,
-            validator: validator,
-            fieldConfig: const DateFieldConfig());
+  }) =>
+      _SignUpTextField(
+          key: key ?? keyBirthdateSignUpFormField,
+          titleKey: InputResolverKey.birthdateTitle,
+          hintTextKey: InputResolverKey.birthdateHint,
+          field: SignUpField.birthdate,
+          validator: validator,
+          fieldConfig: const DateFieldConfig());
 
   /// Creates a nemail component.
-  const SignUpFormField.email({
+  static SignUpFormField email({
     Key? key,
     FormFieldValidator<String>? validator,
-  }) : this._(
-          key: key ?? keyEmailSignUpFormField,
-          titleKey: InputResolverKey.emailTitle,
-          hintTextKey: InputResolverKey.emailHint,
-          field: SignUpField.email,
-          validator: validator,
-        );
+  }) =>
+      _SignUpTextField(
+        key: key ?? keyEmailSignUpFormField,
+        titleKey: InputResolverKey.emailTitle,
+        hintTextKey: InputResolverKey.emailHint,
+        field: SignUpField.email,
+        validator: validator,
+      );
 
   /// Creates a familyName component.
-  const SignUpFormField.familyName({
+  static SignUpFormField familyName({
     Key? key,
     FormFieldValidator<String>? validator,
-  }) : this._(
-          key: key ?? keyFamilyNameSignUpFormField,
-          titleKey: InputResolverKey.familyNameTitle,
-          hintTextKey: InputResolverKey.familyNameHint,
-          field: SignUpField.familyName,
-          validator: validator,
-        );
+  }) =>
+      _SignUpTextField(
+        key: key ?? keyFamilyNameSignUpFormField,
+        titleKey: InputResolverKey.familyNameTitle,
+        hintTextKey: InputResolverKey.familyNameHint,
+        field: SignUpField.familyName,
+        validator: validator,
+      );
 
   /// Creates a gender component.
-  const SignUpFormField.gender({
+  static SignUpFormField gender({
     Key? key,
     FormFieldValidator<String>? validator,
-  }) : this._(
-          key: key ?? keyGenderSignUpFormField,
-          titleKey: InputResolverKey.genderTitle,
-          hintTextKey: InputResolverKey.genderHint,
-          field: SignUpField.gender,
-          validator: validator,
-        );
+  }) =>
+      _SignUpTextField(
+        key: key ?? keyGenderSignUpFormField,
+        titleKey: InputResolverKey.genderTitle,
+        hintTextKey: InputResolverKey.genderHint,
+        field: SignUpField.gender,
+        validator: validator,
+      );
 
   /// Creates a givenName component.
-  const SignUpFormField.givenName({
+  static SignUpFormField givenName({
     Key? key,
     FormFieldValidator<String>? validator,
-  }) : this._(
-          key: key ?? keyGivenNameSignUpFormField,
-          titleKey: InputResolverKey.givenNameTitle,
-          hintTextKey: InputResolverKey.givenNameHint,
-          field: SignUpField.givenName,
-          validator: validator,
-        );
+  }) =>
+      _SignUpTextField(
+        key: key ?? keyGivenNameSignUpFormField,
+        titleKey: InputResolverKey.givenNameTitle,
+        hintTextKey: InputResolverKey.givenNameHint,
+        field: SignUpField.givenName,
+        validator: validator,
+      );
 
   // /// Creates a locale component.
   // const SignUpFormField.locale({
@@ -166,52 +173,55 @@ class SignUpFormField
   //       );
 
   /// Creates a middleName component.
-  const SignUpFormField.middleName({
+  static SignUpFormField middleName({
     Key? key,
     FormFieldValidator<String>? validator,
-  }) : this._(
-          key: key ?? keyMiddleNameSignUpFormField,
-          titleKey: InputResolverKey.middleNameTitle,
-          hintTextKey: InputResolverKey.middleNameHint,
-          field: SignUpField.middleName,
-          validator: validator,
-        );
+  }) =>
+      _SignUpTextField(
+        key: key ?? keyMiddleNameSignUpFormField,
+        titleKey: InputResolverKey.middleNameTitle,
+        hintTextKey: InputResolverKey.middleNameHint,
+        field: SignUpField.middleName,
+        validator: validator,
+      );
 
   /// Creates a name component.
-  const SignUpFormField.name({
+  static SignUpFormField name({
     Key? key,
     FormFieldValidator<String>? validator,
-  }) : this._(
-          key: key ?? keyNameSignUpFormField,
-          titleKey: InputResolverKey.nameTitle,
-          hintTextKey: InputResolverKey.nameHint,
-          field: SignUpField.name,
-          validator: validator,
-        );
+  }) =>
+      _SignUpTextField(
+        key: key ?? keyNameSignUpFormField,
+        titleKey: InputResolverKey.nameTitle,
+        hintTextKey: InputResolverKey.nameHint,
+        field: SignUpField.name,
+        validator: validator,
+      );
 
   /// Creates a nickname component.
-  const SignUpFormField.nickname({
+  static SignUpFormField nickname({
     Key? key,
     FormFieldValidator<String>? validator,
-  }) : this._(
-          key: key ?? keyNicknameSignUpFormField,
-          titleKey: InputResolverKey.nicknameTitle,
-          hintTextKey: InputResolverKey.nicknameHint,
-          field: SignUpField.nickname,
-          validator: validator,
-        );
+  }) =>
+      _SignUpTextField(
+        key: key ?? keyNicknameSignUpFormField,
+        titleKey: InputResolverKey.nicknameTitle,
+        hintTextKey: InputResolverKey.nicknameHint,
+        field: SignUpField.nickname,
+        validator: validator,
+      );
 
   /// Creates a phoneNumber component.
-  const SignUpFormField.phoneNumber({
+  static SignUpFormField phoneNumber({
     Key? key,
     FormFieldValidator<String>? validator,
-  }) : this._(
-            key: key ?? keyPhoneNumberSignUpFormField,
-            titleKey: InputResolverKey.phoneNumberTitle,
-            hintTextKey: InputResolverKey.phoneNumberHint,
-            field: SignUpField.phoneNumber,
-            validator: validator,
-            fieldConfig: const PhoneFieldConfig());
+  }) =>
+      _SignUpTextField(
+          key: key ?? keyPhoneNumberSignUpFormField,
+          titleKey: InputResolverKey.phoneNumberTitle,
+          hintTextKey: InputResolverKey.phoneNumberHint,
+          field: SignUpField.phoneNumber,
+          validator: validator);
 
   // /// Creates a picture component.
   // const SignUpFormField.picture({
@@ -226,32 +236,33 @@ class SignUpFormField
   //       );
 
   /// Creates a preferredUsername component.
-  const SignUpFormField.preferredUsername({
+  static SignUpFormField preferredUsername({
     Key? key,
     FormFieldValidator<String>? validator,
-  }) : this._(
+  }) =>
+      _SignUpTextField(
+        key: key ?? keyPreferredUsernameSignUpFormField,
+        titleKey: InputResolverKey.preferredUsernameTitle,
+        hintTextKey: InputResolverKey.preferredUsernameHint,
+        field: SignUpField.preferredUsername,
+        validator: validator,
+      );
+
+  static SignUpFormField selectUserNameType(
+          {Key? key, FormFieldValidator<String>? validator}) =>
+      _SignUpTextField(
           key: key ?? keyPreferredUsernameSignUpFormField,
-          titleKey: InputResolverKey.preferredUsernameTitle,
-          hintTextKey: InputResolverKey.preferredUsernameHint,
+          titleKey: InputResolverKey.usernameType,
           field: SignUpField.preferredUsername,
           validator: validator,
-        );
-
-  const SignUpFormField.selectUserNameType(
-      {Key? key, FormFieldValidator<String>? validator})
-      : this._(
-            key: key ?? keyPreferredUsernameSignUpFormField,
-            titleKey: InputResolverKey.usernameType,
-            field: SignUpField.preferredUsername,
-            validator: validator,
-            fieldConfig: const RadioButtonFieldConfig(selections: [
-              InputSelection(
-                  label: InputResolverKey.usernameTypeEmail,
-                  value: SignUpField.email),
-              InputSelection(
-                  label: InputResolverKey.usernameTypePhoneNumber,
-                  value: SignUpField.phoneNumber)
-            ]));
+          fieldConfig: const RadioButtonFieldConfig(selections: [
+            InputSelection(
+                label: InputResolverKey.usernameTypeEmail,
+                value: SignUpField.email),
+            InputSelection(
+                label: InputResolverKey.usernameTypePhoneNumber,
+                value: SignUpField.phoneNumber)
+          ]));
 
   // /// Creates a profile component.
   // const SignUpFormField.profile({
@@ -304,30 +315,125 @@ class SignUpFormField
   /// Creates a custom attribute component.
   ///
   /// TODO: Document [attributeKey]
-  const SignUpFormField.custom({
+  static SignUpFormField custom({
     Key? key,
     required String title,
     required String attributeKey,
     String? hintText,
     FormFieldValidator<String>? validator,
-  }) : this._(
-          key: key,
-          title: title,
-          hintText: hintText,
-          field: SignUpField.custom,
-          validator: validator,
-          customAttributeKey: attributeKey,
-        );
+  }) =>
+      _SignUpTextField(
+        key: key,
+        title: title,
+        hintText: hintText,
+        field: SignUpField.custom,
+        validator: validator,
+        customAttributeKey: attributeKey,
+      );
 
   /// Custom Cognito attribute key.
   final String? _customAttributeKey;
-
-  @override
-  _SignUpFormFieldState createState() => _SignUpFormFieldState();
 }
 
-class _SignUpFormFieldState
-    extends AuthenticatorFormFieldState<SignUpField, SignUpFormField> {
+abstract class _SignUpFormFieldState<FieldValue>
+    extends AuthenticatorFormFieldState<SignUpField, FieldValue,
+        SignUpFormField<FieldValue>> {
+  @override
+  bool get obscureText {
+    switch (widget.field) {
+      case SignUpField.password:
+      case SignUpField.passwordConfirmation:
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  @override
+  TextInputType? get keyboardType {
+    switch (widget.field) {
+      case SignUpField.username:
+        return TextInputType.text;
+      case SignUpField.password:
+      case SignUpField.passwordConfirmation:
+        return TextInputType.visiblePassword;
+      case SignUpField.address:
+        return TextInputType.streetAddress;
+      case SignUpField.email:
+        return TextInputType.emailAddress;
+      case SignUpField.name:
+        return TextInputType.name;
+      case SignUpField.phoneNumber:
+        return TextInputType.phone;
+      case SignUpField.birthdate:
+      // case SignUpField.updatedAt:
+      //   return TextInputType.datetime;
+      // case SignUpField.website:
+      //   return TextInputType.url;
+      case SignUpField.familyName:
+      case SignUpField.gender:
+      case SignUpField.givenName:
+      // case SignUpField.locale:
+      case SignUpField.middleName:
+      case SignUpField.nickname:
+      // case SignUpField.picture:
+      case SignUpField.preferredUsername:
+      // case SignUpField.profile:
+      // case SignUpField.zoneinfo:
+      case SignUpField.custom:
+        return TextInputType.text;
+      case SignUpField.selectedUsername:
+        return null;
+    }
+  }
+
+  @override
+  Widget? get suffixIcon {
+    switch (widget.field) {
+      case SignUpField.password:
+      case SignUpField.passwordConfirmation:
+        return visibilityToggle;
+      default:
+        return null;
+    }
+  }
+
+  @override
+  int get errorMaxLines {
+    switch (widget.field) {
+      case SignUpField.password:
+        return 6;
+      default:
+        return super.errorMaxLines;
+    }
+  }
+}
+
+class _SignUpTextField extends SignUpFormField<String> {
+  const _SignUpTextField({
+    Key? key,
+    required SignUpField field,
+    InputResolverKey? titleKey,
+    InputResolverKey? hintTextKey,
+    String? title,
+    String? hintText,
+    FormFieldValidator<String>? validator,
+  }) : super._(
+          key: key,
+          field: field,
+          titleKey: titleKey,
+          hintTextKey: hintTextKey,
+          title: title,
+          hintText: hintText,
+          validator: validator,
+        );
+
+  @override
+  _SignUpTextFieldState createState() => _SignUpTextFieldState();
+}
+
+class _SignUpTextFieldState extends _SignUpFormFieldState<String>
+    with AuthenticatorTextField {
   @override
   String? get initialValue {
     switch (widget.field) {
@@ -357,6 +463,60 @@ class _SignUpFormFieldState
         return viewModel.getAttribute(widget.field.toCognitoAttribute());
       case SignUpField.custom:
         return viewModel.getAttribute(widget._customAttributeKey!);
+    }
+  }
+
+  @override
+  ValueChanged<String> get onChanged {
+    switch (widget.field) {
+      case SignUpField.username:
+        return viewModel.setUsername;
+      case SignUpField.password:
+        return viewModel.setPassword;
+      case SignUpField.passwordConfirmation:
+        return viewModel.setPasswordConfirmation;
+      case SignUpField.address:
+        return viewModel.setAddress;
+      case SignUpField.birthdate:
+        return viewModel.setBirthdate;
+      case SignUpField.email:
+        // if (_usernameAttributes.contains(AwsCognitoUsernameAttributes.email))
+        return viewModel.setEmail;
+      case SignUpField.familyName:
+        return viewModel.setFamilyName;
+      case SignUpField.gender:
+        return viewModel.setGender;
+      case SignUpField.givenName:
+        return viewModel.setGivenName;
+      // case SignUpField.locale:
+      //   return viewModel.setLocale;
+      case SignUpField.middleName:
+        return viewModel.setMiddleName;
+      case SignUpField.name:
+        return viewModel.setName;
+      case SignUpField.nickname:
+        return viewModel.setNickname;
+      case SignUpField.phoneNumber:
+        return viewModel.setPhoneNumber;
+      // case SignUpField.picture:
+      //   return viewModel.setPicture;
+      case SignUpField.preferredUsername:
+        return viewModel.setPreferredUsername;
+      case SignUpField.selectedUsername:
+        return viewModel.setSelectedUsername;
+      // case SignUpField.profile:
+      //   return viewModel.setProfile;
+      // case SignUpField.zoneinfo:
+      //   return viewModel.setZoneInfo;
+      // case SignUpField.updatedAt:
+      //   return viewModel.setUpdatedAt;
+      // case SignUpField.website:
+      //   return viewModel.setWebsite;
+      case SignUpField.custom:
+        return (String value) => viewModel.setCustom(
+              widget._customAttributeKey!,
+              value,
+            );
     }
   }
 
@@ -492,126 +652,8 @@ class _SignUpFormFieldState
   }
 
   @override
-  bool get obscureText {
-    switch (widget.field) {
-      case SignUpField.password:
-      case SignUpField.passwordConfirmation:
-        return true;
-      default:
-        return false;
-    }
-  }
-
-  @override
-  ValueChanged<String> get onChanged {
-    switch (widget.field) {
-      case SignUpField.username:
-        return viewModel.setUsername;
-      case SignUpField.password:
-        return viewModel.setPassword;
-      case SignUpField.passwordConfirmation:
-        return viewModel.setPasswordConfirmation;
-      case SignUpField.address:
-        return viewModel.setAddress;
-      case SignUpField.birthdate:
-        return viewModel.setBirthdate;
-      case SignUpField.email:
-        // if (_usernameAttributes.contains(AwsCognitoUsernameAttributes.email))
-        return viewModel.setEmail;
-      case SignUpField.familyName:
-        return viewModel.setFamilyName;
-      case SignUpField.gender:
-        return viewModel.setGender;
-      case SignUpField.givenName:
-        return viewModel.setGivenName;
-      // case SignUpField.locale:
-      //   return viewModel.setLocale;
-      case SignUpField.middleName:
-        return viewModel.setMiddleName;
-      case SignUpField.name:
-        return viewModel.setName;
-      case SignUpField.nickname:
-        return viewModel.setNickname;
-      case SignUpField.phoneNumber:
-        return viewModel.setPhoneNumber;
-      // case SignUpField.picture:
-      //   return viewModel.setPicture;
-      case SignUpField.preferredUsername:
-        return viewModel.setPreferredUsername;
-      case SignUpField.selectedUsername:
-        return viewModel.setSelectedUsername;
-      // case SignUpField.profile:
-      //   return viewModel.setProfile;
-      // case SignUpField.zoneinfo:
-      //   return viewModel.setZoneInfo;
-      // case SignUpField.updatedAt:
-      //   return viewModel.setUpdatedAt;
-      // case SignUpField.website:
-      //   return viewModel.setWebsite;
-      case SignUpField.custom:
-        return (String value) => viewModel.setCustom(
-              widget._customAttributeKey!,
-              value,
-            );
-    }
-  }
-
-  @override
-  TextInputType? get keyboardType {
-    switch (widget.field) {
-      case SignUpField.username:
-        return TextInputType.text;
-      case SignUpField.password:
-      case SignUpField.passwordConfirmation:
-        return TextInputType.visiblePassword;
-      case SignUpField.address:
-        return TextInputType.streetAddress;
-      case SignUpField.email:
-        return TextInputType.emailAddress;
-      case SignUpField.name:
-        return TextInputType.name;
-      case SignUpField.phoneNumber:
-        return TextInputType.phone;
-      case SignUpField.birthdate:
-      // case SignUpField.updatedAt:
-      //   return TextInputType.datetime;
-      // case SignUpField.website:
-      //   return TextInputType.url;
-      case SignUpField.familyName:
-      case SignUpField.gender:
-      case SignUpField.givenName:
-      // case SignUpField.locale:
-      case SignUpField.middleName:
-      case SignUpField.nickname:
-      // case SignUpField.picture:
-      case SignUpField.preferredUsername:
-      // case SignUpField.profile:
-      // case SignUpField.zoneinfo:
-      case SignUpField.custom:
-        return TextInputType.text;
-      case SignUpField.selectedUsername:
-        return null;
-    }
-  }
-
-  @override
-  Widget? get suffixIcon {
-    switch (widget.field) {
-      case SignUpField.password:
-      case SignUpField.passwordConfirmation:
-        return visibilityToggle;
-      default:
-        return null;
-    }
-  }
-
-  @override
-  int get errorMaxLines {
-    switch (widget.field) {
-      case SignUpField.password:
-        return 6;
-      default:
-        return super.errorMaxLines;
-    }
+  Widget buildForm(BuildContext context) {
+    // TODO: implement buildForm
+    throw UnimplementedError();
   }
 }

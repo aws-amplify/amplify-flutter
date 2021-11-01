@@ -23,19 +23,16 @@ import 'package:amplify_authenticator/src/enums/confirm_signup_types.dart';
 import 'package:amplify_authenticator/src/enums/signin_types.dart';
 import 'package:amplify_authenticator/src/enums/signup_types.dart';
 import 'package:amplify_authenticator/src/keys.dart';
+import 'package:amplify_authenticator/src/mixins/authenticator_text_field.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
-import 'package:amplify_authenticator/src/theme/amplify_theme.dart';
 import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
-import 'package:amplify_authenticator/src/widgets/field_options.dart';
-import 'package:amplify_authenticator/src/widgets/input_types/authenticator_date_input.dart';
-import 'package:amplify_authenticator/src/widgets/input_types/authenticator_phone_input.dart';
-import 'package:amplify_authenticator/src/widgets/input_types/authenticator_radio_buttons_input.dart';
-import 'package:amplify_authenticator/src/widgets/input_types/authenticator_text_input.dart';
+import 'package:amplify_authenticator/src/widgets/input_types/field_options.dart';
 import 'package:amplify_flutter/src/config/auth/aws_cognito_username_attributes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 part 'form_fields/sign_in_form_field.dart';
 part 'form_fields/sign_up_form_field.dart';
@@ -55,24 +52,24 @@ part 'form_fields/confirm_verify_user_form_field.dart';
 /// - [VerifyUserFormField]
 /// - [ConfirmVerifyUserFormField]
 /// {@endtemplate}
-abstract class AuthenticatorFormField<FieldType,
-        T extends AuthenticatorFormField<FieldType, T>>
+abstract class AuthenticatorFormField<FieldType, FieldValue,
+        T extends AuthenticatorFormField<FieldType, FieldValue, T>>
     extends AuthenticatorComponent<T> {
   /// {@macro authenticator.authenticator_form_field}
   const AuthenticatorFormField._({
     Key? key,
     required this.field,
-    this.fieldConfig,
     this.titleKey,
     this.hintTextKey,
     this.title,
     this.hintText,
-    FormFieldValidator<String>? validator,
+    this.fieldConfig,
+    FormFieldValidator<FieldValue>? validator,
   })  : assert(
           titleKey != null || title != null,
           'Either title or titleKey must be provided',
         ),
-        _validatorOverride = validator,
+        validatorOverride = validator,
         super(key: key);
 
   /// Resolver key for the title
@@ -94,7 +91,7 @@ abstract class AuthenticatorFormField<FieldType,
   final FieldConfig? fieldConfig;
 
   /// Override of default validator.
-  final FormFieldValidator<String>? _validatorOverride;
+  final FormFieldValidator<FieldValue>? validatorOverride;
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
@@ -109,8 +106,8 @@ abstract class AuthenticatorFormField<FieldType,
   }
 }
 
-abstract class AuthenticatorFormFieldState<FieldType,
-        T extends AuthenticatorFormField<FieldType, T>>
+abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
+        T extends AuthenticatorFormField<FieldType, FieldValue, T>>
     extends AuthenticatorComponentState<T> {
   @nonVirtual
   Widget get visibilityToggle => context
@@ -160,10 +157,10 @@ abstract class AuthenticatorFormFieldState<FieldType,
   // }
 
   /// Callback for when `onChanged` is triggered on the [FormField].
-  ValueChanged<String> get onChanged => (_) {};
+  ValueChanged<FieldValue> get onChanged => (_) {};
 
   /// Validates inputs of this form field.
-  FormFieldValidator<String>? get validator => null;
+  FormFieldValidator<FieldValue>? get validator => null;
 
   /// Whether to hide input.
   bool get obscureText => false;
@@ -186,6 +183,9 @@ abstract class AuthenticatorFormFieldState<FieldType,
   /// Maximum number of lines to use for error text.
   int get errorMaxLines => 1;
 
+  Widget buildFormField(BuildContext context);
+
+  @nonVirtual
   @override
   Widget build(BuildContext context) {
     final inputResolver = stringResolver.inputs;
@@ -199,36 +199,8 @@ abstract class AuthenticatorFormFieldState<FieldType,
         children: <Widget>[
           Text(title),
           const Padding(padding: FormFieldConstants.gap),
-          ValueListenableBuilder<bool?>(
-              valueListenable: context
-                  .findAncestorStateOfType<AuthenticatorFormState>()!
-                  .obscureTextToggleValue,
-              builder:
-                  (BuildContext context, bool? toggleObscureText, Widget? _) {
-                Widget child;
-                if (widget.fieldConfig != null) {
-                  switch (widget.fieldConfig!.type) {
-                    case InputType.text:
-                      child = const AuthenticatorTextInput();
-                      break;
-                    case InputType.phone:
-                      child = const AuthenticatorPhoneInput();
-                      break;
-                    case InputType.datePicker:
-                      child = const AuthenticatorDateInput();
-                      break;
-                    case InputType.radio:
-                      child = AuthenticatorRadioButtonsInput(
-                          config:
-                              widget.fieldConfig! as RadioButtonFieldConfig);
-                      break;
-                  }
-                } else {
-                  child = const AuthenticatorTextInput();
-                }
-
-                return child;
-              }),
+          buildFormField(context),
+          if (companionWidget != null) companionWidget!,
         ],
       ),
     );
@@ -237,8 +209,6 @@ abstract class AuthenticatorFormFieldState<FieldType,
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(
-        ObjectFlagProperty<ValueChanged<String>>.has('callback', onChanged));
     properties.add(ObjectFlagProperty<FormFieldValidator<String>?>.has(
         'validator', validator));
     properties

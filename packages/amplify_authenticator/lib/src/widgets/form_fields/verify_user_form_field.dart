@@ -25,15 +25,16 @@ class VerifyUserFormField
   /// {@macro authenticator.verify_user_form_field}
   const VerifyUserFormField({
     Key? key,
+    FieldDataType fieldDataType = const FieldDataType<String>(),
     required String attributeKey,
     // InputResolverKey? labelKey, TODO
     String? label,
   }) : super._(
-          key: key,
-          field: attributeKey,
-          // titleKey: labelKey,
-          title: label,
-        );
+            key: key,
+            field: attributeKey,
+            // titleKey: labelKey,
+            title: label,
+            fieldDataType: fieldDataType);
 
   @override
   _VerifyUserFormFieldState createState() => _VerifyUserFormFieldState();

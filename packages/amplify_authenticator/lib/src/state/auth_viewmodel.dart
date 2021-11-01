@@ -62,7 +62,7 @@ class AuthViewModel extends ChangeNotifier {
   String _passwordConfirmation = '';
   String get passwordConfirmation => _passwordConfirmation;
 
-  String _confirmationCode = '';
+  String _confirmationCode = 1;
   String get confirmationCode => _confirmationCode;
 
   String _newPassword = '';

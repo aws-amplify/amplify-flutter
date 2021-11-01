@@ -18,82 +18,169 @@ part of authenticator.form_field;
 /// {@template authenticator.confirm_sign_in_form_field}
 /// A form field component on the Confirm Sign In screens.
 /// {@endtemplate}
-class ConfirmSignInFormField
-    extends AuthenticatorFormField<ConfirmSignInField, ConfirmSignInFormField> {
+abstract class ConfirmSignInFormField<FieldValue>
+    extends AuthenticatorFormField<ConfirmSignInField, FieldValue,
+        ConfirmSignInFormField<FieldValue>> {
   /// {@macro authenticator.confirm_sign_in_form_field}
   ///
   /// Either [titleKey] or [title] is required.
-  const ConfirmSignInFormField._({
+  const ConfirmSignInFormField._(
+      {Key? key,
+      required ConfirmSignInField field,
+      InputResolverKey? titleKey,
+      InputResolverKey? hintTextKey,
+      String? title,
+      String? hintText,
+      FormFieldValidator<FieldValue>? validator,
+      String? customAttributeKey})
+      : _customAttributeKey = customAttributeKey,
+        super._(
+            key: key,
+            field: field,
+            titleKey: titleKey,
+            hintTextKey: hintTextKey,
+            title: title,
+            hintText: hintText,
+            validator: validator);
+
+  /// Creates a password component.
+  static ConfirmSignInFormField password({
+    Key? key,
+    FormFieldValidator<String>? validator,
+  }) =>
+      _ConfirmSignInTextField(
+        key: key ?? keyPasswordConfirmSignUpFormfield,
+        titleKey: InputResolverKey.passwordTitle,
+        hintTextKey: InputResolverKey.passwordHint,
+        field: ConfirmSignInField.password,
+        validator: validator,
+      );
+
+  /// Creates a verificationCode component.
+  static ConfirmSignInFormField verificationCode({
+    Key? key,
+    FormFieldValidator<String>? validator,
+  }) =>
+      _ConfirmSignInTextField(
+        key: key ?? keyCodeConfirmSignInFormfield,
+        titleKey: InputResolverKey.verificationCodeTitle,
+        hintTextKey: InputResolverKey.verificationCodeHint,
+        field: ConfirmSignInField.code,
+        validator: validator,
+      );
+
+  /// Creates a custom attribute component.
+  ///
+  /// TODO: Document [attributeKey]
+  static ConfirmSignInFormField custom({
+    Key? key,
+    required String title,
+    required String attributeKey,
+    String? hintText,
+    FormFieldValidator<String>? validator,
+  }) =>
+      _ConfirmSignInTextField(
+        key: key,
+        title: title,
+        hintText: hintText,
+        field: ConfirmSignInField.custom,
+        validator: validator,
+        customAttributeKey: attributeKey,
+      );
+
+  // Custom Cognito attribute key.
+  final String? _customAttributeKey;
+
+  // @override
+  // _ConfirmSignInFormFieldState createState() => _ConfirmSignInFormFieldState();
+}
+
+abstract class _ConfirmSignInFormFieldState<FieldValue>
+    extends AuthenticatorFormFieldState<ConfirmSignInField, FieldValue,
+        ConfirmSignInFormField<FieldValue>> {
+  @override
+  bool get obscureText {
+    switch (widget.field) {
+      case ConfirmSignInField.password:
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  @override
+  TextInputType get keyboardType {
+    switch (widget.field) {
+      case ConfirmSignInField.code:
+        return TextInputType.number;
+      case ConfirmSignInField.password:
+        return TextInputType.visiblePassword;
+      case ConfirmSignInField.address:
+        return TextInputType.streetAddress;
+      case ConfirmSignInField.email:
+        return TextInputType.emailAddress;
+      case ConfirmSignInField.name:
+        return TextInputType.name;
+      case ConfirmSignInField.phoneNumber:
+        return TextInputType.phone;
+      // case ConfirmSignInField.website:
+      //   return TextInputType.url;
+      case ConfirmSignInField.birthdate:
+        // case ConfirmSignInField.updatedAt:
+        return TextInputType.datetime;
+      case ConfirmSignInField.familyName:
+      case ConfirmSignInField.gender:
+      case ConfirmSignInField.givenName:
+      // case ConfirmSignInField.locale:
+      case ConfirmSignInField.middleName:
+      case ConfirmSignInField.nickname:
+      // case ConfirmSignInField.picture:
+      case ConfirmSignInField.preferredUsername:
+      // case ConfirmSignInField.profile:
+      // case ConfirmSignInField.zoneinfo:
+      case ConfirmSignInField.custom:
+        return TextInputType.text;
+    }
+  }
+
+  @override
+  Widget? get suffixIcon {
+    switch (widget.field) {
+      case ConfirmSignInField.password:
+        return visibilityToggle;
+      default:
+        return null;
+    }
+  }
+}
+
+class _ConfirmSignInTextField extends ConfirmSignInFormField<String> {
+  const _ConfirmSignInTextField({
     Key? key,
     required ConfirmSignInField field,
     InputResolverKey? titleKey,
     InputResolverKey? hintTextKey,
     String? title,
     String? hintText,
-    FormFieldValidator<String>? validator,
     String? customAttributeKey,
-  })  : _customAttributeKey = customAttributeKey,
-        super._(
+    FormFieldValidator<String>? validator,
+  }) : super._(
           key: key,
           field: field,
           titleKey: titleKey,
           hintTextKey: hintTextKey,
           title: title,
           hintText: hintText,
+          customAttributeKey: customAttributeKey,
           validator: validator,
         );
-
-  /// Creates a password component.
-  const ConfirmSignInFormField.password({
-    Key? key,
-    FormFieldValidator<String>? validator,
-  }) : this._(
-          key: key ?? keyPasswordConfirmSignInFormField,
-          titleKey: InputResolverKey.passwordTitle,
-          hintTextKey: InputResolverKey.passwordTitle,
-          field: ConfirmSignInField.password,
-          validator: validator,
-        );
-
-  /// Creates a verificationCode component.
-  const ConfirmSignInFormField.verificationCode({
-    Key? key,
-    FormFieldValidator<String>? validator,
-  }) : this._(
-          key: key ?? keyCodeConfirmSignInFormfield,
-          titleKey: InputResolverKey.verificationCodeTitle,
-          hintTextKey: InputResolverKey.verificationCodeHint,
-          field: ConfirmSignInField.code,
-          validator: validator,
-        );
-
-  /// Creates a custom attribute component.
-  ///
-  /// TODO: Document [attributeKey]
-  const ConfirmSignInFormField.custom({
-    Key? key,
-    required String title,
-    required String attributeKey,
-    String? hintText,
-    FormFieldValidator<String>? validator,
-  }) : this._(
-          key: key,
-          title: title,
-          hintText: hintText,
-          field: ConfirmSignInField.custom,
-          validator: validator,
-          customAttributeKey: attributeKey,
-        );
-
-  /// Custom Cognito attribute key.
-  final String? _customAttributeKey;
 
   @override
-  _ConfirmSignInFormFieldState createState() => _ConfirmSignInFormFieldState();
+  _ConfirmSignInTextFieldState createState() => _ConfirmSignInTextFieldState();
 }
 
-class _ConfirmSignInFormFieldState extends AuthenticatorFormFieldState<
-    ConfirmSignInField, ConfirmSignInFormField> {
+class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
+    with AuthenticatorTextField {
   @override
   String? get initialValue {
     switch (widget.field) {
@@ -121,37 +208,6 @@ class _ConfirmSignInFormFieldState extends AuthenticatorFormFieldState<
         return viewModel.getAttribute(widget.field.toCognitoAttribute());
       case ConfirmSignInField.custom:
         return viewModel.getAttribute(widget._customAttributeKey!);
-    }
-  }
-
-  @override
-  FormFieldValidator<String>? get validator {
-    switch (widget.field) {
-      case ConfirmSignInField.code:
-        return validateCode;
-      case ConfirmSignInField.password:
-        return simpleValidator(
-          stringResolver.inputs.resolve(
-            context,
-            InputResolverKey.passwordEmpty,
-          ),
-        );
-      case ConfirmSignInField.email:
-        return validateEmail;
-      case ConfirmSignInField.phoneNumber:
-        return validatePhoneNumber;
-      default:
-        return null;
-    }
-  }
-
-  @override
-  bool get obscureText {
-    switch (widget.field) {
-      case ConfirmSignInField.password:
-        return true;
-      default:
-        return false;
     }
   }
 
@@ -205,47 +261,29 @@ class _ConfirmSignInFormFieldState extends AuthenticatorFormFieldState<
   }
 
   @override
-  TextInputType get keyboardType {
+  FormFieldValidator<String>? get validator {
     switch (widget.field) {
       case ConfirmSignInField.code:
-        return TextInputType.number;
+        return validateCode;
       case ConfirmSignInField.password:
-        return TextInputType.visiblePassword;
-      case ConfirmSignInField.address:
-        return TextInputType.streetAddress;
+        return simpleValidator(
+          stringResolver.inputs.resolve(
+            context,
+            InputResolverKey.passwordEmpty,
+          ),
+        );
       case ConfirmSignInField.email:
-        return TextInputType.emailAddress;
-      case ConfirmSignInField.name:
-        return TextInputType.name;
+        return validateEmail;
       case ConfirmSignInField.phoneNumber:
-        return TextInputType.phone;
-      // case ConfirmSignInField.website:
-      //   return TextInputType.url;
-      case ConfirmSignInField.birthdate:
-        // case ConfirmSignInField.updatedAt:
-        return TextInputType.datetime;
-      case ConfirmSignInField.familyName:
-      case ConfirmSignInField.gender:
-      case ConfirmSignInField.givenName:
-      // case ConfirmSignInField.locale:
-      case ConfirmSignInField.middleName:
-      case ConfirmSignInField.nickname:
-      // case ConfirmSignInField.picture:
-      case ConfirmSignInField.preferredUsername:
-      // case ConfirmSignInField.profile:
-      // case ConfirmSignInField.zoneinfo:
-      case ConfirmSignInField.custom:
-        return TextInputType.text;
+        return validatePhoneNumber;
+      default:
+        return null;
     }
   }
 
   @override
-  Widget? get suffixIcon {
-    switch (widget.field) {
-      case ConfirmSignInField.password:
-        return visibilityToggle;
-      default:
-        return null;
-    }
+  Widget buildForm(BuildContext context) {
+    // TODO: implement buildForm
+    throw UnimplementedError();
   }
 }

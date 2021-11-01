@@ -46,8 +46,10 @@ class AuthenticatorDateInput extends StatelessAuthenticatorComponent {
               initialDate: DateTime.now(),
               firstDate: DateTime(DateTime.now().year - 110),
               lastDate: DateTime.now())
-          .then((d) => _controller.value =
-              TextEditingValue(text: _convertToDateString(d!)));
+          .then((d) {
+        _controller.value = TextEditingValue(text: _convertToDateString(d!));
+        parentState.widget.fieldDataType.onChanged(_controller.text);
+      });
     }
 
     return Row(children: [

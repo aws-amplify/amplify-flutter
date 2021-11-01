@@ -135,7 +135,7 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
   /// A custom Sign Up form.
   const SignUpForm.custom(
       {Key? key,
-      required List<SignUpFormField> fields,
+      required List<AuthenticatorFormField> fields,
       this.attributesFromConfig = true})
       : super._(
           key: key,
@@ -290,7 +290,7 @@ class SignInForm extends AuthenticatorForm<SignInForm> {
   /// A custom Sign In form.
   const SignInForm.custom({
     Key? key,
-    required List<SignInFormField> fields,
+    required List<AuthenticatorFormField> fields,
     this.includeDefaultSocialProviders = true,
   }) : super._(
           key: key,
@@ -356,11 +356,11 @@ class SignInForm extends AuthenticatorForm<SignInForm> {
 /// {@endtemplate}
 class ConfirmSignUpForm extends AuthenticatorForm<ConfirmSignUpForm> {
   /// {@macro authenticator.confirm_sign_up_form}
-  const ConfirmSignUpForm({
+  ConfirmSignUpForm({
     Key? key,
   }) : this.custom(
           key: key,
-          fields: const [
+          fields: [
             ConfirmSignUpFormField.username(),
             ConfirmSignUpFormField.verificationCode(),
           ],
@@ -369,7 +369,7 @@ class ConfirmSignUpForm extends AuthenticatorForm<ConfirmSignUpForm> {
   /// A custom Confirm Sign Up form.
   const ConfirmSignUpForm.custom({
     Key? key,
-    required List<ConfirmSignUpFormField> fields,
+    required List<AuthenticatorFormField> fields,
     this.resendCodeButton,
   }) : super._(
           key: key,
@@ -408,7 +408,7 @@ class ConfirmSignInMFAForm extends AuthenticatorForm<ConfirmSignInMFAForm> {
   /// A custom Confirm Sign In with MFA form.
   const ConfirmSignInMFAForm.custom({
     Key? key,
-    required List<ConfirmSignInFormField> fields,
+    required List<AuthenticatorFormField> fields,
   }) : super._(
           key: key,
           fields: fields,
@@ -444,7 +444,7 @@ class ConfirmSignInNewPasswordForm
   /// A custom Confirm Sign In with New Password form.
   const ConfirmSignInNewPasswordForm.custom({
     Key? key,
-    required List<ConfirmSignInFormField> fields,
+    required List<AuthenticatorFormField> fields,
   }) : super._(
           key: key,
           fields: fields,
@@ -478,7 +478,7 @@ class SendCodeForm extends AuthenticatorForm<SendCodeForm> {
   /// A custom Send Coded form.
   const SendCodeForm.custom({
     Key? key,
-    required List<SignInFormField> fields,
+    required List<AuthenticatorFormField> fields,
   }) : super._(
           key: key,
           fields: fields,
@@ -513,7 +513,7 @@ class ResetPasswordForm extends AuthenticatorForm<ResetPasswordForm> {
   /// A custom Reset Password form.
   const ResetPasswordForm.custom({
     Key? key,
-    required List<SignInFormField> fields,
+    required List<AuthenticatorFormField> fields,
   }) : super._(
           key: key,
           fields: fields,

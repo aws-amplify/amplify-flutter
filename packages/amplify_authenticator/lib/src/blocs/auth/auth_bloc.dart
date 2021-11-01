@@ -21,6 +21,7 @@ import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_flutter/src/config/amplify_config.dart';
+import 'package:flutter/foundation.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';

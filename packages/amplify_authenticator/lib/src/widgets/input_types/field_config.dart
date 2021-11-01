@@ -14,27 +14,12 @@
 */
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator/src/enums/input_type.dart';
 
 /// Configuration for defining input types in [AuthenticatorFormField].
-abstract class FieldConfig {
-  final InputType type;
 
-  const FieldConfig({required this.type});
-}
-
-class RadioButtonFieldConfig extends FieldConfig {
+class RadioButtonFieldConfig {
   final List<InputSelection> selections;
-  const RadioButtonFieldConfig({required this.selections})
-      : super(type: InputType.radio);
-}
-
-class DateFieldConfig extends FieldConfig {
-  const DateFieldConfig() : super(type: InputType.datePicker);
-}
-
-class PhoneFieldConfig extends FieldConfig {
-  const PhoneFieldConfig() : super(type: InputType.phone);
+  const RadioButtonFieldConfig({required this.selections});
 }
 
 /// Allows for configuration of fields with multiple selections, such as dropdowns, switches and radio buttons

@@ -74,7 +74,8 @@ class _AuthenticatorPhoneInputState extends State<AuthenticatorPhoneInput> {
         enabled: parentState.enabled,
         validator: parentState.validator,
         onChanged: (phoneValue) {
-          parentState.onChanged('+$_selectedValue$phoneValue');
+          parentState.widget.fieldDataType
+              .onChanged('+$_selectedValue$phoneValue');
         },
         decoration: InputDecoration(
           suffixIcon: parentState.suffixIcon,

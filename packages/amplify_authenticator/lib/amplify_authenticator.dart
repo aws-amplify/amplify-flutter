@@ -290,7 +290,7 @@ class _AuthenticatorState extends State<Authenticator> {
                 sendCodeForm: const SendCodeForm(),
                 signInForm: widget.signInForm,
                 signUpForm: widget.signUpForm,
-                confirmSignUpForm: const ConfirmSignUpForm(),
+                confirmSignUpForm: ConfirmSignUpForm(),
                 confirmSignInMFAForm: widget.confirmSignInMFAForm,
                 verifyUserForm: const VerifyUserForm(),
                 confirmVerifyUserForm: const ConfirmVerifyUserForm(),
