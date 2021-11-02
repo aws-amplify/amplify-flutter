@@ -75,6 +75,43 @@ struct SchemaData {
         ]
     )
 
+    static var PostAuthComplexWithProviderUserPoolsSchema: ModelSchema = ModelSchema(
+        name: "PostAuthComplexWithProviderUserPools",
+        pluralName: "PostAuthComplexWithProviderUserPools",
+        authRules: [
+            AuthRule(
+                allow: .owner,
+                ownerField: "owner",
+                identityClaim: "cognito:username",
+                provider: AuthRuleProvider.userPools,
+                operations: [
+                    .read, .delete, .update, .create
+                ]
+            )
+        ],
+        fields: [
+            "id": ModelField(name: "id", type: .string, isRequired: true, isArray: false),
+            "owner": ModelField(name: "owner", type: .string, isRequired: false, isArray: false),
+        ]
+    )
+
+    static var PostAuthComplexWithProviderApiKeySchema: ModelSchema = ModelSchema(
+        name: "PostAuthComplexWithProviderApiKey",
+        pluralName: "PostAuthComplexWithProviderApiKeys",
+        authRules: [
+            AuthRule(
+                allow: .public,
+                provider: AuthRuleProvider.apiKey,
+                operations: [
+                    .read, .delete, .update, .create
+                ]
+            )
+        ],
+        fields: [
+            "id": ModelField(name: "id", type: .string, isRequired: true, isArray: false),
+        ]
+    )
+
     static var AllTypeModelSchema: ModelSchema = ModelSchema(
         name: "AllTypeModel",
         pluralName: "AllTypeModels",

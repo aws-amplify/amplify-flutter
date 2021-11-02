@@ -170,6 +170,69 @@ val postAuthComplexSchema = ModelSchema.builder()
     .modelClass(SerializedModel::class.java)
     .build()
 
+val postAuthComplexWithProviderUserPoolsSchema = ModelSchema.builder()
+    .name("PostAuthComplexWithProviderUserPools")
+    .pluralName("PostAuthComplexesWithProviderUserPools")
+    .fields(
+        mapOf(
+            "id" to
+                    ModelField.builder()
+                        .name("id")
+                        .javaClassForValue(String::class.java)
+                        .targetType("String")
+                        .isRequired(true)
+                        .isArray(false)
+                        .build(),
+            "owner" to
+                    ModelField.builder()
+                        .name("owner")
+                        .javaClassForValue(String::class.java)
+                        .targetType("String")
+                        .isRequired(false)
+                        .isArray(false)
+                        .build()
+
+        )
+    )
+    .authRules(
+        listOf(
+            AuthRule.builder()
+                .authProvider(AuthStrategy.Provider.USER_POOLS)
+                .authStrategy(AuthStrategy.OWNER)
+                .ownerField("owner")
+                .identityClaim("cognito:username")
+                .build()
+        )
+    )
+    .modelClass(SerializedModel::class.java)
+    .build()
+
+val postAuthComplexWithProviderApiKeySchema = ModelSchema.builder()
+    .name("PostAuthComplexWithProviderApiKey")
+    .pluralName("PostAuthComplexesWithProviderApiKeys")
+    .fields(
+        mapOf(
+            "id" to
+                    ModelField.builder()
+                        .name("id")
+                        .javaClassForValue(String::class.java)
+                        .targetType("String")
+                        .isRequired(true)
+                        .isArray(false)
+                        .build()
+
+        )
+    )
+    .authRules(
+        listOf(
+            AuthRule.builder()
+                .authProvider(AuthStrategy.Provider.API_KEY)
+                .authStrategy(AuthStrategy.PUBLIC)
+                .build()
+        )
+    )
+    .modelClass(SerializedModel::class.java)
+    .build()
 
 val commentSchema = ModelSchema.builder()
     .name("Comment")

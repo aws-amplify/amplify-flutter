@@ -182,6 +182,54 @@
     }
   },
 
+  "PostAuthComplexWithProviderUserPoolsSchema": {
+    "name": "PostAuthComplexWithProviderUserPools",
+    "pluralName": "PostAuthComplexesWithProviderUserPools",
+    "authRules": [{
+      "authStrategy": "OWNER",
+      "ownerField": "owner",
+      "identityClaim": "cognito:username",
+      "provider": "USERPOOLS"
+    }],
+    "fields": {
+      "id": {
+        "name": "id",
+        "type": {
+          "fieldType": "string"
+        },
+        "isRequired": true,
+        "isArray": false
+      },
+      "owner": {
+        "name": "owner",
+        "type": {
+          "fieldType": "string"
+        },
+        "isRequired": false,
+        "isArray": false
+      }
+    }
+  },
+
+  "PostAuthComplexWithProviderApiKeySchema": {
+    "name": "PostAuthComplexWithProviderApiKey",
+    "pluralName": "PostAuthComplexesWithProviderApiKeys",
+    "authRules": [{
+      "authStrategy": "PUBLIC",
+      "provider": "APIKEY"
+    }],
+    "fields": {
+      "id": {
+        "name": "id",
+        "type": {
+          "fieldType": "string"
+        },
+        "isRequired": true,
+        "isArray": false
+      }
+    }
+  },
+
   "AllTypeModelSchema": {
     "name": "AllTypeModel",
     "pluralName": "AllTypeModels",
