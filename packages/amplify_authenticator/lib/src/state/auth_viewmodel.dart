@@ -19,18 +19,30 @@ import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
 import 'package:flutter/material.dart';
 
+// a list of screen transitions to NOT clear form data for
+const List<_ScreenTransition> _skipClearList = [
+  _ScreenTransition(AuthScreen.signup, AuthScreen.confirmSignup),
+  _ScreenTransition(AuthScreen.confirmSignup, AuthScreen.signin),
+];
+
 class AuthViewModel extends ChangeNotifier {
   AuthViewModel(this._authBloc) {
     // Listen to screen changes to know when to clear the form. Calling `clean`
     // from the forms' dispose method is unreliable since it may be called after
     // the transitioning form's first build is called.
-    _authBloc.stream
-        .where((event) => event is AuthFlow)
-        .distinct()
-        .listen((event) {
-      clean();
+    _authBloc.stream.distinct().listen((event) {
+      if (event is Authenticated) {
+        clean();
+      } else if (event is AuthFlow) {
+        if (shouldCleanData(event.screen)) {
+          clean();
+        }
+        _lastAuthScreen = event.screen;
+      }
     });
   }
+
+  AuthScreen? _lastAuthScreen;
 
   final StateMachineBloc _authBloc;
   StateMachineBloc get authBloc => _authBloc;
@@ -362,6 +374,11 @@ class AuthViewModel extends ChangeNotifier {
   void goToSignIn() => _navigateTo(AuthScreen.signin);
   void goToReset() => _navigateTo(AuthScreen.sendCode);
 
+  bool shouldCleanData(AuthScreen finish) {
+    return _lastAuthScreen == null ||
+        !_skipClearList.contains(_ScreenTransition(_lastAuthScreen!, finish));
+  }
+
   void clean() {
     _username = '';
     _password = '';
@@ -373,4 +390,22 @@ class AuthViewModel extends ChangeNotifier {
     _authAttributes.clear();
     _formKey = GlobalKey<FormState>();
   }
+}
+
+@immutable
+class _ScreenTransition {
+  final AuthScreen start;
+  final AuthScreen finish;
+  const _ScreenTransition(this.start, this.finish);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is _ScreenTransition &&
+          runtimeType == other.runtimeType &&
+          start == other.start &&
+          finish == other.finish;
+
+  @override
+  int get hashCode => start.hashCode ^ finish.hashCode;
 }
