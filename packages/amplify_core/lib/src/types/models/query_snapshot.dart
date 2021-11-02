@@ -1,3 +1,5 @@
+// ignore_for_file: directives_ordering
+
 /*
  * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -15,8 +17,8 @@
 
 library model;
 
-import 'package:amplify_datastore_plugin_interface/src/types/models/sorted_list.dart';
-import 'package:amplify_datastore_plugin_interface/src/types/query/query_field.dart';
+import 'sorted_list.dart';
+import '../query/query_field.dart';
 
 import 'model.dart';
 
