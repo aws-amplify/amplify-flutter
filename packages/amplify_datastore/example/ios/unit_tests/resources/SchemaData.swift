@@ -100,9 +100,7 @@ struct SchemaData {
         pluralName: "PostAuthComplexWithProviderApiKeys",
         authRules: [
             AuthRule(
-                allow: .owner,
-                ownerField: "owner",
-                identityClaim: "cognito:username",
+                allow: .public,
                 provider: AuthRuleProvider.apiKey,
                 operations: [
                     .read, .delete, .update, .create
@@ -111,7 +109,6 @@ struct SchemaData {
         ],
         fields: [
             "id": ModelField(name: "id", type: .string, isRequired: true, isArray: false),
-            "owner": ModelField(name: "owner", type: .string, isRequired: false, isArray: false),
         ]
     )
 

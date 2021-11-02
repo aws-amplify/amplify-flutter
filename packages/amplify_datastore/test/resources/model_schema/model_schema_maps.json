@@ -215,9 +215,7 @@
     "name": "PostAuthComplexWithProviderApiKey",
     "pluralName": "PostAuthComplexesWithProviderApiKeys",
     "authRules": [{
-      "authStrategy": "OWNER",
-      "ownerField": "owner",
-      "identityClaim": "cognito:username",
+      "authStrategy": "PUBLIC",
       "provider": "APIKEY"
     }],
     "fields": {
@@ -227,14 +225,6 @@
           "fieldType": "string"
         },
         "isRequired": true,
-        "isArray": false
-      },
-      "owner": {
-        "name": "owner",
-        "type": {
-          "fieldType": "string"
-        },
-        "isRequired": false,
         "isArray": false
       }
     }
