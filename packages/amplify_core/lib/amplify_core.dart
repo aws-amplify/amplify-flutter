@@ -40,6 +40,7 @@ export 'src/types/models/model_schema.dart';
 export 'src/types/models/model_schema_definition.dart';
 export 'src/types/models/observe_query_throttle_options.dart';
 export 'src/types/models/query_snapshot.dart';
+export 'src/types/models/sorted_list.dart';
 export 'src/types/models/subscription_event.dart';
 export 'src/types/query/query_field.dart';
 export 'src/types/temporal/datetime_parse.dart';

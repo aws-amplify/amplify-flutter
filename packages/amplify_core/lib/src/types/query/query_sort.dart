@@ -45,8 +45,7 @@ class QuerySortBy {
     } else if (valueA is Comparable && valueB is Comparable) {
       return orderMultiplier * valueA.compareTo(valueB);
     }
-    throw DataStoreException(
-        'A non-comparable field was used as a QuerySortBy');
+    throw AmplifyException('A non-comparable field was used as a QuerySortBy');
   }
 
   int _compareBool(bool a, bool b) {

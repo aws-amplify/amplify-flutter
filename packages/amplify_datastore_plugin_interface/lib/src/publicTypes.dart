@@ -6,6 +6,8 @@ export 'package:amplify_core/src/types/models/model_field_type.dart';
 export 'package:amplify_core/src/types/models/model_provider.dart';
 export 'package:amplify_core/src/types/models/model_schema.dart';
 export 'package:amplify_core/src/types/models/model_schema_definition.dart';
+export 'package:amplify_core/src/types/models/query_snapshot.dart';
+export 'package:amplify_core/src/types/models/observe_query_throttle_options.dart';
 export 'package:amplify_core/src/types/models/subscription_event.dart';
 export 'package:amplify_core/src/types/query/query_field.dart';
 export 'package:amplify_core/src/types/query/query_field.dart';
