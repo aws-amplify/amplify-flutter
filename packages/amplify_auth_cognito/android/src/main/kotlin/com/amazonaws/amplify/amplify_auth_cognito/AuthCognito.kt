@@ -134,11 +134,8 @@ public class AuthCognito : FlutterPlugin, ActivityAware, MethodCallHandler, Plug
     if (requestCode == AWSCognitoAuthPlugin.WEB_UI_SIGN_IN_ACTIVITY_CODE) {
         /// The HostedUI activity in amplify-android handles success case
         /// We need a response handler if the HostedUI activity isn't used...
-        if (!isHostedUIActivity) {
-            Amplify.Auth.handleWebUISignInResponse(data)
-            return true
-        /// ... or if the HostedUI activity is used, but the user cancels
-        } else if (isHostedUIActivity && resultCode == RESULT_CANCELED) {
+         /// ... or if the HostedUI activity is used, but the user cancels
+        if (!isHostedUIActivity || resultCode == RESULT_CANCELED) {
             Amplify.Auth.handleWebUISignInResponse(data)
             return true
         }
