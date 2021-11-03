@@ -90,9 +90,6 @@ abstract class ConfirmSignInFormField<FieldValue>
 
   // Custom Cognito attribute key.
   final String? _customAttributeKey;
-
-  // @override
-  // _ConfirmSignInFormFieldState createState() => _ConfirmSignInFormFieldState();
 }
 
 abstract class _ConfirmSignInFormFieldState<FieldValue>
@@ -123,21 +120,14 @@ abstract class _ConfirmSignInFormFieldState<FieldValue>
         return TextInputType.name;
       case ConfirmSignInField.phoneNumber:
         return TextInputType.phone;
-      // case ConfirmSignInField.website:
-      //   return TextInputType.url;
       case ConfirmSignInField.birthdate:
-        // case ConfirmSignInField.updatedAt:
         return TextInputType.datetime;
       case ConfirmSignInField.familyName:
       case ConfirmSignInField.gender:
       case ConfirmSignInField.givenName:
-      // case ConfirmSignInField.locale:
       case ConfirmSignInField.middleName:
       case ConfirmSignInField.nickname:
-      // case ConfirmSignInField.picture:
       case ConfirmSignInField.preferredUsername:
-      // case ConfirmSignInField.profile:
-      // case ConfirmSignInField.zoneinfo:
       case ConfirmSignInField.custom:
         return TextInputType.text;
     }
@@ -194,17 +184,11 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
       case ConfirmSignInField.familyName:
       case ConfirmSignInField.gender:
       case ConfirmSignInField.givenName:
-      // case ConfirmSignInField.locale:
       case ConfirmSignInField.middleName:
       case ConfirmSignInField.name:
       case ConfirmSignInField.nickname:
       case ConfirmSignInField.phoneNumber:
-      // case ConfirmSignInField.picture:
       case ConfirmSignInField.preferredUsername:
-        // case ConfirmSignInField.profile:
-        // case ConfirmSignInField.zoneinfo:
-        // case ConfirmSignInField.updatedAt:
-        // case ConfirmSignInField.website:
         return viewModel.getAttribute(widget.field.toCognitoAttribute());
       case ConfirmSignInField.custom:
         return viewModel.getAttribute(widget._customAttributeKey!);
@@ -230,8 +214,6 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
         return viewModel.setGender;
       case ConfirmSignInField.givenName:
         return viewModel.setGivenName;
-      // case ConfirmSignInField.locale:
-      //   return viewModel.setLocale;
       case ConfirmSignInField.middleName:
         return viewModel.setMiddleName;
       case ConfirmSignInField.name:
@@ -240,18 +222,8 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
         return viewModel.setNickname;
       case ConfirmSignInField.phoneNumber:
         return viewModel.setPhoneNumber;
-      // case ConfirmSignInField.picture:
-      //   return viewModel.setPicture;
       case ConfirmSignInField.preferredUsername:
         return viewModel.setPreferredUsername;
-      // case ConfirmSignInField.profile:
-      //   return viewModel.setProfile;
-      // case ConfirmSignInField.zoneinfo:
-      //   return viewModel.setZoneInfo;
-      // case ConfirmSignInField.updatedAt:
-      //   return viewModel.setUpdatedAt;
-      // case ConfirmSignInField.website:
-      //   return viewModel.setWebsite;
       case ConfirmSignInField.custom:
         return (String value) => viewModel.setCustom(
               widget._customAttributeKey!,

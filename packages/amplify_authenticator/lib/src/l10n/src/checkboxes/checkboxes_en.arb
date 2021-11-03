@@ -1,8 +1,0 @@
-{
-    "@@locale": "en",
-    "@@context": "amplify_authenticator:checkboxes",
-    "rememberDevice": "Remember device?",
-    "@rememberDevice": {
-        "description": "Label of the remember device checkbox"
-    }
-}

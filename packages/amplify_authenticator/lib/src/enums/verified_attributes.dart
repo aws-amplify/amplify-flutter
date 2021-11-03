@@ -13,5 +13,5 @@
  * permissions and limitations under the License.
  */
 
-/// Uses snake case to confirm with cognito service
+/// Uses snake case to conform with cognito service
 enum VerifiedAttributes { email, phone_number }

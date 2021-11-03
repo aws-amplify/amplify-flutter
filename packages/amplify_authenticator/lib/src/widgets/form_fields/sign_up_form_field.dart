@@ -24,7 +24,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
   /// {@macro authenticator.sign_up_form_field}
   ///
   /// Either [titleKey] or [title] is required.
-  SignUpFormField._(
+  const SignUpFormField._(
       {Key? key,
       required SignUpField field,
       InputResolverKey? titleKey,
@@ -397,7 +397,6 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
       case SignUpField.birthdate:
         return viewModel.setBirthdate;
       case SignUpField.email:
-        // if (_usernameAttributes.contains(AwsCognitoUsernameAttributes.email))
         return viewModel.setEmail;
       case SignUpField.familyName:
         return viewModel.setFamilyName;

@@ -533,7 +533,6 @@ class VerifyUserButton extends AuthenticatorElevatedButton {
 
   @override
   void onPressed(BuildContext context, AuthViewModel viewModel) {
-    // final verifyUserGroupState = VerifyUserFormFieldGroup.of<String>(context);
     viewModel.verifyUser();
   }
 }

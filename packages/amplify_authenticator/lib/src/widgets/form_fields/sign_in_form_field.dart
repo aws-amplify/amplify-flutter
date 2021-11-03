@@ -23,7 +23,7 @@ abstract class SignInFormField<FieldValue> extends AuthenticatorFormField<
   /// {@macro authenticator.sign_in_form_field}
   ///
   /// Either [titleKey] or [title] is required.
-  SignInFormField._({
+  const SignInFormField._({
     Key? key,
     required SignInField field,
     InputResolverKey? titleKey,

@@ -23,7 +23,7 @@ part of authenticator.form_field;
 abstract class VerifyUserFormField<FieldValue> extends AuthenticatorFormField<
     VerifyAttributeField, FieldValue, VerifyUserFormField<FieldValue>> {
   /// {@macro authenticator.verify_user_form_field}
-  VerifyUserFormField._(
+  const VerifyUserFormField._(
       {Key? key,
       required VerifyAttributeField field,
       InputResolverKey? titleKey,

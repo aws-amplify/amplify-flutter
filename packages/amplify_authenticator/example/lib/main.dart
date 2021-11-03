@@ -83,8 +83,8 @@ class _MyAppState extends State<MyApp> {
       //     SignUpFormField.username(
       //       validator: _validateUsername,
       //     ),
-      //     const SignUpFormField.password(),
-      //     const SignUpFormField.passwordConfirmation(),
+      //     SignUpFormField.password(),
+      //     SignUpFormField.passwordConfirmation(),
       //   ],
       // ),
 

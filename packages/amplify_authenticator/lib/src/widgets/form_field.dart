@@ -20,9 +20,6 @@ import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/enums/verified_attributes.dart';
 import 'package:amplify_authenticator/src/enums/verify_attribute_field_types.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_date_field.dart';
-import 'package:amplify_authenticator/src/state/auth_viewmodel.dart';
-import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
-import 'package:amplify_authenticator/src/state/inherited_auth_viewmodel.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -112,6 +109,10 @@ abstract class AuthenticatorFormField<FieldType, FieldValue,
     properties.add(EnumProperty('hintTextKey', hintTextKey));
     properties.add(StringProperty('title', title));
     properties.add(StringProperty('hintText', hintText));
+    properties.add(DiagnosticsProperty<AuthenticatorInputConfig?>(
+        'inputconfig', inputconfig));
+    properties.add(ObjectFlagProperty<FormFieldValidator<FieldValue>?>.has(
+        'validatorOverride', validatorOverride));
   }
 }
 
@@ -145,25 +146,6 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
       return TextInputType.text;
     }
   }
-
-  // @nonVirtual
-  // ValueChanged<String> get usernameOnChanged {
-  //   final List<ValueChanged<String>> ops = [];
-
-  //   if (_usernameAttributes.contains(LoginMechanisms.preferredUsername)) {
-  //     ops.add(viewModel.setUsername);
-  //   }
-  //   if (_usernameAttributes.contains(LoginMechanisms.email)) {
-  //     ops.add(viewModel.setEmail);
-  //   } else if (_usernameAttributes.contains(LoginMechanisms.phoneNumber)) {
-  //     ops.add(viewModel.setPhoneNumber);
-  //   }
-  //   return (String value) {
-  //     for (var op in ops) {
-  //       op(value);
-  //     }
-  //   };
-  // }
 
   /// Callback for when `onChanged` is triggered on the [FormField].
   ValueChanged<FieldValue>? get onChanged => (_) {};
@@ -226,5 +208,13 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
     properties.add(DiagnosticsProperty<bool>('enabled', enabled));
     properties.add(IntProperty('errorMaxLines', errorMaxLines));
     properties.add(DiagnosticsProperty<bool>('obscureText', obscureText));
+    properties.add(ObjectFlagProperty<ValueChanged<FieldValue>?>.has(
+        'onChanged', onChanged));
+    properties.add(ObjectFlagProperty<FormFieldValidator<FieldValue>?>.has(
+        'validator', validator));
+    properties
+        .add(DiagnosticsProperty<FieldValue?>('initialValue', initialValue));
+    properties.add(
+        DiagnosticsProperty<FieldValue?>('selectionValue', selectionValue));
   }
 }
