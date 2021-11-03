@@ -1,11 +1,11 @@
 ## 0.3.0-rc.2 (2021-10-25)
 
-This release candidate requires to install `@aws-amplify/cli@6.2.0-custom-type-preview.0`
+This release candidate requires a preview version of `@aws-amplify/cli`. To uninstall `@aws-amplify/cli` release version and install preview version by running following command.
 
 ```
 npm uninstall -g @aws-amplify/cli && npm install -g @aws-amplify/cli@6.2.0-custom-type-preview.0
 ```
-and to regenerate models.
+and to regenerate models by running following command.
 
 ```
 amplify codegen models
