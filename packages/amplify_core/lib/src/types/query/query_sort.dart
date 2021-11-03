@@ -35,8 +35,8 @@ class QuerySortBy {
   const QuerySortBy({required this.order, required this.field});
 
   int compare<T extends Model>(T a, T b) {
-    var valueA = a.toJson()[field];
-    var valueB = b.toJson()[field];
+    dynamic valueA = a.toJson()[field];
+    dynamic valueB = b.toJson()[field];
     int orderMultiplier = order == QuerySortOrder.ascending ? 1 : -1;
     if (valueA == null || valueB == null) {
       return orderMultiplier * _compareNull(valueA, valueB);

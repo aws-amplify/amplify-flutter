@@ -152,7 +152,7 @@ class ModelFieldDefinition {
             associatedType: associatedType));
   }
 
-  build() {
+  ModelField build() {
     return ModelField(
         name: name,
         type: type,

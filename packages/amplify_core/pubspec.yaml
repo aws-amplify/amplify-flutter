@@ -12,6 +12,7 @@ dependencies:
   meta: ^1.3.0
   flutter:
     sdk: flutter
+  date_time_format: ^2.0.1
   uuid: ^3.0.1
 
 dev_dependencies:

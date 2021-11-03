@@ -46,13 +46,14 @@ class ModelAssociation {
   }
 
   Map<String, dynamic> toMap() {
-    Map<String, dynamic> map = {
+    final map = <String, dynamic>{
       'associationType': describeEnum(associationType),
       'targetName': targetName,
       'associatedName': associatedName,
       'associatedType': associatedType,
     };
-    return Map.from(map)..removeWhere((k, v) => v == null);
+    return Map<String, dynamic>.from(map)
+      ..removeWhere((k, dynamic v) => v == null);
   }
 
   factory ModelAssociation.fromMap(Map<String, dynamic> map) {
