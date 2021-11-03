@@ -34,8 +34,6 @@ dev_dependencies:
     path: ../../amplify_storage_s3
   amplify_test:
     path: ../../amplify_test
-  amplify_test_flutter:
-    path: ../../amplify_test_flutter
   flutter_test:
     sdk: flutter
   integration_test:

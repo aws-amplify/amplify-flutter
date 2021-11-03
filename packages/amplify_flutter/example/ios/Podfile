@@ -39,13 +39,10 @@ target 'Runner' do
   target 'RunnerTests' do
     inherit! :search_paths
   end
-end
-
-target 'unit_tests' do
-  use_frameworks!
-  use_modular_headers!
-
-  pod 'amplify_flutter', :path => get_plugin_dir('amplify_flutter')
+  
+  target 'unit_tests' do
+    inherit! :search_paths
+  end
 end
 
 post_install do |installer|

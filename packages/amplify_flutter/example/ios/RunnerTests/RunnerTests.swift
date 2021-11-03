@@ -13,6 +13,49 @@
  * permissions and limitations under the License.
  */
 
-import amplify_test_flutter
+import XCTest
+import Flutter
+@testable import Amplify
+import integration_test
 
-class RunnerTests: IntegrationTestCase {}
+struct IntegrationTestError: Error, LocalizedError {
+    let message: String
+    
+    init(_ message: String) {
+        self.message = message
+    }
+    
+    var errorDescription: String? { message }
+}
+
+class RunnerTests: XCTestCase {
+    
+    func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        switch call.method {
+        case "reset":
+            Amplify.reset()
+            result(nil)
+        default:
+            result(FlutterMethodNotImplemented)
+        }
+    }
+
+    override func setUpWithError() throws {
+        let rootViewController = UIApplication.shared.delegate?.window??.rootViewController
+        guard let flutterViewController = rootViewController as? FlutterViewController else {
+            throw IntegrationTestError("Expected FlutterViewController as rootViewController")
+        }
+        let methodChannel = FlutterMethodChannel(
+            name: "amplify_flutter/integ_tests",
+            binaryMessenger: flutterViewController.binaryMessenger)
+        methodChannel.setMethodCallHandler(self.handle(_:result:))
+    }
+
+    func testIntegrationTest() {
+        var testResult: NSString?
+        let integrationTestIosTest = IntegrationTestIosTest()
+        let testPass: Bool = integrationTestIosTest.testIntegrationTest(&testResult)
+        XCTAssertTrue(testPass, "\(String(describing: testResult))")
+    }
+
+}

@@ -57,6 +57,9 @@ class MockModelProvider extends ModelProviderInterface {
       ];
 
   @override
+  List<ModelSchema> get customTypeSchemas => const [];
+
+  @override
   ModelType<Model> getModelTypeByModelName(String modelName) {
     return const MockModelType();
   }
