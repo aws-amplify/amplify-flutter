@@ -26,12 +26,23 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('type AWS Timestamp', () {
-    // models used for all tests
-    var models = [
-      TimestampTypeModel(value: TemporalTimestamp(DateTime(2020, 1, 1))),
-      TimestampTypeModel(value: TemporalTimestamp(DateTime(2020, 1, 2))),
-      TimestampTypeModel(value: TemporalTimestamp(DateTime(2020, 2, 1))),
+    // dates users for all tests
+    var dates = [
+      DateTime.fromMillisecondsSinceEpoch(0),
+      DateTime(2020, 1, 1),
+      DateTime(2020, 1, 1, 10, 30),
+      DateTime(2020, 1, 1, 11, 30),
+      DateTime(2020, 1, 1, 11, 30, 30),
+      DateTime(2020, 1, 1, 11, 30, 45),
+      DateTime(2020, 1, 1, 11, 30, 45, 100),
+      DateTime(2020, 1, 1, 11, 30, 45, 100, 250),
+      DateTime(2020, 1, 1, 23, 59, 59),
     ];
+
+    // models used for all tests
+    var models = dates
+        .map((date) => TimestampTypeModel(value: TemporalTimestamp(date)))
+        .toList();
 
     // non-null models used for all tests
     var nonNullModels = models.where((e) => e.value != null).toList();
@@ -55,8 +66,7 @@ void main() {
         var expectedModels =
             models.where((model) => model.value == value).toList();
         await testQueryPredicate<TimestampTypeModel>(
-          queryPredicate: TimestampTypeModel.VALUE.eq(
-              DateTime.fromMillisecondsSinceEpoch(value.toSeconds() * 1000)),
+          queryPredicate: TimestampTypeModel.VALUE.eq(value),
           expectedModels: expectedModels,
         );
       }
@@ -68,8 +78,7 @@ void main() {
         var expectedModels =
             nonNullModels.where((model) => model.value != value).toList();
         await testQueryPredicate<TimestampTypeModel>(
-          queryPredicate: TimestampTypeModel.VALUE.ne(
-              DateTime.fromMillisecondsSinceEpoch(value.toSeconds() * 1000)),
+          queryPredicate: TimestampTypeModel.VALUE.ne(value),
           expectedModels: expectedModels,
         );
       }
@@ -82,8 +91,7 @@ void main() {
             .where((model) => model.value!.compareTo(value) < 0)
             .toList();
         await testQueryPredicate<TimestampTypeModel>(
-          queryPredicate: TimestampTypeModel.VALUE.lt(
-              DateTime.fromMillisecondsSinceEpoch(value.toSeconds() * 1000)),
+          queryPredicate: TimestampTypeModel.VALUE.lt(value),
           expectedModels: expectedModels,
         );
       }
@@ -96,8 +104,7 @@ void main() {
             .where((model) => model.value!.compareTo(value) <= 0)
             .toList();
         await testQueryPredicate<TimestampTypeModel>(
-          queryPredicate: TimestampTypeModel.VALUE.le(
-              DateTime.fromMillisecondsSinceEpoch(value.toSeconds() * 1000)),
+          queryPredicate: TimestampTypeModel.VALUE.le(value),
           expectedModels: expectedModels,
         );
       }
@@ -110,8 +117,7 @@ void main() {
             .where((model) => model.value!.compareTo(value) > 0)
             .toList();
         await testQueryPredicate<TimestampTypeModel>(
-          queryPredicate: TimestampTypeModel.VALUE.gt(
-              DateTime.fromMillisecondsSinceEpoch(value.toSeconds() * 1000)),
+          queryPredicate: TimestampTypeModel.VALUE.gt(value),
           expectedModels: expectedModels,
         );
       }
@@ -124,8 +130,7 @@ void main() {
             .where((model) => model.value!.compareTo(value) >= 0)
             .toList();
         await testQueryPredicate<TimestampTypeModel>(
-          queryPredicate: TimestampTypeModel.VALUE.ge(
-              DateTime.fromMillisecondsSinceEpoch(value.toSeconds() * 1000)),
+          queryPredicate: TimestampTypeModel.VALUE.ge(value),
           expectedModels: expectedModels,
         );
       }
@@ -143,10 +148,8 @@ void main() {
       expect(rangeMatchModels.length, greaterThanOrEqualTo(1));
       await testQueryPredicate<TimestampTypeModel>(
         queryPredicate: TimestampTypeModel.VALUE.between(
-          DateTime.fromMillisecondsSinceEpoch(
-              partialMatchStart.toSeconds() * 1000),
-          DateTime.fromMillisecondsSinceEpoch(
-              partialMatchEnd.toSeconds() * 1000),
+          partialMatchStart,
+          partialMatchEnd,
         ),
         expectedModels: rangeMatchModels,
       );

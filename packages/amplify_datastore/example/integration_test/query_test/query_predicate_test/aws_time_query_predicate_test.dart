@@ -26,12 +26,24 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('type AWS Time', () {
-    // models used for all tests
-    var models = [
-      TimeTypeModel(value: TemporalTime(DateTime(2020, 1, 1))),
-      TimeTypeModel(value: TemporalTime(DateTime(2020, 1, 2))),
-      TimeTypeModel(value: TemporalTime(DateTime(2020, 2, 1))),
+    // dates users for all tests
+    var dates = [
+      DateTime.fromMillisecondsSinceEpoch(0),
+      DateTime(2020, 1, 1),
+      DateTime(2020, 1, 1, 10, 30),
+      DateTime(2020, 1, 1, 11, 30),
+      DateTime(2020, 1, 1, 11, 30, 30),
+      DateTime(2020, 1, 1, 11, 30, 45),
+      // TemporalDateTime values with milliseconds & microseconds are not parsed correctly on Android
+      // see: https://github.com/aws-amplify/amplify-flutter/issues/817
+      // DateTime(2020, 1, 1, 11, 30, 45, 100),
+      // DateTime(2020, 1, 1, 11, 30, 45, 100, 250),
+      DateTime(2020, 1, 1, 23, 59, 59),
     ];
+
+    // models used for all tests
+    var models =
+        dates.map((date) => TimeTypeModel(value: TemporalTime(date))).toList();
 
     // non-null models used for all tests
     var nonNullModels = models.where((e) => e.value != null).toList();
@@ -55,7 +67,7 @@ void main() {
         var expectedModels =
             models.where((model) => model.value == value).toList();
         await testQueryPredicate<TimeTypeModel>(
-          queryPredicate: TimeTypeModel.VALUE.eq(value.getDateTime()),
+          queryPredicate: TimeTypeModel.VALUE.eq(value),
           expectedModels: expectedModels,
         );
       }
@@ -67,7 +79,7 @@ void main() {
         var expectedModels =
             nonNullModels.where((model) => model.value != value).toList();
         await testQueryPredicate<TimeTypeModel>(
-          queryPredicate: TimeTypeModel.VALUE.ne(value.getDateTime()),
+          queryPredicate: TimeTypeModel.VALUE.ne(value),
           expectedModels: expectedModels,
         );
       }
@@ -80,7 +92,7 @@ void main() {
             .where((model) => model.value!.compareTo(value) < 0)
             .toList();
         await testQueryPredicate<TimeTypeModel>(
-          queryPredicate: TimeTypeModel.VALUE.lt(value.getDateTime()),
+          queryPredicate: TimeTypeModel.VALUE.lt(value),
           expectedModels: expectedModels,
         );
       }
@@ -93,7 +105,7 @@ void main() {
             .where((model) => model.value!.compareTo(value) <= 0)
             .toList();
         await testQueryPredicate<TimeTypeModel>(
-          queryPredicate: TimeTypeModel.VALUE.le(value.getDateTime()),
+          queryPredicate: TimeTypeModel.VALUE.le(value),
           expectedModels: expectedModels,
         );
       }
@@ -106,7 +118,7 @@ void main() {
             .where((model) => model.value!.compareTo(value) > 0)
             .toList();
         await testQueryPredicate<TimeTypeModel>(
-          queryPredicate: TimeTypeModel.VALUE.gt(value.getDateTime()),
+          queryPredicate: TimeTypeModel.VALUE.gt(value),
           expectedModels: expectedModels,
         );
       }
@@ -119,7 +131,7 @@ void main() {
             .where((model) => model.value!.compareTo(value) >= 0)
             .toList();
         await testQueryPredicate<TimeTypeModel>(
-          queryPredicate: TimeTypeModel.VALUE.ge(value.getDateTime()),
+          queryPredicate: TimeTypeModel.VALUE.ge(value),
           expectedModels: expectedModels,
         );
       }
@@ -136,8 +148,8 @@ void main() {
       // verify that the test is testing a partial match
       expect(rangeMatchModels.length, greaterThanOrEqualTo(1));
       await testQueryPredicate<TimeTypeModel>(
-        queryPredicate: TimeTypeModel.VALUE.between(
-            partialMatchStart.getDateTime(), partialMatchEnd.getDateTime()),
+        queryPredicate:
+            TimeTypeModel.VALUE.between(partialMatchStart, partialMatchEnd),
         expectedModels: rangeMatchModels,
       );
     });

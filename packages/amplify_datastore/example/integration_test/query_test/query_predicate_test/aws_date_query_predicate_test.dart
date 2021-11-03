@@ -26,12 +26,20 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('type AWS Date', () {
-    // models used for all tests
-    var models = [
-      DateTypeModel(value: TemporalDate(DateTime(2020, 1, 1))),
-      DateTypeModel(value: TemporalDate(DateTime(2020, 1, 2))),
-      DateTypeModel(value: TemporalDate(DateTime(2020, 2, 1))),
+    // dates users for all tests
+    var dates = [
+      DateTime.fromMillisecondsSinceEpoch(0),
+      DateTime(1970),
+      DateTime(2020, 1, 1),
+      DateTime(2020, 1, 1),
+      DateTime(2020, 1, 2),
+      DateTime(2020, 2, 1),
+      DateTime(2020, 12, 31, 23, 59, 59),
     ];
+
+    // models used for all tests
+    var models =
+        dates.map((date) => DateTypeModel(value: TemporalDate(date))).toList();
 
     // non-null models used for all tests
     var nonNullModels = models.where((e) => e.value != null).toList();
@@ -55,7 +63,7 @@ void main() {
         var expectedModels =
             models.where((model) => model.value == value).toList();
         await testQueryPredicate<DateTypeModel>(
-          queryPredicate: DateTypeModel.VALUE.eq(value.getDateTime()),
+          queryPredicate: DateTypeModel.VALUE.eq(value),
           expectedModels: expectedModels,
         );
       }
@@ -67,7 +75,7 @@ void main() {
         var expectedModels =
             nonNullModels.where((model) => model.value != value).toList();
         await testQueryPredicate<DateTypeModel>(
-          queryPredicate: DateTypeModel.VALUE.ne(value.getDateTime()),
+          queryPredicate: DateTypeModel.VALUE.ne(value),
           expectedModels: expectedModels,
         );
       }
@@ -80,7 +88,7 @@ void main() {
             .where((model) => model.value!.compareTo(value) < 0)
             .toList();
         await testQueryPredicate<DateTypeModel>(
-          queryPredicate: DateTypeModel.VALUE.lt(value.getDateTime()),
+          queryPredicate: DateTypeModel.VALUE.lt(value),
           expectedModels: expectedModels,
         );
       }
@@ -93,7 +101,7 @@ void main() {
             .where((model) => model.value!.compareTo(value) <= 0)
             .toList();
         await testQueryPredicate<DateTypeModel>(
-          queryPredicate: DateTypeModel.VALUE.le(value.getDateTime()),
+          queryPredicate: DateTypeModel.VALUE.le(value),
           expectedModels: expectedModels,
         );
       }
@@ -106,7 +114,7 @@ void main() {
             .where((model) => model.value!.compareTo(value) > 0)
             .toList();
         await testQueryPredicate<DateTypeModel>(
-          queryPredicate: DateTypeModel.VALUE.gt(value.getDateTime()),
+          queryPredicate: DateTypeModel.VALUE.gt(value),
           expectedModels: expectedModels,
         );
       }
@@ -119,7 +127,7 @@ void main() {
             .where((model) => model.value!.compareTo(value) >= 0)
             .toList();
         await testQueryPredicate<DateTypeModel>(
-          queryPredicate: DateTypeModel.VALUE.ge(value.getDateTime()),
+          queryPredicate: DateTypeModel.VALUE.ge(value),
           expectedModels: expectedModels,
         );
       }
@@ -128,16 +136,19 @@ void main() {
     testWidgets('between()', (WidgetTester tester) async {
       // test with partial match
       var partialMatchStart = models[1].value!;
-      var partialMatchEnd = models[2].value!;
+      var partialMatchEnd = models[3].value!;
       var rangeMatchModels = nonNullModels
           .where((model) => model.value!.compareTo(partialMatchStart) >= 0)
           .where((model) => model.value!.compareTo(partialMatchEnd) <= 0)
           .toList();
+
       // verify that the test is testing a partial match
       expect(rangeMatchModels.length, greaterThanOrEqualTo(1));
       await testQueryPredicate<DateTypeModel>(
         queryPredicate: DateTypeModel.VALUE.between(
-            partialMatchStart.getDateTime(), partialMatchEnd.getDateTime()),
+          partialMatchStart,
+          partialMatchEnd,
+        ),
         expectedModels: rangeMatchModels,
       );
     });
