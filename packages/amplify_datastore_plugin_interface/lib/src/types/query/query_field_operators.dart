@@ -55,11 +55,15 @@ abstract class QueryFieldOperator<T> {
 
   /// check the type of [value] and invoke corresponding serialize method
   dynamic serializeDynamicValue(dynamic value) {
-    if (value is DateTime) {
-      return value.toDateTimeIso8601String();
-    }
-
-    if (isEnum(value)) {
+    if (value is TemporalDate) {
+      return value.format();
+    } else if (value is TemporalDateTime) {
+      return value.format();
+    } else if (value is TemporalTime) {
+      return value.format();
+    } else if (value is TemporalTimestamp) {
+      return value.toSeconds();
+    } else if (isEnum(value)) {
       return enumToString(value);
     }
 
@@ -231,8 +235,8 @@ class BetweenQueryOperator<T extends Comparable> extends QueryFieldOperator<T> {
   Map<String, dynamic> serializeAsMap() {
     return <String, dynamic>{
       'operatorName': QueryFieldOperatorType.between.toShortString(),
-      'start': start,
-      'end': end
+      'start': serializeDynamicValue(start),
+      'end': serializeDynamicValue(end)
     };
   }
 }
