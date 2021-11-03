@@ -13,19 +13,19 @@ if [ ! -e $TARGET ]; then
     exit
 fi
 
-# Build app for testing
-flutter build ios --no-pub --config-only --simulator --target=$TARGET
-
-# Use 'RunnerTests' scheme, if available, else use default 'Runner'
+# Use xcodebuild if 'RunnerTests' scheme exists, else `flutter test`
 if xcodebuild -workspace ios/Runner.xcworkspace -list -json | jq -e '.workspace.schemes | index("RunnerTests")' >/dev/null; then
-    SCHEME=RunnerTests
+    # Build app for testing
+    flutter build ios --no-pub --config-only --simulator --target=$TARGET
+    
+    xcodebuild \
+        -workspace ios/Runner.xcworkspace \
+        -scheme RunnerTests \
+        -destination "platform=iOS Simulator,name=iPhone 12 Pro Max" \
+        test
 else
-    SCHEME=Runner
+    flutter test \
+        --no-pub \
+        -d iPhone \
+        $TARGET
 fi
-
-# Run tests on destination simulator
-xcodebuild \
-    -workspace ios/Runner.xcworkspace \
-    -scheme $SCHEME \
-    -destination "platform=iOS Simulator,name=iPhone 12 Pro Max" \
-    test
