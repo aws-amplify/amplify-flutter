@@ -20,87 +20,170 @@ part of authenticator.form_field;
 ///
 /// Must be a descendant of a [VerifyUserFormFieldGroup] widget.
 /// {@endtemplate}
-class VerifyUserFormField
-    extends AuthenticatorFormField<String, VerifyUserFormField> {
+abstract class VerifyUserFormField<FieldValue> extends AuthenticatorFormField<
+    VerifyAttributeField, FieldValue, VerifyUserFormField<FieldValue>> {
   /// {@macro authenticator.verify_user_form_field}
-  const VerifyUserFormField({
-    Key? key,
-    FieldDataType fieldDataType = const FieldDataType<String>(),
-    required String attributeKey,
-    // InputResolverKey? labelKey, TODO
-    String? label,
-  }) : super._(
+  VerifyUserFormField._(
+      {Key? key,
+      required VerifyAttributeField field,
+      InputResolverKey? titleKey,
+      InputResolverKey? hintTextKey,
+      String? title,
+      String? hintText,
+      FormFieldValidator<FieldValue>? validator,
+      AuthenticatorInputConfig? inputConfig})
+      : super._(
             key: key,
-            field: attributeKey,
-            // titleKey: labelKey,
-            title: label,
-            fieldDataType: fieldDataType);
+            field: field,
+            titleKey: titleKey,
+            hintTextKey: hintTextKey,
+            title: title,
+            inputconfig: inputConfig,
+            hintText: hintText,
+            validator: validator);
 
-  @override
-  _VerifyUserFormFieldState createState() => _VerifyUserFormFieldState();
+  static VerifyUserFormField verifyAttribute(
+          {Key? key,
+          FormFieldValidator<Enum>? validator,
+          required List<InputSelection> unverifiedSelections}) =>
+      _VerifyUserRadioField(
+          key: key ?? keyUsernameSignUpFormField,
+          titleKey: InputResolverKey.usernameTitle,
+          hintTextKey: InputResolverKey.usernameHint,
+          field: VerifyAttributeField.verify,
+          validator: validator,
+          inputConfig:
+              AuthenticatorInputConfig(selections: unverifiedSelections));
+
+  /// Creates a password component.
+  static VerifyUserFormField confirmVerifyAttribute({
+    Key? key,
+    FormFieldValidator<String>? validator,
+  }) =>
+      _VerifyUserTextField(
+        key: key ?? keyVerificationCodeSignInFormField,
+        titleKey: InputResolverKey.verificationCodeTitle,
+        hintTextKey: InputResolverKey.verificationCodeHint,
+        field: VerifyAttributeField.confirmVerify,
+        validator: validator,
+      );
 }
 
-class _VerifyUserFormFieldState
-    extends AuthenticatorFormFieldState<String, VerifyUserFormField> {
+abstract class _VerifyUserFormFieldState<FieldValue>
+    extends AuthenticatorFormFieldState<VerifyAttributeField, FieldValue,
+        VerifyUserFormField<FieldValue>> {
   @override
-  Widget build(BuildContext context) {
-    final groupValue = VerifyUserFormFieldGroup.of<String>(context);
-    return ListTile(
-      title: Text(widget.title!),
-      leading: Radio<String>(
-        value: widget.field,
-        groupValue: groupValue.value,
-        onChanged: (String? value) {
-          if (value != null) {
-            groupValue.value = value;
-          }
-        },
+  bool get obscureText {
+    return false;
+  }
+
+  @override
+  TextInputType? get keyboardType {
+    return TextInputType.text;
+  }
+
+  @override
+  Widget? get suffixIcon {
+    return null;
+  }
+
+  @override
+  int get errorMaxLines {
+    return 1;
+  }
+}
+
+class _VerifyUserTextField extends VerifyUserFormField<String> {
+  _VerifyUserTextField({
+    Key? key,
+    required VerifyAttributeField field,
+    InputResolverKey? titleKey,
+    InputResolverKey? hintTextKey,
+    String? title,
+    String? hintText,
+    FormFieldValidator<String>? validator,
+  }) : super._(
+            key: key,
+            field: field,
+            titleKey: titleKey,
+            hintTextKey: hintTextKey,
+            title: title,
+            hintText: hintText,
+            validator: validator);
+
+  @override
+  _VerifyUserTextFieldState createState() => _VerifyUserTextFieldState();
+}
+
+class _VerifyUserTextFieldState extends _VerifyUserFormFieldState<String>
+    with AuthenticatorTextField {
+  @override
+  String? get initialValue {
+    return viewModel.confirmationCode;
+  }
+
+  @override
+  ValueChanged<String>? get onChanged {
+    return viewModel.setConfirmationCode;
+  }
+
+  @override
+  FormFieldValidator<String>? get validator {
+    return simpleValidator(
+      stringResolver.inputs.resolve(
+        context,
+        InputResolverKey.preferredUsernameEmpty,
       ),
     );
   }
+
+  @override
+  Widget buildForm(BuildContext context) {
+    // TODO: implement buildForm
+    throw UnimplementedError();
+  }
 }
 
-/// {@template authenticator.verify_user_form_field_group}
-/// Wraps a group of [VerifyUserFormField] widgets ([Radio] buttons) to provide
-/// common group state.
-/// {@endtemplate}
-class VerifyUserFormFieldGroup<T> extends InheritedNotifier {
-  /// {@macro authenticator.verify_user_form_field_group}
-  const VerifyUserFormFieldGroup({
+class _VerifyUserRadioField extends VerifyUserFormField<Enum> {
+  _VerifyUserRadioField({
     Key? key,
-    required Widget child,
-    required this.groupValue,
-  }) : super(
-          key: key,
-          child: child,
-          notifier: groupValue,
-        );
+    required VerifyAttributeField field,
+    InputResolverKey? titleKey,
+    InputResolverKey? hintTextKey,
+    String? title,
+    String? hintText,
+    FormFieldValidator<Enum>? validator,
+    AuthenticatorInputConfig? inputConfig,
+  }) : super._(
+            key: key,
+            field: field,
+            titleKey: titleKey,
+            hintTextKey: hintTextKey,
+            title: title,
+            hintText: hintText,
+            validator: validator,
+            inputConfig: inputConfig);
 
-  /// The value of the radio button group.
-  final ValueNotifier<T> groupValue;
+  @override
+  _VerifyAttributeFieldState createState() => _VerifyAttributeFieldState();
+}
 
-  static ValueNotifier<T> of<T>(BuildContext context) {
-    final group = context
-        .dependOnInheritedWidgetOfExactType<VerifyUserFormFieldGroup<T>>();
-    assert(() {
-      if (group == null) {
-        throw FlutterError.fromParts([
-          ErrorSummary('No VerifyUserFormFieldGroup widget found.'),
-          ErrorDescription(
-              'Make sure your VerifyUserFormFields are wrapped with an VerifyUserForm widget.')
-        ]);
-      }
-      return true;
-    }());
-    return group!.groupValue;
+class _VerifyAttributeFieldState extends _VerifyUserFormFieldState<Enum>
+    with AuthenticatorRadioField {
+  @override
+  Enum? get initialValue {
+    // return viewModel.getAttribute(widget.field.toCognitoAttribute());
+    return VerifiedAttributes.email;
   }
 
   @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-        .add(DiagnosticsProperty<ValueNotifier<T>>('groupValue', groupValue));
+  ValueChanged<Enum> get onChanged {
+    return viewModel.setAttributeKeyToVerify;
+  }
+
+  @override
+  Widget buildForm(BuildContext context) {
+    // TODO: implement buildForm
+    throw UnimplementedError();
   }
 }
-
-// ignore_for_file: prefer_asserts_with_message

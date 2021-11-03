@@ -23,7 +23,7 @@ abstract class SignInFormField<FieldValue> extends AuthenticatorFormField<
   /// {@macro authenticator.sign_in_form_field}
   ///
   /// Either [titleKey] or [title] is required.
-  const SignInFormField._({
+  SignInFormField._({
     Key? key,
     required SignInField field,
     InputResolverKey? titleKey,
@@ -196,7 +196,7 @@ abstract class _SignInFormFieldState<FieldValue>
   Widget? get companionWidget {
     switch (widget.field) {
       case SignInField.password:
-        return const ResetPasswordButton();
+        return ResetPasswordButton();
       default:
         return null;
     }
@@ -210,7 +210,7 @@ abstract class _SignInFormFieldState<FieldValue>
 }
 
 class _SignInTextField extends SignInFormField<String> {
-  const _SignInTextField({
+  _SignInTextField({
     Key? key,
     required SignInField field,
     InputResolverKey? titleKey,
@@ -255,32 +255,24 @@ class _SignInTextFieldState extends _SignInFormFieldState<String>
   }
 
   @override
-  ValueChanged<String> get onChanged {
+  ValueChanged<String>? get onChanged {
     switch (widget.field) {
       case SignInField.username:
         return viewModel.setUsername;
       case SignInField.password:
-        return viewModel.setConfirmationCode;
+        return viewModel.setPassword;
       case SignInField.email:
         return viewModel.setEmail;
       case SignInField.phoneNumber:
         return viewModel.setPhoneNumber;
-      // case SignInField.picture:
-      //   return viewModel.setPicture;
-      // case SignInField.profile:
-      //   return viewModel.setProfile;
-      // case SignInField.zoneinfo:
-      //   return viewModel.setZoneInfo;
-      // case SignInField.updatedAt:
-      //   return viewModel.setUpdatedAt;
-      // case SignInField.website:
-      //   return viewModel.setWebsite;
       case SignInField.verificationCode:
         return viewModel.setConfirmationCode;
       case SignInField.newPassword:
         return viewModel.setNewPassword;
       case SignInField.newUsername:
         return viewModel.setNewUsername;
+      default:
+        return null;
     }
   }
 

@@ -17,6 +17,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
+import 'package:amplify_authenticator/src/enums/user_name_attribute.dart';
 import 'package:flutter/material.dart';
 
 class AuthViewModel extends ChangeNotifier {
@@ -24,11 +25,22 @@ class AuthViewModel extends ChangeNotifier {
     // Listen to screen changes to know when to clear the form. Calling `clean`
     // from the forms' dispose method is unreliable since it may be called after
     // the transitioning form's first build is called.
+
+    /// When transitioning through widgets as part of authflow, maintain [ViewModel] state except for form key
     _authBloc.stream
         .where((event) => event is AuthFlow)
         .distinct()
         .listen((event) {
-      clean();
+      resetFormKey();
+    });
+
+    /// When auth flow is complete, reset entirety of [ViewModel] state
+    _authBloc.stream
+        .where((event) => event is Authenticated)
+        .distinct()
+        .listen((event) {
+      resetFormKey();
+      resetAttributes();
     });
   }
 
@@ -62,7 +74,7 @@ class AuthViewModel extends ChangeNotifier {
   String _passwordConfirmation = '';
   String get passwordConfirmation => _passwordConfirmation;
 
-  String _confirmationCode = 1;
+  String _confirmationCode = '';
   String get confirmationCode => _confirmationCode;
 
   String _newPassword = '';
@@ -102,8 +114,11 @@ class AuthViewModel extends ChangeNotifier {
   bool _rememberDevice = false;
   bool get rememberDevice => _rememberDevice;
 
-  String _selectedUsername = '';
-  String get selectedUsername => _selectedUsername;
+  Enum _attributeKeyToVerify = UsernameAttribute.email;
+  Enum get attributeKeyToVerify => _attributeKeyToVerify;
+
+  Enum _selectedUsername = UsernameAttribute.email;
+  Enum get selectedUsername => _selectedUsername;
 
   void _setAttribute(String attribute, String value) {
     _authAttributes[attribute] = value.trim();
@@ -189,8 +204,12 @@ class AuthViewModel extends ChangeNotifier {
     _rememberDevice = value;
   }
 
-  void setSelectedUsername(String value) {
+  void setSelectedUsername(Enum value) {
     _selectedUsername = value;
+  }
+
+  void setAttributeKeyToVerify(Enum attributeKey) {
+    _attributeKeyToVerify = attributeKey;
   }
 
   // Auth calls
@@ -275,7 +294,7 @@ class AuthViewModel extends ChangeNotifier {
     }
     setBusy(true);
     AuthConfirmPasswordData confirmPassword = AuthConfirmPasswordData(
-      username: _newUsername.trim(),
+      username: _username.trim(),
       confirmationCode: _confirmationCode.trim(),
       newPassword: _newPassword.trim(),
     );
@@ -291,11 +310,24 @@ class AuthViewModel extends ChangeNotifier {
       return;
     }
     setBusy(true);
+
+    String username;
+    switch (_selectedUsername) {
+      case UsernameAttribute.email:
+        username = _authAttributes['email']!;
+        break;
+      case UsernameAttribute.phoneNumber:
+        username = _authAttributes['phoneNumber']!;
+        break;
+      default:
+        username = _username;
+    }
+
+    setUsername(username);
+
     final signUp = AuthSignUpData(
-      username: _username.trim(),
+      username: username.trim(),
       password: _password.trim(),
-      selectedUsername: SignUpField.values
-          .firstWhere((e) => e.toString() == _selectedUsername),
       attributes: _authAttributes,
     );
 
@@ -333,14 +365,15 @@ class AuthViewModel extends ChangeNotifier {
     setBusy(false);
   }
 
-  Future<void> verifyUser(String userAttributeKey) async {
+  Future<void> verifyUser() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
     setBusy(true);
     AuthVerifyUserData authVerifyUserData = AuthVerifyUserData(
-      userAttributeKey: userAttributeKey,
+      userAttributeKey: attributeKeyToVerify,
     );
+
     _authBloc.add(AuthVerifyUser(authVerifyUserData));
     await _nextBlocEvent(
       where: (state) => state is AuthFlow || state is Authenticated,
@@ -365,21 +398,28 @@ class AuthViewModel extends ChangeNotifier {
 
   void _navigateTo(AuthScreen authScreen) {
     authBloc.add(AuthChangeScreen(authScreen));
+
+    /// Clean [ViewModel] when user manually navigates widgets
+    resetAttributes();
   }
 
   void goToSignUp() => _navigateTo(AuthScreen.signup);
   void goToSignIn() => _navigateTo(AuthScreen.signin);
   void goToReset() => _navigateTo(AuthScreen.sendCode);
 
-  void clean() {
+  void resetAttributes() {
     _username = '';
     _password = '';
     _passwordConfirmation = '';
     _confirmationCode = '';
     _newUsername = '';
     _newPassword = '';
-    _selectedUsername = '';
+    _selectedUsername = UsernameAttribute.email;
     _authAttributes.clear();
+    _formKey = GlobalKey<FormState>();
+  }
+
+  void resetFormKey() {
     _formKey = GlobalKey<FormState>();
   }
 }

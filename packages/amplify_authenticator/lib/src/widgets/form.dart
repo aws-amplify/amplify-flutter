@@ -17,12 +17,18 @@ library authenticator.form;
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
+import 'package:amplify_authenticator/src/enums/user_name_attribute.dart';
+import 'package:amplify_authenticator/src/enums/verified_attributes.dart';
+import 'package:amplify_authenticator/src/enums/verify_attribute_field_types.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/utils/list.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/checkbox.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
+import 'package:amplify_authenticator/src/widgets/field_config.dart';
+import 'package:amplify_authenticator/src/widgets/form_field.dart';
+import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:amplify_authenticator/src/widgets/oauth/social_button.dart';
 import 'package:amplify_flutter/src/config/auth/aws_cognito_social_providers.dart';
@@ -126,14 +132,14 @@ class AuthenticatorFormState<T extends AuthenticatorForm<T>>
 /// {@endtemplate}
 class SignUpForm extends AuthenticatorForm<SignUpForm> {
   /// {@macro authenticator.sign_up_form}
-  const SignUpForm({Key? key, bool attributesFromConfig = true})
+  SignUpForm({Key? key, bool attributesFromConfig = true})
       : this.custom(
             key: key,
             fields: const [],
             attributesFromConfig: attributesFromConfig);
 
   /// A custom Sign Up form.
-  const SignUpForm.custom(
+  SignUpForm.custom(
       {Key? key,
       required List<AuthenticatorFormField> fields,
       this.attributesFromConfig = true})
@@ -178,59 +184,57 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
     if (usernameAttributes.isNotEmpty) {
       if (usernameAttributes.length == 1) {
         if (usernameAttributes.contains(AwsCognitoUsernameAttributes.email)) {
-          signUpFields.add(const SignUpFormField.email());
+          signUpFields.add(SignUpFormField.email());
         } else if (usernameAttributes
             .contains(AwsCognitoUsernameAttributes.phoneNumber)) {
-          signUpFields.add(const SignUpFormField.phoneNumber());
+          signUpFields.add(SignUpFormField.phoneNumber());
         }
       } else if (usernameAttributes.length == 2) {
-        signUpFields.add(const SignUpFormField.email());
-        signUpFields.add(const SignUpFormField.phoneNumber());
-        signUpFields.add(const SignUpFormField.selectUserNameType());
+        signUpFields.add(SignUpFormField.email());
+        signUpFields.add(SignUpFormField.phoneNumber());
+        signUpFields.add(SignUpFormField.selectedUserNameType());
       }
     } else {
-      signUpFields.add(const SignUpFormField.username());
+      signUpFields.add(SignUpFormField.username());
     }
 
-    signUpFields.addAll([
-      const SignUpFormField.password(),
-      const SignUpFormField.passwordConfirmation()
-    ]);
+    signUpFields.addAll(
+        [SignUpFormField.password(), SignUpFormField.passwordConfirmation()]);
 
     signUpFields.addAll(signUpAttributes
         .map((attr) {
           switch (attr) {
             case 'ADDRESS':
-              return const SignUpFormField.address();
+              return SignUpFormField.address();
             case 'BIRTHDATE':
-              return const SignUpFormField.birthdate();
+              return SignUpFormField.birthdate();
             case 'EMAIL':
               if (!usernameAttributes
                   .contains(AwsCognitoUsernameAttributes.email)) {
-                return const SignUpFormField.email();
+                return SignUpFormField.email();
               } else {
                 return null;
               }
             case 'FAMILY_NAME':
-              return const SignUpFormField.familyName();
+              return SignUpFormField.familyName();
             case 'MIDDLE_NAME':
-              return const SignUpFormField.middleName();
+              return SignUpFormField.middleName();
             case 'GENDER':
-              return const SignUpFormField.gender();
+              return SignUpFormField.gender();
 
             /// TODO: Potentially remove locale and add to api call based on phone locale
             // case 'LOCALE':
             //   return const SignUpFormField.locale();
             case 'GIVEN_NAME':
-              return const SignUpFormField.givenName();
+              return SignUpFormField.givenName();
             case 'NAME':
-              return const SignUpFormField.name();
+              return SignUpFormField.name();
             case 'NICKNAME':
-              return const SignUpFormField.nickname();
+              return SignUpFormField.nickname();
             case 'PHONE_NUMBER':
               if (!usernameAttributes
                   .contains(AwsCognitoUsernameAttributes.phoneNumber)) {
-                return const SignUpFormField.phoneNumber();
+                return SignUpFormField.phoneNumber();
               } else {
                 return null;
               }
@@ -275,12 +279,12 @@ class SignUpForm extends AuthenticatorForm<SignUpForm> {
 /// {@endtemplate}
 class SignInForm extends AuthenticatorForm<SignInForm> {
   /// {@macro authenticator.sign_in_form}
-  const SignInForm({
+  SignInForm({
     Key? key,
     bool includeDefaultSocialProviders = true,
   }) : this.custom(
           key: key,
-          fields: const [
+          fields: [
             SignInFormField.username(),
             SignInFormField.password(),
           ],
@@ -397,10 +401,10 @@ class ConfirmSignUpForm extends AuthenticatorForm<ConfirmSignUpForm> {
 /// {@endtemplate}
 class ConfirmSignInMFAForm extends AuthenticatorForm<ConfirmSignInMFAForm> {
   /// {@macro authenticator.confirm_sign_in_mfa_form}
-  const ConfirmSignInMFAForm({Key? key})
+  ConfirmSignInMFAForm({Key? key})
       : this.custom(
           key: key,
-          fields: const [
+          fields: [
             ConfirmSignInFormField.verificationCode(),
           ],
         );
@@ -432,11 +436,11 @@ class ConfirmSignInMFAForm extends AuthenticatorForm<ConfirmSignInMFAForm> {
 class ConfirmSignInNewPasswordForm
     extends AuthenticatorForm<ConfirmSignInNewPasswordForm> {
   /// {@macro authenticator.confirm_sign_in_new_password_form}
-  const ConfirmSignInNewPasswordForm({
+  ConfirmSignInNewPasswordForm({
     Key? key,
   }) : this.custom(
           key: key,
-          fields: const [
+          fields: [
             ConfirmSignInFormField.password(),
           ],
         );
@@ -466,11 +470,11 @@ class ConfirmSignInNewPasswordForm
 /// {@endtemplate}
 class SendCodeForm extends AuthenticatorForm<SendCodeForm> {
   /// {@macro authenticator.send_code_form}
-  const SendCodeForm({
+  SendCodeForm({
     Key? key,
   }) : this.custom(
           key: key,
-          fields: const [
+          fields: [
             SignInFormField.verifyUsername(),
           ],
         );
@@ -500,11 +504,11 @@ class SendCodeForm extends AuthenticatorForm<SendCodeForm> {
 /// {@endtemplate}
 class ResetPasswordForm extends AuthenticatorForm<ResetPasswordForm> {
   /// {@macro authenticator.reset_password_form}
-  const ResetPasswordForm({
+  ResetPasswordForm({
     Key? key,
   }) : this.custom(
           key: key,
-          fields: const [
+          fields: [
             SignInFormField.verificationCode(),
             SignInFormField.newPassword(),
           ],
@@ -534,24 +538,18 @@ class ResetPasswordForm extends AuthenticatorForm<ResetPasswordForm> {
 /// Cannot be customized.
 /// {@endtemplate}
 class VerifyUserForm extends AuthenticatorForm<VerifyUserForm> {
-  /// {@macro authenticator.verify_user_form}
-  const VerifyUserForm({
+//   /// {@macro authenticator.verify_user_form}
+
+  VerifyUserForm({
     Key? key,
   }) : super._(
           key: key,
-          fields: const [],
+          fields: [],
           actions: const [
             VerifyUserButton(),
             SkipVerifyUserButton(),
           ],
         );
-
-  String _splitAndCapitalize(String key) {
-    return key
-        .split('_')
-        .map((word) => word[0].toUpperCase() + word.substring(1))
-        .join(' ');
-  }
 
   List<String> _unverifiedAttributeKeys(BuildContext context) {
     final authState = InheritedAuthBloc.of(context).currentState;
@@ -563,33 +561,31 @@ class VerifyUserForm extends AuthenticatorForm<VerifyUserForm> {
 
   @override
   List<AuthenticatorFormField> runtimeFields(BuildContext context) {
+    List<InputSelection> inputSelections = [];
+    _unverifiedAttributeKeys(context).forEach((key) {
+      switch (key) {
+        case 'email':
+          inputSelections.add(InputSelection<Enum>(
+              label: InputResolverKey.usernameTypeEmail,
+              value: VerifiedAttributes.email));
+          break;
+        case 'phone_number':
+          inputSelections.add(InputSelection<Enum>(
+              label: InputResolverKey.usernameTypePhoneNumber,
+              value: VerifiedAttributes.phone_number));
+          break;
+      }
+    });
+
     return _unverifiedAttributeKeys(context).map((attributeKey) {
-      return VerifyUserFormField(
-        attributeKey: attributeKey,
-        label: _splitAndCapitalize(attributeKey), // TODO: support localization
-      );
+      return VerifyUserFormField.verifyAttribute(
+          unverifiedSelections: inputSelections);
     }).toList();
   }
 
   @override
-  _VerifyUserFormState createState() => _VerifyUserFormState();
-}
-
-class _VerifyUserFormState extends AuthenticatorFormState<VerifyUserForm> {
-  _VerifyUserFormState() : super._();
-
-  @override
-  Widget build(BuildContext context) {
-    final unverifiedAttributeKeys = widget._unverifiedAttributeKeys(context);
-    assert(
-      unverifiedAttributeKeys.isNotEmpty,
-      'Attribute keys cannot be empty',
-    );
-    return VerifyUserFormFieldGroup<String>(
-      groupValue: ValueNotifier(unverifiedAttributeKeys.first),
-      child: super.build(context),
-    );
-  }
+  AuthenticatorFormState<VerifyUserForm> createState() =>
+      AuthenticatorFormState<VerifyUserForm>._();
 }
 
 /// {@template authenticator.confirm_verify_user_form}
@@ -599,12 +595,12 @@ class _VerifyUserFormState extends AuthenticatorFormState<VerifyUserForm> {
 /// {@endtemplate}
 class ConfirmVerifyUserForm extends AuthenticatorForm<ConfirmVerifyUserForm> {
   /// {@macro authenticator.confirm_verify_user_form}
-  const ConfirmVerifyUserForm({
+  ConfirmVerifyUserForm({
     Key? key,
   }) : super._(
           key: key,
-          fields: const [
-            ConfirmVerifyUserFormField(),
+          fields: [
+            VerifyUserFormField.confirmVerifyAttribute(),
           ],
           actions: const [
             ConfirmVerifyUserButton(),

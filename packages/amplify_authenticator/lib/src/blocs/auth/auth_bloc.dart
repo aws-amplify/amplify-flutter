@@ -266,6 +266,7 @@ class StateMachineBloc {
     try {
       var unverifiedAttributeKeys =
           await _authService.getUnverifiedAttributeKeys();
+
       if (unverifiedAttributeKeys.isNotEmpty) {
         yield VerifyUserFlow(unverifiedAttributeKeys: unverifiedAttributeKeys);
       } else {
@@ -280,15 +281,9 @@ class StateMachineBloc {
   }
 
   Stream<AuthState> _signUp(AuthSignUpData data) async* {
-    String username = data.username;
-    if (data.selectedUsername == SignUpField.email) {
-      username = data.attributes['email']!;
-    } else if (data.selectedUsername == SignUpField.phoneNumber) {
-      username = data.attributes['phoneNumber']!;
-    }
     try {
       var result = await _authService.signUp(
-        username,
+        data.username,
         data.password,
         data.attributes,
       );
@@ -299,7 +294,7 @@ class StateMachineBloc {
           break;
         case 'DONE':
           var authSignInData = AuthUsernamePasswordSignInData(
-            username: username,
+            username: data.username,
             password: data.password,
           );
 
@@ -343,9 +338,9 @@ class StateMachineBloc {
   Stream<AuthState> _verifyUser(AuthVerifyUserData data) async* {
     try {
       await _authService.resendUserAttributeConfirmationCode(
-        userAttributeKey: data.userAttributeKey,
+        userAttributeKey: describeEnum(data.userAttributeKey),
       );
-      yield AttributeVerificationSent(data.userAttributeKey);
+      yield AttributeVerificationSent(describeEnum(data.userAttributeKey));
     } on Exception catch (e) {
       if (e is AmplifyException) {
         print(e);

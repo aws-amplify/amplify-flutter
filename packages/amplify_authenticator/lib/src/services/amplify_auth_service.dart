@@ -176,7 +176,7 @@ class AmplifyAuthService implements AuthService {
     String code,
     String newPassword,
   ) {
-    return Amplify.Auth.confirmPassword(
+    return Amplify.Auth.confirmResetPassword(
       username: username,
       confirmationCode: code,
       newPassword: newPassword,

@@ -57,7 +57,7 @@ export 'src/widgets/form_field.dart';
 ///
 /// A widget that allows customers to authenticate their apps.
 ///
-/// The Authenticator widget requires two arguments, a child widget and an username alias
+/// The Authenticator widget requires one argument, a child widget,
 /// to define the initial authentication flow.
 ///
 /// This authenticator accepts the following custom forms, sign in, sign up and confirm sign in.
@@ -67,7 +67,7 @@ export 'src/widgets/form_field.dart';
 /// respective form fields:
 ///
 /// 1. Sign in:
-///     - Alias (username, email or phone number)
+///     - Username (a traditional username, email or phone number)
 ///     - Password
 /// 2. Sign Up:
 ///     - Username
@@ -81,11 +81,11 @@ export 'src/widgets/form_field.dart';
 /// {@endtemplate}
 class Authenticator extends StatefulWidget {
   /// {@macro authenticator.authenticator}
-  const Authenticator({
+  Authenticator({
     Key? key,
-    this.signInForm = const SignInForm(),
-    this.signUpForm = const SignUpForm(),
-    this.confirmSignInMFAForm = const ConfirmSignInMFAForm(),
+    this.signInForm,
+    this.signUpForm,
+    this.confirmSignInMFAForm,
     this.stringResolver = const AuthStringResolver(),
     required this.child,
   })  : useAmplifyTheme = false,
@@ -98,7 +98,7 @@ class Authenticator extends StatefulWidget {
   final bool useAmplifyTheme;
 
   /// The form to display when confirming a sign in with MFA.
-  final ConfirmSignInMFAForm confirmSignInMFAForm;
+  ConfirmSignInMFAForm? confirmSignInMFAForm;
 
   /// This form will support the following form field types:
   ///    * username
@@ -118,7 +118,7 @@ class Authenticator extends StatefulWidget {
   ///           ])
   ///
   /// ```
-  final SignInForm signInForm;
+  SignInForm? signInForm;
 
   /// This form will support the following form field types:
   /// * username
@@ -168,7 +168,7 @@ class Authenticator extends StatefulWidget {
   ///                     ])
   ///
   /// ```
-  final SignUpForm signUpForm;
+  SignUpForm? signUpForm;
 
   final AuthStringResolver stringResolver;
 
@@ -284,16 +284,16 @@ class _AuthenticatorState extends State<Authenticator> {
             child: InheritedStrings(
               resolver: widget.stringResolver,
               child: InheritedForms(
-                confirmSignInNewPasswordForm:
-                    const ConfirmSignInNewPasswordForm(),
-                resetPasswordForm: const ResetPasswordForm(),
-                sendCodeForm: const SendCodeForm(),
-                signInForm: widget.signInForm,
-                signUpForm: widget.signUpForm,
+                confirmSignInNewPasswordForm: ConfirmSignInNewPasswordForm(),
+                resetPasswordForm: ResetPasswordForm(),
+                sendCodeForm: SendCodeForm(),
+                signInForm: widget.signInForm ?? SignInForm(),
+                signUpForm: widget.signUpForm ?? SignUpForm(),
                 confirmSignUpForm: ConfirmSignUpForm(),
-                confirmSignInMFAForm: widget.confirmSignInMFAForm,
-                verifyUserForm: const VerifyUserForm(),
-                confirmVerifyUserForm: const ConfirmVerifyUserForm(),
+                confirmSignInMFAForm:
+                    widget.confirmSignInMFAForm ?? ConfirmSignInMFAForm(),
+                verifyUserForm: VerifyUserForm(),
+                confirmVerifyUserForm: ConfirmVerifyUserForm(),
                 child: _AuthenticatorBody(child: widget.child),
               ),
             ),
@@ -305,7 +305,7 @@ class _AuthenticatorState extends State<Authenticator> {
 }
 
 class _AuthenticatorBody extends StatelessWidget {
-  const _AuthenticatorBody({
+  _AuthenticatorBody({
     Key? key,
     required this.child,
   }) : super(key: key);

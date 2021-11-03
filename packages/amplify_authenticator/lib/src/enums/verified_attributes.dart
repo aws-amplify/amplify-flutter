@@ -11,22 +11,7 @@
  * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
-*/
+ */
 
-import 'package:amplify_authenticator/amplify_authenticator.dart';
-
-/// Configuration for defining input types in [AuthenticatorFormField].
-
-class RadioButtonFieldConfig {
-  final List<InputSelection> selections;
-  const RadioButtonFieldConfig({required this.selections});
-}
-
-/// Allows for configuration of fields with multiple selections, such as dropdowns, switches and radio buttons
-class InputSelection<T extends Enum> {
-  final InputResolverKey label;
-
-  final T value;
-
-  const InputSelection({required this.label, required this.value});
-}
+/// Uses snake case to confirm with cognito service
+enum VerifiedAttributes { email, phone_number }

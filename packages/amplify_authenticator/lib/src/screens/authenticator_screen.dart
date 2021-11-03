@@ -50,11 +50,11 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
   const AuthenticatorScreen.resetPassword({Key? key})
       : this(key: key, screen: AuthScreen.resetPassword);
 
-  const AuthenticatorScreen.verifyUser({Key? key})
-      : this(key: key, screen: AuthScreen.verifyUser);
+  // const AuthenticatorScreen.verifyUser({Key? key})
+  //     : this(key: key, screen: AuthScreen.verifyUser);
 
-  const AuthenticatorScreen.confirmVerifyUser({Key? key})
-      : this(key: key, screen: AuthScreen.confirmVerifyUser);
+  // const AuthenticatorScreen.confirmVerifyUser({Key? key})
+  //     : this(key: key, screen: AuthScreen.confirmVerifyUser);
 
   final AuthScreen screen;
 
