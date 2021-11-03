@@ -13,12 +13,13 @@
 * permissions and limitations under the License.
 */
 
-// ignore_for_file: public_member_api_docs
-
-import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
+
+// ignore_for_file: public_member_api_docs
+
+import 'ModelProvider.dart';
 
 /** This is an auto generated class representing the Contact type in your schema. */
 @immutable
@@ -90,6 +91,29 @@ class Contact {
 
   @override
   int get hashCode => toString().hashCode;
+
+  @override
+  String toString() {
+    var buffer = new StringBuffer();
+
+    buffer.write("Contact {");
+    buffer.write("email=" + "$_email" + ", ");
+    buffer.write(
+        "phone=" + (_phone != null ? _phone!.toString() : "null") + ", ");
+    buffer.write("mailingAddresses=" +
+        (_mailingAddresses != null ? _mailingAddresses!.toString() : "null"));
+    buffer.write("}");
+
+    return buffer.toString();
+  }
+
+  Contact copyWith(
+      {String? email, Phone? phone, List<Address>? mailingAddresses}) {
+    return Contact._internal(
+        email: email ?? this.email,
+        phone: phone ?? this.phone,
+        mailingAddresses: mailingAddresses ?? this.mailingAddresses);
+  }
 
   Contact.fromJson(Map<String, dynamic> json)
       : _email = json['email'],

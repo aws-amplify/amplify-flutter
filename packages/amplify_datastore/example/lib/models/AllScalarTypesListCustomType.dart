@@ -233,7 +233,7 @@ class AllScalarTypesListCustomType {
       List<String>? jsonValues,
       List<EnumModel>? enumValues,
       List<SimpleCustomType>? customTypeValues}) {
-    return AllScalarTypesListCustomType(
+    return AllScalarTypesListCustomType._internal(
         stringValues: stringValues ?? this.stringValues,
         intValues: intValues ?? this.intValues,
         floatValues: floatValues ?? this.floatValues,

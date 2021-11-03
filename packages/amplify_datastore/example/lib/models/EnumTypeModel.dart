@@ -25,6 +25,8 @@ class EnumTypeModel extends Model {
   static const classType = const _EnumTypeModelModelType();
   final String id;
   final EnumModel? _value;
+  final TemporalDateTime? _createdAt;
+  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -38,7 +40,18 @@ class EnumTypeModel extends Model {
     return _value;
   }
 
-  const EnumTypeModel._internal({required this.id, value}) : _value = value;
+  TemporalDateTime? get createdAt {
+    return _createdAt;
+  }
+
+  TemporalDateTime? get updatedAt {
+    return _updatedAt;
+  }
+
+  const EnumTypeModel._internal({required this.id, value, createdAt, updatedAt})
+      : _value = value,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
 
   factory EnumTypeModel({String? id, EnumModel? value}) {
     return EnumTypeModel._internal(
@@ -64,21 +77,39 @@ class EnumTypeModel extends Model {
 
     buffer.write("EnumTypeModel {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("value=" + (_value != null ? enumToString(_value)! : "null"));
+    buffer.write(
+        "value=" + (_value != null ? enumToString(_value)! : "null") + ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
   EnumTypeModel copyWith({String? id, EnumModel? value}) {
-    return EnumTypeModel(id: id ?? this.id, value: value ?? this.value);
+    return EnumTypeModel._internal(
+        id: id ?? this.id, value: value ?? this.value);
   }
 
   EnumTypeModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _value = enumFromString<EnumModel>(json['value'], EnumModel.values);
+        _value = enumFromString<EnumModel>(json['value'], EnumModel.values),
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
+            : null;
 
-  Map<String, dynamic> toJson() => {'id': id, 'value': enumToString(_value)};
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'value': enumToString(_value),
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
+      };
 
   static final QueryField ID = QueryField(fieldName: "enumTypeModel.id");
   static final QueryField VALUE = QueryField(fieldName: "value");
@@ -93,6 +124,18 @@ class EnumTypeModel extends Model {
         key: EnumTypeModel.VALUE,
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.enumeration)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: 'createdAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: 'updatedAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 

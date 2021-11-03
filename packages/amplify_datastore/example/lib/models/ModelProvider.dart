@@ -87,7 +87,7 @@ export 'TimestampTypeModel.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "1abf22a6ff86e4a92910a0fcfb17f648";
+  String version = "6a66203ff64c1b6230fe0f830046a855";
   @override
   List<ModelSchema> modelSchemas = [
     BelongsToModel.schema,
@@ -121,13 +121,13 @@ class ModelProvider implements ModelProviderInterface {
     TimestampListTypeModel.schema,
     TimestampTypeModel.schema
   ];
+  static final ModelProvider _instance = ModelProvider();
   @override
   List<ModelSchema> customTypeSchemas = [
     AllScalarTypesCustomType.schema,
     AllScalarTypesListCustomType.schema,
     SimpleCustomType.schema
   ];
-  static final ModelProvider _instance = ModelProvider();
 
   static ModelProvider get instance => _instance;
 

@@ -30,6 +30,8 @@ class Post extends Model {
   final TemporalDateTime? _created;
   final Blog? _blog;
   final List<Comment>? _comments;
+  final TemporalDateTime? _createdAt;
+  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -77,18 +79,30 @@ class Post extends Model {
     return _comments;
   }
 
+  TemporalDateTime? get createdAt {
+    return _createdAt;
+  }
+
+  TemporalDateTime? get updatedAt {
+    return _updatedAt;
+  }
+
   const Post._internal(
       {required this.id,
       required title,
       required rating,
       created,
       blog,
-      comments})
+      comments,
+      createdAt,
+      updatedAt})
       : _title = title,
         _rating = rating,
         _created = created,
         _blog = blog,
-        _comments = comments;
+        _comments = comments,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
 
   factory Post(
       {String? id,
@@ -137,7 +151,12 @@ class Post extends Model {
         "rating=" + (_rating != null ? _rating!.toString() : "null") + ", ");
     buffer.write(
         "created=" + (_created != null ? _created!.format() : "null") + ", ");
-    buffer.write("blog=" + (_blog != null ? _blog!.toString() : "null"));
+    buffer.write("blog=" + (_blog != null ? _blog!.toString() : "null") + ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
@@ -150,7 +169,7 @@ class Post extends Model {
       TemporalDateTime? created,
       Blog? blog,
       List<Comment>? comments}) {
-    return Post(
+    return Post._internal(
         id: id ?? this.id,
         title: title ?? this.title,
         rating: rating ?? this.rating,
@@ -176,6 +195,12 @@ class Post extends Model {
                 .map((e) => Comment.fromJson(
                     new Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
+            : null,
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
             : null;
 
   Map<String, dynamic> toJson() => {
@@ -184,7 +209,9 @@ class Post extends Model {
         'rating': _rating,
         'created': _created?.format(),
         'blog': _blog?.toJson(),
-        'comments': _comments?.map((Comment? e) => e?.toJson()).toList()
+        'comments': _comments?.map((Comment? e) => e?.toJson()).toList(),
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
       };
 
   static final QueryField ID = QueryField(fieldName: "post.id");
@@ -232,6 +259,18 @@ class Post extends Model {
         isRequired: false,
         ofModelName: (Comment).toString(),
         associatedKey: Comment.POST));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: 'createdAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: 'updatedAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 

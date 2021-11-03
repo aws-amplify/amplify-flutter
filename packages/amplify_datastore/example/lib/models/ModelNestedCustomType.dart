@@ -27,6 +27,8 @@ class ModelNestedCustomType extends Model {
   final String id;
   final AllScalarTypesCustomType? _customTypeValue;
   final List<AllScalarTypesListCustomType>? _listCustomTypeValue;
+  final TemporalDateTime? _createdAt;
+  final TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -53,10 +55,24 @@ class ModelNestedCustomType extends Model {
     return _listCustomTypeValue;
   }
 
+  TemporalDateTime? get createdAt {
+    return _createdAt;
+  }
+
+  TemporalDateTime? get updatedAt {
+    return _updatedAt;
+  }
+
   const ModelNestedCustomType._internal(
-      {required this.id, required customTypeValue, listCustomTypeValue})
+      {required this.id,
+      required customTypeValue,
+      listCustomTypeValue,
+      createdAt,
+      updatedAt})
       : _customTypeValue = customTypeValue,
-        _listCustomTypeValue = listCustomTypeValue;
+        _listCustomTypeValue = listCustomTypeValue,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
 
   factory ModelNestedCustomType(
       {String? id,
@@ -100,7 +116,13 @@ class ModelNestedCustomType extends Model {
     buffer.write("listCustomTypeValue=" +
         (_listCustomTypeValue != null
             ? _listCustomTypeValue!.toString()
-            : "null"));
+            : "null") +
+        ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
@@ -110,7 +132,7 @@ class ModelNestedCustomType extends Model {
       {String? id,
       AllScalarTypesCustomType? customTypeValue,
       List<AllScalarTypesListCustomType>? listCustomTypeValue}) {
-    return ModelNestedCustomType(
+    return ModelNestedCustomType._internal(
         id: id ?? this.id,
         customTypeValue: customTypeValue ?? this.customTypeValue,
         listCustomTypeValue: listCustomTypeValue ?? this.listCustomTypeValue);
@@ -128,6 +150,12 @@ class ModelNestedCustomType extends Model {
                 .map((e) => AllScalarTypesListCustomType.fromJson(
                     new Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
+            : null,
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
             : null;
 
   Map<String, dynamic> toJson() => {
@@ -135,7 +163,9 @@ class ModelNestedCustomType extends Model {
         'customTypeValue': _customTypeValue?.toJson(),
         'listCustomTypeValue': _listCustomTypeValue
             ?.map((AllScalarTypesListCustomType? e) => e?.toJson())
-            .toList()
+            .toList(),
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
       };
 
   static final QueryField ID =
@@ -163,6 +193,18 @@ class ModelNestedCustomType extends Model {
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.embeddedCollection,
             ofCustomTypeName: 'AllScalarTypesListCustomType')));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: 'createdAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: 'updatedAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 
