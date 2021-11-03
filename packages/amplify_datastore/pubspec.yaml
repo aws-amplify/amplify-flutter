@@ -18,6 +18,7 @@ dependencies:
   async: ^2.5.0
 
 dev_dependencies:
+  amplify_test: any
   flutter_test:
     sdk: flutter
   fake_async: ^1.2.0

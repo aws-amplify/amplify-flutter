@@ -13,19 +13,6 @@
  * permissions and limitations under the License.
  */
 
-library amplify_core;
+import 'package:integration_test/integration_test_driver.dart';
 
-/// Exceptions
-export 'src/types/exception/amplify_already_configured_exception.dart';
-export 'src/types/exception/amplify_exception.dart';
-export 'src/types/exception/amplify_exception_messages.dart';
-
-/// Hub
-export 'src/types/hub/hub_channel.dart';
-export 'src/types/hub/hub_event.dart';
-export 'src/types/hub/hub_event_payload.dart';
-export 'src/types/plugin/amplify_plugin_interface.dart';
-
-// Util
-export 'src/util/print.dart';
-export 'src/util/uuid.dart';
+Future<void> main() => integrationDriver();

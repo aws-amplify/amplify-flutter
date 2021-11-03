@@ -21,8 +21,22 @@ dependencies:
     sdk: flutter
 
 dev_dependencies:
+  amplify_analytics_pinpoint:
+    path: ../../amplify_analytics_pinpoint
+  amplify_api:
+    path: ../../amplify_api
+  amplify_auth_cognito:
+    path: ../../amplify_auth_cognito
+  amplify_datastore:
+    path: ../../amplify_datastore
   amplify_lints: ^1.0.0
+  amplify_storage_s3:
+    path: ../../amplify_storage_s3
+  amplify_test:
+    path: ../../amplify_test
   flutter_test:
+    sdk: flutter
+  integration_test:
     sdk: flutter
 
 # For information on the generic Dart part of this file, see the

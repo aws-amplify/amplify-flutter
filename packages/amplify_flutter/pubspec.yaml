@@ -27,6 +27,7 @@ dev_dependencies:
   amplify_datastore: 0.3.0-rc.1
   amplify_lints: ^1.0.0
   amplify_storage_s3: 0.3.0-rc.1
+  amplify_test: any
 
 flutter:
   plugin:
