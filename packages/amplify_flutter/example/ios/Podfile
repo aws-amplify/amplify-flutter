@@ -41,7 +41,7 @@ target 'Runner' do
   end
   
   target 'unit_tests' do
-    inherit! :search_paths
+    inherit! :complete
   end
 end
 
