@@ -34,10 +34,8 @@ void main() {
       DateTime(2020, 1, 1, 11, 30),
       DateTime(2020, 1, 1, 11, 30, 30),
       DateTime(2020, 1, 1, 11, 30, 45),
-      // TemporalDateTime values with milliseconds & microseconds are not parsed correctly on Android
-      // see: https://github.com/aws-amplify/amplify-flutter/issues/817
-      // DateTime(2020, 1, 1, 11, 30, 45, 100),
-      // DateTime(2020, 1, 1, 11, 30, 45, 100, 250),
+      DateTime(2020, 1, 1, 11, 30, 45, 100),
+      DateTime(2020, 1, 1, 11, 30, 45, 100, 250),
       DateTime(2020, 1, 1, 23, 59, 59),
     ];
 
