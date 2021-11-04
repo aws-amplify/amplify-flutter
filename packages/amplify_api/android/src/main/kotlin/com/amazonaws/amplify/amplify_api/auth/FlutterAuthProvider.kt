@@ -61,16 +61,16 @@ class FlutterAuthProviders(private val methodChannel: MethodChannel) {
      * Retrieves the token for [authType] or `null`, if unavailable.
      *
      * This function is typically called from within the Amplify library and from a thread besides
-     * the main one, where it is safe to block. In API REST, the calling thread is main and we must
-     * return `null`.
-     *
-     * Not blocking the main thread is required for making platform channel calls without deadlock.
+     * the main one, where it is safe to block.
      */
     fun getToken(authType: AuthorizationType): String? {
+        // Not blocking the main thread is required for making platform channel calls without
+        // deadlock.
         if (Thread.currentThread() == Looper.getMainLooper().thread) {
-            // API REST will call this function from the main thread on configuration. This is bad.
-            // Since we have to block the calling thread to retrieve the token, just return null.
-            Log.e(tag, "REST OIDC/Lambda is not supported yet.")
+            Log.e(tag, """
+                Auth provider invoked from the main thread. This should not happen.
+                Please file an issue with the Amplify Flutter team.
+            """.trimIndent())
             return null
         }
         try {
