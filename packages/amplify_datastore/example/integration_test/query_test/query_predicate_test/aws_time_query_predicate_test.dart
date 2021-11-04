@@ -43,14 +43,8 @@ void main() {
     var models =
         dates.map((date) => TimeTypeModel(value: TemporalTime(date))).toList();
 
-    // non-null models used for all tests
-    var nonNullModels = models.where((e) => e.value != null).toList();
-
     // distinct list of values in the test models
-    var values = models.map((e) => e.value).toSet().toList();
-
-    // distinct list of non-null values in the test models
-    var nonNullValues = values.whereType<TemporalTime>().toList();
+    var values = models.map((e) => e.value!).toSet().toList();
 
     setUpAll(() async {
       await configureDataStore();
@@ -61,7 +55,7 @@ void main() {
     });
     testWidgets('eq()', (WidgetTester tester) async {
       // test against all values
-      for (var value in nonNullValues) {
+      for (var value in values) {
         var expectedModels =
             models.where((model) => model.value == value).toList();
         await testQueryPredicate<TimeTypeModel>(
@@ -73,9 +67,9 @@ void main() {
 
     testWidgets('ne()', (WidgetTester tester) async {
       // test against all values
-      for (var value in nonNullValues) {
+      for (var value in values) {
         var expectedModels =
-            nonNullModels.where((model) => model.value != value).toList();
+            models.where((model) => model.value != value).toList();
         await testQueryPredicate<TimeTypeModel>(
           queryPredicate: TimeTypeModel.VALUE.ne(value),
           expectedModels: expectedModels,
@@ -84,11 +78,10 @@ void main() {
     });
 
     testWidgets('lt()', (WidgetTester tester) async {
-      // test against all (non-null) values
-      for (var value in nonNullValues) {
-        var expectedModels = nonNullModels
-            .where((model) => model.value!.compareTo(value) < 0)
-            .toList();
+      // test against all values
+      for (var value in values) {
+        var expectedModels =
+            models.where((model) => model.value!.compareTo(value) < 0).toList();
         await testQueryPredicate<TimeTypeModel>(
           queryPredicate: TimeTypeModel.VALUE.lt(value),
           expectedModels: expectedModels,
@@ -97,9 +90,9 @@ void main() {
     });
 
     testWidgets('le()', (WidgetTester tester) async {
-      // test against all (non-null) values
-      for (var value in nonNullValues) {
-        var expectedModels = nonNullModels
+      // test against all values
+      for (var value in values) {
+        var expectedModels = models
             .where((model) => model.value!.compareTo(value) <= 0)
             .toList();
         await testQueryPredicate<TimeTypeModel>(
@@ -110,11 +103,10 @@ void main() {
     });
 
     testWidgets('gt()', (WidgetTester tester) async {
-      // test against all (non-null) values
-      for (var value in nonNullValues) {
-        var expectedModels = nonNullModels
-            .where((model) => model.value!.compareTo(value) > 0)
-            .toList();
+      // test against all values
+      for (var value in values) {
+        var expectedModels =
+            models.where((model) => model.value!.compareTo(value) > 0).toList();
         await testQueryPredicate<TimeTypeModel>(
           queryPredicate: TimeTypeModel.VALUE.gt(value),
           expectedModels: expectedModels,
@@ -123,9 +115,9 @@ void main() {
     });
 
     testWidgets('ge()', (WidgetTester tester) async {
-      // test against all (non-null) values
-      for (var value in nonNullValues) {
-        var expectedModels = nonNullModels
+      // test against all values
+      for (var value in values) {
+        var expectedModels = models
             .where((model) => model.value!.compareTo(value) >= 0)
             .toList();
         await testQueryPredicate<TimeTypeModel>(
@@ -139,7 +131,7 @@ void main() {
       // test with partial match
       var partialMatchStart = models[1].value!;
       var partialMatchEnd = models[2].value!;
-      var rangeMatchModels = nonNullModels
+      var rangeMatchModels = models
           .where((model) => model.value!.compareTo(partialMatchStart) >= 0)
           .where((model) => model.value!.compareTo(partialMatchEnd) <= 0)
           .toList();
