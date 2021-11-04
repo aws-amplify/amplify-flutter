@@ -13,7 +13,8 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_flutter/src/config/auth/login_mechanisms.dart';
+import 'package:amplify_flutter/src/config/auth/aws_cognito_social_providers.dart';
+import 'package:amplify_flutter/src/config/auth/aws_cognito_username_attributes.dart';
 import 'package:amplify_flutter/src/config/auth/mfa_types.dart';
 import 'package:amplify_flutter/src/config/auth/password_protection_settings.dart';
 import 'mfa_configurations.dart';
@@ -26,7 +27,9 @@ class AuthBlockConfig {
 
   final OAuthConfig? oAuth;
 
-  final List<LoginMechanisms>? loginMechanisms;
+  final List<AwsCognitoUsernameAttributes>? awsCognitoUsernameAttributes;
+
+  final List<AwsCognitoSocialProviders>? awsCognitoSocialProviders;
 
   final List<String>? signupAttributes;
 
@@ -41,7 +44,8 @@ class AuthBlockConfig {
   const AuthBlockConfig({
     required this.authenticationFlowType,
     this.oAuth,
-    this.loginMechanisms,
+    this.awsCognitoUsernameAttributes,
+    this.awsCognitoSocialProviders,
     this.mfaConfiguration,
     this.passwordProtectionSettings,
     this.signupAttributes,

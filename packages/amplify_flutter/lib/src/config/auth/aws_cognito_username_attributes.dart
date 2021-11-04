@@ -13,13 +13,4 @@
  * permissions and limitations under the License.
  */
 
-export 'auth_screen.dart';
-export 'button_size.dart';
-export 'confirm_signin_types.dart';
-export 'confirm_signup_types.dart';
-export 'gender.dart';
-export 'signin_types.dart';
-export 'signup_types.dart';
-export 'status_type.dart';
-export 'user_name_attribute.dart';
-export 'verify_attribute_field_types.dart';
+enum AwsCognitoUsernameAttributes { email, phoneNumber }

@@ -47,6 +47,8 @@ const keyPictureSignUpFormField = Key('pictureSignUpFormField');
 const keyPreferredUsernameSignUpFormField =
     Key('preferredUsernameSignUpFormField');
 const keyProfileSignUpFormField = Key('profileSignUpFormField');
+const keySelectedUsernameSignUpFormField =
+    Key('selectedUsernameSignUpFormField');
 const keyZoneinfoSignUpFormField = Key('zoneinfoSignUpFormField');
 const keyUpdatedAtSignUpFormField = Key('updatedAtSignUpFormField');
 const keyWebsiteSignUpFormField = Key('websiteSignUpFormField');
@@ -64,6 +66,7 @@ const keyCodeConfirmSignUpFormfield = Key('codeConfirmSignUpFormField');
 //Confirm Sign In form field keys
 
 const keyCodeConfirmSignInFormfield = Key('codeConfirmSignUpFormField');
+const keyUsernameConfirmSignInFormfield = Key('usernameConfirmSignInFormField');
 const keyPasswordConfirmSignInFormField = Key('passwordConfirmSignInFormField');
 const keyAddressConfirmSignInFormField = Key('addresslConfirmSignInFormField');
 const keyBirthdateConfirmSignInFormField =
@@ -90,6 +93,10 @@ const keyUpdatedAtConfirmSignInFormField =
     Key('updatedAtConfirmSignInFormField');
 const keyWebsiteConfirmSignInFormField = Key('websiteConfirmSignInFormField');
 const keyCustomConfirmSignInFormField = Key('customConfirmSignInFormField');
+
+// Attribute Verification keys
+const keyUnverifiedAttributes = Key('unverifiedAttributeFormField');
+const keyAttributeToVerify = Key('attributeToVerifyFormField');
 
 // Buttons keys
 
