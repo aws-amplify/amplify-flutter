@@ -73,6 +73,23 @@ class Phone {
   @override
   int get hashCode => toString().hashCode;
 
+  @override
+  String toString() {
+    var buffer = new StringBuffer();
+
+    buffer.write("Phone {");
+    buffer.write("country=" + "$_country" + ", ");
+    buffer.write("number=" + "$_number");
+    buffer.write("}");
+
+    return buffer.toString();
+  }
+
+  Phone copyWith({String? country, String? number}) {
+    return Phone._internal(
+        country: country ?? this.country, number: number ?? this.number);
+  }
+
   Phone.fromJson(Map<String, dynamic> json)
       : _country = json['country'],
         _number = json['number'];

@@ -16,73 +16,60 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+
+import 'Address.dart';
 import 'Blog.dart';
 import 'Comment.dart';
-import 'Post.dart';
-import 'PostAuthComplex.dart';
-import 'Address.dart';
-import 'Phone.dart';
 import 'Contact.dart';
 import 'Person.dart';
+import 'Phone.dart';
+import 'Post.dart';
+import 'PostAuthComplex.dart';
 
+export 'Address.dart';
 export 'Blog.dart';
 export 'Comment.dart';
-export 'Post.dart';
-export 'PostAuthComplex.dart';
-export 'Address.dart';
-export 'Phone.dart';
 export 'Contact.dart';
 export 'Person.dart';
+export 'Phone.dart';
+export 'Post.dart';
+export 'PostAuthComplex.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "0e8e5514647b80c1bbfff044f1df24f0";
+  String version = "836a1f8cc4a4adc493165acc7168289e";
   @override
   List<ModelSchema> modelSchemas = [
     Blog.schema,
     Comment.schema,
     Post.schema,
-    PostAuthComplex.schema,
-    Person.schema
+    PostAuthComplex.schema
   ];
+  static final ModelProvider _instance = ModelProvider();
   @override
   List<ModelSchema> customTypeSchemas = [
     Address.schema,
-    Phone.schema,
-    Contact.schema
+    Contact.schema,
+    Person.schema,
+    Phone.schema
   ];
-  static final ModelProvider _instance = ModelProvider();
 
   static ModelProvider get instance => _instance;
 
   ModelType getModelTypeByModelName(String modelName) {
     switch (modelName) {
       case "Blog":
-        {
-          return Blog.classType;
-        }
-        break;
+        return Blog.classType;
       case "Comment":
-        {
-          return Comment.classType;
-        }
-        break;
+        return Comment.classType;
       case "Post":
-        {
-          return Post.classType;
-        }
-        break;
+        return Post.classType;
       case "PostAuthComplex":
-        {
-          return PostAuthComplex.classType;
-        }
-        break;
+        return PostAuthComplex.classType;
       default:
-        {
-          throw Exception(
-              "Failed to find model in model provider for model name: " +
-                  modelName);
-        }
+        throw Exception(
+            "Failed to find model in model provider for model name: " +
+                modelName);
     }
   }
 }

@@ -127,6 +127,35 @@ class Address {
   @override
   int get hashCode => toString().hashCode;
 
+  @override
+  String toString() {
+    var buffer = new StringBuffer();
+
+    buffer.write("Address {");
+    buffer.write("line1=" + "$_line1" + ", ");
+    buffer.write("line2=" + "$_line2" + ", ");
+    buffer.write("city=" + "$_city" + ", ");
+    buffer.write("state=" + "$_state" + ", ");
+    buffer.write("postalCode=" + "$_postalCode");
+    buffer.write("}");
+
+    return buffer.toString();
+  }
+
+  Address copyWith(
+      {String? line1,
+      String? line2,
+      String? city,
+      String? state,
+      String? postalCode}) {
+    return Address._internal(
+        line1: line1 ?? this.line1,
+        line2: line2 ?? this.line2,
+        city: city ?? this.city,
+        state: state ?? this.state,
+        postalCode: postalCode ?? this.postalCode);
+  }
+
   Address.fromJson(Map<String, dynamic> json)
       : _line1 = json['line1'],
         _line2 = json['line2'],
